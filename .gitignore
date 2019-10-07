@@ -59,3 +59,10 @@ typings/
 
 # next.js build output
 .next
+
+# OS Specific files
+.DS_Store
+
+# Generated files and folders
+packages/client/build/**/*
+log.txt

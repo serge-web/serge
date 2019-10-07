@@ -1,0 +1,19 @@
+@import 'dependencies/variables';
+
+.message-preview {
+  padding: 16px 8px 0 8px;
+  margin-bottom: 12px;
+
+  h3 {
+    font-size: 1.4em;
+    padding: .75em 0 .25em;
+  }
+
+  span {
+    display: block;
+  }
+
+  &:nth-of-type(even) {
+    background: $lightGrey;
+  }
+}

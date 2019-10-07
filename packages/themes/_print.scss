@@ -1,0 +1,89 @@
+.print-canvas {
+  section {
+    border: 1px solid #d3d3d3;
+    margin-bottom: 20px;
+    width: 21cm;
+    min-height: 29.7cm;
+    padding: 2cm;
+    margin: 1cm auto;
+    box-shadow: 0 0 5px rgba(0,0,0,0.15);
+    border-radius: 5px;
+    box-sizing: border-box;
+    position: relative;
+
+    @media print {
+      box-sizing: initial;
+      margin: 0;
+      border: initial;
+      border-radius: initial;
+      width: initial;
+      min-height: initial;
+      box-shadow: initial;
+      background: initial;
+      position: initial;
+      page-break-after: always;
+      position: initial;
+    }
+
+    &> span {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      padding-bottom: .8cm;
+      font-size: 12pt;
+      color: #555;
+
+      @media print {
+        position: initial;
+        bottom: initial;
+        left: initial;
+        width: initial;
+        text-align: initial;
+        padding-bottom: initial;
+        font-size: initial;
+        color: initial;
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+
+    @media print {
+      display: table;
+      width: 100%;
+    }
+
+    th,
+    td {
+      padding: 0 .2cm;
+
+      @media print {
+        padding: 0 .2cm;
+      }
+    }
+
+    th {
+      padding-bottom: 0.2cm;
+
+      @media print {
+        padding-bottom: 0.2cm;
+      }
+    }
+
+    tr:nth-child(even) {
+      background-color: #ddd;
+
+      @media print {
+        background-color: #ddd;
+      }
+    }
+  }
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}

@@ -1,0 +1,137 @@
+@import './dependencies/variables';
+
+
+.modal-bg {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 2;
+}
+
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  width: auto;
+  height: auto;
+  margin: auto;
+  background: $adminColor;
+  color: #ffffff;
+  border-radius: 2px;
+
+  .sketch-picker {
+    box-shadow: none !important;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: relative;
+  }
+
+  .display-text-wrapper {
+    padding: 20px;
+    order: 2;
+
+    #role-name,
+    #role-password {
+      width: 300px !important;
+    }
+
+    .input-label {
+      display: block;
+    }
+
+    .modal-input {
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    p.notification {
+      position: absolute;
+      top: 100px;
+      right: -15px;
+      color: red;
+      font-size: 12px;
+    }
+  }
+
+  h3 {
+    width: fit-content;
+    margin: 0;
+    line-height: 1.5em;
+  }
+  p {
+    margin-top: 18px;
+    padding-right: 36px;
+    font-size: 18px;
+    line-height: 1.35em;
+    overflow-wrap: break-word;
+  }
+  span.price {
+    line-height: 2em;
+  }
+
+  .display-image-wrapper {
+    width: 100%;
+    height: 75px;
+    font-size: 0;
+    order: 1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.lessons-modal-button {
+  margin-left: auto;
+  margin-right: 26px;
+}
+
+.lessons-modal {
+  max-width: 500px;
+
+  .title {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  svg {
+    color: $primaryColor;
+  }
+  h3 {
+    display: inline;
+    line-height: 1em;
+    font-weight: bold;
+    margin-left: .5em;
+    width: fit-content;
+    background-color: transparent;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  .buttons {
+    margin-top: 12px;
+  }
+}
+
+.text-input-wrap {
+  display: flex;
+  flex-direction: column;
+}

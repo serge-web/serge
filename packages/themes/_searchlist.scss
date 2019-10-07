@@ -1,0 +1,184 @@
+@import './dependencies/variables';
+
+.searchlist-wrap {
+  max-width: 25%;
+}
+
+.list,
+.searchlist {
+
+  height: 100%;
+  margin-top: 1.2em;
+
+  &-input {
+    width: 100%;
+    padding: .45em;
+  }
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    height: 100%;
+    max-height: calc(59vh - 153px);
+    overflow-y: scroll;
+
+    .list-title,
+    .searchlist-title {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 1em .45em;
+      border-bottom: 1px solid #f2f2f2;
+      margin-bottom: 0 !important;
+      cursor: pointer;
+
+      &:hover {
+        color: $darkGrey;
+        text-decoration: none;
+      }
+
+      &.active {
+        color: $darkGrey;
+        font-weight: bold;
+        background: #fff;
+      }
+    }
+  }
+
+  svg {
+    display: inline-flex;
+    opacity: .7;
+    font-size: .9em;
+    margin-left: 15px;
+
+    &:first-child {
+      margin-left: 20px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.wargame-searchlist {
+
+  height: 100%;
+  margin-top: 1.2em;
+
+  &-input {
+    width: 100%;
+    padding: .45em;
+  }
+
+  .searchlist-list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    height: 100%;
+    max-height: calc(59vh - 153px);
+    overflow-y: scroll;
+    padding-bottom: 100px;
+
+    .list-title,
+    .searchlist-title {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 1em .45em;
+      border-bottom: 1px solid #f2f2f2;
+      margin-bottom: 0 !important;
+
+      span {
+        margin-bottom: 0 !important;
+        cursor: pointer;
+      }
+
+      &:hover {
+        color: $darkGrey;
+        text-decoration: none;
+      }
+
+      &.active {
+        color: $darkGrey;
+        font-weight: bold;
+        background: #fff;
+      }
+
+      .wargame-started-highlight {
+        display: inline-flex;
+        width: 20px;
+        height: 20px;
+        background: green;
+        border-radius: 100%;
+        margin-right: 15px;
+      }
+
+      .wargame-unstarted-highlight {
+        display: inline-flex;
+        width: 20px;
+        height: 20px;
+        background: orange;
+        border-radius: 100%;
+        margin-right: 15px;
+      }
+
+      .wargame-option-menu-btn {
+        margin: 0 8px;
+        margin-left: auto;
+        cursor: pointer;
+      }
+
+      .wargame-option-menu {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 2.25em;
+        right: 6px;
+        width: 160px;
+        height: auto;
+        z-index: 3;
+        background: white;
+        border: 1px solid $grey;
+
+        span {
+          display: flex;
+          align-items: center;
+
+          svg {
+            margin-right: 6px;
+            min-width: 1.25em;
+          }
+        }
+      }
+
+      .wargame-option-menu-bg {
+        position: fixed;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 2;
+      }
+    }
+  }
+
+  svg {
+    display: inline-flex;
+    opacity: .7;
+    font-size: .9em;
+    margin-left: 15px;
+
+    &:first-child {
+      margin-left: 12px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
