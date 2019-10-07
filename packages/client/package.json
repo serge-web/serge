@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "dependencies": {
+    "@serge/themes": "^0.2.0",
     "@fortawesome/fontawesome-free": "^5.8.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
