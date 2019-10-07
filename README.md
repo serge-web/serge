@@ -2,6 +2,8 @@
 
 ![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+
 
 Serious Gaming, Evolved - web interface
 
@@ -19,11 +21,13 @@ This will start the full application in 'demo' mode, you can see the application
 
 ## Monorepo & package management
 
+This repo is a monorepo using [Lerna](https://github.com/lerna/lerna). 
+
 >Splitting up large codebases into separate independently versioned packages is extremely useful for code sharing. However, making changes across many repositories is messy and difficult to track, and testing across repositories gets complicated really fast.
 >
 >To solve these (and many other) problems, some projects will organize their codebases into multi-package repositories (sometimes called monorepos).
 
-Each package folder has it's own npm package.json and can act like a stand alone project. Yarn workspaces detects dependencies that are held within the monorepo and creates a link between them.
+Each package folder has it's own npm package.json and is automatically linked together with lerna. Just remember to add the package to the `dependencies` section of package.json (don't forget to prefix with the `@serge` scope!) and then run `yarn install` in the root of the repo.
 
 Manage dependencies for packages like normal, but remember to use `yarn add` instead of `npm install`.
 
@@ -55,10 +59,12 @@ To enable this we use [nvm (Node Version Manager)](https://github.com/creationix
 
 The top level project contains scripts that are then executed for all packages.
 
-- `lint`  Checks syntax and simple errors in javascript files.
+- `lint`  Checks syntax and simple errors in javascript files. (Pending)
 - `test`  Runs tests in all the packages. (Pending)
-- `build` Runs the build script in all packages
-- `start` Runs the complete application in demo mode
+- `build` Runs the build script in all packages which require building.
+- `start` Runs the complete application in demo mode.
+- `start:client` Only starts the client application.
+- `start:server` Only starts the server application.
 
 ## Database commands
 
