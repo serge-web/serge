@@ -5,6 +5,7 @@
   "main": "main.js",
   "bin": "bin.js",
   "dependencies": {
+    "@serge/client" : "^0.2.0",
     "adm-zip": "^0.4.13",
     "cors": "^2.8.5",
     "express": "^4.16.4",
