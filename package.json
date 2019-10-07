@@ -5,7 +5,7 @@
   "repository": "git@github.com:serge-web/serge-web.git",
   "author": "foxleigh81 <alex@alexfoxleigh.com>",
   "license": "Apache-2.0",
-  "private": false,
+  "private": true,
   "workspaces" : [
     "packages/*"
   ]
