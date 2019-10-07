@@ -1,0 +1,10 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: transparent;
+  background-blend-mode: overlay;
+  background-image: radial-gradient(circle at 50% 48%, #013c5d, #001323), linear-gradient(to right, #00e8ff, #004d66);
+}

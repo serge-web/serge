@@ -1,0 +1,92 @@
+$darkGrey: rgb(20,20,20);
+$grey: #707070;
+$grey2: #a9a9a9;
+$lightGrey: rgba(224, 224, 224, .5);
+$greyBg: #f5f5f5;
+$forceDefaultColor: #4bead1;
+
+$umpireMenuMargin: 16px;
+$paddingWidth: 6vw;
+$paddingHeight: 6vh;
+
+$titleSize: 1.85em;
+$titleLine: 2.5em;
+
+$paragraphSize: 16px;
+$baseColor: #212529;
+$primaryColor: #415b76;
+$primaryTriadColor: #ffffff;
+$primaryTriadColorTransparent: rgba(131, 88, 85, .25);
+$secondaryColor: #394959;
+$successColor: rgba(171,199,97,1);
+$warningColor: #fff3cd;
+$errorColor: #A33730;
+$notificationColor: #4e895d;
+$linkColor: #2f86c5;
+$actionSecondaryColor: #3ef1ea;
+$turnTimeColor: #9cffec;
+$adminColor: #1a394d;
+
+$lightBg: #fafcff;
+$lightBlue: #eff4f2;
+
+$backgroundBody: #013c5d;
+$backgroundAlphaPrimary: rgba(189, 196, 245, 0.07);
+$backgroundAlphaBold: rgba(240, 250, 255, 0.2);
+$backgroundActionHead: #00274b;
+$backgroundCustom: $forceDefaultColor;
+$backgroundCustomDarken: #00c8a8;
+$backgroundField: #1a3d5d;
+$backgroundProgression: #445160;
+$buttonActionAdmin: #54667c;
+$borderFieldAdmin: #ddefcf;
+$placeholderFieldAdmin: #cdcccc;
+$textFieldAdmin: #3a3a3a;
+
+@mixin primaryShadow {
+  box-shadow: 0 2px 10px 1px rgba(20, 38, 46, 0.5);
+}
+
+@mixin primaryContentShadow {
+  box-shadow: 0 2px 10px -2px rgba(20, 38, 46, 0.5);
+}
+
+@mixin fieldShadow {
+  box-shadow: 0 2px 4px 0 #001f3c;
+}
+
+@mixin activeShadow() {
+  box-shadow: 0 0 5px 3px rgba(171,199,97,.75);
+}
+
+@mixin shadow() {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+@mixin drawerShadow() {
+  box-shadow: 0 -2px 4px -1px rgba(0,0,0,0.2), 0 -4px 5px 0 rgba(0,0,0,0.14), 0 -1px 10px 0 rgba(0,0,0,0.12);
+}
+
+@mixin snackbarShadow() {
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
+}
+
+@mixin btnDown() {
+  box-shadow: 0 0 0 rgba(0,0,0,0.16), 0 0 0 rgba(0,0,0,0.23);
+}
+
+@mixin transition() {
+  transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+@mixin transitionPadding() {
+  transition: padding 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+@mixin typo-primary {
+  font-family: 'Open Sans', 'sans-serif';
+}
+
+@mixin typo-secondary {
+  font-family: 'Alegreya Sans', 'sans-serif';
+}

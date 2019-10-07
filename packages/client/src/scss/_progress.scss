@@ -1,0 +1,72 @@
+@import './dependencies/variables';
+
+$indicatorSize: 20px;
+$indicatorMargin: 15px;
+$progressHeight: 2px;
+
+.progress {
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  width: fit-content;
+  height: fit-content;
+  background: transparent;
+  padding: 5px 0;
+
+  &:after {
+    position: absolute;
+    height: $progressHeight;
+    width: calc(100% - #{$indicatorMargin} * 2 - #{$indicatorSize});
+    left: calc(#{$indicatorMargin} + #{$indicatorSize} / 2);
+    align-self: center;
+    background: $primaryColor;
+    content: '';
+
+    z-index: 1;
+  }
+
+  &-indicator {
+    position: relative;
+    width: $indicatorSize;
+    height: $indicatorSize;
+    margin: 0 $indicatorMargin;
+    border-radius: 50%;
+    background: $lightBlue;
+    border: 2px solid $primaryColor;
+    transition: all .5s ease;
+
+    z-index: 2;
+
+    &--active {
+      &:before {
+        content: "";
+        position: absolute;
+        width: calc(#{$indicatorSize} + 8px);
+        height: calc(#{$indicatorSize} + 8px);
+        border-radius: 50%;
+        opacity: .75;
+        top: -6px;
+        left: -6px;
+        box-sizing: border-box;
+        border: 1.5px solid $successColor;
+        animation: scale .5s ease-out;
+      }
+
+      @keyframes scale {
+        0% {
+          transform: scale(.75);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: .75;
+        }
+      }
+    }
+
+    &--complete {
+      background: $successColor;
+      border: 2px solid $successColor;
+    }
+  }
+}
