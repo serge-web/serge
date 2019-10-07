@@ -1,0 +1,12 @@
+{
+  "name": "serge-web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:serge-web/serge-web.git",
+  "author": "foxleigh81 <alex@alexfoxleigh.com>",
+  "license": "MIT",
+  "private": false,
+  "workspaces" : [
+    "packages/*"
+  ]
+}
