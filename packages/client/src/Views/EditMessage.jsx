@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../scss/App.scss';
 import { connect } from "react-redux";
 
 import JsonEditor from "../Components/JsonEditor";
@@ -15,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {ADMIN_ROUTE} from "../consts";
 
+import "@serge/themes/App.scss";
 class EditMessage extends Component {
 
   constructor(props) {

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ModalWrapper from './ModalWrapper';
-import "../../scss/App.scss";
 import { connect } from 'react-redux';
 import uniqId from "uniqid";
 import { modalAction } from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
@@ -10,6 +9,8 @@ import {
   updateRole,
   setTabUnsaved,
 } from "../../ActionsAndReducers/dbWargames/wargames_ActionCreators";
+
+import "@serge/themes/App.scss";
 
 import Checkbox from "../Inputs/Checkbox";
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import '../scss/App.scss';
-
 import { hideNotification } from "../ActionsAndReducers/Notification/Notification_ActionCreators";
 import Snackbar from "./Snackbar";
+
+import "@serge/themes/App.scss";
 
 class Notifications extends Component {
 

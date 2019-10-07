@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import '../scss/App.scss';
+
+import "@serge/themes/App.scss";
 
 class AwaitingStart extends Component {
 

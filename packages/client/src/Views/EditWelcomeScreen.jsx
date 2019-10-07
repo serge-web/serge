@@ -12,7 +12,8 @@ import {
   saveSergeGameInformation,
   getSergeGameInformation
 } from "../ActionsAndReducers/sergeInfo/sergeInfo_ActionCreators";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class EditWelcomeScreen extends Component {
   constructor(props) {

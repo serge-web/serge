@@ -12,7 +12,8 @@ import {
   openModal
 } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
 import { PlayerStateContext } from "../Store/PlayerUi";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class TurnProgression extends Component {
   static contextType = PlayerStateContext;

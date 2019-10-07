@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import '../scss/App.scss';
+import "@serge/themes/App.scss";
 
 class ValidationNotification extends Component {
 

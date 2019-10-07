@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import Collapsible from "react-collapsible";
 import MessageCreator from "../Components/MessageCreator.jsx";
 import DropdownInput from "../Components/Inputs/DropdownInput";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class NewMessage extends Component {
   constructor(props) {

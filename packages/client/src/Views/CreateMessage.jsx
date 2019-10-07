@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../scss/App.scss';
 import { connect } from "react-redux";
 
 import JsonCreator from "../Components/JsonCreator";
@@ -14,6 +13,7 @@ import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {setSelectedSchema} from "../ActionsAndReducers/UmpireMenu/umpireMenu_ActionCreators";
 import {ADMIN_ROUTE} from "../consts";
 
+import "@serge/themes/App.scss";
 class EditMessage extends Component {
 
   constructor(props) {

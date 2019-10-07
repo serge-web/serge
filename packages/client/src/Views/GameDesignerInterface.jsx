@@ -15,7 +15,8 @@ import {
   checkAdminAccess,
 } from "../ActionsAndReducers/dbWargames/wargames_ActionCreators";
 import { populateMessageTypesDb } from "../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class GameDesignerInterface extends Component {
   constructor(props) {

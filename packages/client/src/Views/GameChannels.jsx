@@ -5,7 +5,8 @@ import TurnProgression from "../Components/TurnProgression";
 import ChannelTabsContainer from "./ChannelTabsContainer";
 import AdminAndInsightsTabsContainer from "./AdminAndInsightsTabsContainer";
 import { PlayerStateContext } from "../Store/PlayerUi";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class GameChannels extends Component {
   static contextType = PlayerStateContext;

@@ -3,7 +3,8 @@ import { LOCAL_STORAGE_TIMEOUT, expiredStorage } from "../consts";
 import { PlayerStateContext } from "../Store/PlayerUi";
 import MessagesListInsightsChannel from "./MessagesListInsightsChannel";
 import MessagesListRenderProp from "./MessagesListRenderProp";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class InsightsChannel extends Component {
   static contextType = PlayerStateContext;

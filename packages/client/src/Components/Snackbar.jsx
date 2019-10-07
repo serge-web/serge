@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import '../scss/App.scss';
-
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
+import "@serge/themes/App.scss";
 
 class Snackbar extends Component {
 

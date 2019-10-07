@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import '../../scss/App.scss';
 import Select from "react-select";
 import {
   faCheck,
@@ -8,6 +7,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import _ from "lodash";
+
+import "@serge/themes/App.scss";
 
 class EditSubscriptionRow extends Component {
 

@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import ModalWrapper from './ModalWrapper';
-import "../../scss/App.scss";
 import { connect } from 'react-redux';
 import DropZone from "../Inputs/DropZone";
 import { modalAction } from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
 import {saveSergeLogo} from "../../ActionsAndReducers/sergeInfo/sergeInfo_ActionCreators";
+
+import "@serge/themes/App.scss";
 
 class AddLogoModal extends Component {
 

@@ -7,11 +7,11 @@ import {
 } from "../ActionsAndReducers/dbMessages/messages_ActionCreators";
 
 import JSONEditor from '@json-editor/json-editor';
-import '../scss/App.scss';
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSave} from "@fortawesome/free-solid-svg-icons";
 
+import "@serge/themes/App.scss";
 
 class JsonCreator extends Component {
 

@@ -1,6 +1,5 @@
 import React, {useCallback} from 'react';
 import { connect } from "react-redux";
-import "../../scss/App.scss";
 import {useDropzone} from "react-dropzone";
 import {addNotification} from "../../ActionsAndReducers/Notification/Notification_ActionCreators";
 import {modalAction} from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
@@ -9,6 +8,7 @@ import {setTabUnsaved} from "../../ActionsAndReducers/dbWargames/wargames_Action
 import {faFileUpload} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
+import "@serge/themes/App.scss";
 
 function DropZone(props) {
   const onDropAccepted = useCallback(acceptedFiles => {

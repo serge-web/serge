@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import JSONEditor from "@json-editor/json-editor";
 import { saveMessage } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
 import { PlayerStateContext } from "../Store/PlayerUi";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class JsonCreator extends Component {
   static contextType = PlayerStateContext;

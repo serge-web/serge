@@ -4,7 +4,8 @@ import Notifications from "./Components/Notifications";
 import Version from "./Views/Version";
 import RouterMain from "./Components/Router/RouterMain";
 import Store from "./Store/Store";
-import "./scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class App extends Component {
   componentDidMount() {

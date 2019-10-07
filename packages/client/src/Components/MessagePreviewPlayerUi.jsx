@@ -7,7 +7,8 @@ import { umpireForceTemplate } from "../consts";
 import isValidUrl from "../Helpers/isValidUrl";
 import lineBreak from "../Helpers/splitNewLineBreak";
 import { PlayerStateContext } from "../Store/PlayerUi";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 const Fragment = React.Fragment;
 

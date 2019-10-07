@@ -18,7 +18,8 @@ import {
 } from "../../ActionsAndReducers/dbWargames/wargames_ActionCreators";
 import { addNotification } from "../../ActionsAndReducers/Notification/Notification_ActionCreators";
 import { modalAction } from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
-import "../../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class ForcesTab extends Component {
   constructor(props) {

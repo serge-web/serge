@@ -5,8 +5,8 @@ import _ from "lodash";
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from "../consts";
 import { getAllWargameMessages } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
 import { PlayerStateContext } from "../Store/PlayerUi";
-import "../scss/dependencies/flexlayout-react.scss";
-import "../scss/App.scss";
+import "@serge/themes/dependencies/flexlayout-react.scss";
+import "@serge/themes/App.scss";
 
 const json = {
   global: {

@@ -10,7 +10,7 @@ import JSONEditor from '@json-editor/json-editor';
 // necessary import for date
 // import flatpickr from "flatpickr";
 
-import '../scss/App.scss';
+import "@serge/themes/App.scss";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSave} from "@fortawesome/free-solid-svg-icons";

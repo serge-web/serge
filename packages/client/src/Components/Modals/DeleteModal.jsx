@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import ModalWrapper from './ModalWrapper';
-import "../../scss/App.scss";
 import { connect } from 'react-redux';
 import { modalAction } from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
 import { deleteMessage } from "../../ActionsAndReducers/dbMessages/messages_ActionCreators";
 import { deleteMessageType } from "../../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators";
 import {setPreviewSchema, setSelectedSchema} from "../../ActionsAndReducers/UmpireMenu/umpireMenu_ActionCreators";
 import {MESSAGE_TEMPLATE_ROUTE} from "../../consts";
+
+import "@serge/themes/App.scss";
 
 class DeleteModal extends Component {
 

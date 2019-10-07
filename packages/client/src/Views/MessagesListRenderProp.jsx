@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { expiredStorage } from "../consts";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class MessagesListRenderProp extends Component {
   constructor(props) {

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import '../scss/App.scss';
-
 import moment from "moment";
 import classNames from "classnames";
 import {PropTypes} from "prop-types";
+
+import "@serge/themes/App.scss";
 
 class SearchList extends Component {
 

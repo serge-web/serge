@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import '../scss/App.scss';
+
 import check from "check-types";
 import moment from "moment";
+
+import "@serge/themes/App.scss";
+
 const Fragment = React.Fragment;
 
 class MessagePreview extends Component {

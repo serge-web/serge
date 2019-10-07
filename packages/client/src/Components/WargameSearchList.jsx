@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-
-import '../scss/App.scss';
 import _ from "lodash";
 
 import {
@@ -20,6 +18,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {modalAction} from "../ActionsAndReducers/Modal/Modal_ActionCreators";
 import {EXPORT_ROUTE, GAME_SETUP_ROUTE} from "../consts";
 import WargameOptionMenu from "./WargameOptionMenu";
+
+import "@serge/themes/App.scss";
 
 class WargameSearchList extends Component {
 

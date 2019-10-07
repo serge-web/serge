@@ -9,7 +9,8 @@ import {
   markAllAsRead,
 } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
 import { PlayerStateContext } from "../Store/PlayerUi";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class Channel extends Component {
   static contextType = PlayerStateContext;

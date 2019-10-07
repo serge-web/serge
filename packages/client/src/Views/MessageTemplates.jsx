@@ -19,7 +19,8 @@ import {
 import { duplicateMessage } from "../ActionsAndReducers/dbMessages/messages_ActionCreators";
 import { modalAction } from "../ActionsAndReducers/Modal/Modal_ActionCreators";
 import { setSelectedSchema } from "../ActionsAndReducers/UmpireMenu/umpireMenu_ActionCreators";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class MessageTemplates extends Component {
   constructor(props) {

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Badge from "react-bootstrap/Badge";
 import moment from "moment";
 import classNames from "classnames";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class MessagesListChatChannel extends Component {
   render() {

@@ -8,7 +8,8 @@ import UnsavedChannelModal from "../UnsavedChannelModal";
 import AddIconModal from "../AddIconModal";
 import ColorPickerModal from "../ColorPickerModal";
 import AddLogoModal from "../AddLogoModal";
-import "../../../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class ModalSwitchAdmin extends Component {
   render() {

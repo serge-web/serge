@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import MaskedInput from "react-maskedinput";
 
-import '../../scss/App.scss';
+import "@serge/themes/App.scss";
 
 class TextInputMasked extends Component {
 

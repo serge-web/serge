@@ -4,7 +4,8 @@ import MessageCreatorChatChannel from "../Components/MessageCreatorChatChannel";
 import MessagesListChatChannel from "./MessagesListChatChannel";
 import MessagesListRenderProp from "./MessagesListRenderProp";
 import { PlayerStateContext } from "../Store/PlayerUi";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class GameAdmin extends Component {
   static contextType = PlayerStateContext;

@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import InsightsModal from "../InsightsModal";
 import { PlayerStateContext } from "../../../Store/PlayerUi";
-import "../../../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class ModalSwitchPlayer extends Component {
   static contextType = PlayerStateContext;

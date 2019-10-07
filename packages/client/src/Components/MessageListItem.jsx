@@ -8,7 +8,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import Collapsible from "react-collapsible";
 import MessagePreview from "../Components/MessagePreviewPlayerUi";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class MessageListItem extends Component {
   shouldComponentUpdate(nextProps, nextState, nextContext) {

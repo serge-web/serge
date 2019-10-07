@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import classNames from "classnames";
-import '../scss/App.scss';
 import {PropTypes} from "prop-types";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClone, faTrash} from "@fortawesome/free-solid-svg-icons";
+
+import "@serge/themes/App.scss";
 
 class TabsSearchList extends Component {
 

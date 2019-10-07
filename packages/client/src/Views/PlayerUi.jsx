@@ -24,7 +24,8 @@ import DropdownInput from "../Components/Inputs/DropdownInput";
 import TextInput from "../Components/Inputs/TextInput";
 import GameChannels from "./GameChannels";
 import { PlayerStateContext } from "../Store/PlayerUi";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class PlayerUi extends Component {
   static contextType = PlayerStateContext;

@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import FlexLayout from "flexlayout-react";
 import RouterDashboard from "../Components/Router/RouterDashboard";
 import PlayerUiWrapper from "./PlayerUiWrapper";
-import "../scss/dependencies/flexlayout-react.scss";
-import "../scss/App.scss";
-import "../scss/demo.scss";
+
+import "@serge/themes/dependencies/flexlayout-react.scss";
+import "@serge/themes/App.scss";
+import "@serge/themes/demo.scss";
 
 const json = {
   "global": {

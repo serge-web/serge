@@ -21,7 +21,8 @@ import {
   setTabUnsaved,
   setTabSaved,
 } from "../../ActionsAndReducers/dbWargames/wargames_ActionCreators";
-import "../../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class ForcesTab extends Component {
 

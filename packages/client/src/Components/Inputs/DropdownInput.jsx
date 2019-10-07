@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
-import '../../scss/App.scss';
+import "@serge/themes/App.scss";
 
 class DropdownInput extends Component {
 

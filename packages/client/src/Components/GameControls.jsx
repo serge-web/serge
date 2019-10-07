@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { nextGameTurn } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
 import { PlayerStateContext } from "../Store/PlayerUi";
-import "../scss/App.scss";
+
+import "@serge/themes/App.scss";
 
 class GameControls extends Component {
   static contextType = PlayerStateContext;
