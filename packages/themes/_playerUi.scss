@@ -1,4 +1,4 @@
-@import 'dependencies/variables';
+@import "dependencies/variables";
 
 @mixin panel-item-wrap($radius) {
   border-radius: $radius;
@@ -20,12 +20,12 @@
 
   h3 {
     font-size: 1.4em;
-    padding-bottom: .25em;
+    padding-bottom: 0.25em;
   }
 
   span {
     font-size: 14px;
-    opacity: .8;
+    opacity: 0.8;
   }
 }
 
@@ -48,7 +48,7 @@
     font-weight: 400;
     margin-right: 6px;
     display: inline-block;
-    opacity: .5;
+    opacity: 0.5;
     line-height: 1;
   }
 
@@ -72,7 +72,7 @@
   font-family: "Open Sans", sans-serif;
   font-size: 1.85em;
   font-weight: 500;
-  color: rgba(255,255,255,.7);
+  color: rgba(255,255,255,0.7);
   border: none;
   background: transparent;
   text-overflow: ellipsis;
@@ -112,9 +112,9 @@
   overflow: hidden;
 
   .unread,
-  .flexlayout__tab_button[class*="unread"]{
+  .flexlayout__tab_button[class*="unread"] {
     &:after {
-      content: 'new';
+      content: "new";
       font-size: 14px;
       display: inline-block;
       margin-left: 5px;
@@ -125,47 +125,47 @@
 
     &.unread-1 {
       &:after {
-        content: '(1)';
+        content: "(1)";
       }
     }
     &.unread-2 {
       &:after {
-        content: '(2)';
+        content: "(2)";
       }
     }
     &.unread-3 {
       &:after {
-        content: '(3)';
+        content: "(3)";
       }
     }
     &.unread-4 {
       &:after {
-        content: '(4)';
+        content: "(4)";
       }
     }
     &.unread-5 {
       &:after {
-        content: '(5)';
+        content: "(5)";
       }
     }
     &.unread-6 {
       &:after {
-        content: '(6)';
+        content: "(6)";
       }
     }
     &.unread-7 {
       &:after {
-        content: '(7)';
+        content: "(7)";
       }
     }
     &.unread-8 {
       &:after {
-        content: '(8)';
+        content: "(8)";
       }
     }
     &.unread-9plus {
       &:after {
-        content: '(9+)';
+        content: "(9+)";
       }
     }
   }
@@ -187,20 +187,18 @@
 
   #private-message-input {
     height: 65px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     font-style: italic;
     resize: none;
   }
 
-  .private-message, .private-message div
-  {
+  .private-message, .private-message div {
     font-style: italic;
     background: $grey;
-    color:#fff;
+    color:#ffffff;
   }
 
-  span.private div
-  {
+  span.private div {
     font-style: italic;
   }
 
@@ -251,7 +249,7 @@
         box-shadow: none;
         padding: 0 0 0 16px;
         position: relative;
-        font-family: 'Open Sans', 'sans-serif';
+        font-family: "Open Sans", "sans-serif";
         font-size: 13px;
         clear: both;
 
@@ -278,7 +276,7 @@
           width: auto;
 
           &:after {
-            content: '';
+            content: "";
             display: block;
             width: 0;
             height: 0;
@@ -318,7 +316,7 @@
       .btn-action {
         width: 32px;
         height: 32px;
-        background-image: url('dependencies/images/send.png');
+        background-image: url("dependencies/images/send.png");
         background-color: $buttonActionAdmin;
         background-size: 24px 24px;
         background-repeat: no-repeat;
@@ -359,8 +357,7 @@
       padding-right: 10px;
     }
 
-    .detail-row
-    {
+    .detail-row {
       margin-left: 0;
       margin-bottom: 0;
       padding-bottom: 8px;
@@ -368,7 +365,7 @@
       font-size: 14px;
 
       + .detail-row {
-        border-bottom: 1px solid rgba(255,255,255,.35);
+        border-bottom: 1px solid rgba(255,255,255,0.35);
       }
     }
 
@@ -380,11 +377,11 @@
 
     .detail {
       font-weight: 600;
-      background: rgba(255,255,255,.25);
+      background: rgba(255,255,255,0.25);
       border-radius: 2px;
       padding: 2px 4px;
       font-size: 65%;
-      letter-spacing: .015em;
+      letter-spacing: 0.015em;
       margin-right: 4px;
 
       .fa-w-14 {
@@ -414,7 +411,7 @@
 
     &.message-item-unread {
       .Collapsible__trigger {
-        .message-title-wrap{
+        .message-title-wrap {
           background-color: $backgroundAlphaBold;
 
           &:after {
@@ -444,7 +441,7 @@
         @include panel-item-wrap(0 4px 4px 0);
 
         &:after {
-          content: '';
+          content: "";
           display: block;
           width: 6px;
           height: 6px;
@@ -510,7 +507,7 @@
     position: absolute;
     left: 0;
     bottom: 0;
-  };
+  }
 
   .new-message-creator {
     position: absolute;
@@ -537,18 +534,18 @@
         @include typo-secondary;
 
         &:after {
-          content: '';
+          content: "";
           display: inline-block;
           width: 16px;
           height: 16px;
-          background-image: url('dependencies/images/arrow-open.png');
+          background-image: url("dependencies/images/arrow-open.png");
           margin-left: 4px;
           margin-top: -6px;
           vertical-align: middle;
         }
 
         &.is-open:after {
-          background-image: url('dependencies/images/arrow-close.png');
+          background-image: url("dependencies/images/arrow-close.png");
         }
       }
     }
@@ -617,12 +614,12 @@
   position: absolute;
   top: 50%;
   left: 50px;
-  background: rgba(0,0,0, .5);
+  background: rgba(0,0,0, 0.5);
   border-radius: 4px;
   padding: 16px;
   transform: translate3d(0, -50%, 0);
 
-  li + li{
+  li + li {
     margin-top: 10px;
   }
 }
@@ -672,7 +669,7 @@
       width: 85%;
       transform: translate3d(0,-50%,0);
       display: block;
-      letter-spacing: .015em;
+      letter-spacing: 0.015em;
       padding-left: 12px;
       @include typo-secondary;
     }

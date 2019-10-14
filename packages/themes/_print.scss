@@ -25,15 +25,15 @@
       position: initial;
     }
 
-    &> span {
+    & > span {
       position: absolute;
       bottom: 0;
       left: 0;
       width: 100%;
       text-align: center;
-      padding-bottom: .8cm;
+      padding-bottom: 0.8cm;
       font-size: 12pt;
-      color: #555;
+      color: #555555;
 
       @media print {
         position: initial;
@@ -58,10 +58,10 @@
 
     th,
     td {
-      padding: 0 .2cm;
+      padding: 0 0.2cm;
 
       @media print {
-        padding: 0 .2cm;
+        padding: 0 0.2cm;
       }
     }
 
@@ -74,10 +74,10 @@
     }
 
     tr:nth-child(even) {
-      background-color: #ddd;
+      background-color: #dddddd;
 
       @media print {
-        background-color: #ddd;
+        background-color: #dddddd;
       }
     }
   }

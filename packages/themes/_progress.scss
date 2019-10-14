@@ -1,4 +1,4 @@
-@import './dependencies/variables';
+@import "./dependencies/variables";
 
 $indicatorSize: 20px;
 $indicatorMargin: 15px;
@@ -20,7 +20,7 @@ $progressHeight: 2px;
     left: calc(#{$indicatorMargin} + #{$indicatorSize} / 2);
     align-self: center;
     background: $primaryColor;
-    content: '';
+    content: "";
 
     z-index: 1;
   }
@@ -33,7 +33,7 @@ $progressHeight: 2px;
     border-radius: 50%;
     background: $lightBlue;
     border: 2px solid $primaryColor;
-    transition: all .5s ease;
+    transition: all 0.5s ease;
 
     z-index: 2;
 
@@ -44,22 +44,22 @@ $progressHeight: 2px;
         width: calc(#{$indicatorSize} + 8px);
         height: calc(#{$indicatorSize} + 8px);
         border-radius: 50%;
-        opacity: .75;
+        opacity: 0.75;
         top: -6px;
         left: -6px;
         box-sizing: border-box;
         border: 1.5px solid $successColor;
-        animation: scale .5s ease-out;
+        animation: scale 0.5s ease-out;
       }
 
       @keyframes scale {
         0% {
-          transform: scale(.75);
+          transform: scale(0.75);
           opacity: 0;
         }
         100% {
           transform: scale(1);
-          opacity: .75;
+          opacity: 0.75;
         }
       }
     }

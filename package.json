@@ -17,6 +17,8 @@
     "start": "run-p start:*",
     "start:server": "cd packages/server; yarn start",
     "start:client": "cd packages/client; yarn start",
+    "lint" : "run-p lint:*",
+    "lint:themes" : "cd packages/themes; stylelint *.scss --fix",
     "build": "lerna run build --scope=@serge/client",
     "diff": "lerna diff"
   }

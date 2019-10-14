@@ -2,5 +2,9 @@
   "name": "@serge/themes",
   "version": "0.2.0",
   "main": "App.scss",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "sass": "^1.23.0",
+    "stylelint": "^11.1.1"
+  }
 }

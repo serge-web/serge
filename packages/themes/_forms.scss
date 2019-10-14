@@ -1,4 +1,4 @@
-@import 'dependencies/variables';
+@import "dependencies/variables";
 
 @mixin white-on-message-creator {
   .new-message-creator & {
@@ -20,7 +20,7 @@
   }
 
   .form-control-label {
-    line-height: 1;;
+    line-height: 1;
     font-size: 12px;
     margin-bottom: 8px;
     text-transform: capitalize;
@@ -29,7 +29,7 @@
 }
 
 .form-control {
-  font-family: 'Open Sans', 'sans-serif';
+  font-family: "Open Sans", "sans-serif";
   font-size: 14px;
   border-radius: 4px;
 
