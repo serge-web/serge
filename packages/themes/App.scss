@@ -1,31 +1,31 @@
 //@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans:400,700');
 
-@import 'dependencies/variables';
-@import 'dependencies/reset';
-@import 'dependencies/bootstrap';
-@import '~bootstrap/scss/bootstrap';
-@import '~flatpickr/dist/themes/light.css';
-@import 'base';
-@import 'flex-layout';
-@import 'typography';
-@import 'btns';
-@import 'forms';
-@import 'sidebar';
-@import 'json-editor';
-@import 'message-preview';
-@import 'preview-editor';
-@import 'searchlist';
-@import 'modal';
-@import 'progress';
-@import 'gameSetup';
-@import 'input';
-@import 'notification';
-@import 'playerUi';
-@import 'dropzone';
-@import 'version';
-@import 'turnProgresion';
-@import 'export';
-@import 'print';
+@import "dependencies/variables";
+@import "dependencies/reset";
+@import "dependencies/bootstrap";
+@import "~bootstrap/scss/bootstrap";
+@import "~flatpickr/dist/themes/light.css";
+@import "base";
+@import "flex-layout";
+@import "typography";
+@import "btns";
+@import "forms";
+@import "sidebar";
+@import "json-editor";
+@import "message-preview";
+@import "preview-editor";
+@import "searchlist";
+@import "modal";
+@import "progress";
+@import "gameSetup";
+@import "input";
+@import "notification";
+@import "playerUi";
+@import "dropzone";
+@import "version";
+@import "turnProgresion";
+@import "export";
+@import "print";
 
 #root {
   height: 100%;
@@ -67,7 +67,7 @@
     max-width: 45%;
   }
 
-  #loader{
+  #loader {
     width: 100px;
     height: 100px;
     border-radius: 100%;
@@ -85,7 +85,7 @@
     color: $primaryColor;
   }
 
-  #loader:before{
+  #loader:before {
     content: "";
     position: absolute;
     left: 25px;

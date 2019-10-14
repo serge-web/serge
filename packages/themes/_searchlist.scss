@@ -1,4 +1,4 @@
-@import './dependencies/variables';
+@import "./dependencies/variables";
 
 .searchlist-wrap {
   max-width: 25%;
@@ -12,7 +12,7 @@
 
   &-input {
     width: 100%;
-    padding: .45em;
+    padding: 0.45em;
   }
 
   &-list {
@@ -29,7 +29,7 @@
       display: flex;
       align-items: center;
       width: 100%;
-      padding: 1em .45em;
+      padding: 1em 0.45em;
       border-bottom: 1px solid #f2f2f2;
       margin-bottom: 0 !important;
       cursor: pointer;
@@ -42,15 +42,15 @@
       &.active {
         color: $darkGrey;
         font-weight: bold;
-        background: #fff;
+        background: #ffffff;
       }
     }
   }
 
   svg {
     display: inline-flex;
-    opacity: .7;
-    font-size: .9em;
+    opacity: 0.7;
+    font-size: 0.9em;
     margin-left: 15px;
 
     &:first-child {
@@ -70,7 +70,7 @@
 
   &-input {
     width: 100%;
-    padding: .45em;
+    padding: 0.45em;
   }
 
   .searchlist-list {
@@ -88,7 +88,7 @@
       display: flex;
       align-items: center;
       width: 100%;
-      padding: 1em .45em;
+      padding: 1em 0.45em;
       border-bottom: 1px solid #f2f2f2;
       margin-bottom: 0 !important;
 
@@ -105,7 +105,7 @@
       &.active {
         color: $darkGrey;
         font-weight: bold;
-        background: #fff;
+        background: #ffffff;
       }
 
       .wargame-started-highlight {
@@ -169,8 +169,8 @@
 
   svg {
     display: inline-flex;
-    opacity: .7;
-    font-size: .9em;
+    opacity: 0.7;
+    font-size: 0.9em;
     margin-left: 15px;
 
     &:first-child {

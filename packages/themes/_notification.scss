@@ -4,9 +4,9 @@
   position: absolute;
   top: 5%;
   right: 2%;
-  background: #333;
+  background: #333333;
   padding: 10px 15px 12px 15px;
-  color: #fff;
+  color: #ffffff;
   font-size: 16px;
   border-radius: 3px;
   transform: translateY(-50%);
@@ -46,7 +46,7 @@
   }
 }
 
-@keyframes down{
+@keyframes down {
   0% {
     top: -10%;
     opacity: 0;
