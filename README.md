@@ -3,7 +3,8 @@
 ![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/23b9a82c710e752fa286/maintainability)](https://codeclimate.com/github/serge-web/serge-web/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/23b9a82c710e752fa286/test_coverage)](https://codeclimate.com/github/serge-web/serge-web/test_coverage)
 
 Serious Gaming, Evolved - web interface
 
