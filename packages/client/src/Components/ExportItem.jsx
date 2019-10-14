@@ -1,15 +1,14 @@
-import React from 'react';
+import React from 'react'
 
 const ExportItem = ({ children, item }) => {
-
-  let itemsHeadline;
+  let itemsHeadline
 
   switch (item.type) {
     case 'forces':
-      itemsHeadline = "Forces";
-      break;
+      itemsHeadline = 'Forces'
+      break
     default:
-      itemsHeadline = 'Message Types';
+      itemsHeadline = 'Message Types'
   }
 
   return (
@@ -19,7 +18,7 @@ const ExportItem = ({ children, item }) => {
         <p>Selected wargame: {item.wargame}</p>
         <p>
           {itemsHeadline}: {item.data.filter(item => item.items.length > 1).map((item, key) => (<span key={key}>
-            {item.title} ({item.items.length-1})
+            {item.title} ({item.items.length - 1})
           </span>))}
         </p>
       </div>
@@ -30,4 +29,4 @@ const ExportItem = ({ children, item }) => {
   )
 }
 
-export default ExportItem;
+export default ExportItem

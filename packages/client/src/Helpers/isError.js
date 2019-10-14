@@ -1,1 +1,1 @@
-export default (e) => e && e.stack && e.message;
+export default (e) => e && e.stack && e.message

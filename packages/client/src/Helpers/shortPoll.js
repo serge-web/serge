@@ -1,9 +1,9 @@
-export default function poll(fn, timeout) {
-  let promise = function(resolve, reject) {
+export default function poll (fn, timeout) {
+  const promise = function (resolve, reject) {
     setTimeout(function () {
       fn()
         .then(resolve(true))
-    }, timeout);
-  };
-  return new Promise(promise);
+    }, timeout)
+  }
+  return new Promise(promise)
 }

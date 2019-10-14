@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import "@serge/themes/App.scss";
+import '@serge/themes/App.scss'
 
 class AwaitingStart extends Component {
-
-  render() {
-
-    console.log(this.props.description);
+  render () {
+    console.log(this.props.description)
 
     return (
       <>
@@ -18,8 +16,8 @@ class AwaitingStart extends Component {
           <p>{this.props.description}</p>
         </div>
       </>
-    );
+    )
   }
 }
 
-export default AwaitingStart;
+export default AwaitingStart

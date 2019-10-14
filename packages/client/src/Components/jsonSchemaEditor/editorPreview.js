@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
-import { Card, CardHeader, CardBody, CardFooter } from 'reactstrap';
-import { PreviewEditor } from './json-schema-editor/editor';
+import React, { Component } from 'react'
+import { Card, CardHeader, CardBody, CardFooter } from 'reactstrap'
+import { PreviewEditor } from './json-schema-editor/editor'
 
 class EditorPreview extends Component {
+  constructor (props, content) {
+    super(props, content)
 
-  constructor(props, content) {
-    super(props, content);
-
-    this.previewBox = React.createRef();
-    this.editorPreview = null;
+    this.previewBox = React.createRef()
+    this.editorPreview = null
   }
 
-  componentDidMount() {
-    this.editorPreview = new PreviewEditor(this.previewBox);
+  componentDidMount () {
+    this.editorPreview = new PreviewEditor(this.previewBox)
   }
 
-  componentWillReceiveProps({ schema }) {
-    this.editorPreview.destroy();
-    if (schema !== null) this.editorPreview.updateSchema(schema);
+  componentWillReceiveProps ({ schema }) {
+    this.editorPreview.destroy()
+    if (schema !== null) this.editorPreview.updateSchema(schema)
   }
 
   render () {
@@ -37,4 +36,4 @@ class EditorPreview extends Component {
   }
 }
 
-export default EditorPreview;
+export default EditorPreview

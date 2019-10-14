@@ -1,20 +1,19 @@
-import React from 'react';
-import { connect } from "react-redux";
+import React from 'react'
+import { connect } from 'react-redux'
 
-import { createExportItem } from "../ActionsAndReducers/ExportItems/ExportItems_ActionsCreators";
-import ExportView from "./ExportView";
-import ExportItem from "../Components//ExportItem";
-import ExcelExport from '../Components/ExcelExport';
-import HtmlExport from '../Components/HtmlExport';
+import { createExportItem } from '../ActionsAndReducers/ExportItems/ExportItems_ActionsCreators'
+import ExportView from './ExportView'
+import ExportItem from '../Components//ExportItem'
+import ExcelExport from '../Components/ExcelExport'
+import HtmlExport from '../Components/HtmlExport'
 
 const ExportForces = ({ wargame, savExportItem, exportItems }) => {
-
   const generateExportItem = () => {
     savExportItem({
       title: `Export ${new Date().toISOString().slice(0, 19).replace('T', ' ')}`,
       wargame: wargame.currentWargame ? wargame.wargameTitle : 'Not Selected',
-      data: wargame.data && wargame.data.forces && wargame.data.forces.forces ?
-        wargame.data.forces.forces.map(force => ({
+      data: wargame.data && wargame.data.forces && wargame.data.forces.forces
+        ? wargame.data.forces.forces.map(force => ({
           title: force.name,
           items: generateRoleItems(force)
         })) : []
@@ -22,36 +21,35 @@ const ExportForces = ({ wargame, savExportItem, exportItems }) => {
   }
 
   const generateRoleItems = ({ roles }) => {
-    //all excel keys/titles for current tab
-    let fields = [];
-    //rows under titles
-    let rows = [];
+    // all excel keys/titles for current tab
+    const fields = []
+    // rows under titles
+    const rows = []
 
-    //loop on roles
-    for(let role of roles) {
+    // loop on roles
+    for (const role of roles) {
+      // create row with empty items equal to current fields length
+      const row = Array(fields.length).fill('')
 
-      //create row with empty items equal to current fields length
-      let row = Array(fields.length).fill("");
-
-      for(let key of Object.keys(role)) {
-        if(typeof role[key] !== 'object') {
-          //check if fields/titles have no current key then add
-          if(!fields.includes(key)) {
-            fields.push(key);
+      for (const key of Object.keys(role)) {
+        if (typeof role[key] !== 'object') {
+          // check if fields/titles have no current key then add
+          if (!fields.includes(key)) {
+            fields.push(key)
           }
 
-          //check position for field then add value to rigth position in row
-          row[fields.indexOf(key)] = role[key];
+          // check position for field then add value to rigth position in row
+          row[fields.indexOf(key)] = role[key]
         }
       }
 
-      rows.push(row);
+      rows.push(row)
     }
 
     return [
       fields.map(field => (field.toUpperCase())),
       ...rows
-    ];
+    ]
   }
 
   return (
@@ -67,14 +65,13 @@ const ExportForces = ({ wargame, savExportItem, exportItems }) => {
         ))}
       </ul>
     </ExportView>
-  );
+  )
 }
 
 const mapStateToProps = ({ wargame, exportItems }) => ({
   wargame,
-  exportItems: exportItems.map((item, key) => ({...item, id: key})).filter(item => item.type === 'forces')
-});
-
+  exportItems: exportItems.map((item, key) => ({ ...item, id: key })).filter(item => item.type === 'forces')
+})
 
 const mapDispatchToProps = dispatch => ({
   savExportItem: data => {
@@ -83,6 +80,6 @@ const mapDispatchToProps = dispatch => ({
       type: 'forces'
     }))
   }
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExportForces);
+export default connect(mapStateToProps, mapDispatchToProps)(ExportForces)

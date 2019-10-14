@@ -1,3 +1,3 @@
-export default function checkUnique(value, array) {
-  return array.every((item) => item !== value);
+export default function checkUnique (value, array) {
+  return array.every((item) => item !== value)
 };

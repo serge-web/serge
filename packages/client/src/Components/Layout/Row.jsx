@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class Row extends Component {
-
-  render() {
-
-    var classes = this.props.className ? `${this.props.className} flex-content` : "flex-content";
+  render () {
+    var classes = this.props.className ? `${this.props.className} flex-content` : 'flex-content'
 
     return (
       <div className={classes}>
@@ -14,4 +12,4 @@ class Row extends Component {
   }
 }
 
-export default Row;
+export default Row

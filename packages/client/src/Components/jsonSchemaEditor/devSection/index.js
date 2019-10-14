@@ -1,9 +1,9 @@
 import React from 'react'
 
-const DevSection = ({children}) => {
+const DevSection = ({ children }) => {
   return (
     <div>
-      {process.env.REACT_APP_ENV === "dev" && children}
+      {process.env.REACT_APP_ENV === 'dev' && children}
     </div>
   )
 }

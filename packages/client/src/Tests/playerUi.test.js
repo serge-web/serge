@@ -1,39 +1,38 @@
-import puppeteer from 'puppeteer';
-import {DEFAULT_SERVER} from "../consts";
+import puppeteer from 'puppeteer'
+import { DEFAULT_SERVER } from '../consts'
 
-let browser;
-let page;
+let browser
+let page
 
-let pageWhiteGameControl;
-let pageWhiteSargent;
-let pageRedSpecial;
-let pageRedRecon;
-let pageBlueCo;
-let pageBlueArtillery;
+let pageWhiteGameControl
+let pageWhiteSargent
+let pageRedSpecial
+let pageRedRecon
+let pageBlueCo
+let pageBlueArtillery
 
-let backspace = async (qty) => {
-  for (let i=0 ; i<qty ; i++) {
-    await page.keyboard.press('Backspace');
+const backspace = async (qty) => {
+  for (let i = 0; i < qty; i++) {
+    await page.keyboard.press('Backspace')
   }
-};
+}
 
 beforeAll(async () => {
   // launch browser
   browser = await puppeteer.launch({
     headless: false, // headless mode set to false so browser opens up with visual feedback
-    slowMo: 25, // how slow actions should be
-  });
+    slowMo: 25 // how slow actions should be
+  })
 
-  page = await browser.newPage();
+  page = await browser.newPage()
 
   await page.setViewport({
     width: 1920,
     height: 1080
-  });
-});
+  })
+})
 
 describe('PlayerUi', () => {
-
   // test('Login to Serge', async () => {
   //
   //   await page.goto('localhost:8080/serge/admin');
@@ -636,138 +635,129 @@ describe('PlayerUi', () => {
   // });
 
   describe('PlayerUi login all players', async () => {
+    const loginToWargame = async (page, role) => {
+      await page.bringToFront()
 
-    let loginToWargame = async (page, role) => {
+      const play = await page.$('button[name="play"]')
+      play.click()
 
-      await page.bringToFront();
-
-      let play = await page.$('button[name="play"]');
-      play.click();
-
-      await page.waitFor(500);
+      await page.waitFor(500)
 
       await page.evaluate(() => {
-        [...document.querySelector('select').options].find((opt) => opt.innerText === "wargame-e2e playerUi").selected = true;
-      });
+        [...document.querySelector('select').options].find((opt) => opt.innerText === 'wargame-e2e playerUi').selected = true
+      })
 
-      await page.waitFor(500);
+      await page.waitFor(500)
 
       await page.evaluate(() => {
-        let event = new Event('change', { bubbles: true });
-        event.simulated = true;
-        document.querySelector('select').dispatchEvent(event);
-      });
+        const event = new Event('change', { bubbles: true })
+        event.simulated = true
+        document.querySelector('select').dispatchEvent(event)
+      })
 
       await page.evaluate((role) => {
-        [...document.querySelectorAll('.demo-passwords ul li')].find((r) => r.innerText === role).click();
-      }, role);
+        [...document.querySelectorAll('.demo-passwords ul li')].find((r) => r.innerText === role).click()
+      }, role)
 
-      await page.waitFor(250);
+      await page.waitFor(250)
 
-      let enterBtn = await page.$('button[name="add"]');
-      enterBtn.click();
-    };
+      const enterBtn = await page.$('button[name="add"]')
+      enterBtn.click()
+    }
 
     beforeAll(async () => {
-
-      pageWhiteGameControl = await browser.newPage();
-      await pageWhiteGameControl.goto('localhost:8080/serge/player');
-      pageWhiteSargent = await browser.newPage();
-      await pageWhiteSargent.goto('localhost:8080/serge/player');
-      pageRedSpecial = await browser.newPage();
-      await pageRedSpecial.goto('localhost:8080/serge/player');
-      pageRedRecon = await browser.newPage();
-      await pageRedRecon.goto('localhost:8080/serge/player');
-      pageBlueCo = await browser.newPage();
-      await pageBlueCo.goto('localhost:8080/serge/player');
-      pageBlueArtillery = await browser.newPage();
-      await pageBlueArtillery.goto('localhost:8080/serge/player');
+      pageWhiteGameControl = await browser.newPage()
+      await pageWhiteGameControl.goto('localhost:8080/serge/player')
+      pageWhiteSargent = await browser.newPage()
+      await pageWhiteSargent.goto('localhost:8080/serge/player')
+      pageRedSpecial = await browser.newPage()
+      await pageRedSpecial.goto('localhost:8080/serge/player')
+      pageRedRecon = await browser.newPage()
+      await pageRedRecon.goto('localhost:8080/serge/player')
+      pageBlueCo = await browser.newPage()
+      await pageBlueCo.goto('localhost:8080/serge/player')
+      pageBlueArtillery = await browser.newPage()
+      await pageBlueArtillery.goto('localhost:8080/serge/player')
 
       await pageWhiteGameControl.setViewport({
         width: 1920,
         height: 1080
-      });
+      })
       await pageWhiteSargent.setViewport({
         width: 1920,
         height: 1080
-      });
+      })
 
       await pageRedSpecial.setViewport({
         width: 1920,
         height: 1080
-      });
+      })
       await pageRedRecon.setViewport({
         width: 1920,
         height: 1080
-      });
+      })
 
       await pageBlueCo.setViewport({
         width: 1920,
         height: 1080
-      });
+      })
       await pageBlueArtillery.setViewport({
         width: 1920,
         height: 1080
-      });
-
-    }, 15000);
+      })
+    }, 15000)
 
     test('Should login White Game Control', async () => {
-      await loginToWargame(pageWhiteGameControl, "Game Control")
-    }, 15000);
+      await loginToWargame(pageWhiteGameControl, 'Game Control')
+    }, 15000)
 
     test('Should login White Sargent', async () => {
-      await loginToWargame(pageWhiteSargent, "Sargent")
-    }, 15000);
+      await loginToWargame(pageWhiteSargent, 'Sargent')
+    }, 15000)
 
     test('Should login Red Special forces', async () => {
-      await loginToWargame(pageRedSpecial, "Special forces")
-    }, 15000);
+      await loginToWargame(pageRedSpecial, 'Special forces')
+    }, 15000)
 
     test('Should login Red Reconnaissance', async () => {
-      await loginToWargame(pageRedRecon, "Reconnaissance")
-    }, 15000);
+      await loginToWargame(pageRedRecon, 'Reconnaissance')
+    }, 15000)
 
     test('Should login Blue CO', async () => {
-      await loginToWargame(pageBlueCo, "CO")
-    }, 15000);
+      await loginToWargame(pageBlueCo, 'CO')
+    }, 15000)
 
     test('Should login Blue Artillery', async () => {
-      await loginToWargame(pageBlueArtillery, "Artillery")
-    }, 15000);
-
+      await loginToWargame(pageBlueArtillery, 'Artillery')
+    }, 15000)
 
     test('Should initiate-game', async () => {
+      await pageWhiteGameControl.bringToFront()
 
-      await pageWhiteGameControl.bringToFront();
-
-      await pageWhiteGameControl.waitFor('button[name="initiate-game"]');
-      await pageWhiteGameControl.evaluate(() => document.querySelector('button[name="initiate-game"]').click());
+      await pageWhiteGameControl.waitFor('button[name="initiate-game"]')
+      await pageWhiteGameControl.evaluate(() => document.querySelector('button[name="initiate-game"]').click())
 
       // check is game UI
-      await pageWhiteGameControl.$('.turn-progression-ui');
-
-    }, 15000);
+      await pageWhiteGameControl.$('.turn-progression-ui')
+    }, 15000)
 
     test('Should check game started for all players', async () => {
+      await pageWhiteSargent.bringToFront()
+      await pageWhiteSargent.$('.turn-progression-ui')
 
-      await pageWhiteSargent.bringToFront();
-      await pageWhiteSargent.$('.turn-progression-ui');
+      await pageWhiteSargent.waitFor(2000)
 
-      await pageWhiteSargent.waitFor(2000);
+      await pageRedSpecial.bringToFront()
+      await pageRedSpecial.$('.turn-progression-ui')
 
-      await pageRedSpecial.bringToFront();
-      await pageRedSpecial.$('.turn-progression-ui');
+      await pageRedRecon.bringToFront()
+      await pageRedRecon.$('.turn-progression-ui')
 
-      await pageRedRecon.bringToFront();
-      await pageRedRecon.$('.turn-progression-ui');
+      await pageBlueCo.bringToFront()
+      await pageBlueCo.$('.turn-progression-ui')
 
-      await pageBlueCo.bringToFront();
-      await pageBlueCo.$('.turn-progression-ui');
-
-      await pageBlueArtillery.bringToFront();
-      await pageBlueArtillery.$('.turn-progression-ui');
-
-    }, 15000);
-  });
-});
+      await pageBlueArtillery.bringToFront()
+      await pageBlueArtillery.$('.turn-progression-ui')
+    }, 15000)
+  })
+})
