@@ -1,4 +1,12 @@
-const runServer = (eventEmmiterMaxListeners, pouchOptions, corsOptions, dbDir, imgDir, port, remoteServer) => {
+const runServer = (
+  eventEmmiterMaxListeners,
+  pouchOptions,
+  corsOptions,
+  dbDir,
+  imgDir,
+  port,
+  remoteServer
+) => {
   require('events').EventEmitter.defaultMaxListeners = eventEmmiterMaxListeners
   const express = require('express')
   const bodyParser = require('body-parser')
@@ -36,16 +44,15 @@ const runServer = (eventEmmiterMaxListeners, pouchOptions, corsOptions, dbDir, i
   app.use('/db', require('express-pouchdb')(PouchDB))
 
   app.get('/allDbs', (req, res) => {
-    PouchDB.allDbs()
-      .then((dbs) => {
-        res.send(dbs)
-      })
+    PouchDB.allDbs().then(dbs => {
+      res.send(dbs)
+    })
   })
 
   app.get('/clearAll', (req, res) => {
     PouchDB.allDbs()
-      .then((dbs) => {
-        dbs.forEach((db) => {
+      .then(dbs => {
+        dbs.forEach(db => {
           new PouchDB(db).destroy()
         })
       })
@@ -55,7 +62,7 @@ const runServer = (eventEmmiterMaxListeners, pouchOptions, corsOptions, dbDir, i
   })
 
   app.get('/deleteDb', (req, res) => {
-    fs.unlink('db/' + req.query.db, (err) => {
+    fs.unlink('db/' + req.query.db, err => {
       console.log(err)
       if (err) {
         res.status(500).send()
@@ -73,7 +80,7 @@ const runServer = (eventEmmiterMaxListeners, pouchOptions, corsOptions, dbDir, i
   app.post('/saveIcon', (req, res) => {
     const image = `${imgDir}/${uniqid.time('icon-')}.png`
 
-    fs.writeFile(image, req.body, (err) => console.log(err))
+    fs.writeFile(image, req.body, err => console.log(err))
 
     res.status(200).send({ path: image })
   })
@@ -82,7 +89,7 @@ const runServer = (eventEmmiterMaxListeners, pouchOptions, corsOptions, dbDir, i
   app.post('/saveLogo', (req, res) => {
     const image = `${imgDir}/${uniqid.time('logo-')}.png`
 
-    fs.writeFile(image, req.body, (err) => console.log(err))
+    fs.writeFile(image, req.body, err => console.log(err))
 
     res.status(200).send({ path: image })
   })

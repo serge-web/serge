@@ -3,7 +3,8 @@ const server = require('./server')
 server(
   82, // event emmiter max listeners
   { prefix: 'db/', adapter: 'websql' }, // PouchDb Options
-  { // cors options
+  {
+    // cors options
     credentials: true,
     origin: [
       'https://serge-dev.herokuapp.com',
