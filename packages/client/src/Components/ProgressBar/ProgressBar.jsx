@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class ProgressBar extends Component {
-
-  render() {
+  render () {
     return (
       <div className="progress">
         {this.props.children}
       </div>
-    );
+    )
   }
 }
 
-export default ProgressBar;
+export default ProgressBar

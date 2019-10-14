@@ -1,6 +1,5 @@
 @import "./dependencies/variables";
 
-
 .modal-bg {
   position: fixed;
   display: flex;
@@ -8,7 +7,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.35);
   z-index: 2;
 }
 

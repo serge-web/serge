@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import {
   Card,
@@ -9,25 +9,23 @@ import {
   InputGroup,
   InputGroupAddon,
   Input
-} from 'reactstrap';
+} from 'reactstrap'
 
-import { booleanOptions } from './defaultOptions';
-
+import { booleanOptions } from './defaultOptions'
 
 class EditorPreview extends Component {
+  constructor (props, content) {
+    super(props, content)
 
-  constructor(props, content) {
-    super(props, content);
-
-    this.onBooleanOptionsChange = this.onBooleanOptionsChange.bind(this);
-    this.onLayoutChange = this.onLayoutChange.bind(this);
+    this.onBooleanOptionsChange = this.onBooleanOptionsChange.bind(this)
+    this.onLayoutChange = this.onLayoutChange.bind(this)
   }
 
-  onBooleanOptionsChange(e) {
-    let options = e.target.options;
-    let value = {};
+  onBooleanOptionsChange (e) {
+    const options = e.target.options
+    const value = {}
     for (let i = 0, l = options.length; i < l; i++) {
-      value[options[i].value] = options[i].selected;
+      value[options[i].value] = options[i].selected
     }
     this.props.onChange({
       ...this.props,
@@ -36,7 +34,7 @@ class EditorPreview extends Component {
     })
   }
 
-  onLayoutChange(e) {
+  onLayoutChange (e) {
     this.props.onChange({
       ...this.props.options,
       layout: e.target.value,
@@ -79,7 +77,6 @@ class EditorPreview extends Component {
 EditorPreview.propTypes = {
   onChange: PropTypes.func.isRequired,
   options: PropTypes.object.isRequired
-};
-
+}
 
 export default EditorPreview

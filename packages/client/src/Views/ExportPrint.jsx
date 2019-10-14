@@ -1,12 +1,11 @@
-import React from 'react';
-import { connect } from "react-redux";
+import React from 'react'
+import { connect } from 'react-redux'
 
-import { setCurrentViewFromURI } from "../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators";
+import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 
 const ExportPrint = ({ exportItem, notFound }) => {
-
-  if(!exportItem) {
-    notFound();
+  if (!exportItem) {
+    notFound()
   }
 
   return (
@@ -26,7 +25,7 @@ const ExportPrint = ({ exportItem, notFound }) => {
             <tbody>
               {data.items.map((row, key) => (
                 <tr key={key}>
-                  {row.map((col, colKey) => ( key ? (<td key={colKey}>{col}</td>) : (<th key={colKey}>{col}</th>) ))}
+                  {row.map((col, colKey) => (key ? (<td key={colKey}>{col}</td>) : (<th key={colKey}>{col}</th>)))}
                 </tr>
               ))}
             </tbody>
@@ -37,12 +36,12 @@ const ExportPrint = ({ exportItem, notFound }) => {
   )
 }
 
-const mapStateToProps = ({exportItems, currentViewURI}) => ({
+const mapStateToProps = ({ exportItems, currentViewURI }) => ({
   exportItem: exportItems[currentViewURI.split('/')[4]] || null
-});
+})
 
 const mapDispatchToProps = dispatch => ({
   notFound: () => { dispatch(setCurrentViewFromURI('/serge/export')) }
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExportPrint);
+export default connect(mapStateToProps, mapDispatchToProps)(ExportPrint)

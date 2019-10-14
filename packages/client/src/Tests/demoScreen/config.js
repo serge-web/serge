@@ -1,33 +1,33 @@
 const wargameAttrs = {
-  title: `Demo end to end ${Date.now()}`,
-};
+  title: `Demo end to end ${Date.now()}`
+}
 const umpireForce = {
   name: 'White',
-  role: 'Game Control',
-};
+  role: 'Game Control'
+}
 const customForces = [{
   name: 'Red',
-  role: 'CO',
+  role: 'CO'
 }, {
   name: 'Blue',
-  role: 'CO',
-}];
+  role: 'CO'
+}]
 const allForces = [
   umpireForce,
-  ...customForces,
-];
+  ...customForces
+]
 const allChannels = [{
   name: 'All chat',
-  template: 'Chat',
+  template: 'Chat'
 }, {
   name: 'Daily intentions',
-  template: 'Daily intentions',
-}];
+  template: 'Daily intentions'
+}]
 
 export {
   wargameAttrs,
   umpireForce,
   customForces,
   allForces,
-  allChannels,
+  allChannels
 }

@@ -2,7 +2,7 @@ import { StyleSheet } from 'aphrodite'
 
 export default StyleSheet.create({
   main: {
-    padding: '15px 0',
+    padding: '15px 0'
   },
   devSection: {
     paddingTop: '15px'

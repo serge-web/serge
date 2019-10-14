@@ -1,13 +1,13 @@
-import React from 'react';
-import Link from "../Components/Link";
+import React from 'react'
+import Link from '../Components/Link'
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPrint } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPrint } from '@fortawesome/free-solid-svg-icons'
 
 import {
   EXPORT_ROUTE,
-  EXPORT_PRINT_SUBROUTE,
-} from "../consts";
+  EXPORT_PRINT_SUBROUTE
+} from '../consts'
 
 const HtmlExport = ({ id }) => (
   <Link href={(EXPORT_ROUTE + EXPORT_PRINT_SUBROUTE).replace(':id', id)}>
@@ -15,4 +15,4 @@ const HtmlExport = ({ id }) => (
   </Link>
 )
 
-export default HtmlExport;
+export default HtmlExport

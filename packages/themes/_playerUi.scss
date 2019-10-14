@@ -72,7 +72,7 @@
   font-family: "Open Sans", sans-serif;
   font-size: 1.85em;
   font-weight: 500;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   border: none;
   background: transparent;
   text-overflow: ellipsis;
@@ -192,10 +192,11 @@
     resize: none;
   }
 
-  .private-message, .private-message div {
+  .private-message,
+  .private-message div {
     font-style: italic;
     background: $grey;
-    color:#ffffff;
+    color: #ffffff;
   }
 
   span.private div {
@@ -264,7 +265,7 @@
           background-color: $grey2;
           position: absolute;
           left: 0;
-          top: 10px
+          top: 10px;
         }
 
         &.own-message {
@@ -365,7 +366,7 @@
       font-size: 14px;
 
       + .detail-row {
-        border-bottom: 1px solid rgba(255,255,255,0.35);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
       }
     }
 
@@ -377,7 +378,7 @@
 
     .detail {
       font-weight: 600;
-      background: rgba(255,255,255,0.25);
+      background: rgba(255, 255, 255, 0.25);
       border-radius: 2px;
       padding: 2px 4px;
       font-size: 65%;
@@ -516,7 +517,12 @@
     border-radius: 4px 4px 0 0;
     box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.4);
     padding: 1px;
-    background-image: linear-gradient(to bottom, #3fb7ac, #9dfff1 36%, rgba(2, 37, 96, 0));
+    background-image: linear-gradient(
+      to bottom,
+      #3fb7ac,
+      #9dfff1 36%,
+      rgba(2, 37, 96, 0)
+    );
 
     .Collapsible {
       padding: 8px 16px;
@@ -572,7 +578,7 @@
       }
 
       .bg-light {
-        background-color: transparent!important;
+        background-color: transparent !important;
       }
 
       .card {
@@ -609,12 +615,11 @@
   }
 }
 
-
 .demo-passwords {
   position: absolute;
   top: 50%;
   left: 50px;
-  background: rgba(0,0,0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
   padding: 16px;
   transform: translate3d(0, -50%, 0);
@@ -667,7 +672,7 @@
       text-transform: uppercase;
       color: #ffffff;
       width: 85%;
-      transform: translate3d(0,-50%,0);
+      transform: translate3d(0, -50%, 0);
       display: block;
       letter-spacing: 0.015em;
       padding-left: 12px;
@@ -679,7 +684,7 @@
       top: 26px;
       right: 16px;
       cursor: pointer;
-      transform: translate3d(0,-50%,0);
+      transform: translate3d(0, -50%, 0);
     }
   }
 }
