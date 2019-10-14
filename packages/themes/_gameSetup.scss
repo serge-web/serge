@@ -35,7 +35,8 @@
   font-size: 14px;
   color: $darkGrey;
   background: $greyBg;
-  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 
   li {
     position: relative;
@@ -68,7 +69,6 @@
 }
 
 .settingsTab {
-
   h3 {
     display: inline-flex;
     max-width: 33%;
@@ -77,7 +77,6 @@
 }
 
 .forcesTab {
-
   h3 {
     display: inline-flex;
     max-width: 33%;
@@ -169,9 +168,7 @@ input#editable-title {
   padding: 0;
 }
 
-
 .channelsTab {
-
   h3 {
     display: inline-flex;
     max-width: 33%;
@@ -179,7 +176,6 @@ input#editable-title {
   }
 
   table {
-
     font-family: "Segoe UI", sans-serif;
     margin-top: 12px;
     table-layout: fixed;
@@ -214,7 +210,8 @@ input#editable-title {
       }
     }
 
-    th, td {
+    th,
+    td {
       width: 25%;
       vertical-align: middle;
     }
@@ -223,12 +220,12 @@ input#editable-title {
     td:nth-of-type(2),
     th:nth-of-type(3),
     td:nth-of-type(3) {
-      width: 32.5%
+      width: 32.5%;
     }
 
     th:nth-of-type(4),
     td:nth-of-type(4) {
-      width: 10%
+      width: 10%;
     }
 
     td.all-roles,

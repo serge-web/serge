@@ -15,8 +15,8 @@ select {
   min-height: 38px;
   padding: 2px 8px;
 
-  background-color: hsl(0,0%,100%);
-  border-color: hsl(0,0%,80%);
+  background-color: hsl(0, 0%, 100%);
+  border-color: hsl(0, 0%, 80%);
   border-radius: 4px;
   border-style: solid;
   border-width: 1px;
@@ -30,7 +30,6 @@ select {
   background-position: right 0.5em top 50%, 0 0;
   background-size: 2.2em;
 }
-
 
 textarea.material-input,
 input.material-input,
@@ -121,7 +120,8 @@ $md-checkbox-label-padding: 0.5em;
       padding-left: $md-checkbox-label-padding;
     }
 
-    &:before, &:after {
+    &:before,
+    &:after {
       content: "";
       position: absolute;
       left: 0;
@@ -156,13 +156,16 @@ $md-checkbox-label-padding: 0.5em;
     &:checked {
       + label:before {
         background: $md-checkbox-checked-color;
-        border:none;
+        border: none;
       }
       + label:after {
-
         $md-checkmark-size: $md-checkbox-size - 2 * $md-checkbox-padding;
 
-        transform: translate($md-checkbox-padding, ($md-checkbox-size / 2) - ($md-checkmark-size / 2.6)) rotate(-45deg);
+        transform: translate(
+            $md-checkbox-padding,
+            ($md-checkbox-size / 2) - ($md-checkmark-size / 2.6)
+          )
+          rotate(-45deg);
         width: $md-checkmark-size;
         height: $md-checkmark-size / 2;
 

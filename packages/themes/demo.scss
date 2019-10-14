@@ -55,7 +55,7 @@
     margin-bottom: 30px;
   }
 
-  input[name=force-name] {
+  input[name="force-name"] {
     max-width: 220px;
   }
 
@@ -87,10 +87,10 @@
       }
 
       .btn-group {
-        margin-left: 0!important;
+        margin-left: 0 !important;
 
         + .btn-group {
-          margin-left: 10px!important;
+          margin-left: 10px !important;
         }
       }
     }

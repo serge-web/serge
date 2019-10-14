@@ -35,7 +35,7 @@
 }
 
 .btn-block {
-  display: block!important;
+  display: block !important;
   width: 100% !important;
 }
 
@@ -104,7 +104,7 @@ span.link {
   }
 
   &--active {
-    font-size: calc(#{$titleSize * 1.25})
+    font-size: calc(#{$titleSize * 1.25});
   }
 
   &--secondary {
@@ -182,7 +182,12 @@ button {
   &--form {
     display: inline-block;
     padding: 1px 0;
-    background-image: linear-gradient(to bottom, #3fb7ac, #9dfff1 36%, rgba(2, 37, 96, 0));
+    background-image: linear-gradient(
+      to bottom,
+      #3fb7ac,
+      #9dfff1 36%,
+      rgba(2, 37, 96, 0)
+    );
     box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.4);
     border-radius: 6px;
     font-size: 12px;
@@ -226,7 +231,6 @@ button {
   color: $grey2;
   cursor: not-allowed !important;
 }
-
 
 .btn-helper {
   display: inline-block;
