@@ -1,11 +1,10 @@
 import uniqid from 'uniqid'
 import _ from 'lodash'
+import moment from 'moment'
+import PouchDB from 'pouchdb'
 import { fetch } from 'whatwg-fetch'
 import deepCopy from '../Helpers/copyStateHelper'
-
 import calcComplete from '../Helpers/calcComplete'
-
-import PouchDB from 'pouchdb'
 import {
   databasePath,
   serverPath,
@@ -17,29 +16,25 @@ import {
   MAX_LISTENERS,
   SERGE_INFO
 } from '../consts'
-
 import {
   setLatestFeedbackMessage,
   setCurrentWargame,
   setLatestWargameMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-import moment from 'moment'
-import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
-
-var wargameDbStore = []
+const wargameDbStore = []
 
 const listenNewMessage = ({ db, name, dispatch }) => {
   db.changes({ since: 'now', live: true, timeout: false, heartbeat: false, include_docs: true })
     .on('change', function (changes) {
       (async () => {
-        if (changes.doc.hasOwnProperty('infoType')) {
+        if (Object.prototype.hasOwnProperty.call(changes, 'infoType')) {
           dispatch(setCurrentWargame(changes.doc))
           dispatch(setLatestWargameMessage(changes.doc))
           return
         }
 
-        if (changes.doc.hasOwnProperty('feedback')) {
+        if (Object.prototype.hasOwnProperty.call(changes, 'feedback')) {
           dispatch(setLatestFeedbackMessage(changes.doc))
         } else {
           dispatch(setLatestWargameMessage(changes.doc))
@@ -47,10 +42,7 @@ const listenNewMessage = ({ db, name, dispatch }) => {
       })()
     })
     .on('error', function (err) {
-      // if (err) {
-      // dispatch(addNotification("Serge disconnected.", "error"));
-      // }
-      listenNewMessage({ db, name, dispatch })
+      listenNewMessage({ db, name, dispatch, err })
     })
 }
 
@@ -123,15 +115,6 @@ export const deleteWargame = (wargamePath) => {
 
   const wargame = wargameDbStore.find((item) => item.name === name)
   wargame.db.destroy()
-  // .then(() => {
-  //   return fetch(serverPath+'deleteDb?db='+name);
-  // })
-  // .then((res) => {
-  //   console.log(res);
-  // })
-  // .catch((err) => {
-  //   console.log(err);
-  // });
 
   const index = wargameDbStore.findIndex((item) => item.name === name)
   wargameDbStore.splice(index, 1)
@@ -737,7 +720,9 @@ export const getAllWargameRevisions = (dbName) => {
   return new Promise((resolve, reject) => {
     getAllMessages(dbName)
       .then((messages) => {
-        const revisions = messages.filter((message) => message.hasOwnProperty('infoType'))
+        const revisions = messages.filter((message) => {
+          return Object.prototype.hasOwnProperty.call(message, 'infoType')
+        })
         resolve(revisions)
       })
       .catch((err) => {

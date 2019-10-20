@@ -26,7 +26,9 @@ class Channel extends Component {
     if (state.channels[this.props.channel].messages.length === 0) {
       getAllWargameMessages(state.currentWargame)(dispatch);
     }
-    this.state.channelTabClass = `tab-content-${channelClassName}`;
+    this.setState({
+      channelTabClass: `tab-content-${channelClassName}`,
+    })
   }
 
   markAllRead = () => {

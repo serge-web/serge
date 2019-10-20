@@ -20,7 +20,6 @@ import { getSergeGameInformation } from "../ActionsAndReducers/sergeInfo/sergeIn
 import { umpireForceTemplate, expiredStorage, LOCAL_STORAGE_TIMEOUT } from "../consts";
 import { populateWargameStore } from "../ActionsAndReducers/dbWargames/wargames_ActionCreators";
 import { populateMessageTypesDb } from "../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators";
-import DropdownInput from "../Components/Inputs/DropdownInput";
 import TextInput from "../Components/Inputs/TextInput";
 import GameChannels from "./GameChannels";
 import { PlayerStateContext } from "../Store/PlayerUi";
@@ -273,9 +272,9 @@ class PlayerUi extends Component {
                             {
                               force.roles.map((role) => (
                                 <li key={role.name}>
-                                  <a href="javascript:" onClick={this.setRolePasswordDemo.bind(this, role.password)} className="btn btn-sm btn-primary">
+                                  <button onClick={this.setRolePasswordDemo.bind(this, role.password)} className="btn btn-sm btn-primary">
                                     {role.name}
-                                  </a>
+                                  </button>
                                 </li>
                               ))
                             }

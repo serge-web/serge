@@ -19,10 +19,12 @@ class MessagesListChatChannel extends Component {
     const [ state ] = this.context;
     const { allForces, selectedForce } = state || {};
       if( allForces && selectedForce ) {
-          this.state.force = {
+          this.setState({
+            force : {
               ...this.state.force,
               ...allForces.find((force) => force.uniqid === selectedForce)
-          };
+            },
+          })
       }
   }
 
