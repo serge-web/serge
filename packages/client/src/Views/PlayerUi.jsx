@@ -31,7 +31,7 @@ class PlayerUi extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      landingScreen: true,
+      screen: 'landing',
       selectedWargame: '',
       wargameAccessCode: '',
       rolePassword: '',
@@ -108,6 +108,9 @@ class PlayerUi extends Component {
     dispatch(setRole(role));
     dispatch(setAllTemplates(this.props.messageTypes.messages));
     startListening(state.currentWargame)(dispatch);
+    this.setState({
+      screen: 'player'
+    })
   };
 
   roleOptions() {
@@ -122,7 +125,7 @@ class PlayerUi extends Component {
 
   enterSerge = () => {
     this.setState({
-      landingScreen: false,
+      screen: 'lobby',
     })
   };
 
@@ -143,19 +146,13 @@ class PlayerUi extends Component {
 
   render() {
     const [ state ] = this.context;
-    const { tourIsOpen, landingScreen } = this.state;
+    const { tourIsOpen, screen } = this.state;
     const { gameInfo } = this.props;
     let render = null;
 
-    if (landingScreen) {
+    if (screen === 'landing') {
       render = <PlayerUiLandingScreen gameInfo={gameInfo} enterSerge={this.enterSerge} />;
-    } else if (this.isUmpire() || this.isForceRoleSelected()) {
-      if( state.wargameInitiated ) {
-        render = <GameChannelsWithTour storageKey={this.setStorageKey().tourDone} tourIsOpen={tourIsOpen} />
-      } else {
-        render = this.isUmpire() ? <PlayerUiInitiate initiateGameplay={this.initiateGameplay} /> : <LoaderScreen />;
-      }
-    } else {
+    } else if(screen === 'lobby') {
       render = (
         <div className="flex-content-wrapper flex-content-wrapper--welcome">
           <div className="flex-content flex-content--welcome">
@@ -213,6 +210,12 @@ class PlayerUi extends Component {
           </div>
         </div>
       );
+    } else {
+      if( state.wargameInitiated ) {
+        render = <GameChannelsWithTour storageKey={this.setStorageKey().tourDone} tourIsOpen={tourIsOpen} />
+      } else {
+        render = this.isUmpire() ? <PlayerUiInitiate initiateGameplay={this.initiateGameplay} /> : <LoaderScreen />;
+      }
     }
 
     return render;
