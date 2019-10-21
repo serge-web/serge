@@ -151,10 +151,10 @@ class PlayerUi extends Component {
       render = <PlayerUiLandingScreen gameInfo={gameInfo} enterSerge={this.enterSerge} />;
     } else if (this.isUmpire() && !state.wargameInitiated) {
       render = <PlayerUiInitiate initiateGameplay={this.initiateGameplay} />;
-    } else if (this.isForceRoleSelected() && !state.wargameInitiated) {
-      render = <LoaderScreen />;
     } else if (this.isForceRoleSelected()) {
-      render = <GameChannelsWithTour storageKey={this.setStorageKey().tourDone} tourIsOpen={tourIsOpen} />;
+      render = state.wargameInitiated ?
+        <GameChannelsWithTour storageKey={this.setStorageKey().tourDone} tourIsOpen={tourIsOpen} />
+        : <LoaderScreen />;
     } else {
       render = (
         <div className="flex-content-wrapper flex-content-wrapper--welcome">
