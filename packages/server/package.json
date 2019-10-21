@@ -39,7 +39,6 @@
   },
   "scripts": {
     "dev": "nodemon main.js",
-    "heroku-postbuild": "cd ./client && npm i && npm run build",
     "start": "node main.js",
     "lint": "eslint --fix **/*.js"
   }

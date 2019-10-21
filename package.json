@@ -23,7 +23,6 @@
     "lint" : "run-p lint:*",
     "lint:themes" : "cd packages/themes; stylelint *.scss --fix",
     "build": "lerna run build --scope=@serge/client",
-    "diff": "lerna diff",
-    "postinstall": "lerna bootstrap"
+    "diff": "lerna diff"
   }
 }
