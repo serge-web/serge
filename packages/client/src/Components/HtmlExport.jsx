@@ -11,7 +11,7 @@ import {
 
 const HtmlExport = ({ id }) => (
   <Link href={(EXPORT_ROUTE + EXPORT_PRINT_SUBROUTE).replace(':id', id)}>
-    <a href="#" className='link link--secondary'><FontAwesomeIcon icon={faPrint} /> print</a>
+    <button className='link link--secondary'><FontAwesomeIcon icon={faPrint} /> print</button>
   </Link>
 )
 

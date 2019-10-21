@@ -6,7 +6,7 @@ import {
   forceTemplate,
   channelTemplate,
   dbDefaultSettings,
-  serverPath, DEFAULT_SERVER
+  serverPath
 } from '../../consts'
 
 var initialState = {
@@ -29,14 +29,16 @@ var getNameFromPath = function (dbPath) {
 
 export const wargamesReducer = (state = initialState, action) => {
   const newState = copyState(state)
-
   const tab = newState.currentTab
 
   let selected
   let curChannel
   let index
   let listWithoutThis
-  // let uniqueName;
+  let newForce
+  let newChannel
+  let channelIndex
+  let newParticipant
 
   switch (action.type) {
     case ActionConstant.ALL_WARGAME_NAMES_SAVED:
@@ -93,7 +95,7 @@ export const wargamesReducer = (state = initialState, action) => {
 
     case ActionConstant.ADD_NEW_FORCE:
 
-      const newForce = forceTemplate
+      newForce = forceTemplate
       newForce.name = action.payload.name
       newForce.uniqid = action.payload.uniqid
       newForce.roles[0].password = `p${uniqId.time()}`
@@ -111,7 +113,7 @@ export const wargamesReducer = (state = initialState, action) => {
 
     case ActionConstant.ADD_NEW_CHANNEL:
 
-      const newChannel = channelTemplate
+      newChannel = channelTemplate
       newChannel.name = action.payload.name
       newChannel.uniqid = action.payload.uniqid
       newState.data[tab].channels.push(newChannel)
@@ -123,8 +125,7 @@ export const wargamesReducer = (state = initialState, action) => {
 
     case ActionConstant.DELETE_SELECTED_CHANNEL:
 
-      const channelIndex = newState.data[tab].channels.findIndex((channel) => channel.name === action.payload)
-
+      channelIndex = newState.data[tab].channels.findIndex((channel) => channel.name === action.payload)
       newState.data[tab].channels.splice(channelIndex, 1)
       newState.data[tab].selectedChannel = ''
       break
@@ -136,7 +137,7 @@ export const wargamesReducer = (state = initialState, action) => {
 
     case ActionConstant.ADD_NEW_RECIPIENT:
       curChannel = newState.data[tab].selectedChannel.uniqid
-      const newParticipant = { ...action.payload, subscriptionId: uniqId.time() }
+      newParticipant = { ...action.payload, subscriptionId: uniqId.time() }
       newState.data[tab].channels.find((c) => c.uniqid === curChannel).participants.push(newParticipant)
       break
 
