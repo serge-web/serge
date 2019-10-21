@@ -1,0 +1,1 @@
+web: yarn workspace @serge/server start
