@@ -13,7 +13,16 @@ script:
 - cd $PACKAGE_LOCATION
 - yarn test
 - yarn build
-
 notifications:
   slack:
     secure: GZOTYG74Aeo5PF87prdYPrry6PYVPeBuCPAjQH5ebXaPIMeuPBLOmcilzoMctdGd3aFplT4rRMpFe8Lacnqm6uUks0WemcJ2KtnvomAD6PGEZQmwJWA2i+QDoZieyTJlnxqbWydZkzsPCX+d6MD4L+ZwiMbuLQaGa2F2BLSO6kE9b3+JLXwGlsfnC0+ftSHPyYleEvtC3Rej/6W0CNha112hWzMBYhNlivoKXyYQz/L4ESQAEnRjIH/sNWwBdZVsADID/G72S3lQrx8bplTL2/U+WjF2uyhA+XvqFvGsz3PgNvAjqLWNHwWvSEnh5ifaiyenNRoBT4PXp03Kq5i+Wv1c8DC7xydGVvX7SSP7mLf+TMrhm1LFrHNPhU8ns4luy9s5TCobHaoKVcNFE9FGO4oZR5PBYYAbfYjCgnuWlTifFZRBYUzf7GrRG7HFM3KqiOZkyWiqvHy8IttIk3mgXxpGmqpVM1eq7USFfbaoQKnWg6DF2PgZD1RskBsXeDVGi54t4ymKHDMd+V51sLZ1W5bRjmuc/5n75y+6rk0IL4+4ih3xYgr2QyPqfeCDsWZw8lmgcA4+lpUg2VPH36munG9AnQnD2ZWcPAWIKZl2I7vYdIiVaVcXBhy/VP+2M53dg0FuPXGLGjpg03HUoqILdE5dc0ZA72My35qQk8ip+Vk=
+deploy:
+  provider: heroku
+  app: serge-dev
+  skip_cleanup: true
+  api_key:
+    secure: lAi2QQOmYvtM0VfrSA/iW4tcaJow0rFDEb7xeoIYrwW5LdLh81Bi5rr4iNDaiOHuQzkAIWI9hhhaoUUc71KSstShUziWkM173v7qIa0YjKggqq18KeMsIlTrXZD53qa1Qf5fAWHbCHe5gmWJ/G4+L4k8IjyAn1njtq5h/+TXlaF0QKM3DPOgkF7tH7q5x8CDN6iplvb/hY1qSolnOpXmzsXzPiVZZruFq//uThcMF5bypd2TuPqK3OzjKWUeuN5RwT0hBuf7IIe/8/Bm7z8iQ8/1Q3dVCZ+kaluZfOrZxAjd52l9DM+km37/FIHZ3YlSRRW90FEYs+wUJuAerRbQijZycG6MEjZR80A5bKBgVFYDh4oxkLi/uPFeqaKV+zM4ur16gkENSVaLXoTKyHvDjhhl0fHOONLrSjJFEr1P/3vWD/s4qI4/09e4ybV6BiB1L4D67jxJ6CGn1vvNo0JPwhmervhSGVMcSN7WgRGm5uV//cEhuSHRtes9GJmRiAusTbQe7eEqLIlzF0ICUTU9Xxgk/3tbHTpDdJXt/oMj5X3kyfA7ZFnSHkjWl7LzNebfRe9GnOwN1TrWvEkYj5dtPu+ejfUlVmRax6PHGeHj0Ugeka6X97sgzS8tGZZXErME8/7hxq7TcR/wtY1WDPUcWnckbUowUo8B+gaNteKSqDA=
+  on: develop
+  run:
+    - "yarn build"
+    - "yarn start"
