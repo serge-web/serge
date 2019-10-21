@@ -134,11 +134,6 @@ class PlayerUi extends Component {
     initiateGame(state.currentWargame)(dispatch);
   };
 
-  isForceRoleSelected() {
-    const [ state ] = this.context;
-    return state.selectedForce && state.selectedRole;
-  }
-
   isUmpire() {
     const [ state ] = this.context;
     return state.selectedForce === umpireForceTemplate.uniqid && state.controlUi;
@@ -148,77 +143,77 @@ class PlayerUi extends Component {
     const [ state ] = this.context;
     const { tourIsOpen, screen } = this.state;
     const { gameInfo } = this.props;
-    let render = null;
-
-    if (screen === 'landing') {
-      render = <PlayerUiLandingScreen gameInfo={gameInfo} enterSerge={this.enterSerge} />;
-    } else if(screen === 'lobby') {
-      render = (
-        <div className="flex-content-wrapper flex-content-wrapper--welcome">
-          <div className="flex-content flex-content--welcome">
-            {!state.selectedForce && !state.selectedRole &&
-            <div className={`flex-content--center ${this.state.selectedWargame && state.showAccessCodes ? 'has-demo-passwords': ''}`}>
-              <h1>Set wargame</h1>
-              <div id="custom-select-wargame-selection">
-                <Select
-                  name="wargame-selection"
-                  value={this.state.selectedWargame}
-                  className="react-select"
-                  classNamePrefix="react-select"
-                  options={this.props.wargame.wargameList.map((wargame) => ({label: wargame.title, value: wargame.name}))}
-                  onChange={this.updateSelectedWargame}
-                />
-              </div>
-              <div className="flex-content">
-                <TextInput
-                  label="Access code"
-                  className="material-input"
-                  updateStore={this.setRolePassword}
-                  options={{numInput: false}}
-                  data={this.state.rolePassword || ''}
-                />
-              </div>
-              {this.state.selectedWargame && state.showAccessCodes &&
-              <div className="demo-passwords">
-                <h3>Not visible in production</h3>
-                <ul>
-                  {this.roleOptions().map((force) => {
-                    return (
-                      <li key={force.name} className="list-item-demo-passwords">
-                        <h4>{force.name}</h4>
-                        <ul data-qa-force-name={force.name}>
-                          {
-                            force.roles.map((role) => (
-                              <li key={role.name}>
-                                <button onClick={e => this.setRolePasswordDemo(e, role.password)} className="btn btn-sm btn-primary">
-                                  {role.name}
-                                </button>
-                              </li>
-                            ))
-                          }
-                        </ul>
-                      </li>
-                    )
-                  })
-                  }
-                </ul>
+    const render = {
+      landing: <PlayerUiLandingScreen gameInfo={gameInfo} enterSerge={this.enterSerge} />,
+      lobby: () => {
+        return (
+          <div className="flex-content-wrapper flex-content-wrapper--welcome">
+            <div className="flex-content flex-content--welcome">
+              {!state.selectedForce && !state.selectedRole &&
+              <div className={`flex-content--center ${this.state.selectedWargame && state.showAccessCodes ? 'has-demo-passwords': ''}`}>
+                <h1>Set wargame</h1>
+                <div id="custom-select-wargame-selection">
+                  <Select
+                    name="wargame-selection"
+                    value={this.state.selectedWargame}
+                    className="react-select"
+                    classNamePrefix="react-select"
+                    options={this.props.wargame.wargameList.map((wargame) => ({label: wargame.title, value: wargame.name}))}
+                    onChange={this.updateSelectedWargame}
+                  />
+                </div>
+                <div className="flex-content">
+                  <TextInput
+                    label="Access code"
+                    className="material-input"
+                    updateStore={this.setRolePassword}
+                    options={{numInput: false}}
+                    data={this.state.rolePassword || ''}
+                  />
+                </div>
+                {this.state.selectedWargame && state.showAccessCodes &&
+                <div className="demo-passwords">
+                  <h3>Not visible in production</h3>
+                  <ul>
+                    {this.roleOptions().map((force) => {
+                      return (
+                        <li key={force.name} className="list-item-demo-passwords">
+                          <h4>{force.name}</h4>
+                          <ul data-qa-force-name={force.name}>
+                            {
+                              force.roles.map((role) => (
+                                <li key={role.name}>
+                                  <button onClick={e => this.setRolePasswordDemo(e, role.password)} className="btn btn-sm btn-primary">
+                                    {role.name}
+                                  </button>
+                                </li>
+                              ))
+                            }
+                          </ul>
+                        </li>
+                      )
+                    })
+                    }
+                  </ul>
+                </div>
+                }
+                <button name="enter-game" disabled={!this.state.rolePassword} className="btn btn-action btn-action--primary" onClick={this.checkPassword}>Enter</button>
               </div>
               }
-              <button name="enter-game" disabled={!this.state.rolePassword} className="btn btn-action btn-action--primary" onClick={this.checkPassword}>Enter</button>
             </div>
-            }
           </div>
-        </div>
-      );
-    } else {
-      if( state.wargameInitiated ) {
-        render = <GameChannelsWithTour storageKey={this.setStorageKey().tourDone} tourIsOpen={tourIsOpen} />
-      } else {
-        render = this.isUmpire() ? <PlayerUiInitiate initiateGameplay={this.initiateGameplay} /> : <LoaderScreen />;
+        );
+      },
+      player: () => {
+        if( state.wargameInitiated ) {
+          return <GameChannelsWithTour storageKey={this.setStorageKey().tourDone} tourIsOpen={tourIsOpen} />
+        }
+
+        return this.isUmpire() ? <PlayerUiInitiate initiateGameplay={this.initiateGameplay} /> : <LoaderScreen />;
       }
     }
 
-    return render;
+    return render[screen];
   }
 }
 
