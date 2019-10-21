@@ -143,18 +143,18 @@ class PlayerUi extends Component {
 
   render() {
     const [ state ] = this.context;
-    const { tourIsOpen } = this.state;
+    const { tourIsOpen, landingScreen } = this.state;
     const { gameInfo } = this.props;
     let render = null;
 
-    if (this.state.landingScreen) {
+    if (landingScreen) {
       render = <PlayerUiLandingScreen gameInfo={gameInfo} enterSerge={this.enterSerge} />;
-    } else if (this.isUmpire() && !state.wargameInitiated) {
-      render = <PlayerUiInitiate initiateGameplay={this.initiateGameplay} />;
-    } else if (this.isForceRoleSelected()) {
-      render = state.wargameInitiated ?
-        <GameChannelsWithTour storageKey={this.setStorageKey().tourDone} tourIsOpen={tourIsOpen} />
-        : <LoaderScreen />;
+    } else if (this.isUmpire() || this.isForceRoleSelected()) {
+      if( state.wargameInitiated ) {
+        render = <GameChannelsWithTour storageKey={this.setStorageKey().tourDone} tourIsOpen={tourIsOpen} />
+      } else {
+        render = this.isUmpire() ? <PlayerUiInitiate initiateGameplay={this.initiateGameplay} /> : <LoaderScreen />;
+      }
     } else {
       render = (
         <div className="flex-content-wrapper flex-content-wrapper--welcome">
