@@ -27,7 +27,7 @@ class Channel extends Component {
       getAllWargameMessages(state.currentWargame)(dispatch);
     }
     this.setState({
-      channelTabClass: `tab-content-${channelClassName}`,
+      channelTabClass: `tab-content-${channelClassName}`
     })
   }
 

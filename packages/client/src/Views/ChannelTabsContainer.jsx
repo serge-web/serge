@@ -52,8 +52,8 @@ class ChannelTabsContainer extends Component {
     }
 
     let modelTabs = Object.values(this.model._idMap)
-        .filter((node) => node._attributes.type === "tab")
-        .map((node) => ({ id: node._attributes.id, name: node._attributes.name }));
+      .filter((node) => node._attributes.type === "tab")
+      .map((node) => ({ id: node._attributes.id, name: node._attributes.name }));
     let newChannels = _.differenceBy(channelNames, modelTabs, (channel) => channel.id);
     let channelsToRemove = _.differenceBy(modelTabs, channelNames, (channel) => channel.id);
     let matchingChannels = _.intersectionBy(channelNames, modelTabs, (item) => item.id);
@@ -127,40 +127,24 @@ class ChannelTabsContainer extends Component {
   };
 
   tabRender = (node) => {
+    let channel;
     const [ state ] = this.context;
+    const setUnreadClassName = (className) => {
+      if(node._attributes.className !== className) {
+        node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className }));
+      }
+    };
+
     if (_.isEmpty(state.channels)) return;
 
-    let channel = Object.entries(state.channels).find((entry) => entry[1].name === node.getName())[1];
+    channel = Object.entries(state.channels).find(entry => entry[1].name === node.getName())[1];
 
-    if (node._attributes.className !== "" && channel.unreadMessageCount === 0) {
-      node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), {className: ""}));
-    }
-    if (node._attributes.className !== "unread-1" && channel.unreadMessageCount === 1) {
-      node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), {className: "unread-1"}));
-    }
-    if (node._attributes.className !== "unread-2" && channel.unreadMessageCount === 2) {
-      node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), {className: "unread-2"}));
-    }
-    if (node._attributes.className !== "unread-3" && channel.unreadMessageCount === 3) {
-      node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), {className: "unread-3"}));
-    }
-    if (node._attributes.className !== "unread-4" && channel.unreadMessageCount === 4) {
-      node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), {className: "unread-4"}));
-    }
-    if (node._attributes.className !== "unread-5" && channel.unreadMessageCount === 5) {
-      node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), {className: "unread-5"}));
-    }
-    if (node._attributes.className !== "unread-6" && channel.unreadMessageCount === 6) {
-      node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), {className: "unread-6"}));
-    }
-    if (node._attributes.className !== "unread-7" && channel.unreadMessageCount === 7) {
-      node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), {className: "unread-7"}));
-    }
-    if (node._attributes.className !== "unread-8" && channel.unreadMessageCount === 8) {
-      node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), {className: "unread-8"}));
-    }
-    if (node._attributes.className !== "unread-9plus" && channel.unreadMessageCount >= 9) {
-      node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), {className: "unread-9plus"}));
+    if (channel.unreadMessageCount === 0) {
+      setUnreadClassName('');
+    } else if (channel.unreadMessageCount < 9) {
+      setUnreadClassName(`unread-${channel.unreadMessageCount}`);
+    } else {
+      setUnreadClassName(`unread-${channel.unreadMessageCount}plus`);
     }
   };
 
