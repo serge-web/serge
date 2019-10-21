@@ -18,10 +18,8 @@ import { umpireForceTemplate, expiredStorage } from "../consts";
 import { populateWargameStore } from "../ActionsAndReducers/dbWargames/wargames_ActionCreators";
 import { populateMessageTypesDb } from "../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators";
 import TextInput from "../Components/Inputs/TextInput";
-import LoaderScreen from "../Components/LoaderScreen";
 import PlayerUiLandingScreen from "./PlayerUiLandingScreen";
-import PlayerUiInitiate from "./PlayerUiInitiate";
-import GameChannelsWithTour from "./GameChannelsWithTour";
+import PlayerUiForceScreen from "./PlayerUiForceScreen";
 import { PlayerStateContext } from "../Store/PlayerUi";
 import "@serge/themes/App.scss";
 
@@ -149,12 +147,12 @@ class PlayerUi extends Component {
 
     if (landingScreen) {
       render = <PlayerUiLandingScreen gameInfo={gameInfo} enterSerge={this.enterSerge} />;
-    } else if (this.isUmpire() || this.isForceRoleSelected()) {
-      if( state.wargameInitiated ) {
-        render = <GameChannelsWithTour storageKey={this.setStorageKey().tourDone} tourIsOpen={tourIsOpen} />
-      } else {
-        render = this.isUmpire() ? <PlayerUiInitiate initiateGameplay={this.initiateGameplay} /> : <LoaderScreen />;
-      }
+    } else if (this.isForceRoleSelected()) {
+      render = <PlayerUiForceScreen
+        storageKey={this.setStorageKey()}
+        tourIsOpen={tourIsOpen}
+        isUmpire={this.isUmpire()}
+        initiateGameplay={this.initiateGameplay} />
     } else {
       render = (
         <div className="flex-content-wrapper flex-content-wrapper--welcome">
