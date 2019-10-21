@@ -8,7 +8,7 @@
 [![Build Status](https://travis-ci.org/serge-web/serge-web.svg?branch=develop)](https://travis-ci.org/serge-web/serge-web)
 
 Serious Gaming, Evolved - web interface
-
+ 
 ## Installation and quick-start
 
 In your command line, navigate to the project and then run the following commands:
