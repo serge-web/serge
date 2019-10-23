@@ -43,11 +43,9 @@ class PlayerUi extends Component {
   };
 
   componentDidMount() {
-    window.channelTabsContainer = window.channelTabsContainer || {};
-  }
-
-  componentDidUpdate() {
     const [ state ] = this.context;
+    window.channelTabsContainer = window.channelTabsContainer || {};
+
     if(state.selectedForce && state.selectedRole) {
       const storageTourIsOpen = expiredStorage.getItem(`${state.wargameTitle}-${state.selectedForce}-${state.selectedRole}-tourDone`) !== "done";
       if (storageTourIsOpen !== this.state.tourIsOpen) {
@@ -140,16 +138,18 @@ class PlayerUi extends Component {
   render() {
     const [ state ] = this.context;
     const { tourIsOpen, screen } = this.state;
-    const { gameInfo, wargameList } = this.props;
+    const { gameInfo, wargame } = this.props;
+    const tourStorageKey = this.setStorageKey().tourDone;
+    const PlayerMainScreen = () => {
+      if( state.wargameInitiated ) {
+        return <GameChannelsWithTour storageKey={tourStorageKey} tourIsOpen={tourIsOpen} />
+      }
+      return this.isUmpire() ? <PlayerUiInitiate initiateGameplay={this.initiateGameplay} /> : <LoaderScreen />;
+    }
     const render = {
       landing: <PlayerUiLandingScreen gameInfo={gameInfo} enterSerge={this.enterSerge} />,
-      lobby: <PlayerUiLobby wargameList={wargameList} checkPassword={this.checkPassword} />,
-      player: () => {
-        if( state.wargameInitiated ) {
-          return <GameChannelsWithTour storageKey={this.setStorageKey().tourDone} tourIsOpen={tourIsOpen} />
-        }
-        return this.isUmpire() ? <PlayerUiInitiate initiateGameplay={this.initiateGameplay} /> : <LoaderScreen />;
-      }
+      lobby: <PlayerUiLobby wargameList={wargame.wargameList} roleOptions={this.roleOptions()} checkPassword={this.checkPassword} />,
+      player: <PlayerMainScreen />,
     }
 
     return render[screen];
