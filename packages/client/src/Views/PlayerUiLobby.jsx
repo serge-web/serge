@@ -4,7 +4,7 @@ import TextInput from '../Components/Inputs/TextInput'
 import { useStateValue } from '../Store/PlayerUi'
 import { getWargame } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-export default function PlayerUiLobby ({ wargameList, checkPassword }) {
+export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword }) {
   const [localState, setState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -54,7 +54,7 @@ export default function PlayerUiLobby ({ wargameList, checkPassword }) {
           <div className="demo-passwords">
             <h3>Not visible in production</h3>
             <ul>
-              {this.roleOptions().map((force) => {
+              {roleOptions.map((force) => {
                 return (
                   <li key={force.name} className="list-item-demo-passwords">
                     <h4>{force.name}</h4>
