@@ -140,19 +140,21 @@ class PlayerUi extends Component {
     const { tourIsOpen, screen } = this.state;
     const { gameInfo, wargame } = this.props;
     const tourStorageKey = this.setStorageKey().tourDone;
-    const PlayerMainScreen = () => {
+    let render = null;
+
+    if(screen === 'landing') {
+      render = <PlayerUiLandingScreen gameInfo={gameInfo} enterSerge={this.enterSerge} />;
+    } else if(screen === 'lobby') {
+      render = <PlayerUiLobby wargameList={wargame.wargameList} roleOptions={this.roleOptions()} checkPassword={this.checkPassword} />;
+    } else {
       if( state.wargameInitiated ) {
-        return <GameChannelsWithTour storageKey={tourStorageKey} tourIsOpen={tourIsOpen} />
+        render = <GameChannelsWithTour storageKey={tourStorageKey} tourIsOpen={tourIsOpen} />
+      } else {
+        render = this.isUmpire() ? <PlayerUiInitiate initiateGameplay={this.initiateGameplay} /> : <LoaderScreen />;
       }
-      return this.isUmpire() ? <PlayerUiInitiate initiateGameplay={this.initiateGameplay} /> : <LoaderScreen />;
-    }
-    const render = {
-      landing: <PlayerUiLandingScreen gameInfo={gameInfo} enterSerge={this.enterSerge} />,
-      lobby: <PlayerUiLobby wargameList={wargame.wargameList} roleOptions={this.roleOptions()} checkPassword={this.checkPassword} />,
-      player: <PlayerMainScreen />,
     }
 
-    return render[screen];
+    return render;
   }
 }
 
