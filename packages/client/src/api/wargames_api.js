@@ -28,13 +28,13 @@ const listenNewMessage = ({ db, name, dispatch }) => {
   db.changes({ since: 'now', live: true, timeout: false, heartbeat: false, include_docs: true })
     .on('change', function (changes) {
       (async () => {
-        if (Object.prototype.hasOwnProperty.call(changes, 'infoType')) {
+        if (Object.prototype.hasOwnProperty.call(changes.doc, 'infoType')) {
           dispatch(setCurrentWargame(changes.doc))
           dispatch(setLatestWargameMessage(changes.doc))
           return
         }
 
-        if (Object.prototype.hasOwnProperty.call(changes, 'feedback')) {
+        if (Object.prototype.hasOwnProperty.call(changes.doc, 'feedback')) {
           dispatch(setLatestFeedbackMessage(changes.doc))
         } else {
           dispatch(setLatestWargameMessage(changes.doc))
