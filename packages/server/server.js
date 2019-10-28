@@ -5,14 +5,14 @@ const runServer = (
   dbDir,
   imgDir,
   port,
-  remoteServer
+  remoteServer,
+  addons
 ) => {
   require('events').EventEmitter.defaultMaxListeners = eventEmmiterMaxListeners
   const express = require('express')
   const bodyParser = require('body-parser')
   const path = require('path')
   const uniqid = require('uniqid')
-  const ip = require('ip')
 
   const PouchDB = require('pouchdb-core')
     .plugin(require('pouchdb-adapter-node-websql'))
@@ -27,7 +27,25 @@ const runServer = (
 
   const cors = require('cors')
 
+  const onAppInitListeningAddons = []
+  const onAppStartListeningAddons = []
+
+  addons.forEach(addonId => {
+    const addon = require(`./addons/${addonId}`)
+    switch (addon.info.on) {
+      case 'app-start-listening':
+        onAppStartListeningAddons.push(addon)
+        break
+      default:
+        onAppInitListeningAddons.push(addon)
+    }
+  })
+
   const app = express()
+
+  onAppInitListeningAddons.forEach(addon => {
+    addon.run(app)
+  })
 
   const clientPublicPath = '../client/build'
 
@@ -103,16 +121,18 @@ const runServer = (
       `)
     })
   }
-  
+
   app.use(express.static(path.join(__dirname, clientPublicPath)))
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, clientPublicPath, 'index.html'))
   })
 
-  app.listen(port)
-
-  console.log(`App is listening on ${ip.address()}:${port}`)
+  const server = app.listen(port, () => {
+    onAppStartListeningAddons.forEach(addon => {
+      addon.run(app, server)
+    })
+  })
 }
 
 module.exports = runServer
