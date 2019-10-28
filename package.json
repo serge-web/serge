@@ -19,7 +19,7 @@
     "start:client": "cd packages/client; yarn start",
     "test" : "run-p test:*",
     "test:e2e" : "echo \"No end-to-end tests specified\" && exit 0",
-    "test:unit" : "echo \"No unit tests specified\" && exit 0",
+    "test:unit" : "cd packages/client; yarn test",
     "lint" : "run-p lint:*",
     "lint:themes" : "cd packages/themes; stylelint *.scss --fix",
     "build": "lerna run build --scope=@serge/client",
