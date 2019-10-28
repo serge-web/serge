@@ -15,7 +15,7 @@ In your command line, navigate to the project and then run the following command
 
 ```bash
   yarn install
-  yarn start
+  yarn serge
 ```
 
 This will start the full application in 'demo' mode, you can see the application in action by visiting: [http://localhost:3000](http://localhost:3000).
@@ -67,6 +67,7 @@ The top level project contains scripts that are then executed for all packages.
 - `start` Runs the complete application in demo mode.
 - `start:client` Only starts the client application.
 - `start:server` Only starts the server application.
+- `serge` A friendly alias for `start:server`
 
 ## Database commands
 
