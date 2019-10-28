@@ -24,6 +24,7 @@
     "lint:themes" : "cd packages/themes; stylelint *.scss --fix",
     "build": "lerna run build --scope=@serge/client",
     "diff": "lerna diff",
-    "heroku-postbuild": "yarn build"
+    "heroku-postbuild": "yarn build",
+    "serge" : "yarn start:server"
   }
 }
