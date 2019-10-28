@@ -16,5 +16,9 @@ server(
   './db', // database directory
   './img', // images directory
   process.env.PORT || 8080, // port
-  null // remote server path
+  null, // remote server path
+  [ // addons
+    'IpQuotesRandom'
+    // 'IpQuoteStatic'
+  ]
 )

@@ -26,7 +26,11 @@ server(
   './db', // database directory
   './img', // images directory
   port, // port
-  process.argv[2] || null // remote server path
+  process.argv[2] || null, // remote server path
+  [ // addons
+    'IpQuotesRandom'
+    // 'IpQuoteStatic'
+  ]
 )
 
 opn(`http://localhost:${port}/serge/admin`)
