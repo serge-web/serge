@@ -29,7 +29,7 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
     <div className="flex-content-wrapper flex-content-wrapper--welcome">
       <div className="flex-content flex-content--welcome">
         {!state.selectedForce && !state.selectedRole &&
-        <div className={`flex-content--center ${selectedWargame && state.showAccessCodes ? 'has-demo-passwords': ''}`}>
+        <div className={`flex-content--center ${selectedWargame && state.showAccessCodes ? 'has-demo-passwords' : ''}`}>
           <h1>Set wargame</h1>
           <div id="custom-select-wargame-selection">
             <Select

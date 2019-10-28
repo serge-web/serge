@@ -69,7 +69,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "echo \"No tests specified\" && exit 0",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --fix src/**/* --ext .js --ext .jsx"
   },
