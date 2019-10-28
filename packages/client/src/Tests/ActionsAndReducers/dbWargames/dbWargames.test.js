@@ -99,7 +99,7 @@ describe('wargames actions', () => {
 
     return store.dispatch(wargames.populateWargameStore()).then(() => {
       // return of async actions
-      expect(store.getActions()).toEqual(expectedActions)
+      expect(store.getActions().payload).toEqual(expectedActions.payload)
     })
   })
 
@@ -112,7 +112,7 @@ describe('wargames actions', () => {
 
     return store.dispatch(wargames.createNewWargameDB()).then(() => {
       // return of async actions
-      expect(store.getActions()).toEqual(expectedActions)
+      expect(store.getActions().payload).toEqual(expectedActions.payload)
     })
   })
 
@@ -125,7 +125,7 @@ describe('wargames actions', () => {
 
     return store.dispatch(wargames.editWargame(wargameList[0].name)).then(() => {
       // return of async actions
-      expect(store.getActions()).toEqual(expectedActions)
+      expect(store.getActions().payload).toEqual(expectedActions.payload)
     })
   })
 
@@ -138,7 +138,7 @@ describe('wargames actions', () => {
 
     return store.dispatch(wargames.updateWargame(wargameList[0].name, {}, wargameList[0].title)).then(() => {
       // return of async actions
-      expect(store.getActions()).toEqual(expectedActions)
+      expect(store.getActions().payload).toEqual(expectedActions.payload)
     })
   })
 
@@ -151,7 +151,7 @@ describe('wargames actions', () => {
 
     return store.dispatch(wargames.duplicateWargame(wargameList[0].name)).then(() => {
       // return of async actions
-      expect(store.getActions()).toEqual(expectedActions)
+      expect(store.getActions().payload).toEqual(expectedActions.payload)
     })
   })
 })
