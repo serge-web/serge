@@ -61,8 +61,8 @@ To enable this we use [nvm (Node Version Manager)](https://github.com/creationix
 
 The top level project contains scripts that are then executed for all packages.
 
-- `lint`  Checks syntax and simple errors in javascript files. (Pending)
-- `test`  Runs tests in all the packages. (Pending)
+- `lint`  Checks syntax and simple errors in javascript files.
+- `test`  Runs tests in all the packages.
 - `build` Runs the build script in all packages which require building.
 - `start` Runs the complete application in demo mode.
 - `start:client` Only starts the client application.
