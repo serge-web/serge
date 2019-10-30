@@ -37,6 +37,7 @@ class JsonCreator extends Component {
     if (this.editor.getValue().content === "") return;
 
     saveMessage(state.currentWargame, messageDetails, this.editor.getValue())();
+    this.setupEditor();
   };
 
   setupEditor() {
@@ -59,10 +60,6 @@ class JsonCreator extends Component {
   }
 
   componentDidMount() {
-    this.setupEditor();
-  }
-
-  componentDidUpdate() {
     this.setupEditor();
   }
 
