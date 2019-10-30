@@ -63,3 +63,13 @@ typings/
 # Generated files and folders
 packages/client/build/**/*
 log.txt
+
+# Ignore local and special envs
+
+# loaded in all cases
+.env.local
+
+# loaded only in the specified operating mode
+.env.development.local
+.env.production.local
+.env.test.local

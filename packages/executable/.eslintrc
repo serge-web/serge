@@ -1,4 +1,4 @@
 {
-  "extends" : ["standard"],
+  "extends": ["standard"],
   "plugins": ["prettier"]
 }
