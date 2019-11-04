@@ -173,14 +173,14 @@ export const playerUiReducer = (state = initialState, action) => {
             (channelActive || allRoles) &&
             !newState.channels[channel.uniqid]
           ) {
-            const participatingRole = channel.participants.some((p) => p.forceUniqid === newState.selectedForce && p.roles.some((role) => role.value === newState.selectedRole))
+            const participatingRole = channel.participants.find((p) => p.forceUniqid === newState.selectedForce && p.roles.some((role) => role.value === newState.selectedRole))
             const participatingForce = channel.participants.find((p) => p.forceUniqid === newState.selectedForce)
 
             if (!participatingForce && !newState.isObserver) return
 
             const isParticipant = !!participatingRole
             const allRolesIncluded = channel.participants.some((p) => p.forceUniqid === newState.selectedForce && p.roles.length === 0)
-            const chosenTemplates = participatingForce.templates
+            const chosenTemplates = participatingRole.templates
 
             let templates
             if (isParticipant || allRolesIncluded) {
@@ -257,7 +257,7 @@ export const playerUiReducer = (state = initialState, action) => {
       newState.chatChannel.messages = messages.filter((message) => message.details.channel === newState.chatChannel.name)
 
       newState.allChannels.forEach((channel) => {
-        const participatingRole = channel.participants.some((p) => p.forceUniqid === newState.selectedForce && p.roles.some((role) => role.value === newState.selectedRole))
+        const participatingRole = channel.participants.find((p) => p.forceUniqid === newState.selectedForce && p.roles.some((role) => role.value === newState.selectedRole))
         const participatingForce = channel.participants.find((p) => p.forceUniqid === newState.selectedForce)
 
         if (!participatingForce && !newState.isObserver) return
@@ -267,7 +267,7 @@ export const playerUiReducer = (state = initialState, action) => {
 
         let chosenTemplates
         if (participatingForce) {
-          chosenTemplates = participatingForce.templates
+          chosenTemplates = participatingRole.templates
         } else {
           chosenTemplates = []
         }
