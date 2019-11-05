@@ -266,7 +266,7 @@ export const playerUiReducer = (state = initialState, action) => {
         const allRolesIncluded = channel.participants.some((p) => p.forceUniqid === newState.selectedForce && p.roles.length === 0)
 
         let chosenTemplates
-        if (participatingForce) {
+        if (participatingRole) {
           chosenTemplates = participatingRole.templates
         } else {
           chosenTemplates = []
