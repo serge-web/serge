@@ -7,7 +7,9 @@ export default function PlayerUiLandingScreen ({ gameInfo, enterSerge }) {
       <div className="flex-content flex-content--welcome">
         <div className="flex-content--center contain-welcome-screen">
           <div className="welcome-logo">
-            <img className="serge-logo" src={gameInfo.imageUrl} alt="Serge gaming" />
+            {
+              gameInfo.imageUrlSet ? <img className="serge-logo" src={gameInfo.imageUrl} alt="Serge gaming" /> : null
+            }
           </div>
           <div className="welcome-desc">
             <h1>{gameInfo.title}</h1>

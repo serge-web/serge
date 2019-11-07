@@ -55,6 +55,7 @@ export const headers = {
 }
 
 export const defaultGameInfo = {
+  imageUrlSet: false,
   imageUrl: '/default_img/sergeDefault.png',
   title: 'Serge',
   description: `Welcome you have arrived at the development centre gaming facility.\n
