@@ -63,3 +63,5 @@ typings/
 # Generated files and folders
 packages/client/build/**/*
 log.txt
+
+packages/server/db/**/*
