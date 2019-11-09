@@ -1,154 +1,106 @@
-describe('test_name', function() {
-
-    it('what_it_does', function() {
-      let roomName = 'This is Cypress Testing' + Math.floor(Math.random() * 6) + 9999 
-
-
-       cy.viewport(1280, 688)
-       cy.clearCookies()
-       cy.visit('http://192.168.1.16:8080/serge/admin')
-    
-       cy.get('body > #root > #umpire > #form-login-admin > .material-input').click()
-    
-       cy.get('body > #root > #umpire > #form-login-admin > .material-input').type('Nelson')
-    
-       cy.get('body > #root > #umpire > #form-login-admin > .link').click()
-    
-       cy.get('#root > #umpire > .flex-content > .btn-group > .link:nth-child(1)').click()
-    
-       cy.get('#root > .view-wrapper > #game-setup-head > .flex-content > #title-editable').click()
-
-    
-       cy.get('#root > .view-wrapper > #game-setup-head > .flex-content > #title-editable').type(roomName)
-    
-       cy.get('.view-wrapper > #game-setup-head > .flex-content > .svg-inline--fa > path').click()
-    
-       cy.get('.flex-content-margin > #game-setup-tab-settings > .flex-content-wrapper > .flex-content--rowend > .link').click()
-    
-       cy.get('.flex-content > .flex-content > .flex-content > .md-checkbox > label').click()
-    
-    
-       cy.get('.flex-content-margin > #game-setup-tab-settings > .flex-content-wrapper > .flex-content--rowend > .link').click()
-    
-       cy.get('body > #root > .view-wrapper > .tab-nav > .tab-forces').click()
-    
-       cy.get('.view-wrapper > .flex-content-margin > #game-setup-tab-forces > .flex-content > .link').click()
-    
-       cy.get('#game-setup-tab-forces > .flex-content--fill > .flex-content > .force-input-wrap > #editable-title').click()
-
-    
-       cy.get('#game-setup-tab-forces > .flex-content--fill > .flex-content > .force-input-wrap > #editable-title').clear().type('Blue')
-    
-       cy.get('.view-wrapper > .flex-content-margin > #game-setup-tab-forces > .flex-content--fill > .link').click()
-    
-       cy.get('.modal > .display-text-wrapper > .flex-content-wrapper > .flex-content:nth-child(1) > .material-input').clear().type('Media')
-    
-       cy.get('.modal-bg > .modal > .display-text-wrapper > .buttons > .btn-action--primary').click()
-    
-       cy.get('.view-wrapper > .flex-content-margin > #game-setup-tab-forces > .flex-content--fill > .link').click()
-    
-       cy.get('.modal > .display-text-wrapper > .flex-content-wrapper > .flex-content:nth-child(1) > .material-input').clear().type('Logs')
-    
-       cy.get('.modal-bg > .modal > .display-text-wrapper > .buttons > .btn-action--primary').click()
-    
-       cy.get('#game-setup-tab-forces > .flex-content--fill > .flex-content > .force-button-wrap > .link--noIcon').click()
-    
-       cy.get('.view-wrapper > .flex-content-margin > #game-setup-tab-forces > .flex-content > .link').click()
-    
-       cy.get('#game-setup-tab-forces > .flex-content--fill > .flex-content > .force-input-wrap > #editable-title').click()
-    
-       cy.get('#game-setup-tab-forces > .flex-content--fill > .flex-content > .force-input-wrap > #editable-title').clear().type('Red')
-    
-       cy.get('.flex-content--fill > .flex-content > .force-input-wrap > .force-color-icon > .force-color').click()
-    
-       cy.get('.sketch-picker > .flexbox-fix > div:nth-child(1) > span > div').click()
-    
-       cy.get('#root > .modal-bg > .modal > .buttons > .btn').click()
-    
-       cy.get('.view-wrapper > .flex-content-margin > #game-setup-tab-forces > .flex-content--fill > .link').click()
-    
-       cy.get('.modal > .display-text-wrapper > .flex-content-wrapper > .flex-content:nth-child(1) > .material-input').clear().type('Media')
-    
-       cy.get('.modal-bg > .modal > .display-text-wrapper > .buttons > .btn-action--primary').click()
-    
-       cy.get('.view-wrapper > .flex-content-margin > #game-setup-tab-forces > .flex-content--fill > .link').click()
-    
-       cy.get('.modal > .display-text-wrapper > .flex-content-wrapper > .flex-content:nth-child(1) > .material-input').clear().type('Logs')
-    
-       cy.get('.modal-bg > .modal > .display-text-wrapper > .buttons > .btn-action--primary').click()
-    
-       cy.get('#game-setup-tab-forces > .flex-content--fill > .flex-content > .force-button-wrap > .link--noIcon').click()
-    
-       cy.get('#game-setup-tab-forces > .flex-content > .list > .list-list > .list-title:nth-child(1)').click()
-    
-       cy.get('.view-wrapper > .flex-content-margin > #game-setup-tab-forces > .flex-content--fill > .link').click()
-    
-       cy.get('.modal > .display-text-wrapper > .flex-content-wrapper > .flex-content:nth-child(1) > .material-input').clear().type('Media')
-    
-       cy.get('.modal-bg > .modal > .display-text-wrapper > .buttons > .btn-action--primary').click()
-    
-       cy.get('#game-setup-tab-forces > .flex-content--fill > .flex-content > .force-button-wrap > .link--noIcon').click()
-    
-       cy.get('body > #root > .view-wrapper > .tab-nav > .tab-channels').click()
-    
-       cy.get('.view-wrapper > .flex-content-margin > #game-setup-tab-channels > .flex-content > .link').click()
-    
-       cy.get('.flex-content-margin > #game-setup-tab-channels > .flex-content--fill > .flex-content--row > #editable-title').click()
-    
-    
-       cy.get('.flex-content-margin > #game-setup-tab-channels > .flex-content--fill > .flex-content--row > #editable-title').clear().type('Red HQ')
-    
-       cy.get('#custom-select-force-selection > div > div > div.css-1hwfws3.react-select__value-container.react-select__value-container--has-value').click()
-    
-       cy.get('#custom-select-force-selection > .css-1pcexqc-container > .css-kj6f9i-menu > .css-11unzgr > #react-select-5-option-2').click()
-    
-       cy.get('#custom-select-role-selection > div > div.css-bg1rzq-control.react-select__control').click()
-    
-       cy.get('#custom-select-role-selection > .css-1pcexqc-container > .css-kj6f9i-menu > .css-11unzgr > #react-select-6-option-0').click()
-    
-       cy.get('td > #custom-select-role-selection > .css-1pcexqc-container > .css-1szy77t-control > .css-1hwfws3').click()
-    
-       cy.get('#custom-select-role-selection > .css-1pcexqc-container > .css-kj6f9i-menu > .css-11unzgr > #react-select-6-option-1').click()
-    
-       cy.get('td > #custom-select-role-selection > .css-1pcexqc-container > .css-1szy77t-control > .css-1hwfws3').click()
-    
-       cy.get('#custom-select-role-selection > .css-1pcexqc-container > .css-kj6f9i-menu > .css-11unzgr > #react-select-6-option-2').click()
-    
-       cy.get('#game-setup-tab-channels > div.flex-content--fill.channelsTab > div.flex-content > table > tbody > tr > td:nth-child(4) > svg.svg-inline--fa.fa-check.fa-w-16').click()
-    
-       cy.get('#game-setup-tab-channels > .flex-content--fill > .flex-content--row > .button-wrap-tab > .link').click()
-    
-       cy.get('.flex-content-margin > #game-setup-tab-channels > .flex-content > .list > .list-input').click()
-    
-       cy.get('.flex-content-margin > #game-setup-tab-channels > .flex-content > .list > .list-input').clear().type('Blue ')
-    
-       cy.get('.view-wrapper > .flex-content-margin > #game-setup-tab-channels > .flex-content > .link').click()
-    
-       cy.get('.flex-content-margin > #game-setup-tab-channels > .flex-content--fill > .flex-content--row > #editable-title').click()
-    
-       cy.get('.flex-content-margin > #game-setup-tab-channels > .flex-content--fill > .flex-content--row > #editable-title').clear().type('Blue HQ')
-    
-       cy.get('td > #custom-select-force-selection > .css-1pcexqc-container > .css-1szy77t-control > .css-1hwfws3').click()
-    
-       cy.get('#custom-select-force-selection > .css-1pcexqc-container > .css-kj6f9i-menu > .css-11unzgr > #react-select-11-option-1').click()
-    
-       cy.get('td > #custom-select-role-selection > .css-1pcexqc-container > .css-1szy77t-control > .css-1hwfws3').click()
-    
-       cy.get('#custom-select-role-selection > .css-1pcexqc-container > .css-kj6f9i-menu > .css-11unzgr > #react-select-12-option-0').click()
-    
-       cy.get('td > #custom-select-role-selection > .css-1pcexqc-container > .css-1szy77t-control > .css-1hwfws3').click()
-    
-       cy.get('#custom-select-role-selection > .css-1pcexqc-container > .css-kj6f9i-menu > .css-11unzgr > #react-select-12-option-1').click()
-    
-       cy.get('td > #custom-select-role-selection > .css-1pcexqc-container > .css-1szy77t-control > .css-1hwfws3').click()
-    
-       cy.get('#custom-select-role-selection > .css-1pcexqc-container > .css-kj6f9i-menu > .css-11unzgr > #react-select-12-option-2').click()
-    
-       cy.get('table > tbody > tr > td > .fa-check').click()
-    
-       cy.get('#game-setup-tab-channels > .flex-content--fill > .flex-content--row > .button-wrap-tab > .link').click()
-    
+describe('Run_automation_test_Serge', function() {
+    const user = cy
+    after.skip(()=>{
+      user.visit('http://192.168.1.14:8080/serge/admin')
+      user.inputPassword(pwd).get('.link.link--noIcon').click()
+      user.clearAllGame()
     })
-   
-   })
+    it('Walkthrought_main_cases', function() {
+      const roomName = 'This is Cypress Testing_' + Math.floor(Math.random() * 9999)  
+      const pwd = 'Nelson'
+       
+      user.viewport(1280, 688)
+      user.clearCookies()
+      user.visit('http://192.168.1.14:8080/serge/admin')
+       //Input Password 
+      user.inputPassword(pwd).get('.link.link--noIcon').click()
+        
+       //Overview   
+      user.createNewGame()
+         .inputRoomName(roomName)
+         .clickShowAccessCode()    
+         .clickSaveOverview()
+       
+       //Forces
+      user.get('.tab-forces').click()
+        .clickAddNew()
+        .inputTitleName('Blue')
+        .clickAddNewRole()       
+        .inputRoleName('Media')
+        .clickAddNewRoleButton()
+        .clickAddNewRole()       
+        .inputRoleName('Logs')
+        .clickAddNewRoleButton()    
+        .clickSave()
+    
+      user.clickAddNew()
+        .inputTitleName('Red')
+        .chooseColor('#ff4141')
+        .clickAddNewRole() 
+        .inputRoleName('Media')
+        .clickAddNewRoleButton()
+        .clickAddNewRole()       
+        .inputRoleName('Logs')
+        .clickAddNewRoleButton()    
+        .clickSave()
+        
+      user.chooseForce('White')
+        .clickAddNewRole()
+        .inputRoleName('Media')
+        .clickAddNewRoleButton()    
+        .clickSave()
+
+       //Channel   
+       user.get('.tab-channels')
+          .click()
+          .clickAddNew()
+          .inputTitleName('Red HQ')
+          .chooseForceFromDropDown('Red')
+          .chooseRoleFromMultiChoose('CO')
+          .chooseTemplateFromMultiChoose('Daily intentions')
+          .clickCheckButton()
+          .chooseForceFromDropDown('White')
+          .chooseRoleFromMultiChoose('Game Control')
+          .chooseTemplateFromMultiChoose('State of World')
+          .clickCheckButton()
+          .clickSave()
+          
+          user.clickAddNew()
+          .inputTitleName('Blue HQ')
+          .chooseForceFromDropDown('Blue')
+          .chooseRoleFromMultiChoose('CO')
+          .chooseTemplateFromMultiChoose('Daily intentions')
+          .clickCheckButton()
+          .chooseForceFromDropDown('White')
+          .chooseRoleFromMultiChoose('Game Control')
+          .chooseTemplateFromMultiChoose('State of World')
+          .clickCheckButton()
+          .clickSave()
+
+          user.clickAddNew()
+          .inputTitleName('Blue Chat')
+          .chooseForceFromDropDown('Blue')
+          .clickCheckButton()
+          .clickSave()
+
+          user.clickAddNew()
+          .inputTitleName('Red Chat')
+          .chooseForceFromDropDown('Red')
+          .clickCheckButton()
+          .clickSave()
+
+          user.clickAddNew()
+          .inputTitleName('Media')
+          .chooseForceFromDropDown('White')
+          .chooseRoleFromMultiChoose('Media')
+          .clickCheckButton()
+          .chooseForceFromDropDown('Red')
+          .chooseRoleFromMultiChoose('Media')
+          .clickCheckButton()
+          .chooseForceFromDropDown('Blue')
+          .chooseRoleFromMultiChoose('Media')
+          .clickCheckButton()
+          .clickSave()  
+    })  
+  })
    
