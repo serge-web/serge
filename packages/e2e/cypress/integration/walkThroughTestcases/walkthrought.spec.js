@@ -1,10 +1,10 @@
 describe('Run_automation_test_Serge', function() {
     const user = cy
-    after.skip(()=>{
-      user.visit('http://192.168.1.14:8080/serge/admin')
-      user.inputPassword(pwd).get('.link.link--noIcon').click()
-      user.clearAllGame()
-    })
+    // after(()=>{
+    //   user.visit('http://192.168.1.14:8080/serge/admin')
+    //   user.inputPassword(pwd).get('.link.link--noIcon').click()
+    //   user.clearAllGame()
+    // })
     it('Walkthrought_main_cases', function() {
       const roomName = 'This is Cypress Testing_' + Math.floor(Math.random() * 9999)  
       const pwd = 'Nelson'
