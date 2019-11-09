@@ -14,6 +14,12 @@ Cypress.Commands.add("inputPassword", (pwd) => {
     .type(pwd)
 })
 
+Cypress.Commands.add("clickButton", (locator) => {
+  cy.wait(500)
+  cy.get(locator)
+    .click()
+})
+
 Cypress.Commands.add("createNewGame", () => {
   cy.wait(500)
   cy.get('span[href="/serge/gameSetup"]')
