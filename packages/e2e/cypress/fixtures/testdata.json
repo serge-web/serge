@@ -14,5 +14,24 @@
   "tasking" : "Draw fire",
   "policy": "All lookouts on duty",
   "action": "Ignore",
-  "comments": "Nil"
+  "comments": "Nil",
+  "role" : {
+    "white": {
+      "name": "White",
+      "gc": "Game Control",
+      "media": "Media"
+    },
+    "red": {
+      "name": "Red",
+      "co": "CO" ,
+      "media": "Media",
+      "logs": "Logs"
+    },
+    "blue": {
+      "name": "Blue",
+      "co": "CO",
+      "media": "Media",
+      "logs": "Logs"
+    }
+  }
 }

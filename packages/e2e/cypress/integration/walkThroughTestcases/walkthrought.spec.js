@@ -107,15 +107,30 @@ describe('Run_automation_test_Serge', function () {
     })
   })
 
-  it('Walkthought_player', function() {
+  it('Walkthought_player', function () {
     cy.fixture('testData').then((testData) => {
       user.visit(testData.playerUrl)
       user.clickButton('button[name="play"]')
-        .chooseWarGame('This is Cypress Testing_5751')
-        .chooseRoleGame('Blue', 'CO')
+        .chooseWarGame('This is Cypress Testing_2018')
+        // .chooseWarGame(roomName)
+        // .chooseRoleGame(testData.role.white.name, testData.role.white.gc)
+        .chooseRoleGame(testData.role.blue.name, testData.role.blue.co)
         .clickEnterButton()
-        // .clickInitiateButton()
-      user.chooseRoom('BLUE HQ').sendNewMessage(testData.tunrNumber, testData.overallInstruction, testData.unit, testData.tasking, testData.policy, testData.action, testData.comments)
+      // .clickInitiateButton()
+      user.chooseRoom('Blue HQ').openNewMessage(testData.tunrNumber,
+          testData.overallInstruction,
+          testData.unit,
+          testData.tasking,
+          testData.policy,
+          testData.action,
+          testData.comments)
+        .addMoreRow("1",
+          testData.unit,
+          testData.tasking,
+          testData.policy,
+          testData.action,
+          testData.comments)
+        .clickSendMessageButton()
     })
   })
 })
