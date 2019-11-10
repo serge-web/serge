@@ -51,7 +51,9 @@ Cypress.Commands.add("clickSaveOverview", () => {
 Cypress.Commands.add("clickShowAccessCode", () => {
   cy.wait(500)
   cy.get('input#show-access-codes')
-    .check({force: true})
+    .check({
+      force: true
+    })
 })
 
 Cypress.Commands.add("inputRoleName", (roleName) => {

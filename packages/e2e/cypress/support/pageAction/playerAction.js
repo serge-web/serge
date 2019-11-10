@@ -6,22 +6,26 @@ Cypress.Commands.add("chooseWarGame", (warName) => {
   cy.get('.react-select__option').contains(warName)
     .click()
 })
+
 Cypress.Commands.add("chooseRoleGame", (forceName, roleName) => {
   cy.wait(500)
   const locator = 'ul[data-qa-force-name="' + forceName + '"]  button.btn.btn-sm.btn-primary'
   cy.get(locator).contains(roleName)
     .click()
 })
+
 Cypress.Commands.add("clickEnterButton", () => {
   cy.wait(500)
   cy.get('button[name="enter-game"]')
     .click()
 })
+
 Cypress.Commands.add("clickInitiateButton", () => {
   cy.wait(500)
   cy.get('button[name="initiate-game"]')
     .click()
 })
+
 Cypress.Commands.add("chooseRoom", (roomName) => {
   cy.wait(500)
   cy.get('div.flexlayout__tab_button_content').contains(roomName)
@@ -37,13 +41,18 @@ Cypress.Commands.add("openNewMessage", (turnNumber, overallIntentions, unit, tas
   cy.get('tr[data-schemapath="root.Orders.0"]  input[name="root[Orders][0][Unit]"]').type(unit)
   cy.get('tr[data-schemapath="root.Orders.0"]  textarea[name="root[Orders][0][Tasking]"]').type(tasking)
   cy.get('tr[data-schemapath="root.Orders.0"]  textarea[name="root[Orders][0][SearchPolicy]"]').type(policy)
-  // cy.get('tr[data-schemapath="root.Orders.0"]  select[name="root[Orders][0][ActionOnContact]"]').check(action)
+  cy.get('tr[data-schemapath="root.Orders.0"]  select[name="root[Orders][0][ActionOnContact]"]').select(action)
   cy.get('tr[data-schemapath="root.Orders.0"]  textarea[name="root[Orders][0][AnyOtherComments]"]').type(comment)
 })
 
-Cypress.Commands.add("clickSendMessageButton", () => {
+Cypress.Commands.add("clickSendMessageButtonForRoom", (roomName) => {
   cy.wait(500)
-  cy.get('.tab-content-blue-hq > .new-message-creator > .Collapsible > .Collapsible__contentOuter > .Collapsible__contentInner > .form-group > .btn > span').click().click()
+  cy.get('.tab-content-' + roomName + ' > .new-message-creator > .Collapsible > .Collapsible__contentOuter > .Collapsible__contentInner > .form-group > .btn > span').click()
+})
+
+Cypress.Commands.add("clickNewMessageButtonForRoom", (roomName) => {
+  cy.wait(500)
+  cy.get('div.tab-content-' + roomName + ' .Collapsible__trigger.is-closed').contains('New Message').click()
 })
 
 Cypress.Commands.add("addMoreRow", (number, unit, tasking, policy, action, comment) => {
@@ -53,6 +62,36 @@ Cypress.Commands.add("addMoreRow", (number, unit, tasking, policy, action, comme
   cy.get('tr[data-schemapath="root.Orders.' + number + '"]  input[name="root[Orders][' + number + '][Unit]"]').type(unit)
   cy.get('tr[data-schemapath="root.Orders.' + number + '"]  textarea[name="root[Orders][' + number + '][Tasking]"]').type(tasking)
   cy.get('tr[data-schemapath="root.Orders.' + number + '"]  textarea[name="root[Orders][' + number + '][SearchPolicy]"]').type(policy)
-  // cy.get('tr[data-schemapath="root.Orders.0"]  select[name="root[Orders][0][ActionOnContact]"]').check(action)
+  cy.get('tr[data-schemapath="root.Orders.' + number + '"]  select[name="root[Orders][' + number + '][ActionOnContact]"]').select(action)
   cy.get('tr[data-schemapath="root.Orders.' + number + '"]  textarea[name="root[Orders][' + number + '][AnyOtherComments]"]').type(comment)
+})
+
+Cypress.Commands.add("changeForce", (url, gameRoom) => {
+  cy.visit(url)
+    .clickButton('button[name="play"]')
+    .chooseWarGame(gameRoom)
+})
+
+Cypress.Commands.add("InputMessageForRoom", (roomName, text) => {
+  cy.wait(500)
+  cy.get('div.tab-content-' + roomName + ' textarea[name="root[content]"]')
+    .type(text)
+})
+
+Cypress.Commands.add("openNewestMessage", () => {
+  cy.wait(500)
+  cy.get('div.message-title-wrap').first()
+    .click()
+})
+
+Cypress.Commands.add("openMessageWithTitle", (title) => {
+  cy.wait(500)
+  cy.get('div.message-title-wrap .message-title').contains(title)
+    .click()
+})
+
+Cypress.Commands.add("verifyMessageIsDisplayed", (expectedMsg) => {
+  cy.wait(500)
+  cy.get('.Collapsible__trigger.is-open + .Collapsible__contentOuter .message-preview-player.wrap .data').contains(expectedMsg)
+  .should('be.visible')  
 })
