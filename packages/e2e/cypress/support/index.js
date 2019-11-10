@@ -17,5 +17,7 @@
 import './commands'
 import './pageAction/adminAction'
 import './pageAction/playerAction'
+import '../../../../node_modules/@4tw/cypress-drag-drop';
+
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

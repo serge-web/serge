@@ -6,7 +6,7 @@ describe('Run_automation_test_Serge', function () {
   //   user.inputPassword(pwd).get('.link.link--noIcon').click()
   //   user.clearAllGame()
   // })
-  it('Walkthrought_admin', function () {
+  it.skip('Walkthrought_admin', function () {
 
     cy.fixture('testData').then((testData) => {
 
@@ -20,7 +20,7 @@ describe('Run_automation_test_Serge', function () {
       //Overview   
       user.createNewGame()
         .inputRoomName(roomName)
-        .clickShowAccessCode()
+        .clickShowAccessCode('on')
         .clickSaveOverview()
 
       //Forces
@@ -111,11 +111,11 @@ describe('Run_automation_test_Serge', function () {
     cy.fixture('testData').then((testData) => {
       user.visit(testData.playerUrl)
       user.clickButton('button[name="play"]')
-      .chooseWarGame(roomName)
-      .chooseRoleGame('White', 'Game Control')
-      .clickEnterButton()
-      .clickInitiateButton()
-
+        .chooseWarGame('This is Cypress Testing_5751')
+        .chooseRoleGame('Blue', 'CO')
+        .clickEnterButton()
+        // .clickInitiateButton()
+      user.chooseRoom('BLUE HQ').sendNewMessage(testData.tunrNumber, testData.overallInstruction, testData.unit, testData.tasking, testData.policy, testData.action, testData.comments)
     })
   })
 })
