@@ -94,98 +94,29 @@ Cypress.Commands.add("verifyMessageIsDisplayed", (expectedMsg) => {
   cy.wait(500)
   cy.get('.Collapsible__trigger.is-open + .Collapsible__contentOuter .message-preview-player.wrap .data').contains(expectedMsg)
   .should('be.visible')  
-}
-)
-Cypress.Commands.add("setupArrangeChatTab", () => {
-  cy.wait(500)
-  let json = `{ 
-    "global":{ 
-       "tabEnableClose":false,
-       "tabEnableRenderOnDemand":false,
-       "tabSetTabStripHeight":45
-    },
-    "layout":{ 
-       "type":"row",
-       "id":"#1",
-       "children":[ 
-          { 
-             "type":"row",
-             "id":"#10",
-             "weight":12.5,
-             "children":[ 
-                { 
-                   "type":"tabset",
-                   "id":"#19",
-                   "weight":12.5,
-                   "children":[ 
-                      { 
-                         "type":"tab",
-                         "id":"channel-k2sstllz",
-                         "name":"Red Chat",
-                         "component":"Red Chat",
-                         "className":""
-                      }
-                   ],
-                   "active":true
-                },
-                { 
-                   "type":"tabset",
-                   "id":"#5",
-                   "weight":12.5,
-                   "children":[ 
-                      { 
-                         "type":"tab",
-                         "id":"channel-k2sstomv",
-                         "name":"Media",
-                         "component":"Media",
-                         "className":"unread-5"
-                      }
-                   ]
-                },
-                { 
-                   "type":"tabset",
-                   "id":"#9",
-                   "weight":50,
-                   "children":[ 
-                      { 
-                         "type":"tab",
-                         "id":"channel-k2sstiiz",
-                         "name":"Blue Chat",
-                         "component":"Blue Chat",
-                         "className":""
-                      }
-                   ]
-                }
-             ]
-          },
-          { 
-             "type":"tabset",
-             "id":"#7",
-             "weight":12.5,
-             "children":[ 
-                { 
-                   "type":"tab",
-                   "id":"channel-k2sstaaq",
-                   "name":"Blue HQ",
-                   "component":"Blue HQ",
-                   "className":"unread-14plus"
-                },
-                { 
-                   "type":"tab",
-                   "id":"channel-k2sst1z7",
-                   "name":"Red HQ",
-                   "component":"Red HQ",
-                   "className":""
-                }
-             ]
-          }
-       ]
-    },
-    "borders":[ 
- 
-    ]
- }`
-      let keyName = 'FlexLayout-model-wargame-k2sssl4p-umpire-Game Control'
-      window.localStorage.setItem(keyName, json)
 })
 
+Cypress.Commands.add("verifyGameRoleIsDisplayed", (role) => {
+  cy.wait(500)
+  cy.get('.role-info').contains(role).should('be.visible')
+})
+
+Cypress.Commands.add("verifyGameForceIsDisplayed", (force) => {
+  cy.wait(500)
+  cy.get('.force-type').contains(force).should('be.visible')
+})
+
+Cypress.Commands.add("verifyDOMAttribute", (locator, expectedValue) => {
+   cy.wait(500)
+   cy.get(locator).parent().then(($elm) => {
+      expect($elm.attr("style")).to.equal(expectedValue)      
+ })
+})
+
+Cypress.Commands.add("dragRoom", (roomName, position) => {
+   cy.wait(500)
+   cy.get('div.flexlayout__tab_button_content').contains(roomName).trigger('mousedown', { force: true })
+          .get('.contain-channel-tabs .flexlayout__layout').trigger('mousemove', position, { force: true })
+          .trigger('mouseup', { force: true })
+   cy.wait(1000)
+ })

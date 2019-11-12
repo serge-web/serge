@@ -6,11 +6,11 @@ describe('Run_automation_test_Serge', function () {
   //   user.inputPassword(pwd).get('.link.link--noIcon').click()
   //   user.clearAllGame()
   // })
-  it.skip('Walkthrought_admin', function () {
+  it('Walkthrought_admin', function () {
 
     user.fixture('testData').then((testData) => {
 
-      user.viewport(1280, 688)
+      user.viewport('macbook-15')
       user.clearCookies()
       user.visit(testData.adminUrl)
 
@@ -111,70 +111,70 @@ describe('Run_automation_test_Serge', function () {
     user.fixture('testData').then((testData) => {
       const msgData = testData.blueMessage
       user.visit(testData.playerUrl)
-      user.setupArrangeChatTab()
 
       user.clickButton('button[name="play"]')
-        .chooseWarGame('This is Cypress Testing_2018')
-        // .chooseWarGame(roomName)
+        .chooseWarGame(roomName)
         .chooseRoleGame(testData.role.white.name, testData.role.white.gc)
-        // .chooseRoleGame(testData.role.blue.name, testData.role.blue.co)
         .clickEnterButton()
-        .wait(5000)
-        
-        user.compareSnapshot('chat')
-        // .clickInitiateButton()
+        .clickInitiateButton()
+        .verifyGameRoleIsDisplayed(testData.role.white.gc)
+        .verifyGameForceIsDisplayed(testData.role.white.name)
 
-      // user.changeForce(testData.playerUrl, roomName)
-      //   .chooseRoleGame(testData.role.blue.name, testData.role.blue.co)
-      //   .clickEnterButton()
-        
-      // user.chooseRoom('Blue HQ').openNewMessage(msgData.message1.turnNumber,
-      //     msgData.message1.overallInstruction,
-      //     msgData.message1.unit,
-      //     msgData.message1.tasking,
-      //     msgData.message1.policy,
-      //     msgData.message1.action,
-      //     msgData.message1.comments)
-      //   .addMoreRow("1",
-      //     msgData.message2.unit,
-      //     msgData.message2.tasking,
-      //     msgData.message2.policy,
-      //     msgData.message2.action,
-      //     msgData.message2.comments)
-      //   .clickSendMessageButtonForRoom('blue-hq')
+      user.changeForce(testData.playerUrl, roomName)
+        .chooseRoleGame(testData.role.blue.name, testData.role.blue.co)
+        .clickEnterButton()
+        .verifyGameRoleIsDisplayed(testData.role.blue.co)
+        .verifyGameForceIsDisplayed(testData.role.blue.name)
 
-      // user.changeForce(testData.playerUrl, roomName)
-      //   .chooseRoleGame(testData.role.white.name, testData.role.white.gc)
-      //   .clickEnterButton()
-      //   .chooseRoom('Blue HQ')
-      //   .openNewestMessage()
-      //   .verifyMessageIsDisplayed(msgData.message1.turnNumber)
-      //   .verifyMessageIsDisplayed(msgData.message1.overallInstruction)
-      //   .verifyMessageIsDisplayed(msgData.message1.unit)
-      //   .verifyMessageIsDisplayed(msgData.message1.tasking)
-      //   .verifyMessageIsDisplayed(msgData.message1.policy)
-      //   .verifyMessageIsDisplayed(msgData.message1.action)
-      //   .verifyMessageIsDisplayed(msgData.message1.comments)
-      //   .verifyMessageIsDisplayed(msgData.message2.unit)
-      //   .verifyMessageIsDisplayed(msgData.message2.tasking)
-      //   .verifyMessageIsDisplayed(msgData.message2.policy)
-      //   .verifyMessageIsDisplayed(msgData.message2.action)
-      //   .verifyMessageIsDisplayed(msgData.message2.comments)
+      user.chooseRoom('Blue HQ').openNewMessage(msgData.message1.turnNumber,
+          msgData.message1.overallInstruction,
+          msgData.message1.unit,
+          msgData.message1.tasking,
+          msgData.message1.policy,
+          msgData.message1.action,
+          msgData.message1.comments)
+        .addMoreRow("1",
+          msgData.message2.unit,
+          msgData.message2.tasking,
+          msgData.message2.policy,
+          msgData.message2.action,
+          msgData.message2.comments)
+        .clickSendMessageButtonForRoom('blue-hq')
 
-      // user.changeForce(testData.playerUrl, roomName)
-      //   .chooseRoleGame(testData.role.blue.name, testData.role.blue.media)
-      //   .clickEnterButton()
-      //   .chooseRoom('Blue Chat')
-      //   .clickNewMessageButtonForRoom('blue-chat')
-      //   .InputMessageForRoom('blue-chat', 'This is Cypress Testing')
-      //   .clickSendMessageButtonForRoom('blue-chat')
+      user.changeForce(testData.playerUrl, roomName)
+        .chooseRoleGame(testData.role.white.name, testData.role.white.gc)
+        .clickEnterButton()
+        .chooseRoom('Blue HQ')
+        .openNewestMessage()
+        .verifyMessageIsDisplayed(msgData.message1.turnNumber)
+        .verifyMessageIsDisplayed(msgData.message1.overallInstruction)
+        .verifyMessageIsDisplayed(msgData.message1.unit)
+        .verifyMessageIsDisplayed(msgData.message1.tasking)
+        .verifyMessageIsDisplayed(msgData.message1.policy)
+        .verifyMessageIsDisplayed(msgData.message1.action)
+        .verifyMessageIsDisplayed(msgData.message1.comments)
+        .verifyMessageIsDisplayed(msgData.message2.unit)
+        .verifyMessageIsDisplayed(msgData.message2.tasking)
+        .verifyMessageIsDisplayed(msgData.message2.policy)
+        .verifyMessageIsDisplayed(msgData.message2.action)
+        .verifyMessageIsDisplayed(msgData.message2.comments)
 
-      // user.changeForce(testData.playerUrl, roomName)
-      //   .chooseRoleGame(testData.role.white.name, testData.role.white.gc)
-      //   .clickEnterButton()
-      //   .chooseRoom('Blue Chat')
-      //   .openMessageWithTitle('This is Cypress Testing')
-      //   .verifyMessageIsDisplayed('This is Cypress Testing')
+      user.changeForce(testData.playerUrl, roomName)
+        .chooseRoleGame(testData.role.blue.name, testData.role.blue.media)
+        .clickEnterButton()
+        .verifyGameRoleIsDisplayed(testData.role.blue.media)
+        .verifyGameForceIsDisplayed(testData.role.blue.name)
+        .chooseRoom('Blue Chat')
+        .clickNewMessageButtonForRoom('blue-chat')
+        .InputMessageForRoom('blue-chat', 'This is Cypress Testing')
+        .clickSendMessageButtonForRoom('blue-chat')
+
+      user.changeForce(testData.playerUrl, roomName)
+        .chooseRoleGame(testData.role.white.name, testData.role.white.gc)
+        .clickEnterButton()
+        .chooseRoom('Blue Chat')
+        .openMessageWithTitle('This is Cypress Testing')
+        .verifyMessageIsDisplayed('This is Cypress Testing')
 
     })
   })

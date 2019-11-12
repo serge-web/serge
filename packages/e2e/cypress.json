@@ -1,5 +1,4 @@
 {
     "defaultCommandTimeout": 60000,
-    "screenshotsFolder": "cypress/snapshots/actual",
-    "trashAssetsBeforeRuns": true
+    "numTestsKeptInMemory": 10
 }

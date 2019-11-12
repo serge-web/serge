@@ -86,6 +86,7 @@ Cypress.Commands.add("clickSave", () => {
   cy.wait(500)
   cy.get('span.link.link--noIcon[data-qa-type="save"]')
     .click()
+    .wait(1000)
 })
 
 Cypress.Commands.add("chooseColor", (color) => {
