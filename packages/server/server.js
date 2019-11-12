@@ -123,6 +123,8 @@ const runServer = (
   }
 
   app.use(express.static(path.join(__dirname, clientPublicPath)))
+  app.use('/img', express.static(path.join(__dirname, './img')))
+  app.use('/default_img', express.static(path.join(__dirname, './default_img')))
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, clientPublicPath, 'index.html'))
