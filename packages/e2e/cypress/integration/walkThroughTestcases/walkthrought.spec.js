@@ -119,6 +119,14 @@ describe('Run_automation_test_Serge', function () {
         .clickInitiateButton()
         .verifyGameRoleIsDisplayed(testData.role.white.gc)
         .verifyGameForceIsDisplayed(testData.role.white.name)
+        .wait(1000)
+
+      user.dragRoom('Media', 'bottom')
+        .dragRoom('Red HQ', 'right')
+        .dragRoom('Blue HQ', 'topRight')
+        .verifyDOMAttribute('.tab-content-blue-chat', 'display: block; left: 0px; top: 45px; width: 804px; height: 624px; position: absolute;')
+        .verifyDOMAttribute('.tab-content-blue-hq', 'display: block; left: 812px; top: 45px; width: 268px; height: 855px; position: absolute;')
+        .verifyDOMAttribute('.tab-content-media', 'display: block; left: 0px; top: 722px; width: 804px; height: 178px; position: absolute;')
 
       user.changeForce(testData.playerUrl, roomName)
         .chooseRoleGame(testData.role.blue.name, testData.role.blue.co)
