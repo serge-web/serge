@@ -26,6 +26,13 @@ const json = {
 class ChannelTabsContainer extends Component {
   static contextType = PlayerStateContext;
 
+  static findChannelByName = (channels, name) => {
+    Object.entries(channels).find(entry => {
+      const [ , attrs ] = entry;
+      return attrs.name === name
+    });
+  }
+
   constructor(props, context) {
     super(props);
     const [ state, dispatch ] = context;
@@ -114,10 +121,7 @@ class ChannelTabsContainer extends Component {
   factory = (node) => {
     const [ state ] = this.context;
     if (_.isEmpty(state.channels)) return;
-    const matchedChannel = Object.entries(state.channels).find(entry => {
-      const [ , attrs ] = entry;
-      return attrs.name === node.getName()
-    });
+    const matchedChannel = ChannelTabsContainer.findChannelByName(state.channels, node.getName());
     return matchedChannel && matchedChannel.length ? <Channel channel={matchedChannel[0]} /> : null
   };
 
@@ -140,10 +144,7 @@ class ChannelTabsContainer extends Component {
 
     if (_.isEmpty(state.channels)) return;
 
-    const matchedChannel = Object.entries(state.channels).find(entry => {
-      const [ , attrs ] = entry;
-      return attrs.name === node.getName()
-    });
+    const matchedChannel = ChannelTabsContainer.findChannelByName(state.channels, node.getName());
 
     channel = matchedChannel && matchedChannel.length > 1 ? matchedChannel[1] : {};
 
