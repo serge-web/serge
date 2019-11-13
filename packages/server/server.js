@@ -48,7 +48,6 @@ const runServer = (
   })
 
   const clientBuildPath = '../client/build'
-  const clientPublicPath = '../client/public'
 
   app.use(cors(corsOptions))
 
@@ -124,7 +123,6 @@ const runServer = (
   }
 
   app.use(express.static(path.join(__dirname, clientBuildPath)))
-  app.use(express.static(path.join(__dirname, clientPublicPath)))
   app.use('/img', express.static(path.join(__dirname, './img')))
   app.use('/default_img', express.static(path.join(__dirname, './default_img')))
 
