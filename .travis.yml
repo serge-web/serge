@@ -12,9 +12,9 @@ matrix:
 script:
 - cd $PACKAGE_LOCATION
 - yarn test
-- yarn build
+# - yarn build
 # start the server (in background process)
-- cd packages/server
+- cd ../packages/server
 - yarn start 
 # do a cypress run
 - cd ../e2e
