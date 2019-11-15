@@ -22,15 +22,15 @@ script:
 - more .env
 # run test suite
 - yarn test
-# Ian commented out the next line, it was starting the client, but Ian wants to start the server
+# build Serge deployment
 - yarn build
 # start the server (in background process)
 - cd ../server
 - yarn start &
-# do a cypress run
+# run the cypress test suite
 - cd ../e2e
 - yarn run cypress run --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7
-# kill open jobs
+# kill open jobs (especially the Serge server running in the background)
 -  kill $(jobs -p) || true
 notifications:
   slack:
