@@ -14,9 +14,10 @@ script:
 - yarn test
 - yarn build
 # start the server (in background process)
-- yarn start:server
+- cd packages/server
+- yarn start &
 # do a cypress run
-- cd packages/e2e
+- cd ../e2e
 - yarn run cypress run --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7
 # kill open jobs
 -  kill $(jobs -p) || true
