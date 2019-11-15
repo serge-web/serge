@@ -47,7 +47,7 @@ const runServer = (
     addon.run(app)
   })
 
-  const clientPublicPath = '../client/build'
+  const clientBuildPath = '../client/build'
 
   app.use(cors(corsOptions))
 
@@ -113,7 +113,7 @@ const runServer = (
   })
 
   if (remoteServer) {
-    app.get(clientPublicPath + '/gconfig.js', (req, res) => {
+    app.get(clientBuildPath + '/gconfig.js', (req, res) => {
       res.type('.js').send(`
         window.G_CONFIG = {
           REACT_APP_SERVER_PATH: "${remoteServer}"
@@ -122,10 +122,12 @@ const runServer = (
     })
   }
 
-  app.use(express.static(path.join(__dirname, clientPublicPath)))
+  app.use(express.static(path.join(__dirname, clientBuildPath)))
+  app.use('/img', express.static(path.join(__dirname, './img')))
+  app.use('/default_img', express.static(path.join(__dirname, './default_img')))
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, clientPublicPath, 'index.html'))
+    res.sendFile(path.join(__dirname, clientBuildPath, 'index.html'))
   })
 
   const server = app.listen(port, () => {
