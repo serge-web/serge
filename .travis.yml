@@ -12,8 +12,11 @@ matrix:
 script:
 - cd $PACKAGE_LOCATION
 - yarn test
+# Ian commented out the next line, it was starting the client, but Ian wants to start the server
 # - yarn build
 # start the server (in background process)
+- echo "Current directory"
+- pwd
 - cd ../packages/server
 - yarn start 
 # do a cypress run
