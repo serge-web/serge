@@ -110,6 +110,7 @@ describe('Run_automation_test_Serge', function () {
   it('Walkthought_player_Blue_CO', function () {
     user.fixture('testData').then((testData) => {
       const msgData = testData.blueMessage
+      user.viewport('macbook-15')
       user.visit(testData.playerUrl)
 
       user.clickButton('button[name="play"]')
