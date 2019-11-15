@@ -27,7 +27,7 @@ class ChannelTabsContainer extends Component {
   static contextType = PlayerStateContext;
 
   static findChannelByName = (channels, name) => {
-    Object.entries(channels).find(entry => {
+    return Object.entries(channels).find(entry => {
       const [ , attrs ] = entry;
       return attrs.name === name
     });
