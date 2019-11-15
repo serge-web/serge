@@ -13,7 +13,7 @@ script:
 - cd $PACKAGE_LOCATION
 - yarn test
 # Ian commented out the next line, it was starting the client, but Ian wants to start the server
-# - yarn build
+- yarn build
 # start the server (in background process)
 - cd ../server
 - yarn start &
