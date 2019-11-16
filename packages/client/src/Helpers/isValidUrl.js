@@ -5,8 +5,7 @@ export default function (str) {
     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
     '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
     '(\\#[-a-z\\d_]*)?$', 'i') // fragment locator
-  var filePattern = new RegExp('^(file:\\/\\/)?' + // protocol
-    '(\\?[;&a-z\\d%_.~+=-]*)?') // query string
+  var windowsFilePath = new RegExp('^[\\w\\\\.:\\s]+?\\.\\w{2,4}')
 
-  return !!httpPattern.test(str) || !!filePattern.test(str)
+  return !!httpPattern.test(str) || str.startsWith('file:///') || !!windowsFilePath.test(str)
 }
