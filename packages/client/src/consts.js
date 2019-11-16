@@ -2,7 +2,12 @@ import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
 
-export const serverPath = window.location.origin
+// Nov 2019. Ian modified the server path to use the 
+// current URL, so we can use Heroku to provide
+// review instances of the app.  In these
+// review instances, we can't predict the URL, so
+// were failing CORS test
+export const serverPath = window.location.origin + '/'
 
 // (
 //   window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH
