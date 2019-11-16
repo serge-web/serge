@@ -7,11 +7,10 @@ import ExpiredStorage from 'expired-storage'
 // review instances of the app.  In these
 // review instances, we can't predict the URL, so
 // were failing CORS test
-export const serverPath = window.location.origin + '/'
+export const serverPath = (
+  window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || window.location.origin + '/'
+).replace(/\/?$/, '/')
 
-// (
-//   window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH
-// ).replace(/\/?$/, '/')
 // export const serverPath = 'http://localhost:8080/';
 /*
 for development just create .env.local file in client folder and add line,
