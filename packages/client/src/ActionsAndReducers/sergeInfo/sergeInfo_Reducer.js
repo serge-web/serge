@@ -7,12 +7,14 @@ const initialState = defaultGameInfo
 
 export const gameInfo = (state = initialState, action) => {
   let newState = copyState(state)
+  let payload
 
   switch (action.type) {
     case ActionConstant.LOAD_SERGE_GAME_INFO:
 
-      const payload = action.payload
+      payload = action.payload
       if (payload.imageUrl) {
+        payload.imageUrlSet = true
         payload.imageUrl = serverPath + payload.imageUrl.slice(1)
       }
 
