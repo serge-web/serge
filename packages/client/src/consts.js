@@ -2,9 +2,11 @@ import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
 
-export const serverPath = (
-  window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH
-).replace(/\/?$/, '/')
+export const serverPath = window.location.origin
+
+// (
+//   window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH
+// ).replace(/\/?$/, '/')
 // export const serverPath = 'http://localhost:8080/';
 /*
 for development just create .env.local file in client folder and add line,
