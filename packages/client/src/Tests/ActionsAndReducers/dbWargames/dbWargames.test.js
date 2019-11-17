@@ -14,6 +14,11 @@ import ActionConstant from '../../../ActionsAndReducers/ActionConstants'
 import _ from 'lodash'
 import deepCopy from '../../../Helpers/copyStateHelper'
 
+// eslint-disable-next-line no-undef
+jest.mock('uniqid', () => ({
+  time: () => 'k335grni'
+}))
+
 const mockStore = configureStore([thunk])
 
 const wargameLocal = {
@@ -273,6 +278,8 @@ describe('wargames reducer', () => {
 
     const newData = deepCopy(oldData)
     newData[2].channels[0].participants = [oldData[1].forces[0]]
+    newData[2].channels[0].participants[0].subscriptionId = 'k335grni'
+    newData[1].forces[0].subscriptionId = 'k335grni'
 
     const addRecipientAction = {
       type: ActionConstant.ADD_NEW_RECIPIENT,
