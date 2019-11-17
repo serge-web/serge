@@ -110,11 +110,6 @@ export const wargamesReducer = (state = initialState, action) => {
       newState.data[tab].selectedChannel = ''
       break
 
-    case ActionConstant.SET_FORCE_OVERVIEW:
-      selected = newState.data[tab].selectedForce.name
-      newState.data[tab].forces.find((f) => f.name === selected).overview = action.payload
-      break
-
     case ActionConstant.ADD_NEW_RECIPIENT:
       curChannel = newState.data[tab].selectedChannel.uniqid
       newParticipant = { ...action.payload, subscriptionId: uniqId.time() }

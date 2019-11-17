@@ -52,15 +52,10 @@ const tabs = {
   },
   2: {
     name: 'Channels',
-    data: {
-      channels: [{
-        force: 'white',
-        role: 'weather',
-        template: 'weather forecast'
-      }],
-      selectedChannel: ''
-    },
-    complete: false
+    channels: [],
+    selectedChannel: '',
+    complete: false,
+    dirty: false
   }
 }
 
@@ -219,96 +214,74 @@ describe('wargames reducer', () => {
     })
   })
 
-  // FIXME: newData appears to not contain any data/contains incorrect data
-  // it('set selected force', () => {
-  //   const newData = deepCopy(tabs)
+  it('set selected force', () => {
+    const newData = deepCopy(tabs)
 
-  //   newData[1].data.selectedForce = 'black'
+    newData[1].selectedForce = newData[1].forces[0]
 
-  //   const addForceAction = {
-  //     type: ActionConstant.SET_SELECTED_FORCE,
-  //     payload: 'black'
-  //   }
+    const addForceAction = {
+      type: ActionConstant.SET_SELECTED_FORCE,
+      payload: newData[1].forces[0]
+    }
 
-  //   expect(wargamesReducer({ tabs, currentTab: 1 }, addForceAction)).toEqual({
-  //     tabs: newData,
-  //     currentTab: 1
-  //   })
-  // })
+    expect(wargamesReducer({ data: tabs, currentTab: 1 }, addForceAction)).toEqual({
+      data: newData,
+      currentTab: 1
+    })
+  })
 
-  // FIXME: newData appears to not contain any data/contains incorrect data
-  // it('add new channel', () => {
-  //   const newData = deepCopy(tabs)
+  it('add new channel', () => {
+    const newData = deepCopy(tabs)
 
-  //   newData[2].data.channels.black = channelTemplate
+    newData[2].channels.push(channelTemplate)
 
-  //   const addChannelAction = {
-  //     type: ActionConstant.ADD_NEW_CHANNEL,
-  //     payload: 'black'
-  //   }
+    const addChannelAction = {
+      type: ActionConstant.ADD_NEW_CHANNEL,
+      payload: {
+        name: 'black',
+        uniqid: 'uid'
+      }
+    }
 
-  //   expect(wargamesReducer({ tabs, currentTab: 2 }, addChannelAction)).toEqual({
-  //     tabs: newData,
-  //     currentTab: 2
-  //   })
-  // })
+    expect(wargamesReducer({ data: tabs, currentTab: 2 }, addChannelAction)).toEqual({
+      data: newData,
+      currentTab: 2
+    })
+  })
 
-  // FIXME: newData appears to not contain any data/contains incorrect data
-  // it('set selected channel', () => {
-  //   const newData = deepCopy(tabs)
+  it('set selected channel', () => {
+    const newData = deepCopy(tabs)
 
-  //   newData[2].data.selectedChannel = 'black'
-  //   newData[2].complete = true
+    newData[2].selectedChannel = newData[2].channels[0]
 
-  //   const addForceAction = {
-  //     type: ActionConstant.SET_SELECTED_CHANNEL,
-  //     payload: 'black'
-  //   }
+    const addForceAction = {
+      type: ActionConstant.SET_SELECTED_CHANNEL,
+      payload: newData[2].channels[0]
+    }
 
-  //   expect(wargamesReducer({ tabs, currentTab: 2 }, addForceAction)).toEqual({
-  //     tabs: newData,
-  //     currentTab: 2
-  //   })
-  // })
+    expect(wargamesReducer({ data: tabs, currentTab: 2 }, addForceAction)).toEqual({
+      data: newData,
+      currentTab: 2
+    })
+  })
 
-  // FIXME: newData appears to not contain any data/contains incorrect data
-  // it('set force overview', () => {
-  //   const oldData = deepCopy(tabs)
-  //   const newData = deepCopy(tabs)
+  it('add recipient', () => {
+    const oldData = deepCopy(tabs)
+    oldData[2].channels = [channelTemplate]
+    oldData[2].selectedChannel = oldData[2].channels[0]
+    oldData[2].channels[0].participants = []
 
-  //   oldData[1].data.selectedForce = 'white'
-  //   newData[1].data.selectedForce = 'white'
-  //   newData[1].data.forces.white.overview = 'Test overview'
+    const newData = deepCopy(oldData)
+    newData[2].channels[0].participants = [oldData[1].forces[0]]
 
-  //   const addForceAction = {
-  //     type: ActionConstant.SET_FORCE_OVERVIEW,
-  //     payload: 'Test overview'
-  //   }
+    const addRecipientAction = {
+      type: ActionConstant.ADD_NEW_RECIPIENT,
+      payload: oldData[1].forces[0]
+    }
 
-  //   expect(wargamesReducer({ tabs: oldData, currentTab: 1 }, addForceAction)).toEqual({
-  //     tabs: newData,
-  //     currentTab: 1
-  //   })
-  // })
-
-  // FIXME: newData appears to not contain any data/contains incorrect data
-  // it('add recipient', () => {
-  //   const oldData = deepCopy(tabs)
-  //   oldData[2].data.selectedChannel = 'white'
-  //   oldData[2].data.channels.white = []
-
-  //   const newData = deepCopy(oldData)
-  //   newData[2].data.channels.white = ['Test']
-  //   newData[2].complete = true
-
-  //   const addRecipientAction = {
-  //     type: ActionConstant.ADD_NEW_RECIPIENT,
-  //     payload: 'Test'
-  //   }
-
-  //   expect(wargamesReducer({ tabs: oldData, currentTab: 2 }, addRecipientAction)).toEqual({
-  //     tabs: newData,
-  //     currentTab: 2
-  //   })
-  // })
+    expect(wargamesReducer({ data: oldData, currentTab: 2 }, addRecipientAction)).toEqual({
+      data: newData,
+      currentTab: 2
+    })
+  })
 })
