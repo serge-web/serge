@@ -25,7 +25,7 @@ export const saveSergeLogo = (file) => {
   return async (dispatch) => {
     const image = await sergeInfoApi.saveLogo(file)
 
-    const imageUrl = image.path
+    const imageUrl = image.path.replace(/^\./g, '')
 
     dispatch(sergeInfo({ imageUrl }))
   }

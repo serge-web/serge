@@ -1,6 +1,11 @@
 language: node_js
 node_js:
 - 10.15.3
+addons:
+  apt:
+    packages:
+      # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
+      - libgconf-2-4
 cache: yarn
 install:
 - yarn global add lerna jest
@@ -11,8 +16,22 @@ matrix:
     env: PACKAGE_LOCATION=packages/client PACKAGE_NAME=@serge/client
 script:
 - cd $PACKAGE_LOCATION
+# fix the server path, to test on Travis server
+- sed -i -e 's/https/http/' .env 
+- sed -i -e 's/serge-dev.herokuapp.com/localhost:8080/' .env 
+- more .env
+# run test suite
 - yarn test
+# build Serge deployment
 - yarn build
+# start the server (in background process)
+- cd ../server
+- yarn start &
+# run the cypress test suite
+- cd ../e2e
+- yarn run cypress run --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7
+# kill open jobs (especially the Serge server running in the background)
+-  kill $(jobs -p) || true
 notifications:
   slack:
     secure: GZOTYG74Aeo5PF87prdYPrry6PYVPeBuCPAjQH5ebXaPIMeuPBLOmcilzoMctdGd3aFplT4rRMpFe8Lacnqm6uUks0WemcJ2KtnvomAD6PGEZQmwJWA2i+QDoZieyTJlnxqbWydZkzsPCX+d6MD4L+ZwiMbuLQaGa2F2BLSO6kE9b3+JLXwGlsfnC0+ftSHPyYleEvtC3Rej/6W0CNha112hWzMBYhNlivoKXyYQz/L4ESQAEnRjIH/sNWwBdZVsADID/G72S3lQrx8bplTL2/U+WjF2uyhA+XvqFvGsz3PgNvAjqLWNHwWvSEnh5ifaiyenNRoBT4PXp03Kq5i+Wv1c8DC7xydGVvX7SSP7mLf+TMrhm1LFrHNPhU8ns4luy9s5TCobHaoKVcNFE9FGO4oZR5PBYYAbfYjCgnuWlTifFZRBYUzf7GrRG7HFM3KqiOZkyWiqvHy8IttIk3mgXxpGmqpVM1eq7USFfbaoQKnWg6DF2PgZD1RskBsXeDVGi54t4ymKHDMd+V51sLZ1W5bRjmuc/5n75y+6rk0IL4+4ih3xYgr2QyPqfeCDsWZw8lmgcA4+lpUg2VPH36munG9AnQnD2ZWcPAWIKZl2I7vYdIiVaVcXBhy/VP+2M53dg0FuPXGLGjpg03HUoqILdE5dc0ZA72My35qQk8ip+Vk=

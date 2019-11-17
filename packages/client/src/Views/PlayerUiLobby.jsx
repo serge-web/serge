@@ -53,7 +53,7 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
           {selectedWargame && state.showAccessCodes &&
           <div className="demo-passwords">
             <h3>Not visible in production</h3>
-            <ul>
+            <ul className="demo-list-forces">
               {roleOptions.map((force) => {
                 return (
                   <li key={force.name} className="list-item-demo-passwords">

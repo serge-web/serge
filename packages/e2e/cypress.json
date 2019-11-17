@@ -1,0 +1,5 @@
+{
+  "defaultCommandTimeout": 60000,
+  "numTestsKeptInMemory": 10,
+  "projectId": "rinvt1"
+}
