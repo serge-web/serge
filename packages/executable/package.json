@@ -1,5 +1,5 @@
 {
-  "name": "executable",
+  "name": "serge",
   "version": "0.2.0",
   "description": "Build Serge as executable",
   "main": "index.js",
