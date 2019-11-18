@@ -11,6 +11,7 @@ cache:
 install:
 - yarn global add lerna jest
 - lerna bootstrap
+- yarn install
 matrix:
   include:
   - name: Client Pipeline
