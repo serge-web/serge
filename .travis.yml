@@ -6,8 +6,6 @@ addons:
     packages:
     # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
     - libgconf-2-4
-cache:
-  directories: "$HOME/.cache/yarn $HOME/.cache/Cypress/3.6.1/Cypress/Cypress"
 install:
 - yarn global add lerna jest
 - lerna bootstrap
