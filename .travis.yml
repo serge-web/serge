@@ -38,6 +38,7 @@ notifications:
 before_deploy:
 - cd ../../
 - yarn pkg-build
+- ls packages/executable/builds
 deploy:
   provider: releases
   skip_cleanup: true
