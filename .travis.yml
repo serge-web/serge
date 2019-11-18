@@ -33,9 +33,10 @@ before_deploy:
 deploy:
   provider: releases
   skip_cleanup: true
+  file_glob: true
   api_key:
     secure: PoxGOmrmrc6igCVlqSm45EA6SY91SlBiglPx1pzXGlszFgzDg1v5XlEd3zEDJC1J7E8vzRez/ww97L/7R+XzTZDuDpnjUYNucuiAjYOVohtc2z+mnT/lMs75wf5Dl3VPU185RbZgdTN9cxK5vtrKGVn624DCQyS/yDjPBHFzV/n33ZNLgfOMQiCF97QwXs00MgufoVe7KwzAhXdjv0sjH7C+x/BwzHlEQiV3QMQu7qCxxVTZM8GoVQ4nrkO2GXoCU6vuDg0fNnAeHK7cdAlozlrZyZI0vkhPc3L5Wd26Rk6TNZzNOWQuGAZSgRDc+Gsh03f/JWT6cOwum30SlcebpnZlSMlzn91DmnJ39PR1fe9GdZGQOjbevhb3FKXb5FOq2lv+ZVaREGY3tSaQGyHij5aRlh4dJgfdHKuAobk7lXgoOPbcftUw+pLF9hofHVj8RNMaAHRYJqMGC/L07Xe9c1+AyeRSlqDCh0S5et+h9Tfg4WEAnZLwYbtvgKvZdii2GgPGSzh6DptWV5ZqbFuB3m5io3brUpp7tsiQUU7iiEzU6fEsa0LQBujPEDaLgen/X40pxp/o9IYO8x+chTK33HZ/b0q/r2SbczKGxSTv4QvD34Hokr8Sxjti/sUHhyzx7+SubRy8LpZRnt8RXgzrl8eeBBvzRCfDQK+NMx4GT3Y=
-  file: "/home/travis/build/serge-web/serge-web/packages/executable/builds/serge-win.exe"
+  file: "/home/travis/build/serge-web/serge-web/packages/executable/builds/serge-*.*"
   on:
     repo: serge-web/serge-web
     tags: true
