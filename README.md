@@ -15,10 +15,19 @@ In your command line, navigate to the project and then run the following command
 
 ```bash
   yarn install
+  yarn build
   yarn serge
 ```
 
-This will start the full application in 'demo' mode, you can see the application in action by visiting: [http://localhost:3000](http://localhost:3000).
+This will start the full application in 'demo' mode, you can see the application in action by visiting: [http://localhost:8080](http://localhost:8080).
+
+For front-end developers relying on live rebuilds, they should first follow the above steps, and note the IP address & Port provided by the server script.  Then the `packages\client\.env` file should be mofidied, by using the server address for `REACT_APP_SERVER_PATH`.  The `https` should probably also be modified to `http`, too.
+
+Once the above configuration has happened, the client app can be started with
+
+```base
+  yarn start:client
+```
 
 
 ## Monorepo & package management
