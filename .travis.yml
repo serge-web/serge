@@ -35,3 +35,17 @@ script:
 notifications:
   slack:
     secure: GZOTYG74Aeo5PF87prdYPrry6PYVPeBuCPAjQH5ebXaPIMeuPBLOmcilzoMctdGd3aFplT4rRMpFe8Lacnqm6uUks0WemcJ2KtnvomAD6PGEZQmwJWA2i+QDoZieyTJlnxqbWydZkzsPCX+d6MD4L+ZwiMbuLQaGa2F2BLSO6kE9b3+JLXwGlsfnC0+ftSHPyYleEvtC3Rej/6W0CNha112hWzMBYhNlivoKXyYQz/L4ESQAEnRjIH/sNWwBdZVsADID/G72S3lQrx8bplTL2/U+WjF2uyhA+XvqFvGsz3PgNvAjqLWNHwWvSEnh5ifaiyenNRoBT4PXp03Kq5i+Wv1c8DC7xydGVvX7SSP7mLf+TMrhm1LFrHNPhU8ns4luy9s5TCobHaoKVcNFE9FGO4oZR5PBYYAbfYjCgnuWlTifFZRBYUzf7GrRG7HFM3KqiOZkyWiqvHy8IttIk3mgXxpGmqpVM1eq7USFfbaoQKnWg6DF2PgZD1RskBsXeDVGi54t4ymKHDMd+V51sLZ1W5bRjmuc/5n75y+6rk0IL4+4ih3xYgr2QyPqfeCDsWZw8lmgcA4+lpUg2VPH36munG9AnQnD2ZWcPAWIKZl2I7vYdIiVaVcXBhy/VP+2M53dg0FuPXGLGjpg03HUoqILdE5dc0ZA72My35qQk8ip+Vk=
+before_deploy:
+- cd ../../
+- yarn pkg-build
+deploy:
+  provider: releases
+  skip_cleanup: true
+  file_glob: true
+  api_key:
+    secure: KCCJkP6ELz9pIGkBmSRbazRzhKZPq7T58tEIZbthtVv+KoM/JWdN10h3IK/N5Oqdeb2/P5u+93ml1wlU9PkbuwxQ4mpUbaAW41G/9mbEF7U2JLEtS9xSxeIfEBIEtuHxdlECjsgMCLm2lh3CVxbu3S2y9jDnpt35rbh6AN3B44w=
+  file:
+    - /home/travis/build/serge-web/serge-web/packages/executable/builds/serge-win.exe
+  on:
+     tags: true
+     all_branches: true
