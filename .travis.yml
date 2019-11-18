@@ -4,6 +4,7 @@ node_js:
 addons:
   apt:
     packages:
+    # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
     - libgconf-2-4
 cache:
   directories: "$HOME/.cache/yarn $HOME/.cache/Cypress/3.6.1/Cypress/Cypress"
@@ -16,12 +17,21 @@ matrix:
     env: PACKAGE_LOCATION=packages/client PACKAGE_NAME=@serge/client
 script:
 - cd $PACKAGE_LOCATION
-- sed -i -e 's/https/http/' .env
-- sed -i -e 's/serge-dev.herokuapp.com/localhost:8080/' .env
-- more .env
+# fix the server path, to test on Travis server
+#- sed -i -e 's/https/http/' .env
+#- sed -i -e 's/serge-dev.herokuapp.com/localhost:8080/' .env
+#- more .env
+# run test suite
 - yarn test
+# build Serge deployment
 - yarn build
+# start the server (in background process)
 - cd ../server
+- yarn start &
+# run the cypress test suite
+- cd ../e2e
+- yarn run cypress run --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7
+# kill open jobs (especially the Serge server running in the background)
 - kill $(jobs -p) || true
 notifications:
   slack:
