@@ -31,6 +31,8 @@ script:
 - yarn start &
 # run the cypress test suite
 - cd ../e2e
+# manually get yarn to install
+- yarn install
 - yarn run cypress run --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7
 # kill open jobs (especially the Serge server running in the background)
 - kill $(jobs -p) || true
