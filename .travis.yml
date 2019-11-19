@@ -16,10 +16,6 @@ matrix:
     env: PACKAGE_LOCATION=packages/client PACKAGE_NAME=@serge/client
 script:
 - cd $PACKAGE_LOCATION
-# fix the server path, to test on Travis server
-#- sed -i -e 's/https/http/' .env
-#- sed -i -e 's/serge-dev.herokuapp.com/localhost:8080/' .env
-#- more .env
 # run test suite
 - yarn test
 # build Serge deployment
