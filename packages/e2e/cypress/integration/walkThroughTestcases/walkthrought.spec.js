@@ -20,7 +20,7 @@ describe('Run_automation_test_Serge', function () {
       //Overview   
       user.createNewGame()
         .inputRoomName(roomName)
-        .clickShowAccessCode('on')
+        .clickShowAccessCode()
         .clickSaveOverview()
 
       //Forces
