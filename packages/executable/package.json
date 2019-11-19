@@ -1,6 +1,6 @@
 {
-  "name": "executable",
-  "version": "1.0.0",
+  "name": "serge",
+  "version": "0.2.0",
   "description": "Build Serge as executable",
   "main": "index.js",
   "license": "Apache-2.0",

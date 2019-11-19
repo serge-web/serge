@@ -2,9 +2,15 @@ import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
 
+// Nov 2019. Ian modified the server path to use the 
+// current URL, so we can use Heroku to provide
+// review instances of the app.  In these
+// review instances, we can't predict the URL, so
+// were failing CORS test
 export const serverPath = (
-  window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH
+  window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || window.location.origin + '/'
 ).replace(/\/?$/, '/')
+
 // export const serverPath = 'http://localhost:8080/';
 /*
 for development just create .env.local file in client folder and add line,
@@ -55,6 +61,7 @@ export const headers = {
 }
 
 export const defaultGameInfo = {
+  imageUrlSet: false,
   imageUrl: '/default_img/sergeDefault.png',
   title: 'Serge',
   description: `Welcome you have arrived at the development centre gaming facility.\n

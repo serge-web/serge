@@ -2,5 +2,8 @@
   "name": "@serge/e2e-tests",
   "version": "0.2.0",
   "main": "index.js",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "cypress": "^3.6.1"
+  }
 }

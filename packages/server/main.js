@@ -8,6 +8,7 @@ server(
     credentials: true,
     origin: [
       'https://serge-dev.herokuapp.com',
+      'https://serge-review-trial-test-*.herokuapp.com',
       'http://localhost:3000',
       'http://localhost:8080',
       'http://localhost:8000'
