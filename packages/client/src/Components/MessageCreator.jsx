@@ -4,6 +4,7 @@ import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { saveMessage } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
 import { PlayerStateContext } from "../Store/PlayerUi";
+import MessageSender from './MessageSender';
 
 import "@serge/themes/App.scss";
 
@@ -20,11 +21,12 @@ class JsonCreator extends Component {
     };
   }
 
-  sendMessage = () => {
+  sendMessage = (channelId, keepEditor) => {
+    if(!channelId) channelId = this.props.curChannel;
     const [ state ] = this.context;
     let curForce = state.allForces.find((force) => force.uniqid === state.selectedForce);
     let details = {
-      channel: this.props.curChannel,
+      channel: channelId,
       from: {
         force: curForce.name,
         forceColor: state.forceColor,
@@ -44,9 +46,12 @@ class JsonCreator extends Component {
 
     saveMessage(state.currentWargame, details, this.editor.getValue())();
 
-    this.editor.destroy();
-    this.editor = null;
-    this.createEditor(this.props.schema);
+    console.log(keepEditor, this.editor.getValue());
+    if(!keepEditor) {
+      this.editor.destroy();
+      this.editor = null;
+      this.createEditor(this.props.schema);
+    }
   };
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -86,11 +91,11 @@ class JsonCreator extends Component {
             </div>
           )
         }
-          <div className="form-group">
-              <button name="send" className="btn btn-action btn-action--form" onClick={this.sendMessage}>
-                  <span>Send Message</span>
-              </button>
-          </div>
+        <MessageSender
+          messageType={this.props.schema}
+          sendMessage={this.sendMessage}
+          data={this.context}
+        />
       </>
     );
   }

@@ -6,6 +6,7 @@ import {
   faUndoAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Checkbox from '@material-ui/core/Checkbox';
 import _ from "lodash";
 
 import "@serge/themes/App.scss";
@@ -33,6 +34,8 @@ class EditSubscriptionRow extends Component {
       editSubscriptionForce: {value: this.props.data.forceUniqid, label: this.props.data.force},
       editSubscriptionRoles: this.props.data.roles,
       editSubscriptionTemplates: this.props.data.templates,
+      multiChannelCheckbox: this.props.data.multiChannelMessages,
+      draftCheckbox: this.props.data.draftMessages,
       roleOptions,
     };
   }
@@ -77,6 +80,18 @@ class EditSubscriptionRow extends Component {
     });
   };
 
+  setMultiChannelCheckbox = () => {
+    this.setState({
+      multiChannelCheckbox: !this.state.multiChannelCheckbox,
+    });
+  };
+
+  setDraftCheckbox = () => {
+    this.setState({
+      draftCheckbox: !this.state.draftCheckbox,
+    });
+  };
+
   updateChannel = () => {
 
     let templateIds = this.state.editSubscriptionTemplates.map(function(template) {
@@ -92,6 +107,8 @@ class EditSubscriptionRow extends Component {
       force: this.state.editSubscriptionForce.label,
       roles: this.state.editSubscriptionRoles,
       templates,
+      multiChannelMessages: this.state.multiChannelCheckbox,
+      draftMessages: this.state.draftCheckbox,
       forceUniqid: this.state.editSubscriptionForce.value,
       icon: this.props.forcesList.find((force) => this.state.editSubscriptionForce.value === force.uniqid).icon,
     };
@@ -131,6 +148,32 @@ class EditSubscriptionRow extends Component {
             onChange={this.updateSubscriptionTemplates}
             isMulti
           />
+        </td>
+        <td>
+          <div id="custom-select-multi-channel-checkbox">
+            <Checkbox
+              checked={this.state.multiChannelCheckbox}
+              onChange={this.setMultiChannelCheckbox}
+              value="multi-channel"
+              color="primary"
+              inputProps={{
+                'aria-label': 'secondary checkbox',
+              }}
+            />
+          </div>
+        </td>
+        <td>
+          <div id="custom-select-multi-channel-checkbox">
+            <Checkbox
+              checked={this.state.draftCheckbox}
+              onChange={this.setDraftCheckbox}
+              value="multi-channel"
+              color="primary"
+              inputProps={{
+                'aria-label': 'secondary checkbox',
+              }}
+            />
+          </div>
         </td>
         <td>
           <FontAwesomeIcon icon={faUndoAlt} title="Cancel" onClick={this.cancelEdit} />

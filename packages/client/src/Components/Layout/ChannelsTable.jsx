@@ -4,6 +4,8 @@ import _ from "lodash";
 import classNames from "classnames";
 import Select from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Checkbox from '@material-ui/core/Checkbox';
+
 import {
   faTrash,
   faPencilAlt,
@@ -35,7 +37,9 @@ class ChannelsTable extends Component {
       forceOptions: forceOptions,
       selectedRoles:  [],
       roleOptions: [{value: '', label: ''}],
-      selectedTemplates:  [],
+      selectedTemplates: [],
+      multiChannelCheckbox: false,
+      draftCheckbox: false,
       templateOptions: templateOptions,
       subscriptionToEdit: null,
       editSubscriptionForce: '',
@@ -77,10 +81,31 @@ class ChannelsTable extends Component {
     let data = deepCopy(rowData);
     let row = [];
     let key = 0;
+
     for (var prop in data) {
       if (prop === "subscriptionId") continue;
       if (prop === "forceUniqid") continue;
       if (prop === "icon") continue;
+
+      if (prop === "multiChannelMessages" || prop === "draftMessages" ) {
+        row.push(
+          <td key={`${prop}${key}`} className={prop}>
+            <div>
+              <Checkbox
+                disabled
+                checked={data[prop]}
+                value={prop}
+                inputProps={{
+                  'aria-label': 'disabled checkbox secondary',
+                }}
+              />
+            </div>
+          </td>
+        );
+        key++;
+        continue;
+      }
+
       key++;
 
       var value = '';
@@ -154,6 +179,18 @@ class ChannelsTable extends Component {
     });
   };
 
+  setMultiChannelCheckbox = () => {
+    this.setState({
+      multiChannelCheckbox: !this.state.multiChannelCheckbox,
+    });
+  };
+
+  setDraftCheckbox = () => {
+    this.setState({
+      draftCheckbox: !this.state.draftCheckbox,
+    });
+  };
+
   addToChannel = () => {
     if (!this.state.selectedForce.value) return;
 
@@ -166,15 +203,13 @@ class ChannelsTable extends Component {
       forceUniqid: this.props.wargame.data.forces.forces.find((f) => f.uniqid === this.state.selectedForce.value).uniqid,
       roles: this.state.selectedRoles,
       templates,
+      multiChannelMessages: this.state.multiChannelCheckbox,
+      draftMessages: this.state.draftCheckbox,
       icon: this.props.wargame.data.forces.forces.find((f) => f.uniqid === this.state.selectedForce.value).icon,
     };
     this.props.dispatch(setTabUnsaved());
     this.props.dispatch(addRecipientToChannel(recipient));
-    this.setState({
-      selectedForce: {value: null, label: null},
-      selectedRoles: [],
-      selectedTemplates: [],
-    });
+    this.clearChannelData();
   };
 
   clearChannelData = () => {
@@ -182,6 +217,8 @@ class ChannelsTable extends Component {
       selectedForce: {value: null, label: null},
       selectedRoles: [],
       selectedTemplates: [],
+      multiChannelCheckbox: false,
+      draftCheckbox: false,
     });
   };
 
@@ -194,6 +231,8 @@ class ChannelsTable extends Component {
               <th>Force</th>
               <th>Restrict access specific roles</th>
               <th>Templates</th>
+              <th>Multi-Channel</th>
+              <th>Draft</th>
             </tr>
           </thead>
           <tbody>
@@ -247,6 +286,32 @@ class ChannelsTable extends Component {
                     options={this.state.templateOptions}
                     onChange={this.setSelectedTemplate}
                     isMulti
+                  />
+                </div>
+              </td>
+              <td>
+                <div id="custom-select-multi-channel-checkbox">
+                  <Checkbox
+                    checked={this.state.multiChannelCheckbox}
+                    onChange={this.setMultiChannelCheckbox}
+                    value="multi-channel"
+                    color="primary"
+                    inputProps={{
+                      'aria-label': 'secondary checkbox',
+                    }}
+                  />
+                </div>
+              </td>
+              <td>
+                <div id="custom-select-multi-channel-checkbox">
+                  <Checkbox
+                    checked={this.state.draftCheckbox}
+                    onChange={this.setDraftCheckbox}
+                    value="multi-channel"
+                    color="primary"
+                    inputProps={{
+                      'aria-label': 'secondary checkbox',
+                    }}
                   />
                 </div>
               </td>
