@@ -179,8 +179,18 @@ export const playerUiReducer = (state = initialState, action) => {
             if (!participatingForce && !newState.isObserver) return
 
             const isParticipant = !!participatingRole
-            const allRolesIncluded = channel.participants.some((p) => p.forceUniqid === newState.selectedForce && p.roles.length === 0)
-            const chosenTemplates = participatingRole.templates
+            const allRolesIncluded = channel.participants.find((p) => {
+              return p.forceUniqid === newState.selectedForce && p.roles.length === 0
+            })
+
+            let chosenTemplates
+            if (participatingRole) {
+              chosenTemplates = participatingRole.templates
+            } else if (allRolesIncluded) {
+              chosenTemplates = allRolesIncluded.templates
+            } else {
+              chosenTemplates = []
+            }
 
             let templates
             if (isParticipant || allRolesIncluded) {
@@ -263,11 +273,15 @@ export const playerUiReducer = (state = initialState, action) => {
         if (!participatingForce && !newState.isObserver) return
 
         const isParticipant = !!participatingRole
-        const allRolesIncluded = channel.participants.some((p) => p.forceUniqid === newState.selectedForce && p.roles.length === 0)
+        const allRolesIncluded = channel.participants.find((p) => {
+          return p.forceUniqid === newState.selectedForce && p.roles.length === 0
+        })
 
         let chosenTemplates
         if (participatingRole) {
           chosenTemplates = participatingRole.templates
+        } else if (allRolesIncluded) {
+          chosenTemplates = allRolesIncluded.templates
         } else {
           chosenTemplates = []
         }
