@@ -200,9 +200,8 @@ export const playerUiReducer = (state = initialState, action) => {
             (channelActive || allRoles) &&
             !!newState.channels[channel.uniqid]
           ) {
-            const participatingForce = channel.participants.find((p) => p.forceUniqid === newState.selectedForce)
-            const chosenTemplates = participatingForce.templates
-            newState.channels[channel.uniqid].templates = chosenTemplates.map((template) => template.value)
+            const { templates } = getParticipantStates(channel, newState)
+            newState.channels[channel.uniqid].templates = templates
           }
 
           // if channel already created
