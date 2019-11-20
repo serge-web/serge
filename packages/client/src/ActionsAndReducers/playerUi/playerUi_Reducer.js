@@ -45,21 +45,33 @@ export const playerUiReducer = (state = initialState, action) => {
   const newState = copyState(state)
   let messages
   const channels = {}
-  const getParticipantStates = (channel, newState) => {
-    let chosenTemplates
-    let templates
-    let observing = false
-    const matchedForce = (p) => p.forceUniqid === newState.selectedForce
-    const matchedRole = (role) => role.value === newState.selectedRole
-    const participatingRole = channel.participants.find((p) => matchedForce(p) && p.roles.some(matchedRole))
-    const participatingForce = channel.participants.find(matchedForce)
+  const matchedForce = (p, selectedForce) => p.forceUniqid === selectedForce
+  const matchedRole = (role, selectedRole) => role.value === selectedRole
+  const matchedForceAndRole = (p, { selectedForce, selectedRole }) => {
+    return matchedForce(p, selectedForce) && p.roles.some(p => matchedRole(p, selectedRole))
+  }
+  const matchedAllRoles = (p, selectedForce) => {
+    return matchedForce(p, selectedForce) && p.roles.length === 0
+  }
+  const checkParticipantStates = (channel, newState) => {
+    const participatingRole = channel.participants.find(p => matchedForceAndRole(p, newState))
+    const participatingForce = channel.participants.find(p => matchedForce(p, newState.selectedForce))
 
     if (!participatingForce && !newState.isObserver) return
 
     const isParticipant = !!participatingRole
-    const allRolesIncluded = channel.participants.find((p) => {
-      return matchedForce(p) && p.roles.length === 0
-    })
+    const allRolesIncluded = channel.participants.find(p => matchedAllRoles(p, newState.selectedForce))
+    return {
+      isParticipant,
+      participatingRole,
+      allRolesIncluded
+    }
+  }
+  const getParticipantStates = (channel, newState) => {
+    let chosenTemplates
+    let templates
+    let observing = false
+    const { isParticipant, participatingRole, allRolesIncluded } = checkParticipantStates(channel, newState)
     if (participatingRole) {
       chosenTemplates = participatingRole.templates
     } else if (allRolesIncluded) {
@@ -78,12 +90,7 @@ export const playerUiReducer = (state = initialState, action) => {
       observing = true
       templates = []
     }
-    return {
-      isParticipant,
-      allRolesIncluded,
-      observing,
-      templates
-    }
+    return { isParticipant, allRolesIncluded, observing, templates }
   }
 
   switch (action.type) {
@@ -148,8 +155,8 @@ export const playerUiReducer = (state = initialState, action) => {
           if (!matchedChannel) {
             delete newState.channels[channelId]
           } else {
-            const isParticipant = matchedChannel.participants.some((p) => p.forceUniqid === newState.selectedForce && p.roles.some((role) => role.value === newState.selectedRole))
-            const allRolesIncluded = matchedChannel.participants.some((p) => p.forceUniqid === newState.selectedForce && p.roles.length === 0)
+            const isParticipant = matchedChannel.participants.some(p => matchedForceAndRole(p, newState))
+            const allRolesIncluded = matchedChannel.participants.some(p => matchedAllRoles(p, newState.selectedForce))
 
             if (isParticipant || allRolesIncluded || newState.isObserver) {
               // ok, this is a channel we wish to display
@@ -162,8 +169,8 @@ export const playerUiReducer = (state = initialState, action) => {
 
         // create any new channels & add to current channel
         newState.allChannels.forEach((channel) => {
-          const channelActive = channel.participants.some((p) => p.forceUniqid === newState.selectedForce && p.roles.some((role) => role.value === newState.selectedRole))
-          const allRoles = channel.participants.some((p) => p.forceUniqid === newState.selectedForce && p.roles.length === 0)
+          const channelActive = channel.participants.some(p => matchedForceAndRole(p, newState))
+          const allRoles = channel.participants.some(p => matchedAllRoles(p, newState.selectedForce))
 
           // rename channel
           if (
