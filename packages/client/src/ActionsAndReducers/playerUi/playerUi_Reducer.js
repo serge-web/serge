@@ -45,6 +45,46 @@ export const playerUiReducer = (state = initialState, action) => {
   const newState = copyState(state)
   let messages
   const channels = {}
+  const getParticipantStates = (channel, newState) => {
+    let chosenTemplates
+    let templates
+    let observing = false
+    const matchedForce = (p) => p.forceUniqid === newState.selectedForce
+    const matchedRole = (role) => role.value === newState.selectedRole
+    const participatingRole = channel.participants.find((p) => matchedForce(p) && p.roles.some(matchedRole))
+    const participatingForce = channel.participants.find(matchedForce)
+
+    if (!participatingForce && !newState.isObserver) return
+
+    const isParticipant = !!participatingRole
+    const allRolesIncluded = channel.participants.find((p) => {
+      return matchedForce(p) && p.roles.length === 0
+    })
+    if (participatingRole) {
+      chosenTemplates = participatingRole.templates
+    } else if (allRolesIncluded) {
+      chosenTemplates = allRolesIncluded.templates
+    } else {
+      chosenTemplates = []
+    }
+    if (isParticipant || allRolesIncluded) {
+      if (chosenTemplates.length === 0) {
+        templates = newState.allTemplates.filter((template) => template.title === 'Chat')
+      } else {
+        templates = chosenTemplates.map((template) => template.value)
+      }
+    }
+    if (newState.isObserver && !isParticipant && !allRolesIncluded) {
+      observing = true
+      templates = []
+    }
+    return {
+      isParticipant,
+      allRolesIncluded,
+      observing,
+      templates
+    }
+  }
 
   switch (action.type) {
     case ActionConstant.SET_CURRENT_WARGAME_PLAYER:
@@ -173,39 +213,12 @@ export const playerUiReducer = (state = initialState, action) => {
             (channelActive || allRoles) &&
             !newState.channels[channel.uniqid]
           ) {
-            const participatingRole = channel.participants.find((p) => p.forceUniqid === newState.selectedForce && p.roles.some((role) => role.value === newState.selectedRole))
-            const participatingForce = channel.participants.find((p) => p.forceUniqid === newState.selectedForce)
-
-            if (!participatingForce && !newState.isObserver) return
-
-            const isParticipant = !!participatingRole
-            const allRolesIncluded = channel.participants.find((p) => {
-              return p.forceUniqid === newState.selectedForce && p.roles.length === 0
-            })
-
-            let chosenTemplates
-            if (participatingRole) {
-              chosenTemplates = participatingRole.templates
-            } else if (allRolesIncluded) {
-              chosenTemplates = allRolesIncluded.templates
-            } else {
-              chosenTemplates = []
-            }
-
-            let templates
-            if (isParticipant || allRolesIncluded) {
-              if (chosenTemplates.length === 0) {
-                templates = newState.allTemplates.filter((template) => template.title === 'Chat')
-              } else {
-                templates = chosenTemplates.map((template) => template.value)
-              }
-            }
-
-            let observing = false
-            if (newState.isObserver && !isParticipant && !allRolesIncluded) {
-              observing = true
-              templates = []
-            }
+            const {
+              isParticipant,
+              allRolesIncluded,
+              observing,
+              templates
+            } = getParticipantStates(channel, newState)
 
             if (allRolesIncluded || isParticipant || newState.isObserver) {
               channels[channel.uniqid] = {
@@ -267,39 +280,12 @@ export const playerUiReducer = (state = initialState, action) => {
       newState.chatChannel.messages = messages.filter((message) => message.details.channel === newState.chatChannel.name)
 
       newState.allChannels.forEach((channel) => {
-        const participatingRole = channel.participants.find((p) => p.forceUniqid === newState.selectedForce && p.roles.some((role) => role.value === newState.selectedRole))
-        const participatingForce = channel.participants.find((p) => p.forceUniqid === newState.selectedForce)
-
-        if (!participatingForce && !newState.isObserver) return
-
-        const isParticipant = !!participatingRole
-        const allRolesIncluded = channel.participants.find((p) => {
-          return p.forceUniqid === newState.selectedForce && p.roles.length === 0
-        })
-
-        let chosenTemplates
-        if (participatingRole) {
-          chosenTemplates = participatingRole.templates
-        } else if (allRolesIncluded) {
-          chosenTemplates = allRolesIncluded.templates
-        } else {
-          chosenTemplates = []
-        }
-
-        let templates
-        if (isParticipant || allRolesIncluded) {
-          if (chosenTemplates.length === 0) {
-            templates = newState.allTemplates.filter((template) => template.title === 'Chat')
-          } else {
-            templates = chosenTemplates.map((template) => template.value)
-          }
-        }
-
-        let observing = false
-        if (newState.isObserver && !isParticipant && !allRolesIncluded) {
-          observing = true
-          templates = []
-        }
+        const {
+          isParticipant,
+          allRolesIncluded,
+          observing,
+          templates
+        } = getParticipantStates(channel, newState)
 
         if (!newState.isObserver && !isParticipant && !allRolesIncluded) return
 
