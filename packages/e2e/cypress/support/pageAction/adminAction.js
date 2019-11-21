@@ -53,7 +53,7 @@ export function checkAccessCodeCheckbox() {
   numberRun++
   cy.wait(500);
   cy.get('input#show-access-codes').invoke('prop', 'checked').then($isChecked => {
-    ($isChecked === true || numberRun > 5) ? cy.log('done') : checkAccessCode();
+    ($isChecked === true || numberRun > 5) ? cy.log('done') : checkAccessCodeCheckbox();
   })
   cy.get('input#show-access-codes').should('be.checked');
 }
