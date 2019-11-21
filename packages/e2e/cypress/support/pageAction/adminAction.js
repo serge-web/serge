@@ -51,10 +51,6 @@ Cypress.Commands.add("clickSaveOverview", () => {
 let numberRun = 0
 export function checkAccessCodeCheckbox() {
   numberRun++
-  cy.get('input#show-access-codes')
-  .check({
-    force: true
-  })
   cy.wait(500);
   cy.get('input#show-access-codes').invoke('prop', 'checked').then($isChecked => {
     ($isChecked === true || numberRun > 5) ? cy.log('done') : checkAccessCode();
