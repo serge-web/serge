@@ -48,13 +48,22 @@ Cypress.Commands.add("clickSaveOverview", () => {
     .click()
 })
 
-Cypress.Commands.add("clickShowAccessCode", () => {
-  cy.wait(500)
+let numberRun = 0
+export function checkAccessCodeCheckbox() {
+  numberRun++
   cy.get('input#show-access-codes')
-    .click({
-      force: true
-    }).should('be.checked')
-  cy.wait(500)
+  .check({
+    force: true
+  })
+  cy.wait(500);
+  cy.get('input#show-access-codes').invoke('prop', 'checked').then($isChecked => {
+    ($isChecked === true || numberRun > 5) ? cy.log('done') : checkAccessCode();
+  })
+  cy.get('input#show-access-codes').should('be.checked');
+}
+
+Cypress.Commands.add("clickShowAccessCode", () => {
+  checkAccessCodeCheckbox()
 })
 
 Cypress.Commands.add("inputRoleName", (roleName) => {
