@@ -54,10 +54,11 @@ export const playerUiReducer = (state = initialState, action) => {
     return matchedForce(p, selectedForce) && p.roles.length === 0
   }
   const checkParticipantStates = (channel, newState) => {
-    const participatingRole = channel.participants.find(p => matchedForceAndRole(p, newState))
-    const participatingForce = channel.participants.find(p => matchedForce(p, newState.selectedForce))
 
-    if (!participatingForce && !newState.isObserver) return
+    const participatingRole = channel.participants.find(p => matchedForceAndRole(p, newState))
+ //   const participatingForce = channel.participants.find(p => matchedForce(p, newState.selectedForce))
+
+  //  if (!participatingForce && !newState.isObserver) return
 
     const isParticipant = !!participatingRole
     const allRolesIncluded = channel.participants.find(p => matchedAllRoles(p, newState.selectedForce))
@@ -86,6 +87,8 @@ export const playerUiReducer = (state = initialState, action) => {
         templates = chosenTemplates.map((template) => template.value)
       }
     }
+    console.log('Channel:' + channel.name + ' is participant: ' + isParticipant)
+
     if (newState.isObserver && !isParticipant && !allRolesIncluded) {
       observing = true
       templates = []
