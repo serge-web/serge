@@ -127,9 +127,10 @@ export const checkAdminAccess = (phrase) => {
 
 export const saveIcon = (file) => {
   return async (dispatch) => {
-    var iconLocation = await wargamesApi.saveIcon(file)
-
-    dispatch(addIcon(iconLocation.path))
+    const iconLocation = await wargamesApi.saveIcon(file)
+    const { path } = iconLocation || {}
+    const iconPath = String(path).replace(/^\./g, '')
+    dispatch(addIcon(iconPath))
   }
 }
 
