@@ -54,13 +54,9 @@ export const playerUiReducer = (state = initialState, action) => {
     return matchedForce(p, selectedForce) && p.roles.length === 0
   }
   const checkParticipantStates = (channel, newState) => {
-
     const participatingRole = channel.participants.find(p => matchedForceAndRole(p, newState))
-    
-    // Ian commented out these lines, since we were causing
-    // runtime error when trying to unpack a composite return object
-    //   const participatingForce = channel.participants.find(p => matchedForce(p, newState.selectedForce))
-    // if (!participatingForce && !newState.isObserver) return
+    const participatingForce = channel.participants.find(p => matchedForce(p, newState.selectedForce))
+    if (!participatingForce && !newState.isObserver) return {}
 
     const isParticipant = !!participatingRole
     const allRolesIncluded = channel.participants.find(p => matchedAllRoles(p, newState.selectedForce))
