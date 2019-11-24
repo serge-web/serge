@@ -229,7 +229,7 @@ class ChannelsTable extends Component {
           <thead>
             <tr>
               <th>Force</th>
-              <th>Restrict access specific roles</th>
+              <th>Restrict access to specific roles</th>
               <th>Templates</th>
               <th>Multi-Channel</th>
               <th>Draft</th>

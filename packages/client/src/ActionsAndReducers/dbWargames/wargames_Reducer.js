@@ -21,12 +21,6 @@ var initialState = {
   adminNotLoggedIn: true
 }
 
-var getNameFromPath = function (dbPath) {
-  const path = new URL(dbPath).pathname
-  const index = path.lastIndexOf('/')
-  return path.substring(index + 1)
-}
-
 export const wargamesReducer = (state = initialState, action) => {
   const newState = copyState(state)
   const tab = newState.currentTab
@@ -34,7 +28,6 @@ export const wargamesReducer = (state = initialState, action) => {
   let selected
   let curChannel
   let index
-  let listWithoutThis
   let newForce
   let newChannel
   let channelIndex
@@ -62,19 +55,6 @@ export const wargamesReducer = (state = initialState, action) => {
       newState.exportMessagelist = action.payload.exportMessagelist
       newState.wargameInitiated = action.payload.wargameInitiated || false
 
-      return newState
-
-    case ActionConstant.SET_WARGAME_NAME:
-
-      listWithoutThis = []
-
-      newState.wargameList.forEach((game) => {
-        if (getNameFromPath(game.name) !== newState.currentWargame) listWithoutThis.push(game)
-      })
-
-      // uniqueName = listWithoutThis.every((wargame) => wargame.title !== action.payload );
-
-      newState.wargameTitle = action.payload
       return newState
 
     case ActionConstant.SET_CURRENT_GAME_SETUP_TAB:
@@ -128,11 +108,6 @@ export const wargamesReducer = (state = initialState, action) => {
       channelIndex = newState.data[tab].channels.findIndex((channel) => channel.name === action.payload)
       newState.data[tab].channels.splice(channelIndex, 1)
       newState.data[tab].selectedChannel = ''
-      break
-
-    case ActionConstant.SET_FORCE_OVERVIEW:
-      selected = newState.data[tab].selectedForce.name
-      newState.data[tab].forces.find((f) => f.name === selected).overview = action.payload
       break
 
     case ActionConstant.ADD_NEW_RECIPIENT:

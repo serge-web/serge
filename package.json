@@ -11,20 +11,25 @@
   ],
   "dependencies": {
     "lerna": "^3.16.4",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "snyk": "^1.248.0"
   },
   "scripts": {
     "start": "run-p start:*",
     "start:server": "cd packages/server && yarn start",
     "start:client": "cd packages/client && yarn start",
-    "test" : "run-p test:*",
-    "test:e2e" : "cd packages/e2e && yarn run cypress open ",
-    "test:unit" : "cd packages/client && yarn test",
-    "lint" : "run-p lint:*",
-    "lint:themes" : "cd packages/themes; stylelint *.scss --fix",
+    "test": "run-p test:*",
+    "test:e2e": "cd packages/e2e && yarn run cypress open ",
+    "test:unit": "cd packages/client && yarn test",
+    "lint": "run-p lint:*",
+    "lint:themes": "cd packages/themes; stylelint *.scss --fix",
     "build": "lerna run build --scope=@serge/client",
+    "pkg-build": "cd packages/executable && yarn start",
     "diff": "lerna diff",
     "heroku-postbuild": "yarn build",
-    "serge" : "yarn start:server"
-  }
+    "serge": "yarn start:server",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
+  },
+  "snyk": true
 }

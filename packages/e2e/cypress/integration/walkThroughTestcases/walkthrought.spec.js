@@ -1,6 +1,6 @@
 describe('Run_automation_test_Serge', function () {
   const user = cy
-  const roomName = "This is Cypress Testing_" + Math.floor(Math.random() * 9999)
+  const roomName = "Cypress_test_" + Math.floor(Math.random() * 9999)
   // after(()=>{
   //   user.visit('http://192.168.1.14:8080/serge/admin')
   //   user.inputPassword(pwd).get('.link.link--noIcon').click()
@@ -20,7 +20,7 @@ describe('Run_automation_test_Serge', function () {
       //Overview   
       user.createNewGame()
         .inputRoomName(roomName)
-        .clickShowAccessCode('on')
+        .clickShowAccessCode()
         .clickSaveOverview()
 
       //Forces
@@ -175,15 +175,15 @@ describe('Run_automation_test_Serge', function () {
         .verifyGameForceIsDisplayed(testData.role.blue.name)
         .chooseRoom('Blue Chat')
         .clickNewMessageButtonForRoom('blue-chat')
-        .InputMessageForRoom('blue-chat', 'This is Cypress Testing')
+        .InputMessageForRoom('blue-chat', 'Cypress_test')
         .clickSendMessageButtonForRoom('blue-chat')
 
       user.changeForce(testData.playerUrl, roomName)
         .chooseRoleGame(testData.role.white.name, testData.role.white.gc)
         .clickEnterButton()
         .chooseRoom('Blue Chat')
-        .openMessageWithTitle('This is Cypress Testing')
-        .verifyMessageIsDisplayed('This is Cypress Testing')
+        .openMessageWithTitle('Cypress_test')
+        .verifyMessageIsDisplayed('Cypress_test')
 
     })
   })

@@ -6,6 +6,7 @@ import { wargamesReducer } from '../../../ActionsAndReducers/dbWargames/wargames
 import * as wargamesApi from '../../../api/wargames_api'
 import {
   forceTemplate,
+  umpireForceTemplate,
   channelTemplate
 } from '../../../consts'
 
@@ -13,12 +14,19 @@ import ActionConstant from '../../../ActionsAndReducers/ActionConstants'
 import _ from 'lodash'
 import deepCopy from '../../../Helpers/copyStateHelper'
 
+// eslint-disable-next-line no-undef
+jest.mock('uniqid', () => ({
+  time: () => 'k335grni'
+}))
+
 const mockStore = configureStore([thunk])
 
 const wargameLocal = {
   name: 'wargame-juli0v4i',
   tabs: { 0: {}, 1: {}, 2: {} },
   wargameTitle: 'wargame-juli0v4i',
+  wargameInitiated: true,
+  data: {},
   _id: '_local/settings',
   _rev: '0-1'
 }
@@ -42,24 +50,17 @@ const tabs = {
   },
   1: {
     name: 'Forces',
-    data: {
-      forces: { white: forceTemplate },
-      selectedForce: '',
-      roles: []
-    },
-    complete: false
+    forces: [umpireForceTemplate],
+    selectedForce: '',
+    complete: false,
+    dirty: false
   },
   2: {
     name: 'Channels',
-    data: {
-      channels: [{
-        force: 'white',
-        role: 'weather',
-        template: 'weather forecast'
-      }],
-      selectedChannel: ''
-    },
-    complete: false
+    channels: [],
+    selectedChannel: '',
+    complete: false,
+    dirty: false
   }
 }
 
@@ -128,19 +129,6 @@ describe('wargames actions', () => {
       expect(store.getActions().payload).toEqual(expectedActions.payload)
     })
   })
-  // FIXME: wargames.updateWargame no longer seems to exist
-  // it('updates a wargame ActionConstant.SET_CURRENT_WARGAME after setting to edit', async () => {
-  //   const expectedActions = [
-  //     { type: ActionConstant.SET_CURRENT_WARGAME, payload: wargameLocal }
-  //   ]
-
-  //   const store = mockStore({})
-
-  //   return store.dispatch(wargames.updateWargame(wargameList[0].name, {}, wargameList[0].title)).then(() => {
-  //     // return of async actions
-  //     expect(store.getActions().payload).toEqual(expectedActions.payload)
-  //   })
-  // })
 
   it('duplicates a wargame ActionConstant.SET_CURRENT_WARGAME after setting to edit', async () => {
     const expectedActions = [
@@ -166,44 +154,19 @@ describe('wargames reducer', () => {
     expect(wargamesReducer({}, wargameNamesAction)).toEqual({ wargameList })
   })
 
-  // FIXME: The data seems to have changed without updating the code as the expected and received values do not match
-  // it('should set current wargame', () => {
-  //   const setCurrentAction = {
-  //     type: ActionConstant.SET_CURRENT_WARGAME,
-  //     payload: wargameLocal // important to pass correct payload, that's what the tests are for ;)
-  //   }
+  it('should set current wargame', () => {
+    const setCurrentAction = {
+      type: ActionConstant.SET_CURRENT_WARGAME,
+      payload: wargameLocal // important to pass correct payload, that's what the tests are for ;)
+    }
 
-  //   expect(wargamesReducer({}, setCurrentAction)).toEqual({
-  //     currentWargame: wargameLocal.name,
-  //     wargameTitle: wargameLocal.wargameTitle,
-  //     tabs: wargameLocal.tabs
-  //   })
-  // })
-
-  // FIXME: The test fails with 'invalidURL' presumably this is due to a change in the code but not the tests
-  // it('should update wargame name', () => {
-  //   const setWargameList = {
-  //     type: ActionConstant.SET_WARGAME_NAME,
-  //     payload: 'New wargame name'
-  //   }
-
-  //   expect(wargamesReducer({ wargameList }, setWargameList)).toEqual({
-  //     wargameList,
-  //     wargameTitle: setWargameList.payload
-  //   })
-  // })
-  // FIXME: The test fails with 'invalidURL' presumably this is due to a change in the code but not the tests
-  // it('should set wargame name as invalid', () => {
-  //   const setWargameList = {
-  //     type: ActionConstant.SET_WARGAME_NAME,
-  //     payload: wargameList[0].title
-  //   }
-
-  //   expect(wargamesReducer({ wargameList }, setWargameList)).toEqual({
-  //     wargameList,
-  //     wargameTitle: setWargameList.payload
-  //   })
-  // })
+    expect(wargamesReducer({}, setCurrentAction)).toEqual({
+      currentWargame: wargameLocal.name,
+      wargameTitle: wargameLocal.wargameTitle,
+      data: wargameLocal.data,
+      wargameInitiated: wargameLocal.wargameInitiated
+    })
+  })
 
   it('should set current game tab', () => {
     const setTabAction = {
@@ -217,130 +180,115 @@ describe('wargames reducer', () => {
     })
   })
 
-  // FIXME: newData appears to not contain any data/contains incorrect data
-  // it('should set game data', () => {
-  //   const newData = deepCopy(tabs)
+  it('should set game data', () => {
+    const newData = deepCopy(tabs)
+    const gameDescription = 'description'
 
-  //   newData[0].data.gameDescription = 'description'
+    newData[0].data = {
+      ...newData[0].data,
+      gameDescription
+    }
 
-  //   const setDataAction = {
-  //     type: ActionConstant.SET_GAME_SETUP_DATA,
-  //     payload: { gameDescription: 'description' }
-  //   }
+    const setDataAction = {
+      type: ActionConstant.SET_GAME_SETUP_DATA,
+      payload: { data: newData[0].data }
+    }
 
-  //   expect(wargamesReducer({ tabs, currentTab: 0 }, setDataAction)).toEqual({
-  //     tabs: newData,
-  //     currentTab: 0
-  //   })
-  // })
+    expect(wargamesReducer({ data: tabs, currentTab: 0 }, setDataAction)).toEqual({
+      data: newData,
+      currentTab: 0
+    })
+  })
 
-  // FIXME: newData appears to not contain any data/contains incorrect data
-  // it('should add a new force', () => {
-  //   const newData = deepCopy(tabs)
+  it('should add a new force', () => {
+    const newData = deepCopy(tabs)
 
-  //   newData[1].data.forces.black = forceTemplate
+    newData[1].forces.push(forceTemplate)
 
-  //   const addForceAction = {
-  //     type: ActionConstant.ADD_NEW_FORCE,
-  //     payload: 'black'
-  //   }
+    const addForceAction = {
+      type: ActionConstant.ADD_NEW_FORCE,
+      payload: {
+        name: 'black',
+        uniqid: 'uid'
+      }
+    }
 
-  //   expect(wargamesReducer({ tabs, currentTab: 1 }, addForceAction)).toEqual({
-  //     tabs: newData,
-  //     currentTab: 1
-  //   })
-  // })
+    expect(wargamesReducer({ data: tabs, currentTab: 1 }, addForceAction)).toEqual({
+      data: newData,
+      currentTab: 1
+    })
+  })
 
-  // FIXME: newData appears to not contain any data/contains incorrect data
-  // it('set selected force', () => {
-  //   const newData = deepCopy(tabs)
+  it('set selected force', () => {
+    const newData = deepCopy(tabs)
 
-  //   newData[1].data.selectedForce = 'black'
+    newData[1].selectedForce = newData[1].forces[0]
 
-  //   const addForceAction = {
-  //     type: ActionConstant.SET_SELECTED_FORCE,
-  //     payload: 'black'
-  //   }
+    const addForceAction = {
+      type: ActionConstant.SET_SELECTED_FORCE,
+      payload: newData[1].forces[0]
+    }
 
-  //   expect(wargamesReducer({ tabs, currentTab: 1 }, addForceAction)).toEqual({
-  //     tabs: newData,
-  //     currentTab: 1
-  //   })
-  // })
+    expect(wargamesReducer({ data: tabs, currentTab: 1 }, addForceAction)).toEqual({
+      data: newData,
+      currentTab: 1
+    })
+  })
 
-  // FIXME: newData appears to not contain any data/contains incorrect data
-  // it('add new channel', () => {
-  //   const newData = deepCopy(tabs)
+  it('add new channel', () => {
+    const newData = deepCopy(tabs)
 
-  //   newData[2].data.channels.black = channelTemplate
+    newData[2].channels.push(channelTemplate)
 
-  //   const addChannelAction = {
-  //     type: ActionConstant.ADD_NEW_CHANNEL,
-  //     payload: 'black'
-  //   }
+    const addChannelAction = {
+      type: ActionConstant.ADD_NEW_CHANNEL,
+      payload: {
+        name: 'black',
+        uniqid: 'uid'
+      }
+    }
 
-  //   expect(wargamesReducer({ tabs, currentTab: 2 }, addChannelAction)).toEqual({
-  //     tabs: newData,
-  //     currentTab: 2
-  //   })
-  // })
+    expect(wargamesReducer({ data: tabs, currentTab: 2 }, addChannelAction)).toEqual({
+      data: newData,
+      currentTab: 2
+    })
+  })
 
-  // FIXME: newData appears to not contain any data/contains incorrect data
-  // it('set selected channel', () => {
-  //   const newData = deepCopy(tabs)
+  it('set selected channel', () => {
+    const newData = deepCopy(tabs)
 
-  //   newData[2].data.selectedChannel = 'black'
-  //   newData[2].complete = true
+    newData[2].selectedChannel = newData[2].channels[0]
 
-  //   const addForceAction = {
-  //     type: ActionConstant.SET_SELECTED_CHANNEL,
-  //     payload: 'black'
-  //   }
+    const addForceAction = {
+      type: ActionConstant.SET_SELECTED_CHANNEL,
+      payload: newData[2].channels[0]
+    }
 
-  //   expect(wargamesReducer({ tabs, currentTab: 2 }, addForceAction)).toEqual({
-  //     tabs: newData,
-  //     currentTab: 2
-  //   })
-  // })
+    expect(wargamesReducer({ data: tabs, currentTab: 2 }, addForceAction)).toEqual({
+      data: newData,
+      currentTab: 2
+    })
+  })
 
-  // FIXME: newData appears to not contain any data/contains incorrect data
-  // it('set force overview', () => {
-  //   const oldData = deepCopy(tabs)
-  //   const newData = deepCopy(tabs)
+  it('add recipient', () => {
+    const oldData = deepCopy(tabs)
+    oldData[2].channels = [channelTemplate]
+    oldData[2].selectedChannel = oldData[2].channels[0]
+    oldData[2].channels[0].participants = []
 
-  //   oldData[1].data.selectedForce = 'white'
-  //   newData[1].data.selectedForce = 'white'
-  //   newData[1].data.forces.white.overview = 'Test overview'
+    const newData = deepCopy(oldData)
+    newData[2].channels[0].participants = [oldData[1].forces[0]]
+    newData[2].channels[0].participants[0].subscriptionId = 'k335grni'
+    newData[1].forces[0].subscriptionId = 'k335grni'
 
-  //   const addForceAction = {
-  //     type: ActionConstant.SET_FORCE_OVERVIEW,
-  //     payload: 'Test overview'
-  //   }
+    const addRecipientAction = {
+      type: ActionConstant.ADD_NEW_RECIPIENT,
+      payload: oldData[1].forces[0]
+    }
 
-  //   expect(wargamesReducer({ tabs: oldData, currentTab: 1 }, addForceAction)).toEqual({
-  //     tabs: newData,
-  //     currentTab: 1
-  //   })
-  // })
-  
-  // FIXME: newData appears to not contain any data/contains incorrect data
-  // it('add recipient', () => {
-  //   const oldData = deepCopy(tabs)
-  //   oldData[2].data.selectedChannel = 'white'
-  //   oldData[2].data.channels.white = []
-
-  //   const newData = deepCopy(oldData)
-  //   newData[2].data.channels.white = ['Test']
-  //   newData[2].complete = true
-
-  //   const addRecipientAction = {
-  //     type: ActionConstant.ADD_NEW_RECIPIENT,
-  //     payload: 'Test'
-  //   }
-
-  //   expect(wargamesReducer({ tabs: oldData, currentTab: 2 }, addRecipientAction)).toEqual({
-  //     tabs: newData,
-  //     currentTab: 2
-  //   })
-  // })
+    expect(wargamesReducer({ data: oldData, currentTab: 2 }, addRecipientAction)).toEqual({
+      data: newData,
+      currentTab: 2
+    })
+  })
 })

@@ -28,7 +28,7 @@ class RouterMain extends Component {
 
   componentDidMount () {
     this.setState({
-      currentView: components[this.path]
+      currentView: components[this.path] || components[PLAYERUI_ROUTE]
     })
   }
 

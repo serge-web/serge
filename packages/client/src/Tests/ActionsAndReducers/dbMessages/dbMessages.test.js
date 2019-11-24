@@ -189,15 +189,16 @@ describe('messages reducer', () => {
     })
   })
 
-  // FIXME: This test does something different to the above but has the same name
-  // it('should save messages to store', () => {
-  //   const action = {
-  //     type: ActionConstant.DB_RETURNED_MESSAGE,
-  //     payload: ['test']
-  //   }
+  it('should returns correct messages from the store', () => {
+    const payload = { _id: 1 }
+    const action = {
+      type: ActionConstant.DB_RETURNED_MESSAGE,
+      payload
+    }
 
-  //   expect(messagesReducer({ messages: [] }, action)).toEqual({
-  //     messages: ['test']
-  //   })
-  // })
+    expect(messagesReducer({}, action)).toEqual({
+      messagePreviewId: payload._id,
+      messagePreview: payload
+    })
+  })
 })
