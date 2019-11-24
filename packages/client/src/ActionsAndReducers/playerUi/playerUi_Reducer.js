@@ -214,11 +214,23 @@ export const playerUiReducer = (state = initialState, action) => {
         if (action.payload.details.channel === CHAT_CHANNEL_ID) {
           newState.chatChannel.messages.unshift(copyState(action.payload))
         } else if (newState.channels[action.payload.details.channel]) {
-          newState.channels[action.payload.details.channel].messages.unshift({
-            ...copyState(action.payload),
-            hasBeenRead: false,
-            isOpen: false
-          })
+          // check, if message exists then update
+          const index = newState.channels[action.payload.details.channel].messages.findIndex(message => (
+            message._id === action.payload._id
+          ))
+          if (index === -1) {
+            newState.channels[action.payload.details.channel].messages.unshift({
+              ...copyState(action.payload),
+              hasBeenRead: false,
+              isOpen: false
+            })
+          } else {
+            newState.channels[action.payload.details.channel].messages[index] = {
+              ...copyState(newState.channels[action.payload.details.channel].messages[index]),
+              ...copyState(action.payload),
+              hasBeenRead: false
+            }
+          }
 
           newState.channels[action.payload.details.channel].unreadMessageCount++
         }

@@ -1,0 +1,51 @@
+.se-message-reply {
+  &__title {
+    background-color: orange;
+    display: inline-block;
+    font-size: 12px;
+    padding: 0px 5px;
+    border-radius: 2px;
+  }
+
+  &__list {
+    list-style: none;
+    display: block;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px;
+    margin: 4px 0;
+
+    li {
+      padding-left: 50px;
+      margin: 0;
+      position: relative;
+      line-height: 20px;
+      margin-bottom: 2px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+
+  &__created {
+    min-width: 44px;
+    border-right: 4px solid #fff;
+    font-size: 12px;
+    padding: 0 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &__form {
+    margin-top: 4px;
+
+    .form-control {
+      height: auto;
+    }
+  }
+}

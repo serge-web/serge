@@ -10,6 +10,8 @@ import Popper from '@material-ui/core/Popper'
 import MenuItem from '@material-ui/core/MenuItem'
 import MenuList from '@material-ui/core/MenuList'
 import Checkbox from '@material-ui/core/Checkbox'
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import blue from '@material-ui/core/colors/blue'
 
 class MessageSenderMultichannel extends Component {
   constructor (props) {
@@ -22,13 +24,8 @@ class MessageSenderMultichannel extends Component {
   }
 
   handleClick () {
-    if (this.state.selectedChannels.length) {
-      this.state.selectedChannels.forEach((channelId, key) => {
-        this.props.sendMessage(channelId, key < this.state.selectedChannels.length - 1)
-      })
-    } else {
-      this.props.sendMessage()
-    }
+    if (this.state.selectedChannels.length) this.props.sendMessage(this.props.draft, this.state.selectedChannels)
+    else this.props.sendMessage(this.props.draft)
   };
 
   handleMenuItemClick (id) {
@@ -52,17 +49,26 @@ class MessageSenderMultichannel extends Component {
   }
 
   render () {
-    // { multiChannelSendingChannels, sendMessage }
+    const theme = createMuiTheme({
+      palette: {
+        action: {
+          disabledBackground: blue[400],
+          primaryBackground: blue[600]
+        }
+      }
+    })
+
+    const maindDisabled = this.props.draft && !this.props.active && this.state.selectedChannels.length === 0
 
     return (
-      <div className="form-group">
+      <MuiThemeProvider theme={theme}>
         <ButtonGroup
           variant="contained"
           color="primary"
           innerRef={this.anchorRef}
           aria-label="split button"
         >
-          <Button onClick={this.handleClick.bind(this)}>
+          <Button onClick={maindDisabled ? undefined : this.handleClick.bind(this)} disabled={maindDisabled} >
             {this.props.children}
             {this.state.selectedChannels.length > 0 && ` ${this.state.selectedChannels.length}/${this.props.channels.length}`}
           </Button>
@@ -135,7 +141,7 @@ class MessageSenderMultichannel extends Component {
             </Grow>
           )}
         </Popper>
-      </div>
+      </MuiThemeProvider>
     )
   }
 }

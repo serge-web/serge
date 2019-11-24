@@ -21,12 +21,14 @@ class JsonCreator extends Component {
     };
   }
 
-  sendMessage = (channelId, keepEditor) => {
-    if(!channelId) channelId = this.props.curChannel;
+  sendMessage = (draft, channels) => {
+    if(!channels) channels = this.props.curChannel;
     const [ state ] = this.context;
     let curForce = state.allForces.find((force) => force.uniqid === state.selectedForce);
     let details = {
-      channel: channelId,
+      channel: channels,
+      draftMessage: draft,
+      feedbacks: [],
       from: {
         force: curForce.name,
         forceColor: state.forceColor,
@@ -46,12 +48,9 @@ class JsonCreator extends Component {
 
     saveMessage(state.currentWargame, details, this.editor.getValue())();
 
-    console.log(keepEditor, this.editor.getValue());
-    if(!keepEditor) {
-      this.editor.destroy();
-      this.editor = null;
-      this.createEditor(this.props.schema);
-    }
+    this.editor.destroy();
+    this.editor = null;
+    this.createEditor(this.props.schema);
   };
 
   componentWillReceiveProps(nextProps, nextContext) {
@@ -95,6 +94,7 @@ class JsonCreator extends Component {
           messageType={this.props.schema}
           sendMessage={this.sendMessage}
           data={this.context}
+          currentChannel={this.props.curChannel}
         />
       </>
     );

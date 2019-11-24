@@ -789,22 +789,52 @@ export const postFeedback = (dbName, fromDetails, message) => {
   })
 }
 
+const postMessage = (db, details, message, key, channels, resolve, reject, allRes) => db.put({
+  _id: new Date().toISOString(),
+  details: { ...details, channel: channels[key] },
+  message
+}).then(res => {
+  if (!allRes) allRes = [res]
+  else allRes.push(res)
+  if (key === channels.length - 1) resolve(allRes)
+  else postMessage(db, details, message, key + 1, channels, resolve, reject, allRes)
+}).catch(err => {
+  console.log(allRes)
+  console.log(err)
+  reject(err)
+})
+
 export const postNewMessage = (dbName, details, message) => {
   const db = wargameDbStore.find((db) => db.name === dbName).db
 
   return new Promise((resolve, reject) => {
-    db.put({
-      _id: new Date().toISOString(),
-      details,
-      message
+    let channels = deepCopy(details.channel)
+    if (!Array.isArray(channels)) {
+      channels = [channels]
+    }
+    postMessage(db, details, message, 0, channels, resolve, reject)
+  })
+}
+
+export const postNewMessageFeedback = (dbName, messageId, feedback) => {
+  const db = wargameDbStore.find((db) => db.name === dbName).db
+  return db.allDocs({ include_docs: true, descending: true, keys: [messageId] }).then(({ rows }) => {
+    const message = rows.find(({ doc }) => {
+      return doc && doc.details && doc.details.draftMessage
     })
-      .then((res) => {
-        resolve(res)
+
+    if (message) {
+      message.doc.details.feedbacks.push({
+        _id: new Date().toISOString(),
+        _rev: message._rev,
+        ...feedback
       })
-      .catch((err) => {
-        console.log(err)
-        reject(err)
-      })
+      return db.put(message.doc)
+    } else {
+      console.log(rows, 'message not found')
+    }
+
+    return false
   })
 }
 

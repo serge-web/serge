@@ -49,6 +49,13 @@ class Channel extends Component {
   render() {
     let curChannel = this.props.channel;
     const [ state ] = this.context;
+    const curForce = state.allForces.find((force) => force.uniqid === state.selectedForce);
+    const feedbackAuthor = {
+      force: curForce.name,
+      forceColor: state.forceColor,
+      role: state.selectedRole,
+      icon: curForce.icon,
+    }
 
     return (
       <div className={this.state.channelTabClass} data-channel-id={curChannel}>
@@ -64,13 +71,17 @@ class Channel extends Component {
             if (item.infoType) {
               return <p className="turn-marker" key={`${item.gameTurn}-turnmarker`}>Turn {item.gameTurn}</p>
             }
+            const itemKey = `${item._id}-messageitem`
             return (
               <MessageListItem
                 detail={item}
-                key={`${item._id}-messageitem`}
+                key={itemKey}
+                parrentKey={itemKey}
+                currentWargame={state.currentWargame}
                 userId={`${state.currentWargame}-${state.selectedForce}-${state.selectedRole}`}
                 open={this.openMessage}
                 close={this.closeMessage}
+                feedbackAuthor={feedbackAuthor}
               />
             );
           })}

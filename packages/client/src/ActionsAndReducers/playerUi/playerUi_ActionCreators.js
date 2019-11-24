@@ -149,3 +149,7 @@ export const getAllWargameMessages = (name) => {
     await dispatch(setWargameFeedback(feedback))
   }
 }
+
+export const addMessageFeedback = (dbName, messageId, feedback) => {
+  wargamesApi.postNewMessageFeedback(dbName, messageId, feedback)
+}
