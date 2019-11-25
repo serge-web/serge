@@ -138,7 +138,7 @@ describe('Run_automation_test_Serge', function () {
         .verifyGameForceIsDisplayed(testData.role.blue.name)
 
       user.chooseRoom('Blue HQ').openNewMessage();
-      for (let i = 0; i < loopOptions.loop; i++) {
+      for (let i = 0; i < loopOptions.intentionsLoop; i++) {
         user.inputMessage(msgData.message1.turnNumber,
           msgData.message1.overallInstruction,
           msgData.message1.unit,
@@ -181,9 +181,9 @@ describe('Run_automation_test_Serge', function () {
         .verifyGameForceIsDisplayed(testData.role.blue.name)
         .chooseRoom('Blue Chat')
         .clickNewMessageButtonForRoom('blue-chat')
-      for (let i = 0; i < loopOptions.loop; i++) {
+      for (let i = 0; i < loopOptions.chatLoop; i++) {
         user
-          .InputMessageForRoom('blue-chat', 'Cypress_test')
+          .InputMessageForRoom('blue-chat', 'Cypress_test_'+i)
           .clickSendMessageButtonForRoom('blue-chat')
         user.wait(loopOptions.waitingTimeBetweenLoop*1000);
       }
