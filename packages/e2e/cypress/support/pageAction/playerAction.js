@@ -35,6 +35,9 @@ Cypress.Commands.add("chooseRoom", (roomName) => {
 Cypress.Commands.add("openNewMessage", (turnNumber, overallIntentions, unit, tasking, policy, action, comment) => {
   cy.wait(500)
   cy.get('div.tab-content-blue-hq .Collapsible__trigger.is-closed').contains('New Message').click()
+})
+
+Cypress.Commands.add("inputMessage", (turnNumber, overallIntentions, unit, tasking, policy, action, comment) => {
   cy.wait(500)
   cy.get('input[type="number"]').type(turnNumber)
   cy.get('textarea[name="root[OverallIntentions]"]').type(overallIntentions)
