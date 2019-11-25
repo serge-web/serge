@@ -32,7 +32,7 @@ Cypress.Commands.add("chooseRoom", (roomName) => {
     .click()
 })
 
-Cypress.Commands.add("openNewMessage", (turnNumber, overallIntentions, unit, tasking, policy, action, comment) => {
+Cypress.Commands.add("openNewMessage", () => {
   cy.wait(500)
   cy.get('div.tab-content-blue-hq .Collapsible__trigger.is-closed').contains('New Message').click()
 })
