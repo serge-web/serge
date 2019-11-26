@@ -561,7 +561,46 @@
     }
 
     .btn {
-      float: right;
+      float: left;
+    }
+
+    $alternate-row: #2b0057;
+
+    [data-schemapath='root.Mission.0'] div {
+      background: $alternate-row;
+    }
+    [data-schemapath='root.Mission.2'] div {
+      background: $alternate-row;
+    }
+    [data-schemapath='root.Mission.6'] div {
+      background: $alternate-row;
+    }
+    [data-schemapath='root.Mission.8'] div {
+      background: $alternate-row;
+    }
+    [data-schemapath='root.Mission.10'] div {
+      background: $alternate-row;
+    }
+    [data-schemapath='root.Mission.12'] div {
+      background: $alternate-row;
+    }
+    [data-schemapath='root.Mission.14'] div {
+      background: $alternate-row;
+    }
+    [data-schemapath='root.Mission.16'] div {
+      background: $alternate-row;
+    }
+    [data-schemapath='root.Mission.18'] div {
+      background: $alternate-row;
+    }
+    [data-schemapath='root.Mission.20'] div {
+      background: $alternate-row;
+    }
+    [data-schemapath='root.Mission.22'] div {
+      background: $alternate-row;
+    }
+    [data-schemapath='root.Mission.24'] div {
+      background: $alternate-row;
     }
 
     .message-creator {
