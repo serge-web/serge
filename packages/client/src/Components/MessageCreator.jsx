@@ -48,9 +48,11 @@ class JsonCreator extends Component {
 
     saveMessage(state.currentWargame, details, this.editor.getValue())();
 
-    this.editor.destroy();
-    this.editor = null;
-    this.createEditor(this.props.schema);
+    if (!draft) {
+      this.editor.destroy()
+      this.editor = null
+      this.createEditor(this.props.schema)
+    }
   };
 
   componentWillReceiveProps(nextProps, nextContext) {
