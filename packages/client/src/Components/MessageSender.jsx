@@ -21,25 +21,44 @@ const MessageSender = ({ sendMessage, data, messageType, currentChannel }) => {
     return channel.uniqid === currentChannel && channel.participants.find(p => p.draftMessages)
   })
 
+  let currentChannelIncluded = false
+
   const multiChannelSendingChannels = playerPerrmitions
     .filter(channel => (channel.participants.find(p => p.multiChannelMessages)))
-    .map(({ name, uniqid, participants }) => ({
-      name,
-      value: uniqid,
-      draft: participants.find(p => p.draftMessages)
-    }))
+    .map(({ name, uniqid, participants }) => {
+      if (uniqid === currentChannel) currentChannelIncluded = true
+      return {
+        name,
+        value: uniqid,
+        draft: participants.find(p => p.draftMessages)
+      }
+    })
+
+  if (!currentChannelIncluded) {
+    multiChannelSendingChannels.unshift({
+      name: 'Current',
+      value: currentChannel,
+      draft: allowDrawfForCurrentChannel
+    })
+  }
 
   if (multiChannelSendingChannels.length > 1) {
-    const multiChannelDraftMessages = multiChannelSendingChannels.filter(channel => channel.draft)
+    let multiChannelDraftMessages = multiChannelSendingChannels.filter(channel => channel.draft)
+
+    if (allowDrawfForCurrentChannel && multiChannelDraftMessages.length === 1 && multiChannelDraftMessages[0].value === allowDrawfForCurrentChannel.uniqid) {
+      multiChannelDraftMessages = []
+    }
 
     return (
-      <div className="form-group">
-        {multiChannelDraftMessages.length > 0 && <MessageSenderMultichannel
+      <div className="form-group se-send-message">
+        {multiChannelDraftMessages.length > 0 ? <MessageSenderMultichannel
           active={allowDrawfForCurrentChannel}
           draft={true}
           channels={multiChannelDraftMessages}
           sendMessage={sendMessage}
-        >Send draft</MessageSenderMultichannel>}
+        >Send draft</MessageSenderMultichannel> : allowDrawfForCurrentChannel && <button name="send" className="btn btn-action btn-action--form" onClick={() => { sendMessage(true) }}>
+          <span>Send Message as draft</span>
+        </button>}
         <MessageSenderMultichannel
           active={true}
           draft={false}

@@ -221,6 +221,7 @@ input#editable-title {
     th:nth-of-type(5),
     td:nth-of-type(5) {
       width: 15%;
+      text-align: center;
       & > div {
         display: flex;
         justify-content: center;
