@@ -9,6 +9,12 @@ import {
 import _ from 'lodash'
 import uniqId from 'uniqid'
 
+import {
+  matchedForceAndRole,
+  matchedAllRoles,
+  getParticipantStates
+} from './playerUi_helpers'
+
 export const initialState = {
   selectedForce: '',
   forceColor: '',
@@ -45,53 +51,6 @@ export const playerUiReducer = (state = initialState, action) => {
   const newState = copyState(state)
   let messages
   const channels = {}
-  const matchedForce = (p, selectedForce) => p.forceUniqid === selectedForce
-  const matchedRole = (role, selectedRole) => role.value === selectedRole
-  const matchedForceAndRole = (p, { selectedForce, selectedRole }) => {
-    return matchedForce(p, selectedForce) && p.roles.some(p => matchedRole(p, selectedRole))
-  }
-  const matchedAllRoles = (p, selectedForce) => {
-    return matchedForce(p, selectedForce) && p.roles.length === 0
-  }
-  const checkParticipantStates = (channel, newState) => {
-    const participatingRole = channel.participants.find(p => matchedForceAndRole(p, newState))
-    const participatingForce = channel.participants.find(p => matchedForce(p, newState.selectedForce))
-    if (!participatingForce && !newState.isObserver) return {}
-
-    const isParticipant = !!participatingRole
-    const allRolesIncluded = channel.participants.find(p => matchedAllRoles(p, newState.selectedForce))
-    return {
-      isParticipant,
-      participatingRole,
-      allRolesIncluded
-    }
-  }
-  const getParticipantStates = (channel, newState) => {
-    let chosenTemplates
-    let templates
-    let observing = false
-    const { isParticipant, participatingRole, allRolesIncluded } = checkParticipantStates(channel, newState)
-    if (participatingRole) {
-      chosenTemplates = participatingRole.templates
-    } else if (allRolesIncluded) {
-      chosenTemplates = allRolesIncluded.templates
-    } else {
-      chosenTemplates = []
-    }
-    if (isParticipant || allRolesIncluded) {
-      if (chosenTemplates.length === 0) {
-        templates = newState.allTemplates.filter((template) => template.title === 'Chat')
-      } else {
-        templates = chosenTemplates.map((template) => template.value)
-      }
-    }
-
-    if (newState.isObserver && !isParticipant && !allRolesIncluded) {
-      observing = true
-      templates = []
-    }
-    return { isParticipant, allRolesIncluded, observing, templates }
-  }
 
   switch (action.type) {
     case ActionConstant.SET_CURRENT_WARGAME_PLAYER:
@@ -157,7 +116,7 @@ export const playerUiReducer = (state = initialState, action) => {
           } else {
             const isParticipant = matchedChannel.participants.some(p => matchedForceAndRole(p, newState))
             const allRolesIncluded = matchedChannel.participants.some(p => matchedAllRoles(p, newState.selectedForce))
-
+      
             if (isParticipant || allRolesIncluded || newState.isObserver) {
               // ok, this is a channel we wish to display
             } else {
