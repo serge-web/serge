@@ -8,27 +8,26 @@ import {
   matchedForceAndRole,
   matchedAllRoles,
   checkParticipantStates,
-  getParticipantStates,
-  updateChannelsDisplayed
+  getParticipantStates
 } from '../../../ActionsAndReducers/playerUi/playerUi_helpers'
 
 import {} from '../../../consts'
 
 // const mockStore = configureStore([thunk]);
 
-describe('playerUi reducer', () => {
+describe('playerUi reducer helpers', () => {
 
-  it('Should return true or false if force matches', () => {
+  it('matchedForce - Should return true or false if force matches', () => {
     expect(matchedForce({ forceUniqid: 'blue' }, 'blue')).toBeTruthy()
     expect(matchedForce({ forceUniqid: 'red' }, 'blue')).toBeFalsy()
   })
 
-  it('Should return true or false if role matches', () => {
+  it('matchedRole - Should return true or false if role matches', () => {
     expect(matchedRole({ value: 'recon' }, 'recon')).toBeTruthy()
     expect(matchedRole({ value: 'recon' }, 'supplies')).toBeFalsy();
   })
 
-  it('Should return true or false if role and force matches', () => {
+  it('matchedForceAndRole - Should return true or false if role and force matches', () => {
 
     const participant = {
       roles: [{ value: 'recon' }],
@@ -41,7 +40,7 @@ describe('playerUi reducer', () => {
     expect(matchedForceAndRole(participant, { selectedForce: 'red', selectedRole: 'supplies' })).toBeFalsy()
   })
 
-  it('Should return true or false if all viewing all roles', () => {
+  it('matchedAllRoles - Should return true or false if all viewing all roles', () => {
 
     const participantTruthy = {
       roles: [],
@@ -64,7 +63,7 @@ describe('playerUi reducer', () => {
 
   })
 
-  it('Should return empty object, not participating force or observer', () => {
+  it('checkParticipantStates - Should return empty object, not participating force or observer', () => {
 
     const mockState = {
       selectedForce: 'blue',
@@ -89,7 +88,7 @@ describe('playerUi reducer', () => {
 
   })
 
-  it('Should return return isParticipant and participatingRole - allRolesIncluded should be undefined', () => {
+  it('checkParticipantStates - Should return return isParticipant and participatingRole - allRolesIncluded should be undefined', () => {
 
     const mockState = {
       selectedForce: 'blue',
@@ -109,7 +108,7 @@ describe('playerUi reducer', () => {
     expect(checkParticipantStates(mockChannel, mockState)).toEqual({ isParticipant: true, participatingRole: mockChannel.participants[0], allRolesIncluded: undefined })
   })
 
-  it('Should return return allRolesIncluded - isParticipant should be false, participatingRole should be undefined', () => {
+  it('checkParticipantStates - Should return return allRolesIncluded - isParticipant should be false, participatingRole should be undefined', () => {
 
     const mockState = {
       selectedForce: 'blue',
@@ -130,4 +129,88 @@ describe('playerUi reducer', () => {
 
   })
 
-});
+  it('getParticipantStates - Should get state of participant in particular channel', () => {
+
+    const mockState = {
+      selectedForce: 'blue',
+      selectedRole: 'recon',
+      isObserver: false,
+      allTemplates: []
+    } 
+
+    const mockChannel = {
+      participants: [
+        { 
+          forceUniqid: 'blue',
+          roles: [{ value: 'recon' }],
+          templates: [{ value: true }, { value: true }]
+        }
+      ]
+    }
+
+    expect(getParticipantStates(mockChannel, mockState)).toEqual({
+      allRolesIncluded: undefined,
+      isParticipant: true,
+      observing: false,
+      templates: [true, true]
+    })
+  })
+
+  it('getParticipantStates - Should get state of observing participant in particular channel', () => {
+
+    const mockState = {
+      selectedForce: 'blue',
+      selectedRole: 'recon',
+      isObserver: true,
+      allTemplates: []
+    } 
+
+    const mockChannel = {
+      participants: [
+        { 
+          forceUniqid: 'red',
+          roles: [],
+          templates: [{ value: true }, { value: true }]
+        }
+      ]
+    }
+
+    expect(getParticipantStates(mockChannel, mockState)).toEqual({
+      allRolesIncluded: undefined,
+      isParticipant: false,
+      observing: true,
+      templates: []
+    })
+  })
+
+  it('getParticipantStates - Should get state of participant in particular channel', () => {
+
+    const mockState = {
+      selectedForce: 'blue',
+      selectedRole: 'recon',
+      isObserver: false,
+      allTemplates: []
+    } 
+
+    const mockChannel = {
+      participants: [
+        { 
+          forceUniqid: 'blue',
+          roles: [],
+          templates: [{ value: true }, { value: true }]
+        }
+      ]
+    }
+
+    expect(getParticipantStates(mockChannel, mockState)).toEqual({
+      allRolesIncluded: {
+        forceUniqid: 'blue',
+        roles: [],
+        templates: [{ value: true }, { value: true }]
+      },
+      isParticipant: false,
+      observing: false,
+      templates: [true, true]
+    });
+  })
+})
