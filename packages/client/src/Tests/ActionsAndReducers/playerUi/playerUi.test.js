@@ -1,5 +1,5 @@
-import configureStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
+// import configureStore from 'redux-mock-store'
+// import thunk from 'redux-thunk'
 import ActionConstant from '../../../ActionsAndReducers/ActionConstants'
 import { playerUiReducer } from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
 import {
@@ -13,7 +13,7 @@ import {
 
 import {} from '../../../consts'
 
-// const mockStore = configureStore([thunk]);
+import playerUiData from './playerUiData'
 
 describe('playerUi reducer helpers', () => {
 
@@ -212,5 +212,128 @@ describe('playerUi reducer helpers', () => {
       observing: false,
       templates: [true, true]
     });
+  })
+})
+
+describe('playerUi Reducer', () => {
+  it('should set selectedForce and force color', () => {
+    const selectedForce = 'forceUniqid'
+    const action = {
+      type: ActionConstant.SET_FORCE,
+      payload: selectedForce
+    }
+
+    expect(playerUiReducer({ 
+      selectedForce: '',
+      forceColor: '',
+      allForces: [
+        {
+          uniqid: 'noMatch',
+          color: '#111111'
+        },
+        {
+          uniqid: 'forceUniqid',
+          color: '#000000'
+        }
+      ]}, action)).toEqual({
+      selectedForce: 'forceUniqid',
+      forceColor: '#000000',
+      allForces: [
+        {
+          uniqid: 'noMatch',
+          color: '#111111'
+        },
+        {
+          uniqid: 'forceUniqid',
+          color: '#000000'
+        }
+      ]
+    })
+  })
+  it('should set selectedRole and view options', () => {
+    const action = {
+      type: ActionConstant.SET_ROLE,
+      payload: {
+        name: 'roleselected',
+        control: false,
+        isObserver: false,
+        isInsightViewer: false
+      }
+    }
+
+    expect(playerUiReducer({}, action)).toEqual({
+      selectedRole: 'roleselected',
+      controlUi: false,
+      isObserver: false,
+      isInsightViewer: false
+    })
+  })
+
+  it('should set all templates', () => {
+    const action = {
+      type: ActionConstant.SET_ALL_TEMPLATES_PLAYERUI,
+      payload: [{template: 'one'}, {template: 'two'}]
+    }
+
+    expect(playerUiReducer({}, action)).toEqual({
+      allTemplates: [{template: 'one'}, {template: 'two'}]
+    })
+  })
+
+  it('should set objectives to hidden', () => {
+    const action = {
+      type: ActionConstant.SHOW_HIDE_OBJECTIVES
+    }
+
+    expect(playerUiReducer({ showObjective: true }, action)).toEqual({
+      showObjective: false
+    })
+  })
+
+  it('should set all feedback messages', () => {
+    const action = {
+      type: ActionConstant.SET_FEEDBACK_MESSAGES,
+      payload: [{ message: 'one' }, { message: 'two' }]
+    }
+
+    expect(playerUiReducer({}, action)).toEqual({
+      feedbackMessages: [{ message: 'one' }, { message: 'two' }]
+    })
+  })
+
+  it('should set latest feedback message', () => {
+    const action = {
+      type: ActionConstant.SET_LATEST_FEEDBACK_MESSAGE,
+      payload: { message: 'three' }
+    }
+
+    expect(playerUiReducer({ feedbackMessages: [{ message: 'one' }, { message: 'two' }] }, action)).toEqual({
+      feedbackMessages: [{ message: 'three' }, { message: 'one' }, { message: 'two' }]
+    })
+  })
+
+  it('Should set game turn marker message in all channels', () => {
+
+    const action = {
+      type: ActionConstant.SET_LATEST_WARGAME_MESSAGE,
+      payload: {
+        infoType: true,
+        gameTurn: 1
+      }
+    }
+
+    const message = {
+      details: {
+        channel: expect.any(String)
+      },
+      infoType: true,
+      gameTurn: 1
+    }
+
+    expect(playerUiReducer(playerUiData, action)).toEqual({
+      ...playerUiData,
+      ...playerUiData.channels['channel-k3jz7h07'].messages.unshift(message),
+      ...playerUiData.channels['channel-k3jz7591'].messages.unshift(message)
+    })
   })
 })

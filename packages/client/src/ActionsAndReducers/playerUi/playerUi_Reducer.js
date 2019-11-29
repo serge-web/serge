@@ -337,5 +337,7 @@ export const playerUiReducer = (state = initialState, action) => {
       return newState
   }
 
+  console.log(newState);
+
   return newState
 }
