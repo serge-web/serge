@@ -364,21 +364,18 @@
       border-left: 3px solid rgba(255, 255, 255, 0.25);
     }
 
+    .message-preview-player > .detail-title {
+      margin-bottom: 6px;
+    }
+
     .detail-row {
       margin-left: 0;
       margin-bottom: 0;
-      padding-bottom: 8px;
-      padding-top: 4px;
       font-size: 14px;
-
-      + .detail-row {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-      }
     }
 
     .detail-rows {
       padding-left: 14px;
-      border-top: 4px;
     }
 
     .detail-title {
