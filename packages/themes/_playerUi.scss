@@ -358,6 +358,12 @@
       padding-right: 10px;
     }
 
+    .message-preview-player > .detail-rows > .detail-row {
+      margin-bottom: 10px;
+      padding-left:10px;
+      border-left: 3px solid rgba(255, 255, 255, 0.25);
+    }
+
     .detail-row {
       margin-left: 0;
       margin-bottom: 0;
@@ -368,6 +374,11 @@
       + .detail-row {
         border-bottom: 1px solid rgba(255, 255, 255, 0.35);
       }
+    }
+
+    .detail-rows {
+      padding-left: 14px;
+      border-top: 4px;
     }
 
     .detail-title {
@@ -570,15 +581,20 @@
       overflow-x: hidden;
       font-family: "Open Sans", sans-serif;
       font-weight: bold;
-      color: $secondaryColor;
+      color: $primaryTriadColor;
       padding-top: 8px;
 
-      h3 {
+      h3>span {
         display: none;
       }
 
       .bg-light {
         background-color: transparent !important;
+      }
+
+      .table-bordered thead th
+      {
+        background-color: transparent;
       }
 
       .card {
