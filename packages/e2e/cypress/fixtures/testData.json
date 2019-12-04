@@ -1,7 +1,7 @@
 {
   "password": "Nelson",
   "adminUrl": "http://localhost:8080/serge/admin",
-  "roomName": "This is Cypress Testing_",
+  "roomName": "Cypress_test_",
   "color": {
     "red": "#ff4141",
     "blue": "#3dd0ff",

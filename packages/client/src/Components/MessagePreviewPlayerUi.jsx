@@ -65,7 +65,7 @@ class MessagePreview extends Component {
   deconstructArr(pair) {
     const that = this;
     return (
-      <Fragment key={`${pair[0]}-group`}><br/>
+      <Fragment key={`${pair[0]}-group`}>
         <span className="detail detail-title">{pair[0]}:</span><p className="detail-rows">
         {pair[1].map((item) => {
           // CHECK NAME PROP ON EVERY OBJ
