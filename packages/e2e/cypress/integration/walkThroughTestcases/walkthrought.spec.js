@@ -1,3 +1,5 @@
+import * as loopOptions from '../../fixtures/loopOptions.json';
+
 describe('Run_automation_test_Serge', function () {
   const user = cy
   const roomName = "Cypress_test_" + Math.floor(Math.random() * 9999)
@@ -135,7 +137,9 @@ describe('Run_automation_test_Serge', function () {
         .verifyGameRoleIsDisplayed(testData.role.blue.co)
         .verifyGameForceIsDisplayed(testData.role.blue.name)
 
-      user.chooseRoom('Blue HQ').openNewMessage(msgData.message1.turnNumber,
+      user.chooseRoom('Blue HQ').openNewMessage();
+      for (let i = 0; i < loopOptions.intentionsLoop; i++) {
+        user.inputMessage(msgData.message1.turnNumber,
           msgData.message1.overallInstruction,
           msgData.message1.unit,
           msgData.message1.tasking,
@@ -149,6 +153,8 @@ describe('Run_automation_test_Serge', function () {
           msgData.message2.action,
           msgData.message2.comments)
         .clickSendMessageButtonForRoom('blue-hq')
+        user.wait(loopOptions.waitingTimeBetweenLoop*1000);
+      }
 
       user.changeForce(testData.playerUrl, roomName)
         .chooseRoleGame(testData.role.white.name, testData.role.white.gc)
@@ -168,15 +174,19 @@ describe('Run_automation_test_Serge', function () {
         .verifyMessageIsDisplayed(msgData.message2.action)
         .verifyMessageIsDisplayed(msgData.message2.comments)
 
-      user.changeForce(testData.playerUrl, roomName)
+        user.changeForce(testData.playerUrl, roomName)
         .chooseRoleGame(testData.role.blue.name, testData.role.blue.media)
         .clickEnterButton()
         .verifyGameRoleIsDisplayed(testData.role.blue.media)
         .verifyGameForceIsDisplayed(testData.role.blue.name)
         .chooseRoom('Blue Chat')
         .clickNewMessageButtonForRoom('blue-chat')
-        .InputMessageForRoom('blue-chat', 'Cypress_test')
-        .clickSendMessageButtonForRoom('blue-chat')
+      for (let i = 0; i < loopOptions.chatLoop; i++) {
+        user
+          .InputMessageForRoom('blue-chat', 'Cypress_test_'+i)
+          .clickSendMessageButtonForRoom('blue-chat')
+        user.wait(loopOptions.waitingTimeBetweenLoop*1000);
+      }
 
       user.changeForce(testData.playerUrl, roomName)
         .chooseRoleGame(testData.role.white.name, testData.role.white.gc)
