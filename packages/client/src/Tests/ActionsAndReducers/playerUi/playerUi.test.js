@@ -9,198 +9,214 @@ import {
   matchedAllRoles,
   checkParticipantStates,
   getParticipantStates
-} from '../../../ActionsAndReducers/playerUi/playerUi_helpers'
+} from '../../../ActionsAndReducers/playerUi/playerUi_helpers';
 
-import {} from '../../../consts'
+import {} from '../../../consts';
 
-import playerUiData from './playerUiData'
+import playerUiData from './playerUiData';
 
 describe('playerUi reducer helpers', () => {
-
   it('matchedForce - Should return true or false if force matches', () => {
-    expect(matchedForce({ forceUniqid: 'blue' }, 'blue')).toBeTruthy()
-    expect(matchedForce({ forceUniqid: 'red' }, 'blue')).toBeFalsy()
-  })
+    expect(matchedForce({ forceUniqid: 'blue' }, 'blue')).toBeTruthy();
+    expect(matchedForce({ forceUniqid: 'red' }, 'blue')).toBeFalsy();
+  });
 
   it('matchedRole - Should return true or false if role matches', () => {
-    expect(matchedRole({ value: 'recon' }, 'recon')).toBeTruthy()
+    expect(matchedRole({ value: 'recon' }, 'recon')).toBeTruthy();
     expect(matchedRole({ value: 'recon' }, 'supplies')).toBeFalsy();
-  })
+  });
 
   it('matchedForceAndRole - Should return true or false if role and force matches', () => {
-
     const participant = {
       roles: [{ value: 'recon' }],
       forceUniqid: 'blue'
-    }
+    };
 
-    expect(matchedForceAndRole(participant, { selectedForce: 'blue', selectedRole: 'recon' })).toBeTruthy()
-    expect(matchedForceAndRole(participant, { selectedForce: 'red', selectedRole: 'recon' })).toBeFalsy()
-    expect(matchedForceAndRole(participant, { selectedForce: 'blue', selectedRole: 'supplies' })).toBeFalsy()
-    expect(matchedForceAndRole(participant, { selectedForce: 'red', selectedRole: 'supplies' })).toBeFalsy()
-  })
+    expect(
+      matchedForceAndRole(participant, {
+        selectedForce: 'blue',
+        selectedRole: 'recon'
+      })
+    ).toBeTruthy();
+    expect(
+      matchedForceAndRole(participant, {
+        selectedForce: 'red',
+        selectedRole: 'recon'
+      })
+    ).toBeFalsy();
+    expect(
+      matchedForceAndRole(participant, {
+        selectedForce: 'blue',
+        selectedRole: 'supplies'
+      })
+    ).toBeFalsy();
+    expect(
+      matchedForceAndRole(participant, {
+        selectedForce: 'red',
+        selectedRole: 'supplies'
+      })
+    ).toBeFalsy();
+  });
 
   it('matchedAllRoles - Should return true or false if all viewing all roles', () => {
-
     const participantTruthy = {
       roles: [],
       forceUniqid: 'blue'
-    }
+    };
 
     const participantFalsy = {
       roles: [{ value: 'recon' }],
       forceUniqid: 'blue'
-    }
+    };
 
     const participantFalsyTwo = {
       roles: [{ value: 'recon' }],
       forceUniqid: 'red'
-    }
+    };
 
-    expect(matchedAllRoles(participantTruthy, 'blue')).toBeTruthy()
-    expect(matchedAllRoles(participantFalsy, 'blue')).toBeFalsy()
-    expect(matchedAllRoles(participantFalsyTwo, 'blue')).toBeFalsy()
-
-  })
+    expect(matchedAllRoles(participantTruthy, 'blue')).toBeTruthy();
+    expect(matchedAllRoles(participantFalsy, 'blue')).toBeFalsy();
+    expect(matchedAllRoles(participantFalsyTwo, 'blue')).toBeFalsy();
+  });
 
   it('checkParticipantStates - Should return empty object, not participating force or observer', () => {
-
     const mockState = {
       selectedForce: 'blue',
       selectedRole: 'recon',
       isObserver: false
-    }
+    };
 
     const mockChannel = {
       participants: [
         {
           forceUniqid: 'red',
-          roles: [{ value: 'recon' }, {value: 'supplies' }]
+          roles: [{ value: 'recon' }, { value: 'supplies' }]
         },
         {
           forceUniqid: 'red',
           roles: [{ value: 'attack' }, { value: 'supplies' }]
         }
       ]
-    }
+    };
 
-    expect(checkParticipantStates(mockChannel, mockState)).toEqual({})
-
-  })
+    expect(checkParticipantStates(mockChannel, mockState)).toEqual({});
+  });
 
   it('checkParticipantStates - Should return return isParticipant and participatingRole - allRolesIncluded should be undefined', () => {
-
     const mockState = {
       selectedForce: 'blue',
       selectedRole: 'recon',
       isObserver: false
-    } 
+    };
 
     const mockChannel = {
       participants: [
-        { 
+        {
           forceUniqid: 'blue',
-          roles: [{ value: 'recon' }, {value: 'supplies' }]
+          roles: [{ value: 'recon' }, { value: 'supplies' }]
         }
       ]
-    }
+    };
 
-    expect(checkParticipantStates(mockChannel, mockState)).toEqual({ isParticipant: true, participatingRole: mockChannel.participants[0], allRolesIncluded: undefined })
-  })
+    expect(checkParticipantStates(mockChannel, mockState)).toEqual({
+      isParticipant: true,
+      participatingRole: mockChannel.participants[0],
+      allRolesIncluded: undefined
+    });
+  });
 
   it('checkParticipantStates - Should return return allRolesIncluded - isParticipant should be false, participatingRole should be undefined', () => {
-
     const mockState = {
       selectedForce: 'blue',
       selectedRole: 'recon',
       isObserver: false
-    } 
+    };
 
     const mockChannel = {
       participants: [
-        { 
+        {
           forceUniqid: 'blue',
           roles: []
         }
       ]
-    }
+    };
 
-    expect(checkParticipantStates(mockChannel, mockState)).toEqual({ isParticipant: false, participatingRole: undefined, allRolesIncluded: mockChannel.participants[0] })
-
-  })
+    expect(checkParticipantStates(mockChannel, mockState)).toEqual({
+      isParticipant: false,
+      participatingRole: undefined,
+      allRolesIncluded: mockChannel.participants[0]
+    });
+  });
 
   it('getParticipantStates - Should get state of participant in particular channel', () => {
-
     const mockState = {
       selectedForce: 'blue',
       selectedRole: 'recon',
       isObserver: false,
       allTemplates: []
-    } 
+    };
 
     const mockChannel = {
       participants: [
-        { 
+        {
           forceUniqid: 'blue',
           roles: [{ value: 'recon' }],
           templates: [{ value: true }, { value: true }]
         }
       ]
-    }
+    };
 
     expect(getParticipantStates(mockChannel, mockState)).toEqual({
       allRolesIncluded: undefined,
       isParticipant: true,
       observing: false,
       templates: [true, true]
-    })
-  })
+    });
+  });
 
   it('getParticipantStates - Should get state of observing participant in particular channel', () => {
-
     const mockState = {
       selectedForce: 'blue',
       selectedRole: 'recon',
       isObserver: true,
       allTemplates: []
-    } 
+    };
 
     const mockChannel = {
       participants: [
-        { 
+        {
           forceUniqid: 'red',
           roles: [],
           templates: [{ value: true }, { value: true }]
         }
       ]
-    }
+    };
 
     expect(getParticipantStates(mockChannel, mockState)).toEqual({
       allRolesIncluded: undefined,
       isParticipant: false,
       observing: true,
       templates: []
-    })
-  })
+    });
+  });
 
   it('getParticipantStates - Should get state of participant in particular channel', () => {
-
     const mockState = {
       selectedForce: 'blue',
       selectedRole: 'recon',
       isObserver: false,
       allTemplates: []
-    } 
+    };
 
     const mockChannel = {
       participants: [
-        { 
+        {
           forceUniqid: 'blue',
           roles: [],
           templates: [{ value: true }, { value: true }]
         }
       ]
-    }
+    };
 
     expect(getParticipantStates(mockChannel, mockState)).toEqual({
       allRolesIncluded: {
@@ -212,30 +228,36 @@ describe('playerUi reducer helpers', () => {
       observing: false,
       templates: [true, true]
     });
-  })
-})
+  });
+});
 
 describe('playerUi Reducer', () => {
   it('should set selectedForce and force color', () => {
-    const selectedForce = 'forceUniqid'
+    const selectedForce = 'forceUniqid';
     const action = {
       type: ActionConstant.SET_FORCE,
       payload: selectedForce
-    }
+    };
 
-    expect(playerUiReducer({ 
-      selectedForce: '',
-      forceColor: '',
-      allForces: [
+    expect(
+      playerUiReducer(
         {
-          uniqid: 'noMatch',
-          color: '#111111'
+          selectedForce: '',
+          forceColor: '',
+          allForces: [
+            {
+              uniqid: 'noMatch',
+              color: '#111111'
+            },
+            {
+              uniqid: 'forceUniqid',
+              color: '#000000'
+            }
+          ]
         },
-        {
-          uniqid: 'forceUniqid',
-          color: '#000000'
-        }
-      ]}, action)).toEqual({
+        action
+      )
+    ).toEqual({
       selectedForce: 'forceUniqid',
       forceColor: '#000000',
       allForces: [
@@ -248,8 +270,8 @@ describe('playerUi Reducer', () => {
           color: '#000000'
         }
       ]
-    })
-  })
+    });
+  });
   it('should set selectedRole and view options', () => {
     const action = {
       type: ActionConstant.SET_ROLE,
@@ -259,68 +281,80 @@ describe('playerUi Reducer', () => {
         isObserver: false,
         isInsightViewer: false
       }
-    }
+    };
 
     expect(playerUiReducer({}, action)).toEqual({
       selectedRole: 'roleselected',
       controlUi: false,
       isObserver: false,
       isInsightViewer: false
-    })
-  })
+    });
+  });
 
   it('should set all templates', () => {
     const action = {
       type: ActionConstant.SET_ALL_TEMPLATES_PLAYERUI,
-      payload: [{template: 'one'}, {template: 'two'}]
-    }
+      payload: [{ template: 'one' }, { template: 'two' }]
+    };
 
     expect(playerUiReducer({}, action)).toEqual({
-      allTemplates: [{template: 'one'}, {template: 'two'}]
-    })
-  })
+      allTemplates: [{ template: 'one' }, { template: 'two' }]
+    });
+  });
 
   it('should set objectives to hidden', () => {
     const action = {
       type: ActionConstant.SHOW_HIDE_OBJECTIVES
-    }
+    };
 
     expect(playerUiReducer({ showObjective: true }, action)).toEqual({
       showObjective: false
-    })
-  })
+    });
+  });
 
   it('should set all feedback messages', () => {
     const action = {
       type: ActionConstant.SET_FEEDBACK_MESSAGES,
       payload: [{ message: 'one' }, { message: 'two' }]
-    }
+    };
 
     expect(playerUiReducer({}, action)).toEqual({
       feedbackMessages: [{ message: 'one' }, { message: 'two' }]
-    })
-  })
+    });
+  });
 
   it('should set latest feedback message', () => {
     const action = {
       type: ActionConstant.SET_LATEST_FEEDBACK_MESSAGE,
       payload: { message: 'three' }
-    }
+    };
 
-    expect(playerUiReducer({ feedbackMessages: [{ message: 'one' }, { message: 'two' }] }, action)).toEqual({
-      feedbackMessages: [{ message: 'three' }, { message: 'one' }, { message: 'two' }]
-    })
-  })
+    expect(
+      playerUiReducer(
+        { feedbackMessages: [{ message: 'one' }, { message: 'two' }] },
+        action
+      )
+    ).toEqual({
+      feedbackMessages: [
+        { message: 'three' },
+        { message: 'one' },
+        { message: 'two' }
+      ]
+    });
+  });
 
   it('Should set game turn marker message in all channels', () => {
-
     const action = {
       type: ActionConstant.SET_LATEST_WARGAME_MESSAGE,
       payload: {
         infoType: true,
-        gameTurn: 1
+        gameTurn: 1,
+        name: 'wargame-k3o76xdi',
+        phase: 'planning',
+        turnEndTime: '2019-12-02T08:56:40+00:00',
+        wargameInitiated: true
       }
-    }
+    };
 
     const message = {
       details: {
@@ -328,12 +362,60 @@ describe('playerUi Reducer', () => {
       },
       infoType: true,
       gameTurn: 1
-    }
+    };
+
+    // need to ensure both teams allRoles
 
     expect(playerUiReducer(playerUiData, action)).toEqual({
       ...playerUiData,
-      ...playerUiData.channels['channel-k3jz7h07'].messages.unshift(message),
-      ...playerUiData.channels['channel-k3jz7591'].messages.unshift(message)
-    })
-  })
+      ...playerUiData.channels['channel-k3o77d7p'].messages.unshift(message),
+      ...playerUiData.channels['channel-k3o781qe'].messages.unshift(message)
+    });
+  });
+
+  // it('Should set a message in white channel', () => {
+    
+  //   const action = {
+  //     type: ActionConstant.SET_LATEST_WARGAME_MESSAGE,
+  //     payload: {
+  //       details: {
+  //         channel: 'channel-k3o781qe',
+  //         from: {
+  //           force: 'White',
+  //           forceColor: '#FCFBEE',
+  //           role: 'Game Control',
+  //           icon: 'http://localhost:8080/default_img/umpireDefault.png'
+  //         },
+  //         messageType: 'Chat',
+  //         timestamp: '',
+  //         privateMessage: ''
+  //       },
+  //       message: { content: 'test message' }
+  //     }
+  //   }
+
+  //   const message = {
+  //     details: {
+  //       channel: 'channel-k3o781qe',
+  //       messageType: 'Chat',
+  //       privateMessage: '',
+  //       timestamp: expect.any(String),
+  //       from: {
+  //         force: 'White',
+  //         forceColor: '#FCFBEE',
+  //         icon: 'http://localhost:8080/default_img/umpireDefault.png',
+  //         role: 'Game Control'
+  //       }
+  //     },
+  //     hasBeenRead: false,
+  //     isOpen: false,
+  //     message: { content: 'test message' }
+  //   }
+
+  //   expect(playerUiReducer(playerUiData, action)).toEqual({
+  //     ...playerUiData,
+  //     ...playerUiData.channels['channel-k3o781qe'].messages.unshift(message)
+  //   })
+  // })
+
 })

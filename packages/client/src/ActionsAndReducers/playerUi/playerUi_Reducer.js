@@ -48,6 +48,9 @@ export const initialState = {
 }
 
 export const playerUiReducer = (state = initialState, action) => {
+
+  // console.log(action);
+
   const newState = copyState(state)
   let messages
   const channels = {}
@@ -337,7 +340,7 @@ export const playerUiReducer = (state = initialState, action) => {
       return newState
   }
 
-  console.log(newState);
+  // console.log(newState);
 
   return newState
 }
