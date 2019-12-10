@@ -10,30 +10,34 @@ const ExcelExport = ({ exp, index }) => {
     csv: `export_button_${index}_csv`
   }
 
-  const hreflink = '#'
+  const hreflink = window.location.href
+
+  const data = exp.data.filter(dataItem => dataItem.items.length > 1).map(dataItem => {
+    return ({
+      name: dataItem.title,
+      from: {
+        arrayHasHeader: true,
+        array: dataItem.items
+      }
+    })
+  })
 
   const generateFile = (format) => {
     return excellentExport.convert({
       anchor: ids[format],
       filename: exp.title,
       format: format
-    }, exp.data.filter(dataItem => dataItem.items.length > 1).map(dataItem => {
-      return ({
-        name: dataItem.title,
-        from: {
-          arrayHasHeader: true,
-          array: dataItem.items
-        }
-      })
-    }))
+    }, data)
   }
+
+  if (data.length === 0) return <span className="badge badge-warning">No data to export</span>
 
   return (
     <div>
       <a
         href={hreflink}
         className='link link--secondary'
-        onClick={e => (generateFile('xls'))}
+        onClick={e => generateFile('xls')}
         id={ids.xls}
       >
         <FontAwesomeIcon icon={faFileDownload}/>Download .xls
@@ -41,7 +45,7 @@ const ExcelExport = ({ exp, index }) => {
       <a
         href={hreflink}
         className='link link--secondary'
-        onClick={e => (generateFile('xlsx'))}
+        onClick={e => generateFile('xlsx')}
         id={ids.xlsx}
       >
         <FontAwesomeIcon icon={faFileDownload}/>Download .xlsx
