@@ -81,18 +81,32 @@
         var overlays = {"Grid":gridLayer, "Tooltips":markerLayer}
         L.control.layers(baseLayers, overlays).addTo(map);
 
-        // the hexes all have the same corners object, so just use the first
+        // the hexes all have the same corners object, so just use the first one
         var hexOne = grid2[0]
         var corners = hexOne.corners();
+
+        // get the coordinates of the centre of the hex, relative
+        // to the top-left origin
         var centreH = hexOne.center()
 
-        var scaledCorners
+        /** convert the honeycomb coords to degrees
+         */
+        function toWorld(origin, delta, point)
+        {
+            return L.latLng(origin.lat - point.x * delta, origin.lng + point.y * delta)
+        }
 
+        // add the grid to the map
         grid2.forEach(hex => {
-            const { x, y } = hex.toPoint()
-            var centreLoc = L.latLng(origin.lat - x * delta, origin.lng + y * delta)
-            hex.centrePos = centreLoc
+            // get the coordinates of the cell
+            const point = hex.toPoint()
 
+            // since we have A0 at the top-left, we need to move south through the
+            // data coords
+            hex.centrePos = toWorld(origin, delta, point)
+
+            /** function to zero-pad the integer counter
+             */
             function pad(num, size) {
                 var s = "0" + num;
                 return s.substr(s.length-size);
@@ -101,25 +115,32 @@
             
              // add a marker
              var icon = L.icon({iconUrl:'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png'})
-             var marker = L.marker(hex.centrePos, { opacity: 0.0, icon:icon })
+             var marker = L.marker(hex.centrePos, { opacity: 0.3, icon:icon })
              marker.bindTooltip(hex.name, {permanent: false, className: "hex-label"})
              markerLayer.addLayer(marker);
 
-
             // add the shape
+
+            // build up an array of correctly mapped corners
             var cornerArr = []
-            function insertIt(value)
+
+            // function to scale the corner to our map scale
+            function scalePoint(value)
             {
                 var centreP = hex.centrePos
-                var newP = [centreP.lat +  (value.x - centreH.x) * delta, centreP.lng + (value.y - centreH.y) * delta]
+                // the corners are relative to the origin (TL). So, offset them to the centre
+                var point = {x: value.x - centreH.x, y: value.y - centreH.y}
+                var newP = toWorld(centreP, delta, point)
                 cornerArr.push(newP)
             }
-            corners.forEach(insertIt)
-           // cornerArr.push(cornerArr[0])
+
+            // apply the scaling function to each corner
+            corners.forEach(scalePoint)
 
             // now create the polygon
             var polyline = L.polygon(cornerArr, {color: '#fff', opacity:0.2, weight:3})//.addTo(map);
 
+            // add this polygon to the relevant layer
             gridLayer.addLayer(polyline)
         })
         
