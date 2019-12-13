@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>Testing Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="./honeycomb.js"></script>
+    <script src="./mouse_pos/L.Control.MousePosition.js"></script>
+    <link rel="stylesheet" href="./mouse_pos/L.Control.MousePosition.css"/>
+    <style>
+      html, body{
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+      }
+      #map{
+          width: 100%;
+          height: 100%;
+      }
+      .hex2-label {
+        position: absolute;
+        width:40px;
+        font-size:20px;
+      }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        var map;
+        
+        var image_top = 14.3763382069
+        var image_left = 42.1865566389
+        var image_right = 43.8814566389
+        var image_bottom = 12.1829382069
+
+        // zoomDelta: 0.5,
+        //     zoomSnap: 0,
+
+        map = L.map('map', {
+            minZoom: 8,
+            maxZoom: 12,
+            center: [(image_top + image_bottom)/2, (image_left + image_right)/2],
+            zoom: 9,
+            attributionControl: true
+        });
+        map.zoomControl.setPosition('topleft');
+        
+        var tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+            attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>',
+            //maxZoom: 18
+        });
+        
+        var imageUrl = 'images/new_image.jpg',
+        imageBounds = [[image_top, image_left], [image_bottom, image_right]];
+        var overlay = L.imageOverlay(imageUrl, imageBounds, {opacity: 0.8}).addTo(map);
+
+        L.control.mousePosition().addTo(map);
+
+        const Grid = Honeycomb.defineGrid()
+
+        var delta = 0.0416666
+        var origin =  L.latLng(14.1166 + 3 * delta, 42.4166 - 2 * delta)
+
+        var grid2 = Grid.rectangle({ width: 27, height: 24, direction: 'E'})
+
+
+        var gridLayer = L.layerGroup()
+        gridLayer.addTo(map)
+        var mapLayer = L.layerGroup()
+        mapLayer.addLayer(overlay)
+        mapLayer.addTo(map)
+        var markerLayer = L.layerGroup()
+        markerLayer.addTo(map)
+
+        var baseLayers = {"Image":mapLayer, "OpenStreetMap": tiledBackdrop}
+        var overlays = {"Grid":gridLayer, "Tooltips":markerLayer}
+        L.control.layers(baseLayers, overlays).addTo(map);
+
+        // the hexes all have the same corners object, so just use the first
+        var hexOne = grid2[0]
+        var corners = hexOne.corners();
+        var centreH = hexOne.center()
+
+        var scaledCorners
+
+        grid2.forEach(hex => {
+            const { x, y } = hex.toPoint()
+            var centreLoc = L.latLng(origin.lat - x * delta, origin.lng + y * delta)
+            hex.centrePos = centreLoc
+
+            function pad(num, size) {
+                var s = "0" + num;
+                return s.substr(s.length-size);
+            }
+            hex.name = String.fromCharCode(65 + hex.y) + pad(hex.x)
+            
+             // add a marker
+             var icon = L.icon({iconUrl:'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png'})
+             var marker = L.marker(hex.centrePos, { opacity: 0.0, icon:icon })
+             marker.bindTooltip(hex.name, {permanent: false, className: "hex-label"})
+             markerLayer.addLayer(marker);
+
+
+            // add the shape
+            var cornerArr = []
+            function insertIt(value)
+            {
+                var centreP = hex.centrePos
+                var newP = [centreP.lat +  (value.x - centreH.x) * delta, centreP.lng + (value.y - centreH.y) * delta]
+                cornerArr.push(newP)
+            }
+            corners.forEach(insertIt)
+           // cornerArr.push(cornerArr[0])
+
+            // now create the polygon
+            var polyline = L.polygon(cornerArr, {color: '#fff', opacity:0.2, weight:3})//.addTo(map);
+
+            gridLayer.addLayer(polyline)
+        })
+        
+
+
+
+
+    </script>
+</body>
+</html>
