@@ -79,7 +79,7 @@
 
         var baseLayers = {"Image":mapLayer, "OpenStreetMap": tiledBackdrop}
         var overlays = {"Grid":gridLayer, "Tooltips":markerLayer}
-        L.control.layers(baseLayers, overlays).addTo(map);
+        L.control.layers(baseLayers, overlays, {collapsed:false}).addTo(map);
 
         // the hexes all have the same corners object, so just use the first one
         var hexOne = grid2[0]
@@ -115,7 +115,7 @@
             
              // add a marker
              var icon = L.icon({iconUrl:'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png'})
-             var marker = L.marker(hex.centrePos, { opacity: 0.3, icon:icon })
+             var marker = L.marker(hex.centrePos, { opacity: 0.0, icon:icon })
              marker.bindTooltip(hex.name, {permanent: false, className: "hex-label"})
              markerLayer.addLayer(marker);
 
@@ -138,12 +138,49 @@
             corners.forEach(scalePoint)
 
             // now create the polygon
-            var polyline = L.polygon(cornerArr, {color: '#fff', opacity:0.2, weight:3})//.addTo(map);
+            var polygon = L.polygon(cornerArr, { color: '#fff', opacity:0.2, weight:3})
+
+            // store the polyline in the cell
+            hex.polygon = polygon
 
             // add this polygon to the relevant layer
-            gridLayer.addLayer(polyline)
+            gridLayer.addLayer(polygon)
         })
-        
+
+        var route = L.polyline([],{color: 'red'})
+        route.addTo(map)
+
+        // give us a platform
+        var marker = L.marker(
+                    L.latLng(13.5, 42.8),
+                    {
+                        draggable: true
+                    }
+                )
+        marker.addTo(map)
+        marker.on('drag', function (e) {
+            now = e.latlng
+
+            // does route have contents
+            if(route.isEmpty())
+            {
+                route.setLatLngs([now, now])
+            }
+            else
+            {
+                start = route.getLatLngs()[0]
+                route.setLatLngs([start, now])
+            }
+        })
+        marker.on('dragend', function (e) {
+            route.setLatLngs([])
+        })
+
+        // try to format a poly
+      //  poly = grid2.get(4).polygon
+      //  poly.setStyle({fill:true, fillColor: "#f00"})
+        // poly.fillColor="#900"
+        // poly.fill = true;
 
 
 
