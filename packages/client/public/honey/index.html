@@ -55,7 +55,7 @@
             //maxZoom: 18
         });
         
-        var imageUrl = 'images/new_image.jpg',
+        var imageUrl = 'images/new_map.jpg',
         imageBounds = [[image_top, image_left], [image_bottom, image_right]];
         var overlay = L.imageOverlay(imageUrl, imageBounds, {opacity: 0.8}).addTo(map);
 
@@ -96,6 +96,13 @@
             return L.latLng(origin.lat - point.x * delta, origin.lng + point.y * delta)
         }
 
+        /** convert the honeycomb coords to degrees
+         */
+         function toHex(origin, delta, point)
+        {
+            return L.latLng(origin.lat - point.lat / delta, origin.lng + point.lng * delta)
+        }
+
         // add the grid to the map
         grid2.forEach(hex => {
             // get the coordinates of the cell
@@ -104,6 +111,10 @@
             // since we have A0 at the top-left, we need to move south through the
             // data coords
             hex.centrePos = toWorld(origin, delta, point)
+
+          //  ON THIS METHOD
+          //  console.log(point.x+", " + point.y + "->" + hex.centrePos)
+          //  console.log(toHex(origin, delta, hex.centrePos))
 
             /** function to zero-pad the integer counter
              */
@@ -147,6 +158,17 @@
             gridLayer.addLayer(polygon)
         })
 
+        /** get the hex cell for a location
+         */
+        function cellFor(latLng)
+        {
+        
+                // convert point to hex (coordinates)
+           //     const hexCoordinates = Grid.pointToHex(offsetX, offsetY)
+                // get the actual hex from the grid
+           //     console.log(grid2.get(hexCoordinates))
+        }
+
         var route = L.polyline([],{color: 'red'})
         route.addTo(map)
 
@@ -171,6 +193,9 @@
                 start = route.getLatLngs()[0]
                 route.setLatLngs([start, now])
             }
+
+            // get the new coords
+           // console.log(cellFor(now))
         })
         marker.on('dragend', function (e) {
             route.setLatLngs([])
