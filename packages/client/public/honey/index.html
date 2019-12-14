@@ -100,7 +100,9 @@
          */
          function toHex(origin, delta, point)
         {
-            return L.latLng(origin.lat - point.lat / delta, origin.lng + point.lng * delta)
+            var latVal = (origin.lat - point.lat) / delta
+            var lngVal = (point.lng - origin.lng) / delta
+            return L.point(latVal, lngVal)
         }
 
         // add the grid to the map
@@ -111,10 +113,6 @@
             // since we have A0 at the top-left, we need to move south through the
             // data coords
             hex.centrePos = toWorld(origin, delta, point)
-
-          //  ON THIS METHOD
-          //  console.log(point.x+", " + point.y + "->" + hex.centrePos)
-          //  console.log(toHex(origin, delta, hex.centrePos))
 
             /** function to zero-pad the integer counter
              */
@@ -162,15 +160,15 @@
          */
         function cellFor(latLng)
         {
-        
-                // convert point to hex (coordinates)
-           //     const hexCoordinates = Grid.pointToHex(offsetX, offsetY)
-                // get the actual hex from the grid
-           //     console.log(grid2.get(hexCoordinates))
+            var hexCoords = toHex(origin, delta, latLng)
+            var cellCoords = Grid.pointToHex(hexCoords.x, hexCoords.y)
+            return grid2.get(cellCoords)
         }
 
         var route = L.polyline([],{color: 'red'})
         route.addTo(map)
+
+        var routeHexes = []
 
         // give us a platform
         var marker = L.marker(
@@ -186,12 +184,31 @@
             // does route have contents
             if(route.isEmpty())
             {
+                // ok, start drag
                 route.setLatLngs([now, now])
+                routeHexes = []
             }
             else
             {
+                // we're dragging, update end of line
                 start = route.getLatLngs()[0]
                 route.setLatLngs([start, now])
+
+                // find the hexes
+//                var startHexRef = toHex(start)
+ //               var endHexRef = toHex(now)
+
+                var startHex = cellFor(start)
+                var endHex = cellFor(now)
+
+
+                var poly = endHex.polygon
+                poly.setStyle({fill:true, fillColor: "#f00"})
+
+                // const hexCoordinates = Grid.pointToHex([now.x, now.y])
+                // const hex = grid2.get(hexCoordinates)
+                // console.log(hex)
+
             }
 
             // get the new coords
