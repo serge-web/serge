@@ -75,11 +75,26 @@
         mapLayer.addLayer(overlay)
         mapLayer.addTo(map)
         var markerLayer = L.layerGroup()
-        markerLayer.addTo(map)
+        // note: we don't show the marker layer by default - only when zoomed in
 
         var baseLayers = {"Image":mapLayer, "OpenStreetMap": tiledBackdrop}
         var overlays = {"Grid":gridLayer, "Tooltips":markerLayer}
         L.control.layers(baseLayers, overlays, {collapsed:false}).addTo(map);
+
+        // only show the markers when zoomed in
+        map.on('zoomend', function() {
+            const loaded = map.hasLayer(markerLayer)
+            if (map.getZoom() < 11){
+                if(loaded)
+                {
+                    map.removeLayer(markerLayer);
+                }
+            }
+            else if(!loaded)
+            {
+                    map.addLayer(markerLayer);
+                }
+        });
 
         // the hexes all have the same corners object, so just use the first one
         var hexOne = grid2[0]
@@ -125,7 +140,7 @@
              // add a marker
              var icon = L.icon({iconUrl:'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png'})
              var marker = L.marker(hex.centrePos, { opacity: 0.0, icon:icon })
-             marker.bindTooltip(hex.name, {permanent: false, className: "hex-label"})
+             marker.bindTooltip(hex.name, {permanent: true, className: "hex-label"})
              markerLayer.addLayer(marker);
 
             // add the shape
@@ -155,6 +170,8 @@
             // add this polygon to the relevant layer
             gridLayer.addLayer(polygon)
         })
+
+        
 
         /** get the hex cell for a location
          */
