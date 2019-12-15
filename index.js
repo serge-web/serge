@@ -237,7 +237,7 @@ function listenTo(marker)
     })
     marker.on('dragend', function (e) {
         // put the marker at the centre of a cell
-        lastCell = routeHexes.pop
+        lastCell = routeHexes.pop()
         marker.setLatLng(lastCell.centrePos)
 
         routeLine.setLatLngs([])
