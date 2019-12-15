@@ -207,10 +207,12 @@
                     }
                 )
         marker.addTo(map)
+        const defaultStyle = {fill:false, color:"#fff", opacity:0.2}
         marker.on('drag', function (e) {
             now = e.latlng
 
-            const rangeStyle = {fill:true,color:"#00f"}
+            const rangeStyle = {fill:false, color:"#cc5", opacity:1.0}
+            const routeStyle = {fill:true, color:"#f00", opacity:0.2}
 
             // does route have contents
             if(route.isEmpty())
@@ -222,9 +224,9 @@
                 routeHexes = []
 
                 // mark up the range rings
-         //       var centre = cellFor(now)
-        //        rangeRing = grid2.hexesInRange(centre, 4, false)
-         //       rangeRing.forEach(cell => cell.polygon.setStyle(rangeStyle))
+                var centre = cellFor(now)
+                rangeRing = grid2.hexesInRange(centre, 4, false)
+                rangeRing.forEach(cell => cell.polygon.setStyle(rangeStyle))
             }
             else
             {
@@ -248,7 +250,7 @@
                     }
                     else
                     {
-                        cell.polygon.setStyle({fill:false})
+                        cell.polygon.setStyle(defaultStyle)
                     }
                 })
 
@@ -257,7 +259,7 @@
                 routeHexes = newRoute
                 routeHexes.forEach(function(cell)
                 {
-                    cell.polygon.setStyle({fill:true, fillColor: "#f00"}); 
+                    cell.polygon.setStyle(routeStyle); 
                     routeLats.push(cell.centrePos)
                 })
             }
@@ -265,9 +267,9 @@
         marker.on('dragend', function (e) {
             route.setLatLngs([])
             // clear the old cells
-            routeHexes.forEach(cell => cell.polygon.setStyle({fill:false}))
+            routeHexes.forEach(cell => cell.polygon.setStyle(defaultStyle))
             routeHexes = []
-            rangeRing.forEach(cell => cell.polygon.setStyle({fill:false,color:"#fff",weight:1}))
+            rangeRing.forEach(cell => cell.polygon.setStyle(defaultStyle))
             rangeRing = []
             routeLats = []
         })
