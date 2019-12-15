@@ -1,1 +1,232 @@
-Hello world
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <title>Testing Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="./honeycomb.js"></script>
+    <script src="./mouse_pos/L.Control.MousePosition.js"></script>
+    <link rel="stylesheet" href="./mouse_pos/L.Control.MousePosition.css"/>
+    <style>
+      html, body{
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+      }
+      #map{
+          width: 100%;
+          height: 100%;
+      }
+      .hex2-label {
+        position: absolute;
+        width:40px;
+        font-size:20px;
+      }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        var map;
+        
+        var image_top = 14.3763382069
+        var image_left = 42.1865566389
+        var image_right = 43.8814566389
+        var image_bottom = 12.1829382069
+
+        // zoomDelta: 0.5,
+        //     zoomSnap: 0,
+
+        map = L.map('map', {
+            minZoom: 8,
+            maxZoom: 12,
+            center: [(image_top + image_bottom)/2, (image_left + image_right)/2],
+            zoom: 9,
+            attributionControl: true
+        });
+        map.zoomControl.setPosition('topleft');
+        
+        var tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+            attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>',
+            //maxZoom: 18
+        });
+        
+        var imageUrl = 'images/new_map.jpg',
+        imageBounds = [[image_top, image_left], [image_bottom, image_right]];
+        var overlay = L.imageOverlay(imageUrl, imageBounds, {opacity: 0.8}).addTo(map);
+
+        L.control.mousePosition().addTo(map);
+
+        const Grid = Honeycomb.defineGrid()
+
+        var delta = 0.0416666
+        var origin =  L.latLng(14.1166 + 3 * delta, 42.4166 - 2 * delta)
+
+        var grid2 = Grid.rectangle({ width: 27, height: 24, direction: 'E'})
+
+
+        var gridLayer = L.layerGroup()
+        gridLayer.addTo(map)
+        var mapLayer = L.layerGroup()
+        mapLayer.addLayer(overlay)
+        mapLayer.addTo(map)
+        var markerLayer = L.layerGroup()
+        markerLayer.addTo(map)
+
+        var baseLayers = {"Image":mapLayer, "OpenStreetMap": tiledBackdrop}
+        var overlays = {"Grid":gridLayer, "Tooltips":markerLayer}
+        L.control.layers(baseLayers, overlays, {collapsed:false}).addTo(map);
+
+        // the hexes all have the same corners object, so just use the first one
+        var hexOne = grid2[0]
+        var corners = hexOne.corners();
+
+        // get the coordinates of the centre of the hex, relative
+        // to the top-left origin
+        var centreH = hexOne.center()
+
+        /** convert the honeycomb coords to degrees
+         */
+        function toWorld(origin, delta, point)
+        {
+            return L.latLng(origin.lat - point.x * delta, origin.lng + point.y * delta)
+        }
+
+        /** convert the honeycomb coords to degrees
+         */
+         function toHex(origin, delta, point)
+        {
+            var latVal = (origin.lat - point.lat) / delta
+            var lngVal = (point.lng - origin.lng) / delta
+            return L.point(latVal, lngVal)
+        }
+
+        // add the grid to the map
+        grid2.forEach(hex => {
+            // get the coordinates of the cell
+            const point = hex.toPoint()
+
+            // since we have A0 at the top-left, we need to move south through the
+            // data coords
+            hex.centrePos = toWorld(origin, delta, point)
+
+            /** function to zero-pad the integer counter
+             */
+            function pad(num, size) {
+                var s = "0" + num;
+                return s.substr(s.length-size);
+            }
+            hex.name = String.fromCharCode(65 + hex.y) + pad(hex.x)
+            
+             // add a marker
+             var icon = L.icon({iconUrl:'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png'})
+             var marker = L.marker(hex.centrePos, { opacity: 0.0, icon:icon })
+             marker.bindTooltip(hex.name, {permanent: false, className: "hex-label"})
+             markerLayer.addLayer(marker);
+
+            // add the shape
+
+            // build up an array of correctly mapped corners
+            var cornerArr = []
+
+            // function to scale the corner to our map scale
+            function scalePoint(value)
+            {
+                var centreP = hex.centrePos
+                // the corners are relative to the origin (TL). So, offset them to the centre
+                var point = {x: value.x - centreH.x, y: value.y - centreH.y}
+                var newP = toWorld(centreP, delta, point)
+                cornerArr.push(newP)
+            }
+
+            // apply the scaling function to each corner
+            corners.forEach(scalePoint)
+
+            // now create the polygon
+            var polygon = L.polygon(cornerArr, { color: '#fff', opacity:0.2, weight:3})
+
+            // store the polyline in the cell
+            hex.polygon = polygon
+
+            // add this polygon to the relevant layer
+            gridLayer.addLayer(polygon)
+        })
+
+        /** get the hex cell for a location
+         */
+        function cellFor(latLng)
+        {
+            var hexCoords = toHex(origin, delta, latLng)
+            var cellCoords = Grid.pointToHex(hexCoords.x, hexCoords.y)
+            return grid2.get(cellCoords)
+        }
+
+        var route = L.polyline([],{color: 'red'})
+        route.addTo(map)
+
+        var routeHexes = []
+
+        // give us a platform
+        var marker = L.marker(
+                    L.latLng(13.5, 42.8),
+                    {
+                        draggable: true
+                    }
+                )
+        marker.addTo(map)
+        marker.on('drag', function (e) {
+            now = e.latlng
+
+            // does route have contents
+            if(route.isEmpty())
+            {
+                // ok, start drag
+                route.setLatLngs([now, now])
+                routeHexes = []
+            }
+            else
+            {
+                // we're dragging, update end of line
+                start = route.getLatLngs()[0]
+                route.setLatLngs([start, now])
+
+                // find the hexes
+//                var startHexRef = toHex(start)
+ //               var endHexRef = toHex(now)
+
+                var startHex = cellFor(start)
+                var endHex = cellFor(now)
+
+
+                var poly = endHex.polygon
+                poly.setStyle({fill:true, fillColor: "#f00"})
+
+                // const hexCoordinates = Grid.pointToHex([now.x, now.y])
+                // const hex = grid2.get(hexCoordinates)
+                // console.log(hex)
+
+            }
+
+            // get the new coords
+           // console.log(cellFor(now))
+        })
+        marker.on('dragend', function (e) {
+            route.setLatLngs([])
+        })
+
+        // try to format a poly
+      //  poly = grid2.get(4).polygon
+      //  poly.setStyle({fill:true, fillColor: "#f00"})
+        // poly.fillColor="#900"
+        // poly.fill = true;
+
+
+
+
+    </script>
+</body>
+</html>
