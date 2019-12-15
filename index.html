@@ -207,81 +207,102 @@
         var routeHexes = []
         var rangeRing = []
 
-        // give us a platform
-        var marker = L.marker(
+
+
+
+        const defaultStyle = {fill:false, color:"#fff", opacity:0.2}
+        var startHex
+
+        function listenTo(marker)
+        {
+
+            marker.on('drag', function (e) {
+                now = e.latlng
+
+                const rangeStyle = {fill:false, color:"#cc5", opacity:1.0}
+                const routeStyle = {fill:true, color:"#f00", opacity:0.2}
+
+                // does route have contents
+                if(route.isEmpty())
+                {
+                    // ok, start drag
+                    route.setLatLngs([now, now])
+                    startHex = cellFor(now)
+
+                    // double-check the route highlighters are empty
+                    routeHexes = []
+
+                    // mark up the range rings
+                    var centre = cellFor(now)
+                    rangeRing = grid2.hexesInRange(centre, 4, false)
+                    rangeRing.forEach(cell => cell.polygon.setStyle(rangeStyle))
+                }
+                else
+                {
+                    // retrieve the start point of the line
+                    start = route.getLatLngs()[0]
+
+                    route.setLatLngs([start, now])
+
+                    var endHex = cellFor(now)
+
+                    // get the route
+                    var newRoute = grid2.hexesBetween(startHex, endHex)
+
+                    // clear the old cells
+                    routeHexes.forEach(function(cell)
+                    { 
+                        if(rangeRing.includes(cell))
+                        {
+                            cell.polygon.setStyle(rangeStyle)
+                        }
+                        else
+                        {
+                            cell.polygon.setStyle(defaultStyle)
+                        }
+                    })
+
+                    // and set the new cells
+                    const routeLats = []
+                    routeHexes = newRoute
+                    routeHexes.forEach(function(cell)
+                    {
+                        cell.polygon.setStyle(routeStyle); 
+                        routeLats.push(cell.centrePos)
+                    })
+                }
+            })
+            marker.on('dragend', function (e) {
+                route.setLatLngs([])
+                // clear the old cells
+                routeHexes.forEach(cell => cell.polygon.setStyle(defaultStyle))
+                routeHexes = []
+                rangeRing.forEach(cell => cell.polygon.setStyle(defaultStyle))
+                rangeRing = []
+                routeLats = []
+            })
+        }
+
+        
+        // give us a couple of platforms
+        var marker1 = L.marker(
                     L.latLng(13.5, 42.8),
                     {
                         draggable: true
                     }
                 )
-        marker.addTo(map)
-        const defaultStyle = {fill:false, color:"#fff", opacity:0.2}
-        var startHex
-        marker.on('drag', function (e) {
-            now = e.latlng
+        marker1.addTo(map)
 
-            const rangeStyle = {fill:false, color:"#cc5", opacity:1.0}
-            const routeStyle = {fill:true, color:"#f00", opacity:0.2}
-
-            // does route have contents
-            if(route.isEmpty())
-            {
-                // ok, start drag
-                route.setLatLngs([now, now])
-                startHex = cellFor(now)
-
-                // double-check the route highlighters are empty
-                routeHexes = []
-
-                // mark up the range rings
-                var centre = cellFor(now)
-                rangeRing = grid2.hexesInRange(centre, 4, false)
-                rangeRing.forEach(cell => cell.polygon.setStyle(rangeStyle))
-            }
-            else
-            {
-                // retrieve the start point of the line
-                start = route.getLatLngs()[0]
-
-                route.setLatLngs([start, now])
-
-                var endHex = cellFor(now)
-
-                // get the route
-                var newRoute = grid2.hexesBetween(startHex, endHex)
-
-                // clear the old cells
-                routeHexes.forEach(function(cell)
-                { 
-                    if(rangeRing.includes(cell))
+        var marker2 = L.marker(
+                    L.latLng(13, 43),
                     {
-                        cell.polygon.setStyle(rangeStyle)
+                        draggable: true
                     }
-                    else
-                    {
-                        cell.polygon.setStyle(defaultStyle)
-                    }
-                })
+                )
+        marker2.addTo(map)
 
-                // and set the new cells
-                const routeLats = []
-                routeHexes = newRoute
-                routeHexes.forEach(function(cell)
-                {
-                    cell.polygon.setStyle(routeStyle); 
-                    routeLats.push(cell.centrePos)
-                })
-            }
-        })
-        marker.on('dragend', function (e) {
-            route.setLatLngs([])
-            // clear the old cells
-            routeHexes.forEach(cell => cell.polygon.setStyle(defaultStyle))
-            routeHexes = []
-            rangeRing.forEach(cell => cell.polygon.setStyle(defaultStyle))
-            rangeRing = []
-            routeLats = []
-        })
+        listenTo(marker1)
+        listenTo(marker2)
     </script>
 </body>
 </html>
