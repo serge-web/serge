@@ -197,6 +197,7 @@
         route.addTo(map)
 
         var routeHexes = []
+        var rangeRing = []
 
         // give us a platform
         var marker = L.marker(
@@ -209,6 +210,8 @@
         marker.on('drag', function (e) {
             now = e.latlng
 
+            const rangeStyle = {fill:true,color:"#00f"}
+
             // does route have contents
             if(route.isEmpty())
             {
@@ -217,11 +220,18 @@
 
                 // double-check the route highlighters are empty
                 routeHexes = []
+
+                // mark up the range rings
+         //       var centre = cellFor(now)
+        //        rangeRing = grid2.hexesInRange(centre, 4, false)
+         //       rangeRing.forEach(cell => cell.polygon.setStyle(rangeStyle))
             }
             else
             {
                 // retrieve the start point of the line
                 start = route.getLatLngs()[0]
+
+                route.setLatLngs([start, now])
 
                 var startHex = cellFor(start)
                 var endHex = cellFor(now)
@@ -230,7 +240,17 @@
                 var newRoute = grid2.hexesBetween(startHex, endHex)
 
                 // clear the old cells
-                routeHexes.forEach(cell => cell.polygon.setStyle({fill:false}))
+                routeHexes.forEach(function(cell)
+                { 
+                    if(rangeRing.includes(cell))
+                    {
+                        cell.polygon.setStyle(rangeStyle)
+                    }
+                    else
+                    {
+                        cell.polygon.setStyle({fill:false})
+                    }
+                })
 
                 // and set the new cells
                 const routeLats = []
@@ -246,6 +266,10 @@
             route.setLatLngs([])
             // clear the old cells
             routeHexes.forEach(cell => cell.polygon.setStyle({fill:false}))
+            routeHexes = []
+            rangeRing.forEach(cell => cell.polygon.setStyle({fill:false,color:"#fff",weight:1}))
+            rangeRing = []
+            routeLats = []
         })
     </script>
 </body>
