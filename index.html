@@ -110,6 +110,11 @@
         // to the top-left origin
         var centreH = hexOne.center()
 
+        const cellOrigin = hexOne.coordinates()
+
+        // capture the offset between a cell centre, and the cell origin
+        const centreOffset = L.point(centreH).subtract(L.point(cellOrigin))
+
         /** convert the honeycomb coords to degrees
          */
         function toWorld(origin, delta, point)
@@ -149,11 +154,6 @@
             const cellLabel = L.marker(hex.centrePos, {icon: myIcon});
             markerLayer.addLayer(cellLabel);
 
-            //  var icon = L.icon({iconUrl:'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png'})
-            //  var marker = L.marker(hex.centrePos, { opacity: 0.0, icon:icon })
-            //  marker.bindTooltip(hex.name, {permanent: true, className: "hex-label"})
-            //  markerLayer.addLayer(marker);
-
             // add the shape
 
             // build up an array of correctly mapped corners
@@ -188,8 +188,16 @@
          */
         function cellFor(latLng)
         {
+            // convert to hex coordinates
             var hexCoords = toHex(origin, delta, latLng)
-            var cellCoords = Grid.pointToHex(hexCoords.x, hexCoords.y)
+
+            // apply the offset, since the cell origin is at the top left
+            cellCoords = L.point(hexCoords.x + centreOffset.x, hexCoords.y + centreOffset.y)
+
+            // find the nearest hex cell reference to this location
+            var cellCoords = Grid.pointToHex(cellCoords.x, cellCoords.y)
+
+            // and now retrieve the cell at these coords
             return grid2.get(cellCoords)
         }
 
@@ -208,6 +216,7 @@
                 )
         marker.addTo(map)
         const defaultStyle = {fill:false, color:"#fff", opacity:0.2}
+        var startHex
         marker.on('drag', function (e) {
             now = e.latlng
 
@@ -219,6 +228,7 @@
             {
                 // ok, start drag
                 route.setLatLngs([now, now])
+                startHex = cellFor(now)
 
                 // double-check the route highlighters are empty
                 routeHexes = []
@@ -235,7 +245,6 @@
 
                 route.setLatLngs([start, now])
 
-                var startHex = cellFor(start)
                 var endHex = cellFor(now)
 
                 // get the route
