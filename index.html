@@ -26,6 +26,12 @@
         width:40px;
         font-size:20px;
       }
+      .cell-label {
+        color: #bbb;
+        font-size: 14px;
+        width: 50%;
+        margin: 0 auto;
+      }
     </style>
 </head>
 <body>
@@ -138,10 +144,15 @@
             hex.name = String.fromCharCode(65 + hex.y) + pad(hex.x)
             
              // add a marker
-             var icon = L.icon({iconUrl:'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png'})
-             var marker = L.marker(hex.centrePos, { opacity: 0.0, icon:icon })
-             marker.bindTooltip(hex.name, {permanent: true, className: "hex-label"})
-             markerLayer.addLayer(marker);
+             var myIcon = L.divIcon({className: 'cell-label', html:hex.name});
+            // you can set .my-div-icon styles in CSS
+            const cellLabel = L.marker(hex.centrePos, {icon: myIcon});
+            markerLayer.addLayer(cellLabel);
+
+            //  var icon = L.icon({iconUrl:'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png'})
+            //  var marker = L.marker(hex.centrePos, { opacity: 0.0, icon:icon })
+            //  marker.bindTooltip(hex.name, {permanent: true, className: "hex-label"})
+            //  markerLayer.addLayer(marker);
 
             // add the shape
 
@@ -203,47 +214,39 @@
             {
                 // ok, start drag
                 route.setLatLngs([now, now])
+
+                // double-check the route highlighters are empty
                 routeHexes = []
             }
             else
             {
-                // we're dragging, update end of line
+                // retrieve the start point of the line
                 start = route.getLatLngs()[0]
-                route.setLatLngs([start, now])
-
-                // find the hexes
-//                var startHexRef = toHex(start)
- //               var endHexRef = toHex(now)
 
                 var startHex = cellFor(start)
                 var endHex = cellFor(now)
 
+                // get the route
+                var newRoute = grid2.hexesBetween(startHex, endHex)
 
-                var poly = endHex.polygon
-                poly.setStyle({fill:true, fillColor: "#f00"})
+                // clear the old cells
+                routeHexes.forEach(cell => cell.polygon.setStyle({fill:false}))
 
-                // const hexCoordinates = Grid.pointToHex([now.x, now.y])
-                // const hex = grid2.get(hexCoordinates)
-                // console.log(hex)
-
+                // and set the new cells
+                const routeLats = []
+                routeHexes = newRoute
+                routeHexes.forEach(function(cell)
+                {
+                    cell.polygon.setStyle({fill:true, fillColor: "#f00"}); 
+                    routeLats.push(cell.centrePos)
+                })
             }
-
-            // get the new coords
-           // console.log(cellFor(now))
         })
         marker.on('dragend', function (e) {
             route.setLatLngs([])
+            // clear the old cells
+            routeHexes.forEach(cell => cell.polygon.setStyle({fill:false}))
         })
-
-        // try to format a poly
-      //  poly = grid2.get(4).polygon
-      //  poly.setStyle({fill:true, fillColor: "#f00"})
-        // poly.fillColor="#900"
-        // poly.fill = true;
-
-
-
-
     </script>
 </body>
 </html>
