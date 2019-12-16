@@ -108,12 +108,10 @@ class GridImpl {
         var lngVal = (point.lng - this.origin.lng) / this.delta
         return L.point(latVal, lngVal)
     }
-    hexesInRange(startHex, stepLimit)
-    {
+    hexesInRange(startHex, stepLimit) {
         return this.grid_cells.hexesInRange(startHex, stepLimit, true)
     }
-    hexesBetween(startHex, endHex)
-    {
+    hexesBetween(startHex, endHex) {
         return this.grid_cells.hexesBetween(startHex, endHex)
     }
     /** get the hex cell for a location
@@ -139,7 +137,7 @@ class GridImpl {
 
             // since we have A0 at the top-left, we need to move south through the
             // data coords
-            hex.centrePos = grid_obj.toWorld(point)
+            hex.centrePos = grid.toWorld(point)
 
             /** function to zero-pad the integer counter
              */
@@ -166,6 +164,7 @@ class GridImpl {
 
             // function to scale the corner to our map scale
             const centreH = this.centreH
+
             function scalePoint(value) {
                 var centreP = hex.centrePos
                 // the corners are relative to the origin (TL). So, offset them to the centre
@@ -173,7 +172,7 @@ class GridImpl {
                     x: value.x - centreH.x,
                     y: value.y - centreH.y
                 }
-                var newP = grid_obj.toWorld2(centreP, point)
+                var newP = grid.toWorld2(centreP, point)
                 cornerArr.push(newP)
             }
 
@@ -192,6 +191,163 @@ class GridImpl {
 
             // add this polygon to the relevant layer
             gridLayer.addLayer(polygon)
+        })
+    }
+}
+
+class MovementListener {
+    constructor(map) {
+        this.routeLine = L.polyline([], {
+            color: '#fff'
+        })
+        this.map = map
+        this.routeLine.addTo(map)
+
+        this.routeHexes = []
+        this.rangeRingHexes = []
+
+        this.defaultStyle = {
+            fill: false,
+            color: "#fff",
+            opacity: 0.2
+        }
+        this.startHex = {}
+        this.now = {}
+        this.start = {}
+        this.routeLats = []
+    }
+    listenTo(marker) {
+        // we need to capture 'this' in this context, not in handler
+        const core = this
+        marker.on('drag', function (e) {
+            core.now = e.latlng
+
+            const rangeStyle = {
+                fill: true,
+                color: "#ccc",
+                opacity: 1.0
+            }
+            const routeStyle = {
+                fill: true,
+                color: "#249",
+                opacity: 0.2
+            }
+
+            // does route have contents
+            if (core.routeLine.isEmpty()) {
+                // ok, start drag
+                core.routeLine.setLatLngs([core.now, core.now])
+                core.startHex = grid.cellFor(core.now)
+
+                // double-check the route highlighters are empty
+                const routeHexes = []
+
+                // mark up the range rings
+                core.centre = grid.cellFor(core.now)
+
+                // limit distance of travel
+                if (marker.stepLimit) {
+                    core.rangeRingHexes = grid.hexesInRange(core.startHex, marker.stepLimit)
+                } else {
+                    // nope, allow travel to anywhere
+                    core.rangeRingHexes = grid.cells
+                }
+
+                // set the route-line color
+                var hisColor
+                if (marker.force == "Red") {
+                    hisColor = "#f00"
+                } else if (marker.force == "Blue") {
+                    hisColor = "#00f"
+                }
+                core.routeLine.setStyle({
+                    color: hisColor
+                })
+
+                //
+                var restrictedTerrain
+                if (marker.travelMode == "Land") {
+                    restrictedTerrain = land_cells
+                } else if (marker.travelMode == "Sea") {
+                    restrictedTerrain = sea_cells
+                } else if (marker.travelMode = "Air") {
+                    // just allow all cells
+                    restrictedTerrain = grid.cells
+                }
+
+                if (restrictedTerrain) {
+                    core.rangeRingHexes = core.rangeRingHexes.filter(cell => restrictedTerrain.includes(cell.name))
+                }
+
+                core.rangeRingHexes.forEach(cell => cell.polygon.setStyle(rangeStyle))
+            } else {
+                // retrieve the start point of the line
+                core.start = core.routeLine.getLatLngs()[0]
+
+                core.routeLine.setLatLngs([core.start, core.now])
+
+                var endHex = grid.cellFor(core.now)
+
+                // clear the old cells
+                core.routeHexes.forEach(function (cell) {
+                    if (core.rangeRingHexes.includes(cell)) {
+                        cell.polygon.setStyle(rangeStyle)
+                    } else {
+                        cell.polygon.setStyle(defaultStyle)
+                    }
+                })
+
+                // get the route
+                var newRoute = grid.hexesBetween(core.startHex, endHex)
+
+                // if we have a restricted possible region,
+                // trim to it
+                if (core.rangeRingHexes) {
+                    newRoute = newRoute.filter(cell => core.rangeRingHexes.includes(cell))
+                }
+
+                // and clear the new cells
+                core.routeLats = []
+                core.routeHexes = newRoute
+                core.routeHexes.forEach(function (cell) {
+                    cell.polygon.setStyle(routeStyle);
+                    core.routeLats.push(cell.centrePos)
+                })
+
+                core.routeLine.setLatLngs(core.routeLats)
+            }
+        })
+        marker.on('dragend', function (e) {
+            // ooh, see if it had restricted travel
+            if (marker.stepLimit) {
+                // consume some of it
+
+                // calculate distance
+                const start = core.routeHexes[0]
+                const end = core.routeHexes[core.routeHexes.length - 1]
+                const distance = start.distance(end)
+
+                marker.stepLimit -= distance
+
+                // cheat. if we've consumed distance, give it 
+                // another allowance
+                if (marker.stepLimit == 0) {
+                    marker.stepLimit = 5
+                }
+            }
+
+            // put the marker at the centre of a cell
+            const lastCell = core.routeHexes.pop()
+            marker.setLatLng(lastCell.centrePos)
+
+
+            core.routeLine.setLatLngs([])
+            // clear the old cells
+            core.routeHexes.forEach(cell => cell.polygon.setStyle(core.defaultStyle))
+            core.routeHexes = []
+            core.rangeRingHexes.forEach(cell => cell.polygon.setStyle(core.defaultStyle))
+            core.rangeRingHexes = []
+            core.routeLats = []
         })
     }
 }
@@ -230,162 +386,10 @@ map.on('zoomend', function () {
 
 var delta = 0.0416666
 var origin = L.latLng(14.1166 + 3 * delta, 42.4166 - 2 * delta)
-var grid_obj = new GridImpl(origin, delta, 28, 24)
+var grid = new GridImpl(origin, delta, 28, 24)
 
 // add hexagons to this map
-grid_obj.addShapesTo(gridLayer)
-
-var routeLine = L.polyline([], {
-    color: '#fff'
-})
-routeLine.addTo(map)
-
-var routeHexes = []
-var rangeRingHexes = []
-
-const defaultStyle = {
-    fill: false,
-    color: "#fff",
-    opacity: 0.2
-}
-var startHex
-
-function listenTo(marker) {
-
-    marker.on('drag', function (e) {
-        now = e.latlng
-
-        const rangeStyle = {
-            fill: true,
-            color: "#ccc",
-            opacity: 1.0
-        }
-        const routeStyle = {
-            fill: true,
-            color: "#249",
-            opacity: 0.2
-        }
-
-        // does route have contents
-        if (routeLine.isEmpty()) {
-            // ok, start drag
-            routeLine.setLatLngs([now, now])
-            startHex = grid_obj.cellFor(now)
-
-            // double-check the route highlighters are empty
-            routeHexes = []
-
-            // mark up the range rings
-            var centre = grid_obj.cellFor(now)
-
-            // limit distance of travel
-            if (marker.stepLimit) {
-                rangeRingHexes = grid_obj.hexesInRange(startHex, marker.stepLimit)
-            } else {
-                // nope, allow travel to anywhere
-                rangeRingHexes = grid_obj.cells
-            }
-
-
-            // set the route-line color
-            var hisColor
-            if (marker.force == "Red") {
-                hisColor = "#f00"
-            } else if (marker.force == "Blue") {
-                hisColor = "#00f"
-            }
-            routeLine.setStyle({
-                color: hisColor
-            })
-
-            //
-            var restrictedTerrain
-            if (marker.travelMode == "Land") {
-                restrictedTerrain = land_cells
-            } else if (marker.travelMode == "Sea") {
-                restrictedTerrain = sea_cells
-            } else if (marker.travelMode = "Air") {
-                // just allow all cells
-                restrictedTerrain = grid_obj.cells
-            }
-
-            if (restrictedTerrain) {
-                rangeRingHexes = rangeRingHexes.filter(cell => restrictedTerrain.includes(cell.name))
-            }
-
-            rangeRingHexes.forEach(cell => cell.polygon.setStyle(rangeStyle))
-        } else {
-            // retrieve the start point of the line
-            start = routeLine.getLatLngs()[0]
-
-            routeLine.setLatLngs([start, now])
-
-            var endHex = grid_obj.cellFor(now)
-
-            // clear the old cells
-            routeHexes.forEach(function (cell) {
-                if (rangeRingHexes.includes(cell)) {
-                    cell.polygon.setStyle(rangeStyle)
-                } else {
-                    cell.polygon.setStyle(defaultStyle)
-                }
-            })
-
-            // get the route
-            var newRoute = grid_obj.hexesBetween(startHex, endHex)
-
-            // if we have a restricted possible region,
-            // trim to it
-            if (rangeRingHexes) {
-                newRoute = newRoute.filter(cell => rangeRingHexes.includes(cell))
-            }
-
-            // and set the new cells
-            const routeLats = []
-            routeHexes = newRoute
-            routeHexes.forEach(function (cell) {
-                cell.polygon.setStyle(routeStyle);
-                routeLats.push(cell.centrePos)
-            })
-
-            routeLine.setLatLngs(routeLats)
-        }
-    })
-    marker.on('dragend', function (e) {
-        // ooh, see if it had restricted travel
-        if (marker.stepLimit) {
-            // consume some of it
-
-            // calculate distance
-            start = routeHexes[0]
-            end = routeHexes[routeHexes.length - 1]
-            distance = start.distance(end)
-
-            marker.stepLimit -= distance
-
-            // cheat. if we've consumed distance, give it 
-            // another allowance
-            if (marker.stepLimit == 0) {
-                marker.stepLimit = 5
-            }
-        }
-
-        // put the marker at the centre of a cell
-        lastCell = routeHexes.pop()
-        marker.setLatLng(lastCell.centrePos)
-
-
-        routeLine.setLatLngs([])
-        // clear the old cells
-        routeHexes.forEach(cell => cell.polygon.setStyle(defaultStyle))
-        routeHexes = []
-        rangeRingHexes.forEach(cell => cell.polygon.setStyle(defaultStyle))
-        rangeRingHexes = []
-        routeLats = []
-
-
-    })
-}
+grid.addShapesTo(gridLayer)
 
 
 // give us a couple of platforms
@@ -420,7 +424,8 @@ marker3.travelMode = "Air"
 marker3.force = "Blue"
 marker3.addTo(map)
 
+const listener = new MovementListener(map)
 
-listenTo(marker1)
-listenTo(marker2)
-listenTo(marker3)
+listener.listenTo(marker1)
+listener.listenTo(marker2)
+listener.listenTo(marker3)
