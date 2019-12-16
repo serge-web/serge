@@ -201,14 +201,14 @@ class GridImpl {
 }
 
 class MovementListener {
-    constructor(map) {
+    constructor(map, grid) {
+        this.grid = grid
         this.routeLine = L.polyline([], {
             color: '#fff',
             dashArray: [1, 4]
-
         })
-        this.map = map
         this.routeLine.addTo(map)
+        this.map = map
 
         this.routeHexes = [] // hexes representing route
         this.routeLats = []  // lad-lngs for route
@@ -221,6 +221,10 @@ class MovementListener {
         }
         this.startHex = {} // hex for start drag operation
         this.lastHex = {} // most recent cell travelled through
+        this.historyLine = L.polyline([], {
+            color: '#0f0'            
+        })
+        this.historyLine.addTo(map)
     }
     listenTo(marker) {
         // we need to capture 'this' in this context, not in callback function
@@ -287,6 +291,20 @@ class MovementListener {
                 }
 
                 core.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
+
+                // and the track history
+                if(marker.history)
+                {
+                    // ok, draw the history line
+                    const historyLocs = []
+                    marker.history.forEach(function(cell_name){
+                        const cell = core.grid.hexNamed(cell_name)
+                        historyLocs.push(cell.centrePos)
+                    })
+
+                    core.historyLine.setLatLngs(historyLocs)
+                }
+
             } else {
                 // retrieve the start point of the line
 
@@ -353,6 +371,13 @@ class MovementListener {
                 if (marker.stepRemaining == 0) {
                     marker.stepRemaining = marker.stepLimit
                 }
+
+                // add these new cells as history
+                if(!marker.history)
+                {
+                    marker.history = []
+                }
+                core.routeHexes.forEach(cell => marker.history.push(cell.name))
             }
 
             // put the marker at the centre of a cell
@@ -365,6 +390,7 @@ class MovementListener {
             core.achievableCells.forEach(cell => cell.polygon.setStyle(core.defaultStyle))
             core.achievableCells = []
             core.routeLats = []
+            core.historyLine.setLatLngs([])
         })
     }
 }
@@ -426,18 +452,22 @@ function markerFor(spec)
     res.stepRemaining = spec.stepLimit
     res.stepLimit = spec.stepLimit
     res.mobile = spec.mobile
+    res.history = spec.history
     return res
 }
 
+// experiment with back-history
+const trial_history = ["C05", "C04", "C03", "C02", "C01"]
+
 // give us a couple of platforms
 const platforms = []
-platforms.push({loc:grid.hexNamed("C01").centrePos, draggable:true, name:"Frigate", travelMode:"Sea", force:"Blue", stepLimit:5, mobile:true})
+platforms.push({loc:grid.hexNamed("C01").centrePos, draggable:true, name:"Frigate", travelMode:"Sea", force:"Blue", stepLimit:5, mobile:true, history:trial_history})
 platforms.push({loc:grid.hexNamed("Q02").centrePos, draggable:true, name:"Coastal Battery", travelMode:"Land", force:"Red", mobile:false})
 platforms.push({loc:grid.hexNamed("P03").centrePos, draggable:true, name:"Fisherman", travelMode:"Sea", force:"Red", stepLimit:3, mobile:true})
 platforms.push({loc:grid.hexNamed("C17").centrePos, draggable:true, name:"MPA", travelMode:"Air", force:"Blue", mobile:true})
 
 // and listen to the markers
-const listener = new MovementListener(map)
+const listener = new MovementListener(map, grid)
 
 platforms.forEach(function(spec)
 {
