@@ -33,7 +33,7 @@ const Grid = Honeycomb.defineGrid()
 var delta = 0.0416666
 var origin =  L.latLng(14.1166 + 3 * delta, 42.4166 - 2 * delta)
 
-var grid2 = Grid.rectangle({ width: 27, height: 24, direction: 'E'})
+var grid2 = Grid.rectangle({ width: 28, height: 24, direction: 'E'})
 
 
 var gridLayer = L.layerGroup()
