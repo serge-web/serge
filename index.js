@@ -95,26 +95,33 @@ class GridImpl {
         this.centreOffset = L.point(this.centreH).subtract(L.point(cellOrigin))
 
     }
+    /** get the array of cells */
     get cells() {
         return this.grid_cells
     }
+    /** convert this point in cell coordinates to lat/long */
     toWorld(point) {
         return this.toWorld2(this.origin, point)
     }
+    /** calculate the position from the supplied offset */
     toWorld2(origin, point) {
         return L.latLng(origin.lat - point.x * this.delta, origin.lng + point.y * this.delta)
     }
+    /** convert this lat/long to Hex coordinates */
     toHex(point) {
         var latVal = (this.origin.lat - point.lat) / this.delta
         var lngVal = (point.lng - this.origin.lng) / this.delta
         return L.point(latVal, lngVal)
     }
+    /** get the cells at the indicated distance from the origin */
     hexesInRange(startHex, stepLimit) {
         return this.grid_cells.hexesInRange(startHex, stepLimit, true)
     }
+    /** get the cells on the path between these points */
     hexesBetween(startHex, endHex) {
         return this.grid_cells.hexesBetween(startHex, endHex)
     }
+    /** retrive the cell at the supplied human-readable coords ("A01") */
     hexNamed(name)
     {
         return this.grid_cells.find(cell => cell.name == name)
@@ -134,6 +141,7 @@ class GridImpl {
         // and now retrieve the cell at these coords
         return this.cells.get(cellCoords)
     }
+    /** generate the hexagons, and add them to thie supplied layer */
     addShapesTo(gridLayer) {
         // add the grid to the map
         this.grid_cells.forEach(hex => {
@@ -227,6 +235,7 @@ class MovementListener {
         })
         this.historyLine.addTo(map)
     }
+    /** listen to drag events on the supplied marker */
     listenTo(marker) {
         // we need to capture 'this' in this context, not in callback function
         const core = this
@@ -399,6 +408,23 @@ class MovementListener {
     }
 }
 
+/** create a marker for the supplied set of details */
+function markerFor(spec)
+{
+    var res = L.marker(
+        spec.loc, {
+            draggable: spec.draggable
+        }
+    )
+    res.bindTooltip(spec.name)
+    res.travelMode = spec.travelMode
+    res.force = spec.force
+    res.stepRemaining = spec.stepLimit
+    res.stepLimit = spec.stepLimit
+    res.mobile = spec.mobile
+    res.history = spec.history
+    return res
+}
 
 var gridLayer = L.layerGroup()
 gridLayer.addTo(map)
@@ -443,22 +469,6 @@ var grid = new GridImpl(origin, delta, 28, 24)
 // add hexagons to this map
 grid.addShapesTo(gridLayer)
 
-function markerFor(spec)
-{
-    var res = L.marker(
-        spec.loc, {
-            draggable: spec.draggable
-        }
-    )
-    res.bindTooltip(spec.name)
-    res.travelMode = spec.travelMode
-    res.force = spec.force
-    res.stepRemaining = spec.stepLimit
-    res.stepLimit = spec.stepLimit
-    res.mobile = spec.mobile
-    res.history = spec.history
-    return res
-}
 
 // experiment with back-history
 const trial_history = ["C05", "C04", "C03", "C02", "C01"]
