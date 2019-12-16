@@ -114,6 +114,10 @@ class GridImpl {
     hexesBetween(startHex, endHex) {
         return this.grid_cells.hexesBetween(startHex, endHex)
     }
+    hexNamed(name)
+    {
+        return this.grid_cells.find(cell => cell.name == name)
+    }
     /** get the hex cell for a location
      */
     cellFor(latLng) {
@@ -135,8 +139,7 @@ class GridImpl {
             // get the coordinates of the cell
             const point = hex.toPoint()
 
-            // since we have A0 at the top-left, we need to move south through the
-            // data coords
+            // safely store the coords of the centre of the cell
             hex.centrePos = grid.toWorld(point)
 
             /** function to zero-pad the integer counter
@@ -154,7 +157,9 @@ class GridImpl {
             });
             // you can set .my-div-icon styles in CSS
             const cellLabel = L.marker(hex.centrePos, {
-                icon: myIcon
+                icon: myIcon, 
+                keyboard: false,  // prevent it taking keyboard focus
+                zIndexOffset:-100  // ensure it's rendered behind routes
             });
             markerLayer.addLayer(cellLabel);
 
@@ -198,7 +203,9 @@ class GridImpl {
 class MovementListener {
     constructor(map) {
         this.routeLine = L.polyline([], {
-            color: '#fff'
+            color: '#fff',
+            dashArray: [1, 4]
+
         })
         this.map = map
         this.routeLine.addTo(map)
@@ -213,6 +220,7 @@ class MovementListener {
             opacity: 0.2
         }
         this.startHex = {} // hex for start drag operation
+        this.lastHex = {} // most recent cell travelled through
     }
     listenTo(marker) {
         // we need to capture 'this' in this context, not in callback function
@@ -234,8 +242,15 @@ class MovementListener {
             // does route have contents?
             if (core.routeLine.isEmpty()) {
                 // no, we must be starting a new line
-                core.routeLine.setLatLngs([cursorLoc, cursorLoc])
+
+                // is this a mobile element
+                if(marker.mobile)
+                {
+                    core.routeLine.setLatLngs([cursorLoc, cursorLoc])
+                }
+
                 core.startHex = grid.cellFor(cursorLoc)
+                core.lastHex = grid.cellFor(cursorLoc)
 
                 // limit distance of travel
                 if (marker.stepLimit) {
@@ -274,11 +289,16 @@ class MovementListener {
                 core.rangeRingHexes.forEach(cell => cell.polygon.setStyle(rangeStyle))
             } else {
                 // retrieve the start point of the line
-                core.start = core.routeLine.getLatLngs()[0]
 
-                core.routeLine.setLatLngs([core.start, cursorLoc])
+                // are we plotting a line?
+                if(core.routeLine.length > 0)
+                {
+                    core.start = core.routeLine.getLatLngs()[0]
+                    core.routeLine.setLatLngs([core.startHex.centrePos, cursorLoc])
+                }
 
-                var endHex = grid.cellFor(cursorLoc)
+                core.lastHex = grid.cellFor(cursorLoc)
+
 
                 // clear the old cells
                 core.routeHexes.forEach(function (cell) {
@@ -290,7 +310,7 @@ class MovementListener {
                 })
 
                 // get the route
-                var newRoute = grid.hexesBetween(core.startHex, endHex)
+                var newRoute = grid.hexesBetween(core.startHex, core.lastHex )
 
                 // if we have a restricted possible region,
                 // trim to it
@@ -329,9 +349,7 @@ class MovementListener {
             }
 
             // put the marker at the centre of a cell
-            const lastCell = core.routeHexes.pop()
-            marker.setLatLng(lastCell.centrePos)
-
+            marker.setLatLng(core.lastHex.centrePos)
 
             core.routeLine.setLatLngs([])
             // clear the old cells
@@ -344,6 +362,7 @@ class MovementListener {
     }
 }
 
+
 var gridLayer = L.layerGroup()
 gridLayer.addTo(map)
 var mapLayer = L.layerGroup()
@@ -351,6 +370,9 @@ mapLayer.addLayer(overlay)
 mapLayer.addTo(map)
 var markerLayer = L.layerGroup()
 // note: we don't show the marker layer by default - only when zoomed in
+var platformLayer = L.layerGroup();
+platformLayer.addTo(map);
+
 
 var baseLayers = {
     "Image": mapLayer,
@@ -358,7 +380,8 @@ var baseLayers = {
 }
 var overlays = {
     "Grid": gridLayer,
-    "Tooltips": markerLayer
+    "Tooltips": markerLayer,
+    "Platforms": platformLayer
 }
 L.control.layers(baseLayers, overlays, {
     collapsed: false
@@ -384,40 +407,34 @@ var grid = new GridImpl(origin, delta, 28, 24)
 grid.addShapesTo(gridLayer)
 
 
+
+function markerFor(spec)
+{
+    var res = L.marker(
+        spec.loc, {
+            draggable: spec.draggable
+        }
+    )
+    res.bindTooltip(spec.name)
+    res.travelMode = spec.travelMode
+    res.force = spec.force
+    res.stepLimit = spec.stepLimit
+    res.mobile = spec.mobile
+    return res
+}
+
 // give us a couple of platforms
-var marker1 = L.marker(
-    L.latLng(14.1, 42.5), {
-        draggable: true
-    }
-)
-marker1.bindTooltip("Frigate")
-marker1.travelMode = "Sea"
-marker1.force = "Blue"
-marker1.stepLimit = 5
-marker1.addTo(map)
+var marker1 = markerFor({loc:grid.hexNamed("C01").centrePos, draggable:true, name:"Frigate", travelMode:"Sea", force:"Blue", stepLimit:5, mobile:true})
+platformLayer.addLayer(marker1)
 
-var marker2 = L.marker(
-    L.latLng(14.1, 43.3), {
-        draggable: true
-    }
-)
-marker2.bindTooltip("Coastal Battery")
-marker2.travelMode = "Land"
-marker2.force = "Red"
-marker2.addTo(map)
+var marker2 = markerFor({loc:grid.hexNamed("Q02").centrePos, draggable:true, name:"Coastal Battery", travelMode:"Land", force:"Red", mobile:false})
+platformLayer.addLayer(marker2)
 
-var marker3 = L.marker(
-    L.latLng(13.0, 42.45), {
-        draggable: true
-    }
-)
-marker3.bindTooltip("MPA")
-marker3.travelMode = "Air"
-marker3.force = "Blue"
-marker3.addTo(map)
+var marker3 = markerFor({loc:grid.hexNamed("C17").centrePos, draggable:true, name:"MPA", travelMode:"Air", force:"Blue", mobile:true})
+platformLayer.addLayer(marker3)
 
+// and listen to the markers
 const listener = new MovementListener(map)
-
 listener.listenTo(marker1)
 listener.listenTo(marker2)
 listener.listenTo(marker3)
