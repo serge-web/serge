@@ -70,6 +70,21 @@ class GridImpl{
         this.delta = delta
         this.grid = Honeycomb.defineGrid()
         this.grid_cells = this.grid.rectangle({ width: width, height: height, direction: 'E'})
+
+        // the hexes all have the same corners object, so just use the first one
+        const hexOne = this.grid_cells[0]
+        this.corners = hexOne.corners();
+
+        // get the coordinates of the centre of the hex, relative
+        // to the top-left origin
+        const centreH = hexOne.center()
+
+        // and the coords of the top-left origin
+        const cellOrigin = hexOne.coordinates()
+
+        // capture the offset between a cell centre, and the cell origin
+        this.centreOffset = L.point(centreH).subtract(L.point(cellOrigin))
+
     }
     get cells(){return this.grid_cells}
     toWorld(point)
@@ -85,6 +100,23 @@ class GridImpl{
         var latVal = (this.origin.lat - point.lat) / this.delta
         var lngVal = (point.lng - this.origin.lng) / this.delta
         return L.point(latVal, lngVal)
+    }
+
+    /** get the hex cell for a location
+     */
+    cellFor(latLng)
+    {
+        // convert to hex coordinates
+        var hexCoords = this.toHex(latLng)
+
+        // apply the offset, since the cell origin is at the top left
+        cellCoords = L.point(hexCoords.x + this.centreOffset.x, hexCoords.y + this.centreOffset.y)
+
+        // find the nearest hex cell reference to this location
+        var cellCoords = this.grid.pointToHex(cellCoords.x, cellCoords.y)
+
+        // and now retrieve the cell at these coords
+        return this.cells.get(cellCoords)
     }
 }
 
@@ -188,40 +220,11 @@ grid2.forEach(hex => {
     gridLayer.addLayer(polygon)
 })
 
-/** convert the honeycomb coords to degrees
- */
-function toHex(origin, delta, point)
-{
-    var latVal = (origin.lat - point.lat) / delta
-    var lngVal = (point.lng - origin.lng) / delta
-    return L.point(latVal, lngVal)
-}
-
-/** get the hex cell for a location
- */
-function cellFor(latLng)
-{
-    // convert to hex coordinates
-    var hexCoords = grid_obj.toHex(latLng)
-
-    // apply the offset, since the cell origin is at the top left
-    cellCoords = L.point(hexCoords.x + centreOffset.x, hexCoords.y + centreOffset.y)
-
-    // find the nearest hex cell reference to this location
-    var cellCoords = Grid.pointToHex(cellCoords.x, cellCoords.y)
-
-    // and now retrieve the cell at these coords
-    return grid2.get(cellCoords)
-}
-
 var routeLine = L.polyline([],{color: '#fff'})
 routeLine.addTo(map)
 
 var routeHexes = []
 var rangeRingHexes = []
-
-
-
 
 const defaultStyle = {fill:false, color:"#fff", opacity:0.2}
 var startHex
@@ -240,18 +243,18 @@ function listenTo(marker)
         {
             // ok, start drag
             routeLine.setLatLngs([now, now])
-            startHex = cellFor(now)
+            startHex = grid_obj.cellFor(now)
 
             // double-check the route highlighters are empty
             routeHexes = []
 
             // mark up the range rings
-            var centre = cellFor(now)
+            var centre = grid_obj.cellFor(now)
 
             // limit distance of travel
             if(marker.stepLimit)
             {
-                rangeRingHexes = grid2.hexesInRange(centre, marker.stepLimit, true)
+                rangeRingHexes = grid2.hexesInRange(startHex, marker.stepLimit, true)
             }
             else
             {
@@ -302,7 +305,7 @@ function listenTo(marker)
 
             routeLine.setLatLngs([start, now])
 
-            var endHex = cellFor(now)
+            var endHex = grid_obj.cellFor(now)
 
             // clear the old cells
             routeHexes.forEach(function(cell)
