@@ -22,6 +22,8 @@ var tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{
     //maxZoom: 18
 });
 
+var land_cells = ["A15", "A16", "A17", "A18", "A19", "A20", "A21", "A22", "A23", "A24", "A25", "A26", "A27"]
+
 var imageUrl = 'images/new_map.jpg',
 imageBounds = [[image_top, image_left], [image_bottom, image_right]];
 var overlay = L.imageOverlay(imageUrl, imageBounds, {opacity: 0.8}).addTo(map);
@@ -195,7 +197,21 @@ function listenTo(marker)
 
             // mark up the range rings
             var centre = cellFor(now)
-            rangeRingHexes = grid2.hexesInRange(centre, 4, false)
+            rangeRingHexes = grid2.hexesInRange(centre, 4, true)
+
+
+            //
+            var canTravelTo
+            if(marker.travelMode == "Land")
+            {
+                canTravelTo = land_cells
+            }
+
+            if(canTravelTo)
+            {
+                rangeRingHexes = rangeRingHexes.filter(cell => canTravelTo.includes(cell.name))
+            }
+
             rangeRingHexes.forEach(cell => cell.polygon.setStyle(rangeStyle))
         }
         else
@@ -206,9 +222,6 @@ function listenTo(marker)
             routeLine.setLatLngs([start, now])
 
             var endHex = cellFor(now)
-
-            // get the route
-            var newRoute = grid2.hexesBetween(startHex, endHex)
 
             // clear the old cells
             routeHexes.forEach(function(cell)
@@ -222,6 +235,16 @@ function listenTo(marker)
                     cell.polygon.setStyle(defaultStyle)
                 }
             })
+            
+            // get the route
+            var newRoute = grid2.hexesBetween(startHex, endHex)
+
+            // if we have a restricted possible region,
+            // trim to it
+            if(rangeRingHexes)
+            {
+                newRoute = newRoute.filter(cell => rangeRingHexes.includes(cell))
+            }
 
             // and set the new cells
             const routeLats = []
@@ -260,14 +283,16 @@ var marker1 = L.marker(
                 draggable: true
             }
         )
+marker1.travelMode = "Sea"
 marker1.addTo(map)
 
 var marker2 = L.marker(
-            L.latLng(13, 43),
+            L.latLng(13, 42.4),
             {
                 draggable: true
             }
         )
+marker2.travelMode = "Land"
 marker2.addTo(map)
 
 listenTo(marker1)
