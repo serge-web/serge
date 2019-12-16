@@ -203,24 +203,22 @@ class MovementListener {
         this.map = map
         this.routeLine.addTo(map)
 
-        this.routeHexes = []
-        this.rangeRingHexes = []
+        this.routeHexes = [] // hexes representing route
+        this.routeLats = []  // lad-lngs for route
+        this.rangeRingHexes = [] // hexes representing achievable area
 
         this.defaultStyle = {
             fill: false,
             color: "#fff",
             opacity: 0.2
         }
-        this.startHex = {}
-        this.now = {}
-        this.start = {}
-        this.routeLats = []
+        this.startHex = {} // hex for start drag operation
     }
     listenTo(marker) {
-        // we need to capture 'this' in this context, not in handler
+        // we need to capture 'this' in this context, not in callback function
         const core = this
         marker.on('drag', function (e) {
-            core.now = e.latlng
+            const cursorLoc = e.latlng
 
             const rangeStyle = {
                 fill: true,
@@ -233,17 +231,11 @@ class MovementListener {
                 opacity: 0.2
             }
 
-            // does route have contents
+            // does route have contents?
             if (core.routeLine.isEmpty()) {
-                // ok, start drag
-                core.routeLine.setLatLngs([core.now, core.now])
-                core.startHex = grid.cellFor(core.now)
-
-                // double-check the route highlighters are empty
-                const routeHexes = []
-
-                // mark up the range rings
-                core.centre = grid.cellFor(core.now)
+                // no, we must be starting a new line
+                core.routeLine.setLatLngs([cursorLoc, cursorLoc])
+                core.startHex = grid.cellFor(cursorLoc)
 
                 // limit distance of travel
                 if (marker.stepLimit) {
@@ -284,9 +276,9 @@ class MovementListener {
                 // retrieve the start point of the line
                 core.start = core.routeLine.getLatLngs()[0]
 
-                core.routeLine.setLatLngs([core.start, core.now])
+                core.routeLine.setLatLngs([core.start, cursorLoc])
 
-                var endHex = grid.cellFor(core.now)
+                var endHex = grid.cellFor(cursorLoc)
 
                 // clear the old cells
                 core.routeHexes.forEach(function (cell) {
