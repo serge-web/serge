@@ -317,9 +317,30 @@ function listenTo(marker)
         }
     })
     marker.on('dragend', function (e) {
+        // ooh, see if it had restricted travel
+        if(marker.stepLimit)
+        {
+            // consume some of it
+            
+            // calculate distance
+            start = routeHexes[0]
+            end = routeHexes[routeHexes.length-1]
+            distance = start.distance(end)
+
+            marker.stepLimit -= distance
+
+            // cheat. if we've consumed distance, give it 
+            // another allowance
+            if(marker.stepLimit == 0)
+            {
+                marker.stepLimit = 5
+            }
+        }
+
         // put the marker at the centre of a cell
         lastCell = routeHexes.pop()
         marker.setLatLng(lastCell.centrePos)
+
 
         routeLine.setLatLngs([])
         // clear the old cells
