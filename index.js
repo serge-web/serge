@@ -264,6 +264,11 @@ function listenTo(marker)
             {
                 restrictedTerrain = sea_cells
             }
+            else if(marker.travelMode = "Air")
+            {
+                // just allow all cells
+                restrictedTerrain = grid2
+            }
 
             if(restrictedTerrain)
             {
@@ -377,5 +382,17 @@ marker2.travelMode = "Land"
 marker2.force = "Red"
 marker2.addTo(map)
 
+var marker3 = L.marker(
+    L.latLng(13.0, 42.45),
+    {
+        draggable: true
+    }
+)
+marker3.travelMode = "Air"
+marker3.force = "Red"
+marker3.addTo(map)
+
+
 listenTo(marker1)
 listenTo(marker2)
+listenTo(marker3)
