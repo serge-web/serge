@@ -62,13 +62,39 @@ var overlay = L.imageOverlay(imageUrl, imageBounds, {opacity: 0.8}).addTo(map);
 
 L.control.mousePosition().addTo(map);
 
+
+class GridImpl{
+    constructor(origin, delta, width, height)
+    {
+        this.origin = origin
+        this.delta = delta
+        this.grid = Honeycomb.defineGrid()
+        this.grid_cells = this.grid.rectangle({ width: width, height: height, direction: 'E'})
+    }
+    get cells(){return this.grid_cells}
+    toWorld(point)
+    {
+        return this.toWorld2(this.origin, point)
+    }
+    toWorld2(origin, point)
+    {
+        return L.latLng(origin.lat - point.x * this.delta, origin.lng + point.y * this.delta)
+    }
+    toHex(point)
+    {
+        var latVal = (this.origin.lat - point.lat) / this.delta
+        var lngVal = (point.lng - this.origin.lng) / this.delta
+        return L.point(latVal, lngVal)
+    }
+}
+
 const Grid = Honeycomb.defineGrid()
 
 var delta = 0.0416666
 var origin =  L.latLng(14.1166 + 3 * delta, 42.4166 - 2 * delta)
 
-var grid2 = Grid.rectangle({ width: 28, height: 24, direction: 'E'})
-
+var grid_obj = new GridImpl(origin, delta, 28, 24)
+var grid2 = grid_obj.cells
 
 var gridLayer = L.layerGroup()
 gridLayer.addTo(map)
@@ -110,21 +136,6 @@ const cellOrigin = hexOne.coordinates()
 // capture the offset between a cell centre, and the cell origin
 const centreOffset = L.point(centreH).subtract(L.point(cellOrigin))
 
-/** convert the honeycomb coords to degrees
- */
-function toWorld(origin, delta, point)
-{
-    return L.latLng(origin.lat - point.x * delta, origin.lng + point.y * delta)
-}
-
-/** convert the honeycomb coords to degrees
- */
- function toHex(origin, delta, point)
-{
-    var latVal = (origin.lat - point.lat) / delta
-    var lngVal = (point.lng - origin.lng) / delta
-    return L.point(latVal, lngVal)
-}
 
 // add the grid to the map
 grid2.forEach(hex => {
@@ -133,7 +144,7 @@ grid2.forEach(hex => {
 
     // since we have A0 at the top-left, we need to move south through the
     // data coords
-    hex.centrePos = toWorld(origin, delta, point)
+    hex.centrePos = grid_obj.toWorld(point)
 
     /** function to zero-pad the integer counter
      */
@@ -160,7 +171,7 @@ grid2.forEach(hex => {
         var centreP = hex.centrePos
         // the corners are relative to the origin (TL). So, offset them to the centre
         var point = {x: value.x - centreH.x, y: value.y - centreH.y}
-        var newP = toWorld(centreP, delta, point)
+        var newP = grid_obj.toWorld2(centreP, point)
         cornerArr.push(newP)
     }
 
@@ -177,14 +188,21 @@ grid2.forEach(hex => {
     gridLayer.addLayer(polygon)
 })
 
-
+/** convert the honeycomb coords to degrees
+ */
+function toHex(origin, delta, point)
+{
+    var latVal = (origin.lat - point.lat) / delta
+    var lngVal = (point.lng - origin.lng) / delta
+    return L.point(latVal, lngVal)
+}
 
 /** get the hex cell for a location
  */
 function cellFor(latLng)
 {
     // convert to hex coordinates
-    var hexCoords = toHex(origin, delta, latLng)
+    var hexCoords = grid_obj.toHex(latLng)
 
     // apply the offset, since the cell origin is at the top left
     cellCoords = L.point(hexCoords.x + centreOffset.x, hexCoords.y + centreOffset.y)
