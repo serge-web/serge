@@ -212,7 +212,7 @@ class MovementListener {
 
         this.routeHexes = [] // hexes representing route
         this.routeLats = []  // lad-lngs for route
-        this.rangeRingHexes = [] // hexes representing achievable area
+        this.achievableCells = [] // hexes representing achievable area
 
         this.defaultStyle = {
             fill: false,
@@ -253,11 +253,11 @@ class MovementListener {
                 core.lastHex = grid.cellFor(cursorLoc)
 
                 // limit distance of travel
-                if (marker.stepLimit) {
-                    core.rangeRingHexes = grid.hexesInRange(core.startHex, marker.stepLimit)
+                if (marker.stepRemaining) {
+                    core.achievableCells = grid.hexesInRange(core.startHex, marker.stepRemaining)
                 } else {
                     // nope, allow travel to anywhere
-                    core.rangeRingHexes = grid.cells
+                    core.achievableCells = grid.cells
                 }
 
                 // set the route-line color
@@ -283,10 +283,10 @@ class MovementListener {
                 }
 
                 if (restrictedTerrain) {
-                    core.rangeRingHexes = core.rangeRingHexes.filter(cell => restrictedTerrain.includes(cell.name))
+                    core.achievableCells = core.achievableCells.filter(cell => restrictedTerrain.includes(cell.name))
                 }
 
-                core.rangeRingHexes.forEach(cell => cell.polygon.setStyle(rangeStyle))
+                core.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
             } else {
                 // retrieve the start point of the line
 
@@ -297,12 +297,19 @@ class MovementListener {
                     core.routeLine.setLatLngs([core.startHex.centrePos, cursorLoc])
                 }
 
-                core.lastHex = grid.cellFor(cursorLoc)
-
+                // are we in a safe cell
+                const curCell = grid.cellFor(cursorLoc)
+                
+                // is this an achievable cell?
+                if(core.achievableCells.includes(curCell))
+                {
+                    // ok, remember it
+                    core.lastHex =curCell
+                }
 
                 // clear the old cells
                 core.routeHexes.forEach(function (cell) {
-                    if (core.rangeRingHexes.includes(cell)) {
+                    if (core.achievableCells.includes(cell)) {
                         cell.polygon.setStyle(rangeStyle)
                     } else {
                         cell.polygon.setStyle(defaultStyle)
@@ -314,8 +321,8 @@ class MovementListener {
 
                 // if we have a restricted possible region,
                 // trim to it
-                if (core.rangeRingHexes) {
-                    newRoute = newRoute.filter(cell => core.rangeRingHexes.includes(cell))
+                if (core.achievableCells) {
+                    newRoute = newRoute.filter(cell => core.achievableCells.includes(cell))
                 }
 
                 // and clear the new cells
@@ -331,7 +338,7 @@ class MovementListener {
         })
         marker.on('dragend', function (e) {
             // ooh, see if it had restricted travel
-            if (marker.stepLimit) {
+            if (marker.stepLimit && core.routeHexes.length > 0) {
                 // consume some of it
 
                 // calculate distance
@@ -339,12 +346,12 @@ class MovementListener {
                 const end = core.routeHexes[core.routeHexes.length - 1]
                 const distance = start.distance(end)
 
-                marker.stepLimit -= distance
+                marker.stepRemaining -= distance
 
                 // cheat. if we've consumed distance, give it 
                 // another allowance
-                if (marker.stepLimit == 0) {
-                    marker.stepLimit = 5
+                if (marker.stepRemaining == 0) {
+                    marker.stepRemaining = marker.stepLimit
                 }
             }
 
@@ -355,8 +362,8 @@ class MovementListener {
             // clear the old cells
             core.routeHexes.forEach(cell => cell.polygon.setStyle(core.defaultStyle))
             core.routeHexes = []
-            core.rangeRingHexes.forEach(cell => cell.polygon.setStyle(core.defaultStyle))
-            core.rangeRingHexes = []
+            core.achievableCells.forEach(cell => cell.polygon.setStyle(core.defaultStyle))
+            core.achievableCells = []
             core.routeLats = []
         })
     }
@@ -406,8 +413,6 @@ var grid = new GridImpl(origin, delta, 28, 24)
 // add hexagons to this map
 grid.addShapesTo(gridLayer)
 
-
-
 function markerFor(spec)
 {
     var res = L.marker(
@@ -418,23 +423,26 @@ function markerFor(spec)
     res.bindTooltip(spec.name)
     res.travelMode = spec.travelMode
     res.force = spec.force
+    res.stepRemaining = spec.stepLimit
     res.stepLimit = spec.stepLimit
     res.mobile = spec.mobile
     return res
 }
 
 // give us a couple of platforms
-var marker1 = markerFor({loc:grid.hexNamed("C01").centrePos, draggable:true, name:"Frigate", travelMode:"Sea", force:"Blue", stepLimit:5, mobile:true})
-platformLayer.addLayer(marker1)
-
-var marker2 = markerFor({loc:grid.hexNamed("Q02").centrePos, draggable:true, name:"Coastal Battery", travelMode:"Land", force:"Red", mobile:false})
-platformLayer.addLayer(marker2)
-
-var marker3 = markerFor({loc:grid.hexNamed("C17").centrePos, draggable:true, name:"MPA", travelMode:"Air", force:"Blue", mobile:true})
-platformLayer.addLayer(marker3)
+const platforms = []
+platforms.push({loc:grid.hexNamed("C01").centrePos, draggable:true, name:"Frigate", travelMode:"Sea", force:"Blue", stepLimit:5, mobile:true})
+platforms.push({loc:grid.hexNamed("Q02").centrePos, draggable:true, name:"Coastal Battery", travelMode:"Land", force:"Red", mobile:false})
+platforms.push({loc:grid.hexNamed("P03").centrePos, draggable:true, name:"Fisherman", travelMode:"Sea", force:"Red", stepLimit:3, mobile:true})
+platforms.push({loc:grid.hexNamed("C17").centrePos, draggable:true, name:"MPA", travelMode:"Air", force:"Blue", mobile:true})
 
 // and listen to the markers
 const listener = new MovementListener(map)
-listener.listenTo(marker1)
-listener.listenTo(marker2)
-listener.listenTo(marker3)
+
+platforms.forEach(function(spec)
+{
+    marker = markerFor(spec)
+    listener.listenTo(marker)
+    platformLayer.addLayer(marker)
+})
+
