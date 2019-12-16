@@ -108,7 +108,14 @@ class GridImpl {
         var lngVal = (point.lng - this.origin.lng) / this.delta
         return L.point(latVal, lngVal)
     }
-
+    hexesInRange(startHex, stepLimit)
+    {
+        return this.grid_cells.hexesInRange(startHex, stepLimit, true)
+    }
+    hexesBetween(startHex, endHex)
+    {
+        return this.grid_cells.hexesBetween(startHex, endHex)
+    }
     /** get the hex cell for a location
      */
     cellFor(latLng) {
@@ -188,14 +195,9 @@ class GridImpl {
         })
     }
 }
-
-const Grid = Honeycomb.defineGrid()
-
 var delta = 0.0416666
 var origin = L.latLng(14.1166 + 3 * delta, 42.4166 - 2 * delta)
-
 var grid_obj = new GridImpl(origin, delta, 28, 24)
-var grid2 = grid_obj.cells
 
 var gridLayer = L.layerGroup()
 gridLayer.addTo(map)
@@ -277,10 +279,10 @@ function listenTo(marker) {
 
             // limit distance of travel
             if (marker.stepLimit) {
-                rangeRingHexes = grid2.hexesInRange(startHex, marker.stepLimit, true)
+                rangeRingHexes = grid_obj.hexesInRange(startHex, marker.stepLimit)
             } else {
                 // nope, allow travel to anywhere
-                rangeRingHexes = grid2
+                rangeRingHexes = grid_obj.cells
             }
 
 
@@ -303,7 +305,7 @@ function listenTo(marker) {
                 restrictedTerrain = sea_cells
             } else if (marker.travelMode = "Air") {
                 // just allow all cells
-                restrictedTerrain = grid2
+                restrictedTerrain = grid_obj.cells
             }
 
             if (restrictedTerrain) {
@@ -329,7 +331,7 @@ function listenTo(marker) {
             })
 
             // get the route
-            var newRoute = grid2.hexesBetween(startHex, endHex)
+            var newRoute = grid_obj.hexesBetween(startHex, endHex)
 
             // if we have a restricted possible region,
             // trim to it
