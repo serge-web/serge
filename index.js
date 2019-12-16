@@ -367,6 +367,7 @@ var marker1 = L.marker(
                 draggable: true
             }
         )
+marker1.bindTooltip("Frigate")
 marker1.travelMode = "Sea"
 marker1.force = "Blue"
 marker1.stepLimit = 5
@@ -378,6 +379,7 @@ var marker2 = L.marker(
                 draggable: true
             }
         )
+marker2.bindTooltip("Coastal Battery")
 marker2.travelMode = "Land"
 marker2.force = "Red"
 marker2.addTo(map)
@@ -388,8 +390,9 @@ var marker3 = L.marker(
         draggable: true
     }
 )
+marker3.bindTooltip("MPA")
 marker3.travelMode = "Air"
-marker3.force = "Red"
+marker3.force = "Blue"
 marker3.addTo(map)
 
 
