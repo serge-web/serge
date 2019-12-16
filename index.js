@@ -274,6 +274,9 @@ class MovementListener {
                 core.routeLine.setStyle({
                     color: hisColor
                 })
+                core.historyLine.setStyle({
+                    color: hisColor
+                })
 
                 //
                 var restrictedTerrain
