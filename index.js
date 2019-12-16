@@ -22,7 +22,22 @@ var tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{
     //maxZoom: 18
 });
 
-var land_cells = ["A15", "A16", "A17", "A18", "A19", "A20", "A21", "A22", "A23", "A24", "A25", "A26", "A27"]
+var land_cells =
+[
+    "M00",
+    "N00", "N01", 
+    "O00", "O01", "O02", "O03",
+    "P00", "P01", "P02", "P03", "P04", "P05", "P09", 
+    "Q00", "Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", 
+    "R00", "R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", 
+    "S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", 
+    "T00", "T01", "T02", "T03", "T04", "T05", "T06", "T07", "T08", "T09", 
+    "U00", "U01", "U02", "U03", "U04", "U05", "U06", "U07", "U08", "U09", 
+    "V00", "V01", "V02", "V03", "V04", "V05", "V06", "V07", "V08", "V09", 
+    "W00", "W01", "W02", "W03", "W04", "W05", "W06", "W07", "W08", "W09", 
+    "X00", "X01", "X02", "X03", "X04", "X05", "X06", "X07", "X08", "X09", 
+]
+
 var sea_cells = ["A00", "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", 
 "B00", "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", 
 "C00", "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", 
@@ -181,7 +196,7 @@ function cellFor(latLng)
     return grid2.get(cellCoords)
 }
 
-var routeLine = L.polyline([],{color: '#249'})
+var routeLine = L.polyline([],{color: '#fff'})
 routeLine.addTo(map)
 
 var routeHexes = []
@@ -214,23 +229,45 @@ function listenTo(marker)
 
             // mark up the range rings
             var centre = cellFor(now)
-            rangeRingHexes = grid2.hexesInRange(centre, 4, true)
 
+            // limit distance of travel
+            if(marker.stepLimit)
+            {
+                rangeRingHexes = grid2.hexesInRange(centre, marker.stepLimit, true)
+            }
+            else
+            {
+                // nope, allow travel to anywhere
+                rangeRingHexes = grid2
+            }
+
+
+            // set the route-line color
+            var hisColor
+            if(marker.force == "Red")
+            {
+                hisColor = "#f00"
+            }
+            else if(marker.force == "Blue")
+            {
+                hisColor = "#00f"
+            }
+            routeLine.setStyle({color:hisColor})
 
             //
-            var canTravelTo
+            var restrictedTerrain
             if(marker.travelMode == "Land")
             {
-                canTravelTo = land_cells
+                restrictedTerrain = land_cells
             }
             else if(marker.travelMode == "Sea")
             {
-                canTravelTo = sea_cells
+                restrictedTerrain = sea_cells
             }
 
-            if(canTravelTo)
+            if(restrictedTerrain)
             {
-                rangeRingHexes = rangeRingHexes.filter(cell => canTravelTo.includes(cell.name))
+                rangeRingHexes = rangeRingHexes.filter(cell => restrictedTerrain.includes(cell.name))
             }
 
             rangeRingHexes.forEach(cell => cell.polygon.setStyle(rangeStyle))
@@ -305,15 +342,18 @@ var marker1 = L.marker(
             }
         )
 marker1.travelMode = "Sea"
+marker1.force = "Blue"
+marker1.stepLimit = 5
 marker1.addTo(map)
 
 var marker2 = L.marker(
-            L.latLng(13, 42.4),
+            L.latLng(14.1, 43.3),
             {
                 draggable: true
             }
         )
 marker2.travelMode = "Land"
+marker2.force = "Red"
 marker2.addTo(map)
 
 listenTo(marker1)
