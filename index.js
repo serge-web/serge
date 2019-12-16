@@ -23,6 +23,23 @@ var tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{
 });
 
 var land_cells = ["A15", "A16", "A17", "A18", "A19", "A20", "A21", "A22", "A23", "A24", "A25", "A26", "A27"]
+var sea_cells = ["A00", "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", 
+"B00", "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", 
+"C00", "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", 
+"D00", "D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09", 
+"E00", "E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", 
+"F00", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09",
+"G00", "G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", 
+"H00", "H01", "H02", "H03", "H04", "H05", "H06", "H07", "H08", "H09", 
+"I00", "I01", "I02", "I03", "I04", "I05", "I06", "I07", "I08", "I09", 
+"J00", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08", "J09",
+"K00", "K01", "K02", "K03", "K04", "K05", "K06", "K07", "K08", "K09", 
+"L00", "L01", "L02", "L03", "L04", "L05", "L06", "L07", "L08", "L09", 
+"M00", "M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08", "M09", 
+"N00", "N01", "N02", "N03", "N04", "N05", "N06", "N07", "N08", "N09", 
+"O02", "O03", "O04", "O05", "O06", "O07", "O08", "O09", 
+"P03", "P04", "P05", "P06", "P07", "P08", "P09", 
+"Q07", "Q08", "Q09"]
 
 var imageUrl = 'images/new_map.jpg',
 imageBounds = [[image_top, image_left], [image_bottom, image_right]];
@@ -206,6 +223,10 @@ function listenTo(marker)
             {
                 canTravelTo = land_cells
             }
+            else if(marker.travelMode == "Sea")
+            {
+                canTravelTo = sea_cells
+            }
 
             if(canTravelTo)
             {
@@ -278,7 +299,7 @@ function listenTo(marker)
 
 // give us a couple of platforms
 var marker1 = L.marker(
-            L.latLng(13.5, 42.8),
+            L.latLng(14.1, 42.5),
             {
                 draggable: true
             }
