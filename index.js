@@ -254,7 +254,7 @@ class MovementListener {
             }
 
             // does route have contents?
-            if (core.routeLine.isEmpty()) {
+            if (core.achievableCells.length == 0) {
                 // no, we must be starting a new line
 
                 // is this a mobile element
@@ -367,10 +367,20 @@ class MovementListener {
                 // and clear the new cells
                 core.routeLats = []
                 core.routeHexes = newRoute
-                core.routeHexes.forEach(function (cell) {
-                    cell.polygon.setStyle(routeStyle);
-                    core.routeLats.push(cell.centrePos)
-                })
+                if(marker.mobile)
+                {
+                    core.routeHexes.forEach(function (cell) {
+                        cell.polygon.setStyle(routeStyle);
+                        core.routeLats.push(cell.centrePos)
+                    })
+                }
+                else
+                {
+                    // insert the current location twice,
+                    // to give us a point marker
+                    core.routeLats.push(core.lastHex.centrePos)
+                    core.routeLats.push(core.lastHex.centrePos)
+                }
 
                 core.routeLine.setLatLngs(core.routeLats)
             }
