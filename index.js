@@ -13,7 +13,7 @@ map = L.map('map', {
     maxZoom: 12,
     center: [(image_top + image_bottom) / 2, (image_left + image_right) / 2],
     zoom: 9,
-    attributionControl: true,
+    attributionControl: false,
     zoomAnimation: false
 });
 map.zoomControl.setPosition('topleft');
