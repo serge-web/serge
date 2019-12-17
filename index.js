@@ -264,7 +264,6 @@ class MovementListener {
                 }
 
                 core.startHex = grid.cellFor(cursorLoc)
-                core.lastHex = grid.cellFor(cursorLoc)
 
                 // limit distance of travel
                 if (marker.stepRemaining) {
@@ -303,7 +302,16 @@ class MovementListener {
                     core.achievableCells = core.achievableCells.filter(cell => restrictedTerrain.includes(cell.name))
                 }
 
+                // apply styling to the achievable cells
                 core.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
+
+                // is this an achievable cell?
+                const curCell = grid.cellFor(cursorLoc)
+                if(core.achievableCells.includes(curCell))
+                {
+                    // ok, remember it
+                    core.lastHex = curCell
+                }
 
                 // and the track history
                 if(marker.history)
