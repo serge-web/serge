@@ -482,7 +482,7 @@ map.on('zoomend', function () {
 });
 
 var delta = 0.0416666
-var origin = L.latLng(14.1166 + 3 * delta, 42.4166 - 2 * delta)
+var origin = L.latLng(14.1166, 42.4166)
 var grid = new GridImpl(origin, delta, 28, 24)
 
 // add hexagons to this map
