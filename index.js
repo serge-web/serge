@@ -473,7 +473,7 @@ map.on('zoomend', function () {
 
 var delta = 0.0416666
 var origin = L.latLng(14.1166, 42.4166)
-var grid = new GridImpl(origin, delta, 28, 24)
+var grid = new GridImpl(origin, delta, 24, 21)
 
 // add hexagons to this map
 grid.addShapesTo(gridLayer)
