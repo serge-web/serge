@@ -1,40 +1,5 @@
 
 
-var land_cells = [
-    "M00",
-    "N00", "N01",
-    "O00", "O01", "O02", "O03",
-    "P00", "P01", "P02", "P03", "P04", "P05", "P09",
-    "Q00", "Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09",
-    "R00", "R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09",
-    "S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09",
-    "T00", "T01", "T02", "T03", "T04", "T05", "T06", "T07", "T08", "T09",
-    "U00", "U01", "U02", "U03", "U04", "U05", "U06", "U07", "U08", "U09",
-    "V00", "V01", "V02", "V03", "V04", "V05", "V06", "V07", "V08", "V09",
-    "W00", "W01", "W02", "W03", "W04", "W05", "W06", "W07", "W08", "W09",
-    "X00", "X01", "X02", "X03", "X04", "X05", "X06", "X07", "X08", "X09",
-]
-
-var sea_cells = ["A00", "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09",
-    "B00", "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09",
-    "C00", "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09",
-    "D00", "D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09",
-    "E00", "E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09",
-    "F00", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09",
-    "G00", "G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09",
-    "H00", "H01", "H02", "H03", "H04", "H05", "H06", "H07", "H08", "H09",
-    "I00", "I01", "I02", "I03", "I04", "I05", "I06", "I07", "I08", "I09",
-    "J00", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08", "J09",
-    "K00", "K01", "K02", "K03", "K04", "K05", "K06", "K07", "K08", "K09",
-    "L00", "L01", "L02", "L03", "L04", "L05", "L06", "L07", "L08", "L09",
-    "M00", "M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08", "M09",
-    "N00", "N01", "N02", "N03", "N04", "N05", "N06", "N07", "N08", "N09",
-    "O02", "O03", "O04", "O05", "O06", "O07", "O08", "O09",
-    "P03", "P04", "P05", "P06", "P07", "P08", "P09",
-    "Q07", "Q08", "Q09"
-]
-
-
 const defaultHexStyle = {
     fill: false,
     color: "#fff",
@@ -132,6 +97,18 @@ class GridImpl {
             }
             hex.name = String.fromCharCode(65 + hex.y) + pad(hex.x)
 
+            // sort out the cell attributes
+            const cell_chars = cell_types[hex.name]
+            if(cell_chars)
+            {
+                hex.sea = cell_chars[0]
+                hex.land = cell_chars[1]
+            }
+            else
+            {
+             //   console.log("Warning,cell chars not found for:" + hex.name)
+            }
+
             // add a marker
             var myIcon = L.divIcon({
                 className: 'cell-label',
@@ -196,8 +173,8 @@ class MovementListener {
         this.routeHexes = [] // hexes representing route
         this.routeLats = []  // lad-lngs for route
         this.achievableCells = [] // hexes representing achievable area
-        this.startHex = {} // hex for start drag operation
-        this.lastHex = {} // most recent cell travelled through
+        this.startHex = null // hex for start drag operation
+        this.lastHex = null // most recent cell travelled through
     }
     /** listen to drag events on the supplied marker */
     listenTo(marker) {
@@ -252,19 +229,16 @@ class MovementListener {
                 })
 
                 //
-                var restrictedTerrain
-                if (marker.travelMode == "Land") {
-                    restrictedTerrain = land_cells
-                } else if (marker.travelMode == "Sea") {
-                    restrictedTerrain = sea_cells
-                } else if (marker.travelMode = "Air") {
-                    // just allow all cells
-                    restrictedTerrain = grid.cells
-                }
-
-                if (restrictedTerrain) {
-                    core.achievableCells = core.achievableCells.filter(cell => restrictedTerrain.includes(cell.name))
-                }
+                core.achievableCells = core.achievableCells.filter(function(cell)
+                {
+                    if (marker.travelMode == "Land") {
+                        return cell.land
+                    } else if (marker.travelMode == "Sea") {
+                        return cell.sea
+                    } else if (marker.travelMode = "Air") {
+                        return true
+                    }  
+                })
 
                 // apply styling to the achievable cells
                 core.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
@@ -328,7 +302,7 @@ class MovementListener {
                     newRoute = newRoute.filter(cell => core.achievableCells.includes(cell))
                 }
 
-                // and clear the new cells
+                // and generate new cells
                 core.routeLats = []
                 core.routeHexes = newRoute
                 if(marker.mobile)
@@ -342,11 +316,17 @@ class MovementListener {
                 {
                     // insert the current location twice,
                     // to give us a point marker
-                    core.routeLats.push(core.lastHex.centrePos)
-                    core.routeLats.push(core.lastHex.centrePos)
+                    if(core.lastHex)
+                    {
+                        core.routeLats.push(core.lastHex.centrePos)
+                        core.routeLats.push(core.lastHex.centrePos)
+                    }
                 }
 
-                core.planningLine.setLatLngs(core.routeLats)
+                if(core.routeLats.length > 1)
+                {
+                    core.planningLine.setLatLngs(core.routeLats)
+                }
             }
         })
         marker.on('dragend', function (e) {
@@ -496,7 +476,7 @@ const trial_history = ["C05", "C04", "C03", "C02", "C01"]
 // give us a couple of platforms
 const platforms = []
 platforms.push({loc:grid.hexNamed("C01").centrePos, draggable:true, name:"Frigate", travelMode:"Sea", force:"Blue", allowance:5, mobile:true, history:trial_history})
-platforms.push({loc:grid.hexNamed("Q02").centrePos, draggable:true, name:"Coastal Battery", travelMode:"Land", force:"Red", mobile:false})
+platforms.push({loc:grid.hexNamed("P02").centrePos, draggable:true, name:"Coastal Battery", travelMode:"Land", force:"Red", mobile:false})
 platforms.push({loc:grid.hexNamed("P03").centrePos, draggable:true, name:"Fisherman", travelMode:"Sea", force:"Red", allowance:3, mobile:true})
 platforms.push({loc:grid.hexNamed("C17").centrePos, draggable:true, name:"MPA", travelMode:"Air", force:"Blue", mobile:true})
 
@@ -510,4 +490,3 @@ platforms.forEach(function(spec)
     listener.listenTo(marker)
     platformLayer.addLayer(marker)
 })
-
