@@ -29,7 +29,7 @@ class AdminAndInsightsTabsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameAdmin: 'Game Admin',
+      gameAdmin: 'Social Media',
       insights: 'Insights',
       model: FlexLayout.Model.fromJson(json),
       channelNames: [],
