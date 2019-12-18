@@ -302,7 +302,7 @@ class MovementListener {
                     newRoute = newRoute.filter(cell => core.achievableCells.includes(cell))
                 }
 
-                // and clear the new cells
+                // and generate new cells
                 core.routeLats = []
                 core.routeHexes = newRoute
                 if(marker.mobile)
