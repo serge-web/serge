@@ -173,8 +173,8 @@ class MovementListener {
         this.routeHexes = [] // hexes representing route
         this.routeLats = []  // lad-lngs for route
         this.achievableCells = [] // hexes representing achievable area
-        this.startHex = {} // hex for start drag operation
-        this.lastHex = {} // most recent cell travelled through
+        this.startHex = null // hex for start drag operation
+        this.lastHex = null // most recent cell travelled through
     }
     /** listen to drag events on the supplied marker */
     listenTo(marker) {
@@ -323,7 +323,10 @@ class MovementListener {
                     }
                 }
 
-                core.planningLine.setLatLngs(core.routeLats)
+                if(core.routeLats.length > 1)
+                {
+                    core.planningLine.setLatLngs(core.routeLats)
+                }
             }
         })
         marker.on('dragend', function (e) {
@@ -444,7 +447,7 @@ L.control.layers(baseLayers, overlays, {
 // only show the markers when zoomed in
 map.on('zoomend', function () {
     const loaded = map.hasLayer(markerLayer)
-    if (map.getZoom() < 11) {
+    if (map.getZoom() < 10) {
         if (loaded) {
             map.removeLayer(markerLayer);
         }
