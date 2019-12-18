@@ -1,73 +1,11 @@
-var map;
 
-var image_top = 14.3763382069
-var image_left = 42.1865566389
-var image_right = 43.8814566389
-var image_bottom = 12.1829382069
 
-// zoomDelta: 0.5,
-//     zoomSnap: 0,
-
-map = L.map('map', {
-    minZoom: 8,
-    maxZoom: 12,
-    center: [(image_top + image_bottom) / 2, (image_left + image_right) / 2],
-    zoom: 9,
-    attributionControl: false,
-    zoomAnimation: false
-});
-map.zoomControl.setPosition('topleft');
-
-var tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
-    attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>',
-    //maxZoom: 18
-});
-
-var land_cells = [
-    "M00",
-    "N00", "N01",
-    "O00", "O01", "O02", "O03",
-    "P00", "P01", "P02", "P03", "P04", "P05", "P09",
-    "Q00", "Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09",
-    "R00", "R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09",
-    "S00", "S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09",
-    "T00", "T01", "T02", "T03", "T04", "T05", "T06", "T07", "T08", "T09",
-    "U00", "U01", "U02", "U03", "U04", "U05", "U06", "U07", "U08", "U09",
-    "V00", "V01", "V02", "V03", "V04", "V05", "V06", "V07", "V08", "V09",
-    "W00", "W01", "W02", "W03", "W04", "W05", "W06", "W07", "W08", "W09",
-    "X00", "X01", "X02", "X03", "X04", "X05", "X06", "X07", "X08", "X09",
-]
-
-var sea_cells = ["A00", "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09",
-    "B00", "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09",
-    "C00", "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09",
-    "D00", "D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09",
-    "E00", "E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09",
-    "F00", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09",
-    "G00", "G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09",
-    "H00", "H01", "H02", "H03", "H04", "H05", "H06", "H07", "H08", "H09",
-    "I00", "I01", "I02", "I03", "I04", "I05", "I06", "I07", "I08", "I09",
-    "J00", "J01", "J02", "J03", "J04", "J05", "J06", "J07", "J08", "J09",
-    "K00", "K01", "K02", "K03", "K04", "K05", "K06", "K07", "K08", "K09",
-    "L00", "L01", "L02", "L03", "L04", "L05", "L06", "L07", "L08", "L09",
-    "M00", "M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08", "M09",
-    "N00", "N01", "N02", "N03", "N04", "N05", "N06", "N07", "N08", "N09",
-    "O02", "O03", "O04", "O05", "O06", "O07", "O08", "O09",
-    "P03", "P04", "P05", "P06", "P07", "P08", "P09",
-    "Q07", "Q08", "Q09"
-]
-
-var imageUrl = 'images/new_map.jpg',
-    imageBounds = [
-        [image_top, image_left],
-        [image_bottom, image_right]
-    ];
-var overlay = L.imageOverlay(imageUrl, imageBounds, {
-    opacity: 0.8
-}).addTo(map);
-
-L.control.mousePosition().addTo(map);
-
+const defaultHexStyle = {
+    fill: false,
+    color: "#fff",
+    opacity: 0.2,
+    weight: 3
+}
 
 class GridImpl {
     constructor(origin, delta, width, height) {
@@ -114,8 +52,8 @@ class GridImpl {
         return L.point(latVal, lngVal)
     }
     /** get the cells at the indicated distance from the origin */
-    hexesInRange(startHex, stepLimit) {
-        return this.grid_cells.hexesInRange(startHex, stepLimit, true)
+    hexesInRange(startHex, range) {
+        return this.grid_cells.hexesInRange(startHex, range, true)
     }
     /** get the cells on the path between these points */
     hexesBetween(startHex, endHex) {
@@ -159,6 +97,18 @@ class GridImpl {
             }
             hex.name = String.fromCharCode(65 + hex.y) + pad(hex.x)
 
+            // sort out the cell attributes
+            const cell_chars = cell_types[hex.name]
+            if(cell_chars)
+            {
+                hex.sea = cell_chars[0]
+                hex.land = cell_chars[1]
+            }
+            else
+            {
+             //   console.log("Warning,cell chars not found for:" + hex.name)
+            }
+
             // add a marker
             var myIcon = L.divIcon({
                 className: 'cell-label',
@@ -194,11 +144,7 @@ class GridImpl {
             this.corners.forEach(scalePoint)
 
             // now create the polygon
-            var polygon = L.polygon(cornerArr, {
-                color: '#fff',
-                opacity: 0.2,
-                weight: 3
-            })
+            var polygon = L.polygon(cornerArr, defaultHexStyle)
 
             // store the polyline in the cell
             hex.polygon = polygon
@@ -212,28 +158,23 @@ class GridImpl {
 class MovementListener {
     constructor(map, grid) {
         this.grid = grid
-        this.routeLine = L.polyline([], {
+
+        // create our two lines, one for planning, one for history
+        this.planningLine = L.polyline([], {
             color: '#fff',
             dashArray: [1, 4]
         })
-        this.routeLine.addTo(map)
-        this.map = map
-
-        this.routeHexes = [] // hexes representing route
-        this.routeLats = []  // lad-lngs for route
-        this.achievableCells = [] // hexes representing achievable area
-
-        this.defaultStyle = {
-            fill: false,
-            color: "#fff",
-            opacity: 0.2
-        }
-        this.startHex = {} // hex for start drag operation
-        this.lastHex = {} // most recent cell travelled through
+        this.planningLine.addTo(map)
         this.historyLine = L.polyline([], {
             color: '#0f0'            
         })
         this.historyLine.addTo(map)
+
+        this.routeHexes = [] // hexes representing route
+        this.routeLats = []  // lad-lngs for route
+        this.achievableCells = [] // hexes representing achievable area
+        this.startHex = null // hex for start drag operation
+        this.lastHex = null // most recent cell travelled through
     }
     /** listen to drag events on the supplied marker */
     listenTo(marker) {
@@ -253,14 +194,14 @@ class MovementListener {
                 opacity: 0.2
             }
 
-            // does route have contents?
+            // hvae we calculated the achievable cells?
             if (core.achievableCells.length == 0) {
                 // no, we must be starting a new line
 
                 // is this a mobile element
                 if(marker.mobile)
                 {
-                    core.routeLine.setLatLngs([cursorLoc, cursorLoc])
+                    core.planningLine.setLatLngs([cursorLoc, cursorLoc])
                 }
 
                 core.startHex = grid.cellFor(cursorLoc)
@@ -280,7 +221,7 @@ class MovementListener {
                 } else if (marker.force == "Blue") {
                     hisColor = "#00f"
                 }
-                core.routeLine.setStyle({
+                core.planningLine.setStyle({
                     color: hisColor
                 })
                 core.historyLine.setStyle({
@@ -288,19 +229,16 @@ class MovementListener {
                 })
 
                 //
-                var restrictedTerrain
-                if (marker.travelMode == "Land") {
-                    restrictedTerrain = land_cells
-                } else if (marker.travelMode == "Sea") {
-                    restrictedTerrain = sea_cells
-                } else if (marker.travelMode = "Air") {
-                    // just allow all cells
-                    restrictedTerrain = grid.cells
-                }
-
-                if (restrictedTerrain) {
-                    core.achievableCells = core.achievableCells.filter(cell => restrictedTerrain.includes(cell.name))
-                }
+                core.achievableCells = core.achievableCells.filter(function(cell)
+                {
+                    if (marker.travelMode == "Land") {
+                        return cell.land
+                    } else if (marker.travelMode == "Sea") {
+                        return cell.sea
+                    } else if (marker.travelMode = "Air") {
+                        return true
+                    }  
+                })
 
                 // apply styling to the achievable cells
                 core.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
@@ -330,10 +268,10 @@ class MovementListener {
                 // retrieve the start point of the line
 
                 // are we plotting a line?
-                if(core.routeLine.length > 0)
+                if(core.planningLine.length > 0)
                 {
-                    core.start = core.routeLine.getLatLngs()[0]
-                    core.routeLine.setLatLngs([core.startHex.centrePos, cursorLoc])
+                    core.start = core.planningLine.getLatLngs()[0]
+                    core.planningLine.setLatLngs([core.startHex.centrePos, cursorLoc])
                 }
 
                 // are we in a safe cell
@@ -351,7 +289,7 @@ class MovementListener {
                     if (core.achievableCells.includes(cell)) {
                         cell.polygon.setStyle(rangeStyle)
                     } else {
-                        cell.polygon.setStyle(defaultStyle)
+                        cell.polygon.setStyle(defaultHexStyle)
                     }
                 })
 
@@ -364,7 +302,7 @@ class MovementListener {
                     newRoute = newRoute.filter(cell => core.achievableCells.includes(cell))
                 }
 
-                // and clear the new cells
+                // and generate new cells
                 core.routeLats = []
                 core.routeHexes = newRoute
                 if(marker.mobile)
@@ -378,16 +316,22 @@ class MovementListener {
                 {
                     // insert the current location twice,
                     // to give us a point marker
-                    core.routeLats.push(core.lastHex.centrePos)
-                    core.routeLats.push(core.lastHex.centrePos)
+                    if(core.lastHex)
+                    {
+                        core.routeLats.push(core.lastHex.centrePos)
+                        core.routeLats.push(core.lastHex.centrePos)
+                    }
                 }
 
-                core.routeLine.setLatLngs(core.routeLats)
+                if(core.routeLats.length > 1)
+                {
+                    core.planningLine.setLatLngs(core.routeLats)
+                }
             }
         })
         marker.on('dragend', function (e) {
             // ooh, see if it had restricted travel
-            if (marker.stepLimit && core.routeHexes.length > 0) {
+            if (marker.allowance && core.routeHexes.length > 0) {
                 // consume some of it
 
                 // calculate distance
@@ -400,7 +344,7 @@ class MovementListener {
                 // cheat. if we've consumed distance, give it 
                 // another allowance
                 if (marker.stepRemaining == 0) {
-                    marker.stepRemaining = marker.stepLimit
+                    marker.stepRemaining = marker.allowance
                 }
 
                 // add these new cells as history
@@ -411,17 +355,19 @@ class MovementListener {
                 core.routeHexes.forEach(cell => marker.history.push(cell.name))
             }
 
-            // put the marker at the centre of a cell
+            // move the marker to the last valid location
             marker.setLatLng(core.lastHex.centrePos)
 
-            core.routeLine.setLatLngs([])
-            // clear the old cells
-            core.routeHexes.forEach(cell => cell.polygon.setStyle(core.defaultStyle))
-            core.routeHexes = []
-            core.achievableCells.forEach(cell => cell.polygon.setStyle(core.defaultStyle))
-            core.achievableCells = []
+            // clear the line objects
             core.routeLats = []
+            core.planningLine.setLatLngs([])
             core.historyLine.setLatLngs([])
+
+            // clear the shaded cells
+            core.routeHexes.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
+            core.routeHexes = []
+            core.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
+            core.achievableCells = []
         })
     }
 }
@@ -437,18 +383,48 @@ function markerFor(spec)
     res.bindTooltip(spec.name)
     res.travelMode = spec.travelMode
     res.force = spec.force
-    res.stepRemaining = spec.stepLimit
-    res.stepLimit = spec.stepLimit
+    res.stepRemaining = spec.allowance
+    res.allowance = spec.allowance
     res.mobile = spec.mobile
     res.history = spec.history
     return res
 }
+/*
+ * START OF LEAFLET MAPPING
+ */
+
+var image_top = 14.194809302;
+var image_left = 42.3558566271;
+var image_right = 43.7417816271;
+var image_bottom = 12.401259302;
+
+const map = L.map('map', {
+    minZoom: 8,
+    maxZoom: 12,
+    center: [(image_top + image_bottom) / 2, (image_left + image_right) / 2],
+    zoom: 9,
+    attributionControl: false,
+    zoomAnimation: false
+});
+map.zoomControl.setPosition('topleft');
+
+var tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+    attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
+});
+
+var imageBounds = [[image_top, image_left], [image_bottom, image_right]];
+var tileLayer =L.tileLayer('tiles/{z}/{x}/{y}.png', {
+    minZoom: 8,
+    maxZoom: 12,
+    tms: false,
+    bounds: imageBounds,
+    attribution: 'Generated by QTiles'
+}).addTo(map);
+
+L.control.mousePosition().addTo(map);
 
 var gridLayer = L.layerGroup()
 gridLayer.addTo(map)
-var mapLayer = L.layerGroup()
-mapLayer.addLayer(overlay)
-mapLayer.addTo(map)
 var markerLayer = L.layerGroup()
 // note: we don't show the marker layer by default - only when zoomed in
 var platformLayer = L.layerGroup();
@@ -456,8 +432,8 @@ platformLayer.addTo(map);
 
 
 var baseLayers = {
-    "Image": mapLayer,
-    "OpenStreetMap": tiledBackdrop
+    "OpenStreetMap": tiledBackdrop,
+    "Tiled image": tileLayer
 }
 var overlays = {
     "Grid": gridLayer,
@@ -480,31 +456,37 @@ map.on('zoomend', function () {
     }
 });
 
+/*
+ *  CREATE THE GRID
+ */
 var delta = 0.0416666
-var origin = L.latLng(14.1166 + 3 * delta, 42.4166 - 2 * delta)
-var grid = new GridImpl(origin, delta, 28, 24)
+var origin = L.latLng(14.1166, 42.4166)
+var grid = new GridImpl(origin, delta, 24, 21)
 
 // add hexagons to this map
 grid.addShapesTo(gridLayer)
 
+/* 
+ * CREATE SOME SAMPLE PLATFORMS
+ */
 
 // experiment with back-history
 const trial_history = ["C05", "C04", "C03", "C02", "C01"]
 
 // give us a couple of platforms
 const platforms = []
-platforms.push({loc:grid.hexNamed("C01").centrePos, draggable:true, name:"Frigate", travelMode:"Sea", force:"Blue", stepLimit:5, mobile:true, history:trial_history})
-platforms.push({loc:grid.hexNamed("Q02").centrePos, draggable:true, name:"Coastal Battery", travelMode:"Land", force:"Red", mobile:false})
-platforms.push({loc:grid.hexNamed("P03").centrePos, draggable:true, name:"Fisherman", travelMode:"Sea", force:"Red", stepLimit:3, mobile:true})
+platforms.push({loc:grid.hexNamed("C01").centrePos, draggable:true, name:"Frigate", travelMode:"Sea", force:"Blue", allowance:5, mobile:true, history:trial_history})
+platforms.push({loc:grid.hexNamed("P02").centrePos, draggable:true, name:"Coastal Battery", travelMode:"Land", force:"Red", mobile:false})
+platforms.push({loc:grid.hexNamed("P03").centrePos, draggable:true, name:"Fisherman", travelMode:"Sea", force:"Red", allowance:3, mobile:true})
 platforms.push({loc:grid.hexNamed("C17").centrePos, draggable:true, name:"MPA", travelMode:"Air", force:"Blue", mobile:true})
 
-// and listen to the markers
+// create class to listen for movement
 const listener = new MovementListener(map, grid)
 
+// listen to the platorm markers
 platforms.forEach(function(spec)
 {
     marker = markerFor(spec)
     listener.listenTo(marker)
     platformLayer.addLayer(marker)
 })
-
