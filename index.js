@@ -447,7 +447,7 @@ L.control.layers(baseLayers, overlays, {
 // only show the markers when zoomed in
 map.on('zoomend', function () {
     const loaded = map.hasLayer(markerLayer)
-    if (map.getZoom() < 10) {
+    if (map.getZoom() < 11) {
         if (loaded) {
             map.removeLayer(markerLayer);
         }
