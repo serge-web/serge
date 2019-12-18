@@ -1,0 +1,10 @@
+{
+  "name": "@serge/mapping",
+  "version": "0.2.0",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "private": true,
+  "dependencies": {
+    "honeycomb-grid": "^3.1.2"
+  }
+}
