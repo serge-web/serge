@@ -197,12 +197,7 @@ class GridImpl {
             this.corners.forEach(scalePoint)
 
             // now create the polygon
-            var polygon = L.polygon(cornerArr, {
-                color: '#fff',
-                opacity: 0.4,
-                fill: false,
-                weight: 3
-            })
+            var polygon = L.polygon(cornerArr, defaultHexStyle)
 
             // store the polyline in the cell
             hex.polygon = polygon
@@ -227,11 +222,6 @@ class MovementListener {
         this.routeLats = []  // lad-lngs for route
         this.achievableCells = [] // hexes representing achievable area
 
-        this.defaultStyle = {
-            fill: false,
-            color: "#fff",
-            opacity: 0.2
-        }
         this.startHex = {} // hex for start drag operation
         this.lastHex = {} // most recent cell travelled through
         this.historyLine = L.polyline([], {
@@ -355,7 +345,7 @@ class MovementListener {
                     if (core.achievableCells.includes(cell)) {
                         cell.polygon.setStyle(rangeStyle)
                     } else {
-                        cell.polygon.setStyle(defaultStyle)
+                        cell.polygon.setStyle(defaultHexStyle)
                     }
                 })
 
@@ -420,9 +410,9 @@ class MovementListener {
 
             core.routeLine.setLatLngs([])
             // clear the old cells
-            core.routeHexes.forEach(cell => cell.polygon.setStyle(core.defaultStyle))
+            core.routeHexes.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
             core.routeHexes = []
-            core.achievableCells.forEach(cell => cell.polygon.setStyle(core.defaultStyle))
+            core.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
             core.achievableCells = []
             core.routeLats = []
             core.historyLine.setLatLngs([])
