@@ -63,7 +63,7 @@ var imageUrl = 'images/new_map.jpg',
         [image_bottom, image_right]
     ];
 var overlay = L.imageOverlay(imageUrl, imageBounds, {
-    opacity: 0.8
+    opacity: 1.0
 }).addTo(map);
 
 L.control.mousePosition().addTo(map);
@@ -196,7 +196,8 @@ class GridImpl {
             // now create the polygon
             var polygon = L.polygon(cornerArr, {
                 color: '#fff',
-                opacity: 0.2,
+                opacity: 0.4,
+                fill: false,
                 weight: 3
             })
 
