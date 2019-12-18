@@ -1,9 +1,9 @@
 var map;
 
-var image_top = 14.3763382069
-var image_left = 42.1865566389
-var image_right = 43.8814566389
-var image_bottom = 12.1829382069
+var image_top = 14.194809302;
+var image_left = 42.3558566271;
+var image_right = 43.7417816271;
+var image_bottom = 12.401259302;
 
 // zoomDelta: 0.5,
 //     zoomSnap: 0,
