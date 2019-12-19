@@ -178,11 +178,11 @@ export const blueForceTemplate = {
       state: 'Transitting',
       visibleTo: {
         Blue2: true,
-        Red: true
+        Red2: true
       },
       perceptions: {
         Blue2: 'Blue2',
-        Red: 'Blue2'
+        Red2: 'Blue2'
       }
     },
     {
@@ -192,11 +192,11 @@ export const blueForceTemplate = {
       state: 'Landed',
       visibleTo: {
         Blue2: true,
-        Red: false
+        Red2: false
       },
       perceptions: {
         Blue2: 'Blue2',
-        Red: 'Blue2'
+        Red2: 'Blue2'
       }
     },
     {
@@ -206,11 +206,11 @@ export const blueForceTemplate = {
       state: 'Transitting',
       visibleTo: {
         Blue2: true,
-        Red: false
+        Red2: false
       },
       perceptions: {
         Blue2: 'Blue2',
-        Red: 'Blue2'
+        Red2: 'Blue2'
       }
     }
   ],
@@ -219,9 +219,9 @@ export const blueForceTemplate = {
 }
 
 export const redForceTemplate = {
-  name: 'Red',
-  uniqid: 'red',
-  overview: 'Red force.',
+  name: 'Red2',
+  uniqid: 'red2',
+  overview: 'Red2 force.',
   roles: [
     {
       name: 'CO',
@@ -239,11 +239,11 @@ export const redForceTemplate = {
       state: 'LocationPending',
       visibleTo: {
         Blue2: false,
-        Red: true
+        Red2: true
       },
       perceptions: {
         Blue2: 'green',
-        Red: 'red'
+        Red2: 'red2'
       }
     },
     {
@@ -253,11 +253,11 @@ export const redForceTemplate = {
       state: 'LocationPending',
       visibleTo: {
         Blue2: false,
-        Red: true
+        Red2: true
       },
       perceptions: {
         Blue2: 'green',
-        Red: 'red'
+        Red2: 'red2'
       }
     },
     {
@@ -267,11 +267,11 @@ export const redForceTemplate = {
       state: 'LocationPending',
       visibleTo: {
         Blue2: false,
-        Red: true
+        Red2: true
       },
       perceptions: {
         Blue2: 'green',
-        Red: 'red'
+        Red2: 'red2'
       }
     },
     {
@@ -281,11 +281,11 @@ export const redForceTemplate = {
       state: 'LocationPending',
       visibleTo: {
         Blue2: false,
-        Red: true
+        Red2: true
       },
       perceptions: {
-        Blue2: 'red',
-        Red: 'red'
+        Blue2: 'red2',
+        Red2: 'red2'
       }
     }
   ],
@@ -318,11 +318,11 @@ export const greenForceTemplate = {
       state: 'Transitting',
       visibleTo: {
         Blue2: false,
-        Red: false
+        Red2: false
       },
       perceptions: {
         Blue2: 'Green',
-        Red: ''
+        Red2: ''
       },
       plannedTurns: {
         T01: { state: 'Transitting', speed: 20, route: ['H00', 'H01', 'H02', 'H03'] },
@@ -344,11 +344,11 @@ export const greenForceTemplate = {
       state: 'Transitting',
       visibleTo: {
         Blue2: true,
-        Red: false
+        Red2: false
       },
       perceptions: {
         Blue2: 'Green',
-        Red: ''
+        Red2: ''
       },
       plannedTurns: {
         T01: { state: 'Moored', speed: 0 },
@@ -370,11 +370,11 @@ export const greenForceTemplate = {
       state: 'Transitting',
       visibleTo: {
         Blue2: false,
-        Red: false
+        Red2: false
       },
       perceptions: {
         Blue2: 'green',
-        Red: 'green'
+        Red2: 'green'
       },
       plannedTurns: {
         T01: { state: 'Transitting', speed: 10, route: ['L02', 'K03'] },
@@ -396,11 +396,11 @@ export const greenForceTemplate = {
       state: 'Transitting',
       visibleTo: {
         Blue2: false,
-        Red: false
+        Red2: false
       },
       perceptions: {
         Blue2: 'green',
-        Red: 'green'
+        Red2: 'green'
       },
       plannedTurns: {
         T01: { state: 'Transitting', speed: 10, route: ['M09', 'L09'] },
@@ -422,11 +422,11 @@ export const greenForceTemplate = {
       state: 'Transitting',
       visibleTo: {
         Blue2: false,
-        Red: false
+        Red2: false
       },
       perceptions: {
         Blue2: 'green',
-        Red: 'green'
+        Red2: 'green'
       },
       plannedTurns: {
         T01: { state: 'Transitting', speed: 10, route: ['M11', 'L10'] },
@@ -482,7 +482,13 @@ export const dbDefaultSettings = {
       complete: false,
       dirty: false
     },
-    platformTypes: platformTypesTemplate
+    platformTypes: {
+      name: 'Platform Types',
+      platformTypes: platformTypesTemplate,
+      selectedChannel: '',
+      complete: false,
+      dirty: false
+    }
   },
   wargameInitiated: false,
   gameTurn: 0,
@@ -494,7 +500,7 @@ export const dbDefaultSettings = {
 export const tmplForceLaydown = {
   type: 'ForceLaydown',
   data: {
-    Red: [
+    Red2: [
       { name: 'Dhow-A', location: 'N11' },
       { name: 'Dhow-B', location: 'N12' },
       { name: 'Dhow-C', location: 'O06' },
@@ -510,18 +516,18 @@ export const tmplStateOfWorld1 = {
   type: 'StateOfWorld',
   data: {
     Green: [
-      { name: 'Tanker-1', visibleTo: { Blue: true, Red: false } },
-      { name: 'Tanker-2', visibleTo: { Blue: true, Red: false } }
+      { name: 'Tanker-1', visibleTo: { Blue2: true, Red2: false } },
+      { name: 'Tanker-2', visibleTo: { Blue2: true, Red2: false } }
     ],
-    Red: [
-      { name: 'Dhow-A', location: 'N11', visibleTo: { Blue: false } },
-      { name: 'Dhow-B', location: 'N12', visibleTo: { Blue: true } },
-      { name: 'Dhow-C', location: 'O06', visibleTo: { Blue: false } },
-      { name: 'Missile-A', location: 'O07', visibleTo: { Blue: false } }
+    Red2: [
+      { name: 'Dhow-A', location: 'N11', visibleTo: { Blue2: false } },
+      { name: 'Dhow-B', location: 'N12', visibleTo: { Blue2: true } },
+      { name: 'Dhow-C', location: 'O06', visibleTo: { Blue2: false } },
+      { name: 'Missile-A', location: 'O07', visibleTo: { Blue2: false } }
     ],
     Blue2: [
-      { name: 'Frigate', visibleTo: { Red: true } },
-      { name: 'Tanker', visibleTo: { Red: true } }
+      { name: 'Frigate', visibleTo: { Red2: true } },
+      { name: 'Tanker', visibleTo: { Red2: true } }
     ]
   }
 }
@@ -555,7 +561,7 @@ export const tmplOrdersBlue1 = {
 export const tmplOrdersRed1 = {
   type: 'Orders',
   data: {
-    name: 'Red',
+    name: 'Red2',
     assets: [
       {
         name: 'Dhow-A',
@@ -666,7 +672,7 @@ export const tmplStateOfWorld2 = {
         }
       }
     ],
-    Red: [
+    Red2: [
       {
         name: 'Dhow-A',
         history: { T01: { state: 'Transitting', speed: 10, route: ['M10', 'L10'] } },
@@ -738,7 +744,7 @@ export const tmplOrdersBlue2 = {
 export const tmplOrdersRed2 = {
   type: 'Orders',
   data: {
-    name: 'Red',
+    name: 'Red2',
     assets: [
       {
         name: 'Dhow-A',
@@ -853,7 +859,7 @@ export const tmplStateOfWorld3 = {
         }
       }
     ],
-    Red: [
+    Red2: [
       {
         name: 'Dhow-A',
         history: {
