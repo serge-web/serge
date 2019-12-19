@@ -121,9 +121,14 @@ class ChannelTabsContainer extends Component {
 
   factory = (node) => {
     const [ state ] = this.context;
+    const image_top = 14.194809302;
+    const image_left = 42.3558566271;
+    const image_right = 43.7417816271;
+    const image_bottom = 12.401259302;
+
     if (_.isEmpty(state.channels)) return;
     const matchedChannel = ChannelTabsContainer.findChannelByName(state.channels, node.getName());
-    if (node.getName() === 'Mapping') return <Mapping></Mapping> 
+    if (node.getName() === 'Mapping') return <Mapping image_top={image_top} image_bottom={image_bottom} image_left={image_left} image_right={image_right}></Mapping> 
     return matchedChannel && matchedChannel.length ? <Channel channel={matchedChannel[0]} /> : null
   };
 
