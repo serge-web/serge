@@ -47,7 +47,7 @@ const Mapping = () => {
         });
         const imageBounds = [[image_top, image_left], [image_bottom, image_right]];
 
-        tileRef.current = L.tileLayer('../../tiles/{z}/{x}/{y}.png', {
+        tileRef.current = L.tileLayer('./tiles/{z}/{x}/{y}.png', {
             minZoom: 8,
             maxZoom: 12,
             tms: false,
