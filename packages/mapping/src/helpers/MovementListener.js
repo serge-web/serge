@@ -23,7 +23,6 @@ export default class MovementListener {
     }
     /** listen to drag events on the supplied marker */
     listenTo(marker) {
-        // we need to capture 'this' in this context, not in callback function
         marker.on('drag', e => {
             const cursorLoc = e.latlng
 

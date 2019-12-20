@@ -1,13 +1,14 @@
+import L from 'leaflet'
 import { defineGrid } from 'honeycomb-grid'
 import cell_types from '../assets/data/cell-types'
 import defaultHexStyle from '../assets/data/default-hex-style';
 
 export default class GridImplementation {
-    constructor({origin, delta, width, height, markerLayer, grid}) {
+    constructor({origin, delta, width, height, markerLayer, gridRef}) {
         this.origin = origin
         this.delta = delta
         this.grid = defineGrid()
-        this.gridLayer = grid
+        this.gridLayer = gridRef
         this.markerLayer = markerLayer
         this.grid_cells = this.grid.rectangle({
             width: width,
@@ -35,6 +36,7 @@ export default class GridImplementation {
     get cells() {
         return this.grid_cells
     }
+
     /** convert this point in cell coordinates to lat/long */
     toWorld(point) {
         return this.toWorld2(this.origin, point)
@@ -94,7 +96,6 @@ export default class GridImplementation {
                 return s.padStart(2, '0')
             }
             hex.name = String.fromCharCode(65 + hex.y) + pad(hex.x)
-
             // sort out the cell attributes
             const cell_chars = cell_types[hex.name]
             if(cell_chars)
@@ -108,7 +109,7 @@ export default class GridImplementation {
             }
 
             // add a marker
-            var myIcon = L.divIcon({
+            const myIcon = L.divIcon({
                 className: 'cell-label',
                 html: hex.name
             });
@@ -122,19 +123,19 @@ export default class GridImplementation {
 
             // add the shape
             // build up an array of correctly mapped corners
-            var cornerArr = []
+            let cornerArr = []
 
             // function to scale the corner to our map scale
             const centreH = this.centreH
 
             const scalePoint = (value) => {
-                var centreP = hex.centrePos
+                const centreP = hex.centrePos
                 // the corners are relative to the origin (TL). So, offset them to the centre
-                var point = {
+                const point = {
                     x: value.x - centreH.x,
                     y: value.y - centreH.y
                 }
-                var newP = this.toWorld2(centreP, point)
+                const newP = this.toWorld2(centreP, point)
                 cornerArr.push(newP)
             }
 
@@ -142,7 +143,7 @@ export default class GridImplementation {
             this.corners.forEach(scalePoint)
 
             // now create the polygon
-            var polygon = L.polygon(cornerArr, defaultHexStyle)
+            const polygon = L.polygon(cornerArr, defaultHexStyle)
 
             // store the polyline in the cell
             hex.polygon = polygon
