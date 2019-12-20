@@ -87,7 +87,7 @@ class GridImpl {
             const point = hex.toPoint()
 
             // safely store the coords of the centre of the cell
-            hex.centrePos = grid.toWorld(point)
+            hex.centrePos = this.toWorld(point)
 
             /** function to zero-pad the integer counter
              */
@@ -129,6 +129,7 @@ class GridImpl {
             // function to scale the corner to our map scale
             const centreH = this.centreH
 
+            const core = this;
             function scalePoint(value) {
                 var centreP = hex.centrePos
                 // the corners are relative to the origin (TL). So, offset them to the centre
@@ -136,7 +137,7 @@ class GridImpl {
                     x: value.x - centreH.x,
                     y: value.y - centreH.y
                 }
-                var newP = grid.toWorld2(centreP, point)
+                var newP =  core.toWorld2(centreP, point)
                 cornerArr.push(newP)
             }
 
@@ -204,14 +205,14 @@ class MovementListener {
                     core.planningLine.setLatLngs([cursorLoc, cursorLoc])
                 }
 
-                core.startHex = grid.cellFor(cursorLoc)
+                core.startHex = core.grid.cellFor(cursorLoc)
 
                 // limit distance of travel
                 if (marker.stepRemaining) {
-                    core.achievableCells = grid.hexesInRange(core.startHex, marker.stepRemaining)
+                    core.achievableCells = core.grid.hexesInRange(core.startHex, marker.stepRemaining)
                 } else {
                     // nope, allow travel to anywhere
-                    core.achievableCells = grid.cells
+                    core.achievableCells = core.grid.cells
                 }
 
                 // set the route-line color
@@ -244,7 +245,7 @@ class MovementListener {
                 core.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
 
                 // is this an achievable cell?
-                const curCell = grid.cellFor(cursorLoc)
+                const curCell = core.grid.cellFor(cursorLoc)
                 if(core.achievableCells.includes(curCell))
                 {
                     // ok, remember it
@@ -275,7 +276,7 @@ class MovementListener {
                 }
 
                 // are we in a safe cell
-                const curCell = grid.cellFor(cursorLoc)
+                const curCell = core.grid.cellFor(cursorLoc)
                 
                 // is this an achievable cell?
                 if(core.achievableCells.includes(curCell))
@@ -294,7 +295,7 @@ class MovementListener {
                 })
 
                 // get the route
-                var newRoute = grid.hexesBetween(core.startHex, core.lastHex )
+                var newRoute = core.grid.hexesBetween(core.startHex, core.lastHex )
 
                 // if we have a restricted possible region,
                 // trim to it
@@ -465,10 +466,10 @@ map.on('zoomend', function () {
  */
 var delta = 0.0416666
 var origin = L.latLng(14.1166, 42.4166)
-var grid = new GridImpl(origin, delta, 24, 21)
+var gridImpl = new GridImpl(origin, delta, 24, 21)
 
 // add hexagons to this map
-grid.addShapesTo(gridLayer)
+gridImpl.addShapesTo(gridLayer)
 
 /* 
  * CREATE SOME SAMPLE PLATFORMS
@@ -479,13 +480,13 @@ const trial_history = ["C05", "C04", "C03", "C02", "C01"]
 
 // give us a couple of platforms
 const platforms = []
-platforms.push({loc:grid.hexNamed("C01").centrePos, draggable:true, name:"Frigate", travelMode:"Sea", force:"Blue", allowance:5, mobile:true, history:trial_history})
-platforms.push({loc:grid.hexNamed("P02").centrePos, draggable:true, name:"Coastal Battery", travelMode:"Land", force:"Red", mobile:false})
-platforms.push({loc:grid.hexNamed("P03").centrePos, draggable:true, name:"Fisherman", travelMode:"Sea", force:"Red", allowance:3, mobile:true})
-platforms.push({loc:grid.hexNamed("C17").centrePos, draggable:true, name:"MPA", travelMode:"Air", force:"Blue", mobile:true})
+platforms.push({loc:gridImpl.hexNamed("C01").centrePos, draggable:true, name:"Frigate", travelMode:"Sea", force:"Blue", allowance:5, mobile:true, history:trial_history})
+platforms.push({loc:gridImpl.hexNamed("P02").centrePos, draggable:true, name:"Coastal Battery", travelMode:"Land", force:"Red", mobile:false})
+platforms.push({loc:gridImpl.hexNamed("P03").centrePos, draggable:true, name:"Fisherman", travelMode:"Sea", force:"Red", allowance:3, mobile:true})
+platforms.push({loc:gridImpl.hexNamed("C17").centrePos, draggable:true, name:"MPA", travelMode:"Air", force:"Blue", mobile:true})
 
 // create class to listen for movement
-const listener = new MovementListener(map, grid)
+const listener = new MovementListener(map, gridImpl)
 
 // listen to the platorm markers
 platforms.forEach(function(spec)
