@@ -18,7 +18,6 @@ export default class GridImplementation {
 
         // the hexes all have the same corners object, so just use the first one
         const hexOne = this.grid_cells[0]
-        console.log(this.grid_cells)
         this.corners = hexOne.corners();
 
         // get the coordinates of the centre of the hex, relative

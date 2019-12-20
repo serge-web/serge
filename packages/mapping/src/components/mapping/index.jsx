@@ -53,15 +53,6 @@ const Mapping = ({ image_top, image_left, image_bottom, image_right }) => {
         platformRef.current = L.layerGroup();
         platformRef.current.addTo(mapRef.current);
  
-        /*
-        *  CREATE THE GRID
-        */
-        const delta = 0.0416666
-        const origin = L.latLng(14.1166, 42.4166)
-        const gridImpl = new GridImplementation({origin, delta, width: 24, height: 21, markerLayer: markerRef.current, gridRef: gridRef.current})
-        // add hexagons to this map
-        gridImpl.addShapesTo(gridRef.current)
-
         const overlays = {
             "Grid":  gridRef.current,
             "Tooltips": markerRef.current,
@@ -88,6 +79,16 @@ const Mapping = ({ image_top, image_left, image_bottom, image_right }) => {
                 mapRef.current.addLayer(markerRef.current);
             }
         });
+
+           /*
+        *  CREATE THE GRID
+        */
+       const delta = 0.0416666
+       const origin = L.latLng(14.1166, 42.4166)
+       const gridImpl = new GridImplementation({origin, delta, width: 24, height: 21, markerLayer: markerRef.current, gridRef: gridRef.current})
+       
+       // add hexagons to this map
+       gridImpl.addShapesTo(gridRef.current)
 
         /* 
         * CREATE SOME SAMPLE PLATFORMS
