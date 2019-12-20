@@ -1,17 +1,19 @@
 import React, { useEffect, useRef }  from 'react'
 import L from 'leaflet'
 import GridImplementation from '../../helpers/GridImplementation'
+import MovementListener from '../../helpers/MovementListener'
+import markerFor from '../../helpers/markerFor'
 
 import './styles.scss'
 
 const Mapping = ({ image_top, image_left, image_bottom, image_right }) => {
 
     
-    const mapRef = useRef(null)
-    const gridRef = useRef(null)
-    const markerRef = useRef(null)
-    const platformRef = useRef(null)
-    const tileRef = useRef(null)
+    let mapRef = useRef(null)
+    let gridRef = useRef(null)
+    let markerRef = useRef(null)
+    let platformRef = useRef(null)
+    let tileRef = useRef(null)
 
     useEffect(() => {
         mapRef.current = L.map('map', {
@@ -74,6 +76,32 @@ const Mapping = ({ image_top, image_left, image_bottom, image_right }) => {
         const grid = new GridImplementation({origin, delta, width: 24, height: 21, markerLayer: markerRef.current, grid: gridRef.current})
         // add hexagons to this map
         grid.addShapesTo(gridRef.current)
+
+        /* 
+        * CREATE SOME SAMPLE PLATFORMS
+        */
+
+        // experiment with back-history
+        const trial_history = ["C05", "C04", "C03", "C02", "C01"]
+
+        // give us a couple of platforms
+        const platforms = []
+        platforms.push({loc:grid.hexNamed("C01").centrePos, draggable:true, name:"Frigate", travelMode:"Sea", force:"Blue", allowance:5, mobile:true, history:trial_history})
+        platforms.push({loc:grid.hexNamed("P02").centrePos, draggable:true, name:"Coastal Battery", travelMode:"Land", force:"Red", mobile:false})
+        platforms.push({loc:grid.hexNamed("P03").centrePos, draggable:true, name:"Fisherman", travelMode:"Sea", force:"Red", allowance:3, mobile:true})
+        platforms.push({loc:grid.hexNamed("C17").centrePos, draggable:true, name:"MPA", travelMode:"Air", force:"Blue", mobile:true})
+
+        // create class to listen for movement
+        const listener = new MovementListener(mapRef.current, grid)
+
+        // listen to the platorm markers
+        platforms.forEach(function(spec)
+        {
+            markerRef = markerFor(spec)
+            listener.listenTo(markerRef)
+            platformRef.current.addLayer(markerRef)
+        })
+
     }, [])
 
     useEffect(() => {

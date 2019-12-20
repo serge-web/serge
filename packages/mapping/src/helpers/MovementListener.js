@@ -1,4 +1,6 @@
-class MovementListener {
+import L from 'leaflet'
+
+export default class MovementListener {
     constructor(map, grid) {
         this.grid = grid
 
