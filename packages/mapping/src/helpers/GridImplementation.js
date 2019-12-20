@@ -1,8 +1,14 @@
-class GridImplementation {
-    constructor(origin, delta, width, height) {
+import { defineGrid } from 'honeycomb-grid'
+import cell_types from '../assets/data/cell-types'
+import defaultHexStyle from '../assets/data/default-hex-style';
+
+export default class GridImplementation {
+    constructor({origin, delta, width, height, markerLayer, grid}) {
         this.origin = origin
         this.delta = delta
-        this.grid = Honeycomb.defineGrid()
+        this.grid = defineGrid()
+        this.gridLayer = grid
+        this.markerLayer = markerLayer
         this.grid_cells = this.grid.rectangle({
             width: width,
             height: height,
@@ -11,6 +17,7 @@ class GridImplementation {
 
         // the hexes all have the same corners object, so just use the first one
         const hexOne = this.grid_cells[0]
+        console.log(this.grid_cells)
         this.corners = hexOne.corners();
 
         // get the coordinates of the centre of the hex, relative
@@ -78,7 +85,7 @@ class GridImplementation {
             const point = hex.toPoint()
 
             // safely store the coords of the centre of the cell
-            hex.centrePos = grid.toWorld(point)
+            hex.centrePos = this.toWorld(point)
 
             /** function to zero-pad the integer counter
              */
@@ -111,7 +118,7 @@ class GridImplementation {
                 keyboard: false,  // prevent it taking keyboard focus
                 zIndexOffset:-100  // ensure it's rendered behind routes
             });
-            markerLayer.addLayer(cellLabel);
+            this.markerLayer.addLayer(cellLabel);
 
             // add the shape
             // build up an array of correctly mapped corners
@@ -120,14 +127,14 @@ class GridImplementation {
             // function to scale the corner to our map scale
             const centreH = this.centreH
 
-            function scalePoint(value) {
+            const scalePoint = (value) => {
                 var centreP = hex.centrePos
                 // the corners are relative to the origin (TL). So, offset them to the centre
                 var point = {
                     x: value.x - centreH.x,
                     y: value.y - centreH.y
                 }
-                var newP = grid.toWorld2(centreP, point)
+                var newP = this.toWorld2(centreP, point)
                 cornerArr.push(newP)
             }
 

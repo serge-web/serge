@@ -1,5 +1,6 @@
 import React, { useEffect, useRef }  from 'react'
 import L from 'leaflet'
+import GridImplementation from '../../helpers/GridImplementation'
 
 import './styles.scss'
 
@@ -63,6 +64,17 @@ const Mapping = ({ image_top, image_left, image_bottom, image_right }) => {
         platformRef.current = L.layerGroup();
         platformRef.current.addTo(mapRef.current);
     })
+
+    useEffect(() => {
+        /*
+        *  CREATE THE GRID
+        */
+        const delta = 0.0416666
+        const origin = L.latLng(14.1166, 42.4166)
+        const grid = new GridImplementation({origin, delta, width: 24, height: 21, markerLayer: markerRef.current, grid: gridRef.current})
+        // add hexagons to this map
+        grid.addShapesTo(gridRef.current)
+    }, [])
 
     useEffect(() => {
         // only show the markers when zoomed in
