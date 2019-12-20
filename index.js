@@ -406,6 +406,7 @@ const map = L.map('map', {
     zoom: 9,
     zoomDelta: 0.25,
     zoomSnap: 0.25,
+    wheelDebounceTime: 100,
     attributionControl: false,
     zoomAnimation: true
 });
