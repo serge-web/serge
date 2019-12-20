@@ -25,7 +25,6 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
     e.preventDefault()
     setRolePassword(val)
   }
-  console.log(wargameList)
   return (
     <div className="flex-content-wrapper flex-content-wrapper--welcome">
       <div className="flex-content flex-content--welcome">
