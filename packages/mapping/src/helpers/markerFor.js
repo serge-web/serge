@@ -1,9 +1,8 @@
 import L from 'leaflet'
 
 /** create a marker for the supplied set of details */
-export default (spec) =>
-{
-    var res = L.marker(
+export default spec => {
+    const res = L.marker(
         spec.loc, {
             draggable: spec.draggable
         }

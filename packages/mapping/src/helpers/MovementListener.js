@@ -1,4 +1,5 @@
 import L from 'leaflet'
+import defaultHexStyle from '../assets/data/default-hex-style';
 
 export default class MovementListener {
     constructor(map, grid) {
@@ -42,8 +43,7 @@ export default class MovementListener {
                 // no, we must be starting a new line
 
                 // is this a mobile element
-                if(marker.mobile)
-                {
+                if(marker.mobile) {
                     this.planningLine.setLatLngs([cursorLoc, cursorLoc])
                 }
 
@@ -58,7 +58,7 @@ export default class MovementListener {
                 }
 
                 // set the route-line color
-                var hisColor
+                let hisColor
                 if (marker.force == "Red") {
                     hisColor = "#f00"
                 } else if (marker.force == "Blue") {
@@ -72,8 +72,7 @@ export default class MovementListener {
                 })
 
                 //
-                this.achievableCells = this.achievableCells.filter(function(cell)
-                {
+                this.achievableCells = this.achievableCells.filter(cell => {
                     if (marker.travelMode == "Land") {
                         return cell.land
                     } else if (marker.travelMode == "Sea") {
@@ -88,18 +87,17 @@ export default class MovementListener {
 
                 // is this an achievable cell?
                 const curCell = this.grid.cellFor(cursorLoc)
-                if(this.achievableCells.includes(curCell))
-                {
+
+                if (this.achievableCells.includes(curCell)) {
                     // ok, remember it
                     this.lastHex = curCell
                 }
 
                 // and the track history
-                if(marker.history)
-                {
+                if (marker.history) {
                     // ok, draw the history line
                     const historyLocs = []
-                    marker.history.forEach(function(cell_name){
+                    marker.history.forEach(cell_name => {
                         const cell = this.grid.hexNamed(cell_name)
                         historyLocs.push(cell.centrePos)
                     })
@@ -111,24 +109,22 @@ export default class MovementListener {
                 // retrieve the start point of the line
 
                 // are we plotting a line?
-                if(this.planningLine.length > 0)
-                {
-                    this.start = core.planningLine.getLatLngs()[0]
-                    this.planningLine.setLatLngs([core.startHex.centrePos, cursorLoc])
+                if (this.planningLine.length > 0) {
+                    this.start = this.planningLine.getLatLngs()[0]
+                    this.planningLine.setLatLngs([this.startHex.centrePos, cursorLoc])
                 }
 
                 // are we in a safe cell
                 const curCell = this.grid.cellFor(cursorLoc)
                 
                 // is this an achievable cell?
-                if(this.achievableCells.includes(curCell))
-                {
+                if(this.achievableCells.includes(curCell)) {
                     // ok, remember it
-                    this.lastHex =curCell
+                    this.lastHex = curCell
                 }
 
                 // clear the old cells
-                this.routeHexes.forEach(function (cell) {
+                this.routeHexes.forEach(cell => {
                     if (this.achievableCells.includes(cell)) {
                         cell.polygon.setStyle(rangeStyle)
                     } else {
@@ -137,7 +133,7 @@ export default class MovementListener {
                 })
 
                 // get the route
-                var newRoute = this.grid.hexesBetween(this.startHex, this.lastHex )
+                let newRoute = this.grid.hexesBetween(this.startHex, this.lastHex)
 
                 // if we have a restricted possible region,
                 // trim to it
@@ -150,8 +146,8 @@ export default class MovementListener {
                 this.routeHexes = newRoute
                 if(marker.mobile)
                 {
-                    this.routeHexes.forEach(function (cell) {
-                        cell.polygon.setStyle(routeStyle);
+                    this.routeHexes.forEach(cell => {
+                        cell.polygon.setStyle(routeStyle)
                         this.routeLats.push(cell.centrePos)
                     })
                 }
@@ -172,7 +168,7 @@ export default class MovementListener {
                 }
             }
         })
-        marker.on('dragend', function (e) {
+        marker.on('dragend', e => {
             // ooh, see if it had restricted travel
             if (marker.allowance && this.routeHexes.length > 0) {
                 // consume some of it
