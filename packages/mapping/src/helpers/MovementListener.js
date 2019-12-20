@@ -24,8 +24,7 @@ export default class MovementListener {
     /** listen to drag events on the supplied marker */
     listenTo(marker) {
         // we need to capture 'this' in this context, not in callback function
-        const core = this
-        marker.on('drag', function (e) {
+        marker.on('drag', e => {
             const cursorLoc = e.latlng
 
             const rangeStyle = {
@@ -40,23 +39,23 @@ export default class MovementListener {
             }
 
             // hvae we calculated the achievable cells?
-            if (core.achievableCells.length == 0) {
+            if (this.achievableCells.length == 0) {
                 // no, we must be starting a new line
 
                 // is this a mobile element
                 if(marker.mobile)
                 {
-                    core.planningLine.setLatLngs([cursorLoc, cursorLoc])
+                    this.planningLine.setLatLngs([cursorLoc, cursorLoc])
                 }
 
-                core.startHex = grid.cellFor(cursorLoc)
+                this.startHex = this.grid.cellFor(cursorLoc)
 
                 // limit distance of travel
                 if (marker.stepRemaining) {
-                    core.achievableCells = grid.hexesInRange(core.startHex, marker.stepRemaining)
+                    this.achievableCells = this.grid.hexesInRange(this.startHex, marker.stepRemaining)
                 } else {
                     // nope, allow travel to anywhere
-                    core.achievableCells = grid.cells
+                    this.achievableCells = this.grid.cells
                 }
 
                 // set the route-line color
@@ -66,15 +65,15 @@ export default class MovementListener {
                 } else if (marker.force == "Blue") {
                     hisColor = "#00f"
                 }
-                core.planningLine.setStyle({
+                this.planningLine.setStyle({
                     color: hisColor
                 })
-                core.historyLine.setStyle({
+                this.historyLine.setStyle({
                     color: hisColor
                 })
 
                 //
-                core.achievableCells = core.achievableCells.filter(function(cell)
+                this.achievableCells = this.achievableCells.filter(function(cell)
                 {
                     if (marker.travelMode == "Land") {
                         return cell.land
@@ -86,14 +85,14 @@ export default class MovementListener {
                 })
 
                 // apply styling to the achievable cells
-                core.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
+                this.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
 
                 // is this an achievable cell?
-                const curCell = grid.cellFor(cursorLoc)
-                if(core.achievableCells.includes(curCell))
+                const curCell = this.grid.cellFor(cursorLoc)
+                if(this.achievableCells.includes(curCell))
                 {
                     // ok, remember it
-                    core.lastHex = curCell
+                    this.lastHex = curCell
                 }
 
                 // and the track history
@@ -102,36 +101,36 @@ export default class MovementListener {
                     // ok, draw the history line
                     const historyLocs = []
                     marker.history.forEach(function(cell_name){
-                        const cell = core.grid.hexNamed(cell_name)
+                        const cell = this.grid.hexNamed(cell_name)
                         historyLocs.push(cell.centrePos)
                     })
 
-                    core.historyLine.setLatLngs(historyLocs)
+                    this.historyLine.setLatLngs(historyLocs)
                 }
 
             } else {
                 // retrieve the start point of the line
 
                 // are we plotting a line?
-                if(core.planningLine.length > 0)
+                if(this.planningLine.length > 0)
                 {
-                    core.start = core.planningLine.getLatLngs()[0]
-                    core.planningLine.setLatLngs([core.startHex.centrePos, cursorLoc])
+                    this.start = core.planningLine.getLatLngs()[0]
+                    this.planningLine.setLatLngs([core.startHex.centrePos, cursorLoc])
                 }
 
                 // are we in a safe cell
-                const curCell = grid.cellFor(cursorLoc)
+                const curCell = this.grid.cellFor(cursorLoc)
                 
                 // is this an achievable cell?
-                if(core.achievableCells.includes(curCell))
+                if(this.achievableCells.includes(curCell))
                 {
                     // ok, remember it
-                    core.lastHex =curCell
+                    this.lastHex =curCell
                 }
 
                 // clear the old cells
-                core.routeHexes.forEach(function (cell) {
-                    if (core.achievableCells.includes(cell)) {
+                this.routeHexes.forEach(function (cell) {
+                    if (this.achievableCells.includes(cell)) {
                         cell.polygon.setStyle(rangeStyle)
                     } else {
                         cell.polygon.setStyle(defaultHexStyle)
@@ -139,49 +138,49 @@ export default class MovementListener {
                 })
 
                 // get the route
-                var newRoute = grid.hexesBetween(core.startHex, core.lastHex )
+                var newRoute = this.grid.hexesBetween(this.startHex, this.lastHex )
 
                 // if we have a restricted possible region,
                 // trim to it
-                if (core.achievableCells) {
-                    newRoute = newRoute.filter(cell => core.achievableCells.includes(cell))
+                if (this.achievableCells) {
+                    newRoute = newRoute.filter(cell => this.achievableCells.includes(cell))
                 }
 
                 // and generate new cells
-                core.routeLats = []
-                core.routeHexes = newRoute
+                this.routeLats = []
+                this.routeHexes = newRoute
                 if(marker.mobile)
                 {
-                    core.routeHexes.forEach(function (cell) {
+                    this.routeHexes.forEach(function (cell) {
                         cell.polygon.setStyle(routeStyle);
-                        core.routeLats.push(cell.centrePos)
+                        this.routeLats.push(cell.centrePos)
                     })
                 }
                 else
                 {
                     // insert the current location twice,
                     // to give us a point marker
-                    if(core.lastHex)
+                    if(this.lastHex)
                     {
-                        core.routeLats.push(core.lastHex.centrePos)
-                        core.routeLats.push(core.lastHex.centrePos)
+                        this.routeLats.push(this.lastHex.centrePos)
+                        this.routeLats.push(this.lastHex.centrePos)
                     }
                 }
 
-                if(core.routeLats.length > 1)
+                if(this.routeLats.length > 1)
                 {
-                    core.planningLine.setLatLngs(core.routeLats)
+                    this.planningLine.setLatLngs(this.routeLats)
                 }
             }
         })
         marker.on('dragend', function (e) {
             // ooh, see if it had restricted travel
-            if (marker.allowance && core.routeHexes.length > 0) {
+            if (marker.allowance && this.routeHexes.length > 0) {
                 // consume some of it
 
                 // calculate distance
-                const start = core.routeHexes[0]
-                const end = core.routeHexes[core.routeHexes.length - 1]
+                const start = this.routeHexes[0]
+                const end = this.routeHexes[this.routeHexes.length - 1]
                 const distance = start.distance(end)
 
                 marker.stepRemaining -= distance
@@ -197,22 +196,22 @@ export default class MovementListener {
                 {
                     marker.history = []
                 }
-                core.routeHexes.forEach(cell => marker.history.push(cell.name))
+                this.routeHexes.forEach(cell => marker.history.push(cell.name))
             }
 
             // move the marker to the last valid location
-            marker.setLatLng(core.lastHex.centrePos)
+            marker.setLatLng(this.lastHex.centrePos)
 
             // clear the line objects
-            core.routeLats = []
-            core.planningLine.setLatLngs([])
-            core.historyLine.setLatLngs([])
+            this.routeLats = []
+            this.planningLine.setLatLngs([])
+            this.historyLine.setLatLngs([])
 
             // clear the shaded cells
-            core.routeHexes.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
-            core.routeHexes = []
-            core.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
-            core.achievableCells = []
+            this.routeHexes.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
+            this.routeHexes = []
+            this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
+            this.achievableCells = []
         })
     }
 }
