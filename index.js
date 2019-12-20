@@ -399,12 +399,15 @@ var image_right = 43.7417816271;
 var image_bottom = 12.401259302;
 
 const map = L.map('map', {
-    minZoom: 8,
+    minZoom: 9,
     maxZoom: 12,
     center: [(image_top + image_bottom) / 2, (image_left + image_right) / 2],
+    maxBounds: imageBounds,
     zoom: 9,
+    zoomDelta: 0.25,
+    zoomSnap: 0.25,
     attributionControl: false,
-    zoomAnimation: false
+    zoomAnimation: true
 });
 map.zoomControl.setPosition('topleft');
 
