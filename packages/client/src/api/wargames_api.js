@@ -52,6 +52,10 @@ export const listenForWargameChanges = (name, dispatch) => {
   listenNewMessage({ db, name, dispatch })
 }
 
+export const createWargameListItemObject = (dbName, wargame) => (
+  { name: dbName, title: wargame.wargameTitle, initiated: wargame.wargameInitiated }
+)
+
 export const populateWargame = (dispatch) => {
   return fetch(serverPath + 'allDbs')
     .then((response) => {
@@ -72,11 +76,7 @@ export const populateWargame = (dispatch) => {
       const promises = wargameDbStore.map((game) => {
         return getLatestWargameRevision(game.name)
           .then(function (res) {
-            return {
-              name: game.db.name,
-              title: res.wargameTitle,
-              initiated: res.wargameInitiated
-            }
+            return createWargameListItemObject(game.db.name, res)
           })
           .catch((err) => {
             console.log(err)
@@ -120,7 +120,8 @@ export const deleteWargame = (wargamePath) => {
   wargameDbStore.splice(index, 1)
 }
 
-export const createWargame = (dispatch) => {
+export const createWargame = (dispatch, importWargame) => {
+  const defaultWargame = importWargame || dbDefaultSettings
   const uniqId = uniqid.time()
 
   const name = `wargame-${uniqId}`
@@ -132,11 +133,17 @@ export const createWargame = (dispatch) => {
 
     wargameDbStore.unshift({ name, db })
 
-    const settings = { ...dbDefaultSettings, name: name, wargameTitle: name }
+    let initWargame = {
+      ...defaultWargame,
+      name: name,
+      wargameTitle: defaultWargame.wargameTitle || name
+    }
 
-    db.put(settings)
+    if (importWargame) initWargame = importWargame
+
+    db.put(initWargame)
       .then(() => {
-        return db.get(dbDefaultSettings._id)
+        return db.get(initWargame._id)
       })
       .then((res) => {
         resolve(res)

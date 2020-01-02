@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import Link from "../Components/Link";
 import SidebarAdmin from "../Components/SidebarAdmin";
 import TextInput from "../Components/Inputs/TextInput";
+import ImportWargame from "../Components/ImportWargame";
 import WargameSearchList from "../Components/WargameSearchList";
 import {
   ADMIN_ROUTE,
@@ -92,6 +93,7 @@ class GameDesignerInterface extends Component {
                 class="link link--noIcon"
                 onClickHandler={this.createWargame}
             >Create</Link>
+            <ImportWargame wargameList={this.props.wargame.wargameList}/>
             <Link
                 href={ADMIN_ROUTE}
                 class="link link--noIcon link--secondary"

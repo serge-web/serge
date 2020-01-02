@@ -49,7 +49,7 @@ export const setSelectedChannel = (payload) => ({
   payload
 })
 
-const saveAllWargameNames = (names) => ({
+export const saveAllWargameNames = (names) => ({
   type: ActionConstant.ALL_WARGAME_NAMES_SAVED,
   payload: names
 })
