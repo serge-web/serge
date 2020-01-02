@@ -70,16 +70,16 @@ const Mapping = ({ image_top, image_left, image_bottom, image_right }) => {
         // only show the markers when zoomed in
         mapRef.current.on('zoomend', () => {
             const loaded = mapRef.current.hasLayer(markerRef.current)
-            if (mapRef.current.getZoom() < 11 && loaded) {
+            if (mapRef.current.getZoom() < 11 ) {
                 mapRef.current.removeLayer(markerRef.current)
             } else {
                 mapRef.current.addLayer(markerRef.current)
             }
-        });
+        })
+        
 
-       /*
-       *  CREATE THE GRID
-       */
+       
+       /* CREATE THE GRID */
        const delta = 0.0416666
        const origin = L.latLng(14.1166, 42.4166)
        const gridImpl = new GridImplementation({origin, delta, width: 24, height: 21, markerLayer: markerRef.current, gridRef: gridRef.current})
