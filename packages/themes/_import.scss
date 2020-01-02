@@ -1,3 +1,13 @@
 .se-import {
-  
+  display:  inline-block;
+  margin-left: 10px;
+
+  label {
+    margin: 0;
+    padding: 0;
+  }
+
+  input {
+    display: none;
+  }
 }

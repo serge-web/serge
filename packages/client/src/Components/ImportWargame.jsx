@@ -31,7 +31,9 @@ const ImportWargame = ({ onWargameImport }) => {
   return (
     <div className='se-import'>
       <form>
-        <label htmlFor="wargame-json-file-input" className="link link--noIcon">Import</label>
+        <label htmlFor="wargame-json-file-input">
+          <span className="link link--noIcon">IMPORT</span>
+        </label>
         <input
           type='file'
           id="wargame-json-file-input"
