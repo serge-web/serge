@@ -133,8 +133,6 @@ export default class MovementListener {
               }
             })
 
-            console.log(this.startHex)
-
             // get the route
             let newRoute = this.grid.hexesBetween(this.startHex, this.lastHex)
 
