@@ -50,8 +50,8 @@ const mapDispatchToProps = (dispatch, { wargameList }) => ({
   onWargameImport: wargame => {
     createWargame(dispatch, wargame).then(res => {
       dispatch(saveAllWargameNames([
-        ...wargameList,
-        createWargameListItemObject(databasePath + wargame.name, res)
+        createWargameListItemObject(databasePath + res.name, res),
+        ...wargameList
       ]))
     })
   }

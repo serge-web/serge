@@ -126,32 +126,23 @@ export const createWargame = (dispatch, importWargame) => {
 
   const name = `wargame-${uniqId}`
 
-  return new Promise((resolve, reject) => {
-    const db = new PouchDB(databasePath + name)
+  const db = new PouchDB(databasePath + name)
 
-    db.setMaxListeners(15)
+  db.setMaxListeners(15)
 
-    wargameDbStore.unshift({ name, db })
+  wargameDbStore.unshift({ name, db })
 
-    let initWargame = {
-      ...defaultWargame,
-      name: name,
-      wargameTitle: defaultWargame.wargameTitle || name
-    }
+  const initWargame = {
+    ...defaultWargame,
+    name: name,
+    wargameTitle: defaultWargame.wargameTitle || name
+  }
 
-    if (importWargame) initWargame = importWargame
-
-    db.put(initWargame)
-      .then(() => {
-        return db.get(initWargame._id)
-      })
-      .then((res) => {
-        resolve(res)
-      })
-      .catch((err) => {
-        reject(err)
-        console.log(err)
-      })
+  return db.put(initWargame).then(() => {
+    return db.get(initWargame._id)
+  }).catch((err) => {
+    console.log(err)
+    return err
   })
 }
 
