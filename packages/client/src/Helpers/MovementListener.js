@@ -114,54 +114,57 @@ export default class MovementListener {
           this.planningLine.setLatLngs([this.startHex.centrePos, cursorLoc])
         }
 
-        // are we in a safe cell
+        // find cell under cursor
         const curCell = this.grid.cellFor(cursorLoc)
 
-        // is this an achievable cell?
-        if (this.achievableCells.includes(curCell)) {
-          // ok, remember it
-          this.lastHex = curCell
-        }
-
-        // clear the old cells
-        this.routeHexes.forEach(cell => {
-          if (this.achievableCells.includes(cell)) {
-            cell.polygon.setStyle(rangeStyle)
-          } else {
-            cell.polygon.setStyle(defaultHexStyle)
+        // see if this cell is different to the previous one?
+        if (!curCell.equals(this.lastHex)) {
+          // is this an achievable cell?
+          if (this.achievableCells.includes(curCell)) {
+            // ok, remember it
+            this.lastHex = curCell
           }
-        })
 
-        console.log(this.startHex)
-
-        // get the route
-        let newRoute = this.grid.hexesBetween(this.startHex, this.lastHex)
-
-        // if we have a restricted possible region,
-        // trim to it
-        if (this.achievableCells) {
-          newRoute = newRoute.filter(cell => this.achievableCells.includes(cell))
-        }
-
-        // and generate new cells
-        this.routeLats = []
-        this.routeHexes = newRoute
-        if (marker.mobile) {
+          // clear the old cells
           this.routeHexes.forEach(cell => {
-            cell.polygon.setStyle(routeStyle)
-            this.routeLats.push(cell.centrePos)
+            if (this.achievableCells.includes(cell)) {
+              cell.polygon.setStyle(rangeStyle)
+            } else {
+              cell.polygon.setStyle(defaultHexStyle)
+            }
           })
-        } else {
-          // insert the current location twice,
-          // to give us a point marker
-          if (this.lastHex) {
-            this.routeLats.push(this.lastHex.centrePos)
-            this.routeLats.push(this.lastHex.centrePos)
-          }
-        }
 
-        if (this.routeLats.length > 1) {
-          this.planningLine.setLatLngs(this.routeLats)
+          console.log(this.startHex)
+
+          // get the route
+          let newRoute = this.grid.hexesBetween(this.startHex, this.lastHex)
+
+          // if we have a restricted possible region,
+          // trim to it
+          if (this.achievableCells) {
+            newRoute = newRoute.filter(cell => this.achievableCells.includes(cell))
+          }
+
+          // and generate new cells
+          this.routeLats = []
+          this.routeHexes = newRoute
+          if (marker.mobile) {
+            this.routeHexes.forEach(cell => {
+              cell.polygon.setStyle(routeStyle)
+              this.routeLats.push(cell.centrePos)
+            })
+          } else {
+            // insert the current location twice,
+            // to give us a point marker
+            if (this.lastHex) {
+              this.routeLats.push(this.lastHex.centrePos)
+              this.routeLats.push(this.lastHex.centrePos)
+            }
+          }
+
+          if (this.routeLats.length > 1) {
+            this.planningLine.setLatLngs(this.routeLats)
+          }
         }
       }
     })
