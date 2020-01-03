@@ -179,7 +179,7 @@ export default class MovementListener {
 
         // cheat. if we've consumed distance, give it
         // another allowance
-        if (marker.stepRemaining == 0) {
+        if (marker.stepRemaining === 0) {
           marker.stepRemaining = marker.allowance
         }
 
