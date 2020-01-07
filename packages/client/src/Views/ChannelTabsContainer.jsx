@@ -7,6 +7,7 @@ import { getAllWargameMessages } from "../ActionsAndReducers/playerUi/playerUi_A
 import { PlayerStateContext } from "../Store/PlayerUi";
 import "@serge/themes/dependencies/flexlayout-react.scss";
 import "@serge/themes/App.scss";
+import Mapping from "../Components/Mapping"
 
 const json = {
   global: {
@@ -120,8 +121,14 @@ class ChannelTabsContainer extends Component {
 
   factory = (node) => {
     const [ state ] = this.context;
+    const imageTop = 14.194809302;
+    const imageLeft = 42.3558566271;
+    const imageRight = 43.7417816271;
+    const imageBottom = 12.401259302;
+
     if (_.isEmpty(state.channels)) return;
     const matchedChannel = ChannelTabsContainer.findChannelByName(state.channels, node.getName());
+    if (node.getName() === 'Mapping') return <Mapping imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping> 
     return matchedChannel && matchedChannel.length ? <Channel channel={matchedChannel[0]} /> : null
   };
 

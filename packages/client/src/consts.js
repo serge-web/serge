@@ -2,7 +2,7 @@ import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
 
-// Nov 2019. Ian modified the server path to use the 
+// Nov 2019. Ian modified the server path to use the
 // current URL, so we can use Heroku to provide
 // review instances of the app.  In these
 // review instances, we can't predict the URL, so

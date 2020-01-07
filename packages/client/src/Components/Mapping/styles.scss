@@ -1,0 +1,26 @@
+.mapping {
+    width: 100%;
+    height: 100%;
+}
+.hex2-label {
+  position: absolute;
+  width:40px;
+  font-size:20px;
+}
+.cell-label {
+  color: #bbb;
+  font-size: 14px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.leaflet-container .leaflet-control-mouseposition {
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 5px #bbb;
+  padding: 0 5px;
+  margin:0;
+  color: #333;
+  font: 11px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+
