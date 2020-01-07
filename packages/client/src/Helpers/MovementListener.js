@@ -132,36 +132,37 @@ export default class MovementListener {
           }
         })
 
-        console.log(this.startHex)
+        // do we have a valid current cell?
+        if (this.lastHex != null) {
+          // get the route
+          let newRoute = this.grid.hexesBetween(this.startHex, this.lastHex)
 
-        // get the route
-        let newRoute = this.grid.hexesBetween(this.startHex, this.lastHex)
-
-        // if we have a restricted possible region,
-        // trim to it
-        if (this.achievableCells) {
-          newRoute = newRoute.filter(cell => this.achievableCells.includes(cell))
-        }
-
-        // and generate new cells
-        this.routeLats = []
-        this.routeHexes = newRoute
-        if (marker.mobile) {
-          this.routeHexes.forEach(cell => {
-            cell.polygon.setStyle(routeStyle)
-            this.routeLats.push(cell.centrePos)
-          })
-        } else {
-          // insert the current location twice,
-          // to give us a point marker
-          if (this.lastHex) {
-            this.routeLats.push(this.lastHex.centrePos)
-            this.routeLats.push(this.lastHex.centrePos)
+          // if we have a restricted possible region,
+          // trim to it
+          if (this.achievableCells) {
+            newRoute = newRoute.filter(cell => this.achievableCells.includes(cell))
           }
-        }
 
-        if (this.routeLats.length > 1) {
-          this.planningLine.setLatLngs(this.routeLats)
+          // and generate new cells
+          this.routeLats = []
+          this.routeHexes = newRoute
+          if (marker.mobile) {
+            this.routeHexes.forEach(cell => {
+              cell.polygon.setStyle(routeStyle)
+              this.routeLats.push(cell.centrePos)
+            })
+          } else {
+            // insert the current location twice,
+            // to give us a point marker
+            if (this.lastHex) {
+              this.routeLats.push(this.lastHex.centrePos)
+              this.routeLats.push(this.lastHex.centrePos)
+            }
+          }
+
+          if (this.routeLats.length > 1) {
+            this.planningLine.setLatLngs(this.routeLats)
+          }
         }
       }
     })
