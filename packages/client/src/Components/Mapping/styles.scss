@@ -23,4 +23,32 @@
   font: 11px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
+.platform-counter {
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+}
 
+.platform-force {
+  &-blue {
+   background-color: blue;
+  }
+  &-red {
+    background-color: red;
+  }
+}
+
+.platform-name {
+  &-coastal-battery {
+    background-image: url('counters/coastal-battery.svg');
+  }
+  &-frigate {
+    background-image: url('counters/frigate.svg');
+  }
+  &-fisherman {
+    background-image: url('counters/fisherman.svg');
+  }
+  &-mpa {
+    background-image: url('counters/mpa.svg');
+  }
+}

@@ -68,7 +68,6 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
 
     // only show the markers when zoomed in
     mapRef.current.on('zoomend', () => {
-      const loaded = mapRef.current.hasLayer(markerRef.current)
       if (mapRef.current.getZoom() < 11) {
         mapRef.current.removeLayer(markerRef.current)
       } else {
