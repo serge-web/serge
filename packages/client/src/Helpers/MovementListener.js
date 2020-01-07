@@ -132,8 +132,6 @@ export default class MovementListener {
           }
         })
 
-        console.log(this.startHex)
-
         // do we have a valid current cell?
         if (this.lastHex != null) {
           // get the route
