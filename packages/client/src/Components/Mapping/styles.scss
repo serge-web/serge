@@ -25,8 +25,9 @@
 
 .platform-counter {
   border-radius: 100%;
-  width: 100px;
-  height: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
 }
 
 .platform-force {
@@ -41,7 +42,7 @@
   }
 }
 
-$platforms: frigate, destroyer, mcmv, igi, fast-attack-craft, uas, merchant-vessel, fixed-wing-aircraft, fishing-vessel, missile, helicopter, boghammer, coastal-radar-site, datum, torpedo, pirate, mine;
+$platforms: frigate, destroyer, mcmv, agi, fast-attack-craft, uas, merchant-vessel, fixed-wing-aircraft, fishing-vessel, missile, helicopter, boghammer, coastal-radar-site, datum, torpedo, pirate, mine;
 
 @each $platform in $platforms {
   .platform-name-#{$platform} {
