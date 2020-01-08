@@ -31,10 +31,13 @@
 
 .platform-force {
   &-blue {
-   background-color: blue; 
+   background-color: #000fff; 
   }
   &-red {
-    background-color: red;
+    background-color: #ff0000;
+  }
+  &-green {
+    background-color: #19bd37;
   }
 }
 

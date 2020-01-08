@@ -97,7 +97,7 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     const platforms = []
     platforms.push({ loc: gridImpl.hexNamed('C01').centrePos, draggable: true, name: 'Frigate', travelMode: 'Sea', force: 'Blue', allowance: 5, mobile: true, history: trialHistory })
     platforms.push({ loc: gridImpl.hexNamed('P02').centrePos, draggable: true, name: 'Coastal Radar Site', travelMode: 'Land', force: 'Red', mobile: false })
-    platforms.push({ loc: gridImpl.hexNamed('P03').centrePos, draggable: true, name: 'Fishing Vessel', travelMode: 'Sea', force: 'Red', allowance: 3, mobile: true })
+    platforms.push({ loc: gridImpl.hexNamed('P03').centrePos, draggable: true, name: 'Fishing Vessel', travelMode: 'Sea', force: 'Green', allowance: 3, mobile: true })
     platforms.push({ loc: gridImpl.hexNamed('C17').centrePos, draggable: true, name: 'Fixed Wing Aircraft', travelMode: 'Air', force: 'Blue', mobile: true })
 
     // create class to listen for movement

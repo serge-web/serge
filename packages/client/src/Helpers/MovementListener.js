@@ -61,9 +61,11 @@ export default class MovementListener {
         // set the route-line color
         let hisColor
         if (marker.force === 'Red') {
-          hisColor = '#f00'
+          hisColor = '#ff0000'
         } else if (marker.force === 'Blue') {
-          hisColor = '#00f'
+          hisColor = '#000fff'
+        } else if (marker.force === 'Green') {
+          hisColor = '#19bd37'
         }
         this.planningLine.setStyle({
           color: hisColor
