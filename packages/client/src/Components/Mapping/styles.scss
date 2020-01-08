@@ -31,24 +31,18 @@
 
 .platform-force {
   &-blue {
-   background-color: blue;
+   background-color: blue; 
   }
   &-red {
     background-color: red;
   }
 }
 
-.platform-name {
-  &-coastal-battery {
-    background-image: url('counters/coastal-battery.svg');
-  }
-  &-frigate {
-    background-image: url('counters/frigate.svg');
-  }
-  &-fisherman {
-    background-image: url('counters/fisherman.svg');
-  }
-  &-mpa {
-    background-image: url('counters/mpa.svg');
-  }
+$platforms: frigate, destroyer, mcmv, igi, fast-attack-craft, uas, merchant-vessel, fixed-wing-aircraft, fishing-vessel, missile, helicopter, boghammer, coastal-radar-site, datum, torpedo, pirate, mine;
+
+@each $platform in $platforms {
+  .platform-name-#{$platform} {
+    background-image: url('counters/#{$platform}.svg');
+  }   
 }
+
