@@ -53,7 +53,7 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
 
     const overlays = {
       Grid: gridRef.current,
-      Tooltips: coordsRef.current,
+      Coordinates: coordsRef.current,
       Platforms: platformRef.current
     }
 
