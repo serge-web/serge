@@ -105,9 +105,9 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
 
     // listen to the platorm markers
     platforms.forEach(spec => {
-      markerRef.current = markerFor(spec)
-      listenerRef.listenTo(markerRef.current)
-      platformRef.current.addLayer(markerRef.current)
+      const marker = markerFor(spec)
+      listenerRef.listenTo(marker)
+      platformRef.current.addLayer(marker)
     })
   }, [listenerRef])
 
