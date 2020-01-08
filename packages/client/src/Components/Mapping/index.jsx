@@ -12,7 +12,7 @@ import './styles.scss'
 const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null)
   const gridRef = useRef(null)
-  const markerRef = useRef(null)
+  const coordsRef = useRef(null)
   const platformRef = useRef(null)
   const tileRef = useRef(null)
   let listenerRef = useRef(null)
@@ -22,7 +22,7 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
       minZoom: 8,
       maxZoom: 12,
       center: [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2],
-      zoom: 9,
+      zoom: 10,
       attributionControl: false,
       zoomAnimation: false
     })
@@ -49,11 +49,11 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     platformRef.current = L.layerGroup().addTo(mapRef.current)
 
     // note: we don't show the marker layer by default - only when zoomed in
-    markerRef.current = L.layerGroup()
+    coordsRef.current = L.layerGroup()
 
     const overlays = {
       Grid: gridRef.current,
-      Tooltips: markerRef.current,
+      Coordinates: coordsRef.current,
       Platforms: platformRef.current
     }
 
@@ -68,11 +68,10 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
 
     // only show the markers when zoomed in
     mapRef.current.on('zoomend', () => {
-      const loaded = mapRef.current.hasLayer(markerRef.current)
       if (mapRef.current.getZoom() < 11) {
-        mapRef.current.removeLayer(markerRef.current)
+        mapRef.current.removeLayer(coordsRef.current)
       } else {
-        mapRef.current.addLayer(markerRef.current)
+        mapRef.current.addLayer(coordsRef.current)
       }
     })
     return () => console.log('Map unmounted')
@@ -82,7 +81,7 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     /* CREATE THE GRID */
     const delta = 0.0416666
     const origin = L.latLng(14.1166, 42.4166)
-    const gridImpl = new GridImplementation({ origin, delta, width: 24, height: 21, markerLayer: markerRef.current, gridRef: gridRef.current })
+    const gridImpl = new GridImplementation({ origin, delta, width: 24, height: 21, markerLayer: coordsRef.current, gridRef: gridRef.current })
 
     // add hexagons to this map
     gridImpl.addShapesTo(gridRef.current)
@@ -97,18 +96,18 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     // give us a couple of platforms
     const platforms = []
     platforms.push({ loc: gridImpl.hexNamed('C01').centrePos, draggable: true, name: 'Frigate', travelMode: 'Sea', force: 'Blue', allowance: 5, mobile: true, history: trialHistory })
-    platforms.push({ loc: gridImpl.hexNamed('P02').centrePos, draggable: true, name: 'Coastal Battery', travelMode: 'Land', force: 'Red', mobile: false })
-    platforms.push({ loc: gridImpl.hexNamed('P03').centrePos, draggable: true, name: 'Fisherman', travelMode: 'Sea', force: 'Red', allowance: 3, mobile: true })
-    platforms.push({ loc: gridImpl.hexNamed('C17').centrePos, draggable: true, name: 'MPA', travelMode: 'Air', force: 'Blue', mobile: true })
+    platforms.push({ loc: gridImpl.hexNamed('P02').centrePos, draggable: true, name: 'Coastal Radar Site', travelMode: 'Land', force: 'Red', mobile: false })
+    platforms.push({ loc: gridImpl.hexNamed('P03').centrePos, draggable: true, name: 'Fishing Vessel', travelMode: 'Sea', force: 'Green', allowance: 3, mobile: true })
+    platforms.push({ loc: gridImpl.hexNamed('C17').centrePos, draggable: true, name: 'Fixed Wing Aircraft', travelMode: 'Air', force: 'Blue', mobile: true })
 
     // create class to listen for movement
     listenerRef = new MovementListener(mapRef.current, gridImpl)
 
     // listen to the platorm markers
     platforms.forEach(spec => {
-      markerRef.current = markerFor(spec)
-      listenerRef.listenTo(markerRef.current)
-      platformRef.current.addLayer(markerRef.current)
+      const marker = markerFor(spec)
+      listenerRef.listenTo(marker)
+      platformRef.current.addLayer(marker)
     })
   }, [listenerRef])
 

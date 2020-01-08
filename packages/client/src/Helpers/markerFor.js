@@ -2,9 +2,14 @@ import L from 'leaflet'
 
 /** create a marker for the supplied set of details */
 export default spec => {
+  const divIcon = L.divIcon({
+    iconSize: [40, 40],
+    className: `platform-counter platform-force-${spec.force.toLowerCase()} platform-name-${spec.name.replace(/ /g, '-').toLowerCase()}`
+  })
   const res = L.marker(
     spec.loc, {
-      draggable: spec.draggable
+      draggable: spec.draggable,
+      icon: divIcon
     }
   )
   res.bindTooltip(spec.name)

@@ -23,4 +23,30 @@
   font: 11px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
+.platform-counter {
+  border-radius: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
+}
+
+.platform-force {
+  &-blue {
+   background-color: #000fff; 
+  }
+  &-red {
+    background-color: #ff0000;
+  }
+  &-green {
+    background-color: #19bd37;
+  }
+}
+
+$platforms: frigate, destroyer, mcmv, agi, fast-attack-craft, uas, merchant-vessel, fixed-wing-aircraft, fishing-vessel, missile, helicopter, boghammer, coastal-radar-site, datum, torpedo, pirate, mine;
+
+@each $platform in $platforms {
+  .platform-name-#{$platform} {
+    background-image: url('counters/#{$platform}.svg');
+  }   
+}
 
