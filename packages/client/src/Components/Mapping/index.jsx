@@ -12,7 +12,7 @@ import './styles.scss'
 const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null)
   const gridRef = useRef(null)
-  const markerRef = useRef(null)
+  const coordsRef = useRef(null)
   const platformRef = useRef(null)
   const tileRef = useRef(null)
   let listenerRef = useRef(null)
@@ -49,11 +49,11 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     platformRef.current = L.layerGroup().addTo(mapRef.current)
 
     // note: we don't show the marker layer by default - only when zoomed in
-    markerRef.current = L.layerGroup()
+    coordsRef.current = L.layerGroup()
 
     const overlays = {
       Grid: gridRef.current,
-      Tooltips: markerRef.current,
+      Coordinates: coordsRef.current,
       Platforms: platformRef.current
     }
 
@@ -69,9 +69,9 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     // only show the markers when zoomed in
     mapRef.current.on('zoomend', () => {
       if (mapRef.current.getZoom() < 11) {
-        mapRef.current.removeLayer(markerRef.current)
+        mapRef.current.removeLayer(coordsRef.current)
       } else {
-        mapRef.current.addLayer(markerRef.current)
+        mapRef.current.addLayer(coordsRef.current)
       }
     })
     return () => console.log('Map unmounted')
@@ -81,7 +81,7 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     /* CREATE THE GRID */
     const delta = 0.0416666
     const origin = L.latLng(14.1166, 42.4166)
-    const gridImpl = new GridImplementation({ origin, delta, width: 24, height: 21, markerLayer: markerRef.current, gridRef: gridRef.current })
+    const gridImpl = new GridImplementation({ origin, delta, width: 24, height: 21, markerLayer: coordsRef.current, gridRef: gridRef.current })
 
     // add hexagons to this map
     gridImpl.addShapesTo(gridRef.current)
@@ -105,9 +105,9 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
 
     // listen to the platorm markers
     platforms.forEach(spec => {
-      markerRef.current = markerFor(spec)
-      listenerRef.listenTo(markerRef.current)
-      platformRef.current.addLayer(markerRef.current)
+      const marker = markerFor(spec)
+      listenerRef.listenTo(marker)
+      platformRef.current.addLayer(marker)
     })
   }, [listenerRef])
 
