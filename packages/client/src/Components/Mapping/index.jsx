@@ -22,7 +22,7 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
       minZoom: 8,
       maxZoom: 12,
       center: [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2],
-      zoom: 9,
+      zoom: 10,
       attributionControl: false,
       zoomAnimation: false
     })

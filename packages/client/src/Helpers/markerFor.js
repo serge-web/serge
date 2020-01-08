@@ -3,7 +3,7 @@ import L from 'leaflet'
 /** create a marker for the supplied set of details */
 export default spec => {
   const divIcon = L.divIcon({
-    iconSize: [100, 100],
+    iconSize: [40, 40],
     className: `platform-counter platform-force-${spec.force.toLowerCase()} platform-name-${spec.name.replace(' ', '-').toLowerCase()}`
   })
   const res = L.marker(
