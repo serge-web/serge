@@ -88,7 +88,8 @@ const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
     return () => console.log('Map unmounted')
   }, [])
 
-  const exampleFunc = param => console.log(param)
+  /** callback function - will transmit received parameters as "laydown" action */
+  const laydownFunc = param => console.log(param)
 
   useEffect(() => {
     // experiment with back-history
@@ -104,7 +105,7 @@ const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
     // create class to listen for movement
     const listener = new MovementListener(mapRef.current, gridImplRef.current)
 
-    exampleFunc('hello')
+    laydownFunc({ force: 'Red', platform: 'Fishing Vessel', location: 'A13' })
 
     // listen to the platorm markers
     platforms.forEach(spec => {
