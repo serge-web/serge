@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
 import L from 'leaflet'
 import GridImplementation from '../../Helpers/GridImplementation'
 import MovementListener from '../../Helpers/MovementListener'
@@ -110,6 +111,9 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
       platformRef.current.addLayer(marker)
     })
   }, [listenerRef])
+
+  // Makes the wargame data accessible to the component
+  const wargame = useSelector(state => state.wargame.data)
 
   return (
     <div id="map" className="mapping"></div>
