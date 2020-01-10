@@ -18,7 +18,6 @@ const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
   const tileRef = useRef(null)
   const gridImplRef = useRef(null)
   const forcesRef = useRef(forces)
-  const laydownRef = useRef(null)
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -89,6 +88,8 @@ const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
     return () => console.log('Map unmounted')
   }, [])
 
+  const exampleFunc = param => console.log(param)
+
   useEffect(() => {
     // experiment with back-history
     const trialHistory = ['C05', 'C04', 'C03', 'C02', 'C01']
@@ -103,6 +104,8 @@ const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
     // create class to listen for movement
     const listener = new MovementListener(mapRef.current, gridImplRef.current)
 
+    exampleFunc('hello')
+
     // listen to the platorm markers
     platforms.forEach(spec => {
       const marker = markerFor(spec)
@@ -110,10 +113,6 @@ const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
       platformRef.current.addLayer(marker)
     })
   }, [forcesRef])
-
-  useEffect(() => {
-  // Laydown ref updates
-  }, [laydownRef])
 
   return (<div id="map" className="mapping"></div>)
 }
