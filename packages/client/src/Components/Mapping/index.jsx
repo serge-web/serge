@@ -4,6 +4,7 @@ import L from 'leaflet'
 import GridImplementation from '../../Helpers/GridImplementation'
 import MovementListener from '../../Helpers/MovementListener'
 import markerFor from '../../Helpers/markerFor'
+import { PlayerStateContext } from '../../Store/PlayerUi'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import '../../Helpers/mousePosition'
@@ -116,7 +117,12 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
   const wargame = useSelector(state => state.wargame.data)
 
   return (
-    <div id="map" className="mapping"></div>
+    <PlayerStateContext.Consumer>
+      {([state]) => {
+        console.log(state, 'this is the player wargame state')
+        return <div id="map" className="mapping"></div>
+      }}
+    </PlayerStateContext.Consumer>
   )
 }
 
