@@ -4,20 +4,20 @@ import L from 'leaflet'
 import GridImplementation from '../../Helpers/GridImplementation'
 import MovementListener from '../../Helpers/MovementListener'
 import markerFor from '../../Helpers/markerFor'
-import { PlayerStateContext } from '../../Store/PlayerUi'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import '../../Helpers/mousePosition'
 
 import './styles.scss'
 
-const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
+const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null)
   const gridRef = useRef(null)
   const coordsRef = useRef(null)
   const platformRef = useRef(null)
   const tileRef = useRef(null)
-  let listenerRef = useRef(null)
+  const gridImplRef = useRef(null)
+  const forcesRef = useRef(forces)
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -76,54 +76,41 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
         mapRef.current.addLayer(coordsRef.current)
       }
     })
+
+    /* CREATE THE GRID */
+    const delta = 0.0416666
+    const origin = L.latLng(14.1166, 42.4166)
+    gridImplRef.current = new GridImplementation({ origin, delta, width: 24, height: 21, markerLayer: coordsRef.current, gridRef: gridRef.current })
+
+    // add hexagons to this map
+    gridImplRef.current.addShapesTo(gridRef.current)
+
     return () => console.log('Map unmounted')
   }, [])
 
   useEffect(() => {
-    /* CREATE THE GRID */
-    const delta = 0.0416666
-    const origin = L.latLng(14.1166, 42.4166)
-    const gridImpl = new GridImplementation({ origin, delta, width: 24, height: 21, markerLayer: coordsRef.current, gridRef: gridRef.current })
-
-    // add hexagons to this map
-    gridImpl.addShapesTo(gridRef.current)
-
-    /*
-        * CREATE SOME SAMPLE PLATFORMS
-        */
-
     // experiment with back-history
     const trialHistory = ['C05', 'C04', 'C03', 'C02', 'C01']
 
     // give us a couple of platforms
     const platforms = []
-    platforms.push({ loc: gridImpl.hexNamed('C01').centrePos, draggable: true, name: 'Frigate', travelMode: 'Sea', force: 'Blue', allowance: 5, mobile: true, history: trialHistory })
-    platforms.push({ loc: gridImpl.hexNamed('P02').centrePos, draggable: true, name: 'Coastal Radar Site', travelMode: 'Land', force: 'Red', mobile: false })
-    platforms.push({ loc: gridImpl.hexNamed('P03').centrePos, draggable: true, name: 'Fishing Vessel', travelMode: 'Sea', force: 'Green', allowance: 3, mobile: true })
-    platforms.push({ loc: gridImpl.hexNamed('C17').centrePos, draggable: true, name: 'Fixed Wing Aircraft', travelMode: 'Air', force: 'Blue', mobile: true })
+    platforms.push({ loc: gridImplRef.current.hexNamed('C01').centrePos, draggable: true, name: 'Frigate', travelMode: 'Sea', force: 'Blue', allowance: 5, mobile: true, history: trialHistory })
+    platforms.push({ loc: gridImplRef.current.hexNamed('P02').centrePos, draggable: true, name: 'Coastal Radar Site', travelMode: 'Land', force: 'Red', mobile: false })
+    platforms.push({ loc: gridImplRef.current.hexNamed('P03').centrePos, draggable: true, name: 'Fishing Vessel', travelMode: 'Sea', force: 'Green', allowance: 3, mobile: true })
+    platforms.push({ loc: gridImplRef.current.hexNamed('C17').centrePos, draggable: true, name: 'Fixed Wing Aircraft', travelMode: 'Air', force: 'Blue', mobile: true })
 
     // create class to listen for movement
-    listenerRef = new MovementListener(mapRef.current, gridImpl)
+    const listener = new MovementListener(mapRef.current, gridImplRef.current)
 
     // listen to the platorm markers
     platforms.forEach(spec => {
       const marker = markerFor(spec)
-      listenerRef.listenTo(marker)
+      listener.listenTo(marker)
       platformRef.current.addLayer(marker)
     })
-  }, [listenerRef])
+  }, [forcesRef])
 
-  // Makes the wargame data accessible to the component
-  const wargame = useSelector(state => state.wargame.data)
-
-  return (
-    <PlayerStateContext.Consumer>
-      {([state]) => {
-        console.log(state, 'this is the player wargame state')
-        return <div id="map" className="mapping"></div>
-      }}
-    </PlayerStateContext.Consumer>
-  )
+  return (<div id="map" className="mapping"></div>)
 }
 
 export default Mapping
