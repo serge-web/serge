@@ -4,7 +4,7 @@ import L from 'leaflet'
 export default asset => {
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    className: `platform-counter platform-force-${asset.force.toLowerCase()} platform-name-${asset.name.replace(/ /g, '-').toLowerCase()}`
+    className: `platform-counter platform-force-${asset.force.toLowerCase()} platform-type-${asset.platformType.replace(/ /g, '-').toLowerCase()}`
   })
   const res = L.marker(
     asset.loc, {
