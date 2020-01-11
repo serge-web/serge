@@ -1,16 +1,17 @@
 import React, { useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import L from 'leaflet'
 import GridImplementation from '../../Helpers/GridImplementation'
 import MovementListener from '../../Helpers/MovementListener'
 import markerFor from '../../Helpers/markerFor'
+import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import '../../Helpers/mousePosition'
 
 import './styles.scss'
 
-const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
+const Mapping = ({ selectedForce, currentWargame, forces, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null)
   const gridRef = useRef(null)
   const coordsRef = useRef(null)
@@ -88,8 +89,32 @@ const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
     return () => console.log('Map unmounted')
   }, [])
 
+  const sendMessage = (values) => {
+    const curForce = forces.find((force) => force.uniqid === selectedForce)
+    const details = {
+      channel: 'mapChannel', // todo: add channel
+      from: {
+        force: curForce.name,
+        forceColor: curForce.forceColor,
+        role: curForce.selectedRole,
+        icon: curForce.icon
+      },
+      messageType: 'mapMessage', // todo: message type
+      timestamp: new Date().toISOString()
+    }
+
+    saveMapMessage(currentWargame, details, values)
+  }
+
   /** callback function - will transmit received parameters as "laydown" action */
-  const laydownFunc = param => console.log(param)
+  const laydownFunc = param => {
+    const values = { // test data
+      x: '1',
+      y: '2'
+    }
+    sendMessage(values)
+    console.log(param)
+  }
 
   useEffect(() => {
     // experiment with back-history
