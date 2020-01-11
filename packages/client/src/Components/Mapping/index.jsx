@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import L from 'leaflet'
 import GridImplementation from '../../Helpers/GridImplementation'
-import MapAdjudicatingListener from '../../Helpers/MapAdjudicatingListener'
+import MapAdjudicatingUmpireListener from '../../Helpers/MapAdjudicatingUmpireListener'
+import MapAdjudicatingPlayerListener from '../../Helpers/MapAdjudicatingPlayerListener'
+import MapAdjudicationPendingListener from '../../Helpers/MapAdjudicationPendingListener'
 import MapPlanningListener from '../../Helpers/MapPlanningListener'
 import markerFor from '../../Helpers/markerFor'
 import hasPendingForces from '../../Helpers/hasPendingForces'
@@ -115,13 +117,13 @@ const Mapping = ({ allForces, allPlatforms, force, phase, imageTop, imageLeft, i
     switch (phaseRef.current) {
       case 'adjudication':
         if (myForceRef.current === 'White') {
-          mapListenerRef.current = new MapAdjudicatingListener(mapRef.current, gridImplRef.current)
+          mapListenerRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current)
         } else if (hasPendingForces(forcesRef.current, myForceRef.current)) {
-          // ok. does his force have any assets with location pending?
-          mapListenerRef.current = new MapAdjudicatingListener(mapRef.current, gridImplRef.current)
+          // this force has assets with location pending
+          mapListenerRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current)
         } else {
           // just use dumb adjudication listener
-          mapListenerRef.current = new MapAdjudicatingListener(mapRef.current, gridImplRef.current)
+          mapListenerRef.current = new MapAdjudicatingPlayerListener(mapRef.current, gridImplRef.current)
         }
         break
       case 'planning':
