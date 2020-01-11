@@ -46,6 +46,9 @@ export default (asset, force, myForce, platformTypes) => {
     res.history = asset.history
     res.plannedTurns = asset.plannedTurns
 
+    // store the asset state
+    res.state = asset.state
+
     // sort out the travel mode for this platform type
     const pType = platformTypes.find(type => type.name === asset.platformType)
     res.travelMode = pType.travelMode
