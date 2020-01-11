@@ -1,20 +1,19 @@
-import L from 'leaflet'
-
 /** determine if this force has any assets that have a pending location */
 export default (forces, myForce) => {
 
+  var res = false
   forces.forEach(force => {
     // see if this force has any assets (white typically doesn't)
-    if (force.assets) {
-      // is this my force?
-      if (force.name === myForce) {
+    // is this my force?
+    if (force.name === myForce) {
+      if (force.assets) {
         force.assets.forEach(asset => {
-          if (asset.state === 'locationPending') {
-            return true
+          if (asset.state === 'LocationPending') {
+            res = true
           }
         })
       }
     }
-    return false
   })
+  return res
 }
