@@ -1,34 +1,37 @@
 import L from 'leaflet'
 
 /** create a marker for the supplied set of details */
-export default (asset, force, myForce) => {
+export default (asset, force, myForce, platformTypes) => {
 
   /** utility function to determine how we perceive another platform.
    * if it's our force, we know it's one of ours. But if it isn't our force
    * we need to see how it is perceived by our force
    */
-  function findPerceivedForce (myForce, hisForce, hisPerceptions) {
-    var res
+  function findPerceivedForce (myForce, hisForce, hisType, hisPerceptions) {
+    var perception
     if (myForce === hisForce) {
-      res = myForce
+      perception = { force: hisForce, type: hisType }
     } else {
-      const perception = hisPerceptions[myForce]
-      if (perception != null) {
-        res = perception.force
+      const hisPerception = hisPerceptions[myForce]
+      if (hisPerception != null) {
+        perception = { force: hisPerception.force, type: hisPerception.type }
       } else {
-        res = null
+        perception = null
       }
     }
-    return res
+    return perception
   }
 
-  var perceivedForce = findPerceivedForce(myForce, force, asset.perceptions)
+  // can we see this asset?
+  var perception = findPerceivedForce(myForce, force, asset.platformType, asset.perceptions)
 
   // can we see it?
-  if (perceivedForce != null) {
+  if (perception != null) {
+    const forceClass = perception.force.toLowerCase()
+    const typeClass = perception.type.replace(/ /g, '-').toLowerCase()
     const divIcon = L.divIcon({
       iconSize: [40, 40],
-      className: `platform-counter platform-force-${perceivedForce.toLowerCase()} platform-type-${asset.platformType.replace(/ /g, '-').toLowerCase()}`
+      className: `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
     })
     const res = L.marker(
       asset.loc, {
@@ -37,12 +40,19 @@ export default (asset, force, myForce) => {
       }
     )
     res.bindTooltip(asset.name)
-    res.travelMode = 'sea' // asset.travelMode
     res.force = asset.force
     res.stepRemaining = asset.allowance
     res.allowance = asset.allowance
-    res.mobile = asset.mobile
     res.history = asset.history
+    res.plannedTurns = asset.plannedTurns
+
+    // sort out the travel mode for this platform type
+    const pType = platformTypes.find(type => type.name === asset.platformType)
+    res.travelMode = pType.travelMode
+
+    // is it mobile?
+    res.mobile = !!pType.speedKts
+
     return res
   } else {
     return null

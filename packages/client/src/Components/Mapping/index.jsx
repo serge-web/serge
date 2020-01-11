@@ -10,7 +10,7 @@ import '../../Helpers/mousePosition'
 
 import './styles.scss'
 
-const Mapping = ({ allForces, force, phase, imageTop, imageLeft, imageBottom, imageRight }) => {
+const Mapping = ({ allForces, allPlatforms, force, phase, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
   const platformsLayerRef = useRef(null) // the platform markers
   const gridImplRef = useRef(null) // hexagonal grid
@@ -18,6 +18,7 @@ const Mapping = ({ allForces, force, phase, imageTop, imageLeft, imageBottom, im
   const phaseRef = useRef(phase) // the current game phase
   const mapListenerRef = useRef(null) // listen for mouse drag events
   const myForceRef = useRef(force)
+  const platformTypesRef = useRef(allPlatforms)
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -109,11 +110,7 @@ const Mapping = ({ allForces, force, phase, imageTop, imageLeft, imageBottom, im
       mapListenerRef.current = null
     }
 
-    // check the force
-    console.log('Force:' + myForceRef.current)
-
     // create a listener for the new phase
-    console.log('Phase:' + phaseRef.current)
     switch (phaseRef.current) {
       case 'adjudication':
         mapListenerRef.current = new MapAdjudicatingListener(mapRef.current, gridImplRef.current)
@@ -132,11 +129,9 @@ const Mapping = ({ allForces, force, phase, imageTop, imageLeft, imageBottom, im
       // see if this force has any assets (white typically doesn't)
       if (force.assets) {
         force.assets.forEach(asset => {
-          console.log(asset)
-
           asset.loc = gridImplRef.current.hexNamed(asset.position).centrePos
 
-          const marker = markerFor(asset, force.name, myForceRef.current)
+          const marker = markerFor(asset, force.name, myForceRef.current, platformTypesRef.current)
 
           // did we create one?
           if (marker != null) {
@@ -145,9 +140,6 @@ const Mapping = ({ allForces, force, phase, imageTop, imageLeft, imageBottom, im
           }
         })
       }
-
-      console.log(force)
-
     })
 
   }, [forcesRef, phaseRef])
