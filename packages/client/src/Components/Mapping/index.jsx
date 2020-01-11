@@ -17,7 +17,7 @@ const Mapping = ({ allForces, force, phase, imageTop, imageLeft, imageBottom, im
   const forcesRef = useRef(allForces) // the current list of forces
   const phaseRef = useRef(phase) // the current game phase
   const mapListenerRef = useRef(null) // listen for mouse drag events
-  const forceRef = useRef(force)
+  const myForceRef = useRef(force)
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -110,7 +110,7 @@ const Mapping = ({ allForces, force, phase, imageTop, imageLeft, imageBottom, im
     }
 
     // check the force
-    console.log('Force:' + forceRef.current)
+    console.log('Force:' + myForceRef.current)
 
     // create a listener for the new phase
     console.log('Phase:' + phaseRef.current)
@@ -133,15 +133,16 @@ const Mapping = ({ allForces, force, phase, imageTop, imageLeft, imageBottom, im
       if (force.assets) {
         force.assets.forEach(asset => {
           console.log(asset)
-          // note: the markerFor method expects the force to be in the asset. Try to find a way
-          // to pass both parameters in the markerFor method
-          asset.force = force.name
 
           asset.loc = gridImplRef.current.hexNamed(asset.position).centrePos
 
-          const marker = markerFor(asset)
-          // mapListenerRef.current.listenTo(marker)
-          platformsLayerRef.current.addLayer(marker)
+          const marker = markerFor(asset, force.name, myForceRef.current)
+
+          // did we create one?
+          if (marker != null) {
+            // mapListenerRef.current.listenTo(marker)
+            platformsLayerRef.current.addLayer(marker)
+          }
         })
       }
 
