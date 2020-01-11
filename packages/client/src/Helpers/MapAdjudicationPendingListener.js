@@ -15,10 +15,31 @@ export default class MapAdjudicationPendingListener {
     this.achievableCells = [] // hexes representing achievable area
     this.startHex = null // hex for start drag operation
     this.lastHex = null // most recent cell travelled through
+
+    // keep track of who we're listening to
+    this.registeredListeners = []
+  }
+
+  clearListeners () {
+    this.registeredListeners.forEach(marker => {
+      // next lines commented out, until we've refactored JS into functions
+      // marker.off('drag', dragHandler)
+      // marker.off('drag', dragEndHandler)
+    })
+
+    // and empty the array
+    this.registeredListeners = []
   }
 
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
+
+    // remember we're listing to it
+    this.registeredListeners.push(marker)
+
+    // TODO: refactor these two handler into named methods so that they can be registered using
+    // marker.on('drag', dragHandler)
+    // this allows us to subsequently call marker.off('drag', dragHandler), etc
     marker.on('drag', e => {
       const cursorLoc = e.latlng
 
