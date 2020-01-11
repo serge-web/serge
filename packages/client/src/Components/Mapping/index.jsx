@@ -88,7 +88,7 @@ const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }
   }, [])
 
   /** callback function - will transmit received parameters as "laydown" action */
-  const laydownFunc = param => console.log(param)
+  // const laydownFunc = param => console.log(param)
 
   useEffect(() => {
     // experiment with back-history
@@ -121,7 +121,7 @@ const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }
         console.log('Error - unexpected game phase encountered in Mapping component')
     }
 
-    laydownFunc({ force: 'Red', platform: 'Fishing Vessel', location: 'A13' })
+    // laydownFunc({ force: 'Red', platform: 'Fishing Vessel', location: 'A13' })
 
     // create markers, and listen to them
     forcesRef.current.forEach(force => {
