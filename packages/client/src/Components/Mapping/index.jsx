@@ -101,10 +101,10 @@ const Mapping = ({ allForces, allPlatforms, force, phase, imageTop, imageLeft, i
 
     // give us a couple of platforms
     const platforms = []
-    platforms.push({ loc: gridImplRef.current.hexNamed('C01').centrePos, draggable: true, name: 'Frigate', travelMode: 'Sea', force: 'Blue', allowance: 5, mobile: true, history: trialHistory })
-    platforms.push({ loc: gridImplRef.current.hexNamed('P02').centrePos, draggable: true, name: 'Coastal Radar Site', travelMode: 'Land', force: 'Red', mobile: false })
-    platforms.push({ loc: gridImplRef.current.hexNamed('P03').centrePos, draggable: true, name: 'Fishing Vessel', travelMode: 'Sea', force: 'Green', allowance: 3, mobile: true })
-    platforms.push({ loc: gridImplRef.current.hexNamed('C17').centrePos, draggable: true, name: 'Fixed Wing Aircraft', travelMode: 'Air', force: 'Blue', mobile: true })
+    platforms.push({ loc: gridImplRef.current.hexNamed('C01').centrePos, draggable: true, name: 'Frigate', travelMode: 'sea', force: 'Blue', allowance: 5, mobile: true, history: trialHistory })
+    platforms.push({ loc: gridImplRef.current.hexNamed('P02').centrePos, draggable: true, name: 'Coastal Radar Site', travelMode: 'land', force: 'Red', mobile: false })
+    platforms.push({ loc: gridImplRef.current.hexNamed('P03').centrePos, draggable: true, name: 'Fishing Vessel', travelMode: 'sea', force: 'Green', allowance: 3, mobile: true })
+    platforms.push({ loc: gridImplRef.current.hexNamed('C17').centrePos, draggable: true, name: 'Fixed Wing Aircraft', travelMode: 'air', force: 'Blue', mobile: true })
 
     if (mapListenerRef.current != null) {
       // remove the current listener
@@ -114,11 +114,12 @@ const Mapping = ({ allForces, allPlatforms, force, phase, imageTop, imageLeft, i
     }
 
     // create a listener for the new phase
+    const inForceLaydown = hasPendingForces(forcesRef.current, myForceRef.current)
     switch (phaseRef.current) {
       case 'adjudication':
-        if (myForceRef.current === 'White') {
+        if (myForceRef.current === 'umpire') {
           mapListenerRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current)
-        } else if (hasPendingForces(forcesRef.current, myForceRef.current)) {
+        } else if (inForceLaydown) {
           // this force has assets with location pending
           mapListenerRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current)
         } else {
@@ -140,9 +141,27 @@ const Mapping = ({ allForces, allPlatforms, force, phase, imageTop, imageLeft, i
       // see if this force has any assets (white typically doesn't)
       if (force.assets) {
         force.assets.forEach(asset => {
+
+          // set the asset location
           asset.loc = gridImplRef.current.hexNamed(asset.position).centrePos
 
-          const marker = markerFor(asset, force.name, myForceRef.current, platformTypesRef.current)
+          // set the asset force
+          asset.force = force.name
+
+          var assetIsDraggable
+          switch (phaseRef.current) {
+            case 'adjudication':
+              assetIsDraggable = ((myForceRef.current === 'umpire') || (inForceLaydown && (asset.force === myForceRef.current)))
+              break
+            case 'planning':
+              assetIsDraggable = myForceRef.current !== 'umpire' && asset.force === myForceRef.current
+              break
+            default:
+              console.log('Error - unexpected game phase encountered in Mapping component')
+          }
+
+          const userIsUmpire = myForceRef.current === 'umpire'
+          const marker = markerFor(asset, force.name, myForceRef.current, platformTypesRef.current, assetIsDraggable, userIsUmpire)
 
           // did we create one?
           if (marker != null) {

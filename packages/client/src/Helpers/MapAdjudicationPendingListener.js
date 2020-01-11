@@ -24,10 +24,8 @@ export default class MapAdjudicationPendingListener {
   }
 
   /** listen to drag events on the supplied marker */
-  listenTo (marker) {
-    console.log('listener assigned!')    
+  listenTo (marker, myForce) {
     marker.on('drag', e => {
-      console.log('drag started')
       const cursorLoc = e.latlng
 
       const rangeStyle = {
@@ -42,73 +40,72 @@ export default class MapAdjudicationPendingListener {
       }
 
       // hvae we calculated the achievable cells?
-      if (this.achievableCells.length === 0) {
-        // no, we must be starting a new line
 
-        // is this a mobile element
-        if (marker.mobile) {
-          this.planningLine.setLatLngs([cursorLoc, cursorLoc])
+      // no, we must be starting a new line
+
+      // is this a mobile element
+      if (marker.mobile) {
+        this.planningLine.setLatLngs([cursorLoc, cursorLoc])
+      }
+
+      this.startHex = this.grid.cellFor(cursorLoc)
+
+      // limit distance of travel
+      if (marker.stepRemaining) {
+        this.achievableCells = this.grid.hexesInRange(this.startHex, marker.stepRemaining)
+      } else {
+        // nope, allow travel to anywhere
+        this.achievableCells = this.grid.cells
+      }
+
+      // set the route-line color
+      let hisColor
+      if (marker.force === 'Red') {
+        hisColor = '#ff0000'
+      } else if (marker.force === 'Blue') {
+        hisColor = '#000fff'
+      } else if (marker.force === 'Green') {
+        hisColor = '#19bd37'
+      }
+      this.planningLine.setStyle({
+        color: hisColor
+      })
+      this.historyLine.setStyle({
+        color: hisColor
+      })
+
+      //
+      this.achievableCells = this.achievableCells.filter(cell => {
+        if (marker.travelMode === 'land') {
+          return cell.land
+        } else if (marker.travelMode === 'sea') {
+          return cell.sea
+        } else if (marker.travelMode === 'air') {
+          return true
         }
+      })
 
-        this.startHex = this.grid.cellFor(cursorLoc)
+      // apply styling to the achievable cells
+      this.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
 
-        // limit distance of travel
-        if (marker.stepRemaining) {
-          this.achievableCells = this.grid.hexesInRange(this.startHex, marker.stepRemaining)
-        } else {
-          // nope, allow travel to anywhere
-          this.achievableCells = this.grid.cells
-        }
+      // is this an achievable cell?
+      const curCell = this.grid.cellFor(cursorLoc)
 
-        // set the route-line color
-        let hisColor
-        if (marker.force === 'Red') {
-          hisColor = '#ff0000'
-        } else if (marker.force === 'Blue') {
-          hisColor = '#000fff'
-        } else if (marker.force === 'Green') {
-          hisColor = '#19bd37'
-        }
-        this.planningLine.setStyle({
-          color: hisColor
+      if (this.achievableCells.includes(curCell)) {
+        // ok, remember it
+        this.lastHex = curCell
+      }
+
+      // and the track history
+      if (marker.history) {
+        // ok, draw the history line
+        const historyLocs = []
+        marker.history.forEach(cellName => {
+          const cell = this.grid.hexNamed(cellName)
+          historyLocs.push(cell.centrePos)
         })
-        this.historyLine.setStyle({
-          color: hisColor
-        })
 
-        //
-        this.achievableCells = this.achievableCells.filter(cell => {
-          if (marker.travelMode === 'Land') {
-            return cell.land
-          } else if (marker.travelMode === 'Sea') {
-            return cell.sea
-          } else if (marker.travelMode === 'Air') {
-            return true
-          }
-        })
-
-        // apply styling to the achievable cells
-        this.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
-
-        // is this an achievable cell?
-        const curCell = this.grid.cellFor(cursorLoc)
-
-        if (this.achievableCells.includes(curCell)) {
-          // ok, remember it
-          this.lastHex = curCell
-        }
-
-        // and the track history
-        if (marker.history) {
-          // ok, draw the history line
-          const historyLocs = []
-          marker.history.forEach(cellName => {
-            const cell = this.grid.hexNamed(cellName)
-            historyLocs.push(cell.centrePos)
-          })
-
-          this.historyLine.setLatLngs(historyLocs)
-        }
+        this.historyLine.setLatLngs(historyLocs)
       } else {
         // retrieve the start point of the line
 
@@ -195,8 +192,13 @@ export default class MapAdjudicationPendingListener {
         this.routeHexes.forEach(cell => marker.history.push(cell.name))
       }
 
-      // move the marker to the last valid location
-      marker.setLatLng(this.lastHex.centrePos)
+      // did we end up with a location?
+      if (this.lastHex == null) {
+        console.log('Warning, failed to find a suitable drop location for ' + marker.name)
+      } else {
+        // move the marker to the last valid location
+        marker.setLatLng(this.lastHex.centrePos)
+      }
 
       // clear the line objects
       this.routeLats = []
@@ -208,6 +210,9 @@ export default class MapAdjudicationPendingListener {
       this.routeHexes = []
       this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
       this.achievableCells = []
+
+      this.startHex = null
+      this.lastHex = null
     })
   }
 }

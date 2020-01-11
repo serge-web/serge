@@ -1,7 +1,7 @@
 import L from 'leaflet'
 
 /** create a marker for the supplied set of details */
-export default (asset, force, myForce, platformTypes) => {
+export default (asset, force, myForce, platformTypes, assetIsDraggable, userIsUmpire) => {
 
   /** utility function to determine how we perceive another platform.
    * if it's our force, we know it's one of ours. But if it isn't our force
@@ -9,7 +9,7 @@ export default (asset, force, myForce, platformTypes) => {
    */
   function findPerceivedForce (myForce, hisForce, hisType, hisPerceptions) {
     var perception
-    if (myForce === hisForce) {
+    if (myForce === hisForce || userIsUmpire) {
       perception = { force: hisForce, type: hisType }
     } else {
       const hisPerception = hisPerceptions[myForce]
@@ -35,15 +35,15 @@ export default (asset, force, myForce, platformTypes) => {
     })
     const res = L.marker(
       asset.loc, {
-        draggable: asset.draggable,
+        draggable: assetIsDraggable,
         icon: divIcon
       }
     )
     res.bindTooltip(asset.name)
     res.force = asset.force
-    res.stepRemaining = asset.allowance
-    res.allowance = asset.allowance
-    res.history = asset.history
+    res.stepRemaining = 0 // asset.allowance  // TODO: formally drop these fields
+    res.allowance = 0 // asset.allowance
+    res.history = 0 // asset.history
     res.plannedTurns = asset.plannedTurns
 
     // store the asset state
