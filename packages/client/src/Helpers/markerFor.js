@@ -57,6 +57,11 @@ export default (asset, force, myForce, platformTypes, assetIsDraggable, userIsUm
     // is it mobile?
     res.mobile = !!pType.speedKts
 
+    // oh, come on - just take a copy of everything
+    res.asset = asset
+    // and put hte platform detail into the asset
+    asset.platformTypeDetail = pType
+
     return res
   } else {
     return null
