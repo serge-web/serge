@@ -129,7 +129,7 @@ class ChannelTabsContainer extends Component {
 
     if (_.isEmpty(state.channels)) return;
     const matchedChannel = ChannelTabsContainer.findChannelByName(state.channels, node.getName());
-  if (node.getName() === 'Mapping') return <Mapping allForces={state.allForces} force={state.selectedForce} phase={state.phase} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
+  if (node.getName() === 'Mapping') return <Mapping allForces={state.allForces} allPlatforms={state.allPlatformTypes} force={state.selectedForce} phase={state.phase} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
     return matchedChannel && matchedChannel.length ? <Channel channel={matchedChannel[0]} /> : null
   };
 
