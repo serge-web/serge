@@ -4,6 +4,7 @@ import GridImplementation from '../../Helpers/GridImplementation'
 import MapAdjudicatingListener from '../../Helpers/MapAdjudicatingListener'
 import MapPlanningListener from '../../Helpers/MapPlanningListener'
 import markerFor from '../../Helpers/markerFor'
+import hasPendingForces from '../../Helpers/hasPendingForces'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import '../../Helpers/mousePosition'
@@ -113,7 +114,15 @@ const Mapping = ({ allForces, allPlatforms, force, phase, imageTop, imageLeft, i
     // create a listener for the new phase
     switch (phaseRef.current) {
       case 'adjudication':
-        mapListenerRef.current = new MapAdjudicatingListener(mapRef.current, gridImplRef.current)
+        if (myForceRef.current === 'White') {
+          mapListenerRef.current = new MapAdjudicatingListener(mapRef.current, gridImplRef.current)
+        } else if (hasPendingForces(forcesRef.current, myForceRef.current)) {
+          // ok. does his force have any assets with location pending?
+          mapListenerRef.current = new MapAdjudicatingListener(mapRef.current, gridImplRef.current)
+        } else {
+          // just use dumb adjudication listener
+          mapListenerRef.current = new MapAdjudicatingListener(mapRef.current, gridImplRef.current)
+        }
         break
       case 'planning':
         mapListenerRef.current = new MapPlanningListener(mapRef.current, gridImplRef.current)
@@ -135,7 +144,7 @@ const Mapping = ({ allForces, allPlatforms, force, phase, imageTop, imageLeft, i
 
           // did we create one?
           if (marker != null) {
-            // mapListenerRef.current.listenTo(marker)
+            mapListenerRef.current.listenTo(marker, myForceRef.current)
             platformsLayerRef.current.addLayer(marker)
           }
         })
