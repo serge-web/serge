@@ -25,7 +25,7 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
       center: [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2],
       zoom: 10,
       attributionControl: false,
-      zoomAnimation: false,
+      zoomAnimation: false
     })
 
     mapRef.current.zoomControl.setPosition('topleft')
@@ -45,12 +45,11 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     }).addTo(mapRef.current)
 
     L.control.mousePosition().addTo(mapRef.current)
-    const homeBtn = L.control.watermark({ position: 'topleft' }).addTo(mapRef.current);
+    const homeBtn = L.control.watermark({ position: 'topleft', bounds: imageBounds }).addTo(mapRef.current)
     console.log(homeBtn)
-    homeBtn.onclick = function(){
-      console.log('DOES NOT WORK: buttonClicked');
+    homeBtn.onclick = function () {
+      console.log('DOES NOT WORK: buttonClicked')
     }
-
 
     gridRef.current = L.layerGroup().addTo(mapRef.current)
     platformRef.current = L.layerGroup().addTo(mapRef.current)
