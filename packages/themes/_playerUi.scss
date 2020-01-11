@@ -360,7 +360,7 @@
 
     .message-preview-player > .detail-rows > .detail-row {
       margin-bottom: 10px;
-      padding-left:10px;
+      padding-left: 10px;
       border-left: 3px solid rgba(255, 255, 255, 0.25);
     }
 
@@ -581,7 +581,7 @@
       color: $primaryTriadColor;
       padding-top: 8px;
 
-      h3>span {
+      h3 > span {
         display: none;
       }
 
@@ -589,8 +589,7 @@
         background-color: transparent !important;
       }
 
-      .table-bordered thead th
-      {
+      .table-bordered thead th {
         background-color: transparent;
       }
 

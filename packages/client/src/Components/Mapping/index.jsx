@@ -6,6 +6,7 @@ import markerFor from '../../Helpers/markerFor'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import '../../Helpers/mousePosition'
+import '../../Helpers/zoomHome'
 
 import './styles.scss'
 
@@ -24,7 +25,7 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
       center: [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2],
       zoom: 10,
       attributionControl: false,
-      zoomAnimation: false
+      zoomAnimation: false,
     })
 
     mapRef.current.zoomControl.setPosition('topleft')
@@ -44,6 +45,12 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     }).addTo(mapRef.current)
 
     L.control.mousePosition().addTo(mapRef.current)
+    const homeBtn = L.control.watermark({ position: 'topleft' }).addTo(mapRef.current);
+    console.log(homeBtn)
+    homeBtn.onclick = function(){
+      console.log('DOES NOT WORK: buttonClicked');
+    }
+
 
     gridRef.current = L.layerGroup().addTo(mapRef.current)
     platformRef.current = L.layerGroup().addTo(mapRef.current)
