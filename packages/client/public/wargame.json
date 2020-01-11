@@ -1170,10 +1170,14 @@
 					15,
 					20
 				],
-				"states": [
-					"Moored",
-					"Transitting"
-				],
+				"states": {
+					"Moored": {
+						"mobile": false
+					},
+					"Transitting": {
+						"mobile": true
+					}
+				},
 				"travelMode": "sea"
 			}
 		],
