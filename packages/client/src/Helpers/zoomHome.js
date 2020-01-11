@@ -22,12 +22,7 @@ const controllHomeButton = opts => {
       }
 
       container.onclick = function () {
-      //   const imageTop = 14.194809302;
-      //   const imageLeft = 42.3558566271;
-      //   const imageRight = 43.7417816271;
-      //   const imageBottom = 12.401259302;
-
-        console.log('WORKS: buttonClicked', opts)
+        console.log('WORKS: buttonClicked', opts.bounds, map)
       }
 
       return container
