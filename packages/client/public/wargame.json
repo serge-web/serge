@@ -465,7 +465,7 @@
 						},
 						"platformType": "fixed-wing-aircraft",
 						"position": "C17",
-						"state": "Landed",
+						"state": "Landed"
 					},
 					{
 						"name": "Tanker",
