@@ -45,7 +45,7 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     }).addTo(mapRef.current)
 
     L.control.mousePosition().addTo(mapRef.current)
-    L.control.homeButton({ position: 'topleft', bounds: imageBounds }).addTo(mapRef.current)
+    L.control.homeButton({position: 'topleft', bounds: imageBounds}).addTo(mapRef.current)
 
     gridRef.current = L.layerGroup().addTo(mapRef.current)
     platformRef.current = L.layerGroup().addTo(mapRef.current)

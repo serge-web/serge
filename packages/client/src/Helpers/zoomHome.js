@@ -9,7 +9,6 @@ const controllHomeButton = opts => {
       container.class = 'fa fa-expand'
 
       container.style.backgroundColor = 'white'
-      // container.style.backgroundImage = 'url(https://t1.gstatic.com/images?q=tbn:ANd9GcR6FCUMW5bPn8C4PbKak2BJQQsmC-K9-mbYBeFZm1ZM2w2GRy40Ew)';
       container.style.backgroundSize = '30px 30px'
       container.style.width = '30px'
       container.style.height = '30px'
@@ -23,6 +22,17 @@ const controllHomeButton = opts => {
 
       container.onclick = function () {
         console.log('WORKS: buttonClicked', opts.bounds, map)
+        console.log(opts.bounds[0][0])
+        console.log(opts.bounds[1][1])
+        // map.setView([13.33751, 43.08151], 9)
+        var bounds = [
+          [opts.bounds[0][0], opts.bounds[0][1]],
+          [opts.bounds[1][0], opts.bounds[1][1]]
+        ];
+        
+        map.flyToBounds(bounds, 10);
+
+        // map.setView([opts.bounds[0][0], opts.bounds[1][1]], 9)
       }
 
       return container
