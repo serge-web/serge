@@ -456,7 +456,7 @@
 							"Blue": "Blue",
 							"Red": "Blue"
 						},
-						"platformType": "Frigate",
+						"platformType": "frigate",
 						"position": "P21",
 						"state": "Transitting",
 						"visibleTo": {
@@ -470,7 +470,7 @@
 							"Blue": "Blue",
 							"Red": "Blue"
 						},
-						"platformType": "MPA",
+						"platformType": "fixed-wing-aircraft",
 						"position": "C17",
 						"state": "Landed",
 						"visibleTo": {
@@ -484,7 +484,7 @@
 							"Blue": "Blue",
 							"Red": "Blue"
 						},
-						"platformType": "Tanker",
+						"platformType": "merchant-vessel",
 						"position": "S23",
 						"state": "Transitting",
 						"visibleTo": {
@@ -515,7 +515,7 @@
 							"Blue": "Green",
 							"Red": "Red"
 						},
-						"platformType": "Dhow",
+						"platformType": "fishing-vessel",
 						"position": "N04",
 						"state": "LocationPending",
 						"visibleTo": {
@@ -529,7 +529,7 @@
 							"Blue": "Green",
 							"Red": "Red"
 						},
-						"platformType": "Dhow",
+						"platformType": "fishing-vessel",
 						"position": "N10",
 						"state": "LocationPending",
 						"visibleTo": {
@@ -543,7 +543,7 @@
 							"Blue": "Green",
 							"Red": "Red"
 						},
-						"platformType": "Dhow",
+						"platformType": "fishing-vessel",
 						"position": "Q18",
 						"state": "LocationPending",
 						"visibleTo": {
@@ -557,7 +557,7 @@
 							"Blue": "Red",
 							"Red": "Red"
 						},
-						"platformType": "Coastal Battery",
+						"platformType": "coastal-radar-site",
 						"position": "Q12",
 						"state": "LocationPending",
 						"visibleTo": {
@@ -672,7 +672,7 @@
 								"state": "Moored"
 							}
 						},
-						"platformType": "Tanker",
+						"platformType": "merchant-vessel",
 						"position": "G00",
 						"state": "Transitting",
 						"visibleTo": {
@@ -782,7 +782,7 @@
 								"state": "Transitting"
 							}
 						},
-						"platformType": "Tanker",
+						"platformType": "merchant-vessel",
 						"position": "C00",
 						"state": "Transitting",
 						"visibleTo": {
@@ -866,7 +866,7 @@
 								"state": "Transitting"
 							}
 						},
-						"platformType": "Fisherman",
+						"platformType": "fishing-vessel",
 						"position": "M02",
 						"state": "Transitting",
 						"visibleTo": {
@@ -946,7 +946,7 @@
 								"state": "Fishing"
 							}
 						},
-						"platformType": "Fisherman",
+						"platformType": "fishing-vessel",
 						"position": "N08",
 						"state": "Transitting",
 						"visibleTo": {
@@ -1030,7 +1030,7 @@
 								"state": "Transitting"
 							}
 						},
-						"platformType": "Fisherman",
+						"platformType": "fishing-vessel",
 						"position": "N11",
 						"state": "Transitting",
 						"visibleTo": {
@@ -1080,8 +1080,8 @@
 					"Immobile",
 					"Destroyed"
 				],
-				"icon": "fisherman.svg",
-				"name": "Fisherman",
+				"icon": "fishing-vessel.svg",
+				"name": "fishing-vessel",
 				"speedKts": [
 					5,
 					10,
@@ -1108,7 +1108,7 @@
 					"Destroyed"
 				],
 				"icon": "frigate.svg",
-				"name": "Frigate",
+				"name": "frigate",
 				"speedKts": [
 					5,
 					10,
@@ -1136,8 +1136,8 @@
 					"Immobile",
 					"Destroyed"
 				],
-				"icon": "aircraft.svg",
-				"name": "MPA",
+				"icon": "fixed-wing-aircraft.svg",
+				"name": "fixed-wing-aircraft",
 				"speedKts": [],
 				"states": {
 					"Landed": {
@@ -1165,8 +1165,8 @@
 					"Immobile",
 					"Destroyed"
 				],
-				"icon": "missile.svg",
-				"name": "Coastal Battery",
+				"icon": "coastal-radar-site.svg",
+				"name": "coastal-radar-site",
 				"states": {
 					"Active": {
 						"mobile": true
@@ -1187,8 +1187,8 @@
 					"Immobile",
 					"Destroyed"
 				],
-				"icon": "fisherman.svg",
-				"name": "Dhow",
+				"icon": "fishing-vessel.svg",
+				"name": "fishing-vessel",
 				"speedKts": [
 					5,
 					10,
@@ -1223,8 +1223,8 @@
 					"Immobile",
 					"Destroyed"
 				],
-				"icon": "merchant.svg",
-				"name": "Tanker",
+				"icon": "merchant-vessel.svg",
+				"name": "merchant-vessel",
 				"speedKts": [
 					5,
 					10,
