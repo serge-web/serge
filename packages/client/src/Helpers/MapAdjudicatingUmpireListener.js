@@ -10,6 +10,7 @@ export default class MapAdjudicatingListener {
       color: '#fff',
       dashArray: [1, 4]
     })
+    this.map = map
     this.planningLine.addTo(map)
     this.historyLine = L.polyline([], {
       color: '#0f0'
@@ -21,10 +22,80 @@ export default class MapAdjudicatingListener {
     this.achievableCells = [] // hexes representing achievable area
     this.startHex = null // hex for start drag operation
     this.lastHex = null // most recent cell travelled through
+
+    // keep track of who we're listening to
+    this.registeredListeners = []
+  }
+
+  clearListeners () {
+    this.registeredListeners.forEach(marker => {
+      // next lines commented out, until we've refactored JS into functions
+      // marker.off('drag', dragHandler)
+      // marker.off('drag', dragEndHandler)
+
+      marker.unbindPopup()
+    })
+
+    // and empty the array
+    this.registeredListeners = [] 
+  }
+
+  handleVisClick (event) {
+    console.log('Vis change for:', event)
+  }
+
+  popupFor (asset) {
+    const descStr = 'Force:' + asset.force + ', Type:' + asset.platformType
+
+    var perString = '<ul>'
+    if (asset.perceptions) {
+      for (var key in asset.perceptions) {
+        const perception = asset.perceptions[key]
+        const perType = perception.type ? perception.type : 'unknown'
+        perString += '<li>' + key + ':' + perception.force + ', ' + perType
+      }
+    }
+    perString += '</ul>'
+
+    const forces = ['Red', 'Blue']
+    var visString = '<ul>'
+    forces.forEach((force) => {
+      if (asset.force !== force) {
+        const isVis = !!asset.perceptions[force]
+        const visStr = isVis ? 'Checked' : ''
+        const event = { force: asset.force, asset: asset.name, visFor: force }
+        this.handleVisClick(event)
+        // TODO: attach onclick handler in next line
+        const controlStr = '<input type="checkbox" name="vehicle3" value="Boat"' + visStr + '>'
+        visString += '<li>' + force + ': ' + controlStr + '</li>'
+      }
+    })
+
+    var stateStr = '<ul>'
+    const pType = asset.platformTypeDetail
+    if (pType.states) {
+      console.log(pType.states)
+      for (var key2 in pType.states) {
+        console.log('key is:', key2)
+        // const state = pType[key2]
+        const selected = asset.state === key2 ? 'checked="checked"' : ''
+        const stateCtrl = '<input type="radio" name="vehicle3" ' + selected + ' value="' + key2 + '">' + key2 + '</input><br/>'
+        stateStr += stateCtrl
+      }
+    }
+    stateStr += '</ul>'
+
+    return '<b>' + asset.name + '</b><br/>' + descStr + '<br/>Perceived as:' + perString + 'Visible to:' + visString + 'Current State:' + stateStr + '</p>'
   }
 
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
+    // remember we're listing to it
+    this.registeredListeners.push(marker)
+
+    const popupContent = this.popupFor(marker.asset)
+    marker.bindPopup(popupContent).openPopup()
+
     marker.on('drag', e => {
       const cursorLoc = e.latlng
 
@@ -82,6 +153,8 @@ export default class MapAdjudicatingListener {
             return cell.sea
           } else if (marker.travelMode === 'air') {
             return true
+          } else {
+            return false
           }
         })
 
