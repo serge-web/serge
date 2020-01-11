@@ -6,26 +6,19 @@ export default class MapAdjudicationPendingListener {
     this.grid = grid
     this.callback = callback
 
-    // create our two lines, one for planning, one for history
     this.planningLine = L.polyline([], {
       color: '#fff',
       dashArray: [1, 4]
     })
     this.planningLine.addTo(map)
-    this.historyLine = L.polyline([], {
-      color: '#0f0'
-    })
-    this.historyLine.addTo(map)
 
-    this.routeHexes = [] // hexes representing route
-    this.routeLats = [] // lad-lngs for route
     this.achievableCells = [] // hexes representing achievable area
     this.startHex = null // hex for start drag operation
     this.lastHex = null // most recent cell travelled through
   }
 
   /** listen to drag events on the supplied marker */
-  listenTo(marker, myForce) {
+  listenTo (marker) {
     marker.on('drag', e => {
       const cursorLoc = e.latlng
 
@@ -34,25 +27,11 @@ export default class MapAdjudicationPendingListener {
         color: '#ccc',
         opacity: 1.0
       }
-      const routeStyle = {
-        fill: true,
-        color: '#249',
-        opacity: 0.2
-      }
-
-      // hvae we calculated the achievable cells?
-
-      // no, we must be starting a new line
 
       // is this a mobile element
-      if (marker.mobile) {
-        this.planningLine.setLatLngs([cursorLoc, cursorLoc])
-      }
+      this.planningLine.setLatLngs([cursorLoc, cursorLoc])
 
       this.startHex = this.grid.cellFor(cursorLoc)
-
-      // limit distance of travel
-      this.achievableCells = this.grid.cells
 
       // set the route-line color
       let hisColor
@@ -66,20 +45,19 @@ export default class MapAdjudicationPendingListener {
       this.planningLine.setStyle({
         color: hisColor
       })
-      this.historyLine.setStyle({
-        color: hisColor
-      })
 
-      //
-      this.achievableCells = this.achievableCells.filter(cell => {
-        if (marker.travelMode === 'land') {
-          return cell.land
-        } else if (marker.travelMode === 'sea') {
-          return cell.sea
-        } else if (marker.travelMode === 'air') {
-          return true
-        }
-      })
+      // do we need to generate the achievable cells?
+      if (!this.achievableCells.length) {
+        this.achievableCells = this.grid.cells.filter(cell => {
+          if (marker.travelMode === 'land') {
+            return cell.land
+          } else if (marker.travelMode === 'sea') {
+            return cell.sea
+          } else if (marker.travelMode === 'air') {
+            return true
+          }
+        })
+      }
 
       // apply styling to the achievable cells
       this.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
@@ -135,11 +113,8 @@ export default class MapAdjudicationPendingListener {
       // clear the line objects
       this.routeLats = []
       this.planningLine.setLatLngs([])
-      this.historyLine.setLatLngs([])
 
       // clear the shaded cells
-      this.routeHexes.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
-      this.routeHexes = []
       this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
       this.achievableCells = []
 

@@ -117,16 +117,6 @@ const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase
   }
 
   useEffect(() => {
-    // experiment with back-history
-    const trialHistory = ['C05', 'C04', 'C03', 'C02', 'C01']
-
-    // give us a couple of platforms
-    const platforms = []
-    platforms.push({ loc: gridImplRef.current.hexNamed('C01').centrePos, draggable: true, name: 'Frigate', travelMode: 'sea', force: 'Blue', allowance: 5, mobile: true, history: trialHistory })
-    platforms.push({ loc: gridImplRef.current.hexNamed('P02').centrePos, draggable: true, name: 'Coastal Radar Site', travelMode: 'land', force: 'Red', mobile: false })
-    platforms.push({ loc: gridImplRef.current.hexNamed('P03').centrePos, draggable: true, name: 'Fishing Vessel', travelMode: 'sea', force: 'Green', allowance: 3, mobile: true })
-    platforms.push({ loc: gridImplRef.current.hexNamed('C17').centrePos, draggable: true, name: 'Fixed Wing Aircraft', travelMode: 'air', force: 'Blue', mobile: true })
-
     if (mapListenerRef.current != null) {
       // remove the current listener
 
@@ -186,7 +176,7 @@ const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase
 
           // did we create one?
           if (marker != null) {
-            mapListenerRef.current.listenTo(marker, myForceRef.current)
+            mapListenerRef.current.listenTo(marker)
             platformsLayerRef.current.addLayer(marker)
           }
         })
