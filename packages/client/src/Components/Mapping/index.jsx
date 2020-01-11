@@ -116,13 +116,26 @@ const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase
     sendMessage('ForceLaydown', param)
   }
 
+  /** callback to tell UI that we've got control of a platform in this UI */
+  const declareControlOf = (force, name, platformType) => {
+    console.log('User can control:', name)
+  }
+
+  const clearControlledAssets = () => {
+    console.log('Clearing list of controlled assets')
+  }
+
   useEffect(() => {
     if (mapListenerRef.current != null) {
       // remove the current listener
+      mapListenerRef.current.clearListeners()
 
       // ditch the listener
       mapListenerRef.current = null
     }
+
+    // clear the UI
+    clearControlledAssets()
 
     // create a listener for the new phase
     const inForceLaydown = hasPendingForces(forcesRef.current, myForceRef.current)
@@ -144,8 +157,6 @@ const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase
       default:
         console.log('Error - unexpected game phase encountered in Mapping component')
     }
-
-    // laydownFunc({ force: 'Red', platform: 'Fishing Vessel', location: 'A13' })
 
     // create markers, and listen to them
     forcesRef.current.forEach(force => {
@@ -176,6 +187,11 @@ const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase
 
           // did we create one?
           if (marker != null) {
+            // tell the UI we're in control of this marker
+            if (assetIsDraggable) {
+              declareControlOf(force.name, asset.name, asset.platformType)
+            }
+
             mapListenerRef.current.listenTo(marker)
             platformsLayerRef.current.addLayer(marker)
           }
