@@ -76,11 +76,11 @@ export default class MapPlanningListener {
 
         //
         this.achievableCells = this.achievableCells.filter(cell => {
-          if (marker.travelMode === 'Land') {
+          if (marker.travelMode === 'land') {
             return cell.land
-          } else if (marker.travelMode === 'Sea') {
+          } else if (marker.travelMode === 'sea') {
             return cell.sea
-          } else if (marker.travelMode === 'Air') {
+          } else if (marker.travelMode === 'air') {
             return true
           }
         })
