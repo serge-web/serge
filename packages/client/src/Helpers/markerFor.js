@@ -40,6 +40,7 @@ export default (asset, force, myForce, platformTypes, assetIsDraggable, userIsUm
       }
     )
     res.bindTooltip(asset.name)
+    res.name = asset.name
     res.force = asset.force
     res.stepRemaining = 0 // asset.allowance  // TODO: formally drop these fields
     res.allowance = 0 // asset.allowance
