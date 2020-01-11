@@ -10,7 +10,7 @@ import '../../Helpers/mousePosition'
 
 import './styles.scss'
 
-const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
+const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null)
   const gridRef = useRef(null)
   const coordsRef = useRef(null)
@@ -18,6 +18,7 @@ const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
   const tileRef = useRef(null)
   const gridImplRef = useRef(null)
   const forcesRef = useRef(forces)
+  const phaseRef = useRef(phase)
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -102,6 +103,8 @@ const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
     platforms.push({ loc: gridImplRef.current.hexNamed('P03').centrePos, draggable: true, name: 'Fishing Vessel', travelMode: 'Sea', force: 'Green', allowance: 3, mobile: true })
     platforms.push({ loc: gridImplRef.current.hexNamed('C17').centrePos, draggable: true, name: 'Fixed Wing Aircraft', travelMode: 'Air', force: 'Blue', mobile: true })
 
+    console.log('Phase:' + phaseRef.current)
+
     // create class to listen for movement
     const listener = new MovementListener(mapRef.current, gridImplRef.current)
 
@@ -113,7 +116,7 @@ const Mapping = ({ forces, imageTop, imageLeft, imageBottom, imageRight }) => {
       listener.listenTo(marker)
       platformRef.current.addLayer(marker)
     })
-  }, [forcesRef])
+  }, [forcesRef, phaseRef])
 
   return (<div id="map" className="mapping"></div>)
 }
