@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
 import L from 'leaflet'
 import GridImplementation from '../../Helpers/GridImplementation'
 import MovementListener from '../../Helpers/MovementListener'
@@ -11,14 +10,11 @@ import '../../Helpers/mousePosition'
 import './styles.scss'
 
 const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }) => {
-  const mapRef = useRef(null)
-  const gridRef = useRef(null)
-  const coordsRef = useRef(null)
-  const platformRef = useRef(null)
-  const tileRef = useRef(null)
-  const gridImplRef = useRef(null)
-  const forcesRef = useRef(forces)
-  const phaseRef = useRef(phase)
+  const mapRef = useRef(null) // the leaflet map
+  const platformsLayerRef = useRef(null) // the platform markers
+  const gridImplRef = useRef(null) // hexagonal grid
+  const forcesRef = useRef(forces) // the current list of forces
+  const phaseRef = useRef(phase) // the current game phase
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -38,7 +34,7 @@ const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }
 
     const imageBounds = [[imageTop, imageLeft], [imageBottom, imageRight]]
 
-    tileRef.current = L.tileLayer('./tiles/{z}/{x}/{y}.png', {
+    const tiles = L.tileLayer('./tiles/{z}/{x}/{y}.png', {
       minZoom: 8,
       maxZoom: 12,
       tms: false,
@@ -48,21 +44,21 @@ const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }
 
     L.control.mousePosition().addTo(mapRef.current)
 
-    gridRef.current = L.layerGroup().addTo(mapRef.current)
-    platformRef.current = L.layerGroup().addTo(mapRef.current)
+    const gridLayer = L.layerGroup().addTo(mapRef.current)
+    platformsLayerRef.current = L.layerGroup().addTo(mapRef.current)
 
     // note: we don't show the marker layer by default - only when zoomed in
-    coordsRef.current = L.layerGroup()
+    const coordsLayer = L.layerGroup()
 
     const overlays = {
-      Grid: gridRef.current,
-      Coordinates: coordsRef.current,
-      Platforms: platformRef.current
+      Grid: gridLayer,
+      Coordinates: coordsLayer,
+      Platforms: platformsLayerRef.current
     }
 
     const baseLayers = {
       OpenStreetMap: tiledBackdrop,
-      'Tiled image': tileRef.current
+      'Tiled image': tiles
     }
 
     L.control.layers(baseLayers, overlays, {
@@ -72,19 +68,19 @@ const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }
     // only show the markers when zoomed in
     mapRef.current.on('zoomend', () => {
       if (mapRef.current.getZoom() < 11) {
-        mapRef.current.removeLayer(coordsRef.current)
+        mapRef.current.removeLayer(coordsLayer)
       } else {
-        mapRef.current.addLayer(coordsRef.current)
+        mapRef.current.addLayer(coordsLayer)
       }
     })
 
     /* CREATE THE GRID */
     const delta = 0.0416666
     const origin = L.latLng(14.1166, 42.4166)
-    gridImplRef.current = new GridImplementation({ origin, delta, width: 24, height: 21, markerLayer: coordsRef.current, gridRef: gridRef.current })
+    gridImplRef.current = new GridImplementation({ origin, delta, width: 24, height: 21, markerLayer: coordsLayer })
 
     // add hexagons to this map
-    gridImplRef.current.addShapesTo(gridRef.current)
+    gridImplRef.current.addShapesTo(gridLayer)
 
     return () => console.log('Map unmounted')
   }, [])
@@ -114,7 +110,7 @@ const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }
     platforms.forEach(spec => {
       const marker = markerFor(spec)
       listener.listenTo(marker)
-      platformRef.current.addLayer(marker)
+      platformsLayerRef.current.addLayer(marker)
     })
   }, [forcesRef, phaseRef])
 

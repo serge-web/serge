@@ -4,11 +4,10 @@ import cellTypes from './data/cell-types'
 import defaultHexStyle from './data/default-hex-style'
 
 export default class GridImplementation {
-  constructor ({ origin, delta, width, height, markerLayer, gridRef }) {
+  constructor ({ origin, delta, width, height, markerLayer }) {
     this.origin = origin
     this.delta = delta
     this.grid = defineGrid()
-    this.gridLayer = gridRef
     this.markerLayer = markerLayer
     this.grid_cells = this.grid.rectangle({
       width: width,
