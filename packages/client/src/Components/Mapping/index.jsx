@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import L from 'leaflet'
 import GridImplementation from '../../Helpers/GridImplementation'
-import MovementListener from '../../Helpers/MovementListener'
+import MapAdjudicatingListener from '../../Helpers/MapAdjudicatingListener'
+import MapPlanningListener from '../../Helpers/MapPlanningListener'
 import markerFor from '../../Helpers/markerFor'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
@@ -15,6 +16,7 @@ const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }
   const gridImplRef = useRef(null) // hexagonal grid
   const forcesRef = useRef(forces) // the current list of forces
   const phaseRef = useRef(phase) // the current game phase
+  const mapListenerRef = useRef(null) // listen for mouse drag events
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -99,19 +101,50 @@ const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }
     platforms.push({ loc: gridImplRef.current.hexNamed('P03').centrePos, draggable: true, name: 'Fishing Vessel', travelMode: 'Sea', force: 'Green', allowance: 3, mobile: true })
     platforms.push({ loc: gridImplRef.current.hexNamed('C17').centrePos, draggable: true, name: 'Fixed Wing Aircraft', travelMode: 'Air', force: 'Blue', mobile: true })
 
-    console.log('Phase:' + phaseRef.current)
+    if (mapListenerRef.current != null) {
+      // remove the current listener
 
-    // create class to listen for movement
-    const listener = new MovementListener(mapRef.current, gridImplRef.current)
+      // ditch the listener
+      mapListenerRef.current = null
+    }
+
+    // create a listener for the new phase
+    console.log('Phase:' + phaseRef.current)
+    switch (phaseRef.current) {
+      case 'adjudication':
+        mapListenerRef.current = new MapAdjudicatingListener(mapRef.current, gridImplRef.current)
+        break
+      case 'planning':
+        mapListenerRef.current = new MapPlanningListener(mapRef.current, gridImplRef.current)
+        break
+      default:
+        console.log('Error - unexpected game phase encountered in Mapping component')
+    }
 
     laydownFunc({ force: 'Red', platform: 'Fishing Vessel', location: 'A13' })
 
-    // listen to the platorm markers
-    platforms.forEach(spec => {
-      const marker = markerFor(spec)
-      listener.listenTo(marker)
-      platformsLayerRef.current.addLayer(marker)
+    // create markers, and listen to them
+    forcesRef.current.forEach(force => {
+      // see if this force has any assets (white typically doesn't)
+      if (force.assets) {
+        force.assets.forEach(asset => {
+          console.log(asset)
+          // // note: the markerFor method expects the force to be in the asset. Try to find a way
+          // // to pass both parameters in the markerFor method
+          asset.force = force.name
+
+          asset.loc = gridImplRef.current.hexNamed(asset.position).centrePos
+
+          const marker = markerFor(asset)
+          // // mapListenerRef.current.listenTo(marker)
+          platformsLayerRef.current.addLayer(marker)
+        })
+      }
+
+      console.log(force)
+
     })
+
   }, [forcesRef, phaseRef])
 
   return (<div id="map" className="mapping"></div>)

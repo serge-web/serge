@@ -1,23 +1,23 @@
 import L from 'leaflet'
 
 /** create a marker for the supplied set of details */
-export default spec => {
+export default asset => {
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    className: `platform-counter platform-force-${spec.force.toLowerCase()} platform-name-${spec.name.replace(/ /g, '-').toLowerCase()}`
+    className: `platform-counter platform-force-${asset.force.toLowerCase()} platform-name-${asset.name.replace(/ /g, '-').toLowerCase()}`
   })
   const res = L.marker(
-    spec.loc, {
-      draggable: spec.draggable,
+    asset.loc, {
+      draggable: asset.draggable,
       icon: divIcon
     }
   )
-  res.bindTooltip(spec.name)
-  res.travelMode = spec.travelMode
-  res.force = spec.force
-  res.stepRemaining = spec.allowance
-  res.allowance = spec.allowance
-  res.mobile = spec.mobile
-  res.history = spec.history
+  res.bindTooltip(asset.name)
+  res.travelMode = 'sea'// asset.travelMode
+  res.force = asset.force
+  res.stepRemaining = asset.allowance
+  res.allowance = asset.allowance
+  res.mobile = asset.mobile
+  res.history = asset.history
   return res
 }
