@@ -45,7 +45,7 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     }).addTo(mapRef.current)
 
     L.control.mousePosition().addTo(mapRef.current)
-    const homeBtn = L.control.watermark({ position: 'topleft', bounds: imageBounds }).addTo(mapRef.current)
+    const homeBtn = L.control.homeButton({ position: 'topleft', bounds: imageBounds }).addTo(mapRef.current)
     console.log(homeBtn)
     homeBtn.onclick = function () {
       console.log('DOES NOT WORK: buttonClicked')

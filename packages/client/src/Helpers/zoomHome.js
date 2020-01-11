@@ -1,6 +1,6 @@
 import L from 'leaflet'
 
-L.Control.Watermark = L.Control.extend({
+L.Control.HomeButton = L.Control.extend({
   onAdd: function (map) {
     var container = L.DomUtil.create('input')
     container.type = 'button'
@@ -36,6 +36,6 @@ L.Control.Watermark = L.Control.extend({
   }
 })
 
-L.control.watermark = function (opts) {
-  return new L.Control.Watermark(opts)
+L.control.homeButton = function (opts) {
+  return new L.Control.HomeButton(opts)
 }
