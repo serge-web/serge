@@ -7,20 +7,21 @@ import MapAdjudicationPendingListener from '../../Helpers/MapAdjudicationPending
 import MapPlanningListener from '../../Helpers/MapPlanningListener'
 import markerFor from '../../Helpers/markerFor'
 import hasPendingForces from '../../Helpers/hasPendingForces'
+import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import '../../Helpers/mousePosition'
 
 import './styles.scss'
 
-const Mapping = ({ allForces, allPlatforms, force, phase, imageTop, imageLeft, imageBottom, imageRight }) => {
+const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
   const platformsLayerRef = useRef(null) // the platform markers
   const gridImplRef = useRef(null) // hexagonal grid
   const forcesRef = useRef(allForces) // the current list of forces
   const phaseRef = useRef(phase) // the current game phase
   const mapListenerRef = useRef(null) // listen for mouse drag events
-  const myForceRef = useRef(force)
+  const myForceRef = useRef(selectedForce)
   const platformTypesRef = useRef(allPlatforms)
 
   useEffect(() => {
@@ -92,8 +93,28 @@ const Mapping = ({ allForces, allPlatforms, force, phase, imageTop, imageLeft, i
     return () => console.log('Map unmounted')
   }, [])
 
+  const sendMessage = (mType, values) => {
+    const curForce = allForces.find((force) => force.uniqid === selectedForce)
+    const details = {
+      channel: 'mapChannel', // todo: add channel
+      from: {
+        force: curForce.name,
+        forceColor: curForce.forceColor,
+        role: curForce.selectedRole,
+        icon: curForce.icon
+      },
+      messageType: mType,
+      timestamp: new Date().toISOString()
+    }
+    console.log('Sending:', currentWargame, details, values)
+
+    saveMapMessage(currentWargame, details, values)
+  }
+
   /** callback function - will transmit received parameters as "laydown" action */
-  const laydownFunc = param => console.log(param)
+  const laydownFunc = param => {
+    sendMessage('ForceLaydown', param)
+  }
 
   useEffect(() => {
     // experiment with back-history

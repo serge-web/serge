@@ -129,7 +129,7 @@ export default class MapAdjudicationPendingListener {
         marker.setLatLng(this.lastHex.centrePos)
 
         // and fire the callback
-        this.callback({ force: marker.force, name: marker.name, pos: this.lastHex })
+        this.callback({ force: marker.force, name: marker.name, pos: this.lastHex.name })
       }
 
       // clear the line objects
