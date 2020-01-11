@@ -10,13 +10,14 @@ import '../../Helpers/mousePosition'
 
 import './styles.scss'
 
-const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }) => {
+const Mapping = ({ allForces, force, phase, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
   const platformsLayerRef = useRef(null) // the platform markers
   const gridImplRef = useRef(null) // hexagonal grid
-  const forcesRef = useRef(forces) // the current list of forces
+  const forcesRef = useRef(allForces) // the current list of forces
   const phaseRef = useRef(phase) // the current game phase
   const mapListenerRef = useRef(null) // listen for mouse drag events
+  const forceRef = useRef(force)
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -108,6 +109,9 @@ const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }
       mapListenerRef.current = null
     }
 
+    // check the force
+    console.log('Force:' + forceRef.current)
+
     // create a listener for the new phase
     console.log('Phase:' + phaseRef.current)
     switch (phaseRef.current) {
@@ -129,14 +133,14 @@ const Mapping = ({ forces, phase, imageTop, imageLeft, imageBottom, imageRight }
       if (force.assets) {
         force.assets.forEach(asset => {
           console.log(asset)
-          // // note: the markerFor method expects the force to be in the asset. Try to find a way
-          // // to pass both parameters in the markerFor method
+          // note: the markerFor method expects the force to be in the asset. Try to find a way
+          // to pass both parameters in the markerFor method
           asset.force = force.name
 
           asset.loc = gridImplRef.current.hexNamed(asset.position).centrePos
 
           const marker = markerFor(asset)
-          // // mapListenerRef.current.listenTo(marker)
+          // mapListenerRef.current.listenTo(marker)
           platformsLayerRef.current.addLayer(marker)
         })
       }
