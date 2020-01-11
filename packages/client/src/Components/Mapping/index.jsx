@@ -93,7 +93,7 @@ const Mapping = ({ allForces, allPlatforms, force, phase, imageTop, imageLeft, i
   }, [])
 
   /** callback function - will transmit received parameters as "laydown" action */
-  // const laydownFunc = param => console.log(param)
+  const laydownFunc = param => console.log(param)
 
   useEffect(() => {
     // experiment with back-history
@@ -121,7 +121,7 @@ const Mapping = ({ allForces, allPlatforms, force, phase, imageTop, imageLeft, i
           mapListenerRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current)
         } else if (inForceLaydown) {
           // this force has assets with location pending
-          mapListenerRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current)
+          mapListenerRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc)
         } else {
           // just use dumb adjudication listener
           mapListenerRef.current = new MapAdjudicatingPlayerListener(mapRef.current, gridImplRef.current)

@@ -2,8 +2,9 @@ import L from 'leaflet'
 import defaultHexStyle from './data/default-hex-style'
 
 export default class MapAdjudicationPendingListener {
-  constructor (map, grid) {
+  constructor (map, grid, callback) {
     this.grid = grid
+    this.callback = callback
 
     // create our two lines, one for planning, one for history
     this.planningLine = L.polyline([], {
@@ -24,7 +25,7 @@ export default class MapAdjudicationPendingListener {
   }
 
   /** listen to drag events on the supplied marker */
-  listenTo (marker, myForce) {
+  listenTo(marker, myForce) {
     marker.on('drag', e => {
       const cursorLoc = e.latlng
 
@@ -51,12 +52,7 @@ export default class MapAdjudicationPendingListener {
       this.startHex = this.grid.cellFor(cursorLoc)
 
       // limit distance of travel
-      if (marker.stepRemaining) {
-        this.achievableCells = this.grid.hexesInRange(this.startHex, marker.stepRemaining)
-      } else {
-        // nope, allow travel to anywhere
-        this.achievableCells = this.grid.cells
-      }
+      this.achievableCells = this.grid.cells
 
       // set the route-line color
       let hisColor
@@ -97,107 +93,43 @@ export default class MapAdjudicationPendingListener {
       }
 
       // and the track history
-      if (marker.history) {
-        // ok, draw the history line
-        const historyLocs = []
-        marker.history.forEach(cellName => {
-          const cell = this.grid.hexNamed(cellName)
-          historyLocs.push(cell.centrePos)
-        })
+      // retrieve the start point of the line
 
-        this.historyLine.setLatLngs(historyLocs)
-      } else {
-        // retrieve the start point of the line
+      // are we plotting a line?
+      if (this.planningLine.length > 0) {
+        this.start = this.planningLine.getLatLngs()[0]
+        this.planningLine.setLatLngs([this.startHex.centrePos, cursorLoc])
+      }
 
-        // are we plotting a line?
-        if (this.planningLine.length > 0) {
-          this.start = this.planningLine.getLatLngs()[0]
-          this.planningLine.setLatLngs([this.startHex.centrePos, cursorLoc])
-        }
+      // is this an achievable cell?
+      if (this.achievableCells.includes(curCell)) {
+        // ok, remember it
+        this.lastHex = curCell
+      }
 
-        // are we in a safe cell
-        const curCell = this.grid.cellFor(cursorLoc)
-
-        // is this an achievable cell?
-        if (this.achievableCells.includes(curCell)) {
-          // ok, remember it
-          this.lastHex = curCell
-        }
-
-        // clear the old cells
-        this.routeHexes.forEach(cell => {
-          if (this.achievableCells.includes(cell)) {
-            cell.polygon.setStyle(rangeStyle)
-          } else {
-            cell.polygon.setStyle(defaultHexStyle)
-          }
-        })
-
-        // do we have a valid current cell?
-        if (this.lastHex != null) {
-          // get the route
-          let newRoute = this.grid.hexesBetween(this.startHex, this.lastHex)
-
-          // if we have a restricted possible region,
-          // trim to it
-          if (this.achievableCells) {
-            newRoute = newRoute.filter(cell => this.achievableCells.includes(cell))
-          }
-
-          // and generate new cells
-          this.routeLats = []
-          this.routeHexes = newRoute
-          if (marker.mobile) {
-            this.routeHexes.forEach(cell => {
-              cell.polygon.setStyle(routeStyle)
-              this.routeLats.push(cell.centrePos)
-            })
-          } else {
-            // insert the current location twice,
-            // to give us a point marker
-            if (this.lastHex) {
-              this.routeLats.push(this.lastHex.centrePos)
-              this.routeLats.push(this.lastHex.centrePos)
-            }
-          }
-
-          if (this.routeLats.length > 1) {
-            this.planningLine.setLatLngs(this.routeLats)
-          }
+      // do we have a valid current cell?
+      if (this.lastHex != null) {
+        // and generate new cells
+        this.routeLats = []
+        // insert the current location twice,
+        // to give us a point marker
+        if (this.lastHex) {
+          this.routeLats.push(this.lastHex.centrePos)
+          this.routeLats.push(this.lastHex.centrePos)
+          this.planningLine.setLatLngs(this.routeLats)
         }
       }
     })
     marker.on('dragend', e => {
-      // ooh, see if it had restricted travel
-      if (marker.allowance && this.routeHexes.length > 0) {
-        // consume some of it
-
-        // calculate distance
-        const start = this.routeHexes[0]
-        const end = this.routeHexes[this.routeHexes.length - 1]
-        const distance = start.distance(end)
-
-        marker.stepRemaining -= distance
-
-        // cheat. if we've consumed distance, give it
-        // another allowance
-        if (marker.stepRemaining === 0) {
-          marker.stepRemaining = marker.allowance
-        }
-
-        // add these new cells as history
-        if (!marker.history) {
-          marker.history = []
-        }
-        this.routeHexes.forEach(cell => marker.history.push(cell.name))
-      }
-
       // did we end up with a location?
       if (this.lastHex == null) {
         console.log('Warning, failed to find a suitable drop location for ' + marker.name)
       } else {
         // move the marker to the last valid location
         marker.setLatLng(this.lastHex.centrePos)
+
+        // and fire the callback
+        this.callback({ force: marker.force, name: marker.name, pos: this.lastHex })
       }
 
       // clear the line objects
