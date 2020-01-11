@@ -453,44 +453,28 @@
 				"assets": [{
 						"name": "Frigate",
 						"perceptions": {
-							"Blue": "Blue",
-							"Red": "Blue"
+							"Red": {"force":"Blue", "type":"frigate"}
 						},
 						"platformType": "frigate",
 						"position": "P21",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": true,
-							"Red": true
-						}
+						"state": "Transitting"
 					},
 					{
 						"name": "MPA",
 						"perceptions": {
-							"Blue": "Blue",
-							"Red": "Blue"
 						},
 						"platformType": "fixed-wing-aircraft",
 						"position": "C17",
 						"state": "Landed",
-						"visibleTo": {
-							"Blue": true,
-							"Red": false
-						}
 					},
 					{
 						"name": "Tanker",
 						"perceptions": {
-							"Blue": "Blue",
-							"Red": "Blue"
+							"Red": {"force":"Blue", "type":""}
 						},
 						"platformType": "merchant-vessel",
 						"position": "S23",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": true,
-							"Red": false
-						}
+						"state": "Transitting"
 					}
 				],
 				"color": "#00F",
@@ -512,58 +496,36 @@
 				"assets": [{
 						"name": "Dhow-A",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": "Red"
+							"Blue": {"force":"Green", "type":""}
 						},
 						"platformType": "fishing-vessel",
 						"position": "N04",
-						"state": "LocationPending",
-						"visibleTo": {
-							"Blue": false,
-							"Red": true
-						}
+						"state": "LocationPending"
 					},
 					{
 						"name": "Dhow-B",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": "Red"
+							"Blue": {"force":"Green", "type":"fishing-vessel"}
 						},
 						"platformType": "fishing-vessel",
 						"position": "N10",
-						"state": "LocationPending",
-						"visibleTo": {
-							"Blue": false,
-							"Red": true
-						}
+						"state": "LocationPending"
 					},
 					{
 						"name": "Dhow-C",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": "Red"
 						},
 						"platformType": "fishing-vessel",
 						"position": "Q18",
-						"state": "LocationPending",
-						"visibleTo": {
-							"Blue": false,
-							"Red": true
-						}
+						"state": "LocationPending"
 					},
 					{
 						"name": "Missile-A",
 						"perceptions": {
-							"Blue": "Red",
-							"Red": "Red"
 						},
 						"platformType": "coastal-radar-site",
 						"position": "Q12",
-						"state": "LocationPending",
-						"visibleTo": {
-							"Blue": false,
-							"Red": true
-						}
+						"state": "LocationPending"
 					}
 				],
 				"color": "#F00",
@@ -585,8 +547,7 @@
 				"assets": [{
 						"name": "Tanker-1",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": ""
+							"Blue": {"force":"Green", "type":"merchant-vessel"}
 						},
 						"plannedTurns": {
 							"T01": {
@@ -674,17 +635,13 @@
 						},
 						"platformType": "merchant-vessel",
 						"position": "G00",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": false,
-							"Red": false
-						}
+						"state": "Transitting"
 					},
 					{
 						"name": "Tanker-2",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": ""
+							"Blue": {"force":"Green", "type":"merchant-vessel"},
+							"Red": {"force":"Green", "type":"merchant-vessel"}
 						},
 						"plannedTurns": {
 							"T01": {
@@ -784,17 +741,12 @@
 						},
 						"platformType": "merchant-vessel",
 						"position": "C00",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": true,
-							"Red": false
-						}
+						"state": "Transitting"
 					},
 					{
 						"name": "Fisher-A",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": "Green"
+							"Blue": {"force":"Green", "type":"merchant-vessel"}
 						},
 						"plannedTurns": {
 							"T01": {
@@ -868,17 +820,12 @@
 						},
 						"platformType": "fishing-vessel",
 						"position": "M02",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": false,
-							"Red": false
-						}
+						"state": "Transitting"
 					},
 					{
 						"name": "Fisher-B",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": "Green"
+							"Blue": {"force":"Green", "type":"merchant-vessel"}
 						},
 						"plannedTurns": {
 							"T01": {
@@ -948,17 +895,13 @@
 						},
 						"platformType": "fishing-vessel",
 						"position": "N08",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": false,
-							"Red": false
-						}
+						"state": "Transitting"
 					},
 					{
 						"name": "Fisher-C",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": "Green"
+							"Blue": {"force":"Green", "type":"merchant-vessel"},
+							"Red": {"force":"Green", "type":"merchant-vessel"}
 						},
 						"plannedTurns": {
 							"T01": {
@@ -1032,11 +975,7 @@
 						},
 						"platformType": "fishing-vessel",
 						"position": "N11",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": false,
-							"Red": false
-						}
+						"state": "Transitting"
 					}
 				],
 				"color": "#0F0",
