@@ -285,14 +285,12 @@ export default class MapAdjudicatingListener {
           }
         }
         if (!myRoutePresent) {
-        
           if (thisRoute) {
             // and put it on the map
             this.plannedRoutes.addLayer(thisRoute)
           }
         }
       }
-
     })
 
     marker.on('drag', e => {

@@ -44,7 +44,6 @@ export default class MapPlanningPlayerListener {
 
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
-
     // is it for the current force?
     if (marker.asset.force === this.force) {
       const popupContent = this.plannedModePopupFor(marker.asset)
