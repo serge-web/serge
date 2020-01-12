@@ -17,6 +17,8 @@ export default class MapAdjudicatingListener {
     })
     this.historyLine.addTo(map)
 
+//    this.plannedRoutes = L.LayerGroup().addto(map) // for the planned routes
+
     this.routeHexes = [] // hexes representing route
     this.routeLats = [] // lad-lngs for route
     this.achievableCells = [] // hexes representing achievable area
@@ -73,7 +75,6 @@ export default class MapAdjudicatingListener {
 
     var conditionStr = '<ul>'
     const pType = asset.platformTypeDetail
-    console.log(asset)
     if (pType.conditions) {
       for (var key2 of pType.conditions) {
         const selected = asset.condition === key2 ? 'checked="checked"' : ''
@@ -87,6 +88,33 @@ export default class MapAdjudicatingListener {
     return '<b>' + asset.name + '</b><br/>' + descStr + '<hr/>Perceived as:' + perString + '<hr/>Visible to:' + visString + '<hr/>Current Condition:' + conditionStr + '</p>'
   }
 
+  showPlannedRoutesFor (asset) {
+    const planned = asset.plannedTurns
+    if (planned) {
+      const thisLinePts = []
+      for (const [key, route] of Object.entries(planned)) {
+        const steps = route.route
+        // is there a planned route?
+        if (steps) {
+          // create new line
+          steps.forEach((step) => {
+            const ptHex = this.grid.hexNamed(step)
+            if (ptHex) {
+              thisLinePts.push(ptHex.centrePos)
+            } else {
+              console.log('failed to find hex cell for:', step)
+            }
+          })
+        }
+      }
+      // did we find any?
+      if (thisLinePts.length > 0) {
+        // ok, create line
+        const line = L.polyline(thisLinePts, { color: 'red' })
+      }
+    }
+  }
+
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
     // remember we're listing to it
@@ -94,6 +122,8 @@ export default class MapAdjudicatingListener {
 
     const popupContent = this.popupFor(marker.asset)
     marker.bindPopup(popupContent).openPopup()
+
+    this.showPlannedRoutesFor(marker.asset)
 
     marker.on('drag', e => {
       const cursorLoc = e.latlng
