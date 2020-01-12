@@ -107,6 +107,8 @@ export default class MapAdjudicatingListener {
     const planned = asset.plannedTurns
     if (planned) {
       const thisLinePts = []
+      const turnMarkers = []
+      let lastCoord
       for (const [key, route] of Object.entries(planned)) {
         const steps = route.route
         // is there a planned route?
@@ -116,18 +118,31 @@ export default class MapAdjudicatingListener {
             const ptHex = this.grid.hexNamed(step)
             if (ptHex) {
               thisLinePts.push(ptHex.centrePos)
+              lastCoord = ptHex.centrePos
             } else {
               console.log('failed to find hex cell for:', step)
             }
           })
         }
+        if (lastCoord) {
+          turnMarkers.push(lastCoord)
+        }
       }
       // did we find any?
       if (thisLinePts.length > 0) {
-        // ok, create line
+        // composite object to store line plus markers
+        const planned = L.layerGroup()
+        // ok, create line          
         const line = L.polyline(thisLinePts, { color: this.colorFor(asset.force) })
+        planned.addLayer(line)
         // this.plannedRoutes.addLayer(line)
-        marker.plannedRouteLine = line
+        marker.plannedRouteLine = planned
+
+        turnMarkers.forEach((marker) => {
+          // create marker
+          marker = L.marker(marker, { draggable: true })
+          planned.addLayer(marker)
+        })
       }
     }
   }
@@ -143,14 +158,17 @@ export default class MapAdjudicatingListener {
     this.showPlannedRoutesFor(marker, marker.asset)
 
     marker.on('mouseover', e => {
-      if (marker.plannedRouteLine) {
-        this.plannedRoutes.addLayer(marker.plannedRouteLine)
-      }
-    })
-
-    marker.on('mouseout', e => {
-      if (marker.plannedRouteLine) {
-        this.plannedRoutes.removeLayer(marker.plannedRouteLine)
+      const thisPlannedRoute = marker.plannedRouteLine
+      if (thisPlannedRoute) {
+        // is it different to the current planned route?
+        const layers = this.plannedRoutes.getLayers()
+        if (layers.length > 0) {
+          const curRoute = layers[0]
+          if (curRoute !== marker) {
+            this.plannedRoutes.removeLayer(curRoute)
+          }
+        }
+        this.plannedRoutes.addLayer(thisPlannedRoute)
       }
     })
 
