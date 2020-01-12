@@ -160,7 +160,14 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
         if (myForceRef.current === 'umpire') {
           mapListenerRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current)
         } else {
+<<<<<<< HEAD
+          const turnComplete = (payload) => {
+            console.log('Planned Route:', payload)
+          }
+          mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current, turnComplete)
+=======
           mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current)
+>>>>>>> feature/91-see-my-forces-state
         }
         break
       default:

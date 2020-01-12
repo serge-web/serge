@@ -1142,42 +1142,6 @@
 					"Immobile",
 					"Destroyed"
 				],
-				"icon": "fishing-vessel.svg",
-				"name": "fishing-vessel",
-				"speedKts": [
-					5,
-					10,
-					15
-				],
-				"states": {
-					"Attacking": {
-						"mobile": true
-					},
-					"Evading": {
-						"mobile": true
-					},
-					"Fishing": {
-						"mobile": false
-					},
-					"LocationPending": {
-						"mobile": false
-					},
-					"Minelaying": {
-						"mobile": false
-					},
-					"Transitting": {
-						"mobile": true
-					}
-				},
-				"travelMode": "sea"
-			},
-			{
-				"conditions": [
-					"Working",
-					"Disabled",
-					"Immobile",
-					"Destroyed"
-				],
 				"icon": "merchant-vessel.svg",
 				"name": "merchant-vessel",
 				"speedKts": [
