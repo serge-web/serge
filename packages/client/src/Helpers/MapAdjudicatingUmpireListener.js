@@ -66,26 +66,24 @@ export default class MapAdjudicatingListener {
         const event = { force: asset.force, asset: asset.name, visFor: force }
         this.handleVisClick(event)
         // TODO: attach onclick handler in next line
-        const controlStr = '<input type="checkbox" name="vehicle3" value="Boat"' + visStr + '>'
-        visString += '<li>' + force + ': ' + controlStr + '</li>'
+        const controlStr = '<input type="checkbox" name="vehicle3" value="Boat"' + visStr + '>' + force + '</input>'
+        visString += '<li>' + controlStr + '</li>'
       }
     })
 
-    var stateStr = '<ul>'
+    var conditionStr = '<ul>'
     const pType = asset.platformTypeDetail
-    if (pType.states) {
-      console.log(pType.states)
-      for (var key2 in pType.states) {
-        console.log('key is:', key2)
-        // const state = pType[key2]
+    if (pType.conditions) {
+      for (var key2 of pType.conditions) {
         const selected = asset.state === key2 ? 'checked="checked"' : ''
+        // TODO: attach onclick handler in next line
         const stateCtrl = '<input type="radio" name="vehicle3" ' + selected + ' value="' + key2 + '">' + key2 + '</input><br/>'
-        stateStr += stateCtrl
+        conditionStr += stateCtrl
       }
     }
-    stateStr += '</ul>'
+    conditionStr += '</ul>'
 
-    return '<b>' + asset.name + '</b><br/>' + descStr + '<br/>Perceived as:' + perString + 'Visible to:' + visString + 'Current State:' + stateStr + '</p>'
+    return '<b>' + asset.name + '</b><br/>' + descStr + '<hr/>Perceived as:' + perString + '<hr/>Visible to:' + visString + '<hr/>Current Condition:' + conditionStr + '</p>'
   }
 
   /** listen to drag events on the supplied marker */
