@@ -45,21 +45,19 @@ const controllHomeButton = opts => {
 
       // listen for screen resize events
       window.addEventListener('resize', function(event){
-        // get the width/height of the screen after the resize event
-        const width  = window.innerWidth || document.documentElement.clientWidth || 
-        document.body.clientWidth;
-        const height = window.innerHeight|| document.documentElement.clientHeight|| 
-        document.body.clientHeight;
-
-
-        console.log(width, height);
-
+        // getting the bounds
         const bounds = [
           [opts.bounds[0][0], opts.bounds[0][1]],
           [opts.bounds[1][0], opts.bounds[1][1]]
         ]
 
+        // fitting the bounds
         map.fitBounds(bounds);
+
+        // using set timeout which fitsBounds on maximise click (needs a delay as the CSS transition is not finished)
+        this.setTimeout(function(){
+          map.fitBounds(bounds)
+        })
       })
 
       // click handler to allow the button to do things to the map
@@ -69,9 +67,6 @@ const controllHomeButton = opts => {
           [opts.bounds[0][0], opts.bounds[0][1]],
           [opts.bounds[1][0], opts.bounds[1][1]]
         ]
-
-        // flyToBounds (smoother but slower)
-        //map.flyToBounds(bounds, 11)
         // fitBounds (faster but jerky)
         map.fitBounds(bounds);
       }
