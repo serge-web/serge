@@ -46,7 +46,7 @@ export default class MapAdjudicatingListener {
     console.log('Vis change for:', event)
   }
 
-  popupFor (asset) {
+  assetPopupFpr (asset) {
     const descStr = 'Force:' + asset.force + ', Type:' + asset.platformType
 
     let perString = '<ul>'
@@ -103,6 +103,27 @@ export default class MapAdjudicatingListener {
     return hisColor
   }
 
+  /** some cells may contain multiple markers. if that's the case, spread them out around the cell.
+   * The clusters object should contain a list of arrays of markers
+   */
+  declutter (clusters, gridDelta) {
+    for (const [loc, list] of Object.entries(clusters)) {
+      const len = list.length
+      // note: we start at 1, since we let the first one stay in the middle
+      for (let ctr = 0; ctr < len; ctr++) {
+        const marker = list[ctr]
+        const thisAngleDegs = ctr * (360.0 / (len))
+        const thisAngleRads = (90 + thisAngleDegs) / 180 * Math.PI
+        const thisPos = marker.coord
+        const newLat = thisPos.lat + gridDelta * Math.sin(thisAngleRads)
+        const newLng = thisPos.lng + gridDelta * Math.cos(thisAngleRads)
+        marker.coord = L.latLng(newLat, newLng)
+
+        // TODO: for markers that are actually in the same cell, we should introduce a slightly different styling, _I think_
+      }
+    }
+  }
+
   getPlannedRoutesFor (asset, turnPlannedFor) {
     var res = null
     const planned = asset.plannedTurns
@@ -140,7 +161,14 @@ export default class MapAdjudicatingListener {
           })
         }
         // the data for the marker is common to both logic paths, declare it here
-        const payload = { name: key, coord: lastCoord, turn: turnNumber, state: route.state, speed: route.speed, asset: asset.name }
+        const payload = {
+          name: key,
+          coord: lastCoord,
+          turn: turnNumber,
+          state: route.state,
+          speed: route.speed,
+          asset: asset.name
+        }
         if (lastCoord) {
           payload.coord = lastCoord
         } else {
@@ -161,32 +189,66 @@ export default class MapAdjudicatingListener {
         // composite object to store line plus markers
         res = L.layerGroup()
         // ok, create line
-        const line = L.polyline(thisLinePts, { color: this.colorFor(asset.force) })
+        const line = L.polyline(thisLinePts, {
+          color: this.colorFor(asset.force)
+        })
         res.addLayer(line)
 
         if (futureLinePts.length > 0) {
-          const futureLine = L.polyline(futureLinePts, { color: this.colorFor(asset.force), weight: '3', dashArray: '4, 16', dashOffset: '0' })
+          const futureLine = L.polyline(futureLinePts, {
+            color: this.colorFor(asset.force),
+            weight: '3',
+            dashArray: '4, 16',
+            dashOffset: '0'
+          })
           res.addLayer(futureLine)
         }
 
+        // try to do a bit of de-conflicting, if we have multiple markers in the same cell
+        var lastMarker = null
+        const clusters = {}
+        turnMarkers.forEach((marker) => {
+          if (lastMarker) {
+            const thisPos = marker.coord
+            const lastPos = lastMarker.coord
+            if (thisPos === lastPos) {
+              const index = thisPos.lat + ', ' + thisPos.lng
+              // is this already a cluster?
+              var existing = clusters[index]
+              if (!existing) {
+                existing = [lastMarker]
+                clusters[index] = existing
+              }
+              existing.push(marker)
+            }
+          }
+          lastMarker = marker
+        })
+        this.declutter(clusters, this.grid.delta / 3)
+
         turnMarkers.forEach((marker) => {
           // create marker
-          const turnMarker = L.marker(marker.coord, { draggable: true })
+          const turnMarker = L.marker(marker.coord, {
+            draggable: true
+          })
 
           // and the popup form for this marker
-          const payload = { force: asset.force, asset: asset.name, turn: marker.name }
+          const payload = {
+            force: asset.force,
+            asset: asset.name,
+            turn: marker.name
+          }
           let popup = '<b>' + marker.asset + ' ' + marker.name + '</b><ul>'
           popup += 'State:' + marker.state + ' Speed:' + marker.speed + 'kts'
           popup += '<hr/>'
 
           // put in the form to set the platform state
-          popup += 'Current State:<ul>'
+          popup += 'Proposed State:<ul>'
           const platformStates = asset.platformTypeDetail.states
           for (const key in platformStates) {
-            // TODO: only show the speed box if this state is mobile            
-            const stateDetail = platformStates[key]
-            console.log(stateDetail.mobile)
-            const checked = key === asset.state ? 'checked' : ''
+            // TODO: only show the speed box if this state is mobile
+            // const stateDetail = platformStates[key]
+            const checked = key === marker.state ? 'checked' : ''
             // TODO: attach onclick handler in next line
             const stateCtrl = '<input type="radio" name="vehicle3" ' + checked + ' value="' + key + '">' + key + '</input><br/>'
             popup += stateCtrl
@@ -219,11 +281,11 @@ export default class MapAdjudicatingListener {
   }
 
   /** listen to drag events on the supplied marker */
-  listenTo (marker) {
+  listenTo (marker, currentTurn) {
     // remember we're listing to it
     this.registeredListeners.push(marker)
 
-    const popupContent = this.popupFor(marker.asset)
+    const popupContent = this.assetPopupFpr(marker.asset)
     marker.bindPopup(popupContent).openPopup()
 
     marker.on('mouseover', e => {
@@ -249,7 +311,7 @@ export default class MapAdjudicatingListener {
 
       if (!myRoutePresent) {
         // ok, now create the route for this assset
-        const thisRoute = this.getPlannedRoutesFor(marker.asset, 1)
+        const thisRoute = this.getPlannedRoutesFor(marker.asset, currentTurn + 1)
         if (thisRoute) {
           // and put it on the map
           this.plannedRoutes.addLayer(thisRoute)
