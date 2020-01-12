@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import defaultHexStyle from './data/default-hex-style'
 
-export default class MapPlanningListener {
+export default class MapPlanningPlayerListener {
   constructor (map, grid) {
     this.grid = grid
 
