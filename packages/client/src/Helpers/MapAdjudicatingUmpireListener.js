@@ -17,7 +17,7 @@ export default class MapAdjudicatingListener {
     })
     this.historyLine.addTo(map)
 
-//    this.plannedRoutes = L.LayerGroup().addto(map) // for the planned routes
+    this.plannedRoutes = L.layerGroup().addTo(map) // for the planned routes
 
     this.routeHexes = [] // hexes representing route
     this.routeLats = [] // lad-lngs for route
@@ -49,9 +49,9 @@ export default class MapAdjudicatingListener {
   popupFor (asset) {
     const descStr = 'Force:' + asset.force + ', Type:' + asset.platformType
 
-    var perString = '<ul>'
+    let perString = '<ul>'
     if (asset.perceptions) {
-      for (var key in asset.perceptions) {
+      for (let key in asset.perceptions) {
         const perception = asset.perceptions[key]
         const perType = perception.type ? perception.type : 'unknown'
         perString += '<li>' + key + ':' + perception.force + ', ' + perType
@@ -60,7 +60,7 @@ export default class MapAdjudicatingListener {
     perString += '</ul>'
 
     const forces = ['Red', 'Blue']
-    var visString = '<ul>'
+    let visString = '<ul>'
     forces.forEach((force) => {
       if (asset.force !== force) {
         const isVis = !!asset.perceptions[force]
@@ -73,10 +73,10 @@ export default class MapAdjudicatingListener {
       }
     })
 
-    var conditionStr = '<ul>'
+    let conditionStr = '<ul>'
     const pType = asset.platformTypeDetail
     if (pType.conditions) {
-      for (var key2 of pType.conditions) {
+      for (let key2 of pType.conditions) {
         const selected = asset.condition === key2 ? 'checked="checked"' : ''
         // TODO: attach onclick handler in next line
         const stateCtrl = '<input type="radio" name="vehicle3" ' + selected + ' value="' + key2 + '">' + key2 + '</input><br/>'
@@ -88,7 +88,22 @@ export default class MapAdjudicatingListener {
     return '<b>' + asset.name + '</b><br/>' + descStr + '<hr/>Perceived as:' + perString + '<hr/>Visible to:' + visString + '<hr/>Current Condition:' + conditionStr + '</p>'
   }
 
-  showPlannedRoutesFor (asset) {
+  colorFor (force) {
+    let hisColor
+    if (force === 'Red') {
+      hisColor = '#ff0000'
+    } else if (force === 'Blue') {
+      hisColor = '#000fff'
+    } else if (force === 'Green') {
+      hisColor = '#19bd37'
+    } else {
+      console.error('failed to recognise force for:' + force)
+      hisColor = '#555'
+    }
+    return hisColor
+  }
+
+  showPlannedRoutesFor (marker, asset) {
     const planned = asset.plannedTurns
     if (planned) {
       const thisLinePts = []
@@ -110,7 +125,9 @@ export default class MapAdjudicatingListener {
       // did we find any?
       if (thisLinePts.length > 0) {
         // ok, create line
-        const line = L.polyline(thisLinePts, { color: 'red' })
+        const line = L.polyline(thisLinePts, { color: this.colorFor(asset.force) })
+        // this.plannedRoutes.addLayer(line)
+        marker.plannedRouteLine = line
       }
     }
   }
@@ -123,7 +140,19 @@ export default class MapAdjudicatingListener {
     const popupContent = this.popupFor(marker.asset)
     marker.bindPopup(popupContent).openPopup()
 
-    this.showPlannedRoutesFor(marker.asset)
+    this.showPlannedRoutesFor(marker, marker.asset)
+
+    marker.on('mouseover', e => {
+      if (marker.plannedRouteLine) {
+        this.plannedRoutes.addLayer(marker.plannedRouteLine)
+      }
+    })
+
+    marker.on('mouseout', e => {
+      if (marker.plannedRouteLine) {
+        this.plannedRoutes.removeLayer(marker.plannedRouteLine)
+      }
+    })
 
     marker.on('drag', e => {
       const cursorLoc = e.latlng
