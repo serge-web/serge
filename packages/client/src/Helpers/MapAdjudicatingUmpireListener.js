@@ -63,8 +63,8 @@ export default class MapAdjudicatingListener {
       if (asset.force !== force) {
         const isVis = !!asset.perceptions[force]
         const visStr = isVis ? 'Checked' : ''
-        const event = { force: asset.force, asset: asset.name, visFor: force }
-        this.handleVisClick(event)
+        // const event = { force: asset.force, asset: asset.name, visFor: force }
+        // this.handleVisClick(event)
         // TODO: attach onclick handler in next line
         const controlStr = '<input type="checkbox" name="vehicle3" value="Boat"' + visStr + '>' + force + '</input>'
         visString += '<li>' + controlStr + '</li>'
@@ -73,9 +73,10 @@ export default class MapAdjudicatingListener {
 
     var conditionStr = '<ul>'
     const pType = asset.platformTypeDetail
+    console.log(asset)
     if (pType.conditions) {
       for (var key2 of pType.conditions) {
-        const selected = asset.state === key2 ? 'checked="checked"' : ''
+        const selected = asset.condition === key2 ? 'checked="checked"' : ''
         // TODO: attach onclick handler in next line
         const stateCtrl = '<input type="radio" name="vehicle3" ' + selected + ' value="' + key2 + '">' + key2 + '</input><br/>'
         conditionStr += stateCtrl
