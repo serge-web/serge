@@ -103,21 +103,28 @@ export default class MapAdjudicatingListener {
     return hisColor
   }
 
-  showPlannedRoutesFor (marker, asset) {
+  showPlannedRoutesFor (marker, asset, turnPlannedFor) {
     const planned = asset.plannedTurns
     if (planned) {
-      const thisLinePts = []
+      const thisLinePts = [] // points up the current planned turn
+      const futureLinePts = [] // points beyond the planned turn
       const turnMarkers = []
       let lastCoord
       for (const [key, route] of Object.entries(planned)) {
         const steps = route.route
+        const turnNumber = parseInt(key.substr(1))
+        console.log('turn:' + turnNumber)
         // is there a planned route?
         if (steps) {
           // create new line
           steps.forEach((step) => {
             const ptHex = this.grid.hexNamed(step)
             if (ptHex) {
-              thisLinePts.push(ptHex.centrePos)
+              if (turnNumber <= turnPlannedFor) {
+                thisLinePts.push(ptHex.centrePos)
+              } else {
+                futureLinePts.push(ptHex.centrePos)
+              }
               lastCoord = ptHex.centrePos
             } else {
               console.log('failed to find hex cell for:', step)
@@ -125,23 +132,44 @@ export default class MapAdjudicatingListener {
           })
         }
         if (lastCoord) {
-          turnMarkers.push(lastCoord)
+          turnMarkers.push({ name: key, coord: lastCoord, turn: turnNumber })
         }
       }
       // did we find any?
       if (thisLinePts.length > 0) {
         // composite object to store line plus markers
         const planned = L.layerGroup()
-        // ok, create line          
+        // ok, create line         
         const line = L.polyline(thisLinePts, { color: this.colorFor(asset.force) })
         planned.addLayer(line)
+
+        if (futureLinePts.length > 0) {
+          const futureLine = L.polyline(futureLinePts, { color: this.colorFor(asset.force), weight: '3', dashArray: '4, 4', dashOffset: '0' })
+          planned.addLayer(futureLine)
+        }
+
         // this.plannedRoutes.addLayer(line)
         marker.plannedRouteLine = planned
 
         turnMarkers.forEach((marker) => {
           // create marker
-          marker = L.marker(marker, { draggable: true })
-          planned.addLayer(marker)
+          const turnMarker = L.marker(marker.coord, { draggable: true })
+
+          // and the popup form for this marker
+          const payload = { force: asset.force, asset: asset.name, turn: marker.name }
+          let popup = '<b></b>' + marker.name + '<br/><ul>'
+          if (marker.turn === turnPlannedFor) {
+            // ok, we can accept the planned route up to here
+            popup += '<li><button onclick=acceptTo("' + payload + ')" type="button">Accept to here</button></li>'
+          } else {
+            console.log('turns:', typeof marker.turn, typeof turnPlannedFor, marker.turn === turnPlannedFor)
+          }
+          popup += '<li><button onclick=acceptTo("' + payload + ')"  type="button">Clear from here</button></li></ul>'
+
+          // TODO: create handler callbacks for these 'acceptTo' and 'clearFrom' events
+          turnMarker.bindPopup(popup)
+
+          planned.addLayer(turnMarker)
         })
       }
     }
@@ -155,7 +183,7 @@ export default class MapAdjudicatingListener {
     const popupContent = this.popupFor(marker.asset)
     marker.bindPopup(popupContent).openPopup()
 
-    this.showPlannedRoutesFor(marker, marker.asset)
+    this.showPlannedRoutesFor(marker, marker.asset, 3)
 
     marker.on('mouseover', e => {
       const thisPlannedRoute = marker.plannedRouteLine
