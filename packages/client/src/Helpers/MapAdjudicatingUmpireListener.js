@@ -1,5 +1,7 @@
 import L from 'leaflet'
 import defaultHexStyle from './data/default-hex-style'
+import colorFor from './colorFor'
+import declutterMarkers from './declutterMarkers'
 
 export default class MapAdjudicatingListener {
   constructor (map, grid) {
@@ -88,42 +90,6 @@ export default class MapAdjudicatingListener {
     return '<b>' + asset.name + '</b><br/>' + descStr + '<hr/>Perceived as:' + perString + '<hr/>Visible to:' + visString + '<hr/>Current Condition:' + conditionStr + '</p>'
   }
 
-  colorFor (force) {
-    let hisColor
-    if (force === 'Red') {
-      hisColor = '#ff0000'
-    } else if (force === 'Blue') {
-      hisColor = '#000fff'
-    } else if (force === 'Green') {
-      hisColor = '#19bd37'
-    } else {
-      console.error('failed to recognise force for:' + force)
-      hisColor = '#555'
-    }
-    return hisColor
-  }
-
-  /** some cells may contain multiple markers. if that's the case, spread them out around the cell.
-   * The clusters object should contain a list of arrays of markers
-   */
-  declutter (clusters, gridDelta) {
-    for (const [loc, list] of Object.entries(clusters)) {
-      const len = list.length
-      // note: we start at 1, since we let the first one stay in the middle
-      for (let ctr = 0; ctr < len; ctr++) {
-        const marker = list[ctr]
-        const thisAngleDegs = ctr * (360.0 / (len))
-        const thisAngleRads = (90 + thisAngleDegs) / 180 * Math.PI
-        const thisPos = marker.coord
-        const newLat = thisPos.lat + gridDelta * Math.sin(thisAngleRads)
-        const newLng = thisPos.lng + gridDelta * Math.cos(thisAngleRads)
-        marker.coord = L.latLng(newLat, newLng)
-
-        // TODO: for markers that are actually in the same cell, we should introduce a slightly different styling, _I think_
-      }
-    }
-  }
-
   getPlannedRoutesFor (asset, turnPlannedFor) {
     var res = null
     const planned = asset.plannedTurns
@@ -190,13 +156,13 @@ export default class MapAdjudicatingListener {
         res = L.layerGroup()
         // ok, create line
         const line = L.polyline(thisLinePts, {
-          color: this.colorFor(asset.force)
+          color: colorFor(asset.force)
         })
         res.addLayer(line)
 
         if (futureLinePts.length > 0) {
           const futureLine = L.polyline(futureLinePts, {
-            color: this.colorFor(asset.force),
+            color: colorFor(asset.force),
             weight: '3',
             dashArray: '4, 16',
             dashOffset: '0'
@@ -224,7 +190,7 @@ export default class MapAdjudicatingListener {
           }
           lastMarker = marker
         })
-        this.declutter(clusters, this.grid.delta / 3)
+        declutterMarkers(clusters, this.grid.delta / 3)
 
         turnMarkers.forEach((marker) => {
           // create marker
@@ -243,25 +209,28 @@ export default class MapAdjudicatingListener {
           popup += '<hr/>'
 
           // put in the form to set the platform state
-          popup += 'Proposed State:<ul>'
-          const platformStates = asset.platformTypeDetail.states
-          for (const key in platformStates) {
-            // TODO: only show the speed box if this state is mobile
-            // const stateDetail = platformStates[key]
-            const checked = key === marker.state ? 'checked' : ''
-            // TODO: attach onclick handler in next line
-            const stateCtrl = '<input type="radio" name="vehicle3" ' + checked + ' value="' + key + '">' + key + '</input><br/>'
-            popup += stateCtrl
+          if (marker.turn >= turnPlannedFor) {
+            popup += 'Proposed State:<ul>'
+            const platformStates = asset.platformTypeDetail.states
+            for (const key in platformStates) {
+              // TODO: only show the speed box if this state is mobile
+              // const stateDetail = platformStates[key]
+              const checked = key === marker.state ? 'checked' : ''
+              // TODO: attach onclick handler in next line
+              const stateCtrl = '<input type="radio" name="vehicle3" ' + checked + ' value="' + key + '">' + key + '</input><br/>'
+              popup += stateCtrl
+            }
+            popup += '</ul>'
+            popup += 'Speed:<input type="text" name="vehicle3"  value="' + marker.speed + '"></input><br/>'
+            popup += '<hr/>'  
           }
-          popup += '</ul>'
-          popup += 'Speed:<input type="text" name="vehicle3"  value="' + marker.speed + '"></input><br/>'
-          popup += '<hr/>'
           popup += '<ul>'
           if (marker.turn === turnPlannedFor) {
             // ok, we can accept the planned route up to here
             popup += '<li><button onclick=acceptTo("' + payload + ')" type="button">Accept to here</button></li>'
+          } else if (marker.turn >= turnPlannedFor) {
+            popup += '<li><button onclick=acceptTo("' + payload + ')"  type="button">Clear from here</button></li></ul>'
           }
-          popup += '<li><button onclick=acceptTo("' + payload + ')"  type="button">Clear from here</button></li></ul>'
 
           // TODO: create handler callbacks for these 'acceptTo' and 'clearFrom' events
           turnMarker.bindPopup(popup)
