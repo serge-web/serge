@@ -12,13 +12,26 @@ const controllHomeButton = opts => {
       // testing font awesome classes
       container.className = 'fa fa-expand'
 
+
+      // Firefox 1.0+
+      var isFirefox = typeof InstallTrigger !== 'undefined';
+      console.log(isFirefox)
+      if(isFirefox == true){
+        container.style.width = '34px'
+      } else {
+        container.style.width = '29.1px'
+        container.style.position = 'absolute'
+        container.style.top = '50.5px'
+        container.style.left = '-1.3px'
+      }
+      
+
       // sizes and colours
       container.style.backgroundColor = 'white'
       container.style.backgroundSize = '30px 30px'
       // outline to match the leaflet style
       // maybe the style should be handled by the CSS alone?
       container.style.border = '2px solid rgb(177, 177, 177)'
-      container.style.width = '34px'
       container.style.height = '30px'
       container.style.borderRadius = '5px'
 
@@ -39,10 +52,11 @@ const controllHomeButton = opts => {
         ]
 
         // flyToBounds (smoother but slower)
-        map.flyToBounds(bounds, 10)
+        //map.flyToBounds(bounds, 11)
 
         // fitBounds (faster but jerky)
-        // map.fitBounds(bounds);
+        map.fitBounds(bounds);
+        map.setZoom(9.4)
       }
 
       return container

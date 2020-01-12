@@ -22,11 +22,14 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     mapRef.current = L.map('map', {
       minZoom: 8,
       maxZoom: 12,
+      zoomSnap: 0.1,
       center: [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2],
       zoom: 10,
+      zoomDelta: 0.1,
       attributionControl: false,
       zoomAnimation: false
     })
+    
 
     mapRef.current.zoomControl.setPosition('topleft')
 
