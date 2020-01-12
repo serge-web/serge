@@ -103,13 +103,14 @@ export default class MapAdjudicatingListener {
     return hisColor
   }
 
-  showPlannedRoutesFor (marker, asset, turnPlannedFor) {
+  getPlannedRoutesFor (asset, turnPlannedFor) {
+    var res = null
     const planned = asset.plannedTurns
     if (planned) {
       const thisLinePts = [] // points up the current planned turn
       const futureLinePts = [] // points beyond the planned turn
       const turnMarkers = []
-      let lastCoord
+      let lastCoord = null
       for (const [key, route] of Object.entries(planned)) {
         const steps = route.route
         const turnNumber = parseInt(key.substr(1))
@@ -138,34 +139,35 @@ export default class MapAdjudicatingListener {
             }
           })
         }
+        // the data for the marker is common to both logic paths, declare it here
+        const payload = { name: key, coord: lastCoord, turn: turnNumber, state: route.state, speed: route.speed, asset: asset.name }
         if (lastCoord) {
-          turnMarkers.push({ name: key, coord: lastCoord, turn: turnNumber })
+          payload.coord = lastCoord
         } else {
-          // TODO: 
-          // special handling. if this the first leg, and the platform is
+          // special handling. if this a stationery, and the platform is
           // stationery, then we how a turn marker at the start point
-          const ptHex = this.grid.hexNamed(asset.location)
+          const ptHex = this.grid.hexNamed(asset.position)
           if (ptHex) {
-            turnMarkers.push({ name: key, coord: ptHex.centrePos, turn: turnNumber })
+            payload.coord = ptHex.centrePos
           }
+        }
+        if (payload.coord) {
+          turnMarkers.push(payload)
         }
       }
 
       // did we find any?
       if (thisLinePts.length > 0 || futureLinePts.length > 0) {
         // composite object to store line plus markers
-        const planned = L.layerGroup()
+        res = L.layerGroup()
         // ok, create line
         const line = L.polyline(thisLinePts, { color: this.colorFor(asset.force) })
-        planned.addLayer(line)
+        res.addLayer(line)
 
         if (futureLinePts.length > 0) {
           const futureLine = L.polyline(futureLinePts, { color: this.colorFor(asset.force), weight: '3', dashArray: '4, 16', dashOffset: '0' })
-          planned.addLayer(futureLine)
+          res.addLayer(futureLine)
         }
-
-        // this.plannedRoutes.addLayer(line)
-        marker.plannedRouteLine = planned
 
         turnMarkers.forEach((marker) => {
           // create marker
@@ -173,7 +175,26 @@ export default class MapAdjudicatingListener {
 
           // and the popup form for this marker
           const payload = { force: asset.force, asset: asset.name, turn: marker.name }
-          let popup = '<b></b>' + marker.name + '<br/><ul>'
+          let popup = '<b>' + marker.asset + ' ' + marker.name + '</b><ul>'
+          popup += 'State:' + marker.state + ' Speed:' + marker.speed + 'kts'
+          popup += '<hr/>'
+
+          // put in the form to set the platform state
+          popup += 'Current State:<ul>'
+          const platformStates = asset.platformTypeDetail.states
+          for (const key in platformStates) {
+            // TODO: only show the speed box if this state is mobile            
+            const stateDetail = platformStates[key]
+            console.log(stateDetail.mobile)
+            const checked = key === asset.state ? 'checked' : ''
+            // TODO: attach onclick handler in next line
+            const stateCtrl = '<input type="radio" name="vehicle3" ' + checked + ' value="' + key + '">' + key + '</input><br/>'
+            popup += stateCtrl
+          }
+          popup += '</ul>'
+          popup += 'Speed:<input type="text" name="vehicle3"  value="' + marker.speed + '"></input><br/>'
+          popup += '<hr/>'
+          popup += '<ul>'
           if (marker.turn === turnPlannedFor) {
             // ok, we can accept the planned route up to here
             popup += '<li><button onclick=acceptTo("' + payload + ')" type="button">Accept to here</button></li>'
@@ -187,10 +208,14 @@ export default class MapAdjudicatingListener {
             direction: 'right'
           })
 
-          planned.addLayer(turnMarker)
+          // store the force/asset name
+          res.name = asset.force + '_' + asset.name
+
+          res.addLayer(turnMarker)
         })
       }
     }
+    return res
   }
 
   /** listen to drag events on the supplied marker */
@@ -201,20 +226,34 @@ export default class MapAdjudicatingListener {
     const popupContent = this.popupFor(marker.asset)
     marker.bindPopup(popupContent).openPopup()
 
-    this.showPlannedRoutesFor(marker, marker.asset, 1)
-
     marker.on('mouseover', e => {
-      const thisPlannedRoute = marker.plannedRouteLine
-      if (thisPlannedRoute) {
-        // is it different to the current planned route?
-        const layers = this.plannedRoutes.getLayers()
-        if (layers.length > 0) {
-          const curRoute = layers[0]
-          if (curRoute !== marker) {
-            this.plannedRoutes.removeLayer(curRoute)
-          }
+      // create an id for this marker
+      const myName = marker.asset.force + '_' + marker.asset.name
+
+      // clear existing layers, if they're irrelevant
+      var myRoutePresent = false
+      const layers = this.plannedRoutes.getLayers()
+      if (layers.length > 0) {
+        const curRoute = layers[0]
+        if (layers.length > 1) {
+          console.error('too many layers' + layers.length)
         }
-        this.plannedRoutes.addLayer(thisPlannedRoute)
+        // is it different to the current planned route?
+        if (curRoute.name !== myName) {
+          this.plannedRoutes.removeLayer(curRoute)
+        } else {
+          // don't worry, we're already displaying our layer
+          myRoutePresent = true
+        }
+      }
+
+      if (!myRoutePresent) {
+        // ok, now create the route for this assset
+        const thisRoute = this.getPlannedRoutesFor(marker.asset, 1)
+        if (thisRoute) {
+          // and put it on the map
+          this.plannedRoutes.addLayer(thisRoute)
+        }
       }
     })
 
