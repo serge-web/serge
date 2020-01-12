@@ -34,7 +34,6 @@ export default class MapAdjudicationPendingListener {
 
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
-
     // remember we're listing to it
     this.registeredListeners.push(marker)
 
@@ -69,6 +68,9 @@ export default class MapAdjudicationPendingListener {
             return cell.sea
           } else if (marker.travelMode === 'air') {
             return true
+          } else {
+            console.error('Unexpected terrain type')
+            return false
           }
         })
       }
@@ -121,7 +123,11 @@ export default class MapAdjudicationPendingListener {
         marker.setLatLng(this.lastHex.centrePos)
 
         // and fire the callback
-        this.callback({ force: marker.force, name: marker.name, pos: this.lastHex.name })
+        this.callback({
+          force: marker.force,
+          name: marker.name,
+          pos: this.lastHex.name
+        })
       }
 
       // clear the line objects

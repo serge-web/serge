@@ -3,7 +3,10 @@ import L from 'leaflet'
    * The clusters object should contain a list of arrays of markers
    */
 export default function declutter (/* collection */ clusters, /* degrees */ gridDelta) {
-  for (const [loc, list] of Object.entries(clusters)) {
+  // note: we need to have the 'locIgnored' parameter in the next line, but it remains unsed
+  // This next line tells esLint not worry about it
+  /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "Ignored" }] */
+  for (const [locIgnored, list] of Object.entries(clusters)) {
     const len = list.length
     // note: we start at 1, since we let the first one stay in the middle
     for (let ctr = 0; ctr < len; ctr++) {

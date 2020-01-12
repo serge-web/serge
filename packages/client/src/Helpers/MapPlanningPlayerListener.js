@@ -44,7 +44,6 @@ export default class MapPlanningPlayerListener {
 
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
-
     // is it for the current force?
     if (marker.asset.force === this.force) {
       const popupContent = this.plannedModePopupFor(marker.asset)
@@ -112,6 +111,9 @@ export default class MapPlanningPlayerListener {
             return cell.sea
           } else if (marker.travelMode === 'air') {
             return true
+          } else {
+            console.error('Unexpected terrain type')
+            return false
           }
         })
 
