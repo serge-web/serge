@@ -4,7 +4,8 @@ import GridImplementation from '../../Helpers/GridImplementation'
 import MapAdjudicatingUmpireListener from '../../Helpers/MapAdjudicatingUmpireListener'
 import MapAdjudicatingPlayerListener from '../../Helpers/MapAdjudicatingPlayerListener'
 import MapAdjudicationPendingListener from '../../Helpers/MapAdjudicationPendingListener'
-import MapPlanningListener from '../../Helpers/MapPlanningListener'
+import MapPlanningPlayerListener from '../../Helpers/MapPlanningPlayerListener'
+import MapPlanningUmpireListener from '../../Helpers/MapPlanningUmpireListener'
 import markerFor from '../../Helpers/markerFor'
 import hasPendingForces from '../../Helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -156,7 +157,11 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
         }
         break
       case 'planning':
-        mapListenerRef.current = new MapPlanningListener(mapRef.current, gridImplRef.current)
+        if (myForceRef.current === 'umpire') {
+          mapListenerRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current)
+        } else {
+          mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current)
+        }
         break
       default:
         console.log('Error - unexpected game phase encountered in Mapping component')
