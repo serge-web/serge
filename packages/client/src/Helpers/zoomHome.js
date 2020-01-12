@@ -3,16 +3,20 @@ import L from 'leaflet'
 const controllHomeButton = opts => {
   L.Control.HomeButton = L.Control.extend({
     onAdd: function (map) {
+      // initalising the input button
       var container = L.DomUtil.create('input')
       container.type = 'button'
       container.title = 'Zoom Out'
+      // testing font awesome classes
       container.class = 'fa fa-expand'
 
+      // sizes and colours
       container.style.backgroundColor = 'white'
       container.style.backgroundSize = '30px 30px'
       container.style.width = '30px'
       container.style.height = '30px'
 
+      // hover events for mouseover
       container.onmouseover = function () {
         container.style.backgroundColor = 'pink'
       }
@@ -20,19 +24,21 @@ const controllHomeButton = opts => {
         container.style.backgroundColor = 'white'
       }
 
+      // click handler to allow the button to do things to the map
       container.onclick = function () {
-        console.log('WORKS: buttonClicked', opts.bounds, map)
-        console.log(opts.bounds[0][0])
-        console.log(opts.bounds[1][1])
-        // map.setView([13.33751, 43.08151], 9)
-        var bounds = [
+        // the logging 
+        console.log(opts.bounds)
+        // creating a bounds object to hold the bounds of the image
+        const bounds = [
           [opts.bounds[0][0], opts.bounds[0][1]],
           [opts.bounds[1][0], opts.bounds[1][1]]
         ];
         
+        // flyToBounds (smoother but slower)
         map.flyToBounds(bounds, 10);
 
-        // map.setView([opts.bounds[0][0], opts.bounds[1][1]], 9)
+        // fitBounds (faster but jerky)
+        // map.fitBounds(bounds);
       }
 
       return container
