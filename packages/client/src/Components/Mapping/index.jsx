@@ -14,7 +14,7 @@ import '../../Helpers/mousePosition'
 
 import './styles.scss'
 
-const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase, imageTop, imageLeft, imageBottom, imageRight }) => {
+const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPlatforms, phase, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
   const platformsLayerRef = useRef(null) // the platform markers
   const gridImplRef = useRef(null) // hexagonal grid
@@ -23,6 +23,7 @@ const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase
   const mapListenerRef = useRef(null) // listen for mouse drag events
   const myForceRef = useRef(selectedForce)
   const platformTypesRef = useRef(allPlatforms)
+  const currentTurnRef = useRef(currentTurn)
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -126,6 +127,9 @@ const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase
   }
 
   useEffect(() => {
+    // double-check where we are
+    console.log(new Date(), 'TURN:', phaseRef.current, currentTurnRef.current)
+
     if (mapListenerRef.current != null) {
       // remove the current listener
       mapListenerRef.current.clearListeners()
@@ -143,7 +147,7 @@ const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase
       case 'adjudication':
         if (myForceRef.current === 'umpire') {
           mapListenerRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current)
-        } else if (inForceLaydown) {
+        } else if (inForceLaydown && currentTurnRef.current === 0) {
           // this force has assets with location pending
           mapListenerRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc)
         } else {
@@ -191,13 +195,13 @@ const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase
               declareControlOf(force.name, asset.name, asset.platformType)
             }
 
-            mapListenerRef.current.listenTo(marker)
+            mapListenerRef.current.listenTo(marker, currentTurnRef.current)
             platformsLayerRef.current.addLayer(marker)
           }
         })
       }
     })
-  }, [forcesRef, phaseRef])
+  }, [forcesRef, phaseRef, currentTurnRef])
 
   return (<div id="map" className="mapping"></div>)
 }
