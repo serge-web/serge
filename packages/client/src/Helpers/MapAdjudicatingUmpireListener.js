@@ -51,7 +51,7 @@ export default class MapAdjudicatingListener {
 
     let perString = '<ul>'
     if (asset.perceptions) {
-      for (let key in asset.perceptions) {
+      for (const key in asset.perceptions) {
         const perception = asset.perceptions[key]
         const perType = perception.type ? perception.type : 'unknown'
         perString += '<li>' + key + ':' + perception.force + ', ' + perType
@@ -76,7 +76,7 @@ export default class MapAdjudicatingListener {
     let conditionStr = '<ul>'
     const pType = asset.platformTypeDetail
     if (pType.conditions) {
-      for (let key2 of pType.conditions) {
+      for (const key2 of pType.conditions) {
         const selected = asset.condition === key2 ? 'checked="checked"' : ''
         // TODO: attach onclick handler in next line
         const stateCtrl = '<input type="radio" name="vehicle3" ' + selected + ' value="' + key2 + '">' + key2 + '</input><br/>'
@@ -113,7 +113,6 @@ export default class MapAdjudicatingListener {
       for (const [key, route] of Object.entries(planned)) {
         const steps = route.route
         const turnNumber = parseInt(key.substr(1))
-        console.log('turn:' + turnNumber)
         // is there a planned route?
         if (steps) {
           // create new line
@@ -123,6 +122,14 @@ export default class MapAdjudicatingListener {
               if (turnNumber <= turnPlannedFor) {
                 thisLinePts.push(ptHex.centrePos)
               } else {
+                // is this the start of the future points?
+                if (futureLinePts.length === 0) {
+                  // do we have a preceding line?
+                  if (thisLinePts.length > 0) {
+                    // ok, start off with a bit from the end of the previous leg
+                    futureLinePts.push(thisLinePts[thisLinePts.length - 1])
+                  }
+                }
                 futureLinePts.push(ptHex.centrePos)
               }
               lastCoord = ptHex.centrePos
@@ -136,15 +143,15 @@ export default class MapAdjudicatingListener {
         }
       }
       // did we find any?
-      if (thisLinePts.length > 0) {
+      if (thisLinePts.length > 0 || futureLinePts.length > 0) {
         // composite object to store line plus markers
         const planned = L.layerGroup()
-        // ok, create line         
+        // ok, create line
         const line = L.polyline(thisLinePts, { color: this.colorFor(asset.force) })
         planned.addLayer(line)
 
         if (futureLinePts.length > 0) {
-          const futureLine = L.polyline(futureLinePts, { color: this.colorFor(asset.force), weight: '3', dashArray: '4, 4', dashOffset: '0' })
+          const futureLine = L.polyline(futureLinePts, { color: this.colorFor(asset.force), weight: '3', dashArray: '4, 16', dashOffset: '0' })
           planned.addLayer(futureLine)
         }
 
@@ -161,8 +168,6 @@ export default class MapAdjudicatingListener {
           if (marker.turn === turnPlannedFor) {
             // ok, we can accept the planned route up to here
             popup += '<li><button onclick=acceptTo("' + payload + ')" type="button">Accept to here</button></li>'
-          } else {
-            console.log('turns:', typeof marker.turn, typeof turnPlannedFor, marker.turn === turnPlannedFor)
           }
           popup += '<li><button onclick=acceptTo("' + payload + ')"  type="button">Clear from here</button></li></ul>'
 
@@ -183,7 +188,7 @@ export default class MapAdjudicatingListener {
     const popupContent = this.popupFor(marker.asset)
     marker.bindPopup(popupContent).openPopup()
 
-    this.showPlannedRoutesFor(marker, marker.asset, 3)
+    this.showPlannedRoutesFor(marker, marker.asset, 1)
 
     marker.on('mouseover', e => {
       const thisPlannedRoute = marker.plannedRouteLine
