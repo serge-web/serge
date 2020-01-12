@@ -30,6 +30,8 @@ export default class MapPlanningPlayerListener {
     // states
     // TODO: do we have concept of current speed?  Maybe take from history
     popup += plannedStateFor(asset.state, 0, asset.platformTypeDetail, asset.platformSpeeds)
+
+    // TODO: handler for this planned mode changing
     popup += '<input type="button" value="Save">'
 
     return popup
@@ -41,7 +43,16 @@ export default class MapPlanningPlayerListener {
     // is it for the current force?
     if (marker.asset.force === this.force) {
       const popupContent = this.plannedModePopupFor(marker.asset)
-      marker.bindPopup(popupContent).openPopup()  
+      marker.bindPopup(popupContent).openPopup()
+
+      // also give it some remaining allowance
+      const speeds = marker.asset.platformSpeeds
+      if (speeds && speeds.length > 0) {
+        const maxSpeed = speeds[speeds.length - 1]
+        const numCells = maxSpeed / 5
+        marker.allowance = numCells
+        marker.stepRemaining = numCells
+      }
     }
 
     marker.on('drag', e => {
