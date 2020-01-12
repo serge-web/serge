@@ -8,8 +8,8 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
   const [localState, setState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      selectedWargame: { label: 'MWARC-Initialised', value: 'http://localhost:8080/db/wargame-k53vnpwf' },
-      rolePassword: 'p3244'
+      selectedWargame: { label: 'MWARC-Initialised', value: 'http://localhost:8080/db/wargame-k5az6pcl' },
+      rolePassword: 'p2311'
     }
   )
   const [state, dispatch] = useStateValue()
