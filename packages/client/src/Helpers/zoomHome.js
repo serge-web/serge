@@ -5,10 +5,10 @@ const controllHomeButton = opts => {
     onAdd: function (map) {
       // initalising the input button (must be a button type for fontawesome icon to work)
       var container = L.DomUtil.create('button')
-      // the type of button 
+      // the type of button
       container.type = 'submit'
       // hover text
-      container.title = 'Zoom Out'
+      container.title = 'Show all'
       // testing font awesome classes
       container.className = 'fa fa-expand'
 
@@ -32,16 +32,14 @@ const controllHomeButton = opts => {
 
       // click handler to allow the button to do things to the map
       container.onclick = function () {
-        // the logging 
-        console.log(opts.bounds)
         // creating a bounds object to hold the bounds of the image
         const bounds = [
           [opts.bounds[0][0], opts.bounds[0][1]],
           [opts.bounds[1][0], opts.bounds[1][1]]
-        ];
-        
+        ]
+
         // flyToBounds (smoother but slower)
-        map.flyToBounds(bounds, 10);
+        map.flyToBounds(bounds, 10)
 
         // fitBounds (faster but jerky)
         // map.fitBounds(bounds);
@@ -53,7 +51,6 @@ const controllHomeButton = opts => {
       // Nothing to do here
     }
   })
-
   return new L.Control.HomeButton(opts)
 }
 
