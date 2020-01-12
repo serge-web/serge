@@ -99,33 +99,36 @@ export default class MapAdjudicatingListener {
       const futureLinePts = [] // points beyond the planned turn
       const turnMarkers = []
       let lastCoord = null
+
+      var extendLine = function (step, turnNumber, grid) {
+        const ptHex = grid.hexNamed(step)
+        if (ptHex) {
+          if (turnNumber <= turnPlannedFor) {
+            thisLinePts.push(ptHex.centrePos)
+          } else {
+            // is this the start of the future points?
+            if (futureLinePts.length === 0) {
+              // do we have a preceding line?
+              if (thisLinePts.length > 0) {
+                // ok, start off with a bit from the end of the previous leg
+                futureLinePts.push(thisLinePts[thisLinePts.length - 1])
+              }
+            }
+            futureLinePts.push(ptHex.centrePos)
+          }
+          lastCoord = ptHex.centrePos
+        } else {
+          console.log('failed to find hex cell for:', step)
+        }
+      }
+
       for (const [key, route] of Object.entries(planned)) {
         const steps = route.route
         const turnNumber = parseInt(key.substr(1))
         // is there a planned route?
         if (steps) {
           // create new line
-          steps.forEach((step) => {
-            const ptHex = this.grid.hexNamed(step)
-            if (ptHex) {
-              if (turnNumber <= turnPlannedFor) {
-                thisLinePts.push(ptHex.centrePos)
-              } else {
-                // is this the start of the future points?
-                if (futureLinePts.length === 0) {
-                  // do we have a preceding line?
-                  if (thisLinePts.length > 0) {
-                    // ok, start off with a bit from the end of the previous leg
-                    futureLinePts.push(thisLinePts[thisLinePts.length - 1])
-                  }
-                }
-                futureLinePts.push(ptHex.centrePos)
-              }
-              lastCoord = ptHex.centrePos
-            } else {
-              console.log('failed to find hex cell for:', step)
-            }
-          })
+          steps.forEach((step) => extendLine(step, turnNumber, this.grid))
         }
         // the data for the marker is common to both logic paths, declare it here
         const payload = {
@@ -220,6 +223,7 @@ export default class MapAdjudicatingListener {
             // TODO: handler for this button operation
             // ok, we can accept the planned route up to here
             popup += '<li><input type="button" value="Accept to here"></li>'
+            console.log('sending', payload)
           }
           if (marker.turn >= turnPlannedFor) {
             // TODO: handler for this button operation

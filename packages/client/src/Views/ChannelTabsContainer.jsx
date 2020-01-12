@@ -8,7 +8,6 @@ import { PlayerStateContext } from "../Store/PlayerUi";
 import "@serge/themes/dependencies/flexlayout-react.scss";
 import "@serge/themes/App.scss";
 import Mapping from "../Components/Mapping"
-import StateManager from "react-select";
 
 const json = {
   global: {

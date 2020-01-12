@@ -61,18 +61,18 @@ export default class MapAdjudicationPendingListener {
       })
 
       // do we need to generate the achievable cells?
-      if (!this.achievableCells.length) {
-        this.achievableCells = this.grid.cells.filter(cell => {
-          if (marker.travelMode === 'land') {
-            return cell.land
-          } else if (marker.travelMode === 'sea') {
-            return cell.sea
-          } else if (marker.travelMode === 'air') {
-            return true
-          }
-        })
-      }
-
+      this.achievableCells = this.achievableCells.filter(cell => {
+        if (marker.travelMode === 'land') {
+          return cell.land
+        } else if (marker.travelMode === 'sea') {
+          return cell.sea
+        } else if (marker.travelMode === 'air') {
+          return true
+        } else {
+          console.error('Unexpected terrain type')
+          return false
+        }
+      })
       // apply styling to the achievable cells
       this.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
 

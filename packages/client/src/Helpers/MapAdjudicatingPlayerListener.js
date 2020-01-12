@@ -82,6 +82,9 @@ export default class MapAdjudicatingPlayerListener {
             return cell.sea
           } else if (marker.travelMode === 'air') {
             return true
+          } else {
+            console.error('Unexpected terrain type')
+            return false
           }
         })
 
