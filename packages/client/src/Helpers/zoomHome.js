@@ -16,12 +16,11 @@ const controllHomeButton = opts => {
       container.style.backgroundColor = 'white'
       container.style.backgroundSize = '30px 30px'
       // outline to match the leaflet style
+      // maybe the style should be handled by the CSS alone?
       container.style.border = '2px solid rgb(177, 177, 177)'
       container.style.width = '34px'
       container.style.height = '30px'
       container.style.borderRadius = '5px'
-
-      console.log(container)
 
       // hover events for mouseover
       container.onmouseover = function () {
