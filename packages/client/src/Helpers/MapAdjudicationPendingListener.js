@@ -62,7 +62,7 @@ export default class MapAdjudicationPendingListener {
 
       // do we need to generate the achievable cells?
       if (!this.achievableCells.length) {
-        this.achievableCells = this.achievableCells.filter(cell => {
+        this.achievableCells = this.grid.cells.filter(cell => {
           if (marker.travelMode === 'land') {
             return cell.land
           } else if (marker.travelMode === 'sea') {
