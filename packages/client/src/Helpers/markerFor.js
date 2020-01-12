@@ -2,7 +2,6 @@ import L from 'leaflet'
 
 /** create a marker for the supplied set of details */
 export default (asset, force, myForce, platformTypes, assetIsDraggable, userIsUmpire) => {
-
   /** utility function to determine how we perceive another platform.
    * if it's our force, we know it's one of ours. But if it isn't our force
    * we need to see how it is perceived by our force

@@ -37,7 +37,7 @@ export default class MapAdjudicatingListener {
     })
 
     // and empty the array
-    this.registeredListeners = [] 
+    this.registeredListeners = []
   }
 
   handleVisClick (event) {

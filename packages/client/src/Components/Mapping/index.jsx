@@ -163,7 +163,6 @@ const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase
       // see if this force has any assets (white typically doesn't)
       if (force.assets) {
         force.assets.forEach(asset => {
-
           // set the asset location
           asset.loc = gridImplRef.current.hexNamed(asset.position).centrePos
 
@@ -198,7 +197,6 @@ const Mapping = ({ currentWargame, selectedForce, allForces, allPlatforms, phase
         })
       }
     })
-
   }, [forcesRef, phaseRef])
 
   return (<div id="map" className="mapping"></div>)
