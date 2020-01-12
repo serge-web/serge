@@ -2,6 +2,7 @@ import L from 'leaflet'
 import defaultHexStyle from './data/default-hex-style'
 import colorFor from './colorFor'
 import declutterMarkers from './declutterMarkers'
+import plannedStateFor from './plannedStateFor'
 
 export default class MapAdjudicatingListener {
   constructor (map, grid) {
@@ -210,19 +211,8 @@ export default class MapAdjudicatingListener {
 
           // put in the form to set the platform state
           if (marker.turn >= turnPlannedFor) {
-            popup += 'Proposed State:<ul>'
-            const platformStates = asset.platformTypeDetail.states
-            for (const key in platformStates) {
-              // TODO: only show the speed box if this state is mobile
-              // const stateDetail = platformStates[key]
-              const checked = key === marker.state ? 'checked' : ''
-              // TODO: attach onclick handler in next line
-              const stateCtrl = '<input type="radio" name="vehicle3" ' + checked + ' value="' + key + '">' + key + '</input><br/>'
-              popup += stateCtrl
-            }
-            popup += '</ul>'
-            popup += 'Speed:<input type="text" name="vehicle3"  value="' + marker.speed + '"></input><br/>'
-            popup += '<hr/>'  
+            // TODO: do we have concept of current speed?  Maybe take from history
+            popup += plannedStateFor(marker.state, 0, asset.platformTypeDetail.states)
           }
           popup += '<ul>'
           if (marker.turn === turnPlannedFor) {

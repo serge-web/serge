@@ -1,9 +1,11 @@
 import L from 'leaflet'
 import defaultHexStyle from './data/default-hex-style'
+import plannedStateFor from './plannedStateFor'
 
 export default class MapPlanningPlayerListener {
-  constructor (map, grid) {
+  constructor (map, grid, force) {
     this.grid = grid
+    this.force = force
 
     // create our two lines, one for planning, one for history
     this.planningLine = L.polyline([], {
@@ -23,8 +25,24 @@ export default class MapPlanningPlayerListener {
     this.lastHex = null // most recent cell travelled through
   }
 
+  plannedModePopupFor (asset) {
+    var popup = '<b>' + asset.name + '</b><br/>'
+    // states
+    // TODO: do we have concept of current speed?  Maybe take from history
+    popup += plannedStateFor(asset.state, 0, asset.platformTypeDetail.states)
+
+    return popup
+  }
+
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
+
+    // is it for the current force?
+    if (marker.asset.force === this.force) {
+      const popupContent = this.plannedModePopupFor(marker.asset)
+      marker.bindPopup(popupContent).openPopup()  
+    }
+
     marker.on('drag', e => {
       const cursorLoc = e.latlng
 

@@ -1,5 +1,6 @@
 import L from 'leaflet'
 import defaultHexStyle from './data/default-hex-style'
+import colorFor from './colorFor'
 
 export default class MapAdjudicationPendingListener {
   constructor (map, grid, callback) {
@@ -55,16 +56,8 @@ export default class MapAdjudicationPendingListener {
       this.startHex = this.grid.cellFor(cursorLoc)
 
       // set the route-line color
-      let hisColor
-      if (marker.force === 'Red') {
-        hisColor = '#ff0000'
-      } else if (marker.force === 'Blue') {
-        hisColor = '#000fff'
-      } else if (marker.force === 'Green') {
-        hisColor = '#19bd37'
-      }
       this.planningLine.setStyle({
-        color: hisColor
+        color: colorFor(marker.force)
       })
 
       // do we need to generate the achievable cells?

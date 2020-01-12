@@ -160,7 +160,7 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
         if (myForceRef.current === 'umpire') {
           mapListenerRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current)
         } else {
-          mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current)
+          mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current)
         }
         break
       default:
