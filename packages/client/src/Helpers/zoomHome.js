@@ -3,18 +3,25 @@ import L from 'leaflet'
 const controllHomeButton = opts => {
   L.Control.HomeButton = L.Control.extend({
     onAdd: function (map) {
-      // initalising the input button
-      var container = L.DomUtil.create('input')
-      container.type = 'button'
+      // initalising the input button (must be a button type for fontawesome icon to work)
+      var container = L.DomUtil.create('button')
+      // the type of button 
+      container.type = 'submit'
+      // hover text
       container.title = 'Zoom Out'
       // testing font awesome classes
-      container.class = 'fa fa-expand'
+      container.className = 'fa fa-expand'
 
       // sizes and colours
       container.style.backgroundColor = 'white'
       container.style.backgroundSize = '30px 30px'
-      container.style.width = '30px'
+      // outline to match the leaflet style
+      container.style.border = '2px solid rgb(177, 177, 177)'
+      container.style.width = '34px'
       container.style.height = '30px'
+      container.style.borderRadius = '5px'
+
+      console.log(container)
 
       // hover events for mouseover
       container.onmouseover = function () {

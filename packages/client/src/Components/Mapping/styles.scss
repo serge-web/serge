@@ -42,6 +42,12 @@
   }
 }
 
+.fa-expand {
+  position: relative;
+  top: -12px;
+  left: 0px;
+}
+
 $platforms: frigate, destroyer, mcmv, agi, fast-attack-craft, uas, merchant-vessel, fixed-wing-aircraft, fishing-vessel, missile, helicopter, boghammer, coastal-radar-site, datum, torpedo, pirate, mine;
 
 @each $platform in $platforms {
