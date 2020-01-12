@@ -60,6 +60,7 @@ export default (asset, force, myForce, platformTypes, assetIsDraggable, userIsUm
     res.asset = asset
     // and put hte platform detail into the asset
     asset.platformTypeDetail = pType
+    asset.platformSpeeds = pType.speedKts
 
     return res
   } else {
