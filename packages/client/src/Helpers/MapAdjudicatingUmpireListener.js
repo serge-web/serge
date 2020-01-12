@@ -140,8 +140,17 @@ export default class MapAdjudicatingListener {
         }
         if (lastCoord) {
           turnMarkers.push({ name: key, coord: lastCoord, turn: turnNumber })
+        } else {
+          // TODO: 
+          // special handling. if this the first leg, and the platform is
+          // stationery, then we how a turn marker at the start point
+          const ptHex = this.grid.hexNamed(asset.location)
+          if (ptHex) {
+            turnMarkers.push({ name: key, coord: ptHex.centrePos, turn: turnNumber })
+          }
         }
       }
+
       // did we find any?
       if (thisLinePts.length > 0 || futureLinePts.length > 0) {
         // composite object to store line plus markers
@@ -173,6 +182,10 @@ export default class MapAdjudicatingListener {
 
           // TODO: create handler callbacks for these 'acceptTo' and 'clearFrom' events
           turnMarker.bindPopup(popup)
+          turnMarker.bindTooltip(marker.name, {
+            permanent: true,
+            direction: 'right'
+          })
 
           planned.addLayer(turnMarker)
         })
