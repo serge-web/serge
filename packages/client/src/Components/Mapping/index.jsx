@@ -29,12 +29,7 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
       attributionControl: false,
       zoomAnimation: false
     })
-
-    mapRef.current.on('zoomend', () => {
-      console.log(mapRef.current.getZoom())
-    
-    })
-    
+   
     mapRef.current.zoomControl.setPosition('topleft')
 
     const tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {

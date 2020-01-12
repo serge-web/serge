@@ -45,23 +45,22 @@ const controllHomeButton = opts => {
 
       // listen for screen resize events
       window.addEventListener('resize', function(event){
-        // get the width of the screen after the resize event
-        var width = document.documentElement.clientWidth;
-        var height = document.documentElement.clientHeight;
-        console.log(height)
-        // tablets are between 768 and 922 pixels wide
-        // phones are less than 768 pixels wide
-        if (width < 1000) {
-            // set the zoom level to 10
-            map.setZoom(9);
-        } if(height < 747){
-            map.setZoom(9)
-        } 
-        else {
-            // set the zoom level to 8
-            map.setZoom(9.4);
-        }
-      });
+        // get the width/height of the screen after the resize event
+        const width  = window.innerWidth || document.documentElement.clientWidth || 
+        document.body.clientWidth;
+        const height = window.innerHeight|| document.documentElement.clientHeight|| 
+        document.body.clientHeight;
+
+
+        console.log(width, height);
+
+        const bounds = [
+          [opts.bounds[0][0], opts.bounds[0][1]],
+          [opts.bounds[1][0], opts.bounds[1][1]]
+        ]
+
+        map.fitBounds(bounds);
+      })
 
       // click handler to allow the button to do things to the map
       container.onclick = function () {
@@ -73,10 +72,8 @@ const controllHomeButton = opts => {
 
         // flyToBounds (smoother but slower)
         //map.flyToBounds(bounds, 11)
-
         // fitBounds (faster but jerky)
         map.fitBounds(bounds);
-        map.setZoom(9.4)
       }
 
       return container
