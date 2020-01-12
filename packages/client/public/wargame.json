@@ -642,7 +642,7 @@
 							}
 						},
 						"platformType": "merchant-vessel",
-						"position": "G00",
+						"position": "H00",
 						"state": "Transitting"
 					},
 					{
@@ -761,7 +761,7 @@
 						"plannedTurns": {
 							"T01": {
 								"route": [
-									"L02",
+									"M02",
 									"K03"
 								],
 								"speed": 10,
@@ -841,7 +841,7 @@
 						"plannedTurns": {
 							"T01": {
 								"route": [
-									"M09",
+									"N08",
 									"L09"
 								],
 								"speed": 10,
@@ -918,7 +918,7 @@
 						"plannedTurns": {
 							"T01": {
 								"route": [
-									"M11",
+									"N11",
 									"L10"
 								],
 								"speed": 10,
