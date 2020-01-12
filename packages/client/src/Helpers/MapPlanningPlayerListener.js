@@ -29,7 +29,8 @@ export default class MapPlanningPlayerListener {
     var popup = '<b>' + asset.name + '</b><br/>'
     // states
     // TODO: do we have concept of current speed?  Maybe take from history
-    popup += plannedStateFor(asset.state, 0, asset.platformTypeDetail.states)
+    popup += plannedStateFor(asset.state, 0, asset.platformTypeDetail, asset.platformSpeeds)
+    popup += '<input type="button" value="Save">'
 
     return popup
   }

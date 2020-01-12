@@ -199,7 +199,7 @@ export default class MapAdjudicatingListener {
             draggable: true
           })
 
-          // and the popup form for this marker
+          // collate the data ready to send on accept/clear
           const payload = {
             force: asset.force,
             asset: asset.name,
@@ -212,14 +212,18 @@ export default class MapAdjudicatingListener {
           // put in the form to set the platform state
           if (marker.turn >= turnPlannedFor) {
             // TODO: do we have concept of current speed?  Maybe take from history
-            popup += plannedStateFor(marker.state, 0, asset.platformTypeDetail.states)
+            popup += plannedStateFor(marker.state, 0, asset.platformTypeDetail, asset.platformSpeeds)
+            popup += '<hr/>'
           }
           popup += '<ul>'
           if (marker.turn === turnPlannedFor) {
+            // TODO: handler for this button operation
             // ok, we can accept the planned route up to here
-            popup += '<li><button onclick=acceptTo("' + payload + ')" type="button">Accept to here</button></li>'
-          } else if (marker.turn >= turnPlannedFor) {
-            popup += '<li><button onclick=acceptTo("' + payload + ')"  type="button">Clear from here</button></li></ul>'
+            popup += '<li><input type="button" value="Accept to here"></li>'
+          }
+          if (marker.turn >= turnPlannedFor) {
+            // TODO: handler for this button operation
+            popup += '<li><input type="button" value="Clear from here"></li></ul>'
           }
 
           // TODO: create handler callbacks for these 'acceptTo' and 'clearFrom' events
@@ -251,31 +255,40 @@ export default class MapAdjudicatingListener {
       // create an id for this marker
       const myName = marker.asset.force + '_' + marker.asset.name
 
-      // clear existing layers, if they're irrelevant
-      var myRoutePresent = false
-      const layers = this.plannedRoutes.getLayers()
-      if (layers.length > 0) {
-        const curRoute = layers[0]
-        if (layers.length > 1) {
-          console.error('too many layers' + layers.length)
+      // create a new route for this marker
+      const thisRoute = this.getPlannedRoutesFor(marker.asset, currentTurn + 1)
+
+      // we may not use the above route, but we only clear existing routes
+      // if we have new one
+      const clearRouteOnAnyHover = false
+
+      // do we have a new route to display?
+      if (thisRoute || clearRouteOnAnyHover) {
+        // clear existing layers, if they're irrelevant
+        var myRoutePresent = false
+        const layers = this.plannedRoutes.getLayers()
+        if (layers.length > 0) {
+          const curRoute = layers[0]
+          if (layers.length > 1) {
+            console.error('too many layers' + layers.length)
+          }
+          // is it different to the current planned route?
+          if (curRoute.name !== myName) {
+            this.plannedRoutes.removeLayer(curRoute)
+          } else {
+            // don't worry, we're already displaying our layer
+            myRoutePresent = true
+          }
         }
-        // is it different to the current planned route?
-        if (curRoute.name !== myName) {
-          this.plannedRoutes.removeLayer(curRoute)
-        } else {
-          // don't worry, we're already displaying our layer
-          myRoutePresent = true
+        if (!myRoutePresent) {
+        
+          if (thisRoute) {
+            // and put it on the map
+            this.plannedRoutes.addLayer(thisRoute)
+          }
         }
       }
 
-      if (!myRoutePresent) {
-        // ok, now create the route for this assset
-        const thisRoute = this.getPlannedRoutesFor(marker.asset, currentTurn + 1)
-        if (thisRoute) {
-          // and put it on the map
-          this.plannedRoutes.addLayer(thisRoute)
-        }
-      }
     })
 
     marker.on('drag', e => {
