@@ -452,6 +452,7 @@
 			{
 				"assets": [{
 						"name": "Frigate",
+						"condition": "Working",
 						"perceptions": {
 							"Red": {"force":"Blue", "type":"frigate"}
 						},
@@ -461,6 +462,7 @@
 					},
 					{
 						"name": "MPA",
+						"condition": "Working",
 						"perceptions": {
 						},
 						"platformType": "fixed-wing-aircraft",
@@ -469,6 +471,7 @@
 					},
 					{
 						"name": "Tanker",
+						"condition": "Working",
 						"perceptions": {
 							"Red": {"force":"Blue", "type":""}
 						},
@@ -495,6 +498,7 @@
 			{
 				"assets": [{
 						"name": "Dhow-A",
+						"condition": "Working",
 						"perceptions": {
 							"Blue": {"force":"Green", "type":""}
 						},
@@ -504,6 +508,7 @@
 					},
 					{
 						"name": "Dhow-B",
+						"condition": "Working",
 						"perceptions": {
 							"Blue": {"force":"Green", "type":"fishing-vessel"}
 						},
@@ -513,6 +518,7 @@
 					},
 					{
 						"name": "Dhow-C",
+						"condition": "Working",
 						"perceptions": {
 						},
 						"platformType": "fishing-vessel",
@@ -521,6 +527,7 @@
 					},
 					{
 						"name": "Missile-A",
+						"condition": "Working",
 						"perceptions": {
 						},
 						"platformType": "coastal-radar-site",
@@ -546,6 +553,7 @@
 			{
 				"assets": [{
 						"name": "Tanker-1",
+						"condition": "Working",
 						"perceptions": {
 							"Blue": {"force":"Green", "type":"merchant-vessel"}
 						},
@@ -639,6 +647,7 @@
 					},
 					{
 						"name": "Tanker-2",
+						"condition": "Disabled",
 						"perceptions": {
 							"Blue": {"force":"Green", "type":"merchant-vessel"},
 							"Red": {"force":"Green", "type":"merchant-vessel"}
@@ -745,6 +754,7 @@
 					},
 					{
 						"name": "Fisher-A",
+						"condition": "Working",
 						"perceptions": {
 							"Blue": {"force":"Green", "type":"merchant-vessel"}
 						},
@@ -824,6 +834,7 @@
 					},
 					{
 						"name": "Fisher-B",
+						"condition": "Working",
 						"perceptions": {
 							"Blue": {"force":"Green", "type":"merchant-vessel"}
 						},
@@ -899,6 +910,7 @@
 					},
 					{
 						"name": "Fisher-C",
+						"condition": "Destroyed",
 						"perceptions": {
 							"Blue": {"force":"Green", "type":"merchant-vessel"},
 							"Red": {"force":"Green", "type":"merchant-vessel"}
