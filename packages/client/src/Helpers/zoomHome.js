@@ -43,6 +43,26 @@ const controllHomeButton = opts => {
         container.style.backgroundColor = 'white'
       }
 
+      // listen for screen resize events
+      window.addEventListener('resize', function(event){
+        // get the width of the screen after the resize event
+        var width = document.documentElement.clientWidth;
+        var height = document.documentElement.clientHeight;
+        console.log(height)
+        // tablets are between 768 and 922 pixels wide
+        // phones are less than 768 pixels wide
+        if (width < 1000) {
+            // set the zoom level to 10
+            map.setZoom(9);
+        } if(height < 747){
+            map.setZoom(9)
+        } 
+        else {
+            // set the zoom level to 8
+            map.setZoom(9.4);
+        }
+      });
+
       // click handler to allow the button to do things to the map
       container.onclick = function () {
         // creating a bounds object to hold the bounds of the image

@@ -24,13 +24,17 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
       maxZoom: 12,
       zoomSnap: 0.1,
       center: [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2],
-      zoom: 10,
+      zoom: 9.4,
       zoomDelta: 0.1,
       attributionControl: false,
       zoomAnimation: false
     })
-    
 
+    mapRef.current.on('zoomend', () => {
+      console.log(mapRef.current.getZoom())
+    
+    })
+    
     mapRef.current.zoomControl.setPosition('topleft')
 
     const tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
