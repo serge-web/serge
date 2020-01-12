@@ -3,7 +3,7 @@ import defaultHexStyle from './data/default-hex-style'
 import colorFor from './colorFor'
 
 export default class MapAdjudicationPendingListener {
-  constructor(map, grid, callback) {
+  constructor (map, grid, callback) {
     this.grid = grid
     this.callback = callback
 
@@ -21,7 +21,7 @@ export default class MapAdjudicationPendingListener {
     this.registeredListeners = []
   }
 
-  clearListeners() {
+  clearListeners () {
     this.registeredListeners.forEach(marker => {
       // next lines commented out, until we've refactored JS into functions
       // marker.off('drag', dragHandler)
@@ -33,8 +33,7 @@ export default class MapAdjudicationPendingListener {
   }
 
   /** listen to drag events on the supplied marker */
-  listenTo(marker) {
-
+  listenTo (marker) {
     // remember we're listing to it
     this.registeredListeners.push(marker)
 
