@@ -3,7 +3,7 @@ import defaultHexStyle from './data/default-hex-style'
 import colorFor from './colorFor'
 
 export default class MapAdjudicationPendingListener {
-  constructor (map, grid, callback) {
+  constructor(map, grid, callback) {
     this.grid = grid
     this.callback = callback
 
@@ -21,7 +21,7 @@ export default class MapAdjudicationPendingListener {
     this.registeredListeners = []
   }
 
-  clearListeners () {
+  clearListeners() {
     this.registeredListeners.forEach(marker => {
       // next lines commented out, until we've refactored JS into functions
       // marker.off('drag', dragHandler)
@@ -33,7 +33,7 @@ export default class MapAdjudicationPendingListener {
   }
 
   /** listen to drag events on the supplied marker */
-  listenTo (marker) {
+  listenTo(marker) {
 
     // remember we're listing to it
     this.registeredListeners.push(marker)
@@ -61,18 +61,21 @@ export default class MapAdjudicationPendingListener {
       })
 
       // do we need to generate the achievable cells?
-      this.achievableCells = this.achievableCells.filter(cell => {
-        if (marker.travelMode === 'land') {
-          return cell.land
-        } else if (marker.travelMode === 'sea') {
-          return cell.sea
-        } else if (marker.travelMode === 'air') {
-          return true
-        } else {
-          console.error('Unexpected terrain type')
-          return false
-        }
-      })
+      if (!this.achievableCells.length) {
+        this.achievableCells = this.achievableCells.filter(cell => {
+          if (marker.travelMode === 'land') {
+            return cell.land
+          } else if (marker.travelMode === 'sea') {
+            return cell.sea
+          } else if (marker.travelMode === 'air') {
+            return true
+          } else {
+            console.error('Unexpected terrain type')
+            return false
+          }
+        })
+      }
+
       // apply styling to the achievable cells
       this.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
 
@@ -121,7 +124,11 @@ export default class MapAdjudicationPendingListener {
         marker.setLatLng(this.lastHex.centrePos)
 
         // and fire the callback
-        this.callback({ force: marker.force, name: marker.name, pos: this.lastHex.name })
+        this.callback({
+          force: marker.force,
+          name: marker.name,
+          pos: this.lastHex.name
+        })
       }
 
       // clear the line objects
