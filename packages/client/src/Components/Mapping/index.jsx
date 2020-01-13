@@ -15,7 +15,7 @@ import '../../Helpers/mousePosition'
 
 import './styles.scss'
 
-const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPlatforms, phase, imageTop, imageLeft, imageBottom, imageRight }) => {
+const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
   const platformsLayerRef = useRef(null) // the platform markers
   const gridImplRef = useRef(null) // hexagonal grid
@@ -98,18 +98,16 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
   const sendMessage = (mType, values) => {
     const curForce = allForces.find((force) => force.uniqid === selectedForce)
     const details = {
-      channel: 'mapChannel', // todo: add channel
+      channel: channelID,
       from: {
         force: curForce.name,
-        forceColor: curForce.forceColor,
-        role: curForce.selectedRole,
+        forceColor: curForce.color,
+        role: role,
         icon: curForce.icon
       },
       messageType: mType,
       timestamp: new Date().toISOString()
     }
-    console.log('Sending:', currentWargame, details, values)
-
     saveMapMessage(currentWargame, details, values)
   }
 
