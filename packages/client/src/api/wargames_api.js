@@ -811,6 +811,7 @@ export const postNewMessage = (dbName, details, message) => {
 // Copied from postNewMessage cgange and add new logic for Mapping
 // console logs will not works there
 export const postNewMapMessage = (dbName, details, message) => {
+  console.log('postNewMapMessage');
   const db = wargameDbStore.find((db) => db.name === dbName).db
   return new Promise((resolve, reject) => {
     db.put({
