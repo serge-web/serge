@@ -58,7 +58,15 @@ import L from 'leaflet'
                     bounds = L.latLngBounds(bounds);
                 }
             }
-            this.options.homeZoom = this._map.getBoundsZoom(bounds);
+
+            // Note: the original version stored the zoom level in this method
+            // But, after a browser resize the zoom level is wrong. So, we
+            // store the bounds object, and 
+            // do the processing in the _zoomHome method instead.
+            // this.options.homeZoom = this._map.getBoundsZoom(bounds);
+            if(bounds) {
+                this.options.homeBounds = bounds
+            }
             this.options.homeCoordinates = bounds.getCenter();
         },
 
@@ -86,6 +94,9 @@ import L from 'leaflet'
 
         _zoomHome: function (e) {
             //jshint unused:false
+            if(this.options.homeBounds) {
+                this.options.homeZoom = this._map.getBoundsZoom(this.options.homeBounds);
+            }
             this._map.setView(this.options.homeCoordinates, this.options.homeZoom);
         }
     });
