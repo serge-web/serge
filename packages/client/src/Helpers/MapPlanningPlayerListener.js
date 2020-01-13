@@ -2,6 +2,8 @@ import L from 'leaflet'
 import defaultHexStyle from './data/default-hex-style'
 import plannedStateFor from './plannedStateFor'
 import colorFor from './colorFor'
+// eslint-disable-next-line no-unused-vars
+import easyButton from 'leaflet-easybutton'
 
 export default class MapPlanningPlayerListener {
   constructor (map, grid, force, turnCompleteCallback) {
@@ -22,15 +24,63 @@ export default class MapPlanningPlayerListener {
 
     this.routeHexes = [] // hexes representing route
     this.routeLats = [] // lad-lngs for route
-    this.achievableCells = [] // hexes representing achievable area
+    this.achievableCells = [] // hexes representing achievable area this turn
     this.startHex = null // hex for start drag operation
     this.lastHex = null // most recent cell travelled through
+
+    this.currentMarker = null // the selected marker // TODO: it's only for development
+
+    // store some styling details, once, centrally
+
+    this.rangeStyle = {
+      fill: true,
+      color: '#ccc',
+      opacity: 1.0
+    }
+    this.routeStyle = {
+      fill: true,
+      color: '#249',
+      opacity: 0.2
+    }
+
+    // try to create a button
+    const context = this
+    L.easyButton('fa-dice-one', function (btn, map) {
+      console.log('immobile state selected')
+      context.platformStateAssigned(context.currentMarker, {
+        mobile: false
+      })
+    }).addTo(map)
+    L.easyButton('fa-dice-two', function (btn, map) {
+      console.log('mobile state & speed selected')
+      context.platformStateAssigned(context.currentMarker, {
+        mobile: true
+      })
+    }).addTo(map)
+    L.easyButton('fa-dice-three', function (btn, map) {
+      console.log('submit leg clicked')
+    }).addTo(map)
+  }
+
+  cellsValidForThisDomain ( /* array */ cells, /* string */ domain) {
+    return cells.filter(cell => {
+      switch (domain) {
+        case 'land':
+          return cell.land
+        case 'sea':
+          return cell.sea
+        case 'air':
+          return true
+        default:
+          return true
+      }
+    })
   }
 
   plannedModePopupFor (asset) {
     var popup = '<b>' + asset.name + '</b><br/>'
     // states
-    // TODO: do we have concept of current speed?  Maybe take from history
+    // TODO: do we have concept of current speed? Maybe take from history
     popup += plannedStateFor(asset.state, 0, asset.platformTypeDetail, asset.platformSpeeds)
 
     // reset the route
@@ -49,30 +99,134 @@ export default class MapPlanningPlayerListener {
       const popupContent = this.plannedModePopupFor(marker.asset)
       marker.bindPopup(popupContent).openPopup()
 
-      // also give it some remaining allowance
-      const speeds = marker.asset.platformSpeeds
-      if (speeds && speeds.length > 0) {
-        const maxSpeed = speeds[speeds.length - 1]
-        const numCells = maxSpeed / 5
-        marker.allowance = numCells
-        marker.stepRemaining = numCells
-      }
+      marker.on('click', e => {
+        if (this.currentMarker) {
+          // do any cleaning up necessary
+        }
+        // we have to trick module by pushing capturing marker - so we know
+        // who to advance.
+        this.currentMarker = marker
+      })
+
+      // ok, the popup will eventually manage state
+      console.log(marker)
+      marker.options.draggable = false
+    }
+  }
+
+  clearAchievableCells () {
+    this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
+    this.achievableCells = []
+  }
+
+  updateAchievableCellsFor (location, range, travelMode) {
+    // work out the cells in range
+    if (range < 100) {
+      this.achievableCells = this.grid.hexesInRange(location, range)
+    } else {
+      // just give him the whole area
+      this.achievableCells = this.grid.cells
     }
 
-    marker.on('drag', e => {
-      const cursorLoc = e.latlng
+    // filter the achievable cells for his domain
+    this.achievableCells = this.cellsValidForThisDomain(this.achievableCells, travelMode)
 
-      const rangeStyle = {
-        fill: true,
-        color: '#ccc',
-        opacity: 1.0
-      }
-      const routeStyle = {
-        fill: true,
-        color: '#249',
-        opacity: 0.2
+    // plot the available range
+    this.achievableCells.forEach(cell => cell.polygon.setStyle(this.rangeStyle))
+  }
+
+  platformStateAssigned (marker, newState) {
+    // ok, is new state mobile?
+    if (newState.mobile) {
+      marker.dragging.enable()
+    } else {
+      marker.dragging.disable()
+    }
+
+    if (newState.mobile) {
+      // ok, get ready for step planning & dragging
+      this.startHex = this.grid.cellFor(marker.asset.loc)
+
+      // calculate the steps remaining
+      const range = 4
+      const allowance = range
+
+      // store the steps remaining
+      marker.planning = {
+        allowance: range,
+        remaining: allowance
       }
 
+      // do we already have achievable cells?
+      // TODO: our logic _Should_ clear these at the end of a leg
+      this.clearAchievableCells()
+
+      this.updateAchievableCellsFor(this.startHex, marker.planning.allowance, marker.travelMode)
+
+      // start looping, to allow for reducing range
+      marker.on('drag', e => {
+        const cursorLoc = e.latlng
+        const cursorHex = this.grid.cellFor(cursorLoc)
+
+        // is this location safe?
+        if (!this.achievableCells.includes(cursorHex)) {
+          // drop out, we can't handle it
+          return
+        }
+
+        // ok, we have a valid location. clear the existing route
+        this.routeLats = []
+        this.planningLine.setLatLngs([cursorLoc, cursorLoc])
+
+        // clear the old cells
+        this.routeHexes.forEach(cell => {
+          if (this.achievableCells.includes(cell)) {
+            cell.polygon.setStyle(this.rangeStyle)
+          } else {
+            cell.polygon.setStyle(defaultHexStyle)
+          }
+        })
+
+        // do we know the drag start?
+        if (!this.startHex) {
+          // drag operation just started
+          this.startHex = cursorHex
+        } else {
+          // mid-drag
+          this.lastHex = cursorHex
+        }
+
+        // calculate the route
+        let newRoute = this.grid.hexesBetween(this.startHex, this.lastHex)
+
+        // if we have a restricted possible region,
+        // trim to it
+        if (this.achievableCells) {
+          newRoute = newRoute.filter(cell => this.achievableCells.includes(cell))
+        }
+
+        // and generate new cells
+        this.routeLats = []
+        this.routeHexes = newRoute
+        this.routeHexes.forEach(cell => {
+          cell.polygon.setStyle(this.routeStyle)
+          this.routeLats.push(cell.centrePos)
+        })
+
+        if (this.routeLats.length > 1) {
+          this.planningLine.setLatLngs(this.routeLats)
+        }
+      })
+      marker.on('dragend', e => {
+      })
+    }
+  }
+
+  oldHandler (marker) {
+    const cursorLoc = 1
+    const rangeStyle = 3
+    const routeStyle = {}
+    marker.on('dragend', e => {
       // hvae we calculated the achievable cells?
       if (this.achievableCells.length === 0) {
         // no, we must be starting a new line
@@ -82,12 +236,9 @@ export default class MapPlanningPlayerListener {
           this.planningLine.setLatLngs([cursorLoc, cursorLoc])
         }
 
-        this.startHex = this.grid.cellFor(cursorLoc)
-
         // limit distance of travel
         if ('stepRemaining' in marker) {
           console.log('calc range:', marker)
-          this.achievableCells = this.grid.hexesInRange(this.startHex, marker.stepRemaining)
         } else {
           // nope, allow travel to anywhere
           console.log('unlimited range:', marker)
@@ -216,7 +367,7 @@ export default class MapPlanningPlayerListener {
           // cheat. if we've consumed distance, give it
           // another allowance
           // if (marker.stepRemaining === 0) {
-          //  marker.stepRemaining = marker.allowance
+          // marker.stepRemaining = marker.allowance
           // }
         }
 
@@ -236,7 +387,11 @@ export default class MapPlanningPlayerListener {
       if (marker.stepRemaining === 0) {
         if (marker.allowance >= 0) {
           // ok, fire the callback
-          const payload = { force: marker.asset.force, asset: marker.asset.name, route: marker.priorLegs }
+          const payload = {
+            force: marker.asset.force,
+            asset: marker.asset.name,
+            route: marker.priorLegs
+          }
           this.turnCompleteCallback(payload)
 
           // and do some tidying up
