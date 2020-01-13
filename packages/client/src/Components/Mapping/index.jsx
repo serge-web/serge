@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+
 import L from 'leaflet'
 import GridImplementation from '../../Helpers/GridImplementation'
 import MovementListener from '../../Helpers/MovementListener'
@@ -8,6 +9,7 @@ import markerFor from '../../Helpers/markerFor'
 import '../../Helpers/mousePosition'
 
 import './styles.scss'
+import './leaflet.zoomhome.js'
 
 const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null)
@@ -23,17 +25,21 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
       maxZoom: 12,
       center: [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2],
       zoom: 10,
+      zoomControl: false,
       attributionControl: false,
       zoomAnimation: false
     })
 
-    mapRef.current.zoomControl.setPosition('topleft')
+    const zoomHome = L.Control.zoomHome();
+    zoomHome.addTo(mapRef.current);    
 
     const tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
       attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
     })
 
     const imageBounds = [[imageTop, imageLeft], [imageBottom, imageRight]]
+
+    zoomHome.setHomeBounds(imageBounds)
 
     tileRef.current = L.tileLayer('./tiles/{z}/{x}/{y}.png', {
       minZoom: 8,
