@@ -25,6 +25,8 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
       maxZoom: 12,
       center: [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2],
       zoom: 10,
+      zoomDelta: 0.25,
+      zoomSnap: 0.25,
       zoomControl: false,
       attributionControl: false,
       zoomAnimation: false
