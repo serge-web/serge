@@ -101,10 +101,47 @@ export default class MapAdjudicatingListener {
    * should be perpendicular to the leg that is present
    * */
   getTurnMarkerOrientationFor (/* latlng */ pMinus1, /* latlng */ p, /* latlng */ pPlus1) {
-    console.log(pMinus1, p, pPlus1)
+    var point = Object.values(p)
+    var arr1;
+    if(!pMinus1){
+      arr1 = point
+    } else {
+      arr1 = Object.values(pMinus1)
+    }
+    
+    var arr2 = Object.values(pPlus1)
 
+    var p1 = {
+        x: arr1[0],
+        y: arr1[1]
+    };
+
+    var p2 = {
+        x: arr2[0],
+        y: arr2[1]
+    };
+
+    var dLon = (arr1[1] - arr2[1])
+
+    var lat1 = arr1[0]
+    var lat2 = arr2[0]
+
+    var lon1 = arr1[1]
+    var lon2 = arr2[1]
+
+    var y = Math.sin(dLon) * Math.cos(lat2)
+    var x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon)
+
+    var brng = Math.atan2(y, x)
+
+    brng = brng * 180 / Math.PI;
+    brng = (brng + 360) % 360
+    brng = 360 - brng // count degrees clockwise - remove to make counter-clockwise
+
+
+    console.log(brng)
+    return brng;
     // note: we may have some missing fields if it's at the start/end of the line
-    return 34
   }
 
   getPlannedRoutesFor (asset, turnPlannedFor) {
@@ -117,7 +154,10 @@ export default class MapAdjudicatingListener {
       let lastCoordInRoute = null
       let posMinus1 = null
       let posMinus2 = null
+      let pMinus1 = null
+      let pPlus1 = null
       let turnPending = false
+      const turnMarker = null
 
       const context = this
 
@@ -260,42 +300,35 @@ export default class MapAdjudicatingListener {
 
         turnMarkers.forEach((marker) => {
           // create marker
+
+          // here the code breaks, I want to take the returned degree direction and save it to a variable and check if it is between certain numbers
+          var angleResult = angleFromCoordinate(pMinus1, pMinus1, pPlus1, pPlus1)
           
-          // const eachCoordLon = Object.values(marker.coord)
-
-          // the function to convert two pairs of latlng (markers) into degrees to set the icon turn angle
-          // arguments are lat1, lon1 (first) lat2, lon2 (second) and so on
-          function angleFromCoordinate(lat1, lon1, lat2, lon2) {
-            var p1 = {
-                x: lat1,
-                y: lon1
-            };
-            //console.log(p1)
-        
-            var p2 = {
-                x: lat2,
-                y: lon2
-            };
-            //console.log(p2)
-
-            // angle in radians
-            var angleRadians = Math.atan2(p2.y - p1.y, p2.x - p1.x);
-            // angle in degrees
-            var angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
-        //    console.log(angleDeg);
-            return angleDeg;
+          // need to check if the value is between these values
+          // greater than 90 but less than 180 = East to South 
+          if(angleResult > 90 && angleResult < 180){
+            turnMarker = L.marker(marker.coord, {
+              draggable: true,
+              icon: turnRightIcon
+            })
           }
-
-          // hard coded as basically this is where I am stuck.. I need to be able to compare the first with the second, then the second with the third and so on until there are no markers left
-          angleFromCoordinate(13.358828984124182, 43.104098900000004, 13.358828984124182, 43.104098900000004)
+          if(angleResult > 180 && angleResult < 270){
+            turnMarker = L.marker(marker.coord, {
+              draggable: true,
+              icon: turnLeftIcon
+            })
+          }
+          if(angleResult > 270 && angleResult < 360){
+            turnMarker = L.marker(marker.coord, {
+              draggable: true,
+              icon: turnEndIcon
+            })
+          }
 
           // console.log(latLngs)
           // console.log(eachCoordLon[1])
 
-          const turnMarker = L.marker(marker.coord, {
-            draggable: true
-            // icon: customIcon
-          })
+
 
 
           // collate the data ready to send on accept/clear
