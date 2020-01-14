@@ -9,6 +9,7 @@ export default class MapPlanningPlayerListener {
   constructor (map, grid, force, turnCompleteCallback) {
     this.grid = grid
     this.force = force
+    this.map = map
     this.turnCompleteCallback = turnCompleteCallback
 
     // create our two lines, one for planning, one for history
@@ -145,12 +146,6 @@ export default class MapPlanningPlayerListener {
    * UI accordingly
    */
   platformStateAssigned (/* object */marker, /* object */newState) {
-    // ok, is new state mobile?
-    if (newState.mobile) {
-      marker.dragging.enable()
-    } else {
-      marker.dragging.disable()
-    }
 
     if (newState.mobile) {
       // ok, get ready for step planning & dragging
@@ -170,16 +165,31 @@ export default class MapPlanningPlayerListener {
       // TODO: our logic _Should_ clear these at the end of a leg
       this.clearAchievableCells()
 
+      // plot the achievable cells for this distance
       this.updateAchievableCellsFor(this.startHex, marker.planning.allowance, marker.travelMode)
 
-      // start looping, to allow for reducing range
-      marker.on('drag', e => {
+      // also create a new marker, used to plot the path
+      const planningMarker = L.marker(marker.asset.loc, { draggable: 'true' })
+      planningMarker.addTo(this.map)
+
+      // set the route-line color
+      const hisColor = colorFor(marker.force)
+      this.planningLine.setStyle({
+        color: hisColor
+      })
+      this.historyLine.setStyle({
+        color: hisColor
+      })
+
+      // register as drag/drop listener
+      planningMarker.on('drag', e => {
         const cursorLoc = e.latlng
         const cursorHex = this.grid.cellFor(cursorLoc)
 
         // is this location safe?
         if (!this.achievableCells.includes(cursorHex)) {
-          // drop out, we can't handle it
+          // drop out, we can't handle it - so we
+          // won't be changing any data based on it
           return
         }
 
