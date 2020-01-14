@@ -9,6 +9,8 @@ import markerFor from '../../Helpers/markerFor'
 import '../../Helpers/mousePosition'
 
 import './styles.scss'
+
+// TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
 
 const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
