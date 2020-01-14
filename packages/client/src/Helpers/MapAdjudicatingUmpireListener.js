@@ -3,6 +3,11 @@ import defaultHexStyle from './data/default-hex-style'
 import colorFor from './colorFor'
 import declutterMarkers from './declutterMarkers'
 import plannedStateFor from './plannedStateFor'
+import greenCircle from './data/green-circle.png'
+import turnLeft from './data/turn-left.png'
+import turnRight from './data/turn-right.png'
+import turnEnd from './data/turn-end.png'
+
 
 export default class MapAdjudicatingListener {
   constructor (map, grid) {
@@ -196,11 +201,77 @@ export default class MapAdjudicatingListener {
         })
         declutterMarkers(clusters, this.grid.delta / 3)
 
+        const turnRightIcon = L.icon({
+          iconUrl: turnRight,
+          iconSize: [15, 15], // size of the icon
+        });
+      
+        const turnLeftIcon = L.icon({
+          iconUrl: turnLeft,
+          iconSize: [15, 15], // size of the icon
+        });
+
+        const turnEndIcon = L.icon({
+          iconUrl: turnEnd,
+          iconSize: [15, 15], // size of the icon
+        });
+
         turnMarkers.forEach((marker) => {
           // create marker
+
+          // here I want to get the latlng of each marker that has been created
+          const eachCoord = Object.values(marker)
+          // trying a few different methods
+          const coordObj = Object.values(marker.coord)
+          // coordObj is the best
+          const latLngs = Object.values(eachCoord[1])
+          console.log(coordObj)
+
+          // trying to loop through the cord obj
+          Object.entries(coordObj).map(obj => {
+            const key   = obj[0];
+            const value = obj[1];
+            //console.log(key)
+            console.log(value)
+            // do whatever you want with those values.
+          });
+          
+          // const eachCoordLon = Object.values(marker.coord)
+
+          // the function to convert two pairs of latlng (markers) into degrees to set the icon turn angle
+          // arguments are lat1, lon1 (first) lat2, lon2 (second) and so on
+          function angleFromCoordinate(lat1, lon1, lat2, lon2) {
+            var p1 = {
+                x: lat1,
+                y: lon1
+            };
+            //console.log(p1)
+        
+            var p2 = {
+                x: lat2,
+                y: lon2
+            };
+            //console.log(p2)
+
+            // angle in radians
+            var angleRadians = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+            // angle in degrees
+            var angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+            console.log(angleDeg);
+            return angleDeg;
+          }
+
+          // hard coded as basically this is where I am stuck.. I need to be able to compare the first with the second, then the second with the third and so on until there are no markers left
+          angleFromCoordinate(13.358828984124182, 43.104098900000004, 13.358828984124182, 43.104098900000004)
+
+          // console.log(latLngs)
+          // console.log(eachCoordLon[1])
+
           const turnMarker = L.marker(marker.coord, {
             draggable: true
+            // icon: customIcon
           })
+
 
           // collate the data ready to send on accept/clear
           const payload = {
@@ -241,6 +312,7 @@ export default class MapAdjudicatingListener {
           res.name = asset.force + '_' + asset.name
 
           res.addLayer(turnMarker)
+          console.log(turnMarkers)
         })
       }
     }
