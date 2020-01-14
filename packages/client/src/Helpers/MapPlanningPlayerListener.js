@@ -62,7 +62,10 @@ export default class MapPlanningPlayerListener {
     }).addTo(map)
   }
 
-  cellsValidForThisDomain ( /* array */ cells, /* string */ domain) {
+  /** create a new list of cells, that have been filtered to those
+   * that are applicable to the provided domain
+   */
+  cellsValidForThisDomain (/* array */ cells, /* string */ domain) {
     return cells.filter(cell => {
       switch (domain) {
         case 'land':
@@ -119,10 +122,13 @@ export default class MapPlanningPlayerListener {
     this.achievableCells = []
   }
 
-  updateAchievableCellsFor (location, range, travelMode) {
+  /** we're entering a new planning step - calculate which cells are 
+   * achievable given the range remaining
+   */
+  updateAchievableCellsFor (/* hex */location, /* int */rangeRemaining, /* string */travelMode) {
     // work out the cells in range
-    if (range < 100) {
-      this.achievableCells = this.grid.hexesInRange(location, range)
+    if (rangeRemaining < 100) {
+      this.achievableCells = this.grid.hexesInRange(location, rangeRemaining)
     } else {
       // just give him the whole area
       this.achievableCells = this.grid.cells
@@ -135,7 +141,10 @@ export default class MapPlanningPlayerListener {
     this.achievableCells.forEach(cell => cell.polygon.setStyle(this.rangeStyle))
   }
 
-  platformStateAssigned (marker, newState) {
+  /** player has indicated the planned state for a platform. Update the
+   * UI accordingly
+   */
+  platformStateAssigned (/* object */marker, /* object */newState) {
     // ok, is new state mobile?
     if (newState.mobile) {
       marker.dragging.enable()
