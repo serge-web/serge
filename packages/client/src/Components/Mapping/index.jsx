@@ -123,8 +123,8 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
     console.log('User can control:', name)
   }
 
-  const turnComplete = (payload) => {
-    console.log('Planned Route:', payload)
+  const routeComplete = (/* string */force, /* string */asset, /* object */payload) => {
+    console.log('Planned Route:', force, asset, payload)
   }
 
   const clearControlledAssets = () => {
@@ -165,7 +165,7 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
           mapListenerRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current)
         } else {
 
-          mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current, turnComplete)
+          mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current, currentTurnRef.current, routeComplete)
         }
         break
       default:

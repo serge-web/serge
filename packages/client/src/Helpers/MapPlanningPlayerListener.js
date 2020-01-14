@@ -2,6 +2,7 @@ import L from 'leaflet'
 import defaultHexStyle from './data/default-hex-style'
 import plannedStateFor from './plannedStateFor'
 import colorFor from './colorFor'
+import padInteger from './padInteger'
 // eslint-disable-next-line no-unused-vars
 import easyButton from 'leaflet-easybutton'
 
@@ -9,11 +10,12 @@ import easyButton from 'leaflet-easybutton'
 import glyph from 'leaflet.icon.glyph'
 
 export default class MapPlanningPlayerListener {
-  constructor (map, grid, force, turnCompleteCallback) {
+  constructor (map, grid, force, turn, routeCompleteCallback) {
     this.grid = grid
     this.force = force
     this.map = map
-    this.turnCompleteCallback = turnCompleteCallback
+    this.routeCompleteCallback = routeCompleteCallback
+    this.turn = turn
 
     // create our two lines, one for planning, one for history
     this.routeLine = L.polyline([], {
@@ -32,14 +34,19 @@ export default class MapPlanningPlayerListener {
     this.routeHexes = [] // hexes representing route
     this.routeLats = [] // lad-lngs for route
 
+    this.plannedLegs = [] // collated set of data, ready for transmission
+
     this.achievableCells = [] // hexes representing achievable area this turn
     this.startHex = null // hex for start drag operation
     this.lastHex = null // most recent cell travelled through
 
     this.currentMarker = null // the selected marker // TODO: it's only for development
+    this.currentTurn = null // for dev, the turn that was clicked on
+
+    // use layer groups to store data - so we can confidently remove them
+    this.waypointMarkers = L.layerGroup().addTo(map)
 
     // store some styling details, once, centrally
-
     this.rangeStyle = {
       fill: true,
       color: '#ccc',
@@ -66,9 +73,29 @@ export default class MapPlanningPlayerListener {
     this.createEasyButtonFor(map, 'fa-dice-three', 'reset leg', function (btn, map) {
       context.resetCurrentLeg()
     })
-    this.createEasyButtonFor(map, 'fa-dice-four', 'submit leg so far', function (btn, map) {
+    this.createEasyButtonFor(map, 'fa-dice-four', 'submit route', function (btn, map) {
+      context.submitWholeRoute(context.currentMarker)
+    })
+    this.createEasyButtonFor(map, 'fa-dice-five', 'clear last leg', function (btn, map) {
       context.submitLegComplete()
     })
+    this.createEasyButtonFor(map, 'fa-dice-six', 'clear route', function (btn, map) {
+      context.submitLegComplete()
+    })
+  }
+
+  /** the user has finished planning the route for this platform
+   * send the data to the callback, and prepare for the next planned route
+   */
+  submitWholeRoute (/* object */ asset, /* array<routes */ routes) {
+    // send the callback
+    this.routeCompleteCallback(asset.force, asset.name, this.plannedLegs)
+
+    // remove the planning leg & markers
+
+    // clear the marker
+    this.currentMarker = null
+    this.clearOnNewLeg()
   }
 
   createEasyButtonFor (map, icon, title, callback) {
@@ -98,6 +125,13 @@ export default class MapPlanningPlayerListener {
           return true
       }
     })
+  }
+
+  /** produce a turn name in the form T01
+   * 
+   */
+  turnNameFor (/* int */ turn) {
+    return 'T' + padInteger(turn, 2)
   }
 
   plannedModePopupFor (asset) {
@@ -180,6 +214,7 @@ export default class MapPlanningPlayerListener {
     this.plannedLats = []
     this.routeLats = []
     this.routeHexes = []
+    this.plannedLegs = []
   }
 
   /** player has indicated the planned state for a platform. Update the
@@ -215,11 +250,19 @@ export default class MapPlanningPlayerListener {
       // Creates a red marker with the coffee icon
       const redMarker = L.icon.glyph({
         prefix: 'fa',
-        glyph: 'compass'
+        glyph: 'location-arrow',
+        glyphSize: '13px'
       })
 
-      const planningMarker = L.marker(marker.asset.loc, { icon: redMarker, draggable: 'true' })
-      planningMarker.addTo(this.map)
+      const planningMarker = L.marker(marker.asset.loc, { 
+        icon: redMarker,
+        draggable: 'true',
+        zIndexOffset: 1000
+      })
+      planningMarker.addTo(this.waypointMarkers)
+
+      // put the next turn in the planning marker
+      planningMarker.planningFor = this.currentTurn + 1
 
       // set the route-line color
       this.updateRouteLinesForForce(marker.force, [this.routeLine, this.plannedLine])
@@ -313,34 +356,37 @@ export default class MapPlanningPlayerListener {
 
         // if we have no more leg, push this one, and give us a fresh allowance
         if (marker.planning.remaining === 0) {
-          const hexList = this.simplifyHexes(this.plannedHexes)
-          this.turnCompleteCallback({
-            force: marker.force,
-            asset: marker.asset.name,
-            turn: 'T02',
-            route: hexList
-          })
+          const turnString = this.turnNameFor(planningMarker.planningFor)
+          // capture this planned leg
+          const hexList = this.simplifyHexes(this.routeHexes)
+          this.plannedLegs.push({ turn: turnString, route: hexList })
           marker.planning.remaining = marker.planning.allowance
 
           // show a waypoint marker, for the end of turn
-          const turnIcon = L.icon.glyph({
+          const waypointIcon = L.icon.glyph({
             prefix: 'fa',
             glyph: 'pause'
           })
 
-          const turnMarker = L.marker(cursorLoc, { icon: turnIcon, draggable: 'false' })
-//          const turnMarker = L.marker(cursorLoc, { draggable: 'false' })
-          console.log('Planning marker:', turnMarker)
-          turnMarker.addTo(this.map)
-          turnMarker.dragging.disable()
+          const waypointMarker = L.marker(cursorLoc, {
+            icon: waypointIcon, 
+            draggable: 'false',
+            title: turnString
+          })
+          console.log('Planning marker:', waypointMarker)
+          waypointMarker.addTo(this.waypointMarkers)
+          waypointMarker.dragging.disable()
 
           // give it a form to clear from this point
-          const popupContent = '<b>Turn T02</b><ul><li>[Reset from there]</li></ul>'
-          turnMarker.bindPopup(popupContent)
+          const waypointPopupContent = '<b>Turn T02</b><ul><li>[Reset from there]</li></ul>'
+          waypointMarker.bindPopup(waypointPopupContent)
 
-          // remove and replace the planning marker, to put it at the front
-          planningMarker.remove(this.map)
-          planningMarker.addTo(this.map)
+          // put the next turn in the planning marker
+          planningMarker.planningFor += 1
+
+          // we should listen for the planning marker to be clicked, so we can send the legs
+          const endOfRoutePopup = '<b>Route for' + marker.asset.name + '</b><ul><li>[Submit]</li><li>[Clear this leg]</li><li>[Clear all]</li></ul>'
+          planningMarker.bindPopup(endOfRoutePopup)
         }
 
         // we've finished with these range rings
