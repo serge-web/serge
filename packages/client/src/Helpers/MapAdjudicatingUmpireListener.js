@@ -96,6 +96,17 @@ export default class MapAdjudicatingListener {
     return '<b>' + asset.name + '</b><br/>' + descStr + '<hr/>Perceived as:' + perString + '<hr/>Visible to:' + visString + '<hr/>Current Condition:' + conditionStr + '</p>'
   }
 
+  /** calculate the angle at the centre point.
+   * Note: if first or last element are missing, the angle
+   * should be perpendicular to the leg that is present
+   * */
+  getTurnMarkerOrientationFor (/* latlng */ pMinus1, /* latlng */ p, /* latlng */ pPlus1) {
+    console.log(pMinus1, p, pPlus1)
+
+    // note: we may have some missing fields if it's at the start/end of the line
+    return 34
+  }
+
   getPlannedRoutesFor (asset, turnPlannedFor) {
     var res = null
     const planned = asset.plannedTurns
@@ -103,13 +114,28 @@ export default class MapAdjudicatingListener {
       const thisLinePts = [] // points up the current planned turn
       const futureLinePts = [] // points beyond the planned turn
       const turnMarkers = []
-      let lastCoord = null
+      let lastCoordInRoute = null
+      let posMinus1 = null
+      let posMinus2 = null
+      let turnPending = false
+
+      const context = this
 
       var extendLine = function (step, turnNumber, grid) {
         const ptHex = grid.hexNamed(step)
         if (ptHex) {
+          const location = ptHex.centrePos
+
+          // do we have a payload with a pending turn?
+          if (turnPending) {
+            // store the orientation in the payload object            
+            turnPending.orientation = context.getTurnMarkerOrientationFor(posMinus2, posMinus1, location)
+
+            // clear the flag
+            turnPending = null
+          }
           if (turnNumber <= turnPlannedFor) {
-            thisLinePts.push(ptHex.centrePos)
+            thisLinePts.push(location)
           } else {
             // is this the start of the future points?
             if (futureLinePts.length === 0) {
@@ -119,9 +145,14 @@ export default class MapAdjudicatingListener {
                 futureLinePts.push(thisLinePts[thisLinePts.length - 1])
               }
             }
-            futureLinePts.push(ptHex.centrePos)
+            futureLinePts.push(location)
           }
-          lastCoord = ptHex.centrePos
+          // this _may_ be the last coord, remember it
+          lastCoordInRoute = location
+
+          // for the turn marker alignment we need the last few coords
+          posMinus2 = posMinus1
+          posMinus1 = location
         } else {
           console.log('failed to find hex cell for:', step)
         }
@@ -138,14 +169,13 @@ export default class MapAdjudicatingListener {
         // the data for the marker is common to both logic paths, declare it here
         const payload = {
           name: key,
-          coord: lastCoord,
           turn: turnNumber,
           state: route.state,
           speed: route.speed,
           asset: asset.name
         }
-        if (lastCoord) {
-          payload.coord = lastCoord
+        if (lastCoordInRoute) {
+          payload.coord = lastCoordInRoute
         } else {
           // special handling. if this a stationery, and the platform is
           // stationery, then we how a turn marker at the start point
@@ -156,7 +186,19 @@ export default class MapAdjudicatingListener {
         }
         if (payload.coord) {
           turnMarkers.push(payload)
+
+          // we need to sort the alignment for this payload, remember it
+          turnPending = payload
         }
+      }
+
+      // do we have still have a pending turn?
+      if (turnPending) {
+        // store the orientation in the payload object      
+        turnPending.orientation = context.getTurnMarkerOrientationFor(posMinus2, posMinus1, lastCoordInRoute)
+
+        // clear the flag
+        turnPending = null
       }
 
       // did we find any?
@@ -218,23 +260,6 @@ export default class MapAdjudicatingListener {
 
         turnMarkers.forEach((marker) => {
           // create marker
-
-          // here I want to get the latlng of each marker that has been created
-          const eachCoord = Object.values(marker)
-          // trying a few different methods
-          const coordObj = Object.values(marker.coord)
-          // coordObj is the best
-          const latLngs = Object.values(eachCoord[1])
-          console.log(coordObj)
-
-          // trying to loop through the cord obj
-          Object.entries(coordObj).map(obj => {
-            const key   = obj[0];
-            const value = obj[1];
-            //console.log(key)
-            console.log(value)
-            // do whatever you want with those values.
-          });
           
           // const eachCoordLon = Object.values(marker.coord)
 
@@ -257,7 +282,7 @@ export default class MapAdjudicatingListener {
             var angleRadians = Math.atan2(p2.y - p1.y, p2.x - p1.x);
             // angle in degrees
             var angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
-            console.log(angleDeg);
+        //    console.log(angleDeg);
             return angleDeg;
           }
 
