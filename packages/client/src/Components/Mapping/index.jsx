@@ -9,6 +9,7 @@ import MapPlanningUmpireListener from '../../Helpers/MapPlanningUmpireListener'
 import markerFor from '../../Helpers/markerFor'
 import hasPendingForces from '../../Helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { FORCE_LAYDOWN } from '../../consts'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import '../../Helpers/mousePosition'
@@ -99,6 +100,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const curForce = allForces.find((force) => force.uniqid === selectedForce)
     const details = {
       channel: channelID,
+      forceDelta: true, // to indicate it represents a change in forces state
       from: {
         force: curForce.name,
         forceColor: curForce.color,
@@ -113,7 +115,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
   /** callback function - will transmit received parameters as "laydown" action */
   const laydownFunc = param => {
-    sendMessage('ForceLaydown', param)
+    sendMessage(FORCE_LAYDOWN, param)
   }
 
   /** callback to tell UI that we've got control of a platform in this UI */
