@@ -106,19 +106,19 @@ export const playerUiReducer = (state = initialState, action) => {
     const force = newState.allForces.find(item => item.name === payload.force)
     const asset = force.assets.find(item => item.name === payload.name)
     // set the location
+    const oldPos = asset.position
     asset.position = payload.position
+    console.log('asset moved from:' + oldPos + ' to:' + asset.position)
   }
 
   const handleForceDelta = (/* object */message, /* object */ gameState) => {
-    console.log('handling', message)
     const msgType = message.details.messageType
     if (!msgType) {
       console.error('problem - we need message type in ', message)
     }
-    console.log('handling', msgType)
+    console.log('handling type:', msgType, message.message)
     switch (msgType) {
       case FORCE_LAYDOWN:
-        console.log('found force laydown')
         handleForceLaydown(message.message, gameState)
         break
       default:
