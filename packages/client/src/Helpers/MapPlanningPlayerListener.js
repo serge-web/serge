@@ -5,6 +5,9 @@ import colorFor from './colorFor'
 // eslint-disable-next-line no-unused-vars
 import easyButton from 'leaflet-easybutton'
 
+// eslint-disable-next-line no-unused-vars
+import glyph from 'leaflet.icon.glyph'
+
 export default class MapPlanningPlayerListener {
   constructor (map, grid, force, turnCompleteCallback) {
     this.grid = grid
@@ -209,7 +212,13 @@ export default class MapPlanningPlayerListener {
       this.updateAchievableCellsFor(this.startHex, marker.planning.remaining, marker.travelMode)
 
       // also create a new marker, used to plot the path
-      const planningMarker = L.marker(marker.asset.loc, { draggable: 'true' })
+      // Creates a red marker with the coffee icon
+      const redMarker = L.icon.glyph({
+        prefix: 'fa',
+        glyph: 'compass'
+      })
+
+      const planningMarker = L.marker(marker.asset.loc, { icon: redMarker, draggable: 'true' })
       planningMarker.addTo(this.map)
 
       // set the route-line color
@@ -274,8 +283,13 @@ export default class MapPlanningPlayerListener {
         }
       })
       planningMarker.on('dragend', e => {
-        const cursorLoc = this.lastCursorLoc
-        const cursorHex = this.grid.cellFor(cursorLoc)
+        const tmpCursorLoc = this.lastCursorLoc
+        const cursorHex = this.grid.cellFor(tmpCursorLoc)
+        const cursorLoc = cursorHex.centrePos
+
+        // put the planning marker into the centre of the cell, even though
+        // it may have been dropped at the edge
+        planningMarker.setLatLng(cursorLoc)
 
         // clear that lastCursorLoc, to be sure we don't abuse it
         delete this.lastCursorLoc
@@ -307,14 +321,34 @@ export default class MapPlanningPlayerListener {
             route: hexList
           })
           marker.planning.remaining = marker.planning.allowance
+
+          // show a waypoint marker, for the end of turn
+          const turnIcon = L.icon.glyph({
+            prefix: 'fa',
+            glyph: 'pause'
+          })
+
+          const turnMarker = L.marker(cursorLoc, { icon: turnIcon, draggable: 'false' })
+//          const turnMarker = L.marker(cursorLoc, { draggable: 'false' })
+          console.log('Planning marker:', turnMarker)
+          turnMarker.addTo(this.map)
+          turnMarker.dragging.disable()
+
+          // give it a form to clear from this point
+          const popupContent = '<b>Turn T02</b><ul><li>[Reset from there]</li></ul>'
+          turnMarker.bindPopup(popupContent)
+
+          // remove and replace the planning marker, to put it at the front
+          planningMarker.remove(this.map)
+          planningMarker.addTo(this.map)
         }
 
         // we've finished with these range rings
         this.clearAchievableCells()
 
         // plot the achievable cells for this distance
-        this.updateAchievableCellsFor(cursorHex, marker.planning.remaining, marker.travelMode) 
-        
+        this.updateAchievableCellsFor(cursorHex, marker.planning.remaining, marker.travelMode)
+
         // clean up
         this.startHex = null
         this.endHex = null
@@ -322,203 +356,5 @@ export default class MapPlanningPlayerListener {
         this.routeLats = []
       })
     }
-  }
-
-  oldHandler (marker) {
-    const cursorLoc = 1
-    const rangeStyle = 3
-    const routeStyle = {}
-    marker.on('dragend', e => {
-      // hvae we calculated the achievable cells?
-      if (this.achievableCells.length === 0) {
-        // no, we must be starting a new line
-
-        // is this a mobile element
-        if (marker.mobile) {
-          this.routeLine.setLatLngs([cursorLoc, cursorLoc])
-        }
-
-        // limit distance of travel
-        if ('stepRemaining' in marker) {
-          console.log('calc range:', marker)
-        } else {
-          // nope, allow travel to anywhere
-          console.log('unlimited range:', marker)
-          this.achievableCells = this.grid.cells
-        }
-
-        // set the route-line color
-        const hisColor = colorFor(marker.force)
-        this.routeLine.setStyle({
-          color: hisColor
-        })
-        this.plannedLine.setStyle({
-          color: hisColor
-        })
-
-        //
-        this.achievableCells = this.achievableCells.filter(cell => {
-          if (marker.travelMode === 'land') {
-            return cell.land
-          } else if (marker.travelMode === 'sea') {
-            return cell.sea
-          } else if (marker.travelMode === 'air') {
-            return true
-          } else {
-            console.error('Unexpected terrain type')
-            return false
-          }
-        })
-
-        // apply styling to the achievable cells
-        this.achievableCells.forEach(cell => cell.polygon.setStyle(rangeStyle))
-
-        // is this an achievable cell?
-        const curCell = this.grid.cellFor(cursorLoc)
-
-        if (this.achievableCells.includes(curCell)) {
-          // ok, remember it
-          this.lastHex = curCell
-        }
-
-        // and the track history
-        if (marker.history) {
-          // ok, draw the history line
-          const historyLocs = []
-          marker.history.forEach(cellName => {
-            const cell = this.grid.hexNamed(cellName)
-            historyLocs.push(cell.centrePos)
-          })
-
-          this.plannedLine.setLatLngs(historyLocs)
-        }
-      } else {
-        // retrieve the start point of the line
-
-        // are we plotting a line?
-        if (this.routeLine.length > 0) {
-          this.start = this.routeLine.getLatLngs()[0]
-          this.routeLine.setLatLngs([this.startHex.centrePos, cursorLoc])
-        }
-
-        // are we in a safe cell
-        const curCell = this.grid.cellFor(cursorLoc)
-
-        // is this an achievable cell?
-        if (this.achievableCells.includes(curCell)) {
-          // ok, remember it
-          this.lastHex = curCell
-        }
-
-        // clear the old cells
-        this.plannedHexes.forEach(cell => {
-          if (this.achievableCells.includes(cell)) {
-            cell.polygon.setStyle(rangeStyle)
-          } else {
-            cell.polygon.setStyle(defaultHexStyle)
-          }
-        })
-
-        // do we have a valid current cell?
-        if (this.lastHex != null) {
-          // get the route
-          let newRoute = this.grid.hexesBetween(this.startHex, this.lastHex)
-
-          // if we have a restricted possible region,
-          // trim to it
-          if (this.achievableCells) {
-            newRoute = newRoute.filter(cell => this.achievableCells.includes(cell))
-          }
-
-          // and generate new cells
-          this.plannedLats = []
-          this.plannedHexes = newRoute
-          if (marker.mobile) {
-            this.plannedHexes.forEach(cell => {
-              cell.polygon.setStyle(routeStyle)
-              this.plannedLats.push(cell.centrePos)
-            })
-          } else {
-            // insert the current location twice,
-            // to give us a point marker
-            if (this.lastHex) {
-              this.plannedLats.push(this.lastHex.centrePos)
-              this.plannedLats.push(this.lastHex.centrePos)
-            }
-          }
-
-          if (this.plannedLats.length > 1) {
-            this.routeLine.setLatLngs(this.plannedLats)
-          }
-        }
-      }
-    })
-    marker.on('dragend', e => {
-      // ooh, see if it had restricted travel
-      if (marker.allowance) {
-        if (this.plannedHexes.length > 0) {
-          // consume some of it
-
-          // calculate distance
-          const start = this.plannedHexes[0]
-          const end = this.plannedHexes[this.plannedHexes.length - 1]
-          const distance = start.distance(end)
-
-          marker.stepRemaining -= distance
-
-          // cheat. if we've consumed distance, give it
-          // another allowance
-          // if (marker.stepRemaining === 0) {
-          // marker.stepRemaining = marker.allowance
-          // }
-        }
-
-        // still some more steps to do.
-        if (!marker.priorLegs) {
-          marker.priorLegs = []
-        }
-        this.plannedHexes.forEach(cell => {
-          // if the prior legs don't already contain this, add it
-          if (marker.priorLegs.indexOf(cell) === -1) {
-            marker.priorLegs.push(cell)
-          }
-        })
-      }
-
-      // is this the end of this turn?
-      if (marker.stepRemaining === 0) {
-        if (marker.allowance >= 0) {
-          // ok, fire the callback
-          const payload = {
-            force: marker.asset.force,
-            asset: marker.asset.name,
-            route: marker.priorLegs
-          }
-          this.turnCompleteCallback(payload)
-
-          // and do some tidying up
-          delete marker.priorLegs
-
-          // and tell leaflet it's no longer draggable in this turn
-          marker.dragging.disable()
-        }
-
-        // clear the line objects
-        this.plannedLats = []
-        this.routeLine.setLatLngs([])
-        this.plannedLine.setLatLngs([])
-
-        // clear the shaded cells
-        this.plannedHexes.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
-        this.plannedHexes = []
-      }
-
-      // clear the achievable cells. if it's an incomplete leg, this list will be shorter
-      this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
-      this.achievableCells = []
-
-      // move the marker to the last valid location
-      marker.setLatLng(this.lastHex.centrePos)
-    })
   }
 }
