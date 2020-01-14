@@ -123,6 +123,10 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
     console.log('User can control:', name)
   }
 
+  const turnComplete = (payload) => {
+    console.log('Planned Route:', payload)
+  }
+
   const clearControlledAssets = () => {
     console.log('Clearing list of controlled assets')
   }
@@ -160,9 +164,7 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
         if (myForceRef.current === 'umpire') {
           mapListenerRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current)
         } else {
-          const turnComplete = (payload) => {
-            console.log('Planned Route:', payload)
-          }
+
           mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current, turnComplete)
         }
         break
