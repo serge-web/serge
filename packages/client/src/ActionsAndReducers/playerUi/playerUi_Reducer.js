@@ -4,7 +4,8 @@ import copyState from '../../Helpers/copyStateHelper'
 import {
   CHAT_CHANNEL_ID,
   expiredStorage,
-  LOCAL_STORAGE_TIMEOUT
+  LOCAL_STORAGE_TIMEOUT,
+  FORCE_LAYDOWN
 } from '../../consts'
 import _ from 'lodash'
 import uniqId from 'uniqid'
@@ -96,7 +97,33 @@ export const playerUiReducer = (state = initialState, action) => {
 
   const modifyPlatformTypesBasedOnMessages = (platformTypes, newState) => {
     // TODO: modyfy platform types based on laydown or other mapControll type messages
+    console.log(platformTypes)
     return platformTypes
+  }
+
+  const handleForceLaydown = (/* object */ payload, /* object */ newState) => {
+    // find the force
+    const force = newState.allForces.find(item => item.name === payload.force)
+    const asset = force.assets.find(item => item.name === payload.name)
+    // set the location
+    asset.position = payload.position
+  }
+
+  const handleForceDelta = (/* object */message, /* object */ gameState) => {
+    console.log('handling', message)
+    const msgType = message.details.messageType
+    if (!msgType) {
+      console.error('problem - we need message type in ', message)
+    }
+    console.log('handling', msgType)
+    switch (msgType) {
+      case FORCE_LAYDOWN:
+        console.log('found force laydown')
+        handleForceLaydown(message.message, gameState)
+        break
+      default:
+        console.error('failed to create player reducer handler for:' + msgType)
+    }
   }
 
   switch (action.type) {
@@ -117,7 +144,7 @@ export const playerUiReducer = (state = initialState, action) => {
       newState.allChannels = action.payload.data.channels.channels
       newState.allForces = action.payload.data.forces.forces
       newState.allPlatformTypes = modifyPlatformTypesBasedOnMessages(action.payload.data.platform_types.platformTypes, newState)
-
+      console.log(newState.allPlatformTypes)
       break
 
     case ActionConstant.SET_FORCE:
@@ -149,8 +176,11 @@ export const playerUiReducer = (state = initialState, action) => {
       break
 
     case ActionConstant.SET_LATEST_WARGAME_MESSAGE:
-      console.log('SET_LATEST_WARGAME_MESSAGE', action.payload, 'Update allPlatformTypes')
-      //newState.allPlatformTypes = modifyPlatformTypesBasedOnMessages(newState.allPlatformTypes, [action.payload])
+      if (action.payload.details && action.payload.details.forceDelta) {
+        // ok, this message relates to the wargame forces data changing. Pass
+        // it to the handler
+        handleForceDelta(action.payload, newState)
+      }
       if (action.payload.hasOwnProperty('infoType')) {
         const message = {
           details: {
