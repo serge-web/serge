@@ -5,8 +5,9 @@ import declutterMarkers from './declutterMarkers'
 import plannedStateFor from './plannedStateFor'
 
 export default class MapAdjudicatingListener {
-  constructor (map, grid) {
+  constructor (map, grid, planningFormCallback) {
     this.grid = grid
+    this.planningFormCallback = planningFormCallback
 
     // create our two lines, one for planning, one for history
     this.planningLine = L.polyline([], {
@@ -252,8 +253,11 @@ export default class MapAdjudicatingListener {
     // remember we're listing to it
     this.registeredListeners.push(marker)
 
-    const popupContent = this.assetPopupFpr(marker.asset)
-    marker.bindPopup(popupContent).openPopup()
+    marker.on('click', e => {
+      const orig = e.originalEvent
+      const screenPos = { x: orig.screenX, y: orig.screenY }
+      this.planningFormCallback('AssetPopup', { screenPos })
+    })
 
     marker.on('mouseover', e => {
       // create an id for this marker

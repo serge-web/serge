@@ -135,6 +135,10 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
     console.log('Clearing list of controlled assets')
   }
 
+  const formRequestCallback = (form, payload) => {
+    console.log('Popup form requested for:', form, payload)
+  }
+
   useEffect(() => {
     // double-check where we are
     console.log(new Date(), 'TURN:', phaseRef.current, currentTurnRef.current)
@@ -155,7 +159,7 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
     switch (phaseRef.current) {
       case 'adjudication':
         if (myForceRef.current === 'umpire') {
-          mapListenerRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current)
+          mapListenerRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, formRequestCallback)
         } else if (inForceLaydown && currentTurnRef.current === 0) {
           // this force has assets with location pending
           mapListenerRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc)
