@@ -13,18 +13,22 @@ export default class MapPlanningPlayerListener {
     this.turnCompleteCallback = turnCompleteCallback
 
     // create our two lines, one for planning, one for history
-    this.planningLine = L.polyline([], {
+    this.routeLine = L.polyline([], {
       color: '#fff',
       dashArray: [1, 4]
     })
-    this.planningLine.addTo(map)
-    this.historyLine = L.polyline([], {
+    this.routeLine.addTo(map)
+    this.plannedLine = L.polyline([], {
       color: '#0f0'
     })
-    this.historyLine.addTo(map)
+    this.plannedLine.addTo(map)
+
+    this.plannedLats = [] // lad-lngs for route
+    this.plannedHexes = [] // hexes for route
 
     this.routeHexes = [] // hexes representing route
     this.routeLats = [] // lad-lngs for route
+
     this.achievableCells = [] // hexes representing achievable area this turn
     this.startHex = null // hex for start drag operation
     this.lastHex = null // most recent cell travelled through
@@ -46,20 +50,32 @@ export default class MapPlanningPlayerListener {
 
     // try to create a button
     const context = this
-    L.easyButton('fa-dice-one', function (btn, map) {
-      console.log('immobile state selected')
+    this.createEasyButtonFor(map, 'fa-dice-one', 'immobile state selected', function (btn, map) {
       context.platformStateAssigned(context.currentMarker, {
         mobile: false
       })
-    }).addTo(map)
-    L.easyButton('fa-dice-two', function (btn, map) {
-      console.log('mobile state & speed selected')
+    })
+    this.createEasyButtonFor(map, 'fa-dice-two', 'mobile state & speed selected', function (btn, map) {
       context.platformStateAssigned(context.currentMarker, {
         mobile: true
       })
-    }).addTo(map)
-    L.easyButton('fa-dice-three', function (btn, map) {
-      console.log('submit leg clicked')
+    })
+    this.createEasyButtonFor(map, 'fa-dice-three', 'reset leg', function (btn, map) {
+      context.resetCurrentLeg()
+    })
+    this.createEasyButtonFor(map, 'fa-dice-four', 'submit leg so far', function (btn, map) {
+      context.submitLegComplete()
+    })
+  }
+
+  createEasyButtonFor (map, icon, title, callback) {
+    L.easyButton({
+      states: [
+        {
+          icon: icon,
+          title: title,
+          onClick: callback
+        }]
     }).addTo(map)
   }
 
@@ -151,6 +167,18 @@ export default class MapPlanningPlayerListener {
     })
   }
 
+  simplifyHexes (/* array<hex cell */cells) {
+    const res = []
+    cells.forEach(cell => { res.push(cell.name) })
+    return res
+  }
+
+  clearOnNewLeg () {
+    this.plannedLats = []
+    this.routeLats = []
+    this.routeHexes = []
+  }
+
   /** player has indicated the planned state for a platform. Update the
    * UI accordingly
    */
@@ -159,6 +187,9 @@ export default class MapPlanningPlayerListener {
     if (newState.mobile) {
       // ok, get ready for step planning & dragging
       this.startHex = this.grid.cellFor(marker.asset.loc)
+
+      // do some initialisation
+      this.clearOnNewLeg()
 
       // calculate the steps remaining
       const range = 4
@@ -182,7 +213,7 @@ export default class MapPlanningPlayerListener {
       planningMarker.addTo(this.map)
 
       // set the route-line color
-      this.updateRouteLinesForForce(marker.force, [this.planningLine, this.historyLine])
+      this.updateRouteLinesForForce(marker.force, [this.routeLine, this.plannedLine])
 
       // handle movement of the planning marker
       planningMarker.on('drag', e => {
@@ -200,8 +231,8 @@ export default class MapPlanningPlayerListener {
         }
 
         // ok, we have a valid location. clear the existing route
-        this.routeLats = []
-        this.planningLine.setLatLngs([cursorLoc, cursorLoc])
+        this.routeLats = [cursorLoc, cursorLoc]
+        this.routeLine.setLatLngs(this.routeLats)
 
         // clear the old cells
         this.routeHexes.forEach(cell => {
@@ -239,7 +270,7 @@ export default class MapPlanningPlayerListener {
         })
 
         if (this.routeLats.length > 1) {
-          this.planningLine.setLatLngs(this.routeLats)
+          this.routeLine.setLatLngs(this.routeLats)
         }
       })
       planningMarker.on('dragend', e => {
@@ -249,32 +280,46 @@ export default class MapPlanningPlayerListener {
         // clear that lastCursorLoc, to be sure we don't abuse it
         delete this.lastCursorLoc
 
+        // drop the first hex from the list, since that was the start point
+        this.routeHexes.shift()
+
         // ok, determine if we are at the end of a leg
         const len = this.routeHexes.length
 
         // reduce the marker allowance
         // note: we reduce the length by one, so we don't count the starting cell
-        marker.planning.remaining -= len - 1
+        marker.planning.remaining -= len
+
+        // the planning hexes now become the planned lats
+        this.plannedLats = this.plannedLats.concat(this.routeLats)
+        this.plannedLine.setLatLngs(this.plannedLats)
+
+        // build up a fill list of steps
+        this.plannedHexes = this.plannedHexes.concat(this.routeHexes)
+
+        // if we have no more leg, push this one, and give us a fresh allowance
+        if (marker.planning.remaining === 0) {
+          const hexList = this.simplifyHexes(this.plannedHexes)
+          this.turnCompleteCallback({
+            force: marker.force,
+            asset: marker.asset.name,
+            turn: 'T02',
+            route: hexList
+          })
+          marker.planning.remaining = marker.planning.allowance
+        }
 
         // we've finished with these range rings
         this.clearAchievableCells()
 
-        // are we down to zero?
-        if (marker.planning.remaining === 0) {
-          // ok, submit this new turn
-          console.log(cursorHex)
-        } else {
-          // plot the achievable cells for this distance
-          this.updateAchievableCellsFor(cursorHex, marker.planning.remaining, marker.travelMode)
-
-          // also move the start and end hex to this point
-          this.startHex = null
-          this.endHex = null
-        }
-
-
-
-
+        // plot the achievable cells for this distance
+        this.updateAchievableCellsFor(cursorHex, marker.planning.remaining, marker.travelMode) 
+        
+        // clean up
+        this.startHex = null
+        this.endHex = null
+        this.routeHexes = []
+        this.routeLats = []
       })
     }
   }
@@ -290,7 +335,7 @@ export default class MapPlanningPlayerListener {
 
         // is this a mobile element
         if (marker.mobile) {
-          this.planningLine.setLatLngs([cursorLoc, cursorLoc])
+          this.routeLine.setLatLngs([cursorLoc, cursorLoc])
         }
 
         // limit distance of travel
@@ -304,10 +349,10 @@ export default class MapPlanningPlayerListener {
 
         // set the route-line color
         const hisColor = colorFor(marker.force)
-        this.planningLine.setStyle({
+        this.routeLine.setStyle({
           color: hisColor
         })
-        this.historyLine.setStyle({
+        this.plannedLine.setStyle({
           color: hisColor
         })
 
@@ -345,15 +390,15 @@ export default class MapPlanningPlayerListener {
             historyLocs.push(cell.centrePos)
           })
 
-          this.historyLine.setLatLngs(historyLocs)
+          this.plannedLine.setLatLngs(historyLocs)
         }
       } else {
         // retrieve the start point of the line
 
         // are we plotting a line?
-        if (this.planningLine.length > 0) {
-          this.start = this.planningLine.getLatLngs()[0]
-          this.planningLine.setLatLngs([this.startHex.centrePos, cursorLoc])
+        if (this.routeLine.length > 0) {
+          this.start = this.routeLine.getLatLngs()[0]
+          this.routeLine.setLatLngs([this.startHex.centrePos, cursorLoc])
         }
 
         // are we in a safe cell
@@ -366,7 +411,7 @@ export default class MapPlanningPlayerListener {
         }
 
         // clear the old cells
-        this.routeHexes.forEach(cell => {
+        this.plannedHexes.forEach(cell => {
           if (this.achievableCells.includes(cell)) {
             cell.polygon.setStyle(rangeStyle)
           } else {
@@ -386,24 +431,24 @@ export default class MapPlanningPlayerListener {
           }
 
           // and generate new cells
-          this.routeLats = []
-          this.routeHexes = newRoute
+          this.plannedLats = []
+          this.plannedHexes = newRoute
           if (marker.mobile) {
-            this.routeHexes.forEach(cell => {
+            this.plannedHexes.forEach(cell => {
               cell.polygon.setStyle(routeStyle)
-              this.routeLats.push(cell.centrePos)
+              this.plannedLats.push(cell.centrePos)
             })
           } else {
             // insert the current location twice,
             // to give us a point marker
             if (this.lastHex) {
-              this.routeLats.push(this.lastHex.centrePos)
-              this.routeLats.push(this.lastHex.centrePos)
+              this.plannedLats.push(this.lastHex.centrePos)
+              this.plannedLats.push(this.lastHex.centrePos)
             }
           }
 
-          if (this.routeLats.length > 1) {
-            this.planningLine.setLatLngs(this.routeLats)
+          if (this.plannedLats.length > 1) {
+            this.routeLine.setLatLngs(this.plannedLats)
           }
         }
       }
@@ -411,12 +456,12 @@ export default class MapPlanningPlayerListener {
     marker.on('dragend', e => {
       // ooh, see if it had restricted travel
       if (marker.allowance) {
-        if (this.routeHexes.length > 0) {
+        if (this.plannedHexes.length > 0) {
           // consume some of it
 
           // calculate distance
-          const start = this.routeHexes[0]
-          const end = this.routeHexes[this.routeHexes.length - 1]
+          const start = this.plannedHexes[0]
+          const end = this.plannedHexes[this.plannedHexes.length - 1]
           const distance = start.distance(end)
 
           marker.stepRemaining -= distance
@@ -432,7 +477,7 @@ export default class MapPlanningPlayerListener {
         if (!marker.priorLegs) {
           marker.priorLegs = []
         }
-        this.routeHexes.forEach(cell => {
+        this.plannedHexes.forEach(cell => {
           // if the prior legs don't already contain this, add it
           if (marker.priorLegs.indexOf(cell) === -1) {
             marker.priorLegs.push(cell)
@@ -459,13 +504,13 @@ export default class MapPlanningPlayerListener {
         }
 
         // clear the line objects
-        this.routeLats = []
-        this.planningLine.setLatLngs([])
-        this.historyLine.setLatLngs([])
+        this.plannedLats = []
+        this.routeLine.setLatLngs([])
+        this.plannedLine.setLatLngs([])
 
         // clear the shaded cells
-        this.routeHexes.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
-        this.routeHexes = []
+        this.plannedHexes.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
+        this.plannedHexes = []
       }
 
       // clear the achievable cells. if it's an incomplete leg, this list will be shorter
