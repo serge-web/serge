@@ -4,6 +4,7 @@ import GridImplementation from '../../Helpers/GridImplementation'
 import MapAdjudicatingUmpireListener from '../../Helpers/MapAdjudicatingUmpireListener'
 import MapAdjudicatingPlayerListener from '../../Helpers/MapAdjudicatingPlayerListener'
 import MapAdjudicationPendingListener from '../../Helpers/MapAdjudicationPendingListener'
+import MapMarkersControl from '../../Helpers/MapMarkersControl'
 import MapPlanningPlayerListener from '../../Helpers/MapPlanningPlayerListener'
 import MapPlanningUmpireListener from '../../Helpers/MapPlanningUmpireListener'
 import markerFor from '../../Helpers/markerFor'
@@ -96,7 +97,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     return () => console.log('Map unmounted')
   }, [])
 
-  const sendMessage = (mType, values) => {
+  const sendMessage = (mType, message) => {
     const curForce = allForces.find((force) => force.uniqid === selectedForce)
     const details = {
       channel: channelID,
@@ -110,7 +111,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       messageType: mType,
       timestamp: new Date().toISOString()
     }
-    saveMapMessage(currentWargame, details, values)
+    saveMapMessage(currentWargame, details, message)
   }
 
   /** callback function - will transmit received parameters as "laydown" action */
@@ -211,7 +212,13 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     })
   }, [forcesRef, phaseRef, currentTurnRef])
 
-  return (<div id="map" className="mapping"></div>)
+  useEffect(() => {
+    MapMarkersControl(platformsLayerRef.current, gridImplRef.current, allForces)
+  }, [allForces])
+
+  return (
+    <div id="map" className="mapping"/>
+  )
 }
 
 export default Mapping
