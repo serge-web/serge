@@ -94,6 +94,11 @@ export const playerUiReducer = (state = initialState, action) => {
     return { isParticipant, allRolesIncluded, observing, templates }
   }
 
+  const modifyPlatformTypesBasedOnMessages = (platformTypes, newState) => {
+    // TODO: modyfy platform types based on laydown or other mapControll type messages
+    return platformTypes
+  }
+
   switch (action.type) {
     case ActionConstant.SET_CURRENT_WARGAME_PLAYER:
       newState.currentWargame = action.payload.name
@@ -111,7 +116,8 @@ export const playerUiReducer = (state = initialState, action) => {
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.allChannels = action.payload.data.channels.channels
       newState.allForces = action.payload.data.forces.forces
-      newState.allPlatformTypes = action.payload.data.platform_types.platformTypes
+      newState.allPlatformTypes = modifyPlatformTypesBasedOnMessages(action.payload.data.platform_types.platformTypes, newState)
+
       break
 
     case ActionConstant.SET_FORCE:
@@ -143,6 +149,8 @@ export const playerUiReducer = (state = initialState, action) => {
       break
 
     case ActionConstant.SET_LATEST_WARGAME_MESSAGE:
+      console.log('SET_LATEST_WARGAME_MESSAGE', action.payload, 'Update allPlatformTypes')
+      //newState.allPlatformTypes = modifyPlatformTypesBasedOnMessages(newState.allPlatformTypes, [action.payload])
       if (action.payload.hasOwnProperty('infoType')) {
         const message = {
           details: {
