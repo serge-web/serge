@@ -142,6 +142,15 @@ export default class MapPlanningPlayerListener {
     this.achievableCells.forEach(cell => cell.polygon.setStyle(this.rangeStyle))
   }
 
+  updateRouteLinesForForce (/* string */ force, /* array<Line> */ lines) {
+    const hisColor = colorFor(force)
+    lines.forEach((line) => {
+      line.setStyle({
+        color: hisColor
+      })
+    })
+  }
+
   /** player has indicated the planned state for a platform. Update the
    * UI accordingly
    */
@@ -173,15 +182,9 @@ export default class MapPlanningPlayerListener {
       planningMarker.addTo(this.map)
 
       // set the route-line color
-      const hisColor = colorFor(marker.force)
-      this.planningLine.setStyle({
-        color: hisColor
-      })
-      this.historyLine.setStyle({
-        color: hisColor
-      })
+      this.updateRouteLinesForForce(marker.force, [this.planningLine, this.historyLine])
 
-      // register as drag/drop listener
+      // handle movement of the planning marker
       planningMarker.on('drag', e => {
         const cursorLoc = e.latlng
         const cursorHex = this.grid.cellFor(cursorLoc)
@@ -237,6 +240,30 @@ export default class MapPlanningPlayerListener {
         }
       })
       marker.on('dragend', e => {
+        const cursorLoc = e.latlng
+        const cursorHex = this.grid.cellFor(cursorLoc)
+
+        // ok, determine if we are at the end of a leg
+        const len = this.routeHexes.length
+
+        // reduce the marker allowance
+        marker.planning.remaining -= len
+
+        // we've finished with these range rings
+        this.clearAchievableCells()
+
+        // are we down to zero?
+        if (marker.planning.remaining === 0) {
+          // ok, submit this new turn
+          console.log(cursorHex)
+        } else {
+          // plot the achievable cells for this distance
+          this.updateAchievableCellsFor(cursorHex, marker.planning.allowance, marker.travelMode)
+        }
+
+
+
+
       })
     }
   }
