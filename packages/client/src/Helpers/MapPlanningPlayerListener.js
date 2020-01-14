@@ -175,7 +175,7 @@ export default class MapPlanningPlayerListener {
       this.clearAchievableCells()
 
       // plot the achievable cells for this distance
-      this.updateAchievableCellsFor(this.startHex, marker.planning.allowance, marker.travelMode)
+      this.updateAchievableCellsFor(this.startHex, marker.planning.remaining, marker.travelMode)
 
       // also create a new marker, used to plot the path
       const planningMarker = L.marker(marker.asset.loc, { draggable: 'true' })
@@ -188,6 +188,9 @@ export default class MapPlanningPlayerListener {
       planningMarker.on('drag', e => {
         const cursorLoc = e.latlng
         const cursorHex = this.grid.cellFor(cursorLoc)
+
+        // note: the dragEnd event doesn't get a location, we'll need to store it from here
+        this.lastCursorLoc = cursorLoc
 
         // is this location safe?
         if (!this.achievableCells.includes(cursorHex)) {
@@ -239,15 +242,19 @@ export default class MapPlanningPlayerListener {
           this.planningLine.setLatLngs(this.routeLats)
         }
       })
-      marker.on('dragend', e => {
-        const cursorLoc = e.latlng
+      planningMarker.on('dragend', e => {
+        const cursorLoc = this.lastCursorLoc
         const cursorHex = this.grid.cellFor(cursorLoc)
+
+        // clear that lastCursorLoc, to be sure we don't abuse it
+        delete this.lastCursorLoc
 
         // ok, determine if we are at the end of a leg
         const len = this.routeHexes.length
 
         // reduce the marker allowance
-        marker.planning.remaining -= len
+        // note: we reduce the length by one, so we don't count the starting cell
+        marker.planning.remaining -= len - 1
 
         // we've finished with these range rings
         this.clearAchievableCells()
@@ -258,7 +265,11 @@ export default class MapPlanningPlayerListener {
           console.log(cursorHex)
         } else {
           // plot the achievable cells for this distance
-          this.updateAchievableCellsFor(cursorHex, marker.planning.allowance, marker.travelMode)
+          this.updateAchievableCellsFor(cursorHex, marker.planning.remaining, marker.travelMode)
+
+          // also move the start and end hex to this point
+          this.startHex = null
+          this.endHex = null
         }
 
 
