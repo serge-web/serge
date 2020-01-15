@@ -4,11 +4,13 @@ import GridImplementation from '../../Helpers/GridImplementation'
 import MapAdjudicatingUmpireListener from '../../Helpers/MapAdjudicatingUmpireListener'
 import MapAdjudicatingPlayerListener from '../../Helpers/MapAdjudicatingPlayerListener'
 import MapAdjudicationPendingListener from '../../Helpers/MapAdjudicationPendingListener'
+import MapMarkersControl from '../../Helpers/MapMarkersControl'
 import MapPlanningPlayerListener from '../../Helpers/MapPlanningPlayerListener'
 import MapPlanningUmpireListener from '../../Helpers/MapPlanningUmpireListener'
 import markerFor from '../../Helpers/markerFor'
 import hasPendingForces from '../../Helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { FORCE_LAYDOWN } from '../../consts'
 import MappingForm from '../MappingForm'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
@@ -18,8 +20,7 @@ import './styles.scss'
 
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
-
-const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPlatforms, phase, imageTop, imageLeft, imageBottom, imageRight }) => {
+const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
   const platformsLayerRef = useRef(null) // the platform markers
   const gridImplRef = useRef(null) // hexagonal grid
@@ -107,27 +108,26 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
     return () => console.log('Map unmounted')
   }, [])
 
-  const sendMessage = (mType, values) => {
+  const sendMessage = (mType, message) => {
     const curForce = allForces.find((force) => force.uniqid === selectedForce)
     const details = {
-      channel: 'mapChannel', // todo: add channel
+      channel: channelID,
+      forceDelta: true, // to indicate it represents a change in forces state
       from: {
         force: curForce.name,
-        forceColor: curForce.forceColor,
-        role: curForce.selectedRole,
+        forceColor: curForce.color,
+        role: role,
         icon: curForce.icon
       },
       messageType: mType,
       timestamp: new Date().toISOString()
     }
-    console.log('Sending:', currentWargame, details, values)
-
-    saveMapMessage(currentWargame, details, values)
+    saveMapMessage(currentWargame, details, message)
   }
 
   /** callback function - will transmit received parameters as "laydown" action */
   const laydownFunc = param => {
-    sendMessage('ForceLaydown', param)
+    sendMessage(FORCE_LAYDOWN, param)
   }
 
   /** callback to tell UI that we've got control of a platform in this UI */
@@ -231,9 +231,17 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
     })
   }, [forcesRef, phaseRef, currentTurnRef])
 
-  return (<div id="map" className="mapping">
-    { showForm && <MappingForm position={formPos}></MappingForm> }
-  </div>)
+  useEffect(() => {
+    MapMarkersControl(platformsLayerRef.current, gridImplRef.current, allForces)
+  }, [allForces])
+
+  return (
+    <div id="map" className="mapping"/>
+  )
+// TODO: Alex demonastrator included this form-based processing
+//  return (<div id="map" className="mapping">
+//    { showForm && <MappingForm position={formPos}></MappingForm> }
+//  </div>)
 }
 
 export default Mapping

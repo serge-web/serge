@@ -4,7 +4,8 @@ import copyState from '../../Helpers/copyStateHelper'
 import {
   CHAT_CHANNEL_ID,
   expiredStorage,
-  LOCAL_STORAGE_TIMEOUT
+  LOCAL_STORAGE_TIMEOUT,
+  FORCE_LAYDOWN
 } from '../../consts'
 import _ from 'lodash'
 import uniqId from 'uniqid'
@@ -92,6 +93,52 @@ export const playerUiReducer = (state = initialState, action) => {
       templates = []
     }
     return { isParticipant, allRolesIncluded, observing, templates }
+  }
+
+  const modifyForcesBasedOnMessages = ({ allPlatformTypes, channels, allForces }) => {
+    let res = allForces
+    const mapChannel = Object.values(channels).find(({ name }) => (name === 'Mapping'))
+    if (mapChannel && mapChannel.messages && mapChannel.messages.length) {
+      for (const message of mapChannel.messages) {
+        res = modifyForcesBasedOnMessage(allForces, message)
+      }
+    }
+    return res
+  }
+
+  const modifyForcesBasedOnMessage = (allForces, message) => {
+    let res = allForces
+    if (message.details && message.details.forceDelta) {
+      res = handleForceDelta(message, allForces)
+    }
+    return res
+  }
+
+  const handleForceLaydown = (/* object */ message, /* object */ allForces) => {
+    // find the force
+    const forceIndex = allForces.findIndex(item => item.name === message.force)
+    if (forceIndex === -1) return allForces
+    const assetIndex = allForces[forceIndex].assets.findIndex(item => item.name === message.name)
+    if (assetIndex === -1) return allForces
+    // set the location
+    const { position } = allForces[forceIndex].assets[assetIndex]
+    console.log('asset moved from:' + position + ' to:' + message.position)
+    allForces[forceIndex].assets[assetIndex].position = message.position
+    return allForces
+  }
+
+  const handleForceDelta = (/* object */message, /* object */ allForces) => {
+    const msgType = message.details.messageType
+    if (!msgType) {
+      console.error('problem - we need message type in ', message)
+    }
+    switch (msgType) {
+      case FORCE_LAYDOWN:
+        return handleForceLaydown(message, allForces)
+      default:
+        console.error('failed to create player reducer handler for:' + msgType)
+        return allForces
+    }
   }
 
   switch (action.type) {
@@ -255,6 +302,11 @@ export const playerUiReducer = (state = initialState, action) => {
         }
       }
 
+      if (action.payload.details && action.payload.details.forceDelta) {
+        // ok, this message relates to the wargame forces data changing. Pass
+        // it to the handler
+        newState.allForces = modifyForcesBasedOnMessage(newState.allForces, { ...action.payload.message, details: action.payload.details })
+      }
       break
 
     case ActionConstant.SET_ALL_MESSAGES:
