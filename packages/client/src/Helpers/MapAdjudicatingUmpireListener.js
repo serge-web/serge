@@ -3,11 +3,9 @@ import defaultHexStyle from './data/default-hex-style'
 import colorFor from './colorFor'
 import declutterMarkers from './declutterMarkers'
 import plannedStateFor from './plannedStateFor'
-import greenCircle from './data/green-circle.png'
 import turnLeft from './data/turn-left.png'
 import turnRight from './data/turn-right.png'
 import turnEnd from './data/turn-end.png'
-
 
 export default class MapAdjudicatingListener {
   constructor (map, grid) {
@@ -100,25 +98,23 @@ export default class MapAdjudicatingListener {
    * Note: if first or last element are missing, the angle
    * should be perpendicular to the leg that is present
    * */
-  getTurnMarkerOrientationFor(pMinus1, p, pPlus1) {
-
-    // error handling for the location array import 
-    if(p == null || p == undefined){
+  getTurnMarkerOrientationFor (turnName, pMinus1, p, pPlus1) {
+    // error handling for the location array import
+    if (p == null || p === undefined) {
       // this is because the top left green marker returns a null value (TODO: Work out where this is coming from)
       p = [13.430997652302832, 43.104098900000004]
     }
-    if(pMinus1 == undefined || pMinus1 == null){
-      console.log("pMinus1 has an undefined or null value")
+    if (pMinus1 === undefined || pMinus1 === null) {
+      console.log('pMinus1 has an undefined or null value')
       pMinus1 = p
-      //console.log(pMinus1)
+      // console.log(pMinus1)
     }
-    if(pPlus1 == undefined || pPlus1 == null){
-      console.log("pPlus1 has an undefined or null value")
+    if (pPlus1 === undefined || pPlus1 === null) {
+      console.log('pPlus1 has an undefined or null value')
       pPlus1 = p
-      //console.log(pMinus1)
-    } 
-    else {
-      console.log("No null values found")
+      // console.log(pMinus1)
+    } else {
+      console.log('No null values found')
     }
 
     var arr1 = Object.values(pMinus1)
@@ -134,11 +130,13 @@ export default class MapAdjudicatingListener {
 
     var brng = Math.atan2(y, x)
 
-    brng = brng * 180 / Math.PI;
+    brng = brng * 180 / Math.PI
     brng = (brng + 360) % 360
     brng = 360 - brng // count degrees clockwise - remove to make counter-clockwise
 
-    return brng;
+    console.log('in calculation:', turnName, Math.round(brng), brng)
+
+    return brng
     // note: we may have some missing fields if it's at the start/end of the line (Maybe this is why null values appear)
   }
 
@@ -152,10 +150,7 @@ export default class MapAdjudicatingListener {
       let lastCoordInRoute = null
       let posMinus1 = null
       let posMinus2 = null
-      let pMinus1 
-      let pPlus1 
       let turnPending = false
-      const turnMarker = null
 
       const context = this
 
@@ -166,9 +161,9 @@ export default class MapAdjudicatingListener {
 
           // do we have a payload with a pending turn?
           if (turnPending) {
-            // store the orientation in the payload object            
-            turnPending.orientation = context.getTurnMarkerOrientationFor(posMinus2, posMinus1, location)
-            
+            // store the orientation in the payload object
+            turnPending.orientation = context.getTurnMarkerOrientationFor(turnNumber, posMinus2, posMinus1, location)
+
             // clear the flag
             turnPending = null
           }
@@ -232,8 +227,8 @@ export default class MapAdjudicatingListener {
 
       // do we have still have a pending turn?
       if (turnPending) {
-        // store the orientation in the payload object      
-        turnPending.orientation = context.getTurnMarkerOrientationFor(posMinus2, posMinus1, lastCoordInRoute)
+        // store the orientation in the payload object
+        turnPending.orientation = context.getTurnMarkerOrientationFor('last', posMinus2, posMinus1, lastCoordInRoute)
 
         // clear the flag
         turnPending = null
@@ -281,122 +276,55 @@ export default class MapAdjudicatingListener {
         })
         declutterMarkers(clusters, this.grid.delta / 3)
 
-
-        
         turnMarkers.forEach((marker) => {
-          // creating the different icons
-          const turnRightIcon = L.icon({
-            iconUrl: turnRight,
-            iconSize: [15, 15], // size of the icon
-          });
-
-          // creating the different icons
-          const turnLeftIcon = L.icon({
-            iconUrl: turnLeft,
-            iconSize: [15, 15], // size of the icon
-          });
-          // creating the different icons
-          const turnEndIcon = L.icon({
-            iconUrl: turnEnd,
-            iconSize: [15, 15], // size of the icon
-          });
-
-          // create marker
-          var turnMarker = L.marker(marker.coord, {
-            draggable: true,
-            icon: turnEndIcon
-          })
-
-          // getting the angle result 
-          const angleResult = marker.orientation
-        
-          //getting the marker name for logging purposes 
-          const markerName = marker.turn
-
-          // error logging (As some coordinates seem off)
-          // console.log("Turn No: " + markerName + " " + "Angle: " + angleResult + " " + "Coords: " + marker.coord) 
+          // getting the angle result
+          const angleResult = Math.round(marker.orientation)
 
           // need to check if the value is between these values
-          // North to East
-          if(angleResult > 0 && angleResult < 90){
-            //console.log("North to East")
-            turnMarker = L.marker(marker.coord, {
-              draggable: true,
-              icon: turnLeftIcon
-            })
-          }
-          // East to South
-          if(angleResult > 90 && angleResult < 180){
-            //console.log("East to South")
-            turnMarker = L.marker(marker.coord, {
-              draggable: true,
-              icon: turnRightIcon
-            })
-          }
-          // South to West
-          if(angleResult > 181 && angleResult < 271){
-            //console.log("South to West")
-            turnMarker = L.marker(marker.coord, {
-              draggable: true,
-              icon: turnLeftIcon
-            })
-          }
-          // West to North 
-          if(angleResult > 271 && angleResult < 359){
-            // console.log("West to North")
-            turnMarker = L.marker(marker.coord, {
-              draggable: true,
-              icon: turnRightIcon
-            })
-          }
-          // for the 180 and 360, which are flat icons so end icon is used 
-          if(angleResult == 180 || angleResult == 360){
-            console.log("180")
-            turnMarker = L.marker(marker.coord, {
-              draggable: true,
-              icon: turnEndIcon
-            })
-          }
-          // as some angles are undefined just use the end icon until this can be figured out
-          if(angleResult == undefined || angleResult == null){
-            turnMarker = L.marker(marker.coord, {
-              icon: turnEndIcon,
-              draggable: true,
-            })
-            console.log("A marker angle is undefined")
+          var iconName
+          if (angleResult === 180 || angleResult === 360) {
+            console.log('d5')
+            // for the 180 and 360, which are flat icons so end icon is used
+            iconName = turnEnd
+          } else if (angleResult > 0 && angleResult < 90) {
+            // North to East
+            console.log('d1')
+            iconName = turnLeft
+          } else if (angleResult < 180) {
+            console.log('d2')
+            // East to South
+            iconName = turnRight
+          } else if (angleResult < 271) {
+            console.log('d3')
+            // South to West
+            iconName = turnLeft
+          } else if (angleResult < 360) {
+            console.log('d4')
+            // West to North
+            iconName = turnRight
+          } else if (angleResult === undefined || angleResult === null) {
+            console.log('d6')
+            // as some angles are undefined just use the end icon until this can be figured out
+            iconName = turnEnd
+          } else {
+            iconName = turnEnd
           }
 
+          // console.log('turn:' + marker.name + 'angle:' + Math.round(angleResult))
 
-      
-          
-          // here the code breaks, I want to take the returned degree direction and save it to a variable and check if it is between certain numbers
-
-          // need to check if the value is between these values
-          // greater than 90 but less than 180 = East to South 
-          // if(angleResult > 90 && angleResult < 180){
-          //   turnMarker = L.marker(marker.coord, {
-          //     draggable: true,
-          //     icon: turnRightIcon
-          //   })
-          // }
-          // if(angleResult > 180 && angleResult < 270){
-          //   turnMarker = L.marker(marker.coord, {
-          //     draggable: true,
-          //     icon: turnLeftIcon
-          //   })
-          // }
-          // if(angleResult > 270 && angleResult < 360){
-          //   turnMarker = L.marker(marker.coord, {
-          //     draggable: true,
-          //     icon: turnEndIcon
-          //   })
-          // }
-
-          // console.log(latLngs)
-          // console.log(eachCoordLon[1])
-
-
-
+          var turnMarker
+          if (iconName) {
+            // creating the different icons
+            const turnIcon = L.icon({
+              iconUrl: iconName,
+              iconSize: [15, 15]
+            })
+            // console.log('North to East')
+            turnMarker = L.marker(marker.coord, {
+              draggable: true,
+              icon: turnIcon
+            })
+          }
 
           // collate the data ready to send on accept/clear
           const payload = {
