@@ -5,7 +5,8 @@ import {
   CHAT_CHANNEL_ID,
   expiredStorage,
   LOCAL_STORAGE_TIMEOUT,
-  FORCE_LAYDOWN
+  FORCE_LAYDOWN,
+  VISIBILIY_CHANGES
 } from '../../consts'
 import _ from 'lodash'
 import uniqId from 'uniqid'
@@ -114,6 +115,7 @@ export const playerUiReducer = (state = initialState, action) => {
     return res
   }
 
+  /** red has pre-positioned assets, prior to the start of the game */
   const handleForceLaydown = (/* object */ message, /* object */ allForces) => {
     // find the force
     const forceIndex = allForces.findIndex(item => item.name === message.force)
@@ -127,6 +129,27 @@ export const playerUiReducer = (state = initialState, action) => {
     return allForces
   }
 
+  /** umpire is changing the visibility of an asset, for a force */
+  const handleVisibilityChanges = (/* object */ message, /* object */ allForces) => {
+    console.log('Vis change for:', message)
+    const payload = message.payload
+    payload.forEach(visChange => {
+      const force = allForces.find(item => item.name === visChange.force)
+      const asset = force.find(item => item.name === visChange.asset)
+      if (asset) {
+        // can it already see it?
+        if (asset.perceptions[visChange.by]) {
+          // ok, clear that entry
+          delete asset.perceptions[visChange.by]
+        } else {
+          // create a new entry
+          asset.perceptions[visChange.by] = { force: null, type: null }
+        }
+      }
+    })
+    return allForces
+  }
+
   const handleForceDelta = (/* object */message, /* object */ allForces) => {
     const msgType = message.details.messageType
     if (!msgType) {
@@ -135,6 +158,8 @@ export const playerUiReducer = (state = initialState, action) => {
     switch (msgType) {
       case FORCE_LAYDOWN:
         return handleForceLaydown(message, allForces)
+      case VISIBILIY_CHANGES:
+        return handleVisibilityChanges(message, allForces)
       default:
         console.error('failed to create player reducer handler for:' + msgType)
         return allForces

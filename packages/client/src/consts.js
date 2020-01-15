@@ -55,6 +55,7 @@ export const MAX_LISTENERS = 82
 
 // series of constants used for `messageType` when sending map events
 export const FORCE_LAYDOWN = 'ForceLaydown'
+export const VISIBILIY_CHANGES = 'VisibilityChanges'
 
 export const headers = {
   'Content-Type': 'application/json',

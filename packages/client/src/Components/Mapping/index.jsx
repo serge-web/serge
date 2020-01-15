@@ -10,7 +10,7 @@ import MapPlanningUmpireListener from './helpers/MapPlanningUmpireListener'
 import markerFor from './helpers/markerFor'
 import hasPendingForces from '../../Helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FORCE_LAYDOWN } from '../../consts'
+import { FORCE_LAYDOWN, VISIBILIY_CHANGES } from '../../consts'
 import MappingForm from '../MappingForm'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
@@ -130,6 +130,11 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     sendMessage(FORCE_LAYDOWN, param)
   }
 
+  const visChangesFunc = changes => {
+    console.log('sending', changes)
+    sendMessage(VISIBILIY_CHANGES, changes)
+  }
+
   /** callback to tell UI that we've got control of a platform in this UI */
   const declareControlOf = (force, name, platformType) => {
     console.log('User can control:', name)
@@ -180,7 +185,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         break
       case 'planning':
         if (myForceRef.current === 'umpire') {
-          mapListenerRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current)
+          mapListenerRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc)
         } else {
           mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current, currentTurnRef.current, routeComplete)
         }
