@@ -808,6 +808,20 @@ export const postNewMessage = (dbName, details, message) => {
   })
 }
 
+// Copied from postNewMessage cgange and add new logic for Mapping
+// console logs will not works there
+export const postNewMapMessage = (dbName, details, message) => {
+  const db = wargameDbStore.find((db) => db.name === dbName).db
+  db.put({
+    _id: new Date().toISOString(),
+    details,
+    message
+  }).catch((err) => {
+    console.log(err)
+    return err
+  })
+}
+
 export const getAllMessages = dbName => {
   const db = wargameDbStore.find(db => db.name === dbName).db
 

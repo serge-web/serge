@@ -142,7 +142,7 @@ class WargameSearchList extends Component {
                   :
                   <div className="wargame-unstarted-highlight"></div>
                 }
-                <span onClick={that.setSelectedWargame.bind(that, db.name)}>{db.title}</span>
+                <span title={db.name} onClick={that.setSelectedWargame.bind(that, db.name)}>{db.title}</span>
                 {that.state.activeTitle === db.title &&
                 <FontAwesomeIcon icon={faEllipsisH} className="wargame-option-menu-btn" title="Wargame menu" onClick={that.showWargameMenu.bind(that, db.title)} />
                 }

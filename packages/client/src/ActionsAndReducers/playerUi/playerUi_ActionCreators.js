@@ -132,6 +132,10 @@ export const saveMessage = (dbName, details, message) => {
   }
 }
 
+export const saveMapMessage = (dbName, details, message) => {
+  return wargamesApi.postNewMapMessage(dbName, details, message)
+}
+
 export const getAllWargameFeedback = (dbName) => {
   return async (dispatch) => {
     let messages = await wargamesApi.getAllMessages(dbName)
