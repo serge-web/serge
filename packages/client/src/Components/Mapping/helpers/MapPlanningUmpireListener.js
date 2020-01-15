@@ -45,10 +45,9 @@ export default class MapPlanningPlayerListener {
   }
 
   clearListeners () {
-    this.registeredListeners.forEach(marker => {
+    this.registeredListeners.forEach(pair => {
       // next lines commented out, until we've refactored JS into functions
-      // marker.off('drag', dragHandler)
-      // marker.off('drag', dragEndHandler)
+      pair.marker.off('click', e => pair.callback)
     })
 
     // and empty the array
@@ -60,37 +59,53 @@ export default class MapPlanningPlayerListener {
     return '<b>' + asset.name + '</b>'
   }
 
+  registerListener (/* object */ structure) {
+    // register the listener
+    structure.item.on(structure.event, e => structure.callback)
+
+    // and remember it
+    structure.store.push(structure)
+  }
+
+  listenToMarker (marker) {
+    // we have to trick module by pushing capturing marker - so we know
+    // who to advance.
+    this.currentMarker = marker
+    this.dbgForce = marker.asset.force
+    this.dbgName = marker.asset.name
+
+    const force = marker.asset.force
+    switch (force) {
+      case 'Blue':
+        this.btnChangeRedOn.enable()
+        this.btnChangeRedOff.enable()
+        break
+      case 'Red':
+        this.btnChangeBlueOn.enable()
+        this.btnChangeBlueOff.enable()
+        break
+      case 'Green':
+        this.btnChangeRedOn.enable()
+        this.btnChangeRedOff.enable()
+        this.btnChangeBlueOn.enable()
+        this.btnChangeBlueOff.enable()
+        break
+      default:
+        console.error('encountered unexpected force:' + force)
+    }
+  }
+
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
     const popupContent = this.changeVisPopupFor(marker.asset, null)
     marker.bindPopup(popupContent).openPopup()
 
-    marker.on('click', e => {
-      // we have to trick module by pushing capturing marker - so we know
-      // who to advance.
-      this.currentMarker = marker
-      this.dbgForce = marker.asset.force
-      this.dbgName = marker.asset.name
-
-      const force = marker.asset.force
-      switch (force) {
-        case 'Blue':
-          this.btnChangeRedOn.enable()
-          this.btnChangeRedOff.enable()
-          break
-        case 'Red':
-          this.btnChangeBlueOn.enable()
-          this.btnChangeBlueOff.enable()
-          break
-        case 'Green':
-          this.btnChangeRedOn.enable()
-          this.btnChangeRedOff.enable()
-          this.btnChangeBlueOn.enable()
-          this.btnChangeBlueOff.enable()
-          break
-        default:
-          console.error('encountered unexpected force:' + force)
-      }
+    // register the click listener
+    this.registerListener({
+      event: 'click',
+      item: marker,
+      callback: this.listenToMarker,
+      store: this.registeredListeners
     })
   }
 }
