@@ -1,9 +1,9 @@
 import L from 'leaflet'
-import defaultHexStyle from './data/default-hex-style'
-import plannedStateFor from './plannedStateFor'
-import colorFor from './colorFor'
-import padInteger from './padInteger'
-import createButton from './createDebugButton'
+import defaultHexStyle from '../../../Helpers/data/default-hex-style'
+import plannedStateFor from '../../../Helpers/plannedStateFor'
+import colorFor from '../../../Helpers/colorFor'
+import padInteger from '../../../Helpers/padInteger'
+import createButton from '../../../Helpers/createDebugButton'
 
 // eslint-disable-next-line no-unused-vars
 import glyph from 'leaflet.icon.glyph'
