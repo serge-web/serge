@@ -1,5 +1,5 @@
 import L from 'leaflet'
-/** create a button that can be used to trigger UI interactions, such as when a 
+/** create a button that can be used to trigger UI interactions, such as when a
  * change in state is triggered from elsewhere in the application
  */
 export default function createButton (/* boolean */enabled, /* string */ title, /* function */ callback) {
