@@ -11,10 +11,10 @@ it('Outputs the bio as expected', () => {
   expect(exhelper.generateBio()).toEqual({ age: 39, name: 'Joe Bloggs', sex: 'Male' })
 })
 
-it('Creates a "restricted access" guest pass as expected', () => {
+it('Creates a "Restricted access" guest pass as expected', () => {
   expect(exhelper.createGuestPass('limited')).toEqual({ age: 39, name: 'Joe Bloggs', passType: 'Restricted Access', sex: 'Male' })
 })
 
-it('Creates a "festricted access" guest pass as expected', () => {
+it('Creates a "All access" guest pass as expected', () => {
   expect(exhelper.createGuestPass('full')).toEqual({ age: 39, name: 'Joe Bloggs', passType: 'All Access', sex: 'Male' })
 })
