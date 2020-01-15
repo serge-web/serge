@@ -1,6 +1,6 @@
 import L from 'leaflet'
 import defaultHexStyle from './data/default-hex-style'
-import plannedStateFor from './plannedStateFor'
+import plannedModePopupFor from './plannedModePopupFor'
 import colorFor from './colorFor'
 import padInteger from './padInteger'
 // eslint-disable-next-line no-unused-vars
@@ -128,32 +128,17 @@ export default class MapPlanningPlayerListener {
   }
 
   /** produce a turn name in the form T01
-   * 
+   *
    */
   turnNameFor (/* int */ turn) {
     return 'T' + padInteger(turn, 2)
-  }
-
-  plannedModePopupFor (asset) {
-    var popup = '<b>' + asset.name + '</b><br/>'
-    // states
-    // TODO: do we have concept of current speed? Maybe take from history
-    popup += plannedStateFor(asset.state, 0, asset.platformTypeDetail, asset.platformSpeeds)
-
-    // reset the route
-    popup += '<input type="button" value="Reset Planned Route">'
-
-    // TODO: handler for this planned mode changing
-    popup += '<input type="button" value="Save">'
-
-    return popup
   }
 
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
     // is it for the current force?
     if (marker.asset.force === this.force) {
-      const popupContent = this.plannedModePopupFor(marker.asset)
+      const popupContent = plannedModePopupFor(marker.asset)
       marker.bindPopup(popupContent).openPopup()
 
       marker.on('click', e => {
@@ -176,7 +161,7 @@ export default class MapPlanningPlayerListener {
     this.achievableCells = []
   }
 
-  /** we're entering a new planning step - calculate which cells are 
+  /** we're entering a new planning step - calculate which cells are
    * achievable given the range remaining
    */
   updateAchievableCellsFor (/* hex */location, /* int */rangeRemaining, /* string */travelMode) {
@@ -221,7 +206,6 @@ export default class MapPlanningPlayerListener {
    * UI accordingly
    */
   platformStateAssigned (/* object */marker, /* object */newState) {
-
     if (newState.mobile) {
       // ok, get ready for step planning & dragging
       this.startHex = this.grid.cellFor(marker.asset.loc)
@@ -254,7 +238,7 @@ export default class MapPlanningPlayerListener {
         glyphSize: '13px'
       })
 
-      const planningMarker = L.marker(marker.asset.loc, { 
+      const planningMarker = L.marker(marker.asset.loc, {
         icon: redMarker,
         draggable: 'true',
         zIndexOffset: 1000
@@ -369,7 +353,7 @@ export default class MapPlanningPlayerListener {
           })
 
           const waypointMarker = L.marker(cursorLoc, {
-            icon: waypointIcon, 
+            icon: waypointIcon,
             draggable: 'false',
             title: turnString
           })
