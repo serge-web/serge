@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import defaultHexStyle from './data/default-hex-style'
 
-export default class MovementListener {
+export default class MapAdjudicatingPlayerListener {
   constructor (map, grid) {
     this.grid = grid
 
@@ -76,12 +76,15 @@ export default class MovementListener {
 
         //
         this.achievableCells = this.achievableCells.filter(cell => {
-          if (marker.travelMode === 'Land') {
+          if (marker.travelMode === 'land') {
             return cell.land
-          } else if (marker.travelMode === 'Sea') {
+          } else if (marker.travelMode === 'sea') {
             return cell.sea
-          } else if (marker.travelMode === 'Air') {
+          } else if (marker.travelMode === 'air') {
             return true
+          } else {
+            console.error('Unexpected terrain type')
+            return false
           }
         })
 

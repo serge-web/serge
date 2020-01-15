@@ -143,7 +143,8 @@ class PlayerUi extends Component {
     let render = null;
 
     if(screen === 'landing') {
-      render = <PlayerUiLandingScreen gameInfo={gameInfo} enterSerge={this.enterSerge} />;
+      // render = <PlayerUiLandingScreen gameInfo={gameInfo} enterSerge={this.enterSerge} />;
+      render = <PlayerUiLobby wargameList={wargame.wargameList} roleOptions={this.roleOptions()} checkPassword={this.checkPassword} />;
     } else if(screen === 'lobby') {
       render = <PlayerUiLobby wargameList={wargame.wargameList} roleOptions={this.roleOptions()} checkPassword={this.checkPassword} />;
     } else {

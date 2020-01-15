@@ -45,7 +45,7 @@
 $platforms: frigate, destroyer, mcmv, agi, fast-attack-craft, uas, merchant-vessel, fixed-wing-aircraft, fishing-vessel, missile, helicopter, boghammer, coastal-radar-site, datum, torpedo, pirate, mine;
 
 @each $platform in $platforms {
-  .platform-name-#{$platform} {
+  .platform-type-#{$platform} {
     background-image: url('counters/#{$platform}.svg');
   }   
 }

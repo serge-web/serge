@@ -452,45 +452,32 @@
 			{
 				"assets": [{
 						"name": "Frigate",
+						"condition": "Working",
 						"perceptions": {
-							"Blue": "Blue",
-							"Red": "Blue"
+							"Red": {"force":"Blue", "type":"frigate"}
 						},
-						"platformType": "Frigate",
+						"platformType": "frigate",
 						"position": "P21",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": true,
-							"Red": true
-						}
+						"state": "Transitting"
 					},
 					{
 						"name": "MPA",
+						"condition": "Working",
 						"perceptions": {
-							"Blue": "Blue",
-							"Red": "Blue"
 						},
-						"platformType": "MPA",
+						"platformType": "fixed-wing-aircraft",
 						"position": "C17",
-						"state": "Landed",
-						"visibleTo": {
-							"Blue": true,
-							"Red": false
-						}
+						"state": "Landed"
 					},
 					{
 						"name": "Tanker",
+						"condition": "Working",
 						"perceptions": {
-							"Blue": "Blue",
-							"Red": "Blue"
+							"Red": {"force":"Blue", "type":""}
 						},
-						"platformType": "Tanker",
+						"platformType": "merchant-vessel",
 						"position": "S23",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": true,
-							"Red": false
-						}
+						"state": "Transitting"
 					}
 				],
 				"color": "#00F",
@@ -511,59 +498,41 @@
 			{
 				"assets": [{
 						"name": "Dhow-A",
+						"condition": "Working",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": "Red"
+							"Blue": {"force":"Green", "type":""}
 						},
-						"platformType": "Dhow",
+						"platformType": "fishing-vessel",
 						"position": "N04",
-						"state": "LocationPending",
-						"visibleTo": {
-							"Blue": false,
-							"Red": true
-						}
+						"state": "LocationPending"
 					},
 					{
 						"name": "Dhow-B",
+						"condition": "Working",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": "Red"
+							"Blue": {"force":"Green", "type":"fishing-vessel"}
 						},
-						"platformType": "Dhow",
+						"platformType": "fishing-vessel",
 						"position": "N10",
-						"state": "LocationPending",
-						"visibleTo": {
-							"Blue": false,
-							"Red": true
-						}
+						"state": "LocationPending"
 					},
 					{
 						"name": "Dhow-C",
+						"condition": "Working",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": "Red"
 						},
-						"platformType": "Dhow",
+						"platformType": "fishing-vessel",
 						"position": "Q18",
-						"state": "LocationPending",
-						"visibleTo": {
-							"Blue": false,
-							"Red": true
-						}
+						"state": "LocationPending"
 					},
 					{
 						"name": "Missile-A",
+						"condition": "Working",
 						"perceptions": {
-							"Blue": "Red",
-							"Red": "Red"
 						},
-						"platformType": "Coastal Battery",
+						"platformType": "coastal-radar-site",
 						"position": "Q12",
-						"state": "LocationPending",
-						"visibleTo": {
-							"Blue": false,
-							"Red": true
-						}
+						"state": "LocationPending"
 					}
 				],
 				"color": "#F00",
@@ -584,9 +553,9 @@
 			{
 				"assets": [{
 						"name": "Tanker-1",
+						"condition": "Working",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": ""
+							"Blue": {"force":"Green", "type":"merchant-vessel"}
 						},
 						"plannedTurns": {
 							"T01": {
@@ -651,8 +620,8 @@
 							},
 							"T07": {
 								"route": [
-									"020",
-									"021",
+									"O20",
+									"O21",
 									"P21",
 									"Q22"
 								],
@@ -667,24 +636,21 @@
 								"speed": 0,
 								"state": "Moored"
 							},
-							"T1O": {
+							"T10": {
 								"speed": 0,
 								"state": "Moored"
 							}
 						},
-						"platformType": "Tanker",
-						"position": "G00",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": false,
-							"Red": false
-						}
+						"platformType": "merchant-vessel",
+						"position": "H00",
+						"state": "Transitting"
 					},
 					{
 						"name": "Tanker-2",
+						"condition": "Disabled",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": ""
+							"Blue": {"force":"Green", "type":"merchant-vessel"},
+							"Red": {"force":"Green", "type":"merchant-vessel"}
 						},
 						"plannedTurns": {
 							"T01": {
@@ -763,8 +729,8 @@
 							},
 							"T09": {
 								"route": [
-									"020",
-									"021",
+									"O20",
+									"O21",
 									"P21",
 									"Q22"
 								],
@@ -782,24 +748,20 @@
 								"state": "Transitting"
 							}
 						},
-						"platformType": "Tanker",
+						"platformType": "merchant-vessel",
 						"position": "C00",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": true,
-							"Red": false
-						}
+						"state": "Transitting"
 					},
 					{
 						"name": "Fisher-A",
+						"condition": "Working",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": "Green"
+							"Blue": {"force":"Green", "type":"merchant-vessel"}
 						},
 						"plannedTurns": {
 							"T01": {
 								"route": [
-									"L02",
+									"M02",
 									"K03"
 								],
 								"speed": 10,
@@ -866,24 +828,20 @@
 								"state": "Transitting"
 							}
 						},
-						"platformType": "Fisherman",
+						"platformType": "fishing-vessel",
 						"position": "M02",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": false,
-							"Red": false
-						}
+						"state": "Transitting"
 					},
 					{
 						"name": "Fisher-B",
+						"condition": "Working",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": "Green"
+							"Blue": {"force":"Green", "type":"merchant-vessel"}
 						},
 						"plannedTurns": {
 							"T01": {
 								"route": [
-									"M09",
+									"N08",
 									"L09"
 								],
 								"speed": 10,
@@ -937,6 +895,10 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
+							"T09": {
+								"speed": 0,
+								"state": "Fishing"
+							},
 							"T10": {
 								"speed": 0,
 								"state": "Fishing"
@@ -946,24 +908,21 @@
 								"state": "Fishing"
 							}
 						},
-						"platformType": "Fisherman",
+						"platformType": "fishing-vessel",
 						"position": "N08",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": false,
-							"Red": false
-						}
+						"state": "Transitting"
 					},
 					{
 						"name": "Fisher-C",
+						"condition": "Destroyed",
 						"perceptions": {
-							"Blue": "Green",
-							"Red": "Green"
+							"Blue": {"force":"Green", "type":"merchant-vessel"},
+							"Red": {"force":"Green", "type":"merchant-vessel"}
 						},
 						"plannedTurns": {
 							"T01": {
 								"route": [
-									"M11",
+									"N11",
 									"L10"
 								],
 								"speed": 10,
@@ -1030,13 +989,9 @@
 								"state": "Transitting"
 							}
 						},
-						"platformType": "Fisherman",
+						"platformType": "fishing-vessel",
 						"position": "N11",
-						"state": "Transitting",
-						"visibleTo": {
-							"Blue": false,
-							"Red": false
-						}
+						"state": "Transitting"
 					}
 				],
 				"color": "#0F0",
@@ -1080,8 +1035,8 @@
 					"Immobile",
 					"Destroyed"
 				],
-				"icon": "fisherman.svg",
-				"name": "Fisherman",
+				"icon": "fishing-vessel.svg",
+				"name": "fishing-vessel",
 				"speedKts": [
 					5,
 					10,
@@ -1108,7 +1063,7 @@
 					"Destroyed"
 				],
 				"icon": "frigate.svg",
-				"name": "Frigate",
+				"name": "frigate",
 				"speedKts": [
 					5,
 					10,
@@ -1136,8 +1091,8 @@
 					"Immobile",
 					"Destroyed"
 				],
-				"icon": "aircraft.svg",
-				"name": "MPA",
+				"icon": "fixed-wing-aircraft.svg",
+				"name": "fixed-wing-aircraft",
 				"speedKts": [],
 				"states": {
 					"Landed": {
@@ -1165,8 +1120,8 @@
 					"Immobile",
 					"Destroyed"
 				],
-				"icon": "missile.svg",
-				"name": "Coastal Battery",
+				"icon": "coastal-radar-site.svg",
+				"name": "coastal-radar-site",
 				"states": {
 					"Active": {
 						"mobile": true
@@ -1187,54 +1142,22 @@
 					"Immobile",
 					"Destroyed"
 				],
-				"icon": "fisherman.svg",
-				"name": "Dhow",
-				"speedKts": [
-					5,
-					10,
-					15
-				],
-				"states": {
-					"Attacking": {
-						"mobile": true
-					},
-					"Evading": {
-						"mobile": true
-					},
-					"Fishing": {
-						"mobile": false
-					},
-					"LocationPending": {
-						"mobile": false
-					},
-					"Minelaying": {
-						"mobile": false
-					},
-					"Transitting": {
-						"mobile": true
-					}
-				},
-				"travelMode": "sea"
-			},
-			{
-				"conditions": [
-					"Working",
-					"Disabled",
-					"Immobile",
-					"Destroyed"
-				],
-				"icon": "merchant.svg",
-				"name": "Tanker",
+				"icon": "merchant-vessel.svg",
+				"name": "merchant-vessel",
 				"speedKts": [
 					5,
 					10,
 					15,
 					20
 				],
-				"states": [
-					"Moored",
-					"Transitting"
-				],
+				"states": {
+					"Moored": {
+						"mobile": false
+					},
+					"Transitting": {
+						"mobile": true
+					}
+				},
 				"travelMode": "sea"
 			}
 		],
