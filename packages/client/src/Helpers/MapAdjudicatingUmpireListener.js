@@ -100,26 +100,30 @@ export default class MapAdjudicatingListener {
    * Note: if first or last element are missing, the angle
    * should be perpendicular to the leg that is present
    * */
-  getTurnMarkerOrientationFor (/* latlng */ pMinus1, /* latlng */ p, /* latlng */ pPlus1) {
-    var point = Object.values(p)
-    var arr1;
-    if(!pMinus1){
-      arr1 = point
-    } else {
-      arr1 = Object.values(pMinus1)
+  getTurnMarkerOrientationFor(/* latlng */ pMinus1, /* latlng */ p, /* latlng */ pPlus1) {
+
+    //console.log(pMinus1)
+    //console.log(pPlus1)
+    //console.log(p)
+    if(pMinus1 == undefined || pMinus1 == null){
+      console.log("pMinus1 has an undefined or null value")
+      pMinus1 = [13.50316632048148, 43.2290987]
+      //console.log(pMinus1)
     }
-    
+    if(pPlus1 == undefined || pPlus1 == null){
+      console.log("pPlus1 has an undefined or null value")
+      pPlus1 = [13.50316632048148, 43.2290987]
+      //console.log(pMinus1)
+    } 
+    else {
+      console.log("No null values found")
+    }
+
+    var arr1 = Object.values(pMinus1)
+    //console.log(arr1)
     var arr2 = Object.values(pPlus1)
+    //console.log(arr2)
 
-    var p1 = {
-        x: arr1[0],
-        y: arr1[1]
-    };
-
-    var p2 = {
-        x: arr2[0],
-        y: arr2[1]
-    };
 
     var dLon = (arr1[1] - arr2[1])
 
@@ -139,7 +143,7 @@ export default class MapAdjudicatingListener {
     brng = 360 - brng // count degrees clockwise - remove to make counter-clockwise
 
 
-    console.log(brng)
+    // console.log("Degrees " + brng)
     return brng;
     // note: we may have some missing fields if it's at the start/end of the line
   }
@@ -154,8 +158,8 @@ export default class MapAdjudicatingListener {
       let lastCoordInRoute = null
       let posMinus1 = null
       let posMinus2 = null
-      let pMinus1 = null
-      let pPlus1 = null
+      let pMinus1 
+      let pPlus1 
       let turnPending = false
       const turnMarker = null
 
@@ -170,7 +174,7 @@ export default class MapAdjudicatingListener {
           if (turnPending) {
             // store the orientation in the payload object            
             turnPending.orientation = context.getTurnMarkerOrientationFor(posMinus2, posMinus1, location)
-
+            
             // clear the flag
             turnPending = null
           }
@@ -283,27 +287,36 @@ export default class MapAdjudicatingListener {
         })
         declutterMarkers(clusters, this.grid.delta / 3)
 
-        const turnRightIcon = L.icon({
-          iconUrl: turnRight,
-          iconSize: [15, 15], // size of the icon
-        });
-      
-        const turnLeftIcon = L.icon({
-          iconUrl: turnLeft,
-          iconSize: [15, 15], // size of the icon
-        });
 
-        const turnEndIcon = L.icon({
-          iconUrl: turnEnd,
-          iconSize: [15, 15], // size of the icon
-        });
 
         turnMarkers.forEach((marker) => {
-          // create marker
+          const turnRightIcon = L.icon({
+            iconUrl: turnRight,
+            iconSize: [15, 15], // size of the icon
+          });
+        
+          const turnLeftIcon = L.icon({
+            iconUrl: turnLeft,
+            iconSize: [15, 15], // size of the icon
+          });
+  
+          const turnEndIcon = L.icon({
+            iconUrl: turnEnd,
+            iconSize: [15, 15], // size of the icon
+          });
 
-          // here the code breaks, I want to take the returned degree direction and save it to a variable and check if it is between certain numbers
-          var angleResult = angleFromCoordinate(pMinus1, pMinus1, pPlus1, pPlus1)
-          
+          // create marker
+          // console.log(marker.orientation)
+
+          var turnMarker = L.marker(marker.coord, {
+            draggable: true,
+            icon: turnEndIcon
+          })
+
+          const angleResult = marker.orientation
+          const markerName = marker.turn
+          console.log("Turn No: " + markerName + " " + "Angle: " + angleResult)
+
           // need to check if the value is between these values
           // greater than 90 but less than 180 = East to South 
           if(angleResult > 90 && angleResult < 180){
@@ -324,6 +337,39 @@ export default class MapAdjudicatingListener {
               icon: turnEndIcon
             })
           }
+          if(angleResult == undefined || angleResult == null){
+            turnMarker = L.marker(marker.coord, {
+              icon: turnEndIcon,
+              draggable: true,
+            })
+            console.log("A marker angle is undefined")
+          }
+
+
+      
+          
+          // here the code breaks, I want to take the returned degree direction and save it to a variable and check if it is between certain numbers
+
+          // need to check if the value is between these values
+          // greater than 90 but less than 180 = East to South 
+          // if(angleResult > 90 && angleResult < 180){
+          //   turnMarker = L.marker(marker.coord, {
+          //     draggable: true,
+          //     icon: turnRightIcon
+          //   })
+          // }
+          // if(angleResult > 180 && angleResult < 270){
+          //   turnMarker = L.marker(marker.coord, {
+          //     draggable: true,
+          //     icon: turnLeftIcon
+          //   })
+          // }
+          // if(angleResult > 270 && angleResult < 360){
+          //   turnMarker = L.marker(marker.coord, {
+          //     draggable: true,
+          //     icon: turnEndIcon
+          //   })
+          // }
 
           // console.log(latLngs)
           // console.log(eachCoordLon[1])
@@ -370,7 +416,7 @@ export default class MapAdjudicatingListener {
           res.name = asset.force + '_' + asset.name
 
           res.addLayer(turnMarker)
-          console.log(turnMarkers)
+          // console.log(turnMarkers)
         })
       }
     }
