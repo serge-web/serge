@@ -283,27 +283,21 @@ export default class MapAdjudicatingListener {
           // need to check if the value is between these values
           var iconName
           if (angleResult === 180 || angleResult === 360) {
-            console.log('d5')
             // for the 180 and 360, which are flat icons so end icon is used
             iconName = turnEnd
           } else if (angleResult > 0 && angleResult < 90) {
             // North to East
-            console.log('d1')
             iconName = turnLeft
           } else if (angleResult < 180) {
-            console.log('d2')
             // East to South
             iconName = turnRight
           } else if (angleResult < 271) {
-            console.log('d3')
             // South to West
             iconName = turnLeft
           } else if (angleResult < 360) {
-            console.log('d4')
             // West to North
             iconName = turnRight
           } else if (angleResult === undefined || angleResult === null) {
-            console.log('d6')
             // as some angles are undefined just use the end icon until this can be figured out
             iconName = turnEnd
           } else {
