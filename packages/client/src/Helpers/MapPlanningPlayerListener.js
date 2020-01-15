@@ -60,27 +60,34 @@ export default class MapPlanningPlayerListener {
 
     // try to create a button
     const context = this
-    this.createEasyButtonFor(map, 'fa-dice-one', 'immobile state selected', function (btn, map) {
+    this.btn1aImmobile = this.createButton(map, false, '1a. immobile state', function (btn, map) {
       context.platformStateAssigned(context.currentMarker, {
         mobile: false
       })
     })
-    this.createEasyButtonFor(map, 'fa-dice-two', 'mobile state & speed selected', function (btn, map) {
+    this.btn1bMobile10 = this.createButton(map, false, '1b. mobile 10 kts', function (btn, map) {
       context.platformStateAssigned(context.currentMarker, {
+        speed: 10,
         mobile: true
       })
     })
-    this.createEasyButtonFor(map, 'fa-dice-three', 'reset leg', function (btn, map) {
+    this.btn1cMobile30 = this.createButton(map, false, '1c. mobile 30 kts', function (btn, map) {
+      context.platformStateAssigned(context.currentMarker, {
+        speed: 30,
+        mobile: true
+      })
+    })
+    this.btn2aResetLeg = this.createButton(map, false, '2a. reset leg', function (btn, map) {
       context.resetCurrentLeg()
     })
-    this.createEasyButtonFor(map, 'fa-dice-four', 'submit route', function (btn, map) {
-      context.submitWholeRoute(context.currentMarker)
+    this.btn3aClearLastLeg = this.createButton(map, false, '3a. clear last leg', function (btn, map) {
+      context.submitClearLastLeg()
     })
-    this.createEasyButtonFor(map, 'fa-dice-five', 'clear last leg', function (btn, map) {
-      context.submitLegComplete()
+    this.btn3bClearWholeRoute = this.createButton(map, false, '3b. clear route', function (btn, map) {
+      context.submitClearWholeRoute()
     })
-    this.createEasyButtonFor(map, 'fa-dice-six', 'clear route', function (btn, map) {
-      context.submitLegComplete()
+    this.btn3cSubitWholeRoute = this.createButton(map, false, '3c. Submit route', function (btn, map) {
+      context.submitWholeRoute()
     })
   }
 
@@ -96,17 +103,64 @@ export default class MapPlanningPlayerListener {
     // clear the marker
     this.currentMarker = null
     this.clearOnNewLeg()
+
+    // and reset the buttons
+    this.btn1aImmobile.disable()
+    this.btn1bMobile10.disable()
+    this.btn1cMobile30.disable()
+    this.btn2aResetLeg.disable()
+    this.btn3aClearLastLeg.disable()
+    this.btn3bClearWholeRoute.disable()
+    this.btn3cSubitWholeRoute.disable()
   }
 
-  createEasyButtonFor (map, icon, title, callback) {
-    L.easyButton({
-      states: [
-        {
-          icon: icon,
-          title: title,
-          onClick: callback
-        }]
-    }).addTo(map)
+  createButton (map, enabled, title, callback) {
+    const CustomControl = L.Control.extend({
+
+      options: {
+        position: 'topleft'
+      },
+
+      enable: function () {
+        this.varContainer.disabled = false
+      },
+
+      disable: function () {
+        this.varContainer.disabled = true
+      },
+
+      onAdd: function (map) {
+        var container = L.DomUtil.create('input')
+
+        // store a copy, so we can call it from utility functions
+        this.varContainer = container
+
+        container.type = 'button'
+        container.title = 'No cat'
+        container.value = title
+
+        container.style.backgroundColor = 'white'
+        container.style.backgroundSize = '30px 30px'
+        container.style.width = '100px'
+        container.style.height = '30px'
+
+        if (enabled) {
+          this.enable()
+        } else {
+          this.disable()
+        }
+
+        container.onclick = function () {
+          callback()
+        }
+
+        return container
+      }
+    })
+
+    const result = new CustomControl()
+    map.addControl(result)
+    return result
   }
 
   /** create a new list of cells, that have been filtered to those
@@ -128,7 +182,7 @@ export default class MapPlanningPlayerListener {
   }
 
   /** produce a turn name in the form T01
-   * 
+   *
    */
   turnNameFor (/* int */ turn) {
     return 'T' + padInteger(turn, 2)
@@ -163,6 +217,11 @@ export default class MapPlanningPlayerListener {
         // we have to trick module by pushing capturing marker - so we know
         // who to advance.
         this.currentMarker = marker
+
+        // TODO: drop these dev steps
+        this.btn1aImmobile.enable()
+        this.btn1bMobile10.enable()
+        this.btn1cMobile30.enable()
       })
 
       // ok, the popup will eventually manage state
@@ -176,7 +235,7 @@ export default class MapPlanningPlayerListener {
     this.achievableCells = []
   }
 
-  /** we're entering a new planning step - calculate which cells are 
+  /** we're entering a new planning step - calculate which cells are
    * achievable given the range remaining
    */
   updateAchievableCellsFor (/* hex */location, /* int */rangeRemaining, /* string */travelMode) {
@@ -221,7 +280,6 @@ export default class MapPlanningPlayerListener {
    * UI accordingly
    */
   platformStateAssigned (/* object */marker, /* object */newState) {
-
     if (newState.mobile) {
       // ok, get ready for step planning & dragging
       this.startHex = this.grid.cellFor(marker.asset.loc)
@@ -230,7 +288,11 @@ export default class MapPlanningPlayerListener {
       this.clearOnNewLeg()
 
       // calculate the steps remaining
-      const range = 4
+      const speed = newState.speed
+      const stepSize = 30
+      const stepsPerHour = (60 / stepSize)
+      const gridDelta = 5
+      const range = speed / gridDelta / stepsPerHour // work out how many NM in 30 minutes
       const allowance = range
 
       // store the steps remaining
@@ -254,7 +316,7 @@ export default class MapPlanningPlayerListener {
         glyphSize: '13px'
       })
 
-      const planningMarker = L.marker(marker.asset.loc, { 
+      const planningMarker = L.marker(marker.asset.loc, {
         icon: redMarker,
         draggable: 'true',
         zIndexOffset: 1000
@@ -378,8 +440,14 @@ export default class MapPlanningPlayerListener {
           waypointMarker.dragging.disable()
 
           // give it a form to clear from this point
-          const waypointPopupContent = '<b>Turn T02</b><ul><li>[Reset from there]</li></ul>'
+          const waypointPopupContent = '<b>Turn T02</b><ul><li>[Reset from here]</li></ul>'
           waypointMarker.bindPopup(waypointPopupContent)
+
+          // TODO: delete these button interactions
+          const context = this
+          waypointMarker.on('click', e => {
+            context.btn2aResetLeg.enable()
+          })
 
           // put the next turn in the planning marker
           planningMarker.planningFor += 1
@@ -387,6 +455,14 @@ export default class MapPlanningPlayerListener {
           // we should listen for the planning marker to be clicked, so we can send the legs
           const endOfRoutePopup = '<b>Route for' + marker.asset.name + '</b><ul><li>[Submit]</li><li>[Clear this leg]</li><li>[Clear all]</li></ul>'
           planningMarker.bindPopup(endOfRoutePopup)
+
+          // TODO: delete these button interactions
+          // TODO: only bind if it's not already bound
+          planningMarker.on('click', e => {
+            context.btn3aClearLastLeg.enable()
+            context.btn3bClearWholeRoute.enable()
+            context.btn3cSubitWholeRoute.enable()
+          })
         }
 
         // we've finished with these range rings
