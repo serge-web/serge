@@ -1,6 +1,6 @@
 import L from 'leaflet'
 import defaultHexStyle from '../../../Helpers/data/default-hex-style'
-import colorFor from '../../../Helpers/colorFor'
+import colorFor from './colorFor'
 
 export default class MapAdjudicationPendingListener {
   constructor (map, grid, callback) {

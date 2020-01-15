@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import defaultHexStyle from '../../../Helpers/data/default-hex-style'
 import plannedStateFor from '../../../Helpers/plannedStateFor'
-import colorFor from '../../../Helpers/colorFor'
+import colorFor from './colorFor'
 import padInteger from '../../../Helpers/padInteger'
 import createButton from '../../../Helpers/createDebugButton'
 

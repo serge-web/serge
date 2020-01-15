@@ -7,7 +7,7 @@ import MapAdjudicationPendingListener from './helpers/MapAdjudicationPendingList
 import MapMarkersControl from './helpers/MapMarkersControl'
 import MapPlanningPlayerListener from './helpers/MapPlanningPlayerListener'
 import MapPlanningUmpireListener from './helpers/MapPlanningUmpireListener'
-import markerFor from '../../Helpers/markerFor'
+import markerFor from './helpers/markerFor'
 import hasPendingForces from '../../Helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { FORCE_LAYDOWN } from '../../consts'
