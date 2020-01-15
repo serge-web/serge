@@ -58,37 +58,61 @@ export default class MapPlanningPlayerListener {
       opacity: 0.2
     }
 
-    // try to create a button
+    // TODO: drop these fake state change triggers
     const context = this
-    this.btn1aImmobile = this.createButton(map, false, '1a. immobile state', function (btn, map) {
+    this.btn1aImmobile = this.createButton(false, '1a. immobile state', function (btn, map) {
       context.platformStateAssigned(context.currentMarker, {
         mobile: false
       })
-    })
-    this.btn1bMobile10 = this.createButton(map, false, '1b. mobile 10 kts', function (btn, map) {
+    }).addTo(map)
+    this.btn1bMobile10 = this.createButton(false, '1b. mobile 10kts', function (btn, map) {
       context.platformStateAssigned(context.currentMarker, {
         speed: 10,
         mobile: true
       })
-    })
-    this.btn1cMobile30 = this.createButton(map, false, '1c. mobile 30 kts', function (btn, map) {
+    }).addTo(map)
+    this.btn1cMobile30 = this.createButton(false, '1c. mobile 30kts', function (btn, map) {
       context.platformStateAssigned(context.currentMarker, {
         speed: 30,
         mobile: true
       })
-    })
-    this.btn2aResetLeg = this.createButton(map, false, '2a. reset leg', function (btn, map) {
+    }).addTo(map)
+    this.btn2aResetLeg = this.createButton(false, '2a. reset leg', function (btn, map) {
       context.resetCurrentLeg()
-    })
-    this.btn3aClearLastLeg = this.createButton(map, false, '3a. clear last leg', function (btn, map) {
+    }).addTo(map)
+    this.btn3aClearLastLeg = this.createButton(false, '3a. clear last leg', function (btn, map) {
       context.submitClearLastLeg()
-    })
-    this.btn3bClearWholeRoute = this.createButton(map, false, '3b. clear route', function (btn, map) {
+    }).addTo(map)
+    this.btn3bClearWholeRoute = this.createButton(false, '3b. clear route', function (btn, map) {
       context.submitClearWholeRoute()
-    })
-    this.btn3cSubitWholeRoute = this.createButton(map, false, '3c. Submit route', function (btn, map) {
-      context.submitWholeRoute()
-    })
+    }).addTo(map)
+    this.btn3cSubitWholeRoute = this.createButton(false, '3c. Submit route', function (btn, map) {
+      context.submitWholeRoute(context.currentMarker.asset, context.plannedLegs)
+    }).addTo(map)
+  }
+
+  resetCurrentLeg (/* dictionary */ plannedLegs, /* string */ turnName, /* object */ planningMarker) {
+    // loop through the legs
+
+    // is this the leg?
+
+    // delete it, and all following legs
+
+    // and also reset the state of the map interactions (update the state/position of the planning marker)
+  }
+
+  submitClearLastLeg (/* dictionary */ plannedLegs, /* string */ turnName, /* object */ planningMarker) {
+    // pop the last leg in the dictionary
+
+    // update the planning marker
+  }
+
+  submitClearWholeRoute (/* dictionary */ plannedLegs, /* object */ planningMarker) {
+    // erase all planned legs
+
+    // update the planning counter
+
+    // reset the initial available locations
   }
 
   /** the user has finished planning the route for this platform
@@ -104,6 +128,7 @@ export default class MapPlanningPlayerListener {
     this.currentMarker = null
     this.clearOnNewLeg()
 
+    // TODO: drop these buttons
     // and reset the buttons
     this.btn1aImmobile.disable()
     this.btn1bMobile10.disable()
@@ -114,7 +139,7 @@ export default class MapPlanningPlayerListener {
     this.btn3cSubitWholeRoute.disable()
   }
 
-  createButton (map, enabled, title, callback) {
+  createButton (enabled, title, callback) {
     const CustomControl = L.Control.extend({
 
       options: {
@@ -129,7 +154,7 @@ export default class MapPlanningPlayerListener {
         this.varContainer.disabled = true
       },
 
-      onAdd: function (map) {
+      onAdd: function () {
         var container = L.DomUtil.create('input')
 
         // store a copy, so we can call it from utility functions
@@ -141,7 +166,7 @@ export default class MapPlanningPlayerListener {
 
         container.style.backgroundColor = 'white'
         container.style.backgroundSize = '30px 30px'
-        container.style.width = '100px'
+        container.style.width = '150px'
         container.style.height = '30px'
 
         if (enabled) {
@@ -158,9 +183,7 @@ export default class MapPlanningPlayerListener {
       }
     })
 
-    const result = new CustomControl()
-    map.addControl(result)
-    return result
+    return new CustomControl()
   }
 
   /** create a new list of cells, that have been filtered to those
@@ -431,7 +454,7 @@ export default class MapPlanningPlayerListener {
           })
 
           const waypointMarker = L.marker(cursorLoc, {
-            icon: waypointIcon, 
+            icon: waypointIcon,
             draggable: 'false',
             title: turnString
           })
