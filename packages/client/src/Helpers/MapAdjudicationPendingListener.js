@@ -126,7 +126,7 @@ export default class MapAdjudicationPendingListener {
         this.callback({
           force: marker.force,
           name: marker.name,
-          pos: this.lastHex.name
+          position: this.lastHex.name
         })
       }
 

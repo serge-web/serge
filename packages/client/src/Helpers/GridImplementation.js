@@ -2,6 +2,7 @@ import L from 'leaflet'
 import { defineGrid } from 'honeycomb-grid'
 import cellTypes from './data/cell-types'
 import defaultHexStyle from './data/default-hex-style'
+import padInt from './padInteger'
 
 export default class GridImplementation {
   constructor ({ origin, delta, width, height, markerLayer }) {
@@ -93,13 +94,7 @@ export default class GridImplementation {
       // safely store the coords of the centre of the cell
       hex.centrePos = this.toWorld(point)
 
-      /** function to zero-pad the integer counter
-             */
-      function pad (num) {
-        var s = '' + num
-        return s.padStart(2, '0')
-      }
-      hex.name = String.fromCharCode(65 + hex.y) + pad(hex.x)
+      hex.name = String.fromCharCode(65 + hex.y) + padInt(hex.x)
       // sort out the cell attributes
       const cellChars = cellTypes[hex.name]
       if (cellChars) {

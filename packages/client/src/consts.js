@@ -53,6 +53,9 @@ export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
 
 export const MAX_LISTENERS = 82
 
+// series of constants used for `messageType` when sending map events
+export const FORCE_LAYDOWN = 'ForceLaydown'
+
 export const headers = {
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*',
