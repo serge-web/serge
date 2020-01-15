@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
 import GridImplementation from '../../Helpers/GridImplementation'
 import MapAdjudicatingUmpireListener from '../../Helpers/MapAdjudicatingUmpireListener'
@@ -9,6 +9,7 @@ import MapPlanningUmpireListener from '../../Helpers/MapPlanningUmpireListener'
 import markerFor from '../../Helpers/markerFor'
 import hasPendingForces from '../../Helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import MappingForm from '../MappingForm'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import '../../Helpers/mousePosition'
@@ -28,6 +29,9 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
   const myForceRef = useRef(selectedForce)
   const platformTypesRef = useRef(allPlatforms)
   const currentTurnRef = useRef(currentTurn)
+
+  const [showForm, setShowForm] = useState(false)
+  const [formPos, setFormPos] = useState()
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -137,6 +141,8 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
 
   const formRequestCallback = (form, payload) => {
     console.log('Popup form requested for:', form, payload)
+    setShowForm(true)
+    setFormPos(payload.screenPos)
   }
 
   useEffect(() => {
@@ -223,7 +229,9 @@ const Mapping = ({ currentTurn, currentWargame, selectedForce, allForces, allPla
     })
   }, [forcesRef, phaseRef, currentTurnRef])
 
-  return (<div id="map" className="mapping"></div>)
+  return (<div id="map" className="mapping">
+    { showForm && <MappingForm position={formPos}></MappingForm> }
+  </div>)
 }
 
 export default Mapping
