@@ -4,12 +4,16 @@ import L from 'leaflet'
 import GridImplementation from '../../Helpers/GridImplementation'
 import MovementListener from '../../Helpers/MovementListener'
 import markerFor from '../../Helpers/markerFor'
+import '../../Helpers/zoomHome' 
+import '../../Helpers/extensible-toolbar' 
+
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import '../../Helpers/mousePosition'
 
 import './styles.scss'
 import './leaflet.zoomhome.js'
+import 'leaflet-easybutton'
 
 const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null)
@@ -33,13 +37,43 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     })
 
     const zoomHome = L.Control.zoomHome();
-    zoomHome.addTo(mapRef.current);    
+
+    zoomHome.addTo(mapRef.current);  
+
+    const imageBounds = [[imageTop, imageLeft], [imageBottom, imageRight]]
+
+    L.control.homeButton({position: 'topleft', bounds: imageBounds}).addTo(mapRef.current)
+    
+    var toolbar = L.control.toolBar({position: 'bottomright'}).addTo(mapRef.current)
+    console.log(toolbar)
+
+    var toggle = L.easyButton({
+      states: [{
+        stateName: 'add-markers',
+        icon: 'fa-map-marker',
+        title: 'add random markers',
+        onClick: function(control) {
+          mapRef.current.addLayer(platformRef.current);
+          control.state('remove-markers');
+        }
+      }, {
+        icon: 'fa-undo',
+        stateName: 'remove-markers',
+        onClick: function(control) {
+          mapRef.current.removeLayer(platformRef.current);
+          control.state('add-markers');
+        },
+        title: 'remove markers'
+      }]
+    });
+
+    toggle.addTo(mapRef.current)
 
     const tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
       attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
     })
 
-    const imageBounds = [[imageTop, imageLeft], [imageBottom, imageRight]]
+    
 
     zoomHome.setHomeBounds(imageBounds)
 
