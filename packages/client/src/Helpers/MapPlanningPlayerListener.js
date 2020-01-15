@@ -5,6 +5,7 @@ import colorFor from './colorFor'
 import padInteger from './padInteger'
 // eslint-disable-next-line no-unused-vars
 import easyButton from 'leaflet-easybutton'
+import createButton from './createDebugButton'
 
 // eslint-disable-next-line no-unused-vars
 import glyph from 'leaflet.icon.glyph'
@@ -60,33 +61,33 @@ export default class MapPlanningPlayerListener {
 
     // TODO: drop these fake state change triggers
     const context = this
-    this.btn1aImmobile = this.createButton(false, '1a. immobile state', function (btn, map) {
+    this.btn1aImmobile = createButton(false, '1a. immobile state', function (btn, map) {
       context.platformStateAssigned(context.currentMarker, {
         mobile: false
       })
     }).addTo(map)
-    this.btn1bMobile10 = this.createButton(false, '1b. mobile 10kts', function (btn, map) {
+    this.btn1bMobile10 = createButton(false, '1b. mobile 10kts', function (btn, map) {
       context.platformStateAssigned(context.currentMarker, {
         speed: 10,
         mobile: true
       })
     }).addTo(map)
-    this.btn1cMobile30 = this.createButton(false, '1c. mobile 30kts', function (btn, map) {
+    this.btn1cMobile30 = createButton(false, '1c. mobile 30kts', function (btn, map) {
       context.platformStateAssigned(context.currentMarker, {
         speed: 30,
         mobile: true
       })
     }).addTo(map)
-    this.btn2aResetLeg = this.createButton(false, '2a. reset leg', function (btn, map) {
+    this.btn2aResetLeg = createButton(false, '2a. reset leg', function (btn, map) {
       context.resetCurrentLeg()
     }).addTo(map)
-    this.btn3aClearLastLeg = this.createButton(false, '3a. clear last leg', function (btn, map) {
+    this.btn3aClearLastLeg = createButton(false, '3a. clear last leg', function (btn, map) {
       context.submitClearLastLeg()
     }).addTo(map)
-    this.btn3bClearWholeRoute = this.createButton(false, '3b. clear route', function (btn, map) {
+    this.btn3bClearWholeRoute = createButton(false, '3b. clear route', function (btn, map) {
       context.submitClearWholeRoute()
     }).addTo(map)
-    this.btn3cSubitWholeRoute = this.createButton(false, '3c. Submit route', function (btn, map) {
+    this.btn3cSubitWholeRoute = createButton(false, '3c. Submit route', function (btn, map) {
       context.submitWholeRoute(context.currentMarker.asset, context.plannedLegs)
     }).addTo(map)
   }
@@ -137,53 +138,6 @@ export default class MapPlanningPlayerListener {
     this.btn3aClearLastLeg.disable()
     this.btn3bClearWholeRoute.disable()
     this.btn3cSubitWholeRoute.disable()
-  }
-
-  createButton (enabled, title, callback) {
-    const CustomControl = L.Control.extend({
-
-      options: {
-        position: 'topleft'
-      },
-
-      enable: function () {
-        this.varContainer.disabled = false
-      },
-
-      disable: function () {
-        this.varContainer.disabled = true
-      },
-
-      onAdd: function () {
-        var container = L.DomUtil.create('input')
-
-        // store a copy, so we can call it from utility functions
-        this.varContainer = container
-
-        container.type = 'button'
-        container.title = 'No cat'
-        container.value = title
-
-        container.style.backgroundColor = 'white'
-        container.style.backgroundSize = '30px 30px'
-        container.style.width = '150px'
-        container.style.height = '30px'
-
-        if (enabled) {
-          this.enable()
-        } else {
-          this.disable()
-        }
-
-        container.onclick = function () {
-          callback()
-        }
-
-        return container
-      }
-    })
-
-    return new CustomControl()
   }
 
   /** create a new list of cells, that have been filtered to those
