@@ -95,34 +95,49 @@ export const playerUiReducer = (state = initialState, action) => {
     return { isParticipant, allRolesIncluded, observing, templates }
   }
 
-  const modifyPlatformTypesBasedOnMessages = (platformTypes, newState) => {
-    // TODO: modyfy platform types based on laydown or other mapControll type messages
-    console.log(platformTypes)
-    return platformTypes
+  const modifyForcesBasedOnMessages = ({ allPlatformTypes, channels, allForces }) => {
+    let res = allForces
+    const mapChannel = Object.values(channels).find(({ name }) => (name === 'Mapping'))
+    if (mapChannel && mapChannel.messages && mapChannel.messages.length) {
+      for (const message of mapChannel.messages) {
+        res = modifyForcesBasedOnMessage(allForces, message)
+      }
+    }
+    return res
   }
 
-  const handleForceLaydown = (/* object */ payload, /* object */ newState) => {
+  const modifyForcesBasedOnMessage = (allForces, message) => {
+    let res = allForces
+    if (message.details && message.details.forceDelta) {
+      res = handleForceDelta(message, allForces)
+    }
+    return res
+  }
+
+  const handleForceLaydown = (/* object */ message, /* object */ allForces) => {
     // find the force
-    const force = newState.allForces.find(item => item.name === payload.force)
-    const asset = force.assets.find(item => item.name === payload.name)
+    const forceIndex = allForces.findIndex(item => item.name === message.force)
+    if (forceIndex === -1) return allForces
+    const assetIndex = allForces[forceIndex].assets.findIndex(item => item.name === message.name)
+    if (assetIndex === -1) return allForces
     // set the location
-    const oldPos = asset.position
-    asset.position = payload.position
-    console.log('asset moved from:' + oldPos + ' to:' + asset.position)
+    const { position } = allForces[forceIndex].assets[assetIndex]
+    console.log('asset moved from:' + position + ' to:' + message.position)
+    allForces[forceIndex].assets[assetIndex].position = message.position
+    return allForces
   }
 
-  const handleForceDelta = (/* object */message, /* object */ gameState) => {
+  const handleForceDelta = (/* object */message, /* object */ allForces) => {
     const msgType = message.details.messageType
     if (!msgType) {
       console.error('problem - we need message type in ', message)
     }
-    console.log('handling type:', msgType, message.message)
     switch (msgType) {
       case FORCE_LAYDOWN:
-        handleForceLaydown(message.message, gameState)
-        break
+        return handleForceLaydown(message, allForces)
       default:
         console.error('failed to create player reducer handler for:' + msgType)
+        return allForces
     }
   }
 
@@ -143,8 +158,7 @@ export const playerUiReducer = (state = initialState, action) => {
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.allChannels = action.payload.data.channels.channels
       newState.allForces = action.payload.data.forces.forces
-      newState.allPlatformTypes = modifyPlatformTypesBasedOnMessages(action.payload.data.platform_types.platformTypes, newState)
-      console.log(newState.allPlatformTypes)
+      newState.allPlatformTypes = action.payload.data.platform_types.platformTypes
       break
 
     case ActionConstant.SET_FORCE:
@@ -176,11 +190,6 @@ export const playerUiReducer = (state = initialState, action) => {
       break
 
     case ActionConstant.SET_LATEST_WARGAME_MESSAGE:
-      if (action.payload.details && action.payload.details.forceDelta) {
-        // ok, this message relates to the wargame forces data changing. Pass
-        // it to the handler
-        handleForceDelta(action.payload, newState)
-      }
       if (action.payload.hasOwnProperty('infoType')) {
         const message = {
           details: {
@@ -293,6 +302,11 @@ export const playerUiReducer = (state = initialState, action) => {
         }
       }
 
+      if (action.payload.details && action.payload.details.forceDelta) {
+        // ok, this message relates to the wargame forces data changing. Pass
+        // it to the handler
+        newState.allForces = modifyForcesBasedOnMessage(newState.allForces, { ...action.payload.message, details: action.payload.details })
+      }
       break
 
     case ActionConstant.SET_ALL_MESSAGES:
