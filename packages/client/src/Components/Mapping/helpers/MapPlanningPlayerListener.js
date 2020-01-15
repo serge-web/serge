@@ -86,12 +86,30 @@ export default class MapPlanningPlayerListener {
     }).addTo(map)
     this.btn3aClearLastLeg = createButton(false, '3a. clear last leg', function (btn, map) {
       context.submitClearLastLeg(context.plannedLegs, context.debugWaypointName, context.planningMarker)
+      // TODO: shouldn't need to do this once we have state
+      context.btn3cSubitWholeRoute.disable()
+      context.btn3aClearLastLeg.disable()
+      context.btn3bClearWholeRoute.disable()
     }).addTo(map)
     this.btn3bClearWholeRoute = createButton(false, '3b. clear route', function (btn, map) {
       context.submitClearWholeRoute(context.plannedLegs, context.planningMarker)
+
+      // TODO: shouldn't need to do this once we have state
+      context.btn3cSubitWholeRoute.disable()
+      context.btn3aClearLastLeg.disable()
+      context.btn3bClearWholeRoute.disable()
     }).addTo(map)
     this.btn3cSubitWholeRoute = createButton(false, '3c. Submit route', function (btn, map) {
       context.submitWholeRoute(context.currentMarker.asset, context.plannedLegs)
+      // TODO: drop these buttons
+      // and reset the buttons
+      context.btn1aImmobile.disable()
+      context.btn1bMobile10.disable()
+      context.btn1cMobile30.disable()
+      context.btn2aResetLeg.disable()
+      context.btn3aClearLastLeg.disable()
+      context.btn3bClearWholeRoute.disable()
+      context.btn3cSubitWholeRoute.disable()    
     }).addTo(map)
   }
 
@@ -115,11 +133,6 @@ export default class MapPlanningPlayerListener {
     // pop the last leg in the dictionary
 
     // update the planning marker
-
-    // TODO: shouldn't need to do this once we have state
-    this.btn3cSubitWholeRoute.disable()
-    this.btn3aClearLastLeg.disable()
-    this.btn3bClearWholeRoute.disable()
   }
 
   /**  a route has been planned, but the user wishes to start again. clear it */
@@ -129,11 +142,6 @@ export default class MapPlanningPlayerListener {
     // update the planning counter
 
     // reset the initial available locations
-
-    // TODO: shouldn't need to do this once we have state
-    this.btn3cSubitWholeRoute.disable()
-    this.btn3aClearLastLeg.disable()
-    this.btn3bClearWholeRoute.disable()
   }
 
   /** the user has finished planning the route for this platform
@@ -148,16 +156,6 @@ export default class MapPlanningPlayerListener {
     // clear the marker
     this.currentMarker = null
     this.clearOnNewLeg()
-
-    // TODO: drop these buttons
-    // and reset the buttons
-    this.btn1aImmobile.disable()
-    this.btn1bMobile10.disable()
-    this.btn1cMobile30.disable()
-    this.btn2aResetLeg.disable()
-    this.btn3aClearLastLeg.disable()
-    this.btn3bClearWholeRoute.disable()
-    this.btn3cSubitWholeRoute.disable()
   }
 
   /** create a new list of cells, that have been filtered to those
