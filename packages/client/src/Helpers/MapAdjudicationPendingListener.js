@@ -1,9 +1,12 @@
 import L from 'leaflet'
 import defaultHexStyle from './data/default-hex-style'
 import colorFor from './colorFor'
+import MapPopupHelper from './MapPopupHelper'
+import TestComp from '../Components/MappingMarkers/TestMarker'
 
 export default class MapAdjudicationPendingListener {
   constructor (map, grid, callback) {
+    this.map = map
     this.grid = grid
     this.callback = callback
 
@@ -34,6 +37,16 @@ export default class MapAdjudicationPendingListener {
 
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
+    // test new Helper
+    const helper = new MapPopupHelper(this.map, marker)
+    helper.setStore({ count: 10 })
+    helper.onUpdate(data => {
+      console.log('data from popup', data)
+    })
+    helper.useComponent(TestComp)
+    helper.openPopup()
+    helper.renderListener()
+
     // remember we're listing to it
     this.registeredListeners.push(marker)
 
