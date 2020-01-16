@@ -41,9 +41,11 @@ export default class MapAdjudicationPendingListener {
     const helper = new MapPopupHelper(this.map, marker)
     helper.setStore({ count: 10, input: '1', check: true })
     helper.onUpdate(data => {
+      // importamt onUpdate will return defined data ex on some action
       console.log('data from popup', data)
     })
     helper.onClose(store => {
+      // importamt onClose will return store
       console.log('store from popup', store)
     })
     helper.useComponent(TestComp)
