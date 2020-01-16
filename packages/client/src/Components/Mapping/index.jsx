@@ -10,7 +10,7 @@ import markerFor from './helpers/markerFor'
 import hasPendingForces from '../../Helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { FORCE_LAYDOWN, VISIBILIY_CHANGES } from '../../consts'
-import MappingForm from '../MappingForm'
+import assetsVisibleToMe from './helpers/assetsVisibleToMe'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import '../../Helpers/mousePosition'
@@ -153,6 +153,43 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     setFormPos(payload.screenPos)
   }
 
+  const createThisMarker = (asset, grid, force) => {
+    // set the asset location
+    asset.loc = grid.hexNamed(asset.position).centrePos
+
+    const inForceLaydown = hasPendingForces(forcesRef.current, myForceRef.current)
+
+    // set the asset force
+    asset.force = force.name
+
+    var assetIsDraggable
+    switch (phaseRef.current) {
+      case 'adjudication':
+        assetIsDraggable = ((myForceRef.current === 'umpire') || (inForceLaydown && (asset.force === myForceRef.current)))
+        break
+      case 'planning':
+        assetIsDraggable = myForceRef.current !== 'umpire' && asset.force === myForceRef.current
+        break
+      default:
+        console.log('Error - unexpected game phase encountered in Mapping component')
+    }
+
+    const userIsUmpire = myForceRef.current === 'umpire'
+    const marker = markerFor(asset, force.name, myForceRef.current, platformTypesRef.current, assetIsDraggable, userIsUmpire)
+
+    // did we create one?
+    if (marker != null) {
+      // tell the UI we're in control of this marker
+      if (assetIsDraggable) {
+        declareControlOf(force.name, asset.name, asset.platformType)
+      }
+
+      mapListenerRef.current.listenTo(marker, currentTurnRef.current)
+      platformsLayerRef.current.addLayer(marker)
+      console.log('added:', marker)
+    }
+  }
+
   useEffect(() => {
     // double-check where we are
     console.log(new Date(), 'TURN:', phaseRef.current, currentTurnRef.current)
@@ -164,6 +201,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       // ditch the listener
       mapListenerRef.current = null
     }
+
+    console.log(allForces)
 
     // clear the UI
     clearControlledAssets()
@@ -198,37 +237,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       // see if this force has any assets (white typically doesn't)
       if (force.assets) {
         force.assets.forEach(asset => {
-          // set the asset location
-          asset.loc = gridImplRef.current.hexNamed(asset.position).centrePos
-
-          // set the asset force
+          // for our subsequent convenience, shove the force in the asset
           asset.force = force.name
-
-          var assetIsDraggable
-          switch (phaseRef.current) {
-            case 'adjudication':
-              assetIsDraggable = ((myForceRef.current === 'umpire') || (inForceLaydown && (asset.force === myForceRef.current)))
-              break
-            case 'planning':
-              assetIsDraggable = myForceRef.current !== 'umpire' && asset.force === myForceRef.current
-              break
-            default:
-              console.log('Error - unexpected game phase encountered in Mapping component')
-          }
-
-          const userIsUmpire = myForceRef.current === 'umpire'
-          const marker = markerFor(asset, force.name, myForceRef.current, platformTypesRef.current, assetIsDraggable, userIsUmpire)
-
-          // did we create one?
-          if (marker != null) {
-            // tell the UI we're in control of this marker
-            if (assetIsDraggable) {
-              declareControlOf(force.name, asset.name, asset.platformType)
-            }
-
-            mapListenerRef.current.listenTo(marker, currentTurnRef.current)
-            platformsLayerRef.current.addLayer(marker)
-          }
+          createThisMarker(asset, gridImplRef.current, force)
         })
       }
     })
@@ -256,10 +267,32 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       }
     })
     // handle changes in asset visiblity
-    // const seenByMe = 
+    const visibleToMe = assetsVisibleToMe(allForces, selectedForce)
+    const foundItems = []
+    const toDelete = []
+    markers.eachLayer(marker => {
+      const name = marker.asset.name
+      var found = visibleToMe.find(item => item.name === name)
+      if (found) {
+        foundItems.push(name)
+      } else {
+        console.log('detaching', marker)
+        marker.remove()
+        toDelete.push(marker)
+      }
+    })
+    toDelete.forEach(marker => {
+      markers.removeLayer(marker)
+    })
+    // trim the items in visibleTo me
+    const toBeAdded = visibleToMe.filter(asset => foundItems.indexOf(asset.name) === -1)
+
+    if (toBeAdded) {
+      toBeAdded.forEach(asset => {
+        createThisMarker(asset, grid, asset.force, false)
+      })
+    }
   }, [allForces])
-
-
 
   return (
     <div id="map" className="mapping"/>
