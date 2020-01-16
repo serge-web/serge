@@ -563,7 +563,7 @@
 						},
 						"plannedTurns": [
 							{
-								"name": "T01",
+								"turn": 1,
 								"route": [
 									"H00",
 									"H01",
@@ -574,7 +574,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T02",
+								"turn": 2,
 								"route": [
 									"I04",
 									"I05",
@@ -585,7 +585,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T03",
+								"turn": 3,
 								"route": [
 									"I07",
 									"I08",
@@ -596,7 +596,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T04",
+								"turn": 4,
 								"route": [
 									"I11",
 									"J11",
@@ -607,7 +607,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T05",
+								"turn": 5,
 								"route": [
 									"K14",
 									"L14",
@@ -618,7 +618,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T06",
+								"turn": 6,
 								"route": [
 									"M17",
 									"M18",
@@ -629,7 +629,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T07",
+								"turn": 7,
 								"route": [
 									"O20",
 									"O21",
@@ -640,17 +640,17 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T08",
+								"turn": 8,
 								"speed": 0,
 								"state": "Moored"
 							},
 							{
-								"name": "T09",
+								"turn": 9,
 								"speed": 0,
 								"state": "Moored"
 							},
 							{
-								"name": "T10",
+								"turn": 10,
 								"speed": 0,
 								"state": "Moored"
 							}
@@ -674,12 +674,12 @@
 						},
 						"plannedTurns": [
 							{
-								"name": "T01",
+								"turn": 1,
 								"speed": 0,
 								"state": "Moored"
 							},
 							{
-								"name": "T02",
+								"turn": 2,
 								"route": [
 									"C00",
 									"C01",
@@ -690,7 +690,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T03",
+								"turn": 3,
 								"route": [
 									"C04",
 									"C05",
@@ -701,7 +701,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T04",
+								"turn": 4,
 								"route": [
 									"D07",
 									"E08",
@@ -712,7 +712,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T05",
+								"turn": 5,
 								"route": [
 									"H08",
 									"H09",
@@ -723,7 +723,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T06",
+								"turn": 6,
 								"route": [
 									"I11",
 									"J11",
@@ -734,7 +734,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T07",
+								"turn": 7,
 								"route": [
 									"K14",
 									"L14",
@@ -745,7 +745,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T08",
+								"turn": 8,
 								"route": [
 									"M17",
 									"M18",
@@ -756,7 +756,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T09",
+								"turn": 9,
 								"route": [
 									"O20",
 									"O21",
@@ -767,7 +767,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T10",
+								"turn": 10,
 								"route": [
 									"R22",
 									"S22",
@@ -793,7 +793,7 @@
 						},
 						"plannedTurns": [
 							{
-								"name": "T01",
+								"turn": 1,
 								"route": [
 									"M02",
 									"K03"
@@ -802,7 +802,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T02",
+								"turn": 2,
 								"route": [
 									"J03",
 									"I04"
@@ -811,12 +811,12 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T03",
+								"turn": 3,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"name": "T04",
+								"turn": 4,
 								"route": [
 									"I05",
 									"I06"
@@ -825,7 +825,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T05",
+								"turn": 5,
 								"route": [
 									"I07",
 									"I08"
@@ -834,12 +834,12 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T06",
+								"turn": 6,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"name": "T07",
+								"turn": 7,
 								"route": [
 									"J07",
 									"K07"
@@ -848,7 +848,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T08",
+								"turn": 8,
 								"route": [
 									"L06",
 									"M06"
@@ -857,12 +857,12 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T09",
+								"turn": 9,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"name": "T10",
+								"turn": 10,
 								"route": [
 									"M05",
 									"M04"
@@ -886,7 +886,7 @@
 						},
 						"plannedTurns": [
 							{
-								"name": "T01",
+								"turn": 1,
 								"route": [
 									"N08",
 									"L09"
@@ -895,12 +895,12 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T02",
+								"turn": 2,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"name": "T03",
+								"turn": 3,
 								"route": [
 									"K10",
 									"K09"
@@ -909,7 +909,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T04",
+								"turn": 4,
 								"route": [
 									"K08",
 									"K07"
@@ -918,7 +918,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T05",
+								"turn": 5,
 								"route": [
 									"K06",
 									"M06"
@@ -927,12 +927,12 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T06",
+								"turn": 6,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"name": "T07",
+								"turn": 7,
 								"route": [
 									"N06",
 									"N07"
@@ -941,7 +941,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T08",
+								"turn": 8,
 								"route": [
 									"M08",
 									"L08"
@@ -950,17 +950,17 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T09",
+								"turn": 9,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"name": "T10",
+								"turn": 10,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"name": "T11",
+								"turn": 11,
 								"speed": 0,
 								"state": "Fishing"
 							}
@@ -984,7 +984,7 @@
 						},
 						"plannedTurns": [
 							{
-								"name": "T01",
+								"turn": 1,
 								"route": [
 									"N11",
 									"L10"
@@ -993,7 +993,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T02",
+								"turn": 2,
 								"route": [
 									"K10",
 									"J09"
@@ -1002,12 +1002,12 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T03",
+								"turn": 3,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"name": "T04",
+								"turn": 4,
 								"route": [
 									"K08",
 									"K07"
@@ -1016,7 +1016,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T05",
+								"turn": 5,
 								"route": [
 									"K06",
 									"M06"
@@ -1025,12 +1025,12 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T06",
+								"turn": 6,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"name": "T07",
+								"turn": 7,
 								"route": [
 									"N06",
 									"N07"
@@ -1039,7 +1039,7 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T08",
+								"turn": 8,
 								"route": [
 									"M08",
 									"L08"
@@ -1048,12 +1048,12 @@
 								"state": "Transitting"
 							},
 							{
-								"name": "T09",
+								"turn": 9,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"name": "T10",
+								"turn": 10,
 								"route": [
 									"M09",
 									"N08"
