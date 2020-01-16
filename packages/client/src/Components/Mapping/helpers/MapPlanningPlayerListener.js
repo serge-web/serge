@@ -109,39 +109,8 @@ export default class MapPlanningPlayerListener {
       context.btn2aResetLeg.disable()
       context.btn3aClearLastLeg.disable()
       context.btn3bClearWholeRoute.disable()
-      context.btn3cSubitWholeRoute.disable()    
+      context.btn3cSubitWholeRoute.disable()
     }).addTo(map)
-  }
-
-  /** the user has clicked on a waypoint along a leg, and wishes to clear from that
-   * one onwards
-   */
-  resetCurrentLeg (/* dictionary */ plannedLegs, /* string */ turnName, /* object */ planningMarker) {
-    // loop through the legs
-
-    // is this the leg?
-
-    // delete it, and all following legs
-
-    // and also reset the state of the map interactions (update the state/position of the planning marker)
-  }
-
-  /** the user has clicked on the end of a route, but he just wants to
-   * drop the last leg
-   */
-  submitClearLastLeg (/* dictionary */ plannedLegs, /* string */ turnName, /* object */ planningMarker) {
-    // pop the last leg in the dictionary
-
-    // update the planning marker
-  }
-
-  /**  a route has been planned, but the user wishes to start again. clear it */
-  submitClearWholeRoute (/* dictionary */ plannedLegs, /* object */ planningMarker) {
-    // erase all planned legs
-
-    // update the planning counter
-
-    // reset the initial available locations
   }
 
   /** the user has finished planning the route for this platform
