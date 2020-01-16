@@ -56,13 +56,20 @@ export default class MapPlanningPlayerListener {
   }
 
   clearListeners () {
+    console.log('clearing listeners')
     this.registeredListeners.forEach(pair => {
-      // next lines commented out, until we've refactored JS into functions
-      pair.marker.off('click', e => pair.callback)
+      pair.marker.off(pair.event)
     })
 
     // and empty the array
-    this.registeredListeners = []   
+    this.registeredListeners = []
+
+    // ditch our buttons
+    this.btnChangeRedOn.remove()
+    this.btnChangeRedOff.remove()
+    this.btnChangeBlueOn.remove()
+    this.btnChangeBlueOff.remove()
+    this.btnSendChanges.remove()
   }
 
   changeVisPopupFor (/* object */asset, /* object */ perceptions) {
@@ -129,12 +136,7 @@ export default class MapPlanningPlayerListener {
 
     marker.on('click', this.listenToMarker)
 
-    // // register the click listener
-    // this.registerListener({
-    //   event: 'click',
-    //   item: marker,
-    //   callback: this.listenToMarker,
-    //   store: this.registeredListeners
-    // })
+    // remember we have to de-register this listener, for the next phase
+    this.registeredListeners.push({ marker: marker, event: 'click' })
   }
 }
