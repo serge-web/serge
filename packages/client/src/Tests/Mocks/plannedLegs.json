@@ -1,6 +1,6 @@
 [
     {
-        "name" : "T01",
+        "turn" : 1,
         "route": [
             "H00",
             "H01",
@@ -11,7 +11,7 @@
         "state": "Transitting"
     },
     {
-        "name": "T02",
+        "turn": 2,
         "route": [
             "I04",
             "I05",
@@ -22,7 +22,7 @@
         "state": "Transitting"
     },
     {
-        "name": "T03",
+        "turn": 3,
         "route": [
             "I07",
             "I08",
@@ -33,7 +33,7 @@
         "state": "Transitting"
     },
     {
-        "name": "T04",
+        "turn": 4,
         "route": [
             "I11",
             "J11",
@@ -44,7 +44,7 @@
         "state": "Transitting"
     },
     {
-        "name": "T05",
+        "turn": 5,
         "route": [
             "K14",
             "L14",

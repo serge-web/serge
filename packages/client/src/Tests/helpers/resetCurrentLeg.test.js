@@ -3,14 +3,6 @@
 import resetCurrentLeg from '../../Components/Mapping/helpers/resetCurrentLeg'
 import legs from '../Mocks/plannedLegs.json'
 
-it('Can see all legs and returns exactly 5 planned turns', () => {
-  expect(resetCurrentLeg(legs, '', {}).length).toEqual(5)
+it('Correctly trims everything including and after turn number 3 ', () => {
+  expect(resetCurrentLeg(legs, 3, {})).toEqual([{ route: ['H00', 'H01', 'H02', 'H03'], speed: 20, state: 'Transitting', turn: 1 }, { route: ['I04', 'I05', 'I06', 'I06'], speed: 20, state: 'Transitting', turn: 2 }])
 })
-
-// loop through the legs
-
-// is this the leg?
-
-// delete it, and all following legs
-
-// and also reset the state of the map interactions (update the state/position of the planning marker)
