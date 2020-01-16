@@ -235,8 +235,29 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     })
   }, [forcesRef, phaseRef, currentTurnRef])
 
+  /** create handler for wargame updates - specifically when the
+   * contents of allForces changes
+   */
   useEffect(() => {
-    MapMarkersControl(platformsLayerRef.current, gridImplRef.current, allForces)
+    const markers = platformsLayerRef.current
+    const grid = gridImplRef.current
+    // handle assets moving
+    markers.eachLayer(function (marker) {
+      const force = allForces.find(force => marker.force === force.name)
+      if (force && marker.asset) {
+        const asset = force.assets.find(({ name }) => name === marker.asset.name)
+        if (asset) {
+          // check the positions match
+          if (marker.asset.position !== asset.position) {
+            // update marker
+            marker.setLatLng(grid.hexNamed(asset.position).centrePos)
+          }
+        } else {
+        }
+      }
+    })
+    // handle changes in asset visiblity
+    // const seenByMe = 
   }, [allForces])
 
   return (
