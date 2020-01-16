@@ -4,6 +4,8 @@
 const resetCurrentLeg = (/* dictionary */ plannedLegs, /* string */ turnName, /* object */ planningMarker) => {
   // loop through the legs
 
+  return plannedLegs.map(leg => leg)
+
   // is this the leg?
 
   // delete it, and all following legs

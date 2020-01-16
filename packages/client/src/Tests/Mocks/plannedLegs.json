@@ -1,0 +1,57 @@
+[
+    {
+        "name" : "T01",
+        "route": [
+            "H00",
+            "H01",
+            "H02",
+            "H03"
+        ],
+        "speed": 20,
+        "state": "Transitting"
+    },
+    {
+        "name": "T02",
+        "route": [
+            "I04",
+            "I05",
+            "I06",
+            "I06"
+        ],
+        "speed": 20,
+        "state": "Transitting"
+    },
+    {
+        "name": "T03",
+        "route": [
+            "I07",
+            "I08",
+            "I09",
+            "I10"
+        ],
+        "speed": 20,
+        "state": "Transitting"
+    },
+    {
+        "name": "T04",
+        "route": [
+            "I11",
+            "J11",
+            "J12",
+            "J13"
+        ],
+        "speed": 20,
+        "state": "Transitting"
+    },
+    {
+        "name": "T05",
+        "route": [
+            "K14",
+            "L14",
+            "M15",
+            "M16"
+        ],
+        "speed": 20,
+        "state": "Transitting"
+    }
+]
