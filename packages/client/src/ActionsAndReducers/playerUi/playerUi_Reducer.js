@@ -1,6 +1,7 @@
 import ActionConstant from '../ActionConstants'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
+import handleVisibilityChanges from './helpers/handleVisibilityChanges'
 import {
   CHAT_CHANNEL_ID,
   expiredStorage,
@@ -126,28 +127,6 @@ export const playerUiReducer = (state = initialState, action) => {
     const { position } = allForces[forceIndex].assets[assetIndex]
     console.log('asset moved from:' + position + ' to:' + message.position)
     allForces[forceIndex].assets[assetIndex].position = message.position
-    return allForces
-  }
-
-  /** umpire is changing the visibility of an asset, for a force */
-  const handleVisibilityChanges = (/* object */ message, /* object */ allForces) => {
-    const payload = message.payload
-    payload.forEach(visChange => {
-      const force = allForces.find(item => item.name === visChange.force)
-      if (force.assets) {
-        const asset = force.assets.find(item => item.name === visChange.asset)
-        if (asset) {
-          // can it already see it?
-          if (asset.perceptions[visChange.by]) {
-            // ok, clear that entry
-            delete asset.perceptions[visChange.by]
-          } else {
-            // create a new entry
-            asset.perceptions[visChange.by] = { force: null, type: null }
-          }
-        }
-      }
-    })
     return allForces
   }
 
