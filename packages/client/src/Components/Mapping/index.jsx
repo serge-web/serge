@@ -4,7 +4,6 @@ import GridImplementation from '../../Helpers/GridImplementation'
 import MapAdjudicatingUmpireListener from './helpers/MapAdjudicatingUmpireListener'
 import MapAdjudicatingPlayerListener from './helpers/MapAdjudicatingPlayerListener'
 import MapAdjudicationPendingListener from './helpers/MapAdjudicationPendingListener'
-import MapMarkersControl from './helpers/MapMarkersControl'
 import MapPlanningPlayerListener from './helpers/MapPlanningPlayerListener'
 import MapPlanningUmpireListener from './helpers/MapPlanningUmpireListener'
 import markerFor from './helpers/markerFor'
@@ -233,7 +232,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         })
       }
     })
-  }, [forcesRef, phaseRef, currentTurnRef])
+  }, [phaseRef])
 
   /** create handler for wargame updates - specifically when the
    * contents of allForces changes
@@ -259,6 +258,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     // handle changes in asset visiblity
     // const seenByMe = 
   }, [allForces])
+
+
 
   return (
     <div id="map" className="mapping"/>
