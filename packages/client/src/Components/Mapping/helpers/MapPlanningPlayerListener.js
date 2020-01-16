@@ -1,6 +1,6 @@
 import L from 'leaflet'
 import defaultHexStyle from '../../../Helpers/data/default-hex-style'
-import plannedModePopupFor from './plannedModePopupFor'
+import plannedModePopupFor from '../../../Helpers/plannedModePopupFor'
 import colorFor from './colorFor'
 import padInteger from '../../../Helpers/padInteger'
 import createButton from '../../../Helpers/createDebugButton'
