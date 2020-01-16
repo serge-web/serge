@@ -43,10 +43,9 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     const imageBounds = [[imageTop, imageLeft], [imageBottom, imageRight]]
 
     L.control.homeButton({position: 'topleft', bounds: imageBounds}).addTo(mapRef.current)
-    
-    var toolbar = L.control.toolBar({position: 'bottomright'}).addTo(mapRef.current)
-    console.log(toolbar)
 
+    // the button for toggling markers on and off
+    // to test leaflet easy button various states
     var toggle = L.easyButton({
       states: [{
         stateName: 'add-markers',
@@ -72,8 +71,6 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     const tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
       attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
     })
-
-    
 
     zoomHome.setHomeBounds(imageBounds)
 
@@ -107,6 +104,9 @@ const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
     L.control.layers(baseLayers, overlays, {
       collapsed: false
     }).addTo(mapRef.current)
+
+    var toolbar = L.control.toolBar({position: 'topright'}).addTo(mapRef.current)
+    console.log(toolbar)
 
     // only show the markers when zoomed in
     mapRef.current.on('zoomend', () => {
