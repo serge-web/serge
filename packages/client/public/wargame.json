@@ -1,430 +1,439 @@
 {
 	"channels": {
-		"channels": [{
-			"name": "Mapping",
-			"participants": [{
-					"force": "White",
-					"forceUniqid": "umpire",
-					"icon": "http://192.168.1.123:8080/default_img/umpireDefault.png",
-					"roles": [],
-					"subscriptionId": "k53tifeo",
-					"templates": [{
-							"label": "State of World L",
-							"value": {
-								"_id": "k16eedkp",
-								"_rev": "1-612d7dc5d10fc81bc7459b2801c66816",
-								"completed": false,
-								"details": {
-									"properties": {
-										"Forces": {
-											"format": "table",
-											"items": {
-												"minItems": 1,
-												"properties": {
-													"assets": {
-														"format": "table",
-														"items": {
-															"properties": {
-																"location": {
-																	"maxLength": 3,
-																	"type": "string"
-																},
-																"name": {
-																	"type": "string"
-																},
-																"visibleTo": {
-																	"format": "table",
-																	"items": {
-																		"properties": {
-																			"Force": {
-																				"enum": [
-																					"Blue",
-																					"Red",
-																					"Green"
-																				],
-																				"type": "string"
-																			}
-																		}
-																	},
-																	"type": "array"
-																}
-															}
-														},
-														"minItems": 1,
-														"type": "array"
-													},
-													"force": {
-														"enum": [
-															"Blue",
-															"Red",
-															"Green"
-														],
-														"propertyOrder": 100,
-														"type": "string"
-													}
-												}
-											},
-											"minItems": 1,
-											"type": "array"
-										}
-									},
-									"title": "State of World (laydown 2)",
-									"type": "object"
-								},
-								"lastUpdated": "2019-09-30T12:37:26.705Z",
-								"title": "State of World L"
-							}
-						},
-						{
-							"label": "State of world (full 2)",
-							"value": {
-								"_id": "2019-12-20T15:57:11.519Z",
-								"_rev": "1-4bd7b0b5488182f39f10d5203bb1fad8",
-								"completed": false,
-								"details": {
-									"properties": {
-										"Forces": {
-											"format": "table",
-											"items": {
-												"minItems": 1,
-												"properties": {
-													"assets": {
-														"format": "table",
-														"items": {
-															"properties": {
-																"history": {
-																	"format": "table",
-																	"items": {
-																		"properties": {
-																			"Route": {
-																				"format": "table",
-																				"items": {
-																					"properties": {
-																						"Location": {
-																							"maxLength": 3,
-																							"type": "string"
-																						}
-																					}
-																				},
-																				"minItems": 1,
-																				"propertyOrder": 400,
-																				"type": "array"
-																			},
-																			"Speed": {
-																				"propertyOrder": 300,
-																				"type": "number"
-																			},
-																			"State": {
-																				"propertyOrder": 200,
-																				"type": "string"
-																			},
-																			"Turn": {
-																				"propertyOrder": 100,
-																				"type": "string"
-																			}
-																		}
-																	},
-																	"minItems": 1,
-																	"type": "array"
-																},
-																"name": {
-																	"propertyOrder": 100,
-																	"type": "string"
-																},
-																"planned": {
-																	"format": "table",
-																	"items": {
-																		"properties": {
-																			"Route": {
-																				"format": "table",
-																				"items": {
-																					"properties": {
-																						"Location": {
-																							"maxLength": 3,
-																							"type": "string"
-																						}
-																					}
-																				},
-																				"minItems": 1,
-																				"propertyOrder": 400,
-																				"type": "array"
-																			},
-																			"Speed": {
-																				"propertyOrder": 300,
-																				"type": "number"
-																			},
-																			"State": {
-																				"propertyOrder": 200,
-																				"type": "string"
-																			},
-																			"Turn": {
-																				"propertyOrder": 100,
-																				"type": "string"
-																			}
-																		}
-																	},
-																	"minItems": 1,
-																	"propertyOrder": 2000,
-																	"type": "array"
-																},
-																"visibleTo": {
-																	"format": "table",
-																	"items": {
-																		"properties": {
-																			"Force": {
-																				"enum": [
-																					"Blue",
-																					"Red",
-																					"Green"
-																				],
-																				"type": "string"
-																			}
-																		}
-																	},
-																	"propertyOrder": 300,
-																	"type": "array"
-																}
-															}
-														},
-														"minItems": 1,
-														"type": "array"
-													},
-													"force": {
-														"enum": [
-															"Blue",
-															"Red",
-															"Green"
-														],
-														"propertyOrder": 100,
-														"type": "string"
-													}
-												}
-											},
-											"minItems": 1,
-											"type": "array"
-										}
-									},
-									"title": "State of World (Full 2)",
-									"type": "object"
-								},
-								"lastUpdated": "2019-12-20T15:57:11.519Z",
-								"title": "State of world (full 2)"
-							}
-						}
-					]
-				},
-				{
-					"force": "Blue",
-					"forceUniqid": "Blue",
-					"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
-					"roles": [],
-					"subscriptionId": "k53tij98",
-					"templates": [{
-						"label": "Orders (M2)",
-						"value": {
-							"_id": "k16eedkk",
-							"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
-							"completed": false,
-							"details": {
-								"properties": {
-									"Assets": {
-										"format": "table",
-										"items": {
-											"properties": {
-												"Name": {
-													"propertyOrder": 100,
-													"type": "string"
-												},
-												"Route": {
-													"format": "table",
-													"items": {
-														"properties": {
-															"Location": {
-																"maxLength": 3,
-																"type": "string"
-															}
-														}
-													},
+		"channels": [
+			{
+				"name": "Mapping",
+				"participants": [
+					{
+						"force": "White",
+						"forceUniqid": "umpire",
+						"icon": "http://192.168.1.123:8080/default_img/umpireDefault.png",
+						"roles": [],
+						"subscriptionId": "k53tifeo",
+						"templates": [
+							{
+								"label": "State of World L",
+								"value": {
+									"_id": "k16eedkp",
+									"_rev": "1-612d7dc5d10fc81bc7459b2801c66816",
+									"completed": false,
+									"details": {
+										"properties": {
+											"Forces": {
+												"format": "table",
+												"items": {
 													"minItems": 1,
-													"propertyOrder": 400,
-													"type": "array"
+													"properties": {
+														"assets": {
+															"format": "table",
+															"items": {
+																"properties": {
+																	"location": {
+																		"maxLength": 3,
+																		"type": "string"
+																	},
+																	"name": {
+																		"type": "string"
+																	},
+																	"visibleTo": {
+																		"format": "table",
+																		"items": {
+																			"properties": {
+																				"Force": {
+																					"enum": [
+																						"Blue",
+																						"Red",
+																						"Green"
+																					],
+																					"type": "string"
+																				}
+																			}
+																		},
+																		"type": "array"
+																	}
+																}
+															},
+															"minItems": 1,
+															"type": "array"
+														},
+														"force": {
+															"enum": [
+																"Blue",
+																"Red",
+																"Green"
+															],
+															"propertyOrder": 100,
+															"type": "string"
+														}
+													}
 												},
-												"Speed": {
-													"propertyOrder": 300,
-													"type": "number"
-												},
-												"State": {
-													"propertyOrder": 200,
-													"type": "string"
-												}
+												"minItems": 1,
+												"type": "array"
 											}
 										},
-										"minItems": 1,
-										"type": "array"
-									}
-								},
-								"title": "Orders (m2c)",
-								"type": "object"
+										"title": "State of World (laydown 2)",
+										"type": "object"
+									},
+									"lastUpdated": "2019-09-30T12:37:26.705Z",
+									"title": "State of World L"
+								}
 							},
-							"lastUpdated": "2019-09-30T12:37:26.705Z",
-							"title": "Orders (M2)"
-						}
-					}]
-				},
-				{
-					"force": "Red",
-					"forceUniqid": "Red",
-					"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
-					"roles": [],
-					"subscriptionId": "k53tiqdf",
-					"templates": [{
-							"label": "Orders (M2)",
-							"value": {
-								"_id": "k16eedkk",
-								"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
-								"completed": false,
-								"details": {
-									"properties": {
-										"Assets": {
-											"format": "table",
-											"items": {
-												"properties": {
-													"Name": {
-														"propertyOrder": 100,
-														"type": "string"
-													},
-													"Route": {
-														"format": "table",
-														"items": {
-															"properties": {
-																"Location": {
-																	"maxLength": 3,
-																	"type": "string"
-																}
-															}
-														},
-														"minItems": 1,
-														"propertyOrder": 400,
-														"type": "array"
-													},
-													"Speed": {
-														"propertyOrder": 300,
-														"type": "number"
-													},
-													"State": {
-														"propertyOrder": 200,
-														"type": "string"
-													}
-												}
-											},
-											"minItems": 1,
-											"type": "array"
-										}
-									},
-									"title": "Orders (m2c)",
-									"type": "object"
-								},
-								"lastUpdated": "2019-09-30T12:37:26.705Z",
-								"title": "Orders (M2)"
-							}
-						},
-						{
-							"label": "Laydown",
-							"value": {
-								"_id": "2019-12-20T14:28:22.999Z",
-								"_rev": "1-741dde8c87e0a0fcbe335c234b1619a3",
-								"completed": false,
-								"details": {
-									"properties": {
-										"Initial Locations": {
-											"format": "table",
-											"items": {
-												"properties": {
-													"location": {
-														"maxLength": 3,
-														"type": "string"
-													},
-													"name": {
-														"propertyOrder": 100,
-														"type": "string"
-													}
-												},
-												"type": "object"
-											},
-											"minItems": 1,
-											"type": "array"
-										}
-									},
-									"title": "laydown",
-									"type": "object"
-								},
-								"lastUpdated": "2019-12-20T14:28:22.999Z",
-								"title": "Laydown"
-							}
-						}
-					]
-				},
-				{
-					"force": "Green",
-					"forceUniqid": "Green",
-					"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
-					"roles": [],
-					"subscriptionId": "k53tivj5",
-					"templates": [{
-						"label": "Orders (M2)",
-						"value": {
-							"_id": "k16eedkk",
-							"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
-							"completed": false,
-							"details": {
-								"properties": {
-									"Assets": {
-										"format": "table",
-										"items": {
-											"properties": {
-												"Name": {
-													"propertyOrder": 100,
-													"type": "string"
-												},
-												"Route": {
-													"format": "table",
-													"items": {
-														"properties": {
-															"Location": {
-																"maxLength": 3,
-																"type": "string"
-															}
-														}
-													},
+							{
+								"label": "State of world (full 2)",
+								"value": {
+									"_id": "2019-12-20T15:57:11.519Z",
+									"_rev": "1-4bd7b0b5488182f39f10d5203bb1fad8",
+									"completed": false,
+									"details": {
+										"properties": {
+											"Forces": {
+												"format": "table",
+												"items": {
 													"minItems": 1,
-													"propertyOrder": 400,
-													"type": "array"
+													"properties": {
+														"assets": {
+															"format": "table",
+															"items": {
+																"properties": {
+																	"history": {
+																		"format": "table",
+																		"items": {
+																			"properties": {
+																				"Route": {
+																					"format": "table",
+																					"items": {
+																						"properties": {
+																							"Location": {
+																								"maxLength": 3,
+																								"type": "string"
+																							}
+																						}
+																					},
+																					"minItems": 1,
+																					"propertyOrder": 400,
+																					"type": "array"
+																				},
+																				"Speed": {
+																					"propertyOrder": 300,
+																					"type": "number"
+																				},
+																				"State": {
+																					"propertyOrder": 200,
+																					"type": "string"
+																				},
+																				"Turn": {
+																					"propertyOrder": 100,
+																					"type": "string"
+																				}
+																			}
+																		},
+																		"minItems": 1,
+																		"type": "array"
+																	},
+																	"name": {
+																		"propertyOrder": 100,
+																		"type": "string"
+																	},
+																	"planned": {
+																		"format": "table",
+																		"items": {
+																			"properties": {
+																				"Route": {
+																					"format": "table",
+																					"items": {
+																						"properties": {
+																							"Location": {
+																								"maxLength": 3,
+																								"type": "string"
+																							}
+																						}
+																					},
+																					"minItems": 1,
+																					"propertyOrder": 400,
+																					"type": "array"
+																				},
+																				"Speed": {
+																					"propertyOrder": 300,
+																					"type": "number"
+																				},
+																				"State": {
+																					"propertyOrder": 200,
+																					"type": "string"
+																				},
+																				"Turn": {
+																					"propertyOrder": 100,
+																					"type": "string"
+																				}
+																			}
+																		},
+																		"minItems": 1,
+																		"propertyOrder": 2000,
+																		"type": "array"
+																	},
+																	"visibleTo": {
+																		"format": "table",
+																		"items": {
+																			"properties": {
+																				"Force": {
+																					"enum": [
+																						"Blue",
+																						"Red",
+																						"Green"
+																					],
+																					"type": "string"
+																				}
+																			}
+																		},
+																		"propertyOrder": 300,
+																		"type": "array"
+																	}
+																}
+															},
+															"minItems": 1,
+															"type": "array"
+														},
+														"force": {
+															"enum": [
+																"Blue",
+																"Red",
+																"Green"
+															],
+															"propertyOrder": 100,
+															"type": "string"
+														}
+													}
 												},
-												"Speed": {
-													"propertyOrder": 300,
-													"type": "number"
-												},
-												"State": {
-													"propertyOrder": 200,
-													"type": "string"
-												}
+												"minItems": 1,
+												"type": "array"
 											}
 										},
-										"minItems": 1,
-										"type": "array"
-									}
-								},
-								"title": "Orders (m2c)",
-								"type": "object"
+										"title": "State of World (Full 2)",
+										"type": "object"
+									},
+									"lastUpdated": "2019-12-20T15:57:11.519Z",
+									"title": "State of world (full 2)"
+								}
+							}
+						]
+					},
+					{
+						"force": "Blue",
+						"forceUniqid": "Blue",
+						"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
+						"roles": [],
+						"subscriptionId": "k53tij98",
+						"templates": [
+							{
+								"label": "Orders (M2)",
+								"value": {
+									"_id": "k16eedkk",
+									"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
+									"completed": false,
+									"details": {
+										"properties": {
+											"Assets": {
+												"format": "table",
+												"items": {
+													"properties": {
+														"Name": {
+															"propertyOrder": 100,
+															"type": "string"
+														},
+														"Route": {
+															"format": "table",
+															"items": {
+																"properties": {
+																	"Location": {
+																		"maxLength": 3,
+																		"type": "string"
+																	}
+																}
+															},
+															"minItems": 1,
+															"propertyOrder": 400,
+															"type": "array"
+														},
+														"Speed": {
+															"propertyOrder": 300,
+															"type": "number"
+														},
+														"State": {
+															"propertyOrder": 200,
+															"type": "string"
+														}
+													}
+												},
+												"minItems": 1,
+												"type": "array"
+											}
+										},
+										"title": "Orders (m2c)",
+										"type": "object"
+									},
+									"lastUpdated": "2019-09-30T12:37:26.705Z",
+									"title": "Orders (M2)"
+								}
+							}
+						]
+					},
+					{
+						"force": "Red",
+						"forceUniqid": "Red",
+						"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
+						"roles": [],
+						"subscriptionId": "k53tiqdf",
+						"templates": [
+							{
+								"label": "Orders (M2)",
+								"value": {
+									"_id": "k16eedkk",
+									"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
+									"completed": false,
+									"details": {
+										"properties": {
+											"Assets": {
+												"format": "table",
+												"items": {
+													"properties": {
+														"Name": {
+															"propertyOrder": 100,
+															"type": "string"
+														},
+														"Route": {
+															"format": "table",
+															"items": {
+																"properties": {
+																	"Location": {
+																		"maxLength": 3,
+																		"type": "string"
+																	}
+																}
+															},
+															"minItems": 1,
+															"propertyOrder": 400,
+															"type": "array"
+														},
+														"Speed": {
+															"propertyOrder": 300,
+															"type": "number"
+														},
+														"State": {
+															"propertyOrder": 200,
+															"type": "string"
+														}
+													}
+												},
+												"minItems": 1,
+												"type": "array"
+											}
+										},
+										"title": "Orders (m2c)",
+										"type": "object"
+									},
+									"lastUpdated": "2019-09-30T12:37:26.705Z",
+									"title": "Orders (M2)"
+								}
 							},
-							"lastUpdated": "2019-09-30T12:37:26.705Z",
-							"title": "Orders (M2)"
-						}
-					}]
-				}
-			],
-			"uniqid": "channel-k53ti36p"
-		}],
+							{
+								"label": "Laydown",
+								"value": {
+									"_id": "2019-12-20T14:28:22.999Z",
+									"_rev": "1-741dde8c87e0a0fcbe335c234b1619a3",
+									"completed": false,
+									"details": {
+										"properties": {
+											"Initial Locations": {
+												"format": "table",
+												"items": {
+													"properties": {
+														"location": {
+															"maxLength": 3,
+															"type": "string"
+														},
+														"name": {
+															"propertyOrder": 100,
+															"type": "string"
+														}
+													},
+													"type": "object"
+												},
+												"minItems": 1,
+												"type": "array"
+											}
+										},
+										"title": "laydown",
+										"type": "object"
+									},
+									"lastUpdated": "2019-12-20T14:28:22.999Z",
+									"title": "Laydown"
+								}
+							}
+						]
+					},
+					{
+						"force": "Green",
+						"forceUniqid": "Green",
+						"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
+						"roles": [],
+						"subscriptionId": "k53tivj5",
+						"templates": [
+							{
+								"label": "Orders (M2)",
+								"value": {
+									"_id": "k16eedkk",
+									"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
+									"completed": false,
+									"details": {
+										"properties": {
+											"Assets": {
+												"format": "table",
+												"items": {
+													"properties": {
+														"Name": {
+															"propertyOrder": 100,
+															"type": "string"
+														},
+														"Route": {
+															"format": "table",
+															"items": {
+																"properties": {
+																	"Location": {
+																		"maxLength": 3,
+																		"type": "string"
+																	}
+																}
+															},
+															"minItems": 1,
+															"propertyOrder": 400,
+															"type": "array"
+														},
+														"Speed": {
+															"propertyOrder": 300,
+															"type": "number"
+														},
+														"State": {
+															"propertyOrder": 200,
+															"type": "string"
+														}
+													}
+												},
+												"minItems": 1,
+												"type": "array"
+											}
+										},
+										"title": "Orders (m2c)",
+										"type": "object"
+									},
+									"lastUpdated": "2019-09-30T12:37:26.705Z",
+									"title": "Orders (M2)"
+								}
+							}
+						]
+					}
+				],
+				"uniqid": "channel-k53ti36p"
+			}
+		],
 		"complete": false,
 		"dirty": false,
 		"name": "Channels",
@@ -433,28 +442,35 @@
 	"forces": {
 		"complete": true,
 		"dirty": false,
-		"forces": [{
+		"forces": [
+			{
 				"color": "#FCFBEE",
 				"dirty": false,
 				"icon": "default_img/umpireDefault.png",
 				"name": "White",
 				"overview": "Umpire force.",
-				"roles": [{
-					"control": true,
-					"isInsightViewer": true,
-					"isObserver": true,
-					"name": "Game Control",
-					"password": "p2311"
-				}],
+				"roles": [
+					{
+						"control": true,
+						"isInsightViewer": true,
+						"isObserver": true,
+						"name": "Game Control",
+						"password": "p2311"
+					}
+				],
 				"umpire": true,
 				"uniqid": "umpire"
 			},
 			{
-				"assets": [{
+				"assets": [
+					{
 						"name": "Frigate",
 						"condition": "Working",
 						"perceptions": {
-							"Red": {"force":"Blue", "type":"frigate"}
+							"Red": {
+								"force": "Blue",
+								"type": "frigate"
+							}
 						},
 						"platformType": "frigate",
 						"position": "P21",
@@ -463,8 +479,7 @@
 					{
 						"name": "MPA",
 						"condition": "Working",
-						"perceptions": {
-						},
+						"perceptions": {},
 						"platformType": "fixed-wing-aircraft",
 						"position": "C17",
 						"state": "Landed"
@@ -473,7 +488,10 @@
 						"name": "Tanker",
 						"condition": "Working",
 						"perceptions": {
-							"Red": {"force":"Blue", "type":""}
+							"Red": {
+								"force": "Blue",
+								"type": ""
+							}
 						},
 						"platformType": "merchant-vessel",
 						"position": "S23",
@@ -485,22 +503,28 @@
 				"icon": "default_img/umpireDefault.png",
 				"name": "Blue",
 				"overview": "Blue force.",
-				"roles": [{
-					"control": false,
-					"isInsightViewer": false,
-					"isObserver": false,
-					"name": "CO",
-					"password": "p5543"
-				}],
+				"roles": [
+					{
+						"control": false,
+						"isInsightViewer": false,
+						"isObserver": false,
+						"name": "CO",
+						"password": "p5543"
+					}
+				],
 				"umpire": false,
 				"uniqid": "Blue"
 			},
 			{
-				"assets": [{
+				"assets": [
+					{
 						"name": "Dhow-A",
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {"force":"Green", "type":""}
+							"Blue": {
+								"force": "Green",
+								"type": ""
+							}
 						},
 						"platformType": "fishing-vessel",
 						"position": "N04",
@@ -510,7 +534,10 @@
 						"name": "Dhow-B",
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"fishing-vessel"}
+							"Blue": {
+								"force": "Green",
+								"type": "fishing-vessel"
+							}
 						},
 						"platformType": "fishing-vessel",
 						"position": "N10",
@@ -519,8 +546,7 @@
 					{
 						"name": "Dhow-C",
 						"condition": "Working",
-						"perceptions": {
-						},
+						"perceptions": {},
 						"platformType": "fishing-vessel",
 						"position": "Q18",
 						"state": "LocationPending"
@@ -528,8 +554,7 @@
 					{
 						"name": "Missile-A",
 						"condition": "Working",
-						"perceptions": {
-						},
+						"perceptions": {},
 						"platformType": "coastal-radar-site",
 						"position": "Q12",
 						"state": "LocationPending"
@@ -540,25 +565,32 @@
 				"icon": "default_img/umpireDefault.png",
 				"name": "Red",
 				"overview": "Red force.",
-				"roles": [{
-					"control": false,
-					"isInsightViewer": false,
-					"isObserver": false,
-					"name": "CO",
-					"password": "p3244"
-				}],
+				"roles": [
+					{
+						"control": false,
+						"isInsightViewer": false,
+						"isObserver": false,
+						"name": "CO",
+						"password": "p3244"
+					}
+				],
 				"umpire": false,
 				"uniqid": "Red"
 			},
 			{
-				"assets": [{
+				"assets": [
+					{
 						"name": "Tanker-1",
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"merchant-vessel"}
+							"Blue": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							}
 						},
-						"plannedTurns": {
-							"T01": {
+						"plannedTurns": [
+							{
+								"name": "T01",
 								"route": [
 									"H00",
 									"H01",
@@ -568,7 +600,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T02": {
+							{
+								"name": "T02",
 								"route": [
 									"I04",
 									"I05",
@@ -578,7 +611,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T03": {
+							{
+								"name": "T03",
 								"route": [
 									"I07",
 									"I08",
@@ -588,7 +622,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T04": {
+							{
+								"name": "T04",
 								"route": [
 									"I11",
 									"J11",
@@ -598,7 +633,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T05": {
+							{
+								"name": "T05",
 								"route": [
 									"K14",
 									"L14",
@@ -608,7 +644,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T06": {
+							{
+								"name": "T06",
 								"route": [
 									"M17",
 									"M18",
@@ -618,7 +655,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T07": {
+							{
+								"name": "T07",
 								"route": [
 									"O20",
 									"O21",
@@ -628,19 +666,22 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T08": {
+							{
+								"name": "T08",
 								"speed": 0,
 								"state": "Moored"
 							},
-							"T09": {
+							{
+								"name": "T09",
 								"speed": 0,
 								"state": "Moored"
 							},
-							"T10": {
+							{
+								"name": "T10",
 								"speed": 0,
 								"state": "Moored"
 							}
-						},
+						],
 						"platformType": "merchant-vessel",
 						"position": "H00",
 						"state": "Transitting"
@@ -649,15 +690,23 @@
 						"name": "Tanker-2",
 						"condition": "Disabled",
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"merchant-vessel"},
-							"Red": {"force":"Green", "type":"merchant-vessel"}
+							"Blue": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							},
+							"Red": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							}
 						},
-						"plannedTurns": {
-							"T01": {
+						"plannedTurns": [
+							{
+								"name": "T01",
 								"speed": 0,
 								"state": "Moored"
 							},
-							"T02": {
+							{
+								"name": "T02",
 								"route": [
 									"C00",
 									"C01",
@@ -667,7 +716,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T03": {
+							{
+								"name": "T03",
 								"route": [
 									"C04",
 									"C05",
@@ -677,7 +727,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T04": {
+							{
+								"name": "T04",
 								"route": [
 									"D07",
 									"E08",
@@ -687,7 +738,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T05": {
+							{
+								"name": "T05",
 								"route": [
 									"H08",
 									"H09",
@@ -697,7 +749,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T06": {
+							{
+								"name": "T06",
 								"route": [
 									"I11",
 									"J11",
@@ -707,7 +760,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T07": {
+							{
+								"name": "T07",
 								"route": [
 									"K14",
 									"L14",
@@ -717,7 +771,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T08": {
+							{
+								"name": "T08",
 								"route": [
 									"M17",
 									"M18",
@@ -727,7 +782,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T09": {
+							{
+								"name": "T09",
 								"route": [
 									"O20",
 									"O21",
@@ -737,7 +793,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T10": {
+							{
+								"name": "T10",
 								"route": [
 									"R22",
 									"S22",
@@ -747,7 +804,7 @@
 								"speed": 20,
 								"state": "Transitting"
 							}
-						},
+						],
 						"platformType": "merchant-vessel",
 						"position": "C00",
 						"state": "Transitting"
@@ -756,10 +813,14 @@
 						"name": "Fisher-A",
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"merchant-vessel"}
+							"Blue": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							}
 						},
-						"plannedTurns": {
-							"T01": {
+						"plannedTurns": [
+							{
+								"name": "T01",
 								"route": [
 									"M02",
 									"K03"
@@ -767,7 +828,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T02": {
+							{
+								"name": "T02",
 								"route": [
 									"J03",
 									"I04"
@@ -775,11 +837,13 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T03": {
+							{
+								"name": "T03",
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T04": {
+							{
+								"name": "T04",
 								"route": [
 									"I05",
 									"I06"
@@ -787,7 +851,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T05": {
+							{
+								"name": "T05",
 								"route": [
 									"I07",
 									"I08"
@@ -795,11 +860,13 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T06": {
+							{
+								"name": "T06",
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T07": {
+							{
+								"name": "T07",
 								"route": [
 									"J07",
 									"K07"
@@ -807,7 +874,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T08": {
+							{
+								"name": "T08",
 								"route": [
 									"L06",
 									"M06"
@@ -815,11 +883,13 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T09": {
+							{
+								"name": "T09",
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T10": {
+							{
+								"name": "T10",
 								"route": [
 									"M05",
 									"M04"
@@ -827,7 +897,7 @@
 								"speed": 10,
 								"state": "Transitting"
 							}
-						},
+						],
 						"platformType": "fishing-vessel",
 						"position": "M02",
 						"state": "Transitting"
@@ -836,10 +906,14 @@
 						"name": "Fisher-B",
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"merchant-vessel"}
+							"Blue": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							}
 						},
-						"plannedTurns": {
-							"T01": {
+						"plannedTurns": [
+							{
+								"name": "T01",
 								"route": [
 									"N08",
 									"L09"
@@ -847,11 +921,13 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T02": {
+							{
+								"name": "T02",
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T03": {
+							{
+								"name": "T03",
 								"route": [
 									"K10",
 									"K09"
@@ -859,7 +935,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T04": {
+							{
+								"name": "T04",
 								"route": [
 									"K08",
 									"K07"
@@ -867,7 +944,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T05": {
+							{
+								"name": "T05",
 								"route": [
 									"K06",
 									"M06"
@@ -875,11 +953,13 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T06": {
+							{
+								"name": "T06",
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T07": {
+							{
+								"name": "T07",
 								"route": [
 									"N06",
 									"N07"
@@ -887,7 +967,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T08": {
+							{
+								"name": "T08",
 								"route": [
 									"M08",
 									"L08"
@@ -895,19 +976,22 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T09": {
+							{
+								"name": "T09",
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T10": {
+							{
+								"name": "T10",
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T11": {
+							{
+								"name": "T11",
 								"speed": 0,
 								"state": "Fishing"
 							}
-						},
+						],
 						"platformType": "fishing-vessel",
 						"position": "N08",
 						"state": "Transitting"
@@ -916,11 +1000,18 @@
 						"name": "Fisher-C",
 						"condition": "Destroyed",
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"merchant-vessel"},
-							"Red": {"force":"Green", "type":"merchant-vessel"}
+							"Blue": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							},
+							"Red": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							}
 						},
-						"plannedTurns": {
-							"T01": {
+						"plannedTurns": [
+							{
+								"name": "T01",
 								"route": [
 									"N11",
 									"L10"
@@ -928,7 +1019,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T02": {
+							{
+								"name": "T02",
 								"route": [
 									"K10",
 									"J09"
@@ -936,11 +1028,13 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T03": {
+							{
+								"name": "T03",
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T04": {
+							{
+								"name": "T04",
 								"route": [
 									"K08",
 									"K07"
@@ -948,7 +1042,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T05": {
+							{
+								"name": "T05",
 								"route": [
 									"K06",
 									"M06"
@@ -956,11 +1051,13 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T06": {
+							{
+								"name": "T06",
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T07": {
+							{
+								"name": "T07",
 								"route": [
 									"N06",
 									"N07"
@@ -968,7 +1065,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T08": {
+							{
+								"name": "T08",
 								"route": [
 									"M08",
 									"L08"
@@ -976,11 +1074,13 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T09": {
+							{
+								"name": "T09",
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T10": {
+							{
+								"name": "T10",
 								"route": [
 									"M09",
 									"N08"
@@ -988,7 +1088,7 @@
 								"speed": 10,
 								"state": "Transitting"
 							}
-						},
+						],
 						"platformType": "fishing-vessel",
 						"position": "N11",
 						"state": "Transitting"
@@ -999,13 +1099,15 @@
 				"icon": "default_img/umpireDefault.png",
 				"name": "Green",
 				"overview": "Green Shipping",
-				"roles": [{
-					"control": false,
-					"isInsightViewer": false,
-					"isObserver": false,
-					"name": "CO",
-					"password": "P9454"
-				}],
+				"roles": [
+					{
+						"control": false,
+						"isInsightViewer": false,
+						"isObserver": false,
+						"name": "CO",
+						"password": "P9454"
+					}
+				],
 				"umpire": false,
 				"uniqid": "Green"
 			}
@@ -1028,7 +1130,8 @@
 		"complete": false,
 		"dirty": false,
 		"name": "Platform Types",
-		"platformTypes": [{
+		"platformTypes": [
+			{
 				"conditions": [
 					"Working",
 					"Disabled",
