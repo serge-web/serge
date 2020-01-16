@@ -35,6 +35,7 @@ class PlayerUi extends Component {
       wargameAccessCode: '',
       rolePassword: '',
       tourIsOpen: false,
+      loggedIn: false
     };
 
     this.props.dispatch(populateMessageTypesDb());
@@ -56,11 +57,15 @@ class PlayerUi extends Component {
     }
   }
 
-  updateSelectedWargame = (selectedWargame) => {
-    const [ , dispatch ] = this.context;
-    this.setState({selectedWargame});
-    getWargame(selectedWargame.value)(dispatch);
-  };
+  componentDidUpdate() {
+    const { wargame } = this.props;
+    const { wargameList } = wargame;
+    const { loggedIn } = this.state;
+
+    if (wargameList && wargameList.length && !loggedIn) {
+      this.byPassLogin()
+    }
+  }
 
   goBack = () => {
     const [ , dispatch ] = this.context;
@@ -84,6 +89,22 @@ class PlayerUi extends Component {
     const [ state ] = this.context;
     return {
       tourDone: `${state.wargameTitle}-${state.selectedForce}-${state.selectedRole}-tourDone`,
+    }
+  };
+
+  byPassLogin = async () => {
+    const [ , dispatch ] = this.context
+    const { wargame } = this.props
+    const { searchParams } = new URL(window.location.href)
+    const _wargame = searchParams.get('wargame')
+    const _access = searchParams.get('access')
+    if (_wargame && _access) {
+      const selectedWargame = wargame.wargameList.filter(game => game.name.match(_wargame))
+      if (selectedWargame.length) {
+        this.setState({ loggedIn: true })
+        await getWargame(selectedWargame[0].name)(dispatch)
+        this.checkPassword(_access)
+      }
     }
   };
 
