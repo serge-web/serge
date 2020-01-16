@@ -1,14 +1,10 @@
 export default function forceFor (/* object */ allForces, /* String */ assetName) {
-  var result = null
-  allForces.forEach(force => {
+  return allForces.find(force => {
     const assets = force.assets
     if (assets) {
-      assets.forEach(asset => {
-        if (asset.name === assetName) {
-          result = force.name
-        }
-      })
+      return assets.find(asset => asset.name === assetName)
+    } else {
+      return false
     }
-  })
-  return result
+  }).name
 };
