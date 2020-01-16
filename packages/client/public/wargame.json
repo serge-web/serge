@@ -1,439 +1,430 @@
 {
 	"channels": {
-		"channels": [
-			{
-				"name": "Mapping",
-				"participants": [
-					{
-						"force": "White",
-						"forceUniqid": "umpire",
-						"icon": "http://192.168.1.123:8080/default_img/umpireDefault.png",
-						"roles": [],
-						"subscriptionId": "k53tifeo",
-						"templates": [
-							{
-								"label": "State of World L",
-								"value": {
-									"_id": "k16eedkp",
-									"_rev": "1-612d7dc5d10fc81bc7459b2801c66816",
-									"completed": false,
-									"details": {
-										"properties": {
-											"Forces": {
-												"format": "table",
-												"items": {
-													"minItems": 1,
-													"properties": {
-														"assets": {
-															"format": "table",
-															"items": {
-																"properties": {
-																	"location": {
-																		"maxLength": 3,
-																		"type": "string"
-																	},
-																	"name": {
-																		"type": "string"
-																	},
-																	"visibleTo": {
-																		"format": "table",
-																		"items": {
-																			"properties": {
-																				"Force": {
-																					"enum": [
-																						"Blue",
-																						"Red",
-																						"Green"
-																					],
-																					"type": "string"
-																				}
-																			}
-																		},
-																		"type": "array"
-																	}
-																}
-															},
-															"minItems": 1,
-															"type": "array"
-														},
-														"force": {
-															"enum": [
-																"Blue",
-																"Red",
-																"Green"
-															],
-															"propertyOrder": 100,
-															"type": "string"
-														}
-													}
-												},
+		"channels": [{
+			"name": "Mapping",
+			"participants": [{
+					"force": "White",
+					"forceUniqid": "umpire",
+					"icon": "http://192.168.1.123:8080/default_img/umpireDefault.png",
+					"roles": [],
+					"subscriptionId": "k53tifeo",
+					"templates": [{
+							"label": "State of World L",
+							"value": {
+								"_id": "k16eedkp",
+								"_rev": "1-612d7dc5d10fc81bc7459b2801c66816",
+								"completed": false,
+								"details": {
+									"properties": {
+										"Forces": {
+											"format": "table",
+											"items": {
 												"minItems": 1,
-												"type": "array"
-											}
-										},
-										"title": "State of World (laydown 2)",
-										"type": "object"
-									},
-									"lastUpdated": "2019-09-30T12:37:26.705Z",
-									"title": "State of World L"
-								}
-							},
-							{
-								"label": "State of world (full 2)",
-								"value": {
-									"_id": "2019-12-20T15:57:11.519Z",
-									"_rev": "1-4bd7b0b5488182f39f10d5203bb1fad8",
-									"completed": false,
-									"details": {
-										"properties": {
-											"Forces": {
-												"format": "table",
-												"items": {
-													"minItems": 1,
-													"properties": {
-														"assets": {
-															"format": "table",
-															"items": {
-																"properties": {
-																	"history": {
-																		"format": "table",
-																		"items": {
-																			"properties": {
-																				"Route": {
-																					"format": "table",
-																					"items": {
-																						"properties": {
-																							"Location": {
-																								"maxLength": 3,
-																								"type": "string"
-																							}
-																						}
-																					},
-																					"minItems": 1,
-																					"propertyOrder": 400,
-																					"type": "array"
-																				},
-																				"Speed": {
-																					"propertyOrder": 300,
-																					"type": "number"
-																				},
-																				"State": {
-																					"propertyOrder": 200,
-																					"type": "string"
-																				},
-																				"Turn": {
-																					"propertyOrder": 100,
-																					"type": "string"
-																				}
+												"properties": {
+													"assets": {
+														"format": "table",
+														"items": {
+															"properties": {
+																"location": {
+																	"maxLength": 3,
+																	"type": "string"
+																},
+																"name": {
+																	"type": "string"
+																},
+																"visibleTo": {
+																	"format": "table",
+																	"items": {
+																		"properties": {
+																			"Force": {
+																				"enum": [
+																					"Blue",
+																					"Red",
+																					"Green"
+																				],
+																				"type": "string"
 																			}
-																		},
-																		"minItems": 1,
-																		"type": "array"
+																		}
 																	},
-																	"name": {
-																		"propertyOrder": 100,
-																		"type": "string"
-																	},
-																	"planned": {
-																		"format": "table",
-																		"items": {
-																			"properties": {
-																				"Route": {
-																					"format": "table",
-																					"items": {
-																						"properties": {
-																							"Location": {
-																								"maxLength": 3,
-																								"type": "string"
-																							}
-																						}
-																					},
-																					"minItems": 1,
-																					"propertyOrder": 400,
-																					"type": "array"
-																				},
-																				"Speed": {
-																					"propertyOrder": 300,
-																					"type": "number"
-																				},
-																				"State": {
-																					"propertyOrder": 200,
-																					"type": "string"
-																				},
-																				"Turn": {
-																					"propertyOrder": 100,
-																					"type": "string"
-																				}
-																			}
-																		},
-																		"minItems": 1,
-																		"propertyOrder": 2000,
-																		"type": "array"
-																	},
-																	"visibleTo": {
-																		"format": "table",
-																		"items": {
-																			"properties": {
-																				"Force": {
-																					"enum": [
-																						"Blue",
-																						"Red",
-																						"Green"
-																					],
-																					"type": "string"
-																				}
-																			}
-																		},
-																		"propertyOrder": 300,
-																		"type": "array"
-																	}
+																	"type": "array"
 																}
-															},
-															"minItems": 1,
-															"type": "array"
+															}
 														},
-														"force": {
-															"enum": [
-																"Blue",
-																"Red",
-																"Green"
-															],
-															"propertyOrder": 100,
-															"type": "string"
-														}
+														"minItems": 1,
+														"type": "array"
+													},
+													"force": {
+														"enum": [
+															"Blue",
+															"Red",
+															"Green"
+														],
+														"propertyOrder": 100,
+														"type": "string"
 													}
-												},
-												"minItems": 1,
-												"type": "array"
-											}
-										},
-										"title": "State of World (Full 2)",
-										"type": "object"
+												}
+											},
+											"minItems": 1,
+											"type": "array"
+										}
 									},
-									"lastUpdated": "2019-12-20T15:57:11.519Z",
-									"title": "State of world (full 2)"
-								}
+									"title": "State of World (laydown 2)",
+									"type": "object"
+								},
+								"lastUpdated": "2019-09-30T12:37:26.705Z",
+								"title": "State of World L"
 							}
-						]
-					},
-					{
-						"force": "Blue",
-						"forceUniqid": "Blue",
-						"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
-						"roles": [],
-						"subscriptionId": "k53tij98",
-						"templates": [
-							{
-								"label": "Orders (M2)",
-								"value": {
-									"_id": "k16eedkk",
-									"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
-									"completed": false,
-									"details": {
-										"properties": {
-											"Assets": {
-												"format": "table",
-												"items": {
-													"properties": {
-														"Name": {
-															"propertyOrder": 100,
-															"type": "string"
-														},
-														"Route": {
-															"format": "table",
-															"items": {
-																"properties": {
-																	"Location": {
-																		"maxLength": 3,
-																		"type": "string"
-																	}
-																}
-															},
-															"minItems": 1,
-															"propertyOrder": 400,
-															"type": "array"
-														},
-														"Speed": {
-															"propertyOrder": 300,
-															"type": "number"
-														},
-														"State": {
-															"propertyOrder": 200,
-															"type": "string"
-														}
-													}
-												},
+						},
+						{
+							"label": "State of world (full 2)",
+							"value": {
+								"_id": "2019-12-20T15:57:11.519Z",
+								"_rev": "1-4bd7b0b5488182f39f10d5203bb1fad8",
+								"completed": false,
+								"details": {
+									"properties": {
+										"Forces": {
+											"format": "table",
+											"items": {
 												"minItems": 1,
-												"type": "array"
-											}
-										},
-										"title": "Orders (m2c)",
-										"type": "object"
+												"properties": {
+													"assets": {
+														"format": "table",
+														"items": {
+															"properties": {
+																"history": {
+																	"format": "table",
+																	"items": {
+																		"properties": {
+																			"Route": {
+																				"format": "table",
+																				"items": {
+																					"properties": {
+																						"Location": {
+																							"maxLength": 3,
+																							"type": "string"
+																						}
+																					}
+																				},
+																				"minItems": 1,
+																				"propertyOrder": 400,
+																				"type": "array"
+																			},
+																			"Speed": {
+																				"propertyOrder": 300,
+																				"type": "number"
+																			},
+																			"State": {
+																				"propertyOrder": 200,
+																				"type": "string"
+																			},
+																			"Turn": {
+																				"propertyOrder": 100,
+																				"type": "string"
+																			}
+																		}
+																	},
+																	"minItems": 1,
+																	"type": "array"
+																},
+																"name": {
+																	"propertyOrder": 100,
+																	"type": "string"
+																},
+																"planned": {
+																	"format": "table",
+																	"items": {
+																		"properties": {
+																			"Route": {
+																				"format": "table",
+																				"items": {
+																					"properties": {
+																						"Location": {
+																							"maxLength": 3,
+																							"type": "string"
+																						}
+																					}
+																				},
+																				"minItems": 1,
+																				"propertyOrder": 400,
+																				"type": "array"
+																			},
+																			"Speed": {
+																				"propertyOrder": 300,
+																				"type": "number"
+																			},
+																			"State": {
+																				"propertyOrder": 200,
+																				"type": "string"
+																			},
+																			"Turn": {
+																				"propertyOrder": 100,
+																				"type": "string"
+																			}
+																		}
+																	},
+																	"minItems": 1,
+																	"propertyOrder": 2000,
+																	"type": "array"
+																},
+																"visibleTo": {
+																	"format": "table",
+																	"items": {
+																		"properties": {
+																			"Force": {
+																				"enum": [
+																					"Blue",
+																					"Red",
+																					"Green"
+																				],
+																				"type": "string"
+																			}
+																		}
+																	},
+																	"propertyOrder": 300,
+																	"type": "array"
+																}
+															}
+														},
+														"minItems": 1,
+														"type": "array"
+													},
+													"force": {
+														"enum": [
+															"Blue",
+															"Red",
+															"Green"
+														],
+														"propertyOrder": 100,
+														"type": "string"
+													}
+												}
+											},
+											"minItems": 1,
+											"type": "array"
+										}
 									},
-									"lastUpdated": "2019-09-30T12:37:26.705Z",
-									"title": "Orders (M2)"
-								}
+									"title": "State of World (Full 2)",
+									"type": "object"
+								},
+								"lastUpdated": "2019-12-20T15:57:11.519Z",
+								"title": "State of world (full 2)"
 							}
-						]
-					},
-					{
-						"force": "Red",
-						"forceUniqid": "Red",
-						"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
-						"roles": [],
-						"subscriptionId": "k53tiqdf",
-						"templates": [
-							{
-								"label": "Orders (M2)",
-								"value": {
-									"_id": "k16eedkk",
-									"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
-									"completed": false,
-									"details": {
-										"properties": {
-											"Assets": {
-												"format": "table",
-												"items": {
-													"properties": {
-														"Name": {
-															"propertyOrder": 100,
-															"type": "string"
-														},
-														"Route": {
-															"format": "table",
-															"items": {
-																"properties": {
-																	"Location": {
-																		"maxLength": 3,
-																		"type": "string"
-																	}
-																}
-															},
-															"minItems": 1,
-															"propertyOrder": 400,
-															"type": "array"
-														},
-														"Speed": {
-															"propertyOrder": 300,
-															"type": "number"
-														},
-														"State": {
-															"propertyOrder": 200,
-															"type": "string"
-														}
-													}
+						}
+					]
+				},
+				{
+					"force": "Blue",
+					"forceUniqid": "Blue",
+					"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
+					"roles": [],
+					"subscriptionId": "k53tij98",
+					"templates": [{
+						"label": "Orders (M2)",
+						"value": {
+							"_id": "k16eedkk",
+							"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
+							"completed": false,
+							"details": {
+								"properties": {
+									"Assets": {
+										"format": "table",
+										"items": {
+											"properties": {
+												"Name": {
+													"propertyOrder": 100,
+													"type": "string"
 												},
-												"minItems": 1,
-												"type": "array"
-											}
-										},
-										"title": "Orders (m2c)",
-										"type": "object"
-									},
-									"lastUpdated": "2019-09-30T12:37:26.705Z",
-									"title": "Orders (M2)"
-								}
-							},
-							{
-								"label": "Laydown",
-								"value": {
-									"_id": "2019-12-20T14:28:22.999Z",
-									"_rev": "1-741dde8c87e0a0fcbe335c234b1619a3",
-									"completed": false,
-									"details": {
-										"properties": {
-											"Initial Locations": {
-												"format": "table",
-												"items": {
-													"properties": {
-														"location": {
-															"maxLength": 3,
-															"type": "string"
-														},
-														"name": {
-															"propertyOrder": 100,
-															"type": "string"
+												"Route": {
+													"format": "table",
+													"items": {
+														"properties": {
+															"Location": {
+																"maxLength": 3,
+																"type": "string"
+															}
 														}
 													},
-													"type": "object"
+													"minItems": 1,
+													"propertyOrder": 400,
+													"type": "array"
 												},
-												"minItems": 1,
-												"type": "array"
+												"Speed": {
+													"propertyOrder": 300,
+													"type": "number"
+												},
+												"State": {
+													"propertyOrder": 200,
+													"type": "string"
+												}
 											}
 										},
-										"title": "laydown",
-										"type": "object"
-									},
-									"lastUpdated": "2019-12-20T14:28:22.999Z",
-									"title": "Laydown"
-								}
-							}
-						]
-					},
-					{
-						"force": "Green",
-						"forceUniqid": "Green",
-						"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
-						"roles": [],
-						"subscriptionId": "k53tivj5",
-						"templates": [
-							{
-								"label": "Orders (M2)",
-								"value": {
-									"_id": "k16eedkk",
-									"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
-									"completed": false,
-									"details": {
-										"properties": {
-											"Assets": {
-												"format": "table",
-												"items": {
-													"properties": {
-														"Name": {
-															"propertyOrder": 100,
-															"type": "string"
-														},
-														"Route": {
-															"format": "table",
-															"items": {
-																"properties": {
-																	"Location": {
-																		"maxLength": 3,
-																		"type": "string"
-																	}
+										"minItems": 1,
+										"type": "array"
+									}
+								},
+								"title": "Orders (m2c)",
+								"type": "object"
+							},
+							"lastUpdated": "2019-09-30T12:37:26.705Z",
+							"title": "Orders (M2)"
+						}
+					}]
+				},
+				{
+					"force": "Red",
+					"forceUniqid": "Red",
+					"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
+					"roles": [],
+					"subscriptionId": "k53tiqdf",
+					"templates": [{
+							"label": "Orders (M2)",
+							"value": {
+								"_id": "k16eedkk",
+								"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
+								"completed": false,
+								"details": {
+									"properties": {
+										"Assets": {
+											"format": "table",
+											"items": {
+												"properties": {
+													"Name": {
+														"propertyOrder": 100,
+														"type": "string"
+													},
+													"Route": {
+														"format": "table",
+														"items": {
+															"properties": {
+																"Location": {
+																	"maxLength": 3,
+																	"type": "string"
 																}
-															},
-															"minItems": 1,
-															"propertyOrder": 400,
-															"type": "array"
+															}
 														},
-														"Speed": {
-															"propertyOrder": 300,
-															"type": "number"
-														},
-														"State": {
-															"propertyOrder": 200,
-															"type": "string"
-														}
+														"minItems": 1,
+														"propertyOrder": 400,
+														"type": "array"
+													},
+													"Speed": {
+														"propertyOrder": 300,
+														"type": "number"
+													},
+													"State": {
+														"propertyOrder": 200,
+														"type": "string"
+													}
+												}
+											},
+											"minItems": 1,
+											"type": "array"
+										}
+									},
+									"title": "Orders (m2c)",
+									"type": "object"
+								},
+								"lastUpdated": "2019-09-30T12:37:26.705Z",
+								"title": "Orders (M2)"
+							}
+						},
+						{
+							"label": "Laydown",
+							"value": {
+								"_id": "2019-12-20T14:28:22.999Z",
+								"_rev": "1-741dde8c87e0a0fcbe335c234b1619a3",
+								"completed": false,
+								"details": {
+									"properties": {
+										"Initial Locations": {
+											"format": "table",
+											"items": {
+												"properties": {
+													"location": {
+														"maxLength": 3,
+														"type": "string"
+													},
+													"name": {
+														"propertyOrder": 100,
+														"type": "string"
 													}
 												},
-												"minItems": 1,
-												"type": "array"
+												"type": "object"
+											},
+											"minItems": 1,
+											"type": "array"
+										}
+									},
+									"title": "laydown",
+									"type": "object"
+								},
+								"lastUpdated": "2019-12-20T14:28:22.999Z",
+								"title": "Laydown"
+							}
+						}
+					]
+				},
+				{
+					"force": "Green",
+					"forceUniqid": "Green",
+					"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
+					"roles": [],
+					"subscriptionId": "k53tivj5",
+					"templates": [{
+						"label": "Orders (M2)",
+						"value": {
+							"_id": "k16eedkk",
+							"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
+							"completed": false,
+							"details": {
+								"properties": {
+									"Assets": {
+										"format": "table",
+										"items": {
+											"properties": {
+												"Name": {
+													"propertyOrder": 100,
+													"type": "string"
+												},
+												"Route": {
+													"format": "table",
+													"items": {
+														"properties": {
+															"Location": {
+																"maxLength": 3,
+																"type": "string"
+															}
+														}
+													},
+													"minItems": 1,
+													"propertyOrder": 400,
+													"type": "array"
+												},
+												"Speed": {
+													"propertyOrder": 300,
+													"type": "number"
+												},
+												"State": {
+													"propertyOrder": 200,
+													"type": "string"
+												}
 											}
 										},
-										"title": "Orders (m2c)",
-										"type": "object"
-									},
-									"lastUpdated": "2019-09-30T12:37:26.705Z",
-									"title": "Orders (M2)"
-								}
-							}
-						]
-					}
-				],
-				"uniqid": "channel-k53ti36p"
-			}
-		],
+										"minItems": 1,
+										"type": "array"
+									}
+								},
+								"title": "Orders (m2c)",
+								"type": "object"
+							},
+							"lastUpdated": "2019-09-30T12:37:26.705Z",
+							"title": "Orders (M2)"
+						}
+					}]
+				}
+			],
+			"uniqid": "channel-k53ti36p"
+		}],
 		"complete": false,
 		"dirty": false,
 		"name": "Channels",
@@ -442,35 +433,28 @@
 	"forces": {
 		"complete": true,
 		"dirty": false,
-		"forces": [
-			{
+		"forces": [{
 				"color": "#FCFBEE",
 				"dirty": false,
 				"icon": "default_img/umpireDefault.png",
 				"name": "White",
 				"overview": "Umpire force.",
-				"roles": [
-					{
-						"control": true,
-						"isInsightViewer": true,
-						"isObserver": true,
-						"name": "Game Control",
-						"password": "p2311"
-					}
-				],
+				"roles": [{
+					"control": true,
+					"isInsightViewer": true,
+					"isObserver": true,
+					"name": "Game Control",
+					"password": "p2311"
+				}],
 				"umpire": true,
 				"uniqid": "umpire"
 			},
 			{
-				"assets": [
-					{
+				"assets": [{
 						"name": "Frigate",
 						"condition": "Working",
 						"perceptions": {
-							"Red": {
-								"force": "Blue",
-								"type": "frigate"
-							}
+							"Red": {"force":"Blue", "type":"frigate"}
 						},
 						"platformType": "frigate",
 						"position": "P21",
@@ -479,7 +463,8 @@
 					{
 						"name": "MPA",
 						"condition": "Working",
-						"perceptions": {},
+						"perceptions": {
+						},
 						"platformType": "fixed-wing-aircraft",
 						"position": "C17",
 						"state": "Landed"
@@ -488,10 +473,7 @@
 						"name": "Tanker",
 						"condition": "Working",
 						"perceptions": {
-							"Red": {
-								"force": "Blue",
-								"type": ""
-							}
+							"Red": {"force":"Blue", "type":""}
 						},
 						"platformType": "merchant-vessel",
 						"position": "S23",
@@ -503,28 +485,22 @@
 				"icon": "default_img/umpireDefault.png",
 				"name": "Blue",
 				"overview": "Blue force.",
-				"roles": [
-					{
-						"control": false,
-						"isInsightViewer": false,
-						"isObserver": false,
-						"name": "CO",
-						"password": "p5543"
-					}
-				],
+				"roles": [{
+					"control": false,
+					"isInsightViewer": false,
+					"isObserver": false,
+					"name": "CO",
+					"password": "p5543"
+				}],
 				"umpire": false,
 				"uniqid": "Blue"
 			},
 			{
-				"assets": [
-					{
+				"assets": [{
 						"name": "Dhow-A",
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {
-								"force": "Green",
-								"type": ""
-							}
+							"Blue": {"force":"Green", "type":""}
 						},
 						"platformType": "fishing-vessel",
 						"position": "N04",
@@ -534,10 +510,7 @@
 						"name": "Dhow-B",
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {
-								"force": "Green",
-								"type": "fishing-vessel"
-							}
+							"Blue": {"force":"Green", "type":"fishing-vessel"}
 						},
 						"platformType": "fishing-vessel",
 						"position": "N10",
@@ -546,7 +519,8 @@
 					{
 						"name": "Dhow-C",
 						"condition": "Working",
-						"perceptions": {},
+						"perceptions": {
+						},
 						"platformType": "fishing-vessel",
 						"position": "Q18",
 						"state": "LocationPending"
@@ -554,7 +528,8 @@
 					{
 						"name": "Missile-A",
 						"condition": "Working",
-						"perceptions": {},
+						"perceptions": {
+						},
 						"platformType": "coastal-radar-site",
 						"position": "Q12",
 						"state": "LocationPending"
@@ -565,15 +540,13 @@
 				"icon": "default_img/umpireDefault.png",
 				"name": "Red",
 				"overview": "Red force.",
-				"roles": [
-					{
-						"control": false,
-						"isInsightViewer": false,
-						"isObserver": false,
-						"name": "CO",
-						"password": "p3244"
-					}
-				],
+				"roles": [{
+					"control": false,
+					"isInsightViewer": false,
+					"isObserver": false,
+					"name": "CO",
+					"password": "p3244"
+				}],
 				"umpire": false,
 				"uniqid": "Red"
 			},
@@ -1130,8 +1103,7 @@
 		"complete": false,
 		"dirty": false,
 		"name": "Platform Types",
-		"platformTypes": [
-			{
+		"platformTypes": [{
 				"conditions": [
 					"Working",
 					"Disabled",
