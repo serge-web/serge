@@ -13,28 +13,27 @@ export default class MapPlanningPlayerListener {
     if (!map) {
       return
     }
-    const context = this
-    this.btnChangeBlueOn = createButton(false, 'Blue on', function () {
-      context.changeVisibility(context.dbgForce, context.dbgName, 'Blue', true, context.visibilityChanges)
-      context.btnSendChanges.enable()
+    this.btnChangeBlueOn = createButton(false, 'Blue on', () => {
+      this.changeVisibility(this.dbgForce, this.dbgName, 'Blue', true, this.visibilityChanges)
+      this.btnSendChanges.enable()
     }).addTo(map)
     console.log('btn blue on:', this.btnChangeBlueOn)
-    this.btnChangeBlueOff = createButton(false, 'Blue off', function () {
-      context.changeVisibility(context.dbgForce, context.dbgName, 'Blue', false, context.visibilityChanges)
-      context.btnSendChanges.enable()
+    this.btnChangeBlueOff = createButton(false, 'Blue off', () => {
+      this.changeVisibility(this.dbgForce, this.dbgName, 'Blue', false, this.visibilityChanges)
+      this.btnSendChanges.enable()
     }).addTo(map)
-    this.btnChangeRedOn = createButton(false, 'Red on', function () {
-      context.changeVisibility(context.dbgForce, context.dbgName, 'Red', true, context.visibilityChanges)
-      context.btnSendChanges.enable()
+    this.btnChangeRedOn = createButton(false, 'Red on', () => {
+      this.changeVisibility(this.dbgForce, this.dbgName, 'Red', true, this.visibilityChanges)
+      this.btnSendChanges.enable()
     }).addTo(map)
-    this.btnChangeRedOff = createButton(false, 'Red off', function () {
-      context.changeVisibility(context.dbgForce, context.dbgName, 'Red', false, context.visibilityChanges)
-      context.btnSendChanges.enable()
+    this.btnChangeRedOff = createButton(false, 'Red off', () => {
+      this.changeVisibility(this.dbgForce, this.dbgName, 'Red', false, this.visibilityChanges)
+      this.btnSendChanges.enable()
     }).addTo(map)
-    this.btnSendChanges = createButton(false, 'Submit changes', function () {
-      context.sendAllChanges(context.visibilityChanges)
-      context.visibilityChanges = []
-      context.btnSendChanges.disable()
+    this.btnSendChanges = createButton(false, 'Submit changes', () => {
+      this.sendAllChanges(this.visibilityChanges)
+      this.visibilityChanges = []
+      this.btnSendChanges.disable()
     }).addTo(map)
   }
 
@@ -83,19 +82,16 @@ export default class MapPlanningPlayerListener {
     return '<b>' + asset.name + '</b><ul>' + res + '</ul>'
   }
 
-  registerListener (/* object */ structure) {
-    console.log('in register for:' + structure.event)
-    // register the listener
-    structure.item.on(structure.event, e => structure.callback)
-
-    // and remember it
-    structure.store.push(structure)
-  }
-
   listenToMarker (e) {
     console.log('handling marker callback')
     const marker = e.target
+
+    // we need to access this class's data, get
+    // it out of the special attribute
     const context = marker.context
+
+    // and delete that context object
+    delete marker.context
 
     // we have to trick module by pushing capturing marker - so we know
     // who to advance.
@@ -132,6 +128,8 @@ export default class MapPlanningPlayerListener {
   listenTo (marker) {
     const popupContent = this.changeVisPopupFor(marker.asset, marker.asset.perceptions)
     marker.bindPopup(popupContent).openPopup()
+
+    // store this class in a special attribute, so it's available in the callback
     marker.context = this
 
     marker.on('click', this.listenToMarker)
