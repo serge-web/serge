@@ -1,6 +1,6 @@
 import L from 'leaflet'
-import defaultHexStyle from '../../../Helpers/data/default-hex-style'
-import plannedStateFor from '../../../Helpers/plannedStateFor'
+import defaultHexStyle from './data/default-hex-style'
+import plannedModePopupFor from './plannedModePopupFor'
 import colorFor from './colorFor'
 import padInteger from '../../../Helpers/padInteger'
 import createButton from '../../../Helpers/createDebugButton'
@@ -152,26 +152,11 @@ export default class MapPlanningPlayerListener {
     return 'T' + padInteger(turn, 2)
   }
 
-  plannedModePopupFor (asset) {
-    var popup = '<b>' + asset.name + '</b><br/>'
-    // states
-    // TODO: do we have concept of current speed? Maybe take from history
-    popup += plannedStateFor(asset.state, 0, asset.platformTypeDetail, asset.platformSpeeds)
-
-    // reset the route
-    popup += '<input type="button" value="Reset Planned Route">'
-
-    // TODO: handler for this planned mode changing
-    popup += '<input type="button" value="Save">'
-
-    return popup
-  }
-
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
     // is it for the current force?
     if (marker.asset.force === this.force) {
-      const popupContent = this.plannedModePopupFor(marker.asset)
+      const popupContent = plannedModePopupFor(marker.asset)
       marker.bindPopup(popupContent).openPopup()
 
       marker.on('click', e => {
