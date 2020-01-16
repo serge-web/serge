@@ -26,7 +26,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const platformsLayerRef = useRef(null) // the platform markers
   const gridImplRef = useRef(null) // hexagonal grid
   const forcesRef = useRef(allForces) // the current list of forces
-  const phaseRef = useRef(phase) // the current game phase
   const mapListenerRef = useRef(null) // listen for mouse drag events
   const myForceRef = useRef(selectedForce)
   const platformTypesRef = useRef(allPlatforms)
@@ -139,7 +138,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
   /** callback to tell UI that we've got control of a platform in this UI */
   const declareControlOf = (force, name, platformType) => {
-    console.log('User can control:', name)
   }
 
   const routeComplete = (/* string */force, /* string */asset, /* object */payload) => {
@@ -147,7 +145,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }
 
   const clearControlledAssets = () => {
-    console.log('Clearing list of controlled assets')
   }
 
   const formRequestCallback = (form, payload) => {
@@ -164,7 +161,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     asset.force = force.name
 
     var assetIsDraggable
-    switch (phaseRef.current) {
+    switch (phase) {
       case 'adjudication':
         assetIsDraggable = ((myForceRef.current === 'umpire') || (inForceLaydown && (asset.force === myForceRef.current)))
         break
@@ -191,6 +188,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }
 
   useEffect(() => {
+    console.log('re-rendering map ocmponent at:', new Date(), 'phase:', phase)
     if (mapListenerRef.current != null) {
       // check if clear listeners present
       if (mapListenerRef.current.clearListeners) {
@@ -207,7 +205,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
     // create a listener for the new phase
     const inForceLaydown = hasPendingForces(forcesRef.current, myForceRef.current)
-    switch (phaseRef.current) {
+    switch (phase) {
       case 'adjudication':
         if (myForceRef.current === 'umpire') {
           mapListenerRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, formRequestCallback)
@@ -241,7 +239,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         })
       }
     })
-  }, [phaseRef])
+  }, [phase])
 
   /** create handler for wargame updates - specifically when the
    * contents of allForces changes
@@ -294,10 +292,5 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   return (
     <div id="map" className="mapping"/>
   )
-// TODO: Alex demonastrator included this form-based processing
-//  return (<div id="map" className="mapping">
-//    { showForm && <MappingForm position={formPos}></MappingForm> }
-//  </div>)
 }
-
 export default Mapping
