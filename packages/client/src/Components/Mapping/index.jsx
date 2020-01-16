@@ -12,6 +12,8 @@ import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_Actio
 import { FORCE_LAYDOWN, VISIBILIY_CHANGES } from '../../consts'
 import assetsVisibleToMe from './helpers/assetsVisibleToMe'
 
+import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
+
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import '../../Helpers/mousePosition'
 
@@ -29,9 +31,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const myForceRef = useRef(selectedForce)
   const platformTypesRef = useRef(allPlatforms)
   const currentTurnRef = useRef(currentTurn)
-
-  const [showForm, setShowForm] = useState(false)
-  const [formPos, setFormPos] = useState()
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -130,8 +129,12 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }
 
   const visChangesFunc = changes => {
-    console.log('sending', changes)
     sendMessage(VISIBILIY_CHANGES, changes)
+
+    /** note: we aren't currently receiving messages that we've sent. So we
+     * to trigger the reducer ourselves
+     */
+    handleVisibilityChanges(changes, allForces)
   }
 
   /** callback to tell UI that we've got control of a platform in this UI */
@@ -149,8 +152,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
   const formRequestCallback = (form, payload) => {
     console.log('Popup form requested for:', form, payload)
-    setShowForm(true)
-    setFormPos(payload.screenPos)
   }
 
   const createThisMarker = (asset, grid, force) => {
@@ -186,23 +187,20 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
       mapListenerRef.current.listenTo(marker, currentTurnRef.current)
       platformsLayerRef.current.addLayer(marker)
-      console.log('added:', marker)
     }
   }
 
   useEffect(() => {
-    // double-check where we are
-    console.log(new Date(), 'TURN:', phaseRef.current, currentTurnRef.current)
-
     if (mapListenerRef.current != null) {
-      // remove the current listener
-      mapListenerRef.current.clearListeners()
+      // check if clear listeners present
+      if (mapListenerRef.current.clearListeners) {
+        // detatch the current listener
+        mapListenerRef.current.clearListeners()
+      }
 
       // ditch the listener
       mapListenerRef.current = null
     }
-
-    console.log(allForces)
 
     // clear the UI
     clearControlledAssets()
@@ -276,7 +274,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       if (found) {
         foundItems.push(name)
       } else {
-        console.log('detaching', marker)
         marker.remove()
         toDelete.push(marker)
       }
