@@ -131,19 +131,20 @@ export const playerUiReducer = (state = initialState, action) => {
 
   /** umpire is changing the visibility of an asset, for a force */
   const handleVisibilityChanges = (/* object */ message, /* object */ allForces) => {
-    console.log('Vis change for:', message)
     const payload = message.payload
     payload.forEach(visChange => {
       const force = allForces.find(item => item.name === visChange.force)
-      const asset = force.find(item => item.name === visChange.asset)
-      if (asset) {
-        // can it already see it?
-        if (asset.perceptions[visChange.by]) {
-          // ok, clear that entry
-          delete asset.perceptions[visChange.by]
-        } else {
-          // create a new entry
-          asset.perceptions[visChange.by] = { force: null, type: null }
+      if (force.assets) {
+        const asset = force.assets.find(item => item.name === visChange.asset)
+        if (asset) {
+          // can it already see it?
+          if (asset.perceptions[visChange.by]) {
+            // ok, clear that entry
+            delete asset.perceptions[visChange.by]
+          } else {
+            // create a new entry
+            asset.perceptions[visChange.by] = { force: null, type: null }
+          }
         }
       }
     })
