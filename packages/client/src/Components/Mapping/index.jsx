@@ -11,6 +11,7 @@ import hasPendingForces from '../../Helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { FORCE_LAYDOWN, VISIBILIY_CHANGES } from '../../consts'
 import assetsVisibleToMe from './helpers/assetsVisibleToMe'
+import forceFor from './helpers/forceFor'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 
@@ -283,7 +284,13 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const toBeAdded = visibleToMe.filter(asset => foundItems.indexOf(asset.name) === -1)
 
     if (toBeAdded) {
+      console.log('to be added:', toBeAdded)
       toBeAdded.forEach(asset => {
+        var force = asset.force
+        if (!force) {
+          // grr, we'll have to find it
+          asset.force = forceFor(allForces, asset)
+        }
         createThisMarker(asset, grid, asset.force, false)
       })
     }
