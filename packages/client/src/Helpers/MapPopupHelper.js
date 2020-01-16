@@ -7,6 +7,7 @@ class MapPopupHelper {
     this.marker = marker
     this.time = 64
     this.store = null
+    this.opened = false
     this.uniqKey = 'popupContainer' + Math.random().toString(36).substring(7)
   }
 
@@ -37,6 +38,7 @@ class MapPopupHelper {
     const MiniApp = this.component
     const miniAppNode = document.getElementById(this.uniqKey)
     if (miniAppNode) {
+      this.opened = true
       ReactDOM.render(
         <MiniApp
           store={this.store}
@@ -44,11 +46,13 @@ class MapPopupHelper {
             this.setStore(store)
           }}
           callbackFunction={data => {
-            if (this.onUpdateFunc) this.onUpdateFunc(data)
+            if (typeof this.onUpdateFunc === 'function') this.onUpdateFunc(data)
           }}
         />,
         document.getElementById(this.uniqKey)
       )
+    } else {
+      this.opened = false
     }
   }
 
@@ -60,11 +64,23 @@ class MapPopupHelper {
     this.onUpdateFunc = onUpdate
   }
 
+  onClose (closeFunc) {
+    this.onCloseFunc = closeFunc
+  }
+
   renderListener () {
     const _self = this
     this.map.on('popupopen', (e) => {
       // const marker = e.popup._source
       _self.renderComponent()
+    })
+    this.map.on('popupclose', (e) => {
+      if (this.opened) {
+        this.opened = false
+        if (typeof this.onCloseFunc === 'function') {
+          this.onCloseFunc(this.store)
+        }
+      }
     })
   }
 }
