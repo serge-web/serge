@@ -458,7 +458,8 @@
 						},
 						"platformType": "frigate",
 						"position": "P21",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra00001"
 					},
 					{
 						"name": "MPA",
@@ -467,7 +468,8 @@
 						},
 						"platformType": "fixed-wing-aircraft",
 						"position": "C17",
-						"state": "Landed"
+						"state": "Landed",
+						"uniqid": "a0pra00002"
 					},
 					{
 						"name": "Tanker",
@@ -475,9 +477,38 @@
 						"perceptions": {
 							"Red": {"force":"Blue", "type":""}
 						},
-						"platformType": "merchant-vessel",
+						"plannedTurns": [
+							{
+								"turn": 1,
+								"route": [
+									"R22",
+									"Q22"
+								],
+								"speed": 20,
+								"state": "Transitting"
+							},
+							{
+								"turn": 2,
+								"route": [
+									"P21",
+									"O21"
+								],
+								"speed": 20,
+								"state": "Transitting"
+							},
+							{
+								"turn": 3,
+								"route": [
+									"O20",
+									"O19"
+								],
+								"speed": 20,
+								"state": "Transitting"
+							}
+						],						"platformType": "merchant-vessel",
 						"position": "S23",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra00003"
 					}
 				],
 				"color": "#00F",
@@ -504,7 +535,8 @@
 						},
 						"platformType": "fishing-vessel",
 						"position": "N04",
-						"state": "LocationPending"
+						"state": "LocationPending",
+						"uniqid": "a0pra000100"
 					},
 					{
 						"name": "Dhow-B",
@@ -514,7 +546,8 @@
 						},
 						"platformType": "fishing-vessel",
 						"position": "N10",
-						"state": "LocationPending"
+						"state": "LocationPending",
+						"uniqid": "a0pra000101"
 					},
 					{
 						"name": "Dhow-C",
@@ -523,7 +556,8 @@
 						},
 						"platformType": "fishing-vessel",
 						"position": "Q18",
-						"state": "LocationPending"
+						"state": "LocationPending",
+						"uniqid": "a0pra000102"
 					},
 					{
 						"name": "Missile-A",
@@ -532,7 +566,8 @@
 						},
 						"platformType": "coastal-radar-site",
 						"position": "Q12",
-						"state": "LocationPending"
+						"state": "LocationPending",
+						"uniqid": "a0pra000103"
 					}
 				],
 				"color": "#F00",
@@ -551,14 +586,19 @@
 				"uniqid": "Red"
 			},
 			{
-				"assets": [{
+				"assets": [
+					{
 						"name": "Tanker-1",
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"merchant-vessel"}
+							"Blue": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							}
 						},
-						"plannedTurns": {
-							"T01": {
+						"plannedTurns": [
+							{
+								"turn": 1,
 								"route": [
 									"H00",
 									"H01",
@@ -568,7 +608,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T02": {
+							{
+								"turn": 2,
 								"route": [
 									"I04",
 									"I05",
@@ -578,7 +619,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T03": {
+							{
+								"turn": 3,
 								"route": [
 									"I07",
 									"I08",
@@ -588,7 +630,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T04": {
+							{
+								"turn": 4,
 								"route": [
 									"I11",
 									"J11",
@@ -598,7 +641,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T05": {
+							{
+								"turn": 5,
 								"route": [
 									"K14",
 									"L14",
@@ -608,7 +652,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T06": {
+							{
+								"turn": 6,
 								"route": [
 									"M17",
 									"M18",
@@ -618,7 +663,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T07": {
+							{
+								"turn": 7,
 								"route": [
 									"O20",
 									"O21",
@@ -628,36 +674,48 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T08": {
+							{
+								"turn": 8,
 								"speed": 0,
 								"state": "Moored"
 							},
-							"T09": {
+							{
+								"turn": 9,
 								"speed": 0,
 								"state": "Moored"
 							},
-							"T10": {
+							{
+								"turn": 10,
 								"speed": 0,
 								"state": "Moored"
 							}
-						},
+						],
 						"platformType": "merchant-vessel",
 						"position": "H00",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra000200"
 					},
 					{
 						"name": "Tanker-2",
 						"condition": "Disabled",
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"merchant-vessel"},
-							"Red": {"force":"Green", "type":"merchant-vessel"}
+							"Blue": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							},
+							"Red": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							}
 						},
-						"plannedTurns": {
-							"T01": {
+						"plannedTurns": [
+							{
+								"turn": 1,
 								"speed": 0,
 								"state": "Moored"
 							},
-							"T02": {
+							{
+								"turn": 2,
 								"route": [
 									"C00",
 									"C01",
@@ -667,7 +725,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T03": {
+							{
+								"turn": 3,
 								"route": [
 									"C04",
 									"C05",
@@ -677,7 +736,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T04": {
+							{
+								"turn": 4,
 								"route": [
 									"D07",
 									"E08",
@@ -687,7 +747,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T05": {
+							{
+								"turn": 5,
 								"route": [
 									"H08",
 									"H09",
@@ -697,7 +758,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T06": {
+							{
+								"turn": 6,
 								"route": [
 									"I11",
 									"J11",
@@ -707,7 +769,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T07": {
+							{
+								"turn": 7,
 								"route": [
 									"K14",
 									"L14",
@@ -717,7 +780,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T08": {
+							{
+								"turn": 8,
 								"route": [
 									"M17",
 									"M18",
@@ -727,7 +791,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T09": {
+							{
+								"turn": 9,
 								"route": [
 									"O20",
 									"O21",
@@ -737,7 +802,8 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T10": {
+							{
+								"turn": 10,
 								"route": [
 									"R22",
 									"S22",
@@ -747,19 +813,24 @@
 								"speed": 20,
 								"state": "Transitting"
 							}
-						},
+						],
 						"platformType": "merchant-vessel",
 						"position": "C00",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra000201"
 					},
 					{
 						"name": "Fisher-A",
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"merchant-vessel"}
+							"Blue": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							}
 						},
-						"plannedTurns": {
-							"T01": {
+						"plannedTurns": [
+							{
+								"turn": 1,
 								"route": [
 									"M02",
 									"K03"
@@ -767,7 +838,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T02": {
+							{
+								"turn": 2,
 								"route": [
 									"J03",
 									"I04"
@@ -775,11 +847,13 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T03": {
+							{
+								"turn": 3,
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T04": {
+							{
+								"turn": 4,
 								"route": [
 									"I05",
 									"I06"
@@ -787,7 +861,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T05": {
+							{
+								"turn": 5,
 								"route": [
 									"I07",
 									"I08"
@@ -795,11 +870,13 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T06": {
+							{
+								"turn": 6,
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T07": {
+							{
+								"turn": 7,
 								"route": [
 									"J07",
 									"K07"
@@ -807,7 +884,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T08": {
+							{
+								"turn": 8,
 								"route": [
 									"L06",
 									"M06"
@@ -815,11 +893,13 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T09": {
+							{
+								"turn": 9,
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T10": {
+							{
+								"turn": 10,
 								"route": [
 									"M05",
 									"M04"
@@ -827,19 +907,24 @@
 								"speed": 10,
 								"state": "Transitting"
 							}
-						},
+						],
 						"platformType": "fishing-vessel",
 						"position": "M02",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra000202"
 					},
 					{
 						"name": "Fisher-B",
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"merchant-vessel"}
+							"Blue": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							}
 						},
-						"plannedTurns": {
-							"T01": {
+						"plannedTurns": [
+							{
+								"turn": 1,
 								"route": [
 									"N08",
 									"L09"
@@ -847,11 +932,13 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T02": {
+							{
+								"turn": 2,
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T03": {
+							{
+								"turn": 3,
 								"route": [
 									"K10",
 									"K09"
@@ -859,7 +946,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T04": {
+							{
+								"turn": 4,
 								"route": [
 									"K08",
 									"K07"
@@ -867,7 +955,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T05": {
+							{
+								"turn": 5,
 								"route": [
 									"K06",
 									"M06"
@@ -875,11 +964,13 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T06": {
+							{
+								"turn": 6,
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T07": {
+							{
+								"turn": 7,
 								"route": [
 									"N06",
 									"N07"
@@ -887,7 +978,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T08": {
+							{
+								"turn": 8,
 								"route": [
 									"M08",
 									"L08"
@@ -895,32 +987,43 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T09": {
+							{
+								"turn": 9,
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T10": {
+							{
+								"turn": 10,
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T11": {
+							{
+								"turn": 11,
 								"speed": 0,
 								"state": "Fishing"
 							}
-						},
+						],
 						"platformType": "fishing-vessel",
 						"position": "N08",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra000203"
 					},
 					{
 						"name": "Fisher-C",
 						"condition": "Destroyed",
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"merchant-vessel"},
-							"Red": {"force":"Green", "type":"merchant-vessel"}
+							"Blue": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							},
+							"Red": {
+								"force": "Green",
+								"type": "merchant-vessel"
+							}
 						},
-						"plannedTurns": {
-							"T01": {
+						"plannedTurns": [
+							{
+								"turn": 1,
 								"route": [
 									"N11",
 									"L10"
@@ -928,7 +1031,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T02": {
+							{
+								"turn": 2,
 								"route": [
 									"K10",
 									"J09"
@@ -936,11 +1040,13 @@
 								"speed": 20,
 								"state": "Transitting"
 							},
-							"T03": {
+							{
+								"turn": 3,
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T04": {
+							{
+								"turn": 4,
 								"route": [
 									"K08",
 									"K07"
@@ -948,7 +1054,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T05": {
+							{
+								"turn": 5,
 								"route": [
 									"K06",
 									"M06"
@@ -956,11 +1063,13 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T06": {
+							{
+								"turn": 6,
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T07": {
+							{
+								"turn": 7,
 								"route": [
 									"N06",
 									"N07"
@@ -968,7 +1077,8 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T08": {
+							{
+								"turn": 8,
 								"route": [
 									"M08",
 									"L08"
@@ -976,11 +1086,13 @@
 								"speed": 10,
 								"state": "Transitting"
 							},
-							"T09": {
+							{
+								"turn": 9,
 								"speed": 0,
 								"state": "Fishing"
 							},
-							"T10": {
+							{
+								"turn": 10,
 								"route": [
 									"M09",
 									"N08"
@@ -988,10 +1100,11 @@
 								"speed": 10,
 								"state": "Transitting"
 							}
-						},
+						],
 						"platformType": "fishing-vessel",
 						"position": "N11",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra000204"
 					}
 				],
 				"color": "#0F0",
@@ -999,13 +1112,15 @@
 				"icon": "default_img/umpireDefault.png",
 				"name": "Green",
 				"overview": "Green Shipping",
-				"roles": [{
-					"control": false,
-					"isInsightViewer": false,
-					"isObserver": false,
-					"name": "CO",
-					"password": "P9454"
-				}],
+				"roles": [
+					{
+						"control": false,
+						"isInsightViewer": false,
+						"isObserver": false,
+						"name": "CO",
+						"password": "P9454"
+					}
+				],
 				"umpire": false,
 				"uniqid": "Green"
 			}
