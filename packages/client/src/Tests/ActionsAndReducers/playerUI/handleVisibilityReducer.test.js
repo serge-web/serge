@@ -4,8 +4,7 @@ import findAsset from '../../../Components/Mapping/helpers/findAsset'
 
 const payload = [
   {
-    force: 'Green',
-    asset: 'foxtrot',
+    assetId: 'C06',
     by: 'Red',
     newVis: true
   }
@@ -13,13 +12,11 @@ const payload = [
 
 const payload2 = [
   {
-    force: 'Green',
-    asset: 'echo',
+    assetId: 'C05',
     by: 'Blue',
     newVis: false
   }, {
-    force: 'Green',
-    asset: 'echo',
+    assetId: 'C05',
     by: 'Red',
     newVis: true
   }

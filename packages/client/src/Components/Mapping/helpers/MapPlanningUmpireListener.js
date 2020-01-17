@@ -14,20 +14,20 @@ export default class MapPlanningPlayerListener {
       return
     }
     this.btnChangeBlueOn = createButton(false, 'Blue on', () => {
-      this.changeVisibility(this.dbgForce, this.dbgName, 'Blue', true, this.visibilityChanges)
+      this.changeVisibility(this.dbgAssetID, 'Blue', true, this.visibilityChanges)
       this.btnSendChanges.enable()
     }).addTo(map)
     console.log('btn blue on:', this.btnChangeBlueOn)
     this.btnChangeBlueOff = createButton(false, 'Blue off', () => {
-      this.changeVisibility(this.dbgForce, this.dbgName, 'Blue', false, this.visibilityChanges)
+      this.changeVisibility(this.dbgAssetID, 'Blue', false, this.visibilityChanges)
       this.btnSendChanges.enable()
     }).addTo(map)
     this.btnChangeRedOn = createButton(false, 'Red on', () => {
-      this.changeVisibility(this.dbgForce, this.dbgName, 'Red', true, this.visibilityChanges)
+      this.changeVisibility(this.dbgAssetID, 'Red', true, this.visibilityChanges)
       this.btnSendChanges.enable()
     }).addTo(map)
     this.btnChangeRedOff = createButton(false, 'Red off', () => {
-      this.changeVisibility(this.dbgForce, this.dbgName, 'Red', false, this.visibilityChanges)
+      this.changeVisibility(this.dbgAssetID, 'Red', false, this.visibilityChanges)
       this.btnSendChanges.enable()
     }).addTo(map)
     this.btnSendChanges = createButton(false, 'Submit changes', () => {
@@ -46,8 +46,8 @@ export default class MapPlanningPlayerListener {
     this.btnChangeBlueOff.disable()
   }
 
-  changeVisibility (/* string */ assetForce, /* string */ assetName, /* string */ forcePerceivedBy, /* boolean */ newVis, /* array vis changes */ visibilityChanges) {
-    visibilityChanges.push({ force: assetForce, asset: assetName, by: forcePerceivedBy, newVis: newVis })
+  changeVisibility (/* string */ assetId, /* string */ forcePerceivedBy, /* boolean */ newVis, /* array vis changes */ visibilityChanges) {
+    visibilityChanges.push({ assetId: assetId, by: forcePerceivedBy, newVis: newVis })
   }
 
   sendAllChanges (/* list of changes */visibilityChanges) {
@@ -96,8 +96,7 @@ export default class MapPlanningPlayerListener {
     // we have to trick module by pushing capturing marker - so we know
     // who to advance.
     context.currentMarker = marker
-    context.dbgForce = marker.asset.force
-    context.dbgName = marker.asset.name
+    context.dbgAssetID = marker.asset.uniqid
 
     // disable all the markers, to start with
     context.btnChangeRedOn.disable()
