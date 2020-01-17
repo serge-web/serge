@@ -93,6 +93,7 @@ export default class MapPlanningPlayerListener {
       // TODO: shouldn't need to do this once we have state
       this.btn3cSubitWholeRoute.disable()
       this.btn3aClearLastLeg.disable()
+
       this.btn3bClearWholeRoute.disable()
     }).addTo(map)
     this.btn3bClearWholeRoute = createButton(false, '3b. clear route', () => {
