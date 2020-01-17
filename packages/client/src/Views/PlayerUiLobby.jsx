@@ -8,8 +8,8 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
   const [localState, setState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      selectedWargame: { label: 'MWARC-Initialised', value: 'http://localhost:8080/db/wargame-k5i99e9x' },
-      rolePassword: 'p2311'
+      selectedWargame: '',
+      rolePassword: ''
     }
   )
   const [state, dispatch] = useStateValue()
@@ -25,7 +25,6 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
     e.preventDefault()
     setRolePassword(val)
   }
-
   return (
     <div className="flex-content-wrapper flex-content-wrapper--welcome">
       <div className="flex-content flex-content--welcome">
@@ -36,11 +35,9 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
             <Select
               name="wargame-selection"
               value={selectedWargame}
-              defaultValue={selectedWargame}
               className="react-select"
               classNamePrefix="react-select"
-              options={[selectedWargame]}
-              // options={wargameList.map((wargame) => ({ label: wargame.title, value: wargame.name }))}
+              options={wargameList.map((wargame) => ({ label: wargame.title, value: wargame.name }))}
               onChange={updateSelectedWargame}
             />
           </div>
