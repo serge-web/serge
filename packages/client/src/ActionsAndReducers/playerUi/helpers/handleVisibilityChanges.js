@@ -8,18 +8,21 @@ export default (/* object */ message, /* object */ allForces) => {
     if (force.assets) {
       const asset = force.assets.find(item => item.name === visChange.asset)
       if (asset) {
-        if (visChange.by && !asset.perceptions) {
-          // ok, something's becoming visible - make sure there's 
-          // a perceptions entry for it.
-          asset.perceptions = []
-        }
-        // can it already see it?
-        if (asset.perceptions[visChange.by]) {
-          // ok, clear that entry
-          delete asset.perceptions[visChange.by]
-        } else {
-          // create a new entry
+        if (visChange.newVis) {
+          // ok, we're making something visible
+          if (!asset.perceptions) {
+            // make sure there's
+            // a perceptions entry for it.
+            asset.perceptions = []
+          }
           asset.perceptions[visChange.by] = { force: null, type: null }
+        } else {
+          // ok, we're removing something
+          if (!asset.perceptions) {
+            console.warn('possible issue: we\'re trying to remove a perception, but there aren\'t any')
+          } else {
+            delete asset.perceptions[visChange.by]
+          }
         }
       }
     }
