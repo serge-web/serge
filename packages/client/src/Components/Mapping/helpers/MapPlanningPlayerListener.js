@@ -86,17 +86,17 @@ export default class MapPlanningPlayerListener {
       })
     }).addTo(map)
     this.btn2aResetLeg = createButton(false, '2a. reset leg', () => {
-      this.resetCurrentLeg(this.plannedLegs, this.debugWaypointName, this.planningMarker)
+      this.plannedLegs = resetCurrentLeg(this.plannedLegs, this.debugWaypointName)
     }).addTo(map)
     this.btn3aClearLastLeg = createButton(false, '3a. clear last leg', () => {
-      this.submitClearLastLeg(this.plannedLegs, this.debugWaypointName, this.planningMarker)
+      this.plannedLegs = submitClearLastLeg(this.plannedLegs)
       // TODO: shouldn't need to do this once we have state
       this.btn3cSubitWholeRoute.disable()
       this.btn3aClearLastLeg.disable()
       this.btn3bClearWholeRoute.disable()
     }).addTo(map)
     this.btn3bClearWholeRoute = createButton(false, '3b. clear route', () => {
-      this.submitClearWholeRoute(this.plannedLegs, this.planningMarker)
+      this.plannedLegs = submitClearWholeRoute()
 
       // TODO: shouldn't need to do this once we have state
       this.btn3cSubitWholeRoute.disable()
