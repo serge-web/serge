@@ -1,6 +1,6 @@
 import createButton from './createDebugButton'
 
-export default class MapPlanningPlayerListener {
+export default class MapPlanningUmpireListener {
   constructor (map, grid, changesCallback) {
     this.grid = grid
     this.changesCallback = changesCallback
@@ -17,7 +17,6 @@ export default class MapPlanningPlayerListener {
       this.changeVisibility(this.dbgAssetID, 'Blue', true, this.visibilityChanges)
       this.btnSendChanges.enable()
     }).addTo(map)
-    console.log('btn blue on:', this.btnChangeBlueOn)
     this.btnChangeBlueOff = createButton(false, 'Blue off', () => {
       this.changeVisibility(this.dbgAssetID, 'Blue', false, this.visibilityChanges)
       this.btnSendChanges.enable()
@@ -55,7 +54,6 @@ export default class MapPlanningPlayerListener {
   }
 
   clearListeners () {
-    console.log('clearing listeners')
     this.registeredListeners.forEach(pair => {
       pair.marker.off(pair.event)
     })
@@ -83,7 +81,6 @@ export default class MapPlanningPlayerListener {
   }
 
   listenToMarker (e) {
-    console.log('handling marker callback')
     const marker = e.target
 
     // we need to access this class's data, get
