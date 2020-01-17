@@ -458,7 +458,8 @@
 						},
 						"platformType": "frigate",
 						"position": "P21",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra00001"
 					},
 					{
 						"name": "MPA",
@@ -467,7 +468,8 @@
 						},
 						"platformType": "fixed-wing-aircraft",
 						"position": "C17",
-						"state": "Landed"
+						"state": "Landed",
+						"uniqid": "a0pra00002"
 					},
 					{
 						"name": "Tanker",
@@ -475,9 +477,38 @@
 						"perceptions": {
 							"Red": {"force":"Blue", "type":""}
 						},
-						"platformType": "merchant-vessel",
+						"plannedTurns": [
+							{
+								"turn": 1,
+								"route": [
+									"R22",
+									"Q22"
+								],
+								"speed": 20,
+								"state": "Transitting"
+							},
+							{
+								"turn": 2,
+								"route": [
+									"P21",
+									"O21"
+								],
+								"speed": 20,
+								"state": "Transitting"
+							},
+							{
+								"turn": 3,
+								"route": [
+									"O20",
+									"O19"
+								],
+								"speed": 20,
+								"state": "Transitting"
+							}
+						],						"platformType": "merchant-vessel",
 						"position": "S23",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra00003"
 					}
 				],
 				"color": "#00F",
@@ -504,7 +535,8 @@
 						},
 						"platformType": "fishing-vessel",
 						"position": "N04",
-						"state": "LocationPending"
+						"state": "LocationPending",
+						"uniqid": "a0pra000100"
 					},
 					{
 						"name": "Dhow-B",
@@ -514,7 +546,8 @@
 						},
 						"platformType": "fishing-vessel",
 						"position": "N10",
-						"state": "LocationPending"
+						"state": "LocationPending",
+						"uniqid": "a0pra000101"
 					},
 					{
 						"name": "Dhow-C",
@@ -523,7 +556,8 @@
 						},
 						"platformType": "fishing-vessel",
 						"position": "Q18",
-						"state": "LocationPending"
+						"state": "LocationPending",
+						"uniqid": "a0pra000102"
 					},
 					{
 						"name": "Missile-A",
@@ -532,7 +566,8 @@
 						},
 						"platformType": "coastal-radar-site",
 						"position": "Q12",
-						"state": "LocationPending"
+						"state": "LocationPending",
+						"uniqid": "a0pra000103"
 					}
 				],
 				"color": "#F00",
@@ -657,7 +692,8 @@
 						],
 						"platformType": "merchant-vessel",
 						"position": "H00",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra000200"
 					},
 					{
 						"name": "Tanker-2",
@@ -780,7 +816,8 @@
 						],
 						"platformType": "merchant-vessel",
 						"position": "C00",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra000201"
 					},
 					{
 						"name": "Fisher-A",
@@ -873,7 +910,8 @@
 						],
 						"platformType": "fishing-vessel",
 						"position": "M02",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra000202"
 					},
 					{
 						"name": "Fisher-B",
@@ -967,7 +1005,8 @@
 						],
 						"platformType": "fishing-vessel",
 						"position": "N08",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra000203"
 					},
 					{
 						"name": "Fisher-C",
@@ -1064,7 +1103,8 @@
 						],
 						"platformType": "fishing-vessel",
 						"position": "N11",
-						"state": "Transitting"
+						"state": "Transitting",
+						"uniqid": "a0pra000204"
 					}
 				],
 				"color": "#0F0",
