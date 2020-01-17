@@ -4,19 +4,70 @@ import handleVisibilityChanges from '../../../ActionsAndReducers/playerUi/helper
 const payload = [
   {
     force: 'Green',
-    asset: 'Tanker-1',
+    asset: 'foxtrot',
     by: 'Blue',
     newVis: false
   }, {
     force: 'Green',
-    asset: 'Tanker-1',
+    asset: 'foxtrot',
     by: 'Red',
     newVis: true
   }
 ]
 
-const allForces 
+const allForces = [
+  { name: 'umpire' },
+  {
+    name: 'Blue',
+    assets: [
+      {
+        name: 'alpha',
+        perceptions: {
+          Red: { force: 'Blue', type: 'Frigate' }
+        }
+      },
+      {
+        name: 'bravo',
+        perceptions: {
+        }
+      }
+    ]
+  },
+  {
+    name: 'Red',
+    assets: [
+      {
+        name: 'charlie',
+        perceptions: {
+          Blue: { force: 'Green', type: 'Frigate' }
+        }
+      },
+      {
+        name: 'delta',
+        perceptions: {
+        }
+      }
+    ]
+  },
+  {
+    name: 'Green',
+    assets: [
+      {
+        name: 'echo',
+        perceptions: {
+          Blue: { force: 'Green', type: 'Frigate' },
+          Red: { force: 'Green', type: 'Frigate' }
+        }
+      },
+      {
+        name: 'foxtrot'
+      }
+    ]
+  }
+]
 
 it('correctly handle stuff', () => {
-  expect(handleVisibilityChanges({ payload: payload }, allForces)).toBeTruthy()
+  const updated = handleVisibilityChanges({ payload: payload }, allForces)
+  expect(updated).toBeTruthy()
+  expect(updated)
 })
