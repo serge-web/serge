@@ -1,7 +1,7 @@
 /** the user has clicked on a waypoint along a leg, and wishes to clear from that
    * one onwards
    */
-const resetCurrentLeg = (/* dictionary */ plannedLegs, /* string */ turnNumber, /* object */ planningMarker) => {
+const resetCurrentLeg = (/* dictionary */ plannedLegs, /* string */ turnNumber) => {
   // loop through the legs and delete any turns after 'turnNumber
 
   return plannedLegs
