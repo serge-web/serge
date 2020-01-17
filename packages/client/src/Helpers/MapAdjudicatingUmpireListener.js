@@ -6,6 +6,7 @@ import plannedStateFor from './plannedStateFor'
 import turnLeft from './data/turn-left.png'
 import turnRight from './data/turn-right.png'
 import turnEnd from './data/turn-end.png'
+import noTurn from './data/no-turn.png'
 
 export default class MapAdjudicatingListener {
   constructor (map, grid) {
@@ -105,7 +106,7 @@ export default class MapAdjudicatingListener {
       p = [13.430997652302832, 43.104098900000004]
     }
     if (pMinus1 === undefined || pMinus1 === null) {
-      console.log('pMinus1 has an undefined or null value')
+      // console.log('pMinus1 has an undefined or null value')
       pMinus1 = p
       // console.log(pMinus1)
     }
@@ -114,7 +115,7 @@ export default class MapAdjudicatingListener {
       pPlus1 = p
       // console.log(pMinus1)
     } else {
-      console.log('No null values found')
+      // console.log('No null values found')
     }
 
     var arr1 = Object.values(pMinus1)
@@ -276,15 +277,30 @@ export default class MapAdjudicatingListener {
         })
         declutterMarkers(clusters, this.grid.delta / 3)
 
-        turnMarkers.forEach((marker) => {
+        
+        var myFuncCalls = 0;
+
+        turnMarkers.forEach((marker, index, arr) => {
+          var prevSpeed;
+
+          if(index > 0){
+            prevSpeed = arr[index-1].speed
+          }
+
+          if(marker.speed === 0 && prevSpeed === 0){
+            myFuncCalls++;
+          }
           // getting the angle result
           const angleResult = Math.round(marker.orientation)
-
           // need to check if the value is between these values
           var iconName
           if (angleResult === 180 || angleResult === 360) {
             // for the 180 and 360, which are flat icons so end icon is used
             iconName = turnEnd
+          } if(myFuncCalls >= 2){
+            // as some angles are undefined just use the end icon until this can be figured out
+            console.log("Using the No turn Icon")
+            iconName = noTurn
           } else if (angleResult > 0 && angleResult < 90) {
             // North to East
             iconName = turnLeft
@@ -302,7 +318,7 @@ export default class MapAdjudicatingListener {
             iconName = turnEnd
           } else {
             iconName = turnEnd
-          }
+          } 
 
           // console.log('turn:' + marker.name + 'angle:' + Math.round(angleResult))
 
