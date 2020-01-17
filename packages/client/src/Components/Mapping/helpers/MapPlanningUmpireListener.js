@@ -1,4 +1,4 @@
-import createButton from '../../../Helpers/createDebugButton'
+import createButton from './createDebugButton'
 
 export default class MapPlanningPlayerListener {
   constructor (map, grid, changesCallback) {

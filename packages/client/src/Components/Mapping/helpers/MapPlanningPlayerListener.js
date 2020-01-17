@@ -1,9 +1,14 @@
 import L from 'leaflet'
-import defaultHexStyle from '../../../Helpers/data/default-hex-style'
-import plannedModePopupFor from '../../../Helpers/plannedModePopupFor'
+import defaultHexStyle from '../data/default-hex-style'
+import plannedModePopupFor from './plannedModePopupFor'
 import colorFor from './colorFor'
+
+// Import helpers
 import padInteger from '../../../Helpers/padInteger'
-import createButton from '../../../Helpers/createDebugButton'
+import createButton from './createDebugButton'
+import resetCurrentLeg from './resetCurrentLeg'
+import submitClearLastLeg from './submitClearLastLeg'
+import submitClearWholeRoute from './submitClearWholeRoute'
 
 // eslint-disable-next-line no-unused-vars
 import glyph from 'leaflet.icon.glyph'
@@ -63,85 +68,54 @@ export default class MapPlanningPlayerListener {
     this.waypointMarkers = L.layerGroup().addTo(map)
 
     // TODO: drop these fake state change triggers
-    const context = this
-    this.btn1aImmobile = createButton(false, '1a. immobile state', function (btn, map) {
-      context.platformStateAssigned(context.currentMarker, {
+    this.btn1aImmobile = createButton(false, '1a. immobile state', () => {
+      this.platformStateAssigned(this.currentMarker, {
         mobile: false
       })
     }).addTo(map)
-    this.btn1bMobile10 = createButton(false, '1b. mobile 10kts', function (btn, map) {
-      context.platformStateAssigned(context.currentMarker, {
+    this.btn1bMobile10 = createButton(false, '1b. mobile 10kts', () => {
+      this.platformStateAssigned(this.currentMarker, {
         speed: 10,
         mobile: true
       })
     }).addTo(map)
-    this.btn1cMobile30 = createButton(false, '1c. mobile 30kts', function (btn, map) {
-      context.platformStateAssigned(context.currentMarker, {
+    this.btn1cMobile30 = createButton(false, '1c. mobile 30kts', () => {
+      this.platformStateAssigned(this.currentMarker, {
         speed: 30,
         mobile: true
       })
     }).addTo(map)
-    this.btn2aResetLeg = createButton(false, '2a. reset leg', function (btn, map) {
-      context.resetCurrentLeg(context.plannedLegs, context.debugWaypointName, context.planningMarker)
+    this.btn2aResetLeg = createButton(false, '2a. reset leg', () => {
+      this.plannedLegs = resetCurrentLeg(this.plannedLegs, this.debugWaypointName)
     }).addTo(map)
-    this.btn3aClearLastLeg = createButton(false, '3a. clear last leg', function (btn, map) {
-      context.submitClearLastLeg(context.plannedLegs, context.debugWaypointName, context.planningMarker)
+    this.btn3aClearLastLeg = createButton(false, '3a. clear last leg', () => {
+      this.plannedLegs = submitClearLastLeg(this.plannedLegs)
       // TODO: shouldn't need to do this once we have state
-      context.btn3cSubitWholeRoute.disable()
-      context.btn3aClearLastLeg.disable()
-      context.btn3bClearWholeRoute.disable()
+      this.btn3cSubitWholeRoute.disable()
+      this.btn3aClearLastLeg.disable()
+
+      this.btn3bClearWholeRoute.disable()
     }).addTo(map)
-    this.btn3bClearWholeRoute = createButton(false, '3b. clear route', function (btn, map) {
-      context.submitClearWholeRoute(context.plannedLegs, context.planningMarker)
+    this.btn3bClearWholeRoute = createButton(false, '3b. clear route', () => {
+      this.plannedLegs = submitClearWholeRoute()
 
       // TODO: shouldn't need to do this once we have state
-      context.btn3cSubitWholeRoute.disable()
-      context.btn3aClearLastLeg.disable()
-      context.btn3bClearWholeRoute.disable()
+      this.btn3cSubitWholeRoute.disable()
+      this.btn3aClearLastLeg.disable()
+      this.btn3bClearWholeRoute.disable()
     }).addTo(map)
-    this.btn3cSubitWholeRoute = createButton(false, '3c. Submit route', function (btn, map) {
-      context.submitWholeRoute(context.currentMarker.asset, context.plannedLegs)
+    this.btn3cSubitWholeRoute = createButton(false, '3c. Submit route', () => {
+      this.submitWholeRoute(this.currentMarker.asset, this.plannedLegs)
       // TODO: drop these buttons
       // and reset the buttons
-      context.btn1aImmobile.disable()
-      context.btn1bMobile10.disable()
-      context.btn1cMobile30.disable()
-      context.btn2aResetLeg.disable()
-      context.btn3aClearLastLeg.disable()
-      context.btn3bClearWholeRoute.disable()
-      context.btn3cSubitWholeRoute.disable()    
+      this.btn1aImmobile.disable()
+      this.btn1bMobile10.disable()
+      this.btn1cMobile30.disable()
+      this.btn2aResetLeg.disable()
+      this.btn3aClearLastLeg.disable()
+      this.btn3bClearWholeRoute.disable()
+      this.btn3cSubitWholeRoute.disable()
     }).addTo(map)
-  }
-
-  /** the user has clicked on a waypoint along a leg, and wishes to clear from that
-   * one onwards
-   */
-  resetCurrentLeg (/* dictionary */ plannedLegs, /* string */ turnName, /* object */ planningMarker) {
-    // loop through the legs
-
-    // is this the leg?
-
-    // delete it, and all following legs
-
-    // and also reset the state of the map interactions (update the state/position of the planning marker)
-  }
-
-  /** the user has clicked on the end of a route, but he just wants to
-   * drop the last leg
-   */
-  submitClearLastLeg (/* dictionary */ plannedLegs, /* string */ turnName, /* object */ planningMarker) {
-    // pop the last leg in the dictionary
-
-    // update the planning marker
-  }
-
-  /**  a route has been planned, but the user wishes to start again. clear it */
-  submitClearWholeRoute (/* dictionary */ plannedLegs, /* object */ planningMarker) {
-    // erase all planned legs
-
-    // update the planning counter
-
-    // reset the initial available locations
   }
 
   /** the user has finished planning the route for this platform
@@ -427,11 +401,10 @@ export default class MapPlanningPlayerListener {
           waypointMarker.bindPopup(waypointPopupContent)
 
           // TODO: delete these button interactions
-          const context = this
           waypointMarker.on('click', e => {
             // for debug, we should use this waypoint marker
             this.debugWaypointName = turnString
-            context.btn2aResetLeg.enable()
+            this.btn2aResetLeg.enable()
           })
 
           // put the next turn in the planning marker
@@ -444,9 +417,9 @@ export default class MapPlanningPlayerListener {
           // TODO: delete these button interactions
           // TODO: only bind if it's not already bound
           planningMarker.on('click', e => {
-            context.btn3aClearLastLeg.enable()
-            context.btn3bClearWholeRoute.enable()
-            context.btn3cSubitWholeRoute.enable()
+            this.btn3aClearLastLeg.enable()
+            this.btn3bClearWholeRoute.enable()
+            this.btn3cSubitWholeRoute.enable()
           })
         }
 
