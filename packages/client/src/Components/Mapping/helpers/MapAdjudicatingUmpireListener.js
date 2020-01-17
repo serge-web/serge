@@ -1,8 +1,7 @@
 import L from 'leaflet'
-import defaultHexStyle from './data/default-hex-style'
+import defaultHexStyle from '../data/default-hex-style'
 import colorFor from './colorFor'
 import declutterMarkers from './declutterMarkers'
-import plannedStateFor from './plannedStateFor'
 
 export default class MapAdjudicatingListener {
   constructor (map, grid, planningFormCallback) {
@@ -202,7 +201,7 @@ export default class MapAdjudicatingListener {
           const turnMarker = L.marker(marker.coord, {
             draggable: true
           })
-          
+
           // store the force/asset name
           res.name = asset.force + '_' + asset.name
 

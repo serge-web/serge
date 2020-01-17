@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import defaultHexStyle from './data/default-hex-style'
+import defaultHexStyle from '../data/default-hex-style'
 
 export default class MapAdjudicatingListener {
   constructor (map, grid) {

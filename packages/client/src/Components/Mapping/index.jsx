@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
-import GridImplementation from '../../Helpers/GridImplementation'
-import MapAdjudicatingUmpireListener from '../../Helpers/MapAdjudicatingUmpireListener'
-import MapAdjudicatingPlayerListener from '../../Helpers/MapAdjudicatingPlayerListener'
-import MapAdjudicationPendingListener from '../../Helpers/MapAdjudicationPendingListener'
-import MapMarkersControl from '../../Helpers/MapMarkersControl'
-import MapPlanningPlayerListener from '../../Helpers/MapPlanningPlayerListener'
-import MapPlanningUmpireListener from '../../Helpers/MapPlanningUmpireListener'
-import markerFor from '../../Helpers/markerFor'
-import hasPendingForces from '../../Helpers/hasPendingForces'
+import GridImplementation from './helpers/GridImplementation'
+import MapAdjudicatingUmpireListener from './helpers/MapAdjudicatingUmpireListener'
+import MapAdjudicatingPlayerListener from './helpers/MapAdjudicatingPlayerListener'
+import MapAdjudicationPendingListener from './helpers/MapAdjudicationPendingListener'
+import MapMarkersControl from './helpers/MapMarkersControl'
+import MapPlanningPlayerListener from './helpers/MapPlanningPlayerListener'
+import MapPlanningUmpireListener from './helpers/MapPlanningUmpireListener'
+import markerFor from './helpers/markerFor'
+import hasPendingForces from './helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { FORCE_LAYDOWN } from '../../consts'
 import MappingForm from '../MappingForm'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
-import '../../Helpers/mousePosition'
+import './helpers/mousePosition'
 
 import './styles.scss'
 
@@ -182,7 +182,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         if (myForceRef.current === 'umpire') {
           mapListenerRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current)
         } else {
-
           mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current, currentTurnRef.current, routeComplete)
         }
         break
