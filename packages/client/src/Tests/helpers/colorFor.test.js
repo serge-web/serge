@@ -1,6 +1,6 @@
 /* global it expect */
 
-import colorFor from '../../Helpers/colorFor'
+import colorFor from '../../Components/Mapping/helpers/colorFor'
 import mockConsole from 'jest-mock-console'
 
 it('Outputs the correct color for the Red force', () => {
