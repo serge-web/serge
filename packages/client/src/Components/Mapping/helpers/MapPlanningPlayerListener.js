@@ -5,7 +5,7 @@ import colorFor from './colorFor'
 
 // Import helpers
 import padInteger from '../../../Helpers/padInteger'
-import createButton from '../../../Helpers/createDebugButton'
+import createButton from './createDebugButton'
 import resetCurrentLeg from './resetCurrentLeg'
 import submitClearLastLeg from './submitClearLastLeg'
 import submitClearWholeRoute from './submitClearWholeRoute'

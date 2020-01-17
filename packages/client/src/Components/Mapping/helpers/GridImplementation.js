@@ -1,8 +1,8 @@
 import L from 'leaflet'
 import { defineGrid } from 'honeycomb-grid'
-import cellTypes from './data/cell-types'
-import defaultHexStyle from './data/default-hex-style'
-import padInt from './padInteger'
+import cellTypes from '../data/cell-types'
+import defaultHexStyle from '../data/default-hex-style'
+import padInt from '../../../Helpers/padInteger'
 
 export default class GridImplementation {
   constructor ({ origin, delta, width, height, markerLayer }) {
