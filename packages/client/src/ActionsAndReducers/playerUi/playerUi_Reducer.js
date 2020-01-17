@@ -158,7 +158,9 @@ export const playerUiReducer = (state = initialState, action) => {
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.allChannels = action.payload.data.channels.channels
       newState.allForces = action.payload.data.forces.forces
-      newState.allPlatformTypes = action.payload.data.platform_types.platformTypes
+      if (action.payload.data.platform_types) {
+        newState.allPlatformTypes = action.payload.data.platform_types.platformTypes
+      }
       break
 
     case ActionConstant.SET_FORCE:
