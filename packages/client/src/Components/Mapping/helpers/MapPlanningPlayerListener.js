@@ -1,9 +1,14 @@
 import L from 'leaflet'
-import defaultHexStyle from './data/default-hex-style'
+import defaultHexStyle from '../data/default-hex-style'
 import plannedModePopupFor from './plannedModePopupFor'
 import colorFor from './colorFor'
+
+// Import helpers
 import padInteger from '../../../Helpers/padInteger'
 import createButton from '../../../Helpers/createDebugButton'
+import resetCurrentLeg from './resetCurrentLeg'
+import submitClearLastLeg from './submitClearLastLeg'
+import submitClearWholeRoute from './submitClearWholeRoute'
 
 // eslint-disable-next-line no-unused-vars
 import glyph from 'leaflet.icon.glyph'

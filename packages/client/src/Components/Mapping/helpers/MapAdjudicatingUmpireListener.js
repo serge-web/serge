@@ -1,8 +1,7 @@
 import L from 'leaflet'
-import defaultHexStyle from '../../../Helpers/data/default-hex-style'
+import defaultHexStyle from '../data/default-hex-style'
 import colorFor from './colorFor'
-import declutterMarkers from '../../../Helpers/declutterMarkers'
-import plannedStateFor from '../../../Helpers/plannedStateFor'
+import declutterMarkers from './declutterMarkers'
 
 export default class MapAdjudicatingListener {
   constructor (map, grid, planningFormCallback) {
