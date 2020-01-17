@@ -11,9 +11,8 @@ export default function colorFor (/* String */ force) {
       hisColor = '#19bd37'
       break
     default:
-      console.error('failed to recognise force for:' + force)
       hisColor = '#555'
-      break
+      console.warn(`failed to recognise force for: ${force}`)
   }
   return hisColor
 };

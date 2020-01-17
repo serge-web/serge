@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
-import GridImplementation from '../../Helpers/GridImplementation'
+import GridImplementation from './helpers/GridImplementation'
 import MapAdjudicatingUmpireListener from './helpers/MapAdjudicatingUmpireListener'
 import MapAdjudicatingPlayerListener from './helpers/MapAdjudicatingPlayerListener'
 import MapAdjudicationPendingListener from './helpers/MapAdjudicationPendingListener'
@@ -8,13 +8,13 @@ import MapMarkersControl from './helpers/MapMarkersControl'
 import MapPlanningPlayerListener from './helpers/MapPlanningPlayerListener'
 import MapPlanningUmpireListener from './helpers/MapPlanningUmpireListener'
 import markerFor from './helpers/markerFor'
-import hasPendingForces from '../../Helpers/hasPendingForces'
+import hasPendingForces from './helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { FORCE_LAYDOWN } from '../../consts'
 import MappingForm from '../MappingForm'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
-import '../../Helpers/mousePosition'
+import './helpers/mousePosition'
 
 import './styles.scss'
 
