@@ -278,28 +278,19 @@ export default class MapAdjudicatingListener {
         declutterMarkers(clusters, this.grid.delta / 3)
 
         
-        var myFuncCalls = 0;
 
         turnMarkers.forEach((marker, index, arr) => {
-          var prevSpeed;
-
-          if(index > 0){
-            prevSpeed = arr[index-1].speed
-          }
-
-          if(marker.speed === 0 && prevSpeed === 0){
-            myFuncCalls++;
-          }
+          
           // getting the angle result
           const angleResult = Math.round(marker.orientation)
+          console.log("Turn:", marker.turn, "Speed:", marker.speed, marker.state)
           // need to check if the value is between these values
           var iconName
           if (angleResult === 180 || angleResult === 360) {
             // for the 180 and 360, which are flat icons so end icon is used
             iconName = turnEnd
-          } if(myFuncCalls >= 2){
+          } else if(marker.speed === 0){
             // as some angles are undefined just use the end icon until this can be figured out
-            console.log("Using the No turn Icon")
             iconName = noTurn
           } else if (angleResult > 0 && angleResult < 90) {
             // North to East
