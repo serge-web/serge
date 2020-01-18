@@ -1,5 +1,10 @@
 import L from 'leaflet'
 import 'leaflet-easybutton'
+import blueIcon from './data/blue-icon.png'
+import redIcon from './data/red-icon.png'
+import greenIcon from './data/red-icon.png'
+
+
 
 const controlToolbar = opts => {
   L.Control.ToolBar = L.Control.Zoom.extend({
@@ -7,65 +12,67 @@ const controlToolbar = opts => {
       test: '+',
       test2: 'Zoom in',
       zoomOutText: '-',
-      zoomOutTitle: 'Zoom out',
-      zoomHomeIcon: 'home',
-      zoomHomeTitle: 'Home',
-      homeCoordinates: null,
-      homeZoom: null
-    },
-    showHistoryButtonOptions: {
-      icon: '<i class="fas fa-history"></i>', // using font awesome 
-      text: "Show History"
-    },
-    showPlannedTracksOptions: {
-      icon: '<i class="fas fa-ruler-combined"></i>',
-      text: "Planned Tracks"
-    },
-    showDataFullPeriodOptions: {
-      icon: '<i class="far fa-calendar-alt"></i>',
-      text: "Show data for the full period"
-    },
-    showDataPrevCurrentOptions: {
-      icon: '<i class="fas fa-chess"></i>',
-      text: "Show data for the previous and current turn"
-    },
-    showOtherMarkersOptions: {
-      icon: '<i class="fas fa-layer-group"></i>',
-      text: "Show other force"
+      History: {icon: 'history', text: "Show history"},
+      Planned: {icon: 'ruler-combined', text: "Show planned routes"},
+      Full: {icon: 'calendar-alt', text: "Show full history"},
+      PrevCurrent: {icon: 'chess', text: "Show previous/current turn"},
+      Markers: {icon: 'layer-group', text: "Toggle Layers"},
+      colorMarkers: {red}
     },
     showWhiteOptions: {
       icon: '<i class="fas fa-splotch"></i>',
       text: "White"
     },
+    colorMarkerOptions: {
+      iconRed: redIcon,
+      iconBlue: blueIcon,
+      greenIcon: greenIcon,
+      varSVGtest: '<svg width="26" height="26"><rect width="26" height="26" style="fill:#E9E612;"/></svg>',
+      roundSVG: '<svg width="26" height="26" xmlns="http://www.w3.org/2000/svg"><g><title>background</title><rect fill="#fff" id="canvas_background" height="28" width="28" y="-1" x="-1"/><g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid"><rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/></g></g><g><rect rx="3" id="svg_2" height="19.062189" width="19.812178" y="3.468906" x="3.09391" stroke-width="0" stroke="#000" fill="#ff0000"/></g></svg>',
+      text: {svgText: "SVG Testing", roundText: "Red SVG"}
+    },
     onAdd: function (map) {
       var controlName = 'leaflet-control-toolbar'
       var container = L.DomUtil.create('div', controlName + ' leaflet-bar')
       var options = this.options;
-
       // initalising the options
-      var showHistoryButton = this.showHistoryButtonOptions
-      var showPlannedTracks = this.showPlannedTracksOptions
-      var showDataFullPeriod = this.showDataFullPeriodOptions
-      var showDataPrevCurrent = this.showDataPrevCurrentOptions  
-      var showOtherMarkers = this.showOtherMarkersOptions    
+      var showColourMarkers = this.colorMarkerOptions    
+
+      var iconTextOne = '<i class="fas fa-' 
+      var iconTextTwo = '></i>';
 
       // show historic tracks
-      this._showHistoryButton = this._createButton(showHistoryButton.icon, showHistoryButton.text,
+      var histBtnIcon = '<i class="fas fa-' + options.History.icon + '" style="line-height:1.65;"></i>';
+      this._showHistoryButton = this._createButton(histBtnIcon, options.History.text,
       controlName, container, this._historyFunction.bind(this));
+
       // the planned tracks button
-      this._showPlannedTracksButton = this._createButton(showPlannedTracks.icon, showPlannedTracks.text,
+      var ptBtnIcon = '<i class="fas fa-' + options.Planned.icon + '" style="line-height:1.65;"></i>';
+      this._showPlannedTracksButton = this._createButton(ptBtnIcon, options.Planned.text,
       controlName, container, this._plannedTracksFunction.bind(this));
+
       // the data for the full period  
-      this._showDataFullPeriodButton = this._createButton(showDataFullPeriod.icon, showDataFullPeriod.text,
+      var fpBtnIcon = '<i class="fas fa-' + options.Full.icon + '" style="line-height:1.65;"></i>';
+      this._showDataFullPeriodButton = this._createButton(fpBtnIcon, options.Full.text,
       controlName, container, this._fullPeriodFunction.bind(this));
-      // the data for the current and previous turn  
-      this._showDataPrevCurrentButton = this._createButton(showDataPrevCurrent.icon, showDataPrevCurrent.text,
+
+      // the data for the current and previous turn 
+      var pcBtnIcon = '<i class="fas fa-' + options.PrevCurrent.icon + '" style="line-height:1.65;"></i>'; 
+      this._showDataPrevCurrentButton = this._createButton(pcBtnIcon, options.PrevCurrent.text,
       controlName, container, this._showDataPrevCurrentFunction.bind(this));
+
       // show map as viewed from White / Red / Blue / Green force . (4 buttons)
       // going to make this flick out from the side somehow I reckon  
-      this._showOtherMarkersButton = this._createButton(showOtherMarkers.icon, showOtherMarkers.text,
+      var omBtnIcon = '<i class="fas fa-' + options.Markers.icon + '" style="line-height:1.65;"></i>'; 
+      this._showOtherMarkersButton = this._createButton(omBtnIcon, options.Markers.text,
         controlName, container, this._showOtherMarkersFunction.bind(this));
-      // this._updateDisabled();
+
+      // the colour markers
+      this._showColourButtonSVG = this._createButton(showColourMarkers.varSVGtest, showColourMarkers.text.svgText,
+        controlName, container, this._showOtherMarkersFunction.bind(this));
+      // red rounded SVG test
+      this._showColourButtonSVG = this._createButton(showColourMarkers.roundSVG, showColourMarkers.text.roundText,
+        controlName, container, this._showOtherMarkersFunction.bind(this));
       // map.on('zoomend zoomlevelschange', this._updateDisabled, this);
       
       return container
@@ -87,23 +94,6 @@ const controlToolbar = opts => {
     },
     _showOtherMarkersFunction: function(e){
       console.log("testing if the layer selector function is working")
-      var controlName = 'leaflet-control-toolbar-colors'
-      var container = L.DomUtil.create('div', controlName + ' leaflet-bar')
-
-      var showWhite = this.showWhiteOptions
-
-      this._newBtn = createBtn(showWhite.icon, showWhite.text,
-      controlName, container, function(){});
-      console.log(this._newBtn)
-
-      function createBtn(html, title, className, container, fn){
-        var link = L.DomUtil.create('a', className, container);
-        link.innerHTML = html;
-        link.href = '#';
-        link.title = title;
-        console.log("Creating a button")
-        return link;
-      }
     },
   })
   return new L.Control.ToolBar(opts)
