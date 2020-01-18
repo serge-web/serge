@@ -26,8 +26,8 @@ export default (asset, force, myForce, platformTypes, assetIsDraggable, userIsUm
 
   // can we see it?
   if (perception != null) {
-    const forceClass = perception.force.toLowerCase()
-    const typeClass = perception.type.replace(/ /g, '-').toLowerCase()
+    const forceClass = perception.force ? perception.force.toLowerCase() : 'unknown'
+    const typeClass = perception.type ? perception.type.replace(/ /g, '-').toLowerCase() : 'unknown'
     const divIcon = L.divIcon({
       iconSize: [40, 40],
       className: `platform-counter platform-force-${forceClass} platform-type-${typeClass}`

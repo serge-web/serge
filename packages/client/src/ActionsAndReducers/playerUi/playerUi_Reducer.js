@@ -1,11 +1,13 @@
 import ActionConstant from '../ActionConstants'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
+import handleVisibilityChanges from './helpers/handleVisibilityChanges'
 import {
   CHAT_CHANNEL_ID,
   expiredStorage,
   LOCAL_STORAGE_TIMEOUT,
-  FORCE_LAYDOWN
+  FORCE_LAYDOWN,
+  VISIBILIY_CHANGES
 } from '../../consts'
 import _ from 'lodash'
 import uniqId from 'uniqid'
@@ -114,6 +116,7 @@ export const playerUiReducer = (state = initialState, action) => {
     return res
   }
 
+  /** red has pre-positioned assets, prior to the start of the game */
   const handleForceLaydown = (/* object */ message, /* object */ allForces) => {
     // find the force
     const forceIndex = allForces.findIndex(item => item.name === message.force)
@@ -135,6 +138,8 @@ export const playerUiReducer = (state = initialState, action) => {
     switch (msgType) {
       case FORCE_LAYDOWN:
         return handleForceLaydown(message, allForces)
+      case VISIBILIY_CHANGES:
+        return handleVisibilityChanges(message, allForces)
       default:
         console.error('failed to create player reducer handler for:' + msgType)
         return allForces
