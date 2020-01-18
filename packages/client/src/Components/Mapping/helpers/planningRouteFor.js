@@ -123,12 +123,11 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
 function markersFor (/* array */ plannedTurns, /* latLng */ start,
   /* boolean */ lightweight, /* grid */ grid, /* function */ waypointCallback, /* object */ context) {
   const result = L.layerGroup()
-  let minus1 = null
+  let minus1 = start // the start point of the track is used as the 'last point'
   let minus2 = null
   let pendingTurnLocation = null
   let pendingTurnName = null
-  let pendingTurnId = 0
-  let current = start
+  let current = null
   let turnId = 0
   plannedTurns.forEach(turn => {
     const stateSuffix = turn.speed ? ' at ' + turn.speed + 'kts' : ''
@@ -154,7 +153,6 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
               pendingTurnLocation = false
             }
           }
-
           // move everyone down the bed
           minus2 = minus1
           minus1 = current
@@ -162,7 +160,6 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
       })
       pendingTurnLocation = current
       pendingTurnName = turnName
-      pendingTurnId = turnId
     } else {
       // ok, nothing happening. add a static marker
       result.addLayer(createMarker(noTurn, current, lightweight, turnName, waypointCallback, context, turnId))
