@@ -141,7 +141,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const declareControlOf = (force, name, platformType) => {
   }
 
-  const routeComplete = (/* string */force, /* string */asset, /* object */payload) => {
+  const routeCompleteCallback = (/* string */force, /* string */asset, /* object */payload) => {
     console.log('Planned Route:', force, asset, payload)
   }
 
@@ -222,7 +222,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         if (myForceRef.current === 'umpire') {
           mapListenerRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc)
         } else {
-          mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current, currentTurnRef.current, routeComplete)
+          mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current, currentTurnRef.current, routeCompleteCallback,
+            platformTypesRef.current)
         }
         break
       default:
