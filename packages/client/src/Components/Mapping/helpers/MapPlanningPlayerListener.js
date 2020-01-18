@@ -4,12 +4,13 @@ import plannedModePopupFor from './plannedModePopupFor'
 import colorFor from './colorFor'
 
 // Import helpers
-import padInteger from '../../../Helpers/padInteger'
 import createButton from './createDebugButton'
 import resetCurrentLeg from './resetCurrentLeg'
 import submitClearLastLeg from './submitClearLastLeg'
 import submitClearWholeRoute from './submitClearWholeRoute'
 import planningRouteFor from './planningRouteFor'
+import turnNameFor from './turnNameFor'
+import createStateButtonsFor from './createStateButtonsFor'
 
 // eslint-disable-next-line no-unused-vars
 import glyph from 'leaflet.icon.glyph'
@@ -74,50 +75,7 @@ export default class MapPlanningPlayerListener {
       this.platformStateAssigned(this.currentMarker, {
         mobile: false
       })
-    }).addTo(map)
-    this.btn1bMobile10 = createButton(false, '1b. mobile 10kts', () => {
-      this.platformStateAssigned(this.currentMarker, {
-        speed: 10,
-        mobile: true
-      })
-    }).addTo(map)
-    this.btn1cMobile30 = createButton(false, '1c. mobile 30kts', () => {
-      this.platformStateAssigned(this.currentMarker, {
-        speed: 30,
-        mobile: true
-      })
-    }).addTo(map)
-    this.btn2aResetLeg = createButton(false, '2a. reset leg', () => {
-      this.plannedLegs = resetCurrentLeg(this.plannedLegs, this.debugWaypointName)
-    }).addTo(map)
-    this.btn3aClearLastLeg = createButton(false, '3a. clear last leg', () => {
-      this.plannedLegs = submitClearLastLeg(this.plannedLegs)
-      // TODO: shouldn't need to do this once we have state
-      this.btn3cSubitWholeRoute.disable()
-      this.btn3aClearLastLeg.disable()
-
-      this.btn3bClearWholeRoute.disable()
-    }).addTo(map)
-    this.btn3bClearWholeRoute = createButton(false, '3b. clear route', () => {
-      this.plannedLegs = submitClearWholeRoute()
-
-      // TODO: shouldn't need to do this once we have state
-      this.btn3cSubitWholeRoute.disable()
-      this.btn3aClearLastLeg.disable()
-      this.btn3bClearWholeRoute.disable()
-    }).addTo(map)
-    this.btn3cSubitWholeRoute = createButton(false, '3c. Submit route', () => {
-      this.submitWholeRoute(this.currentMarker.asset, this.plannedLegs)
-      // TODO: drop these buttons
-      // and reset the buttons
-      this.btn1aImmobile.disable()
-      this.btn1bMobile10.disable()
-      this.btn1cMobile30.disable()
-      this.btn2aResetLeg.disable()
-      this.btn3aClearLastLeg.disable()
-      this.btn3bClearWholeRoute.disable()
-      this.btn3cSubitWholeRoute.disable()
-    }).addTo(map)
+    }).addTo(this.map)
   }
 
   /** ditch the data for this listener
@@ -169,11 +127,11 @@ export default class MapPlanningPlayerListener {
   /** create a storage object for this object */
   dataFor (/* marker */ marker, /* array platform types */ platformTypes) {
     const plannedTurns = marker.asset.plannedTurns ? marker.asset.plannedTurns : []
-    const asset = marker.asset
-    const platformType = platformTypes.find(type => type.name === asset.platformType)
-    const lightRoutes = this.createPlanningRouteFor(asset, true)
     // clone the planned routes, in case we wish to reset it
     const currentRoutes = JSON.parse(JSON.stringify(plannedTurns))
+    const asset = marker.asset
+    const platformType = platformTypes.find(type => type.name === asset.platformType)
+    const lightRoutes = this.createPlanningRouteFor(currentRoutes, asset, true)
     const res = {
       marker: marker,
       asset: asset,
@@ -185,11 +143,29 @@ export default class MapPlanningPlayerListener {
     return res
   }
 
-  createPlanningRouteFor (/* object */ asset, /* boolean */ lightweight) {
-    const plannedTurns = asset.plannedTurns ? asset.plannedTurns : []
+  waypointCallback (e) {
+    const context = e.target.context
+    const turnName = turnNameFor(e.target.turnId)
+    // create the reset button
+    context.btnResetFromWaypoint = createButton(true, 'Reset from ' + turnName, () => {
+      context.currentRoute.lightRoutes.remove()
+      context.currentRoute.lightRoutes.clearLayers()
+      // clear route
+      context.currentRoute.current = resetCurrentLeg(context.currentRoute.current, e.target.turnId)
+
+      // rebuild route
+      context.currentRoute.lightRoutes = context.createPlanningRouteFor(context.currentRoute.current, context.currentRoute.marker.asset, false).addTo(context.layer)
+
+      // lastly, remove the button
+      context.btnResetFromWaypoint.remove()
+    }).addTo(context.map)
+  }
+
+  createPlanningRouteFor (/* array turns */ currentRoutes, /* object */ asset, /* boolean */ lightweight) {
     const forceColor = colorFor(asset.force)
     const hisLocation = this.grid.hexNamed(asset.position).centrePos
-    return planningRouteFor(plannedTurns, hisLocation, lightweight, this.grid, forceColor)
+    const context = this
+    return planningRouteFor(currentRoutes, hisLocation, lightweight, this.grid, forceColor, this.waypointCallback, context)
   }
 
   /** listen to drag events on the supplied marker */
@@ -214,7 +190,7 @@ export default class MapPlanningPlayerListener {
 
           this.currentRoute.lightRoutes.remove()
           this.currentRoute.lightRoutes.clearLayers()
-          this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.marker.asset, true).addTo(this.layer)
+          this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, true).addTo(this.layer)
         }
 
         // now get the route for the new marker
@@ -222,17 +198,17 @@ export default class MapPlanningPlayerListener {
 
         // drop the lightweight route
         this.currentRoute.lightRoutes.remove()
-        this.currentRoute.lightRoutes = this.createPlanningRouteFor(marker.asset, false).addTo(this.layer)
+        this.currentRoute.lightRoutes.clearLayers()
+        this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, false).addTo(this.layer)
 
-
-        // TODO: drop these dev steps
-        this.btn1aImmobile.enable()
-        this.btn1bMobile10.enable()
-        this.btn1cMobile30.enable()
+        // sort out the state commands for this asset
+        const pType = this.platformTypes.find(pType => pType.name === marker.asset.platformType)
+        console.log(pType)
+        const commands = createStateButtonsFor(pType, this)
+        // add the commands to our map
       })
 
       // ok, the popup will eventually manage state
-      console.log(marker)
       marker.options.draggable = false
     }
   }
@@ -442,7 +418,6 @@ export default class MapPlanningPlayerListener {
             draggable: 'false',
             title: turnString
           })
-          console.log('Planning marker:', waypointMarker)
           waypointMarker.addTo(this.waypointMarkers)
           waypointMarker.dragging.disable()
 

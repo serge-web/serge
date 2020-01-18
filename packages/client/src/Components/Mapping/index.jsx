@@ -206,6 +206,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     if (currentPhaseMapRef.current) {
       // ok, detach it
       currentPhaseMapRef.remove()
+      currentPhaseMapRef.clearLayers()
     }
 
     currentPhaseMapRef.current = L.layerGroup().addTo(mapRef.current)
@@ -296,7 +297,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const toBeAdded = visibleToMe.filter(asset => foundItems.indexOf(asset.name) === -1)
 
     if (toBeAdded) {
-      console.log('to be added:', toBeAdded)
       toBeAdded.forEach(asset => {
         var force = asset.force
         if (!force) {

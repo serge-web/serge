@@ -10,12 +10,13 @@ import lightTurn from '../images/light-turn.png'
 import turnNameFor from './turnNameFor'
 
 function lineFor (/* array */ plannedTurns, /* latLng */ start,
-  /* boolean */ lightweight, /* grid */ grid) {
+  /* boolean */ lightweight, /* grid */ grid, /* string */ color) {
   const weight = lightweight ? 2 : 4
   const dashArray = lightweight ? [1, 4] : [4, 8]
   const polyLine = L.polyline([], {
     dashArray: dashArray,
-    weight: weight
+    weight: weight,
+    color: color
   })
   const latLongs = [start]
   plannedTurns.forEach(turn => {
@@ -94,36 +95,45 @@ function turnFor (/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current
     const bearing2 = bearingBetween(minus1, current)
     bearing = (bearing1 + bearing2) / 2
   }
-  console.log(minus2, minus1, current)
   return bearing
 }
 
-function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ lightweight, /* string */ title) {
+function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ lightweight, 
+  /* string */ title, /* function */ waypointCallback, /* object */ context, /* int */ turnId) {
   const iconToUse = lightweight ? lightTurn : icon
   const turnIcon = L.icon({
     iconUrl: iconToUse,
     iconSize: [15, 15]
   })
-  // console.log('North to East')
   const marker = L.marker(location, {
     icon: turnIcon, title: title, zIndexOffset: 1000
   })
   marker.bindPopup(title).openPopup()
+  if (!lightweight) {
+    marker.on('click', waypointCallback)
+  }
+
+  // TODO we probably should be passing the context (scope) like this
+  marker.context = context
+  marker.turnId = turnId
 
   return marker
 }
 
 function markersFor (/* array */ plannedTurns, /* latLng */ start,
-  /* boolean */ lightweight, /* grid */ grid) {
+  /* boolean */ lightweight, /* grid */ grid, /* function */ waypointCallback, /* object */ context) {
   const result = L.layerGroup()
   let minus1 = null
   let minus2 = null
   let pendingTurnLocation = null
   let pendingTurnName = null
+  let pendingTurnId = 0
   let current = start
+  let turnId = 0
   plannedTurns.forEach(turn => {
     const stateSuffix = turn.speed ? ' at ' + turn.speed + 'kts' : ''
     const turnName = turnNameFor(turn.turn) + ' - ' + turn.state + stateSuffix
+    turnId = turn.turn
 
     // loop through the routes
     if (turn.route) {
@@ -140,7 +150,7 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
             if (minus1) {
               const angle = turnFor(minus2, minus1, current)
               const iconName = bearingMarkerFor(angle)
-              result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName))
+              result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId))
               pendingTurnLocation = false
             }
           }
@@ -152,9 +162,10 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
       })
       pendingTurnLocation = current
       pendingTurnName = turnName
+      pendingTurnId = turnId
     } else {
       // ok, nothing happening. add a static marker
-      result.addLayer(createMarker(noTurn, current, lightweight, turnName))
+      result.addLayer(createMarker(noTurn, current, lightweight, turnName, waypointCallback, context, turnId))
 
       // forget about waiting for more coords
       pendingTurnLocation = null
@@ -167,7 +178,7 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
     if (minus1) {
       const angle = turnFor(minus2, minus1, null)
       const icon = bearingMarkerFor(angle)
-      result.addLayer(createMarker(icon, current, lightweight, pendingTurnName))
+      result.addLayer(createMarker(icon, current, lightweight, pendingTurnName, waypointCallback, context, turnId))
       pendingTurnLocation = false
     }
   }
@@ -177,11 +188,11 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
 /** create a Leaflet elememt for this set of routes
   */
 export default function planningRouteFor (/* array */ plannedTurns, /* latLng */ start,
-  /* boolean */ lightweight, /* grid */ grid, /* string */ color) {
+  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* function */ waypointCallback, /* object */ context) {
   const thisLayer = L.layerGroup()
 
   // start with the line
-  const theLine = lineFor(plannedTurns, start, lightweight, grid)
+  const theLine = lineFor(plannedTurns, start, lightweight, grid, color)
 
   // set the styling
   theLine.color = color
@@ -189,7 +200,7 @@ export default function planningRouteFor (/* array */ plannedTurns, /* latLng */
   thisLayer.addLayer(theLine)
 
   // also sort out the markers
-  const markers = markersFor(plannedTurns, start, lightweight, grid, color)
+  const markers = markersFor(plannedTurns, start, lightweight, grid, waypointCallback, context)
 
   // also declutter the markers
 
