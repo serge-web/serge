@@ -1153,9 +1153,7 @@
 				"icon": "fishing-vessel.svg",
 				"name": "fishing-vessel",
 				"speedKts": [
-					5,
-					10,
-					15
+					10
 				],
 				"states": [
 					{ "name": "Fishing", "mobile": false },
@@ -1174,11 +1172,9 @@
 				"icon": "frigate.svg",
 				"name": "frigate",
 				"speedKts": [
-					5,
 					10,
-					15,
 					20,
-					25
+					30
 				],
 				"states": [
 					{ "name": "Escorting", "mobile": true },
@@ -1232,9 +1228,7 @@
 				"icon": "merchant-vessel.svg",
 				"name": "merchant-vessel",
 				"speedKts": [
-					5,
 					10,
-					15,
 					20
 				],
 				"states": [
