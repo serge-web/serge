@@ -1,50 +1,37 @@
-import L from 'leaflet'
+import createButton from './createDebugButton'
+
 /** create a button that can be used to trigger UI interactions, such as when a
  * change in state is triggered from elsewhere in the application
  */
-export default function createButton (/* boolean */enabled, /* string */ title, /* function */ callback) {
-  const CustomControl = L.Control.extend({
-
-    options: {
-      position: 'topleft'
-    },
-
-    enable: function () {
-      this.varContainer.disabled = false
-    },
-
-    disable: function () {
-      this.varContainer.disabled = true
-    },
-
-    onAdd: function () {
-      var container = L.DomUtil.create('input')
-
-      // store a copy, so we can call it from utility functions
-      this.varContainer = container
-
-      container.type = 'button'
-      container.title = 'No cat'
-      container.value = title
-
-      container.style.backgroundColor = 'white'
-      container.style.backgroundSize = '30px 30px'
-      container.style.width = '150px'
-      container.style.height = '30px'
-
-      if (enabled) {
-        this.enable()
-      } else {
-        this.disable()
-      }
-
-      container.onclick = function () {
-        callback()
-      }
-
-      return container
-    }
-  })
-
-  return new CustomControl()
+export default function createStateButtonsFor (/* object */pType, /* object */ context, /* function */ callback) {
+  const stateBtns = []
+  if (Array.isArray(pType.states)) {
+    pType.states.forEach(state => {
+      const btn = createButton(true, state.name, () => {
+        // ok, remove button
+        stateBtns.forEach(button => button.remove())
+        if (state.mobile && pType.speedKts) {
+          const speedBtns = []
+          pType.speedKts.forEach(speed => {
+  
+            const speedBtn = createButton(true, speed + ' kts', () => {
+              // ok, remove button
+              speedBtns.forEach(button => button.remove())
+  
+              // share good news
+              callback(state, speed, context)
+            }).addTo(context.map)
+            speedBtns.push(speedBtn)
+          })
+        } else {
+          // don't need speed, go for it
+          callback(state, null, context)
+        }
+      }).addTo(context.map)
+      stateBtns.push(btn)
+    })
+  } else {
+    console.error('Platform types is using legacy non-array structure')
+    console.log(pType)
+  }
 }

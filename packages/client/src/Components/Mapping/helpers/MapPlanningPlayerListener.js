@@ -69,13 +69,6 @@ export default class MapPlanningPlayerListener {
 
     // use layer groups to store data - so we can confidently remove them
     this.waypointMarkers = L.layerGroup().addTo(layer)
-
-    // TODO: drop these fake state change triggers
-    this.btn1aImmobile = createButton(false, '1a. immobile state', () => {
-      this.platformStateAssigned(this.currentMarker, {
-        mobile: false
-      })
-    }).addTo(this.map)
   }
 
   /** ditch the data for this listener
@@ -168,6 +161,18 @@ export default class MapPlanningPlayerListener {
     return planningRouteFor(currentRoutes, hisLocation, lightweight, this.grid, forceColor, this.waypointCallback, context)
   }
 
+  /** user has used either the command buttons, or the popup dialog to choose a new platform state */
+  stateSelectedCallback (/* object */ state, /* number */ speed, /* object */ context) {
+    // ok, set the current state
+    console.log('new state selected:', state, speed)
+
+    // store the state - we'll use it for all legs, until the player changes their mind
+    context.currentRoute.state = { state: state, speed: speed }
+
+    // now update the planning rings
+    context.platformStateAssigned(context.currentRoute.marker, context.currentRoute.state)
+  }
+
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
     // is it for the current force?
@@ -204,7 +209,7 @@ export default class MapPlanningPlayerListener {
         // sort out the state commands for this asset
         const pType = this.platformTypes.find(pType => pType.name === marker.asset.platformType)
         console.log(pType)
-        const commands = createStateButtonsFor(pType, this)
+        createStateButtonsFor(pType, this, this.stateSelectedCallback)
         // add the commands to our map
       })
 
@@ -263,9 +268,19 @@ export default class MapPlanningPlayerListener {
    * UI accordingly
    */
   platformStateAssigned (/* object */marker, /* object */newState) {
-    if (newState.mobile) {
+    if (newState.speed) {
+      // sort out where to put the planning marker
+      let position = null
+      const route = this.currentRoute.current
+      if (route && route.length > 0) {
+        position = route[route.length - 1]
+      } else {
+        // use use the asset location
+        position = marker.asset.loc
+      }
+
       // ok, get ready for step planning & dragging
-      this.startHex = this.grid.cellFor(marker.asset.loc)
+      this.startHex = this.grid.cellFor(position)
 
       // do some initialisation
       this.clearOnNewLeg()
