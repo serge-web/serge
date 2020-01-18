@@ -38,7 +38,7 @@ function clusterMarkers (/* array marker */ markers) {
   return res
 }
 
-export default function declutterLayer (/* LayerGroup */ layer) {
+export default function declutterLayer (/* LayerGroup */ layer, /* number */ gridDelta) {
   // get all the markers in the layer(s) first
   const markers = findAllMarkers(layer)
 
@@ -46,5 +46,5 @@ export default function declutterLayer (/* LayerGroup */ layer) {
   const clusters = clusterMarkers(markers)
 
   // sort markers out into clusters
-  declutterMarkers(clusters, 0.0833333)
+  declutterMarkers(clusters, gridDelta)
 }

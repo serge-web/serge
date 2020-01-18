@@ -18,8 +18,6 @@ export default function declutter (/* collection */ clusters, /* degrees */ grid
         const newLat = thisPos.lat + gridDelta * Math.sin(thisAngleRads)
         const newLng = thisPos.lng + gridDelta * Math.cos(thisAngleRads)
         marker.setLatLng(L.latLng(newLat, newLng))
-
-        // TODO: for markers that are actually in the same cell, we should introduce a slightly different styling, _I think_
       }
     }
   }
