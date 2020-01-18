@@ -9,26 +9,6 @@ import lightTurn from '../images/light-turn.png'
 
 import turnNameFor from './turnNameFor'
 
-// const defPlannedTurns = [
-//   {
-//     "turn": 1,
-//     "route": [
-//       "R22",
-//       "Q22"
-//     ],
-//     "speed": 20,
-//     "state": "Transitting"
-//   },
-//   {
-//     "turn": 2,
-//     "route": [
-//       "P21",
-//       "O21"
-//     ],
-//     "speed": 20,
-//     "state": "Transitting"
-//   }]
-
 function lineFor (/* array */ plannedTurns, /* latLng */ start,
   /* boolean */ lightweight, /* grid */ grid) {
   const weight = lightweight ? 2 : 4
@@ -209,8 +189,10 @@ export default function planningRouteFor (/* array */ plannedTurns, /* latLng */
   thisLayer.addLayer(theLine)
 
   // also sort out the markers
-  const markers = markersFor(/* array */ plannedTurns, /* latLng */ start,
-    /* boolean */ lightweight, /* grid */ grid, /* string */ color)
+  const markers = markersFor(plannedTurns, start, lightweight, grid, color)
+
+  // also declutter the markers
+
   thisLayer.addLayer(markers)
 
   return thisLayer

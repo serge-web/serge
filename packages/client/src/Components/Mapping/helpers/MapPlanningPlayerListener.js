@@ -173,7 +173,7 @@ export default class MapPlanningPlayerListener {
     const platformType = platformTypes.find(type => type.name === asset.platformType)
     const forceColor = colorFor(asset.force)
     const hisLocation = this.grid.hexNamed(asset.position).centrePos
-    const lightRoutes = planningRouteFor(plannedTurns, hisLocation, false, this.grid, forceColor)
+    const lightRoutes = planningRouteFor(plannedTurns, hisLocation, true, this.grid, forceColor)
     // clone the planned routes, in case we wish to reset it
     const currentRoutes = JSON.parse(JSON.stringify(plannedTurns))
     const res = {
