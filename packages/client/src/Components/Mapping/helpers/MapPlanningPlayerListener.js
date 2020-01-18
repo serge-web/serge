@@ -9,17 +9,20 @@ import createButton from './createDebugButton'
 import resetCurrentLeg from './resetCurrentLeg'
 import submitClearLastLeg from './submitClearLastLeg'
 import submitClearWholeRoute from './submitClearWholeRoute'
+import planningRouteFor from './planningRouteFor'
 
 // eslint-disable-next-line no-unused-vars
 import glyph from 'leaflet.icon.glyph'
 
 export default class MapPlanningPlayerListener {
-  constructor (map, grid, force, turn, routeCompleteCallback) {
+  constructor (map, grid, force, turn, routeCompleteCallback, platformTypes) {
     this.grid = grid
     this.force = force
-    this.map = map
+    // note - don't store the map, work with a layerGroup inside the map
+    this.map = L.layerGroup().addTo(map)
     this.routeCompleteCallback = routeCompleteCallback
     this.turn = turn
+    this.platformTypes = platformTypes
 
     this.plannedLats = [] // lad-lngs for route
     this.plannedHexes = [] // hexes for route
@@ -36,6 +39,8 @@ export default class MapPlanningPlayerListener {
     this.currentMarker = null // the selected marker // TODO: it's only for development
     this.currentTurn = null // for dev, the turn that was clicked on
 
+    this.allRoutes = [] // collection of routes for this turn
+
     // store some styling details, once, centrally
     this.rangeStyle = {
       fill: true,
@@ -47,9 +52,6 @@ export default class MapPlanningPlayerListener {
       color: '#249',
       opacity: 0.2
     }
-
-    // If we're using this module in a test class, we can drop out at this point if we don't have
-    // an actual map object
 
     // create our two lines, one for planning, one for history
     this.routeLine = L.polyline([], {
@@ -118,6 +120,16 @@ export default class MapPlanningPlayerListener {
     }).addTo(map)
   }
 
+  /** ditch the data for this listener
+   */
+  clearListeners () {
+    // ditch the listeners
+    
+    // clear the map layer
+
+    // detach the map
+  }
+
   /** the user has finished planning the route for this platform
    * send the data to the callback, and prepare for the next planned route
    */
@@ -157,10 +169,43 @@ export default class MapPlanningPlayerListener {
     return 'T' + padInteger(turn, 2)
   }
 
+  planningRouteFor (/* array */ plannedRoutes) {
+
+  }
+
+  /** create a storage object for this object */
+  dataFor (/* marker */ marker, /* array platform types */ platformTypes) {
+    const plannedTurns = marker.asset.plannedTurns ? marker.asset.plannedTurns : []
+    const asset = marker.asset
+    const platformType = platformTypes.find(type => type.name === asset.platformType)
+    const forceColor = colorFor(asset.force)
+    const hisLocation = this.grid.hexNamed(asset.position).centrePos
+    const lightRoutes = planningRouteFor(plannedTurns, hisLocation, true, this.grid, forceColor)
+    // clone the planned routes, in case we wish to reset it
+    const currentRoutes = JSON.parse(JSON.stringify(plannedTurns))
+    const res = {
+      marker: marker,
+      original: plannedTurns,
+      current: currentRoutes,
+      platformType: platformType,
+      lightRoutes: lightRoutes
+    }
+    return res
+  }
+
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
     // is it for the current force?
     if (marker.asset.force === this.force) {
+      // store the details for this force
+      const thisData = this.dataFor(marker, this.platformTypes)
+      this.allRoutes.push(thisData)
+
+      // and add to the map
+      this.map.addLayer(thisData.lightRoutes)
+
+      // listen for it being clicked
+
       const popupContent = plannedModePopupFor(marker.asset)
       marker.bindPopup(popupContent).openPopup()
 
