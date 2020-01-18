@@ -17,7 +17,7 @@ const controlToolbar = opts => {
       Full: {icon: 'calendar-alt', text: "Show full history"},
       PrevCurrent: {icon: 'chess', text: "Show previous/current turn"},
       Markers: {icon: 'layer-group', text: "Toggle Layers"},
-      colorMarkers: {red}
+      colorMarkers: {}
     },
     showWhiteOptions: {
       icon: '<i class="fas fa-splotch"></i>',
