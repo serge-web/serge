@@ -11,6 +11,7 @@ import submitClearWholeRoute from './submitClearWholeRoute'
 import planningRouteFor from './planningRouteFor'
 import turnNameFor from './turnNameFor'
 import createStateButtonsFor from './createStateButtonsFor'
+import roundToNearest from './roundToNearest'
 
 // eslint-disable-next-line no-unused-vars
 import glyph from 'leaflet.icon.glyph'
@@ -290,7 +291,11 @@ export default class MapPlanningPlayerListener {
       const stepSize = 30
       const stepsPerHour = (60 / stepSize)
       const gridDelta = 5
-      const range = speed / gridDelta / stepsPerHour // work out how many NM in 30 minutes
+      const roughRange = speed / gridDelta / stepsPerHour // work out how many NM in 30 minutes
+
+      // check range is in 10s
+      const range = roundToNearest(roughRange, 1)
+
       const allowance = range
 
       // store the steps remaining
