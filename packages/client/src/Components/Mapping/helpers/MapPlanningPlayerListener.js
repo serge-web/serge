@@ -43,6 +43,8 @@ export default class MapPlanningPlayerListener {
 
     this.allRoutes = [] // collection of routes for this turn
 
+    this.stateButtons = [] // keep track of the state buttons, so we can clear them
+
     // store some styling details, once, centrally
     this.rangeStyle = {
       fill: true,
@@ -230,8 +232,7 @@ export default class MapPlanningPlayerListener {
         } else {
           // sort out the state commands for this asset
           const pType = this.platformTypes.find(pType => pType.name === marker.asset.platformType)
-          console.log(pType)
-          createStateButtonsFor(pType, this, this.stateSelectedCallback)
+          this.stateButtons = createStateButtonsFor(pType, this, this.stateSelectedCallback, this.stateButtons)
         }
       })
 
