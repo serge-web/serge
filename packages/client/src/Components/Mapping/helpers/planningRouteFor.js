@@ -98,7 +98,7 @@ function turnFor (/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current
   return bearing
 }
 
-function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ lightweight, 
+function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ lightweight,
   /* string */ title, /* function */ waypointCallback, /* object */ context, /* int */ turnId) {
   const iconToUse = lightweight ? lightTurn : icon
   const turnIcon = L.icon({
@@ -130,7 +130,7 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
   let current = null
   let turnId = 0
   plannedTurns.forEach(turn => {
-    const stateSuffix = turn.speed ? ' at ' + turn.speed + 'kts' : ''
+    const stateSuffix = turn.state ? ' at ' + turn.speed + 'kts' : ''
     const turnName = turnNameFor(turn.turn) + ' - ' + turn.state + stateSuffix
     turnId = turn.turn
 

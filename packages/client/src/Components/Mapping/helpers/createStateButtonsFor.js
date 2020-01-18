@@ -13,11 +13,10 @@ export default function createStateButtonsFor (/* object */pType, /* object */ c
         if (state.mobile && pType.speedKts) {
           const speedBtns = []
           pType.speedKts.forEach(speed => {
-  
             const speedBtn = createButton(true, speed + ' kts', () => {
               // ok, remove button
               speedBtns.forEach(button => button.remove())
-  
+
               // share good news
               callback(state, speed, context)
             }).addTo(context.map)
