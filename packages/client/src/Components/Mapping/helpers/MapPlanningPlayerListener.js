@@ -15,11 +15,11 @@ import planningRouteFor from './planningRouteFor'
 import glyph from 'leaflet.icon.glyph'
 
 export default class MapPlanningPlayerListener {
-  constructor (map, grid, force, turn, routeCompleteCallback, platformTypes) {
+  constructor (layer, map, grid, force, turn, routeCompleteCallback, platformTypes) {
     this.grid = grid
     this.force = force
-    // note - don't store the map, work with a layerGroup inside the map
-    this.map = L.layerGroup().addTo(map)
+    this.layer = L.layerGroup().addTo(layer) // the layer we add our items to
+    this.map = map // the underlying base-map (required to add/remove toolbar controls)
     this.routeCompleteCallback = routeCompleteCallback
     this.turn = turn
     this.platformTypes = platformTypes
@@ -63,11 +63,11 @@ export default class MapPlanningPlayerListener {
     })
 
     // put them on the map
-    this.routeLine.addTo(map)
-    this.plannedLine.addTo(map)
+    this.routeLine.addTo(layer)
+    this.plannedLine.addTo(layer)
 
     // use layer groups to store data - so we can confidently remove them
-    this.waypointMarkers = L.layerGroup().addTo(map)
+    this.waypointMarkers = L.layerGroup().addTo(layer)
 
     // TODO: drop these fake state change triggers
     this.btn1aImmobile = createButton(false, '1a. immobile state', () => {
@@ -171,19 +171,25 @@ export default class MapPlanningPlayerListener {
     const plannedTurns = marker.asset.plannedTurns ? marker.asset.plannedTurns : []
     const asset = marker.asset
     const platformType = platformTypes.find(type => type.name === asset.platformType)
-    const forceColor = colorFor(asset.force)
-    const hisLocation = this.grid.hexNamed(asset.position).centrePos
-    const lightRoutes = planningRouteFor(plannedTurns, hisLocation, true, this.grid, forceColor)
+    const lightRoutes = this.createPlanningRouteFor(asset, true)
     // clone the planned routes, in case we wish to reset it
     const currentRoutes = JSON.parse(JSON.stringify(plannedTurns))
     const res = {
       marker: marker,
+      asset: asset,
       original: plannedTurns,
       current: currentRoutes,
       platformType: platformType,
       lightRoutes: lightRoutes
     }
     return res
+  }
+
+  createPlanningRouteFor (/* object */ asset, /* boolean */ lightweight) {
+    const plannedTurns = asset.plannedTurns ? asset.plannedTurns : []
+    const forceColor = colorFor(asset.force)
+    const hisLocation = this.grid.hexNamed(asset.position).centrePos
+    return planningRouteFor(plannedTurns, hisLocation, lightweight, this.grid, forceColor)
   }
 
   /** listen to drag events on the supplied marker */
@@ -195,23 +201,29 @@ export default class MapPlanningPlayerListener {
       this.allRoutes.push(thisData)
 
       // and add to the map
-      this.map.addLayer(thisData.lightRoutes)
+      this.layer.addLayer(thisData.lightRoutes)
 
       // listen for it being clicked
 
-      const popupContent = plannedModePopupFor(marker.asset)
-      marker.bindPopup(popupContent).openPopup()
+      // const popupContent = plannedModePopupFor(marker.asset)
+      //  marker.bindPopup(popupContent).openPopup()
 
       marker.on('click', e => {
-        if (this.currentMarker) {
+        if (this.currentRoute) {
           // do any cleaning up necessary
-        }
-        // we have to trick module by pushing capturing marker - so we know
-        // who to advance.
-        this.currentMarker = marker
 
-        // TODO: we should also take a deep copy of the planned legs, since we're going to be modifying them
-        // this will be easier to do once we're submitting planned legs
+          this.currentRoute.lightRoutes.remove()
+          this.currentRoute.lightRoutes.clearLayers()
+          this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.marker.asset, true).addTo(this.layer)
+        }
+
+        // now get the route for the new marker
+        this.currentRoute = this.allRoutes.find(route => route.marker === marker)
+
+        // drop the lightweight route
+        this.currentRoute.lightRoutes.remove()
+        this.currentRoute.lightRoutes = this.createPlanningRouteFor(marker.asset, false).addTo(this.layer)
+
 
         // TODO: drop these dev steps
         this.btn1aImmobile.enable()

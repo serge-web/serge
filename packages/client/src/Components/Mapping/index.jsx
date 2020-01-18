@@ -22,12 +22,14 @@ import './styles.scss'
 
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
+import declutterLayer from './helpers/declutterLayer'
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
   const platformsLayerRef = useRef(null) // the platform markers
   const gridImplRef = useRef(null) // hexagonal grid
   const forcesRef = useRef(allForces) // the current list of forces
-  const mapListenerRef = useRef(null) // listen for mouse drag events
+  const currentPhaseModeRef = useRef(null)
+  const currentPhaseMapRef = useRef(null) 
   const myForceRef = useRef(selectedForce)
   const platformTypesRef = useRef(allPlatforms)
   const currentTurnRef = useRef(currentTurn)
@@ -183,23 +185,30 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         declareControlOf(force.name, asset.name, asset.platformType)
       }
 
-      mapListenerRef.current.listenTo(marker, currentTurnRef.current)
+      currentPhaseModeRef.current.listenTo(marker, currentTurnRef.current)
       platformsLayerRef.current.addLayer(marker)
     }
   }
 
   useEffect(() => {
     console.log('re-rendering map ocmponent at:', new Date(), 'phase:', phase)
-    if (mapListenerRef.current != null) {
+    if (currentPhaseModeRef.current) {
       // check if clear listeners present
-      if (mapListenerRef.current.clearListeners) {
+      if (currentPhaseModeRef.current.clearListeners) {
         // detatch the current listener
-        mapListenerRef.current.clearListeners()
+        currentPhaseModeRef.current.clearListeners()
       }
 
       // ditch the listener
-      mapListenerRef.current = null
+      currentPhaseModeRef.current = null
     }
+
+    if (currentPhaseMapRef.current) {
+      // ok, detach it
+      currentPhaseMapRef.remove()
+    }
+
+    currentPhaseMapRef.current = L.layerGroup().addTo(mapRef.current)
 
     // clear the UI
     clearControlledAssets()
@@ -209,20 +218,20 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     switch (phase) {
       case 'adjudication':
         if (myForceRef.current === 'umpire') {
-          mapListenerRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, formRequestCallback)
+          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, formRequestCallback)
         } else if (inForceLaydown && currentTurnRef.current === 0) {
           // this force has assets with location pending
-          mapListenerRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc)
+          currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc)
         } else {
           // just use dumb adjudication listener
-          mapListenerRef.current = new MapAdjudicatingPlayerListener(mapRef.current, gridImplRef.current)
+          currentPhaseModeRef.current = new MapAdjudicatingPlayerListener(mapRef.current, gridImplRef.current)
         }
         break
       case 'planning':
         if (myForceRef.current === 'umpire') {
-          mapListenerRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc)
+          currentPhaseModeRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc)
         } else {
-          mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current, currentTurnRef.current, routeCompleteCallback,
+          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current, myForceRef.current, currentTurnRef.current, routeCompleteCallback,
             platformTypesRef.current)
         }
         break
@@ -241,6 +250,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         })
       }
     })
+
+    declutterLayer(currentPhaseMapRef.current, gridImplRef.current.delta / 3)
   }, [phase])
 
   /** create handler for wargame updates - specifically when the
