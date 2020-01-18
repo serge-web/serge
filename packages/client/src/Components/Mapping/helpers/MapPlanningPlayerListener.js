@@ -137,7 +137,7 @@ export default class MapPlanningPlayerListener {
     return res
   }
 
-  waypointCallback (e) {
+  resetFromWaypointCallback (e) {
     const context = e.target.context
     const turnName = turnNameFor(e.target.turnId)
     // create the reset button
@@ -150,6 +150,19 @@ export default class MapPlanningPlayerListener {
       // rebuild route
       context.currentRoute.lightRoutes = context.createPlanningRouteFor(context.currentRoute.current, context.currentRoute.marker.asset, false).addTo(context.layer)
 
+      // get the latest route
+      console.log('current route:', context.currentRoute.current)
+      const routes = context.currentRoute.current
+      if (routes.length > 0) {
+        // ok, we can start off with last state
+        const lastR = routes[routes.length - 1]
+        const newState = { state: lastR.state, speed: lastR.speed }
+
+        // store the state - we'll use it for all legs, until the player changes their mind
+        context.currentRoute.state = newState
+        context.platformStateAssigned(context.currentRoute.marker, newState)
+      }
+
       // lastly, remove the button
       context.btnResetFromWaypoint.remove()
     }).addTo(context.map)
@@ -159,7 +172,7 @@ export default class MapPlanningPlayerListener {
     const forceColor = colorFor(asset.force)
     const hisLocation = this.grid.hexNamed(asset.position).centrePos
     const context = this
-    return planningRouteFor(currentRoutes, hisLocation, lightweight, this.grid, forceColor, this.waypointCallback, context)
+    return planningRouteFor(currentRoutes, hisLocation, lightweight, this.grid, forceColor, this.resetFromWaypointCallback, context)
   }
 
   /** user has used either the command buttons, or the popup dialog to choose a new platform state */
@@ -197,6 +210,10 @@ export default class MapPlanningPlayerListener {
           this.currentRoute.lightRoutes.remove()
           this.currentRoute.lightRoutes.clearLayers()
           this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, true).addTo(this.layer)
+
+          // and the planning bits
+          this.clearAchievableCells()
+          this.planningMarker.remove()
         }
 
         // now get the route for the new marker
@@ -207,11 +224,15 @@ export default class MapPlanningPlayerListener {
         this.currentRoute.lightRoutes.clearLayers()
         this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, false).addTo(this.layer)
 
-        // sort out the state commands for this asset
-        const pType = this.platformTypes.find(pType => pType.name === marker.asset.platformType)
-        console.log(pType)
-        createStateButtonsFor(pType, this, this.stateSelectedCallback)
-        // add the commands to our map
+        if (this.currentRoute.state) {
+          // ok, we can plan the next leg
+          this.platformStateAssigned(this.currentRoute.marker, this.currentRoute.state)
+        } else {
+          // sort out the state commands for this asset
+          const pType = this.platformTypes.find(pType => pType.name === marker.asset.platformType)
+          console.log(pType)
+          createStateButtonsFor(pType, this, this.stateSelectedCallback)
+        }
       })
 
       // ok, the popup will eventually manage state
@@ -271,17 +292,18 @@ export default class MapPlanningPlayerListener {
   platformStateAssigned (/* object */marker, /* object */newState) {
     if (newState.speed) {
       // sort out where to put the planning marker
-      let position = null
       const route = this.currentRoute.current
       if (route && route.length > 0) {
-        position = route[route.length - 1]
+        const points = route[route.length - 1]
+        const cell = points.route[points.route.length - 1]
+        this.startHex = this.grid.hexNamed(cell)
       } else {
         // use use the asset location
-        position = marker.asset.loc
+        const position = marker.asset.loc
+        // ok, get ready for step planning & dragging
+        this.startHex = this.grid.cellFor(position)
       }
-
-      // ok, get ready for step planning & dragging
-      this.startHex = this.grid.cellFor(position)
+      const startPos = this.startHex.centrePos
 
       // do some initialisation
       this.clearOnNewLeg()
@@ -319,21 +341,21 @@ export default class MapPlanningPlayerListener {
         glyphSize: '13px'
       })
 
-      const planningMarker = L.marker(marker.asset.loc, {
+      this.planningMarker = L.marker(startPos, {
         icon: redMarker,
         draggable: 'true',
         zIndexOffset: 1000
       })
-      planningMarker.addTo(this.waypointMarkers)
+      this.planningMarker.addTo(this.waypointMarkers)
 
       // put the next turn in the planning marker
-      planningMarker.planningFor = this.currentTurn + 1
+      this.planningMarker.planningFor = this.currentTurn + 1
 
       // set the route-line color
       this.updateRouteLinesForForce(marker.force, [this.routeLine, this.plannedLine])
 
       // handle movement of the planning marker
-      planningMarker.on('drag', e => {
+      this.planningMarker.on('drag', e => {
         const cursorLoc = e.latlng
         const cursorHex = this.grid.cellFor(cursorLoc)
 
@@ -390,14 +412,14 @@ export default class MapPlanningPlayerListener {
           this.routeLine.setLatLngs(this.routeLats)
         }
       })
-      planningMarker.on('dragend', e => {
+      this.planningMarker.on('dragend', e => {
         const tmpCursorLoc = this.lastCursorLoc
         const cursorHex = this.grid.cellFor(tmpCursorLoc)
         const cursorLoc = cursorHex.centrePos
 
         // put the planning marker into the centre of the cell, even though
         // it may have been dropped at the edge
-        planningMarker.setLatLng(cursorLoc)
+        this.planningMarker.setLatLng(cursorLoc)
 
         // clear that lastCursorLoc, to be sure we don't abuse it
         delete this.lastCursorLoc
@@ -412,60 +434,25 @@ export default class MapPlanningPlayerListener {
         // note: we reduce the length by one, so we don't count the starting cell
         marker.planning.remaining -= len
 
-        // the planning hexes now become the planned lats
-        this.plannedLats = this.plannedLats.concat(this.routeLats)
-        this.plannedLine.setLatLngs(this.plannedLats)
-
         // build up a fill list of steps
         this.plannedHexes = this.plannedHexes.concat(this.routeHexes)
 
         // if we have no more leg, push this one, and give us a fresh allowance
         if (marker.planning.remaining === 0) {
-          const turnString = this.turnNameFor(planningMarker.planningFor)
           // capture this planned leg
           const hexList = this.simplifyHexes(this.routeHexes)
-          this.plannedLegs.push({ turn: turnString, route: hexList })
+          const route = this.currentRoute.current
+          let lastNum = 0
+          if (route.length) {
+            lastNum = route[route.length - 1].turn
+          }
+          this.currentRoute.current.push({ route: hexList, speed: newState.speed, turn: lastNum + 1, state: newState.state })
           marker.planning.remaining = marker.planning.allowance
 
-          // show a waypoint marker, for the end of turn
-          const waypointIcon = L.icon.glyph({
-            prefix: 'fa',
-            glyph: 'pause'
-          })
-
-          const waypointMarker = L.marker(cursorLoc, {
-            icon: waypointIcon,
-            draggable: 'false',
-            title: turnString
-          })
-          waypointMarker.addTo(this.waypointMarkers)
-          waypointMarker.dragging.disable()
-
-          // give it a form to clear from this point
-          const waypointPopupContent = '<b>Turn T02</b><ul><li>[Reset from here]</li></ul>'
-          waypointMarker.bindPopup(waypointPopupContent)
-
-          // TODO: delete these button interactions
-          waypointMarker.on('click', e => {
-            // for debug, we should use this waypoint marker
-            this.debugWaypointName = turnString
-            this.btn2aResetLeg.enable()
-          })
-
-          // put the next turn in the planning marker
-          planningMarker.planningFor += 1
-
-          // we should listen for the planning marker to be clicked, so we can send the legs
-          const endOfRoutePopup = '<b>Route for' + marker.asset.name + '</b><ul><li>[Submit]</li><li>[Clear this leg]</li><li>[Clear all]</li></ul>'
-          planningMarker.bindPopup(endOfRoutePopup)
-
-          // TODO: delete these button interactions
-          // TODO: only bind if it's not already bound
-          planningMarker.on('click', e => {
-            this.btn3aClearLastLeg.enable()
-            this.btn3bClearWholeRoute.enable()
-            this.btn3cSubitWholeRoute.enable()
-          })
+          // trigger an update of the planning line
+          this.currentRoute.lightRoutes.remove()
+          this.currentRoute.lightRoutes.clearLayers()
+          this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, false).addTo(this.layer)
         }
 
         // we've finished with these range rings
