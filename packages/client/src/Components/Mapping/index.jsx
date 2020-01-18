@@ -205,8 +205,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
     if (currentPhaseMapRef.current) {
       // ok, detach it
-      currentPhaseMapRef.remove()
-      currentPhaseMapRef.clearLayers()
+      currentPhaseMapRef.current.remove()
+      currentPhaseMapRef.current.clearLayers()
     }
 
     currentPhaseMapRef.current = L.layerGroup().addTo(mapRef.current)
