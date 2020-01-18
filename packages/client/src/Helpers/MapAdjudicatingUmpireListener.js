@@ -286,12 +286,13 @@ export default class MapAdjudicatingListener {
           console.log("Turn:", marker.turn, "Speed:", marker.speed, marker.state)
           // need to check if the value is between these values
           var iconName
-          if (angleResult === 180 || angleResult === 360) {
-            // for the 180 and 360, which are flat icons so end icon is used
-            iconName = turnEnd
-          } else if(marker.speed === 0){
+          if(marker.speed === 0){
             // as some angles are undefined just use the end icon until this can be figured out
             iconName = noTurn
+          }
+          else if (angleResult === 180 || angleResult === 360) {
+            // for the 180 and 360, which are flat icons so end icon is used
+            iconName = turnEnd
           } else if (angleResult > 0 && angleResult < 90) {
             // North to East
             iconName = turnLeft
