@@ -1157,17 +1157,11 @@
 					10,
 					15
 				],
-				"states": {
-					"Fishing": {
-						"mobile": false
-					},
-					"Moored": {
-						"mobile": false
-					},
-					"Transitting": {
-						"mobile": true
-					}
-				},
+				"states": [
+					{ "name": "Fishing", "mobile": false },
+					{ "name": "Moored", "mobile": false },
+					{ "name": "Transiting", "mobile": true }
+				],
 				"travelMode": "sea"
 			},
 			{
@@ -1186,17 +1180,11 @@
 					20,
 					25
 				],
-				"states": {
-					"Escorting": {
-						"mobile": true
-					},
-					"Pursuing": {
-						"mobile": true
-					},
-					"Transitting": {
-						"mobile": true
-					}
-				},
+				"states": [
+					{ "name": "Escorting", "mobile": true },
+					{ "name": "Pursuing", "mobile": true },
+					{ "name": "Transitting", "mobile": true }
+				],
 				"travelMode": "sea"
 			},
 			{
@@ -1209,23 +1197,13 @@
 				"icon": "fixed-wing-aircraft.svg",
 				"name": "fixed-wing-aircraft",
 				"speedKts": [],
-				"states": {
-					"Landed": {
-						"mobile": true
-					},
-					"Patrolling": {
-						"mobile": true
-					},
-					"Prosecuting": {
-						"mobile": true
-					},
-					"Searching": {
-						"mobile": true
-					},
-					"Transitting": {
-						"mobile": true
-					}
-				},
+				"states": [
+					{ "name": "Landed", "mobile": false },
+					{ "name": "Patrolling", "mobile": true },
+					{ "name": "Prosecuting", "mobile": true },
+					{ "name": "Searching", "mobile": true },
+					{ "name": "Transitting", "mobile": true }
+				],
 				"travelMode": "air"
 			},
 			{
@@ -1237,17 +1215,11 @@
 				],
 				"icon": "coastal-radar-site.svg",
 				"name": "coastal-radar-site",
-				"states": {
-					"Active": {
-						"mobile": true
-					},
-					"LocationPending": {
-						"mobile": false
-					},
-					"Prosecuting": {
-						"mobile": true
-					}
-				},
+				"states": [
+					{ "name": "Active", "mobile": false },
+					{ "name": "LocationPending", "mobile": true },
+					{ "name": "Prosecuting", "mobile": false }
+				],
 				"travelMode": "land"
 			},
 			{
@@ -1265,14 +1237,10 @@
 					15,
 					20
 				],
-				"states": {
-					"Moored": {
-						"mobile": false
-					},
-					"Transitting": {
-						"mobile": true
-					}
-				},
+				"states": [
+					{ "name": "Moored", "mobile": false },
+					{ "name": "Transiting", "mobile": true }
+				],
 				"travelMode": "sea"
 			}
 		],
