@@ -4,7 +4,7 @@ import findAsset from '../../../Components/Mapping/helpers/findAsset'
 export default (/* object */ payload, /* object */ allForces) => {
   const asset = findAsset(allForces, payload.asset)
   if (!asset) {
-    console.warn('failed to find asset while handling vis id', payload.asset)
+    console.warn('failed to find asset while handling vis id', asset)
   } else {
     const perception = payload.perception
     if (!asset.perceptions) {
