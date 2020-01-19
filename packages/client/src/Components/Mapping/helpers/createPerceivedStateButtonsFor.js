@@ -4,7 +4,7 @@ import { UMPIRE_FORCE } from '../../../consts'
 /** create a button that can be used to trigger UI interactions, such as when a
  * change in state is triggered from elsewhere in the application
  */
-export default function createPerceivedStateButtonsFor (/* object */asset, /* string */ myForce, /* array strings */ allForces, 
+export default function createPerceivedStateButtonsFor (/* object */asset, /* string */ myForce, /* array strings */ allForces,
   /* array string */ platformTypes, /* object */ context, /* function */ callback, /* array */ existingButtons) {
   if (existingButtons) {
     existingButtons.forEach(button => button.remove)
@@ -50,7 +50,7 @@ export default function createPerceivedStateButtonsFor (/* object */asset, /* st
               title = pType
             }
             const thisType = createButton(true, title, e => {
-              clearThese(forceBtns)
+              clearThese(allBtns)
               // we have all our data, fire the callback
               callback(asset, myForce, { force: force, type: pType }, context)
             }).addTo(context.map)
