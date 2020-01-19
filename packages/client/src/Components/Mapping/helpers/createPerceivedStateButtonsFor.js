@@ -23,15 +23,14 @@ export default function createPerceivedStateButtonsFor (/* object */asset, /* st
     const clearThese = (buttons) => {
       buttons.forEach(button => button.remove())
     }
-    // ok show it for this force
-    console.log(asset)
+    //
+    // FORCE BUTTONS
+    //
     const forceBtns = []
     const perceptions = asset.perceptions
     const myPercept = perceptions[myForce]
-    // ok, do the perceived force
     allForces.forEach(force => {
       if (canPerceive(force, myForce)) {
-        console.log('force', force)
         let title
         if (myPercept && myPercept.force === force) {
           title = '[' + force + ']'
@@ -40,7 +39,9 @@ export default function createPerceivedStateButtonsFor (/* object */asset, /* st
         }
         const thisForce = createButton(true, title, e => {
           clearThese(forceBtns)
-          // now the type
+          //
+          // PLATFORM TYPE BUTTONS
+          //
           platformTypes.forEach(pType => {
             let title
             if (myPercept && myPercept.type === pType) {
@@ -50,8 +51,8 @@ export default function createPerceivedStateButtonsFor (/* object */asset, /* st
             }
             const thisType = createButton(true, title, e => {
               clearThese(forceBtns)
+              // we have all our data, fire the callback
               callback(asset, myForce, { force: force, type: pType }, context)
-              // callback
             }).addTo(context.map)
             forceBtns.push(thisType)
             allBtns.push(thisType)
@@ -61,7 +62,6 @@ export default function createPerceivedStateButtonsFor (/* object */asset, /* st
             clearThese(allBtns)
           }).addTo(context.map)
           allBtns.push(cancelBtn)
-
         }).addTo(context.map)
         forceBtns.push(thisForce)
         allBtns.push(thisForce)
@@ -75,52 +75,5 @@ export default function createPerceivedStateButtonsFor (/* object */asset, /* st
     allBtns.push(cancelBtn2)
     forceBtns.push(cancelBtn2)
   }
-  
-
-  // first the force
-
-  // const stateBtns = []
-  // if (Array.isArray(pType.states)) {
-  //   const btn = createButton(false, 'State for [' + name + ']', null).addTo(context.map)
-  //   allBtns.push(btn)
-
-  //   pType.states.forEach(state => {
-  //     const btn = createButton(true, state.name, () => {
-  //       // ok, remove state buttons, we've done that
-  //       stateBtns.forEach(button => button.remove())
-  //       const speedList = pType.speedKts
-  //       if (state.mobile && speedList && speedList.length) {
-  //         // special case - if there's only one speed, we can jump right in
-  //         if (speedList.length === 1) {
-  //           // ok, remove buttons (prob just title button)
-  //           allBtns.forEach(button => button.remove())
-  //           // just fire the callback - there's only one item
-  //           callback(state, pType.speedKts[0], context)
-  //         } else {
-  //           speedList.forEach(speed => {
-  //             const speedBtn = createButton(true, speed + ' kts', () => {
-  //               // ok, remove button
-  //               allBtns.forEach(button => button.remove())
-
-  //               // share good news
-  //               callback(state, speed, context)
-  //             }).addTo(context.map)
-  //             allBtns.push(speedBtn)
-  //           })
-  //         }
-  //       } else {
-  //         // ok, remove buttons (prob just title button)
-  //         allBtns.forEach(button => button.remove())
-  //         // don't need speed, go for it
-  //         callback(state, null, context)
-  //       }
-  //     }).addTo(context.map)
-  //     stateBtns.push(btn)
-  //     allBtns.push(btn)
-  //   })
-  // } else {
-  //   console.error('Platform types is using legacy non-array structure')
-  // }
-
   return allBtns
 }
