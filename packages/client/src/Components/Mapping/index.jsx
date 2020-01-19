@@ -154,6 +154,11 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     console.log('Popup form requested for:', form, payload)
   }
 
+  // run the declutter algorithm, to distribute markers around a cell if necessary
+  const declutterCallback = () => {
+    declutterLayer(currentPhaseMapRef.current, gridImplRef.current)
+  }
+
   const createThisMarker = (asset, grid, force) => {
     // set the asset location
     asset.loc = grid.hexNamed(asset.position).centrePos
@@ -189,6 +194,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       platformsLayerRef.current.addLayer(marker)
     }
   }
+
 
   useEffect(() => {
     console.log('re-rendering map ocmponent at:', new Date(), 'phase:', phase)
@@ -232,8 +238,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         if (myForceRef.current === 'umpire') {
           currentPhaseModeRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc)
         } else {
-          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current, myForceRef.current, currentTurnRef.current, routeCompleteCallback,
-            platformTypesRef.current)
+          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current, 
+            myForceRef.current, currentTurnRef.current, routeCompleteCallback,
+            platformTypesRef.current, declutterCallback)
         }
         break
       default:
@@ -252,7 +259,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       }
     })
 
-    declutterLayer(currentPhaseMapRef.current, gridImplRef.current.delta / 3)
+    declutterCallback()
   }, [phase])
 
   /** create handler for wargame updates - specifically when the
