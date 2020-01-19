@@ -10,10 +10,10 @@ const allForces = [
     name: 'Blue',
     assets: [
       {
-        name: 'alpha'
+        uniqid: 'alpha'
       },
       {
-        name: 'bravo'
+        uniqid: 'bravo'
       }
     ]
   },
@@ -21,10 +21,10 @@ const allForces = [
     name: 'Red',
     assets: [
       {
-        name: 'charlie'
+        uniqid: 'charlie'
       },
       {
-        name: 'delta'
+        uniqid: 'delta'
       }
     ]
   },
@@ -32,10 +32,10 @@ const allForces = [
     name: 'Green',
     assets: [
       {
-        name: 'echo'
+        uniqid: 'echo'
       },
       {
-        name: 'foxtrot'
+        uniqid: 'foxtrot'
       }
     ]
   }
