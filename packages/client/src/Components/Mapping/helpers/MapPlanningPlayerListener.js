@@ -153,7 +153,7 @@ export default class MapPlanningPlayerListener {
       const platformType = context.currentRoute.marker.asset.platformType // platform state of this asset
       const pType = context.platformTypes.find(state => state.name === platformType) // matching platform type defn
       const pState = pType.states.find(state => state.name === assetState) // state for current route
-      if(!pState) {
+      if (!pState) {
         console.error('Invalid platform state found:', assetState, ' available:', pType)
       }
 
@@ -163,6 +163,19 @@ export default class MapPlanningPlayerListener {
       // store the state - we'll use it for all legs, until the player changes their mind
       context.currentRoute.state = newState
       context.platformStateAssigned(context.currentRoute.marker, newState)
+    } else {
+      const state = context.currentRoute.state
+      const marker = context.currentRoute.marker
+      // no routes, do we know state?
+      if (state) {
+        context.platformStateAssigned(marker, state)
+      } else {
+        // nope, we'll have to get it from the player
+        // sort out the state commands for this asset
+        const pType = context.platformTypes.find(pType => pType.name === marker.asset.platformType)
+        context.stateButtons = createStateButtonsFor(pType, marker.asset.name, 
+          context, context.stateSelectedCallback, context.stateButtons)        
+      }
     }
   }
 
@@ -328,21 +341,24 @@ export default class MapPlanningPlayerListener {
     // drop any exisitng buttons
     btns.push(createButton(false, '[' + this.currentRoute.marker.asset.name + ']').addTo(this.map))
     btns.push(createButton(true, 'Clear all legs', () => {
+      clearButtons()
       submitClearWholeRoute(this.currentRoute.current)
       updatePlans()
-      clearButtons()
     }).addTo(this.map))
     btns.push(createButton(true, 'Revert to original route', () => {
+      clearButtons()
       submitClearWholeRoute(this.currentRoute.current)
-
       // replace with original
       context.currentRoute.current = JSON.parse(JSON.stringify(context.currentRoute.original))
       updatePlans()
-      clearButtons()
     }).addTo(this.map))
     btns.push(createButton(true, 'Select new state', () => {
-      console.log('set new state')
       clearButtons()
+      const marker = context.currentRoute.marker
+      // sort out the state commands for this asset
+      const pType = context.platformTypes.find(pType => pType.name === marker.asset.platformType)
+      context.stateButtons = createStateButtonsFor(pType, marker.asset.name,
+        context, context.stateSelectedCallback, context.stateButtons)         
     }).addTo(this.map))
   }
 
