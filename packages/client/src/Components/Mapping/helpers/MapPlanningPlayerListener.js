@@ -310,7 +310,7 @@ export default class MapPlanningPlayerListener {
     }
 
     console.log('new state', newState)
-    if (newState.mobile) {
+    if (newState.state.mobile) {
       // sort out where to put the planning marker
       const route = this.currentRoute.current
       if (route && route.length > 0) {
@@ -328,14 +328,20 @@ export default class MapPlanningPlayerListener {
       this.clearOnNewLeg()
 
       // calculate the steps remaining
-      const speed = newState.speed
-      const stepSize = 30
-      const stepsPerHour = (60 / stepSize)
-      const gridDelta = 5
-      const roughRange = speed / gridDelta / stepsPerHour // work out how many NM in 30 minutes
+      let range
+      if (newState.speed) {
+        const speed = newState.speed
+        const stepSize = 30
+        const stepsPerHour = (60 / stepSize)
+        const gridDelta = 5
+        const roughRange = speed / gridDelta / stepsPerHour // work out how many NM in 30 minutes
 
-      // check range is in 10s
-      const range = roundToNearest(roughRange, 1)
+        // check range is in 10s
+        range = roundToNearest(roughRange, 1)
+      } else {
+        // unlimited range
+        range = 100
+      }
 
       const allowance = range
 
@@ -374,6 +380,7 @@ export default class MapPlanningPlayerListener {
         if (!this.achievableCells.includes(cursorHex)) {
           // drop out, we can't handle it - so we
           // won't be changing any data based on it
+          console.log('dropping out, unachievable')
           return
         }
 
@@ -446,7 +453,7 @@ export default class MapPlanningPlayerListener {
         marker.planning.remaining -= len
 
         // if we have no more leg, push this one, and give us a fresh allowance
-        if (marker.planning.remaining === 0) {
+        if (marker.planning.remaining === 0 || marker.planning.allowance >= 100) {
           // capture this planned leg
           const hexList = this.simplifyHexes(this.routeHexes)
           const route = this.currentRoute.current
