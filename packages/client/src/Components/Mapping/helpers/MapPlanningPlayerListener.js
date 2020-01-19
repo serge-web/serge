@@ -5,8 +5,7 @@ import colorFor from './colorFor'
 // Import helpers
 import createButton from './createDebugButton'
 import resetCurrentLeg from './resetCurrentLeg'
-import submitClearLastLeg from './submitClearLastLeg'
-import submitClearWholeRoute from './submitClearWholeRoute'
+import getClearedRoute from './getClearedRoute'
 import planningRouteFor from './planningRouteFor'
 import turnNameFor from './turnNameFor'
 import createStateButtonsFor from './createStateButtonsFor'
@@ -144,7 +143,11 @@ export default class MapPlanningPlayerListener {
   updatePlanningStateOnReset (context) {
     // get the latest route
     const routes = context.currentRoute.current
-    if (routes.length > 0) {
+    if (context.currentRoute.state != null) {
+      const marker = context.currentRoute.marker
+      // no routes, do we know state?
+      context.platformStateAssigned(marker, context.currentRoute.state)
+    } else if (routes.length > 0) {
       // ok, we can start off with last state
       const lastR = routes[routes.length - 1]
 
@@ -342,12 +345,12 @@ export default class MapPlanningPlayerListener {
     btns.push(createButton(false, '[' + this.currentRoute.marker.asset.name + ']').addTo(this.map))
     btns.push(createButton(true, 'Clear all legs', () => {
       clearButtons()
-      submitClearWholeRoute(this.currentRoute.current)
+      this.currentRoute.current = getClearedRoute(this.currentRoute.current)
       updatePlans()
     }).addTo(this.map))
     btns.push(createButton(true, 'Revert to original route', () => {
       clearButtons()
-      submitClearWholeRoute(this.currentRoute.current)
+      this.currentRoute.current = getClearedRoute(this.currentRoute.current)
       // replace with original
       context.currentRoute.current = JSON.parse(JSON.stringify(context.currentRoute.original))
       updatePlans()
@@ -373,11 +376,7 @@ export default class MapPlanningPlayerListener {
       this.clearAchievableCells()
     }
 
-    console.log('new state 0', newState)
-
     if (newState.state.mobile) {
-      console.log('new state 1', newState)
-
       // sort out where to put the planning marker
       const route = this.currentRoute.current
       if (route && route.length > 0) {
@@ -418,9 +417,6 @@ export default class MapPlanningPlayerListener {
         remaining: allowance
       }
 
-      console.log('new state 2', newState, marker, this.startHex, marker.planning)
-
-
       // do we already have achievable cells?
       // TODO: our logic _Should_ clear these at the end of a leg
       this.clearAchievableCells()
@@ -443,7 +439,6 @@ export default class MapPlanningPlayerListener {
 
       // clicks on the planning marker should trigger some commands
       this.planningMarker.on('click', e => {
-        console.log('planning marker clicked')
         this.showPlanningMarkerMenu()
       })
 
@@ -456,7 +451,6 @@ export default class MapPlanningPlayerListener {
         if (!this.achievableCells.includes(cursorHex)) {
           // drop out, we can't handle it - so we
           // won't be changing any data based on it
-          console.log('dropping out, unachievable')
           return
         }
 
