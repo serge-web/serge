@@ -130,7 +130,7 @@ export default class MapPlanningPlayerListener {
    */
   clearListeners () {
     // ditch the listeners
-    
+
     // clear the map layer
 
     // detach the map
@@ -416,7 +416,7 @@ export default class MapPlanningPlayerListener {
       // sort out the state commands for this asset
       const pType = context.platformTypes.find(pType => pType.name === marker.asset.platformType)
       context.stateButtons = createStateButtonsFor(pType, marker.asset.name,
-        context, context.stateSelectedCallback, context.stateButtons)         
+        context, context.stateSelectedCallback, context.stateButtons)
     }).addTo(this.map))
   }
 
