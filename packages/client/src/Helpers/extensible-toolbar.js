@@ -17,17 +17,7 @@ const controlToolbar = opts => {
       Full: {icon: 'calendar-alt', text: "Show full history"},
       PrevCurrent: {icon: 'chess', text: "Show previous/current turn"},
       Markers: {icon: 'layer-group', text: "Toggle Layers"},
-      // all this code here needs to be looked at, at how to get new icons in
-      colorMarkers: {red: {icon: '<svg width="26" height="26" xmlns="http://www.w3.org/2000/svg"><g><title>background</title><rect fill="#fff" id="canvas_background" height="28" width="28" y="-1" x="-1"/><g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid"><rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/></g></g><g><rect rx="3" id="svg_2" height="19.062189" width="19.812178" y="3.468906" x="3.09391" stroke-width="0" stroke="#000" fill="#ff0000"/></g></svg>',
-                    text: "Red Icon"},
-                    yellow: {icon: '<svg width="26" height="26"><rect width="26" height="26" style="fill:#E9E612;"/></svg>',
-                    text: "Yellow Icon"},
-                    blue: {icon: '<svg width="26" height="26" xmlns="http://www.w3.org/2000/svg"><g><title>background</title><rect fill="#fff" id="canvas_background" height="28" width="28" y="-1" x="-1"/><g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid"><rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/></g></g><g><rect rx="3" id="svg_2" height="19.062189" width="19.812178" y="3.468906" x="3.09391" stroke-width="0" stroke="#000" fill="#000fff"/></g></svg>',
-                    text: "Blue Icon"},
-                    green: {icon: '<svg width="26" height="26" xmlns="http://www.w3.org/2000/svg"><g><title>background</title><rect fill="#fff" id="canvas_background" height="28" width="28" y="-1" x="-1"/><g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid"><rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/></g></g><g><rect rx="3" id="svg_2" height="19.062189" width="19.812178" y="3.468906" x="3.09391" stroke-width="0" stroke="#000" fill="#19bd37"/></g></svg>',
-                    text: "Green Icon"}  
-                  }
-                }
+      colorMarkers: {}
     },
     showWhiteOptions: {
       icon: '<i class="fas fa-splotch"></i>',
@@ -37,6 +27,8 @@ const controlToolbar = opts => {
       iconRed: redIcon,
       iconBlue: blueIcon,
       greenIcon: greenIcon,
+      varSVGtest: '<svg width="26" height="26"><rect width="26" height="26" style="fill:#E9E612;"/></svg>',
+      roundSVG: '<svg width="26" height="26" xmlns="http://www.w3.org/2000/svg"><g><title>background</title><rect fill="#fff" id="canvas_background" height="28" width="28" y="-1" x="-1"/><g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid"><rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/></g></g><g><rect rx="3" id="svg_2" height="19.062189" width="19.812178" y="3.468906" x="3.09391" stroke-width="0" stroke="#000" fill="#ff0000"/></g></svg>',
       text: {svgText: "SVG Testing", roundText: "Red SVG"}
     },
     onAdd: function (map) {
@@ -76,10 +68,10 @@ const controlToolbar = opts => {
         controlName, container, this._showOtherMarkersFunction.bind(this));
 
       // the colour markers
-      this._showColourButtonSVG = this._createButton(options.colorMarkers.red.icon, options.colorMarkers.red.text,
+      this._showColourButtonSVG = this._createButton(showColourMarkers.varSVGtest, showColourMarkers.text.svgText,
         controlName, container, this._showOtherMarkersFunction.bind(this));
       // red rounded SVG test
-      this._showColourButtonSVG = this._createButton(options.colorMarkers.yellow.icon, options.colorMarkers.yellow.text,
+      this._showColourButtonSVG = this._createButton(showColourMarkers.roundSVG, showColourMarkers.text.roundText,
         controlName, container, this._showOtherMarkersFunction.bind(this));
       // map.on('zoomend zoomlevelschange', this._updateDisabled, this);
       
