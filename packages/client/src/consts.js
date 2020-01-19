@@ -58,6 +58,7 @@ export const UMPIRE_FORCE = 'umpire'
 // series of constants used for `messageType` when sending map events
 export const FORCE_LAYDOWN = 'ForceLaydown'
 export const VISIBILIY_CHANGES = 'VisibilityChanges'
+export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 
 export const headers = {
   'Content-Type': 'application/json',

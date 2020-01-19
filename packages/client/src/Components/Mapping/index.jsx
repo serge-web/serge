@@ -9,7 +9,7 @@ import MapPlanningUmpireListener from './helpers/MapPlanningUmpireListener'
 import markerFor from './helpers/markerFor'
 import hasPendingForces from './helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FORCE_LAYDOWN, VISIBILIY_CHANGES } from '../../consts'
+import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT } from '../../consts'
 import assetsVisibleToMe from './helpers/assetsVisibleToMe'
 import forceFor from './helpers/forceFor'
 
@@ -139,10 +139,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     handleVisibilityChanges(changes, allForces)
   }
 
-  const perceivedStateCallback = (asset, force, perceivedState) => {
-    console.log('sending message for', asset, force, perceivedState)
-    // TODO: collate the data
-    // TODO: fire the message
+  const perceivedStateCallback = (asset, force, perception) => {
+    const percevedType = { asset: asset.uniqid, force: force, perception: perception }
+    sendMessage(PERCEPTION_OF_CONTACT, percevedType)
   }
 
   /** callback to tell UI that we've got control of a platform in this UI */
