@@ -23,6 +23,8 @@ export default function createStateButtonsFor (/* object */pType, /* string */ n
         if (state.mobile && speedList && speedList.length) {
           // special case - if there's only one speed, we can jump right in
           if (speedList.length === 1) {
+            // ok, remove buttons (prob just title button)
+            allBtns.forEach(button => button.remove())
             // just fire the callback - there's only one item
             callback(state, pType.speedKts[0], context)
           } else {
