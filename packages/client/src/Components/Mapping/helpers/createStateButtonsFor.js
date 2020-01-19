@@ -3,34 +3,38 @@ import createButton from './createDebugButton'
 /** create a button that can be used to trigger UI interactions, such as when a
  * change in state is triggered from elsewhere in the application
  */
-export default function createStateButtonsFor (/* object */pType, /* object */ context, /* function */ callback, /* array */ existingButtons) {
+export default function createStateButtonsFor (/* object */pType, /* string */ name, /* object */ context, /* function */ callback, /* array */ existingButtons) {
   if (existingButtons) {
     existingButtons.forEach(button => button.remove)
   }
+  const allBtns = [] // maintain full list of buttons, in case UI wants to..
+  // drop out of setting state
 
   const stateBtns = []
-  const speedBtns = []
   if (Array.isArray(pType.states)) {
+    const btn = createButton(false, 'State for [' + name + ']', null).addTo(context.map)
+    allBtns.push(btn)
+
     pType.states.forEach(state => {
       const btn = createButton(true, state.name, () => {
-        // ok, remove button
+        // ok, remove state buttons, we've done that
         stateBtns.forEach(button => button.remove())
         const speedList = pType.speedKts
         if (state.mobile && speedList) {
           // special case - if there's only one speed, we can jump right in
           if (speedList.length === 1) {
             // just fire the callback - there's only one item
-            callback(state, pType.speedKts[0], context)   
+            callback(state, pType.speedKts[0], context)
           } else {
             speedList.forEach(speed => {
               const speedBtn = createButton(true, speed + ' kts', () => {
                 // ok, remove button
-                speedBtns.forEach(button => button.remove())
-  
+                allBtns.forEach(button => button.remove())
+
                 // share good news
                 callback(state, speed, context)
               }).addTo(context.map)
-              speedBtns.push(speedBtn)
+              allBtns.push(speedBtn)
             })
           }
         } else {
@@ -39,11 +43,12 @@ export default function createStateButtonsFor (/* object */pType, /* object */ c
         }
       }).addTo(context.map)
       stateBtns.push(btn)
+      allBtns.push(btn)
     })
   } else {
     console.error('Platform types is using legacy non-array structure')
     console.log(pType)
   }
 
-  return stateBtns.concat(speedBtns)
+  return allBtns
 }
