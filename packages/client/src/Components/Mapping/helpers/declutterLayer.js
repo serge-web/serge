@@ -61,7 +61,6 @@ export default function declutterLayer (/* LayerGroup */ layer, /* object */ gri
   // now cluster the markers
   const clusters = clusterMarkers(markers, grid)
 
-  console.log(clusters)
   // sort markers out into clusters
   declutterMarkers(clusters, grid.delta / 3)
 }

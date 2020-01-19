@@ -126,7 +126,6 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
     marker.bindPopup(title).openPopup() // note: this won't work - we can't do it until the marker is on the map
     // also create the divIcon, with the name
     const label = L.divIcon({ html: title, className: 'map-turn-marker', iconSize: [200, 20], iconAnchor: [0, 10] })
-    console.log(label)
     const divMarker = L.marker(location, { icon: label })
     res.addLayer(divMarker)
   }
@@ -224,8 +223,6 @@ export default function planningRouteFor (/* array */ plannedTurns, /* latLng */
   // also declutter the markers
 
   thisLayer.addLayer(markers)
-
-  console.log('Planning line:', thisLayer)
 
   return thisLayer
 }

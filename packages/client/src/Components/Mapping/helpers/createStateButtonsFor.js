@@ -51,7 +51,6 @@ export default function createStateButtonsFor (/* object */pType, /* string */ n
     })
   } else {
     console.error('Platform types is using legacy non-array structure')
-    console.log(pType)
   }
 
   return allBtns
