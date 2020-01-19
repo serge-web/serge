@@ -20,7 +20,7 @@ export default function createStateButtonsFor (/* object */pType, /* string */ n
         // ok, remove state buttons, we've done that
         stateBtns.forEach(button => button.remove())
         const speedList = pType.speedKts
-        if (state.mobile && speedList) {
+        if (state.mobile && speedList && speedList.length) {
           // special case - if there's only one speed, we can jump right in
           if (speedList.length === 1) {
             // just fire the callback - there's only one item
