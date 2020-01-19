@@ -13,16 +13,18 @@ import roundToNearest from './roundToNearest'
 
 // eslint-disable-next-line no-unused-vars
 import glyph from 'leaflet.icon.glyph'
+import findLastRouteWithLocation from './findLastRouteLocation'
 
 export default class MapPlanningPlayerListener {
-  constructor (layer, map, grid, force, turn, routeCompleteCallback, platformTypes) {
+  constructor (layer, map, grid, force, turn, routeCompleteCallback, platformTypes, declutterCallback) {
     this.grid = grid
     this.force = force
-    this.layer = L.layerGroup().addTo(layer) // the layer we add our items to
+    this.layerPriv = L.layerGroup().addTo(layer) // the layer we add our items to
     this.map = map // the underlying base-map (required to add/remove toolbar controls)
     this.routeCompleteCallback = routeCompleteCallback
     this.turn = turn
     this.platformTypes = platformTypes
+    this.declutterCallback = declutterCallback
 
     this.routeHexes = [] // hexes representing route
     this.routeLats = [] // lad-lngs for route
@@ -66,9 +68,6 @@ export default class MapPlanningPlayerListener {
     this.routeLine.addTo(layer)
     this.plannedLine.addTo(layer)
 
-    // use layer groups to store data - so we can confidently remove them
-    this.waypointMarkers = L.layerGroup().addTo(layer)
-
     // command to submit whole planned route
     const context = this
     this.btnSubmitAll = createButton(true, 'Submit all plans', () => {
@@ -77,6 +76,15 @@ export default class MapPlanningPlayerListener {
       console.log('submitting', res)
       context.btnSubmitAll.remove()
     }).addTo(map)
+
+    // intiialise the button label
+    this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
+  }
+
+  /** add the layer to the map, and perform a declutter operation */
+  storeLayer (/* object */ layer, /* scope */ context) {
+    context.layerPriv.addLayer(layer)
+    context.declutterCallback()
   }
 
   /** ditch the data for this listener
@@ -143,12 +151,8 @@ export default class MapPlanningPlayerListener {
   updatePlanningStateOnReset (context) {
     // get the latest route
     const routes = context.currentRoute.current
-    if (context.currentRoute.state != null) {
-      const marker = context.currentRoute.marker
-      // no routes, do we know state?
-      context.platformStateAssigned(marker, context.currentRoute.state)
-    } else if (routes.length > 0) {
-      // ok, we can start off with last state
+    if (routes.length > 0) {
+      // ok, let's just use the last state we have
       const lastR = routes[routes.length - 1]
 
       // find the platform-type that matches this state
@@ -166,19 +170,20 @@ export default class MapPlanningPlayerListener {
       // store the state - we'll use it for all legs, until the player changes their mind
       context.currentRoute.state = newState
       context.platformStateAssigned(context.currentRoute.marker, newState)
-    } else {
-      const state = context.currentRoute.state
+    } else if (context.currentRoute.state != null) {
+      // we don't have any routes, but the user has set a state
       const marker = context.currentRoute.marker
       // no routes, do we know state?
-      if (state) {
-        context.platformStateAssigned(marker, state)
-      } else {
-        // nope, we'll have to get it from the player
-        // sort out the state commands for this asset
-        const pType = context.platformTypes.find(pType => pType.name === marker.asset.platformType)
-        context.stateButtons = createStateButtonsFor(pType, marker.asset.name, 
-          context, context.stateSelectedCallback, context.stateButtons)        
-      }
+      context.platformStateAssigned(marker, context.currentRoute.state)
+    } else {
+      // we will have to get state from the player
+      const marker = context.currentRoute.marker
+      // no routes, do we know state?
+      // nope, we'll have to get it from the player
+      // sort out the state commands for this asset
+      const pType = context.platformTypes.find(pType => pType.name === marker.asset.platformType)
+      context.stateButtons = createStateButtonsFor(pType, marker.asset.name, 
+        context, context.stateSelectedCallback, context.stateButtons)        
     }
   }
 
@@ -193,7 +198,8 @@ export default class MapPlanningPlayerListener {
       context.currentRoute.current = resetCurrentLeg(context.currentRoute.current, e.target.turnId)
 
       // rebuild route
-      context.currentRoute.lightRoutes = context.createPlanningRouteFor(context.currentRoute.current, context.currentRoute.marker.asset, false).addTo(context.layer)
+      context.currentRoute.lightRoutes = context.createPlanningRouteFor(context.currentRoute.current, context.currentRoute.marker.asset, false)
+      context.storeLayer(context.currentRoute.lightRoutes, context)
 
       context.updatePlanningStateOnReset(context)
 
@@ -231,7 +237,7 @@ export default class MapPlanningPlayerListener {
       this.allRoutes.push(thisData)
 
       // and add to the map
-      this.layer.addLayer(thisData.lightRoutes)
+      this.storeLayer(thisData.lightRoutes, this)
 
       // listen for it being clicked
 
@@ -244,7 +250,8 @@ export default class MapPlanningPlayerListener {
 
           this.currentRoute.lightRoutes.remove()
           this.currentRoute.lightRoutes.clearLayers()
-          this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, true).addTo(this.layer)
+          this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, true)
+          this.storeLayer(this.currentRoute.lightRoutes, this)
 
           // and the planning bits
           this.clearAchievableCells()
@@ -263,7 +270,8 @@ export default class MapPlanningPlayerListener {
         // drop the lightweight route
         this.currentRoute.lightRoutes.remove()
         this.currentRoute.lightRoutes.clearLayers()
-        this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, false).addTo(this.layer)
+        this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, false)
+        this.storeLayer(this.currentRoute.lightRoutes, this)
 
         if (this.currentRoute.state) {
           // ok, we can plan the next leg
@@ -365,6 +373,43 @@ export default class MapPlanningPlayerListener {
     }).addTo(this.map))
   }
 
+  storeNewPlanningRoute (/* object */ newState, /* array */ hexList) {
+    const route = this.currentRoute.current
+    let lastNum = 0
+    if (route.length) {
+      lastNum = route[route.length - 1].turn
+    }
+    const newRoute = { speed: newState.speed, turn: lastNum + 1, state: newState.state }
+    if (hexList) {
+      newRoute.route = hexList
+    }
+    this.currentRoute.current.push(newRoute)
+
+    // trigger an update of the planning line
+    this.currentRoute.lightRoutes.remove()
+    this.currentRoute.lightRoutes.clearLayers()
+    this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, false)
+    this.storeLayer(this.currentRoute.lightRoutes, this)
+
+    // lastly, update how many planned routes we have
+    this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
+  }
+
+  updateSubmitRoutesCounter (button, routes) {
+    const routesWithPoints = routes.filter(route => route.current && route.current.length > 0)
+    button.setText('Submit ' + routesWithPoints.length + ' planned routes')
+  }
+
+  /** get the current location of this asset, either at the
+   * end of the planned routes, or where it currently is
+   */
+  getPlannedAssetLocation (asset) {
+    // sort out where to put the planning marker
+    const lastHex = findLastRouteWithLocation(this.currentRoute.current, asset.position)
+    this.startHex = this.grid.hexNamed(lastHex)
+    return this.startHex.centrePos
+  }
+
   /** player has indicated the planned state for a platform. Update the
    * UI accordingly
    */
@@ -376,20 +421,30 @@ export default class MapPlanningPlayerListener {
       this.clearAchievableCells()
     }
 
-    if (newState.state.mobile) {
-      // sort out where to put the planning marker
-      const route = this.currentRoute.current
-      if (route && route.length > 0) {
-        const points = route[route.length - 1]
-        const cell = points.route[points.route.length - 1]
-        this.startHex = this.grid.hexNamed(cell)
-      } else {
-        // just use the asset location
-        const position = marker.asset.loc
-        this.startHex = this.grid.cellFor(position)
-      }
-      const startPos = this.startHex.centrePos
+    const startPos = this.getPlannedAssetLocation(marker.asset, this.currentRoute.current)
 
+    // also create a new marker, used to plot the path
+    this.planningMarker = L.marker(startPos, {
+      draggable: newState.state.mobile,
+      zIndexOffset: 1000
+    })
+
+    // special handling. Don't declutter the planning marker, we want it in the centre of the cell
+    this.planningMarker.do_not_declutter = true
+    this.storeLayer(this.planningMarker, this)
+
+    // clicks on the planning marker should trigger some commands
+    this.planningMarker.on('click', e => {
+      this.showPlanningMarkerMenu()
+    })
+
+    // put the next turn in the planning marker
+    this.planningMarker.planningFor = this.currentTurn + 1
+
+    if (!newState.state.mobile) {
+      // static state assigned, just do update
+      this.storeNewPlanningRoute(newState, null)
+    } else {
       // do some initialisation
       this.clearOnNewLeg()
 
@@ -424,23 +479,8 @@ export default class MapPlanningPlayerListener {
       // plot the achievable cells for this distance
       this.updateAchievableCellsFor(this.startHex, marker.planning.remaining, marker.travelMode)
 
-      // also create a new marker, used to plot the path
-      this.planningMarker = L.marker(startPos, {
-        draggable: 'true',
-        zIndexOffset: 1000
-      })
-      this.planningMarker.addTo(this.waypointMarkers)
-
-      // put the next turn in the planning marker
-      this.planningMarker.planningFor = this.currentTurn + 1
-
       // set the route-line color
       this.updateRouteLineForForce(marker.force, this.routeLine)
-
-      // clicks on the planning marker should trigger some commands
-      this.planningMarker.on('click', e => {
-        this.showPlanningMarkerMenu()
-      })
 
       // handle movement of the planning marker
       this.planningMarker.on('drag', e => {
@@ -526,18 +566,10 @@ export default class MapPlanningPlayerListener {
         if (marker.planning.remaining === 0 || marker.planning.allowance >= 100) {
           // capture this planned leg
           const hexList = this.simplifyHexes(this.routeHexes)
-          const route = this.currentRoute.current
-          let lastNum = 0
-          if (route.length) {
-            lastNum = route[route.length - 1].turn
-          }
-          this.currentRoute.current.push({ route: hexList, speed: newState.speed, turn: lastNum + 1, state: newState.state })
-          marker.planning.remaining = marker.planning.allowance
+          this.storeNewPlanningRoute(newState, hexList)
 
-          // trigger an update of the planning line
-          this.currentRoute.lightRoutes.remove()
-          this.currentRoute.lightRoutes.clearLayers()
-          this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, false).addTo(this.layer)
+          // update the marker allowance
+          marker.planning.remaining = marker.planning.allowance
         }
 
         // we've finished with these range rings
