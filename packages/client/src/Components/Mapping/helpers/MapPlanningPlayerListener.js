@@ -9,6 +9,7 @@ import getClearedRoute from './getClearedRoute'
 import planningRouteFor from './planningRouteFor'
 import turnNameFor from './turnNameFor'
 import createStateButtonsFor from './createStateButtonsFor'
+import createPerceivedStateButtonsFor from './createPerceivedStateButtonsFor'
 import roundToNearest from './roundToNearest'
 
 // eslint-disable-next-line no-unused-vars
@@ -16,7 +17,7 @@ import glyph from 'leaflet.icon.glyph'
 import findLastRouteWithLocation from './findLastRouteLocation'
 
 export default class MapPlanningPlayerListener {
-  constructor (layer, map, grid, force, turn, routeCompleteCallback, platformTypes, declutterCallback) {
+  constructor (layer, map, grid, force, turn, routeCompleteCallback, platformTypes, declutterCallback, perceivedStateCallback, /* array string */ forceNames) {
     this.grid = grid
     this.force = force
     this.layerPriv = L.layerGroup().addTo(layer) // the layer we add our items to
@@ -25,6 +26,8 @@ export default class MapPlanningPlayerListener {
     this.turn = turn
     this.platformTypes = platformTypes
     this.declutterCallback = declutterCallback
+    this.perceivedStateCallbackPriv = perceivedStateCallback
+    this.forceNames = forceNames // used in updating perceived force
 
     this.routeHexes = [] // hexes representing route
     this.routeLats = [] // lad-lngs for route
@@ -218,8 +221,8 @@ export default class MapPlanningPlayerListener {
       // nope, we'll have to get it from the player
       // sort out the state commands for this asset
       const pType = context.platformTypes.find(pType => pType.name === marker.asset.platformType)
-      context.stateButtons = createStateButtonsFor(pType, marker.asset.name, 
-        context, context.stateSelectedCallback, context.stateButtons)        
+      context.stateButtons = createStateButtonsFor(pType, marker.asset.name,
+        context, context.stateSelectedCallback, context.stateButtons)
     }
   }
 
@@ -264,21 +267,29 @@ export default class MapPlanningPlayerListener {
     buttons.forEach(button => button.remove())
   }
 
+  perceivedStateCallback (/* object */ asset, /* string */ force, /* array */ perceivedState, /* object */ context) {
+    // and fire it into the system
+    context.perceivedStateCallbackPriv(asset, force, perceivedState)
+  }
+
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
     // is it for the current force?
-    if (marker.asset.force === this.force) {
+    if (marker.asset.force !== this.force) {
+      // ok, this is a quickie. Assign a click listener so
+      // we can change the perceived state
+      const context = this
+      marker.on('click', e => {
+        const platformTypes = this.platformTypes.map(pType => pType.name)
+        context.perceivedButtons = createPerceivedStateButtonsFor(marker.asset, this.force, this.forceNames, platformTypes, context, context.perceivedStateCallback, context.perceivedButtons)
+      })
+    } else {
       // store the details for this force
       const thisData = this.dataFor(marker, this.platformTypes)
       this.allRoutes.push(thisData)
 
       // and add to the map
       this.storeLayer(thisData.lightRoutes, this)
-
-      // listen for it being clicked
-
-      // const popupContent = plannedModePopupFor(marker.asset)
-      //  marker.bindPopup(popupContent).openPopup()
 
       marker.on('click', e => {
         if (this.currentRoute) {

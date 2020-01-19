@@ -139,6 +139,12 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     handleVisibilityChanges(changes, allForces)
   }
 
+  const perceivedStateCallback = (asset, force, perceivedState) => {
+    console.log('sending message for', asset, force, perceivedState)
+    // TODO: collate the data
+    // TODO: fire the message
+  }
+
   /** callback to tell UI that we've got control of a platform in this UI */
   const declareControlOf = (force, name, platformType) => {
   }
@@ -166,7 +172,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const inForceLaydown = hasPendingForces(forcesRef.current, myForceRef.current)
 
     // set the asset force
-    asset.force = force.name
+    asset.force = force.uniqid
 
     var assetIsDraggable
     switch (phase) {
@@ -222,6 +228,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
     // create a listener for the new phase
     const inForceLaydown = hasPendingForces(forcesRef.current, myForceRef.current)
+    const allForces = forcesRef.current.map(force => force.uniqid)
     switch (phase) {
       case 'adjudication':
         if (myForceRef.current === 'umpire') {
@@ -238,9 +245,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         if (myForceRef.current === 'umpire') {
           currentPhaseModeRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc)
         } else {
-          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current, 
+          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
             myForceRef.current, currentTurnRef.current, routeCompleteCallback,
-            platformTypesRef.current, declutterCallback)
+            platformTypesRef.current, declutterCallback, perceivedStateCallback, allForces)
         }
         break
       default:
@@ -253,7 +260,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       if (force.assets) {
         force.assets.forEach(asset => {
           // for our subsequent convenience, shove the force in the asset
-          asset.force = force.name
+          asset.force = force.uniqid
           createThisMarker(asset, gridImplRef.current, force)
         })
       }
@@ -308,7 +315,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         var force = asset.force
         if (!force) {
           // grr, we'll have to find it
-          asset.force = forceFor(allForces, asset)
+          asset.force = forceFor(allForces, asset).uniqid
         }
         createThisMarker(asset, grid, asset.force, false)
       })
