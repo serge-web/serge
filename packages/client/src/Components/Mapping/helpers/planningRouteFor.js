@@ -106,6 +106,13 @@ function turnFor (/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current
 
 function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ lightweight,
   /* string */ title, /* function */ waypointCallback, /* object */ context, /* int */ turnId) {
+  // actually, we're adding two items, so put them into a layer group
+  const res = L.layerGroup()
+
+  // we use a flag to prevent these items being de-cluttered - since we want the
+  // marker and the label stay next to each other
+  res.do_not_declutter = true
+
   const iconToUse = lightweight ? lightTurn : icon
   const turnIcon = L.icon({
     iconUrl: iconToUse,
@@ -114,16 +121,23 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
   const marker = L.marker(location, {
     icon: turnIcon, title: title, zIndexOffset: 1000
   })
-  marker.bindPopup(title).openPopup()
   if (!lightweight) {
     marker.on('click', waypointCallback)
+    marker.bindPopup(title).openPopup() // note: this won't work - we can't do it until the marker is on the map
+    // also create the divIcon, with the name
+    const label = L.divIcon({ html: title, className: 'map-turn-marker', iconSize: [200, 20], iconAnchor: [0, 10] })
+    console.log(label)
+    const divMarker = L.marker(location, { icon: label })
+    res.addLayer(divMarker)
   }
 
   // TODO we probably should be passing the context (scope) like this
   marker.context = context
   marker.turnId = turnId
 
-  return marker
+  res.addLayer(marker)
+
+  return res
 }
 
 function markersFor (/* array */ plannedTurns, /* latLng */ start,
@@ -133,11 +147,11 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
   let minus2 = null
   let pendingTurnLocation = null
   let pendingTurnName = null
-  let current = null
+  let current = start
   let turnId = 0
   plannedTurns.forEach(turn => {
-    const stateSuffix = turn.state ? ' at ' + turn.speed + 'kts' : ''
-    const turnName = turnNameFor(turn.turn) + ' - ' + turn.state.name + stateSuffix
+    const stateSuffix = turn.speed ? ' @ ' + turn.speed + 'kts' : ''
+    const turnName = turnNameFor(turn.turn) + ': ' + turn.state.name + stateSuffix
     turnId = turn.turn
 
     // loop through the routes
@@ -167,8 +181,10 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
       pendingTurnLocation = current
       pendingTurnName = turnName
     } else {
+      minus2 = minus1
+      minus1 = current
       // ok, nothing happening. add a static marker
-      result.addLayer(createMarker(noTurn, current, lightweight, turnName, waypointCallback, context, turnId))
+      result.addLayer(createMarker(noTurn, minus1, lightweight, turnName, waypointCallback, context, turnId))
 
       // forget about waiting for more coords
       pendingTurnLocation = null
@@ -208,6 +224,8 @@ export default function planningRouteFor (/* array */ plannedTurns, /* latLng */
   // also declutter the markers
 
   thisLayer.addLayer(markers)
+
+  console.log('Planning line:', thisLayer)
 
   return thisLayer
 }

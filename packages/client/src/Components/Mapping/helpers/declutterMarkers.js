@@ -14,10 +14,24 @@ export default function declutter (/* collection */ clusters, /* degrees */ grid
         const marker = list[ctr]
         const thisAngleDegs = ctr * (360.0 / (len))
         const thisAngleRads = (90 + thisAngleDegs) / 180 * Math.PI
-        const thisPos = marker.getLatLng()
-        const newLat = thisPos.lat + gridDelta * Math.sin(thisAngleRads)
-        const newLng = thisPos.lng + gridDelta * Math.cos(thisAngleRads)
-        marker.setLatLng(L.latLng(newLat, newLng))
+
+        const updatePos = (marker) => {
+          const thisPos = marker.getLatLng()
+          const newLat = thisPos.lat + gridDelta * Math.sin(thisAngleRads)
+          const newLng = thisPos.lng + gridDelta * Math.cos(thisAngleRads)
+          marker.setLatLng(L.latLng(newLat, newLng))
+        }
+
+        if (marker.do_not_declutter) {
+          if (marker.eachLayer) {
+            marker.eachLayer(marker => updatePos(marker))
+          } else {
+            // note: we mark the planningMarker with do not declutter, since we
+            // want it to stay in the centre of a cell
+          }
+        } else {
+          updatePos(marker)
+        }
       }
     }
   }
