@@ -15,17 +15,24 @@ export default function createStateButtonsFor (/* object */pType, /* object */ c
       const btn = createButton(true, state.name, () => {
         // ok, remove button
         stateBtns.forEach(button => button.remove())
-        if (state.mobile && pType.speedKts) {
-          pType.speedKts.forEach(speed => {
-            const speedBtn = createButton(true, speed + ' kts', () => {
-              // ok, remove button
-              speedBtns.forEach(button => button.remove())
-
-              // share good news
-              callback(state, speed, context)
-            }).addTo(context.map)
-            speedBtns.push(speedBtn)
-          })
+        const speedList = pType.speedKts
+        if (state.mobile && speedList) {
+          // special case - if there's only one speed, we can jump right in
+          if (speedList.length === 1) {
+            // just fire the callback - there's only one item
+            callback(state, pType.speedKts[0], context)   
+          } else {
+            speedList.forEach(speed => {
+              const speedBtn = createButton(true, speed + ' kts', () => {
+                // ok, remove button
+                speedBtns.forEach(button => button.remove())
+  
+                // share good news
+                callback(state, speed, context)
+              }).addTo(context.map)
+              speedBtns.push(speedBtn)
+            })
+          }
         } else {
           // don't need speed, go for it
           callback(state, null, context)
