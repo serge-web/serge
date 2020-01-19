@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import L from 'leaflet'
 import GridImplementation from './helpers/GridImplementation'
 import MapAdjudicatingUmpireListener from './helpers/MapAdjudicatingUmpireListener'
@@ -12,8 +12,10 @@ import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_Actio
 import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT } from '../../consts'
 import assetsVisibleToMe from './helpers/assetsVisibleToMe'
 import forceFor from './helpers/forceFor'
+import findAsset from './helpers/findAsset'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
+import removeClassNamesFrom from './helpers/removeClassNamesFrom'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import './helpers/mousePosition'
@@ -23,17 +25,20 @@ import './styles.scss'
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
 import declutterLayer from './helpers/declutterLayer'
+import findPerceivedAsClasses from './helpers/findPerceivedAsClassName'
+import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
+
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
   const platformsLayerRef = useRef(null) // the platform markers
   const gridImplRef = useRef(null) // hexagonal grid
   const forcesRef = useRef(allForces) // the current list of forces
   const currentPhaseModeRef = useRef(null)
-  const currentPhaseMapRef = useRef(null) 
+  const currentPhaseMapRef = useRef(null)
   const myForceRef = useRef(selectedForce)
   const platformTypesRef = useRef(allPlatforms)
   const currentTurnRef = useRef(currentTurn)
-  const perceiveAsForce = useRef(selectedForce) // in case white changes how they perceive the data
+  const perceiveAsForceRef = useRef(selectedForce) // in case white changes how they perceive the data
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -141,8 +146,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }
 
   const perceivedStateCallback = (asset, force, perception) => {
-    const percevedType = { asset: asset.uniqid, force: force, perception: perception }
-    sendMessage(PERCEPTION_OF_CONTACT, percevedType)
+    const perceivedType = { asset: asset.uniqid, force: force, perception: perception }
+    sendMessage(PERCEPTION_OF_CONTACT, perceivedType)
+    handlePerceptionChanges(perceivedType, allForces)
   }
 
   /** callback to tell UI that we've got control of a platform in this UI */
@@ -187,7 +193,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     }
 
     const userIsUmpire = myForceRef.current === 'umpire'
-    const marker = markerFor(asset, force.name, myForceRef.current, platformTypesRef.current, assetIsDraggable, userIsUmpire)
+    const marker = markerFor(asset, force.name, myForceRef.current, platformTypesRef.current, assetIsDraggable, userIsUmpire,
+      perceiveAsForceRef.current)
 
     // did we create one?
     if (marker != null) {
@@ -200,7 +207,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       platformsLayerRef.current.addLayer(marker)
     }
   }
-
 
   useEffect(() => {
     console.log('re-rendering map ocmponent at:', new Date(), 'phase:', phase)
@@ -273,6 +279,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
    * contents of allForces changes
    */
   useEffect(() => {
+    console.log('Mapping Component state changed at', new Date())
+    console.log(allForces)
     const markers = platformsLayerRef.current
     const grid = gridImplRef.current
     //
@@ -294,15 +302,29 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     })
     //
     // ASSET VISIBILITY
-    // 
+    //
     const visibleToMe = assetsVisibleToMe(allForces, selectedForce)
     const foundItems = []
     const toDelete = []
     markers.eachLayer(marker => {
-      const name = marker.asset.name
-      var found = visibleToMe.find(item => item.name === name)
+      const uniqid = marker.asset.uniqid
+      var found = visibleToMe.find(item => item.uniqid === uniqid)
+      // get a new pointer to this asset
       if (found) {
-        foundItems.push(name)
+        foundItems.push(uniqid)
+
+        const asset = findAsset(allForces, marker.asset.uniqid)
+
+        // also check it's formatted correctly
+        const userIsUmpire = myForceRef.current === 'umpire'
+        const perceptionClassName = findPerceivedAsClasses(perceiveAsForceRef.current, asset.force,
+          asset.platformType, asset.perceptions, userIsUmpire)
+
+        // remove exiting types
+        removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
+
+        // now store the new ones
+        L.DomUtil.addClass(marker._icon, perceptionClassName)
       } else {
         marker.remove()
         toDelete.push(marker)
@@ -312,14 +334,14 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       markers.removeLayer(marker)
     })
     // trim the items in visibleTo me
-    const toBeAdded = visibleToMe.filter(asset => foundItems.indexOf(asset.name) === -1)
+    const toBeAdded = visibleToMe.filter(asset => foundItems.indexOf(asset.uniqid) === -1)
 
     if (toBeAdded) {
       toBeAdded.forEach(asset => {
         var force = asset.force
         if (!force) {
           // grr, we'll have to find it
-          asset.force = forceFor(allForces, asset).uniqid
+          asset.force = forceFor(allForces, asset.uniqid)
         }
         createThisMarker(asset, grid, asset.force, false)
       })
