@@ -1,6 +1,5 @@
 import L from 'leaflet'
 import defaultHexStyle from '../data/default-hex-style'
-import plannedModePopupFor from './plannedModePopupFor'
 import colorFor from './colorFor'
 
 // Import helpers
@@ -25,9 +24,6 @@ export default class MapPlanningPlayerListener {
     this.routeCompleteCallback = routeCompleteCallback
     this.turn = turn
     this.platformTypes = platformTypes
-
-    this.plannedLats = [] // lad-lngs for route
-    this.plannedHexes = [] // hexes for route
 
     this.routeHexes = [] // hexes representing route
     this.routeLats = [] // lad-lngs for route
@@ -72,6 +68,15 @@ export default class MapPlanningPlayerListener {
 
     // use layer groups to store data - so we can confidently remove them
     this.waypointMarkers = L.layerGroup().addTo(layer)
+
+    // command to submit whole planned route
+    const context = this
+    this.btnSubmitAll = createButton(true, 'Submit all plans', () => {
+      // collate the data
+      const res = context.allRoutes.map(planned => planned.current)
+      console.log('submitting', res)
+      context.btnSubmitAll.remove()
+    }).addTo(map)
   }
 
   /** ditch the data for this listener
@@ -179,14 +184,15 @@ export default class MapPlanningPlayerListener {
 
   /** user has used either the command buttons, or the popup dialog to choose a new platform state */
   stateSelectedCallback (/* object */ state, /* number */ speed, /* object */ context) {
-    // ok, set the current state
-    console.log('new state selected:', state, speed)
-
     // store the state - we'll use it for all legs, until the player changes their mind
     context.currentRoute.state = { state: state, speed: speed }
 
     // now update the planning rings
     context.platformStateAssigned(context.currentRoute.marker, context.currentRoute.state)
+  }
+
+  clearCommandButtons (/* array */ buttons) {
+    buttons.forEach(button => button.remove())
   }
 
   /** listen to drag events on the supplied marker */
@@ -215,7 +221,13 @@ export default class MapPlanningPlayerListener {
 
           // and the planning bits
           this.clearAchievableCells()
-          this.planningMarker.remove()
+
+          if (this.planningMarker) {
+            this.planningMarker.remove()
+          }
+
+          // and any command buttons
+          this.clearCommandButtons(this.stateButtons)
         }
 
         // now get the route for the new marker
@@ -232,7 +244,7 @@ export default class MapPlanningPlayerListener {
         } else {
           // sort out the state commands for this asset
           const pType = this.platformTypes.find(pType => pType.name === marker.asset.platformType)
-          this.stateButtons = createStateButtonsFor(pType, this, this.stateSelectedCallback, this.stateButtons)
+          this.stateButtons = createStateButtonsFor(pType, marker.asset.name, this, this.stateSelectedCallback, this.stateButtons)
         }
       })
 
@@ -265,23 +277,22 @@ export default class MapPlanningPlayerListener {
     this.achievableCells.forEach(cell => cell.polygon.setStyle(this.rangeStyle))
   }
 
-  updateRouteLinesForForce (/* string */ force, /* array<Line> */ lines) {
+  /** as we build up lists of cells (for a route), they will typically
+   * be full hex grid cell structures.  Here we switch them to just
+   * their names, ready to be sent off around the wargame
+   */
+  simplifyHexes (/* array<hex cell */cells) {
+    return cells.map(cell => cell.name)
+  }
+
+  updateRouteLineForForce (/* string */ force, /* Line */ line) {
     const hisColor = colorFor(force)
-    lines.forEach((line) => {
-      line.setStyle({
-        color: hisColor
-      })
+    line.setStyle({
+      color: hisColor
     })
   }
 
-  simplifyHexes (/* array<hex cell */cells) {
-    const res = []
-    cells.forEach(cell => { res.push(cell.name) })
-    return res
-  }
-
   clearOnNewLeg () {
-    this.plannedLats = []
     this.routeLats = []
     this.routeHexes = []
     this.plannedLegs = []
@@ -291,7 +302,15 @@ export default class MapPlanningPlayerListener {
    * UI accordingly
    */
   platformStateAssigned (/* object */marker, /* object */newState) {
-    if (newState.speed) {
+    // do we have nay planning to clear up?
+    if (this.planningMarker) {
+      this.planningMarker.remove()
+      this.routeLine.setLatLngs([])
+      this.clearAchievableCells()
+    }
+
+    console.log('new state', newState)
+    if (newState.mobile) {
       // sort out where to put the planning marker
       const route = this.currentRoute.current
       if (route && route.length > 0) {
@@ -299,9 +318,8 @@ export default class MapPlanningPlayerListener {
         const cell = points.route[points.route.length - 1]
         this.startHex = this.grid.hexNamed(cell)
       } else {
-        // use use the asset location
+        // just use the asset location
         const position = marker.asset.loc
-        // ok, get ready for step planning & dragging
         this.startHex = this.grid.cellFor(position)
       }
       const startPos = this.startHex.centrePos
@@ -335,15 +353,7 @@ export default class MapPlanningPlayerListener {
       this.updateAchievableCellsFor(this.startHex, marker.planning.remaining, marker.travelMode)
 
       // also create a new marker, used to plot the path
-      // Creates a red marker with the coffee icon
-      const redMarker = L.icon.glyph({
-        prefix: 'fa',
-        glyph: 'location-arrow',
-        glyphSize: '13px'
-      })
-
       this.planningMarker = L.marker(startPos, {
-        icon: redMarker,
         draggable: 'true',
         zIndexOffset: 1000
       })
@@ -353,15 +363,12 @@ export default class MapPlanningPlayerListener {
       this.planningMarker.planningFor = this.currentTurn + 1
 
       // set the route-line color
-      this.updateRouteLinesForForce(marker.force, [this.routeLine, this.plannedLine])
+      this.updateRouteLineForForce(marker.force, this.routeLine)
 
       // handle movement of the planning marker
       this.planningMarker.on('drag', e => {
         const cursorLoc = e.latlng
         const cursorHex = this.grid.cellFor(cursorLoc)
-
-        // note: the dragEnd event doesn't get a location, we'll need to store it from here
-        this.lastCursorLoc = cursorLoc
 
         // is this location safe?
         if (!this.achievableCells.includes(cursorHex)) {
@@ -369,6 +376,10 @@ export default class MapPlanningPlayerListener {
           // won't be changing any data based on it
           return
         }
+
+        // note: the dragEnd event doesn't get a location, we'll need to store it from here
+        // note: to get to here, the cursor must be on an available cell
+        this.lastCursorLoc = cursorLoc
 
         // ok, we have a valid location. clear the existing route
         this.routeLats = [cursorLoc, cursorLoc]
@@ -414,8 +425,7 @@ export default class MapPlanningPlayerListener {
         }
       })
       this.planningMarker.on('dragend', e => {
-        const tmpCursorLoc = this.lastCursorLoc
-        const cursorHex = this.grid.cellFor(tmpCursorLoc)
+        const cursorHex = this.lastHex
         const cursorLoc = cursorHex.centrePos
 
         // put the planning marker into the centre of the cell, even though
@@ -434,9 +444,6 @@ export default class MapPlanningPlayerListener {
         // reduce the marker allowance
         // note: we reduce the length by one, so we don't count the starting cell
         marker.planning.remaining -= len
-
-        // build up a fill list of steps
-        this.plannedHexes = this.plannedHexes.concat(this.routeHexes)
 
         // if we have no more leg, push this one, and give us a fresh allowance
         if (marker.planning.remaining === 0) {
