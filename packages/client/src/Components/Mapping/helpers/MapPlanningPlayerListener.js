@@ -74,11 +74,47 @@ export default class MapPlanningPlayerListener {
       // collate the data
       const res = context.allRoutes.map(planned => planned.current)
       console.log('submitting', res)
+      // collate the data
+      const payload = context.collatePlanningOrders(context.allRoutes)
+      context.routeCompleteCallback(payload)
       context.btnSubmitAll.remove()
     }).addTo(map)
 
     // intiialise the button label
     this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
+  }
+
+  collatePlanningOrders (routes) {
+    const firstAsset = routes.find(route => route.asset != null).asset
+    const detail = []
+    routes.forEach(route => {
+      const thisRoute = {}
+      thisRoute.uniqid = route.marker.asset.uniqid
+      const plannedTurns = []
+      if (route.current && route.current.length > 0) {
+        route.current.forEach(step => {
+          const thisStep = {}
+          thisStep.state = step.state
+          thisStep.turn = step.turn
+          if (step.speed) {
+            thisStep.speed = step.speed
+          }
+          if (step.route && step.route.length > 0) {
+            thisStep.route = step.route.slice() // take copy of array, just in case
+          }
+          plannedTurns.push(thisStep)
+        })
+      }
+      thisRoute.plannedTurns = plannedTurns
+      detail.push(thisRoute)
+    })
+    const res = {}
+    res.comment = ''
+    res.name = firstAsset.force + ' Plans for ' + turnNameFor(this.turn + 1)
+    detail.turn = this.turn + 1
+    detail.force = firstAsset.force
+    res.plannedRoutes = detail
+    return res
   }
 
   /** add the layer to the map, and perform a declutter operation */
