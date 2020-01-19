@@ -66,9 +66,12 @@ function bearingMarkerFor (/* number */ angleResult) {
   } else if (angleResult < 180) {
     // East to South
     icon = turnRight
-  } else if (angleResult < 271) {
+  } else if (angleResult < 260) {
     // South to West
     icon = turnLeft
+  } else if (angleResult < 271) {
+    // South
+    icon = turnEnd
   } else if (angleResult < 360) {
     // West to North
     icon = turnRight
@@ -81,7 +84,7 @@ function bearingMarkerFor (/* number */ angleResult) {
   return icon
 }
 
-function turnFor (/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current) {
+function turnFor (/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current, /* string */ comment) {
   let bearing = null
   if (!minus2) {
     // ok, just the angle to current from minus 1
@@ -94,6 +97,9 @@ function turnFor (/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current
     const bearing1 = bearingBetween(minus2, minus1)
     const bearing2 = bearingBetween(minus1, current)
     bearing = (bearing1 + bearing2) / 2
+    if (comment) {
+      // console.log(bearing1, bearing2, bearing)
+    }
   }
   return bearing
 }
@@ -147,7 +153,7 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
           if (pendingTurnLocation) {
             // have we got enough data?
             if (minus1) {
-              const angle = turnFor(minus2, minus1, current)
+              const angle = turnFor(minus2, minus1, current, turnNameFor(turn.turn))
               const iconName = bearingMarkerFor(angle)
               result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId))
               pendingTurnLocation = false
