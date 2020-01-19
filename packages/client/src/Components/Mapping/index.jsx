@@ -33,6 +33,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const myForceRef = useRef(selectedForce)
   const platformTypesRef = useRef(allPlatforms)
   const currentTurnRef = useRef(currentTurn)
+  const perceiveAsForce = useRef(selectedForce) // in case white changes how they perceive the data
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -274,7 +275,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   useEffect(() => {
     const markers = platformsLayerRef.current
     const grid = gridImplRef.current
-    // handle assets moving
+    //
+    // ASSET MOVEMENT
+    //
     markers.eachLayer(function (marker) {
       const force = allForces.find(force => marker.force === force.name)
       if (force && marker.asset) {
@@ -289,7 +292,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         }
       }
     })
-    // handle changes in asset visiblity
+    //
+    // ASSET VISIBILITY
+    // 
     const visibleToMe = assetsVisibleToMe(allForces, selectedForce)
     const foundItems = []
     const toDelete = []
