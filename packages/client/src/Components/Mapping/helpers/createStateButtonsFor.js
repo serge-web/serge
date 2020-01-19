@@ -38,6 +38,8 @@ export default function createStateButtonsFor (/* object */pType, /* string */ n
             })
           }
         } else {
+          // ok, remove buttons (prob just title button)
+          allBtns.forEach(button => button.remove())
           // don't need speed, go for it
           callback(state, null, context)
         }
