@@ -99,17 +99,6 @@ export const playerUiReducer = (state = initialState, action) => {
     return { isParticipant, allRolesIncluded, observing, templates }
   }
 
-  const modifyForcesBasedOnMessages = ({ allPlatformTypes, channels, allForces }) => {
-    let res = allForces
-    const mapChannel = Object.values(channels).find(({ name }) => (name === 'Mapping'))
-    if (mapChannel && mapChannel.messages && mapChannel.messages.length) {
-      for (const message of mapChannel.messages) {
-        res = modifyForcesBasedOnMessage(allForces, message)
-      }
-    }
-    return res
-  }
-
   const modifyForcesBasedOnMessage = (allForces, message) => {
     let res = allForces
     if (message.details && message.details.forceDelta) {
@@ -136,6 +125,8 @@ export const playerUiReducer = (state = initialState, action) => {
     const msgType = message.details.messageType
     if (!msgType) {
       console.error('problem - we need message type in ', message)
+    } else {
+      console.log('Player reducer handling forceDelta:', msgType)
     }
     switch (msgType) {
       case FORCE_LAYDOWN:
@@ -147,6 +138,14 @@ export const playerUiReducer = (state = initialState, action) => {
       default:
         console.error('failed to create player reducer handler for:' + msgType)
         return allForces
+    }
+  }
+
+  const reduceTurnMarkers = (message) => {
+    if (message.infoType) {
+      return message.gameTurn
+    } else {
+      return message._id
     }
   }
 
@@ -339,14 +338,6 @@ export const playerUiReducer = (state = initialState, action) => {
           isOpen: false
         }
       })
-
-      const reduceTurnMarkers = (message) => {
-        if (message.infoType) {
-          return message.gameTurn
-        } else {
-          return message._id
-        }
-      }
 
       messages = _.uniqBy(messages, reduceTurnMarkers)
 
