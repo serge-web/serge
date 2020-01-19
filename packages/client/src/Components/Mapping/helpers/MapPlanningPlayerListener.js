@@ -40,6 +40,7 @@ export default class MapPlanningPlayerListener {
     this.allRoutes = [] // collection of routes for this turn
 
     this.stateButtons = [] // keep track of the state buttons, so we can clear them
+    this.planningMarkerButtons = []
 
     // store some styling details, once, centrally
     this.rangeStyle = {
@@ -121,10 +122,6 @@ export default class MapPlanningPlayerListener {
     })
   }
 
-  planningRouteFor (/* array */ plannedRoutes) {
-
-  }
-
   /** create a storage object for this object */
   dataFor (/* marker */ marker, /* array platform types */ platformTypes) {
     const plannedTurns = marker.asset.plannedTurns ? marker.asset.plannedTurns : []
@@ -144,6 +141,31 @@ export default class MapPlanningPlayerListener {
     return res
   }
 
+  updatePlanningStateOnReset (context) {
+    // get the latest route
+    const routes = context.currentRoute.current
+    if (routes.length > 0) {
+      // ok, we can start off with last state
+      const lastR = routes[routes.length - 1]
+
+      // find the platform-type that matches this state
+      const assetState = lastR.state // current asset state
+      const platformType = context.currentRoute.marker.asset.platformType // platform state of this asset
+      const pType = context.platformTypes.find(state => state.name === platformType) // matching platform type defn
+      const pState = pType.states.find(state => state.name === assetState) // state for current route
+      if(!pState) {
+        console.error('Invalid platform state found:', assetState, ' available:', pType)
+      }
+
+      // construct the state object
+      const newState = { state: pState, speed: lastR.speed }
+
+      // store the state - we'll use it for all legs, until the player changes their mind
+      context.currentRoute.state = newState
+      context.platformStateAssigned(context.currentRoute.marker, newState)
+    }
+  }
+
   resetFromWaypointCallback (e) {
     const context = e.target.context
     const turnName = turnNameFor(e.target.turnId)
@@ -157,18 +179,7 @@ export default class MapPlanningPlayerListener {
       // rebuild route
       context.currentRoute.lightRoutes = context.createPlanningRouteFor(context.currentRoute.current, context.currentRoute.marker.asset, false).addTo(context.layer)
 
-      // get the latest route
-      console.log('current route:', context.currentRoute.current)
-      const routes = context.currentRoute.current
-      if (routes.length > 0) {
-        // ok, we can start off with last state
-        const lastR = routes[routes.length - 1]
-        const newState = { state: lastR.state, speed: lastR.speed }
-
-        // store the state - we'll use it for all legs, until the player changes their mind
-        context.currentRoute.state = newState
-        context.platformStateAssigned(context.currentRoute.marker, newState)
-      }
+      context.updatePlanningStateOnReset(context)
 
       // lastly, remove the button
       context.btnResetFromWaypoint.remove()
@@ -298,6 +309,43 @@ export default class MapPlanningPlayerListener {
     this.plannedLegs = []
   }
 
+  /** the user has clicked on the planning marker, give options */
+  showPlanningMarkerMenu () {
+    const btns = this.planningMarkerButtons
+    const context = this
+    const clearButtons = function () {
+      context.planningMarkerButtons.forEach(button => button.remove())
+    }
+    const updatePlans = function () {
+      // rebuild route
+      const route = context.currentRoute
+      route.lightRoutes.remove()
+      route.lightRoutes = context.createPlanningRouteFor(route.current, route.marker.asset, false).addTo(context.layer)
+
+      // ok, we can plan the next leg
+      context.updatePlanningStateOnReset(context)
+    }
+    // drop any exisitng buttons
+    btns.push(createButton(false, '[' + this.currentRoute.marker.asset.name + ']').addTo(this.map))
+    btns.push(createButton(true, 'Clear all legs', () => {
+      submitClearWholeRoute(this.currentRoute.current)
+      updatePlans()
+      clearButtons()
+    }).addTo(this.map))
+    btns.push(createButton(true, 'Revert to original route', () => {
+      submitClearWholeRoute(this.currentRoute.current)
+
+      // replace with original
+      context.currentRoute.current = JSON.parse(JSON.stringify(context.currentRoute.original))
+      updatePlans()
+      clearButtons()
+    }).addTo(this.map))
+    btns.push(createButton(true, 'Select new state', () => {
+      console.log('set new state')
+      clearButtons()
+    }).addTo(this.map))
+  }
+
   /** player has indicated the planned state for a platform. Update the
    * UI accordingly
    */
@@ -309,8 +357,11 @@ export default class MapPlanningPlayerListener {
       this.clearAchievableCells()
     }
 
-    console.log('new state', newState)
+    console.log('new state 0', newState)
+
     if (newState.state.mobile) {
+      console.log('new state 1', newState)
+
       // sort out where to put the planning marker
       const route = this.currentRoute.current
       if (route && route.length > 0) {
@@ -351,6 +402,9 @@ export default class MapPlanningPlayerListener {
         remaining: allowance
       }
 
+      console.log('new state 2', newState, marker, this.startHex, marker.planning)
+
+
       // do we already have achievable cells?
       // TODO: our logic _Should_ clear these at the end of a leg
       this.clearAchievableCells()
@@ -370,6 +424,12 @@ export default class MapPlanningPlayerListener {
 
       // set the route-line color
       this.updateRouteLineForForce(marker.force, this.routeLine)
+
+      // clicks on the planning marker should trigger some commands
+      this.planningMarker.on('click', e => {
+        console.log('planning marker clicked')
+        this.showPlanningMarkerMenu()
+      })
 
       // handle movement of the planning marker
       this.planningMarker.on('drag', e => {
