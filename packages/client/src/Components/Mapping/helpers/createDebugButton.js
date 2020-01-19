@@ -17,6 +17,10 @@ export default function createButton (/* boolean */enabled, /* string */ title, 
       this.varContainer.disabled = true
     },
 
+    setText: function (value) {
+      this.varContainer.value = value
+    },
+
     onAdd: function () {
       var container = L.DomUtil.create('input')
 
