@@ -27,7 +27,8 @@ it('Declutters markers in Leaflet layer tree', () => {
   expect(m1.getLatLng().lat).toBeCloseTo(12)
   expect(m1.getLatLng().lng).toBeCloseTo(13)
 
-  declutterLayer(top, 0.08333)
+  const grid = { delta: 0.08333 * 3}
+  declutterLayer(top, grid)
 
   // note: the essential part of the following tests is that
   // two of the cells have been re-arranged

@@ -42,7 +42,12 @@ function clusterMarkers (/* array marker */ markers, /* grid */ grid) {
       pos = marker.getLatLng()
     }
     if (pos) {
-      const index = grid.cellFor(pos).name
+      let index
+      if (grid.cellFor) {
+        index = grid.cellFor(pos).name
+      } else {
+        index = pos.lat + ',' + pos.lng
+      }
       let list = res[index]
       if (!list) {
         list = []
