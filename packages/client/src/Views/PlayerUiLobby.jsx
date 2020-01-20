@@ -5,6 +5,15 @@ import { useStateValue } from '../Store/PlayerUi'
 import { getWargame } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword }) {
+  if (!wargameList) {
+    return (
+      <div className="flex-content-wrapper flex-content-wrapper--welcome">
+        <div className="flex-content flex-content--welcome">      
+          <h3>Server Not Found = check configuration</h3>
+        </div>
+      </div>
+    )
+  }
   const [localState, setState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
