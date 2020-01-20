@@ -48,7 +48,8 @@ export const VISIBILIY_CHANGES = 'VisibilityChanges'
 // were failing CORS test
 export const baseUrl = () => {
   const { hostname, protocol } = window.location
-  return `${protocol}//${hostname}${DEFAULT_PORT ? `:${DEFAULT_PORT}` : ''}`
+  const host = (new URL(window.location)).searchParams.get('host')
+  return host ? host : `${protocol}//${hostname}${DEFAULT_PORT ? `:${DEFAULT_PORT}` : ''}`
 }
 export const serverPath = (
   window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || baseUrl() + '/'
