@@ -54,28 +54,28 @@ function bearingBetween (/* latLng */ p1, /* latLng */ p2) {
 /** we plot a line marker perpendicular to the direction
  * of travel at route waypoints.  Determine the marker to use for this bearing
  */
-function bearingMarkerFor (/* number */ angleResult) {
+function bearingMarkerFor (/* number */ angle) {
   let icon
 
-  if (angleResult === 180 || angleResult === 360 || angleResult === 0) {
+  if (angle === 180 || angle === 360 || angle === 0) {
     // for the 180 and 360, which are flat icons so end icon is used
     icon = turnEnd
-  } else if (angleResult > 0 && angleResult < 90) {
+  } else if (angle > 0 && angle < 90) {
     // North to East
     icon = turnLeft
-  } else if (angleResult < 180) {
+  } else if (angle < 180) {
     // East to South
     icon = turnRight
-  } else if (angleResult < 260) {
+  } else if (angle < 260) {
     // South to West
     icon = turnLeft
-  } else if (angleResult < 271) {
+  } else if (angle < 271) {
     // South
     icon = turnEnd
-  } else if (angleResult < 360) {
+  } else if (angle < 360) {
     // West to North
     icon = turnRight
-  } else if (angleResult === undefined || angleResult === null) {
+  } else if (angle === undefined || angle === null) {
     // as some angles are undefined just use the end icon until this can be figured out
     icon = turnEnd
   } else {
