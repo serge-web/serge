@@ -73,7 +73,6 @@ export default class MapPlanningUmpireListener {
       markers.eachLayer(marker => {
         delete marker.context
       })
-
     }
   }
 
@@ -94,9 +93,6 @@ export default class MapPlanningUmpireListener {
     // we need to access this class's data, get
     // it out of the special attribute
     const context = marker.context
-
-    // and delete that context object
-    // delete marker.context
 
     // we have to trick module by pushing capturing marker - so we know
     // who to advance.
