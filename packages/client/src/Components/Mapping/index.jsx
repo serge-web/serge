@@ -280,7 +280,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
    */
   useEffect(() => {
     console.log('Mapping Component state changed at', new Date())
-    console.log(allForces)
     const markers = platformsLayerRef.current
     const grid = gridImplRef.current
     //
