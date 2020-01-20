@@ -59,6 +59,7 @@ export const UMPIRE_FORCE = 'umpire'
 export const FORCE_LAYDOWN = 'ForceLaydown'
 export const VISIBILIY_CHANGES = 'VisibilityChanges'
 export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
+export const SUBMIT_PLANS = 'SubmitPlans'
 
 export const headers = {
   'Content-Type': 'application/json',
