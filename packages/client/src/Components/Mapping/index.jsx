@@ -9,7 +9,7 @@ import MapPlanningUmpireListener from './helpers/MapPlanningUmpireListener'
 import markerFor from './helpers/markerFor'
 import hasPendingForces from './helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT } from '../../consts'
+import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS } from '../../consts'
 import assetsVisibleToMe from './helpers/assetsVisibleToMe'
 import forceFor from './helpers/forceFor'
 import findAsset from './helpers/findAsset'
@@ -27,6 +27,7 @@ import './leaflet.zoomhome.js'
 import declutterLayer from './helpers/declutterLayer'
 import findPerceivedAsClasses from './helpers/findPerceivedAsClassName'
 import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
+import handlePlansSubmittedChanges from '../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
@@ -155,8 +156,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const declareControlOf = (force, name, platformType) => {
   }
 
-  const routeCompleteCallback = (/* string */force, /* string */asset, /* object */payload) => {
-    console.log('Planned Route:', force, asset, payload)
+  const routeCompleteCallback = (/* object */payload) => {
+    sendMessage(SUBMIT_PLANS, payload)
+    // also call the reducer ourselves
+  //  handlePlansSubmittedChanges(payload, allForces)
   }
 
   const clearControlledAssets = () => {
@@ -345,6 +348,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         createThisMarker(asset, grid, asset.force, false)
       })
     }
+    //
+    // Other diagnostics
+    //
   }, [allForces])
 
   return (
