@@ -44,7 +44,9 @@ export default class MapPlanningPlayerListener {
     this.allRoutes = [] // collection of routes for this turn
 
     this.stateButtons = [] // keep track of the state buttons, so we can clear them
+    this.perceivedButtons = []
     this.planningMarkerButtons = []
+    this.waypointButtons = []
 
     // store some styling details, once, centrally
     this.rangeStyle = {
@@ -136,9 +138,26 @@ export default class MapPlanningPlayerListener {
   clearListeners () {
     // ditch the listeners
 
-    // clear the map layer
+    // clear the achievable cells. Note: these weren't added
+    // to our private map layer, so they don't disappear when
+    // we `remove` that layer
+    this.clearAchievableCells()
+
+    // also drop any command/perceived state buttons
+    this.clearCommandButtons(this.stateButtons)
+    this.clearCommandButtons(this.perceivedButtons)
+    this.clearCommandButtons(this.planningMarkerButtons)
+
+    if (this.btnResetFromWaypoint) (
+      this.btnResetFromWaypoint.remove()
+    )
+    if (this.btnSubmitAll) {
+      this.btnSubmitAll.remove()
+    }
 
     // detach the map
+    this.layerPriv.remove()
+    this.layerPriv.clearLayers()
   }
 
   /** the user has finished planning the route for this platform
@@ -282,7 +301,10 @@ export default class MapPlanningPlayerListener {
   }
 
   clearCommandButtons (/* array */ buttons) {
-    buttons.forEach(button => button.remove())
+    if (buttons) {
+      buttons.forEach(button => button.remove())
+      buttons = []
+    }
   }
 
   perceivedStateCallback (/* object */ asset, /* string */ force, /* array */ perceivedState, /* object */ context) {
