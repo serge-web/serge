@@ -322,11 +322,13 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         const perceptionClassName = findPerceivedAsClasses(perceiveAsForceRef.current, asset.force,
           asset.platformType, asset.perceptions, userIsUmpire)
 
-        // remove exiting types
-        removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
+        if (perceptionClassName) {
+          // remove exiting types
+          removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
 
-        // now store the new ones
-        L.DomUtil.addClass(marker._icon, perceptionClassName)
+          // now store the new ones
+          L.DomUtil.addClass(marker._icon, perceptionClassName)
+        }
       } else {
         marker.remove()
         toDelete.push(marker)
