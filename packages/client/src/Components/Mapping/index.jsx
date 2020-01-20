@@ -217,7 +217,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       // check if clear listeners present
       if (currentPhaseModeRef.current.clearListeners) {
         // detatch the current listener
-        currentPhaseModeRef.current.clearListeners()
+        currentPhaseModeRef.current.clearListeners(platformsLayerRef.current)
       }
 
       // ditch the listener
