@@ -266,6 +266,19 @@ export default class MapPlanningPlayerListener {
 
     // now update the planning rings
     context.platformStateAssigned(context.currentRoute.marker, context.currentRoute.state)
+
+    // note: if it was a non-mobile state, we don't need to drag legs, we can just pop
+    // up the state planning buttons again
+    if (!state.mobile) {
+      // we will have to get state from the player
+      const marker = context.currentRoute.marker
+      // no routes, do we know state?
+      // nope, we'll have to get it from the player
+      // sort out the state commands for this asset
+      const pType = context.platformTypes.find(pType => pType.name === marker.asset.platformType)
+      context.stateButtons = createStateButtonsFor(pType, marker.asset.name,
+        context, context.stateSelectedCallback, context.stateButtons)
+    }
   }
 
   clearCommandButtons (/* array */ buttons) {

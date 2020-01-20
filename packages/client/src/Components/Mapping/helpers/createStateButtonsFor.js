@@ -15,6 +15,9 @@ export default function createStateButtonsFor (/* object */pType, /* string */ n
     const btn = createButton(false, 'State for [' + name + ']', null).addTo(context.map)
     allBtns.push(btn)
 
+    //
+    // STATE BUTTONS
+    //
     pType.states.forEach(state => {
       const btn = createButton(true, state.name, () => {
         // ok, remove state buttons, we've done that
@@ -28,6 +31,9 @@ export default function createStateButtonsFor (/* object */pType, /* string */ n
             // just fire the callback - there's only one item
             callback(state, pType.speedKts[0], context)
           } else {
+            //
+            // SPEED BUTTONS
+            //
             speedList.forEach(speed => {
               const speedBtn = createButton(true, speed + ' kts', () => {
                 // ok, remove button
@@ -38,6 +44,11 @@ export default function createStateButtonsFor (/* object */pType, /* string */ n
               }).addTo(context.map)
               allBtns.push(speedBtn)
             })
+            // also add a cancel button
+            const cancelSpeedBtn = createButton(true, 'Cancel', e => {
+              allBtns.forEach(btn => btn.remove())
+            }).addTo(context.map)
+            allBtns.push(cancelSpeedBtn)
           }
         } else {
           // ok, remove buttons (prob just title button)
@@ -49,6 +60,12 @@ export default function createStateButtonsFor (/* object */pType, /* string */ n
       stateBtns.push(btn)
       allBtns.push(btn)
     })
+    // also add a cancel button
+    const cancelStateBtn = createButton(true, 'Cancel', e => {
+      allBtns.forEach(btn => btn.remove())
+    }).addTo(context.map)
+    stateBtns.push(cancelStateBtn)
+    allBtns.push(cancelStateBtn)
   } else {
     console.error('Platform types is using legacy non-array structure')
   }
