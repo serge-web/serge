@@ -2,24 +2,6 @@ import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
 
-// Nov 2019. Ian modified the server path to use the
-// current URL, so we can use Heroku to provide
-// review instances of the app.  In these
-// review instances, we can't predict the URL, so
-// were failing CORS test
-export const serverPath = (
-  window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || window.location.origin + '/'
-).replace(/\/?$/, '/')
-
-// export const serverPath = 'http://localhost:8080/';
-/*
-for development just create .env.local file in client folder and add line,
-it's under gitignore and you don't need change this value before every deployment:
-REACT_APP_SERVER_PATH='http://localhost:8080/'
-*/
-
-export const databasePath = `${serverPath}db/`
-
 export const DEFAULT_SERVER = 'Nelson'
 export const DEFAULT_PORT = '8080'
 
@@ -58,6 +40,28 @@ export const UMPIRE_FORCE = 'umpire'
 // series of constants used for `messageType` when sending map events
 export const FORCE_LAYDOWN = 'ForceLaydown'
 export const VISIBILIY_CHANGES = 'VisibilityChanges'
+
+// Nov 2019. Ian modified the server path to use the
+// current URL, so we can use Heroku to provide
+// review instances of the app.  In these
+// review instances, we can't predict the URL, so
+// were failing CORS test
+export const baseUrl = () => {
+  const { hostname, protocol } = window.location
+  return `${protocol}//${hostname}${DEFAULT_PORT ? `:${DEFAULT_PORT}` : ''}`
+}
+export const serverPath = (
+  window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || baseUrl() + '/'
+).replace(/\/?$/, '/')
+
+// export const serverPath = 'http://localhost:8080/';
+/*
+for development just create .env.local file in client folder and add line,
+it's under gitignore and you don't need change this value before every deployment:
+REACT_APP_SERVER_PATH='http://localhost:8080/'
+*/
+
+export const databasePath = `${serverPath}db/`
 
 export const headers = {
   'Content-Type': 'application/json',
