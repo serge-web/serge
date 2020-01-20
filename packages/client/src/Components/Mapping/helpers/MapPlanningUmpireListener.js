@@ -88,7 +88,7 @@ export default class MapPlanningUmpireListener {
     const context = marker.context
 
     // and delete that context object
-    delete marker.context
+    // delete marker.context
 
     // we have to trick module by pushing capturing marker - so we know
     // who to advance.
