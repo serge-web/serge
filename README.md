@@ -21,6 +21,8 @@ In your command line, navigate to the project and then run the following command
 
 This will start the full application in 'demo' mode, you can see the application in action by visiting: [http://localhost:8080](http://localhost:8080).
 
+## Front-end development
+
 For front-end developers relying on live rebuilds, they should first follow the above steps, and note the IP address & Port provided by the server script. Note: leave that Serge process running.
 
 
