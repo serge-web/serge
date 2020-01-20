@@ -53,7 +53,7 @@ export default class MapPlanningUmpireListener {
     this.changesCallback({ payload: visibilityChanges })
   }
 
-  clearListeners () {
+  clearListeners (markers) {
     this.registeredListeners.forEach(pair => {
       pair.marker.off(pair.event)
     })
@@ -67,6 +67,14 @@ export default class MapPlanningUmpireListener {
     this.btnChangeBlueOn.remove()
     this.btnChangeBlueOff.remove()
     this.btnSendChanges.remove()
+
+    // to support the callbacks, we do put this scope context into them. drop it
+    if (markers) {
+      markers.eachLayer(marker => {
+        delete marker.context
+      })
+
+    }
   }
 
   changeVisPopupFor (/* object */asset, /* object */ perceptions) {
