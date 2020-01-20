@@ -87,25 +87,30 @@ export default class MapPlanningPlayerListener {
     this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
   }
 
-  collatePlanningOrders (routes) {
+  collatePlanningOrders (/* array */routes) {
     const firstAsset = routes.find(route => route.asset != null).asset
     const detail = []
+    const planningFor = this.turn + 1
     routes.forEach(route => {
       const thisRoute = {}
       thisRoute.uniqid = route.marker.asset.uniqid
       const plannedTurns = []
       if (route.current && route.current.length > 0) {
         route.current.forEach(step => {
-          const thisStep = {}
-          thisStep.state = step.state
-          thisStep.turn = step.turn
-          if (step.speed) {
-            thisStep.speed = step.speed
+          // check the plans are in the future. Note: game logic
+          // should prevent this problem arising in the future
+          if (step.turn >= planningFor) {
+            const thisStep = {}
+            thisStep.state = step.state.name
+            thisStep.turn = step.turn
+            if (step.speed) {
+              thisStep.speed = step.speed
+            }
+            if (step.route && step.route.length > 0) {
+              thisStep.route = step.route.slice() // take copy of array, just in case
+            }
+            plannedTurns.push(thisStep)
           }
-          if (step.route && step.route.length > 0) {
-            thisStep.route = step.route.slice() // take copy of array, just in case
-          }
-          plannedTurns.push(thisStep)
         })
       }
       thisRoute.plannedTurns = plannedTurns
@@ -114,8 +119,8 @@ export default class MapPlanningPlayerListener {
     const res = {}
     res.comment = ''
     res.name = firstAsset.force + ' Plans for ' + turnNameFor(this.turn + 1)
-    detail.turn = this.turn + 1
-    detail.force = firstAsset.force
+    res.turn = this.turn + 1
+    res.force = firstAsset.force
     res.plannedRoutes = detail
     return res
   }
@@ -261,6 +266,19 @@ export default class MapPlanningPlayerListener {
 
     // now update the planning rings
     context.platformStateAssigned(context.currentRoute.marker, context.currentRoute.state)
+
+    // note: if it was a non-mobile state, we don't need to drag legs, we can just pop
+    // up the state planning buttons again
+    if (!state.mobile) {
+      // we will have to get state from the player
+      const marker = context.currentRoute.marker
+      // no routes, do we know state?
+      // nope, we'll have to get it from the player
+      // sort out the state commands for this asset
+      const pType = context.platformTypes.find(pType => pType.name === marker.asset.platformType)
+      context.stateButtons = createStateButtonsFor(pType, marker.asset.name,
+        context, context.stateSelectedCallback, context.stateButtons)
+    }
   }
 
   clearCommandButtons (/* array */ buttons) {

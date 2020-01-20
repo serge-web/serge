@@ -9,10 +9,12 @@ import {
   LOCAL_STORAGE_TIMEOUT,
   FORCE_LAYDOWN,
   VISIBILIY_CHANGES,
-  PERCEPTION_OF_CONTACT
+  PERCEPTION_OF_CONTACT,
+  SUBMIT_PLANS
 } from '../../consts'
 import _ from 'lodash'
 import uniqId from 'uniqid'
+import handlePlansSubmittedChanges from './helpers/handlePlansSubmittedChanges'
 
 export const initialState = {
   selectedForce: '',
@@ -135,6 +137,8 @@ export const playerUiReducer = (state = initialState, action) => {
         return handleVisibilityChanges(message, allForces)
       case PERCEPTION_OF_CONTACT:
         return handlePerceptionChange(message, allForces)
+      case SUBMIT_PLANS:
+        return handlePlansSubmittedChanges(message, allForces)
       default:
         console.error('failed to create player reducer handler for:' + msgType)
         return allForces
