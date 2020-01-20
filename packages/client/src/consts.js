@@ -40,6 +40,8 @@ export const UMPIRE_FORCE = 'umpire'
 // series of constants used for `messageType` when sending map events
 export const FORCE_LAYDOWN = 'ForceLaydown'
 export const VISIBILIY_CHANGES = 'VisibilityChanges'
+export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
+export const SUBMIT_PLANS = 'SubmitPlans'
 
 // Nov 2019. Ian modified the server path to use the
 // current URL, so we can use Heroku to provide
