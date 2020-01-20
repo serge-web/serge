@@ -156,7 +156,7 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
   let turnId = 0
   plannedTurns.forEach(turn => {
     const stateSuffix = turn.speed ? ' @ ' + turn.speed + 'kts' : ''
-    const turnName = turnNameFor(turn.turn) + ': ' + turn.state.name + stateSuffix
+    const turnName = turnNameFor(turn.turn) + ': ' + turn.state + stateSuffix
     turnId = turn.turn
 
     // loop through the routes
