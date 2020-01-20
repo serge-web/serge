@@ -172,7 +172,7 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
           if (pendingTurnLocation) {
             // have we got enough data?
             if (minus1) {
-              const angle = turnFor(minus2, minus1, current, turnNameFor(turn.turn - 1))
+              const angle = turnFor(minus2, minus1, current)//, turnNameFor(turn.turn - 1))
               const iconName = bearingMarkerFor(angle)
               result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId))
               pendingTurnLocation = false
