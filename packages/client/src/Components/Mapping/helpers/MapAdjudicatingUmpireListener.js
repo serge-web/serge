@@ -194,7 +194,6 @@ export default class MapAdjudicatingListener {
           }
           lastMarker = marker
         })
-        // declutterMarkers(clusters, this.grid.delta / 3)
 
         turnMarkers.forEach((marker) => {
           // create marker
