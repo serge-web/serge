@@ -466,7 +466,9 @@ export default class MapPlanningPlayerListener {
     if (route.length) {
       lastNum = route[route.length - 1].turn
     }
-    const newRoute = { speed: newState.speed, turn: lastNum + 1, state: newState.state }
+    // note: when we send a planned turn, we only need the state name, not the whole
+    // state element
+    const newRoute = { speed: newState.speed, turn: lastNum + 1, state: newState.state.name }
     if (hexList) {
       newRoute.route = hexList
     }
