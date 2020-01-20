@@ -89,16 +89,22 @@ function turnFor (/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current
   if (!minus2) {
     // ok, just the angle to current from minus 1
     bearing = bearingBetween(minus1, current)
+    if (comment) {
+      console.log(comment, 'type 1', minus1, current, bearing)
+    }
   } else if (!current) {
     // ok, for the previous 2 legs
-    bearing = bearingBetween(minus2, minus2)
+    bearing = bearingBetween(minus1, minus2)
+    if (comment) {
+      console.log(comment, 'type 2', minus1, minus2, bearing)
+    }
   } else {
     // sort out the two directions
     const bearing1 = bearingBetween(minus2, minus1)
     const bearing2 = bearingBetween(minus1, current)
     bearing = (bearing1 + bearing2) / 2
     if (comment) {
-      // console.log(bearing1, bearing2, bearing)
+      console.log(comment, 'type 3', bearing1, bearing2, bearing)
     }
   }
   return bearing
@@ -166,7 +172,7 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
           if (pendingTurnLocation) {
             // have we got enough data?
             if (minus1) {
-              const angle = turnFor(minus2, minus1, current, turnNameFor(turn.turn))
+              const angle = turnFor(minus2, minus1, current, turnNameFor(turn.turn - 1))
               const iconName = bearingMarkerFor(angle)
               result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId))
               pendingTurnLocation = false
