@@ -2,15 +2,19 @@ import ActionConstant from '../ActionConstants'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
 import handleVisibilityChanges from './helpers/handleVisibilityChanges'
+import handlePerceptionChange from './helpers/handlePerceptionChanges'
 import {
   CHAT_CHANNEL_ID,
   expiredStorage,
   LOCAL_STORAGE_TIMEOUT,
   FORCE_LAYDOWN,
-  VISIBILIY_CHANGES
+  VISIBILIY_CHANGES,
+  PERCEPTION_OF_CONTACT,
+  SUBMIT_PLANS
 } from '../../consts'
 import _ from 'lodash'
 import uniqId from 'uniqid'
+import handlePlansSubmittedChanges from './helpers/handlePlansSubmittedChanges'
 
 export const initialState = {
   selectedForce: '',
@@ -97,17 +101,6 @@ export const playerUiReducer = (state = initialState, action) => {
     return { isParticipant, allRolesIncluded, observing, templates }
   }
 
-  const modifyForcesBasedOnMessages = ({ allPlatformTypes, channels, allForces }) => {
-    let res = allForces
-    const mapChannel = Object.values(channels).find(({ name }) => (name === 'Mapping'))
-    if (mapChannel && mapChannel.messages && mapChannel.messages.length) {
-      for (const message of mapChannel.messages) {
-        res = modifyForcesBasedOnMessage(allForces, message)
-      }
-    }
-    return res
-  }
-
   const modifyForcesBasedOnMessage = (allForces, message) => {
     let res = allForces
     if (message.details && message.details.forceDelta) {
@@ -124,8 +117,6 @@ export const playerUiReducer = (state = initialState, action) => {
     const assetIndex = allForces[forceIndex].assets.findIndex(item => item.name === message.name)
     if (assetIndex === -1) return allForces
     // set the location
-    const { position } = allForces[forceIndex].assets[assetIndex]
-    console.log('asset moved from:' + position + ' to:' + message.position)
     allForces[forceIndex].assets[assetIndex].position = message.position
     return allForces
   }
@@ -134,15 +125,29 @@ export const playerUiReducer = (state = initialState, action) => {
     const msgType = message.details.messageType
     if (!msgType) {
       console.error('problem - we need message type in ', message)
+    } else {
+      console.log('Player reducer handling forceDelta:', msgType)
     }
     switch (msgType) {
       case FORCE_LAYDOWN:
         return handleForceLaydown(message, allForces)
       case VISIBILIY_CHANGES:
         return handleVisibilityChanges(message, allForces)
+      case PERCEPTION_OF_CONTACT:
+        return handlePerceptionChange(message, allForces)
+      case SUBMIT_PLANS:
+        return handlePlansSubmittedChanges(message, allForces)
       default:
         console.error('failed to create player reducer handler for:' + msgType)
         return allForces
+    }
+  }
+
+  const reduceTurnMarkers = (message) => {
+    if (message.infoType) {
+      return message.gameTurn
+    } else {
+      return message._id
     }
   }
 
@@ -336,14 +341,6 @@ export const playerUiReducer = (state = initialState, action) => {
         }
       })
 
-      const reduceTurnMarkers = (message) => {
-        if (message.infoType) {
-          return message.gameTurn
-        } else {
-          return message._id
-        }
-      }
-
       messages = _.uniqBy(messages, reduceTurnMarkers)
 
       newState.chatChannel.messages = messages.filter((message) => message.details.channel === newState.chatChannel.name)
@@ -379,6 +376,18 @@ export const playerUiReducer = (state = initialState, action) => {
         }
 
         newState.channels = channels
+      })
+
+      // also look for map related messages
+      action.payload.forEach(msg => {
+        // check it's not an infoType
+        if (!msg.infoType) {
+          // do we have forceDelta in the details
+          if (msg.details && msg.details.forceDelta) {
+            // yes, pass it into the force reducer
+            newState.allForces = modifyForcesBasedOnMessage(newState.allForces, { ...msg.message, details: msg.details })
+          }
+        }
       })
 
       break

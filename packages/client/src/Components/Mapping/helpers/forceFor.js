@@ -1,8 +1,8 @@
-export default function forceFor (/* object */ allForces, /* String */ assetName) {
+export default function forceFor (/* object */ allForces, /* String */ assetId) {
   return allForces.find(force => {
     const assets = force.assets
     if (assets) {
-      return assets.find(asset => asset.name === assetName)
+      return assets.find(asset => asset.uniqid === assetId)
     } else {
       return false
     }

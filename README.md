@@ -21,14 +21,24 @@ In your command line, navigate to the project and then run the following command
 
 This will start the full application in 'demo' mode, you can see the application in action by visiting: [http://localhost:8080](http://localhost:8080).
 
-For front-end developers relying on live rebuilds, they should first follow the above steps, and note the IP address & Port provided by the server script.  Then the `packages\client\.env` file should be mofidied, by using the server address for `REACT_APP_SERVER_PATH`.  The `https` should probably also be modified to `http`, too.
+## Front-end development
 
-Once the above configuration has happened, the client app can be started with
+For front-end developers relying on live rebuilds, they should first follow the above steps, and note the IP address & Port provided by the server script. Note: leave that Serge process running.
+
 
 ```base
   yarn start:client
 ```
 
+This will start the front-end server.  The development environment will start up, and after a few seconds the browser page will open at something like `localhost:3000`.  The IP address for the backend server should be appended to this, so the URL looks like: `http://localhost:3000/?host=http://192.168.1.115:8080`. 
+
+## Quick access to games & roles
+
+Again for developers, there are convenient ways of going directly into a particular wargame, registered as a particular user. This is through the user of the `wargame` and `access` URL parameters, like this:
+
+```base
+http://localhost:3000/?wargame=wargame-k5kw38gf&access=p5543
+```
 
 ## Monorepo & package management
 

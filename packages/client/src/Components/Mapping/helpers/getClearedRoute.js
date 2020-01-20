@@ -1,6 +1,6 @@
 /**  a route has been planned, but the user wishes to start again. clear it */
-const submitClearWholeRoute = () => {
+const getClearedRoute = () => {
   return []
 }
 
-export default submitClearWholeRoute
+export default getClearedRoute

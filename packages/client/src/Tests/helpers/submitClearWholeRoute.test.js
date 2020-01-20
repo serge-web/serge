@@ -1,7 +1,7 @@
 /* global expect it */
 
-import submitClearWholeRoute from '../../Components/Mapping/helpers/submitClearWholeRoute'
+import getClearedRoute from '../../Components/Mapping/helpers//getClearedRoute'
 
 it('Correctly returns an empty array', () => {
-  expect(submitClearWholeRoute()).toEqual([])
+  expect(getClearedRoute()).toEqual([])
 })
