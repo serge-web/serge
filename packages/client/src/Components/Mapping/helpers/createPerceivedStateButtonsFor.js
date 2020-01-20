@@ -7,7 +7,7 @@ import { UMPIRE_FORCE } from '../../../consts'
 export default function createPerceivedStateButtonsFor (/* object */asset, /* string */ myForce, /* array strings */ allForces,
   /* array string */ platformTypes, /* object */ context, /* function */ callback, /* array */ existingButtons) {
   if (existingButtons) {
-    existingButtons.forEach(button => button.remove)
+    existingButtons.forEach(button => button.remove())
   }
   const allBtns = [] // maintain full list of buttons, in case UI wants to..
 

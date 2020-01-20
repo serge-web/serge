@@ -117,8 +117,6 @@ export const playerUiReducer = (state = initialState, action) => {
     const assetIndex = allForces[forceIndex].assets.findIndex(item => item.name === message.name)
     if (assetIndex === -1) return allForces
     // set the location
-    const { position } = allForces[forceIndex].assets[assetIndex]
-    console.log('asset moved from:' + position + ' to:' + message.position)
     allForces[forceIndex].assets[assetIndex].position = message.position
     return allForces
   }
@@ -378,6 +376,18 @@ export const playerUiReducer = (state = initialState, action) => {
         }
 
         newState.channels = channels
+      })
+
+      // also look for map related messages
+      action.payload.forEach(msg => {
+        // check it's not an infoType
+        if (!msg.infoType) {
+          // do we have forceDelta in the details
+          if (msg.details && msg.details.forceDelta) {
+            // yes, pass it into the force reducer
+            newState.allForces = modifyForcesBasedOnMessage(newState.allForces, { ...msg.message, details: msg.details })
+          }
+        }
       })
 
       break

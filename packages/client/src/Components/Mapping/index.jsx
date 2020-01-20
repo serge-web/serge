@@ -217,7 +217,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       // check if clear listeners present
       if (currentPhaseModeRef.current.clearListeners) {
         // detatch the current listener
-        currentPhaseModeRef.current.clearListeners()
+        currentPhaseModeRef.current.clearListeners(platformsLayerRef.current)
       }
 
       // ditch the listener
@@ -308,6 +308,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const visibleToMe = assetsVisibleToMe(allForces, selectedForce)
     const foundItems = []
     const toDelete = []
+
+    const userIsUmpire = myForceRef.current === 'umpire'
+
     markers.eachLayer(marker => {
       const uniqid = marker.asset.uniqid
       var found = visibleToMe.find(item => item.uniqid === uniqid)
@@ -316,9 +319,11 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         foundItems.push(uniqid)
 
         const asset = findAsset(allForces, marker.asset.uniqid)
+        if (!asset.force) {
+          asset.force = forceFor(allForces, asset.uniqid)
+        }
 
         // also check it's formatted correctly
-        const userIsUmpire = myForceRef.current === 'umpire'
         const perceptionClassName = findPerceivedAsClasses(perceiveAsForceRef.current, asset.force,
           asset.platformType, asset.perceptions, userIsUmpire)
 
@@ -330,6 +335,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
           L.DomUtil.addClass(marker._icon, perceptionClassName)
         }
       } else {
+        // ok, it's no longer visible to me. hide it
         marker.remove()
         toDelete.push(marker)
       }
