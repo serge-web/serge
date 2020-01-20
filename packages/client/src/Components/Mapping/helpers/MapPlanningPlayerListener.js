@@ -138,7 +138,9 @@ export default class MapPlanningPlayerListener {
   clearListeners () {
     // ditch the listeners
 
-    // clear the map layer
+    // clear the achievable cells. Note: these weren't added
+    // to our private map layer, so they don't disappear when
+    // we `remove` that layer
     this.clearAchievableCells()
 
     // also drop any command/perceived state buttons
@@ -155,6 +157,7 @@ export default class MapPlanningPlayerListener {
 
     // detach the map
     this.layerPriv.remove()
+    this.layerPriv.clearLayers()
   }
 
   /** the user has finished planning the route for this platform
