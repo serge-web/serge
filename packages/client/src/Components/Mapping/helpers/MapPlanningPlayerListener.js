@@ -146,8 +146,12 @@ export default class MapPlanningPlayerListener {
     this.clearCommandButtons(this.perceivedButtons)
     this.clearCommandButtons(this.planningMarkerButtons)
 
-    this.btnResetFromWaypoint.remove()
-    this.btnSubmitAll.remove()
+    if (this.btnResetFromWaypoint) (
+      this.btnResetFromWaypoint.remove()
+    )
+    if (this.btnSubmitAll) {
+      this.btnSubmitAll.remove()
+    }
 
     // detach the map
     this.layerPriv.remove()
