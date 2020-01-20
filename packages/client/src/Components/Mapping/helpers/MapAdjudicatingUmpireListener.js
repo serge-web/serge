@@ -1,12 +1,12 @@
 import L from 'leaflet'
-import defaultHexStyle from './data/default-hex-style'
+import defaultHexStyle from '../data/default-hex-style'
 import colorFor from './colorFor'
 import declutterMarkers from './declutterMarkers'
-import plannedStateFor from './plannedStateFor'
 
 export default class MapAdjudicatingListener {
-  constructor (map, grid) {
+  constructor (map, grid, planningFormCallback) {
     this.grid = grid
+    this.planningFormCallback = planningFormCallback
 
     // create our two lines, one for planning, one for history
     this.planningLine = L.polyline([], {
@@ -202,41 +202,6 @@ export default class MapAdjudicatingListener {
             draggable: true
           })
 
-          // collate the data ready to send on accept/clear
-          const payload = {
-            force: asset.force,
-            asset: asset.name,
-            turn: marker.name
-          }
-          let popup = '<b>' + marker.asset + ' ' + marker.name + '</b><ul>'
-          popup += 'State:' + marker.state + ' Speed:' + marker.speed + 'kts'
-          popup += '<hr/>'
-
-          // put in the form to set the platform state
-          if (marker.turn >= turnPlannedFor) {
-            // TODO: do we have concept of current speed?  Maybe take from history
-            popup += plannedStateFor(marker.state, 0, asset.platformTypeDetail, asset.platformSpeeds)
-            popup += '<hr/>'
-          }
-          popup += '<ul>'
-          if (marker.turn === turnPlannedFor) {
-            // TODO: handler for this button operation
-            // ok, we can accept the planned route up to here
-            popup += '<li><input type="button" value="Accept to here"></li>'
-            console.log('sending', payload)
-          }
-          if (marker.turn >= turnPlannedFor) {
-            // TODO: handler for this button operation
-            popup += '<li><input type="button" value="Clear from here"></li></ul>'
-          }
-
-          // TODO: create handler callbacks for these 'acceptTo' and 'clearFrom' events
-          turnMarker.bindPopup(popup)
-          turnMarker.bindTooltip(marker.name, {
-            permanent: true,
-            direction: 'right'
-          })
-
           // store the force/asset name
           res.name = asset.force + '_' + asset.name
 
@@ -252,8 +217,11 @@ export default class MapAdjudicatingListener {
     // remember we're listing to it
     this.registeredListeners.push(marker)
 
-    const popupContent = this.assetPopupFpr(marker.asset)
-    marker.bindPopup(popupContent).openPopup()
+    marker.on('click', e => {
+      const orig = e.originalEvent
+      const screenPos = { x: orig.screenX, y: orig.screenY }
+      this.planningFormCallback('AssetPopup', { screenPos })
+    })
 
     marker.on('mouseover', e => {
       // create an id for this marker

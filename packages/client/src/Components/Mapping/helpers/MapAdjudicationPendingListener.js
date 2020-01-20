@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import defaultHexStyle from './data/default-hex-style'
+import defaultHexStyle from '../data/default-hex-style'
 import colorFor from './colorFor'
 
 export default class MapAdjudicationPendingListener {
@@ -126,7 +126,7 @@ export default class MapAdjudicationPendingListener {
         this.callback({
           force: marker.force,
           name: marker.name,
-          pos: this.lastHex.name
+          position: this.lastHex.name
         })
       }
 

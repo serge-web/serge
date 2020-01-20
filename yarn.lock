@@ -9438,7 +9438,19 @@ lcid@^2.0.0:
   dependencies:
     invert-kv "^2.0.0"
 
-leaflet@^1.6.0:
+leaflet-easybutton@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/leaflet-easybutton/-/leaflet-easybutton-2.4.0.tgz#3ad8ad31c9cf6d5ca7a6a1988f82eed13ff2c1af"
+  integrity sha512-O+qsQq4zTF6ds8VClnytobTH/MKalctlPpiA8L+bNKHP14J3lgJpvEd/jSpq9mHTI6qOzRAvbQX6wS6qNwThvg==
+  dependencies:
+    leaflet "^1.0.1"
+
+leaflet.icon.glyph@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/leaflet.icon.glyph/-/leaflet.icon.glyph-0.2.1.tgz#2e1bc790bc459c9a6d36ad50dbc5373ad9d44697"
+  integrity sha512-a4uT38ydOgmrMXmAtAdyNhAfdz5yiTBlVVfZ+SI6f+gPFzdROvAN8b+LgfjTlOU2Jjbq5XvPXI6QKMsxnob+kQ==
+
+leaflet@^1.0.1, leaflet@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.6.0.tgz#aecbb044b949ec29469eeb31c77a88e2f448f308"
   integrity sha512-CPkhyqWUKZKFJ6K8umN5/D2wrJ2+/8UIpXppY7QDnUZW5bZL5+SEI2J7GBpwh4LIupOKqbNSQXgqmrEJopHVNQ==

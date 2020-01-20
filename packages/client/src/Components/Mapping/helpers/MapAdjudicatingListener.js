@@ -1,13 +1,9 @@
 import L from 'leaflet'
-import defaultHexStyle from './data/default-hex-style'
-import plannedStateFor from './plannedStateFor'
-import colorFor from './colorFor'
+import defaultHexStyle from '../data/default-hex-style'
 
-export default class MapPlanningPlayerListener {
-  constructor (map, grid, force, turnCompleteCallback) {
+export default class MapAdjudicatingListener {
+  constructor (map, grid) {
     this.grid = grid
-    this.force = force
-    this.turnCompleteCallback = turnCompleteCallback
 
     // create our two lines, one for planning, one for history
     this.planningLine = L.polyline([], {
@@ -27,38 +23,8 @@ export default class MapPlanningPlayerListener {
     this.lastHex = null // most recent cell travelled through
   }
 
-  plannedModePopupFor (asset) {
-    var popup = '<b>' + asset.name + '</b><br/>'
-    // states
-    // TODO: do we have concept of current speed?  Maybe take from history
-    popup += plannedStateFor(asset.state, 0, asset.platformTypeDetail, asset.platformSpeeds)
-
-    // reset the route
-    popup += '<input type="button" value="Reset Planned Route">'
-
-    // TODO: handler for this planned mode changing
-    popup += '<input type="button" value="Save">'
-
-    return popup
-  }
-
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
-    // is it for the current force?
-    if (marker.asset.force === this.force) {
-      const popupContent = this.plannedModePopupFor(marker.asset)
-      marker.bindPopup(popupContent).openPopup()
-
-      // also give it some remaining allowance
-      const speeds = marker.asset.platformSpeeds
-      if (speeds && speeds.length > 0) {
-        const maxSpeed = speeds[speeds.length - 1]
-        const numCells = maxSpeed / 5
-        marker.allowance = numCells
-        marker.stepRemaining = numCells
-      }
-    }
-
     marker.on('drag', e => {
       const cursorLoc = e.latlng
 
@@ -85,17 +51,22 @@ export default class MapPlanningPlayerListener {
         this.startHex = this.grid.cellFor(cursorLoc)
 
         // limit distance of travel
-        if ('stepRemaining' in marker) {
-          console.log('calc range:', marker)
+        if (marker.stepRemaining) {
           this.achievableCells = this.grid.hexesInRange(this.startHex, marker.stepRemaining)
         } else {
           // nope, allow travel to anywhere
-          console.log('unlimited range:', marker)
           this.achievableCells = this.grid.cells
         }
 
         // set the route-line color
-        const hisColor = colorFor(marker.force)
+        let hisColor
+        if (marker.force === 'Red') {
+          hisColor = '#ff0000'
+        } else if (marker.force === 'Blue') {
+          hisColor = '#000fff'
+        } else if (marker.force === 'Green') {
+          hisColor = '#19bd37'
+        }
         this.planningLine.setStyle({
           color: hisColor
         })
@@ -111,9 +82,6 @@ export default class MapPlanningPlayerListener {
             return cell.sea
           } else if (marker.travelMode === 'air') {
             return true
-          } else {
-            console.error('Unexpected terrain type')
-            return false
           }
         })
 
@@ -202,66 +170,42 @@ export default class MapPlanningPlayerListener {
     })
     marker.on('dragend', e => {
       // ooh, see if it had restricted travel
-      if (marker.allowance) {
-        if (this.routeHexes.length > 0) {
-          // consume some of it
+      if (marker.allowance && this.routeHexes.length > 0) {
+        // consume some of it
 
-          // calculate distance
-          const start = this.routeHexes[0]
-          const end = this.routeHexes[this.routeHexes.length - 1]
-          const distance = start.distance(end)
+        // calculate distance
+        const start = this.routeHexes[0]
+        const end = this.routeHexes[this.routeHexes.length - 1]
+        const distance = start.distance(end)
 
-          marker.stepRemaining -= distance
+        marker.stepRemaining -= distance
 
-          // cheat. if we've consumed distance, give it
-          // another allowance
-          // if (marker.stepRemaining === 0) {
-          //  marker.stepRemaining = marker.allowance
-          // }
+        // cheat. if we've consumed distance, give it
+        // another allowance
+        if (marker.stepRemaining === 0) {
+          marker.stepRemaining = marker.allowance
         }
 
-        // still some more steps to do.
-        if (!marker.priorLegs) {
-          marker.priorLegs = []
+        // add these new cells as history
+        if (!marker.history) {
+          marker.history = []
         }
-        this.routeHexes.forEach(cell => {
-          // if the prior legs don't already contain this, add it
-          if (marker.priorLegs.indexOf(cell) === -1) {
-            marker.priorLegs.push(cell)
-          }
-        })
+        this.routeHexes.forEach(cell => marker.history.push(cell.name))
       }
-
-      // is this the end of this turn?
-      if (marker.stepRemaining === 0) {
-        if (marker.allowance >= 0) {
-          // ok, fire the callback
-          const payload = { force: marker.asset.force, asset: marker.asset.name, route: marker.priorLegs }
-          this.turnCompleteCallback(payload)
-
-          // and do some tidying up
-          delete marker.priorLegs
-
-          // and tell leaflet it's no longer draggable in this turn
-          marker.dragging.disable()
-        }
-
-        // clear the line objects
-        this.routeLats = []
-        this.planningLine.setLatLngs([])
-        this.historyLine.setLatLngs([])
-
-        // clear the shaded cells
-        this.routeHexes.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
-        this.routeHexes = []
-      }
-
-      // clear the achievable cells. if it's an incomplete leg, this list will be shorter
-      this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
-      this.achievableCells = []
 
       // move the marker to the last valid location
       marker.setLatLng(this.lastHex.centrePos)
+
+      // clear the line objects
+      this.routeLats = []
+      this.planningLine.setLatLngs([])
+      this.historyLine.setLatLngs([])
+
+      // clear the shaded cells
+      this.routeHexes.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
+      this.routeHexes = []
+      this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
+      this.achievableCells = []
     })
   }
 }
