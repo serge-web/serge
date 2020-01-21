@@ -11,13 +11,15 @@ export default class MapAdjudicatingPlayerListener {
   listenTo (marker) {
     // is it another force?
     if (marker.asset.force !== this.selectedForce) {
-      // how do we currently perceive him
-      const perception = marker.asset.perceptions[this.selectedForce]
+      marker.on('click', e => {
+        // how do we currently perceive him
+        const perception = marker.asset.perceptions[this.selectedForce]
 
-      console.log('marker perceived as', perception)
-      // ok, popup the dialog
+        console.log('marker perceived as', perception)
+        // ok, popup the dialog
 
-      // if there is a perception, we can pre-select some options
+        // if there is a perception, we can pre-select some options
+      })
     }
   }
 }
