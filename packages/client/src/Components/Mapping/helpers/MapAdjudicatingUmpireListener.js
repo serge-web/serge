@@ -84,6 +84,12 @@ export default class MapAdjudicatingListener {
     this.submitButton.setText('Submit ' + count + ' of ' + total)
   }
 
+  /* create a new state for this set of characteristics
+   */
+  newStateFor (/* element */ asset, /* array routes */ plannedTurns ) {
+
+  }
+
   acceptRoute (asset) {
     // find the data
     const data = this.allPlatforms.find(block => block.asset.uniqid === asset.uniqid)
