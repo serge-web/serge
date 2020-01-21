@@ -24,7 +24,7 @@ export default class MapPlanningPlayerListener {
     this.layerPriv = L.layerGroup().addTo(layer) // the layer we add our items to
     this.map = map // the underlying base-map (required to add/remove toolbar controls)
     this.routeCompleteCallback = routeCompleteCallback
-    this.turn = turn
+    this.turnNumber = turn
     this.platformTypes = platformTypes
     this.declutterCallback = declutterCallback
     this.perceivedStateCallbackPriv = perceivedStateCallback
@@ -49,6 +49,8 @@ export default class MapPlanningPlayerListener {
     this.planningMarkerButtons = []
     this.waypointButtons = []
     this.submitButtons = []
+
+    console.log('player planning, turn:', this.turnNumber)
 
     // store some styling details, once, centrally
     this.rangeStyle = {
@@ -95,7 +97,7 @@ export default class MapPlanningPlayerListener {
   collatePlanningOrders (/* array */routes) {
     const firstAsset = routes.find(route => route.asset != null).asset
     const detail = []
-    const planningFor = this.turn + 1
+    const planningFor = this.turnNumber + 1
     routes.forEach(route => {
       const thisRoute = {}
       thisRoute.uniqid = route.marker.asset.uniqid
@@ -132,8 +134,8 @@ export default class MapPlanningPlayerListener {
     })
     const res = {}
     res.comment = ''
-    res.name = firstAsset.force + ' Plans for ' + turnNameFor(this.turn + 1)
-    res.turn = this.turn + 1
+    res.turn = this.turnNumber + 1
+    res.name = firstAsset.force + ' Plans for ' + turnNameFor(res.turn)
     res.force = firstAsset.force
     res.plannedRoutes = detail
     return res
@@ -503,12 +505,12 @@ export default class MapPlanningPlayerListener {
 
   storeNewPlanningRoute (/* object */ newState, /* array */ hexList) {
     const route = this.currentRoute.current
-    let lastNum = this.turn + 1
+    let lastNum = this.turnNumber + 1
     if (route.length) {
       // ok, we can override the turn number with the most recently planned one
       lastNum = route[route.length - 1].turn + 1
     }
-    console.log('storing route', this.turn, lastNum, newState)
+    console.log('storing route', this.turnNumber, lastNum, newState)
     // note: when we send a planned turn, we only need the state name, not the whole
     // state element
     const newRoute = { speed: newState.speed, turn: lastNum, state: newState.state.name }
