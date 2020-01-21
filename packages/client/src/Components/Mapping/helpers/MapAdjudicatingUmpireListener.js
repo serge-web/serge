@@ -4,6 +4,7 @@ import colorFor from './colorFor'
 import createButton from './createDebugButton'
 import clearButtons from './clearButtons'
 import newStateFromPlannedTurns from './newStateFromPlannedTurns'
+import turnNameFor from './turnNameFor'
 
 export default class MapAdjudicatingListener {
   constructor (map, grid, planningFormCallback, turnNumber) {
@@ -51,6 +52,38 @@ export default class MapAdjudicatingListener {
 
   submitStates () {
     const message = {}
+    const newForceStates = []
+    this.allPlatforms.forEach(data => {
+      const entry = {}
+      const asset = data.asset
+      entry.uniqid = asset.uniqid
+      entry.name = asset.name
+      entry.history = data.newHistory
+      entry.plannedTurns = data.currentPlans
+      entry.newState = data.newState
+      let force
+      if (asset.force) {
+        force = asset.force
+      } else {
+        console.error('can\' find force for:', asset.name)
+        force = ''
+      }
+      let thisForce = newForceStates.find(entry => entry.name === force)
+      if (!thisForce) {
+        thisForce = { name: force }
+        thisForce.assets = []
+        newForceStates.push(thisForce)
+      }
+      thisForce.assets.push(entry)
+    })
+
+    message.name = 'State of World ' + turnNameFor(this.turnNumber)
+    message.comment = ''
+    message.detail = {
+      type: 'StateOfWorld',
+      data: newForceStates
+    }
+
     // collate the message
     this.planningFormCallback(message)
   }
@@ -74,6 +107,7 @@ export default class MapAdjudicatingListener {
     const res = {}
     res.marker = marker
     res.asset = marker.asset
+    res.history = res.asset.history
     res.originalPlans = res.asset.plannedTurns ? res.asset.plannedTurns : []
     res.currentPlans = JSON.parse(JSON.stringify(res.originalPlans))
     res.newState = null
@@ -98,6 +132,12 @@ export default class MapAdjudicatingListener {
   acceptRoute (asset) {
     // find the data
     const data = this.allPlatforms.find(block => block.asset.uniqid === asset.uniqid)
+
+    // capture current state into history
+    const history = data.history ? data.history : []
+    const currentState = { turn: this.turnNumber, state: asset.state, speed: asset.speed, route: asset.route, position: asset.position }
+    history.push(currentState)
+    data.newHistory = history
 
     // update the status
     const newState = newStateFromPlannedTurns(data.currentPlans, data.asset.state, data.asset.position)
