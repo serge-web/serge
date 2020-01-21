@@ -247,7 +247,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
           currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc)
         } else {
           // just use dumb adjudication listener
-          currentPhaseModeRef.current = new MapAdjudicatingPlayerListener(mapRef.current, gridImplRef.current)
+          currentPhaseModeRef.current = new MapAdjudicatingPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current)
         }
         break
       case 'planning':
