@@ -1,18 +1,21 @@
 import React, { useEffect, useRef } from 'react'
 import L from 'leaflet'
-import GridImplementation from './helpers/GridImplementation'
-import MapAdjudicatingUmpireListener from './helpers/MapAdjudicatingUmpireListener'
-import MapAdjudicatingPlayerListener from './helpers/MapAdjudicatingPlayerListener'
-import MapAdjudicationPendingListener from './helpers/MapAdjudicationPendingListener'
-import MapPlanningPlayerListener from './helpers/MapPlanningPlayerListener'
-import MapPlanningUmpireListener from './helpers/MapPlanningUmpireListener'
-import markerFor from './helpers/markerFor'
-import hasPendingForces from './helpers/hasPendingForces'
+import {
+  GridImplementation, MapAdjudicatingUmpireListener, MapAdjudicatingPlayerListener,
+  MapAdjudicationPendingListener,
+  MapPlanningPlayerListener,
+  MapPlanningUmpireListener,
+  markerFor,
+  hasPendingForces,
+  assetsVisibleToMe,
+  MapPopupHelper,
+  findPerceivedAsClasses,
+  declutterLayer,
+  forceFor,
+  findAsset
+} from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS } from '../../consts'
-import assetsVisibleToMe from './helpers/assetsVisibleToMe'
-import forceFor from './helpers/forceFor'
-import findAsset from './helpers/findAsset'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import removeClassNamesFrom from './helpers/removeClassNamesFrom'
@@ -24,8 +27,6 @@ import './styles.scss'
 
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
-import declutterLayer from './helpers/declutterLayer'
-import findPerceivedAsClasses from './helpers/findPerceivedAsClassName'
 import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
 import handlePlansSubmittedChanges from '../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
 import MappingForm from './components/FormContainer'
