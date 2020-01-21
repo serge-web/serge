@@ -4,6 +4,7 @@ import colorFor from './colorFor'
 
 // Import helpers
 import createButton from './createDebugButton'
+import clearButtons from './clearButtons'
 import resetCurrentLeg from './resetCurrentLeg'
 import getClearedRoute from './getClearedRoute'
 import planningRouteFor from './planningRouteFor'
@@ -83,7 +84,7 @@ export default class MapPlanningPlayerListener {
       // collate the data
       const payload = context.collatePlanningOrders(context.allRoutes)
       context.routeCompleteCallback(payload)
-      context.clearButtons(context.submitButtons)
+      clearButtons(context.submitButtons)
     }).addTo(map)
     this.submitButtons.push(this.btnSubmitAll)
 
@@ -493,13 +494,18 @@ export default class MapPlanningPlayerListener {
 
   storeNewPlanningRoute (/* object */ newState, /* array */ hexList) {
     const route = this.currentRoute.current
-    let lastNum = 0
+    let lastNum = this.turn + 1
     if (route.length) {
-      lastNum = route[route.length - 1].turn
+      // ok, we can override the turn number with the most recently planned one
+      lastNum = route[route.length - 1].turn + 1
+      route.forEach(step => {
+        console.log('view', route)
+      })
     }
+    console.log('storing route', this.turn, lastNum)
     // note: when we send a planned turn, we only need the state name, not the whole
     // state element
-    const newRoute = { speed: newState.speed, turn: lastNum + 1, state: newState.state.name }
+    const newRoute = { speed: newState.speed, turn: lastNum, state: newState.state.name }
     if (hexList) {
       newRoute.route = hexList
     }
