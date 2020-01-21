@@ -170,14 +170,11 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }
 
   const createThisMarker = (asset, grid, force) => {
-    // set the asset location
-    asset.loc = grid.hexNamed(asset.position).centrePos
-
     // set the asset force
     asset.force = force.uniqid
 
     const userIsUmpire = myForceRef.current === 'umpire'
-    const marker = markerFor(asset, force.name, myForceRef.current, platformTypesRef.current, userIsUmpire,
+    const marker = markerFor(asset, grid, force.name, myForceRef.current, platformTypesRef.current, userIsUmpire,
       perceiveAsForceRef.current)
 
     // did we create one?
