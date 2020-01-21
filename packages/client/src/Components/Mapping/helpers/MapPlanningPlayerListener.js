@@ -252,9 +252,9 @@ export default class MapPlanningPlayerListener {
 
   resetFromWaypointCallback (e) {
     const context = e.target.context
-    const turnName = turnNameFor(e.target.turnId)
+    const turnName = turnNameFor(e.target.turnId - 1)
     // create the reset button
-    context.btnResetFromWaypoint = createButton(true, 'Reset from ' + turnName, () => {
+    context.btnResetFromWaypoint = createButton(true, 'Clear from ' + turnName, () => {
       context.currentRoute.lightRoutes.remove()
       context.currentRoute.lightRoutes.clearLayers()
       // clear route
@@ -431,7 +431,8 @@ export default class MapPlanningPlayerListener {
       // rebuild route
       const route = context.currentRoute
       route.lightRoutes.remove()
-      route.lightRoutes = context.createPlanningRouteFor(route.current, route.marker.asset, false).addTo(context.layer)
+      route.lightRoutes = context.createPlanningRouteFor(route.current, route.marker.asset, false)
+      context.storeLayer(route.lightRoutes, context)
 
       // ok, we can plan the next leg
       context.updatePlanningStateOnReset(context)
