@@ -131,8 +131,11 @@ export default class MapPlanningPlayerListener {
 
   /** add the layer to the map, and perform a declutter operation */
   storeLayer (/* object */ layer, /* scope */ context) {
-    context.layerPriv.addLayer(layer)
-    context.declutterCallback()
+    // check we have layer
+    if (layer) {
+      context.layerPriv.addLayer(layer)
+      context.declutterCallback()
+    }
   }
 
   /** ditch the data for this listener
@@ -306,7 +309,7 @@ export default class MapPlanningPlayerListener {
       context.clearCommandButtons(context.waypointButtons)
       context.clearCommandButtons(context.planningMarkerButtons)
       context.clearCommandButtons(context.stateButtons)
-      
+
       // no routes, do we know state?
       // nope, we'll have to get it from the player
       // sort out the state commands for this asset
