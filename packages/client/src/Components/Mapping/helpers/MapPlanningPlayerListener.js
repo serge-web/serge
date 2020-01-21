@@ -106,7 +106,12 @@ export default class MapPlanningPlayerListener {
           // should prevent this problem arising in the future
           if (step.turn >= planningFor) {
             const thisStep = {}
-            thisStep.state = step.state.name
+            // in some legacy wargames, state comes through as a construct
+            if (step.state.name) {
+              thisStep.state = step.state.name
+            } else {
+              thisStep.state = step.state
+            }
             thisStep.turn = step.turn
             if (step.speed) {
               thisStep.speed = step.speed
@@ -119,6 +124,10 @@ export default class MapPlanningPlayerListener {
         })
       }
       thisRoute.plannedTurns = plannedTurns
+      if (route.marker.asset.name === 'Dhow-C') {
+        console.log('fisher plans', thisRoute.plannedTurns)
+      }
+
       detail.push(thisRoute)
     })
     const res = {}
@@ -498,11 +507,8 @@ export default class MapPlanningPlayerListener {
     if (route.length) {
       // ok, we can override the turn number with the most recently planned one
       lastNum = route[route.length - 1].turn + 1
-      route.forEach(step => {
-        console.log('view', route)
-      })
     }
-    console.log('storing route', this.turn, lastNum)
+    console.log('storing route', this.turn, lastNum, newState)
     // note: when we send a planned turn, we only need the state name, not the whole
     // state element
     const newRoute = { speed: newState.speed, turn: lastNum, state: newState.state.name }
