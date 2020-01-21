@@ -7,7 +7,7 @@ import './styles.scss'
 const MappingForm = ({ position, type }) => {
   return (
     <section className="mapping-form-container">
-      {type === 'perception'} <Perception></Perception>
+      <Perception></Perception>
     </section>
   )
 }

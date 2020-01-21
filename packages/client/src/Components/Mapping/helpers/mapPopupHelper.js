@@ -15,7 +15,9 @@ class MapPopupHelper {
   }
 
   useComponent (Component) {
-    this.marker.bindPopup(`<div id="${this.uniqKey}"></div>`)
+    this.marker.bindPopup(`<div id="${this.uniqKey}"></div>`, {
+      maxWidth: 'auto'
+    })
     this.component = Component
   }
 

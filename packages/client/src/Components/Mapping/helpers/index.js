@@ -19,7 +19,7 @@ import MapAdjudicatingUmpireListener from './MapAdjudicatingUmpireListener'
 import MapAdjudicationPendingListener from './MapAdjudicationPendingListener'
 import MapPlanningPlayerListener from './MapPlanningPlayerListener'
 import MapPlanningUmpireListener from './MapPlanningUmpireListener'
-import mapPopupHelper from './mapPopupHelper'
+import MapPopupHelper from './mapPopupHelper'
 import markerFor from './markerFor'
 import plannedModePopupFor from './plannedModePopupFor'
 import plannedStateFor from './plannedStateFor'
@@ -51,7 +51,7 @@ export {
   MapAdjudicationPendingListener,
   MapPlanningPlayerListener,
   MapPlanningUmpireListener,
-  mapPopupHelper,
+  MapPopupHelper,
   markerFor,
   plannedModePopupFor,
   plannedStateFor,

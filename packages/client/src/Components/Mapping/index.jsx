@@ -343,6 +343,19 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         marker.remove()
         toDelete.push(marker)
       }
+
+      const helper = new MapPopupHelper(mapRef.current, marker)
+      helper.setStore({ count: 2 })
+      helper.onUpdate(data => {
+        console.log('data from popup', data)
+        if (data.test === 20) {
+          console.log('renderComponent')
+          helper.setStore({ count: 0, show: true, date: Date() })
+        }
+      })
+      helper.useComponent(MappingForm)
+      //  helper.openPopup();
+      helper.renderListener()
     })
     toDelete.forEach(marker => {
       markers.removeLayer(marker)
@@ -360,6 +373,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         createThisMarker(asset, grid, asset.force, false)
       })
     }
+
     //
     // Other diagnostics
     //
@@ -367,7 +381,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
   return (
     <div id="map" className="mapping">
-      <MappingForm type="perception"></MappingForm>
     </div>
   )
 }
