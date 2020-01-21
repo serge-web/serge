@@ -49,7 +49,7 @@ export default class MapAdjudicationPendingListener {
     if (!marker.asset.force) {
       console.error('we\'re getting an asset without a force parameter: ' + marker.asset.name)
     }
-  
+
     // check if it's one of ours, and if it's location is pending
     if (marker.asset.force === this.myForce && marker.asset.state === LOCATION_PENDING) {
       // ok, make it draggable

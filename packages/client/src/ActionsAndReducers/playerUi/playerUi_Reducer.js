@@ -130,7 +130,7 @@ export const playerUiReducer = (state = initialState, action) => {
         return handlePlansSubmittedChanges(message, allForces)
       case STATE_OF_WORLD:
         return handleStateOfWorldChanges(message, allForces)
-        default:
+      default:
         console.error('failed to create player reducer handler for:' + msgType)
         return allForces
     }
