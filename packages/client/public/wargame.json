@@ -479,7 +479,7 @@
 						},
 						"plannedTurns": [
 							{
-								"turn": 1,
+								"turn": 2,
 								"route": [
 									"R22",
 									"Q22"
@@ -488,7 +488,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 2,
+								"turn": 3,
 								"route": [
 									"P21",
 									"O21"
@@ -497,7 +497,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 3,
+								"turn": 4,
 								"route": [
 									"O20",
 									"O19"
@@ -598,7 +598,7 @@
 						},
 						"plannedTurns": [
 							{
-								"turn": 1,
+								"turn": 2,
 								"route": [
 									"H00",
 									"H01",
@@ -609,7 +609,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 2,
+								"turn": 3,
 								"route": [
 									"I04",
 									"I05",
@@ -620,7 +620,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 3,
+								"turn": 4,
 								"route": [
 									"I07",
 									"I08",
@@ -631,7 +631,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 4,
+								"turn": 5,
 								"route": [
 									"I11",
 									"J11",
@@ -642,7 +642,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 5,
+								"turn": 6,
 								"route": [
 									"K14",
 									"L14",
@@ -653,7 +653,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 6,
+								"turn": 7,
 								"route": [
 									"M17",
 									"M18",
@@ -664,7 +664,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 7,
+								"turn": 8,
 								"route": [
 									"O20",
 									"O21",
@@ -675,17 +675,17 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 8,
-								"speed": 0,
-								"state": "Moored"
-							},
-							{
 								"turn": 9,
 								"speed": 0,
 								"state": "Moored"
 							},
 							{
 								"turn": 10,
+								"speed": 0,
+								"state": "Moored"
+							},
+							{
+								"turn": 11,
 								"speed": 0,
 								"state": "Moored"
 							}
@@ -710,12 +710,12 @@
 						},
 						"plannedTurns": [
 							{
-								"turn": 1,
+								"turn": 2,
 								"speed": 0,
 								"state": "Moored"
 							},
 							{
-								"turn": 2,
+								"turn": 3,
 								"route": [
 									"C00",
 									"C01",
@@ -726,7 +726,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 3,
+								"turn": 4,
 								"route": [
 									"C04",
 									"C05",
@@ -737,7 +737,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 4,
+								"turn": 5,
 								"route": [
 									"D07",
 									"E08",
@@ -748,7 +748,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 5,
+								"turn": 6,
 								"route": [
 									"H08",
 									"H09",
@@ -759,7 +759,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 6,
+								"turn": 7,
 								"route": [
 									"I11",
 									"J11",
@@ -770,7 +770,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 7,
+								"turn": 8,
 								"route": [
 									"K14",
 									"L14",
@@ -781,7 +781,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 8,
+								"turn": 9,
 								"route": [
 									"M17",
 									"M18",
@@ -792,7 +792,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 9,
+								"turn": 10,
 								"route": [
 									"O20",
 									"O21",
@@ -803,7 +803,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 10,
+								"turn": 11,
 								"route": [
 									"R22",
 									"S22",
@@ -830,7 +830,7 @@
 						},
 						"plannedTurns": [
 							{
-								"turn": 1,
+								"turn": 2,
 								"route": [
 									"M02",
 									"K03"
@@ -839,7 +839,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 2,
+								"turn": 3,
 								"route": [
 									"J03",
 									"I04"
@@ -848,12 +848,12 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 3,
+								"turn": 4,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"turn": 4,
+								"turn": 5,
 								"route": [
 									"I05",
 									"I06"
@@ -862,7 +862,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 5,
+								"turn": 6,
 								"route": [
 									"I07",
 									"I08"
@@ -871,12 +871,12 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 6,
+								"turn": 7,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"turn": 7,
+								"turn": 8,
 								"route": [
 									"J07",
 									"K07"
@@ -885,7 +885,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 8,
+								"turn": 9,
 								"route": [
 									"L06",
 									"M06"
@@ -894,12 +894,12 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 9,
+								"turn": 10,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"turn": 10,
+								"turn": 11,
 								"route": [
 									"M05",
 									"M04"
@@ -924,7 +924,7 @@
 						},
 						"plannedTurns": [
 							{
-								"turn": 1,
+								"turn": 2,
 								"route": [
 									"N08",
 									"L09"
@@ -933,12 +933,12 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 2,
+								"turn": 3,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"turn": 3,
+								"turn": 4,
 								"route": [
 									"K10",
 									"K09"
@@ -947,7 +947,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 4,
+								"turn": 5,
 								"route": [
 									"K08",
 									"K07"
@@ -956,7 +956,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 5,
+								"turn": 6,
 								"route": [
 									"K06",
 									"M06"
@@ -965,12 +965,12 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 6,
+								"turn": 7,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"turn": 7,
+								"turn": 8,
 								"route": [
 									"N06",
 									"N07"
@@ -979,7 +979,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 8,
+								"turn": 9,
 								"route": [
 									"M08",
 									"L08"
@@ -988,17 +988,17 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 9,
-								"speed": 0,
-								"state": "Fishing"
-							},
-							{
 								"turn": 10,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
 								"turn": 11,
+								"speed": 0,
+								"state": "Fishing"
+							},
+							{
+								"turn": 12,
 								"speed": 0,
 								"state": "Fishing"
 							}
@@ -1023,7 +1023,7 @@
 						},
 						"plannedTurns": [
 							{
-								"turn": 1,
+								"turn": 2,
 								"route": [
 									"N11",
 									"L10"
@@ -1032,7 +1032,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 2,
+								"turn": 3,
 								"route": [
 									"K10",
 									"J09"
@@ -1041,12 +1041,12 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 3,
+								"turn": 4,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"turn": 4,
+								"turn": 5,
 								"route": [
 									"K08",
 									"K07"
@@ -1055,7 +1055,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 5,
+								"turn": 6,
 								"route": [
 									"K06",
 									"M06"
@@ -1064,12 +1064,12 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 6,
+								"turn": 7,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"turn": 7,
+								"turn": 8,
 								"route": [
 									"N06",
 									"N07"
@@ -1078,7 +1078,7 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 8,
+								"turn": 9,
 								"route": [
 									"M08",
 									"L08"
@@ -1087,12 +1087,12 @@
 								"state": "Transiting"
 							},
 							{
-								"turn": 9,
+								"turn": 10,
 								"speed": 0,
 								"state": "Fishing"
 							},
 							{
-								"turn": 10,
+								"turn": 11,
 								"route": [
 									"M09",
 									"N08"
