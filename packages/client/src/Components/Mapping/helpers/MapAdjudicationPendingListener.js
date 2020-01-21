@@ -1,6 +1,7 @@
 import L from 'leaflet'
 import defaultHexStyle from '../data/default-hex-style'
 import colorFor from './colorFor'
+import markerFor from './markerFor'
 
 export default class MapAdjudicationPendingListener {
   constructor (map, grid, callback, myForce) {
@@ -22,7 +23,13 @@ export default class MapAdjudicationPendingListener {
     this.registeredListeners = []
   }
 
-  clearListeners () {
+  clearListeners (markers) {
+    if (markers && markers.eachLayer) {
+      // stop listening to drag events
+      markers.eachLayer(marker => marker.off('drag'))
+      markers.eachLayer(marker => marker.off('dragend'))
+    }
+
     this.registeredListeners.forEach(marker => {
       // next lines commented out, until we've refactored JS into functions
       // marker.off('drag', dragHandler)
@@ -42,8 +49,10 @@ export default class MapAdjudicationPendingListener {
     if (!marker.asset.force) {
       console.error('we\'re getting an asset without a force parameter: ' + marker.asset.name)
     }
+
     if (marker.asset.force === this.myForce) {
       // ok, make it draggable
+      marker.options.draggable = true
 
       // and declare handlers
 

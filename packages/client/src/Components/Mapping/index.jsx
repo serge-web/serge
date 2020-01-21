@@ -221,7 +221,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
           currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, formRequestCallback)
         } else if (inForceLaydown && currentTurnRef.current === 0) {
           // this force has assets with location pending
-          currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc)
+          currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
         } else {
           // just use dumb adjudication listener
           currentPhaseModeRef.current = new MapAdjudicatingPlayerListener(mapRef.current, gridImplRef.current)
