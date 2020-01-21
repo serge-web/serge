@@ -33,12 +33,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const mapRef = useRef(null) // the leaflet map
   const platformsLayerRef = useRef(null) // the platform markers
   const gridImplRef = useRef(null) // hexagonal grid
-  const forcesRef = useRef(allForces) // the current list of forces
   const currentPhaseModeRef = useRef(null)
   const currentPhaseMapRef = useRef(null)
   const myForceRef = useRef(selectedForce)
   const platformTypesRef = useRef(allPlatforms)
-  const currentTurnRef = useRef(currentTurn)
   const perceiveAsForceRef = useRef(selectedForce) // in case white changes how they perceive the data
 
   useEffect(() => {
@@ -182,7 +180,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
     // did we create one?
     if (marker != null) {
-      currentPhaseModeRef.current.listenTo(marker, currentTurnRef.current)
+      currentPhaseModeRef.current.listenTo(marker, currentTurn)
       platformsLayerRef.current.addLayer(marker)
     }
   }
@@ -218,13 +216,13 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     clearControlledAssets()
 
     // create a listener for the new phase
-    const inForceLaydown = hasPendingForces(forcesRef.current, myForceRef.current)
-    const allForces = forcesRef.current.map(force => force.uniqid)
+    const inForceLaydown = hasPendingForces(allForces, myForceRef.currÍent)
+    const forceNames = allForces.map(force => force.uniqid)
     switch (phase) {
       case 'adjudication':
         if (myForceRef.current === 'umpire') {
-          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, newStateOfWorldCallback, currentTurnRef.current)
-        } else if (inForceLaydown && currentTurnRef.current === 0) {
+          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, newStateOfWorldCallback, currentTurn)
+        } else if (inForceLaydown && currentTurn === 0) {
           // this force has assets with location pending
           currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
         } else {
@@ -237,8 +235,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
           currentPhaseModeRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc)
         } else {
           currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
-            myForceRef.current, currentTurnRef.current, routeCompleteCallback,
-            platformTypesRef.current, declutterCallback, perceivedStateCallback, allForces)
+            myForceRef.current, currentTurn, routeCompleteCallback,
+            platformTypesRef.current, declutterCallback, perceivedStateCallback, forceNames)
         }
         break
       default:
@@ -246,7 +244,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     }
 
     // create markers, and listen to them
-    forcesRef.current.forEach(force => {
+    allForces.forEach(force => {
       // see if this force has any assets (white typically doesn't)
       if (force.assets) {
         force.assets.forEach(asset => {
