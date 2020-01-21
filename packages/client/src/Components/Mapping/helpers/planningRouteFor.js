@@ -16,7 +16,7 @@ function lineFor (/* array */ plannedTurns, /* latLng */ start,
   const res = L.layerGroup()
 
   const weight = lightweight && !planningFor ? 2 : 4
-  const dashArray = lightweight ? [1, 4] : [4, 8]
+  const dashArray = lightweight ? [1, 7] : [4, 8]
   const boldLine = L.polyline([], {
     dashArray: dashArray,
     weight: weight,
@@ -164,13 +164,13 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
   }
 
   // do we want to show markers?
+  console.log('labels', lightweight, planningFor, turnId, title)
   if (!lightweight || planningFor === turnId) {
     // also create the divIcon, with the name
     const label = L.divIcon({ html: title, className: 'map-turn-marker', iconSize: [200, 20], iconAnchor: [0, 10] })
     const divMarker = L.marker(location, { icon: label })
     res.addLayer(divMarker)
   }
-  console.log('labels', planningFor, turnId, title)
 
   // TODO we probably should be passing the context (scope) like this
   marker.context = context
@@ -210,7 +210,7 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
             if (minus1) {
               const angle = turnFor(minus2, minus1, current)//, turnNameFor(turn.turn - 1))
               const iconName = bearingMarkerFor(angle)
-              result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId, planningFor))
+              result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
               pendingTurnLocation = false
             }
           }
@@ -238,7 +238,7 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
     if (minus1) {
       const angle = turnFor(minus2, minus1, null)
       const icon = bearingMarkerFor(angle)
-      result.addLayer(createMarker(icon, current, lightweight, pendingTurnName, waypointCallback, context, turnId, planningFor))
+      result.addLayer(createMarker(icon, current, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
       pendingTurnLocation = false
     }
   }
