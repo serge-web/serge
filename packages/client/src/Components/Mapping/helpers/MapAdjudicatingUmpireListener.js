@@ -112,15 +112,21 @@ export default class MapAdjudicatingListener {
     res.originalPlans = res.asset.plannedTurns ? res.asset.plannedTurns : []
     res.currentPlans = JSON.parse(JSON.stringify(res.originalPlans))
     res.newState = null
-    res.lightPlanned = this.createPlanningRouteFor(res.currentPlans, res.asset, true)
+    res.lightPlanned = this.createPlanningRouteFor(res.currentPlans, res.asset, true, true)
     return res
   }
 
-  createPlanningRouteFor (/* array turns */ currentRoutes, /* object */ asset, /* boolean */ lightweight) {
+  createPlanningRouteFor (/* array turns */ currentRoutes, /* object */ asset, /* boolean */ lightweight, /* short */short) {
     const forceColor = colorFor(asset.force)
     const hisLocation = this.grid.hexNamed(asset.position).centrePos
     const context = this
-    return planningRouteFor(currentRoutes, hisLocation, lightweight, this.grid, forceColor, null, this.turnNumber + 1, context)
+
+    // ok, special handling. we will only show the planned route for the next turn
+    // take clone
+    const justNextStep = currentRoutes.length ? [currentRoutes[0]] : []
+    const trimmedRoute = short ? justNextStep : currentRoutes
+
+    return planningRouteFor(trimmedRoute, hisLocation, lightweight, this.grid, forceColor, null, this.turnNumber + 1, context)
   }
 
   updateSubmitButtonLabel () {
@@ -188,22 +194,53 @@ export default class MapAdjudicatingListener {
     marker.on('click', e => {
       clearButtons(context.btnListAccept, context)
 
-      // ok, show the accept route button for this track
-      const acceptTitle = createButton(false, 'Route for ' + marker.asset.name).addTo(context.map)
-      this.btnListAccept.push(acceptTitle)
-      // check it's not already sorted.
-      const hasPlans = context.allPlatforms.find(data => data.asset.uniqid === marker.asset.uniqid && data.newState)
-      if (hasPlans) {
-        const acceptButton = createButton(true, 'Plans already submitted', () => {
-          clearButtons(context.btnListAccept, context)
-        }).addTo(context.map)
-        this.btnListAccept.push(acceptButton)
+      // do we have current?
+      if (context.currentAsset) {
+        // get the construct
+        const data = context.allPlatforms.find(data => data.asset.uniqid === context.currentAsset.uniqid)
+
+        // swap heavy line for light
+        // drop the heavy planned route line
+        data.lightPlanned.remove()
+
+        // and create a light weight one
+        data.lightPlanned = context.createPlanningRouteFor(data.currentPlans, data.asset, true, true)
+        context.showLayer(data.lightPlanned, context)
+      }
+
+      // are we already looking at this marker?
+      if (context.currentAsset && context.currentAsset.uniqid === marker.asset.uniqid) {
+        // ok, clear the flag
+        context.currentAsset = null
       } else {
-        const acceptButton = createButton(true, 'Accept Route', () => {
-          context.acceptRoute(marker.asset)
-          clearButtons(context.btnListAccept, context)
-        }).addTo(context.map)
-        this.btnListAccept.push(acceptButton)
+        // remember the current entry
+        context.currentAsset = marker.asset
+
+        // ok, show the detailed route for this asset
+        const data = context.allPlatforms.find(data => data.asset.uniqid === marker.asset.uniqid)
+        data.lightPlanned.remove()
+
+        // and replace it with heavyweight
+        data.lightPlanned = context.createPlanningRouteFor(data.currentPlans, data.asset, false, false)
+        context.showLayer(data.lightPlanned, context)
+
+        // ok, show the accept route button for this track
+        const acceptTitle = createButton(false, 'Route for ' + marker.asset.name).addTo(context.map)
+        this.btnListAccept.push(acceptTitle)
+        // check it's not already sorted.
+        const hasPlans = context.allPlatforms.find(data => data.asset.uniqid === marker.asset.uniqid && data.newState)
+        if (hasPlans) {
+          const acceptButton = createButton(true, 'Plans already submitted', () => {
+            clearButtons(context.btnListAccept, context)
+          }).addTo(context.map)
+          this.btnListAccept.push(acceptButton)
+        } else {
+          const acceptButton = createButton(true, 'Accept Route', () => {
+            context.acceptRoute(marker.asset)
+            clearButtons(context.btnListAccept, context)
+          }).addTo(context.map)
+          this.btnListAccept.push(acceptButton)
+        }
       }
     })
   }
