@@ -53,6 +53,10 @@ $platforms: frigate, destroyer, mcmv, unknown, agi, fast-attack-craft, uas, merc
   }   
 }
 
+.platform-counter-planned {
+  opacity: 0.5
+}
+
 div.map-turn-marker {
   width: 200px;
   padding-left: 15px;
