@@ -6,10 +6,10 @@ export default (asset, grid, force, myForce, platformTypes, userIsUmpire, /* str
   // can we see this asset?
   var perceptionClassName = findPerceivedAsClassName(myForce, force, asset.platformType, asset.perceptions, userIsUmpire)
 
-  const location = grid.hexNamed(asset.position).centrePos
-
   // can we see it?
   if (perceptionClassName != null) {
+    const location = grid.hexNamed(asset.position).centrePos
+
     const divIcon = L.divIcon({
       iconSize: [40, 40],
       className: perceptionClassName
