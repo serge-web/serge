@@ -1,18 +1,20 @@
 import React, { useEffect, useRef } from 'react'
 import L from 'leaflet'
 import {
-  GridImplementation, MapAdjudicatingUmpireListener, MapAdjudicatingPlayerListener,
+  assetsVisibleToMe,
+  declutterLayer,
+  findAsset,
+  findPerceivedAsClasses,
+  forceFor,
+  GridImplementation,
+  hasPendingForces,
+  MapAdjudicatingPlayerListener,
+  MapAdjudicatingUmpireListener,
   MapAdjudicationPendingListener,
   MapPlanningPlayerListener,
   MapPlanningUmpireListener,
-  markerFor,
-  hasPendingForces,
-  assetsVisibleToMe,
   MapPopupHelper,
-  findPerceivedAsClasses,
-  declutterLayer,
-  forceFor,
-  findAsset
+  markerFor
 } from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS } from '../../consts'
