@@ -29,22 +29,23 @@ export default class MapAdjudicatingListener {
       context.submitStates()
     }).addTo(this.map)
     this.btnListSubmit.push(this.submitButton)
-    this.submitAllButton = createButton(true, 'Accept All states', () => {
+    this.acceptAllButton = createButton(true, 'Accept remaining 0 states', () => {
       context.acceptAllStates()
     }).addTo(this.map)
-    this.btnListSubmit.push(this.submitAllButton)
+    this.btnListSubmit.push(this.acceptAllButton)
   }
 
+  /** accept the planned state for all remaining platforms */
   acceptAllStates () {
-    this.submitAllButton.remove()
+    this.acceptAllButton.remove()
 
     // produce the required state
     this.allPlatforms.forEach(data => {
-      // pull planned route forward to actual
-      this.acceptRoute(data.asset)
-
-      // and update the counter
-      this.updateSubmitButtonLabel()
+      // has it been accepted yet?
+      if (!data.newState) {
+        // pull planned route forward to actual
+        this.acceptRoute(data.asset)
+      }
     })
   }
 
@@ -91,6 +92,7 @@ export default class MapAdjudicatingListener {
     const total = this.allPlatforms.length
     const count = this.allPlatforms.filter(data => data.newState).length
     this.submitButton.setText('Submit ' + count + ' of ' + total)
+    this.acceptAllButton.setText('Accept remaining ' + (total - count) + '')
   }
 
   acceptRoute (asset) {
@@ -106,11 +108,14 @@ export default class MapAdjudicatingListener {
     // create a marker for this platform
     const forceClass = data.asset.force.toLowerCase()
     const typeClass = data.asset.platformType.replace(/ /g, '-').toLowerCase()
-    const iconClass = `platform-counter platform-counter-planned platform-force-${forceClass} platform-type-${typeClass}`
+    const iconClass = `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
     const divIcon = L.divIcon({
       iconSize: [40, 40],
       className: iconClass
     })
+
+    // make the original marker faint
+    L.DomUtil.addClass(data.marker._icon, 'platform-counter-planned')
 
     // ok, drop a new marker, on the new location
     data.planningMarker = L.marker(loc, {
@@ -127,7 +132,7 @@ export default class MapAdjudicatingListener {
   }
 
   /** listen to drag events on the supplied marker */
-  listenTo (marker, currentTurn) {
+  listenTo (marker) {
     // build up the data store for this asset
     const thisData = this.dataFor(marker)
     this.allPlatforms.push(thisData)
