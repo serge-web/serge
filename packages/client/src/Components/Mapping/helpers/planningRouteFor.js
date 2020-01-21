@@ -157,14 +157,16 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
   const marker = L.marker(location, {
     icon: turnIcon, title: title, zIndexOffset: 1000
   })
+
+  // do we register the click handler?
   if (!lightweight) {
+    // do we even have a click handler?
     if (waypointCallback) {
       marker.on('click', waypointCallback)
     }
   }
 
   // do we want to show markers?
-  console.log('labels', lightweight, planningFor, turnId, title)
   if (!lightweight || planningFor === turnId) {
     // also create the divIcon, with the name
     const label = L.divIcon({ html: title, className: 'map-turn-marker', iconSize: [200, 20], iconAnchor: [0, 10] })
