@@ -10,6 +10,9 @@ export default function newStateFromPlannedTurns (/* array routes */ plans, /* s
     if (thisStep.route && thisStep.route.length) {
       // find the end point
       newState.position = thisStep.route[thisStep.route.length - 1]
+
+      // also store the route
+      newState.route = thisStep.route
     } else {
       // not a mobile state, keep the current location
       newState.position = position
