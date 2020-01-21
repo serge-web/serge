@@ -28,6 +28,7 @@ import declutterLayer from './helpers/declutterLayer'
 import findPerceivedAsClasses from './helpers/findPerceivedAsClassName'
 import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
 import handlePlansSubmittedChanges from '../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
+import MappingForm from './components/FormContainer'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
@@ -362,7 +363,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }, [allForces])
 
   return (
-    <div id="map" className="mapping"/>
+    <div id="map" className="mapping">
+      <MappingForm type="perception"></MappingForm>
+    </div>
   )
 }
 export default Mapping
