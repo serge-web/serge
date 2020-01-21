@@ -10,31 +10,62 @@ import lightTurn from '../images/light-turn.png'
 import turnNameFor from './turnNameFor'
 
 function lineFor (/* array */ plannedTurns, /* latLng */ start,
-  /* boolean */ lightweight, /* grid */ grid, /* string */ color) {
-  const weight = lightweight ? 2 : 4
+  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* int */ feintAfter) {
+  // note - we will actually start with a layer group, in case we're showing 
+  // a bold line and a feint line
+  const res = L.layerGroup()
+
+  const weight = lightweight && !feintAfter ? 2 : 4
   const dashArray = lightweight ? [1, 4] : [4, 8]
-  const polyLine = L.polyline([], {
+  const boldLine = L.polyline([], {
     dashArray: dashArray,
     weight: weight,
     color: color
   })
-  const latLongs = [start]
+  const feintLine = L.polyline([], {
+    dashArray: dashArray,
+    weight: 2,
+    color: color
+  })
+
+  const boldLatLongs = [start]
+  const feintLatLongs = []
+  let lastPos = null
   plannedTurns.forEach(turn => {
+    const list = feintAfter && feintAfter >= turn.turn ? boldLatLongs : feintLatLongs
     // loop through the routes
+    console.log('points', feintAfter, turn.turn)
     if (turn.route) {
       // loop through the steps in this route
       turn.route.forEach(step => {
         const ptHex = grid.hexNamed(step)
         if (ptHex) {
           const location = ptHex.centrePos
-          latLongs.push(location)
+          // is this the first feint line?
+          if (list.length === 0) {
+            if (lastPos) {
+              list.push(lastPos)
+            } else {
+              list.push(start)
+            }            
+          }
+          list.push(location)
+          lastPos = location
         }
       })
     }
   })
-  polyLine.setLatLngs(latLongs)
+  if (boldLatLongs.length > 0) {
+    boldLine.setLatLngs(boldLatLongs)
+    res.addLayer(boldLine)
+  }
+  boldLine.setLatLngs(boldLatLongs)
+  if (feintLatLongs.length > 0) {
+    feintLine.setLatLngs(feintLatLongs)
+    res.addLayer(feintLine)
+  }
 
-  return polyLine
+  return res
 }
 
 function bearingBetween (/* latLng */ p1, /* latLng */ p2) {
@@ -128,8 +159,9 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
     icon: turnIcon, title: title, zIndexOffset: 1000
   })
   if (!lightweight) {
-    marker.on('click', waypointCallback)
-    marker.bindPopup(title).openPopup() // note: this won't work - we can't do it until the marker is on the map
+    if (waypointCallback) {
+      marker.on('click', waypointCallback)
+    }
     // also create the divIcon, with the name
     const label = L.divIcon({ html: title, className: 'map-turn-marker', iconSize: [200, 20], iconAnchor: [0, 10] })
     const divMarker = L.marker(location, { icon: label })
@@ -212,11 +244,11 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
 /** create a Leaflet elememt for this set of routes
   */
 export default function planningRouteFor (/* array */ plannedTurns, /* latLng */ start,
-  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* function */ waypointCallback, /* object */ context) {
+  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* function */ waypointCallback, /* int */ feintAfter, /* object */ context) {
   const thisLayer = L.layerGroup()
 
   // start with the line
-  const theLine = lineFor(plannedTurns, start, lightweight, grid, color)
+  const theLine = lineFor(plannedTurns, start, lightweight, grid, color, feintAfter)
 
   // set the styling
   theLine.color = color
