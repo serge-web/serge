@@ -1,40 +1,20 @@
 import L from 'leaflet'
+import findPerceivedAsClassName from './findPerceivedAsClassName'
 
 /** create a marker for the supplied set of details */
-export default (asset, force, myForce, platformTypes, assetIsDraggable, userIsUmpire) => {
-  /** utility function to determine how we perceive another platform.
-   * if it's our force, we know it's one of ours. But if it isn't our force
-   * we need to see how it is perceived by our force
-   */
-  function findPerceivedForce (myForce, hisForce, hisType, hisPerceptions) {
-    var perception
-    if (myForce === hisForce || userIsUmpire) {
-      perception = { force: hisForce, type: hisType }
-    } else {
-      const hisPerception = hisPerceptions[myForce]
-      if (hisPerception != null) {
-        perception = { force: hisPerception.force, type: hisPerception.type }
-      } else {
-        perception = null
-      }
-    }
-    return perception
-  }
-
+export default (asset, force, myForce, platformTypes, assetIsDraggable, userIsUmpire, /* string */ perceiveAs) => {
   // can we see this asset?
-  var perception = findPerceivedForce(myForce, force, asset.platformType, asset.perceptions)
+  var perceptionClassName = findPerceivedAsClassName(myForce, force, asset.platformType, asset.perceptions, userIsUmpire)
 
   // can we see it?
-  if (perception != null) {
-    const forceClass = perception.force.toLowerCase()
-    const typeClass = perception.type.replace(/ /g, '-').toLowerCase()
+  if (perceptionClassName != null) {
     const divIcon = L.divIcon({
       iconSize: [40, 40],
-      className: `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
+      className: perceptionClassName
     })
     const res = L.marker(
       asset.loc, {
-        draggable: assetIsDraggable,
+        draggable: assetIsDraggable, // TODO: move away from making the asset draggable in here
         icon: divIcon
       }
     )
