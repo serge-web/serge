@@ -27,7 +27,6 @@ import './leaflet.zoomhome.js'
 import declutterLayer from './helpers/declutterLayer'
 import findPerceivedAsClasses from './helpers/findPerceivedAsClassName'
 import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
-import handlePlansSubmittedChanges from '../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map

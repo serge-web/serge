@@ -11,7 +11,7 @@ import turnNameFor from './turnNameFor'
 
 function lineFor (/* array */ plannedTurns, /* latLng */ start,
   /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* int */ planningFor) {
-  // note - we will actually start with a layer group, in case we're showing 
+  // note - we will actually start with a layer group, in case we're showing
   // a bold line and a feint line
   const res = L.layerGroup()
 
@@ -46,7 +46,7 @@ function lineFor (/* array */ plannedTurns, /* latLng */ start,
               list.push(lastPos)
             } else {
               list.push(start)
-            }            
+            }
           }
           list.push(location)
           lastPos = location

@@ -3,6 +3,7 @@ import planningRouteFor from './planningRouteFor'
 import colorFor from './colorFor'
 import createButton from './createDebugButton'
 import clearButtons from './clearButtons'
+import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 
 export default class MapAdjudicatingListener {
   constructor (map, grid, planningFormCallback, turnNumber) {
@@ -84,38 +85,12 @@ export default class MapAdjudicatingListener {
     this.submitButton.setText('Submit ' + count + ' of ' + total)
   }
 
-  /* create a new state for this set of characteristics
-   */
-  newStateFor (/* element */ asset, /* array routes */ plannedTurns ) {
-
-  }
-
   acceptRoute (asset) {
     // find the data
     const data = this.allPlatforms.find(block => block.asset.uniqid === asset.uniqid)
 
-    const plans = data.currentPlans
-
     // update the status
-    const newState = {}
-    if (plans && plans.length > 0) {
-      // ok get the first item off the route
-      const thisStep = data.currentPlans.shift()
-
-      newState.state = thisStep.state
-
-      if (thisStep.route && thisStep.route.length) {
-        // find the end point
-        newState.position = thisStep.route[thisStep.route.length - 1]
-      } else {
-        // not a mobile state, keep the current location
-        newState.position = data.asset.position
-      }
-    } else {
-      // just keep the current state
-      newState.state = data.asset.state
-      newState.position = data.asset.position
-    }
+    const newState = newStateFromPlannedTurns(data.currentPlans, data.asset.state, data.asset.position)
 
     // get the coords for the current location
     const loc = this.grid.hexNamed(newState.position).centrePos
@@ -145,7 +120,6 @@ export default class MapAdjudicatingListener {
 
   /** listen to drag events on the supplied marker */
   listenTo (marker, currentTurn) {
-
     // build up the data store for this asset
     const thisData = this.dataFor(marker)
     this.allPlatforms.push(thisData)
