@@ -278,7 +278,7 @@ export default class MapPlanningPlayerListener {
     const forceColor = colorFor(asset.force)
     const hisLocation = this.grid.hexNamed(asset.position).centrePos
     const context = this
-    return planningRouteFor(currentRoutes, hisLocation, lightweight, this.grid, forceColor, this.resetFromWaypointCallback, context)
+    return planningRouteFor(currentRoutes, hisLocation, lightweight, this.grid, forceColor, this.resetFromWaypointCallback, null, context)
   }
 
   /** user has used either the command buttons, or the popup dialog to choose a new platform state */
