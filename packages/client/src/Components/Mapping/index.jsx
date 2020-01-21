@@ -216,7 +216,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     clearControlledAssets()
 
     // create a listener for the new phase
-    const inForceLaydown = hasPendingForces(allForces, myForceRef.currÍent)
+    const inForceLaydown = hasPendingForces(allForces, myForceRef.current)
     const forceNames = allForces.map(force => force.uniqid)
     switch (phase) {
       case 'adjudication':
