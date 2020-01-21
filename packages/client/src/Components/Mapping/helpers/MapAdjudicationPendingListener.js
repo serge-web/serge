@@ -2,6 +2,7 @@ import L from 'leaflet'
 import defaultHexStyle from '../data/default-hex-style'
 import colorFor from './colorFor'
 import markerFor from './markerFor'
+import { LOCATION_PENDING } from '../../../consts'
 
 export default class MapAdjudicationPendingListener {
   constructor (map, grid, callback, myForce) {
@@ -49,16 +50,13 @@ export default class MapAdjudicationPendingListener {
     if (!marker.asset.force) {
       console.error('we\'re getting an asset without a force parameter: ' + marker.asset.name)
     }
-
-    if (marker.asset.force === this.myForce) {
+  
+    // check if it's one of ours, and if it's location is pending
+    if (marker.asset.force === this.myForce && marker.asset.state === LOCATION_PENDING) {
       // ok, make it draggable
       marker.options.draggable = true
 
       // and declare handlers
-
-      // TODO: refactor these two handler into named methods so that they can be registered using
-      // marker.on('drag', dragHandler)
-      // this allows us to subsequently call marker.off('drag', dragHandler), etc
       marker.on('drag', e => {
         const cursorLoc = e.latlng
 
