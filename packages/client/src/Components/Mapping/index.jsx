@@ -9,7 +9,7 @@ import MapPlanningUmpireListener from './helpers/MapPlanningUmpireListener'
 import markerFor from './helpers/markerFor'
 import hasPendingForces from './helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS } from '../../consts'
+import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD } from '../../consts'
 import assetsVisibleToMe from './helpers/assetsVisibleToMe'
 import forceFor from './helpers/forceFor'
 import findAsset from './helpers/findAsset'
@@ -27,6 +27,7 @@ import './leaflet.zoomhome.js'
 import declutterLayer from './helpers/declutterLayer'
 import findPerceivedAsClasses from './helpers/findPerceivedAsClassName'
 import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
+import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
@@ -160,8 +161,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const clearControlledAssets = () => {
   }
 
-  const formRequestCallback = (form, payload) => {
-    console.log('Popup form requested for:', form, payload)
+  const newStateOfWorldCallback = (payload) => {
+    sendMessage(STATE_OF_WORLD, payload)
+    // also call the reducer ourselves
+    handleStateOfWorldChanges(payload, allForces)
   }
 
   // run the declutter algorithm, to distribute markers around a cell if necessary
@@ -220,7 +223,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     switch (phase) {
       case 'adjudication':
         if (myForceRef.current === 'umpire') {
-          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, formRequestCallback, currentTurnRef.current)
+          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, newStateOfWorldCallback, currentTurnRef.current)
         } else if (inForceLaydown && currentTurnRef.current === 0) {
           // this force has assets with location pending
           currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)

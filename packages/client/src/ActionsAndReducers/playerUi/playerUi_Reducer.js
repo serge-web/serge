@@ -3,6 +3,7 @@ import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
 import handleVisibilityChanges from './helpers/handleVisibilityChanges'
 import handlePerceptionChange from './helpers/handlePerceptionChanges'
+import handleStateOfWorldChanges from './helpers/handleStateOfWorldChanges'
 import {
   CHAT_CHANNEL_ID,
   expiredStorage,
@@ -10,7 +11,8 @@ import {
   FORCE_LAYDOWN,
   VISIBILIY_CHANGES,
   PERCEPTION_OF_CONTACT,
-  SUBMIT_PLANS
+  SUBMIT_PLANS,
+  STATE_OF_WORLD
 } from '../../consts'
 import _ from 'lodash'
 import uniqId from 'uniqid'
@@ -137,7 +139,9 @@ export const playerUiReducer = (state = initialState, action) => {
         return handlePerceptionChange(message, allForces)
       case SUBMIT_PLANS:
         return handlePlansSubmittedChanges(message, allForces)
-      default:
+      case STATE_OF_WORLD:
+        return handleStateOfWorldChanges(message, allForces)
+        default:
         console.error('failed to create player reducer handler for:' + msgType)
         return allForces
     }

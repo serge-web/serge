@@ -77,7 +77,8 @@ export default class MapAdjudicatingListener {
       thisForce.assets.push(entry)
     })
 
-    message.name = 'State of World ' + turnNameFor(this.turnNumber)
+    message.turn = this.turnNumber + 1
+    message.name = 'State of World ' + turnNameFor(message.turn)
     message.comment = ''
     message.detail = {
       type: 'StateOfWorld',
