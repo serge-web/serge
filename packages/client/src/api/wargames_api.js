@@ -5,6 +5,7 @@ import PouchDB from 'pouchdb'
 import { fetch } from 'whatwg-fetch'
 import deepCopy from '../Helpers/copyStateHelper'
 import calcComplete from '../Helpers/calcComplete'
+import handleForceDelta from '../ActionsAndReducers/playerUi/helpers/handleForceDelta'
 import {
   databasePath,
   serverPath,
@@ -694,6 +695,7 @@ export const getWargame = (gamePath) => {
 }
 
 export const createLatestWargameRevision = (dbName, wargameData) => {
+  console.log('wargame', wargameData)
   const copiedData = deepCopy(wargameData)
   delete copiedData._id
   delete copiedData._rev
@@ -811,15 +813,40 @@ export const postNewMessage = (dbName, details, message) => {
 // Copied from postNewMessage cgange and add new logic for Mapping
 // console logs will not works there
 export const postNewMapMessage = (dbName, details, message) => {
-  const db = wargameDbStore.find((db) => db.name === dbName).db
-  db.put({
-    _id: new Date().toISOString(),
-    details,
-    message
-  }).catch((err) => {
-    console.log(err)
-    return err
+  // const db = wargameDbStore.find((db) => db.name === dbName).db
+  // db.put({
+  //   _id: new Date().toISOString(),
+  //   details,
+  //   message
+  // }).catch((err) => {
+  //   console.log(err)
+  //   return err
+  // })
+
+  // also make the modification to the wargame
+  return new Promise((resolve, reject) => {
+    getLatestWargameRevision(dbName)
+      .then((res) => {
+        // apply the reducer to this wargame
+        console.log('latest wargame!', res, details, message)
+
+        const composite = { ...message, details: details }
+
+        res.data.forces.forces = handleForceDelta(composite, res.data.forces.forces)
+
+        console.log('reduced:', res.data.forces.forces, res)
+        
+        return createLatestWargameRevision(dbName, res)
+      })
+      .then((res) => {
+        resolve(res)
+      })
+      .catch((err) => {
+        console.log(err)
+        reject(err)
+      })
   })
+
 }
 
 export const getAllMessages = dbName => {

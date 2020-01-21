@@ -1,23 +1,15 @@
 import ActionConstant from '../ActionConstants'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import handleVisibilityChanges from './helpers/handleVisibilityChanges'
-import handlePerceptionChange from './helpers/handlePerceptionChanges'
-import handleStateOfWorldChanges from './helpers/handleStateOfWorldChanges'
-import handleForceLaydownChanges from './helpers/handleForceLaydownChanges'
+import handleForceDelta from './helpers/handleForceDelta'
+
 import {
   CHAT_CHANNEL_ID,
   expiredStorage,
-  LOCAL_STORAGE_TIMEOUT,
-  FORCE_LAYDOWN,
-  VISIBILIY_CHANGES,
-  PERCEPTION_OF_CONTACT,
-  SUBMIT_PLANS,
-  STATE_OF_WORLD
+  LOCAL_STORAGE_TIMEOUT
 } from '../../consts'
 import _ from 'lodash'
 import uniqId from 'uniqid'
-import handlePlansSubmittedChanges from './helpers/handlePlansSubmittedChanges'
 
 export const initialState = {
   selectedForce: '',
@@ -112,29 +104,6 @@ export const playerUiReducer = (state = initialState, action) => {
     return res
   }
 
-  const handleForceDelta = (/* object */message, /* object */ allForces) => {
-    const msgType = message.details.messageType
-    if (!msgType) {
-      console.error('problem - we need message type in ', message)
-    } else {
-      console.log('Player reducer handling forceDelta:', msgType)
-    }
-    switch (msgType) {
-      case FORCE_LAYDOWN:
-        return handleForceLaydownChanges(message, allForces)
-      case VISIBILIY_CHANGES:
-        return handleVisibilityChanges(message, allForces)
-      case PERCEPTION_OF_CONTACT:
-        return handlePerceptionChange(message, allForces)
-      case SUBMIT_PLANS:
-        return handlePlansSubmittedChanges(message, allForces)
-      case STATE_OF_WORLD:
-        return handleStateOfWorldChanges(message, allForces)
-      default:
-        console.error('failed to create player reducer handler for:' + msgType)
-        return allForces
-    }
-  }
 
   const reduceTurnMarkers = (message) => {
     if (message.infoType) {
