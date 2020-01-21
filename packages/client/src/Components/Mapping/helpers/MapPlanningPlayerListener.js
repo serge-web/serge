@@ -129,8 +129,11 @@ export default class MapPlanningPlayerListener {
 
   /** add the layer to the map, and perform a declutter operation */
   storeLayer (/* object */ layer, /* scope */ context) {
-    context.layerPriv.addLayer(layer)
-    context.declutterCallback()
+    // check we have layer
+    if (layer) {
+      context.layerPriv.addLayer(layer)
+      context.declutterCallback()
+    }
   }
 
   /** ditch the data for this listener
@@ -148,9 +151,9 @@ export default class MapPlanningPlayerListener {
     this.clearCommandButtons(this.perceivedButtons)
     this.clearCommandButtons(this.planningMarkerButtons)
 
-    if (this.btnResetFromWaypoint) (
+    if (this.btnResetFromWaypoint) {
       this.btnResetFromWaypoint.remove()
-    )
+    }
     if (this.btnSubmitAll) {
       this.btnSubmitAll.remove()
     }
@@ -431,7 +434,8 @@ export default class MapPlanningPlayerListener {
       // rebuild route
       const route = context.currentRoute
       route.lightRoutes.remove()
-      route.lightRoutes = context.createPlanningRouteFor(route.current, route.marker.asset, false).addTo(context.layer)
+      route.lightRoutes = context.createPlanningRouteFor(route.current, route.marker.asset, false)
+      context.storeLayer(route.lightRoutes, context)
 
       // ok, we can plan the next leg
       context.updatePlanningStateOnReset(context)
