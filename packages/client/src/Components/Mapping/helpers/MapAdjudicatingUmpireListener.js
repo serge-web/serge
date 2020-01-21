@@ -37,7 +37,15 @@ export default class MapAdjudicatingListener {
 
   acceptAllStates () {
     this.submitAllButton.remove()
-    // and update the counter
+
+    // produce the required state
+    this.allPlatforms.forEach(data => {
+      // pull planned route forward to actual
+      this.acceptRoute(data.asset)
+
+      // and update the counter
+      this.updateSubmitButtonLabel()
+    })
   }
 
   submitStates () {
