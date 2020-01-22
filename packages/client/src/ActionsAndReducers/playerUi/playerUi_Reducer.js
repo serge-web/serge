@@ -1,7 +1,6 @@
 import ActionConstant from '../ActionConstants'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import handleForceDelta from './helpers/handleForceDelta'
 
 import {
   CHAT_CHANNEL_ID,
@@ -95,15 +94,6 @@ export const playerUiReducer = (state = initialState, action) => {
     }
     return { isParticipant, allRolesIncluded, observing, templates }
   }
-
-  const modifyForcesBasedOnMessage = (allForces, message) => {
-    let res = allForces
-    if (message.details && message.details.forceDelta) {
-      res = handleForceDelta(message, allForces)
-    }
-    return res
-  }
-
 
   const reduceTurnMarkers = (message) => {
     if (message.infoType) {
@@ -278,11 +268,6 @@ export const playerUiReducer = (state = initialState, action) => {
         }
       }
 
-      if (action.payload.details && action.payload.details.forceDelta) {
-        // ok, this message relates to the wargame forces data changing. Pass
-        // it to the handler
-        newState.allForces = modifyForcesBasedOnMessage(newState.allForces, { ...action.payload.message, details: action.payload.details })
-      }
       break
 
     case ActionConstant.SET_ALL_MESSAGES:
@@ -339,19 +324,7 @@ export const playerUiReducer = (state = initialState, action) => {
 
         newState.channels = channels
       })
-
-      // also look for map related messages
-      action.payload.forEach(msg => {
-        // check it's not an infoType
-        if (!msg.infoType) {
-          // do we have forceDelta in the details
-          if (msg.details && msg.details.forceDelta) {
-            // yes, pass it into the force reducer
-            newState.allForces = modifyForcesBasedOnMessage(newState.allForces, { ...msg.message, details: msg.details })
-          }
-        }
-      })
-
+    
       break
 
     case ActionConstant.OPEN_MESSAGE:
