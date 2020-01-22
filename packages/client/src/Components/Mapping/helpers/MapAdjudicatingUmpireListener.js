@@ -95,6 +95,11 @@ export default class MapAdjudicatingListener {
   clearListeners (markers) {
     this.btnListAccept = clearButtons(this.btnListAccept)
     this.btnListSubmit = clearButtons(this.btnListSubmit)
+
+    // drop any markers we've created
+    this.layerMarkers.clearLayers()
+    // and the top level layer
+    this.layerPriv.clearLayers()
   }
 
   showLayer (layer, context) {
