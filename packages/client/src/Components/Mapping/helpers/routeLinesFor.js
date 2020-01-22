@@ -41,7 +41,7 @@ function lineFor (/* array */ turns, /* latLng */ start,
     turns.forEach(turn => {
       const list = planningFor && planningFor >= turn.turn ? boldLatLongs : feintLatLongs
       // loop through the routes
-      if (turn.route) {
+      if (turn.route && turn.route.length > 0) {
         // loop through the steps in this route
         turn.route.forEach(step => {
           const ptHex = grid.hexNamed(step)
@@ -68,7 +68,6 @@ function lineFor (/* array */ turns, /* latLng */ start,
             list.shift() // clear the start point
             const location = ptHex.centrePos
             list.push(location)
-            list.push(start)
           }
         }
       }
@@ -250,10 +249,10 @@ function markersFor (/* array */ turns, /* latLng */ start,
       } else {
         let location
         let thisTurnName
-        if (turn.location) {
+        if (turn.position) {
           // we're at the start of the data
           thisTurnName = turnNameFor(turn.turn + 1) + ': ' + turn.state + stateSuffix
-          const ptHex = grid.hexNamed(turn.location)
+          const ptHex = grid.hexNamed(turn.position)
           if (ptHex) {
             location = ptHex.centrePos
           }
