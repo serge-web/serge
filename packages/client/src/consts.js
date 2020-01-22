@@ -50,7 +50,7 @@ export const STATE_OF_WORLD = 'StateOfWorld'
 // during development is that the server is stopped.  We're introducing a
 // throttle value to prevent the browser going into a race condition
 // as it sends 1000s of requests to the server
-export const ERROR_THROTTLE = 250
+export const ERROR_THROTTLE = 3000
 
 // Nov 2019. Ian modified the server path to use the
 // current URL, so we can use Heroku to provide
