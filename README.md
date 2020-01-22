@@ -32,6 +32,9 @@ For front-end developers relying on live rebuilds, they should first follow the 
 
 This will start the front-end server.  The development environment will start up, and after a few seconds the browser page will open at something like `localhost:3000`.  The IP address for the backend server should be appended to this, so the URL looks like: `http://localhost:3000/?host=http://192.168.1.115:8080`. 
 
+Note: to get into the backend in admin mode, you may need to use a URL like: 
+`http://localhost:3000/serge/admin?host=http://localhost:8080`
+
 ## Quick access to games & roles
 
 Again for developers, there are convenient ways of going directly into a particular wargame, registered as a particular user. This is through the user of the `wargame` and `access` URL parameters, like this:
