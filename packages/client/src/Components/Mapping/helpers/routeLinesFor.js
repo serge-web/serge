@@ -59,6 +59,18 @@ function lineFor (/* array */ turns, /* latLng */ start,
             lastPos = location
           }
         })
+      } else {
+        // just see if we have a position
+        if (turn.position) {
+          const ptHex = grid.hexNamed(turn.position)
+          if (ptHex) {
+            // special case - this is the first location, before we have a route
+            list.shift() // clear the start point
+            const location = ptHex.centrePos
+            list.push(location)
+            list.push(start)
+          }
+        }
       }
     })
     if (boldLatLongs.length > 0) {
@@ -238,6 +250,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
       } else {
         minus2 = minus1
         minus1 = current
+        console.log('null marker', turn, minus1, turnName)
         // ok, nothing happening. add a static marker
         result.addLayer(createMarker(noTurn, minus1, lightweight, turnName, waypointCallback, context, turnId, planningFor))
 
@@ -279,7 +292,7 @@ export default function routeLinesFor (/* array */ plannedTurns, /* history */ h
 
   // also sort out the markers
   const turnWayInTheFuture = 1000
-  const historyMarkers = markersFor(history, start, lightweight, grid, null, turnWayInTheFuture, context)
+  const historyMarkers = markersFor(history, start, false, grid, null, turnWayInTheFuture, context)
   thisLayer.addLayer(historyMarkers)
 
   // also sort out the markers
