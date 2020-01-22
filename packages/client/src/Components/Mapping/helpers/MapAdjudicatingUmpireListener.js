@@ -25,15 +25,18 @@ export default class MapAdjudicatingListener {
     // keep track of who we're listening to
     this.registeredListeners = []
 
-    const context = this
-    this.submitButton = createButton(true, 'Submit 0 of 0 states', () => {
-      context.submitStates()
-    }).addTo(this.map)
-    this.btnListSubmit.push(this.submitButton)
-    this.acceptAllButton = createButton(true, 'Accept remaining 0 states', () => {
-      context.acceptAllStates()
-    }).addTo(this.map)
-    this.btnListSubmit.push(this.acceptAllButton)
+    // don't show the submit buttons if we're on turn zero
+    if (turnNumber > 0) {
+      const context = this
+      this.submitButton = createButton(true, 'Submit 0 of 0 states', () => {
+        context.submitStates()
+      }).addTo(this.map)
+      this.btnListSubmit.push(this.submitButton)
+      this.acceptAllButton = createButton(true, 'Accept remaining 0 states', () => {
+        context.acceptAllStates()
+      }).addTo(this.map)
+      this.btnListSubmit.push(this.acceptAllButton)
+    }
   }
 
   /** accept the planned state for all remaining platforms */
@@ -91,6 +94,7 @@ export default class MapAdjudicatingListener {
 
   clearListeners (markers) {
     this.btnListAccept = clearButtons(this.btnListAccept)
+    this.btnListSubmit = clearButtons(this.btnListSubmit)
   }
 
   showLayer (layer, context) {
@@ -130,10 +134,13 @@ export default class MapAdjudicatingListener {
   }
 
   updateSubmitButtonLabel () {
-    const total = this.allPlatforms.length
-    const count = this.allPlatforms.filter(data => data.newState).length
-    this.submitButton.setText('Submit ' + count + ' of ' + total)
-    this.acceptAllButton.setText('Accept remaining ' + (total - count) + '')
+    // don't have buttons in turn zero
+    if (this.turnNumber > 0) {
+      const total = this.allPlatforms.length
+      const count = this.allPlatforms.filter(data => data.newState).length
+      this.submitButton.setText('Submit ' + count + ' of ' + total)
+      this.acceptAllButton.setText('Accept remaining ' + (total - count) + '')  
+    }
   }
 
   acceptRoute (asset) {
