@@ -11,6 +11,7 @@ import turnNameFor from './turnNameFor'
 import createStateButtonsFor from './createStateButtonsFor'
 import createPerceivedStateButtonsFor from './createPerceivedStateButtonsFor'
 import roundToNearest from './roundToNearest'
+import findPlatformTypeFor from './findPlatformTypeFor'
 
 // eslint-disable-next-line no-unused-vars
 import glyph from 'leaflet.icon.glyph'
@@ -198,7 +199,7 @@ export default class MapPlanningPlayerListener {
     // clone the planned routes, in case we wish to reset it
     const currentRoutes = JSON.parse(JSON.stringify(plannedTurns))
     const asset = marker.asset
-    const platformType = platformTypes.find(type => type.name === asset.platformType)
+    const platformType = findPlatformTypeFor(platformTypes, asset.platformType)
     const lightRoutes = this.createPlanningRouteFor(currentRoutes, asset, true)
     const res = {
       marker: marker,
@@ -221,7 +222,7 @@ export default class MapPlanningPlayerListener {
       // find the platform-type that matches this state
       const assetState = lastR.state // current asset state
       const platformType = context.currentRoute.marker.asset.platformType // platform state of this asset
-      const pType = context.platformTypes.find(state => state.name === platformType) // matching platform type defn
+      const pType = findPlatformTypeFor(context.platformTypes, platformType) // matching platform type defn
       const pState = pType.states.find(state => state.name === assetState) // state for current route
       if (!pState) {
         console.error('Invalid platform state found:', assetState, ' available:', pType)
@@ -250,7 +251,7 @@ export default class MapPlanningPlayerListener {
       // no routes, do we know state?
       // nope, we'll have to get it from the player
       // sort out the state commands for this asset
-      const pType = context.platformTypes.find(pType => pType.name === marker.asset.platformType)
+      const pType = findPlatformTypeFor(context.platformTypes, marker.asset.platformType)
       context.stateButtons = createStateButtonsFor(pType, marker.asset.name,
         context, context.stateSelectedCallback, context.stateButtons)
     }
@@ -313,7 +314,7 @@ export default class MapPlanningPlayerListener {
       // no routes, do we know state?
       // nope, we'll have to get it from the player
       // sort out the state commands for this asset
-      const pType = context.platformTypes.find(pType => pType.name === marker.asset.platformType)
+      const pType = findPlatformTypeFor(context.platformTypes, marker.asset.platformType)
       context.stateButtons = createStateButtonsFor(pType, marker.asset.name,
         context, context.stateSelectedCallback, context.stateButtons)
     }
@@ -384,7 +385,7 @@ export default class MapPlanningPlayerListener {
           this.platformStateAssigned(this.currentRoute.marker, this.currentRoute.state)
         } else {
           // sort out the state commands for this asset
-          const pType = this.platformTypes.find(pType => pType.name === marker.asset.platformType)
+          const pType = findPlatformTypeFor(this.platformTypes, marker.asset.platformType)
           // clear any existing buttons
           this.clearCommandButtons(this.waypointButtons)
           this.clearCommandButtons(this.planningMarkerButtons)
@@ -485,7 +486,7 @@ export default class MapPlanningPlayerListener {
       clearButtons()
       const marker = context.currentRoute.marker
       // sort out the state commands for this asset
-      const pType = context.platformTypes.find(pType => pType.name === marker.asset.platformType)
+      const pType = findPlatformTypeFor(context.platformTypes, marker.asset.platformType)
       context.stateButtons = createStateButtonsFor(pType, marker.asset.name,
         context, context.stateSelectedCallback, context.stateButtons)
     }).addTo(this.map))
