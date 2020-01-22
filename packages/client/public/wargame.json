@@ -1145,148 +1145,100 @@
 		"dirty": false,
 		"name": "Platform Types",
 		"platformTypes": [{
-			"uuid" : "b45ed424-5336-4dfe-a70b-0f11dfbb47ef",
-					"conditions": [
-						"Working",
-						"Disabled",
-						"Immobile",
-						"Destroyed"
-			],
-			"name": "fishing-vessel",
-			"displayName" : "Fishing vessel",
-					"icon": "fishing-vessel.svg",
-					"speedKts": [
-						5,
-						10,
-						15
-					],
-					"states": {
-						"Fishing": {
-							"mobile": false
-						},
-						"Moored": {
-							"mobile": false
-						},
-						"Transitting": {
-							"mobile": true
-						}
-					},
-					"travelMode": "sea"
-				},
-				{
-			"uuid" : "a4c5d208-b750-4221-9c30-a35c73d0e8bb",
-					"conditions": [
-						"Working",
-						"Disabled",
-						"Immobile",
-						"Destroyed"
-					],
-					"icon": "frigate.svg",
-			"name": "frigate",
-			"displayName": "Frigate",
-					 "speedKts": [
-						5,
-						10,
-						15,
-						20,
-						25
-					],
-					"states": {
-						"Escorting": {
-							"mobile": true
-						},
-						"Pursuing": {
-							"mobile": true
-						},
-						"Transitting": {
-							"mobile": true
-						}
-					},
-					"travelMode": "sea"
-				},
-				{
-			"uuid" : "4d11f58a-3cab-46d8-9826-e5a2a396bba7",
-					"conditions": [
-						"Working",
-						"Disabled",
-						"Immobile",
-						"Destroyed"
-					],
-					"icon": "fixed-wing-aircraft.svg",
-			"name": "fixed-wing-aircraft",
-			"displayName": "Fixed wing aircraft",
-					"speedKts": [],
-					"states": {
-						"Landed": {
-							"mobile": true
-						},
-						"Patrolling": {
-							"mobile": true
-						},
-						"Prosecuting": {
-							"mobile": true
-						},
-						"Searching": {
-							"mobile": true
-						},
-						"Transitting": {
-							"mobile": true
-						}
-					},
-					"travelMode": "air"
-				},
-				{
-			"uuid" : "3553a2a0-9ecc-4d5b-9ae4-06d683cd6d4b",
-					"conditions": [
-						"Working",
-						"Disabled",
-						"Immobile",
-						"Destroyed"
-					],
-					"icon": "coastal-radar-site.svg",
-			"name": "coastal-radar-site",
-			"displayName" : "Coastal radar site",
-					 "states": {
-						"Active": {
-							"mobile": true
-						},
-						"LocationPending": {
-							"mobile": false
-						},
-						"Prosecuting": {
-							"mobile": true
-						}
-					},
-					"travelMode": "land"
-				},
-				{
-			"uuid" : "e4b3725f-f5bd-47cd-8a4b-7a5c4233c613",
-					"conditions": [
-						"Working",
-						"Disabled",
-						"Immobile",
-						"Destroyed"
-					],
-					"icon": "merchant-vessel.svg",
-			"name": "merchant-vessel",
-			"displayName" : "Merchant vessel",
-					"speedKts": [
-						5,
-						10,
-						15,
-						20
-					],
-					"states": {
-						"Moored": {
-							"mobile": false
-						},
-						"Transitting": {
-							"mobile": true
-						}
-					},
-					"travelMode": "sea"
-				}
-			],
-			"selectedType": ""
-		}
+				"name": "Fishing vessel",
+				"conditions": [
+					"Working",
+					"Disabled",
+					"Immobile",
+					"Destroyed"
+				],
+				"icon": "fishing-vessel.svg",
+				"speedKts": [
+					10
+				],
+				"states": [
+					{ "name": "Fishing", "mobile": false },
+					{ "name": "Moored", "mobile": false },
+					{ "name": "Transiting", "mobile": true }
+				],
+				"travelMode": "sea"
+			},
+			{
+				"name": "Frigate",
+				"conditions": [
+					"Working",
+					"Disabled",
+					"Immobile",
+					"Destroyed"
+				],
+				"icon": "frigate.svg",
+				"speedKts": [
+					10,
+					20,
+					30
+				],
+				"states": [
+					{ "name": "Escorting", "mobile": true },
+					{ "name": "Pursuing", "mobile": true },
+					{ "name": "Transiting", "mobile": true }
+				],
+				"travelMode": "sea"
+			},
+			{
+				"name": "Fixed wing aircraft",
+				"conditions": [
+					"Working",
+					"Disabled",
+					"Immobile",
+					"Destroyed"
+				],
+				"icon": "fixed-wing-aircraft.svg",
+				"speedKts": [],
+				"states": [
+					{ "name": "Landed", "mobile": false },
+					{ "name": "Patrolling", "mobile": true },
+					{ "name": "Prosecuting", "mobile": true },
+					{ "name": "Searching", "mobile": true },
+					{ "name": "Transiting", "mobile": true }
+				],
+				"travelMode": "air"
+			},
+			{
+				"name": "Coastal radar site",
+				"conditions": [
+					"Working",
+					"Disabled",
+					"Immobile",
+					"Destroyed"
+				],
+				"icon": "coastal-radar-site.svg",
+				"states": [
+					{ "name": "Active", "mobile": false },
+					{ "name": "LocationPending", "mobile": true },
+					{ "name": "Prosecuting", "mobile": false }
+				],
+				"travelMode": "land"
+			},
+			{
+				"name": "Merchant vessel",
+				"conditions": [
+					"Working",
+					"Disabled",
+					"Immobile",
+					"Destroyed"
+				],
+				"icon": "merchant-vessel.svg",
+				"speedKts": [
+					10,
+					20
+				],
+				"states": [
+					{ "name": "Moored", "mobile": false },
+					{ "name": "Transiting", "mobile": true }
+				],
+				"travelMode": "sea"
+			}
+		],
+		"selectedType": ""
+	}
 }
