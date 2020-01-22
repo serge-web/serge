@@ -15,7 +15,8 @@ import {
   PLANNING_PHASE,
   ADJUDICATION_PHASE,
   MAX_LISTENERS,
-  SERGE_INFO
+  SERGE_INFO,
+  ERROR_THROTTLE
 } from '../consts'
 import {
   setLatestFeedbackMessage,
@@ -43,7 +44,10 @@ const listenNewMessage = ({ db, name, dispatch }) => {
       })()
     })
     .on('error', function (err) {
-      listenNewMessage({ db, name, dispatch, err })
+      // hey, maybe the server is down. introduce a pause
+      setTimeout(e => {
+        listenNewMessage({ db, name, dispatch, err })
+      }, ERROR_THROTTLE)
     })
 }
 
