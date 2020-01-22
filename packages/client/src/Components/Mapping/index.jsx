@@ -281,21 +281,22 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const grid = gridImplRef.current
     //
     // ASSET MOVEMENT
-    //
-    markers.eachLayer(function (marker) {
-      const force = allForces.find(force => marker.force === force.name)
-      if (force && marker.asset) {
-        const asset = force.assets.find(({ name }) => name === marker.asset.name)
-        if (asset) {
-          // check the positions match
-          if (marker.asset.position !== asset.position) {
-            // update marker
-            marker.setLatLng(grid.hexNamed(asset.position).centrePos)
-          }
-        } else {
-        }
-      }
-    })
+    // Note: no, we don't bother updating on movement. Movement is handled when
+    // we move to a new game phase
+    // markers.eachLayer(function (marker) {
+    //   const force = allForces.find(force => marker.force === force.name)
+    //   if (force && marker.asset) {
+    //     const asset = force.assets.find(({ name }) => name === marker.asset.name)
+    //     if (asset) {
+    //       // check the positions match
+    //       if (marker.asset.position !== asset.position) {
+    //         // update marker
+    //         marker.setLatLng(grid.hexNamed(asset.position).centrePos)
+    //       }
+    //     } else {
+    //     }
+    //   }
+    // })
     //
     // ASSET VISIBILITY
     //
