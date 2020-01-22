@@ -51,7 +51,8 @@ export default class MapAdjudicationPendingListener {
     }
 
     // check if it's one of ours, and if it's location is pending
-    if (marker.asset.force === this.myForce && marker.asset.state === LOCATION_PENDING) {
+    const assetIsPending = marker.asset.locationPending || marker.asset.state === LOCATION_PENDING
+    if (marker.asset.force === this.myForce && assetIsPending) {
       // ok, make it draggable
       marker.options.draggable = true
 
