@@ -45,10 +45,9 @@ const listenNewMessage = ({ db, name, dispatch }) => {
     })
     .on('error', function (err) {
       // hey, maybe the server is down. introduce a pause
-      listenNewMessage({ db, name, dispatch, err })
-      // setTimeout(e => {
-      //   listenNewMessage({ db, name, dispatch, err })
-      // }, ERROR_THROTTLE)
+      setTimeout(e => {
+        listenNewMessage({ db, name, dispatch, err })
+      }, ERROR_THROTTLE)
     })
 }
 
