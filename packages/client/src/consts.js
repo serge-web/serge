@@ -46,7 +46,7 @@ export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 export const SUBMIT_PLANS = 'SubmitPlans'
 export const STATE_OF_WORLD = 'StateOfWorld'
 
-// time period to wait if server returns an error. One frequent cause of error
+// NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a
 // throttle value to prevent the browser going into a race condition
 // as it sends 1000s of requests to the server
