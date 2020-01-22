@@ -193,10 +193,10 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
   return res
 }
 
-function markersFor (/* array */ plannedTurns, /* latLng */ start,
+function markersFor (/* array */ turns, /* latLng */ start,
   /* boolean */ lightweight, /* grid */ grid, /* function */ waypointCallback, /* int */ planningFor, /* object */ context) {
   const result = L.layerGroup()
-  if (plannedTurns) {
+  if (turns) {
     let minus1 = start // the start point of the track is used as the 'last point'
     let minus2 = null
     let pendingTurnLocation = null
@@ -204,7 +204,7 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
     let current = start
     let turnId = 0
 
-    plannedTurns.forEach(turn => {
+    turns.forEach(turn => {
       const stateSuffix = turn.speed ? ' @ ' + turn.speed + 'kts' : ''
       const turnName = turnNameFor(turn.turn) + ': ' + turn.state + stateSuffix
       turnId = turn.turn
