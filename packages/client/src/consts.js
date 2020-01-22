@@ -55,6 +55,8 @@ export const serverPath = (
   window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || baseUrl() + '/'
 ).replace(/\/?$/, '/')
 
+console.log('connecting to databaes at:', serverPath)
+
 // export const serverPath = 'http://localhost:8080/';
 /*
 for development just create .env.local file in client folder and add line,
