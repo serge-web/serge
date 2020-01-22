@@ -236,7 +236,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
               if (minus1) {
                 const angle = turnFor(minus2, minus1, current)//, turnNameFor(turn.turn - 1))
                 const iconName = bearingMarkerFor(angle)
-                result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
+                result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName + '_1', waypointCallback, context, turnId - 1, planningFor))
                 pendingTurnLocation = false
               }
             }
@@ -248,13 +248,23 @@ function markersFor (/* array */ turns, /* latLng */ start,
         pendingTurnLocation = current
         pendingTurnName = turnName
       } else {
+        let location
+        let thisTurnName
+        if (turn.location) {
+          // we're at the start of the data
+          thisTurnName = turnNameFor(turn.turn + 1) + ': ' + turn.state + stateSuffix
+          const ptHex = grid.hexNamed(turn.location)
+          if (ptHex) {
+            location = ptHex.centrePos
+          }
+        } else {
+          location = minus1
+          thisTurnName = turnNameFor(turn.turn) + ': ' + turn.state + stateSuffix
+        }
         minus2 = minus1
         minus1 = current
         // ok, nothing happening. add a static marker
-        result.addLayer(createMarker(noTurn, minus1, lightweight, turnName, waypointCallback, context, turnId, planningFor))
-
-        // forget about waiting for more coords
-        pendingTurnLocation = null
+        result.addLayer(createMarker(noTurn, location, lightweight, thisTurnName + '_2', waypointCallback, context, turnId, planningFor))
       }
     })
     // are we waiting to populate a marker?
@@ -264,8 +274,8 @@ function markersFor (/* array */ turns, /* latLng */ start,
       if (minus1) {
         const angle = turnFor(minus2, minus1, null)
         const icon = bearingMarkerFor(angle)
-        result.addLayer(createMarker(icon, current, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
-        pendingTurnLocation = false
+        result.addLayer(createMarker(icon, current, lightweight, pendingTurnName + '_3', waypointCallback, context, turnId - 1, planningFor))
+        pendingTurnLocation = null
       }
     }
   }
