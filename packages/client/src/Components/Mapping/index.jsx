@@ -175,13 +175,25 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     asset.force = force.uniqid
 
     const userIsUmpire = myForceRef.current === 'umpire'
-    const marker = markerFor(asset, grid, force.name, myForceRef.current, platformTypesRef.current, userIsUmpire,
-      perceiveAsForceRef.current)
 
-    // did we create one?
-    if (marker != null) {
-      currentPhaseModeRef.current.listenTo(marker, currentTurn)
-      platformsLayerRef.current.addLayer(marker)
+    // note - if we're in adjudication phase, at turn zero, we don't see assets for other forces
+    let showThis
+    if (phase === 'adjudication' && currentTurn === 0 && !userIsUmpire) {
+      // ok, special mode = we only show our assets in this mode
+      showThis = asset.force === selectedForce
+    } else {
+      // yes, we show markers
+      showThis = true
+    }
+    if (showThis) {
+      const marker = markerFor(asset, grid, force.name, myForceRef.current, platformTypesRef.current, userIsUmpire,
+        perceiveAsForceRef.current)
+
+      // did we create one?
+      if (marker != null) {
+        currentPhaseModeRef.current.listenTo(marker, currentTurn)
+        platformsLayerRef.current.addLayer(marker)
+      }
     }
   }
 
