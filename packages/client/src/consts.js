@@ -45,7 +45,7 @@ export const VISIBILIY_CHANGES = 'VisibilityChanges'
 // current URL, so we can use Heroku to provide
 // review instances of the app.  In these
 // review instances, we can't predict the URL, so
-// were failing CORS test
+// were failing CORS test - note: the next bit may be failing
 export const baseUrl = () => {
   const { hostname, protocol } = window.location
   const host = (new URL(window.location)).searchParams.get('host')
