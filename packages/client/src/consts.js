@@ -49,7 +49,7 @@ export const VISIBILIY_CHANGES = 'VisibilityChanges'
 export const baseUrl = () => {
   const { hostname, protocol } = window.location
   const host = (new URL(window.location)).searchParams.get('host')
-  return host ? host : `${protocol}//${hostname}${DEFAULT_PORT ? `:${DEFAULT_PORT}` : ''}`
+  return host ? host : `${protocol}//${hostname}`
 }
 export const serverPath = (
   window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || baseUrl() + '/'
