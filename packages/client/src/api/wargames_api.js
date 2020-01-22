@@ -813,15 +813,16 @@ export const postNewMessage = (dbName, details, message) => {
 // Copied from postNewMessage cgange and add new logic for Mapping
 // console logs will not works there
 export const postNewMapMessage = (dbName, details, message) => {
-  // const db = wargameDbStore.find((db) => db.name === dbName).db
-  // db.put({
-  //   _id: new Date().toISOString(),
-  //   details,
-  //   message
-  // }).catch((err) => {
-  //   console.log(err)
-  //   return err
-  // })
+  // first, send the message
+  const db = wargameDbStore.find((db) => db.name === dbName).db
+  db.put({
+    _id: new Date().toISOString(),
+    details,
+    message
+  }).catch((err) => {
+    console.log(err)
+    return err
+  })
 
   // also make the modification to the wargame
   return new Promise((resolve, reject) => {
@@ -834,8 +835,6 @@ export const postNewMapMessage = (dbName, details, message) => {
 
         res.data.forces.forces = handleForceDelta(composite, res.data.forces.forces)
 
-        console.log('reduced:', res.data.forces.forces, res)
-        
         return createLatestWargameRevision(dbName, res)
       })
       .then((res) => {
@@ -846,7 +845,6 @@ export const postNewMapMessage = (dbName, details, message) => {
         reject(err)
       })
   })
-
 }
 
 export const getAllMessages = dbName => {
