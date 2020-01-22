@@ -10,7 +10,7 @@ import lightTurn from '../images/light-turn.png'
 import turnNameFor from './turnNameFor'
 
 function lineFor (/* array */ turns, /* latLng */ start,
-  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* int */ planningFor, /* boolean */ highlight, /* boolean */ solid) {
+  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* int */ planningFor, /* boolean */ highlight, /* boolean */ historyTrack) {
   // note - we will actually start with a layer group, in case we're showing
   // a bold line and a feint line
   const res = L.layerGroup()
@@ -22,7 +22,7 @@ function lineFor (/* array */ turns, /* latLng */ start,
   } else {
     weight = lightweight && !planningFor ? 1 : 2
   }
-  const dashArray = solid ? [] : lightweight ? [1, 7] : [4, 8]
+  const dashArray = historyTrack ? [] : lightweight ? [1, 7] : [4, 8]
   const boldLine = L.polyline([], {
     dashArray: dashArray,
     weight: weight,
@@ -39,7 +39,7 @@ function lineFor (/* array */ turns, /* latLng */ start,
     const feintLatLongs = []
     let lastPos = null
     turns.forEach(turn => {
-      const list = planningFor && planningFor >= turn.turn ? boldLatLongs : feintLatLongs
+      const list = (!planningFor) || planningFor >= turn.turn ? boldLatLongs : feintLatLongs
       // loop through the routes
       if (turn.route && turn.route.length > 0) {
         // loop through the steps in this route
@@ -73,6 +73,11 @@ function lineFor (/* array */ turns, /* latLng */ start,
       }
     })
     if (boldLatLongs.length > 0) {
+      // if we're not doing planningFor, it's history - so append current position
+      // see of we're only one item long. If so, we should append the start
+      if (historyTrack) {
+        boldLatLongs.push(start)
+      }
       boldLine.setLatLngs(boldLatLongs)
       res.addLayer(boldLine)
     }
