@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import planningRouteFor from './planningRouteFor'
+import routeLinesFor from './routeLinesFor'
 import colorFor from './colorFor'
 import createButton from './createDebugButton'
 import clearButtons from './clearButtons'
@@ -130,7 +130,7 @@ export default class MapAdjudicatingListener {
     const justNextStep = currentRoutes.length ? [currentRoutes[0]] : []
     const trimmedRoute = short ? justNextStep : currentRoutes
 
-    return planningRouteFor(trimmedRoute, history, hisLocation, lightweight, this.grid, forceColor, null, this.turnNumber + 1, highlight, context)
+    return routeLinesFor(trimmedRoute, history, hisLocation, lightweight, this.grid, forceColor, null, this.turnNumber + 1, highlight, context)
   }
 
   updateSubmitButtonLabel () {

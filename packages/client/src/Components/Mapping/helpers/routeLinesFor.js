@@ -257,7 +257,7 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
 
 /** create a Leaflet elememt for this set of routes
   */
-export default function planningRouteFor (/* array */ plannedTurns, /* history */ history, /* latLng */ start,
+export default function routeLinesFor (/* array */ plannedTurns, /* history */ history, /* latLng */ start,
   /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* function */ waypointCallback, /* int */ planningFor, /* boolean */ highlight, /* object */ context) {
   const thisLayer = L.layerGroup()
 

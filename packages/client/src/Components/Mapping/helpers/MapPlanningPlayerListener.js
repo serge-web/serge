@@ -7,7 +7,7 @@ import createButton from './createDebugButton'
 import clearButtons from './clearButtons'
 import resetCurrentLeg from './resetCurrentLeg'
 import getClearedRoute from './getClearedRoute'
-import planningRouteFor from './planningRouteFor'
+import routeLinesFor from './routeLinesFor'
 import turnNameFor from './turnNameFor'
 import createStateButtonsFor from './createStateButtonsFor'
 import createPerceivedStateButtonsFor from './createPerceivedStateButtonsFor'
@@ -301,7 +301,7 @@ export default class MapPlanningPlayerListener {
     const forceColor = colorFor(asset.force)
     const hisLocation = this.grid.hexNamed(asset.position).centrePos
     const context = this
-    return planningRouteFor(currentRoutes, history, hisLocation, lightweight, this.grid, forceColor, this.resetFromWaypointCallback, null, highlight, context)
+    return routeLinesFor(currentRoutes, history, hisLocation, lightweight, this.grid, forceColor, this.resetFromWaypointCallback, null, highlight, context)
   }
 
   /** user has used either the command buttons, or the popup dialog to choose a new platform state */
