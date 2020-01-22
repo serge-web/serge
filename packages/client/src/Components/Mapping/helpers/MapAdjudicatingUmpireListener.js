@@ -116,11 +116,11 @@ export default class MapAdjudicatingListener {
     res.originalPlans = res.asset.plannedTurns ? res.asset.plannedTurns : []
     res.currentPlans = JSON.parse(JSON.stringify(res.originalPlans))
     res.newState = null
-    res.lightPlanned = this.createPlanningRouteFor(res.currentPlans, res.asset, true, true)
+    res.lightPlanned = this.createPlanningRouteFor(res.currentPlans, res.history, res.asset, true, true, false)
     return res
   }
 
-  createPlanningRouteFor (/* array turns */ currentRoutes, /* object */ asset, /* boolean */ lightweight, /* short */short) {
+  createPlanningRouteFor (/* array turns */ currentRoutes, /* array turns */ history, /* object */ asset, /* boolean */ lightweight, /* short */short, /* boolean */ highlight) {
     const forceColor = colorFor(asset.force)
     const hisLocation = this.grid.hexNamed(asset.position).centrePos
     const context = this
@@ -130,7 +130,7 @@ export default class MapAdjudicatingListener {
     const justNextStep = currentRoutes.length ? [currentRoutes[0]] : []
     const trimmedRoute = short ? justNextStep : currentRoutes
 
-    return planningRouteFor(trimmedRoute, hisLocation, lightweight, this.grid, forceColor, null, this.turnNumber + 1, context)
+    return planningRouteFor(trimmedRoute, history, hisLocation, lightweight, this.grid, forceColor, null, this.turnNumber + 1, highlight, context)
   }
 
   updateSubmitButtonLabel () {
@@ -211,7 +211,7 @@ export default class MapAdjudicatingListener {
         data.lightPlanned.remove()
 
         // and create a light weight one
-        data.lightPlanned = context.createPlanningRouteFor(data.currentPlans, data.asset, true, true)
+        data.lightPlanned = context.createPlanningRouteFor(data.currentPlans, data.asset.history, data.asset, true, true, false)
         context.showLayer(data.lightPlanned, context)
       }
 
@@ -228,7 +228,7 @@ export default class MapAdjudicatingListener {
         data.lightPlanned.remove()
 
         // and replace it with heavyweight
-        data.lightPlanned = context.createPlanningRouteFor(data.currentPlans, data.asset, false, false)
+        data.lightPlanned = context.createPlanningRouteFor(data.currentPlans, data.asset.history, data.asset, false, false, true)
         context.showLayer(data.lightPlanned, context)
 
         // ok, show the accept route button for this track

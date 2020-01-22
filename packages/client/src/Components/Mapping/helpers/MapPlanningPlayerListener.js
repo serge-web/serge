@@ -211,7 +211,7 @@ export default class MapPlanningPlayerListener {
     const currentRoutes = JSON.parse(JSON.stringify(plannedTurns))
     const asset = marker.asset
     const platformType = platformTypes.find(type => type.name === asset.platformType)
-    const lightRoutes = this.createPlanningRouteFor(currentRoutes, asset, true)
+    const lightRoutes = this.createPlanningRouteFor(currentRoutes, marker.asset.history, asset, true, false)
     const res = {
       marker: marker,
       asset: asset,
@@ -279,14 +279,15 @@ export default class MapPlanningPlayerListener {
     const turnName = turnNameFor(e.target.turnId - 1)
     // create the reset button
     const btnResetFromWaypoint = createButton(true, 'Clear from ' + turnName, () => {
-      context.currentRoute.lightRoutes.remove()
-      context.currentRoute.lightRoutes.clearLayers()
+      const route = context.currentRoute
+      route.lightRoutes.remove()
+      route.lightRoutes.clearLayers()
       // clear route
-      context.currentRoute.current = resetCurrentLeg(context.currentRoute.current, e.target.turnId)
+      route.current = resetCurrentLeg(route.current, e.target.turnId)
 
       // rebuild route
-      context.currentRoute.lightRoutes = context.createPlanningRouteFor(context.currentRoute.current, context.currentRoute.marker.asset, false)
-      context.storeLayer(context.currentRoute.lightRoutes, context)
+      route.lightRoutes = context.createPlanningRouteFor(route.current, route.marker.asset.history, route.marker.asset, false, true)
+      context.storeLayer(route.lightRoutes, context)
 
       context.updatePlanningStateOnReset(context)
 
@@ -296,11 +297,11 @@ export default class MapPlanningPlayerListener {
     context.waypointButtons.push(btnResetFromWaypoint)
   }
 
-  createPlanningRouteFor (/* array turns */ currentRoutes, /* object */ asset, /* boolean */ lightweight) {
+  createPlanningRouteFor (/* array turns */ currentRoutes, /* array turns */ history, /* object */ asset, /* boolean */ lightweight, /* boolean */ highlight) {
     const forceColor = colorFor(asset.force)
     const hisLocation = this.grid.hexNamed(asset.position).centrePos
     const context = this
-    return planningRouteFor(currentRoutes, hisLocation, lightweight, this.grid, forceColor, this.resetFromWaypointCallback, null, context)
+    return planningRouteFor(currentRoutes, history, hisLocation, lightweight, this.grid, forceColor, this.resetFromWaypointCallback, null, highlight, context)
   }
 
   /** user has used either the command buttons, or the popup dialog to choose a new platform state */
@@ -368,7 +369,7 @@ export default class MapPlanningPlayerListener {
 
           this.currentRoute.lightRoutes.remove()
           this.currentRoute.lightRoutes.clearLayers()
-          this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, true)
+          this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset.history, this.currentRoute.marker.asset, true, false)
           this.storeLayer(this.currentRoute.lightRoutes, this)
 
           // and the planning bits
@@ -388,7 +389,7 @@ export default class MapPlanningPlayerListener {
         // drop the lightweight route
         this.currentRoute.lightRoutes.remove()
         this.currentRoute.lightRoutes.clearLayers()
-        this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, false)
+        this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset.history, this.currentRoute.marker.asset, false, true)
         this.storeLayer(this.currentRoute.lightRoutes, this)
 
         if (this.currentRoute.state) {
@@ -470,7 +471,7 @@ export default class MapPlanningPlayerListener {
       // rebuild route
       const route = context.currentRoute
       route.lightRoutes.remove()
-      route.lightRoutes = context.createPlanningRouteFor(route.current, route.marker.asset, false)
+      route.lightRoutes = context.createPlanningRouteFor(route.current, route.marker.asset.history, route.marker.asset, false, false)
       context.storeLayer(route.lightRoutes, context)
 
       // ok, we can plan the next leg
@@ -510,7 +511,6 @@ export default class MapPlanningPlayerListener {
       // ok, we can override the turn number with the most recently planned one
       lastNum = route[route.length - 1].turn + 1
     }
-    console.log('storing route', this.turnNumber, lastNum, newState)
     // note: when we send a planned turn, we only need the state name, not the whole
     // state element
     const newRoute = { speed: newState.speed, turn: lastNum, state: newState.state.name }
@@ -522,7 +522,7 @@ export default class MapPlanningPlayerListener {
     // trigger an update of the planning line
     this.currentRoute.lightRoutes.remove()
     this.currentRoute.lightRoutes.clearLayers()
-    this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset, false)
+    this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset.history, this.currentRoute.marker.asset, false, true)
     this.storeLayer(this.currentRoute.lightRoutes, this)
 
     // lastly, update how many planned routes we have

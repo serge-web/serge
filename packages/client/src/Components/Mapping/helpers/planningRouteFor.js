@@ -10,13 +10,19 @@ import lightTurn from '../images/light-turn.png'
 import turnNameFor from './turnNameFor'
 
 function lineFor (/* array */ plannedTurns, /* latLng */ start,
-  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* int */ planningFor) {
+  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* int */ planningFor, /* boolean */ highlight, /* boolean */ solid) {
   // note - we will actually start with a layer group, in case we're showing
   // a bold line and a feint line
   const res = L.layerGroup()
 
-  const weight = lightweight && !planningFor ? 2 : 4
-  const dashArray = lightweight ? [1, 7] : [4, 8]
+  let weight
+  if (highlight) {
+    // just make it a bold track
+    weight = 4
+  } else {
+    weight = lightweight && !planningFor ? 1 : 2
+  }
+  const dashArray = solid ? [] : lightweight ? [1, 7] : [4, 8]
   const boldLine = L.polyline([], {
     dashArray: dashArray,
     weight: weight,
@@ -155,7 +161,9 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
     iconSize: [15, 15]
   })
   const marker = L.marker(location, {
-    icon: turnIcon, title: title, zIndexOffset: 1000
+    icon: turnIcon,
+    title: title,
+    zIndexOffset: 1000
   })
 
   // do we register the click handler?
@@ -249,24 +257,28 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
 
 /** create a Leaflet elememt for this set of routes
   */
-export default function planningRouteFor (/* array */ plannedTurns, /* latLng */ start,
-  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* function */ waypointCallback, /* int */ planningFor, /* object */ context) {
+export default function planningRouteFor (/* array */ plannedTurns, /* history */ history, /* latLng */ start,
+  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* function */ waypointCallback, /* int */ planningFor, /* boolean */ highlight, /* object */ context) {
   const thisLayer = L.layerGroup()
 
-  // start with the line
-  const theLine = lineFor(plannedTurns, start, lightweight, grid, color, planningFor)
+  // past history
+  const historyLine = lineFor(history, start, lightweight, grid, color, planningFor, highlight, true)
+  historyLine.color = color
+  thisLayer.addLayer(historyLine)
 
-  // set the styling
-  theLine.color = color
-
-  thisLayer.addLayer(theLine)
+  //  planned routes
+  const plannedLine = lineFor(plannedTurns, start, lightweight, grid, color, planningFor, highlight, false)
+  plannedLine.color = color
+  thisLayer.addLayer(plannedLine)
 
   // also sort out the markers
-  const markers = markersFor(plannedTurns, start, lightweight, grid, waypointCallback, planningFor, context)
-
-  // also declutter the markers
-
-  thisLayer.addLayer(markers)
+  const turnWayInTheFuture = 1000
+  const historyMarkers = markersFor(history, start, lightweight, grid, null, turnWayInTheFuture, context)
+  thisLayer.addLayer(historyMarkers)
+  
+  // also sort out the markers
+  const futureMarkers = markersFor(plannedTurns, start, lightweight, grid, waypointCallback, planningFor, context)
+  thisLayer.addLayer(futureMarkers)
 
   return thisLayer
 }
