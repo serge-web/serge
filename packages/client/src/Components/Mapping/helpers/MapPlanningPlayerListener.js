@@ -14,8 +14,6 @@ import createPerceivedStateButtonsFor from './createPerceivedStateButtonsFor'
 import roundToNearest from './roundToNearest'
 import findPlatformTypeFor from './findPlatformTypeFor'
 
-// eslint-disable-next-line no-unused-vars
-import glyph from 'leaflet.icon.glyph'
 import findLastRouteWithLocation from './findLastRouteLocation'
 import { PLANNING_PHASE } from '../../../consts'
 
@@ -35,6 +33,8 @@ export default class MapPlanningPlayerListener {
 
     this.routeHexes = [] // hexes representing route
     this.routeLats = [] // lad-lngs for route
+    this.plannedHexes = [] // hexes for whole turn
+    this.plannedLats = [] // lats/longs representing whole turn
 
     this.plannedLegs = [] // collated set of data, ready for transmission
 
@@ -71,7 +71,8 @@ export default class MapPlanningPlayerListener {
       dashArray: [1, 4]
     })
     this.plannedLine = L.polyline([], {
-      color: '#0f0'
+      color: '#ff0',
+      dashArray: [1, 4]
     })
 
     // put them on the map
@@ -455,6 +456,7 @@ export default class MapPlanningPlayerListener {
   clearOnNewLeg () {
     this.routeLats = []
     this.routeHexes = []
+    this.legHexes = []
     this.plannedLegs = []
   }
 
@@ -616,11 +618,13 @@ export default class MapPlanningPlayerListener {
 
       // set the route-line color
       this.updateRouteLineForForce(marker.force, this.routeLine)
+      this.updateRouteLineForForce(marker.force, this.plannedLine)
 
       // handle movement of the planning marker
       this.planningMarker.on('drag', e => {
-        const cursorLoc = e.latlng
-        const cursorHex = this.grid.cellFor(cursorLoc)
+        const rawCursor = e.latlng
+        const cursorHex = this.grid.cellFor(rawCursor)
+        const cursorLoc = cursorHex.centrePos
 
         // is this location safe?
         if (!this.achievableCells.includes(cursorHex)) {
@@ -635,7 +639,6 @@ export default class MapPlanningPlayerListener {
 
         // ok, we have a valid location. clear the existing route
         this.routeLats = [cursorLoc, cursorLoc]
-        this.routeLine.setLatLngs(this.routeLats)
 
         // clear the old cells
         this.routeHexes.forEach(cell => {
@@ -672,9 +675,7 @@ export default class MapPlanningPlayerListener {
           this.routeLats.push(cell.centrePos)
         })
 
-        if (this.routeLats.length > 1) {
-          this.routeLine.setLatLngs(this.routeLats)
-        }
+        this.routeLine.setLatLngs(this.routeLats)
       })
       this.planningMarker.on('dragend', e => {
         const cursorHex = this.lastHex
@@ -690,6 +691,14 @@ export default class MapPlanningPlayerListener {
         // drop the first hex from the list, since that was the start point
         this.routeHexes.shift()
 
+        this.startHex = this.lastHex
+
+        this.plannedHexes = this.plannedHexes.concat(this.routeHexes)
+
+        // extend the planned line
+        this.plannedLats = this.plannedLats.concat(this.routeLats)
+        this.plannedLine.setLatLngs(this.plannedLats)
+
         // ok, determine if we are at the end of a leg
         const len = this.routeHexes.length
 
@@ -697,14 +706,29 @@ export default class MapPlanningPlayerListener {
         // note: we reduce the length by one, so we don't count the starting cell
         marker.planning.remaining -= len
 
+        let stillCellsRemaining = false
+
         // if we have no more leg, push this one, and give us a fresh allowance
         if (marker.planning.remaining === 0 || marker.planning.allowance >= 100) {
           // capture this planned leg
-          const hexList = this.simplifyHexes(this.routeHexes)
+          const hexList = this.simplifyHexes(this.plannedHexes)
           this.storeNewPlanningRoute(newState, hexList)
+
+          this.plannedLine.setLatLngs([])
+          this.routeLine.setLatLngs([])
 
           // update the marker allowance
           marker.planning.remaining = marker.planning.allowance
+
+          // clean up
+          this.startHex = null
+          this.endHex = null
+          this.routeHexes = []
+          this.routeLats = []
+          this.plannedLats = []
+          this.plannedHexes = []
+        } else {
+          stillCellsRemaining = true
         }
 
         // we've finished with these range rings
@@ -713,11 +737,16 @@ export default class MapPlanningPlayerListener {
         // plot the achievable cells for this distance
         this.updateAchievableCellsFor(cursorHex, marker.planning.remaining, marker.travelMode)
 
-        // clean up
-        this.startHex = null
-        this.endHex = null
-        this.routeHexes = []
-        this.routeLats = []
+        if (stillCellsRemaining) {
+          // we're still building up the line. Display the back-route
+          // create temporary structure, it' the route, but also with the start hex
+          const plannedRouteCells = [this.startHex].concat(this.plannedHexes)
+
+          // for the planned hexes, give them route styling
+          plannedRouteCells.forEach(cell => {
+            cell.polygon.setStyle(this.routeStyle)
+          })
+        }
       })
     }
   }
