@@ -46,11 +46,17 @@ export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 export const SUBMIT_PLANS = 'SubmitPlans'
 export const STATE_OF_WORLD = 'StateOfWorld'
 
+// time period to wait if server returns an error. One frequent cause of error
+// during development is that the server is stopped.  We're introducing a
+// throttle value to prevent the browser going into a race condition
+// as it sends 1000s of requests to the server
+export const ERROR_THROTTLE = 3000
+
 // Nov 2019. Ian modified the server path to use the
 // current URL, so we can use Heroku to provide
 // review instances of the app.  In these
 // review instances, we can't predict the URL, so
-// were failing CORS test - note: the next bit may be failing
+// were failing CORS test
 export const baseUrl = () => {
   const { hostname, protocol } = window.location
   const host = (new URL(window.location)).searchParams.get('host')
@@ -59,14 +65,6 @@ export const baseUrl = () => {
 export const serverPath = (
   window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || baseUrl() + '/'
 ).replace(/\/?$/, '/')
-
-
-// export const serverPath = 'http://localhost:8080/';
-/*
-for development just create .env.local file in client folder and add line,
-it's under gitignore and you don't need change this value before every deployment:
-REACT_APP_SERVER_PATH='http://localhost:8080/'
-*/
 
 export const databasePath = `${serverPath}db/`
 
