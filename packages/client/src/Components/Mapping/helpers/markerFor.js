@@ -2,7 +2,7 @@ import L from 'leaflet'
 import findPerceivedAsClassName from './findPerceivedAsClassName'
 
 /** create a marker for the supplied set of details */
-export default (asset, force, myForce, platformTypes, assetIsDraggable, userIsUmpire, /* string */ perceiveAs) => {
+export default (asset, force, myForce, platformTypes, userIsUmpire, /* string */ perceiveAs) => {
   // can we see this asset?
   var perceptionClassName = findPerceivedAsClassName(myForce, force, asset.platformType, asset.perceptions, userIsUmpire)
 
@@ -14,7 +14,7 @@ export default (asset, force, myForce, platformTypes, assetIsDraggable, userIsUm
     })
     const res = L.marker(
       asset.loc, {
-        draggable: assetIsDraggable, // TODO: move away from making the asset draggable in here
+        draggable: false, // the listener controls if something is draggable
         icon: divIcon
       }
     )

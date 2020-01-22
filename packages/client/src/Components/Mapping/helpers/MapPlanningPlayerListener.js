@@ -47,6 +47,7 @@ export default class MapPlanningPlayerListener {
     this.perceivedButtons = []
     this.planningMarkerButtons = []
     this.waypointButtons = []
+    this.submitButtons = []
 
     // store some styling details, once, centrally
     this.rangeStyle = {
@@ -82,8 +83,9 @@ export default class MapPlanningPlayerListener {
       // collate the data
       const payload = context.collatePlanningOrders(context.allRoutes)
       context.routeCompleteCallback(payload)
-      context.btnSubmitAll.remove()
+      context.clearButtons(context.submitButtons)
     }).addTo(map)
+    this.submitButtons.push(this.btnSubmitAll)
 
     // intiialise the button label
     this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
@@ -129,8 +131,11 @@ export default class MapPlanningPlayerListener {
 
   /** add the layer to the map, and perform a declutter operation */
   storeLayer (/* object */ layer, /* scope */ context) {
-    context.layerPriv.addLayer(layer)
-    context.declutterCallback()
+    // check we have layer
+    if (layer) {
+      context.layerPriv.addLayer(layer)
+      context.declutterCallback()
+    }
   }
 
   /** ditch the data for this listener
@@ -147,13 +152,8 @@ export default class MapPlanningPlayerListener {
     this.clearCommandButtons(this.stateButtons)
     this.clearCommandButtons(this.perceivedButtons)
     this.clearCommandButtons(this.planningMarkerButtons)
-
-    if (this.btnResetFromWaypoint) (
-      this.btnResetFromWaypoint.remove()
-    )
-    if (this.btnSubmitAll) {
-      this.btnSubmitAll.remove()
-    }
+    this.clearCommandButtons(this.waypointButtons)
+    this.clearCommandButtons(this.submitButtons)
 
     // detach the map
     this.layerPriv.remove()
@@ -241,6 +241,12 @@ export default class MapPlanningPlayerListener {
     } else {
       // we will have to get state from the player
       const marker = context.currentRoute.marker
+
+      // clear any existing buttons
+      context.clearCommandButtons(context.waypointButtons)
+      context.clearCommandButtons(context.planningMarkerButtons)
+      context.clearCommandButtons(context.stateButtons)
+
       // no routes, do we know state?
       // nope, we'll have to get it from the player
       // sort out the state commands for this asset
@@ -252,9 +258,15 @@ export default class MapPlanningPlayerListener {
 
   resetFromWaypointCallback (e) {
     const context = e.target.context
-    const turnName = turnNameFor(e.target.turnId)
+
+    // clear any state buttons
+    context.clearCommandButtons(context.stateButtons)
+    context.clearCommandButtons(context.waypointButtons)
+    context.clearCommandButtons(context.planningMarkerButtons)
+
+    const turnName = turnNameFor(e.target.turnId - 1)
     // create the reset button
-    context.btnResetFromWaypoint = createButton(true, 'Reset from ' + turnName, () => {
+    const btnResetFromWaypoint = createButton(true, 'Clear from ' + turnName, () => {
       context.currentRoute.lightRoutes.remove()
       context.currentRoute.lightRoutes.clearLayers()
       // clear route
@@ -267,8 +279,9 @@ export default class MapPlanningPlayerListener {
       context.updatePlanningStateOnReset(context)
 
       // lastly, remove the button
-      context.btnResetFromWaypoint.remove()
+      context.clearCommandButtons(context.waypointButtons)
     }).addTo(context.map)
+    context.waypointButtons.push(btnResetFromWaypoint)
   }
 
   createPlanningRouteFor (/* array turns */ currentRoutes, /* object */ asset, /* boolean */ lightweight) {
@@ -291,6 +304,12 @@ export default class MapPlanningPlayerListener {
     if (!state.mobile) {
       // we will have to get state from the player
       const marker = context.currentRoute.marker
+
+      // clear any existing buttons
+      context.clearCommandButtons(context.waypointButtons)
+      context.clearCommandButtons(context.planningMarkerButtons)
+      context.clearCommandButtons(context.stateButtons)
+
       // no routes, do we know state?
       // nope, we'll have to get it from the player
       // sort out the state commands for this asset
@@ -366,6 +385,11 @@ export default class MapPlanningPlayerListener {
         } else {
           // sort out the state commands for this asset
           const pType = this.platformTypes.find(pType => pType.name === marker.asset.platformType)
+          // clear any existing buttons
+          this.clearCommandButtons(this.waypointButtons)
+          this.clearCommandButtons(this.planningMarkerButtons)
+          this.clearCommandButtons(this.stateButtons)
+
           this.stateButtons = createStateButtonsFor(pType, marker.asset.name, this, this.stateSelectedCallback, this.stateButtons)
         }
       })
@@ -425,18 +449,25 @@ export default class MapPlanningPlayerListener {
     const btns = this.planningMarkerButtons
     const context = this
     const clearButtons = function () {
-      context.planningMarkerButtons.forEach(button => button.remove())
+      // clear any existing buttons
+      context.clearCommandButtons(context.waypointButtons)
+      context.clearCommandButtons(context.planningMarkerButtons)
+      context.clearCommandButtons(context.stateButtons)
     }
     const updatePlans = function () {
       // rebuild route
       const route = context.currentRoute
       route.lightRoutes.remove()
-      route.lightRoutes = context.createPlanningRouteFor(route.current, route.marker.asset, false).addTo(context.layer)
+      route.lightRoutes = context.createPlanningRouteFor(route.current, route.marker.asset, false)
+      context.storeLayer(route.lightRoutes, context)
 
       // ok, we can plan the next leg
       context.updatePlanningStateOnReset(context)
     }
     // drop any exisitng buttons
+    clearButtons()
+
+    // now create the new buttons
     btns.push(createButton(false, '[' + this.currentRoute.marker.asset.name + ']').addTo(this.map))
     btns.push(createButton(true, 'Clear all legs', () => {
       clearButtons()

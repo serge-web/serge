@@ -156,10 +156,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     handlePerceptionChanges(perceivedType, allForces)
   }
 
-  /** callback to tell UI that we've got control of a platform in this UI */
-  const declareControlOf = (force, name, platformType) => {
-  }
-
   const routeCompleteCallback = (/* object */payload) => {
     sendMessage(SUBMIT_PLANS, payload)
     // also call the reducer ourselves
@@ -182,34 +178,15 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     // set the asset location
     asset.loc = grid.hexNamed(asset.position).centrePos
 
-    const inForceLaydown = hasPendingForces(forcesRef.current, myForceRef.current)
-
     // set the asset force
     asset.force = force.uniqid
 
-    var assetIsDraggable
-    switch (phase) {
-      case 'adjudication':
-        assetIsDraggable = ((myForceRef.current === 'umpire') || (inForceLaydown && (asset.force === myForceRef.current)))
-        break
-      case 'planning':
-        assetIsDraggable = myForceRef.current !== 'umpire' && asset.force === myForceRef.current
-        break
-      default:
-        console.log('Error - unexpected game phase encountered in Mapping component')
-    }
-
     const userIsUmpire = myForceRef.current === 'umpire'
-    const marker = markerFor(asset, force.name, myForceRef.current, platformTypesRef.current, assetIsDraggable, userIsUmpire,
+    const marker = markerFor(asset, force.name, myForceRef.current, platformTypesRef.current, userIsUmpire,
       perceiveAsForceRef.current)
 
     // did we create one?
     if (marker != null) {
-      // tell the UI we're in control of this marker
-      if (assetIsDraggable) {
-        declareControlOf(force.name, asset.name, asset.platformType)
-      }
-
       currentPhaseModeRef.current.listenTo(marker, currentTurnRef.current)
       platformsLayerRef.current.addLayer(marker)
     }
@@ -248,7 +225,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
           currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, formRequestCallback)
         } else if (inForceLaydown && currentTurnRef.current === 0) {
           // this force has assets with location pending
-          currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc)
+          currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
         } else {
           // just use dumb adjudication listener
           currentPhaseModeRef.current = new MapAdjudicatingPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current)
