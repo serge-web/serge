@@ -51,8 +51,6 @@ export default class MapPlanningPlayerListener {
     this.waypointButtons = []
     this.submitButtons = []
 
-    console.log('player planning, turn:', this.turnNumber)
-
     // store some styling details, once, centrally
     this.rangeStyle = {
       fill: true,
@@ -81,9 +79,6 @@ export default class MapPlanningPlayerListener {
     // command to submit whole planned route
     const context = this
     this.btnSubmitAll = createButton(true, 'Submit all plans', () => {
-      // collate the data
-      const res = context.allRoutes.map(planned => planned.current)
-      console.log('submitting', res)
       // collate the data
       const payload = context.collatePlanningOrders(context.allRoutes)
       context.routeCompleteCallback(payload)
@@ -127,9 +122,6 @@ export default class MapPlanningPlayerListener {
         })
       }
       thisRoute.plannedTurns = plannedTurns
-      if (route.marker.asset.name === 'Dhow-C') {
-        console.log('fisher plans', thisRoute.plannedTurns)
-      }
 
       detail.push(thisRoute)
     })

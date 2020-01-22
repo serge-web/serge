@@ -699,7 +699,6 @@ export const getWargame = (gamePath) => {
 }
 
 export const createLatestWargameRevision = (dbName, wargameData) => {
-  console.log('wargame', wargameData)
   const copiedData = deepCopy(wargameData)
   delete copiedData._id
   delete copiedData._rev
@@ -832,13 +831,11 @@ export const postNewMapMessage = (dbName, details, message) => {
   return new Promise((resolve, reject) => {
     getLatestWargameRevision(dbName)
       .then((res) => {
-        // apply the reducer to this wargame
-        console.log('latest wargame!', res, details, message)
-
+        // combine the message data
         const composite = { ...message, details: details }
-
+        // apply the reducer to this wargame
         res.data.forces.forces = handleForceDelta(composite, res.data.forces.forces)
-
+        // store the new verison
         return createLatestWargameRevision(dbName, res)
       })
       .then((res) => {

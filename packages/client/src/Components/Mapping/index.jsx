@@ -198,7 +198,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }
 
   useEffect(() => {
-    console.log('re-rendering map ocmponent at:', new Date(), 'phase:', phase)
+    console.log('Re-rendering map Component at:', new Date(), 'phase:', phase)
 
     // we're going to be re-generating all the markers, so delete any that are there already
     if (platformsLayerRef.current) {
@@ -274,7 +274,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
    * contents of allForces changes
    */
   useEffect(() => {
-    console.log('Mapping Component state changed at', new Date())
+    console.log('Mapping Component state changed at', new Date(), 'phase:', phase)
     const markers = platformsLayerRef.current
     const grid = gridImplRef.current
     //
