@@ -356,6 +356,9 @@ export default class MapPlanningPlayerListener {
       // and add to the map
       this.storeLayer(thisData.lightRoutes, this)
 
+      // also update the planned routes
+      this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
+
       marker.on('click', e => {
         if (this.currentRoute) {
           // do any cleaning up necessary
