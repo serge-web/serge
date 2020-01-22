@@ -240,7 +240,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
               if (minus1) {
                 const angle = turnFor(minus2, minus1, current)//, turnNameFor(turn.turn - 1))
                 const iconName = bearingMarkerFor(angle)
-                result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName + '_1', waypointCallback, context, turnId - 1, planningFor))
+                result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
                 pendingTurnLocation = false
               }
             }
@@ -268,7 +268,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
         minus2 = minus1
         minus1 = current
         // ok, nothing happening. add a static marker
-        result.addLayer(createMarker(noTurn, location, lightweight, thisTurnName + '_2', waypointCallback, context, turnId, planningFor))
+        result.addLayer(createMarker(noTurn, location, lightweight, thisTurnName, waypointCallback, context, turnId, planningFor))
       }
     })
     // are we waiting to populate a marker?
@@ -278,7 +278,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
       if (minus1) {
         const angle = turnFor(minus2, minus1, null)
         const icon = bearingMarkerFor(angle)
-        result.addLayer(createMarker(icon, current, lightweight, pendingTurnName + '_3', waypointCallback, context, turnId - 1, planningFor))
+        result.addLayer(createMarker(icon, current, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
         pendingTurnLocation = null
       }
     }
