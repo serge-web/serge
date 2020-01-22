@@ -9,7 +9,6 @@ export default (forces, myForce) => {
     if (force.name === myForce) {
       if (force.assets) {
         force.assets.forEach(asset => {
-          console.log(asset)
           if (asset.locationPending || asset.state === LOCATION_PENDING) {
             res = true
           }
