@@ -1145,6 +1145,7 @@
 		"dirty": false,
 		"name": "Platform Types",
 		"platformTypes": [{
+				"name": "Fishing vessel",
 				"conditions": [
 					"Working",
 					"Disabled",
@@ -1152,7 +1153,6 @@
 					"Destroyed"
 				],
 				"icon": "fishing-vessel.svg",
-				"name": "fishing-vessel",
 				"speedKts": [
 					10
 				],
@@ -1164,6 +1164,7 @@
 				"travelMode": "sea"
 			},
 			{
+				"name": "Frigate",
 				"conditions": [
 					"Working",
 					"Disabled",
@@ -1171,7 +1172,6 @@
 					"Destroyed"
 				],
 				"icon": "frigate.svg",
-				"name": "frigate",
 				"speedKts": [
 					10,
 					20,
@@ -1185,6 +1185,7 @@
 				"travelMode": "sea"
 			},
 			{
+				"name": "Fixed wing aircraft",
 				"conditions": [
 					"Working",
 					"Disabled",
@@ -1192,7 +1193,6 @@
 					"Destroyed"
 				],
 				"icon": "fixed-wing-aircraft.svg",
-				"name": "fixed-wing-aircraft",
 				"speedKts": [],
 				"states": [
 					{ "name": "Landed", "mobile": false },
@@ -1204,6 +1204,7 @@
 				"travelMode": "air"
 			},
 			{
+				"name": "Coastal radar site",
 				"conditions": [
 					"Working",
 					"Disabled",
@@ -1211,7 +1212,6 @@
 					"Destroyed"
 				],
 				"icon": "coastal-radar-site.svg",
-				"name": "coastal-radar-site",
 				"states": [
 					{ "name": "Active", "mobile": false },
 					{ "name": "LocationPending", "mobile": true },
@@ -1220,6 +1220,7 @@
 				"travelMode": "land"
 			},
 			{
+				"name": "Merchant vessel",
 				"conditions": [
 					"Working",
 					"Disabled",
@@ -1227,7 +1228,6 @@
 					"Destroyed"
 				],
 				"icon": "merchant-vessel.svg",
-				"name": "merchant-vessel",
 				"speedKts": [
 					10,
 					20
