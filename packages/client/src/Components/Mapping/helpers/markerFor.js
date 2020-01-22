@@ -1,5 +1,6 @@
 import L from 'leaflet'
 import findPerceivedAsClassName from './findPerceivedAsClassName'
+import findPlatformTypeFor from './findPlatformTypeFor'
 
 /** create a marker for the supplied set of details */
 export default (asset, force, myForce, platformTypes, userIsUmpire, /* string */ perceiveAs) => {
@@ -30,7 +31,7 @@ export default (asset, force, myForce, platformTypes, userIsUmpire, /* string */
     res.state = asset.state
 
     // sort out the travel mode for this platform type
-    const pType = platformTypes.find(type => type.name === asset.platformType)
+    const pType = findPlatformTypeFor(platformTypes, asset.platformType)
     res.travelMode = pType.travelMode
 
     // is it mobile?
