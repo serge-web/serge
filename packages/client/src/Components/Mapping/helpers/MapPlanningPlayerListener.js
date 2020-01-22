@@ -17,13 +17,15 @@ import findPlatformTypeFor from './findPlatformTypeFor'
 // eslint-disable-next-line no-unused-vars
 import glyph from 'leaflet.icon.glyph'
 import findLastRouteWithLocation from './findLastRouteLocation'
+import { PLANNING_PHASE } from '../../../consts'
 
 export default class MapPlanningPlayerListener {
-  constructor (layer, map, grid, force, turn, routeCompleteCallback, platformTypes, declutterCallback, perceivedStateCallback, /* array string */ forceNames) {
+  constructor (layer, map, grid, force, turn, routeCompleteCallback, platformTypes, declutterCallback, perceivedStateCallback, /* array string */ forceNames, /* string */ phase) {
     this.grid = grid
     this.force = force
     this.layerPriv = L.layerGroup().addTo(layer) // the layer we add our items to
     this.map = map // the underlying base-map (required to add/remove toolbar controls)
+    this.inPlanningPhase = phase === PLANNING_PHASE
     this.routeCompleteCallback = routeCompleteCallback
     this.turnNumber = turn
     this.platformTypes = platformTypes
@@ -77,17 +79,18 @@ export default class MapPlanningPlayerListener {
     this.plannedLine.addTo(layer)
 
     // command to submit whole planned route
-    const context = this
-    this.btnSubmitAll = createButton(true, 'Submit all plans', () => {
-      // collate the data
-      const payload = context.collatePlanningOrders(context.allRoutes)
-      context.routeCompleteCallback(payload)
-      clearButtons(context.submitButtons)
-    }).addTo(map)
-    this.submitButtons.push(this.btnSubmitAll)
+    if (this.inPlanningPhase) {
+      this.btnSubmitAll = createButton(true, 'Submit all plans', () => {
+        // collate the data
+        const payload = this.collatePlanningOrders(this.allRoutes)
+        this.routeCompleteCallback(payload)
+        clearButtons(this.submitButtons)
+      }).addTo(map)
+      this.submitButtons.push(this.btnSubmitAll)
 
-    // intiialise the button label
-    this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
+      // intiialise the button label
+      this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
+    }
   }
 
   collatePlanningOrders (/* array */routes) {
@@ -356,55 +359,57 @@ export default class MapPlanningPlayerListener {
       // and add to the map
       this.storeLayer(thisData.lightRoutes, this)
 
-      // also update the planned routes
-      this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
+      if (this.inPlanningPhase) {
+        // also update the planned routes
+        this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
 
-      marker.on('click', e => {
-        if (this.currentRoute) {
-          // do any cleaning up necessary
+        marker.on('click', e => {
+          if (this.currentRoute) {
+            // do any cleaning up necessary
 
-          this.currentRoute.lightRoutes.remove()
-          this.currentRoute.lightRoutes.clearLayers()
-          this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset.history, this.currentRoute.marker.asset, true, false)
-          this.storeLayer(this.currentRoute.lightRoutes, this)
+            this.currentRoute.lightRoutes.remove()
+            this.currentRoute.lightRoutes.clearLayers()
+            this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset.history, this.currentRoute.marker.asset, true, false)
+            this.storeLayer(this.currentRoute.lightRoutes, this)
 
-          // and the planning bits
-          this.clearAchievableCells()
+            // and the planning bits
+            this.clearAchievableCells()
 
-          if (this.planningMarker) {
-            this.planningMarker.remove()
+            if (this.planningMarker) {
+              this.planningMarker.remove()
+            }
+
+            // and any command buttons
+            this.clearCommandButtons(this.stateButtons)
           }
 
-          // and any command buttons
-          this.clearCommandButtons(this.stateButtons)
-        }
+          // now get the route for the new marker
+          this.currentRoute = this.allRoutes.find(route => route.marker === marker)
 
-        // now get the route for the new marker
-        this.currentRoute = this.allRoutes.find(route => route.marker === marker)
+          // drop the lightweight route
+          this.currentRoute.lightRoutes.remove()
+          this.currentRoute.lightRoutes.clearLayers()
+          this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset.history, this.currentRoute.marker.asset, false, true)
+          this.storeLayer(this.currentRoute.lightRoutes, this)
 
-        // drop the lightweight route
-        this.currentRoute.lightRoutes.remove()
-        this.currentRoute.lightRoutes.clearLayers()
-        this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset.history, this.currentRoute.marker.asset, false, true)
-        this.storeLayer(this.currentRoute.lightRoutes, this)
+          if (this.currentRoute.state) {
+            // ok, we can plan the next leg
+            this.platformStateAssigned(this.currentRoute.marker, this.currentRoute.state)
+          } else {
+            // sort out the state commands for this asset
+            const pType = findPlatformTypeFor(this.platformTypes, marker.asset.platformType)
+            // clear any existing buttons
+            this.clearCommandButtons(this.waypointButtons)
+            this.clearCommandButtons(this.planningMarkerButtons)
+            this.clearCommandButtons(this.stateButtons)
 
-        if (this.currentRoute.state) {
-          // ok, we can plan the next leg
-          this.platformStateAssigned(this.currentRoute.marker, this.currentRoute.state)
-        } else {
-          // sort out the state commands for this asset
-          const pType = findPlatformTypeFor(this.platformTypes, marker.asset.platformType)
-          // clear any existing buttons
-          this.clearCommandButtons(this.waypointButtons)
-          this.clearCommandButtons(this.planningMarkerButtons)
-          this.clearCommandButtons(this.stateButtons)
+            this.stateButtons = createStateButtonsFor(pType, marker.asset.name, this, this.stateSelectedCallback, this.stateButtons)
+          }
+        })
 
-          this.stateButtons = createStateButtonsFor(pType, marker.asset.name, this, this.stateSelectedCallback, this.stateButtons)
-        }
-      })
-
-      // ok, the popup will eventually manage state
-      marker.options.draggable = false
+        // ok, the popup will eventually manage state
+        marker.options.draggable = false
+      }
     }
   }
 
