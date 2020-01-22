@@ -15,7 +15,7 @@ const Perception = ({ allForces, allPlatforms }) => {
                   <li key={force.uniqid}>
                     <label>
                       {force.name}
-                      <input name="force" type="radio"/>
+                      <input name="force" type="radio" value={force.name}/>
                       <span className={'force-colour'} style={{ backgroundColor: force.color }}></span>
                     </label>
                   </li>
@@ -28,7 +28,7 @@ const Perception = ({ allForces, allPlatforms }) => {
       <div className="input-container">
         <label htmlFor="type">Perceived type</label>
         <select name="type">
-          {allPlatforms.map(platform => (<option key={_.kebabCase(platform.name)} value="">{platform.name}</option>))}
+          {allPlatforms.map(platform => (<option key={_.kebabCase(platform.name)} value={_.kebabCase(platform.name)}>{platform.name}</option>))}
         </select>
       </div>
       <button>Save</button>
