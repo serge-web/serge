@@ -14,7 +14,6 @@ import {
 
 /** create a marker for the supplied set of details */
 export default (/* object */message, /* object */ allForces) => {
-  console.log('message', message)
   const msgType = message.details.messageType
   if (!msgType) {
     console.error('problem - we need message type in ', message)
