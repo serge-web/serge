@@ -231,22 +231,25 @@ export default class MapAdjudicatingListener {
         data.lightPlanned = context.createPlanningRouteFor(data.currentPlans, data.asset.history, data.asset, false, false, true)
         context.showLayer(data.lightPlanned, context)
 
-        // ok, show the accept route button for this track
-        const acceptTitle = createButton(false, 'Route for ' + marker.asset.name).addTo(context.map)
-        this.btnListAccept.push(acceptTitle)
-        // check it's not already sorted.
-        const hasPlans = context.allPlatforms.find(data => data.asset.uniqid === marker.asset.uniqid && data.newState)
-        if (hasPlans) {
-          const acceptButton = createButton(true, 'Plans already submitted', () => {
-            clearButtons(context.btnListAccept, context)
-          }).addTo(context.map)
-          this.btnListAccept.push(acceptButton)
-        } else {
-          const acceptButton = createButton(true, 'Accept Route', () => {
-            context.acceptRoute(marker.asset)
-            clearButtons(context.btnListAccept, context)
-          }).addTo(context.map)
-          this.btnListAccept.push(acceptButton)
+        // check we're not in turn zero
+        if (context.turnNumber > 0) {
+          // ok, show the accept route button for this track
+          const acceptTitle = createButton(false, 'Route for ' + marker.asset.name).addTo(context.map)
+          this.btnListAccept.push(acceptTitle)
+          // check it's not already sorted.
+          const hasPlans = context.allPlatforms.find(data => data.asset.uniqid === marker.asset.uniqid && data.newState)
+          if (hasPlans) {
+            const acceptButton = createButton(true, 'Plans already submitted', () => {
+              clearButtons(context.btnListAccept, context)
+            }).addTo(context.map)
+            this.btnListAccept.push(acceptButton)
+          } else {
+            const acceptButton = createButton(true, 'Accept Route', () => {
+              context.acceptRoute(marker.asset)
+              clearButtons(context.btnListAccept, context)
+            }).addTo(context.map)
+            this.btnListAccept.push(acceptButton)
+          }
         }
       }
     })

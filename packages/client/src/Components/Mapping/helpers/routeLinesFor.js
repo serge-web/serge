@@ -9,7 +9,7 @@ import lightTurn from '../images/light-turn.png'
 
 import turnNameFor from './turnNameFor'
 
-function lineFor (/* array */ plannedTurns, /* latLng */ start,
+function lineFor (/* array */ turns, /* latLng */ start,
   /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* int */ planningFor, /* boolean */ highlight, /* boolean */ solid) {
   // note - we will actually start with a layer group, in case we're showing
   // a bold line and a feint line
@@ -34,40 +34,42 @@ function lineFor (/* array */ plannedTurns, /* latLng */ start,
     color: color
   })
 
-  const boldLatLongs = [start]
-  const feintLatLongs = []
-  let lastPos = null
-  plannedTurns.forEach(turn => {
-    const list = planningFor && planningFor >= turn.turn ? boldLatLongs : feintLatLongs
-    // loop through the routes
-    if (turn.route) {
-      // loop through the steps in this route
-      turn.route.forEach(step => {
-        const ptHex = grid.hexNamed(step)
-        if (ptHex) {
-          const location = ptHex.centrePos
-          // is this the first feint line?
-          if (list.length === 0) {
-            if (lastPos) {
-              list.push(lastPos)
-            } else {
-              list.push(start)
+  if (turns) {
+    const boldLatLongs = [start]
+    const feintLatLongs = []
+    let lastPos = null
+    turns.forEach(turn => {
+      const list = planningFor && planningFor >= turn.turn ? boldLatLongs : feintLatLongs
+      // loop through the routes
+      if (turn.route) {
+        // loop through the steps in this route
+        turn.route.forEach(step => {
+          const ptHex = grid.hexNamed(step)
+          if (ptHex) {
+            const location = ptHex.centrePos
+            // is this the first feint line?
+            if (list.length === 0) {
+              if (lastPos) {
+                list.push(lastPos)
+              } else {
+                list.push(start)
+              }
             }
+            list.push(location)
+            lastPos = location
           }
-          list.push(location)
-          lastPos = location
-        }
-      })
+        })
+      }
+    })
+    if (boldLatLongs.length > 0) {
+      boldLine.setLatLngs(boldLatLongs)
+      res.addLayer(boldLine)
     }
-  })
-  if (boldLatLongs.length > 0) {
     boldLine.setLatLngs(boldLatLongs)
-    res.addLayer(boldLine)
-  }
-  boldLine.setLatLngs(boldLatLongs)
-  if (feintLatLongs.length > 0) {
-    feintLine.setLatLngs(feintLatLongs)
-    res.addLayer(feintLine)
+    if (feintLatLongs.length > 0) {
+      feintLine.setLatLngs(feintLatLongs)
+      res.addLayer(feintLine)
+    }
   }
 
   return res
@@ -194,64 +196,68 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
 function markersFor (/* array */ plannedTurns, /* latLng */ start,
   /* boolean */ lightweight, /* grid */ grid, /* function */ waypointCallback, /* int */ planningFor, /* object */ context) {
   const result = L.layerGroup()
-  let minus1 = start // the start point of the track is used as the 'last point'
-  let minus2 = null
-  let pendingTurnLocation = null
-  let pendingTurnName = null
-  let current = start
-  let turnId = 0
-  plannedTurns.forEach(turn => {
-    const stateSuffix = turn.speed ? ' @ ' + turn.speed + 'kts' : ''
-    const turnName = turnNameFor(turn.turn) + ': ' + turn.state + stateSuffix
-    turnId = turn.turn
+  if (plannedTurns) {
+    let minus1 = start // the start point of the track is used as the 'last point'
+    let minus2 = null
+    let pendingTurnLocation = null
+    let pendingTurnName = null
+    let current = start
+    let turnId = 0
 
-    // loop through the routes
-    if (turn.route) {
-      // loop through the steps in this route
-      turn.route.forEach(step => {
-        const ptHex = grid.hexNamed(step)
-        if (ptHex) {
-          // remember the coords
-          current = ptHex.centrePos
+    plannedTurns.forEach(turn => {
+      const stateSuffix = turn.speed ? ' @ ' + turn.speed + 'kts' : ''
+      const turnName = turnNameFor(turn.turn) + ': ' + turn.state + stateSuffix
+      turnId = turn.turn
 
-          // are we waiting to populate a marker?
-          if (pendingTurnLocation) {
-            // have we got enough data?
-            if (minus1) {
-              const angle = turnFor(minus2, minus1, current)//, turnNameFor(turn.turn - 1))
-              const iconName = bearingMarkerFor(angle)
-              result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
-              pendingTurnLocation = false
+      // loop through the routes
+      if (turn.route) {
+        // loop through the steps in this route
+        turn.route.forEach(step => {
+          const ptHex = grid.hexNamed(step)
+          if (ptHex) {
+            // remember the coords
+            current = ptHex.centrePos
+
+            // are we waiting to populate a marker?
+            if (pendingTurnLocation) {
+              // have we got enough data?
+              if (minus1) {
+                const angle = turnFor(minus2, minus1, current)//, turnNameFor(turn.turn - 1))
+                const iconName = bearingMarkerFor(angle)
+                result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
+                pendingTurnLocation = false
+              }
             }
+            // move everyone down the bed
+            minus2 = minus1
+            minus1 = current
           }
-          // move everyone down the bed
-          minus2 = minus1
-          minus1 = current
-        }
-      })
-      pendingTurnLocation = current
-      pendingTurnName = turnName
-    } else {
-      minus2 = minus1
-      minus1 = current
-      // ok, nothing happening. add a static marker
-      result.addLayer(createMarker(noTurn, minus1, lightweight, turnName, waypointCallback, context, turnId, planningFor))
+        })
+        pendingTurnLocation = current
+        pendingTurnName = turnName
+      } else {
+        minus2 = minus1
+        minus1 = current
+        // ok, nothing happening. add a static marker
+        result.addLayer(createMarker(noTurn, minus1, lightweight, turnName, waypointCallback, context, turnId, planningFor))
 
-      // forget about waiting for more coords
-      pendingTurnLocation = null
-    }
-  })
-  // are we waiting to populate a marker?
-  // do we have a trailing pending turn?
-  if (pendingTurnLocation) {
-    // have we got enough data?
-    if (minus1) {
-      const angle = turnFor(minus2, minus1, null)
-      const icon = bearingMarkerFor(angle)
-      result.addLayer(createMarker(icon, current, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
-      pendingTurnLocation = false
+        // forget about waiting for more coords
+        pendingTurnLocation = null
+      }
+    })
+    // are we waiting to populate a marker?
+    // do we have a trailing pending turn?
+    if (pendingTurnLocation) {
+      // have we got enough data?
+      if (minus1) {
+        const angle = turnFor(minus2, minus1, null)
+        const icon = bearingMarkerFor(angle)
+        result.addLayer(createMarker(icon, current, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
+        pendingTurnLocation = false
+      }
     }
   }
+
   return result
 }
 
@@ -275,7 +281,7 @@ export default function routeLinesFor (/* array */ plannedTurns, /* history */ h
   const turnWayInTheFuture = 1000
   const historyMarkers = markersFor(history, start, lightweight, grid, null, turnWayInTheFuture, context)
   thisLayer.addLayer(historyMarkers)
-  
+
   // also sort out the markers
   const futureMarkers = markersFor(plannedTurns, start, lightweight, grid, waypointCallback, planningFor, context)
   thisLayer.addLayer(futureMarkers)
