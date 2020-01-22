@@ -320,18 +320,19 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         marker.remove()
         toDelete.push(marker)
       }
-
+      // Show a form on popup
       const helper = new MapPopupHelper(mapRef.current, marker)
-      helper.setStore({ count: 2 })
+      helper.setStore({
+        allForces,
+        allPlatforms
+      })
       helper.onUpdate(data => {
-        console.log('data from popup', data)
-        if (data.test === 20) {
-          console.log('renderComponent')
-          helper.setStore({ count: 0, show: true, date: Date() })
+        if (data) {
+          helper.setStore({ data: data })
         }
       })
       helper.useComponent(MappingForm)
-      //  helper.openPopup();
+      // helper.openPopup()
       helper.renderListener()
     })
     toDelete.forEach(marker => {

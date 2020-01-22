@@ -4,10 +4,10 @@ import Perception from '../FormChildPerception'
 
 import './styles.scss'
 
-const MappingForm = ({ position, type }) => {
+const MappingForm = props => {
   return (
     <section className="mapping-form-container">
-      <Perception></Perception>
+      <Perception allForces={props.store.allForces} allPlatforms={props.store.allPlatforms}></Perception>
     </section>
   )
 }
