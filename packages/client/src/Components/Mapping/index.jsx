@@ -9,7 +9,7 @@ import MapPlanningUmpireListener from './helpers/MapPlanningUmpireListener'
 import markerFor from './helpers/markerFor'
 import hasPendingForces from './helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD } from '../../consts'
+import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, PLANNING_PHASE } from '../../consts'
 import assetsVisibleToMe from './helpers/assetsVisibleToMe'
 import forceFor from './helpers/forceFor'
 import findAsset from './helpers/findAsset'
@@ -231,24 +231,26 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const inForceLaydown = hasPendingForces(allForces, myForceRef.current)
     const forceNames = allForces.map(force => force.uniqid)
     switch (phase) {
-      case 'adjudication':
+      case ADJUDICATION_PHASE:
         if (myForceRef.current === 'umpire') {
           currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, newStateOfWorldCallback, currentTurn)
         } else if (inForceLaydown && currentTurn === 0) {
           // this force has assets with location pending
           currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
         } else {
-          // just use dumb adjudication listener
-          currentPhaseModeRef.current = new MapAdjudicatingPlayerListener(mapRef.current, gridImplRef.current)
+          const duffCompleteCallback = null
+          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
+            myForceRef.current, currentTurn, duffCompleteCallback,
+            platformTypesRef.current, declutterCallback, perceivedStateCallback, forceNames, phase)
         }
         break
-      case 'planning':
+      case PLANNING_PHASE:
         if (myForceRef.current === 'umpire') {
           currentPhaseModeRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc)
         } else {
           currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
             myForceRef.current, currentTurn, routeCompleteCallback,
-            platformTypesRef.current, declutterCallback, perceivedStateCallback, forceNames)
+            platformTypesRef.current, declutterCallback, perceivedStateCallback, forceNames, phase)
         }
         break
       default:
