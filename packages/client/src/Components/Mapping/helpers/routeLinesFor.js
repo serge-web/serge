@@ -250,7 +250,6 @@ function markersFor (/* array */ turns, /* latLng */ start,
       } else {
         minus2 = minus1
         minus1 = current
-        console.log('null marker', turn, minus1, turnName)
         // ok, nothing happening. add a static marker
         result.addLayer(createMarker(noTurn, minus1, lightweight, turnName, waypointCallback, context, turnId, planningFor))
 
