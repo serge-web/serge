@@ -7,7 +7,10 @@ import './styles.scss'
 const MappingForm = props => {
   return (
     <section className="mapping-form-container">
-      <Perception store={props.store} onStoreUpdate={props.onStoreUpdate} callbackFn={props.callbackFunction}></Perception>
+      { (props.store.currentForce !== props.store.currentMarker.force)
+        ? <Perception store={props.store} onStoreUpdate={props.onStoreUpdate} callbackFn={props.callbackFunction}></Perception>
+        : <div>Nothing set up for this yet</div>
+      }
     </section>
   )
 }

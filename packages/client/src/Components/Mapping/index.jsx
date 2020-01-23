@@ -324,6 +324,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       // Show a form on popup
       const helper = new MapPopupHelper(mapRef.current, marker)
       helper.setStore({
+        currentForce: myForceRef.current,
+        currentMarker: marker.asset,
         allForces,
         allPlatforms
       })

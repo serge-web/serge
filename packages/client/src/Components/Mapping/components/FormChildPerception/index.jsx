@@ -1,23 +1,38 @@
 import React, { useState } from 'react'
 import _ from 'lodash'
 
-const Perception = ({ store, onStoreUpdate, callbackFn }) => {
-  const [allForces, setAllForces] = useState(store.allForces)
-  const [allPlatforms, setAllPlatforms] = useState(store.allPlatforms)
+const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
+  const [currentForce] = useState(store.currentForce)
+  const [currentMarker, setCurrentMarker] = useState(store.currentMarker)
+  const [allForces] = useState(store.allForces)
+  const [allPlatforms] = useState(store.allPlatforms)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     console.log('form submitted')
+    // callbackFunction({ count: test, input, check })
   }
+
+  // const handleCheckboxChange = ({ target }) => {
+  //   setCurrentMarker(target.checked)
+  //   // save data in helper class to not lose it after popup recreate
+  //   // onStoreUpdate({ count: test, input, check: target.checked })
+  // }
+
+  // const handleOnInputChange = ({ target }) => {
+  //   // setInput(target.value)
+  //   // save data in helper class to not lose it after popup recreate
+  //   // onStoreUpdate({ count: test, input: target.value, check })
+  // }
 
   return (
     <form action="">
-      <h2>Vessel Name</h2>
+      <h2>{currentMarker.name}</h2>
       <div className="input-container checkbox">
         <label htmlFor="force">Percieved force</label>
         <ul>
           {
             allForces.map(force => {
-              if (force.name !== 'White') {
+              if (force.name !== 'White' && force.name !== currentForce) {
                 return (
                   <li key={force.uniqid}>
                     <label>
