@@ -1,7 +1,6 @@
 import L from 'leaflet'
 import defaultHexStyle from '../data/default-hex-style'
 import colorFor from './colorFor'
-import markerFor from './markerFor'
 import { LOCATION_PENDING } from '../../../consts'
 
 export default class MapAdjudicationPendingListener {
@@ -50,9 +49,10 @@ export default class MapAdjudicationPendingListener {
     if (!marker.asset.force) {
       console.error('we\'re getting an asset without a force parameter: ' + marker.asset.name)
     }
-  
+
     // check if it's one of ours, and if it's location is pending
-    if (marker.asset.force === this.myForce && marker.asset.state === LOCATION_PENDING) {
+    const assetIsPending = marker.asset.locationPending || marker.asset.state === LOCATION_PENDING
+    if (marker.asset.force === this.myForce && assetIsPending) {
       // ok, make it draggable
       marker.options.draggable = true
 
@@ -141,8 +141,7 @@ export default class MapAdjudicationPendingListener {
 
           // and fire the callback
           this.laydownCallback({
-            force: marker.force,
-            name: marker.name,
+            uniqid: marker.asset.uniqid,
             position: this.lastHex.name
           })
         }
