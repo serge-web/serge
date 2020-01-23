@@ -348,10 +348,12 @@ export default class MapPlanningPlayerListener {
   }
 
   updatePlannedRoute (/* boolean */ detailed) {
-    this.currentRoute.lightRoutes.remove()
-    this.currentRoute.lightRoutes.clearLayers()
-    this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset.history, this.currentRoute.marker.asset, !detailed, detailed)
-    this.storeLayer(this.currentRoute.lightRoutes, this)
+    if (this.currentRoute && this.currentRoute.lightRoutes) {
+      this.currentRoute.lightRoutes.remove()
+      this.currentRoute.lightRoutes.clearLayers()
+      this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset.history, this.currentRoute.marker.asset, !detailed, detailed)
+      this.storeLayer(this.currentRoute.lightRoutes, this)
+    }
   }
 
   /** listen to drag events on the supplied marker */
