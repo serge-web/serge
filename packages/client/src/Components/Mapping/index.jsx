@@ -29,6 +29,7 @@ import './styles.scss'
 
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
+
 import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
 import handlePlansSubmittedChanges from '../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
 import MappingForm from './components/FormContainer'
@@ -330,6 +331,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         if (data) {
           helper.setStore({ data: data })
         }
+        helper.closePopup()
       })
       helper.useComponent(MappingForm)
       // helper.openPopup()

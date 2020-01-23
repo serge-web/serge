@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import _ from 'lodash'
 
-const Perception = ({ allForces, allPlatforms }) => {
+const Perception = ({ store, onStoreUpdate, callbackFn }) => {
+  const [allForces, setAllForces] = useState(store.allForces)
+  const [allPlatforms, setAllPlatforms] = useState(store.allPlatforms)
+
+  const handleSubmit = (e) => {
+    console.log('form submitted')
+  }
+
   return (
     <form action="">
       <h2>Vessel Name</h2>
@@ -31,7 +38,7 @@ const Perception = ({ allForces, allPlatforms }) => {
           {allPlatforms.map(platform => (<option key={_.kebabCase(platform.name)} value={_.kebabCase(platform.name)}>{platform.name}</option>))}
         </select>
       </div>
-      <button>Save</button>
+      <button onClick={handleSubmit()}>Save</button>
     </form>
   )
 }

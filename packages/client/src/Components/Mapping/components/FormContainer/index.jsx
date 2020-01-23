@@ -7,7 +7,7 @@ import './styles.scss'
 const MappingForm = props => {
   return (
     <section className="mapping-form-container">
-      <Perception allForces={props.store.allForces} allPlatforms={props.store.allPlatforms}></Perception>
+      <Perception store={props.store} onStoreUpdate={props.onStoreUpdate} callbackFn={props.callbackFunction}></Perception>
     </section>
   )
 }
