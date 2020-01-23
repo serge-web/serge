@@ -365,15 +365,22 @@ export default class MapPlanningPlayerListener {
         this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
 
         marker.on('click', e => {
+          this.startHex = null
+
+          // and drop any planning lines
+          this.clearOnNewLeg()
+
           if (this.currentRoute) {
             // do any cleaning up necessary
 
+            // we have a selected route. Drop the current detailed one, and
+            // replace it with a lightweight one
             this.currentRoute.lightRoutes.remove()
             this.currentRoute.lightRoutes.clearLayers()
             this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset.history, this.currentRoute.marker.asset, true, false)
             this.storeLayer(this.currentRoute.lightRoutes, this)
 
-            // and the planning bits
+            // clear any currently shaded cells
             this.clearAchievableCells()
 
             if (this.planningMarker) {
@@ -456,8 +463,10 @@ export default class MapPlanningPlayerListener {
   clearOnNewLeg () {
     this.routeLats = []
     this.routeHexes = []
-    this.legHexes = []
-    this.plannedLegs = []
+    this.plannedHexes = []
+    this.plannedLats = []
+    this.plannedLine.setLatLngs([])
+    this.routeLine.setLatLngs([])
   }
 
   /** the user has clicked on the planning marker, give options */
@@ -572,6 +581,10 @@ export default class MapPlanningPlayerListener {
 
     // clicks on the planning marker should trigger some commands
     this.planningMarker.on('click', e => {
+      // clear up any existing planning
+      this.clearOnNewLeg()
+
+      // and generate the planning menu
       this.showPlanningMarkerMenu()
     })
 
@@ -738,11 +751,11 @@ export default class MapPlanningPlayerListener {
         this.updateAchievableCellsFor(cursorHex, marker.planning.remaining, marker.travelMode)
 
         if (stillCellsRemaining) {
-          // we're still building up the line. Display the back-route
-          // create temporary structure, it' the route, but also with the start hex
+          // The line isn't complete. Display the route so far.
+          // Create temporary structure, comprising the start hex, plus the route so far
           const plannedRouteCells = [this.startHex].concat(this.plannedHexes)
 
-          // for the planned hexes, give them route styling
+          // style the cells in the planned route
           plannedRouteCells.forEach(cell => {
             cell.polygon.setStyle(this.routeStyle)
           })
