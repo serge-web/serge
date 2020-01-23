@@ -27,6 +27,8 @@ script:
 - cd ../e2e
 # manually get yarn to install
 - yarn install
+# diagnostics, see if it can see the database
+ping http://localhost:8080/allDbs
 # next line commented out, until we sort yarn allowance
 - yarn run cypress run --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7
 # kill open jobs (especially the Serge server running in the background)
