@@ -76,7 +76,7 @@ function bearingMarkerFor (/* number */ angle) {
 
   // console.log(iconAngles.turn0degVar)
   // console.log("Bearing angle", angle)
-  if(angle === 0 ||  angle == 89 ||angle === 180 || angle === 360){
+  if(angle === 0 ||  angle === 89 || angle === 90 ||angle === 180 || angle === 360){
     // 90
     icon = iconAngles.turn90degVar.icon  // testing out a dynamic way of moving the markers
     console.log("90 degree marker", iconAngles.turn90degVar.markerAngle)
@@ -88,10 +88,6 @@ function bearingMarkerFor (/* number */ angle) {
     // 150
     icon = iconAngles.turn150degVar.icon
     console.log("150 degree marker", iconAngles.turn150degVar.markerAngle)
-  } else if(angle === 90){
-    // 150
-    icon = iconAngles.turn90degVar.icon
-    console.log("150 degree marker", iconAngles.turn90degVar.markerAngle)
   } else if(angle === 104){
     // 120
     icon = iconAngles.turn120degVar.icon
