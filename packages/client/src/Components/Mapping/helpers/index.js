@@ -24,9 +24,7 @@ import MapPopupHelper from './mapPopupHelper'
 import markerFor from './markerFor'
 import plannedModePopupFor from './plannedModePopupFor'
 import plannedStateFor from './plannedStateFor'
-import planningRouteFor from './planningRouteFor'
 import removeClassNamesFrom from './removeClassNamesFrom'
-import resetCurrentLeg from './resetCurrentLeg'
 import roundToNearest from './roundToNearest'
 import turnNameFor from './turnNameFor'
 
@@ -57,9 +55,7 @@ export {
   markerFor,
   plannedModePopupFor,
   plannedStateFor,
-  planningRouteFor,
   removeClassNamesFrom,
-  resetCurrentLeg,
   roundToNearest,
   turnNameFor
 }

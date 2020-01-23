@@ -8,7 +8,6 @@ import {
   forceFor,
   GridImplementation,
   hasPendingForces,
-  MapAdjudicatingPlayerListener,
   MapAdjudicatingUmpireListener,
   MapAdjudicationPendingListener,
   MapPlanningPlayerListener,

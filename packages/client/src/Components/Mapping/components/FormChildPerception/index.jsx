@@ -17,7 +17,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
     callbackFunction(newStore)
   }
 
-  const handleRadioChange = ({ target }) => {
+  const handlePlatformForceChange = ({ target }) => {
     setForcePerception(target.value)
 
     newStore.perception.force = target.value
@@ -25,7 +25,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
     onStoreUpdate(newStore)
   }
 
-  const handleSelectChange = ({ target }) => {
+  const handlePlatformTypeChange = ({ target }) => {
     setTypePerception(target.value)
     newStore.perception.type = target.value
     // save data in helper class to not lose it after popup recreate
@@ -45,7 +45,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
                   <li key={force.uniqid}>
                     <label>
                       {force.name}
-                      <input onChange={handleRadioChange} name="force" type="radio" value={force.name} checked={forcePerception === force.name} />
+                      <input onChange={handlePlatformForceChange} name="force" type="radio" value={force.name} checked={forcePerception === force.name} />
                       <span className={'force-colour'} style={{ backgroundColor: force.color }}></span>
                     </label>
                   </li>
@@ -57,7 +57,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
       </div>
       <div className="input-container">
         <label htmlFor="type">Perceived type</label>
-        <select value={typePerception} name="type" onChange={handleSelectChange}>
+        <select value={typePerception} name="type" onChange={handlePlatformTypeChange}>
           <option value="unknown">Unknown</option>
           {allPlatforms.map(platform => (<option key={_.kebabCase(platform.name)} value={_.kebabCase(platform.name)}>{platform.name}</option>))}
         </select>
