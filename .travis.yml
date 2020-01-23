@@ -19,8 +19,8 @@ script:
 - yarn install
 # build Serge deployment
 - yarn build
-# run test suite
-- yarn test
+# run unit tests
+- yarn test:unit
 # start serge
 - yarn start:server &
 # diagnostics, see if it can see the database
