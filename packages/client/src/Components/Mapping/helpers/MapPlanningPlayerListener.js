@@ -90,7 +90,7 @@ export default class MapPlanningPlayerListener {
       this.submitButtons.push(this.btnSubmitAll)
 
       // intiialise the button label
-      this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
+      this.updateSubmitRoutesCounter(this.allRoutes)
     }
   }
 
@@ -149,8 +149,13 @@ export default class MapPlanningPlayerListener {
 
   /** ditch the data for this listener
    */
-  clearListeners () {
+  clearListeners (markers) {
     // ditch the listeners
+    markers.eachLayer(marker => {
+      marker.off('click')
+      marker.off('drag')
+      marker.off('dragend')
+    })
 
     // clear the achievable cells. Note: these weren't added
     // to our private map layer, so they don't disappear when
@@ -362,7 +367,7 @@ export default class MapPlanningPlayerListener {
 
       if (this.inPlanningPhase) {
         // also update the planned routes
-        this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
+        this.updateSubmitRoutesCounter(this.allRoutes)
 
         marker.on('click', e => {
           this.startHex = null
@@ -538,12 +543,12 @@ export default class MapPlanningPlayerListener {
     this.storeLayer(this.currentRoute.lightRoutes, this)
 
     // lastly, update how many planned routes we have
-    this.updateSubmitRoutesCounter(this.btnSubmitAll, this.allRoutes)
+    this.updateSubmitRoutesCounter(this.allRoutes)
   }
 
-  updateSubmitRoutesCounter (button, routes) {
+  updateSubmitRoutesCounter (routes) {
     const routesWithPoints = routes.filter(route => route.current && route.current.length > 0)
-    button.setText('Submit ' + routesWithPoints.length + ' planned routes')
+    this.btnSubmitAll.setText('Submit ' + routesWithPoints.length + ' planned routes')
   }
 
   /** get the current location of this asset, either at the
@@ -552,8 +557,7 @@ export default class MapPlanningPlayerListener {
   getPlannedAssetLocation (asset) {
     // sort out where to put the planning marker
     const lastHex = findLastRouteWithLocation(this.currentRoute.current, asset.position)
-    this.startHex = this.grid.hexNamed(lastHex)
-    return this.startHex.centrePos
+    return this.grid.hexNamed(lastHex)
   }
 
   /** player has indicated the planned state for a platform. Update the
@@ -567,7 +571,8 @@ export default class MapPlanningPlayerListener {
       this.clearAchievableCells()
     }
 
-    const startPos = this.getPlannedAssetLocation(marker.asset, this.currentRoute.current)
+    this.startHex = this.getPlannedAssetLocation(marker.asset, this.currentRoute.current)
+    const startPos = this.startHex.centrePos
 
     // also create a new marker, used to plot the path
     this.planningMarker = L.marker(startPos, {
