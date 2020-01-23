@@ -151,8 +151,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     handleVisibilityChanges(changes, allForces)
   }
 
-  const perceivedStateCallback = (/* object */ asset, /* string */ perceivedBy, /* object */ perception) => {
-    const perceivedType = { asset: asset.uniqid, force: perceivedBy, perception: perception }
+  const perceivedStateCallback = (/* string */ assetid, /* string */ perceivedBy, /* object */ perception) => {
+    const perceivedType = { asset: assetid, force: perceivedBy, perception: perception }
     sendMessage(PERCEPTION_OF_CONTACT, perceivedType)
     handlePerceptionChanges(perceivedType, allForces)
   }
@@ -334,7 +334,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       helper.onUpdate(data => {
         if (data) {
           helper.setStore(data)
-          perceivedStateCallback(marker.asset, data.currentForce, data.perception)
+          perceivedStateCallback(marker.asset.uniqid, data.currentForce, data.perception)
         }
         helper.closePopup()
       })
