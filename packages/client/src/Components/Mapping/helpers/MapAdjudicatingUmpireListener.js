@@ -5,7 +5,7 @@ import createButton from './createDebugButton'
 import clearButtons from './clearButtons'
 import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 import turnNameFor from './turnNameFor'
-import getVisibilityButtonsFor from './getVisibilityButtonsFor'
+import getVisibilityButtonsFor from './createVisibilityButtonsFor'
 
 export default class MapAdjudicatingListener {
   constructor (map, grid, planningFormCallback, turnNumber, forceNames, visibilityCallback) {

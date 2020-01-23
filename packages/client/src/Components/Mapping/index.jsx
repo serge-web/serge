@@ -246,7 +246,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         break
       case PLANNING_PHASE:
         if (myForceRef.current === 'umpire') {
-          currentPhaseModeRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc)
+          currentPhaseModeRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc, forceNames)
         } else {
           currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
             myForceRef.current, currentTurn, routeCompleteCallback,
