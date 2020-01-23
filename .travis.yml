@@ -15,7 +15,7 @@ matrix:
   - name: Client Pipeline
     env: PACKAGE_LOCATION=packages/client PACKAGE_NAME=@serge/client
 script:
-# run test suite
+# pull in dependencies
 - yarn install
 # build Serge deployment
 - yarn build
@@ -24,7 +24,7 @@ script:
 # start serge
 - yarn start:server &
 # diagnostics, see if it can see the database
-ping http://localhost:8080/allDbs
+ping -c 5 http://localhost:8080/allDbs
 # run the cypress test suite
 - cd packages/e2e
 # next line commented out, until we sort yarn allowance
