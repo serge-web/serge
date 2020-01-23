@@ -20,11 +20,11 @@ script:
 # build Serge deployment
 - yarn build
 # run unit tests
-- yarn test:unit
+- yarn test:unit || travis_terminate 1;
 # start serge
 - yarn start:server &
 # diagnostics, see if it can see the database
-- ping -c 5 http://localhost:8080/allDbs
+- ping -c 5 http://localhost/allDbs
 # run the cypress test suite
 - cd packages/e2e
 # next line commented out, until we sort yarn allowance
