@@ -7,7 +7,7 @@ import './styles.scss'
 const MappingForm = props => {
   return (
     <section className="mapping-form-container">
-      { (props.store.currentForce !== props.store.currentMarker.force)
+      { (props.store.currentForce !== props.store.currentMarker.force && props.store.currentForce !== 'umpire')
         ? <Perception store={props.store} onStoreUpdate={props.onStoreUpdate} callbackFn={props.callbackFunction}></Perception>
         : <div>Nothing set up for this yet</div>
       }
