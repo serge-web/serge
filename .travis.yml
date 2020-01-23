@@ -15,20 +15,18 @@ matrix:
   - name: Client Pipeline
     env: PACKAGE_LOCATION=packages/client PACKAGE_NAME=@serge/client
 script:
-- cd $PACKAGE_LOCATION
 # run test suite
-- yarn test
+- yarn install
 # build Serge deployment
 - yarn build
-# start the server (in background process)
-- cd ../server
-- yarn start &
-# run the cypress test suite
-- cd ../e2e
-# manually get yarn to install
-- yarn install
+# run test suite
+- yarn test
+# start serge
+- yarn start:server &
 # diagnostics, see if it can see the database
 ping http://localhost:8080/allDbs
+# run the cypress test suite
+- cd packages/e2e
 # next line commented out, until we sort yarn allowance
 - yarn run cypress run --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7
 # kill open jobs (especially the Serge server running in the background)
