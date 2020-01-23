@@ -41,8 +41,6 @@ export default class MapAdjudicatingListener {
 
   /** accept the planned state for all remaining platforms */
   acceptAllStates () {
-    this.acceptAllButton.remove()
-
     // produce the required state
     this.allPlatforms.forEach(data => {
       // has it been accepted yet?
@@ -51,6 +49,7 @@ export default class MapAdjudicatingListener {
         this.acceptRoute(data.asset)
       }
     })
+    this.btnListAccept = clearButtons(this.btnListAccept)
   }
 
   submitStates () {
@@ -90,6 +89,10 @@ export default class MapAdjudicatingListener {
 
     // collate the message
     this.planningFormCallback(message)
+
+    // and drop the submit button
+    this.btnListAccept = clearButtons(this.btnListAccept)
+    this.btnListSubmit = clearButtons(this.btnListSubmit)
   }
 
   clearListeners (markers) {
