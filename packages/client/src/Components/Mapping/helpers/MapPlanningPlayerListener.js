@@ -5,7 +5,7 @@ import colorFor from './colorFor'
 // Import helpers
 import createButton from './createDebugButton'
 import clearButtons from './clearButtons'
-import resetCurrentLeg from './resetCurrentLeg'
+import resetCurrentLeg from './resetLegsFrom'
 import getClearedRoute from './getClearedRoute'
 import routeLinesFor from './routeLinesFor'
 import turnNameFor from './turnNameFor'
