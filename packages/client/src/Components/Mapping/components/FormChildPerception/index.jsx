@@ -15,7 +15,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
   }
 
   const handleRadioChange = ({ target }) => {
-    setForcePerception({ force: target.value })
+    setForcePerception(target.value)
     // save data in helper class to not lose it after popup recreate
     onStoreUpdate({ force: target.value, forcePerception })
   }
