@@ -5,13 +5,16 @@ import createButton from './createDebugButton'
 import clearButtons from './clearButtons'
 import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 import turnNameFor from './turnNameFor'
+import getVisibilityButtonsFor from './createVisibilityButtonsFor'
 
 export default class MapAdjudicatingListener {
-  constructor (map, grid, planningFormCallback, turnNumber) {
+  constructor (map, grid, planningFormCallback, turnNumber, forceNames, visibilityCallback) {
     this.grid = grid
     this.map = map
     this.planningFormCallback = planningFormCallback
     this.turnNumber = turnNumber
+    this.forceNames = forceNames
+    this.visibilityCallback = visibilityCallback
 
     this.layerPriv = L.layerGroup().addTo(map) // for the planned routes
 
@@ -21,6 +24,7 @@ export default class MapAdjudicatingListener {
 
     this.btnListAccept = []
     this.btnListSubmit = []
+    this.btnListVisiblity = []
 
     // keep track of who we're listening to
     this.registeredListeners = []
@@ -98,6 +102,7 @@ export default class MapAdjudicatingListener {
   clearListeners (markers) {
     this.btnListAccept = clearButtons(this.btnListAccept)
     this.btnListSubmit = clearButtons(this.btnListSubmit)
+    this.btnListVisiblity = clearButtons(this.btnListVisiblity)
 
     // drop any markers we've created
     this.layerMarkers.clearLayers()
@@ -238,6 +243,9 @@ export default class MapAdjudicatingListener {
         // and replace it with heavyweight
         data.lightPlanned = context.createPlanningRouteFor(data.currentPlans, data.asset.history, data.asset, false, false, true)
         context.showLayer(data.lightPlanned, context)
+
+        // start off with the vis buttons
+        this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback, this.btnListVisiblity, this.forceNames, this.map)        
 
         // check we're not in turn zero
         if (context.turnNumber > 0) {
