@@ -21,11 +21,9 @@ script:
 - yarn test:unit || travis_terminate 1;
 # start serge
 - yarn start:server &
-# diagnostics, see if it can see the database
-# - curl 5 http://localhost:8080/allDbs
-# run the cypress test suite
+# navigate to the e2e package
 - cd packages/e2e
-# next line commented out, until we sort yarn allowance
+# run the cypress test suite, recording the results to our account
 - yarn run cypress run --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7
 # kill open jobs (especially the Serge server running in the background)
 - kill $(jobs -p) || true
