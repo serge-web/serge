@@ -49,6 +49,7 @@ export default class MapAdjudicationPendingListener {
       console.log('store from popup', store)
     })
     helper.useComponent(TestComp)
+    console.log(helper.getPopup(), 'getPopup')
     helper.openPopup()
     helper.renderListener()
 
