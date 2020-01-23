@@ -18,13 +18,13 @@ import findLastRouteWithLocation from './findLastRouteLocation'
 import { PLANNING_PHASE } from '../../../consts'
 
 export default class MapPlanningPlayerListener {
-  constructor (layer, map, grid, force, turn, routeCompleteCallback, platformTypes, declutterCallback, perceivedStateCallback, /* array string */ forceNames, /* string */ phase) {
+  constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, declutterCallback, perceivedStateCallback, /* array string */ forceNames, /* string */ phase) {
     this.grid = grid
     this.force = force
     this.layerPriv = L.layerGroup().addTo(layer) // the layer we add our items to
     this.map = map // the underlying base-map (required to add/remove toolbar controls)
     this.inPlanningPhase = phase === PLANNING_PHASE
-    this.routeCompleteCallback = routeCompleteCallback
+    this.submitPlansCallback = submitPlansCallback
     this.turnNumber = turn
     this.platformTypes = platformTypes
     this.declutterCallback = declutterCallback
@@ -82,9 +82,17 @@ export default class MapPlanningPlayerListener {
     // command to submit whole planned route
     if (this.inPlanningPhase) {
       this.btnSubmitAll = createButton(true, 'Submit all plans', () => {
+        // clear the plot
+        this.clearOnNewLeg()
+
+        // and drop the marker
+        if (this.planningMarker) {
+          this.planningMarker.remove()
+        }
+
         // collate the data
         const payload = this.collatePlanningOrders(this.allRoutes)
-        this.routeCompleteCallback(payload)
+        this.submitPlansCallback(payload)
         clearButtons(this.submitButtons)
       }).addTo(map)
       this.submitButtons.push(this.btnSubmitAll)
@@ -172,20 +180,6 @@ export default class MapPlanningPlayerListener {
     // detach the map
     this.layerPriv.remove()
     this.layerPriv.clearLayers()
-  }
-
-  /** the user has finished planning the route for this platform
-   * send the data to the callback, and prepare for the next planned route
-   */
-  submitWholeRoute (/* object */ asset, /* array<routes */ routes) {
-    // send the callback
-    this.routeCompleteCallback(asset.force, asset.name, this.plannedLegs)
-
-    // remove the planning leg & markers
-
-    // clear the marker
-    this.currentMarker = null
-    this.clearOnNewLeg()
   }
 
   /** create a new list of cells, that have been filtered to those
@@ -427,8 +421,10 @@ export default class MapPlanningPlayerListener {
   }
 
   clearAchievableCells () {
-    this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
-    this.achievableCells = []
+    if (this.achievableCells) {
+      this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
+      this.achievableCells = []  
+    }
   }
 
   /** we're entering a new planning step - calculate which cells are
@@ -466,6 +462,7 @@ export default class MapPlanningPlayerListener {
   }
 
   clearOnNewLeg () {
+    this.clearAchievableCells()
     this.routeLats = []
     this.routeHexes = []
     this.plannedHexes = []
