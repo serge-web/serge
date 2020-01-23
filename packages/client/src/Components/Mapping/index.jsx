@@ -240,13 +240,13 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
           const duffCompleteCallback = null
           currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
             myForceRef.current, currentTurn, duffCompleteCallback,
-            platformTypesRef.current, declutterCallback, perceivedStateCallback, forceNames, phase)
+            platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase)
         }
         break
       case PLANNING_PHASE:
         currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
           myForceRef.current, currentTurn, routeCompleteCallback,
-          platformTypesRef.current, declutterCallback, perceivedStateCallback, forceNames, phase)
+          platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase)
         break
       default:
         console.log('Error - unexpected game phase encountered in Mapping component')
