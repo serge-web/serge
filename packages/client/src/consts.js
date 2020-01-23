@@ -60,7 +60,13 @@ export const ERROR_THROTTLE = 3000
 export const baseUrl = () => {
   const { hostname, protocol } = window.location
   const host = (new URL(window.location)).searchParams.get('host')
-  return host ? host : `${protocol}//${hostname}`
+
+  // NOTE: for all non-heroku deployments, we need to append the port number
+  const portDetails = hostname.toLowerCase().indexOf('herokuapp') !== -1 ? '' : ':' + DEFAULT_PORT
+
+  const res = host ? host : `${protocol}//${hostname}` + portDetails
+
+  return res
 }
 export const serverPath = (
   window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || baseUrl() + '/'
