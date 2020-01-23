@@ -25,7 +25,8 @@ script:
 - yarn start:server > res.txt &
 - more res.txt
 # diagnostics, see if it can see the database
-- ping -c 5 http://localhost/allDbs
+- curl 5 http://localhost:8080/allDbs > more res2.txt
+- more res2.txt
 # run the cypress test suite
 - cd packages/e2e
 # next line commented out, until we sort yarn allowance
