@@ -15,11 +15,9 @@ matrix:
   - name: Client Pipeline
     env: PACKAGE_LOCATION=packages/client PACKAGE_NAME=@serge/client
 script:
-# pull in dependencies
-- yarn install
 # build Serge deployment
 - yarn build
-# run unit tests
+# run unit tests, dropping out if they fail
 - yarn test:unit || travis_terminate 1;
 # start serge
 - yarn start:server &
