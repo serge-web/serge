@@ -41,7 +41,7 @@ const allForces = [
   }
 ]
 it('Finds the force for echo', () => {
-  expect(forceFor(allForces, 'echo')).toEqual('Green')
+  expect(forceFor(allForces, 'echo')).toEqual('GreenFAIL')
 })
 
 it('Finds the force for alpha', () => {
