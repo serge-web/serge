@@ -244,13 +244,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         }
         break
       case PLANNING_PHASE:
-        if (myForceRef.current === 'umpire') {
-          currentPhaseModeRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc)
-        } else {
-          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
-            myForceRef.current, currentTurn, routeCompleteCallback,
-            platformTypesRef.current, declutterCallback, perceivedStateCallback, forceNames, phase)
-        }
+        currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
+          myForceRef.current, currentTurn, routeCompleteCallback,
+          platformTypesRef.current, declutterCallback, perceivedStateCallback, forceNames, phase)
         break
       default:
         console.log('Error - unexpected game phase encountered in Mapping component')
@@ -314,7 +310,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
         const asset = findAsset(allForces, marker.asset.uniqid)
         if (!asset.force) {
-          asset.force = forceFor(allForces, asset.uniqid)
+          asset.force = forceFor(allForces, asset.uniqid).name
         }
 
         // also check it's formatted correctly
@@ -345,7 +341,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         var force = asset.force
         if (!force) {
           // grr, we'll have to find it
-          asset.force = forceFor(allForces, asset.uniqid)
+          asset.force = forceFor(allForces, asset.uniqid).name
         }
         createThisMarker(asset, grid, asset.force, false)
       })
