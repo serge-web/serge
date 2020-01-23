@@ -9,21 +9,27 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
   const [allForces] = useState(store.allForces)
   const [allPlatforms] = useState(store.allPlatforms)
 
-  const handleSubmit = () => {
-    console.log('form submitted')
-    // callbackFunction()
+  // A copy of the store to capture the updates
+  const newStore = store
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    callbackFunction(newStore)
   }
 
   const handleRadioChange = ({ target }) => {
     setForcePerception(target.value)
+
+    newStore.perception.force = target.value
     // save data in helper class to not lose it after popup recreate
-    onStoreUpdate({ force: target.value, forcePerception })
+    onStoreUpdate(newStore)
   }
 
   const handleSelectChange = ({ target }) => {
     setTypePerception(target.value)
+    newStore.perception.type = target.value
     // save data in helper class to not lose it after popup recreate
-    // onStoreUpdate({ typePerception: target.value, check })
+    onStoreUpdate(newStore)
   }
 
   return (
@@ -39,7 +45,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
                   <li key={force.uniqid}>
                     <label>
                       {force.name}
-                      <input onChange={handleRadioChange} name="force" type="radio" value={force.name}/>
+                      <input onChange={handleRadioChange} name="force" type="radio" value={force.name} checked={forcePerception === force.name} />
                       <span className={'force-colour'} style={{ backgroundColor: force.color }}></span>
                     </label>
                   </li>
@@ -51,11 +57,12 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
       </div>
       <div className="input-container">
         <label htmlFor="type">Perceived type</label>
-        <select name="type" onChange={handleSelectChange}>
+        <select value={typePerception} name="type" onChange={handleSelectChange}>
+          <option value="unknown">Unknown</option>
           {allPlatforms.map(platform => (<option key={_.kebabCase(platform.name)} value={_.kebabCase(platform.name)}>{platform.name}</option>))}
         </select>
       </div>
-      <button onClick={handleSubmit()}>Save</button>
+      <button onClick={handleSubmit}>Save</button>
     </form>
   )
 }

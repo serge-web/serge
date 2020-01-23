@@ -333,7 +333,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       })
       helper.onUpdate(data => {
         if (data) {
-          helper.setStore({ data: data })
+          helper.setStore(data)
+          perceivedStateCallback(marker.asset.uniqid, marker.asset.force, data.perception)
         }
         helper.closePopup()
       })
