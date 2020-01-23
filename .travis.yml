@@ -22,7 +22,7 @@ script:
 # run unit tests
 - yarn test:unit || travis_terminate 1;
 # start serge
-- yarn start:server
+- yarn start:server &
 # diagnostics, see if it can see the database
 - curl 5 http://localhost:8080/allDbs
 # run the cypress test suite
