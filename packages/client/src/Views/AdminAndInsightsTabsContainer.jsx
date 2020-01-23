@@ -30,6 +30,7 @@ class AdminAndInsightsTabsContainer extends Component {
     super(props);
     this.state = {
       gameAdmin: 'Game Admin',
+      gameAdminTitle: 'Social Media',
       insights: 'Insights',
       model: FlexLayout.Model.fromJson(json),
       channelNames: [],
@@ -43,7 +44,7 @@ class AdminAndInsightsTabsContainer extends Component {
   addTabs() {
     const [ state ] = this.context;
     this.state.model.doAction(
-      FlexLayout.Actions.addNode({type: "tab", component: this.state.gameAdmin, name: this.state.gameAdmin, id: this.state.gameAdmin}, "#2", FlexLayout.DockLocation.CENTER, -1)
+      FlexLayout.Actions.addNode({type: "tab", component: this.state.gameAdmin, name: this.state.gameAdminTitle, id: this.state.gameAdmin}, "#2", FlexLayout.DockLocation.CENTER, -1)
     );
 
     if (state.isInsightViewer) {
@@ -54,7 +55,7 @@ class AdminAndInsightsTabsContainer extends Component {
   }
 
   factory = (node) => {
-    if (node.getName() === this.state.gameAdmin) {
+    if (node.getName() === this.state.gameAdminTitle) {
       return <GameAdmin />
     }
     if (node.getName() === this.state.insights) {
