@@ -15,20 +15,16 @@ matrix:
   - name: Client Pipeline
     env: PACKAGE_LOCATION=packages/client PACKAGE_NAME=@serge/client
 script:
-- cd $PACKAGE_LOCATION
-# run test suite
-- yarn test
 # build Serge deployment
 - yarn build
-# start the server (in background process)
-- cd ../server
-- yarn start &
-# run the cypress test suite
-- cd ../e2e
-# manually get yarn to install
-- yarn install
-# next line commented out, until we sort yarn allowance
-# - yarn run cypress run --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7
+# run unit tests, dropping out if they fail
+- yarn test:unit || travis_terminate 1;
+# start serge
+- yarn start:server &
+# navigate to the e2e package
+- cd packages/e2e
+# run the cypress test suite, recording the results to our account
+- yarn run cypress run --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7
 # kill open jobs (especially the Serge server running in the background)
 - kill $(jobs -p) || true
 notifications:

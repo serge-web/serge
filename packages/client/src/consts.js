@@ -68,6 +68,7 @@ export const baseUrl = () => {
 
   return res
 }
+
 export const serverPath = (
   window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || baseUrl() + '/'
 ).replace(/\/?$/, '/')
