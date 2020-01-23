@@ -4,6 +4,6 @@ export default function canControlThisForce (/* array */ allForces, /* string */
   } else {
     // get this force
     const thisForce = allForces.find(force => force.uniqid === subjectForceId)
-    return thisForce.controlledBy && thisForce.controlledBy.find(name => name === myForceId)
+    return !!(thisForce.controlledBy && thisForce.controlledBy.find(name => name === myForceId))
   }
 };
