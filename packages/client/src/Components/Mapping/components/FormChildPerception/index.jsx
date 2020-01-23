@@ -3,30 +3,32 @@ import _ from 'lodash'
 
 const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
   const [currentForce] = useState(store.currentForce)
-  const [currentMarker, setCurrentMarker] = useState(store.currentMarker)
+  const [currentMarkerName] = useState(store.currentMarkerName)
+  const [forcePerception, setForcePerception] = useState(store.perception.force)
+  const [typePerception, setTypePerception] = useState(store.perception.type)
   const [allForces] = useState(store.allForces)
   const [allPlatforms] = useState(store.allPlatforms)
 
   const handleSubmit = () => {
     console.log('form submitted')
-    // callbackFunction({ count: test, input, check })
+    // callbackFunction()
   }
 
-  // const handleCheckboxChange = ({ target }) => {
-  //   setCurrentMarker(target.checked)
-  //   // save data in helper class to not lose it after popup recreate
-  //   // onStoreUpdate({ count: test, input, check: target.checked })
-  // }
+  const handleRadioChange = ({ target }) => {
+    setForcePerception(target.value)
+    // save data in helper class to not lose it after popup recreate
+    onStoreUpdate({ force: target.value, forcePerception })
+  }
 
-  // const handleOnInputChange = ({ target }) => {
-  //   // setInput(target.value)
-  //   // save data in helper class to not lose it after popup recreate
-  //   // onStoreUpdate({ count: test, input: target.value, check })
-  // }
+  const handleSelectChange = ({ target }) => {
+    setTypePerception(target.value)
+    // save data in helper class to not lose it after popup recreate
+    // onStoreUpdate({ typePerception: target.value, check })
+  }
 
   return (
     <form action="">
-      <h2>{currentMarker.name}</h2>
+      <h2>{currentMarkerName}</h2>
       <div className="input-container checkbox">
         <label htmlFor="force">Percieved force</label>
         <ul>
@@ -37,7 +39,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
                   <li key={force.uniqid}>
                     <label>
                       {force.name}
-                      <input name="force" type="radio" value={force.name}/>
+                      <input onChange={handleRadioChange} name="force" type="radio" value={force.name}/>
                       <span className={'force-colour'} style={{ backgroundColor: force.color }}></span>
                     </label>
                   </li>
@@ -49,7 +51,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
       </div>
       <div className="input-container">
         <label htmlFor="type">Perceived type</label>
-        <select name="type">
+        <select name="type" onChange={handleSelectChange}>
           {allPlatforms.map(platform => (<option key={_.kebabCase(platform.name)} value={_.kebabCase(platform.name)}>{platform.name}</option>))}
         </select>
       </div>
