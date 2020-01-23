@@ -3,13 +3,30 @@ import Select from 'react-select'
 import TextInput from '../Components/Inputs/TextInput'
 import { useStateValue } from '../Store/PlayerUi'
 import { getWargame } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { serverPath } from '../consts'
 
 export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword }) {
+  if (!wargameList) {
+    return (
+      <div className="flex-content-wrapper flex-content-wrapper--welcome">
+        <div className="flex-content flex-content--welcome">
+          <h2>Serge - Serious Gaming Evolved</h2>
+          <h2>&nbsp;</h2>
+          <h3>* Server Not Found - check configuration</h3>
+          <h3>* Trying to connect to: <i>{serverPath}</i></h3>
+          <h3>* The above URL should be something like:</h3>
+          <h4>&nbsp;&nbsp;&nbsp;- Dev machine: http://192.168.1.115:8080></h4>
+          <h4>&nbsp;&nbsp;&nbsp;- Dedicated network:  http://serge:8080</h4>
+          <h4>&nbsp;&nbsp;&nbsp;- Online review: https://serge-review.herokuapp.com/</h4>
+        </div>
+      </div>
+    )
+  }
   const [localState, setState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      selectedWargame: { label: 'MWARC-Initialised', value: 'http://localhost:8080/db/wargame-k5cnteb1' },
-      rolePassword: 'p2311'
+      selectedWargame: '',
+      rolePassword: ''
     }
   )
   const [state, dispatch] = useStateValue()
@@ -25,7 +42,6 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
     e.preventDefault()
     setRolePassword(val)
   }
-
   return (
     <div className="flex-content-wrapper flex-content-wrapper--welcome">
       <div className="flex-content flex-content--welcome">
@@ -36,11 +52,9 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
             <Select
               name="wargame-selection"
               value={selectedWargame}
-              defaultValue={selectedWargame}
               className="react-select"
               classNamePrefix="react-select"
-              options={[selectedWargame]}
-              // options={wargameList.map((wargame) => ({ label: wargame.title, value: wargame.name }))}
+              options={wargameList.map((wargame) => ({ label: wargame.title, value: wargame.name }))}
               onChange={updateSelectedWargame}
             />
           </div>

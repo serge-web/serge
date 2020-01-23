@@ -1,6 +1,6 @@
 /* global it expect */
 
-import plannedModePopupFor from '../../Helpers/plannedModePopupFor'
+import plannedModePopupFor from '../../Components/Mapping/helpers/plannedModePopupFor'
 
 const assetMock = {
   name: 'name test',

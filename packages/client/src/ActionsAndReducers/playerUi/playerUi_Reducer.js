@@ -1,11 +1,11 @@
 import ActionConstant from '../ActionConstants'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
+
 import {
   CHAT_CHANNEL_ID,
   expiredStorage,
-  LOCAL_STORAGE_TIMEOUT,
-  FORCE_LAYDOWN
+  LOCAL_STORAGE_TIMEOUT
 } from '../../consts'
 import _ from 'lodash'
 import uniqId from 'uniqid'
@@ -95,49 +95,11 @@ export const playerUiReducer = (state = initialState, action) => {
     return { isParticipant, allRolesIncluded, observing, templates }
   }
 
-  const modifyForcesBasedOnMessages = ({ allPlatformTypes, channels, allForces }) => {
-    let res = allForces
-    const mapChannel = Object.values(channels).find(({ name }) => (name === 'Mapping'))
-    if (mapChannel && mapChannel.messages && mapChannel.messages.length) {
-      for (const message of mapChannel.messages) {
-        res = modifyForcesBasedOnMessage(allForces, message)
-      }
-    }
-    return res
-  }
-
-  const modifyForcesBasedOnMessage = (allForces, message) => {
-    let res = allForces
-    if (message.details && message.details.forceDelta) {
-      res = handleForceDelta(message, allForces)
-    }
-    return res
-  }
-
-  const handleForceLaydown = (/* object */ message, /* object */ allForces) => {
-    // find the force
-    const forceIndex = allForces.findIndex(item => item.name === message.force)
-    if (forceIndex === -1) return allForces
-    const assetIndex = allForces[forceIndex].assets.findIndex(item => item.name === message.name)
-    if (assetIndex === -1) return allForces
-    // set the location
-    const { position } = allForces[forceIndex].assets[assetIndex]
-    console.log('asset moved from:' + position + ' to:' + message.position)
-    allForces[forceIndex].assets[assetIndex].position = message.position
-    return allForces
-  }
-
-  const handleForceDelta = (/* object */message, /* object */ allForces) => {
-    const msgType = message.details.messageType
-    if (!msgType) {
-      console.error('problem - we need message type in ', message)
-    }
-    switch (msgType) {
-      case FORCE_LAYDOWN:
-        return handleForceLaydown(message, allForces)
-      default:
-        console.error('failed to create player reducer handler for:' + msgType)
-        return allForces
+  const reduceTurnMarkers = (message) => {
+    if (message.infoType) {
+      return message.gameTurn
+    } else {
+      return message._id
     }
   }
 
@@ -158,7 +120,11 @@ export const playerUiReducer = (state = initialState, action) => {
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.allChannels = action.payload.data.channels.channels
       newState.allForces = action.payload.data.forces.forces
-      newState.allPlatformTypes = action.payload.data.platform_types.platformTypes
+      // legacy versions of the wargame lacked a player types element, don't
+      // trip over in its absence
+      if (action.payload.data.platform_types) {
+        newState.allPlatformTypes = action.payload.data.platform_types.platformTypes
+      }
       break
 
     case ActionConstant.SET_FORCE:
@@ -302,11 +268,6 @@ export const playerUiReducer = (state = initialState, action) => {
         }
       }
 
-      if (action.payload.details && action.payload.details.forceDelta) {
-        // ok, this message relates to the wargame forces data changing. Pass
-        // it to the handler
-        newState.allForces = modifyForcesBasedOnMessage(newState.allForces, { ...action.payload.message, details: action.payload.details })
-      }
       break
 
     case ActionConstant.SET_ALL_MESSAGES:
@@ -326,14 +287,6 @@ export const playerUiReducer = (state = initialState, action) => {
           isOpen: false
         }
       })
-
-      const reduceTurnMarkers = (message) => {
-        if (message.infoType) {
-          return message.gameTurn
-        } else {
-          return message._id
-        }
-      }
 
       messages = _.uniqBy(messages, reduceTurnMarkers)
 
@@ -371,7 +324,7 @@ export const playerUiReducer = (state = initialState, action) => {
 
         newState.channels = channels
       })
-
+    
       break
 
     case ActionConstant.OPEN_MESSAGE:

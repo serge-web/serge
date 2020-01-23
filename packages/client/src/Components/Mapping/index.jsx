@@ -1,38 +1,42 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import L from 'leaflet'
-import GridImplementation from '../../Helpers/GridImplementation'
-import MapAdjudicatingUmpireListener from '../../Helpers/MapAdjudicatingUmpireListener'
-import MapAdjudicatingPlayerListener from '../../Helpers/MapAdjudicatingPlayerListener'
-import MapAdjudicationPendingListener from '../../Helpers/MapAdjudicationPendingListener'
-import MapMarkersControl from '../../Helpers/MapMarkersControl'
-import MapPlanningPlayerListener from '../../Helpers/MapPlanningPlayerListener'
-import MapPlanningUmpireListener from '../../Helpers/MapPlanningUmpireListener'
-import markerFor from '../../Helpers/markerFor'
-import hasPendingForces from '../../Helpers/hasPendingForces'
+import GridImplementation from './helpers/GridImplementation'
+import MapAdjudicatingUmpireListener from './helpers/MapAdjudicatingUmpireListener'
+import MapAdjudicationPendingListener from './helpers/MapAdjudicationPendingListener'
+import MapPlanningPlayerListener from './helpers/MapPlanningPlayerListener'
+import MapPlanningUmpireListener from './helpers/MapPlanningUmpireListener'
+import markerFor from './helpers/markerFor'
+import hasPendingForces from './helpers/hasPendingForces'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FORCE_LAYDOWN } from '../../consts'
-import MappingForm from '../MappingForm'
+import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, PLANNING_PHASE } from '../../consts'
+import assetsVisibleToMe from './helpers/assetsVisibleToMe'
+import forceFor from './helpers/forceFor'
+import findAsset from './helpers/findAsset'
+
+import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
+import removeClassNamesFrom from './helpers/removeClassNamesFrom'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
-import '../../Helpers/mousePosition'
+import './helpers/mousePosition'
 
 import './styles.scss'
 
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
+import declutterLayer from './helpers/declutterLayer'
+import findPerceivedAsClasses from './helpers/findPerceivedAsClassName'
+import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
+import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
+
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
   const platformsLayerRef = useRef(null) // the platform markers
   const gridImplRef = useRef(null) // hexagonal grid
-  const forcesRef = useRef(allForces) // the current list of forces
-  const phaseRef = useRef(phase) // the current game phase
-  const mapListenerRef = useRef(null) // listen for mouse drag events
+  const currentPhaseModeRef = useRef(null)
+  const currentPhaseMapRef = useRef(null)
   const myForceRef = useRef(selectedForce)
   const platformTypesRef = useRef(allPlatforms)
-  const currentTurnRef = useRef(currentTurn)
-
-  const [showForm, setShowForm] = useState(false)
-  const [formPos, setFormPos] = useState()
+  const perceiveAsForceRef = useRef(selectedForce) // in case white changes how they perceive the data
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -130,60 +134,122 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     sendMessage(FORCE_LAYDOWN, param)
   }
 
-  /** callback to tell UI that we've got control of a platform in this UI */
-  const declareControlOf = (force, name, platformType) => {
-    console.log('User can control:', name)
+  const visChangesFunc = changes => {
+    sendMessage(VISIBILIY_CHANGES, changes)
+
+    /** note: we aren't currently receiving messages that we've sent. So we
+     * to trigger the reducer ourselves
+     */
+    handleVisibilityChanges(changes, allForces)
   }
 
-  const routeComplete = (/* string */force, /* string */asset, /* object */payload) => {
-    console.log('Planned Route:', force, asset, payload)
+  const perceivedStateCallback = (asset, force, perception) => {
+    const perceivedType = { asset: asset.uniqid, force: force, perception: perception }
+    sendMessage(PERCEPTION_OF_CONTACT, perceivedType)
+    handlePerceptionChanges(perceivedType, allForces)
+  }
+
+  const routeCompleteCallback = (/* object */payload) => {
+    sendMessage(SUBMIT_PLANS, payload)
+    // also call the reducer ourselves
+  //  handlePlansSubmittedChanges(payload, allForces)
   }
 
   const clearControlledAssets = () => {
-    console.log('Clearing list of controlled assets')
   }
 
-  const formRequestCallback = (form, payload) => {
-    console.log('Popup form requested for:', form, payload)
-    setShowForm(true)
-    setFormPos(payload.screenPos)
+  const newStateOfWorldCallback = (payload) => {
+    sendMessage(STATE_OF_WORLD, payload)
+    // also call the reducer ourselves
+    handleStateOfWorldChanges(payload, allForces)
+  }
+
+  // run the declutter algorithm, to distribute markers around a cell if necessary
+  const declutterCallback = () => {
+    declutterLayer(currentPhaseMapRef.current, gridImplRef.current)
+  }
+
+  const createThisMarker = (asset, grid, force) => {
+    // set the asset force
+    asset.force = force.uniqid
+
+    const userIsUmpire = myForceRef.current === 'umpire'
+
+    // note - if we're in adjudication phase, at turn zero, we don't see assets for other forces
+    let showThis
+    if (phase === 'adjudication' && currentTurn === 0 && !userIsUmpire) {
+      // ok, special mode = we only show our assets in this mode
+      showThis = asset.force === selectedForce
+    } else {
+      // yes, we show markers
+      showThis = true
+    }
+    if (showThis) {
+      const marker = markerFor(asset, grid, force.name, myForceRef.current, platformTypesRef.current, userIsUmpire,
+        perceiveAsForceRef.current)
+
+      // did we create one?
+      if (marker != null) {
+        currentPhaseModeRef.current.listenTo(marker, currentTurn)
+        platformsLayerRef.current.addLayer(marker)
+      }
+    }
   }
 
   useEffect(() => {
-    // double-check where we are
-    console.log(new Date(), 'TURN:', phaseRef.current, currentTurnRef.current)
+    console.log('Re-rendering map Component at:', new Date(), 'phase:', phase)
 
-    if (mapListenerRef.current != null) {
-      // remove the current listener
-      mapListenerRef.current.clearListeners()
+    // we're going to be re-generating all the markers, so delete any that are there already
+    if (platformsLayerRef.current) {
+      platformsLayerRef.current.clearLayers()
+    }
+
+    if (currentPhaseModeRef.current) {
+      // check if clear listeners present
+      if (currentPhaseModeRef.current.clearListeners) {
+        // detatch the current listener
+        currentPhaseModeRef.current.clearListeners(platformsLayerRef.current)
+      }
 
       // ditch the listener
-      mapListenerRef.current = null
+      currentPhaseModeRef.current = null
     }
+
+    if (currentPhaseMapRef.current) {
+      // ok, detach it
+      currentPhaseMapRef.current.remove()
+      currentPhaseMapRef.current.clearLayers()
+    }
+
+    currentPhaseMapRef.current = L.layerGroup().addTo(mapRef.current)
 
     // clear the UI
     clearControlledAssets()
 
     // create a listener for the new phase
-    const inForceLaydown = hasPendingForces(forcesRef.current, myForceRef.current)
-    switch (phaseRef.current) {
-      case 'adjudication':
+    const inForceLaydown = hasPendingForces(allForces, myForceRef.current)
+    const forceNames = allForces.map(force => force.uniqid)
+    switch (phase) {
+      case ADJUDICATION_PHASE:
         if (myForceRef.current === 'umpire') {
-          mapListenerRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, formRequestCallback)
-        } else if (inForceLaydown && currentTurnRef.current === 0) {
+          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, newStateOfWorldCallback, currentTurn)
+        } else if (inForceLaydown && currentTurn === 0) {
           // this force has assets with location pending
-          mapListenerRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc)
+          currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
         } else {
-          // just use dumb adjudication listener
-          mapListenerRef.current = new MapAdjudicatingPlayerListener(mapRef.current, gridImplRef.current)
+          const duffCompleteCallback = null
+          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
+            myForceRef.current, currentTurn, duffCompleteCallback,
+            platformTypesRef.current, declutterCallback, perceivedStateCallback, forceNames, phase)
         }
         break
-      case 'planning':
+      case PLANNING_PHASE:
         if (myForceRef.current === 'umpire') {
-          mapListenerRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current)
+          currentPhaseModeRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc)
         } else {
-
-          mapListenerRef.current = new MapPlanningPlayerListener(mapRef.current, gridImplRef.current, myForceRef.current, currentTurnRef.current, routeComplete)
+          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
+            myForceRef.current, currentTurn, routeCompleteCallback,
+            platformTypesRef.current, declutterCallback, perceivedStateCallback, forceNames, phase)
         }
         break
       default:
@@ -191,57 +257,106 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     }
 
     // create markers, and listen to them
-    forcesRef.current.forEach(force => {
+    allForces.forEach(force => {
       // see if this force has any assets (white typically doesn't)
       if (force.assets) {
         force.assets.forEach(asset => {
-          // set the asset location
-          asset.loc = gridImplRef.current.hexNamed(asset.position).centrePos
-
-          // set the asset force
-          asset.force = force.name
-
-          var assetIsDraggable
-          switch (phaseRef.current) {
-            case 'adjudication':
-              assetIsDraggable = ((myForceRef.current === 'umpire') || (inForceLaydown && (asset.force === myForceRef.current)))
-              break
-            case 'planning':
-              assetIsDraggable = myForceRef.current !== 'umpire' && asset.force === myForceRef.current
-              break
-            default:
-              console.log('Error - unexpected game phase encountered in Mapping component')
-          }
-
-          const userIsUmpire = myForceRef.current === 'umpire'
-          const marker = markerFor(asset, force.name, myForceRef.current, platformTypesRef.current, assetIsDraggable, userIsUmpire)
-
-          // did we create one?
-          if (marker != null) {
-            // tell the UI we're in control of this marker
-            if (assetIsDraggable) {
-              declareControlOf(force.name, asset.name, asset.platformType)
-            }
-
-            mapListenerRef.current.listenTo(marker, currentTurnRef.current)
-            platformsLayerRef.current.addLayer(marker)
-          }
+          // for our subsequent convenience, shove the force in the asset
+          asset.force = force.uniqid
+          createThisMarker(asset, gridImplRef.current, force)
         })
       }
     })
-  }, [forcesRef, phaseRef, currentTurnRef])
 
+    declutterCallback()
+  }, [phase])
+
+  /** create handler for wargame updates - specifically when the
+   * contents of allForces changes
+   */
   useEffect(() => {
-    MapMarkersControl(platformsLayerRef.current, gridImplRef.current, allForces)
+    console.log('Mapping Component state changed at', new Date(), 'phase:', phase)
+    const markers = platformsLayerRef.current
+    const grid = gridImplRef.current
+    //
+    // ASSET MOVEMENT
+    // Note: no, we don't bother updating on movement. Movement is handled when
+    // we move to a new game phase
+    // markers.eachLayer(function (marker) {
+    //   const force = allForces.find(force => marker.force === force.name)
+    //   if (force && marker.asset) {
+    //     const asset = force.assets.find(({ name }) => name === marker.asset.name)
+    //     if (asset) {
+    //       // check the positions match
+    //       if (marker.asset.position !== asset.position) {
+    //         // update marker
+    //         marker.setLatLng(grid.hexNamed(asset.position).centrePos)
+    //       }
+    //     } else {
+    //     }
+    //   }
+    // })
+    //
+    // ASSET VISIBILITY
+    //
+    const visibleToMe = assetsVisibleToMe(allForces, selectedForce)
+    const foundItems = []
+    const toDelete = []
+
+    const userIsUmpire = myForceRef.current === 'umpire'
+
+    markers.eachLayer(marker => {
+      const uniqid = marker.asset.uniqid
+      var found = visibleToMe.find(item => item.uniqid === uniqid)
+      // get a new pointer to this asset
+      if (found) {
+        foundItems.push(uniqid)
+
+        const asset = findAsset(allForces, marker.asset.uniqid)
+        if (!asset.force) {
+          asset.force = forceFor(allForces, asset.uniqid)
+        }
+
+        // also check it's formatted correctly
+        const perceptionClassName = findPerceivedAsClasses(perceiveAsForceRef.current, asset.force,
+          asset.platformType, asset.perceptions, userIsUmpire)
+
+        if (perceptionClassName) {
+          // remove exiting types
+          removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
+
+          // now store the new ones
+          L.DomUtil.addClass(marker._icon, perceptionClassName)
+        }
+      } else {
+        // ok, it's no longer visible to me. hide it
+        marker.remove()
+        toDelete.push(marker)
+      }
+    })
+    toDelete.forEach(marker => {
+      markers.removeLayer(marker)
+    })
+    // trim the items in visibleTo me
+    const toBeAdded = visibleToMe.filter(asset => foundItems.indexOf(asset.uniqid) === -1)
+
+    if (toBeAdded) {
+      toBeAdded.forEach(asset => {
+        var force = asset.force
+        if (!force) {
+          // grr, we'll have to find it
+          asset.force = forceFor(allForces, asset.uniqid)
+        }
+        createThisMarker(asset, grid, asset.force, false)
+      })
+    }
+    //
+    // Other diagnostics
+    //
   }, [allForces])
 
   return (
     <div id="map" className="mapping"/>
   )
-// TODO: Alex demonastrator included this form-based processing
-//  return (<div id="map" className="mapping">
-//    { showForm && <MappingForm position={formPos}></MappingForm> }
-//  </div>)
 }
-
 export default Mapping
