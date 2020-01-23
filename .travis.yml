@@ -24,7 +24,7 @@ script:
 # start serge
 - yarn start:server &
 # diagnostics, see if it can see the database
-- curl 5 http://localhost:8080/allDbs
+# - curl 5 http://localhost:8080/allDbs
 # run the cypress test suite
 - cd packages/e2e
 # next line commented out, until we sort yarn allowance
