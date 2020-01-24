@@ -10,7 +10,6 @@ import getClearedRoute from './getClearedRoute'
 import routeLinesFor from './routeLinesFor'
 import turnNameFor from './turnNameFor'
 import createStateButtonsFor from './createStateButtonsFor'
-import createPerceivedStateButtonsFor from './createPerceivedStateButtonsFor'
 import roundToNearest from './roundToNearest'
 import findPlatformTypeFor from './findPlatformTypeFor'
 
@@ -360,13 +359,9 @@ export default class MapPlanningPlayerListener {
     if (marker.asset.force !== this.force) {
       // ok, this is a quickie. Assign a click listener so
       // we can change the perceived state
-      const context = this
       marker.on('click', e => {
         // clear up any state planning
         this.clearAllButtons()
-
-        const platformTypes = this.platformTypes.map(pType => pType.name)
-        context.btnListPerceived = createPerceivedStateButtonsFor(marker.asset, this.force, this.forceNames, platformTypes, context, context.perceivedStateCallback, context.btnListPerceived)
       })
     } else {
       // store the details for this force
@@ -433,7 +428,7 @@ export default class MapPlanningPlayerListener {
   clearAchievableCells () {
     if (this.achievableCells) {
       this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
-      this.achievableCells = []  
+      this.achievableCells = []
     }
   }
 

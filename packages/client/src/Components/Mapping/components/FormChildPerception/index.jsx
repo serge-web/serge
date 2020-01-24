@@ -36,7 +36,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
     <form action="">
       <h2>{currentMarkerName}</h2>
       <div className="input-container checkbox">
-        <label htmlFor="force">Percieved force</label>
+        <label htmlFor="force">Perceived force</label>
         <ul>
           {
             allForces.map(force => {

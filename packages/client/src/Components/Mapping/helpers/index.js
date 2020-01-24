@@ -1,7 +1,6 @@
 import assetsVisibleToMe from './assetsVisibleToMe'
 import colorFor from './colorFor'
 import createDebugButton from './createDebugButton'
-import createPerceivedStateButtonsFor from './createPerceivedStateButtonsFor'
 import createStateButtonsFor from './createStateButtonsFor'
 import declutterLayer from './declutterLayer'
 import declutterMarkers from './declutterMarkers'
@@ -32,7 +31,6 @@ export {
   assetsVisibleToMe,
   colorFor,
   createDebugButton,
-  createPerceivedStateButtonsFor,
   createStateButtonsFor,
   declutterLayer,
   declutterMarkers,
