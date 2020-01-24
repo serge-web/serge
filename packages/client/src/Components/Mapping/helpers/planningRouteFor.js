@@ -1,17 +1,18 @@
 import L from 'leaflet'
 
 // the images we use to annotate planning legs
-import turn0deg from '../images/turn-vert.png'
-import turn30deg from '../images/turn-right.png'
-import turn60deg from '../images/turn-right-onetwenty.png'
-import turn90deg from '../images/turn-end.png'
-import turn120deg from '../images/turn-left-sixty.png'
-import turn150deg from '../images/turn-left.png'
+import turn0deg from '../images/turn0deg.png'
+import turn30deg from '../images/turn30deg.png'
+import turn60deg from '../images/turn60deg.png'
+import turn90deg from '../images/turn90deg.png'
+import turn120deg from '../images/turn120deg.png'
+import turn150deg from '../images/turn150deg.png'
 import noTurn from '../images/no-turn.png'
 import lightTurn from '../images/light-turn.png'
 import backTurn from '../images/back-turn.png'
 
 import turnNameFor from './turnNameFor'
+import roundToNearest from './roundToNearest'
 import { min } from 'moment'
 
 // http://192.168.1.25:8080/?wargame=wargame-k5kw38gf&access=p5543
@@ -61,7 +62,7 @@ function bearingBetween (/* latLng */ p1, /* latLng */ p2) {
 /** we plot a line marker perpendicular to the direction
  * of travel at route waypoints.  Determine the marker to use for this bearing
  */
-function bearingMarkerFor (/* number */ angle) {
+function bearingMarkerFor(/* number */ angle) {
   let icon
   var iconAngles = {
     turn0degVar: {icon: turn0deg, markerAngle: 0},
@@ -73,106 +74,48 @@ function bearingMarkerFor (/* number */ angle) {
     turnLightVar: {icon: lightTurn, markerAngle: null},
     turnBackVar: {icon: backTurn, markerAngle: null},
   }
-
-  if(angle === 0 ||  angle === 89 || angle === 90 ||angle === 180 || angle === 360){
+  angle = roundToNearest(angle, 30)
+  console.log("Rounded angle", angle)
+  if(angle === 0 || angle === 90 ||angle === 180 || angle === 360){
     // 90
     icon = iconAngles.turn90degVar.icon  // testing out a dynamic way of moving the markers
     console.log("90 degree marker", iconAngles.turn90degVar.markerAngle)
+  } else if(angle === 30){
+    // 30
+    icon = iconAngles.turn30degVar.icon
+    console.log("30 degree marker", iconAngles.turn30degVar.markerAngle)
   } else if(angle === 60){
     // 60
     icon = iconAngles.turn60degVar.icon
     console.log("60 degree marker", iconAngles.turn60degVar.markerAngle)
-  } else if(angle > 0 && angle < 90){
-    // 150
-    icon = iconAngles.turn150degVar.icon
-    console.log("150 degree marker", iconAngles.turn150degVar.markerAngle)
-  } else if(angle === 104){
-    // 120
-    icon = iconAngles.turn120degVar.icon
-    console.log("120 degree marker", iconAngles.turn120degVar.markerAngle)
   } else if(angle === 120){
-    // 30
-    icon = iconAngles.turn30degVar.icon
-    console.log("30 degree marker", iconAngles.turn30degVar.markerAngle)
-  } else if(angle < 121){
-    // 150
-    icon = iconAngles.turn150degVar.icon
-    console.log("150 degree marker", iconAngles.turn150degVar.markerAngle)
-  } else if(angle === 149){ 
-    // light turn
-    icon = iconAngles.turn150degVar.icon
-    console.log("No turn marker", iconAngles.turn150degVar.markerAngle)
-  } else if(angle < 151){
-    // 30
-    icon = iconAngles.turn30degVar.icon
-    console.log("30 degree marker", iconAngles.turn30degVar.markerAngle)
-  } else if(angle == 150){
-    // 60
-    icon = iconAngles.turn60degVar.icon
-    console.log("60 degree marker", iconAngles.turn60degVar.markerAngle)
-  } else if(angle < 160) {
-    // 150
-    icon = iconAngles.turn150degVar.icon
-    console.log("150 degree marker", iconAngles.turn150degVar.markerAngle)
-  } else if(angle > 160 && angle < 166){
-    // 30
-    icon = iconAngles.turn30degVar.icon
-    console.log("30 degree marker", iconAngles.turn30degVar.markerAngle)
-  } else if(angle === 171){
-    // 60
-    icon = iconAngles.turn60degVar.icon
-    console.log("60 degree marker", iconAngles.turn60degVar.markerAngle)
-  } else if (angle < 180){
     // 120
-    icon = iconAngles.turn120degVar.icon
-    console.log("120 degree marker", iconAngles.turn120degVar.markerAngle)
-  } else if(angle > 166 && angle < 194){
-    // 0
-    icon = iconAngles.turn0degVar.icon
-    console.log("0 degree marker", iconAngles.turn0degVar.markerAngle)
-  } else if(angle === 195){
-    // 90
-    icon = iconAngles.turn90degVar.icon
-    console.log("90 degree marker", iconAngles.turn90degVar.markerAngle)
-  } else if(angle === 210){
-    // light turn
     icon = iconAngles.turn30degVar.icon
-    console.log("No turn marker", iconAngles.turn30degVar.markerAngle)
-  } else if(angle === 240){
-    // light turn
-    icon = iconAngles.turn90degVar.icon
-    console.log("No turn marker", iconAngles.turn90degVar.markerAngle)
-  } else if(angle > 239 && angle < 150){
+    console.log("30 degree marker", iconAngles.turn30degVar.markerAngle)
+  } else if(angle === 150){
     // 150
-    icon = iconAngles.turn150degVar.icon
-    console.log("150 degree marker", iconAngles.turn150degVar.markerAngle)
-  } else if (angle < 260) {
-    // South to West
-    // 150
+    icon = iconAngles.turn30degVar.icon
+    console.log("30 degree marker", iconAngles.turn30degVar.markerAngle)
+  } else if(angle === 210){
+    // 210
+    icon = iconAngles.turn30degVar.icon
+    console.log("30 degree marker", iconAngles.turn30degVar.markerAngle)
+  } else if(angle === 240) {
+    // 240
     icon = iconAngles.turn150degVar.icon
     console.log("150 degree marker", iconAngles.turn150degVar.markerAngle)
   } else if(angle === 270){
-    // 0
+    // 30
     icon = iconAngles.turn0degVar.icon
     console.log("0 degree marker", iconAngles.turn0degVar.markerAngle)
-  } else if (angle < 271) {
-    // South
-    // 90
-    icon = iconAngles.turn90degVar.icon
-    console.log("90 degree marker", iconAngles.turn90degVar.markerAngle)
-  } else if(angle < 310){
+  } else if(angle === 300){
     // 30
     icon = iconAngles.turn30degVar.icon
     console.log("30 degree marker", iconAngles.turn30degVar.markerAngle)
-  } else if (angle < 330){
-    // 30
-    icon = iconAngles.turn30degVar.icon
-    console.log("30 degree marker", iconAngles.turn30degVar.markerAngle)
-  } else if (angle < 360) {
-    // 30
-    // West to North
-    icon = iconAngles.turn30degVar.icon
-    console.log("30 degree marker", iconAngles.turn30degVar.markerAngle)
+  } else if (angle === 330){
+    // 330
+    icon = iconAngles.turn120degVar.icon
+    console.log("120 degree marker", iconAngles.turn120degVar.markerAngle)
   } else if (angle === undefined || angle === null) {
     // as some angles are undefined just use the end icon until this can be figured out
     // 90
@@ -211,7 +154,7 @@ function turnFor(/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current,
     bearing = parseInt(bearingFloat)
     if (comment) {
       console.log(comment, 'type 3', bearing1, bearing2, bearing)
-      console.log("Final bearing", bearing)
+      console.log("Final bearing", roundToNearest(bearing, 30))
     }
   }
   return bearing
@@ -284,7 +227,7 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
             if (minus1) {
               const angle = turnFor(minus2, minus1, current, turnNameFor(turn.turn - 1))
               //console.log("The pending angle is:", angle)
-              const iconName = bearingMarkerFor(angle)
+              const iconName = bearingMarkerFor(roundToNearest(angle, 30))
               result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId))
               pendingTurnLocation = false
             }

@@ -74,3 +74,4 @@ log.txt
 .env.production.local
 .env.test.local
 clear-ports.sh
+serge-split-consoles-vscode-workspace.code-workspace
