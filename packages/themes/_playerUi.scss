@@ -645,7 +645,6 @@
 .role-info {
   display: block;
   align-items: center;
-  padding: 8px 0 8px 16px;
   position: relative;
   background: $forceDefaultColor;
 
@@ -654,6 +653,13 @@
     font-weight: 600;
     font-style: italic;
     color: $adminColor;
+    display: block;
+    width: 100%;
+    padding: 8px 0 8px 16px;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   .contain-force-skin {
@@ -721,7 +727,7 @@
   border-radius: 4px 0 0 0;
   background: $adminColor;
   overflow: hidden;
-  z-index: 9;
+  z-index: 1000;
 
   .objective-text {
     margin-top: 15px;
