@@ -238,7 +238,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     switch (phase) {
       case ADJUDICATION_PHASE:
         if (myForceRef.current === 'umpire') {
-          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, 
+          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current,
             newStateOfWorldCallback, currentTurn, forceNames, visChangesFunc)
         } else if (inForceLaydown && currentTurn === 0) {
           // this force has assets with location pending
@@ -315,6 +315,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     markers.eachLayer(marker => {
       const uniqid = marker.asset.uniqid
       var found = visibleToMe.find(item => item.uniqid === uniqid)
+
       // get a new pointer to this asset
       if (found) {
         foundItems.push(uniqid)
@@ -329,7 +330,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
           asset.platformType, asset.perceptions, userIsUmpire)
 
         if (perceptionClassName) {
-          // remove exiting types
+          // remove existing types
           removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
 
           // now store the new ones
@@ -355,7 +356,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
           popup.setStore(data)
           perceivedStateCallback(marker.asset.uniqid, data.currentForce, data.perception)
         }
-        popup.closePopup()
+        popup.closePopup(() => {
+          console.log('popup closed')
+        })
       })
       popup.useComponent(MappingForm)
       // popup.openPopup()
