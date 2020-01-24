@@ -8,29 +8,25 @@ export default class MapPlanningUmpireListener {
     this.map = map
     this.forceNames = forceNames
     this.visibilityCallback = changesCallback
-    this.registeredListeners = []
     this.btnListVisiblity = []
   }
 
   clearListeners (markers) {
-    clearButtons(this.btnList)
+    clearButtons(this.btnListVisiblity)
 
     // to support the callbacks, we do put this scope context into them. drop it
     if (markers) {
       markers.eachLayer(marker => {
-        delete marker.context
+        marker.off('click')
       })
     }
   }
 
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
-    // store this class in a special attribute, so it's available in the callback
-    marker.context = this
-
     marker.on('click', e => {
       // start off with the vis buttons
-      this.btnListVisiblity = createVisibilityButtonsFor(marker.asset, this.visibilityCallback, this.btnListVisiblity, this.forceNames, this.map)        
+      this.btnListVisiblity = createVisibilityButtonsFor(marker.asset, this.visibilityCallback, this.btnListVisiblity, this.forceNames, this.map)
     })
   }
 }
