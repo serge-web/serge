@@ -345,8 +345,11 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       const popup = new MapPopupHelper(mapRef.current, marker)
       popup.setStore({
         currentForce: myForceRef.current,
+        currentMarker: marker.asset,
         currentMarkerName: marker.asset.name,
         currentMarkerForce: marker.asset.force,
+        currentMarkerStatus: marker.asset.state,
+        // currentMarkerSpeed: marker.asset.speed,
         perception: marker.asset.perceptions[myForceRef.current],
         allForces,
         allPlatforms
