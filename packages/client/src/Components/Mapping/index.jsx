@@ -286,7 +286,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const grid = gridImplRef.current
     //
     // ASSET MOVEMENT
-    // Note: no, we don't bother updating on movement. Movement is handled when
+    // NOTE: no, we don't bother updating on movement. Movement is handled when
     // we move to a new game phase
     // markers.eachLayer(function (marker) {
     //   const force = allForces.find(force => marker.force === force.name)
@@ -340,8 +340,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         toDelete.push(marker)
       }
       // Show a form on popup
-      const helper = new MapPopupHelper(mapRef.current, marker)
-      helper.setStore({
+      const popup = new MapPopupHelper(mapRef.current, marker)
+      popup.setStore({
         currentForce: myForceRef.current,
         currentMarkerName: marker.asset.name,
         currentMarkerForce: marker.asset.force,
@@ -349,20 +349,18 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         allForces,
         allPlatforms
       })
-      helper.onUpdate(data => {
+      popup.onUpdate(data => {
         if (data) {
-          helper.setStore(data)
+          popup.setStore(data)
           perceivedStateCallback(marker.asset.uniqid, data.currentForce, data.perception)
         }
-        helper.closePopup()
+        popup.closePopup()
       })
-      helper.useComponent(MappingForm)
-      // helper.openPopup()
-      helper.renderListener()
+      popup.useComponent(MappingForm)
+      // popup.openPopup()
+      popup.renderListener()
     })
-    toDelete.forEach(marker => {
-      markers.removeLayer(marker)
-    })
+    toDelete.forEach(marker => markers.removeLayer(marker))
     // trim the items in visibleTo me
     const toBeAdded = visibleToMe.filter(asset => foundItems.indexOf(asset.uniqid) === -1)
 
