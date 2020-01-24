@@ -34,11 +34,31 @@ class AdminAndInsightsTabsContainer extends Component {
       insights: 'Insights',
       model: FlexLayout.Model.fromJson(json),
       channelNames: [],
+      byPassUrl: null
     };
+  }
+
+  getByPassUrl() {
+    const [ state ] = this.context
+    const { currentWargame, allForces, selectedForce, selectedRole } = state
+    const currentUrl = new URL(document.location.href)
+    const force = allForces.find(force => force.uniqid === selectedForce)
+    const role = force.roles.find(role => role.name === selectedRole)
+    const byPassParams = {
+      wargame: currentWargame,
+      access: role.password
+    }
+    Object.keys(byPassParams).forEach(key => {
+      currentUrl.searchParams.set(key, byPassParams[key])
+    })
+    this.setState({
+      byPassUrl: currentUrl
+    })
   }
 
   componentDidMount() {
     this.addTabs();
+    this.getByPassUrl();
   }
 
   addTabs() {
@@ -72,6 +92,7 @@ class AdminAndInsightsTabsContainer extends Component {
 
   render() {
     const [ state ] = this.context;
+    const { byPassUrl } = this.state;
     let force = state.allForces.find((force) => force.uniqid === state.selectedForce);
 
     return (
@@ -82,7 +103,11 @@ class AdminAndInsightsTabsContainer extends Component {
           classNameMapper={this.classNameMapper}
         />
         <div className="role-info" style={{ backgroundColor: force.color, }} data-tour="second-step">
-          <span className="role-type">{ state.selectedRole }</span>
+          {
+            byPassUrl ?
+              <a href={byPassUrl} className="role-type">{ state.selectedRole }</a> :
+              <span className="role-type">{ state.selectedRole }</span>
+          }
           <div className="contain-force-skin">
             <div className="force-skin">
               <span className="force-type">{ force.name }</span>

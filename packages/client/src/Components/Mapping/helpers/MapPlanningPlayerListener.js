@@ -10,7 +10,6 @@ import getClearedRoute from './getClearedRoute'
 import routeLinesFor from './routeLinesFor'
 import turnNameFor from './turnNameFor'
 import createStateButtonsFor from './createStateButtonsFor'
-import createPerceivedStateButtonsFor from './createPerceivedStateButtonsFor'
 import roundToNearest from './roundToNearest'
 import findPlatformTypeFor from './findPlatformTypeFor'
 import canControlThisForce from './canControlThisForce'
@@ -360,20 +359,15 @@ export default class MapPlanningPlayerListener {
 
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
+    // can we control this force?
     if (!canControlThisForce(this.allForces, marker.asset.force, this.force)) {
-      // special handling here - only do perception if we're not the umpire
-      if (this.force !== UMPIRE_FORCE) {
-        // ok, this is a quickie. Assign a click listener so
-        // we can change the perceived state
-        const context = this
-        marker.on('click', e => {
-          // clear up any state planning
-          this.clearAllButtons()
-
-          const platformTypes = this.platformTypes.map(pType => pType.name)
-          context.btnListPerceived = createPerceivedStateButtonsFor(marker.asset, this.force, this.forceNames, platformTypes, context, context.perceivedStateCallback, context.btnListPerceived)
-        })
-      }
+      // nope - don't bother then
+      // ok, this is a quickie. Assign a click listener so
+      // we can change the perceived state
+      marker.on('click', e => {
+        // clear up any state planning
+        this.clearAllButtons()
+      })
     } else {
       // store the details for this force
       const thisData = this.dataFor(marker, this.platformTypes)

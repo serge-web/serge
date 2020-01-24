@@ -1,17 +1,22 @@
 import React, { useEffect, useRef } from 'react'
 import L from 'leaflet'
-import GridImplementation from './helpers/GridImplementation'
-import MapAdjudicatingUmpireListener from './helpers/MapAdjudicatingUmpireListener'
-import MapAdjudicationPendingListener from './helpers/MapAdjudicationPendingListener'
-import MapPlanningPlayerListener from './helpers/MapPlanningPlayerListener'
-import MapPlanningUmpireListener from './helpers/MapPlanningUmpireListener'
-import markerFor from './helpers/markerFor'
-import hasPendingForces from './helpers/hasPendingForces'
+import {
+  assetsVisibleToMe,
+  declutterLayer,
+  findAsset,
+  findPerceivedAsClasses,
+  forceFor,
+  GridImplementation,
+  hasPendingForces,
+  MapAdjudicatingUmpireListener,
+  MapAdjudicationPendingListener,
+  MapPlanningPlayerListener,
+  MapPlanningUmpireListener,
+  MapPopupHelper,
+  markerFor
+} from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, PLANNING_PHASE } from '../../consts'
-import assetsVisibleToMe from './helpers/assetsVisibleToMe'
-import forceFor from './helpers/forceFor'
-import findAsset from './helpers/findAsset'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import removeClassNamesFrom from './helpers/removeClassNamesFrom'
@@ -23,9 +28,10 @@ import './styles.scss'
 
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
-import declutterLayer from './helpers/declutterLayer'
-import findPerceivedAsClasses from './helpers/findPerceivedAsClassName'
+
 import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
+import handlePlansSubmittedChanges from '../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
+import MappingForm from './components/FormContainer'
 import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
@@ -143,8 +149,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     handleVisibilityChanges(changes, allForces)
   }
 
-  const perceivedStateCallback = (asset, force, perception) => {
-    const perceivedType = { asset: asset.uniqid, force: force, perception: perception }
+  const perceivedStateCallback = (/* string */ assetid, /* string */ perceivedBy, /* object */ perception) => {
+    const perceivedType = { asset: assetid, force: perceivedBy, perception: perception }
     sendMessage(PERCEPTION_OF_CONTACT, perceivedType)
     handlePerceptionChanges(perceivedType, allForces)
   }
@@ -232,7 +238,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     switch (phase) {
       case ADJUDICATION_PHASE:
         if (myForceRef.current === 'umpire') {
-          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current, 
+          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current,
             newStateOfWorldCallback, currentTurn, forceNames, visChangesFunc)
         } else if (inForceLaydown && currentTurn === 0) {
           // this force has assets with location pending
@@ -277,7 +283,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const grid = gridImplRef.current
     //
     // ASSET MOVEMENT
-    // Note: no, we don't bother updating on movement. Movement is handled when
+    // NOTE: no, we don't bother updating on movement. Movement is handled when
     // we move to a new game phase
     // markers.eachLayer(function (marker) {
     //   const force = allForces.find(force => marker.force === force.name)
@@ -305,6 +311,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     markers.eachLayer(marker => {
       const uniqid = marker.asset.uniqid
       var found = visibleToMe.find(item => item.uniqid === uniqid)
+
       // get a new pointer to this asset
       if (found) {
         foundItems.push(uniqid)
@@ -319,7 +326,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
           asset.platformType, asset.perceptions, userIsUmpire)
 
         if (perceptionClassName) {
-          // remove exiting types
+          // remove existing types
           removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
 
           // now store the new ones
@@ -330,10 +337,30 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         marker.remove()
         toDelete.push(marker)
       }
+      // Show a form on popup
+      const popup = new MapPopupHelper(mapRef.current, marker)
+      popup.setStore({
+        currentForce: myForceRef.current,
+        currentMarkerName: marker.asset.name,
+        currentMarkerForce: marker.asset.force,
+        perception: marker.asset.perceptions[myForceRef.current],
+        allForces,
+        allPlatforms
+      })
+      popup.onUpdate(data => {
+        if (data) {
+          popup.setStore(data)
+          perceivedStateCallback(marker.asset.uniqid, data.currentForce, data.perception)
+        }
+        popup.closePopup(() => {
+          console.log('popup closed')
+        })
+      })
+      popup.useComponent(MappingForm)
+      // popup.openPopup()
+      popup.renderListener()
     })
-    toDelete.forEach(marker => {
-      markers.removeLayer(marker)
-    })
+    toDelete.forEach(marker => markers.removeLayer(marker))
     // trim the items in visibleTo me
     const toBeAdded = visibleToMe.filter(asset => foundItems.indexOf(asset.uniqid) === -1)
 
@@ -347,13 +374,15 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         createThisMarker(asset, grid, asset.force, false)
       })
     }
+
     //
     // Other diagnostics
     //
   }, [allForces])
 
   return (
-    <div id="map" className="mapping"/>
+    <div id="map" className="mapping">
+    </div>
   )
 }
 export default Mapping
