@@ -455,7 +455,7 @@
 						"contactId": "C043", 
 						"condition": "Working",
 						"perceptions": {
-							"Red": {"force":"Blue", "type":"frigate"}
+							"Red": {"force":"Blue", "type":"frigate", "name": "NORT"}
 						},
 						"platformType": "frigate",
 						"position": "P21",
@@ -546,7 +546,7 @@
 						"condition": "Working",
 						"locationPending": true,
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"fishing-vessel"}
+							"Blue": {"force":"Green", "type":"fishing-vessel", "name": "SHU’AI"}
 						},
 						"platformType": "fishing-vessel",
 						"position": "N10",
@@ -600,10 +600,7 @@
 						"contactId": "C015", 
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {
-								"force": "Green",
-								"type": "merchant-vessel"
-							}
+							"Blue": {	"force": "Green",	"type": "merchant-vessel", "name": "OSAKA" }
 						},
 						"plannedTurns": [
 							{
@@ -699,14 +696,8 @@
 						"contactId": "C081", 
 						"condition": "Disabled",
 						"perceptions": {
-							"Blue": {
-								"force": "Green",
-								"type": "merchant-vessel"
-							},
-							"Red": {
-								"force": "Green",
-								"type": "merchant-vessel"
-							}
+							"Blue": { "force": "Green",	"type": "merchant-vessel", "name": "ARUNA 12"	},
+							"Red": {"force": "Green",	"type": "merchant-vessel", "name": "BARLAY" }
 						},
 						"plannedTurns": [
 							{
@@ -814,9 +805,7 @@
 						"contactId": "C116", 
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {
-								"force": "Green",
-								"type": "merchant-vessel"
+							"Blue": { "force": "Green", "type": "merchant-vessel", "name": "JALIBUT"
 							}
 						},
 						"plannedTurns": [
@@ -899,10 +888,7 @@
 						"contactId": "C026", 
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {
-								"force": "Green",
-								"type": "merchant-vessel"
-							}
+							"Blue": { "force": "Green",	"type": "merchant-vessel"	}
 						},
 						"plannedTurns": [
 							{
@@ -984,14 +970,8 @@
 						"contactId": "C115", 
 						"condition": "Working",
 						"perceptions": {
-							"Blue": {
-								"force": "Green",
-								"type": "merchant-vessel"
-							},
-							"Red": {
-								"force": "Green",
-								"type": "merchant-vessel"
-							}
+							"Blue": {	"force": "Green",	"type": "merchant-vessel", "name": "BOUM 3"	},
+							"Red": {	"force": "Green",	"type": "merchant-vessel", "name": "BOUM 3" }
 						},
 						"plannedTurns": [
 							{
