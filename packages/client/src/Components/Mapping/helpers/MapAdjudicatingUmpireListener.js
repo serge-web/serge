@@ -37,7 +37,7 @@ export default class MapAdjudicatingListener {
         const newStatesMessage = collateNewStatesMessage(context.allAssets)
 
         // and send the new states
-        context.planningFormCallback(newStatesMessage, this.turnNumber)
+        context.planningFormCallback(newStatesMessage, context.turnNumber)
 
         // and drop the submit button
         context.btnListAccept = clearButtons(context.btnListAccept)
@@ -129,7 +129,7 @@ export default class MapAdjudicatingListener {
     const history = data.history ? data.history : []
     const currentState = { turn: this.turnNumber, status: asset.status, route: asset.route, position: asset.position }
     history.push(currentState)
-    data.newHistory = history
+    data.newHistory = currentState
 
     // update the status
     const newState = newStateFromPlannedTurns(data.currentPlans, data.asset.status, data.asset.position)
@@ -157,6 +157,7 @@ export default class MapAdjudicatingListener {
     })
     // special handling. Don't declutter the planning marker, we want it in the centre of the cell
     data.planningMarker.do_not_declutter = true
+    data.planningMarker.asset = data.asset
     this.layerMarkers.addLayer(data.planningMarker)
 
     data.newState = newState
