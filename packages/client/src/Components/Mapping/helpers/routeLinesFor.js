@@ -20,7 +20,7 @@ function lineFor (/* array */ turns, /* latLng */ start,
     // just make it a bold track
     weight = 4
   } else {
-    weight = lightweight && !planningFor ? 1 : 2
+    weight = lightweight && !planningFor ? 2 : 3
   }
   const dashArray = historyTrack ? [] : lightweight ? [1, 7] : [4, 8]
   const boldLine = L.polyline([], {
