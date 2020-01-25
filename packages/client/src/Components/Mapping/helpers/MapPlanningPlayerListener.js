@@ -13,12 +13,16 @@ import createStateButtonsFor from './createStateButtonsFor'
 import roundToNearest from './roundToNearest'
 import findPlatformTypeFor from './findPlatformTypeFor'
 import canControlThisForce from './canControlThisForce'
+import collateNewStatesMessage from './collateNewStatesMessage'
+import getVisibilityButtonsFor from './createVisibilityButtonsFor'
+import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 
 import findLastRouteWithLocation from './findLastRouteLocation'
 import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE } from '../../../consts'
 
 export default class MapPlanningPlayerListener {
-  constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, allForces, declutterCallback, perceivedStateCallback, /* array string */ forceNames, /* string */ phase) {
+  constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, allForces, declutterCallback, 
+    perceivedStateCallback, /* array string */ forceNames, /* string */ phase, /* function */ stateOfWorldCallback) {
     this.grid = grid
     this.force = force
     this.allForces = allForces
@@ -43,8 +47,6 @@ export default class MapPlanningPlayerListener {
 
     this.currentMarker = null // the selected marker // TODO: it's only for development
     this.currentTurn = null // for dev, the turn that was clicked on
-
-    this.allRoutes = [] // collection of routes for this turn
 
     this.btnListStates = [] // keep track of the state buttons, so we can clear them
     this.btnListPerceived = []
@@ -79,44 +81,94 @@ export default class MapPlanningPlayerListener {
     this.plannedLine.addTo(layer)
 
     // some per-mode setup
-    this.markerCallback = null
+    this.assetCallback = null
+    this.planningMarkerCallback = null
     this.waypointCallback = null
+    this.prepareDataFor = null
 
     if (this.performingAdjudication) {
+      // extra data types
+      this.allAssets = []
+      this.btnListAccept = []
+      this.btnListSubmit = []
+      this.layerMarkers = L.layerGroup().addTo(this.layerPriv) // for the planned routes
+      this.stateOfWorldCallback = stateOfWorldCallback
       // setup the adjudication callbacks
+      this.assetCallback = this.showAdjudicationAssetMenu
+      this.prepareDataFor = this.prepareAdjucationDataFor
+      // and initial config
+      this.setupAdjudicationButtons()
     } else {
-      this.markerCallback = this.showPlanningMarkerMenu
+      // data for this mode
+      this.allRoutes = [] // collection of routes for this turn
+      // callbacks
+      this.assetCallback = this.showPlanningAssetMenu
+      this.planningMarkerCallback = this.showPlanningMarkerMenu
       this.waypointCallback = this.resetFromWaypointCallback
+      this.prepareDataFor = this.preparePlanningDataFor
+      // command to submit whole planned route
+      if (this.inPlanningPhase) {
+        // and initial config
+        this.setupPlanningButtons()
+      }
     }
+  }
 
-    // command to submit whole planned route
-    if (this.inPlanningPhase) {
-      this.btnSubmitAll = createButton(true, 'Submit all plans', () => {
-        // clear the currently selected route
-        this.updatePlannedRoute(false)
+  setupPlanningButtons () {
+    this.btnSubmitAll = createButton(true, 'Submit all plans', () => {
+      // clear the currently selected route
+      this.updatePlannedRoute(false)
 
-        // disconnect the planning marker
-        if (this.planningMarker) {
-          this.planningMarker.off('click')
-        }
+      // disconnect the planning marker
+      if (this.planningMarker) {
+        this.planningMarker.off('click')
+      }
 
-        // clear the plot
-        this.clearOnNewLeg()
+      // clear the plot
+      this.clearOnNewLeg()
 
-        // and drop the marker
-        if (this.planningMarker) {
-          this.planningMarker.remove()
-        }
+      // and drop the marker
+      if (this.planningMarker) {
+        this.planningMarker.remove()
+      }
 
-        // collate the data
-        const payload = this.collatePlanningOrders(this.allRoutes)
-        this.submitPlansCallback(payload)
-        clearButtons(this.btnListSubmit)
-      }).addTo(map)
-      this.btnListSubmit.push(this.btnSubmitAll)
+      // collate the data
+      const payload = this.collatePlanningOrders(this.allRoutes)
+      this.submitPlansCallback(payload)
+      clearButtons(this.btnListSubmit)
+    }).addTo(this.map)
+    this.btnListSubmit.push(this.btnSubmitAll)
 
-      // intiialise the button label
-      this.updateSubmitRoutesCounter(this.allRoutes)
+    // intiialise the button label
+    this.updateSubmitRoutesCounter(this.allRoutes)
+  }
+
+  showLayer (layer, context) {
+    if (layer) {
+      context.layerPriv.addLayer(layer)
+    }
+  }
+
+  setupAdjudicationButtons () {
+    // don't show the submit buttons if we're on turn zero
+    if (this.turnNumber > 0) {
+      const context = this
+      this.submitButton = createButton(true, 'Submit 0 of 0 states', () => {
+        // collate the message
+        const newStatesMessage = collateNewStatesMessage(context.allAssets)
+
+        // and send the new states
+        context.stateOfWorldCallback(newStatesMessage, context.turnNumber)
+
+        // and drop the submit button
+        context.btnListAccept = clearButtons(context.btnListAccept)
+        context.btnListSubmit = clearButtons(context.btnListSubmit)
+      }).addTo(this.map)
+      this.btnListSubmit.push(this.submitButton)
+      this.acceptAllButton = createButton(true, 'Accept remaining 0 states', () => {
+        context.adjudicatingAcceptAllStates()
+      }).addTo(this.map)
+      this.btnListSubmit.push(this.acceptAllButton)
     }
   }
 
@@ -125,6 +177,55 @@ export default class MapPlanningPlayerListener {
     this.clearCommandButtons(this.btnListPlanningMarker)
     this.clearCommandButtons(this.btnListStates)
     this.clearCommandButtons(this.btnListPerceived)
+  }
+
+  showPlanningAssetMenu (marker) {
+    if (this.inPlanningPhase) {
+      this.drag.startHex = null
+
+      // and drop any planning lines
+      this.clearOnNewLeg()
+
+      if (this.currentRoute) {
+        // do any cleaning up necessary
+
+        // we have a selected route. Drop the current detailed one, and
+        // replace it with a lightweight one
+        this.updatePlannedRoute(false)
+
+        // clear any currently shaded cells
+        this.clearAchievableCells()
+
+        if (this.planningMarker) {
+          this.planningMarker.remove()
+        }
+
+        // clear all buttons
+        this.clearAllButtons()
+      }
+
+      // now get the route for the new marker
+      this.currentRoute = this.allRoutes.find(route => route.marker === marker)
+
+      // create the detailed route
+      this.updatePlannedRoute(true)
+
+      if (this.currentRoute.status) {
+        // ok, we can plan the next leg
+        this.platformStateAssigned(this.currentRoute.marker, this.currentRoute.status)
+      } else {
+        // sort out the state commands for this asset
+        const pType = findPlatformTypeFor(this.platformTypes, marker.asset.platformType)
+
+        // clear all buttons
+        this.clearAllButtons()
+
+        this.btnListStates = createStateButtonsFor(pType, marker.asset.name, this, this.stateSelectedCallback, this.btnListStates)
+      }
+
+      // ok, the popup will eventually manage state
+      marker.options.draggable = false
+    }
   }
 
   collatePlanningOrders (/* array */routes) {
@@ -217,13 +318,13 @@ export default class MapPlanningPlayerListener {
   }
 
   /** create a storage object for this object */
-  dataFor (/* marker */ marker, /* array platform types */ platformTypes) {
+  planningDataFor (/* marker */ marker, /* array platform types */ platformTypes) {
     const plannedTurns = marker.asset.plannedTurns ? marker.asset.plannedTurns : []
     // clone the planned routes, in case we wish to reset it
     const currentRoutes = JSON.parse(JSON.stringify(plannedTurns))
     const asset = marker.asset
     const platformType = findPlatformTypeFor(platformTypes, asset.platformType)
-    const lightRoutes = this.createPlanningRouteFor(currentRoutes, marker.asset.history, asset, true, false)
+    const lightRoutes = this.createPlanningRouteFor(currentRoutes, marker.asset.history, asset, true, false, false)
     const res = {
       marker: marker,
       asset: asset,
@@ -309,11 +410,22 @@ export default class MapPlanningPlayerListener {
     context.btnListWaypoints.push(btnResetFromWaypoint)
   }
 
-  createPlanningRouteFor (/* array turns */ currentRoutes, /* array turns */ history, /* object */ asset, /* boolean */ lightweight, /* boolean */ highlight) {
+  createPlanningRouteFor (/* array turns */ currentRoutes, /* array turns */ history, /* object */ asset, /* boolean */ lightweight, /* boolean */short, /* boolean */ highlight) {
     const forceColor = colorFor(asset.force)
     const hisLocation = this.grid.hexNamed(asset.position).centrePos
     const context = this
-    return routeLinesFor(currentRoutes, history, hisLocation, lightweight, this.grid, forceColor, this.resetFromWaypointCallback, null, highlight, context)
+
+    // ok, special handling. we will only show the planned route for the next turn
+    // if we're in adjucation mode
+    let trimmedRoute = null
+    if (this.performingAdjudication) {
+      const justNextStep = currentRoutes.length ? [currentRoutes[0]] : []
+      trimmedRoute = short ? justNextStep : currentRoutes
+    } else {
+      trimmedRoute = currentRoutes
+    }
+
+    return routeLinesFor(trimmedRoute, history, hisLocation, lightweight, this.grid, forceColor, this.waypointCallback, null, highlight, context)
   }
 
   /** user has used either the command buttons, or the popup dialog to choose a new platform state */
@@ -358,15 +470,58 @@ export default class MapPlanningPlayerListener {
     if (this.currentRoute && this.currentRoute.lightRoutes) {
       this.currentRoute.lightRoutes.remove()
       this.currentRoute.lightRoutes.clearLayers()
-      this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset.history, this.currentRoute.marker.asset, !detailed, detailed)
+      this.currentRoute.lightRoutes = this.createPlanningRouteFor(this.currentRoute.current, this.currentRoute.marker.asset.history, 
+        this.currentRoute.marker.asset, !detailed, false, detailed)
       this.storeLayer(this.currentRoute.lightRoutes, this)
+    }
+  }
+
+  preparePlanningDataFor (marker, platformTypes) {
+    // store the details for this force
+    const thisData = this.planningDataFor(marker, platformTypes)
+    this.allRoutes.push(thisData)
+
+    // and add to the map
+    this.storeLayer(thisData.lightRoutes, this)
+
+    if (this.inPlanningPhase) {
+      // also update the planned routes
+      this.updateSubmitRoutesCounter(this.allRoutes)
+    }
+  }
+
+  prepareAdjucationDataFor (marker, platformTypes) {
+    // build up the data store for this asset
+    const thisData = this.adjudicationDataFor(marker)
+    this.allAssets.push(thisData)
+
+    // ok, now show this route
+    this.showLayer(thisData.lightPlanned, this)
+
+    // update the submit button
+    this.updateSubmitButtonLabel()
+  }
+
+  updateSubmitButtonLabel () {
+    // don't have buttons in turn zero
+    if (this.turnNumber > 0) {
+      const total = this.allAssets.length
+      const count = this.allAssets.filter(data => data.newState).length
+      this.submitButton.setText('Submit ' + count + ' of ' + total)
+      this.acceptAllButton.setText('Accept remaining ' + (total - count) + '')  
     }
   }
 
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
     // can we control this force?
-    if (!canControlThisForce(this.allForces, marker.asset.force, this.force)) {
+    if (canControlThisForce(this.allForces, marker.asset.force, this.force) || this.performingAdjudication) {
+      this.prepareDataFor(marker, this.platformTypes)
+
+      marker.on('click', e => {
+        this.assetCallback(marker)
+      })
+    } else {  
       // nope - don't bother then
       // ok, this is a quickie. Assign a click listener so
       // we can change the perceived state
@@ -374,65 +529,6 @@ export default class MapPlanningPlayerListener {
         // clear up any state planning
         this.clearAllButtons()
       })
-    } else {
-      // store the details for this force
-      const thisData = this.dataFor(marker, this.platformTypes)
-      this.allRoutes.push(thisData)
-
-      // and add to the map
-      this.storeLayer(thisData.lightRoutes, this)
-
-      if (this.inPlanningPhase) {
-        // also update the planned routes
-        this.updateSubmitRoutesCounter(this.allRoutes)
-
-        marker.on('click', e => {
-          this.drag.startHex = null
-
-          // and drop any planning lines
-          this.clearOnNewLeg()
-
-          if (this.currentRoute) {
-            // do any cleaning up necessary
-
-            // we have a selected route. Drop the current detailed one, and
-            // replace it with a lightweight one
-            this.updatePlannedRoute(false)
-
-            // clear any currently shaded cells
-            this.clearAchievableCells()
-
-            if (this.planningMarker) {
-              this.planningMarker.remove()
-            }
-
-            // clear all buttons
-            this.clearAllButtons()
-          }
-
-          // now get the route for the new marker
-          this.currentRoute = this.allRoutes.find(route => route.marker === marker)
-
-          // create the detailed route
-          this.updatePlannedRoute(true)
-
-          if (this.currentRoute.status) {
-            // ok, we can plan the next leg
-            this.platformStateAssigned(this.currentRoute.marker, this.currentRoute.status)
-          } else {
-            // sort out the state commands for this asset
-            const pType = findPlatformTypeFor(this.platformTypes, marker.asset.platformType)
-
-            // clear all buttons
-            this.clearAllButtons()
-
-            this.btnListStates = createStateButtonsFor(pType, marker.asset.name, this, this.stateSelectedCallback, this.btnListStates)
-          }
-        })
-
-        // ok, the popup will eventually manage state
-        marker.options.draggable = false
-      }
     }
   }
 
@@ -485,6 +581,131 @@ export default class MapPlanningPlayerListener {
     this.turn.lats = []
     this.plannedLine.setLatLngs([])
     this.routeLine.setLatLngs([])
+  }
+
+
+  adjudicatingRejectRoute (asset) {
+    // find the data
+    const thisAssetData = this.allAssets.find(block => block.asset.uniqid === asset.uniqid)
+    console.log('rejecting route for ', asset.name)
+  }
+
+  adjudicatingAcceptRoute (asset) {
+    // find the data
+    const thisAssetData = this.allAssets.find(block => block.asset.uniqid === asset.uniqid)
+
+    // capture current state into history
+    thisAssetData.newHistory = { turn: this.turnNumber, status: asset.status, route: asset.route, position: asset.position }
+
+    // update the status
+    thisAssetData.newState = newStateFromPlannedTurns(thisAssetData.currentPlans, thisAssetData.asset.status, thisAssetData.asset.position)
+
+    // get the coords for the current location
+    const loc = this.grid.hexNamed(thisAssetData.newState.position).centrePos
+
+    // create a marker for this platform
+    const forceClass = thisAssetData.asset.force.toLowerCase()
+    const typeClass = thisAssetData.asset.platformType.replace(/ /g, '-').toLowerCase()
+    const iconClass = `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
+    const divIcon = L.divIcon({
+      iconSize: [40, 40],
+      className: iconClass
+    })
+
+    // make the original marker faint
+    L.DomUtil.addClass(thisAssetData.marker._icon, 'platform-counter-planned')
+
+    // ok, drop a new marker, on the new location
+    thisAssetData.planningMarker = L.marker(loc, {
+      draggable: false,
+      icon: divIcon,
+      zIndexOffset: 1000
+    })
+    // special handling. Don't declutter the planning marker, we want it in the centre of the cell
+    thisAssetData.planningMarker.do_not_declutter = true
+    thisAssetData.planningMarker.asset = thisAssetData.asset
+    this.layerMarkers.addLayer(thisAssetData.planningMarker)
+
+    this.updateSubmitButtonLabel()
+  }
+
+
+  /** accept the planned state for all remaining platforms */
+  adjudicatingAcceptAllStates () {
+    // produce the required state
+    this.allAssets.forEach(data => {
+      // has it been accepted yet?
+      if (!data.newState) {
+        // pull planned route forward to actual
+        this.adjudicatingAcceptRoute(data.asset)
+      }
+    })
+    this.btnListAccept = clearButtons(this.btnListAccept)
+  }
+
+  showAdjudicationAssetMenu (marker) {
+    const context = this
+    clearButtons(this.btnListAccept, this)
+
+    // do we have current?
+    if (context.currentAsset) {
+      // get the construct
+      const data = context.allAssets.find(data => data.asset.uniqid === context.currentAsset.uniqid)
+
+      // swap heavy line for light
+      // drop the heavy planned route line
+      data.lightPlanned.remove()
+
+      // and create a light weight one
+      data.lightPlanned = context.createPlanningRouteFor(data.currentPlans, data.asset.history, data.asset, true, true, false)
+      context.showLayer(data.lightPlanned, context)
+    }
+
+    // are we already looking at this marker?
+    if (context.currentAsset && context.currentAsset.uniqid === marker.asset.uniqid) {
+      // ok, clear the flag
+      context.currentAsset = null
+    } else {
+      // remember the current entry
+      context.currentAsset = marker.asset
+
+      // ok, show the detailed route for this asset
+      const data = context.allAssets.find(data => data.asset.uniqid === marker.asset.uniqid)
+      data.lightPlanned.remove()
+
+      // and replace it with heavyweight
+      data.lightPlanned = context.createPlanningRouteFor(data.currentPlans, data.asset.history, data.asset, false, false, true)
+      context.showLayer(data.lightPlanned, context)
+
+      // check we're not in turn zero
+      if (context.turnNumber > 0) {
+        // ok, show the accept route button for this track
+        const acceptTitle = createButton(false, 'Route for ' + marker.asset.name).addTo(context.map)
+        this.btnListAccept.push(acceptTitle)
+        // check it's not already sorted.
+        const hasPlans = context.allAssets.find(data => data.asset.uniqid === marker.asset.uniqid && data.newState)
+        if (hasPlans) {
+          const acceptButton = createButton(true, 'Plans already submitted', () => {
+            clearButtons(context.btnListAccept, context)
+          }).addTo(context.map)
+          this.btnListAccept.push(acceptButton)
+        } else {
+          const acceptButton = createButton(true, 'Accept Route', () => {
+            context.adjudicatingAcceptRoute(marker.asset)
+            clearButtons(context.btnListAccept, context)
+          }).addTo(context.map)
+          this.btnListAccept.push(acceptButton)
+          const reject = createButton(true, 'Reject Route', () => {
+            context.adjudicatingRejectRoute(marker.asset)
+            clearButtons(context.btnListAccept, context)
+          }).addTo(context.map)
+          this.btnListAccept.push(reject)
+        }
+      }
+
+      // start off with the vis buttons
+      this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback, this.btnListVisiblity, this.forceNames, this.map)        
+    }
   }
 
   /** the user has clicked on the planning marker, give options */
@@ -558,9 +779,22 @@ export default class MapPlanningPlayerListener {
     this.updateSubmitRoutesCounter(this.allRoutes)
   }
 
+  /** build up our working dataset for this asset */
+  adjudicationDataFor (marker) {
+    const res = {}
+    res.marker = marker
+    res.asset = marker.asset
+    res.history = res.asset.history
+    res.originalPlans = res.asset.plannedTurns ? res.asset.plannedTurns : []
+    res.currentPlans = JSON.parse(JSON.stringify(res.originalPlans))
+    res.newState = null
+    res.lightPlanned = this.createPlanningRouteFor(res.currentPlans, res.history, res.asset, true, true, false)
+    return res
+  }
+
   updateSubmitRoutesCounter (routes) {
     const routesWithPoints = routes.filter(route => route.current && route.current.length > 0)
-    this.btnSubmitAll.setText('Submit ' + routesWithPoints.length + ' planned routes')
+    this.btnSubmitAll.setText('Submit ' + routesWithPoints.length + ' planned routes')  
   }
 
   /** get the current location of this asset, either at the
@@ -608,7 +842,7 @@ export default class MapPlanningPlayerListener {
       this.clearOnNewLeg()
 
       // and generate the planning menu
-      this.markerCallback()
+      this.planningMarkerCallback()
     })
 
     // put the next turn in the planning marker
