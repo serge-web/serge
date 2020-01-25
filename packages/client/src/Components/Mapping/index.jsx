@@ -11,7 +11,6 @@ import {
   MapAdjudicatingUmpireListener,
   MapAdjudicationPendingListener,
   MapPlanningPlayerListener,
-  MapPlanningUmpireListener,
   MapPopupHelper,
   markerFor
 } from './helpers'
