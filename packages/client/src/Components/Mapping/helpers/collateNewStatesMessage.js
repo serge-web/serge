@@ -9,7 +9,7 @@ export default function collateNewStatesMessage (/* array of planning structures
     newState.uniqid = asset.uniqid
     newState.name = asset.name
     newState.history = data.newHistory
-    newState.plannedTurns = data.currentPlans
+    newState.plannedTurns = data.current
     newState.newState = data.newState
     let force
     if (asset.force) {
