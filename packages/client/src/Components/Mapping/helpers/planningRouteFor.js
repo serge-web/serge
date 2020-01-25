@@ -73,46 +73,51 @@ function bearingMarkerFor(/* number */ angle) {
     turnLightVar: {icon: lightTurn, markerAngle: null},
   }
 
-  if(angle === 0 || angle === 90 ||angle === 180 || angle === 360){
-    // 90
-    icon = iconAngles.deg90.icon  // testing out a dynamic way of moving the markers
-  } else if(angle === 30){
-    // 30
-    icon = iconAngles.deg30.icon
-  } else if(angle === 60){
-    // 60
-    icon = iconAngles.deg60.icon
-  } else if(angle === 120){
-    // 120
-    icon = iconAngles.deg30.icon
-  } else if(angle === 150){
-    // 150
-    icon = iconAngles.deg30.icon
-  } else if(angle === 210){
-    // 210
-    icon = iconAngles.deg30.icon
-  } else if(angle === 240) {
-    // 240
-    icon = iconAngles.deg150.icon
-  } else if(angle === 270){
-    // 30
-    icon = iconAngles.deg0.icon
-  } else if(angle === 300){
-    // 30
-    icon = iconAngles.deg30.icon
-  } else if (angle === 330){
-    // 330
-    icon = iconAngles.deg120.icon
-  } else if (angle === undefined || angle === null) {
-    // as some angles are undefined just use the end icon until this can be figured out
-    // 90
-    icon = iconAngles.deg90.icon
-  } else {
-    // 90
-    icon = iconAngles.deg90.icon
+  switch (angle) {
+    case 0:
+      icon = iconAngles.deg90.icon;
+      break;
+    case 30:
+      icon = iconAngles.deg30.icon;
+      break;
+    case 60:
+      icon = iconAngles.deg60.icon;
+      break;
+    case 90:
+      icon = iconAngles.deg90.icon;
+      break;
+    case 120:
+      icon = iconAngles.deg30.icon;
+      break;
+    case 150:
+      icon = iconAngles.deg30.icon;
+      break;
+    case 180:
+      icon = iconAngles.deg90.icon;
+      break;
+    case 210:
+      icon = iconAngles.deg30.icon;
+      break;  
+    case 240:
+      icon = iconAngles.deg150.icon;
+      break; 
+    case 270:
+      icon = iconAngles.deg0.icon;
+      break;  
+    case 300:
+      icon = iconAngles.deg30.icon;
+      break;
+    case 330:
+      icon = iconAngles.deg120.icon;
+      break;    
+    case 360:
+      icon = iconAngles.deg0.icon;
+      break;
+    default: 
+      icon = iconAngles.deg90.icon;
+    }
+    return icon
   }
-  return icon
-}
 
 function turnFor(/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current, /* string */ comment) {
   let bearing = null
