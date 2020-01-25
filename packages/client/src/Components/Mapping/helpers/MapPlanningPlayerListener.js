@@ -318,36 +318,37 @@ export default class MapPlanningPlayerListener {
     })
   }
 
+
   /** build up our working dataset for this asset */
   adjudicationDataFor (marker) {
-    const res = {}
-    res.marker = marker
-    res.asset = marker.asset
-    res.history = res.asset.history
-    res.original = res.asset.plannedTurns ? res.asset.plannedTurns : []
-    res.current = JSON.parse(JSON.stringify(res.original))
-    res.newState = null
-    res.lightPlanned = this.createPlanningRouteFor(res.current, res.history, res.asset, true, true, false)
-    return res
+    const asset = marker.asset
+    const plannedTurns = asset.plannedTurns ? asset.plannedTurns : []
+    const clonedTurns = JSON.parse(JSON.stringify(plannedTurns))
+    return {
+      marker: marker,
+      asset: asset,
+      history: asset.history,
+      original: plannedTurns,
+      current: clonedTurns,
+      newState: null,
+      lightPlanned: this.createPlanningRouteFor(clonedTurns, asset.history, asset, true, true, false)
+    }
   }
 
   /** create a storage object for this object */
   planningDataFor (/* marker */ marker, /* array platform types */ platformTypes) {
-    const original = marker.asset.plannedTurns ? marker.asset.plannedTurns : []
-    // clone the planned routes, in case we wish to reset it
-    const current = JSON.parse(JSON.stringify(original))
     const asset = marker.asset
-    const platformType = findPlatformTypeFor(platformTypes, asset.platformType)
-    const lightRoutes = this.createPlanningRouteFor(current, marker.asset.history, asset, true, false, false)
-    const res = {
+    const original = asset.plannedTurns ? asset.plannedTurns : []
+    const cloned = JSON.parse(JSON.stringify(original))
+    return {
       marker: marker,
-      asset: asset,
+      asset: marker.asset,
+      // clone the planned routes, in case we wish to reset it
       original: original,
-      current: current,
-      platformType: platformType,
-      lightRoutes: lightRoutes
+      current: cloned,
+      platformType: findPlatformTypeFor(platformTypes, asset.platformType),
+      lightRoutes: this.createPlanningRouteFor(cloned, asset.history, asset, true, false, false)
     }
-    return res
   }
 
   updatePlanningStateOnReset (context) {
