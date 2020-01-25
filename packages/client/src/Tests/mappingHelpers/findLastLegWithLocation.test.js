@@ -11,8 +11,7 @@ const legs1 = [
       'H02',
       'H03'
     ],
-    speed: 20,
-    state: 'Transitting'
+    status: { state: 'Transiting', speedKts: 20 }
   },
   {
     turn: 2,
@@ -22,26 +21,25 @@ const legs1 = [
       'I06',
       'I06'
     ],
-    speed: 20,
-    state: 'Transitting'
+    status: { state: 'Transiting', speedKts: 20 }
   },
   {
     turn: 3,
-    state: 'Fishing'
+    status: { state: 'Fishing' }
   }]
 
 const legsWithNoSteps = [
   {
     turn: 1,
-    state: 'Transitting'
+    status: { state: 'Transiting', speedKts: 20 }
   },
   {
     turn: 2,
-    state: 'Transitting'
+    status: { state: 'Transiting', speedKts: 20 }
   },
   {
     turn: 3,
-    state: 'Fishing'
+    status: { state: 'Transiting', speedKts: 20 }
   }]
 
 const legsEmpty = []

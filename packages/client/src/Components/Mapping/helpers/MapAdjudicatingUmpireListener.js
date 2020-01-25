@@ -162,7 +162,7 @@ export default class MapAdjudicatingListener {
 
     // capture current state into history
     const history = data.history ? data.history : []
-    const currentState = { turn: this.turnNumber, state: asset.state, speed: asset.speed, route: asset.route, position: asset.position }
+    const currentState = { turn: this.turnNumber, status: asset.status, route: asset.route, position: asset.position }
     history.push(currentState)
     data.newHistory = history
 

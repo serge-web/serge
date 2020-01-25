@@ -130,16 +130,8 @@ export default class MapPlanningPlayerListener {
           // should prevent this problem arising in the future
           if (step.turn >= planningFor) {
             const thisStep = {}
-            // in some legacy wargames, state comes through as a construct
-            if (step.state.name) {
-              thisStep.state = step.state.name
-            } else {
-              thisStep.state = step.state
-            }
             thisStep.turn = step.turn
-            if (step.speed) {
-              thisStep.speed = step.speed
-            }
+            thisStep.status = step.status
             if (step.route && step.route.length > 0) {
               thisStep.route = step.route.slice() // take copy of array, just in case
             }
@@ -240,16 +232,16 @@ export default class MapPlanningPlayerListener {
       const lastR = routes[routes.length - 1]
 
       // find the platform-type that matches this state
-      const assetState = lastR.state // current asset state
+      const assetState = lastR.status // current asset state
       const platformType = context.currentRoute.marker.asset.platformType // platform state of this asset
       const pType = findPlatformTypeFor(context.platformTypes, platformType) // matching platform type defn
-      const pState = pType.states.find(state => state.name === assetState) // state for current route
+      const pState = pType.states.find(state => state.name === assetState.state) // state type for current route
       if (!pState) {
         console.error('Invalid platform state found:', assetState, ' available:', pType)
       }
 
       // construct the state object
-      const newState = { state: pState, speed: lastR.speed }
+      const newState = { state: pState, speedKts: lastR.speedKts }
 
       // store the state - we'll use it for all legs, until the player changes their mind
       context.currentRoute.state = newState
@@ -309,9 +301,9 @@ export default class MapPlanningPlayerListener {
   }
 
   /** user has used either the command buttons, or the popup dialog to choose a new platform state */
-  stateSelectedCallback (/* object */ state, /* number */ speed, /* object */ context) {
+  stateSelectedCallback (/* object */ state, /* number */ speedKts, /* object */ context) {
     // store the state - we'll use it for all legs, until the player changes their mind
-    context.currentRoute.state = { state: state, speed: speed }
+    context.currentRoute.status = { state: state, speedKts: speedKts }
 
     // now update the planning rings
     context.platformStateAssigned(context.currentRoute.marker, context.currentRoute.state)
@@ -520,7 +512,7 @@ export default class MapPlanningPlayerListener {
     }).addTo(this.map))
   }
 
-  storeNewPlanningRoute (/* object */ newState, /* array */ hexList) {
+  storeNewPlanningRoute (/* object */ newStatus, /* array */ hexList) {
     const route = this.currentRoute.current
     let lastNum = this.turnNumber + 1
     if (route.length) {
@@ -529,7 +521,7 @@ export default class MapPlanningPlayerListener {
     }
     // note: when we send a planned turn, we only need the state name, not the whole
     // state element
-    const newRoute = { speed: newState.speed, turn: lastNum, state: newState.state.name }
+    const newRoute = { status: newStatus, turn: lastNum }
     if (hexList) {
       newRoute.route = hexList
     }
