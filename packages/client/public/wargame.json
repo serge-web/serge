@@ -452,6 +452,7 @@
 			{
 				"assets": [{
 						"name": "Frigate",
+						"contactId": "C043", 
 						"condition": "Working",
 						"perceptions": {
 							"Red": {"force":"Blue", "type":"frigate"}
@@ -463,6 +464,7 @@
 					},
 					{
 						"name": "MPA",
+						"contactId": "C072", 
 						"condition": "Working",
 						"perceptions": {
 						},
@@ -473,6 +475,7 @@
 					},
 					{
 						"name": "Tanker",
+						"contactId": "C012", 
 						"condition": "Working",
 						"perceptions": {
 							"Red": {"force":"Blue", "type":""}
@@ -529,6 +532,7 @@
 			{
 				"assets": [{
 						"name": "Dhow-A",
+						"contactId": "C065", 
 						"condition": "Working",
 						"locationPending": true,
 						"perceptions": {
@@ -541,6 +545,7 @@
 					},
 					{
 						"name": "Dhow-B",
+						"contactId": "C105", 
 						"condition": "Working",
 						"locationPending": true,
 						"perceptions": {
@@ -553,6 +558,7 @@
 					},
 					{
 						"name": "Dhow-C",
+						"contactId": "C008", 
 						"condition": "Working",
 						"locationPending": true,
 						"perceptions": {
@@ -564,6 +570,7 @@
 					},
 					{
 						"name": "Missile-A",
+						"contactId": "C076", 
 						"condition": "Working",
 						"locationPending": true,
 						"perceptions": {
@@ -593,6 +600,7 @@
 				"assets": [
 					{
 						"name": "Tanker-1",
+						"contactId": "C015", 
 						"condition": "Working",
 						"perceptions": {
 							"Blue": {
@@ -701,6 +709,7 @@
 					},
 					{
 						"name": "Tanker-2",
+						"contactId": "C081", 
 						"condition": "Disabled",
 						"perceptions": {
 							"Blue": {
@@ -825,6 +834,7 @@
 					},
 					{
 						"name": "Fisher-A",
+						"contactId": "C116", 
 						"condition": "Working",
 						"perceptions": {
 							"Blue": {
@@ -919,6 +929,7 @@
 					},
 					{
 						"name": "Fisher-B",
+						"contactId": "C026", 
 						"condition": "Working",
 						"perceptions": {
 							"Blue": {
@@ -1014,6 +1025,7 @@
 					},
 					{
 						"name": "Fisher-C",
+						"contactId": "C115", 
 						"condition": "Working",
 						"perceptions": {
 							"Blue": {
