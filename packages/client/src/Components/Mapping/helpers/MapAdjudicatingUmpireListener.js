@@ -162,12 +162,12 @@ export default class MapAdjudicatingListener {
 
     // capture current state into history
     const history = data.history ? data.history : []
-    const currentState = { turn: this.turnNumber, state: asset.state, speed: asset.speed, route: asset.route, position: asset.position }
+    const currentState = { turn: this.turnNumber, status: asset.status, route: asset.route, position: asset.position }
     history.push(currentState)
     data.newHistory = history
 
     // update the status
-    const newState = newStateFromPlannedTurns(data.currentPlans, data.asset.state, data.asset.position)
+    const newState = newStateFromPlannedTurns(data.currentPlans, data.asset.status, data.asset.position)
 
     // get the coords for the current location
     const loc = this.grid.hexNamed(newState.position).centrePos

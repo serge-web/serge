@@ -8,7 +8,7 @@ export default (/* object */ payload, /* object */ allForces) => {
       const asset = findAsset(allForces, entry.uniqid)
       asset.history = entry.history
       asset.plannedTurns = entry.plannedTurns
-      asset.state = entry.newState.state
+      asset.status = entry.newState.status
       asset.position = entry.newState.position
       asset.route = entry.newState.route
     })

@@ -25,9 +25,6 @@ export default (asset, grid, force, myForce, platformTypes, userIsUmpire, /* str
     res.name = asset.name
     res.force = asset.force
 
-    // store the asset state
-    res.state = asset.state
-
     // sort out the travel mode for this platform type
     const pType = findPlatformTypeFor(platformTypes, asset.platformType)
     res.travelMode = pType.travelMode

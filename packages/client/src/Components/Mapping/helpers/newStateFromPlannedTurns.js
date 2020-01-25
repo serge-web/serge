@@ -1,11 +1,11 @@
 /** find the asset with the provided id */
-export default function newStateFromPlannedTurns (/* array routes */ plans, /* string */ state, /* string */ position) {
+export default function newStateFromPlannedTurns (/* array routes */ plans, /* element */ status, /* string */ position) {
   const newState = {}
   if (plans && plans.length > 0) {
     // ok get the first item off the route
     const thisStep = plans.shift()
 
-    newState.state = thisStep.state
+    newState.status = JSON.parse(JSON.stringify(thisStep.status))
 
     if (thisStep.route && thisStep.route.length) {
       // find the end point
@@ -19,7 +19,7 @@ export default function newStateFromPlannedTurns (/* array routes */ plans, /* s
     }
   } else {
     // just keep the current state
-    newState.state = state
+    newState.status = JSON.parse(JSON.stringify(status))
     newState.position = position
   }
   return newState
