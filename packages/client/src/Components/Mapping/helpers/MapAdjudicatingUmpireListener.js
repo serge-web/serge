@@ -6,7 +6,6 @@ import clearButtons from './clearButtons'
 import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 import getVisibilityButtonsFor from './createVisibilityButtonsFor'
 import collateNewStatesMessage from './collateNewStatesMessage'
-import newHistoryFromPlans from './newHistoryFromPlans'
 
 export default class MapAdjudicatingListener {
   constructor (map, grid, planningFormCallback, turnNumber, forceNames, visibilityCallback) {
@@ -127,8 +126,8 @@ export default class MapAdjudicatingListener {
     const thisAssetData = this.allAssets.find(block => block.asset.uniqid === asset.uniqid)
 
     // capture current state into history
-    thisAssetData.newHistory = newHistoryFromPlans(thisAssetData.history, this.turnNumber, asset.status, asset.route, asset.position)
-
+    thisAssetData.newHistory = { turn: this.turnNumber, status: asset.status, route: asset.route, position: asset.position }
+    
     // update the status
     thisAssetData.newState = newStateFromPlannedTurns(thisAssetData.currentPlans, thisAssetData.asset.status, thisAssetData.asset.position)
 
