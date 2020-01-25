@@ -458,7 +458,7 @@
 						},
 						"platformType": "frigate",
 						"position": "P21",
-						"state": "Transiting",
+						"status": { "state": "Transiting", "speedKts": 20 },
 						"uniqid": "a0pra00001"
 					},
 					{
@@ -468,7 +468,7 @@
 						},
 						"platformType": "fixed-wing-aircraft",
 						"position": "C17",
-						"state": "Landed",
+						"status": { "state": "Landed"},
 						"uniqid": "a0pra00002"
 					},
 					{
@@ -507,7 +507,7 @@
 							}
 						],						"platformType": "merchant-vessel",
 						"position": "S23",
-						"state": "Transiting",
+						"status": { "state": "Transiting", "speedKts": 20 },
 						"uniqid": "a0pra00003"
 					}
 				],
@@ -536,7 +536,7 @@
 						},
 						"platformType": "fishing-vessel",
 						"position": "N04",
-						"state": "Transiting",
+						"status": { "state": "Transiting", "speedKts": 10 },
 						"uniqid": "a0pra000100"
 					},
 					{
@@ -548,7 +548,7 @@
 						},
 						"platformType": "fishing-vessel",
 						"position": "N10",
-						"state": "Transiting",
+						"status": { "state": "Transiting", "speedKts": 10 },
 						"uniqid": "a0pra000101"
 					},
 					{
@@ -559,7 +559,7 @@
 						},
 						"platformType": "fishing-vessel",
 						"position": "Q18",
-						"state": "Transiting",
+						"status": { "state": "Moored" },
 						"uniqid": "a0pra000102"
 					},
 					{
@@ -570,7 +570,7 @@
 						},
 						"platformType": "coastal-radar-site",
 						"position": "Q12",
-						"state": "Active",
+						"status": { "state": "Inactive" },
 						"uniqid": "a0pra000103"
 					}
 				],
@@ -696,7 +696,7 @@
 						],
 						"platformType": "merchant-vessel",
 						"position": "H00",
-						"state": "Transiting",
+						"status": { "state": "Transiting", "speedKts": 20 },
 						"uniqid": "a0pra000200"
 					},
 					{
@@ -820,7 +820,7 @@
 						],
 						"platformType": "merchant-vessel",
 						"position": "C00",
-						"state": "Transiting",
+						"status": { "state": "Transiting", "speedKts": 20 },
 						"uniqid": "a0pra000201"
 					},
 					{
@@ -914,7 +914,7 @@
 						],
 						"platformType": "fishing-vessel",
 						"position": "M02",
-						"state": "Transiting",
+						"status": { "state": "Transiting", "speedKts": 10 },
 						"uniqid": "a0pra000202"
 					},
 					{
@@ -1009,12 +1009,12 @@
 						],
 						"platformType": "fishing-vessel",
 						"position": "N08",
-						"state": "Transiting",
+						"status": { "state": "Transiting", "speedKts": 10 },
 						"uniqid": "a0pra000203"
 					},
 					{
 						"name": "Fisher-C",
-						"condition": "Destroyed",
+						"condition": "Working",
 						"perceptions": {
 							"Blue": {
 								"force": "Green",
@@ -1107,7 +1107,7 @@
 						],
 						"platformType": "fishing-vessel",
 						"position": "N11",
-						"state": "Transiting",
+						"status": { "state": "Transiting", "speedKts": 10 },
 						"uniqid": "a0pra000204"
 					}
 				],
@@ -1217,6 +1217,7 @@
 				],
 				"icon": "coastal-radar-site.svg",
 				"states": [
+					{ "name": "Inactive", "mobile": false },
 					{ "name": "Active", "mobile": false },
 					{ "name": "LocationPending", "mobile": true },
 					{ "name": "Prosecuting", "mobile": false }
