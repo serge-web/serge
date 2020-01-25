@@ -46,13 +46,15 @@ export default class MapPlanningPlayerListener {
     this.achievableCells = [] // hexes representing achievable area this turn
 
     this.currentMarker = null // the selected marker // TODO: it's only for development
-    this.currentTurn = null // for dev, the turn that was clicked on
 
     this.btnListStates = [] // keep track of the state buttons, so we can clear them
     this.btnListPerceived = []
     this.btnListPlanningMarker = []
     this.btnListWaypoints = []
     this.btnListSubmit = []
+    this.btnListAccept = []
+    this.btnListSubmit = []
+    this.btnListVisiblity = []
 
     // store some styling details, once, centrally
     this.rangeStyle = {
@@ -89,8 +91,6 @@ export default class MapPlanningPlayerListener {
     if (this.performingAdjudication) {
       // extra data types
       this.allAssets = []
-      this.btnListAccept = []
-      this.btnListSubmit = []
       this.currentRoute = null
       this.layerMarkers = L.layerGroup().addTo(this.layerPriv) // for the planned routes
       this.stateOfWorldCallback = stateOfWorldCallback
@@ -294,6 +294,14 @@ export default class MapPlanningPlayerListener {
 
     // and the submut button
     this.clearCommandButtons(this.btnListSubmit)
+    this.clearCommandButtons(this.btnListStates)
+    this.clearCommandButtons(this.btnListPerceived)
+    this.clearCommandButtons(this.btnListPlanningMarker)
+    this.clearCommandButtons(this.btnListWaypoints)
+    this.clearCommandButtons(this.btnListSubmit)
+    this.clearCommandButtons(this.btnListAccept)
+    this.clearCommandButtons(this.btnListSubmit)
+    this.clearCommandButtons(this.btnListVisiblity)
 
     // detach the map
     this.layerPriv.remove()
@@ -318,7 +326,6 @@ export default class MapPlanningPlayerListener {
     })
   }
 
-
   /** build up our working dataset for this asset */
   adjudicationDataFor (marker) {
     const asset = marker.asset
@@ -331,7 +338,7 @@ export default class MapPlanningPlayerListener {
       original: plannedTurns,
       current: clonedTurns,
       newState: null,
-      lightPlanned: this.createPlanningRouteFor(clonedTurns, asset.history, asset, true, true, false)
+      lightRoutes: this.createPlanningRouteFor(clonedTurns, asset.history, asset, true, true, false)
     }
   }
 
@@ -515,7 +522,7 @@ export default class MapPlanningPlayerListener {
     this.allAssets.push(thisData)
 
     // ok, now show this route
-    this.showLayer(thisData.lightPlanned, this)
+    this.showLayer(thisData.lightRoutes, this)
 
     // update the submit button
     this.updateSubmitButtonLabel()
@@ -607,20 +614,22 @@ export default class MapPlanningPlayerListener {
     // ok, is it mobile
     if (!pState.mobile) {
       // just store it
-      thisAssetData.current = [{ status: pState.name }]
+      thisAssetData.current = [{ status: { state: pState.name }, turn: context.turnNumber + 1 }]
     } else {
       // ok, do planning legs
     }
-    console.log('creating new state for for ', thisAssetData.asset.name, thisAssetData.current)
+    console.log('creating new state for for ', thisAssetData.asset.name, thisAssetData.current, context.turnNumber)
 
     // update the route line
     context.updatePlannedRoute(true, context)
+
+    // and update the counter
+    context.updateSubmitButtonLabel()
   }
 
-  adjudicatingRejectRoute (asset) {
+  adjudicatingRejectRoute (/* element */asset, /* scope */ context) {
     // find the data
     const thisAssetData = this.allAssets.find(block => block.asset.uniqid === asset.uniqid)
-    console.log('rejecting route for ', asset.name)
 
     // clear his current plans
     thisAssetData.current = null
@@ -630,7 +639,7 @@ export default class MapPlanningPlayerListener {
     // sort out the state commands for this asset
     const pType = findPlatformTypeFor(this.platformTypes, marker.asset.platformType)
     this.btnListStates = createStateButtonsFor(pType, marker.asset.name,
-      this, this.adjudicatingStateSelected, this.btnListStates)
+      context, context.adjudicatingStateSelected, this.btnListStates)
   }
 
   adjudicatingAcceptRoute (asset) {
@@ -695,11 +704,11 @@ export default class MapPlanningPlayerListener {
 
       // swap heavy line for light
       // drop the heavy planned route line
-      data.lightPlanned.remove()
+      data.lightRoutes.remove()
 
       // and create a light weight one
-      data.lightPlanned = this.createPlanningRouteFor(data.current, data.asset.history, data.asset, true, true, false)
-      this.showLayer(data.lightPlanned, this)
+      data.lightRoutes = this.createPlanningRouteFor(data.current, data.asset.history, data.asset, true, true, false)
+      this.showLayer(data.lightRoutes, this)
     }
 
     // are we already looking at this marker?
@@ -709,17 +718,18 @@ export default class MapPlanningPlayerListener {
     } else {
       // ok, show the detailed route for this asset
       const data = this.allAssets.find(data => data.asset.uniqid === marker.asset.uniqid)
-      data.lightPlanned.remove()
+      data.lightRoutes.remove()
 
       // store quick access to this set of routes
       this.currentRoute = data
 
       // and replace it with heavyweight
-      data.lightPlanned = this.createPlanningRouteFor(data.current, data.asset.history, data.asset, false, false, true)
-      this.showLayer(data.lightPlanned, this)
+      data.lightRoutes = this.createPlanningRouteFor(data.current, data.asset.history, data.asset, false, false, true)
+      this.showLayer(data.lightRoutes, this)
 
       // check we're not in turn zero
       if (this.turnNumber > 0) {
+        const context = this
         // ok, show the accept route button for this track
         const acceptTitle = createButton(false, 'Route for ' + marker.asset.name).addTo(this.map)
         this.btnListAccept.push(acceptTitle)
@@ -732,12 +742,13 @@ export default class MapPlanningPlayerListener {
           this.btnListAccept.push(acceptButton)
         } else {
           const acceptButton = createButton(true, 'Accept Route', () => {
-            this.adjudicatingAcceptRoute(marker.asset)
+            this.adjudicatingAcceptRoute(marker.asset, context)
             clearButtons(this.btnListAccept, this)
           }).addTo(this.map)
           this.btnListAccept.push(acceptButton)
           const reject = createButton(true, 'Reject Route', () => {
-            this.adjudicatingRejectRoute(marker.asset)
+            this.adjudicatingRejectRoute(marker.asset, context)
+            console.log('turn', context.turnNumber)
             clearButtons(this.btnListAccept, this)
           }).addTo(this.map)
           this.btnListAccept.push(reject)
@@ -874,7 +885,7 @@ export default class MapPlanningPlayerListener {
     })
 
     // put the next turn in the planning marker
-    this.planningMarker.planningFor = this.currentTurn + 1
+    this.planningMarker.planningFor = this.turnNumber + 1
 
     if (!newState.speedKts) {
       // static state assigned, just do update
