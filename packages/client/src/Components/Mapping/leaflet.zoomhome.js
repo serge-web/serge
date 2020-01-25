@@ -9,8 +9,6 @@
 import L from 'leaflet'
 
 (function () {
-  'use strict'
-
   L.Control.ZoomHome = L.Control.Zoom.extend({
     options: {
       position: 'topleft',

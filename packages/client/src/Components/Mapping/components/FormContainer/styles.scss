@@ -1,0 +1,63 @@
+.mapping-form-container {
+    width: 300px;
+    padding: .3rem;
+    color: #424344;
+    overflow: hidden;
+
+    h1, h2, h3, h4 {
+        font-size: 1.3rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    label {
+        color: #828282;
+        position: absolute;
+        left: 0;
+    }
+
+    button {
+        float: right;
+        background-color: #e6e6e6;
+        border-radius: 5px;
+        padding: .5rem 1.5rem;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .input-container {
+       position: relative;
+       padding-left: 40%;
+       margin-bottom: 1rem;
+       &.checkbox,
+       &.radio {
+           li label {
+               position: relative;
+           }
+           input{
+               float: left;
+               margin-right: .5rem;
+           }
+       }
+    }
+
+    .force-colour {
+        float: left;
+        margin-right: .5rem;
+        width: 1.5rem;
+        height: 1rem;
+
+        &.blue {
+            background-color: #000fff; 
+        }
+        &.red {
+            background-color: #ff0000;
+        }
+        &.green {
+            background-color: #19bd37;
+        }
+        &.unknown {
+            background-color: #999; 
+        }
+    }
+}
+
