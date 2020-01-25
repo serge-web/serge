@@ -15,7 +15,7 @@ import './styles.scss'
 import './leaflet.zoomhome.js'
 import 'leaflet-easybutton'
 
-const Mapping = ({ imageTop, imageLeft, imageBottom, imageRight }) => {
+const Mapping = ({imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null)
   const gridRef = useRef(null)
   const coordsRef = useRef(null)
