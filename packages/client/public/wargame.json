@@ -1157,7 +1157,6 @@
 				"states": [
 					{ "name": "Inactive", "mobile": false },
 					{ "name": "Active", "mobile": false },
-					{ "name": "LocationPending", "mobile": true },
 					{ "name": "Prosecuting", "mobile": false }
 				],
 				"travelMode": "land"

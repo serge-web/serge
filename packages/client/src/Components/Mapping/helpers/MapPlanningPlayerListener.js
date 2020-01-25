@@ -244,9 +244,9 @@ export default class MapPlanningPlayerListener {
       const newState = { state: pState, speedKts: lastR.speedKts }
 
       // store the state - we'll use it for all legs, until the player changes their mind
-      context.currentRoute.state = newState
+      context.currentRoute.status = newState
       context.platformStateAssigned(context.currentRoute.marker, newState)
-    } else if (context.currentRoute.state != null) {
+    } else if (context.currentRoute.status != null) {
       // we don't have any routes, but the user has set a state
       const marker = context.currentRoute.marker
       // no routes, do we know state?

@@ -256,7 +256,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
         let thisTurnName
         if (turn.position) {
           // we're at the start of the data
-          thisTurnName = turnNameFor(turn.turn + 1) + ': ' + turn.state + stateSuffix
+          thisTurnName = turnNameFor(turn.turn + 1) + ': ' + turn.status.state + stateSuffix
           const ptHex = grid.hexNamed(turn.position)
           if (ptHex) {
             location = ptHex.centrePos

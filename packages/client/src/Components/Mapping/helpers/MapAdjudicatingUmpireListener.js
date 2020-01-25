@@ -167,7 +167,7 @@ export default class MapAdjudicatingListener {
     data.newHistory = history
 
     // update the status
-    const newState = newStateFromPlannedTurns(data.currentPlans, data.asset.state, data.asset.position)
+    const newState = newStateFromPlannedTurns(data.currentPlans, data.asset.status, data.asset.position)
 
     // get the coords for the current location
     const loc = this.grid.hexNamed(newState.position).centrePos

@@ -1,5 +1,3 @@
-import { LOCATION_PENDING } from '../../../consts'
-
 /** determine if this force has any assets that have a pending location */
 export default (forces, myForce) => {
   var res = false
@@ -9,7 +7,7 @@ export default (forces, myForce) => {
     if (force.name === myForce) {
       if (force.assets) {
         force.assets.forEach(asset => {
-          if (asset.locationPending || asset.state === LOCATION_PENDING) {
+          if (asset.locationPending) {
             res = true
           }
         })
