@@ -73,56 +73,43 @@ function bearingMarkerFor(/* number */ angle) {
     turnLightVar: {icon: lightTurn, markerAngle: null},
   }
 
-  console.log("Rounded angle", angle)
   if(angle === 0 || angle === 90 ||angle === 180 || angle === 360){
     // 90
     icon = iconAngles.deg90.icon  // testing out a dynamic way of moving the markers
-    console.log("90 degree marker", iconAngles.deg90.markerAngle)
   } else if(angle === 30){
     // 30
     icon = iconAngles.deg30.icon
-    console.log("30 degree marker", iconAngles.deg30.markerAngle)
   } else if(angle === 60){
     // 60
     icon = iconAngles.deg60.icon
-    console.log("60 degree marker", iconAngles.deg60.markerAngle)
   } else if(angle === 120){
     // 120
     icon = iconAngles.deg30.icon
-    console.log("30 degree marker", iconAngles.deg30.markerAngle)
   } else if(angle === 150){
     // 150
     icon = iconAngles.deg30.icon
-    console.log("30 degree marker", iconAngles.deg30.markerAngle)
   } else if(angle === 210){
     // 210
     icon = iconAngles.deg30.icon
-    console.log("30 degree marker", iconAngles.deg30.markerAngle)
   } else if(angle === 240) {
     // 240
     icon = iconAngles.deg150.icon
-    console.log("150 degree marker", iconAngles.deg150.markerAngle)
   } else if(angle === 270){
     // 30
     icon = iconAngles.deg0.icon
-    console.log("0 degree marker", iconAngles.deg0.markerAngle)
   } else if(angle === 300){
     // 30
     icon = iconAngles.deg30.icon
-    console.log("30 degree marker", iconAngles.deg30.markerAngle)
   } else if (angle === 330){
     // 330
     icon = iconAngles.deg120.icon
-    console.log("120 degree marker", iconAngles.deg120.markerAngle)
   } else if (angle === undefined || angle === null) {
     // as some angles are undefined just use the end icon until this can be figured out
     // 90
     icon = iconAngles.deg90.icon
-    console.log("90 degree marker", iconAngles.deg90.markerAngle)
   } else {
     // 90
     icon = iconAngles.deg90.icon
-    console.log("90 degree marker", iconAngles.deg90.markerAngle)
   }
   return icon
 }
@@ -135,14 +122,12 @@ function turnFor(/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current,
     bearingFloat = bearingBetween(minus1, current)
     bearing = parseInt(bearingFloat)
     if (comment) {
-      console.log(comment, 'type 1', minus1, current, bearing)
     }
   } else if (!current) {
     // ok, for the previous 2 legs
     bearingFloat = bearingBetween(minus2, minus1)
     bearing = parseInt(bearingFloat)
     if (comment) {
-      console.log(comment, 'type 2', minus1, minus2, bearing)
     }
   } else {
     // sort out the two directions
@@ -151,8 +136,6 @@ function turnFor(/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current,
     bearingFloat = (bearing1 + bearing2) / 2
     bearing = parseInt(bearingFloat)
     if (comment) {
-      console.log(comment, 'type 3', bearing1, bearing2, bearing)
-      console.log("Final bearing", roundToNearest(bearing, 30))
     }
   }
   return bearing
@@ -177,7 +160,6 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
   const marker = L.marker(location, {
     icon: turnIcon, title: title, zIndexOffset: 1000
   })
-  console.log(title)
   if (!lightweight) {
     marker.on('click', waypointCallback)
     marker.bindPopup(title).openPopup() // note: this won't work - we can't do it until the marker is on the map
@@ -224,7 +206,6 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
             // have we got enough data?
             if (minus1) {
               const angle = turnFor(minus2, minus1, current, turnNameFor(turn.turn - 1))
-              //console.log("The pending angle is:", angle)
               const iconName = bearingMarkerFor(roundToNearest(angle, 30))
               result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId))
               pendingTurnLocation = false
@@ -253,7 +234,6 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
     // have we got enough data?
     if (minus1) {
       const angle = turnFor(minus2, minus1, null, turnNameFor(turnId))
-      // console.log("The current angle is:", angle)
       const icon = bearingMarkerFor(angle)
       result.addLayer(createMarker(icon, current, lightweight, pendingTurnName, waypointCallback, context, turnId))
       pendingTurnLocation = false
