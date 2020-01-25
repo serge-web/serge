@@ -1,4 +1,5 @@
 import L from 'leaflet'
+import 'leaflet-polylinedecorator'
 
 // the images we use to annotate planning legs
 import turn0deg from '../images/turn0deg.png'
@@ -247,14 +248,20 @@ function markersFor (/* array */ plannedTurns, /* latLng */ start,
 export default function planningRouteFor (/* array */ plannedTurns, /* latLng */ start,
   /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* function */ waypointCallback, /* object */ context) {
   const thisLayer = L.layerGroup()
-
   // start with the line
   const theLine = lineFor(plannedTurns, start, lightweight, grid, color)
+
+  const decorator = L.polylineDecorator(lineFor(plannedTurns, start, lightweight, grid, color), {
+    patterns: [
+        {offset: '100%', repeat: 0, symbol: L.Symbol.arrowHead({pixelSize: 15, pathOptions: {color: color, fillOpacity: 1, weight: 0}})}
+    ]
+  })
 
   // set the styling
   theLine.color = color
 
   thisLayer.addLayer(theLine)
+  thisLayer.addLayer(decorator)
 
   // also sort out the markers
   const markers = markersFor(plannedTurns, start, lightweight, grid, waypointCallback, context)
