@@ -487,8 +487,7 @@
 									"R22",
 									"Q22"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 },
 							},
 							{
 								"turn": 3,
@@ -496,8 +495,7 @@
 									"P21",
 									"O21"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 },
 							},
 							{
 								"turn": 4,
@@ -505,8 +503,7 @@
 									"O20",
 									"O19"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 },
 							}
 						],						"platformType": "merchant-vessel",
 						"position": "S23",
@@ -617,8 +614,7 @@
 									"H02",
 									"H03"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 3,
@@ -628,8 +624,7 @@
 									"I06",
 									"I06"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 4,
@@ -639,8 +634,7 @@
 									"I09",
 									"I10"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 5,
@@ -650,8 +644,7 @@
 									"J12",
 									"J13"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 },
 							},
 							{
 								"turn": 6,
@@ -661,8 +654,7 @@
 									"M15",
 									"M16"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 7,
@@ -672,8 +664,7 @@
 									"N18",
 									"N19"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 8,
@@ -683,23 +674,19 @@
 									"P21",
 									"Q22"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 9,
-								"speed": 0,
-								"state": "Moored"
+								"status": { "state": "Moored" }
 							},
 							{
 								"turn": 10,
-								"speed": 0,
-								"state": "Moored"
+								"status": { "state": "Moored" }
 							},
 							{
 								"turn": 11,
-								"speed": 0,
-								"state": "Moored"
+								"status": { "state": "Moored" }
 							}
 						],
 						"platformType": "merchant-vessel",
@@ -724,8 +711,7 @@
 						"plannedTurns": [
 							{
 								"turn": 2,
-								"speed": 0,
-								"state": "Moored"
+								"status": { "state": "Moored" }
 							},
 							{
 								"turn": 3,
@@ -735,8 +721,7 @@
 									"C02",
 									"C03"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 4,
@@ -746,8 +731,7 @@
 									"C06",
 									"C07"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 5,
@@ -757,8 +741,7 @@
 									"F08",
 									"G08"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 6,
@@ -768,8 +751,7 @@
 									"I09",
 									"I10"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 7,
@@ -779,8 +761,7 @@
 									"J12",
 									"J13"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 8,
@@ -790,8 +771,7 @@
 									"M15",
 									"M16"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 9,
@@ -801,8 +781,7 @@
 									"N18",
 									"N19"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 10,
@@ -812,8 +791,7 @@
 									"P21",
 									"Q22"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							},
 							{
 								"turn": 11,
@@ -823,8 +801,7 @@
 									"T22",
 									"U23"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 20 }
 							}
 						],
 						"platformType": "merchant-vessel",
@@ -849,8 +826,7 @@
 									"M02",
 									"K03"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 3,
@@ -858,13 +834,11 @@
 									"J03",
 									"I04"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 4,
-								"speed": 0,
-								"state": "Fishing"
+								"status": { "state": "Fishing" }
 							},
 							{
 								"turn": 5,
@@ -872,8 +846,7 @@
 									"I05",
 									"I06"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 6,
@@ -881,13 +854,11 @@
 									"I07",
 									"I08"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 7,
-								"speed": 0,
-								"state": "Fishing"
+								"status": { "state": "Fishing" }
 							},
 							{
 								"turn": 8,
@@ -895,8 +866,7 @@
 									"J07",
 									"K07"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 9,
@@ -904,13 +874,11 @@
 									"L06",
 									"M06"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 10,
-								"speed": 0,
-								"state": "Fishing"
+								"status": { "state": "Fishing" }
 							},
 							{
 								"turn": 11,
@@ -918,8 +886,7 @@
 									"M05",
 									"M04"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							}
 						],
 						"platformType": "fishing-vessel",
@@ -944,13 +911,11 @@
 									"N08",
 									"L09"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 3,
-								"speed": 0,
-								"state": "Fishing"
+								"status": { "state": "Fishing" }
 							},
 							{
 								"turn": 4,
@@ -958,8 +923,7 @@
 									"K10",
 									"K09"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 5,
@@ -967,8 +931,7 @@
 									"K08",
 									"K07"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 6,
@@ -976,13 +939,11 @@
 									"K06",
 									"M06"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 7,
-								"speed": 0,
-								"state": "Fishing"
+								"status": { "state": "Fishing" }
 							},
 							{
 								"turn": 8,
@@ -990,8 +951,7 @@
 									"N06",
 									"N07"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 9,
@@ -999,23 +959,19 @@
 									"M08",
 									"L08"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 10,
-								"speed": 0,
-								"state": "Fishing"
+								"status": { "state": "Fishing" }
 							},
 							{
 								"turn": 11,
-								"speed": 0,
-								"state": "Fishing"
+								"status": { "state": "Fishing" }
 							},
 							{
 								"turn": 12,
-								"speed": 0,
-								"state": "Fishing"
+								"status": { "state": "Fishing" }
 							}
 						],
 						"platformType": "fishing-vessel",
@@ -1044,8 +1000,7 @@
 									"N11",
 									"L10"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 3,
@@ -1053,13 +1008,11 @@
 									"K10",
 									"J09"
 								],
-								"speed": 20,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 4,
-								"speed": 0,
-								"state": "Fishing"
+								"status": { "state": "Fishing" }
 							},
 							{
 								"turn": 5,
@@ -1067,8 +1020,7 @@
 									"K08",
 									"K07"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 6,
@@ -1076,13 +1028,11 @@
 									"K06",
 									"M06"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 7,
-								"speed": 0,
-								"state": "Fishing"
+								"status": { "state": "Fishing" }
 							},
 							{
 								"turn": 8,
@@ -1090,8 +1040,7 @@
 									"N06",
 									"N07"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 9,
@@ -1099,13 +1048,11 @@
 									"M08",
 									"L08"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							},
 							{
 								"turn": 10,
-								"speed": 0,
-								"state": "Fishing"
+								"status": { "state": "Fishing" }
 							},
 							{
 								"turn": 11,
@@ -1113,8 +1060,7 @@
 									"M09",
 									"N08"
 								],
-								"speed": 10,
-								"state": "Transiting"
+								"status": { "state": "Transiting", "speedKts": 10 }
 							}
 						],
 						"platformType": "fishing-vessel",
