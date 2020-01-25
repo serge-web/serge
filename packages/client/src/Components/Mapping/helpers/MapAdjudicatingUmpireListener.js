@@ -6,6 +6,7 @@ import clearButtons from './clearButtons'
 import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 import getVisibilityButtonsFor from './createVisibilityButtonsFor'
 import collateNewStatesMessage from './collateNewStatesMessage'
+import newHistoryFromPlans from './newHistoryFromPlans'
 
 export default class MapAdjudicatingListener {
   constructor (map, grid, planningFormCallback, turnNumber, forceNames, visibilityCallback) {
@@ -123,23 +124,20 @@ export default class MapAdjudicatingListener {
 
   acceptRoute (asset) {
     // find the data
-    const data = this.allAssets.find(block => block.asset.uniqid === asset.uniqid)
+    const thisAssetData = this.allAssets.find(block => block.asset.uniqid === asset.uniqid)
 
     // capture current state into history
-    const history = data.history ? data.history : []
-    const currentState = { turn: this.turnNumber, status: asset.status, route: asset.route, position: asset.position }
-    history.push(currentState)
-    data.newHistory = currentState
+    thisAssetData.newHistory = newHistoryFromPlans(thisAssetData.history, this.turnNumber, asset.status, asset.route, asset.position)
 
     // update the status
-    const newState = newStateFromPlannedTurns(data.currentPlans, data.asset.status, data.asset.position)
+    thisAssetData.newState = newStateFromPlannedTurns(thisAssetData.currentPlans, thisAssetData.asset.status, thisAssetData.asset.position)
 
     // get the coords for the current location
-    const loc = this.grid.hexNamed(newState.position).centrePos
+    const loc = this.grid.hexNamed(thisAssetData.newState.position).centrePos
 
     // create a marker for this platform
-    const forceClass = data.asset.force.toLowerCase()
-    const typeClass = data.asset.platformType.replace(/ /g, '-').toLowerCase()
+    const forceClass = thisAssetData.asset.force.toLowerCase()
+    const typeClass = thisAssetData.asset.platformType.replace(/ /g, '-').toLowerCase()
     const iconClass = `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
     const divIcon = L.divIcon({
       iconSize: [40, 40],
@@ -147,20 +145,19 @@ export default class MapAdjudicatingListener {
     })
 
     // make the original marker faint
-    L.DomUtil.addClass(data.marker._icon, 'platform-counter-planned')
+    L.DomUtil.addClass(thisAssetData.marker._icon, 'platform-counter-planned')
 
     // ok, drop a new marker, on the new location
-    data.planningMarker = L.marker(loc, {
+    thisAssetData.planningMarker = L.marker(loc, {
       draggable: false,
       icon: divIcon,
       zIndexOffset: 1000
     })
     // special handling. Don't declutter the planning marker, we want it in the centre of the cell
-    data.planningMarker.do_not_declutter = true
-    data.planningMarker.asset = data.asset
-    this.layerMarkers.addLayer(data.planningMarker)
+    thisAssetData.planningMarker.do_not_declutter = true
+    thisAssetData.planningMarker.asset = thisAssetData.asset
+    this.layerMarkers.addLayer(thisAssetData.planningMarker)
 
-    data.newState = newState
     this.updateSubmitButtonLabel()
   }
 
