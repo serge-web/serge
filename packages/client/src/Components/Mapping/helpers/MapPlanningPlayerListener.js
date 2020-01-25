@@ -241,7 +241,12 @@ export default class MapPlanningPlayerListener {
       }
 
       // construct the state object
-      const newState = { state: pState, speedKts: lastR.speedKts }
+      const newState = { state: pState.name }
+
+      // if it's a mobile state, use the last speed
+      if (pState.mobile) {
+        newState.speedKts = lastR.speedKts
+      }
 
       // store the state - we'll use it for all legs, until the player changes their mind
       context.currentRoute.status = newState
@@ -250,7 +255,7 @@ export default class MapPlanningPlayerListener {
       // we don't have any routes, but the user has set a state
       const marker = context.currentRoute.marker
       // no routes, do we know state?
-      context.platformStateAssigned(marker, context.currentRoute.state)
+      context.platformStateAssigned(marker, context.currentRoute.status)
     } else {
       // we will have to get state from the player
       const marker = context.currentRoute.marker
@@ -301,16 +306,16 @@ export default class MapPlanningPlayerListener {
   }
 
   /** user has used either the command buttons, or the popup dialog to choose a new platform state */
-  stateSelectedCallback (/* object */ state, /* number */ speedKts, /* object */ context) {
+  stateSelectedCallback (/* object */ pState, /* number */ speedKts, /* object */ context) {
     // store the state - we'll use it for all legs, until the player changes their mind
-    context.currentRoute.status = { state: state, speedKts: speedKts }
+    context.currentRoute.state = { state: pState.name, speedKts: speedKts }
 
     // now update the planning rings
     context.platformStateAssigned(context.currentRoute.marker, context.currentRoute.state)
 
     // note: if it was a non-mobile state, we don't need to drag legs, we can just pop
     // up the state planning buttons again
-    if (!state.mobile) {
+    if (!pState.mobile) {
       // we will have to get state from the player
       const marker = context.currentRoute.marker
 
@@ -399,9 +404,9 @@ export default class MapPlanningPlayerListener {
           // create the detailed route
           this.updatePlannedRoute(true)
 
-          if (this.currentRoute.state) {
+          if (this.currentRoute.status) {
             // ok, we can plan the next leg
-            this.platformStateAssigned(this.currentRoute.marker, this.currentRoute.state)
+            this.platformStateAssigned(this.currentRoute.marker, this.currentRoute.status)
           } else {
             // sort out the state commands for this asset
             const pType = findPlatformTypeFor(this.platformTypes, marker.asset.platformType)
@@ -512,16 +517,23 @@ export default class MapPlanningPlayerListener {
     }).addTo(this.map))
   }
 
-  storeNewPlanningRoute (/* object */ newStatus, /* array */ hexList) {
+  storeNewPlanningRoute (/* object */ status, /* array */ hexList) {
     const route = this.currentRoute.current
     let lastNum = this.turnNumber + 1
     if (route.length) {
       // ok, we can override the turn number with the most recently planned one
       lastNum = route[route.length - 1].turn + 1
     }
+
     // note: when we send a planned turn, we only need the state name, not the whole
     // state element
-    const newRoute = { status: newStatus, turn: lastNum }
+    const newRoute = { status: { state: status.state }, turn: lastNum }
+
+    // store speed, if it's a mobile state
+    if (status.speedKts) {
+      newRoute.status.speedKts = status.speedKts
+    }
+    // store route, if there is one
     if (hexList) {
       newRoute.route = hexList
     }
@@ -564,7 +576,7 @@ export default class MapPlanningPlayerListener {
 
     // also create a new marker, used to plot the path
     this.planningMarker = L.marker(startPos, {
-      draggable: newState.state.mobile,
+      draggable: newState.speedKts,
       zIndexOffset: 1000
     })
 
@@ -584,7 +596,7 @@ export default class MapPlanningPlayerListener {
     // put the next turn in the planning marker
     this.planningMarker.planningFor = this.currentTurn + 1
 
-    if (!newState.state.mobile) {
+    if (!newState.speedKts) {
       // static state assigned, just do update
       this.storeNewPlanningRoute(newState, null)
     } else {
@@ -593,12 +605,12 @@ export default class MapPlanningPlayerListener {
 
       // calculate the steps remaining
       let range
-      if (newState.speed) {
-        const speed = newState.speed
+      if (newState.speedKts) {
+        const speedKts = newState.speedKts
         const stepSize = 30
         const stepsPerHour = (60 / stepSize)
         const gridDelta = 5
-        const roughRange = speed / gridDelta / stepsPerHour // work out how many NM in 30 minutes
+        const roughRange = speedKts / gridDelta / stepsPerHour // work out how many NM in 30 minutes
 
         // check range is in 10s
         range = roundToNearest(roughRange, 1)
