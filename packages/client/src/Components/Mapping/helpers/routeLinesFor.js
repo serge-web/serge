@@ -305,7 +305,7 @@ export default function routeLinesFor (/* array */ plannedTurns, /* history */ h
 
   // also sort out the markers
   const turnWayInTheFuture = 1000
-  const historyMarkers = markersFor(history, start, true, grid, null, turnWayInTheFuture, context)
+  const historyMarkers = markersFor(history, start, lightweight, grid, null, turnWayInTheFuture, context)
   thisLayer.addLayer(historyMarkers)
 
   // also sort out the markers
