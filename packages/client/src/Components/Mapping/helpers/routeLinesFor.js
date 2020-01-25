@@ -263,7 +263,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
           }
         } else {
           location = minus1
-          thisTurnName = turnNameFor(turn.turn) + ': ' + turn.state + stateSuffix
+          thisTurnName = turnNameFor(turn.turn) + ': ' + turn.status.state + stateSuffix
         }
         minus2 = minus1
         minus1 = current
