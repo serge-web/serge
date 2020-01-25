@@ -12,14 +12,16 @@ import turnNameFor from './turnNameFor'
 import createStateButtonsFor from './createStateButtonsFor'
 import roundToNearest from './roundToNearest'
 import findPlatformTypeFor from './findPlatformTypeFor'
+import canControlThisForce from './canControlThisForce'
 
 import findLastRouteWithLocation from './findLastRouteLocation'
-import { PLANNING_PHASE } from '../../../consts'
+import { PLANNING_PHASE, UMPIRE_FORCE } from '../../../consts'
 
 export default class MapPlanningPlayerListener {
-  constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, declutterCallback, perceivedStateCallback, /* array string */ forceNames, /* string */ phase) {
+  constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, allForces, declutterCallback, perceivedStateCallback, /* array string */ forceNames, /* string */ phase) {
     this.grid = grid
     this.force = force
+    this.allForces = allForces
     this.layerPriv = L.layerGroup().addTo(layer) // the layer we add our items to
     this.map = map // the underlying base-map (required to add/remove toolbar controls)
     this.inPlanningPhase = phase === PLANNING_PHASE
@@ -354,8 +356,9 @@ export default class MapPlanningPlayerListener {
 
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
-    // is it for the current force?
-    if (marker.asset.force !== this.force) {
+    // can we control this force?
+    if (!canControlThisForce(this.allForces, marker.asset.force, this.force)) {
+      // nope - don't bother then
       // ok, this is a quickie. Assign a click listener so
       // we can change the perceived state
       marker.on('click', e => {

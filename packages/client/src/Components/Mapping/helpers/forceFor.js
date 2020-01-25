@@ -6,5 +6,5 @@ export default function forceFor (/* object */ allForces, /* String */ assetId) 
     } else {
       return false
     }
-  }).name
+  })
 };
