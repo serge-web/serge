@@ -1,3 +1,4 @@
+// TODO: this should probably be deleted
 export default function plannedStateFor (/* String */ currentState, /* number */ currentSpeed, /* dictionary */ platformStates, /* array */ platformSpeeds) {
   var popup = 'Proposed State:<fieldset id="state"><ul>'
   for (const key in platformStates.states) {

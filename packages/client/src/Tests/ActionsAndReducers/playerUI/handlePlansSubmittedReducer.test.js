@@ -73,20 +73,17 @@ const payload = {
       uniqid: 'C01',
       plannedTurns: [{
         turn: 1,
-        state: 'Transiting',
-        speed: 20,
+        status: { state: 'Transiting', speedKts: 20 },
         route: ['P12', 'O21', 'O20', 'N19']
       },
       {
         turn: 2,
-        state: 'Transiting',
-        speed: 20,
+        status: { state: 'Transiting', speedKts: 20 },
         route: ['019', '018', '017', 'N17']
       },
       {
         turn: 3,
-        state: 'Transiting',
-        speed: 20,
+        status: { state: 'Transiting', speedKts: 20 },
         route: ['M17', 'L16', 'L15', 'L14']
       }
       ]
@@ -95,18 +92,16 @@ const payload = {
       uniqid: 'C02',
       plannedTurns: [{
         turn: 1,
-        state: 'Transiting',
-        speed: 10,
+        status: { state: 'Transiting', speedKts: 10 },
         route: ['S23', 'R22']
       },
       {
         turn: 2,
-        state: 'Fishing'
+        status: { state: 'Fishing' }
       },
       {
         turn: 3,
-        state: 'Transiting',
-        speed: 10,
+        status: { state: 'Transiting', speedKts: 10 },
         route: ['O21', 'O20']
       }]
     }]

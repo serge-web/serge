@@ -221,8 +221,8 @@ function markersFor (/* array */ turns, /* latLng */ start,
     let turnId = 0
 
     turns.forEach(turn => {
-      const stateSuffix = turn.speed ? ' @ ' + turn.speed + 'kts' : ''
-      const turnName = turnNameFor(turn.turn) + ': ' + turn.state + stateSuffix
+      const stateSuffix = turn.status.speedKts ? ' @ ' + turn.status.speedKts + 'kts' : ''
+      const turnName = turnNameFor(turn.turn) + ': ' + turn.status.state + stateSuffix
       turnId = turn.turn
 
       // loop through the routes
@@ -256,14 +256,14 @@ function markersFor (/* array */ turns, /* latLng */ start,
         let thisTurnName
         if (turn.position) {
           // we're at the start of the data
-          thisTurnName = turnNameFor(turn.turn + 1) + ': ' + turn.state + stateSuffix
+          thisTurnName = turnNameFor(turn.turn + 1) + ': ' + turn.status.state + stateSuffix
           const ptHex = grid.hexNamed(turn.position)
           if (ptHex) {
             location = ptHex.centrePos
           }
         } else {
           location = minus1
-          thisTurnName = turnNameFor(turn.turn) + ': ' + turn.state + stateSuffix
+          thisTurnName = turnNameFor(turn.turn) + ': ' + turn.status.state + stateSuffix
         }
         minus2 = minus1
         minus1 = current
@@ -305,7 +305,7 @@ export default function routeLinesFor (/* array */ plannedTurns, /* history */ h
 
   // also sort out the markers
   const turnWayInTheFuture = 1000
-  const historyMarkers = markersFor(history, start, false, grid, null, turnWayInTheFuture, context)
+  const historyMarkers = markersFor(history, start, lightweight, grid, null, turnWayInTheFuture, context)
   thisLayer.addLayer(historyMarkers)
 
   // also sort out the markers

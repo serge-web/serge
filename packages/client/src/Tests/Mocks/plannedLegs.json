@@ -7,8 +7,7 @@
             "H02",
             "H03"
         ],
-        "speed": 20,
-        "state": "Transitting"
+        "status": { "state": "Transiting", "speedKts": 20 }
     },
     {
         "turn": 2,
@@ -18,8 +17,7 @@
             "I06",
             "I06"
         ],
-        "speed": 20,
-        "state": "Transitting"
+        "status": { "state": "Transiting", "speedKts": 20 }
     },
     {
         "turn": 3,
@@ -29,8 +27,7 @@
             "I09",
             "I10"
         ],
-        "speed": 20,
-        "state": "Transitting"
+        "status": { "state": "Transiting", "speedKts": 20 }
     },
     {
         "turn": 4,
@@ -40,8 +37,7 @@
             "J12",
             "J13"
         ],
-        "speed": 20,
-        "state": "Transitting"
+        "status": { "state": "Transiting", "speedKts": 20 }
     },
     {
         "turn": 5,
@@ -51,7 +47,6 @@
             "M15",
             "M16"
         ],
-        "speed": 20,
-        "state": "Transitting"
+        "status": { "state": "Transiting", "speedKts": 20 }
     }
 ]
