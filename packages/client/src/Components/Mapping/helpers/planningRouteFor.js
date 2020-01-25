@@ -75,43 +75,29 @@ function bearingMarkerFor(/* number */ angle) {
 
   switch (angle) {
     case 0:
-      icon = iconAngles.deg90.icon;
-      break;
-    case 30:
-      icon = iconAngles.deg30.icon;
-      break;
-    case 60:
-      icon = iconAngles.deg60.icon;
-      break;
     case 90:
-      icon = iconAngles.deg90.icon;
-      break;
-    case 120:
-      icon = iconAngles.deg30.icon;
-      break;
-    case 150:
-      icon = iconAngles.deg30.icon;
-      break;
     case 180:
       icon = iconAngles.deg90.icon;
       break;
+    case 60:
+        icon = iconAngles.deg60.icon;
+      break;
+    case 30:
+    case 120:
+    case 150:
     case 210:
+    case 300:
       icon = iconAngles.deg30.icon;
-      break;  
+      break; 
     case 240:
       icon = iconAngles.deg150.icon;
       break; 
     case 270:
-      icon = iconAngles.deg0.icon;
-      break;  
-    case 300:
-      icon = iconAngles.deg30.icon;
-      break;
-    case 330:
-      icon = iconAngles.deg120.icon;
-      break;    
     case 360:
       icon = iconAngles.deg0.icon;
+      break;  
+    case 330:
+      icon = iconAngles.deg120.icon;
       break;
     default: 
       icon = iconAngles.deg90.icon;
