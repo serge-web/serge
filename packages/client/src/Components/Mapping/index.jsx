@@ -8,7 +8,6 @@ import {
   forceFor,
   GridImplementation,
   hasPendingForces,
-  MapAdjudicatingUmpireListener,
   MapAdjudicationPendingListener,
   MapPlanningPlayerListener,
   MapPopupHelper,
@@ -29,7 +28,6 @@ import './styles.scss'
 import './leaflet.zoomhome.js'
 
 import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
-import handlePlansSubmittedChanges from '../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
 import MappingForm from './components/FormContainer'
 import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 
@@ -237,8 +235,11 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     switch (phase) {
       case ADJUDICATION_PHASE:
         if (myForceRef.current === 'umpire') {
-          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current,
-            newStateOfWorldCallback, currentTurn, forceNames, visChangesFunc)
+          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
+            myForceRef.current, currentTurn, routeCompleteCallback,
+            platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase, newStateOfWorldCallback)
+          // currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current,
+          // newStateOfWorldCallback, currentTurn, forceNames, visChangesFunc)
         } else if (inForceLaydown && currentTurn === 0) {
           // this force has assets with location pending
           currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
