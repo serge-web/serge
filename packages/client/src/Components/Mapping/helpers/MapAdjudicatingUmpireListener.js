@@ -109,7 +109,7 @@ export default class MapAdjudicatingListener {
     const justNextStep = currentRoutes.length ? [currentRoutes[0]] : []
     const trimmedRoute = short ? justNextStep : currentRoutes
 
-    return routeLinesFor(trimmedRoute, history, hisLocation, lightweight, this.grid, forceColor, null, this.turnNumber + 1, highlight, context, asset)
+    return routeLinesFor(trimmedRoute, history, hisLocation, lightweight, this.grid, forceColor, null, this.turnNumber + 1, highlight, context)
   }
 
   updateSubmitButtonLabel () {
