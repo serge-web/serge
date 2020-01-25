@@ -32,10 +32,8 @@ export default class MapPlanningPlayerListener {
     this.perceivedStateCallbackPriv = perceivedStateCallback
     this.forceNames = forceNames // used in updating perceived force
 
-    this.routeHexes = [] // hexes representing route
-    this.routeLats = [] // lad-lngs for route
-    this.plannedHexes = [] // hexes for whole turn
-    this.plannedLats = [] // lats/longs representing whole turn
+    this.drag = { hexes: [], lats: [] } // data for current drag
+    this.turn = { hexes: [], lats: [] } // data for planned turn
 
     this.plannedLegs = [] // collated set of data, ready for transmission
 
@@ -470,10 +468,10 @@ export default class MapPlanningPlayerListener {
 
   clearOnNewLeg () {
     this.clearAchievableCells()
-    this.routeLats = []
-    this.routeHexes = []
-    this.plannedHexes = []
-    this.plannedLats = []
+    this.drag.lats = []
+    this.drag.hexes = []
+    this.turn.hexes = []
+    this.turn.lats = []
     this.plannedLine.setLatLngs([])
     this.routeLine.setLatLngs([])
   }
@@ -659,10 +657,10 @@ export default class MapPlanningPlayerListener {
         this.lastCursorLoc = cursorLoc
 
         // ok, we have a valid location. clear the existing route
-        this.routeLats = [cursorLoc, cursorLoc]
+        this.drag.lats = [cursorLoc, cursorLoc]
 
         // clear the old cells
-        this.routeHexes.forEach(cell => {
+        this.drag.hexes.forEach(cell => {
           if (this.achievableCells.includes(cell)) {
             cell.polygon.setStyle(this.rangeStyle)
           } else {
@@ -689,14 +687,14 @@ export default class MapPlanningPlayerListener {
         }
 
         // and generate new cells
-        this.routeLats = []
-        this.routeHexes = newRoute
-        this.routeHexes.forEach(cell => {
+        this.drag.lats = []
+        this.drag.hexes = newRoute
+        this.drag.hexes.forEach(cell => {
           cell.polygon.setStyle(this.routeStyle)
-          this.routeLats.push(cell.centrePos)
+          this.drag.lats.push(cell.centrePos)
         })
 
-        this.routeLine.setLatLngs(this.routeLats)
+        this.routeLine.setLatLngs(this.drag.lats)
       })
       this.planningMarker.on('dragend', e => {
         const cursorHex = this.lastHex
@@ -710,18 +708,18 @@ export default class MapPlanningPlayerListener {
         delete this.lastCursorLoc
 
         // drop the first hex from the list, since that was the start point
-        this.routeHexes.shift()
+        this.drag.hexes.shift()
 
         this.startHex = this.lastHex
 
-        this.plannedHexes = this.plannedHexes.concat(this.routeHexes)
+        this.turn.hexes = this.turn.hexes.concat(this.drag.hexes)
 
         // extend the planned line
-        this.plannedLats = this.plannedLats.concat(this.routeLats)
-        this.plannedLine.setLatLngs(this.plannedLats)
+        this.turn.lats = this.turn.lats.concat(this.drag.lats)
+        this.plannedLine.setLatLngs(this.turn.lats)
 
         // ok, determine if we are at the end of a leg
-        const len = this.routeHexes.length
+        const len = this.drag.hexes.length
 
         // reduce the marker allowance
         // note: we reduce the length by one, so we don't count the starting cell
@@ -732,7 +730,7 @@ export default class MapPlanningPlayerListener {
         // if we have no more leg, push this one, and give us a fresh allowance
         if (marker.planning.remaining === 0 || marker.planning.allowance >= 100) {
           // capture this planned leg
-          const hexList = this.simplifyHexes(this.plannedHexes)
+          const hexList = this.simplifyHexes(this.turn.hexes)
           this.storeNewPlanningRoute(newState, hexList)
 
           this.plannedLine.setLatLngs([])
@@ -744,10 +742,10 @@ export default class MapPlanningPlayerListener {
           // clean up
           this.startHex = null
           this.endHex = null
-          this.routeHexes = []
-          this.routeLats = []
-          this.plannedLats = []
-          this.plannedHexes = []
+          this.drag.hexes = []
+          this.drag.lats = []
+          this.turn.lats = []
+          this.turn.hexes = []
         } else {
           stillCellsRemaining = true
         }
@@ -761,7 +759,7 @@ export default class MapPlanningPlayerListener {
         if (stillCellsRemaining) {
           // The line isn't complete. Display the route so far.
           // Create temporary structure, comprising the start hex, plus the route so far
-          const plannedRouteCells = [this.startHex].concat(this.plannedHexes)
+          const plannedRouteCells = [this.startHex].concat(this.turn.hexes)
 
           // style the cells in the planned route
           plannedRouteCells.forEach(cell => {
