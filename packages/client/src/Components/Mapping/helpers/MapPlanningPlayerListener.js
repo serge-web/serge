@@ -245,7 +245,7 @@ export default class MapPlanningPlayerListener {
 
       // if it's a mobile state, use the last speed
       if (pState.mobile) {
-        newState.speedKts = lastR.speedKts
+        newState.speedKts = lastR.status.speedKts
       }
 
       // store the state - we'll use it for all legs, until the player changes their mind
