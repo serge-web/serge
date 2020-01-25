@@ -43,8 +43,12 @@ function clusterMarkers (/* array marker */ markers, /* grid */ grid) {
     }
     if (pos) {
       let index
-      if (grid.cellFor) {
-        index = grid.cellFor(pos).name
+      const thisCell = grid.cellFor(pos)
+      // on occasion, the decluttering may push
+      // an item beyond the edge of the map, in which case
+      // cellFor will return null
+      if (thisCell) {
+        index = thisCell.name
       } else {
         index = pos.lat + ',' + pos.lng
       }
