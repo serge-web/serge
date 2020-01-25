@@ -15,7 +15,7 @@ import findPlatformTypeFor from './findPlatformTypeFor'
 import canControlThisForce from './canControlThisForce'
 
 import findLastRouteWithLocation from './findLastRouteLocation'
-import { PLANNING_PHASE, UMPIRE_FORCE } from '../../../consts'
+import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE } from '../../../consts'
 
 export default class MapPlanningPlayerListener {
   constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, allForces, declutterCallback, perceivedStateCallback, /* array string */ forceNames, /* string */ phase) {
@@ -32,14 +32,14 @@ export default class MapPlanningPlayerListener {
     this.perceivedStateCallbackPriv = perceivedStateCallback
     this.forceNames = forceNames // used in updating perceived force
 
-    this.drag = { hexes: [], lats: [] } // data for current drag
+    this.performingAdjudication = phase === ADJUDICATION_PHASE && force === UMPIRE_FORCE
+
+    this.drag = { hexes: [], lats: [], startHex: null, lastHex: null } // data for current drag
     this.turn = { hexes: [], lats: [] } // data for planned turn
 
     this.plannedLegs = [] // collated set of data, ready for transmission
 
     this.achievableCells = [] // hexes representing achievable area this turn
-    this.startHex = null // hex for start drag operation
-    this.lastHex = null // most recent cell travelled through
 
     this.currentMarker = null // the selected marker // TODO: it's only for development
     this.currentTurn = null // for dev, the turn that was clicked on
@@ -77,6 +77,17 @@ export default class MapPlanningPlayerListener {
     // put them on the map
     this.routeLine.addTo(layer)
     this.plannedLine.addTo(layer)
+
+    // some per-mode setup
+    this.markerCallback = null
+    this.waypointCallback = null
+
+    if (this.performingAdjudication) {
+      // setup the adjudication callbacks
+    } else {
+      this.markerCallback = this.showPlanningMarkerMenu
+      this.waypointCallback = this.resetFromWaypointCallback
+    }
 
     // command to submit whole planned route
     if (this.inPlanningPhase) {
@@ -376,7 +387,7 @@ export default class MapPlanningPlayerListener {
         this.updateSubmitRoutesCounter(this.allRoutes)
 
         marker.on('click', e => {
-          this.startHex = null
+          this.drag.startHex = null
 
           // and drop any planning lines
           this.clearOnNewLeg()
@@ -556,24 +567,30 @@ export default class MapPlanningPlayerListener {
    * end of the planned routes, or where it currently is
    */
   getPlannedAssetLocation (asset) {
-    // sort out where to put the planning marker
-    const lastHex = findLastRouteWithLocation(this.currentRoute.current, asset.position)
-    return this.grid.hexNamed(lastHex)
+    let cell
+    if (this.performingAdjudication) {
+      //  - we always start from current location
+      cell = asset.position
+    } else {
+      // sort out where to put the planning marker
+      cell = findLastRouteWithLocation(this.currentRoute.current, asset.position)
+    }
+    return this.grid.hexNamed(cell)
   }
 
   /** player has indicated the planned state for a platform. Update the
    * UI accordingly
    */
   platformStateAssigned (/* object */marker, /* object */newState) {
-    // do we have nay planning to clear up?
+    // do we have any planning to clear up?
     if (this.planningMarker) {
       this.planningMarker.remove()
       this.routeLine.setLatLngs([])
       this.clearAchievableCells()
     }
 
-    this.startHex = this.getPlannedAssetLocation(marker.asset, this.currentRoute.current)
-    const startPos = this.startHex.centrePos
+    this.drag.startHex = this.getPlannedAssetLocation(marker.asset, this.currentRoute.current)
+    const startPos = this.drag.startHex.centrePos
 
     // also create a new marker, used to plot the path
     this.planningMarker = L.marker(startPos, {
@@ -591,7 +608,7 @@ export default class MapPlanningPlayerListener {
       this.clearOnNewLeg()
 
       // and generate the planning menu
-      this.showPlanningMarkerMenu()
+      this.markerCallback()
     })
 
     // put the next turn in the planning marker
@@ -633,7 +650,7 @@ export default class MapPlanningPlayerListener {
       this.clearAchievableCells()
 
       // plot the achievable cells for this distance
-      this.updateAchievableCellsFor(this.startHex, marker.planning.remaining, marker.travelMode)
+      this.updateAchievableCellsFor(this.drag.startHex, marker.planning.remaining, marker.travelMode)
 
       // set the route-line color
       this.updateRouteLineForForce(marker.force, this.routeLine)
@@ -669,16 +686,16 @@ export default class MapPlanningPlayerListener {
         })
 
         // do we know the drag start?
-        if (!this.startHex) {
+        if (!this.drag.startHex) {
           // drag operation just started
-          this.startHex = cursorHex
+          this.drag.startHex = cursorHex
         } else {
           // mid-drag
-          this.lastHex = cursorHex
+          this.drag.lastHex = cursorHex
         }
 
         // calculate the route
-        let newRoute = this.grid.hexesBetween(this.startHex, this.lastHex)
+        let newRoute = this.grid.hexesBetween(this.drag.startHex, this.drag.lastHex)
 
         // if we have a restricted possible region,
         // trim to it
@@ -697,7 +714,7 @@ export default class MapPlanningPlayerListener {
         this.routeLine.setLatLngs(this.drag.lats)
       })
       this.planningMarker.on('dragend', e => {
-        const cursorHex = this.lastHex
+        const cursorHex = this.drag.lastHex
         const cursorLoc = cursorHex.centrePos
 
         // put the planning marker into the centre of the cell, even though
@@ -710,7 +727,7 @@ export default class MapPlanningPlayerListener {
         // drop the first hex from the list, since that was the start point
         this.drag.hexes.shift()
 
-        this.startHex = this.lastHex
+        this.drag.startHex = this.drag.lastHex
 
         this.turn.hexes = this.turn.hexes.concat(this.drag.hexes)
 
@@ -740,7 +757,7 @@ export default class MapPlanningPlayerListener {
           marker.planning.remaining = marker.planning.allowance
 
           // clean up
-          this.startHex = null
+          this.drag.startHex = null
           this.endHex = null
           this.drag.hexes = []
           this.drag.lats = []
@@ -759,7 +776,7 @@ export default class MapPlanningPlayerListener {
         if (stillCellsRemaining) {
           // The line isn't complete. Display the route so far.
           // Create temporary structure, comprising the start hex, plus the route so far
-          const plannedRouteCells = [this.startHex].concat(this.turn.hexes)
+          const plannedRouteCells = [this.drag.startHex].concat(this.turn.hexes)
 
           // style the cells in the planned route
           plannedRouteCells.forEach(cell => {
