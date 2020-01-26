@@ -225,6 +225,20 @@ export default class MapPlanningPlayerListener {
         this.btnListStates = createStateButtonsFor(pType, marker.asset.name, this, this.stateSelectedCallback, this.btnListStates)
       }
 
+      // if there are any planned route turns, invite to clear them
+      if (this.currentRoute.current && this.currentRoute.current.length) {
+        const clearTurns = createButton(true, 'Clear planned turns', () => {
+          this.currentRoute.current = []
+          if(this.planningMarker) {
+            this.planningMarker.remove()
+          }
+          this.clearAchievableCells()
+          this.updatePlannedRoute(false)
+          clearTurns.remove()
+        }).addTo(this.map)
+        this.btnListStates.push(clearTurns)
+      }
+
       // ok, the popup will eventually manage state
       marker.options.draggable = false
     }
