@@ -16,10 +16,12 @@ function descendTree (/* layer */ layer, /* array */ markers) {
   }
 }
 
-function findAllMarkers (/* LayerGroup */ layer) {
+function findAllMarkers (/* LayerGroup */ layers) {
   const markers = []
 
-  descendTree(layer, markers)
+  layers.forEach(layer => {
+    descendTree(layer, markers)
+  })
 
   return markers
 }
@@ -53,9 +55,9 @@ function clusterMarkers (/* array marker */ markers, /* grid */ grid) {
   return res
 }
 
-export default function declutterLayer (/* LayerGroup */ layer, /* object */ grid) {
+export default function declutterLayer (/* array LayerGroup */ layers, /* object */ grid) {
   // get all the markers in the layer(s) first
-  const markers = findAllMarkers(layer)
+  const markers = findAllMarkers(layers)
 
   // now cluster the markers
   const clusters = clusterMarkers(markers, grid)

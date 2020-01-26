@@ -169,7 +169,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
   // run the declutter algorithm, to distribute markers around a cell if necessary
   const declutterCallback = () => {
-    declutterLayer(currentPhaseMapRef.current, gridImplRef.current)
+    const allLayers = [currentPhaseMapRef.current, platformsLayerRef.current]
+    declutterLayer(allLayers, gridImplRef.current)
   }
 
   const createThisMarker = (asset, grid, force) => {
