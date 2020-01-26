@@ -570,7 +570,9 @@ export default class MapPlanningPlayerListener {
    */
   updateAchievableCellsFor (/* hex */location, /* int */rangeRemaining, /* string */travelMode) {
     // work out the cells in range
-    if (rangeRemaining < 100) {
+    if (rangeRemaining === 0) {
+      this.achievableCells = []
+    } else if (rangeRemaining < 100) {
       this.achievableCells = this.grid.hexesInRange(location, rangeRemaining)
     } else {
       // just give him the whole area
@@ -615,16 +617,20 @@ export default class MapPlanningPlayerListener {
     if (!pState.mobile) {
       // just store it
       thisAssetData.current = [{ status: { state: pState.name }, turn: context.turnNumber + 1 }]
+
+      // update the route line
+      context.updatePlannedRoute(true, context)
+
+      // and update the counter
+      context.updateSubmitButtonLabel()
     } else {
       // ok, do planning legs
+      const newState = { state: pState.name, speedKts: speedKts }
+
+      context.currentRoute.status = newState
+
+      context.platformStateAssigned(thisAssetData.marker, newState)
     }
-    console.log('creating new state for for ', thisAssetData.asset.name, thisAssetData.current, context.turnNumber)
-
-    // update the route line
-    context.updatePlannedRoute(true, context)
-
-    // and update the counter
-    context.updateSubmitButtonLabel()
   }
 
   adjudicatingRejectRoute (/* element */asset, /* scope */ context) {
@@ -632,7 +638,7 @@ export default class MapPlanningPlayerListener {
     const thisAssetData = this.allAssets.find(block => block.asset.uniqid === asset.uniqid)
 
     // clear his current plans
-    thisAssetData.current = null
+    thisAssetData.current = []
 
     // get a new state
     const marker = thisAssetData.marker
@@ -748,7 +754,6 @@ export default class MapPlanningPlayerListener {
           this.btnListAccept.push(acceptButton)
           const reject = createButton(true, 'Reject Route', () => {
             this.adjudicatingRejectRoute(marker.asset, context)
-            console.log('turn', context.turnNumber)
             clearButtons(this.btnListAccept, this)
           }).addTo(this.map)
           this.btnListAccept.push(reject)
@@ -827,8 +832,20 @@ export default class MapPlanningPlayerListener {
     // trigger an update of the planning line
     this.updatePlannedRoute(true)
 
-    // lastly, update how many planned routes we have
-    this.updateSubmitRoutesCounter(this.allRoutes)
+    if (this.allRoutes) {
+      // update how many planned routes we have, if we're doing planning
+      this.updateSubmitRoutesCounter(this.allRoutes)
+    } else {
+      // we only allow one step to be planned in adjudication, so we're done
+      // disconnect the planning marker
+      if (this.planningMarker) {
+        this.planningMarker.off('click')
+        this.planningMarker.remove()
+      }
+
+      // clear the plot
+      this.clearOnNewLeg()
+    }
   }
 
   updateSubmitRoutesCounter (routes) {
@@ -1026,8 +1043,12 @@ export default class MapPlanningPlayerListener {
           this.plannedLine.setLatLngs([])
           this.routeLine.setLatLngs([])
 
-          // update the marker allowance
-          marker.planning.remaining = marker.planning.allowance
+          // update the marker allowance, if we're in planning mode
+          if (this.allRoutes) {
+            marker.planning.remaining = marker.planning.allowance
+          } else {
+            stillCellsRemaining = false
+          }
 
           // clean up
           this.drag.startHex = null
