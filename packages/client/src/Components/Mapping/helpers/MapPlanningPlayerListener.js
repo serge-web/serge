@@ -448,7 +448,7 @@ export default class MapPlanningPlayerListener {
       trimmedRoute = currentRoutes
     }
 
-    return routeLinesFor(trimmedRoute, history, hisLocation, lightweight, this.grid, forceColor, this.waypointCallback, null, highlight, context)
+    return routeLinesFor(trimmedRoute, history, hisLocation, asset.position, lightweight, this.grid, forceColor, this.waypointCallback, null, highlight, context)
   }
 
   /** user has used either the command buttons, or the popup dialog to choose a new platform state */

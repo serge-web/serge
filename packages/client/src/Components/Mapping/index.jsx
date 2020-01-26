@@ -27,9 +27,7 @@ import './styles.scss'
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
 
-import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
 import MappingForm from './components/FormContainer'
-import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
@@ -149,13 +147,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const perceivedStateCallback = (/* string */ assetid, /* string */ perceivedBy, /* object */ perception) => {
     const perceivedType = { asset: assetid, force: perceivedBy, perception: perception }
     sendMessage(PERCEPTION_OF_CONTACT, perceivedType)
-    handlePerceptionChanges(perceivedType, allForces)
   }
 
   const routeCompleteCallback = (/* object */payload) => {
     sendMessage(SUBMIT_PLANS, payload)
-    // also call the reducer ourselves
-  //  handlePlansSubmittedChanges(payload, allForces)
   }
 
   const clearControlledAssets = () => {
@@ -163,13 +158,12 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
   const newStateOfWorldCallback = (payload) => {
     sendMessage(STATE_OF_WORLD, payload)
-    // also call the reducer ourselves
-    handleStateOfWorldChanges(payload, allForces)
   }
 
   // run the declutter algorithm, to distribute markers around a cell if necessary
   const declutterCallback = () => {
-    declutterLayer(currentPhaseMapRef.current, gridImplRef.current)
+    const allLayers = [currentPhaseMapRef.current, platformsLayerRef.current]
+    declutterLayer(allLayers, gridImplRef.current)
   }
 
   const createThisMarker = (asset, grid, force) => {
