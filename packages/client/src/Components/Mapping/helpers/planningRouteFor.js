@@ -63,41 +63,32 @@ function bearingBetween (/* latLng */ p1, /* latLng */ p2) {
  */
 function bearingMarkerFor(/* number */ angle) {
   let icon
-  var iconAngles = {
-    deg0: {icon: turn0deg, markerAngle: 0},
-    deg30: {icon: turn30deg, markerAngle: 30},
-    deg60: {icon: turn60deg, markerAngle: 60},
-    deg90: {icon: turn90deg, markerAngle: 90},
-    deg120: {icon: turn120deg, markerAngle: 120},
-    deg150: {icon: turn150deg, markerAngle: 150},
-    turnLightVar: {icon: lightTurn, markerAngle: null},
-  }
 
   switch (angle) {
     case 0:
     case 90:
     case 180:
-      icon = iconAngles.deg90.icon;
+      icon = turn90deg;
       break;
     case 60:
-        icon = iconAngles.deg60.icon;
+        icon = turn60deg;
       break;
     case 30:
     case 120:
     case 150:
     case 210:
     case 300:
-      icon = iconAngles.deg30.icon;
+      icon = turn30deg;
       break; 
     case 240:
-      icon = iconAngles.deg150.icon;
+      icon = turn150deg
       break; 
     case 270:
     case 360:
-      icon = iconAngles.deg0.icon;
+      icon = turn0deg;
       break;  
     case 330:
-      icon = iconAngles.deg120.icon;
+      icon = turn120deg;
       break;
     default: 
       icon = iconAngles.deg90.icon;
