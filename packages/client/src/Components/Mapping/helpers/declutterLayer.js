@@ -27,36 +27,25 @@ function findAllMarkers (/* LayerGroup */ layer) {
 function clusterMarkers (/* array marker */ markers, /* grid */ grid) {
   const res = []
   markers.forEach(marker => {
-    let pos
+    let hex
     if (marker.do_not_declutter) {
       // ok, special handling, we have an item that doesn't want to be decluttered
       if (marker.getLayers) {
         // ok, it's several items that shouldn't be separated, but clustered as one
         const firstChild = marker.getLayers()[0]
-        pos = firstChild.getLatLng()
+        hex = firstChild.hex
       } else {
         // single item that doesn't want to be decluttered, ignore it
-        pos = null
+        hex = null
       }
     } else {
-      pos = marker.getLatLng()
+      hex = marker.hex
     }
-    if (pos) {
-      let index
-      // NOTE: 1. We may not have the grid, if it's a unit test
-      // NOTE: 2. Also, on occasion, the decluttering may push
-      // an item beyond the edge of the map, in which case
-      // cellFor will return null
-      if (grid.cellFor && grid.cellFor(pos)) {
-        const thisCell = grid.cellFor(pos)
-        index = thisCell.name
-      } else {
-        index = pos.lat + ',' + pos.lng
-      }
-      let list = res[index]
+    if (hex) {
+      let list = res[hex]
       if (!list) {
         list = []
-        res[index] = list
+        res[hex] = list
       }
       list.push(marker)
     }
@@ -72,5 +61,5 @@ export default function declutterLayer (/* LayerGroup */ layer, /* object */ gri
   const clusters = clusterMarkers(markers, grid)
 
   // sort markers out into clusters
-  declutterMarkers(clusters, grid.delta / 3)
+  declutterMarkers(clusters, grid.delta / 3, grid)
 }
