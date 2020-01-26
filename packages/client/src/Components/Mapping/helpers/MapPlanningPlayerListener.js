@@ -621,14 +621,16 @@ export default class MapPlanningPlayerListener {
       // update the route line
       context.updatePlannedRoute(true, context)
 
-      // and update the counter
-      context.updateSubmitButtonLabel()
+      context.showAdjudicationAssetMenu(context.currentRoute.marker)
+
     } else {
       // ok, do planning legs
       const newState = { state: pState.name, speedKts: speedKts }
 
+      // store the new status
       context.currentRoute.status = newState
 
+      // let the dragging begin
       context.platformStateAssigned(thisAssetData.marker, newState)
     }
   }
@@ -727,53 +729,46 @@ export default class MapPlanningPlayerListener {
         this.planningMarker.remove()
       }
     }
+    // ok, show the detailed route for this asset
+    const data = this.allAssets.find(data => data.asset.uniqid === marker.asset.uniqid)
+    data.lightRoutes.remove()
 
-    // are we already looking at this marker?
-    // if (this.currentRoute && this.currentRoute.asset.uniqid === marker.asset.uniqid) {
-    //   // ok, clear the flag
-    //   this.currentRoute = null
-    // } else {
-      // ok, show the detailed route for this asset
-      const data = this.allAssets.find(data => data.asset.uniqid === marker.asset.uniqid)
-      data.lightRoutes.remove()
+    // store quick access to this set of routes
+    this.currentRoute = data
 
-      // store quick access to this set of routes
-      this.currentRoute = data
+    // and replace it with heavyweight
+    data.lightRoutes = this.createPlanningRouteFor(data.current, data.asset.history, data.asset, false, false, true)
+    this.showLayer(data.lightRoutes, this)
 
-      // and replace it with heavyweight
-      data.lightRoutes = this.createPlanningRouteFor(data.current, data.asset.history, data.asset, false, false, true)
-      this.showLayer(data.lightRoutes, this)
-
-      // check we're not in turn zero
-      if (this.turnNumber > 0) {
-        const context = this
-        // ok, show the accept route button for this track
-        const acceptTitle = createButton(false, 'Route for ' + marker.asset.name).addTo(this.map)
-        this.btnListAccept.push(acceptTitle)
-        // check it's not already sorted.
-        const hasPlans = this.allAssets.find(data => data.asset.uniqid === marker.asset.uniqid && data.newState)
-        if (hasPlans) {
-          const acceptButton = createButton(true, 'Plans already accepted', () => {
-            clearButtons(this.btnListAccept, this)
-          }).addTo(this.map)
-          this.btnListAccept.push(acceptButton)
-        } else {
-          const acceptButton = createButton(true, 'Accept Route', () => {
-            this.adjudicatingAcceptRoute(marker.asset, context)
-            clearButtons(this.btnListAccept, this)
-          }).addTo(this.map)
-          this.btnListAccept.push(acceptButton)
-          const reject = createButton(true, 'Reject Route', () => {
-            this.adjudicatingRejectRoute(marker.asset, context)
-            clearButtons(this.btnListAccept, this)
-          }).addTo(this.map)
-          this.btnListAccept.push(reject)
-        }
+    // check we're not in turn zero
+    if (this.turnNumber > 0) {
+      const context = this
+      // ok, show the accept route button for this track
+      const acceptTitle = createButton(false, 'Route for ' + marker.asset.name).addTo(this.map)
+      this.btnListAccept.push(acceptTitle)
+      // check it's not already sorted.
+      const hasPlans = this.allAssets.find(data => data.asset.uniqid === marker.asset.uniqid && data.newState)
+      if (hasPlans) {
+        const acceptButton = createButton(true, 'Plans already accepted', () => {
+          clearButtons(this.btnListAccept, this)
+        }).addTo(this.map)
+        this.btnListAccept.push(acceptButton)
+      } else {
+        const acceptButton = createButton(true, 'Accept Route', () => {
+          this.adjudicatingAcceptRoute(marker.asset, context)
+          clearButtons(this.btnListAccept, this)
+        }).addTo(this.map)
+        this.btnListAccept.push(acceptButton)
+        const reject = createButton(true, 'Reject Route', () => {
+          this.adjudicatingRejectRoute(marker.asset, context)
+          clearButtons(this.btnListAccept, this)
+        }).addTo(this.map)
+        this.btnListAccept.push(reject)
       }
+    }
 
-      // start off with the vis buttons
-      this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback, this.btnListVisiblity, this.forceNames, this.map)
- //   }
+    // start off with the vis buttons
+    this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback, this.btnListVisiblity, this.forceNames, this.map)
   }
 
   /** the user has clicked on the planning marker, give options */
