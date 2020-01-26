@@ -91,7 +91,7 @@ function bearingMarkerFor(/* number */ angle) {
       icon = turn120deg;
       break;
     default: 
-      icon = iconAngles.deg90.icon;
+      icon = turn90deg;
     }
     return icon
   }
