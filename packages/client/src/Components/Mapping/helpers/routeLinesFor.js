@@ -80,11 +80,10 @@ function lineFor (/* array */ turns, /* latLng */ start,
         boldLatLongs.push(start)
       }
       boldLine.setLatLngs(boldLatLongs)
-      const arrowSize = lightweight ? 8 : 15
+      const arrowSize = lightweight ? 8 : 12
       var arrowHead = L.polylineDecorator(boldLine, {
         patterns: [{
           offset: '100%',
-          repeat: 0,
           symbol: L.Symbol.arrowHead({
             pixelSize: arrowSize,
             polygon: true,
