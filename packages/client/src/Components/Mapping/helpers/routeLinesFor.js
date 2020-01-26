@@ -164,7 +164,7 @@ function turnFor (/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current
   return bearing
 }
 
-function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ lightweight,
+function createMarker (/* string */ icon, /* latLng */ location, /* string */ locationHex, /* boolean */ lightweight,
   /* string */ title, /* function */ waypointCallback, /* object */ context, /* int */ turnId, /* int */ planningFor) {
   // actually, we're adding two items, so put them into a layer group
   const res = L.layerGroup()
@@ -183,6 +183,7 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
     title: title,
     zIndexOffset: 1000
   })
+  marker.hex = locationHex
 
   // do we register the click handler?
   if (!lightweight) {
@@ -197,6 +198,7 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
     // also create the divIcon, with the name
     const label = L.divIcon({ html: title, className: 'map-turn-marker', iconSize: [200, 20], iconAnchor: [0, 10] })
     const divMarker = L.marker(location, { icon: label })
+    divMarker.hex = locationHex
     res.addLayer(divMarker)
   }
 
@@ -205,19 +207,20 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
   marker.turnId = turnId
 
   res.addLayer(marker)
-
   return res
 }
 
-function markersFor (/* array */ turns, /* latLng */ start,
+function markersFor (/* array */ turns, /* latLng */ start, /* string */ startHex,
   /* boolean */ lightweight, /* grid */ grid, /* function */ waypointCallback, /* int */ planningFor, /* object */ context) {
   const result = L.layerGroup()
   if (turns && turns.length) {
     let minus1 = start // the start point of the track is used as the 'last point'
     let minus2 = null
     let pendingTurnLocation = null
+    let pendingTurnHex = null
     let pendingTurnName = null
     let current = start
+    let currentHex = startHex
     let turnId = 0
 
     turns.forEach(turn => {
@@ -233,6 +236,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
           if (ptHex) {
             // remember the coords
             current = ptHex.centrePos
+            currentHex = ptHex.name
 
             // are we waiting to populate a marker?
             if (pendingTurnLocation) {
@@ -240,7 +244,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
               if (minus1) {
                 const angle = turnFor(minus2, minus1, current)//, turnNameFor(turn.turn - 1))
                 const iconName = bearingMarkerFor(angle)
-                result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
+                result.addLayer(createMarker(iconName, pendingTurnLocation, pendingTurnHex, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
                 pendingTurnLocation = false
               }
             }
@@ -250,6 +254,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
           }
         })
         pendingTurnLocation = current
+        pendingTurnHex = currentHex
         pendingTurnName = turnName
       } else {
         let location
@@ -260,6 +265,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
           const ptHex = grid.hexNamed(turn.position)
           if (ptHex) {
             location = ptHex.centrePos
+            currentHex = ptHex.name
           }
         } else {
           location = minus1
@@ -268,7 +274,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
         minus2 = minus1
         minus1 = current
         // ok, nothing happening. add a static marker
-        result.addLayer(createMarker(noTurn, location, lightweight, thisTurnName, waypointCallback, context, turnId, planningFor))
+        result.addLayer(createMarker(noTurn, location, currentHex, lightweight, thisTurnName, waypointCallback, context, turnId, planningFor))
       }
     })
     // are we waiting to populate a marker?
@@ -278,7 +284,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
       if (minus1) {
         const angle = turnFor(minus2, minus1, null)
         const icon = bearingMarkerFor(angle)
-        result.addLayer(createMarker(icon, current, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
+        result.addLayer(createMarker(icon, current, currentHex, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
         pendingTurnLocation = null
       }
     }
@@ -289,7 +295,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
 
 /** create a Leaflet elememt for this set of routes
   */
-export default function routeLinesFor (/* array */ plannedTurns, /* history */ history, /* latLng */ start,
+export default function routeLinesFor (/* array */ plannedTurns, /* history */ history, /* latLng */ start, /* string */ startHex,
   /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* function */ waypointCallback, /* int */ planningFor, /* boolean */ highlight, /* object */ context) {
   const thisLayer = L.layerGroup()
 
@@ -305,11 +311,11 @@ export default function routeLinesFor (/* array */ plannedTurns, /* history */ h
 
   // also sort out the markers
   const turnWayInTheFuture = 1000
-  const historyMarkers = markersFor(history, start, lightweight, grid, null, turnWayInTheFuture, context)
+  const historyMarkers = markersFor(history, start, startHex, lightweight, grid, null, turnWayInTheFuture, context)
   thisLayer.addLayer(historyMarkers)
 
   // also sort out the markers
-  const futureMarkers = markersFor(plannedTurns, start, lightweight, grid, waypointCallback, planningFor, context)
+  const futureMarkers = markersFor(plannedTurns, start, startHex, lightweight, grid, waypointCallback, planningFor, context)
   thisLayer.addLayer(futureMarkers)
 
   return thisLayer
