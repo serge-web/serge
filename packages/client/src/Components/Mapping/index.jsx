@@ -8,15 +8,13 @@ import {
   forceFor,
   GridImplementation,
   hasPendingForces,
-  MapAdjudicatingUmpireListener,
   MapAdjudicationPendingListener,
   MapPlanningPlayerListener,
-  MapPlanningUmpireListener,
   MapPopupHelper,
   markerFor
 } from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, PLANNING_PHASE } from '../../consts'
+import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE } from '../../consts'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import removeClassNamesFrom from './helpers/removeClassNamesFrom'
@@ -30,7 +28,6 @@ import './styles.scss'
 import './leaflet.zoomhome.js'
 
 import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
-import handlePlansSubmittedChanges from '../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
 import MappingForm from './components/FormContainer'
 import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 
@@ -235,28 +232,13 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     // create a listener for the new phase
     const inForceLaydown = hasPendingForces(allForces, myForceRef.current)
     const forceNames = allForces.map(force => force.uniqid)
-    switch (phase) {
-      case ADJUDICATION_PHASE:
-        if (myForceRef.current === 'umpire') {
-          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current,
-            newStateOfWorldCallback, currentTurn, forceNames, visChangesFunc)
-        } else if (inForceLaydown && currentTurn === 0) {
-          // this force has assets with location pending
-          currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
-        } else {
-          const duffCompleteCallback = null
-          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
-            myForceRef.current, currentTurn, duffCompleteCallback,
-            platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase)
-        }
-        break
-      case PLANNING_PHASE:
-        currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
-          myForceRef.current, currentTurn, routeCompleteCallback,
-          platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase)
-        break
-      default:
-        console.log('Error - unexpected game phase encountered in Mapping component')
+    if (phase === ADJUDICATION_PHASE && inForceLaydown && currentTurn === 0) {
+      // this force has assets with location pending
+      currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
+    } else {
+      currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
+        myForceRef.current, currentTurn, routeCompleteCallback,
+        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase, newStateOfWorldCallback, visChangesFunc)
     }
 
     // create markers, and listen to them

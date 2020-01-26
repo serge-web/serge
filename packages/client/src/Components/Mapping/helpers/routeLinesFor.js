@@ -20,7 +20,7 @@ function lineFor (/* array */ turns, /* latLng */ start,
     // just make it a bold track
     weight = 4
   } else {
-    weight = lightweight && !planningFor ? 1 : 2
+    weight = lightweight && !planningFor ? 2 : 3
   }
   const dashArray = historyTrack ? [] : lightweight ? [1, 7] : [4, 8]
   const boldLine = L.polyline([], {
@@ -34,7 +34,7 @@ function lineFor (/* array */ turns, /* latLng */ start,
     color: color
   })
 
-  if (turns) {
+  if (turns && turns.length) {
     const boldLatLongs = [start]
     const feintLatLongs = []
     let lastPos = null
@@ -212,7 +212,7 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
 function markersFor (/* array */ turns, /* latLng */ start,
   /* boolean */ lightweight, /* grid */ grid, /* function */ waypointCallback, /* int */ planningFor, /* object */ context) {
   const result = L.layerGroup()
-  if (turns) {
+  if (turns && turns.length) {
     let minus1 = start // the start point of the track is used as the 'last point'
     let minus2 = null
     let pendingTurnLocation = null

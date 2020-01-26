@@ -107,7 +107,10 @@ class MapPopupHelper {
     })
     this.map.on('popupclose', e => {
       const marker = e.popup._source
-      marker._icon.classList.remove('selected')
+      // rare instance when icon has been dropped
+      if (marker._icon) {
+        marker._icon.classList.remove('selected')
+      }
       if (this.opened) {
         this.opened = false
         // if onCloseFunc defined then we need to call it
