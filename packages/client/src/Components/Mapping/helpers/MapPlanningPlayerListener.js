@@ -640,6 +640,9 @@ export default class MapPlanningPlayerListener {
     // clear his current plans
     thisAssetData.current = []
 
+    // update the planned route
+    this.updatePlannedRoute(true)
+
     // get a new state
     const marker = thisAssetData.marker
     // sort out the state commands for this asset
@@ -715,13 +718,21 @@ export default class MapPlanningPlayerListener {
       // and create a light weight one
       data.lightRoutes = this.createPlanningRouteFor(data.current, data.asset.history, data.asset, true, true, false)
       this.showLayer(data.lightRoutes, this)
+
+      // we may also need to clear up
+      this.clearAchievableCells()
+
+      if (this.planningMarker) {
+        this.planningMarker.off('click')
+        this.planningMarker.remove()
+      }
     }
 
     // are we already looking at this marker?
-    if (this.currentRoute && this.currentRoute.asset.uniqid === marker.asset.uniqid) {
-      // ok, clear the flag
-      this.currentRoute = null
-    } else {
+    // if (this.currentRoute && this.currentRoute.asset.uniqid === marker.asset.uniqid) {
+    //   // ok, clear the flag
+    //   this.currentRoute = null
+    // } else {
       // ok, show the detailed route for this asset
       const data = this.allAssets.find(data => data.asset.uniqid === marker.asset.uniqid)
       data.lightRoutes.remove()
@@ -742,7 +753,7 @@ export default class MapPlanningPlayerListener {
         // check it's not already sorted.
         const hasPlans = this.allAssets.find(data => data.asset.uniqid === marker.asset.uniqid && data.newState)
         if (hasPlans) {
-          const acceptButton = createButton(true, 'Plans already submitted', () => {
+          const acceptButton = createButton(true, 'Plans already accepted', () => {
             clearButtons(this.btnListAccept, this)
           }).addTo(this.map)
           this.btnListAccept.push(acceptButton)
@@ -762,7 +773,7 @@ export default class MapPlanningPlayerListener {
 
       // start off with the vis buttons
       this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback, this.btnListVisiblity, this.forceNames, this.map)
-    }
+ //   }
   }
 
   /** the user has clicked on the planning marker, give options */
@@ -845,6 +856,9 @@ export default class MapPlanningPlayerListener {
 
       // clear the plot
       this.clearOnNewLeg()
+
+      // also offer the accept/reject buttons
+      this.showAdjudicationAssetMenu(this.currentRoute.marker)
     }
   }
 
