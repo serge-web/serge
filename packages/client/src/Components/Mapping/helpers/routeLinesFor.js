@@ -1,4 +1,5 @@
 import L from 'leaflet'
+import 'leaflet-polylinedecorator'
 
 // the images we use to annotate planning legs
 import turnLeft from '../images/turn-left.png'
@@ -79,6 +80,22 @@ function lineFor (/* array */ turns, /* latLng */ start,
         boldLatLongs.push(start)
       }
       boldLine.setLatLngs(boldLatLongs)
+      const arrowSize = lightweight ? 8 : 15
+      var arrowHead = L.polylineDecorator(boldLine, {
+        patterns: [{
+          offset: '100%',
+          repeat: 0,
+          symbol: L.Symbol.arrowHead({
+            pixelSize: arrowSize,
+            polygon: true,
+            pathOptions: {
+              color: color,
+              stroke: true
+            }
+          })
+        }]
+      })
+      res.addLayer(arrowHead)
       res.addLayer(boldLine)
     }
     boldLine.setLatLngs(boldLatLongs)
