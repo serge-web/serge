@@ -22,7 +22,7 @@ import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE } from '../../../const
 
 export default class MapPlanningPlayerListener {
   constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, allForces, declutterCallback,
-    perceivedStateCallback, /* array string */ forceNames, /* string */ phase, /* function */ stateOfWorldCallback) {
+    perceivedStateCallback, /* array string */ forceNames, /* string */ phase, /* function */ stateOfWorldCallback, /* function */ visibilityCallback) {
     this.grid = grid
     this.force = force
     this.allForces = allForces
@@ -35,6 +35,7 @@ export default class MapPlanningPlayerListener {
     this.declutterCallback = declutterCallback
     this.perceivedStateCallbackPriv = perceivedStateCallback
     this.forceNames = forceNames // used in updating perceived force
+    this.visibilityCallback = visibilityCallback
 
     this.performingAdjudication = phase === ADJUDICATION_PHASE && force === UMPIRE_FORCE
 
@@ -345,16 +346,16 @@ export default class MapPlanningPlayerListener {
   /** create a storage object for this object */
   planningDataFor (/* marker */ marker, /* array platform types */ platformTypes) {
     const asset = marker.asset
-    const original = asset.plannedTurns ? asset.plannedTurns : []
-    const cloned = JSON.parse(JSON.stringify(original))
+    const plannedTurns = asset.plannedTurns ? asset.plannedTurns : []
+    const clonedTurns = JSON.parse(JSON.stringify(plannedTurns))
     return {
       marker: marker,
       asset: marker.asset,
       // clone the planned routes, in case we wish to reset it
-      original: original,
-      current: cloned,
+      original: plannedTurns,
+      current: clonedTurns,
       platformType: findPlatformTypeFor(platformTypes, asset.platformType),
-      lightRoutes: this.createPlanningRouteFor(cloned, asset.history, asset, true, false, false)
+      lightRoutes: this.createPlanningRouteFor(clonedTurns, asset.history, asset, true, false, false)
     }
   }
 

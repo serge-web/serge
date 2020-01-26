@@ -14,7 +14,7 @@ import {
   markerFor
 } from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, PLANNING_PHASE } from '../../consts'
+import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE } from '../../consts'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import removeClassNamesFrom from './helpers/removeClassNamesFrom'
@@ -238,7 +238,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     } else {
       currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
         myForceRef.current, currentTurn, routeCompleteCallback,
-        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase, newStateOfWorldCallback)
+        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase, newStateOfWorldCallback, visChangesFunc)
     }
 
     // create markers, and listen to them
