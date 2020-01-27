@@ -21,14 +21,24 @@ export default (asset, grid, force, myForce, platformTypes, userIsUmpire, /* str
         icon: divIcon
       }
     )
-    res.bindTooltip(asset.name)
-    res.name = asset.name
-    res.force = asset.force
-    res.hex = asset.position // store the hex coords for use in de-cluttering
 
     // sort out the travel mode for this platform type
     const pType = findPlatformTypeFor(platformTypes, asset.platformType)
     res.travelMode = pType.travelMode
+
+    // for a non-standard condition, we display a longer title
+    if (pType.conditions && pType.conditions.length > 0) {
+      if (pType.conditions[0] !== asset.condition) {
+        asset.nonStandardCondition = true
+      }
+    }
+    
+    const hoverTxt = asset.nonStandardCondition ? asset.name + ' - ' + asset.condition : asset.condition   
+
+    res.bindTooltip(hoverTxt)
+    res.name = asset.name
+    res.force = asset.force
+    res.hex = asset.position // store the hex coords for use in de-cluttering
 
     // oh, come on - just take a copy of everything
     res.asset = asset

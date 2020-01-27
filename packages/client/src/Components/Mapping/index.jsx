@@ -193,12 +193,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         // Note: we may wish to add a CSS class to the counter. But, we can only do this if
         // it has already been added to the map. Perform last bit of `markerFor` processing here:
         // is the condition different to the first one listed
-        const pType = asset.platformTypeDetail
-        if (pType.conditions && pType.conditions.length > 0) {
-          if (pType.conditions[0] !== asset.condition) {
-            // apply styling
-            L.DomUtil.addClass(marker._icon, 'platform-abnormal-condition')
-          }
+        if (asset.nonStandardCondition) {
+          // apply styling
+          L.DomUtil.addClass(marker._icon, 'platform-abnormal-condition')
+          L.DomUtil.addClass(marker._icon, 'platform-abnormal-' + asset.condition)
         }
       }
     }

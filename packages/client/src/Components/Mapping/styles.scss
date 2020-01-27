@@ -30,8 +30,11 @@
   background-size: 80%;
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.6);
+  &.platform-abnormal-condition {
+    border: 4px solid rgba(130, 130, 130, .85);
+  }
   &.selected {
-    border: 4px solid rgba(255, 255, 255, .5);
+    border: 4px solid rgba(255, 255, 255, .7);
   }
 }
 
