@@ -29,6 +29,10 @@
   background-position: center;
   background-size: 80%;
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  &.selected {
+    border: 4px solid rgba(255, 255, 255, .5);
+  }
 }
 
 .platform-force {
@@ -72,11 +76,4 @@ div.map-turn-marker {
   width: 200px;
   padding-left: 15px;
   color: #000;
-}
-
-.leaflet-marker-icon {
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  &.selected {
-    border: 4px solid rgba(255, 255, 255, .5);
-  }
 }
