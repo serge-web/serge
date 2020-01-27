@@ -8,6 +8,7 @@ import turnEnd from '../images/turn-end.png'
 import noTurn from '../images/no-turn.png'
 import lightTurn from '../images/light-turn.png'
 
+import roundToNearest from './roundToNearest'
 import turnNameFor from './turnNameFor'
 
 function lineFor (/* array */ turns, /* latLng */ start,
@@ -259,7 +260,7 @@ function markersFor (/* array */ turns, /* latLng */ start, /* string */ startHe
               // have we got enough data?
               if (minus1) {
                 const angle = turnFor(minus2, minus1, current)//, turnNameFor(turn.turn - 1))
-                const iconName = bearingMarkerFor(angle)
+                const iconName = bearingMarkerFor(roundToNearest(angle, 30))
                 result.addLayer(createMarker(iconName, pendingTurnLocation, pendingTurnHex, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
                 pendingTurnLocation = false
               }
