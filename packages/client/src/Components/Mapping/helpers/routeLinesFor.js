@@ -2,12 +2,17 @@ import L from 'leaflet'
 import 'leaflet-polylinedecorator'
 
 // the images we use to annotate planning legs
-import turnLeft from '../images/turn-left.png'
-import turnRight from '../images/turn-right.png'
-import turnEnd from '../images/turn-end.png'
+import turn0deg from '../images/turn0deg.png'
+import turn30deg from '../images/turn30deg.png'
+import turn60deg from '../images/turn60deg.png'
+import turn90deg from '../images/turn90deg.png'
+import turn120deg from '../images/turn120deg.png'
+import turn150deg from '../images/turn150deg.png'
 import noTurn from '../images/no-turn.png'
 import lightTurn from '../images/light-turn.png'
 
+
+import roundToNearest from './roundToNearest'
 import turnNameFor from './turnNameFor'
 
 function lineFor (/* array */ turns, /* latLng */ start,
@@ -126,30 +131,34 @@ function bearingBetween (/* latLng */ p1, /* latLng */ p2) {
  */
 function bearingMarkerFor (/* number */ angle) {
   let icon
-
-  if (angle === 180 || angle === 360 || angle === 0) {
-    // for the 180 and 360, which are flat icons so end icon is used
-    icon = turnEnd
-  } else if (angle > 0 && angle < 90) {
-    // North to East
-    icon = turnLeft
-  } else if (angle < 180) {
-    // East to South
-    icon = turnRight
-  } else if (angle < 260) {
-    // South to West
-    icon = turnLeft
-  } else if (angle < 271) {
-    // South
-    icon = turnEnd
-  } else if (angle < 360) {
-    // West to North
-    icon = turnRight
-  } else if (angle === undefined || angle === null) {
-    // as some angles are undefined just use the end icon until this can be figured out
-    icon = turnEnd
-  } else {
-    icon = turnEnd
+  switch (angle) {
+    case 270:
+    case 360:
+      icon = turn0deg
+      break
+    case 30:
+    case 120:
+    case 210:
+    case 300:
+      icon = turn30deg
+      break
+    case 60:
+    case 150:
+      icon = turn60deg
+      break
+    case 0:
+    case 90:
+    case 180:
+      icon = turn90deg
+      break
+    case 330:
+      icon = turn120deg
+      break
+    case 240:
+      icon = turn150deg
+      break
+    default:
+      icon = turn90deg
   }
   return icon
 }
@@ -259,7 +268,7 @@ function markersFor (/* array */ turns, /* latLng */ start, /* string */ startHe
               // have we got enough data?
               if (minus1) {
                 const angle = turnFor(minus2, minus1, current)//, turnNameFor(turn.turn - 1))
-                const iconName = bearingMarkerFor(angle)
+                const iconName = bearingMarkerFor(roundToNearest(angle, 30))
                 result.addLayer(createMarker(iconName, pendingTurnLocation, pendingTurnHex, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
                 pendingTurnLocation = false
               }
@@ -299,7 +308,7 @@ function markersFor (/* array */ turns, /* latLng */ start, /* string */ startHe
       // have we got enough data?
       if (minus1) {
         const angle = turnFor(minus2, minus1, null)
-        const icon = bearingMarkerFor(angle)
+        const icon = bearingMarkerFor(roundToNearest(angle, 30))
         result.addLayer(createMarker(icon, current, currentHex, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
         pendingTurnLocation = null
       }
