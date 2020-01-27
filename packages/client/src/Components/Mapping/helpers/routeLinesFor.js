@@ -2,11 +2,15 @@ import L from 'leaflet'
 import 'leaflet-polylinedecorator'
 
 // the images we use to annotate planning legs
-import turnLeft from '../images/turn-left.png'
-import turnRight from '../images/turn-right.png'
-import turnEnd from '../images/turn-end.png'
+import turn0deg from '../images/turn0deg.png'
+import turn30deg from '../images/turn30deg.png'
+import turn60deg from '../images/turn60deg.png'
+import turn90deg from '../images/turn90deg.png'
+import turn120deg from '../images/turn120deg.png'
+import turn150deg from '../images/turn150deg.png'
 import noTurn from '../images/no-turn.png'
 import lightTurn from '../images/light-turn.png'
+
 
 import roundToNearest from './roundToNearest'
 import turnNameFor from './turnNameFor'
@@ -125,34 +129,38 @@ function bearingBetween (/* latLng */ p1, /* latLng */ p2) {
 /** we plot a line marker perpendicular to the direction
  * of travel at route waypoints.  Determine the marker to use for this bearing
  */
-function bearingMarkerFor (/* number */ angle) {
+function bearingMarkerFor(/* number */ angle) {
   let icon
-
-  if (angle === 180 || angle === 360 || angle === 0) {
-    // for the 180 and 360, which are flat icons so end icon is used
-    icon = turnEnd
-  } else if (angle > 0 && angle < 90) {
-    // North to East
-    icon = turnLeft
-  } else if (angle < 180) {
-    // East to South
-    icon = turnRight
-  } else if (angle < 260) {
-    // South to West
-    icon = turnLeft
-  } else if (angle < 271) {
-    // South
-    icon = turnEnd
-  } else if (angle < 360) {
-    // West to North
-    icon = turnRight
-  } else if (angle === undefined || angle === null) {
-    // as some angles are undefined just use the end icon until this can be figured out
-    icon = turnEnd
-  } else {
-    icon = turnEnd
-  }
-  return icon
+  switch (angle) {
+    case 0:
+    case 90:
+    case 180:
+      icon = turn90deg;
+      break;
+    case 60:
+        icon = turn60deg;
+      break;
+    case 30:
+    case 120:
+    case 150:
+    case 210:
+    case 300:
+      icon = turn30deg;
+      break;
+    case 240:
+      icon = turn150deg
+      break;
+    case 270:
+    case 360:
+      icon = turn0deg;
+      break;
+    case 330:
+      icon = turn120deg;
+      break;
+    default:
+      icon = turn90deg;
+    }
+    return icon
 }
 
 function turnFor (/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current, /* string */ comment) {
