@@ -129,38 +129,38 @@ function bearingBetween (/* latLng */ p1, /* latLng */ p2) {
 /** we plot a line marker perpendicular to the direction
  * of travel at route waypoints.  Determine the marker to use for this bearing
  */
-function bearingMarkerFor(/* number */ angle) {
+function bearingMarkerFor (/* number */ angle) {
   let icon
   switch (angle) {
+    case 270:
+    case 360:
+      icon = turn0deg
+      break
+    case 30:
+    case 120:
+    case 210:
+    case 300:
+      icon = turn30deg
+      break
+    case 60:
+    case 150:
+      icon = turn60deg
+      break
     case 0:
     case 90:
     case 180:
-      icon = turn90deg;
-      break;
-    case 60:
-        icon = turn60deg;
-      break;
-    case 30:
-    case 120:
-    case 150:
-    case 210:
-    case 300:
-      icon = turn30deg;
-      break;
+      icon = turn90deg
+      break
+    case 330:
+      icon = turn120deg
+      break
     case 240:
       icon = turn150deg
-      break;
-    case 270:
-    case 360:
-      icon = turn0deg;
-      break;
-    case 330:
-      icon = turn120deg;
-      break;
+      break
     default:
-      icon = turn90deg;
-    }
-    return icon
+      icon = turn90deg
+  }
+  return icon
 }
 
 function turnFor (/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current, /* string */ comment) {
@@ -308,7 +308,7 @@ function markersFor (/* array */ turns, /* latLng */ start, /* string */ startHe
       // have we got enough data?
       if (minus1) {
         const angle = turnFor(minus2, minus1, null)
-        const icon = bearingMarkerFor(angle)
+        const icon = bearingMarkerFor(roundToNearest(angle, 30))
         result.addLayer(createMarker(icon, current, currentHex, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
         pendingTurnLocation = null
       }
