@@ -36,8 +36,11 @@
 }
 
 .platform-force {
+  // Note: in the longer term these shades should come form the force element
+  // of the wargame definition. When that happens we will probably need to use
+  // HSL conversions to make the abnormal condition shades darker.
   &-blue {
-   background-color: #000fff; 
+   background-color: #000fff;   
    &.platform-abnormal-condition {
     background-color: #000a91;
   }
