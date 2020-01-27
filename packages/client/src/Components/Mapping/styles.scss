@@ -30,9 +30,6 @@
   background-size: 80%;
   box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.6);
-  &.platform-abnormal-condition {
-    border: 4px solid rgba(130, 130, 130, .85);
-  }
   &.selected {
     border: 4px solid rgba(255, 255, 255, .7);
   }
@@ -41,17 +38,29 @@
 .platform-force {
   &-blue {
    background-color: #000fff; 
+   &.platform-abnormal-condition {
+    background-color: #000a91;
   }
+}
   &-red {
     background-color: #ff0000;
+    &.platform-abnormal-condition {
+      background-color: #8f0303;
+    }
   }
   &-green {
     background-color: #19bd37;
-  }
+    &.platform-abnormal-condition {
+      background-color: #0e6a1f;
+    }
+    }
   &-unknown {
     background-color: #999; 
    }
- }
+   &.platform-abnormal-condition {
+    background-color: rgb(82, 82, 82);
+  }
+}
 
  .leaflet-popup-content-wrapper {
    background-color: rgba(#fff, .8);
