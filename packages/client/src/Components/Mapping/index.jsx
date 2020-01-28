@@ -323,6 +323,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         currentMarkerForce: marker.asset.force,
         currentMarkerStatus: marker.asset.status.state,
         currentMarkerSpeed: marker.asset.status.speedKts,
+        turnsInThisState: 0,
         perception: marker.asset.perceptions[myForceRef.current] || null,
         allForces,
         allPlatforms
@@ -339,7 +340,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
               // NOTE: Temporary logging to show data is sent back, to be integrated in a later PR
               console.log({
                 status: data.currentMarkerStatus,
-                speed: data.currentMarkerSpeed
+                speed: data.currentMarkerSpeed,
+                turnsInThisState: data.turnsInThisState
               }
               )
               break

@@ -4,6 +4,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
   const [currentMarker] = useState(store.currentMarker)
   const [markerStatus, setMarkerStatus] = useState(store.currentMarkerStatus)
   const [markerSpeed, setMarkerSpeed] = useState(store.currentMarkerSpeed)
+  const [turnsInThisState, setTurnsInThisState] = useState(store.turnsInThisState)
 
   // Get all of the possible states and speeds
   const { states, speedKts } = currentMarker.platformTypeDetail
@@ -33,6 +34,14 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
     onStoreUpdate(newStore)
   }
 
+  const handleMooredChange = ({ target }) => {
+    const val = parseInt(target.value)
+    setTurnsInThisState(val)
+    newStore.turnsInThisState = val
+    // save data in helper class to not lose it after popup recreate
+    onStoreUpdate(newStore)
+  }
+
   return (
     <form action="">
       <h2>{currentMarker.name}</h2>
@@ -51,7 +60,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
           }
         </ul>
       </div>
-      { speedKts.length &&
+      { (speedKts.length && markerStatus !== 'Moored') &&
         <div className="input-container radio">
           <label htmlFor="speed">Speed (kts)</label>
           <ul>
@@ -66,6 +75,16 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
               )
             }
           </ul>
+        </div>
+      }
+      {
+        markerStatus === 'Moored' &&
+        <div className="input-container short-number">
+          <label>
+            For
+            <input onChange={handleMooredChange} type="number" value={turnsInThisState} />
+            turns
+          </label>
         </div>
       }
       <button onClick={handleSubmit}>Plan route</button>

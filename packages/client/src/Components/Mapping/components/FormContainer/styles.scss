@@ -38,6 +38,19 @@
                margin-right: .5rem;
            }
        }
+       &.short-number {
+           padding-left: 0;
+           label {
+               position: relative;
+           }
+           input {
+            display: inline-block;
+            width: 2.5rem;
+            padding: 2px;
+            text-align: center;
+            margin: 0 1rem;
+           }
+       }
     }
 
     .force-colour {
