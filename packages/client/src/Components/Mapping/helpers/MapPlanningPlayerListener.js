@@ -571,8 +571,6 @@ export default class MapPlanningPlayerListener {
         })
       })
       popup.useComponent(MappingForm)
-      console.log('about to trigger popup')
-      popup.openPopup()
       popup.renderListener()
     }
   }
