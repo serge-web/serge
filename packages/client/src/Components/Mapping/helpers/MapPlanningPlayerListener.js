@@ -351,7 +351,11 @@ export default class MapPlanningPlayerListener {
       history: asset.history,
       original: plannedTurns,
       current: clonedTurns,
-      newState: null,
+      newState: null, // it's the presence of a 'newState' that indicates this asset is resolved
+      original_perceptions: asset.perceptions,
+      current_perceptions: JSON.parse(JSON.stringify(asset.perceptions)),
+      original_condition: asset.condition,
+      current_condition: JSON.parse(JSON.stringify(asset.condition)),
       lightRoutes: this.createPlanningRouteFor(clonedTurns, asset.history, asset, true, true, false)
     }
   }
