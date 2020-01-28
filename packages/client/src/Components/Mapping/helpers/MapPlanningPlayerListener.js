@@ -218,40 +218,6 @@ export default class MapPlanningPlayerListener {
         // ok, we can plan the next leg
         this.platformStateAssigned(this.currentRoute.marker, this.currentRoute.status)
       } else {
-        // Show a form on popup
-        const popup = new MapPopupHelper(this.map, marker)
-        const allForces = this.allForces
-        const allPlatforms = this.platformTypes
-        popup.setStore({
-          formType: null,
-          currentForce: this.force,
-          currentMarker: marker.asset,
-          currentMarkerName: marker.asset.name,
-          currentMarkerForce: marker.asset.force,
-          currentMarkerStatus: marker.asset.status.state,
-          currentMarkerSpeed: marker.asset.status.speedKts,
-          turnsInThisState: 1,
-          perception: marker.asset.perceptions[this.force] || null,
-          allForces,
-          allPlatforms
-        })
-        const context = this
-        popup.onUpdate(data => {
-          if (data) {
-            popup.setStore(data)
-            const numberSubmissions = data.turnsInThisState ? data.turnsInThisState : 1
-            for (let ctr = 0; ctr < numberSubmissions; ctr++) {
-              this.stateSelectedCallback(data.currentMarkerStatus, data.currentMarkerSpeed, context)
-            }
-          }
-          popup.closePopup(() => {
-            console.log('popup closed')
-          })
-        })
-        popup.useComponent(MappingForm)
-        console.log('about to trigger popup')
-        popup.openPopup()
-        popup.renderListener()
 
         // clear all buttons
         this.clearAllButtons()
@@ -573,6 +539,41 @@ export default class MapPlanningPlayerListener {
     if (this.inPlanningPhase) {
       // also update the planned routes
       this.updateSubmitRoutesCounter(this.allRoutes)
+
+      // listen to this marker
+      const popup = new MapPopupHelper(this.map, marker)
+      const allForces = this.allForces
+      const allPlatforms = this.platformTypes
+      popup.setStore({
+        formType: null,
+        currentForce: this.force,
+        currentMarker: marker.asset,
+        currentMarkerName: marker.asset.name,
+        currentMarkerForce: marker.asset.force,
+        currentMarkerStatus: marker.asset.status.state,
+        currentMarkerSpeed: marker.asset.status.speedKts,
+        turnsInThisState: 1,
+        perception: marker.asset.perceptions[this.force] || null,
+        allForces,
+        allPlatforms
+      })
+      const context = this
+      popup.onUpdate(data => {
+        if (data) {
+          popup.setStore(data)
+          const numberSubmissions = data.turnsInThisState ? data.turnsInThisState : 1
+          for (let ctr = 0; ctr < numberSubmissions; ctr++) {
+            this.stateSelectedCallback(data.currentMarkerStatus, data.currentMarkerSpeed, context)
+          }
+        }
+        popup.closePopup(() => {
+          console.log('popup closed')
+        })
+      })
+      popup.useComponent(MappingForm)
+      console.log('about to trigger popup')
+      popup.openPopup()
+      popup.renderListener()
     }
   }
 
