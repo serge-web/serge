@@ -22,7 +22,8 @@ import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE } from '../../../const
 
 export default class MapPlanningPlayerListener {
   constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, allForces, declutterCallback,
-    perceivedStateCallback, /* array string */ forceNames, /* string */ phase, /* function */ stateOfWorldCallback, /* function */ visibilityCallback) {
+    perceivedStateCallback, /* array string */ forceNames, /* string */ phase, /* function */ stateOfWorldCallback,
+    /* function */ visibilityCallback, /* array */ allRoutes) {
     this.grid = grid
     this.force = force
     this.allForces = allForces
@@ -36,13 +37,12 @@ export default class MapPlanningPlayerListener {
     this.perceivedStateCallbackPriv = perceivedStateCallback
     this.forceNames = forceNames // used in updating perceived force
     this.visibilityCallback = visibilityCallback
+    this.allRoutes = allRoutes
 
     this.performingAdjudication = phase === ADJUDICATION_PHASE && force === UMPIRE_FORCE
 
     this.drag = { hexes: [], lats: [], startHex: null, lastHex: null } // data for current drag
     this.turn = { hexes: [], lats: [] } // data for planned turn
-
-    this.plannedLegs = [] // collated set of data, ready for transmission
 
     this.achievableCells = [] // hexes representing achievable area this turn
 
@@ -91,7 +91,7 @@ export default class MapPlanningPlayerListener {
 
     if (this.performingAdjudication) {
       // extra data types
-      this.allAssets = []
+      this.allRoutes = []
       this.currentRoute = null
       this.layerMarkers = L.layerGroup().addTo(this.layerPriv) // for the planned routes
       this.stateOfWorldCallback = stateOfWorldCallback
@@ -102,7 +102,6 @@ export default class MapPlanningPlayerListener {
       this.setupAdjudicationButtons()
     } else {
       // data for this mode
-      this.allRoutes = [] // collection of routes for this turn
       // callbacks
       this.assetCallback = this.showPlanningAssetMenu
       this.planningMarkerCallback = this.showPlanningMarkerMenu
@@ -157,7 +156,7 @@ export default class MapPlanningPlayerListener {
       const context = this
       this.submitButton = createButton(true, 'Submit 0 of 0 states', () => {
         // collate the message
-        const newStatesMessage = collateNewStatesMessage(context.allAssets)
+        const newStatesMessage = collateNewStatesMessage(context.allRoutes)
 
         // and send the new states
         context.stateOfWorldCallback(newStatesMessage, context.turnNumber)
@@ -229,7 +228,7 @@ export default class MapPlanningPlayerListener {
       if (this.currentRoute.current && this.currentRoute.current.length) {
         const clearTurns = createButton(true, 'Clear planned turns', () => {
           this.currentRoute.current = []
-          if(this.planningMarker) {
+          if (this.planningMarker) {
             this.planningMarker.remove()
           }
           this.clearAchievableCells()
@@ -534,7 +533,7 @@ export default class MapPlanningPlayerListener {
   prepareAdjucationDataFor (marker, platformTypes) {
     // build up the data store for this asset
     const thisData = this.adjudicationDataFor(marker)
-    this.allAssets.push(thisData)
+    this.allRoutes.push(thisData)
 
     // ok, now show this route
     this.showLayer(thisData.lightRoutes, this)
@@ -546,8 +545,8 @@ export default class MapPlanningPlayerListener {
   updateSubmitButtonLabel () {
     // don't have buttons in turn zero
     if (this.turnNumber > 0) {
-      const total = this.allAssets.length
-      const count = this.allAssets.filter(data => data.newState).length
+      const total = this.allRoutes.length
+      const count = this.allRoutes.filter(data => data.newState).length
       this.submitButton.setText('Submit ' + count + ' of ' + total)
       this.acceptAllButton.setText('Accept remaining ' + (total - count) + '')
     }
@@ -627,7 +626,7 @@ export default class MapPlanningPlayerListener {
   }
 
   adjudicatingStateSelected (/* object */ pState, /* number */ speedKts, /* object */ context) {
-    const thisAssetData = context.allAssets.find(block => block.asset.uniqid === context.currentRoute.asset.uniqid)
+    const thisAssetData = context.allRoutes.find(block => block.asset.uniqid === context.currentRoute.asset.uniqid)
     // ok, is it mobile
     if (!pState.mobile) {
       // just store it
@@ -637,7 +636,6 @@ export default class MapPlanningPlayerListener {
       context.updatePlannedRoute(true, context)
 
       context.showAdjudicationAssetMenu(context.currentRoute.marker)
-
     } else {
       // ok, do planning legs
       const newState = { state: pState.name, speedKts: speedKts }
@@ -652,7 +650,7 @@ export default class MapPlanningPlayerListener {
 
   adjudicatingRejectRoute (/* element */asset, /* scope */ context) {
     // find the data
-    const thisAssetData = this.allAssets.find(block => block.asset.uniqid === asset.uniqid)
+    const thisAssetData = this.allRoutes.find(block => block.asset.uniqid === asset.uniqid)
 
     // clear his current plans
     thisAssetData.current = []
@@ -670,7 +668,7 @@ export default class MapPlanningPlayerListener {
 
   adjudicatingAcceptRoute (asset) {
     // find the data
-    const thisAssetData = this.allAssets.find(block => block.asset.uniqid === asset.uniqid)
+    const thisAssetData = this.allRoutes.find(block => block.asset.uniqid === asset.uniqid)
 
     // capture current state into history
     thisAssetData.newHistory = { turn: this.turnNumber, status: asset.status, route: asset.route, position: asset.position }
@@ -710,7 +708,7 @@ export default class MapPlanningPlayerListener {
   /** accept the planned state for all remaining platforms */
   adjudicatingAcceptAllStates () {
     // produce the required state
-    this.allAssets.forEach(data => {
+    this.allRoutes.forEach(data => {
       // has it been accepted yet?
       if (!data.newState) {
         // pull planned route forward to actual
@@ -726,7 +724,7 @@ export default class MapPlanningPlayerListener {
     // do we have current?
     if (this.currentRoute) {
       // get the construct
-      const data = this.allAssets.find(data => data.asset.uniqid === this.currentRoute.asset.uniqid)
+      const data = this.allRoutes.find(data => data.asset.uniqid === this.currentRoute.asset.uniqid)
 
       // swap heavy line for light
       // drop the heavy planned route line
@@ -745,7 +743,7 @@ export default class MapPlanningPlayerListener {
       }
     }
     // ok, show the detailed route for this asset
-    const data = this.allAssets.find(data => data.asset.uniqid === marker.asset.uniqid)
+    const data = this.allRoutes.find(data => data.asset.uniqid === marker.asset.uniqid)
     data.lightRoutes.remove()
 
     // store quick access to this set of routes
@@ -762,7 +760,7 @@ export default class MapPlanningPlayerListener {
       const acceptTitle = createButton(false, 'Route for ' + marker.asset.name).addTo(this.map)
       this.btnListAccept.push(acceptTitle)
       // check it's not already sorted.
-      const hasPlans = this.allAssets.find(data => data.asset.uniqid === marker.asset.uniqid && data.newState)
+      const hasPlans = this.allRoutes.find(data => data.asset.uniqid === marker.asset.uniqid && data.newState)
       if (hasPlans) {
         const acceptButton = createButton(true, 'Plans already accepted', () => {
           clearButtons(this.btnListAccept, this)
@@ -853,10 +851,7 @@ export default class MapPlanningPlayerListener {
     // trigger an update of the planning line
     this.updatePlannedRoute(true)
 
-    if (this.allRoutes) {
-      // update how many planned routes we have, if we're doing planning
-      this.updateSubmitRoutesCounter(this.allRoutes)
-    } else {
+    if (this.performingAdjudication) {
       // we only allow one step to be planned in adjudication, so we're done
       // disconnect the planning marker
       if (this.planningMarker) {
@@ -869,6 +864,9 @@ export default class MapPlanningPlayerListener {
 
       // also offer the accept/reject buttons
       this.showAdjudicationAssetMenu(this.currentRoute.marker)
+    } else {
+      // update how many planned routes we have, if we're doing planning
+      this.updateSubmitRoutesCounter(this.allRoutes)
     }
   }
 
@@ -1068,10 +1066,11 @@ export default class MapPlanningPlayerListener {
           this.routeLine.setLatLngs([])
 
           // update the marker allowance, if we're in planning mode
-          if (this.allRoutes) {
-            marker.planning.remaining = marker.planning.allowance
-          } else {
+          if (this.performingAdjudication) {
+            // Only accept one step in adjudication. Finished.
             stillCellsRemaining = false
+          } else {
+            marker.planning.remaining = marker.planning.allowance
           }
 
           // clean up
