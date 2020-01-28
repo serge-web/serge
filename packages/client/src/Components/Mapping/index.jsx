@@ -10,7 +10,6 @@ import {
   hasPendingForces,
   MapAdjudicationPendingListener,
   MapPlanningPlayerListener,
-  MapPopupHelper,
   markerFor
 } from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -26,8 +25,6 @@ import './styles.scss'
 
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
-
-import MappingForm from './components/FormContainer'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
@@ -316,46 +313,46 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         toDelete.push(marker)
       }
       // Show a form on popup
-      const popup = new MapPopupHelper(mapRef.current, marker)
-      popup.setStore({
-        formType: null,
-        currentForce: myForceRef.current,
-        currentMarker: marker.asset,
-        currentMarkerName: marker.asset.name,
-        currentMarkerForce: marker.asset.force,
-        currentMarkerStatus: marker.asset.status.state,
-        currentMarkerSpeed: marker.asset.status.speedKts,
-        turnsInThisState: 0,
-        perception: marker.asset.perceptions[myForceRef.current] || null,
-        allForces,
-        allPlatforms
-      })
-      popup.onUpdate(data => {
-        if (data) {
-          popup.setStore(data)
+      // const popup = new MapPopupHelper(mapRef.current, marker)
+      // popup.setStore({
+      //   formType: null,
+      //   currentForce: myForceRef.current,
+      //   currentMarker: marker.asset,
+      //   currentMarkerName: marker.asset.name,
+      //   currentMarkerForce: marker.asset.force,
+      //   currentMarkerStatus: marker.asset.status.state,
+      //   currentMarkerSpeed: marker.asset.status.speedKts,
+      //   turnsInThisState: 0,
+      //   perception: marker.asset.perceptions[myForceRef.current] || null,
+      //   allForces,
+      //   allPlatforms
+      // })
+      // popup.onUpdate(data => {
+      //   if (data) {
+      //     popup.setStore(data)
 
-          switch (data.formType) {
-            case 'perception' :
-              perceivedStateCallback(marker.asset.uniqid, data.currentForce, data.perception)
-              break
-            case 'planned-status':
-              // NOTE: Temporary logging to show data is sent back, to be integrated in a later PR
-              console.log({
-                status: data.currentMarkerStatus,
-                speed: data.currentMarkerSpeed,
-                turnsInThisState: data.turnsInThisState
-              }
-              )
-              break
-          }
-        }
-        popup.closePopup(() => {
-          console.log('popup closed')
-        })
-      })
-      popup.useComponent(MappingForm)
-      // popup.openPopup()
-      popup.renderListener()
+      //     switch (data.formType) {
+      //       case 'perception' :
+      //         perceivedStateCallback(marker.asset.uniqid, data.currentForce, data.perception)
+      //         break
+      //       case 'planned-status':
+      //         // NOTE: Temporary logging to show data is sent back, to be integrated in a later PR
+      //         console.log({
+      //           status: data.currentMarkerStatus,
+      //           speed: data.currentMarkerSpeed,
+      //           turnsInThisState: data.turnsInThisState
+      //         }
+      //         )
+      //         break
+      //     }
+      //   }
+      //   popup.closePopup(() => {
+      //     console.log('popup closed')
+      //   })
+      // })
+      // popup.useComponent(MappingForm)
+      // // popup.openPopup()
+      // popup.renderListener()
     })
     toDelete.forEach(marker => markers.removeLayer(marker))
     // trim the items in visibleTo me
