@@ -190,6 +190,15 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       if (marker != null) {
         currentPhaseModeRef.current.listenTo(marker, currentTurn)
         platformsLayerRef.current.addLayer(marker)
+
+        // Note: we may wish to add a CSS class to the counter. But, we can only do this if
+        // it has already been added to the map. Perform last bit of `markerFor` processing here:
+        // is the condition different to the first one listed
+        if (asset.nonStandardCondition) {
+          // apply styling
+          L.DomUtil.addClass(marker._icon, 'platform-abnormal-condition')
+          L.DomUtil.addClass(marker._icon, 'platform-abnormal-' + asset.condition)
+        }
       }
     }
   }
