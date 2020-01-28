@@ -318,17 +318,36 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       // Show a form on popup
       const popup = new MapPopupHelper(mapRef.current, marker)
       popup.setStore({
+        formType: null,
         currentForce: myForceRef.current,
+        currentMarker: marker.asset,
         currentMarkerName: marker.asset.name,
         currentMarkerForce: marker.asset.force,
-        perception: marker.asset.perceptions[myForceRef.current],
+        currentMarkerStatus: marker.asset.status.state,
+        currentMarkerSpeed: marker.asset.status.speedKts,
+        turnsInThisState: 0,
+        perception: marker.asset.perceptions[myForceRef.current] || null,
         allForces,
         allPlatforms
       })
       popup.onUpdate(data => {
         if (data) {
           popup.setStore(data)
-          perceivedStateCallback(marker.asset.uniqid, data.currentForce, data.perception)
+
+          switch (data.formType) {
+            case 'perception' :
+              perceivedStateCallback(marker.asset.uniqid, data.currentForce, data.perception)
+              break
+            case 'planned-status':
+              // NOTE: Temporary logging to show data is sent back, to be integrated in a later PR
+              console.log({
+                status: data.currentMarkerStatus,
+                speed: data.currentMarkerSpeed,
+                turnsInThisState: data.turnsInThisState
+              }
+              )
+              break
+          }
         }
         popup.closePopup(() => {
           console.log('popup closed')
