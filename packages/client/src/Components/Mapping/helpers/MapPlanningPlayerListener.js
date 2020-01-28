@@ -16,6 +16,9 @@ import canControlThisForce from './canControlThisForce'
 import collateNewStatesMessage from './collateNewStatesMessage'
 import getVisibilityButtonsFor from './createVisibilityButtonsFor'
 import newStateFromPlannedTurns from './newStateFromPlannedTurns'
+import MapPopupHelper from './mapPopupHelper'
+
+import MappingForm from '.././components/FormContainer'
 
 import findLastRouteWithLocation from './findLastRouteLocation'
 import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE } from '../../../consts'
@@ -215,13 +218,45 @@ export default class MapPlanningPlayerListener {
         // ok, we can plan the next leg
         this.platformStateAssigned(this.currentRoute.marker, this.currentRoute.status)
       } else {
-        // sort out the state commands for this asset
-        const pType = findPlatformTypeFor(this.platformTypes, marker.asset.platformType)
+        // Show a form on popup
+        const popup = new MapPopupHelper(this.map, marker)
+        const allForces = this.allForces
+        const allPlatforms = this.platformTypes
+        popup.setStore({
+          formType: null,
+          currentForce: this.force,
+          currentMarker: marker.asset,
+          currentMarkerName: marker.asset.name,
+          currentMarkerForce: marker.asset.force,
+          currentMarkerStatus: marker.asset.status.state,
+          currentMarkerSpeed: marker.asset.status.speedKts,
+          turnsInThisState: 1,
+          perception: marker.asset.perceptions[this.force] || null,
+          allForces,
+          allPlatforms
+        })
+        const context = this
+        popup.onUpdate(data => {
+          if (data) {
+            popup.setStore(data)
+            const numberSubmissions = data.turnsInThisState ? data.turnsInThisState : 1
+            for (let ctr = 0; ctr < numberSubmissions; ctr++) {
+              this.stateSelectedCallback(data.currentMarkerStatus, data.currentMarkerSpeed, context)
+            }
+          }
+          popup.closePopup(() => {
+            console.log('popup closed')
+          })
+        })
+        popup.useComponent(MappingForm)
+        console.log('about to trigger popup')
+        popup.openPopup()
+        popup.renderListener()
 
         // clear all buttons
         this.clearAllButtons()
 
-        this.btnListStates = createStateButtonsFor(pType, marker.asset.name, this, this.stateSelectedCallback, this.btnListStates)
+        // this.btnListStates = createStateButtonsFor(pType, marker.asset.name, this, this.stateSelectedCallback, this.btnListStates)
       }
 
       // if there are any planned route turns, invite to clear them
@@ -469,29 +504,36 @@ export default class MapPlanningPlayerListener {
   }
 
   /** user has used either the command buttons, or the popup dialog to choose a new platform state */
-  stateSelectedCallback (/* object */ pState, /* number */ speedKts, /* object */ context) {
+  stateSelectedCallback (/* object */ stateName, /* number */ speedKts, /* object */ context) {
+
+    console.log('got new state:', stateName, speedKts, context)
+
     // store the state - we'll use it for all legs, until the player changes their mind
-    context.currentRoute.state = { state: pState.name, speedKts: speedKts }
+    context.currentRoute.state = { state: stateName.name, speedKts: speedKts }
 
     // now update the planning rings
     context.platformStateAssigned(context.currentRoute.marker, context.currentRoute.state)
 
+    // we need the state description for this state. get it from platform types
+  //  const states = context.currentRoute.marker.platformTypeDetail.states
+  //  const thisState = states.find(theState => theState.name === stateName)
+
     // note: if it was a non-mobile state, we don't need to drag legs, we can just pop
     // up the state planning buttons again
-    if (!pState.mobile) {
-      // we will have to get state from the player
-      const marker = context.currentRoute.marker
+    // if (!thisState.mobile) {
+    //   // we will have to get state from the player
+    //   const marker = context.currentRoute.marker
 
-      // clear any existing buttons
-      context.clearAllButtons()
+    //   // clear any existing buttons
+    //   context.clearAllButtons()
 
-      // no routes, do we know state?
-      // nope, we'll have to get it from the player
-      // sort out the state commands for this asset
-      const pType = findPlatformTypeFor(context.platformTypes, marker.asset.platformType)
-      context.btnListStates = createStateButtonsFor(pType, marker.asset.name,
-        context, context.stateSelectedCallback, context.btnListStates)
-    }
+    //   // no routes, do we know state?
+    //   // nope, we'll have to get it from the player
+    //   // sort out the state commands for this asset
+    //   const pType = findPlatformTypeFor(context.platformTypes, marker.asset.platformType)
+    //   context.btnListStates = createStateButtonsFor(pType, marker.asset.name,
+    //     context, context.stateSelectedCallback, context.btnListStates)
+    // }
   }
 
   clearCommandButtons (/* array */ buttons) {
@@ -929,6 +971,8 @@ export default class MapPlanningPlayerListener {
 
     // put the next turn in the planning marker
     this.planningMarker.planningFor = this.turnNumber + 1
+
+    console.log('platform state assigned', newState)
 
     if (!newState.speedKts) {
       // static state assigned, just do update
