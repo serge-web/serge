@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
   const [currentMarker] = useState(store.currentMarker)
   const [markerStatus, setMarkerStatus] = useState(store.currentMarkerStatus)
+  const [markerSpeed, setMarkerSpeed] = useState(store.currentMarkerSpeed)
 
+  // Get all of the possible states and speeds
   const { states, speedKts } = currentMarker.platformTypeDetail
 
   // A copy of the store to capture the updates
@@ -17,16 +19,17 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
 
   const handleStatusChange = ({ target }) => {
     setMarkerStatus(target.value)
-    // newStore.perception.force = target.value
+    newStore.currentMarkerStatus = target.value
     // save data in helper class to not lose it after popup recreate
     onStoreUpdate(newStore)
   }
 
   const handleSpeedChange = ({ target }) => {
-    // setSpeeds(target.value)
-    // newStore.perception.force = target.value
+    const val = parseInt(target.value)
+    setMarkerSpeed(val)
+    newStore.currentMarkerSpeed = val
     // save data in helper class to not lose it after popup recreate
-    // onStoreUpdate(newStore)
+    onStoreUpdate(newStore)
   }
 
   return (
@@ -56,7 +59,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
                 <li key={speed}>
                   <label>
                     {speed}
-                    <input onChange={handleSpeedChange} name="speed" type="radio" value={speed} />
+                    <input onChange={handleSpeedChange} name="speed" type="radio" value={speed} checked={markerSpeed === speed} />
                   </label>
                 </li>
               )
