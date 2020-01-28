@@ -18,18 +18,18 @@ export default function createStateButtonsFor (/* object */pType, /* string */ n
     //
     // STATE BUTTONS
     //
-    pType.states.forEach(state => {
-      const btn = createButton(true, state.name, () => {
+    pType.states.forEach(pState => {
+      const btn = createButton(true, pState.name, () => {
         // ok, remove state buttons, we've done that
         stateBtns.forEach(button => button.remove())
         const speedList = pType.speedKts
-        if (state.mobile && speedList && speedList.length) {
+        if (pState.mobile && speedList && speedList.length) {
           // special case - if there's only one speed, we can jump right in
           if (speedList.length === 1) {
             // ok, remove buttons (prob just title button)
             allBtns.forEach(button => button.remove())
             // just fire the callback - there's only one item
-            callback(state, pType.speedKts[0], context)
+            callback(pState, pType.speedKts[0], context)
           } else {
             //
             // SPEED BUTTONS
@@ -40,7 +40,7 @@ export default function createStateButtonsFor (/* object */pType, /* string */ n
                 allBtns.forEach(button => button.remove())
 
                 // share good news
-                callback(state, speed, context)
+                callback(pState, speed, context)
               }).addTo(context.map)
               allBtns.push(speedBtn)
             })
@@ -54,7 +54,7 @@ export default function createStateButtonsFor (/* object */pType, /* string */ n
           // ok, remove buttons (prob just title button)
           allBtns.forEach(button => button.remove())
           // don't need speed, go for it
-          callback(state, null, context)
+          callback(pState, null, context)
         }
       }).addTo(context.map)
       stateBtns.push(btn)

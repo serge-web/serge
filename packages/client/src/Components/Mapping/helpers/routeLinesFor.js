@@ -1,12 +1,18 @@
 import L from 'leaflet'
+import 'leaflet-polylinedecorator'
 
 // the images we use to annotate planning legs
-import turnLeft from '../images/turn-left.png'
-import turnRight from '../images/turn-right.png'
-import turnEnd from '../images/turn-end.png'
+import turn0deg from '../images/turn0deg.png'
+import turn30deg from '../images/turn30deg.png'
+import turn60deg from '../images/turn60deg.png'
+import turn90deg from '../images/turn90deg.png'
+import turn120deg from '../images/turn120deg.png'
+import turn150deg from '../images/turn150deg.png'
 import noTurn from '../images/no-turn.png'
 import lightTurn from '../images/light-turn.png'
 
+
+import roundToNearest from './roundToNearest'
 import turnNameFor from './turnNameFor'
 
 function lineFor (/* array */ turns, /* latLng */ start,
@@ -20,7 +26,7 @@ function lineFor (/* array */ turns, /* latLng */ start,
     // just make it a bold track
     weight = 4
   } else {
-    weight = lightweight && !planningFor ? 1 : 2
+    weight = lightweight && !planningFor ? 2 : 3
   }
   const dashArray = historyTrack ? [] : lightweight ? [1, 7] : [4, 8]
   const boldLine = L.polyline([], {
@@ -34,7 +40,7 @@ function lineFor (/* array */ turns, /* latLng */ start,
     color: color
   })
 
-  if (turns) {
+  if (turns && turns.length) {
     const boldLatLongs = [start]
     const feintLatLongs = []
     let lastPos = null
@@ -79,6 +85,21 @@ function lineFor (/* array */ turns, /* latLng */ start,
         boldLatLongs.push(start)
       }
       boldLine.setLatLngs(boldLatLongs)
+      const arrowSize = lightweight ? 8 : 12
+      var arrowHead = L.polylineDecorator(boldLine, {
+        patterns: [{
+          offset: '100%',
+          symbol: L.Symbol.arrowHead({
+            pixelSize: arrowSize,
+            polygon: true,
+            pathOptions: {
+              color: color,
+              stroke: true
+            }
+          })
+        }]
+      })
+      res.addLayer(arrowHead)
       res.addLayer(boldLine)
     }
     boldLine.setLatLngs(boldLatLongs)
@@ -110,30 +131,34 @@ function bearingBetween (/* latLng */ p1, /* latLng */ p2) {
  */
 function bearingMarkerFor (/* number */ angle) {
   let icon
-
-  if (angle === 180 || angle === 360 || angle === 0) {
-    // for the 180 and 360, which are flat icons so end icon is used
-    icon = turnEnd
-  } else if (angle > 0 && angle < 90) {
-    // North to East
-    icon = turnLeft
-  } else if (angle < 180) {
-    // East to South
-    icon = turnRight
-  } else if (angle < 260) {
-    // South to West
-    icon = turnLeft
-  } else if (angle < 271) {
-    // South
-    icon = turnEnd
-  } else if (angle < 360) {
-    // West to North
-    icon = turnRight
-  } else if (angle === undefined || angle === null) {
-    // as some angles are undefined just use the end icon until this can be figured out
-    icon = turnEnd
-  } else {
-    icon = turnEnd
+  switch (angle) {
+    case 270:
+    case 360:
+      icon = turn0deg
+      break
+    case 30:
+    case 120:
+    case 210:
+    case 300:
+      icon = turn30deg
+      break
+    case 60:
+    case 150:
+      icon = turn60deg
+      break
+    case 0:
+    case 90:
+    case 180:
+      icon = turn90deg
+      break
+    case 330:
+      icon = turn120deg
+      break
+    case 240:
+      icon = turn150deg
+      break
+    default:
+      icon = turn90deg
   }
   return icon
 }
@@ -164,7 +189,7 @@ function turnFor (/* latLng */ minus2, /* latLng */ minus1, /* latLng */ current
   return bearing
 }
 
-function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ lightweight,
+function createMarker (/* string */ icon, /* latLng */ location, /* string */ locationHex, /* boolean */ lightweight,
   /* string */ title, /* function */ waypointCallback, /* object */ context, /* int */ turnId, /* int */ planningFor) {
   // actually, we're adding two items, so put them into a layer group
   const res = L.layerGroup()
@@ -183,6 +208,7 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
     title: title,
     zIndexOffset: 1000
   })
+  marker.hex = locationHex
 
   // do we register the click handler?
   if (!lightweight) {
@@ -197,6 +223,7 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
     // also create the divIcon, with the name
     const label = L.divIcon({ html: title, className: 'map-turn-marker', iconSize: [200, 20], iconAnchor: [0, 10] })
     const divMarker = L.marker(location, { icon: label })
+    divMarker.hex = locationHex
     res.addLayer(divMarker)
   }
 
@@ -205,24 +232,25 @@ function createMarker (/* string */ icon, /* latLng */ location, /* boolean */ l
   marker.turnId = turnId
 
   res.addLayer(marker)
-
   return res
 }
 
-function markersFor (/* array */ turns, /* latLng */ start,
+function markersFor (/* array */ turns, /* latLng */ start, /* string */ startHex,
   /* boolean */ lightweight, /* grid */ grid, /* function */ waypointCallback, /* int */ planningFor, /* object */ context) {
   const result = L.layerGroup()
-  if (turns) {
+  if (turns && turns.length) {
     let minus1 = start // the start point of the track is used as the 'last point'
     let minus2 = null
     let pendingTurnLocation = null
+    let pendingTurnHex = null
     let pendingTurnName = null
     let current = start
+    let currentHex = startHex
     let turnId = 0
 
     turns.forEach(turn => {
-      const stateSuffix = turn.speed ? ' @ ' + turn.speed + 'kts' : ''
-      const turnName = turnNameFor(turn.turn) + ': ' + turn.state + stateSuffix
+      const stateSuffix = turn.status.speedKts ? ' @ ' + turn.status.speedKts + 'kts' : ''
+      const turnName = turnNameFor(turn.turn) + ': ' + turn.status.state + stateSuffix
       turnId = turn.turn
 
       // loop through the routes
@@ -233,14 +261,15 @@ function markersFor (/* array */ turns, /* latLng */ start,
           if (ptHex) {
             // remember the coords
             current = ptHex.centrePos
+            currentHex = ptHex.name
 
             // are we waiting to populate a marker?
             if (pendingTurnLocation) {
               // have we got enough data?
               if (minus1) {
                 const angle = turnFor(minus2, minus1, current)//, turnNameFor(turn.turn - 1))
-                const iconName = bearingMarkerFor(angle)
-                result.addLayer(createMarker(iconName, pendingTurnLocation, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
+                const iconName = bearingMarkerFor(roundToNearest(angle, 30))
+                result.addLayer(createMarker(iconName, pendingTurnLocation, pendingTurnHex, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
                 pendingTurnLocation = false
               }
             }
@@ -250,25 +279,27 @@ function markersFor (/* array */ turns, /* latLng */ start,
           }
         })
         pendingTurnLocation = current
+        pendingTurnHex = currentHex
         pendingTurnName = turnName
       } else {
         let location
         let thisTurnName
         if (turn.position) {
           // we're at the start of the data
-          thisTurnName = turnNameFor(turn.turn + 1) + ': ' + turn.state + stateSuffix
+          thisTurnName = turnNameFor(turn.turn + 1) + ': ' + turn.status.state + stateSuffix
           const ptHex = grid.hexNamed(turn.position)
           if (ptHex) {
             location = ptHex.centrePos
+            currentHex = ptHex.name
           }
         } else {
           location = minus1
-          thisTurnName = turnNameFor(turn.turn) + ': ' + turn.state + stateSuffix
+          thisTurnName = turnNameFor(turn.turn) + ': ' + turn.status.state + stateSuffix
         }
         minus2 = minus1
         minus1 = current
         // ok, nothing happening. add a static marker
-        result.addLayer(createMarker(noTurn, location, lightweight, thisTurnName, waypointCallback, context, turnId, planningFor))
+        result.addLayer(createMarker(noTurn, location, currentHex, lightweight, thisTurnName, waypointCallback, context, turnId, planningFor))
       }
     })
     // are we waiting to populate a marker?
@@ -277,8 +308,8 @@ function markersFor (/* array */ turns, /* latLng */ start,
       // have we got enough data?
       if (minus1) {
         const angle = turnFor(minus2, minus1, null)
-        const icon = bearingMarkerFor(angle)
-        result.addLayer(createMarker(icon, current, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
+        const icon = bearingMarkerFor(roundToNearest(angle, 30))
+        result.addLayer(createMarker(icon, current, currentHex, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
         pendingTurnLocation = null
       }
     }
@@ -289,7 +320,7 @@ function markersFor (/* array */ turns, /* latLng */ start,
 
 /** create a Leaflet elememt for this set of routes
   */
-export default function routeLinesFor (/* array */ plannedTurns, /* history */ history, /* latLng */ start,
+export default function routeLinesFor (/* array */ plannedTurns, /* history */ history, /* latLng */ start, /* string */ startHex,
   /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* function */ waypointCallback, /* int */ planningFor, /* boolean */ highlight, /* object */ context) {
   const thisLayer = L.layerGroup()
 
@@ -305,11 +336,11 @@ export default function routeLinesFor (/* array */ plannedTurns, /* history */ h
 
   // also sort out the markers
   const turnWayInTheFuture = 1000
-  const historyMarkers = markersFor(history, start, false, grid, null, turnWayInTheFuture, context)
+  const historyMarkers = markersFor(history, start, startHex, lightweight, grid, null, turnWayInTheFuture, context)
   thisLayer.addLayer(historyMarkers)
 
   // also sort out the markers
-  const futureMarkers = markersFor(plannedTurns, start, lightweight, grid, waypointCallback, planningFor, context)
+  const futureMarkers = markersFor(plannedTurns, start, startHex, lightweight, grid, waypointCallback, planningFor, context)
   thisLayer.addLayer(futureMarkers)
 
   return thisLayer

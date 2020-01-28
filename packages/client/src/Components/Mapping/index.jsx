@@ -8,15 +8,13 @@ import {
   forceFor,
   GridImplementation,
   hasPendingForces,
-  MapAdjudicatingUmpireListener,
   MapAdjudicationPendingListener,
   MapPlanningPlayerListener,
-  MapPlanningUmpireListener,
   MapPopupHelper,
   markerFor
 } from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, PLANNING_PHASE } from '../../consts'
+import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE } from '../../consts'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import removeClassNamesFrom from './helpers/removeClassNamesFrom'
@@ -29,10 +27,7 @@ import './styles.scss'
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
 
-import handlePerceptionChanges from '../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
-import handlePlansSubmittedChanges from '../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
 import MappingForm from './components/FormContainer'
-import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
@@ -152,13 +147,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const perceivedStateCallback = (/* string */ assetid, /* string */ perceivedBy, /* object */ perception) => {
     const perceivedType = { asset: assetid, force: perceivedBy, perception: perception }
     sendMessage(PERCEPTION_OF_CONTACT, perceivedType)
-    handlePerceptionChanges(perceivedType, allForces)
   }
 
   const routeCompleteCallback = (/* object */payload) => {
     sendMessage(SUBMIT_PLANS, payload)
-    // also call the reducer ourselves
-  //  handlePlansSubmittedChanges(payload, allForces)
   }
 
   const clearControlledAssets = () => {
@@ -166,13 +158,12 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
   const newStateOfWorldCallback = (payload) => {
     sendMessage(STATE_OF_WORLD, payload)
-    // also call the reducer ourselves
-    handleStateOfWorldChanges(payload, allForces)
   }
 
   // run the declutter algorithm, to distribute markers around a cell if necessary
   const declutterCallback = () => {
-    declutterLayer(currentPhaseMapRef.current, gridImplRef.current)
+    const allLayers = [currentPhaseMapRef.current, platformsLayerRef.current]
+    declutterLayer(allLayers, gridImplRef.current)
   }
 
   const createThisMarker = (asset, grid, force) => {
@@ -235,32 +226,13 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     // create a listener for the new phase
     const inForceLaydown = hasPendingForces(allForces, myForceRef.current)
     const forceNames = allForces.map(force => force.uniqid)
-    switch (phase) {
-      case ADJUDICATION_PHASE:
-        if (myForceRef.current === 'umpire') {
-          currentPhaseModeRef.current = new MapAdjudicatingUmpireListener(mapRef.current, gridImplRef.current,
-            newStateOfWorldCallback, currentTurn, forceNames, visChangesFunc)
-        } else if (inForceLaydown && currentTurn === 0) {
-          // this force has assets with location pending
-          currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
-        } else {
-          const duffCompleteCallback = null
-          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
-            myForceRef.current, currentTurn, duffCompleteCallback,
-            platformTypesRef.current, declutterCallback, perceivedStateCallback, forceNames, phase)
-        }
-        break
-      case PLANNING_PHASE:
-        if (myForceRef.current === 'umpire') {
-          currentPhaseModeRef.current = new MapPlanningUmpireListener(mapRef.current, gridImplRef.current, visChangesFunc, forceNames)
-        } else {
-          currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
-            myForceRef.current, currentTurn, routeCompleteCallback,
-            platformTypesRef.current, declutterCallback, perceivedStateCallback, forceNames, phase)
-        }
-        break
-      default:
-        console.log('Error - unexpected game phase encountered in Mapping component')
+    if (phase === ADJUDICATION_PHASE && inForceLaydown && currentTurn === 0) {
+      // this force has assets with location pending
+      currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
+    } else {
+      currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
+        myForceRef.current, currentTurn, routeCompleteCallback,
+        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase, newStateOfWorldCallback, visChangesFunc)
     }
 
     // create markers, and listen to them
@@ -322,7 +294,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
         const asset = findAsset(allForces, marker.asset.uniqid)
         if (!asset.force) {
-          asset.force = forceFor(allForces, asset.uniqid)
+          asset.force = forceFor(allForces, asset.uniqid).name
         }
 
         // also check it's formatted correctly
@@ -376,7 +348,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         var force = asset.force
         if (!force) {
           // grr, we'll have to find it
-          asset.force = forceFor(allForces, asset.uniqid)
+          asset.force = forceFor(allForces, asset.uniqid).name
         }
         createThisMarker(asset, grid, asset.force, false)
       })

@@ -6,9 +6,11 @@ export default (/* object */ payload, /* object */ allForces) => {
     force.assets.forEach(entry => {
       // ok, get the asset
       const asset = findAsset(allForces, entry.uniqid)
-      asset.history = entry.history
+      // check we have history
+      asset.history = asset.history ? asset.history : []
+      asset.history.push(entry.history)
       asset.plannedTurns = entry.plannedTurns
-      asset.state = entry.newState.state
+      asset.status = entry.newState.status
       asset.position = entry.newState.position
       asset.route = entry.newState.route
     })
