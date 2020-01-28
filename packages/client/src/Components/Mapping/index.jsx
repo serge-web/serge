@@ -330,7 +330,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         currentMarkerStatus: markerState.name,
         currentMarkerIsMobile: markerState.mobile,
         currentMarkerSpeed: marker.asset.status.speedKts,
-        turnsInThisState: 0,
+        turnsInThisState: 1,
         perception: marker.asset.perceptions[myForceRef.current] || null,
         allForces,
         allPlatforms
