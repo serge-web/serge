@@ -24,8 +24,13 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
     const isMobileCheck = states.find(state => state.name === target.value).mobile
     setMarkerStatus(target.value)
     setIsMobile(isMobileCheck)
+
     newStore.currentMarkerStatus = target.value
     newStore.currentMarkerIsMobile = isMobileCheck
+    if (!isMobileCheck) {
+      setMarkerSpeed(null)
+      newStore.currentMarkerSpeed = null
+    }
     // save data in helper class to not lose it after popup recreate
     onStoreUpdate(newStore)
   }
