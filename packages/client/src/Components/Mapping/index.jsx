@@ -233,7 +233,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     } else {
       currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
         myForceRef.current, currentTurn, routeCompleteCallback,
-        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase, 
+        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase,
         newStateOfWorldCallback, visChangesFunc, allRoutes)
     }
 
@@ -315,6 +315,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         marker.remove()
         toDelete.push(marker)
       }
+
+      // work out if the current state is mobile or not
+      const markerState = marker.asset.platformTypeDetail.states.find(state => state.name === marker.asset.status.state)
+
       // Show a form on popup
       const popup = new MapPopupHelper(mapRef.current, marker)
       popup.setStore({
@@ -323,9 +327,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         currentMarker: marker.asset,
         currentMarkerName: marker.asset.name,
         currentMarkerForce: marker.asset.force,
-        currentMarkerStatus: marker.asset.status.state,
+        currentMarkerStatus: markerState.name,
+        currentMarkerIsMobile: markerState.mobile,
         currentMarkerSpeed: marker.asset.status.speedKts,
-        turnsInThisState: 0,
+        turnsInThisState: 1,
         perception: marker.asset.perceptions[myForceRef.current] || null,
         allForces,
         allPlatforms
