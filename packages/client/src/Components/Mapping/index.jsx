@@ -38,6 +38,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const myForceRef = useRef(selectedForce)
   const platformTypesRef = useRef(allPlatforms)
   const perceiveAsForceRef = useRef(selectedForce) // in case white changes how they perceive the data
+  const allRoutes = []
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -232,7 +233,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     } else {
       currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
         myForceRef.current, currentTurn, routeCompleteCallback,
-        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase, newStateOfWorldCallback, visChangesFunc)
+        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase, 
+        newStateOfWorldCallback, visChangesFunc, allRoutes)
     }
 
     // create markers, and listen to them
@@ -355,6 +357,16 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     // Other diagnostics
     //
   }, [allForces])
+
+  /** create handler for planning updates - specifically when the
+   * contents of allRoutes changes
+   */
+  useEffect(() => {
+    console.log('Planned routes updated at', new Date(), 'phase:', phase, allRoutes)
+    allRoutes.forEach(route => {
+      console.log('route', route.current.length, route.current)
+    })
+  }, [allRoutes])
 
   return (
     <div id="map" className="mapping">
