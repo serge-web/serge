@@ -363,9 +363,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
    */
   useEffect(() => {
     console.log('Planned routes updated at', new Date(), 'phase:', phase, allRoutes)
-    allRoutes.forEach(route => {
-      console.log('route', route.current.length, route.current)
-    })
   }, [allRoutes])
 
   return (
