@@ -5,6 +5,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
   const [markerStatus, setMarkerStatus] = useState(store.currentMarkerStatus)
   const [markerSpeed, setMarkerSpeed] = useState(store.currentMarkerSpeed)
   const [turnsInThisState, setTurnsInThisState] = useState(store.turnsInThisState)
+  const [isMobile, setIsMobile] = useState(store.currentMarkerIsMobile)
 
   // Get all of the possible states and speeds
   const { states, speedKts } = currentMarker.platformTypeDetail
@@ -20,8 +21,11 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
   }
 
   const handleStatusChange = ({ target }) => {
+    const isMobileCheck = states.find(state => state.name === target.value).mobile
     setMarkerStatus(target.value)
+    setIsMobile(isMobileCheck)
     newStore.currentMarkerStatus = target.value
+    newStore.currentMarkerIsMobile = isMobileCheck
     // save data in helper class to not lose it after popup recreate
     onStoreUpdate(newStore)
   }
@@ -34,7 +38,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
     onStoreUpdate(newStore)
   }
 
-  const handleMooredChange = ({ target }) => {
+  const handleMobileChange = ({ target }) => {
     const val = parseInt(target.value)
     setTurnsInThisState(val)
     newStore.turnsInThisState = val
@@ -60,7 +64,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
           }
         </ul>
       </div>
-      { (speedKts.length && markerStatus !== 'Moored') &&
+      { (speedKts.length && isMobile) &&
         <div className="input-container radio">
           <label htmlFor="speed">Speed (kts)</label>
           <ul>
@@ -78,11 +82,11 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
         </div>
       }
       {
-        markerStatus === 'Moored' &&
+        !isMobile &&
         <div className="input-container short-number">
           <label>
             For
-            <input onChange={handleMooredChange} type="number" value={turnsInThisState} />
+            <input onChange={handleMobileChange} type="number" value={turnsInThisState} />
             turns
           </label>
         </div>
