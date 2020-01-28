@@ -14,6 +14,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    newStore.formType = 'perception'
     callbackFunction(newStore)
   }
 

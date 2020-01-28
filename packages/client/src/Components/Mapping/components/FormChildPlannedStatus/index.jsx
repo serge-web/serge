@@ -14,6 +14,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
   // TODO: The functions below are used in another component too and are almost identical. This can defintiely be refactored
   const handleSubmit = (e) => {
     e.preventDefault()
+    newStore.formType = 'planned-status'
     callbackFunction(newStore)
   }
 
