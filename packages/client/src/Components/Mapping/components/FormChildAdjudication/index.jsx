@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import _ from 'lodash'
 
+// import custom styles for child component
+import './styles.scss'
+
 const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
   const [currentMarker] = useState(store.currentMarker)
   const [allForces] = useState(store.allForces)
@@ -79,8 +82,41 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
       <fieldset>
         <div className="input-container checkbox">
           <label htmlFor="visibility">Visible to</label>
+          <ul>
+            {
+              allForces.map(force => {
+                if (force.name !== 'White') {
+                  return (
+                    <li key={force.uniqid}>
+                      <label>
+                        <input onChange={handlePlatformForceChange} name="visibility" type="checkbox" value={force.name} />
+                        {force.name} cell <div className="platform-meta">({_.startCase(currentMarker.platformType)}, <span style={{ backgroundColor: currentMarker.force }}></span>)</div>
+                      </label>
+                    </li>
+                  )
+                }
+              })
+            }
+          </ul>
         </div>
+      </fieldset>
+      <fieldset>
+        <div className="input-container radio">
+          <label htmlFor="condition">Condition</label>
+          <ul>
+            {
+              allPlatforms[0].conditions.map(condition =>
+                <li key={condition}>
+                  <label>
+                    {condition}
+                    <input onChange={handlePlatformForceChange} name="visibility" type="radio" value={condition} />
+                  </label>
+                </li>
+              )
 
+            }
+          </ul>
+        </div>
       </fieldset>
       <button onClick={handleSubmit}>Save</button>
     </form>

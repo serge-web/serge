@@ -15,7 +15,8 @@
         position: absolute;
         left: 0;
     }
-
+    
+    
     button {
         float: right;
         background-color: #e6e6e6;
@@ -33,11 +34,13 @@
            li label {
                position: relative;
            }
-           input{
-               float: left;
-               margin-right: .5rem;
-           }
+       
+        input{
+            float: left;
+            margin-right: .5rem;
+        }
        }
+
        &.short-number {
            padding-left: 0;
            label {
