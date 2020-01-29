@@ -358,7 +358,14 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
           console.log('popup closed')
         })
       })
-      popup.useComponent(MappingForm)
+      if (myForceRef.current !== 'umpire') {
+        (myForceRef.current !== marker.asset.force)
+          ? popup.useComponent(MappingForm, 'perception')
+          : popup.useComponent(MappingForm, 'planned-status')
+      } else {
+        popup.useComponent(MappingForm, 'adjudication')
+      }
+
       // popup.openPopup()
       popup.renderListener()
     })
