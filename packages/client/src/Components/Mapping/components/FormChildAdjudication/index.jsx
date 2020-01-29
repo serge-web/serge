@@ -38,13 +38,13 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
   }
 
   return (
-    <form action="">
+    <form action="" className="form-adjudication">
       <h2>{currentMarker.name}</h2>
-      <fieldset>
-        <span className="label">Planned</span>
+      <fieldset className="planned-routes">
         <div className="input-container button-group">
-          <button>Accept</button>
+          <span className="label">Planned</span>
           <button>Reject</button>
+          <button>Accept</button>
         </div>
         <div className="input-container radio">
           <label htmlFor="state">Status</label>
@@ -79,7 +79,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
         </div>
         }
       </fieldset>
-      <fieldset>
+      <fieldset className="visibility">
         <div className="input-container checkbox">
           <label htmlFor="visibility">Visible to</label>
           <ul>
@@ -90,7 +90,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
                     <li key={force.uniqid}>
                       <label>
                         <input onChange={handlePlatformForceChange} name="visibility" type="checkbox" value={force.name} />
-                        {force.name} cell <div className="platform-meta">({_.startCase(currentMarker.platformType)}, <span style={{ backgroundColor: currentMarker.force }}></span>)</div>
+                        {force.name} cell <div className="platform-meta">{_.startCase(currentMarker.platformType)}, <span style={{ backgroundColor: currentMarker.force }}></span></div>
                       </label>
                     </li>
                   )
@@ -100,7 +100,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
           </ul>
         </div>
       </fieldset>
-      <fieldset>
+      <fieldset className="condition">
         <div className="input-container radio">
           <label htmlFor="condition">Condition</label>
           <ul>
@@ -118,7 +118,6 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
           </ul>
         </div>
       </fieldset>
-      <button onClick={handleSubmit}>Save</button>
     </form>
   )
 }

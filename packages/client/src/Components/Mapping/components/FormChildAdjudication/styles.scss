@@ -1,8 +1,42 @@
-.platform-meta {
-    span {
-        display: inline-block;
-        width: .6rem;
-        height: .6rem;
+.form-adjudication {
+    h2 {
+        margin: 1rem;
     }
-    
+    .mapping-form-container & {
+        padding: 0;
+    }
+    .platform-meta {
+        span {
+            display: inline-block;
+            width: .6rem;
+            height: .6rem;
+        }
+        &:before {
+            content: "(";
+            margin-right: .5rem;
+        }
+
+        &:after {
+            content: ")";
+            margin-left: .5rem;
+        }
+        
+    }
+    fieldset {
+        padding: 1rem;
+
+        &.planned-routes {
+            background-color: #E5E5E5;
+        }
+
+        &.condition {
+            padding-top: 0;
+            > div:first-of-type {
+                padding-top: 1rem;
+                border-top: 1px solid grey;
+            }
+
+        }
+    }
+
 }
