@@ -11,7 +11,6 @@ import Mapping from "../Components/Mapping"
 
 const json = {
   global: {
-    tabSetHeaderHeight: 0,
     tabSetTabStripHeight: 45,
     tabEnableClose: false,
     tabEnableRenderOnDemand: false,
