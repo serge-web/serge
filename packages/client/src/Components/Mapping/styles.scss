@@ -28,27 +28,42 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 80%;
-  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.45);
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.6);
   &.selected {
-    border: 4px solid rgba(255, 255, 255, .5);
+    border: 4px solid rgba(255, 255, 255, .7);
   }
 }
 
 .platform-force {
+  // Note: in the longer term these shades should come form the force element
+  // of the wargame definition. When that happens we will probably need to use
+  // HSL conversions to make the abnormal condition shades darker.
   &-blue {
-   background-color: #000fff; 
+   background-color: #000fff;   
+   &.platform-abnormal-condition {
+    background-color: #d4d7fc;
   }
+}
   &-red {
     background-color: #ff0000;
+    &.platform-abnormal-condition {
+      background-color: #ffcece;
+    }
   }
   &-green {
     background-color: #19bd37;
-  }
+    &.platform-abnormal-condition {
+      background-color: #ADC3AC;
+    }
+    }
   &-unknown {
     background-color: #999; 
    }
- }
+   &.platform-abnormal-condition {
+    background-color: rgb(222, 222, 222);
+  }
+}
 
  .leaflet-popup-content-wrapper {
    background-color: rgba(#fff, .8);

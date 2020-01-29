@@ -187,6 +187,15 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       if (marker != null) {
         currentPhaseModeRef.current.listenTo(marker, currentTurn)
         platformsLayerRef.current.addLayer(marker)
+
+        // Note: we may wish to add a CSS class to the counter. But, we can only do this if
+        // it has already been added to the map. Perform last bit of `markerFor` processing here:
+        // is the condition different to the first one listed
+        if (asset.nonStandardCondition) {
+          // apply styling
+          L.DomUtil.addClass(marker._icon, 'platform-abnormal-condition')
+          L.DomUtil.addClass(marker._icon, 'platform-abnormal-' + asset.condition)
+        }
       }
     }
   }
@@ -230,7 +239,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     } else {
       currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
         myForceRef.current, currentTurn, routeCompleteCallback,
-        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase, 
+        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase,
         newStateOfWorldCallback, visChangesFunc, allRoutes)
     }
 
@@ -312,7 +321,12 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         marker.remove()
         toDelete.push(marker)
       }
+
+      // work out if the current state is mobile or not
+      const markerState = marker.asset.platformTypeDetail.states.find(state => state.name === marker.asset.status.state)
+
       // Show a form on popup
+
       // const popup = new MapPopupHelper(mapRef.current, marker)
       // popup.setStore({
       //   formType: null,
@@ -323,6 +337,48 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       //   currentMarkerStatus: marker.asset.status.state,
       //   currentMarkerSpeed: marker.asset.status.speedKts,
       //   turnsInThisState: 0,
+      //   perception: marker.asset.perceptions[myForceRef.current] || null,
+      //   allForces,
+      //   allPlatforms
+      // })
+      // popup.onUpdate(data => {
+      //   if (data) {
+      //     popup.setStore(data)
+
+      //     switch (data.formType) {
+      //       case 'perception' :
+      //         perceivedStateCallback(marker.asset.uniqid, data.currentForce, data.perception)
+      //         break
+      //       case 'planned-status':
+      //         // NOTE: Temporary logging to show data is sent back, to be integrated in a later PR
+      //         console.log({
+      //           status: data.currentMarkerStatus,
+      //           speed: data.currentMarkerSpeed,
+      //           turnsInThisState: data.turnsInThisState
+      //         }
+      //         )
+      //         break
+      //     }
+      //   }
+      //   popup.closePopup(() => {
+      //     console.log('popup closed')
+      //   })
+      // })
+      // popup.useComponent(MappingForm)
+      // // popup.openPopup()
+      // popup.renderListener()
+
+      // const popup = new MapPopupHelper(mapRef.current, marker)
+      // popup.setStore({
+      //   formType: null,
+      //   currentForce: myForceRef.current,
+      //   currentMarker: marker.asset,
+      //   currentMarkerName: marker.asset.name,
+      //   currentMarkerForce: marker.asset.force,
+      //   currentMarkerStatus: markerState.name,
+      //   currentMarkerIsMobile: markerState.mobile,
+      //   currentMarkerSpeed: marker.asset.status.speedKts,
+      //   turnsInThisState: 1,
       //   perception: marker.asset.perceptions[myForceRef.current] || null,
       //   allForces,
       //   allPlatforms
