@@ -21,7 +21,7 @@ import MapPopupHelper from './mapPopupHelper'
 import MappingForm from '.././components/FormContainer'
 
 import findLastRouteWithLocation from './findLastRouteLocation'
-import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE } from '../../../consts'
+import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_STATE_FORM, PLAYER_PERCEPTION } from '../../../consts'
 
 export default class MapPlanningPlayerListener {
   constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, allForces, declutterCallback,
@@ -208,7 +208,7 @@ export default class MapPlanningPlayerListener {
     const allForces = this.allForces
     const allPlatforms = this.platformTypes
     popup.setStore({
-      formType: null,
+      formType: PLAN_STATE_FORM,
       currentForce: this.force,
       currentMarker: marker.asset,
       currentMarkerName: marker.asset.name,
@@ -221,13 +221,12 @@ export default class MapPlanningPlayerListener {
       allForces,
       allPlatforms
     })
-    const context = this
     popup.onUpdate(data => {
       if (data) {
         popup.setStore(data)
         const numberSubmissions = data.turnsInThisState ? data.turnsInThisState : 1
         for (let ctr = 0; ctr < numberSubmissions; ctr++) {
-          this.stateSelectedCallback(data.currentMarkerStatus, data.currentMarkerSpeed, context)
+          this.stateSelectedCallback(data.currentMarkerStatus, data.currentMarkerSpeed)
         }
       }
       popup.closePopup(() => {
@@ -238,6 +237,7 @@ export default class MapPlanningPlayerListener {
     popup.openPopup()
     popup.renderListener()
   }
+
 
   showPlanningAssetMenu (marker) {
     if (this.inPlanningPhase) {
@@ -522,19 +522,16 @@ export default class MapPlanningPlayerListener {
   }
 
   /** user has used either the command buttons, or the popup dialog to choose a new platform state */
-  stateSelectedCallback (/* object */ stateName, /* number */ speedKts, /* object */ context) {
-
-    console.log('got new state:', stateName, speedKts, context)
-
+  stateSelectedCallback (/* object */ stateName, /* number */ speedKts) {
     // store the state - we'll use it for all legs, until the player changes their mind
-    context.currentRoute.state = { state: stateName }
+    this.currentRoute.state = { state: stateName }
     // inject speed, if necessary
     if (speedKts) {
-      context.currentRoute.state.speedKts = speedKts
+      this.currentRoute.state.speedKts = speedKts
     }
 
     // now update the planning rings
-    context.platformStateAssigned(context.currentRoute.marker, context.currentRoute.state)
+    this.platformStateAssigned(this.currentRoute.marker, this.currentRoute.state)
   }
 
   clearCommandButtons (/* array */ buttons) {
@@ -546,7 +543,7 @@ export default class MapPlanningPlayerListener {
 
   perceivedStateCallback (/* object */ asset, /* string */ force, /* array */ perceivedState, /* object */ context) {
     // and fire it into the system
-    context.perceivedStateCallbackPriv(asset, force, perceivedState)
+    this.perceivedStateCallbackPriv(asset, force, perceivedState)
   }
 
   updatePlannedRoute (/* boolean */ detailed, context) {
@@ -600,6 +597,43 @@ export default class MapPlanningPlayerListener {
     }
   }
 
+
+  /** attach the perception popup form to this marker */
+  attachPerceptionPopup (marker) {
+    const asset = marker.asset
+    // listen to this marker
+    const popup = new MapPopupHelper(this.map, marker)
+    const allForces = this.allForces
+    const allPlatforms = this.platformTypes
+    popup.setStore({
+      formType: PLAYER_PERCEPTION,
+      currentForce: this.force,
+      currentMarker: asset,
+      currentMarkerName: asset.name,
+      currentMarkerForce: asset.force,
+      perception: asset.perceptions[this.force] || null,
+      allForces,
+      allPlatforms
+    })
+    popup.onUpdate(data => {
+      if (data) {
+        popup.setStore(data)
+
+        // ok, extract the new perception:
+        const perception = data.perception
+
+        // callback expects: (/* string */ assetid, /* string */ perceivedBy, /* object */ perception) => {
+        this.perceivedStateCallback(asset.uniqid, this.force, perception)
+      }
+      popup.closePopup(() => {
+        console.log('popup closed')
+      })
+    })
+    popup.useComponent(MappingForm)
+    popup.openPopup()
+    popup.renderListener()
+  }
+
   /** listen to drag events on the supplied marker */
   listenTo (marker) {
     // can we control this force?
@@ -610,13 +644,11 @@ export default class MapPlanningPlayerListener {
         this.assetCallback(marker)
       })
     } else {
-      // nope - don't bother then
-      // ok, this is a quickie. Assign a click listener so
-      // we can change the perceived state
-      marker.on('click', e => {
-        // clear up any state planning
-        this.clearAllButtons()
-      })
+      // are we a non-umpire?
+      if (this.force !== UMPIRE_FORCE) {
+        // ok, attach the perception popup
+        this.attachPerceptionPopup(marker)
+      }
     }
   }
 
