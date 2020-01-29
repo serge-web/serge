@@ -11,6 +11,7 @@ import Mapping from "../Components/Mapping"
 
 const json = {
   global: {
+    tabSetHeaderHeight: 0,
     tabSetTabStripHeight: 45,
     tabEnableClose: false,
     tabEnableRenderOnDemand: false,
@@ -23,6 +24,11 @@ const json = {
     ]
   }
 };
+
+const imageTop = 14.194809302;
+const imageLeft = 42.3558566271;
+const imageRight = 43.7417816271;
+const imageBottom = 12.401259302;
 
 class ChannelTabsContainer extends Component {
   static contextType = PlayerStateContext;
@@ -121,14 +127,12 @@ class ChannelTabsContainer extends Component {
 
   factory = (node) => {
     const [ state ] = this.context;
-    const imageTop = 14.194809302;
-    const imageLeft = 42.3558566271;
-    const imageRight = 43.7417816271;
-    const imageBottom = 12.401259302;
 
     if (_.isEmpty(state.channels)) return;
     const matchedChannel = ChannelTabsContainer.findChannelByName(state.channels, node.getName());
-  if (node.getName() === 'Mapping') return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
+    if (node.getName().toLowerCase() === 'mapping') {
+      return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
+    }
     return matchedChannel && matchedChannel.length ? <Channel channel={matchedChannel[0]} /> : null
   };
 
@@ -168,6 +172,17 @@ class ChannelTabsContainer extends Component {
   render() {
     const [ state ] = this.context;
     let force = state.allForces.find((force) => force.uniqid === state.selectedForce);
+
+    const channelsArray = Object.values(state.channels);
+    const isOnlyMap = channelsArray.filter(channel => channel.name.toLowerCase() === "mapping").length === 1;
+
+    if (channelsArray.length === 1 && isOnlyMap) {
+      return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={"map"} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
+    }
+
+    if (channelsArray.length === 1 && !isOnlyMap) {
+      return <Channel channel={channelsArray[0]} />;
+    }
 
     return (
       <div className="contain-channel-tabs" data-force={force.uniqid}>
