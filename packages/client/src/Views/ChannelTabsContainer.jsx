@@ -129,6 +129,7 @@ class ChannelTabsContainer extends Component {
 
     if (_.isEmpty(state.channels)) return;
     const matchedChannel = ChannelTabsContainer.findChannelByName(state.channels, node.getName());
+    console.log(matchedChannel);
     if (node.getName().toLowerCase() === 'mapping') {
       return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
     }
@@ -172,15 +173,17 @@ class ChannelTabsContainer extends Component {
     const [ state ] = this.context;
     let force = state.allForces.find((force) => force.uniqid === state.selectedForce);
 
-    const channelsArray = Object.values(state.channels);
-    const isOnlyMap = channelsArray.filter(channel => channel.name.toLowerCase() === "mapping").length === 1;
+    const channelsArray = Object.entries(state.channels);
+    const isOnlyMap = channelsArray.filter(entry => entry[1].name.toLowerCase() === "mapping").length === 1;
 
     if (channelsArray.length === 1 && isOnlyMap) {
       return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={"map"} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
     }
 
     if (channelsArray.length === 1 && !isOnlyMap) {
-      return <Channel channel={channelsArray[0]} />;
+      console.log(channelsArray[0]);
+      
+      return <Channel channel={channelsArray[0][0]} />;
     }
 
     return (
