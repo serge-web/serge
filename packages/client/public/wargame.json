@@ -585,7 +585,7 @@
 					},
 					{
 						"name": "WBIED-2",
-						"contactId": "C108", 
+						"contactId": "C118", 
 						"condition": "Full capability",
 						"locationPending": true,
 						"perceptions": {
@@ -593,7 +593,55 @@
 						"platformType": "Boghammer",
 						"position": "Q06",
 						"status": { "state": "Onboard" },
-						"uniqid": "a0pra120102"
+						"uniqid": "a0pra130102"
+					},
+					{
+						"name": "C14-1 Missile Boat",
+						"contactId": "C218", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "fast-attack-craft",
+						"position": "M07",
+						"status": { "state": "Moored" },
+						"uniqid": "a0pra140102"
+					},
+					{
+						"name": "C14-2 Missile Boat",
+						"contactId": "C101", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "fast-attack-craft",
+						"position": "M06",
+						"status": { "state": "Moored" },
+						"uniqid": "a0pra150102"
+					},
+					{
+						"name": "OSA Missile Boat",
+						"contactId": "C003", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "fast-attack-craft",
+						"position": "M05",
+						"status": { "state": "Moored" },
+						"uniqid": "a0pra160102"
+					},
+					{
+						"name": "Yevgenya",
+						"contactId": "C313", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "mcmv",
+						"position": "M04",
+						"status": { "state": "Moored" },
+						"uniqid": "a0pra170102"
 					},
 					{
 						"name": "Missile-A",
@@ -1158,51 +1206,6 @@
 				"travelMode": "sea"
 			},
 			{
-				"name": "C14 Misile Boat",
-				"conditions": [
-					"Full capability",
-					"Limited capability",
-					"Immobile",
-					"Destroyed"
-				],
-				"icon": "fast-attack-craft.svg",
-				"speedKts": [
-					10,
-					20,
-					30,
-					40,
-					50
-				],
-				"states": [
-					{ "name": "Transiting", "mobile": true },
-					{ "name": "Stopped", "mobile": false },
-					{ "name": "Moored", "mobile": false }
-				],
-				"travelMode": "sea"
-			},		
-			{
-				"name": "OSA Missile Boat",
-				"conditions": [
-					"Full capability",
-					"Limited capability",
-					"Immobile",
-					"Destroyed"
-				],
-				"icon": "fast-attack-craft.svg",
-				"speedKts": [
-					10,
-					20,
-					30,
-					40
-				],
-				"states": [
-					{ "name": "Transiting", "mobile": true },
-					{ "name": "Stopped", "mobile": false },
-					{ "name": "Moored", "mobile": false }
-				],
-				"travelMode": "sea"
-			},		
-			{
 				"name": "Boghammer",
 				"conditions": [
 					"Full capability",
@@ -1226,7 +1229,31 @@
 				"travelMode": "sea"
 			},	
 			{
-				"name": "Minesweeper",
+				"name": "Fast attack craft",
+				"conditions": [
+					"Full capability",
+					"Limited capability",
+					"Immobile",
+					"Destroyed"
+				],
+				"icon": "fast-attack-craft.svg",
+				"speedKts": [
+					10,
+					20,
+					30,
+					40,
+					50
+				],
+				"states": [
+					{ "name": "Transiting", "mobile": true },
+					{ "name": "Stopped", "mobile": false },
+					{ "name": "Onboard", "mobile": false },
+					{ "name": "Moored", "mobile": false }
+				],
+				"travelMode": "sea"
+			},	
+			{
+				"name": "MCMV",
 				"conditions": [
 					"Full capability",
 					"Limited capability",
