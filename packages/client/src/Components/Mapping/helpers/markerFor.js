@@ -26,14 +26,15 @@ export default (asset, grid, force, myForce, platformTypes, userIsUmpire, /* str
     const pType = findPlatformTypeFor(platformTypes, asset.platformType)
     res.travelMode = pType.travelMode
 
-    // for a non-standard condition, we display a longer title
-    if (pType.conditions && pType.conditions.length > 0) {
-      if (pType.conditions[0] !== asset.condition) {
-        asset.nonStandardCondition = true
-      }
-    }
-    
-    const hoverTxt = asset.nonStandardCondition ? asset.name + ' - ' + asset.condition : asset.condition   
+    // NOTE: it's actually more useable to include the asset name in the hover tip - always show both
+    // // for a non-standard condition, we display a longer title
+    // if (pType.conditions && pType.conditions.length > 0) {
+    //   if (pType.conditions[0] !== asset.condition) {
+    //     asset.nonStandardCondition = true
+    //   }
+    // }
+    // const hoverTxt = asset.nonStandardCondition ? asset.name + ' - ' + asset.condition : asset.condition   
+    const hoverTxt = asset.name + ' - ' + asset.condition
 
     res.bindTooltip(hoverTxt)
     res.name = asset.name
