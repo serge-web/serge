@@ -133,7 +133,7 @@ class ChannelTabsContainer extends Component {
     if (node.getName().toLowerCase() === 'mapping') {
       return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
     }
-    return matchedChannel && matchedChannel.length ? <Channel channel={matchedChannel[0]} /> : null
+    return matchedChannel && matchedChannel.length ? <Channel channelId={matchedChannel[0]} /> : null
   };
 
   modelChanged = () => {
@@ -173,17 +173,18 @@ class ChannelTabsContainer extends Component {
     const [ state ] = this.context;
     let force = state.allForces.find((force) => force.uniqid === state.selectedForce);
 
+    // only show the flex layout & tabs if this player is in more than one channel
     const channelsArray = Object.entries(state.channels);
-    const isOnlyMap = channelsArray.filter(entry => entry[1].name.toLowerCase() === "mapping").length === 1;
+    
+    console.log(channelsArray);
 
-    if (channelsArray.length === 1 && isOnlyMap) {
-      return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={"map"} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
-    }
-
-    if (channelsArray.length === 1 && !isOnlyMap) {
-      console.log(channelsArray[0]);
-      
-      return <Channel channel={channelsArray[0][0]} />;
+    if (channelsArray.length === 1) {
+      const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === "mapping");  
+      if (isOnlyMap) {
+        return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={"map"} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
+      } else {
+        return <Channel channelId={channelsArray[0][0]} />;
+      }
     }
 
     return (
