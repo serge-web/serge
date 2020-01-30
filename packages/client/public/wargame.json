@@ -451,61 +451,46 @@
 			},
 			{
 				"assets": [{
-						"name": "Frigate",
+						"name": "DEVON",
 						"contactId": "C043", 
 						"condition": "Working",
 						"perceptions": {
 							"Red": {"force":"Blue", "type":"frigate", "name": "NORT"}
 						},
 						"platformType": "frigate",
-						"position": "P21",
+						"position": "S23",
 						"status": { "state": "Transiting", "speedKts": 20 },
 						"uniqid": "a0pra00001"
 					},
 					{
-						"name": "MPA",
+						"name": "STING",
+						"contactId": "C072", 
+						"condition": "Working",
+						"perceptions": {
+						},
+						"platformType": "helicopter",
+						"position": "C18",
+						"status": { "state": "On deck"},
+						"uniqid": "a0pra00002"
+					},					{
+						"name": "P8",
 						"contactId": "C072", 
 						"condition": "Working",
 						"perceptions": {
 						},
 						"platformType": "fixed-wing-aircraft",
 						"position": "C17",
-						"status": { "state": "Landed"},
+						"status": { "state": "On deck"},
 						"uniqid": "a0pra00002"
 					},
 					{
-						"name": "Tanker",
+						"name": "EDDYSTONE PT",
 						"contactId": "C012", 
 						"condition": "Working",
 						"perceptions": {
 							"Red": {"force":"Blue", "type":""}
-						},
-						"plannedTurns": [
-							{
-								"turn": 2,
-								"route": [
-									"R22",
-									"Q22"
-								],
-								"status": { "state": "Transiting", "speedKts": 20 }
-							},
-							{
-								"turn": 3,
-								"route": [
-									"P21",
-									"O21"
-								],
-								"status": { "state": "Transiting", "speedKts": 20 }
-							},
-							{
-								"turn": 4,
-								"route": [
-									"O20",
-									"O19"
-								],
-								"status": { "state": "Transiting", "speedKts": 20 }
-							}
-						],						"platformType": "merchant-vessel",
+						},						
+						"platformType": "merchant-vessel",
 						"position": "S23",
 						"status": { "state": "Transiting", "speedKts": 20 },
 						"uniqid": "a0pra00003"
@@ -1089,14 +1074,15 @@
 		"platformTypes": [{
 				"name": "Fishing vessel",
 				"conditions": [
-					"Working",
-					"Disabled",
+					"Full capability",
+					"Limited capability",
 					"Immobile",
 					"Destroyed"
 				],
 				"icon": "fishing-vessel.svg",
 				"speedKts": [
-					10
+					10,
+					20
 				],
 				"states": [
 					{ "name": "Fishing", "mobile": false },
@@ -1108,8 +1094,8 @@
 			{
 				"name": "Frigate",
 				"conditions": [
-					"Working",
-					"Disabled",
+					"Full capability",
+					"Limited capability",
 					"Immobile",
 					"Destroyed"
 				],
@@ -1120,52 +1106,152 @@
 					30
 				],
 				"states": [
-					{ "name": "Escorting", "mobile": true },
-					{ "name": "Pursuing", "mobile": true },
-					{ "name": "Transiting", "mobile": true }
+					{ "name": "Transiting", "mobile": true },
+					{ "name": "Stopped", "mobile": false },
+					{ "name": "Moored", "mobile": false }
 				],
 				"travelMode": "sea"
 			},
 			{
+				"name": "C14 Misile Boat",
+				"conditions": [
+					"Full capability",
+					"Limited capability",
+					"Immobile",
+					"Destroyed"
+				],
+				"icon": "fast-attack-craft.svg",
+				"speedKts": [
+					10,
+					20,
+					30,
+					40,
+					50
+				],
+				"states": [
+					{ "name": "Transiting", "mobile": true },
+					{ "name": "Stopped", "mobile": false },
+					{ "name": "Moored", "mobile": false }
+				],
+				"travelMode": "sea"
+			},		
+			{
+				"name": "OSA Missile Boat",
+				"conditions": [
+					"Full capability",
+					"Limited capability",
+					"Immobile",
+					"Destroyed"
+				],
+				"icon": "fast-attack-craft.svg",
+				"speedKts": [
+					10,
+					20,
+					30,
+					40
+				],
+				"states": [
+					{ "name": "Transiting", "mobile": true },
+					{ "name": "Stopped", "mobile": false },
+					{ "name": "Moored", "mobile": false }
+				],
+				"travelMode": "sea"
+			},		
+			{
+				"name": "Boghammer",
+				"conditions": [
+					"Full capability",
+					"Limited capability",
+					"Immobile",
+					"Destroyed"
+				],
+				"icon": "boghammer.svg",
+				"speedKts": [
+					10,
+					20,
+					30,
+					40
+				],
+				"states": [
+					{ "name": "Transiting", "mobile": true },
+					{ "name": "Stopped", "mobile": false },
+					{ "name": "Moored", "mobile": false }
+				],
+				"travelMode": "sea"
+			},	
+			{
+				"name": "Minesweeper",
+				"conditions": [
+					"Full capability",
+					"Limited capability",
+					"Immobile",
+					"Destroyed"
+				],
+				"icon": "mcmv.svg",
+				"speedKts": [
+					10
+				],
+				"states": [
+					{ "name": "Transiting", "mobile": true },
+					{ "name": "Stopped", "mobile": false },
+					{ "name": "Moored", "mobile": false }
+				],
+				"travelMode": "sea"
+			},			
+			{
+				"name": "Helicopter",
+				"conditions": [
+					"Full capability",
+					"Limited capability",
+					"Immobile",
+					"Destroyed"
+				],
+				"icon": "helicopter.svg",
+				"speedKts": [],
+				"states": [
+					{ "name": "Airborne", "mobile": true },
+					{ "name": "On deck", "mobile": false },
+					{ "name": "Preparing for launch", "mobile": false }
+				],
+				"travelMode": "air"
+			},
+			{
 				"name": "Fixed wing aircraft",
 				"conditions": [
-					"Working",
-					"Disabled",
+					"Full capability",
+					"Limited capability",
 					"Immobile",
 					"Destroyed"
 				],
 				"icon": "fixed-wing-aircraft.svg",
 				"speedKts": [],
 				"states": [
-					{ "name": "Landed", "mobile": false },
-					{ "name": "Patrolling", "mobile": true },
-					{ "name": "Prosecuting", "mobile": true },
-					{ "name": "Searching", "mobile": true },
-					{ "name": "Transiting", "mobile": true }
+					{ "name": "Airborne", "mobile": true },
+					{ "name": "On deck", "mobile": false },
+					{ "name": "Preparing for launch", "mobile": false }
 				],
 				"travelMode": "air"
 			},
 			{
 				"name": "Coastal radar site",
 				"conditions": [
-					"Working",
-					"Disabled",
+					"Full capability",
+					"Limited capability",
 					"Immobile",
 					"Destroyed"
 				],
 				"icon": "coastal-radar-site.svg",
 				"states": [
 					{ "name": "Inactive", "mobile": false },
-					{ "name": "Active", "mobile": false },
-					{ "name": "Prosecuting", "mobile": false }
+					{ "name": "Active", "mobile": false }
 				],
 				"travelMode": "land"
 			},
 			{
 				"name": "Merchant vessel",
 				"conditions": [
-					"Working",
-					"Disabled",
+					"Full capability",
+					"Limited capability",
 					"Immobile",
 					"Destroyed"
 				],
@@ -1175,8 +1261,9 @@
 					20
 				],
 				"states": [
-					{ "name": "Moored", "mobile": false },
-					{ "name": "Transiting", "mobile": true }
+					{ "name": "Transiting", "mobile": true },
+					{ "name": "Stopped", "mobile": false },
+					{ "name": "Moored", "mobile": false }
 				],
 				"travelMode": "sea"
 			}
