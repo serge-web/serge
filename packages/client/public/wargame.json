@@ -451,7 +451,7 @@
 			},
 			{
 				"assets": [{
-						"name": "DEVON",
+						"name": "HMS DEVONSHIRE",
 						"contactId": "C043", 
 						"condition": "Full capability",
 						"perceptions": {
@@ -463,6 +463,27 @@
 						"uniqid": "a0pra00001"
 					},
 					{
+						"name": "USS SAN JACINTO",
+						"contactId": "C041", 
+						"condition": "Full capability",
+						"perceptions": {
+						},
+						"platformType": "frigate",
+						"position": "N21",
+						"status": { "state": "Transiting", "speedKts": 20 },
+						"uniqid": "a0pra01101"
+					},
+					{
+						"name": "PNS ASLAT",
+						"contactId": "C179", 
+						"condition": "Full capability",
+						"perceptions": {
+						},
+						"platformType": "frigate",
+						"position": "Q21",
+						"status": { "state": "Transiting", "speedKts": 20 },
+						"uniqid": "a0pra03101"
+					},					{
 						"name": "STING",
 						"contactId": "C072", 
 						"condition": "Full capability",
@@ -474,7 +495,7 @@
 						"uniqid": "a0pra00002"
 					},					{
 						"name": "P8",
-						"contactId": "C072", 
+						"contactId": "C076", 
 						"condition": "Full capability",
 						"perceptions": {
 						},
@@ -521,7 +542,7 @@
 							"Blue": {"force":"Green", "type":""}
 						},
 						"platformType": "fishing-vessel",
-						"position": "N04",
+						"position": "N07",
 						"status": { "state": "Transiting", "speedKts": 10 },
 						"uniqid": "a0pra000100"
 					},
@@ -534,7 +555,7 @@
 							"Blue": {"force":"Green", "type":"fishing-vessel", "name": "SHU’AI"}
 						},
 						"platformType": "fishing-vessel",
-						"position": "N10",
+						"position": "N06",
 						"status": { "state": "Transiting", "speedKts": 10 },
 						"uniqid": "a0pra000101"
 					},
@@ -546,9 +567,33 @@
 						"perceptions": {
 						},
 						"platformType": "fishing-vessel",
-						"position": "Q18",
+						"position": "N05",
 						"status": { "state": "Moored" },
 						"uniqid": "a0pra000102"
+					}, 
+					{
+						"name": "WBIED-1",
+						"contactId": "C108", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "Boghammer",
+						"position": "Q07",
+						"status": { "state": "Onboard" },
+						"uniqid": "a0pra020102"
+					},
+					{
+						"name": "WBIED-2",
+						"contactId": "C108", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "Boghammer",
+						"position": "Q06",
+						"status": { "state": "Onboard" },
+						"uniqid": "a0pra120102"
 					},
 					{
 						"name": "Missile-A",
@@ -1175,6 +1220,7 @@
 				"states": [
 					{ "name": "Transiting", "mobile": true },
 					{ "name": "Stopped", "mobile": false },
+					{ "name": "Onboard", "mobile": false },
 					{ "name": "Moored", "mobile": false }
 				],
 				"travelMode": "sea"
