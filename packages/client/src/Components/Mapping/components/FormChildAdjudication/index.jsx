@@ -145,7 +145,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
             }
           </ul>
         </div>
-        { speedKts.length && isMobile &&
+        { speedKts && speedKts.length && isMobile &&
         <div className="input-container radio">
           <label htmlFor="speed">Speed (kts)</label>
           <ul>
@@ -165,7 +165,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
       </fieldset>
       <fieldset className="visibility">
         <div className="input-container checkbox">
-          <label htmlFor="visibility">Visible to</label>
+          <span className="label">Visible to</span>
           <ul>
             {
               allForces.map(force => {
@@ -173,7 +173,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
                   return (
                     <li key={force.uniqid}>
                       <label>
-                        <input onChange={handleVisibilityChange} name="visibility" type="checkbox" value={force.name} checked={markerVisibleTo.includes(force.name) }/>
+                        <input onChange={handleVisibilityChange} name={`visibility-${_.kebabCase(force.name)}`} type="checkbox" value={force.name} checked={markerVisibleTo.includes(force.name) }/>
                         {force.name} cell
                       </label>
                     </li>
