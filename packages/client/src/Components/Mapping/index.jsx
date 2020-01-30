@@ -319,17 +319,24 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       // work out if the current state is mobile or not
       const markerState = marker.asset.platformTypeDetail.states.find(state => state.name === marker.asset.status.state)
 
+      // Get's a list of the current forces who can see the current marker
+
+      const currentMarkerVisibleTo = Object.entries(marker.asset.perceptions).map(([key]) => key)
+
       // Show a form on popup
       const popup = new MapPopupHelper(mapRef.current, marker)
       popup.setStore({
         formType: null,
         currentForce: myForceRef.current,
+        planStatus: null,
         currentMarker: marker.asset,
         currentMarkerName: marker.asset.name,
         currentMarkerForce: marker.asset.force,
         currentMarkerStatus: markerState.name,
         currentMarkerIsMobile: markerState.mobile,
         currentMarkerSpeed: marker.asset.status.speedKts,
+        currentMarkerCondition: marker.asset.condition,
+        currentMarkerVisibleTo,
         turnsInThisState: 1,
         perception: marker.asset.perceptions[myForceRef.current] || null,
         allForces,
@@ -351,6 +358,17 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
                 turnsInThisState: data.turnsInThisState
               }
               )
+              break
+            case 'adjudication' :
+              console.log({
+                planStatus: data.planStatus,
+                marker: {
+                  status: data.currentMarkerStatus,
+                  speed: data.currentMarkerSpeed,
+                  condition: data.currentMarkerCondition,
+                  visbleTo: data.currentMarkerVisibleTo
+                }
+              })
               break
           }
         }

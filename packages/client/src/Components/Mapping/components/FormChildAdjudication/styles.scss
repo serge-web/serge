@@ -1,42 +1,65 @@
 .form-adjudication {
-    h2 {
+    h1, h2, h3, h4 {
+        margin: 1rem 1rem 0;
+    }
+    ul {
+        margin-bottom: 0;
+    }
+
+    > button {
         margin: 1rem;
     }
     .mapping-form-container & {
         padding: 0;
     }
     .platform-meta {
+        margin-left: 1.1rem;
+        margin-top: .4rem;
+        margin-bottom: 1rem;
         span {
             display: inline-block;
             width: .6rem;
             height: .6rem;
-        }
-        &:before {
-            content: "(";
-            margin-right: .5rem;
-        }
-
-        &:after {
-            content: ")";
-            margin-left: .5rem;
-        }
-        
+            margin-right: .3rem;
+        }        
     }
     fieldset {
         padding: 1rem;
 
         &.planned-routes {
-            background-color: #E5E5E5;
+            background-color: #F0F0F0;
+        }
+        .input-container {
+            margin-bottom: 0;
         }
 
         &.condition {
             padding-top: 0;
             > div:first-of-type {
                 padding-top: 1rem;
-                border-top: 1px solid grey;
+                border-top: 1px solid #d1d0d0;
             }
 
         }
     }
-
+    .plan {
+        &-accepted,
+        &-rejected {
+            position: absolute;
+            right: 1rem;
+            top: 3.5rem;
+            padding: .2rem 1rem;
+            border-radius: .7rem;
+        }
+        &-accepted {
+            color: darken(rgb(149, 204, 68), 20%);
+            border: 1px dotted rgb(149, 204, 68);
+            background-color: rgba(149, 204, 68, .4);
+        }
+        &-rejected {
+            color: darken(rgb(209, 29, 29), 20%);
+            border: 1px dotted rgb(209, 29, 29);
+            background-color: rgba(209, 29, 29, 0.4);
+        }
+    }
 }

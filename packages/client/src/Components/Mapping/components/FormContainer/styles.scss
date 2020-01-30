@@ -4,8 +4,10 @@
     width: 300px;
     color: #424344;
     overflow: hidden;
+    color: #828282
 
     h1, h2, h3, h4 {
+        color: #424344;
         font-size: 1.3rem;
         font-weight: bold;
         margin-bottom: 1rem;
@@ -29,6 +31,14 @@
         border-radius: 5px;
         padding: .5rem 1.5rem;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        &:focus,
+        &:active {
+            background-color: #d4d4d4;
+            outline: none;  
+        }
+        &:hover {
+            background-color: #bdbcbc;
+        }
     }
 
     .input-container {
@@ -63,7 +73,7 @@
        }
        &.button-group {
            padding-left: 0;
-           padding-bottom: .5rem;
+           padding-bottom: 1.5rem;
            overflow: hidden;
            button {
                float: right;
