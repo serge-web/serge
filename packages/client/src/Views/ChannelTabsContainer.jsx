@@ -172,15 +172,15 @@ class ChannelTabsContainer extends Component {
     const [ state ] = this.context;
     let force = state.allForces.find((force) => force.uniqid === state.selectedForce);
 
+    // only show the flex layout & tabs if this player is in more than one channel
     const channelsArray = Object.values(state.channels);
-    const isOnlyMap = channelsArray.filter(channel => channel.name.toLowerCase() === "mapping").length === 1;
-
-    if (channelsArray.length === 1 && isOnlyMap) {
-      return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={"map"} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
-    }
-
-    if (channelsArray.length === 1 && !isOnlyMap) {
-      return <Channel channel={channelsArray[0]} />;
+    if (channelsArray.length === 1) {
+      const isOnlyMap = channelsArray.find(channel => channel.name.toLowerCase() === "mapping");  
+      if (isOnlyMap) {
+        return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={"map"} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
+      } else {
+        return <Channel channel={channelsArray[0]} />;
+      }
     }
 
     return (
