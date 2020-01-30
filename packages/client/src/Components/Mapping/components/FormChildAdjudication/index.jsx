@@ -75,17 +75,17 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
     onStoreUpdate(newStore)
   }
 
-  const visibilityChecked = markerVisibleTo.map(force => force)
+  // Make a copy of the markerVisibleTo state
 
-  const handleVisibilityChange = ({ target }) => {
-    const { checked, value } = target
+  const handleVisibilityChange = ({ target: { checked, value } }) => {
+    // Copy the markerVisible to array and inject all checked values into it whilst filtering out any that are unchecked
+    const visibilityChecked = checked
+      ? [...markerVisibleTo, value]
+      : [...markerVisibleTo].filter(val => val !== value)
 
-    checked ? visibilityChecked.push(value) : visibilityChecked.pop(value)
-
-    console.log(visibilityChecked)
     setMarkerVisibleTo(visibilityChecked)
     newStore.currentMarkerVisibleTo = visibilityChecked
-    // save data in helper class to not lose it after popup recreate
+    // // save data in helper class to not lose it after popup recreate
     onStoreUpdate(newStore)
   }
 
