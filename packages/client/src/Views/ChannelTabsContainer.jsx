@@ -129,7 +129,6 @@ class ChannelTabsContainer extends Component {
 
     if (_.isEmpty(state.channels)) return;
     const matchedChannel = ChannelTabsContainer.findChannelByName(state.channels, node.getName());
-    console.log(matchedChannel);
     if (node.getName().toLowerCase() === 'mapping') {
       return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
     }
@@ -176,8 +175,6 @@ class ChannelTabsContainer extends Component {
     // only show the flex layout & tabs if this player is in more than one channel
     const channelsArray = Object.entries(state.channels);
     
-    console.log(channelsArray);
-
     if (channelsArray.length === 1) {
       const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === "mapping");  
       if (isOnlyMap) {
