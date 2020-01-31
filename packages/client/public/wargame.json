@@ -518,6 +518,7 @@
 						"contactId": "C041", 
 						"condition": "Full capability",
 						"perceptions": {
+							"Blue": {"force":"Blue2", "type":"frigate", "name": "USS SAN JACINTO" }
 						},
 						"platformType": "frigate",
 						"position": "N21",
@@ -529,6 +530,7 @@
 						"contactId": "C179", 
 						"condition": "Full capability",
 						"perceptions": {
+							"Blue": {"force":"Blue2", "type":"frigate", "name": "PNS ASLAT" }
 						},
 						"platformType": "frigate",
 						"position": "Q21",
