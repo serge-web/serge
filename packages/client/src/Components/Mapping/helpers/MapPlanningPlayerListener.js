@@ -29,6 +29,7 @@ export default class MapPlanningPlayerListener {
     /* function */ visibilityCallback, /* array */ allRoutes) {
     this.grid = grid
     this.force = force
+    this.phase = phase
     this.allForces = allForces
     this.layerPriv = L.layerGroup().addTo(layer) // the layer we add our items to
     this.map = map // the underlying base-map (required to add/remove toolbar controls)
@@ -638,12 +639,31 @@ export default class MapPlanningPlayerListener {
 
       marker.on('click', e => {
         this.assetCallback(marker)
+
+        // if we're umpire, and in the planning phase, show the vis buttons too
+        if (this.force === UMPIRE_FORCE && this.phase === PLANNING_PHASE) {
+          // throw in quick vis listener, in case umpire realises they need to correct something
+          // it's umpire. let him manage visibiltiy
+          this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback,
+            this.btnListVisiblity, this.forceNames, this.map)
+        }
       })
     } else {
       // are we a non-umpire?
       if (this.force !== UMPIRE_FORCE) {
         // ok, attach the perception popup
         this.attachPerceptionPopup(marker)
+      } else {
+        // we're umpire, see if we're in planning mode - so we can popup vis markers
+        marker.on('click', e => {
+          // if we're umpire, and in the planning phase, just do the vis buttons too
+          if (this.phase === PLANNING_PHASE) {
+            // throw in quick vis listener, in case umpire realises they need to correct something
+            // it's umpire. let him manage visibiltiy
+            this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback,
+              this.btnListVisiblity, this.forceNames, this.map)
+          }
+        })
       }
     }
   }

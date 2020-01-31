@@ -13,7 +13,7 @@ import {
   markerFor
 } from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE } from '../../consts'
+import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, UMPIRE_FORCE } from '../../consts'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import removeClassNamesFrom from './helpers/removeClassNamesFrom'
@@ -168,11 +168,11 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     // set the asset force
     asset.force = force.uniqid
 
-    const userIsUmpire = myForceRef.current === 'umpire'
+    const userIsUmpire = myForceRef.current === UMPIRE_FORCE
 
     // note - if we're in adjudication phase, at turn zero, we don't see assets for other forces
     let showThis
-    if (phase === 'adjudication' && currentTurn === 0 && !userIsUmpire) {
+    if (phase === ADJUDICATION_PHASE && currentTurn === 0 && !userIsUmpire) {
       // ok, special mode = we only show our assets in this mode
       showThis = asset.force === selectedForce
     } else {
@@ -267,22 +267,25 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const grid = gridImplRef.current
     //
     // ASSET MOVEMENT
-    // NOTE: no, we don't bother updating on movement. Movement is handled when
-    // we move to a new game phase
-    // markers.eachLayer(function (marker) {
-    //   const force = allForces.find(force => marker.force === force.name)
-    //   if (force && marker.asset) {
-    //     const asset = force.assets.find(({ name }) => name === marker.asset.name)
-    //     if (asset) {
-    //       // check the positions match
-    //       if (marker.asset.position !== asset.position) {
-    //         // update marker
-    //         marker.setLatLng(grid.hexNamed(asset.position).centrePos)
-    //       }
-    //     } else {
-    //     }
-    //   }
-    // })
+    // NOTE: only update location if we're umpire. This is because white
+    // needs to know red force locations during force laydown, so the
+    // umpire can correct asset visibility
+    if (phase === ADJUDICATION_PHASE && myForceRef.current === UMPIRE_FORCE) {
+      markers.eachLayer(function (marker) {
+        const force = allForces.find(force => marker.force === force.name)
+        if (force && marker.asset) {
+          const asset = force.assets.find(({ name }) => name === marker.asset.name)
+          if (asset) {
+            // check the positions match
+            if (marker.asset.position !== asset.position) {
+              // update marker
+              marker.setLatLng(grid.hexNamed(asset.position).centrePos)
+            }
+          } else {
+          }
+        }
+      })
+    }
     //
     // ASSET VISIBILITY
     //
@@ -290,7 +293,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const foundItems = []
     const toDelete = []
 
-    const userIsUmpire = myForceRef.current === 'umpire'
+    const userIsUmpire = myForceRef.current === UMPIRE_FORCE
 
     markers.eachLayer(marker => {
       const uniqid = marker.asset.uniqid

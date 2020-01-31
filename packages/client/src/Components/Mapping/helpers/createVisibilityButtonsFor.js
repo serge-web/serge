@@ -22,7 +22,7 @@ export default function getVisibilityButtonsFor (/* object */asset, /* function 
   }
 
   // put in the header button
-  const header = createButton(false, 'Visibility of [' + asset.name + ']').addTo(map)
+  const header = createButton(false, 'Vis of [' + asset.name + ']').addTo(map)
   allBtns.push(header)
 
   const perceptions = asset.perceptions

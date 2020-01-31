@@ -69,7 +69,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
           }
         </ul>
       </div>
-      { (speedKts.length && isMobile) &&
+      { (speedKts && speedKts.length && isMobile) &&
         <div className="input-container radio">
           <label htmlFor="speed">Speed (kts)</label>
           <ul>
