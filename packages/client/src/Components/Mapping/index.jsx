@@ -10,7 +10,6 @@ import {
   hasPendingForces,
   MapAdjudicationPendingListener,
   MapPlanningPlayerListener,
-  MapPopupHelper,
   markerFor
 } from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -26,8 +25,6 @@ import './styles.scss'
 
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
-
-import MappingForm from './components/FormContainer'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
@@ -324,52 +321,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         marker.remove()
         toDelete.push(marker)
       }
-
-      // work out if the current state is mobile or not
-      const markerState = marker.asset.platformTypeDetail.states.find(state => state.name === marker.asset.status.state)
-
-      // Show a form on popup
-      const popup = new MapPopupHelper(mapRef.current, marker)
-      popup.setStore({
-        formType: null,
-        currentForce: myForceRef.current,
-        currentMarker: marker.asset,
-        currentMarkerName: marker.asset.name,
-        currentMarkerForce: marker.asset.force,
-        currentMarkerStatus: markerState.name,
-        currentMarkerIsMobile: markerState.mobile,
-        currentMarkerSpeed: marker.asset.status.speedKts,
-        turnsInThisState: 1,
-        perception: marker.asset.perceptions[myForceRef.current] || null,
-        allForces,
-        allPlatforms
-      })
-      popup.onUpdate(data => {
-        if (data) {
-          popup.setStore(data)
-
-          switch (data.formType) {
-            case 'perception' :
-              perceivedStateCallback(marker.asset.uniqid, data.currentForce, data.perception)
-              break
-            case 'planned-status':
-              // NOTE: Temporary logging to show data is sent back, to be integrated in a later PR
-              console.log({
-                status: data.currentMarkerStatus,
-                speed: data.currentMarkerSpeed,
-                turnsInThisState: data.turnsInThisState
-              }
-              )
-              break
-          }
-        }
-        popup.closePopup(() => {
-          console.log('popup closed')
-        })
-      })
-      popup.useComponent(MappingForm)
-      // popup.openPopup()
-      popup.renderListener()
     })
     toDelete.forEach(marker => markers.removeLayer(marker))
     // trim the items in visibleTo me

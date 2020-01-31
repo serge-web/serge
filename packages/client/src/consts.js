@@ -46,6 +46,11 @@ export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 export const SUBMIT_PLANS = 'SubmitPlans'
 export const STATE_OF_WORLD = 'StateOfWorld'
 
+// constants for leaflet popup form types
+// TODO: we shouldn't need these once the form handling has been refactored
+export const PLAN_STATE_FORM = 'PlanState'
+export const PLAYER_PERCEPTION = 'PlayerPerception'
+
 // NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a
 // throttle value to prevent the browser going into a race condition

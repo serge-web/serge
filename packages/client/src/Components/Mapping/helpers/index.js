@@ -21,8 +21,6 @@ import MapPlanningPlayerListener from './MapPlanningPlayerListener'
 import MapPlanningUmpireListener from './MapPlanningUmpireListener'
 import MapPopupHelper from './mapPopupHelper'
 import markerFor from './markerFor'
-import plannedModePopupFor from './plannedModePopupFor'
-import plannedStateFor from './plannedStateFor'
 import removeClassNamesFrom from './removeClassNamesFrom'
 import roundToNearest from './roundToNearest'
 import turnNameFor from './turnNameFor'
@@ -51,8 +49,6 @@ export {
   MapPlanningUmpireListener,
   MapPopupHelper,
   markerFor,
-  plannedModePopupFor,
-  plannedStateFor,
   removeClassNamesFrom,
   roundToNearest,
   turnNameFor
