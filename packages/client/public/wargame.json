@@ -470,7 +470,7 @@
 						},
 						"platformType": "helicopter",
 						"position": "C18",
-						"status": { "state": "On deck"},
+						"status": { "state": "Landed"},
 						"uniqid": "a0pra00002"
 					},					{
 						"name": "P8",
@@ -480,7 +480,7 @@
 						},
 						"platformType": "fixed-wing-aircraft",
 						"position": "C17",
-						"status": { "state": "On deck"},
+						"status": { "state": "Landed"},
 						"uniqid": "a0pra00012"
 					},
 					{
@@ -666,8 +666,8 @@
 						"uniqid": "a0pra170102"
 					},
 					{
-						"name": "Missile-A",
-						"contactId": "C076", 
+						"name": "Coastal Radar A",
+						"contactId": "C064", 
 						"condition": "Full capability",
 						"locationPending": true,
 						"perceptions": {
@@ -676,6 +676,30 @@
 						"position": "Q12",
 						"status": { "state": "Inactive" },
 						"uniqid": "a0pra000103"
+					},
+					{
+						"name": "Coastal Radar B (No missiles)",
+						"contactId": "C076", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "coastal-radar-site",
+						"position": "Q12",
+						"status": { "state": "Inactive" },
+						"uniqid": "a0prb000103"
+					},
+					{
+						"name": "Coastal Radar C",
+						"contactId": "C476", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "coastal-radar-site",
+						"position": "Q12",
+						"status": { "state": "Inactive" },
+						"uniqid": "a0prc000103"
 					}
 				],
 				"color": "#F00",
@@ -1310,7 +1334,7 @@
 				"speedKts": [],
 				"states": [
 					{ "name": "Airborne", "mobile": true },
-					{ "name": "On deck", "mobile": false },
+					{ "name": "Landed", "mobile": true },
 					{ "name": "Preparing for launch", "mobile": false }
 				],
 				"travelMode": "air"
@@ -1327,7 +1351,7 @@
 				"speedKts": [],
 				"states": [
 					{ "name": "Airborne", "mobile": true },
-					{ "name": "On deck", "mobile": false },
+					{ "name": "Landed", "mobile": true },
 					{ "name": "Preparing for launch", "mobile": false }
 				],
 				"travelMode": "air"
@@ -1337,13 +1361,13 @@
 				"conditions": [
 					"Full capability",
 					"Limited capability",
-					"Immobile",
 					"Destroyed"
 				],
 				"icon": "coastal-radar-site.svg",
 				"states": [
 					{ "name": "Inactive", "mobile": false },
-					{ "name": "Active", "mobile": false }
+					{ "name": "Active", "mobile": false },
+					{ "name": "Engaging", "mobile": false }
 				],
 				"travelMode": "land"
 			},
