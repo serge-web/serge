@@ -640,7 +640,7 @@ export default class MapPlanningPlayerListener {
       marker.on('click', e => {
         this.assetCallback(marker)
 
-        // if we're umpire, and in the planning phase, just do the vis buttons too
+        // if we're umpire, and in the planning phase, show the vis buttons too
         if (this.force === UMPIRE_FORCE && this.phase === PLANNING_PHASE) {
           // throw in quick vis listener, in case umpire realises they need to correct something
           // it's umpire. let him manage visibiltiy
