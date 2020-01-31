@@ -140,8 +140,12 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
             <button onClick={handleAcceptance}>Accept</button>
           </>
           }
-          { planStatus && <button onClick={handleRevert}>Revert</button>}
-
+          { planStatus && 
+          <>
+            <button onClick={handleRevert}>Revert</button>
+            <button onClick={handleSubmit}>Plan Route</button>
+          </>
+          }
         </div>
         <ReactCSSTransitionGroup
         component="div"
@@ -175,7 +179,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
           speedKts &&
           isMobile &&
           isActive &&
-          <div className="input-container radio">
+          <div key={'speed'} className="input-container radio">
           <label htmlFor="speed">Speed (kts)</label>
           <ul>
             {
