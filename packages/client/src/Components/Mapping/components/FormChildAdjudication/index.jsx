@@ -72,7 +72,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
   const handleConditionChange = ({ target }) => {
     setMarkerCondition(target.value)
 
-    if (!isActive) {
+    if (isActive) {
       setIsMobile(false)
       setMarkerSpeed(null)
       newStore.currentMarkerSpeed = null
@@ -127,7 +127,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
 
   return (
     <form action="" className="form-adjudication">
-      { planStatus && <span className={`plan-${planStatus}`}>{_.capitalize(planStatus)}</span> }
+      { planStatus && <span className='plan-accepted'>Reviewed</span> }
       <h2>{currentMarker.name}</h2>
       <div className="platform-meta"><span style={{ backgroundColor: currentMarkerForce }}></span>{_.startCase(currentMarker.platformType)}</div>
       <fieldset className="planned-routes">
@@ -149,9 +149,9 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
             {
               states.map(status =>
                 <li key={status.name}>
-                  <label>
+                  <label className={planStatus !== 'rejected' && 'disabled'}>
                     {status.name}
-                    <input onChange={handleStatusChange} name="state" type="radio" value={status.name} checked={markerStatus === status.name}/>
+                    <input onChange={handleStatusChange} name="state" type="radio" disabled={ planStatus !== 'rejected'} value={status.name} checked={markerStatus === status.name}/>
                   </label>
                 </li>
               )
@@ -159,16 +159,19 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
           </ul>
         </div>
         }
-        { speedKts && speedKts.length && isMobile && isActive &&
+        {
+          speedKts &&
+          isMobile &&
+          isActive &&
         <div className="input-container radio">
           <label htmlFor="speed">Speed (kts)</label>
           <ul>
             {
               speedKts.map(speed =>
                 <li key={speed}>
-                  <label>
+                  <label className={planStatus !== 'rejected' && 'disabled'}>
                     {speed}
-                    <input onChange={handleSpeedChange} name="speed" type="radio" value={speed} checked={markerSpeed === speed} />
+                    <input onChange={handleSpeedChange} name="speed" type="radio"  disabled={ planStatus !== 'rejected'} value={speed} checked={markerSpeed === speed} />
                   </label>
                 </li>
               )

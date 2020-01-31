@@ -24,7 +24,10 @@
         padding: 1rem;
         overflow: hidden;
     }
-    
+    label.disabled,
+    input:disabled {
+        opacity: .6
+    }
     
     button {
         float: right;
