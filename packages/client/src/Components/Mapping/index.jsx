@@ -26,6 +26,7 @@ import './styles.scss'
 
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
+import OrdersPanel from './ordersPanel'
 
 import MappingForm from './components/FormContainer'
 
@@ -233,7 +234,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     } else {
       currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
         myForceRef.current, currentTurn, routeCompleteCallback,
-        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase, 
+        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase,
         newStateOfWorldCallback, visChangesFunc, allRoutes)
     }
 
@@ -366,7 +367,12 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }, [allRoutes])
 
   return (
-    <div id="map" className="mapping">
+    <div className="flexlayout__container">
+      <OrdersPanel
+        selectedForce={selectedForce}
+        allForces={allForces}
+      />
+      <div id="map" className="mapping"/>
     </div>
   )
 }
