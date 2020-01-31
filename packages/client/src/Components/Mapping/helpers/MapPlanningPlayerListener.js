@@ -705,8 +705,11 @@ export default class MapPlanningPlayerListener {
     this.routeLine.setLatLngs([])
   }
 
-  adjudicatingStateSelected (/* object */ pState, /* number */ speedKts, /* object */ context) {
+  adjudicatingStateSelected (/* string */ stateName, /* number */ speedKts, /* object */ context) {
     const thisAssetData = context.allRoutes.find(block => block.asset.uniqid === context.currentRoute.asset.uniqid)
+
+    const pState = context.currentRoute.asset.platformTypeDetail.states.find(type => type.name === stateName)
+
     // ok, is it mobile
     if (!pState.mobile) {
       // just store it
