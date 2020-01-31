@@ -12,16 +12,7 @@ export default function findPerceivedAsClasses (/* string */ myForce, /* string 
     }
   }
   if (perception) {
-    // TODO: this is a temporary workaround. We should be taking the force color from the
-    // force's color field, not by injecting the force name
-    // If the force contains a '2'', trim it
-    let force = perception.force
-    const ind = force.indexOf('2')
-    if (ind > 0) {
-      force = force.substring(0, ind)
-    }
-
-    const forceClass = force ? force.toLowerCase() : 'unknown'
+    const forceClass = perception.force ? perception.force.toLowerCase() : 'unknown'
     const typeClass = perception.type ? perception.type.replace(/ /g, '-').toLowerCase() : 'unknown'
     return `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
   } else {
