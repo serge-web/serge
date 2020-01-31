@@ -17,6 +17,12 @@ import {
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE } from '../../consts'
 
+// Import the components for FormContainer
+import Perception from './components/FormChildPerception'
+import PlannedStatus from './components/FormChildPlannedStatus'
+import Adjudication from './components/FormChildAdjudication'
+
+
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import removeClassNamesFrom from './helpers/removeClassNamesFrom'
 
@@ -379,10 +385,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       })
       if (myForceRef.current !== 'umpire') {
         (myForceRef.current !== marker.asset.force)
-          ? popup.useComponent(MappingForm, 'perception')
-          : popup.useComponent(MappingForm, 'planned-status')
+          ? popup.useComponent(MappingForm, <Perception />)
+          : popup.useComponent(MappingForm, <PlannedStatus />)
       } else {
-        popup.useComponent(MappingForm, 'adjudication')
+        popup.useComponent(MappingForm, <Adjudication />)
       }
 
       // popup.openPopup()
