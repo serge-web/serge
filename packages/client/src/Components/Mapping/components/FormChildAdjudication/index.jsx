@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import _ from 'lodash'
 
 // import custom styles for child component
@@ -142,8 +143,13 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
           { planStatus && <button onClick={handleRevert}>Revert</button>}
 
         </div>
+        <ReactCSSTransitionGroup
+        component="div"
+        transitionName="slide"
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}>
         { isActive &&
-        <div className="input-container radio status">
+        <div key={'status'} className="input-container radio status">
           <label htmlFor="state">Status</label>
           <ul>
             {
@@ -159,11 +165,17 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
           </ul>
         </div>
         }
+        </ReactCSSTransitionGroup>
+        <ReactCSSTransitionGroup
+        component="div"
+        transitionName="slide"
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}>
         {
           speedKts &&
           isMobile &&
           isActive &&
-        <div className="input-container radio">
+          <div className="input-container radio">
           <label htmlFor="speed">Speed (kts)</label>
           <ul>
             {
@@ -179,6 +191,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
           </ul>
         </div>
         }
+        </ReactCSSTransitionGroup>
       </fieldset>
       <fieldset className="visibility">
         <div className="input-container checkbox">
