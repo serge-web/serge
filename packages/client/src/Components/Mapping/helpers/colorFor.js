@@ -7,6 +7,9 @@ export default function colorFor (/* String */ force) {
     case 'Blue':
       hisColor = '#000fff'
       break
+    case 'Blue2':
+      hisColor = '#33adf9'
+      break
     case 'Green':
       hisColor = '#19bd37'
       break
