@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
 
 // import custom styles for child component
@@ -15,6 +15,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
   const [markerVisibleTo, setMarkerVisibleTo] = useState(store.currentMarkerVisibleTo)
   const [markerCondition, setMarkerCondition] = useState(store.currentMarkerCondition)
   const [isMobile, setIsMobile] = useState(store.currentMarkerIsMobile)
+  const [isActive, setIsActive] = useState(null)
   const [prevSpeed, setPrevSpeed] = useState(store.currentMarkerSpeed)
 
   // Get all of the possible states and speeds
@@ -24,6 +25,17 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
   const newStore = store
 
   newStore.formType = 'adjudication'
+
+  // HACK: This is just for the current wargame, this will need to be replaced with a non text-based comparison
+
+  const checkIfActive = () => {
+    const activeArray = ['working', 'full-capability']
+    return activeArray.includes(_.kebabCase(markerCondition))
+  }
+
+  useEffect(() => {
+    setIsActive(checkIfActive())
+  }, [markerCondition])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -60,7 +72,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
   const handleConditionChange = ({ target }) => {
     setMarkerCondition(target.value)
 
-    if (target.value !== 'Working') {
+    if (!isActive) {
       setIsMobile(false)
       setMarkerSpeed(null)
       newStore.currentMarkerSpeed = null
@@ -130,7 +142,8 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
           { planStatus && <button onClick={handleRevert}>Revert</button>}
 
         </div>
-        <div className="input-container radio">
+        { isActive &&
+        <div className="input-container radio status">
           <label htmlFor="state">Status</label>
           <ul>
             {
@@ -145,7 +158,8 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
             }
           </ul>
         </div>
-        { speedKts && speedKts.length && isMobile &&
+        }
+        { speedKts && speedKts.length && isMobile && isActive &&
         <div className="input-container radio">
           <label htmlFor="speed">Speed (kts)</label>
           <ul>

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import _ from 'lodash'
 import L from 'leaflet'
 import {
   assetsVisibleToMe,

@@ -28,9 +28,13 @@
 
         &.planned-routes {
             background-color: #F0F0F0;
+            padding-bottom: 0;
         }
         .input-container {
             margin-bottom: 0;
+            &.status {
+                margin-bottom: 1rem;
+            }
         }
 
         &.condition {
