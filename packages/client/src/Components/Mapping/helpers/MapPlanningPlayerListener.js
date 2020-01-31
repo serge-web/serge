@@ -238,7 +238,6 @@ export default class MapPlanningPlayerListener {
     popup.renderListener()
   }
 
-
   showPlanningAssetMenu (marker) {
     if (this.inPlanningPhase) {
       this.drag.startHex = null
@@ -274,7 +273,6 @@ export default class MapPlanningPlayerListener {
         // ok, we can plan the next leg
         this.platformStateAssigned(this.currentRoute.marker, this.currentRoute.status)
       } else {
-
         // clear all buttons
         this.clearAllButtons()
 
@@ -571,7 +569,6 @@ export default class MapPlanningPlayerListener {
     if (this.inPlanningPhase) {
       // also update the planned routes
       this.updateSubmitRoutesCounter(this.allRoutes)
-
     }
   }
 
@@ -596,7 +593,6 @@ export default class MapPlanningPlayerListener {
       this.acceptAllButton.setText('Accept remaining ' + (total - count) + '')
     }
   }
-
 
   /** attach the perception popup form to this marker */
   attachPerceptionPopup (marker) {
@@ -983,34 +979,35 @@ export default class MapPlanningPlayerListener {
     this.drag.startHex = this.getPlannedAssetLocation(marker.asset, this.currentRoute.current)
     const startPos = this.drag.startHex.centrePos
 
-    // also create a new marker, used to plot the path
-    this.planningMarker = L.marker(startPos, {
-      draggable: newState.speedKts,
-      zIndexOffset: 1000
-    })
+    // find out if this state is mobile
+    const isMobile = marker.asset.platformTypeDetail.states.find(state => state.name === newState.state).mobile
 
-    // special handling. Don't declutter the planning marker, we want it in the centre of the cell
-    this.planningMarker.do_not_declutter = true
-    this.storeLayer(this.planningMarker, this)
-
-    // clicks on the planning marker should trigger some commands
-    this.planningMarker.on('click', e => {
-      // clear up any existing planning
-      this.clearOnNewLeg()
-
-      // and generate the planning menu
-      this.planningMarkerCallback()
-    })
-
-    // put the next turn in the planning marker
-    this.planningMarker.planningFor = this.turnNumber + 1
-
-    console.log('platform state assigned', newState)
-
-    if (!newState.speedKts) {
+    if (!isMobile) {
       // static state assigned, just do update
       this.storeNewPlanningRoute(newState, null)
     } else {
+      // also create a new marker, used to plot the path
+      this.planningMarker = L.marker(startPos, {
+        draggable: true,
+        zIndexOffset: 1000
+      })
+
+      // special handling. Don't declutter the planning marker, we want it in the centre of the cell
+      this.planningMarker.do_not_declutter = true
+      this.storeLayer(this.planningMarker, this)
+
+      // clicks on the planning marker should trigger some commands
+      this.planningMarker.on('click', e => {
+        // clear up any existing planning
+        this.clearOnNewLeg()
+
+        // and generate the planning menu
+        this.planningMarkerCallback()
+      })
+
+      // put the next turn in the planning marker
+      this.planningMarker.planningFor = this.turnNumber + 1
+
       // do some initialisation
       this.clearOnNewLeg()
 
