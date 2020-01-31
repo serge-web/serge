@@ -463,27 +463,6 @@
 						"uniqid": "a0pra00001"
 					},
 					{
-						"name": "USS SAN JACINTO",
-						"contactId": "C041", 
-						"condition": "Full capability",
-						"perceptions": {
-						},
-						"platformType": "frigate",
-						"position": "N21",
-						"status": { "state": "Transiting", "speedKts": 20 },
-						"uniqid": "a0pra01101"
-					},
-					{
-						"name": "PNS ASLAT",
-						"contactId": "C179", 
-						"condition": "Full capability",
-						"perceptions": {
-						},
-						"platformType": "frigate",
-						"position": "Q21",
-						"status": { "state": "Transiting", "speedKts": 20 },
-						"uniqid": "a0pra03101"
-					},					{
 						"name": "STING",
 						"contactId": "C072", 
 						"condition": "Full capability",
@@ -533,8 +512,49 @@
 				"uniqid": "Blue"
 			},
 			{
+				"assets": [
+					{
+						"name": "USS SAN JACINTO",
+						"contactId": "C041", 
+						"condition": "Full capability",
+						"perceptions": {
+						},
+						"platformType": "frigate",
+						"position": "N21",
+						"status": { "state": "Transiting", "speedKts": 20 },
+						"uniqid": "a0pra01101"
+					},
+					{
+						"name": "PNS ASLAT",
+						"contactId": "C179", 
+						"condition": "Full capability",
+						"perceptions": {
+						},
+						"platformType": "frigate",
+						"position": "Q21",
+						"status": { "state": "Transiting", "speedKts": 20 },
+						"uniqid": "a0pra03101"
+					}
+				],
+				"color": "#00F",
+				"dirty": false,
+				"icon": "default_img/umpireDefault.png",
+				"name": "Blue2",
+				"controlledBy": ["umpire"],
+				"overview": "Blue force.",
+				"roles": [{
+					"control": false,
+					"isInsightViewer": false,
+					"isObserver": false,
+					"name": "CO",
+					"password": "p5545"
+				}],
+				"umpire": false,
+				"uniqid": "Blue2"
+			},
+			{
 				"assets": [{
-						"name": "Dhow-A",
+						"name": "TARRADA",
 						"contactId": "C065", 
 						"condition": "Full capability",
 						"locationPending": true,
@@ -547,7 +567,7 @@
 						"uniqid": "a0pra000100"
 					},
 					{
-						"name": "Dhow-B",
+						"name": "JALABAH",
 						"contactId": "C105", 
 						"condition": "Full capability",
 						"locationPending": true,
@@ -560,7 +580,7 @@
 						"uniqid": "a0pra000101"
 					},
 					{
-						"name": "Dhow-C",
+						"name": "SANBUQ",
 						"contactId": "C008", 
 						"condition": "Full capability",
 						"locationPending": true,
@@ -620,7 +640,7 @@
 						"uniqid": "a0pra150102"
 					},
 					{
-						"name": "OSA Missile Boat",
+						"name": "Osa",
 						"contactId": "C003", 
 						"condition": "Full capability",
 						"locationPending": true,
@@ -674,7 +694,7 @@
 			{
 				"assets": [
 					{
-						"name": "Tanker-1",
+						"name": "OPAL FORTUNE",
 						"contactId": "C015", 
 						"condition": "Full capability",
 						"perceptions": {
@@ -770,7 +790,7 @@
 						"uniqid": "a0pra000200"
 					},
 					{
-						"name": "Tanker-2",
+						"name": "AL SALMI",
 						"contactId": "C081", 
 						"condition": "Disabled",
 						"perceptions": {
@@ -879,7 +899,7 @@
 						"uniqid": "a0pra000201"
 					},
 					{
-						"name": "Fisher-A",
+						"name": "BERGE NEBLINA",
 						"contactId": "C116", 
 						"condition": "Full capability",
 						"perceptions": {
@@ -962,7 +982,7 @@
 						"uniqid": "a0pra000202"
 					},
 					{
-						"name": "Fisher-B",
+						"name": "SHU'I",
 						"contactId": "C026", 
 						"condition": "Full capability",
 						"perceptions": {
@@ -1044,7 +1064,7 @@
 						"uniqid": "a0pra000203"
 					},
 					{
-						"name": "Fisher-C",
+						"name": "JALBUT",
 						"contactId": "C115", 
 						"condition": "Full capability",
 						"perceptions": {
@@ -1170,7 +1190,9 @@
 					"Full capability",
 					"Limited capability",
 					"Immobile",
-					"Destroyed"
+					"Destroyed",
+					"Sunk/Sinking",
+					"Illegal Boarding"
 				],
 				"icon": "fishing-vessel.svg",
 				"speedKts": [
@@ -1190,7 +1212,8 @@
 					"Full capability",
 					"Limited capability",
 					"Immobile",
-					"Destroyed"
+					"Destroyed",
+					"Sunk/Sinking"
 				],
 				"icon": "frigate.svg",
 				"speedKts": [
@@ -1211,7 +1234,8 @@
 					"Full capability",
 					"Limited capability",
 					"Immobile",
-					"Destroyed"
+					"Destroyed",
+					"Sunk/Sinking"
 				],
 				"icon": "boghammer.svg",
 				"speedKts": [
@@ -1234,7 +1258,8 @@
 					"Full capability",
 					"Limited capability",
 					"Immobile",
-					"Destroyed"
+					"Destroyed",
+					"Sunk/Sinking"
 				],
 				"icon": "fast-attack-craft.svg",
 				"speedKts": [
@@ -1247,7 +1272,6 @@
 				"states": [
 					{ "name": "Transiting", "mobile": true },
 					{ "name": "Stopped", "mobile": false },
-					{ "name": "Onboard", "mobile": false },
 					{ "name": "Moored", "mobile": false }
 				],
 				"travelMode": "sea"
@@ -1258,7 +1282,8 @@
 					"Full capability",
 					"Limited capability",
 					"Immobile",
-					"Destroyed"
+					"Destroyed",
+					"Sunk/Sinking"
 				],
 				"icon": "mcmv.svg",
 				"speedKts": [
@@ -1326,7 +1351,9 @@
 					"Full capability",
 					"Limited capability",
 					"Immobile",
-					"Destroyed"
+					"Destroyed",
+					"Sunk/Sinking",
+					"Illegal Boarding"
 				],
 				"icon": "merchant-vessel.svg",
 				"speedKts": [
