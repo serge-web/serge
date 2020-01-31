@@ -92,7 +92,7 @@ class ForcesTab extends Component {
   };
 
   deleteChannel = (uniqid) => {
-    this.props.dispatch(deleteSelectedChannel(this.props.wargame.currentWargame, uniqid));
+    this.props.dispatch(modalAction.open("confirmDelete", {type: "channel", data: uniqid}));
   };
 
   duplicateChannel = (uniqid) => {
