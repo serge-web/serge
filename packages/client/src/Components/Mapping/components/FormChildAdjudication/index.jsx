@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import _ from 'lodash'
+
+import { ACCEPTED, REJECTED } from '../../../../consts'
 
 // import custom styles for child component
 import './styles.scss'
@@ -104,16 +106,16 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
 
   const handleRejection = e => {
     e.preventDefault()
-    setPlanStatus('rejected')
-    newStore.planStatus = 'rejected'
+    setPlanStatus(REJECTED)
+    newStore.planStatus = REJECTED
     // save data in helper class to not lose it after popup recreate
     onStoreUpdate(newStore)
   }
 
   const handleAcceptance = e => {
     e.preventDefault()
-    setPlanStatus('accepted')
-    newStore.planStatus = 'accepted'
+    setPlanStatus(ACCEPTED)
+    newStore.planStatus = ACCEPTED
     // save data in helper class to not lose it after popup recreate
     onStoreUpdate(newStore)
   }
@@ -140,7 +142,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
             <button onClick={handleAcceptance}>Accept</button>
           </>
           }
-          { planStatus && 
+          { planStatus &&
           <>
             <button onClick={handleRevert}>Revert</button>
             <button onClick={handleSubmit}>Plan Route</button>
@@ -148,53 +150,53 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
           }
         </div>
         <ReactCSSTransitionGroup
-        component="div"
-        transitionName="slide"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={300}>
-        { isActive &&
-        <div key={'status'} className="input-container radio status">
-          <label htmlFor="state">Status</label>
-          <ul>
-            {
-              states.map(status =>
-                <li key={status.name}>
-                  <label className={planStatus !== 'rejected' && 'disabled'}>
-                    {status.name}
-                    <input onChange={handleStatusChange} name="state" type="radio" disabled={ planStatus !== 'rejected'} value={status.name} checked={markerStatus === status.name}/>
-                  </label>
-                </li>
-              )
-            }
-          </ul>
-        </div>
-        }
+          component="div"
+          transitionName="slide"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          { isActive &&
+          <div key={'status'} className="input-container radio status">
+            <label htmlFor="state">Status</label>
+            <ul>
+              {
+                states.map(status =>
+                  <li key={status.name}>
+                    <label className={planStatus !== 'rejected' && 'disabled'}>
+                      {status.name}
+                      <input onChange={handleStatusChange} name="state" type="radio" disabled={ planStatus !== 'rejected'} value={status.name} checked={markerStatus === status.name}/>
+                    </label>
+                  </li>
+                )
+              }
+            </ul>
+          </div>
+          }
         </ReactCSSTransitionGroup>
         <ReactCSSTransitionGroup
-        component="div"
-        transitionName="slide"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={300}>
-        {
-          speedKts &&
-          isMobile &&
-          isActive &&
-          <div key={'speed'} className="input-container radio">
-          <label htmlFor="speed">Speed (kts)</label>
-          <ul>
-            {
-              speedKts.map(speed =>
-                <li key={speed}>
-                  <label className={planStatus !== 'rejected' && 'disabled'}>
-                    {speed}
-                    <input onChange={handleSpeedChange} name="speed" type="radio"  disabled={ planStatus !== 'rejected'} value={speed} checked={markerSpeed === speed} />
-                  </label>
-                </li>
-              )
-            }
-          </ul>
-        </div>
-        }
+          component="div"
+          transitionName="slide"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {
+            speedKts &&
+            isMobile &&
+            isActive &&
+            <div key={'speed'} className="input-container radio">
+              <label htmlFor="speed">Speed (kts)</label>
+              <ul>
+                {
+                  speedKts.map(speed =>
+                    <li key={speed}>
+                      <label className={planStatus !== 'rejected' && 'disabled'}>
+                        {speed}
+                        <input onChange={handleSpeedChange} name="speed" type="radio" disabled={ planStatus !== 'rejected'} value={speed} checked={markerSpeed === speed} />
+                      </label>
+                    </li>
+                  )
+                }
+              </ul>
+            </div>
+          }
         </ReactCSSTransitionGroup>
       </fieldset>
       <fieldset className="visibility">
