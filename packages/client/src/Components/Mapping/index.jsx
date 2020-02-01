@@ -8,19 +8,17 @@ import {
   forceFor,
   GridImplementation,
   hasPendingForces,
-  MapAdjudicationPendingListener,
   MapPlanningPlayerListener,
-  MapPopupHelper,
+  MapAdjudicationPendingListener,
   markerFor
 } from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, UMPIRE_FORCE } from '../../consts'
 
-// Import the components for FormContainer
+// declare the forms in JSX space, so we can pass them to JS space
+import Adjudicate from './components/FormChildAdjudication'
 import Perception from './components/FormChildPerception'
 import PlannedStatus from './components/FormChildPlannedStatus'
-import Adjudication from './components/FormChildAdjudication'
-import MappingForm from './components/FormContainer'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import removeClassNamesFrom from './helpers/removeClassNamesFrom'
@@ -244,10 +242,15 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       // this force has assets with location pending
       currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
     } else {
+      const reactForms = {
+        adjudicate: <Adjudicate/>,
+        perception: <Perception/>,
+        plannedStatus: <PlannedStatus/>
+      }
       currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
         myForceRef.current, currentTurn, routeCompleteCallback,
         platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase,
-        newStateOfWorldCallback, visChangesFunc, allRoutes)
+        newStateOfWorldCallback, visChangesFunc, allRoutes, reactForms)
     }
 
     // create markers, and listen to them
@@ -331,77 +334,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         marker.remove()
         toDelete.push(marker)
       }
-
-      // work out if the current state is mobile or not
-      const markerState = marker.asset.platformTypeDetail.states.find(state => state.name === marker.asset.status.state)
-
-      // Get's a list of the current forces who can see the current marker
-
-      const currentMarkerVisibleTo = Object.entries(marker.asset.perceptions).map(([key]) => key)
-
-      // Show a form on popup
-      const popup = new MapPopupHelper(mapRef.current, marker)
-      popup.setStore({
-        formType: null,
-        currentForce: myForceRef.current,
-        planStatus: null,
-        currentMarker: marker.asset,
-        currentMarkerName: marker.asset.name,
-        currentMarkerForce: marker.asset.force,
-        currentMarkerStatus: markerState.name,
-        currentMarkerIsMobile: markerState.mobile,
-        currentMarkerSpeed: marker.asset.status.speedKts,
-        currentMarkerCondition: marker.asset.condition,
-        currentMarkerVisibleTo,
-        turnsInThisState: 1,
-        perception: marker.asset.perceptions[myForceRef.current] || null,
-        allForces,
-        allPlatforms
-      })
-      popup.onUpdate(data => {
-        if (data) {
-          popup.setStore(data)
-
-          switch (data.formType) {
-            case 'perception' :
-              perceivedStateCallback(marker.asset.uniqid, data.currentForce, data.perception)
-              break
-            case 'planned-status':
-              // NOTE: Temporary logging to show data is sent back, to be integrated in a later PR
-              console.log({
-                status: data.currentMarkerStatus,
-                speed: data.currentMarkerSpeed,
-                turnsInThisState: data.turnsInThisState
-              }
-              )
-              break
-            case 'adjudication' :
-              console.log({
-                planStatus: data.planStatus,
-                marker: {
-                  status: data.currentMarkerStatus,
-                  speed: data.currentMarkerSpeed,
-                  condition: data.currentMarkerCondition,
-                  visbleTo: data.currentMarkerVisibleTo
-                }
-              })
-              break
-          }
-        }
-        popup.closePopup(() => {
-          console.log('popup closed')
-        })
-      })
-      if (myForceRef.current !== 'umpire') {
-        (myForceRef.current !== marker.asset.force)
-          ? popup.useComponent(MappingForm, <Perception />)
-          : popup.useComponent(MappingForm, <PlannedStatus />)
-      } else {
-        popup.useComponent(MappingForm, <Adjudication />)
-      }
-
-      // popup.openPopup()
-      popup.renderListener()
     })
     toDelete.forEach(marker => markers.removeLayer(marker))
     // trim the items in visibleTo me
