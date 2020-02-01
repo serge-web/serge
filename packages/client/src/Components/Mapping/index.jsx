@@ -10,11 +10,10 @@ import {
   hasPendingForces,
   MapAdjudicationPendingListener,
   MapPlanningPlayerListener,
-  MapPopupHelper,
   markerFor
 } from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE } from '../../consts'
+import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, UMPIRE_FORCE } from '../../consts'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import removeClassNamesFrom from './helpers/removeClassNamesFrom'
@@ -27,8 +26,6 @@ import './styles.scss'
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
 import OrdersPanel from './ordersPanel'
-
-import MappingForm from './components/FormContainer'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
@@ -172,11 +169,11 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     // set the asset force
     asset.force = force.uniqid
 
-    const userIsUmpire = myForceRef.current === 'umpire'
+    const userIsUmpire = myForceRef.current === UMPIRE_FORCE
 
     // note - if we're in adjudication phase, at turn zero, we don't see assets for other forces
     let showThis
-    if (phase === 'adjudication' && currentTurn === 0 && !userIsUmpire) {
+    if (phase === ADJUDICATION_PHASE && currentTurn === 0 && !userIsUmpire) {
       // ok, special mode = we only show our assets in this mode
       showThis = asset.force === selectedForce
     } else {
@@ -191,6 +188,15 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       if (marker != null) {
         currentPhaseModeRef.current.listenTo(marker, currentTurn)
         platformsLayerRef.current.addLayer(marker)
+
+        // Note: we may wish to add a CSS class to the counter. But, we can only do this if
+        // it has already been added to the map. Perform last bit of `markerFor` processing here:
+        // is the condition different to the first one listed
+        if (asset.nonStandardCondition) {
+          // apply styling
+          L.DomUtil.addClass(marker._icon, 'platform-abnormal-condition')
+          L.DomUtil.addClass(marker._icon, 'platform-abnormal-' + asset.condition)
+        }
       }
     }
   }
@@ -262,22 +268,25 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const grid = gridImplRef.current
     //
     // ASSET MOVEMENT
-    // NOTE: no, we don't bother updating on movement. Movement is handled when
-    // we move to a new game phase
-    // markers.eachLayer(function (marker) {
-    //   const force = allForces.find(force => marker.force === force.name)
-    //   if (force && marker.asset) {
-    //     const asset = force.assets.find(({ name }) => name === marker.asset.name)
-    //     if (asset) {
-    //       // check the positions match
-    //       if (marker.asset.position !== asset.position) {
-    //         // update marker
-    //         marker.setLatLng(grid.hexNamed(asset.position).centrePos)
-    //       }
-    //     } else {
-    //     }
-    //   }
-    // })
+    // NOTE: only update location if we're umpire. This is because white
+    // needs to know red force locations during force laydown, so the
+    // umpire can correct asset visibility
+    if (phase === ADJUDICATION_PHASE && myForceRef.current === UMPIRE_FORCE) {
+      markers.eachLayer(function (marker) {
+        const force = allForces.find(force => marker.force === force.name)
+        if (force && marker.asset) {
+          const asset = force.assets.find(({ name }) => name === marker.asset.name)
+          if (asset) {
+            // check the positions match
+            if (marker.asset.position !== asset.position) {
+              // update marker
+              marker.setLatLng(grid.hexNamed(asset.position).centrePos)
+            }
+          } else {
+          }
+        }
+      })
+    }
     //
     // ASSET VISIBILITY
     //
@@ -285,7 +294,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const foundItems = []
     const toDelete = []
 
-    const userIsUmpire = myForceRef.current === 'umpire'
+    const userIsUmpire = myForceRef.current === UMPIRE_FORCE
 
     markers.eachLayer(marker => {
       const uniqid = marker.asset.uniqid
@@ -316,28 +325,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         marker.remove()
         toDelete.push(marker)
       }
-      // Show a form on popup
-      const popup = new MapPopupHelper(mapRef.current, marker)
-      popup.setStore({
-        currentForce: myForceRef.current,
-        currentMarkerName: marker.asset.name,
-        currentMarkerForce: marker.asset.force,
-        perception: marker.asset.perceptions[myForceRef.current],
-        allForces,
-        allPlatforms
-      })
-      popup.onUpdate(data => {
-        if (data) {
-          popup.setStore(data)
-          perceivedStateCallback(marker.asset.uniqid, data.currentForce, data.perception)
-        }
-        popup.closePopup(() => {
-          console.log('popup closed')
-        })
-      })
-      popup.useComponent(MappingForm)
-      // popup.openPopup()
-      popup.renderListener()
     })
     toDelete.forEach(marker => markers.removeLayer(marker))
     // trim the items in visibleTo me

@@ -14,6 +14,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    newStore.formType = 'perception'
     callbackFunction(newStore)
   }
 
@@ -35,7 +36,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
   return (
     <form action="">
       <h2>{currentMarkerName}</h2>
-      <div className="input-container checkbox">
+      <div className="input-container radio">
         <label htmlFor="force">Perceived force</label>
         <ul>
           {
