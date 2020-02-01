@@ -451,61 +451,46 @@
 			},
 			{
 				"assets": [{
-						"name": "Frigate",
+						"name": "HMS DEVONSHIRE",
 						"contactId": "C043", 
-						"condition": "Working",
+						"condition": "Full capability",
 						"perceptions": {
 							"Red": {"force":"Blue", "type":"frigate", "name": "NORT"}
 						},
 						"platformType": "frigate",
-						"position": "P21",
+						"position": "S23",
 						"status": { "state": "Transiting", "speedKts": 20 },
 						"uniqid": "a0pra00001"
 					},
 					{
-						"name": "MPA",
+						"name": "STING",
 						"contactId": "C072", 
-						"condition": "Working",
+						"condition": "Full capability",
+						"perceptions": {
+						},
+						"platformType": "helicopter",
+						"position": "C18",
+						"status": { "state": "Landed"},
+						"uniqid": "a0pra00002"
+					},					{
+						"name": "P8",
+						"contactId": "C076", 
+						"condition": "Full capability",
 						"perceptions": {
 						},
 						"platformType": "fixed-wing-aircraft",
 						"position": "C17",
 						"status": { "state": "Landed"},
-						"uniqid": "a0pra00002"
+						"uniqid": "a0pra00012"
 					},
 					{
-						"name": "Tanker",
+						"name": "EDDYSTONE PT",
 						"contactId": "C012", 
-						"condition": "Working",
+						"condition": "Full capability",
 						"perceptions": {
 							"Red": {"force":"Blue", "type":""}
-						},
-						"plannedTurns": [
-							{
-								"turn": 2,
-								"route": [
-									"R22",
-									"Q22"
-								],
-								"status": { "state": "Transiting", "speedKts": 20 }
-							},
-							{
-								"turn": 3,
-								"route": [
-									"P21",
-									"O21"
-								],
-								"status": { "state": "Transiting", "speedKts": 20 }
-							},
-							{
-								"turn": 4,
-								"route": [
-									"O20",
-									"O19"
-								],
-								"status": { "state": "Transiting", "speedKts": 20 }
-							}
-						],						"platformType": "merchant-vessel",
+						},						
+						"platformType": "merchant-vessel",
 						"position": "S23",
 						"status": { "state": "Transiting", "speedKts": 20 },
 						"uniqid": "a0pra00003"
@@ -527,48 +512,163 @@
 				"uniqid": "Blue"
 			},
 			{
+				"assets": [
+					{
+						"name": "USS SAN JACINTO",
+						"contactId": "C041", 
+						"condition": "Full capability",
+						"perceptions": {
+							"Blue": {"force":"Blue2", "type":"frigate", "name": "USS SAN JACINTO" }
+						},
+						"platformType": "frigate",
+						"position": "N21",
+						"status": { "state": "Transiting", "speedKts": 20 },
+						"uniqid": "a0pra01101"
+					},
+					{
+						"name": "PNS ASLAT",
+						"contactId": "C179", 
+						"condition": "Full capability",
+						"perceptions": {
+							"Blue": {"force":"Blue2", "type":"frigate", "name": "PNS ASLAT" }
+						},
+						"platformType": "frigate",
+						"position": "Q21",
+						"status": { "state": "Transiting", "speedKts": 20 },
+						"uniqid": "a0pra03101"
+					}
+				],
+				"color": "#00F",
+				"dirty": false,
+				"icon": "default_img/umpireDefault.png",
+				"name": "Blue2",
+				"controlledBy": ["umpire"],
+				"overview": "Blue force.",
+				"roles": [{
+					"control": false,
+					"isInsightViewer": false,
+					"isObserver": false,
+					"name": "CO",
+					"password": "p5545"
+				}],
+				"umpire": false,
+				"uniqid": "Blue2"
+			},
+			{
 				"assets": [{
-						"name": "Dhow-A",
+						"name": "TARRADA",
 						"contactId": "C065", 
-						"condition": "Working",
+						"condition": "Full capability",
 						"locationPending": true,
 						"perceptions": {
 							"Blue": {"force":"Green", "type":""}
 						},
 						"platformType": "fishing-vessel",
-						"position": "N04",
+						"position": "N07",
 						"status": { "state": "Transiting", "speedKts": 10 },
 						"uniqid": "a0pra000100"
 					},
 					{
-						"name": "Dhow-B",
+						"name": "JALABAH",
 						"contactId": "C105", 
-						"condition": "Working",
+						"condition": "Full capability",
 						"locationPending": true,
 						"perceptions": {
 							"Blue": {"force":"Green", "type":"fishing-vessel", "name": "SHU’AI"}
 						},
 						"platformType": "fishing-vessel",
-						"position": "N10",
+						"position": "N06",
 						"status": { "state": "Transiting", "speedKts": 10 },
 						"uniqid": "a0pra000101"
 					},
 					{
-						"name": "Dhow-C",
+						"name": "SANBUQ",
 						"contactId": "C008", 
-						"condition": "Working",
+						"condition": "Full capability",
 						"locationPending": true,
 						"perceptions": {
 						},
 						"platformType": "fishing-vessel",
-						"position": "Q18",
+						"position": "N05",
 						"status": { "state": "Moored" },
 						"uniqid": "a0pra000102"
+					}, 
+					{
+						"name": "WBIED-1",
+						"contactId": "C108", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "Boghammer",
+						"position": "Q07",
+						"status": { "state": "Onboard" },
+						"uniqid": "a0pra020102"
 					},
 					{
-						"name": "Missile-A",
-						"contactId": "C076", 
-						"condition": "Working",
+						"name": "WBIED-2",
+						"contactId": "C118", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "Boghammer",
+						"position": "Q06",
+						"status": { "state": "Onboard" },
+						"uniqid": "a0pra130102"
+					},
+					{
+						"name": "C14-1 Missile Boat",
+						"contactId": "C218", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "fast-attack-craft",
+						"position": "M07",
+						"status": { "state": "Moored" },
+						"uniqid": "a0pra140102"
+					},
+					{
+						"name": "C14-2 Missile Boat",
+						"contactId": "C101", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "fast-attack-craft",
+						"position": "M06",
+						"status": { "state": "Moored" },
+						"uniqid": "a0pra150102"
+					},
+					{
+						"name": "Osa",
+						"contactId": "C003", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "fast-attack-craft",
+						"position": "M05",
+						"status": { "state": "Moored" },
+						"uniqid": "a0pra160102"
+					},
+					{
+						"name": "Yevgenya",
+						"contactId": "C313", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "mcmv",
+						"position": "M04",
+						"status": { "state": "Moored" },
+						"uniqid": "a0pra170102"
+					},
+					{
+						"name": "Coastal Radar A",
+						"contactId": "C064", 
+						"condition": "Full capability",
 						"locationPending": true,
 						"perceptions": {
 						},
@@ -576,6 +676,30 @@
 						"position": "Q12",
 						"status": { "state": "Inactive" },
 						"uniqid": "a0pra000103"
+					},
+					{
+						"name": "Coastal Radar B (No missiles)",
+						"contactId": "C076", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "coastal-radar-site",
+						"position": "Q12",
+						"status": { "state": "Inactive" },
+						"uniqid": "a0prb000103"
+					},
+					{
+						"name": "Coastal Radar C",
+						"contactId": "C476", 
+						"condition": "Full capability",
+						"locationPending": true,
+						"perceptions": {
+						},
+						"platformType": "coastal-radar-site",
+						"position": "Q12",
+						"status": { "state": "Inactive" },
+						"uniqid": "a0prc000103"
 					}
 				],
 				"color": "#F00",
@@ -596,9 +720,9 @@
 			{
 				"assets": [
 					{
-						"name": "Tanker-1",
+						"name": "OPAL FORTUNE",
 						"contactId": "C015", 
-						"condition": "Working",
+						"condition": "Full capability",
 						"perceptions": {
 							"Blue": {	"force": "Green",	"type": "merchant-vessel", "name": "OSAKA" }
 						},
@@ -692,7 +816,7 @@
 						"uniqid": "a0pra000200"
 					},
 					{
-						"name": "Tanker-2",
+						"name": "AL SALMI",
 						"contactId": "C081", 
 						"condition": "Disabled",
 						"perceptions": {
@@ -801,9 +925,9 @@
 						"uniqid": "a0pra000201"
 					},
 					{
-						"name": "Fisher-A",
+						"name": "BERGE NEBLINA",
 						"contactId": "C116", 
-						"condition": "Working",
+						"condition": "Full capability",
 						"perceptions": {
 							"Blue": { "force": "Green", "type": "merchant-vessel", "name": "JALIBUT"
 							}
@@ -884,9 +1008,9 @@
 						"uniqid": "a0pra000202"
 					},
 					{
-						"name": "Fisher-B",
+						"name": "SHU'I",
 						"contactId": "C026", 
-						"condition": "Working",
+						"condition": "Full capability",
 						"perceptions": {
 							"Blue": { "force": "Green",	"type": "merchant-vessel"	}
 						},
@@ -966,9 +1090,9 @@
 						"uniqid": "a0pra000203"
 					},
 					{
-						"name": "Fisher-C",
+						"name": "JALBUT",
 						"contactId": "C115", 
-						"condition": "Working",
+						"condition": "Full capability",
 						"perceptions": {
 							"Blue": {	"force": "Green",	"type": "merchant-vessel", "name": "BOUM 3"	},
 							"Red": {	"force": "Green",	"type": "merchant-vessel", "name": "BOUM 3" }
@@ -1089,14 +1213,17 @@
 		"platformTypes": [{
 				"name": "Fishing vessel",
 				"conditions": [
-					"Working",
-					"Disabled",
+					"Full capability",
+					"Limited capability",
 					"Immobile",
-					"Destroyed"
+					"Destroyed",
+					"Sunk/Sinking",
+					"Illegal Boarding"
 				],
 				"icon": "fishing-vessel.svg",
 				"speedKts": [
-					10
+					10,
+					20
 				],
 				"states": [
 					{ "name": "Fishing", "mobile": false },
@@ -1108,10 +1235,11 @@
 			{
 				"name": "Frigate",
 				"conditions": [
-					"Working",
-					"Disabled",
+					"Full capability",
+					"Limited capability",
 					"Immobile",
-					"Destroyed"
+					"Destroyed",
+					"Sunk/Sinking"
 				],
 				"icon": "frigate.svg",
 				"speedKts": [
@@ -1120,54 +1248,138 @@
 					30
 				],
 				"states": [
-					{ "name": "Escorting", "mobile": true },
-					{ "name": "Pursuing", "mobile": true },
-					{ "name": "Transiting", "mobile": true }
+					{ "name": "Transiting", "mobile": true },
+					{ "name": "Stopped", "mobile": false },
+					{ "name": "Moored", "mobile": false }
 				],
 				"travelMode": "sea"
 			},
 			{
+				"name": "Boghammer",
+				"conditions": [
+					"Full capability",
+					"Limited capability",
+					"Immobile",
+					"Destroyed",
+					"Sunk/Sinking"
+				],
+				"icon": "boghammer.svg",
+				"speedKts": [
+					10,
+					20,
+					30,
+					40
+				],
+				"states": [
+					{ "name": "Transiting", "mobile": true },
+					{ "name": "Stopped", "mobile": false },
+					{ "name": "Onboard", "mobile": false },
+					{ "name": "Moored", "mobile": false }
+				],
+				"travelMode": "sea"
+			},	
+			{
+				"name": "Fast attack craft",
+				"conditions": [
+					"Full capability",
+					"Limited capability",
+					"Immobile",
+					"Destroyed",
+					"Sunk/Sinking"
+				],
+				"icon": "fast-attack-craft.svg",
+				"speedKts": [
+					10,
+					20,
+					30,
+					40,
+					50
+				],
+				"states": [
+					{ "name": "Transiting", "mobile": true },
+					{ "name": "Stopped", "mobile": false },
+					{ "name": "Moored", "mobile": false }
+				],
+				"travelMode": "sea"
+			},	
+			{
+				"name": "MCMV",
+				"conditions": [
+					"Full capability",
+					"Limited capability",
+					"Immobile",
+					"Destroyed",
+					"Sunk/Sinking"
+				],
+				"icon": "mcmv.svg",
+				"speedKts": [
+					10
+				],
+				"states": [
+					{ "name": "Transiting", "mobile": true },
+					{ "name": "Stopped", "mobile": false },
+					{ "name": "Moored", "mobile": false }
+				],
+				"travelMode": "sea"
+			},			
+			{
+				"name": "Helicopter",
+				"conditions": [
+					"Full capability",
+					"Limited capability",
+					"Immobile",
+					"Destroyed"
+				],
+				"icon": "helicopter.svg",
+				"speedKts": [],
+				"states": [
+					{ "name": "Airborne", "mobile": true },
+					{ "name": "Landed", "mobile": true },
+					{ "name": "Preparing for launch", "mobile": false }
+				],
+				"travelMode": "air"
+			},
+			{
 				"name": "Fixed wing aircraft",
 				"conditions": [
-					"Working",
-					"Disabled",
+					"Full capability",
+					"Limited capability",
 					"Immobile",
 					"Destroyed"
 				],
 				"icon": "fixed-wing-aircraft.svg",
 				"speedKts": [],
 				"states": [
-					{ "name": "Landed", "mobile": false },
-					{ "name": "Patrolling", "mobile": true },
-					{ "name": "Prosecuting", "mobile": true },
-					{ "name": "Searching", "mobile": true },
-					{ "name": "Transiting", "mobile": true }
+					{ "name": "Airborne", "mobile": true },
+					{ "name": "Landed", "mobile": true },
+					{ "name": "Preparing for launch", "mobile": false }
 				],
 				"travelMode": "air"
 			},
 			{
 				"name": "Coastal radar site",
 				"conditions": [
-					"Working",
-					"Disabled",
-					"Immobile",
+					"Full capability",
+					"Limited capability",
 					"Destroyed"
 				],
 				"icon": "coastal-radar-site.svg",
 				"states": [
 					{ "name": "Inactive", "mobile": false },
 					{ "name": "Active", "mobile": false },
-					{ "name": "Prosecuting", "mobile": false }
+					{ "name": "Engaging", "mobile": false }
 				],
 				"travelMode": "land"
 			},
 			{
 				"name": "Merchant vessel",
 				"conditions": [
-					"Working",
-					"Disabled",
+					"Full capability",
+					"Limited capability",
 					"Immobile",
-					"Destroyed"
+					"Destroyed",
+					"Sunk/Sinking",
+					"Illegal Boarding"
 				],
 				"icon": "merchant-vessel.svg",
 				"speedKts": [
@@ -1175,8 +1387,9 @@
 					20
 				],
 				"states": [
-					{ "name": "Moored", "mobile": false },
-					{ "name": "Transiting", "mobile": true }
+					{ "name": "Transiting", "mobile": true },
+					{ "name": "Stopped", "mobile": false },
+					{ "name": "Moored", "mobile": false }
 				],
 				"travelMode": "sea"
 			}

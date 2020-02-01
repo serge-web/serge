@@ -12,8 +12,8 @@ export default function findPerceivedAsClasses (/* string */ myForce, /* string 
     }
   }
   if (perception) {
-    const forceClass = perception && perception.force ? perception.force.toLowerCase() : 'unknown'
-    const typeClass = perception && perception.type ? perception.type.replace(/ /g, '-').toLowerCase() : 'unknown'
+    const forceClass = perception.force ? perception.force.toLowerCase() : 'unknown'
+    const typeClass = perception.type ? perception.type.replace(/ /g, '-').toLowerCase() : 'unknown'
     return `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
   } else {
     return perception
