@@ -1,430 +1,106 @@
 {
 	"channels": {
-		"channels": [{
-			"name": "Mapping",
-			"participants": [{
-					"force": "White",
-					"forceUniqid": "umpire",
-					"icon": "http://192.168.1.123:8080/default_img/umpireDefault.png",
-					"roles": [],
-					"subscriptionId": "k53tifeo",
-					"templates": [{
-							"label": "State of World L",
-							"value": {
-								"_id": "k16eedkp",
-								"_rev": "1-612d7dc5d10fc81bc7459b2801c66816",
-								"completed": false,
-								"details": {
-									"properties": {
-										"Forces": {
-											"format": "table",
-											"items": {
-												"minItems": 1,
-												"properties": {
-													"assets": {
-														"format": "table",
-														"items": {
-															"properties": {
-																"location": {
-																	"maxLength": 3,
-																	"type": "string"
-																},
-																"name": {
-																	"type": "string"
-																},
-																"visibleTo": {
-																	"format": "table",
-																	"items": {
-																		"properties": {
-																			"Force": {
-																				"enum": [
-																					"Blue",
-																					"Red",
-																					"Green"
-																				],
-																				"type": "string"
-																			}
-																		}
-																	},
-																	"type": "array"
-																}
-															}
-														},
-														"minItems": 1,
-														"type": "array"
-													},
-													"force": {
-														"enum": [
-															"Blue",
-															"Red",
-															"Green"
-														],
-														"propertyOrder": 100,
-														"type": "string"
-													}
-												}
-											},
-											"minItems": 1,
-											"type": "array"
-										}
-									},
-									"title": "State of World (laydown 2)",
-									"type": "object"
-								},
-								"lastUpdated": "2019-09-30T12:37:26.705Z",
-								"title": "State of World L"
-							}
-						},
-						{
-							"label": "State of world (full 2)",
-							"value": {
-								"_id": "2019-12-20T15:57:11.519Z",
-								"_rev": "1-4bd7b0b5488182f39f10d5203bb1fad8",
-								"completed": false,
-								"details": {
-									"properties": {
-										"Forces": {
-											"format": "table",
-											"items": {
-												"minItems": 1,
-												"properties": {
-													"assets": {
-														"format": "table",
-														"items": {
-															"properties": {
-																"history": {
-																	"format": "table",
-																	"items": {
-																		"properties": {
-																			"Route": {
-																				"format": "table",
-																				"items": {
-																					"properties": {
-																						"Location": {
-																							"maxLength": 3,
-																							"type": "string"
-																						}
-																					}
-																				},
-																				"minItems": 1,
-																				"propertyOrder": 400,
-																				"type": "array"
-																			},
-																			"Speed": {
-																				"propertyOrder": 300,
-																				"type": "number"
-																			},
-																			"State": {
-																				"propertyOrder": 200,
-																				"type": "string"
-																			},
-																			"Turn": {
-																				"propertyOrder": 100,
-																				"type": "string"
-																			}
-																		}
-																	},
-																	"minItems": 1,
-																	"type": "array"
-																},
-																"name": {
-																	"propertyOrder": 100,
-																	"type": "string"
-																},
-																"planned": {
-																	"format": "table",
-																	"items": {
-																		"properties": {
-																			"Route": {
-																				"format": "table",
-																				"items": {
-																					"properties": {
-																						"Location": {
-																							"maxLength": 3,
-																							"type": "string"
-																						}
-																					}
-																				},
-																				"minItems": 1,
-																				"propertyOrder": 400,
-																				"type": "array"
-																			},
-																			"Speed": {
-																				"propertyOrder": 300,
-																				"type": "number"
-																			},
-																			"State": {
-																				"propertyOrder": 200,
-																				"type": "string"
-																			},
-																			"Turn": {
-																				"propertyOrder": 100,
-																				"type": "string"
-																			}
-																		}
-																	},
-																	"minItems": 1,
-																	"propertyOrder": 2000,
-																	"type": "array"
-																},
-																"visibleTo": {
-																	"format": "table",
-																	"items": {
-																		"properties": {
-																			"Force": {
-																				"enum": [
-																					"Blue",
-																					"Red",
-																					"Green"
-																				],
-																				"type": "string"
-																			}
-																		}
-																	},
-																	"propertyOrder": 300,
-																	"type": "array"
-																}
-															}
-														},
-														"minItems": 1,
-														"type": "array"
-													},
-													"force": {
-														"enum": [
-															"Blue",
-															"Red",
-															"Green"
-														],
-														"propertyOrder": 100,
-														"type": "string"
-													}
-												}
-											},
-											"minItems": 1,
-											"type": "array"
-										}
-									},
-									"title": "State of World (Full 2)",
-									"type": "object"
-								},
-								"lastUpdated": "2019-12-20T15:57:11.519Z",
-								"title": "State of world (full 2)"
-							}
-						}
-					]
-				},
-				{
-					"force": "Blue",
-					"forceUniqid": "Blue",
-					"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
-					"roles": [],
-					"subscriptionId": "k53tij98",
-					"templates": [{
-						"label": "Orders (M2)",
-						"value": {
-							"_id": "k16eedkk",
-							"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
-							"completed": false,
-							"details": {
-								"properties": {
-									"Assets": {
-										"format": "table",
-										"items": {
-											"properties": {
-												"Name": {
-													"propertyOrder": 100,
-													"type": "string"
-												},
-												"Route": {
-													"format": "table",
-													"items": {
-														"properties": {
-															"Location": {
-																"maxLength": 3,
-																"type": "string"
-															}
-														}
-													},
-													"minItems": 1,
-													"propertyOrder": 400,
-													"type": "array"
-												},
-												"Speed": {
-													"propertyOrder": 300,
-													"type": "number"
-												},
-												"State": {
-													"propertyOrder": 200,
-													"type": "string"
-												}
-											}
-										},
-										"minItems": 1,
-										"type": "array"
-									}
-								},
-								"title": "Orders (m2c)",
-								"type": "object"
-							},
-							"lastUpdated": "2019-09-30T12:37:26.705Z",
-							"title": "Orders (M2)"
-						}
-					}]
-				},
-				{
-					"force": "Red",
-					"forceUniqid": "Red",
-					"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
-					"roles": [],
-					"subscriptionId": "k53tiqdf",
-					"templates": [{
-							"label": "Orders (M2)",
-							"value": {
-								"_id": "k16eedkk",
-								"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
-								"completed": false,
-								"details": {
-									"properties": {
-										"Assets": {
-											"format": "table",
-											"items": {
-												"properties": {
-													"Name": {
-														"propertyOrder": 100,
-														"type": "string"
-													},
-													"Route": {
-														"format": "table",
-														"items": {
-															"properties": {
-																"Location": {
-																	"maxLength": 3,
-																	"type": "string"
-																}
-															}
-														},
-														"minItems": 1,
-														"propertyOrder": 400,
-														"type": "array"
-													},
-													"Speed": {
-														"propertyOrder": 300,
-														"type": "number"
-													},
-													"State": {
-														"propertyOrder": 200,
-														"type": "string"
-													}
-												}
-											},
-											"minItems": 1,
-											"type": "array"
-										}
-									},
-									"title": "Orders (m2c)",
-									"type": "object"
-								},
-								"lastUpdated": "2019-09-30T12:37:26.705Z",
-								"title": "Orders (M2)"
-							}
-						},
-						{
-							"label": "Laydown",
-							"value": {
-								"_id": "2019-12-20T14:28:22.999Z",
-								"_rev": "1-741dde8c87e0a0fcbe335c234b1619a3",
-								"completed": false,
-								"details": {
-									"properties": {
-										"Initial Locations": {
-											"format": "table",
-											"items": {
-												"properties": {
-													"location": {
-														"maxLength": 3,
-														"type": "string"
-													},
-													"name": {
-														"propertyOrder": 100,
-														"type": "string"
-													}
-												},
-												"type": "object"
-											},
-											"minItems": 1,
-											"type": "array"
-										}
-									},
-									"title": "laydown",
-									"type": "object"
-								},
-								"lastUpdated": "2019-12-20T14:28:22.999Z",
-								"title": "Laydown"
-							}
-						}
-					]
-				},
-				{
-					"force": "Green",
-					"forceUniqid": "Green",
-					"icon": "http://192.168.1.123:8080/default_img/forceDefault.png",
-					"roles": [],
-					"subscriptionId": "k53tivj5",
-					"templates": [{
-						"label": "Orders (M2)",
-						"value": {
-							"_id": "k16eedkk",
-							"_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8",
-							"completed": false,
-							"details": {
-								"properties": {
-									"Assets": {
-										"format": "table",
-										"items": {
-											"properties": {
-												"Name": {
-													"propertyOrder": 100,
-													"type": "string"
-												},
-												"Route": {
-													"format": "table",
-													"items": {
-														"properties": {
-															"Location": {
-																"maxLength": 3,
-																"type": "string"
-															}
-														}
-													},
-													"minItems": 1,
-													"propertyOrder": 400,
-													"type": "array"
-												},
-												"Speed": {
-													"propertyOrder": 300,
-													"type": "number"
-												},
-												"State": {
-													"propertyOrder": 200,
-													"type": "string"
-												}
-											}
-										},
-										"minItems": 1,
-										"type": "array"
-									}
-								},
-								"title": "Orders (m2c)",
-								"type": "object"
-							},
-							"lastUpdated": "2019-09-30T12:37:26.705Z",
-							"title": "Orders (M2)"
-						}
-					}]
-				}
-			],
-			"uniqid": "channel-k53ti36p"
-		}],
+		"channels": {
+      "channels": [
+        {
+          "name": "Mapping",
+          "participants": [
+            {
+              "force": "White",
+              "forceUniqid": "umpire",
+              "icon": "default_img/umpireDefault.png",
+              "roles": [
+              ],
+              "subscriptionId": "k53tifeo",
+              "templates": [
+              ]
+            },
+            {
+              "force": "Blue",
+              "forceUniqid": "Blue",
+              "icon": "default_img/umpireDefault.png",
+              "roles": [
+              ],
+              "subscriptionId": "k53tij98",
+              "templates": [
+              ]
+            },
+            {
+              "force": "Red",
+              "forceUniqid": "Red",
+              "icon": "default_img/umpireDefault.png",
+              "roles": [
+              ],
+              "subscriptionId": "k53tiqdf",
+              "templates": [
+              ]
+            }
+          ],
+          "uniqid": "channel-k53ti36p"
+        },
+          {
+            "name": "Channel 16",
+            "participants": [
+              {
+                "force": "White",
+                "forceUniqid": "umpire",
+                "icon": "default_img/umpireDefault.png",
+                "roles": [
+                ],
+                "subscriptionId": "k63pjpfv",
+                "templates": [
+                ]
+              },
+              {
+                "force": "Red",
+                "forceUniqid": "Red",
+                "icon": "default_img/umpireDefault.png",
+                "roles": [
+                ],
+                "subscriptionId": "k63pjsbv",
+                "templates": [
+                ]
+              },
+              {
+                "force": "Blue",
+                "forceUniqid": "Blue",
+                "icon": "default_img/umpireDefault.png",
+                "roles": [
+                ],
+                "subscriptionId": "k63pju7l",
+                "templates": [
+                ]
+              }
+            ],
+            "uniqid": "channel-k63pjit0"
+          },
+          {
+            "name": "Blue Net",
+            "participants": [
+              {
+                "force": "White",
+                "forceUniqid": "umpire",
+                "icon": "default_img/umpireDefault.png",
+                "roles": [
+                ],
+                "subscriptionId": "k63pk0d3",
+                "templates": [
+                ]
+              },
+              {
+                "force": "Blue",
+                "forceUniqid": "Blue",
+                "icon": "default_img/umpireDefault.png",
+                "roles": [
+                ],
+                "subscriptionId": "k63pk2o6",
+                "templates": [
+                ]
+              }
+            ],
+            "uniqid": "channel-k63pjvpb"
+          }
+      ],
 		"complete": false,
 		"dirty": false,
 		"name": "Channels",
