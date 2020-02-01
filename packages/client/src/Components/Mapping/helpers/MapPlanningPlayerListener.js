@@ -9,7 +9,6 @@ import resetCurrentLeg from './resetLegsFrom'
 import getClearedRoute from './getClearedRoute'
 import routeLinesFor from './routeLinesFor'
 import turnNameFor from './turnNameFor'
-import createStateButtonsFor from './createStateButtonsFor'
 import roundToNearest from './roundToNearest'
 import findPlatformTypeFor from './findPlatformTypeFor'
 import canControlThisForce from './canControlThisForce'
@@ -865,7 +864,7 @@ export default class MapPlanningPlayerListener {
 
       // Get's a list of the current forces who can see the current marker
 
-      const currentMarkerVisibleTo = Object.entries(marker.asset.perceptions).map(([key]) => key)
+      const currentMarkerVisibleTo = Object.entries(this.currentRoute.current_perceptions).map(([key]) => key)
 
       // Show a form on popup
       const popup = new MapPopupHelper(this.map, marker)
@@ -878,10 +877,9 @@ export default class MapPlanningPlayerListener {
         currentMarkerStatus: markerState.name,
         currentMarkerIsMobile: markerState.mobile,
         currentMarkerSpeed: marker.asset.status.speedKts,
-        currentMarkerCondition: marker.asset.condition,
+        currentMarkerCondition: this.currentRoute.current_condition,
         currentMarkerVisibleTo,
         turnsInThisState: 1,
-        perception: marker.asset.perceptions[this.force] || null,
         allForces: this.allForces,
         allPlatforms: this.platformTypes
       })
@@ -893,9 +891,11 @@ export default class MapPlanningPlayerListener {
           // start off with the planned state
           context.adjudicationStorePlan(data, marker.asset)
 
-          // now the other data
-          context.adjudicationUpdatePerception(marker.asset, data.currentMarkerVisibleTo)
-          context.adjudicationUpdateCondition(marker.asset, data.currentMarkerCondition)
+          // condition
+          this.currentRoute.current_condition = data.currentMarkerCondition
+
+          // and finally visibility
+          context.adjudicationUpdatePerception(data.currentMarkerVisibleTo, this.currentRoute.current_perceptions)
         }
         popup.closePopup(() => {
           console.log('popup closed')
@@ -907,8 +907,7 @@ export default class MapPlanningPlayerListener {
     }
   }
 
-  adjudicationUpdatePerception (asset, visibleTo) {
-    const perceptions = this.currentRoute.current_perceptions
+  adjudicationUpdatePerception (/* array */visibleTo, /* indexed array */ perceptions) {
     // check the necessary items are present
     if (visibleTo.length) {
       visibleTo.forEach(thisForce => {
@@ -925,13 +924,10 @@ export default class MapPlanningPlayerListener {
         toDelete.push(thisForce)
       }
     }
+    // ditch the ones we don't want
     toDelete.forEach(thisForce => {
       delete perceptions[thisForce]
     })
-  }
-
-  adjudicationUpdateCondition (asset, condition) {
-    this.currentRoute.current_condition = condition
   }
 
   adjudicationStorePlan (data, asset) {
