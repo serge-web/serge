@@ -1,5 +1,4 @@
 import React from 'react'
-import L from 'leaflet'
 import './styles.scss'
 
 const Asset = ({ data }) => {

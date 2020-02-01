@@ -371,6 +371,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       <OrdersPanel
         selectedForce={selectedForce}
         allForces={allForces}
+        onSendClick={routeCompleteCallback}
       />
       <div id="map" className="mapping"/>
     </div>

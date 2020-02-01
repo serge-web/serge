@@ -10,6 +10,7 @@
   font-size: 14px;
   min-width: 260px;
   border-radius: 4px;
+  max-height: 95%;
 
   &__header {
     display: flex;
@@ -75,7 +76,7 @@
       font-size: 12px;
       color: #ffffff;
       text-transform: uppercase;
-      background-color: #4bead1;
+      background-color: #55677B;
       border-radius: 4px;
       padding: 4px 14px;
     }
@@ -83,6 +84,8 @@
 
   &__list {
     margin: 10px 0;
+    max-height: 320px;
+    overflow-y: auto;
   }
 
   &__asset {
