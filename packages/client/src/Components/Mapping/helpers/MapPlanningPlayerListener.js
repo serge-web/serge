@@ -942,12 +942,21 @@ export default class MapPlanningPlayerListener {
 
   adjudicationStorePlan (data, asset) {
     if (data.planStatus === PLAN_ACCEPTED) {
-      // ok, just store the new state
-      this.adjudicatingAcceptRoute(asset, this)
+      // just check that we haven't already accepted it
+      if (!this.currentRoute.newState) {
+        // ok, just store the new state
+        this.adjudicatingAcceptRoute(asset, this)
+      }
     } else {
       const newStatus = { status: data.currentMarkerStatus, position: asset.position }
       // is it a mobile state?
       const pState = asset.platformTypeDetail.states.find(status => status.name === data.currentMarkerStatus)
+
+      // ok, it got rejected. remove the planning marker, if there is one
+      if (this.currentRoute.planningMarker) {
+        this.currentRoute.planningMarker.remove()
+      }
+
       if (pState.mobile) {
         // ok, start planning cycle
         this.adjudicatingPlanRoute(asset, pState, data.currentMarkerSpeed, this)
