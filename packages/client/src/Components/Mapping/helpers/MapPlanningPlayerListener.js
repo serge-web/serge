@@ -18,15 +18,15 @@ import getVisibilityButtonsFor from './createVisibilityButtonsFor'
 import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 import MapPopupHelper from './mapPopupHelper'
 
-import MappingForm from '.././components/FormContainer'
+import MappingForm from '../components/FormContainer'
 
 import findLastRouteWithLocation from './findLastRouteLocation'
-import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_STATE_FORM, PLAYER_PERCEPTION } from '../../../consts'
+import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE } from '../../../consts'
 
 export default class MapPlanningPlayerListener {
   constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, allForces, declutterCallback,
     perceivedStateCallback, /* array string */ forceNames, /* string */ phase, /* function */ stateOfWorldCallback,
-    /* function */ visibilityCallback, /* array */ allRoutes) {
+    /* function */ visibilityCallback, /* array */ allRoutes, /* array */ reactForms) {
     this.grid = grid
     this.force = force
     this.phase = phase
@@ -42,6 +42,7 @@ export default class MapPlanningPlayerListener {
     this.forceNames = forceNames // used in updating perceived force
     this.visibilityCallback = visibilityCallback
     this.allRoutes = allRoutes
+    this.reactForms = reactForms
 
     this.performingAdjudication = phase === ADJUDICATION_PHASE && force === UMPIRE_FORCE
 
@@ -209,7 +210,6 @@ export default class MapPlanningPlayerListener {
     const allForces = this.allForces
     const allPlatforms = this.platformTypes
     popup.setStore({
-      formType: PLAN_STATE_FORM,
       currentForce: this.force,
       currentMarker: marker.asset,
       currentMarkerName: marker.asset.name,
@@ -234,7 +234,7 @@ export default class MapPlanningPlayerListener {
         console.log('popup closed')
       })
     })
-    popup.useComponent(MappingForm)
+    popup.useComponent(MappingForm, this.reactForms.plannedStatus)
     popup.openPopup()
     popup.renderListener()
   }
@@ -603,7 +603,6 @@ export default class MapPlanningPlayerListener {
     const allForces = this.allForces
     const allPlatforms = this.platformTypes
     popup.setStore({
-      formType: PLAYER_PERCEPTION,
       currentForce: this.force,
       currentMarker: asset,
       currentMarkerName: asset.name,
@@ -626,7 +625,7 @@ export default class MapPlanningPlayerListener {
         console.log('popup closed')
       })
     })
-    popup.useComponent(MappingForm)
+    popup.useComponent(MappingForm, this.reactForms.perception)
     popup.openPopup()
     popup.renderListener()
   }
@@ -854,35 +853,61 @@ export default class MapPlanningPlayerListener {
     data.lightRoutes = this.createPlanningRouteFor(data.current, data.asset.history, data.asset, false, false, true)
     this.showLayer(data.lightRoutes, this)
 
-    // check we're not in turn zero
-    if (this.turnNumber > 0) {
-      const context = this
-      // ok, show the accept route button for this track
-      const acceptTitle = createButton(false, 'Route for ' + marker.asset.name).addTo(this.map)
-      this.btnListAccept.push(acceptTitle)
-      // check it's not already sorted.
-      const hasPlans = this.allRoutes.find(data => data.asset.uniqid === marker.asset.uniqid && data.newState)
-      if (hasPlans) {
-        const acceptButton = createButton(true, 'Plans already accepted', () => {
-          clearButtons(this.btnListAccept, this)
-        }).addTo(this.map)
-        this.btnListAccept.push(acceptButton)
-      } else {
-        const acceptButton = createButton(true, 'Accept Route', () => {
-          this.adjudicatingAcceptRoute(marker.asset, context)
-          clearButtons(this.btnListAccept, this)
-        }).addTo(this.map)
-        this.btnListAccept.push(acceptButton)
-        const reject = createButton(true, 'Reject Route', () => {
-          this.adjudicatingRejectRoute(marker.asset, context)
-          clearButtons(this.btnListAccept, this)
-        }).addTo(this.map)
-        this.btnListAccept.push(reject)
-      }
-    }
+    // special handling for turn zero
+    if (this.turnNumber === 0) {
+      // we don't do full adjudication, just visility
+      this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback, this.btnListVisiblity, this.forceNames, this.map)
+    } else {
+      // popup the adjudication menu
 
-    // start off with the vis buttons
-    this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback, this.btnListVisiblity, this.forceNames, this.map)
+      // work out if the current state is mobile or not
+      const markerState = marker.asset.platformTypeDetail.states.find(state => state.name === marker.asset.status.state)
+
+      // Get's a list of the current forces who can see the current marker
+
+      const currentMarkerVisibleTo = Object.entries(marker.asset.perceptions).map(([key]) => key)
+
+      // Show a form on popup
+      const popup = new MapPopupHelper(this.map, marker)
+      popup.setStore({
+        currentForce: this.force,
+        planStatus: null,
+        currentMarker: marker.asset,
+        currentMarkerName: marker.asset.name,
+        currentMarkerForce: marker.asset.force,
+        currentMarkerStatus: markerState.name,
+        currentMarkerIsMobile: markerState.mobile,
+        currentMarkerSpeed: marker.asset.status.speedKts,
+        currentMarkerCondition: marker.asset.condition,
+        currentMarkerVisibleTo,
+        turnsInThisState: 1,
+        perception: marker.asset.perceptions[this.force] || null,
+        allForces: this.allForces,
+        allPlatforms: this.platformTypes
+      })
+      popup.onUpdate(data => {
+        if (data) {
+          popup.setStore(data)
+
+          console.log({
+            planStatus: data.planStatus,
+            marker: {
+              status: data.currentMarkerStatus,
+              speed: data.currentMarkerSpeed,
+              condition: data.currentMarkerCondition,
+              visbleTo: data.currentMarkerVisibleTo
+            }
+          })
+        }
+        popup.closePopup(() => {
+          console.log('popup closed')
+        })
+      })
+      popup.useComponent(MappingForm, this.reactForms.adjudicate)
+      console.log('requesting form open')
+      popup.openPopup()
+      popup.renderListener()
+    }
   }
 
   /** the user has clicked on the planning marker, give options */
