@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import _ from 'lodash'
 
-import { ACCEPTED, REJECTED } from '../../../../consts'
+import { PLAN_ACCEPTED, PLAN_REJECTED } from '../../../../consts'
 
 // import custom styles for child component
 import './styles.scss'
@@ -106,16 +106,16 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
 
   const handleRejection = e => {
     e.preventDefault()
-    setPlanStatus(REJECTED)
-    newStore.planStatus = REJECTED
+    setPlanStatus(PLAN_REJECTED)
+    newStore.planStatus = PLAN_REJECTED
     // save data in helper class to not lose it after popup recreate
     onStoreUpdate(newStore)
   }
 
   const handleAcceptance = e => {
     e.preventDefault()
-    setPlanStatus(ACCEPTED)
-    newStore.planStatus = ACCEPTED
+    setPlanStatus(PLAN_ACCEPTED)
+    newStore.planStatus = PLAN_ACCEPTED
     // save data in helper class to not lose it after popup recreate
     onStoreUpdate(newStore)
   }
