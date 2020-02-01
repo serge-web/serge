@@ -13,6 +13,8 @@ export default (/* object */ payload, /* object */ allForces) => {
       asset.status = entry.newState.status
       asset.position = entry.newState.position
       asset.route = entry.newState.route
+      asset.condition = entry.newState.condition
+      asset.perceptions = entry.newState.perceptions
     })
   })
   return allForces
