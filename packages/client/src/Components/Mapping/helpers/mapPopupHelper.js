@@ -20,6 +20,10 @@ class MapPopupHelper {
   // onStoreUpdate - for update helper level store (if not you can lose data on modal close)
   // callbackFunction - for return some data one some events, use it where you want
   useComponent (Component, child) {
+    // Note: we need to clear any existing popups, otherwise we can
+    // only assign this helper to a marker once
+    this.marker.unbindPopup()
+
     // bind a static div to popup with unique id
     this.marker.bindPopup(`<div id="${this.uniqKey}"></div>`, {
       maxWidth: 'auto'
