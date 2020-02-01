@@ -210,7 +210,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
                     <li key={force.uniqid}>
                       <label>
                         <input onChange={handleVisibilityChange} name={`visibility-${_.kebabCase(force.name)}`} type="checkbox" value={force.name} checked={markerVisibleTo.includes(force.name) }/>
-                        {force.name} cell
+                        {force.name} force
                       </label>
                     </li>
                   )
