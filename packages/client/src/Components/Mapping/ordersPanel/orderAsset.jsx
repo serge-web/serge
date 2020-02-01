@@ -2,8 +2,6 @@ import React from 'react'
 import './styles.scss'
 
 const Asset = ({ data }) => {
-  console.log(data)
-
   let status = ''
 
   if (data.plannedTurns.length) {
