@@ -4,9 +4,13 @@ export default function findPerceivedAsClasses (/* string */ myForce, /* string 
   if (myForce === hisForce || userIsUmpire) {
     perception = { force: hisForce, type: hisType }
   } else {
-    const hisPerception = hisPerceptions[myForce]
-    if (hisPerception != null) {
-      perception = { force: hisPerception.force, type: hisPerception.type }
+    if (hisPerceptions) {
+      const hisPerception = hisPerceptions[myForce]
+      if (hisPerception != null) {
+        perception = { force: hisPerception.force, type: hisPerception.type }
+      } else {
+        perception = null
+      }
     } else {
       perception = null
     }
