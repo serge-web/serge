@@ -1,27 +1,48 @@
+// TODO: Refactor out all the floats
+
 .mapping-form-container {
     width: 300px;
-    padding: .3rem;
     color: #424344;
     overflow: hidden;
+    color: #828282
 
     h1, h2, h3, h4 {
+        color: #424344;
         font-size: 1.3rem;
         font-weight: bold;
         margin-bottom: 1rem;
     }
-
+    
+    .label,
     label {
         color: #828282;
         position: absolute;
         left: 0;
     }
 
+    form {
+        padding: 1rem;
+        overflow: hidden;
+    }
+    label.disabled,
+    input:disabled {
+        opacity: .6
+    }
+    
     button {
         float: right;
         background-color: #e6e6e6;
         border-radius: 5px;
         padding: .5rem 1.5rem;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        &:focus,
+        &:active {
+            background-color: #d4d4d4;
+            outline: none;  
+        }
+        &:hover {
+            background-color: #bdbcbc;
+        }
     }
 
     .input-container {
@@ -33,11 +54,14 @@
            li label {
                position: relative;
            }
-           input{
-               float: left;
-               margin-right: .5rem;
-           }
+       
+        input {
+            float: left;
+            margin-right: .5rem;
+            margin-top: .1rem;
+        }
        }
+
        &.short-number {
            padding-left: 0;
            label {
@@ -49,6 +73,17 @@
             padding: 2px;
             text-align: center;
             margin: 0 1rem;
+           }
+       }
+       &.button-group {
+           padding-left: 0;
+           padding-bottom: 1.5rem;
+           overflow: hidden;
+           button {
+               float: right;
+           }
+           button + button {
+               margin-right: 1rem;
            }
        }
     }

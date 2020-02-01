@@ -8,12 +8,17 @@ import {
   forceFor,
   GridImplementation,
   hasPendingForces,
-  MapAdjudicationPendingListener,
   MapPlanningPlayerListener,
+  MapAdjudicationPendingListener,
   markerFor
 } from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, UMPIRE_FORCE } from '../../consts'
+
+// declare the forms in JSX space, so we can pass them to JS space
+import Adjudicate from './components/FormChildAdjudication'
+import Perception from './components/FormChildPerception'
+import PlannedStatus from './components/FormChildPlannedStatus'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import removeClassNamesFrom from './helpers/removeClassNamesFrom'
@@ -237,10 +242,15 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       // this force has assets with location pending
       currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
     } else {
+      const reactForms = {
+        adjudicate: <Adjudicate/>,
+        perception: <Perception/>,
+        plannedStatus: <PlannedStatus/>
+      }
       currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
         myForceRef.current, currentTurn, routeCompleteCallback,
         platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase,
-        newStateOfWorldCallback, visChangesFunc, allRoutes)
+        newStateOfWorldCallback, visChangesFunc, allRoutes, reactForms)
     }
 
     // create markers, and listen to them
