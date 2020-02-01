@@ -20,7 +20,7 @@ import MapPopupHelper from './mapPopupHelper'
 import MappingForm from '../components/FormContainer'
 
 import findLastRouteWithLocation from './findLastRouteLocation'
-import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_ACCEPTED, PLAN_REJECTED } from '../../../consts'
+import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_ACCEPTED } from '../../../consts'
 
 export default class MapPlanningPlayerListener {
   constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, allForces, declutterCallback,
@@ -323,7 +323,6 @@ export default class MapPlanningPlayerListener {
         })
       }
       thisRoute.plannedTurns = plannedTurns
-
       detail.push(thisRoute)
     })
     const res = {}
@@ -331,6 +330,7 @@ export default class MapPlanningPlayerListener {
     res.turn = this.turnNumber + 1
     res.name = firstAsset.force + ' Plans for ' + turnNameFor(res.turn)
     res.force = firstAsset.force
+
     res.plannedRoutes = detail
     return res
   }
@@ -859,24 +859,34 @@ export default class MapPlanningPlayerListener {
     } else {
       // popup the adjudication menu
 
-      // work out if the current state is mobile or not
-      const markerState = marker.asset.platformTypeDetail.states.find(state => state.name === marker.asset.status.state)
-
-      // Get's a list of the current forces who can see the current marker
-
+      // Get a list of the current forces who can see the current marker
       const currentMarkerVisibleTo = Object.entries(this.currentRoute.current_perceptions).map(([key]) => key)
+
+      // sort out the planned state, if there is one
+      let newStatus = null
+      if (this.currentRoute.current.length > 0) {
+        const firstPlannedTurn = this.currentRoute.current[0]
+        newStatus = { state: firstPlannedTurn.status.state, speedKts: firstPlannedTurn.status.speedKts }
+      } else {
+        newStatus = { state: data.asset.status.state, speedKts: data.asset.status.speedKts }
+      }
+
+      // work out if the current state is mobile or not
+      const isMobile = marker.asset.platformTypeDetail.states.find(state => state.name === newStatus.state).mobile
+
+      const planReviewed = data.newState ? PLAN_ACCEPTED : null
 
       // Show a form on popup
       const popup = new MapPopupHelper(this.map, marker)
       popup.setStore({
         currentForce: this.force,
-        planStatus: null,
+        planStatus: planReviewed,
         currentMarker: marker.asset,
         currentMarkerName: marker.asset.name,
         currentMarkerForce: marker.asset.force,
-        currentMarkerStatus: markerState.name,
-        currentMarkerIsMobile: markerState.mobile,
-        currentMarkerSpeed: marker.asset.status.speedKts,
+        currentMarkerStatus: newStatus.state,
+        currentMarkerIsMobile: isMobile,
+        currentMarkerSpeed: newStatus.speedKts,
         currentMarkerCondition: this.currentRoute.current_condition,
         currentMarkerVisibleTo,
         turnsInThisState: 1,
