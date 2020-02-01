@@ -13,6 +13,13 @@
   width: 50%;
   margin: 0 auto;
 }
+.cell-label-black {
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+  width: 50%;
+  margin: 0 auto;
+  opacity: 0.5;
+}
 
 .leaflet-container .leaflet-control-mouseposition {
   background-color: rgba(255, 255, 255, 0.7);

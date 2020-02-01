@@ -2,6 +2,7 @@ import L from 'leaflet'
 import { defineGrid } from 'honeycomb-grid'
 import cellTypes from '../data/cell-types'
 import defaultHexStyle from '../data/default-hex-style'
+import organicHexStyle from '../data/organic-hex-style'
 import padInt from '../../../Helpers/padInteger'
 
 export default class GridImplementation {
@@ -100,22 +101,10 @@ export default class GridImplementation {
       if (cellChars) {
         hex.sea = cellChars[0]
         hex.land = cellChars[1]
+        hex.organic = cellChars[2] // the new organic option is inialised here
       } else {
         //   console.log("Warning,cell chars not found for:" + hex.name)
       }
-
-      // add a marker
-      const myIcon = L.divIcon({
-        className: 'cell-label',
-        html: hex.name
-      })
-      // you can set .my-div-icon styles in CSS
-      const cellLabel = L.marker(hex.centrePos, {
-        icon: myIcon,
-        keyboard: false, // prevent it taking keyboard focus
-        zIndexOffset: -100 // ensure it's rendered behind routes
-      })
-      this.markerLayer.addLayer(cellLabel)
 
       // add the shape
       // build up an array of correctly mapped corners
@@ -138,11 +127,36 @@ export default class GridImplementation {
       // apply the scaling function to each corner
       this.corners.forEach(scalePoint)
 
-      // now create the polygon
-      const polygon = L.polygon(cornerArr, defaultHexStyle)
+      // now create the polygon (using var so it can be overwritten)
+      var polygon = L.polygon(cornerArr, defaultHexStyle)
 
       // store the polyline in the cell
       hex.polygon = polygon
+
+      // variable to hold the marker text class
+      var gridTextClass;
+
+      // if statement to change the hexgrid colour and the marker colour if the value for organic is set to 'true'
+      if(hex.organic === true){
+        polygon = L.polygon(cornerArr, organicHexStyle)
+        gridTextClass = 'cell-label-black' // css state for black marker colours, as the current grid colour cannot be read with the new fill layer 
+      }
+      else {
+        gridTextClass = 'cell-label' // css state
+      }
+
+      // add a marker
+      var myIcon = L.divIcon({
+        className: gridTextClass, // two different states for changing the text colour based on the type of hex grid
+        html: hex.name
+      })
+      // you can set .my-div-icon styles in CSS
+      const cellLabel = L.marker(hex.centrePos, {
+        icon: myIcon,
+        keyboard: false, // prevent it taking keyboard focus
+        zIndexOffset: -100 // ensure it's rendered behind routes
+      })
+      this.markerLayer.addLayer(cellLabel)
 
       // add this polygon to the relevant layer
       gridLayer.addLayer(polygon)
