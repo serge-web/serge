@@ -818,7 +818,7 @@
 					{
 						"name": "AL SALMI",
 						"contactId": "C081", 
-						"condition": "Disabled",
+						"condition": "Full capability",
 						"perceptions": {
 							"Blue": { "force": "Green",	"type": "merchant-vessel", "name": "ARUNA 12"	},
 							"Red": {"force": "Green",	"type": "merchant-vessel", "name": "BARLAY" }
