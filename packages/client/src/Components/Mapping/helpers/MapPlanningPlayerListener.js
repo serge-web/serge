@@ -17,6 +17,10 @@ import collateNewStatesMessage from './collateNewStatesMessage'
 import getVisibilityButtonsFor from './createVisibilityButtonsFor'
 import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 import MapPopupHelper from './mapPopupHelper'
+import findPerceivedAsClassName from './findPerceivedAsClassName'
+import removeClassNamesFrom from './removeClassNamesFrom'
+
+import { easyBar, easyButton } from 'leaflet-easybutton'
 
 import MappingForm from '../components/FormContainer'
 
@@ -26,7 +30,7 @@ import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_ACCEPTED } from 
 export default class MapPlanningPlayerListener {
   constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, allForces, declutterCallback,
     perceivedStateCallback, /* array string */ forceNames, /* string */ phase, /* function */ stateOfWorldCallback,
-    /* function */ visibilityCallback, /* array */ allRoutes, /* array */ reactForms) {
+    /* function */ visibilityCallback, /* array */ allRoutes, /* array */ reactForms, /* layer */ allMarkers) {
     this.grid = grid
     this.force = force
     this.phase = phase
@@ -43,6 +47,7 @@ export default class MapPlanningPlayerListener {
     this.visibilityCallback = visibilityCallback
     this.allRoutes = allRoutes
     this.reactForms = reactForms
+    this.allMarkers = allMarkers
 
     this.performingAdjudication = phase === ADJUDICATION_PHASE && force === UMPIRE_FORCE
 
@@ -61,6 +66,7 @@ export default class MapPlanningPlayerListener {
     this.btnListAccept = []
     this.btnListSubmit = []
     this.btnListVisiblity = []
+    this.viewAsBar = null
 
     // store some styling details, once, centrally
     this.rangeStyle = {
@@ -93,6 +99,20 @@ export default class MapPlanningPlayerListener {
     this.planningMarkerCallback = null
     this.waypointCallback = null
     this.prepareDataFor = null
+
+    // if we're umpire force, introduce 'view as' buttons
+    if (this.force === UMPIRE_FORCE) {
+      const context = this
+      const btns = []
+      forceNames.forEach(name => {
+        const color = colorFor(name)
+        const button = L.easyButton('<span style="font-size:14px;color:' + color + ';" class="fa fa-eye"/>', () => {
+          context.viewAs(name, allMarkers)
+        })
+        btns.push(button)
+      })
+      this.viewAsBar = L.easyBar(btns).addTo(this.map)
+    }
 
     if (this.performingAdjudication) {
       // extra data types
@@ -155,6 +175,29 @@ export default class MapPlanningPlayerListener {
     }
   }
 
+  viewAs (/* string */ force, /* layer */ allMarkers) {
+    const viewAsUmpire = force === UMPIRE_FORCE
+    // loop through markers, updating their styling
+    allMarkers.eachLayer(marker => {
+      // can we see this asset?
+      const asset = marker.asset
+      const perceptionClassName = findPerceivedAsClassName(force, marker.force, asset.platformType, asset.perceptions, viewAsUmpire)
+      if (perceptionClassName) {
+        // remove existing class names
+        removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
+
+        // set the new class names
+        L.DomUtil.addClass(marker._icon, perceptionClassName)
+
+        // reveal it
+        L.DomUtil.removeClass(marker._icon, 'marker-hidden')
+      } else {
+        // hide it
+        L.DomUtil.addClass(marker._icon, 'marker-hidden')
+      }
+    })
+  }
+
   setupAdjudicationButtons () {
     // don't show the submit buttons if we're on turn zero
     if (this.turnNumber > 0) {
@@ -183,6 +226,9 @@ export default class MapPlanningPlayerListener {
     this.clearCommandButtons(this.btnListPlanningMarker)
     this.clearCommandButtons(this.btnListStates)
     this.clearCommandButtons(this.btnListPerceived)
+    if (this.viewAsBar) {
+      this.viewAsBar.remove()
+    }
   }
 
   showPlatformStatePopup (/* object */ marker) {
