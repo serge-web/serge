@@ -657,16 +657,23 @@ export default class MapPlanningPlayerListener {
         // ok, attach the perception popup
         this.attachPerceptionPopup(marker)
 
-        // show a single step of history for the track
-        const history = marker.asset.history
-        if (history && history.length) {
-          const lastItem = history[history.length - 1]
-          const fakeTurns = [lastItem]
-          const curPos = this.grid.hexNamed(marker.asset.position).centrePos
-          const color = colorFor(marker.asset.force)
-          const line = lineFor(fakeTurns, curPos, true, this.grid, color, false, false, null)
-          console.log('history', history, line, marker.asset.position)
-          this.storeLayer(line, this)
+        // also, show a single step of history for the track
+        const route = marker.asset.route
+        if (route && route.length) {
+          if (route && route.length) {
+            const pts = []
+            route.forEach(step => {
+              const cell = this.grid.hexNamed(step)
+              if (cell) {
+                pts.push(cell.centrePos)
+              }
+            })
+            if (pts.length) {
+              const color = colorFor(marker.asset.force)
+              const line = L.polyline(pts, { color: color, weight: 1 })
+              this.storeLayer(line, this)
+            }
+          }
         }
       } else {
         // we're umpire, see if we're in planning mode - so we can popup vis markers
