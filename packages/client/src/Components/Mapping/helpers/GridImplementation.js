@@ -2,6 +2,7 @@ import L from 'leaflet'
 import { defineGrid } from 'honeycomb-grid'
 import cellTypes from '../data/cell-types'
 import defaultHexStyle from '../data/default-hex-style'
+import organicHexStyle from '../data/organic-hex-style'
 import padInt from '../../../Helpers/padInteger'
 
 export default class GridImplementation {
@@ -100,22 +101,14 @@ export default class GridImplementation {
       if (cellChars) {
         hex.sea = cellChars[0]
         hex.land = cellChars[1]
+        hex.organic = cellChars[2] // the new organic option is inialised here
+        // does it have replacement title?
+        if (cellChars[3]) {
+          hex.title = cellChars[3]
+        }
       } else {
         //   console.log("Warning,cell chars not found for:" + hex.name)
       }
-
-      // add a marker
-      const myIcon = L.divIcon({
-        className: 'cell-label',
-        html: hex.name
-      })
-      // you can set .my-div-icon styles in CSS
-      const cellLabel = L.marker(hex.centrePos, {
-        icon: myIcon,
-        keyboard: false, // prevent it taking keyboard focus
-        zIndexOffset: -100 // ensure it's rendered behind routes
-      })
-      this.markerLayer.addLayer(cellLabel)
 
       // add the shape
       // build up an array of correctly mapped corners
@@ -138,14 +131,39 @@ export default class GridImplementation {
       // apply the scaling function to each corner
       this.corners.forEach(scalePoint)
 
+      // determine styling, based upon `organic` flag
+      const gridTextClass = hex.organic ? 'cell-label-black' : 'cell-label'
+      const gridHexStyle = hex.organic ? organicHexStyle : defaultHexStyle
+      
       // now create the polygon
-      const polygon = L.polygon(cornerArr, defaultHexStyle)
+      const polygon = L.polygon(cornerArr, gridHexStyle)
 
       // store the polyline in the cell
       hex.polygon = polygon
 
       // add this polygon to the relevant layer
       gridLayer.addLayer(polygon)
+
+      const labelSize = hex.title ? [104, 30] : [20, 20]
+
+      // lastly, create the text label
+      const myIcon = L.divIcon({
+        className: gridTextClass, // two different states for changing the text colour based on the type of hex grid
+        html: hex.title ? '<b>' + hex.title + '</b>' : hex.name,
+        iconSize: labelSize
+      })
+      // you can set .my-div-icon styles in CSS
+      const cellLabel = L.marker(hex.centrePos, {
+        icon: myIcon,
+        keyboard: false, // prevent it taking keyboard focus
+        zIndexOffset: -100 // ensure it's rendered behind routes
+      })
+      // note: add the title to the parent grid layer, so it's visible more of the time
+      if (hex.title) {
+        gridLayer.addLayer(cellLabel)
+      } else {
+        this.markerLayer.addLayer(cellLabel)
+      }
     })
   }
 }
