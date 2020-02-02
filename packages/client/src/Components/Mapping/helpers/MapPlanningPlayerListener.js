@@ -603,14 +603,14 @@ export default class MapPlanningPlayerListener {
     const popup = new MapPopupHelper(this.map, marker)
     const allForces = this.allForces
     const allPlatforms = this.platformTypes
-    const perceivedType = marker.asset.perceptions && marker.asset.perceptions[this.force]
+    const perceivedType = asset.perceptions && asset.perceptions[this.force]
     const assetLabel = findAssetNameFor(asset.name, null, asset.force, this.force, perceivedType, asset.contactId)
     popup.setStore({
       currentForce: this.force,
       currentMarker: asset,
       currentMarkerName: assetLabel,
       currentMarkerForce: asset.force,
-      perception: asset.perceptions[this.force] || null,
+      perception: perceivedType || null,
       allForces,
       allPlatforms
     })
