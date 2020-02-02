@@ -133,7 +133,7 @@ export default class GridImplementation {
 
       // determine styling, based upon `organic` flag
       const gridTextClass = hex.organic ? 'cell-label-black' : 'cell-label'
-      var gridHexStyle = hex.organic ? organicHexStyle : defaultHexStyle
+      const gridHexStyle = hex.organic ? organicHexStyle : defaultHexStyle
       
       // now create the polygon
       const polygon = L.polygon(cornerArr, gridHexStyle)
@@ -144,10 +144,10 @@ export default class GridImplementation {
       // add this polygon to the relevant layer
       gridLayer.addLayer(polygon)
 
-      var labelSize = hex.title ? [104, 30] : [20, 20]
+      const labelSize = hex.title ? [104, 30] : [20, 20]
 
       // lastly, create the text label
-      var myIcon = L.divIcon({
+      const myIcon = L.divIcon({
         className: gridTextClass, // two different states for changing the text colour based on the type of hex grid
         html: hex.title ? '<b>' + hex.title + '</b>' : hex.name,
         iconSize: labelSize
@@ -159,7 +159,7 @@ export default class GridImplementation {
         zIndexOffset: -100 // ensure it's rendered behind routes
       })
       // note: add the title to the parent grid layer, so it's visible more of the time
-      if(hex.title) {
+      if (hex.title) {
         gridLayer.addLayer(cellLabel)
       } else {
         this.markerLayer.addLayer(cellLabel)
