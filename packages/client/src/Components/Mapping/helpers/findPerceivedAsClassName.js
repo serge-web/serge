@@ -4,16 +4,20 @@ export default function findPerceivedAsClasses (/* string */ myForce, /* string 
   if (myForce === hisForce || userIsUmpire) {
     perception = { force: hisForce, type: hisType }
   } else {
-    const hisPerception = hisPerceptions[myForce]
-    if (hisPerception != null) {
-      perception = { force: hisPerception.force, type: hisPerception.type }
+    if (hisPerceptions) {
+      const hisPerception = hisPerceptions[myForce]
+      if (hisPerception != null) {
+        perception = { force: hisPerception.force, type: hisPerception.type }
+      } else {
+        perception = null
+      }
     } else {
       perception = null
     }
   }
   if (perception) {
-    const forceClass = perception && perception.force ? perception.force.toLowerCase() : 'unknown'
-    const typeClass = perception && perception.type ? perception.type.replace(/ /g, '-').toLowerCase() : 'unknown'
+    const forceClass = perception.force ? perception.force.toLowerCase() : 'unknown'
+    const typeClass = perception.type ? perception.type.replace(/ /g, '-').toLowerCase() : 'unknown'
     return `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
   } else {
     return perception

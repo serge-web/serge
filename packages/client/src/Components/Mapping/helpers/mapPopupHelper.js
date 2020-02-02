@@ -19,13 +19,20 @@ class MapPopupHelper {
   // store - helper level store for Component (default = null)
   // onStoreUpdate - for update helper level store (if not you can lose data on modal close)
   // callbackFunction - for return some data one some events, use it where you want
-  useComponent (Component) {
+  useComponent (Component, child) {
+    // Note: we need to clear any existing popups, otherwise we can
+    // only assign this helper to a marker once
+    this.marker.unbindPopup()
+
     // bind a static div to popup with unique id
     this.marker.bindPopup(`<div id="${this.uniqKey}"></div>`, {
       maxWidth: 'auto'
     })
     // save component to use it
-    this.component = Component
+    this.component = {
+      name: Component,
+      child
+    }
   }
 
   openPopup () {
@@ -52,7 +59,7 @@ class MapPopupHelper {
   renderComponent () {
     // chech if component defined
     if (this.component) {
-      const MiniApp = this.component
+      const MiniApp = this.component.name
       // try to get the div with unique key
       const miniAppNode = document.getElementById(this.uniqKey)
       // if div with unique key found that means modal is opened
@@ -63,6 +70,7 @@ class MapPopupHelper {
         ReactDOM.render(
           <MiniApp
             store={this.store}
+            child={this.component.child}
             onStoreUpdate={store => {
               // update store to not lose data on popup close (removal)
               this.setStore(store)

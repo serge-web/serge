@@ -40,11 +40,19 @@
   // of the wargame definition. When that happens we will probably need to use
   // HSL conversions to make the abnormal condition shades darker.
   &-blue {
-   background-color: #000fff;   
-   &.platform-abnormal-condition {
-    background-color: #d4d7fc;
+    background-color: #000fff;   
+    &.platform-abnormal-condition {
+     background-color: #d4d7fc;
+    }
   }
-}
+
+  &-blue2 {
+    background-color: #33adf9;   
+    &.platform-abnormal-condition {
+     background-color: #9ad6fc;
+    }
+  }
+
   &-red {
     background-color: #ff0000;
     &.platform-abnormal-condition {
@@ -66,9 +74,13 @@
 }
 
  .leaflet-popup-content-wrapper {
-   background-color: rgba(#fff, .8);
+   background-color: rgba(#fff, .95);
    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
    border-radius: 5px;
+ }
+
+ .leaflet-popup-content {
+   margin: 0;
  }
 
  .leaflet-popup-tip-container {

@@ -46,6 +46,10 @@ export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 export const SUBMIT_PLANS = 'SubmitPlans'
 export const STATE_OF_WORLD = 'StateOfWorld'
 
+// return states of adjudication form
+export const PLAN_ACCEPTED = 'accepted'
+export const PLAN_REJECTED = 'rejected'
+
 // NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a
 // throttle value to prevent the browser going into a race condition
