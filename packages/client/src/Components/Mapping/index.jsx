@@ -73,6 +73,18 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const gridLayer = L.layerGroup().addTo(mapRef.current)
     platformsLayerRef.current = L.layerGroup().addTo(mapRef.current)
 
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+
+        var div = L.DomUtil.create('div', 'legend');
+        div.innerHTML = '<i style="background: #808080"></i><span>Organic Asset Zone</span><br>';
+
+        return div;
+    };
+
+    legend.addTo(mapRef.current);
+
     // note: we don't show the marker layer by default - only when zoomed in
     const coordsLayer = L.layerGroup()
 
