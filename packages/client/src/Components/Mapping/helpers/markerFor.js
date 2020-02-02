@@ -1,6 +1,7 @@
 import L from 'leaflet'
 import findPerceivedAsClassName from './findPerceivedAsClassName'
 import findPlatformTypeFor from './findPlatformTypeFor'
+import findAssetNameFor from './findAssetNameFor'
 
 /** create a marker for the supplied set of details */
 export default (asset, grid, force, myForce, platformTypes, userIsUmpire, /* string */ perceiveAs) => {
@@ -33,8 +34,10 @@ export default (asset, grid, force, myForce, platformTypes, userIsUmpire, /* str
     //     asset.nonStandardCondition = true
     //   }
     // }
-    // const hoverTxt = asset.nonStandardCondition ? asset.name + ' - ' + asset.condition : asset.condition   
-    const hoverTxt = asset.name + ' - ' + asset.condition
+    // const hoverTxt = asset.nonStandardCondition ? asset.name + ' - ' + asset.condition : asset.condition
+
+    // show the full name & state if we're white or the owner of this force
+    const hoverTxt = findAssetNameFor(asset.name, asset.condition, force, myForce, asset.perceptions[myForce], asset.contactId)
 
     res.bindTooltip(hoverTxt)
     res.name = asset.name
