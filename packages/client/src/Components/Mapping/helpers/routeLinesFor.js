@@ -44,7 +44,6 @@ export function lineFor (/* array */ turns, /* latLng */ start,
     const feintLatLongs = []
     let lastPos = null
     turns.forEach(turn => {
-      console.log(turn)
       const list = (!planningFor) || planningFor >= turn.turn ? boldLatLongs : feintLatLongs
       // loop through the routes
       if (turn.route && turn.route.length > 0) {
