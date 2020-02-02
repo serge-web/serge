@@ -7,7 +7,7 @@ import createButton from './createDebugButton'
 import clearButtons from './clearButtons'
 import resetCurrentLeg from './resetLegsFrom'
 import getClearedRoute from './getClearedRoute'
-import routeLinesFor from './routeLinesFor'
+import { lineFor, routeLinesFor } from './routeLinesFor'
 import turnNameFor from './turnNameFor'
 import roundToNearest from './roundToNearest'
 import findPlatformTypeFor from './findPlatformTypeFor'
@@ -656,6 +656,18 @@ export default class MapPlanningPlayerListener {
       if (this.force !== UMPIRE_FORCE) {
         // ok, attach the perception popup
         this.attachPerceptionPopup(marker)
+
+        // show a single step of history for the track
+        const history = marker.asset.history
+        if (history && history.length) {
+          const lastItem = history[history.length - 1]
+          const fakeTurns = [lastItem]
+          const curPos = this.grid.hexNamed(marker.asset.position).centrePos
+          const color = colorFor(marker.asset.force)
+          const line = lineFor(fakeTurns, curPos, true, this.grid, color, false, false, null)
+          console.log('history', history, line, marker.asset.position)
+          this.storeLayer(line, this)
+        }
       } else {
         // we're umpire, see if we're in planning mode - so we can popup vis markers
         marker.on('click', e => {
