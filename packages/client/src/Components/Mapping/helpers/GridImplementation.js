@@ -102,6 +102,10 @@ export default class GridImplementation {
         hex.sea = cellChars[0]
         hex.land = cellChars[1]
         hex.organic = cellChars[2] // the new organic option is inialised here
+        // does it have replacement title?
+        if (cellChars[3]) {
+          hex.title = cellChars[3]
+        }
       } else {
         //   console.log("Warning,cell chars not found for:" + hex.name)
       }
@@ -128,26 +132,25 @@ export default class GridImplementation {
       this.corners.forEach(scalePoint)
 
       // determine styling, based upon `organic` flag
-      var gridTextClass
-      var gridHexStyle
-      if (hex.organic) {
-        gridTextClass = 'cell-label-black'
-        gridHexStyle = organicHexStyle
-      } else {
-        gridTextClass = 'cell-label'
-        gridHexStyle = defaultHexStyle
-      }
-
+      const gridTextClass = hex.organic ? 'cell-label-black' : 'cell-label'
+      var gridHexStyle = hex.organic ? organicHexStyle : defaultHexStyle
+      
       // now create the polygon
       const polygon = L.polygon(cornerArr, gridHexStyle)
 
       // store the polyline in the cell
       hex.polygon = polygon
 
-      // add a marker
+      // add this polygon to the relevant layer
+      gridLayer.addLayer(polygon)
+
+      var labelSize = hex.title ? [110, 30] : [20, 20]
+
+      // lastly, create the text label
       var myIcon = L.divIcon({
         className: gridTextClass, // two different states for changing the text colour based on the type of hex grid
-        html: hex.name
+        html: hex.title ? '<b>' + hex.title + '</b>' : hex.name,
+        iconSize: labelSize
       })
       // you can set .my-div-icon styles in CSS
       const cellLabel = L.marker(hex.centrePos, {
@@ -155,10 +158,12 @@ export default class GridImplementation {
         keyboard: false, // prevent it taking keyboard focus
         zIndexOffset: -100 // ensure it's rendered behind routes
       })
-      this.markerLayer.addLayer(cellLabel)
-
-      // add this polygon to the relevant layer
-      gridLayer.addLayer(polygon)
+      // note: add the title to the parent grid layer, so it's visible more of the time
+      if(hex.title) {
+        gridLayer.addLayer(cellLabel)
+      } else {
+        this.markerLayer.addLayer(cellLabel)
+      }
     })
   }
 }
