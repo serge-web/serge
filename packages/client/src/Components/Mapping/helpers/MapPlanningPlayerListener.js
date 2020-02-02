@@ -384,12 +384,13 @@ export default class MapPlanningPlayerListener {
    * that are applicable to the provided domain
    */
   cellsValidForThisDomain (/* array */ cells, /* string */ domain) {
+    console.log('checking for', domain)
     return cells.filter(cell => {
       switch (domain) {
         case 'land':
-          return cell.land
+          return cell.land || cell.organic
         case 'sea':
-          return cell.sea
+          return cell.sea || cell.organic
         case 'air':
           return true
         default:
@@ -672,7 +673,11 @@ export default class MapPlanningPlayerListener {
 
   clearAchievableCells () {
     if (this.achievableCells) {
-      this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
+      this.achievableCells.forEach(cell => {
+        if (!cell.organic) {
+          cell.polygon.setStyle(defaultHexStyle)
+        }
+      })
       this.achievableCells = []
     }
   }
@@ -695,7 +700,11 @@ export default class MapPlanningPlayerListener {
     this.achievableCells = this.cellsValidForThisDomain(this.achievableCells, travelMode)
 
     // plot the available range
-    this.achievableCells.forEach(cell => cell.polygon.setStyle(this.rangeStyle))
+    this.achievableCells.forEach(cell => {
+      if (!cell.organic) {
+        cell.polygon.setStyle(this.rangeStyle)
+      }
+    })
   }
 
   /** as we build up lists of cells (for a route), they will typically
