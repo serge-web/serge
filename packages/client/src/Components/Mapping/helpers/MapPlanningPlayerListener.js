@@ -106,7 +106,8 @@ export default class MapPlanningPlayerListener {
       const btns = []
       forceNames.forEach(name => {
         const color = colorFor(name)
-        const button = L.easyButton('<span style="font-size:14px;color:' + color + ';" class="fa fa-eye"/>', () => {
+        const title = 'View as ' + name
+        const button = L.easyButton('<span title="' + title + '" style="font-size:16px;color:' + color + ';" class="fa fa-eye"/>', () => {
           context.viewAs(name, allMarkers)
         })
         btns.push(button)
