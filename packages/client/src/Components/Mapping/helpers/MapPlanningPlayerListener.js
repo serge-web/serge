@@ -11,6 +11,7 @@ import routeLinesFor from './routeLinesFor'
 import turnNameFor from './turnNameFor'
 import roundToNearest from './roundToNearest'
 import findPlatformTypeFor from './findPlatformTypeFor'
+import findAssetNameFor from './findAssetNameFor'
 import canControlThisForce from './canControlThisForce'
 import collateNewStatesMessage from './collateNewStatesMessage'
 import getVisibilityButtonsFor from './createVisibilityButtonsFor'
@@ -208,16 +209,17 @@ export default class MapPlanningPlayerListener {
     const popup = new MapPopupHelper(this.map, marker)
     const allForces = this.allForces
     const allPlatforms = this.platformTypes
+    const asset = marker.asset
     popup.setStore({
       currentForce: this.force,
-      currentMarker: marker.asset,
-      currentMarkerName: marker.asset.name,
-      currentMarkerForce: marker.asset.force,
+      currentMarker: asset,
+      currentMarkerName: asset.name,
+      currentMarkerForce: asset.force,
       currentMarkerStatus: status.state,
       currentMarkerIsMobile: status.mobile,
       currentMarkerSpeed: status.speedKts,
       turnsInThisState: 1,
-      perception: marker.asset.perceptions[this.force] || null,
+      perception: asset.perceptions[this.force] || null,
       allForces,
       allPlatforms
     })
@@ -601,10 +603,12 @@ export default class MapPlanningPlayerListener {
     const popup = new MapPopupHelper(this.map, marker)
     const allForces = this.allForces
     const allPlatforms = this.platformTypes
+    const perceivedType = marker.asset.perceptions && marker.asset.perceptions[this.force]
+    const assetLabel = findAssetNameFor(asset.name, null, asset.force, this.force, perceivedType, asset.contactId)
     popup.setStore({
       currentForce: this.force,
       currentMarker: asset,
-      currentMarkerName: asset.name,
+      currentMarkerName: assetLabel,
       currentMarkerForce: asset.force,
       perception: asset.perceptions[this.force] || null,
       allForces,
