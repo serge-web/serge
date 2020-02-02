@@ -142,11 +142,7 @@ class ForcesTab extends Component {
   };
 
   deleteForceFromList = (force) => {
-    let curTab = this.props.wargame.currentTab;
-    let isUmpire = this.props.wargame.data[curTab].forces.find((f) => f.uniqid === force).umpire;
-
-    if (isUmpire) return;
-    this.props.dispatch(deleteSelectedForce(this.props.wargame.currentWargame, force));
+    this.props.dispatch(modalAction.open("confirmDelete", {type: "force", data: force}));
   };
 
   updateForceName = (name) => {
