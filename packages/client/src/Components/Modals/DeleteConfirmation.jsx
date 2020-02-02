@@ -47,8 +47,8 @@ class DeleteModal extends Component {
           <h3>Delete</h3>
           <p>This action is permanent.<br/>Are you sure?</p>
           <div className="buttons">
-            <button name="delete" className="btn btn-action btn-action--primary" onClick={this.delete}>Delete</button>
             <button name="cancel" className="btn btn-action btn-action--secondary" onClick={this.hideModal}>Cancel</button>
+            <button name="delete" className="btn btn-action btn-action--primary" onClick={this.delete}>Delete</button>
           </div>
         </div>
       </ModalWrapper>
