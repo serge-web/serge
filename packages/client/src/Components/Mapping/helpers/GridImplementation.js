@@ -127,23 +127,22 @@ export default class GridImplementation {
       // apply the scaling function to each corner
       this.corners.forEach(scalePoint)
 
-      // now create the polygon (using var so it can be overwritten)
-      var polygon = L.polygon(cornerArr, defaultHexStyle)
+      // determine styling, based upon `organic` flag
+      var gridTextClass
+      var gridHexStyle
+      if (hex.organic) {
+        gridTextClass = 'cell-label-black'
+        gridHexStyle = organicHexStyle
+      } else {
+        gridTextClass = 'cell-label'
+        gridHexStyle = defaultHexStyle
+      }
+
+      // now create the polygon
+      const polygon = L.polygon(cornerArr, gridHexStyle)
 
       // store the polyline in the cell
       hex.polygon = polygon
-
-      // variable to hold the marker text class
-      var gridTextClass;
-
-      // if statement to change the hexgrid colour and the marker colour if the value for organic is set to 'true'
-      if(hex.organic === true){
-        polygon = L.polygon(cornerArr, organicHexStyle)
-        gridTextClass = 'cell-label-black' // css state for black marker colours, as the current grid colour cannot be read with the new fill layer 
-      }
-      else {
-        gridTextClass = 'cell-label' // css state
-      }
 
       // add a marker
       var myIcon = L.divIcon({
