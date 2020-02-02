@@ -251,7 +251,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
         myForceRef.current, currentTurn, routeCompleteCallback,
         platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase,
-        newStateOfWorldCallback, visChangesFunc, allRoutes, reactForms)
+        newStateOfWorldCallback, visChangesFunc, allRoutes, reactForms, platformsLayerRef.current)
     }
 
     // create markers, and listen to them
