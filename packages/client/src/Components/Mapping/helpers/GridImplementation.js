@@ -144,7 +144,7 @@ export default class GridImplementation {
       // add this polygon to the relevant layer
       gridLayer.addLayer(polygon)
 
-      var labelSize = hex.title ? [110, 30] : [20, 20]
+      var labelSize = hex.title ? [104, 30] : [20, 20]
 
       // lastly, create the text label
       var myIcon = L.divIcon({
