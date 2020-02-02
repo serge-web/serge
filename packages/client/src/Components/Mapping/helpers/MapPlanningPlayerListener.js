@@ -108,8 +108,18 @@ export default class MapPlanningPlayerListener {
         const color = colorFor(name)
         const title = 'View as ' + name
         const button = L.easyButton('<span title="' + title + '" style="font-size:16px;color:' + color + ';" class="fa fa-eye"/>', () => {
+          // update the UI
           context.viewAs(name, allMarkers)
+          // clear any other selected states
+          btns.forEach(btn => {
+            btn.enable()
+          })
+          button.disable()
         })
+        // if this is the first one, mark it as selected
+        if (!btns.length) {
+          button.disable()
+        }
         btns.push(button)
       })
       this.viewAsBar = L.easyBar(btns).addTo(this.map)
