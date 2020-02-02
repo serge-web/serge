@@ -1,4 +1,4 @@
-/** expected format is index, sea, land, organic */
+/** expected format is index, sea, land, organic, title */
 export default {
   A00: [true, false, false],
   A01: [true, false, false],
