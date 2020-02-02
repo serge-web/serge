@@ -1099,9 +1099,11 @@ export default class MapPlanningPlayerListener {
     const startPos = this.drag.startHex.centrePos
 
     // find out if this state is mobile
-    const isMobile = marker.asset.platformTypeDetail.states.find(state => state.name === newState.state).mobile
+    const pType = marker.asset.platformTypeDetail.states.find(state => state.name === newState.state)
+    const isMobile = pType.mobile
+    const isDeploying = pType.deploying // this is a special mode where we let a platform move to `any` suitable square
 
-    if (!isMobile) {
+    if (!isMobile && !isDeploying) {
       // static state assigned, just do update
       this.storeNewPlanningRoute(newState, null)
     } else {
@@ -1132,7 +1134,7 @@ export default class MapPlanningPlayerListener {
 
       // calculate the steps remaining
       let range
-      if (newState.speedKts) {
+      if (newState.speedKts && !isDeploying) {
         const speedKts = newState.speedKts
         const stepSize = 30
         const stepsPerHour = (60 / stepSize)
