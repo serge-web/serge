@@ -47,6 +47,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       minZoom: 8,
       maxZoom: 12,
       center: [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2],
+      touchZoom: true, // to allow drag on touch screens
       zoom: 10,
       zoomDelta: 0.25, // to allow incremental zoom steps from +/- zoom controls
       zoomSnap: 0.25, // to allow incremental zoom steps
