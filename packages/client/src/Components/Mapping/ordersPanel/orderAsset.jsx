@@ -1,15 +1,7 @@
 import React from 'react'
 import './styles.scss'
 
-const Asset = ({ data, plannedRoute }) => {
-  let status = ''
-
-  if (plannedRoute && plannedRoute.plannedTurns && plannedRoute.plannedTurns.length) {
-    status = `${plannedRoute.plannedTurns.length} Turns planned`
-  } else if (data.plannedTurns && data.plannedTurns.length) {
-    status = `${data.plannedTurns.length} Turns planned`
-  }
-
+const Asset = ({ data, message }) => {
   const forceClass = data.force && data.force.toLowerCase()
   const typeClass = data.platformType && data.platformType.replace(/ /g, '-').toLowerCase()
 
@@ -20,7 +12,7 @@ const Asset = ({ data, plannedRoute }) => {
       }/>
       <div className="orders-panel__description">
         <div className="orders-panel__name">{data.name}</div>
-        <div className="orders-panel__status">{status}</div>
+        <div className="orders-panel__status">{message}</div>
       </div>
     </div>
   )
