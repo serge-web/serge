@@ -374,6 +374,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       })
     }
 
+    // run the declutter, there's a chance some markers
+    // have been added/removed
+    declutterCallback()
+
     //
     // Other diagnostics
     //
