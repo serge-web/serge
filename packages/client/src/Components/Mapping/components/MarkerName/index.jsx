@@ -1,18 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // import custom styles for child component
 import './styles.scss'
 
 const MarkerName = ({ store, onStoreUpdate, callbackFunction }) => {
   const [clicked, setClicked] = useState(false)
-  const [perception, setPerception] = useState(store.perception)
+  const [perception, setPerception] = useState(null)
   const [currentMarkerName] = useState(store.currentMarkerName)
   const [currentMarkerForce] = useState(store.currentMarkerForce)
   const [currentForce] = useState(store.currentForce)
 
   // A copy of the store to capture the updates
   const newStore = store
-  // Set the marker name when the component loads
+
+  // Only populate the perception state if it's store value exists
+  useEffect(() => {
+    store.perception && setPerception(store.perception)
+  }, [])
 
   // Only show the form to non-umpire players who cannot see the correct name
   const clickHander = () =>
@@ -46,15 +50,17 @@ const MarkerName = ({ store, onStoreUpdate, callbackFunction }) => {
     handleSubmit()
   }
 
+  const name = perception && perception.name ? perception.name : currentMarkerName
+
   return (
     <>
-      <h2 key="header" onClick={clickHander}>{perception.name || currentMarkerName}</h2>
+      <h2 key="header" onClick={clickHander}>{name}</h2>
       {
         clicked &&
         <div className="input-container marker-name">
           <label>
             Update asset name
-            <input key="marker-name" id="marker-name" name="marker-name" onChange={handleRename} type="text" value={perception.name || currentMarkerName} />
+            <input key="marker-name" id="marker-name" name="marker-name" onChange={handleRename} type="text" value={name} />
           </label>
           <button type="submit" onClick={handleSubmit}>Rename</button>
           <button onClick={handleRevert}>Revert</button>
