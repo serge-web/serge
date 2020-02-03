@@ -675,7 +675,6 @@ export default class MapPlanningPlayerListener {
     popup.onUpdate(data => {
       if (data) {
         popup.setStore(data)
-
         // ok, extract the new perception:
         const perception = data.perception
 

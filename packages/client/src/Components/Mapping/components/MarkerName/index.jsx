@@ -8,36 +8,38 @@ const MarkerName = ({ store, onStoreUpdate, callbackFunction }) => {
   const [currentMarker] = useState(store.currentMarker)
   const [currentForce] = useState(store.currentForce)
   const [perception] = useState(store.perception)
-  const [currentMarkerName, setCurrentMarkerName] = useState(store.currentMarkerName)
+  const [currentName, setCurrentName] = useState(null)
   const [nameCorrect, setNameCorrect] = useState(null)
 
   // A copy of the store to capture the updates
   const newStore = store
 
-  // Set the marker name when the component loads
-  useEffect(() => {
-    if (perception && perception.name) {
+  const isNameCorrect = () => {
+    if (!currentName) {
       if (perception.name === currentMarker.name) {
-        // Name is correct set the perceivedName to the markers name and disable the rename function
-        setCurrentMarkerName(currentMarker.name)
         setNameCorrect(true)
+        setCurrentName(currentMarker.name)
+        newStore.currentMarkerName = currentMarker.name
       } else {
-        // Name is not correct set perceived name to the incorrect marker name, enable the rename function
-        setCurrentMarkerName(perception.name)
+        const nameToSet = perception.name || currentMarker.contactId
         setNameCorrect(false)
+        newStore.currentMarkerName = nameToSet
+        setCurrentName(nameToSet)
       }
-    } else {
-      setCurrentMarkerName(currentMarker.contactId)
-      setNameCorrect(false)
     }
-  }, [])
-
-  const clickHander = () => {
-    return (!nameCorrect && currentForce !== 'umpire') && setClicked(true)
   }
 
+  // Set the marker name when the component loads
+  useEffect(() => {
+    perception && isNameCorrect()
+  }, [])
+
+  // Only show the form to non-umpire players who cannot see the correct name
+  const clickHander = () =>
+    !nameCorrect && currentForce !== 'umpire' && setClicked(true)
+
   const handleRename = ({ target }) => {
-    setCurrentMarkerName(target.value)
+    setCurrentName(target.value)
     newStore.currentMarkerName = target.value
     onStoreUpdate(newStore)
   }
@@ -50,7 +52,7 @@ const MarkerName = ({ store, onStoreUpdate, callbackFunction }) => {
   const handleRevert = e => {
     e.preventDefault()
     const revertName = (perception.name) ? perception.name : currentMarker.contactId
-    setCurrentMarkerName(revertName)
+    setCurrentName(revertName)
     newStore.currentMarkerName = revertName
     onStoreUpdate(newStore)
     handleSubmit()
@@ -61,14 +63,14 @@ const MarkerName = ({ store, onStoreUpdate, callbackFunction }) => {
       <div className="input-container marker-name">
         <label>
           Update asset name
-          <input key="marker-name" id="marker-name" name="marker-name" onChange={handleRename} type="text" value={currentMarkerName} />
+          <input key="marker-name" id="marker-name" name="marker-name" onChange={handleRename} type="text" value={currentName} />
         </label>
         <button onClick={handleSubmit}>Rename</button>
         <button onClick={handleRevert}>Revert</button>
       </div>
     )
   } else {
-    return <h2 key="header" onClick={clickHander}>{currentMarkerName}</h2>
+    return <h2 key="header" onClick={clickHander}>{currentName}</h2>
   }
 }
 
