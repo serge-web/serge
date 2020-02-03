@@ -7,7 +7,7 @@ import createButton from './createDebugButton'
 import clearButtons from './clearButtons'
 import resetCurrentLeg from './resetLegsFrom'
 import getClearedRoute from './getClearedRoute'
-import { lineFor, routeLinesFor } from './routeLinesFor'
+import routeLinesFor from './routeLinesFor'
 import turnNameFor from './turnNameFor'
 import roundToNearest from './roundToNearest'
 import findPlatformTypeFor from './findPlatformTypeFor'
@@ -20,6 +20,7 @@ import MapPopupHelper from './mapPopupHelper'
 import findPerceivedAsClassName from './findPerceivedAsClassName'
 import removeClassNamesFrom from './removeClassNamesFrom'
 
+// eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
 
 import MappingForm from '../components/FormContainer'
