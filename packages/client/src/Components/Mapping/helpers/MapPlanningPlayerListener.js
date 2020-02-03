@@ -950,6 +950,9 @@ export default class MapPlanningPlayerListener {
     // trigger an update of the planning line
     this.updatePlannedRoute(true)
 
+    // call on update callback
+    this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
+
     if (this.performingAdjudication) {
       // we only allow one step to be planned in adjudication, so we're done
       // disconnect the planning marker
