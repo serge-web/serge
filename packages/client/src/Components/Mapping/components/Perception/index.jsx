@@ -3,7 +3,6 @@ import _ from 'lodash'
 
 const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
   const [currentForce] = useState(store.currentForce)
-  const [currentMarkerName] = useState(store.currentMarkerName)
   const [forcePerception, setForcePerception] = useState(store.perception.force)
   const [typePerception, setTypePerception] = useState(store.perception.type)
   const [allForces] = useState(store.allForces)
