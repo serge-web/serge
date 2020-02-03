@@ -3,7 +3,6 @@ import _ from 'lodash'
 
 const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
   const [currentForce] = useState(store.currentForce)
-  const [currentMarkerName] = useState(store.currentMarkerName)
   const [forcePerception, setForcePerception] = useState(store.perception.force)
   const [typePerception, setTypePerception] = useState(store.perception.type)
   const [allForces] = useState(store.allForces)
@@ -34,8 +33,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
   }
 
   return (
-    <form action="">
-      <h2>{currentMarkerName}</h2>
+    <div>
       <div className="input-container radio">
         <label htmlFor="force">Perceived force</label>
         <ul>
@@ -64,7 +62,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
         </select>
       </div>
       <button onClick={handleSubmit}>Save</button>
-    </form>
+    </div>
   )
 }
 

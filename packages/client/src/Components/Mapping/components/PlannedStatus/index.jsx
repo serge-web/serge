@@ -6,6 +6,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
   const [markerSpeed, setMarkerSpeed] = useState(store.currentMarkerSpeed)
   const [turnsInThisState, setTurnsInThisState] = useState(store.turnsInThisState)
   const [isMobile, setIsMobile] = useState(store.currentMarkerIsMobile)
+  const [isDeploying, setIsDeploying] = useState(store.currentMarkerIsDeploying)
 
   // Get all of the possible states and speeds
   const { states, speedKts } = currentMarker.platformTypeDetail
@@ -21,13 +22,17 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
   }
 
   const handleStatusChange = ({ target }) => {
-    const isMobileCheck = states.find(state => state.name === target.value).mobile
+    const status = states.find(state => state.name === target.value)
+    const isMobileCheck = status.mobile
+    const isDeployingCheck = status.deploying
     setMarkerStatus(target.value)
     setIsMobile(isMobileCheck)
+    setIsDeploying(!!isDeployingCheck)
 
     newStore.currentMarkerStatus = target.value
     newStore.currentMarkerIsMobile = isMobileCheck
-    if (!isMobileCheck) {
+    newStore.currentMarkerIsDeploying = isDeployingCheck
+    if (!isMobileCheck || isDeployingCheck) {
       setMarkerSpeed(null)
       newStore.currentMarkerSpeed = null
     }
@@ -51,9 +56,31 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
     onStoreUpdate(newStore)
   }
 
+  const submitDisabled = () => {
+    console.log('submit disabled', isDeploying, isMobile, speedKts, markerSpeed)
+    if (isDeploying) {
+      return false
+    } else if (!isMobile) {
+      return false
+    } else if (!speedKts || speedKts.length === 0) {
+      return false
+    } else {
+      return !(speedKts && speedKts.length && markerSpeed)
+    }
+  }
+
+  const buttonLabel = () => {
+    if (!isMobile) {
+      return 'Save'
+    } else if (isDeploying) {
+      return 'Deploy asset'
+    } else {
+      return 'Plan route'
+    }
+}
+
   return (
-    <form action="">
-      <h2>{currentMarker.name}</h2>
+    <div>
       <div className="input-container radio">
         <label htmlFor="state">Status</label>
         <ul>
@@ -69,7 +96,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
           }
         </ul>
       </div>
-      { (speedKts && speedKts.length && isMobile) &&
+      { (speedKts && speedKts.length && isMobile && !isDeploying) &&
         <div className="input-container radio">
           <label htmlFor="speed">Speed (kts)</label>
           <ul>
@@ -96,8 +123,8 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
           </label>
         </div>
       }
-      <button onClick={handleSubmit}>Plan route</button>
-    </form>
+      <button onClick={handleSubmit} disabled={submitDisabled()}>{buttonLabel()}</button>
+    </div>
   )
 }
 

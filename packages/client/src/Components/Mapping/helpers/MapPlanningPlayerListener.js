@@ -23,7 +23,7 @@ import removeClassNamesFrom from './removeClassNamesFrom'
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
 
-import MappingForm from '../components/FormContainer'
+import MappingForm from '../components/MappingForm'
 
 import findLastRouteWithLocation from './findLastRouteLocation'
 import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_ACCEPTED } from '../../../consts'
@@ -107,24 +107,29 @@ export default class MapPlanningPlayerListener {
       const context = this
       const btns = []
       forceNames.forEach(name => {
-        const color = colorFor(name)
-        const title = 'View as ' + name
-        const button = L.easyButton('<span title="' + title + '" style="font-size:16px;color:' + color + ';" class="fa fa-eye"/>', () => {
-          // update the UI
-          context.viewAs(name, allMarkers)
-          // clear any other selected states
-          btns.forEach(btn => {
-            btn.enable()
+        // check if this force is being controlled by another, in which case we don't need
+        // to view as them
+        const isControlled = this.allForces.find(force => force.uniqid === name).controlledBy
+        if (!isControlled) {
+          const color = colorFor(name)
+          const title = 'View as ' + name
+          const button = L.easyButton('<span title="' + title + '" style="font-size:18px;color:' + color + ';" class="fa fa-globe-europe"/>', () => {
+            // update the UI
+            context.viewAs(name, allMarkers)
+            // clear any other selected states
+            btns.forEach(btn => {
+              btn.enable()
+            })
+            button.disable()
           })
-          button.disable()
-        })
-        // if this is the first one, mark it as selected
-        if (!btns.length) {
-          button.disable()
+          // if this is the first one, mark it as selected
+          if (!btns.length) {
+            button.disable()
+          }
+          btns.push(button)
         }
-        btns.push(button)
       })
-      this.viewAsBar = L.easyBar(btns).addTo(this.map)
+      this.viewAsBar = L.easyBar(btns, { position: 'topright' }).addTo(this.map)
     }
 
     if (this.performingAdjudication) {
@@ -202,7 +207,7 @@ export default class MapPlanningPlayerListener {
         // set the new class names
         L.DomUtil.addClass(marker._icon, perceptionClassName)
 
-        // reveal it
+        // reveal it, just to be sure
         L.DomUtil.removeClass(marker._icon, 'marker-hidden')
       } else {
         // hide it
@@ -276,6 +281,7 @@ export default class MapPlanningPlayerListener {
       currentMarkerForce: asset.force,
       currentMarkerStatus: status.state,
       currentMarkerIsMobile: status.mobile,
+      currentMarkerIsDeploying: !!status.deploying,
       currentMarkerSpeed: status.speedKts,
       turnsInThisState: 1,
       perception: asset.perceptions[this.force] || null,
@@ -685,9 +691,12 @@ export default class MapPlanningPlayerListener {
     popup.onUpdate(data => {
       if (data) {
         popup.setStore(data)
-
         // ok, extract the new perception:
         const perception = data.perception
+
+        // update the marker text
+        const hoverTxt = findAssetNameFor(asset.name, asset.condition, asset.force, this.force, asset.perceptions[this.force], asset.contactId)
+        marker.bindTooltip(hoverTxt)
 
         // callback expects: (/* string */ assetid, /* string */ perceivedBy, /* object */ perception) => {
         this.perceivedStateCallback(asset.uniqid, this.force, perception)
