@@ -279,6 +279,7 @@ export default class MapPlanningPlayerListener {
       currentMarkerForce: asset.force,
       currentMarkerStatus: status.state,
       currentMarkerIsMobile: status.mobile,
+      currentMarkerIsDeploying: !!status.deploying,
       currentMarkerSpeed: status.speedKts,
       turnsInThisState: 1,
       perception: asset.perceptions[this.force] || null,

@@ -356,13 +356,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     //
   }, [allForces])
 
-  /** create handler for planning updates - specifically when the
-   * contents of allRoutes changes
-   */
-  useEffect(() => {
-    console.log('Planned routes updated at', new Date(), 'phase:', phase, allRoutes)
-  }, [allRoutes])
-
   return (
     <div id="map" className="mapping">
     </div>
