@@ -38,10 +38,8 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const perceiveAsForceRef = useRef(selectedForce) // in case white changes how they perceive the data
   const allRoutes = []
   const [planingNow, setPlaningNow] = useState(null)
-  const phaseRef = useRef(phase)
 
   const updatePlansCallback = (data) => {
-    console.log('^ Planned routes updated for orders panel', data)
     setPlaningNow(data)
   }
 
