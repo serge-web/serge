@@ -3,16 +3,16 @@ import MarkerName from '../MarkerName'
 
 import './styles.scss'
 
-const MappingForm = props => {
+const MappingForm = ({ store, onStoreUpdate, callbackFunction, child }) => {
   return (
     <section className="mapping-form-container">
       <form>
-        <MarkerName name={props.store.currentMarkerName}/>
+        <MarkerName store={store} onStoreUpdate={onStoreUpdate} callbackFunction={callbackFunction} />
         {
-          cloneElement(props.child, {
-            store: props.store,
-            onStoreUpdate: props.onStoreUpdate,
-            callbackFunction: props.callbackFunction
+          cloneElement(child, {
+            store,
+            onStoreUpdate,
+            callbackFunction
           })
         }
       </form>

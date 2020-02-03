@@ -1,6 +1,7 @@
 import React from 'react'
 
-const MarkerName = props =>
-  <h2>{props.name}</h2>
+const MarkerName = ({ store, onStoreUpdate, callbackFunction }) => {
+  return (<h2>{store.currentMarkerName}</h2>)
+}
 
 export default MarkerName
