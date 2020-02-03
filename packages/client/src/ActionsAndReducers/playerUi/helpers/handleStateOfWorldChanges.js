@@ -10,9 +10,9 @@ export default (/* object */ payload, /* object */ allForces) => {
       asset.history = asset.history ? asset.history : []
       asset.history.push(entry.history)
       asset.plannedTurns = entry.plannedTurns
-      asset.status = entry.newState.status
-      asset.position = entry.newState.position
-      asset.route = entry.newState.route
+      asset.status = entry.newState ? entry.newState.status : asset.status
+      asset.position = entry.newState ? entry.newState.position : asset.position
+      asset.route = entry.newState ? entry.newState.route : asset.route
       asset.condition = entry.condition
       asset.perceptions = entry.perceptions
     })
