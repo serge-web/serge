@@ -5,10 +5,10 @@ import './styles.scss'
 
 const MarkerName = ({ store, onStoreUpdate, callbackFunction }) => {
   const [clicked, setClicked] = useState(false)
+  const [perception, setPerception] = useState(store.perception)
   const [currentMarkerName] = useState(store.currentMarkerName)
   const [currentMarkerForce] = useState(store.currentMarkerForce)
   const [currentForce] = useState(store.currentForce)
-  const [currentName, setCurrentName] = useState(currentMarkerName)
 
   // A copy of the store to capture the updates
   const newStore = store
@@ -21,7 +21,11 @@ const MarkerName = ({ store, onStoreUpdate, callbackFunction }) => {
     setClicked(true)
 
   const handleRename = ({ target }) => {
-    setCurrentName(target.value)
+    setPerception({
+      ...perception,
+      name: target.value
+    })
+
     newStore.perception.name = target.value
     onStoreUpdate(newStore)
   }
@@ -33,21 +37,24 @@ const MarkerName = ({ store, onStoreUpdate, callbackFunction }) => {
 
   const handleRevert = e => {
     e.preventDefault()
-    setCurrentName(null)
-    newStore.currentMarkerName = null
+    setPerception({
+      ...perception,
+      name: null
+    })
+    newStore.perception.name = null
     onStoreUpdate(newStore)
     handleSubmit()
   }
 
   return (
     <>
-      <h2 key="header" onClick={clickHander}>{currentName}</h2>
+      <h2 key="header" onClick={clickHander}>{perception.name || currentMarkerName}</h2>
       {
         clicked &&
         <div className="input-container marker-name">
           <label>
             Update asset name
-            <input key="marker-name" id="marker-name" name="marker-name" onChange={handleRename} type="text" value={currentName} />
+            <input key="marker-name" id="marker-name" name="marker-name" onChange={handleRename} type="text" value={perception.name || currentMarkerName} />
           </label>
           <button type="submit" onClick={handleSubmit}>Rename</button>
           <button onClick={handleRevert}>Revert</button>
