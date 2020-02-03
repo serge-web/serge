@@ -11,12 +11,11 @@ import turn150deg from '../images/turn150deg.png'
 import noTurn from '../images/no-turn.png'
 import lightTurn from '../images/light-turn.png'
 
-
 import roundToNearest from './roundToNearest'
 import turnNameFor from './turnNameFor'
 
-function lineFor (/* array */ turns, /* latLng */ start,
-  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* int */ planningFor, /* boolean */ highlight, /* boolean */ historyTrack) {
+export function lineFor (/* array */ turns, /* latLng */ start,
+  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* int */ planningFor, /* boolean */ highlight, /* array */ historyTrack) {
   // note - we will actually start with a layer group, in case we're showing
   // a bold line and a feint line
   const res = L.layerGroup()
@@ -320,7 +319,7 @@ function markersFor (/* array */ turns, /* latLng */ start, /* string */ startHe
 
 /** create a Leaflet elememt for this set of routes
   */
-export default function routeLinesFor (/* array */ plannedTurns, /* history */ history, /* latLng */ start, /* string */ startHex,
+export function routeLinesFor (/* array */ plannedTurns, /* history */ history, /* latLng */ start, /* string */ startHex,
   /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* function */ waypointCallback, /* int */ planningFor, /* boolean */ highlight, /* object */ context) {
   const thisLayer = L.layerGroup()
 
