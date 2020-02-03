@@ -105,24 +105,29 @@ export default class MapPlanningPlayerListener {
       const context = this
       const btns = []
       forceNames.forEach(name => {
-        const color = colorFor(name)
-        const title = 'View as ' + name
-        const button = L.easyButton('<span title="' + title + '" style="font-size:16px;color:' + color + ';" class="fa fa-eye"/>', () => {
-          // update the UI
-          context.viewAs(name, allMarkers)
-          // clear any other selected states
-          btns.forEach(btn => {
-            btn.enable()
+        // check if this force is being controlled by another, in which case we don't need
+        // to view as them
+        const isControlled = this.allForces.find(force => force.uniqid === name).controlledBy
+        if (!isControlled) {
+          const color = colorFor(name)
+          const title = 'View as ' + name
+          const button = L.easyButton('<span title="' + title + '" style="font-size:18px;color:' + color + ';" class="fa fa-globe-europe"/>', () => {
+            // update the UI
+            context.viewAs(name, allMarkers)
+            // clear any other selected states
+            btns.forEach(btn => {
+              btn.enable()
+            })
+            button.disable()
           })
-          button.disable()
-        })
-        // if this is the first one, mark it as selected
-        if (!btns.length) {
-          button.disable()
+          // if this is the first one, mark it as selected
+          if (!btns.length) {
+            button.disable()
+          }
+          btns.push(button)
         }
-        btns.push(button)
       })
-      this.viewAsBar = L.easyBar(btns).addTo(this.map)
+      this.viewAsBar = L.easyBar(btns, { position: 'topright' }).addTo(this.map)
     }
 
     if (this.performingAdjudication) {
@@ -200,7 +205,7 @@ export default class MapPlanningPlayerListener {
         // set the new class names
         L.DomUtil.addClass(marker._icon, perceptionClassName)
 
-        // reveal it
+        // reveal it, just to be sure
         L.DomUtil.removeClass(marker._icon, 'marker-hidden')
       } else {
         // hide it
