@@ -1,7 +1,9 @@
 import ReactDOM from 'react-dom'
 import React from 'react'
 import L from 'leaflet'
-import './leaflet.responsive.popup.js'
+//import './leaflet.responsive.popup.js'
+import 'leaflet-responsive-popup'
+//import './leaflet.responsive.popup.css'
 
 class MapPopupHelper {
   constructor (map, marker) {
@@ -25,8 +27,9 @@ class MapPopupHelper {
     // Note: we need to clear any existing popups, otherwise we can
     // only assign this helper to a marker once
     this.marker.unbindPopup()
-    
+    // the code for the responsive popup
     var popup = L.responsivePopup().setContent(`<div id="${this.uniqKey}"></div>`);
+    console.log()
     // bind a static div to popup with unique id
     this.marker.bindPopup(popup, {
       maxWidth: 'auto'

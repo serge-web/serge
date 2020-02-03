@@ -9467,6 +9467,11 @@ leaflet-polylinedecorator@^1.6.0:
   dependencies:
     leaflet-rotatedmarker "^0.2.0"
 
+leaflet-responsive-popup@^0.6.4:
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/leaflet-responsive-popup/-/leaflet-responsive-popup-0.6.4.tgz#b93d9368ef9f96d6dc911cf5b96d90e08601c6b3"
+  integrity sha512-2D8G9aQA6NHkulDBPN9kqbUCkCpWQQ6dF0xFL11AuEIWIbsL4UC/ZPP5m8GYM0dpU6YTlmyyCh1Tz+cls5Q4dg==
+
 leaflet-rotatedmarker@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/leaflet-rotatedmarker/-/leaflet-rotatedmarker-0.2.0.tgz#4467f49f98d1bfd56959bd9c6705203dd2601277"
