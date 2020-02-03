@@ -111,7 +111,7 @@ export default class MapPlanningPlayerListener {
         if (!isControlled) {
           const color = colorFor(name)
           const title = 'View as ' + name
-          const button = L.easyButton('<span title="' + title + '" style="font-size:16px;color:' + color + ';" class="fa fa-globe-europe"/>', () => {
+          const button = L.easyButton('<span title="' + title + '" style="font-size:18px;color:' + color + ';" class="fa fa-globe-europe"/>', () => {
             // update the UI
             context.viewAs(name, allMarkers)
             // clear any other selected states
@@ -127,7 +127,7 @@ export default class MapPlanningPlayerListener {
           btns.push(button)
         }
       })
-      this.viewAsBar = L.easyBar(btns).addTo(this.map)
+      this.viewAsBar = L.easyBar(btns, { position: 'topright' }).addTo(this.map)
     }
 
     if (this.performingAdjudication) {
