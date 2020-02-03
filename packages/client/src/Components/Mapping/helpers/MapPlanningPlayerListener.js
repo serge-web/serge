@@ -214,6 +214,16 @@ export default class MapPlanningPlayerListener {
         L.DomUtil.addClass(marker._icon, 'marker-hidden')
       }
     })
+    // also do this for the planning routes
+    this.allRoutes.forEach(route => {
+      const asset = route.asset
+      const perceptionClassName = findPerceivedAsClassName(force, asset.force, asset.platformType, asset.perceptions, viewAsUmpire)
+      if (perceptionClassName) {
+        route.lightRoutes.addTo(this.map)
+      } else {
+        route.lightRoutes.remove()
+      }
+    })
   }
 
   setupAdjudicationButtons () {
