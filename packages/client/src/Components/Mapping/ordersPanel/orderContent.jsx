@@ -18,7 +18,35 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }
     selectedForceData = allForces.find(force => force.uniqid === selectedForce)
   }
 
-  console.log(planingNow)
+  const messageFor = (uniqid) => {
+    // do we have planning data?
+    if (planingNow) {
+      // is it state of world?
+      if (planingNow.detail && planingNow.detail.type === 'StateOfWorld') {
+        var res = null
+        planingNow.detail.data.find(force => {
+          const assets = force.assets
+          if (assets) {
+            res = assets.find(asset => asset.uniqid === uniqid)
+            return res
+          } else {
+            return false
+          }
+        })
+        return res.newState ? 'Accepted' : 'Pending'
+      } else if (planingNow.plannedRoutes) {
+        // ok, it's planning orders. Sort out if this asset has a planned route
+        let status = null
+        const plannedRoute = planingNow.plannedRoutes.find(route => (route.uniqid === uniqid))
+        if (plannedRoute && plannedRoute.plannedTurns && plannedRoute.plannedTurns.length) {
+          status = `${plannedRoute.plannedTurns.length} Turns planned`
+        }
+        return status
+      } else {
+        console.warning('OrderContent has received unexpected message type')
+      }
+    }
+  }
 
   return (
     <div className="orders-panel__content">
@@ -28,7 +56,7 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }
             <OrderAsset
               data={asset}
               force={selectedForceData}
-              plannedRoute={planingNow && planingNow.find(route => (route.marker.asset.uniqid === asset.uniqid))}
+              message={messageFor(asset.uniqid)}
               allForces={allForces}
             />
           </li>
