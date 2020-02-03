@@ -217,10 +217,10 @@ export default class MapPlanningPlayerListener {
       const context = this
       this.submitButton = createButton(true, 'Submit 0 of 0 states', () => {
         // collate the message
-        const newStatesMessage = collateNewStatesMessage(context.allRoutes)
+        const newStatesMessage = collateNewStatesMessage(context.allRoutes, context.turnNumber)
 
         // and send the new states
-        context.stateOfWorldCallback(newStatesMessage, context.turnNumber)
+        context.stateOfWorldCallback(newStatesMessage)
 
         // and drop the submit button
         context.btnListAccept = clearButtons(context.btnListAccept)
@@ -353,7 +353,7 @@ export default class MapPlanningPlayerListener {
           clearTurns.remove()
 
           // call on update callback
-          this.updatePlansCallback(this.allRoutes)
+          this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
         }).addTo(this.map)
         this.btnListStates.push(clearTurns)
       }
@@ -446,7 +446,6 @@ export default class MapPlanningPlayerListener {
    * that are applicable to the provided domain
    */
   cellsValidForThisDomain (/* array */ cells, /* string */ domain) {
-    console.log('checking for', domain)
     return cells.filter(cell => {
       switch (domain) {
         case 'land':
@@ -628,6 +627,9 @@ export default class MapPlanningPlayerListener {
     const thisData = this.planningDataFor(marker, platformTypes)
     this.allRoutes.push(thisData)
 
+    // also update the orders panel
+    this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
+
     // and add to the map
     this.storeLayer(thisData.lightRoutes, this)
 
@@ -641,6 +643,9 @@ export default class MapPlanningPlayerListener {
     // build up the data store for this asset
     const thisData = this.adjudicationDataFor(marker)
     this.allRoutes.push(thisData)
+
+    // also update the orders panel
+    this.updatePlansCallback(collateNewStatesMessage(this.allRoutes, this.turnNumber))
 
     // ok, now show this route
     this.showLayer(thisData.lightRoutes, this)
@@ -898,7 +903,7 @@ export default class MapPlanningPlayerListener {
     this.updateSubmitButtonLabel()
 
     // lastly, tell the plans form that we've updated
-    this.updatePlansCallback(this.allRoutes)
+    this.updatePlansCallback(collateNewStatesMessage(this.allRoutes, this.turnNumber))
   }
 
   /** accept the planned state for all remaining platforms */
@@ -1130,7 +1135,7 @@ export default class MapPlanningPlayerListener {
     this.updatePlannedRoute(true)
 
     // call on update callback
-    this.updatePlansCallback(this.allRoutes)
+    this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
 
     if (this.performingAdjudication) {
       // we only allow one step to be planned in adjudication, so we're done
@@ -1388,7 +1393,7 @@ export default class MapPlanningPlayerListener {
         }
 
         // call on update callback
-        this.updatePlansCallback(this.allRoutes)
+        this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
       })
     }
   }
