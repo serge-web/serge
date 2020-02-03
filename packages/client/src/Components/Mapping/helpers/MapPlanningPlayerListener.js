@@ -22,7 +22,7 @@ import removeClassNamesFrom from './removeClassNamesFrom'
 
 import { easyBar, easyButton } from 'leaflet-easybutton'
 
-import MappingForm from '../components/FormContainer'
+import MappingForm from '../components/MappingForm'
 
 import findLastRouteWithLocation from './findLastRouteLocation'
 import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_ACCEPTED } from '../../../consts'
