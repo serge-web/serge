@@ -102,7 +102,7 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }
       <div className="orders-panel__footer">
         { sendVisible && <button onClick={() => {
           if (planingNow) wrappedCallback(planingNow)
-        }} className="btn btn-action">SEND</button>
+        }} className="btn btn-action">SUBMIT</button>
         }
       </div>
     </div>
