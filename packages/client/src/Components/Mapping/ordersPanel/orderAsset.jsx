@@ -4,8 +4,8 @@ import './styles.scss'
 const Asset = ({ data, plannedRoute }) => {
   let status = ''
 
-  if (plannedRoute && plannedRoute.plannedTurns) {
-    status = `${plannedRoute.plannedTurns.length} Turns planing`
+  if (plannedRoute && plannedRoute.plannedTurns && plannedRoute.plannedTurns.length) {
+    status = `${plannedRoute.plannedTurns.length} Turns planned`
   } else if (data.plannedTurns && data.plannedTurns.length) {
     status = `${data.plannedTurns.length} Turns planned`
   }
