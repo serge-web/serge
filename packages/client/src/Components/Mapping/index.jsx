@@ -313,7 +313,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
             // check the positions match
             if (marker.asset.position !== asset.position) {
               // update marker
-              marker.setLatLng(grid.hexNamed(asset.position).centrePos)
+              const theHex = grid.hexNamed(asset.position)
+              marker.setLatLng(theHex.centrePos)
+              // also update the hex location (it's needed for the declutter operation)
+              marker.hex = theHex.name
             }
           } else {
           }

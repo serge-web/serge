@@ -591,6 +591,9 @@ export default class MapPlanningPlayerListener {
     if (this.performingAdjudication) {
       const justNextStep = currentRoutes && currentRoutes.length ? [currentRoutes[0]] : []
       trimmedRoute = short ? justNextStep : currentRoutes
+      // if (history) {
+      //   history = history.slice(-1)
+      // }
     } else {
       trimmedRoute = currentRoutes
     }
