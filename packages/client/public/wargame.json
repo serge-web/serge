@@ -1035,7 +1035,7 @@
 				"speedKts": [],
 				"states": [
 					{ "name": "Airborne", "mobile": true },
-					{ "name": "Landed", "mobile": true },
+					{ "name": "Landed", "mobile": false },
 					{ "name": "Preparing for launch", "mobile": false }
 				],
 				"travelMode": "air"
@@ -1052,7 +1052,7 @@
 				"speedKts": [],
 				"states": [
 					{ "name": "Airborne", "mobile": true },
-					{ "name": "Landed", "mobile": true },
+					{ "name": "Landed", "mobile": false },
 					{ "name": "Preparing for launch", "mobile": false }
 				],
 				"travelMode": "air"
