@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
 import {
   assetsVisibleToMe,
@@ -37,6 +37,12 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const platformTypesRef = useRef(allPlatforms)
   const perceiveAsForceRef = useRef(selectedForce) // in case white changes how they perceive the data
   const allRoutes = []
+  const [planingNow, setPlaningNow] = useState(null)
+
+  const updatePlansCallback = (data) => {
+    console.log('^ Planned routes updated for orders panel', data)
+    setPlaningNow(data)
+  }
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -238,9 +244,16 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       // this force has assets with location pending
       currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
     } else {
-      currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
-        myForceRef.current, currentTurn, routeCompleteCallback,
-        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase,
+      currentPhaseModeRef.current = new MapPlanningPlayerListener(
+        currentPhaseMapRef.current,
+        mapRef.current,
+        gridImplRef.current,
+        myForceRef.current,
+        currentTurn,
+        routeCompleteCallback,
+        updatePlansCallback,
+        platformTypesRef.current,
+        allForces, declutterCallback, perceivedStateCallback, forceNames, phase,
         newStateOfWorldCallback, visChangesFunc, allRoutes)
     }
 
@@ -359,6 +372,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         selectedForce={selectedForce}
         allForces={allForces}
         onSendClick={routeCompleteCallback}
+        planingNow={planingNow}
       />
       <div id="map" className="mapping"/>
     </div>

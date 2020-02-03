@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Body from './orderContent'
 import './styles.scss'
 
-const OrdersPanel = ({ selectedForce, allForces, onSendClick }) => {
+const OrdersPanel = ({ selectedForce, allForces, onSendClick, planingNow }) => {
   const [active, setActive] = useState(true)
 
   return (
@@ -18,6 +18,7 @@ const OrdersPanel = ({ selectedForce, allForces, onSendClick }) => {
       </div>
       {active && <Body
         selectedForce={selectedForce}
+        planingNow={planingNow}
         allForces={allForces}
         onSendClick={onSendClick}
       />}

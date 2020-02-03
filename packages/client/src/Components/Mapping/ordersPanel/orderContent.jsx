@@ -2,7 +2,7 @@ import React from 'react'
 import './styles.scss'
 import OrderAsset from './orderAsset'
 
-const OrderPanelContent = ({ selectedForce, allForces, onSendClick }) => {
+const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }) => {
   let selectedForceData = { assets: [] }
 
   if (selectedForce === 'umpire') {
@@ -21,23 +21,21 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick }) => {
   return (
     <div className="orders-panel__content">
       <ul className="orders-panel__list">
-        <li>
-          {selectedForceData && selectedForceData.assets && selectedForceData.assets.map(asset => (
+        {selectedForceData && selectedForceData.assets && selectedForceData.assets.map(asset => (
+          <li key={asset.uniqid}>
             <OrderAsset
-              key={asset.uniqid}
               data={asset}
               force={selectedForceData}
+              plannedRoute={planingNow && planingNow.plannedRoutes.find(({ uniqid }) => (uniqid === asset.uniqid))}
               allForces={allForces}
-              onClick={() => {
-                console.log(onSendClick)
-                // onSendClick()
-              }}
             />
-          ))}
-        </li>
+          </li>
+        ))}
       </ul>
       <div className="orders-panel__footer">
-        <button className="btn btn-action">SEND</button>
+        <button onClick={() => {
+          if (planingNow) onSendClick(planingNow)
+        }} className="btn btn-action">SEND</button>
       </div>
     </div>
   )

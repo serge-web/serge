@@ -1,10 +1,12 @@
 import React from 'react'
 import './styles.scss'
 
-const Asset = ({ data }) => {
+const Asset = ({ data, plannedRoute }) => {
   let status = ''
 
-  if (data.plannedTurns && data.plannedTurns.length) {
+  if (plannedRoute && plannedRoute.plannedTurns) {
+    status = `${plannedRoute.plannedTurns.length} Turns planing`
+  } else if (data.plannedTurns && data.plannedTurns.length) {
     status = `${data.plannedTurns.length} Turns planned`
   }
 

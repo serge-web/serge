@@ -24,7 +24,7 @@ import findLastRouteWithLocation from './findLastRouteLocation'
 import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_STATE_FORM, PLAYER_PERCEPTION } from '../../../consts'
 
 export default class MapPlanningPlayerListener {
-  constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, allForces, declutterCallback,
+  constructor (layer, map, grid, force, turn, submitPlansCallback, updatePlansCallback, platformTypes, allForces, declutterCallback,
     perceivedStateCallback, /* array string */ forceNames, /* string */ phase, /* function */ stateOfWorldCallback,
     /* function */ visibilityCallback, /* array */ allRoutes) {
     this.grid = grid
@@ -35,6 +35,7 @@ export default class MapPlanningPlayerListener {
     this.map = map // the underlying base-map (required to add/remove toolbar controls)
     this.inPlanningPhase = phase === PLANNING_PHASE
     this.submitPlansCallback = submitPlansCallback
+    this.updatePlansCallback = updatePlansCallback
     this.turnNumber = turn
     this.platformTypes = platformTypes
     this.declutterCallback = declutterCallback
@@ -291,6 +292,9 @@ export default class MapPlanningPlayerListener {
           this.clearAchievableCells()
           this.updatePlannedRoute(false)
           clearTurns.remove()
+
+          // call on update callback
+          this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
         }).addTo(this.map)
         this.btnListStates.push(clearTurns)
       }
@@ -1198,6 +1202,9 @@ export default class MapPlanningPlayerListener {
             cell.polygon.setStyle(this.routeStyle)
           })
         }
+
+        // call on update callback
+        this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
       })
     }
   }
