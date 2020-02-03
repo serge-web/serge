@@ -52,8 +52,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
   }
 
   return (
-    <form action="">
-      <h2>{currentMarker.name}</h2>
+    <div>
       <div className="input-container radio">
         <label htmlFor="state">Status</label>
         <ul>
@@ -97,7 +96,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
         </div>
       }
       <button onClick={handleSubmit}>Plan route</button>
-    </form>
+    </div>
   )
 }
 

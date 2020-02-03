@@ -16,9 +16,9 @@ import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_Actio
 import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, UMPIRE_FORCE } from '../../consts'
 
 // declare the forms in JSX space, so we can pass them to JS space
-import Adjudicate from './components/FormChildAdjudication'
-import Perception from './components/FormChildPerception'
-import PlannedStatus from './components/FormChildPlannedStatus'
+import Adjudicate from './components/Adjudication'
+import Perception from './components/Perception'
+import PlannedStatus from './components/PlannedStatus'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import removeClassNamesFrom from './helpers/removeClassNamesFrom'

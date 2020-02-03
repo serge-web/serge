@@ -22,7 +22,7 @@ import removeClassNamesFrom from './removeClassNamesFrom'
 
 import { easyBar, easyButton } from 'leaflet-easybutton'
 
-import MappingForm from '../components/FormContainer'
+import MappingForm from '../components/MappingForm'
 
 import findLastRouteWithLocation from './findLastRouteLocation'
 import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_ACCEPTED } from '../../../consts'
@@ -675,9 +675,12 @@ export default class MapPlanningPlayerListener {
     popup.onUpdate(data => {
       if (data) {
         popup.setStore(data)
-
         // ok, extract the new perception:
         const perception = data.perception
+
+        // update the marker text
+        const hoverTxt = findAssetNameFor(asset.name, asset.condition, asset.force, this.force, asset.perceptions[this.force], asset.contactId)
+        marker.bindTooltip(hoverTxt)
 
         // callback expects: (/* string */ assetid, /* string */ perceivedBy, /* object */ perception) => {
         this.perceivedStateCallback(asset.uniqid, this.force, perception)
