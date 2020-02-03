@@ -180,7 +180,7 @@ export default class MapPlanningPlayerListener {
       const payload = this.collatePlanningOrders(this.allRoutes)
       this.submitPlansCallback(payload)
       clearButtons(this.btnListSubmit)
-    }).addTo(this.map)
+    }) // .addTo(this.map)
     this.btnListSubmit.push(this.btnSubmitAll)
 
     // intiialise the button label
@@ -230,7 +230,7 @@ export default class MapPlanningPlayerListener {
         // and drop the submit button
         context.btnListAccept = clearButtons(context.btnListAccept)
         context.btnListSubmit = clearButtons(context.btnListSubmit)
-      }).addTo(this.map)
+      }) // don't bother adding to map, we've got the new panel .addTo(this.map)
       this.btnListSubmit.push(this.submitButton)
       this.acceptAllButton = createButton(true, 'Accept remaining 0 states', () => {
         context.adjudicatingAcceptAllStates()
