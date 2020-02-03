@@ -1,0 +1,125 @@
+.orders-panel {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  border: 1px solid rgba(255,255,255,.8);
+  background-color: rgba(255,255,255,.8);
+  color: #5F5F60;
+  z-index: 410; //map z-index = 399
+  padding: .5em .7em;
+  font-size: 14px;
+  min-width: 260px;
+  border-radius: 4px;
+  max-height: 95%;
+
+  &__header {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    font-weight: bold;
+    margin-right: .5em;
+  }
+
+  &__actions {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 20px;
+  }
+
+  &__number {
+    margin-right: 5px;
+  }
+
+  &__toggler {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #5F5F60;
+    padding: 2px;
+    cursor: pointer;
+
+    &::after,
+    &::before {
+      content: "";
+      display: block;
+      height: 100%;
+      width: 0;
+      transform-origin: center;
+      box-shadow: 0 0 0 .8px #5F5F60;
+      margin: 0 auto;
+      transform: rotate(90deg);
+      transition: all 100ms linear;
+    }
+
+    &::after {
+      margin-top: -100%;
+    }
+
+    &--active {
+      &::before {
+        transform: rotate(0);
+      }
+    }
+  }
+
+  &__content {
+
+  }
+
+  &__footer {
+    button {
+      font-size: 12px;
+      color: #ffffff;
+      text-transform: uppercase;
+      background-color: #55677B;
+      border-radius: 4px;
+      padding: 4px 14px;
+    }
+  }
+
+  &__list {
+    margin: 10px 0;
+    max-height: 520px;
+    overflow-y: auto;
+  }
+
+  &__asset {
+    position: relative;
+    padding-left: 48px;
+    display: flex;
+    min-height: 40px;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__icon {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 32px;
+    height: 32px;
+    box-shadow: none;
+  }
+
+  &__description {
+    padding-bottom: 4px;
+    width: 100%;
+  }
+
+  &__name {
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  &__status {
+    min-height: 10px;
+    line-height: 1;
+    font-size: 10px;
+  }
+}

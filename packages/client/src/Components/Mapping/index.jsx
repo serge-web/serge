@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import L from 'leaflet'
 import {
   assetsVisibleToMe,
@@ -30,6 +30,7 @@ import './styles.scss'
 
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
+import OrdersPanel from './ordersPanel'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
@@ -41,6 +42,11 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const platformTypesRef = useRef(allPlatforms)
   const perceiveAsForceRef = useRef(selectedForce) // in case white changes how they perceive the data
   const allRoutes = []
+  const [planingNow, setPlaningNow] = useState(null)
+
+  const updatePlansCallback = (data) => {
+    setPlaningNow(data)
+  }
 
   useEffect(() => {
     mapRef.current = L.map('map', {
@@ -154,6 +160,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }
 
   const routeCompleteCallback = (/* object */payload) => {
+    console.log('routeCompleteCallback', payload)
     sendMessage(SUBMIT_PLANS, payload)
   }
 
@@ -248,10 +255,26 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         perception: <Perception/>,
         plannedStatus: <PlannedStatus/>
       }
-      currentPhaseModeRef.current = new MapPlanningPlayerListener(currentPhaseMapRef.current, mapRef.current, gridImplRef.current,
-        myForceRef.current, currentTurn, routeCompleteCallback,
-        platformTypesRef.current, allForces, declutterCallback, perceivedStateCallback, forceNames, phase,
-        newStateOfWorldCallback, visChangesFunc, allRoutes, reactForms, platformsLayerRef.current)
+
+      currentPhaseModeRef.current = new MapPlanningPlayerListener(
+        currentPhaseMapRef.current,
+        mapRef.current,
+        gridImplRef.current,
+        myForceRef.current,
+        currentTurn,
+        routeCompleteCallback,
+        updatePlansCallback,
+        platformTypesRef.current,
+        allForces,
+        declutterCallback,
+        perceivedStateCallback,
+        forceNames,
+        phase,
+        newStateOfWorldCallback,
+        visChangesFunc,
+        allRoutes,
+        reactForms,
+        platformsLayerRef.current)
     }
 
     // create markers, and listen to them
@@ -281,7 +304,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     // NOTE: only update location if we're umpire. This is because white
     // needs to know red force locations during force laydown, so the
     // umpire can correct asset visibility
-    if (phase === ADJUDICATION_PHASE && myForceRef.current === UMPIRE_FORCE) {
+    // NOTE2: we also need to fire track this change for Red, otherwise declutter thinks
+    // the marker is still in its old location during force laydown
+    if (phase === ADJUDICATION_PHASE && (myForceRef.current === UMPIRE_FORCE || myForceRef.current === 'Red')) {
       markers.eachLayer(function (marker) {
         const force = allForces.find(force => marker.force === force.name)
         if (force && marker.asset) {
@@ -290,9 +315,11 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
             // check the positions match
             if (marker.asset.position !== asset.position) {
               // update marker
-              marker.setLatLng(grid.hexNamed(asset.position).centrePos)
+              const theHex = grid.hexNamed(asset.position)
+              marker.setLatLng(theHex.centrePos)
+              // also update the hex location (it's needed for the declutter operation)
+              marker.hex = theHex.name
             }
-          } else {
           }
         }
       })
@@ -351,13 +378,36 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       })
     }
 
+    // run the declutter, there's a chance some markers
+    // have been added/removed
+    declutterCallback()
+
     //
     // Other diagnostics
     //
   }, [allForces])
 
+  const callbackForThisPhase = (payload) => {
+    const callback = (payload) => {
+      if (phase === ADJUDICATION_PHASE) {
+        newStateOfWorldCallback(payload)
+      } else {
+        routeCompleteCallback(payload)
+      }
+    }
+    return callback
+  }
+
   return (
-    <div id="map" className="mapping">
+    <div className="flexlayout__container">
+      <OrdersPanel
+        selectedForce={selectedForce}
+        allForces={allForces}
+        phase={phase}
+        onSendClick={callbackForThisPhase()}
+        planingNow={planingNow}
+      />
+      <div id="map" className="mapping"/>
     </div>
   )
 }

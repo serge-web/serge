@@ -7,7 +7,7 @@ import createButton from './createDebugButton'
 import clearButtons from './clearButtons'
 import resetCurrentLeg from './resetLegsFrom'
 import getClearedRoute from './getClearedRoute'
-import { lineFor, routeLinesFor } from './routeLinesFor'
+import routeLinesFor from './routeLinesFor'
 import turnNameFor from './turnNameFor'
 import roundToNearest from './roundToNearest'
 import findPlatformTypeFor from './findPlatformTypeFor'
@@ -20,6 +20,7 @@ import MapPopupHelper from './mapPopupHelper'
 import findPerceivedAsClassName from './findPerceivedAsClassName'
 import removeClassNamesFrom from './removeClassNamesFrom'
 
+// eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
 
 import MappingForm from '../components/MappingForm'
@@ -28,7 +29,7 @@ import findLastRouteWithLocation from './findLastRouteLocation'
 import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_ACCEPTED } from '../../../consts'
 
 export default class MapPlanningPlayerListener {
-  constructor (layer, map, grid, force, turn, submitPlansCallback, platformTypes, allForces, declutterCallback,
+  constructor (layer, map, grid, force, turn, submitPlansCallback, updatePlansCallback, platformTypes, allForces, declutterCallback,
     perceivedStateCallback, /* array string */ forceNames, /* string */ phase, /* function */ stateOfWorldCallback,
     /* function */ visibilityCallback, /* array */ allRoutes, /* array */ reactForms, /* layer */ allMarkers) {
     this.grid = grid
@@ -39,6 +40,7 @@ export default class MapPlanningPlayerListener {
     this.map = map // the underlying base-map (required to add/remove toolbar controls)
     this.inPlanningPhase = phase === PLANNING_PHASE
     this.submitPlansCallback = submitPlansCallback
+    this.updatePlansCallback = updatePlansCallback
     this.turnNumber = turn
     this.platformTypes = platformTypes
     this.declutterCallback = declutterCallback
@@ -178,7 +180,7 @@ export default class MapPlanningPlayerListener {
       const payload = this.collatePlanningOrders(this.allRoutes)
       this.submitPlansCallback(payload)
       clearButtons(this.btnListSubmit)
-    }).addTo(this.map)
+    }) // .addTo(this.map)
     this.btnListSubmit.push(this.btnSubmitAll)
 
     // intiialise the button label
@@ -212,6 +214,16 @@ export default class MapPlanningPlayerListener {
         L.DomUtil.addClass(marker._icon, 'marker-hidden')
       }
     })
+    // also do this for the planning routes
+    this.allRoutes.forEach(route => {
+      const asset = route.asset
+      const perceptionClassName = findPerceivedAsClassName(force, asset.force, asset.platformType, asset.perceptions, viewAsUmpire)
+      if (perceptionClassName) {
+        route.lightRoutes.addTo(this.map)
+      } else {
+        route.lightRoutes.remove()
+      }
+    })
   }
 
   setupAdjudicationButtons () {
@@ -220,15 +232,15 @@ export default class MapPlanningPlayerListener {
       const context = this
       this.submitButton = createButton(true, 'Submit 0 of 0 states', () => {
         // collate the message
-        const newStatesMessage = collateNewStatesMessage(context.allRoutes)
+        const newStatesMessage = collateNewStatesMessage(context.allRoutes, context.turnNumber)
 
         // and send the new states
-        context.stateOfWorldCallback(newStatesMessage, context.turnNumber)
+        context.stateOfWorldCallback(newStatesMessage)
 
         // and drop the submit button
         context.btnListAccept = clearButtons(context.btnListAccept)
         context.btnListSubmit = clearButtons(context.btnListSubmit)
-      }).addTo(this.map)
+      }) // don't bother adding to map, we've got the new panel .addTo(this.map)
       this.btnListSubmit.push(this.submitButton)
       this.acceptAllButton = createButton(true, 'Accept remaining 0 states', () => {
         context.adjudicatingAcceptAllStates()
@@ -355,6 +367,9 @@ export default class MapPlanningPlayerListener {
           this.clearAchievableCells()
           this.updatePlannedRoute(false)
           clearTurns.remove()
+
+          // call on update callback
+          this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
         }).addTo(this.map)
         this.btnListStates.push(clearTurns)
       }
@@ -447,7 +462,6 @@ export default class MapPlanningPlayerListener {
    * that are applicable to the provided domain
    */
   cellsValidForThisDomain (/* array */ cells, /* string */ domain) {
-    console.log('checking for', domain)
     return cells.filter(cell => {
       switch (domain) {
         case 'land':
@@ -568,7 +582,6 @@ export default class MapPlanningPlayerListener {
   }
 
   createPlanningRouteFor (/* array turns */ currentRoutes, /* array turns */ history, /* object */ asset, /* boolean */ lightweight, /* boolean */short, /* boolean */ highlight) {
-    const forceColor = colorFor(asset.force)
     const hisLocation = this.grid.hexNamed(asset.position).centrePos
     const context = this
 
@@ -578,9 +591,14 @@ export default class MapPlanningPlayerListener {
     if (this.performingAdjudication) {
       const justNextStep = currentRoutes && currentRoutes.length ? [currentRoutes[0]] : []
       trimmedRoute = short ? justNextStep : currentRoutes
+      // if (history) {
+      //   history = history.slice(-1)
+      // }
     } else {
       trimmedRoute = currentRoutes
     }
+
+    const forceColor = colorFor(asset.force)
 
     return routeLinesFor(trimmedRoute, history, hisLocation, asset.position, lightweight, this.grid, forceColor, this.waypointCallback, null, highlight, context)
   }
@@ -629,6 +647,9 @@ export default class MapPlanningPlayerListener {
     const thisData = this.planningDataFor(marker, platformTypes)
     this.allRoutes.push(thisData)
 
+    // also update the orders panel
+    this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
+
     // and add to the map
     this.storeLayer(thisData.lightRoutes, this)
 
@@ -642,6 +663,9 @@ export default class MapPlanningPlayerListener {
     // build up the data store for this asset
     const thisData = this.adjudicationDataFor(marker)
     this.allRoutes.push(thisData)
+
+    // also update the orders panel
+    this.updatePlansCallback(collateNewStatesMessage(this.allRoutes, this.turnNumber))
 
     // ok, now show this route
     this.showLayer(thisData.lightRoutes, this)
@@ -735,8 +759,20 @@ export default class MapPlanningPlayerListener {
               }
             })
             if (pts.length) {
-              const color = colorFor(marker.asset.force)
-              const line = L.polyline(pts, { color: color, weight: 1 })
+              const asset = marker.asset
+              let forceColor = colorFor(null)
+              if (this.force === UMPIRE_FORCE || this.force === asset.force) {
+                forceColor = colorFor(asset.force)
+              } else {
+                const perceptions = asset.perceptions
+                if (perceptions) {
+                  const perception = perceptions[this.force]
+                  if (perception) {
+                    forceColor = colorFor(perception.force)
+                  }
+                }
+              }
+              const line = L.polyline(pts, { color: forceColor, weight: 1 })
               this.storeLayer(line, this)
             }
           }
@@ -900,6 +936,9 @@ export default class MapPlanningPlayerListener {
     this.layerMarkers.addLayer(thisAssetData.planningMarker)
 
     this.updateSubmitButtonLabel()
+
+    // lastly, tell the plans form that we've updated
+    this.updatePlansCallback(collateNewStatesMessage(this.allRoutes, this.turnNumber))
   }
 
   /** accept the planned state for all remaining platforms */
@@ -1129,6 +1168,9 @@ export default class MapPlanningPlayerListener {
 
     // trigger an update of the planning line
     this.updatePlannedRoute(true)
+
+    // call on update callback
+    this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
 
     if (this.performingAdjudication) {
       // we only allow one step to be planned in adjudication, so we're done
@@ -1384,6 +1426,9 @@ export default class MapPlanningPlayerListener {
             cell.polygon.setStyle(this.routeStyle)
           })
         }
+
+        // call on update callback
+        this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
       })
     }
   }
