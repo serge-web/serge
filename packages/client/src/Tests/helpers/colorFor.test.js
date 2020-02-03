@@ -19,7 +19,6 @@ it('Fails with an error if no force is specified', () => {
   const restoreConsole = mockConsole()
   expect(colorFor())
     .toEqual('#555')
-  expect(console.warn.mock.calls).toEqual([['failed to recognise force for: undefined']])
   restoreConsole()
 })
 
@@ -27,6 +26,5 @@ it('Fails with an error if the wrong force is specified', () => {
   const restoreConsole = mockConsole()
   expect(colorFor('Pink'))
     .toEqual('#555')
-  expect(console.warn.mock.calls).toEqual([['failed to recognise force for: Pink']])
   restoreConsole()
 })
