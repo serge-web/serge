@@ -38,6 +38,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const perceiveAsForceRef = useRef(selectedForce) // in case white changes how they perceive the data
   const allRoutes = []
   const [planingNow, setPlaningNow] = useState(null)
+  const phaseRef = useRef(phase)
 
   const updatePlansCallback = (data) => {
     console.log('^ Planned routes updated for orders panel', data)
@@ -366,14 +367,22 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     console.log('Planned routes updated at', new Date(), 'phase:', phase, allRoutes)
   }, [allRoutes])
 
+  const showOrders = () => {
+    if (phaseRef.current === ADJUDICATION_PHASE) {
+      return myForceRef.current === UMPIRE_FORCE
+    } else {
+      return true
+    }
+  }
+
   return (
     <div className="flexlayout__container">
-      <OrdersPanel
+      { showOrders() && <OrdersPanel
         selectedForce={selectedForce}
         allForces={allForces}
         onSendClick={routeCompleteCallback}
         planingNow={planingNow}
-      />
+      /> }
       <div id="map" className="mapping"/>
     </div>
   )

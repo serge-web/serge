@@ -1,11 +1,21 @@
 import React, { useState } from 'react'
 import Body from './orderContent'
 import './styles.scss'
+import { ADJUDICATION_PHASE, UMPIRE_FORCE } from '../../../consts'
 
-const OrdersPanel = ({ selectedForce, allForces, onSendClick, planingNow }) => {
+const OrdersPanel = ({ selectedForce, allForces, phase, onSendClick, planingNow }) => {
   const [active, setActive] = useState(true)
 
-  return (
+  /** only show the orders panel if we're umpire in adjudication, or anyone in planning phase */
+  const showOrders = () => {
+    if (phase === ADJUDICATION_PHASE) {
+      return selectedForce === UMPIRE_FORCE
+    } else {
+      return true
+    }
+  }
+
+  return showOrders() && (
     <div className="orders-panel">
       <div className="orders-panel__header">
         <div className="orders-panel__title">ORDERS</div>
