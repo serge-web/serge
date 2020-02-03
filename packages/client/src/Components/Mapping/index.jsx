@@ -304,7 +304,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     // NOTE: only update location if we're umpire. This is because white
     // needs to know red force locations during force laydown, so the
     // umpire can correct asset visibility
-    if (phase === ADJUDICATION_PHASE && myForceRef.current === UMPIRE_FORCE) {
+    // NOTE2: we also need to fire track this change for Red, otherwise declutter thinks
+    // the marker is still in its old location during force laydown
+    if (phase === ADJUDICATION_PHASE && (myForceRef.current === UMPIRE_FORCE || myForceRef.current === 'Red')) {
       markers.eachLayer(function (marker) {
         const force = allForces.find(force => marker.force === force.name)
         if (force && marker.asset) {
@@ -318,7 +320,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
               // also update the hex location (it's needed for the declutter operation)
               marker.hex = theHex.name
             }
-          } else {
           }
         }
       })
