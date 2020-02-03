@@ -5,13 +5,34 @@ import OrderAsset from './orderAsset'
 const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }) => {
   let selectedForceData = { assets: [] }
 
+  const inAdjudication = planingNow && planingNow.detail && planingNow.detail.type === 'StateOfWorld'
+
   if (selectedForce === 'umpire') {
-    for (const force of allForces) {
-      if (force && force.assets && force.assets.length) {
-        selectedForceData.assets = [
-          ...selectedForceData.assets,
-          ...force.assets
-        ]
+    if (inAdjudication) {
+      // collate a list of all forces for adjudication
+      for (const force of allForces) {
+        if (force && force.assets && force.assets.length) {
+          selectedForceData.assets = [
+            ...selectedForceData.assets,
+            ...force.assets
+          ]
+        }
+      }
+    } else {
+      // in planning, umpire only needs forces controlled by him
+      for (const force of allForces) {
+        if (force && force.controlledBy) {
+          const list = force.controlledBy
+          if (list.length) {
+            if (list.includes('umpire')) {
+              // include this force assets
+              selectedForceData.assets = [
+                ...selectedForceData.assets,
+                ...force.assets
+              ]
+            }
+          }
+        }
       }
     }
   } else {
@@ -22,7 +43,7 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }
     // do we have planning data?
     if (planingNow) {
       // is it state of world?
-      if (planingNow.detail && planingNow.detail.type === 'StateOfWorld') {
+      if (inAdjudication) {
         var res = null
         planingNow.detail.data.find(force => {
           const assets = force.assets
