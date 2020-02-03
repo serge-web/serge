@@ -27,7 +27,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
     const isDeployingCheck = status.deploying
     setMarkerStatus(target.value)
     setIsMobile(isMobileCheck)
-    setIsDeploying(isDeployingCheck)
+    setIsDeploying(!!isDeployingCheck)
 
     newStore.currentMarkerStatus = target.value
     newStore.currentMarkerIsMobile = isMobileCheck
@@ -56,13 +56,28 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
     onStoreUpdate(newStore)
   }
 
+  const submitDisabled = () => {
+    console.log('submit disabled', isDeploying, isMobile, speedKts, markerSpeed)
+    if (isDeploying) {
+      return false
+    } else if (!isMobile) {
+      return false
+    } else if (!speedKts || speedKts.length === 0) {
+      return false
+    } else {
+      return !(speedKts && speedKts.length && markerSpeed)
+    }
+  }
+
   const buttonLabel = () => {
-    if (!isMobile || isDeploying) {
+    if (!isMobile) {
       return 'Save'
+    } else if (isDeploying) {
+      return 'Deploy asset'
     } else {
       return 'Plan route'
     }
-  }
+}
 
   return (
     <form action="">
@@ -109,7 +124,7 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
           </label>
         </div>
       }
-      <button onClick={handleSubmit} disabled={!isDeploying && isMobile && !(isMobile && markerSpeed)}>{buttonLabel()}</button>
+      <button onClick={handleSubmit} disabled={submitDisabled()}>{buttonLabel()}</button>
     </form>
   )
 }
