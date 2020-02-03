@@ -5,7 +5,7 @@ const Asset = ({ data, message }) => {
   const forceClass = data.force && data.force.toLowerCase()
   const typeClass = data.platformType && data.platformType.replace(/ /g, '-').toLowerCase()
   // we get messages for assets that have been updated. If there's a message, show a tick marker
-  const tickMarker = message && message.length && <span style={{ color: 'green' }} className="fa fa-check-square"></span>
+  const tickMarker = message && message.length && <span style={{ color: 'green' }} className="fa fa-check-circle"></span>
   return (
     <div className="orders-panel__asset">
       <div className={
