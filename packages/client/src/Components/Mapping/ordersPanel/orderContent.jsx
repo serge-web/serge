@@ -33,7 +33,7 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }
             return false
           }
         })
-        return res.newState ? 'Accepted' : 'Pending'
+        return res.newState ? 'Accepted' : ''
       } else if (planingNow.plannedRoutes) {
         // ok, it's planning orders. Sort out if this asset has a planned route
         let status = null
