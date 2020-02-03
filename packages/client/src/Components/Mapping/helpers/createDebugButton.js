@@ -10,15 +10,21 @@ export default function createButton (/* boolean */enabled, /* string */ title, 
     },
 
     enable: function () {
-      this.varContainer.disabled = false
+      if (this.varContainer) {
+        this.varContainer.disabled = false
+      }
     },
 
     disable: function () {
-      this.varContainer.disabled = true
+      if (this.varContainer) {
+        this.varContainer.disabled = true
+      }
     },
 
     setText: function (value) {
-      this.varContainer.value = value
+      if (this.varContainer) {
+        this.varContainer.value = value
+      }
     },
 
     onAdd: function () {
