@@ -15,10 +15,18 @@ const OrdersPanel = ({ selectedForce, allForces, phase, onSendClick, planingNow 
     }
   }
 
+  const panelTitle = () => {
+    if (phase === ADJUDICATION_PHASE && selectedForce === UMPIRE_FORCE) {
+      return 'State of World'
+    } else {
+      return 'Planning Orders'
+    }
+  }
+
   return showOrders() && (
     <div className="orders-panel">
       <div className="orders-panel__header">
-        <div className="orders-panel__title">ORDERS</div>
+        <div className="orders-panel__title">{panelTitle()}</div>
         <div className="orders-panel__actions">
           <div
             className={`orders-panel__toggler ${active && 'orders-panel__toggler--active'}`}
