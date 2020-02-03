@@ -762,10 +762,9 @@ export default class MapPlanningPlayerListener {
                 forceColor = colorFor(asset.force)
               } else {
                 const perceptions = asset.perceptions
-                console.log('percept', asset.name, asset.perceptions)
                 if (perceptions) {
                   const perception = perceptions[this.force]
-                  if (perception.type) {
+                  if (perception) {
                     forceColor = colorFor(perception.force)
                   }
                 }
