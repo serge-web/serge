@@ -678,6 +678,10 @@ export default class MapPlanningPlayerListener {
         // ok, extract the new perception:
         const perception = data.perception
 
+        // update the marker text
+        const hoverTxt = findAssetNameFor(asset.name, asset.condition, asset.force, this.force, asset.perceptions[this.force], asset.contactId)
+        marker.bindTooltip(hoverTxt)
+
         // callback expects: (/* string */ assetid, /* string */ perceivedBy, /* object */ perception) => {
         this.perceivedStateCallback(asset.uniqid, this.force, perception)
       }
