@@ -367,22 +367,15 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     console.log('Planned routes updated at', new Date(), 'phase:', phase, allRoutes)
   }, [allRoutes])
 
-  const showOrders = () => {
-    if (phaseRef.current === ADJUDICATION_PHASE) {
-      return myForceRef.current === UMPIRE_FORCE
-    } else {
-      return true
-    }
-  }
-
   return (
     <div className="flexlayout__container">
-      { showOrders() && <OrdersPanel
+      <OrdersPanel
         selectedForce={selectedForce}
         allForces={allForces}
+        phase={phase}
         onSendClick={routeCompleteCallback}
         planingNow={planingNow}
-      /> }
+      />
       <div id="map" className="mapping"/>
     </div>
   )
