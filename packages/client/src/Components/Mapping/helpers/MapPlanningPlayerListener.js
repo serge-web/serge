@@ -582,7 +582,6 @@ export default class MapPlanningPlayerListener {
   }
 
   createPlanningRouteFor (/* array turns */ currentRoutes, /* array turns */ history, /* object */ asset, /* boolean */ lightweight, /* boolean */short, /* boolean */ highlight) {
-    const forceColor = colorFor(asset.force)
     const hisLocation = this.grid.hexNamed(asset.position).centrePos
     const context = this
 
@@ -595,6 +594,8 @@ export default class MapPlanningPlayerListener {
     } else {
       trimmedRoute = currentRoutes
     }
+
+    const forceColor = colorFor(asset.force)
 
     return routeLinesFor(trimmedRoute, history, hisLocation, asset.position, lightweight, this.grid, forceColor, this.waypointCallback, null, highlight, context)
   }
@@ -755,8 +756,21 @@ export default class MapPlanningPlayerListener {
               }
             })
             if (pts.length) {
-              const color = colorFor(marker.asset.force)
-              const line = L.polyline(pts, { color: color, weight: 1 })
+              const asset = marker.asset
+              let forceColor = colorFor(null)
+              if (this.force === UMPIRE_FORCE || this.force === asset.force) {
+                forceColor = colorFor(asset.force)
+              } else {
+                const perceptions = asset.perceptions
+                console.log('percept', asset.name, asset.perceptions)
+                if (perceptions) {
+                  const perception = perceptions[this.force]
+                  if (perception.type) {
+                    forceColor = colorFor(perception.force)
+                  }
+                }
+              }
+              const line = L.polyline(pts, { color: forceColor, weight: 1 })
               this.storeLayer(line, this)
             }
           }
