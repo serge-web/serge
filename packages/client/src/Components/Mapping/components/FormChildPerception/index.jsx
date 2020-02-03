@@ -34,8 +34,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
   }
 
   return (
-    <form action="">
-      <h2>{currentMarkerName}</h2>
+    <div>
       <div className="input-container radio">
         <label htmlFor="force">Perceived force</label>
         <ul>
@@ -64,7 +63,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
         </select>
       </div>
       <button onClick={handleSubmit}>Save</button>
-    </form>
+    </div>
   )
 }
 
