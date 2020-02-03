@@ -1,7 +1,6 @@
-.form-adjudication {
-    h1, h2, h3, h4 {
-        margin: 1rem 1rem 0;
-    }
+.adjudication {
+    margin-top: -.8rem;
+
     ul {
         margin-bottom: 0;
     }
@@ -13,7 +12,7 @@
         padding: 0;
     }
     .platform-meta {
-        margin-left: 1.1rem;
+        margin-left: 1rem;
         margin-top: .4rem;
         margin-bottom: 1rem;
         span {
@@ -24,7 +23,7 @@
         }        
     }
     fieldset {
-        padding: 0.2rem;
+        padding: .5rem;
 
         &.planned-routes {
             background-color: #F0F0F0;
@@ -49,7 +48,7 @@
     .plan-reviewed {
         position: absolute;
         right: 1rem;
-        top: 3.5rem;
+        top: 2.5rem;
         padding: .2rem 1rem;
         border-radius: .7rem;
         color: darken(rgb(149, 204, 68), 20%);

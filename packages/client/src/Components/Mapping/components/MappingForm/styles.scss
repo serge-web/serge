@@ -4,13 +4,13 @@
     width: 300px;
     color: #424344;
     overflow: hidden;
-    color: #828282
+    color: #828282;
 
     h1, h2, h3, h4 {
         color: #424344;
         font-size: 1.3rem;
         font-weight: bold;
-        margin-bottom: 1rem;
+        margin: 1rem;
     }
     
     .label,
@@ -20,7 +20,7 @@
         left: 0;
     }
 
-    form {
+    form > div {
         padding: 1rem;
         overflow: hidden;
     }

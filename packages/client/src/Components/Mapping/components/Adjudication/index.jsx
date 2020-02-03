@@ -129,9 +129,8 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
   }
 
   return (
-    <form action="" className="form-adjudication">
+    <div className="adjudication">
       { planStatus && <span className='plan-reviewed'>Reviewed</span> }
-      <h2>{currentMarker.name}</h2>
       <div className="platform-meta"><span style={{ backgroundColor: currentMarkerForce }}></span>{_.startCase(currentMarker.platformType)}</div>
       <fieldset className="planned-routes">
         <div className="input-container button-group">
@@ -239,7 +238,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
         </div>
       </fieldset>
       <button onClick={handleSubmit}>Save</button>
-    </form>
+    </div>
   )
 }
 
