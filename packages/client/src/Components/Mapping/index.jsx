@@ -8,12 +8,17 @@ import {
   forceFor,
   GridImplementation,
   hasPendingForces,
-  MapAdjudicationPendingListener,
   MapPlanningPlayerListener,
+  MapAdjudicationPendingListener,
   markerFor
 } from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, UMPIRE_FORCE } from '../../consts'
+
+// declare the forms in JSX space, so we can pass them to JS space
+import Adjudicate from './components/FormChildAdjudication'
+import Perception from './components/FormChildPerception'
+import PlannedStatus from './components/FormChildPlannedStatus'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import removeClassNamesFrom from './helpers/removeClassNamesFrom'
@@ -48,6 +53,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       minZoom: 8,
       maxZoom: 12,
       center: [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2],
+      touchZoom: true, // to allow drag on touch screens
       zoom: 10,
       zoomDelta: 0.25, // to allow incremental zoom steps from +/- zoom controls
       zoomSnap: 0.25, // to allow incremental zoom steps
@@ -154,6 +160,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }
 
   const routeCompleteCallback = (/* object */payload) => {
+    console.log('routeCompleteCallback', payload)
     sendMessage(SUBMIT_PLANS, payload)
   }
 
@@ -243,6 +250,12 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       // this force has assets with location pending
       currentPhaseModeRef.current = new MapAdjudicationPendingListener(mapRef.current, gridImplRef.current, laydownFunc, myForceRef.current)
     } else {
+      const reactForms = {
+        adjudicate: <Adjudicate/>,
+        perception: <Perception/>,
+        plannedStatus: <PlannedStatus/>
+      }
+
       currentPhaseModeRef.current = new MapPlanningPlayerListener(
         currentPhaseMapRef.current,
         mapRef.current,
@@ -252,8 +265,16 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         routeCompleteCallback,
         updatePlansCallback,
         platformTypesRef.current,
-        allForces, declutterCallback, perceivedStateCallback, forceNames, phase,
-        newStateOfWorldCallback, visChangesFunc, allRoutes)
+        allForces,
+        declutterCallback,
+        perceivedStateCallback,
+        forceNames,
+        phase,
+        newStateOfWorldCallback,
+        visChangesFunc,
+        allRoutes,
+        reactForms,
+        platformsLayerRef.current)
     }
 
     // create markers, and listen to them
@@ -365,13 +386,22 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     console.log('Planned routes updated at', new Date(), 'phase:', phase, allRoutes)
   }, [allRoutes])
 
+  const callbackForThisPhase = () => {
+    console.log('retrieving callback')
+    if (phase === ADJUDICATION_PHASE) {
+      return newStateOfWorldCallback
+    } else {
+      return routeCompleteCallback
+    }
+  }
+
   return (
     <div className="flexlayout__container">
       <OrdersPanel
         selectedForce={selectedForce}
         allForces={allForces}
         phase={phase}
-        onSendClick={routeCompleteCallback}
+        onSendClick={callbackForThisPhase()}
         planingNow={planingNow}
       />
       <div id="map" className="mapping"/>

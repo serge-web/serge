@@ -7,26 +7,30 @@ import createButton from './createDebugButton'
 import clearButtons from './clearButtons'
 import resetCurrentLeg from './resetLegsFrom'
 import getClearedRoute from './getClearedRoute'
-import routeLinesFor from './routeLinesFor'
+import { lineFor, routeLinesFor } from './routeLinesFor'
 import turnNameFor from './turnNameFor'
-import createStateButtonsFor from './createStateButtonsFor'
 import roundToNearest from './roundToNearest'
 import findPlatformTypeFor from './findPlatformTypeFor'
+import findAssetNameFor from './findAssetNameFor'
 import canControlThisForce from './canControlThisForce'
 import collateNewStatesMessage from './collateNewStatesMessage'
 import getVisibilityButtonsFor from './createVisibilityButtonsFor'
 import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 import MapPopupHelper from './mapPopupHelper'
+import findPerceivedAsClassName from './findPerceivedAsClassName'
+import removeClassNamesFrom from './removeClassNamesFrom'
 
-import MappingForm from '.././components/FormContainer'
+import { easyBar, easyButton } from 'leaflet-easybutton'
+
+import MappingForm from '../components/FormContainer'
 
 import findLastRouteWithLocation from './findLastRouteLocation'
-import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_STATE_FORM, PLAYER_PERCEPTION } from '../../../consts'
+import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_ACCEPTED } from '../../../consts'
 
 export default class MapPlanningPlayerListener {
   constructor (layer, map, grid, force, turn, submitPlansCallback, updatePlansCallback, platformTypes, allForces, declutterCallback,
     perceivedStateCallback, /* array string */ forceNames, /* string */ phase, /* function */ stateOfWorldCallback,
-    /* function */ visibilityCallback, /* array */ allRoutes) {
+    /* function */ visibilityCallback, /* array */ allRoutes, /* array */ reactForms, /* layer */ allMarkers) {
     this.grid = grid
     this.force = force
     this.phase = phase
@@ -43,6 +47,8 @@ export default class MapPlanningPlayerListener {
     this.forceNames = forceNames // used in updating perceived force
     this.visibilityCallback = visibilityCallback
     this.allRoutes = allRoutes
+    this.reactForms = reactForms
+    this.allMarkers = allMarkers
 
     this.performingAdjudication = phase === ADJUDICATION_PHASE && force === UMPIRE_FORCE
 
@@ -61,6 +67,7 @@ export default class MapPlanningPlayerListener {
     this.btnListAccept = []
     this.btnListSubmit = []
     this.btnListVisiblity = []
+    this.viewAsBar = null
 
     // store some styling details, once, centrally
     this.rangeStyle = {
@@ -93,6 +100,31 @@ export default class MapPlanningPlayerListener {
     this.planningMarkerCallback = null
     this.waypointCallback = null
     this.prepareDataFor = null
+
+    // if we're umpire force, introduce 'view as' buttons
+    if (this.force === UMPIRE_FORCE) {
+      const context = this
+      const btns = []
+      forceNames.forEach(name => {
+        const color = colorFor(name)
+        const title = 'View as ' + name
+        const button = L.easyButton('<span title="' + title + '" style="font-size:16px;color:' + color + ';" class="fa fa-eye"/>', () => {
+          // update the UI
+          context.viewAs(name, allMarkers)
+          // clear any other selected states
+          btns.forEach(btn => {
+            btn.enable()
+          })
+          button.disable()
+        })
+        // if this is the first one, mark it as selected
+        if (!btns.length) {
+          button.disable()
+        }
+        btns.push(button)
+      })
+      this.viewAsBar = L.easyBar(btns).addTo(this.map)
+    }
 
     if (this.performingAdjudication) {
       // extra data types
@@ -155,6 +187,29 @@ export default class MapPlanningPlayerListener {
     }
   }
 
+  viewAs (/* string */ force, /* layer */ allMarkers) {
+    const viewAsUmpire = force === UMPIRE_FORCE
+    // loop through markers, updating their styling
+    allMarkers.eachLayer(marker => {
+      // can we see this asset?
+      const asset = marker.asset
+      const perceptionClassName = findPerceivedAsClassName(force, marker.force, asset.platformType, asset.perceptions, viewAsUmpire)
+      if (perceptionClassName) {
+        // remove existing class names
+        removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
+
+        // set the new class names
+        L.DomUtil.addClass(marker._icon, perceptionClassName)
+
+        // reveal it
+        L.DomUtil.removeClass(marker._icon, 'marker-hidden')
+      } else {
+        // hide it
+        L.DomUtil.addClass(marker._icon, 'marker-hidden')
+      }
+    })
+  }
+
   setupAdjudicationButtons () {
     // don't show the submit buttons if we're on turn zero
     if (this.turnNumber > 0) {
@@ -183,6 +238,9 @@ export default class MapPlanningPlayerListener {
     this.clearCommandButtons(this.btnListPlanningMarker)
     this.clearCommandButtons(this.btnListStates)
     this.clearCommandButtons(this.btnListPerceived)
+    if (this.viewAsBar) {
+      this.viewAsBar.remove()
+    }
   }
 
   showPlatformStatePopup (/* object */ marker) {
@@ -209,17 +267,17 @@ export default class MapPlanningPlayerListener {
     const popup = new MapPopupHelper(this.map, marker)
     const allForces = this.allForces
     const allPlatforms = this.platformTypes
+    const asset = marker.asset
     popup.setStore({
-      formType: PLAN_STATE_FORM,
       currentForce: this.force,
-      currentMarker: marker.asset,
-      currentMarkerName: marker.asset.name,
-      currentMarkerForce: marker.asset.force,
+      currentMarker: asset,
+      currentMarkerName: asset.name,
+      currentMarkerForce: asset.force,
       currentMarkerStatus: status.state,
       currentMarkerIsMobile: status.mobile,
       currentMarkerSpeed: status.speedKts,
       turnsInThisState: 1,
-      perception: marker.asset.perceptions[this.force] || null,
+      perception: asset.perceptions[this.force] || null,
       allForces,
       allPlatforms
     })
@@ -235,7 +293,7 @@ export default class MapPlanningPlayerListener {
         console.log('popup closed')
       })
     })
-    popup.useComponent(MappingForm)
+    popup.useComponent(MappingForm, this.reactForms.plannedStatus)
     popup.openPopup()
     popup.renderListener()
   }
@@ -328,7 +386,6 @@ export default class MapPlanningPlayerListener {
         })
       }
       thisRoute.plannedTurns = plannedTurns
-
       detail.push(thisRoute)
     })
     const res = {}
@@ -336,6 +393,7 @@ export default class MapPlanningPlayerListener {
     res.turn = this.turnNumber + 1
     res.name = firstAsset.force + ' Plans for ' + turnNameFor(res.turn)
     res.force = firstAsset.force
+
     res.plannedRoutes = detail
     return res
   }
@@ -387,12 +445,13 @@ export default class MapPlanningPlayerListener {
    * that are applicable to the provided domain
    */
   cellsValidForThisDomain (/* array */ cells, /* string */ domain) {
+    console.log('checking for', domain)
     return cells.filter(cell => {
       switch (domain) {
         case 'land':
-          return cell.land
+          return cell.land || cell.organic
         case 'sea':
-          return cell.sea
+          return cell.sea || cell.organic
         case 'air':
           return true
         default:
@@ -606,13 +665,14 @@ export default class MapPlanningPlayerListener {
     const popup = new MapPopupHelper(this.map, marker)
     const allForces = this.allForces
     const allPlatforms = this.platformTypes
+    const perceivedType = asset.perceptions && asset.perceptions[this.force]
+    const assetLabel = findAssetNameFor(asset.name, null, asset.force, this.force, perceivedType, asset.contactId)
     popup.setStore({
-      formType: PLAYER_PERCEPTION,
       currentForce: this.force,
       currentMarker: asset,
-      currentMarkerName: asset.name,
+      currentMarkerName: assetLabel,
       currentMarkerForce: asset.force,
-      perception: asset.perceptions[this.force] || null,
+      perception: perceivedType || null,
       allForces,
       allPlatforms
     })
@@ -630,7 +690,7 @@ export default class MapPlanningPlayerListener {
         console.log('popup closed')
       })
     })
-    popup.useComponent(MappingForm)
+    popup.useComponent(MappingForm, this.reactForms.perception)
     popup.openPopup()
     popup.renderListener()
   }
@@ -657,6 +717,25 @@ export default class MapPlanningPlayerListener {
       if (this.force !== UMPIRE_FORCE) {
         // ok, attach the perception popup
         this.attachPerceptionPopup(marker)
+
+        // also, show a single step of history for the track
+        const route = marker.asset.route
+        if (route && route.length) {
+          if (route && route.length) {
+            const pts = []
+            route.forEach(step => {
+              const cell = this.grid.hexNamed(step)
+              if (cell) {
+                pts.push(cell.centrePos)
+              }
+            })
+            if (pts.length) {
+              const color = colorFor(marker.asset.force)
+              const line = L.polyline(pts, { color: color, weight: 1 })
+              this.storeLayer(line, this)
+            }
+          }
+        }
       } else {
         // we're umpire, see if we're in planning mode - so we can popup vis markers
         marker.on('click', e => {
@@ -674,7 +753,11 @@ export default class MapPlanningPlayerListener {
 
   clearAchievableCells () {
     if (this.achievableCells) {
-      this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
+      this.achievableCells.forEach(cell => {
+        if (!cell.organic) {
+          cell.polygon.setStyle(defaultHexStyle)
+        }
+      })
       this.achievableCells = []
     }
   }
@@ -697,7 +780,11 @@ export default class MapPlanningPlayerListener {
     this.achievableCells = this.cellsValidForThisDomain(this.achievableCells, travelMode)
 
     // plot the available range
-    this.achievableCells.forEach(cell => cell.polygon.setStyle(this.rangeStyle))
+    this.achievableCells.forEach(cell => {
+      if (!cell.organic) {
+        cell.polygon.setStyle(this.rangeStyle)
+      }
+    })
   }
 
   /** as we build up lists of cells (for a route), they will typically
@@ -751,7 +838,7 @@ export default class MapPlanningPlayerListener {
     }
   }
 
-  adjudicatingRejectRoute (/* element */asset, /* scope */ context) {
+  adjudicatingPlanRoute (/* element */asset, /* element */ pState, /* number */ speedKts, /* scope */ context) {
     // find the data
     const thisAssetData = this.allRoutes.find(block => block.asset.uniqid === asset.uniqid)
 
@@ -761,14 +848,14 @@ export default class MapPlanningPlayerListener {
     // update the planned route
     this.updatePlannedRoute(true)
 
-    // get a new state
-    const marker = thisAssetData.marker
-    // sort out the state commands for this asset
-    const pType = findPlatformTypeFor(this.platformTypes, marker.asset.platformType)
+    // ok, do planning legs
+    const newState = { state: pState.name, speedKts: speedKts }
 
-    // TODO: we should _eventually_ replace these buttons with the form.
-    this.btnListStates = createStateButtonsFor(pType, marker.asset.name,
-      context, context.adjudicatingStateSelected, this.btnListStates)
+    // store the new status
+    context.currentRoute.status = newState
+
+    // let the dragging begin
+    context.platformStateAssigned(thisAssetData.marker, newState)
   }
 
   adjudicatingAcceptRoute (asset) {
@@ -858,35 +945,123 @@ export default class MapPlanningPlayerListener {
     data.lightRoutes = this.createPlanningRouteFor(data.current, data.asset.history, data.asset, false, false, true)
     this.showLayer(data.lightRoutes, this)
 
-    // check we're not in turn zero
-    if (this.turnNumber > 0) {
-      const context = this
-      // ok, show the accept route button for this track
-      const acceptTitle = createButton(false, 'Route for ' + marker.asset.name).addTo(this.map)
-      this.btnListAccept.push(acceptTitle)
-      // check it's not already sorted.
-      const hasPlans = this.allRoutes.find(data => data.asset.uniqid === marker.asset.uniqid && data.newState)
-      if (hasPlans) {
-        const acceptButton = createButton(true, 'Plans already accepted', () => {
-          clearButtons(this.btnListAccept, this)
-        }).addTo(this.map)
-        this.btnListAccept.push(acceptButton)
+    // special handling for turn zero
+    if (this.turnNumber === 0) {
+      // we don't do full adjudication, just visility
+      this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback, this.btnListVisiblity, this.forceNames, this.map)
+    } else {
+      // popup the adjudication menu
+
+      // Get a list of the current forces who can see the current marker
+      const currentMarkerVisibleTo = Object.entries(this.currentRoute.current_perceptions).map(([key]) => key)
+
+      // sort out the planned state, if there is one
+      let newStatus = null
+      if (this.currentRoute.current.length > 0) {
+        const firstPlannedTurn = this.currentRoute.current[0]
+        newStatus = { state: firstPlannedTurn.status.state, speedKts: firstPlannedTurn.status.speedKts }
       } else {
-        const acceptButton = createButton(true, 'Accept Route', () => {
-          this.adjudicatingAcceptRoute(marker.asset, context)
-          clearButtons(this.btnListAccept, this)
-        }).addTo(this.map)
-        this.btnListAccept.push(acceptButton)
-        const reject = createButton(true, 'Reject Route', () => {
-          this.adjudicatingRejectRoute(marker.asset, context)
-          clearButtons(this.btnListAccept, this)
-        }).addTo(this.map)
-        this.btnListAccept.push(reject)
+        newStatus = { state: data.asset.status.state, speedKts: data.asset.status.speedKts }
+      }
+
+      // work out if the current state is mobile or not
+      const isMobile = marker.asset.platformTypeDetail.states.find(state => state.name === newStatus.state).mobile
+
+      const planReviewed = data.newState ? PLAN_ACCEPTED : null
+
+      // Show a form on popup
+      const popup = new MapPopupHelper(this.map, marker)
+      popup.setStore({
+        currentForce: this.force,
+        planStatus: planReviewed,
+        currentMarker: marker.asset,
+        currentMarkerName: marker.asset.name,
+        currentMarkerForce: marker.asset.force,
+        currentMarkerStatus: newStatus.state,
+        currentMarkerIsMobile: isMobile,
+        currentMarkerSpeed: newStatus.speedKts,
+        currentMarkerCondition: this.currentRoute.current_condition,
+        currentMarkerVisibleTo,
+        turnsInThisState: 1,
+        allForces: this.allForces,
+        allPlatforms: this.platformTypes
+      })
+      const context = this
+      popup.onUpdate(data => {
+        if (data) {
+          popup.setStore(data)
+
+          // start off with the planned state
+          context.adjudicationStorePlan(data, marker.asset)
+
+          // condition
+          this.currentRoute.current_condition = data.currentMarkerCondition
+
+          // and finally visibility
+          context.adjudicationUpdatePerception(data.currentMarkerVisibleTo, this.currentRoute.current_perceptions)
+        }
+        popup.closePopup(() => {
+          console.log('popup closed')
+        })
+      })
+      popup.useComponent(MappingForm, this.reactForms.adjudicate)
+      popup.openPopup()
+      popup.renderListener()
+    }
+  }
+
+  adjudicationUpdatePerception (/* array */visibleTo, /* indexed array */ perceptions) {
+    // check the necessary items are present
+    if (visibleTo.length) {
+      visibleTo.forEach(thisForce => {
+        if (!perceptions[thisForce]) {
+          perceptions[thisForce] = { force: null, type: null }
+        }
+      })
+    }
+    // check that we don't have too many perceptions
+    const toDelete = []
+    for (var thisForce in perceptions) {
+      if (!visibleTo.find(name => name === thisForce)) {
+        // ok, delete it
+        toDelete.push(thisForce)
       }
     }
+    // ditch the ones we don't want
+    toDelete.forEach(thisForce => {
+      delete perceptions[thisForce]
+    })
+  }
 
-    // start off with the vis buttons
-    this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback, this.btnListVisiblity, this.forceNames, this.map)
+  adjudicationStorePlan (data, asset) {
+    if (data.planStatus === PLAN_ACCEPTED) {
+      // just check that we haven't already accepted it
+      if (!this.currentRoute.newState) {
+        // ok, just store the new state
+        this.adjudicatingAcceptRoute(asset, this)
+      }
+    } else {
+      const newStatus = { status: data.currentMarkerStatus, position: asset.position }
+      // is it a mobile state?
+      const pState = asset.platformTypeDetail.states.find(status => status.name === data.currentMarkerStatus)
+
+      // ok, it got rejected. remove the planning marker, if there is one
+      if (this.currentRoute.planningMarker) {
+        this.currentRoute.planningMarker.remove()
+      }
+
+      if (pState.mobile) {
+        // ok, start planning cycle
+        this.adjudicatingPlanRoute(asset, pState, data.currentMarkerSpeed, this)
+      } else {
+        // store the new planned turn. It's a non-mobile status,
+        // so we re-use the current position
+        this.currentRoute.current = [newStatus]
+
+        // and now store it
+        this.adjudicatingAcceptRoute(asset, this)
+      }
+    }
   }
 
   /** the user has clicked on the planning marker, give options */
@@ -1007,9 +1182,11 @@ export default class MapPlanningPlayerListener {
     const startPos = this.drag.startHex.centrePos
 
     // find out if this state is mobile
-    const isMobile = marker.asset.platformTypeDetail.states.find(state => state.name === newState.state).mobile
+    const pType = marker.asset.platformTypeDetail.states.find(state => state.name === newState.state)
+    const isMobile = pType.mobile
+    const isDeploying = pType.deploying // this is a special mode where we let a platform move to `any` suitable square
 
-    if (!isMobile) {
+    if (!isMobile && !isDeploying) {
       // static state assigned, just do update
       this.storeNewPlanningRoute(newState, null)
     } else {
@@ -1040,7 +1217,7 @@ export default class MapPlanningPlayerListener {
 
       // calculate the steps remaining
       let range
-      if (newState.speedKts) {
+      if (newState.speedKts && !isDeploying) {
         const speedKts = newState.speedKts
         const stepSize = 30
         const stepsPerHour = (60 / stepSize)

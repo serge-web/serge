@@ -10,6 +10,8 @@ export default function collateNewStatesMessage (/* array of planning structures
     newState.name = asset.name
     newState.history = data.newHistory
     newState.plannedTurns = data.current
+    newState.condition = data.current_condition
+    newState.perceptions = data.current_perceptions
     newState.newState = data.newState
     let force
     if (asset.force) {

@@ -24,6 +24,11 @@ const json = {
   }
 };
 
+const imageTop = 14.194809302;
+const imageLeft = 42.3558566271;
+const imageRight = 43.7417816271;
+const imageBottom = 12.401259302;
+
 class ChannelTabsContainer extends Component {
   static contextType = PlayerStateContext;
 
@@ -121,15 +126,13 @@ class ChannelTabsContainer extends Component {
 
   factory = (node) => {
     const [ state ] = this.context;
-    const imageTop = 14.194809302;
-    const imageLeft = 42.3558566271;
-    const imageRight = 43.7417816271;
-    const imageBottom = 12.401259302;
 
     if (_.isEmpty(state.channels)) return;
     const matchedChannel = ChannelTabsContainer.findChannelByName(state.channels, node.getName());
-  if (node.getName() === 'Mapping') return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
-    return matchedChannel && matchedChannel.length ? <Channel channel={matchedChannel[0]} /> : null
+    if (node.getName().toLowerCase() === 'mapping') {
+      return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
+    }
+    return matchedChannel && matchedChannel.length ? <Channel channelId={matchedChannel[0]} /> : null
   };
 
   modelChanged = () => {
@@ -168,6 +171,18 @@ class ChannelTabsContainer extends Component {
   render() {
     const [ state ] = this.context;
     let force = state.allForces.find((force) => force.uniqid === state.selectedForce);
+
+    // only show the flex layout & tabs if this player is in more than one channel
+    const channelsArray = Object.entries(state.channels);
+    
+    if (channelsArray.length === 1) {
+      const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === "mapping");  
+      if (isOnlyMap) {
+        return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={"map"} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
+      } else {
+        return <Channel channelId={channelsArray[0][0]} />;
+      }
+    }
 
     return (
       <div className="contain-channel-tabs" data-force={force.uniqid}>

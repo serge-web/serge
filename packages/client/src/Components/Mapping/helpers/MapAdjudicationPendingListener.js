@@ -80,9 +80,9 @@ export default class MapAdjudicationPendingListener {
         if (!this.achievableCells.length) {
           this.achievableCells = this.grid.cells.filter(cell => {
             if (marker.travelMode === 'land') {
-              return cell.land
+              return cell.land || cell.organic
             } else if (marker.travelMode === 'sea') {
-              return cell.sea
+              return cell.sea || cell.organic
             } else if (marker.travelMode === 'air') {
               return true
             } else {
@@ -151,12 +151,20 @@ export default class MapAdjudicationPendingListener {
         this.planningLine.setLatLngs([])
 
         // clear the shaded cells
-        this.achievableCells.forEach(cell => cell.polygon.setStyle(defaultHexStyle))
+        this.clearCells(this.achievableCells)
         this.achievableCells = []
 
         this.startHex = null
         this.lastHex = null
       })
     }
+  }
+
+  clearCells (/* array */ cells) {
+    cells.forEach(cell => {
+      if (!cell.organic) {
+        cell.polygon.setStyle(defaultHexStyle)
+      }
+    })
   }
 }

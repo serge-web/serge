@@ -22,8 +22,8 @@ class Channel extends Component {
 
   componentDidMount() {
     const [ state, dispatch ] = this.context;
-    const channelClassName = state.channels[this.props.channel].name.toLowerCase().replace(/ /g, '-');
-    if (state.channels[this.props.channel].messages.length === 0) {
+    const channelClassName = state.channels[this.props.channelId].name.toLowerCase().replace(/ /g, '-');
+    if (state.channels[this.props.channelId].messages.length === 0) {
       getAllWargameMessages(state.currentWargame)(dispatch);
     }
     this.setState({
@@ -33,21 +33,21 @@ class Channel extends Component {
 
   markAllRead = () => {
     const [ , dispatch ] = this.context;
-    dispatch(markAllAsRead(this.props.channel));
+    dispatch(markAllAsRead(this.props.channelId));
   };
 
   openMessage = (message) => {
     const [ , dispatch ] = this.context;
-    dispatch(openMessage(this.props.channel, message));
+    dispatch(openMessage(this.props.channelId, message));
   };
 
   closeMessage = (message) => {
     const [ , dispatch ] = this.context;
-    dispatch(closeMessage(this.props.channel, message));
+    dispatch(closeMessage(this.props.channelId, message));
   };
 
   render() {
-    let curChannel = this.props.channel;
+    let curChannel = this.props.channelId;
     const [ state ] = this.context;
 
     return (
