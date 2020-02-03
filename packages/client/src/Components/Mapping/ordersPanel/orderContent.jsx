@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './styles.scss'
 import OrderAsset from './orderAsset'
 
 const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }) => {
   let selectedForceData = { assets: [] }
-
+  const [sendVisible, setSendVisible] = useState(true)
   const inAdjudication = planingNow && planingNow.detail && planingNow.detail.type === 'StateOfWorld'
+  const [phase, setPhase] = useState(null)
 
   if (selectedForce === 'umpire') {
     if (inAdjudication) {
@@ -39,6 +40,16 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }
     selectedForceData = allForces.find(force => force.uniqid === selectedForce)
   }
 
+  // has phase changed?
+  if (phase !== inAdjudication) {
+    // remember this one
+    setPhase(inAdjudication)
+    // do we need to reveal send button?
+    if (!sendVisible) {
+      setSendVisible(true)
+    }
+  }
+
   const messageFor = (uniqid) => {
     // do we have planning data?
     if (planingNow) {
@@ -69,6 +80,11 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }
     }
   }
 
+  const wrappedCallback = (payload) => {
+    onSendClick(payload)
+    setSendVisible(false)
+  }
+
   return (
     <div className="orders-panel__content">
       <ul className="orders-panel__list">
@@ -84,9 +100,10 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }
         ))}
       </ul>
       <div className="orders-panel__footer">
-        <button onClick={() => {
-          if (planingNow) onSendClick(planingNow)
+        { sendVisible && <button onClick={() => {
+          if (planingNow) wrappedCallback(planingNow)
         }} className="btn btn-action">SEND</button>
+        }
       </div>
     </div>
   )
