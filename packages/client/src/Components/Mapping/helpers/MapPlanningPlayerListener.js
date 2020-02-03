@@ -353,7 +353,7 @@ export default class MapPlanningPlayerListener {
           clearTurns.remove()
 
           // call on update callback
-          this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
+          this.updatePlansCallback(this.allRoutes)
         }).addTo(this.map)
         this.btnListStates.push(clearTurns)
       }
@@ -896,6 +896,9 @@ export default class MapPlanningPlayerListener {
     this.layerMarkers.addLayer(thisAssetData.planningMarker)
 
     this.updateSubmitButtonLabel()
+
+    // lastly, tell the plans form that we've updated
+    this.updatePlansCallback(this.allRoutes)
   }
 
   /** accept the planned state for all remaining platforms */
@@ -1127,7 +1130,7 @@ export default class MapPlanningPlayerListener {
     this.updatePlannedRoute(true)
 
     // call on update callback
-    this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
+    this.updatePlansCallback(this.allRoutes)
 
     if (this.performingAdjudication) {
       // we only allow one step to be planned in adjudication, so we're done
@@ -1385,7 +1388,7 @@ export default class MapPlanningPlayerListener {
         }
 
         // call on update callback
-        this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
+        this.updatePlansCallback(this.allRoutes)
       })
     }
   }

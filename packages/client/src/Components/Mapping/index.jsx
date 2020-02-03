@@ -386,13 +386,16 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     console.log('Planned routes updated at', new Date(), 'phase:', phase, allRoutes)
   }, [allRoutes])
 
-  const callbackForThisPhase = () => {
-    console.log('retrieving callback')
-    if (phase === ADJUDICATION_PHASE) {
-      return newStateOfWorldCallback
-    } else {
-      return routeCompleteCallback
+  const callbackForThisPhase = (payload) => {
+    const logger = (payload) => {
+      if (phase === ADJUDICATION_PHASE) {
+        // may need to transform payload, with: collateNewStatesMessage(
+        newStateOfWorldCallback(payload)
+      } else {
+        routeCompleteCallback(payload)
+      }
     }
+    return logger
   }
 
   return (

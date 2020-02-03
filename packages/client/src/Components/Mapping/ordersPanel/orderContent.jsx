@@ -18,6 +18,8 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }
     selectedForceData = allForces.find(force => force.uniqid === selectedForce)
   }
 
+  console.log(planingNow)
+
   return (
     <div className="orders-panel__content">
       <ul className="orders-panel__list">
@@ -26,7 +28,7 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planingNow }
             <OrderAsset
               data={asset}
               force={selectedForceData}
-              plannedRoute={planingNow && planingNow.plannedRoutes.find(({ uniqid }) => (uniqid === asset.uniqid))}
+              plannedRoute={planingNow && planingNow.find(route => (route.marker.asset.uniqid === asset.uniqid))}
               allForces={allForces}
             />
           </li>
