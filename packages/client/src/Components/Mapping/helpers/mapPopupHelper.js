@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom'
 import React from 'react'
+import L from 'leaflet'
 
 class MapPopupHelper {
   constructor (map, marker) {
@@ -19,7 +20,7 @@ class MapPopupHelper {
   // store - helper level store for Component (default = null)
   // onStoreUpdate - for update helper level store (if not you can lose data on modal close)
   // callbackFunction - for return some data one some events, use it where you want
-  useComponent (Component, child) {
+  useComponent (Component, child, isDraggable) {
     // Note: we need to clear any existing popups, otherwise we can
     // only assign this helper to a marker once
     this.marker.unbindPopup()
@@ -33,6 +34,9 @@ class MapPopupHelper {
       name: Component,
       child
     }
+
+    // boolean: make draggable popup based on this variable
+    this.isDraggable = isDraggable
   }
 
   openPopup () {
@@ -54,6 +58,20 @@ class MapPopupHelper {
 
   isOpen () {
     return this.opened
+  }
+
+  // make popup draggable, it will work only for opened popup
+  makeDraggable () {
+    const popup = this.getPopup()
+    // const pos = this.map.latLngToLayerPoint(popup.getLatLng()) - get popup position
+    if (popup._container && popup._wrapper) {
+      // L.DomUtil.setPosition(popup._wrapper.parentNode, pos) - set popup position
+      this.draggable = new L.Draggable(popup._container, popup._wrapper)
+      this.draggable.enable()
+      // this.draggable.on('dragend', () => { - on draged callback in case if we will want add some logick
+      //   console.log(this._newPos);
+      // })
+    }
   }
 
   renderComponent () {
@@ -80,8 +98,10 @@ class MapPopupHelper {
               if (typeof this.onUpdateFunc === 'function') this.onUpdateFunc(data)
             }}
           />,
-          document.getElementById(this.uniqKey)
+          miniAppNode
         )
+        // make popup draggable
+        if (this.isDraggable) this.makeDraggable()
       } else {
         this.opened = false
       }
