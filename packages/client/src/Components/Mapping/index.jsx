@@ -30,7 +30,7 @@ import './styles.scss'
 
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
-import OrdersPanel from './ordersPanel'
+import OrdersPanel from './components/OrdersPanel'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map

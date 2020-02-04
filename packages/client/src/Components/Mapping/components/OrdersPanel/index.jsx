@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Body from './orderContent'
 import './styles.scss'
-import { ADJUDICATION_PHASE, UMPIRE_FORCE } from '../../../consts'
+import { ADJUDICATION_PHASE, UMPIRE_FORCE } from '../../../../consts'
 
 const OrdersPanel = ({ selectedForce, allForces, phase, onSendClick, planingNow }) => {
   const [active, setActive] = useState(true)
