@@ -457,6 +457,11 @@ export default class MapPlanningPlayerListener {
     this.clearCommandButtons(this.btnListSubmit)
     this.clearCommandButtons(this.btnListVisiblity)
 
+    // and the view as bar
+    if (this.viewAsBar) {
+      this.viewAsBar.remove()
+    }
+
     // detach the map
     this.layerPriv.remove()
     this.layerPriv.clearLayers()
