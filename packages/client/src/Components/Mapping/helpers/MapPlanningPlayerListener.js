@@ -254,9 +254,6 @@ export default class MapPlanningPlayerListener {
     this.clearCommandButtons(this.btnListPlanningMarker)
     this.clearCommandButtons(this.btnListStates)
     this.clearCommandButtons(this.btnListPerceived)
-    if (this.viewAsBar) {
-      this.viewAsBar.remove()
-    }
   }
 
   showPlatformStatePopup (/* object */ marker) {
@@ -267,9 +264,16 @@ export default class MapPlanningPlayerListener {
     if (this.currentRoute.current && this.currentRoute.current.length) {
       const lastLeg = this.currentRoute.current[this.currentRoute.current.length - 1]
       status = lastLeg.status
-    } else {
+    } else if (marker.asset.status.state) {
       // use the asset status
       status = { state: marker.asset.status.state, speedKts: marker.asset.status.speedKts }
+    } else if (marker.asset.status) {
+      // we're missing a detailed status
+      const pType = marker.asset.platformTypeDetail.states.find(ptype => ptype.name ===marker.asset.status)
+      status = pType
+      // Note: the lower logic is expecting the status name to be
+      // in a field called 'state'
+      status.state = status.name
     }
 
     // is it missing the mobile attribute?
@@ -452,6 +456,11 @@ export default class MapPlanningPlayerListener {
     this.clearCommandButtons(this.btnListAccept)
     this.clearCommandButtons(this.btnListSubmit)
     this.clearCommandButtons(this.btnListVisiblity)
+
+    // and the view as bar
+    if (this.viewAsBar) {
+      this.viewAsBar.remove()
+    }
 
     // detach the map
     this.layerPriv.remove()
