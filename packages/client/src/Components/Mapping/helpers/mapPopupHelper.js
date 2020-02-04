@@ -27,13 +27,53 @@ class MapPopupHelper {
     // Note: we need to clear any existing popups, otherwise we can
     // only assign this helper to a marker once
     this.marker.unbindPopup()
+
+    var lat, 
+    lng; 
+
     // the code for the responsive popup
-    var popup = L.responsivePopup().setContent(`<div id="${this.uniqKey}"></div>`);
-    console.log()
+    var popup = L.responsivePopup({autoPanPadding: [30,30]}).setContent(`<div id="${this.uniqKey}"></div>`)
+
+    var mapNew = this.map
+
     // bind a static div to popup with unique id
+    console.log(Object.values(popup))
+    console.log(popup)
+
+    setTimeout(function(){
+      lat = popup._latlng.lat
+      lng = popup._latlng.lng
+      console.log(lat, lng)
+
+      function makeDraggable (popup)
+      {
+        var pos = mapNew.latLngToLayerPoint(popup.getLatLng());
+        L.DomUtil.setPosition(popup._wrapper.parentNode, pos);
+        var draggable = new L.Draggable(popup._container, popup._wrapper);
+        draggable.enable();
+
+/*         draggable.on('dragend', function() {
+          var pos = mapNew.layerPointToLatLng(this._newPos);
+          popup.setLatLng(pos);
+        }); */
+      }
+
+      makeDraggable(popup)
+
+    }, 250)
+
     this.marker.bindPopup(popup, {
       maxWidth: 'auto'
-    });      
+    });    
+
+    //popup.getLatLng()
+
+/*     
+
+
+    
+     */
+
     // save component to use it
     this.component = {
       name: Component,
