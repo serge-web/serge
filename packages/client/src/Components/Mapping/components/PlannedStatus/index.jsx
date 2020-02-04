@@ -57,7 +57,6 @@ const PlannedStatus = ({ store, onStoreUpdate, callbackFunction }) => {
   }
 
   const submitDisabled = () => {
-    console.log('submit disabled', isDeploying, isMobile, speedKts, markerSpeed)
     if (isDeploying) {
       return false
     } else if (!isMobile) {
