@@ -254,9 +254,6 @@ export default class MapPlanningPlayerListener {
     this.clearCommandButtons(this.btnListPlanningMarker)
     this.clearCommandButtons(this.btnListStates)
     this.clearCommandButtons(this.btnListPerceived)
-    if (this.viewAsBar) {
-      this.viewAsBar.remove()
-    }
   }
 
   showPlatformStatePopup (/* object */ marker) {
