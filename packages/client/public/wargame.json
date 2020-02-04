@@ -1329,78 +1329,222 @@
 						},
 						"plannedTurns": [
 							{
-								"turn": 2,
-								"route": [
-									"N08",
-									"L09"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"route": [
+											"Q17"
+									],
+									"status": {
+											"mobile": true,
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 2
 							},
 							{
-								"turn": 3,
-								"status": { "state": "Fishing" }
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 3
 							},
 							{
-								"turn": 4,
-								"route": [
-									"K10",
-									"K09"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 4
 							},
 							{
-								"turn": 5,
-								"route": [
-									"K08",
-									"K07"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"status": {
+											"mobile": false,
+											"state": "Fishing"
+									},
+									"turn": 5
 							},
 							{
-								"turn": 6,
-								"route": [
-									"K06",
-									"M06"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"route": [
+											"P16"
+									],
+									"status": {
+											"mobile": true,
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 6
 							},
 							{
-								"turn": 7,
-								"status": { "state": "Fishing" }
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 7
 							},
 							{
-								"turn": 8,
-								"route": [
-									"N06",
-									"N07"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 8
 							},
 							{
-								"turn": 9,
-								"route": [
-									"M08",
-									"L08"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"status": {
+											"mobile": false,
+											"state": "Fishing"
+									},
+									"turn": 9
 							},
 							{
-								"turn": 10,
-								"status": { "state": "Fishing" }
+									"route": [
+											"P17"
+									],
+									"status": {
+											"mobile": true,
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 10
 							},
 							{
-								"turn": 11,
-								"status": { "state": "Fishing" }
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 11
 							},
 							{
-								"turn": 12,
-								"status": { "state": "Fishing" }
+									"status": {
+											"mobile": false,
+											"state": "Fishing"
+									},
+									"turn": 12
+							},
+							{
+									"route": [
+											"P18"
+									],
+									"status": {
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 13
 							}
 						],
 						"platformType": "fishing-vessel",
-						"position": "N08",
+						"position": "Q18",
 						"status": { "state": "Transiting", "speedKts": 10 },
 						"uniqid": "a0pra000203"
+					},
+					{
+						"name": "KOTA GUNAWAN",
+						"contactId": "C635", 
+						"condition": "Full capability",
+						"perceptions": {
+						},
+						"plannedTurns": [
+							{
+									"route": [
+											"O15"
+									],
+									"status": {
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 2
+							},
+							{
+									"route": [
+											"O16"
+									],
+									"status": {
+											"mobile": true,
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 3
+							},
+							{
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 4
+							},
+							{
+									"status": {
+											"mobile": false,
+											"state": "Fishing"
+									},
+									"turn": 5
+							},
+							{
+									"route": [
+											"N15"
+									],
+									"status": {
+											"mobile": true,
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 6
+							},
+							{
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 7
+							},
+							{
+									"status": {
+											"mobile": false,
+											"state": "Fishing"
+									},
+									"turn": 8
+							},
+							{
+									"route": [
+											"N14"
+									],
+									"status": {
+											"mobile": true,
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 9
+							},
+							{
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 10
+							},
+							{
+									"status": {
+											"mobile": false,
+											"state": "Fishing"
+									},
+									"turn": 11
+							},
+							{
+									"route": [
+											"N13"
+									],
+									"status": {
+											"mobile": true,
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 12
+							},
+							{
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 13
+							},
+							{
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 14
+							}
+					],
+						"platformType": "fishing-vessel",
+						"position": "O14",
+						"status": { "state": "Transiting", "speedKts": 10 },
+						"uniqid": "a0pr7600274"
 					},
 					{
 						"name": "JALBUT",
@@ -1410,76 +1554,113 @@
 						},
 						"plannedTurns": [
 							{
-								"turn": 2,
-								"route": [
-									"N11",
-									"L10"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"route": [
+											"M17"
+									],
+									"status": {
+											"mobile": true,
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 2
 							},
 							{
-								"turn": 3,
-								"route": [
-									"K10",
-									"J09"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 3
 							},
 							{
-								"turn": 4,
-								"status": { "state": "Fishing" }
+									"status": {
+											"mobile": false,
+											"state": "Fishing"
+									},
+									"turn": 4
 							},
 							{
-								"turn": 5,
-								"route": [
-									"K08",
-									"K07"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"route": [
+											"N17"
+									],
+									"status": {
+											"mobile": true,
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 5
 							},
 							{
-								"turn": 6,
-								"route": [
-									"K06",
-									"M06"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 6
 							},
 							{
-								"turn": 7,
-								"status": { "state": "Fishing" }
+									"status": {
+											"mobile": false,
+											"state": "Fishing"
+									},
+									"turn": 7
 							},
 							{
-								"turn": 8,
-								"route": [
-									"N06",
-									"N07"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"route": [
+											"N18"
+									],
+									"status": {
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 8
 							},
 							{
-								"turn": 9,
-								"route": [
-									"M08",
-									"L08"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"route": [
+											"N19"
+									],
+									"status": {
+											"mobile": true,
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 9
 							},
 							{
-								"turn": 10,
-								"status": { "state": "Fishing" }
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 10
 							},
 							{
-								"turn": 11,
-								"route": [
-									"M09",
-									"N08"
-								],
-								"status": { "state": "Transiting", "speedKts": 10 }
+									"status": {
+											"mobile": false,
+											"state": "Fishing"
+									},
+									"turn": 11
+							},
+							{
+									"route": [
+											"M19"
+									],
+									"status": {
+											"mobile": true,
+											"speedKts": 10,
+											"state": "Transiting"
+									},
+									"turn": 12
+							},
+							{
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 13
+							},
+							{
+									"status": {
+											"state": "Fishing"
+									},
+									"turn": 14
 							}
-						],
+					],
 						"platformType": "fishing-vessel",
-						"position": "N11",
+						"position": "L16",
 						"status": { "state": "Transiting", "speedKts": 10 },
 						"uniqid": "a0pra000204"
 					}
