@@ -2,52 +2,6 @@
 	"channels": {
 		"channels": [
 			{
-					"name": "Mapping",
-					"participants": [
-							{
-									"force": "White",
-									"forceUniqid": "umpire",
-									"icon": "default_img/umpireDefault.png",
-									"roles": [
-									],
-									"subscriptionId": "k53tifeo",
-									"templates": [
-									]
-							},
-							{
-									"force": "Blue",
-									"forceUniqid": "Blue",
-									"icon": "default_img/umpireDefault.png",
-									"roles": [
-									],
-									"subscriptionId": "k53tij98",
-									"templates": [
-									]
-							},
-							{
-									"force": "Red",
-									"forceUniqid": "Red",
-									"icon": "default_img/umpireDefault.png",
-									"roles": [
-									],
-									"subscriptionId": "k53tiqdf",
-									"templates": [
-									]
-							},
-							{
-									"force": "Green",
-									"forceUniqid": "Green",
-									"icon": "default_img/umpireDefault.png",
-									"roles": [
-									],
-									"subscriptionId": "k53tivj5",
-									"templates": [
-									]
-							}
-					],
-					"uniqid": "channel-k53ti36p"
-			},
-			{
 					"name": "Channel 16",
 					"participants": [
 							{
@@ -108,6 +62,52 @@
 							}
 					],
 					"uniqid": "channel-k63pjvpb"
+			},
+			{
+				"name": "Mapping",
+				"participants": [
+						{
+								"force": "White",
+								"forceUniqid": "umpire",
+								"icon": "default_img/umpireDefault.png",
+								"roles": [
+								],
+								"subscriptionId": "k53tifeo",
+								"templates": [
+								]
+						},
+						{
+								"force": "Blue",
+								"forceUniqid": "Blue",
+								"icon": "default_img/umpireDefault.png",
+								"roles": [
+								],
+								"subscriptionId": "k53tij98",
+								"templates": [
+								]
+						},
+						{
+								"force": "Red",
+								"forceUniqid": "Red",
+								"icon": "default_img/umpireDefault.png",
+								"roles": [
+								],
+								"subscriptionId": "k53tiqdf",
+								"templates": [
+								]
+						},
+						{
+								"force": "Green",
+								"forceUniqid": "Green",
+								"icon": "default_img/umpireDefault.png",
+								"roles": [
+								],
+								"subscriptionId": "k53tivj5",
+								"templates": [
+								]
+						}
+				],
+				"uniqid": "channel-k53ti36p"
 			}
 	],
 		"complete": false,
