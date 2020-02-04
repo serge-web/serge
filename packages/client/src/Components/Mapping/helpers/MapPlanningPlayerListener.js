@@ -310,7 +310,7 @@ export default class MapPlanningPlayerListener {
         console.log('popup closed')
       })
     })
-    popup.useComponent(MappingForm, this.reactForms.plannedStatus)
+    popup.useComponent(MappingForm, this.reactForms.plannedStatus, true)
     popup.openPopup()
     popup.renderListener()
   }
@@ -719,7 +719,7 @@ export default class MapPlanningPlayerListener {
         console.log('popup closed')
       })
     })
-    popup.useComponent(MappingForm, this.reactForms.perception)
+    popup.useComponent(MappingForm, this.reactForms.perception, true)
     popup.openPopup()
     popup.renderListener()
   }
@@ -1048,7 +1048,7 @@ export default class MapPlanningPlayerListener {
           console.log('popup closed')
         })
       })
-      popup.useComponent(MappingForm, this.reactForms.adjudicate)
+      popup.useComponent(MappingForm, this.reactForms.adjudicate, true)
       popup.openPopup()
       popup.renderListener()
     }
