@@ -246,7 +246,7 @@
 						"condition": "Full capability",
 						"locationPending": true,
 						"perceptions": {
-							"Blue": {"force":"Green", "type":""}
+							"Blue": {"force":"", "type":""}
 						},
 						"platformType": "fishing-vessel",
 						"position": "N07",
@@ -259,7 +259,7 @@
 						"condition": "Full capability",
 						"locationPending": true,
 						"perceptions": {
-							"Blue": {"force":"Green", "type":"fishing-vessel", "name": "SHU’AI"}
+							"Blue": {"force":"", "type":"fishing-vessel", "name": "SHU’AI"}
 						},
 						"platformType": "fishing-vessel",
 						"position": "N06",
@@ -614,8 +614,6 @@
 						"contactId": "C116", 
 						"condition": "Full capability",
 						"perceptions": {
-							"Blue": { "force": "Green", "type": "merchant-vessel", "name": "JALIBUT"
-							}
 						},
 						"plannedTurns": [
 							{
@@ -697,7 +695,6 @@
 						"contactId": "C026", 
 						"condition": "Full capability",
 						"perceptions": {
-							"Blue": { "force": "Green",	"type": "merchant-vessel"	}
 						},
 						"plannedTurns": [
 							{
@@ -779,8 +776,6 @@
 						"contactId": "C115", 
 						"condition": "Full capability",
 						"perceptions": {
-							"Blue": {	"force": "Green",	"type": "merchant-vessel", "name": "BOUM 3"	},
-							"Red": {	"force": "Green",	"type": "merchant-vessel", "name": "BOUM 3" }
 						},
 						"plannedTurns": [
 							{
@@ -911,9 +906,9 @@
 					20
 				],
 				"states": [
+					{ "name": "Transiting", "mobile": true },
 					{ "name": "Fishing", "mobile": false },
-					{ "name": "Moored", "mobile": false },
-					{ "name": "Transiting", "mobile": true }
+					{ "name": "Moored", "mobile": false }
 				],
 				"travelMode": "sea"
 			},
@@ -974,9 +969,9 @@
 					10
 				],
 				"states": [
-					{ "name": "Transiting", "mobile": true },
+					{ "name": "Onboard", "mobile": false },
 					{ "name": "Deploy", "mobile": true, "deploying": true },
-					{ "name": "Onboard", "mobile": false }
+					{ "name": "Transiting", "mobile": true }
 				],
 				"travelMode": "sea"
 			},				{
