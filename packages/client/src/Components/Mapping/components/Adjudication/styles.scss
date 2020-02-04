@@ -28,6 +28,10 @@
         &.planned-routes {
             background-color: #F0F0F0;
             padding-bottom: 0;
+            &.inactive {
+                padding-top: 0;
+                transition: padding-top 200ms ease-in;
+            }
         }
         .input-container {
             margin-bottom: 0;
