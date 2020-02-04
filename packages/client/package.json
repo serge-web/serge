@@ -25,6 +25,7 @@
     "leaflet-easybutton": "^2.4.0",
     "leaflet-polylinedecorator": "^1.6.0",
     "leaflet.icon.glyph": "^0.2.1",
+    "leaflet-responsive-popup": "^0.6.4",
     "lodash": "^4.17.15",
     "lorem-ipsum": "^2.0.3",
     "moment": "^2.24.0",
