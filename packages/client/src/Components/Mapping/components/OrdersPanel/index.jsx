@@ -29,7 +29,7 @@ const OrdersPanel = ({ selectedForce, allForces, phase, onSendClick, planingNow 
         <div className="orders-panel__title">{panelTitle()}</div>
         <div className="orders-panel__actions">
           <div
-            className={`orders-panel__toggler ${active && 'orders-panel__toggler--active'}`}
+            className={`orders-panel__toggler ${!active && 'orders-panel__toggler--active'}`}
             onClick={() => { setActive(!active) } }
           />
         </div>
