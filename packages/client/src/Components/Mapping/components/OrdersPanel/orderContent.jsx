@@ -49,7 +49,7 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planningNow 
   if (phase !== inAdjudication) {
     // remember this one
     setPhase(inAdjudication)
-    // do we need to reveal send button?
+
     if (!sendVisible) {
       setSendVisible(true)
     }
