@@ -211,7 +211,7 @@ export default class MapPlanningPlayerListener {
   }
 
   viewAs (/* string */ force, /* layer */ allMarkers) {
-    const viewAsUmpire = !!(force === UMPIRE_FORCE)
+    const viewAsUmpire = force === UMPIRE_FORCE
     // loop through markers, updating their styling
     allMarkers.eachLayer(marker => {
       // can we see this asset?
