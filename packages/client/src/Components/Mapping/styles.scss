@@ -72,6 +72,10 @@
   }
 }
 
+.asset-destroyed {
+  border: 8px solid rgba(0, 0, 0, 0.6);
+}
+
 .platform-force {
   // Note: in the longer term these shades should come form the force element
   // of the wargame definition. When that happens we will probably need to use
