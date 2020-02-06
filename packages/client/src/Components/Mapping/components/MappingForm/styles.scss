@@ -49,6 +49,13 @@
        position: relative;
        padding-left: 40%;
        margin-bottom: 1rem;
+
+input {
+    &::placeholder {
+        color: rgba(#828282, .4)
+    }
+}
+
        &.checkbox,
        &.radio {
            li label {
