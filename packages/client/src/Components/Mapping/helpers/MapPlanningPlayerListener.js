@@ -1065,6 +1065,11 @@ export default class MapPlanningPlayerListener {
           if (this.checkIfDestroyed(this.platformTypes, marker.asset.platformType, data.currentMarkerCondition)) {
             marker.asset.destroyed = true
 
+            // drop the planning marker, if there is one
+            if (this.currentRoute.planningMarker) {
+              this.currentRoute.planningMarker.remove()
+            }
+
             // add the class, too
             L.DomUtil.addClass(marker._icon, 'asset-destroyed')
           }
