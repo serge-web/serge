@@ -739,17 +739,20 @@ export default class MapPlanningPlayerListener {
     if (canControlThisForce(this.allForces, marker.asset.force, this.force) || this.performingAdjudication) {
       this.prepareDataFor(marker, this.platformTypes)
 
-      marker.on('click', e => {
-        this.assetCallback(marker)
+      // don't provide click handler for destroyed assets
+      if (!marker.asset.destroyed) {
+        marker.on('click', e => {
+          this.assetCallback(marker)
 
-        // if we're umpire, and in the planning phase, show the vis buttons too
-        if (this.force === UMPIRE_FORCE && this.phase === PLANNING_PHASE) {
-          // throw in quick vis listener, in case umpire realises they need to correct something
-          // it's umpire. let him manage visibiltiy
-          this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback,
-            this.btnListVisiblity, this.forceNames, this.map)
-        }
-      })
+          // if we're umpire, and in the planning phase, show the vis buttons too
+          if (this.force === UMPIRE_FORCE && this.phase === PLANNING_PHASE) {
+            // throw in quick vis listener, in case umpire realises they need to correct something
+            // it's umpire. let him manage visibiltiy
+            this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback,
+              this.btnListVisiblity, this.forceNames, this.map)
+          }
+        })  
+      }
     } else {
       // are we a non-umpire?
       if (this.force !== UMPIRE_FORCE) {
