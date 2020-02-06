@@ -10,13 +10,13 @@ export default function collateNewStatesMessage (/* array of planning structures
     newState.uniqid = asset.uniqid
     newState.name = asset.name
     newState.condition = data.current_condition
+    newState.perceptions = data.current_perceptions
     // handle destroyed status
     if (asset.destroyed) {
       newState.destroyed = asset.destroyed
     } else {
       newState.history = data.newHistory
       newState.plannedTurns = data.current
-      newState.perceptions = data.current_perceptions
       newState.newState = data.newState
     }
     let force
