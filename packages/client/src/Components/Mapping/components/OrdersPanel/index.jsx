@@ -46,8 +46,7 @@ const OrdersPanel = ({ selectedForce, allForces, phase, onSendClick, planningNow
           selectedForce={selectedForce}
           planningNow={planningNow}
           allForces={allForces}
-          onSendClick={onSendClick}
-          turn={turn} />
+          onSendClick={onSendClick} />
         }
       </ReactCSSTransitionGroup>
     </div>
