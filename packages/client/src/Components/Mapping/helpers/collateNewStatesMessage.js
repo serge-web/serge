@@ -15,16 +15,16 @@ export default function collateNewStatesMessage (/* array of planning structures
     const asset = data.asset
     newState.uniqid = asset.uniqid
     newState.name = asset.name
-    newState.history = data.newHistory
-    newState.plannedTurns = data.current
     newState.condition = data.current_condition
     // handle destroyed status
     if (isDestroyed(asset.condition, asset.platformTypeDetail)) {
       newState.destroyed = true
+    } else {
+      newState.history = data.newHistory
+      newState.plannedTurns = data.current
+      newState.perceptions = data.current_perceptions
+      newState.newState = data.newState
     }
-    console.log('destroyed', asset.name, asset.condition, asset.destroyed)
-    newState.perceptions = data.current_perceptions
-    newState.newState = data.newState
     let force
     if (asset.force) {
       force = asset.force

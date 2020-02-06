@@ -686,7 +686,7 @@ export default class MapPlanningPlayerListener {
   updateSubmitButtonLabel () {
     // don't have buttons in turn zero
     if (this.turnNumber > 0) {
-      const total = this.allRoutes.length
+      const total = this.allRoutes.filter(route => !route.asset.destroyed).length
       const count = this.allRoutes.filter(data => data.newState).length
       this.submitButton.setText('Submit ' + count + ' of ' + total)
       this.acceptAllButton.setText('Accept remaining ' + (total - count) + '')
@@ -909,40 +909,44 @@ export default class MapPlanningPlayerListener {
   }
 
   adjudicatingAcceptRoute (asset) {
-    // find the data
-    const thisAssetData = this.allRoutes.find(block => block.asset.uniqid === asset.uniqid)
+    if (asset.destroyed) {
+      // don't bother accepting it
+    } else {
+      // find the data
+      const thisAssetData = this.allRoutes.find(block => block.asset.uniqid === asset.uniqid)
 
-    // capture current state into history
-    thisAssetData.newHistory = { turn: this.turnNumber, status: asset.status, route: asset.route, position: asset.position }
+      // capture current state into history
+      thisAssetData.newHistory = { turn: this.turnNumber, status: asset.status, route: asset.route, position: asset.position }
 
-    // update the status
-    thisAssetData.newState = newStateFromPlannedTurns(thisAssetData.current, thisAssetData.asset.status, thisAssetData.asset.position)
+      // update the status
+      thisAssetData.newState = newStateFromPlannedTurns(thisAssetData.current, thisAssetData.asset.status, thisAssetData.asset.position)
 
-    // get the coords for the current location
-    const loc = this.grid.hexNamed(thisAssetData.newState.position).centrePos
+      // get the coords for the current location
+      const loc = this.grid.hexNamed(thisAssetData.newState.position).centrePos
 
-    // create a marker for this platform
-    const forceClass = thisAssetData.asset.force.toLowerCase()
-    const typeClass = thisAssetData.asset.platformType.replace(/ /g, '-').toLowerCase()
-    const iconClass = `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
-    const divIcon = L.divIcon({
-      iconSize: [40, 40],
-      className: iconClass
-    })
+      // create a marker for this platform
+      const forceClass = thisAssetData.asset.force.toLowerCase()
+      const typeClass = thisAssetData.asset.platformType.replace(/ /g, '-').toLowerCase()
+      const iconClass = `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
+      const divIcon = L.divIcon({
+        iconSize: [40, 40],
+        className: iconClass
+      })
 
-    // make the original marker faint
-    L.DomUtil.addClass(thisAssetData.marker._icon, 'platform-counter-planned')
+      // make the original marker faint
+      L.DomUtil.addClass(thisAssetData.marker._icon, 'platform-counter-planned')
 
-    // ok, drop a new marker, on the new location
-    thisAssetData.planningMarker = L.marker(loc, {
-      draggable: false,
-      icon: divIcon,
-      zIndexOffset: 1000
-    })
-    // special handling. Don't declutter the planning marker, we want it in the centre of the cell
-    thisAssetData.planningMarker.do_not_declutter = true
-    thisAssetData.planningMarker.asset = thisAssetData.asset
-    this.layerMarkers.addLayer(thisAssetData.planningMarker)
+      // ok, drop a new marker, on the new location
+      thisAssetData.planningMarker = L.marker(loc, {
+        draggable: false,
+        icon: divIcon,
+        zIndexOffset: 1000
+      })
+      // special handling. Don't declutter the planning marker, we want it in the centre of the cell
+      thisAssetData.planningMarker.do_not_declutter = true
+      thisAssetData.planningMarker.asset = thisAssetData.asset
+      this.layerMarkers.addLayer(thisAssetData.planningMarker)
+    }
 
     this.updateSubmitButtonLabel()
 
@@ -962,6 +966,12 @@ export default class MapPlanningPlayerListener {
     })
     this.btnListAccept = clearButtons(this.btnListAccept)
   }
+
+  checkIfDestroyed (/* array */ typesList, /* string */ platformType, /* string */ condition) {
+    const pType = findPlatformTypeFor(typesList, platformType)
+    const destroyedCondition = pType.conditions[pType.conditions.length - 1]
+    return (condition === destroyedCondition)
+  };
 
   showAdjudicationAssetMenu (marker) {
     clearButtons(this.btnListAccept, this)
@@ -1044,14 +1054,18 @@ export default class MapPlanningPlayerListener {
         if (data) {
           popup.setStore(data)
 
-          // just check it wasn't disabled
-          
-
-          // start off with the planned state
-          context.adjudicationStorePlan(data, marker.asset)
-
           // condition
           this.currentRoute.current_condition = data.currentMarkerCondition
+
+          // just check it wasn't disabled
+          if (this.checkIfDestroyed(this.platformTypes, marker.asset.platformType, data.currentMarkerCondition)) {
+            marker.asset.destroyed = true
+            // add the class, too
+            L.DomUtil.addClass(marker._icon, 'asset-destroyed')
+          }
+
+          // store the planned state
+          context.adjudicationStorePlan(data, marker.asset)
 
           // and finally visibility
           context.adjudicationUpdatePerception(data.currentMarkerVisibleTo, this.currentRoute.current_perceptions)
@@ -1090,7 +1104,14 @@ export default class MapPlanningPlayerListener {
   }
 
   adjudicationStorePlan (data, asset) {
-    if (data.planStatus === PLAN_ACCEPTED) {
+    if (asset.destoyed) {
+      // update the button
+      this.updateSubmitButtonLabel()
+
+      // lastly, tell the plans form that we've updated
+      this.updatePlansCallback(collateNewStatesMessage(this.allRoutes, this.turnNumber))      
+    }
+    else if (data.planStatus === PLAN_ACCEPTED) {
       // just check that we haven't already accepted it
       if (!this.currentRoute.newState) {
         // ok, just store the new state
