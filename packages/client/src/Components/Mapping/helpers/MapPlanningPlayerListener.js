@@ -1160,6 +1160,8 @@ export default class MapPlanningPlayerListener {
       // is it a mobile state?
       const pState = asset.platformTypeDetail.states.find(status => status.name === data.currentMarkerStatus)
 
+      this.currentRoute.current = []
+
       // ok, it got rejected. remove the planning marker, if there is one
       if (this.currentRoute.planningMarker) {
         this.currentRoute.planningMarker.remove()
