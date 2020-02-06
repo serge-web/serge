@@ -1060,6 +1060,7 @@ export default class MapPlanningPlayerListener {
           // just check it wasn't disabled
           if (this.checkIfDestroyed(this.platformTypes, marker.asset.platformType, data.currentMarkerCondition)) {
             marker.asset.destroyed = true
+
             // add the class, too
             L.DomUtil.addClass(marker._icon, 'asset-destroyed')
           }
@@ -1104,14 +1105,19 @@ export default class MapPlanningPlayerListener {
   }
 
   adjudicationStorePlan (data, asset) {
-    if (asset.destoyed) {
+    if (asset.destroyed) {
       // update the button
       this.updateSubmitButtonLabel()
 
+      // clear the plans
+      this.currentRoute.current = []
+      this.currentRoute.newState = null
+      this.updatePlannedRoute(false, this)
+
       // lastly, tell the plans form that we've updated
-      this.updatePlansCallback(collateNewStatesMessage(this.allRoutes, this.turnNumber))      
-    }
-    else if (data.planStatus === PLAN_ACCEPTED) {
+      console.log('updated routes', this.allRoutes, this.currentRoute.asset.destroyed)
+      this.updatePlansCallback(collateNewStatesMessage(this.allRoutes, this.turnNumber))
+    } else if (data.planStatus === PLAN_ACCEPTED) {
       // just check that we haven't already accepted it
       if (!this.currentRoute.newState) {
         // ok, just store the new state

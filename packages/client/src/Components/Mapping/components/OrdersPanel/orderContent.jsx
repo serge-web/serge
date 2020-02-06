@@ -70,7 +70,8 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planningNow 
             return false
           }
         })
-        return res.newState ? 'Accepted' : ''
+        // see if we need to update destroyed
+        return res.destroyed ? 'Destroyed' : 'Accepted'
       } else if (planningNow.plannedRoutes) {
         // ok, it's planning orders. Sort out if this asset has a planned route
         let status = null

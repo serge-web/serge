@@ -6,10 +6,12 @@ const Asset = ({ data, message }) => {
   const typeClass = data.platformType && data.platformType.replace(/ /g, '-').toLowerCase()
   // we get messages for assets that have been updated. If there's a message, show a tick marker
   const tickMarker = message && message.length && <span style={{ color: 'green' }} className="fa fa-check-circle"></span>
+  // console.log('asset', data.name, data.condition, data.destroyed, data)
+  const isDestroyed = data.destroyed ? 'asset-destroyed' : 'not-destroyed'
   return (
     <div className="orders-panel__asset" title={data.condition}>
       <div className={
-        `platform-counter orders-panel__icon platform-type-${typeClass} platform-force-${forceClass}`
+        `platform-counter orders-panel__icon platform-type-${typeClass} platform-force-${forceClass} ${isDestroyed}`
       }/>
       <div className="orders-panel__description">
         <div className="orders-panel__name">{data.name}&nbsp;{tickMarker}</div>

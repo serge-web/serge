@@ -4,21 +4,16 @@ export default function collateNewStatesMessage (/* array of planning structures
   const message = {}
   const perForceStates = []
 
-  const isDestroyed = (/* string */ condition, /* element */ pType) => {
-    return condition === pType.conditions[pType.conditions.length - 1]
-  }
-
-  console.log('collating new states')
-
   allAssets.forEach(data => {
     const newState = {}
     const asset = data.asset
     newState.uniqid = asset.uniqid
     newState.name = asset.name
     newState.condition = data.current_condition
+    console.log('collate new states', asset.name, asset.destroyed)
     // handle destroyed status
-    if (isDestroyed(asset.condition, asset.platformTypeDetail)) {
-      newState.destroyed = true
+    if (asset.destroyed) {
+      newState.destroyed = asset.destroyed
     } else {
       newState.history = data.newHistory
       newState.plannedTurns = data.current
