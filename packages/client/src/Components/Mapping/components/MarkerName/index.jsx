@@ -60,7 +60,7 @@ const MarkerName = ({ store, onStoreUpdate, callbackFunction }) => {
         <div className="input-container marker-name">
           <label>
             Update asset name
-            <input key="marker-name" id="marker-name" name="marker-name" onChange={handleRename} type="text" value={name} />
+            <input key="marker-name" id="marker-name" name="marker-name" placeholder={name} onChange={handleRename} type="text" />
           </label>
           <button type="submit" onClick={handleSubmit}>Rename</button>
           <button onClick={handleRevert}>Revert</button>
