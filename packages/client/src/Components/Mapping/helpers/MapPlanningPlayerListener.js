@@ -925,25 +925,25 @@ export default class MapPlanningPlayerListener {
       // update the status
       thisAssetData.newState = newStateFromPlannedTurns(thisAssetData.current, thisAssetData.asset.status, thisAssetData.asset.position)
 
-      // get the coords for the current location
-      const loc = this.grid.hexNamed(thisAssetData.newState.position).centrePos
+      // only add a new marker if asset is moving
+      if (asset.position !== thisAssetData.newState.position) {
+        // get the coords for the current location
+        const loc = this.grid.hexNamed(thisAssetData.newState.position).centrePos
 
-      // create a marker for this platform
-      const forceClass = thisAssetData.asset.force.toLowerCase()
-      const typeClass = thisAssetData.asset.platformType.replace(/ /g, '-').toLowerCase()
-      const iconClass = `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
-      const divIcon = L.divIcon({
-        iconSize: [40, 40],
-        className: iconClass
-      })
+        // create a marker for this platform
+        const forceClass = asset.force.toLowerCase()
+        const typeClass = asset.platformType.replace(/ /g, '-').toLowerCase()
+        const iconClass = `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
+        const divIcon = L.divIcon({
+          iconSize: [40, 40],
+          className: iconClass
+        })
 
-      // make the original marker faint
-      L.DomUtil.addClass(thisAssetData.marker._icon, 'platform-counter-planned')
+        // make the original marker faint
+        L.DomUtil.addClass(thisAssetData.marker._icon, 'platform-counter-planned')
 
-      // ok, drop a new marker, on the new location
-      // work out if the current state is mobile or not
-      const isMobile = thisAssetData.asset.platformTypeDetail.states.find(state => state.name === thisAssetData.newState.status.state).mobile
-      if (isMobile) {
+        // ok, drop a new marker, on the new location
+        // work out if the current state is mobile or not
         thisAssetData.planningMarker = L.marker(loc, {
           draggable: false,
           icon: divIcon,
