@@ -160,7 +160,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }
 
   const routeCompleteCallback = (/* object */payload) => {
-    console.log('routeCompleteCallback', payload)
     sendMessage(SUBMIT_PLANS, payload)
   }
 

@@ -10,6 +10,11 @@ export default (asset, grid, force, myForce, platformTypes, userIsUmpire, /* str
 
   // can we see it?
   if (perceptionClassName != null) {
+
+    if (asset.destroyed) {
+      perceptionClassName += ' asset-destroyed'
+    }
+
     const location = grid.hexNamed(asset.position).centrePos
 
     const divIcon = L.divIcon({
@@ -37,6 +42,7 @@ export default (asset, grid, force, myForce, platformTypes, userIsUmpire, /* str
     // const hoverTxt = asset.nonStandardCondition ? asset.name + ' - ' + asset.condition : asset.condition
 
     // show the full name & state if we're white or the owner of this force
+    console.log(asset, force, myForce)
     const hoverTxt = findAssetNameFor(asset.name, asset.condition, force, myForce, asset.perceptions[myForce], asset.contactId)
 
     res.bindTooltip(hoverTxt)

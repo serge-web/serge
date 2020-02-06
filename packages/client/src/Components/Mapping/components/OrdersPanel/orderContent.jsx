@@ -70,13 +70,21 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planningNow 
             return false
           }
         })
-        return res.newState ? 'Accepted' : ''
+        // see if we need to update destroyed
+        return res.destroyed ? 'Destroyed' : 'Accepted'
       } else if (planningNow.plannedRoutes) {
         // ok, it's planning orders. Sort out if this asset has a planned route
         let status = null
-        const plannedRoute = planningNow.plannedRoutes.find(route => (route.uniqid === uniqid))
-        if (plannedRoute && plannedRoute.plannedTurns && plannedRoute.plannedTurns.length) {
-          status = `${plannedRoute.plannedTurns.length} Turns planned`
+
+        const res = planningNow.plannedRoutes.find(asset => asset.uniqid === uniqid)
+
+        if (res.destroyed) {
+          status = 'Destroyed'
+        } else {
+          const plannedRoute = planningNow.plannedRoutes.find(route => (route.uniqid === uniqid))
+          if (plannedRoute && plannedRoute.plannedTurns && plannedRoute.plannedTurns.length) {
+            status = `${plannedRoute.plannedTurns.length} Turns planned`
+          }
         }
         return status
       } else {
