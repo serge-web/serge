@@ -38,7 +38,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
   }
 
   const checkIfDeploying = () => {
-    return markerStatus === 'Deploy'
+    return markerStatus.deploying
   }
 
   useEffect(() => {
