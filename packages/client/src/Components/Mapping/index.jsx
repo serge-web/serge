@@ -30,7 +30,7 @@ import './styles.scss'
 
 // TODO: Refactor. We should convert the next file into a module
 import './leaflet.zoomhome.js'
-import OrdersPanel from './ordersPanel'
+import OrdersPanel from './components/OrdersPanel'
 
 const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, allPlatforms, phase, channelID, imageTop, imageLeft, imageBottom, imageRight }) => {
   const mapRef = useRef(null) // the leaflet map
@@ -42,10 +42,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const platformTypesRef = useRef(allPlatforms)
   const perceiveAsForceRef = useRef(selectedForce) // in case white changes how they perceive the data
   const allRoutes = []
-  const [planingNow, setPlaningNow] = useState(null)
+  const [planningNow, setplanningNow] = useState(null)
 
   const updatePlansCallback = (data) => {
-    setPlaningNow(data)
+    setplanningNow(data)
   }
 
   useEffect(() => {
@@ -405,7 +405,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         allForces={allForces}
         phase={phase}
         onSendClick={callbackForThisPhase()}
-        planingNow={planingNow}
+        planningNow={planningNow}
       />
       <div id="map" className="mapping"/>
     </div>

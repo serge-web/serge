@@ -28,6 +28,10 @@
         &.planned-routes {
             background-color: #F0F0F0;
             padding-bottom: 0;
+            &.inactive {
+                padding-top: 0;
+                transition: padding-top 200ms ease-in;
+            }
         }
         .input-container {
             margin-bottom: 0;
@@ -55,27 +59,4 @@
         border: 1px dotted rgb(149, 204, 68);
         background-color: rgba(149, 204, 68, .4);
     }
-}
-
-.slide-enter,
-.slide-leave {
-    overflow: hidden;
-}
-
-.slide-enter {
-    max-height: 0;
-  }
-  
-.slide-enter.slide-enter-active {
-    transition: max-height 500ms ease-in-out;
-    max-height: 1000px;
-}
-
-.slide-leave {
-    max-height: 1000px;
-}
-
-.slide-leave.slide-leave-active {
-    transition: max-height 200ms ease-in-out;
-    max-height: 0;
 }
