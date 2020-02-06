@@ -1,5 +1,5 @@
 import turnNameFor from './turnNameFor'
-
+// WARNING - THIS FUNCTION IS NOT USED, AN INLINE VERSION IS IN USE
 export default function collatePlanningOrders (/* array */routes, /* int */ turnNumber) {
   const firstAsset = routes.find(route => route.asset != null).asset
   const detail = []
@@ -7,6 +7,7 @@ export default function collatePlanningOrders (/* array */routes, /* int */ turn
   routes.forEach(route => {
     const thisRoute = {}
     thisRoute.uniqid = route.marker.asset.uniqid
+    thisRoute.destroyed = route.marker.asset.destroyed
     const plannedTurns = []
     if (route.current && route.current.length > 0) {
       route.current.forEach(step => {
