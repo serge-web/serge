@@ -405,6 +405,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         phase={phase}
         onSendClick={callbackForThisPhase()}
         planningNow={planningNow}
+        turn={currentTurn}
       />
       <div id="map" className="mapping"/>
     </div>

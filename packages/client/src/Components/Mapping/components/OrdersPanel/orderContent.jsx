@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './styles.scss'
 import OrderAsset from './orderAsset'
 
-const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planningNow }) => {
+const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planningNow, turn }) => {
   let selectedForceData = { assets: [] }
   const [sendVisible, setSendVisible] = useState(true)
   const inAdjudication = planningNow && planningNow.detail && planningNow.detail.type === 'StateOfWorld'
@@ -49,8 +49,11 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planningNow 
   if (phase !== inAdjudication) {
     // remember this one
     setPhase(inAdjudication)
-    // do we need to reveal send button?
-    if (!sendVisible) {
+
+    // don't show Submit button if we're in turn zero adjudication
+    if (inAdjudication && turn === 0) {
+      setSendVisible(false)
+    } else if (!sendVisible) {
       setSendVisible(true)
     }
   }

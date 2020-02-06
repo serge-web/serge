@@ -5,7 +5,7 @@ import Body from './orderContent'
 import './styles.scss'
 import { ADJUDICATION_PHASE, UMPIRE_FORCE } from '../../../../consts'
 
-const OrdersPanel = ({ selectedForce, allForces, phase, onSendClick, planningNow }) => {
+const OrdersPanel = ({ selectedForce, allForces, phase, onSendClick, planningNow, turn }) => {
   const [active, setActive] = useState(true)
 
   /** only show the orders panel if we're umpire in adjudication, or anyone in planning phase */
@@ -46,7 +46,8 @@ const OrdersPanel = ({ selectedForce, allForces, phase, onSendClick, planningNow
           selectedForce={selectedForce}
           planningNow={planningNow}
           allForces={allForces}
-          onSendClick={onSendClick} />
+          onSendClick={onSendClick}
+          turn={turn} />
         }
       </ReactCSSTransitionGroup>
     </div>
