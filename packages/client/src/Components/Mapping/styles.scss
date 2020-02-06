@@ -40,6 +40,25 @@
   &.selected {
     border: 4px solid rgba(255, 255, 255, .7);
   }
+  &.destroyed {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    text-align: center;
+    transform: rotate(20deg);
+    border-radius: 0;
+    &::before {
+      content: "";
+      background-color: #ff0000;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 40px;
+      width: 40px;
+      transform: rotate(135deg);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+  }
 }
 
 .platform-force {

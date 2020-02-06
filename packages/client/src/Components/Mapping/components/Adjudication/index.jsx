@@ -11,7 +11,6 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
   const [currentMarker] = useState(store.currentMarker)
   const [currentMarkerForce] = useState(store.currentMarkerForce)
   const [allForces] = useState(store.allForces)
-  const [allPlatforms] = useState(store.allPlatforms)
   const [planStatus, setPlanStatus] = useState(store.planStatus)
   const [markerStatus, setMarkerStatus] = useState(store.currentMarkerStatus)
   const [markerSpeed, setMarkerSpeed] = useState(store.currentMarkerSpeed)
@@ -23,14 +22,13 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
   const [prevSpeed, setPrevSpeed] = useState(store.currentMarkerSpeed)
 
   // Get all of the possible states and speeds
-  const { states, speedKts } = currentMarker.platformTypeDetail
+  const { states, speedKts, conditions } = currentMarker.platformTypeDetail
 
   // A copy of the store to capture the updates
   const newStore = store
 
   newStore.formType = 'adjudication'
 
-  const conditions = allPlatforms[0].conditions
   const getDisabledCondition = conditions[conditions.length - 1]
 
   const checkIfActive = (val) => {
