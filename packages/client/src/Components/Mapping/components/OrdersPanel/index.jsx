@@ -11,7 +11,7 @@ const OrdersPanel = ({ selectedForce, allForces, phase, onSendClick, planningNow
   /** only show the orders panel if we're umpire in adjudication, or anyone in planning phase */
   const showOrders = () => {
     if (phase === ADJUDICATION_PHASE) {
-      return selectedForce === UMPIRE_FORCE
+      return selectedForce === UMPIRE_FORCE && turn !== 0
     } else {
       return true
     }
