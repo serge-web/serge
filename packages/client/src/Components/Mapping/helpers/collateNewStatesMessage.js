@@ -3,6 +3,13 @@ import turnNameFor from './turnNameFor'
 export default function collateNewStatesMessage (/* array of planning structures */ allAssets, /* int */ turnNumber) {
   const message = {}
   const perForceStates = []
+
+  const isDestroyed = (/* string */ condition, /* element */ pType) => {
+    return condition === pType.conditions[pType.conditions.length - 1]
+  }
+
+  console.log('collating new states')
+
   allAssets.forEach(data => {
     const newState = {}
     const asset = data.asset
@@ -11,6 +18,11 @@ export default function collateNewStatesMessage (/* array of planning structures
     newState.history = data.newHistory
     newState.plannedTurns = data.current
     newState.condition = data.current_condition
+    // handle destroyed status
+    if (isDestroyed(asset.condition, asset.platformTypeDetail)) {
+      newState.destroyed = true
+    }
+    console.log('destroyed', asset.name, asset.condition, asset.destroyed)
     newState.perceptions = data.current_perceptions
     newState.newState = data.newState
     let force
@@ -20,6 +32,7 @@ export default function collateNewStatesMessage (/* array of planning structures
       console.error('can\' find force for:', asset.name)
       force = ''
     }
+
     // see if we need to create a new list for this force
     let thisForce = perForceStates.find(entry => entry.name === force)
     if (!thisForce) {

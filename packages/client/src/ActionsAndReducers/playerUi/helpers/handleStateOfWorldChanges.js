@@ -15,6 +15,9 @@ export default (/* object */ payload, /* object */ allForces) => {
       asset.route = entry.newState ? entry.newState.route : asset.route
       asset.condition = entry.condition
       asset.perceptions = entry.perceptions
+      if (entry.destroyed) {
+        asset.destroyed = entry.destroyed
+      }
     })
   })
   return allForces

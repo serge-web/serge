@@ -1044,6 +1044,9 @@ export default class MapPlanningPlayerListener {
         if (data) {
           popup.setStore(data)
 
+          // just check it wasn't disabled
+          
+
           // start off with the planned state
           context.adjudicationStorePlan(data, marker.asset)
 
