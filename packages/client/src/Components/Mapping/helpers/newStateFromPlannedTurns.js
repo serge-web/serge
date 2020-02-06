@@ -19,7 +19,12 @@ export default function newStateFromPlannedTurns (/* array routes */ plans, /* e
     }
   } else {
     // just keep the current state
-    newState.status = JSON.parse(JSON.stringify(status))
+    // hotfix - double-check we're returning and element, not a string
+    if (!status.state) {
+      newState.status = { state: JSON.parse(JSON.stringify(status)) }
+    } else {
+      newState.status = JSON.parse(JSON.stringify(status))
+    }
     newState.position = position
   }
   return newState

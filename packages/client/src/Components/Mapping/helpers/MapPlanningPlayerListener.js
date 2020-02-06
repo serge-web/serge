@@ -939,31 +939,35 @@ export default class MapPlanningPlayerListener {
       // update the status
       thisAssetData.newState = newStateFromPlannedTurns(thisAssetData.current, thisAssetData.asset.status, thisAssetData.asset.position)
 
-      // get the coords for the current location
-      const loc = this.grid.hexNamed(thisAssetData.newState.position).centrePos
+      // only add a new marker if asset is moving
+      if (asset.position !== thisAssetData.newState.position) {
+        // get the coords for the current location
+        const loc = this.grid.hexNamed(thisAssetData.newState.position).centrePos
 
-      // create a marker for this platform
-      const forceClass = thisAssetData.asset.force.toLowerCase()
-      const typeClass = thisAssetData.asset.platformType.replace(/ /g, '-').toLowerCase()
-      const iconClass = `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
-      const divIcon = L.divIcon({
-        iconSize: [40, 40],
-        className: iconClass
-      })
+        // create a marker for this platform
+        const forceClass = asset.force.toLowerCase()
+        const typeClass = asset.platformType.replace(/ /g, '-').toLowerCase()
+        const iconClass = `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
+        const divIcon = L.divIcon({
+          iconSize: [40, 40],
+          className: iconClass
+        })
 
-      // make the original marker faint
-      L.DomUtil.addClass(thisAssetData.marker._icon, 'platform-counter-planned')
+        // make the original marker faint
+        L.DomUtil.addClass(thisAssetData.marker._icon, 'platform-counter-planned')
 
-      // ok, drop a new marker, on the new location
-      thisAssetData.planningMarker = L.marker(loc, {
-        draggable: false,
-        icon: divIcon,
-        zIndexOffset: 1000
-      })
-      // special handling. Don't declutter the planning marker, we want it in the centre of the cell
-      thisAssetData.planningMarker.do_not_declutter = true
-      thisAssetData.planningMarker.asset = thisAssetData.asset
-      this.layerMarkers.addLayer(thisAssetData.planningMarker)
+        // ok, drop a new marker, on the new location
+        // work out if the current state is mobile or not
+        thisAssetData.planningMarker = L.marker(loc, {
+          draggable: false,
+          icon: divIcon,
+          zIndexOffset: 1000
+        })
+        // special handling. Don't declutter the planning marker, we want it in the centre of the cell
+        thisAssetData.planningMarker.do_not_declutter = true
+        thisAssetData.planningMarker.asset = thisAssetData.asset
+        this.layerMarkers.addLayer(thisAssetData.planningMarker)
+      }
     }
 
     this.updateSubmitButtonLabel()
@@ -1042,7 +1046,13 @@ export default class MapPlanningPlayerListener {
         const firstPlannedTurn = this.currentRoute.current[0]
         newStatus = { state: firstPlannedTurn.status.state, speedKts: firstPlannedTurn.status.speedKts }
       } else {
-        newStatus = { state: data.asset.status.state, speedKts: data.asset.status.speedKts }
+        // check we have proper status
+        if (data.asset.status.state) {
+          newStatus = { state: data.asset.status.state, speedKts: data.asset.status.speedKts }
+        } else {
+          // we have to build up entry
+          newStatus = { state: data.asset.status }
+        }
       }
 
       // work out if the current state is mobile or not
@@ -1149,6 +1159,8 @@ export default class MapPlanningPlayerListener {
       const newStatus = { status: data.currentMarkerStatus, position: asset.position }
       // is it a mobile state?
       const pState = asset.platformTypeDetail.states.find(status => status.name === data.currentMarkerStatus)
+
+      this.currentRoute.current = []
 
       // ok, it got rejected. remove the planning marker, if there is one
       if (this.currentRoute.planningMarker) {
@@ -1311,7 +1323,11 @@ export default class MapPlanningPlayerListener {
         this.clearOnNewLeg()
 
         // and generate the planning menu
-        this.planningMarkerCallback()
+        if (this.planningMarkerCallback()) {
+          // hotfix, on occasion this was missing
+          console.warn('Planning marker callback missing')
+          this.planningMarkerCallback()
+        }
       })
 
       // put the next turn in the planning marker
