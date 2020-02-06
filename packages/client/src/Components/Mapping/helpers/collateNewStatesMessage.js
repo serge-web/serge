@@ -10,7 +10,6 @@ export default function collateNewStatesMessage (/* array of planning structures
     newState.uniqid = asset.uniqid
     newState.name = asset.name
     newState.condition = data.current_condition
-    console.log('collate new states', asset.name, asset.destroyed)
     // handle destroyed status
     if (asset.destroyed) {
       newState.destroyed = asset.destroyed

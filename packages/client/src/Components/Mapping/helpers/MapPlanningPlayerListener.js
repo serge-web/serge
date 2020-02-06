@@ -1115,7 +1115,6 @@ export default class MapPlanningPlayerListener {
       this.updatePlannedRoute(false, this)
 
       // lastly, tell the plans form that we've updated
-      console.log('updated routes', this.allRoutes, this.currentRoute.asset.destroyed)
       this.updatePlansCallback(collateNewStatesMessage(this.allRoutes, this.turnNumber))
     } else if (data.planStatus === PLAN_ACCEPTED) {
       // just check that we haven't already accepted it
