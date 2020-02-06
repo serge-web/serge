@@ -269,7 +269,7 @@ export default class MapPlanningPlayerListener {
       status = { state: marker.asset.status.state, speedKts: marker.asset.status.speedKts }
     } else if (marker.asset.status) {
       // we're missing a detailed status
-      const pType = marker.asset.platformTypeDetail.states.find(ptype => ptype.name ===marker.asset.status)
+      const pType = marker.asset.platformTypeDetail.states.find(ptype => ptype.name === marker.asset.status)
       status = pType
       // Note: the lower logic is expecting the status name to be
       // in a field called 'state'
@@ -752,7 +752,7 @@ export default class MapPlanningPlayerListener {
             this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback,
               this.btnListVisiblity, this.forceNames, this.map)
           }
-        })  
+        })
       }
     } else {
       // are we a non-umpire?
