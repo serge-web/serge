@@ -10,7 +10,6 @@ export default (asset, grid, force, myForce, platformTypes, userIsUmpire, /* str
 
   // can we see it?
   if (perceptionClassName != null) {
-
     if (asset.destroyed) {
       perceptionClassName += ' asset-destroyed'
     }
