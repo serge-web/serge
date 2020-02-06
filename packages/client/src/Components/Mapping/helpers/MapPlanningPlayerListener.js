@@ -269,7 +269,7 @@ export default class MapPlanningPlayerListener {
       status = { state: marker.asset.status.state, speedKts: marker.asset.status.speedKts }
     } else if (marker.asset.status) {
       // we're missing a detailed status
-      const pType = marker.asset.platformTypeDetail.states.find(ptype => ptype.name ===marker.asset.status)
+      const pType = marker.asset.platformTypeDetail.states.find(ptype => ptype.name === marker.asset.status)
       status = pType
       // Note: the lower logic is expecting the status name to be
       // in a field called 'state'
@@ -752,7 +752,7 @@ export default class MapPlanningPlayerListener {
             this.btnListVisiblity = getVisibilityButtonsFor(marker.asset, this.visibilityCallback,
               this.btnListVisiblity, this.forceNames, this.map)
           }
-        })  
+        })
       }
     } else {
       // are we a non-umpire?
@@ -941,15 +941,19 @@ export default class MapPlanningPlayerListener {
       L.DomUtil.addClass(thisAssetData.marker._icon, 'platform-counter-planned')
 
       // ok, drop a new marker, on the new location
-      thisAssetData.planningMarker = L.marker(loc, {
-        draggable: false,
-        icon: divIcon,
-        zIndexOffset: 1000
-      })
-      // special handling. Don't declutter the planning marker, we want it in the centre of the cell
-      thisAssetData.planningMarker.do_not_declutter = true
-      thisAssetData.planningMarker.asset = thisAssetData.asset
-      this.layerMarkers.addLayer(thisAssetData.planningMarker)
+      // work out if the current state is mobile or not
+      const isMobile = thisAssetData.asset.platformTypeDetail.states.find(state => state.name === thisAssetData.newState.status.state).mobile
+      if (isMobile) {
+        thisAssetData.planningMarker = L.marker(loc, {
+          draggable: false,
+          icon: divIcon,
+          zIndexOffset: 1000
+        })
+        // special handling. Don't declutter the planning marker, we want it in the centre of the cell
+        thisAssetData.planningMarker.do_not_declutter = true
+        thisAssetData.planningMarker.asset = thisAssetData.asset
+        this.layerMarkers.addLayer(thisAssetData.planningMarker)
+      }
     }
 
     this.updateSubmitButtonLabel()
@@ -1028,7 +1032,13 @@ export default class MapPlanningPlayerListener {
         const firstPlannedTurn = this.currentRoute.current[0]
         newStatus = { state: firstPlannedTurn.status.state, speedKts: firstPlannedTurn.status.speedKts }
       } else {
-        newStatus = { state: data.asset.status.state, speedKts: data.asset.status.speedKts }
+        // check we have proper status
+        if (data.asset.status.state) {
+          newStatus = { state: data.asset.status.state, speedKts: data.asset.status.speedKts }
+        } else {
+          // we have to build up entry
+          newStatus = { state: data.asset.status }
+        }
       }
 
       // work out if the current state is mobile or not
@@ -1292,7 +1302,11 @@ export default class MapPlanningPlayerListener {
         this.clearOnNewLeg()
 
         // and generate the planning menu
-        this.planningMarkerCallback()
+        if (this.planningMarkerCallback()) {
+          // hotfix, on occasion this was missing
+          console.warn('Planning marker callback missing')
+          this.planningMarkerCallback()
+        }
       })
 
       // put the next turn in the planning marker
