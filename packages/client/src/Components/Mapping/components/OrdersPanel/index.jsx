@@ -38,7 +38,7 @@ const OrdersPanel = ({ selectedForce, allForces, phase, onSendClick, planningNow
       </div>
       <ReactCSSTransitionGroup
         component="div"
-        transitionName="slide"
+        transitionName="slideorders"
         transitionEnterTimeout={500}
         transitionLeaveTimeout={300}>
         { active &&

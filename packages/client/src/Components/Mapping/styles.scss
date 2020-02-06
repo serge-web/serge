@@ -40,6 +40,36 @@
   &.selected {
     border: 4px solid rgba(255, 255, 255, .7);
   }
+  &.asset-destroyed {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    text-align: center;
+    transform-style: preserve-3d;
+    box-shadow: none;
+    &::before {
+      content: "";
+      background-color: rgb(41, 41, 41);
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      height: 43px;
+      width: 43px;
+      transform: rotate(135deg) translateZ(-1px);
+
+    }
+    &::after {
+      content: "";
+      background-color: rgb(41, 41, 41);
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      height: 43px;
+      width: 43px;
+      transform: rotate(0) translateZ(-1px);
+
+    }
+  }
 }
 
 .platform-force {
