@@ -193,27 +193,41 @@ export default class MapPlanningPlayerListener {
     }
   }
 
+  handleMarker (/* string */ force, /* element */ marker, /* element  */ asset, /* boolean */ viewAsUmpire) {
+    const perceptionClassName = findPerceivedAsClassName(force, asset.force, asset.platformType, asset.perceptions, viewAsUmpire)
+    if (perceptionClassName) {
+      // remove existing class names
+      removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
+
+      // set the new class names
+      L.DomUtil.addClass(marker._icon, perceptionClassName)
+
+      // reveal it, just to be sure
+      L.DomUtil.removeClass(marker._icon, 'marker-hidden')
+    } else {
+      // hide it
+      L.DomUtil.addClass(marker._icon, 'marker-hidden')
+    }
+  }
+
   viewAs (/* string */ force, /* layer */ allMarkers) {
     const viewAsUmpire = force === UMPIRE_FORCE
     // loop through markers, updating their styling
     allMarkers.eachLayer(marker => {
       // can we see this asset?
       const asset = marker.asset
-      const perceptionClassName = findPerceivedAsClassName(force, marker.force, asset.platformType, asset.perceptions, viewAsUmpire)
-      if (perceptionClassName) {
-        // remove existing class names
-        removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
+      this.handleMarker(force, marker, asset, viewAsUmpire)
+    })
 
-        // set the new class names
-        L.DomUtil.addClass(marker._icon, perceptionClassName)
-
-        // reveal it, just to be sure
-        L.DomUtil.removeClass(marker._icon, 'marker-hidden')
-      } else {
-        // hide it
-        L.DomUtil.addClass(marker._icon, 'marker-hidden')
+    // also do this for the future location markers
+    this.allRoutes.forEach(route => {
+      const marker = route.planningMarker
+      if (marker) {
+        const asset = marker.asset
+        this.handleMarker(force, marker, asset, viewAsUmpire)
       }
     })
+
     // also do this for the planning routes
     this.allRoutes.forEach(route => {
       const asset = route.asset
@@ -1074,6 +1088,11 @@ export default class MapPlanningPlayerListener {
           // just check it wasn't disabled
           if (this.checkIfDestroyed(this.platformTypes, marker.asset.platformType, data.currentMarkerCondition)) {
             marker.asset.destroyed = true
+
+            // drop the planning marker, if there is one
+            if (this.currentRoute.planningMarker) {
+              this.currentRoute.planningMarker.remove()
+            }
 
             // add the class, too
             L.DomUtil.addClass(marker._icon, 'asset-destroyed')
