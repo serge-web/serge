@@ -109,6 +109,10 @@ Git commit hooks trigger linting of all staged files when a change is committed.
 
 Formats with [prettier](https://github.com/prettier/prettier) and lints with [eslint](https://eslint.org/) preconfigured with [standard](https://github.com/standard/standard) rules 
 
+## Development guidelines
+
+For information and guidance about how to contribute to this project. Please see the [Development standards guidelines](development-standards.md)
+
 ## Licensing
 
 The Serge is licensed under the [Apache License 2.0](./LICENSE).
