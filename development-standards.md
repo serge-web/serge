@@ -325,9 +325,11 @@ The main readme.md file should be updated whenever a relevant change is made. Pl
 Branches should be named in accordance with the ticket you are currently working on wherever possible, including the ticket number. If the work is not related to a ticket, then it should be given a sensible name. All branches should follow the following convention for prefixing:
 
 - `feature/` - A new feature or an update which will result in an enhancement of an existing feature
-- `hotfix/` - An update which will fix a previously existing issue
+- `amend/` - An update which will amend a previously existing issue 
 - `bugfix/` - An update which will fix a bug
 - `release/` - A release branch
+
+> An amend is different to a bug. A bug is an issue that causes a failure or error somewhere, whereas an amend is something that isn't quite right. For example a page not loading is a bug, a page having a header that needs to be bigger is an amend. 
 
 ##### Acceptable
 
