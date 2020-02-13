@@ -81,7 +81,7 @@ This section applies to the entire project, regardless of language
 - Use 2 space widths per tab indentation
 - Trim all trailing whitespace
 
-> ❗ For the simplest development process, please ensure youre development environment confirms to the project `.editorconfig` file. There are plugins for most (if not all popular editors), find yours [here](https://editorconfig.org/#download).
+> ❗ For the simplest development process, please ensure your development environment confirms to the project `.editorconfig` file. There are plugins for most (if not all popular editors), find yours [here](https://editorconfig.org/#download).
 
 #### Code comments
 
