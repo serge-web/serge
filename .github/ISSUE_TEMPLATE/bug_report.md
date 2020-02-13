@@ -25,7 +25,7 @@ Steps to reproduce the behavior:
 <!-- If applicable, add screenshots to help explain your problem a good animated screenshot can replace 'steps to reproduce'. -->
 
 ## 💻 System information
-<!-- Please complete the following information (you can get most of this information from https://whatismybrowser.com) -->
+<!-- Please complete the following information (you can get most of this information from https://mybrowser.fyi/) -->
  - Operating System: [e.g. iOS, Windows, etc...]
  - Browser [e.g. chrome, safari]
  - Browser Version [e.g. 22]
