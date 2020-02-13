@@ -18,17 +18,12 @@ One this is done you can run the project in development mode by running `yarn st
 
 This project is built using the following technologies
 
-- [Node](https://nodejs.org/)
-- [Express](https://expressjs.com/)
-- [React](https://reactjs.org/)
-- [Redux](https://redux.js.org/)
-- [Jest](https://jestjs.io/)
-- [PouchDB](https://pouchdb.com/)
-- [Sass](https://sass-lang.com/)
-- [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/)
-- [Lerna](https://lerna.js.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Storybook](https://storybook.js.org/)
+<!-- --> | <!-- --> | <!-- -->
+--- | --- | ---
+[Node](https://nodejs.org/) | [Express](https://expressjs.com/) | [React](https://reactjs.org/) 
+[Redux](https://redux.js.org/) | [Jest](https://jestjs.io/) | [PouchDB](https://pouchdb.com/)
+[Sass](https://sass-lang.com/) | [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces/) | [Lerna](https://lerna.js.org/)
+[TypeScript](https://www.typescriptlang.org/) | [Storybook](https://storybook.js.org/) | [Material-UI](https://material-ui.com/)
 
 ## 📂 Directory Structure
 
@@ -44,7 +39,7 @@ Components live in the `components` package of our project. Each component shoul
 
 - `index.tsx` - The component logic and main UI
 - `index.spec.txt` - The tests for the component
-- `index.stories.tsx` - The Storybook file for the component
+- `index.stories.mdx` - The Storybook file for the component
 - `styles.module.scss` - The scoped component styling
 - `/images` - Any component-specific images
 - `/helpers` - Additional logic for the component which makes sense to be separated from the index (ensure tests also exist for these)
@@ -55,19 +50,41 @@ The only required files are index.tsx, index.spec.tsx and index.story.tsx. Pleas
 
 Each component should have a single task (See Brad Frost's [Atomic Design Principle](https://bradfrost.com/blog/post/atomic-web-design/) for more information) and be written as a 'pure' component. This means that it should only use react's hooks and context API along with props to receive and pass information. (See React Coding standards below)
 
+Before a new component is created, please refer to https://material-ui.com/ to see if there is a ready-made version we can import. If so then please ensure you add an entry for it to Storybook (see below)
+
 > ⚠️ Please note: Components should not contain other components, they should only reference them. If you are making a component, it should be created in the root of `/components` and have a Storybook entry.
 
 ## 📖 Storybook
 
 <div align="center">
 
-[![Storybook intro video on YouTube](https://i.imgur.com/FDvR6zl.jpg)](https://www.youtube.com/watch?v=LFh5Y89eM)
+[![Storybook intro video on YouTube](https://i.imgur.com/FDvR6zl.jpg)](https://www.youtube.com/watch?v=p-LFh5Y89eM)
 
 </div>
 
 All components, no matter how small or large should have a Storybook entry. Ideally, a component should be built in insolation and tested within Storybook before being imported into the primary project (or that components parent component), this ensures that the component is robust and works by itself. It also provides a handy component library for developers to be able to reuse components and prevent the reinvention of the wheel.
 
 Rather than document how to use Storybook, please refer to the excellent [Storybook Documentation](https://storybook.js.org/docs/basics/introduction/)
+
+Storybook covers both our own internal custom components and components we have imported from Material-UI. When adding a story, please ensure you add a prefix to the title to ensure that it appears in the correct Storybook group, either `Custom` or `Material-UI`.
+
+### Acceptable
+
+```md
+<Meta
+  title="Material-UI/Button"
+  component={Button}
+/>
+```
+
+### Unacceptable
+
+```md
+<Meta
+  title="Button"
+  component={Button}
+/>
+```
 
 ## 👩‍💻 Coding best practice
 
