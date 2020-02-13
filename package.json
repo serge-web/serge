@@ -21,6 +21,7 @@
     "test": "run-p test:*",
     "test:e2e": "cd packages/e2e && yarn run cypress open ",
     "test:unit": "cd packages/client && yarn test",
+    "storybook" : "cd packages/storybook && yarn start",
     "lint": "run-p lint:*",
     "lint:themes": "cd packages/themes; stylelint *.scss --fix",
     "build": "lerna run build --scope=@serge/client",
