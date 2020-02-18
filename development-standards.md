@@ -38,7 +38,7 @@ Packages can be thought of as standalone apps, however, they can also talk to ot
 Components live in the `components` package of our project. Each component should be a directory and contain the following files and folders:
 
 - `index.tsx` - The component logic and main UI
-- `index.spec.txt` - The tests for the component
+- `index.spec.tsx` - The tests for the component
 - `index.stories.mdx` - The Storybook file for the component
 - `styles.module.scss` - The scoped component styling
 - `/images` - Any component-specific images
@@ -66,13 +66,13 @@ All components, no matter how small or large should have a Storybook entry. Idea
 
 Rather than document how to use Storybook, please refer to the excellent [Storybook Documentation](https://storybook.js.org/docs/basics/introduction/)
 
-Storybook covers both our own internal custom components and components we have imported from Material-UI. When adding a story, please ensure you add a prefix to the title to ensure that it appears in the correct Storybook group, either `Custom` or `Material-UI`.
+Storybook covers both our own local custom components and components we have imported from Material-UI. When adding a story, please ensure you add a prefix to the title to ensure that it appears in the correct Storybook group, either `local` for our own components or `vendor` for any third-party components.
 
 ### Acceptable
 
 ```md
 <Meta
-  title="Material-UI/Button"
+  title="vendor/Button"
   component={Button}
 />
 ```
