@@ -1,8 +1,8 @@
 module.exports = {
     // Look for stories both in the components package and also in the `src` folder of this package
     stories: [
-        '../../components/**/*.stories.mdx',
-        '../src/**/*.stories.mdx'
+        '../local/**/*.stories.mdx',
+        '../vendor/**/*.stories.mdx'
     ],
     addons: [
         '@storybook/addon-knobs/register',

@@ -1,8 +1,20 @@
-# The Serge Component library
+# Serge Project Component library
 
-This package contains all of the custom-made components for the Serge project. To see a list of all components used in the project and examples of each one (including the non-custom Material Design components). Please run the storybook package.
+This is the primary component library of the serge project. New componets should always be created inside the `local` folder.
 
-## How to run storybook
+It is recommended to use the [`Buildcom`](https://github.com/foxleigh81/buildcom) npm package to ensure consistency in component generation: 
+
+Running this in the Serge project root will generate a 'my-new-component` typescript component in the local folder, with sass-modules already configured as well as an example spec file and an example storybook story.
+
+```bash
+npx buildcom -sjt -c "sass" -m --output "packages/components/local" --name "My New Component"
+```
+
+This is where our Storybook implementation lives. For those who don't know what storybook is, here is a brief introduction:
+
+[![Storybook intro video on YouTube](https://i.imgur.com/FDvR6zl.jpg)](https://www.youtube.com/watch?v=p-LFh5Y89eM)
+
+## Getting started
 
 In the root of the serge project, ensure that you have installed all packages and dependencies and then run the project:
 
@@ -11,11 +23,13 @@ yarn install
 yarn storybook
 ```
 
-You will then find storybook running on http://localhost:54259
+## Adding stories
 
-## Material Design
+Stories are stored in two locations:
 
-We only build out custom components when we need to, for the most part, our components come from the Material-UI library, you can find more information about that on the [Material-UI](https://material-ui.com/) Website
+This package - The `vendor` directory in this package is where we keep our third party component stories, primarily these come from [Material-UI]() but any component we did not make ourselves will be documented here.
+
+The `local` package - When we need to make a custom component, it will be created here. Each component will have it's own `index.stories.mdx` file which will end up in our Storybook.
 
 ## Contributing
 
