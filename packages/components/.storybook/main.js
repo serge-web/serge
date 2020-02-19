@@ -1,8 +1,6 @@
 module.exports = {
-    // Look for stories both in the components package and also in the `src` folder of this package
     stories: [
-        '../local/**/*.stories.mdx',
-        '../vendor/**/*.stories.mdx'
+        '../src/**/*.stories.mdx',
     ],
     addons: [
         '@storybook/addon-knobs/register',
@@ -18,5 +16,20 @@ module.exports = {
                 sourceLoaderOptions: null
             }
         }
-    ]
+    ],
+    webpackFinal: async config => {
+        config.module.rules.push({
+          test: /\.(ts|tsx)$/,
+          use: [
+            {
+              loader: require.resolve('ts-loader'),
+            },
+            {
+              loader: require.resolve('react-docgen-typescript-loader'),
+            },
+          ],
+        });
+        config.resolve.extensions.push('.ts', '.tsx');
+        return config;
+      },
 };
