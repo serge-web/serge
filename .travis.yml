@@ -14,6 +14,8 @@ matrix:
   include:
   - name: Client Pipeline
     env: PACKAGE_LOCATION=packages/client PACKAGE_NAME=@serge/client
+before_script:
+  - export NODE_OPTIONS=–max_old_space_size=8192
 script:
 # build Serge deployment
 - yarn build
