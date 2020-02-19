@@ -1,0 +1,13 @@
+.example {
+  color: white
+}
+
+.blue {
+  background-color: blue;
+  @extend .example
+}
+
+.green {
+  background-color: green;
+  @extend .example
+} 
