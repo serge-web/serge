@@ -1,6 +1,6 @@
 {
   "name": "serge",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "main": "index.js",
   "repository": "git@github.com:serge-web/serge.git",
   "author": "foxleigh81 <alex@alexfoxleigh.com>",
@@ -21,6 +21,7 @@
     "test": "run-p test:*",
     "test:e2e": "cd packages/e2e && yarn run cypress open ",
     "test:unit": "cd packages/client && yarn test",
+    "storybook": "cd packages/components && yarn start",
     "lint": "run-p lint:*",
     "lint:themes": "cd packages/themes; stylelint *.scss --fix",
     "build": "lerna run build --scope=@serge/client",
@@ -28,7 +29,7 @@
     "diff": "lerna diff",
     "heroku-postbuild": "yarn build",
     "serge": "yarn start:server",
-    "snyk-protect": "snyk protect",
+    "snyk-protect": "export NODE_OPTIONS=–max_old_space_size=8192 snyk protect",
     "prepare": "yarn run snyk-protect"
   },
   "snyk": true
