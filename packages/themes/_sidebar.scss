@@ -1,24 +1,23 @@
 @import "dependencies/variables";
 
 #sidebar {
-  position: fixed;
-  width: 6vw;
+  background-color: $primary-color;
   height: 100vh;
   left: 0;
-  top: 0;
   padding-top: 6vh;
-  background-color: $primaryColor;
+  position: fixed;
+  top: 0;
+  width: 6vw;
 }
 
 #sidebar_admin {
-  position: fixed;
-  width: 20vw;
+  background-color: $primary-color;
   height: 100vh;
   left: 0;
-  top: 0;
   padding-top: 6vh;
-
-  background-color: $primaryColor;
+  position: fixed;
+  top: 0;
+  width: 20vw;
 
   a,
   span {
@@ -26,14 +25,14 @@
   }
 
   .link {
-    margin-bottom: 1.15em;
     display: block;
-    width: 100%;
     line-height: 1.5;
+    margin-bottom: 1.15em;
+    width: 100%;
 
     &:hover,
     &--active {
-      background-color: $linkColor;
+      background-color: $link-color;
     }
 
     &--active {

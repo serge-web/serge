@@ -1,27 +1,27 @@
 @import "./dependencies/variables";
 
 .modal-bg {
-  position: fixed;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
   background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
   z-index: 2;
 }
 
 .modal {
-  position: relative;
+  background: $admin-color;
+  border-radius: 2px;
+  color: #fff;
   display: flex;
   flex-direction: column;
-  max-width: 60%;
-  width: auto;
   height: auto;
   margin: auto;
-  background: $adminColor;
-  color: #ffffff;
-  border-radius: 2px;
+  max-width: 60%;
+  position: relative;
+  width: auto;
 
   .sketch-picker {
     box-shadow: none !important;
@@ -35,8 +35,8 @@
   }
 
   .display-text-wrapper {
-    padding: 20px;
     order: 2;
+    padding: 20px;
 
     #role-name,
     #role-password {
@@ -48,45 +48,45 @@
     }
 
     .modal-input {
-      width: 100%;
       margin-bottom: 30px;
+      width: 100%;
     }
 
     p.notification {
-      position: absolute;
-      top: 100px;
-      right: -15px;
       color: red;
       font-size: 12px;
+      position: absolute;
+      right: -15px;
+      top: 100px;
     }
   }
 
   h3 {
-    width: fit-content;
-    margin: 0;
     line-height: 1.5em;
+    margin: 0;
+    width: fit-content;
   }
   p {
-    margin-top: 18px;
-    padding-right: 36px;
     font-size: 18px;
     line-height: 1.35em;
+    margin-top: 18px;
     overflow-wrap: break-word;
+    padding-right: 36px;
   }
   span.price {
     line-height: 2em;
   }
 
   .display-image-wrapper {
-    width: 100%;
-    height: 75px;
     font-size: 0;
+    height: 75px;
     order: 1;
+    width: 100%;
 
     img {
-      width: 100%;
       height: 100%;
       object-fit: cover;
+      width: 100%;
     }
   }
 }
@@ -100,21 +100,21 @@
   max-width: 500px;
 
   .title {
+    align-items: flex-start;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
   }
 
   svg {
-    color: $primaryColor;
+    color: $primary-color;
   }
   h3 {
+    background-color: transparent;
     display: inline;
-    line-height: 1em;
     font-weight: bold;
+    line-height: 1em;
     margin-left: 0.5em;
     width: fit-content;
-    background-color: transparent;
   }
 
   p {
