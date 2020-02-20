@@ -10,8 +10,8 @@
   }
 
   ul {
-    padding-top: 1rem;
     display: block;
+    padding-top: 1rem;
 
     li {
       padding: 0.2rem;
@@ -22,14 +22,14 @@
     margin: 0;
 
     span {
-      display: inline-block;
-      border: 1px solid #555555;
+      border: 1px solid #555;
       border-radius: 2px;
+      display: inline-block;
       font-size: 0.8rem;
       font-weight: bold;
-      padding: 0.2rem;
-      margin-right: 5px;
       margin-bottom: 5px;
+      margin-right: 5px;
+      padding: 0.2rem;
     }
   }
 }

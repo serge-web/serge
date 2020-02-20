@@ -1,22 +1,22 @@
 @import "dependencies/variables";
 
 @mixin panel-item-wrap($radius) {
+  background-color: $background-alpha-primary;
   border-radius: $radius;
-  background-color: $backgroundAlphaPrimary;
 }
 
 .serge-logo {
   display: block;
+  height: auto;
   margin: 0 auto;
   width: 250px;
-  height: auto;
 }
 
 .message-preview-player {
-  margin-left: 16px;
+  @include panel-item-wrap(0 0 4px 0);
   border-left-style: solid;
   border-left-width: 4px;
-  @include panel-item-wrap(0 0 4px 0);
+  margin-left: 16px;
 
   h3 {
     font-size: 1.4em;
@@ -30,7 +30,7 @@
 }
 
 .feedback-channel {
-  background: $lightBg;
+  background: $light-bg;
   max-width: 15%;
 
   .message-list {
@@ -39,28 +39,28 @@
 }
 
 .info-wrap {
-  display: flex;
   align-items: center;
+  display: flex;
   padding-left: 22px;
 
   .info-body {
+    display: inline-block;
     font-size: 11px;
     font-weight: 400;
-    margin-right: 6px;
-    display: inline-block;
-    opacity: 0.5;
     line-height: 1;
+    margin-right: 6px;
+    opacity: 0.5;
   }
 
   .out-of-game-feed & {
-    padding-left: 0;
     display: block;
     overflow: hidden;
+    padding-left: 0;
 
     time {
-      font-size: 11px;
       color: rgba(7, 89, 134, 0.5);
       display: inline-block;
+      font-size: 11px;
       margin-right: 12px;
       margin-top: 2px;
       vertical-align: middle;
@@ -69,134 +69,134 @@
 }
 
 #title-editable {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  display: inline-block;
   font-family: "Open Sans", sans-serif;
   font-size: 1.85em;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  border: none;
-  background: transparent;
   text-overflow: ellipsis;
-  display: inline-block;
   width: 300px;
 
   #game-setup-head & {
-    color: $adminColor;
+    color: $admin-color;
   }
 }
 
 .savewargame-icon {
   align-self: center;
-  margin-left: 8px;
   cursor: pointer;
+  margin-left: 8px;
 }
 
 .out-of-game-feed {
-  background: #ffffff;
-  color: #000000;
+  background: #fff;
+  color: #000;
   max-width: 25%;
 
   .flexlayout__layout {
-    position: relative;
     display: flex;
     flex-grow: 2;
+    position: relative;
   }
 }
 
 .message-feed {
-  position: relative;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
+  position: relative;
 
   .unread,
   .flexlayout__tab_button[class*="unread"] {
-    &:after {
+    &::after {
+      color: #ff4141;
       content: "new";
-      font-size: 14px;
       display: inline-block;
+      font-size: 14px;
       margin-left: 5px;
       margin-top: -5px;
       vertical-align: middle;
-      color: #ff4141;
     }
 
     &.unread-1 {
-      &:after {
+      &::after {
         content: "(1)";
       }
     }
     &.unread-2 {
-      &:after {
+      &::after {
         content: "(2)";
       }
     }
     &.unread-3 {
-      &:after {
+      &::after {
         content: "(3)";
       }
     }
     &.unread-4 {
-      &:after {
+      &::after {
         content: "(4)";
       }
     }
     &.unread-5 {
-      &:after {
+      &::after {
         content: "(5)";
       }
     }
     &.unread-6 {
-      &:after {
+      &::after {
         content: "(6)";
       }
     }
     &.unread-7 {
-      &:after {
+      &::after {
         content: "(7)";
       }
     }
     &.unread-8 {
-      &:after {
+      &::after {
         content: "(8)";
       }
     }
     &.unread-9plus {
-      &:after {
+      &::after {
         content: "(9+)";
       }
     }
   }
 
   #private-message-input-label {
-    margin-left: 0;
-    font-weight: 600;
-    text-transform: uppercase;
     @include typo-secondary;
+    font-weight: 600;
+    margin-left: 0;
+    text-transform: uppercase;
 
     .svg-inline--fa {
       display: inline-block;
-      vertical-align: middle;
-      margin-top: -5px;
       margin-right: 10px;
+      margin-top: -5px;
+      vertical-align: middle;
       width: 0.625em;
     }
   }
 
   #private-message-input {
-    height: 65px;
     font-family: "Courier New", Courier, monospace;
     font-style: italic;
+    height: 65px;
     resize: none;
   }
 
   .private-message,
   .private-message div {
-    font-style: italic;
     background: $grey;
-    color: #ffffff;
+    color: #fff;
+    font-style: italic;
   }
 
   span.private div {
@@ -204,20 +204,20 @@
   }
 
   .forces-in-channel {
+    align-items: center;
     display: flex;
     flex-direction: row;
-    align-items: center;
     padding: 0 28px 0 16px;
 
     button {
+      font-size: 12px;
       margin-left: auto;
       margin-right: -16px;
-      font-size: 12px;
     }
 
     .force-indicator {
-      width: 24px;
       height: 24px;
+      width: 24px;
 
       + .force-indicator {
         margin-left: 10px;
@@ -226,10 +226,10 @@
   }
 
   .no-channel-notification {
-    display: flex;
     align-items: center;
-    position: relative;
+    display: flex;
     height: 100%;
+    position: relative;
     h1 {
       text-align: center;
       width: 100%;
@@ -242,51 +242,51 @@
       padding: 16px;
 
       .message-preview-player {
-        margin-left: 0;
-        margin-bottom: 20px;
-        display: block;
         border-left: none;
-        width: auto;
         box-shadow: none;
-        padding: 0 0 0 16px;
-        position: relative;
+        clear: both;
+        display: block;
         font-family: "Open Sans", "sans-serif";
         font-size: 13px;
-        clear: both;
+        margin-bottom: 20px;
+        margin-left: 0;
+        padding: 0 0 0 16px;
+        position: relative;
+        width: auto;
 
         .data {
           font-size: 13px;
         }
 
         .message-bullet {
-          display: inline-block;
-          width: 6px;
-          height: 6px;
           background-color: $grey2;
-          position: absolute;
+          display: inline-block;
+          height: 6px;
           left: 0;
+          position: absolute;
           top: 10px;
+          width: 6px;
         }
 
         &.own-message {
           background-color: #ecf2fa;
-          border-radius: 30px 30px 0 30px;
-          padding: 6px 24px 12px;
-          float: right;
+          border-radius: 30px 30px 0;
           display: inline-block;
+          float: right;
+          padding: 6px 24px 12px;
           width: auto;
 
-          &:after {
-            content: "";
-            display: block;
-            width: 0;
-            height: 0;
+          &::after {
             border-left: 20px solid transparent;
             border-top: 15px solid #ecf2fa;
-            position: absolute;
             bottom: 0;
-            right: 0;
+            content: "";
+            display: block;
+            height: 0;
             margin-bottom: -15px;
+            position: absolute;
+            right: 0;
+            width: 0;
           }
 
           time,
@@ -303,11 +303,11 @@
     }
 
     .new-message-creator {
+      background-color: #fff;
       background-image: none;
-      background-color: #ffffff;
       border-radius: 0;
+      border-top: 2px solid $border-field-admin;
       box-shadow: none;
-      border-top: 2px solid $borderFieldAdmin;
       padding: 8px 16px;
 
       .form-control-label {
@@ -315,53 +315,53 @@
       }
 
       .btn-action {
-        width: 32px;
-        height: 32px;
+        background-color: $button-action-admin;
         background-image: url("dependencies/images/send.png");
-        background-color: $buttonActionAdmin;
-        background-size: 24px 24px;
-        background-repeat: no-repeat;
         background-position: center;
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
         border-radius: 100%;
+        height: 32px;
         position: relative;
+        width: 32px;
         z-index: 5;
       }
     }
   }
 
   .message-list {
-    max-height: calc(100vh - 165px);
-    overflow-y: scroll;
-    overflow-x: hidden;
     flex-grow: 2;
+    max-height: calc(100vh - 165px);
+    overflow-x: hidden;
+    overflow-y: scroll;
 
     .wrap {
       padding: 2px 16px 16px 32px;
     }
 
     .turn-marker {
-      display: block;
-      width: 100%;
       color: rgba(255, 255, 255, 0.3);
-      text-align: right;
-      padding-right: 10px;
-      padding-top: 4px;
+      display: block;
       font-size: 12px;
       font-weight: 600;
+      padding-right: 10px;
+      padding-top: 4px;
+      text-align: right;
+      width: 100%;
     }
 
     .feedback-marker {
-      width: 100%;
       border-bottom: 1px solid $grey2;
       color: $grey2;
-      text-align: right;
       padding-right: 10px;
+      text-align: right;
+      width: 100%;
     }
 
     .message-preview-player > .detail-rows > .detail-row {
-      margin-bottom: 10px;
-      padding-left:10px;
       border-left: 3px solid rgba(255, 255, 255, 0.25);
+      margin-bottom: 10px;
+      padding-left: 10px;
     }
 
     .message-preview-player > .detail-title {
@@ -369,9 +369,9 @@
     }
 
     .detail-row {
-      margin-left: 0;
-      margin-bottom: 0;
       font-size: 14px;
+      margin-bottom: 0;
+      margin-left: 0;
     }
 
     .detail-rows {
@@ -379,19 +379,19 @@
     }
 
     .detail-title {
-      font-size: 75%;
       display: inline-block;
+      font-size: 75%;
       margin-top: 16px;
     }
 
     .detail {
-      font-weight: 600;
       background: rgba(255, 255, 255, 0.25);
       border-radius: 2px;
-      padding: 2px 4px;
       font-size: 65%;
+      font-weight: 600;
       letter-spacing: 0.015em;
       margin-right: 4px;
+      padding: 2px 4px;
 
       .fa-w-14 {
         margin-right: 5px;
@@ -410,9 +410,9 @@
   }
 
   .Collapsible {
-    position: relative;
-    color: #ffffff;
+    color: #fff;
     padding-right: 12px;
+    position: relative;
 
     + .Collapsible {
       margin-top: 8px;
@@ -421,78 +421,78 @@
     &.message-item-unread {
       .Collapsible__trigger {
         .message-title-wrap {
-          background-color: $backgroundAlphaBold;
+          background-color: $background-alpha-bold;
 
-          &:after {
-            background-color: $actionSecondaryColor;
+          &::after {
+            background-color: $action-secondary-color;
           }
         }
 
         .message-title {
+          color: $action-secondary-color;
           font-weight: 600;
-          color: $actionSecondaryColor;
         }
       }
     }
 
     &__trigger {
+      cursor: pointer;
       display: block;
       line-height: 1.75em;
-      cursor: pointer;
 
       .message-title-wrap {
-        display: block;
-        padding: 6px 12px 12px;
-        margin-left: 16px;
-        border-left-width: 4px;
-        border-left-style: solid;
-        position: relative;
         @include panel-item-wrap(0 4px 4px 0);
+        border-left-style: solid;
+        border-left-width: 4px;
+        display: block;
+        margin-left: 16px;
+        padding: 6px 12px 12px;
+        position: relative;
 
-        &:after {
+        &::after {
+          background-color: rgba(0, 0, 0, 0.4);
+          border-radius: 100%;
           content: "";
           display: block;
-          width: 6px;
           height: 6px;
-          border-radius: 100%;
-          background-color: rgba(0, 0, 0, 0.4);
           position: absolute;
           right: 16px;
           top: 50%;
           transform: translate3d(0, -50%, 0);
+          width: 6px;
         }
       }
 
       .message-title {
+        color: #fff;
         display: inline-block;
-        max-width: 300px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         font-size: 14px;
         font-weight: normal;
-        color: #ffffff;
+        max-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       svg {
+        color: $action-secondary-color;
         margin-right: 8px;
         margin-top: 6px;
         padding: 4px 2px 2px;
-        color: $actionSecondaryColor;
         vertical-align: top;
       }
 
       img {
+        border-radius: 100%;
+        height: 32px;
         margin-left: 10px;
         width: 32px;
-        height: 32px;
-        border-radius: 100%;
       }
 
       &.is-open {
         .message-title-wrap {
-          box-shadow: none;
           border-radius: 0 4px 0 0;
+          box-shadow: none;
         }
       }
     }
@@ -500,12 +500,12 @@
 
   .badge {
     font-size: 9px;
-    width: fit-content;
     height: auto;
-    margin-top: 2px;
     line-height: 1;
+    margin-top: 2px;
     padding: 3px 8px;
     text-transform: uppercase;
+    width: fit-content;
 
     & + .badge {
       margin-left: 4px;
@@ -513,52 +513,52 @@
   }
 
   .new-message-orderable {
-    position: absolute;
-    left: 0;
     bottom: 0;
+    left: 0;
+    position: absolute;
   }
 
   .new-message-creator {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    border-radius: 4px 4px 0 0;
-    box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.4);
-    padding: 1px;
     background-image: linear-gradient(
       to bottom,
       #3fb7ac,
       #9dfff1 36%,
       rgba(2, 37, 96, 0)
     );
+    border-radius: 4px 4px 0 0;
+    bottom: 0;
+    box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.4);
+    padding: 1px;
+    position: absolute;
+    width: 100%;
 
     .Collapsible {
-      padding: 8px 16px;
-      background: $backgroundActionHead;
+      background: $background-action-head;
       border-radius: 4px 4px 0 0;
+      padding: 8px 16px;
 
       &__trigger {
+        @include typo-secondary;
+        color: #fff;
         font-size: 14px;
-        text-align: center;
-        text-transform: uppercase;
-        color: #ffffff;
         line-height: 1;
         padding: 6px 0 3px;
         position: relative;
-        @include typo-secondary;
+        text-align: center;
+        text-transform: uppercase;
 
-        &:after {
+        &::after {
+          background-image: url("dependencies/images/arrow-open.png");
           content: "";
           display: inline-block;
-          width: 16px;
           height: 16px;
-          background-image: url("dependencies/images/arrow-open.png");
           margin-left: 4px;
           margin-top: -6px;
           vertical-align: middle;
+          width: 16px;
         }
 
-        &.is-open:after {
+        &.is-open::after {
           background-image: url("dependencies/images/arrow-close.png");
         }
       }
@@ -573,15 +573,15 @@
     }
 
     .message-creator {
-      max-height: 80vh;
-      overflow-y: auto;
-      overflow-x: hidden;
+      color: $primary-triad-color;
       font-family: "Open Sans", sans-serif;
       font-weight: bold;
-      color: $primaryTriadColor;
+      max-height: 80vh;
+      overflow-x: hidden;
+      overflow-y: auto;
       padding-top: 8px;
 
-      h3>span {
+      h3 > span {
         display: none;
       }
 
@@ -589,8 +589,7 @@
         background-color: transparent !important;
       }
 
-      .table-bordered thead th
-      {
+      .table-bordered thead th {
         background-color: transparent;
       }
 
@@ -612,16 +611,16 @@
     word-break: break-word;
 
     a {
-      color: #ffffff;
+      color: #fff;
     }
   }
 }
 
 .pre-start-screen {
   display: flex;
-  width: 100%;
   height: 100vh;
   justify-content: center;
+  width: 100%;
 
   button {
     align-self: center;
@@ -629,12 +628,12 @@
 }
 
 .demo-passwords {
-  position: absolute;
-  top: 50%;
-  left: 50px;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
+  left: 50px;
   padding: 16px;
+  position: absolute;
+  top: 50%;
   transform: translate3d(0, -50%, 0);
 
   li + li {
@@ -643,19 +642,19 @@
 }
 
 .role-info {
-  display: block;
   align-items: center;
+  background: $force-default-color;
+  display: block;
   position: relative;
-  background: $forceDefaultColor;
 
   .role-type {
-    font-size: 13px;
-    font-weight: 600;
-    font-style: italic;
-    color: $adminColor;
+    color: $admin-color;
     display: block;
-    width: 100%;
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 600;
     padding: 8px 0 8px 16px;
+    width: 100%;
 
     &:hover {
       text-decoration: none;
@@ -663,70 +662,70 @@
   }
 
   .contain-force-skin {
-    position: absolute;
-    border-bottom: 48px solid $forceDefaultColor;
+    border-bottom: 48px solid $force-default-color;
     border-left: 26px solid transparent;
+    bottom: 0;
     margin: -8px 0 0;
-    width: 50%;
+    position: absolute;
     right: 0;
     top: 0;
-    bottom: 0;
+    width: 50%;
   }
 
   .force-skin {
-    position: absolute;
-    border-bottom: 48px solid $adminColor;
+    border-bottom: 48px solid $admin-color;
     border-left: 26px solid transparent;
+    left: 0;
     margin-left: -25px;
+    position: absolute;
     right: 0;
     top: 1px;
-    left: 0;
 
     .force-type {
-      position: absolute;
-      left: 0;
-      top: 26px;
-      font-size: 14px;
-      margin-left: auto;
-      text-transform: uppercase;
-      color: #ffffff;
-      width: 85%;
-      transform: translate3d(0, -50%, 0);
-      display: block;
-      letter-spacing: 0.015em;
-      padding-left: 12px;
       @include typo-secondary;
+      color: #fff;
+      display: block;
+      font-size: 14px;
+      left: 0;
+      letter-spacing: 0.015em;
+      margin-left: auto;
+      padding-left: 12px;
+      position: absolute;
+      text-transform: uppercase;
+      top: 26px;
+      transform: translate3d(0, -50%, 0);
+      width: 85%;
     }
 
     .role-icon {
-      position: absolute;
-      top: 26px;
-      right: 16px;
       cursor: pointer;
+      position: absolute;
+      right: 16px;
+      top: 26px;
       transform: translate3d(0, -50%, 0);
     }
   }
 }
 
 .role-icon {
-  width: 16px;
-  height: 16px;
+  border: 1px solid $force-default-color;
   border-radius: 100%;
-  border: 1px solid $forceDefaultColor;
+  height: 16px;
+  width: 16px;
 }
 
 .force-objectives {
-  position: absolute;
+  background: $admin-color;
+  border: 1px solid $force-default-color;
+  border-radius: 4px 0 0;
+  border-right: none;
   bottom: 0;
+  height: 550px;
+  overflow: hidden;
+  padding: 14px;
+  position: absolute;
   right: 0;
   width: 750px;
-  height: 550px;
-  padding: 14px;
-  border: 1px solid $forceDefaultColor;
-  border-right: none;
-  border-radius: 4px 0 0 0;
-  background: $adminColor;
-  overflow: hidden;
   z-index: 1000;
 
   .objective-text {
@@ -736,18 +735,18 @@
   }
 
   .role-info {
-    position: absolute;
     bottom: 0;
     left: 0;
+    position: absolute;
     right: 0;
   }
 }
 
 .link-admin {
-  position: absolute;
-  top: 0;
-  right: 0;
   color: white;
+  position: absolute;
+  right: 0;
+  top: 0;
 
   &:hover {
     color: white;

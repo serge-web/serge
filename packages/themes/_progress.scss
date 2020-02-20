@@ -5,68 +5,68 @@ $indicatorMargin: 15px;
 $progressHeight: 2px;
 
 .progress {
-  position: relative;
+  background: transparent;
   display: inline-flex;
   flex-direction: row;
-  width: fit-content;
   height: fit-content;
-  background: transparent;
   padding: 5px 0;
+  position: relative;
+  width: fit-content;
 
-  &:after {
-    position: absolute;
-    height: $progressHeight;
-    width: calc(100% - #{$indicatorMargin} * 2 - #{$indicatorSize});
-    left: calc(#{$indicatorMargin} + #{$indicatorSize} / 2);
+  &::after {
     align-self: center;
-    background: $primaryColor;
+    background: $primary-color;
     content: "";
+    height: $progressHeight;
+    left: calc(#{$indicatorMargin} + #{$indicatorSize} / 2);
+    position: absolute;
+    width: calc(100% - #{$indicatorMargin} * 2 - #{$indicatorSize});
 
     z-index: 1;
   }
 
   &-indicator {
-    position: relative;
-    width: $indicatorSize;
+    background: $light-blue;
+    border: 2px solid $primary-color;
+    border-radius: 50%;
     height: $indicatorSize;
     margin: 0 $indicatorMargin;
-    border-radius: 50%;
-    background: $lightBlue;
-    border: 2px solid $primaryColor;
+    position: relative;
     transition: all 0.5s ease;
+    width: $indicatorSize;
 
     z-index: 2;
 
     &--active {
-      &:before {
-        content: "";
-        position: absolute;
-        width: calc(#{$indicatorSize} + 8px);
-        height: calc(#{$indicatorSize} + 8px);
-        border-radius: 50%;
-        opacity: 0.75;
-        top: -6px;
-        left: -6px;
-        box-sizing: border-box;
-        border: 1.5px solid $successColor;
+      &::before {
         animation: scale 0.5s ease-out;
+        border: 1.5px solid $success-color;
+        border-radius: 50%;
+        box-sizing: border-box;
+        content: "";
+        height: calc(#{$indicatorSize} + 8px);
+        left: -6px;
+        opacity: 0.75;
+        position: absolute;
+        top: -6px;
+        width: calc(#{$indicatorSize} + 8px);
       }
 
       @keyframes scale {
         0% {
-          transform: scale(0.75);
           opacity: 0;
+          transform: scale(0.75);
         }
         100% {
-          transform: scale(1);
           opacity: 0.75;
+          transform: scale(1);
         }
       }
     }
 
     &--complete {
-      background: $successColor;
-      border: 2px solid $successColor;
+      background: $success-color;
+      border: 2px solid $success-color;
     }
   }
 }

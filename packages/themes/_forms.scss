@@ -2,14 +2,14 @@
 
 @mixin white-on-message-creator {
   .new-message-creator & {
-    color: #ffffff;
+    color: #fff;
   }
 }
 
 @mixin game-admin-input {
-  color: $textFieldAdmin;
-  background-color: #ffffff;
+  background-color: #fff;
   box-shadow: none;
+  color: $text-field-admin;
 }
 
 .form-group {
@@ -20,29 +20,29 @@
   }
 
   .form-control-label {
-    line-height: 1;
+    @include white-on-message-creator;
     font-size: 12px;
+    line-height: 1;
     margin-bottom: 8px;
     text-transform: capitalize;
-    @include white-on-message-creator;
   }
 }
 
 .form-control {
+  border-radius: 4px;
   font-family: "Open Sans", "sans-serif";
   font-size: 14px;
-  border-radius: 4px;
 
   .new-message-creator & {
+    @include field-shadow;
+    background-color: $background-field;
     border: none;
-    background-color: $backgroundField;
     color: rgba(255, 255, 255, 0.8);
-    @include fieldShadow;
 
     &:focus {
+      @include field-shadow;
+      background-color: $background-field;
       color: rgba(255, 255, 255, 0.8);
-      background-color: $backgroundField;
-      @include fieldShadow;
     }
 
     &::-webkit-input-placeholder,
@@ -56,9 +56,9 @@
   }
 
   .out-of-game-feed & {
+    @include game-admin-input;
     border-radius: 0;
     padding: 0;
-    @include game-admin-input;
 
     &:focus {
       @include game-admin-input;
@@ -67,5 +67,5 @@
 }
 
 .react-select {
-  color: $baseColor;
+  color: $base-color;
 }

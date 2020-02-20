@@ -1,64 +1,64 @@
 @import "dependencies/variables";
 
 #game-setup-head {
-  position: relative;
-  background: $greyBg;
-  z-index: 2;
+  background: $grey-bg;
   padding: 6vh 1vw 0;
+  position: relative;
+  z-index: 2;
 }
 
 .wargame-in-progress-warning {
-  position: absolute;
-  width: 200px;
-  top: 50px;
   left: 50%;
   margin-left: -100px;
+  position: absolute;
+  top: 50px;
+  width: 200px;
 
   h6 {
     text-align: center;
   }
 
   svg {
-    color: $secondaryColor;
-    width: 100% !important;
+    color: $secondary-color;
     margin-bottom: 5px;
+    width: 100% !important;
   }
 }
 
 .tab-nav {
+  background: $grey-bg;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  color: $dark-grey;
   display: flex;
   flex-wrap: wrap-reverse;
+  font-size: 14px;
+  font-weight: 500;
   justify-content: center;
   list-style: none;
   text-transform: uppercase;
-  font-weight: 500;
-  font-size: 14px;
-  color: $darkGrey;
-  background: $greyBg;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 
   li {
-    position: relative;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
     display: flex;
     flex-basis: fit-content;
-    align-items: center;
     justify-content: center;
-    text-align: center;
-    min-width: 160px;
     min-height: 48px;
+    min-width: 160px;
     padding: 6px 12px;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
+    position: relative;
+    text-align: center;
 
     &.active-tab {
-      border-bottom: 2px solid $primaryColor;
+      border-bottom: 2px solid $primary-color;
     }
 
     .dirty-flag {
+      font-size: 0.65em;
       position: absolute;
       right: 10px;
-      font-size: 0.65em;
     }
   }
 }
@@ -84,23 +84,23 @@
   }
 
   textarea {
-    width: 100%;
     height: 200px;
-    padding: 8px 12px;
     margin-top: 6px;
+    padding: 8px 12px;
+    width: 100%;
   }
 
   .force-color,
   .force-icon {
-    width: 32px;
+    align-self: center;
     height: 32px;
     margin: 0 20px;
-    align-self: center;
+    width: 32px;
   }
 
   .force-color {
-    cursor: pointer;
     border: 1px solid black;
+    cursor: pointer;
   }
 
   .force-color-icon {
@@ -131,8 +131,8 @@
     margin-top: 12px;
 
     .group-item {
-      margin: 0 5px 12px 0;
       border-radius: 2px;
+      margin: 0 5px 12px 0;
 
       svg {
         cursor: pointer;
@@ -143,13 +143,13 @@
         }
 
         &.fa-eye {
+          color: $primary-color;
           margin-right: 2px;
-          color: $primaryColor;
         }
 
         &.fa-comments {
+          color: $primary-color;
           margin-right: 5px;
-          color: $primaryColor;
         }
       }
     }
@@ -157,15 +157,15 @@
 }
 
 input#editable-title {
+  background: transparent;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  color: $secondary-color;
   font-family: "Segoe UI", sans-serif;
   font-size: 1.85em;
   font-weight: 500;
-  color: $secondaryColor;
-  border: 1px solid transparent;
-  box-sizing: border-box;
-  background: transparent;
-  text-overflow: ellipsis;
   padding: 0;
+  text-overflow: ellipsis;
 }
 
 .channelsTab {
@@ -187,11 +187,11 @@ input#editable-title {
     }
 
     thead {
+      border-bottom: 1px solid $light-grey;
+      margin-bottom: 12px;
       tr th {
         padding: 6px;
       }
-      border-bottom: 1px solid $lightGrey;
-      margin-bottom: 12px;
     }
 
     tbody {
@@ -201,7 +201,7 @@ input#editable-title {
         }
 
         &:nth-child(even) {
-          background: $lightGrey;
+          background: $light-grey;
         }
 
         &:last-of-type {
@@ -212,8 +212,8 @@ input#editable-title {
 
     th,
     td {
-      width: 25%;
       vertical-align: middle;
+      width: 25%;
     }
 
     th:nth-of-type(2),
@@ -236,24 +236,24 @@ input#editable-title {
 }
 
 .welcome-page {
+  min-width: 75% !important;
   padding-left: 20vw;
   padding-top: 5vh;
-  min-width: 75% !important;
 
   .welcome-screen-save {
     margin-left: auto;
   }
 
   .image-upload-link {
+    cursor: pointer;
     margin-left: 45px;
     text-decoration: underline;
-    cursor: pointer;
   }
 
   .section {
+    margin-bottom: 20px;
     position: relative;
     width: fit-content;
-    margin-bottom: 20px;
   }
 
   .description {
@@ -261,9 +261,9 @@ input#editable-title {
     width: 70%;
 
     .description-edit {
-      width: 100%;
       border: none;
       margin-bottom: 20px;
+      width: 100%;
     }
 
     span.link {
@@ -283,6 +283,6 @@ input#editable-title {
 }
 
 .serge-custom-logo {
-  width: 300px;
   height: auto;
+  width: 300px;
 }
