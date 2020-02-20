@@ -2,11 +2,9 @@
   "extends": [
     "stylelint-config-sass-guidelines",
     "stylelint-config-prettier"
-  ],
+    ],
   "plugins": ["stylelint-prettier"],
   "rules": {
-    "prettier/prettier": true,
-    "max-nesting-depth" : 3,
-    "selector-max-id" : 1
+    "prettier/prettier": true
   }
 }
