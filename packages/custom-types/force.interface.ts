@@ -1,12 +1,9 @@
-import { Role } from './role.interface'
+import { ForceData } from './force-data.interface'
 
 export interface Force {
   name: string,
-  uniqid: string,
-  overview: string,
-  roles: Array<Role>,
-  icon: string,
-  color: string,
-  umpire: boolean,
+  forces: Array<ForceData>,
+  selectedForce: string,
+  complete: boolean,
   dirty: boolean
 }

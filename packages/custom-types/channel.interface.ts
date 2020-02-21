@@ -1,6 +1,9 @@
-import { Participant } from './participant.interface'
+import { ChannelData } from './channel-data.interface'
 
 export interface Channel {
   name: string,
-  participants: Array<Participant>
+  channels?: Array<ChannelData>,
+  selectedChannel: string,
+  complete: boolean,
+  dirty: boolean
 }
