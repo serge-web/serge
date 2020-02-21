@@ -1,4 +1,6 @@
-import { addParameters } from '@storybook/react'; // <- or your storybook framework
+import { addParameters } from '@storybook/react'; 
+import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
+import { addReadme } from 'storybook-readme';
 
 addParameters({
   backgrounds: [
@@ -11,4 +13,10 @@ addParameters({
     { name: 'sea', value: '#8ec7e8' },
     { name: 'land', value: '#d9b86c' },
   ],
+  docs: {
+    container: DocsContainer,
+    page: DocsPage,
+  }
 });
+
+addDecorator(addReadme);

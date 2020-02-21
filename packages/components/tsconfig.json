@@ -9,6 +9,7 @@
     "allowJs": false,
     "jsx": "react",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "rootDirs": ["src"],
     "baseUrl": "src",
     "forceConsistentCasingInFileNames": true,
@@ -24,5 +25,6 @@
     "emitDecoratorMetadata": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "build", "scripts"]
+  "exclude": ["node_modules", "build", "scripts", "jest/config"],
+  "files": ["typings.d.ts"]
 }
