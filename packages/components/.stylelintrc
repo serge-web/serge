@@ -5,6 +5,8 @@
     ],
   "plugins": ["stylelint-prettier"],
   "rules": {
-    "prettier/prettier": true
+    "prettier/prettier": true,
+    "max-nesting-depth" : 3,
+    "selector-max-id" : 1
   }
 }
