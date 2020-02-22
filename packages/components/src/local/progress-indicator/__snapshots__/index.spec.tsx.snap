@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProgressBar renders correctly 1`] = `
+exports['ProgressBar renders correctly 1'] = `
 <div
   className="progress"
 >
@@ -14,4 +14,4 @@ exports[`ProgressBar renders correctly 1`] = `
     className="indicator"
   />
 </div>
-`;
+`

@@ -1,11 +1,10 @@
-@import "~@serge/themes/dependencies/_variables";
+@import "~@serge/themes/dependencies/variables";
 
 $indicator-size: 20px;
 $indicator-margin: 15px;
 $progress-height: 2px;
 
 .progress {
-
   @keyframes scale {
     0% {
       opacity: 0;
@@ -37,7 +36,6 @@ $progress-height: 2px;
     z-index: 1;
   }
 }
-
 
 .indicator {
   background: $light-blue;

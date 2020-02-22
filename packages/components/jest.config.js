@@ -10,7 +10,8 @@ module.exports = {
     '\\.(css|scss)$': 'identity-obj-proxy'
   },
   transform: {
-    '^.+\\.[tj]sx?$': 'babel-jest',
+    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.jsx?$': 'babel-jest',
     '^.+\\.mdx$': '@storybook/addon-docs/jest-transform-mdx'
   }
 }
