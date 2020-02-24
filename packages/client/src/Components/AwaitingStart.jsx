@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import Loader from './Loader'
 import '@serge/themes/App.scss'
 
 class AwaitingStart extends Component {
@@ -7,15 +7,10 @@ class AwaitingStart extends Component {
     console.log(this.props.description)
 
     return (
-      <>
-        <div id="loading">
-          <div>
-            <div id="loader"></div>
-          </div>
-          <h1>Awaiting game start</h1>
-          <p>{this.props.description}</p>
-        </div>
-      </>
+      <Loader>
+        <h1>Awaiting game start</h1>
+        <p>{this.props.description}</p>
+      </Loader>
     )
   }
 }
