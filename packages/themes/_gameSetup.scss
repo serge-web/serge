@@ -38,7 +38,7 @@
   list-style: none;
   text-transform: uppercase;
 
-  li {
+  &-item {
     align-items: center;
     border-bottom: 2px solid transparent;
     cursor: pointer;
@@ -99,7 +99,7 @@
   }
 
   .force-color {
-    border: 1px solid black;
+    border: 1px solid #000;
     cursor: pointer;
   }
 
@@ -133,30 +133,32 @@
     .group-item {
       border-radius: 2px;
       margin: 0 5px 12px 0;
-
-      svg {
-        cursor: pointer;
-        padding: 1px;
-
-        &.fa-pencil-alt {
-          padding: 2px;
-        }
-
-        &.fa-eye {
-          color: $primary-color;
-          margin-right: 2px;
-        }
-
-        &.fa-comments {
-          color: $primary-color;
-          margin-right: 5px;
-        }
-      }
     }
   }
 }
 
-input#editable-title {
+.group-item {
+  .svg-inline--fa {
+    cursor: pointer;
+    padding: 1px;
+
+    &.fa-pencil-alt {
+      padding: 2px;
+    }
+
+    &.fa-eye {
+      color: $primary-color;
+      margin-right: 2px;
+    }
+
+    &.fa-comments {
+      color: $primary-color;
+      margin-right: 5px;
+    }
+  }
+}
+
+#editable-title {
   background: transparent;
   border: 1px solid transparent;
   box-sizing: border-box;
@@ -174,64 +176,63 @@ input#editable-title {
     max-width: 33%;
     text-overflow: ellipsis;
   }
+}
 
-  table {
-    font-family: "Segoe UI", sans-serif;
-    margin-top: 12px;
-    table-layout: fixed;
-    width: 100%;
+.table-setup {
+  font-family: "Segoe UI", sans-serif;
+  margin-top: 12px;
+  table-layout: fixed;
+  width: 100%;
 
-    svg {
-      cursor: pointer;
-      margin-left: 10px;
+  svg {
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+  thead {
+    border-bottom: 1px solid $light-grey;
+    margin-bottom: 12px;
+
+    th {
+      padding: 6px;
     }
+  }
 
-    thead {
-      border-bottom: 1px solid $light-grey;
-      margin-bottom: 12px;
-      tr th {
-        padding: 6px;
-      }
-    }
-
-    tbody {
-      tr {
-        td {
-          padding: 12px 6px;
-        }
-
-        &:nth-child(even) {
-          background: $light-grey;
-        }
-
-        &:last-of-type {
-          background: transparent;
-        }
-      }
-    }
-
-    th,
+  tbody {
     td {
-      vertical-align: middle;
-      width: 25%;
+      padding: 12px 6px;
     }
 
-    th:nth-of-type(2),
-    td:nth-of-type(2),
-    th:nth-of-type(3),
-    td:nth-of-type(3) {
-      width: 32.5%;
+    &:nth-child(even) {
+      background: $light-grey;
     }
 
-    th:nth-of-type(4),
-    td:nth-of-type(4) {
-      width: 10%;
+    &:last-of-type {
+      background: transparent;
     }
+  }
 
-    td.all-roles,
-    td.templates {
-      font-style: italic;
-    }
+  th,
+  td {
+    vertical-align: middle;
+    width: 25%;
+  }
+
+  th:nth-of-type(2),
+  td:nth-of-type(2),
+  th:nth-of-type(3),
+  td:nth-of-type(3) {
+    width: 32.5%;
+  }
+
+  th:nth-of-type(4),
+  td:nth-of-type(4) {
+    width: 10%;
+  }
+
+  .all-roles,
+  .templates {
+    font-style: italic;
   }
 }
 
@@ -261,12 +262,12 @@ input#editable-title {
     width: 70%;
 
     .description-edit {
-      border: none;
+      border: 0;
       margin-bottom: 20px;
       width: 100%;
     }
 
-    span.link {
+    .link {
       margin-left: auto;
     }
   }
