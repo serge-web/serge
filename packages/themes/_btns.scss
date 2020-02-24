@@ -71,10 +71,8 @@
   padding-left: 1.15em;
 }
 
-a.link,
-span.link {
+.link {
   @include shadow();
-
   @include transition();
   background: $primary-color;
   border-radius: 2px;
@@ -153,7 +151,7 @@ span.link {
 }
 
 button {
-  border: none;
+  border: 0;
   width: fit-content;
 }
 
@@ -197,7 +195,7 @@ button {
 
     > span {
       background-color: $background-field;
-      border: none;
+      border: 0;
       border-radius: 4px;
       display: block;
       padding: 6px 20px;
