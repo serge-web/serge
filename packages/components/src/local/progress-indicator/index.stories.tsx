@@ -8,7 +8,7 @@ import { tabs, tabsVariant } from './mocks/tabs'
 
 // Set the knobs to allow for component tweaking in Storybook
 const tabsKnobs: Function = (toc?: boolean) => object('Tabs', toc ? tabsVariant : tabs, 'options')
-const currentTabKnobs: Function = () => select('Current Tab', tabs.map(tk => tk.name), 'overview', 'options')
+const currentTabKnobs: Function = (selected: string) => select('Current Tab', tabs.map(tk => tk.name), selected, 'options')
 
 export default {
   title: 'local/ProgressIndicator',
@@ -24,7 +24,7 @@ export default {
 }
 
 export const Default: React.FunctionComponent = () =>
-  <ProgressIndicator tabs={tabsKnobs(false)} currentTab={currentTabKnobs()} />
+  <ProgressIndicator tabs={tabsKnobs(false)} currentTab={currentTabKnobs('overview')} />
 
 export const OverviewComplete: React.FunctionComponent = () =>
-  <ProgressIndicator tabs={tabsKnobs(true)} currentTab={currentTabKnobs()} />
+  <ProgressIndicator tabs={tabsKnobs(true)} currentTab={currentTabKnobs('forces')} />

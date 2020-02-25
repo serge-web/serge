@@ -16,7 +16,7 @@ export const tabs = [
 export const tabsVariant = [
   {
     name: 'overview',
-    complete: false
+    complete: true
   },
   {
     name: 'forces',
