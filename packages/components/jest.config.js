@@ -11,7 +11,6 @@ module.exports = {
   },
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
-    '^.+\\.jsx?$': 'babel-jest',
-    '^.+\\.mdx$': '@storybook/addon-docs/jest-transform-mdx'
+    '^.+\\.jsx?$': 'babel-jest'
   }
 }

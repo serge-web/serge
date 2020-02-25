@@ -7,7 +7,7 @@ configureReadme({
    * Wrapper for story. Usually used to set some styles
    * React: React.ReactNode
    */
-  StoryPreview: ({ children }) => <div style={{ margin: '2rem 0' }}>{children}</div>,
+  StoryPreview: ({ children }) => <div style={{ margin: '2rem 1rem' }}>{children}</div>,
  
   /**
    * Wrapper for content and sidebar docs. Usually used to set some styles
@@ -16,11 +16,7 @@ configureReadme({
    */
   DocPreview: ({ children }) => (
     <div style={{ backgroundColor: '#fff', padding: '1rem'  }}> {children}</div>
-  ),
-
-  PropsTable: ({ children }) => (
-    <div style={{ backgroundColor: '#fff', padding: '1rem'  }}> {children}</div>
-  ),
+  )
 });
 
 addParameters({
