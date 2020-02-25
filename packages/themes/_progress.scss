@@ -1,8 +1,8 @@
 @import "./dependencies/variables";
 
-$indicatorSize: 20px;
-$indicatorMargin: 15px;
-$progressHeight: 2px;
+$indicator-size: 20px;
+$indicator-margin: 15px;
+$progress-height: 2px;
 
 .progress {
   background: transparent;
@@ -17,10 +17,10 @@ $progressHeight: 2px;
     align-self: center;
     background: $primary-color;
     content: "";
-    height: $progressHeight;
-    left: calc(#{$indicatorMargin} + #{$indicatorSize} / 2);
+    height: $progress-height;
+    left: calc(#{$indicator-margin} + #{$indicator-size} / 2);
     position: absolute;
-    width: calc(100% - #{$indicatorMargin} * 2 - #{$indicatorSize});
+    width: calc(100% - #{$indicator-margin} * 2 - #{$indicator-size});
 
     z-index: 1;
   }
@@ -29,11 +29,11 @@ $progressHeight: 2px;
     background: $light-blue;
     border: 2px solid $primary-color;
     border-radius: 50%;
-    height: $indicatorSize;
-    margin: 0 $indicatorMargin;
+    height: $indicator-size;
+    margin: 0 $indicator-margin;
     position: relative;
     transition: all 0.5s ease;
-    width: $indicatorSize;
+    width: $indicator-size;
 
     z-index: 2;
 
@@ -44,29 +44,31 @@ $progressHeight: 2px;
         border-radius: 50%;
         box-sizing: border-box;
         content: "";
-        height: calc(#{$indicatorSize} + 8px);
+        height: calc(#{$indicator-size} + 8px);
         left: -6px;
         opacity: 0.75;
         position: absolute;
         top: -6px;
-        width: calc(#{$indicatorSize} + 8px);
-      }
-
-      @keyframes scale {
-        0% {
-          opacity: 0;
-          transform: scale(0.75);
-        }
-        100% {
-          opacity: 0.75;
-          transform: scale(1);
-        }
+        width: calc(#{$indicator-size} + 8px);
       }
     }
 
     &--complete {
       background: $success-color;
       border: 2px solid $success-color;
+    }
+  }
+}
+
+.progress-indicator--active {
+  @keyframes scale {
+    0% {
+      opacity: 0;
+      transform: scale(0.75);
+    }
+    100% {
+      opacity: 0.75;
+      transform: scale(1);
     }
   }
 }
