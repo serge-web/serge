@@ -5,7 +5,16 @@ import { WargameData } from '@serge/custom-types/wargame-data.interface'
 import styles from './styles.module.scss'
 
 interface Props {
+  /**
+   * The data from the wargame
+   * @default []
+   */
   data: WargameData
+  /**
+   * The current tab
+   * @default ''
+   * @required false
+   */
   currentTab: string
 }
 
@@ -23,7 +32,7 @@ const createIndicators = (data: WargameData, currentTab: string): Array<any> =>
   Object.entries(data)
     .map(entry => <div key={entry[0]} className={getClassName(entry, currentTab)} />)
 
-const ProgressIndicator: React.FunctionComponent<Props> = ({ data, currentTab }: Props) =>
+export const ProgressIndicator: React.FunctionComponent<Props> = ({ data, currentTab }: Props) =>
   <div className={styles.progress}>
     {createIndicators(data, currentTab)}
   </div>

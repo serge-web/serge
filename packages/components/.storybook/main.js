@@ -5,19 +5,9 @@ module.exports = {
         '../src/**/*.stories.(tsx|mdx)',
     ],
     addons: [
-        {
-            name: '@storybook/addon-docs',
-            options: {
-                configureJSX: true,
-                babelOptions: {},
-                sourceLoaderOptions: null
-            }
-        },
         '@storybook/addon-knobs/register',
-        '@storybook/addon-actions/register',
         '@storybook/addon-viewport/register',
         '@storybook/addon-backgrounds/register',
-        'storybook-readme/register'
     ],
     webpackFinal: async config => {
         config.module.rules.push(
@@ -30,8 +20,21 @@ module.exports = {
               // Optional
               {
                 loader: require.resolve('react-docgen-typescript-loader'),
+                options: {
+                  // Provide the path to your tsconfig.json so that your stories can
+                  // display types from outside each individual story.
+                  tsconfigPath: path.resolve(__dirname, "../tsconfig.json"),
+                },
               },
             ]
+        },
+        {
+          test: /\.md$/,
+          use: [
+            {
+              loader: 'markdown-loader',
+            }
+          ]
         },
         {
           test: /\.module.scss$/,

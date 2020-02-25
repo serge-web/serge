@@ -2,7 +2,7 @@ import React from 'react'
 import { withKnobs, select } from '@storybook/addon-knobs'
 
 import ProgressIndicator from './index'
-// import docs from './README.md'
+import docs from './README.md'
 
 const wargame = {
   isLoading: false,
@@ -90,7 +90,13 @@ const wargame = {
 export default {
   title: 'local/ProgressIndicator',
   component: ProgressIndicator,
-  decorators: [withKnobs]
+  decorators: [withKnobs],
+  parameters: {
+    readme: {
+      // Show readme before story
+      content: docs
+    }
+  }
 }
 
 export const Default = () =>
