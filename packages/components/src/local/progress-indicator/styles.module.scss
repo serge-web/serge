@@ -70,5 +70,5 @@ $progress-height: 2px;
 .complete {
   composes: indicator;
   background: $success-color;
-  border: 2px solid $success-color;
+  border: 2px solid darken($success-color, 15%);
 }

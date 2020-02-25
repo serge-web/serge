@@ -1,4 +1,4 @@
-# ProgressIndicator
+# Progress Indicator
 
 The Progress Indicator component is used to indicate a users progress through a a form.
 
@@ -9,6 +9,10 @@ The Progress Indicator component is used to indicate a users progress through a 
 ## Code example
 
 <!-- SOURCE -->
+
+## Props
+
+<!-- PROPS -->
 
 ## Usage
 
@@ -22,7 +26,3 @@ import ProgressBar from './progress-bar'
 ```js
 const ProgressBar = require('./progress-bar')
 ```
-
-## Props
-
-<!-- PROPS -->

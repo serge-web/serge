@@ -24,6 +24,9 @@ configureReadme({
 });
 
 addParameters({
+  options: {
+    showSearchBox: true
+  },
   backgrounds: [
     { name: 'white', value: '#fff', default: true },
     { name: 'black', value: '#000' },

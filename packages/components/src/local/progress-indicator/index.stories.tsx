@@ -1,94 +1,18 @@
 import React from 'react'
-import { withKnobs, select } from '@storybook/addon-knobs'
+import { withKnobs, select, object } from '@storybook/addon-knobs'
 
+// Import component files
 import ProgressIndicator from './index'
 import docs from './README.md'
+import { tabs, tabsVariant } from './mocks/tabs'
 
-const wargame = {
-  isLoading: false,
-  wargameList: [
-    {
-      name: 'http://localhost:8080/db/wargame-k5xyxas9',
-      title: 'IMWARC-T2 Playing',
-      initiated: true
-    },
-    {
-      name: 'http://localhost:8080/db/wargame-k5xxsr4b',
-      title: 'IMWARC-T1 Adjudication',
-      initiated: true
-    },
-    {
-      name: 'http://localhost:8080/db/wargame-k5pap52f',
-      title: 'IMWARC-Initialised',
-      initiated: true
-    },
-    {
-      name: 'http://localhost:8080/db/wargame-k5pafxci',
-      title: 'IMWARC',
-      initiated: false
-    },
-    {
-      name: 'http://localhost:8080/db/wargame-k16fadm4',
-      title: 'Monday',
-      initiated: true
-    }
-  ],
-  currentWargame: '',
-  exportMessagelist: [],
-  wargameTitle: '',
-  data: {
-    overview: {
-      name: 'Overview - settings',
-      gameDescription: '',
-      gameTurnTime: 43200000,
-      realtimeTurnTime: 300000,
-      timeWarning: 60000,
-      gameDate: '2020-02-21T12:41:20+00:00',
-      showAccessCodes: false,
-      complete: false,
-      dirty: false
-    },
-    forces: {
-      name: 'Forces',
-      forces: [
-        {
-          name: 'White',
-          uniqid: 'umpire',
-          overview: 'Umpire force.',
-          roles: [
-            {
-              name: 'Game Control',
-              password: 'pk6w5y28j',
-              control: true,
-              isObserver: true,
-              isInsightViewer: true
-            }
-          ],
-          icon: 'http://localhost:8080/default_img/umpireDefault.png',
-          color: '#FCFBEE',
-          umpire: true,
-          dirty: false
-        }
-      ],
-      selectedForce: '',
-      complete: false,
-      dirty: false
-    },
-    channels: {
-      name: 'Channels',
-      channels: [],
-      selectedChannel: '',
-      complete: false,
-      dirty: false
-    }
-  },
-  currentTab: 'overview',
-  wargameInitiated: false,
-  adminNotLoggedIn: false
-}
+// Set the knobs to allow for component tweaking in Storybook
+const tabsKnobs: Function = (toc?: boolean) => object('Tabs', toc ? tabsVariant : tabs, 'options')
+const currentTabKnobs: Function = () => select('Current Tab', tabs.map(tk => tk.name), 'overview', 'options')
 
 export default {
   title: 'local/ProgressIndicator',
+  name: 'Progress Indicator',
   component: ProgressIndicator,
   decorators: [withKnobs],
   parameters: {
@@ -99,5 +23,8 @@ export default {
   }
 }
 
-export const Default = () =>
-  <ProgressIndicator data={wargame.data} currentTab={select('Current Tab', ['overview', 'forces', 'channels'], 'overview', 'options')} />
+export const Default: React.FunctionComponent = () =>
+  <ProgressIndicator tabs={tabsKnobs(false)} currentTab={currentTabKnobs()} />
+
+export const OverviewComplete: React.FunctionComponent = () =>
+  <ProgressIndicator tabs={tabsKnobs(true)} currentTab={currentTabKnobs()} />
