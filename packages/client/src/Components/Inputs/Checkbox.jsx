@@ -18,6 +18,7 @@ class Checkbox extends Component {
           onChange={this.onChange}
           checked={this.props.isChecked}
           title={this.props.title}
+          className="md-checkbox--checkbox"
         />
         <label title={this.props.title} htmlFor={this.props.id}>{this.props.label}</label>
       </div>

@@ -52,8 +52,8 @@
       width: 100%;
     }
 
-    p.notification {
-      color: red;
+    .notification {
+      color: #ff0;
       font-size: 12px;
       position: absolute;
       right: -15px;
@@ -73,7 +73,7 @@
     overflow-wrap: break-word;
     padding-right: 36px;
   }
-  span.price {
+  .price {
     line-height: 2em;
   }
 

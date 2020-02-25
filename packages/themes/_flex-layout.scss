@@ -111,10 +111,10 @@
         font-size: 2em;
         margin-top: 2em;
         text-decoration: underline;
+      }
 
-        &:first-of-type {
-          margin-top: 0;
-        }
+      a:first-of-type {
+        margin-top: 0;
       }
     }
   }

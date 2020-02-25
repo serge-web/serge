@@ -1,14 +1,11 @@
 import React from 'react'
+import Loader from './Loader'
 
 export default function LoaderScreen () {
   return (
     <div className="flex-content-wrapper">
       <div className="pre-start-screen">
-        <div id="loading">
-          <div>
-            <div id="loader">&nbsp;</div>
-          </div>
-        </div>
+        <Loader />
       </div>
     </div>
   )
