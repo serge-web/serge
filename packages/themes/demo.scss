@@ -55,7 +55,7 @@
     max-width: 150px;
   }
 
-  input[name="force-name"] {
+  #editable-title {
     max-width: 220px;
   }
 
@@ -81,18 +81,18 @@
   }
 
   #preview-editor {
+    /* stylelint-disable */
+    /* overrides js rendered style */
     h3 {
       > span {
         display: block;
       }
+    }
+    /* stylelint-enable */
 
-      .btn-group {
-        margin-left: 0 !important;
-
-        + .btn-group {
-          margin-left: 10px !important;
-        }
-      }
+    .btn-group {
+      margin-left: 0 !important;
+      margin-right: 10px;
     }
   }
 
@@ -131,8 +131,8 @@
   }
 
   .game-designer-action {
-    .link + .link {
-      margin-left: 15px;
+    .link {
+      margin-right: 15px;
     }
   }
 }
