@@ -107,6 +107,7 @@ class GameSetup extends Component {
             <div className="flex-content flex-content--row">
               <TextInput
                 id="title-editable"
+                className="input-game-title"
                 updateStore={this.updateWargameTitle}
                 options={{numInput: false}}
                 data={wargameTitle}
