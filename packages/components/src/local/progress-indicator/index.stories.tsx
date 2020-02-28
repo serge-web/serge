@@ -12,7 +12,6 @@ const currentTabKnobs: Function = (selected: string) => select('Current Tab', ta
 
 export default {
   title: 'local/ProgressIndicator',
-  name: 'Progress Indicator',
   component: ProgressIndicator,
   decorators: [withKnobs],
   parameters: {

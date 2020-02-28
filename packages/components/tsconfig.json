@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "build/lib",
+    "outDir": "build",
     "module": "commonjs",
     "esModuleInterop" : true,
     "target": "es5",
