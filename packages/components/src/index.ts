@@ -1,7 +1,5 @@
-// require all modules on the path and with the pattern defined
-const req = require.context('./local', true, /index.tsx$/)
+import ProgressIndicator from './local/progress-indicator'
 
-const modules = req.keys().map(req)
-
-// export all modules
-module.exports = modules
+export {
+  ProgressIndicator
+}
