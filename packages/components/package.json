@@ -6,8 +6,10 @@
   "main": "build/index.js",
   "scripts": {
     "start": "start-storybook",
-    "build": "rimraf build && tsc --build",
-    "postbuild": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build && rimraf build/vendor && rimraf build/local/**/mocks && rimraf build/local/**/*.stories.* && rimraf build/local/**/*.spec.*",
+    "build": "rimraf build && yarn copy && tsc && yarn cleanup",
+    "watch": "tsc --watch",
+    "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",
+    "cleanup" : "rimraf build/vendor && rimraf build/local/**/mocks && rimraf build/local/**/*.stories.* && rimraf build/local/**/*.spec.*",
     "test": "run-p test:*",
     "test:lint": "eslint --fix src/**/*.ts*",
     "test:ts": "tsc --pretty",
