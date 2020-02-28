@@ -50,7 +50,6 @@ const GameSetup = ({ wargame, dispatch }) => {
 
   // Loop through wargame data and build up an array of tab objects
   const allTabs = () => Object.entries(wargame.data).map(tab => {
-    console.log('running')
     return {
       name: tab[0],
       complete: tab[1].complete
