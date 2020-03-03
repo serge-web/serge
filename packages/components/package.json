@@ -5,7 +5,7 @@
   "author": "foxleigh81 <alex@alexfoxleigh.com>",
   "main": "build/index.js",
   "scripts": {
-    "start": "start-storybook",
+    "storybook": "start-storybook",
     "build": "rimraf build && yarn copy && tsc && yarn cleanup",
     "watch": "tsc --watch",
     "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",

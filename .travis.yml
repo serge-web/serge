@@ -22,11 +22,9 @@ script:
 # run unit tests, dropping out if they fail
 - yarn test:unit || travis_terminate 1;
 # start serge
-- yarn start:server &
-# navigate to the e2e package
-- cd packages/e2e
-# run the cypress test suite, recording the results to our account
-- yarn run cypress run --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7
+- yarn start-server &
+# run the tests
+- yarn test
 # kill open jobs (especially the Serge server running in the background)
 - kill $(jobs -p) || true
 notifications:
