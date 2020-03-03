@@ -1,18 +1,16 @@
 module.exports = {
-  "setupFiles": [
-    "<rootDir>/tests/config/test-shim.js",
-    "<rootDir>/tests/config/test-setup.js"
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  testMatch: [
+    '**/tests/*.(ts|tsx|js)',
+    '**/src/local/**/*.spec.(ts|tsx|js)'
   ],
-  "moduleFileExtensions": [
-    "ts",
-    "tsx",
-    "js"
-  ],
-  "transform": {
-    "^.+\\.(ts|tsx)$": "<rootDir>/tests/config/test-preprocessor.js"
+  moduleNameMapper: {
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/jest/fileMock.js',
+    '\\.(css|scss)$': 'identity-obj-proxy'
   },
-  "testMatch": [
-    "**/tests/*.(ts|tsx|js)",
-    "**/src/local/**/*.spec.(ts|tsx|js)",
-  ]
-};
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.jsx?$': 'babel-jest'
+  }
+}
