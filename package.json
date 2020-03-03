@@ -20,7 +20,7 @@
     "start:client": "cd packages/client && yarn start",
     "dev" : "yarn component-dev & yarn storybook & yarn start",
     "test": "lerna run test",
-    "test-local" : "cd packages/e2e && yarn run cypress open",
+    "test-local" : "lerna run test-local",
     "storybook": "cd packages/components && yarn start",
     "lint": "lerna run lint",
     "build": "lerna run build --scope @serge/components --scope @serge/client",
