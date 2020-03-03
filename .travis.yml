@@ -19,12 +19,10 @@ before_script:
 script:
 # build Serge deployment
 - yarn build
-# run unit tests, dropping out if they fail
-- yarn test:unit || travis_terminate 1;
 # start serge
 - yarn start-server &
-# run the tests
-- yarn test
+# run the tests drop out on failure
+- yarn test || travis_terminate 1;
 # kill open jobs (especially the Serge server running in the background)
 - kill $(jobs -p) || true
 notifications:
