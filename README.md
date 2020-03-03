@@ -23,17 +23,20 @@ This will start the full application in 'demo' mode, you can see the application
 
 ## Front-end development
 
-For front-end developers relying on live rebuilds, they should first follow the above steps, and note the IP address & Port provided by the server script. Note: leave that Serge process running.
+For front-end developers relying on live rebuilds, can simply run the following
 
 
-```base
-  yarn start:client
+```bash
+  yarn install
+  yarn develop
 ```
 
 This will start the front-end server.  The development environment will start up, and after a few seconds the browser page will open at something like `localhost:3000`.  The IP address for the backend server should be appended to this, so the URL looks like: `http://localhost:3000/?host=http://192.168.1.115:8080`. 
 
 Note: to get into the backend in admin mode, you may need to use a URL like: 
 `http://localhost:3000/serge/admin?host=http://localhost:8080`
+
+This will also start our Storybook implementation for more information about that, please see the [readme in the components package](packages/components/README.md)
 
 ## Quick access to games & roles
 
@@ -83,13 +86,14 @@ To enable this we use [nvm (Node Version Manager)](https://github.com/creationix
 
 The top level project contains scripts that are then executed for all packages.
 
-- `lint`  Checks syntax and simple errors in javascript files.
+- `lint`  Checks syntax and simple errors in javascript and stylesheet files.
 - `test`  Runs tests in all the packages.
 - `build` Runs the build script in all packages which require building.
 - `start` Runs the complete application in demo mode.
-- `start:client` Only starts the client application.
-- `start:server` Only starts the server application.
-- `serge` A friendly alias for `start:server`
+- `start-client` Only starts the client application.
+- `start-server` Only starts the server application.
+- `develop` Runs the client and server applications as well as the Storybook application and watches for typescript errors.
+- `serge` A friendly alias for `start-server`
 
 ## Database commands
 

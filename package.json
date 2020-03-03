@@ -18,7 +18,7 @@
     "start": "yarn run-p start-*",
     "start-client": "lerna run start --scope @serge/client",
     "start-server": "lerna run start --scope @serge/server",
-    "dev" : "yarn component-dev & yarn storybook & yarn start",
+    "develop" : "yarn component-dev & yarn storybook & yarn start",
     "test": "lerna run test",
     "test-local" : "lerna run test-local",
     "lint": "lerna run lint",
