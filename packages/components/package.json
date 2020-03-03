@@ -11,10 +11,11 @@
     "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",
     "cleanup" : "rimraf build/vendor && rimraf build/local/**/mocks && rimraf build/local/**/*.stories.* && rimraf build/local/**/*.spec.*",
     "test": "run-p test:*",
-    "test:lint": "eslint --fix src/**/*.ts*",
     "test:ts": "tsc --pretty",
-    "test:unit": "jest",
-    "test:styles": "stylelint src/**/*.scss"
+    "test:unit": "jest --coverage",
+    "lint": "run-p lint:*",
+    "lint:ts": "eslint --fix src/**/*.ts*",
+    "lint:styles": "stylelint src/**/*.scss"
   },
   "dependencies": {
     "@babel/core": "^7.8.4",
