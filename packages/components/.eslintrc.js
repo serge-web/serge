@@ -3,6 +3,7 @@ module.exports = {
   'parserOptions': {
     'project': './tsconfig.json', // Required to have rules that rely on Types.
     'tsconfigRootDir': './',
+    'extraFileExtensions' : ['.snap'],
     "ecmaFeatures": {
       "jsx": true
     }
