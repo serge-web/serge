@@ -115,7 +115,7 @@
   /* ignores js rendered class name */
   .unread,
   .flexlayout__tab_button[class*="unread"] {
-  /* stylelint-enable */
+    /* stylelint-enable */
     &::after {
       color: #ff4141;
       content: "new";

@@ -75,3 +75,6 @@ log.txt
 .env.development.local
 .env.production.local
 .env.test.local
+
+packages/e2e/cypress/screenshots/**/*
+packages/e2e/cypress/videos/**/*
