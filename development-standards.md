@@ -1,6 +1,6 @@
 # Development standards document for the Serge Project 
 
-> *Please Note:* This is a living document and is subject to change, please keep an eye on the communication channels for notification of any updates.
+> **Please Note:** This is a living document and is subject to change, please keep an eye on the communication channels for notification of any updates.
 
 ## ✅ Getting started
 
@@ -35,56 +35,7 @@ Packages can be thought of as standalone apps, however, they can also talk to ot
 
 ## 🧩 Components
 
-Components live in the `components` package of our project. Each component should be a directory and contain the following files and folders:
-
-- `index.tsx` - The component logic and main UI
-- `index.spec.tsx` - The tests for the component
-- `index.stories.mdx` - The Storybook file for the component
-- `styles.module.scss` - The scoped component styling
-- `/images` - Any component-specific images
-- `/helpers` - Additional logic for the component which makes sense to be separated from the index (ensure tests also exist for these)
-
-Any other component-specific assets may also be placed in this directory.
-
-The only required files are index.tsx, index.spec.tsx and index.story.tsx. Please ensure you stick to the above naming conventions.
-
-Each component should have a single task (See Brad Frost's [Atomic Design Principle](https://bradfrost.com/blog/post/atomic-web-design/) for more information) and be written as a 'pure' component. This means that it should only use react's hooks and context API along with props to receive and pass information. (See React Coding standards below)
-
-Before a new component is created, please refer to https://material-ui.com/ to see if there is a ready-made version we can import. If so then please ensure you add an entry for it to Storybook (see below)
-
-> ⚠️ Please note: Components should not contain other components, they should only reference them. If you are making a component, it should be created in the root of `/components` and have a Storybook entry.
-
-## 📖 Storybook
-
-<div align="center">
-
-[![Storybook intro video on YouTube](https://i.imgur.com/FDvR6zl.jpg)](https://www.youtube.com/watch?v=p-LFh5Y89eM)
-
-</div>
-
-All components, no matter how small or large should have a Storybook entry. Ideally, a component should be built in insolation and tested within Storybook before being imported into the primary project (or that components parent component), this ensures that the component is robust and works by itself. It also provides a handy component library for developers to be able to reuse components and prevent the reinvention of the wheel.
-
-Rather than document how to use Storybook, please refer to the excellent [Storybook Documentation](https://storybook.js.org/docs/basics/introduction/)
-
-Storybook covers both our own local custom components and components we have imported from Material-UI. When adding a story, please ensure you add a prefix to the title to ensure that it appears in the correct Storybook group, either `local` for our own components or `vendor` for any third-party components.
-
-### Acceptable
-
-```md
-<Meta
-  title="vendor/Button"
-  component={Button}
-/>
-```
-
-### Unacceptable
-
-```md
-<Meta
-  title="Button"
-  component={Button}
-/>
-```
+An in-depth guide for creating components can be found in the `components` package or by [clicking here](./packages/components/README.md)
 
 ## 👩‍💻 Coding best practice
 
@@ -150,10 +101,22 @@ DRY stands for 'Don't Repeat Yourself' and is a great way of keeping your code t
 
 Remember, DRY code, doesn't always mean less code, sometimes we have to write a little bit more code to make something more reusable, this is acceptable as more code now means less code later. However, efforts should always be made to keep the code as terse as possible. This is where KISS comes in.
 
-KISS stands for Keep It Simple, Stupid. Which is a slightly mean way of saying, don't overcomplicate your code and consider it's readability and simplicity when you write it.
+KISS stands for 'Keep It Simple, Stupid.' Which is a slightly mean way of saying, don't overcomplicate your code and consider it's readability and simplicity when you write it.
 
 > ❗ Rather than provide examples for this section, instead I will refer you to this great article by Arvind Singh Baghel, it's not related to JavaScript but the principles are transferrable and it includes a few great examples: https://dzone.com/articles/software-design-principles-dry-and-kiss
 
+#### Naming conventions and Casing
+
+Please adhere to the following naming conventions.
+
+- All filenames should be written in `kebab-case`
+- All function/method names should be written in `camelCase`
+- All Component and Class names should be written in `PascalCase`
+- Stylesheet classes, id's and variables should all be written in `kebab-case`
+- Components should be named in a descriptive manner (e.g. `notification-panel`)
+- Images should be named in a descriptive manner (e.g. `man-using-fishing-rod.jpg`)
+- Functions/methods should be named in a descriptive manner (e.g. `getClassNames()`)
+- Style classes should be written in a descriptive manner (e.g. `.progress-bar`)
 
 ### JavaScript/React (.ts/.tsx)
 
@@ -218,7 +181,7 @@ import markerFor from './helpers'
 
 #### Type checking
 
-We use TypeScript to ensure that our code is strongly typed, more robust and more easily testable. Wherever possible you should the full tooling available from TypeScript, however, if that is not something that can be done immediately, at the very least you should use a TypeScript extension (`.jsx` becomes `.tsx` and `.js` becomes `.ts`)
+We use TypeScript to ensure that our code is strongly typed, more robust and more easily testable. Wherever possible you should the full tooling available from TypeScript, however, if that is not something that can be done immediately, ensure you do not name your file with a TypeScript extension (e.g. `.ts` or `.tsx`) otherwise it will be type checked and may cause a failed build. 
 
 Again there is little point in repeating the already excellent work done by the Microsoft team, so here is a link to their docs: https://www.typescriptlang.org/docs/home.html or if you want a great introduction to the basics, I highly recommend this youtube video:
 
@@ -228,17 +191,10 @@ Again there is little point in repeating the already excellent work done by the 
 
 </div>
 
-#### Unit tests
-Unit tests use Jest and every component should contain tests. If the component is only a UI component and has no internal logic then a snapshot test is sufficient. However, if the component has any functions or methods then each one of those should have a unit test.
-
-<!-- More information on this coming soon -->
+> ❗  Legacy files inside the `client` and `server` packages are the only files which are allowed to be plain JavaScript files, any new files created must be written in TypeScript
 
 #### E2E tests
 > Coming soon 
-
-#### Pure components
-
-A pure component is a component which received it's data via props and does not rely on a connection to a global state/store to function. Wherever possible a component should be built using this principle. If a connection to the state needs to be made, it should be done via a react hook (e.g. `useState` or `useSelector`). This allows components to be reusable and also makes them testable as a single unit.
 
 ### HTML (.tsx, .html)
 
@@ -268,7 +224,7 @@ This section applies only to CSS/SCSS. Sass is our preprocessor of choice, and w
 
 #### Coding Style
 
-As we are using styles which are scoped to the component and each component should have a single task so BEM notation should not be required or used.
+As we are using styles which are scoped to the component and each component should have a single task, BEM notation should not be required or used in any stylesheets outside of the `themes` package.
 
 If you require the use of a modifier the `--modifier-state` syntax is still acceptable.
 
@@ -335,7 +291,6 @@ Our project is currently stored in GitHub at https://github.com/serge-web/serge.
 The main readme.md file should be updated whenever a relevant change is made. Please check regularly to see if you have made an update which could affect the document and update accordingly.
 
 ### Branches
-
 
 #### Naming
 

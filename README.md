@@ -75,6 +75,7 @@ cd serge-web
 ```
 
 ### Using nvm (optional)
+
 If you work across multiple Node.js projects there's a good chance they require different Node.js and npm versions.
 
 To enable this we use [nvm (Node Version Manager)](https://github.com/creationix/nvm) to switch between versions easily.
