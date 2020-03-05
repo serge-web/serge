@@ -43,7 +43,7 @@ Cypress.Commands.add("inputRoomName", (roomName) => {
 })
 
 Cypress.Commands.add("clickSaveOverview", () => {
-  cy.wait(1000)
+  cy.wait(500)
   cy.get('span.link.link--noIcon[data-qa-type="submit"]')
     .click()
 })
@@ -63,6 +63,7 @@ export function checkAccessCodeCheckbox() {
 }
 
 Cypress.Commands.add("clickShowAccessCode", () => {
+  cy.wait(500)
   checkAccessCodeCheckbox()
 })
 
