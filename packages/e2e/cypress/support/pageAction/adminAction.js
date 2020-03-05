@@ -43,7 +43,7 @@ Cypress.Commands.add("inputRoomName", (roomName) => {
 })
 
 Cypress.Commands.add("clickSaveOverview", () => {
-  cy.wait(500)
+  cy.wait(1000)
   cy.get('span.link.link--noIcon[data-qa-type="submit"]')
     .click()
 })
