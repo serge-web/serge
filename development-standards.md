@@ -323,7 +323,7 @@ Two protected branches exist, these are `master` and `develop`. `master` is only
 
 No branch should outlive its workstream. As soon as the work has been merged into `develop` or a parent branch, it should be deleted. Similarly, if a workstream is no longer required and the branch isn't going to be merged, it should also be deleted. 
 
-For larger workstreams, it is acceptable to carry out nested branches but only if pushing the code to `develop` will cause problems without the full work package. In this instance, your initial branch should come of `develop` and be named following the above guidelines, and subsequent branches should be children of that branch with additional information added to the end of the branch name with a `--`. e.g. `feature/263-mapping-improvements--documentation`
+For larger workstreams, it is acceptable to carry out nested branches but only if pushing the code to `develop` will cause problems without the full work package. In this instance, your initial branch should come off `develop` and be named following the above guidelines, and subsequent branches should be children of that branch with additional information added to the end of the branch name with a `--`. e.g. `feature/263-mapping-improvements--documentation`
 
 ### Pull Requests
 
@@ -337,7 +337,7 @@ ALL branch merges should only be done via a Pull Request. Please fill in all rel
 
 Items marked with * can be deleted if you are not working from an issue.
 
-You should also assign reviewers to your pr and assign yourself. Merges to `develop` should have at least 2 reviewers. One of those reviewers must be [Alex Foxleigh](https://github.com/foxleigh81).
+You should also assign reviewers to your PR and assign yourself. Merges to `develop` should have at least 1 reviewer but the more people who review a PR the better. One of those reviewers must be [Alex Foxleigh](https://github.com/foxleigh81) or [Ian Mayo](https://github.com/IanMayo).
 
 A label should also be applied indicating what was done. These things are easy to overlook but a PR should not be approved without them. To help developers remember to do this, a checklist is included in a PR which must be completed truthfully. PR's which do not conform to this will be rejected.
 
@@ -345,6 +345,9 @@ Once a pull request has been approved and all of the checks have passed, the ori
 
 If you are working in a child branch then please ensure that the pull request merges to the parent branch and not `develop` and add a note about that to the 'developer notes' section.
 
+If a PR is listed as 'Draft' then please ignore it entirely until the developer marks it as 'ready for review', this will avoid confusion.
+
+Merges to master are for releases only and should only be performed by Ian Mayo or Alex Foxleigh.
 
 ### Commits
 
