@@ -15,7 +15,8 @@
     "test:unit": "jest --coverage",
     "lint": "run-p lint:*",
     "lint:ts": "eslint --fix src/**/*.ts*",
-    "lint:styles": "stylelint src/**/*.scss"
+    "lint:styles": "stylelint src/**/*.scss",
+    "build-storybook": "build-storybook -c .storybook -o .out"
   },
   "dependencies": {
     "@babel/core": "^7.8.4",
