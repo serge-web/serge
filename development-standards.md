@@ -1,6 +1,6 @@
 # Development standards document for the Serge Project 
 
-> *Please Note:* This is a living document and is subject to change, please keep an eye on the communication channels for notification of any updates.
+> **Please Note:** This is a living document and is subject to change, please keep an eye on the communication channels for notification of any updates.
 
 ## ✅ Getting started
 
@@ -35,56 +35,7 @@ Packages can be thought of as standalone apps, however, they can also talk to ot
 
 ## 🧩 Components
 
-Components live in the `components` package of our project. Each component should be a directory and contain the following files and folders:
-
-- `index.tsx` - The component logic and main UI
-- `index.spec.tsx` - The tests for the component
-- `index.stories.mdx` - The Storybook file for the component
-- `styles.module.scss` - The scoped component styling
-- `/images` - Any component-specific images
-- `/helpers` - Additional logic for the component which makes sense to be separated from the index (ensure tests also exist for these)
-
-Any other component-specific assets may also be placed in this directory.
-
-The only required files are index.tsx, index.spec.tsx and index.story.tsx. Please ensure you stick to the above naming conventions.
-
-Each component should have a single task (See Brad Frost's [Atomic Design Principle](https://bradfrost.com/blog/post/atomic-web-design/) for more information) and be written as a 'pure' component. This means that it should only use react's hooks and context API along with props to receive and pass information. (See React Coding standards below)
-
-Before a new component is created, please refer to https://material-ui.com/ to see if there is a ready-made version we can import. If so then please ensure you add an entry for it to Storybook (see below)
-
-> ⚠️ Please note: Components should not contain other components, they should only reference them. If you are making a component, it should be created in the root of `/components` and have a Storybook entry.
-
-## 📖 Storybook
-
-<div align="center">
-
-[![Storybook intro video on YouTube](https://i.imgur.com/FDvR6zl.jpg)](https://www.youtube.com/watch?v=p-LFh5Y89eM)
-
-</div>
-
-All components, no matter how small or large should have a Storybook entry. Ideally, a component should be built in insolation and tested within Storybook before being imported into the primary project (or that components parent component), this ensures that the component is robust and works by itself. It also provides a handy component library for developers to be able to reuse components and prevent the reinvention of the wheel.
-
-Rather than document how to use Storybook, please refer to the excellent [Storybook Documentation](https://storybook.js.org/docs/basics/introduction/)
-
-Storybook covers both our own local custom components and components we have imported from Material-UI. When adding a story, please ensure you add a prefix to the title to ensure that it appears in the correct Storybook group, either `local` for our own components or `vendor` for any third-party components.
-
-### Acceptable
-
-```md
-<Meta
-  title="vendor/Button"
-  component={Button}
-/>
-```
-
-### Unacceptable
-
-```md
-<Meta
-  title="Button"
-  component={Button}
-/>
-```
+An in-depth guide for creating components can be found in the `components` package or by [clicking here](./packages/components/README.md)
 
 ## 👩‍💻 Coding best practice
 
@@ -150,10 +101,22 @@ DRY stands for 'Don't Repeat Yourself' and is a great way of keeping your code t
 
 Remember, DRY code, doesn't always mean less code, sometimes we have to write a little bit more code to make something more reusable, this is acceptable as more code now means less code later. However, efforts should always be made to keep the code as terse as possible. This is where KISS comes in.
 
-KISS stands for Keep It Simple, Stupid. Which is a slightly mean way of saying, don't overcomplicate your code and consider it's readability and simplicity when you write it.
+KISS stands for 'Keep It Simple, Stupid.' Which is a slightly mean way of saying, don't overcomplicate your code and consider it's readability and simplicity when you write it.
 
 > ❗ Rather than provide examples for this section, instead I will refer you to this great article by Arvind Singh Baghel, it's not related to JavaScript but the principles are transferrable and it includes a few great examples: https://dzone.com/articles/software-design-principles-dry-and-kiss
 
+#### Naming conventions and Casing
+
+Please adhere to the following naming conventions.
+
+- All filenames should be written in `kebab-case`
+- All function/method names should be written in `camelCase`
+- All Component and Class names should be written in `PascalCase`
+- Stylesheet classes, id's and variables should all be written in `kebab-case`
+- Components should be named in a descriptive manner (e.g. `notification-panel`)
+- Images should be named in a descriptive manner (e.g. `man-using-fishing-rod.jpg`)
+- Functions/methods should be named in a descriptive manner (e.g. `getClassNames()`)
+- Style classes should be written in a descriptive manner (e.g. `.progress-bar`)
 
 ### JavaScript/React (.ts/.tsx)
 
@@ -218,7 +181,7 @@ import markerFor from './helpers'
 
 #### Type checking
 
-We use TypeScript to ensure that our code is strongly typed, more robust and more easily testable. Wherever possible you should the full tooling available from TypeScript, however, if that is not something that can be done immediately, at the very least you should use a TypeScript extension (`.jsx` becomes `.tsx` and `.js` becomes `.ts`)
+We use TypeScript to ensure that our code is strongly typed, more robust and more easily testable. Wherever possible you should the full tooling available from TypeScript, however, if that is not something that can be done immediately, ensure you do not name your file with a TypeScript extension (e.g. `.ts` or `.tsx`) otherwise it will be type checked and may cause a failed build. 
 
 Again there is little point in repeating the already excellent work done by the Microsoft team, so here is a link to their docs: https://www.typescriptlang.org/docs/home.html or if you want a great introduction to the basics, I highly recommend this youtube video:
 
@@ -228,17 +191,10 @@ Again there is little point in repeating the already excellent work done by the 
 
 </div>
 
-#### Unit tests
-Unit tests use Jest and every component should contain tests. If the component is only a UI component and has no internal logic then a snapshot test is sufficient. However, if the component has any functions or methods then each one of those should have a unit test.
-
-<!-- More information on this coming soon -->
+> ❗  Legacy files inside the `client` and `server` packages are the only files which are allowed to be plain JavaScript files, any new files created must be written in TypeScript
 
 #### E2E tests
 > Coming soon 
-
-#### Pure components
-
-A pure component is a component which received it's data via props and does not rely on a connection to a global state/store to function. Wherever possible a component should be built using this principle. If a connection to the state needs to be made, it should be done via a react hook (e.g. `useState` or `useSelector`). This allows components to be reusable and also makes them testable as a single unit.
 
 ### HTML (.tsx, .html)
 
@@ -268,7 +224,7 @@ This section applies only to CSS/SCSS. Sass is our preprocessor of choice, and w
 
 #### Coding Style
 
-As we are using styles which are scoped to the component and each component should have a single task so BEM notation should not be required or used.
+As we are using styles which are scoped to the component and each component should have a single task, BEM notation should not be required or used in any stylesheets outside of the `themes` package.
 
 If you require the use of a modifier the `--modifier-state` syntax is still acceptable.
 
@@ -336,7 +292,6 @@ The main readme.md file should be updated whenever a relevant change is made. Pl
 
 ### Branches
 
-
 #### Naming
 
 Branches should be named by the ticket you are currently working on wherever possible, including the ticket number. If the work is not related to a ticket, then it should be given a sensible name. All branches should follow the following convention for prefixing:
@@ -368,7 +323,7 @@ Two protected branches exist, these are `master` and `develop`. `master` is only
 
 No branch should outlive its workstream. As soon as the work has been merged into `develop` or a parent branch, it should be deleted. Similarly, if a workstream is no longer required and the branch isn't going to be merged, it should also be deleted. 
 
-For larger workstreams, it is acceptable to carry out nested branches but only if pushing the code to `develop` will cause problems without the full work package. In this instance, your initial branch should come of `develop` and be named following the above guidelines, and subsequent branches should be children of that branch with additional information added to the end of the branch name with a `--`. e.g. `feature/263-mapping-improvements--documentation`
+For larger workstreams, it is acceptable to carry out nested branches but only if pushing the code to `develop` will cause problems without the full work package. In this instance, your initial branch should come off `develop` and be named following the above guidelines, and subsequent branches should be children of that branch with additional information added to the end of the branch name with a `--`. e.g. `feature/263-mapping-improvements--documentation`
 
 ### Pull Requests
 
@@ -382,7 +337,7 @@ ALL branch merges should only be done via a Pull Request. Please fill in all rel
 
 Items marked with * can be deleted if you are not working from an issue.
 
-You should also assign reviewers to your pr and assign yourself. Merges to `develop` should have at least 2 reviewers. One of those reviewers must be [Alex Foxleigh](https://github.com/foxleigh81).
+You should also assign reviewers to your PR and assign yourself. Merges to `develop` should have at least 1 reviewer but the more people who review a PR the better. One of those reviewers must be [Alex Foxleigh](https://github.com/foxleigh81) or [Ian Mayo](https://github.com/IanMayo).
 
 A label should also be applied indicating what was done. These things are easy to overlook but a PR should not be approved without them. To help developers remember to do this, a checklist is included in a PR which must be completed truthfully. PR's which do not conform to this will be rejected.
 
@@ -390,6 +345,11 @@ Once a pull request has been approved and all of the checks have passed, the ori
 
 If you are working in a child branch then please ensure that the pull request merges to the parent branch and not `develop` and add a note about that to the 'developer notes' section.
 
+If a PR is listed as 'Draft' then please ignore it entirely until the developer marks it as 'ready for review', this will avoid confusion, see below for an example of what that looks like:
+
+![Draft PR screenshot](https://i1.wp.com/user-images.githubusercontent.com/3477155/52671177-5d0e0100-2ee8-11e9-8645-bdd923b7d93b.gif?resize=1024%2C512&ssl=1)
+
+Merges to master are for releases only and should only be performed by Ian Mayo or Alex Foxleigh.
 
 ### Commits
 
@@ -411,6 +371,8 @@ Removes console.log from the 'markerFor' helper on the Mapping component
 #### Unacceptable
 
 ![A bad example of a commit message](https://i.imgur.com/ajZ8Ff2.png)
+
+(Sorry, Ian.)
 
 ### Issues
 

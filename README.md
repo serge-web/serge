@@ -31,12 +31,12 @@ For front-end developers relying on live rebuilds, can simply run the following
   yarn develop
 ```
 
-This will start the front-end server.  The development environment will start up, and after a few seconds the browser page will open at something like `localhost:3000`.  The IP address for the backend server should be appended to this, so the URL looks like: `http://localhost:3000/?host=http://192.168.1.115:8080`. 
+This will do all of the building for you and then start the front-end server. The development environment will start up, and after a few seconds the browser page will open at something like `localhost:3000`.  The IP address for the backend server should be appended to this, so the URL looks like: `http://localhost:3000/?host=http://192.168.1.115:8080`. 
 
 Note: to get into the backend in admin mode, you may need to use a URL like: 
 `http://localhost:3000/serge/admin?host=http://localhost:8080`
 
-This will also start our Storybook implementation for more information about that, please see the [readme in the components package](packages/components/README.md)
+This will also start our Storybook implementation for more information about that, please see the [readme in the components package](packages/components/README.md). If you'd rather not run storybook as part of this process, then simply run `yarn dev` instead of `yarn develop`
 
 ## Quick access to games & roles
 
@@ -75,6 +75,7 @@ cd serge-web
 ```
 
 ### Using nvm (optional)
+
 If you work across multiple Node.js projects there's a good chance they require different Node.js and npm versions.
 
 To enable this we use [nvm (Node Version Manager)](https://github.com/creationix/nvm) to switch between versions easily.
