@@ -18,7 +18,7 @@ One this is done you can run the project in development mode by running `yarn st
 
 This project is built using the following technologies
 
-<!-- --> | <!-- --> | <!-- -->
+-- | -- | --
 --- | --- | ---
 [Node](https://nodejs.org/) | [Express](https://expressjs.com/) | [React](https://reactjs.org/) 
 [Redux](https://redux.js.org/) | [Jest](https://jestjs.io/) | [PouchDB](https://pouchdb.com/)
