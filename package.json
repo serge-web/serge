@@ -22,7 +22,7 @@
     "test": "lerna run test",
     "test-local" : "lerna run test-local",
     "lint": "lerna run lint",
-    "storybook": "lerna run storybook",
+    "storybook": "lerna run storybook --scope @serge/components",
     "build": "lerna run build --scope @serge/components --scope @serge/client",
     "pkg-build": "lerna run start --scope @serge/executable",
     "component-build": "lerna run build --scope @serge/components",
