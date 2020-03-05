@@ -345,7 +345,9 @@ Once a pull request has been approved and all of the checks have passed, the ori
 
 If you are working in a child branch then please ensure that the pull request merges to the parent branch and not `develop` and add a note about that to the 'developer notes' section.
 
-If a PR is listed as 'Draft' then please ignore it entirely until the developer marks it as 'ready for review', this will avoid confusion.
+If a PR is listed as 'Draft' then please ignore it entirely until the developer marks it as 'ready for review', this will avoid confusion, see below for an example of what that looks like:
+
+![Draft PR screenshot](https://i1.wp.com/user-images.githubusercontent.com/3477155/52671177-5d0e0100-2ee8-11e9-8645-bdd923b7d93b.gif?resize=1024%2C512&ssl=1)
 
 Merges to master are for releases only and should only be performed by Ian Mayo or Alex Foxleigh.
 
@@ -369,6 +371,8 @@ Removes console.log from the 'markerFor' helper on the Mapping component
 #### Unacceptable
 
 ![A bad example of a commit message](https://i.imgur.com/ajZ8Ff2.png)
+
+(Sorry, Ian.)
 
 ### Issues
 
