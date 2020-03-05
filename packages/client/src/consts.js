@@ -68,7 +68,7 @@ export const baseUrl = () => {
   // NOTE: for all non-heroku deployments, we need to append the port number
   const portDetails = hostname.toLowerCase().indexOf('herokuapp') !== -1 ? '' : ':' + DEFAULT_PORT
 
-  const res = host ? host : `${protocol}//${hostname}` + portDetails
+  const res = host || `${protocol}//${hostname}` + portDetails
 
   return res
 }
@@ -96,7 +96,7 @@ export const defaultGameInfo = {
   These insights could relate to the current doctrine being explored, the performance of your force, or how the game is being organised / facilitated.\n
   Thanks in advance for your participation.\n
   Maj Duncan Dare, PO1 Gaming`,
-  showAccessCodes: false
+  showAccessCodes: true
 }
 
 export const forceTemplate = {
