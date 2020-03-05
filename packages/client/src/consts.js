@@ -156,7 +156,7 @@ export const dbDefaultSettings = {
       timeWarning: 60000,
       // turnStrategy: '',
       gameDate: moment(new Date(), moment.ISO_8601).format(),
-      showAccessCodes: false,
+      showAccessCodes: true,
       complete: false,
       dirty: false
     },
