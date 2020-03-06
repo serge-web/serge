@@ -8,7 +8,7 @@ Our project is currently stored in GitHub at https://github.com/serge-web/serge.
 
 - [Readme files](./project-readme.md)
 - [Branches](./branches.md)
-- [commits](./commits.md)
+- [Commits](./commits.md)
 - [Pull requests](./pull-requests.md)
 - [Issues](./issues.md)
 
