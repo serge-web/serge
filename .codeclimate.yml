@@ -1,0 +1,9 @@
+version: "2"
+exclude_patterns:
+  - "dist/"
+  - "build/"
+  - "**/node_modules/"
+  - "**/*.test.*"
+  - "**/*.spec.*"
+  - "**/*.config.*"
+  - "packages/e2e"

@@ -1,0 +1,15 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-HTTPSPROXYAGENT-469131:
+    - lerna > @lerna/publish > @evocateur/pacote > make-fetch-happen > https-proxy-agent:
+        patched: '2019-11-18T16:01:38.253Z'
+    - lerna > @lerna/publish > @lerna/npm-dist-tag > @evocateur/npm-registry-fetch > make-fetch-happen > https-proxy-agent:
+        patched: '2019-11-18T16:01:38.253Z'
+    - lerna > @lerna/publish > @lerna/npm-publish > @evocateur/libnpmpublish > @evocateur/npm-registry-fetch > make-fetch-happen > https-proxy-agent:
+        patched: '2019-11-18T16:01:38.253Z'
+  SNYK-JS-TREEKILL-536781:
+    - snyk > snyk-sbt-plugin > tree-kill:
+        patched: '2019-12-12T07:43:20.331Z'

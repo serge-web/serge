@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "stylelint-config-sass-guidelines",
+    "stylelint-config-css-modules",
+    "stylelint-config-prettier"
+    ],
+  "plugins": [
+    "stylelint-css-modules",
+    "stylelint-prettier"
+  ],
+  "rules": {
+    "prettier/prettier": true,
+    "max-nesting-depth" : 3,
+    "selector-max-id" : 1,
+    "css-modules/composed-class-names": true,
+    "css-modules/css-variables": true,
+    "order/properties-alphabetical-order": null
+  }
+}

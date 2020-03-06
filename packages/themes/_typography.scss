@@ -1,0 +1,82 @@
+@import "./dependencies/variables";
+@import "./dependencies/fonts";
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p,
+a,
+button {
+  font-family: "Open Sans", "sans-serif";
+}
+
+p,
+a {
+  font-size: 16px;
+}
+
+h1 {
+  margin-bottom: $umpire-menu-margin;
+  width: fit-content;
+}
+
+h4 {
+  cursor: pointer;
+  padding: 12px 0;
+  width: fit-content;
+}
+
+a {
+  color: $link-color;
+  width: fit-content;
+
+  &:hover {
+    color: $secondary-color;
+  }
+}
+
+.heading {
+  &--sml {
+    color: $dark-grey;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  &--mleft {
+    margin-left: 6px;
+  }
+}
+
+.group-item {
+  align-items: center;
+  background: $primary-triad-color-transparent;
+  color: $dark-grey;
+  display: inline-flex;
+  line-height: 0;
+  margin-top: 12px;
+  padding: 8px;
+  width: fit-content;
+
+  svg {
+    margin-left: 5px;
+    opacity: 0.85;
+  }
+}
+
+.typo-mono {
+  @include typo-secondary;
+}

@@ -1,0 +1,13 @@
+.dropzone {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 550px;
+  min-height: 350px;
+
+  p {
+    padding: 0 15%;
+    text-align: center;
+  }
+}

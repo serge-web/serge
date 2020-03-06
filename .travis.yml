@@ -1,0 +1,47 @@
+language: node_js
+node_js:
+- 10.15.3
+addons:
+  apt:
+    packages:
+    # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
+    - libgconf-2-4
+install:
+- yarn global add lerna jest
+- lerna bootstrap
+- yarn install
+matrix:
+  include:
+  - name: Client Pipeline
+    env: PACKAGE_LOCATION=packages/client PACKAGE_NAME=@serge/client
+before_script:
+  - export NODE_OPTIONS=–max_old_space_size=8192
+script:
+# build Serge deployment
+- yarn build
+# run the linting drop out on failure
+- yarn lint || travis_terminate 1;
+# start serge
+- yarn start-server &
+# run the tests drop out on failure
+- yarn test || travis_terminate 1;
+# kill open jobs (especially the Serge server running in the background)
+- kill $(jobs -p) || true
+notifications:
+  slack:
+    secure: GZOTYG74Aeo5PF87prdYPrry6PYVPeBuCPAjQH5ebXaPIMeuPBLOmcilzoMctdGd3aFplT4rRMpFe8Lacnqm6uUks0WemcJ2KtnvomAD6PGEZQmwJWA2i+QDoZieyTJlnxqbWydZkzsPCX+d6MD4L+ZwiMbuLQaGa2F2BLSO6kE9b3+JLXwGlsfnC0+ftSHPyYleEvtC3Rej/6W0CNha112hWzMBYhNlivoKXyYQz/L4ESQAEnRjIH/sNWwBdZVsADID/G72S3lQrx8bplTL2/U+WjF2uyhA+XvqFvGsz3PgNvAjqLWNHwWvSEnh5ifaiyenNRoBT4PXp03Kq5i+Wv1c8DC7xydGVvX7SSP7mLf+TMrhm1LFrHNPhU8ns4luy9s5TCobHaoKVcNFE9FGO4oZR5PBYYAbfYjCgnuWlTifFZRBYUzf7GrRG7HFM3KqiOZkyWiqvHy8IttIk3mgXxpGmqpVM1eq7USFfbaoQKnWg6DF2PgZD1RskBsXeDVGi54t4ymKHDMd+V51sLZ1W5bRjmuc/5n75y+6rk0IL4+4ih3xYgr2QyPqfeCDsWZw8lmgcA4+lpUg2VPH36munG9AnQnD2ZWcPAWIKZl2I7vYdIiVaVcXBhy/VP+2M53dg0FuPXGLGjpg03HUoqILdE5dc0ZA72My35qQk8ip+Vk=
+before_deploy:
+- cd ../../
+- yarn pkg-build
+- ls packages/executable/builds
+deploy:
+  provider: releases
+  skip_cleanup: true
+  file_glob: true
+  api_key:
+    secure: PoxGOmrmrc6igCVlqSm45EA6SY91SlBiglPx1pzXGlszFgzDg1v5XlEd3zEDJC1J7E8vzRez/ww97L/7R+XzTZDuDpnjUYNucuiAjYOVohtc2z+mnT/lMs75wf5Dl3VPU185RbZgdTN9cxK5vtrKGVn624DCQyS/yDjPBHFzV/n33ZNLgfOMQiCF97QwXs00MgufoVe7KwzAhXdjv0sjH7C+x/BwzHlEQiV3QMQu7qCxxVTZM8GoVQ4nrkO2GXoCU6vuDg0fNnAeHK7cdAlozlrZyZI0vkhPc3L5Wd26Rk6TNZzNOWQuGAZSgRDc+Gsh03f/JWT6cOwum30SlcebpnZlSMlzn91DmnJ39PR1fe9GdZGQOjbevhb3FKXb5FOq2lv+ZVaREGY3tSaQGyHij5aRlh4dJgfdHKuAobk7lXgoOPbcftUw+pLF9hofHVj8RNMaAHRYJqMGC/L07Xe9c1+AyeRSlqDCh0S5et+h9Tfg4WEAnZLwYbtvgKvZdii2GgPGSzh6DptWV5ZqbFuB3m5io3brUpp7tsiQUU7iiEzU6fEsa0LQBujPEDaLgen/X40pxp/o9IYO8x+chTK33HZ/b0q/r2SbczKGxSTv4QvD34Hokr8Sxjti/sUHhyzx7+SubRy8LpZRnt8RXgzrl8eeBBvzRCfDQK+NMx4GT3Y=
+  file: "/home/travis/build/serge-web/serge-web/packages/executable/builds/serge-**"
+  on:
+    repo: serge-web/serge-web
+    tags: true
+    all_branches: true

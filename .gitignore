@@ -31,6 +31,9 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
+build/
+dist/
+.out/
 
 # Dependency directories
 node_modules/
@@ -54,8 +57,25 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
-.env
-
 # next.js build output
 .next
+
+# OS Specific files
+.DS_Store
+
+# Generated files and folders
+packages/client/build/**/*
+log.txt
+
+# Ignore local and special envs
+
+# loaded in all cases
+.env.local
+
+# loaded only in the specified operating mode
+.env.development.local
+.env.production.local
+.env.test.local
+
+packages/e2e/cypress/screenshots/**/*
+packages/e2e/cypress/videos/**/*
