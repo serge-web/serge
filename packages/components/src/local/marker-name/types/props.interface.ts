@@ -4,5 +4,5 @@ export default interface Props {
   currentMarkerName: string
   currentMarkerForce: string
   currentForce: string
-  perception: MarkerPerception
+  perception?: MarkerPerception
 }
