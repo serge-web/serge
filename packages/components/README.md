@@ -113,12 +113,6 @@ Once you have added the code to test for snapshots, you will need to generate th
 
 ## Adding stories
 
-<div align="center">
-
-[![Storybook intro video on YouTube](https://i.imgur.com/FDvR6zl.jpg)](https://www.youtube.com/watch?v=p-LFh5Y89eM)
-
-</div>
-
 All components, no matter how small or large should have a Storybook entry. Ideally, a component should be built in insolation and tested within Storybook before being imported into the primary project (or that components parent component), this ensures that the component is robust and works by itself. It also provides a handy component library for developers to be able to reuse components and prevent the reinvention of the wheel.
 
 Rather than document how to use Storybook, please refer to the excellent [Storybook Documentation](https://storybook.js.org/docs/basics/introduction/)
