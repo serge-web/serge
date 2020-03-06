@@ -1,4 +1,4 @@
-import Tab from './tab.interface'
+import Tab from './tab'
 
 export default interface Props {
   /**
