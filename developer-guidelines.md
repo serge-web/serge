@@ -410,7 +410,7 @@ As a store owner,
 I want to add items back to inventory when they are returned or exchanged,
 so that I can track inventory.
 
-Scenario 1: Items returned for a refund should be added to inventory.
+Scenario: Items returned for a refund should be added to inventory.
 Given that a customer previously bought a black sweater from me
 When they return the black sweater for a refund,
 Then I should have four black sweaters in inventory.
