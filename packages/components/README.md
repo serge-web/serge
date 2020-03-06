@@ -1,3 +1,5 @@
+[🏠 Docsite home](../../docs/index.md)
+
 # Serge Project Component library
 
 This is the primary component library of the serge project. New components should always be created inside the `local` folder.
@@ -110,12 +112,6 @@ Unless you use helper functions then you can get away with only having a snapsho
 Once you have added the code to test for snapshots, you will need to generate them before your tests will pass. To do this simply run `yarn test --snapshot` from within the components package.
 
 ## Adding stories
-
-<div align="center">
-
-[![Storybook intro video on YouTube](https://i.imgur.com/FDvR6zl.jpg)](https://www.youtube.com/watch?v=p-LFh5Y89eM)
-
-</div>
 
 All components, no matter how small or large should have a Storybook entry. Ideally, a component should be built in insolation and tested within Storybook before being imported into the primary project (or that components parent component), this ensures that the component is robust and works by itself. It also provides a handy component library for developers to be able to reuse components and prevent the reinvention of the wheel.
 
