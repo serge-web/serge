@@ -1,4 +1,4 @@
-export interface WargameList {
+export default interface WargameList {
   name: string,
   title: string,
   initiated: boolean

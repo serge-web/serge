@@ -1,4 +1,4 @@
-export interface States {
+export default interface States {
   name: string,
   mobile: boolean
 }

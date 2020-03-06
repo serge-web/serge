@@ -1,6 +1,6 @@
-import { ForceData } from './force-data.interface'
+import ForceData from './force-data.interface'
 
-export interface Force {
+export default interface Force {
   name: string,
   forces: Array<ForceData>,
   selectedForce: string,

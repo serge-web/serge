@@ -1,6 +1,6 @@
-import { Participant } from './participant.interface'
+import Participant from './participant.interface'
 
-export interface ChannelData {
+export default interface ChannelData {
   name: string,
   participants: Array<Participant>
 }

@@ -1,6 +1,6 @@
-import { PlatformTypeData } from './platform-type-data.interface'
+import PlatformTypeData from './platform-type-data.interface'
 
-export interface PlatformType {
+export default interface PlatformType {
   complete: boolean,
   dirty: boolean,
   name: string,

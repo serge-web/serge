@@ -1,4 +1,4 @@
-export interface WargameOverview {
+export default interface WargameOverview {
   name: string,
   gameDescription: string,
   gameTurnTime: number,
