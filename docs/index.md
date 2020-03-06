@@ -7,7 +7,7 @@
 
 - [Getting started](./getting-started.md)
 - [Technology stack](./technology-stack.md)
-- [Repository Structure](./repository-structure)
+- [Repository Structure](./repository-structure/index.md)
 - [Components](../packages/components/README.md)
 - [Coding best practice](./coding-best-practice/index.md)
 - [Repository management](./repository-management/index.md)
