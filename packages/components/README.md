@@ -1,3 +1,5 @@
+[🏠 Docsite home](../../docs/index.md)
+
 # Serge Project Component library
 
 This is the primary component library of the serge project. New components should always be created inside the `local` folder.

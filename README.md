@@ -116,7 +116,7 @@ Formats with [prettier](https://github.com/prettier/prettier) and lints with [es
 
 ## Development guidelines
 
-For information and guidance about how to contribute to this project. Please see the [Development standards guidelines](developer-guidelines.md)
+For information and guidance about how to contribute to this project. Please see the [Development standards guidelines](./docs/index.md)
 
 ## Licensing
 
