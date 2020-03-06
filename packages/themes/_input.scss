@@ -5,76 +5,69 @@
 }
 
 textarea {
-  width: 100%;
   height: 200px;
   resize: none;
+  width: 100%;
 }
 
 select {
-  width: 100%;
-  min-height: 38px;
-  padding: 2px 8px;
-
+  appearance: none;
   background-color: hsl(0, 0%, 100%);
+  background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 123.5 68.5' style='enable-background:new 0 0 123.5 68.5;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23D1D1D1;stroke-width:8;stroke-miterlimit:10;%7D .st1%7Bfill:none;stroke:%23D1D1D1;stroke-width:3;stroke-miterlimit:10;%7D%0A%3C/style%3E%3Cpolyline id='XMLID_1_' class='st0' points='108.7,27.2 89.2,46.7 69.8,27.2 '/%3E%3Cline id='XMLID_15_' class='st1' x1='26' y1='2.5' x2='26' y2='65.5'/%3E%3C/svg%3E");
+  background-position: right 0.5em top 50%, 0 0;
+  background-repeat: no-repeat, repeat;
+  background-size: 2.2em;
   border-color: hsl(0, 0%, 80%);
   border-radius: 4px;
   border-style: solid;
   border-width: 1px;
-
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-
-  background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 123.5 68.5' style='enable-background:new 0 0 123.5 68.5;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23D1D1D1;stroke-width:8;stroke-miterlimit:10;%7D .st1%7Bfill:none;stroke:%23D1D1D1;stroke-width:3;stroke-miterlimit:10;%7D%0A%3C/style%3E%3Cpolyline id='XMLID_1_' class='st0' points='108.7,27.2 89.2,46.7 69.8,27.2 '/%3E%3Cline id='XMLID_15_' class='st1' x1='26' y1='2.5' x2='26' y2='65.5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat, repeat;
-  background-position: right 0.5em top 50%, 0 0;
-  background-size: 2.2em;
+  min-height: 38px;
+  padding: 2px 8px;
+  width: 100%;
 }
 
-textarea.material-input,
-input.material-input,
+.material-input,
 .flatpickr-input {
-  display: block;
-  padding: 5px;
-  margin-bottom: 16px;
+  background: $light-bg;
   border-radius: 4px;
+  display: block;
+  margin-bottom: 16px;
   min-width: 250px;
-  background: $lightBg;
+  padding: 5px;
 
   .new-message-creator & {
-    border: 2px solid $primaryColor;
+    border: 2px solid $primary-color;
+  }
+
+  .settingsTab .flex-content--right50 & {
+    max-width: 50%;
   }
 }
 
-label.material-label {
-  width: fit-content;
+.material-label {
   background: transparent;
-  padding: 0 0 0 6px;
+  color: #fff;
+  font-family: "Open Sans", sans-serif;
   font-size: 12px;
   margin-top: 12px;
-  font-family: "Open Sans", sans-serif;
-  color: #ffffff;
+  padding: 0 0 0 6px;
+  width: fit-content;
   z-index: 2;
 
   .view-wrapper & {
-    color: $adminColor;
+    color: $admin-color;
   }
 }
 
 .flatpickr-input {
+  border-radius: 4px;
   font-family: "Open Sans", sans-serif;
   padding: 4px;
-  border-radius: 4px;
-}
-
-input.material-input,
-.flatpickr-input {
-  max-width: 50%;
 }
 
 .input-group {
-  & > .input-group-prepend {
-    & > .btn {
+  > .input-group-prepend {
+    > .btn {
       margin-left: 1px;
 
       &:last-child {
@@ -86,7 +79,7 @@ input.material-input,
 
 // checkboxes
 
-$md-checkbox-checked-color: $primaryColor;
+$md-checkbox-checked-color: $primary-color;
 $md-checkbox-border-color: rgba(0, 0, 0, 0.54);
 $md-checkbox-border-color-disabled: rgba(0, 0, 0, 0.26);
 $md-checkbox-checked-color-disabled: rgba(0, 0, 0, 0.26);
@@ -97,12 +90,12 @@ $md-checkbox-padding: 0.25em;
 $md-checkbox-border-width: 2px;
 $md-checkbox-border-radius: 0.125em;
 $md-checkmark-width: 0.125em;
-$md-checkmark-color: #ffffff;
+$md-checkmark-color: #fff;
 $md-checkbox-label-padding: 0.5em;
 
 .md-checkbox {
-  position: relative;
   margin: $md-checkbox-margin;
+  position: relative;
   text-align: left;
 
   &.md-checkbox-inline {
@@ -110,86 +103,84 @@ $md-checkbox-label-padding: 0.5em;
   }
 
   label {
+    clear: both;
     cursor: pointer;
     display: inline;
     line-height: $md-checkbox-size;
-    vertical-align: top;
-    clear: both;
     padding-left: 1px;
+    vertical-align: top;
     &:not(:empty) {
       padding-left: $md-checkbox-label-padding;
     }
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
       content: "";
-      position: absolute;
       left: 0;
+      position: absolute;
       top: 0;
     }
 
-    &:before {
-      // box
-      width: $md-checkbox-size;
-      height: $md-checkbox-size;
-      background: #ffffff;
+    &::before {
+      background: #fff;
       border: $md-checkbox-border-width solid $md-checkbox-border-color;
       border-radius: $md-checkbox-border-radius;
       cursor: pointer;
+      height: $md-checkbox-size;
       transition: background 0.3s;
+      // box
+      width: $md-checkbox-size;
     }
 
-    &:after {
+    &::after {
       // checkmark
     }
   }
+}
 
-  input[type="checkbox"] {
-    outline: 0;
-    visibility: hidden;
-    width: $md-checkbox-size;
-    margin: 0;
-    display: block;
-    float: left;
-    font-size: inherit;
+.md-checkbox--checkbox {
+  display: block;
+  float: left;
+  font-size: inherit;
+  margin: 0;
+  outline: 0;
+  visibility: hidden;
+  width: $md-checkbox-size;
 
-    &:checked {
-      + label:before {
-        background: $md-checkbox-checked-color;
-        border: none;
-      }
-      + label:after {
-        $md-checkmark-size: $md-checkbox-size - 2 * $md-checkbox-padding;
-
-        transform: translate(
-            $md-checkbox-padding,
-            ($md-checkbox-size / 2) - ($md-checkmark-size / 2.6)
-          )
-          rotate(-45deg);
-        width: $md-checkmark-size;
-        height: $md-checkmark-size / 2;
-
-        border: $md-checkmark-width solid $md-checkmark-color;
-        border-top-style: none;
-        border-right-style: none;
-      }
+  &:checked {
+    + label::before {
+      background: $md-checkbox-checked-color;
+      border: 0;
     }
+    + label::after {
+      $md-checkmark-size: $md-checkbox-size - 2 * $md-checkbox-padding;
+      border: $md-checkmark-width solid $md-checkmark-color;
+      border-right-style: none;
+      border-top-style: none;
+      height: $md-checkmark-size / 2;
+      transform: translate(
+          $md-checkbox-padding,
+          ($md-checkbox-size / 2) - ($md-checkmark-size / 2.6)
+        )
+        rotate(-45deg);
+      width: $md-checkmark-size;
+    }
+  }
 
-    &:disabled {
-      + label:before {
-        border-color: $md-checkbox-border-color-disabled;
-      }
-      &:checked {
-        + label:before {
-          background: $md-checkbox-checked-color-disabled;
-        }
+  &:disabled {
+    + label::before {
+      border-color: $md-checkbox-border-color-disabled;
+    }
+    &:checked {
+      + label::before {
+        background: $md-checkbox-checked-color-disabled;
       }
     }
   }
 }
 
 #custom-select-wargame-selection {
-  width: 250px;
   position: relative;
+  width: 250px;
   z-index: 3;
 }

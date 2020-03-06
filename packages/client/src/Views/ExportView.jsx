@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import classNames from "classnames";
 import {
   ADMIN_ROUTE,
   EXPORT_ROUTE,
   EXPORT_MESSAGES_SUBROUTE,
   EXPORT_FORCES_SUBROUTE,
 } from "../consts";
-
 import Link from "../Components/Link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -25,7 +25,14 @@ class ExportView extends Component {
     }
   }
 
-  checkTab = tab => (tab.url === this.props.currentViewURI || tab.urlalt === this.props.currentViewURI ? "active-tab" : '')
+  checkTab = tab => {
+    const { currentViewURI } = this.props;
+    const { url, urlalt } = tab;
+    return classNames({
+      "active-tab": url === currentViewURI || urlalt === currentViewURI,
+      "tab-nav-item": true
+    })
+  }
 
   render() {
     if(!this.props.wargame.isLoading && !this.props.wargame.wargameInitiated) {

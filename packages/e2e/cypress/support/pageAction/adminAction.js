@@ -63,6 +63,7 @@ export function checkAccessCodeCheckbox() {
 }
 
 Cypress.Commands.add("clickShowAccessCode", () => {
+  cy.wait(500)
   checkAccessCodeCheckbox()
 })
 

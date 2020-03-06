@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-
 import {faAsterisk} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-
+import classNames from "classnames";
 import SettingsTab from "./TabViews/SettingsTab";
 import ForcesTab from "./TabViews/ForcesTab";
 import ChannelsTab from "./TabViews/ChannelsTab";
-import classNames from "classnames";
 import {addNotification} from "../ActionsAndReducers/Notification/Notification_ActionCreators";
 
 class TabbedView extends Component {
@@ -46,15 +44,19 @@ class TabbedView extends Component {
       <>
         <ul className="tab-nav">
           { this.state.tabs.map((tabName, i) => (
-              <li key={tabName}
-                  onClick={this.changeTab.bind(this, this.state.tabs[i])}
-                  className={classNames({ [`tab-${tabName}`]: true, "active-tab": tabName === this.state.activeTab })}
-              >
-                {tabName}
-                { this.props.wargame.data[tabName].dirty ?
-                  <FontAwesomeIcon icon={faAsterisk} size="1x" className="dirty-flag" />
-                : false }
-              </li>
+            <li key={tabName}
+              onClick={this.changeTab.bind(this, this.state.tabs[i])}
+              className={classNames({
+                [`tab-${tabName}`]: true,
+                "active-tab": tabName === this.state.activeTab,
+                "tab-nav-item": true
+                })}
+            >
+              {tabName}
+              { this.props.wargame.data[tabName].dirty ?
+                <FontAwesomeIcon icon={faAsterisk} size="1x" className="dirty-flag" />
+              : false }
+            </li>
             ))
           }
         </ul>

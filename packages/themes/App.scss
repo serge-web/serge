@@ -32,67 +32,67 @@
 }
 
 .view-wrapper {
-  position: relative;
+  background-color: #fafcff; // ??
   display: flex;
   flex-direction: column;
   height: auto;
   min-height: 100vh;
-  padding: $paddingHeight 1vw $paddingHeight calc(#{$paddingWidth} + 1vw);
-  background-color: #fafcff; // ??
+  padding: $padding-height 1vw $padding-height calc(#{$padding-width} + 1vw);
+  position: relative;
 
   &-gamesetup {
-    padding: 0 0 $paddingHeight $paddingWidth;
+    padding: 0 0 $padding-height $padding-width;
   }
 }
 
 #umpire {
-  width: 100vw;
   height: 100vh;
   padding: 15vh 0 15vh 22vw;
+  width: 100vw;
   h2 {
     margin-bottom: 1em;
   }
 }
 
-#loading {
+.loading {
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  width: 100%;
   height: 100vh;
+  justify-content: center;
+  width: 100%;
 
   p {
     align-self: center;
     max-width: 45%;
   }
 
-  #loader {
-    width: 100px;
-    height: 100px;
+  .loader {
     border-radius: 100%;
-    position: absolute;
-    top: 50%;
+    height: 100px;
     left: 50%;
     margin: -50px 0 0 -50px;
+    position: absolute;
+    top: 50%;
+    width: 100px;
+
+    &::before {
+      animation: flip 1s infinite;
+      background-color: $link-color;
+      content: "";
+      height: 50px;
+      left: 25px;
+      position: absolute;
+      top: 25px;
+      width: 50px;
+    }
   }
 
   h1 {
+    align-self: center;
+    color: $primary-color;
+    margin-top: 215px;
     text-align: center;
     width: 100%;
-    align-self: center;
-    margin-top: 215px;
-    color: $primaryColor;
-  }
-
-  #loader:before {
-    content: "";
-    position: absolute;
-    left: 25px;
-    top: 25px;
-    width: 50px;
-    height: 50px;
-    background-color: $linkColor;
-    animation: flip 1s infinite;
   }
 
   @keyframes flip {

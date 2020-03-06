@@ -4,6 +4,7 @@ import Link from "../Components/Link";
 import SidebarAdmin from "../Components/SidebarAdmin";
 import TextInput from "../Components/Inputs/TextInput";
 import WargameSearchList from "../Components/WargameSearchList";
+import Loader from "../Components/Loader";
 import {
   ADMIN_ROUTE,
   GAME_SETUP_ROUTE,
@@ -54,13 +55,7 @@ class GameDesignerInterface extends Component {
     let loading = Object.values(this.props.dbLoading).some((loading) => loading );
 
     if (loading) {
-      return (
-        <div id="loading">
-          <div>
-            <div id="loader"></div>
-          </div>
-        </div>
-      )
+      return <Loader />
     }
 
     if (this.props.wargame.adminNotLoggedIn) {

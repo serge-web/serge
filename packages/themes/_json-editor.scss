@@ -1,15 +1,15 @@
 @import "dependencies/variables";
 
 #json-editor-wrap {
-  width: 100%;
   margin: -43px 0 0;
+  width: 100%;
 
   .save-link {
     display: flex;
     flex-flow: row-reverse;
   }
+}
 
-  #json-editor {
-    max-width: 100%;
-  }
+#json-editor {
+  max-width: 100%;
 }
