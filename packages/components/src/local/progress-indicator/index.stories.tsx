@@ -22,8 +22,8 @@ export default {
   }
 }
 
-export const Default: React.FunctionComponent = () =>
+export const Default: React.FC = () =>
   <ProgressIndicator tabs={tabsKnobs(false)} currentTab={currentTabKnobs('overview')} />
 
-export const OverviewComplete: React.FunctionComponent = () =>
+export const OverviewComplete: React.FC = () =>
   <ProgressIndicator tabs={tabsKnobs(true)} currentTab={currentTabKnobs('forces')} />
