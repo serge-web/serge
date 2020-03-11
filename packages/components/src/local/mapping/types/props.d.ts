@@ -1,8 +1,13 @@
 export default interface PropTypes {
   /**
-   * The longlat value to the center of the map
+   * The bounds of the map iamge
    */
-  position: Array<number>
+  bounds: {
+    imageTop: number
+    imageLeft: number
+    imageRight: number
+    imageBottom: number
+  }
   /**
    *  The TileLayer object for the leaflet map
 

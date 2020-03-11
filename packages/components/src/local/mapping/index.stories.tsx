@@ -29,6 +29,6 @@ const tileLayer = {
 }
 
 export const Default: React.FunctionComponent = () => <Mapping
-  position = {[(bounds.imageTop + bounds.imageBottom) / 2, (bounds.imageLeft + bounds.imageRight) / 2]}
+  bounds = {bounds}
   tileLayer = {tileLayer}
 />

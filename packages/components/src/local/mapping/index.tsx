@@ -10,7 +10,12 @@ import './leaflet.css'
 import styles from './styles.module.scss'
 
 const defaultProps: PropTypes = {
-  position: [],
+  bounds: {
+    imageTop: 0,
+    imageLeft: 0,
+    imageRight: 0,
+    imageBottom: 0
+  },
   tileLayer: {
     url: '',
     attribution: ''
@@ -21,14 +26,14 @@ const defaultProps: PropTypes = {
   zoom: 10,
   zoomDelta: 0.25,
   zoomSnap: 0.25,
-  zoomControl: false,
+  zoomControl: true,
   attributionControl: false,
   zoomAnimation: false
 }
 
 /* Render component */
 export const Mapping: React.FunctionComponent<PropTypes> = ({
-  position,
+  bounds,
   tileLayer,
   minZoom,
   maxZoom,
@@ -39,33 +44,42 @@ export const Mapping: React.FunctionComponent<PropTypes> = ({
   zoomControl,
   attributionControl,
   zoomAnimation
-}: PropTypes) =>
-  <Map
-    // @ts-ignore next line due to type errors in 'react-leaflet'
-    center={position}
-    className={styles['map-container']}
-    zoom={zoom}
-    zoomDelta={zoomDelta}
-    zoomSnap={zoomSnap}
-    minZoom={minZoom}
-    zoomControl={zoomControl}
-    maxZoom={maxZoom}
-    touchZoom={touchZoom}
-    zoomAnimation={zoomAnimation}
-    attributionControl={attributionControl}
-  >
-    <TileLayer
-      url={tileLayer.url}
-      attribution={tileLayer.attribution}
-    />
+}: PropTypes) => {
+  const { imageTop, imageLeft, imageRight, imageBottom } = bounds
+  const position = [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2]
+  const imageBounds = [{ lat: imageTop, lng: imageLeft }, { lat: imageBottom, lng: imageRight }]
 
-    <Marker
-      // @ts-ignore next line due to type errors in 'react-leaflet'
-      position={position}>
-      <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
-    </Marker>
-  </Map>
+  console.log(imageBounds)
 
+  return (
+    <Map
+      // @ts-ignore
+      bounds={imageBounds}
+      className={styles['map-container']}
+      zoom={zoom}
+      zoomDelta={zoomDelta}
+      zoomSnap={zoomSnap}
+      minZoom={minZoom}
+      zoomControl={zoomControl}
+      maxZoom={maxZoom}
+      touchZoom={touchZoom}
+      zoomAnimation={zoomAnimation}
+      attributionControl={attributionControl}
+    >
+      <TileLayer
+        url={tileLayer.url}
+        attribution={tileLayer.attribution}
+
+      />
+
+      <Marker
+        // @ts-ignore
+        position={position}>
+        <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
+      </Marker>
+    </Map>
+  )
+}
 Mapping.defaultProps = defaultProps
 
 export default Mapping
