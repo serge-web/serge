@@ -30,13 +30,5 @@ const tileLayer = {
 
 export const Default: React.FunctionComponent = () => <Mapping
   position = {[(bounds.imageTop + bounds.imageBottom) / 2, (bounds.imageLeft + bounds.imageRight) / 2]}
-  minZoom = {8}
-  maxZoom = {12}
-  touchZoom = {true}
-  zoom = {10}
-  zoomDelta = {0.25}
-  zoomSnap = {0.25}
-  zoomControl = {false}
-  attributionControl = {false}
-  zoomAnimation = {false}
-  tileLayer = {tileLayer} />
+  tileLayer = {tileLayer}
+/>

@@ -1,6 +1,6 @@
 # Mapping documentation
 
-This is an example readme file for the 'Mapping' component.
+The basic Mapping component. Displays a map on a page with zoom and drag controls
 
 ## UI Example
 

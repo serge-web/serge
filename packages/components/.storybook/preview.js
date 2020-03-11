@@ -12,7 +12,6 @@ configureReadme({
   /**
    * Wrapper for content and sidebar docs. Usually used to set some styles
    * React: React.ReactNode
-   * Vue: Vue component
    */
   DocPreview: ({ children }) => (
     <div style={{ backgroundColor: '#fff', padding: '1rem'  }}> {children}</div>
