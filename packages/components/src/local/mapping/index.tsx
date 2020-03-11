@@ -32,7 +32,7 @@ const defaultProps: PropTypes = {
 }
 
 /* Render component */
-export const Mapping: React.FunctionComponent<PropTypes> = ({
+export const Mapping: React.FC<PropTypes> = ({
   bounds,
   tileLayer,
   minZoom,
@@ -46,13 +46,14 @@ export const Mapping: React.FunctionComponent<PropTypes> = ({
   zoomAnimation
 }: PropTypes) => {
   const { imageTop, imageLeft, imageRight, imageBottom } = bounds
-  const position = [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2]
-  const imageBounds = [{ lat: imageTop, lng: imageLeft }, { lat: imageBottom, lng: imageRight }]
+  const position: [number, number] = [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2]
+  const imageBounds: [[number, number], [number, number]] = [[imageTop, imageLeft], [imageBottom, imageRight]]
 
   return (
     <Map
-      // @ts-ignore
+      center={position}
       bounds={imageBounds}
+      maxBounds={imageBounds}
       className={styles['map-container']}
       zoom={zoom}
       zoomDelta={zoomDelta}
@@ -71,7 +72,6 @@ export const Mapping: React.FunctionComponent<PropTypes> = ({
       />
 
       <Marker
-        // @ts-ignore
         position={position}>
         <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
       </Marker>
