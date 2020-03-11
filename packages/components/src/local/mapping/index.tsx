@@ -49,8 +49,6 @@ export const Mapping: React.FunctionComponent<PropTypes> = ({
   const position = [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2]
   const imageBounds = [{ lat: imageTop, lng: imageLeft }, { lat: imageBottom, lng: imageRight }]
 
-  console.log(imageBounds)
-
   return (
     <Map
       // @ts-ignore
