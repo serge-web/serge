@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { Map, TileLayer } from 'react-leaflet'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -68,13 +68,8 @@ export const Mapping: React.FC<PropTypes> = ({
       <TileLayer
         url={tileLayer.url}
         attribution={tileLayer.attribution}
-
+        bounds={imageBounds}
       />
-
-      <Marker
-        position={position}>
-        <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
-      </Marker>
     </Map>
   )
 }
