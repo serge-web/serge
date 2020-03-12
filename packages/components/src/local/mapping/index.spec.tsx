@@ -21,6 +21,8 @@ it('Mapping renders correctly', () => {
   const div = document.createElement('div')
   document.body.appendChild(div)
 
+  // Using enzyme's 'mount' to solve issues with Leaflet requiring access to the DOM and other features not
+  // provided by react.render.
   const tree = mount(<Mapping
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
