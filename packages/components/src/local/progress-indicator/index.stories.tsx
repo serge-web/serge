@@ -18,6 +18,10 @@ export default {
     readme: {
       // Show readme before story
       content: docs
+    },
+    options: {
+      // As we have addons enabled in this story, show the addons panel
+      showPanel: true
     }
   }
 }

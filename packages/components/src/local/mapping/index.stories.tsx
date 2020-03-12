@@ -12,6 +12,10 @@ export default {
     readme: {
       // Show readme before story
       content: docs
+    },
+    options: {
+      // We have no addons enabled in this story, so the addon panel should be hidden
+      showPanel: false
     }
   }
 }
