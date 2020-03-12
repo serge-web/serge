@@ -2,7 +2,7 @@
 import React from 'react'
 
 /* Import Interfaces */
-import Props from './types/props.interface'
+import PropTypes from './types/props.interface'
 
 /* Import Helpers */
 import getClassName from './helpers/getClassName'
@@ -11,7 +11,7 @@ import getClassName from './helpers/getClassName'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const ProgressIndicator: React.FunctionComponent<Props> = ({ tabs, currentTab }: Props) =>
+export const ProgressIndicator: React.FC<PropTypes> = ({ tabs, currentTab }: PropTypes) =>
   <div className={styles.progress}>
     {tabs.map(tab => <div key={tab.name} className={styles[getClassName(tab, currentTab)]} />)}
   </div>

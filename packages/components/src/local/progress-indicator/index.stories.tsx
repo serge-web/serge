@@ -18,12 +18,16 @@ export default {
     readme: {
       // Show readme before story
       content: docs
+    },
+    options: {
+      // As we have addons enabled in this story, show the addons panel
+      showPanel: true
     }
   }
 }
 
-export const Default: React.FunctionComponent = () =>
+export const Default: React.FC = () =>
   <ProgressIndicator tabs={tabsKnobs(false)} currentTab={currentTabKnobs('overview')} />
 
-export const OverviewComplete: React.FunctionComponent = () =>
+export const OverviewComplete: React.FC = () =>
   <ProgressIndicator tabs={tabsKnobs(true)} currentTab={currentTabKnobs('forces')} />
