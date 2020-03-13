@@ -22,7 +22,8 @@
     "declaration": false,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "typeRoots": ["**/types/", "./node_modules/@types", "./node_modules/@serge/custom-types"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "build", "scripts", "jest/config"],
