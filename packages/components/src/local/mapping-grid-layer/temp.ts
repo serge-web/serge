@@ -5,66 +5,42 @@ import { defineGrid } from 'honeycomb-grid'
 import cellTypes from './mocks/cell-types'
 import defaultHexStyle from './assets/data/default-hex-style'
 import organicHexStyle from './assets/data/organic-hex-style'
-import { toHex } from './helpers'
+import { cellIndexToDegrees, cellIndexToRelativeDegrees } from './helpers'
+
+const GridImplementation = (origin: any, delta: any, width: any, height: any, markerLayer: any): any => {
+  const direction = 'E'
+  const grid = defineGrid()
+  const gridCells = grid.rectangle({ width, height, direction })
+  const hexOne = gridCells[0]
+
+  const {
+    corners,
+    center: hexCentre,
+    coordinates: cellOrigin
+  } = hexOne
+
+  const centreOffset = L.point(hexCentre).subtract(L.point(cellOrigin))
+
+  return gridCells.forEach(hex => {
+    const point = hex.toPoint()
+    const hexCentrePos = cellIndexToDegrees(origin, point, delta)
+    const hexName = String.fromCharCode(65 + hex.y) + padInt(hex.x)
+    const cellChars = cellTypes[hexName]
+    const cornerArr = []
+
+    const scalePoint = (value: any, hexCentre: any, hexCentrePos: any, delta: any): any => {
+      const point = {
+        x: value.x - hexCentre.x,
+        y: value.y - hexCentre.y
+      }
+      return cellIndexToRelativeDegrees(hexCentrePos, point, delta)
+    }
+
+    [...corners].forEach(corner => corner.push(scalePoint(null, hexCentre, hexCentrePos, delta)))
+  })
+}
 
 export default class GridImplementation {
-  constructor ({ origin, delta, width, height, markerLayer }) {
-    this.origin = origin
-    this.delta = delta
-    this.grid = defineGrid()
-    this.markerLayer = markerLayer
-    this.grid_cells = this.grid.rectangle({
-      width: width,
-      height: height,
-      direction: 'E'
-    })
-
-    // the hexes all have the same corners object, so just use the first one
-    const hexOne = this.grid_cells[0]
-    this.corners = hexOne.corners()
-
-    // get the coordinates of the centre of the hex, relative
-    // to the top-left origin
-    this.centreH = hexOne.center()
-
-    // and the coords of the top-left origin
-    const cellOrigin = hexOne.coordinates()
-
-    // capture the offset between a cell centre, and the cell origin
-    this.centreOffset = L.point(this.centreH).subtract(L.point(cellOrigin))
-  }
-
-  /** get the array of cells */
-  get cells () {
-    return this.grid_cells
-  }
-
-  /** convert this point in cell coordinates to lat/long */
-  toWorld (point) {
-    return this.toWorld2(this.origin, point)
-  }
-
-  /** calculate the position from the supplied offset */
-  toWorld2 (origin, point) {
-    return L.latLng(origin.lat - point.x * this.delta, origin.lng + point.y * this.delta)
-  }
-
-  /** get the hex cell for a location
-     */
-  cellFor (latLng) {
-    // convert to hex coordinates
-    const hexCoords = toHex(latLng, this.origin, this.delta)
-
-    // apply the offset, since the cell origin is at the top left
-    let cellCoords = L.point(hexCoords.x + this.centreOffset.x, hexCoords.y + this.centreOffset.y)
-
-    // find the nearest hex cell reference to this location
-    cellCoords = this.grid.pointToHex(cellCoords.x, cellCoords.y)
-
-    // and now retrieve the cell at these coords
-    return this.cells.get(cellCoords)
-  }
-
   /** generate the hexagons, and add them to thie supplied layer */
   addShapesTo (gridLayer) {
     // add the grid to the map
