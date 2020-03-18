@@ -6,7 +6,9 @@
  */
 
 import padInt from './padInteger'
+import roundToNearest from './roundToNearest'
 
 export {
-  padInt
+  padInt, 
+  roundToNearest
 }
