@@ -32,6 +32,7 @@
     "@types/babel-core": "^6.25.6",
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^25.1.2",
+    "@types/lodash": "^4.14.149",
     "@types/node-sass": "^4.11.0",
     "@types/react-leaflet": "^2.5.1",
     "@types/react-test-renderer": "^16.9.2",
