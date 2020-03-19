@@ -4,8 +4,4 @@
  * in other packages
  */
 
-import ProgressIndicator from './local/progress-indicator'
-
-export {
-  ProgressIndicator
-}
+export { default as ProgressIndicator } from './local/progress-indicator'

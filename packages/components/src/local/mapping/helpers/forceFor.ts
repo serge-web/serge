@@ -1,4 +1,6 @@
-export default function forceFor (/* object */ allForces, /* String */ assetId) {
+import Force from '@serge/custom-types/force'
+
+const forceFor = (allForces: Array<Force>, assetId: string): any => {
   return allForces.find(force => {
     const assets = force.assets
     if (assets) {
@@ -7,4 +9,6 @@ export default function forceFor (/* object */ allForces, /* String */ assetId) 
       return false
     }
   })
-};
+}
+
+export default forceFor
