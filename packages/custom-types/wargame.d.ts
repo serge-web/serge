@@ -1,7 +1,7 @@
-import { WargameList } from './wargame-list.interface'
-import { WargameData } from './wargame-data.interface'
+import WargameList from './wargame-list'
+import WargameData from './wargame-data'
 
-export interface Wargame {
+export default interface Wargame {
   isLoading: boolean,
   wargameList: Array<WargameList>,
   currentWargame: string,

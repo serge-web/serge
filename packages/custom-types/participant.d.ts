@@ -1,6 +1,6 @@
-import { Role } from './role.interface'
+import Role from './role'
 
-export interface Participant {
+export default interface Participant {
   force: string,
   forceUniqid: string,
   roles: Array<Role>,

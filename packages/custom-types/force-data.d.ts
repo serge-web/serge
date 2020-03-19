@@ -1,6 +1,6 @@
-import { Role } from './role.interface'
+import Role from './role'
 
-export interface ForceData {
+export default interface ForceData {
   name: string,
   uniqid: string,
   overview: string,

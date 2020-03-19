@@ -1,6 +1,6 @@
-import { States } from './states.interface'
+import States from './states'
 
-export interface PlatformTypeData {
+export default interface PlatformTypeData {
   name: string,
   conditions: Array<string>,
   icon: string,

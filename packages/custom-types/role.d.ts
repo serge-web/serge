@@ -1,4 +1,4 @@
-export interface Role {
+export default interface Role {
   name: string,
   password: string,
   control: boolean,

@@ -1,4 +1,4 @@
-export interface Template {
+export default interface Template {
   label: string,
   value: {
     _id: string,
