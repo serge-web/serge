@@ -1,0 +1,117 @@
+$orders-max-height: 520px;
+
+.orders-panel {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #5f5f60;
+  z-index: 410; //map z-index = 399
+  padding: 0.5em 0.7em 1rem;
+  font-size: 14px;
+  min-width: 260px;
+  border-radius: 4px;
+  max-height: 95%;
+
+  &__header {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    font-weight: bold;
+    margin-right: 0.5em;
+  }
+
+  &__subtitle {
+    font-weight: bold;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__actions {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-left: 20px;
+  }
+
+  &__number {
+    margin-right: 5px;
+  }
+
+  &__toggler {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #5f5f60;
+    padding: 2px;
+    cursor: pointer;
+
+    &::after,
+    &::before {
+      content: "";
+      display: block;
+      height: 100%;
+      width: 0;
+      transform-origin: center;
+      box-shadow: 0 0 0 0.8px #5f5f60;
+      margin: 0 auto;
+      transition: all 100ms linear;
+    }
+
+    &::after {
+      margin-top: -100%;
+    }
+    &::before {
+      transform: rotate(90deg);
+    }
+
+    &--active {
+      &::before,
+      &::after {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  &__footer {
+    button {
+      font-size: 12px;
+      color: #fff;
+      text-transform: uppercase;
+      background-color: #55677b;
+      border-radius: 4px;
+      padding: 4px 14px;
+    }
+  }
+}
+
+/* Some components use a slide-in-out animation, this is the CSS for that */
+
+.slideorders-enter,
+.slideorders-leave {
+  overflow: hidden;
+}
+
+.slideorders-enter {
+  max-height: 0;
+}
+
+.slideorders-enter.slideorders-enter-active {
+  transition: max-height 500ms ease-in-out;
+  max-height: $orders-max-height;
+}
+
+.slideorders-leave {
+  max-height: $orders-max-height;
+}
+
+.slideorders-leave.slideorders-leave-active {
+  transition: max-height 200ms ease-in-out;
+  max-height: 0;
+}
