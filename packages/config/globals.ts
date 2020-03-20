@@ -20,6 +20,8 @@ export const UMPIRE_FORCE = 'umpire'
 
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
 
+//TODO: Some of the below would be better to either come from a database or be replaced with ENUMS
+
 // series of constants used for `messageType` when sending map events
 export const FORCE_LAYDOWN = 'ForceLaydown'
 export const VISIBILIY_CHANGES = 'VisibilityChanges'
