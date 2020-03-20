@@ -4,6 +4,8 @@ import React from 'react'
 import OrdersPanel from './index'
 import docs from './README.md'
 
+import { data } from './mocks'
+
 export default {
   title: 'local/OrdersPanel',
   component: OrdersPanel,
@@ -16,4 +18,4 @@ export default {
   }
 }
 
-export const Default: React.FunctionComponent = () => <OrdersPanel selectedForce="" phase="" turn="" />
+export const Default: React.FunctionComponent = () => <OrdersPanel selectedForce={data.selectedForce} phase={data.phase} />

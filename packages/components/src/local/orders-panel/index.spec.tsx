@@ -7,7 +7,7 @@ import OrdersPanel from './index'
 
 it('OrdersPanel renders correctly', () => {
   const tree = renderer
-    .create(<OrdersPanel name="test" colour="blue" />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .create(<OrdersPanel selectedForce={data.selectedForce} phase={data.phase} />)
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})
