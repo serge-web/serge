@@ -1,5 +1,5 @@
 // TODO: Unsure what to do about consts yet so I'm going to revisit this later.
-import { UMPIRE_FORCE } from '../../../consts'
+import { UMPIRE_FORCE } from '@serge/config'
 
 /** provide a list of the assets that are currently visible to me
  * i.e. either from my Force, or currently visible (has a perception entry for my force)

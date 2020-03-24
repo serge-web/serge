@@ -45,8 +45,8 @@ export const ERROR_THROTTLE = 3000
 // review instances, we can't predict the URL, so
 // were failing CORS test
 export const baseUrl = () => {
-  const { hostname, protocol } = window.location
-  const host = (new URL(window.location)).searchParams.get('host')
+  const { hostname, protocol, href } = window.location
+  const host = (new URL(href)).searchParams.get('host')
 
   // NOTE: for all non-heroku deployments, we need to append the port number
   const portDetails = hostname.toLowerCase().indexOf('herokuapp') !== -1 ? '' : ':' + DEFAULT_PORT

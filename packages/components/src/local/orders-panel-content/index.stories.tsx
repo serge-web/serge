@@ -4,7 +4,6 @@ import React from 'react'
 import OrdersPanelContent from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/OrdersPanelContent',
   component: OrdersPanelContent,
@@ -17,5 +16,4 @@ export default {
   }
 }
 
-export const Default: React.FunctionComponent = () => <OrdersPanelContent />
-
+export const Default: React.FunctionComponent = () => <OrdersPanelContent name="temp" colour="blue" />

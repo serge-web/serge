@@ -26,7 +26,7 @@ import { easyBar, easyButton } from 'leaflet-easybutton'
 import MappingForm from '../components/MappingForm'
 
 import findLastRouteWithLocation from './findLastRouteLocation'
-import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_ACCEPTED } from '../../../consts'
+import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_ACCEPTED } from '@serge/config'
 
 export default class MapPlanningPlayerListener {
   constructor (layer, map, grid, force, turn, submitPlansCallback, updatePlansCallback, platformTypes, allForces, declutterCallback,

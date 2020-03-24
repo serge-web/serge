@@ -1,7 +1,6 @@
 import L from 'leaflet'
 import defaultHexStyle from '../data/default-hex-style'
 import colorFor from './colorFor'
-import { LOCATION_PENDING } from '../../../consts'
 
 export default class MapAdjudicationPendingListener {
   constructor (map, grid, callback, myForce) {

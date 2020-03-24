@@ -4,7 +4,6 @@ import React from 'react'
 import MappingGridLayer from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/MappingGridLayer',
   component: MappingGridLayer,
@@ -17,5 +16,4 @@ export default {
   }
 }
 
-export const Default: React.FunctionComponent = () => <MappingGridLayer />
-
+export const Default: React.FunctionComponent = () => <MappingGridLayer name="temp" colour="red"/>

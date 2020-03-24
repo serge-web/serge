@@ -3,5 +3,9 @@
   "version": "0.3.0",
   "license": "Apache-2.0",
   "author": "foxleigh81 <alex@alexfoxleigh.com>",
-  "dependencies": {}
+  "dependencies": {
+    "@types/expired-storage": "^1.0.0",
+    "expired-storage": "^1.0.2",
+    "typescript": "^3.8.3"
+  }
 }

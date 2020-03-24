@@ -24,7 +24,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "build", "scripts", "jest/config", "./src/local/mapping-grid-layer"],
+  "include": ["./**/*"],
+  "exclude": ["node_modules"],
   "files": ["typings.d.ts"]
 }

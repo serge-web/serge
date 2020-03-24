@@ -1,9 +1,9 @@
 import turnNameFor from './turnNameFor'
 
 const collateNewStatesMessage = (allAssets: Array<any>, turnNumber: number): any => {
-  const message = {}
-  const perForceStates = allAssets.map(data => {
-    const newState = {}
+  const message: any = {}
+  const perForceStates: any = allAssets.map(data => {
+    const newState: any = {}
     const asset = data.asset
     newState.uniqid = asset.uniqid
     newState.name = asset.name
@@ -17,7 +17,7 @@ const collateNewStatesMessage = (allAssets: Array<any>, turnNumber: number): any
       newState.plannedTurns = data.current
       newState.newState = data.newState
     }
-    let force
+    let force: string
     if (asset.force) {
       force = asset.force
     } else {
@@ -26,7 +26,7 @@ const collateNewStatesMessage = (allAssets: Array<any>, turnNumber: number): any
     }
 
     // see if we need to create a new list for this force
-    let thisForce = perForceStates.find(entry => entry.name === force)
+    let thisForce = perForceStates.find((entry: any): boolean => entry.name === force)
     if (!thisForce) {
       thisForce = { name: force }
       thisForce.assets = []

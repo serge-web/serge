@@ -1,4 +1,4 @@
-import Force from '@serge/custom-types/force'
+import { Force } from '@serge/custom-types'
 
 const forceFor = (allForces: Array<Force>, assetId: string): any => {
   return allForces.find(force => {

@@ -3,7 +3,7 @@ import { defineGrid } from 'honeycomb-grid'
 import cellTypes from '../data/cell-types'
 import defaultHexStyle from '../data/default-hex-style'
 import organicHexStyle from '../data/organic-hex-style'
-import padInt from '../../../Helpers/padInteger'
+import { padInt } from '@serge/helpers'
 
 export default class GridImplementation {
   constructor ({ origin, delta, width, height, markerLayer }) {
@@ -49,8 +49,8 @@ export default class GridImplementation {
 
   /** convert this lat/long to Hex coordinates */
   toHex (point) {
-    var latVal = (this.origin.lat - point.lat) / this.delta
-    var lngVal = (point.lng - this.origin.lng) / this.delta
+    const latVal = (this.origin.lat - point.lat) / this.delta
+    const lngVal = (point.lng - this.origin.lng) / this.delta
     return L.point(latVal, lngVal)
   }
 
@@ -73,7 +73,7 @@ export default class GridImplementation {
      */
   cellFor (latLng) {
     // convert to hex coordinates
-    var hexCoords = this.toHex(latLng)
+    const hexCoords = this.toHex(latLng)
 
     // apply the offset, since the cell origin is at the top left
     let cellCoords = L.point(hexCoords.x + this.centreOffset.x, hexCoords.y + this.centreOffset.y)
@@ -134,7 +134,7 @@ export default class GridImplementation {
       // determine styling, based upon `organic` flag
       const gridTextClass = hex.organic ? 'cell-label-black' : 'cell-label'
       const gridHexStyle = hex.organic ? organicHexStyle : defaultHexStyle
-      
+
       // now create the polygon
       const polygon = L.polygon(cornerArr, gridHexStyle)
 

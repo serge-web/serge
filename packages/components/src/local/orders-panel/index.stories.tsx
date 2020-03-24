@@ -4,7 +4,7 @@ import React from 'react'
 import OrdersPanel from './index'
 import docs from './README.md'
 
-import { data } from './mocks'
+import data from './mocks'
 
 export default {
   title: 'local/OrdersPanel',

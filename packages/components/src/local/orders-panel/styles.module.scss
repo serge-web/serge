@@ -14,7 +14,7 @@ $orders-max-height: 520px;
   border-radius: 4px;
   max-height: 95%;
 
-  &__header {
+  .header {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -22,18 +22,18 @@ $orders-max-height: 520px;
     text-transform: uppercase;
   }
 
-  &__title {
+  .title {
     font-weight: bold;
     margin-right: 0.5em;
   }
 
-  &__subtitle {
+  .subtitle {
     font-weight: bold;
     font-size: 0.8rem;
     margin-bottom: 0.5rem;
   }
 
-  &__actions {
+  .actions {
     flex: 1;
     display: flex;
     align-items: center;
@@ -41,11 +41,11 @@ $orders-max-height: 520px;
     margin-left: 20px;
   }
 
-  &__number {
+  .number {
     margin-right: 5px;
   }
 
-  &__toggler {
+  .toggler {
     width: 15px;
     height: 15px;
     border: 1px solid #5f5f60;
@@ -79,7 +79,7 @@ $orders-max-height: 520px;
     }
   }
 
-  &__footer {
+  .footer {
     button {
       font-size: 12px;
       color: #fff;

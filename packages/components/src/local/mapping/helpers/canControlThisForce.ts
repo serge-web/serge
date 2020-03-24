@@ -7,7 +7,7 @@ const canControlThisForce = (allForces: Array<any>, subjectForceId: string, myFo
     if (!thisForce) {
       console.error('can\'t find forceId', subjectForceId)
     } else {
-      return !!(thisForce.controlledBy && thisForce.controlledBy.find(name => name === myForceId))
+      return !!(thisForce.controlledBy && thisForce.controlledBy.find((name: string): boolean => name === myForceId))
     }
   }
 }
