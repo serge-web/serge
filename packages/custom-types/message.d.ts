@@ -6,6 +6,7 @@ export default interface Message {
       forceColor: string,
       role: string,
       icon: string
+      name?: string
     }
     messageType: string,
     timestamp: string,
