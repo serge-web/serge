@@ -4,6 +4,7 @@ import React from 'react'
 import MessagesList from './index'
 import docs from './README.md'
 
+import { MessagesMock } from '@serge/mocks'
 
 export default {
   title: 'local/MessagesList',
@@ -17,5 +18,5 @@ export default {
   }
 }
 
-export const Default: React.FunctionComponent = () => <MessagesList />
+export const Default: React.FC = () => <MessagesList userId="" messages={MessagesMock} allMarkedRead={false} />
 
