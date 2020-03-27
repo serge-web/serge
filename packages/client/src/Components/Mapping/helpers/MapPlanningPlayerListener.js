@@ -21,6 +21,8 @@ import viewMapAs from './viewMapAs'
 import getPlannedAssetLocation from './getPlannedAssetLocation'
 import adjudicatingAcceptRoute from './adjudicatingAcceptRoute'
 import cellsValidForThisDomain from './cellsValidForThisDomain'
+import updateRouteLineForForce from './updateRouteLineForForce'
+import simplifyHexes from './simplifyHexes'
 
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
@@ -753,21 +755,6 @@ export default class MapPlanningPlayerListener {
     })
   }
 
-  /** as we build up lists of cells (for a route), they will typically
-   * be full hex grid cell structures.  Here we switch them to just
-   * their names, ready to be sent off around the wargame
-   */
-  simplifyHexes (/* array<hex cell */cells) {
-    return cells.map(cell => cell.name)
-  }
-
-  updateRouteLineForForce (/* string */ force, /* Line */ line) {
-    const hisColor = colorFor(force)
-    line.setStyle({
-      color: hisColor
-    })
-  }
-
   clearOnNewLeg () {
     this.clearAchievableCells()
     this.drag.lats = []
@@ -1217,8 +1204,8 @@ export default class MapPlanningPlayerListener {
       this.updateAchievableCellsFor(this.drag.startHex, marker.planning.remaining, marker.travelMode)
 
       // set the route-line color
-      this.updateRouteLineForForce(marker.force, this.routeLine)
-      this.updateRouteLineForForce(marker.force, this.plannedLine)
+      updateRouteLineForForce(marker.force, this.routeLine)
+      updateRouteLineForForce(marker.force, this.plannedLine)
 
       // handle movement of the planning marker
       this.planningMarker.on('drag', e => {
@@ -1311,7 +1298,7 @@ export default class MapPlanningPlayerListener {
         // if we have no more leg, push this one, and give us a fresh allowance
         if (marker.planning.remaining === 0 || marker.planning.allowance >= 100) {
           // capture this planned leg
-          const hexList = this.simplifyHexes(this.turn.hexes)
+          const hexList = simplifyHexes(this.turn.hexes)
           this.storeNewPlanningRoute(newState, hexList)
 
           this.plannedLine.setLatLngs([])
