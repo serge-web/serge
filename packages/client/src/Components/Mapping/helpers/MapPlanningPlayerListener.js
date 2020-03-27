@@ -16,10 +16,10 @@ import canControlThisForce from './canControlThisForce'
 import collateNewStatesMessage from './collateNewStatesMessage'
 import collatePlanningOrders from './collatePlanningOrders'
 import getVisibilityButtonsFor from './createVisibilityButtonsFor'
-import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 import MapPopupHelper from './mapPopupHelper'
 import viewMapAs from './viewMapAs'
 import getPlannedAssetLocation from './getPlannedAssetLocation'
+import adjudicatingAcceptRoute from './adjudicatingAcceptRoute'
 
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
@@ -841,56 +841,6 @@ export default class MapPlanningPlayerListener {
     context.platformStateAssigned(thisAssetData.marker, newState)
   }
 
-  adjudicatingAcceptRoute (asset) {
-    if (asset.destroyed) {
-      // don't bother accepting it
-    } else {
-      // find the data
-      const thisAssetData = this.allRoutes.find(block => block.asset.uniqid === asset.uniqid)
-
-      // capture current state into history
-      thisAssetData.newHistory = { turn: this.turnNumber, status: asset.status, route: asset.route, position: asset.position }
-
-      // update the status
-      thisAssetData.newState = newStateFromPlannedTurns(thisAssetData.current, thisAssetData.asset.status, thisAssetData.asset.position)
-
-      // only add a new marker if asset is moving
-      if (asset.position !== thisAssetData.newState.position) {
-        // get the coords for the current location
-        const loc = this.grid.hexNamed(thisAssetData.newState.position).centrePos
-
-        // create a marker for this platform
-        const forceClass = asset.force.toLowerCase()
-        const typeClass = asset.platformType.replace(/ /g, '-').toLowerCase()
-        const iconClass = `platform-counter platform-force-${forceClass} platform-type-${typeClass}`
-        const divIcon = L.divIcon({
-          iconSize: [40, 40],
-          className: iconClass
-        })
-
-        // make the original marker faint
-        L.DomUtil.addClass(thisAssetData.marker._icon, 'platform-counter-planned')
-
-        // ok, drop a new marker, on the new location
-        // work out if the current state is mobile or not
-        thisAssetData.planningMarker = L.marker(loc, {
-          draggable: false,
-          icon: divIcon,
-          zIndexOffset: 1000
-        })
-        // special handling. Don't declutter the planning marker, we want it in the centre of the cell
-        thisAssetData.planningMarker.do_not_declutter = true
-        thisAssetData.planningMarker.asset = thisAssetData.asset
-        this.layerMarkers.addLayer(thisAssetData.planningMarker)
-      }
-    }
-
-    this.updateSubmitButtonLabel()
-
-    // lastly, tell the plans form that we've updated
-    this.updatePlansCallback(collateNewStatesMessage(this.allRoutes, this.turnNumber))
-  }
-
   /** accept the planned state for all remaining platforms */
   adjudicatingAcceptAllStates () {
     // produce the required state
@@ -898,7 +848,12 @@ export default class MapPlanningPlayerListener {
       // has it been accepted yet?
       if (!data.newState) {
         // pull planned route forward to actual
-        this.adjudicatingAcceptRoute(data.asset)
+        adjudicatingAcceptRoute(data.asset, this.turnNumber, this.allRoutes,
+          this.layerMarkers, this.grid)
+        this.updateSubmitButtonLabel()
+
+        // lastly, tell the plans form that we've updated
+        this.updatePlansCallback(collateNewStatesMessage(this.allRoutes, this.turnNumber))
       }
     })
     this.btnListAccept = clearButtons(this.btnListAccept)
@@ -1068,7 +1023,12 @@ export default class MapPlanningPlayerListener {
       // just check that we haven't already accepted it
       if (!this.currentRoute.newState) {
         // ok, just store the new state
-        this.adjudicatingAcceptRoute(asset, this)
+        adjudicatingAcceptRoute(asset, this.turnNumber, this.allRoutes,
+          this.layerMarkers, this.grid)
+        this.updateSubmitButtonLabel()
+
+        // lastly, tell the plans form that we've updated
+        this.updatePlansCallback(collateNewStatesMessage(this.allRoutes, this.turnNumber))
       }
     } else {
       const newStatus = { status: data.currentMarkerStatus, position: asset.position }
@@ -1091,7 +1051,12 @@ export default class MapPlanningPlayerListener {
         this.currentRoute.current = [newStatus]
 
         // and now store it
-        this.adjudicatingAcceptRoute(asset, this)
+        adjudicatingAcceptRoute(asset, this.turnNumber, this.allRoutes,
+          this.layerMarkers, this.grid)
+        this.updateSubmitButtonLabel()
+
+        // lastly, tell the plans form that we've updated
+        this.updatePlansCallback(collateNewStatesMessage(this.allRoutes, this.turnNumber))
       }
     }
   }
