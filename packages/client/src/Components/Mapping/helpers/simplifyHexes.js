@@ -3,6 +3,6 @@
  * be full hex grid cell structures.  Here we switch them to just
  * their names, ready to be sent off around the wargame
  */
-simplifyHexes (/* array<hex cell */cells) {
+export default function simplifyHexes (/* array<hex cell */cells) {
   return cells.map(cell => cell.name)
 }
