@@ -7,7 +7,7 @@
   "scripts": {
     "storybook": "start-storybook -s ./static",
     "build": "rimraf build && yarn copy && tsc && yarn cleanup",
-    "watch": "tsc --watch",
+    "watch": "yarn tsc --watch",
     "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",
     "cleanup": "rimraf build/vendor && rimraf build/local/**/mocks && rimraf build/local/**/*.stories.* && rimraf build/local/**/*.spec.*",
     "test": "run-p test:*",

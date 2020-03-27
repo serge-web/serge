@@ -11,9 +11,12 @@ import getClassName from './helpers/getClassName'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const ProgressIndicator: React.FC<PropTypes> = ({ tabs, currentTab }: PropTypes) =>
+export const ProgressIndicator: React.FC<PropTypes> = ({ tabs, currentTab }: PropTypes) => 
   <div className={styles.progress}>
-    {tabs.map(tab => <div key={tab.name} className={styles[getClassName(tab, currentTab)]} />)}
+    {tabs.map((tab: any) => {
+      console.log(getClassName(tab, currentTab))
+      return <div key={tab.name} className={styles['active']} />
+    })}
   </div>
 
 /* export component */

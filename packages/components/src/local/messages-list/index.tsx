@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 import Message from '../message'
 
 /* Render component */
-export const MessagesList: React.FC<PropTypes> = ({ messageType, userId, messages, allMarkedRead }: PropTypes) => {
+export const MessagesList: React.FC<PropTypes> = ({ userId, messages, allMarkedRead }: PropTypes) => {
   const messageState = messages.map(message => {
     const hasBeenRead = expiredStorage.getItem(`${userId}${message._id}`) === 'read'
     return {

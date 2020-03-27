@@ -1,10 +1,43 @@
 {
-  "extends": "./tsconfig.build.json",
-
+  "exclude": ["node_modules", "dist", "build", "lib", "__tests__", "**/*.test*"],
   "compilerOptions": {
-    "baseUrl": "./packages",
+    "skipLibCheck": false,
+    "target": "esnext",
+    "module": "commonjs",
+    "lib": ["es5", "es6", "es7", "es2017", "dom"],
+    "jsx": "react",
+    "rootDir": ".",
+    "outDir": "build",
+    "downlevelIteration": true,
+    "strict": true,
+    "removeComments": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
     "paths": {
-      "@serge/*": ["*/src"]
-    }
-  }
+      "@serge/*": ["packages/"]
+    },
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+  },
+  "files": [
+    "packages/components/typings.d.ts",
+    "packages/config/typings.d.ts",
+  ],
+  "references": [
+    { "path": "packages/components" },
+    { "path": "packages/config" },
+    { "path": "packages/custom-types" },
+    { "path": "packages/helpers" },
+    { "path": "packages/mocks" },
+    { "path": "packages/templates" }
+  ]
 }
