@@ -18,8 +18,7 @@ import collatePlanningOrders from './collatePlanningOrders'
 import getVisibilityButtonsFor from './createVisibilityButtonsFor'
 import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 import MapPopupHelper from './mapPopupHelper'
-import findPerceivedAsClassName from './findPerceivedAsClassName'
-import handleMarker from './handleMarker'
+import viewMapAs from './viewMapAs'
 
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
@@ -105,7 +104,6 @@ export default class MapPlanningPlayerListener {
 
     // if we're umpire force, introduce 'view as' buttons
     if (this.force === UMPIRE_FORCE) {
-      const context = this
       const btns = []
       forceNames.forEach(name => {
         // check if this force is being controlled by another, in which case we don't need
@@ -116,7 +114,7 @@ export default class MapPlanningPlayerListener {
           const title = 'View as ' + name
           const button = L.easyButton('<span title="' + title + '" style="font-size:18px;color:' + color + ';" class="fa fa-globe-europe"/>', () => {
             // update the UI
-            context.viewAs(name, allMarkers, this.allRoutes)
+            viewMapAs(name, allMarkers, this.allRoutes, this.map)
             // clear any other selected states
             btns.forEach(btn => {
               btn.enable()
@@ -192,36 +190,6 @@ export default class MapPlanningPlayerListener {
     if (layer) {
       context.layerPriv.addLayer(layer)
     }
-  }
-
-  viewAs (/* string */ force, /* layer */ allMarkers, /* routes[] */ allRoutes) {
-    const viewAsUmpire = force === UMPIRE_FORCE
-    // loop through markers, updating their styling
-    allMarkers.eachLayer(marker => {
-      // can we see this asset?
-      const asset = marker.asset
-      handleMarker(force, marker, asset, viewAsUmpire)
-    })
-
-    // also do this for the future location markers
-    allRoutes.forEach(route => {
-      const marker = route.planningMarker
-      if (marker) {
-        const asset = marker.asset
-        handleMarker(force, marker, asset, viewAsUmpire)
-      }
-    })
-
-    // also do this for the planning routes
-    allRoutes.forEach(route => {
-      const asset = route.asset
-      const perceptionClassName = findPerceivedAsClassName(force, asset.force, asset.platformType, asset.perceptions, viewAsUmpire)
-      if (perceptionClassName) {
-        route.lightRoutes.addTo(this.map)
-      } else {
-        route.lightRoutes.remove()
-      }
-    })
   }
 
   setupAdjudicationButtons () {
