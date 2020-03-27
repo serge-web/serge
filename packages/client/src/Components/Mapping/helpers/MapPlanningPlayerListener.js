@@ -19,7 +19,7 @@ import getVisibilityButtonsFor from './createVisibilityButtonsFor'
 import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 import MapPopupHelper from './mapPopupHelper'
 import findPerceivedAsClassName from './findPerceivedAsClassName'
-import removeClassNamesFrom from './removeClassNamesFrom'
+import handleMarker from './handleMarker'
 
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
@@ -116,7 +116,7 @@ export default class MapPlanningPlayerListener {
           const title = 'View as ' + name
           const button = L.easyButton('<span title="' + title + '" style="font-size:18px;color:' + color + ';" class="fa fa-globe-europe"/>', () => {
             // update the UI
-            context.viewAs(name, allMarkers)
+            context.viewAs(name, allMarkers, this.allRoutes)
             // clear any other selected states
             btns.forEach(btn => {
               btn.enable()
@@ -194,43 +194,26 @@ export default class MapPlanningPlayerListener {
     }
   }
 
-  handleMarker (/* string */ force, /* element */ marker, /* element  */ asset, /* boolean */ viewAsUmpire) {
-    const perceptionClassName = findPerceivedAsClassName(force, asset.force, asset.platformType, asset.perceptions, viewAsUmpire)
-    if (perceptionClassName) {
-      // remove existing class names
-      removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
-
-      // set the new class names
-      L.DomUtil.addClass(marker._icon, perceptionClassName)
-
-      // reveal it, just to be sure
-      L.DomUtil.removeClass(marker._icon, 'marker-hidden')
-    } else {
-      // hide it
-      L.DomUtil.addClass(marker._icon, 'marker-hidden')
-    }
-  }
-
-  viewAs (/* string */ force, /* layer */ allMarkers) {
+  viewAs (/* string */ force, /* layer */ allMarkers, /* routes[] */ allRoutes) {
     const viewAsUmpire = force === UMPIRE_FORCE
     // loop through markers, updating their styling
     allMarkers.eachLayer(marker => {
       // can we see this asset?
       const asset = marker.asset
-      this.handleMarker(force, marker, asset, viewAsUmpire)
+      handleMarker(force, marker, asset, viewAsUmpire)
     })
 
     // also do this for the future location markers
-    this.allRoutes.forEach(route => {
+    allRoutes.forEach(route => {
       const marker = route.planningMarker
       if (marker) {
         const asset = marker.asset
-        this.handleMarker(force, marker, asset, viewAsUmpire)
+        handleMarker(force, marker, asset, viewAsUmpire)
       }
     })
 
     // also do this for the planning routes
-    this.allRoutes.forEach(route => {
+    allRoutes.forEach(route => {
       const asset = route.asset
       const perceptionClassName = findPerceivedAsClassName(force, asset.force, asset.platformType, asset.perceptions, viewAsUmpire)
       if (perceptionClassName) {
