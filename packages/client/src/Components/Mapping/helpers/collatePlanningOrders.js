@@ -1,5 +1,6 @@
 import turnNameFor from './turnNameFor'
-// WARNING - THIS FUNCTION IS NOT USED, AN INLINE VERSION IS IN USE
+
+/** process the set of planned routes, to create a structured plans message */
 export default function collatePlanningOrders (/* array */routes, /* int */ turnNumber) {
   const firstAsset = routes.find(route => route.asset != null).asset
   const detail = []
@@ -25,14 +26,14 @@ export default function collatePlanningOrders (/* array */routes, /* int */ turn
       })
     }
     thisRoute.plannedTurns = plannedTurns
-
     detail.push(thisRoute)
   })
   const res = {}
   res.comment = ''
-  res.turn = this.turnNumber + 1
+  res.turn = turnNumber + 1
   res.name = firstAsset.force + ' Plans for ' + turnNameFor(res.turn)
   res.force = firstAsset.force
+
   res.plannedRoutes = detail
   return res
 }
