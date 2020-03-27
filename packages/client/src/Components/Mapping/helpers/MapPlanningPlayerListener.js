@@ -20,6 +20,7 @@ import MapPopupHelper from './mapPopupHelper'
 import viewMapAs from './viewMapAs'
 import getPlannedAssetLocation from './getPlannedAssetLocation'
 import adjudicatingAcceptRoute from './adjudicatingAcceptRoute'
+import cellsValidForThisDomain from './cellsValidForThisDomain'
 
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
@@ -397,24 +398,6 @@ export default class MapPlanningPlayerListener {
     this.layerPriv.clearLayers()
   }
 
-  /** create a new list of cells, that have been filtered to those
-   * that are applicable to the provided domain
-   */
-  cellsValidForThisDomain (/* array */ cells, /* string */ domain) {
-    return cells.filter(cell => {
-      switch (domain) {
-        case 'land':
-          return cell.land || cell.organic
-        case 'sea':
-          return cell.sea || cell.organic
-        case 'air':
-          return true
-        default:
-          return true
-      }
-    })
-  }
-
   /** build up our working dataset for this asset */
   adjudicationDataFor (marker) {
     const asset = marker.asset
@@ -760,7 +743,7 @@ export default class MapPlanningPlayerListener {
     }
 
     // filter the achievable cells for his domain
-    this.achievableCells = this.cellsValidForThisDomain(this.achievableCells, travelMode)
+    this.achievableCells = cellsValidForThisDomain(this.achievableCells, travelMode)
 
     // plot the available range
     this.achievableCells.forEach(cell => {
