@@ -7,7 +7,6 @@ import createButton from './createDebugButton'
 import clearButtons from './clearButtons'
 import resetCurrentLeg from './resetLegsFrom'
 import getClearedRoute from './getClearedRoute'
-import routeLinesFor from './routeLinesFor'
 import turnNameFor from './turnNameFor'
 import roundToNearest from './roundToNearest'
 import findPlatformTypeFor from './findPlatformTypeFor'
@@ -23,6 +22,7 @@ import adjudicatingAcceptRoute from './adjudicatingAcceptRoute'
 import cellsValidForThisDomain from './cellsValidForThisDomain'
 import updateRouteLineForForce from './updateRouteLineForForce'
 import simplifyHexes from './simplifyHexes'
+import createPlanningRouteFor from './createPlanningRouteFor'
 
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
@@ -416,7 +416,7 @@ export default class MapPlanningPlayerListener {
       current_perceptions: JSON.parse(JSON.stringify(asset.perceptions)),
       original_condition: asset.condition,
       current_condition: JSON.parse(JSON.stringify(asset.condition)),
-      lightRoutes: this.createPlanningRouteFor(clonedTurns, asset.history, asset, true, true, false)
+      lightRoutes: createPlanningRouteFor(clonedTurns, asset.history, asset, true, true, false, this.grid, this, this.waypointCallback, this.performingAdjudication)
     }
   }
 
@@ -432,7 +432,7 @@ export default class MapPlanningPlayerListener {
       original: plannedTurns,
       current: clonedTurns,
       platformType: findPlatformTypeFor(platformTypes, asset.platformType),
-      lightRoutes: this.createPlanningRouteFor(clonedTurns, asset.history, asset, true, false, false)
+      lightRoutes: createPlanningRouteFor(clonedTurns, asset.history, asset, true, false, false, this.grid, this, this.waypointCallback, this.performingAdjudication)
     }
   }
 
@@ -505,28 +505,6 @@ export default class MapPlanningPlayerListener {
     context.btnListWaypoints.push(btnResetFromWaypoint)
   }
 
-  createPlanningRouteFor (/* array turns */ currentRoutes, /* array turns */ history, /* object */ asset, /* boolean */ lightweight, /* boolean */short, /* boolean */ highlight) {
-    const hisLocation = this.grid.hexNamed(asset.position).centrePos
-    const context = this
-
-    // ok, special handling. we will only show the planned route for the next turn
-    // if we're in adjucation mode
-    let trimmedRoute = null
-    if (this.performingAdjudication) {
-      const justNextStep = currentRoutes && currentRoutes.length ? [currentRoutes[0]] : []
-      trimmedRoute = short ? justNextStep : currentRoutes
-      // if (history) {
-      //   history = history.slice(-1)
-      // }
-    } else {
-      trimmedRoute = currentRoutes
-    }
-
-    const forceColor = colorFor(asset.force)
-
-    return routeLinesFor(trimmedRoute, history, hisLocation, asset.position, lightweight, this.grid, forceColor, this.waypointCallback, null, highlight, context)
-  }
-
   /** user has used either the command buttons, or the popup dialog to choose a new platform state */
   stateSelectedCallback (/* object */ stateName, /* number */ speedKts) {
     // store the state - we'll use it for all legs, until the player changes their mind
@@ -561,7 +539,7 @@ export default class MapPlanningPlayerListener {
       context.currentRoute.lightRoutes.remove()
       context.currentRoute.lightRoutes.clearLayers()
       context.currentRoute.lightRoutes = context.createPlanningRouteFor(context.currentRoute.current, context.currentRoute.marker.asset.history,
-        context.currentRoute.marker.asset, !detailed, false, detailed)
+        context.currentRoute.marker.asset, !detailed, false, detailed, context.grid, context, context.waypointCallback, context.performingAdjudication)
       context.storeLayer(context.currentRoute.lightRoutes, context)
     }
   }
@@ -848,7 +826,7 @@ export default class MapPlanningPlayerListener {
       data.lightRoutes.remove()
 
       // and create a light weight one
-      data.lightRoutes = this.createPlanningRouteFor(data.current, data.asset.history, data.asset, true, true, false)
+      data.lightRoutes = createPlanningRouteFor(data.current, data.asset.history, data.asset, true, true, false, this.grid, this, this.waypointCallback, this.performingAdjudication)
       this.showLayer(data.lightRoutes, this)
 
       // we may also need to clear up
@@ -867,7 +845,7 @@ export default class MapPlanningPlayerListener {
     this.currentRoute = data
 
     // and replace it with heavyweight
-    data.lightRoutes = this.createPlanningRouteFor(data.current, data.asset.history, data.asset, false, false, true)
+    data.lightRoutes = createPlanningRouteFor(data.current, data.asset.history, data.asset, false, false, true, this.grid, this, this.waypointCallback, this.performingAdjudication)
     this.showLayer(data.lightRoutes, this)
 
     // special handling for turn zero
