@@ -19,13 +19,13 @@ import getVisibilityButtonsFor from './createVisibilityButtonsFor'
 import newStateFromPlannedTurns from './newStateFromPlannedTurns'
 import MapPopupHelper from './mapPopupHelper'
 import viewMapAs from './viewMapAs'
+import getPlannedAssetLocation from './getPlannedAssetLocation'
 
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
 
 import MappingForm from '../components/MappingForm'
 
-import findLastRouteWithLocation from './findLastRouteLocation'
 import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_ACCEPTED } from '../../../consts'
 
 export default class MapPlanningPlayerListener {
@@ -339,7 +339,7 @@ export default class MapPlanningPlayerListener {
           clearTurns.remove()
 
           // call on update callback
-          this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
+          this.updatePlansCallback(collatePlanningOrders(this.allRoutes, this.turnNumber))
         }).addTo(this.map)
         this.btnListStates.push(clearTurns)
       }
@@ -1158,7 +1158,7 @@ export default class MapPlanningPlayerListener {
     this.updatePlannedRoute(true)
 
     // call on update callback
-    this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
+    this.updatePlansCallback(collatePlanningOrders(this.allRoutes, this.turnNumber))
 
     if (this.performingAdjudication) {
       // we only allow one step to be planned in adjudication, so we're done
@@ -1184,21 +1184,6 @@ export default class MapPlanningPlayerListener {
     this.btnSubmitAll.setText('Submit ' + routesWithPoints.length + ' planned routes')
   }
 
-  /** get the current location of this asset, either at the
-   * end of the planned routes, or where it currently is
-   */
-  getPlannedAssetLocation (asset) {
-    let cell
-    if (this.performingAdjudication) {
-      //  - we always start from current location
-      cell = asset.position
-    } else {
-      // sort out where to put the planning marker
-      cell = findLastRouteWithLocation(this.currentRoute.current, asset.position)
-    }
-    return this.grid.hexNamed(cell)
-  }
-
   /** player has indicated the planned state for a platform. Update the
    * UI accordingly
    */
@@ -1210,7 +1195,8 @@ export default class MapPlanningPlayerListener {
       this.clearAchievableCells()
     }
 
-    this.drag.startHex = this.getPlannedAssetLocation(marker.asset, this.currentRoute.current)
+    this.drag.startHex = getPlannedAssetLocation(marker.asset, this.currentRoute.current, this.grid,
+      this.performingAdjudication)
     const startPos = this.drag.startHex.centrePos
 
     // find out if this state is mobile
@@ -1420,7 +1406,7 @@ export default class MapPlanningPlayerListener {
         }
 
         // call on update callback
-        this.updatePlansCallback(this.collatePlanningOrders(this.allRoutes))
+        this.updatePlansCallback(collatePlanningOrders(this.allRoutes, this.turnNumber))
       })
     }
   }
