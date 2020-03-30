@@ -14,8 +14,8 @@ import styles from './styles.module.scss'
 export const ProgressIndicator: React.FC<PropTypes> = ({ tabs, currentTab }: PropTypes) => 
   <div className={styles.progress}>
     {tabs.map((tab: any) => {
-      console.log(getClassName(tab, currentTab))
-      return <div key={tab.name} className={styles['active']} />
+      // @ts-ignore: Implicit any on CSSExports
+      return <div key={tab.name} className={styles[getClassName(tab, currentTab)]} />
     })}
   </div>
 
