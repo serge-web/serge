@@ -23,6 +23,7 @@ import cellsValidForThisDomain from './cellsValidForThisDomain'
 import updateRouteLineForForce from './updateRouteLineForForce'
 import simplifyHexes from './simplifyHexes'
 import createPlanningRouteFor from './createPlanningRouteFor'
+import clearAchievableCells from './clearAchievableCells'
 
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
@@ -303,7 +304,7 @@ export default class MapPlanningPlayerListener {
         this.updatePlannedRoute(false)
 
         // clear any currently shaded cells
-        this.clearAchievableCells()
+        this.achievableCells = clearAchievableCells(this.achievableCells)
 
         if (this.planningMarker) {
           this.planningMarker.remove()
@@ -337,7 +338,7 @@ export default class MapPlanningPlayerListener {
           if (this.planningMarker) {
             this.planningMarker.remove()
           }
-          this.clearAchievableCells()
+          this.achievableCells = clearAchievableCells(this.achievableCells)
           this.updatePlannedRoute(false)
           clearTurns.remove()
 
@@ -374,7 +375,7 @@ export default class MapPlanningPlayerListener {
     // clear the achievable cells. Note: these weren't added
     // to our private map layer, so they don't disappear when
     // we `remove` that layer
-    this.clearAchievableCells()
+    this.achievableCells = clearAchievableCells(this.achievableCells)
 
     // also drop any command/perceived state buttons
     this.clearAllButtons()
@@ -697,18 +698,6 @@ export default class MapPlanningPlayerListener {
     }
   }
 
-  clearAchievableCells () {
-    if (this.achievableCells) {
-      // reset the formatting
-      this.achievableCells.forEach(cell => {
-        if (!cell.organic) {
-          cell.polygon.setStyle(defaultHexStyle)
-        }
-      })
-      // clear the list
-      this.achievableCells = []
-    }
-  }
 
   /** we're entering a new planning step - calculate which cells are
    * achievable given the range remaining
@@ -736,7 +725,7 @@ export default class MapPlanningPlayerListener {
   }
 
   clearOnNewLeg () {
-    this.clearAchievableCells()
+    this.achievableCells = clearAchievableCells(this.achievableCells)
     this.drag.lats = []
     this.drag.hexes = []
     this.turn.hexes = []
@@ -832,7 +821,7 @@ export default class MapPlanningPlayerListener {
       this.showLayer(data.lightRoutes, this)
 
       // we may also need to clear up
-      this.clearAchievableCells()
+      this.achievableCells = clearAchievableCells(this.achievableCells)
 
       if (this.planningMarker) {
         this.planningMarker.off('click')
@@ -1107,7 +1096,7 @@ export default class MapPlanningPlayerListener {
     if (this.planningMarker) {
       this.planningMarker.remove()
       this.routeLine.setLatLngs([])
-      this.clearAchievableCells()
+      this.achievableCells = clearAchievableCells(this.achievableCells)
     }
 
     this.drag.startHex = getPlannedAssetLocation(marker.asset, this.currentRoute.current, this.grid,
@@ -1178,7 +1167,7 @@ export default class MapPlanningPlayerListener {
 
       // do we already have achievable cells?
       // TODO: our logic _Should_ clear these at the end of a leg
-      this.clearAchievableCells()
+      this.achievableCells = clearAchievableCells(this.achievableCells)
 
       // plot the achievable cells for this distance
       this.updateAchievableCellsFor(this.drag.startHex, marker.planning.remaining, marker.travelMode)
@@ -1304,7 +1293,7 @@ export default class MapPlanningPlayerListener {
         }
 
         // we've finished with these range rings
-        this.clearAchievableCells()
+        this.achievableCells = clearAchievableCells(this.achievableCells)
 
         // plot the achievable cells for this distance
         this.updateAchievableCellsFor(cursorHex, marker.planning.remaining, marker.travelMode)
