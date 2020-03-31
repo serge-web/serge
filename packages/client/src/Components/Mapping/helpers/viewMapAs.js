@@ -1,5 +1,5 @@
 import { UMPIRE_FORCE } from '../../../consts'
-import handleMarkerVisibility from './handleMarker'
+import handleMarkerVisibility from './handleMarkerVisibility'
 import findPerceivedAsClassName from './findPerceivedAsClassName'
 
 export default function viewMapAs (/* string */ force, /* layer */ allMarkers,
