@@ -41,7 +41,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   const myForceRef = useRef(selectedForce)
   const platformTypesRef = useRef(allPlatforms)
   const perceiveAsForceRef = useRef(selectedForce) // in case white changes how they perceive the data
-  const allRoutes = []
   const [planningNow, setplanningNow] = useState(null)
 
   const updatePlansCallback = (data) => {
