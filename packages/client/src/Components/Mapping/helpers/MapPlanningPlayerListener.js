@@ -25,6 +25,7 @@ import createPlanningRouteFor from './createPlanningRouteFor'
 import clearAchievableCells from './clearAchievableCells'
 import updateAchievableCellsFor from './updateAchievableCellsFor'
 import planningDataFor from './planningDataFor'
+import adjudicationDataFor from './adjudicationDataFor'
 
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
@@ -402,26 +403,6 @@ export default class MapPlanningPlayerListener {
     this.layerPriv.clearLayers()
   }
 
-  /** build up our working dataset for this asset */
-  adjudicationDataFor (marker) {
-    const asset = marker.asset
-    const plannedTurns = asset.plannedTurns ? asset.plannedTurns : []
-    const clonedTurns = JSON.parse(JSON.stringify(plannedTurns))
-    return {
-      marker: marker,
-      asset: asset,
-      history: asset.history,
-      original: plannedTurns,
-      current: clonedTurns,
-      newState: null, // it's the presence of a 'newState' that indicates this asset is resolved
-      original_perceptions: asset.perceptions,
-      current_perceptions: JSON.parse(JSON.stringify(asset.perceptions)),
-      original_condition: asset.condition,
-      current_condition: JSON.parse(JSON.stringify(asset.condition)),
-      lightRoutes: createPlanningRouteFor(clonedTurns, asset.history, asset, true, true, false, this.grid, this, this.waypointCallback, this.performingAdjudication)
-    }
-  }
-
   updatePlanningStateOnReset (context) {
     // get the latest route
     const routes = context.currentRoute.current
@@ -549,7 +530,7 @@ export default class MapPlanningPlayerListener {
 
   prepareAdjucationDataFor (marker, platformTypes) {
     // build up the data store for this asset
-    const thisData = this.adjudicationDataFor(marker)
+    const thisData = adjudicationDataFor(marker, this.grid, this.waypointCallback, this.performingAdjudication, this)
     this.allRoutes.push(thisData)
 
     // also update the orders panel
