@@ -538,7 +538,7 @@ export default class MapPlanningPlayerListener {
     if (context.currentRoute && context.currentRoute.lightRoutes) {
       context.currentRoute.lightRoutes.remove()
       context.currentRoute.lightRoutes.clearLayers()
-      context.currentRoute.lightRoutes = context.createPlanningRouteFor(context.currentRoute.current, context.currentRoute.marker.asset.history,
+      context.currentRoute.lightRoutes = createPlanningRouteFor(context.currentRoute.current, context.currentRoute.marker.asset.history,
         context.currentRoute.marker.asset, !detailed, false, detailed, context.grid, context, context.waypointCallback, context.performingAdjudication)
       context.storeLayer(context.currentRoute.lightRoutes, context)
     }
@@ -699,11 +699,13 @@ export default class MapPlanningPlayerListener {
 
   clearAchievableCells () {
     if (this.achievableCells) {
+      // reset the formatting
       this.achievableCells.forEach(cell => {
         if (!cell.organic) {
           cell.polygon.setStyle(defaultHexStyle)
         }
       })
+      // clear the list
       this.achievableCells = []
     }
   }
