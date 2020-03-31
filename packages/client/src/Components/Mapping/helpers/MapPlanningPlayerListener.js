@@ -19,11 +19,11 @@ import MapPopupHelper from './mapPopupHelper'
 import viewMapAs from './viewMapAs'
 import getPlannedAssetLocation from './getPlannedAssetLocation'
 import adjudicatingAcceptRoute from './adjudicatingAcceptRoute'
-import cellsValidForThisDomain from './cellsValidForThisDomain'
 import updateRouteLineForForce from './updateRouteLineForForce'
 import simplifyHexes from './simplifyHexes'
 import createPlanningRouteFor from './createPlanningRouteFor'
 import clearAchievableCells from './clearAchievableCells'
+import updateAchievableCellsFor from './updateAchievableCellsFor'
 
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
@@ -698,32 +698,6 @@ export default class MapPlanningPlayerListener {
     }
   }
 
-
-  /** we're entering a new planning step - calculate which cells are
-   * achievable given the range remaining
-   */
-  updateAchievableCellsFor (/* hex */location, /* int */rangeRemaining, /* string */travelMode) {
-    // work out the cells in range
-    if (rangeRemaining === 0) {
-      this.achievableCells = []
-    } else if (rangeRemaining < 100) {
-      this.achievableCells = this.grid.hexesInRange(location, rangeRemaining)
-    } else {
-      // just give him the whole area
-      this.achievableCells = this.grid.cells
-    }
-
-    // filter the achievable cells for his domain
-    this.achievableCells = cellsValidForThisDomain(this.achievableCells, travelMode)
-
-    // plot the available range
-    this.achievableCells.forEach(cell => {
-      if (!cell.organic) {
-        cell.polygon.setStyle(this.rangeStyle)
-      }
-    })
-  }
-
   clearOnNewLeg () {
     this.achievableCells = clearAchievableCells(this.achievableCells)
     this.drag.lats = []
@@ -1170,7 +1144,8 @@ export default class MapPlanningPlayerListener {
       this.achievableCells = clearAchievableCells(this.achievableCells)
 
       // plot the achievable cells for this distance
-      this.updateAchievableCellsFor(this.drag.startHex, marker.planning.remaining, marker.travelMode)
+      this.achievableCells = updateAchievableCellsFor(this.drag.startHex, marker.planning.remaining, marker.travelMode,
+        this.achievableCells, this.grid, this.rangeStyle)
 
       // set the route-line color
       updateRouteLineForForce(marker.force, this.routeLine)
@@ -1296,7 +1271,8 @@ export default class MapPlanningPlayerListener {
         this.achievableCells = clearAchievableCells(this.achievableCells)
 
         // plot the achievable cells for this distance
-        this.updateAchievableCellsFor(cursorHex, marker.planning.remaining, marker.travelMode)
+        this.achievableCells = updateAchievableCellsFor(cursorHex, marker.planning.remaining, marker.travelMode,
+          this.achievableCells, this.grid, this.rangeStyle)
 
         if (stillCellsRemaining) {
           // The line isn't complete. Display the route so far.
