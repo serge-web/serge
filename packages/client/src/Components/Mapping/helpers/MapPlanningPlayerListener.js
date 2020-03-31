@@ -24,6 +24,7 @@ import simplifyHexes from './simplifyHexes'
 import createPlanningRouteFor from './createPlanningRouteFor'
 import clearAchievableCells from './clearAchievableCells'
 import updateAchievableCellsFor from './updateAchievableCellsFor'
+import planningDataFor from './planningDataFor'
 
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
@@ -421,22 +422,6 @@ export default class MapPlanningPlayerListener {
     }
   }
 
-  /** create a storage object for this object */
-  planningDataFor (/* marker */ marker, /* array platform types */ platformTypes) {
-    const asset = marker.asset
-    const plannedTurns = asset.plannedTurns ? asset.plannedTurns : []
-    const clonedTurns = JSON.parse(JSON.stringify(plannedTurns))
-    return {
-      marker: marker,
-      asset: marker.asset,
-      // clone the planned routes, in case we wish to reset it
-      original: plannedTurns,
-      current: clonedTurns,
-      platformType: findPlatformTypeFor(platformTypes, asset.platformType),
-      lightRoutes: createPlanningRouteFor(clonedTurns, asset.history, asset, true, false, false, this.grid, this, this.waypointCallback, this.performingAdjudication)
-    }
-  }
-
   updatePlanningStateOnReset (context) {
     // get the latest route
     const routes = context.currentRoute.current
@@ -547,7 +532,7 @@ export default class MapPlanningPlayerListener {
 
   preparePlanningDataFor (marker, platformTypes) {
     // store the details for this force
-    const thisData = this.planningDataFor(marker, platformTypes)
+    const thisData = planningDataFor(marker, platformTypes, this.grid, this.waypointCallback, this.performingAdjudication, this)
     this.allRoutes.push(thisData)
 
     // also update the orders panel
