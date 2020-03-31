@@ -1,5 +1,5 @@
 import { UMPIRE_FORCE } from '../../../consts'
-import handleMarker from './handleMarker'
+import handleMarkerVisibility from './handleMarker'
 import findPerceivedAsClassName from './findPerceivedAsClassName'
 
 export default function viewMapAs (/* string */ force, /* layer */ allMarkers,
@@ -9,7 +9,7 @@ export default function viewMapAs (/* string */ force, /* layer */ allMarkers,
   allMarkers.eachLayer(marker => {
     // can we see this asset?
     const asset = marker.asset
-    handleMarker(force, marker, asset, viewAsUmpire)
+    handleMarkerVisibility(force, marker, asset, viewAsUmpire)
   })
 
   // also do this for the future location markers
@@ -17,7 +17,7 @@ export default function viewMapAs (/* string */ force, /* layer */ allMarkers,
     const marker = route.planningMarker
     if (marker) {
       const asset = marker.asset
-      handleMarker(force, marker, asset, viewAsUmpire)
+      handleMarkerVisibility(force, marker, asset, viewAsUmpire)
     }
   })
 

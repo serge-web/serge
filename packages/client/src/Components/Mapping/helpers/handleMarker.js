@@ -3,8 +3,8 @@ import L from 'leaflet'
 import findPerceivedAsClassName from './findPerceivedAsClassName'
 import removeClassNamesFrom from './removeClassNamesFrom'
 
-/** find the asset with the provided id */
-export default function handleMarker (/* string */ force, /* element */ marker, /* element  */ asset, /* boolean */ viewAsUmpire) {
+/** update asset visibility */
+export default function handleMarkerVisibility (/* string */ force, /* element */ marker, /* element  */ asset, /* boolean */ viewAsUmpire) {
   const perceptionClassName = findPerceivedAsClassName(force, asset.force, asset.platformType, asset.perceptions, viewAsUmpire)
   if (perceptionClassName) {
     // remove existing class names
