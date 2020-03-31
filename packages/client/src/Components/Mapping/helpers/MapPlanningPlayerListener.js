@@ -26,6 +26,7 @@ import clearAchievableCells from './clearAchievableCells'
 import updateAchievableCellsFor from './updateAchievableCellsFor'
 import planningDataFor from './planningDataFor'
 import adjudicationDataFor from './adjudicationDataFor'
+import createNewRoute from './createNewRoute'
 
 // eslint-disable-next-line no-unused-vars
 import { easyBar, easyButton } from 'leaflet-easybutton'
@@ -977,25 +978,7 @@ export default class MapPlanningPlayerListener {
   }
 
   storeNewPlanningRoute (/* object */ status, /* array */ hexList) {
-    const route = this.currentRoute.current
-    let lastNum = this.turnNumber + 1
-    if (route.length) {
-      // ok, we can override the turn number with the most recently planned one
-      lastNum = route[route.length - 1].turn + 1
-    }
-
-    // note: when we send a planned turn, we only need the state name, not the whole
-    // state element
-    const newRoute = { status: { state: status.state }, turn: lastNum }
-
-    // store speed, if it's a mobile state
-    if (status.speedKts) {
-      newRoute.status.speedKts = status.speedKts
-    }
-    // store route, if there is one
-    if (hexList) {
-      newRoute.route = hexList
-    }
+    const newRoute = createNewRoute(this.turnNumber, status, this.currentRoute.current, hexList)
     this.currentRoute.current.push(newRoute)
 
     // trigger an update of the planning line
