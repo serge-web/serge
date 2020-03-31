@@ -37,7 +37,7 @@ import { PLANNING_PHASE, UMPIRE_FORCE, ADJUDICATION_PHASE, PLAN_ACCEPTED } from 
 export default class MapPlanningPlayerListener {
   constructor (layer, map, grid, force, turn, submitPlansCallback, updatePlansCallback, platformTypes, allForces, declutterCallback,
     perceivedStateCallback, /* array string */ forceNames, /* string */ phase, /* function */ stateOfWorldCallback,
-    /* function */ visibilityCallback, /* array */ allRoutes, /* array */ reactForms, /* layer */ allMarkers) {
+    /* function */ visibilityCallback, /* array */ reactForms, /* layer */ allMarkers) {
     this.grid = grid
     this.force = force
     this.phase = phase
@@ -53,7 +53,7 @@ export default class MapPlanningPlayerListener {
     this.perceivedStateCallbackPriv = perceivedStateCallback
     this.forceNames = forceNames // used in updating perceived force
     this.visibilityCallback = visibilityCallback
-    this.allRoutes = allRoutes
+    this.allRoutes = []
     this.reactForms = reactForms
     this.allMarkers = allMarkers
 

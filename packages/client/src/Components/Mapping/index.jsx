@@ -271,7 +271,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
         phase,
         newStateOfWorldCallback,
         visChangesFunc,
-        allRoutes,
         reactForms,
         platformsLayerRef.current)
     }
