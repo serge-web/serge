@@ -1,4 +1,4 @@
-import Participant from './participant.interface'
+import Participant from './participant'
 
 export default interface ChannelData {
   name: string,

@@ -1,6 +1,6 @@
 import Tab from './tab'
 
-export default interface Props {
+export default interface PropTypes {
   /**
    * The data for all of the tabs
    */

@@ -1,4 +1,4 @@
-import ChannelData from './channel-data.interface'
+import ChannelData from './channel-data'
 
 export default interface Channel {
   name: string,

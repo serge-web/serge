@@ -1,0 +1,9 @@
+@import "~@serge/themes/dependencies/variables";
+
+.dialogue-header {
+  @include typo-primary;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 25px;
+  color: $text-field-admin;
+}

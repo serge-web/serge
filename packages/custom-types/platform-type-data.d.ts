@@ -1,4 +1,4 @@
-import States from './states.interface'
+import States from './states'
 
 export default interface PlatformTypeData {
   name: string,

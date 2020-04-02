@@ -1,4 +1,4 @@
-import ForceData from './force-data.interface'
+import ForceData from './force-data'
 
 export default interface Force {
   name: string,

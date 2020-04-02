@@ -1,4 +1,4 @@
-import Role from './role.interface'
+import Role from './role'
 
 export default interface Participant {
   force: string,

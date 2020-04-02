@@ -1,4 +1,4 @@
-import PlatformTypeData from './platform-type-data.interface'
+import PlatformTypeData from './platform-type-data'
 
 export default interface PlatformType {
   complete: boolean,

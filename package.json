@@ -12,19 +12,19 @@
   "dependencies": {
     "lerna": "^3.16.4",
     "npm-run-all": "^4.1.5",
-    "snyk": "^1.258.2"
+    "snyk": "^1.298.1"
   },
   "scripts": {
     "start": "yarn run-p start-*",
     "start-client": "lerna run start --scope @serge/client",
     "start-server": "lerna run start --scope @serge/server",
-    "dev" : "yarn component-dev & yarn start",
-    "develop" : "yarn component-dev & yarn storybook & yarn start",
+    "dev": "yarn component-dev & yarn start",
+    "develop": "yarn component-dev & yarn storybook & yarn start",
     "test": "lerna run test",
-    "test-local" : "lerna run test-local",
+    "test-local": "lerna run test-local",
     "lint": "lerna run lint",
     "storybook": "lerna run storybook --scope @serge/components",
-    "build-storybook" : "lerna run build-storybook --scope @serge/components",
+    "build-storybook": "lerna run build-storybook --scope @serge/components",
     "build": "lerna run build --scope @serge/components --scope @serge/client",
     "pkg-build": "lerna run start --scope @serge/executable",
     "component-build": "lerna run build --scope @serge/components",

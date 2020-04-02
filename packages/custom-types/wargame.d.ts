@@ -1,5 +1,5 @@
-import WargameList from './wargame-list.interface'
-import WargameData from './wargame-data.interface'
+import WargameList from './wargame-list'
+import WargameData from './wargame-data'
 
 export default interface Wargame {
   isLoading: boolean,
