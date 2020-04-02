@@ -32,7 +32,7 @@ export const MessagesList: React.FC<PropTypes> = ({ userId, messages, allMarkedR
     <div className={styles['message-list']}>
       <span className={styles['link']}>Mark all as read</span>
       {
-        messageList.map(message => <Message message={message} />)
+        messageList.map(message => <Message key={message._id} message={message} />)
       }
     </div>
   )
