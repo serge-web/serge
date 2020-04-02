@@ -11,6 +11,10 @@ export default {
   component: Message,
   decorators: [],
   parameters: {
+    options: {
+      // No addons are used in this story so don't show the addon panel
+      showPanel: false,
+    },
     readme: {
       // Show readme before story
       content: docs
