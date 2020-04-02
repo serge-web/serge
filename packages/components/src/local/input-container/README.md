@@ -1,6 +1,6 @@
 # Input Container documentation
 
-This is an example readme file for the 'Input Container' component.
+The 'Input Container' component is a wrapper for form inputs and their labels. It is to help with layout.
 
 ## UI Example
 
