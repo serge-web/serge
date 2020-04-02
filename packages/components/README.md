@@ -74,7 +74,7 @@ A component should be written as a pure function component, that means that it w
 
 ## Adding helper functions
 
-Helper functions are used to help a component do something which isn't directly related to the output of the component itself.
+Helper functions are used to help a component do something which isn't directly related to the output of the component itself (void functions such as click handlers, state setters, etc... are allowed to live in the tsx file).
 
 All helper functions should reside in `./helpers` and have one function per file (if necessary, one class with multiple methods is also acceptable but if you use that, you will be asked to justify its use in your Pull Request.
 

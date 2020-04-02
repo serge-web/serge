@@ -2,7 +2,7 @@
 import React from 'react'
 
 /* Import Interfaces */
-import PropTypes from './types/props.interface'
+import PropTypes from './types/props'
 
 /* Import Helpers */
 import getClassName from './helpers/getClassName'
