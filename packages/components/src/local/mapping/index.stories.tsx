@@ -3,6 +3,7 @@ import React from 'react'
 // Import component files
 import Mapping from './index'
 import docs from './README.md'
+import AssetIcon from '../asset-icon'
 
 export default {
   title: 'local/Mapping',
@@ -41,6 +42,13 @@ export const Default: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 />
+
+export const WithMarker: React.FC = () => <Mapping
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+>
+  <AssetIcon position={[13.196602, 42.999489]} icon="icon-name" force="blue"/>
+</Mapping>
 
 export const OpenStreetMap: React.FC = () => <Mapping
   bounds = {bounds}

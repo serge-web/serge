@@ -43,8 +43,9 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomSnap,
   zoomControl,
   attributionControl,
-  zoomAnimation
-}: PropTypes) => {
+  zoomAnimation,
+  children
+}) => {
   const { imageTop, imageLeft, imageRight, imageBottom } = bounds
   const position: [number, number] = [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2]
   const imageBounds: [[number, number], [number, number]] = [[imageTop, imageLeft], [imageBottom, imageRight]]
@@ -70,6 +71,7 @@ export const Mapping: React.FC<PropTypes> = ({
         attribution={tileLayer.attribution}
         bounds={imageBounds}
       />
+      {children}
     </Map>
   )
 }
