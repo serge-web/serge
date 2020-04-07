@@ -5,3 +5,5 @@
  */
 
 export { default as ProgressIndicator } from './local/progress-indicator'
+export { default as InputContainer } from './local/input-container'
+export { default as DialogueHeader } from './local/dialogue-header'
