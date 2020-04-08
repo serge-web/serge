@@ -26,7 +26,7 @@
     "paths": {
       "@serge/*": ["packages/"]
     },
-    "composite": true,
+    "composite": false,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
