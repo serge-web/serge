@@ -27,7 +27,7 @@ it('Mapping renders correctly with AssetIcon', () => {
   const tree = mount(<Mapping
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
-  ><AssetIcon position={[13.298034302, 43.0488191271]} icon="agi" force="blue" tooltip="Tooltip for marker"/></Mapping>, { attachTo: div })
+  ><AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Tooltip for marker"/></Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
 })

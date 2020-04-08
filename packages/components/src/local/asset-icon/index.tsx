@@ -10,10 +10,10 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const AssetIcon: React.FC<PropTypes> = ({ position, icon, force, tooltip }: PropTypes) => {
+export const AssetIcon: React.FC<PropTypes> = ({ position, type, force, tooltip }: PropTypes) => {
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    className: cx(styles['asset-icon'], styles[force], styles[`platform-type-${icon}`]),
+    className: cx(styles['asset-icon'], styles[force], styles[`platform-type-${type}`]),
   })
   return <Marker position={position} icon={divIcon} classNa>
       <Tooltip>{tooltip}</Tooltip>

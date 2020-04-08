@@ -2,7 +2,7 @@ export default interface PropTypes {
   /**
    * The name of the icon to be used on the asset
    */
-  icon: string
+  type: string
   /**
    * The position to place the icon on the map
    */
