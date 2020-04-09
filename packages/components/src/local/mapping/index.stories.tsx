@@ -4,6 +4,7 @@ import React from 'react'
 import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
+import HexGrid from '../hex-grid'
 
 export default {
   title: 'local/Mapping',
@@ -48,6 +49,13 @@ export const WithMarker: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
 >
   <AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Tooltip for marker"/>
+</Mapping>
+
+export const WithGrid: React.FC = () => <Mapping
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+>
+  <HexGrid tileSize={42}/>
 </Mapping>
 
 export const OpenStreetMap: React.FC = () => <Mapping
