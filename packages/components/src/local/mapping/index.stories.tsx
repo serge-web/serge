@@ -51,13 +51,6 @@ export const WithMarker: React.FC = () => <Mapping
   <AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Tooltip for marker"/>
 </Mapping>
 
-export const WithGrid: React.FC = () => <Mapping
-  bounds = {bounds}
-  tileLayer = {LocalTileLayer}
->
-  <HexGrid tileSize={42}/>
-</Mapping>
-
 export const OpenStreetMap: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {OSMTileLayer}
