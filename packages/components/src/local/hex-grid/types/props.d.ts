@@ -1,6 +1,18 @@
 export default interface PropTypes {
   /**
-   * Width and height of tiles in the grid.
+   * Radius of tiles (Degrees)
    */
-  tileSize: number
+  tileSize: number,
+  /**
+   * Width of grid (number of cells)
+   */
+  width: number,
+  /**
+   * Height of grid (number of cells)
+   */
+  height: number,
+  /**
+   * Coordinates (degs) for centre of top-left icon
+   */
+  origin: [number, number]
 }

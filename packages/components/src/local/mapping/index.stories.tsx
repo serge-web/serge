@@ -55,7 +55,7 @@ export const WithGrid: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 >
-  <HexGrid tileSize={42}/>
+  <HexGrid tileSize={0.0416666} width={24} height={21} origin={[14.1166, 42.4166]} />
 </Mapping>
 
 export const OpenStreetMap: React.FC = () => <Mapping
