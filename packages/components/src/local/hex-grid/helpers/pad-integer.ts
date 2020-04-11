@@ -4,7 +4,8 @@ const padInteger = (num: number, blanks?: number) => {
   if (!blanks) {
     blanks = 2
   }
-  return s.padStart(blanks, '0')}
+  return s.padStart(blanks, '0')
+}
 
 export default padInteger
 

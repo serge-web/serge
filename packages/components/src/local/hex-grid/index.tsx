@@ -5,8 +5,8 @@ import { defineGrid, PointyCompassDirection } from 'honeycomb-grid'
 
 /* Import Types */
 import PropTypes from './types/props'
-import toWorld from './helpers/toWorld'
-import padInteger from './helpers/padInteger'
+import toWorld from './helpers/to-world'
+// import padInteger from './helpers/pad-integer'
 
 import defaultHexStyle from './data/default-hex-style'
 
@@ -30,7 +30,7 @@ export const HexGrid: React.FC<PropTypes> = ({ tileSize, width, height, origin }
   grid_cells.forEach(hex => {
     const centreHex = hex.toPoint()
     const centreWorld = toWorld(centreHex, origin, tileSize)
-    const name = String.fromCharCode(65 + hex.y) + padInteger(hex.x)
+    // const name = String.fromCharCode(65 + hex.y) + padInteger(hex.x)
 
     // add the shape
     // build up an array of correctly mapped corners
