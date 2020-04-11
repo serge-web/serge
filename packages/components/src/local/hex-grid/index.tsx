@@ -54,7 +54,7 @@ export const HexGrid: React.FC<PropTypes> = ({ tileSize, width, height, origin }
     // determine styling, based upon `organic` flag
     // now create the polygon
     const polygon = L.polygon(cornerArr, defaultHexStyle)
-    
+
     // add the polygon to the layer
     layer.addLayer(polygon)
 
@@ -64,9 +64,9 @@ export const HexGrid: React.FC<PropTypes> = ({ tileSize, width, height, origin }
     iconSize: [40, 40]
   })
   const tooltip = 'the tooltip'
-  return <Marker position={origin} icon={divIcon} classNa>
+  return (<Marker position={origin} icon={divIcon} classNa>
     <Tooltip>{tooltip}</Tooltip>
-  </Marker>
+  </Marker>)
 }
 
 export default HexGrid
