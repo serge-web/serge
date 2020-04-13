@@ -1,72 +1,59 @@
 import React from 'react'
 import L from 'leaflet'
-import { Marker, Tooltip } from 'react-leaflet'
-import { defineGrid, PointyCompassDirection } from 'honeycomb-grid'
-
+import { Polygon } from 'react-leaflet'
+import { defineGrid } from 'honeycomb-grid'
+/* Import Stylesheet */
 /* Import Types */
 import PropTypes from './types/props'
 import toWorld from './helpers/to-world'
-// import padInteger from './helpers/pad-integer'
-
 import defaultHexStyle from './data/default-hex-style'
 
 /* Render component */
-export const HexGrid: React.FC<PropTypes> = ({ tileSize, width, height, origin }: PropTypes) => {
-
+export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize,  origin }: PropTypes) => {
+  // init grid
   const grid = defineGrid()
-  const grid_cells = grid.rectangle({
-    width: width,
-    height: height,
-    direction: PointyCompassDirection.E
-  })
-
-  const hexOne = grid_cells[0]
-  const corners = hexOne.corners()
-  const centreH = hexOne.center()
-
-  const layer = new L.LayerGroup()
+  // generate grid items
+  const grid_cells = grid.rectangle({ width, height })
+  // define polygons array.
+  const polygons: L.LatLng[][] = []
 
   // create a polygon for each hex, add it to the parent
   grid_cells.forEach(hex => {
+    // get center hex coords
     const centreHex = hex.toPoint()
+    // move coords to our map
     const centreWorld = toWorld(centreHex, origin, tileSize)
-    // const name = String.fromCharCode(65 + hex.y) + padInteger(hex.x)
-
-    // add the shape
     // build up an array of correctly mapped corners
     const cornerArr: L.LatLng[] = []
-
-    // function to scale the corner to our map scale
-    const scalePoint = (value: any) => {
-      const centreP = centreWorld
+    // get hex center
+    const centreH = hex.center()
+    // get hex corners coords
+    const corners = hex.corners()
+    // convert hex corners coords to our map
+    corners.forEach((value: any) => {
       // the corners are relative to the origin (TL). So, offset them to the centre
       const point = {
         x: value.x - centreH.x,
         y: value.y - centreH.y
       }
-      const newP = toWorld(centreP, point, tileSize)
+      const newP = toWorld(point, [ centreWorld.lat, centreWorld.lng ], tileSize)
       cornerArr.push(newP)
-    }
-
-    // apply the scaling function to each corner
-    corners.forEach(scalePoint)
-
-    // determine styling, based upon `organic` flag
-    // now create the polygon
-    const polygon = L.polygon(cornerArr, defaultHexStyle)
-
-    // add the polygon to the layer
-    layer.addLayer(polygon)
-
+    })
+    // add the polygon to polygons array
+    polygons.push(cornerArr)
   })
 
-  const divIcon = L.divIcon({
-    iconSize: [40, 40]
-  })
-  const tooltip = 'the tooltip'
-  return (<Marker position={origin} icon={divIcon} classNa>
-    <Tooltip>{tooltip}</Tooltip>
-  </Marker>)
+  return <>
+    {polygons.map((pols, key) => (
+      <Polygon
+        key={key}
+        positions={pols}
+        color={defaultHexStyle.color}
+        fill={defaultHexStyle.fill}
+        weight={defaultHexStyle.weight}
+      />
+    ))}
+  </>
 }
 
 export default HexGrid
