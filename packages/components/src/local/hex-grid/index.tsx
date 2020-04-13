@@ -36,7 +36,7 @@ export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize,  origin 
         x: value.x - centreH.x,
         y: value.y - centreH.y
       }
-      const newP = toWorld(point, [ centreWorld.lat, centreWorld.lng ], tileSize)
+      const newP = toWorld(point, centreWorld, tileSize)
       cornerArr.push(newP)
     })
     // add the polygon to polygons array

@@ -14,5 +14,5 @@ export default interface PropTypes {
   /**
    * Coordinates (degs) for centre of top-left icon
    */
-  origin: [number, number]
+  origin: L.LatLng
 }
