@@ -1,7 +1,7 @@
 import React from 'react'
 import L from 'leaflet'
 import { Marker, Tooltip } from 'react-leaflet'
-import { defineGrid, PointyCompassDirection } from 'honeycomb-grid'
+import { defineGrid } from 'honeycomb-grid'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -17,7 +17,7 @@ export const HexGrid: React.FC<PropTypes> = ({ tileSize, width, height, origin }
   const grid_cells = grid.rectangle({
     width: width,
     height: height,
-    direction: PointyCompassDirection.E
+    direction: 0
   })
 
   const hexOne = grid_cells[0]
@@ -44,7 +44,7 @@ export const HexGrid: React.FC<PropTypes> = ({ tileSize, width, height, origin }
         x: value.x - centreH.x,
         y: value.y - centreH.y
       }
-      const newP = toWorld(centreP, point, tileSize)
+      const newP = toWorld(point, centreP, tileSize)
       cornerArr.push(newP)
     }
 
