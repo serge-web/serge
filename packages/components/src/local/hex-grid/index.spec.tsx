@@ -1,6 +1,7 @@
 /* global it expect */
 
 import React from 'react'
+import L from 'leaflet'
 import { mount } from 'enzyme'
 
 import HexGrid from './index'
@@ -27,7 +28,7 @@ it('Mapping renders correctly with AssetIcon', () => {
   const tree = mount(<Mapping
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
-  ><HexGrid tileSize={0.0416666} width={24} height={21} origin={[14.1166, 42.4166]} /></Mapping>, { attachTo: div })
+  ><HexGrid tileSize={0.0416666} width={24} height={21} origin={L.latLng(14.1166, 42.4166)} /></Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
 })

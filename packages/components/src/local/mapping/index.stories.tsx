@@ -1,4 +1,5 @@
 import React from 'react'
+import L from 'leaflet'
 
 // Import component files
 import Mapping from './index'
@@ -55,7 +56,7 @@ export const WithGrid: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 >
-  <HexGrid tileSize={0.0416666} width={24} height={21} origin={[14.1166, 42.4166]} />
+  <HexGrid tileSize={0.0416666} width={24} height={21} origin={L.latLng(14.1166, 42.4166)} />
 </Mapping>
 
 export const OpenStreetMap: React.FC = () => <Mapping
