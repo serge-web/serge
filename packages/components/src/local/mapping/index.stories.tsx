@@ -1,5 +1,6 @@
 import React from 'react'
 import L from 'leaflet'
+import { withKnobs } from '@storybook/addon-knobs'
 
 // Import component files
 import Mapping from './index'
@@ -10,7 +11,7 @@ import HexGrid from '../hex-grid'
 export default {
   title: 'local/Mapping',
   component: Mapping,
-  decorators: [],
+  decorators: [withKnobs],
   parameters: {
     readme: {
       // Show readme before story
@@ -58,6 +59,16 @@ export const WithGrid: React.FC = () => <Mapping
 >
   <HexGrid tileSize={0.0416666} width={24} height={21} origin={L.latLng(14.1166, 42.4166)} />
 </Mapping>
+
+// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+WithGrid.story = {
+  parameters: {
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
+    }
+  }
+}
 
 export const OpenStreetMap: React.FC = () => <Mapping
   bounds = {bounds}
