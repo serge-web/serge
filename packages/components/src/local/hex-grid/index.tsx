@@ -19,12 +19,15 @@ export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize,  origin 
   // define polygons array.
   const polygons: L.LatLng[][] = []
 
+  // Convert the value to minutes
+  const calculatedTileSize = 1/60 * tileSize
+
   // create a polygon for each hex, add it to the parent
   gridCells.forEach(hex => {
     // get center hex coords
     const centreHex = hex.toPoint()
     // move coords to our map
-    const centreWorld = toWorld(centreHex, origin, tileSize)
+    const centreWorld = toWorld(centreHex, origin, calculatedTileSize)
     // build up an array of correctly mapped corners
     const cornerArr: L.LatLng[] = []
     // get hex center
@@ -38,7 +41,7 @@ export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize,  origin 
         x: value.x - centreH.x,
         y: value.y - centreH.y
       }
-      const newP = toWorld(point, centreWorld, tileSize)
+      const newP = toWorld(point, centreWorld, calculatedTileSize)
       cornerArr.push(newP)
     })
     // add the polygon to polygons array
