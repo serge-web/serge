@@ -4,7 +4,6 @@ import React from 'react'
 import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
-import HexGrid from '../hex-grid'
 
 export default {
   title: 'local/Mapping',
