@@ -3,10 +3,12 @@ import L from 'leaflet'
 import { Polygon } from 'react-leaflet'
 import { defineGrid } from 'honeycomb-grid'
 /* Import Stylesheet */
+import styles from './styles.module.scss'
+
 /* Import Types */
 import PropTypes from './types/props'
 import toWorld from './helpers/to-world'
-import defaultHexStyle from './data/default-hex-style'
+
 
 /* Render component */
 export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize,  origin }: PropTypes) => {
@@ -48,9 +50,7 @@ export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize,  origin 
       <Polygon
         key={key}
         positions={pols}
-        color={defaultHexStyle.color}
-        fill={defaultHexStyle.fill}
-        weight={defaultHexStyle.weight}
+        className={styles['default-hex']}
       />
     ))}
   </>
