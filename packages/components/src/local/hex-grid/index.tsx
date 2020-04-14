@@ -1,6 +1,6 @@
 import React from 'react'
 import L from 'leaflet'
-import { Polygon } from 'react-leaflet'
+import { Polygon, LayerGroup } from 'react-leaflet'
 import { defineGrid } from 'honeycomb-grid'
 /* Import Stylesheet */
 /* Import Types */
@@ -13,12 +13,12 @@ export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize,  origin 
   // init grid
   const grid = defineGrid()
   // generate grid items
-  const grid_cells = grid.rectangle({ width, height })
+  const gridCells = grid.rectangle({ width, height })
   // define polygons array.
   const polygons: L.LatLng[][] = []
 
   // create a polygon for each hex, add it to the parent
-  grid_cells.forEach(hex => {
+  gridCells.forEach(hex => {
     // get center hex coords
     const centreHex = hex.toPoint()
     // move coords to our map
@@ -44,15 +44,14 @@ export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize,  origin 
   })
 
   return <>
-    {polygons.map((pols, key) => (
+    <LayerGroup>{polygons.map((pols) => (
       <Polygon
-        key={key}
         positions={pols}
         color={defaultHexStyle.color}
         fill={defaultHexStyle.fill}
         weight={defaultHexStyle.weight}
       />
-    ))}
+    ))}</LayerGroup>
   </>
 }
 
