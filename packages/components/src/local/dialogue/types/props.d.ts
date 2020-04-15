@@ -1,8 +1,8 @@
 export default interface PropTypes {
   /**
-   * The name of the thing
+   * The name of the thing, if no type is set then 'default' will be used
    */
-  type: string
+  type?: string
   /**
    * Header Text
    */
