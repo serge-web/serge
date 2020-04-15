@@ -37,9 +37,6 @@ it('Mapping renders correctly with AssetIcon', () => {
   >
     <HexGrid
       tileRadiusMins={0.0416666}
-      widthCells={24}
-      heightCells={21}
-      origin={L.latLng(14.1166, 42.4166)}
       topLeft={topLeft}
       bottomRight={bottomRight}
     />
