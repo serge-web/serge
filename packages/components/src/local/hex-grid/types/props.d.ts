@@ -2,15 +2,15 @@ export default interface PropTypes {
   /**
    * Radius of tiles (Minutes)
    */
-  tileSizeMins: number,
+  tileRadiusMins: number,
   /**
    * Width of grid (number of cells)
    */
-  width: number,
+  widthCells: number,
   /**
    * Height of grid (number of cells)
    */
-  height: number,
+  heightCells: number,
   /**
    * Coordinates (degs) for centre of top-left icon
    */

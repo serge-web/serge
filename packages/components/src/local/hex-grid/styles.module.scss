@@ -1,6 +1,12 @@
 .default-hex {
   fill: transparent;
-  stroke: #fff;
+  stroke: #0f0;
+  opacity: 0.2;
+  stroke-width: 3;
+}
+.default-border {
+  fill: transparent;
+  stroke: #f00;
   opacity: 0.2;
   stroke-width: 3;
 }

@@ -61,7 +61,7 @@ export const WithMarker: React.FC = () => <Mapping
 
 
 const hexGridLabel = 'Tile Size';
-const hexGridDefaultValue = 2;
+const hexGridDefaultValue = 5;
 const hexGridOptions = {
    range: true,
    min: 1,
@@ -73,7 +73,13 @@ export const WithGrid: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 >
-  <HexGrid tileSizeMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} width={24} height={21} origin={L.latLng(14.1166, 42.4166)} topLeft={topLeft} bottomRight={bottomRight} />
+  <HexGrid 
+    tileRadiusMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} 
+    widthCells={24} 
+    heightCells={21} 
+    origin={L.latLng(14.1166, 42.4166)} 
+    topLeft={topLeft} 
+    bottomRight={bottomRight} />
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
