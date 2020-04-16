@@ -9,21 +9,23 @@ import AssetInfo from './types/asset_info'
 
 
 /* Render component */
-export const Assets: React.FC<PropTypes> = ({ forces, platform_types, force, view_as }: PropTypes) => {
+export const Assets: React.FC<PropTypes> = ({ forces, platformTypes, force, view_as }: PropTypes) => {
 
-  console.log(forces, platform_types, force, view_as)
+  console.log(forces, platformTypes, force, view_as)
 
   const assets: AssetInfo[] = []
-  forces.forEach(force => {
-    force.assets.forEach(asset => {
-      const asset_info: AssetInfo = {
-        name: asset.name,
-        type: asset.type,
-        force: asset.force,
-        position: [12, 12]
-      }
-      assets.push(asset_info)
-    ) 
+  forces.forEach((force: any) => {
+    if(force.assets) {
+      force.assets.forEach((asset: any) => {
+        const asset_info: AssetInfo = {
+          name: asset.name,
+          type: asset.type,
+          force: asset.force,
+          position: [12, 12]
+        }
+        assets.push(asset_info)
+      })  
+    }
   })
 
   return <>

@@ -1,4 +1,4 @@
-export const platform_types = [
+export const platformTypes = [
   {
     name: 'Fishing vessel',
     conditions: [
@@ -292,4 +292,4 @@ export const platform_types = [
   }
 ]
 
-export default platform_types
+export default platformTypes

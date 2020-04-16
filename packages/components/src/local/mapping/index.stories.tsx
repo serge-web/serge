@@ -2,7 +2,7 @@ import React from 'react'
 import L from 'leaflet'
 import { withKnobs, number } from '@storybook/addon-knobs';
 import { forces } from './mocks/forces'
-import { platform_types } from './mocks/platform_types'
+import { platformTypes } from './mocks/platformTypes'
 
 // import tileSize from '../hex-grid/knobs/tile-size'
 
@@ -62,7 +62,7 @@ export const WithAssets: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 >
-  <Assets forces={forces} platform_types={platform_types} force="red" view_as="" />
+  <Assets forces={forces} platformTypes={platformTypes} force="red" view_as="" />
 </Mapping>
 
 
