@@ -28,7 +28,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     tileLayer = {LocalTileLayer}
   >
     <HexGrid
-      tileDiameterMins={2.5}
+      tileDiameterMins={5}
       bounds = {bounds}
     />
   </Mapping>, { attachTo: div })
