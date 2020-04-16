@@ -1,6 +1,6 @@
 import React from 'react'
 import L from 'leaflet'
-import { Polygon, LayerGroup, Rectangle } from 'react-leaflet'
+import { Polygon, LayerGroup } from 'react-leaflet'
 import { defineGrid, extendHex, Point } from 'honeycomb-grid'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -85,10 +85,7 @@ export const HexGrid: React.FC<PropTypes> = ({ tileRadiusMins, topLeft, bottomRi
         positions={pols}
         className={styles['default-hex']}
       />
-    ))}      <Rectangle
-    bounds={L.latLngBounds([topLeft, bottomRight])}
-    className={styles['default-border']}
-  />
+    ))}
 </LayerGroup>
   </>
 }
