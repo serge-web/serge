@@ -31,7 +31,8 @@ export const Assets: React.FC<PropTypes> = ({ forces, playerForce }: PropTypes) 
             name: asset.name,
             type: perceivedAs[1],
             force: perceivedAs[0],
-            position: position
+            position: position,
+            uniqid: asset.uniqid
           }
           assets.push(asset_info)
         }
@@ -40,8 +41,9 @@ export const Assets: React.FC<PropTypes> = ({ forces, playerForce }: PropTypes) 
   })
 
   return <>
-    <LayerGroup>{assets.map((asset) => (
+    <LayerGroup>{assets.map((asset, ) => (
       <AssetIcon 
+        key={asset.uniqid}
         position={asset.position} 
         type={asset.type} 
         force={asset.force} 
