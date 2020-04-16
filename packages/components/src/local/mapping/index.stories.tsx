@@ -1,6 +1,8 @@
 import React from 'react'
 import L from 'leaflet'
 import { withKnobs, number } from '@storybook/addon-knobs';
+import { forces } from './mocks/forces'
+import { platform_types } from './mocks/platform_types'
 
 // import tileSize from '../hex-grid/knobs/tile-size'
 
@@ -9,6 +11,7 @@ import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
 import HexGrid from '../hex-grid'
+import Assets from '../assets'
 
 export default {
   title: 'local/Mapping',
@@ -53,6 +56,13 @@ export const WithMarker: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
 >
   <AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Tooltip for marker"/>
+</Mapping>
+
+export const WithAssets: React.FC = () => <Mapping
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+>
+  <Assets forces={forces} platform_types={platform_types} force="red" view_as="" />
 </Mapping>
 
 
