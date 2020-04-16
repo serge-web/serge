@@ -4,11 +4,12 @@ export default interface PropTypes {
    */
   tileRadiusMins: number,
   /**
-   * Coordinates (degs) for centre of top-left icon
+   * bounds for hex grid
    */
-  topLeft: L.LatLng,
-  /**
-   * Coordinates (degs) for centre of bottom-right icon
-   */
-  bottomRight: L.LatLng
+  bounds: {
+    imageTop: number
+    imageLeft: number
+    imageRight: number
+    imageBottom: number
+  }
 }

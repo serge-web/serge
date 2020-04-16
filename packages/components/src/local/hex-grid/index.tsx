@@ -10,30 +10,30 @@ import PropTypes from './types/props'
 import toWorld from './helpers/to-world'
 
 /* Render component */
-export const HexGrid: React.FC<PropTypes> = ({ tileRadiusMins, topLeft, bottomRight }: PropTypes) => {
+export const HexGrid: React.FC<PropTypes> = ({ tileRadiusMins, bounds }: PropTypes) => {
 
   // Convert diameter in mins to radius in degs
   const tileSizeDegs: number = tileRadiusMins / 60
 
   // offset the origin, by half a tile
-  const correctedOrigin: L.LatLng = L.latLng(topLeft.lat - tileSizeDegs / 2, topLeft.lng + tileSizeDegs / 2)
+  const correctedOrigin: L.LatLng = L.latLng(bounds.imageTop - tileSizeDegs / 2, bounds.imageLeft + tileSizeDegs / 2)
 
   // the width of a degree of longitude varies with latitude. Start by
   // finding the width of the box 1/2 way down it
-  const centreLat: number = bottomRight.lat + (topLeft.lat - bottomRight.lat) / 2
-  const measureLeft: L.LatLng = L.latLng(centreLat, topLeft.lng)
-  const measureRight: L.LatLng = L.latLng(centreLat, bottomRight.lng)
+  const centreLat: number = bounds.imageBottom + (bounds.imageTop - bounds.imageBottom) / 2
+  const measureLeft: L.LatLng = L.latLng(centreLat, bounds.imageLeft)
+  const measureRight: L.LatLng = L.latLng(centreLat, bounds.imageRight)
   const boxWidthM: number = measureLeft.distanceTo(measureRight)
 
   // now find the width of one tile
-  const cellCentre: L.LatLng = L.latLng(centreLat, topLeft.lng + tileSizeDegs)
+  const cellCentre: L.LatLng = L.latLng(centreLat, bounds.imageLeft + tileSizeDegs)
   const cellWidthM: number = measureLeft.distanceTo(cellCentre)
 
   // and calculate the number of cells that fit in the provided area
   const widthCells: number = Math.ceil(boxWidthM / cellWidthM) + 1
 
   // lines of latitude are largely equi-distant, so perform simple calculation
-  const heightcells: number = Math.ceil((topLeft.lat - bottomRight.lat) / (tileSizeDegs))
+  const heightcells: number = Math.ceil((bounds.imageTop - bounds.imageBottom) / (tileSizeDegs))
 
   // since we have pointy arrangement, we need to provide more to get height, since they're
   // more densely packed in vertical direction (more overlap)

@@ -1,7 +1,5 @@
 /* global it expect */
-
 import React from 'react'
-import L from 'leaflet'
 import { mount } from 'enzyme'
 
 import HexGrid from './index'
@@ -13,12 +11,6 @@ const bounds = {
   imageRight: 43.7417816271,
   imageBottom: 12.401259302
 }
-
-
-const topLeft = L.latLng(14.194809302, 42.3558566271)
-
-const bottomRight = L.latLng(12.401259302, 43.7417816271)
-
 
 const LocalTileLayer = {
   url: '/tiles/{z}/{x}/{y}.png',
@@ -37,8 +29,7 @@ it('Mapping renders correctly with AssetIcon', () => {
   >
     <HexGrid
       tileRadiusMins={0.0416666}
-      topLeft={topLeft}
-      bottomRight={bottomRight}
+      bounds = {bounds}
     />
   </Mapping>, { attachTo: div })
 
