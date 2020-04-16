@@ -9,9 +9,8 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 import toWorld from './helpers/to-world'
 
-
 /* Render component */
-export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize,  origin }: PropTypes) => {
+export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize, origin }: PropTypes) => {
   // init grid
   const grid = defineGrid()
   // generate grid items
@@ -20,7 +19,7 @@ export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize,  origin 
   const polygons: L.LatLng[][] = []
 
   // Convert the value to minutes
-  const calculatedTileSize = 1/60 * tileSize
+  const calculatedTileSize = 1 / 60 * tileSize
 
   // create a polygon for each hex, add it to the parent
   gridCells.forEach(hex => {

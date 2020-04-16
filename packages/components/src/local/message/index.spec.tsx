@@ -9,6 +9,6 @@ import { MessagesMock } from '@serge/mocks'
 it('Message renders correctly', () => {
   const tree = renderer
     .create(<Message message={MessagesMock[0]}/>)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})

@@ -11,7 +11,7 @@ import DialogueHeader from '../dialogue-header'
 export const Dialogue: React.FC<PropTypes> = ({ children, type, headerText }) => {
   const typeClass = type || 'default'
   return (
-    <div className={`${styles['dialogue']} ${styles[typeClass]}`}>
+    <div className={`${styles.dialogue} ${styles[typeClass]}`}>
       <DialogueHeader string={headerText} />
       <div className={styles.content}>
         {children}

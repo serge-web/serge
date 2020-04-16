@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Dialogue renders correctly 1`] = `
+exports['Dialogue renders correctly 1'] = `
 <div
   className="dialogue test"
 >
@@ -13,4 +13,4 @@ exports[`Dialogue renders correctly 1`] = `
     className="content"
   />
 </div>
-`;
+`
