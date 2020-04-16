@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Map, TileLayer } from 'react-leaflet'
+import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -71,6 +71,7 @@ export const Mapping: React.FC<PropTypes> = ({
         attribution={tileLayer.attribution}
         bounds={imageBounds}
       />
+      <ScaleControl/>
       {children}
     </Map>
   )
