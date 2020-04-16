@@ -7,4 +7,4 @@
 
 export { default as padInt } from './padInteger'
 export { default as roundToNearest } from './roundToNearest'
-
+export { default as findPerceivedAsClasses} from './findPerceivedAsClassName'
