@@ -23,8 +23,9 @@ export const Assets: React.FC<PropTypes> = ({ forces, platformTypes, force, view
       force.assets.forEach((asset: any) => {
 
         // see if the player of this force can see (perceive) this asset
+        const isUmpire: boolean = force.uniqid === UMPIRE_FORCE
         const perceivedAs: string = findPerceivedAsClass(force, force.uniqid, asset.platformType,
-          asset.perceptions, force.uniqid === UMPIRE_FORCE, asset.name)
+          asset.perceptions, isUmpire, asset.name)
 
         if(perceivedAs) {
           // TODO: generate the lat/long position for this asset location
