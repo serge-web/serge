@@ -18,6 +18,9 @@ export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize, origin }
   // define polygons array.
   const polygons: L.LatLng[][] = []
 
+  // Convert the values given to the component to Leaflet LatLng points
+  const latLngOrigin = L.latLng(origin[0], origin[1])
+
   // Convert the value to minutes
   const calculatedTileSize = 1 / 60 * tileSize
 
@@ -26,7 +29,7 @@ export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize, origin }
     // get center hex coords
     const centreHex = hex.toPoint()
     // move coords to our map
-    const centreWorld = toWorld(centreHex, origin, calculatedTileSize)
+    const centreWorld = toWorld(centreHex, latLngOrigin, calculatedTileSize)
     // build up an array of correctly mapped corners
     const cornerArr: L.LatLng[] = []
     // get hex center
@@ -48,8 +51,9 @@ export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize, origin }
   })
 
   return <>
-    <LayerGroup>{polygons.map((pols) => (
+    <LayerGroup>{polygons.map(pols => (
       <Polygon
+        key={pols.toString()}
         positions={pols}
         className={styles['default-hex']}
       />

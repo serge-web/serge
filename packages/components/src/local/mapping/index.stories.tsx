@@ -1,5 +1,4 @@
 import React from 'react'
-import L from 'leaflet'
 import { withKnobs, number } from '@storybook/addon-knobs'
 
 // Import component files
@@ -66,7 +65,7 @@ export const WithGrid: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 >
-  <HexGrid tileSize={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} width={24} height={21} origin={L.latLng(14.1166, 42.4166)} />
+  <HexGrid tileSize={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} width={24} height={21} origin={[14.1166, 42.4166]} />
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
