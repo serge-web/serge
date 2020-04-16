@@ -17,6 +17,11 @@
   background-color: #0f4bf0;
 }
 
+.red {
+  background-color: #ff0b00;
+}
+
+
 $platforms: frigate, destroyer, mcmv, unknown, agi, fast-attack-craft, uas, merchant-vessel, fixed-wing-aircraft, fishing-vessel, missile, helicopter, boghammer, coastal-radar-site, datum, torpedo, pirate, mine;
 
 @each $platform in $platforms {

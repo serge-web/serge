@@ -22,6 +22,7 @@ interface CssExports {
   'platform-type-torpedo': string;
   'platform-type-uas': string;
   'platform-type-unknown': string;
+  'red': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

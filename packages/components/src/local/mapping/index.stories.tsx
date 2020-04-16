@@ -1,8 +1,7 @@
 import React from 'react'
 import L from 'leaflet'
-import { withKnobs, number } from '@storybook/addon-knobs';
+import { withKnobs, number, radios } from '@storybook/addon-knobs';
 import { forces } from './mocks/forces'
-import { platformTypes } from './mocks/platformTypes'
 
 // import tileSize from '../hex-grid/knobs/tile-size'
 
@@ -58,12 +57,31 @@ export const WithMarker: React.FC = () => <Mapping
   <AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Tooltip for marker"/>
 </Mapping>
 
+const label = 'View As';
+const forceNames = {
+  White: 'umpire',
+  Blue: 'Blue',
+  Red: 'Red',
+};
+const defaultValue = 'Blue';
+
 export const WithAssets: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 >
-  <Assets forces={forces} platformTypes={platformTypes} force="red" view_as="" />
+  <Assets forces={forces} playerForce={radios(label, forceNames, defaultValue)}/>
 </Mapping>
+
+
+// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+WithAssets.story = {
+  parameters: {
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
+    }
+  }
+}
 
 
 const hexGridLabel = 'Tile Size';

@@ -4,15 +4,7 @@ export default interface PropTypes {
    */
   forces: any
   /**
-   * types of platform in wargame
+   * force of player viewing the data
    */
-  platformTypes: any
-  /**
-   * Force for the current player
-   */
-  force: string
-  /**
-   * View data as another force
-   */
-  view_as: string
+  playerForce: string
 }

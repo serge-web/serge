@@ -2,7 +2,7 @@ import React from 'react'
 import { LayerGroup } from 'react-leaflet'
 import AssetIcon from '../asset-icon'
 
-import findPerceivedAsClass from '../../../../client/src/Components/Mapping/helpers/findPerceivedAsClass'
+import findPerceivedAsTypes from '@serge/helpers/findPerceivedAsTypes'
 
 /* Import Stylesheet */
 
@@ -13,27 +13,24 @@ import { UMPIRE_FORCE } from '@serge/config'
 
 
 /* Render component */
-export const Assets: React.FC<PropTypes> = ({ forces, platformTypes, force, view_as }: PropTypes) => {
-
-  console.log(forces, platformTypes, force, view_as)
-
+export const Assets: React.FC<PropTypes> = ({ forces, playerForce }: PropTypes) => {
   const assets: AssetInfo[] = []
   forces.forEach((force: any) => {
     if(force.assets) {
       force.assets.forEach((asset: any) => {
-
         // see if the player of this force can see (perceive) this asset
-        const isUmpire: boolean = force.uniqid === UMPIRE_FORCE
-        const perceivedAs: string = findPerceivedAsClass(force, force.uniqid, asset.platformType,
-          asset.perceptions, isUmpire, asset.name)
+        const isUmpire: boolean = playerForce === UMPIRE_FORCE
+        const perceivedAs: [string, string] = findPerceivedAsTypes(playerForce, force.uniqid, 
+          asset.platformType, asset.perceptions, isUmpire)
 
         if(perceivedAs) {
           // TODO: generate the lat/long position for this asset location
-          const position: [number, number] = [12, 12]
+          const index = assets.length;
+          const position: [number, number] = [12.6 + index * 0.1, 42.5 + index * 0.2]
           const asset_info: AssetInfo = {
             name: asset.name,
-            type: asset.type,
-            force: asset.force,
+            type: perceivedAs[1],
+            force: perceivedAs[0],
             position: position
           }
           assets.push(asset_info)
@@ -49,7 +46,7 @@ export const Assets: React.FC<PropTypes> = ({ forces, platformTypes, force, view
         type={asset.type} 
         force={asset.force} 
         tooltip={asset.name}/>
-    ))}<AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Dummy marker"/>
+    ))}
     </LayerGroup>
   </>
 }
