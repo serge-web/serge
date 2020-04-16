@@ -5,7 +5,7 @@ import AssetIcon from '../asset-icon'
 
 /* Import Types */
 import PropTypes from './types/props'
-import AssetInfo from './types/props'
+import AssetInfo from './types/asset_info'
 
 
 /* Render component */

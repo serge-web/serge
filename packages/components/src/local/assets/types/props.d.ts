@@ -1,4 +1,4 @@
-export interface PropTypes {
+export default interface PropTypes {
   /**
    * forces in this wargame
    */
@@ -15,11 +15,4 @@ export interface PropTypes {
    * View data as another force
    */
   view_as: string
-}
-
-export interface AssetInfo {
-  position: [number, number],
-  name: string,
-  force: string,
-  type: string
 }
