@@ -2,9 +2,15 @@
 
 exports[`Dialogue renders correctly 1`] = `
 <div
-  className="blue"
+  className="dialogue test"
 >
-  This is an example component, the name provided to it was 
-  test
+  <h2
+    className="dialogue-header"
+  >
+    test header
+  </h2>
+  <div
+    className="content"
+  />
 </div>
 `;
