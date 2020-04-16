@@ -55,7 +55,7 @@ export const WithMarker: React.FC = () => <Mapping
 </Mapping>
 
 
-const hexGridLabel = 'Tile radius, nm';
+const hexGridLabel = 'Tile diameter, nm';
 const hexGridDefaultValue = 5;
 const hexGridOptions = {
    range: true,
@@ -69,7 +69,7 @@ export const WithGrid: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
 >
   <HexGrid 
-    tileRadiusMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} 
+    tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} 
     bounds = {bounds}
   />
 </Mapping>

@@ -10,10 +10,10 @@ import PropTypes from './types/props'
 import toWorld from './helpers/to-world'
 
 /* Render component */
-export const HexGrid: React.FC<PropTypes> = ({ tileRadiusMins, bounds }: PropTypes) => {
+export const HexGrid: React.FC<PropTypes> = ({ tileDiameterMins, bounds }: PropTypes) => {
 
   // Convert diameter in mins to radius in degs
-  const tileSizeDegs: number = tileRadiusMins / 60
+  const tileSizeDegs: number = tileDiameterMins / 60
 
   // offset the origin, by half a tile
   const correctedOrigin: L.LatLng = L.latLng(bounds.imageTop - tileSizeDegs / 2, bounds.imageLeft + tileSizeDegs / 2)
@@ -69,9 +69,6 @@ export const HexGrid: React.FC<PropTypes> = ({ tileRadiusMins, bounds }: PropTyp
         y: value.y - centreH.y
       }
       const newP = toWorld(point, centreWorld, tileSizeDegs / 2)
-      // if(polygons.length < 1 && cornerArr.length <= 20) {
-      //   console.log('cell coords:' + polygons.length, point, centreWorld, tileSizeDegs, newP)
-      // }
       cornerArr.push(newP)
     })
     // add the polygon to polygons array
