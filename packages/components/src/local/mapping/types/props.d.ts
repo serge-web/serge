@@ -15,7 +15,7 @@ export default interface PropTypes {
   /** forces for this wargame
    * 
    */
-  forces: [any],
+  forces: any,
   /** current player's force 
    * 
   */
