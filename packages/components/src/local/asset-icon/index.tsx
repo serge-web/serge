@@ -15,7 +15,12 @@ export const AssetIcon: React.FC<PropTypes> = ({ position, type, force, tooltip 
     iconSize: [40, 40],
     className: cx(styles['asset-icon'], styles[force], styles[`platform-type-${type}`]),
   })
-  return <Marker position={position} icon={divIcon} classNa>
+
+  const eventChild = <div>Hello</div>
+
+  const clickEvent = () => console.log('This is the event')
+
+  return <Marker position={position} icon={divIcon} onclick={clickEvent}>
       <Tooltip>{tooltip}</Tooltip>
   </Marker>
 }
