@@ -92,12 +92,12 @@ WithAssets.story = {
 const hexGridLabel = 'Tile diameter, nm';
 const hexGridDefaultValue = 5;
 const hexGridOptions = {
-   range: true,
-   min: 1,
-   max: 15,
-   step: 1,
-};
- 
+  range: true,
+  min: 1,
+  max: 15,
+  step: 1
+}
+
 export const WithGrid: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}

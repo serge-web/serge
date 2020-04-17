@@ -2,7 +2,7 @@ import React from 'react'
 
 // Import component files
 import { ButtonGroup, Button } from '@material-ui/core'
-import { Home, Language, HourglassFull } from '@material-ui/icons';
+import { Home, Language, HourglassFull } from '@material-ui/icons'
 
 import docs from './README.md'
 

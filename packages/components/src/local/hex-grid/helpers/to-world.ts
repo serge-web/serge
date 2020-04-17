@@ -7,4 +7,4 @@ const toWorld = (point: any, origin: L.LatLng, tileSize: number): L.LatLng => {
     return L.latLng(newLat, newLng)
 }
 
-export default toWorld;
+export default toWorld

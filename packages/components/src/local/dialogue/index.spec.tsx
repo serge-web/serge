@@ -3,12 +3,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import Message from './index'
-import { MessagesMock } from '@serge/mocks'
+import Dialogue from './index'
 
-it('Message renders correctly', () => {
+it('Dialogue renders correctly', () => {
   const tree = renderer
-    .create(<Message message={MessagesMock[0]}/>)
+    .create(<Dialogue type="test" headerText="test header"/>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MessagesList renders correctly 1`] = `
+exports['MessagesList renders correctly 1'] = `
 <div
   className="message-list"
 >
@@ -49,4 +49,4 @@ exports[`MessagesList renders correctly 1`] = `
     }
   />
 </div>
-`;
+`

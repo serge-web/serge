@@ -10,6 +10,7 @@ import toWorld from './helpers/to-world'
 
 /* Render component */
 export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
+
   // define polygons array.
   const polygons: L.LatLng[][] = []
 
@@ -45,7 +46,7 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
         className={styles['default-hex']}
       />
     ))}
-</LayerGroup>
+    </LayerGroup>
   </>
 }
 

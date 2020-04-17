@@ -10,9 +10,9 @@ export default interface PropTypes {
   /**
    * The force which the asset belongs to
    */
-  force: string ,
+  force: string
   /**
    * The tooltip label for the marker
    */
-  tooltip?: string 
+  tooltip?: string
 }

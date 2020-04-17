@@ -34,5 +34,3 @@ it('Mapping renders correctly with AssetIcon', () => {
 
   expect(tree).toMatchSnapshot()
 })
-
-
