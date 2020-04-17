@@ -1,18 +1,15 @@
 export default interface PropTypes {
   /**
-   * Radius of tiles (Degrees)
+   * Diameter of tiles (Minutes)
    */
-  tileSize: number,
+  tileDiameterMins: number,
   /**
-   * Width of grid (number of cells)
+   * bounds for hex grid
    */
-  width: number,
-  /**
-   * Height of grid (number of cells)
-   */
-  height: number,
-  /**
-   * Coordinates (degs) for centre of top-left icon
-   */
-  origin: L.LatLng
+  bounds: {
+    imageTop: number
+    imageLeft: number
+    imageRight: number
+    imageBottom: number
+  }
 }
