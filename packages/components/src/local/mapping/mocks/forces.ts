@@ -67,7 +67,7 @@ export const forces = [
             }
           },
           platformType: 'merchant-vessel',
-          position: 'S23',
+          position: 'Q25',
           status: {
             state: 'Transiting',
             speedKts: 20
