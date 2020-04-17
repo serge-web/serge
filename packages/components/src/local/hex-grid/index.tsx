@@ -1,7 +1,7 @@
 import React from 'react'
 import L from 'leaflet'
 import { Polygon, LayerGroup } from 'react-leaflet'
-import { defineGrid } from 'honeycomb-grid'
+import { defineGrid, extendHex, Point } from 'honeycomb-grid'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
@@ -10,26 +10,50 @@ import PropTypes from './types/props'
 import toWorld from './helpers/to-world'
 
 /* Render component */
-export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize, origin }: PropTypes) => {
-  // init grid
-  const grid = defineGrid()
+export const HexGrid: React.FC<PropTypes> = ({ tileDiameterMins, bounds }: PropTypes) => {
+  // Convert diameter in mins to radius in degs
+  const tileSizeDegs: number = tileDiameterMins / 60
+
+  // offset the origin, by half a tile
+  const correctedOrigin: L.LatLng = L.latLng(bounds.imageTop - tileSizeDegs / 2, bounds.imageLeft + tileSizeDegs / 2)
+
+  // the width of a degree of longitude varies with latitude. Start by
+  // finding the width of the box 1/2 way down it
+  const centreLat: number = bounds.imageBottom + (bounds.imageTop - bounds.imageBottom) / 2
+  const measureLeft: L.LatLng = L.latLng(centreLat, bounds.imageLeft)
+  const measureRight: L.LatLng = L.latLng(centreLat, bounds.imageRight)
+  const boxWidthM: number = measureLeft.distanceTo(measureRight)
+
+  // now find the width of one tile
+  const cellCentre: L.LatLng = L.latLng(centreLat, bounds.imageLeft + tileSizeDegs)
+  const cellWidthM: number = measureLeft.distanceTo(cellCentre)
+
+  // and calculate the number of cells that fit in the provided area
+  const widthCells: number = Math.ceil(boxWidthM / cellWidthM) + 1
+
+  // lines of latitude are largely equi-distant, so perform simple calculation
+  const heightcells: number = Math.ceil((bounds.imageTop - bounds.imageBottom) / (tileSizeDegs))
+
+  // since we have pointy arrangement, we need to provide more to get height, since they're
+  // more densely packed in vertical direction (more overlap)
+  const stretchedHeight: number = heightcells * 4 / 3
+
+  // define grid as flat
+  const Hex = extendHex({ orientation: 'pointy' })
+  const grid = defineGrid(Hex)
+
   // generate grid items
-  const gridCells = grid.rectangle({ width, height })
+  const gridCells = grid.rectangle({ width: widthCells, height: stretchedHeight })
+
   // define polygons array.
   const polygons: L.LatLng[][] = []
-
-  // Convert the values given to the component to Leaflet LatLng points
-  const latLngOrigin = L.latLng(origin[0], origin[1])
-
-  // Convert the value to minutes
-  const calculatedTileSize = 1 / 60 * tileSize
 
   // create a polygon for each hex, add it to the parent
   gridCells.forEach(hex => {
     // get center hex coords
-    const centreHex = hex.toPoint()
+    const centreHex: Point = hex.toPoint()
     // move coords to our map
-    const centreWorld = toWorld(centreHex, latLngOrigin, calculatedTileSize)
+    const centreWorld: L.LatLng = toWorld(centreHex, correctedOrigin, tileSizeDegs / 2)
     // build up an array of correctly mapped corners
     const cornerArr: L.LatLng[] = []
     // get hex center
@@ -43,7 +67,7 @@ export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize, origin }
         x: value.x - centreH.x,
         y: value.y - centreH.y
       }
-      const newP = toWorld(point, centreWorld, calculatedTileSize)
+      const newP = toWorld(point, centreWorld, tileSizeDegs / 2)
       cornerArr.push(newP)
     })
     // add the polygon to polygons array
@@ -51,13 +75,14 @@ export const HexGrid: React.FC<PropTypes> = ({ width, height, tileSize, origin }
   })
 
   return <>
-    <LayerGroup>{polygons.map(pols => (
+    <LayerGroup>{polygons.map((pols, key) => (
       <Polygon
-        key={pols.toString()}
+        key = {key}
         positions={pols}
         className={styles['default-hex']}
       />
-    ))}</LayerGroup>
+    ))}
+    </LayerGroup>
   </>
 }
 

@@ -1,6 +1,8 @@
 import React from 'react'
 import { withKnobs, number } from '@storybook/addon-knobs'
 
+// import tileSize from '../hex-grid/knobs/tile-size'
+
 // Import component files
 import Mapping from './index'
 import docs from './README.md'
@@ -52,8 +54,8 @@ export const WithMarker: React.FC = () => <Mapping
   <AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Tooltip for marker"/>
 </Mapping>
 
-const hexGridLabel = 'Tile Size'
-const hexGridDefaultValue = 2
+const hexGridLabel = 'Tile diameter, nm'
+const hexGridDefaultValue = 5
 const hexGridOptions = {
   range: true,
   min: 1,
@@ -65,7 +67,10 @@ export const WithGrid: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 >
-  <HexGrid tileSize={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} width={24} height={21} origin={[14.1166, 42.4166]} />
+  <HexGrid
+    tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
+    bounds = {bounds}
+  />
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
