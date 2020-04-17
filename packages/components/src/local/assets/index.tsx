@@ -16,6 +16,7 @@ import { UMPIRE_FORCE } from '@serge/config'
 /* Render component */
 export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: PropTypes) => {
   const assets: AssetInfo[] = []
+  //REFACTOR:Can these nested loops be done better?
   forces.forEach((force: any) => {
     if(force.assets) {
       force.assets.forEach((asset: any) => {
