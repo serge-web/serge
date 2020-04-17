@@ -1,7 +1,6 @@
 import React from 'react'
 import L from 'leaflet'
 import { Polygon, LayerGroup } from 'react-leaflet'
-import { Point } from 'honeycomb-grid'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
@@ -10,23 +9,17 @@ import PropTypes from './types/props'
 import toWorld from './helpers/to-world'
 
 /* Render component */
-export const HexGrid: React.FC<PropTypes> = ({ gridCells, tileDiameterMins, bounds }: PropTypes) => {
+export const HexGrid: React.FC<PropTypes> = ({ gridCells, tileDiameterMins }: PropTypes) => {
+  // define polygons array.
+  const polygons: L.LatLng[][] = []
 
   // Convert diameter in mins to radius in degs
   const tileSizeDegs: number = tileDiameterMins / 60
 
-  // offset the origin, by half a tile
-  const correctedOrigin: L.LatLng = L.latLng(bounds.imageTop - tileSizeDegs / 2, bounds.imageLeft + tileSizeDegs / 2)
-
-  // define polygons array.
-  const polygons: L.LatLng[][] = []
-
   // create a polygon for each hex, add it to the parent
   gridCells.forEach(hex => {
-    // get center hex coords
-    const centreHex: Point = hex.toPoint()
     // move coords to our map
-    const centreWorld: L.LatLng = toWorld(centreHex, correctedOrigin, tileSizeDegs / 2)
+    const centreWorld: L.LatLng = hex.centreLatLng
     // build up an array of correctly mapped corners
     const cornerArr: L.LatLng[] = []
     // get hex center
