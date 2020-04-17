@@ -1,4 +1,10 @@
+import { Grid, Hex } from 'honeycomb-grid'
+
 export default interface PropTypes {
+  /**
+   * the grid of hex cells
+   */
+  gridCells: Grid<Hex<{}>>,
   /**
    * Diameter of tiles (Minutes)
    */

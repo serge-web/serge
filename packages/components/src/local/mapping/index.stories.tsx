@@ -8,7 +8,6 @@ import { forces } from './mocks/forces'
 import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
-import HexGrid from '../hex-grid'
 import Assets from '../assets'
 
 export default {
@@ -45,11 +44,13 @@ const OSMTileLayer = {
 }
 
 export const Default: React.FC = () => <Mapping
+  tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 />
 
 export const WithMarker: React.FC = () => <Mapping
+  tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 >
@@ -65,6 +66,7 @@ const forceNames = {
 const defaultValue = 'Blue';
 
 export const WithAssets: React.FC = () => <Mapping
+  tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 >
@@ -95,11 +97,8 @@ const hexGridOptions = {
 export const WithGrid: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
+  tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} 
 >
-  <HexGrid 
-    tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} 
-    bounds = {bounds}
-  />
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
@@ -113,6 +112,7 @@ WithGrid.story = {
 }
 
 export const OpenStreetMap: React.FC = () => <Mapping
+  tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {OSMTileLayer}
 />

@@ -8,6 +8,10 @@ export default interface PropTypes {
     imageRight: number
     imageBottom: number
   }
+  /** 
+   * diameter of tiles in use
+   */
+  tileDiameterMins: number
   /**
    *  The TileLayer object for the leaflet map
 

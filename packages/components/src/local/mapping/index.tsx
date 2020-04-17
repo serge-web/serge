@@ -1,6 +1,9 @@
-
+import L from 'leaflet'
 import React from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
+import createGrid from './helpers/createGrid'
+import { Grid, Hex } from 'honeycomb-grid'
+import HexGrid from '../hex-grid'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -16,6 +19,7 @@ const defaultProps: PropTypes = {
     imageRight: 0,
     imageBottom: 0
   },
+  tileDiameterMins: 5,
   tileLayer: {
     url: '',
     attribution: ''
@@ -34,6 +38,7 @@ const defaultProps: PropTypes = {
 /* Render component */
 export const Mapping: React.FC<PropTypes> = ({
   bounds,
+  tileDiameterMins,
   tileLayer,
   minZoom,
   maxZoom,
@@ -48,13 +53,16 @@ export const Mapping: React.FC<PropTypes> = ({
 }) => {
   const { imageTop, imageLeft, imageRight, imageBottom } = bounds
   const position: [number, number] = [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2]
-  const imageBounds: [[number, number], [number, number]] = [[imageTop, imageLeft], [imageBottom, imageRight]]
+  const topLeft = L.latLng(imageTop, imageLeft)
+  const bottomRight = L.latLng(imageBottom, imageRight)
+  const latLngBounds: L.LatLngBounds =  L.latLngBounds(topLeft, bottomRight)
+  const gridCells: Grid<Hex<{}>> = createGrid(latLngBounds, tileDiameterMins)
 
   return (
     <Map
       center={position}
-      bounds={imageBounds}
-      maxBounds={imageBounds}
+      bounds={latLngBounds}
+      maxBounds={latLngBounds}
       className={styles['map-container']}
       zoom={zoom}
       zoomDelta={zoomDelta}
@@ -69,7 +77,12 @@ export const Mapping: React.FC<PropTypes> = ({
       <TileLayer
         url={tileLayer.url}
         attribution={tileLayer.attribution}
-        bounds={imageBounds}
+        bounds={latLngBounds}
+      />
+      <HexGrid 
+        gridCells = {gridCells}
+        tileDiameterMins = {tileDiameterMins}
+        bounds = {bounds}
       />
       <ScaleControl/>
       {children}
