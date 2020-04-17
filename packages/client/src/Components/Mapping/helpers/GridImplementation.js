@@ -134,7 +134,7 @@ export default class GridImplementation {
       // determine styling, based upon `organic` flag
       const gridTextClass = hex.organic ? 'cell-label-black' : 'cell-label'
       const gridHexStyle = hex.organic ? organicHexStyle : defaultHexStyle
-      
+
       // now create the polygon
       const polygon = L.polygon(cornerArr, gridHexStyle)
 
