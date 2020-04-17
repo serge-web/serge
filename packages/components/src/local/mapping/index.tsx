@@ -2,10 +2,10 @@ import L from 'leaflet'
 import React from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/createGrid'
-import { Grid } from 'honeycomb-grid'
 import HexGrid from '../hex-grid'
 import Assets from '../assets'
 import SergeHex from './types/serge-hex'
+import SergeGrid from './types/serge-grid'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -62,7 +62,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const topLeft = L.latLng(imageTop, imageLeft)
   const bottomRight = L.latLng(imageBottom, imageRight)
   const latLngBounds: L.LatLngBounds =  L.latLngBounds(topLeft, bottomRight)
-  const gridCells: Grid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
+  const gridCells: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
 
   return (
     <Map
@@ -87,8 +87,6 @@ export const Mapping: React.FC<PropTypes> = ({
       />
       <HexGrid 
         gridCells = {gridCells}
-        tileDiameterMins = {tileDiameterMins}
-        bounds = {bounds}
       />
       <Assets 
         gridCells={gridCells} 

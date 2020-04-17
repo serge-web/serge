@@ -9,12 +9,9 @@ import PropTypes from './types/props'
 import toWorld from './helpers/to-world'
 
 /* Render component */
-export const HexGrid: React.FC<PropTypes> = ({ gridCells, tileDiameterMins }: PropTypes) => {
+export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
   // define polygons array.
   const polygons: L.LatLng[][] = []
-
-  // Convert diameter in mins to radius in degs
-  const tileSizeDegs: number = tileDiameterMins / 60
 
   // create a polygon for each hex, add it to the parent
   gridCells.forEach(hex => {
@@ -33,7 +30,7 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells, tileDiameterMins }: Pr
         x: value.x - centreH.x,
         y: value.y - centreH.y
       }
-      const newP = toWorld(point, centreWorld, tileSizeDegs / 2)
+      const newP = toWorld(point, centreWorld, gridCells.tileDiameterDegs / 2)
       cornerArr.push(newP)
     })
     // add the polygon to polygons array

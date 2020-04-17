@@ -2,6 +2,7 @@
 import L from 'leaflet'
 import { defineGrid, extendHex, Grid, Point } from 'honeycomb-grid'
 import SergeHex from '../types/serge-hex'
+import SergeGrid from '../types/serge-grid'
 import cellName from '../../assets/helpers/cellName'
 import toWorld from '../../hex-grid/helpers/to-world'
 
@@ -9,9 +10,9 @@ import toWorld from '../../hex-grid/helpers/to-world'
  *  create hexagonal grid
  * @param {L.LatLngBounds} bounds Outer bounds of grid
  * @param {number} tileDiameterMins Tile diamater, in minutes
- * @returns {Grid<Hex<{}>>} Honeycomb hex grid
+ * @returns {SergeGrid<SergeHex<{}>>} Honeycomb hex grid
  */
-const createGrid = (bounds:L.LatLngBounds, tileDiameterMins: number): Grid<SergeHex<{}>> => {
+const createGrid = (bounds:L.LatLngBounds, tileDiameterMins: number): SergeGrid<SergeHex<{}>> => {
 
   // Convert diameter in mins to radius in degs
   const tileSizeDegs: number = tileDiameterMins / 60
@@ -57,7 +58,12 @@ const createGrid = (bounds:L.LatLngBounds, tileDiameterMins: number): Grid<Serge
   })
   const unTyped: any = newCells
   const asSerge: Grid<SergeHex<{}>> = unTyped as Grid<SergeHex<{}>>
-  return asSerge
+
+  const sergeGrid: SergeGrid<SergeHex<{}>> = asSerge as SergeGrid<SergeHex<{}>>
+  sergeGrid.origin = correctedOrigin
+  sergeGrid.tileDiameterDegs = tileSizeDegs
+
+  return sergeGrid
 }
 
 export default createGrid;

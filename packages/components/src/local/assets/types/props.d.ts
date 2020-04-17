@@ -1,11 +1,11 @@
-import { Grid } from 'honeycomb-grid'
 import SergeHex from '../../mapping/types/serge-hex'
+import SergeGrid from '../../mapping/types/serge-grid'
 
 export default interface PropTypes {
   /** 
    * hex cells for this scenario
    */
-  gridCells: Grid<SergeHex<{}>> 
+  gridCells: SergeGrid<SergeHex<{}>> 
   /**
    * forces in this wargame
    */
