@@ -1,5 +1,4 @@
 import React from 'react'
-import L from 'leaflet'
 import { withKnobs, number, radios } from '@storybook/addon-knobs';
 import { forces } from './mocks/forces'
 
