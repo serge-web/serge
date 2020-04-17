@@ -27,9 +27,6 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
         if(perceivedAs) {
           const cell = hexNamed(asset.position, gridCells)
           if(cell != null) {
-            // TODO: with the cell, we can calculate the lat/long of its center.
-            // but, it would be much more efficient to store the L.LatLng in the cell
-            // const position: L.latLng = cell.centreWorld()
             const position: L.LatLng = cell.centreLatLng
             const asset_info: AssetInfo = {
               name: asset.name,
