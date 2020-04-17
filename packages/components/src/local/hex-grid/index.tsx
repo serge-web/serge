@@ -11,7 +11,6 @@ import toWorld from './helpers/to-world'
 
 /* Render component */
 export const HexGrid: React.FC<PropTypes> = ({ tileDiameterMins, bounds }: PropTypes) => {
-
   // Convert diameter in mins to radius in degs
   const tileSizeDegs: number = tileDiameterMins / 60
 
@@ -83,7 +82,7 @@ export const HexGrid: React.FC<PropTypes> = ({ tileDiameterMins, bounds }: PropT
         className={styles['default-hex']}
       />
     ))}
-</LayerGroup>
+    </LayerGroup>
   </>
 }
 

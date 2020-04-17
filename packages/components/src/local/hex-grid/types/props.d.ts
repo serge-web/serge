@@ -2,7 +2,7 @@ export default interface PropTypes {
   /**
    * Diameter of tiles (Minutes)
    */
-  tileDiameterMins: number,
+  tileDiameterMins: number
   /**
    * bounds for hex grid
    */

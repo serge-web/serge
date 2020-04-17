@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { expiredStorage } from '@serge/config'
 
-
 /* Import Types */
 import PropTypes from './types/props'
 
@@ -30,7 +29,7 @@ export const MessagesList: React.FC<PropTypes> = ({ userId, messages, allMarkedR
 
   return (
     <div className={styles['message-list']}>
-      <span className={styles['link']}>Mark all as read</span>
+      <span className={styles.link}>Mark all as read</span>
       {
         messageList.map(message => <Message key={message._id} message={message} />)
       }

@@ -8,6 +8,6 @@ import DialogueHeader from './index'
 it('DialogueHeader renders correctly', () => {
   const tree = renderer
     .create(<DialogueHeader string="test" />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports['Dialogue renders correctly 1'] = `
+<div
+  className="dialogue test"
+>
+  <h2
+    className="dialogue-header"
+  >
+    test header
+  </h2>
+  <div
+    className="content"
+  />
+</div>
+`

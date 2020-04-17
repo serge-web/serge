@@ -6,13 +6,13 @@ export default interface PropTypes {
   /**
    * The position to place the icon on the map
    */
-  position: [number, number],
+  position: [number, number]
   /**
    * The force which the asset belongs to
    */
-  force: string ,
+  force: string
   /**
    * The tooltip label for the marker
    */
-  tooltip?: string 
+  tooltip?: string
 }

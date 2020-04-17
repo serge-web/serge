@@ -4,7 +4,6 @@ import React from 'react'
 import DialogueHeader from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/DialogueHeader',
   component: DialogueHeader,
@@ -12,7 +11,7 @@ export default {
   parameters: {
     options: {
       // No addons are used in this story so don't show the addon panel
-      showPanel: false,
+      showPanel: false
     },
     readme: {
       // Show readme before story
@@ -22,4 +21,3 @@ export default {
 }
 
 export const Default: React.FunctionComponent = () => <DialogueHeader string="This is the dialogue text" />
-
