@@ -15,10 +15,10 @@ import { UMPIRE_FORCE } from '@serge/config'
 
 /* Render component */
 export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: PropTypes) => {
-  const forcesWithAssets = forces.filter((force: any) =>{
-    return force.assets
-  })
-  const assets: AssetInfo[] = forcesWithAssets.map((asset: any) => {
+  const assets: AssetInfo[] = []
+  forces.forEach((force: any) => {
+    if(force.assets) {
+      force.assets.forEach((asset: any) => {
         // see if the player of this force can see (perceive) this asset
         const isUmpire: boolean = playerForce === UMPIRE_FORCE
         const perceivedAs: [string, string] = findPerceivedAsTypes(playerForce, force.uniqid, 
@@ -34,14 +34,13 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
               position: position,
               uniqid: asset.uniqid
             }
-            return asset_info
+            assets.push(asset_info)
           } else {
             console.log("!! Failed to find cell numbered:", asset.position)
-            return null
           }
-        } else {
-          return null
         }
+      })  
+    }
   })
 
   return <>
