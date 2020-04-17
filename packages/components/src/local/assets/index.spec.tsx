@@ -82,8 +82,9 @@ it('Mapping renders correctly with AssetIcon', () => {
     tileDiameterMins = {5}
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
+    forces={forces} 
+    playerForce="Blue" 
   >
-    <Assets forces={forces} playerForce="Blue" />
   </Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

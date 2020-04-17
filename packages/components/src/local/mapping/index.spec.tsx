@@ -27,6 +27,8 @@ it('Mapping renders correctly', () => {
     tileDiameterMins = {5}
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
+    forces = {[{}]}
+    playerForce = 'Blue'
   />, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

@@ -1,3 +1,4 @@
+import L from 'leaflet'
 import React from 'react'
 import { withKnobs, number, radios } from '@storybook/addon-knobs';
 import { forces } from './mocks/forces'
@@ -8,7 +9,6 @@ import { forces } from './mocks/forces'
 import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
-import Assets from '../assets'
 
 export default {
   title: 'local/Mapping',
@@ -47,14 +47,18 @@ export const Default: React.FC = () => <Mapping
   tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
+  forces = {forces}
+  playerForce = 'Blue'
 />
 
 export const WithMarker: React.FC = () => <Mapping
   tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
+  forces = {forces}
+  playerForce = 'Blue'
 >
-  <AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Tooltip for marker"/>
+  <AssetIcon position={L.latLng(13.298034302, 43.0488191271)} type="agi" force="blue" tooltip="Tooltip for marker"/>
 </Mapping>
 
 const label = 'View As';
@@ -69,9 +73,9 @@ export const WithAssets: React.FC = () => <Mapping
   tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
->
-  <Assets forces={forces} playerForce={radios(label, forceNames, defaultValue)}/>
-</Mapping>
+  forces={forces} 
+  playerForce={radios(label, forceNames, defaultValue)}
+  />
 
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
@@ -98,7 +102,8 @@ export const WithGrid: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
   tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} 
->
+  forces={forces} 
+  playerForce='Blue'>
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
@@ -115,4 +120,6 @@ export const OpenStreetMap: React.FC = () => <Mapping
   tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {OSMTileLayer}
-/>
+  forces={forces} 
+  playerForce='Blue'
+  />

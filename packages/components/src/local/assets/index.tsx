@@ -1,7 +1,7 @@
 import React from 'react'
+import L from 'leaflet'
 import { LayerGroup } from 'react-leaflet'
 import AssetIcon from '../asset-icon'
-
 import findPerceivedAsTypes from '@serge/helpers/findPerceivedAsTypes'
 import hexNamed from './helpers/hexNamed'
 
@@ -28,13 +28,10 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
           const index = assets.length;
           const cell = hexNamed(asset.position, gridCells)
           if(cell != null) {
-            const pointCentre = cell.center()
-            console.log("point centre", pointCentre)
-            // TODO: we need to call toWorld here.  But, we don't have the necessary data
-            // it would be easier if we could embed toWorld in the grid_cells object. 
-            // Hmm, or maybe to create a 'helper' object that gets passed around. this helper
-            // could include the grid, the origin, the tile size, etc.
-            const position: [number, number] = [12.6 + index * 0.1, 42.5 + index * 0.2]
+            // TODO: with the cell, we can calculate the lat/long of its center.
+            // but, it would be much more efficient to store the L.LatLng in the cell
+            // const position = cell.centreWorld()
+            const position: L.LatLng = L.latLng(12.6 + index * 0.1, 42.5 + index * 0.2)
             const asset_info: AssetInfo = {
               name: asset.name,
               type: perceivedAs[1],

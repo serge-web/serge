@@ -1,5 +1,7 @@
+import L from 'leaflet'
+
 export default interface AssetInfo {
-  position: [number, number]
+  position: L.LatLng
   name: string
   force: string
   type: string

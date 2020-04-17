@@ -6,7 +6,7 @@ export default interface PropTypes {
   /**
    * The position to place the icon on the map
    */
-  position: [number, number],
+  position: L.LatLng,
   /**
    * The force which the asset belongs to
    */

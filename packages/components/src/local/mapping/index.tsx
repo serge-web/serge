@@ -4,6 +4,7 @@ import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/createGrid'
 import { Grid, Hex } from 'honeycomb-grid'
 import HexGrid from '../hex-grid'
+import Assets from '../assets'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -20,6 +21,8 @@ const defaultProps: PropTypes = {
     imageBottom: 0
   },
   tileDiameterMins: 5,
+  forces: [{}],
+  playerForce: 'Blue',
   tileLayer: {
     url: '',
     attribution: ''
@@ -39,6 +42,8 @@ const defaultProps: PropTypes = {
 export const Mapping: React.FC<PropTypes> = ({
   bounds,
   tileDiameterMins,
+  forces,
+  playerForce,
   tileLayer,
   minZoom,
   maxZoom,
@@ -84,6 +89,10 @@ export const Mapping: React.FC<PropTypes> = ({
         tileDiameterMins = {tileDiameterMins}
         bounds = {bounds}
       />
+      <Assets 
+        gridCells={gridCells} 
+        forces={forces} 
+        playerForce={playerForce}/>
       <ScaleControl/>
       {children}
     </Map>

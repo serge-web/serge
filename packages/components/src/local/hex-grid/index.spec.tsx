@@ -26,6 +26,8 @@ it('Mapping renders correctly with AssetIcon', () => {
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
     tileDiameterMins={5}
+    forces={[{}]}
+    playerForce={'Blue'}
     >
   </Mapping>, { attachTo: div })
 
