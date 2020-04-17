@@ -25,13 +25,12 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
           asset.platformType, asset.perceptions, isUmpire)
 
         if(perceivedAs) {
-          const index = assets.length;
           const cell = hexNamed(asset.position, gridCells)
           if(cell != null) {
             // TODO: with the cell, we can calculate the lat/long of its center.
             // but, it would be much more efficient to store the L.LatLng in the cell
             // const position: L.latLng = cell.centreWorld()
-            const position: L.LatLng = L.latLng(12.6 + index * 0.1, 42.5 + index * 0.2)
+            const position: L.LatLng = cell.centreLatLng
             const asset_info: AssetInfo = {
               name: asset.name,
               type: perceivedAs[1],
