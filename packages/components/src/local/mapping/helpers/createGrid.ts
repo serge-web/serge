@@ -1,6 +1,7 @@
 
 import L from 'leaflet'
 import { defineGrid, extendHex, Grid, Hex } from 'honeycomb-grid'
+import SergeHex from '../types/SergeHex'
 
 /**
  *  create hexagonal grid
@@ -8,7 +9,7 @@ import { defineGrid, extendHex, Grid, Hex } from 'honeycomb-grid'
  * @param {number} tileDiameterMins Tile diamater, in minutes
  * @returns {Grid<Hex<{}>>} Honeycomb hex grid
  */
-const createGrid = (bounds:L.LatLngBounds, tileDiameterMins: number): Grid<Hex<{}>> => {
+const createGrid = (bounds:L.LatLngBounds, tileDiameterMins: number): Grid<SergeHex<{}>> => {
 
   // Convert diameter in mins to radius in degs
   const tileSizeDegs: number = tileDiameterMins / 60
@@ -39,7 +40,23 @@ const createGrid = (bounds:L.LatLngBounds, tileDiameterMins: number): Grid<Hex<{
   const grid = defineGrid(Hex)
 
   // generate grid items
-  return grid.rectangle({ width: widthCells, height: stretchedHeight })
+  const rawCells = grid.rectangle({ width: widthCells, height: stretchedHeight })
+  const newCells = rawCells.map(cell => { 
+    const newCell = new SergeHex()
+    // insert the properties of the original cell into our new one
+    newCell.orientation = cell.orientation
+
+    // here are the other cells
+    // orientation: 'pointy' | 'flat'
+    // origin: number
+    // size: { xRadius: number; yRadius: number } | { width: number; height: number } | number
+    // offset: number
+    // q: number
+    // r: number
+    // s: number
+  })
+  return newCells
+
 }
 
 export default createGrid;
