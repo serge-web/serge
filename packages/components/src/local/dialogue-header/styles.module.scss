@@ -2,8 +2,9 @@
 
 .dialogue-header {
   @include typo-primary;
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 25px;
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 1rem;
   color: $text-field-admin;
 }

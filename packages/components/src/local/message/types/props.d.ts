@@ -1,4 +1,4 @@
-import { Message } from "@serge/custom-types";
+import { Message } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**

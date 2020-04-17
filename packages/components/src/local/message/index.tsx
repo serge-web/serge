@@ -19,10 +19,10 @@ export const Message: React.FC<PropTypes> = ({ message }: PropTypes) => {
       <span>{moment(message.details.timestamp).format('YYYY-MMM-DD HH:mm')}</span>
     </div>
     <div>
-        {message.message.content}
+      {message.message.content}
     </div>
     <p className="feedback-marker" style={{ borderColor: message.details.from.forceColor }}></p>
-    </>
+  </>
   )
 }
 

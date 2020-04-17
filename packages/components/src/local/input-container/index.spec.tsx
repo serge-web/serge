@@ -8,6 +8,6 @@ import InputContainer from './index'
 it('InputContainer renders correctly', () => {
   const tree = renderer
     .create(<InputContainer>Child goes here</InputContainer>)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})
