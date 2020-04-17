@@ -1,0 +1,26 @@
+.asset-icon {
+  
+  border-radius: 100%;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: 80%;
+  box-shadow: 3px 3px 2px rgba(0,0,0,.25);
+  border: 1px solid hsla(0,0%,100%,.6);
+}
+
+.force {
+  text-align: center;
+  padding: 1rem;
+}
+
+.blue {
+  background-color: #0f4bf0;
+}
+
+$platforms: frigate, destroyer, mcmv, unknown, agi, fast-attack-craft, uas, merchant-vessel, fixed-wing-aircraft, fishing-vessel, missile, helicopter, boghammer, coastal-radar-site, datum, torpedo, pirate, mine;
+
+@each $platform in $platforms {
+  .platform-type-#{$platform} {
+    background-image: url("./counters/#{$platform}.svg");
+  }
+}

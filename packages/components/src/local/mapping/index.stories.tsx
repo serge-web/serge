@@ -1,13 +1,19 @@
 import React from 'react'
+import L from 'leaflet'
+import { withKnobs, number } from '@storybook/addon-knobs';
+
+// import tileSize from '../hex-grid/knobs/tile-size'
 
 // Import component files
 import Mapping from './index'
 import docs from './README.md'
+import AssetIcon from '../asset-icon'
+import HexGrid from '../hex-grid'
 
 export default {
   title: 'local/Mapping',
   component: Mapping,
-  decorators: [],
+  decorators: [withKnobs],
   parameters: {
     readme: {
       // Show readme before story
@@ -41,6 +47,40 @@ export const Default: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 />
+
+export const WithMarker: React.FC = () => <Mapping
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+>
+  <AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Tooltip for marker"/>
+</Mapping>
+
+
+const hexGridLabel = 'Tile Size';
+const hexGridDefaultValue = 2;
+const hexGridOptions = {
+   range: true,
+   min: 1,
+   max: 15,
+   step: 1,
+};
+ 
+export const WithGrid: React.FC = () => <Mapping
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+>
+  <HexGrid tileSize={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} width={24} height={21} origin={L.latLng(14.1166, 42.4166)} />
+</Mapping>
+
+// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+WithGrid.story = {
+  parameters: {
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
+    }
+  }
+}
 
 export const OpenStreetMap: React.FC = () => <Mapping
   bounds = {bounds}

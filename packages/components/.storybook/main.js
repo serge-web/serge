@@ -76,6 +76,17 @@ module.exports = {
             }
           ],
           include: path.resolve(__dirname, '../'),
+        },
+        {
+          test: /\.(woff|woff2|eot|ttf)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              query: {
+                name: '[name].[ext]'
+              }
+            }
+          ]
         });
         config.resolve.extensions.push('.ts', '.tsx', '.md');
         return config;

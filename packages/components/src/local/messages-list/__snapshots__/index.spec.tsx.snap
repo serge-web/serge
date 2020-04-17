@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessagesList renders correctly 1`] = `
+<div
+  className="message-list"
+>
+  <span
+    className="link"
+  >
+    Mark all as read
+  </span>
+  <div
+    className="info-wrap"
+  >
+    <div
+      className="MuiChip-root MuiChip-colorPrimary"
+      onKeyUp={[Function]}
+    >
+      <span
+        className="MuiChip-label"
+      >
+        White
+      </span>
+    </div>
+    <div
+      className="MuiChip-root MuiChip-colorSecondary"
+      onKeyUp={[Function]}
+    >
+      <span
+        className="MuiChip-label"
+      >
+        Game Control
+      </span>
+    </div>
+    <span>
+      2020-Mar-25 15:08
+    </span>
+  </div>
+  <div>
+    test
+
+  </div>
+  <p
+    className="feedback-marker"
+    style={
+      Object {
+        "borderColor": "#FCFBEE",
+      }
+    }
+  />
+</div>
+`;
