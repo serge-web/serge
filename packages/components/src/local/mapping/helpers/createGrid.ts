@@ -1,7 +1,9 @@
 
 import L from 'leaflet'
-import { defineGrid, extendHex, Grid, Hex } from 'honeycomb-grid'
-import SergeHex from '../types/SergeHex'
+import { defineGrid, extendHex, Grid, Point } from 'honeycomb-grid'
+import SergeHex from '../types/serge-hex'
+import cellName from '../../assets/helpers/cellName'
+import toWorld from '../../hex-grid/helpers/to-world'
 
 /**
  *  create hexagonal grid
@@ -13,6 +15,9 @@ const createGrid = (bounds:L.LatLngBounds, tileDiameterMins: number): Grid<Serge
 
   // Convert diameter in mins to radius in degs
   const tileSizeDegs: number = tileDiameterMins / 60
+
+  // offset the origin, by half a tile
+  const correctedOrigin: L.LatLng = L.latLng(bounds.getNorth() - tileSizeDegs / 2, bounds.getWest() + tileSizeDegs / 2)
 
   // the width of a degree of longitude varies with latitude. Start by
   // finding the width of the box 1/2 way down it
@@ -42,21 +47,17 @@ const createGrid = (bounds:L.LatLngBounds, tileDiameterMins: number): Grid<Serge
   // generate grid items
   const rawCells = grid.rectangle({ width: widthCells, height: stretchedHeight })
   const newCells = rawCells.map(cell => { 
-    const newCell = new SergeHex()
-    // insert the properties of the original cell into our new one
-    newCell.orientation = cell.orientation
+    const newCell: SergeHex<{}> = cell as SergeHex<{}>
+    newCell.name = cellName(newCell)
 
-    // here are the other cells
-    // orientation: 'pointy' | 'flat'
-    // origin: number
-    // size: { xRadius: number; yRadius: number } | { width: number; height: number } | number
-    // offset: number
-    // q: number
-    // r: number
-    // s: number
+    // generate the cenll centre in Leaflet coords
+    const centreHex: Point = cell.toPoint()
+    newCell.centreLatLng = toWorld(centreHex, correctedOrigin, tileSizeDegs / 2)
   })
-  return newCells
 
+  const unTyped: any = newCells
+  const asSerge: Grid<SergeHex<{}>> = unTyped as Grid<SergeHex<{}>>
+  return asSerge
 }
 
 export default createGrid;
