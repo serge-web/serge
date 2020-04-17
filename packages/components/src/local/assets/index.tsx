@@ -23,7 +23,6 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
         const isUmpire: boolean = playerForce === UMPIRE_FORCE
         const perceivedAs: [string, string] = findPerceivedAsTypes(playerForce, force.uniqid, 
           asset.platformType, asset.perceptions, isUmpire)
-
         if(perceivedAs) {
           const cell = hexNamed(asset.position, gridCells)
           if(cell != null) {
@@ -36,6 +35,8 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
               uniqid: asset.uniqid
             }
             assets.push(asset_info)
+          } else {
+            console.log("!! Failed to find cell numbered:", asset.position)
           }
         }
       })  
