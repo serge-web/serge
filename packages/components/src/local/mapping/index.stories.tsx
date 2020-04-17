@@ -84,8 +84,8 @@ WithAssets.story = {
 }
 
 
-const hexGridLabel = 'Tile Size';
-const hexGridDefaultValue = 2;
+const hexGridLabel = 'Tile diameter, nm';
+const hexGridDefaultValue = 5;
 const hexGridOptions = {
    range: true,
    min: 1,
@@ -97,7 +97,10 @@ export const WithGrid: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 >
-  <HexGrid tileSize={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} width={24} height={21} origin={L.latLng(14.1166, 42.4166)} />
+  <HexGrid 
+    tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} 
+    bounds = {bounds}
+  />
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
