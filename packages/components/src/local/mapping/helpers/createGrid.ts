@@ -53,8 +53,8 @@ const createGrid = (bounds:L.LatLngBounds, tileDiameterMins: number): Grid<Serge
     // generate the cenll centre in Leaflet coords
     const centreHex: Point = cell.toPoint()
     newCell.centreLatLng = toWorld(centreHex, correctedOrigin, tileSizeDegs / 2)
+    return newCell
   })
-
   const unTyped: any = newCells
   const asSerge: Grid<SergeHex<{}>> = unTyped as Grid<SergeHex<{}>>
   return asSerge
