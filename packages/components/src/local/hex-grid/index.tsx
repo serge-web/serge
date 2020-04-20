@@ -1,7 +1,7 @@
 import React from 'react'
 import L from 'leaflet'
 import { PointLike } from 'honeycomb-grid'
-import { Polygon, LayerGroup } from 'react-leaflet'
+import { Polygon, Marker, LayerGroup } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
@@ -11,8 +11,10 @@ import toWorld from './helpers/to-world'
 
 /* Render component */
 export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
-  // define polygons array.
+  // collate list of named polygons
   const polygons: { [id: string]: L.LatLng[] } = {}
+  // collate list of named polygon centres
+  const centres: { [id: string]: L.LatLng } = {}
 
   // create a polygon for each hex, add it to the parent
   gridCells.forEach(hex => {
@@ -36,16 +38,30 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
     })
     // add the polygon to polygons array, indexed by the cell name
     polygons[hex.name] = cornerArr
+    centres[hex.name] = centreWorld
   })
 
   return <>
-    <LayerGroup>{Object.keys(polygons).map(k => (
+    <LayerGroup key={'hex_polygons'} >{Object.keys(polygons).map(k => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
         key = {'hex_poly_' + k}
         positions={polygons[k]}
         className={styles['default-hex']}
+      />
+    ))}
+    </LayerGroup>
+    <LayerGroup key={'hex_labels'} >{Object.keys(centres).map(k => (
+      <Marker
+        key = {'hex_label_' + k}
+        position={centres[k]}
+        width="120"
+        icon={L.divIcon({
+          html: k,
+          className: styles['default-coords'],
+          iconSize: [30, 20]
+        })}
       />
     ))}
     </LayerGroup>
