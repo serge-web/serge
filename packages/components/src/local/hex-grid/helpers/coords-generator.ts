@@ -8,12 +8,12 @@ const coordsGenerator = (
   // Convert character to ASCII code. EX   "A".charCodeAt(0) = 65
   const firstCharCode: number = firstChar.charCodeAt(0)
   const lastCharCode: number = lastChar.charCodeAt(0)
-  // Get first and last character code difference
+  // Get the difference between first and last char codes
   const codesCount: number = Math.abs(lastCharCode - firstCharCode)
   // Calculate column string max length
   const colIndexLength: number = `${columnCount - 1}`.length
 
-  // Generate first row template to do not copy all logic in main loop
+  // Generate first row template to not copy all logic in main loop
   let rowIndex: number = 0
   const rows = []
   // loop equal count of rows
@@ -22,7 +22,7 @@ const coordsGenerator = (
     const row: number[] = [...(rows[rows.length - 1] || [rowIndex])]
     // ++ first value (In string it will be a last number)
     row[0] = rowIndex
-    // if row last value more then maximal letter char code wee need to update second char
+    // if row's last value more then biggest letter char code we need to update next char
     // Ex. AZ (Z + 1) -> BA
     if (rowIndex > codesCount) {
       rowIndex = 0

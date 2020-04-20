@@ -49,7 +49,6 @@ export const HexGrid: React.FC<PropTypes> = ({ tileDiameterMins, bounds }: PropT
   // generate grid coords EX: AB09
 
   const uiCoords: string[] = coordsGenerator(widthCells, Math.ceil(stretchedHeight))
-  console.log(uiCoords, 'test');
 
   return <>
     <LayerGroup>
