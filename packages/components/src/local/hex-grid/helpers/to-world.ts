@@ -1,4 +1,5 @@
 import L from 'leaflet'
+import { PointLike } from 'honeycomb-grid'
 
 /** convert this point in cell coordinates to lat/long
  * @param {any} point location in 2d Hex coordinate system
@@ -7,7 +8,7 @@ import L from 'leaflet'
  * scaling factor)
  * @returns {L.LatLng} coordinate in world degrees
  */
-const toWorld = (point: any, origin: L.LatLng, tileSize: number): L.LatLng => {
+const toWorld = (point: PointLike, origin: L.LatLng, tileSize: number): L.LatLng => {
   const newLat = origin.lat - point.y * tileSize
   const newLng = origin.lng + point.x * tileSize
   return L.latLng(newLat, newLng)

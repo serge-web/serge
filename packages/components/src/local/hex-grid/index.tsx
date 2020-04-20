@@ -1,5 +1,6 @@
 import React from 'react'
 import L from 'leaflet'
+import { PointLike } from 'honeycomb-grid'
 import { Polygon, LayerGroup } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -27,7 +28,7 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
     // convert hex corners coords to our map
     corners.forEach((value: any) => {
       // the corners are relative to the origin (TL). So, offset them to the centre
-      const point = {
+      const point: PointLike = {
         x: value.x - centreH.x,
         y: value.y - centreH.y
       }
