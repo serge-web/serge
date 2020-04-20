@@ -12,7 +12,7 @@ import toWorld from '../../hex-grid/helpers/to-world'
  * @param {number} tileDiameterMins Tile diamater, in minutes
  * @returns {SergeGrid<SergeHex<{}>>} Honeycomb hex grid
  */
-const createGrid = (bounds:L.LatLngBounds, tileDiameterMins: number): SergeGrid<SergeHex<{}>> => {
+const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid<SergeHex<{}>> => {
 
   // Convert diameter in mins to radius in degs
   const tileSizeDegs: number = tileDiameterMins / 60
@@ -47,7 +47,7 @@ const createGrid = (bounds:L.LatLngBounds, tileDiameterMins: number): SergeGrid<
 
   // generate grid items
   const rawCells = grid.rectangle({ width: widthCells, height: stretchedHeight })
-  const newCells = rawCells.map(cell => { 
+  const newCells = rawCells.map(cell => {
     const newCell: SergeHex<{}> = cell as SergeHex<{}>
     newCell.name = cellName(newCell)
 
