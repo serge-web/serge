@@ -1,6 +1,6 @@
 import React from 'react'
 import L from 'leaflet'
-import { Polygon, LayerGroup } from 'react-leaflet'
+import { Polygon, LayerGroup, Marker } from 'react-leaflet'
 import { defineGrid, extendHex, Point } from 'honeycomb-grid'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -8,6 +8,7 @@ import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
 import toWorld from './helpers/to-world'
+import coordsGenerator from './helpers/coords-generator'
 
 /* Render component */
 export const HexGrid: React.FC<PropTypes> = ({ tileDiameterMins, bounds }: PropTypes) => {
@@ -45,43 +46,55 @@ export const HexGrid: React.FC<PropTypes> = ({ tileDiameterMins, bounds }: PropT
   // generate grid items
   const gridCells = grid.rectangle({ width: widthCells, height: stretchedHeight })
 
-  // define polygons array.
-  const polygons: L.LatLng[][] = []
+  // generate grid coords EX: AB09
 
-  // create a polygon for each hex, add it to the parent
-  gridCells.forEach(hex => {
-    // get center hex coords
-    const centreHex: Point = hex.toPoint()
-    // move coords to our map
-    const centreWorld: L.LatLng = toWorld(centreHex, correctedOrigin, tileSizeDegs / 2)
-    // build up an array of correctly mapped corners
-    const cornerArr: L.LatLng[] = []
-    // get hex center
-    const centreH = hex.center()
-    // get hex corners coords
-    const corners = hex.corners()
-    // convert hex corners coords to our map
-    corners.forEach((value: any) => {
-      // the corners are relative to the origin (TL). So, offset them to the centre
-      const point = {
-        x: value.x - centreH.x,
-        y: value.y - centreH.y
-      }
-      const newP = toWorld(point, centreWorld, tileSizeDegs / 2)
-      cornerArr.push(newP)
-    })
-    // add the polygon to polygons array
-    polygons.push(cornerArr)
-  })
+  const uiCoords: string[] = coordsGenerator(widthCells, Math.ceil(stretchedHeight))
+  console.log(uiCoords, 'test');
 
   return <>
-    <LayerGroup>{polygons.map((pols, key) => (
-      <Polygon
-        key = {key}
-        positions={pols}
-        className={styles['default-hex']}
-      />
-    ))}
+    <LayerGroup>
+      {
+        // create a polygon for each hex, add it to the parent
+        gridCells.map((hex, key) => {
+          // get center hex coords
+          const centreHex: Point = hex.toPoint()
+          // move coords to our map
+          const centreWorld: L.LatLng = toWorld(centreHex, correctedOrigin, tileSizeDegs / 2)
+          // build up an array of correctly mapped corners
+          const cornerArr: L.LatLng[] = []
+          // get hex center
+          const centreH = hex.center()
+          // get hex corners coords
+          const corners = hex.corners()
+          // convert hex corners coords to our map
+          corners.forEach((value: any) => {
+            // the corners are relative to the origin (TL). So, offset them to the centre
+            const point = {
+              x: value.x - centreH.x,
+              y: value.y - centreH.y
+            }
+            const newP = toWorld(point, centreWorld, tileSizeDegs / 2)
+            cornerArr.push(newP)
+          })
+          // add the polygon to polygons array
+          return (<Polygon
+            key = {key}
+            positions={cornerArr}
+            className={styles['default-hex']}
+          >
+            <Marker
+              position={centreWorld}
+              width="120"
+              icon={L.divIcon({
+                html: uiCoords[key],
+                className: styles['default-coords'],
+                iconSize: [60, 20]
+              })}
+            />
+          </Polygon>
+        )
+        })
+      }
     </LayerGroup>
   </>
 }
