@@ -11,9 +11,8 @@ import toWorld from './helpers/to-world'
 
 /* Render component */
 export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
-
   // define polygons array.
-  const polygons: L.LatLng[][] = []
+  const polygons: { [id: string]: L.LatLng[] } = {}
 
   // create a polygon for each hex, add it to the parent
   gridCells.forEach(hex => {
@@ -35,15 +34,17 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
       const newP = toWorld(point, centreWorld, gridCells.tileDiameterDegs / 2)
       cornerArr.push(newP)
     })
-    // add the polygon to polygons array
-    polygons.push(cornerArr)
+    // add the polygon to polygons array, indexed by the cell name
+    polygons[hex.name] = cornerArr
   })
 
   return <>
-    <LayerGroup>{polygons.map(pols => (
+    <LayerGroup>{Object.keys(polygons).map(k => (
       <Polygon
-        key = {pols.toString()}
-        positions={pols}
+        // we may end up with other elements per hex,
+        // such as labels so include prefix in key
+        key = {'hex_poly_' + k}
+        positions={polygons[k]}
         className={styles['default-hex']}
       />
     ))}
