@@ -12,6 +12,8 @@ import { MapContext } from '../mapping'
 import PropTypes from './types/props'
 import AssetInfo from './types/asset_info'
 import { UMPIRE_FORCE } from '@serge/config'
+import SergeHex from '../mapping/types/serge-hex'
+import SergeGrid from '../mapping/types/serge-grid'
 
 /* Render component */
 export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: PropTypes) =>
@@ -20,9 +22,9 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
       (context): React.ReactNode => {
         const assets: AssetInfo[] = []
 
-        const f = forces || context.props.forces
-        const pf = playerForce || context.props.playerForce
-        const gc = gridCells || context.props.gridCells
+        const f: any = forces || context.props.forces
+        const pf: string = playerForce || context.props.playerForce
+        const gc: SergeGrid<SergeHex<{}>> = gridCells || context.props.gridCells
 
         // REFACTOR:Can these nested loops be done better?
         f.forEach((force: any) => {
@@ -33,7 +35,7 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
               const perceivedAs: [string, string] = findPerceivedAsTypes(pf, force.uniqid,
                 asset.platformType, asset.perceptions, isUmpire)
               if (perceivedAs) {
-                const cell = hexNamed(asset.position, gc)
+                const cell: SergeHex<{}> | undefined = hexNamed(asset.position, gc)
                 if (cell != null) {
                   const position: L.LatLng = cell.centreLatLng
                   const assetInfo: AssetInfo = {
