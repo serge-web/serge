@@ -17,6 +17,13 @@
   background-color: #0f4bf0;
 }
 
+.popup {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  z-index: 999;
+}
+
 $platforms: frigate, destroyer, mcmv, unknown, agi, fast-attack-craft, uas,
   merchant-vessel, fixed-wing-aircraft, fishing-vessel, missile, helicopter,
   boghammer, coastal-radar-site, datum, torpedo, pirate, mine;

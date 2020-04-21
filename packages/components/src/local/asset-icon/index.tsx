@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
-import { Marker, Tooltip, Popup } from 'react-leaflet'
+import { Marker, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 
 /* Import Types */
@@ -22,7 +22,7 @@ export const AssetIcon: React.FC<PropTypes> = ({ children, position, type, force
 
   return <Marker position={position} icon={divIcon} onclick={clickEvent}>
     <Tooltip>{tooltip}</Tooltip>
-    { showDialogue && <Popup position={position}>{children}</Popup>}
+    { showDialogue && <div className={styles.popup}>{children}</div>}
   </Marker>
 }
 
