@@ -1,6 +1,6 @@
 import L from 'leaflet'
 import React from 'react'
-import { withKnobs, number, radios } from '@storybook/addon-knobs';
+import { withKnobs, number, radios } from '@storybook/addon-knobs'
 import { forces } from './mocks/forces'
 
 // import tileSize from '../hex-grid/knobs/tile-size'
@@ -9,6 +9,7 @@ import { forces } from './mocks/forces'
 import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
+import Assets from '../assets'
 
 export default {
   title: 'local/Mapping',
@@ -61,22 +62,23 @@ export const WithMarker: React.FC = () => <Mapping
   <AssetIcon position={L.latLng(13.298034302, 43.0488191271)} type="agi" force="blue" tooltip="Tooltip for marker"/>
 </Mapping>
 
-const label = 'View As';
+const label = 'View As'
 const forceNames = {
   White: 'umpire',
   Blue: 'Blue',
-  Red: 'Red',
-};
-const defaultValue = 'Blue';
+  Red: 'Red'
+}
+const defaultValue = 'Blue'
 
 export const WithAssets: React.FC = () => <Mapping
   tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
-  forces={forces} 
+  forces={forces}
   playerForce={radios(label, forceNames, defaultValue)}
-  />
-
+>
+  <Assets />
+</Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 WithAssets.story = {
@@ -88,9 +90,8 @@ WithAssets.story = {
   }
 }
 
-
-const hexGridLabel = 'Tile diameter, nm';
-const hexGridDefaultValue = 5;
+const hexGridLabel = 'Tile diameter, nm'
+const hexGridDefaultValue = 5
 const hexGridOptions = {
   range: true,
   min: 1,
@@ -101,8 +102,8 @@ const hexGridOptions = {
 export const WithGrid: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
-  tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)} 
-  forces={forces} 
+  tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
+  forces={forces}
   playerForce='Blue'>
 </Mapping>
 
@@ -120,6 +121,6 @@ export const OpenStreetMap: React.FC = () => <Mapping
   tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {OSMTileLayer}
-  forces={forces} 
+  forces={forces}
   playerForce='Blue'
-  />
+/>

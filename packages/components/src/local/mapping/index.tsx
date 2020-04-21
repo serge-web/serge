@@ -1,9 +1,8 @@
 import L from 'leaflet'
-import React from 'react'
+import React, { createContext } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/createGrid'
 import HexGrid from '../hex-grid'
-import Assets from '../assets'
 import SergeHex from './types/serge-hex'
 import SergeGrid from './types/serge-grid'
 
@@ -13,6 +12,13 @@ import PropTypes from './types/props'
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
+
+interface ContextInterface {
+  props?: any
+}
+
+// Create a context which will be provided to any child of Map
+export const MapContext = createContext<ContextInterface>({ props: null })
 
 const defaultProps: PropTypes = {
   bounds: {
@@ -61,8 +67,15 @@ export const Mapping: React.FC<PropTypes> = ({
   const position: [number, number] = [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2]
   const topLeft = L.latLng(imageTop, imageLeft)
   const bottomRight = L.latLng(imageBottom, imageRight)
-  const latLngBounds: L.LatLngBounds =  L.latLngBounds(topLeft, bottomRight)
+  const latLngBounds: L.LatLngBounds = L.latLngBounds(topLeft, bottomRight)
   const gridCells: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
+
+  // Anything you put in here will be available to any child component of Map via a context consumer
+  const contextProps = {
+    gridCells,
+    forces,
+    playerForce
+  }
 
   return (
     <Map
@@ -85,15 +98,13 @@ export const Mapping: React.FC<PropTypes> = ({
         attribution={tileLayer.attribution}
         bounds={latLngBounds}
       />
-      <HexGrid 
+      <HexGrid
         gridCells = {gridCells}
       />
-      <Assets 
-        gridCells={gridCells} 
-        forces={forces} 
-        playerForce={playerForce}/>
       <ScaleControl/>
-      {children}
+      <MapContext.Provider value={{ props: contextProps }}>
+        {children}
+      </MapContext.Provider>
     </Map>
   )
 }
