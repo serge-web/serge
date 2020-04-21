@@ -29,7 +29,7 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
           if (force.assets) {
             force.assets.forEach((asset: any) => {
             // see if the player of this force can see (perceive) this asset
-              const isUmpire: boolean = playerForce === UMPIRE_FORCE
+              const isUmpire: boolean = pf === UMPIRE_FORCE
               const perceivedAs: [string, string] = findPerceivedAsTypes(pf, force.uniqid,
                 asset.platformType, asset.perceptions, isUmpire)
               if (perceivedAs) {
