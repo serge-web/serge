@@ -5,5 +5,5 @@ export default interface PropTypes {
   /**
    * the grid of hex cells
    */
-  gridCells: SergeGrid<SergeHex<{}>>,
+  gridCells?: SergeGrid<SergeHex<{}>>
 }

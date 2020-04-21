@@ -2,7 +2,6 @@ import L from 'leaflet'
 import React, { createContext } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/createGrid'
-import HexGrid from '../hex-grid'
 import SergeHex from './types/serge-hex'
 import SergeGrid from './types/serge-grid'
 
@@ -97,9 +96,6 @@ export const Mapping: React.FC<PropTypes> = ({
         url={tileLayer.url}
         attribution={tileLayer.attribution}
         bounds={latLngBounds}
-      />
-      <HexGrid
-        gridCells = {gridCells}
       />
       <ScaleControl/>
       <MapContext.Provider value={{ props: contextProps }}>

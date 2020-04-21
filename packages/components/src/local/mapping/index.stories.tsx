@@ -10,6 +10,7 @@ import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
 import Assets from '../assets'
+import HexGrid from '../hex-grid'
 
 export default {
   title: 'local/Mapping',
@@ -105,6 +106,7 @@ export const WithGrid: React.FC = () => <Mapping
   tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
   forces={forces}
   playerForce='Blue'>
+  <HexGrid />
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
