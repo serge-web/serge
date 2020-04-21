@@ -1,4 +1,5 @@
 .asset-icon {
+  position: relative;
   border-radius: 100%;
   background-repeat: no-repeat;
   background-position: 50%;
@@ -14,6 +15,13 @@
 
 .blue {
   background-color: #0f4bf0;
+}
+
+.popup {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  z-index: 999;
 }
 
 $platforms: frigate, destroyer, mcmv, unknown, agi, fast-attack-craft, uas,

@@ -8,6 +8,7 @@ import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
 import { HexGrid } from '../hex-grid'
+import Dialogue from '../dialogue'
 
 export default {
   title: 'local/Mapping',
@@ -51,7 +52,9 @@ export const WithMarker: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
 >
-  <AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Tooltip for marker"/>
+  <AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Tooltip for marker">
+    <Dialogue headerText="This is a test">This is the content of the dialogue</Dialogue>
+  </AssetIcon>
 </Mapping>
 
 const hexGridLabel = 'Tile diameter, nm'
