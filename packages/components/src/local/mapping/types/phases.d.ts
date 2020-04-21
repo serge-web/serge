@@ -1,3 +1,6 @@
+/**
+ * list the possible phases in a wargame
+ */
 enum Phase {
   /* players are planning their next turn
    */
