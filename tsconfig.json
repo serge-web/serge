@@ -29,11 +29,11 @@
     "composite": false,
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
+    "sourceMap": true
   },
   "files": [
     "packages/components/typings.d.ts",
-    "packages/config/typings.d.ts",
+    "packages/config/typings.d.ts"
   ],
   "references": [
     { "path": "packages/components" },
