@@ -21,6 +21,7 @@ interface ContextInterface {
 export const MapContext = createContext<ContextInterface>({ props: null })
 
 const defaultProps: PropTypes = {
+  mapBar: true,
   bounds: {
     imageTop: 0,
     imageLeft: 0,
@@ -47,6 +48,7 @@ const defaultProps: PropTypes = {
 
 /* Render component */
 export const Mapping: React.FC<PropTypes> = ({
+  mapBar,
   bounds,
   tileDiameterMins,
   forces,
@@ -87,9 +89,7 @@ export const Mapping: React.FC<PropTypes> = ({
   return (
   <MapContext.Provider value={{ props: contextProps }}>
     <section className={styles['map-container']}>
-      <MapBar>
-          Mapbar goes here
-      </MapBar>
+      { mapBar && <MapBar /> }
       <Map
         className={styles['map']}
         center={position}
