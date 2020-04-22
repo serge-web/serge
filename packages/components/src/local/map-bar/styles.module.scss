@@ -8,6 +8,15 @@
   background-color: #fff;
   border-right: 2px solid #1A394D;
   transition: left 0.5s ease-in-out;
+
+  section {
+    height: 50%;
+  } 
+}
+
+
+.top {
+  border-bottom: 1px solid black;
 }
 
 .open {

@@ -4,6 +4,7 @@ interface CssExports {
   'map-bar': string;
   'open': string;
   'toggle': string;
+  'top': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

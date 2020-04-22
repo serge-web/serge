@@ -6,6 +6,9 @@ import { ArrowRight } from '@material-ui/icons'
 import styles from './styles.module.scss'
 import { MapContext } from '../mapping'
 
+/* Import child components */
+import WorldState from '../world-state'
+
 /* Render component */
 export const MapBar: React.FunctionComponent = ({ children }) =>
   <MapContext.Consumer>
@@ -20,6 +23,9 @@ export const MapBar: React.FunctionComponent = ({ children }) =>
         return (
           <div className={cx(styles['map-bar'], showDialogue && styles['open'])}>
             <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
+            <section className={styles.top}>
+              <WorldState name="World State"></WorldState>
+            </section>
             {children}
           </div>
         )
