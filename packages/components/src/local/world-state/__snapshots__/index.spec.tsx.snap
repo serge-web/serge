@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorldState renders correctly 1`] = `
+<div
+  className="world-state"
+>
+  This is an example component, It will eventually become 
+  test
+</div>
+`;
