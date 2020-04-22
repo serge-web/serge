@@ -2,7 +2,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
 
-import HexGrid from './index'
 import Mapping from '../mapping'
 
 const bounds = {
@@ -25,11 +24,10 @@ it('Mapping renders correctly with HexGrid', () => {
   const tree = mount(<Mapping
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
-  >
-    <HexGrid
-      tileDiameterMins={5}
-      bounds = {bounds}
-    />
+    tileDiameterMins={5}
+    forces={[{}]}
+    playerForce={'Blue'}
+    >
   </Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

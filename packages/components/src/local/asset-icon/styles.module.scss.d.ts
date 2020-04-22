@@ -23,6 +23,7 @@ interface CssExports {
   'platform-type-uas': string;
   'platform-type-unknown': string;
   'popup': string;
+  'red': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

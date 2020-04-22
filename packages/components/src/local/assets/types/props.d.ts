@@ -3,7 +3,15 @@ import SergeGrid from '../../mapping/types/serge-grid'
 
 export default interface PropTypes {
   /**
-   * the grid of hex cells
+   * hex cells for this scenario
    */
   gridCells?: SergeGrid<SergeHex<{}>>
+  /**
+   * forces in this wargame
+   */
+  forces?: any
+  /**
+   * force of player viewing the data
+   */
+  playerForce?: string
 }

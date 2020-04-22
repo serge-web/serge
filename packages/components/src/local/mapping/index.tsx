@@ -1,6 +1,9 @@
-
-import React from 'react'
+import L from 'leaflet'
+import React, { createContext } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
+import createGrid from './helpers/createGrid'
+import SergeHex from './types/serge-hex'
+import SergeGrid from './types/serge-grid'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -9,6 +12,13 @@ import PropTypes from './types/props'
 import './leaflet.css'
 import styles from './styles.module.scss'
 
+interface ContextInterface {
+  props?: any
+}
+
+// Create a context which will be provided to any child of Map
+export const MapContext = createContext<ContextInterface>({ props: null })
+
 const defaultProps: PropTypes = {
   bounds: {
     imageTop: 0,
@@ -16,6 +26,9 @@ const defaultProps: PropTypes = {
     imageRight: 0,
     imageBottom: 0
   },
+  tileDiameterMins: 5,
+  forces: [{}],
+  playerForce: 'Blue',
   tileLayer: {
     url: '',
     attribution: ''
@@ -34,6 +47,9 @@ const defaultProps: PropTypes = {
 /* Render component */
 export const Mapping: React.FC<PropTypes> = ({
   bounds,
+  tileDiameterMins,
+  forces,
+  playerForce,
   tileLayer,
   minZoom,
   maxZoom,
@@ -48,13 +64,23 @@ export const Mapping: React.FC<PropTypes> = ({
 }) => {
   const { imageTop, imageLeft, imageRight, imageBottom } = bounds
   const position: [number, number] = [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2]
-  const imageBounds: [[number, number], [number, number]] = [[imageTop, imageLeft], [imageBottom, imageRight]]
+  const topLeft = L.latLng(imageTop, imageLeft)
+  const bottomRight = L.latLng(imageBottom, imageRight)
+  const latLngBounds: L.LatLngBounds = L.latLngBounds(topLeft, bottomRight)
+  const gridCells: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
+
+  // Anything you put in here will be available to any child component of Map via a context consumer
+  const contextProps = {
+    gridCells,
+    forces,
+    playerForce
+  }
 
   return (
     <Map
       center={position}
-      bounds={imageBounds}
-      maxBounds={imageBounds}
+      bounds={latLngBounds}
+      maxBounds={latLngBounds}
       className={styles['map-container']}
       zoom={zoom}
       zoomDelta={zoomDelta}
@@ -69,10 +95,12 @@ export const Mapping: React.FC<PropTypes> = ({
       <TileLayer
         url={tileLayer.url}
         attribution={tileLayer.attribution}
-        bounds={imageBounds}
+        bounds={latLngBounds}
       />
       <ScaleControl/>
-      {children}
+      <MapContext.Provider value={{ props: contextProps }}>
+        {children}
+      </MapContext.Provider>
     </Map>
   )
 }

@@ -8,6 +8,18 @@ export default interface PropTypes {
     imageRight: number
     imageBottom: number
   }
+  /** 
+   * diameter of tiles in use
+   */
+  tileDiameterMins: number
+  /** forces for this wargame
+   * 
+   */
+  forces: any,
+  /** current player's force 
+   * 
+  */
+  playerForce: string,
   /**
    *  The TileLayer object for the leaflet map
 

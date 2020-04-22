@@ -1,5 +1,5 @@
 /* global it expect */
-
+import L from 'leaflet'
 import React from 'react'
 import { mount } from 'enzyme'
 
@@ -25,9 +25,12 @@ it('Mapping renders correctly with AssetIcon', () => {
   // Using enzyme's 'mount' to solve issues with Leaflet requiring access to the DOM and other features not
   // provided by react.render.
   const tree = mount(<Mapping
+    tileDiameterMins = {5}
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
-  ><AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Tooltip for marker"/></Mapping>, { attachTo: div })
+    forces = {[{}]}
+    playerForce = 'blue'
+  ><AssetIcon position={L.latLng(13.298034302, 43.0488191271)} type="agi" force="blue" tooltip="Tooltip for marker"/></Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
 })

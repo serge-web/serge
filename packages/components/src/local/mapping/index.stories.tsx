@@ -1,5 +1,7 @@
+import L from 'leaflet'
 import React from 'react'
-import { withKnobs, number } from '@storybook/addon-knobs'
+import { withKnobs, number, radios } from '@storybook/addon-knobs'
+import { forces } from './mocks/forces'
 
 // import tileSize from '../hex-grid/knobs/tile-size'
 
@@ -7,6 +9,7 @@ import { withKnobs, number } from '@storybook/addon-knobs'
 import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
+import Assets from '../assets'
 import { HexGrid } from '../hex-grid'
 import Dialogue from '../dialogue'
 
@@ -44,18 +47,52 @@ const OSMTileLayer = {
 }
 
 export const Default: React.FC = () => <Mapping
+  tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
+  forces = {forces}
+  playerForce = 'Blue'
 />
 
 export const WithMarker: React.FC = () => <Mapping
+  tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
+  forces = {forces}
+  playerForce = 'Blue'
 >
-  <AssetIcon position={[13.298034302, 43.0488191271]} type="agi" force="blue" tooltip="Tooltip for marker">
+  <AssetIcon position={L.latLng(13.298034302, 43.0488191271)} type="agi" force="blue" tooltip="Tooltip for marker">
     <Dialogue headerText="This is a test">This is the content of the dialogue</Dialogue>
   </AssetIcon>
 </Mapping>
+
+const label = 'View As'
+const forceNames = {
+  White: 'umpire',
+  Blue: 'Blue',
+  Red: 'Red'
+}
+const defaultValue = 'Blue'
+
+export const WithAssets: React.FC = () => <Mapping
+  tileDiameterMins = {5}
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+  forces={forces}
+  playerForce={radios(label, forceNames, defaultValue)}
+>
+  <Assets />
+</Mapping>
+
+// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+WithAssets.story = {
+  parameters: {
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
+    }
+  }
+}
 
 const hexGridLabel = 'Tile diameter, nm'
 const hexGridDefaultValue = 5
@@ -69,11 +106,10 @@ const hexGridOptions = {
 export const WithGrid: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
->
-  <HexGrid
-    tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
-    bounds = {bounds}
-  />
+  tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
+  forces={forces}
+  playerForce='Blue'>
+  <HexGrid />
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
@@ -87,6 +123,9 @@ WithGrid.story = {
 }
 
 export const OpenStreetMap: React.FC = () => <Mapping
+  tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {OSMTileLayer}
+  forces={forces}
+  playerForce='Blue'
 />

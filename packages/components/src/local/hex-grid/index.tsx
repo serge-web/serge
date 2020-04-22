@@ -1,89 +1,78 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import L from 'leaflet'
-import { Polygon, LayerGroup } from 'react-leaflet'
-import { defineGrid, extendHex, Point } from 'honeycomb-grid'
+import { PointLike } from 'honeycomb-grid'
+import { Polygon, Marker, LayerGroup } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
 /* Import Types */
 import PropTypes from './types/props'
 import toWorld from './helpers/to-world'
+import { MapContext } from '../mapping'
+import SergeHex from '../mapping/types/serge-hex'
 
 /* Render component */
-export const HexGrid: React.FC<PropTypes> = ({ tileDiameterMins, bounds }: PropTypes) => {
-  // Convert diameter in mins to radius in degs
-  const tileSizeDegs: number = tileDiameterMins / 60
+export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) =>
+  <MapContext.Consumer>
+    { (context): ReactNode => {
+      // collate list of named polygons
+      const polygons: { [id: string]: L.LatLng[] } = {}
+      // collate list of named polygon centres
+      const centres: { [id: string]: L.LatLng } = {}
 
-  // offset the origin, by half a tile
-  const correctedOrigin: L.LatLng = L.latLng(bounds.imageTop - tileSizeDegs / 2, bounds.imageLeft + tileSizeDegs / 2)
+      const gc = gridCells || context.props.gridCells
 
-  // the width of a degree of longitude varies with latitude. Start by
-  // finding the width of the box 1/2 way down it
-  const centreLat: number = bounds.imageBottom + (bounds.imageTop - bounds.imageBottom) / 2
-  const measureLeft: L.LatLng = L.latLng(centreLat, bounds.imageLeft)
-  const measureRight: L.LatLng = L.latLng(centreLat, bounds.imageRight)
-  const boxWidthM: number = measureLeft.distanceTo(measureRight)
+      // create a polygon for each hex, add it to the parent
+      gc.forEach((hex: SergeHex<{}>) => {
+        // move coords to our map
+        const centreWorld: L.LatLng = hex.centreLatLng
+        // build up an array of correctly mapped corners
+        const cornerArr: L.LatLng[] = []
+        // get hex center
+        const centreH = hex.center()
+        // get hex corners coords
+        const corners = hex.corners()
+        // convert hex corners coords to our map
+        corners.forEach((value: any) => {
+          // the corners are relative to the origin (TL). So, offset them to the centre
+          const point: PointLike = {
+            x: value.x - centreH.x,
+            y: value.y - centreH.y
+          }
+          const newP = toWorld(point, centreWorld, gc.tileDiameterDegs / 2)
+          cornerArr.push(newP)
+        })
+        // add the polygon to polygons array, indexed by the cell name
+        polygons[hex.name] = cornerArr
+        centres[hex.name] = centreWorld
+      })
 
-  // now find the width of one tile
-  const cellCentre: L.LatLng = L.latLng(centreLat, bounds.imageLeft + tileSizeDegs)
-  const cellWidthM: number = measureLeft.distanceTo(cellCentre)
-
-  // and calculate the number of cells that fit in the provided area
-  const widthCells: number = Math.ceil(boxWidthM / cellWidthM) + 1
-
-  // lines of latitude are largely equi-distant, so perform simple calculation
-  const heightcells: number = Math.ceil((bounds.imageTop - bounds.imageBottom) / (tileSizeDegs))
-
-  // since we have pointy arrangement, we need to provide more to get height, since they're
-  // more densely packed in vertical direction (more overlap)
-  const stretchedHeight: number = heightcells * 4 / 3
-
-  // define grid as flat
-  const Hex = extendHex({ orientation: 'pointy' })
-  const grid = defineGrid(Hex)
-
-  // generate grid items
-  const gridCells = grid.rectangle({ width: widthCells, height: stretchedHeight })
-
-  // define polygons array.
-  const polygons: L.LatLng[][] = []
-
-  // create a polygon for each hex, add it to the parent
-  gridCells.forEach(hex => {
-    // get center hex coords
-    const centreHex: Point = hex.toPoint()
-    // move coords to our map
-    const centreWorld: L.LatLng = toWorld(centreHex, correctedOrigin, tileSizeDegs / 2)
-    // build up an array of correctly mapped corners
-    const cornerArr: L.LatLng[] = []
-    // get hex center
-    const centreH = hex.center()
-    // get hex corners coords
-    const corners = hex.corners()
-    // convert hex corners coords to our map
-    corners.forEach((value: any) => {
-      // the corners are relative to the origin (TL). So, offset them to the centre
-      const point = {
-        x: value.x - centreH.x,
-        y: value.y - centreH.y
-      }
-      const newP = toWorld(point, centreWorld, tileSizeDegs / 2)
-      cornerArr.push(newP)
-    })
-    // add the polygon to polygons array
-    polygons.push(cornerArr)
-  })
-
-  return <>
-    <LayerGroup>{polygons.map((pols, key) => (
-      <Polygon
-        key = {key}
-        positions={pols}
-        className={styles['default-hex']}
-      />
-    ))}
-    </LayerGroup>
-  </>
-}
+      return <>
+        <LayerGroup key={'hex_polygons'} >{Object.keys(polygons).map(k => (
+          <Polygon
+            // we may end up with other elements per hex,
+            // such as labels so include prefix in key
+            key = {'hex_poly_' + k}
+            positions={polygons[k]}
+            className={styles['default-hex']}
+          />
+        ))}
+        </LayerGroup>
+        <LayerGroup key={'hex_labels'} >{Object.keys(centres).map(k => (
+          <Marker
+            key = {'hex_label_' + k}
+            position={centres[k]}
+            width="120"
+            icon={L.divIcon({
+              html: k,
+              className: styles['default-coords'],
+              iconSize: [30, 20]
+            })}
+          />
+        ))}
+        </LayerGroup>
+      </>
+    }}
+  </MapContext.Consumer>
 
 export default HexGrid
