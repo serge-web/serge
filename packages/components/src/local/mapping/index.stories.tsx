@@ -13,6 +13,9 @@ import Assets from '../assets'
 import { HexGrid } from '../hex-grid'
 import Dialogue from '../dialogue'
 
+// import data types
+import { Phase } from './types/phase'
+
 export default {
   title: 'local/Mapping',
   component: Mapping,
@@ -46,26 +49,38 @@ const OSMTileLayer = {
   attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
 }
 
+/**
+ * DEFAULT VIEW
+ */
+
 export const Default: React.FC = () => <Mapping
   tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
   forces = {forces}
   playerForce = 'Blue'
+  phase = {Phase.Planning}
 />
 
+/**
+ * VIEW WITH SINGLE ASSET
+ */
 export const WithMarker: React.FC = () => <Mapping
   tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
   forces = {forces}
   playerForce = 'Blue'
+  phase = {Phase.Planning}
 >
   <AssetIcon position={L.latLng(13.298034302, 43.0488191271)} type="agi" force="blue" tooltip="Tooltip for marker">
     <Dialogue headerText="This is a test">This is the content of the dialogue</Dialogue>
   </AssetIcon>
 </Mapping>
 
+/**
+ * VIEW WITH MULTIPLE ASSETS
+ */
 const label = 'View As'
 const forceNames = {
   White: 'umpire',
@@ -80,6 +95,7 @@ export const WithAssets: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
   forces={forces}
   playerForce={radios(label, forceNames, defaultValue)}
+  phase = {Phase.Planning}
 >
   <Assets />
 </Mapping>
@@ -94,6 +110,9 @@ WithAssets.story = {
   }
 }
 
+/**
+ * VIEW WITH HEX GRID
+ */
 const hexGridLabel = 'Tile diameter, nm'
 const hexGridDefaultValue = 5
 const hexGridOptions = {
@@ -108,6 +127,7 @@ export const WithGrid: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
   tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
   forces={forces}
+  phase = {Phase.Planning}
   playerForce='Blue'>
   <HexGrid />
 </Mapping>
@@ -122,10 +142,54 @@ WithGrid.story = {
   }
 }
 
+/**
+ * VIEW WITH OPEN STREET MAP
+ */
 export const OpenStreetMap: React.FC = () => <Mapping
   tileDiameterMins = {5}
   bounds = {bounds}
   tileLayer = {OSMTileLayer}
   forces={forces}
   playerForce='Blue'
+  phase = {Phase.Planning}
 />
+
+/**
+ * VIEW ALLOWING GAME PHASE & PLAYER FORCE TO CHANGE
+ * (with the intention of verifyin that the correct form is displayed)
+ */
+const phasesViewLabel = 'View As'
+const phasesViewNames = {
+  White: 'umpire',
+  Blue: 'Blue',
+  Red: 'Red'
+}
+const phaseViewValue = 'Blue'
+
+const phasesPhaseLabel = 'View As'
+const phasesPhaseNames = {
+  Planning: Phase.Planning,
+  Adjudication: Phase.Adjudication
+}
+const phasePhaseValue = Phase.Planning
+
+export const WithPhases: React.FC = () => <Mapping
+  tileDiameterMins = {5}
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+  forces={forces}
+  playerForce={radios(phasesViewLabel, phasesViewNames, phaseViewValue)}
+  phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
+>
+  <Assets />
+</Mapping>
+
+// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+WithPhases.story = {
+  parameters: {
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
+    }
+  }
+}

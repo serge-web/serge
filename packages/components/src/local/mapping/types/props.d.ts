@@ -1,3 +1,5 @@
+import { Phase } from './phase'
+
 export default interface PropTypes {
   /**
    * The bounds of the map iamge
@@ -20,7 +22,11 @@ export default interface PropTypes {
    * 
   */
   playerForce: string,
-  /**
+  /** current player's force 
+   * 
+  */
+  phase: Phase,
+ /**
    *  The TileLayer object for the leaflet map
 
    */

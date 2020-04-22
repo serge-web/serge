@@ -1,6 +1,6 @@
 /* global it expect */
 import assetDialogFor from './asset-dialog-for'
-import Phase from '../types/phases'
+import { Phase } from '../types/phase'
 
 it('provides the correct when planning my force', () => {
   expect(assetDialogFor('Blue', 'Blue', [], Phase.Planning)).toEqual('Planning')
