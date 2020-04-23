@@ -8,6 +8,7 @@ import { MapContext } from '../mapping'
 
 /* Import child components */
 import WorldState from '../world-state'
+import Dialogue from '../dialogue'
 
 /* Render component */
 export const MapBar: React.FC = () =>
@@ -23,11 +24,11 @@ export const MapBar: React.FC = () =>
         return (
           <div className={cx(styles['map-bar'], showMapBar && styles['open'])}>
             <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
-            <section className={styles.top}>
+            <section>
               <WorldState name="World State"></WorldState>
             </section>
             <section>
-              The correct form is {currentForm}
+              {currentForm !== '' && <Dialogue type={currentForm} headerText={currentForm} /> }
             </section>
           </div>
         )
