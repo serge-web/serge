@@ -67,7 +67,7 @@ export const Mapping: React.FC<PropTypes> = ({
 }) => {
 
   /* Initialise states */
-  const [showDialogue, setShowDialogue] = useState(false)
+  const [showMapBar, setShowMapBar] = useState(false)
 
   /* Initialise variables */
   const { imageTop, imageLeft, imageRight, imageBottom } = bounds
@@ -82,8 +82,8 @@ export const Mapping: React.FC<PropTypes> = ({
     gridCells,
     forces,
     playerForce,
-    showDialogue,
-    setShowDialogue
+    showMapBar,
+    setShowMapBar
   }
 
   return (

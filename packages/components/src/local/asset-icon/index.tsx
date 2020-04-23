@@ -22,7 +22,7 @@ export const AssetIcon: React.FC<PropTypes> = ({ position, type, force, tooltip 
           className: cx(styles['asset-icon'], styles[force], styles[`platform-type-${type}`])
         })
       
-        const clickEvent = (): void => context.props.setShowDialogue(true)
+        const clickEvent = (): void => context.props.setShowMapBar(true)
       
         return <Marker position={position} icon={divIcon} onclick={clickEvent}>
           <Tooltip>{tooltip}</Tooltip>
