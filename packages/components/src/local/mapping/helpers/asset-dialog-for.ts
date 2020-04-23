@@ -29,7 +29,7 @@ const assetDialogFor = (
       case Phase.Adjudication:
         if (playerForce.toLowerCase() === 'umpire') {
           res = "Adjudication"
-        } else if (assetForce !== playerForce) {
+        } else if (assetForce.toLowerCase() !== playerForce.toLowerCase()) {
           res = "PerceivedAs"
         } else {
           res = ''
