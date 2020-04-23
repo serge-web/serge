@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import React, { createContext } from 'react'
+import React, { createContext, useState } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/createGrid'
 import SergeHex from './types/serge-hex'
@@ -11,6 +11,7 @@ import PropTypes from './types/props'
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
+import MapBar from '../map-bar'
 
 interface ContextInterface {
   props?: any
@@ -20,6 +21,7 @@ interface ContextInterface {
 export const MapContext = createContext<ContextInterface>({ props: null })
 
 const defaultProps: PropTypes = {
+  mapBar: true,
   bounds: {
     imageTop: 0,
     imageLeft: 0,
@@ -46,6 +48,7 @@ const defaultProps: PropTypes = {
 
 /* Render component */
 export const Mapping: React.FC<PropTypes> = ({
+  mapBar,
   bounds,
   tileDiameterMins,
   forces,
@@ -62,6 +65,11 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomAnimation,
   children
 }) => {
+
+  /* Initialise states */
+  const [showMapBar, setShowMapBar] = useState(false)
+
+  /* Initialise variables */
   const { imageTop, imageLeft, imageRight, imageBottom } = bounds
   const position: [number, number] = [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2]
   const topLeft = L.latLng(imageTop, imageLeft)
@@ -73,35 +81,40 @@ export const Mapping: React.FC<PropTypes> = ({
   const contextProps = {
     gridCells,
     forces,
-    playerForce
+    playerForce,
+    showMapBar,
+    setShowMapBar
   }
 
   return (
-    <Map
-      center={position}
-      bounds={latLngBounds}
-      maxBounds={latLngBounds}
-      className={styles['map-container']}
-      zoom={zoom}
-      zoomDelta={zoomDelta}
-      zoomSnap={zoomSnap}
-      minZoom={minZoom}
-      zoomControl={zoomControl}
-      maxZoom={maxZoom}
-      touchZoom={touchZoom}
-      zoomAnimation={zoomAnimation}
-      attributionControl={attributionControl}
-    >
-      <TileLayer
-        url={tileLayer.url}
-        attribution={tileLayer.attribution}
+  <MapContext.Provider value={{ props: contextProps }}>
+    <section className={styles['map-container']}>
+      { mapBar && <MapBar /> }
+      <Map
+        className={styles['map']}
+        center={position}
         bounds={latLngBounds}
-      />
-      <ScaleControl/>
-      <MapContext.Provider value={{ props: contextProps }}>
-        {children}
-      </MapContext.Provider>
-    </Map>
+        maxBounds={latLngBounds}
+        zoom={zoom}
+        zoomDelta={zoomDelta}
+        zoomSnap={zoomSnap}
+        minZoom={minZoom}
+        zoomControl={zoomControl}
+        maxZoom={maxZoom}
+        touchZoom={touchZoom}
+        zoomAnimation={zoomAnimation}
+        attributionControl={attributionControl}
+      >
+        <TileLayer
+          url={tileLayer.url}
+          attribution={tileLayer.attribution}
+          bounds={latLngBounds}
+        />
+        <ScaleControl/>
+          {children}
+      </Map>
+    </section>
+  </MapContext.Provider>
   )
 }
 Mapping.defaultProps = defaultProps

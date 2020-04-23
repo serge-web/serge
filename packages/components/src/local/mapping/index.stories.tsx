@@ -11,7 +11,6 @@ import docs from './README.md'
 import AssetIcon from '../asset-icon'
 import Assets from '../assets'
 import { HexGrid } from '../hex-grid'
-import Dialogue from '../dialogue'
 
 export default {
   title: 'local/Mapping',
@@ -52,7 +51,17 @@ export const Default: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
   forces = {forces}
   playerForce = 'Blue'
+  mapBar = {false}
 />
+
+export const WithMapBar: React.FC = () => <Mapping
+  tileDiameterMins = {5}
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+  forces={forces}
+  playerForce={radios(label, forceNames, defaultValue)}
+>
+</Mapping>
 
 export const WithMarker: React.FC = () => <Mapping
   tileDiameterMins = {5}
@@ -60,10 +69,9 @@ export const WithMarker: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
   forces = {forces}
   playerForce = 'Blue'
+  mapBar = {false}
 >
-  <AssetIcon position={L.latLng(13.298034302, 43.0488191271)} type="agi" force="blue" tooltip="Tooltip for marker">
-    <Dialogue headerText="This is a test">This is the content of the dialogue</Dialogue>
-  </AssetIcon>
+  <AssetIcon position={L.latLng(13.298034302, 43.0488191271)} type="agi" force="blue" tooltip="Tooltip for marker" />
 </Mapping>
 
 const label = 'View As'
@@ -108,7 +116,9 @@ export const WithGrid: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
   tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
   forces={forces}
-  playerForce='Blue'>
+  playerForce='Blue'
+  mapBar = {false}
+  >
   <HexGrid />
 </Mapping>
 
@@ -128,4 +138,5 @@ export const OpenStreetMap: React.FC = () => <Mapping
   tileLayer = {OSMTileLayer}
   forces={forces}
   playerForce='Blue'
+  mapBar = {false}
 />
