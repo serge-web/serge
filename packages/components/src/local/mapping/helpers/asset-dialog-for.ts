@@ -10,7 +10,7 @@ import { Phase } from '@serge/config'
 const assetDialogFor = (
   playerForce:string, 
   assetForce:string, 
-  assetControlledBy: [string?], 
+  assetControlledBy: [string?] | undefined, 
   gamePhase: Phase): string => {
     let res: string = ''
     switch(gamePhase)

@@ -4,6 +4,7 @@ interface CssExports {
   'asset-icon': string;
   'blue': string;
   'force': string;
+  'green': string;
   'platform-type-agi': string;
   'platform-type-boghammer': string;
   'platform-type-coastal-radar-site': string;

@@ -6,4 +6,5 @@ export default interface AssetInfo {
   force: string
   type: string
   uniqid: string
+  controlledBy: [string]
 }
