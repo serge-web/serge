@@ -3,6 +3,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import Mapping from '../mapping'
+import { Phase } from '@serge/config'
 
 const bounds = {
   imageTop: 14.194809302,
@@ -27,6 +28,7 @@ it('Mapping renders correctly with HexGrid', () => {
     tileDiameterMins={5}
     forces={[{}]}
     playerForce={'Blue'}
+    phase={Phase.Planning}
     >
   </Mapping>, { attachTo: div })
 

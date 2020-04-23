@@ -4,6 +4,7 @@ import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/createGrid'
 import SergeHex from './types/serge-hex'
 import SergeGrid from './types/serge-grid'
+import { Phase } from '@serge/config'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -11,6 +12,7 @@ import PropTypes from './types/props'
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
+import MappingContext from './types/mapping-context'
 import MapBar from '../map-bar'
 
 interface ContextInterface {
@@ -31,6 +33,7 @@ const defaultProps: PropTypes = {
   tileDiameterMins: 5,
   forces: [{}],
   playerForce: 'Blue',
+  phase: Phase.Planning,
   tileLayer: {
     url: '',
     attribution: ''
@@ -53,6 +56,7 @@ export const Mapping: React.FC<PropTypes> = ({
   tileDiameterMins,
   forces,
   playerForce,
+  phase,
   tileLayer,
   minZoom,
   maxZoom,
@@ -78,10 +82,11 @@ export const Mapping: React.FC<PropTypes> = ({
   const gridCells: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
 
   // Anything you put in here will be available to any child component of Map via a context consumer
-  const contextProps = {
+  const contextProps: MappingContext = {
     gridCells,
     forces,
     playerForce,
+    phase,
     showMapBar,
     setShowMapBar
   }

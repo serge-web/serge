@@ -4,6 +4,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import Mapping from '../mapping'
+import { Phase } from '@serge/config'
 
 const bounds = {
   imageTop: 14.194809302,
@@ -82,7 +83,8 @@ it('Mapping renders correctly with AssetIcon', () => {
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
     forces={forces} 
-    playerForce="Blue" 
+    playerForce="Blue"
+    phase={Phase.Planning}
   >
   </Mapping>, { attachTo: div })
 

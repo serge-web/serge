@@ -3,6 +3,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 
+import { Phase } from '@serge/config'
 
 import Mapping from '../mapping'
 import MapBar from '.'
@@ -31,6 +32,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     tileLayer = {LocalTileLayer}
     forces = {[{}]}
     playerForce = 'blue'
+    phase={Phase.Planning}
   ><MapBar /></Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

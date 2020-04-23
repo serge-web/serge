@@ -5,6 +5,7 @@ import { mount } from 'enzyme'
 
 import AssetIcon from './index'
 import Mapping from '../mapping'
+import { Phase } from '@serge/config'
 
 const bounds = {
   imageTop: 14.194809302,
@@ -30,6 +31,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     tileLayer = {LocalTileLayer}
     forces = {[{}]}
     playerForce = 'blue'
+    phase = {Phase.Planning}
   ><AssetIcon position={L.latLng(13.298034302, 43.0488191271)} type="agi" force="blue" tooltip="Tooltip for marker"/></Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

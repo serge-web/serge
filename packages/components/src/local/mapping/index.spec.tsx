@@ -4,6 +4,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import Mapping from './index'
+import { Phase } from '@serge/config'
 
 const bounds = {
   imageTop: 14.194809302,
@@ -29,6 +30,7 @@ it('Mapping renders correctly', () => {
     tileLayer = {LocalTileLayer}
     forces = {[{}]}
     playerForce = 'Blue'
+    phase = {Phase.Planning}
   />, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

@@ -5,3 +5,4 @@
 
 export * from './globals'
 export * from './routes'
+export * from './enums'
