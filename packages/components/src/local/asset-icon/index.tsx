@@ -13,13 +13,14 @@ import styles from './styles.module.scss'
 import { MapContext } from '../mapping'
 
 /* Render component */
-export const AssetIcon: React.FC<PropTypes> = ({ position, type, force, tooltip }) => 
+export const AssetIcon: React.FC<PropTypes> = ({ position, type, force, tooltip, selected }) => 
   <MapContext.Consumer>
     {
       (context): React.ReactNode => {
         const divIcon = L.divIcon({
           iconSize: [40, 40],
-          className: cx(styles['asset-icon'], styles[force], styles[`platform-type-${type}`])
+          className: cx(styles['asset-icon'], styles[force], 
+            selected ? styles[`selected`]:null, styles[`platform-type-${type}`])
         })
       
         const clickEvent = (): void => context.props.setShowMapBar(true)

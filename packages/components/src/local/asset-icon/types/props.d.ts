@@ -11,6 +11,10 @@ export default interface PropTypes {
    * The force which the asset belongs to
    */
   force: string
+  /** 
+   * if this asset is selected 
+   */
+  selected: boolean
   /**
    * The tooltip label for the marker
    */
