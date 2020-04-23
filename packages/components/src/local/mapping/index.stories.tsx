@@ -79,7 +79,24 @@ export const WithMapBar: React.FC = () => <Mapping
  */
 const visLabel = 'Selected'
 const visDefaultValue = false
-const visGroupId = 'GROUP-ID1';
+
+const assetForcelabel = 'Force'
+const assetForceNames = {
+  Green: 'green',
+  Blue: 'blue',
+  Red: 'red'
+}
+const assetForceDefaultValue = 'blue'
+
+
+const assetTypelabel = 'Type'
+const assetTypeNames = {
+  Destroyer: 'destroyer', 
+  MCMV: 'mcmv', 
+  Unknown: 'unknown', 
+  AGI: 'agi'
+}
+const assetTypeDefaultValue = 'agi'
 
 export const WithMarker: React.FC = () => <Mapping
   tileDiameterMins = {5}
@@ -90,7 +107,11 @@ export const WithMarker: React.FC = () => <Mapping
   phase = {Phase.Planning}
   mapBar = {false}
   >
-  <AssetIcon position={L.latLng(13.298034302, 43.0488191271)} selected={boolean(visLabel, visDefaultValue, visGroupId)} type="agi" force="blue" tooltip="Tooltip for marker" />
+  <AssetIcon position={L.latLng(13.298034302, 43.0488191271)} 
+    selected={boolean(visLabel, visDefaultValue)} 
+    type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)} 
+    force={radios(assetForcelabel, assetForceNames, assetForceDefaultValue)} 
+    tooltip="Tooltip for marker" />
 </Mapping>
 
 
