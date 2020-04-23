@@ -25,10 +25,10 @@ export default interface MappingContext {
   /** 
    * state for if map bar is open 
    */
-  showMapBar: any
+  showMapBar: boolean
   /**
    *  setter, to modify if map bar is open or not
    */
-  setShowMapBar: any
+  setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>
 }
 
