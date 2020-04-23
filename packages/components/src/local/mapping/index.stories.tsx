@@ -158,7 +158,7 @@ export const OpenStreetMap: React.FC = () => <Mapping
  * VIEW ALLOWING GAME PHASE & PLAYER FORCE TO CHANGE
  * (with the intention of verifyin that the correct form is displayed)
  */
-const phasesViewLabel = 'View As'
+const phasesViewLabel = 'View As (force)'
 const phasesViewNames = {
   White: 'umpire',
   Blue: 'Blue',
@@ -166,7 +166,7 @@ const phasesViewNames = {
 }
 const phaseViewValue = 'Blue'
 
-const phasesPhaseLabel = 'View As'
+const phasesPhaseLabel = 'View As (phase)'
 const phasesPhaseNames = {
   Planning: Phase.Planning,
   Adjudication: Phase.Adjudication
