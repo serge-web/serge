@@ -1,0 +1,46 @@
+.map-bar {
+  position: absolute;
+  left: -350px;
+  top: 0;
+  z-index: 9999;
+  width: 350px;
+  height: 100%;
+  background-color: #fff;
+  border-right: 2px solid #1a394d;
+  transition: left 0.5s ease-in-out;
+
+  section {
+    height: 50%;
+  }
+}
+
+.top {
+  border-bottom: 1px solid #000;
+}
+
+.open {
+  left: 0;
+  svg {
+    transform: rotate(180deg);
+  }
+}
+
+.toggle {
+  cursor: pointer;
+  background-color: #54667c;
+  color: #fff;
+  width: 20px;
+  height: 71px;
+  position: absolute;
+  top: 0;
+  right: -20px;
+  border-radius: 0 5px 5px 0;
+
+  svg {
+    margin-top: 20px;
+    height: 34px;
+    width: 30px;
+    margin-left: -5px;
+    transition: transform 0.5s ease-in-out;
+  }
+}

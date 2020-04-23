@@ -22,5 +22,13 @@ export default interface MappingContext {
    * phase of current game
    */
   phase: Phase
+  /** 
+   * state for if map bar is open 
+   */
+  showMapBar: any
+  /**
+   *  setter, to modify if map bar is open or not
+   */
+  setShowMapBar: any
 }
 

@@ -11,7 +11,6 @@ import docs from './README.md'
 import AssetIcon from '../asset-icon'
 import Assets from '../assets'
 import { HexGrid } from '../hex-grid'
-import Dialogue from '../dialogue'
 
 // import data types
 import { Phase } from '@serge/config'
@@ -52,7 +51,6 @@ const OSMTileLayer = {
 /**
  * DEFAULT VIEW
  */
-
 export const Default: React.FC = () => <Mapping
   tileDiameterMins = {5}
   bounds = {bounds}
@@ -60,11 +58,22 @@ export const Default: React.FC = () => <Mapping
   forces = {forces}
   playerForce = 'Blue'
   phase = {Phase.Planning}
+  mapBar = {false}
 />
 
 /**
  * VIEW WITH SINGLE ASSET
  */
+export const WithMapBar: React.FC = () => <Mapping
+  tileDiameterMins = {5}
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+  forces={forces}
+  phase={Phase.Planning}
+  playerForce={radios(label, forceNames, defaultValue)}
+>
+</Mapping>
+
 export const WithMarker: React.FC = () => <Mapping
   tileDiameterMins = {5}
   bounds = {bounds}
@@ -72,10 +81,9 @@ export const WithMarker: React.FC = () => <Mapping
   forces = {forces}
   playerForce = 'Blue'
   phase = {Phase.Planning}
->
-  <AssetIcon position={L.latLng(13.298034302, 43.0488191271)} type="agi" force="blue" tooltip="Tooltip for marker">
-    <Dialogue headerText="This is a test">This is the content of the dialogue</Dialogue>
-  </AssetIcon>
+  mapBar = {false}
+  >
+  <AssetIcon position={L.latLng(13.298034302, 43.0488191271)} type="agi" force="blue" tooltip="Tooltip for marker" />
 </Mapping>
 
 /**
@@ -129,6 +137,8 @@ export const WithGrid: React.FC = () => <Mapping
   forces={forces}
   phase = {Phase.Planning}
   playerForce='Blue'>
+  mapBar = {false}
+  >
   <HexGrid />
 </Mapping>
 
@@ -152,6 +162,7 @@ export const OpenStreetMap: React.FC = () => <Mapping
   forces={forces}
   playerForce='Blue'
   phase = {Phase.Planning}
+  mapBar = {false}
 />
 
 /**

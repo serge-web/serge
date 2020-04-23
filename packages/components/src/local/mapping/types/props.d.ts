@@ -2,6 +2,10 @@ import { Phase } from '@serge/config'
 
 export default interface PropTypes {
   /**
+   * A boolean to determine if the MapBar component should be displayed (default: true)
+   */
+  mapBar?: boolean
+  /**
    * The bounds of the map iamge
    */
   bounds: {
