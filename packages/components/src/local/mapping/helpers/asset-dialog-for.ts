@@ -10,7 +10,7 @@ import { Phase } from '@serge/config'
 const assetDialogFor = (
   playerForce:string, 
   assetForce:string, 
-  assetControlledBy: [string?], 
+  assetControlledBy: [string?] | undefined, 
   gamePhase: Phase): string => {
     let res: string = ''
     switch(gamePhase)
@@ -29,7 +29,7 @@ const assetDialogFor = (
       case Phase.Adjudication:
         if (playerForce.toLowerCase() === 'umpire') {
           res = "Adjudication"
-        } else if (assetForce !== playerForce) {
+        } else if (assetForce.toLowerCase() !== playerForce.toLowerCase()) {
           res = "PerceivedAs"
         } else {
           res = ''
