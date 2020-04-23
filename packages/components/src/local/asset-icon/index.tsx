@@ -24,7 +24,8 @@ export const AssetIcon: React.FC<PropTypes> = ({ position, type, force, tooltip 
         })
       
         const clickEvent = (): void => {
-          const form = assetDialogFor(force, context.props.playerForce, [], context.props.phase)
+          const form = assetDialogFor(context.props.playerForce, force, [], context.props.phase)
+          console.log(form)
           context.props.setCurrentForm(form)
           context.props.setShowMapBar(true)
         }
