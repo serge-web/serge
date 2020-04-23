@@ -1,11 +1,11 @@
 {
   "name": "@serge/server",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "Apache-2.0",
   "main": "main.js",
   "bin": "bin.js",
   "dependencies": {
-    "@serge/client": "^0.2.0",
+    "@serge/client": "^0.3.0",
     "adm-zip": "^0.4.13",
     "cors": "^2.8.5",
     "express": "^4.16.4",

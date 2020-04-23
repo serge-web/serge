@@ -188,7 +188,7 @@ class ChannelsTable extends Component {
   render() {
     return (
       <div className="flex-content">
-        <table>
+        <table className="table-setup">
           <thead>
             <tr>
               <th>Force</th>

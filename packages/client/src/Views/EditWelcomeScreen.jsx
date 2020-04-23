@@ -118,7 +118,7 @@ class EditWelcomeScreen extends Component {
               <h5>Image</h5>
               <span className="image-upload-link" onClick={this.uploadImage}>Upload new image</span>
             </div>
-            <span className="link link--noIcon welcome-screen-save" onClick={this.saveWelcomeScreen}>Save changes</span>
+            <span className="link link--noIcon welcome-screen-save align-self-center" onClick={this.saveWelcomeScreen}>Save changes</span>
           </div>
           <img alt="Serge logo" className="serge-custom-logo" src={this.props.gameInfo.imageUrl} />
           <div className="section">

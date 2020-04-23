@@ -1,0 +1,9 @@
+addReviewers: true
+addAssignees: author
+reviewers:
+  - foxleigh81
+  - ianMayo
+skipKeywords:
+  - draft
+  - wip
+numberOfReviewers: 0

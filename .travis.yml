@@ -14,17 +14,17 @@ matrix:
   include:
   - name: Client Pipeline
     env: PACKAGE_LOCATION=packages/client PACKAGE_NAME=@serge/client
+before_script:
+  - export NODE_OPTIONS=–max_old_space_size=8192
 script:
 # build Serge deployment
 - yarn build
-# run unit tests, dropping out if they fail
-- yarn test:unit || travis_terminate 1;
+# run the linting drop out on failure
+- yarn lint || travis_terminate 1;
 # start serge
-- yarn start:server &
-# navigate to the e2e package
-- cd packages/e2e
-# run the cypress test suite, recording the results to our account
-- yarn run cypress run --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7
+- yarn start-server &
+# run the tests drop out on failure
+- yarn test || travis_terminate 1;
 # kill open jobs (especially the Serge server running in the background)
 - kill $(jobs -p) || true
 notifications:

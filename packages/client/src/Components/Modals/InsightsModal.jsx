@@ -78,13 +78,17 @@ class InsightsModal extends Component {
             />
           </div>
           <div className="text-input-wrap">
-            <TextInput
-              className="material-input"
-              label="Name: optional"
-              updateStore={this.setName}
-              options={{numInput: false}}
-              data={this.state.name}
-            />
+            <div className="row">
+              <div className="col-md-6">
+                <TextInput
+                  className="material-input"
+                  label="Name: optional"
+                  updateStore={this.setName}
+                  options={{numInput: false}}
+                  data={this.state.name}
+                />
+              </div>
+            </div>
           </div>
           <div className="buttons">
             <button name="cancel" className="btn btn-action btn-action--secondary" onClick={this.hideModal}>Cancel</button>

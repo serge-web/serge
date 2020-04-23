@@ -1,13 +1,13 @@
 @import "dependencies/variables";
 
 #home-btn {
+  color: $light-blue;
+  cursor: pointer;
   display: flex;
-  width: $paddingWidth;
   height: 48px;
   justify-content: center;
   padding-left: 2px;
-  color: $lightBlue;
-  cursor: pointer;
+  width: $padding-width;
 
   svg {
     align-self: center;
@@ -20,14 +20,14 @@
   flex-direction: row-reverse;
 
   span {
-    margin: $umpireMenuMargin 0;
+    margin: $umpire-menu-margin 0;
   }
 }
 
 .button-wrap-tab {
   display: flex;
-  float: right;
   flex-direction: row-reverse;
+  float: right;
 
   span {
     margin-left: 20px;
@@ -48,21 +48,21 @@
   }
 
   .view-wrapper & {
-    background-color: $secondaryColor;
+    background-color: $secondary-color;
 
     &:hover {
-      background-color: $secondaryColor;
+      background-color: $secondary-color;
     }
   }
 
   .new-message-creator & {
     span {
-      color: $primaryTriadColor;
+      color: $primary-triad-color;
       font-weight: 500;
     }
 
     i {
-      color: $primaryTriadColor;
+      color: $primary-triad-color;
     }
   }
 }
@@ -71,67 +71,65 @@
   padding-left: 1.15em;
 }
 
-a.link,
-span.link {
+.link {
+  @include shadow();
+  @include transition();
+  background: $primary-color;
+  border-radius: 2px;
+  color: $light-blue;
+  cursor: pointer;
   display: inline-block;
-  width: fit-content;
-  padding: 8px 14px 8px 6px;
   font-size: 16px;
   font-weight: 500;
-  color: $lightBlue;
-  background: $primaryColor;
-  border-radius: 2px;
+  padding: 8px 14px 8px 6px;
   text-transform: uppercase;
-  cursor: pointer;
-  @include shadow();
+  width: fit-content;
 
   svg {
-    min-width: 30px;
     margin-right: 2px;
+    min-width: 30px;
   }
 
-  @include transition();
-
   &:hover {
+    @include btn-down();
     text-decoration: none;
-    @include btnDown();
   }
 
   &--large {
-    font-size: $titleSize;
+    font-size: $title-size;
     line-height: 1em;
     padding: 0.6em 1em;
   }
 
   &--active {
-    font-size: calc(#{$titleSize * 1.25});
+    font-size: calc(#{$title-size * 1.25});
   }
 
   &--secondary {
-    color: $primaryTriadColor;
-    background-color: $backgroundAlphaPrimary;
-    @include primaryShadow;
+    @include primary-shadow;
+    background-color: $background-alpha-primary;
+    color: $primary-triad-color;
 
     .view-wrapper &,
     .out-of-game-feed & {
-      background-color: $secondaryColor;
+      background-color: $secondary-color;
 
       &:hover {
-        background-color: $secondaryColor;
+        background-color: $secondary-color;
       }
     }
 
     .out-of-game-feed & {
-      padding: 4px 16px;
+      @include typo-secondary;
+      box-shadow: none;
+      display: block;
       font-size: 10px;
       margin-bottom: 16px;
-      display: block;
-      box-shadow: none;
-      @include typo-secondary;
+      padding: 4px 16px;
     }
 
     &:hover {
-      background: $primaryTriadColorTransparent;
+      background: $primary-triad-color-transparent;
     }
   }
 
@@ -145,85 +143,85 @@ span.link {
   }
 
   &--next-turn {
-    margin-top: 20px;
+    @include typo-secondary;
     font-size: 12px;
     height: auto;
-    @include typo-secondary;
+    margin-top: 20px;
   }
 }
 
 button {
+  border: 0;
   width: fit-content;
-  border: none;
 }
 
 .btn-action {
+  border-radius: 2px;
   display: inline-block;
-  width: fit-content;
-  padding: 8px 14px;
   font-size: 16px;
   font-weight: 500;
-  border-radius: 2px;
+  padding: 8px 14px;
   text-transform: uppercase;
+  width: fit-content;
 
   &--primary {
-    color: #ffffff;
-    background-color: $backgroundActionHead;
-    @include primaryShadow;
+    @include primary-shadow;
     @include transition();
+    background-color: $background-action-head;
+    color: #fff;
 
     &:hover {
-      color: $lightBlue;
-      background-color: $backgroundField;
-      @include btnDown();
+      @include btn-down();
+      background-color: $background-field;
+      color: $light-blue;
     }
   }
 
   &--form {
-    display: inline-block;
-    padding: 1px 0;
+    @include typo-secondary;
     background-image: linear-gradient(
       to bottom,
       #3fb7ac,
       #9dfff1 36%,
       rgba(2, 37, 96, 0)
     );
-    box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.4);
     border-radius: 6px;
+    box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.4);
+    color: #fff;
+    display: inline-block;
     font-size: 12px;
+    padding: 1px 0;
     text-align: center;
-    color: #ffffff;
-    @include typo-secondary;
 
     > span {
-      display: block;
+      background-color: $background-field;
+      border: 0;
       border-radius: 4px;
-      border: none;
+      display: block;
       padding: 6px 20px;
-      background-color: $backgroundField;
     }
   }
 
   &--secondary {
-    color: $actionSecondaryColor;
-    background: none;
-    padding-top: 10px;
-    padding-bottom: 10px;
     @include typo-secondary;
+    background: none;
+    color: $action-secondary-color;
+    padding-bottom: 10px;
+    padding-top: 10px;
 
     &:hover {
-      color: $primaryTriadColor;
+      color: $primary-triad-color;
     }
   }
 
   &--complimentary {
-    font-size: 12px;
-    color: #ffffff;
-    text-transform: uppercase;
-    background-color: $backgroundCustom;
-    border-radius: 4px;
-    padding: 10px 14px;
     @include typo-secondary;
+    background-color: $background-custom;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 14px;
+    text-transform: uppercase;
   }
 }
 
@@ -234,7 +232,7 @@ button {
 
 .btn-helper {
   display: inline-block;
-  margin-left: 5px;
   font-size: 12px;
   font-weight: 600;
+  margin-left: 5px;
 }

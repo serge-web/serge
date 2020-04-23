@@ -1,61 +1,61 @@
-$darkGrey: rgb(20, 20, 20);
+$dark-grey: rgb(20, 20, 20);
 $grey: #707070;
 $grey2: #a9a9a9;
-$lightGrey: rgba(224, 224, 224, 0.5);
-$greyBg: #f5f5f5;
-$forceDefaultColor: #4bead1;
+$light-grey: rgba(224, 224, 224, 0.5);
+$grey-bg: #f5f5f5;
+$force-default-color: #4bead1;
 
-$umpireMenuMargin: 16px;
-$paddingWidth: 6vw;
-$paddingHeight: 6vh;
+$umpire-menu-margin: 16px;
+$padding-width: 6vw;
+$padding-height: 6vh;
 
-$titleSize: 1.85em;
-$titleLine: 2.5em;
+$title-size: 1.85em;
+$title-line: 2.5em;
 
-$paragraphSize: 16px;
-$baseColor: #212529;
-$primaryColor: #415b76;
-$primaryTriadColor: #ffffff;
-$primaryTriadColorTransparent: rgba(131, 88, 85, 0.25);
-$secondaryColor: #394959;
-$successColor: rgba(171, 199, 97, 1);
-$warningColor: #fff3cd;
-$errorColor: #a33730;
-$notificationColor: #4e895d;
-$linkColor: #2f86c5;
-$actionSecondaryColor: #3ef1ea;
-$turnTimeColor: #9cffec;
-$adminColor: #1a394d;
+$paragraph-size: 16px;
+$base-color: #212529;
+$primary-color: #415b76;
+$primary-triad-color: #fff;
+$primary-triad-color-transparent: rgba(131, 88, 85, 0.25);
+$secondary-color: #394959;
+$success-color: rgba(171, 199, 97, 1);
+$warning-color: #fff3cd;
+$error-color: #a33730;
+$notification-color: #4e895d;
+$link-color: #2f86c5;
+$action-secondary-color: #3ef1ea;
+$turn-time-color: #9cffec;
+$admin-color: #1a394d;
 
-$lightBg: #fafcff;
-$lightBlue: #eff4f2;
+$light-bg: #fafcff;
+$light-blue: #eff4f2;
 
-$backgroundBody: #013c5d;
-$backgroundAlphaPrimary: rgba(189, 196, 245, 0.07);
-$backgroundAlphaBold: rgba(240, 250, 255, 0.2);
-$backgroundActionHead: #00274b;
-$backgroundCustom: $forceDefaultColor;
-$backgroundCustomDarken: #00c8a8;
-$backgroundField: #1a3d5d;
-$backgroundProgression: #445160;
-$buttonActionAdmin: #54667c;
-$borderFieldAdmin: #ddefcf;
-$placeholderFieldAdmin: #cdcccc;
-$textFieldAdmin: #3a3a3a;
+$background-body: #013c5d;
+$background-alpha-primary: rgba(189, 196, 245, 0.07);
+$background-alpha-bold: rgba(240, 250, 255, 0.2);
+$background-action-head: #00274b;
+$background-custom: $force-default-color;
+$background-custom-darken: #00c8a8;
+$background-field: #1a3d5d;
+$background-progression: #445160;
+$button-action-admin: #54667c;
+$border-field-admin: #ddefcf;
+$placeholder-field-admin: #cdcccc;
+$text-field-admin: #3a3a3a;
 
-@mixin primaryShadow {
+@mixin primary-shadow {
   box-shadow: 0 2px 10px 1px rgba(20, 38, 46, 0.5);
 }
 
-@mixin primaryContentShadow {
+@mixin primary-content-shadow {
   box-shadow: 0 2px 10px -2px rgba(20, 38, 46, 0.5);
 }
 
-@mixin fieldShadow {
+@mixin field-shadow {
   box-shadow: 0 2px 4px 0 #001f3c;
 }
 
-@mixin activeShadow() {
+@mixin active-shadow() {
   box-shadow: 0 0 5px 3px rgba(171, 199, 97, 0.75);
 }
 
@@ -63,17 +63,17 @@ $textFieldAdmin: #3a3a3a;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
-@mixin drawerShadow() {
+@mixin drawer-shadow() {
   box-shadow: 0 -2px 4px -1px rgba(0, 0, 0, 0.2),
     0 -4px 5px 0 rgba(0, 0, 0, 0.14), 0 -1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
-@mixin snackbarShadow() {
+@mixin snackbar-shadow() {
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
     0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 }
 
-@mixin btnDown() {
+@mixin btn-down() {
   box-shadow: 0 0 0 rgba(0, 0, 0, 0.16), 0 0 0 rgba(0, 0, 0, 0.23);
 }
 
@@ -81,7 +81,7 @@ $textFieldAdmin: #3a3a3a;
   transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-@mixin transitionPadding() {
+@mixin transition-padding() {
   transition: padding 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 

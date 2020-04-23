@@ -11,12 +11,11 @@ import turn150deg from '../images/turn150deg.png'
 import noTurn from '../images/no-turn.png'
 import lightTurn from '../images/light-turn.png'
 
-
 import roundToNearest from './roundToNearest'
 import turnNameFor from './turnNameFor'
 
 function lineFor (/* array */ turns, /* latLng */ start,
-  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* int */ planningFor, /* boolean */ highlight, /* boolean */ historyTrack) {
+  /* boolean */ lightweight, /* grid */ grid, /* string */ color, /* int */ planningFor, /* boolean */ highlight, /* array */ historyTrack) {
   // note - we will actually start with a layer group, in case we're showing
   // a bold line and a feint line
   const res = L.layerGroup()
@@ -45,35 +44,37 @@ function lineFor (/* array */ turns, /* latLng */ start,
     const feintLatLongs = []
     let lastPos = null
     turns.forEach(turn => {
-      const list = (!planningFor) || planningFor >= turn.turn ? boldLatLongs : feintLatLongs
-      // loop through the routes
-      if (turn.route && turn.route.length > 0) {
-        // loop through the steps in this route
-        turn.route.forEach(step => {
-          const ptHex = grid.hexNamed(step)
-          if (ptHex) {
-            const location = ptHex.centrePos
-            // is this the first feint line?
-            if (list.length === 0) {
-              if (lastPos) {
-                list.push(lastPos)
-              } else {
-                list.push(start)
+      if (turn) {
+        const list = (!planningFor) || planningFor >= turn.turn ? boldLatLongs : feintLatLongs
+        // loop through the routes
+        if (turn.route && turn.route.length > 0) {
+          // loop through the steps in this route
+          turn.route.forEach(step => {
+            const ptHex = grid.hexNamed(step)
+            if (ptHex) {
+              const location = ptHex.centrePos
+              // is this the first feint line?
+              if (list.length === 0) {
+                if (lastPos) {
+                  list.push(lastPos)
+                } else {
+                  list.push(start)
+                }
               }
+              list.push(location)
+              lastPos = location
             }
-            list.push(location)
-            lastPos = location
-          }
-        })
-      } else {
-        // just see if we have a position
-        if (turn.position) {
-          const ptHex = grid.hexNamed(turn.position)
-          if (ptHex) {
-            // special case - this is the first location, before we have a route
-            list.shift() // clear the start point
-            const location = ptHex.centrePos
-            list.push(location)
+          })
+        } else {
+          // just see if we have a position
+          if (turn.position) {
+            const ptHex = grid.hexNamed(turn.position)
+            if (ptHex) {
+              // special case - this is the first location, before we have a route
+              list.shift() // clear the start point
+              const location = ptHex.centrePos
+              list.push(location)
+            }
           }
         }
       }
@@ -249,57 +250,59 @@ function markersFor (/* array */ turns, /* latLng */ start, /* string */ startHe
     let turnId = 0
 
     turns.forEach(turn => {
-      const stateSuffix = turn.status.speedKts ? ' @ ' + turn.status.speedKts + 'kts' : ''
-      const turnName = turnNameFor(turn.turn) + ': ' + turn.status.state + stateSuffix
-      turnId = turn.turn
+      if (turn) {
+        const stateSuffix = turn.status.speedKts ? ' @ ' + turn.status.speedKts + 'kts' : ''
+        const turnName = turnNameFor(turn.turn) + ': ' + turn.status.state + stateSuffix
+        turnId = turn.turn
 
-      // loop through the routes
-      if (turn.route) {
-        // loop through the steps in this route
-        turn.route.forEach(step => {
-          const ptHex = grid.hexNamed(step)
-          if (ptHex) {
-            // remember the coords
-            current = ptHex.centrePos
-            currentHex = ptHex.name
+        // loop through the routes
+        if (turn.route) {
+          // loop through the steps in this route
+          turn.route.forEach(step => {
+            const ptHex = grid.hexNamed(step)
+            if (ptHex) {
+              // remember the coords
+              current = ptHex.centrePos
+              currentHex = ptHex.name
 
-            // are we waiting to populate a marker?
-            if (pendingTurnLocation) {
-              // have we got enough data?
-              if (minus1) {
-                const angle = turnFor(minus2, minus1, current)//, turnNameFor(turn.turn - 1))
-                const iconName = bearingMarkerFor(roundToNearest(angle, 30))
-                result.addLayer(createMarker(iconName, pendingTurnLocation, pendingTurnHex, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
-                pendingTurnLocation = false
+              // are we waiting to populate a marker?
+              if (pendingTurnLocation) {
+                // have we got enough data?
+                if (minus1) {
+                  const angle = turnFor(minus2, minus1, current)//, turnNameFor(turn.turn - 1))
+                  const iconName = bearingMarkerFor(roundToNearest(angle, 30))
+                  result.addLayer(createMarker(iconName, pendingTurnLocation, pendingTurnHex, lightweight, pendingTurnName, waypointCallback, context, turnId - 1, planningFor))
+                  pendingTurnLocation = false
+                }
               }
+              // move everyone down the bed
+              minus2 = minus1
+              minus1 = current
             }
-            // move everyone down the bed
-            minus2 = minus1
-            minus1 = current
-          }
-        })
-        pendingTurnLocation = current
-        pendingTurnHex = currentHex
-        pendingTurnName = turnName
-      } else {
-        let location
-        let thisTurnName
-        if (turn.position) {
-          // we're at the start of the data
-          thisTurnName = turnNameFor(turn.turn + 1) + ': ' + turn.status.state + stateSuffix
-          const ptHex = grid.hexNamed(turn.position)
-          if (ptHex) {
-            location = ptHex.centrePos
-            currentHex = ptHex.name
-          }
+          })
+          pendingTurnLocation = current
+          pendingTurnHex = currentHex
+          pendingTurnName = turnName
         } else {
-          location = minus1
-          thisTurnName = turnNameFor(turn.turn) + ': ' + turn.status.state + stateSuffix
+          let location
+          let thisTurnName
+          if (turn.position) {
+            // we're at the start of the data
+            thisTurnName = turnNameFor(turn.turn + 1) + ': ' + turn.status.state + stateSuffix
+            const ptHex = grid.hexNamed(turn.position)
+            if (ptHex) {
+              location = ptHex.centrePos
+              currentHex = ptHex.name
+            }
+          } else {
+            location = minus1
+            thisTurnName = turnNameFor(turn.turn) + ': ' + turn.status.state + stateSuffix
+          }
+          minus2 = minus1
+          minus1 = current
+          // ok, nothing happening. add a static marker
+          result.addLayer(createMarker(noTurn, location, currentHex, lightweight, thisTurnName, waypointCallback, context, turnId, planningFor))
         }
-        minus2 = minus1
-        minus1 = current
-        // ok, nothing happening. add a static marker
-        result.addLayer(createMarker(noTurn, location, currentHex, lightweight, thisTurnName, waypointCallback, context, turnId, planningFor))
       }
     })
     // are we waiting to populate a marker?

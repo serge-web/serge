@@ -102,6 +102,11 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+.flexlayout__container {
+  width: 100%;
+  height: 100%;
+}
+
 .flexlayout__tab_button {
   cursor: pointer;
   padding: 2px 16px 3px;
@@ -112,7 +117,7 @@
   font-size: 12px;
   font-weight: bold;
   text-align: center;
-  color: $linkColor;
+  color: $link-color;
   @include typo-secondary;
 }
 
@@ -126,7 +131,7 @@
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
 
   .out-of-game-feed & {
-    background-color: $backgroundActionHead;
+    background-color: $background-action-head;
     box-shadow: none;
     border-image-source: none;
     border: none;
@@ -394,5 +399,3 @@
   bottom:0;
   right:0;
 }
-
-

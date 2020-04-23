@@ -11,7 +11,6 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
   const [currentMarker] = useState(store.currentMarker)
   const [currentMarkerForce] = useState(store.currentMarkerForce)
   const [allForces] = useState(store.allForces)
-  const [allPlatforms] = useState(store.allPlatforms)
   const [planStatus, setPlanStatus] = useState(store.planStatus)
   const [markerStatus, setMarkerStatus] = useState(store.currentMarkerStatus)
   const [markerSpeed, setMarkerSpeed] = useState(store.currentMarkerSpeed)
@@ -19,26 +18,34 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
   const [markerCondition, setMarkerCondition] = useState(store.currentMarkerCondition)
   const [isMobile, setIsMobile] = useState(store.currentMarkerIsMobile)
   const [isActive, setIsActive] = useState(null)
+  const [isDeploying, setIsDeploying] = useState(null)
   const [prevSpeed, setPrevSpeed] = useState(store.currentMarkerSpeed)
 
   // Get all of the possible states and speeds
-  const { states, speedKts } = currentMarker.platformTypeDetail
+  const { states, speedKts, conditions } = currentMarker.platformTypeDetail
 
   // A copy of the store to capture the updates
   const newStore = store
 
   newStore.formType = 'adjudication'
 
-  // HACK: This is just for the current wargame, this will need to be replaced with a non text-based comparison
+  const getDisabledCondition = conditions[conditions.length - 1]
 
-  const checkIfActive = () => {
-    const activeArray = ['working', 'full-capability']
-    return activeArray.includes(_.kebabCase(markerCondition))
+  const checkIfActive = (val) => {
+    return val !== getDisabledCondition
+  }
+
+  const checkIfDeploying = () => {
+    return markerStatus.deploying
   }
 
   useEffect(() => {
-    setIsActive(checkIfActive())
+    setIsActive(checkIfActive(markerCondition))
   }, [markerCondition])
+
+  useEffect(() => {
+    setIsDeploying(checkIfDeploying())
+  }, [markerStatus])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -74,16 +81,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
 
   const handleConditionChange = ({ target }) => {
     setMarkerCondition(target.value)
-
-    if (isActive) {
-      setIsMobile(false)
-      setMarkerSpeed(null)
-      newStore.currentMarkerSpeed = null
-    } else {
-      setIsMobile(true)
-      setMarkerSpeed(prevSpeed)
-      newStore.currentMarkerSpeed = prevSpeed
-    }
+    setIsActive(checkIfActive(target.value))
 
     newStore.currentMarkerCondition = target.value
     // save data in helper class to not lose it after popup recreate
@@ -130,24 +128,33 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
 
   return (
     <div className="adjudication">
-      { planStatus && <span className='plan-reviewed'>Reviewed</span> }
+      { planStatus === 'accepted' && <span className='plan-reviewed'>Reviewed</span> }
       <div className="platform-meta"><span style={{ backgroundColor: currentMarkerForce }}></span>{_.startCase(currentMarker.platformType)}</div>
-      <fieldset className="planned-routes">
-        <div className="input-container button-group">
-          <span className="label">{ !planStatus ? 'Planned' : 'Actual'}</span>
-          { !planStatus &&
-          <>
-            <button onClick={handleRejection}>Reject</button>
-            <button onClick={handleAcceptance}>Accept</button>
-          </>
+      <fieldset className={`planned-routes ${isActive ? 'active' : 'inactive'}`}>
+        <ReactCSSTransitionGroup
+          component="div"
+          transitionName="slide"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          { isActive &&
+            <div className="input-container button-group">
+              <span className="label">{ !planStatus ? 'Planned' : 'Actual'}</span>
+              { !planStatus &&
+              <>
+                <button onClick={handleRejection}>Reject</button>
+                <button onClick={handleAcceptance}>Accept</button>
+              </>
+              }
+              { planStatus &&
+              <>
+                <button onClick={handleRevert}>Revert</button>
+                { planStatus !== 'accepted' && isMobile && !isDeploying && <button onClick={handleSubmit}>Plan Route</button> }
+                { planStatus !== 'accepted' && isMobile && isDeploying && <button onClick={handleSubmit}>Deploy Asset</button> }
+              </>
+              }
+            </div>
           }
-          { planStatus &&
-          <>
-            <button onClick={handleRevert}>Revert</button>
-            <button onClick={handleSubmit}>Plan Route</button>
-          </>
-          }
-        </div>
+        </ReactCSSTransitionGroup>
         <ReactCSSTransitionGroup
           component="div"
           transitionName="slide"
@@ -160,7 +167,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
               {
                 states.map(status =>
                   <li key={status.name}>
-                    <label className={planStatus !== 'rejected' && 'disabled'}>
+                    <label className={planStatus !== 'rejected' ? 'disabled' : 'enabled'}>
                       {status.name}
                       <input onChange={handleStatusChange} name="state" type="radio" disabled={ planStatus !== 'rejected'} value={status.name} checked={markerStatus === status.name}/>
                     </label>
@@ -224,7 +231,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
           <label htmlFor="condition">Condition</label>
           <ul>
             {
-              allPlatforms[0].conditions.map(condition =>
+              conditions.map(condition =>
                 <li key={condition}>
                   <label>
                     {condition}
