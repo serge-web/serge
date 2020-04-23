@@ -1,8 +1,7 @@
 .dialogue {
   background-color: rgba(255, 255, 255, 0.65);
-  width: 335px;
-  border-radius: 5px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .default {
@@ -11,4 +10,14 @@
 
 .content {
   padding: 1rem;
+}
+
+.perceived-as {
+  background-color: lightpink;
+}
+.planning {
+  background-color: lightgreen
+}
+.adjudication {
+  background-color: lightgoldenrodyellow;
 }

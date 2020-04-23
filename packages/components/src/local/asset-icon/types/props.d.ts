@@ -19,4 +19,8 @@ export default interface PropTypes {
    * The tooltip label for the marker
    */
   tooltip?: string
+  /** 
+   * the list of forces that can control this asset
+   */
+  controlledBy?: [string]
 }

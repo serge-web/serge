@@ -40,6 +40,7 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
                   const position: L.LatLng = cell.centreLatLng
                   const assetInfo: AssetInfo = {
                     name: asset.name,
+                    controlledBy: force.controlledBy,
                     type: perceivedAs[1],
                     force: perceivedAs[0],
                     position: position,
@@ -61,6 +62,7 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
               position={asset.position}
               type={asset.type}
               selected={false}
+              controlledBy={asset.controlledBy}
               force={asset.force}
               tooltip={asset.name}/>
           ))}

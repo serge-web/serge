@@ -6,6 +6,10 @@ it('provides the correct when planning my force', () => {
   expect(assetDialogFor('Blue', 'Blue', [], Phase.Planning)).toEqual('Planning')
 })
 
+it('provides the correct when planning my force', () => {
+  expect(assetDialogFor('blue', 'Blue', [], Phase.Planning)).toEqual('Planning')
+})
+
 it('provides the correct when planning other force', () => {
   expect(assetDialogFor('Blue', 'Red', [], Phase.Planning)).toEqual('PerceivedAs')
 })
@@ -20,6 +24,14 @@ it('provides the correct when planning other force umpire cant control', () => {
 
 it('provides the correct when click my force in adjudication', () => {
   expect(assetDialogFor('Blue', 'Blue', [], Phase.Adjudication)).toEqual('')
+})
+
+it('provides the correct when click my force in adjudication', () => {
+  expect(assetDialogFor('Blue', 'blue', [], Phase.Adjudication)).toEqual('')
+})
+
+it('provides the correct when click my force in adjudication', () => {
+  expect(assetDialogFor('blue', 'Blue', [], Phase.Adjudication)).toEqual('')
 })
 
 it('provides the correct when click my force in adjudication', () => {
