@@ -31,4 +31,4 @@ export const Route: React.FC<PropTypes> = ({  location, history, planned, trimme
     }}
   </MapContext.Consumer>
 
-export default HexGrid
+export default Route

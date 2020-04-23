@@ -10,6 +10,7 @@ import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
 import Assets from '../assets'
+import Route from '../route'
 import { HexGrid } from '../hex-grid'
 
 // import data types
@@ -236,6 +237,34 @@ export const WithPhases: React.FC = () => <Mapping
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 WithPhases.story = {
+  parameters: {
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
+    }
+  }
+}
+
+/**
+ * VIEW WITH ASSET ROUTES
+ */
+
+
+export const WithRoute: React.FC = () => <Mapping
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+  tileDiameterMins={5}
+  forces={forces}
+  phase = {Phase.Planning}
+  playerForce='Blue'>
+  mapBar = {false}
+  >
+  <HexGrid />
+  <Route location={'a'} history={['a']} planned={['b']} trimmed={false} color={"#f0f"} /> 
+</Mapping>
+
+// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+WithRoute.story = {
   parameters: {
     options: {
       // This story requires addons but other stories in this component do not
