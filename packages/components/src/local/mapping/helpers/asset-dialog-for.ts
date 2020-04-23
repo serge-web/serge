@@ -7,7 +7,10 @@ import { Phase } from '@serge/config'
  * @param {Phase} gamePhase the name of the current game phase
  * @return {string} name of dialog to show
  */
-const assetDialogFor = (playerForce:string, assetForce:string, assetControlledBy: [string?], 
+const assetDialogFor = (
+  playerForce:string, 
+  assetForce:string, 
+  assetControlledBy: [string?], 
   gamePhase: Phase): string => {
     let res: string = ''
     switch(gamePhase)

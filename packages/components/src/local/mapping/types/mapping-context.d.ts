@@ -30,5 +30,13 @@ export default interface MappingContext {
    *  setter, to modify if map bar is open or not
    */
   setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>
+  /** 
+   * state for which form should appear in the map bar
+   */
+  currentForm: string
+  /**
+   *  setter, to modify the form display in map bar
+   **/
+  setCurrentForm: React.Dispatch<React.SetStateAction<string>>
 }
 

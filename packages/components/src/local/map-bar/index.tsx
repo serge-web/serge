@@ -10,13 +10,13 @@ import { MapContext } from '../mapping'
 import WorldState from '../world-state'
 
 /* Render component */
-export const MapBar: React.FunctionComponent = ({ children }) =>
+export const MapBar: React.FC = () =>
   <MapContext.Consumer>
     {
       (context): React.ReactNode => {
 
         
-        const { showMapBar, setShowMapBar } = context.props
+        const { showMapBar, setShowMapBar, currentForm } = context.props
 
         const clickEvent = (): void => showMapBar ? setShowMapBar(false) : setShowMapBar(true)
 
@@ -26,7 +26,9 @@ export const MapBar: React.FunctionComponent = ({ children }) =>
             <section className={styles.top}>
               <WorldState name="World State"></WorldState>
             </section>
-            {children}
+            <section>
+              The correct form is {currentForm}
+            </section>
           </div>
         )
       }

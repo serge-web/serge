@@ -72,6 +72,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   /* Initialise states */
   const [showMapBar, setShowMapBar] = useState(false)
+  const [currentForm, setCurrentForm] = useState('')
 
   /* Initialise variables */
   const { imageTop, imageLeft, imageRight, imageBottom } = bounds
@@ -88,7 +89,9 @@ export const Mapping: React.FC<PropTypes> = ({
     playerForce,
     phase,
     showMapBar,
-    setShowMapBar
+    setShowMapBar,
+    currentForm,
+    setCurrentForm
   }
 
   return (

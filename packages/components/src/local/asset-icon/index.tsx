@@ -11,6 +11,7 @@ import styles from './styles.module.scss'
 
 /* Import context */
 import { MapContext } from '../mapping'
+import assetDialogFor from '../mapping/helpers/asset-dialog-for'
 
 /* Render component */
 export const AssetIcon: React.FC<PropTypes> = ({ position, type, force, tooltip }) => 
@@ -22,7 +23,11 @@ export const AssetIcon: React.FC<PropTypes> = ({ position, type, force, tooltip 
           className: cx(styles['asset-icon'], styles[force], styles[`platform-type-${type}`])
         })
       
-        const clickEvent = (): void => context.props.setShowMapBar(true)
+        const clickEvent = (): void => {
+          const form = assetDialogFor(force, context.props.playerForce, [], context.props.phase)
+          context.props.setCurrentForm(form)
+          context.props.setShowMapBar(true)
+        }
       
         return <Marker position={position} icon={divIcon} onclick={clickEvent}>
           <Tooltip>{tooltip}</Tooltip>
