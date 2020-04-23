@@ -1,4 +1,4 @@
-import { Phase } from './phase'
+import { Phase } from '@serge/config'
 
 export default interface PropTypes {
   /**

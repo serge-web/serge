@@ -5,7 +5,7 @@ import { mount } from 'enzyme'
 
 import AssetIcon from './index'
 import Mapping from '../mapping'
-import { Phase } from '../mapping/types/phase'
+import { Phase } from '@serge/config'
 
 const bounds = {
   imageTop: 14.194809302,

@@ -4,7 +4,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import Mapping from './index'
-import { Phase } from './types/phase'
+import { Phase } from '@serge/config'
 
 const bounds = {
   imageTop: 14.194809302,

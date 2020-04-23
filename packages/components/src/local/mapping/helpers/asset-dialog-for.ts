@@ -1,4 +1,4 @@
-import {Phase} from '../types/phase'
+import { Phase } from '@serge/config'
 
 /** determine which form to show on this click
  * @param {string} playerForce the force for the current player

@@ -1,4 +1,4 @@
-import { Phase } from './phase'
+import { Phase } from '@serge/config'
 import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 

@@ -4,7 +4,7 @@ import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/createGrid'
 import SergeHex from './types/serge-hex'
 import SergeGrid from './types/serge-grid'
-import { Phase } from './types/phase'
+import { Phase } from '@serge/config'
 
 /* Import Types */
 import PropTypes from './types/props'

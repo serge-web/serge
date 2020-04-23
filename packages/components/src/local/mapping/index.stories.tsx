@@ -14,7 +14,7 @@ import { HexGrid } from '../hex-grid'
 import Dialogue from '../dialogue'
 
 // import data types
-import { Phase } from './types/phase'
+import { Phase } from '@serge/config'
 
 export default {
   title: 'local/Mapping',

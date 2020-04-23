@@ -5,7 +5,7 @@
 export enum Phase {
   /* players are planning their next turn
    */
-  Planning = "Planning",
+  Planning = 'planning',
   /** umpire is resolving planned turns */
-  Adjudication = "Adjudication"
+  Adjudication = 'adjudication'
 }
