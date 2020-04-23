@@ -14,13 +14,14 @@ import { MapContext } from '../mapping'
 import assetDialogFor from '../mapping/helpers/asset-dialog-for'
 
 /* Render component */
-export const AssetIcon: React.FC<PropTypes> = ({ position, type, force, tooltip, controlledBy }) => 
+export const AssetIcon: React.FC<PropTypes> = ({ position, type, force, tooltip, controlledBy, selected }) => 
   <MapContext.Consumer>
     {
       (context): React.ReactNode => {
         const divIcon = L.divIcon({
           iconSize: [40, 40],
-          className: cx(styles['asset-icon'], styles[force], styles[`platform-type-${type}`])
+          className: cx(styles['asset-icon'], styles[force], 
+            selected ? styles[`selected`]:null, styles[`platform-type-${type}`])
         })
       
         const clickEvent = (): void => {

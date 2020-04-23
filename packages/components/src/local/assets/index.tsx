@@ -61,6 +61,7 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
               key={asset.uniqid}
               position={asset.position}
               type={asset.type}
+              selected={false}
               controlledBy={asset.controlledBy}
               force={asset.force}
               tooltip={asset.name}/>
