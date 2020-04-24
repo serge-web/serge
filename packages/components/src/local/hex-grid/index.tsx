@@ -58,19 +58,22 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) =>
           />
         ))}
         </LayerGroup>
-        <LayerGroup key={'hex_labels'} >{Object.keys(centres).map(k => (
-          <Marker
-            key = {'hex_label_' + k}
-            position={centres[k]}
-            width="120"
-            icon={L.divIcon({
-              html: k,
-              className: styles['default-coords'],
-              iconSize: [30, 20]
-            })}
-          />
-        ))}
-        </LayerGroup>
+        {
+          context.props.zoomLevel > 11 &&
+          <LayerGroup key={'hex_labels'} >{Object.keys(centres).map(k => (
+            <Marker
+              key = {'hex_label_' + k}
+              position={centres[k]}
+              width="120"
+              icon={L.divIcon({
+                html: k,
+                className: styles['default-coords'],
+                iconSize: [30, 20]
+              })}
+            />
+          ))}
+          </LayerGroup>
+        }
       </>
     }}
   </MapContext.Consumer>

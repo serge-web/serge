@@ -173,7 +173,7 @@ export const WithGrid: React.FC = () => <Mapping
   tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
   forces={forces}
   phase = {Phase.Planning}
-  playerForce='Blue'>
+  playerForce='Blue'
   mapBar = {false}
   >
   <HexGrid />
