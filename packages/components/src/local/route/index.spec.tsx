@@ -89,8 +89,8 @@ it('Mapping renders correctly with HexGrid', () => {
     playerForce={'Blue'}
     phase={Phase.Planning}
     >
-      <Route location={"J2"} history={history} planned={plannedTurns} 
-        trimmed={false} color={"#f00"} />
+      <Route name={'alpha'} location={'J2'} history={history} planned={plannedTurns} 
+        trimmed={false} color={'#f00'} />
   </Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

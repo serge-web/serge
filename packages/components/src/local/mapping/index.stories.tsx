@@ -248,19 +248,21 @@ WithPhases.story = {
 /**
  * VIEW WITH ASSET ROUTES
  */
-
-
+const greenForce: any = forces[3]
+const platform: any = greenForce.assets[0]
+const planned = platform.plannedTurns
+const history = platform.history
 export const WithRoute: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
   tileDiameterMins={5}
   forces={forces}
   phase = {Phase.Planning}
-  playerForce='Blue'>
+  playerForce='Green'>
   mapBar = {false}
   >
   <HexGrid />
-  <Route location={'a'} history={['a']} planned={['b']} trimmed={false} color={"#f0f"} /> 
+  <Route name={'test'} location={platform.position} history={history} planned={planned} trimmed={false} color={"#f0f"} /> 
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.

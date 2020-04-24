@@ -2,6 +2,10 @@ import SergeHex from '../../mapping/types/serge-hex'
 import SergeGrid from '../../mapping/types/serge-grid'
 
 export default interface PropTypes {
+  /** 
+   * name of this platform 
+   */
+  name: string
   /**
    * the grid of hex cells
    */
