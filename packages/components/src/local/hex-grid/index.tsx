@@ -16,7 +16,7 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells, mapRef }: PropTypes) =
 
   const [showCoords, setShowCoords] = useState(false)
   // only show the markers when zoomed in
-  if (mapRef && mapRef.current.leafletElement) {
+  if (mapRef && mapRef.current && mapRef.current.leafletElement) {
     mapRef.current.leafletElement.on('zoomend', () => {
       setShowCoords(mapRef.current.leafletElement.getZoom() >= 11)
     })
