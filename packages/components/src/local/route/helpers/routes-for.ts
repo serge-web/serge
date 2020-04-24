@@ -17,7 +17,7 @@ export interface RouteData {
 }
 
 /** the number of legs to display if the user wants trimmed data */
-export const LENGTH_OF_TRIMMED_LINE: number = 2
+export const lengthOfTrimmedLine: number = 2
 
 /**
  *  generate the planned routes for this asset
@@ -26,7 +26,7 @@ export const LENGTH_OF_TRIMMED_LINE: number = 2
  * @param steps {any} series of planned steps for asset
  * @returns {RouteData} composite object containing route lines & end of turn marker locations
  */
-const plannedRoutesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, steps: [any], 
+export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, steps: [any], 
   trimmed: boolean): RouteData => {
     const polyline: LatLng[] = []
     const turnEnds: LatLng[] = []
@@ -40,12 +40,21 @@ const plannedRoutesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
         polyline.push(startPos)
         steps.forEach((step:any) => {
           stepCtr ++
-          const route = step.route
-          if(route) {
+          // first, does it contain a plain position?
+          if(step.position) {
+            // TODO: this block should be removed once we
+            // remove the old way of structuring historic data
+            // https://github.com/serge-web/serge/issues/395            
+            const thisCell: SergeHex<{}> | undefined = hexNamed(step.position, gridCells)
+            if(thisCell && (!trimmed || stepCtr <= lengthOfTrimmedLine)) {
+              turnEnds.push(thisCell.centreLatLng)
+              polyline.push(thisCell.centreLatLng)
+            }
+          } else if (step.route) {
             var thisRouteCtr: number = 0 // how many steps have been recorded for this route
-            route.forEach((routeStep:any) => {
+            step.route.forEach((routeStep:any) => {
               const thisCell: SergeHex<{}> | undefined = hexNamed(routeStep, gridCells)
-              if(thisCell && (!trimmed || stepCtr <= LENGTH_OF_TRIMMED_LINE)) {
+              if(thisCell && (!trimmed || stepCtr <= lengthOfTrimmedLine)) {
                 // is this the first cell?
                 if(thisRouteCtr == 0) {
                   turnEnds.push(thisCell.centreLatLng)
@@ -62,4 +71,3 @@ const plannedRoutesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
     return res
 }
 
-export default plannedRoutesFor

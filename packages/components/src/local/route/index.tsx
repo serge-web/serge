@@ -1,12 +1,7 @@
 import React, { ReactNode } from 'react'
 import { LayerGroup, Polyline } from 'react-leaflet'
 
-import plannedRoutesFor from './helpers/planned-routes-for'
-import {RouteData} from './helpers/planned-routes-for'
-import historyRoutesFor from './helpers/history-routes-for'
-
-/* Import Stylesheet */
-
+import {RouteData, routesFor} from './helpers/routes-for'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -21,8 +16,8 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
       const selectedDots = [4, 8]
 
       // loop through historic steps
-      const historyRoutes: RouteData = historyRoutesFor(gridCells, location, history, trimmed)
-      const plannedRoutes: RouteData = plannedRoutesFor(gridCells, location, planned, trimmed)
+      const historyRoutes: RouteData = routesFor(gridCells, location, history, trimmed)
+      const plannedRoutes: RouteData = routesFor(gridCells, location, planned, trimmed)
 
       // TODO: introduce turn markers. The following code introduces markers,
       // but the "real" ones will be the images like '../images/turn120deg.png'
