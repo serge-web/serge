@@ -1,5 +1,9 @@
 export default interface PropTypes {
   /**
+   * The unique identifier for the asset marker
+   */
+  id: string
+  /**
    * The name of the icon to be used on the asset
    */
   type: string

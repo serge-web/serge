@@ -1,6 +1,16 @@
 import { Phase } from '@serge/config'
 import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
+import { LatLng } from 'react-leaflet'
+
+
+interface SelectedAsset {
+  id: string;
+  position: number[];
+  type: string;
+  force: string;
+  controlledBy: string[];
+}
 
 /** 
  * mapping context, shared with child elements
@@ -31,12 +41,12 @@ export default interface MappingContext {
    */
   setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>
   /** 
-   * state for which form should appear in the map bar
+   * state for which asset is currently selected
    */
-  currentForm: string
+  selectedAsset: SelectedAsset
   /**
-   *  setter, to modify the form display in map bar
+   *  setter, to modify the currently selected asset
    **/
-  setCurrentForm: React.Dispatch<React.SetStateAction<string>>
+  setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset>>
 }
 
