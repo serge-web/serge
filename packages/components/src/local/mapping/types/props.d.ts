@@ -89,5 +89,4 @@ export default interface PropTypes {
    * @default false
    */
   zoomAnimation?: boolean
-  children?: any
 }

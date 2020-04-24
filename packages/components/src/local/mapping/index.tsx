@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import React, { createContext, useState, createRef, cloneElement, Children, isValidElement, ReactElement } from 'react'
+import React, { createContext, useState } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/createGrid'
 import SergeHex from './types/serge-hex'
@@ -73,6 +73,7 @@ export const Mapping: React.FC<PropTypes> = ({
   /* Initialise states */
   const [showMapBar, setShowMapBar] = useState(false)
   const [currentForm, setCurrentForm] = useState('')
+  const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
   /* Initialise variables */
   const { imageTop, imageLeft, imageRight, imageBottom } = bounds
@@ -81,7 +82,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const bottomRight = L.latLng(imageBottom, imageRight)
   const latLngBounds: L.LatLngBounds = L.latLngBounds(topLeft, bottomRight)
   const gridCells: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
-  const mapRef = createRef<any>();
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
@@ -92,12 +92,20 @@ export const Mapping: React.FC<PropTypes> = ({
     showMapBar,
     setShowMapBar,
     currentForm,
-    setCurrentForm
+    setCurrentForm,
+    zoomLevel,
+    setZoomLevel
   }
 
-  const childrenWithProps = Children.map(children, child =>
-    isValidElement(child) ? cloneElement(child as ReactElement<any>, { mapRef }) : child
-  )
+  // any events for leafletjs you can get from leafletElement
+  // https://leafletjs.com/reference-1.6.0.html#map-event
+  const handleEvents = (ref: any) => {
+    if (ref && ref.leafletElement) {
+      ref.leafletElement.on('zoomend', () => {
+        setZoomLevel(ref.leafletElement.getZoom())
+      })
+    }
+  }
 
   return (
   <MapContext.Provider value={{ props: contextProps }}>
@@ -114,7 +122,7 @@ export const Mapping: React.FC<PropTypes> = ({
         minZoom={minZoom}
         zoomControl={zoomControl}
         maxZoom={maxZoom}
-        ref={mapRef}
+        ref={handleEvents}
         touchZoom={touchZoom}
         zoomAnimation={zoomAnimation}
         attributionControl={attributionControl}
@@ -125,7 +133,7 @@ export const Mapping: React.FC<PropTypes> = ({
           bounds={latLngBounds}
         />
         <ScaleControl/>
-           {childrenWithProps}
+        {children}
       </Map>
     </section>
   </MapContext.Provider>
