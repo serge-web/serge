@@ -14,20 +14,20 @@ export default interface PropTypes {
     imageRight: number
     imageBottom: number
   }
-  /** 
+  /**
    * diameter of tiles in use
    */
   tileDiameterMins: number
   /** forces for this wargame
-   * 
+   *
    */
   forces: any,
-  /** current player's force 
-   * 
+  /** current player's force
+   *
   */
   playerForce: string,
-  /** current player's force 
-   * 
+  /** current player's force
+   *
   */
   phase: Phase,
  /**
@@ -89,5 +89,5 @@ export default interface PropTypes {
    * @default false
    */
   zoomAnimation?: boolean
-
+  children?: any
 }

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 import L from 'leaflet'
 import { PointLike } from 'honeycomb-grid'
 import { Polygon, Marker, LayerGroup } from 'react-leaflet'
@@ -12,8 +12,18 @@ import { MapContext } from '../mapping'
 import SergeHex from '../mapping/types/serge-hex'
 
 /* Render component */
-export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) =>
-  <MapContext.Consumer>
+export const HexGrid: React.FC<PropTypes> = ({ gridCells, mapRef }: PropTypes) => {
+
+  const [showCoords, setShowCoords] = useState(false)
+  // only show the markers when zoomed in
+  if (mapRef && mapRef.current.leafletElement) {
+    mapRef.current.leafletElement.on('zoomend', () => {
+      setShowCoords(mapRef.current.leafletElement.getZoom() >= 11)
+    })
+  }
+
+  return (
+    <MapContext.Consumer>
     { (context): ReactNode => {
       // collate list of named polygons
       const polygons: { [id: string]: L.LatLng[] } = {}
@@ -58,21 +68,26 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) =>
           />
         ))}
         </LayerGroup>
-        <LayerGroup key={'hex_labels'} >{Object.keys(centres).map(k => (
-          <Marker
-            key = {'hex_label_' + k}
-            position={centres[k]}
-            width="120"
-            icon={L.divIcon({
-              html: k,
-              className: styles['default-coords'],
-              iconSize: [30, 20]
-            })}
-          />
-        ))}
-        </LayerGroup>
+        {showCoords &&
+          <LayerGroup key={'hex_labels'} >{Object.keys(centres).map(k => (
+            <Marker
+              key = {'hex_label_' + k}
+              position={centres[k]}
+              width="120"
+              icon={L.divIcon({
+                html: k,
+                className: styles['default-coords'],
+                iconSize: [30, 20]
+              })}
+            />
+          ))}
+          </LayerGroup>
+        }
       </>
     }}
   </MapContext.Consumer>
+)
+}
+
 
 export default HexGrid

@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, createRef, cloneElement, Children, isValidElement, ReactElement } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/createGrid'
 import SergeHex from './types/serge-hex'
@@ -81,6 +81,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const bottomRight = L.latLng(imageBottom, imageRight)
   const latLngBounds: L.LatLngBounds = L.latLngBounds(topLeft, bottomRight)
   const gridCells: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
+  const mapRef = createRef<any>();
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
@@ -93,6 +94,10 @@ export const Mapping: React.FC<PropTypes> = ({
     currentForm,
     setCurrentForm
   }
+
+  const childrenWithProps = Children.map(children, child =>
+    isValidElement(child) ? cloneElement(child as ReactElement<any>, { mapRef }) : child
+  )
 
   return (
   <MapContext.Provider value={{ props: contextProps }}>
@@ -109,6 +114,7 @@ export const Mapping: React.FC<PropTypes> = ({
         minZoom={minZoom}
         zoomControl={zoomControl}
         maxZoom={maxZoom}
+        ref={mapRef}
         touchZoom={touchZoom}
         zoomAnimation={zoomAnimation}
         attributionControl={attributionControl}
@@ -119,7 +125,7 @@ export const Mapping: React.FC<PropTypes> = ({
           bounds={latLngBounds}
         />
         <ScaleControl/>
-          {children}
+           {childrenWithProps}
       </Map>
     </section>
   </MapContext.Provider>
