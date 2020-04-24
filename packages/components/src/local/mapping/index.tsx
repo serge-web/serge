@@ -69,12 +69,11 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomAnimation,
   children
 }) => {
-
   /* Initialise states */
   const [showMapBar, setShowMapBar] = useState(false)
   const [selectedAsset, setSelectedAsset] = useState({
     id: '',
-    position: [0.00,0.00],
+    position: [0.00, 0.00],
     type: '',
     force: '',
     controlledBy: ['']
@@ -101,34 +100,34 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   return (
-  <MapContext.Provider value={{ props: contextProps }}>
-    <section className={styles['map-container']}>
-      { mapBar && <MapBar /> }
-      <Map
-        className={styles['map']}
-        center={position}
-        bounds={latLngBounds}
-        maxBounds={latLngBounds}
-        zoom={zoom}
-        zoomDelta={zoomDelta}
-        zoomSnap={zoomSnap}
-        minZoom={minZoom}
-        zoomControl={zoomControl}
-        maxZoom={maxZoom}
-        touchZoom={touchZoom}
-        zoomAnimation={zoomAnimation}
-        attributionControl={attributionControl}
-      >
-        <TileLayer
-          url={tileLayer.url}
-          attribution={tileLayer.attribution}
+    <MapContext.Provider value={{ props: contextProps }}>
+      <section className={styles['map-container']}>
+        { mapBar && <MapBar /> }
+        <Map
+          className={styles.map}
+          center={position}
           bounds={latLngBounds}
-        />
-        <ScaleControl/>
+          maxBounds={latLngBounds}
+          zoom={zoom}
+          zoomDelta={zoomDelta}
+          zoomSnap={zoomSnap}
+          minZoom={minZoom}
+          zoomControl={zoomControl}
+          maxZoom={maxZoom}
+          touchZoom={touchZoom}
+          zoomAnimation={zoomAnimation}
+          attributionControl={attributionControl}
+        >
+          <TileLayer
+            url={tileLayer.url}
+            attribution={tileLayer.attribution}
+            bounds={latLngBounds}
+          />
+          <ScaleControl/>
           {children}
-      </Map>
-    </section>
-  </MapContext.Provider>
+        </Map>
+      </section>
+    </MapContext.Provider>
   )
 }
 Mapping.defaultProps = defaultProps

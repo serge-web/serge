@@ -88,12 +88,11 @@ const assetForceNames = {
 }
 const assetForceDefaultValue = 'blue'
 
-
 const assetTypelabel = 'Type'
 const assetTypeNames = {
-  Destroyer: 'destroyer', 
-  MCMV: 'mcmv', 
-  Unknown: 'unknown', 
+  Destroyer: 'destroyer',
+  MCMV: 'mcmv',
+  Unknown: 'unknown',
   AGI: 'agi'
 }
 const assetTypeDefaultValue = 'agi'
@@ -106,14 +105,13 @@ export const WithMarker: React.FC = () => <Mapping
   playerForce = 'Blue'
   phase = {Phase.Planning}
   mapBar = {false}
-  >
-  <AssetIcon id="id1" position={L.latLng(13.298034302, 43.0488191271)} 
-    selected={boolean(visLabel, visDefaultValue)} 
-    type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)} 
-    force={radios(assetForcelabel, assetForceNames, assetForceDefaultValue)} 
+>
+  <AssetIcon id="id1" position={L.latLng(13.298034302, 43.0488191271)}
+    selected={boolean(visLabel, visDefaultValue)}
+    type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)}
+    force={radios(assetForcelabel, assetForceNames, assetForceDefaultValue)}
     tooltip="Tooltip for marker" />
 </Mapping>
-
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 WithMarker.story = {

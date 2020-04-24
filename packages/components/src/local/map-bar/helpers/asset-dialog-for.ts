@@ -8,35 +8,34 @@ import { Phase } from '@serge/config'
  * @return {string} name of dialog to show
  */
 const assetDialogFor = (
-  playerForce:string, 
-  assetForce:string, 
-  assetControlledBy: [string?] | undefined, 
+  playerForce: string,
+  assetForce: string,
+  assetControlledBy: [string?] | undefined,
   gamePhase: Phase): string => {
-    let res: string = ''
-    switch(gamePhase)
-    {
-      case Phase.Planning:
-        if (assetForce.toLowerCase() === playerForce.toLowerCase()) {
-          res = "Planning"
-        } else if (assetControlledBy != null && assetControlledBy.includes(playerForce)) {
-          res = "Planning"
-        } else if(playerForce.toLowerCase() !== 'umpire') {
-          res = "PerceivedAs"
-        } else {
-          res = ''
-        }
-        break;
-      case Phase.Adjudication:
-        if (playerForce.toLowerCase() === 'umpire') {
-          res = "Adjudication"
-        } else if (assetForce.toLowerCase() !== playerForce.toLowerCase()) {
-          res = "PerceivedAs"
-        } else {
-          res = ''
-        }
-        break;      
-    }
-    return res
+  let res = ''
+  switch (gamePhase) {
+    case Phase.Planning:
+      if (assetForce.toLowerCase() === playerForce.toLowerCase()) {
+        res = 'Planning'
+      } else if (assetControlledBy != null && assetControlledBy.includes(playerForce)) {
+        res = 'Planning'
+      } else if (playerForce.toLowerCase() !== 'umpire') {
+        res = 'PerceivedAs'
+      } else {
+        res = ''
+      }
+      break
+    case Phase.Adjudication:
+      if (playerForce.toLowerCase() === 'umpire') {
+        res = 'Adjudication'
+      } else if (assetForce.toLowerCase() !== playerForce.toLowerCase()) {
+        res = 'PerceivedAs'
+      } else {
+        res = ''
+      }
+      break
+  }
+  return res
 }
 
 export default assetDialogFor

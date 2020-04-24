@@ -9,9 +9,6 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 import DialogueHeader from '../dialogue-header'
 
-
-
-
 /* Render component */
 export const Dialogue: React.FC<PropTypes> = ({ children, type, headerText }) => {
   const typeClass = kebabCase(type) || 'default'

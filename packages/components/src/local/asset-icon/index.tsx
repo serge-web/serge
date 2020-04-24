@@ -13,16 +13,16 @@ import styles from './styles.module.scss'
 import { MapContext } from '../mapping'
 
 /* Render component */
-export const AssetIcon: React.FC<PropTypes> = ({ id, position, type, force, tooltip, controlledBy, selected }) => 
+export const AssetIcon: React.FC<PropTypes> = ({ id, position, type, force, tooltip, controlledBy, selected }) =>
   <MapContext.Consumer>
     {
       (context): React.ReactNode => {
         const divIcon = L.divIcon({
           iconSize: [40, 40],
-          className: cx(styles['asset-icon'], styles[force], 
-            selected ? styles[`selected`]:null, styles[`platform-type-${type}`])
+          className: cx(styles['asset-icon'], styles[force],
+            selected ? styles.selected : null, styles[`platform-type-${type}`])
         })
-      
+
         const clickEvent = (): void => {
           context.props.setShowMapBar(true)
           context.props.setSelectedAsset({
@@ -33,13 +33,12 @@ export const AssetIcon: React.FC<PropTypes> = ({ id, position, type, force, tool
             controlledBy
           })
         }
-      
+
         return <Marker position={position} icon={divIcon} onclick={clickEvent}>
           <Tooltip>{tooltip}</Tooltip>
         </Marker>
       }
     }
   </MapContext.Consumer>
-
 
 export default AssetIcon

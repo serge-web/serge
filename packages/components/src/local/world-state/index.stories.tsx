@@ -4,7 +4,6 @@ import React from 'react'
 import WorldState from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/WorldState',
   component: WorldState,
@@ -18,4 +17,3 @@ export default {
 }
 
 export const Default: React.FunctionComponent = () => <WorldState name="World State" />
-

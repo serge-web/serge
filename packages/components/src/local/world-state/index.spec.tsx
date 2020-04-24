@@ -8,6 +8,6 @@ import WorldState from './index'
 it('WorldState renders correctly', () => {
   const tree = renderer
     .create(<WorldState name="test" />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})

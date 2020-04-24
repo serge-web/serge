@@ -11,10 +11,8 @@ import { MapContext } from '../mapping'
 import WorldState from '../world-state'
 import Dialogue from '../dialogue'
 
-
 /* Render component */
 export const MapBar: React.FC = () => {
-  
   const [currentForm, setCurrentForm] = useState('')
   const [currentAssetName, setCurrentAssetName] = useState('')
 
@@ -30,7 +28,7 @@ export const MapBar: React.FC = () => {
   }
 
   return (
-    <div className={cx(styles['map-bar'], showMapBar && styles['open'])}>
+    <div className={cx(styles['map-bar'], showMapBar && styles.open)}>
       <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
       <section>
         <WorldState name="World State"></WorldState>
@@ -41,7 +39,5 @@ export const MapBar: React.FC = () => {
     </div>
   )
 }
-
-  
 
 export default MapBar

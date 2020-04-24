@@ -3,33 +3,33 @@ import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 
 interface SelectedAsset {
-  /** 
+  /**
    * unique id
-   */ 
-  id: string;
-  /** 
+   */
+  id: string
+  /**
    * current hex position of asset
    */
-  position: number[];
+  position: number[]
   /**
    *  type of asset
    */
-  type: string;
-  /** 
+  type: string
+  /**
    * force-id for asset
    */
-  force: string;
+  force: string
   /**
    *  list of force-ids for who can control this asset
    */
-  controlledBy: string[];
+  controlledBy: string[]
 }
 
-/** 
+/**
  * mapping context, shared with child elements
  */
 export default interface MappingContext {
-  /** 
+  /**
    * grid of cells, used for movement
    */
   gridCells: SergeGrid<SergeHex<{}>>
@@ -37,23 +37,23 @@ export default interface MappingContext {
    * list of forces within this wargame
    */
   forces: any
-  /** 
+  /**
    * force for current player
-   */ 
+   */
   playerForce: string
   /**
    * phase of current game
    */
   phase: Phase
-  /** 
-   * state for if map bar is open 
+  /**
+   * state for if map bar is open
    */
   showMapBar: boolean
   /**
    *  setter, to modify if map bar is open or not
    */
   setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>
-  /** 
+  /**
    * state for which asset is currently selected
    */
   selectedAsset: SelectedAsset
@@ -62,4 +62,3 @@ export default interface MappingContext {
    **/
   setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset>>
 }
-
