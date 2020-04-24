@@ -21,15 +21,15 @@ export default interface PropTypes {
   /** forces for this wargame
    *
    */
-  forces: any,
+  forces: any
   /** current player's force
    *
   */
-  playerForce: string,
+  playerForce: string
   /** current player's force
    *
   */
-  phase: Phase,
+  phase: Phase
  /**
    *  The TileLayer object for the leaflet map
 

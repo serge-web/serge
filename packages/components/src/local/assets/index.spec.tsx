@@ -82,7 +82,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     tileDiameterMins = {5}
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
-    forces={forces} 
+    forces={forces}
     playerForce="Blue"
     phase={Phase.Planning}
   >

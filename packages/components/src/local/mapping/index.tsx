@@ -69,10 +69,16 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomAnimation,
   children
 }) => {
-
   /* Initialise states */
   const [showMapBar, setShowMapBar] = useState(false)
-  const [currentForm, setCurrentForm] = useState('')
+  const [selectedAsset, setSelectedAsset] = useState({
+    id: '',
+    position: [0.00, 0.00],
+    type: '',
+    force: '',
+    controlledBy: ['']
+  })
+  
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
   /* Initialise variables */
@@ -91,8 +97,8 @@ export const Mapping: React.FC<PropTypes> = ({
     phase,
     showMapBar,
     setShowMapBar,
-    currentForm,
-    setCurrentForm,
+    selectedAsset,
+    setSelectedAsset,
     zoomLevel,
     setZoomLevel
   }
