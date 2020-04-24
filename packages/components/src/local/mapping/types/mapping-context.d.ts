@@ -1,14 +1,27 @@
 import { Phase } from '@serge/config'
 import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
-import { LatLng } from 'react-leaflet'
-
 
 interface SelectedAsset {
+  /** 
+   * unique id
+   */ 
   id: string;
+  /** 
+   * current hex position of asset
+   */
   position: number[];
+  /**
+   *  type of asset
+   */
   type: string;
+  /** 
+   * force-id for asset
+   */
   force: string;
+  /**
+   *  list of force-ids for who can control this asset
+   */
   controlledBy: string[];
 }
 
