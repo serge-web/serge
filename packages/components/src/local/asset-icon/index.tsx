@@ -14,23 +14,23 @@ import { MapContext } from '../mapping'
 import assetDialogFor from '../mapping/helpers/asset-dialog-for'
 
 /* Render component */
-export const AssetIcon: React.FC<PropTypes> = ({ position, type, force, tooltip, controlledBy, selected }) => 
+export const AssetIcon: React.FC<PropTypes> = ({ position, type, force, tooltip, controlledBy, selected }) =>
   <MapContext.Consumer>
     {
       (context): React.ReactNode => {
         const divIcon = L.divIcon({
           iconSize: [40, 40],
-          className: cx(styles['asset-icon'], styles[force], 
+          className: cx(styles['asset-icon'], styles[force],
             selected ? styles[`selected`]:null, styles[`platform-type-${type}`])
         })
-      
+
         const clickEvent = (): void => {
           const form = assetDialogFor(context.props.playerForce, force, controlledBy, context.props.phase)
           console.log(form)
           context.props.setCurrentForm(form)
           context.props.setShowMapBar(true)
         }
-      
+
         return <Marker position={position} icon={divIcon} onclick={clickEvent}>
           <Tooltip>{tooltip}</Tooltip>
         </Marker>
