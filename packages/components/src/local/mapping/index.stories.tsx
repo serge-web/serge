@@ -257,7 +257,7 @@ const selectedDefaultValue = false
 // test data:
 const greenForce: any = forces[3]
 const platform: any = greenForce.assets[0]
-const planned = platform.plannedTurns
+const { plannedTurns, history } = platform
 const history = platform.history
 
 export const WithRoute: React.FC = () => <Mapping
