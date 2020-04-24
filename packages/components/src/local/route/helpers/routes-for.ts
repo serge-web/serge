@@ -4,17 +4,7 @@ import SergeHex from '../../mapping/types/serge-hex'
 import SergeGrid from '../../mapping/types/serge-grid'
 import hexNamed from '../../hex-grid/helpers/hex-named'
 
-/** composite return tuple */
-export interface RouteData {
-  /**
-   *  line representing this route (may include multiple steps per turn)
-   */
-  polyline: LatLng[]
-  /** 
-   * series of end-of-turn locations, one per turn
-   */ 
-  turnEnds: LatLng[]
-}
+import RouteData from '../types/route-data'
 
 /** the number of legs to display if the user wants trimmed data */
 export const lengthOfTrimmedLine: number = 2

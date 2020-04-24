@@ -1,11 +1,12 @@
 import React, { ReactNode } from 'react'
 import { LayerGroup, Polyline } from 'react-leaflet'
 
-import {RouteData, routesFor} from './helpers/routes-for'
+import { routesFor} from './helpers/routes-for'
 
 /* Import Types */
 import PropTypes from './types/props'
 import { MapContext } from '../mapping'
+import RouteData from './types/route-data'
 
 /* Render component */
 export const Route: React.FC<PropTypes> = ({ name, location, history, planned, trimmed, color, selected }: PropTypes) =>
