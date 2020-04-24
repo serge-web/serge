@@ -257,7 +257,6 @@ const selectedDefaultValue = false
 const greenForce: any = forces[3]
 const platform: any = greenForce.assets[0]
 const planned = platform.plannedTurns
-console.log('plaform:', planned)
 const history = platform.history
 
 export const WithRoute: React.FC = () => <Mapping
@@ -271,7 +270,7 @@ export const WithRoute: React.FC = () => <Mapping
   >
   <HexGrid />
   <Route name={'test'} location={platform.position}
-  history={history} planned={planned} color={"#f0f"}
+  history={history} planned={planned} color={"#00f"}
   selected={boolean(selectedLabel, selectedDefaultValue, 'Adjustments')}
   trimmed={boolean(trimmedLabel, trimmedDefaultValue, 'Adjustments')}
   /> 

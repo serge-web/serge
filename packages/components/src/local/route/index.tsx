@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react'
-import L from 'leaflet'
 import { LayerGroup, Polyline } from 'react-leaflet'
 
-import routesFor from './helpers/routes-for'
-import {RouteData} from './helpers/routes-for'
+import plannedRoutesFor from './helpers/planned-routes-for'
+import {RouteData} from './helpers/planned-routes-for'
+import historyRoutesFor from './helpers/history-routes-for'
 
 /* Import Stylesheet */
 
@@ -16,41 +16,46 @@ import { MapContext } from '../mapping'
 export const Route: React.FC<PropTypes> = ({ name, location, history, planned, trimmed, color, selected }: PropTypes) =>
   <MapContext.Consumer>
     { (context): ReactNode => {
-      // collate list of named polygons
-      const plannedPoly: L.LatLng[] = []
-
       const gridCells = context.props.gridCells
-
+      const plainDots = [1, 7] 
+      const selectedDots = [4, 8]
 
       // loop through historic steps
-      const historyRoutes: RouteData = routesFor(gridCells, location, planned, trimmed)
-      console.log(location, history, planned, trimmed, color, historyRoutes, plannedPoly, gridCells, context)
+      const historyRoutes: RouteData = historyRoutesFor(gridCells, location, history, trimmed)
+      const plannedRoutes: RouteData = plannedRoutesFor(gridCells, location, planned, trimmed)
 
-      console.log('ends',historyRoutes.turnEnds)
-
-
-      // {Object.keys(historyRoutes.turnEnds).forEach((k:L.LatLng) => (
+      // TODO: introduce turn markers. The following code introduces markers,
+      // but the "real" ones will be the images like '../images/turn120deg.png'
+      // {historyRoutes.turnEnds.forEach((k:L.LatLng) => (
       //   <Marker
-      //     key = {'hex_label_'}
+      //     key = {'history_turns_' + k}
       //     position={k}
-      //     width="120"
+      //     width="2"
       //     icon={L.divIcon({
-      //       html: k,
-      //       className: styles['default-coords'],
+      //       html: 'A',
       //       iconSize: [30, 20]
       //     })}
       //   />
       // ))}
-
+           
       return <>
         <LayerGroup key={'hex_route_layer_' + name} >
           <Polyline
             // we may end up with other elements per hex,
             // such as labels so include prefix in key
-            key = {'hex_poly_' + name}
+            key = {'hex_history_' + name}
             positions={historyRoutes.polyline}
             color={color}
-            weight={selected ? 4 : 2}
+            weight={selected ? 3 : 2}
+          />
+          <Polyline
+            // we may end up with other elements per hex,
+            // such as labels so include prefix in key
+            key = {'hex_planned_' + name}
+            positions={plannedRoutes.polyline}
+            color={color}
+            weight={selected ? 3 : 2}
+            dashArray={selected ? selectedDots : plainDots}
           />
         </LayerGroup>
       </>
