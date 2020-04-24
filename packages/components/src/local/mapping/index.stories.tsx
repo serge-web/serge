@@ -248,10 +248,18 @@ WithPhases.story = {
 /**
  * VIEW WITH ASSET ROUTES
  */
+const trimmedLabel = 'Trimmed'
+const trimmedDefaultValue = false
+const selectedLabel = 'Selected'
+const selectedDefaultValue = false
+
+
 const greenForce: any = forces[3]
 const platform: any = greenForce.assets[0]
 const planned = platform.plannedTurns
+console.log('plaform:', planned)
 const history = platform.history
+
 export const WithRoute: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
@@ -262,7 +270,11 @@ export const WithRoute: React.FC = () => <Mapping
   mapBar = {false}
   >
   <HexGrid />
-  <Route name={'test'} location={platform.position} history={history} planned={planned} trimmed={false} color={"#f0f"} /> 
+  <Route name={'test'} location={platform.position}
+  history={history} planned={planned} color={"#f0f"}
+  selected={boolean(selectedLabel, selectedDefaultValue, 'Adjustments')}
+  trimmed={boolean(trimmedLabel, trimmedDefaultValue, 'Adjustments')}
+  /> 
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.

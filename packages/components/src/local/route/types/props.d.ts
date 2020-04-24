@@ -30,4 +30,8 @@ export default interface PropTypes {
    * color for this route
    */
   color: string
+  /** 
+   * if this is for the selected track
+   */
+  selected: boolean
 }

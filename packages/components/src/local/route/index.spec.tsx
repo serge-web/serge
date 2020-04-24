@@ -90,7 +90,7 @@ it('Mapping renders correctly with HexGrid', () => {
     phase={Phase.Planning}
     >
       <Route name={'alpha'} location={'J2'} history={history} planned={plannedTurns} 
-        trimmed={false} color={'#f00'} />
+        trimmed={false} color={'#f00'} selected={true} />
   </Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
