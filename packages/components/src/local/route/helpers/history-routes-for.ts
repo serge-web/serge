@@ -6,11 +6,18 @@ import hexNamed from '../../hex-grid/helpers/hex-named'
 import { RouteData } from './planned-routes-for'
 import { LENGTH_OF_TRIMMED_LINE } from './planned-routes-for'
 
+/**
+ *  generate the past routes for this asset
+ * @param gridCells the grid system for this map
+ * @param position {string} hex cell where the asset currently is
+ * @param steps {any} series of past steps for asset
+ * @returns {RouteData} composite object containing route lines & end of turn marker locations
+ */
 const historyRoutesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, steps: [any], 
   trimmed: boolean): RouteData => {
     const polyline: LatLng[] = []
     const turnEnds: LatLng[] = []
-    var stepCtr = 0
+    var stepCtr: number = 0 // keep track of how many steps/legs we've processed
     // start with current position
     const startCell: SergeHex<{}> | undefined = hexNamed(position, gridCells)
     if(startCell) {

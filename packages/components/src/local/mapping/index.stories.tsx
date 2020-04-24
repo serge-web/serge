@@ -248,12 +248,13 @@ WithPhases.story = {
 /**
  * VIEW WITH ASSET ROUTES
  */
+// knob bits:
 const trimmedLabel = 'Trimmed'
 const trimmedDefaultValue = false
 const selectedLabel = 'Selected'
 const selectedDefaultValue = false
 
-
+// test data:
 const greenForce: any = forces[3]
 const platform: any = greenForce.assets[0]
 const planned = platform.plannedTurns

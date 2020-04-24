@@ -4,6 +4,7 @@ import SergeHex from '../../mapping/types/serge-hex'
 import SergeGrid from '../../mapping/types/serge-grid'
 import hexNamed from '../../hex-grid/helpers/hex-named'
 
+/** composite return tuple */
 export interface RouteData {
   /**
    *  line representing this route (may include multiple steps per turn)
@@ -15,8 +16,16 @@ export interface RouteData {
   turnEnds: LatLng[]
 }
 
+/** the number of legs to display if the user wants trimmed data */
 export const LENGTH_OF_TRIMMED_LINE: number = 2
 
+/**
+ *  generate the planned routes for this asset
+ * @param gridCells the grid system for this map
+ * @param position {string} hex cell where the asset currently is
+ * @param steps {any} series of planned steps for asset
+ * @returns {RouteData} composite object containing route lines & end of turn marker locations
+ */
 const plannedRoutesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, steps: [any], 
   trimmed: boolean): RouteData => {
     const polyline: LatLng[] = []
