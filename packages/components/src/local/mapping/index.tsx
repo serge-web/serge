@@ -73,6 +73,7 @@ export const Mapping: React.FC<PropTypes> = ({
   /* Initialise states */
   const [showMapBar, setShowMapBar] = useState(false)
   const [currentForm, setCurrentForm] = useState('')
+  const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
   /* Initialise variables */
   const { imageTop, imageLeft, imageRight, imageBottom } = bounds
@@ -91,7 +92,19 @@ export const Mapping: React.FC<PropTypes> = ({
     showMapBar,
     setShowMapBar,
     currentForm,
-    setCurrentForm
+    setCurrentForm,
+    zoomLevel,
+    setZoomLevel
+  }
+
+  // any events for leafletjs you can get from leafletElement
+  // https://leafletjs.com/reference-1.6.0.html#map-event
+  const handleEvents = (ref: any) => {
+    if (ref && ref.leafletElement) {
+      ref.leafletElement.on('zoomend', () => {
+        setZoomLevel(ref.leafletElement.getZoom())
+      })
+    }
   }
 
   return (
@@ -109,6 +122,7 @@ export const Mapping: React.FC<PropTypes> = ({
         minZoom={minZoom}
         zoomControl={zoomControl}
         maxZoom={maxZoom}
+        ref={handleEvents}
         touchZoom={touchZoom}
         zoomAnimation={zoomAnimation}
         attributionControl={attributionControl}
@@ -119,7 +133,7 @@ export const Mapping: React.FC<PropTypes> = ({
           bounds={latLngBounds}
         />
         <ScaleControl/>
-          {children}
+        {children}
       </Map>
     </section>
   </MapContext.Provider>
