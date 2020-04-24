@@ -2,6 +2,29 @@ import { Phase } from '@serge/config'
 import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 
+interface SelectedAsset {
+  /**
+   * unique id
+   */
+  id: string
+  /**
+   * current hex position of asset
+   */
+  position: number[]
+  /**
+   *  type of asset
+   */
+  type: string
+  /**
+   * force-id for asset
+   */
+  force: string
+  /**
+   *  list of force-ids for who can control this asset
+   */
+  controlledBy: string[]
+}
+
 /**
  * mapping context, shared with child elements
  */
@@ -33,11 +56,11 @@ export default interface MappingContext {
   /**
    * state for which form should appear in the map bar
    */
-  currentForm: string
+  selectedAsset: SelectedAsset
   /**
-   *  setter, to modify the form display in map bar
+   *  setter, to modify the currently selected asset
    **/
-  setCurrentForm: React.Dispatch<React.SetStateAction<string>>
+  setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset>>
   /**
    *  state for zoom Level
    **/

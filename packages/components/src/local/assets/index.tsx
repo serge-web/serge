@@ -59,6 +59,7 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
           <LayerGroup>{assets.map((asset) => (
             <AssetIcon
               key={asset.uniqid}
+              id={asset.uniqid}
               position={asset.position}
               type={asset.type}
               selected={false}
