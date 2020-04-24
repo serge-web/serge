@@ -16,11 +16,13 @@ import Dialogue from '../dialogue'
 export const MapBar: React.FC = () => {
   
   const [currentForm, setCurrentForm] = useState('')
+  const [currentAssetName, setCurrentAssetName] = useState('')
 
   const { playerForce, phase, showMapBar, setShowMapBar, selectedAsset } = useContext(MapContext).props
 
   useEffect(() => {
     setCurrentForm(assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase))
+    setCurrentAssetName(selectedAsset.id)
   }, [selectedAsset])
 
   const clickEvent = (): void => {
@@ -34,7 +36,7 @@ export const MapBar: React.FC = () => {
         <WorldState name="World State"></WorldState>
       </section>
       <section>
-        {currentForm !== '' && <Dialogue type={currentForm} headerText={currentForm} /> }
+        {currentForm !== '' && <Dialogue type={currentForm} headerText={currentForm + ' for ' + currentAssetName} /> }
       </section>
     </div>
   )
