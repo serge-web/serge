@@ -10,6 +10,7 @@ import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
 import Assets from '../assets'
+import Route from '../route'
 import { HexGrid } from '../hex-grid'
 
 // import data types
@@ -234,6 +235,47 @@ export const WithPhases: React.FC = () => <Mapping
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 WithPhases.story = {
+  parameters: {
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
+    }
+  }
+}
+
+/**
+ * VIEW WITH ASSET ROUTES
+ */
+// knob bits:
+const trimmedLabel = 'Trimmed'
+const trimmedDefaultValue = false
+const selectedLabel = 'Selected'
+const selectedDefaultValue = false
+
+// test data:
+const greenForce: any = forces[3]
+const platform: any = greenForce.assets[0]
+const { plannedTurns, history } = platform
+
+export const WithRoute: React.FC = () => <Mapping
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+  tileDiameterMins={5}
+  forces={forces}
+  phase = {Phase.Planning}
+  playerForce='Green'
+  mapBar = {false}
+  >
+  <HexGrid />
+  <Route name={'test'} location={platform.position}
+  history={history} planned={plannedTurns} color={"#00f"}
+  selected={boolean(selectedLabel, selectedDefaultValue, 'Adjustments')}
+  trimmed={boolean(trimmedLabel, trimmedDefaultValue, 'Adjustments')}
+  /> 
+</Mapping>
+
+// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+WithRoute.story = {
   parameters: {
     options: {
       // This story requires addons but other stories in this component do not
