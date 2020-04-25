@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { LayerGroup, Polyline } from 'react-leaflet'
 
-import { routesFor} from './helpers/routes-for'
+import { routesFor } from './helpers/routes-for'
 
 /* Import Types */
 import PropTypes from './types/props'
