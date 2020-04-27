@@ -191,6 +191,9 @@ WithGrid.story = {
 /**
  * VIEW WITH ALLOWABLE CELLS
  */
+const allowableOnLabel = 'Show allowable cells'
+const allowableDefaultValue = true
+
 const allowableOriginLabel = 'Current location'
 const allowableOriginValue = 'D06'
 
@@ -219,10 +222,10 @@ export const WithAllowableRange: React.FC = () => <Mapping
   phase = {Phase.Planning}
   playerForce='Blue'
   mapBar = {false}
-//  planningConstraints={{origin:'G06', travelMode:'sea', range:4}}
-  planningConstraints={{origin:text(allowableOriginLabel, allowableOriginValue), 
+  planningConstraints={ boolean(allowableOnLabel, allowableDefaultValue) ? {
+    origin:text(allowableOriginLabel, allowableOriginValue), 
     travelMode:radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault,), 
-    range:number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions) }}
+    range:number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions) } : undefined}
   >
   <HexGrid />
 </Mapping>

@@ -22,7 +22,6 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) =>
 
       const gc = gridCells || context.props.gridCells
       const allowableCells = context.props.allowableCellList
-      console.log('allowable', allowableCells)
 
       // create a polygon for each hex, add it to the parent
       gc.forEach((hex: SergeHex<{}>) => {
