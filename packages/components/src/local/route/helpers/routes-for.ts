@@ -46,7 +46,7 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
               const thisCell: SergeHex<{}> | undefined = hexNamed(routeStep, gridCells)
               if(thisCell && (!trimmed || stepCtr <= lengthOfTrimmedLine)) {
                 // is this the first cell?
-                if(thisRouteCtr == 0) {
+                if(thisRouteCtr === 0) {
                   turnEnds.push(thisCell.centreLatLng)
                 }
                 polyline.push(thisCell.centreLatLng)
