@@ -1,6 +1,6 @@
 import L from 'leaflet'
 import React from 'react'
-import { withKnobs, number, radios, boolean } from '@storybook/addon-knobs'
+import { withKnobs, number, radios, boolean, text } from '@storybook/addon-knobs'
 import { forces } from './mocks/forces'
 
 // import tileSize from '../hex-grid/knobs/tile-size'
@@ -11,6 +11,7 @@ import docs from './README.md'
 import AssetIcon from '../asset-icon'
 import Assets from '../assets'
 import Route from '../route'
+import AvailableCells from '../available-cells'
 import { HexGrid } from '../hex-grid'
 
 // import data types
@@ -276,6 +277,55 @@ export const WithRoute: React.FC = () => <Mapping
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 WithRoute.story = {
+  parameters: {
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
+    }
+  }
+}
+
+/**
+ * VIEW WITH SINGLE ASSET
+ */
+const availableLogLabel = 'Origin'
+const availableLocValue = "B12"
+
+const availableTravelModeLabel = 'TravelMode'
+const availableTravelModes = {
+  Air: 'air',
+  Sea: 'sea',
+  Land: 'land'
+}
+const availableTravelModelDefault = 'sea'
+
+const availableRangeLabel = 'Available Range (cells)'
+const availableRangeValue = 3
+const availableRangeLOptions = {
+  range: true,
+  min: 1,
+  max: 6,
+  step: 1
+}
+
+export const WithAvailableCells: React.FC = () => <Mapping
+  tileDiameterMins = {5}
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+  forces = {forces}
+  playerForce = 'Blue'
+  phase = {Phase.Planning}
+  mapBar = {false}
+>
+  <AvailableCells
+    location={text(availableLogLabel, availableLocValue)}
+    travelMode={radios(availableTravelModeLabel, availableTravelModes, availableTravelModelDefault)}
+    range={number(availableRangeLabel, availableRangeValue, availableRangeLOptions)} />
+  <HexGrid />
+</Mapping>
+
+// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+WithAvailableCells.story = {
   parameters: {
     options: {
       // This story requires addons but other stories in this component do not
