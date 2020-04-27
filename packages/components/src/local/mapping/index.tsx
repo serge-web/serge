@@ -112,7 +112,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   // any events for leafletjs you can get from leafletElement
   // https://leafletjs.com/reference-1.6.0.html#map-event
-  const handleEvents = (ref: any) => {
+  const handleEvents = (ref: any): void => {
     if (ref && ref.leafletElement) {
       ref.leafletElement.on('zoomend', () => {
         setZoomLevel(ref.leafletElement.getZoom())
