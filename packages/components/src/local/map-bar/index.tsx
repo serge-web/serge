@@ -9,7 +9,7 @@ import { MapContext } from '../mapping'
 
 /* Import child components */
 import WorldState from '../world-state'
-import Dialogue from '../dialogue'
+import Form from '../form'
 
 /* Render component */
 export const MapBar: React.FC = () => {
@@ -34,7 +34,7 @@ export const MapBar: React.FC = () => {
         <WorldState name="World State"></WorldState>
       </section>
       <section>
-        {currentForm !== '' && <Dialogue type={currentForm} headerText={currentForm + ' for ' + currentAssetName} /> }
+        {currentForm !== '' && <Form type={currentForm} headerText={currentForm + ' for ' + currentAssetName} /> }
       </section>
     </div>
   )
