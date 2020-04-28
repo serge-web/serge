@@ -59,10 +59,10 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
         centres[hex.name] = centreWorld
       })
 
-
        return <>
+       // diagnostics to show current list of cells
        <ul>
-         {allowableCells.map(c => <li>{c}</li>)}
+         {allowableCells && allowableCells.map(c => <li>{c}</li>)}
        </ul>
         <LayerGroup key={'hex_polygons'} >{Object.keys(polygons).map(k => (
           <Polygon
