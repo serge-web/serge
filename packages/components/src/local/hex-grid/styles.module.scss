@@ -6,11 +6,21 @@
 }
 
 .allowable-hex {
-  fill: true;
-  color: #ccc;
+  fill: #ccc;
   stroke: #fff;
   opacity: 1;
   stroke-width: 2;
+}
+
+.planned-hex {
+  fill: #249;
+  stroke: #fff;
+  opacity: 1;
+  stroke-width: 2;
+}
+
+.planned-line {
+  stroke: #249;
 }
 
 .default-coords {

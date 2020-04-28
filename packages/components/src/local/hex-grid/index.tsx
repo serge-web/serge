@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext} from 'react'
 import L from 'leaflet'
 import { PointLike } from 'honeycomb-grid'
-import { Polygon, Marker, LayerGroup } from 'react-leaflet'
+import { Polygon, Marker, LayerGroup, Polyline } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
@@ -14,7 +14,7 @@ import SergeHex from '../mapping/types/serge-hex'
 /* Render component */
 export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
       
-      const { gridCells: gcProp, allowableCellList, zoomLevel  } = useContext(MapContext).props
+      const { gridCells: gcProp, allowableCellList, zoomLevel, plannedRouteList  } = useContext(MapContext).props
 
       // collate list of named polygons
       const polygons: { [id: string]: L.LatLng[] } = {}
@@ -23,16 +23,21 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
 
       // Set up an 'allowableCells' state to monitor
       const [allowableCells, setAllowableCells] = useState<Array<string>>(allowableCellList)
+      const [plannedRouteCells, setPlannedRouteCells] = useState<Array<string>>(plannedRouteList)
 
       // Use direct property if available, otherwise, use context prop.
       const gc = gridCells || gcProp
       
-      const setCellStyle = (cell: string, ac: Array<string>): string => `${ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
+      const setCellStyle = (cell: string, pc:Array<string>, ac: Array<string>): string => 
+      `${pc && pc.includes(cell) ? 'planned' : ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
       
       // Watch the 'allowableCellList' property for changes and update the state accordingly
       useEffect(() => {
         setAllowableCells(allowableCellList)
       }, [allowableCellList])
+      useEffect(() => {
+        setPlannedRouteCells(plannedRouteList)
+      }, [plannedRouteList])
 
       // create a polygon for each hex, add it to the parent
       gc.forEach((hex: SergeHex<{}>) => {
@@ -59,6 +64,17 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
         centres[hex.name] = centreWorld
       })
 
+      // create a polygon for each hex, add it to the parent
+      const plannedRoutePoly: L.LatLng[] = []
+      if(plannedRouteList) {
+        plannedRouteList.forEach((cellName: string) => {
+          const hexCell = gc.find((cell:SergeHex<{}>) => cell.name === cellName)
+          if(hexCell) {
+            plannedRoutePoly.push(hexCell.centreLatLng)
+          }
+        })
+      }
+
       const uniqid: number = Math.floor(Math.random() * 1000); 
 
        return <>
@@ -71,9 +87,14 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
             // redrawn on change of `positions` attribute, but not classname
             key = {'hex_poly_' + k + '_' + uniqid}
             positions={polygons[k]}
-            className={styles[setCellStyle(k, allowableCells)]}
+            className={styles[setCellStyle(k, plannedRouteCells, allowableCells)]}
           />
         ))}
+         <Polyline
+            key = {'hex_planned_line'}
+            positions={plannedRoutePoly}
+            className={styles['planned-line']}
+          />
         </LayerGroup>
         {
           zoomLevel > 11 &&
