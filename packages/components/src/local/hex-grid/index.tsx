@@ -20,15 +20,17 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
       const polygons: { [id: string]: L.LatLng[] } = {}
       // collate list of named polygon centres
       const centres: { [id: string]: L.LatLng } = {}
+      // collate list of named hex cells
+      const hexCells: { [id: string]: SergeHex<{}> } = {}
 
       // Set up an 'allowableCells' state to monitor
-      const [allowableCells, setAllowableCells] = useState<Array<string>>(allowableCellList)
-      const [plannedRouteCells, setPlannedRouteCells] = useState<Array<string>>(plannedRouteList)
+      const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>(allowableCellList)
+      const [plannedRouteCells, setPlannedRouteCells] = useState<Array<SergeHex<{}>>>(plannedRouteList)
 
       // Use direct property if available, otherwise, use context prop.
       const gc = gridCells || gcProp
       
-      const setCellStyle = (cell: string, pc:Array<string>, ac: Array<string>): string => 
+      const setCellStyle = (cell: SergeHex<{}>, pc:Array<SergeHex<{}>>, ac: Array<SergeHex<{}>>): string => 
       `${pc && pc.includes(cell) ? 'planned' : ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
       
       // Watch the 'allowableCellList' property for changes and update the state accordingly
@@ -62,6 +64,7 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
         // add the polygon to polygons array, indexed by the cell name
         polygons[hex.name] = cornerArr
         centres[hex.name] = centreWorld
+        hexCells[hex.name] = hex
       })
 
       // create a polygon for each hex, add it to the parent
@@ -87,7 +90,7 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
             // redrawn on change of `positions` attribute, but not classname
             key = {'hex_poly_' + k + '_' + uniqid}
             positions={polygons[k]}
-            className={styles[setCellStyle(k, plannedRouteCells, allowableCells)]}
+            className={styles[setCellStyle(hexCells[k], plannedRouteCells, allowableCells)]}
           />
         ))}
          <Polyline
