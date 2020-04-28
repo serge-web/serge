@@ -93,7 +93,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const latLngBounds: L.LatLngBounds = L.latLngBounds(topLeft, bottomRight)
   const gridCells: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
   const allowableCellList = planningConstraints ? allowableCells(gridCells, planningConstraints) : undefined
-  console.log('allowable cells:', allowableCellList, planningConstraints)
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
@@ -107,7 +106,7 @@ export const Mapping: React.FC<PropTypes> = ({
     selectedAsset,
     setSelectedAsset,
     zoomLevel,
-    setZoomLevel,
+    setZoomLevel
   }
 
   // any events for leafletjs you can get from leafletElement
