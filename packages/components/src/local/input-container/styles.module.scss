@@ -1,3 +1,11 @@
+@import "~@serge/themes/dependencies/variables";
 .input-container {
   padding: 1rem;
+
+  h2 {
+    @include typo-primary;
+    font-size: 1rem;
+    font-weight: 700;
+    color: $text-field-admin;
+  }
 }
