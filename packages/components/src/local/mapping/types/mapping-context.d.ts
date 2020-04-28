@@ -50,6 +50,10 @@ export default interface MappingContext {
    **/
   allowableCellList?: string[] | undefined
   /**
+   *  allowable cells for this platform
+   **/
+  plannedRouteList?: string[] | undefined
+  /**
    * state for if map bar is open
    */
   showMapBar: boolean

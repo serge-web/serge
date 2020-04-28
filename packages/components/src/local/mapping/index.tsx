@@ -16,6 +16,7 @@ import MappingContext from './types/mapping-context'
 import MapBar from '../map-bar'
 
 import allowableCells from './helpers/allowable-cells'
+import plannedRouteFor from './helpers/planned-route-for'
 
 interface ContextInterface {
   props?: any
@@ -93,6 +94,8 @@ export const Mapping: React.FC<PropTypes> = ({
   const latLngBounds: L.LatLngBounds = L.latLngBounds(topLeft, bottomRight)
   const gridCells: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
   const allowableCellList = planningConstraints ? allowableCells(gridCells, planningConstraints) : undefined
+  const plannedRouteList = planningConstraints && planningConstraints.destination ? 
+    plannedRouteFor(gridCells, allowableCellList, planningConstraints.origin, planningConstraints.destination) : undefined
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
@@ -101,6 +104,7 @@ export const Mapping: React.FC<PropTypes> = ({
     playerForce,
     phase,
     allowableCellList,
+    plannedRouteList,
     showMapBar,
     setShowMapBar,
     selectedAsset,
