@@ -3,11 +3,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import DialogueHeader from './index'
+import Form from './index'
 
-it('DialogueHeader renders correctly', () => {
+it('Form renders correctly', () => {
   const tree = renderer
-    .create(<DialogueHeader string="test" />)
+    .create(<Form type="test" headerText="test header"/>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

@@ -7,14 +7,14 @@ import PropTypes from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import DialogueHeader from '../dialogue-header'
+import FormHeader from '../form-header'
 
 /* Render component */
-export const Dialogue: React.FC<PropTypes> = ({ children, type, headerText }) => {
+export const Form: React.FC<PropTypes> = ({ children, type, headerText }) => {
   const typeClass = kebabCase(type) || 'default'
   return (
-    <div className={cx(styles.dialogue, styles[typeClass])}>
-      <DialogueHeader string={headerText} />
+    <div className={cx(styles.form, styles[typeClass])}>
+      <FormHeader string={headerText} />
       <div className={styles.content}>
         {children}
       </div>
@@ -22,4 +22,4 @@ export const Dialogue: React.FC<PropTypes> = ({ children, type, headerText }) =>
   )
 }
 
-export default Dialogue
+export default Form

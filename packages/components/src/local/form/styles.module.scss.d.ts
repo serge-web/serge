@@ -4,7 +4,7 @@ interface CssExports {
   'adjudication': string;
   'content': string;
   'default': string;
-  'dialogue': string;
+  'form': string;
   'perceived-as': string;
   'planning': string;
 }

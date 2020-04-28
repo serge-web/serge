@@ -1,12 +1,12 @@
 import React from 'react'
 
 // Import component files
-import DialogueHeader from './index'
+import FormHeader from './index'
 import docs from './README.md'
 
 export default {
-  title: 'local/DialogueHeader',
-  component: DialogueHeader,
+  title: 'local/FormHeader',
+  component: FormHeader,
   decorators: [],
   parameters: {
     options: {
@@ -20,4 +20,4 @@ export default {
   }
 }
 
-export const Default: React.FunctionComponent = () => <DialogueHeader string="This is the dialogue text" />
+export const Default: React.FunctionComponent = () => <FormHeader string="This is the Form text" />
