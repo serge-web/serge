@@ -14,7 +14,7 @@ import SergeHex from '../mapping/types/serge-hex'
 /* Render component */
 export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
       
-      const { gridCells: gcProp, allowableCellList, zoomLevel, plannedRouteList  } = useContext(MapContext).props
+      const { gridCells: gcProp, allowableCellList, zoomLevel, plannedRouteList, plannedOrigin  } = useContext(MapContext).props
 
       // collate list of named polygons
       const polygons: { [id: string]: L.LatLng[] } = {}
@@ -32,6 +32,17 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
       
       const setCellStyle = (cell: SergeHex<{}>, pc:Array<SergeHex<{}>>, ac: Array<SergeHex<{}>>): string => 
       `${pc && pc.includes(cell) ? 'planned' : ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
+
+      console.log('planned origin', plannedOrigin.centreLatLng)
+      // const updatePosition = () => {
+      //   console.log('position updated!')
+      //   const marker = this.refmarker.current
+      //   if (marker != null) {
+      //     this.setState({
+      //       marker: marker.leafletElement.getLatLng(),
+      //     })
+      //   }
+      // }
       
       // Watch the 'allowableCellList' property for changes and update the state accordingly
       useEffect(() => {
@@ -95,6 +106,11 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
             positions={plannedRoutePoly}
             className={styles['planned-line']}
           />
+        <Marker
+          draggable={true}
+          position={plannedOrigin && plannedOrigin.centreLatLng}
+          key={'drag_marker_' + uniqid}>
+        </Marker>
         </LayerGroup>
         {
           zoomLevel > 11 &&
