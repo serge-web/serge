@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { useEffect, useState, useContext} from 'react'
 import L from 'leaflet'
 import { PointLike } from 'honeycomb-grid'
 import { Polygon, Marker, LayerGroup } from 'react-leaflet'
@@ -12,16 +12,27 @@ import { MapContext } from '../mapping'
 import SergeHex from '../mapping/types/serge-hex'
 
 /* Render component */
-export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) =>
-  <MapContext.Consumer>
-    { (context): ReactNode => {
+export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
+      
+      const { gridCells: gcProp, allowableCellList, zoomLevel  } = useContext(MapContext).props
+
       // collate list of named polygons
       const polygons: { [id: string]: L.LatLng[] } = {}
       // collate list of named polygon centres
       const centres: { [id: string]: L.LatLng } = {}
 
-      const gc = gridCells || context.props.gridCells
-      const allowableCells = context.props.allowableCellList
+      // Set up an 'allowableCells' state to monitor
+      const [allowableCells, setAllowableCells] = useState<Array<string>>(allowableCellList)
+
+      // Use direct property if available, otherwise, use context prop.
+      const gc = gridCells || gcProp
+      
+      const setCellStyle = (cell: string, ac: Array<string>): string => `${ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
+      
+      // Watch the 'allowableCellList' property for changes and update the state accordingly
+      useEffect(() => {
+        setAllowableCells(allowableCellList)
+      }, [allowableCellList])
 
       // create a polygon for each hex, add it to the parent
       gc.forEach((hex: SergeHex<{}>) => {
@@ -48,19 +59,23 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) =>
         centres[hex.name] = centreWorld
       })
 
-      return <>
+
+       return <>
+       <ul>
+         {allowableCells.map(c => <li>{c}</li>)}
+       </ul>
         <LayerGroup key={'hex_polygons'} >{Object.keys(polygons).map(k => (
           <Polygon
             // we may end up with other elements per hex,
             // such as labels so include prefix in key
             key = {'hex_poly_' + k}
             positions={polygons[k]}
-            className={allowableCells && allowableCells.includes(k) ? styles['allowable-hex'] : styles['default-hex']}
+            className={styles[setCellStyle(k, allowableCells)]}
           />
         ))}
         </LayerGroup>
         {
-          context.props.zoomLevel > 11 &&
+          zoomLevel > 11 &&
           <LayerGroup key={'hex_labels'} >{Object.keys(centres).map(k => (
             <Marker
               key = {'hex_label_' + k}
@@ -76,7 +91,6 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) =>
           </LayerGroup>
         }
       </>
-    }}
-  </MapContext.Consumer>
+      }
 
 export default HexGrid

@@ -82,7 +82,7 @@ export const Mapping: React.FC<PropTypes> = ({
     force: '',
     controlledBy: ['']
   })
-  
+    
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
   /* Initialise variables */
