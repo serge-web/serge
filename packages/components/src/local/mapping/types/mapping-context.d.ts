@@ -54,6 +54,10 @@ export default interface MappingContext {
    **/
   plannedRouteList?: SergeHex<{}>[] | undefined
   /**
+   * origin for current leg
+   */
+  plannedOrigin?: SergeHex<{}> | undefined
+  /**
    * state for if map bar is open
    */
   showMapBar: boolean
