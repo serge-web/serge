@@ -15,6 +15,8 @@ import styles from './styles.module.scss'
 import MappingContext from './types/mapping-context'
 import MapBar from '../map-bar'
 
+import allowableCells from './helpers/allowable-cells'
+
 interface ContextInterface {
   props?: any
 }
@@ -46,7 +48,8 @@ const defaultProps: PropTypes = {
   zoomSnap: 0.25,
   zoomControl: true,
   attributionControl: false,
-  zoomAnimation: false
+  zoomAnimation: false,
+  planningConstraints: undefined
 }
 
 /* Render component */
@@ -67,6 +70,7 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomControl,
   attributionControl,
   zoomAnimation,
+  planningConstraints,
   children
 }) => {
   /* Initialise states */
@@ -78,7 +82,7 @@ export const Mapping: React.FC<PropTypes> = ({
     force: '',
     controlledBy: ['']
   })
-  
+    
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
   /* Initialise variables */
@@ -88,6 +92,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const bottomRight = L.latLng(imageBottom, imageRight)
   const latLngBounds: L.LatLngBounds = L.latLngBounds(topLeft, bottomRight)
   const gridCells: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
+  const allowableCellList = planningConstraints ? allowableCells(gridCells, planningConstraints) : undefined
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
@@ -95,6 +100,7 @@ export const Mapping: React.FC<PropTypes> = ({
     forces,
     playerForce,
     phase,
+    allowableCellList,
     showMapBar,
     setShowMapBar,
     selectedAsset,

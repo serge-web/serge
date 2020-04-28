@@ -1,9 +1,7 @@
 import L from 'leaflet'
 import React from 'react'
-import { withKnobs, number, radios, boolean } from '@storybook/addon-knobs'
+import { withKnobs, number, radios, boolean, text } from '@storybook/addon-knobs'
 import { forces } from './mocks/forces'
-
-// import tileSize from '../hex-grid/knobs/tile-size'
 
 // Import component files
 import Mapping from './index'
@@ -182,6 +180,58 @@ export const WithGrid: React.FC = () => <Mapping
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 WithGrid.story = {
+  parameters: {
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
+    }
+  }
+}
+
+/**
+ * VIEW WITH ALLOWABLE CELLS
+ */
+const allowableOnLabel = 'Show allowable cells'
+const allowableDefaultValue = true
+
+const allowableOriginLabel = 'Current location'
+const allowableOriginValue = 'D06'
+
+const allowableTerrain = 'Platform terrain constraints'
+const allowableTerrainDefault = 'Sea'
+const allowableTerrainOptions = {
+  Sea: 'Sea',
+  Land: 'Land',
+  Air: 'Air'
+}
+
+const allowableGridLabel = 'Platform range'
+const allowableGridDefaultValue = 3
+const allowableGridOptions = {
+  range: true,
+  min: 1,
+  max: 6,
+  step: 1
+}
+
+export const WithAllowableRange: React.FC = () => <Mapping
+  bounds = {bounds}
+  tileLayer = {LocalTileLayer}
+  tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
+  forces={forces}
+  phase = {Phase.Planning}
+  playerForce='Blue'
+  mapBar = {false}
+  planningConstraints={ boolean(allowableOnLabel, allowableDefaultValue) ? {
+    origin:text(allowableOriginLabel, allowableOriginValue), 
+    travelMode:radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault,), 
+    range:number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions) } : undefined}
+  >
+  <HexGrid />
+</Mapping>
+
+// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+WithAllowableRange.story = {
   parameters: {
     options: {
       // This story requires addons but other stories in this component do not

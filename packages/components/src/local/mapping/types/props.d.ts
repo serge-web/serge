@@ -1,4 +1,5 @@
 import { Phase } from '@serge/config'
+import PlanMobileAsset from './plan-mobile-asset';
 
 export default interface PropTypes {
   /**
@@ -89,4 +90,8 @@ export default interface PropTypes {
    * @default false
    */
   zoomAnimation?: boolean
+  /**
+   * planning constraints for this asset
+   */
+  planningConstraints?: PlanMobileAsset
 }

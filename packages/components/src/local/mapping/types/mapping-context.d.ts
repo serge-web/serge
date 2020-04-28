@@ -46,6 +46,10 @@ export default interface MappingContext {
    */
   phase: Phase
   /**
+   *  allowable cells for this platform
+   **/
+  allowableCellList?: string[] | undefined
+  /**
    * state for if map bar is open
    */
   showMapBar: boolean
