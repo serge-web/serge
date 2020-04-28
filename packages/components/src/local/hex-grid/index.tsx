@@ -59,16 +59,17 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
         centres[hex.name] = centreWorld
       })
 
+      const uniqid: number = Math.floor(Math.random() * 1000); 
+
        return <>
-       // diagnostics to show current list of cells
-       <ul>
-         {allowableCells && allowableCells.map(c => <li>{c}</li>)}
-       </ul>
         <LayerGroup key={'hex_polygons'} >{Object.keys(polygons).map(k => (
           <Polygon
             // we may end up with other elements per hex,
             // such as labels so include prefix in key
-            key = {'hex_poly_' + k}
+            // TODO: There's a bad smell here. We're using the uniqid to
+            // force the Leaflet polygon to redraw.  They were being
+            // redrawn on change of `positions` attribute, but not classname
+            key = {'hex_poly_' + k + '_' + uniqid}
             positions={polygons[k]}
             className={styles[setCellStyle(k, allowableCells)]}
           />
