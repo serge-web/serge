@@ -70,11 +70,8 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
       // create a polygon for each hex, add it to the parent
       const plannedRoutePoly: L.LatLng[] = []
       if(plannedRouteList) {
-        plannedRouteList.forEach((cellName: string) => {
-          const hexCell = gc.find((cell:SergeHex<{}>) => cell.name === cellName)
-          if(hexCell) {
-            plannedRoutePoly.push(hexCell.centreLatLng)
-          }
+        plannedRouteList.forEach((cell:SergeHex<{}>) => {
+          plannedRoutePoly.push(cell.centreLatLng)
         })
       }
 
@@ -94,7 +91,7 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
           />
         ))}
          <Polyline
-            key = {'hex_planned_line'}
+            key = {'hex_planned_line' + '_' + uniqid}
             positions={plannedRoutePoly}
             className={styles['planned-line']}
           />
