@@ -96,6 +96,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const allowableCellList = planningConstraints ? allowableCells(gridCells, planningConstraints) : undefined
   const plannedRouteList = planningConstraints && planningConstraints.destination ? 
     plannedRouteFor(gridCells, allowableCellList, planningConstraints.origin, planningConstraints.destination) : undefined
+  const plannedOrigin = planningConstraints && gridCells.find(cell => cell.name === planningConstraints.origin)
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
@@ -105,6 +106,7 @@ export const Mapping: React.FC<PropTypes> = ({
     phase,
     allowableCellList,
     plannedRouteList,
+    plannedOrigin,
     showMapBar,
     setShowMapBar,
     selectedAsset,
