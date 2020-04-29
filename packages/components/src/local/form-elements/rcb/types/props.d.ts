@@ -2,7 +2,7 @@ export default interface PropTypes {
   /**
    * The type of component to show
    */
-  type: 'checkbox' | 'radio' | 'force'
+  type: 'checkbox' | 'radio'
   /**
    * The label to show on the form section
    */
@@ -11,5 +11,8 @@ export default interface PropTypes {
    * The list of options available to the form section
    */
   options: Array<string | number>
-  
+  /**
+   * Displays an additional force colour box if requested
+   */
+  force?: boolean
 }

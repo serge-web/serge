@@ -1,24 +1,13 @@
 import React from 'react'
 
 import InputContainer from '../../input-container'
-import { FormControlLabel, Checkbox, Radio, RadioGroup } from '@material-ui/core'
+import { FormControlLabel, RadioGroup } from '@material-ui/core'
+
+/* Import types */
 import PropTypes from './types/props'
 
-const componentSelector = (type: any, option: any): any => {
-  let output = null
-  switch (type) {
-    case 'checkbox' :
-      output = <Checkbox name={option.toString().toLowerCase()} />
-      break
-    case 'radio' :
-      output = <Radio />
-      break
-  }
-  return output
-}
-
-const ConditionalWrapper = ({ condition, wrapper, children }: any): any => 
-  condition ? wrapper(children) : children;
+/* Import helpers */
+import { ConditionalWrapper, componentSelector } from './helpers'
 
 /* Render component */
 export const RCB: React.FC<PropTypes> = ({ type, label, options }) => 
