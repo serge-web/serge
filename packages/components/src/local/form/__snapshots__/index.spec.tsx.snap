@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['Dialogue renders correctly 1'] = `
+exports[`Form renders correctly 1`] = `
 <div
-  className="dialogue test"
+  className="form test"
 >
   <h2
-    className="dialogue-header"
+    className="form-header"
   >
     test header
   </h2>
@@ -13,4 +13,4 @@ exports['Dialogue renders correctly 1'] = `
     className="content"
   />
 </div>
-`
+`;

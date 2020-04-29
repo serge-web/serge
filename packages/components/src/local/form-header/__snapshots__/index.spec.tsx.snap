@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['DialogueHeader renders correctly 1'] = `
+exports[`FormHeader renders correctly 1`] = `
 <h2
-  className="dialogue-header"
+  className="form-header"
 >
   test
 </h2>
-`
+`;
