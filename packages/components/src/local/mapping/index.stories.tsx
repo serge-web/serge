@@ -228,9 +228,9 @@ export const WithAllowableRange: React.FC = () => <Mapping
   planningConstraints={ boolean(allowableOnLabel, allowableDefaultValue) ? {
     origin:text(allowableOriginLabel, allowableOriginValue), 
     travelMode:radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault,), 
-    range:number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions),
-    destination:text(allowableDestinationLabel, allowableDestinationValue)
+    range:number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)
    } : undefined}
+   planningDestinationStr = {text(allowableDestinationLabel, allowableDestinationValue)}
   >
   <HexGrid />
 </Mapping>

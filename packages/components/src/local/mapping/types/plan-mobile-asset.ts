@@ -14,8 +14,4 @@ export default interface PlanMobileAsset {
    * mode of travel for this asset
    */
   travelMode: string
-  /** 
-   * current destination of route being planned
-   */
-  destination: string
 }

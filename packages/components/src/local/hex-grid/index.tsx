@@ -13,7 +13,8 @@ import SergeHex from '../mapping/types/serge-hex'
 /* Render component */
 export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
       
-      const { gridCells: gcProp, allowableCellList, zoomLevel, plannedRouteList, plannedOrigin  } = useContext(MapContext).props
+      const { gridCells: gcProp, allowableCellList, zoomLevel, 
+        plannedRouteList, plannedOrigin, setPlanningDestination  } = useContext(MapContext).props
 
       // collate list of named polygons
       const polygons: { [id: string]: L.LatLng[] } = {}
@@ -37,7 +38,10 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
         const marker = e.target
         const location = marker.getLatLng()
         const cellPos: SergeHex<{}> | undefined = gc.cellFor(location)
-        console.log('new destination cell', cellPos)
+        if(cellPos) {
+          console.log('new destination cell', cellPos)
+          setPlanningDestination(cellPos.name)
+        }
         // get this location in cell coords
 
 
@@ -47,6 +51,11 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
         //     marker: marker.leafletElement.getLatLng(),
         //   })
         // }
+      }
+      const beingDragged = (e: any) => {
+        const marker = e.target
+        const location = marker.getLatLng()
+        console.log('drag', location, gc.cellFor(location).name)
       }
       
       // Watch the 'allowableCellList' property for changes and update the state accordingly
@@ -114,6 +123,7 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
         <Marker
           draggable={true}
           onDragend={updatePosition}
+          onDrag={beingDragged}
           position={plannedOrigin && plannedOrigin.centreLatLng}
           key={'drag_marker_' + uniqid}>
         </Marker>

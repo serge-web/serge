@@ -50,7 +50,8 @@ const defaultProps: PropTypes = {
   zoomControl: true,
   attributionControl: false,
   zoomAnimation: false,
-  planningConstraints: undefined
+  planningConstraints: undefined,
+  planningDestinationStr: ''
 }
 
 /* Render component */
@@ -72,6 +73,7 @@ export const Mapping: React.FC<PropTypes> = ({
   attributionControl,
   zoomAnimation,
   planningConstraints,
+  planningDestinationStr,
   children
 }) => {
   /* Initialise states */
@@ -83,6 +85,7 @@ export const Mapping: React.FC<PropTypes> = ({
     force: '',
     controlledBy: ['']
   })
+  const [planningDestination, setPlanningDestination] = useState (planningDestinationStr)
     
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
@@ -94,8 +97,9 @@ export const Mapping: React.FC<PropTypes> = ({
   const latLngBounds: L.LatLngBounds = L.latLngBounds(topLeft, bottomRight)
   const gridCells: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
   const allowableCellList = planningConstraints ? allowableCells(gridCells, planningConstraints) : undefined
-  const plannedRouteList = planningConstraints && planningConstraints.destination ? 
-    plannedRouteFor(gridCells, allowableCellList, planningConstraints.origin, planningConstraints.destination) : undefined
+  const plannedRouteList = planningConstraints && planningDestination && planningDestination.length ? 
+    plannedRouteFor(gridCells, allowableCellList, planningConstraints.origin, planningDestination) : undefined
+  console.log('planned route', plannedRouteList)
   const plannedOrigin = planningConstraints && gridCells.find(cell => cell.name === planningConstraints.origin)
 
   // Anything you put in here will be available to any child component of Map via a context consumer
@@ -108,6 +112,7 @@ export const Mapping: React.FC<PropTypes> = ({
     plannedRouteList,
     plannedOrigin,
     showMapBar,
+    setPlanningDestination,
     setShowMapBar,
     selectedAsset,
     setSelectedAsset,

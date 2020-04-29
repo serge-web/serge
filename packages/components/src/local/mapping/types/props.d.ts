@@ -94,4 +94,8 @@ export default interface PropTypes {
    * planning constraints for this asset
    */
   planningConstraints?: PlanMobileAsset
+  /** 
+   * current destination of route being planned
+   */
+  planningDestinationStr?: string
 }
