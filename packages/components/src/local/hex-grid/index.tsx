@@ -43,15 +43,21 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
         const location = marker.getLatLng()
         const cellPos: SergeHex<{}> | undefined = gc.cellFor(location)
         if(cellPos) {
-          console.log('new destination cell', cellPos)
+          console.log('new destination cell', location, cellPos)
           setPlanningDestination(cellPos.name)
         }
       }
 
-      const beingDragged = (e: any) => {
-        const marker = e.target
-        const location = marker.getLatLng()
-        console.log('drag', location, gc.cellFor(location).name)
+      const beingDragged = (/*e: any*/) => {
+        // TODO
+       // const marker = e.target
+      //  const location = marker.getLatLng()
+     //   console.log('drag', location, gc.cellFor(location).name)
+      //  const cellPos: SergeHex<{}> | undefined = gc.cellFor(location)
+       // if(cellPos) {
+      //    console.log('marker being dragged', cellPos)
+      //    setPlanningDestination(cellPos.name)
+      //  }
       }
       
       // Watch the 'allowableCellList' property for changes and update the state accordingly
