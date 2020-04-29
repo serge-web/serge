@@ -4,9 +4,8 @@ import React from 'react'
 import Props from './types/props'
 import Form from '../form'
 import PlannedRoute from '../form-elements/planned-route'
-import RadioType from '../form-elements/radio-type'
-import CheckboxType from '../form-elements/checkbox-type'
 import { Button } from '@material-ui/core'
+import RCB from '../form-elements/rcb'
 
 
 /* Import Stylesheet */
@@ -17,13 +16,13 @@ export const AdjudicateTurnForm: React.FC<Props> = ({}: Props) =>
   <Form type="adjudication" headerText="placeholder">
     <fieldset>
       <PlannedRoute />
-      <RadioType label="Status" options={['Fishing', 'Moored', 'Transiting']} />
-      <RadioType label="Speed (kts)" options={[10, 20, 30]} />
+      <RCB type="radio" label="Status" options={['Fishing', 'Moored', 'Transiting']} />
+      <RCB type="radio" label="Speed (kts)" options={[10, 20, 30]} />
     </fieldset>
     <fieldset>
-      <CheckboxType label="Visible to" options={['Blue Force', 'Green Force']} />
+      <RCB type="checkbox" label="Visible to" options={['Blue Force', 'Green Force']} />
       <hr />
-      <RadioType label="Condition" options={['Working', 'Disabled', 'Immobile', 'Destroyed']} />
+      <RCB type="checkbox" label="Condition" options={['Working', 'Disabled', 'Immobile', 'Destroyed']} />
     </fieldset>
     <Button>Save</Button>
   </Form>
