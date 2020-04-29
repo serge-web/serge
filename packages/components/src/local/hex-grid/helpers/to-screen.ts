@@ -11,7 +11,7 @@ import { PointLike } from 'honeycomb-grid'
 const toScreen = (point: L.LatLng, origin: L.LatLng, tileSize: number): PointLike => {
   var latVal = (origin.lat - point.lat) / tileSize
   var lngVal = (point.lng - origin.lng) / tileSize
-  return L.point(latVal, lngVal)
+  return L.point(lngVal, latVal)
 }
 
 export default toScreen
