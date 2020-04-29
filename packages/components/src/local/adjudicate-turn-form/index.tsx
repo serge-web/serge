@@ -20,7 +20,7 @@ export const AdjudicateTurnForm: React.FC<Props> = ({}: Props) =>
       <RCB type="radio" label="Speed (kts)" options={[10, 20, 30]} />
     </fieldset>
     <fieldset>
-      <RCB type="checkbox" label="Visible to" options={['Blue Force', 'Green Force']} />
+      <RCB type="checkbox" label="Visible to" options={['Blue Force', 'Green Force']} force={true} />
       <hr />
       <RCB type="checkbox" label="Condition" options={['Working', 'Disabled', 'Immobile', 'Destroyed']} />
     </fieldset>
