@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext} from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import L from 'leaflet'
 import { PointLike } from 'honeycomb-grid'
 import { Polygon, Marker, LayerGroup, Polyline } from 'react-leaflet'
@@ -34,15 +34,17 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
       `${pc && pc.includes(cell) ? 'planned' : ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
 
       console.log('planned origin', plannedOrigin.centreLatLng)
-      // const updatePosition = () => {
-      //   console.log('position updated!')
-      //   const marker = this.refmarker.current
-      //   if (marker != null) {
-      //     this.setState({
-      //       marker: marker.leafletElement.getLatLng(),
-      //     })
-      //   }
-      // }
+      const updatePosition = (e: any) => {
+        const marker = e.target
+        const location = marker.getLatLng()
+        console.log('position updated!', location)
+        // const marker = this.refmarker.current
+        // if (marker != null) {
+        //   this.setState({
+        //     marker: marker.leafletElement.getLatLng(),
+        //   })
+        // }
+      }
       
       // Watch the 'allowableCellList' property for changes and update the state accordingly
       useEffect(() => {
@@ -108,6 +110,7 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
           />
         <Marker
           draggable={true}
+          onDragend={updatePosition}
           position={plannedOrigin && plannedOrigin.centreLatLng}
           key={'drag_marker_' + uniqid}>
         </Marker>
