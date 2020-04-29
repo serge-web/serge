@@ -3,11 +3,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import RadioType from './index'
+import RCB from './index'
 
-it('RadioType renders correctly', () => {
+it('CheckboxType renders correctly', () => {
   const tree = renderer
-    .create(<RadioType label="States" options={['Fishing', 'Moored', 'Transiting']}/>)
+    .create(<RCB type="checkbox" label="Visible to" options={['Red', 'Blue']}/>)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

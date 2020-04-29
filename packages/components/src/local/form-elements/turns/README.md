@@ -1,6 +1,6 @@
-# Planned Route documentation
+# Turns documentation
 
-This is an example readme file for the 'Planned Route' component.
+This is an example readme file for the 'Turns' component.
 
 ## UI Example
 
@@ -18,10 +18,10 @@ This is an example readme file for the 'Planned Route' component.
 
 ### ES6 Import
 ```js
-import PlannedRoute from './planned-route'
+import Turns from './planned-route'
 ```
 
 ### CommonJS
 
 ```js
-const PlannedRoute = require('./planned-route')
+const Turns = require('./planned-route')
