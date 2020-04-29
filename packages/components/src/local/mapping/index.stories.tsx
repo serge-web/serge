@@ -214,9 +214,6 @@ const allowableGridOptions = {
   step: 1
 }
 
-const allowableDestinationLabel = 'Destination'
-const allowableDestinationValue = 'F10'
-
 export const WithAllowableRange: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
@@ -230,7 +227,6 @@ export const WithAllowableRange: React.FC = () => <Mapping
     travelMode:radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault,), 
     range:number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)
    } : undefined}
-   planningDestinationStr = {text(allowableDestinationLabel, allowableDestinationValue)}
   >
   <HexGrid />
 </Mapping>
