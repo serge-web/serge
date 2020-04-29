@@ -27,7 +27,8 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
       const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>(allowableCellList)
       const [plannedRouteCells, setPlannedRouteCells] = useState<Array<SergeHex<{}>>>(plannedRouteList)
 
-      // fix the leaflet icon path
+      // fix the leaflet icon path, using tip from here: 
+      // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
       L.Icon.Default.imagePath='/images/' 
 
       // Use direct property if available, otherwise, use context prop.
@@ -45,16 +46,8 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
           console.log('new destination cell', cellPos)
           setPlanningDestination(cellPos.name)
         }
-        // get this location in cell coords
-
-
-        // const marker = this.refmarker.current
-        // if (marker != null) {
-        //   this.setState({
-        //     marker: marker.leafletElement.getLatLng(),
-        //   })
-        // }
       }
+
       const beingDragged = (e: any) => {
         const marker = e.target
         const location = marker.getLatLng()
