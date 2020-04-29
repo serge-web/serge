@@ -1,0 +1,14 @@
+.default {
+  background-color: #ffa500;
+}
+
+.with-force {
+  > span:first-of-type {
+    &::after {
+      content: "";
+      width: 25px;
+      height: 1rem;
+      background-color: #ff0000;
+    }
+  }
+}
