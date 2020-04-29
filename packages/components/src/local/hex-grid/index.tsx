@@ -37,7 +37,6 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
       const setCellStyle = (cell: SergeHex<{}>, pc:Array<SergeHex<{}>>, ac: Array<SergeHex<{}>>): string => 
       `${pc && pc.includes(cell) ? 'planned' : ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
 
-      console.log('planned origin', plannedOrigin.name, plannedOrigin.centreLatLng)
       const updatePosition = (e: any) => {
         const marker = e.target
         const location = marker.getLatLng()
@@ -122,13 +121,14 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
             positions={plannedRoutePoly}
             className={styles['planned-line']}
           />
-        <Marker
-          draggable={true}
-          onDragend={updatePosition}
-          onDrag={beingDragged}
-          position={plannedOrigin && plannedOrigin.centreLatLng}
-          key={'drag_marker_' + uniqid}>
-        </Marker>
+          { plannedOrigin && 
+            <Marker
+            draggable={true}
+            onDragend={updatePosition}
+            onDrag={beingDragged}
+            position={plannedOrigin.centreLatLng}
+            key={'drag_marker_' + uniqid}/>        
+          }
         </LayerGroup>
         {
           zoomLevel > 11 &&
