@@ -1,6 +1,6 @@
 
 import L from 'leaflet'
-import { defineGrid, extendHex, Grid, Point } from 'honeycomb-grid'
+import { defineGrid, extendHex, Grid, Point, PointLike } from 'honeycomb-grid'
 import SergeHex from '../types/serge-hex'
 import SergeGrid from '../types/serge-grid'
 import cellName from '../../assets/helpers/cellName'
@@ -58,9 +58,52 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
   const unTyped: any = newCells
   const asSerge: Grid<SergeHex<{}>> = unTyped as Grid<SergeHex<{}>>
 
+  // sort out corner offset
+  // the hexes all have the same corners object, so just use the first one
+  const hexOne = asSerge[0]
+
+  // get the coordinates of the centre of the hex, relative
+  // to the top-left origin
+  const centreH = hexOne.center()
+
+  // and the coords of the top-left origin
+  const cellOrigin = hexOne.coordinates()
+
+  // capture the offset between a cell centre, and the cell origin
+  const centreOffset = L.point(centreH).subtract(L.point(cellOrigin))
+  
   const sergeGrid: SergeGrid<SergeHex<{}>> = asSerge as SergeGrid<SergeHex<{}>>
   sergeGrid.origin = correctedOrigin
   sergeGrid.tileDiameterDegs = tileSizeDegs
+  sergeGrid.centerOffset = centreOffset
+  sergeGrid.toScreen = (point: L.LatLng): PointLike => {
+    var latVal = (sergeGrid.origin.lat - point.lat) / sergeGrid.tileDiameterDegs
+    var lngVal = (point.lng - sergeGrid.origin.lng) / sergeGrid.tileDiameterDegs
+    return L.point(latVal, lngVal)
+  }
+  sergeGrid.toWorld = (point: PointLike): L.LatLng => {
+    const newLat = sergeGrid.origin.lat - point.y * sergeGrid.tileDiameterDegs
+    const newLng = sergeGrid.origin.lng + point.x * sergeGrid.tileDiameterDegs
+    return L.latLng(newLat, newLng)
+  }
+  sergeGrid.toWorld2 = (point: PointLike, origin: L.LatLng, delta: number): L.LatLng => {
+    const newLat = origin.lat - point.y * delta
+    const newLng = origin.lng + point.x * delta
+    return L.latLng(newLat, newLng)
+  }
+  sergeGrid.cellFor =  (latLng: L.LatLng): SergeHex<{}> | undefined => {
+    // convert to hex coordinates
+    var hexCoords: PointLike = sergeGrid.toScreen(latLng)
+
+    // apply the offset, since the cell origin is at the top left
+    const cellCoords = L.point(hexCoords.x + sergeGrid.centerOffset .x, hexCoords.y + sergeGrid.centerOffset .y)
+
+    // find the nearest hex cell reference to this location
+    const shiftedCellCoords = grid.pointToHex(cellCoords.x, cellCoords.y)
+
+    // and now retrieve the cell at these coords
+    return sergeGrid.get(shiftedCellCoords)
+  }
 
   return sergeGrid
 }

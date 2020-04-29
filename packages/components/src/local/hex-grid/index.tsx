@@ -7,7 +7,6 @@ import styles from './styles.module.scss'
 
 /* Import Types */
 import PropTypes from './types/props'
-import toWorld from './helpers/to-world'
 import { MapContext } from '../mapping'
 import SergeHex from '../mapping/types/serge-hex'
 
@@ -33,11 +32,15 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
       const setCellStyle = (cell: SergeHex<{}>, pc:Array<SergeHex<{}>>, ac: Array<SergeHex<{}>>): string => 
       `${pc && pc.includes(cell) ? 'planned' : ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
 
-      console.log('planned origin', plannedOrigin.centreLatLng)
+      console.log('planned origin', plannedOrigin.name, plannedOrigin.centreLatLng)
       const updatePosition = (e: any) => {
         const marker = e.target
         const location = marker.getLatLng()
-        console.log('position updated!', location)
+        const cellPos: SergeHex<{}> | undefined = gc.cellFor(location)
+        console.log('new destination cell', cellPos)
+        // get this location in cell coords
+
+
         // const marker = this.refmarker.current
         // if (marker != null) {
         //   this.setState({
@@ -71,7 +74,7 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
             x: value.x - centreH.x,
             y: value.y - centreH.y
           }
-          const newP = toWorld(point, centreWorld, gc.tileDiameterDegs / 2)
+          const newP = gc.toWorld2(point, centreWorld, gc.tileDiameterDegs / 2)
           cornerArr.push(newP)
         })
         // add the polygon to polygons array, indexed by the cell name
