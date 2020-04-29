@@ -27,6 +27,9 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
       const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>(allowableCellList)
       const [plannedRouteCells, setPlannedRouteCells] = useState<Array<SergeHex<{}>>>(plannedRouteList)
 
+      // fix the leaflet icon path
+      L.Icon.Default.imagePath='/images/' 
+
       // Use direct property if available, otherwise, use context prop.
       const gc = gridCells || gcProp
       
