@@ -9,10 +9,11 @@
   "workspaces": [
     "packages/*"
   ],
-  "pre-commit": [
-    "precommit-msg",
-    "lint"
-  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn precommit-msg && yarn lint"
+    }
+  },
   "dependencies": {
     "husky": "^4.2.5",
     "lerna": "^3.16.4",
