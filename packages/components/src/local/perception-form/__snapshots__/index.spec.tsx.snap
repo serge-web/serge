@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['PerceptionForm renders correctly 1'] = `
+exports[`PerceptionForm renders correctly 1`] = `
 <div
   className="form perceived-as"
 >
@@ -25,7 +25,7 @@ exports['PerceptionForm renders correctly 1'] = `
           role="radiogroup"
         >
           <label
-            className="MuiFormControlLabel-root default"
+            className="MuiFormControlLabel-root with-force"
           >
             <span
               aria-disabled={false}
@@ -88,7 +88,7 @@ exports['PerceptionForm renders correctly 1'] = `
             </span>
           </label>
           <label
-            className="MuiFormControlLabel-root default"
+            className="MuiFormControlLabel-root with-force"
           >
             <span
               aria-disabled={false}
@@ -207,4 +207,4 @@ exports['PerceptionForm renders correctly 1'] = `
     </button>
   </div>
 </div>
-`
+`;
