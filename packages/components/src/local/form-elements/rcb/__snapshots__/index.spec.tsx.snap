@@ -8,7 +8,7 @@ exports['CheckboxType renders correctly 1'] = `
     Visible to
   </h2>
   <label
-    className="MuiFormControlLabel-root default"
+    className="MuiFormControlLabel-root"
   >
     <span
       aria-disabled={false}
@@ -56,7 +56,7 @@ exports['CheckboxType renders correctly 1'] = `
     </span>
   </label>
   <label
-    className="MuiFormControlLabel-root default"
+    className="MuiFormControlLabel-root"
   >
     <span
       aria-disabled={false}

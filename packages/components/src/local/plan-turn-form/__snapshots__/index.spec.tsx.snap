@@ -25,7 +25,7 @@ exports['PlanTurnForm renders correctly 1'] = `
           role="radiogroup"
         >
           <label
-            className="MuiFormControlLabel-root default"
+            className="MuiFormControlLabel-root"
           >
             <span
               aria-disabled={false}
@@ -88,7 +88,7 @@ exports['PlanTurnForm renders correctly 1'] = `
             </span>
           </label>
           <label
-            className="MuiFormControlLabel-root default"
+            className="MuiFormControlLabel-root"
           >
             <span
               aria-disabled={false}
