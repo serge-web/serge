@@ -1,6 +1,6 @@
-# CheckboxType documentation
+# RCB documentation
 
-This is an example readme file for the 'CheckboxType' component.
+This is an example readme file for the 'RCB' (Radio/Checkbox) component.
 
 ## UI Example
 
@@ -18,10 +18,10 @@ This is an example readme file for the 'CheckboxType' component.
 
 ### ES6 Import
 ```js
-import CheckboxType from './CheckboxType'
+import RCB from './RCB'
 ```
 
 ### CommonJS
 
 ```js
-const CheckboxType = require('./CheckboxType')
+const RCB = require('./RCB')
