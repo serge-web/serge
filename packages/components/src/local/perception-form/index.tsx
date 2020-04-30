@@ -3,15 +3,26 @@ import React from 'react'
 /* Import Types */
 // import Props from './types/props'
 import Form from '../form'
-import RCB from '../form-elements/rcb'
 import { Button } from '@material-ui/core'
 import Turns from '../form-elements/turns'
+import ForcePicker from '../form-elements/force-picker'
 
 /* Render component */
 export const PerceptionForm: React.FC = () =>
   <Form type="perceived-as" headerText="placeholder">
     <fieldset>
-      <RCB type="radio" label="Perceived Force" options={['Red', 'Green']} force={true}/>
+      <ForcePicker label="Perceived Force" options={[{
+        name: 'Blue',
+        colour: '#69c'
+      },
+      {
+        name: 'Red',
+        colour: '#f00'
+      },
+      {
+        name: 'White',
+        colour: '#fff'
+      }]} />
       <Turns />
     </fieldset>
     <Button>Save</Button>
