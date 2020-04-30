@@ -16,8 +16,7 @@ module.exports = {
     'react'
   ],
   'rules': {
-    "semi": "off",
-    "@typescript-eslint/semi": ["error"],
+    "semi": [2, "never"],
     "@typescript-eslint/ban-ts-ignore": "off",
     '@typescript-eslint/no-use-before-define': 'off', // Allows us to hoist variables and functions which I am a fan of, functions not variables that is.
     '@typescript-eslint/no-explicit-any': 'off', // Too strict for my case, sometimes I need an any type
