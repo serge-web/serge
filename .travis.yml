@@ -19,10 +19,10 @@ before_script:
 script:
 # build Serge deployment
 - yarn build
-# run the linting drop out on failure
-- yarn lint || travis_terminate 1;
 # Build the storybook package
 - yarn build-storybook
+# run the linting drop out on failure
+- yarn lint || travis_terminate 1;
 # start serge
 - yarn start-server &
 # run the tests drop out on failure
