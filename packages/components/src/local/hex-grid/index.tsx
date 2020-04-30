@@ -12,7 +12,6 @@ import toWorld from './helpers/to-world'
 export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
   // define polygons array.
   const polygons: L.LatLng[][] = []
-  console.log('[hex grid] cells', gridCells)
   if(gridCells) {
     // create a polygon for each hex, add it to the parent
     gridCells.forEach(hex => {
