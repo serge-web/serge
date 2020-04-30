@@ -4,7 +4,6 @@ import React from 'react'
 import PlanTurnForm from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/PlanTurnForm',
   component: PlanTurnForm,
@@ -18,4 +17,3 @@ export default {
 }
 
 export const Default: React.FC = () => <PlanTurnForm />
-

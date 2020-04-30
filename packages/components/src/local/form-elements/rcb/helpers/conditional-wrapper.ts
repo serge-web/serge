@@ -1,6 +1,6 @@
-import ConditionalWrapper from "../types/conditional-wrapper"
+import CW from '../types/conditional-wrapper'
 
-const ConditionalWrapper: ConditionalWrapper = ({ condition, wrapper, children }): any => 
+const ConditionalWrapper: CW = ({ condition, wrapper, children }): any =>
   condition ? wrapper(children) : children
 
 export default ConditionalWrapper

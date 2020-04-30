@@ -4,7 +4,6 @@ import React from 'react'
 import PlannedRoute from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/form-elements/PlannedRoute',
   component: PlannedRoute,
@@ -18,4 +17,3 @@ export default {
 }
 
 export const Default: React.FC = () => <PlannedRoute />
-

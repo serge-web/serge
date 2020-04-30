@@ -8,6 +8,6 @@ import PlanTurnForm from './index'
 it('PlanTurnForm renders correctly', () => {
   const tree = renderer
     .create(<PlanTurnForm />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})

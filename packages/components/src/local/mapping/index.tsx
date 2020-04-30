@@ -82,7 +82,7 @@ export const Mapping: React.FC<PropTypes> = ({
     force: '',
     controlledBy: ['']
   })
-    
+
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
   /* Initialise variables */
@@ -120,35 +120,35 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   return (
-  <MapContext.Provider value={{ props: contextProps }}>
-    <section className={styles['map-container']}>
-      { mapBar && <MapBar /> }
-      <Map
-        className={styles['map']}
-        center={position}
-        bounds={latLngBounds}
-        maxBounds={latLngBounds}
-        zoom={zoom}
-        zoomDelta={zoomDelta}
-        zoomSnap={zoomSnap}
-        minZoom={minZoom}
-        zoomControl={zoomControl}
-        maxZoom={maxZoom}
-        ref={handleEvents}
-        touchZoom={touchZoom}
-        zoomAnimation={zoomAnimation}
-        attributionControl={attributionControl}
-      >
-        <TileLayer
-          url={tileLayer.url}
-          attribution={tileLayer.attribution}
+    <MapContext.Provider value={{ props: contextProps }}>
+      <section className={styles['map-container']}>
+        { mapBar && <MapBar /> }
+        <Map
+          className={styles.map}
+          center={position}
           bounds={latLngBounds}
-        />
-        <ScaleControl/>
-        {children}
-      </Map>
-    </section>
-  </MapContext.Provider>
+          maxBounds={latLngBounds}
+          zoom={zoom}
+          zoomDelta={zoomDelta}
+          zoomSnap={zoomSnap}
+          minZoom={minZoom}
+          zoomControl={zoomControl}
+          maxZoom={maxZoom}
+          ref={handleEvents}
+          touchZoom={touchZoom}
+          zoomAnimation={zoomAnimation}
+          attributionControl={attributionControl}
+        >
+          <TileLayer
+            url={tileLayer.url}
+            attribution={tileLayer.attribution}
+            bounds={latLngBounds}
+          />
+          <ScaleControl/>
+          {children}
+        </Map>
+      </section>
+    </MapContext.Provider>
   )
 }
 Mapping.defaultProps = defaultProps

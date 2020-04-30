@@ -1,18 +1,17 @@
 import React from 'react'
 
 /* Import Types */
-import Props from './types/props'
+// import Props from './types/props'
 import Form from '../form'
 import PlannedRoute from '../form-elements/planned-route'
 import { Button } from '@material-ui/core'
 import RCB from '../form-elements/rcb'
 
-
 /* Import Stylesheet */
 // import styles from './styles.module.scss'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<Props> = ({}: Props) =>
+export const AdjudicateTurnForm: React.FC = () =>
   <Form type="adjudication" headerText="placeholder">
     <fieldset>
       <PlannedRoute />

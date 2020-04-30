@@ -4,7 +4,6 @@ import React from 'react'
 import PerceptionForm from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/PerceptionForm',
   component: PerceptionForm,
@@ -18,4 +17,3 @@ export default {
 }
 
 export const Default: React.FC = () => <PerceptionForm />
-

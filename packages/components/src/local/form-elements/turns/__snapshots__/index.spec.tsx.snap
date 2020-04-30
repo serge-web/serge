@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Turns renders correctly 1`] = `
+exports['Turns renders correctly 1'] = `
 <section
   className="input-container"
 >
@@ -30,4 +30,4 @@ exports[`Turns renders correctly 1`] = `
   </div>
    Turns
 </section>
-`;
+`

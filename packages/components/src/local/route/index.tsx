@@ -13,7 +13,7 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
   <MapContext.Consumer>
     { (context): ReactNode => {
       const gridCells = context.props.gridCells
-      const plainDots = [1, 7] 
+      const plainDots = [1, 7]
       const selectedDots = [4, 8]
 
       // loop through historic steps
@@ -33,7 +33,7 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
       //     })}
       //   />
       // ))}
-           
+
       return <>
         <LayerGroup key={'hex_route_layer_' + name} >
           <Polyline

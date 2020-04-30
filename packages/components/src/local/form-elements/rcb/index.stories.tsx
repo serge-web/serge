@@ -4,7 +4,6 @@ import React from 'react'
 import RCB from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/form-elements/RCB',
   component: RCB,
@@ -19,4 +18,3 @@ export default {
 
 export const Checkbox: React.FC = () => <RCB type="checkbox" label="Visible to" options={['Red', 'Blue']}/>
 export const Radio: React.FC = () => <RCB type="radio" label="Visible to" options={['Red', 'Blue']}/>
-

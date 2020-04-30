@@ -4,7 +4,6 @@ import React from 'react'
 import AdjudicateTurnForm from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/AdjudicateTurnForm',
   component: AdjudicateTurnForm,
@@ -18,4 +17,3 @@ export default {
 }
 
 export const Default: React.FC = () => <AdjudicateTurnForm />
-

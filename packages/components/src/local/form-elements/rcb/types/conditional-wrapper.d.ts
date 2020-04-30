@@ -1,6 +1,4 @@
-import React from "react";
-
-export default interface ConditionalWrapper {
+export default interface CW {
   (condition: any,
   wrapper: any,
   children: any): any

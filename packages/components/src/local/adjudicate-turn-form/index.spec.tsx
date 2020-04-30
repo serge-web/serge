@@ -8,6 +8,6 @@ import AdjudicateTurnForm from './index'
 it('AdjudicateTurnForm renders correctly', () => {
   const tree = renderer
     .create(<AdjudicateTurnForm />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})

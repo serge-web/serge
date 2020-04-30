@@ -8,6 +8,6 @@ import RCB from './index'
 it('CheckboxType renders correctly', () => {
   const tree = renderer
     .create(<RCB type="checkbox" label="Visible to" options={['Red', 'Blue']}/>)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})

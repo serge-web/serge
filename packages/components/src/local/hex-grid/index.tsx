@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext} from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import L from 'leaflet'
 import { PointLike } from 'honeycomb-grid'
 import { Polygon, Marker, LayerGroup } from 'react-leaflet'
@@ -13,70 +13,69 @@ import SergeHex from '../mapping/types/serge-hex'
 
 /* Render component */
 export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
-      
-      const { gridCells: gcProp, allowableCellList, zoomLevel  } = useContext(MapContext).props
+  const { gridCells: gcProp, allowableCellList, zoomLevel } = useContext(MapContext).props
 
-      // collate list of named polygons
-      const polygons: { [id: string]: L.LatLng[] } = {}
-      // collate list of named polygon centres
-      const centres: { [id: string]: L.LatLng } = {}
+  // collate list of named polygons
+  const polygons: { [id: string]: L.LatLng[] } = {}
+  // collate list of named polygon centres
+  const centres: { [id: string]: L.LatLng } = {}
 
-      // Set up an 'allowableCells' state to monitor
-      const [allowableCells, setAllowableCells] = useState<Array<string>>(allowableCellList)
+  // Set up an 'allowableCells' state to monitor
+  const [allowableCells, setAllowableCells] = useState<Array<string>>(allowableCellList)
 
-      // Use direct property if available, otherwise, use context prop.
-      const gc = gridCells || gcProp
-      
-      const setCellStyle = (cell: string, ac: Array<string>): string => `${ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
-      
-      // Watch the 'allowableCellList' property for changes and update the state accordingly
-      useEffect(() => {
-        setAllowableCells(allowableCellList)
-      }, [allowableCellList])
+  // Use direct property if available, otherwise, use context prop.
+  const gc = gridCells || gcProp
 
-      // create a polygon for each hex, add it to the parent
-      gc.forEach((hex: SergeHex<{}>) => {
-        // move coords to our map
-        const centreWorld: L.LatLng = hex.centreLatLng
-        // build up an array of correctly mapped corners
-        const cornerArr: L.LatLng[] = []
-        // get hex center
-        const centreH = hex.center()
-        // get hex corners coords
-        const corners = hex.corners()
-        // convert hex corners coords to our map
-        corners.forEach((value: any) => {
-          // the corners are relative to the origin (TL). So, offset them to the centre
-          const point: PointLike = {
-            x: value.x - centreH.x,
-            y: value.y - centreH.y
-          }
-          const newP = toWorld(point, centreWorld, gc.tileDiameterDegs / 2)
-          cornerArr.push(newP)
-        })
-        // add the polygon to polygons array, indexed by the cell name
-        polygons[hex.name] = cornerArr
-        centres[hex.name] = centreWorld
-      })
+  const setCellStyle = (cell: string, ac: Array<string>): string => `${ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
 
-      const uniqid: number = Math.floor(Math.random() * 1000); 
+  // Watch the 'allowableCellList' property for changes and update the state accordingly
+  useEffect(() => {
+    setAllowableCells(allowableCellList)
+  }, [allowableCellList])
 
-       return <>
-        <LayerGroup key={'hex_polygons'} >{Object.keys(polygons).map(k => (
-          <Polygon
-            // we may end up with other elements per hex,
-            // such as labels so include prefix in key
-            // TODO: There's a bad smell here. We're using the uniqid to
-            // force the Leaflet polygon to redraw.  They were being
-            // redrawn on change of `positions` attribute, but not classname
-            key = {'hex_poly_' + k + '_' + uniqid}
-            positions={polygons[k]}
-            className={styles[setCellStyle(k, allowableCells)]}
-          />
-        ))}
-        </LayerGroup>
-        {
-          zoomLevel > 11 &&
+  // create a polygon for each hex, add it to the parent
+  gc.forEach((hex: SergeHex<{}>) => {
+    // move coords to our map
+    const centreWorld: L.LatLng = hex.centreLatLng
+    // build up an array of correctly mapped corners
+    const cornerArr: L.LatLng[] = []
+    // get hex center
+    const centreH = hex.center()
+    // get hex corners coords
+    const corners = hex.corners()
+    // convert hex corners coords to our map
+    corners.forEach((value: any) => {
+      // the corners are relative to the origin (TL). So, offset them to the centre
+      const point: PointLike = {
+        x: value.x - centreH.x,
+        y: value.y - centreH.y
+      }
+      const newP = toWorld(point, centreWorld, gc.tileDiameterDegs / 2)
+      cornerArr.push(newP)
+    })
+    // add the polygon to polygons array, indexed by the cell name
+    polygons[hex.name] = cornerArr
+    centres[hex.name] = centreWorld
+  })
+
+  const uniqid: number = Math.floor(Math.random() * 1000)
+
+  return <>
+    <LayerGroup key={'hex_polygons'} >{Object.keys(polygons).map(k => (
+      <Polygon
+        // we may end up with other elements per hex,
+        // such as labels so include prefix in key
+        // TODO: There's a bad smell here. We're using the uniqid to
+        // force the Leaflet polygon to redraw.  They were being
+        // redrawn on change of `positions` attribute, but not classname
+        key = {'hex_poly_' + k + '_' + uniqid}
+        positions={polygons[k]}
+        className={styles[setCellStyle(k, allowableCells)]}
+      />
+    ))}
+    </LayerGroup>
+    {
+      zoomLevel > 11 &&
           <LayerGroup key={'hex_labels'} >{Object.keys(centres).map(k => (
             <Marker
               key = {'hex_label_' + k}
@@ -90,8 +89,8 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
             />
           ))}
           </LayerGroup>
-        }
-      </>
-      }
+    }
+  </>
+}
 
 export default HexGrid

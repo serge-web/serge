@@ -8,6 +8,6 @@ import PlannedRoute from './index'
 it('PlannedRoute renders correctly', () => {
   const tree = renderer
     .create(<PlannedRoute />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})

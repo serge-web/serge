@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import PlanMobileAsset from './plan-mobile-asset';
+import PlanMobileAsset from './plan-mobile-asset'
 
 export default interface PropTypes {
   /**

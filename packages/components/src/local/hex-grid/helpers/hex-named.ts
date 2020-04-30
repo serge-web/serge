@@ -6,7 +6,7 @@ import SergeGrid from '../../mapping/types/serge-grid'
  * @param {SergeGrid<SergeHex<{}>>} grid grid of cells
  * @returns {SergeHex} centre represented by coords
  */
-const hexNamed = (name: string, grid: SergeGrid<SergeHex<{}>>): SergeHex<{}> | undefined => 
-    grid.find(cell => cell.name === name)
+const hexNamed = (name: string, grid: SergeGrid<SergeHex<{}>>): SergeHex<{}> | undefined =>
+  grid.find(cell => cell.name === name)
 
 export default hexNamed

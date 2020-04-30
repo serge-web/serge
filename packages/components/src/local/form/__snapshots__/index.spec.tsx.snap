@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Form renders correctly 1`] = `
+exports['Form renders correctly 1'] = `
 <div
   className="form test"
 >
@@ -13,4 +13,4 @@ exports[`Form renders correctly 1`] = `
     className="content"
   />
 </div>
-`;
+`

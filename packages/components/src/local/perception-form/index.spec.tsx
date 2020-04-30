@@ -8,6 +8,6 @@ import PerceptionForm from './index'
 it('PerceptionForm renders correctly', () => {
   const tree = renderer
     .create(<PerceptionForm />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})

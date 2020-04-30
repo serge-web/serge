@@ -3,5 +3,5 @@
 * To generate an updated version, please run `yarn genreg`
 ***/
 
-export { default as componentSelector } from './component-selector';
-export { default as ConditionalWrapper } from './conditional-wrapper';
+export { default as componentSelector } from './component-selector'
+export { default as ConditionalWrapper } from './conditional-wrapper'

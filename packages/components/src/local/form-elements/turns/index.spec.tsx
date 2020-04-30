@@ -8,6 +8,6 @@ import Turns from './index'
 it('Turns renders correctly', () => {
   const tree = renderer
     .create(<Turns />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})

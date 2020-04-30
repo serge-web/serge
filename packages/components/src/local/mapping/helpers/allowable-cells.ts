@@ -11,7 +11,7 @@ import PlanMobileAsset from '../types/plan-mobile-asset'
  */
 const allowableCells = (grid: SergeGrid<SergeHex<{}>>, constraints: PlanMobileAsset): string[] | undefined => {
   const originHex = grid.find(cell => cell.name === constraints.origin)
-  if(originHex) {
+  if (originHex) {
     const allowable: SergeHex<HexFactory<SergeHex<{}>>>[] = grid.hexesInRange(originHex, constraints.range, true)
     // just use the list of cell names
     return allowable.map(hex => hex.name)

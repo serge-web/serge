@@ -174,7 +174,7 @@ export const WithGrid: React.FC = () => <Mapping
   phase = {Phase.Planning}
   playerForce='Blue'
   mapBar = {false}
-  >
+>
   <HexGrid />
 </Mapping>
 
@@ -223,10 +223,11 @@ export const WithAllowableRange: React.FC = () => <Mapping
   playerForce='Blue'
   mapBar = {false}
   planningConstraints={ boolean(allowableOnLabel, allowableDefaultValue) ? {
-    origin:text(allowableOriginLabel, allowableOriginValue), 
-    travelMode:radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault,), 
-    range:number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions) } : undefined}
-  >
+    origin: text(allowableOriginLabel, allowableOriginValue),
+    travelMode: radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault),
+    range: number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)
+  } : undefined}
+>
   <HexGrid />
 </Mapping>
 
@@ -315,13 +316,13 @@ export const WithRoute: React.FC = () => <Mapping
   phase = {Phase.Planning}
   playerForce='Green'
   mapBar = {false}
-  >
+>
   <HexGrid />
   <Route name={'test'} location={platform.position}
-  history={history} planned={plannedTurns} color={"#00f"}
-  selected={boolean(selectedLabel, selectedDefaultValue, 'Adjustments')}
-  trimmed={boolean(trimmedLabel, trimmedDefaultValue, 'Adjustments')}
-  /> 
+    history={history} planned={plannedTurns} color={'#00f'}
+    selected={boolean(selectedLabel, selectedDefaultValue, 'Adjustments')}
+    trimmed={boolean(trimmedLabel, trimmedDefaultValue, 'Adjustments')}
+  />
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
