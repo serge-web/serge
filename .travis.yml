@@ -25,6 +25,8 @@ script:
 - yarn start-server &
 # run the tests drop out on failure
 - yarn test || travis_terminate 1;
+# Build the storybook package
+- yarn build-storybook
 # kill open jobs (especially the Serge server running in the background)
 - kill $(jobs -p) || true
 notifications:
