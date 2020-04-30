@@ -66,15 +66,15 @@ export const Mapping: React.FC<PropTypes> = ({
   var gridCells: SergeGrid<SergeHex<{}>> | undefined = undefined
   useEffect(() => {
     // note: the list of cells should be re-calculated if `tileDiameterMins` changes
-    console.log('about to calc cells', gridCells)
+    console.log('[mapping] about to calc cells', gridCells)
 
     gridCells = createGrid(latLngBounds, tileDiameterMins)
 
-    console.log('calculated cells', gridCells.length)
+    console.log('[mapping] calculated cells', gridCells.length)
 
   }, [tileDiameterMins])
 
-  console.log('cells outside block', gridCells)
+  console.log('[mapping] cells outside block', gridCells)
 
 
   return (
