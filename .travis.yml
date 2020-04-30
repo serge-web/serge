@@ -21,9 +21,6 @@ script:
   - yarn build
   # Build the storybook package
   - yarn build-storybook
-  - pwd
-  - ls packages/client/build
-  - ls packages/client/build/storybook
   # run the linting drop out on failure
   - yarn lint || travis_terminate 1;
   # start serge
