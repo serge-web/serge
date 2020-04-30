@@ -38,7 +38,7 @@
     "version-patch": "lerna version patch",
     "version-minor": "lerna version minor",
     "version-major": "lerna version major",
-    "pre-commit-msg": "echo 'Performing pre-commit checks...'"
+    "pre-commit-msg": "echo 'Performing pre-commit checks...' && exit 0"
   },
   "pre-commit": [
     "pre-commit-msg",
