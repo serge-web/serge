@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PerceptionForm renders correctly 1`] = `
+exports['PerceptionForm renders correctly 1'] = `
 <div
   className="form perceived-as"
 >
@@ -207,4 +207,4 @@ exports[`PerceptionForm renders correctly 1`] = `
     </button>
   </div>
 </div>
-`;
+`
