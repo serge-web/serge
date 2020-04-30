@@ -11,7 +11,7 @@
   ],
   "husky": {
     "hooks": {
-      "pre-push": "yarn precommit-msg && yarn lint"
+      "pre-push": "yarn precommit-msg && yarn lint && yarn test"
     }
   },
   "dependencies": {
@@ -28,6 +28,7 @@
     "develop": "yarn component-dev & yarn storybook & yarn start",
     "test": "lerna run test --stream",
     "test-local": "lerna run test-local --stream",
+    "test-unit": "lerna run test:unit --stream",
     "lint": "lerna run lint --stream",
     "storybook": "lerna run storybook --scope @serge/components --stream",
     "build-storybook": "lerna run build-storybook --scope @serge/components --stream",
