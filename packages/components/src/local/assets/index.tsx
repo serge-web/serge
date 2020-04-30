@@ -16,33 +16,35 @@ import { UMPIRE_FORCE } from '@serge/config'
 /* Render component */
 export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: PropTypes) => {
   const assets: AssetInfo[] = []
-  forces.forEach((force: any) => {
-    if(force.assets) {
-      force.assets.forEach((asset: any) => {
-        // see if the player of this force can see (perceive) this asset
-        const isUmpire: boolean = playerForce === UMPIRE_FORCE
-        const perceivedAs: [string, string] = findPerceivedAsTypes(playerForce, force.uniqid, 
-          asset.platformType, asset.perceptions, isUmpire)
+  if(gridCells) {
+    forces.forEach((force: any) => {
+      if(force.assets) {
+        force.assets.forEach((asset: any) => {
+          // see if the player of this force can see (perceive) this asset
+          const isUmpire: boolean = playerForce === UMPIRE_FORCE
+          const perceivedAs: [string, string] = findPerceivedAsTypes(playerForce, force.uniqid, 
+            asset.platformType, asset.perceptions, isUmpire)
 
-        if(perceivedAs) {
-          const cell = hexNamed(asset.position, gridCells)
-          if(cell != null) {
-            const position: L.LatLng = cell.centreLatLng
-            const asset_info: AssetInfo = {
-              name: asset.name,
-              type: perceivedAs[1],
-              force: perceivedAs[0],
-              position: position,
-              uniqid: asset.uniqid
+          if(perceivedAs) {
+            const cell = hexNamed(asset.position, gridCells)
+            if(cell != null) {
+              const position: L.LatLng = cell.centreLatLng
+              const asset_info: AssetInfo = {
+                name: asset.name,
+                type: perceivedAs[1],
+                force: perceivedAs[0],
+                position: position,
+                uniqid: asset.uniqid
+              }
+              assets.push(asset_info)
             }
-            assets.push(asset_info)
           }
-        }
-      })  
-    }
-  })
+        })  
+      }
+    })
+  }
 
-  return <>
+  return <> { gridCells &&
     <LayerGroup>{assets.map((asset, ) => (
       <AssetIcon 
         key={asset.uniqid}
@@ -52,6 +54,7 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
         tooltip={asset.name}/>
     ))}
     </LayerGroup>
+    }
   </>
 }
 

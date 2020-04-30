@@ -5,7 +5,7 @@ export default interface PropTypes {
   /** 
    * hex cells for this scenario
    */
-  gridCells: SergeGrid<SergeHex<{}>> 
+  gridCells: SergeGrid<SergeHex<{}>> | undefined
   /**
    * forces in this wargame
    */

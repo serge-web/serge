@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/createGrid'
 import HexGrid from '../hex-grid'
@@ -62,7 +62,20 @@ export const Mapping: React.FC<PropTypes> = ({
   const topLeft = L.latLng(imageTop, imageLeft)
   const bottomRight = L.latLng(imageBottom, imageRight)
   const latLngBounds: L.LatLngBounds =  L.latLngBounds(topLeft, bottomRight)
-  const gridCells: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
+
+  var gridCells: SergeGrid<SergeHex<{}>> | undefined = undefined
+  useEffect(() => {
+    // note: the list of cells should be re-calculated if `tileDiameterMins` changes
+    console.log('about to calc cells', gridCells)
+
+    gridCells = createGrid(latLngBounds, tileDiameterMins)
+
+    console.log('calculated cells', gridCells.length)
+
+  }, [tileDiameterMins])
+
+  console.log('cells outside block', gridCells)
+
 
   return (
     <Map
