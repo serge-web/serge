@@ -86,7 +86,7 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
           />
         ))}
          <Polyline
-            key = {'hex_planned_line' + '_'}
+            key = {'hex_planned_line'}
             positions={plannedRoutePoly}
             className={styles['planned-line']}
           />
