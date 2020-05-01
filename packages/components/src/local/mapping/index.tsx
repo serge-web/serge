@@ -1,4 +1,3 @@
-import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/createGrid'
@@ -15,6 +14,7 @@ import styles from './styles.module.scss'
 import MappingContext from './types/mapping-context'
 import MapBar from '../map-bar'
 import PlanMobileAsset from './types/plan-mobile-asset'
+import boundsFor from './helpers/bounds-for'
 
 interface ContextInterface {
   props?: any
@@ -85,19 +85,20 @@ export const Mapping: React.FC<PropTypes> = ({
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
   /* Initialise variables */
-  const { imageTop, imageLeft, imageRight, imageBottom } = bounds
-  const position: [number, number] = [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2]
-  const topLeft = L.latLng(imageTop, imageLeft)
-  const bottomRight = L.latLng(imageBottom, imageRight)
-  console.log('[mapping] - redefining map bounds')
-  const latLngBounds: L.LatLngBounds = L.latLngBounds(topLeft, bottomRight)
-
+  const [latLngBounds] = useState<L.LatLngBounds>(boundsFor(bounds))
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined> (undefined)
   const [dropDestination, setDropDestination] = useState< SergeHex<{}> | undefined> (undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined> (planningConstraintsProp)
+  const [mapCentre, setMapCentre] = useState<L.LatLng>(boundsFor(bounds).getCenter())
 
   useEffect(() => {
-    console.log('[mapping] - about to create cells')
+    if(latLngBounds) {
+      setMapCentre(latLngBounds.getCenter())
+    }
+  }, [latLngBounds])
+
+  useEffect(() => {
+    console.log('[mapping] - about to create cells', latLngBounds, tileDiameterMins)
     // note: the list of cells should be re-calculated if `tileDiameterMins` changes
     setGridCells(createGrid(latLngBounds, tileDiameterMins))
   }, [tileDiameterMins])
@@ -149,7 +150,7 @@ export const Mapping: React.FC<PropTypes> = ({
       { mapBar && <MapBar /> }
       <Map
         className={styles['map']}
-        center={position}
+        center={mapCentre}
         bounds={latLngBounds}
         maxBounds={latLngBounds}
         zoom={zoom}
