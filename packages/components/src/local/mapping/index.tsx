@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/createGrid'
 import SergeHex from './types/serge-hex'
@@ -92,7 +92,20 @@ export const Mapping: React.FC<PropTypes> = ({
   const topLeft = L.latLng(imageTop, imageLeft)
   const bottomRight = L.latLng(imageBottom, imageRight)
   const latLngBounds: L.LatLngBounds = L.latLngBounds(topLeft, bottomRight)
-  const gridCells: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
+
+  const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined> (undefined)
+
+  useEffect(() => {
+    // note: the list of cells should be re-calculated if `tileDiameterMins` changes
+    setGridCells(createGrid(latLngBounds, tileDiameterMins))
+    if(gridCells) {
+      console.log('[mapping] - creating cells', gridCells.length)
+    } else {
+      console.log('[mapping] - creating cells', gridCells)
+    }
+  }, [tileDiameterMins])
+
+
   const allowableCellList = planningConstraints ? allowableCells(gridCells, planningConstraints) : undefined
   const plannedRouteList = planningConstraints && planningConstraints.destination ? 
     plannedRouteFor(gridCells, allowableCellList, planningConstraints.origin, planningConstraints.destination) : undefined

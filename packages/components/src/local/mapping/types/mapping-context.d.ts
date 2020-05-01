@@ -32,7 +32,7 @@ export default interface MappingContext {
   /**
    * grid of cells, used for movement
    */
-  gridCells: SergeGrid<SergeHex<{}>>
+  gridCells: SergeGrid<SergeHex<{}>> | undefined
   /**
    * list of forces within this wargame
    */
