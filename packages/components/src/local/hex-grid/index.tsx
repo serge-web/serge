@@ -18,7 +18,7 @@ import plannedRouteFor from '../mapping/helpers/planned-route-for'
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
 
-      const { gridCells, planningConstraints, zoomLevel, setDropDestination  } = useContext(MapContext).props
+      const { gridCells, planningConstraints, planningRange, zoomLevel, setDropDestination  } = useContext(MapContext).props
 
       // fix the leaflet icon path, using tip from here: 
       // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
@@ -61,13 +61,15 @@ export const HexGrid: React.FC<{}> = () => {
       }, [dragDestination])
 
       useEffect(() => {
-        const cells: SergeHex<{}>[] = planningConstraints ? calcAllowableCells(gridCells, planningConstraints) : []
-        setAllowableCells(cells)
-        const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
-        if(originCell) {
-          setOrigin(originCell.centreLatLng)
+        if(gridCells) {
+          const cells: SergeHex<{}>[] = planningConstraints ? calcAllowableCells(gridCells, planningConstraints, planningRange) : []
+          setAllowableCells(cells)
+          const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
+          if(originCell) {
+            setOrigin(originCell.centreLatLng)
+          }  
         }
-      }, [planningConstraints])
+      }, [planningConstraints, planningRange, gridCells])
 
       // Use direct property if available, otherwise, use context prop.
       const setCellStyle = (cell: SergeHex<{}>, pc:Array<SergeHex<{}>>, ac: Array<SergeHex<{}>>): string => 

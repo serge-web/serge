@@ -51,6 +51,10 @@ export default interface MappingContext {
    */
   planningConstraints: PlanMobileAsset | undefined
   /**
+   *  how far platform can travel
+   */
+  planningRange: number | undefined
+  /**
    * state for if map bar is open
    */
   showMapBar: boolean

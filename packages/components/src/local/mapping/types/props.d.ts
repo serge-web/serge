@@ -94,4 +94,8 @@ export default interface PropTypes {
    * planning constraints for this asset
    */
   planningConstraintsProp?: PlanMobileAsset
+  /**
+   * distance to travel
+   */
+  planningRangeProp?: number
 }

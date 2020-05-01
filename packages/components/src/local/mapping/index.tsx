@@ -70,6 +70,7 @@ export const Mapping: React.FC<PropTypes> = ({
   attributionControl,
   zoomAnimation,
   planningConstraintsProp,
+  planningRangeProp,
   children
 }) => {
   /* Initialise states */
@@ -85,17 +86,30 @@ export const Mapping: React.FC<PropTypes> = ({
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
   /* Initialise variables */
-  const [mapBounds] = useState<{
+  const [mapBounds, setMapBounds] = useState<{
     imageTop: number
     imageLeft: number
     imageRight: number
     imageBottom: number
-  }>(bounds)
-  const [latLngBounds, setLatLngBounds] = useState<L.LatLngBounds>(boundsFor(mapBounds))
+  } | undefined>(undefined)
+  const [latLngBounds, setLatLngBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined> (undefined)
   const [dropDestination, setDropDestination] = useState< SergeHex<{}> | undefined> (undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined> (planningConstraintsProp)
-  const [mapCentre, setMapCentre] = useState<L.LatLng>(latLngBounds.getCenter())
+  const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
+  const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
+
+  // if we've got a planning range from prop, double-check if it is different
+  // to the current one
+  if(planningRangeProp && planningRange !== planningRangeProp) {
+      setPlanningRange(planningRangeProp)      
+  }
+
+  // only update bounds if they're different to the current one
+  if(bounds && bounds !== mapBounds)
+  {
+    setMapBounds(bounds)
+  }
 
   useEffect(() => {
     if(mapBounds) {
@@ -110,9 +124,11 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [latLngBounds])
 
   useEffect(() => {
-    // note: the list of cells should be re-calculated if `tileDiameterMins` changes
-    setGridCells(createGrid(latLngBounds, tileDiameterMins))
-  }, [tileDiameterMins])
+    if(latLngBounds && tileDiameterMins) {
+      // note: the list of cells should be re-calculated if `tileDiameterMins` changes
+      setGridCells(createGrid(latLngBounds, tileDiameterMins))
+    }
+  }, [tileDiameterMins, latLngBounds])
 
   useEffect(() => {
     if(planningConstraints && dropDestination) {
@@ -135,6 +151,7 @@ export const Mapping: React.FC<PropTypes> = ({
     playerForce,
     phase,
     planningConstraints,
+    planningRange,
     showMapBar,
     setDropDestination,
     setShowMapBar,
