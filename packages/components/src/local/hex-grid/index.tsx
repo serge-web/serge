@@ -43,15 +43,16 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
       const [origin, setOrigin] = useState<L.LatLng | undefined>(undefined)
 
       // allow the destination end point to be changed
-      const [destination, setDestination] = useState<SergeHex<{}> | undefined>(undefined)
+      const [dragDestination, setDragDestination] = useState<SergeHex<{}> | undefined>(undefined)
+      const [dropDestination, setDropDestination] = useState<SergeHex<{}> | undefined>(undefined)
 
       const [plannedRoutePoly, setPlannedRoutePoly] = useState<L.LatLng[]> ([])
       
       useEffect(() => {
-        if(destination) {
+        if(dragDestination) {
           console.log('[hex-grid] - calculating planning route')
-          const plannedRoute: SergeHex<{}>[] = planningConstraints && destination ? 
-            plannedRouteFor(gc, allowableCells, planningConstraints.origin, destination): []
+          const plannedRoute: SergeHex<{}>[] = planningConstraints && dragDestination ? 
+            plannedRouteFor(gc, allowableCells, planningConstraints.origin, dragDestination): []
           setPlannedRouteCells(plannedRoute)
 
           // also produce the polygon
@@ -62,7 +63,7 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
           setPlannedRoutePoly(tmpPlannedRoutePoly)
           // also do the polys
         }
-      }, [destination])
+      }, [dragDestination])
 
       useEffect(() => {
         console.log('[hex-grid] - calculating allowable cells')
@@ -115,19 +116,23 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
         }
       }, [gc])
 
-      console.log('[hex-grid] - rendering', allowableCells && allowableCells.length)
 
-
-      const beingDragged = (e: any) => {
-        console.log('[hex-grid] - in drag', gc)
-        // TODO
+      const dropped = (e: any) => {
         const marker = e.target
         const location = marker.getLatLng()
-        console.log('[hex-grid] - drag', location, gc.cellFor(location).name)
         const cellPos: SergeHex<{}> | undefined = gc.cellFor(location)
         if(cellPos) {
-          console.log('[hex-grid] - marker being dragged', cellPos)
-          setDestination(cellPos)
+          setDropDestination(cellPos)
+          console.log(cellPos, dropDestination)
+        }
+      }
+
+      const beingDragged = (e: any) => {
+        const marker = e.target
+        const location = marker.getLatLng()
+        const cellPos: SergeHex<{}> | undefined = gc.cellFor(location)
+        if(cellPos) {
+          setDragDestination(cellPos)
         }
       }
 
@@ -149,7 +154,7 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
           { origin && 
             <Marker
             draggable={true}
-//            onDragend={updatePosition}
+            onDragend={dropped}
             onDrag={beingDragged}
             position={origin}
             key={'drag_marker_'}/>        
