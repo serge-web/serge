@@ -8,10 +8,9 @@ import SergeGrid from '../types/serge-grid'
  * @param {PlanMobileAsset} constraints Description of what this platform can do
  * @returns {SergeHex<{}>[] | undefined} List of allowable cells between origin and destination
  */
-const plannedRouteFor = (grid: SergeGrid<SergeHex<{}>> | undefined, allowableCells:SergeHex<{}>[] | undefined, origin:string, destination: string): SergeHex<{}>[] | undefined => {
+const plannedRouteFor = (grid: SergeGrid<SergeHex<{}>> | undefined, allowableCells:SergeHex<{}>[], origin:string, destinationHex: SergeHex<{}> ): SergeHex<{}>[] => {
   if(grid) {
     const originHex: SergeHex<{}> | undefined = grid.find(cell => cell.name === origin)
-    const destinationHex: SergeHex<{}> | undefined = grid.find(cell => cell.name === destination)
     if(originHex && destinationHex) {
       var route = grid.hexesBetween(originHex, destinationHex)
       if(allowableCells) {
@@ -20,10 +19,10 @@ const plannedRouteFor = (grid: SergeGrid<SergeHex<{}>> | undefined, allowableCel
       }
       return route
     } else {
-      return undefined
+      return []
     }  
   } else {
-    return undefined
+    return []
   }
 }
 

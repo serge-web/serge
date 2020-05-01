@@ -12,67 +12,120 @@ import Polygon from './helpers/polygon'
 import { MapContext } from '../mapping'
 import SergeHex from '../mapping/types/serge-hex'
 
+
+import calcAllowableCells from '../mapping/helpers/allowable-cells'
+import plannedRouteFor from '../mapping/helpers/planned-route-for'
+
 /* Render component */
-export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
+export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
 
-      const { gridCells: gcProp, allowableCellList, zoomLevel, plannedRouteList  } = useContext(MapContext).props
+      const { gridCells: gcProp, planningConstraints, zoomLevel  } = useContext(MapContext).props
 
-      // collate list of named polygons
-      const polygons: { [id: string]: L.LatLng[] } = {}
-      // collate list of named polygon centres
-      const centres: { [id: string]: L.LatLng } = {}
-      // collate list of named hex cells
-      const hexCells: { [id: string]: SergeHex<{}> } = {}
+      const gc = gcProp
+
+      // fix the leaflet icon path, using tip from here: 
+      // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
+      L.Icon.Default.imagePath='/images/' 
 
       // Set up an 'allowableCells' state to monitor
-      const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>(allowableCellList)
-      const [plannedRouteCells, setPlannedRouteCells] = useState<Array<SergeHex<{}>>>(plannedRouteList)
+      const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>([])
+
+      const [plannedRouteCells, setPlannedRouteCells] = useState<Array<SergeHex<{}>>>([])
+
+      // collate list of named polygons
+      const [polygons, setPolygons] = useState<{ [id: string]: L.LatLng[] }>({})
+      // collate list of named polygon centres
+      const [centres, setCentres] = useState< { [id: string]: L.LatLng } > ({})
+      // collate list of named hex cells
+      const [hexCells, setHexCells] = useState<{ [id: string]: SergeHex<{}> }>({})
+
+      // allow the planning marker origin to be changed
+      const [origin, setOrigin] = useState<L.LatLng | undefined>(undefined)
+
+      // allow the destination end point to be changed
+      const [destination, setDestination] = useState<SergeHex<{}> | undefined>(undefined)
+
+      
+      useEffect(() => {
+        if(destination) {
+          console.log('[hex-grid] - calculating planning route')
+          setPlannedRouteCells(planningConstraints && destination ? 
+           plannedRouteFor(gc, allowableCells, planningConstraints.origin, destination) : [])
+        }
+      }, [destination])
+
+      useEffect(() => {
+        console.log('[hex-grid] - calculating allowable cells')
+        const cells: SergeHex<{}>[] = planningConstraints ? calcAllowableCells(gc, planningConstraints) : []
+        setAllowableCells(cells)
+        const originCell = gc.find((cell: SergeHex<{}>) => cell.name == planningConstraints.origin)
+        if(originCell) {
+          setOrigin(originCell.centreLatLng)
+        }
+      }, [planningConstraints])
 
       // Use direct property if available, otherwise, use context prop.
-      const gc = gridCells || gcProp
       const setCellStyle = (cell: SergeHex<{}>, pc:Array<SergeHex<{}>>, ac: Array<SergeHex<{}>>): string => 
       `${pc && pc.includes(cell) ? 'planned' : ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
 
-      // Watch the 'allowableCellList' property for changes and update the state accordingly
       useEffect(() => {
-        setAllowableCells(allowableCellList)
-      }, [allowableCellList])
-      useEffect(() => {
-        setPlannedRouteCells(plannedRouteList)
-      }, [plannedRouteList])
+        if(gc) {
+          const tmpPolys: { [id: string]: L.LatLng[] } = {}
+          const tmpCentres: { [id: string]: L.LatLng } = {}
+          const tmpHexCells: { [id: string]: SergeHex<{}> } = {}
 
-      // create a polygon for each hex, add it to the parent
-      gc.forEach((hex: SergeHex<{}>) => {
-        // move coords to our map
-        const centreWorld: L.LatLng = hex.centreLatLng
-        // build up an array of correctly mapped corners
-        const cornerArr: L.LatLng[] = []
-        // get hex center
-        const centreH = hex.center()
-        // get hex corners coords
-        const corners = hex.corners()
-        // convert hex corners coords to our map
-        corners.forEach((value: any) => {
-          // the corners are relative to the origin (TL). So, offset them to the centre
-          const point: PointLike = {
-            x: value.x - centreH.x,
-            y: value.y - centreH.y
-          }
-          const newP = toWorld(point, centreWorld, gc.tileDiameterDegs / 2)
-          cornerArr.push(newP)
-        })
-        // add the polygon to polygons array, indexed by the cell name
-        polygons[hex.name] = cornerArr
-        centres[hex.name] = centreWorld
-        hexCells[hex.name] = hex
-      })
+          // create a polygon for each hex, add it to the parent
+          gc.forEach((hex: SergeHex<{}>) => {
+            // move coords to our map
+            const centreWorld: L.LatLng = hex.centreLatLng
+            // build up an array of correctly mapped corners
+            const cornerArr: L.LatLng[] = []
+            // get hex center
+            const centreH = hex.center()
+            // get hex corners coords
+            const corners = hex.corners()
+            // convert hex corners coords to our map
+            corners.forEach((value: any) => {
+              // the corners are relative to the origin (TL). So, offset them to the centre
+              const point: PointLike = {
+                x: value.x - centreH.x,
+                y: value.y - centreH.y
+              }
+              const newP = toWorld(point, centreWorld, gc.tileDiameterDegs / 2)
+              cornerArr.push(newP)
+            })
+            // add the polygon to polygons array, indexed by the cell name
+            tmpPolys[hex.name] = cornerArr
+            tmpCentres[hex.name] = centreWorld
+            tmpHexCells[hex.name] = hex
+          })
+          setPolygons(tmpPolys)
+          setCentres(tmpCentres)
+          setHexCells(tmpHexCells)
+        }
+      }, [gc])
 
+      console.log('[hex-grid] - rendering', allowableCells && allowableCells.length)
+  
       // create a polygon for each hex, add it to the parent
       const plannedRoutePoly: L.LatLng[] = []
-      if(plannedRouteList) {
-        plannedRouteList.forEach((cell:SergeHex<{}>) => {
+      if(plannedRouteCells) {
+        plannedRouteCells.forEach((cell:SergeHex<{}>) => {
           plannedRoutePoly.push(cell.centreLatLng)
         })
+      }
+
+      const beingDragged = (e: any) => {
+        console.log('[hex-grid] - in drag', gc)
+        // TODO
+        const marker = e.target
+        const location = marker.getLatLng()
+        console.log('[hex-grid] - drag', location, gc.cellFor(location).name)
+        const cellPos: SergeHex<{}> | undefined = gc.cellFor(location)
+        if(cellPos) {
+          console.log('[hex-grid] - marker being dragged', cellPos)
+          setDestination(cellPos)
+        }
       }
 
        return <>
@@ -90,6 +143,14 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
             positions={plannedRoutePoly}
             className={styles['planned-line']}
           />
+          { origin && 
+            <Marker
+            draggable={true}
+//            onDragend={updatePosition}
+            onDrag={beingDragged}
+            position={origin}
+            key={'drag_marker_'}/>        
+          }
         </LayerGroup>
         {
           zoomLevel > 11 &&

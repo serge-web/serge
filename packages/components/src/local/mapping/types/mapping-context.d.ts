@@ -1,6 +1,7 @@
 import { Phase } from '@serge/config'
 import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
+import PlanMobileAsset from './plan-mobile-asset'
 
 interface SelectedAsset {
   /**
@@ -46,13 +47,9 @@ export default interface MappingContext {
    */
   phase: Phase
   /**
-   *  allowable cells for this platform
-   **/
-  allowableCellList?: SergeHex<{}>[] | undefined
-  /**
-   *  current route being planned for this platform
-   **/
-  plannedRouteList?: SergeHex<{}>[] | undefined
+   * mobility for selected asset
+   */
+  planningConstraints: PlanMobileAsset | undefined
   /**
    * state for if map bar is open
    */

@@ -15,9 +15,6 @@ import styles from './styles.module.scss'
 import MappingContext from './types/mapping-context'
 import MapBar from '../map-bar'
 
-import allowableCells from './helpers/allowable-cells'
-import plannedRouteFor from './helpers/planned-route-for'
-
 interface ContextInterface {
   props?: any
 }
@@ -96,19 +93,10 @@ export const Mapping: React.FC<PropTypes> = ({
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined> (undefined)
 
   useEffect(() => {
+    console.log('[mapping] - about to create cells')
     // note: the list of cells should be re-calculated if `tileDiameterMins` changes
     setGridCells(createGrid(latLngBounds, tileDiameterMins))
-    if(gridCells) {
-      console.log('[mapping] - creating cells', gridCells.length)
-    } else {
-      console.log('[mapping] - creating cells', gridCells)
-    }
   }, [tileDiameterMins])
-
-
-  const allowableCellList = planningConstraints ? allowableCells(gridCells, planningConstraints) : undefined
-  const plannedRouteList = planningConstraints && planningConstraints.destination ? 
-    plannedRouteFor(gridCells, allowableCellList, planningConstraints.origin, planningConstraints.destination) : undefined
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
@@ -116,8 +104,7 @@ export const Mapping: React.FC<PropTypes> = ({
     forces,
     playerForce,
     phase,
-    allowableCellList,
-    plannedRouteList,
+    planningConstraints,
     showMapBar,
     setShowMapBar,
     selectedAsset,
