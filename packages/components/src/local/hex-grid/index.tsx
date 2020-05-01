@@ -45,12 +45,22 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
       // allow the destination end point to be changed
       const [destination, setDestination] = useState<SergeHex<{}> | undefined>(undefined)
 
+      const [plannedRoutePoly, setPlannedRoutePoly] = useState<L.LatLng[]> ([])
       
       useEffect(() => {
         if(destination) {
           console.log('[hex-grid] - calculating planning route')
-          setPlannedRouteCells(planningConstraints && destination ? 
-           plannedRouteFor(gc, allowableCells, planningConstraints.origin, destination) : [])
+          const plannedRoute: SergeHex<{}>[] = planningConstraints && destination ? 
+            plannedRouteFor(gc, allowableCells, planningConstraints.origin, destination): []
+          setPlannedRouteCells(plannedRoute)
+
+          // also produce the polygon
+          const tmpPlannedRoutePoly: L.LatLng[] = []
+          plannedRoute.forEach((cell:SergeHex<{}>) => {
+            tmpPlannedRoutePoly.push(cell.centreLatLng)
+          })
+          setPlannedRoutePoly(tmpPlannedRoutePoly)
+          // also do the polys
         }
       }, [destination])
 
@@ -106,14 +116,7 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
       }, [gc])
 
       console.log('[hex-grid] - rendering', allowableCells && allowableCells.length)
-  
-      // create a polygon for each hex, add it to the parent
-      const plannedRoutePoly: L.LatLng[] = []
-      if(plannedRouteCells) {
-        plannedRouteCells.forEach((cell:SergeHex<{}>) => {
-          plannedRoutePoly.push(cell.centreLatLng)
-        })
-      }
+
 
       const beingDragged = (e: any) => {
         console.log('[hex-grid] - in drag', gc)
