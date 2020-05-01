@@ -1,19 +1,20 @@
 import React, { useEffect, useState, useContext} from 'react'
 import L from 'leaflet'
 import { PointLike } from 'honeycomb-grid'
-import { Polygon, Marker, LayerGroup, Polyline } from 'react-leaflet'
+import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
 /* Import Types */
 import PropTypes from './types/props'
 import toWorld from './helpers/to-world'
+import Polygon from './helpers/polygon'
 import { MapContext } from '../mapping'
 import SergeHex from '../mapping/types/serge-hex'
 
 /* Render component */
 export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
-      
+
       const { gridCells: gcProp, allowableCellList, zoomLevel, plannedRouteList  } = useContext(MapContext).props
 
       // collate list of named polygons
@@ -29,10 +30,9 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
 
       // Use direct property if available, otherwise, use context prop.
       const gc = gridCells || gcProp
-      
       const setCellStyle = (cell: SergeHex<{}>, pc:Array<SergeHex<{}>>, ac: Array<SergeHex<{}>>): string => 
       `${pc && pc.includes(cell) ? 'planned' : ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
-      
+
       // Watch the 'allowableCellList' property for changes and update the state accordingly
       useEffect(() => {
         setAllowableCells(allowableCellList)
@@ -75,23 +75,18 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
         })
       }
 
-      const uniqid: number = Math.floor(Math.random() * 1000); 
-
        return <>
         <LayerGroup key={'hex_polygons'} >{Object.keys(polygons).map(k => (
           <Polygon
             // we may end up with other elements per hex,
             // such as labels so include prefix in key
-            // TODO: There's a bad smell here. We're using the uniqid to
-            // force the Leaflet polygon to redraw.  They were being
-            // redrawn on change of `positions` attribute, but not classname
-            key = {'hex_poly_' + k + '_' + uniqid}
+            key = {'hex_poly_' + k}
             positions={polygons[k]}
             className={styles[setCellStyle(hexCells[k], plannedRouteCells, allowableCells)]}
           />
         ))}
          <Polyline
-            key = {'hex_planned_line' + '_' + uniqid}
+            key = {'hex_planned_line' + '_'}
             positions={plannedRoutePoly}
             className={styles['planned-line']}
           />
