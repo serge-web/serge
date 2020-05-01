@@ -85,11 +85,23 @@ export const Mapping: React.FC<PropTypes> = ({
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
   /* Initialise variables */
-  const [latLngBounds] = useState<L.LatLngBounds>(boundsFor(bounds))
+  const [mapBounds] = useState<{
+    imageTop: number
+    imageLeft: number
+    imageRight: number
+    imageBottom: number
+  }>(bounds)
+  const [latLngBounds, setLatLngBounds] = useState<L.LatLngBounds>(boundsFor(mapBounds))
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined> (undefined)
   const [dropDestination, setDropDestination] = useState< SergeHex<{}> | undefined> (undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined> (planningConstraintsProp)
-  const [mapCentre, setMapCentre] = useState<L.LatLng>(boundsFor(bounds).getCenter())
+  const [mapCentre, setMapCentre] = useState<L.LatLng>(latLngBounds.getCenter())
+
+  useEffect(() => {
+    if(mapBounds) {
+      setLatLngBounds(boundsFor(mapBounds))
+    }
+  }, [mapBounds])
 
   useEffect(() => {
     if(latLngBounds) {
@@ -98,13 +110,11 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [latLngBounds])
 
   useEffect(() => {
-    console.log('[mapping] - about to create cells', latLngBounds, tileDiameterMins)
     // note: the list of cells should be re-calculated if `tileDiameterMins` changes
     setGridCells(createGrid(latLngBounds, tileDiameterMins))
   }, [tileDiameterMins])
 
   useEffect(() => {
-    console.log('[mapping] - received drop destination', dropDestination)
     if(planningConstraints && dropDestination) {
       // create new planning contraints
       const newP: PlanMobileAsset = {
