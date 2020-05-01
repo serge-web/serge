@@ -48,11 +48,11 @@ export default interface MappingContext {
   /**
    *  allowable cells for this platform
    **/
-  allowableCellList?: string[] | undefined
+  allowableCellList?: SergeHex<{}>[] | undefined
   /**
-   *  allowable cells for this platform
+   *  current route being planned for this platform
    **/
-  plannedRouteList?: string[] | undefined
+  plannedRouteList?: SergeHex<{}>[] | undefined
   /**
    * state for if map bar is open
    */
