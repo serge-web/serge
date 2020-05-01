@@ -49,7 +49,6 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
       
       useEffect(() => {
         if(dragDestination) {
-          console.log('[hex-grid] - calculating planning route')
           const plannedRoute: SergeHex<{}>[] = planningConstraints && dragDestination ? 
             plannedRouteFor(gc, allowableCells, planningConstraints.origin, dragDestination): []
           setPlannedRouteCells(plannedRoute)
@@ -65,7 +64,6 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
       }, [dragDestination])
 
       useEffect(() => {
-        console.log('[hex-grid] - calculating allowable cells')
         const cells: SergeHex<{}>[] = planningConstraints ? calcAllowableCells(gc, planningConstraints) : []
         setAllowableCells(cells)
         const originCell = gc.find((cell: SergeHex<{}>) => cell.name == planningConstraints.origin)

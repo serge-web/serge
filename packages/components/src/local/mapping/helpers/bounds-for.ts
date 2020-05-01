@@ -14,7 +14,6 @@ const boundsFor = (bounds: {imageTop: number
   const { imageTop, imageLeft, imageRight, imageBottom } = bounds
   const topLeft = L.latLng(imageTop, imageLeft)
   const bottomRight = L.latLng(imageBottom, imageRight)
-  console.log('[boundsFor] - redefining map bounds')
   return L.latLngBounds(topLeft, bottomRight)
 }
 
