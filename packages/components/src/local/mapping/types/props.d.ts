@@ -93,5 +93,5 @@ export default interface PropTypes {
   /**
    * planning constraints for this asset
    */
-  planningConstraints?: PlanMobileAsset
+  planningConstraintsProp?: PlanMobileAsset
 }

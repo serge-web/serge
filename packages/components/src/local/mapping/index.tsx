@@ -14,6 +14,7 @@ import './leaflet.css'
 import styles from './styles.module.scss'
 import MappingContext from './types/mapping-context'
 import MapBar from '../map-bar'
+import PlanMobileAsset from './types/plan-mobile-asset'
 
 interface ContextInterface {
   props?: any
@@ -47,7 +48,7 @@ const defaultProps: PropTypes = {
   zoomControl: true,
   attributionControl: false,
   zoomAnimation: false,
-  planningConstraints: undefined
+  planningConstraintsProp: undefined
 }
 
 /* Render component */
@@ -68,7 +69,7 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomControl,
   attributionControl,
   zoomAnimation,
-  planningConstraints,
+  planningConstraintsProp,
   children
 }) => {
   /* Initialise states */
@@ -88,15 +89,33 @@ export const Mapping: React.FC<PropTypes> = ({
   const position: [number, number] = [(imageTop + imageBottom) / 2, (imageLeft + imageRight) / 2]
   const topLeft = L.latLng(imageTop, imageLeft)
   const bottomRight = L.latLng(imageBottom, imageRight)
+  console.log('[mapping] - redefining map bounds')
   const latLngBounds: L.LatLngBounds = L.latLngBounds(topLeft, bottomRight)
 
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined> (undefined)
+  const [dropDestination, setDropDestination] = useState< SergeHex<{}> | undefined> (undefined)
+  const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined> (planningConstraintsProp)
 
   useEffect(() => {
     console.log('[mapping] - about to create cells')
     // note: the list of cells should be re-calculated if `tileDiameterMins` changes
     setGridCells(createGrid(latLngBounds, tileDiameterMins))
   }, [tileDiameterMins])
+
+  useEffect(() => {
+    console.log('[mapping] - received drop destination', dropDestination)
+    if(planningConstraints && dropDestination) {
+      // create new planning contraints
+      const newP: PlanMobileAsset = {
+        origin: dropDestination.name,
+        travelMode: planningConstraints.travelMode,
+        range: planningConstraints.range,
+        destination: planningConstraints.destination
+      }
+      setPlanningConstraints(newP)
+    }
+
+  }, [dropDestination])
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
@@ -106,6 +125,7 @@ export const Mapping: React.FC<PropTypes> = ({
     phase,
     planningConstraints,
     showMapBar,
+    setDropDestination,
     setShowMapBar,
     selectedAsset,
     setSelectedAsset,

@@ -55,6 +55,10 @@ export default interface MappingContext {
    */
   showMapBar: boolean
   /**
+   * setter for when planned route is complete
+   */
+  setDropDestination: React.Dispatch<React.SetStateAction<SergeHex<{}> | undefined>>
+  /**
    *  setter, to modify if map bar is open or not
    */
   setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>

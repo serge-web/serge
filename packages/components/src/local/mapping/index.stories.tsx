@@ -225,7 +225,7 @@ export const WithAllowableRange: React.FC = () => <Mapping
   phase = {Phase.Planning}
   playerForce='Blue'
   mapBar = {false}
-  planningConstraints={ boolean(allowableOnLabel, allowableDefaultValue) ? {
+  planningConstraintsProp={ boolean(allowableOnLabel, allowableDefaultValue) ? {
     origin:text(allowableOriginLabel, allowableOriginValue), 
     travelMode:radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault,), 
     range:number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions),

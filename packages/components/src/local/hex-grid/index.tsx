@@ -19,7 +19,7 @@ import plannedRouteFor from '../mapping/helpers/planned-route-for'
 /* Render component */
 export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
 
-      const { gridCells: gcProp, planningConstraints, zoomLevel  } = useContext(MapContext).props
+      const { gridCells: gcProp, planningConstraints, zoomLevel, setDropDestination  } = useContext(MapContext).props
 
       const gc = gcProp
 
@@ -44,7 +44,6 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
 
       // allow the destination end point to be changed
       const [dragDestination, setDragDestination] = useState<SergeHex<{}> | undefined>(undefined)
-      const [dropDestination, setDropDestination] = useState<SergeHex<{}> | undefined>(undefined)
 
       const [plannedRoutePoly, setPlannedRoutePoly] = useState<L.LatLng[]> ([])
       
@@ -123,7 +122,6 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
         const cellPos: SergeHex<{}> | undefined = gc.cellFor(location)
         if(cellPos) {
           setDropDestination(cellPos)
-          console.log(cellPos, dropDestination)
         }
       }
 
