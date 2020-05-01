@@ -24,7 +24,7 @@ class Polygon extends Path<LeafletElement, Props> {
     return new LeafletPolygonWithPositions(props.positions, this.getOptions(props)) as LeafletElement
   }
 
-  // this function will allow to add logic to update element
+  // reduce re-rendering, by only updating changed elemente
   updateLeafletElement(fromProps: Props, toProps: Props) {
     // update the component on positions change (copied from standard leaflet polygon)
     if (toProps.positions !== fromProps.positions) {
@@ -32,8 +32,7 @@ class Polygon extends Path<LeafletElement, Props> {
     }
     this.setStyleIfChanged(fromProps, toProps)
 
-    // logick wich one will compare classnames and modify the element class attribute instead of re render it
-    // this will alow to not touch elements witch ones have no changes in classname
+    // check classname
     if (toProps.className !== fromProps.className) {
       const fromClasses: string[] = fromProps.className.split(' ')
       const toClasses: string[] = toProps.className.split(' ')

@@ -81,10 +81,7 @@ export const HexGrid: React.FC<PropTypes> = ({ gridCells }: PropTypes) => {
           <Polygon
             // we may end up with other elements per hex,
             // such as labels so include prefix in key
-            // TODO: There's a bad smell here. We're using the uniqid to
-            // force the Leaflet polygon to redraw.  They were being
-            // redrawn on change of `positions` attribute, but not classname
-            key = {'hex_poly_' + k + '_'}
+            key = {'hex_poly_' + k}
             positions={polygons[k]}
             className={styles[setCellStyle(k, plannedRouteCells, allowableCells)]}
           />
