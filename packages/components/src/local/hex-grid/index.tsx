@@ -116,13 +116,16 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
       }, [gc])
 
 
-      const dropped = (e: any) => {
-        const marker = e.target
-        const location = marker.getLatLng()
-        const cellPos: SergeHex<{}> | undefined = gc.cellFor(location)
-        if(cellPos) {
-          setDropDestination(cellPos)
-        }
+      const dropped = () => {
+        // ok, we don't actually use the marker location, since
+        // it may be outside the achievable area. Just
+        // use the last point in the planning leg
+        const lastCell: SergeHex<{}> | 0 = plannedRouteCells && plannedRouteCells.length && plannedRouteCells[plannedRoutePoly.length-1]
+        setDropDestination(lastCell)
+
+        // clear the planned route
+        setPlannedRouteCells([])
+        setPlannedRoutePoly([])
       }
 
       const beingDragged = (e: any) => {
