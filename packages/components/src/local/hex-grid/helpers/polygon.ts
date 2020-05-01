@@ -24,7 +24,7 @@ class Polygon extends Path<LeafletElement, Props> {
     return new LeafletPolygonWithPositions(props.positions, this.getOptions(props)) as LeafletElement
   }
 
-  // this function will allow to add logick to update element
+  // this function will allow to add logic to update element
   updateLeafletElement(fromProps: Props, toProps: Props) {
     // update the component on positions change (copied from standard leaflet polygon)
     if (toProps.positions !== fromProps.positions) {
