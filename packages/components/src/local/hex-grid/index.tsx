@@ -18,9 +18,7 @@ import plannedRouteFor from '../mapping/helpers/planned-route-for'
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
 
-      const { gridCells: gcProp, planningConstraints, zoomLevel, setDropDestination  } = useContext(MapContext).props
-
-      const gc = gcProp
+      const { gridCells, planningConstraints, zoomLevel, setDropDestination  } = useContext(MapContext).props
 
       // fix the leaflet icon path, using tip from here: 
       // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
@@ -49,7 +47,7 @@ export const HexGrid: React.FC<{}> = () => {
       useEffect(() => {
         if(dragDestination) {
           const plannedRoute: SergeHex<{}>[] = planningConstraints && dragDestination ? 
-            plannedRouteFor(gc, allowableCells, planningConstraints.origin, dragDestination): []
+            plannedRouteFor(gridCells, allowableCells, planningConstraints.origin, dragDestination): []
           setPlannedRouteCells(plannedRoute)
 
           // also produce the polygon
@@ -63,9 +61,9 @@ export const HexGrid: React.FC<{}> = () => {
       }, [dragDestination])
 
       useEffect(() => {
-        const cells: SergeHex<{}>[] = planningConstraints ? calcAllowableCells(gc, planningConstraints) : []
+        const cells: SergeHex<{}>[] = planningConstraints ? calcAllowableCells(gridCells, planningConstraints) : []
         setAllowableCells(cells)
-        const originCell = gc.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
+        const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
         if(originCell) {
           setOrigin(originCell.centreLatLng)
         }
@@ -76,13 +74,13 @@ export const HexGrid: React.FC<{}> = () => {
       `${pc && pc.includes(cell) ? 'planned' : ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
 
       useEffect(() => {
-        if(gc) {
+        if(gridCells) {
           const tmpPolys: { [id: string]: L.LatLng[] } = {}
           const tmpCentres: { [id: string]: L.LatLng } = {}
           const tmpHexCells: { [id: string]: SergeHex<{}> } = {}
 
           // create a polygon for each hex, add it to the parent
-          gc.forEach((hex: SergeHex<{}>) => {
+          gridCells.forEach((hex: SergeHex<{}>) => {
             // move coords to our map
             const centreWorld: L.LatLng = hex.centreLatLng
             // build up an array of correctly mapped corners
@@ -98,7 +96,7 @@ export const HexGrid: React.FC<{}> = () => {
                 x: value.x - centreH.x,
                 y: value.y - centreH.y
               }
-              const newP = toWorld(point, centreWorld, gc.tileDiameterDegs / 2)
+              const newP = toWorld(point, centreWorld, gridCells.tileDiameterDegs / 2)
               cornerArr.push(newP)
             })
             // add the polygon to polygons array, indexed by the cell name
@@ -110,7 +108,7 @@ export const HexGrid: React.FC<{}> = () => {
           setCentres(tmpCentres)
           setHexCells(tmpHexCells)
         }
-      }, [gc])
+      }, [gridCells])
 
 
       const dropped = ():void => {
@@ -128,7 +126,7 @@ export const HexGrid: React.FC<{}> = () => {
       const beingDragged = (e: any):void => {
         const marker = e.target
         const location = marker.getLatLng()
-        const cellPos: SergeHex<{}> | undefined = gc.cellFor(location)
+        const cellPos: SergeHex<{}> | undefined = gridCells.cellFor(location)
         if(cellPos) {
           setDragDestination(cellPos)
         }
