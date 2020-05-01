@@ -6,7 +6,6 @@ import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 import styles from './styles.module.scss'
 
 /* Import Types */
-import PropTypes from './types/props'
 import toWorld from './helpers/to-world'
 import Polygon from './helpers/polygon'
 import { MapContext } from '../mapping'
@@ -17,7 +16,7 @@ import calcAllowableCells from '../mapping/helpers/allowable-cells'
 import plannedRouteFor from '../mapping/helpers/planned-route-for'
 
 /* Render component */
-export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
+export const HexGrid: React.FC<{}> = () => {
 
       const { gridCells: gcProp, planningConstraints, zoomLevel, setDropDestination  } = useContext(MapContext).props
 
@@ -66,7 +65,7 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
       useEffect(() => {
         const cells: SergeHex<{}>[] = planningConstraints ? calcAllowableCells(gc, planningConstraints) : []
         setAllowableCells(cells)
-        const originCell = gc.find((cell: SergeHex<{}>) => cell.name == planningConstraints.origin)
+        const originCell = gc.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
         if(originCell) {
           setOrigin(originCell.centreLatLng)
         }
@@ -114,7 +113,7 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
       }, [gc])
 
 
-      const dropped = () => {
+      const dropped = ():void => {
         // ok, we don't actually use the marker location, since
         // it may be outside the achievable area. Just
         // use the last point in the planning leg
@@ -126,7 +125,7 @@ export const HexGrid: React.FC<PropTypes> = ({  }: PropTypes) => {
         setPlannedRoutePoly([])
       }
 
-      const beingDragged = (e: any) => {
+      const beingDragged = (e: any):void => {
         const marker = e.target
         const location = marker.getLatLng()
         const cellPos: SergeHex<{}> | undefined = gc.cellFor(location)
