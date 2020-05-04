@@ -35,10 +35,6 @@ export const HexGrid: React.FC<{}> = () => {
       const [plannedRouteCells, setPlannedRouteCells] = useState<Array<SergeHex<{}>>>([])
       const [plannedRoutePoly, setPlannedRoutePoly] = useState<L.LatLng[]> ([])
 
-      // combination of planning and planned cells
-      const [fullRouteCells, setFullRouteCells] = useState<Array<SergeHex<{}>>>([])
-      const [fullRoutePoly, setFullRoutePoly] = useState<L.LatLng[]> ([])
-
       // collate list of named polygons
       const [allowablePolygons, setAllowablePolygons] = useState<{ [id: string]: L.LatLng[] }>({})
       // collate list of named polygon centres
@@ -85,7 +81,6 @@ export const HexGrid: React.FC<{}> = () => {
 
           // combine with any existing planned cells
           setPlanningRouteCells(plannedRoute)
-          setFullRouteCells(plannedRouteCells.concat(plannedRoute))
 
           // also produce the lat-long values needed for the polylines
           const tmpPlannedRoutePoly: L.LatLng[] = []
@@ -95,7 +90,6 @@ export const HexGrid: React.FC<{}> = () => {
 
           // combine with any existing planned cells
           setPlanningRoutePoly(tmpPlannedRoutePoly)
-          setFullRoutePoly(plannedRoutePoly.concat(tmpPlannedRoutePoly))
         }
       }, [dragDestination, originHex])
 
@@ -168,7 +162,7 @@ export const HexGrid: React.FC<{}> = () => {
       /** handler for planning marker being droppped
        * 
        */
-      const dropped = ():void => {
+      const dropped = (e: any):void => {
         // Note: ok, we don't actually use the marker location, since
         // it may be outside the achievable area. Just
         // use the last point in the planning leg
@@ -177,6 +171,9 @@ export const HexGrid: React.FC<{}> = () => {
           // deduct one from planned route, since it includes the origin cell
           const routeLen = planningRouteCells.length - 1
           const lastCell: SergeHex<{}> = planningRouteCells[routeLen]
+
+          const marker = e.target
+          marker.setLatLng(lastCell.centreLatLng)
 
           // have we consumed the full length?
           if(routeLen === planningRange) {
@@ -225,13 +222,18 @@ export const HexGrid: React.FC<{}> = () => {
             // such as labels so include prefix in key
             key = {'hex_poly_' + k}
             positions={allowablePolygons[k]}
-            className={styles[setCellStyle(allowableHexCells[k], fullRouteCells, allowableCells)]}
+            className={styles[setCellStyle(allowableHexCells[k], planningRouteCells, allowableCells)]}
           />
         ))}
          <Polyline
             key = {'hex_planned_line'}
-            positions={fullRoutePoly}
+            positions={plannedRoutePoly}
             className={styles['planned-line']}
+          />
+         <Polyline
+            key = {'hex_planning_line'}
+            positions={planningRoutePoly}
+            className={styles['planning-line']}
           />
           { origin && 
             <Marker
