@@ -131,16 +131,20 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [tileDiameterMins, latLngBounds])
 
   useEffect(() => {
-    if(planningConstraints && newLeg) {
-      const lastCell:SergeHex<{}> = newLeg[newLeg.length - 1]
-      // create new planning contraints
-      const newP: PlanMobileAsset = {
-        origin: lastCell.name,
-        travelMode: planningConstraints.travelMode,
-        range: planningConstraints.range,
-        destination: planningConstraints.destination
+    if(newLeg) {
+      // TODO: store the new planned leg for this asset
+
+      // if we know our planning constraints, we can plan the next leg
+      if(planningConstraints) {
+        // get the last planned cell, to act as the first new planned cell
+        const lastCell:SergeHex<{}> = newLeg[newLeg.length - 1]
+        // create new planning contraints
+        const newP: PlanMobileAsset = {
+          origin: lastCell.name,
+          travelMode: planningConstraints.travelMode
+        }
+        setPlanningConstraints(newP)
       }
-      setPlanningConstraints(newP)
     }
 
   }, [newLeg])
