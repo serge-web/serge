@@ -186,7 +186,7 @@ export const HexGrid: React.FC<{}> = () => {
             setPlanningRouteCells([])
             setPlanningRoutePoly([])
 
-            // clear the full planning range
+            // restore the full planning range allowance
             setPlanningRange(planningRangeProps)
 
             // ok, planning complete - fire the event back up the hierarchy
