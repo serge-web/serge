@@ -77,12 +77,21 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
   sergeGrid.origin = correctedOrigin
   sergeGrid.tileDiameterDegs = tileSizeDegs
   sergeGrid.centerOffset = centreOffset
+  /** provide method that only requires the world location,
+   * taking other params from grid
+   */
   sergeGrid.toScreen = (point: L.LatLng): PointLike => {
     return toScreen(point, sergeGrid.origin, sergeGrid.tileDiameterDegs / 2)
   }
+  /** provide method that only requires the hex location,
+   * taking other params from grid
+   */
   sergeGrid.toWorld = (point: PointLike): L.LatLng => {
     return toWorld(point, sergeGrid.origin, sergeGrid.tileDiameterDegs)
   }
+  /** provide method that only requires the world location,
+   * taking other params from grid object
+   */
   sergeGrid.cellFor =  (latLng: L.LatLng): SergeHex<{}> | undefined => {
 
     // convert to hex coordinates
