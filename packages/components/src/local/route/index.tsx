@@ -16,10 +16,9 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
     const plainDots = [1, 7] 
     const selectedDots = [4, 8]
 
-      // allow the destination end point to be changed
-      const [historyRoutes, setHistoryRoutes] = useState<RouteData | undefined>(undefined)
-
-      const [plannedRoutes, setPlanneDroutes] = useState<RouteData | undefined>(undefined)
+    // allow the destination end point to be changed
+    const [historyRoutes, setHistoryRoutes] = useState<RouteData | undefined>(undefined)
+    const [plannedRoutes, setPlanneDroutes] = useState<RouteData | undefined>(undefined)
 
     useEffect(() => {
       if(gridCells) {
@@ -44,26 +43,26 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
           
     return <> 
       <LayerGroup key={'hex_route_layer_' + name} >
-    { historyRoutes && 
-        <Polyline
-          // we may end up with other elements per hex,
-          // such as labels so include prefix in key
-          key = {'hex_history_' + name}
-          positions={historyRoutes.polyline}
-          color={color}
-          weight={selected ? 3 : 2}
-        />
-    } { plannedRoutes &&
-        <Polyline
-        // we may end up with other elements per hex,
-        // such as labels so include prefix in key
-        key = {'hex_planned_' + name}
-        positions={plannedRoutes.polyline}
-        color={color}
-        weight={selected ? 3 : 2}
-        dashArray={selected ? selectedDots : plainDots}
-      />
-    }
+        { historyRoutes && 
+            <Polyline
+              // we may end up with other elements per hex,
+              // such as labels so include prefix in key
+              key = {'hex_history_' + name}
+              positions={historyRoutes.polyline}
+              color={color}
+              weight={selected ? 3 : 2}
+            />
+        } { plannedRoutes &&
+            <Polyline
+            // we may end up with other elements per hex,
+            // such as labels so include prefix in key
+            key = {'hex_planned_' + name}
+            positions={plannedRoutes.polyline}
+            color={color}
+            weight={selected ? 3 : 2}
+            dashArray={selected ? selectedDots : plainDots}
+          />
+        }
       </LayerGroup>
     </>
   }
