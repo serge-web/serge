@@ -16,7 +16,7 @@
     "lint": "run-p lint:*",
     "lint:ts": "eslint --fix src/**/*.ts*",
     "lint:styles": "stylelint --fix src/**/*.scss",
-    "build-storybook": "build-storybook -s ./static -c .storybook -o ../client/build/storybook && pwd && ls ../client/build/storybook"
+    "build-storybook": "build-storybook -s ./static -c .storybook -o ../client/build/storybook"
   },
   "dependencies": {
     "@babel/core": "^7.8.4",
