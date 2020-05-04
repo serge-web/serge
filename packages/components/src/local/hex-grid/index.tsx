@@ -27,8 +27,17 @@ export const HexGrid: React.FC<{}> = () => {
       // Set up an 'allowableCells' state to monitor
       const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>([])
 
+      // cells representing the route that is currently being dragged
+      const [planningRouteCells, setPlanningRouteCells] = useState<Array<SergeHex<{}>>>([])
+      const [planningRoutePoly, setPlanningRoutePoly] = useState<L.LatLng[]> ([])
+
+      // cells representing any route snippet that is already specified
       const [plannedRouteCells, setPlannedRouteCells] = useState<Array<SergeHex<{}>>>([])
       const [plannedRoutePoly, setPlannedRoutePoly] = useState<L.LatLng[]> ([])
+
+      // combination of planning and planned cells
+      const [fullRouteCells, setFullRouteCells] = useState<Array<SergeHex<{}>>>([])
+      const [fullRoutePoly, setFullRoutePoly] = useState<L.LatLng[]> ([])
 
       // collate list of named polygons
       const [allowablePolygons, setAllowablePolygons] = useState<{ [id: string]: L.LatLng[] }>({})
@@ -44,24 +53,55 @@ export const HexGrid: React.FC<{}> = () => {
       // allow the destination end point to be changed
       const [dragDestination, setDragDestination] = useState<SergeHex<{}> | undefined>(undefined)
 
+      //  allow the achievable range to be changed
       const [planningRange, setPlanningRange] = useState<number | undefined> (planningRangeProps)
 
+      /** uility function, to style a cell according to if it's in 
+       * either array
+       * @param {cell: SergeHex<{}>} cell the cell in question
+       * @param {Array<SergeHex<{}>>} plannedCells the cell in question
+       * @param {Array<SergeHex<{}>>} achievableCells the cell in question
+       * @returns string to be used in polygon cell style
+       */
+      const setCellStyle = (cell: SergeHex<{}>, plannedCells:Array<SergeHex<{}>>, achievableCells: Array<SergeHex<{}>>): string => 
+      `${plannedCells && plannedCells.includes(cell) ? 'planned' : achievableCells && achievableCells.includes(cell) ? 'allowable' : 'default'}-hex`
+
+      /** allow for the props being changed. This could be from the StoryBook testing, but could equally
+       *  be from the plan route form
+       */
+      useEffect(() => {
+        setPlanningRange(planningRangeProps)
+      }, [planningRangeProps])
+
+      /** handle the dynamic indicator that follows mouse movement,
+       * represented as cells & a line
+       * 
+       */
       useEffect(() => {
         if(dragDestination && originHex) {
+          // work out the available cells
           const plannedRoute: SergeHex<{}>[] = planningConstraints && dragDestination ? 
             plannedRouteFor(gridCells, allowableCells, originHex, dragDestination): []
-          setPlannedRouteCells(plannedRoute)
 
-          // also produce the polygon
+          // combine with any existing planned cells
+          setPlanningRouteCells(plannedRoute)
+          setFullRouteCells(plannedRouteCells.concat(plannedRoute))
+
+          // also produce the lat-long values needed for the polylines
           const tmpPlannedRoutePoly: L.LatLng[] = []
           plannedRoute.forEach((cell:SergeHex<{}>) => {
             tmpPlannedRoutePoly.push(cell.centreLatLng)
           })
-          setPlannedRoutePoly(tmpPlannedRoutePoly)
-          // also do the polys
+
+          // combine with any existing planned cells
+          setPlanningRoutePoly(tmpPlannedRoutePoly)
+          setFullRoutePoly(plannedRoutePoly.concat(tmpPlannedRoutePoly))
         }
       }, [dragDestination, originHex])
 
+      /** provide a list of cells allowable for this platform. The area may reduce
+       * as a player plans the leg 
+       */
       useEffect(() => {
         if(originHex && gridCells) {
           // special case. if we don't have a planning range, use the one from props
@@ -71,6 +111,9 @@ export const HexGrid: React.FC<{}> = () => {
         }
       }, [originHex, planningRange, gridCells])
 
+      /** produce a Hex cell for the provided cell-name
+       * 
+       */
       useEffect(() => {
         if(gridCells && planningConstraints) {
           const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
@@ -80,10 +123,10 @@ export const HexGrid: React.FC<{}> = () => {
         }
       }, [planningConstraints, gridCells])
 
-      // Use direct property if available, otherwise, use context prop.
-      const setCellStyle = (cell: SergeHex<{}>, pc:Array<SergeHex<{}>>, ac: Array<SergeHex<{}>>): string => 
-      `${pc && pc.includes(cell) ? 'planned' : ac && ac.includes(cell) ? 'allowable' : 'default'}-hex`
-
+      /** calculate the set of polygons that represent the map grid, including
+       * locations for their text labels, and a similarly indexed set of hex
+       * grid cells that can be used to lookup styling
+       */
       useEffect(() => {
         if(gridCells) {
           const tmpPolys: { [id: string]: L.LatLng[] } = {}
@@ -122,34 +165,40 @@ export const HexGrid: React.FC<{}> = () => {
       }, [gridCells])
 
 
+      /** handler for planning marker being droppped
+       * 
+       */
       const dropped = ():void => {
         // Note: ok, we don't actually use the marker location, since
         // it may be outside the achievable area. Just
         // use the last point in the planning leg
 
-        // sort out if the full distance has been consumed
-  
-        // clear the planned route
-        setPlannedRouteCells([])
-        setPlannedRoutePoly([])
-
         if(plannedRouteCells && planningRange) {
-          const routeLen = plannedRouteCells.length - 1
-          const lastCell: SergeHex<{}> = plannedRouteCells[routeLen]
+          // deduct one from planned route, since it includes the origin cell
+          const routeLen = planningRouteCells.length - 1
+          const lastCell: SergeHex<{}> = planningRouteCells[routeLen]
 
           // have we consumed the full length?
           if(routeLen == planningRange) {
+            // clear the planning routes
+            setPlannedRouteCells([])
+            setPlannedRoutePoly([])
+            setPlanningRouteCells([])
+            setPlanningRoutePoly([])
 
             // clear the full planning range
             setPlanningRange(planningRangeProps)
 
-            // ok, planning complete
+            // ok, planning complete - fire the event back up the hierarchy
             setDropDestination(lastCell)
           } else {
             // ok, just some of it has been consumed. Reduce what is remaining
             const remaining = planningRange - routeLen
   
             if(lastCell) {
+              setPlannedRouteCells([])
+              // note: we extend the existing planned cells, with the new ones
+              setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
               setOriginHex(lastCell)
               setPlanningRange(remaining)
             }
@@ -157,6 +206,9 @@ export const HexGrid: React.FC<{}> = () => {
         }
       }
 
+      /** handler for planning marker being dragged 
+       * 
+       */
       const beingDragged = (e: any):void => {
         const marker = e.target
         const location = marker.getLatLng()
@@ -173,12 +225,12 @@ export const HexGrid: React.FC<{}> = () => {
             // such as labels so include prefix in key
             key = {'hex_poly_' + k}
             positions={allowablePolygons[k]}
-            className={styles[setCellStyle(allowableHexCells[k], plannedRouteCells, allowableCells)]}
+            className={styles[setCellStyle(allowableHexCells[k], fullRouteCells, allowableCells)]}
           />
         ))}
          <Polyline
             key = {'hex_planned_line'}
-            positions={plannedRoutePoly}
+            positions={fullRoutePoly}
             className={styles['planned-line']}
           />
           { origin && 
