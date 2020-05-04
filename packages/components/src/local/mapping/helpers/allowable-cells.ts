@@ -10,16 +10,10 @@ import SergeGrid from '../types/serge-grid'
  */
 const allowableCells = (grid: SergeGrid<SergeHex<{}>> | undefined, originHex: SergeHex<{}>, range: number): SergeHex<{}>[] => {
   if(grid) {
-    if(originHex) {
-      return grid.hexesInRange(originHex, range, true)
-    } else {
-      console.log('AllowableCells function couldnt find cell for', origin)
-      return []
-    }  
+    return grid.hexesInRange(originHex, range, true)
   } else {
     return []
   }
-
 }
 
 export default allowableCells
