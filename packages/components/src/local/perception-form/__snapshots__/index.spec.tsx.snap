@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['PerceptionForm renders correctly 1'] = `
+exports[`PerceptionForm renders correctly 1`] = `
 <div
   className="form perceived-as"
 >
@@ -93,7 +93,7 @@ exports['PerceptionForm renders correctly 1'] = `
                     }
                   }
                 />
-                Blue
+                Blue Force
               </div>
             </span>
           </label>
@@ -166,7 +166,7 @@ exports['PerceptionForm renders correctly 1'] = `
                     }
                   }
                 />
-                Red
+                Red Force
               </div>
             </span>
           </label>
@@ -239,7 +239,7 @@ exports['PerceptionForm renders correctly 1'] = `
                     }
                   }
                 />
-                White
+                White Force
               </div>
             </span>
           </label>
@@ -300,4 +300,4 @@ exports['PerceptionForm renders correctly 1'] = `
     </button>
   </div>
 </div>
-`
+`;
