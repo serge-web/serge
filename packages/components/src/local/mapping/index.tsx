@@ -94,7 +94,7 @@ export const Mapping: React.FC<PropTypes> = ({
   } | undefined>(undefined)
   const [latLngBounds, setLatLngBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined> (undefined)
-  const [dropDestination, setDropDestination] = useState< SergeHex<{}> | undefined> (undefined)
+  const [newLeg, setNewLeg] = useState< Array<SergeHex<{}>> | undefined> (undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined> (planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
@@ -131,10 +131,11 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [tileDiameterMins, latLngBounds])
 
   useEffect(() => {
-    if(planningConstraints && dropDestination) {
+    if(planningConstraints && newLeg) {
+      const lastCell:SergeHex<{}> = newLeg[newLeg.length - 1]
       // create new planning contraints
       const newP: PlanMobileAsset = {
-        origin: dropDestination.name,
+        origin: lastCell.name,
         travelMode: planningConstraints.travelMode,
         range: planningConstraints.range,
         destination: planningConstraints.destination
@@ -142,7 +143,7 @@ export const Mapping: React.FC<PropTypes> = ({
       setPlanningConstraints(newP)
     }
 
-  }, [dropDestination])
+  }, [newLeg])
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
@@ -153,7 +154,7 @@ export const Mapping: React.FC<PropTypes> = ({
     planningConstraints,
     planningRange,
     showMapBar,
-    setDropDestination,
+    setNewLeg,
     setShowMapBar,
     selectedAsset,
     setSelectedAsset,

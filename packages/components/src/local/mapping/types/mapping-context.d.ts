@@ -61,7 +61,7 @@ export default interface MappingContext {
   /**
    * setter for when planned route is complete
    */
-  setDropDestination: React.Dispatch<React.SetStateAction<SergeHex<{}> | undefined>>
+  setNewLeg: React.Dispatch<React.SetStateAction<Array<SergeHex<{}>> | undefined>>
   /**
    *  setter, to modify if map bar is open or not
    */

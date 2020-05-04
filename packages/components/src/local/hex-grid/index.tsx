@@ -18,7 +18,7 @@ import plannedRouteFor from '../mapping/helpers/planned-route-for'
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
 
-      const { gridCells, planningConstraints, planningRange: planningRangeProps, zoomLevel, setDropDestination  } = useContext(MapContext).props
+      const { gridCells, planningConstraints, planningRange: planningRangeProps, zoomLevel, setNewLeg  } = useContext(MapContext).props
 
       // fix the leaflet icon path, using tip from here: 
       // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
@@ -177,6 +177,9 @@ export const HexGrid: React.FC<{}> = () => {
 
           // have we consumed the full length?
           if(routeLen === planningRange) {
+            // combine planned and planning cells, ready for results
+            const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(planningRouteCells)
+
             // clear the planning routes
             setPlannedRouteCells([])
             setPlannedRoutePoly([])
@@ -187,7 +190,7 @@ export const HexGrid: React.FC<{}> = () => {
             setPlanningRange(planningRangeProps)
 
             // ok, planning complete - fire the event back up the hierarchy
-            setDropDestination(lastCell)
+            setNewLeg(fullCellList)
           } else {
             // ok, just some of it has been consumed. Reduce what is remaining
             const remaining = planningRange - routeLen
