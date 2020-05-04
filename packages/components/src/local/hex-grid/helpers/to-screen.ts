@@ -9,8 +9,8 @@ import { PointLike } from 'honeycomb-grid'
  * @returns {L.LatLng} coordinate in 2d Hex degrees
  */
 const toScreen = (point: L.LatLng, origin: L.LatLng, tileSize: number): PointLike => {
-  var latVal = (origin.lat - point.lat) / tileSize
-  var lngVal = (point.lng - origin.lng) / tileSize
+  const latVal = (origin.lat - point.lat) / tileSize
+  const lngVal = (point.lng - origin.lng) / tileSize
   return L.point(lngVal, latVal)
 }
 
