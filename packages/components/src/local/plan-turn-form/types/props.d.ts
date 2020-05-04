@@ -1,10 +1,9 @@
-export default interface Props {
+export default interface PropTypes {
   /**
-   * The name of the thing
+   * All types in this definition are options for a form input
    */
-  name?: string
-  /**
-   * The colour of the thing
-   */
-  colour?: string
+  formData: {
+    status: Array<string>
+  }
 }
+
