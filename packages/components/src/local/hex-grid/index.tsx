@@ -18,7 +18,7 @@ import plannedRouteFor from '../mapping/helpers/planned-route-for'
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
 
-      const { gridCells, planningConstraints, planningRange, zoomLevel, setDropDestination  } = useContext(MapContext).props
+      const { gridCells, planningConstraints, planningRange: planningRangeProps, zoomLevel, setDropDestination  } = useContext(MapContext).props
 
       // fix the leaflet icon path, using tip from here: 
       // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
@@ -28,26 +28,28 @@ export const HexGrid: React.FC<{}> = () => {
       const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>([])
 
       const [plannedRouteCells, setPlannedRouteCells] = useState<Array<SergeHex<{}>>>([])
+      const [plannedRoutePoly, setPlannedRoutePoly] = useState<L.LatLng[]> ([])
 
       // collate list of named polygons
-      const [polygons, setPolygons] = useState<{ [id: string]: L.LatLng[] }>({})
+      const [allowablePolygons, setAllowablePolygons] = useState<{ [id: string]: L.LatLng[] }>({})
       // collate list of named polygon centres
-      const [centres, setCentres] = useState< { [id: string]: L.LatLng } > ({})
+      const [allowableCentres, setAllowableCentres] = useState< { [id: string]: L.LatLng } > ({})
       // collate list of named hex cells
-      const [hexCells, setHexCells] = useState<{ [id: string]: SergeHex<{}> }>({})
+      const [allowableHexCells, setAllowableHexCells] = useState<{ [id: string]: SergeHex<{}> }>({})
 
       // allow the planning marker origin to be changed
       const [origin, setOrigin] = useState<L.LatLng | undefined>(undefined)
+      const [originHex, setOriginHex] = useState<SergeHex<{}> | undefined>(undefined)
 
       // allow the destination end point to be changed
       const [dragDestination, setDragDestination] = useState<SergeHex<{}> | undefined>(undefined)
 
-      const [plannedRoutePoly, setPlannedRoutePoly] = useState<L.LatLng[]> ([])
-      
+      const [planningRange, setPlanningRange] = useState<number | undefined> (planningRangeProps)
+
       useEffect(() => {
-        if(dragDestination) {
+        if(dragDestination && originHex) {
           const plannedRoute: SergeHex<{}>[] = planningConstraints && dragDestination ? 
-            plannedRouteFor(gridCells, allowableCells, planningConstraints.origin, dragDestination): []
+            plannedRouteFor(gridCells, allowableCells, originHex, dragDestination): []
           setPlannedRouteCells(plannedRoute)
 
           // also produce the polygon
@@ -58,18 +60,25 @@ export const HexGrid: React.FC<{}> = () => {
           setPlannedRoutePoly(tmpPlannedRoutePoly)
           // also do the polys
         }
-      }, [dragDestination])
+      }, [dragDestination, originHex])
+
+      useEffect(() => {
+        if(originHex && gridCells) {
+          // special case. if we don't have a planning range, use the one from props
+          const cells: SergeHex<{}>[] = planningRange ? calcAllowableCells(gridCells, originHex, planningRange) : []
+          setAllowableCells(cells)
+          setOrigin(originHex.centreLatLng)  
+        }
+      }, [originHex, planningRange, gridCells])
 
       useEffect(() => {
         if(gridCells && planningConstraints) {
-          const cells: SergeHex<{}>[] = planningConstraints ? calcAllowableCells(gridCells, planningConstraints, planningRange) : []
-          setAllowableCells(cells)
           const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
           if(originCell) {
-            setOrigin(originCell.centreLatLng)
+            setOriginHex(originCell)
           }  
         }
-      }, [planningConstraints, planningRange, gridCells])
+      }, [planningConstraints, gridCells])
 
       // Use direct property if available, otherwise, use context prop.
       const setCellStyle = (cell: SergeHex<{}>, pc:Array<SergeHex<{}>>, ac: Array<SergeHex<{}>>): string => 
@@ -106,23 +115,46 @@ export const HexGrid: React.FC<{}> = () => {
             tmpCentres[hex.name] = centreWorld
             tmpHexCells[hex.name] = hex
           })
-          setPolygons(tmpPolys)
-          setCentres(tmpCentres)
-          setHexCells(tmpHexCells)
+          setAllowablePolygons(tmpPolys)
+          setAllowableCentres(tmpCentres)
+          setAllowableHexCells(tmpHexCells)
         }
       }, [gridCells])
 
 
       const dropped = ():void => {
-        // ok, we don't actually use the marker location, since
+        // Note: ok, we don't actually use the marker location, since
         // it may be outside the achievable area. Just
         // use the last point in the planning leg
-        const lastCell: SergeHex<{}> | 0 = plannedRouteCells && plannedRouteCells.length && plannedRouteCells[plannedRoutePoly.length-1]
-        setDropDestination(lastCell)
 
+        // sort out if the full distance has been consumed
+  
         // clear the planned route
         setPlannedRouteCells([])
         setPlannedRoutePoly([])
+
+        if(plannedRouteCells && planningRange) {
+          const routeLen = plannedRouteCells.length - 1
+          const lastCell: SergeHex<{}> = plannedRouteCells[routeLen]
+
+          // have we consumed the full length?
+          if(routeLen == planningRange) {
+
+            // clear the full planning range
+            setPlanningRange(planningRangeProps)
+
+            // ok, planning complete
+            setDropDestination(lastCell)
+          } else {
+            // ok, just some of it has been consumed. Reduce what is remaining
+            const remaining = planningRange - routeLen
+  
+            if(lastCell) {
+              setOriginHex(lastCell)
+              setPlanningRange(remaining)
+            }
+          }
+        }
       }
 
       const beingDragged = (e: any):void => {
@@ -135,13 +167,13 @@ export const HexGrid: React.FC<{}> = () => {
       }
 
        return <>
-        <LayerGroup key={'hex_polygons'} >{Object.keys(polygons).map(k => (
+        <LayerGroup key={'hex_polygons'} >{Object.keys(allowablePolygons).map(k => (
           <Polygon
             // we may end up with other elements per hex,
             // such as labels so include prefix in key
             key = {'hex_poly_' + k}
-            positions={polygons[k]}
-            className={styles[setCellStyle(hexCells[k], plannedRouteCells, allowableCells)]}
+            positions={allowablePolygons[k]}
+            className={styles[setCellStyle(allowableHexCells[k], plannedRouteCells, allowableCells)]}
           />
         ))}
          <Polyline
@@ -160,10 +192,10 @@ export const HexGrid: React.FC<{}> = () => {
         </LayerGroup>
         {
           zoomLevel > 11 &&
-          <LayerGroup key={'hex_labels'} >{Object.keys(centres).map(k => (
+          <LayerGroup key={'hex_labels'} >{Object.keys(allowableCentres).map(k => (
             <Marker
               key = {'hex_label_' + k}
-              position={centres[k]}
+              position={allowableCentres[k]}
               width="120"
               icon={L.divIcon({
                 html: k,
