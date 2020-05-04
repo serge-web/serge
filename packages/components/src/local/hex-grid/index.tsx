@@ -14,6 +14,7 @@ import SergeHex from '../mapping/types/serge-hex'
 
 import calcAllowableCells from '../mapping/helpers/allowable-cells'
 import plannedRouteFor from '../mapping/helpers/planned-route-for'
+import getCellStyle from './helpers/get-cell-style'
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
@@ -51,16 +52,6 @@ export const HexGrid: React.FC<{}> = () => {
 
       //  allow the achievable range to be changed
       const [planningRange, setPlanningRange] = useState<number | undefined> (planningRangeProps)
-
-      /** uility function, to style a cell according to if it's in 
-       * either array
-       * @param {cell: SergeHex<{}>} cell the cell in question
-       * @param {Array<SergeHex<{}>>} plannedCells the cell in question
-       * @param {Array<SergeHex<{}>>} achievableCells the cell in question
-       * @returns string to be used in polygon cell style
-       */
-      const setCellStyle = (cell: SergeHex<{}>, plannedCells:Array<SergeHex<{}>>, achievableCells: Array<SergeHex<{}>>): string => 
-      `${plannedCells && plannedCells.includes(cell) ? 'planned' : achievableCells && achievableCells.includes(cell) ? 'allowable' : 'default'}-hex`
 
       /** allow for the props being changed. This could be from the StoryBook testing, but could equally
        *  be from the plan route form
@@ -225,7 +216,7 @@ export const HexGrid: React.FC<{}> = () => {
             // such as labels so include prefix in key
             key = {'hex_poly_' + k}
             positions={allowablePolygons[k]}
-            className={styles[setCellStyle(allowableHexCells[k], planningRouteCells, allowableCells)]}
+            className={styles[getCellStyle(allowableHexCells[k], planningRouteCells, allowableCells)]}
           />
         ))}
          <Polyline
