@@ -61,7 +61,7 @@ export const HexGrid: React.FC<{}> = () => {
       }, [dragDestination])
 
       useEffect(() => {
-        if(gridCells) {
+        if(gridCells && planningConstraints) {
           const cells: SergeHex<{}>[] = planningConstraints ? calcAllowableCells(gridCells, planningConstraints, planningRange) : []
           setAllowableCells(cells)
           const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
