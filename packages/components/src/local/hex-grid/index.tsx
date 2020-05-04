@@ -179,7 +179,7 @@ export const HexGrid: React.FC<{}> = () => {
           const lastCell: SergeHex<{}> = planningRouteCells[routeLen]
 
           // have we consumed the full length?
-          if(routeLen == planningRange) {
+          if(routeLen === planningRange) {
             // clear the planning routes
             setPlannedRouteCells([])
             setPlannedRoutePoly([])

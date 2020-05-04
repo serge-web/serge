@@ -9,13 +9,12 @@ import hexNamed from './helpers/hexNamed'
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import PropTypes from './types/props'
 import AssetInfo from './types/asset_info'
 import { UMPIRE_FORCE } from '@serge/config'
 import SergeHex from '../mapping/types/serge-hex'
 
 /* Render component */
-export const Assets: React.FC<PropTypes> = ({  }: PropTypes) => {
+export const Assets: React.FC<{}> = () => {
     const { gridCells, forces, playerForce  } = useContext(MapContext).props
 
     const [assets, setAssets] = useState<AssetInfo[]> ([])
