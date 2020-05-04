@@ -83,13 +83,10 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
   sergeGrid.toWorld = (point: PointLike): L.LatLng => {
     return toWorld(point, sergeGrid.origin, sergeGrid.tileDiameterDegs)
   }
-  sergeGrid.toWorld2 = (point: PointLike, origin: L.LatLng, delta: number): L.LatLng => {
-    return toWorld(point, origin, delta)
-  }
   sergeGrid.cellFor =  (latLng: L.LatLng): SergeHex<{}> | undefined => {
 
     // convert to hex coordinates
-    var hexCoords: PointLike = sergeGrid.toScreen(latLng)
+    const hexCoords: PointLike = sergeGrid.toScreen(latLng)
 
     // apply the offset, since the cell origin is at the top left
     const cellCoords = L.point(hexCoords.x + sergeGrid.centerOffset.x, hexCoords.y + sergeGrid.centerOffset.y)
