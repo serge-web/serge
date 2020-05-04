@@ -6,6 +6,7 @@ interface CssExports {
   'default-hex': string;
   'planned-hex': string;
   'planned-line': string;
+  'planning-line': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

@@ -1,10 +1,11 @@
 
 import L from 'leaflet'
-import { defineGrid, extendHex, Grid, Point } from 'honeycomb-grid'
+import { defineGrid, extendHex, Grid, Point, PointLike } from 'honeycomb-grid'
 import SergeHex from '../types/serge-hex'
 import SergeGrid from '../types/serge-grid'
 import cellName from '../../assets/helpers/cellName'
 import toWorld from '../../hex-grid/helpers/to-world'
+import toScreen from '../../hex-grid/helpers/to-screen'
 
 /**
  *  create hexagonal grid
@@ -50,7 +51,7 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
     const newCell: SergeHex<{}> = cell as SergeHex<{}>
     newCell.name = cellName(newCell)
 
-    // generate the cenll centre in Leaflet coords
+    // generate the cell centre in Leaflet coords
     const centreHex: Point = cell.toPoint()
     newCell.centreLatLng = toWorld(centreHex, correctedOrigin, tileSizeDegs / 2)
     return newCell
@@ -58,9 +59,53 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
   const unTyped: any = newCells
   const asSerge: Grid<SergeHex<{}>> = unTyped as Grid<SergeHex<{}>>
 
+  // sort out corner offset
+  // the hexes all have the same corners object, so just use the first one
+  const hexOne = asSerge[0]
+
+  // get the coordinates of the centre of the hex, relative
+  // to the top-left origin
+  const centreH = hexOne.center()
+
+  // and the coords of the top-left origin
+  const cellOrigin = hexOne.coordinates()
+
+  // capture the offset between a cell centre, and the cell origin
+  const centreOffset = L.point(centreH).subtract(L.point(cellOrigin))
+  
   const sergeGrid: SergeGrid<SergeHex<{}>> = asSerge as SergeGrid<SergeHex<{}>>
   sergeGrid.origin = correctedOrigin
   sergeGrid.tileDiameterDegs = tileSizeDegs
+  sergeGrid.centerOffset = centreOffset
+  /** provide method that only requires the world location,
+   * taking other params from grid
+   */
+  sergeGrid.toScreen = (point: L.LatLng): PointLike => {
+    return toScreen(point, sergeGrid.origin, sergeGrid.tileDiameterDegs / 2)
+  }
+  /** provide method that only requires the hex location,
+   * taking other params from grid
+   */
+  sergeGrid.toWorld = (point: PointLike): L.LatLng => {
+    return toWorld(point, sergeGrid.origin, sergeGrid.tileDiameterDegs)
+  }
+  /** provide method that only requires the world location,
+   * taking other params from grid object
+   */
+  sergeGrid.cellFor =  (latLng: L.LatLng): SergeHex<{}> | undefined => {
+
+    // convert to hex coordinates
+    const hexCoords: PointLike = sergeGrid.toScreen(latLng)
+
+    // apply the offset, since the cell origin is at the top left
+    const cellCoords = L.point(hexCoords.x + sergeGrid.centerOffset.x, hexCoords.y + sergeGrid.centerOffset.y)
+
+    // find the nearest hex cell reference to this location
+    const shiftedCellCoords = grid.pointToHex(cellCoords.x, cellCoords.y)
+
+    // and now retrieve the cell at these coords
+    return sergeGrid.get(shiftedCellCoords)
+  }
 
   return sergeGrid
 }

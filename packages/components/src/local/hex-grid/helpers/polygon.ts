@@ -25,7 +25,7 @@ class Polygon extends Path<LeafletElement, Props> {
   }
 
   // reduce re-rendering, by only updating changed elemente
-  updateLeafletElement(fromProps: Props, toProps: Props) {
+  updateLeafletElement(fromProps: Props, toProps: Props): void {
     // update the component on positions change (copied from standard leaflet polygon)
     if (toProps.positions !== fromProps.positions) {
       this.leafletElement.setLatLngs(toProps.positions)

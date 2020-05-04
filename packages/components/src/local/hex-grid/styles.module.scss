@@ -21,7 +21,14 @@
 
 .planned-line {
   stroke: #249;
+  stroke-width: 4;
 }
+
+.planning-line {
+  stroke: #249;
+  stroke-width: 2;
+}
+
 
 .default-coords {
   line-height: 20px;
