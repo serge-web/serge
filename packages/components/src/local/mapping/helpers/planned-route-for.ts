@@ -2,15 +2,18 @@ import SergeHex from '../types/serge-hex'
 import SergeGrid from '../types/serge-grid'
 
 /**
- *  create hexagonal grid
+ *  create series of hex cells between two points
  * @param {SergeGrid<SergeHex<{}>> | undefined} grid grid of hex cells
  * @param {SergeHex<{}>[] | undefined} allowableCells list of cells where platform could travel to
- * @param {PlanMobileAsset} constraints Description of what this platform can do
+ * @param {SergeHex<{}>} originHex start of this route
+ * @param {SergeHex<{}>} destinationHex end of this route
  * @returns {SergeHex<{}>[] | undefined} List of allowable cells between origin and destination
  */
-const plannedRouteFor = (grid: SergeGrid<SergeHex<{}>> | undefined, allowableCells:SergeHex<{}>[], origin:string, destinationHex: SergeHex<{}> ): SergeHex<{}>[] => {
+const plannedRouteFor = (grid: SergeGrid<SergeHex<{}>> | undefined,
+                          allowableCells:SergeHex<{}>[], 
+                          originHex: SergeHex<{}>, 
+                          destinationHex: SergeHex<{}> ): SergeHex<{}>[] => {
   if(grid) {
-    const originHex: SergeHex<{}> | undefined = grid.find(cell => cell.name === origin)
     if(originHex && destinationHex) {
       var route = grid.hexesBetween(originHex, destinationHex)
       if(allowableCells) {
