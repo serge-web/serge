@@ -3,6 +3,7 @@ import React from 'react'
 // Import component files
 import PerceptionForm from './index'
 import docs from './README.md'
+import formData from './mocks/formData'
 
 export default {
   title: 'local/PerceptionForm',
@@ -16,4 +17,4 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <PerceptionForm />
+export const Default: React.FC = () => <PerceptionForm formData={formData}/>
