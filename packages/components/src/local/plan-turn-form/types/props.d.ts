@@ -6,4 +6,3 @@ export default interface PropTypes {
     status: Array<string>
   }
 }
-

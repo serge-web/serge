@@ -12,9 +12,8 @@ import ForcePicker from '../form-elements/force-picker'
 // import styles from './styles.module.scss'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({formData}) => {
-
-  const { status, speed, visible_to, condition } = formData
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formData }) => {
+  const { status, speed, visibleTo, condition } = formData
 
   return (
     <Form type="adjudication" headerText="placeholder" >
@@ -24,15 +23,13 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({formData}) => {
         <RCB type="radio" label="Speed (kts)" options={speed} />
       </fieldset>
       <fieldset>
-        <ForcePicker label="Visible to" options={visible_to} />
+        <ForcePicker label="Visible to" options={visibleTo} />
         <hr />
         <RCB type="checkbox" label="Condition" options={condition} />
       </fieldset>
       <Button>Save</Button>
     </Form>
   )
-
 }
-  
 
 export default AdjudicateTurnForm

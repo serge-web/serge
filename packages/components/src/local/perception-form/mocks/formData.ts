@@ -1,5 +1,5 @@
 const formData = {
-  perceived_force: [
+  perceivedForce: [
     {
       name: 'Blue Force',
       colour: '#69c'

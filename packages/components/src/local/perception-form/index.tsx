@@ -8,10 +8,10 @@ import Turns from '../form-elements/turns'
 import ForcePicker from '../form-elements/force-picker'
 
 /* Render component */
-export const PerceptionForm: React.FC<PropTypes> = ({formData}) =>
+export const PerceptionForm: React.FC<PropTypes> = ({ formData }) =>
   <Form type="perceived-as" headerText="placeholder">
     <fieldset>
-      <ForcePicker label="Perceived Force" options={formData.perceived_force} />
+      <ForcePicker label="Perceived Force" options={formData.perceivedForce} />
       <Turns />
     </fieldset>
     <Button>Save</Button>

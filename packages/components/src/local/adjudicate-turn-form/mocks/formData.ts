@@ -2,7 +2,7 @@ const formData = {
   /* All types in this definition are options for a form input */
   status: ['Fishing', 'Moored', 'Transiting'],
   speed: [10, 20, 30],
-  visible_to: [
+  visibleTo: [
     {
       name: 'Blue Force',
       colour: '#69c'
