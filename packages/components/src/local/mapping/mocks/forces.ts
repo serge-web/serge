@@ -34,14 +34,10 @@ export const forces = [
         ],
         name: 'Frigate',
         perceptions: [{
-          name: 'Red',
-          assets: [
-            {
-              force: 'Blue',
-              name: 'NORT',
-              type: 'frigate'
-            }
-          ]
+          by: 'Red',
+          force: 'Blue',
+          name: 'NORT',
+          type: 'frigate'
         }],
         plannedTurns: [
           {
@@ -112,11 +108,9 @@ export const forces = [
         ],
         name: 'Tanker',
         perceptions: [{
-          name: 'Red',
-          assets: [{
-            force: 'Blue',
-            type: ''
-          }]
+          by: 'Red',
+          force: 'Blue',
+          type: ''
         }],
         plannedTurns: [
           {
@@ -201,11 +195,9 @@ export const forces = [
         locationPending: true,
         name: 'Dhow-A',
         perceptions: [{
-          name: 'Blue',
-          assets: [{
-            force: 'Green',
-            type: ''
-          }]
+          by: 'Blue',
+          force: 'Green',
+          type: ''
         }],
         plannedTurns: [
           {
@@ -266,12 +258,10 @@ export const forces = [
         locationPending: true,
         name: 'Dhow-B',
         perceptions: [{
-          name: 'Blue',
-          assets: [{
-            force: 'Green',
-            name: 'SHU’AI',
-            type: 'fishing-vessel'
-          }]
+          by: 'Blue',
+          force: 'Green',
+          name: 'SHU’AI',
+          type: 'fishing-vessel'
         }],
         plannedTurns: [
           {
@@ -444,12 +434,10 @@ export const forces = [
         ],
         name: 'Tanker-1',
         perceptions: [{
-          name: 'Blue',
-          assets: [{
-            force: 'Green',
-            name: 'OSAKA',
-            type: 'merchant-vessel'
-          }]
+          by: 'Blue',
+          force: 'Green',
+          name: 'OSAKA',
+          type: 'merchant-vessel'
         }],
         plannedTurns: [
           {
@@ -579,20 +567,16 @@ export const forces = [
         name: 'Tanker-2',
         perceptions: [
           {
-            name: 'Blue',
-            assets: [{
-              force: 'Green',
-              name: 'ARUNA 12',
-              type: 'merchant-vessel'
-            }]
+            by: 'Blue',
+            force: 'Green',
+            name: 'ARUNA 12',
+            type: 'merchant-vessel'
           },
           {
-            name: 'Red',
-            assets: [{
-              force: 'Green',
-              name: 'BARLAY',
-              type: 'merchant-vessel'
-            }]
+            by: 'Red',
+            force: 'Green',
+            name: 'BARLAY',
+            type: 'merchant-vessel'
           }],
         plannedTurns: [
           {
@@ -735,12 +719,10 @@ export const forces = [
         ],
         name: 'Fisher-A',
         perceptions: [{
-          name: 'Blue',
-          assets: [{
-            force: 'Green',
-            name: 'JALIBUT',
-            type: 'merchant-vessel'
-          }]
+          by: 'Blue',
+          force: 'Green',
+          name: 'JALIBUT',
+          type: 'merchant-vessel'
         }],
         plannedTurns: [
           {
@@ -855,11 +837,9 @@ export const forces = [
         ],
         name: 'Fisher-B',
         perceptions: [{
-          name: 'Blue',
-          assets: [{
-            force: 'Green',
-            type: 'merchant-vessel'
-          }]
+          by: 'Blue',
+          force: 'Green',
+          type: 'merchant-vessel'
         }],
         plannedTurns: [
           {
@@ -976,20 +956,16 @@ export const forces = [
         name: 'Fisher-C',
         perceptions: [
           {
-            name: 'Blue',
-            assets: [{
-              force: 'Green',
-              name: 'BOUM 3',
-              type: 'merchant-vessel'
-            }]
+            by: 'Blue',
+            force: 'Green',
+            name: 'BOUM 3',
+            type: 'merchant-vessel'
           },
           {
-            name: 'Red',
-            assets: [{
-              force: 'Green',
-              name: 'BOUM 3',
-              type: 'merchant-vessel'
-            }]
+            by: 'Red',
+            force: 'Green',
+            name: 'BOUM 3',
+            type: 'merchant-vessel'
           }
         ],
         plannedTurns: [
