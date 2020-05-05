@@ -3,4 +3,6 @@ export default interface Option {
   name: string
   /* The colour to use for the force (hex) */
   colour: string
+  /* Is the current force the selected force? */
+  selected?: boolean
 }

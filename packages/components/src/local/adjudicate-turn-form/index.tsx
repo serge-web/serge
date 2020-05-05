@@ -1,5 +1,9 @@
 import React from 'react'
 
+/* Import helpers */
+
+import { getSelectedItem } from '@serge/helpers'
+
 /* Import Types */
 import PropTypes from './types/props'
 import Form from '../form'
@@ -23,7 +27,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData }
         <RCB type="radio" label="Speed (kts)" options={speed} />
       </fieldset>
       <fieldset>
-        <ForcePicker label="Visible to" options={visibleTo} />
+        <ForcePicker label="Visible to" options={visibleTo} selected={getSelectedItem(visibleTo).name}/>
         <hr />
         <RCB type="checkbox" label="Condition" options={condition} />
       </fieldset>

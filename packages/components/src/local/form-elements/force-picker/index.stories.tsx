@@ -7,6 +7,9 @@ import docs from './README.md'
 /* import mock data */
 import forces from './mocks/forces'
 
+/* import helpers */
+import { getSelectedItem } from '@serge/helpers'
+
 export default {
   title: 'local/form-elements/ForcePicker',
   component: ForcePicker,
@@ -19,4 +22,4 @@ export default {
   }
 }
 
-export const Radio: React.FC = () => <ForcePicker label="Visible to" options={forces}/>
+export const Radio: React.FC = () => <ForcePicker label="Visible to" options={forces} selected={getSelectedItem(forces).name}/>

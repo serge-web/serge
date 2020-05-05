@@ -9,4 +9,8 @@ export default interface PropTypes {
    * The list of options available to the form section
    */
   options: Array<Option>
+  /**
+   * The currently selected force 
+   */
+  selected: string
 }

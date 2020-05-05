@@ -5,15 +5,18 @@ const formData = {
   visibleTo: [
     {
       name: 'Blue Force',
-      colour: '#69c'
+      colour: '#69c',
+      selected: true
     },
     {
       name: 'Red Force',
-      colour: '#f00'
+      colour: '#f00',
+      selected: false
     },
     {
       name: 'White Force',
-      colour: '#fff'
+      colour: '#fff',
+      selected: false
     }
   ],
   condition: ['Working', 'Disabled', 'Immobile', 'Destroyed']

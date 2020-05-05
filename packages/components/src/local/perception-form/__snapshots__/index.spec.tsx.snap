@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['PerceptionForm renders correctly 1'] = `
+exports[`PerceptionForm renders correctly 1`] = `
 <div
   className="form perceived-as"
 >
@@ -29,7 +29,7 @@ exports['PerceptionForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -47,14 +47,16 @@ exports['PerceptionForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={true}
+                  checked={false}
                   className="PrivateSwitchBase-input-17"
+                  disabled={false}
                   name="perceived force"
                   onChange={[Function]}
                   type="radio"
+                  value="Blue Force"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
+                  className="PrivateRadioButtonIcon-root-30"
                 >
                   <svg
                     aria-hidden="true"
@@ -102,7 +104,7 @@ exports['PerceptionForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -120,14 +122,16 @@ exports['PerceptionForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={true}
+                  checked={false}
                   className="PrivateSwitchBase-input-17"
+                  disabled={false}
                   name="perceived force"
                   onChange={[Function]}
                   type="radio"
+                  value="Red Force"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
+                  className="PrivateRadioButtonIcon-root-30"
                 >
                   <svg
                     aria-hidden="true"
@@ -195,9 +199,11 @@ exports['PerceptionForm renders correctly 1'] = `
                 <input
                   checked={true}
                   className="PrivateSwitchBase-input-17"
+                  disabled={false}
                   name="perceived force"
                   onChange={[Function]}
                   type="radio"
+                  value="White Force"
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
@@ -245,35 +251,6 @@ exports['PerceptionForm renders correctly 1'] = `
           </label>
         </div>
       </section>
-      <section
-        className="input-container"
-      >
-        <h2>
-          For
-        </h2>
-        <div
-          className="MuiFormControl-root MuiTextField-root"
-        >
-          <div
-            className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
-            onClick={[Function]}
-          >
-            <input
-              aria-invalid={false}
-              autoFocus={false}
-              className="MuiInputBase-input MuiInput-input"
-              disabled={false}
-              onAnimationStart={[Function]}
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              required={false}
-              type="text"
-            />
-          </div>
-        </div>
-         Turns
-      </section>
     </fieldset>
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-text"
@@ -300,4 +277,4 @@ exports['PerceptionForm renders correctly 1'] = `
     </button>
   </div>
 </div>
-`
+`;

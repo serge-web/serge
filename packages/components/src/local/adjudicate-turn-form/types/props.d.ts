@@ -12,6 +12,7 @@ export default interface PropTypes {
     visibleTo: Array<{
       name: string
       colour: string
+      selected: boolean
     }>
     condition: Array<string>
   }

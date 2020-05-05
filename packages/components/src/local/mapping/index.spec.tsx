@@ -6,6 +6,9 @@ import { mount } from 'enzyme'
 import Mapping from './index'
 import { Phase } from '@serge/config'
 
+import { forces } from './mocks/forces'
+import { platformTypes } from './mocks/platform-types'
+
 const bounds = {
   imageTop: 14.194809302,
   imageLeft: 42.3558566271,
@@ -28,9 +31,9 @@ it('Mapping renders correctly', () => {
     tileDiameterMins = {5}
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
-    forces = {[{}]}
+    forces = {forces}
     playerForce = 'Blue'
-    platforms = {[{}]}
+    platforms = {platformTypes}
     phase = {Phase.Planning}
   />, { attachTo: div })
 

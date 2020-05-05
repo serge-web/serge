@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['CheckboxType renders correctly 1'] = `
+exports[`CheckboxType renders correctly 1`] = `
 <section
   className="input-container"
 >
@@ -37,9 +37,11 @@ exports['CheckboxType renders correctly 1'] = `
           <input
             checked={true}
             className="PrivateSwitchBase-input-17"
+            disabled={false}
             name="visible to"
             onChange={[Function]}
             type="radio"
+            value="Blue Force"
           />
           <div
             className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
@@ -90,7 +92,7 @@ exports['CheckboxType renders correctly 1'] = `
     >
       <span
         aria-disabled={false}
-        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorSecondary"
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
         onBlur={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}
@@ -108,14 +110,16 @@ exports['CheckboxType renders correctly 1'] = `
           className="MuiIconButton-label"
         >
           <input
-            checked={true}
+            checked={false}
             className="PrivateSwitchBase-input-17"
+            disabled={false}
             name="visible to"
             onChange={[Function]}
             type="radio"
+            value="Red Force"
           />
           <div
-            className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
+            className="PrivateRadioButtonIcon-root-30"
           >
             <svg
               aria-hidden="true"
@@ -163,7 +167,7 @@ exports['CheckboxType renders correctly 1'] = `
     >
       <span
         aria-disabled={false}
-        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorSecondary"
+        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
         onBlur={[Function]}
         onDragLeave={[Function]}
         onFocus={[Function]}
@@ -181,14 +185,16 @@ exports['CheckboxType renders correctly 1'] = `
           className="MuiIconButton-label"
         >
           <input
-            checked={true}
+            checked={false}
             className="PrivateSwitchBase-input-17"
+            disabled={false}
             name="visible to"
             onChange={[Function]}
             type="radio"
+            value="White Force"
           />
           <div
-            className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
+            className="PrivateRadioButtonIcon-root-30"
           >
             <svg
               aria-hidden="true"
@@ -233,4 +239,4 @@ exports['CheckboxType renders correctly 1'] = `
     </label>
   </div>
 </section>
-`
+`;

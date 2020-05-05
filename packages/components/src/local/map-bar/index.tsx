@@ -9,8 +9,7 @@ import { MapContext } from '../mapping'
 
 /* Import child components */
 import WorldState from '../world-state'
-import Form from '../form'
-// import PerceptionForm from '../perception-form'
+import PerceptionForm from '../perception-form'
 // import AdjudicateTurnForm from '../adjudicate-turn-form'
 // import PlanTurnForm from '../plan-turn-form'
 
@@ -30,13 +29,23 @@ export const MapBar: React.FC = () => {
     showMapBar ? setShowMapBar(false) : setShowMapBar(true)
   }
 
-  console.log(forces)
+  const availableForces = forces.map((force: any) => {
+    return {
+      colour: force.color, 
+      name: force.name,
+      selected: false
+    }
+  })
+
+  const perceptionFormData = {
+    perceivedForce: [...availableForces, { name: "Unknown", colour: "#ccc", selected: true}]
+  }
 
   // const formSelector = form => {
-  //   const output = null
+  //   let output = null
   //   switch (form) {
   //     case 'PerceivedAs':
-  //       output = <PerceptionForm formHeader={currentAssetName} formData={} />
+  //       output = <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} />
   //       break;
 
   //   }
@@ -46,13 +55,14 @@ export const MapBar: React.FC = () => {
   return (
     <div className={cx(styles['map-bar'], showMapBar && styles.open)}>
       <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
-      <section>
-        <WorldState name="World State"></WorldState>
-
-      </section>
-      <section>
-        {currentForm !== '' && <Form type={currentForm} headerText={currentForm + ' for ' + currentAssetName} /> }
-      </section>
+      <div className={styles['inner']}>
+        <section>
+          <WorldState name="World State"></WorldState>
+        </section>
+        <section>
+          {currentForm !== '' && <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} />}
+        </section>
+      </div>
     </div>
   )
 }

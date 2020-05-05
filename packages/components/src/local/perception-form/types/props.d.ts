@@ -10,6 +10,7 @@ export default interface PropTypes {
     perceivedForce: Array<{
       name: string
       colour: string
+      selected: boolean
     }>
   }
 }

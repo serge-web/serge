@@ -10,11 +10,11 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 /* Render component */
-export const ForcePicker: React.FC<PropTypes> = ({ label, options }) =>
+export const ForcePicker: React.FC<PropTypes> = ({ label, options, selected }) =>
   <InputContainer label={label}>
-    <RadioGroup aria-label={label} name={label.toLowerCase()}>
+    <RadioGroup aria-label={label} name={label.toLowerCase()} value={selected}>
       {
-        options.map(option => <FormControlLabel key={option.name} control={<Radio />} label={<div><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{option.name}</div>} />)
+        options.map(option => <FormControlLabel key={option.name} control={<Radio />} value={option.name} label={<div><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{option.name}</div>} />)
       }
     </RadioGroup>
   </InputContainer>
