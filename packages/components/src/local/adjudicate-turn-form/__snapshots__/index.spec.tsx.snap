@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AdjudicateTurnForm renders correctly 1`] = `
+exports['AdjudicateTurnForm renders correctly 1'] = `
 <div
   className="form adjudication"
 >
@@ -933,4 +933,4 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
     </button>
   </div>
 </div>
-`;
+`
