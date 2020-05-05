@@ -38,7 +38,6 @@ export const MapBar: React.FC = () => {
     }
   })
 
-
   const currentPlatform = platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
 
   const perceptionFormData = {
@@ -50,8 +49,8 @@ export const MapBar: React.FC = () => {
   }
 
   const AdjudicateTurnFormData = {
-    status: currentPlatform && currentPlatform.states.map((s: any) => s.name) || [],
-    speed: currentPlatform && currentPlatform.speedKts.map((s: any) => s) || [],
+    status: currentPlatform ? currentPlatform.states.map((s: any) => s.name) : [],
+    speed: currentPlatform ? currentPlatform.speedKts.map((s: any) => s) : [],
     visibleTo: [
       {
         name: 'Blue Force',
@@ -69,7 +68,7 @@ export const MapBar: React.FC = () => {
         selected: false
       }
     ],
-    condition: currentPlatform && currentPlatform.conditions.map((c: any) => c) || [],
+    condition: currentPlatform ? currentPlatform.conditions.map((c: any) => c) : []
   }
 
   const formSelector = (form: string): any => {
@@ -77,13 +76,13 @@ export const MapBar: React.FC = () => {
     switch (form) {
       case 'PerceivedAs':
         output = <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} />
-        break;
+        break
       case 'Adjudication':
         output = <AdjudicateTurnForm formHeader={currentAssetName} formData={AdjudicateTurnFormData} />
-        break;
+        break
       case 'Planning':
         output = <PlanTurnForm formHeader={currentAssetName} formData={planTurnFormData} />
-        break;
+        break
     }
     return output
   }
