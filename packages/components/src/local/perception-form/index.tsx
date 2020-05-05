@@ -14,7 +14,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formData }) => {
 
   return <Form type="perceived-as" headerText="placeholder">
     <fieldset>
-      <ForcePicker label="Perceived Force" options={perceivedForce} selected={getSelectedItem(perceivedForce).name}/>
+      <ForcePicker label="Perceived Force" options={perceivedForce} selected={getSelectedItem(perceivedForce).name} />
     </fieldset>
     <Button>Save</Button>
   </Form>

@@ -109,7 +109,7 @@ export const WithMarker: React.FC = () => <Mapping
   phase = {Phase.Planning}
   mapBar = {false}
 >
-  <AssetIcon id="id1" position={L.latLng(13.298034302, 43.0488191271)}
+  <AssetIcon id="id1" name="Jeffrey" position={L.latLng(13.298034302, 43.0488191271)}
     selected={boolean(visLabel, visDefaultValue)}
     type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)}
     force={radios(assetForcelabel, assetForceNames, assetForceDefaultValue)}

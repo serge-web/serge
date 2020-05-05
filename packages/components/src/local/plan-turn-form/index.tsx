@@ -8,8 +8,8 @@ import { Button } from '@material-ui/core'
 import Turns from '../form-elements/turns'
 
 /* Render component */
-export const PlanTurnForm: React.FC<PropTypes> = ({ formData }) =>
-  <Form type="planning" headerText="placeholder">
+export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData }) =>
+  <Form type="planning" headerText={formHeader}>
     <fieldset>
       <RCB type="radio" label="Status" options={formData.status} />
       <Turns />

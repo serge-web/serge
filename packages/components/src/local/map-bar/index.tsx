@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import cx from 'classnames'
 import { ArrowRight } from '@material-ui/icons'
 import assetDialogFor from './helpers/asset-dialog-for'
+import { kebabCase } from 'lodash'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -10,19 +11,19 @@ import { MapContext } from '../mapping'
 /* Import child components */
 import WorldState from '../world-state'
 import PerceptionForm from '../perception-form'
-// import AdjudicateTurnForm from '../adjudicate-turn-form'
-// import PlanTurnForm from '../plan-turn-form'
+import AdjudicateTurnForm from '../adjudicate-turn-form'
+import PlanTurnForm from '../plan-turn-form'
 
 /* Render component */
 export const MapBar: React.FC = () => {
   const [currentForm, setCurrentForm] = useState('')
   const [currentAssetName, setCurrentAssetName] = useState('')
 
-  const { playerForce, forces, phase, showMapBar, setShowMapBar, selectedAsset } = useContext(MapContext).props
+  const { playerForce, forces, platforms, phase, showMapBar, setShowMapBar, selectedAsset } = useContext(MapContext).props
 
   useEffect(() => {
     setCurrentForm(assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase))
-    setCurrentAssetName(selectedAsset.id)
+    setCurrentAssetName(selectedAsset.name)
   }, [selectedAsset])
 
   const clickEvent = (): void => {
@@ -37,20 +38,55 @@ export const MapBar: React.FC = () => {
     }
   })
 
+
+  const currentPlatform = platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
+
   const perceptionFormData = {
     perceivedForce: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: true }]
   }
 
-  // const formSelector = form => {
-  //   let output = null
-  //   switch (form) {
-  //     case 'PerceivedAs':
-  //       output = <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} />
-  //       break;
+  const planTurnFormData = {
+    status: ['Moored', 'Transiting']
+  }
 
-  //   }
-  //   return output
-  // }
+  const AdjudicateTurnFormData = {
+    status: currentPlatform && currentPlatform.states.map((s: any) => s.name) || [],
+    speed: currentPlatform && currentPlatform.speedKts.map((s: any) => s) || [],
+    visibleTo: [
+      {
+        name: 'Blue Force',
+        colour: '#69c',
+        selected: true
+      },
+      {
+        name: 'Red Force',
+        colour: '#f00',
+        selected: false
+      },
+      {
+        name: 'White Force',
+        colour: '#fff',
+        selected: false
+      }
+    ],
+    condition: currentPlatform && currentPlatform.conditions.map((c: any) => c) || [],
+  }
+
+  const formSelector = (form: string): any => {
+    let output = null
+    switch (form) {
+      case 'PerceivedAs':
+        output = <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} />
+        break;
+      case 'Adjudication':
+        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={AdjudicateTurnFormData} />
+        break;
+      case 'Planning':
+        output = <PlanTurnForm formHeader={currentAssetName} formData={planTurnFormData} />
+        break;
+    }
+    return output
+  }
 
   return (
     <div className={cx(styles['map-bar'], showMapBar && styles.open)}>
@@ -60,7 +96,7 @@ export const MapBar: React.FC = () => {
           <WorldState name="World State"></WorldState>
         </section>
         <section>
-          {currentForm !== '' && <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} />}
+          {currentForm !== '' && currentAssetName !== '' && formSelector(currentForm)}
         </section>
       </div>
     </div>

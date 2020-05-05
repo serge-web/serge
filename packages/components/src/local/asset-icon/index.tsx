@@ -13,7 +13,7 @@ import styles from './styles.module.scss'
 import { MapContext } from '../mapping'
 
 /* Render component */
-export const AssetIcon: React.FC<PropTypes> = ({ id, position, type, force, tooltip, controlledBy, selected }) =>
+export const AssetIcon: React.FC<PropTypes> = ({ id, name, position, type, force, tooltip, controlledBy, selected }) =>
   <MapContext.Consumer>
     {
       (context): React.ReactNode => {
@@ -27,6 +27,7 @@ export const AssetIcon: React.FC<PropTypes> = ({ id, position, type, force, tool
           context.props.setShowMapBar(true)
           context.props.setSelectedAsset({
             id,
+            name,
             position,
             type,
             force,

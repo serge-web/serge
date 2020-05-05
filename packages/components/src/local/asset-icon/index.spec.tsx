@@ -33,7 +33,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     platforms = {[{}]}
     playerForce = 'blue'
     phase = {Phase.Planning}
-  ><AssetIcon id='id1' position={L.latLng(13.298034302, 43.0488191271)}
+  ><AssetIcon id='id1' name="Jeffrey" position={L.latLng(13.298034302, 43.0488191271)}
       selected={false} type='agi' force='blue'
       tooltip='Tooltip for marker'/></Mapping>, { attachTo: div })
 

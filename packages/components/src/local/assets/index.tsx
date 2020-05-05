@@ -60,6 +60,7 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
             <AssetIcon
               key={asset.uniqid}
               id={asset.uniqid}
+              name={asset.name}
               position={asset.position}
               type={asset.type}
               selected={false}

@@ -33,13 +33,16 @@ export const forces = [
           }
         ],
         name: 'Frigate',
-        perceptions: {
-          Red: {
-            force: 'Blue',
-            name: 'NORT',
-            type: 'frigate'
-          }
-        },
+        perceptions: [{
+            name: 'Red',
+            assets: [
+              {
+                force: 'Blue',
+                name: 'NORT',
+                type: 'frigate'
+              }
+            ]
+          }],
         plannedTurns: [
           {
             route: [
@@ -85,7 +88,7 @@ export const forces = [
           }
         ],
         name: 'MPA',
-        perceptions: {},
+        perceptions: [],
         plannedTurns: [],
         platformType: 'fixed-wing-aircraft',
         position: 'C17',
@@ -108,12 +111,13 @@ export const forces = [
           }
         ],
         name: 'Tanker',
-        perceptions: {
-          Red: {
-            force: 'Blue',
-            type: ''
-          }
-        },
+        perceptions: [{
+            name: 'Red',
+            assets: [{
+              force: 'Blue',
+              type: ''
+            }]
+          }],
         plannedTurns: [
           {
             route: [
@@ -196,12 +200,13 @@ export const forces = [
         ],
         locationPending: true,
         name: 'Dhow-A',
-        perceptions: {
-          Blue: {
-            force: 'Green',
-            type: ''
-          }
-        },
+        perceptions: [{
+            name: "Blue",
+            assets: [{
+              force: 'Green',
+              type: ''
+            }]
+        }],
         plannedTurns: [
           {
             route: [
@@ -260,13 +265,14 @@ export const forces = [
         ],
         locationPending: true,
         name: 'Dhow-B',
-        perceptions: {
-          Blue: {
+        perceptions: [{
+          name: "Blue",
+          assets: [{
             force: 'Green',
             name: 'SHU’AI',
             type: 'fishing-vessel'
-          }
-        },
+          }]
+        }],
         plannedTurns: [
           {
             route: [
@@ -336,7 +342,7 @@ export const forces = [
         ],
         locationPending: true,
         name: 'Dhow-C',
-        perceptions: {},
+        perceptions: [],
         plannedTurns: [
           {
             route: [
@@ -394,7 +400,7 @@ export const forces = [
         ],
         locationPending: true,
         name: 'Missile-A',
-        perceptions: {},
+        perceptions: [],
         plannedTurns: [],
         platformType: 'coastal-radar-site',
         position: 'Q12',
@@ -437,13 +443,14 @@ export const forces = [
           }
         ],
         name: 'Tanker-1',
-        perceptions: {
-          Blue: {
+        perceptions: [{
+          name: "Blue",
+          assets: [{
             force: 'Green',
             name: 'OSAKA',
             type: 'merchant-vessel'
-          }
-        },
+          }]
+        }],
         plannedTurns: [
           {
             route: [
@@ -570,18 +577,23 @@ export const forces = [
           }
         ],
         name: 'Tanker-2',
-        perceptions: {
-          Blue: {
+        perceptions: [
+          {
+            name: "Blue",
+            assets: [{
             force: 'Green',
             name: 'ARUNA 12',
             type: 'merchant-vessel'
-          },
-          Red: {
+          }],
+        },
+        {
+          name: "Red",
+          assets: [{
             force: 'Green',
             name: 'BARLAY',
             type: 'merchant-vessel'
-          }
-        },
+          }]
+        }],
         plannedTurns: [
           {
             route: [
@@ -722,13 +734,14 @@ export const forces = [
           }
         ],
         name: 'Fisher-A',
-        perceptions: {
-          Blue: {
+        perceptions: [{
+          name: "Blue",
+          assets: [{
             force: 'Green',
             name: 'JALIBUT',
             type: 'merchant-vessel'
-          }
-        },
+          }]
+        }],
         plannedTurns: [
           {
             route: [
@@ -841,12 +854,13 @@ export const forces = [
           }
         ],
         name: 'Fisher-B',
-        perceptions: {
-          Blue: {
+        perceptions: [{
+          name: "Blue",
+          assets: [{
             force: 'Green',
             type: 'merchant-vessel'
-          }
-        },
+          }]
+        }],
         plannedTurns: [
           {
             status: {
@@ -960,18 +974,24 @@ export const forces = [
           }
         ],
         name: 'Fisher-C',
-        perceptions: {
-          Blue: {
-            force: 'Green',
-            name: 'BOUM 3',
-            type: 'merchant-vessel'
+        perceptions: [
+          {
+            name: "Blue",
+            assets: [{
+              force: 'Green',
+              name: 'BOUM 3',
+              type: 'merchant-vessel'
+            }]
           },
-          Red: {
-            force: 'Green',
-            name: 'BOUM 3',
-            type: 'merchant-vessel'
+          {
+            name: "Red",
+            assets: [{
+              force: 'Green',
+              name: 'BOUM 3',
+              type: 'merchant-vessel'
+            }]
           }
-        },
+        ],
         plannedTurns: [
           {
             route: [
