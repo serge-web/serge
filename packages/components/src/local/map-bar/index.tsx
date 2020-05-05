@@ -30,7 +30,7 @@ export const MapBar: React.FC = () => {
     showMapBar ? setShowMapBar(false) : setShowMapBar(true)
   }
 
-  const availableForces = forces.map((force: any) => {
+  const availableForces = forces && forces.map((force: any) => {
     return {
       colour: force.color,
       name: force.name,
@@ -38,7 +38,7 @@ export const MapBar: React.FC = () => {
     }
   })
 
-  const currentPlatform = platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
+  const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
 
   const perceptionFormData = {
     perceivedForce: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: true }]
@@ -49,8 +49,8 @@ export const MapBar: React.FC = () => {
   }
 
   const AdjudicateTurnFormData = {
-    status: currentPlatform ? currentPlatform.states.map((s: any) => s.name) : [],
-    speed: currentPlatform ? currentPlatform.speedKts.map((s: any) => s) : [],
+    status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
+    speed: currentPlatform && currentPlatform.speedkts ? currentPlatform.speedKts.map((s: any) => s) : [],
     visibleTo: [
       {
         name: 'Blue Force',
@@ -68,7 +68,7 @@ export const MapBar: React.FC = () => {
         selected: false
       }
     ],
-    condition: currentPlatform ? currentPlatform.conditions.map((c: any) => c) : []
+    condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
   }
 
   const formSelector = (form: string): any => {
