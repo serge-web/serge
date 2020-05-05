@@ -11,7 +11,6 @@ import MapBar from '.'
 /* Import mock data */
 import { forces, platformTypes } from '@serge/mocks'
 
-
 const bounds = {
   imageTop: 14.194809302,
   imageLeft: 42.3558566271,
