@@ -23,6 +23,10 @@ export default interface PropTypes {
    *
    */
   forces: any
+  /** platforms for this wargame
+   *
+   */
+  platforms: any
   /** current player's force
    *
   */

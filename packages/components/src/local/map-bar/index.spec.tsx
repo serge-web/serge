@@ -31,6 +31,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
     forces = {[{}]}
+    platforms = {[{}]}
     playerForce = 'blue'
     phase={Phase.Planning}
   ><MapBar /></Mapping>, { attachTo: div })

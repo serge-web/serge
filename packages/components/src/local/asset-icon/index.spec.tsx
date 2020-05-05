@@ -30,6 +30,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
     forces = {[{}]}
+    platforms = {[{}]}
     playerForce = 'blue'
     phase = {Phase.Planning}
   ><AssetIcon id='id1' position={L.latLng(13.298034302, 43.0488191271)}

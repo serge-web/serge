@@ -12,11 +12,11 @@ import ForcePicker from '../form-elements/force-picker'
 // import styles from './styles.module.scss'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formData }) => {
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData }) => {
   const { status, speed, visibleTo, condition } = formData
 
   return (
-    <Form type="adjudication" headerText="placeholder" >
+    <Form type="adjudication" headerText={formHeader} >
       <fieldset>
         <PlannedRoute />
         <RCB type="radio" label="Status" options={status} />

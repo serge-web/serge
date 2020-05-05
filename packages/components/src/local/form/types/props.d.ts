@@ -1,6 +1,6 @@
 export default interface PropTypes {
   /**
-   * The name of the thing, if no type is set then 'default' will be used
+   * The type of the form, if no type is set then 'default' will be used
    */
   type?: string
   /**

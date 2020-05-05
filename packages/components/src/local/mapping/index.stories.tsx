@@ -2,6 +2,7 @@ import L from 'leaflet'
 import React from 'react'
 import { withKnobs, number, radios, boolean, text } from '@storybook/addon-knobs'
 import { forces } from './mocks/forces'
+import { platformTypes } from './mocks/platform-types'
 
 // Import component files
 import Mapping from './index'
@@ -56,6 +57,7 @@ export const Default: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
   forces = {forces}
   playerForce = 'Blue'
+  platforms = {platformTypes}
   phase = {Phase.Planning}
   mapBar = {false}
 />
@@ -68,6 +70,7 @@ export const WithMapBar: React.FC = () => <Mapping
   bounds = {bounds}
   tileLayer = {LocalTileLayer}
   forces={forces}
+  platforms = {platformTypes}
   phase={Phase.Planning}
   playerForce={radios(label, forceNames, defaultValue)}
 >
@@ -102,6 +105,7 @@ export const WithMarker: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
   forces = {forces}
   playerForce = 'Blue'
+  platforms = {platformTypes}
   phase = {Phase.Planning}
   mapBar = {false}
 >
@@ -139,6 +143,7 @@ export const WithAssets: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
   forces={forces}
   playerForce={radios(label, forceNames, defaultValue)}
+  platforms = {platformTypes}
   phase = {Phase.Planning}
 >
   <Assets />
@@ -171,6 +176,7 @@ export const WithGrid: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
   tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
   forces={forces}
+  platforms = {platformTypes}
   phase = {Phase.Planning}
   playerForce='Blue'
   mapBar = {false}
@@ -219,6 +225,7 @@ export const WithAllowableRange: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
   tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
   forces={forces}
+  platforms = {platformTypes}
   phase = {Phase.Planning}
   playerForce='Blue'
   mapBar = {false}
@@ -250,6 +257,7 @@ export const OpenStreetMap: React.FC = () => <Mapping
   tileLayer = {OSMTileLayer}
   forces={forces}
   playerForce='Blue'
+  platforms = {platformTypes}
   phase = {Phase.Planning}
   mapBar = {false}
 />
@@ -279,6 +287,7 @@ export const WithPhases: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
   forces={forces}
   playerForce={radios(phasesViewLabel, phasesViewNames, phaseViewValue)}
+  platforms = {platformTypes}
   phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
 >
   <Assets />
@@ -313,6 +322,7 @@ export const WithRoute: React.FC = () => <Mapping
   tileLayer = {LocalTileLayer}
   tileDiameterMins={5}
   forces={forces}
+  platforms = {platformTypes}
   phase = {Phase.Planning}
   playerForce='Green'
   mapBar = {false}

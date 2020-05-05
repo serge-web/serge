@@ -9,7 +9,7 @@ import formData from './mocks/formData'
 
 it('PlanTurnForm renders correctly', () => {
   const tree = renderer
-    .create(<PlanTurnForm formData={formData} />)
+    .create(<PlanTurnForm formHeader="Planning header" formData={formData} />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

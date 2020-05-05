@@ -18,4 +18,4 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <PlanTurnForm formData={formData}/>
+export const Default: React.FC = () => <PlanTurnForm formHeader="Planning header" formData={formData}/>

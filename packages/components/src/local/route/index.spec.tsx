@@ -33,6 +33,7 @@ it('Mapping renders correctly with HexGrid', () => {
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
     tileDiameterMins={5}
+    platforms = {[{}]}
     forces={[{}]}
     playerForce={'Blue'}
     phase={Phase.Planning}

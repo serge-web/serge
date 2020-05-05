@@ -8,7 +8,7 @@ import formData from './mocks/formData'
 
 it('PerceptionForm renders correctly', () => {
   const tree = renderer
-    .create(<PerceptionForm formData={formData} />)
+    .create(<PerceptionForm formHeader="Perception header" formData={formData} />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

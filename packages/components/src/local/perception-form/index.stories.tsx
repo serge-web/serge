@@ -17,4 +17,4 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <PerceptionForm formData={formData}/>
+export const Default: React.FC = () => <PerceptionForm formHeader="Perception header" formData={formData}/>

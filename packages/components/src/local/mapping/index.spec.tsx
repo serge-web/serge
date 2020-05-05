@@ -30,6 +30,7 @@ it('Mapping renders correctly', () => {
     tileLayer = {LocalTileLayer}
     forces = {[{}]}
     playerForce = 'Blue'
+    platforms = {[{}]}
     phase = {Phase.Planning}
   />, { attachTo: div })
 

@@ -34,6 +34,7 @@ const defaultProps: PropTypes = {
   },
   tileDiameterMins: 5,
   forces: [{}],
+  platforms: [{}],
   playerForce: 'Blue',
   phase: Phase.Planning,
   tileLayer: {
@@ -71,6 +72,7 @@ export const Mapping: React.FC<PropTypes> = ({
   attributionControl,
   zoomAnimation,
   planningConstraints,
+  platforms,
   children
 }) => {
   /* Initialise states */
@@ -98,6 +100,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const contextProps: MappingContext = {
     gridCells,
     forces,
+    platforms,
     playerForce,
     phase,
     allowableCellList,
