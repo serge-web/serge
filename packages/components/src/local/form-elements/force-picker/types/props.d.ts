@@ -10,7 +10,7 @@ export default interface PropTypes {
    */
   options: Array<Option>
   /**
-   * The currently selected force 
+   * The currently selected force
    */
   selected: string
 }

@@ -1,7 +1,7 @@
 const forces = [
   {
     name: 'Blue Force',
-    colour: '#69c', 
+    colour: '#69c',
     selected: true
   },
   {

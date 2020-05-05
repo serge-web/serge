@@ -31,14 +31,14 @@ export const MapBar: React.FC = () => {
 
   const availableForces = forces.map((force: any) => {
     return {
-      colour: force.color, 
+      colour: force.color,
       name: force.name,
       selected: false
     }
   })
 
   const perceptionFormData = {
-    perceivedForce: [...availableForces, { name: "Unknown", colour: "#ccc", selected: true}]
+    perceivedForce: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: true }]
   }
 
   // const formSelector = form => {
@@ -55,7 +55,7 @@ export const MapBar: React.FC = () => {
   return (
     <div className={cx(styles['map-bar'], showMapBar && styles.open)}>
       <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
-      <div className={styles['inner']}>
+      <div className={styles.inner}>
         <section>
           <WorldState name="World State"></WorldState>
         </section>

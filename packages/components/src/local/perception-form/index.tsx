@@ -9,8 +9,7 @@ import ForcePicker from '../form-elements/force-picker'
 /* Import helpers */
 import { getSelectedItem } from '@serge/helpers'
 /* Render component */
-export const PerceptionForm: React.FC<PropTypes> = ({ formData }) =>{
-
+export const PerceptionForm: React.FC<PropTypes> = ({ formData }) => {
   const { perceivedForce } = formData
 
   return <Form type="perceived-as" headerText="placeholder">
