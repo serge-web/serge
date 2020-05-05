@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['PlanTurnForm renders correctly 1'] = `
+exports[`PlanTurnForm renders correctly 1`] = `
 <div
   className="form planning"
 >
   <h2
     className="form-header"
   >
-    placeholder
+    Planning header
   </h2>
   <div
     className="content"
@@ -207,4 +207,4 @@ exports['PlanTurnForm renders correctly 1'] = `
     </button>
   </div>
 </div>
-`
+`;
