@@ -15,6 +15,7 @@ module.exports = {
     '@typescript-eslint', // Let's us override rules below.
     'react'
   ],
+  "ignorePatterns" : ["*.scss.d.ts"],
   'rules': {
     "semi": [2, "never"],
     "@typescript-eslint/ban-ts-ignore": "off",
