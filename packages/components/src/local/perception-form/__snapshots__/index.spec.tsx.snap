@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['PerceptionForm renders correctly 1'] = `
+exports[`PerceptionForm renders correctly 1`] = `
 <div
   className="form perceived-as"
 >
@@ -49,7 +49,6 @@ exports['PerceptionForm renders correctly 1'] = `
                 <input
                   checked={false}
                   className="PrivateSwitchBase-input-17"
-                  disabled={false}
                   name="perceived force"
                   onChange={[Function]}
                   type="radio"
@@ -124,7 +123,6 @@ exports['PerceptionForm renders correctly 1'] = `
                 <input
                   checked={false}
                   className="PrivateSwitchBase-input-17"
-                  disabled={false}
                   name="perceived force"
                   onChange={[Function]}
                   type="radio"
@@ -199,7 +197,6 @@ exports['PerceptionForm renders correctly 1'] = `
                 <input
                   checked={true}
                   className="PrivateSwitchBase-input-17"
-                  disabled={false}
                   name="perceived force"
                   onChange={[Function]}
                   type="radio"
@@ -277,4 +274,4 @@ exports['PerceptionForm renders correctly 1'] = `
     </button>
   </div>
 </div>
-`
+`;

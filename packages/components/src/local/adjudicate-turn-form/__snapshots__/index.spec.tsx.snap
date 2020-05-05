@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['AdjudicateTurnForm renders correctly 1'] = `
+exports[`AdjudicateTurnForm renders correctly 1`] = `
 <div
   className="form adjudication"
 >
@@ -508,7 +508,6 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 <input
                   checked={true}
                   className="PrivateSwitchBase-input-49"
-                  disabled={false}
                   name="visible to"
                   onChange={[Function]}
                   type="radio"
@@ -583,7 +582,6 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 <input
                   checked={false}
                   className="PrivateSwitchBase-input-49"
-                  disabled={false}
                   name="visible to"
                   onChange={[Function]}
                   type="radio"
@@ -658,7 +656,6 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 <input
                   checked={false}
                   className="PrivateSwitchBase-input-49"
-                  disabled={false}
                   name="visible to"
                   onChange={[Function]}
                   type="radio"
@@ -936,4 +933,4 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
     </button>
   </div>
 </div>
-`
+`;
