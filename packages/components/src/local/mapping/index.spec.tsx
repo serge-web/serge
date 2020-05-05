@@ -6,8 +6,8 @@ import { mount } from 'enzyme'
 import Mapping from './index'
 import { Phase } from '@serge/config'
 
-import { forces } from './mocks/forces'
-import { platformTypes } from './mocks/platform-types'
+/* Import mock data */
+import { forces, platformTypes } from '@serge/mocks'
 
 const bounds = {
   imageTop: 14.194809302,

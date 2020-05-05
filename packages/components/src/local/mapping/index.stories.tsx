@@ -1,8 +1,9 @@
 import L from 'leaflet'
 import React from 'react'
 import { withKnobs, number, radios, boolean, text } from '@storybook/addon-knobs'
-import { forces } from './mocks/forces'
-import { platformTypes } from './mocks/platform-types'
+
+/* Import mock data */
+import { forces, platformTypes } from '@serge/mocks'
 
 // Import component files
 import Mapping from './index'

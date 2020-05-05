@@ -6,7 +6,7 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 import { Route } from './'
 
-import forces from '../mapping/mocks/forces'
+import { forces, platformTypes } from '@serge/mocks'
 
 const bounds = {
   imageTop: 14.194809302,
@@ -23,7 +23,7 @@ const greenForce: any = forces[3]
 const platform: any = greenForce.assets[0]
 const { plannedTurns, history } = platform
 
-it('Mapping renders correctly with HexGrid', () => {
+it('Mapping renders correctly with Route', () => {
   const div = document.createElement('div')
   document.body.appendChild(div)
 
@@ -33,8 +33,8 @@ it('Mapping renders correctly with HexGrid', () => {
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
     tileDiameterMins={5}
-    platforms = {[{}]}
-    forces={[{}]}
+    platforms = {platformTypes}
+    forces={forces}
     playerForce={'Blue'}
     phase={Phase.Planning}
   >
