@@ -7,7 +7,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
   <h2
     className="form-header"
   >
-    placeholder
+    Adjudicate header
   </h2>
   <div
     className="content"

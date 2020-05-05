@@ -35,7 +35,7 @@ export const MapBar: React.FC = () => {
   // const formSelector = form => {
   //   const output = null
   //   switch (form) {
-  //     case 'PerceivedAs': 
+  //     case 'PerceivedAs':
   //       output = <PerceptionForm formHeader={currentAssetName} formData={} />
   //       break;
 
@@ -48,7 +48,7 @@ export const MapBar: React.FC = () => {
       <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
       <section>
         <WorldState name="World State"></WorldState>
-        
+
       </section>
       <section>
         {currentForm !== '' && <Form type={currentForm} headerText={currentForm + ' for ' + currentAssetName} /> }

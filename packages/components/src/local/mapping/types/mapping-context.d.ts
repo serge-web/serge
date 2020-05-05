@@ -40,7 +40,7 @@ export default interface MappingContext {
   /**
    * list of platforms within this wargame
    */
-  platforms: any,
+  platforms: any
   /**
    * force for current player
    */
