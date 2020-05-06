@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import cx from 'classnames'
 import { Marker, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
@@ -13,35 +13,41 @@ import styles from './styles.module.scss'
 import { MapContext } from '../mapping'
 
 /* Render component */
-export const AssetIcon: React.FC<PropTypes> = ({ id, name, position, type, force, tooltip, controlledBy, condition, status, selected }) =>
-  <MapContext.Consumer>
-    {
-      (context): React.ReactNode => {
-        const divIcon = L.divIcon({
-          iconSize: [40, 40],
-          className: cx(styles['asset-icon'], styles[force],
-            selected ? styles.selected : null, styles[`platform-type-${type}`])
-        })
+export const AssetIcon: React.FC<PropTypes> = ({
+  id,
+  name,
+  position,
+  type,
+  force,
+  controlledBy,
+  condition,
+  status, tooltip, selected
+}) => {
+  const { setShowMapBar, setSelectedAsset } = useContext(MapContext).props
 
-        const clickEvent = (): void => {
-          context.props.setShowMapBar(true)
-          context.props.setSelectedAsset({
-            id,
-            name,
-            position,
-            type,
-            force,
-            controlledBy,
-            condition,
-            status
-          })
-        }
+  const divIcon = L.divIcon({
+    iconSize: [40, 40],
+    className: cx(styles['asset-icon'], styles[force],
+      selected ? styles.selected : null, styles[`platform-type-${type}`])
+  })
 
-        return <Marker position={position} icon={divIcon} onclick={clickEvent}>
-          <Tooltip>{tooltip}</Tooltip>
-        </Marker>
-      }
-    }
-  </MapContext.Consumer>
+  const clickEvent = (): void => {
+    setShowMapBar(true)
+    setSelectedAsset({
+      id,
+      name,
+      position,
+      type,
+      force,
+      controlledBy,
+      condition,
+      status
+    })
+  }
+
+  return <Marker position={position} icon={divIcon} onclick={clickEvent}>
+    <Tooltip>{tooltip}</Tooltip>
+  </Marker>
+}
 
 export default AssetIcon

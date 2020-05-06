@@ -7,10 +7,6 @@ export default interface PlanMobileAsset {
    */
   origin: string
   /**
-   * range that can be travelled this turn
-   */
-  range: number
-  /**
    * mode of travel for this asset
    */
   travelMode: string

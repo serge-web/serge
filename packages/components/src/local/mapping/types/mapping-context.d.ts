@@ -1,6 +1,7 @@
 import { Phase } from '@serge/config'
 import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
+import PlanMobileAsset from './plan-mobile-asset'
 
 interface SelectedAsset {
   /**
@@ -32,7 +33,7 @@ export default interface MappingContext {
   /**
    * grid of cells, used for movement
    */
-  gridCells: SergeGrid<SergeHex<{}>>
+  gridCells: SergeGrid<SergeHex<{}>> | undefined
   /**
    * list of forces within this wargame
    */
@@ -50,13 +51,21 @@ export default interface MappingContext {
    */
   phase: Phase
   /**
-   *  allowable cells for this platform
-   **/
-  allowableCellList?: string[] | undefined
+   * mobility for selected asset
+   */
+  planningConstraints: PlanMobileAsset | undefined
+  /**
+   *  how far platform can travel
+   */
+  planningRange: number | undefined
   /**
    * state for if map bar is open
    */
   showMapBar: boolean
+  /**
+   * setter for when planned route is complete
+   */
+  setNewLeg: React.Dispatch<React.SetStateAction<Array<SergeHex<{}>> | undefined>>
   /**
    *  setter, to modify if map bar is open or not
    */

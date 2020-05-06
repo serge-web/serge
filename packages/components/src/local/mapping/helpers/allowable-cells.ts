@@ -1,23 +1,18 @@
-import { HexFactory } from 'honeycomb-grid'
 import SergeHex from '../types/serge-hex'
 import SergeGrid from '../types/serge-grid'
-import PlanMobileAsset from '../types/plan-mobile-asset'
 
 /**
  *  create hexagonal grid
- * @param {SergeGrid<SergeHex<{}>>} grid grid of hex cells
- * @param {PlanMobileAsset} constraints Description of what this platform can do
- * @returns {string[]} List of cell names
+ * @param {SergeGrid<SergeHex<{}>> | undefined} grid grid of hex cells
+ * @param {SergeHex<{}>} originHex start for this planning turn
+ * @param {number} range allowed distance of travel in this turn
+ * @returns {SergeHex<{}>[]} List of cells for where this asset could travel to
  */
-const allowableCells = (grid: SergeGrid<SergeHex<{}>>, constraints: PlanMobileAsset): string[] | undefined => {
-  const originHex = grid.find(cell => cell.name === constraints.origin)
-  if (originHex) {
-    const allowable: SergeHex<HexFactory<SergeHex<{}>>>[] = grid.hexesInRange(originHex, constraints.range, true)
-    // just use the list of cell names
-    return allowable.map(hex => hex.name)
+const allowableCells = (grid: SergeGrid<SergeHex<{}>> | undefined, originHex: SergeHex<{}>, range: number): SergeHex<{}>[] => {
+  if (grid) {
+    return grid.hexesInRange(originHex, range, true)
   } else {
-    console.log('AllowableCells function couldnt find cell for', constraints.origin)
-    return undefined
+    return []
   }
 }
 
