@@ -77,12 +77,14 @@ export const Mapping: React.FC<PropTypes> = ({
 }) => {
   /* Initialise states */
   const [showMapBar, setShowMapBar] = useState(false)
-  const [selectedAsset, setSelectedAsset] = useState({
+  const [selectedAsset, setSelectedAsset] = useState<any>({
     id: '',
     position: [0.00, 0.00],
-    type: '',
-    force: '',
-    controlledBy: ['']
+    type: 'Unknown',
+    force: 'Unknown',
+    controlledBy: [''],
+    condition: '',
+    state: {}
   })
 
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
