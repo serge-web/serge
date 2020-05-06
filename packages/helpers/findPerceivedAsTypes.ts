@@ -1,4 +1,11 @@
-export default function findPerceivedAsTypes (myForce: string, hisForce:string, hisType:string,
+/** provide classnames for an asset, as perceived by current player
+ * @param {string} myForce force of current player
+ * @param {string} hisForce force for selected asset
+ * @param {string} hisType platform-type of selected asset
+ * @param {any} hisPerceptions list of force perceptions of selected asset
+ * @param {boolean} playerIsUmpire whether the current player is an umpire
+ * @returns {string, string} pair of class-names, used to describe force and platform-type 
+ */export default function findPerceivedAsTypes (myForce: string, hisForce:string, hisType:string,
   hisPerceptions: [any], userIsUmpire: boolean): [string, string] {
   let perception: any
   if (myForce === hisForce || userIsUmpire) {
