@@ -25,7 +25,6 @@ const perceptionsTypeMissing:any = [{
 }]
 
 it('gives true details for same force', () => {
-  console.log(perceptions)
   expect(findPerceivedAsTypes('yellow', 'yellow', 'submarine',
     perceptions, false)).toEqual(['yellow', 'submarine'])
 })
