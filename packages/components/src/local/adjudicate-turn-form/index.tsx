@@ -29,7 +29,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData }
       <fieldset>
         <ForcePicker label="Visible to" options={visibleTo} selected={getSelectedItem(visibleTo).name}/>
         <hr />
-        <RCB type="checkbox" label="Condition" options={condition} />
+        <RCB type="radio" label="Condition" options={condition} />
       </fieldset>
       <Button>Save</Button>
     </Form>

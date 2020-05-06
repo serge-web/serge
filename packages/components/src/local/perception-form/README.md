@@ -1,6 +1,6 @@
-# Plan Turn Form documentation
+# Percieved As Form documentation
 
-This is an example readme file for the 'Plan Turn Form' component.
+This is an example readme file for the 'Percieved As Form' component.
 
 ## UI Example
 
@@ -18,10 +18,10 @@ This is an example readme file for the 'Plan Turn Form' component.
 
 ### ES6 Import
 ```js
-import PlanTurnForm from './plan-turn-form'
+import PerceptionForm from './plan-turn-form'
 ```
 
 ### CommonJS
 
 ```js
-const PlanTurnForm = require('./plan-turn-form')
+const PerceptionForm = require('./plan-turn-form')
