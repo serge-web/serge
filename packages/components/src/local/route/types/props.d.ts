@@ -1,5 +1,4 @@
-import SergeHex from '../../mapping/types/serge-hex'
-import SergeGrid from '../../mapping/types/serge-grid'
+import { SergeHex, SergeGrid } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
