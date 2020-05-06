@@ -18,59 +18,51 @@ import PlanTurnForm from '../plan-turn-form'
 export const MapBar: React.FC = () => {
   const [currentForm, setCurrentForm] = useState('')
   const [currentAssetName, setCurrentAssetName] = useState('')
+  const [perceptionFormData, setPerceptionFormData ] = useState<any>({})
+  const [planTurnFormData, setPlanTurnFormData ] = useState<any>({})
+  const [adjudicateTurnFormData, setAdjudicateTurnFormData ] = useState<any>({})
 
   const { playerForce, forces, platforms, phase, showMapBar, setShowMapBar, selectedAsset } = useContext(MapContext).props
 
+  // Selects the current asset
   useEffect(() => {
     setCurrentForm(assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase))
     setCurrentAssetName(selectedAsset.name)
   }, [selectedAsset])
 
+  // Toggles the map bar on and off
   const clickEvent = (): void => {
     showMapBar ? setShowMapBar(false) : setShowMapBar(true)
   }
 
+  // Loops through all available forces and creates an entry for each one to be used as form data
   const availableForces = forces && forces.map((force: any) => {
     return {
       colour: force.color,
       name: force.name,
-      selected: false
+      selected: selectedAsset.force === force.name.toLowerCase() ? true : false
     }
   })
 
   const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
-
-  const perceptionFormData = {
-    perceivedForce: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: true }]
-  }
-
-  const planTurnFormData = {
-    status: ['Moored', 'Transiting']
-  }
-
-  const AdjudicateTurnFormData = {
-    status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
-    speed: currentPlatform && currentPlatform.speedkts ? currentPlatform.speedKts.map((s: any) => s) : [],
-    visibleTo: [
-      {
-        name: 'Blue Force',
-        colour: '#69c',
-        selected: true
-      },
-      {
-        name: 'Red Force',
-        colour: '#f00',
-        selected: false
-      },
-      {
-        name: 'White Force',
-        colour: '#fff',
-        selected: false
-      }
-    ],
-    condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
-  }
-
+  
+  // Populates data from the forms using initial state
+  useEffect(() => {
+    setPerceptionFormData({
+      perceivedForce: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === "unknown" ? true : false }]
+    })
+    setPlanTurnFormData({
+      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
+    })
+    setAdjudicateTurnFormData({
+      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
+      speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
+      visibleTo: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === "unknown" ? true : false }],
+      condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
+    })
+  }, [currentPlatform])
+  
+  /* TODO: This should be refactored into a helper */
   const formSelector = (form: string): any => {
     let output = null
     switch (form) {
@@ -78,7 +70,7 @@ export const MapBar: React.FC = () => {
         output = <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} />
         break
       case 'Adjudication':
-        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={AdjudicateTurnFormData} />
+        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={adjudicateTurnFormData} />
         break
       case 'Planning':
         output = <PlanTurnForm formHeader={currentAssetName} formData={planTurnFormData} />
