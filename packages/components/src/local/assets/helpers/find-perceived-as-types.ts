@@ -4,10 +4,10 @@
  * @param {string} hisType platform-type of selected asset
  * @param {any} hisPerceptions list of force perceptions of selected asset
  * @param {boolean} playerIsUmpire whether the current player is an umpire
- * @returns {string, string} pair of class-names, used to describe force and platform-type 
+ * @returns {string, string} pair of class-names, used to describe force and platform-type
  */
 
- export default function findPerceivedAsTypes (myForce: string, hisForce:string, hisType:string,
+export default function findPerceivedAsTypes (myForce: string, hisForce: string, hisType: string,
   hisPerceptions: [any], userIsUmpire: boolean): [string, string] {
   let perception: any
   if (myForce === hisForce || userIsUmpire) {

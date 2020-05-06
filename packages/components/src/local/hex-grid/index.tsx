@@ -16,7 +16,6 @@ import { MapContext } from '../mapping'
 /* Import Types */
 import { SergeHex } from '@serge/custom-types'
 
-
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
   const { gridCells, planningConstraints, planningRange: planningRangeProps, zoomLevel, setNewLeg } = useContext(MapContext).props
