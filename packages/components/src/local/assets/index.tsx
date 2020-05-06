@@ -32,14 +32,21 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
             force.assets.forEach((asset: any) => {
             // see if the player of this force can see (perceive) this asset
               const isUmpire: boolean = pf === UMPIRE_FORCE
-              const perceivedAs: [string, string] = findPerceivedAsTypes(pf, force.uniqid,
-                asset.platformType, asset.perceptions, isUmpire)
+              const perceivedAs: [string, string] = findPerceivedAsTypes(
+                pf, 
+                force.uniqid,
+                asset.platformType, 
+                asset.perceptions, 
+                isUmpire
+              )
               if (perceivedAs) {
                 const cell: SergeHex<{}> | undefined = hexNamed(asset.position, gc)
                 if (cell != null) {
                   const position: L.LatLng = cell.centreLatLng
                   const assetInfo: AssetInfo = {
                     name: asset.name,
+                    condition: asset.condition,
+                    status: asset.status,
                     controlledBy: force.controlledBy,
                     type: perceivedAs[1],
                     force: perceivedAs[0],
@@ -61,6 +68,8 @@ export const Assets: React.FC<PropTypes> = ({ gridCells, forces, playerForce }: 
               key={asset.uniqid}
               id={asset.uniqid}
               name={asset.name}
+              condition={asset.condition}
+              status={asset.status}
               position={asset.position}
               type={asset.type}
               selected={false}
