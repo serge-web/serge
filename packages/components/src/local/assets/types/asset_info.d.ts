@@ -3,7 +3,7 @@ import L from 'leaflet'
 export default interface AssetInfo {
   position: L.LatLng
   name: string
-  condition: string,
+  condition: string
   status: {
     speedKts: number
     state: string

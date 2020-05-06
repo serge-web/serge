@@ -27,7 +27,7 @@ export default interface PropTypes {
    * The tooltip label for the marker
    */
   tooltip?: string
-  condition?: string,
+  condition?: string
   status?: {
     speedKts: number
     state: string

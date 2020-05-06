@@ -18,9 +18,9 @@ import PlanTurnForm from '../plan-turn-form'
 export const MapBar: React.FC = () => {
   const [currentForm, setCurrentForm] = useState('')
   const [currentAssetName, setCurrentAssetName] = useState('')
-  const [perceptionFormData, setPerceptionFormData ] = useState<any>({})
-  const [planTurnFormData, setPlanTurnFormData ] = useState<any>({})
-  const [adjudicateTurnFormData, setAdjudicateTurnFormData ] = useState<any>({})
+  const [perceptionFormData, setPerceptionFormData] = useState<any>({})
+  const [planTurnFormData, setPlanTurnFormData] = useState<any>({})
+  const [adjudicateTurnFormData, setAdjudicateTurnFormData] = useState<any>({})
 
   const { playerForce, forces, platforms, phase, showMapBar, setShowMapBar, selectedAsset } = useContext(MapContext).props
 
@@ -40,28 +40,28 @@ export const MapBar: React.FC = () => {
     return {
       colour: force.color,
       name: force.name,
-      selected: selectedAsset.force === force.name.toLowerCase() ? true : false
+      selected: selectedAsset.force === force.name.toLowerCase()
     }
   })
 
   const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
-  
+
   // Populates data from the forms using initial state
   useEffect(() => {
     setPerceptionFormData({
-      perceivedForce: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === "unknown" ? true : false }]
+      perceivedForce: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === 'unknown' }]
     })
     setPlanTurnFormData({
-      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
+      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : []
     })
     setAdjudicateTurnFormData({
       status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
       speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
-      visibleTo: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === "unknown" ? true : false }],
+      visibleTo: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === 'unknown' }],
       condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
     })
   }, [currentPlatform])
-  
+
   /* TODO: This should be refactored into a helper */
   const formSelector = (form: string): any => {
     let output = null
