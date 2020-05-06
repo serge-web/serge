@@ -6,7 +6,7 @@ import L from 'leaflet'
  * @param {PlanMobileAsset} constraints Description of what this platform can do
  * @returns {SergeHex<{}>[]} List of cells for where this asset could travel to
  */
-const boundsFor = (bounds: {imageTop: number 
+const boundsFor = (bounds: {imageTop: number
   imageLeft: number
   imageRight: number
   imageBottom: number

@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import PlanMobileAsset from './plan-mobile-asset';
+import { PlanMobileAsset } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -23,6 +23,10 @@ export default interface PropTypes {
    *
    */
   forces: any
+  /** platforms for this wargame
+   *
+   */
+  platforms: any
   /** current player's force
    *
   */

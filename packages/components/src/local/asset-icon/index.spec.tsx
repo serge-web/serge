@@ -7,6 +7,9 @@ import AssetIcon from './index'
 import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
+/* Import mock data */
+import { forces, platformTypes } from '@serge/mocks'
+
 const bounds = {
   imageTop: 14.194809302,
   imageLeft: 42.3558566271,
@@ -29,12 +32,13 @@ it('Mapping renders correctly with AssetIcon', () => {
     tileDiameterMins = {5}
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
-    forces = {[{}]}
+    forces = {forces}
+    platforms = {platformTypes}
     playerForce = 'blue'
     phase = {Phase.Planning}
-  ><AssetIcon id='id1' position={L.latLng(13.298034302, 43.0488191271)} 
-    selected={false} type='agi' force='blue' 
-    tooltip='Tooltip for marker'/></Mapping>, { attachTo: div })
+  ><AssetIcon id='id1' name="Jeffrey" position={L.latLng(13.298034302, 43.0488191271)}
+      selected={false} type='agi' force='blue'
+      tooltip='Tooltip for marker'/></Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
 })

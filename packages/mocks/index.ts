@@ -5,3 +5,5 @@
 
 export { default as MessagesMock } from './messages.mock'
 export { default as WargameMock } from './wargame.mock'
+export { default as forces } from './forces.mock'
+export { default as platformTypes } from './platform-types.mock'

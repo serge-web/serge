@@ -6,6 +6,6 @@
 
 export { default as ProgressIndicator } from './local/progress-indicator'
 export { default as InputContainer } from './local/input-container'
-export { default as DialogueHeader } from './local/dialogue-header'
+export { default as FormHeader } from './local/form-header'
 export { default as Mapping } from './local/mapping'
 export { default as AssetIcon } from './local/asset-icon'

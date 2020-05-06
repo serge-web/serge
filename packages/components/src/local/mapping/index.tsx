@@ -1,19 +1,16 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import createGrid from './helpers/createGrid'
-import SergeHex from './types/serge-hex'
-import SergeGrid from './types/serge-grid'
+import createGrid from './helpers/create-grid'
 import { Phase } from '@serge/config'
 
 /* Import Types */
 import PropTypes from './types/props'
+import { SergeHex, SergeGrid, MappingContext, PlanMobileAsset } from '@serge/custom-types'
 
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
-import MappingContext from './types/mapping-context'
 import MapBar from '../map-bar'
-import PlanMobileAsset from './types/plan-mobile-asset'
 import boundsFor from './helpers/bounds-for'
 
 interface ContextInterface {
@@ -33,6 +30,7 @@ const defaultProps: PropTypes = {
   },
   tileDiameterMins: 5,
   forces: [{}],
+  platforms: [{}],
   playerForce: 'Blue',
   phase: Phase.Planning,
   tileLayer: {
@@ -58,6 +56,7 @@ export const Mapping: React.FC<PropTypes> = ({
   tileDiameterMins,
   forces,
   playerForce,
+  platforms,
   phase,
   tileLayer,
   minZoom,
@@ -75,14 +74,16 @@ export const Mapping: React.FC<PropTypes> = ({
 }) => {
   /* Initialise states */
   const [showMapBar, setShowMapBar] = useState(false)
-  const [selectedAsset, setSelectedAsset] = useState({
+  const [selectedAsset, setSelectedAsset] = useState<any>({
     id: '',
     position: [0.00, 0.00],
-    type: '',
-    force: '',
-    controlledBy: ['']
+    type: 'Unknown',
+    force: 'Unknown',
+    controlledBy: [''],
+    condition: '',
+    state: {}
   })
-    
+
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
   /* Initialise variables */
@@ -93,51 +94,50 @@ export const Mapping: React.FC<PropTypes> = ({
     imageBottom: number
   } | undefined>(undefined)
   const [latLngBounds, setLatLngBounds] = useState<L.LatLngBounds | undefined>(undefined)
-  const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined> (undefined)
-  const [newLeg, setNewLeg] = useState< Array<SergeHex<{}>> | undefined> (undefined)
-  const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined> (planningConstraintsProp)
+  const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
+  const [newLeg, setNewLeg] = useState< Array<SergeHex<{}>> | undefined>(undefined)
+  const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
 
   // if we've got a planning range from prop, double-check if it is different
   // to the current one
-  if(planningRangeProp && planningRange !== planningRangeProp) {
-      setPlanningRange(planningRangeProp)      
+  if (planningRangeProp && planningRange !== planningRangeProp) {
+    setPlanningRange(planningRangeProp)
   }
 
   // only update bounds if they're different to the current one
-  if(bounds && bounds !== mapBounds)
-  {
+  if (bounds && bounds !== mapBounds) {
     setMapBounds(bounds)
   }
 
   useEffect(() => {
-    if(mapBounds) {
+    if (mapBounds) {
       setLatLngBounds(boundsFor(mapBounds))
     }
   }, [mapBounds])
 
   useEffect(() => {
-    if(latLngBounds) {
+    if (latLngBounds) {
       setMapCentre(latLngBounds.getCenter())
     }
   }, [latLngBounds])
 
   useEffect(() => {
-    if(latLngBounds && tileDiameterMins) {
+    if (latLngBounds && tileDiameterMins) {
       // note: the list of cells should be re-calculated if `tileDiameterMins` changes
       setGridCells(createGrid(latLngBounds, tileDiameterMins))
     }
   }, [tileDiameterMins, latLngBounds])
 
   useEffect(() => {
-    if(newLeg) {
+    if (newLeg) {
       // TODO: store the new planned leg for this asset
 
       // if we know our planning constraints, we can plan the next leg
-      if(planningConstraints) {
+      if (planningConstraints) {
         // get the last planned cell, to act as the first new planned cell
-        const lastCell:SergeHex<{}> = newLeg[newLeg.length - 1]
+        const lastCell: SergeHex<{}> = newLeg[newLeg.length - 1]
         // create new planning contraints
         const newP: PlanMobileAsset = {
           origin: lastCell.name,
@@ -146,13 +146,13 @@ export const Mapping: React.FC<PropTypes> = ({
         setPlanningConstraints(newP)
       }
     }
-
   }, [newLeg])
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     gridCells,
     forces,
+    platforms,
     playerForce,
     phase,
     planningConstraints,
@@ -177,37 +177,38 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   return (
-  <MapContext.Provider value={{ props: contextProps }}>
-    <section className={styles['map-container']}>
-      { mapBar && <MapBar /> }
-      <Map
-        className={styles['map']}
-        center={mapCentre}
-        bounds={latLngBounds}
-        maxBounds={latLngBounds}
-        zoom={zoom}
-        zoomDelta={zoomDelta}
-        zoomSnap={zoomSnap}
-        minZoom={minZoom}
-        zoomControl={zoomControl}
-        maxZoom={maxZoom}
-        ref={handleEvents}
-        touchZoom={touchZoom}
-        zoomAnimation={zoomAnimation}
-        attributionControl={attributionControl}
-      >
-        <TileLayer
-          url={tileLayer.url}
-          attribution={tileLayer.attribution}
+    <MapContext.Provider value={{ props: contextProps }}>
+      <section className={styles['map-container']}>
+        { mapBar && <MapBar /> }
+        <Map
+          className={styles.map}
+          center={mapCentre}
           bounds={latLngBounds}
-        />
-        <ScaleControl/>
-        {children}
-      </Map>
-    </section>
-  </MapContext.Provider>
+          maxBounds={latLngBounds}
+          zoom={zoom}
+          zoomDelta={zoomDelta}
+          zoomSnap={zoomSnap}
+          minZoom={minZoom}
+          zoomControl={zoomControl}
+          maxZoom={maxZoom}
+          ref={handleEvents}
+          touchZoom={touchZoom}
+          zoomAnimation={zoomAnimation}
+          attributionControl={attributionControl}
+        >
+          <TileLayer
+            url={tileLayer.url}
+            attribution={tileLayer.attribution}
+            bounds={latLngBounds}
+          />
+          <ScaleControl/>
+          {children}
+        </Map>
+      </section>
+    </MapContext.Provider>
   )
 }
+
 Mapping.defaultProps = defaultProps
 
 export default Mapping

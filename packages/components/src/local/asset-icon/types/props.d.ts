@@ -4,6 +4,10 @@ export default interface PropTypes {
    */
   id: string
   /**
+   * The name of the asset marker
+   */
+  name: string
+  /**
    * The name of the icon to be used on the asset
    */
   type: string
@@ -23,6 +27,11 @@ export default interface PropTypes {
    * The tooltip label for the marker
    */
   tooltip?: string
+  condition?: string
+  status?: {
+    speedKts: number
+    state: string
+  }
   /**
    * the list of forces that can control this asset
    */

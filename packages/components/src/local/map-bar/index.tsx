@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import cx from 'classnames'
 import { ArrowRight } from '@material-ui/icons'
 import assetDialogFor from './helpers/asset-dialog-for'
+import { kebabCase } from 'lodash'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -9,33 +10,86 @@ import { MapContext } from '../mapping'
 
 /* Import child components */
 import WorldState from '../world-state'
-import Dialogue from '../dialogue'
+import PerceptionForm from '../perception-form'
+import AdjudicateTurnForm from '../adjudicate-turn-form'
+import PlanTurnForm from '../plan-turn-form'
 
 /* Render component */
 export const MapBar: React.FC = () => {
   const [currentForm, setCurrentForm] = useState('')
   const [currentAssetName, setCurrentAssetName] = useState('')
+  const [perceptionFormData, setPerceptionFormData] = useState<any>({})
+  const [planTurnFormData, setPlanTurnFormData] = useState<any>({})
+  const [adjudicateTurnFormData, setAdjudicateTurnFormData] = useState<any>({})
 
-  const { playerForce, phase, showMapBar, setShowMapBar, selectedAsset } = useContext(MapContext).props
+  const { playerForce, forces, platforms, phase, showMapBar, setShowMapBar, selectedAsset } = useContext(MapContext).props
 
+  // Selects the current asset
   useEffect(() => {
     setCurrentForm(assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase))
-    setCurrentAssetName(selectedAsset.id)
+    setCurrentAssetName(selectedAsset.name)
   }, [selectedAsset])
 
+  // Toggles the map bar on and off
   const clickEvent = (): void => {
     showMapBar ? setShowMapBar(false) : setShowMapBar(true)
+  }
+
+  // Loops through all available forces and creates an entry for each one to be used as form data
+  const availableForces = forces && forces.map((force: any) => {
+    return {
+      colour: force.color,
+      name: force.name,
+      selected: selectedAsset.force === force.name.toLowerCase()
+    }
+  })
+
+  const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
+
+  // Populates data from the forms using initial state
+  useEffect(() => {
+    setPerceptionFormData({
+      perceivedForce: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === 'unknown' }]
+    })
+    setPlanTurnFormData({
+      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : []
+    })
+    setAdjudicateTurnFormData({
+      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
+      speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
+      visibleTo: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === 'unknown' }],
+      condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
+    })
+  }, [currentPlatform])
+
+  /* TODO: This should be refactored into a helper */
+  const formSelector = (form: string): any => {
+    let output = null
+    switch (form) {
+      case 'PerceivedAs':
+        output = <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} />
+        break
+      case 'Adjudication':
+        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={adjudicateTurnFormData} />
+        break
+      case 'Planning':
+        output = <PlanTurnForm formHeader={currentAssetName} formData={planTurnFormData} />
+        break
+    }
+    return output
   }
 
   return (
     <div className={cx(styles['map-bar'], showMapBar && styles.open)}>
       <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
-      <section>
-        <WorldState name="World State"></WorldState>
-      </section>
-      <section>
-        {currentForm !== '' && <Dialogue type={currentForm} headerText={currentForm + ' for ' + currentAssetName} /> }
-      </section>
+      <div className={styles.inner}>
+        <section>
+          <WorldState name="World State"></WorldState>
+        </section>
+        <section>
+          {currentForm !== '' && currentAssetName !== '' && formSelector(currentForm)}
+        </section>
+      </div>
     </div>
   )
 }

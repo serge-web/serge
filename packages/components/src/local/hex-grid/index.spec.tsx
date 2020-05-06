@@ -5,6 +5,9 @@ import { mount } from 'enzyme'
 import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
+/* Import mock data */
+import { forces, platformTypes } from '@serge/mocks'
+
 const bounds = {
   imageTop: 14.194809302,
   imageLeft: 42.3558566271,
@@ -26,7 +29,8 @@ it('Mapping renders correctly with HexGrid', () => {
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
     tileDiameterMins={5}
-    forces={[{}]}
+    forces={forces}
+    platforms = {platformTypes}
     playerForce={'Blue'}
     phase={Phase.Planning}
   >
