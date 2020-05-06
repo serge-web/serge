@@ -1,5 +1,4 @@
-import SergeHex from '../../mapping/types/serge-hex'
-import SergeGrid from '../../mapping/types/serge-grid'
+import { SergeHex, SergeGrid } from '@serge/custom-types'
 
 /** convert this point in cell coordinates to lat/long
  * @param {string} name location in 2d Hex coordinate system

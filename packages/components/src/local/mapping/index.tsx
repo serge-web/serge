@@ -1,8 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import createGrid from './helpers/createGrid'
-import SergeHex from './types/serge-hex'
-import SergeGrid from './types/serge-grid'
+import createGrid from './helpers/create-grid'
+import { SergeHex, SergeGrid } from '@serge/custom-types'
 import { Phase } from '@serge/config'
 
 /* Import Types */
@@ -11,10 +10,12 @@ import PropTypes from './types/props'
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
-import MappingContext from './types/mapping-context'
 import MapBar from '../map-bar'
-import PlanMobileAsset from './types/plan-mobile-asset'
 import boundsFor from './helpers/bounds-for'
+
+/* Import types */
+import PlanMobileAsset from './types/plan-mobile-asset'
+import { MappingContext } from '@serge/custom-types'
 
 interface ContextInterface {
   props?: any

@@ -1,5 +1,4 @@
-import SergeHex from '../types/serge-hex'
-import SergeGrid from '../types/serge-grid'
+import { SergeHex, SergeGrid } from '@serge/custom-types'
 
 /**
  *  create series of hex cells between two points

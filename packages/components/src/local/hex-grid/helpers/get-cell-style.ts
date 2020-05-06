@@ -1,4 +1,4 @@
-import SergeHex from '../../mapping/types/serge-hex'
+import { SergeHex } from '@serge/custom-types'
 
 /** uility function, to style a style name for a cell, according to if it's in
  * either array

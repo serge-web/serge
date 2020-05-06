@@ -10360,6 +10360,13 @@ honeycomb-grid@^3.1.3:
   dependencies:
     axis.js "1.2.1"
 
+honeycomb-grid@^3.1.7:
+  version "3.1.7"
+  resolved "https://registry.yarnpkg.com/honeycomb-grid/-/honeycomb-grid-3.1.7.tgz#1a445bef2ca9c7dbedc29a32c9e4561c65c87317"
+  integrity sha512-SJz1379TYlxfNljL6asdVciwRdqO0hACWcV3//nhf2yZuGJTgH+SmoPKg2E5ctwvYJ3tZz7mKUcrwEKR+0it5Q==
+  dependencies:
+    axis.js "1.2.1"
+
 hoopy@^0.1.2:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/hoopy/-/hoopy-0.1.4.tgz#609207d661100033a9a9402ad3dea677381c1b1d"

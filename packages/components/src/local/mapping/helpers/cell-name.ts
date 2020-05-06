@@ -1,5 +1,5 @@
 import padInt from '@serge/helpers/padInteger'
-import SergeHex from '../../mapping/types/serge-hex'
+import { SergeHex } from '@serge/custom-types'
 
 /** Generate the Serge name for the supplied cell (1,3) == "B03" */
 const cellName = (cell: SergeHex<{}>): string => {

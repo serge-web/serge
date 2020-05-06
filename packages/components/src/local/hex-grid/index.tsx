@@ -5,15 +5,17 @@ import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
-/* Import Types */
-import toWorld from './helpers/to-world'
+/* Import helpers */
+import { toWorld, calcAllowableCells, plannedRouteFor } from '@serge/helpers'
 import Polygon from './helpers/polygon'
-import { MapContext } from '../mapping'
-import SergeHex from '../mapping/types/serge-hex'
-
-import calcAllowableCells from '../mapping/helpers/allowable-cells'
-import plannedRouteFor from '../mapping/helpers/planned-route-for'
 import getCellStyle from './helpers/get-cell-style'
+
+/* Import mapping context */
+import { MapContext } from '../mapping'
+
+/* Import Types */
+import { SergeHex } from '@serge/custom-types'
+
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {

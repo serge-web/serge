@@ -1,5 +1,4 @@
-import SergeHex from '../../mapping/types/serge-hex'
-import SergeGrid from '../../mapping/types/serge-grid'
+import { SergeGrid, SergeHex } from '@serge/custom-types'
 
 /** retrive the cell at the supplied human-readable coords ("A01") */
 const hexNamed = (name: string, gridCells: SergeGrid<SergeHex<{}>>): SergeHex<{}> | undefined => {

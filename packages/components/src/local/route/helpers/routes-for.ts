@@ -1,10 +1,10 @@
 import { LatLng } from 'leaflet'
 
-import SergeHex from '../../mapping/types/serge-hex'
-import SergeGrid from '../../mapping/types/serge-grid'
-import hexNamed from '../../hex-grid/helpers/hex-named'
-
+/* Impot types */
+import { SergeHex, SergeGrid } from '@serge/custom-types'
 import RouteData from '../types/route-data'
+
+import { hexNamed } from '@serge/helpers'
 
 /** the number of legs to display if the user wants trimmed data */
 export const lengthOfTrimmedLine = 2

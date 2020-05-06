@@ -1,11 +1,9 @@
 
 import L from 'leaflet'
 import { defineGrid, extendHex, Grid, Point, PointLike } from 'honeycomb-grid'
-import SergeHex from '../types/serge-hex'
-import SergeGrid from '../types/serge-grid'
-import cellName from '../../assets/helpers/cellName'
-import toWorld from '../../hex-grid/helpers/to-world'
-import toScreen from '../../hex-grid/helpers/to-screen'
+import { SergeHex, SergeGrid } from '@serge/custom-types'
+import { toWorld, toScreen } from '@serge/helpers'
+import cellName from './cell-name'
 
 /**
  *  create hexagonal grid

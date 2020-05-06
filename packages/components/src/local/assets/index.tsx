@@ -2,16 +2,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import L from 'leaflet'
 import { LayerGroup } from 'react-leaflet'
 import AssetIcon from '../asset-icon'
-import findPerceivedAsTypes from '@serge/helpers/findPerceivedAsTypes'
-import hexNamed from './helpers/hexNamed'
+import findPerceivedAsTypes from './helpers/find-perceived-as-types'
+import hexNamed from './helpers/hex-named'
+import { UMPIRE_FORCE } from '@serge/config'
 
 /* Import Context */
 import { MapContext } from '../mapping'
 
 /* Import Types */
 import AssetInfo from './types/asset_info'
-import { UMPIRE_FORCE } from '@serge/config'
-import SergeHex from '../mapping/types/serge-hex'
+import { SergeHex } from '@serge/custom-types'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
