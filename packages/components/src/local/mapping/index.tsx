@@ -108,27 +108,44 @@ export const Mapping: React.FC<PropTypes> = ({
   const availableForces = forces && forces.map((force: any) => {
     return {
       colour: force.color,
-      name: force.name,
-      selected: selectedAsset.force === force.name.toLowerCase()
+      name: force.name
     }
   })
 
   const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
-  const unknownForce = { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === 'unknown' }
+  const unknownForce = { name: 'Unknown', colour: '#ccc' }
 
   // Populates data from the forms using initial state
   useEffect(() => {
     setPerceptionFormData({
-      perceivedForce: [...availableForces, unknownForce]
+      populate: {
+        perceivedForce: [...availableForces, unknownForce]
+      },
+      values: {
+        perceivedForceVal: selectedAsset.force
+      }
     })
     setPlanTurnFormData({
-      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : []
+      populate: {
+        status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : []
+      }, 
+      values: {
+        statusVal: selectedAsset.status
+      }
     })
     setAdjudicateTurnFormData({
-      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
-      speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
-      visibleTo: [...availableForces, unknownForce],
-      condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
+      populate: {
+        status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
+        speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
+        visibleTo: [...availableForces, unknownForce],
+        condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
+      },
+      values: {
+        statusVal: selectedAsset.state,
+        speedVal: selectedAsset.speedKts,
+        visibleToVal: selectedAsset.force,
+        conditionVal: selectedAsset.condition
+      }
     })
   }, [selectedAsset])
 
