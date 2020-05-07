@@ -18,5 +18,9 @@ export default interface PropTypes {
   /**
    * Displays an additional force colour box if requested
    */
-  force?: boolean
+  force?: boolean,
+  /**
+   * Sets the onChange state on a parent
+   */
+  updateState?: any
 }
