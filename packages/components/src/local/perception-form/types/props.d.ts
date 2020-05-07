@@ -1,10 +1,16 @@
-interface FormData {
+interface FormDataPop {
   populate: {
     perceivedForce: Array<{
       name: string
       colour: string
     }>
   }
+  values: {
+    perceivedForceVal: string
+  }
+}
+
+interface FormDataVal {
   values: {
     perceivedForceVal: string
   }
@@ -18,9 +24,9 @@ export default interface PropTypes {
   /**
    * All types in this definition are options for a form input
    */
-  formData: FormData
+  formData: FormDataPop
   /**
    * The method for posting data back to state
    */
-  postBack?: FormData
+  postBack?: FormDataVal
 }
