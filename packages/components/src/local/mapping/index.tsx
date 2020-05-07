@@ -131,7 +131,7 @@ export const Mapping: React.FC<PropTypes> = ({
       },
       values: {
         statusVal: selectedAsset.status,
-        turns: 10
+        turns: 0
       }
     })
     setAdjudicateTurnFormData({
