@@ -128,7 +128,7 @@ export const Mapping: React.FC<PropTypes> = ({
     setPlanTurnFormData({
       populate: {
         status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : []
-      }, 
+      },
       values: {
         statusVal: selectedAsset.status,
         turns: 10

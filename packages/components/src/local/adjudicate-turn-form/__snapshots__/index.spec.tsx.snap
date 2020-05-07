@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['AdjudicateTurnForm renders correctly 1'] = `
+exports[`AdjudicateTurnForm renders correctly 1`] = `
 <div
   className="form adjudication"
 >
@@ -82,7 +82,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-47 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -100,14 +100,15 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={true}
+                  checked={false}
                   className="PrivateSwitchBase-input-49"
                   name="status"
                   onChange={[Function]}
                   type="radio"
+                  value="Fishing"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-59 PrivateRadioButtonIcon-checked-61"
+                  className="PrivateRadioButtonIcon-root-59"
                 >
                   <svg
                     aria-hidden="true"
@@ -145,7 +146,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-47 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -163,14 +164,15 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={true}
+                  checked={false}
                   className="PrivateSwitchBase-input-49"
                   name="status"
                   onChange={[Function]}
                   type="radio"
+                  value="Moored"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-59 PrivateRadioButtonIcon-checked-61"
+                  className="PrivateRadioButtonIcon-root-59"
                 >
                   <svg
                     aria-hidden="true"
@@ -231,6 +233,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                   name="status"
                   onChange={[Function]}
                   type="radio"
+                  value="Transiting"
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-59 PrivateRadioButtonIcon-checked-61"
@@ -307,6 +310,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                   name="speed (kts)"
                   onChange={[Function]}
                   type="radio"
+                  value={10}
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-59 PrivateRadioButtonIcon-checked-61"
@@ -347,7 +351,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-47 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -365,14 +369,15 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={true}
+                  checked={false}
                   className="PrivateSwitchBase-input-49"
                   name="speed (kts)"
                   onChange={[Function]}
                   type="radio"
+                  value={20}
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-59 PrivateRadioButtonIcon-checked-61"
+                  className="PrivateRadioButtonIcon-root-59"
                 >
                   <svg
                     aria-hidden="true"
@@ -410,7 +415,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-47 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -428,14 +433,15 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={true}
+                  checked={false}
                   className="PrivateSwitchBase-input-49"
                   name="speed (kts)"
                   onChange={[Function]}
                   type="radio"
+                  value={30}
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-59 PrivateRadioButtonIcon-checked-61"
+                  className="PrivateRadioButtonIcon-root-59"
                 >
                   <svg
                     aria-hidden="true"
@@ -747,6 +753,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                   name="condition"
                   onChange={[Function]}
                   type="radio"
+                  value="Working"
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-59 PrivateRadioButtonIcon-checked-61"
@@ -787,7 +794,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-47 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -805,14 +812,15 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={true}
+                  checked={false}
                   className="PrivateSwitchBase-input-49"
                   name="condition"
                   onChange={[Function]}
                   type="radio"
+                  value="Disabled"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-59 PrivateRadioButtonIcon-checked-61"
+                  className="PrivateRadioButtonIcon-root-59"
                 >
                   <svg
                     aria-hidden="true"
@@ -850,7 +858,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-47 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -868,14 +876,15 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={true}
+                  checked={false}
                   className="PrivateSwitchBase-input-49"
                   name="condition"
                   onChange={[Function]}
                   type="radio"
+                  value="Immobile"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-59 PrivateRadioButtonIcon-checked-61"
+                  className="PrivateRadioButtonIcon-root-59"
                 >
                   <svg
                     aria-hidden="true"
@@ -913,7 +922,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-47 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-46 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -931,14 +940,15 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={true}
+                  checked={false}
                   className="PrivateSwitchBase-input-49"
                   name="condition"
                   onChange={[Function]}
                   type="radio"
+                  value="Destroyed"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-59 PrivateRadioButtonIcon-checked-61"
+                  className="PrivateRadioButtonIcon-root-59"
                 >
                   <svg
                     aria-hidden="true"
@@ -999,4 +1009,4 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
     </button>
   </div>
 </div>
-`
+`;

@@ -6,7 +6,6 @@ import Form from '../form'
 import { Button } from '@material-ui/core'
 import ForcePicker from '../form-elements/force-picker'
 
-
 /* Render component */
 export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
   const { perceivedForce } = formData.populate

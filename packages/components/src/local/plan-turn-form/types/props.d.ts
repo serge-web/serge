@@ -3,7 +3,7 @@ interface FormData {
     status: Array<string>
   }
   values: {
-    statusVal: string,
+    statusVal: string
     turnsVal: number
   }
 }

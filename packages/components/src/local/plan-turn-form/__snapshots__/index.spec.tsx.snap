@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['PlanTurnForm renders correctly 1'] = `
+exports[`PlanTurnForm renders correctly 1`] = `
 <div
   className="form planning"
 >
@@ -52,6 +52,7 @@ exports['PlanTurnForm renders correctly 1'] = `
                   name="status"
                   onChange={[Function]}
                   type="radio"
+                  value="Moored"
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
@@ -92,7 +93,7 @@ exports['PlanTurnForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -110,14 +111,15 @@ exports['PlanTurnForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={true}
+                  checked={false}
                   className="PrivateSwitchBase-input-17"
                   name="status"
                   onChange={[Function]}
                   type="radio"
+                  value="Transiting"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
+                  className="PrivateRadioButtonIcon-root-30"
                 >
                   <svg
                     aria-hidden="true"
@@ -176,6 +178,7 @@ exports['PlanTurnForm renders correctly 1'] = `
               onFocus={[Function]}
               required={false}
               type="text"
+              value={5}
             />
           </div>
         </div>
@@ -207,4 +210,4 @@ exports['PlanTurnForm renders correctly 1'] = `
     </button>
   </div>
 </div>
-`
+`;

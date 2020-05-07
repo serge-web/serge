@@ -4,7 +4,7 @@ interface FormData {
       name: string
       colour: string
     }>
-  },
+  }
   values: {
     perceivedForceVal: string
   }

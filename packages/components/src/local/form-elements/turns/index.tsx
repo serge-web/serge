@@ -7,7 +7,7 @@ import { TextField } from '@material-ui/core'
 import PropTypes from './types/props'
 
 /* Render component */
-export const Turns: React.FC<PropTypes> = ({turns}) =>
+export const Turns: React.FC<PropTypes> = ({ turns }) =>
   <InputContainer label="For">
     <TextField value={turns}></TextField> Turns
   </InputContainer>
