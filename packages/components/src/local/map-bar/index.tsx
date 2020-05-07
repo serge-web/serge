@@ -50,13 +50,16 @@ export const MapBar: React.FC = () => {
     let output = null
     switch (form) {
       case 'PerceivedAs':
-        output = <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} postBack={setPerceptionFormData}/>
+        output = <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} postBack={setPerceptionFormData} />
         break
       case 'Adjudication':
         output = <AdjudicateTurnForm formHeader={currentAssetName} formData={adjudicateTurnFormData} postBack={setAdjudicateTurnFormData} />
         break
       case 'Planning':
         output = <PlanTurnForm formHeader={currentAssetName} formData={planTurnFormData} postBack={setPlanTurnFormData}/>
+        break
+      default:
+        output = null
         break
     }
     return output
@@ -70,7 +73,7 @@ export const MapBar: React.FC = () => {
           <WorldState name="World State"></WorldState>
         </section>
         <section>
-          {currentForm !== '' && currentAssetName !== '' && formSelector(currentForm)}
+          {currentForm !== '' && currentAssetName !== undefined && formSelector(currentForm)}
         </section>
       </div>
     </div>
