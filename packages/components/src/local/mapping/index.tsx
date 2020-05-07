@@ -130,7 +130,8 @@ export const Mapping: React.FC<PropTypes> = ({
         status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : []
       }, 
       values: {
-        statusVal: selectedAsset.status
+        statusVal: selectedAsset.status,
+        turns: 10
       }
     })
     setAdjudicateTurnFormData({
