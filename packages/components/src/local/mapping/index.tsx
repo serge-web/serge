@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/create-grid'
 import { Phase } from '@serge/config'
+import { kebabCase } from 'lodash'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -99,6 +100,36 @@ export const Mapping: React.FC<PropTypes> = ({
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
+  const [perceptionFormData, setPerceptionFormData] = useState<any>({})
+  const [planTurnFormData, setPlanTurnFormData] = useState<any>({})
+  const [adjudicateTurnFormData, setAdjudicateTurnFormData] = useState<any>({})
+
+  // Loops through all available forces and creates an entry for each one to be used as form data
+  const availableForces = forces && forces.map((force: any) => {
+    return {
+      colour: force.color,
+      name: force.name,
+      selected: selectedAsset.force === force.name.toLowerCase()
+    }
+  })
+
+  const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
+
+  // Populates data from the forms using initial state
+  useEffect(() => {
+    setPerceptionFormData({
+      perceivedForce: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === 'unknown' }]
+    })
+    setPlanTurnFormData({
+      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : []
+    })
+    setAdjudicateTurnFormData({
+      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
+      speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
+      visibleTo: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === 'unknown' }],
+      condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
+    })
+  }, [selectedAsset])
 
   // if we've got a planning range from prop, double-check if it is different
   // to the current one
@@ -158,11 +189,17 @@ export const Mapping: React.FC<PropTypes> = ({
     planningConstraints,
     planningRange,
     showMapBar,
+    selectedAsset,
+    zoomLevel,
+    perceptionFormData,
+    planTurnFormData,
+    adjudicateTurnFormData,
+    setPlanTurnFormData,
+    setPerceptionFormData,
+    setAdjudicateTurnFormData,
     setNewLeg,
     setShowMapBar,
-    selectedAsset,
     setSelectedAsset,
-    zoomLevel,
     setZoomLevel
   }
 
