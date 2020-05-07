@@ -16,9 +16,9 @@ export const ForcePicker: React.FC<PropTypes> = ({ label, options, selected, upd
   }
 
   return <InputContainer label={label}>
-    <RadioGroup aria-label={label} name={label.toLowerCase()} value={selected} onChange={handleChange}>
+    <RadioGroup aria-label={label} name={label.toLowerCase()} value={selected.toLowerCase()} onChange={handleChange}>
       {
-        options.map(option => <FormControlLabel key={option.name} control={<Radio />} value={option.name} label={<div><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{option.name}</div>} />)
+        options.map(option => <FormControlLabel key={option.name} control={<Radio />} value={option.name.toLowerCase()} label={<div><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{option.name}</div>} />)
       }
     </RadioGroup>
   </InputContainer>
