@@ -13,4 +13,8 @@ export default interface PropTypes {
    * The currently selected force
    */
   selected: string
+  /**
+   * Sets the onChange state on a parent
+   */
+  updateState?: any
 }
