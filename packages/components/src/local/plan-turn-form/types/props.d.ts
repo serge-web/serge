@@ -1,5 +1,11 @@
 interface FormData {
-  status: Array<string>
+  populate: {
+    status: Array<string>
+  }
+  values: {
+    statusVal: string,
+    turnsVal: number
+  }
 }
 
 export default interface PropTypes {
