@@ -1,9 +1,13 @@
 interface FormData {
-  perceivedForce: Array<{
-    name: string
-    colour: string
-    selected: boolean
-  }>
+  populate: {
+    perceivedForce: Array<{
+      name: string
+      colour: string
+    }>
+  },
+  values: {
+    perceivedForceVal: string
+  }
 }
 
 export default interface PropTypes {
