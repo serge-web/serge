@@ -1,12 +1,19 @@
 interface FormData {
-  status: Array<string>
-  speed: Array<number>
-  visibleTo: Array<{
-    name: string
-    colour: string
-    selected: boolean
-  }>
-  condition: Array<string>
+  populate: {
+    status: Array<string>
+    speed: Array<number>
+    visibleTo: Array<{
+      name: string
+      colour: string
+    }>
+    condition: Array<string>
+  }
+  values: {
+    statusVal: string
+    speedVal: number
+    visibleToVal: string
+    conditionVal: string
+  }
 }
 
 export default interface PropTypes {
