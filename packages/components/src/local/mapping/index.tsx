@@ -117,37 +117,40 @@ export const Mapping: React.FC<PropTypes> = ({
 
   // Populates data from the forms using initial state
   useEffect(() => {
-    setPerceptionFormData({
-      populate: {
-        perceivedForce: [...availableForces, unknownForce]
-      },
-      values: {
-        perceivedForceVal: selectedAsset.force
-      }
-    })
-    setPlanTurnFormData({
-      populate: {
-        status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : []
-      },
-      values: {
-        statusVal: selectedAsset.status,
-        turns: 0
-      }
-    })
-    setAdjudicateTurnFormData({
-      populate: {
-        status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
-        speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
-        visibleTo: [...availableForces, unknownForce],
-        condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
-      },
-      values: {
-        statusVal: selectedAsset.state,
-        speedVal: selectedAsset.speedKts,
-        visibleToVal: selectedAsset.force,
-        conditionVal: selectedAsset.condition
-      }
-    })
+    // First check that selectedAsset has been populated
+    if (selectedAsset.id !== '') {
+      setPerceptionFormData({
+        populate: {
+          perceivedForce: [...availableForces, unknownForce]
+        },
+        values: {
+          perceivedForceVal: selectedAsset.force
+        }
+      })
+      setPlanTurnFormData({
+        populate: {
+          status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : []
+        },
+        values: {
+          statusVal: selectedAsset.status.state,
+          turnsVal: 0
+        }
+      })
+      setAdjudicateTurnFormData({
+        populate: {
+          status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
+          speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
+          visibleTo: [...availableForces, unknownForce],
+          condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
+        },
+        values: {
+          statusVal: selectedAsset.state,
+          speedVal: selectedAsset.speedKts,
+          visibleToVal: selectedAsset.force,
+          conditionVal: selectedAsset.condition
+        }
+      })
+    }
   }, [selectedAsset])
 
   // if we've got a planning range from prop, double-check if it is different
