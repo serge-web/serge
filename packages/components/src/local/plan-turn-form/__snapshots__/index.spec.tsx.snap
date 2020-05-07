@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['PlanTurnForm renders correctly 1'] = `
+exports[`PlanTurnForm renders correctly 1`] = `
 <div
   className="form planning"
 >
@@ -189,6 +189,7 @@ exports['PlanTurnForm renders correctly 1'] = `
       className="MuiButtonBase-root MuiButton-root MuiButton-text"
       disabled={false}
       onBlur={[Function]}
+      onClick={[Function]}
       onDragLeave={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -210,4 +211,4 @@ exports['PlanTurnForm renders correctly 1'] = `
     </button>
   </div>
 </div>
-`
+`;

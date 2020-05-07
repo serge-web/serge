@@ -17,7 +17,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
         populate: formData.populate,
         values: {
           statusVal: data,
-          turnsVal: formData.values.turnsVal,
+          turnsVal: formData.values.turnsVal
         }
       }
     )
@@ -33,7 +33,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
         }
       }
     )
-  };
+  }
 
   const submitForm = (): void => postBack(formState)
 

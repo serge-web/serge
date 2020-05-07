@@ -10,8 +10,7 @@ import PropTypes from './types/props'
 import { ConditionalWrapper, componentSelector } from './helpers'
 
 /* Render component */
-export const RCB: React.FC<PropTypes> = ({ type, label, options, value, updateState }) =>{
-  
+export const RCB: React.FC<PropTypes> = ({ type, label, options, value, updateState }) => {
   const handleRadio = (event: React.ChangeEvent<HTMLInputElement>): void => {
     updateState((event.target as HTMLInputElement).value)
   }
@@ -25,7 +24,7 @@ export const RCB: React.FC<PropTypes> = ({ type, label, options, value, updateSt
     <ConditionalWrapper
       condition={type === 'radio'}
       wrapper = {(children: any): React.ReactNode => <RadioGroup aria-label={label} name={label.toLowerCase()} value={value} onChange={handleRadio}>{children}</RadioGroup> }
-      >
+    >
       {
         options.map(option => <FormControlLabel key={option.toString()} control={componentSelector(type, option, value, handleCheckbox)} label={option} value={option}/>)
       }
