@@ -7,7 +7,7 @@ import { Button } from '@material-ui/core'
 import ForcePicker from '../form-elements/force-picker'
 
 /* Render component */
-export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData }) => {
+export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
   const [formState, setFormState] = useState(formData)
 
   const { perceivedForce } = formState.populate
@@ -24,11 +24,13 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData }) =>
     )
   }
 
+  const submitForm = (): void => postBack(formState)
+
   return <Form type="perceived-as" headerText={formHeader}>
     <fieldset>
       <ForcePicker label="Perceived Force" options={perceivedForce} selected={perceivedForceVal} updateState={formHandler}/>
     </fieldset>
-    <Button>Save</Button>
+    <Button onClick={submitForm}>Save</Button>
   </Form>
 }
 

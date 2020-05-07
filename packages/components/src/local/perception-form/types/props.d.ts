@@ -10,12 +10,6 @@ interface FormDataPop {
   }
 }
 
-interface FormDataVal {
-  values: {
-    perceivedForceVal: string
-  }
-}
-
 export default interface PropTypes {
   /**
    * The header text for the form
@@ -28,5 +22,5 @@ export default interface PropTypes {
   /**
    * The method for posting data back to state
    */
-  postBack?: FormDataVal
+  postBack?: any
 }
