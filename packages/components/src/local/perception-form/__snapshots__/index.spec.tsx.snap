@@ -52,7 +52,7 @@ exports['PerceptionForm renders correctly 1'] = `
                   name="perceived force"
                   onChange={[Function]}
                   type="radio"
-                  value="Blue Force"
+                  value="blue force"
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
@@ -126,7 +126,7 @@ exports['PerceptionForm renders correctly 1'] = `
                   name="perceived force"
                   onChange={[Function]}
                   type="radio"
-                  value="Red Force"
+                  value="red force"
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-30"
@@ -200,7 +200,7 @@ exports['PerceptionForm renders correctly 1'] = `
                   name="perceived force"
                   onChange={[Function]}
                   type="radio"
-                  value="White Force"
+                  value="white force"
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-30"
@@ -253,6 +253,7 @@ exports['PerceptionForm renders correctly 1'] = `
       className="MuiButtonBase-root MuiButton-root MuiButton-text"
       disabled={false}
       onBlur={[Function]}
+      onClick={[Function]}
       onDragLeave={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}

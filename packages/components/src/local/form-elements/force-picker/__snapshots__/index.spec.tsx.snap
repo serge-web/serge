@@ -40,7 +40,7 @@ exports['CheckboxType renders correctly 1'] = `
             name="visible to"
             onChange={[Function]}
             type="radio"
-            value="Blue Force"
+            value="blue force"
           />
           <div
             className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
@@ -114,7 +114,7 @@ exports['CheckboxType renders correctly 1'] = `
             name="visible to"
             onChange={[Function]}
             type="radio"
-            value="Red Force"
+            value="red force"
           />
           <div
             className="PrivateRadioButtonIcon-root-30"
@@ -188,7 +188,7 @@ exports['CheckboxType renders correctly 1'] = `
             name="visible to"
             onChange={[Function]}
             type="radio"
-            value="White Force"
+            value="white force"
           />
           <div
             className="PrivateRadioButtonIcon-root-30"

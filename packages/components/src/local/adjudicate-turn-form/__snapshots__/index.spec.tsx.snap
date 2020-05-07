@@ -517,7 +517,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                   name="visible to"
                   onChange={[Function]}
                   type="radio"
-                  value="Blue Force"
+                  value="blue force"
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-59 PrivateRadioButtonIcon-checked-61"
@@ -591,7 +591,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                   name="visible to"
                   onChange={[Function]}
                   type="radio"
-                  value="Red Force"
+                  value="red force"
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-59"
@@ -665,7 +665,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                   name="visible to"
                   onChange={[Function]}
                   type="radio"
-                  value="White Force"
+                  value="white force"
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-59"
