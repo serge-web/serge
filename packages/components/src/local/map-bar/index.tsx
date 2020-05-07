@@ -15,24 +15,23 @@ import PlanTurnForm from '../plan-turn-form'
 
 /* Render component */
 export const MapBar: React.FC = () => {
-
   /* Set our intial states */
   const [currentForm, setCurrentForm] = useState('')
   const [currentAssetName, setCurrentAssetName] = useState('')
 
   /* Pull in the context from MappingContext */
-  const { 
-    playerForce, 
-    phase, 
-    showMapBar, 
-    setShowMapBar, 
-    selectedAsset, 
+  const {
+    playerForce,
+    phase,
+    showMapBar,
+    setShowMapBar,
+    selectedAsset,
     perceptionFormData,
     planTurnFormData,
-    adjudicateTurnFormData,
+    adjudicateTurnFormData
     // setPlanTurnFormData,
     // setPerceptionFormData,
-    // setAdjudicateTurnFormData 
+    // setAdjudicateTurnFormData
   } = useContext(MapContext).props
 
   // Selects the current asset

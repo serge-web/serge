@@ -3,7 +3,7 @@
 import findPerceivedAsTypes from './find-perceived-as-types'
 
 // perceptions element
-const perceptions:any = [{
+const perceptions: any = [{
   by: 'Blue',
   force: 'Green',
   name: 'OSAKA',
@@ -11,14 +11,14 @@ const perceptions:any = [{
 }]
 
 // get a perceptions element with Force missing
-const perceptionsForceMissing:any = [{
+const perceptionsForceMissing: any = [{
   by: 'Blue',
   name: 'OSAKA',
   type: 'merchant-vessel'
 }]
 
 // get a perceptions element with type missing
-const perceptionsTypeMissing:any = [{
+const perceptionsTypeMissing: any = [{
   by: 'Blue',
   force: 'Green',
   name: 'OSAKA'
@@ -33,7 +33,6 @@ it('gives true details for umpire', () => {
   expect(findPerceivedAsTypes('Red', 'yellow', 'submarine',
     perceptions, true)).toEqual(['yellow', 'submarine'])
 })
-
 
 it('gives null for force without perception', () => {
   expect(findPerceivedAsTypes('Red', 'yellow', 'submarine',
