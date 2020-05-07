@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -9,15 +9,42 @@ import Turns from '../form-elements/turns'
 
 /* Render component */
 export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
-  console.log(postBack)
-  const { status } = formData.populate
-  const { statusVal, turnsVal } = formData.values
+  const [formState, setFormState] = useState(formData)
+
+  const statusHandler = (data: string): void => {
+    setFormState(
+      {
+        populate: formData.populate,
+        values: {
+          statusVal: data,
+          turnsVal: formData.values.turnsVal,
+        }
+      }
+    )
+  }
+
+  const turnsHandler = (data: number): void => {
+    setFormState(
+      {
+        populate: formData.populate,
+        values: {
+          statusVal: formData.values.statusVal,
+          turnsVal: data
+        }
+      }
+    )
+  };
+
+  const submitForm = (): void => postBack(formState)
+
+  const { status } = formState.populate
+  const { statusVal, turnsVal } = formState.values
   return <Form type="planning" headerText={formHeader}>
     <fieldset>
-      <RCB type="radio" label="Status" options={status} value={statusVal} />
-      <Turns turns={turnsVal}/>
+      <RCB type="radio" label="Status" options={status} value={statusVal} updateState={statusHandler}/>
+      <Turns turns={turnsVal} updateState={turnsHandler} />
     </fieldset>
-    <Button>Save</Button>
+    <Button onClick={submitForm}>Save</Button>
   </Form>
 }
 
