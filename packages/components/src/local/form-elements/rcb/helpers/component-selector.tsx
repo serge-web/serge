@@ -3,11 +3,11 @@ import React from 'react'
 import { Checkbox, Radio } from '@material-ui/core'
 import ComponentSelector from '../types/component-selector'
 
-const componentSelector: ComponentSelector = (type, option) => {
+const componentSelector: ComponentSelector = (type, option, value) => {
   let output = null
   switch (type) {
     case 'checkbox' :
-      output = <Checkbox name={option.toString().toLowerCase()} />
+      output = <Checkbox name={option.toString().toLowerCase()} checked={option === value} />
       break
     case 'radio' :
       output = <Radio />

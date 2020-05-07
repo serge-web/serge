@@ -16,5 +16,5 @@ export default {
   }
 }
 
-export const Checkbox: React.FC = () => <RCB type="checkbox" label="Visible to" options={['Red', 'Blue']}/>
-export const Radio: React.FC = () => <RCB type="radio" label="Visible to" options={['Red', 'Blue']}/>
+export const Checkbox: React.FC = () => <RCB type="checkbox" label="Visible to" options={['Red', 'Blue']} value="Blue"/>
+export const Radio: React.FC = () => <RCB type="radio" label="Visible to" options={['Red', 'Blue']} value="Red" />

@@ -12,6 +12,10 @@ export default interface PropTypes {
    */
   options: Array<string | number>
   /**
+   * The value to set the 'checked' parameter to
+   */
+  value: string | number
+  /**
    * Displays an additional force colour box if requested
    */
   force?: boolean

@@ -10,14 +10,14 @@ import PropTypes from './types/props'
 import { ConditionalWrapper, componentSelector } from './helpers'
 
 /* Render component */
-export const RCB: React.FC<PropTypes> = ({ type, label, options }) =>
+export const RCB: React.FC<PropTypes> = ({ type, label, options, value }) =>
   <InputContainer label={label}>
     <ConditionalWrapper
       condition={type === 'radio'}
-      wrapper = {(children: any): React.ReactNode => <RadioGroup aria-label={label} name={label.toLowerCase()}>{children}</RadioGroup> }
+      wrapper = {(children: any): React.ReactNode => <RadioGroup aria-label={label} name={label.toLowerCase()} value={value}>{children}</RadioGroup> }
     >
       {
-        options.map(option => <FormControlLabel key={option.toString()} control={componentSelector(type, option)} label={option} />)
+        options.map(option => <FormControlLabel key={option.toString()} control={componentSelector(type, option, value)} label={option} value={option}/>)
       }
     </ConditionalWrapper>
   </InputContainer>
