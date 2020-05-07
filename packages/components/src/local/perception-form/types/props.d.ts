@@ -1,3 +1,11 @@
+interface FormData {
+  perceivedForce: Array<{
+    name: string
+    colour: string
+    selected: boolean
+  }>
+}
+
 export default interface PropTypes {
   /**
    * The header text for the form
@@ -6,11 +14,9 @@ export default interface PropTypes {
   /**
    * All types in this definition are options for a form input
    */
-  formData: {
-    perceivedForce: Array<{
-      name: string
-      colour: string
-      selected: boolean
-    }>
-  }
+  formData: FormData
+  /**
+   * The method for posting data back to state
+   */
+  postBack?: FormData
 }

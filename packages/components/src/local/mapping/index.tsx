@@ -114,11 +114,12 @@ export const Mapping: React.FC<PropTypes> = ({
   })
 
   const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
+  const unknownForce = { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === 'unknown' }
 
   // Populates data from the forms using initial state
   useEffect(() => {
     setPerceptionFormData({
-      perceivedForce: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === 'unknown' }]
+      perceivedForce: [...availableForces, unknownForce]
     })
     setPlanTurnFormData({
       status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : []
@@ -126,7 +127,7 @@ export const Mapping: React.FC<PropTypes> = ({
     setAdjudicateTurnFormData({
       status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
       speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
-      visibleTo: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === 'unknown' }],
+      visibleTo: [...availableForces, unknownForce],
       condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
     })
   }, [selectedAsset])

@@ -16,8 +16,10 @@ import ForcePicker from '../form-elements/force-picker'
 // import styles from './styles.module.scss'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData }) => {
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
   const { status, speed, visibleTo, condition } = formData
+
+  console.log(postBack)
 
   return (
     <Form type="adjudication" headerText={formHeader} >
