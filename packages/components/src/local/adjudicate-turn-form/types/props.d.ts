@@ -9,6 +9,7 @@ interface FormData {
     condition: Array<string>
   }
   values: {
+    plannedRouteStatusVal: string,
     statusVal: string
     speedVal: number
     visibleToVal: string
