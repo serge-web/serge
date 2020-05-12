@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PlannedRoute renders correctly 1`] = `
+exports['PlannedRoute renders correctly 1'] = `
 <section
   className="input-container"
 >
@@ -56,4 +56,4 @@ exports[`PlannedRoute renders correctly 1`] = `
     </span>
   </button>
 </section>
-`;
+`

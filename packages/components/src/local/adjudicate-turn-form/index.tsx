@@ -53,10 +53,21 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
 
   return (
     <Form type="adjudication" headerText={formHeader} >
+      { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
       <fieldset>
         <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
-        <RCB type="radio" label="Status" options={status} value={statusVal} updateState={changeHandler}/>
-        <RCB type="radio" label="Speed (kts)" name="speed" options={speed} value={speedVal} updateState={changeHandler}/>
+        { 
+          plannedRouteStatusVal === 'rejected' && <div>
+            <RCB type="radio" label="Status" options={status} value={statusVal} updateState={changeHandler}/>
+            <RCB type="radio" label="Speed (kts)" name="speed" options={speed} value={speedVal} updateState={changeHandler}/>
+          </div>
+        }
+        {
+          plannedRouteStatusVal !== 'rejected' && <>
+            <div>Status: {statusVal}</div>
+            <div>Speed (kts): {speedVal}</div>
+          </>
+        }
       </fieldset>
       <fieldset>
         <ForcePicker label="Visible to" options={visibleTo} selected={visibleToVal} updateState={changeHandler}/>

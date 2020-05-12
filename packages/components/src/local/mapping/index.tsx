@@ -144,8 +144,9 @@ export const Mapping: React.FC<PropTypes> = ({
           condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
         },
         values: {
-          statusVal: selectedAsset.state,
-          speedVal: selectedAsset.speedKts,
+          plannedRouteStatusVal: 'pending',
+          statusVal: selectedAsset.status.state,
+          speedVal: selectedAsset.status.speedKts,
           visibleToVal: selectedAsset.force,
           conditionVal: selectedAsset.condition
         }
