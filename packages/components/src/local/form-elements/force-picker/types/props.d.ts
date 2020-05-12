@@ -9,7 +9,7 @@ export default interface PropTypes {
    * The name of the input (if left blank, label is used)
    * this should match the 'populate' value of the input in state
    */
-  name?: string,
+  name?: string
   /**
    * The list of options available to the form section
    */

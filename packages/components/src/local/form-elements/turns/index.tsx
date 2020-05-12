@@ -8,7 +8,7 @@ import PropTypes from './types/props'
 
 /* Render component */
 export const Turns: React.FC<PropTypes> = ({ turns, updateState }) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     updateState(event.target)
   }
 

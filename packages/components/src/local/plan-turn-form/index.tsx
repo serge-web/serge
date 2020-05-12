@@ -9,10 +9,9 @@ import Turns from '../form-elements/turns'
 
 /* Render component */
 export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
-  
   // TODO: Refactor this into a reusable helper and remove other instances
   const [formState, setFormState] = useState(formData)
-  
+
   const changeHandler = (e: any): void => {
     const { name, value } = e
     setFormState(
@@ -20,7 +19,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
         populate: formData.populate,
         values: {
           ...formState.values,
-          [`${name}Val`]: value,
+          [`${name}Val`]: value
         }
       }
     )

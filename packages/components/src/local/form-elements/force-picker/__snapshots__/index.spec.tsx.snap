@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['CheckboxType renders correctly 1'] = `
+exports[`CheckboxType renders correctly 1`] = `
 <section
   className="input-container"
 >
@@ -37,7 +37,7 @@ exports['CheckboxType renders correctly 1'] = `
           <input
             checked={true}
             className="PrivateSwitchBase-input-17"
-            name="visible to"
+            name="visibleTo"
             onChange={[Function]}
             type="radio"
             value="blue force"
@@ -111,7 +111,7 @@ exports['CheckboxType renders correctly 1'] = `
           <input
             checked={false}
             className="PrivateSwitchBase-input-17"
-            name="visible to"
+            name="visibleTo"
             onChange={[Function]}
             type="radio"
             value="red force"
@@ -185,7 +185,7 @@ exports['CheckboxType renders correctly 1'] = `
           <input
             checked={false}
             className="PrivateSwitchBase-input-17"
-            name="visible to"
+            name="visibleTo"
             onChange={[Function]}
             type="radio"
             value="white force"
@@ -236,4 +236,4 @@ exports['CheckboxType renders correctly 1'] = `
     </label>
   </div>
 </section>
-`
+`;

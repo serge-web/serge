@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['AdjudicateTurnForm renders correctly 1'] = `
+exports[`AdjudicateTurnForm renders correctly 1`] = `
 <div
   className="form adjudication"
 >
@@ -307,7 +307,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 <input
                   checked={true}
                   className="PrivateSwitchBase-input-49"
-                  name="speed (kts)"
+                  name="speed"
                   onChange={[Function]}
                   type="radio"
                   value={10}
@@ -371,7 +371,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 <input
                   checked={false}
                   className="PrivateSwitchBase-input-49"
-                  name="speed (kts)"
+                  name="speed"
                   onChange={[Function]}
                   type="radio"
                   value={20}
@@ -435,7 +435,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 <input
                   checked={false}
                   className="PrivateSwitchBase-input-49"
-                  name="speed (kts)"
+                  name="speed"
                   onChange={[Function]}
                   type="radio"
                   value={30}
@@ -514,7 +514,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 <input
                   checked={true}
                   className="PrivateSwitchBase-input-49"
-                  name="visible to"
+                  name="visibleTo"
                   onChange={[Function]}
                   type="radio"
                   value="blue force"
@@ -588,7 +588,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 <input
                   checked={false}
                   className="PrivateSwitchBase-input-49"
-                  name="visible to"
+                  name="visibleTo"
                   onChange={[Function]}
                   type="radio"
                   value="red force"
@@ -662,7 +662,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 <input
                   checked={false}
                   className="PrivateSwitchBase-input-49"
-                  name="visible to"
+                  name="visibleTo"
                   onChange={[Function]}
                   type="radio"
                   value="white force"
@@ -988,6 +988,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
       className="MuiButtonBase-root MuiButton-root MuiButton-text"
       disabled={false}
       onBlur={[Function]}
+      onClick={[Function]}
       onDragLeave={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -1009,4 +1010,4 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
     </button>
   </div>
 </div>
-`
+`;

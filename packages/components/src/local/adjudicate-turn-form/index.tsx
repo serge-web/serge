@@ -17,33 +17,32 @@ import { isNumber } from '@serge/helpers'
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
   const [formState, setFormState] = useState(formData)
- 
+
   const { status, speed, visibleTo, condition } = formState.populate
   const { statusVal, speedVal, visibleToVal, conditionVal } = formState.values
 
-  
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
-   const { name, value } = e
+    const { name, value } = e
 
-  // If a value has been passed as a string when it should be a number,
-  // convert it back to a number
-  const outputVal = isNumber(value) ? parseInt(value) : value
+    // If a value has been passed as a string when it should be a number,
+    // convert it back to a number
+    const outputVal = isNumber(value) ? parseInt(value) : value
 
-   setFormState(
-     {
-       populate: formData.populate,
-       values: {
-         ...formState.values,
-         [`${name}Val`]: outputVal,
-       }
-     }
-   )
- }
+    setFormState(
+      {
+        populate: formData.populate,
+        values: {
+          ...formState.values,
+          [`${name}Val`]: outputVal
+        }
+      }
+    )
+  }
 
- console.log(speedVal)
+  console.log(speedVal)
 
- const submitForm = (): void => postBack(formState)
+  const submitForm = (): void => postBack(formState)
 
   return (
     <Form type="adjudication" headerText={formHeader} >

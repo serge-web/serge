@@ -5,7 +5,7 @@ import { Checkbox, Radio } from '@material-ui/core'
 import ComponentSelector from '../types/component-selector'
 
 const componentSelector: ComponentSelector = (type, option, value, postBack, name) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     postBack(event.target)
   }
 
