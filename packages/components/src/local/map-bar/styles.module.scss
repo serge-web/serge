@@ -18,8 +18,10 @@
 
 .open {
   left: 0;
-  svg {
-    transform: rotate(180deg);
+  .toggle {
+    svg {
+      transform: rotate(180deg);
+    }
   }
 }
 
