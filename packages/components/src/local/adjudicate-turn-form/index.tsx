@@ -54,12 +54,12 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
   return (
     <Form type="adjudication" headerText={formHeader} >
       { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
-      <fieldset>
+      { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
         {
           plannedRouteStatusVal === 'rejected' && <div>
             <RCB type="radio" label="Status" options={status} value={statusVal} updateState={changeHandler}/>
-            <RCB type="radio" label="Speed (kts)" name="speed" options={speed} value={speedVal} updateState={changeHandler}/>
+            { statusVal.toLowerCase() !== 'moored' && <RCB type="radio" label="Speed (kts)" name="speed" options={speed} value={speedVal} updateState={changeHandler}/> }
           </div>
         }
         {
@@ -69,6 +69,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
           </>
         }
       </fieldset>
+      }
       <fieldset>
         <ForcePicker label="Visible to" options={visibleTo} selected={visibleToVal} updateState={changeHandler}/>
         <hr />
