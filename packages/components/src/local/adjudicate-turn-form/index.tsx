@@ -24,21 +24,20 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
     const { name, value } = e
-    updateState({name, value})
+    updateState({ name, value })
   }
 
   const clickHandler = (data: any): void => {
     updateState(data)
   }
 
-  const updateState = (data: any) => {
-
+  const updateState = (data: any): void => {
     const { name, value } = data
 
     // If a value has been passed as a string when it should be a number,
     // convert it back to a number
     const outputVal = isNumber(value) ? parseInt(value) : value
-    
+
     setFormState(
       {
         populate: formData.populate,
