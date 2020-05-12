@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['PlannedRoute renders correctly 1'] = `
+exports[`PlannedRoute renders correctly 1`] = `
 <section
   className="input-container"
 >
@@ -11,6 +11,7 @@ exports['PlannedRoute renders correctly 1'] = `
     className="MuiButtonBase-root MuiButton-root MuiButton-text"
     disabled={false}
     onBlur={[Function]}
+    onClick={[Function]}
     onDragLeave={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -34,6 +35,7 @@ exports['PlannedRoute renders correctly 1'] = `
     className="MuiButtonBase-root MuiButton-root MuiButton-text"
     disabled={false}
     onBlur={[Function]}
+    onClick={[Function]}
     onDragLeave={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
@@ -54,4 +56,4 @@ exports['PlannedRoute renders correctly 1'] = `
     </span>
   </button>
 </section>
-`
+`;
