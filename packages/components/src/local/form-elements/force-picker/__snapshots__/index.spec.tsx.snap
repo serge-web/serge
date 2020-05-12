@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CheckboxType renders correctly 1`] = `
+exports['CheckboxType renders correctly 1'] = `
 <section
   className="input-container"
 >
@@ -236,4 +236,4 @@ exports[`CheckboxType renders correctly 1`] = `
     </label>
   </div>
 </section>
-`;
+`

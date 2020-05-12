@@ -7,7 +7,7 @@ import PlannedRoute from './index'
 
 it('PlannedRoute renders correctly', () => {
   const tree = renderer
-    .create(<PlannedRoute />)
+    .create(<PlannedRoute name="plannedRouteStatus" status="pending" />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })
