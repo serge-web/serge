@@ -8,6 +8,11 @@ export default interface PropTypes {
    */
   label: string
   /**
+   * The name of the input, if no input is selected, label is used instead.
+   * Should match the value of 'populate' that should be updated in state.
+   */
+  name?: string
+  /**
    * The list of options available to the form section
    */
   options: Array<string | number>
