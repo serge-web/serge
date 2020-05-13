@@ -1,3 +1,8 @@
+interface FormValues {
+  perceivedForceVal: string
+  perceivedTypeVal: string
+}
+
 interface FormDataPop {
   populate: {
     perceivedForce: Array<{
@@ -6,10 +11,7 @@ interface FormDataPop {
     }>
     perceivedType: Array<string>
   }
-  values: {
-    perceivedForceVal: string
-    perceivedTypeVal: string
-  }
+  values: FormValues
 }
 
 export default interface PropTypes {
@@ -24,5 +26,4 @@ export default interface PropTypes {
   /**
    * The method for posting data back to state
    */
-  postBack?: any
-}
+  postBack?: {(payload: FormValues): void}}

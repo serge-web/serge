@@ -40,7 +40,11 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, post
     )
   }
 
-  const submitForm = (): void => postBack(formState)
+  const submitForm = (): void => {
+    if (postBack !== undefined) {
+      postBack(formState.values)
+    }
+  }
 
   return <Form type="perceived-as" headerText={formHeader}>
     <fieldset>
