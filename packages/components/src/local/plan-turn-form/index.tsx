@@ -10,25 +10,27 @@ import Turns from '../form-elements/turns'
 /* Render component */
 export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
   // TODO: Refactor this into a reusable helper and remove other instances
-  const [formState, setFormState] = useState(formData)
+  const [formState, setFormState] = useState(formData.values)
+
+  const { status } = formData.populate
+  const { statusVal, turnsVal } = formState
 
   const changeHandler = (e: any): void => {
     const { name, value } = e
     setFormState(
       {
-        populate: formData.populate,
-        values: {
-          ...formState.values,
-          [`${name}Val`]: value
-        }
+        ...formState,
+        [`${name}Val`]: value
       }
     )
   }
 
-  const submitForm = (): void => postBack(formState)
+  const submitForm = (): void => {
+    if (postBack !== undefined) {
+      postBack(formState)
+    }
+  }
 
-  const { status } = formState.populate
-  const { statusVal, turnsVal } = formState.values
   return <Form type="planning" headerText={formHeader}>
     <fieldset>
       <RCB type="radio" label="Status" options={status} value={statusVal} updateState={changeHandler}/>

@@ -9,21 +9,17 @@ import RCB from '../form-elements/rcb'
 
 /* Render component */
 export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
-  const [formState, setFormState] = useState(formData)
+  const [formState, setFormState] = useState(formData.values)
 
-  const { perceivedForce, perceivedType } = formState.populate
-  const { perceivedForceVal, perceivedTypeVal } = formState.values
+  const { perceivedForce, perceivedType } = formData.populate
+  const { perceivedForceVal, perceivedTypeVal } = formState
 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
-    const { name, value } = e
     setFormState(
       {
-        populate: formData.populate,
-        values: {
-          ...formState.values,
-          [`${name}Val`]: value
-        }
+        ...formState,
+        perceivedForceVal: e.value
       }
     )
   }
@@ -31,16 +27,17 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, post
   const selectHandler = (data: string): void => {
     setFormState(
       {
-        populate: formData.populate,
-        values: {
-          ...formState.values,
-          perceivedTypeVal: data
-        }
+        ...formState,
+        perceivedTypeVal: data
       }
     )
   }
 
-  const submitForm = (): void => postBack(formState)
+  const submitForm = (): void => {
+    if (postBack !== undefined) {
+      postBack(formState)
+    }
+  }
 
   return <Form type="perceived-as" headerText={formHeader}>
     <fieldset>
