@@ -23,7 +23,7 @@ exports['Selector renders correctly 1'] = `
       role="button"
       tabIndex={0}
     >
-      item2
+      Item2
     </div>
     <input
       onAnimationStart={[Function]}

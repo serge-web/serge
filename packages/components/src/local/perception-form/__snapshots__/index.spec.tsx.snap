@@ -248,40 +248,48 @@ exports['PerceptionForm renders correctly 1'] = `
           </label>
         </div>
       </section>
-      <ul>
-        <li>
-          Fishing vessel
-        </li>
-        <li>
-          <strong>
+      <section
+        className="input-container"
+      >
+        <h2>
+          Percieved Type
+        </h2>
+        <div
+          className="MuiInputBase-root MuiInput-root MuiInput-underline"
+          onClick={[Function]}
+        >
+          <div
+            aria-haspopup="listbox"
+            aria-labelledby="Percieved Type perceivedType"
+            className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+            id="perceivedType"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
             Frigate
-          </strong>
-        </li>
-        <li>
-          Boghammer
-        </li>
-        <li>
-          torpedo
-        </li>
-        <li>
-          Fast attack craft
-        </li>
-        <li>
-          MCMV
-        </li>
-        <li>
-          Helicopter
-        </li>
-        <li>
-          Fixed wing aircraft
-        </li>
-        <li>
-          Coastal radar site
-        </li>
-        <li>
-          Merchant vessel
-        </li>
-      </ul>
+          </div>
+          <input
+            onAnimationStart={[Function]}
+            type="hidden"
+            value="Frigate"
+          />
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root MuiSelect-icon"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7 10l5 5 5-5z"
+            />
+          </svg>
+        </div>
+      </section>
     </fieldset>
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-text"

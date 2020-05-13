@@ -18,4 +18,4 @@ export default {
 
 const options = ['item1', 'item2', 'item3']
 
-export const Default: React.FC = () => <Selector name="test" label="test" options={options} value="item2" />
+export const Default: React.FC = () => <Selector name="test" label="test" options={options} selected="item2" />

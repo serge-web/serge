@@ -1,6 +1,6 @@
 import React from 'react'
 import { Select, MenuItem } from '@material-ui/core'
-import { camelCase } from 'lodash'
+import { camelCase, capitalize } from 'lodash'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -11,15 +11,15 @@ import PropTypes from './types/props'
 import InputContainer from '../../input-container'
 
 /* Render component */
-export const Selector: React.FC<PropTypes> = ({ name, label, options, value, updateState }: PropTypes) => {
-  const handleChange = (event: any): void => updateState(event.target)
+export const Selector: React.FC<PropTypes> = ({ name, label, options, selected, updateState }: PropTypes) => {
+  const handleChange = (event: any): void => updateState(event.target.value)
 
   const inputName = name || camelCase(label)
 
   return <InputContainer label={label}>
-    <Select labelId={label} id={inputName} value={value} onChange={handleChange}>
+    <Select labelId={label} id={inputName} value={selected} onChange={handleChange}>
       {
-        options.map(option => <MenuItem key={option} value={option}>{option}</MenuItem>)
+        options.map(option => <MenuItem key={option} value={option}>{capitalize(option.toString())}</MenuItem>)
       }
     </Select>
   </InputContainer>

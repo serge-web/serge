@@ -13,9 +13,9 @@ export default interface PropTypes {
    */
   options: Array<string | number>
   /**
-   * The value to set the 'checked' parameter to
+   * The value to set the 'selected' parameter to
    */
-  value: string | number
+  selected: string | number
   /**
    * Sets the onChange state on a parent
    */
