@@ -1,11 +1,13 @@
+interface FormValues {
+  statusVal: string
+  turnsVal: number
+}
+
 interface FormData {
   populate: {
     status: Array<string>
   }
-  values: {
-    statusVal: string
-    turnsVal: number
-  }
+  values: FormValues
 }
 
 export default interface PropTypes {
@@ -20,5 +22,5 @@ export default interface PropTypes {
   /**
    * The method for posting data back to state
    */
-  postBack?: any
+  postBack?: {(payload: FormValues): void}
 }

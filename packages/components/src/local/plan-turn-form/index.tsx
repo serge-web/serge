@@ -25,7 +25,11 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
     )
   }
 
-  const submitForm = (): void => postBack(formState)
+  const submitForm = (): void => {
+    if(postBack !== undefined) {
+      postBack(formState.values)
+    }
+  }
 
   const { status } = formState.populate
   const { statusVal, turnsVal } = formState.values

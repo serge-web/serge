@@ -26,4 +26,5 @@ export default interface PropTypes {
   /**
    * The method for posting data back to state
    */
-  postBack?: {(payload: FormValues): void}}
+  postBack?: {(payload: FormValues): void}
+}
