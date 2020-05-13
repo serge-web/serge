@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { camelCase } from 'lodash'
 
 import InputContainer from '../../input-container'
@@ -16,26 +16,55 @@ import Option from './types/option'
 
 /* Render component */
 export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState }) => {
+  const [checkedArray, updateCheckedArray] = useState(
+    options.map((o: any) => {
+      const opt = o.name || o
+      let selected = false
+      if (Array.isArray(value)) {
+        selected = opt.includes(value)
+      } else {
+        selected = opt === value
+      }
+      return {
+        name: opt,
+        selected
+      }
+    })
+  )
 
   const handleRadio = (event: React.ChangeEvent<HTMLInputElement>): void => {
     updateState((event.target))
   }
 
   const handleCheckbox = (data: any): void => {
-    
     const { name, value } = data
+
+    const updatedArray: any = checkedArray.map((c: any) => {
+      if (c.name === value) {
+        if (c.selected === true) {
+          c.selected = false
+        } else {
+          c.selected = true
+        }
+      }
+      return c
+    })
+
+    updateCheckedArray(
+      updatedArray
+    )
 
     updateState(
       {
         name,
-        value: [value]
+        value: checkedArray.filter((c: any) => c.selected === true).map((c: any) => c.name)
       }
     )
   }
 
   const inputName = name || camelCase(label)
-  const getLabel = (option: Option) => force && option.colour ? <div><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{option.name}</div> : option
-  const getSelected = (o: any) => Array.isArray(value) ? value.includes(o) : value
+  const getLabel = (option: Option): any => force && option.colour ? <div><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{option.name}</div> : option
+  const getSelected = (o: any): any => Array.isArray(value) ? value.includes(o) : value
 
   return <InputContainer label={label}>
     <ConditionalWrapper
@@ -44,16 +73,15 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
     >
       {
         options.map((option: any) => {
-
           const o = option.name || option
           const selected = getSelected(o)
-          
-          return <FormControlLabel 
-            key={option.name || option.toString()} 
-            control={componentSelector(type, option, selected, handleCheckbox, inputName)} 
-            label={getLabel(option)} 
+
+          return <FormControlLabel
+            key={option.name || option.toString()}
+            control={componentSelector(type, option, selected, handleCheckbox, inputName)}
+            label={getLabel(option)}
             value={option.name || option}/>
-          }
+        }
         )
       }
     </ConditionalWrapper>

@@ -11,7 +11,7 @@ const componentSelector: ComponentSelector = (type, option, value, postBack, nam
 
   const inputName = name || camelCase(option.toString())
 
- let output = null
+  let output = null
   switch (type) {
     case 'checkbox' :
       output = <Checkbox name={inputName.toString()} checked={value} onChange={handleChange} />

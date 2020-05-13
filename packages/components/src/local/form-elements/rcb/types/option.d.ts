@@ -1,5 +1,4 @@
 export default interface Option {
-    name: string,
+    name: string
     colour: string
 }
-
