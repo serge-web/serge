@@ -12,6 +12,9 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
   // TODO: Refactor this into a reusable helper and remove other instances
   const [formState, setFormState] = useState(formData.values)
 
+  const { status } = formData.populate
+  const { statusVal, turnsVal } = formState
+
   const changeHandler = (e: any): void => {
     const { name, value } = e
     setFormState(
@@ -28,8 +31,6 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
     }
   }
 
-  const { status } = formData.populate
-  const { statusVal, turnsVal } = formState
   return <Form type="planning" headerText={formHeader}>
     <fieldset>
       <RCB type="radio" label="Status" options={status} value={statusVal} updateState={changeHandler}/>
