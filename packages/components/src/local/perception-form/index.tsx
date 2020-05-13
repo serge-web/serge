@@ -16,11 +16,10 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, post
 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
-    const { name, value } = e
     setFormState(
       {
         ...formState,
-        [`${name}Val`]: value
+        perceivedForceVal: e.value
       }
     )
   }
@@ -42,7 +41,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, post
 
   return <Form type="perceived-as" headerText={formHeader}>
     <fieldset>
-      <ForcePicker label="Perceived Force" name={'perceivedForce'} options={perceivedForce} selected={perceivedForceVal} updateState={changeHandler}/>
+      <ForcePicker label="Perceived Force" name='perceivedForce' options={perceivedForce} selected={perceivedForceVal} updateState={changeHandler}/>
       <Selector label="Percieved Type" name='perceivedType' options={perceivedType} selected={perceivedTypeVal} updateState={selectHandler}/>
     </fieldset>
     <Button onClick={submitForm}>Save</Button>
