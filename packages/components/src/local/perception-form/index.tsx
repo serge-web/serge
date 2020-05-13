@@ -10,8 +10,8 @@ import ForcePicker from '../form-elements/force-picker'
 export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
   const [formState, setFormState] = useState(formData)
 
-  const { perceivedForce } = formState.populate
-  const { perceivedForceVal } = formState.values
+  const { perceivedForce, perceivedType } = formState.populate
+  const { perceivedForceVal, perceivedTypeVal } = formState.values
 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
@@ -32,6 +32,11 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, post
   return <Form type="perceived-as" headerText={formHeader}>
     <fieldset>
       <ForcePicker label="Perceived Force" name={'perceivedForce'} options={perceivedForce} selected={perceivedForceVal} updateState={changeHandler}/>
+      <ul>
+        {
+          perceivedType.map((p: any) => <li key={p}>{perceivedTypeVal === p ? <strong>{p}</strong> : p}</li>)
+        }
+      </ul>
     </fieldset>
     <Button onClick={submitForm}>Save</Button>
   </Form>

@@ -4,9 +4,11 @@ interface FormDataPop {
       name: string
       colour: string
     }>
+    perceivedType: Array<string>
   }
   values: {
     perceivedForceVal: string
+    perceivedTypeVal: string
   }
 }
 

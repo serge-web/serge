@@ -248,6 +248,40 @@ exports['PerceptionForm renders correctly 1'] = `
           </label>
         </div>
       </section>
+      <ul>
+        <li>
+          Fishing vessel
+        </li>
+        <li>
+          <strong>
+            Frigate
+          </strong>
+        </li>
+        <li>
+          Boghammer
+        </li>
+        <li>
+          torpedo
+        </li>
+        <li>
+          Fast attack craft
+        </li>
+        <li>
+          MCMV
+        </li>
+        <li>
+          Helicopter
+        </li>
+        <li>
+          Fixed wing aircraft
+        </li>
+        <li>
+          Coastal radar site
+        </li>
+        <li>
+          Merchant vessel
+        </li>
+      </ul>
     </fieldset>
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-text"

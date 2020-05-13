@@ -13,10 +13,23 @@ const formData = {
         name: 'White Force',
         colour: '#fff'
       }
+    ],
+    perceivedType: [
+      'Fishing vessel',
+      'Frigate',
+      'Boghammer',
+      'torpedo',
+      'Fast attack craft',
+      'MCMV',
+      'Helicopter',
+      'Fixed wing aircraft',
+      'Coastal radar site',
+      'Merchant vessel'
     ]
   },
   values: {
-    perceivedForceVal: 'Blue Force'
+    perceivedForceVal: 'Blue Force',
+    perceivedTypeVal: 'Frigate'
   }
 }
 
