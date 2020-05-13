@@ -49,7 +49,11 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
     )
   }
 
-  const submitForm = (): void => postBack(formState)
+  const submitForm = (): void => {
+    if(postBack != undefined) {
+      postBack(formState.values)
+    }
+  }
 
   return (
     <Form type="adjudication" headerText={formHeader} >

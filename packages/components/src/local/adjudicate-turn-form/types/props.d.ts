@@ -1,3 +1,11 @@
+interface FormValues {
+  plannedRouteStatusVal: string
+  statusVal: string
+  speedVal: number
+  visibleToVal: string
+  conditionVal: string
+}
+
 interface FormData {
   populate: {
     status: Array<string>
@@ -8,13 +16,7 @@ interface FormData {
     }>
     condition: Array<string>
   }
-  values: {
-    plannedRouteStatusVal: string
-    statusVal: string
-    speedVal: number
-    visibleToVal: string
-    conditionVal: string
-  }
+  values: FormValues
 }
 
 export default interface PropTypes {
@@ -26,8 +28,8 @@ export default interface PropTypes {
    * All types in this definition are options for a form input
    */
   formData: FormData
- /**
+  /**
    * The method for posting data back to state
    */
-  postBack?: any
+  postBack?: {(payload: FormValues): void};
 }

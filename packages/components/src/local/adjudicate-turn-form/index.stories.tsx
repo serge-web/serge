@@ -4,6 +4,7 @@ import React from 'react'
 import AdjudicateTurnForm from './index'
 import docs from './README.md'
 import formData from './mocks/formData'
+import { FormValues } from './types/props'
 
 export default {
   title: 'local/AdjudicateTurnForm',
@@ -17,6 +18,11 @@ export default {
   }
 }
 
+// put in the post handler
+const postback = (payload: FormValues): void => {
+  console.log('adjudication postback', payload)
+}
+
 // TODO: Add some state handling here
 
-export const Default: React.FC = () => <AdjudicateTurnForm formHeader="Adjudicate header" formData={formData} />
+export const Default: React.FC = () => <AdjudicateTurnForm postBack={postback} formHeader="Adjudicate header" formData={formData} />
