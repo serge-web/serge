@@ -1,11 +1,13 @@
 interface FormValues {
   statusVal: string
+  speedVal: number
   turnsVal: number
 }
 
 interface FormData {
   populate: {
     status: Array<string>
+    speed: Array<number>
   }
   values: FormValues
 }

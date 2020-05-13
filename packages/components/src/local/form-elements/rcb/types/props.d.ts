@@ -23,7 +23,7 @@ export default interface PropTypes {
    */
   value: string | number | Array<string | number >
   /**
-   * An option to display the force colours in the label ('ß' must be present in optionsß)
+   * An option to display the force colours in the label ('colour' must be present in options)
    */
   force?: boolean
   /**
