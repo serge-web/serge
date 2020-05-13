@@ -9,21 +9,18 @@ import Selector from '../form-elements/selector'
 
 /* Render component */
 export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
-  const [formState, setFormState] = useState(formData)
+  const [formState, setFormState] = useState(formData.values)
 
-  const { perceivedForce, perceivedType } = formState.populate
-  const { perceivedForceVal, perceivedTypeVal } = formState.values
+  const { perceivedForce, perceivedType } = formData.populate
+  const { perceivedForceVal, perceivedTypeVal } = formState
 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
     const { name, value } = e
     setFormState(
       {
-        populate: formData.populate,
-        values: {
-          ...formState.values,
-          [`${name}Val`]: value
-        }
+        ...formState,
+        [`${name}Val`]: value
       }
     )
   }
@@ -31,18 +28,15 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, post
   const selectHandler = (data: string): void => {
     setFormState(
       {
-        populate: formData.populate,
-        values: {
-          ...formState.values,
-          perceivedTypeVal: data
-        }
+        ...formState,
+        perceivedTypeVal: data
       }
     )
   }
 
   const submitForm = (): void => {
     if (postBack !== undefined) {
-      postBack(formState.values)
+      postBack(formState)
     }
   }
 
