@@ -2,7 +2,7 @@ interface FormValues {
   plannedRouteStatusVal: string
   statusVal: string
   speedVal: number
-  visibleToVal: string
+  visibleToVal: Array<string>
   conditionVal: string
 }
 

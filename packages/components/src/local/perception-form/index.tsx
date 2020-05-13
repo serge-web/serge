@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 import PropTypes from './types/props'
 import Form from '../form'
 import { Button } from '@material-ui/core'
-import ForcePicker from '../form-elements/force-picker'
 import Selector from '../form-elements/selector'
+import RCB from '../form-elements/rcb'
 
 /* Render component */
 export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
@@ -44,7 +44,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, post
 
   return <Form type="perceived-as" headerText={formHeader}>
     <fieldset>
-      <ForcePicker label="Perceived Force" name={'perceivedForce'} options={perceivedForce} selected={perceivedForceVal} updateState={changeHandler}/>
+      <RCB type="radio" force={true} label="Perceived Force" name={'perceivedForce'} options={perceivedForce} value={perceivedForceVal} updateState={changeHandler}/>
       <Selector label="Percieved Type" name='perceivedType' options={perceivedType} selected={perceivedTypeVal} updateState={selectHandler}/>
     </fieldset>
     <Button onClick={submitForm}>Save</Button>

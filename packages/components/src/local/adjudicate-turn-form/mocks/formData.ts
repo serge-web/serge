@@ -5,7 +5,7 @@ const formData = {
     speed: [10, 20, 30],
     visibleTo: [
       {
-        name: 'Blue Force ',
+        name: 'Blue Force',
         colour: '#69c'
       },
       {
@@ -23,7 +23,7 @@ const formData = {
     plannedRouteStatusVal: 'pending',
     statusVal: 'Transiting',
     speedVal: 10,
-    visibleToVal: 'Blue Force',
+    visibleToVal: ['Blue Force'],
     conditionVal: 'Working'
   }
 }

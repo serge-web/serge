@@ -1,3 +1,5 @@
+import Option from "./option";
+
 export default interface PropTypes {
   /**
    * The type of component to show
@@ -15,11 +17,15 @@ export default interface PropTypes {
   /**
    * The list of options available to the form section
    */
-  options: Array<string | number>
+  options: Array<string | number | Option>
   /**
    * The value to set the 'checked' parameter to
    */
-  value: string | number
+  value: string | number | Array<string | number >
+  /**
+   * An option to display the force colours in the label ('ß' must be present in optionsß)
+   */
+  force?: boolean
   /**
    * Sets the onChange state on a parent
    */

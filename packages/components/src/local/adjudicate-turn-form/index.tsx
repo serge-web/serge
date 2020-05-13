@@ -6,7 +6,6 @@ import Form from '../form'
 import PlannedRoute from '../form-elements/planned-route'
 import { Button } from '@material-ui/core'
 import RCB from '../form-elements/rcb'
-import ForcePicker from '../form-elements/force-picker'
 
 /* Import Stylesheet */
 // import styles from './styles.module.scss'
@@ -75,7 +74,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
       </fieldset>
       }
       <fieldset>
-        <ForcePicker label="Visible to" options={visibleTo} selected={visibleToVal} updateState={changeHandler}/>
+        <RCB type="checkbox" force={true} label="Visible to" options={visibleTo} value={visibleToVal} updateState={changeHandler}/>
         <hr />
         <RCB type="radio" label="Condition" options={condition} value={conditionVal} updateState={changeHandler}/>
       </fieldset>
