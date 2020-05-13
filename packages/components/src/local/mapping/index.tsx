@@ -112,6 +112,7 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   })
 
+  const platformTypes = platforms && platforms.map((p: any) => p.name)
   const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
   const unknownForce = { name: 'Unknown', colour: '#ccc' }
 
@@ -121,7 +122,8 @@ export const Mapping: React.FC<PropTypes> = ({
     if (selectedAsset.id !== '') {
       setPerceptionFormData({
         populate: {
-          perceivedForce: [...availableForces, unknownForce]
+          perceivedForce: [...availableForces, unknownForce],
+          perceivedType: platformTypes
         },
         values: {
           perceivedForceVal: selectedAsset.force
