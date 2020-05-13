@@ -16,10 +16,10 @@ import { isNumber } from '@serge/helpers'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
-  const [formState, setFormState] = useState(formData)
+  const [formState, setFormState] = useState(formData.values)
 
-  const { status, speed, visibleTo, condition } = formState.populate
-  const { plannedRouteStatusVal, statusVal, speedVal, visibleToVal, conditionVal } = formState.values
+  const { status, speed, visibleTo, condition } = formData.populate
+  const { plannedRouteStatusVal, statusVal, speedVal, visibleToVal, conditionVal } = formState
 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
@@ -40,18 +40,15 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
 
     setFormState(
       {
-        populate: formData.populate,
-        values: {
-          ...formState.values,
-          [`${name}Val`]: outputVal
-        }
+        ...formState,
+        [`${name}Val`]: outputVal
       }
     )
   }
 
   const submitForm = (): void => {
     if (postBack !== undefined) {
-      postBack(formState.values)
+      postBack(formState)
     }
   }
 
