@@ -4,7 +4,6 @@ import React from 'react'
 import Selector from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/form-elements/Selector',
   component: Selector,
@@ -20,4 +19,3 @@ export default {
 const options = ['item1', 'item2', 'item3']
 
 export const Default: React.FC = () => <Selector name="test" label="test" options={options} value="item2" />
-

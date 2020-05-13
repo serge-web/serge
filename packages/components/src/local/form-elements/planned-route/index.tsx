@@ -15,8 +15,6 @@ export const PlannedRoute: React.FC<PropTypes> = ({ name, status, updateState })
     })
   }
 
-  console.log(status)
-
   return <InputContainer label="Planned Route">
     { status === 'pending' && <Button onClick={(): void => handleChange(name, 'accepted')}>Accept</Button> }
     { status === 'pending' && <Button onClick={(): void => handleChange(name, 'rejected')}>Reject</Button> }

@@ -12,17 +12,16 @@ import InputContainer from '../../input-container'
 
 /* Render component */
 export const Selector: React.FC<PropTypes> = ({ name, label, options, value, updateState }: PropTypes) => {
+  const handleChange = (event: any): void => updateState(event.target)
 
- const handleChange = (event: any): void => updateState(event.target)
+  const inputName = name || camelCase(label)
 
- const inputName = name || camelCase(label)
-
- return <InputContainer label={label}>
-      <Select labelId={label} id={inputName} value={value} onChange={handleChange}>
-        {
-          options.map(option => <MenuItem value={option}>{option}</MenuItem>)
-        }
-      </Select>
+  return <InputContainer label={label}>
+    <Select labelId={label} id={inputName} value={value} onChange={handleChange}>
+      {
+        options.map(option => <MenuItem key={option} value={option}>{option}</MenuItem>)
+      }
+    </Select>
   </InputContainer>
 }
 
