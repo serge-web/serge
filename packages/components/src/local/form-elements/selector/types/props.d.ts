@@ -1,9 +1,5 @@
 export default interface PropTypes {
   /**
-   * The type of component to show
-   */
-  type: 'checkbox' | 'radio'
-  /**
    * The label to show on the form section
    */
   label: string
