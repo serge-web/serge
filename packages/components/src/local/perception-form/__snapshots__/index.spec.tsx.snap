@@ -29,7 +29,7 @@ exports['PerceptionForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -47,7 +47,7 @@ exports['PerceptionForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={false}
+                  checked={true}
                   className="PrivateSwitchBase-input-17"
                   name="perceivedForce"
                   onChange={[Function]}
@@ -55,7 +55,7 @@ exports['PerceptionForm renders correctly 1'] = `
                   value="blue-force"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-30"
+                  className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
                 >
                   <svg
                     aria-hidden="true"
@@ -270,18 +270,12 @@ exports['PerceptionForm renders correctly 1'] = `
             role="button"
             tabIndex={0}
           >
-            <span
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "&#8203;",
-                }
-              }
-            />
+            Frigate
           </div>
           <input
             onAnimationStart={[Function]}
             type="hidden"
-            value="Frigate"
+            value="frigate"
           />
           <svg
             aria-hidden="true"
