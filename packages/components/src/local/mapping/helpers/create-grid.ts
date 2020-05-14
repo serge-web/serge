@@ -4,7 +4,8 @@ import { defineGrid, extendHex, Grid, Point, PointLike } from 'honeycomb-grid'
 import { SergeHex, SergeGrid } from '@serge/custom-types'
 import { toWorld, toScreen } from '@serge/helpers'
 import cellName from './cell-name'
-import cellType from './cell-types'
+import cellTypeFor from './cellTypeFor'
+import cellTypesList from '../data/cell-types'
 
 /**
  *  create hexagonal grid
@@ -51,7 +52,7 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
     newCell.name = cellName(newCell)
 
     // generate the cell type
-    newCell.type = cellType(newCell)
+    newCell.type = cellTypeFor(newCell, cellTypesList)
 
     // generate the cell centre in Leaflet coords
     const centreHex: Point = cell.toPoint()

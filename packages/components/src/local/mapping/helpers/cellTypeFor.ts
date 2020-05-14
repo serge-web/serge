@@ -1,9 +1,12 @@
 import { SergeHex } from '@serge/custom-types'
-import cellTypesList from '../data/cell-types'
+
+interface cellTypesListProps {
+  [key: string]: Array<any>
+}
 
 // generate the cell types for the supplied cells
-const cellType = (cell: SergeHex<{}>) => {
-  const types: Array<boolean> = cellTypesList[cell.name]
+const cellTypeFor = (cell: SergeHex<{}>, cellTypesList: cellTypesListProps) => {
+  const types = cellTypesList[cell.name]
   if (types) {
     const index = types.findIndex((typ: boolean) => typ === true)
     if (index === 0) return 'sea'
@@ -14,4 +17,4 @@ const cellType = (cell: SergeHex<{}>) => {
   }
 }
 
-export default cellType
+export default cellTypeFor
