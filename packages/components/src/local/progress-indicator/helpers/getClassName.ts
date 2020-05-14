@@ -1,4 +1,4 @@
-import Tab from '../types/tab.interface'
+import Tab from '../types/tab'
 
 export const getClassName = (tab: Tab, currentTab: string): string => {
   let c = 'indicator'

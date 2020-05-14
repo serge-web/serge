@@ -1,3 +1,3 @@
 window.G_CONFIG = {
-  REACT_APP_SERVER_PATH: null 
+  REACT_APP_SERVER_PATH: null
 }

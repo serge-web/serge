@@ -1,30 +1,40 @@
 {
+  "exclude": ["node_modules", "dist", "build", "lib", "__tests__", "**/*.test*", "**/*.scss.d.ts"],
   "compilerOptions": {
-    "outDir": "build",
+    "skipLibCheck": false,
+    "target": "esnext",
     "module": "commonjs",
-    "esModuleInterop" : true,
-    "target": "es6",
     "lib": ["es5", "es6", "es7", "es2017", "dom"],
-    "sourceMap": true,
-    "allowJs": false,
     "jsx": "react",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "rootDirs": ["src"],
-    "baseUrl": "src",
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
+    "downlevelIteration": true,
+    "strict": true,
+    "removeComments": false,
     "noUnusedLocals": true,
-    "declaration": false,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noFallthroughCasesInSwitch": true,
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "suppressImplicitAnyIndexErrors": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@serge/*": ["../"]
+    },
+    "composite": false,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./build"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "build", "scripts", "jest/config"],
-  "files": ["typings.d.ts"]
+  "files": [
+    "./typings.d.ts",
+    "../config/typings.d.ts"
+  ],
+  "include": [
+    "./src"
+  ]
 }

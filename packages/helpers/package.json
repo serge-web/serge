@@ -1,0 +1,10 @@
+{
+  "name": "@serge/helpers",
+  "version": "0.3.0",
+  "license": "Apache-2.0",
+  "author": "foxleigh81 <alex@alexfoxleigh.com>",
+  "main": "build/index.js",
+  "dependencies": {
+    "honeycomb-grid": "^3.1.7"
+  }
+}

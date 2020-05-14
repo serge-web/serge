@@ -1,4 +1,11 @@
+import { Phase } from '@serge/config'
+import { PlanMobileAsset } from '@serge/custom-types'
+
 export default interface PropTypes {
+  /**
+   * A boolean to determine if the MapBar component should be displayed (default: true)
+   */
+  mapBar?: boolean
   /**
    * The bounds of the map iamge
    */
@@ -9,6 +16,26 @@ export default interface PropTypes {
     imageBottom: number
   }
   /**
+   * diameter of tiles in use
+   */
+  tileDiameterMins: number
+  /** forces for this wargame
+   *
+   */
+  forces: any
+  /** platforms for this wargame
+   *
+   */
+  platforms: any
+  /** current player's force
+   *
+  */
+  playerForce: string
+  /** current player's force
+   *
+  */
+  phase: Phase
+ /**
    *  The TileLayer object for the leaflet map
 
    */
@@ -67,5 +94,12 @@ export default interface PropTypes {
    * @default false
    */
   zoomAnimation?: boolean
-
+  /**
+   * planning constraints for this asset
+   */
+  planningConstraintsProp?: PlanMobileAsset
+  /**
+   * distance to travel
+   */
+  planningRangeProp?: number
 }

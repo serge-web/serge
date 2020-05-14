@@ -1,3 +1,8 @@
 .map-container {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.map {
   height: 500px;
 }
