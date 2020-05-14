@@ -26,13 +26,14 @@ export const Assets: React.FC<{}> = () => {
       forces.forEach((force: any) => {
         if (force.assets) {
           force.assets.forEach((asset: any) => {
-            const { uniqid, name, condition, status, platformType, perceptions } = asset
+            const { uniqid, name, contactId, condition, status, platformType, perceptions } = asset
 
             // see if the player of this force can see (perceive) this asset
             const isUmpire: boolean = playerForce === UMPIRE_FORCE
             const perceivedAs: [string, string, string] = findPerceivedAsTypes(
               playerForce,
               name,
+              contactId,
               force.uniqid,
               platformType,
               perceptions,
