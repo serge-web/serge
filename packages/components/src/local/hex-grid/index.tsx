@@ -27,6 +27,9 @@ export const HexGrid: React.FC<{}> = () => {
   // Set up an 'allowableCells' state to monitor
   const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>([])
 
+  // allowable cells filtered depending on cell type
+  const [allowableFilteredCells, setAllowableFilteredCells] = useState<Array<SergeHex<{}>>>([])
+
   // cells representing the route that is currently being dragged
   const [planningRouteCells, setPlanningRouteCells] = useState<Array<SergeHex<{}>>>([])
   const [planningRoutePoly, setPlanningRoutePoly] = useState<L.LatLng[]>([])
@@ -38,7 +41,7 @@ export const HexGrid: React.FC<{}> = () => {
   // collate list of named polygons
   const [allowablePolygons, setAllowablePolygons] = useState<{ [id: string]: L.LatLng[] }>({})
   // collate list of named polygon centres
-  const [allowableCentres, setAllowableCentres] = useState< { [id: string]: L.LatLng } >({})
+  const [allowableCentres, setAllowableCentres] = useState<{ [id: string]: L.LatLng }>({})
   // collate list of named hex cells
   const [allowableHexCells, setAllowableHexCells] = useState<{ [id: string]: SergeHex<{}> }>({})
 
@@ -95,17 +98,32 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [originHex, planningRange, gridCells])
 
+  /** filter the list of cells allowable for this platform
+       * depending on requested cell type
+       */
+  useEffect(() => {
+    if (allowableCells && planningConstraints) {
+
+      const filteredCells = allowableCells.filter((cell: SergeHex<{}>) => cell.type === planningConstraints.travelMode.toLowerCase())
+      if (filteredCells) {
+        setAllowableFilteredCells(filteredCells)
+      }
+    }
+  }, [planningConstraints, allowableCells])
+
   /** produce a Hex cell for the provided cell-name
        *
        */
   useEffect(() => {
     if (gridCells && planningConstraints) {
+
       const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
       if (originCell) {
         setOriginHex(originCell)
       }
     }
   }, [planningConstraints, gridCells])
+
 
   /** calculate the set of polygons that represent the map grid, including
        * locations for their text labels, and a similarly indexed set of hex
@@ -212,45 +230,45 @@ export const HexGrid: React.FC<{}> = () => {
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
-        key = {'hex_poly_' + k}
+        key={'hex_poly_' + k}
         positions={allowablePolygons[k]}
-        className={styles[getCellStyle(allowableHexCells[k], planningRouteCells, allowableCells)]}
+        className={styles[getCellStyle(allowableHexCells[k], planningRouteCells, allowableFilteredCells)]}
       />
     ))}
-    <Polyline
-      key = {'hex_planned_line'}
-      positions={plannedRoutePoly}
-      className={styles['planned-line']}
-    />
-    <Polyline
-      key = {'hex_planning_line'}
-      positions={planningRoutePoly}
-      className={styles['planning-line']}
-    />
-    { origin &&
-            <Marker
-              draggable={true}
-              onDragend={dropped}
-              onDrag={beingDragged}
-              position={origin}
-              key={'drag_marker_'}/>
-    }
+      <Polyline
+        key={'hex_planned_line'}
+        positions={plannedRoutePoly}
+        className={styles['planned-line']}
+      />
+      <Polyline
+        key={'hex_planning_line'}
+        positions={planningRoutePoly}
+        className={styles['planning-line']}
+      />
+      {origin &&
+        <Marker
+          draggable={true}
+          onDragend={dropped}
+          onDrag={beingDragged}
+          position={origin}
+          key={'drag_marker_'} />
+      }
     </LayerGroup>
     {
       zoomLevel > 11 &&
-          <LayerGroup key={'hex_labels'} >{Object.keys(allowableCentres).map(k => (
-            <Marker
-              key = {'hex_label_' + k}
-              position={allowableCentres[k]}
-              width="120"
-              icon={L.divIcon({
-                html: k,
-                className: styles['default-coords'],
-                iconSize: [30, 20]
-              })}
-            />
-          ))}
-          </LayerGroup>
+      <LayerGroup key={'hex_labels'} >{Object.keys(allowableCentres).map(k => (
+        <Marker
+          key={'hex_label_' + k}
+          position={allowableCentres[k]}
+          width="120"
+          icon={L.divIcon({
+            html: k,
+            className: styles['default-coords'],
+            iconSize: [30, 20]
+          })}
+        />
+      ))}
+      </LayerGroup>
     }
   </>
 }
