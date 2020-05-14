@@ -1,10 +1,20 @@
 const formData = {
   populate: {
-    status: ['Moored', 'Transiting'],
+    status: [{
+      name: 'Moored',
+      mobile: false
+    },
+    {
+      name: 'Transiting',
+      mobile: true
+    }],
     speed: [10, 20, 30]
   },
   values: {
-    statusVal: 'Transiting',
+    statusVal: {
+      name: 'Transiting',
+      mobile: true
+    },
     speedVal: 10,
     turnsVal: 5
   }

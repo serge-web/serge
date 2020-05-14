@@ -33,6 +33,19 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
     )
   }
 
+  // Status has a different data model and requires it's own handler
+
+  const statusHandler = (data: any): void => {
+    const { name, value } = data
+
+    const selectedStatus = status.find((s: any) => s.name === value)
+
+    setFormState({
+      ...formState,
+      [`${name}Val`]: selectedStatus
+    })
+  }
+
   const submitForm = (): void => {
     if (postBack !== undefined) {
       postBack(formState)
@@ -41,8 +54,8 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
 
   return <Form type="planning" headerText={formHeader}>
     <fieldset>
-      <RCB type="radio" label="Status" options={status} value={statusVal} updateState={changeHandler}/>
-      {statusVal === 'Transiting' && <RCB type="radio" label="Speed" options={speed} value={speedVal} updateState={changeHandler}/> }
+      <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
+      {statusVal.mobile && <RCB type="radio" label="Speed" options={speed} value={speedVal} updateState={changeHandler}/> }
       <Turns turns={turnsVal} updateState={changeHandler} />
     </fieldset>
     <Button onClick={submitForm}>Save</Button>
