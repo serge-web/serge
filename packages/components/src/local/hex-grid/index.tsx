@@ -70,7 +70,7 @@ export const HexGrid: React.FC<{}> = () => {
     if (dragDestination && originHex) {
       // work out the available cells
       const plannedRoute: SergeHex<{}>[] = planningConstraints && dragDestination
-        ? plannedRouteFor(gridCells, allowableCells, originHex, dragDestination) : []
+        ? plannedRouteFor(gridCells, allowableFilteredCells, originHex, dragDestination) : []
 
       // combine with any existing planned cells
       setPlanningRouteCells(plannedRoute)
@@ -103,7 +103,6 @@ export const HexGrid: React.FC<{}> = () => {
        */
   useEffect(() => {
     if (allowableCells && planningConstraints) {
-
       const filteredCells = allowableCells.filter((cell: SergeHex<{}>) => cell.type === planningConstraints.travelMode.toLowerCase())
       if (filteredCells) {
         setAllowableFilteredCells(filteredCells)
@@ -116,14 +115,12 @@ export const HexGrid: React.FC<{}> = () => {
        */
   useEffect(() => {
     if (gridCells && planningConstraints) {
-
       const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
       if (originCell) {
         setOriginHex(originCell)
       }
     }
   }, [planningConstraints, gridCells])
-
 
   /** calculate the set of polygons that represent the map grid, including
        * locations for their text labels, and a similarly indexed set of hex

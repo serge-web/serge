@@ -48,10 +48,10 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
   const rawCells = grid.rectangle({ width: widthCells, height: stretchedHeight })
   const newCells = rawCells.map(cell => {
     const newCell: SergeHex<{}> = cell as SergeHex<{}>
-    newCell.name = cellName(newCell);
+    newCell.name = cellName(newCell)
 
     // generate the cell type
-    newCell.type = cellType(newCell);
+    newCell.type = cellType(newCell)
 
     // generate the cell centre in Leaflet coords
     const centreHex: Point = cell.toPoint()
