@@ -55,8 +55,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
   return <Form type="planning" headerText={formHeader}>
     <fieldset>
       <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
-      {statusVal.mobile && <RCB type="radio" label="Speed" options={speed} value={speedVal} updateState={changeHandler}/> }
-      <Turns turns={turnsVal} updateState={changeHandler} />
+      {statusVal.mobile ? <RCB type="radio" label="Speed" options={speed} value={speedVal} updateState={changeHandler}/> : <Turns turns={turnsVal} updateState={changeHandler} />}
     </fieldset>
     <Button onClick={submitForm}>Save</Button>
   </Form>
