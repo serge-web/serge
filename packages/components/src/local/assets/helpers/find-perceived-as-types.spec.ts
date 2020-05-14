@@ -25,31 +25,31 @@ const perceptionsTypeMissing: any = [{
 }]
 
 it('gives true details for same force', () => {
-  expect(findPerceivedAsTypes('yellow', 'yellow', 'submarine',
-    perceptions, false)).toEqual(['yellow', 'submarine'])
+  expect(findPerceivedAsTypes('yellow', 'osaka', 'yellow', 'submarine',
+    perceptions, false)).toEqual(['osaka','yellow', 'submarine'])
 })
 
 it('gives true details for umpire', () => {
-  expect(findPerceivedAsTypes('Red', 'yellow', 'submarine',
-    perceptions, true)).toEqual(['yellow', 'submarine'])
+  expect(findPerceivedAsTypes('Red', 'osaka', 'yellow', 'submarine',
+    perceptions, true)).toEqual(['osaka','yellow', 'submarine'])
 })
 
 it('gives null for force without perception', () => {
-  expect(findPerceivedAsTypes('Red', 'yellow', 'submarine',
+  expect(findPerceivedAsTypes('Red', 'osaka', 'yellow', 'submarine',
     perceptions, false)).toEqual(null)
 })
 
 it('gives perceived details for force with entry', () => {
-  expect(findPerceivedAsTypes('Blue', 'yellow', 'submarine',
-    perceptions, false)).toEqual(['green', 'merchant-vessel'])
+  expect(findPerceivedAsTypes('Blue', 'osaka', 'yellow', 'submarine',
+    perceptions, false)).toEqual(['osaka', 'green', 'merchant-vessel'])
 })
 
 it('gives perceived details for force with entry but type missing', () => {
-  expect(findPerceivedAsTypes('Blue', 'yellow', 'submarine',
-    perceptionsTypeMissing, false)).toEqual(['green', 'unknown'])
+  expect(findPerceivedAsTypes('Blue', 'osaka', 'yellow', 'submarine',
+    perceptionsTypeMissing, false)).toEqual(['osaka', 'green', 'unknown'])
 })
 
 it('gives perceived details for force with entry but force missing', () => {
-  expect(findPerceivedAsTypes('Blue', 'yellow', 'submarine',
-    perceptionsForceMissing, false)).toEqual(['unknown', 'merchant-vessel'])
+  expect(findPerceivedAsTypes('Blue', 'osaka', 'yellow', 'submarine',
+    perceptionsForceMissing, false)).toEqual(['osaka', 'unknown', 'merchant-vessel'])
 })

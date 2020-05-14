@@ -36,4 +36,8 @@ export default interface PropTypes {
    * the list of forces that can control this asset
    */
   controlledBy?: [string]
+  /**
+   * A list of forces able to see the asset
+   */
+  visibleTo: Array<string>
 }

@@ -7,12 +7,18 @@
  * @returns {string, string} pair of class-names, used to describe force and platform-type
  */
 
-export default function findPerceivedAsTypes (myForce: string, theirForce: string, theirType: string,
-  theirPerceptions: [any], userIsUmpire: boolean): [string, string] {
+export default function findPerceivedAsTypes (
+  myForce: string,
+  theirName: string,
+  theirForce: string,
+  theirType: string,
+  theirPerceptions: [any],
+  userIsUmpire: boolean
+): [string, string, string] {
   let perception: any
   if (myForce === theirForce || userIsUmpire) {
     // just use the real value
-    perception = { force: theirForce, type: theirType }
+    perception = { name: theirName, force: theirForce, type: theirType }
   } else {
     if (theirPerceptions) {
       // use the perceived values
@@ -22,9 +28,10 @@ export default function findPerceivedAsTypes (myForce: string, theirForce: strin
     }
   }
   if (perception) {
+    const forceName: string = perception.name ? perception.name.replace(/ /g, '-').toLowerCase() : 'unknown'
     const forceClass: string = perception.force ? perception.force.replace(/ /g, '-').toLowerCase() : 'unknown'
     const typeClass: string = perception.type ? perception.type.replace(/ /g, '-').toLowerCase() : 'unknown'
-    return [forceClass, typeClass]
+    return [forceName, forceClass, typeClass]
   } else {
     return perception
   }

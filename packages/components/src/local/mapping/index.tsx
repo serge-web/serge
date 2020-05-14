@@ -116,7 +116,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
   const unknownForce = { name: 'Unknown', colour: '#ccc' }
 
-  console.log(currentPlatform)
+  console.log(selectedAsset)
 
   // Populates data from the forms using initial state
   useEffect(() => {
@@ -128,7 +128,7 @@ export const Mapping: React.FC<PropTypes> = ({
           perceivedType: platformTypes
         },
         values: {
-          perceivedForceVal: selectedAsset.force
+          perceivedForceVal: selectedAsset.perceivedForce
         }
       })
       setPlanTurnFormData({

@@ -114,6 +114,7 @@ export const WithMarker: React.FC = () => <Mapping
     selected={boolean(visLabel, visDefaultValue)}
     type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)}
     force={radios(assetForcelabel, assetForceNames, assetForceDefaultValue)}
+    visibleTo={['blue,', 'red']}
     tooltip="Tooltip for marker" />
 </Mapping>
 

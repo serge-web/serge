@@ -37,7 +37,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     playerForce = 'blue'
     phase = {Phase.Planning}
   ><AssetIcon id='id1' name="Jeffrey" position={L.latLng(13.298034302, 43.0488191271)}
-      selected={false} type='agi' force='blue'
+      selected={false} type='agi' force='blue' visibleTo={['blue']}
       tooltip='Tooltip for marker'/></Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
