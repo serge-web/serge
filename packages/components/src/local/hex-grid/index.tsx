@@ -232,24 +232,24 @@ export const HexGrid: React.FC<{}> = () => {
         className={styles[getCellStyle(allowableHexCells[k], planningRouteCells, allowableFilteredCells)]}
       />
     ))}
-      <Polyline
-        key={'hex_planned_line'}
-        positions={plannedRoutePoly}
-        className={styles['planned-line']}
-      />
-      <Polyline
-        key={'hex_planning_line'}
-        positions={planningRoutePoly}
-        className={styles['planning-line']}
-      />
-      {origin &&
+    <Polyline
+      key={'hex_planned_line'}
+      positions={plannedRoutePoly}
+      className={styles['planned-line']}
+    />
+    <Polyline
+      key={'hex_planning_line'}
+      positions={planningRoutePoly}
+      className={styles['planning-line']}
+    />
+    {origin &&
         <Marker
           draggable={true}
           onDragend={dropped}
           onDrag={beingDragged}
           position={origin}
           key={'drag_marker_'} />
-      }
+    }
     </LayerGroup>
     {
       zoomLevel > 11 &&
