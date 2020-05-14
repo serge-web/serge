@@ -1,11 +1,11 @@
 import { SergeHex } from '@serge/custom-types'
 
-interface cellTypesListProps {
+interface CellTypesListProps {
   [key: string]: Array<any>
 }
 
 // generate the cell types for the supplied cells
-const cellTypeFor = (cell: SergeHex<{}>, cellTypesList: cellTypesListProps) => {
+const cellTypeFor = (cell: SergeHex<{}>, cellTypesList: CellTypesListProps): string => {
   const types = cellTypesList[cell.name]
   if (types) {
     const index = types.findIndex((typ: boolean) => typ === true)
