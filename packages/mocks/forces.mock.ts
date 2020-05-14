@@ -20,7 +20,7 @@ export const forces = [
   {
     assets: [
       {
-        condition: 'Working',
+        condition: 'Full capability',
         contactId: 'C043',
         history: [
           {
@@ -72,7 +72,7 @@ export const forces = [
         uniqid: 'a0pra00001'
       },
       {
-        condition: 'Working',
+        condition: 'Full capability',
         contactId: 'C072',
         history: [
           {
@@ -94,7 +94,7 @@ export const forces = [
         uniqid: 'a0pra00002'
       },
       {
-        condition: 'Working',
+        condition: 'Full capability',
         contactId: 'C012',
         history: [
           {
@@ -180,7 +180,7 @@ export const forces = [
   {
     assets: [
       {
-        condition: 'Working',
+        condition: 'Full capability',
         contactId: 'C065',
         history: [
           {
@@ -243,7 +243,7 @@ export const forces = [
         uniqid: 'a0pra000100'
       },
       {
-        condition: 'Working',
+        condition: 'Full capability',
         contactId: 'C105',
         history: [
           {
@@ -319,7 +319,7 @@ export const forces = [
         uniqid: 'a0pra000101'
       },
       {
-        condition: 'Working',
+        condition: 'Full capability',
         contactId: 'C008',
         history: [
           {
@@ -377,7 +377,7 @@ export const forces = [
         uniqid: 'a0pra000102'
       },
       {
-        condition: 'Working',
+        condition: 'Full capability',
         contactId: 'C076',
         history: [
           {
@@ -420,7 +420,7 @@ export const forces = [
   {
     assets: [
       {
-        condition: 'Working',
+        condition: 'Full capability',
         contactId: 'C015',
         history: [
           {
@@ -552,7 +552,7 @@ export const forces = [
         uniqid: 'a0pra000200'
       },
       {
-        condition: 'Disabled',
+        condition: 'Full capability',
         contactId: 'C081',
         history: [
           {
@@ -705,7 +705,7 @@ export const forces = [
         uniqid: 'a0pra000201'
       },
       {
-        condition: 'Working',
+        condition: 'Full capability',
         contactId: 'C116',
         history: [
           {
@@ -823,7 +823,7 @@ export const forces = [
         uniqid: 'a0pra000202'
       },
       {
-        condition: 'Working',
+        condition: 'Full capability',
         contactId: 'C026',
         history: [
           {
@@ -941,7 +941,7 @@ export const forces = [
         uniqid: 'a0pra000203'
       },
       {
-        condition: 'Working',
+        condition: 'Full capability',
         contactId: 'C115',
         history: [
           {

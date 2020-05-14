@@ -39,6 +39,8 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, post
     }
   }
 
+  console.log('state:', perceivedForce)
+
   return <Form type="perceived-as" headerText={formHeader}>
     <fieldset>
       <RCB type="radio" force={true} label="Perceived Force" name={'perceivedForce'} options={perceivedForce} value={perceivedForceVal} updateState={changeHandler}/>

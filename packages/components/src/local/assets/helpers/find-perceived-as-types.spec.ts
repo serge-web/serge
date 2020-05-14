@@ -26,12 +26,12 @@ const perceptionsTypeMissing: any = [{
 
 it('gives true details for same force', () => {
   expect(findPerceivedAsTypes('yellow', 'osaka', 'yellow', 'submarine',
-    perceptions, false)).toEqual(['osaka','yellow', 'submarine'])
+    perceptions, false)).toEqual(['osaka', 'yellow', 'submarine'])
 })
 
 it('gives true details for umpire', () => {
   expect(findPerceivedAsTypes('Red', 'osaka', 'yellow', 'submarine',
-    perceptions, true)).toEqual(['osaka','yellow', 'submarine'])
+    perceptions, true)).toEqual(['osaka', 'yellow', 'submarine'])
 })
 
 it('gives null for force without perception', () => {

@@ -29,7 +29,7 @@ exports['PerceptionForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -47,15 +47,15 @@ exports['PerceptionForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={true}
+                  checked={false}
                   className="PrivateSwitchBase-input-17"
                   name="perceivedForce"
                   onChange={[Function]}
                   type="radio"
-                  value="Blue Force"
+                  value="blue-force"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
+                  className="PrivateRadioButtonIcon-root-30"
                 >
                   <svg
                     aria-hidden="true"
@@ -126,7 +126,7 @@ exports['PerceptionForm renders correctly 1'] = `
                   name="perceivedForce"
                   onChange={[Function]}
                   type="radio"
-                  value="Red Force"
+                  value="red-force"
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-30"
@@ -200,7 +200,7 @@ exports['PerceptionForm renders correctly 1'] = `
                   name="perceivedForce"
                   onChange={[Function]}
                   type="radio"
-                  value="White Force"
+                  value="white-force"
                 />
                 <div
                   className="PrivateRadioButtonIcon-root-30"
@@ -270,7 +270,13 @@ exports['PerceptionForm renders correctly 1'] = `
             role="button"
             tabIndex={0}
           >
-            Frigate
+            <span
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "&#8203;",
+                }
+              }
+            />
           </div>
           <input
             onAnimationStart={[Function]}

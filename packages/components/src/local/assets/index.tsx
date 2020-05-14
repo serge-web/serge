@@ -39,8 +39,6 @@ export const Assets: React.FC<{}> = () => {
               isUmpire
             )
 
-            console.log(asset.perceptions)
-
             if (perceivedAs) {
               const cell: SergeHex<{}> | undefined = hexNamed(asset.position, gridCells)
               if (cell != null) {

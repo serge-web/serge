@@ -116,27 +116,29 @@ export const Mapping: React.FC<PropTypes> = ({
   const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
   const unknownForce = { name: 'Unknown', colour: '#ccc' }
 
-  console.log(selectedAsset)
-
   // Populates data from the forms using initial state
   useEffect(() => {
     // First check that selectedAsset has been populated
     if (selectedAsset.id !== '') {
+      const availableStatus = currentPlatform && currentPlatform.states.find((s: any) => s.name === selectedAsset.status.state)
+
       setPerceptionFormData({
         populate: {
           perceivedForce: [...availableForces, unknownForce],
           perceivedType: platformTypes
         },
         values: {
-          perceivedForceVal: selectedAsset.perceivedForce
+          perceivedForceVal: selectedAsset.force,
+          perceivedTypeVal: selectedAsset.type
         }
       })
+
       setPlanTurnFormData({
         populate: {
           status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : []
         },
         values: {
-          statusVal: selectedAsset.status.state,
+          statusVal: availableStatus,
           turnsVal: 0
         }
       })
@@ -149,9 +151,9 @@ export const Mapping: React.FC<PropTypes> = ({
         },
         values: {
           plannedRouteStatusVal: 'pending',
-          statusVal: selectedAsset.status.state,
+          statusVal: availableStatus,
           speedVal: selectedAsset.status.speedKts,
-          visibleToVal: selectedAsset.force,
+          visibleToVal: selectedAsset.visibleTo,
           conditionVal: selectedAsset.condition
         }
       })

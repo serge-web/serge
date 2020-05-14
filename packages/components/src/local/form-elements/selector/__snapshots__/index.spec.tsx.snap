@@ -23,7 +23,13 @@ exports['Selector renders correctly 1'] = `
       role="button"
       tabIndex={0}
     >
-      Item2
+      <span
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "&#8203;",
+          }
+        }
+      />
     </div>
     <input
       onAnimationStart={[Function]}
