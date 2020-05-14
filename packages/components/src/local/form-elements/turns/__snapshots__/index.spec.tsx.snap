@@ -5,7 +5,7 @@ exports['Turns renders correctly 1'] = `
   className="input-container"
 >
   <h2>
-    For
+    for
   </h2>
   <div
     className="MuiFormControl-root MuiTextField-root"
@@ -19,12 +19,14 @@ exports['Turns renders correctly 1'] = `
         autoFocus={false}
         className="MuiInputBase-input MuiInput-input"
         disabled={false}
+        name="turns"
         onAnimationStart={[Function]}
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
         required={false}
         type="text"
+        value={5}
       />
     </div>
   </div>

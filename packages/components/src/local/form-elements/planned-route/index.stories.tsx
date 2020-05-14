@@ -16,4 +16,4 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <PlannedRoute />
+export const Default: React.FC = () => <PlannedRoute name="plannedRouteStatus" status="pending"/>

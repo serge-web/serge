@@ -29,7 +29,7 @@ exports['PerceptionForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -47,15 +47,15 @@ exports['PerceptionForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={false}
+                  checked={true}
                   className="PrivateSwitchBase-input-17"
-                  name="perceived force"
+                  name="perceivedForce"
                   onChange={[Function]}
                   type="radio"
                   value="Blue Force"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-30"
+                  className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
                 >
                   <svg
                     aria-hidden="true"
@@ -123,7 +123,7 @@ exports['PerceptionForm renders correctly 1'] = `
                 <input
                   checked={false}
                   className="PrivateSwitchBase-input-17"
-                  name="perceived force"
+                  name="perceivedForce"
                   onChange={[Function]}
                   type="radio"
                   value="Red Force"
@@ -177,7 +177,7 @@ exports['PerceptionForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -195,15 +195,15 @@ exports['PerceptionForm renders correctly 1'] = `
                 className="MuiIconButton-label"
               >
                 <input
-                  checked={true}
+                  checked={false}
                   className="PrivateSwitchBase-input-17"
-                  name="perceived force"
+                  name="perceivedForce"
                   onChange={[Function]}
                   type="radio"
                   value="White Force"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
+                  className="PrivateRadioButtonIcon-root-30"
                 >
                   <svg
                     aria-hidden="true"
@@ -248,11 +248,54 @@ exports['PerceptionForm renders correctly 1'] = `
           </label>
         </div>
       </section>
+      <section
+        className="input-container"
+      >
+        <h2>
+          Percieved Type
+        </h2>
+        <div
+          className="MuiInputBase-root MuiInput-root MuiInput-underline"
+          onClick={[Function]}
+        >
+          <div
+            aria-haspopup="listbox"
+            aria-labelledby="Percieved Type perceivedType"
+            className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+            id="perceivedType"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            Frigate
+          </div>
+          <input
+            onAnimationStart={[Function]}
+            type="hidden"
+            value="Frigate"
+          />
+          <svg
+            aria-hidden="true"
+            className="MuiSvgIcon-root MuiSelect-icon"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7 10l5 5 5-5z"
+            />
+          </svg>
+        </div>
+      </section>
     </fieldset>
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-text"
       disabled={false}
       onBlur={[Function]}
+      onClick={[Function]}
       onDragLeave={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}

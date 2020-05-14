@@ -16,4 +16,4 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <Turns />
+export const Default: React.FC = () => <Turns turns={5}/>

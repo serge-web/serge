@@ -22,7 +22,7 @@ export default function findPerceivedAsTypes (myForce: string, theirForce: strin
     }
   }
   if (perception) {
-    const forceClass: string = perception.force ? perception.force.toLowerCase() : 'unknown'
+    const forceClass: string = perception.force ? perception.force.replace(/ /g, '-').toLowerCase() : 'unknown'
     const typeClass: string = perception.type ? perception.type.replace(/ /g, '-').toLowerCase() : 'unknown'
     return [forceClass, typeClass]
   } else {
