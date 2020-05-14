@@ -6,14 +6,14 @@ import findPerceivedAsTypes from './find-perceived-as-types'
 const perceptions: any = [{
   by: 'Blue',
   force: 'Green',
-  name: 'DUMBO',
+  name: 'Dumbo',
   type: 'merchant-vessel'
 }]
 
 // get a perceptions element with Force missing
 const perceptionsForceMissing: any = [{
   by: 'Blue',
-  name: 'DUMBO',
+  name: 'Dumbo',
   type: 'merchant-vessel'
 }]
 
@@ -21,7 +21,7 @@ const perceptionsForceMissing: any = [{
 const perceptionsTypeMissing: any = [{
   by: 'Blue',
   force: 'Green',
-  name: 'DUMBO'
+  name: 'Dumbo'
 }]
 
 // get a perceptions element with name missing
@@ -48,17 +48,17 @@ it('gives null for force without perception', () => {
 
 it('gives perceived details for force with entry', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', 'C0011', 'yellow', 'submarine',
-    perceptions, false)).toEqual(['dumbo', 'green', 'merchant-vessel'])
+    perceptions, false)).toEqual(['Dumbo', 'green', 'merchant-vessel'])
 })
 
 it('gives perceived details for force with entry but type missing', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', 'C0011', 'yellow', 'submarine',
-    perceptionsTypeMissing, false)).toEqual(['dumbo', 'green', 'unknown'])
+    perceptionsTypeMissing, false)).toEqual(['Dumbo', 'green', 'unknown'])
 })
 
 it('gives perceived details for force with entry but force missing', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', 'C0011', 'yellow', 'submarine',
-    perceptionsForceMissing, false)).toEqual(['dumbo', 'unknown', 'merchant-vessel'])
+    perceptionsForceMissing, false)).toEqual(['Dumbo', 'unknown', 'merchant-vessel'])
 })
 
 it('gives perceived details for force with entry but name missing', () => {

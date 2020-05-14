@@ -31,7 +31,7 @@ export default function findPerceivedAsTypes (
     }
   }
   if (perception) {
-    const forceName: string = perception.name ? perception.name.replace(/ /g, '-').toLowerCase() : theirContactID
+    const forceName: string = perception.name ?  perception.name : theirContactID
     const forceClass: string = perception.force ? perception.force.replace(/ /g, '-').toLowerCase() : 'unknown'
     const typeClass: string = perception.type ? perception.type.replace(/ /g, '-').toLowerCase() : 'unknown'
     return [forceName, forceClass, typeClass]
