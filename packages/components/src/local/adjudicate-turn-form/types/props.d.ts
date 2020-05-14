@@ -1,6 +1,11 @@
+interface Status {
+  name: string
+  mobile: boolean
+}
+
 interface FormValues {
   plannedRouteStatusVal: string
-  statusVal: string
+  statusVal: Status
   speedVal: number
   visibleToVal: Array<string>
   conditionVal: string
@@ -8,7 +13,7 @@ interface FormValues {
 
 interface FormData {
   populate: {
-    status: Array<string>
+    status: Array<Status>
     speed: Array<number>
     visibleTo: Array<{
       name: string

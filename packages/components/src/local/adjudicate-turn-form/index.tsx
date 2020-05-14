@@ -30,6 +30,19 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
     updateState(data)
   }
 
+  // Status has a different data model and requires it's own handler
+
+  const statusHandler = (data: any): void => {
+    const { name, value } = data
+
+    const selectedStatus = status.find((s: any) => s.name === value)
+
+    updateState({
+      name,
+      value: selectedStatus
+    })
+  }
+
   const updateState = (data: any): void => {
     const { name, value } = data
 
@@ -54,19 +67,19 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
   return (
     <Form type="adjudication" headerText={formHeader} >
       { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
-      { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
+      { conditionVal.toLowerCase() === 'working' && <fieldset>
         <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
         {
           plannedRouteStatusVal === 'rejected' && <div>
-            <RCB type="radio" label="Status" options={status} value={statusVal} updateState={changeHandler}/>
-            { statusVal.toLowerCase() !== 'moored' &&
+            <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
+            { statusVal.mobile &&
              <RCB type="radio" label="Speed (kts)" name="speed" options={speed} value={speedVal} updateState={changeHandler}/>
             }
           </div>
         }
         {
           plannedRouteStatusVal !== 'rejected' && <>
-            <div>Status: {statusVal}</div>
+            <div>Status: {statusVal.name}</div>
             <div>Speed (kts): {speedVal}</div>
           </>
         }

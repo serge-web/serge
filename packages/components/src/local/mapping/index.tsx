@@ -116,6 +116,8 @@ export const Mapping: React.FC<PropTypes> = ({
   const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
   const unknownForce = { name: 'Unknown', colour: '#ccc' }
 
+  console.log(currentPlatform)
+
   // Populates data from the forms using initial state
   useEffect(() => {
     // First check that selectedAsset has been populated
@@ -131,7 +133,7 @@ export const Mapping: React.FC<PropTypes> = ({
       })
       setPlanTurnFormData({
         populate: {
-          status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : []
+          status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : []
         },
         values: {
           statusVal: selectedAsset.status.state,
@@ -140,7 +142,7 @@ export const Mapping: React.FC<PropTypes> = ({
       })
       setAdjudicateTurnFormData({
         populate: {
-          status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
+          status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : [],
           speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
           visibleTo: [...availableForces, unknownForce],
           condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []

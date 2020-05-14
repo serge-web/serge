@@ -1,7 +1,20 @@
 const formData = {
   populate: {
     /* All types in this definition are options for a form input */
-    status: ['Fishing', 'Moored', 'Transiting'],
+    status: [
+      {
+        name: 'Fishing',
+        mobile: false
+      },
+      {
+        name: 'Moored',
+        mobile: false
+      },
+      {
+        name: 'Transiting',
+        mobile: true
+      }
+    ],
     speed: [10, 20, 30],
     visibleTo: [
       {
@@ -21,7 +34,10 @@ const formData = {
   },
   values: {
     plannedRouteStatusVal: 'pending',
-    statusVal: 'Transiting',
+    statusVal: {
+      name: 'Transiting',
+      mobile: true
+    },
     speedVal: 10,
     visibleToVal: ['Blue Force'],
     conditionVal: 'Working'
