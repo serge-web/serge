@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react'
 import cx from 'classnames'
 import { ArrowRight } from '@material-ui/icons'
 import assetDialogFor from './helpers/asset-dialog-for'
-import { kebabCase } from 'lodash'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -16,13 +15,24 @@ import PlanTurnForm from '../plan-turn-form'
 
 /* Render component */
 export const MapBar: React.FC = () => {
+  /* Set our intial states */
   const [currentForm, setCurrentForm] = useState('')
   const [currentAssetName, setCurrentAssetName] = useState('')
-  const [perceptionFormData, setPerceptionFormData] = useState<any>({})
-  const [planTurnFormData, setPlanTurnFormData] = useState<any>({})
-  const [adjudicateTurnFormData, setAdjudicateTurnFormData] = useState<any>({})
 
-  const { playerForce, forces, platforms, phase, showMapBar, setShowMapBar, selectedAsset } = useContext(MapContext).props
+  /* Pull in the context from MappingContext */
+  const {
+    playerForce,
+    phase,
+    showMapBar,
+    setShowMapBar,
+    selectedAsset,
+    perceptionFormData,
+    planTurnFormData,
+    adjudicateTurnFormData,
+    setPlanTurnFormData,
+    setPerceptionFormData,
+    setAdjudicateTurnFormData
+  } = useContext(MapContext).props
 
   // Selects the current asset
   useEffect(() => {
@@ -35,45 +45,21 @@ export const MapBar: React.FC = () => {
     showMapBar ? setShowMapBar(false) : setShowMapBar(true)
   }
 
-  // Loops through all available forces and creates an entry for each one to be used as form data
-  const availableForces = forces && forces.map((force: any) => {
-    return {
-      colour: force.color,
-      name: force.name,
-      selected: selectedAsset.force === force.name.toLowerCase()
-    }
-  })
-
-  const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
-
-  // Populates data from the forms using initial state
-  useEffect(() => {
-    setPerceptionFormData({
-      perceivedForce: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === 'unknown' }]
-    })
-    setPlanTurnFormData({
-      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : []
-    })
-    setAdjudicateTurnFormData({
-      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => s.name) : [],
-      speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
-      visibleTo: [...availableForces, { name: 'Unknown', colour: '#ccc', selected: selectedAsset.force.toLowerCase() === 'unknown' }],
-      condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
-    })
-  }, [currentPlatform])
-
   /* TODO: This should be refactored into a helper */
   const formSelector = (form: string): any => {
     let output = null
     switch (form) {
       case 'PerceivedAs':
-        output = <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} />
+        output = <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} postBack={setPerceptionFormData} />
         break
       case 'Adjudication':
-        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={adjudicateTurnFormData} />
+        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={adjudicateTurnFormData} postBack={setAdjudicateTurnFormData} />
         break
       case 'Planning':
-        output = <PlanTurnForm formHeader={currentAssetName} formData={planTurnFormData} />
+        output = <PlanTurnForm formHeader={currentAssetName} formData={planTurnFormData} postBack={setPlanTurnFormData}/>
+        break
+      default:
+        output = null
         break
     }
     return output
@@ -87,7 +73,7 @@ export const MapBar: React.FC = () => {
           <WorldState name="World State"></WorldState>
         </section>
         <section>
-          {currentForm !== '' && currentAssetName !== '' && formSelector(currentForm)}
+          {currentForm !== '' && currentAssetName !== undefined && formSelector(currentForm)}
         </section>
       </div>
     </div>

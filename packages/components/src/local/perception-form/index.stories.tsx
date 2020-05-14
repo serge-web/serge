@@ -4,6 +4,7 @@ import React from 'react'
 import PerceptionForm from './index'
 import docs from './README.md'
 import formData from './mocks/formData'
+import { FormValues } from './types/props'
 
 export default {
   title: 'local/PerceptionForm',
@@ -17,4 +18,11 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <PerceptionForm formHeader="Perception header" formData={formData}/>
+// put in the post handler
+const postback = (payload: FormValues): void => {
+  console.log('perception postback', payload)
+}
+
+// TODO: Add some state handling here
+
+export const Default: React.FC = () => <PerceptionForm postBack={postback} formHeader="Perception header" formData={formData}/>

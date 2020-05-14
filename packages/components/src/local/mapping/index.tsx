@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/create-grid'
 import { Phase } from '@serge/config'
+import { kebabCase } from 'lodash'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -99,6 +100,63 @@ export const Mapping: React.FC<PropTypes> = ({
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
+  const [perceptionFormData, setPerceptionFormData] = useState<any>({})
+  const [planTurnFormData, setPlanTurnFormData] = useState<any>({})
+  const [adjudicateTurnFormData, setAdjudicateTurnFormData] = useState<any>({})
+
+  // Loops through all available forces and creates an entry for each one to be used as form data
+  const availableForces = forces && forces.map((force: any) => {
+    return {
+      colour: force.color,
+      name: force.name
+    }
+  })
+
+  const platformTypes = platforms && platforms.map((p: any) => p.name)
+  const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
+  const unknownForce = { name: 'Unknown', colour: '#ccc' }
+
+  console.log(currentPlatform)
+
+  // Populates data from the forms using initial state
+  useEffect(() => {
+    // First check that selectedAsset has been populated
+    if (selectedAsset.id !== '') {
+      setPerceptionFormData({
+        populate: {
+          perceivedForce: [...availableForces, unknownForce],
+          perceivedType: platformTypes
+        },
+        values: {
+          perceivedForceVal: selectedAsset.force
+        }
+      })
+      setPlanTurnFormData({
+        populate: {
+          status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : []
+        },
+        values: {
+          statusVal: selectedAsset.status.state,
+          turnsVal: 0
+        }
+      })
+      setAdjudicateTurnFormData({
+        populate: {
+          status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : [],
+          speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
+          visibleTo: [...availableForces, unknownForce],
+          condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
+        },
+        values: {
+          plannedRouteStatusVal: 'pending',
+          statusVal: selectedAsset.status.state,
+          speedVal: selectedAsset.status.speedKts,
+          visibleToVal: selectedAsset.force,
+          conditionVal: selectedAsset.condition
+        }
+      })
+    }
+  }, [selectedAsset])
 
   // if we've got a planning range from prop, double-check if it is different
   // to the current one
@@ -158,11 +216,17 @@ export const Mapping: React.FC<PropTypes> = ({
     planningConstraints,
     planningRange,
     showMapBar,
+    selectedAsset,
+    zoomLevel,
+    perceptionFormData,
+    planTurnFormData,
+    adjudicateTurnFormData,
+    setPlanTurnFormData,
+    setPerceptionFormData,
+    setAdjudicateTurnFormData,
     setNewLeg,
     setShowMapBar,
-    selectedAsset,
     setSelectedAsset,
-    zoomLevel,
     setZoomLevel
   }
 

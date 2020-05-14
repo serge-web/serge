@@ -1,10 +1,4 @@
-import Option from './option'
-
 export default interface PropTypes {
-  /**
-   * The type of component to show
-   */
-  type: 'checkbox' | 'radio'
   /**
    * The label to show on the form section
    */
@@ -17,15 +11,11 @@ export default interface PropTypes {
   /**
    * The list of options available to the form section
    */
-  options: Array<string | number | Option>
+  options: Array<string | number>
   /**
-   * The value to set the 'checked' parameter to
+   * The value to set the 'selected' parameter to
    */
-  value: string | number | Array<string | number >
-  /**
-   * An option to display the force colours in the label ('colour' must be present in options)
-   */
-  force?: boolean
+  selected: string | number
   /**
    * Sets the onChange state on a parent
    */

@@ -1,14 +1,10 @@
-.default {
-  background-color: #ffa500;
-}
-
-.with-force {
-  > span:first-of-type {
-    &::after {
-      content: "";
-      width: 25px;
-      height: 1rem;
-      background-color: #f00;
-    }
-  }
+.color-box {
+  display: inline-block;
+  width: 25px;
+  height: 1rem;
+  border: 1px solid #222;
+  /* Show grey if no colour is specified */
+  background-color: #ccc;
+  vertical-align: middle;
+  margin-right: 0.5rem;
 }

@@ -5,6 +5,7 @@ import PlanTurnForm from './index'
 import docs from './README.md'
 
 import formData from './mocks/formData'
+import { FormValues } from './types/props'
 
 export default {
   title: 'local/PlanTurnForm',
@@ -18,4 +19,11 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <PlanTurnForm formHeader="Planning header" formData={formData}/>
+// put in the post handler
+const postback = (payload: FormValues): void => {
+  console.log('perception postback', payload)
+}
+
+// TODO: Add some state handling here
+
+export const Default: React.FC = () => <PlanTurnForm postBack={postback} formHeader="Planning header" formData={formData}/>

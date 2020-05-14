@@ -86,4 +86,28 @@ export default interface MappingContext {
    *  setter, to set the zoom level
    **/
   setZoomLevel: React.Dispatch<React.SetStateAction<number>>
+  /**
+   * State containing data for Perception Form
+   */
+  perceptionFormData: any,
+  /**
+   * State containing data for Plan turn Form
+   */
+  planTurnFormData: any,
+  /**
+   * State containing data for Adjudicate turn Form
+   */
+  adjudicateTurnFormData: any,
+  /**
+   * Setter to update Plan turn form
+   */
+  setPlanTurnFormData: React.Dispatch<React.SetStateAction<any>>,
+  /**
+   * Setter to update Perception form
+   */
+  setPerceptionFormData: React.Dispatch<React.SetStateAction<any>>,
+  /**
+   * Setter to update Adjudicate turn form
+   */
+  setAdjudicateTurnFormData: React.Dispatch<React.SetStateAction<any>>
 }
