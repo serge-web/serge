@@ -13,7 +13,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, post
   const [formState, setFormState] = useState(formData.values)
 
   const { perceivedForce, perceivedType } = formData.populate
-  const { perceivedNameVal, perceivedForceVal, perceivedTypeVal } = formState
+  const { perceivedNameVal, perceivedForceVal, perceivedTypeVal } = formData.values
 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
