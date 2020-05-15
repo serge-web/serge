@@ -2,9 +2,9 @@ import { PerceptionForm, PerceptionFormValues } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
-   * The header text for the form
+   * The header text for the form (optional)
    */
-  formHeader: string
+  formHeader?: string
   /**
    * All types in this definition are options for a form input
    */

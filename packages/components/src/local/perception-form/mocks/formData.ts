@@ -28,6 +28,7 @@ const formData = {
     ]
   },
   values: {
+    perceivedNameVal: 'Test',
     perceivedForceVal: 'blue-force',
     perceivedTypeVal: 'frigate'
   }

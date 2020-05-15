@@ -14,6 +14,7 @@ export interface PerceptionFormPopulate {
 }
 
 export interface PerceptionFormValues {
+  perceivedNameVal: string
   perceivedForceVal: string
   perceivedTypeVal: string
 }

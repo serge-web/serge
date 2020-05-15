@@ -7,12 +7,42 @@ exports['PerceptionForm renders correctly 1'] = `
   <h2
     className="form-header"
   >
-    Perception header
+    Test
   </h2>
   <div
     className="content"
   >
     <fieldset>
+      <section
+        className="input-container"
+      >
+        <h2>
+          Perceived Name
+        </h2>
+        <div
+          className="MuiFormControl-root MuiTextField-root"
+        >
+          <div
+            className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+            onClick={[Function]}
+          >
+            <input
+              aria-invalid={false}
+              autoFocus={false}
+              className="MuiInputBase-input MuiInput-input"
+              disabled={false}
+              name="perceivedName"
+              onAnimationStart={[Function]}
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              type="text"
+              value="Test"
+            />
+          </div>
+        </div>
+      </section>
       <section
         className="input-container"
       >
@@ -29,7 +59,7 @@ exports['PerceptionForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-51 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-52 Mui-checked MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -48,14 +78,14 @@ exports['PerceptionForm renders correctly 1'] = `
               >
                 <input
                   checked={true}
-                  className="PrivateSwitchBase-input-17"
+                  className="PrivateSwitchBase-input-54"
                   name="perceivedForce"
                   onChange={[Function]}
                   type="radio"
                   value="blue-force"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
+                  className="PrivateRadioButtonIcon-root-67 PrivateRadioButtonIcon-checked-69"
                 >
                   <svg
                     aria-hidden="true"
@@ -70,7 +100,7 @@ exports['PerceptionForm renders correctly 1'] = `
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-31"
+                    className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-68"
                     focusable="false"
                     role="presentation"
                     viewBox="0 0 24 24"
@@ -103,7 +133,7 @@ exports['PerceptionForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-51 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -122,14 +152,14 @@ exports['PerceptionForm renders correctly 1'] = `
               >
                 <input
                   checked={false}
-                  className="PrivateSwitchBase-input-17"
+                  className="PrivateSwitchBase-input-54"
                   name="perceivedForce"
                   onChange={[Function]}
                   type="radio"
                   value="red-force"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-30"
+                  className="PrivateRadioButtonIcon-root-67"
                 >
                   <svg
                     aria-hidden="true"
@@ -144,7 +174,7 @@ exports['PerceptionForm renders correctly 1'] = `
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-31"
+                    className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-68"
                     focusable="false"
                     role="presentation"
                     viewBox="0 0 24 24"
@@ -177,7 +207,7 @@ exports['PerceptionForm renders correctly 1'] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-51 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -196,14 +226,14 @@ exports['PerceptionForm renders correctly 1'] = `
               >
                 <input
                   checked={false}
-                  className="PrivateSwitchBase-input-17"
+                  className="PrivateSwitchBase-input-54"
                   name="perceivedForce"
                   onChange={[Function]}
                   type="radio"
                   value="white-force"
                 />
                 <div
-                  className="PrivateRadioButtonIcon-root-30"
+                  className="PrivateRadioButtonIcon-root-67"
                 >
                   <svg
                     aria-hidden="true"
@@ -218,7 +248,7 @@ exports['PerceptionForm renders correctly 1'] = `
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-31"
+                    className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-68"
                     focusable="false"
                     role="presentation"
                     viewBox="0 0 24 24"

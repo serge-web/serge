@@ -127,6 +127,7 @@ export const Mapping: React.FC<PropTypes> = ({
           perceivedType: platformTypes
         },
         values: {
+          perceivedNameVal: selectedAsset.name,
           perceivedForceVal: selectedAsset.force,
           perceivedTypeVal: selectedAsset.type
         }
