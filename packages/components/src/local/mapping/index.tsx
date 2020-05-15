@@ -88,7 +88,6 @@ export const Mapping: React.FC<PropTypes> = ({
 
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
-
   /* Initialise variables */
   const [mapBounds, setMapBounds] = useState<{
     imageTop: number
