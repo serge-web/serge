@@ -53,25 +53,25 @@ const OSMTileLayer = {
  * DEFAULT VIEW
  */
 export const Default: React.FC = () => <Mapping
-  tileDiameterMins = {5}
-  bounds = {bounds}
-  tileLayer = {LocalTileLayer}
-  forces = {forces}
-  playerForce = 'Blue'
-  platforms = {platformTypes}
-  phase = {Phase.Planning}
-  mapBar = {false}
+  tileDiameterMins={5}
+  bounds={bounds}
+  tileLayer={LocalTileLayer}
+  forces={forces}
+  playerForce='Blue'
+  platforms={platformTypes}
+  phase={Phase.Planning}
+  mapBar={false}
 />
 
 /**
  * VIEW WITH MAPPING BAR
  */
 export const WithMapBar: React.FC = () => <Mapping
-  tileDiameterMins = {5}
-  bounds = {bounds}
-  tileLayer = {LocalTileLayer}
+  tileDiameterMins={5}
+  bounds={bounds}
+  tileLayer={LocalTileLayer}
   forces={forces}
-  platforms = {platformTypes}
+  platforms={platformTypes}
   phase={Phase.Planning}
   playerForce={radios(label, forceNames, defaultValue)}
 >
@@ -101,14 +101,14 @@ const assetTypeNames = {
 const assetTypeDefaultValue = 'agi'
 
 export const WithMarker: React.FC = () => <Mapping
-  tileDiameterMins = {5}
-  bounds = {bounds}
-  tileLayer = {LocalTileLayer}
-  forces = {forces}
-  playerForce = 'Blue'
-  platforms = {platformTypes}
-  phase = {Phase.Planning}
-  mapBar = {false}
+  tileDiameterMins={5}
+  bounds={bounds}
+  tileLayer={LocalTileLayer}
+  forces={forces}
+  playerForce='Blue'
+  platforms={platformTypes}
+  phase={Phase.Planning}
+  mapBar={false}
 >
   <AssetIcon id="id1" name="Jeffrey" position={L.latLng(13.298034302, 43.0488191271)}
     selected={boolean(visLabel, visDefaultValue)}
@@ -140,13 +140,13 @@ const forceNames = {
 const defaultValue = 'Blue'
 
 export const WithAssets: React.FC = () => <Mapping
-  tileDiameterMins = {5}
-  bounds = {bounds}
-  tileLayer = {LocalTileLayer}
+  tileDiameterMins={5}
+  bounds={bounds}
+  tileLayer={LocalTileLayer}
   forces={forces}
   playerForce={radios(label, forceNames, defaultValue)}
-  platforms = {platformTypes}
-  phase = {Phase.Planning}
+  platforms={platformTypes}
+  phase={Phase.Planning}
 >
   <Assets />
 </Mapping>
@@ -174,14 +174,14 @@ const hexGridOptions = {
 }
 
 export const WithGrid: React.FC = () => <Mapping
-  bounds = {bounds}
-  tileLayer = {LocalTileLayer}
+  bounds={bounds}
+  tileLayer={LocalTileLayer}
   tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
   forces={forces}
-  platforms = {platformTypes}
-  phase = {Phase.Planning}
+  platforms={platformTypes}
+  phase={Phase.Planning}
   playerForce='Blue'
-  mapBar = {false}
+  mapBar={false}
 >
   <HexGrid />
 </Mapping>
@@ -223,16 +223,16 @@ const allowableGridOptions = {
 }
 
 export const WithAllowableRange: React.FC = () => <Mapping
-  bounds = {bounds}
-  tileLayer = {LocalTileLayer}
+  bounds={bounds}
+  tileLayer={LocalTileLayer}
   tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
   forces={forces}
-  platforms = {platformTypes}
-  phase = {Phase.Planning}
+  platforms={platformTypes}
+  phase={Phase.Planning}
   playerForce='Blue'
-  mapBar = {false}
-  planningRangeProp = {number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)}
-  planningConstraintsProp={ boolean(allowableOnLabel, allowableDefaultValue) ? {
+  mapBar={false}
+  planningRangeProp={number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)}
+  planningConstraintsProp={boolean(allowableOnLabel, allowableDefaultValue) ? {
     origin: text(allowableOriginLabel, allowableOriginValue),
     travelMode: radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault)
   } : undefined}
@@ -254,14 +254,14 @@ WithAllowableRange.story = {
  * VIEW WITH OPEN STREET MAP
  */
 export const OpenStreetMap: React.FC = () => <Mapping
-  tileDiameterMins = {5}
-  bounds = {bounds}
-  tileLayer = {OSMTileLayer}
+  tileDiameterMins={5}
+  bounds={bounds}
+  tileLayer={OSMTileLayer}
   forces={forces}
   playerForce='Blue'
-  platforms = {platformTypes}
-  phase = {Phase.Planning}
-  mapBar = {false}
+  platforms={platformTypes}
+  phase={Phase.Planning}
+  mapBar={false}
 />
 
 /**
@@ -284,12 +284,12 @@ const phasesPhaseNames = {
 const phasePhaseValue = Phase.Planning
 
 export const WithPhases: React.FC = () => <Mapping
-  tileDiameterMins = {5}
-  bounds = {bounds}
-  tileLayer = {LocalTileLayer}
+  tileDiameterMins={5}
+  bounds={bounds}
+  tileLayer={LocalTileLayer}
   forces={forces}
   playerForce={radios(phasesViewLabel, phasesViewNames, phaseViewValue)}
-  platforms = {platformTypes}
+  platforms={platformTypes}
   phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
 >
   <Assets />
@@ -320,14 +320,14 @@ const platform: any = greenForce.assets[0]
 const { plannedTurns, history } = platform
 
 export const WithRoute: React.FC = () => <Mapping
-  bounds = {bounds}
-  tileLayer = {LocalTileLayer}
+  bounds={bounds}
+  tileLayer={LocalTileLayer}
   tileDiameterMins={5}
   forces={forces}
-  platforms = {platformTypes}
-  phase = {Phase.Planning}
+  platforms={platformTypes}
+  phase={Phase.Planning}
   playerForce='Green'
-  mapBar = {false}
+  mapBar={false}
 >
   <HexGrid />
   <Route name={'test'} location={platform.position}
