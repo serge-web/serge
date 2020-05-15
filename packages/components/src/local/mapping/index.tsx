@@ -169,15 +169,18 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   })
 
+  // collate data unrelated to selected asset
   const platformTypes = platforms && platforms.map((p: any) => p.name)
-  const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
   const unknownForce = { name: 'Unknown', colour: '#ccc' }
-  const availableStatus = currentPlatform && currentPlatform.states.find((s: any) => s.name === selectedAsset.status.state)
 
   // Populates data from the forms using initial state
-  useEffect(() => {
-    // First check that selectedAsset has been populated
+  useEffect(() => { 
+      // First check that selectedAsset has been populated
     if (selectedAsset.uniqid !== '') {
+      // collate data specific to selected asset
+      const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
+      const availableStatus = currentPlatform && currentPlatform.states.find((s: any) => s.name === selectedAsset.status.state)
+
       setPerceptionFormData({
         populate: {
           perceivedForce: [...availableForces, unknownForce],
