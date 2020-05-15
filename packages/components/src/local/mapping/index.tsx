@@ -7,6 +7,7 @@ import { kebabCase } from 'lodash'
 /* Import Types */
 import PropTypes from './types/props'
 import { SergeHex, SergeGrid, MappingContext, PlanMobileAsset } from '@serge/custom-types'
+import { PlanTurnForm, PerceptionForm, AdjudicateTurnForm } from './types/forms'
 
 /* Import Stylesheet */
 import './leaflet.css'
@@ -87,6 +88,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
+
   /* Initialise variables */
   const [mapBounds, setMapBounds] = useState<{
     imageTop: number
@@ -100,9 +102,9 @@ export const Mapping: React.FC<PropTypes> = ({
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
-  const [perceptionFormData, setPerceptionFormData] = useState<any>({})
-  const [planTurnFormData, setPlanTurnFormData] = useState<any>({})
-  const [adjudicateTurnFormData, setAdjudicateTurnFormData] = useState<any>({})
+  const [perceptionFormData, setPerceptionFormData] = useState<PerceptionForm>()
+  const [planTurnFormData, setPlanTurnFormData] = useState<PlanTurnForm>()
+  const [adjudicateTurnFormData, setAdjudicateTurnFormData] = useState<AdjudicateTurnForm>()
 
   // Loops through all available forces and creates an entry for each one to be used as form data
   const availableForces = forces && forces.map((force: any) => {
