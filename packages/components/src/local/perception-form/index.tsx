@@ -7,10 +7,11 @@ import { Button } from '@material-ui/core'
 import Selector from '../form-elements/selector'
 import RCB from '../form-elements/rcb'
 import TextInput from '../form-elements/text-input'
+import { PerceptionFormValues } from '@serge/custom-types'
 
 /* Render component */
 export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
-  const [formState, setFormState] = useState(formData.values)
+  const [formState, setFormState] = useState<PerceptionFormValues>(formData.values)
 
   const { perceivedForce, perceivedType } = formData.populate
   const { perceivedNameVal, perceivedForceVal, perceivedTypeVal } = formData.values
