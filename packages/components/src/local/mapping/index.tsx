@@ -6,8 +6,7 @@ import { kebabCase } from 'lodash'
 
 /* Import Types */
 import PropTypes from './types/props'
-import { SergeHex, SergeGrid, MappingContext, PlanMobileAsset } from '@serge/custom-types'
-import { PlanTurnForm, PerceptionForm, AdjudicateTurnForm } from './types/forms'
+import { SergeHex, SergeGrid, MappingContext, PlanMobileAsset, PlanTurnForm, PerceptionForm, AdjudicateTurnForm } from '@serge/custom-types'
 
 /* Import Stylesheet */
 import './leaflet.css'

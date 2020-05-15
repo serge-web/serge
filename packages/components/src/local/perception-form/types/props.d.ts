@@ -1,18 +1,4 @@
-interface FormValues {
-  perceivedForceVal: string
-  perceivedTypeVal: string
-}
-
-interface FormDataPop {
-  populate: {
-    perceivedForce: Array<{
-      name: string
-      colour: string
-    }>
-    perceivedType: Array<string>
-  }
-  values: FormValues
-}
+import { PerceptionForm, PerceptionFormValues } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -22,9 +8,9 @@ export default interface PropTypes {
   /**
    * All types in this definition are options for a form input
    */
-  formData: FormDataPop
+  formData: PerceptionForm
   /**
    * The method for posting data back to state
    */
-  postBack?: {(payload: FormValues): void}
+  postBack?: {(payload: PerceptionFormValues): void}
 }
