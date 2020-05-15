@@ -1,4 +1,4 @@
-import { PlanTurnForm, PlanTurnFormValues } from '@serge/custom-types'
+import { PlanTurnFormData, PlanTurnFormValues } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -8,7 +8,7 @@ export default interface PropTypes {
   /**
    * All types in this definition are options for a form input
    */
-  formData: PlanTurnForm
+  formData: PlanTurnFormData
   /**
    * The method for posting data back to state
    */

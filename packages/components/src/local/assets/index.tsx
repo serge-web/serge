@@ -52,8 +52,8 @@ export const Assets: React.FC<{}> = () => {
                   type: perceivedAs[2],
                   force: perceivedAs[1],
                   visibleTo: perceptions.map((p: any) => p.by),
-                  position: position,
-                  uniqid: uniqid
+                  position,
+                  uniqid
                 }
                 tmpAssets.push(assetInfo)
               } else {
@@ -72,7 +72,7 @@ export const Assets: React.FC<{}> = () => {
       <AssetIcon
         key={asset.uniqid}
         name={asset.name}
-        id={asset.uniqid}
+        uniqid={asset.uniqid}
         position={asset.position}
         type={asset.type}
         selected={false}

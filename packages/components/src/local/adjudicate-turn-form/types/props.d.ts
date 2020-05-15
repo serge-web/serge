@@ -1,4 +1,4 @@
-import { AdjudicateTurnForm, AdjudicateTurnFormValues } from '@serge/custom-types'
+import { AdjudicateTurnFormData, AdjudicateTurnFormValues } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -8,7 +8,7 @@ export default interface PropTypes {
   /**
    * All types in this definition are options for a form input
    */
-  formData: AdjudicateTurnForm
+  formData: AdjudicateTurnFormData
   /**
    * The method for posting data back to state
    */

@@ -15,7 +15,7 @@ import { MapContext } from '../mapping'
 
 /* Render component */
 export const AssetIcon: React.FC<PropTypes> = ({
-  id,
+  uniqid,
   name,
   position,
   type,
@@ -36,9 +36,8 @@ export const AssetIcon: React.FC<PropTypes> = ({
   })
 
   const clickEvent = (): void => {
-    setShowMapBar(true)
     setSelectedAsset({
-      id,
+      uniqid,
       name,
       position,
       type,
@@ -48,6 +47,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
       condition,
       status
     })
+    setShowMapBar(true)
   }
 
   return <Marker position={position} icon={divIcon} onclick={clickEvent}>

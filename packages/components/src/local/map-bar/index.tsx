@@ -73,7 +73,7 @@ export const MapBar: React.FC = () => {
           <WorldState name="World State"></WorldState>
         </section>
         <section>
-          {currentForm !== '' && currentAssetName !== undefined && formSelector(currentForm)}
+          {currentForm !== '' && selectedAsset.uniqid !== '' && formSelector(currentForm)}
         </section>
       </div>
     </div>

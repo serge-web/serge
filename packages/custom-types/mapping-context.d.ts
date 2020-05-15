@@ -2,29 +2,8 @@ import { Phase } from '@serge/config'
 import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
-
-interface SelectedAsset {
-  /**
-   * unique id
-   */
-  id: string
-  /**
-   * current hex position of asset
-   */
-  position: number[]
-  /**
-   *  type of asset
-   */
-  type: string
-  /**
-   * force-id for asset
-   */
-  force: string
-  /**
-   *  list of force-ids for who can control this asset
-   */
-  controlledBy: string[]
-}
+import SelectedAsset from './selected-asset'
+import { PerceptionFormData, PlanTurnFormData, AdjudicateTurnFormData } from './forms'
 
 /**
  * mapping context, shared with child elements
@@ -87,21 +66,21 @@ export default interface MappingContext {
    **/
   setZoomLevel: React.Dispatch<React.SetStateAction<number>>
   /**
-   * State containing data for Perception Form
-   */
-  perceptionFormData: any,
-  /**
    * State containing data for Plan turn Form
    */
-  planTurnFormData: any,
+  planTurnFormData: PlanTurnFormData,
+  /**
+   * State containing data for Perception Form
+   */
+  perceptionFormData: PerceptionFormData,
   /**
    * State containing data for Adjudicate turn Form
    */
-  adjudicateTurnFormData: any,
+  adjudicateTurnFormData: AdjudicateTurnFormData,
   /**
    * Setter to update Plan turn form
    */
-  setPlanTurnFormData: React.Dispatch<React.SetStateAction<any>>,
+  setPlanTurnFormData: React.Dispatch<React.SetStateAction<PlanTurnFormData>>,
   /**
    * Setter to update Perception form
    */
@@ -109,5 +88,5 @@ export default interface MappingContext {
   /**
    * Setter to update Adjudicate turn form
    */
-  setAdjudicateTurnFormData: React.Dispatch<React.SetStateAction<any>>
+  setAdjudicateTurnFormData: React.Dispatch<React.SetStateAction<AdjudicateTurnFormData>>
 }
