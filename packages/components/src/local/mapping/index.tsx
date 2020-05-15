@@ -174,8 +174,8 @@ export const Mapping: React.FC<PropTypes> = ({
   const unknownForce = { name: 'Unknown', colour: '#ccc' }
 
   // Populates data from the forms using initial state
-  useEffect(() => { 
-      // First check that selectedAsset has been populated
+  useEffect(() => {
+    // First check that selectedAsset has been populated
     if (selectedAsset.uniqid !== '') {
       // collate data specific to selected asset
       const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
