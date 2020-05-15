@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import cx from 'classnames'
 import { ArrowRight } from '@material-ui/icons'
 import assetDialogFor from './helpers/asset-dialog-for'
+import { kebabCase } from 'lodash'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -12,6 +13,7 @@ import WorldState from '../world-state'
 import PerceptionForm from '../perception-form'
 import AdjudicateTurnForm from '../adjudicate-turn-form'
 import PlanTurnForm from '../plan-turn-form'
+import { PlanTurnFormData } from '@serge/custom-types'
 
 /* Render component */
 export const MapBar: React.FC = () => {
@@ -23,11 +25,11 @@ export const MapBar: React.FC = () => {
   const {
     playerForce,
     phase,
+    platforms,
     showMapBar,
     setShowMapBar,
     selectedAsset,
     perceptionFormData,
-    planTurnFormData,
     adjudicateTurnFormData,
     setPlanTurnFormData,
     setPerceptionFormData,
@@ -50,13 +52,28 @@ export const MapBar: React.FC = () => {
     let output = null
     switch (form) {
       case 'PerceivedAs':
+        // collate data
+
         output = <PerceptionForm formData={perceptionFormData} postBack={setPerceptionFormData} />
         break
       case 'Adjudication':
         output = <AdjudicateTurnForm formHeader={currentAssetName} formData={adjudicateTurnFormData} postBack={setAdjudicateTurnFormData} />
         break
       case 'Planning':
-        output = <PlanTurnForm formHeader={currentAssetName} formData={planTurnFormData} postBack={setPlanTurnFormData}/>
+        const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
+        const availableStatus = currentPlatform && currentPlatform.states.find((s: any) => s.name === selectedAsset.status.state)
+        const formData: PlanTurnFormData = {
+          populate: {
+            status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : [],
+            speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : []
+          },
+          values: {
+            statusVal: availableStatus,
+            speedVal: selectedAsset.status.speedKts,
+            turnsVal: 0
+          }
+        }
+        output = <PlanTurnForm formHeader={currentAssetName} formData={formData} postBack={setPlanTurnFormData}/>
         break
       default:
         output = null

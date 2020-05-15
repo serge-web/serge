@@ -193,18 +193,6 @@ export const Mapping: React.FC<PropTypes> = ({
         }
       })
 
-      setPlanTurnFormData({
-        populate: {
-          status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : [],
-          speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : []
-        },
-        values: {
-          statusVal: availableStatus,
-          speedVal: selectedAsset.status.speedKts,
-          turnsVal: 0
-        }
-      })
-
       setAdjudicateTurnFormData({
         populate: {
           status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : [],
