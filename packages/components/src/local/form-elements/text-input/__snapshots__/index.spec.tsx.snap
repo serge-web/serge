@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['Turns renders correctly 1'] = `
+exports['TextInput renders correctly 1'] = `
 <section
   className="input-container"
 >
   <h2>
-    for
+    Turns
   </h2>
   <div
     className="MuiFormControl-root MuiTextField-root"
@@ -30,6 +30,5 @@ exports['Turns renders correctly 1'] = `
       />
     </div>
   </div>
-   Turns
 </section>
 `
