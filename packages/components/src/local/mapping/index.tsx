@@ -121,7 +121,6 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // First check that selectedAsset has been populated
     if (selectedAsset.id !== '') {
-
       setPerceptionFormData({
         populate: {
           perceivedForce: [...availableForces, unknownForce],

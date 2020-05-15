@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['MessagesList renders correctly 1'] = `
+exports[`MessagesList renders correctly 1`] = `
 <div
   className="message-list"
 >
@@ -33,7 +33,7 @@ exports['MessagesList renders correctly 1'] = `
       </span>
     </div>
     <span>
-      2020-Mar-25 16:08
+      2020-Mar-25 15:08
     </span>
   </div>
   <div>
@@ -49,4 +49,4 @@ exports['MessagesList renders correctly 1'] = `
     }
   />
 </div>
-`
+`;
