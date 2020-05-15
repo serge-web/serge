@@ -19,7 +19,7 @@ export interface PerceptionFormValues {
   perceivedTypeVal: string
 }
 
-export interface PerceptionForm {
+export interface PerceptionFormData {
   populate: PerceptionFormPopulate
   values: PerceptionFormValues
 }
@@ -36,7 +36,7 @@ export interface PlanTurnFormValues {
   turnsVal: number
 }
 
-export interface PlanTurnForm {
+export interface PlanTurnFormData {
   populate: PlanTurnFormPopulate
   values: PlanTurnFormValues
 }
@@ -57,7 +57,7 @@ export interface AdjudicateTurnFormValues {
   conditionVal: string
 }
 
-export interface AdjudicateTurnForm {
+export interface AdjudicateTurnFormData {
   populate: AdjudicateTurnFormPopulate
   values: AdjudicateTurnFormValues
 }
