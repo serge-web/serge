@@ -2,7 +2,11 @@ import React, { useState, useEffect, useContext } from 'react'
 import cx from 'classnames'
 import { ArrowRight } from '@material-ui/icons'
 import assetDialogFor from './helpers/asset-dialog-for'
-import { kebabCase } from 'lodash'
+
+
+import collatePlanFormData from './helpers/collate-plan-form-data'
+import collateAdjudicationFormData from './helpers/collate-adjudication-form-data'
+import collatePerceptionFormData from './helpers/collate-perception-form-data'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -13,7 +17,7 @@ import WorldState from '../world-state'
 import PerceptionForm from '../perception-form'
 import AdjudicateTurnForm from '../adjudicate-turn-form'
 import PlanTurnForm from '../plan-turn-form'
-import { PlanTurnFormData } from '@serge/custom-types'
+import { PlanTurnFormData, AdjudicateTurnFormData, PerceptionFormData } from '@serge/custom-types'
 
 /* Render component */
 export const MapBar: React.FC = () => {
@@ -26,11 +30,10 @@ export const MapBar: React.FC = () => {
     playerForce,
     phase,
     platforms,
+    forces,
     showMapBar,
     setShowMapBar,
     selectedAsset,
-    perceptionFormData,
-    adjudicateTurnFormData,
     setPlanTurnFormData,
     setPerceptionFormData,
     setAdjudicateTurnFormData
@@ -52,27 +55,15 @@ export const MapBar: React.FC = () => {
     let output = null
     switch (form) {
       case 'PerceivedAs':
-        // collate data
-
+        const perceptionFormData: PerceptionFormData = collatePerceptionFormData(platforms, selectedAsset, forces)
         output = <PerceptionForm formData={perceptionFormData} postBack={setPerceptionFormData} />
         break
       case 'Adjudication':
-        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={adjudicateTurnFormData} postBack={setAdjudicateTurnFormData} />
+        const adjudicationFormData: AdjudicateTurnFormData = collateAdjudicationFormData(platforms, selectedAsset, forces)
+        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={adjudicationFormData} postBack={setAdjudicateTurnFormData} />
         break
       case 'Planning':
-        const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
-        const availableStatus = currentPlatform && currentPlatform.states.find((s: any) => s.name === selectedAsset.status.state)
-        const formData: PlanTurnFormData = {
-          populate: {
-            status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : [],
-            speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : []
-          },
-          values: {
-            statusVal: availableStatus,
-            speedVal: selectedAsset.status.speedKts,
-            turnsVal: 0
-          }
-        }
+        const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
         output = <PlanTurnForm formHeader={currentAssetName} formData={formData} postBack={setPlanTurnFormData}/>
         break
       default:

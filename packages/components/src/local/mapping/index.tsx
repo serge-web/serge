@@ -2,7 +2,6 @@ import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import createGrid from './helpers/create-grid'
 import { Phase } from '@serge/config'
-import { kebabCase } from 'lodash'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -160,56 +159,6 @@ export const Mapping: React.FC<PropTypes> = ({
       conditionVal: ''
     }
   })
-
-  // Loops through all available forces and creates an entry for each one to be used as form data
-  const availableForces = forces && forces.map((force: any) => {
-    return {
-      colour: force.color,
-      name: force.name
-    }
-  })
-
-  // collate data unrelated to selected asset
-  const platformTypes = platforms && platforms.map((p: any) => p.name)
-  const unknownForce = { name: 'Unknown', colour: '#ccc' }
-
-  // Populates data from the forms using initial state
-  useEffect(() => {
-    // First check that selectedAsset has been populated
-    if (selectedAsset.uniqid !== '') {
-      // collate data specific to selected asset
-      const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
-      const availableStatus = currentPlatform && currentPlatform.states.find((s: any) => s.name === selectedAsset.status.state)
-
-      setPerceptionFormData({
-        populate: {
-          perceivedForce: [...availableForces, unknownForce],
-          perceivedType: platformTypes
-        },
-        values: {
-          perceivedNameVal: selectedAsset.name,
-          perceivedForceVal: selectedAsset.force,
-          perceivedTypeVal: selectedAsset.type
-        }
-      })
-
-      setAdjudicateTurnFormData({
-        populate: {
-          status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : [],
-          speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
-          visibleTo: [...availableForces, unknownForce],
-          condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
-        },
-        values: {
-          plannedRouteStatusVal: 'pending',
-          statusVal: availableStatus,
-          speedVal: selectedAsset.status.speedKts,
-          visibleToVal: selectedAsset.visibleTo,
-          conditionVal: selectedAsset.condition
-        }
-      })
-    }
-  }, [selectedAsset])
 
   // if we've got a planning range from prop, double-check if it is different
   // to the current one

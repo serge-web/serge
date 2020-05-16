@@ -1,3 +1,5 @@
+import ColorOption from './color-option'
+
 interface Status {
   name: string,
   mobile: boolean
@@ -9,7 +11,7 @@ interface Force {
 }
 
 export interface PerceptionFormPopulate {
-  perceivedForce: Array<Force>
+  perceivedForce: Array<ColorOption>
   perceivedType: Array<string>
 }
 
@@ -45,7 +47,7 @@ export interface PlanTurnFormData {
 export interface AdjudicateTurnFormPopulate {
   status: Array<Status>
   speed: Array<number>
-  visibleTo: Array<Force>
+  visibleTo: Array<ColorOption>
   condition: Array<string>
 }
 
