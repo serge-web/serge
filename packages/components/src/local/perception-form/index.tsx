@@ -13,8 +13,12 @@ import { PerceptionFormValues } from '@serge/custom-types'
 export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
   const [formState, setFormState] = useState<PerceptionFormValues>(formData.values)
 
+  console.log('perception form', formData.values)
+
   const { perceivedForce, perceivedType } = formData.populate
   const { perceivedNameVal, perceivedForceVal, perceivedTypeVal } = formState
+
+  console.log('preceived name', perceivedNameVal)
 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
