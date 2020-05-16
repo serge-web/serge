@@ -1,4 +1,4 @@
-import { PlanTurnFormData, PlanTurnFormValues } from '@serge/custom-types'
+import { PlanTurnFormData } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**

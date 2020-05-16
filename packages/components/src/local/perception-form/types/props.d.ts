@@ -1,4 +1,4 @@
-import { PerceptionFormData, PerceptionFormValues } from '@serge/custom-types'
+import { PerceptionFormData } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
