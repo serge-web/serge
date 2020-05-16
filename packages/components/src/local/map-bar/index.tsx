@@ -52,16 +52,13 @@ export const MapBar: React.FC = () => {
     let output = null
     switch (form) {
       case 'PerceivedAs':
-        const perceptionFormData: PerceptionFormData = collatePerceptionFormData(platforms, selectedAsset, forces)
-        output = <PerceptionForm formData={perceptionFormData} postBack={postBack} />
+        output = <PerceptionForm formData={collatePerceptionFormData(platforms, selectedAsset, forces)} postBack={postBack} />
         break
       case 'Adjudication':
-        const adjudicationFormData: AdjudicateTurnFormData = collateAdjudicationFormData(platforms, selectedAsset, forces)
-        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={adjudicationFormData} postBack={postBack} />
+        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={collateAdjudicationFormData(platforms, selectedAsset, forces)} postBack={postBack} />
         break
       case 'Planning':
-        const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
-        output = <PlanTurnForm formHeader={currentAssetName} formData={formData} postBack={postBack}/>
+        output = <PlanTurnForm formHeader={currentAssetName} formData={collatePlanFormData(platforms, selectedAsset)} postBack={postBack}/>
         break
       default:
         output = null
