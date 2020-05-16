@@ -16,7 +16,6 @@ import WorldState from '../world-state'
 import PerceptionForm from '../perception-form'
 import AdjudicateTurnForm from '../adjudicate-turn-form'
 import PlanTurnForm from '../plan-turn-form'
-import { PlanTurnFormData, AdjudicateTurnFormData, PerceptionFormData } from '@serge/custom-types'
 
 /* Render component */
 export const MapBar: React.FC = () => {
