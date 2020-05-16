@@ -10,9 +10,6 @@ import {
   SergeGrid,
   MappingContext,
   PlanMobileAsset,
-  PlanTurnFormData,
-  PerceptionFormData,
-  AdjudicateTurnFormData,
   SelectedAsset
 } from '@serge/custom-types'
 
@@ -79,6 +76,7 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomAnimation,
   planningConstraintsProp,
   planningRangeProp,
+  postBack,
   children
 }) => {
   /* Initialise states */
@@ -116,49 +114,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
-  const [perceptionFormData, setPerceptionFormData] = useState<PerceptionFormData>({
-    populate: {
-      perceivedForce: [],
-      perceivedType: []
-    },
-    values: {
-      perceivedNameVal: '',
-      perceivedForceVal: '',
-      perceivedTypeVal: ''
-    }
-  })
-  const [planTurnFormData, setPlanTurnFormData] = useState<PlanTurnFormData>({
-    populate: {
-      status: [],
-      speed: []
-    },
-    values: {
-      statusVal: {
-        name: '',
-        mobile: false
-      },
-      speedVal: 0,
-      turnsVal: 0
-    }
-  })
-  const [adjudicateTurnFormData, setAdjudicateTurnFormData] = useState<AdjudicateTurnFormData>({
-    populate: {
-      status: [],
-      speed: [],
-      visibleTo: [],
-      condition: []
-    },
-    values: {
-      statusVal: {
-        name: '',
-        mobile: false
-      },
-      plannedRouteStatusVal: 'pending',
-      speedVal: 0,
-      visibleToVal: [],
-      conditionVal: ''
-    }
-  })
 
   // if we've got a planning range from prop, double-check if it is different
   // to the current one
@@ -220,16 +175,11 @@ export const Mapping: React.FC<PropTypes> = ({
     showMapBar,
     selectedAsset,
     zoomLevel,
-    perceptionFormData,
-    planTurnFormData,
-    adjudicateTurnFormData,
-    setPlanTurnFormData,
-    setPerceptionFormData,
-    setAdjudicateTurnFormData,
     setNewLeg,
     setShowMapBar,
     setSelectedAsset,
-    setZoomLevel
+    setZoomLevel,
+    postBack
   }
 
   // any events for leafletjs you can get from leafletElement

@@ -4,7 +4,6 @@ import React from 'react'
 import AdjudicateTurnForm from './index'
 import docs from './README.md'
 import formData from './mocks/formData'
-import { AdjudicateTurnFormValues } from '@serge/custom-types'
 
 export default {
   title: 'local/AdjudicateTurnForm',
@@ -19,9 +18,10 @@ export default {
 }
 
 // put in the post handler
-const postback = (payload: AdjudicateTurnFormValues): void => {
-  console.log('adjudication postback', payload)
+const postback = (messageType: string, payload: any): void => {
+  console.log('postback', messageType, payload)
 }
+
 
 // TODO: Add some state handling here
 

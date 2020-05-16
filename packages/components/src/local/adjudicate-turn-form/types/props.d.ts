@@ -10,7 +10,7 @@ export default interface PropTypes {
    */
   formData: AdjudicateTurnFormData
   /**
-   * The method for posting data back to state
+   * The method for posting messages out of the mapping component
    */
-  postBack?: {(payload: AdjudicateTurnFormValues): void}
+  postBack?: {(messageType:string, payload: any): void}
 }

@@ -38,7 +38,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, post
 
   const submitForm = (): void => {
     if (postBack !== undefined) {
-      postBack(formState)
+      postBack('perception', formState)
     }
   }
 

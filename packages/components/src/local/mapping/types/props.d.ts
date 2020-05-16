@@ -102,4 +102,8 @@ export default interface PropTypes {
    * distance to travel
    */
   planningRangeProp?: number
+  /**
+   * The method for posting messages out of the mapping component
+   */
+  postBack?: {(messageType:string, payload: any): void}
 }

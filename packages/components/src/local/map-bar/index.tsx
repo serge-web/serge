@@ -34,9 +34,7 @@ export const MapBar: React.FC = () => {
     showMapBar,
     setShowMapBar,
     selectedAsset,
-    setPlanTurnFormData,
-    setPerceptionFormData,
-    setAdjudicateTurnFormData
+    postBack
   } = useContext(MapContext).props
 
   // Selects the current asset
@@ -56,15 +54,15 @@ export const MapBar: React.FC = () => {
     switch (form) {
       case 'PerceivedAs':
         const perceptionFormData: PerceptionFormData = collatePerceptionFormData(platforms, selectedAsset, forces)
-        output = <PerceptionForm formData={perceptionFormData} postBack={setPerceptionFormData} />
+        output = <PerceptionForm formData={perceptionFormData} postBack={postBack} />
         break
       case 'Adjudication':
         const adjudicationFormData: AdjudicateTurnFormData = collateAdjudicationFormData(platforms, selectedAsset, forces)
-        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={adjudicationFormData} postBack={setAdjudicateTurnFormData} />
+        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={adjudicationFormData} postBack={postBack} />
         break
       case 'Planning':
         const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
-        output = <PlanTurnForm formHeader={currentAssetName} formData={formData} postBack={setPlanTurnFormData}/>
+        output = <PlanTurnForm formHeader={currentAssetName} formData={formData} postBack={postBack}/>
         break
       default:
         output = null
