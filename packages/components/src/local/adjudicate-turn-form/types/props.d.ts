@@ -12,5 +12,5 @@ export default interface PropTypes {
   /**
    * The method for posting messages out of the mapping component
    */
-  postBack?: {(messageType:string, payload: any): void}
+  postBack?: {(messageType: string, payload: any): void}
 }

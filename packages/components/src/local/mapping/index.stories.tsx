@@ -32,7 +32,6 @@ export default {
   }
 }
 
-
 const bounds = {
   imageTop: 14.194809302,
   imageLeft: 42.3558566271,
@@ -151,7 +150,7 @@ const defaultValue = 'Blue'
 // generic postback handler, for forms
 const postback = (messageType: string, payload: any): void => {
   console.log('postback', messageType, payload)
-  window.alert('postback:' + messageType + ', ' + JSON.stringify(payload));
+  window.alert('postback:' + messageType + ', ' + JSON.stringify(payload))
 }
 export const WithAssets: React.FC = () => <Mapping
   tileDiameterMins={5}
@@ -161,7 +160,7 @@ export const WithAssets: React.FC = () => <Mapping
   playerForce={radios(label, forceNames, defaultValue)}
   platforms={platformTypes}
   phase={Phase.Planning}
-  postBack={postback} 
+  postBack={postback}
 >
   <Assets />
 </Mapping>

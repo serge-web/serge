@@ -5,16 +5,15 @@ import { ColorOption } from '@serge/custom-types'
  * @param {boolean} withUnknown whether to include unknown force
  * @return {Array<ColorOption>} collection of name/color pairs
  */
-const availableForces = (forces: any, withUnknown: boolean): Array<ColorOption> =>
-{
-  if(forces) {
+const availableForces = (forces: any, withUnknown: boolean): Array<ColorOption> => {
+  if (forces) {
     const res = forces.map((force: any) => {
       return {
         colour: force.color,
         name: force.name
       }
     })
-    if(withUnknown) {
+    if (withUnknown) {
       res.push({ name: 'Unknown', colour: '#ccc' })
     }
     return res

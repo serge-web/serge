@@ -3,7 +3,6 @@ import cx from 'classnames'
 import { ArrowRight } from '@material-ui/icons'
 import assetDialogFor from './helpers/asset-dialog-for'
 
-
 import collatePlanFormData from './helpers/collate-plan-form-data'
 import collateAdjudicationFormData from './helpers/collate-adjudication-form-data'
 import collatePerceptionFormData from './helpers/collate-perception-form-data'

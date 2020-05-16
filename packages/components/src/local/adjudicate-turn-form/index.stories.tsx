@@ -22,7 +22,6 @@ const postback = (messageType: string, payload: any): void => {
   console.log('postback', messageType, payload)
 }
 
-
 // TODO: Add some state handling here
 
 export const Default: React.FC = () => <AdjudicateTurnForm postBack={postback} formHeader="Adjudicate header" formData={formData} />
