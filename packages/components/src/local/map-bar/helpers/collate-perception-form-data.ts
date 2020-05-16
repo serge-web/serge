@@ -10,6 +10,7 @@ const collatePerceptionFormData = (platforms: any, selectedAsset: SelectedAsset,
 ): PerceptionFormData => {
   const availableForceList: ColorOption[] = availableForces(forces, true)
   const platformTypes = platforms && platforms.map((p: any) => p.name)
+  platformTypes.push('Unknown')
   const formData: PerceptionFormData = {
     populate: {
       perceivedForce: availableForceList,
