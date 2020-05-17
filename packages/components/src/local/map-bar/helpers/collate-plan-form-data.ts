@@ -9,7 +9,7 @@ import { kebabCase } from 'lodash'
  */
 const collatePlanFormData = (platforms: any, selectedAsset: SelectedAsset
 ): PlanTurnFormData => {
-  const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
+  const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
   const availableStatus = currentPlatform && currentPlatform.states.find((s: any) => s.name === selectedAsset.status.state)
   const formData: PlanTurnFormData = {
     populate: {
