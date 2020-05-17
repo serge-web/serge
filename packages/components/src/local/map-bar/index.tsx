@@ -51,13 +51,24 @@ export const MapBar: React.FC = () => {
     let output = null
     switch (form) {
       case 'PerceivedAs':
-        output = <PerceptionForm key={selectedAsset.uniqid} formData={collatePerceptionFormData(platforms, selectedAsset, forces)} postBack={postBack} />
+        output = <PerceptionForm 
+                    key={selectedAsset.uniqid} 
+                    formData={collatePerceptionFormData(platforms, selectedAsset, forces)} 
+                    postBack={postBack} />
         break
       case 'Adjudication':
-        output = <AdjudicateTurnForm key={selectedAsset.uniqid} formHeader={currentAssetName} formData={collateAdjudicationFormData(platforms, selectedAsset, forces)} postBack={postBack} />
+        output = <AdjudicateTurnForm 
+                    key={selectedAsset.uniqid} 
+                    formHeader={currentAssetName} 
+                    formData={collateAdjudicationFormData(platforms, selectedAsset, forces)} 
+                    postBack={postBack} />
         break
       case 'Planning':
-        output = <PlanTurnForm key={selectedAsset.uniqid} formHeader={currentAssetName} formData={collatePlanFormData(platforms, selectedAsset)} postBack={postBack}/>
+        output = <PlanTurnForm 
+                    key={selectedAsset.uniqid} 
+                    formHeader={currentAssetName} 
+                    formData={collatePlanFormData(platforms, selectedAsset)} 
+                    postBack={postBack}/>
         break
       default:
         output = null
