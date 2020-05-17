@@ -9,8 +9,8 @@ import { PerceptionFormPopulate, PerceptionFormValues } from '@serge/custom-type
 it('contains relevant population results', () => {
   const res: PerceptionFormPopulate = collatePerceptionFormData(platformTypes, selectedAsset, forces).populate
   expect(res.perceivedForce.length).toEqual(5)
-  expect(res.perceivedForce[0]).toEqual({'colour': '#FCFBEE', 'name': 'White'})
-  expect(res.perceivedForce).toContainEqual({'colour': '#ccc', 'name': 'Unknown'})
+  expect(res.perceivedForce[0]).toEqual({ colour: '#FCFBEE', name: 'White' })
+  expect(res.perceivedForce).toContainEqual({ colour: '#ccc', name: 'Unknown' })
   expect(res.perceivedType.length).toEqual(11)
   expect(res.perceivedType[0]).toEqual('Fishing vessel')
   expect(res.perceivedType).toContain('Unknown')

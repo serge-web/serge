@@ -10,8 +10,8 @@ const selected: SelectedAsset = {
   type: 'Frigate',
   force: 'Blue',
   controlledBy: [],
-  condition: 'my-condition',
-  visibleTo: [],
+  condition: 'Full capability',
+  visibleTo: ['red', 'blue'],
   status: {
     speedKts: 10,
     state: 'Transiting'

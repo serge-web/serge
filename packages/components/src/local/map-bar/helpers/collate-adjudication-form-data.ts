@@ -11,7 +11,7 @@ import availableForces from './available-forces'
 const collateAdjudicationFormData = (platforms: any, selectedAsset: SelectedAsset,
   forces: any
 ): AdjudicateTurnFormData => {
-  const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === selectedAsset.type)
+  const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
   const availableStatus = currentPlatform && currentPlatform.states.find((s: any) => s.name === selectedAsset.status.state)
   const availableForcesList: ColorOption[] = availableForces(forces, true)
   const formData: AdjudicateTurnFormData = {
