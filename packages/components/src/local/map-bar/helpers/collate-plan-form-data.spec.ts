@@ -10,12 +10,12 @@ it('contains relevant population results', () => {
   expect(res.speed.length).toEqual(3)
   expect(res.speed[0]).toEqual(10)
   expect(res.status.length).toEqual(3)
-  expect(res.status[0]).toEqual({mobile: true, name:'Transiting'})
+  expect(res.status[0]).toEqual({ mobile: true, name: 'Transiting' })
 })
 
 it('contains relevant current results', () => {
   const res: PlanTurnFormValues = collatePlanFormData(platformTypes, selectedAsset).values
   expect(res.speedVal).toEqual(10)
-  expect(res.statusVal).toEqual({mobile: true, name:'Transiting'})
+  expect(res.statusVal).toEqual({ mobile: true, name: 'Transiting' })
   expect(res.turnsVal).toEqual(0)
 })

@@ -8,7 +8,7 @@ const selected: SelectedAsset = {
     lng: 21
   },
   type: 'Frigate',
-  force: 'force-name',
+  force: 'Blue',
   controlledBy: [],
   condition: 'my-condition',
   visibleTo: [],
