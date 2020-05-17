@@ -13,15 +13,15 @@ it('contains relevant population results', () => {
   expect(res.speed.length).toEqual(3)
   expect(res.speed[0]).toEqual(10)
   expect(res.status.length).toEqual(3)
-  expect(res.status[0]).toEqual({'mobile': true, 'name': 'Transiting'})
+  expect(res.status[0]).toEqual({ mobile: true, name: 'Transiting' })
   expect(res.visibleTo.length).toEqual(5)
-  expect(res.visibleTo[0]).toEqual({'colour': '#FCFBEE', 'name': 'White'})
+  expect(res.visibleTo[0]).toEqual({ colour: '#FCFBEE', name: 'White' })
 })
 
 it('contains relevant current results', () => {
   const res: AdjudicateTurnFormValues = collateAdjudicationFormData(platformTypes, selectedAsset, forces).values
   expect(res.plannedRouteStatusVal).toEqual('pending')
-  expect(res.statusVal).toEqual({mobile: true, name: 'Transiting'})
+  expect(res.statusVal).toEqual({ mobile: true, name: 'Transiting' })
   expect(res.speedVal).toEqual(10)
   expect(res.visibleToVal.length).toEqual(2)
   expect(res.visibleToVal[0]).toEqual('red')
