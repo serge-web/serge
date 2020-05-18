@@ -2,7 +2,7 @@ import { LatLng } from 'leaflet'
 
 /* Impot types */
 import { SergeHex, SergeGrid } from '@serge/custom-types'
-import RouteData from '../types/route-data'
+import RouteData, { RouteStep } from '../types/route-data'
 
 import { hexNamed } from '@serge/helpers'
 
@@ -20,6 +20,8 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
   trimmed: boolean): RouteData => {
   const polyline: LatLng[] = []
   const turnEnds: LatLng[] = []
+  const routeSteps: RouteStep[] = [];
+
   let stepCtr = 0
   // start with current position
   const startCell: SergeHex<{}> | undefined = hexNamed(position, gridCells)
@@ -49,6 +51,16 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
               if (thisRouteCtr === 0) {
                 turnEnds.push(thisCell.centreLatLng)
               }
+              else if (thisRouteCtr === step.route.length - 1) {
+                const routeStep: RouteStep = {
+                  position: thisCell.centreLatLng,
+                  status: {
+                    speedKts: step.status.speedKts,
+                    state: step.status.state
+                  }
+                };
+                routeSteps.push(routeStep);
+              }
               polyline.push(thisCell.centreLatLng)
               thisRouteCtr++
             }
@@ -57,6 +69,6 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
       })
     }
   }
-  const res: RouteData = { polyline: polyline, turnEnds: turnEnds }
+  const res: RouteData = { polyline: polyline, turnEnds: turnEnds, steps: routeSteps }
   return res
 }
