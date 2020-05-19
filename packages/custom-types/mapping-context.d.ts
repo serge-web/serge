@@ -66,6 +66,17 @@ export default interface MappingContext {
    **/
   setZoomLevel: React.Dispatch<React.SetStateAction<number>>
   /**
+   * state for mappbar position
+   * 0 - fixed
+   * 1 - marker popup
+   * 2 - float on map
+   */
+  mapbarPosition: number
+  /**
+   *  setter, to set the mapbar position
+   **/
+  setMapbarPosition: React.Dispatch<React.SetStateAction<number>>
+  /**
    * The method for posting messages out of the mapping component
    */
   postBack?: {(messageType:string, payload: any): void}

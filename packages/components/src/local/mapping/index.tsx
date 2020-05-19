@@ -98,7 +98,7 @@ export const Mapping: React.FC<PropTypes> = ({
       state: ''
     }
   })
-
+  const [mapbarPosition, setMapbarPosition] = useState<number>(2)
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
   /* Initialise variables */
@@ -179,7 +179,9 @@ export const Mapping: React.FC<PropTypes> = ({
     setShowMapBar,
     setSelectedAsset,
     setZoomLevel,
-    postBack
+    postBack,
+    mapbarPosition,
+    setMapbarPosition
   }
 
   // any events for leafletjs you can get from leafletElement
@@ -195,7 +197,6 @@ export const Mapping: React.FC<PropTypes> = ({
   return (
     <MapContext.Provider value={{ props: contextProps }}>
       <section className={styles['map-container']}>
-        { mapBar && <MapBar /> }
         <Map
           className={styles.map}
           center={mapCentre}
@@ -218,6 +219,7 @@ export const Mapping: React.FC<PropTypes> = ({
             bounds={latLngBounds}
           />
           <ScaleControl/>
+          { mapBar && <MapBar /> }
           {children}
         </Map>
       </section>

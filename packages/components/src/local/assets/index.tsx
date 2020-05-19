@@ -66,6 +66,7 @@ export const Assets: React.FC<{}> = () => {
       setAssets(tmpAssets)
     }
   }, [gridCells, forces, playerForce])
+  console.log(assets);
 
   return <>
     <LayerGroup>{ assets && assets.map((asset) => (

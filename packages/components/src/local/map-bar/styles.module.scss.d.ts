@@ -2,8 +2,13 @@
 // Please do not change this file!
 interface CssExports {
   'inner': string;
+  'innerPopup': string;
   'map-bar': string;
+  'mapbar-draggable': string;
   'open': string;
+  'popup': string;
+  'popup-draggable': string;
+  'selected-item': string;
   'toggle': string;
 }
 export const cssExports: CssExports;
