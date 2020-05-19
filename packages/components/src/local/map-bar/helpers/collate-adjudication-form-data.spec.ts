@@ -4,7 +4,7 @@ import collateAdjudicationFormData from './collate-adjudication-form-data'
 import platformTypes from '@serge/mocks/platform-types.mock'
 import selectedAsset from '@serge/mocks/selected-asset.mock'
 import forces from '@serge/mocks/forces.mock'
-import { AdjudicateTurnFormValues, ColorOption, Status } from '@serge/custom-types'
+import { ColorOption, Status } from '@serge/custom-types'
 
 it('contains relevant population results', () => {
   const { condition, speed, status, visibleTo }:
