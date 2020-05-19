@@ -124,7 +124,7 @@ export const MapBar: React.FC = () => {
           })}
           key={'drag_marker_'}>
           <Popup className={styles.popup}>
-            <div className={styles.innerPopup}>
+            <div className={styles['inner-popup']}>
               {renderMapBar()}
             </div>
           </Popup>
@@ -133,7 +133,7 @@ export const MapBar: React.FC = () => {
     )
   }
 
-  // const handleDragStart = 
+  // const handleDragStart =
 
   const renderFloatingMapBar = () => {
     if (!selectedAsset.uniqid) return null
@@ -151,7 +151,7 @@ export const MapBar: React.FC = () => {
           })}
           key={'drag_marker_'}>
           <Popup className={styles['popup-draggable']}>
-            <div className={styles.innerPopup}>
+            <div className={styles['inner-popup']}>
               {renderMapBar()}
             </div>
           </Popup>
