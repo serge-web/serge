@@ -16,10 +16,12 @@ import { HexGrid } from '../hex-grid'
 // import data types
 import { Phase } from '@serge/config'
 
+const wrapper = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+
 export default {
   title: 'local/Mapping',
   component: Mapping,
-  decorators: [withKnobs],
+  decorators: [withKnobs, wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -125,7 +127,6 @@ export const WithMarker: React.FC = () => <Mapping
     }}
     tooltip="Tooltip for marker" />
 </Mapping>
-
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 WithMarker.story = {
   parameters: {
