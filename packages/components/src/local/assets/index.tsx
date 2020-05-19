@@ -26,28 +26,34 @@ export const Assets: React.FC<{}> = () => {
       forces.forEach((force: any) => {
         if (force.assets) {
           force.assets.forEach((asset: any) => {
+            const { uniqid, name, contactId, condition, status, platformType, perceptions } = asset
+
             // see if the player of this force can see (perceive) this asset
             const isUmpire: boolean = playerForce === UMPIRE_FORCE
-            const perceivedAs: [string, string] = findPerceivedAsTypes(
+            const perceivedAs: [string, string, string] = findPerceivedAsTypes(
               playerForce,
+              name,
+              contactId,
               force.uniqid,
-              asset.platformType,
-              asset.perceptions,
+              platformType,
+              perceptions,
               isUmpire
             )
+
             if (perceivedAs) {
               const cell: SergeHex<{}> | undefined = hexNamed(asset.position, gridCells)
               if (cell != null) {
                 const position: L.LatLng = cell.centreLatLng
                 const assetInfo: AssetInfo = {
-                  name: asset.name,
-                  condition: asset.condition,
-                  status: asset.status,
+                  name: perceivedAs[0],
+                  condition,
+                  status,
                   controlledBy: force.controlledBy,
-                  type: perceivedAs[1],
-                  force: perceivedAs[0],
-                  position: position,
-                  uniqid: asset.uniqid
+                  type: perceivedAs[2],
+                  force: perceivedAs[1],
+                  visibleTo: perceptions.map((p: any) => p.by),
+                  position,
+                  uniqid
                 }
                 tmpAssets.push(assetInfo)
               } else {
@@ -66,13 +72,14 @@ export const Assets: React.FC<{}> = () => {
       <AssetIcon
         key={asset.uniqid}
         name={asset.name}
-        id={asset.uniqid}
+        uniqid={asset.uniqid}
         position={asset.position}
         type={asset.type}
         selected={false}
         condition={asset.condition}
         status={asset.status}
         controlledBy={asset.controlledBy}
+        visibleTo={asset.visibleTo}
         force={asset.force}
         tooltip={asset.name}/>
     ))}

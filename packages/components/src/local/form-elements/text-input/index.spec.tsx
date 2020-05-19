@@ -3,11 +3,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import Turns from './index'
+import TextInput from './index'
 
-it('Turns renders correctly', () => {
+it('TextInput renders correctly', () => {
   const tree = renderer
-    .create(<Turns turns={5}/>)
+    .create(<TextInput label="Turns" value={5}/>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Select, MenuItem } from '@material-ui/core'
-import { camelCase, capitalize } from 'lodash'
+import { camelCase, capitalize, kebabCase } from 'lodash'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -19,7 +19,7 @@ export const Selector: React.FC<PropTypes> = ({ name, label, options, selected, 
   return <InputContainer label={label}>
     <Select labelId={label} id={inputName} value={selected} onChange={handleChange}>
       {
-        options.map(option => <MenuItem key={option} value={option}>{capitalize(option.toString())}</MenuItem>)
+        options.map(option => <MenuItem key={option} value={kebabCase(option.toString())}>{capitalize(option.toString())}</MenuItem>)
       }
     </Select>
   </InputContainer>

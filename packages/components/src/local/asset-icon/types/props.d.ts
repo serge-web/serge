@@ -2,7 +2,7 @@ export default interface PropTypes {
   /**
    * The unique identifier for the asset marker
    */
-  id: string
+  uniqid: string
   /**
    * The name of the asset marker
    */
@@ -28,7 +28,7 @@ export default interface PropTypes {
    */
   tooltip?: string
   condition?: string
-  status?: {
+  status: {
     speedKts: number
     state: string
   }
@@ -36,4 +36,8 @@ export default interface PropTypes {
    * the list of forces that can control this asset
    */
   controlledBy?: [string]
+  /**
+   * A list of forces able to see the asset
+   */
+  visibleTo: Array<string>
 }

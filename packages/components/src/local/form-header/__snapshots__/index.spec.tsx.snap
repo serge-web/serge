@@ -4,6 +4,6 @@ exports['FormHeader renders correctly 1'] = `
 <h2
   className="form-header"
 >
-  test
+  Test
 </h2>
 `

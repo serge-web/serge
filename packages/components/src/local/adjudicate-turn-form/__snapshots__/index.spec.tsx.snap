@@ -113,7 +113,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 name="visibleTo"
                 onChange={[Function]}
                 type="checkbox"
-                value="Blue Force"
+                value="blue-force"
               />
               <svg
                 aria-hidden="true"
@@ -173,7 +173,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 name="visibleTo"
                 onChange={[Function]}
                 type="checkbox"
-                value="Red Force"
+                value="red-force"
               />
               <svg
                 aria-hidden="true"
@@ -233,7 +233,7 @@ exports['AdjudicateTurnForm renders correctly 1'] = `
                 name="visibleTo"
                 onChange={[Function]}
                 type="checkbox"
-                value="White Force"
+                value="white-force"
               />
               <svg
                 aria-hidden="true"

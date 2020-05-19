@@ -5,7 +5,7 @@ import PropTypes from './types/props'
 import Form from '../form'
 import RCB from '../form-elements/rcb'
 import { Button } from '@material-ui/core'
-import Turns from '../form-elements/turns'
+import TextInput from '../form-elements/text-input'
 
 /* Import helpers */
 import { isNumber } from '@serge/helpers'
@@ -55,7 +55,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
   return <Form type="planning" headerText={formHeader}>
     <fieldset>
       <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
-      {statusVal.mobile ? <RCB type="radio" label="Speed" options={speed} value={speedVal} updateState={changeHandler}/> : <Turns turns={turnsVal} updateState={changeHandler} />}
+      {statusVal.mobile ? <RCB type="radio" label="Speed" options={speed} value={speedVal} updateState={changeHandler}/> : <><TextInput label="For" name="turns" value={turnsVal} updateState={changeHandler} /> turns</>}
     </fieldset>
     <Button onClick={submitForm}>Save</Button>
   </Form>

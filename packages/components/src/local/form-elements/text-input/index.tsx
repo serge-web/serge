@@ -1,4 +1,5 @@
 import React from 'react'
+import { kebabCase } from 'lodash'
 
 import InputContainer from '../../input-container'
 import { TextField } from '@material-ui/core'
@@ -7,14 +8,16 @@ import { TextField } from '@material-ui/core'
 import PropTypes from './types/props'
 
 /* Render component */
-export const Turns: React.FC<PropTypes> = ({ turns, updateState }) => {
+export const TextInput: React.FC<PropTypes> = ({ label, name, value, updateState }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     updateState(event.target)
   }
 
-  return <InputContainer label="for">
-    <TextField name="turns" value={turns} onChange={handleChange}></TextField> Turns
+  const inputName = name || kebabCase(label)
+
+  return <InputContainer label={label}>
+    <TextField name={inputName} value={value} onChange={handleChange}></TextField>
   </InputContainer>
 }
 
-export default Turns
+export default TextInput

@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import cx from 'classnames'
 import { Marker, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
+import { capitalize } from 'lodash'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -14,14 +15,17 @@ import { MapContext } from '../mapping'
 
 /* Render component */
 export const AssetIcon: React.FC<PropTypes> = ({
-  id,
+  uniqid,
   name,
   position,
   type,
   force,
+  visibleTo,
   controlledBy,
   condition,
-  status, tooltip, selected
+  status,
+  tooltip,
+  selected
 }) => {
   const { setShowMapBar, setSelectedAsset } = useContext(MapContext).props
 
@@ -32,21 +36,22 @@ export const AssetIcon: React.FC<PropTypes> = ({
   })
 
   const clickEvent = (): void => {
-    setShowMapBar(true)
     setSelectedAsset({
-      id,
+      uniqid,
       name,
       position,
       type,
       force,
+      visibleTo,
       controlledBy,
       condition,
       status
     })
+    setShowMapBar(true)
   }
 
   return <Marker position={position} icon={divIcon} onclick={clickEvent}>
-    <Tooltip>{tooltip}</Tooltip>
+    <Tooltip>{capitalize(tooltip)}</Tooltip>
   </Marker>
 }
 
