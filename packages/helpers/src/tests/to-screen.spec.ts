@@ -1,7 +1,7 @@
 /* global it expect */
 
-import toScreen from './to-screen'
-import toWorld from './to-world'
+import toScreen from '../to-screen'
+import toWorld from '../to-world'
 import L from 'leaflet'
 
 it('world/screen conversions match up', () => {

@@ -5,6 +5,10 @@
   "author": "foxleigh81 <alex@alexfoxleigh.com>",
   "main": "build/index.js",
   "dependencies": {
-    "honeycomb-grid": "^3.1.7"
+    "honeycomb-grid": "^3.1.7",
+    "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "build" : "tsc"
   }
 }
