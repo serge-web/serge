@@ -23,7 +23,7 @@ export const Assets: React.FC<{}> = () => {
     if (gridCells) {
       const tmpAssets: AssetInfo[] = []
       // REFACTOR:Can these nested loops be done better?
-      forces.forEach((force: any) => {
+      forces && forces.forEach((force: any) => {
         if (force.assets) {
           force.assets.forEach((asset: any) => {
             const { uniqid, name, contactId, condition, status, platformType, perceptions } = asset
@@ -51,7 +51,7 @@ export const Assets: React.FC<{}> = () => {
                   controlledBy: force.controlledBy,
                   type: perceivedAs[2],
                   force: perceivedAs[1],
-                  visibleTo: perceptions.map((p: any) => p.by),
+                  visibleTo: perceptions && perceptions.length ?  perceptions.map((p: any) => p.by) : [],
                   position,
                   uniqid
                 }
