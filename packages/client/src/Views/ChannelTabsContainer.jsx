@@ -139,7 +139,7 @@ class ChannelTabsContainer extends Component {
     const matchedChannel = ChannelTabsContainer.findChannelByName(state.channels, node.getName());
     if (node.getName().toLowerCase() === 'mapping') {
 
-     
+     console.log(state)
 
       // return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
       return <Mapping
@@ -147,10 +147,11 @@ class ChannelTabsContainer extends Component {
         bounds={bounds}
         tileLayer={LocalTileLayer}
         forces={state.allForces}
-        platforms={state.platformTypes}
+        platforms={state.allPlatformTypes}
         phase={state.phase}
         playerForce={state.selectedForce}
      >
+       <Assets />
       </Mapping>
     }
     return matchedChannel && matchedChannel.length ? <Channel channelId={matchedChannel[0]} /> : null
