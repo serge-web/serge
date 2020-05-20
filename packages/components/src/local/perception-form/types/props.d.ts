@@ -1,4 +1,4 @@
-import { PerceptionFormData, PerceptionFormValues } from '@serge/custom-types'
+import { PerceptionFormData } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -10,7 +10,7 @@ export default interface PropTypes {
    */
   formData: PerceptionFormData
   /**
-   * The method for posting data back to state
+   * The method for posting messages out of the mapping component
    */
-  postBack?: {(payload: PerceptionFormValues): void}
+  postBack?: {(messageType: string, payload: any): void}
 }

@@ -16,10 +16,13 @@ const assetDialogFor = (
   switch (gamePhase) {
     case Phase.Planning:
       if (assetForce.toLowerCase() === playerForce.toLowerCase()) {
+        // it's the players' own ship, plan next turn
         res = 'Planning'
       } else if (assetControlledBy != null && assetControlledBy.includes(playerForce)) {
+        // it's from a force that the player can control, plan next turn
         res = 'Planning'
       } else if (playerForce.toLowerCase() !== 'umpire') {
+        // a player has clicked on an asset from a force they don't control
         res = 'PerceivedAs'
       } else {
         res = ''
@@ -27,8 +30,11 @@ const assetDialogFor = (
       break
     case Phase.Adjudication:
       if (playerForce.toLowerCase() === 'umpire') {
+        // in adjudication mode, umpire force performs adjudication
         res = 'Adjudication'
       } else if (assetForce.toLowerCase() !== playerForce.toLowerCase()) {
+        // in adj' mode, clicking on a platform of another force lets the
+        // player update/change the player's perception of that platform
         res = 'PerceivedAs'
       } else {
         res = ''

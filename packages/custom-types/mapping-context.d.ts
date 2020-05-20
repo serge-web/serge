@@ -66,27 +66,7 @@ export default interface MappingContext {
    **/
   setZoomLevel: React.Dispatch<React.SetStateAction<number>>
   /**
-   * State containing data for Plan turn Form
+   * The method for posting messages out of the mapping component
    */
-  planTurnFormData: PlanTurnFormData,
-  /**
-   * State containing data for Perception Form
-   */
-  perceptionFormData: PerceptionFormData,
-  /**
-   * State containing data for Adjudicate turn Form
-   */
-  adjudicateTurnFormData: AdjudicateTurnFormData,
-  /**
-   * Setter to update Plan turn form
-   */
-  setPlanTurnFormData: React.Dispatch<React.SetStateAction<PlanTurnFormData>>,
-  /**
-   * Setter to update Perception form
-   */
-  setPerceptionFormData: React.Dispatch<React.SetStateAction<any>>,
-  /**
-   * Setter to update Adjudicate turn form
-   */
-  setAdjudicateTurnFormData: React.Dispatch<React.SetStateAction<AdjudicateTurnFormData>>
+  postBack?: {(messageType:string, payload: any): void}
 }

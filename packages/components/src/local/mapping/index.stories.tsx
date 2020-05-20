@@ -148,6 +148,11 @@ const forceNames = {
 }
 const defaultValue = 'Blue'
 
+// generic postback handler, for forms
+const postback = (messageType: string, payload: any): void => {
+  console.log('postback', messageType, payload)
+  window.alert('postback:' + messageType + ', ' + JSON.stringify(payload))
+}
 export const WithAssets: React.FC = () => <Mapping
   tileDiameterMins={5}
   bounds={bounds}
@@ -156,6 +161,7 @@ export const WithAssets: React.FC = () => <Mapping
   playerForce={radios(label, forceNames, defaultValue)}
   platforms={platformTypes}
   phase={Phase.Planning}
+  postBack={postback}
 >
   <Assets />
 </Mapping>
