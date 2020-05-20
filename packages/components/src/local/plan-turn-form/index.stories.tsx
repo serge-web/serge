@@ -6,8 +6,6 @@ import docs from './README.md'
 
 import formData from './mocks/formData'
 
-import { PlanTurnFormValues } from '@serge/custom-types'
-
 export default {
   title: 'local/PlanTurnForm',
   component: PlanTurnForm,
@@ -21,8 +19,8 @@ export default {
 }
 
 // put in the post handler
-const postback = (payload: PlanTurnFormValues): void => {
-  console.log('perception postback', payload)
+const postback = (messageType: string, payload: any): void => {
+  console.log('postback', messageType, payload)
 }
 
 // TODO: Add some state handling here

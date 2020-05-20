@@ -62,7 +62,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
 
   const submitForm = (): void => {
     if (postBack !== undefined) {
-      postBack(formState)
+      postBack('adjudicate', formState)
     }
   }
 
