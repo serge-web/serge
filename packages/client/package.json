@@ -36,6 +36,7 @@
     "lorem-ipsum": "^2.0.3",
     "moment": "^2.24.0",
     "node-sass": "^4.11.0",
+    "nodemon": "^2.0.4",
     "pouchdb": "^7.0.0",
     "pouchdb-adapter-node-websql": "^7.0.0",
     "pouchdb-all-dbs": "^1.0.2",
@@ -83,7 +84,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "develop": "nodemon --exec yarn start --watch ../packages/components/build --watch ../packages/config/build --watch ../packages/helpers/build"
   },
   "browserslist": [
     ">0.2%",
