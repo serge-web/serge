@@ -48,7 +48,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
 
   const submitForm = (): void => {
     if (postBack !== undefined) {
-      postBack(formState)
+      postBack('plan-turn', formState)
     }
   }
 
