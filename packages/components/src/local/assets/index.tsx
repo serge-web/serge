@@ -51,7 +51,7 @@ export const Assets: React.FC<{}> = () => {
                   controlledBy: force.controlledBy,
                   type: perceivedAs[2],
                   force: perceivedAs[1],
-                  visibleTo: perceptions && perceptions.length ?  perceptions.map((p: any) => p.by) : [],
+                  visibleTo: perceptions && perceptions.length ? perceptions.map((p: any) => p.by) : [],
                   position,
                   uniqid
                 }
