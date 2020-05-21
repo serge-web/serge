@@ -61,16 +61,16 @@
   right: 0;
   position: absolute;
   top: -24px;
-  font-size: 0px;
+  font-size: 0;
   button {
     margin: 0;
-    border: none;
+    border-width: 0;
     background: none;
     display: inline-block;
     vertical-align: top;
     cursor: pointer;
     opacity: 0.2;
-    padding: 2px 2px 0 2px;
+    padding: 2px 2px 0;
 
     :hover {
       opacity: 0.4;
