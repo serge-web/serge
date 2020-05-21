@@ -219,7 +219,7 @@ export const Mapping: React.FC<PropTypes> = ({
             bounds={latLngBounds}
           />
           <ScaleControl/>
-          { mapBar && <MapBar /> }
+          {mapBar && <MapBar />}
           {children}
         </Map>
       </section>

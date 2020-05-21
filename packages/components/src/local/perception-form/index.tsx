@@ -46,7 +46,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, post
     <fieldset>
       <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={changeHandler}/>
       <RCB type="radio" force={true} label="Perceived Force" name={'perceivedForce'} options={perceivedForce} value={perceivedForceVal} updateState={changeHandler}/>
-      <Selector label="Percieved Type" name='perceivedType' options={perceivedType} selected={perceivedTypeVal} updateState={selectHandler}/>
+      <Selector native={true} label="Percieved Type" name='perceivedType' options={perceivedType} selected={perceivedTypeVal} updateState={selectHandler}/>
     </fieldset>
     <Button onClick={submitForm}>Save</Button>
   </Form>

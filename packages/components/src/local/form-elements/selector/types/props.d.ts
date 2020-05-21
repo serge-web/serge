@@ -20,4 +20,8 @@ export default interface PropTypes {
    * Sets the onChange state on a parent
    */
   updateState?: any
+  /**
+   * use native select or modal select list
+   */
+  native?: boolean
 }

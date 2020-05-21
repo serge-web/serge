@@ -18,7 +18,8 @@ class Popup extends DivOverlay<LeafletElement & DivOverlayProps & OptionProps, P
       ...super.getOptions(props),
       autoPan: false,
       closeOnClick: null,
-      autoClose: false
+      autoClose: false,
+      closeButton: false
     }
   }
 
