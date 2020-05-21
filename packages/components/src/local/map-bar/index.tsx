@@ -39,7 +39,7 @@ export const MapBar: React.FC = () => {
     setSelectedAsset,
     postBack,
     mapbarPosition,
-    setMapbarPosition,
+    setMapbarPosition
   } = useContext(MapContext).props
 
   // Selects the current asset
@@ -130,7 +130,7 @@ export const MapBar: React.FC = () => {
         setTimeout(() => { marker.openPopup() })
         // little hack to disable popup close on drag
         marker.closePopup = () => ({
-          fire: () => ({fire: () => (true)})
+          fire: () => ({ fire: () => (true) })
         })
         // disable marker click to do not close popup on clicking on dragable area
         marker.off('click')
@@ -172,7 +172,7 @@ export const MapBar: React.FC = () => {
   const dropped = (e: any) => {
     // save coords
     const newLatLng: any = e.target.getLatLng()
-    if (newLatLng)  setFloatingMarkerCoords(newLatLng)
+    if (newLatLng) setFloatingMarkerCoords(newLatLng)
   }
 
   // render actions panel to be able to change mapBar position mode
@@ -181,17 +181,17 @@ export const MapBar: React.FC = () => {
       {holder && <div className={styles['actions-holder']} />}
       <div className={styles['popup-actions-container']}>
         <div className={styles['popup-actions']}>
-          {mapbarPosition !== 0 && <button onClick={() => {setMapbarPosition(0)}}>
+          {mapbarPosition !== 0 && <button onClick={() => { setMapbarPosition(0) }}>
             <FirstPage fontSize='small' />
           </button>}
-          {mapbarPosition !== 2 && <button onClick={() => {setMapbarPosition(2)}}>
+          {mapbarPosition !== 2 && <button onClick={() => { setMapbarPosition(2) }}>
             <KeyboardArrowUp fontSize='small' />
           </button>}
-          {mapbarPosition !== 1 && <button onClick={() => {setMapbarPosition(1)}}>
+          {mapbarPosition !== 1 && <button onClick={() => { setMapbarPosition(1) }}>
             <KeyboardCapslock fontSize='small' />
           </button>}
           {mapbarPosition !== 0 && <button
-            onClick={() => {setSelectedAsset({...selectedAsset, uniqid: ''})}}
+            onClick={() => { setSelectedAsset({ ...selectedAsset, uniqid: '' }) }}
           >
             <Close fontSize='small' />
           </button>}
@@ -236,7 +236,5 @@ export const MapBar: React.FC = () => {
     default: return renderFixedMapBar()
   }
 }
-
-
 
 export default MapBar

@@ -3,17 +3,17 @@ import { withLeaflet, DivOverlay, DivOverlayProps, DivOverlayTypes, LatLng } fro
 
 type LeafletElement = LeafletPopup
 type OptionProps = {
-  position?: LatLng,
+  position?: LatLng
   autoPan?: boolean
 }
 type Props = OptionProps & DivOverlayProps & any
 
 class Popup extends DivOverlay<LeafletElement & DivOverlayProps & OptionProps, Props & DivOverlayTypes> {
   static defaultProps = {
-    pane: 'popupPane',
+    pane: 'popupPane'
   }
 
-  getOptions(props: Props): Props {
+  getOptions (props: Props): Props {
     return {
       ...super.getOptions(props),
       autoPan: false,
@@ -23,7 +23,7 @@ class Popup extends DivOverlay<LeafletElement & DivOverlayProps & OptionProps, P
     }
   }
 
-  createLeafletElement(props: Props): LeafletElement {
+  createLeafletElement (props: Props): LeafletElement {
     const options = this.getOptions(props)
 
     options.autoPan = props.autoPan !== false
@@ -31,13 +31,13 @@ class Popup extends DivOverlay<LeafletElement & DivOverlayProps & OptionProps, P
     return new LeafletPopup(options, popupContainer)
   }
 
-  updateLeafletElement(fromProps: Props, toProps: Props) {
+  updateLeafletElement (fromProps: Props, toProps: Props) {
     if (toProps.position !== fromProps.position) {
       this.leafletElement.setLatLng(toProps.position)
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const { position } = this.props
     const { map, popupContainer } = this.props.leaflet!
     const el = this.leafletElement
@@ -45,7 +45,7 @@ class Popup extends DivOverlay<LeafletElement & DivOverlayProps & OptionProps, P
     if (map != null) {
       map.on({
         popupopen: this.onPopupOpen,
-        popupclose: this.onPopupClose,
+        popupclose: this.onPopupClose
       })
     }
 
@@ -61,13 +61,13 @@ class Popup extends DivOverlay<LeafletElement & DivOverlayProps & OptionProps, P
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     const { map } = this.props.leaflet!
 
     if (map != null) {
       map.off({
         popupopen: this.onPopupOpen,
-        popupclose: this.onPopupClose,
+        popupclose: this.onPopupClose
       })
       map.removeLayer(this.leafletElement)
     }
