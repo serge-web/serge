@@ -42,6 +42,10 @@ export default interface MappingContext {
    */
   showMapBar: boolean
   /**
+   * The channel ID passed down from the client application (optional)
+   */
+  channelID?: string | number
+  /**
    * setter for when planned route is complete
    */
   setNewLeg: React.Dispatch<React.SetStateAction<Array<SergeHex<{}>> | undefined>>
@@ -68,5 +72,5 @@ export default interface MappingContext {
   /**
    * The method for posting messages out of the mapping component
    */
-  postBack?: {(messageType:string, payload: any): void}
+  postBack?: {(messageType:string, payload: any, channelID: string | number): void}
 }
