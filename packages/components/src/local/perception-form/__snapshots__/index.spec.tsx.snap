@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['PerceptionForm renders correctly 1'] = `
+exports[`PerceptionForm renders correctly 1`] = `
 <div
   className="form perceived-as"
 >
@@ -288,28 +288,69 @@ exports['PerceptionForm renders correctly 1'] = `
           className="MuiInputBase-root MuiInput-root MuiInput-underline"
           onClick={[Function]}
         >
-          <div
-            aria-haspopup="listbox"
-            aria-labelledby="Percieved Type perceivedType"
-            className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+          <select
+            className="MuiNativeSelect-root MuiNativeSelect-select MuiInputBase-input MuiInput-input"
             id="perceivedType"
-            onBlur={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onMouseDown={[Function]}
-            role="button"
-            tabIndex={0}
-          >
-            Frigate
-          </div>
-          <input
             onAnimationStart={[Function]}
-            type="hidden"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
             value="frigate"
-          />
+          >
+            <option
+              value="fishing-vessel"
+            >
+              Fishing vessel
+            </option>
+            <option
+              value="frigate"
+            >
+              Frigate
+            </option>
+            <option
+              value="boghammer"
+            >
+              Boghammer
+            </option>
+            <option
+              value="torpedo"
+            >
+              Torpedo
+            </option>
+            <option
+              value="fast-attack-craft"
+            >
+              Fast attack craft
+            </option>
+            <option
+              value="mcmv"
+            >
+              Mcmv
+            </option>
+            <option
+              value="helicopter"
+            >
+              Helicopter
+            </option>
+            <option
+              value="fixed-wing-aircraft"
+            >
+              Fixed wing aircraft
+            </option>
+            <option
+              value="coastal-radar-site"
+            >
+              Coastal radar site
+            </option>
+            <option
+              value="merchant-vessel"
+            >
+              Merchant vessel
+            </option>
+          </select>
           <svg
             aria-hidden="true"
-            className="MuiSvgIcon-root MuiSelect-icon"
+            className="MuiSvgIcon-root MuiNativeSelect-icon"
             focusable="false"
             role="presentation"
             viewBox="0 0 24 24"
@@ -347,4 +388,4 @@ exports['PerceptionForm renders correctly 1'] = `
     </button>
   </div>
 </div>
-`
+`;
