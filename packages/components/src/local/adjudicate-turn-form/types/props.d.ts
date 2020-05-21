@@ -1,4 +1,4 @@
-import { AdjudicateTurnFormData } from '@serge/custom-types'
+import { AdjudicateTurnFormData, Postback } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -10,7 +10,11 @@ export default interface PropTypes {
    */
   formData: AdjudicateTurnFormData
   /**
+   * Channel ID from Serge app (optional)
+   */
+  channelID?: string | number
+  /**
    * The method for posting messages out of the mapping component
    */
-  postBack?: {(messageType: string, payload: any): void}
+  postBack?: Postback
 }

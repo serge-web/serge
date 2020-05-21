@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { PlanMobileAsset } from '@serge/custom-types'
+import { PlanMobileAsset, Postback } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -103,7 +103,11 @@ export default interface PropTypes {
    */
   planningRangeProp?: number
   /**
+   * The channel ID passed down from the client application (optional)
+   */
+  channelID?: string | number
+  /**
    * The method for posting messages out of the mapping component
    */
-  postBack?: {(messageType: string, payload: any): void}
+  postBack?: Postback
 }

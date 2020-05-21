@@ -32,6 +32,7 @@ export const MapBar: React.FC = () => {
     showMapBar,
     setShowMapBar,
     selectedAsset,
+    channelID,
     postBack
   } = useContext(MapContext).props
 
@@ -54,6 +55,7 @@ export const MapBar: React.FC = () => {
         output = <PerceptionForm
           key={selectedAsset.uniqid}
           formData={collatePerceptionFormData(platforms, selectedAsset, forces)}
+          channelID={channelID}
           postBack={postBack} />
         break
       case 'Adjudication':
@@ -61,6 +63,7 @@ export const MapBar: React.FC = () => {
           key={selectedAsset.uniqid}
           formHeader={currentAssetName}
           formData={collateAdjudicationFormData(platforms, selectedAsset, forces)}
+          channelID={channelID}
           postBack={postBack} />
         break
       case 'Planning':
@@ -68,6 +71,7 @@ export const MapBar: React.FC = () => {
           key={selectedAsset.uniqid}
           formHeader={currentAssetName}
           formData={collatePlanFormData(platforms, selectedAsset)}
+          channelID={channelID}
           postBack={postBack}/>
         break
       default:

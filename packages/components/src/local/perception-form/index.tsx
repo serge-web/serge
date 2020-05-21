@@ -10,7 +10,7 @@ import TextInput from '../form-elements/text-input'
 import { PerceptionFormValues } from '@serge/custom-types'
 
 /* Render component */
-export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
+export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, postBack }) => {
   const [formState, setFormState] = useState<PerceptionFormValues>(formData.values)
 
   const { perceivedForce, perceivedType } = formData.populate
@@ -38,7 +38,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, post
 
   const submitForm = (): void => {
     if (postBack !== undefined) {
-      postBack('perception', formState)
+      postBack('perception', formState, channelID)
     }
   }
 

@@ -76,6 +76,7 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomAnimation,
   planningConstraintsProp,
   planningRangeProp,
+  channelID,
   postBack,
   children
 }) => {
@@ -175,6 +176,7 @@ export const Mapping: React.FC<PropTypes> = ({
     showMapBar,
     selectedAsset,
     zoomLevel,
+    channelID,
     setNewLeg,
     setShowMapBar,
     setSelectedAsset,
