@@ -142,37 +142,47 @@ class ChannelTabsContainer extends Component {
   factory = (node) => {
     const [ state ] = this.context;
 
-    const postback = (form, payload) => {
+    const postback = (form, payload, channelID) => {
  
       switch(form) {
         case 'perception':
           const perceivedType = { asset: payload.perceivedNameVal, force: state.selectedForce, perception: payload }
-          sendMessage(PERCEPTION_OF_CONTACT, perceivedType, state.selectedForce, node._attributes.id, state.selectedRole, state.currentWargame, saveMapMessage)
+          sendMessage(PERCEPTION_OF_CONTACT, perceivedType, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
           break
       }
   
     }
 
+    // Render the map
+    const renderMap = channelid => <Mapping
+      tileDiameterMins={5}
+      bounds={bounds}
+      tileLayer={LocalTileLayer}
+      forces={state.allForces}
+      platforms={state.allPlatformTypes}
+      phase={state.phase}
+      playerForce={state.selectedForce}
+      channelID = {channelid}
+      postBack={postback}
+    ><Assets />
+    </Mapping>
+
     if (_.isEmpty(state.channels)) return;
     const channelsArray = Object.entries(state.channels);
     if (channelsArray && channelsArray.length === 1) {
-      return <Channel channelId={channelsArray[0][0]} />;
+      const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === "mapping");  
+      if (isOnlyMap) {
+        return renderMap('map')
+      } else {
+          return <Channel channelId={channelsArray[0][0]} />;
+      }
     } else {
       const matchedChannel = ChannelTabsContainer.findChannelByName(state.channels, node.getName());
       if (node.getName().toLowerCase() === 'mapping') {
+   
+  
         // return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
-        return <Mapping
-          tileDiameterMins={5}
-          bounds={bounds}
-          tileLayer={LocalTileLayer}
-          forces={state.allForces}
-          platforms={state.allPlatformTypes}
-          phase={state.phase}
-          playerForce={state.selectedForce}
-          postBack={postback}
-       >
-         <Assets />
-        </Mapping>
+        return renderMap(node._attributes.id)
       }
       return matchedChannel && matchedChannel.length ? <Channel channelId={matchedChannel[0]} /> : null
     }
@@ -212,19 +222,46 @@ class ChannelTabsContainer extends Component {
   };
 
     render() {
-      const [ state ] = this.context;
-      let force = state.allForces.find((force) => force.uniqid === state.selectedForce);
+    const [ state ] = this.context;
+    let force = state.allForces.find((force) => force.uniqid === state.selectedForce);
+   
+    const channelsArray = Object.entries(state.channels);
+    if (channelsArray && channelsArray.length === 1) {
+      return <Channel channelId={channelsArray[0][0]} />;
+    }
+    // // only show the flex layout & tabs if this player is in more than one channel
+    
+    // if (channelsArray.length === 1) {
+      //   const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === "mapping");  
+      //   if (isOnlyMap) {
+        //     // return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={"map"} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
+        //     return <Mapping
+        //       tileDiameterMins={5}
+        //       bounds={bounds}
+        //       tileLayer={LocalTileLayer}
+        //       forces={state.allForces}
+        //       platforms={state.platformTypes}
+        //       phase={state.phase}
+        //       playerForce={state.selectedForce}
+        //       postBack={postback}
+        //   >
+        //       <Assets />
+        //     </Mapping>
+        //   } else {
+          // return <Channel channelId={channelsArray[0][0]} />;
+    //   }
+    // }
 
-      return (
-        <div className="contain-channel-tabs" data-force={force.uniqid}>
-          <FlexLayout.Layout
-            model={this.model}
-            factory={this.factory}
-            onRenderTab={this.tabRender}
-            onModelChange={this.modelChanged}
-          />
-        </div>
-      );
+    return (
+      <div className="contain-channel-tabs" data-force={force.uniqid}>
+        <FlexLayout.Layout
+          model={this.model}
+          factory={this.factory}
+          onRenderTab={this.tabRender}
+          onModelChange={this.modelChanged}
+        />
+      </div>
+    );
   }
 }
 
