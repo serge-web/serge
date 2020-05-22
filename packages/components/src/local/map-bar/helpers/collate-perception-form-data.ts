@@ -19,7 +19,8 @@ const collatePerceptionFormData = (platforms: any, selectedAsset: SelectedAsset,
     values: {
       perceivedNameVal: selectedAsset.name,
       perceivedForceVal: selectedAsset.force,
-      perceivedTypeVal: selectedAsset.type
+      perceivedTypeVal: selectedAsset.type,
+      assetId: selectedAsset.uniqid
     }
   }
   return formData

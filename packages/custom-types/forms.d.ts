@@ -19,6 +19,7 @@ export interface PerceptionFormValues {
   perceivedNameVal: string
   perceivedForceVal: string
   perceivedTypeVal: string
+  assetId: string
 }
 
 export interface PerceptionFormData {
