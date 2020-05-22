@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -9,9 +9,14 @@ import RCB from '../form-elements/rcb'
 import TextInput from '../form-elements/text-input'
 import { PerceptionFormValues } from '@serge/custom-types'
 
+/* Import Context */
+import { MapContext } from '../mapping'
+
 /* Render component */
 export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, postBack }) => {
   const [formState, setFormState] = useState<PerceptionFormValues>(formData.values)
+
+  const { playerForce } = useContext(MapContext).props
 
   const { perceivedForce, perceivedType } = formData.populate
   const { perceivedNameVal, perceivedForceVal, perceivedTypeVal } = formState
@@ -38,7 +43,16 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
 
   const submitForm = (): void => {
     if (postBack !== undefined) {
-      postBack('perception', formState, channelID)
+      const payload = {
+        perception: {
+          by: playerForce,
+          force: formState.perceivedForceVal,
+          type: formState.perceivedTypeVal,
+          name: formState.perceivedNameVal
+        },
+        assetId: formState.assetId
+      }
+      postBack('perception', payload, channelID)
     }
   }
 
