@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "es5",
+      "es6",
+      "es7",
+      "es2017"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -14,22 +18,15 @@
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "suppressImplicitAnyIndexErrors": true,
+    "declaration": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
     "composite": false
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    "lib",
-    "__tests__",
-    "**/*.test*",
-    "**/*.scss.d.ts"
-  ],
   "include": [
-    "./src"
+    "src"
   ]
 }

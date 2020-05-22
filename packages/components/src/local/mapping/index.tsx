@@ -13,15 +13,15 @@ import {
   SelectedAsset
 } from '@serge/custom-types'
 
+import ContextInterface from './types/context'
+
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
 import MapBar from '../map-bar'
 import boundsFor from './helpers/bounds-for'
 
-interface ContextInterface {
-  props?: any
-}
+
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: null })
