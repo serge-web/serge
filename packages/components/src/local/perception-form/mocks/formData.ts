@@ -31,7 +31,7 @@ const formData = {
     perceivedNameVal: 'Test',
     perceivedForceVal: 'blue-force',
     perceivedTypeVal: 'frigate',
-    assetId: 'c00012' 
+    assetId: 'c00012'
   }
 }
 
