@@ -21,8 +21,6 @@ import styles from './styles.module.scss'
 import MapBar from '../map-bar'
 import boundsFor from './helpers/bounds-for'
 
-
-
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: null })
 
