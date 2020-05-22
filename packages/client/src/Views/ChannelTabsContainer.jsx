@@ -146,14 +146,9 @@ class ChannelTabsContainer extends Component {
  
       switch(form) {
         case 'perception':
-          const assetId = payload.assetId
-
-          // remove the assetId
-          const clonedPayload = Object.assign({}, payload)
-          delete clonedPayload.assetId
-
           // generate expect perceived element
-          const perceivedType = { asset: assetId, force: state.selectedForce, perception: clonedPayload }
+          console.log('new perception', payload.perception)
+          const perceivedType = { asset: payload.assetId, perception: payload.perception }
           sendMessage(PERCEPTION_OF_CONTACT, perceivedType, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
           break
         default:
