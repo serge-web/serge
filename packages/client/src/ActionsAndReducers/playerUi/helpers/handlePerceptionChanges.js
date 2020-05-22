@@ -2,7 +2,7 @@ import findAsset from '../../../Components/Mapping/helpers/findAsset'
 
 /** create a marker for the supplied set of details */
 export default (/* object */ payload, /* object */ allForces) => {
-  const asset = findAsset(allForces, payload.asset)
+  const asset = findAsset(allForces, payload.assetId)
   if (!asset) {
     console.warn('failed to find asset while handling vis id', payload.asset)
   } else {

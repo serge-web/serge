@@ -146,10 +146,7 @@ class ChannelTabsContainer extends Component {
  
       switch(form) {
         case 'perception':
-          // generate expect perceived element
-          console.log('new perception', payload.perception)
-          const perceivedType = { asset: payload.assetId, perception: payload.perception }
-          sendMessage(PERCEPTION_OF_CONTACT, perceivedType, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+          sendMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
           break
         default:
           console.log('Handler not created for', form)
