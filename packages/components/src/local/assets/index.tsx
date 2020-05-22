@@ -42,6 +42,7 @@ export const Assets: React.FC<{}> = () => {
 
             if (perceivedAs) {
               const cell: SergeHex<{}> | undefined = hexNamed(asset.position, gridCells)
+              const visibleTo: Array<string> = perceptions && perceptions.length ? perceptions.map((p: any) => p.by) : []
               if (cell != null) {
                 const position: L.LatLng = cell.centreLatLng
                 const assetInfo: AssetInfo = {
@@ -51,7 +52,7 @@ export const Assets: React.FC<{}> = () => {
                   controlledBy: force.controlledBy,
                   type: perceivedAs[2],
                   force: perceivedAs[1],
-                  visibleTo: perceptions && perceptions.length ? perceptions.map((p: any) => p.by) : [],
+                  visibleTo: visibleTo,
                   position,
                   uniqid
                 }
