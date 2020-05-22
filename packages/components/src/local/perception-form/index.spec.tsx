@@ -1,4 +1,6 @@
-/* global it expect */
+/* global it */
+
+// /* global it expect */
 
 // import React from 'react'
 // import renderer from 'react-test-renderer'
