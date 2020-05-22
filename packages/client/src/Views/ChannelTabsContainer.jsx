@@ -7,7 +7,7 @@ import { getAllWargameMessages } from "../ActionsAndReducers/playerUi/playerUi_A
 import { PlayerStateContext } from "../Store/PlayerUi";
 import "@serge/themes/dependencies/flexlayout-react.scss";
 import "@serge/themes/App.scss";
-import { Mapping, Assets } from "@serge/components"
+import { Mapping, Assets, HexGrid } from "@serge/components"
 import { saveMapMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { sendMessage } from '@serge/helpers'
 
@@ -146,9 +146,18 @@ class ChannelTabsContainer extends Component {
  
       switch(form) {
         case 'perception':
-          const perceivedType = { asset: payload.perceivedNameVal, force: state.selectedForce, perception: payload }
+          const assetId = payload.assetId
+
+          // remove the assetId
+          const clonedPayload = Object.assign({}, payload)
+          delete clonedPayload.assetId
+
+          // generate expect perceived element
+          const perceivedType = { asset: assetId, force: state.selectedForce, perception: clonedPayload }
           sendMessage(PERCEPTION_OF_CONTACT, perceivedType, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
           break
+        default:
+          console.log('Handler not created for', form)
       }
   
     }
@@ -164,7 +173,7 @@ class ChannelTabsContainer extends Component {
       playerForce={state.selectedForce}
       channelID = {channelid}
       postBack={postback}
-    ><Assets />
+    ><Assets /><HexGrid/>
     </Mapping>
 
     if (_.isEmpty(state.channels)) return;
