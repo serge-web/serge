@@ -1,6 +1,6 @@
 import { LatLng } from 'leaflet'
 
-const calculatePolylineAngle = (polyline: LatLng[]) => {
+const calculatePolylineAngle = (polyline: LatLng[]): number => {
   const shape = polyline
   const firstpoint = shape[0]
   const lastpoint = shape[polyline.length - 1]

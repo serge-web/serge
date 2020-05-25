@@ -1,4 +1,4 @@
-const svgIcon = (color: string, deg: number) => `<svg width="30" height="20" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
+const svgIcon = (color: string, deg: number): string => `<svg width="30" height="20" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid meet">
     <g transform="translate(0,50) scale(0.1,-0.1)" fill="${color}">
       ${createPathOnDeg(deg)}
     </g>
@@ -6,7 +6,7 @@ const svgIcon = (color: string, deg: number) => `<svg width="30" height="20" vie
 
 export default svgIcon
 
-const createPathOnDeg = (deg: number) => {
+const createPathOnDeg = (deg: number): string => {
   if (deg > 0 && deg <= 30) {
     return `<path d=M274 478 c-26 -28 -109 -167 -119 -200 -4 -13 -21 -42 -37 -66 -16
             -23 -36 -58 -44 -77 -13 -31 -12 -39 3 -72 10 -21 29 -43 43 -50 32 -16 82

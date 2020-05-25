@@ -1,8 +1,8 @@
-const getTurnNumber = (num: number) => {
+const getTurnNumber = (num: number): string => {
   if (num < 10) {
     return `0${num}`
   } else {
-    return num
+    return `${num}`
   }
 }
 
