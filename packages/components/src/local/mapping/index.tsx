@@ -98,7 +98,7 @@ export const Mapping: React.FC<PropTypes> = ({
       state: ''
     }
   })
-  const [mapbarPosition, setMapbarPosition] = useState<number>(0)
+  const [mapbarPosition, setMapbarPosition] = useState<number>(2)
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
   /* Initialise variables */
