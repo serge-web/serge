@@ -26,6 +26,7 @@ interface CssExports {
   'popup': string;
   'red': string;
   'selected': string;
+  'unknown': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

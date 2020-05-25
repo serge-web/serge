@@ -163,7 +163,7 @@ export const WithAssets: React.FC = () => <Mapping
   phase={Phase.Planning}
   postBack={postback}
 >
-  <Assets />
+  <Assets /><HexGrid />
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
