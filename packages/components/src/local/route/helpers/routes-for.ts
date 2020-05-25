@@ -20,7 +20,7 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
   trimmed: boolean): RouteData => {
   const polyline: LatLng[] = []
   const turnEnds: LatLng[] = []
-  const routeSteps: RouteStep[] = [];
+  const routeSteps: RouteStep[] = []
 
   let stepCtr = 0
   // start with current position
@@ -50,16 +50,15 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
               // is this the first cell?
               if (thisRouteCtr === 0) {
                 turnEnds.push(thisCell.centreLatLng)
-              }
-              else if (thisRouteCtr === step.route.length - 1) {
+              } else if (thisRouteCtr === step.route.length - 1) {
                 const routeStep: RouteStep = {
                   position: thisCell.centreLatLng,
                   status: {
                     speedKts: step.status.speedKts,
                     state: step.status.state
                   }
-                };
-                routeSteps.push(routeStep);
+                }
+                routeSteps.push(routeStep)
               }
               polyline.push(thisCell.centreLatLng)
               thisRouteCtr++
