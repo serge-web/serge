@@ -1,7 +1,13 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
+import { Phase, ADJUDICATION_PHASE } from '@serge/config'
+import MapBar from '../map-bar'
+
+/* helper functions */
 import createGrid from './helpers/create-grid'
-import { Phase } from '@serge/config'
+import boundsFor from './helpers/bounds-for'
+import routeCreateStore from '@serge/helpers'
+import routeAddStep from '@serge/helpers'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -10,7 +16,9 @@ import {
   SergeGrid,
   MappingContext,
   PlanMobileAsset,
-  SelectedAsset
+  SelectedAsset,
+  RouteStore,
+  RouteStep
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -18,8 +26,6 @@ import ContextInterface from './types/context'
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
-import MapBar from '../map-bar'
-import boundsFor from './helpers/bounds-for'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: null })
@@ -113,6 +119,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
+  const [routeStore, setRouteStore] = useState<RouteStore>({forces:[]})
 
   // if we've got a planning range from prop, double-check if it is different
   // to the current one
@@ -124,6 +131,13 @@ export const Mapping: React.FC<PropTypes> = ({
   if (bounds && bounds !== mapBounds) {
     setMapBounds(bounds)
   }
+
+  useEffect(() => {
+    if (forces) {
+      const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
+      setRouteStore(routeCreateStore(forces, playerForce, umpireInAdjudication))
+    }
+  }, [forces, playerForce, phase])
 
   useEffect(() => {
     if (mapBounds) {
@@ -147,6 +161,22 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (newLeg) {
       // TODO: store the new planned leg for this asset
+      const selRoute = routeStore.selected
+      if(selRoute) {
+        const newTurn = selRoute?.planned[selRoute.planned.length-1].turn + 1
+        const coords: Array<string> = newLeg.map((cell: SergeHex<{}>) => {
+          return cell.name
+        })
+        if(selRoute) {
+          const newStep: RouteStep = {
+            turn: newTurn,
+            status: { state:'BBQ', speedKts: 12},
+            coords: coords
+          }
+          const newStore: RouteStore = routeAddStep(routeStore, selRoute.uniqid, newStep)
+          setRouteStore(newStore)
+        }  
+      }
 
       // if we know our planning constraints, we can plan the next leg
       if (planningConstraints) {
@@ -175,6 +205,7 @@ export const Mapping: React.FC<PropTypes> = ({
     selectedAsset,
     zoomLevel,
     channelID,
+    routeStore,
     setNewLeg,
     setShowMapBar,
     setSelectedAsset,
