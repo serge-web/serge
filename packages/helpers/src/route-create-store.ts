@@ -1,18 +1,30 @@
 import { RouteStore, RouteForce } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
 
+const forcesControlledBy = (forces: any, playerForce: string): Array<string> => {
+  const res: Array<string> = []
+  forces.forEach((force: any) => {
+    if(force.controlledBy && force.controlledBy.includes(playerForce)) {
+      res.push(force.uniqid)
+    }
+  })
+  return res;
+}
+
 /** process the forces, to create a route store - used to manage 
  * display and edits to planned routes
- * @param {data} any wargame data object
+ * @param {any} forces array of forces
  * @param {string} playerForce uniqid for player force
  * @param {string} allForces whether to return all forces (umpire adjudication)
  * @param {string[]} controls uniqid for forces controlled by this player. Optional remove for all
  * @returns {RouteStore} RouteStore representing current data
  */
-const createRouteStore = (data: any, playerForce: string, allForces: boolean, controls: Array<string>): RouteStore => {
+const createRouteStore = (forces: any, playerForce: string, allForces: boolean): RouteStore => {
   const store: RouteStore = { forces: []}
 
-  data.forEach((force: any) => {
+  const controls: Array<string> = forcesControlledBy(forces, playerForce)
+
+  forces.forEach((force: any) => {
     // see if we control it
     const thisForce = force.uniqid
     if (allForces || thisForce === playerForce || controls.includes(thisForce)) {

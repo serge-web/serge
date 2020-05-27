@@ -9,12 +9,12 @@ import routeAddStep from '../route-add-step'
 import { RouteStore, RouteStep } from '@serge/custom-types'
 
 it('clear route from selected step', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', false, ['Green'])
+  const store: RouteStore = routeCreateStore(forces, 'Blue', false)
 
-  const idOne = 'a0pra000202'
+  const idOne = 'a0pra00003'
 
   // length of route at start
-  expect(store.forces[1].routes[2].planned.length).toEqual(9)
+  expect(store.forces[0].routes[2].planned.length).toEqual(3)
 
   const step: RouteStep = {
     turn: 12,
@@ -26,5 +26,5 @@ it('clear route from selected step', () => {
   const store2: RouteStore = routeAddStep(store, idOne, step)
 
   // is now set
-  expect(store2.forces[1].routes[2].planned.length).toEqual(10)
+  expect(store2.forces[0].routes[2].planned.length).toEqual(4)
 })

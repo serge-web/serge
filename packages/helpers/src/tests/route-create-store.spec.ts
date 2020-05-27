@@ -8,17 +8,20 @@ import routeCreateStore from '../route-create-store'
 import { RouteStore, RouteForce, Route } from '@serge/custom-types'
 
 it('can create route plus control other', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', false, ['Green'])
-  expect(store.forces.length).toEqual(2)
+  // note: in our mock data, the Green force is the only
+  // one that is controlled by another, and that's the umpire force
+  const store: RouteStore = routeCreateStore(forces, 'umpire', false)
+  expect(store.forces.length).toEqual(1)
+  expect(store.forces[0].uniqid).toEqual('Green')
 })
 
 it('can create route without control other', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', false, [])
+  const store: RouteStore = routeCreateStore(forces, 'Blue', false)
   expect(store.forces.length).toEqual(1)
 })
 
 it('can create route as umpire', () => {
-  const store: RouteStore = routeCreateStore(forces, 'umpire', true, [])
+  const store: RouteStore = routeCreateStore(forces, 'umpire', true)
   expect(store.forces.length).toEqual(3)
 
   // check inside a force
@@ -63,7 +66,7 @@ it('support new way of storing past steps', () => {
     }
   ]
 
-  const store: RouteStore = routeCreateStore(forces, 'umpire', true, [])
+  const store: RouteStore = routeCreateStore(forces, 'umpire', true)
   expect(store.forces.length).toEqual(3)
 
   // check inside a route
