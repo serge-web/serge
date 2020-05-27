@@ -1,6 +1,6 @@
 import Role from './role'
 
 export default interface RouteStatus {
-  name: string,
+  state: string,
   speedKts?: number
 }

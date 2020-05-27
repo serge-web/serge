@@ -1,5 +1,5 @@
 export { default as calcAllowableCells } from './allowable-cells'
-export { default as createRouteStore } from './create-route-store'
+export { default as createRouteStore } from './route-create-store'
 export { default as getSelectedItem } from './getSelectedItem'
 export { default as hexNamed } from './hex-named'
 export { default as isNumber } from './is-number'
