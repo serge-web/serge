@@ -47,19 +47,6 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
     setHistoryLastTurn(historyRoutes.turnEnds.length)
   }, [historyRoutes])
 
-  const removeLastTurn = (routes: RouteData): RouteData | undefined => {
-    routes.steps.pop()
-    routes.turnEnds.pop()
-    const steps = routes.steps
-    if (steps && steps.length === 0) return undefined
-    else {
-      const newLastStep = routes.steps[routes.steps.length - 1]
-      const newLastStepPositionIndex = routes.polyline.findIndex(poly => poly === newLastStep.position)
-      routes.polyline.splice(newLastStepPositionIndex + 1, routes.polyline.length - 1)
-      return routes
-    }
-  }
-
   const showButton = (type: string): void => {
     const button = document.getElementById(`button_turnEnd_${type}`)
     if (button) button.style.display = 'block'
@@ -69,8 +56,13 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
     <LayerGroup key={'hex_route_layer_' + name} >
       {historyRoutes &&
         <LayerGroup>
-          <Button id={'button_turnEnd_history'} style={{ display: 'none' }} onClick={(): void => setHistoryRoutes(removeLastTurn(historyRoutes))}>
-            {historyLastTurn ? `Clear from T${getTurnNumber(historyLastTurn)}` : null}</Button>
+          <Button
+            id={'button_turnEnd_history'}
+            style={{ display: 'none' }}
+          //onClick={(): void => removeLastTurn()}
+          >
+            {historyLastTurn ? `Remove leg ${getTurnNumber(historyLastTurn)} from route for ${name}` : null}
+          </Button>
           {selected ? historyTurnMarkers : null}
           <Polyline
             // we may end up with other elements per hex,
@@ -84,8 +76,13 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
       }
       {plannedRoutes &&
         <LayerGroup>
-          <Button id={'button_turnEnd_planned'} style={{ display: 'none' }} onClick={(): void => setPlannedRoutes(removeLastTurn(plannedRoutes))}>
-            {plannedLastTurn ? `Clear from T${getTurnNumber(plannedLastTurn)}` : null}</Button>
+          <Button
+            id={'button_turnEnd_planned'}
+            style={{ display: 'none' }}
+          // onClick={(): void => removeLastTurn()}
+          >
+            {plannedLastTurn ? `Remove leg ${getTurnNumber(plannedLastTurn)} from route for ${name}` : null}
+          </Button>
           {selected ? plannedTurnMarkers : null}
           <Polyline
             // we may end up with other elements per hex,
