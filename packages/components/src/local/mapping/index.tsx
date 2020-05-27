@@ -6,8 +6,7 @@ import MapBar from '../map-bar'
 /* helper functions */
 import createGrid from './helpers/create-grid'
 import boundsFor from './helpers/bounds-for'
-import routeCreateStore from '@serge/helpers'
-import routeAddStep from '@serge/helpers'
+import { routeCreateStore, routeAddStep } from '@serge/helpers'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -119,7 +118,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
-  const [routeStore, setRouteStore] = useState<RouteStore>({ forces: [] })
+  const [routeStore, setRouteStore ] = useState<RouteStore>({ forces: [] })
 
   // if we've got a planning range from prop, double-check if it is different
   // to the current one
@@ -134,8 +133,8 @@ export const Mapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (forces) {
-      const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
-      setRouteStore(routeCreateStore(forces, playerForce, umpireInAdjudication))
+       const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
+       setRouteStore(routeCreateStore(forces, playerForce, umpireInAdjudication))
     }
   }, [forces, playerForce, phase])
 
@@ -163,7 +162,7 @@ export const Mapping: React.FC<PropTypes> = ({
       // TODO: store the new planned leg for this asset
       const selRoute = routeStore.selected
       if (selRoute) {
-        const newTurn = selRoute?.planned[selRoute.planned.length - 1].turn + 1
+        const newTurn = selRoute.planned[selRoute.planned.length - 1].turn + 1
         const coords: Array<string> = newLeg.map((cell: SergeHex<{}>) => {
           return cell.name
         })
