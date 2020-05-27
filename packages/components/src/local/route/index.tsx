@@ -49,17 +49,23 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
 
   const showButton = (type: string): void => {
     const button = document.getElementById(`button_turnEnd_${type}`)
-    if (button) button.style.display = 'block'
+    if (button) {
+      const visible = button.style.display
+      button.style.display = defineVisibility(visible)
+    }
+  }
+
+  const defineVisibility = (visible: string): string => {
+    if (visible === 'none') return 'block'
+    else return 'none'
   }
 
   return <>
     <LayerGroup key={'hex_route_layer_' + name} >
       {historyRoutes &&
         <LayerGroup>
-          <Button
-            id={'button_turnEnd_history'}
-            style={{ display: 'none' }}
-          //onClick={(): void => removeLastTurn()}
+          <Button id={'button_turnEnd_history'} style={{ display: "none" }}
+          // onClick={(): void => removeLastTurn(historyRoutes)}
           >
             {historyLastTurn ? `Remove leg ${getTurnNumber(historyLastTurn)} from route for ${name}` : null}
           </Button>
@@ -76,10 +82,8 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
       }
       {plannedRoutes &&
         <LayerGroup>
-          <Button
-            id={'button_turnEnd_planned'}
-            style={{ display: 'none' }}
-          // onClick={(): void => removeLastTurn()}
+          <Button id={'button_turnEnd_planned'} style={{ display: "none" }}
+          // onClick={(): void => removeLastTurn(plannedRoutes)}
           >
             {plannedLastTurn ? `Remove leg ${getTurnNumber(plannedLastTurn)} from route for ${name}` : null}
           </Button>
