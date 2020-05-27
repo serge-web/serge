@@ -14,24 +14,21 @@ import { PlayerStateContext } from '@serge/store'
 
 /* Render component */
 export const GameAdmin: React.FC = () => {
-
   const { channels } = useContext<any>(PlayerStateContext)[0]
 
-  
   // const [ activeTab ] = useState(Object.keys(channels)[0])
   // const [ allMarkedRead, setAllMarkedRead ] = useState(false)
   // const [ showObjectives, setShowObjectives ] = useState(false)
-  
+
   // useEffect(() => {
   //   const channelLength = 1
   //   channelLength && setAllMarkedRead(false)
   // }, [])
 
- console.log(channels)
-  
+  console.log(channels)
 
- return <div>
-    This is the game Admin component 
+  return <div>
+    This is the game Admin component
   </div>
 }
 

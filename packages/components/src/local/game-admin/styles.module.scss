@@ -1,17 +1,17 @@
-$red: red;
-$white: white;
-$blue: blue;
+// $red: red;
+// $white: white;
+// $blue: blue;
 
-.example {
-  color: $white;
-  font-weight: bold;
-}
+// .example {
+//   color: $white;
+//   font-weight: bold;
+// }
 
-.blue {
-  composes: example;
-  background-color: $blue;
-}
-.red {
-  composes: example;
-  background-color: $red;
-}
+// .blue {
+//   composes: example;
+//   background-color: $blue;
+// }
+// .red {
+//   composes: example;
+//   background-color: $red;
+// }

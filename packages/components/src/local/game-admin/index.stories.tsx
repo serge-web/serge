@@ -21,4 +21,3 @@ export default {
 export const Default: React.FC = () => <PlayerStateProvider>
   <GameAdmin />
 </PlayerStateProvider>
-

@@ -8,6 +8,6 @@ import GameAdmin from './index'
 it('GameAdmin renders correctly', () => {
   const tree = renderer
     .create(<GameAdmin />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})
