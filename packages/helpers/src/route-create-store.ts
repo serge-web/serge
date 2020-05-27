@@ -24,7 +24,7 @@ export const forcesControlledBy = (forces: any, playerForce: string): Array<stri
  * @param {string[]} controls uniqid for forces controlled by this player. Optional remove for all
  * @returns {RouteStore} RouteStore representing current data
  */
-const createRouteStore = (forces: any, playerForce: string, allForces: boolean): RouteStore => {
+const routeCreateStore = (forces: any, playerForce: string, allForces: boolean): RouteStore => {
   const store: RouteStore = { forces: []}
 
   const controls: Array<string> = forcesControlledBy(forces, playerForce)
@@ -53,4 +53,4 @@ const createRouteStore = (forces: any, playerForce: string, allForces: boolean):
   return store
 }
 
-export default createRouteStore
+export default routeCreateStore
