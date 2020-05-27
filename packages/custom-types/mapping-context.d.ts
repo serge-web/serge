@@ -3,7 +3,7 @@ import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { PerceptionFormData, PlanTurnFormData, AdjudicateTurnFormData } from './forms'
+import { RouteStore } from '@serge/custom-types'
 
 /**
  * mapping context, shared with child elements
@@ -45,6 +45,10 @@ export default interface MappingContext {
    * The channel ID passed down from the client application (optional)
    */
   channelID?: string | number
+  /**
+   * the set of routes applicable at this point
+   */
+  routeStore: RouteStore
   /**
    * setter for when planned route is complete
    */
