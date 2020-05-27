@@ -1,7 +1,12 @@
 import { RouteStore, RouteForce } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
 
-const forcesControlledBy = (forces: any, playerForce: string): Array<string> => {
+/** determine which forces this player can control
+ * @param {any} forces array of forces
+ * @param {string} playerForce uniqid for player force
+ * @returns {string[]} list of forces this player can control
+ */
+export const forcesControlledBy = (forces: any, playerForce: string): Array<string> => {
   const res: Array<string> = []
   forces.forEach((force: any) => {
     if(force.controlledBy && force.controlledBy.includes(playerForce)) {

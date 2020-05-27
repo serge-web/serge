@@ -4,8 +4,16 @@
 import { forces } from '@serge/mocks'
 
 import routeCreateStore from '../route-create-store'
+import { forcesControlledBy } from '../route-create-store'
 
 import { RouteStore, RouteForce, Route } from '@serge/custom-types'
+
+
+it('determines correct controlled routes', () => {
+  expect(forcesControlledBy(forces, 'Blue')).toEqual([])
+  expect(forcesControlledBy(forces, 'umpire')).toEqual(['Green'])
+})
+
 
 it('can create route plus control other', () => {
   // note: in our mock data, the Green force is the only
