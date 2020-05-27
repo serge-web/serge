@@ -17,6 +17,8 @@
     "typescript": "^3.9.3"
   },
   "scripts": {
+    "build" : "tsc --pretty",
+    "watch" : "tsc --watch",
     "test": "run-p test:*",
     "test:unit": "jest --coverage",
     "test:ts": "tsc --pretty",
