@@ -5,11 +5,21 @@
   "author": "foxleigh81 <alex@alexfoxleigh.com>",
   "main": "build/index.js",
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.0.1",
+    "@typescript-eslint/parser": "^3.0.1",
+    "eslint": "^7.1.0",
+    "eslint-config-standard": "^14.1.1",
     "honeycomb-grid": "^3.1.7",
-    "typescript": "^3.8.3"
+    "jest": "^26.0.1",
+    "npm-run-all": "^4.1.5",
+    "standard": "^14.3.4",
+    "ts-jest": "^26.0.0",
+    "typescript": "^3.9.3"
   },
   "scripts": {
-    "build" : "tsc",
-    "watch": "tsc --watch"
+    "test": "run-p test:*",
+    "test:unit": "jest --coverage",
+    "test:ts": "tsc --pretty",
+    "lint": "eslint --fix"
   }
 }
