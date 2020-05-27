@@ -61,6 +61,18 @@ import MapAdjudicationPendingListeneimport from './helpers'
 import markerFor from './helpers'
 ```
 
+## Importing and exporting
+
+In order to help future developers out, it's important to use import and export in a way that makes readability easy.
+
+Imports should alwys be at the very top of a file and the following order should be strictly followed:
+
+1st. External (i.e. npm) dependencies (e.g. `react`)
+2nd. Internal package dependences (e.g. `@serge/config`)
+3rd. Local dependencies (e.g. `./helpers`)
+
+If you have multiple files to export from a folder then make sure you add an index file. Then, when other people import files from that folder, they can do `import { file1, file2, file3 } from './folder` instead of having to do 3 imports. An index is not required if there is only one file exported from the folder.
+
 ## Type checking
 
 We use TypeScript to ensure that our code is strongly typed, more robust and more easily testable. Wherever possible you should the full tooling available from TypeScript, however, if that is not something that can be done immediately, ensure you do not name your file with a TypeScript extension (e.g. `.ts` or `.tsx`) otherwise it will be type checked and may cause a failed build. 
