@@ -119,7 +119,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
-  const [routeStore, setRouteStore] = useState<RouteStore>({forces:[]})
+  const [routeStore, setRouteStore] = useState<RouteStore>({ forces: [] })
 
   // if we've got a planning range from prop, double-check if it is different
   // to the current one
@@ -162,20 +162,20 @@ export const Mapping: React.FC<PropTypes> = ({
     if (newLeg) {
       // TODO: store the new planned leg for this asset
       const selRoute = routeStore.selected
-      if(selRoute) {
-        const newTurn = selRoute?.planned[selRoute.planned.length-1].turn + 1
+      if (selRoute) {
+        const newTurn = selRoute?.planned[selRoute.planned.length - 1].turn + 1
         const coords: Array<string> = newLeg.map((cell: SergeHex<{}>) => {
           return cell.name
         })
-        if(selRoute) {
+        if (selRoute) {
           const newStep: RouteStep = {
             turn: newTurn,
-            status: { state:'BBQ', speedKts: 12},
+            status: { state: 'BBQ', speedKts: 12 },
             coords: coords
           }
           const newStore: RouteStore = routeAddStep(routeStore, selRoute.uniqid, newStep)
           setRouteStore(newStore)
-        }  
+        }
       }
 
       // if we know our planning constraints, we can plan the next leg
