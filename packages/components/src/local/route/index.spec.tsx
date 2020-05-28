@@ -23,7 +23,7 @@ const LocalTileLayer = {
 }
 
 const store: RouteStore = routeCreateStore(forces, 'Blue', false)
-const route: RouteType = store.forces[2].routes[0]
+const route: RouteType = store.forces[2].routes[0] as RouteType
 
 it('Mapping renders correctly with Route', () => {
   const div = document.createElement('div')
