@@ -2,6 +2,10 @@ import { Message } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
+   * The current channel
+   */
+   currentChannel?: string
+  /**
    * The type of message
    */
   messageType?: string
@@ -17,4 +21,8 @@ export default interface PropTypes {
    * The messages have all been marked as read
    */
   allMarkedRead: boolean
+  /* 
+   *  The function to perform to mark all messages as read 
+   */
+  markAllAsRead?: any
 }

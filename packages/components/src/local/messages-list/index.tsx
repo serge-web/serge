@@ -9,7 +9,7 @@ import styles from './styles.module.scss'
 import Message from '../message'
 
 /* Render component */
-export const MessagesList: React.FC<PropTypes> = ({ userId, messages, allMarkedRead }: PropTypes) => {
+export const MessagesList: React.FC<PropTypes> = ({ currentChannel, userId, messages, allMarkedRead }: PropTypes) => {
   const messageState = messages.map(message => {
     const hasBeenRead = expiredStorage.getItem(`${userId}${message._id}`) === 'read'
     return {
@@ -21,11 +21,31 @@ export const MessagesList: React.FC<PropTypes> = ({ userId, messages, allMarkedR
 
   const [messageList, setMessageList] = useState(messageState)
 
+  // Listen for changes to the allMarkedRead variable
   useEffect(() => {
     if (allMarkedRead) {
       setMessageList(messages.map(message => ({ ...message, hasBeenRead: true })))
     }
-  }, [messageList, allMarkedRead])
+  }, [allMarkedRead])
+  
+  // Listen for changes to currentChannel
+  useEffect(() => {
+    if (messageList.length === 0) {
+      setMessageList(messages.map((message) => {
+        const hasBeenRead = expiredStorage.getItem(`${userId}${message._id}`) === 'read'
+        return {
+          ...message,
+          open: false,
+          hasBeenRead
+        }
+      }))
+    }
+  }, [currentChannel])
+
+  useEffect(() => {
+   // Unmount component
+
+  })
 
   return (
     <div className={styles['message-list']}>
