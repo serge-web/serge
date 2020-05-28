@@ -16,11 +16,10 @@ import { SergeHex, SergeGrid, RouteStore, Route as RouteType } from '@serge/cust
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
-
   // pull in some context (with TS definitions)
-  const { gridCells, forces, playerForce, routeStore }: 
-    { gridCells: SergeGrid<SergeHex<{}>> | undefined, forces: any, playerForce: string, routeStore: RouteStore} 
-    = useContext(MapContext).props
+  const { gridCells, forces, playerForce, routeStore }:
+    { gridCells: SergeGrid<SergeHex<{}>> | undefined, forces: any, playerForce: string, routeStore: RouteStore} =
+    useContext(MapContext).props
 
   const [assets, setAssets] = useState<AssetInfo[]>([])
 
