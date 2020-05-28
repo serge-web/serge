@@ -6,7 +6,7 @@ import MapBar from '../map-bar'
 /* helper functions */
 import createGrid from './helpers/create-grid'
 import boundsFor from './helpers/bounds-for'
-import { routeCreateStore, routeAddStep } from '@serge/helpers'
+import { routeCreateStore, routeAddStep, routeSetCurrent } from '@serge/helpers'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -130,6 +130,17 @@ export const Mapping: React.FC<PropTypes> = ({
   if (bounds && bounds !== mapBounds) {
     setMapBounds(bounds)
   }
+
+  // highlight the route for the selected asset
+  useEffect(() => {
+    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
+    // we modify the routeStore
+    if (selectedAsset) {
+      const store: RouteStore = routeSetCurrent(selectedAsset.uniqid, routeStore)
+      setRouteStore(store)
+    }
+  }, [selectedAsset])
+
 
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before

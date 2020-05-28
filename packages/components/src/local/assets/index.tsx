@@ -12,24 +12,17 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import AssetInfo from './types/asset_info'
-import { SergeHex, Route as RouteType } from '@serge/custom-types'
+import { SergeHex, SergeGrid, RouteStore, Route as RouteType } from '@serge/custom-types'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
-  const { gridCells, forces, playerForce, routeStore } = useContext(MapContext).props
+
+  // pull in some context (with TS definitions)
+  const { gridCells, forces, playerForce, routeStore }: 
+    { gridCells: SergeGrid<SergeHex<{}>> | undefined, forces: any, playerForce: string, routeStore: RouteStore} 
+    = useContext(MapContext).props
 
   const [assets, setAssets] = useState<AssetInfo[]>([])
-  const [routes, setRoutes] = useState<RouteType[]>([])
-
-  useEffect(() => {
-    if (gridCells) {
-      const tmpRoutes: RouteType[] = []
-      routeStore && routeStore.routes.forEach((rf: RouteType) => {
-        tmpRoutes.push(rf)
-      })
-      setRoutes(tmpRoutes)
-    }
-  }, [routeStore])
 
   useEffect(() => {
     if (gridCells) {
@@ -97,7 +90,7 @@ export const Assets: React.FC<{}> = () => {
         tooltip={asset.name}/>
     ))}
 
-    { routes && routes.map((route) => (
+    { routeStore && routeStore.routes.map((route: RouteType) => (
       <Route name={'test'}
         key = { 'r_for_' + route.uniqid }
         route = {route} color={route.color}
