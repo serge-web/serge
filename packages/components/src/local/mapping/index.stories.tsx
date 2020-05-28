@@ -150,6 +150,13 @@ const forceNames = {
 }
 const defaultValue = 'Blue'
 
+const assetsPhasesPhaseLabel = 'Game phase'
+const assetsPhasesPhaseNames = {
+  Planning: Phase.Planning,
+  Adjudication: Phase.Adjudication
+}
+const assetsPhasePhaseValue = Phase.Planning
+
 // generic postback handler, for forms
 const postback = (messageType: string, payload: any): void => {
   console.log('postback', messageType, payload)
@@ -162,9 +169,8 @@ export const WithAssets: React.FC = () => <Mapping
   forces={forces}
   playerForce={radios(label, forceNames, defaultValue)}
   platforms={platformTypes}
-  phase={Phase.Planning}
-  postBack={postback}
->
+  phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
+  postBack={postback} >
   <Assets /><HexGrid />
 </Mapping>
 
