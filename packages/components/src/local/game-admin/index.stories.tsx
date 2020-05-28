@@ -18,6 +18,8 @@ export default {
   }
 }
 
+import { MessagesMock } from '@serge/mocks'
+
 export const Default: React.FC = () => <PlayerStateProvider>
-  <GameAdmin />
+  <GameAdmin wargameTitle="title" chatChannel={MessagesMock} selectedForce="blue" selectedRole=""/>
 </PlayerStateProvider>

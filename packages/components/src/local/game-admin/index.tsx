@@ -1,34 +1,32 @@
-import React, { useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // /* Import Constants */
-// import { CHAT_CHANNEL_ID, LOCAL_STORAGE_TIMEOUT } from "@serge/config";
+import { CHAT_CHANNEL_ID } from "@serge/config";
 
 // /* Import Stylesheet */
 // import styles from './styles.module.scss'
 
-// /* import Helpers */
-// import markAllAsRead from './helpers/mark-all-as-read'
+/* Import types */
+import PropTypes from './types/props'
 
-/* Import context */
-import { PlayerStateContext } from '@serge/store'
+// /* import Helpers */
+import markAllAsRead from './helpers/mark-all-as-read'
+
+/* Import components */
+import MessagesList from '../messages-list'
 
 /* Render component */
-export const GameAdmin: React.FC = () => {
-  const { channels } = useContext<any>(PlayerStateContext)[0]
+export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, selectedRole, chatChannel }) => {
+  
+  const [ allMarkedRead, setAllMarkedRead ] = useState(false)
 
-  // const [ activeTab ] = useState(Object.keys(channels)[0])
-  // const [ allMarkedRead, setAllMarkedRead ] = useState(false)
-  // const [ showObjectives, setShowObjectives ] = useState(false)
-
-  // useEffect(() => {
-  //   const channelLength = 1
-  //   channelLength && setAllMarkedRead(false)
-  // }, [])
-
-  console.log(channels)
+  useEffect(() => {
+    const channelLength = 1
+    channelLength && setAllMarkedRead(false)
+  }, [])
 
   return <div>
-    This is the game Admin component
+    <MessagesList currentChannel={CHAT_CHANNEL_ID} userId={`${wargameTitle}-${selectedForce}-${selectedRole}`} allMarkedRead={allMarkedRead} markAllAsRead={markAllAsRead} messages={chatChannel} />
   </div>
 }
 
