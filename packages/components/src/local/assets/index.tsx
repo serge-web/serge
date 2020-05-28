@@ -14,25 +14,19 @@ import { MapContext } from '../mapping'
 import AssetInfo from './types/asset_info'
 import { SergeHex, Route as RouteType, RouteForce } from '@serge/custom-types'
 
-/** helper interface, to allow us to store the color and the route */
-interface RouteWithColor {
-  route: RouteType
-  color: string
-}
-
 /* Render component */
 export const Assets: React.FC<{}> = () => {
   const { gridCells, forces, playerForce, routeStore } = useContext(MapContext).props
 
   const [assets, setAssets] = useState<AssetInfo[]>([])
-  const [routes, setRoutes] = useState<RouteWithColor[]>([])
+  const [routes, setRoutes] = useState<RouteType[]>([])
 
   useEffect(() => {
     if (gridCells) {
-      const tmpRoutes: RouteWithColor[] = []
+      const tmpRoutes: RouteType[] = []
       routeStore && routeStore.forces.forEach((rf: RouteForce) => {
         rf.routes.forEach((r: RouteType) => {
-          tmpRoutes.push({ route: r, color: rf.color })
+          tmpRoutes.push(r)
         })
       })
       setRoutes(tmpRoutes)
@@ -105,11 +99,11 @@ export const Assets: React.FC<{}> = () => {
         tooltip={asset.name}/>
     ))}
 
-    { routes && routes.map((routeWithColor) => (
+    { routes && routes.map((route) => (
       <Route name={'test'}
-        key = { 'r_for_' + routeWithColor.route.uniqid }
-        route = {routeWithColor.route} color={routeWithColor.color}
-        selected={ routeWithColor.route.selected}
+        key = { 'r_for_' + route.uniqid }
+        route = {route} color={route.color}
+        selected={ route.selected}
         trimmed={ false }
       />
     ))}
