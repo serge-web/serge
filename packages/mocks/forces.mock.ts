@@ -196,8 +196,6 @@ export const forces = [
         name: 'Dhow-A',
         perceptions: [{
           by: 'Blue',
-          force: 'Green',
-          type: ''
         }],
         plannedTurns: [
           {
