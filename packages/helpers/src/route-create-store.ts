@@ -20,11 +20,11 @@ export const forcesControlledBy = (forces: any, playerForce: string): Array<stri
  * display and edits to planned routes
  * @param {any} forces array of forces
  * @param {string} playerForce uniqid for player force
- * @param {string} allForces whether to return all forces (umpire adjudication)
+ * @param {string} adjudication whether player is umpire in adjudication
  * @param {string[]} controls uniqid for forces controlled by this player. Optional remove for all
  * @returns {RouteStore} RouteStore representing current data
  */
-const routeCreateStore = (forces: any, playerForce: string, allForces: boolean): RouteStore => {
+const routeCreateStore = (forces: any, playerForce: string, adjudication: boolean): RouteStore => {
   const store: RouteStore = { forces: []}
 
   const controls: Array<string> = forcesControlledBy(forces, playerForce)
@@ -32,13 +32,13 @@ const routeCreateStore = (forces: any, playerForce: string, allForces: boolean):
   forces.forEach((force: any) => {
     // see if we control it
     const thisForce = force.uniqid
-    if (allForces || thisForce === playerForce || controls.includes(thisForce)) {
+    if (adjudication || thisForce === playerForce || controls.includes(thisForce)) {
       if (force.assets) {
         const routeForce: RouteForce = { uniqid: thisForce, routes: [], color: force.color }
         // loop through assets
         force.assets.forEach((asset: any) => {
           // create route for this asset
-          routeForce.routes.push(routeCreateRoute(asset))
+          routeForce.routes.push(routeCreateRoute(asset, adjudication))
         })
 
         // did we create any?
