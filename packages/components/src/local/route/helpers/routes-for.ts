@@ -1,7 +1,7 @@
 import { LatLng } from 'leaflet'
 
 /* Impot types */
-import { SergeHex, SergeGrid } from '@serge/custom-types'
+import { SergeHex, SergeGrid, RouteStep } from '@serge/custom-types'
 import RouteData from '../types/route-data'
 
 import { hexNamed } from '@serge/helpers'
@@ -16,7 +16,7 @@ export const lengthOfTrimmedLine = 2
  * @param steps {any} series of planned steps for asset
  * @returns {RouteData} composite object containing route lines & end of turn marker locations
  */
-export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, steps: [any],
+export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, steps: RouteStep[],
   trimmed: boolean): RouteData => {
   const polyline: LatLng[] = []
   const turnEnds: LatLng[] = []
@@ -28,23 +28,14 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
     if (steps) {
       // store the line start
       polyline.push(startPos)
-      steps.forEach((step: any) => {
+      steps.forEach((step: RouteStep) => {
         stepCtr++
         // first, does it contain a plain position?
-        if (step.position) {
-          // TODO: this block should be removed once we
-          // remove the old way of structuring historic data
-          // https://github.com/serge-web/serge/issues/395
-          const thisCell: SergeHex<{}> | undefined = hexNamed(step.position, gridCells)
-          if (thisCell && (!trimmed || stepCtr <= lengthOfTrimmedLine)) {
-            turnEnds.push(thisCell.centreLatLng)
-            polyline.push(thisCell.centreLatLng)
-          }
-        } else if (step.route) {
+        if (step.coords && (!trimmed || stepCtr < lengthOfTrimmedLine)) {
           let thisRouteCtr = 0 // how many steps have been recorded for this route
-          step.route.forEach((routeStep: any) => {
+          step.coords.forEach((routeStep: any) => {
             const thisCell: SergeHex<{}> | undefined = hexNamed(routeStep, gridCells)
-            if (thisCell && (!trimmed || stepCtr <= lengthOfTrimmedLine)) {
+            if (thisCell) {
               // is this the first cell?
               if (thisRouteCtr === 0) {
                 turnEnds.push(thisCell.centreLatLng)
