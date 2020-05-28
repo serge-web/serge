@@ -23,7 +23,6 @@ export const Assets: React.FC<{}> = () => {
 
   useEffect(() => {
     if (gridCells) {
-      console.log(routes)
       const tmpRoutes: RouteType[] = []
       routeStore && routeStore.forces.forEach((rf: RouteForce) => {
         rf.routes.forEach((r: RouteType) => {
@@ -102,6 +101,7 @@ export const Assets: React.FC<{}> = () => {
 
     { routes && routes.map((route) => (
       <Route name={'test'}
+        key = { 'r_for_' + route.uniqid }
         route = {route} color={'#00f'}
         selected={ route.selected}
         trimmed={ false }
