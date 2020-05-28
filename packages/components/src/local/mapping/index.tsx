@@ -118,7 +118,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
-  const [routeStore, setRouteStore ] = useState<RouteStore>({ forces: [] })
+  const [routeStore, setRouteStore] = useState<RouteStore>({ forces: [] })
 
   // if we've got a planning range from prop, double-check if it is different
   // to the current one
@@ -133,8 +133,9 @@ export const Mapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (forces) {
-       const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
-       setRouteStore(routeCreateStore(forces, playerForce, umpireInAdjudication))
+      const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
+      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication)
+      setRouteStore(store)
     }
   }, [forces, playerForce, phase])
 
