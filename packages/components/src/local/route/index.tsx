@@ -9,7 +9,7 @@ import { MapContext } from '../mapping'
 import RouteData from './types/route-data'
 
 /* Render component */
-export const Route: React.FC<PropTypes> = ({ name, location, history, planned, trimmed, color, selected }: PropTypes) => {
+export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, selected }: PropTypes) => {
   const { gridCells } = useContext(MapContext).props
 
   const plainDots = [1, 7]
@@ -21,24 +21,12 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
 
   useEffect(() => {
     if (gridCells) {
-      setHistoryRoutes(routesFor(gridCells, location, history, trimmed))
-      setPlanneDroutes(routesFor(gridCells, location, planned, trimmed))
+      const historyRoute: RouteData = routesFor(gridCells, route.currentPosition, route.history, trimmed)
+      setHistoryRoutes(historyRoute)
+      const plannedRoute: RouteData = routesFor(gridCells, route.currentPosition, route.planned, trimmed)
+      setPlanneDroutes(plannedRoute)
     }
-  }, [gridCells, location, history, trimmed])
-
-  // TODO: introduce turn markers. The following code introduces markers,
-  // but the "real" ones will be the images like '../images/turn120deg.png'
-  // {historyRoutes.turnEnds.forEach((k:L.LatLng) => (
-  //   <Marker
-  //     key = {'history_turns_' + k}
-  //     position={k}
-  //     width="2"
-  //     icon={L.divIcon({
-  //       html: 'A',
-  //       iconSize: [30, 20]
-  //     })}
-  //   />
-  // ))}
+  }, [gridCells, route, trimmed])
 
   return <>
     <LayerGroup key={'hex_route_layer_' + name} >
