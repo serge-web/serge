@@ -44,9 +44,10 @@ const createStepArray = (turns: any, adjudication: boolean): Array<RouteStep> =>
 /** create a route object for this asset
  * @param {any} asset single asset
  * @param {boolean} adjudication whether this is umpire in adjudication
+ * @param {sting} color color for rendering this asset
  * @returns {Route} Routefor this asset
  */
-const routeCreateRoute = (asset: any, adjudication: boolean): Route => {
+const routeCreateRoute = (asset: any, adjudication: boolean, color: string): Route => {
   const stat = asset.status
   const currentStatus: RouteStatus = stat.speedKts
     ? { state: stat.status, speedKts: stat.speedKts }
@@ -59,7 +60,9 @@ const routeCreateRoute = (asset: any, adjudication: boolean): Route => {
   return {
     uniqid: asset.uniqid,
     selected: false,
-    history: createStepArray(asset.history),
+    color: color,
+    history: createStepArray(asset.history, false), // we plot all history, so ignore whether
+                                                    // in adjudication
     currentStatus: currentStatus,
     currentPosition: asset.position,
     planned: futureSteps,
