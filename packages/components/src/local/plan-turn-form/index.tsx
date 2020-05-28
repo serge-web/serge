@@ -11,7 +11,7 @@ import TextInput from '../form-elements/text-input'
 import { isNumber } from '@serge/helpers'
 
 /* Render component */
-export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, postBack }) => {
+export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPlanned }) => {
   // TODO: Refactor this into a reusable helper and remove other instances
   const [formState, setFormState] = useState(formData.values)
 
@@ -47,8 +47,8 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, channe
   }
 
   const submitForm = (): void => {
-    if (postBack !== undefined) {
-      postBack('plan-turn', formState, channelID)
+    if (turnPlanned !== undefined) {
+      turnPlanned(formState)
     }
   }
 

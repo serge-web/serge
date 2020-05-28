@@ -17,7 +17,8 @@ import {
   PlanMobileAsset,
   SelectedAsset,
   RouteStore,
-  RouteStep
+  RouteStep,
+  PlanTurnFormValues
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -204,6 +205,10 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [newLeg])
 
+  const turnPlanned = (turn: PlanTurnFormValues): void => {
+    console.log('new turn', turn)
+  }
+
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     gridCells,
@@ -222,6 +227,7 @@ export const Mapping: React.FC<PropTypes> = ({
     setShowMapBar,
     setSelectedAsset,
     setZoomLevel,
+    turnPlanned,
     postBack
   }
 

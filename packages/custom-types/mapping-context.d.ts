@@ -3,7 +3,7 @@ import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { RouteStore } from '@serge/custom-types'
+import { RouteStore, PlanTurnFormValues } from '@serge/custom-types'
 
 /**
  * mapping context, shared with child elements
@@ -73,6 +73,10 @@ export default interface MappingContext {
    *  setter, to set the zoom level
    **/
   setZoomLevel: React.Dispatch<React.SetStateAction<number>>
+  /**
+   * player has added new step
+   */
+  turnPlanned?: {(turn: PlanTurnFormValues): void}
   /**
    * The method for posting messages out of the mapping component
    */

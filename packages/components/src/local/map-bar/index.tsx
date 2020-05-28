@@ -33,7 +33,8 @@ export const MapBar: React.FC = () => {
     setShowMapBar,
     selectedAsset,
     channelID,
-    postBack
+    postBack,
+    turnPlanned
   } = useContext(MapContext).props
 
   // Selects the current asset
@@ -72,7 +73,7 @@ export const MapBar: React.FC = () => {
           formHeader={currentAssetName}
           formData={collatePlanFormData(platforms, selectedAsset)}
           channelID={channelID}
-          postBack={postBack}/>
+          turnPlanned={turnPlanned}/>
         break
       default:
         output = null
