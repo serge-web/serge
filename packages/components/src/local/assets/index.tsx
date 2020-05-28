@@ -5,19 +5,34 @@ import AssetIcon from '../asset-icon'
 import findPerceivedAsTypes from './helpers/find-perceived-as-types'
 import hexNamed from './helpers/hex-named'
 import { UMPIRE_FORCE } from '@serge/config'
+import { Route } from '../route'
 
 /* Import Context */
 import { MapContext } from '../mapping'
 
 /* Import Types */
 import AssetInfo from './types/asset_info'
-import { SergeHex } from '@serge/custom-types'
+import { SergeHex, Route as RouteType, RouteForce } from '@serge/custom-types'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
-  const { gridCells, forces, playerForce } = useContext(MapContext).props
+  const { gridCells, forces, playerForce, routeStore } = useContext(MapContext).props
 
   const [assets, setAssets] = useState<AssetInfo[]>([])
+  const [routes, setRoutes] = useState<RouteType[]>([])
+
+  useEffect(() => {
+    if (gridCells) {
+      console.log(routes)
+      const tmpRoutes: RouteType[] = []
+      routeStore && routeStore.forces.forEach((rf: RouteForce) => {
+        rf.routes.forEach((r: RouteType) => {
+          tmpRoutes.push(r)
+        })
+      })
+      setRoutes(tmpRoutes)
+    }
+  }, [routeStore])
 
   useEffect(() => {
     if (gridCells) {
@@ -84,6 +99,15 @@ export const Assets: React.FC<{}> = () => {
         force={asset.force}
         tooltip={asset.name}/>
     ))}
+
+    { routes && routes.map((route) => (
+      <Route name={'test'}
+        route = {route} color={'#00f'}
+        selected={ route.selected}
+        trimmed={ false }
+      />
+    ))}
+
     </LayerGroup>
   </>
 }
