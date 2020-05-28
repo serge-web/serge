@@ -132,12 +132,14 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    if (forces) {
+    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
+    // we modify the routeStore
+    if (forces && gridCells) {
       const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
       const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication)
       setRouteStore(store)
     }
-  }, [forces, playerForce, phase])
+  }, [forces, playerForce, phase, gridCells])
 
   useEffect(() => {
     if (mapBounds) {
