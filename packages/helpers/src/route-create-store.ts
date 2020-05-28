@@ -34,7 +34,7 @@ const routeCreateStore = (forces: any, playerForce: string, allForces: boolean):
     const thisForce = force.uniqid
     if (allForces || thisForce === playerForce || controls.includes(thisForce)) {
       if (force.assets) {
-        const routeForce: RouteForce = { uniqid: thisForce, routes: [] }
+        const routeForce: RouteForce = { uniqid: thisForce, routes: [], color: force.color }
         // loop through assets
         force.assets.forEach((asset: any) => {
           // create route for this asset
