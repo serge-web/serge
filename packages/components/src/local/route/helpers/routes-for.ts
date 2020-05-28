@@ -11,9 +11,9 @@ export const lengthOfTrimmedLine = 2
 
 /**
  *  generate the planned routes for this asset
- * @param gridCells the grid system for this map
- * @param position {string} hex cell where the asset currently is
- * @param steps {any} series of planned steps for asset
+ * @param {SergeGrid<SergeHex<{}>>} gridCells the grid system for this map
+ * @param {string} position hex cell where the asset currently is
+ * @param {any} steps series of planned steps for asset
  * @returns {RouteData} composite object containing route lines & end of turn marker locations
  */
 export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, steps: RouteStep[],
@@ -30,7 +30,8 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
       polyline.push(startPos)
       steps.forEach((step: RouteStep) => {
         stepCtr++
-        // first, does it contain a plain position?
+        // first, does it contain a plain position, and is it within
+        // the required length?
         if (step.coords && (!trimmed || stepCtr < lengthOfTrimmedLine)) {
           let thisRouteCtr = 0 // how many steps have been recorded for this route
           step.coords.forEach((routeStep: any) => {
