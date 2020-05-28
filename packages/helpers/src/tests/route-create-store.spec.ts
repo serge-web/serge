@@ -19,17 +19,34 @@ it('can create route plus control other', () => {
   // note: in our mock data, the Green force is the only
   // one that is controlled by another, and that's the umpire force
   const store: RouteStore = routeCreateStore(forces, 'umpire', false)
-  expect(store.forces.length).toEqual(1)
-  expect(store.forces[0].uniqid).toEqual('Green')
+  expect(store.forces.length).toEqual(3)
+  expect(store.forces[0].uniqid).toEqual('Blue')
 })
 
 it('can create route without control other', () => {
   const store: RouteStore = routeCreateStore(forces, 'Blue', false)
-  expect(store.forces.length).toEqual(1)
+  expect(store.forces.length).toEqual(3)
 })
 
-it('can create route as umpire', () => {
+it('can create route as umpire in adjudication mode', () => {
   const store: RouteStore = routeCreateStore(forces, 'umpire', true)
+  expect(store.forces.length).toEqual(3)
+
+  // check inside a force
+  const force: RouteForce = store.forces[0]
+  expect(force.uniqid).toEqual('Blue')
+  expect(force.routes.length).toEqual(3)
+
+  // check inside a route
+  const route: Route = force.routes[0]
+  expect(route.uniqid).toEqual('a0pra00001')
+  expect(route.history.length).toEqual(1)
+  expect(route.planned.length).toEqual(1)
+  expect(route.original.length).toEqual(1)
+})
+
+it('can create route as umpire in planning mode', () => {
+  const store: RouteStore = routeCreateStore(forces, 'umpire', false)
   expect(store.forces.length).toEqual(3)
 
   // check inside a force
