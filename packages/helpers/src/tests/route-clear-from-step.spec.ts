@@ -14,11 +14,11 @@ it('clear route from selected step', () => {
   const idOne = 'a0pra00003'
 
   // length of route at start
-  expect(store.forces[0].routes[2].planned.length).toEqual(3)
+  expect(store.routes[2].planned.length).toEqual(3)
 
   // clear from step
   const store2: RouteStore = routeClearFromStep(store, idOne, 5)
 
   // is now set
-  expect(store2.forces[0].routes[2].planned.length).toEqual(1)
+  expect(store2.routes[2].planned.length).toEqual(1)
 })
