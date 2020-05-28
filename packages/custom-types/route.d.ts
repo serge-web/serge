@@ -7,6 +7,8 @@ export default interface Route {
   uniqid: string,
   /** if this is the selected asset */
   selected: boolean,
+  /** color to render this line */
+  color: string,
   /** paste route for this asset */
   history: Array<RouteStep>,
   /** current status of this asset */
