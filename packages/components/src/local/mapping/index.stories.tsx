@@ -15,6 +15,8 @@ import { HexGrid } from '../hex-grid'
 
 // import data types
 import { Phase } from '@serge/config'
+import { RouteStore, Route as RouteType } from '@serge/custom-types'
+import { routeCreateStore } from '@serge/helpers'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -330,9 +332,8 @@ const selectedLabel = 'Selected'
 const selectedDefaultValue = false
 
 // test data:
-const greenForce: any = forces[3]
-const platform: any = greenForce.assets[0]
-const { plannedTurns, history } = platform
+const store: RouteStore = routeCreateStore(forces, 'umpire', false)
+const route: RouteType = store.forces[0].routes[0]
 
 export const WithRoute: React.FC = () => <Mapping
   bounds={bounds}
@@ -341,12 +342,12 @@ export const WithRoute: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
-  playerForce='Green'
+  playerForce='Blue'
   mapBar={false}
 >
-  <HexGrid />
-  <Route name={'test'} location={platform.position}
-    history={history} planned={plannedTurns} color={'#00f'}
+  <HexGrid/>
+  <Route name={'test'}
+    route = {route} color={'#00f'}
     selected={boolean(selectedLabel, selectedDefaultValue, 'Adjustments')}
     trimmed={boolean(trimmedLabel, trimmedDefaultValue, 'Adjustments')}
   />
