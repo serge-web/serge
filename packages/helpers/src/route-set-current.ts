@@ -1,4 +1,4 @@
-import { RouteStore, RouteForce, Route } from '@serge/custom-types'
+import { RouteStore, Route } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 
 /** set the new selected route, clear others
@@ -13,18 +13,15 @@ const routeSetCurrent = (selectedId: string, store: RouteStore): RouteStore => {
   // clear the cached selected route
   delete modified.selected
 
-  // loop through forces
-  modified.forces.forEach((force: RouteForce) => {
-    // loop through routes in this force (one per asset)
-    force.routes.forEach((route: Route) => {
-      // set selected flag
-      route.selected = route.uniqid === selectedId
+  // loop through routes in this force (one per asset)
+  modified.routes.forEach((route: Route) => {
+    // set selected flag
+    route.selected = route.uniqid === selectedId
 
-      if (route.selected) {
-        // and cache the selected route
-        modified.selected = route
-      }
-    })
+    if (route.selected) {
+      // and cache the selected route
+      modified.selected = route
+    }
   })
   return modified
 }

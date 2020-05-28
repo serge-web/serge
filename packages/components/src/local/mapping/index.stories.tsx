@@ -339,7 +339,7 @@ const selectedDefaultValue = false
 
 // test data:
 const store: RouteStore = routeCreateStore(forces, 'umpire', false)
-const route: RouteType = store.forces[0].routes[0]
+const route: RouteType = store.routes[0]
 
 export const WithRoute: React.FC = () => <Mapping
   bounds={bounds}

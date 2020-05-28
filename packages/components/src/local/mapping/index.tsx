@@ -118,7 +118,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
-  const [routeStore, setRouteStore] = useState<RouteStore>({ forces: [] })
+  const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
 
   // if we've got a planning range from prop, double-check if it is different
   // to the current one

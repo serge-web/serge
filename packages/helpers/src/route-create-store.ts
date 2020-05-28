@@ -1,4 +1,4 @@
-import { RouteStore, RouteForce } from '@serge/custom-types'
+import { RouteStore } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
 import { UMPIRE_FORCE } from '@serge/config'
 
@@ -45,7 +45,7 @@ const isPerceivedBy = (perceptions: any, playerForce: string, forceColors: Array
  * @returns {RouteStore} RouteStore representing current data
  */
 const routeCreateStore = (forces: any, playerForce: string, adjudication: boolean): RouteStore => {
-  const store: RouteStore = { forces: []}
+  const store: RouteStore = { routes: []}
 
   const controls: Array<string> = forcesControlledBy(forces, playerForce)
   const forceColors: Array<{force: string, color: string}> = forces.map((force: any) => {
@@ -56,7 +56,6 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
     // see if we control it
     const thisForce = force.uniqid
     if (force.assets) {
-          const routeForce: RouteForce = { uniqid: thisForce, routes: [], color: force.color }
         // loop through assets
         force.assets.forEach((asset: any) => {
           if (playerForce === UMPIRE_FORCE || // umpire sees all
@@ -64,22 +63,17 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
               controls.includes(thisForce))  // we can control this force
             {
             // create route for this asset
-            routeForce.routes.push(routeCreateRoute(asset, adjudication, force.color))
+            store.routes.push(routeCreateRoute(asset, adjudication, force.color))
           } else {
             // can't see it directly. See if we can perceive it
             const undefinedColor = '#999' // TODO: this color should not be hard-coded
             const perceivedAs: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColors, undefinedColor)
             if(perceivedAs) {
                 // create route for this asset
-                routeForce.routes.push(routeCreateRoute(asset, adjudication, perceivedAs))
+                store.routes.push(routeCreateRoute(asset, adjudication, perceivedAs))
             }
           }
         })
-
-        // did we create any?
-        if (routeForce.routes.length > 0) {
-          store.forces.push(routeForce)
-        }
       }
     })
 

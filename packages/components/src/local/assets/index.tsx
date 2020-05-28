@@ -12,7 +12,7 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import AssetInfo from './types/asset_info'
-import { SergeHex, Route as RouteType, RouteForce } from '@serge/custom-types'
+import { SergeHex, Route as RouteType } from '@serge/custom-types'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
@@ -24,10 +24,8 @@ export const Assets: React.FC<{}> = () => {
   useEffect(() => {
     if (gridCells) {
       const tmpRoutes: RouteType[] = []
-      routeStore && routeStore.forces.forEach((rf: RouteForce) => {
-        rf.routes.forEach((r: RouteType) => {
-          tmpRoutes.push(r)
-        })
+      routeStore && routeStore.routes.forEach((rf: RouteType) => {
+        tmpRoutes.push(rf)
       })
       setRoutes(tmpRoutes)
     }

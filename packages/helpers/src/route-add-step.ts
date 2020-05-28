@@ -1,4 +1,4 @@
-import { RouteStore, RouteForce, Route, RouteStep } from '@serge/custom-types'
+import { RouteStore, Route, RouteStep } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 
 /** add the step to this route
@@ -10,15 +10,12 @@ import { cloneDeep } from 'lodash'
 const routeAddStep = (store: RouteStore, selectedId: string, step: RouteStep): RouteStore => {
   // take deep copy
   const modified: RouteStore = cloneDeep(store)
-  // loop through forces
-  modified.forces.forEach((force: RouteForce) => {
-    // loop through routes in this force (one per asset)
-    const route: undefined | Route = force.routes.find((route: Route) => route.uniqid === selectedId)
-    if (route) {
-      // ok, add the planned step
-      route.planned.push(step)
-    }
-  })
+  // find the matching route
+  const route: Route | undefined = modified.routes.find((route: Route) => route.uniqid === selectedId)
+  if (route) {
+    // ok, add the planned step
+    route.planned.push(step)
+  }
   return modified
 }
 
