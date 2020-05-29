@@ -142,6 +142,11 @@ export const Mapping: React.FC<PropTypes> = ({
 
   // highlight the route for the selected asset
   useEffect(() => {
+    // if we were planning a mobile route, clear that
+    if(planningConstraints) {
+      setPlanningConstraints(undefined)
+    }
+
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
     if (selectedAsset) {
@@ -226,6 +231,7 @@ export const Mapping: React.FC<PropTypes> = ({
         const constraints: PlanMobileAsset = { origin: origin, travelMode: 'sea' }
 
         const speedKts = plannedTurn.speedVal
+        // TODO: turn time should come from game definition
         const stepSize = 30
         const stepsPerHour = (60 / stepSize)
         const roughRange = speedKts / tileDiameterMins / stepsPerHour // work out how many NM in 30 minutes
