@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import Chip from '@material-ui/core/Chip'
+import DoneAllIcon from '@material-ui/icons/DoneAll';
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -20,6 +21,7 @@ export const Message: React.FC<PropTypes> = ({ message }: PropTypes) => {
     </div>
     <div>
       {message.message.content}
+      {message.hasBeenRead && <DoneAllIcon />}
     </div>
     <p className="feedback-marker" style={{ borderColor: message.details.from.forceColor }}></p>
   </>
