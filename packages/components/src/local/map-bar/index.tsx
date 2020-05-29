@@ -56,7 +56,7 @@ export const MapBar: React.FC = () => {
   }
 
   /** an asset has been selected from the list */
-  const setSelectedAssetById = (id: string):void => {
+  const setSelectedAssetById = (id: string): void => {
     const asset: any = findAsset(forces, id)
     const force: any = forceFor(forces, id)
     const visibleToArr: string[] = visibleTo(asset.perceptions)

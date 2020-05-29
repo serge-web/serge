@@ -44,7 +44,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, setSelectedAsset 
 
   // Toggles the map bar on and off
   const clickEvent = (id: string): void => {
-    if(setSelectedAsset) {
+    if (setSelectedAsset) {
       setSelectedAsset(id)
     }
   }
@@ -53,22 +53,22 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, setSelectedAsset 
     <div className={styles['world-state']}>
       <h2>{name}</h2>
       <ul>
-      <li>== [Under my control] ==</li>
-      { 
-        routes.filter((pRoute: PlannedRoute) => pRoute.underControl)
-                .map((pRoute: PlannedRoute) => {
-                return <li key={'r_li_' + pRoute.uniqid} onClick={() => clickEvent(pRoute.uniqid)} >{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} - {pRoute.numPlanned} planned {pRoute.selected ? `[*]` : ``}</li>
-                })
-      
-      }
-      <li>== [Not under my control] ==</li>
-      { 
-        routes.filter((pRoute: PlannedRoute) => !pRoute.underControl)
-                .map((pRoute: PlannedRoute) => {
-                  return <li key={'r_li_' + pRoute.uniqid} onClick={() => clickEvent(pRoute.uniqid)} >{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} {pRoute.selected ? `[*]` : ``}</li>
-                })
-      
-      }</ul>
+        <li>== [Under my control] ==</li>
+        {
+          routes.filter((pRoute: PlannedRoute) => pRoute.underControl)
+            .map((pRoute: PlannedRoute) => {
+              return <li key={'r_li_' + pRoute.uniqid} onClick={() => clickEvent(pRoute.uniqid)} >{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} - {pRoute.numPlanned} planned {pRoute.selected ? '[*]' : ''}</li>
+            })
+
+        }
+        <li>== [Not under my control] ==</li>
+        {
+          routes.filter((pRoute: PlannedRoute) => !pRoute.underControl)
+            .map((pRoute: PlannedRoute) => {
+              return <li key={'r_li_' + pRoute.uniqid} onClick={() => clickEvent(pRoute.uniqid)} >{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} {pRoute.selected ? '[*]' : ''}</li>
+            })
+
+        }</ul>
     </div>
   </>
 }

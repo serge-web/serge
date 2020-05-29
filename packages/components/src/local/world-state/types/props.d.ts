@@ -9,8 +9,8 @@ export default interface PropTypes {
    * the set of routes currently being planned
    */
   store?: RouteStore
-  /** 
+  /**
    * callback for asset selected
    */
-  setSelectedAsset?: {(id:string): void}
+  setSelectedAsset?: {(id: string): void}
 }
