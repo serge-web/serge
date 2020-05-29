@@ -1125,12 +1125,14 @@ export default class MapPlanningPlayerListener {
     }
     // check that we don't have too many perceptions
     const toDelete = []
-    for (var thisForce in perceptions) {
-      // eslint-disable-next-line no-loop-func
+    const addFromList = (visibleTo, thisForce) => {
       if (!visibleTo.find(name => name === thisForce)) {
         // ok, delete it
         toDelete.push(thisForce)
       }
+    }
+    for (var thisForce in perceptions) {
+      addFromList(visibleTo, thisForce)
     }
     // ditch the ones we don't want
     toDelete.forEach(thisForce => {
