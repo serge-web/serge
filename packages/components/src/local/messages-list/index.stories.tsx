@@ -22,5 +22,4 @@ export default {
   }
 }
 
-
 export const Default: React.FC = () => <MessagesList userId="" messages={MessagesMock} />

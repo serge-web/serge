@@ -11,9 +11,9 @@ export default interface PropTypes {
    * The value of the input
    */
   value: number | string
-  /** 
+  /**
    * The number of lines the input should have (default 1)
-   */ 
+   */
   multiline?: number
   /**
    * Sets the onChange state on a parent

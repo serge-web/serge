@@ -1,52 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['MessagesList renders correctly 1'] = `
+exports[`MessagesList renders correctly 1`] = `
 <div
   className="message-list"
 >
-  <span
-    className="link"
+  <button
+    className="MuiButtonBase-root MuiButton-root MuiButton-text"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+    type="button"
   >
-    Mark all as read
-  </span>
-  <div
-    className="info-wrap"
-  >
-    <div
-      className="MuiChip-root MuiChip-colorPrimary"
-      onKeyUp={[Function]}
+    <span
+      className="MuiButton-label"
     >
-      <span
-        className="MuiChip-label"
-      >
-        White
-      </span>
-    </div>
-    <div
-      className="MuiChip-root MuiChip-colorSecondary"
-      onKeyUp={[Function]}
-    >
-      <span
-        className="MuiChip-label"
-      >
-        Game Control
-      </span>
-    </div>
-    <span>
-      2020-Mar-25 15:08
+      Mark all as read
     </span>
-  </div>
-  <div>
-    test
-
-  </div>
-  <p
-    className="feedback-marker"
-    style={
-      Object {
-        "borderColor": "#FCFBEE",
-      }
-    }
-  />
+  </button>
 </div>
-`
+`;

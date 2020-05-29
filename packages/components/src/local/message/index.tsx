@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import Chip from '@material-ui/core/Chip'
-import DoneAllIcon from '@material-ui/icons/DoneAll';
+import DoneAllIcon from '@material-ui/icons/DoneAll'
 
 /* Import Types */
 import PropTypes from './types/props'

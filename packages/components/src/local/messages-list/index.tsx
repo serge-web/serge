@@ -13,10 +13,10 @@ import Message from '../message'
 import { Button } from '@material-ui/core'
 
 /* Render component */
-export const MessagesList: React.FC<PropTypes> = ({ currentChannel, userId, messages}: PropTypes) => {
+export const MessagesList: React.FC<PropTypes> = ({ currentChannel, userId, messages }: PropTypes) => {
   const [messageList, setMessageList] = useState<Array<MessageType>>()
   const [allMarkedRead, setAllMarkedRead] = useState(false)
-  
+
   useEffect(() => {
     setMessageList(messages.map(message => {
       const hasBeenRead = expiredStorage.getItem(`${userId}${message._id}`) === 'read'
@@ -27,7 +27,6 @@ export const MessagesList: React.FC<PropTypes> = ({ currentChannel, userId, mess
       }
     }))
   }, [messages])
-  
 
   // Listen for changes to the allMarkedRead variable
   useEffect(() => {
@@ -58,7 +57,7 @@ export const MessagesList: React.FC<PropTypes> = ({ currentChannel, userId, mess
     <div className={styles['message-list']}>
       <Button onClick={markAllAsRead}>Mark all as read</Button>
       {
-       messageList && messageList.map((message: MessageType) => <Message key={message._id} message={message} />)
+        messageList && messageList.map((message: MessageType) => <Message key={message._id} message={message} />)
       }
     </div>
   )

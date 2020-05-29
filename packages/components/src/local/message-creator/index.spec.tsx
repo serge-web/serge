@@ -11,7 +11,6 @@ const force = {
   icon: ''
 }
 
-
 it('MessageCreator renders correctly', () => {
   const tree = renderer
     .create(<MessageCreator from={force} channel={'Game Admin'} role={'Umpire'} />)

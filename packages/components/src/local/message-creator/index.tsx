@@ -12,38 +12,36 @@ import { TextInput } from '../form-elements/text-input'
 
 /* Render component */
 export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack }) => {
-
-  const [ formState, setFormState ] = useState('')
+  const [formState, setFormState] = useState('')
 
   const timestamp = new Date().toISOString()
 
   const changeHandler = (e: any): void => setFormState(e.value)
   const submitForm = (): void => postBack && postBack({
-    "details": {
-      "channel": channel,
-      "from": {
-        "force": from.name,
-        "forceColor": from.color,
-        "role": role,
-        "icon": from.icon ? from.icon : ''
+    details: {
+      channel: channel,
+      from: {
+        force: from.name,
+        forceColor: from.color,
+        role: role,
+        icon: from.icon ? from.icon : ''
       },
-      "messageType": "Chat",
-      "timestamp": timestamp
+      messageType: 'Chat',
+      timestamp: timestamp
     },
-    "message": {
-      "content": formState
+    message: {
+      content: formState
     },
-    "_id": timestamp,
-    "hasBeenRead": false,
-    "isOpen": false,
-    "open": false
+    _id: timestamp,
+    hasBeenRead: false,
+    isOpen: false,
+    open: false
   })
 
-
-return <div>
-      <TextInput label="Post message" name="Message" multiline={4} updateState={changeHandler} value={formState}/>
-      <Button onClick={submitForm}>Send</Button>
-    </div>
+  return <div>
+    <TextInput label="Post message" name="Message" multiline={4} updateState={changeHandler} value={formState}/>
+    <Button onClick={submitForm}>Send</Button>
+  </div>
 }
 
 export default MessageCreator
