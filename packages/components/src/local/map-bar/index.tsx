@@ -34,6 +34,7 @@ export const MapBar: React.FC = () => {
     selectedAsset,
     channelID,
     postBack,
+    routeStore,
     turnPlanned
   } = useContext(MapContext).props
 
@@ -87,7 +88,7 @@ export const MapBar: React.FC = () => {
       <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
       <div className={styles.inner}>
         <section>
-          <WorldState name="World State"></WorldState>
+          <WorldState name="World State" store={routeStore}></WorldState>
         </section>
         <section>
           {currentForm !== '' && selectedAsset.uniqid !== '' && formSelector(currentForm)}

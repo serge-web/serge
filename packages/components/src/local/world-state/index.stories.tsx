@@ -3,6 +3,7 @@ import React from 'react'
 // Import component files
 import WorldState from './index'
 import docs from './README.md'
+import { RouteStore } from '@serge/custom-types'
 
 export default {
   title: 'local/WorldState',
@@ -16,4 +17,6 @@ export default {
   }
 }
 
-export const Default: React.FunctionComponent = () => <WorldState name="World State" />
+const store:RouteStore = {routes: []}
+
+export const Default: React.FunctionComponent = () => <WorldState store={store} name="World State" />
