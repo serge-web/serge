@@ -83,6 +83,10 @@ export const HexGrid: React.FC<{}> = () => {
 
       // combine with any existing planned cells
       setPlanningRoutePoly(tmpPlannedRoutePoly)
+    } else {
+      // combine with any existing planned cells
+      setPlanningRouteCells([])
+      setPlanningRoutePoly([])
     }
   }, [dragDestination, originHex])
 
@@ -90,11 +94,15 @@ export const HexGrid: React.FC<{}> = () => {
        * as a player plans the leg
        */
   useEffect(() => {
-    if (originHex && gridCells) {
-      // special case. if we don't have a planning range, use the one from props
-      const cells: SergeHex<{}>[] = planningRange ? calcAllowableCells(gridCells, originHex, planningRange) : []
-      setAllowableCells(cells)
-      setOrigin(originHex.centreLatLng)
+    if (originHex && gridCells && planningRange) {
+        // special case. if we don't have a planning range, use the one from props
+        const cells: SergeHex<{}>[] = planningRange ? calcAllowableCells(gridCells, originHex, planningRange) : []
+        setAllowableCells(cells)
+        setOrigin(originHex.centreLatLng)
+    } else {
+      // clear the route
+      setAllowableCells([])
+      setOrigin(undefined)
     }
   }, [originHex, planningRange, gridCells])
 
@@ -107,6 +115,9 @@ export const HexGrid: React.FC<{}> = () => {
       if (filteredCells) {
         setAllowableFilteredCells(filteredCells)
       }
+    } else {
+      // clear the allowable cells
+      setAllowableFilteredCells([])
     }
   }, [planningConstraints, allowableCells])
 
@@ -119,6 +130,8 @@ export const HexGrid: React.FC<{}> = () => {
       if (originCell) {
         setOriginHex(originCell)
       }
+    } else {
+      setOriginHex(undefined)
     }
   }, [planningConstraints, gridCells])
 

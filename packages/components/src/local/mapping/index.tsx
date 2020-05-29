@@ -6,7 +6,7 @@ import MapBar from '../map-bar'
 /* helper functions */
 import createGrid from './helpers/create-grid'
 import boundsFor from './helpers/bounds-for'
-import { routeCreateStore, routeAddStep, routeSetCurrent } from '@serge/helpers'
+import { routeCreateStore, routeAddStep, routeSetCurrent, routeGetLatestPosition } from '@serge/helpers'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -215,9 +215,16 @@ export const Mapping: React.FC<PropTypes> = ({
       const status = plannedTurn.statusVal
       if (status.mobile) {
         // trigger route planning
+        let origin:string = routeGetLatestPosition(current.currentPosition, current.planned)
 
         // work out how far asset can travel
+        const constraints: PlanMobileAsset = {origin: origin, travelMode: 'sea' }
+        setPlanningRange(5)
+        setPlanningConstraints(constraints)
       } else {
+        // if we were planning a mobile route, clear that
+        setPlanningConstraints(undefined)
+        
         // ok, store the new leg
         // how many turns?
         let turnStart: number = turn
