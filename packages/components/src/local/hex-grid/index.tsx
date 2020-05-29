@@ -95,10 +95,10 @@ export const HexGrid: React.FC<{}> = () => {
        */
   useEffect(() => {
     if (originHex && gridCells && planningRange) {
-        // special case. if we don't have a planning range, use the one from props
-        const cells: SergeHex<{}>[] = planningRange ? calcAllowableCells(gridCells, originHex, planningRange) : []
-        setAllowableCells(cells)
-        setOrigin(originHex.centreLatLng)
+      // special case. if we don't have a planning range, use the one from props
+      const cells: SergeHex<{}>[] = planningRange ? calcAllowableCells(gridCells, originHex, planningRange) : []
+      setAllowableCells(cells)
+      setOrigin(originHex.centreLatLng)
     } else {
       // clear the route
       setAllowableCells([])

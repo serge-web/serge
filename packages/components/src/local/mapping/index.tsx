@@ -215,16 +215,16 @@ export const Mapping: React.FC<PropTypes> = ({
       const status = plannedTurn.statusVal
       if (status.mobile) {
         // trigger route planning
-        let origin:string = routeGetLatestPosition(current.currentPosition, current.planned)
+        const origin: string = routeGetLatestPosition(current.currentPosition, current.planned)
 
         // work out how far asset can travel
-        const constraints: PlanMobileAsset = {origin: origin, travelMode: 'sea' }
+        const constraints: PlanMobileAsset = { origin: origin, travelMode: 'sea' }
         setPlanningRange(5)
         setPlanningConstraints(constraints)
       } else {
         // if we were planning a mobile route, clear that
         setPlanningConstraints(undefined)
-        
+
         // ok, store the new leg
         // how many turns?
         let turnStart: number = turn
