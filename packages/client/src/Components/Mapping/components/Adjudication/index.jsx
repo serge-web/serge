@@ -220,6 +220,8 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
                       </label>
                     </li>
                   )
+                } else {
+                  return null
                 }
               })
             }

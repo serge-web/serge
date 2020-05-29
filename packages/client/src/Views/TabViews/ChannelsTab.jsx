@@ -9,7 +9,6 @@ import TextInput from "../../Components/Inputs/TextInput";
 import ChannelsTable from "../../Components/Layout/ChannelsTable";
 import {
   setSelectedChannel,
-  deleteSelectedChannel,
   duplicateChannel,
   saveChannel,
   addNewChannel,

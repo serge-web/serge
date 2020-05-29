@@ -49,6 +49,8 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
                     </label>
                   </li>
                 )
+              } else {
+                return null
               }
             })
           }
