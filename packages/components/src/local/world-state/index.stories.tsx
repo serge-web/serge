@@ -17,6 +17,6 @@ export default {
   }
 }
 
-const store:RouteStore = {routes: []}
+const store: RouteStore = { routes: [] }
 
 export const Default: React.FunctionComponent = () => <WorldState store={store} name="World State" />

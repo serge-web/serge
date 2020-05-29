@@ -6,12 +6,13 @@ import MapBar from '../map-bar'
 /* helper functions */
 import createGrid from './helpers/create-grid'
 import boundsFor from './helpers/bounds-for'
-import { 
+import {
   roundToNearest,
-  routeCreateStore, 
-  routeAddStep, 
-  routeSetCurrent, 
-  routeGetLatestPosition } from '@serge/helpers'
+  routeCreateStore,
+  routeAddStep,
+  routeSetCurrent,
+  routeGetLatestPosition
+} from '@serge/helpers'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -143,7 +144,7 @@ export const Mapping: React.FC<PropTypes> = ({
   // highlight the route for the selected asset
   useEffect(() => {
     // if we were planning a mobile route, clear that
-    if(planningConstraints) {
+    if (planningConstraints) {
       setPlanningConstraints(undefined)
     }
 

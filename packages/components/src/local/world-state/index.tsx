@@ -8,21 +8,20 @@ import styles from './styles.module.scss'
 import { Route } from '@serge/custom-types'
 
 interface PlannedRoute {
-  name: string    
+  name: string
 }
 
-export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) =>
-{
+export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) => {
   const [routes, setRoutes] = useState<Array<PlannedRoute>>([])
 
   /** filter the list of cells allowable for this platform
    * depending on requested cell type
    */
   useEffect(() => {
-    if(store) {
+    if (store) {
       const tmpRoutes: PlannedRoute[] = []
       store.routes.forEach((route: Route) => {
-        const pRoute: PlannedRoute = {name: route.uniqid}
+        const pRoute: PlannedRoute = { name: route.uniqid }
         tmpRoutes.push(pRoute)
       })
       setRoutes(tmpRoutes)
@@ -31,7 +30,6 @@ export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) =>
     // {routes.map((pRoute: PlannedRoute) => {
     //   pRoute.name
     // })}
-    
   }, [store])
 
   return <>
