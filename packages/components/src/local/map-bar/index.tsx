@@ -7,7 +7,7 @@ import collatePlanFormData from './helpers/collate-plan-form-data'
 import collateAdjudicationFormData from './helpers/collate-adjudication-form-data'
 import collatePerceptionFormData from './helpers/collate-perception-form-data'
 
-import { findAsset, forceFor } from '@serge/helpers'
+import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
 import { SelectedAsset } from '@serge/custom-types'
@@ -55,10 +55,11 @@ export const MapBar: React.FC = () => {
     showMapBar ? setShowMapBar(false) : setShowMapBar(true)
   }
 
+  /** an asset has been selected from the list */
   const setSelectedAssetById = (id: string):void => {
     const asset: any = findAsset(forces, id)
     const force: any = forceFor(forces, id)
-    console.log('selected', id, asset)
+    const visibleToArr: string[] = visibleTo(asset.perceptions)
     const selected: SelectedAsset = {
       uniqid: asset.uniqid,
       name: asset.name,
@@ -66,13 +67,11 @@ export const MapBar: React.FC = () => {
       force: force.uniqid,
       controlledBy: force.controlledBy,
       condition: asset.condition,
-      visibleTo: [],
+      visibleTo: visibleToArr,
       status: asset.status
     }
-    console.log('ready to send', selected)
-
+    // ok done, share the good news
     setSelectedAsset(selected)
-    
   }
 
   /* TODO: This should be refactored into a helper */

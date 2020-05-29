@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import L from 'leaflet'
 import { LayerGroup } from 'react-leaflet'
 import AssetIcon from '../asset-icon'
-import { findPerceivedAsTypes } from '@serge/helpers'
+import { findPerceivedAsTypes, visibleTo } from '@serge/helpers'
 import hexNamed from './helpers/hex-named'
 import { UMPIRE_FORCE } from '@serge/config'
 import { Route } from '../route'
@@ -46,7 +46,7 @@ export const Assets: React.FC<{}> = () => {
 
             if (perceivedAs) {
               const cell: SergeHex<{}> | undefined = hexNamed(asset.position, gridCells)
-              const visibleTo: Array<string> = perceptions && perceptions.length ? perceptions.map((p: any) => p.by) : []
+              const visibleToArr: string[] = visibleTo(perceptions)
               if (cell != null) {
                 const position: L.LatLng = cell.centreLatLng
                 const assetInfo: AssetInfo = {
@@ -56,7 +56,7 @@ export const Assets: React.FC<{}> = () => {
                   controlledBy: force.controlledBy,
                   type: perceivedAs[2],
                   force: perceivedAs[1],
-                  visibleTo: visibleTo,
+                  visibleTo: visibleToArr,
                   position,
                   uniqid
                 }
