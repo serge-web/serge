@@ -22,7 +22,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) => {
     if (store) {
       const tmpRoutes: PlannedRoute[] = []
       store.routes.forEach((route: Route) => {
-        const pRoute: PlannedRoute = { 
+        const pRoute: PlannedRoute = {
           name: route.uniqid,
           numPlanned: route.planned.length
         }
@@ -37,7 +37,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) => {
       This is an example component 2, It will eventually become {name}
       {routes.map((pRoute: PlannedRoute) => {
         return <li>{pRoute.name} - {pRoute.numPlanned}</li>
-    })}
+      })}
     </div>
   </>
 }
