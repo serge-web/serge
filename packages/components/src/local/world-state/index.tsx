@@ -42,22 +42,21 @@ export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) => {
 
   return <>
     <div className={styles['world-state']}>
-      This is an example component 2, It will eventually become {name}
-      <h5>My control</h5>
+      <h2>{name}</h2>
       <ul>
+      <li>== [Under my control] ==</li>
       { 
         routes.filter((pRoute: PlannedRoute) => pRoute.underControl)
                 .map((pRoute: PlannedRoute) => {
-                  return <li>{pRoute.name}/{pRoute.platformType} - {pRoute.numPlanned}</li>
+                  return <li>{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} - {pRoute.numPlanned} planned</li>
                 })
       
-      }</ul>
-      <h5>Not under control</h5>
-      <ul>
+      }
+      <li>== [Not under my control] ==</li>
       { 
         routes.filter((pRoute: PlannedRoute) => !pRoute.underControl)
                 .map((pRoute: PlannedRoute) => {
-                  return <li>{pRoute.name}/{pRoute.platformType} - {pRoute.numPlanned}</li>
+                  return <li>{pRoute.name}/{pRoute.platformType}/{pRoute.forceName}</li>
                 })
       
       }</ul>
