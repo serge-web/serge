@@ -35,6 +35,7 @@ it('Mapping renders correctly', () => {
     playerForce = 'Blue'
     platforms = {platformTypes}
     phase = {Phase.Planning}
+    turn = {4}
   />, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

@@ -64,6 +64,7 @@ export const Default: React.FC = () => <Mapping
   playerForce='Blue'
   platforms={platformTypes}
   phase={Phase.Planning}
+  turn={5}
   mapBar={false}
 />
 
@@ -77,6 +78,7 @@ export const WithMapBar: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
+  turn={5}
   playerForce={radios(label, forceNames, defaultValue)}
 >
 </Mapping>
@@ -112,6 +114,7 @@ export const WithMarker: React.FC = () => <Mapping
   playerForce='Blue'
   platforms={platformTypes}
   phase={Phase.Planning}
+  turn={5}
   mapBar={false}
 >
   <AssetIcon
@@ -170,6 +173,7 @@ export const WithAssets: React.FC = () => <Mapping
   playerForce={radios(label, forceNames, defaultValue)}
   platforms={platformTypes}
   phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
+  turn={5}
   postBack={postback} >
   <Assets /><HexGrid />
 </Mapping>
@@ -203,6 +207,7 @@ export const WithGrid: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
+  turn={5}
   playerForce='Blue'
   mapBar={false}
 >
@@ -252,6 +257,7 @@ export const WithAllowableRange: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
+  turn={5}
   playerForce='Blue'
   mapBar={false}
   planningRangeProp={number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)}
@@ -284,6 +290,7 @@ export const OpenStreetMap: React.FC = () => <Mapping
   playerForce='Blue'
   platforms={platformTypes}
   phase={Phase.Planning}
+  turn={5}
   mapBar={false}
 />
 
@@ -314,6 +321,7 @@ export const WithPhases: React.FC = () => <Mapping
   playerForce={radios(phasesViewLabel, phasesViewNames, phaseViewValue)}
   platforms={platformTypes}
   phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
+  turn={5}
 >
   <Assets />
 </Mapping>
@@ -348,6 +356,7 @@ export const WithRoute: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
+  turn={5}
   playerForce='Blue'
   mapBar={false}
 >

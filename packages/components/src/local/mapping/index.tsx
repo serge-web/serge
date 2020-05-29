@@ -17,6 +17,7 @@ import {
   PlanMobileAsset,
   SelectedAsset,
   RouteStore,
+  Route,
   RouteStep,
   PlanTurnFormValues
 } from '@serge/custom-types'
@@ -43,6 +44,7 @@ const defaultProps: PropTypes = {
   platforms: [{}],
   playerForce: 'Blue',
   phase: Phase.Planning,
+  turn: 6,
   tileLayer: {
     url: '',
     attribution: ''
@@ -68,6 +70,7 @@ export const Mapping: React.FC<PropTypes> = ({
   playerForce,
   platforms,
   phase,
+  turn,
   tileLayer,
   minZoom,
   maxZoom,
@@ -205,8 +208,31 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [newLeg])
 
-  const turnPlanned = (turn: PlanTurnFormValues): void => {
-    console.log('new turn', turn)
+  const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
+    const current: Route | undefined = routeStore.selected
+    if(current) {
+      // is it a mobile turn
+      const status = plannedTurn.statusVal
+      if(status.mobile) {
+        // trigger route planning
+
+        // work out how far asset can travel
+      } else {
+        // ok, store the new leg
+        // how many turns?
+        let turnStart: number = turn
+        if(current.planned && current.planned.length > 0) {
+          turnStart = current.planned[current.planned.length - 1].turn
+        }
+        let store: RouteStore = routeStore
+        for(let ctr = 0; ctr < plannedTurn.turnsVal; ctr++) {
+          const step: RouteStep = {turn: ++turnStart, status: {state: status.name}}
+          // store this step
+          store = routeAddStep(store, selectedAsset.uniqid, step)
+        }
+        setRouteStore(store)
+      }
+    }
   }
 
   // Anything you put in here will be available to any child component of Map via a context consumer

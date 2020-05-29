@@ -33,7 +33,8 @@ it('Mapping renders correctly with HexGrid', () => {
     platforms = {platformTypes}
     playerForce={'Blue'}
     phase={Phase.Planning}
-  >
+    turn={5}
+    >
   </Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

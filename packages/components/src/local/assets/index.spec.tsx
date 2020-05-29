@@ -89,7 +89,8 @@ it('Mapping renders correctly with AssetIcon', () => {
     platforms = {platformTypes}
     playerForce="Blue"
     phase={Phase.Planning}
-  >
+    turn={5}
+    >
   </Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
