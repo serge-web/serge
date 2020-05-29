@@ -6,7 +6,12 @@ import MapBar from '../map-bar'
 /* helper functions */
 import createGrid from './helpers/create-grid'
 import boundsFor from './helpers/bounds-for'
-import { routeCreateStore, routeAddStep, routeSetCurrent, routeGetLatestPosition } from '@serge/helpers'
+import { 
+  roundToNearest,
+  routeCreateStore, 
+  routeAddStep, 
+  routeSetCurrent, 
+  routeGetLatestPosition } from '@serge/helpers'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -219,7 +224,16 @@ export const Mapping: React.FC<PropTypes> = ({
 
         // work out how far asset can travel
         const constraints: PlanMobileAsset = { origin: origin, travelMode: 'sea' }
-        setPlanningRange(5)
+
+        const speedKts = plannedTurn.speedVal
+        const stepSize = 30
+        const stepsPerHour = (60 / stepSize)
+        const roughRange = speedKts / tileDiameterMins / stepsPerHour // work out how many NM in 30 minutes
+
+        // check range is in 10s
+        const range = roundToNearest(roughRange, 1)
+
+        setPlanningRange(range)
         setPlanningConstraints(constraints)
       } else {
         // if we were planning a mobile route, clear that
