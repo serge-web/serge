@@ -4,7 +4,6 @@ import React from 'react'
 import MessageCreator from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/MessageCreator',
   component: MessageCreator,
@@ -17,5 +16,14 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <MessageCreator />
+const force = {
+  name: 'blue',
+  color: '#6699cc',
+  icon: ''
+}
 
+import { Message } from '@serge/custom-types'
+
+const showMessage = (message: Message): void => alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
+
+export const Default: React.FC = () => <MessageCreator from={force} channel={'Game Admin'} role={'Umpire'} postBack={showMessage} />

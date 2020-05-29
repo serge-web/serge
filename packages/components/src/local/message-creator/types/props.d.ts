@@ -1,10 +1,16 @@
+
+import { Message } from '@serge/custom-types'
+
 export default interface Props {
+  from: {
+    name: string,
+    color: string,
+    icon?: string
+  },
+  channel: string,
+  role: string,
   /**
-   * The name of the thing
+   * The method for posting messages out of the component
    */
-  name: string
-  /**
-   * The colour of the thing
-   */
-  colour: string
+  postBack?: {(value: Message): void}
 }
