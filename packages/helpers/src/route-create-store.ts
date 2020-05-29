@@ -1,6 +1,7 @@
 import { RouteStore } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
 import { UMPIRE_FORCE } from '@serge/config'
+import findPerceivedAsTypes from './find-perceived-as-types'
 
 /** determine which forces this player can control
  * @param {any} forces array of forces
@@ -64,15 +65,15 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
             {
             // create route for this asset
             store.routes.push(routeCreateRoute(asset, adjudication, force.color, 
-              asset.platformType, true, force.uniqid))
+              true, force.uniqid, asset.name, asset.platformType))
           } else {
             // can't see it directly. See if we can perceive it
             const undefinedColor = '#999' // TODO: this color should not be hard-coded
             const perceivedAs: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColors, undefinedColor)
             if(perceivedAs) {
+              const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId, thisForce, asset.platformType, asset.perceptions, false)
                 // create route for this asset
-                store.routes.push(routeCreateRoute(asset, adjudication, perceivedAs, 
-                  asset.platformType, false, force.uniqid))
+                store.routes.push(routeCreateRoute(asset, false, perceivedAs, false, perceptions[1], perceptions[0], perceptions[2]))
             }
           }
         })

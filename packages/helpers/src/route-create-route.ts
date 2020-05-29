@@ -1,6 +1,5 @@
 import { Route, RouteStatus, RouteStep } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
-import { findPerceivedAsTypes } from './find-perceived-as-types'
 
 /** convert legacy array object to new TypeScript structure
  *
@@ -49,7 +48,7 @@ const createStepArray = (turns: any, adjudication: boolean): Array<RouteStep> =>
  * @returns {Route} Routefor this asset
  */
 const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
-  platformType: string, underControl: boolean, forceName: string): Route => {
+  underControl: boolean, perceivedForce: string, perceivedName: string, perceivedType: string): Route => {
   const stat = asset.status
   const currentStatus: RouteStatus = stat.speedKts
     ? { state: stat.status, speedKts: stat.speedKts }
@@ -59,24 +58,13 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
   // duplicate set (in case the user cancels changes)
   const futureSteps: Array<RouteStep> = createStepArray(asset.plannedTurns, adjudication)
 
-  let perception = undefined
-  if(!underControl) {
-    perception = findPerceivedAsTypes(myForce: forceName,
-      theirName: string,
-      theirContactID: string,
-      theirForce: string,
-      theirType: string,
-      theirPerceptions: [any],
-      userIsUmpire: boolean)
-  } 
-
   return {
     uniqid: asset.uniqid,
-    name: asset.name,
+    name: perceivedName,
     selected: false,
-    platformType: platformType,
+    platformType: perceivedType,
     underControl: underControl,
-    forceName: forceName,
+    forceName: perceivedForce,
     color: color,
     history: createStepArray(asset.history, false), // we plot all history, so ignore whether
                                                     // in adjudication
