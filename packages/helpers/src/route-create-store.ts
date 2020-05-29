@@ -63,14 +63,16 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
               controls.includes(thisForce))  // we can control this force
             {
             // create route for this asset
-            store.routes.push(routeCreateRoute(asset, adjudication, force.color))
+            store.routes.push(routeCreateRoute(asset, adjudication, force.color, 
+              asset.platformType, true, force.uniqid))
           } else {
             // can't see it directly. See if we can perceive it
             const undefinedColor = '#999' // TODO: this color should not be hard-coded
             const perceivedAs: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColors, undefinedColor)
             if(perceivedAs) {
                 // create route for this asset
-                store.routes.push(routeCreateRoute(asset, adjudication, perceivedAs))
+                store.routes.push(routeCreateRoute(asset, adjudication, perceivedAs, 
+                  asset.platformType, false, force.uniqid))
             }
           }
         })
