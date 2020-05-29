@@ -17,7 +17,7 @@ interface PlannedRoute {
   selected: boolean
 }
 
-export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) => {
+export const WorldState: React.FC<PropTypes> = ({ name, store, setSelectedAsset }: PropTypes) => {
   const [routes, setRoutes] = useState<Array<PlannedRoute>>([])
 
   /** filter the list of cells allowable for this platform
@@ -42,6 +42,13 @@ export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) => {
     }
   }, [store])
 
+  // Toggles the map bar on and off
+  const clickEvent = (id: string): void => {
+    if(setSelectedAsset) {
+      setSelectedAsset(id)
+    }
+  }
+
   return <>
     <div className={styles['world-state']}>
       <h2>{name}</h2>
@@ -50,7 +57,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) => {
       { 
         routes.filter((pRoute: PlannedRoute) => pRoute.underControl)
                 .map((pRoute: PlannedRoute) => {
-                return <li>{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} - {pRoute.numPlanned} planned {pRoute.selected ? `[*]` : ``}</li>
+                return <li key={'r_li_' + pRoute.uniqid} onClick={() => clickEvent(pRoute.uniqid)} >{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} - {pRoute.numPlanned} planned {pRoute.selected ? `[*]` : ``}</li>
                 })
       
       }
@@ -58,7 +65,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) => {
       { 
         routes.filter((pRoute: PlannedRoute) => !pRoute.underControl)
                 .map((pRoute: PlannedRoute) => {
-                  return <li>{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} {pRoute.selected ? `[*]` : ``}</li>
+                  return <li key={'r_li_' + pRoute.uniqid} onClick={() => clickEvent(pRoute.uniqid)} >{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} {pRoute.selected ? `[*]` : ``}</li>
                 })
       
       }</ul>

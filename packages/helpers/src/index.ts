@@ -1,5 +1,7 @@
 export { default as calcAllowableCells } from './allowable-cells'
 export { default as findPerceivedAsTypes} from './find-perceived-as-types'
+export { default as findAsset} from './find-asset'
+export { default as forceFor} from './force-for'
 export { default as routeAddStep } from './route-add-step'
 export { default as routeClearFromStep } from './route-clear-from-step'
 export { default as routeCreateStore } from './route-create-store'

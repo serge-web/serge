@@ -7,11 +7,16 @@ import collatePlanFormData from './helpers/collate-plan-form-data'
 import collateAdjudicationFormData from './helpers/collate-adjudication-form-data'
 import collatePerceptionFormData from './helpers/collate-perception-form-data'
 
+import { findAsset, forceFor } from '@serge/helpers'
+
+/* import types */
+import { SelectedAsset } from '@serge/custom-types'
+
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import { MapContext } from '../mapping'
 
 /* Import child components */
+import { MapContext } from '../mapping'
 import WorldState from '../world-state'
 import PerceptionForm from '../perception-form'
 import AdjudicateTurnForm from '../adjudicate-turn-form'
@@ -32,6 +37,7 @@ export const MapBar: React.FC = () => {
     showMapBar,
     setShowMapBar,
     selectedAsset,
+    setSelectedAsset,
     channelID,
     postBack,
     routeStore,
@@ -47,6 +53,29 @@ export const MapBar: React.FC = () => {
   // Toggles the map bar on and off
   const clickEvent = (): void => {
     showMapBar ? setShowMapBar(false) : setShowMapBar(true)
+  }
+
+  const setSelectedAssetById = (id: string):void => {
+    const asset:any = findAsset(forces, id)
+    console.log('selected', id, asset)
+    const selected: SelectedAsset = {
+      uniqid: asset.uniqid,
+      name: asset.name,
+      position: {
+        lat: 12,
+        lng: 23
+      },
+      type: asset.platformType,
+      force: forceFor(forces, id).uniqid,
+      controlledBy: [],
+      condition: asset.condition,
+      visibleTo: [],
+      status: asset.status
+    }
+    console.log('ready to send', selected)
+
+    setSelectedAsset(selected)
+    
   }
 
   /* TODO: This should be refactored into a helper */
@@ -88,7 +117,7 @@ export const MapBar: React.FC = () => {
       <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
       <div className={styles.inner}>
         <section>
-          <WorldState name="World State" store={routeStore}></WorldState>
+          <WorldState name="World State" store={routeStore} setSelectedAsset={setSelectedAssetById}></WorldState>
         </section>
         <section>
           {currentForm !== '' && selectedAsset.uniqid !== '' && formSelector(currentForm)}
