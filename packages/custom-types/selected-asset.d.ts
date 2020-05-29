@@ -5,10 +5,6 @@
 export default interface SelectedAsset {
     uniqid: string,
     name: string,
-    position: {
-      lat: number,
-      lng: number
-    },
     type: string,
     force: string,
     controlledBy: Array<string>,

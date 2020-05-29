@@ -98,10 +98,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset>({
     uniqid: '',
     name: '',
-    position: {
-      lat: 0.00,
-      lng: 0.00
-    },
     type: 'Unknown',
     force: 'Unknown',
     controlledBy: [],

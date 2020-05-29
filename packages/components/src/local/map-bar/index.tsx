@@ -56,18 +56,15 @@ export const MapBar: React.FC = () => {
   }
 
   const setSelectedAssetById = (id: string):void => {
-    const asset:any = findAsset(forces, id)
+    const asset: any = findAsset(forces, id)
+    const force: any = forceFor(forces, id)
     console.log('selected', id, asset)
     const selected: SelectedAsset = {
       uniqid: asset.uniqid,
       name: asset.name,
-      position: {
-        lat: 12,
-        lng: 23
-      },
       type: asset.platformType,
-      force: forceFor(forces, id).uniqid,
-      controlledBy: [],
+      force: force.uniqid,
+      controlledBy: force.controlledBy,
       condition: asset.condition,
       visibleTo: [],
       status: asset.status
