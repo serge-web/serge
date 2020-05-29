@@ -1,6 +1,10 @@
 export default interface PropTypes {
-  wargameTitle: string, 
-  selectedForce: string, 
-  selectedRole: string, 
+  wargameTitle: string
+  selectedForce: {
+    name: string,
+    color: string,
+    icon?: string
+  }
+  selectedRole: string
   chatChannel: any
 }
