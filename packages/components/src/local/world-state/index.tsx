@@ -24,22 +24,20 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, setSelectedAsset 
    * depending on requested cell type
    */
   useEffect(() => {
-    if (store) {
-      const tmpRoutes: PlannedRoute[] = []
-      store.routes.forEach((route: Route) => {
-        const pRoute: PlannedRoute = {
-          name: route.name,
-          uniqid: route.uniqid,
-          numPlanned: route.planned.length,
-          underControl: route.underControl,
-          forceName: route.forceName,
-          platformType: route.platformType,
-          selected: route.selected
-        }
-        tmpRoutes.push(pRoute)
-      })
-      setRoutes(tmpRoutes)
-    }
+    const tmpRoutes: PlannedRoute[] = []
+    store.routes.forEach((route: Route) => {
+      const pRoute: PlannedRoute = {
+        name: route.name,
+        uniqid: route.uniqid,
+        numPlanned: route.planned.length,
+        underControl: route.underControl,
+        forceName: route.forceName,
+        platformType: route.platformType,
+        selected: route.selected
+      }
+      tmpRoutes.push(pRoute)
+    })
+    setRoutes(tmpRoutes)
   }, [store])
 
   // Toggles the map bar on and off

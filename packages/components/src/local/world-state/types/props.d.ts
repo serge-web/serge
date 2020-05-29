@@ -8,7 +8,7 @@ export default interface PropTypes {
   /**
    * the set of routes currently being planned
    */
-  store?: RouteStore
+  store: RouteStore
   /**
    * callback for asset selected
    */
