@@ -19,7 +19,7 @@
   },
   "scripts": {
     "test": "run-p test:*",
-    "test:unit": "jest --coverage",
+    "test:unit": "jest --coverage --passWithNoTests",
     "test:ts": "tsc --pretty",
     "lint": "eslint --fix",
     "genreg": "bcreg --ext ts"
