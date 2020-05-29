@@ -14,6 +14,7 @@ interface PlannedRoute {
   underControl: boolean
   forceName: string
   platformType: string
+  selected: boolean
 }
 
 export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) => {
@@ -32,7 +33,8 @@ export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) => {
           numPlanned: route.planned.length,
           underControl: route.underControl,
           forceName: route.forceName,
-          platformType: route.platformType
+          platformType: route.platformType,
+          selected: route.selected
         }
         tmpRoutes.push(pRoute)
       })
@@ -48,7 +50,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) => {
       { 
         routes.filter((pRoute: PlannedRoute) => pRoute.underControl)
                 .map((pRoute: PlannedRoute) => {
-                  return <li>{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} - {pRoute.numPlanned} planned</li>
+                return <li>{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} - {pRoute.numPlanned} planned {pRoute.selected ? `[*]` : ``}</li>
                 })
       
       }
@@ -56,7 +58,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store }: PropTypes) => {
       { 
         routes.filter((pRoute: PlannedRoute) => !pRoute.underControl)
                 .map((pRoute: PlannedRoute) => {
-                  return <li>{pRoute.name}/{pRoute.platformType}/{pRoute.forceName}</li>
+                  return <li>{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} {pRoute.selected ? `[*]` : ``}</li>
                 })
       
       }</ul>
