@@ -210,10 +210,10 @@ export const Mapping: React.FC<PropTypes> = ({
 
   const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
     const current: Route | undefined = routeStore.selected
-    if(current) {
+    if (current) {
       // is it a mobile turn
       const status = plannedTurn.statusVal
-      if(status.mobile) {
+      if (status.mobile) {
         // trigger route planning
 
         // work out how far asset can travel
@@ -221,12 +221,12 @@ export const Mapping: React.FC<PropTypes> = ({
         // ok, store the new leg
         // how many turns?
         let turnStart: number = turn
-        if(current.planned && current.planned.length > 0) {
+        if (current.planned && current.planned.length > 0) {
           turnStart = current.planned[current.planned.length - 1].turn
         }
         let store: RouteStore = routeStore
-        for(let ctr = 0; ctr < plannedTurn.turnsVal; ctr++) {
-          const step: RouteStep = {turn: ++turnStart, status: {state: status.name}}
+        for (let ctr = 0; ctr < plannedTurn.turnsVal; ctr++) {
+          const step: RouteStep = { turn: ++turnStart, status: { state: status.name } }
           // store this step
           store = routeAddStep(store, selectedAsset.uniqid, step)
         }

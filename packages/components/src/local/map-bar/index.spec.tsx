@@ -38,7 +38,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     playerForce = 'blue'
     phase={Phase.Planning}
     turn={5}
-    ><MapBar /></Mapping>, { attachTo: div })
+  ><MapBar /></Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
 })
