@@ -52,7 +52,7 @@
 .link {
   @include primary-shadow;
   @include transition();
-  background-color: $background-alpha-primary;
+  background-color: #666;
   border-radius: 2px;
   color: $primary-triad-color;
   cursor: pointer;

@@ -17,12 +17,8 @@ export default interface PropTypes {
    * The user id
    */
   userId: string
-  /**
-   * The messages have all been marked as read
-   */
-  allMarkedRead: boolean
-  /* 
-   *  The function to perform to mark all messages as read 
+  /*
+   *  The function to perform to mark all messages as read
    */
   markAllAsRead?: any
 }
