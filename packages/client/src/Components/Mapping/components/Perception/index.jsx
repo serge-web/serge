@@ -38,8 +38,8 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
         <label htmlFor="force">Perceived force</label>
         <ul>
           {
-            allForces.map(force => {
-              if (force.name !== 'White' && force.name !== currentForce) {
+            allForces.filter(force => force.name !== 'White' && force.name !== currentForce)
+              .map((force) => {
                 return (
                   <li key={force.uniqid}>
                     <label>
@@ -49,10 +49,7 @@ const Perception = ({ store, onStoreUpdate, callbackFunction }) => {
                     </label>
                   </li>
                 )
-              } else {
-                return null
-              }
-            })
+              })
           }
         </ul>
       </div>

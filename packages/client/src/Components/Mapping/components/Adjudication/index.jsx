@@ -210,8 +210,8 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
           <span className="label">Visible to</span>
           <ul>
             {
-              allForces.map(force => {
-                if (force.name !== 'White' && force.name !== currentMarkerForce) {
+              allForces.filter(force => force.name !== 'White' && force.name !== currentMarkerForce)
+                .map((force) => {
                   return (
                     <li key={force.uniqid}>
                       <label>
@@ -220,10 +220,7 @@ const Adjudication = ({ store, onStoreUpdate, callbackFunction }) => {
                       </label>
                     </li>
                   )
-                } else {
-                  return null
-                }
-              })
+                })
             }
           </ul>
         </div>
