@@ -5,7 +5,7 @@ export default interface Message {
       force: string,
       forceColor: string,
       role: string,
-      icon: string
+      icon?: string
       name?: string
     }
     messageType: string,
@@ -15,7 +15,7 @@ export default interface Message {
     content: string
   },
   open: boolean,
+  isOpen: boolean
   hasBeenRead: boolean
   _id: string
-  _rev: string
 }
