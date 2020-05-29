@@ -62,13 +62,9 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       zoomAnimation: false
     })
 
-    const tiledBackdrop = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
-      attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
-    })
-
     const imageBounds = [[imageTop, imageLeft], [imageBottom, imageRight]]
 
-    const tiles = L.tileLayer('./tiles/{z}/{x}/{y}.png', {
+    L.tileLayer('./tiles/{z}/{x}/{y}.png', {
       minZoom: 8,
       maxZoom: 12,
       tms: false,
