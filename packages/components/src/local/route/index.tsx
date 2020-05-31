@@ -23,10 +23,6 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
   const [historyTurnMarkers, setHistoryTurnMarkers] = useState<JSX.Element[]>([])
   const [plannedTurnMarkers, setPlannedTurnMarkers] = useState<JSX.Element[]>([])
 
-  // show button
-  const [historyButton, setHistoryButton] = useState<boolean>(false)
-  const [plannedButton, setPlannedButton] = useState<boolean>(false)
-
   // set the routeData
   // Note : the planned and history data are often created in the same way,
   // maybe some refactoring would be necessary in this case
@@ -40,12 +36,12 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
   // create the markers and define the last turn value for each routes
   useEffect(() => {
     if (!plannedRoutes) return
-    setPlannedTurnMarkers(createTurnMarkers(plannedRoutes, 'planned', color, setPlannedButton, selected, plannedButton))
+    setPlannedTurnMarkers(createTurnMarkers(plannedRoutes, 'planned', color, selected))
   }, [plannedRoutes, selected])
 
   useEffect(() => {
     if (!historyRoutes) return
-    setHistoryTurnMarkers(createTurnMarkers(historyRoutes, 'history', color, setHistoryButton, selected, historyButton))
+    setHistoryTurnMarkers(createTurnMarkers(historyRoutes, 'history', color, selected))
   }, [historyRoutes, selected])
 
   return <>

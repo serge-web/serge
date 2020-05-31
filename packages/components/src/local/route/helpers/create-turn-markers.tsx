@@ -7,7 +7,7 @@ import calculatePolylineAngle from './calculate-polyline-angle'
 import getTurnNumber from './get-turn-number'
 import Button from '@material-ui/core/Button'
 
-const createTurnMarkers = (routes: RouteData, type: string, color: string, showButton: Function, selected: boolean, open: boolean): JSX.Element[] => {
+const createTurnMarkers = (routes: RouteData, type: string, color: string, selected: boolean): JSX.Element[] => {
   return routes.steps.map((rte: RouteStep, index: number) => {
     let angle
 
@@ -16,7 +16,7 @@ const createTurnMarkers = (routes: RouteData, type: string, color: string, showB
       angle = Math.abs(calculatePolylineAngle(segment)) + 90
     }
 
-    const markers = (color: string, angle?: number) => {
+    const markers = (color: string, angle?: number): JSX.Element => {
       const turn = getTurnNumber(index + 1)
       if (selected === true) {
         return (
@@ -24,19 +24,17 @@ const createTurnMarkers = (routes: RouteData, type: string, color: string, showB
             <Marker key={`${type}_text_turns_${index}`} position={rte.position} width="2" icon={L.divIcon({
               html: `<text>T${turn}: ${rte.status.state} @ ${rte.status.speedKts}kts</text>`,
               iconSize: [300, 20]
-            })}
-            onClick={(): Function => showButton('block')}>
+            })}>
             </Marker>
             <Marker key={`${type}_turns_${index}`} position={rte.position} width="2" icon={L.divIcon({
               html: svgIcon(color, angle || 0),
               iconSize: [20, 20]
-            })}
-            onClick={(): Function => showButton('block')}>
-              <Popup open={open} onClose={() => showButton(false)}>
+            })}>
+              <Popup open={false}>
                 <Button
                 // Note: here we have available handlers to activate the removeLastTurn function
                 // onClick={(): void => removeLastTurn(historyRoutes)}
-                >{`Remove leg T${turn} from route for ${name}`}</Button>
+                >{`Clear route from Turn ${turn}`}</Button>
               </Popup>
             </Marker>
           </>
