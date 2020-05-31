@@ -8,8 +8,9 @@ export default interface AssetInfo {
     speedKts: number
     state: string
   }
-  force: string
   type: string
+  force: string
+  visibleTo: Array<string>
   uniqid: string
   controlledBy: [string]
 }

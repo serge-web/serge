@@ -3,6 +3,10 @@ import cx from 'classnames'
 import { ArrowRight } from '@material-ui/icons'
 import assetDialogFor from './helpers/asset-dialog-for'
 
+import collatePlanFormData from './helpers/collate-plan-form-data'
+import collateAdjudicationFormData from './helpers/collate-adjudication-form-data'
+import collatePerceptionFormData from './helpers/collate-perception-form-data'
+
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 import { MapContext } from '../mapping'
@@ -23,15 +27,12 @@ export const MapBar: React.FC = () => {
   const {
     playerForce,
     phase,
+    platforms,
+    forces,
     showMapBar,
     setShowMapBar,
     selectedAsset,
-    perceptionFormData,
-    planTurnFormData,
-    adjudicateTurnFormData,
-    setPlanTurnFormData,
-    setPerceptionFormData,
-    setAdjudicateTurnFormData
+    postBack
   } = useContext(MapContext).props
 
   // Selects the current asset
@@ -50,13 +51,24 @@ export const MapBar: React.FC = () => {
     let output = null
     switch (form) {
       case 'PerceivedAs':
-        output = <PerceptionForm formHeader={currentAssetName} formData={perceptionFormData} postBack={setPerceptionFormData} />
+        output = <PerceptionForm
+          key={selectedAsset.uniqid}
+          formData={collatePerceptionFormData(platforms, selectedAsset, forces)}
+          postBack={postBack} />
         break
       case 'Adjudication':
-        output = <AdjudicateTurnForm formHeader={currentAssetName} formData={adjudicateTurnFormData} postBack={setAdjudicateTurnFormData} />
+        output = <AdjudicateTurnForm
+          key={selectedAsset.uniqid}
+          formHeader={currentAssetName}
+          formData={collateAdjudicationFormData(platforms, selectedAsset, forces)}
+          postBack={postBack} />
         break
       case 'Planning':
-        output = <PlanTurnForm formHeader={currentAssetName} formData={planTurnFormData} postBack={setPlanTurnFormData}/>
+        output = <PlanTurnForm
+          key={selectedAsset.uniqid}
+          formHeader={currentAssetName}
+          formData={collatePlanFormData(platforms, selectedAsset)}
+          postBack={postBack}/>
         break
       default:
         output = null
@@ -73,7 +85,7 @@ export const MapBar: React.FC = () => {
           <WorldState name="World State"></WorldState>
         </section>
         <section>
-          {currentForm !== '' && currentAssetName !== undefined && formSelector(currentForm)}
+          {currentForm !== '' && selectedAsset.uniqid !== '' && formSelector(currentForm)}
         </section>
       </div>
     </div>

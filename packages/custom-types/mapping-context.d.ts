@@ -2,29 +2,8 @@ import { Phase } from '@serge/config'
 import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
-
-interface SelectedAsset {
-  /**
-   * unique id
-   */
-  id: string
-  /**
-   * current hex position of asset
-   */
-  position: number[]
-  /**
-   *  type of asset
-   */
-  type: string
-  /**
-   * force-id for asset
-   */
-  force: string
-  /**
-   *  list of force-ids for who can control this asset
-   */
-  controlledBy: string[]
-}
+import SelectedAsset from './selected-asset'
+import { PerceptionFormData, PlanTurnFormData, AdjudicateTurnFormData } from './forms'
 
 /**
  * mapping context, shared with child elements
@@ -87,27 +66,7 @@ export default interface MappingContext {
    **/
   setZoomLevel: React.Dispatch<React.SetStateAction<number>>
   /**
-   * State containing data for Perception Form
+   * The method for posting messages out of the mapping component
    */
-  perceptionFormData: any,
-  /**
-   * State containing data for Plan turn Form
-   */
-  planTurnFormData: any,
-  /**
-   * State containing data for Adjudicate turn Form
-   */
-  adjudicateTurnFormData: any,
-  /**
-   * Setter to update Plan turn form
-   */
-  setPlanTurnFormData: React.Dispatch<React.SetStateAction<any>>,
-  /**
-   * Setter to update Perception form
-   */
-  setPerceptionFormData: React.Dispatch<React.SetStateAction<any>>,
-  /**
-   * Setter to update Adjudicate turn form
-   */
-  setAdjudicateTurnFormData: React.Dispatch<React.SetStateAction<any>>
+  postBack?: {(messageType:string, payload: any): void}
 }

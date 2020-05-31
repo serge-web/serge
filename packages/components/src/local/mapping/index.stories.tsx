@@ -110,10 +110,19 @@ export const WithMarker: React.FC = () => <Mapping
   phase={Phase.Planning}
   mapBar={false}
 >
-  <AssetIcon id="id1" name="Jeffrey" position={L.latLng(13.298034302, 43.0488191271)}
+  <AssetIcon
+    uniqid="id1"
+    name="Jeffrey"
+    condition='Working'
+    position={L.latLng(13.298034302, 43.0488191271)}
     selected={boolean(visLabel, visDefaultValue)}
     type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)}
     force={radios(assetForcelabel, assetForceNames, assetForceDefaultValue)}
+    visibleTo={['blue,', 'red']}
+    status={{
+      speedKts: 10,
+      state: 'Working'
+    }}
     tooltip="Tooltip for marker" />
 </Mapping>
 
@@ -138,6 +147,11 @@ const forceNames = {
 }
 const defaultValue = 'Blue'
 
+// generic postback handler, for forms
+const postback = (messageType: string, payload: any): void => {
+  console.log('postback', messageType, payload)
+  window.alert('postback:' + messageType + ', ' + JSON.stringify(payload))
+}
 export const WithAssets: React.FC = () => <Mapping
   tileDiameterMins={5}
   bounds={bounds}
@@ -146,6 +160,7 @@ export const WithAssets: React.FC = () => <Mapping
   playerForce={radios(label, forceNames, defaultValue)}
   platforms={platformTypes}
   phase={Phase.Planning}
+  postBack={postback}
 >
   <Assets />
 </Mapping>

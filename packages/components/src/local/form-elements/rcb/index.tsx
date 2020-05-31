@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { camelCase } from 'lodash'
+import { camelCase, kebabCase } from 'lodash'
 
 import InputContainer from '../../input-container'
 import { FormControlLabel, RadioGroup } from '@material-ui/core'
@@ -75,12 +75,11 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
         options.map((option: any) => {
           const o = option.name || option
           const selected = getSelected(o)
-
           return <FormControlLabel
             key={option.name || option.toString()}
             control={componentSelector(type, option, selected, handleCheckbox, inputName)}
             label={getLabel(option)}
-            value={option.name || option}/>
+            value={kebabCase(option.name) || option}/>
         }
         )
       }

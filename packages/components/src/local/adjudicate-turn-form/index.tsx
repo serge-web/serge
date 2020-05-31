@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
+
+/* Import components */
 import Form from '../form'
 import PlannedRoute from '../form-elements/planned-route'
 import { Button } from '@material-ui/core'
@@ -60,7 +62,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
 
   const submitForm = (): void => {
     if (postBack !== undefined) {
-      postBack(formState)
+      postBack('adjudicate', formState)
     }
   }
 
