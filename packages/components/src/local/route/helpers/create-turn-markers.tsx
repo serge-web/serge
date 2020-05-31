@@ -21,12 +21,12 @@ const createTurnMarkers = (routes: RouteData, type: string, color: string, showB
           html: `<text>T${getTurnNumber(index + 1)}: ${rte.status.state} @ ${rte.status.speedKts}kts</text>`,
           iconSize: [300, 20]
         })}
-        onClick={(): Function => showButton(type)} />
+        onClick={(): Function => showButton('block')} />
         <Marker key={`${type}_turns_${rte}`} position={rte.position} width="2" icon={L.divIcon({
           html: svgIcon(color, angle || 0),
           iconSize: [30, 20]
         })}
-        onClick={(): Function => showButton(type)} />
+        onClick={(): Function => showButton('block')} />
       </Fragment>
     )
   })
