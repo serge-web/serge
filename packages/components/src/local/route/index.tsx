@@ -24,10 +24,13 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
   const [historyTurnMarkers, setHistoryTurnMarkers] = useState<JSX.Element[]>([])
   const [plannedTurnMarkers, setPlannedTurnMarkers] = useState<JSX.Element[]>([])
 
-  // last turn
+  // last turn of the route
   const [historyLastTurn, setHistoryLastTurn] = useState<number>()
   const [plannedLastTurn, setPlannedLastTurn] = useState<number>()
 
+  // set the routeData
+  // Note : the planned and history data are often created in the same way, 
+  // maybe some refactoring would be necessary in this case
   useEffect(() => {
     if (gridCells) {
       setHistoryRoutes(routesFor(gridCells, location, history, trimmed))
@@ -35,6 +38,7 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
     }
   }, [gridCells, location, history, trimmed])
 
+  // create the markers and define the last turn value for each routes
   useEffect(() => {
     if (!plannedRoutes) return
     setPlannedTurnMarkers(createTurnMarkers(plannedRoutes, 'planned', color, showButton))
@@ -47,9 +51,13 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
     setHistoryLastTurn(historyRoutes.turnEnds.length)
   }, [historyRoutes])
 
+  // activate the button to remove the last turn
   const showButton = (type: string): void => {
     const button = document.getElementById(`button_turnEnd_${type}`)
     if (button) {
+      // the button is shown while clicking on the turn markers,
+      // Note : while the button should be able to be masked while clicking elsewhere, 
+      // I could not do it while working inside of the component, maybe the context could be used for that
       const visible = button.style.display
       button.style.display = defineVisibility(visible)
     }
@@ -64,7 +72,8 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
     <LayerGroup key={'hex_route_layer_' + name} >
       {historyRoutes &&
         <LayerGroup>
-          <Button id={'button_turnEnd_history'} style={{ display: "none" }}
+          <Button id={'button_turnEnd_history'} style={{ display: 'none' }}
+          // Note: here we have available handlers to activate the removeLastTurn function
           // onClick={(): void => removeLastTurn(historyRoutes)}
           >
             {historyLastTurn ? `Remove leg ${getTurnNumber(historyLastTurn)} from route for ${name}` : null}
@@ -82,7 +91,8 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
       }
       {plannedRoutes &&
         <LayerGroup>
-          <Button id={'button_turnEnd_planned'} style={{ display: "none" }}
+          <Button id={'button_turnEnd_planned'} style={{ display: 'none' }}
+          // Note: here we have available handlers to activate the removeLastTurn function
           // onClick={(): void => removeLastTurn(plannedRoutes)}
           >
             {plannedLastTurn ? `Remove leg ${getTurnNumber(plannedLastTurn)} from route for ${name}` : null}
