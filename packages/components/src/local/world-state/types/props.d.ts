@@ -13,7 +13,7 @@ export default interface PropTypes {
    * phase of the wargame
    */
   phase: string
-  /** 
+  /**
    * the title of the submit button
    */
   submitTitle?: string

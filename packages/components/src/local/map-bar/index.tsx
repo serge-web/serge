@@ -29,12 +29,10 @@ export const MapBar: React.FC = () => {
   const [currentForm, setCurrentForm] = useState('')
   const [currentAssetName, setCurrentAssetName] = useState('')
 
-
   const [stateFormTitle, setStateFormTitle] = useState<string>('')
   const [stateSubmitTitle, setStateSubmitTitle] = useState<string>('')
   // handler for the State of World form
   const [stateSubmitHandler, setStateSubmitHandler] = useState<{(): void} | undefined>(undefined)
-
 
   /* Pull in the context from MappingContext */
   const {
@@ -54,28 +52,28 @@ export const MapBar: React.FC = () => {
 
   // sort out the handler for State of World button
   useEffect(() => {
-    let handler = undefined
-    let formTitle: string = ''
-    let submitTitle: string = ''
-    if(phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
+    let handler
+    let formTitle = ''
+    let submitTitle = ''
+    if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
       formTitle = 'State of World'
-      handler = ():any => {
+      handler = (): any => {
         console.log('Submitting State of World')
       }
       submitTitle = 'Submit state of world'
-    } else if(phase === PLANNING_PHASE) {
+    } else if (phase === PLANNING_PHASE) {
       formTitle = 'My Forces'
-      handler = ():any => {
+      handler = (): any => {
         console.log('Submitting my forces')
       }
       submitTitle = 'Submit routes'
     }
-    if(submitTitle) {
+    if (submitTitle) {
       console.log('map-bar', submitTitle, handler)
       setStateSubmitHandler(handler)
       setStateSubmitTitle(submitTitle)
     }
-    if(formTitle !== '') {
+    if (formTitle !== '') {
       setStateFormTitle(formTitle)
     }
   }, [phase, playerForce])
@@ -130,7 +128,7 @@ export const MapBar: React.FC = () => {
           postBack={postBack} />
         break
       case 'Planning':
-        if(phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
+        if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
 
         }
         output = <PlanTurnForm
@@ -152,12 +150,12 @@ export const MapBar: React.FC = () => {
       <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
       <div className={styles.inner}>
         <section>
-          <WorldState 
-            name={stateFormTitle} 
-            phase={phase} 
-            store={routeStore} 
+          <WorldState
+            name={stateFormTitle}
+            phase={phase}
+            store={routeStore}
             submitTitle = {stateSubmitTitle}
-            setSelectedAsset={setSelectedAssetById} 
+            setSelectedAsset={setSelectedAssetById}
             submitForm={stateSubmitHandler} ></WorldState>
         </section>
         <section>

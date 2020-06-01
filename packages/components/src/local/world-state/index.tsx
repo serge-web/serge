@@ -48,8 +48,8 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
     }
   }
 
-  const submitCallback = ():any => {
-    if(submitForm) {
+  const submitCallback = (): any => {
+    if (submitForm) {
       submitForm()
     }
   }
@@ -73,10 +73,10 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
             })
 
         }</ul>
-        {
-          submitTitle && <Button onClick={submitCallback}>{submitTitle}</Button>
-        }
-      
+      {
+        submitTitle && <Button onClick={submitCallback}>{submitTitle}</Button>
+      }
+
     </div>
   </>
 }
