@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
+import { Button } from '@material-ui/core'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -17,7 +18,7 @@ interface PlannedRoute {
   selected: boolean
 }
 
-export const WorldState: React.FC<PropTypes> = ({ name, store, setSelectedAsset }: PropTypes) => {
+export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelectedAsset, submitTitle, submitForm }: PropTypes) => {
   const [routes, setRoutes] = useState<Array<PlannedRoute>>([])
 
   /** filter the list of cells allowable for this platform
@@ -38,12 +39,18 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, setSelectedAsset 
       tmpRoutes.push(pRoute)
     })
     setRoutes(tmpRoutes)
-  }, [store])
+  }, [store, phase])
 
   // Toggles the map bar on and off
   const clickEvent = (id: string): void => {
     if (setSelectedAsset) {
       setSelectedAsset(id)
+    }
+  }
+
+  const submitCallback = ():any => {
+    if(submitForm) {
+      submitForm()
     }
   }
 
@@ -66,6 +73,10 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, setSelectedAsset 
             })
 
         }</ul>
+        {
+          submitTitle && <Button onClick={submitCallback}>{submitTitle}</Button>
+        }
+      
     </div>
   </>
 }

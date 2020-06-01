@@ -10,7 +10,19 @@ export default interface PropTypes {
    */
   store: RouteStore
   /**
+   * phase of the wargame
+   */
+  phase: string
+  /** 
+   * the title of the submit button
+   */
+  submitTitle?: string
+  /**
    * callback for asset selected
    */
   setSelectedAsset?: {(id: string): void}
+  /**
+   * callback for submit changes
+   */
+  submitForm?: {(): void}
 }
