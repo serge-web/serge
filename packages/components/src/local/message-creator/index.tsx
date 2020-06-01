@@ -17,7 +17,8 @@ export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack 
   const timestamp = new Date().toISOString()
 
   const changeHandler = (e: any): void => setFormState(e.value)
-  const submitForm = (): void => postBack && postBack({
+  const submitForm = (): void => {
+    postBack && postBack({
     details: {
       channel: channel,
       from: {
@@ -37,6 +38,8 @@ export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack 
     isOpen: false,
     open: false
   })
+  setFormState('')
+}
 
   return <div>
     <TextInput label="Post message" name="Message" multiline={4} updateState={changeHandler} value={formState}/>
