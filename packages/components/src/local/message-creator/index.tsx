@@ -19,27 +19,27 @@ export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack 
   const changeHandler = (e: any): void => setFormState(e.value)
   const submitForm = (): void => {
     postBack && postBack({
-    details: {
-      channel: channel,
-      from: {
-        force: from.name,
-        forceColor: from.color,
-        role: role,
-        icon: from.icon ? from.icon : ''
+      details: {
+        channel: channel,
+        from: {
+          force: from.name,
+          forceColor: from.color,
+          role: role,
+          icon: from.icon ? from.icon : ''
+        },
+        messageType: 'Chat',
+        timestamp: timestamp
       },
-      messageType: 'Chat',
-      timestamp: timestamp
-    },
-    message: {
-      content: formState
-    },
-    _id: timestamp,
-    hasBeenRead: false,
-    isOpen: false,
-    open: false
-  })
-  setFormState('')
-}
+      message: {
+        content: formState
+      },
+      _id: timestamp,
+      hasBeenRead: false,
+      isOpen: false,
+      open: false
+    })
+    setFormState('')
+  }
 
   return <div>
     <TextInput label="Post message" name="Message" multiline={4} updateState={changeHandler} value={formState}/>
