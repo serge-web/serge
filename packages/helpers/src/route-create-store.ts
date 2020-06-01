@@ -59,13 +59,25 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
     if (force.assets) {
         // loop through assets
         force.assets.forEach((asset: any) => {
-          if (playerForce === UMPIRE_FORCE || // umpire sees all
-              thisForce === playerForce ||   // this is one of our assets
-              controls.includes(thisForce))  // we can control this force
-            {
-            // create route for this asset
+          // different handling for planning vs adjudication
+          let controlled = false
+          if(playerForce == UMPIRE_FORCE) {
+            if(adjudication) {
+              // if we're white in adjudication mode, we control all
+              controlled = true
+            } else {
+              // do I actually control this platform type
+              controlled = thisForce === playerForce || controls.includes(thisForce)
+            }
+          } else {
+            // do I actually control this platform type
+            controlled = thisForce === playerForce || controls.includes(thisForce)
+          }
+        
+          if(controlled || playerForce === UMPIRE_FORCE) {
+            // asset under player control or player is umpire, so use real attributes
             store.routes.push(routeCreateRoute(asset, adjudication, force.color, 
-              true, force.uniqid, asset.name, asset.platformType))
+              controlled, force.uniqid, asset.name, asset.platformType))
           } else {
             // can't see it directly. See if we can perceive it
             const undefinedColor = '#999' // TODO: this color should not be hard-coded
