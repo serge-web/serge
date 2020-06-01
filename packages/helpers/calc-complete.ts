@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 const calcComplete = (data: any): any => {
   // pagination completion bar at top of gameDesigner page
-  const flatten = (n) => {
+  const flatten = (n: any): any => {
     if (_.isBoolean(n)) return true
     if (_.isNumber(n) && n > 0) return true
     if (_.isEmpty(n)) return null // force show empty array
