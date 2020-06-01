@@ -1,4 +1,4 @@
-const isValidURI = (str: string): boolean {
+const isValidURI = (str: string): boolean => {
   const httpPattern = new RegExp('^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
