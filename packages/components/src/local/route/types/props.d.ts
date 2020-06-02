@@ -5,7 +5,7 @@ export default interface PropTypes {
    * name of this platform
    */
   name: string
-  /** 
+  /**
    * current game turn number
    */
   turnNumber: number

@@ -337,7 +337,6 @@ const currentTurnOptions = {
   step: 1
 }
 
-
 // test data:
 const greenForce: any = forces[3]
 const platform: any = greenForce.assets[0]
@@ -354,7 +353,7 @@ export const WithRoute: React.FC = () => <Mapping
   mapBar={false}
 >
   <HexGrid />
-  <Route name={'test'} location={platform.position} 
+  <Route name={'test'} location={platform.position}
     turnNumber={number(currentTurnLabel, currentTurnDefaultValue, currentTurnOptions, 'Adjustments')}
     history={history} planned={plannedTurns} color={'#00f'}
     selected={boolean(selectedLabel, selectedDefaultValue, 'Adjustments')}
