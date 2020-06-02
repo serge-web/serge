@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 import { Marker, Popup } from 'react-leaflet'
 import RouteData, { RouteStep } from '../types/route-data'
-import L from 'leaflet'
-import svgIcon, { simpleIcon } from './create-marker'
+import L, { LatLng } from 'leaflet'
+import { simpleIcon, svgIcon } from './create-marker'
 import calculatePolylineAngle from './calculate-polyline-angle'
 import getTurnNumber from './get-turn-number'
 import Button from '@material-ui/core/Button'
@@ -11,13 +11,12 @@ const createTurnMarkers = (routes: RouteData, type: string, color: string, selec
   return routes.steps.map((rte: RouteStep, index: number) => {
     let angle
 
-    if (index > 0 && selected) {
-      const segment = [routes.steps[index - 1].position, rte.position]
-      angle = Math.abs(calculatePolylineAngle(segment)) + 90
+    if (selected) {
+      angle = calculateTurnAngle(routes, index, rte)
     }
 
     const markers = (color: string, angle?: number): JSX.Element => {
-      const turn = getTurnNumber(index + 1)
+      const turn = getTurnNumber(index)
       if (selected === true) {
         return (
           <>
@@ -58,3 +57,41 @@ const createTurnMarkers = (routes: RouteData, type: string, color: string, selec
 }
 
 export default createTurnMarkers
+
+function calculateTurnAngle (routes: RouteData, stepIndex: number, step: RouteStep) {
+  let angle = 0; let previousAngle = 0; let nextAngle = 0
+
+  // avoid duplication of point in polyline
+  const polyline = [...new Set(routes.polyline)]
+
+  // extract current position in polyline
+  const currentStepIndexInPolyline: number = polyline.findIndex(point => point === step.position)
+
+  // extract previous polyline for the refered step
+  const previousPolyline: LatLng[] = [polyline[currentStepIndexInPolyline - 1], polyline[currentStepIndexInPolyline]]
+
+  // extract the next polyline
+  const nextPolyline: LatLng[] = [polyline[currentStepIndexInPolyline], polyline[currentStepIndexInPolyline + 1]]
+
+  if (stepIndex === routes.steps.length - 1) {
+    // calculate the previous leg angle
+    angle = calculatePolylineAngle(previousPolyline)
+  } else {
+    // calculate the previous leg angle
+    previousAngle = calculatePolylineAngle(previousPolyline)
+
+    // calculate the next leg angle
+    nextAngle = calculatePolylineAngle(nextPolyline)
+
+    // return the mean of both
+    angle = (previousAngle + nextAngle) / 2
+  }
+
+  // add 90 to get the perpendicular angle modulo 360
+  angle = (angle + 90) % 360
+
+  // convert to leaflet orientation east anti-clockwise
+  angle = (360 - (angle - 90)) % 360
+
+  return angle
+}
