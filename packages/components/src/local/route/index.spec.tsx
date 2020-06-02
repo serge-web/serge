@@ -38,7 +38,7 @@ it('Mapping renders correctly with Route', () => {
     playerForce={'Blue'}
     phase={Phase.Planning}
   >
-    <Route name={'alpha'} location={'J2'} history={history} planned={plannedTurns}
+    <Route name={'alpha'} location={'J2'} history={history} planned={plannedTurns} turnNumber={3}
       trimmed={false} color={'#f00'} selected={true} />
   </Mapping>, { attachTo: div })
 
