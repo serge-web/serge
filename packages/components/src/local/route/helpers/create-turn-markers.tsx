@@ -58,7 +58,7 @@ const createTurnMarkers = (routes: RouteData, type: string, color: string, selec
 
 export default createTurnMarkers
 
-function calculateTurnAngle (routes: RouteData, stepIndex: number, step: RouteStep) {
+function calculateTurnAngle (routes: RouteData, stepIndex: number, step: RouteStep): number {
   let angle = 0; let previousAngle = 0; let nextAngle = 0
 
   // avoid duplication of point in polyline
