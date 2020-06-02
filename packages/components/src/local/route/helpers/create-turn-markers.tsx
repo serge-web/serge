@@ -7,7 +7,7 @@ import calculatePolylineAngle from './calculate-polyline-angle'
 import { padInteger } from '@serge/helpers'
 import Button from '@material-ui/core/Button'
 
-const createTurnMarkers = (routes: RouteData, type: string, color: string, selected: boolean): JSX.Element[] => {
+const createTurnMarkers = (routes: RouteData, turnNumber:number, type: string, color: string, selected: boolean): JSX.Element[] => {
   return routes.steps.map((rte: RouteStep, index: number) => {
     let angle
 
@@ -16,7 +16,8 @@ const createTurnMarkers = (routes: RouteData, type: string, color: string, selec
     }
 
     const markers = (color: string, angle?: number): JSX.Element => {
-      const turn = padInteger(index)
+      // start from the current game turn, increment by 0-based offset
+      const turn = padInteger(turnNumber + index + 1)
       if (selected === true) {
         return (
           <>
