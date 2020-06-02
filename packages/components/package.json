@@ -13,8 +13,8 @@
     "test": "run-p test:*",
     "test:ts": "tsc --pretty",
     "test:unit": "jest --coverage -u",
-    "lint": "run-p lint:*",
-    "lint:ts": "eslint --fix src/**/*.ts* --no-verify",
+    "lint": "run-p lint:* --no-verify",
+    "lint:ts": "eslint --fix src/**/*.ts*",
     "lint:styles": "stylelint --fix src/**/*.scss",
     "build-storybook": "build-storybook -s ./static -c .storybook -o ../client/build/storybook"
   },
