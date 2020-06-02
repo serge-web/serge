@@ -44,7 +44,7 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
                 turnEnds.push(thisCell.centreLatLng)
               } else if (step.coords && thisRouteCtr === step.coords.length - 1) {
                 let routeStep: RouteStep
-                if(step.status.speedKts) {
+                if (step.status.speedKts) {
                   routeStep = {
                     position: thisCell.centreLatLng,
                     status: {
@@ -52,22 +52,21 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
                       state: step.status.state
                     }
                   }
-  
                 } else {
                   routeStep = {
                     position: thisCell.centreLatLng,
                     status: {
                       state: step.status.state
                     }
-  
+
+                  }
+                  routeSteps.push(routeStep)
                 }
-                routeSteps.push(routeStep)
+                polyline.push(thisCell.centreLatLng)
+                thisRouteCtr++
               }
-              polyline.push(thisCell.centreLatLng)
-              thisRouteCtr++
             }
-          }
-        })
+          })
         }
       })
     }
