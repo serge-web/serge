@@ -22,4 +22,4 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <MessagesList userId="" messages={MessagesMock} allMarkedRead={false} />
+export const Default: React.FC = () => <MessagesList userId="" messages={MessagesMock} />

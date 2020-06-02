@@ -1,0 +1,16 @@
+export default {
+  "type": "object",
+  "properties": {
+    "content": {
+      "type": "string",
+      "format": "textarea",
+      "options": {
+        "inputAttributes": {
+          "placeholder": "type the text"
+        }
+      }
+    }
+  },
+  "title": "Chat",
+  "format": "grid"
+}

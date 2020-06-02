@@ -64,7 +64,7 @@ export const Default: React.FC = () => <Mapping
   playerForce='Blue'
   platforms={platformTypes}
   phase={Phase.Planning}
-  turn={5}
+  turnNumber={5}
   mapBar={false}
 />
 
@@ -78,7 +78,7 @@ export const WithMapBar: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
-  turn={5}
+  turnNumber={5}
   playerForce={radios(label, forceNames, defaultValue)}
 >
 </Mapping>
@@ -114,7 +114,7 @@ export const WithMarker: React.FC = () => <Mapping
   playerForce='Blue'
   platforms={platformTypes}
   phase={Phase.Planning}
-  turn={5}
+  turnNumber={5}
   mapBar={false}
 >
   <AssetIcon
@@ -173,7 +173,7 @@ export const WithAssets: React.FC = () => <Mapping
   playerForce={radios(label, forceNames, defaultValue)}
   platforms={platformTypes}
   phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
-  turn={5}
+  turnNumber={5}
   postBack={postback} >
   <Assets /><HexGrid />
 </Mapping>
@@ -207,7 +207,7 @@ export const WithGrid: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
-  turn={5}
+  turnNumber={5}
   playerForce='Blue'
   mapBar={false}
 >
@@ -257,7 +257,7 @@ export const WithAllowableRange: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
-  turn={5}
+  turnNumber={5}
   playerForce='Blue'
   mapBar={false}
   planningRangeProp={number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)}
@@ -290,7 +290,7 @@ export const OpenStreetMap: React.FC = () => <Mapping
   playerForce='Blue'
   platforms={platformTypes}
   phase={Phase.Planning}
-  turn={5}
+  turnNumber={5}
   mapBar={false}
 />
 
@@ -321,7 +321,7 @@ export const WithPhases: React.FC = () => <Mapping
   playerForce={radios(phasesViewLabel, phasesViewNames, phaseViewValue)}
   platforms={platformTypes}
   phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
-  turn={5}
+  turnNumber={5}
 >
   <Assets />
 </Mapping>
@@ -345,6 +345,15 @@ const trimmedDefaultValue = false
 const selectedLabel = 'Selected'
 const selectedDefaultValue = false
 
+const currentTurnLabel = 'Current turn number'
+const currentTurnDefaultValue = 5
+const currentTurnOptions = {
+  range: true,
+  min: 1,
+  max: 12,
+  step: 1
+}
+
 // test data:
 const store: RouteStore = routeCreateStore(forces, 'umpire', false)
 const route: RouteType = store.routes[0]
@@ -356,13 +365,14 @@ export const WithRoute: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
-  turn={5}
+  turnNumber={5}
   playerForce='Blue'
   mapBar={false}
 >
-  <HexGrid/>
-  <Route name={'test'}
-    route = {route} color={'#00f'}
+  <HexGrid />
+  <Route name={'test'} route={route}
+    turnNumber={number(currentTurnLabel, currentTurnDefaultValue, currentTurnOptions, 'Adjustments')}
+    color={'#00f'}
     selected={boolean(selectedLabel, selectedDefaultValue, 'Adjustments')}
     trimmed={boolean(trimmedLabel, trimmedDefaultValue, 'Adjustments')}
   />

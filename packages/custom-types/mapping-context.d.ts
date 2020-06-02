@@ -30,6 +30,10 @@ export default interface MappingContext {
    */
   phase: Phase
   /**
+   * Current game turn number
+   */
+  turnNumber: number
+  /**
    * mobility for selected asset
    */
   planningConstraints: PlanMobileAsset | undefined

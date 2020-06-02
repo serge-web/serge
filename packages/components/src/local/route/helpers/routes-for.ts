@@ -1,8 +1,8 @@
 import { LatLng } from 'leaflet'
 
 /* Impot types */
-import { SergeHex, SergeGrid, RouteStep } from '@serge/custom-types'
-import RouteData from '../types/route-data'
+import { SergeHex, SergeGrid, RouteStep as RouteStepType } from '@serge/custom-types'
+import RouteData, { RouteStep } from '../types/route-data'
 
 import { hexNamed } from '@serge/helpers'
 
@@ -16,10 +16,12 @@ export const lengthOfTrimmedLine = 2
  * @param {any} steps series of planned steps for asset
  * @returns {RouteData} composite object containing route lines & end of turn marker locations
  */
-export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, steps: RouteStep[],
+export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, steps: RouteStepType[],
   trimmed: boolean): RouteData => {
   const polyline: LatLng[] = []
   const turnEnds: LatLng[] = []
+  const routeSteps: RouteStep[] = []
+
   let stepCtr = 0
   // start with current position
   const startCell: SergeHex<{}> | undefined = hexNamed(position, gridCells)
@@ -28,7 +30,7 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
     if (steps) {
       // store the line start
       polyline.push(startPos)
-      steps.forEach((step: RouteStep) => {
+      steps.forEach((step: RouteStepType) => {
         stepCtr++
         // first, does it contain a plain position, and is it within
         // the required length?
@@ -40,15 +42,36 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
               // is this the first cell?
               if (thisRouteCtr === 0) {
                 turnEnds.push(thisCell.centreLatLng)
+              } else if (step.coords && thisRouteCtr === step.coords.length - 1) {
+                let routeStep: RouteStep
+                if(step.status.speedKts) {
+                  routeStep = {
+                    position: thisCell.centreLatLng,
+                    status: {
+                      speedKts: step.status.speedKts,
+                      state: step.status.state
+                    }
+                  }
+  
+                } else {
+                  routeStep = {
+                    position: thisCell.centreLatLng,
+                    status: {
+                      state: step.status.state
+                    }
+  
+                }
+                routeSteps.push(routeStep)
               }
               polyline.push(thisCell.centreLatLng)
               thisRouteCtr++
             }
-          })
+          }
+        })
         }
       })
     }
   }
-  const res: RouteData = { polyline: polyline, turnEnds: turnEnds }
+  const res: RouteData = { polyline: polyline, turnEnds: turnEnds, steps: routeSteps }
   return res
 }

@@ -5,6 +5,10 @@ export default interface PropTypes {
    * name of this platform
    */
   name: string
+  /*
+   * current game turn number
+   */
+  turnNumber: number
   /**
    *  the collated route data for hthis asset
    */

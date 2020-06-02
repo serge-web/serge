@@ -38,7 +38,7 @@ export default interface PropTypes {
   /** number of current turn
    *
    */
-  turn: number
+  turnNumber: number
   /**
    *  The TileLayer object for the leaflet map
    */
