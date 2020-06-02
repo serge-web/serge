@@ -14,7 +14,7 @@
     "test:ts": "tsc --pretty",
     "test:unit": "jest --coverage -u",
     "lint": "run-p lint:*",
-    "lint:ts": "eslint --fix src/**/*.ts*",
+    "lint:ts-disabled": "eslint --fix src/**/*.ts*",
     "lint:styles": "stylelint --fix src/**/*.scss",
     "build-storybook": "build-storybook -s ./static -c .storybook -o ../client/build/storybook"
   },
