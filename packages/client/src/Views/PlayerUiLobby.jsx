@@ -15,7 +15,7 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
           <h3>* Server Not Found - check configuration</h3>
           <h3>* Trying to connect to: <i>{serverPath}</i></h3>
           <h3>* The above URL should be something like:</h3>
-          <h4>&nbsp;&nbsp;&nbsp;- Dev machine: http://192.168.1.115:8080></h4>
+          <h4>&nbsp;&nbsp;&nbsp;- Dev machine: http://192.168.1.115:8080</h4>
           <h4>&nbsp;&nbsp;&nbsp;- Dedicated network:  http://serge:8080</h4>
           <h4>&nbsp;&nbsp;&nbsp;- Online review: https://serge-review.herokuapp.com/</h4>
         </div>
