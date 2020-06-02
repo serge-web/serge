@@ -4,7 +4,7 @@ import RouteData, { RouteStep } from '../types/route-data'
 import L, { LatLng } from 'leaflet'
 import { simpleIcon, svgIcon } from './create-marker'
 import calculatePolylineAngle from './calculate-polyline-angle'
-import getTurnNumber from './get-turn-number'
+import { padInteger } from '@serge/helpers'
 import Button from '@material-ui/core/Button'
 
 const createTurnMarkers = (routes: RouteData, type: string, color: string, selected: boolean): JSX.Element[] => {
@@ -16,7 +16,7 @@ const createTurnMarkers = (routes: RouteData, type: string, color: string, selec
     }
 
     const markers = (color: string, angle?: number): JSX.Element => {
-      const turn = getTurnNumber(index)
+      const turn = padInteger(index)
       if (selected === true) {
         return (
           <>
