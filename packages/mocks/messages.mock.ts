@@ -15,7 +15,6 @@ export default [
       "content": "test\n"
     },
     "_id": "2020-03-25T15:08:47.510Z",
-    "_rev": "1-6c9056ad116711cfc428194bc1d6cef2",
     "hasBeenRead": false,
     "isOpen": false,
     "open": false

@@ -6,6 +6,10 @@ export default interface PropTypes {
    */
   name: string
   /**
+   * current game turn number
+   */
+  turnNumber: number
+  /**
    * the grid of hex cells
    */
   gridCells?: SergeGrid<SergeHex<{}>>

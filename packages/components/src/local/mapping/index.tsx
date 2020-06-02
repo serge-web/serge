@@ -109,7 +109,7 @@ export const Mapping: React.FC<PropTypes> = ({
   } | undefined>(undefined)
   const [latLngBounds, setLatLngBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
-  const [newLeg, setNewLeg] = useState< Array<SergeHex<{}>> | undefined>(undefined)
+  const [newLeg, setNewLeg] = useState<Array<SergeHex<{}>> | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
@@ -195,7 +195,7 @@ export const Mapping: React.FC<PropTypes> = ({
   return (
     <MapContext.Provider value={{ props: contextProps }}>
       <section className={styles['map-container']}>
-        { mapBar && <MapBar /> }
+        {mapBar && <MapBar />}
         <Map
           className={styles.map}
           center={mapCentre}
@@ -217,7 +217,7 @@ export const Mapping: React.FC<PropTypes> = ({
             attribution={tileLayer.attribution}
             bounds={latLngBounds}
           />
-          <ScaleControl/>
+          <ScaleControl />
           {children}
         </Map>
       </section>
