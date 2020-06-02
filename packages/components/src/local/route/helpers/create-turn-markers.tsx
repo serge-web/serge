@@ -87,11 +87,8 @@ function calculateTurnAngle (routes: RouteData, stepIndex: number, step: RouteSt
     angle = (previousAngle + nextAngle) / 2
   }
 
-  // add 90 to get the perpendicular angle modulo 360
-  angle = (angle + 90) % 360
+  // add 90 to get the perpendicular angle
+  const perp: number  = (angle + 90)
 
-  // convert to leaflet orientation east anti-clockwise
-  angle = (360 - (angle - 90)) % 360
-
-  return angle
+  return perp
 }
