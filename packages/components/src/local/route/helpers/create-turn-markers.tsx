@@ -88,7 +88,7 @@ function calculateTurnAngle (routes: RouteData, stepIndex: number, step: RouteSt
   }
 
   // add 90 to get the perpendicular angle
-  const perp: number  = (angle + 90)
+  const perp: number = (angle + 90)
 
   return perp
 }
