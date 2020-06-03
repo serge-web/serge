@@ -67,12 +67,12 @@ export const MapBar: React.FC = () => {
     }
   }, [phase, playerForce])
 
-  const worldStateSubmitHandler = ():void => {
+  const worldStateSubmitHandler = (): void => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
-      console.log('Submitting State of World')
+      window.alert('Submitting State of World')
     } else if (phase === PLANNING_PHASE) {
-      console.log('Submitting my forces')
-    }   
+      window.alert('Submitting my forces')
+    }
   }
 
   // Selects the current asset
