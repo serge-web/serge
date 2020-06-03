@@ -13,7 +13,13 @@
 }
 
 .perceived-as {
-  background-color: #ffb6c1;
+  background-color: #1a394d;
+  color:white;
+  position: relative;
+  bottom: 0;
+  z-index: 1010;
+  width: 350px;
+  height: 350px;
 }
 .planning {
   background-color: #90ee90;
