@@ -3,7 +3,7 @@ import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { PerceptionFormData, PlanTurnFormData, AdjudicateTurnFormData } from './forms'
+import { RouteStore, PlanTurnFormValues } from '@serge/custom-types'
 
 /**
  * mapping context, shared with child elements
@@ -30,6 +30,10 @@ export default interface MappingContext {
    */
   phase: Phase
   /**
+   * Current game turn number
+   */
+  turnNumber: number
+  /**
    * mobility for selected asset
    */
   planningConstraints: PlanMobileAsset | undefined
@@ -45,6 +49,10 @@ export default interface MappingContext {
    * The channel ID passed down from the client application (optional)
    */
   channelID?: string | number
+  /**
+   * the set of routes applicable at this point
+   */
+  routeStore: RouteStore
   /**
    * setter for when planned route is complete
    */
@@ -69,6 +77,10 @@ export default interface MappingContext {
    *  setter, to set the zoom level
    **/
   setZoomLevel: React.Dispatch<React.SetStateAction<number>>
+  /**
+   * player has added new step
+   */
+  turnPlanned?: {(turn: PlanTurnFormValues): void}
   /**
    * The method for posting messages out of the mapping component
    */

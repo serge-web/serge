@@ -3,6 +3,8 @@ import React from 'react'
 // Import component files
 import WorldState from './index'
 import docs from './README.md'
+import { RouteStore } from '@serge/custom-types'
+import { ADJUDICATION_PHASE } from '@serge/config'
 
 export default {
   title: 'local/WorldState',
@@ -16,4 +18,6 @@ export default {
   }
 }
 
-export const Default: React.FunctionComponent = () => <WorldState name="World State" />
+const store: RouteStore = { routes: [] }
+
+export const Default: React.FunctionComponent = () => <WorldState phase={ADJUDICATION_PHASE} store={store} name="World State" />

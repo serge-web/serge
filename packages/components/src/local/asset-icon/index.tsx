@@ -39,7 +39,6 @@ export const AssetIcon: React.FC<PropTypes> = ({
     setSelectedAsset({
       uniqid,
       name,
-      position,
       type,
       force,
       visibleTo,

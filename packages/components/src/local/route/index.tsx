@@ -11,7 +11,7 @@ import createTurnMarkers from './helpers/create-turn-markers'
 import { routesFor } from './helpers/routes-for'
 
 /* Render component */
-export const Route: React.FC<PropTypes> = ({ name, location, history, planned, turnNumber, trimmed, color, selected }: PropTypes) => {
+export const Route: React.FC<PropTypes> = ({ name, route, turnNumber, trimmed, color, selected }: PropTypes) => {
   const { gridCells } = useContext(MapContext).props
 
   const plainDots = [1, 7]
@@ -28,21 +28,17 @@ export const Route: React.FC<PropTypes> = ({ name, location, history, planned, t
   // maybe some refactoring would be necessary in this case
   useEffect(() => {
     if (gridCells) {
-      setHistoryRoutes(routesFor(gridCells, location, history, trimmed))
-      setPlannedRoutes(routesFor(gridCells, location, planned, trimmed))
+      // start with historic
+      const historyRoute: RouteData = routesFor(gridCells, route.currentPosition, route.history, trimmed)
+      setHistoryRoutes(historyRoute)
+      setHistoryTurnMarkers(createTurnMarkers(historyRoute, turnNumber, 'history', color, selected))
+
+      // and now planned routes
+      const plannedRoute: RouteData = routesFor(gridCells, route.currentPosition, route.planned, trimmed)
+      setPlannedRoutes(plannedRoute)
+      setPlannedTurnMarkers(createTurnMarkers(plannedRoute, turnNumber, 'planned', color, selected))
     }
-  }, [gridCells, location, history, trimmed])
-
-  // create the markers and define the last turn value for each routes
-  useEffect(() => {
-    if (!plannedRoutes) return
-    setPlannedTurnMarkers(createTurnMarkers(plannedRoutes, turnNumber, 'planned', color, selected))
-  }, [plannedRoutes, selected, turnNumber])
-
-  useEffect(() => {
-    if (!historyRoutes) return
-    setHistoryTurnMarkers(createTurnMarkers(historyRoutes, turnNumber, 'history', color, selected))
-  }, [historyRoutes, selected])
+  }, [gridCells, route, trimmed, selected, turnNumber])
 
   return <>
     <LayerGroup key={'hex_route_layer_' + name}>

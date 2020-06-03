@@ -1,7 +1,18 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
+import { Phase, ADJUDICATION_PHASE } from '@serge/config'
+import MapBar from '../map-bar'
+
+/* helper functions */
 import createGrid from './helpers/create-grid'
-import { Phase } from '@serge/config'
+import boundsFor from './helpers/bounds-for'
+import {
+  roundToNearest,
+  routeCreateStore,
+  routeAddStep,
+  routeSetCurrent,
+  routeGetLatestPosition
+} from '@serge/helpers'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -10,7 +21,11 @@ import {
   SergeGrid,
   MappingContext,
   PlanMobileAsset,
-  SelectedAsset
+  SelectedAsset,
+  RouteStore,
+  Route,
+  RouteStep,
+  PlanTurnFormValues
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -18,8 +33,6 @@ import ContextInterface from './types/context'
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
-import MapBar from '../map-bar'
-import boundsFor from './helpers/bounds-for'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: null })
@@ -37,6 +50,7 @@ const defaultProps: PropTypes = {
   platforms: [{}],
   playerForce: 'Blue',
   phase: Phase.Planning,
+  turnNumber: 6,
   tileLayer: {
     url: '',
     attribution: ''
@@ -62,6 +76,7 @@ export const Mapping: React.FC<PropTypes> = ({
   playerForce,
   platforms,
   phase,
+  turnNumber,
   tileLayer,
   minZoom,
   maxZoom,
@@ -83,10 +98,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset>({
     uniqid: '',
     name: '',
-    position: {
-      lat: 0.00,
-      lng: 0.00
-    },
     type: 'Unknown',
     force: 'Unknown',
     controlledBy: [],
@@ -113,6 +124,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
+  const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
 
   // if we've got a planning range from prop, double-check if it is different
   // to the current one
@@ -124,6 +136,31 @@ export const Mapping: React.FC<PropTypes> = ({
   if (bounds && bounds !== mapBounds) {
     setMapBounds(bounds)
   }
+
+  // highlight the route for the selected asset
+  useEffect(() => {
+    // if we were planning a mobile route, clear that
+    if (planningConstraints) {
+      setPlanningConstraints(undefined)
+    }
+
+    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
+    // we modify the routeStore
+    if (selectedAsset) {
+      const store: RouteStore = routeSetCurrent(selectedAsset.uniqid, routeStore)
+      setRouteStore(store)
+    }
+  }, [selectedAsset])
+
+  useEffect(() => {
+    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
+    // we modify the routeStore
+    if (forces && gridCells) {
+      const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
+      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication)
+      setRouteStore(store)
+    }
+  }, [forces, playerForce, phase, gridCells])
 
   useEffect(() => {
     if (mapBounds) {
@@ -147,6 +184,22 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (newLeg) {
       // TODO: store the new planned leg for this asset
+      const selRoute = routeStore.selected
+      if (selRoute) {
+        const newTurn = selRoute.planned[selRoute.planned.length - 1].turn + 1
+        const coords: Array<string> = newLeg.map((cell: SergeHex<{}>) => {
+          return cell.name
+        })
+        if (selRoute) {
+          const newStep: RouteStep = {
+            turn: newTurn,
+            status: { state: 'BBQ', speedKts: 12 },
+            coords: coords
+          }
+          const newStore: RouteStore = routeAddStep(routeStore, selRoute.uniqid, newStep)
+          setRouteStore(newStore)
+        }
+      }
 
       // if we know our planning constraints, we can plan the next leg
       if (planningConstraints) {
@@ -162,6 +215,50 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [newLeg])
 
+  const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
+    const current: Route | undefined = routeStore.selected
+    if (current) {
+      // is it a mobile turn
+      const status = plannedTurn.statusVal
+      if (status.mobile) {
+        // trigger route planning
+        const origin: string = routeGetLatestPosition(current.currentPosition, current.planned)
+
+        // work out how far asset can travel
+        const constraints: PlanMobileAsset = { origin: origin, travelMode: 'sea' }
+
+        const speedKts = plannedTurn.speedVal
+        // TODO: turn time should come from game definition
+        const stepSize = 30
+        const stepsPerHour = (60 / stepSize)
+        const roughRange = speedKts / tileDiameterMins / stepsPerHour // work out how many NM in 30 minutes
+
+        // check range is in 10s
+        const range = roundToNearest(roughRange, 1)
+
+        setPlanningRange(range)
+        setPlanningConstraints(constraints)
+      } else {
+        // if we were planning a mobile route, clear that
+        setPlanningConstraints(undefined)
+
+        // ok, store the new leg
+        // how many turns?
+        let turnStart: number = turnNumber
+        if (current.planned && current.planned.length > 0) {
+          turnStart = current.planned[current.planned.length - 1].turn
+        }
+        let store: RouteStore = routeStore
+        for (let ctr = 0; ctr < plannedTurn.turnsVal; ctr++) {
+          const step: RouteStep = { turn: ++turnStart, status: { state: status.name } }
+          // store this step
+          store = routeAddStep(store, selectedAsset.uniqid, step)
+        }
+        setRouteStore(store)
+      }
+    }
+  }
+
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     gridCells,
@@ -169,16 +266,19 @@ export const Mapping: React.FC<PropTypes> = ({
     platforms,
     playerForce,
     phase,
+    turnNumber,
     planningConstraints,
     planningRange,
     showMapBar,
     selectedAsset,
     zoomLevel,
     channelID,
+    routeStore,
     setNewLeg,
     setShowMapBar,
     setSelectedAsset,
     setZoomLevel,
+    turnPlanned,
     postBack
   }
 

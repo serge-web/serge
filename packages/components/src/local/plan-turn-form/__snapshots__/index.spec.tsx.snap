@@ -381,7 +381,7 @@ exports['PlanTurnForm renders correctly 1'] = `
       <span
         className="MuiButton-label"
       >
-        Save
+        Plan turn
       </span>
     </button>
   </div>

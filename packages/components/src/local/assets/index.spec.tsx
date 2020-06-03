@@ -89,6 +89,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     platforms = {platformTypes}
     playerForce="Blue"
     phase={Phase.Planning}
+    turnNumber={5}
   >
   </Mapping>, { attachTo: div })
 

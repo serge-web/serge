@@ -7,21 +7,30 @@ import collatePlanFormData from './helpers/collate-plan-form-data'
 import collateAdjudicationFormData from './helpers/collate-adjudication-form-data'
 import collatePerceptionFormData from './helpers/collate-perception-form-data'
 
+import { findAsset, forceFor, visibleTo } from '@serge/helpers'
+
+/* import types */
+import { SelectedAsset } from '@serge/custom-types'
+
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import { MapContext } from '../mapping'
 
 /* Import child components */
+import { MapContext } from '../mapping'
 import WorldState from '../world-state'
 import PerceptionForm from '../perception-form'
 import AdjudicateTurnForm from '../adjudicate-turn-form'
 import PlanTurnForm from '../plan-turn-form'
+import { ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE } from '@serge/config'
 
 /* Render component */
 export const MapBar: React.FC = () => {
   /* Set our intial states */
   const [currentForm, setCurrentForm] = useState('')
   const [currentAssetName, setCurrentAssetName] = useState('')
+
+  const [stateFormTitle, setStateFormTitle] = useState<string>('')
+  const [stateSubmitTitle, setStateSubmitTitle] = useState<string>('')
 
   /* Pull in the context from MappingContext */
   const {
@@ -32,9 +41,39 @@ export const MapBar: React.FC = () => {
     showMapBar,
     setShowMapBar,
     selectedAsset,
+    setSelectedAsset,
     channelID,
-    postBack
+    postBack,
+    routeStore,
+    turnPlanned
   } = useContext(MapContext).props
+
+  // sort out the handler for State of World button
+  useEffect(() => {
+    let formTitle = ''
+    let submitTitle = ''
+    if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
+      formTitle = 'State of World'
+      submitTitle = 'Submit state of world'
+    } else if (phase === PLANNING_PHASE) {
+      formTitle = 'My Forces'
+      submitTitle = 'Submit routes'
+    }
+    if (submitTitle !== '') {
+      setStateSubmitTitle(submitTitle)
+    }
+    if (formTitle !== '') {
+      setStateFormTitle(formTitle)
+    }
+  }, [phase, playerForce])
+
+  const worldStateSubmitHandler = (): void => {
+    if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
+      window.alert('Submitting State of World')
+    } else if (phase === PLANNING_PHASE) {
+      window.alert('Submitting my forces')
+    }
+  }
 
   // Selects the current asset
   useEffect(() => {
@@ -45,6 +84,25 @@ export const MapBar: React.FC = () => {
   // Toggles the map bar on and off
   const clickEvent = (): void => {
     showMapBar ? setShowMapBar(false) : setShowMapBar(true)
+  }
+
+  /** an asset has been selected from the list */
+  const setSelectedAssetById = (id: string): void => {
+    const asset: any = findAsset(forces, id)
+    const force: any = forceFor(forces, id)
+    const visibleToArr: string[] = visibleTo(asset.perceptions)
+    const selected: SelectedAsset = {
+      uniqid: asset.uniqid,
+      name: asset.name,
+      type: asset.platformType,
+      force: force.uniqid,
+      controlledBy: force.controlledBy,
+      condition: asset.condition,
+      visibleTo: visibleToArr,
+      status: asset.status
+    }
+    // ok done, share the good news
+    setSelectedAsset(selected)
   }
 
   /* TODO: This should be refactored into a helper */
@@ -67,12 +125,15 @@ export const MapBar: React.FC = () => {
           postBack={postBack} />
         break
       case 'Planning':
+        if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
+
+        }
         output = <PlanTurnForm
           key={selectedAsset.uniqid}
           formHeader={currentAssetName}
           formData={collatePlanFormData(platforms, selectedAsset)}
           channelID={channelID}
-          postBack={postBack}/>
+          turnPlanned={turnPlanned}/>
         break
       default:
         output = null
@@ -86,7 +147,13 @@ export const MapBar: React.FC = () => {
       <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
       <div className={styles.inner}>
         <section>
-          <WorldState name="World State"></WorldState>
+          <WorldState
+            name={stateFormTitle}
+            phase={phase}
+            store={routeStore}
+            submitTitle = {stateSubmitTitle}
+            setSelectedAsset={setSelectedAssetById}
+            submitForm={worldStateSubmitHandler} ></WorldState>
         </section>
         <section>
           {currentForm !== '' && selectedAsset.uniqid !== '' && formSelector(currentForm)}

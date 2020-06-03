@@ -33,6 +33,7 @@ it('Mapping renders correctly with HexGrid', () => {
     platforms = {platformTypes}
     playerForce={'Blue'}
     phase={Phase.Planning}
+    turnNumber={5}
   >
   </Mapping>, { attachTo: div })
 

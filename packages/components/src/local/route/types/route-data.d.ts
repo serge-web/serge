@@ -19,7 +19,7 @@ export default interface RouteData {
 export interface RouteStep {
   position: LatLng
   status: {
-    speedKts: number
+    speedKts?: number
     state: string
   }
 }

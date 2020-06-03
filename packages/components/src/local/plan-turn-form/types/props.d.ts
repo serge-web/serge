@@ -1,4 +1,4 @@
-import { PlanTurnFormData, Postback } from '@serge/custom-types'
+import { PlanTurnFormData, PlanTurnFormValues } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -16,5 +16,5 @@ export default interface PropTypes {
   /**
    * The method for posting messages out of the mapping component
    */
-  postBack?: Postback
+  turnPlanned?: {(turn: PlanTurnFormValues): void}
 }

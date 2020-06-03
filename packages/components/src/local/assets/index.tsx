@@ -2,20 +2,28 @@ import React, { useContext, useEffect, useState } from 'react'
 import L from 'leaflet'
 import { LayerGroup } from 'react-leaflet'
 import AssetIcon from '../asset-icon'
-import findPerceivedAsTypes from './helpers/find-perceived-as-types'
+import { findPerceivedAsTypes, visibleTo } from '@serge/helpers'
 import hexNamed from './helpers/hex-named'
 import { UMPIRE_FORCE } from '@serge/config'
+import { Route } from '../route'
 
 /* Import Context */
 import { MapContext } from '../mapping'
 
 /* Import Types */
 import AssetInfo from './types/asset_info'
-import { SergeHex } from '@serge/custom-types'
+import { SergeHex, SergeGrid, RouteStore, Route as RouteType } from '@serge/custom-types'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
-  const { gridCells, forces, playerForce } = useContext(MapContext).props
+  // pull in some context (with TS definitions)
+  const { gridCells, forces, playerForce, routeStore, turnNumber }:
+    { gridCells: SergeGrid<SergeHex<{}>> | undefined
+      forces: any
+      playerForce: string
+      routeStore: RouteStore
+      turnNumber: number } =
+    useContext(MapContext).props
 
   const [assets, setAssets] = useState<AssetInfo[]>([])
 
@@ -42,7 +50,7 @@ export const Assets: React.FC<{}> = () => {
 
             if (perceivedAs) {
               const cell: SergeHex<{}> | undefined = hexNamed(asset.position, gridCells)
-              const visibleTo: Array<string> = perceptions && perceptions.length ? perceptions.map((p: any) => p.by) : []
+              const visibleToArr: string[] = visibleTo(perceptions)
               if (cell != null) {
                 const position: L.LatLng = cell.centreLatLng
                 const assetInfo: AssetInfo = {
@@ -52,7 +60,7 @@ export const Assets: React.FC<{}> = () => {
                   controlledBy: force.controlledBy,
                   type: perceivedAs[2],
                   force: perceivedAs[1],
-                  visibleTo: visibleTo,
+                  visibleTo: visibleToArr,
                   position,
                   uniqid
                 }
@@ -84,6 +92,16 @@ export const Assets: React.FC<{}> = () => {
         force={asset.force}
         tooltip={asset.name}/>
     ))}
+
+    { routeStore && routeStore.routes.map((route: RouteType) => (
+      <Route name={'test'} turnNumber={turnNumber}
+        key = { 'r_for_' + route.uniqid }
+        route = {route} color={route.color}
+        selected={ route.selected}
+        trimmed={ false }
+      />
+    ))}
+
     </LayerGroup>
   </>
 }

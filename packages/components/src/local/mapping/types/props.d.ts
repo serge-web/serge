@@ -35,9 +35,12 @@ export default interface PropTypes {
    *
   */
   phase: Phase
- /**
+  /** number of current turn
+   *
+   */
+  turnNumber: number
+  /**
    *  The TileLayer object for the leaflet map
-
    */
   tileLayer: {
     /**

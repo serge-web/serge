@@ -17,5 +17,5 @@ it('contains relevant current results', () => {
   const res: PlanTurnFormValues = collatePlanFormData(platformTypes, selectedAsset).values
   expect(res.speedVal).toEqual(10)
   expect(res.statusVal).toEqual({ mobile: true, name: 'Transiting' })
-  expect(res.turnsVal).toEqual(0)
+  expect(res.turnsVal).toEqual(1)
 })

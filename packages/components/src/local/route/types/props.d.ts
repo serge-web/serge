@@ -1,30 +1,18 @@
-import { SergeHex, SergeGrid } from '@serge/custom-types'
+import { Route as RouteType } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
    * name of this platform
    */
   name: string
-  /**
+  /*
    * current game turn number
    */
   turnNumber: number
   /**
-   * the grid of hex cells
+   *  the collated route data for hthis asset
    */
-  gridCells?: SergeGrid<SergeHex<{}>>
-  /**
-   * current position of this asset (hex coords)
-   */
-  location: string
-  /**
-   * past positions for this asset
-   */
-  history: [any]
-  /**
-   * planned turns for this asset
-   */
-  planned: [any]
+  route: RouteType
   /**
    * whether to show trimmed or full routes
    */

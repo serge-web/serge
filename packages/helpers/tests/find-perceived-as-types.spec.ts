@@ -1,6 +1,6 @@
 /* global it expect */
 
-import findPerceivedAsTypes from './find-perceived-as-types'
+import findPerceivedAsTypes from '../find-perceived-as-types'
 
 // perceptions element
 const perceptions: any = [{

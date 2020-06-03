@@ -15,6 +15,8 @@ import { HexGrid } from '../hex-grid'
 
 // import data types
 import { Phase } from '@serge/config'
+import { RouteStore, Route as RouteType } from '@serge/custom-types'
+import { routeCreateStore } from '@serge/helpers'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -62,6 +64,7 @@ export const Default: React.FC = () => <Mapping
   playerForce='Blue'
   platforms={platformTypes}
   phase={Phase.Planning}
+  turnNumber={5}
   mapBar={false}
 />
 
@@ -75,6 +78,7 @@ export const WithMapBar: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
+  turnNumber={5}
   playerForce={radios(label, forceNames, defaultValue)}
 >
 </Mapping>
@@ -110,6 +114,7 @@ export const WithMarker: React.FC = () => <Mapping
   playerForce='Blue'
   platforms={platformTypes}
   phase={Phase.Planning}
+  turnNumber={5}
   mapBar={false}
 >
   <AssetIcon
@@ -148,6 +153,13 @@ const forceNames = {
 }
 const defaultValue = 'Blue'
 
+const assetsPhasesPhaseLabel = 'Game phase'
+const assetsPhasesPhaseNames = {
+  Planning: Phase.Planning,
+  Adjudication: Phase.Adjudication
+}
+const assetsPhasePhaseValue = Phase.Planning
+
 // generic postback handler, for forms
 const postback = (messageType: string, payload: any): void => {
   console.log('postback', messageType, payload)
@@ -160,9 +172,9 @@ export const WithAssets: React.FC = () => <Mapping
   forces={forces}
   playerForce={radios(label, forceNames, defaultValue)}
   platforms={platformTypes}
-  phase={Phase.Planning}
-  postBack={postback}
->
+  phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
+  turnNumber={5}
+  postBack={postback} >
   <Assets /><HexGrid />
 </Mapping>
 
@@ -195,6 +207,7 @@ export const WithGrid: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
+  turnNumber={5}
   playerForce='Blue'
   mapBar={false}
 >
@@ -244,6 +257,7 @@ export const WithAllowableRange: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
+  turnNumber={5}
   playerForce='Blue'
   mapBar={false}
   planningRangeProp={number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)}
@@ -276,6 +290,7 @@ export const OpenStreetMap: React.FC = () => <Mapping
   playerForce='Blue'
   platforms={platformTypes}
   phase={Phase.Planning}
+  turnNumber={5}
   mapBar={false}
 />
 
@@ -306,6 +321,7 @@ export const WithPhases: React.FC = () => <Mapping
   playerForce={radios(phasesViewLabel, phasesViewNames, phaseViewValue)}
   platforms={platformTypes}
   phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
+  turnNumber={5}
 >
   <Assets />
 </Mapping>
@@ -339,9 +355,8 @@ const currentTurnOptions = {
 }
 
 // test data:
-const greenForce: any = forces[3]
-const platform: any = greenForce.assets[0]
-const { plannedTurns, history } = platform
+const store: RouteStore = routeCreateStore(forces, 'umpire', false)
+const route: RouteType = store.routes[0]
 
 export const WithRoute: React.FC = () => <Mapping
   bounds={bounds}
@@ -350,13 +365,14 @@ export const WithRoute: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
-  playerForce='Green'
+  turnNumber={5}
+  playerForce='Blue'
   mapBar={false}
 >
   <HexGrid />
-  <Route name={'test'} location={platform.position}
+  <Route name={'test'} route={route}
     turnNumber={number(currentTurnLabel, currentTurnDefaultValue, currentTurnOptions, 'Adjustments')}
-    history={history} planned={plannedTurns} color={'#00f'}
+    color={'#00f'}
     selected={boolean(selectedLabel, selectedDefaultValue, 'Adjustments')}
     trimmed={boolean(trimmedLabel, trimmedDefaultValue, 'Adjustments')}
   />
