@@ -48,7 +48,8 @@ const createStepArray = (turns: any, adjudication: boolean): Array<RouteStep> =>
  * @returns {Route} Routefor this asset
  */
 const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
-  underControl: boolean, perceivedForce: string, perceivedName: string, perceivedType: string): Route => {
+  underControl: boolean, perceivedForce: string, perceivedName: string, 
+  perceivedType: string, destroyed: boolean): Route => {
   const stat = asset.status
   const currentStatus: RouteStatus = stat.speedKts
     ? { state: stat.status, speedKts: stat.speedKts }
@@ -66,6 +67,7 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
     underControl: underControl,
     forceName: perceivedForce,
     color: color,
+    destroyed: destroyed,
     history: createStepArray(asset.history, false), // we plot all history, so ignore whether
                                                     // in adjudication
     currentStatus: currentStatus,

@@ -6,12 +6,13 @@ import assetDialogFor from './helpers/asset-dialog-for'
 import collatePlanFormData from './helpers/collate-plan-form-data'
 import collateAdjudicationFormData from './helpers/collate-adjudication-form-data'
 import collatePerceptionFormData from './helpers/collate-perception-form-data'
+import collatePlanningOrders from './helpers/collate-planning-orders'
 
 import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
 import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route } from '@serge/custom-types'
-import { Phase} from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -22,7 +23,6 @@ import WorldState from '../world-state'
 import PerceptionForm from '../perception-form'
 import AdjudicateTurnForm from '../adjudicate-turn-form'
 import PlanTurnForm from '../plan-turn-form'
-import { ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE } from '@serge/config'
 
 /* Render component */
 export const MapBar: React.FC = () => {
@@ -40,6 +40,7 @@ export const MapBar: React.FC = () => {
     platforms,
     forces,
     showMapBar,
+    turnNumber,
     setShowMapBar,
     selectedAsset,
     setSelectedAsset,
@@ -53,6 +54,7 @@ export const MapBar: React.FC = () => {
     platforms: any,
     forces: any,
     showMapBar: boolean,
+    turnNumber: number,
     setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>,
     selectedAsset: SelectedAsset,
     setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset>>,
@@ -85,9 +87,11 @@ export const MapBar: React.FC = () => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
       window.alert('Submitting State of World:' + routeStore.routes.length)
     } else if (phase === PLANNING_PHASE) {
-      // get my routes
+      // build the results object
       const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
-      window.alert('Submitting my forces:' + myRoutes.length)
+      const orders = collatePlanningOrders(myRoutes, playerForce, turnNumber)
+      postBack(SUBMIT_PLANS, orders, channelID)
+      console.log('orders to be submitted', orders)
     }
   }
 

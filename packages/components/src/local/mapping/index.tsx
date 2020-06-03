@@ -157,7 +157,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     if (forces && gridCells) {
       const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
-      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication)
+      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms)
       setRouteStore(store)
     }
   }, [forces, playerForce, phase, gridCells])

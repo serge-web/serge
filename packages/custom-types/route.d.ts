@@ -15,6 +15,8 @@ export default interface Route {
   forceName: string,
   /** if this is the selected asset */
   selected: boolean,
+  /** if this asset is destroyed */
+  destroyed: boolean
   /** color to render this line */
   color: string,
   /** paste route for this asset */

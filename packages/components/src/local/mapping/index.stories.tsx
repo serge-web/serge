@@ -173,7 +173,7 @@ export const WithAssets: React.FC = () => <Mapping
   playerForce={radios(label, forceNames, defaultValue)}
   platforms={platformTypes}
   phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
-  turnNumber={5}
+  turnNumber={3}
   postBack={postback} >
   <Assets /><HexGrid />
 </Mapping>
@@ -355,7 +355,7 @@ const currentTurnOptions = {
 }
 
 // test data:
-const store: RouteStore = routeCreateStore(forces, 'umpire', false)
+const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes)
 const route: RouteType = store.routes[0]
 
 export const WithRoute: React.FC = () => <Mapping
