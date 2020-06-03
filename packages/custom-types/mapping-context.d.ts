@@ -3,7 +3,7 @@ import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { RouteStore, PlanTurnFormValues } from '@serge/custom-types'
+import { RouteStore, PlanTurnFormValues, Postback } from '@serge/custom-types'
 
 /**
  * mapping context, shared with child elements
@@ -84,5 +84,5 @@ export default interface MappingContext {
   /**
    * The method for posting messages out of the mapping component
    */
-  postBack?: {(messageType:string, payload: any, channelID: string | number): void}
+  postBack?: Postback
 }

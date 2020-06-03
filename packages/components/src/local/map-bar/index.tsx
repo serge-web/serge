@@ -10,7 +10,8 @@ import collatePerceptionFormData from './helpers/collate-perception-form-data'
 import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
-import { SelectedAsset } from '@serge/custom-types'
+import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route } from '@serge/custom-types'
+import { Phase} from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -46,6 +47,19 @@ export const MapBar: React.FC = () => {
     postBack,
     routeStore,
     turnPlanned
+  }: {
+    playerForce: any,
+    phase: Phase,
+    platforms: any,
+    forces: any,
+    showMapBar: boolean,
+    setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>,
+    selectedAsset: SelectedAsset,
+    setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset>>,
+    channelID: string | number,
+    postBack: Postback,
+    routeStore: RouteStore,
+    turnPlanned: {(turn: PlanTurnFormValues): void} 
   } = useContext(MapContext).props
 
   // sort out the handler for State of World button
@@ -69,9 +83,11 @@ export const MapBar: React.FC = () => {
 
   const worldStateSubmitHandler = (): void => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
-      window.alert('Submitting State of World')
+      window.alert('Submitting State of World:' + routeStore.routes.length)
     } else if (phase === PLANNING_PHASE) {
-      window.alert('Submitting my forces')
+      // get my routes
+      const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
+      window.alert('Submitting my forces:' + myRoutes.length)
     }
   }
 
