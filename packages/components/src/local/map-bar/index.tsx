@@ -31,8 +31,6 @@ export const MapBar: React.FC = () => {
 
   const [stateFormTitle, setStateFormTitle] = useState<string>('')
   const [stateSubmitTitle, setStateSubmitTitle] = useState<string>('')
-  // handler for the State of World form
-  const [stateSubmitHandler, setStateSubmitHandler] = useState<{(): void} | undefined>(undefined)
 
   /* Pull in the context from MappingContext */
   const {
@@ -52,31 +50,30 @@ export const MapBar: React.FC = () => {
 
   // sort out the handler for State of World button
   useEffect(() => {
-    let handler
     let formTitle = ''
     let submitTitle = ''
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
       formTitle = 'State of World'
-      handler = (): any => {
-        console.log('Submitting State of World')
-      }
       submitTitle = 'Submit state of world'
     } else if (phase === PLANNING_PHASE) {
       formTitle = 'My Forces'
-      handler = (): any => {
-        console.log('Submitting my forces')
-      }
       submitTitle = 'Submit routes'
     }
-    if (submitTitle) {
-      console.log('map-bar', submitTitle, handler)
-      setStateSubmitHandler(handler)
+    if (submitTitle !== '') {
       setStateSubmitTitle(submitTitle)
     }
     if (formTitle !== '') {
       setStateFormTitle(formTitle)
     }
   }, [phase, playerForce])
+
+  const worldStateSubmitHandler = ():void => {
+    if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
+      console.log('Submitting State of World')
+    } else if (phase === PLANNING_PHASE) {
+      console.log('Submitting my forces')
+    }   
+  }
 
   // Selects the current asset
   useEffect(() => {
@@ -156,7 +153,7 @@ export const MapBar: React.FC = () => {
             store={routeStore}
             submitTitle = {stateSubmitTitle}
             setSelectedAsset={setSelectedAssetById}
-            submitForm={stateSubmitHandler} ></WorldState>
+            submitForm={worldStateSubmitHandler} ></WorldState>
         </section>
         <section>
           {currentForm !== '' && selectedAsset.uniqid !== '' && formSelector(currentForm)}
