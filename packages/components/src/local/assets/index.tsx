@@ -29,7 +29,7 @@ export const Assets: React.FC<{}> = () => {
   const [assets, setAssets] = useState<AssetInfo[]>([])
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
-  // set flag for if this is the umpire in adjudication, so that the 
+  // set flag for if this is the umpire in adjudication, so that the
   // planned routes get trimmed
   useEffect(() => {
     setUmpireInAdjudication(playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE)
