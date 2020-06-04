@@ -125,7 +125,6 @@ export const HexGrid: React.FC<{}> = () => {
        *
        */
   useEffect(() => {
-    console.log('constraints changed', gridCells && true, planningConstraints)
     if (gridCells && planningConstraints) {
       const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
       if (originCell) {
