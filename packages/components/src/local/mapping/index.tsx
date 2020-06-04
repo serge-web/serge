@@ -123,14 +123,8 @@ export const Mapping: React.FC<PropTypes> = ({
   const [newLeg, setNewLeg] = useState<Array<SergeHex<{}>> | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
-  const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
+  const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProp)
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
-
-  // if we've got a planning range from prop, double-check if it is different
-  // to the current one
-  if (planningRangeProp && planningRange !== planningRangeProp) {
-    setPlanningRange(planningRangeProp)
-  }
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -140,13 +134,15 @@ export const Mapping: React.FC<PropTypes> = ({
   // highlight the route for the selected asset
   useEffect(() => {
     // if we were planning a mobile route, clear that
-    if (planningConstraints) {
+    // TODO: support selected asset being undefined
+    if (planningConstraints && selectedAsset && selectedAsset.uniqid !== '') {
       setPlanningConstraints(undefined)
     }
 
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    if (selectedAsset) {
+    // TODO: support selected asset being undefined
+    if (selectedAsset && selectedAsset.uniqid !== '') {
       const store: RouteStore = routeSetCurrent(selectedAsset.uniqid, routeStore)
       setRouteStore(store)
     }
@@ -183,7 +179,6 @@ export const Mapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (newLeg) {
-      // TODO: store the new planned leg for this asset
       const selRoute = routeStore.selected
       if (selRoute) {
         const newTurn = selRoute.planned[selRoute.planned.length - 1].turn + 1
@@ -210,6 +205,7 @@ export const Mapping: React.FC<PropTypes> = ({
           origin: lastCell.name,
           travelMode: planningConstraints.travelMode
         }
+        console.log('new constraints', newP)
         setPlanningConstraints(newP)
       }
     }
