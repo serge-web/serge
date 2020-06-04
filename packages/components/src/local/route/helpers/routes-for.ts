@@ -21,7 +21,6 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
   const polyline: LatLng[] = []
   const turnEnds: LatLng[] = []
   const routeSteps: RouteStep[] = []
-
   let stepCtr = 0
   // start with current position
   const startCell: SergeHex<{}> | undefined = hexNamed(position, gridCells)
@@ -63,8 +62,8 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
                   routeSteps.push(routeStep)
                 }
                 polyline.push(thisCell.centreLatLng)
-                thisRouteCtr++
               }
+              thisRouteCtr++
             }
           })
         }
