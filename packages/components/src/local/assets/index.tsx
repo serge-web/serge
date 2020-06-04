@@ -4,7 +4,7 @@ import { LayerGroup } from 'react-leaflet'
 import AssetIcon from '../asset-icon'
 import { findPerceivedAsTypes, visibleTo } from '@serge/helpers'
 import hexNamed from './helpers/hex-named'
-import { UMPIRE_FORCE } from '@serge/config'
+import { UMPIRE_FORCE, ADJUDICATION_PHASE } from '@serge/config'
 import { Route } from '../route'
 
 /* Import Context */
@@ -17,15 +17,23 @@ import { SergeHex, SergeGrid, RouteStore, Route as RouteType } from '@serge/cust
 /* Render component */
 export const Assets: React.FC<{}> = () => {
   // pull in some context (with TS definitions)
-  const { gridCells, forces, playerForce, routeStore, turnNumber }:
+  const { gridCells, forces, playerForce, routeStore, phase }:
     { gridCells: SergeGrid<SergeHex<{}>> | undefined
       forces: any
       playerForce: string
       routeStore: RouteStore
+      phase: string
       turnNumber: number } =
     useContext(MapContext).props
 
   const [assets, setAssets] = useState<AssetInfo[]>([])
+  const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
+
+  // set flag for if this is the umpire in adjudication, so that the 
+  // planned routes get trimmed
+  useEffect(() => {
+    setUmpireInAdjudication(playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE)
+  }, [playerForce, playerForce])
 
   useEffect(() => {
     if (gridCells) {
@@ -94,11 +102,11 @@ export const Assets: React.FC<{}> = () => {
     ))}
 
     { routeStore && routeStore.routes.map((route: RouteType) => (
-      <Route name={'test'} turnNumber={turnNumber}
+      <Route name={'test'}
         key = { 'r_for_' + route.uniqid }
         route = {route} color={route.color}
         selected={ route.selected}
-        trimmed={ false }
+        trimmed={ umpireInAdjudication }
       />
     ))}
 
