@@ -39,9 +39,9 @@ it('Mapping renders correctly with Route', () => {
     forces={forces}
     playerForce={'Blue'}
     phase={Phase.Planning}
-    turnNumber={5}
+    turnNumber={2}
   >
-    <Route name={'alpha'} route={route} turnNumber={3}
+    <Route name={'alpha'} route={route}
       trimmed={false} color={'#f00'} selected={true} />
   </Mapping>, { attachTo: div })
 
