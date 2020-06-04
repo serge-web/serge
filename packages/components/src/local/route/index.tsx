@@ -11,8 +11,8 @@ import createTurnMarkers from './helpers/create-turn-markers'
 import { routesFor } from './helpers/routes-for'
 
 /* Render component */
-export const Route: React.FC<PropTypes> = ({ name, route, turnNumber, trimmed, color, selected }: PropTypes) => {
-  const { gridCells } = useContext(MapContext).props
+export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, selected }: PropTypes) => {
+  const { gridCells, turnNumber } = useContext(MapContext).props
 
   const plainDots = [1, 7]
   const selectedDots = [4, 8]
