@@ -125,6 +125,7 @@ export const HexGrid: React.FC<{}> = () => {
        *
        */
   useEffect(() => {
+    console.log('constraints changed', gridCells && true, planningConstraints)
     if (gridCells && planningConstraints) {
       const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
       if (originCell) {
@@ -184,7 +185,7 @@ export const HexGrid: React.FC<{}> = () => {
     // it may be outside the achievable area. Just
     // use the last point in the planning leg
 
-    if (plannedRouteCells && planningRange) {
+    if (plannedRouteCells && planningRange && planningRouteCells.length) {
       // deduct one from planned route, since it includes the origin cell
       const routeLen = planningRouteCells.length - 1
       const lastCell: SergeHex<{}> = planningRouteCells[routeLen]
