@@ -95,19 +95,7 @@ export const Mapping: React.FC<PropTypes> = ({
 }) => {
   /* Initialise states */
   const [showMapBar, setShowMapBar] = useState(false)
-  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset>({
-    uniqid: '',
-    name: '',
-    type: 'Unknown',
-    force: 'Unknown',
-    controlledBy: [],
-    condition: '',
-    visibleTo: [],
-    status: {
-      speedKts: 0,
-      state: ''
-    }
-  })
+  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
 
   const [zoomLevel, setZoomLevel] = useState(zoom || 0)
 
@@ -134,18 +122,16 @@ export const Mapping: React.FC<PropTypes> = ({
   // highlight the route for the selected asset
   useEffect(() => {
     // if we were planning a mobile route, clear that
-    // TODO: support selected asset being undefined
-    if (planningConstraints && selectedAsset && selectedAsset.uniqid !== '') {
+    if (planningConstraints && selectedAsset) {
       setPlanningConstraints(undefined)
     }
 
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    // TODO: support selected asset being undefined
-    if (selectedAsset && selectedAsset.uniqid !== '') {
-      const store: RouteStore = routeSetCurrent(selectedAsset.uniqid, routeStore)
-      setRouteStore(store)
-    }
+    const id: string = selectedAsset ? selectedAsset.uniqid : ''
+    const store: RouteStore = routeSetCurrent(id, routeStore)
+    setRouteStore(store)
+    
   }, [selectedAsset])
 
   useEffect(() => {
@@ -248,7 +234,9 @@ export const Mapping: React.FC<PropTypes> = ({
         for (let ctr = 0; ctr < plannedTurn.turnsVal; ctr++) {
           const step: RouteStep = { turn: ++turnStart, status: { state: status.name } }
           // store this step
-          store = routeAddStep(store, selectedAsset.uniqid, step)
+          if(selectedAsset) {
+            store = routeAddStep(store, selectedAsset.uniqid, step)
+          }
         }
         setRouteStore(store)
       }

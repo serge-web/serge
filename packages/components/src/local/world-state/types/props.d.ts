@@ -1,4 +1,4 @@
-import { RouteStore } from '@serge/custom-types'
+import { RouteStore, SelectedAsset } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
