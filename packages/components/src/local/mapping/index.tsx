@@ -131,7 +131,6 @@ export const Mapping: React.FC<PropTypes> = ({
     const id: string = selectedAsset ? selectedAsset.uniqid : ''
     const store: RouteStore = routeSetCurrent(id, routeStore)
     setRouteStore(store)
-    
   }, [selectedAsset])
 
   useEffect(() => {
@@ -234,7 +233,7 @@ export const Mapping: React.FC<PropTypes> = ({
         for (let ctr = 0; ctr < plannedTurn.turnsVal; ctr++) {
           const step: RouteStep = { turn: ++turnStart, status: { state: status.name } }
           // store this step
-          if(selectedAsset) {
+          if (selectedAsset) {
             store = routeAddStep(store, selectedAsset.uniqid, step)
           }
         }

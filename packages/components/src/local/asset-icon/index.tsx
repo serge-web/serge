@@ -36,7 +36,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   })
 
   const clickEvent = (): void => {
-    if(selectedAsset && selectedAsset.uniqid === uniqid) {
+    if (selectedAsset && selectedAsset.uniqid === uniqid) {
       // ok, it's the current asset. clear it
       setSelectedAsset(undefined)
       setShowMapBar(false)

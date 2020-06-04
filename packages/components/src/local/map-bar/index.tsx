@@ -77,11 +77,11 @@ export const MapBar: React.FC = () => {
 
   // Selects the current asset
   useEffect(() => {
-    if(selectedAsset) {
+    if (selectedAsset) {
       setCurrentForm(assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase))
-      setCurrentAssetName(selectedAsset.name)  
+      setCurrentAssetName(selectedAsset.name)
     } else {
-      setCurrentAssetName('Pending')  
+      setCurrentAssetName('Pending')
     }
   }, [selectedAsset])
 
@@ -93,7 +93,7 @@ export const MapBar: React.FC = () => {
   /** an asset has been selected from the list */
   const setSelectedAssetById = (id: string): void => {
     // is it a new id?
-    if(selectedAsset && selectedAsset.uniqid === id) {
+    if (selectedAsset && selectedAsset.uniqid === id) {
       // current clicked on, clear it
       setSelectedAsset(undefined)
     } else {
@@ -111,7 +111,7 @@ export const MapBar: React.FC = () => {
         status: asset.status
       }
       // ok done, share the good news
-      setSelectedAsset(selected)    
+      setSelectedAsset(selected)
     }
   }
 
