@@ -58,7 +58,7 @@ export const MapBar: React.FC = () => {
     turnNumber: number
     setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>
     selectedAsset: SelectedAsset
-    setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset>>
+    setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset | undefined>>
     channelID: string | number
     postBack: Postback
     routeStore: RouteStore
