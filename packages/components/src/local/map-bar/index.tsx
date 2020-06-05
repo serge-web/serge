@@ -7,12 +7,13 @@ import collatePlanFormData from './helpers/collate-plan-form-data'
 import collateAdjudicationFormData from './helpers/collate-adjudication-form-data'
 import collatePerceptionFormData from './helpers/collate-perception-form-data'
 import collatePlanningOrders from './helpers/collate-planning-orders'
+import collateStateOfWorld from './helpers/collate-state-of-world'
 
 import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
 import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -85,7 +86,9 @@ export const MapBar: React.FC = () => {
 
   const worldStateSubmitHandler = (): void => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
-      window.alert('Submitting State of World:' + routeStore.routes.length)
+      const orders = collateStateOfWorld(routeStore.routes, playerForce, turnNumber)
+      postBack(STATE_OF_WORLD, orders, channelID)
+      console.log('State of the world to be submitted', orders)
     } else if (phase === PLANNING_PHASE) {
       // build the results object
       const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
