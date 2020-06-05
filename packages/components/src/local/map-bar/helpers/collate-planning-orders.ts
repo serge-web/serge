@@ -2,21 +2,21 @@ import { Route, RouteStep } from '@serge/custom-types'
 import { padInteger } from '@serge/helpers'
 
 interface PlannedRoute {
-  uniqid: string,
-  destroyed: boolean,
+  uniqid: string
+  destroyed: boolean
   plannedTurns: Array<RouteStep>
 }
 
 interface PlannedOrders {
-  comment: string,
-  turn: number,
-  name: string,
+  comment: string
+  turn: number
+  name: string
   plannedRoutes: Array<PlannedRoute>
 }
 
 const collatePlanningOrders = (routes: Array<Route>, playerForce: string, turnNumber: number): PlannedOrders => {
   const planningFor: number = turnNumber + 1
-  const results:Array<PlannedRoute> = routes.map((route: Route): PlannedRoute => {
+  const results: Array<PlannedRoute> = routes.map((route: Route): PlannedRoute => {
     const plannedTurns: Array<RouteStep> = []
     console.log('collating plans', route.name, route.planned)
     if (route.planned && route.planned.length > 0) {
@@ -36,9 +36,12 @@ const collatePlanningOrders = (routes: Array<Route>, playerForce: string, turnNu
     return thisRoute
   })
 
-  const res: PlannedOrders = {comment: '', turn: turnNumber + 1, 
+  const res: PlannedOrders = {
+    comment: '',
+    turn: turnNumber + 1,
     name: playerForce + ' Plans for T' + padInteger(turnNumber),
-    plannedRoutes: results}
+    plannedRoutes: results
+  }
   return res
 }
 

@@ -50,19 +50,19 @@ export const MapBar: React.FC = () => {
     routeStore,
     turnPlanned
   }: {
-    playerForce: any,
-    phase: Phase,
-    platforms: any,
-    forces: any,
-    showMapBar: boolean,
-    turnNumber: number,
-    setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>,
-    selectedAsset: SelectedAsset,
-    setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset>>,
-    channelID: string | number,
-    postBack: Postback,
-    routeStore: RouteStore,
-    turnPlanned: {(turn: PlanTurnFormValues): void} 
+    playerForce: any
+    phase: Phase
+    platforms: any
+    forces: any
+    showMapBar: boolean
+    turnNumber: number
+    setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>
+    selectedAsset: SelectedAsset
+    setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset>>
+    channelID: string | number
+    postBack: Postback
+    routeStore: RouteStore
+    turnPlanned: {(turn: PlanTurnFormValues): void}
   } = useContext(MapContext).props
 
   // sort out the handler for State of World button

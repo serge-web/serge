@@ -2,7 +2,7 @@ import { Route } from '@serge/custom-types'
 import { padInteger } from '@serge/helpers'
 
 interface AssetState {
-  uniqid: string,
+  uniqid: string
   name: string
   condition: string
   perceptions: any
@@ -13,37 +13,37 @@ interface AssetState {
 }
 
 interface ForceState {
-  name: string,
+  name: string
   assets: Array<AssetState>
 }
 
 interface StateOfWorld {
-  comment: string,
-  turn: number,
-  name: string,
+  comment: string
+  turn: number
+  name: string
   detail: Array<ForceState>
 }
 
 const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): StateOfWorld => {
-  const forces:Array<ForceState> = []
-  routes.forEach((route:Route) => {
-    const forceName:string = route.actualForceName
+  const forces: Array<ForceState> = []
+  routes.forEach((route: Route) => {
+    const forceName: string = route.actualForceName
     // retrieve (or create) an object for this force
-    let forceArray = forces.find((state:ForceState) => state.name === forceName)
-    if(!forceArray) {
-      forceArray = {name: forceName, assets:[]}
+    let forceArray = forces.find((state: ForceState) => state.name === forceName)
+    if (!forceArray) {
+      forceArray = { name: forceName, assets: [] }
       forces.push(forceArray)
     }
 
     // collate element to represent this asset
-    const assetState:AssetState = {
+    const assetState: AssetState = {
       uniqid: route.uniqid,
       name: route.name,
       condition: route.asset.condition,
-      perceptions: route.asset.perceptions,
+      perceptions: route.asset.perceptions
     }
 
-    if(route.asset.destroyed) {
+    if (route.asset.destroyed) {
       assetState.destroyed = route.asset.destroyed
     } else {
       assetState.history = route.history
@@ -54,13 +54,12 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): StateOfW
   })
 
   const res: StateOfWorld = {
-    comment: '', 
-    turn: turnNumber + 1, 
+    comment: '',
+    turn: turnNumber + 1,
     name: 'State of World T' + padInteger(turnNumber),
     detail: forces
   }
   return res
-
 }
 
 export default collateStateOfWorld

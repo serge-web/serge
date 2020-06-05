@@ -18,6 +18,5 @@ it('contains relevant population results', () => {
   expect(asset.name).toEqual('C065')
   expect(asset.plannedTurns.length).toEqual(3)
   expect(asset.history.length).toEqual(1)
-  expect(asset.newState).toEqual({"speedKts": 10, "state": "Transiting"})
+  expect(asset.newState).toEqual({ speedKts: 10, state: 'Transiting' })
 })
-
