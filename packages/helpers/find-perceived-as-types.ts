@@ -25,7 +25,7 @@ export default function findPerceivedAsTypes (
   } else {
     if (theirPerceptions) {
       // use the perceived values
-      perception = theirPerceptions.find(p => p.by === myForce) || null
+      perception = theirPerceptions.find(p => p.by.toLowerCase() === myForce.toLowerCase()) || null
     } else {
       perception = null
     }
