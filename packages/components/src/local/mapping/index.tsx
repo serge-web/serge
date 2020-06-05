@@ -9,7 +9,7 @@ import boundsFor from './helpers/bounds-for'
 import {
   roundToNearest,
   routeCreateStore,
-  routeAddStep,
+  routeAddSteps,
   routeSetCurrent,
   routeGetLatestPosition
 } from '@serge/helpers'
@@ -94,22 +94,9 @@ export const Mapping: React.FC<PropTypes> = ({
   children
 }) => {
   /* Initialise states */
-  const [showMapBar, setShowMapBar] = useState(false)
-  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset>({
-    uniqid: '',
-    name: '',
-    type: 'Unknown',
-    force: 'Unknown',
-    controlledBy: [],
-    condition: '',
-    visibleTo: [],
-    status: {
-      speedKts: 0,
-      state: ''
-    }
-  })
-
-  const [zoomLevel, setZoomLevel] = useState(zoom || 0)
+  const [showMapBar, setShowMapBar] = useState<boolean>(false)
+  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
+  const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
 
   /* Initialise variables */
   const [mapBounds, setMapBounds] = useState<{
@@ -123,14 +110,8 @@ export const Mapping: React.FC<PropTypes> = ({
   const [newLeg, setNewLeg] = useState<Array<SergeHex<{}>> | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
-  const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
+  const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProp)
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
-
-  // if we've got a planning range from prop, double-check if it is different
-  // to the current one
-  if (planningRangeProp && planningRange !== planningRangeProp) {
-    setPlanningRange(planningRangeProp)
-  }
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -140,16 +121,15 @@ export const Mapping: React.FC<PropTypes> = ({
   // highlight the route for the selected asset
   useEffect(() => {
     // if we were planning a mobile route, clear that
-    if (planningConstraints) {
+    if (planningConstraints && selectedAsset) {
       setPlanningConstraints(undefined)
     }
 
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    if (selectedAsset) {
-      const store: RouteStore = routeSetCurrent(selectedAsset.uniqid, routeStore)
-      setRouteStore(store)
-    }
+    const id: string = selectedAsset ? selectedAsset.uniqid : ''
+    const store: RouteStore = routeSetCurrent(id, routeStore)
+    setRouteStore(store)
   }, [selectedAsset])
 
   useEffect(() => {
@@ -183,7 +163,6 @@ export const Mapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (newLeg) {
-      // TODO: store the new planned leg for this asset
       const selRoute = routeStore.selected
       if (selRoute) {
         const newTurn = selRoute.planned[selRoute.planned.length - 1].turn + 1
@@ -196,7 +175,7 @@ export const Mapping: React.FC<PropTypes> = ({
             status: { state: 'BBQ', speedKts: 12 },
             coords: coords
           }
-          const newStore: RouteStore = routeAddStep(routeStore, selRoute.uniqid, newStep)
+          const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
           setRouteStore(newStore)
         }
       }
@@ -249,10 +228,14 @@ export const Mapping: React.FC<PropTypes> = ({
           turnStart = current.planned[current.planned.length - 1].turn
         }
         let store: RouteStore = routeStore
+        const steps: Array<RouteStep> = []
         for (let ctr = 0; ctr < plannedTurn.turnsVal; ctr++) {
           const step: RouteStep = { turn: ++turnStart, status: { state: status.name } }
-          // store this step
-          store = routeAddStep(store, selectedAsset.uniqid, step)
+          steps.push(step)
+        }
+        // store this step
+        if (selectedAsset) {
+          store = routeAddSteps(store, selectedAsset.uniqid, steps)
         }
         setRouteStore(store)
       }

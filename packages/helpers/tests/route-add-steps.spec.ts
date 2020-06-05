@@ -4,7 +4,7 @@
 import { forces, platformTypes } from '@serge/mocks'
 
 import routeCreateStore from '../route-create-store'
-import routeAddStep from '../route-add-step'
+import routeAddSteps from '../route-add-steps'
 
 import { RouteStore, RouteStep } from '@serge/custom-types'
 
@@ -23,7 +23,7 @@ it('clear route from selected step', () => {
   }
 
   // clear from step
-  const store2: RouteStore = routeAddStep(store, idOne, step)
+  const store2: RouteStore = routeAddSteps(store, idOne, [step])
 
   // is now set
   expect(store2.routes[2].planned.length).toEqual(4)

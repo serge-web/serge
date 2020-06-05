@@ -11,9 +11,12 @@
 .inner {
   overflow-y: scroll;
   height: 100%;
-  section:first-of-type {
-    height: 400px;
-  }
+  // this block was used to size the world-state panel, but it also caught
+  // the first section within the perception panel, so it has been
+  // commented out:
+  // section:first-of-type {
+  //   height: 400px;
+  // }
 }
 
 .open {

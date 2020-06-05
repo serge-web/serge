@@ -64,11 +64,11 @@ export default interface MappingContext {
   /**
    * state for which form should appear in the map bar
    */
-  selectedAsset: SelectedAsset
+  selectedAsset: SelectedAsset | undefined
   /**
-   *  setter, to modify the currently selected asset
+   *  setter, to modify the currently selected asset (or to clear it)
    **/
-  setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset>>
+  setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset | undefined>>
   /**
    *  state for zoom Level
    **/

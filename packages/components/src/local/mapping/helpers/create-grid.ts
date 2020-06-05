@@ -42,7 +42,7 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
   const stretchedHeight: number = heightcells * 4 / 3
 
   // define grid as flat
-  const Hex = extendHex({ orientation: 'pointy' })
+  const Hex = extendHex({ orientation: 'flat' })
   const grid = defineGrid(Hex)
 
   // generate grid items
