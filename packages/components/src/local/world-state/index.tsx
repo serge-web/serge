@@ -62,14 +62,14 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
         {
           routes.filter((pRoute: PlannedRoute) => pRoute.underControl)
             .map((pRoute: PlannedRoute): any => {
-              return <li key={'r_li_' + pRoute.uniqid} onClick={():any => clickEvent(pRoute.uniqid)} >{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} - {pRoute.numPlanned} planned {pRoute.selected ? '[*]' : ''}</li>
+              return <li key={'r_li_' + pRoute.uniqid} onClick={(): any => clickEvent(pRoute.uniqid)} >{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} - {pRoute.numPlanned} planned {pRoute.selected ? '[*]' : ''}</li>
             })
         }
         <li>== [Not under my control] ==</li>
         {
           routes.filter((pRoute: PlannedRoute) => !pRoute.underControl)
             .map((pRoute: PlannedRoute): any => {
-              return <li key={'r_li_' + pRoute.uniqid} onClick={():any => clickEvent(pRoute.uniqid)} >{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} {pRoute.selected ? '[*]' : ''}</li>
+              return <li key={'r_li_' + pRoute.uniqid} onClick={(): any => clickEvent(pRoute.uniqid)} >{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} {pRoute.selected ? '[*]' : ''}</li>
             })
 
         }</ul>
