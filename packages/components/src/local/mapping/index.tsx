@@ -9,7 +9,7 @@ import boundsFor from './helpers/bounds-for'
 import {
   roundToNearest,
   routeCreateStore,
-  routeAddStep,
+  routeAddSteps,
   routeSetCurrent,
   routeGetLatestPosition
 } from '@serge/helpers'
@@ -176,7 +176,7 @@ export const Mapping: React.FC<PropTypes> = ({
             status: { state: 'BBQ', speedKts: 12 },
             coords: coords
           }
-          const newStore: RouteStore = routeAddStep(routeStore, selRoute.uniqid, newStep)
+          const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
           setRouteStore(newStore)
         }
       }
@@ -190,7 +190,6 @@ export const Mapping: React.FC<PropTypes> = ({
           origin: lastCell.name,
           travelMode: planningConstraints.travelMode
         }
-        console.log('new constraints', newP)
         setPlanningConstraints(newP)
       }
     }
@@ -230,12 +229,14 @@ export const Mapping: React.FC<PropTypes> = ({
           turnStart = current.planned[current.planned.length - 1].turn
         }
         let store: RouteStore = routeStore
+        const steps: Array<RouteStep> = []
         for (let ctr = 0; ctr < plannedTurn.turnsVal; ctr++) {
           const step: RouteStep = { turn: ++turnStart, status: { state: status.name } }
-          // store this step
-          if (selectedAsset) {
-            store = routeAddStep(store, selectedAsset.uniqid, step)
-          }
+          steps.push(step)
+        }
+        // store this step
+        if (selectedAsset) {
+          store = routeAddSteps(store, selectedAsset.uniqid, steps)
         }
         setRouteStore(store)
       }

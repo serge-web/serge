@@ -37,7 +37,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
-      // ok, it's the current asset. clear it
+      // clear selected asset, since it has been clicked again
       setSelectedAsset(undefined)
       setShowMapBar(false)
     } else {
