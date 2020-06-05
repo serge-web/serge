@@ -48,12 +48,12 @@ const createStepArray = (turns: any, adjudication: boolean): Array<RouteStep> =>
  * @returns {Route} Routefor this asset
  */
 const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
-  underControl: boolean, perceivedForce: string, perceivedName: string, 
+  underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
   perceivedType: string, destroyed: boolean): Route => {
   const stat = asset.status
   const currentStatus: RouteStatus = stat.speedKts
-    ? { state: stat.status, speedKts: stat.speedKts }
-    : { state: stat.status }
+    ? { state: stat.state, speedKts: stat.speedKts }
+    : { state: stat.state }
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
@@ -65,7 +65,8 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
     selected: false,
     platformType: perceivedType,
     underControl: underControl,
-    forceName: perceivedForce,
+    perceivedForceName: perceivedForce,
+    actualForceName: actualForce,
     color: color,
     destroyed: destroyed,
     history: createStepArray(asset.history, false), // we plot all history, so ignore whether
@@ -73,7 +74,8 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
     currentStatus: currentStatus,
     currentPosition: asset.position,
     planned: futureSteps,
-    original: cloneDeep(futureSteps)
+    original: cloneDeep(futureSteps),
+    asset: asset
   }
 }
 

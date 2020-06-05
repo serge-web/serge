@@ -86,7 +86,7 @@ export const MapBar: React.FC = () => {
 
   const worldStateSubmitHandler = (): void => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
-      const orders = collateStateOfWorld(routeStore.routes, playerForce, turnNumber)
+      const orders = collateStateOfWorld(routeStore.routes, turnNumber)
       postBack(STATE_OF_WORLD, orders, channelID)
       console.log('State of the world to be submitted', orders)
     } else if (phase === PLANNING_PHASE) {

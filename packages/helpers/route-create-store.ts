@@ -81,7 +81,7 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
           if(controlled || playerForce === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
             store.routes.push(routeCreateRoute(asset, adjudication, force.color, 
-              controlled, force.uniqid, asset.name, asset.platformType, assetIsDestroyed))
+              controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, assetIsDestroyed))
           } else {
             // can't see it directly. See if we can perceive it
             const undefinedColor = '#999' // TODO: this color should not be hard-coded
@@ -90,7 +90,7 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
               const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId, 
                 thisForce, asset.platformType, asset.perceptions, false)
                 // create route for this asset
-                store.routes.push(routeCreateRoute(asset, false, perceivedAs, false, perceptions[1], 
+                store.routes.push(routeCreateRoute(asset, false, perceivedAs, false, force.uniqid, perceptions[1], 
                   perceptions[0], perceptions[2], assetIsDestroyed))
             }
           }

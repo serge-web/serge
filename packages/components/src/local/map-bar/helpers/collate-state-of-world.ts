@@ -1,45 +1,66 @@
-import { Route, RouteStep } from '@serge/custom-types'
+import { Route } from '@serge/custom-types'
 import { padInteger } from '@serge/helpers'
 
-interface PlannedRoute {
+interface AssetState {
   uniqid: string,
-  destroyed: boolean,
-  plannedTurns: Array<RouteStep>
+  name: string
+  condition: string
+  perceptions: any
+  destroyed?: boolean
+  history?: any
+  plannedTurns?: any
+  newState?: any
 }
 
-interface PlannedOrders {
+interface ForceState {
+  name: string,
+  assets: Array<AssetState>
+}
+
+interface StateOfWorld {
   comment: string,
   turn: number,
   name: string,
-  plannedRoutes: Array<PlannedRoute>
+  detail: Array<ForceState>
 }
 
-const collateStateOfWorld = (routes: Array<Route>, playerForce: string, turnNumber: number): PlannedOrders => {
-  const planningFor: number = turnNumber + 1
-  const results:Array<PlannedRoute> = routes.map((route: Route): PlannedRoute => {
-    const plannedTurns: Array<RouteStep> = []
-    console.log('collating plans', route.name, route.planned)
-    if (route.planned && route.planned.length > 0) {
-      route.planned.forEach((step: RouteStep) => {
-        // check the plans are in the future. Note: game logic
-        // should prevent this problem arising in the future
-        if (step.turn >= planningFor) {
-          plannedTurns.push(step)
-        }
-      })
+const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): StateOfWorld => {
+  const forces:Array<ForceState> = []
+  routes.forEach((route:Route) => {
+    const forceName:string = route.actualForceName
+    // retrieve (or create) an object for this force
+    let forceArray = forces.find((state:ForceState) => state.name === forceName)
+    if(!forceArray) {
+      forceArray = {name: forceName, assets:[]}
+      forces.push(forceArray)
     }
-    const thisRoute: PlannedRoute = {
+
+    // collate element to represent this asset
+    const assetState:AssetState = {
       uniqid: route.uniqid,
-      destroyed: route.destroyed,
-      plannedTurns: plannedTurns
+      name: route.name,
+      condition: route.asset.condition,
+      perceptions: route.asset.perceptions,
     }
-    return thisRoute
+
+    if(route.asset.destroyed) {
+      assetState.destroyed = route.asset.destroyed
+    } else {
+      assetState.history = route.history
+      assetState.plannedTurns = route.planned
+      assetState.newState = route.currentStatus
+    }
+    forceArray.assets.push(assetState)
   })
 
-  const res: PlannedOrders = {comment: '', turn: turnNumber + 1, 
-    name: playerForce + ' Plans for T' + padInteger(turnNumber),
-    plannedRoutes: results}
+  const res: StateOfWorld = {
+    comment: '', 
+    turn: turnNumber + 1, 
+    name: 'State of World T' + padInteger(turnNumber),
+    detail: forces
+  }
   return res
+
 }
 
 export default collateStateOfWorld
