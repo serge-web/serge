@@ -94,10 +94,9 @@ export const Mapping: React.FC<PropTypes> = ({
   children
 }) => {
   /* Initialise states */
-  const [showMapBar, setShowMapBar] = useState(false)
+  const [showMapBar, setShowMapBar] = useState<boolean>(false)
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
-
-  const [zoomLevel, setZoomLevel] = useState(zoom || 0)
+  const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
 
   /* Initialise variables */
   const [mapBounds, setMapBounds] = useState<{
