@@ -77,8 +77,12 @@ export const MapBar: React.FC = () => {
 
   // Selects the current asset
   useEffect(() => {
-    setCurrentForm(assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase))
-    setCurrentAssetName(selectedAsset.name)
+    if (selectedAsset) {
+      setCurrentForm(assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase))
+      setCurrentAssetName(selectedAsset.name)
+    } else {
+      setCurrentAssetName('Pending')
+    }
   }, [selectedAsset])
 
   // Toggles the map bar on and off
@@ -88,21 +92,27 @@ export const MapBar: React.FC = () => {
 
   /** an asset has been selected from the list */
   const setSelectedAssetById = (id: string): void => {
-    const asset: any = findAsset(forces, id)
-    const force: any = forceFor(forces, id)
-    const visibleToArr: string[] = visibleTo(asset.perceptions)
-    const selected: SelectedAsset = {
-      uniqid: asset.uniqid,
-      name: asset.name,
-      type: asset.platformType,
-      force: force.uniqid,
-      controlledBy: force.controlledBy,
-      condition: asset.condition,
-      visibleTo: visibleToArr,
-      status: asset.status
+    // is it a new id?
+    if (selectedAsset && selectedAsset.uniqid === id) {
+      // current clicked on, clear it
+      setSelectedAsset(undefined)
+    } else {
+      const asset: any = findAsset(forces, id)
+      const force: any = forceFor(forces, id)
+      const visibleToArr: string[] = visibleTo(asset.perceptions)
+      const selected: SelectedAsset = {
+        uniqid: asset.uniqid,
+        name: asset.name,
+        type: asset.platformType,
+        force: force.uniqid,
+        controlledBy: force.controlledBy,
+        condition: asset.condition,
+        visibleTo: visibleToArr,
+        status: asset.status
+      }
+      // ok done, share the good news
+      setSelectedAsset(selected)
     }
-    // ok done, share the good news
-    setSelectedAsset(selected)
   }
 
   /* TODO: This should be refactored into a helper */
@@ -156,7 +166,7 @@ export const MapBar: React.FC = () => {
             submitForm={worldStateSubmitHandler} ></WorldState>
         </section>
         <section>
-          {currentForm !== '' && selectedAsset.uniqid !== '' && formSelector(currentForm)}
+          {currentForm !== '' && selectedAsset && formSelector(currentForm)}
         </section>
       </div>
     </div>
