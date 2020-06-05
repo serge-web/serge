@@ -93,11 +93,10 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
             // can't see it directly. See if we can perceive it
             const undefinedColor = '#999' // TODO: this color should not be hard-coded
             const perceivedAs: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColors, undefinedColor)
-            console.log('perceive platform', perceivedAs, asset.name, asset.perceptions, playerForce, forceColors)
             if(perceivedAs) {
               const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId, thisForce, asset.platformType, asset.perceptions, false)
-                // create route for this asset
-                store.routes.push(routeCreateRoute(asset, false, perceivedAs, false, perceptions[1], perceptions[0], perceptions[2]))
+              // create route for this asset
+              store.routes.push(routeCreateRoute(asset, false, perceivedAs, false, perceptions[1], perceptions[0], perceptions[2]))
             }
           }
         })
