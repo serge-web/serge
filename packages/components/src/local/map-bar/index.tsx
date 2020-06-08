@@ -88,13 +88,11 @@ export const MapBar: React.FC = () => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
       const orders = collateStateOfWorld(routeStore.routes, turnNumber)
       postBack(STATE_OF_WORLD, orders, channelID)
-      console.log('State of the world to be submitted', orders)
     } else if (phase === PLANNING_PHASE) {
       // build the results object
       const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
       const orders = collatePlanningOrders(myRoutes, playerForce, turnNumber)
       postBack(SUBMIT_PLANS, orders, channelID)
-      console.log('orders to be submitted', orders)
     }
   }
 
