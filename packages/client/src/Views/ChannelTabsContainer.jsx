@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import FlexLayout from "flexlayout-react";
 import Channel from "../Components/Channel";
 import _ from "lodash";
-import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from "../consts";
+import { expiredStorage, LOCAL_STORAGE_TIMEOUT, STATE_OF_WORLD, SUBMIT_PLANS } from "../consts";
 import { getAllWargameMessages } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
 import { PlayerStateContext } from "../Store/PlayerUi";
 import "@serge/themes/dependencies/flexlayout-react.scss";
@@ -148,8 +148,14 @@ class ChannelTabsContainer extends Component {
         case 'perception':
           sendMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
           break
-        default:
-          console.log('Handler not created for', form)
+        case SUBMIT_PLANS:
+          sendMessage(SUBMIT_PLANS, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+          break
+        case STATE_OF_WORLD:
+          sendMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+          break
+          default:
+        console.log('Handler not created for', form)
       }
   
     }
