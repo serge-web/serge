@@ -18,7 +18,6 @@ const collatePlanningOrders = (routes: Array<Route>, playerForce: string, turnNu
   const planningFor: number = turnNumber + 1
   const results: Array<PlannedRoute> = routes.map((route: Route): PlannedRoute => {
     const plannedTurns: Array<RouteStep> = []
-    console.log('collating plans', route.name, route.planned)
     if (route.planned && route.planned.length > 0) {
       route.planned.forEach((step: RouteStep) => {
         // check the plans are in the future. Note: game logic
