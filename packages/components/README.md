@@ -16,6 +16,7 @@ In the root of the serge project, ensure that you have installed all packages an
 yarn install
 yarn storybook
 ```
+**Note:** in June 2020, Ian has had to perform `yarn build` in the project root before storybook.
 
 ## Contributing to the component library
 
