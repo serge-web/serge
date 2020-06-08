@@ -4,19 +4,19 @@ import findAsset from '../../../Components/Mapping/helpers/findAsset'
 
 const payload1 =
   {
-    asset: 'C01',
+    assetId: 'C01',
     perception: { by: 'Red', force: 'Green', type: 'Frigate'}
   }
 
 const payload2 =
   {
-    asset: 'C02',
+    assetId: 'C02',
     perception: { by: 'Red', force: 'Red', type: 'MPA'}
   }
 
 const payload3 = 
   {
-    asset: 'C06',
+    assetId: 'C06',
     perception: { by: 'Red', force: 'Red', type: 'Fisher'}
   }
 
