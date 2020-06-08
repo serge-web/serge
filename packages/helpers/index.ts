@@ -5,6 +5,7 @@
 
 export { default as calcAllowableCells } from './allowable-cells'
 export { default as calcComplete } from './calc-complete'
+export { default as checkIfDestroyed } from './check-if-destroyed'
 export { default as checkUnique } from './check-unique'
 export { default as convertMilliseconds } from './convert-milliseconds'
 export { default as deepCompare } from './deep-compare'

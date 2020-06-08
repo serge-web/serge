@@ -170,7 +170,7 @@ export const WithAssets: React.FC = () => <Mapping
   playerForce={radios(label, forceNames, defaultValue)}
   platforms={platformTypes}
   phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
-  turnNumber={5}
+  turnNumber={3}
   postBack={postback} >
   <Assets /><HexGrid />
 </Mapping>

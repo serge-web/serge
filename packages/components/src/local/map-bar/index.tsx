@@ -6,11 +6,14 @@ import assetDialogFor from './helpers/asset-dialog-for'
 import collatePlanFormData from './helpers/collate-plan-form-data'
 import collateAdjudicationFormData from './helpers/collate-adjudication-form-data'
 import collatePerceptionFormData from './helpers/collate-perception-form-data'
+import collatePlanningOrders from './helpers/collate-planning-orders'
+import collateStateOfWorld from './helpers/collate-state-of-world'
 
 import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
-import { SelectedAsset } from '@serge/custom-types'
+import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route } from '@serge/custom-types'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -21,7 +24,6 @@ import WorldState from '../world-state'
 import PerceptionForm from '../perception-form'
 import AdjudicateTurnForm from '../adjudicate-turn-form'
 import PlanTurnForm from '../plan-turn-form'
-import { ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE } from '@serge/config'
 
 /* Render component */
 export const MapBar: React.FC = () => {
@@ -39,6 +41,7 @@ export const MapBar: React.FC = () => {
     platforms,
     forces,
     showMapBar,
+    turnNumber,
     setShowMapBar,
     selectedAsset,
     setSelectedAsset,
@@ -46,6 +49,20 @@ export const MapBar: React.FC = () => {
     postBack,
     routeStore,
     turnPlanned
+  }: {
+    playerForce: any
+    phase: Phase
+    platforms: any
+    forces: any
+    showMapBar: boolean
+    turnNumber: number
+    setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>
+    selectedAsset: SelectedAsset
+    setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset | undefined>>
+    channelID: string | number
+    postBack: Postback
+    routeStore: RouteStore
+    turnPlanned: {(turn: PlanTurnFormValues): void}
   } = useContext(MapContext).props
 
   // sort out the handler for State of World button
@@ -69,9 +86,13 @@ export const MapBar: React.FC = () => {
 
   const worldStateSubmitHandler = (): void => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
-      window.alert('Submitting State of World')
+      const orders = collateStateOfWorld(routeStore.routes, turnNumber)
+      postBack(STATE_OF_WORLD, orders, channelID)
     } else if (phase === PLANNING_PHASE) {
-      window.alert('Submitting my forces')
+      // build the results object
+      const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
+      const orders = collatePlanningOrders(myRoutes, playerForce, turnNumber)
+      postBack(SUBMIT_PLANS, orders, channelID)
     }
   }
 

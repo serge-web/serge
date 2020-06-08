@@ -1,7 +1,7 @@
 /* global it expect */
 
 /* Import mock data */
-import { forces } from '@serge/mocks'
+import { forces, platformTypes } from '@serge/mocks'
 
 import routeCreateStore from '../route-create-store'
 import routeAddSteps from '../route-add-steps'
@@ -9,7 +9,7 @@ import routeAddSteps from '../route-add-steps'
 import { RouteStore, RouteStep } from '@serge/custom-types'
 
 it('clear route from selected step', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', false)
+  const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes)
 
   const idOne = 'a0pra00003'
 

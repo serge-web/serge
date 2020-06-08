@@ -32,14 +32,14 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
   const cellWidthM: number = measureLeft.distanceTo(cellCentre)
 
   // and calculate the number of cells that fit in the provided area
-  const widthCells: number = Math.ceil(boxWidthM / cellWidthM) + 1
+  const widthCells: number = Math.ceil(boxWidthM / cellWidthM) + 4
 
   // lines of latitude are largely equi-distant, so perform simple calculation
   const heightcells: number = Math.ceil((bounds.getNorth() - bounds.getSouth()) / (tileSizeDegs))
 
   // since we have pointy arrangement, we need to provide more to get height, since they're
   // more densely packed in vertical direction (more overlap)
-  const stretchedHeight: number = heightcells * 4 / 3
+  const stretchedHeight: number = heightcells * 9 / 8
 
   // define grid as flat
   const Hex = extendHex({ orientation: 'flat' })

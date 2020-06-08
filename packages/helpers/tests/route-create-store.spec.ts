@@ -1,7 +1,7 @@
 /* global it expect */
 
 /* Import mock data */
-import { forces } from '@serge/mocks'
+import { forces, platformTypes } from '@serge/mocks'
 
 import routeCreateStore from '../route-create-store'
 import { forcesControlledBy } from '../route-create-store'
@@ -14,7 +14,7 @@ it('determines correct controlled routes', () => {
 })
 
 it('can create route as umpire in adjudication mode', () => {
-  const store: RouteStore = routeCreateStore(forces, 'umpire', true)
+  const store: RouteStore = routeCreateStore(forces, 'umpire', true, platformTypes)
   expect(store.routes.length).toEqual(12)
 
   // check inside a route
@@ -26,7 +26,7 @@ it('can create route as umpire in adjudication mode', () => {
 })
 
 it('can create route for un-recognised type', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', true)
+  const store: RouteStore = routeCreateStore(forces, 'Blue', true, platformTypes)
 
   expect(store.routes.length).toEqual(10)
 
@@ -37,7 +37,7 @@ it('can create route for un-recognised type', () => {
 })
 
 it('can create route as umpire in planning mode', () => {
-  const store: RouteStore = routeCreateStore(forces, 'umpire', false)
+  const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes)
   expect(store.routes.length).toEqual(12)
 
   // check inside a route
@@ -77,7 +77,7 @@ it('support new way of storing past steps', () => {
     }
   ]
 
-  const store: RouteStore = routeCreateStore(forces, 'umpire', false)
+  const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes)
   expect(store.routes.length).toEqual(12)
 
   // check inside a route

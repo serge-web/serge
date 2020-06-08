@@ -5,22 +5,19 @@ import findAsset from '../../../Components/Mapping/helpers/findAsset'
 const payload1 =
   {
     asset: 'C01',
-    force: 'Red',
-    perception: { force: 'Green', type: 'Frigate'}
+    perception: { by: 'Red', force: 'Green', type: 'Frigate'}
   }
 
 const payload2 =
   {
     asset: 'C02',
-    force: 'Red',
-    perception: { force: 'Red', type: 'MPA'}
+    perception: { by: 'Red', force: 'Red', type: 'MPA'}
   }
 
 const payload3 = 
   {
     asset: 'C06',
-    force: 'Red',
-    perception: { force: 'Red', type: 'Fisher'}
+    perception: { by: 'Red', force: 'Red', type: 'Fisher'}
   }
 
 const allForces = [
@@ -31,15 +28,17 @@ const allForces = [
       {
         uniqid: 'C01',
         name: 'alpha',
-        perceptions: {
-          Red: { force: 'Blue', type: 'Frigate' }
-        }
+        perceptions: [{
+          by: 'Red',
+          force: 'Blue',
+          type: 'frigate'
+        }]
       },
       {
         name: 'bravo',
         uniqid: 'C02',
-        perceptions: {
-        }
+        perceptions: [
+        ]
       }
     ]
   },
@@ -49,15 +48,17 @@ const allForces = [
       {
         name: 'charlie',
         uniqid: 'C03',
-        perceptions: {
-          Blue: { force: 'Green', type: 'Frigate' }
-        }
+        perceptions: [{
+          by: 'Blue',
+          force: 'Green',
+          type: 'frigate'
+        }]
       },
       {
         name: 'delta',
         uniqid: 'C04',
-        perceptions: {
-        }
+        perceptions: [
+        ]
       }
     ]
   },
@@ -67,9 +68,11 @@ const allForces = [
       {
         name: 'echo',
         uniqid: 'C05',
-        perceptions: {
-          Blue: { force: 'Green', type: 'Frigate' }
-        }
+        perceptions: [{
+          by: 'Blue',
+          force: 'Green',
+          type: 'frigate'
+        }]
       },
       {
         uniqid: 'C06',
@@ -84,32 +87,36 @@ it('correctly updates perception with perception entry already present', () => {
   expect(updated).toBeTruthy()
   const alpha = findAsset(allForces, 'C01')
   expect(alpha.name).toEqual('alpha')
-  expect(alpha.perceptions.Blue).toBeUndefined()
-  expect(alpha.perceptions.Red).toBeTruthy()
-  expect(alpha.perceptions.Red.force).toEqual('Green')
-  expect(alpha.perceptions.Red.type).toEqual('Frigate')
+  const bluePerception = alpha.perceptions.find(perception => perception.by === 'Blue')
+  const redPerception = alpha.perceptions.find(perception => perception.by === 'Red')
+  expect(bluePerception).toBeUndefined()
+  expect(redPerception).toBeTruthy()
+  expect(redPerception.force).toEqual('Green')
+  expect(redPerception.type).toEqual('Frigate')
 })
-
 
 it('correctly updates perception with perception entry not present', () => {
   const updated = handlePerceptionChanges(payload2, allForces)
   expect(updated).toBeTruthy()
   const bravo = findAsset(allForces, 'C02')
   expect(bravo.name).toEqual('bravo')
-  expect(bravo.perceptions.Blue).toBeUndefined()
-  expect(bravo.perceptions.Red).toBeTruthy()
-  expect(bravo.perceptions.Red.force).toEqual('Red')
-  expect(bravo.perceptions.Red.type).toEqual('MPA')
+  const bluePerception = bravo.perceptions.find(perception => perception.by === 'Blue')
+  const redPerception = bravo.perceptions.find(perception => perception.by === 'Red')
+  expect(bluePerception).toBeUndefined()
+  expect(redPerception).toBeTruthy()
+  expect(redPerception.force).toEqual('Red')
+  expect(redPerception.type).toEqual('MPA')
 })
-
 
 it('correctly updates perception with perception entry not present', () => {
   const updated = handlePerceptionChanges(payload3, allForces)
   expect(updated).toBeTruthy()
   const foxtrot = findAsset(allForces, 'C06')
+  const bluePerception = foxtrot.perceptions.find(perception => perception.by === 'Blue')
+  const redPerception = foxtrot.perceptions.find(perception => perception.by === 'Red')
   expect(foxtrot.name).toEqual('foxtrot')
-  expect(foxtrot.perceptions.Blue).toBeUndefined()
-  expect(foxtrot.perceptions.Red).toBeTruthy()
-  expect(foxtrot.perceptions.Red.force).toEqual('Red')
-  expect(foxtrot.perceptions.Red.type).toEqual('Fisher')
+  expect(bluePerception).toBeUndefined()
+  expect(redPerception).toBeTruthy()
+  expect(redPerception.force).toEqual('Red')
+  expect(redPerception.type).toEqual('Fisher')
 })
