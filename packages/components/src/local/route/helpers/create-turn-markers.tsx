@@ -7,7 +7,12 @@ import calculatePolylineAngle from './calculate-polyline-angle'
 import { padInteger } from '@serge/helpers'
 import Button from '@material-ui/core/Button'
 
-const createTurnMarkers = (routes: RouteData, turnNumber: number, type: string, color: string, selected: boolean): JSX.Element[] => {
+const createTurnMarkers = (routes: RouteData, 
+                           turnNumber: number, 
+                           type: string, 
+                           color: string, 
+                           selected: boolean, 
+                           removeLastTurn: {(turnNumber: number): void}): JSX.Element[] => {
   return routes.steps.map((rte: RouteStep, index: number) => {
     let angle
 
@@ -17,7 +22,8 @@ const createTurnMarkers = (routes: RouteData, turnNumber: number, type: string, 
 
     const markers = (color: string, angle?: number): JSX.Element => {
       // start from the current game turn, increment by 0-based offset
-      const turn = padInteger(turnNumber + index + 1)
+      const currentTurn: number = turnNumber + index + 1
+      const turn: string = padInteger(currentTurn)
       if (selected === true) {
         return (
           <>
@@ -33,7 +39,7 @@ const createTurnMarkers = (routes: RouteData, turnNumber: number, type: string, 
               <Popup open={false}>
                 <Button
                 // Note: here we have available handlers to activate the removeLastTurn function
-                // onClick={(): void => removeLastTurn(historyRoutes)}
+                onClick={(): void => removeLastTurn(currentTurn)}
                 >{`Clear route from Turn ${turn}`}</Button>
               </Popup>
             </Marker>
