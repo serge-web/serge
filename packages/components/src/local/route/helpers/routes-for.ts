@@ -30,7 +30,7 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
     const startPos: LatLng = startCell.centreLatLng
     if (steps) {
       // store the line start if it's planned routes
-      if(!history) {
+      if (!history) {
         polyline.push(startPos)
       }
       steps.forEach((step: RouteStepType) => {
@@ -71,7 +71,7 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
           })
         }
       })
-      if(history) {
+      if (history) {
         polyline.push(startPos)
       }
     }
