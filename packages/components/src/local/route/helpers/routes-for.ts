@@ -57,10 +57,9 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
                     status: {
                       state: step.status.state
                     }
-
                   }
-                  routeSteps.push(routeStep)
                 }
+                routeSteps.push(routeStep)
                 polyline.push(thisCell.centreLatLng)
               }
               thisRouteCtr++
