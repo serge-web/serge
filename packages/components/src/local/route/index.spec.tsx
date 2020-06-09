@@ -25,6 +25,11 @@ const LocalTileLayer = {
 const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes)
 const route: RouteType = store.routes[0] as RouteType
 
+
+const clearFromTurn = (turn: number): void => {
+  console.log('clear after turn handler', turn)
+}
+
 it('Mapping renders correctly with Route', () => {
   const div = document.createElement('div')
   document.body.appendChild(div)
@@ -42,7 +47,7 @@ it('Mapping renders correctly with Route', () => {
     turnNumber={2}
   >
     <Route name={'alpha'} route={route}
-      trimmed={false} color={'#f00'} selected={true} />
+      trimmed={false} color={'#f00'} selected={true} clearRouteHandler = { clearFromTurn } />
   </Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
