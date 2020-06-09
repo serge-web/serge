@@ -14,10 +14,12 @@ export const lengthOfTrimmedLine = 2
  * @param {SergeGrid<SergeHex<{}>>} gridCells the grid system for this map
  * @param {string} position hex cell where the asset currently is
  * @param {any} steps series of planned steps for asset
+ * @param {boolean} trimmed whether to only show trimmed portion of data
+ * @param {boolean} history whether this is history or planned steps
  * @returns {RouteData} composite object containing route lines & end of turn marker locations
  */
 export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, steps: RouteStepType[],
-  trimmed: boolean): RouteData => {
+  trimmed: boolean, history: boolean): RouteData => {
   const polyline: LatLng[] = []
   const turnEnds: LatLng[] = []
   const routeSteps: RouteStep[] = []
@@ -27,8 +29,10 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
   if (startCell) {
     const startPos: LatLng = startCell.centreLatLng
     if (steps) {
-      // store the line start
-      polyline.push(startPos)
+      // store the line start if it's planned routes
+      if(!history) {
+        polyline.push(startPos)
+      }
       steps.forEach((step: RouteStepType) => {
         stepCtr++
         // first, does it contain a plain position, and is it within
@@ -60,13 +64,16 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
                   }
                 }
                 routeSteps.push(routeStep)
-                polyline.push(thisCell.centreLatLng)
               }
+              polyline.push(thisCell.centreLatLng)
               thisRouteCtr++
             }
           })
         }
       })
+      if(history) {
+        polyline.push(startPos)
+      }
     }
   }
   const res: RouteData = { polyline: polyline, turnEnds: turnEnds, steps: routeSteps }
