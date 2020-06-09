@@ -15,8 +15,12 @@ const routeClearFromStep = (store: RouteStore, selectedId: string, stepNumber: n
   if (route) {
     // ok, sort out the planned steps
     const planned: RouteStep[] = route.planned
+    console.log('route planned', planned)
     const trimmed = planned.filter((step: RouteStep) => step.turn < stepNumber)
     route.planned = trimmed
+    console.log('route cleared', trimmed)
+  } else {
+    console.log('route not found', selectedId)
   }
   
   return modified
