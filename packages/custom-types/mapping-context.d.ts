@@ -82,6 +82,10 @@ export default interface MappingContext {
    */
   turnPlanned?: {(turn: PlanTurnFormValues): void}
   /**
+   * handler to clear current route from specified number
+   */
+  clearFromTurn?: {(turn: number): void}
+  /**
    * The method for posting messages out of the mapping component
    */
   postBack?: Postback
