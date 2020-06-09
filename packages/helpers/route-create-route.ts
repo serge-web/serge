@@ -17,11 +17,16 @@ const createStepArray = (turns: any, adjudication: boolean): Array<RouteStep> =>
             step.route.forEach((coord: any) => {
               steps.push(coord)
             })
+          } else if(step.coords) {
+            // ok, this is legacy way of planned or history steps
+            step.coords.forEach((coord: any) => {
+              steps.push(coord)
+            })
           } else if (step.position) {
-            // ok, this is legacy way of recording past steps
+            // ok, this is legacy way of recording stationary past steps
             steps.push(step.position)
           }
-  
+
           // only include the speed parameter if there's one present
           // in the incoming object
           const status: RouteStatus = step.status.speedKts
