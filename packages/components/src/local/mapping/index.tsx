@@ -11,7 +11,8 @@ import {
   routeCreateStore,
   routeAddSteps,
   routeSetCurrent,
-  routeGetLatestPosition
+  routeGetLatestPosition,
+  routeClearFromStep
 } from '@serge/helpers'
 
 /* Import Types */
@@ -194,6 +195,22 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [newLeg])
 
+
+  const clearFromTurn = (turn: number): void => {
+    const current: Route | undefined = routeStore.selected
+    if (current) {
+      console.log('clear from turn', turn, current.planned.length)
+      const newStore = routeClearFromStep(routeStore, current.uniqid, turn)
+
+      const current2: Route | undefined = newStore.selected
+      if (current2) {
+        console.log('clear after turn', turn, current2.planned.length)
+      }
+      console.log('cleared after turn', turn, newStore.selected)
+      setRouteStore(newStore)
+    }
+  }
+
   const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
     const current: Route | undefined = routeStore.selected
     if (current) {
@@ -262,6 +279,7 @@ export const Mapping: React.FC<PropTypes> = ({
     setSelectedAsset,
     setZoomLevel,
     turnPlanned,
+    clearFromTurn,
     postBack
   }
 
