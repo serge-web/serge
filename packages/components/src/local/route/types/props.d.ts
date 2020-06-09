@@ -21,4 +21,8 @@ export default interface PropTypes {
    * if this is for the selected track
    */
   selected: boolean
+  /**
+   *  handler for clear route from selected turn
+   */
+  clearRouteHandler: {(turn: number): void}
 }
