@@ -25,4 +25,8 @@ export default interface PropTypes {
    * callback for submit changes
    */
   submitForm?: {(): void}
+  /**
+   * switch beetween Orders and  Other Visible Platforms
+   */
+  showOtherPlatforms?: boolean
 }

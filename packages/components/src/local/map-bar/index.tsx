@@ -28,8 +28,9 @@ import PlanTurnForm from '../plan-turn-form'
 /* Render component */
 export const MapBar: React.FC = () => {
   /* Set our intial states */
-  const [currentForm, setCurrentForm] = useState('')
-  const [currentAssetName, setCurrentAssetName] = useState('')
+  const [currentForm, setCurrentForm] = useState<string>('')
+  const [currentAssetName, setCurrentAssetName] = useState<string>('')
+  const [showOtherPlatforms, setShowOtherPlatforms] = useState<boolean>(false)
 
   const [stateFormTitle, setStateFormTitle] = useState<string>('')
   const [stateSubmitTitle, setStateSubmitTitle] = useState<string>('')
@@ -107,8 +108,13 @@ export const MapBar: React.FC = () => {
   }, [selectedAsset])
 
   // Toggles the map bar on and off
-  const clickEvent = (): void => {
-    showMapBar ? setShowMapBar(false) : setShowMapBar(true)
+  const clickEvent = (nextShowOtherPlatforms: boolean): void => {
+    if (nextShowOtherPlatforms === showOtherPlatforms) {
+      setShowMapBar(!showMapBar)
+    } else {
+      setShowOtherPlatforms(nextShowOtherPlatforms)
+      if (!showMapBar) setShowMapBar(!showMapBar)
+    }
   }
 
   /** an asset has been selected from the list */
@@ -175,13 +181,23 @@ export const MapBar: React.FC = () => {
 
   return (
     <div className={cx(styles['map-bar'], showMapBar && styles.open)}>
-      <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
+      <div
+        className={cx(styles.toggle, (!showOtherPlatforms || !showMapBar) && styles['toggle-active'])}
+        onClick={() => { clickEvent(false) }}>
+        <ArrowRight />
+      </div>
+      <div
+        className={cx(styles.toggle, (showOtherPlatforms || !showMapBar) && styles['toggle-active'])}
+        onClick={() => { clickEvent(true) }}>
+        <ArrowRight />
+      </div>
       <div className={styles.inner}>
         <section>
           <WorldState
             name={stateFormTitle}
             phase={phase}
             store={routeStore}
+            showOtherPlatforms={showOtherPlatforms}
             submitTitle = {stateSubmitTitle}
             setSelectedAsset={setSelectedAssetById}
             submitForm={worldStateSubmitHandler} ></WorldState>

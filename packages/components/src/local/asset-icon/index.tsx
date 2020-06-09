@@ -13,6 +13,14 @@ import styles from './styles.module.scss'
 /* Import context */
 import { MapContext } from '../mapping'
 
+/* Export divIcon classname generator to use icons in to other sections */
+export const getIconClassname = (icForce: string, icType: string, icSelected?: boolean):string => (cx(
+  styles['asset-icon'],
+  styles[icForce],
+  icSelected ? styles.selected : null,
+  styles[`platform-type-${icType}`]
+))
+
 /* Render component */
 export const AssetIcon: React.FC<PropTypes> = ({
   uniqid,
@@ -31,8 +39,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    className: cx(styles['asset-icon'], styles[force],
-      selected ? styles.selected : null, styles[`platform-type-${type}`])
+    className: getIconClassname(force, type, selected)
   })
 
   const clickEvent = (): void => {
