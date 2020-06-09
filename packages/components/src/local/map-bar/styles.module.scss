@@ -12,10 +12,10 @@
   position: relative;
   overflow-y: auto;
   max-height: 100%;
-  border-top: 1px solid #0A2C41;
-  border-left: 1px solid #0A2C41;
-  border-right: 2px solid #0A2C41;
-  border-bottom: 2px solid #0A2C41;
+  border-top: 1px solid #0a2c41;
+  border-left: 1px solid #0a2c41;
+  border-right: 2px solid #0a2c41;
+  border-bottom: 2px solid #0a2c41;
   box-sizing: border-box;
   // this block was used to size the world-state panel, but it also caught
   // the first section within the perception panel, so it has been
@@ -37,7 +37,7 @@
 .toggle {
   z-index: 1010;
   cursor: pointer;
-  background-color: #48A65D;
+  background-color: #48a65d;
   color: #fff;
   width: 21px;
   height: 71px;
@@ -57,14 +57,14 @@
 }
 
 .toggle:first-child {
-  top: 0px;
-  background-color: #54667C;
+  top: 0;
+  background-color: #54667c;
 }
 
 .toggle-active {
   z-index: 1030;
+  margin-left: -1px;
   svg {
     display: block;
   }
-  margin-left: -1px;
 }
