@@ -11,7 +11,7 @@
   z-index: 1020;
   position: relative;
   overflow-y: auto;
-  max-height: 100%;
+  max-height: calc(100% - 350px);
   border-top: 1px solid #0a2c41;
   border-left: 1px solid #0a2c41;
   border-right: 2px solid #0a2c41;
@@ -23,6 +23,21 @@
   // section:first-of-type {
   //   height: 400px;
   // }
+}
+
+.form-inner {
+  width: 100%;
+  z-index: 1020;
+  position: absolute;
+  box-sizing: border-box;
+  bottom: 0;
+  left: 0;
+  height: 345px;
+  overflow-y: auto;
+  border-top: 1px solid #0a2c41;
+  border-left: 1px solid #0a2c41;
+  border-right: 2px solid #0a2c41;
+  border-bottom: 2px solid #0a2c41;
 }
 
 .open {

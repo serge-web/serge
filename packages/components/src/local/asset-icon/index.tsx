@@ -14,7 +14,7 @@ import styles from './styles.module.scss'
 import { MapContext } from '../mapping'
 
 /* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForce: string, icType: string, icSelected?: boolean):string => (cx(
+export const getIconClassname = (icForce: string, icType: string, icSelected?: boolean): string => (cx(
   styles['asset-icon'],
   styles[icForce],
   icSelected ? styles.selected : null,

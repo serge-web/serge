@@ -64,7 +64,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
     }
     // TODO: ... add other versions for description
 
-    let checkStatus: boolean = false;
+    let checkStatus = false
     // TODO: change it to right check for checked icon
     if (pRoute.numPlanned > 0) {
       checkStatus = false
@@ -72,7 +72,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
       checkStatus = true
     }
 
-    const icClassName = getIconClassname(pRoute.forceName.toLowerCase(), pRoute.platformType, pRoute.selected);
+    const icClassName = getIconClassname(pRoute.forceName.toLowerCase(), pRoute.platformType, pRoute.selected)
 
     return (
       <div className={styles.item}>
@@ -92,8 +92,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
   }
 
   // Remove it if you want name from props
-  const customTitle = showOtherPlatforms ? "Other Visible Platforms" : "Orders"
-  console.log();
+  const customTitle = showOtherPlatforms ? 'Other Visible Platforms' : 'Orders'
 
   return <>
     <div className={styles['world-state']}>

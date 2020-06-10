@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
+import FormGroup from '../form-elements/form-group'
+import TitleWithIcon from '../form-elements/title-with-icon'
 import Form from '../form'
 import RCB from '../form-elements/rcb'
 import { Button } from '@material-ui/core'
@@ -51,12 +53,39 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
       turnPlanned(formState)
     }
   }
+  console.log(formData, 'formData');
 
   return <Form type="planning" headerText={formHeader}>
-    <fieldset>
-      <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
-      {statusVal.mobile ? <RCB type="radio" label="Speed" options={speed} value={speedVal} updateState={changeHandler}/> : <><TextInput label="For" name="turns" value={turnsVal} updateState={changeHandler} /> turns</>}
-    </fieldset>
+    <TitleWithIcon force={'test'} type={'test'}>{formHeader}</TitleWithIcon>
+    <FormGroup title="State">
+      <RCB
+        type="radio"
+        label="Status"
+        options={status.map((s: any) => s.name)}
+        value={statusVal.name}
+        updateState={statusHandler}
+      />
+    </FormGroup>
+    <FormGroup>
+      {statusVal.mobile ?
+        <RCB
+          type="radio"
+          label="Speed"
+          options={speed}
+          value={speedVal}
+          updateState={changeHandler}
+        /> :
+        <>
+          <TextInput
+            label="For"
+            name="turns"
+            value={turnsVal}
+            updateState={changeHandler}
+          />
+          turns
+        </>
+      }
+    </FormGroup>
     <Button onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Save'}</Button>
   </Form>
 }

@@ -202,10 +202,14 @@ export const MapBar: React.FC = () => {
             setSelectedAsset={setSelectedAssetById}
             submitForm={worldStateSubmitHandler} ></WorldState>
         </section>
-        <section>
-          {currentForm !== '' && selectedAsset && formSelector(currentForm)}
-        </section>
       </div>
+      {currentForm !== '' && selectedAsset &&
+        <div className={styles['form-inner']}>
+          <section>
+            {formSelector(currentForm)}
+          </section>
+        </div>
+      }
     </div>
   )
 }
