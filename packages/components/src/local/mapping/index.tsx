@@ -21,6 +21,7 @@ import {
   SergeHex,
   SergeGrid,
   MappingContext,
+  NewTurnValues,
   PlanMobileAsset,
   SelectedAsset,
   RouteStore,
@@ -108,7 +109,7 @@ export const Mapping: React.FC<PropTypes> = ({
   } | undefined>(undefined)
   const [latLngBounds, setLatLngBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
-  const [newLeg, setNewLeg] = useState<Array<SergeHex<{}>> | undefined>(undefined)
+  const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProp)
@@ -167,7 +168,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const selRoute = routeStore.selected
       if (selRoute) {
         const newTurn = selRoute.planned[selRoute.planned.length - 1].turn + 1
-        const coords: Array<string> = newLeg.map((cell: SergeHex<{}>) => {
+        const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
           return cell.name
         })
         if (selRoute) {
@@ -184,17 +185,18 @@ export const Mapping: React.FC<PropTypes> = ({
       // if we know our planning constraints, we can plan the next leg
       if (planningConstraints) {
         // get the last planned cell, to act as the first new planned cell
-        const lastCell: SergeHex<{}> = newLeg[newLeg.length - 1]
+        const lastCell: SergeHex<{}> = newLeg.route[newLeg.route.length - 1]
         // create new planning contraints
         const newP: PlanMobileAsset = {
           origin: lastCell.name,
-          travelMode: planningConstraints.travelMode
+          travelMode: planningConstraints.travelMode,
+          status: newLeg.state,
+          speed: newLeg.speed
         }
         setPlanningConstraints(newP)
       }
     }
   }, [newLeg])
-
 
   const clearFromTurn = (turn: number): void => {
     const current: Route | undefined = routeStore.selected
@@ -221,7 +223,8 @@ export const Mapping: React.FC<PropTypes> = ({
         const origin: string = routeGetLatestPosition(current.currentPosition, current.planned)
 
         // work out how far asset can travel
-        const constraints: PlanMobileAsset = { origin: origin, travelMode: 'sea' }
+        const constraints: PlanMobileAsset = { origin: origin, travelMode: 'sea', 
+                                               status: plannedTurn.statusVal.name, speed: plannedTurn.speedVal}
 
         const speedKts = plannedTurn.speedVal
         // TODO: turn time should come from game definition

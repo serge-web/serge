@@ -3,7 +3,7 @@ import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { RouteStore, PlanTurnFormValues, Postback } from '@serge/custom-types'
+import { RouteStore, PlanTurnFormValues, Postback, NewTurnValues } from '@serge/custom-types'
 
 /**
  * mapping context, shared with child elements
@@ -56,7 +56,7 @@ export default interface MappingContext {
   /**
    * setter for when planned route is complete
    */
-  setNewLeg: React.Dispatch<React.SetStateAction<Array<SergeHex<{}>> | undefined>>
+  setNewLeg: React.Dispatch<React.SetStateAction<NewTurnValues | undefined>> | undefined
   /**
    *  setter, to modify if map bar is open or not
    */

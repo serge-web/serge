@@ -207,7 +207,7 @@ export const HexGrid: React.FC<{}> = () => {
         setPlanningRange(planningRangeProps)
 
         // ok, planning complete - fire the event back up the hierarchy
-        setNewLeg(fullCellList)
+        setNewLeg({state: planningConstraints.status, speed: planningConstraints.speed, route:fullCellList})
       } else {
         // ok, just some of it has been consumed. Reduce what is remaining
         const remaining = planningRange - routeLen

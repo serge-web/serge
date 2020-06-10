@@ -10,4 +10,12 @@ export default interface PlanMobileAsset {
    * mode of travel for this asset
    */
   travelMode: string
+  /**
+   * type of travel
+   */
+  status: string
+  /** 
+   * speed of travel
+   */
+  speed: number
 }

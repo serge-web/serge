@@ -260,7 +260,9 @@ export const WithAllowableRange: React.FC = () => <Mapping
   planningRangeProp={number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)}
   planningConstraintsProp={boolean(allowableOnLabel, allowableDefaultValue) ? {
     origin: text(allowableOriginLabel, allowableOriginValue),
-    travelMode: radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault)
+    travelMode: radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault),
+    status: 'Transiting',
+    speed: 20
   } : undefined}
 >
   <HexGrid />
