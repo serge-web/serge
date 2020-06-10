@@ -25,7 +25,6 @@ const LocalTileLayer = {
 const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes)
 const route: RouteType = store.routes[0] as RouteType
 
-
 const clearFromTurn = (turn: number): void => {
   console.log('clear after turn handler', turn)
 }

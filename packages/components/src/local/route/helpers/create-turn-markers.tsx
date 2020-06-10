@@ -7,12 +7,12 @@ import calculatePolylineAngle from './calculate-polyline-angle'
 import { padInteger } from '@serge/helpers'
 import Button from '@material-ui/core/Button'
 
-const createTurnMarkers = (routes: RouteData, 
-                           turnNumber: number, 
-                           type: string, 
-                           color: string, 
-                           selected: boolean, 
-                           removeLastTurn: {(turnNumber: number): void}): JSX.Element[] => {
+const createTurnMarkers = (routes: RouteData,
+  turnNumber: number,
+  type: string,
+  color: string,
+  selected: boolean,
+  removeLastTurn: {(turnNumber: number): void}): JSX.Element[] => {
   return routes.steps.map((rte: RouteStep, index: number) => {
     let angle
 
