@@ -168,6 +168,7 @@ class ChannelTabsContainer extends Component {
       forces={state.allForces}
       platforms={state.allPlatformTypes}
       phase={state.phase}
+      turnNumber={state.currentTurn}
       playerForce={state.selectedForce}
       channelID = {channelid}
       postBack={postback}
