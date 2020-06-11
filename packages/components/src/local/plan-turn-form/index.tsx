@@ -57,7 +57,10 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
       turnPlanned(formState)
     }
   }
-
+  /* note: in some selectedAsset update cycles this form gets rendered
+   * when we don't know the status of the selected asset.  For this reason
+   * we use `statusVal &&` guard check in the following block
+   */
   return <div className={styles.main}>
     <TitleWithIcon
       forceColor={icon.forceColor}

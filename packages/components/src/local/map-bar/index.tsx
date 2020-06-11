@@ -70,11 +70,11 @@ export const MapBar: React.FC = () => {
   useEffect(() => {
     let formTitle = ''
     let submitTitle = ''
-    if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
-      formTitle = 'State of World'
+    if (phase === ADJUDICATION_PHASE) {
+      formTitle = playerForce === UMPIRE_FORCE ? 'State of World' : 'My Forces'
       submitTitle = 'Submit state of world'
     } else if (phase === PLANNING_PHASE) {
-      formTitle = 'My Forces'
+      formTitle = 'Orders'
       submitTitle = 'Submit routes'
     }
     if (submitTitle !== '') {
@@ -188,12 +188,12 @@ export const MapBar: React.FC = () => {
     <div className={cx(styles['map-bar'], showMapBar && styles.open)}>
       <div
         className={cx(styles.toggle, (!showOtherPlatforms || !showMapBar) && styles['toggle-active'])}
-        onClick={() => { clickEvent(false) }}>
+        onClick={(): void => { clickEvent(false) }}>
         <ArrowRight />
       </div>
       <div
         className={cx(styles.toggle, (showOtherPlatforms || !showMapBar) && styles['toggle-active'])}
-        onClick={() => { clickEvent(true) }}>
+        onClick={(): void => { clickEvent(true) }}>
         <ArrowRight />
       </div>
       <div className={styles.inner}>
@@ -201,6 +201,7 @@ export const MapBar: React.FC = () => {
           <WorldState
             name={stateFormTitle}
             phase={phase}
+            isUmpire={playerForce === UMPIRE_FORCE}
             store={routeStore}
             showOtherPlatforms={showOtherPlatforms}
             submitTitle = {stateSubmitTitle}

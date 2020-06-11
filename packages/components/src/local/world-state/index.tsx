@@ -10,6 +10,7 @@ import PropTypes from './types/props'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 import { Route } from '@serge/custom-types'
+import { ADJUDICATION_PHASE } from '@serge/config'
 
 interface PlannedRoute {
   name: string
@@ -21,7 +22,10 @@ interface PlannedRoute {
   selected: boolean
 }
 
-export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelectedAsset, submitTitle, submitForm, showOtherPlatforms }: PropTypes) => {
+export const WorldState: React.FC<PropTypes> = ({
+  name, store, phase, isUmpire, setSelectedAsset,
+  submitTitle, submitForm, showOtherPlatforms
+}: PropTypes) => {
   const [routes, setRoutes] = useState<Array<PlannedRoute>>([])
 
   /** filter the list of cells allowable for this platform
@@ -57,13 +61,13 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
     }
   }
 
-  const renderItem = (pRoute: PlannedRoute) => {
-    let descriptionText = ''
-    if (pRoute.numPlanned > 0) {
-      descriptionText = `${pRoute.numPlanned} turns planned`
-    }
+  const renderItem = (pRoute: PlannedRoute): JSX.Element => {
+    const descriptionText = isUmpire || pRoute.underControl
+      ? `${pRoute.numPlanned} turns planned` : ''
+
     // TODO: ... add other versions for description
 
+<<<<<<< HEAD
     let checkStatus = false
     // TODO: change it to right check for checked icon
     if (pRoute.numPlanned > 0) {
@@ -71,6 +75,9 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
     } else {
       checkStatus = true
     }
+=======
+    const checkStatus: boolean = pRoute.numPlanned > 0
+>>>>>>> c883b65cff833752c91e703b544266164c93a4ba
 
     const icClassName = getIconClassname(pRoute.forceName.toLowerCase(), pRoute.platformType, pRoute.selected)
 
@@ -91,12 +98,20 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
     )
   }
 
+<<<<<<< HEAD
   // Remove it if you want name from props
   const customTitle = showOtherPlatforms ? 'Other Visible Platforms' : 'Orders'
+=======
+  // sort out which title to use on orders panel
+  const customTitle = showOtherPlatforms ? 'Other Visible Platforms' : name
+
+  // find out if this is a non-umpire, and we're in the adjudication phase
+  const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
+>>>>>>> c883b65cff833752c91e703b544266164c93a4ba
 
   return <>
     <div className={styles['world-state']}>
-      <h2 className={styles.title}>{customTitle || name}</h2>
+      <h2 className={styles.title}>{customTitle}</h2>
       <ul>
         {routes
           .filter((pRoute: PlannedRoute) => pRoute.underControl === !showOtherPlatforms)
@@ -110,7 +125,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
           ))
         }
       </ul>
-      {submitTitle && !showOtherPlatforms &&
+      {submitTitle && !showOtherPlatforms && !playerInAdjudication &&
         <button onClick={submitCallback} className={styles.submit} type="button">{submitTitle}</button>
       }
     </div>
