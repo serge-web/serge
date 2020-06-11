@@ -10,7 +10,6 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }) => {
-
   // create array with keys based on colCount or options length
   const columns = Array.from(Array(colCount || options.length || 6).keys())
   // get max value from options

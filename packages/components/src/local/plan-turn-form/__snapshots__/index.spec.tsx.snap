@@ -132,6 +132,7 @@ exports[`PlanTurnForm renders correctly 1`] = `
   </div>
   <button
     className="main"
+    disabled={false}
     onClick={[Function]}
     type="button"
   >
