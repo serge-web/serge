@@ -9,7 +9,7 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const Button: React.FC<PropTypes> = ({ children, size, type, onClick }) => {
+export const Button: React.FC<PropTypes> = ({ children, size, type, onClick, disabled }) => {
   const handeClick = (e: any) => {
     if (typeof onClick === 'function') {
       onClick(e)
@@ -18,8 +18,9 @@ export const Button: React.FC<PropTypes> = ({ children, size, type, onClick }) =
   return (
     <button
       onClick={handeClick}
+      disabled={disabled}
       type={type || 'button'}
-      className={cx(styles.main, size && styles[size])}
+      className={cx(styles.main, size && styles[size], disabled && styles.disabled)}
     >
       {children}
     </button>

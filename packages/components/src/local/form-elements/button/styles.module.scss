@@ -21,3 +21,11 @@
 .main:hover {
   background-color: #4b5b6e;
 }
+
+.disabled:hover {
+  background-color: #54667c;
+}
+.disabled {
+  color: #999;
+  cursor: unset;
+}

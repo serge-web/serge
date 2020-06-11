@@ -7,7 +7,7 @@ import Button from './index'
 
 it('Button renders correctly', () => {
   const tree = renderer
-    .create(<Button/>)
+    .create(<Button disabled={false}/>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })
