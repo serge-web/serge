@@ -10,11 +10,6 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }) => {
-  const handeClick = (e: any) => {
-    if (typeof onClick === 'function') {
-      onClick(e)
-    }
-  }
 
   // create array with keys based on colCount or options length
   const columns = Array.from(Array(colCount || options.length || 6).keys())
@@ -30,7 +25,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
     maxValue = maxOptionsValue + (colCount - options.length) * step
   }
 
-  const renderItem = (key: number) => {
+  const renderItem = (key: number): JSX.Element => {
     let itemSize = 0
     let activeItem = false
     let selectedItem = false
@@ -55,7 +50,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
 
     const style = { height: `${itemSize}%`, left: `${left}%` }
 
-    const handleClick = (e: any) => {
+    const handleClick = (e: any): void => {
       if (typeof onClick === 'function') {
         onClick(options[key], e)
       }

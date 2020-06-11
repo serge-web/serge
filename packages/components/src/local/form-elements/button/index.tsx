@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const Button: React.FC<PropTypes> = ({ children, size, type, onClick, disabled }) => {
-  const handeClick = (e: any) => {
+  const handeClick = (e: any): void => {
     if (typeof onClick === 'function') {
       onClick(e)
     }

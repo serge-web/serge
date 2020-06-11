@@ -19,7 +19,7 @@ export default {
   }
 }
 
-const onClick = () => {
+const onClick = (): void => {
   console.log('clicked')
 }
 
