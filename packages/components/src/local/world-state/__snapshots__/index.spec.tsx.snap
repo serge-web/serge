@@ -7,7 +7,7 @@ exports[`WorldState renders correctly 1`] = `
   <h2
     className="title"
   >
-    Orders
+    test
   </h2>
   <ul />
 </div>

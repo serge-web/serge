@@ -59,9 +59,9 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
 
   return <Form type="planning" headerText={formHeader}>
     <fieldset>
-      <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} 
+      <RCB type="radio" label="Status" options={status.map((s: any) => s.name)}
         value={statusVal && statusVal.name} updateState={statusHandler}/>
-      { statusVal && statusVal.mobile ? <RCB type="radio" label="Speed" 
+      { statusVal && statusVal.mobile ? <RCB type="radio" label="Speed"
         options={speed} value={speedVal} updateState={changeHandler}/> : <>
         <TextInput label="For" name="turns" value={turnsVal} updateState={changeHandler} /> turns</>}
     </fieldset>
