@@ -48,7 +48,10 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
       itemSize = Math.ceil(100 * (maxOptionsValue + (step * (key - options.length))) / (maxValue - minOptionsValue))
     }
 
-    const left = key ? Math.ceil(key * 100 / (columns.length - 1)) : 0
+    // if it's not first item, calculate how far across to use
+    // if it is first item, decide if it's the only item, in which
+    // case, put it in the middle
+    const left = key ? Math.ceil(key * 100 / (columns.length - 1)) : options.length === 1 ? 50 : 0
 
     const style = { height: `${itemSize}%`, left: `${left}%` }
 
