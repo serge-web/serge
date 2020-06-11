@@ -323,7 +323,7 @@ export const Mapping: React.FC<PropTypes> = ({
             attribution={tileLayer.attribution}
             bounds={latLngBounds}
           />
-          <ScaleControl />
+          <ScaleControl position='bottomright' />
           <ZoomControl position='topright' />
           {children}
         </Map>
