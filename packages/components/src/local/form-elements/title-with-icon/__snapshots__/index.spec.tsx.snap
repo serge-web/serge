@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TitleWithIcon renders correctly 1`] = `
+<div
+  className="main"
+>
+  <h2>
+    Test
+  </h2>
+  <div
+    className="icon"
+  >
+    <div
+      className="asset-icon blue platform-type-merchant-vessel"
+    />
+  </div>
+</div>
+`;

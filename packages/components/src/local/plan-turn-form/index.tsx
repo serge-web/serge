@@ -7,8 +7,8 @@ import Speed from '../form-elements/speed'
 import Button from '../form-elements/button'
 import TitleWithIcon from '../form-elements/title-with-icon'
 import TextInput from '../form-elements/text-input'
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -88,8 +88,8 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
         />
       */}
     </FormGroup>
-    {statusVal.mobile?
-      <FormGroup>
+    {statusVal.mobile
+      ? <FormGroup>
         <Speed
           colCount={6}
           value={speedVal}

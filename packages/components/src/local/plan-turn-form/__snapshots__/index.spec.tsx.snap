@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlanTurnForm renders correctly 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="main"
+  >
+    <h2>
+      Planning header
+    </h2>
+    <div
+      className="icon"
+    >
+      <div
+        className="asset-icon blue platform-type-merchant-vessel"
+      />
+    </div>
+  </div>
+  <div
+    className="group"
+  >
+    <div
+      className="container title"
+    >
+      Planned Route
+    </div>
+    <div
+      className="container main-container align-right"
+    >
+      <button
+        className="main"
+        onClick={[Function]}
+        type="button"
+      >
+        Plan Route
+      </button>
+    </div>
+  </div>
+  <div
+    className="group"
+  >
+    <div
+      className="container title"
+    >
+      State
+    </div>
+    <div
+      className="container main-container align-right"
+    >
+      <div
+        className="MuiInputBase-root MuiInput-root MuiInput-underline select"
+        onClick={[Function]}
+      >
+        <div
+          aria-haspopup="listbox"
+          aria-labelledby=" "
+          className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          Transiting
+        </div>
+        <input
+          onAnimationStart={[Function]}
+          type="hidden"
+          value="Transiting"
+        />
+        <svg
+          aria-hidden="true"
+          className="MuiSvgIcon-root MuiSelect-icon"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 10l5 5 5-5z"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div
+    className="group"
+  >
+    <div
+      className="container main-container"
+    >
+      <div
+        className="main"
+        onClick={[Function]}
+      >
+        <div
+          className="speed"
+        >
+          <div
+            className="speed-inner"
+          >
+            <div
+              className="speed-items"
+            >
+              <div
+                className="speed-item speed-active speed-selected"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "height": "0%",
+                    "left": "0%",
+                  }
+                }
+              />
+              <div
+                className="speed-item speed-active"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "height": "15%",
+                    "left": "20%",
+                  }
+                }
+              />
+              <div
+                className="speed-item speed-active"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "height": "30%",
+                    "left": "40%",
+                  }
+                }
+              />
+              <div
+                className="speed-item"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "height": "45%",
+                    "left": "60%",
+                  }
+                }
+              />
+              <div
+                className="speed-item"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "height": "68%",
+                    "left": "80%",
+                  }
+                }
+              />
+              <div
+                className="speed-item"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "height": "92%",
+                    "left": "100%",
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="result"
+        >
+          <h2>
+            10
+          </h2>
+          <p>
+            KTS
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="main"
+    onClick={[Function]}
+    type="button"
+  >
+    Plan turn
+  </button>
+</div>
+`;

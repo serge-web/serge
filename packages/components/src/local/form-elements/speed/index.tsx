@@ -19,19 +19,19 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
   // create array with keys based on colCount or options length
   const columns = Array.from(Array(colCount || options.length || 6).keys())
   // get max value from options
-  const maxOptionsValue:number = Math.max.apply(0, options)
+  const maxOptionsValue: number = Math.max.apply(0, options)
   // get min value from options
-  const minOptionsValue:number = Math.min.apply(0, options)
+  const minOptionsValue: number = Math.min.apply(0, options)
   // get middle speed change step
-  const step = Math.ceil(options.reduce((a, b) => a + b - minOptionsValue, 1)/(options.length - 1))
+  const step = Math.ceil(options.reduce((a, b) => a + b - minOptionsValue, 1) / (options.length - 1))
   // get max value based on col count
-  let maxValue:number = maxOptionsValue
+  let maxValue: number = maxOptionsValue
   if (colCount && colCount > options.length) {
     maxValue = maxOptionsValue + (colCount - options.length) * step
   }
 
   const renderItem = (key: number) => {
-    let itemSize:number = 0
+    let itemSize = 0
     let activeItem = false
     let selectedItem = false
 
@@ -65,7 +65,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
         className={cx(
           styles['speed-item'],
           activeItem && styles['speed-active'],
-          selectedItem &&  styles['speed-selected']
+          selectedItem && styles['speed-selected']
         )}
         style={style}
       />

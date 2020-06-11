@@ -16,7 +16,7 @@ export const Button: React.FC<PropTypes> = ({ children, size, type, onClick }) =
     }
   }
   return (
-    <button 
+    <button
       onClick={handeClick}
       type={type || 'button'}
       className={cx(styles.main, size && styles[size])}

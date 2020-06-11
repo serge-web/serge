@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Speed renders correctly 1`] = `
+<div
+  className="main"
+  onClick={[Function]}
+>
+  <div
+    className="speed"
+  >
+    <div
+      className="speed-inner"
+    >
+      <div
+        className="speed-items"
+      >
+        <div
+          className="speed-item speed-active"
+          onClick={[Function]}
+          style={
+            Object {
+              "height": "0%",
+              "left": "0%",
+            }
+          }
+        />
+        <div
+          className="speed-item speed-active speed-selected"
+          onClick={[Function]}
+          style={
+            Object {
+              "height": "14%",
+              "left": "20%",
+            }
+          }
+        />
+        <div
+          className="speed-item speed-active"
+          onClick={[Function]}
+          style={
+            Object {
+              "height": "28%",
+              "left": "40%",
+            }
+          }
+        />
+        <div
+          className="speed-item speed-active"
+          onClick={[Function]}
+          style={
+            Object {
+              "height": "42%",
+              "left": "60%",
+            }
+          }
+        />
+        <div
+          className="speed-item"
+          onClick={[Function]}
+          style={
+            Object {
+              "height": "42%",
+              "left": "80%",
+            }
+          }
+        />
+        <div
+          className="speed-item"
+          onClick={[Function]}
+          style={
+            Object {
+              "height": "71%",
+              "left": "100%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="result"
+  >
+    <h2>
+      10
+    </h2>
+    <p>
+      KTS
+    </p>
+  </div>
+</div>
+`;
