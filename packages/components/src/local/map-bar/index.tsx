@@ -183,12 +183,12 @@ export const MapBar: React.FC = () => {
     <div className={cx(styles['map-bar'], showMapBar && styles.open)}>
       <div
         className={cx(styles.toggle, (!showOtherPlatforms || !showMapBar) && styles['toggle-active'])}
-        onClick={() => { clickEvent(false) }}>
+        onClick={(): void => { clickEvent(false) }}>
         <ArrowRight />
       </div>
       <div
         className={cx(styles.toggle, (showOtherPlatforms || !showMapBar) && styles['toggle-active'])}
-        onClick={() => { clickEvent(true) }}>
+        onClick={(): void => { clickEvent(true) }}>
         <ArrowRight />
       </div>
       <div className={styles.inner}>
