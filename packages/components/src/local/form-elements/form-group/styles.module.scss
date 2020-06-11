@@ -18,6 +18,20 @@
 
 .main-container {
   padding: 0.625rem 0.625rem 0.625rem 0;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+.align-left { justify-content: flex-start; }
+.align-center { justify-content: center; }
+.align-right { justify-content: flex-end; }
+.align-justify { justify-content: space-between; }
+.align-justify-center { justify-content: space-around; }
+
+.disable-offsets {
+  padding: 0;
 }
 
 .title {

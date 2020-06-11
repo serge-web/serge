@@ -3,15 +3,8 @@
   background-color: #1a394d;
 }
 
-.title {
-  display: block;
-  padding: 0.75rem;
-  background-color: #fefefe;
-  box-sizing: border-box;
-  font-family: "Open Sans", "sans-serif";
-  min-height: 140px;
-}
-
-.planned-route {
-  text-align: right;
+.select > div {
+  font-size: 14px;
+  line-height: 0.8;
+  min-width: 150px;
 }

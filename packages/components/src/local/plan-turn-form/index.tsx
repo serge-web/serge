@@ -7,6 +7,8 @@ import Button from '../form-elements/button'
 import TitleWithIcon from '../form-elements/title-with-icon'
 import RCB from '../form-elements/rcb'
 import TextInput from '../form-elements/text-input'
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -63,19 +65,28 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
     >
       {formHeader}
     </TitleWithIcon>
-    <FormGroup title="Planned Route">
-      <div className={styles['planned-route']}>
-        <Button>Plan Route</Button>
-      </div>
+    <FormGroup title="Planned Route" align="right">
+      <Button>Plan Route</Button>
     </FormGroup>
-    <FormGroup title="State">
-      <RCB
-        type="radio"
-        label="Status"
-        options={status.map((s: any) => s.name)}
+    <FormGroup title="State" align="right">
+      <Select
+        className={styles.select}
         value={statusVal.name}
-        updateState={statusHandler}
-      />
+        onChange={statusHandler}
+      >
+        {status.map((s: any) => (
+          <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
+        ))}
+      </Select>
+      {/*
+        <RCB
+          type="radio"
+          label="Status"
+          options={status.map((s: any) => s.name)}
+          value={statusVal.name}
+          updateState={statusHandler}
+        />
+      */}
     </FormGroup>
     <FormGroup>
       {statusVal.mobile

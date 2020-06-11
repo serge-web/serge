@@ -2,8 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'main': string;
-  'planned-route': string;
-  'title': string;
+  'select': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

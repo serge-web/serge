@@ -1,4 +1,14 @@
 export default interface PropTypes {
-  /* half section title */
+  /**
+   * left side title
+   */
   title?: string
+  /**
+   * Disable main container padding
+   */
+  disableOffsets?: boolean
+  /**
+   * Aligin content
+   */
+  align?: 'left' | 'center' | 'right' | 'justify' | 'justify-center'
 }
