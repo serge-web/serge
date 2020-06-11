@@ -70,11 +70,11 @@ export const MapBar: React.FC = () => {
   useEffect(() => {
     let formTitle = ''
     let submitTitle = ''
-    if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
-      formTitle = 'State of World'
+    if (phase === ADJUDICATION_PHASE) {
+      formTitle = playerForce === UMPIRE_FORCE ? 'State of World' : 'My Forces'
       submitTitle = 'Submit state of world'
     } else if (phase === PLANNING_PHASE) {
-      formTitle = 'My Forces'
+      formTitle = 'Orders'
       submitTitle = 'Submit routes'
     }
     if (submitTitle !== '') {

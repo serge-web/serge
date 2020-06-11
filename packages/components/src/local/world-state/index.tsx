@@ -88,15 +88,15 @@ export const WorldState: React.FC<PropTypes> = ({
     )
   }
 
-  // Remove it if you want name from props
-  const customTitle = showOtherPlatforms ? 'Other Visible Platforms' : 'Orders'
+  // sort out which title to use on orders panel
+  const customTitle = showOtherPlatforms ? 'Other Visible Platforms' : name
 
   // find out if this is a non-umpire, and we're in the adjudication phase
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
 
   return <>
     <div className={styles['world-state']}>
-      <h2 className={styles.title}>{customTitle || name}</h2>
+      <h2 className={styles.title}>{customTitle}</h2>
       <ul>
         {routes
           .filter((pRoute: PlannedRoute) => pRoute.underControl === !showOtherPlatforms)
