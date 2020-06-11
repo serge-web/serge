@@ -109,10 +109,10 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
     {statusVal.mobile
       ? <FormGroup>
         <Speed
-          colCount={5}
-          value={speedVal}
-          options={speed}
-          onClick={speedHandler}
+          colCount = { undefined }
+          value = { speedVal }
+          options = { speed }
+          onClick = { speedHandler }
         />
       </FormGroup>
       /*
