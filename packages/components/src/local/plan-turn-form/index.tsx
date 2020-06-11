@@ -96,15 +96,6 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
           <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
         ))}
       </Select>
-      {/*
-        <RCB
-          type="radio"
-          label="Status"
-          options={status.map((s: any) => s.name)}
-          value={statusVal.name}
-          updateState={statusHandler}
-        />
-      */}
     </FormGroup>
     {statusVal.mobile
       ? <FormGroup>
@@ -115,15 +106,6 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
           onClick = { speedHandler }
         />
       </FormGroup>
-      /*
-       <RCB
-        type="radio"
-        label="Speed"
-        options={speed}
-        value={speedVal}
-        updateState={changeHandler}
-      />
-      */
       : <>
         <TextInput
           label="For"
