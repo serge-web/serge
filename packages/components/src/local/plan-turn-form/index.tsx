@@ -86,9 +86,6 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
     >
       {formHeader}
     </TitleWithIcon>
-    <FormGroup title="Planned Route" align="right">
-      <Button>Plan Route</Button>
-    </FormGroup>
     <FormGroup title="State" align="right">
       <Select
         className={styles.select}
@@ -112,7 +109,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
     {statusVal.mobile
       ? <FormGroup>
         <Speed
-          colCount={undefined}
+          colCount={5}
           value={speedVal}
           options={speed}
           onClick={speedHandler}
