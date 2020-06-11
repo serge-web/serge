@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 /* Import Types */
 import PropTypes from './types/props'
 import FormGroup from '../form-elements/form-group'
+import Speed from '../form-elements/speed'
 import Button from '../form-elements/button'
 import TitleWithIcon from '../form-elements/title-with-icon'
-import RCB from '../form-elements/rcb'
 import TextInput from '../form-elements/text-input'
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -88,26 +88,34 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
         />
       */}
     </FormGroup>
-    <FormGroup>
-      {statusVal.mobile
-        ? <RCB
-          type="radio"
-          label="Speed"
-          options={speed}
+    {statusVal.mobile?
+      <FormGroup>
+        <Speed
+          colCount={6}
           value={speedVal}
+          options={speed}
+          onClick={changeHandler}
+        />
+      </FormGroup>
+      /*
+       <RCB
+        type="radio"
+        label="Speed"
+        options={speed}
+        value={speedVal}
+        updateState={changeHandler}
+      />
+      */
+      : <>
+        <TextInput
+          label="For"
+          name="turns"
+          value={turnsVal}
           updateState={changeHandler}
         />
-        : <>
-          <TextInput
-            label="For"
-            name="turns"
-            value={turnsVal}
-            updateState={changeHandler}
-          />
-          turns
-        </>
-      }
-    </FormGroup>
+        turns
+      </>
+    }
     <Button onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Save'}</Button>
   </div>
 }
