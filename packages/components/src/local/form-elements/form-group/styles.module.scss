@@ -1,7 +1,7 @@
 .group {
   background-color: #314d5f;
   border-radius: 3px;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   display: flex;
   align-items: flex-start;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -10,6 +10,14 @@
 
 .container {
   flex: 1;
+}
+
+.main-container:first-child {
+  padding: 0.625rem 1rem;
+}
+
+.main-container {
+  padding: 0.625rem 0.625rem 0.625rem 0;
 }
 
 .title {

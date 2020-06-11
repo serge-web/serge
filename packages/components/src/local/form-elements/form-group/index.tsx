@@ -13,7 +13,7 @@ export const FormGroup: React.FC<PropTypes> = ({ children, title }) => {
   return (
     <div className={styles.group}>
       {title && <div className={cx(styles.container, styles.title)}>{title}</div>}
-      <div className={styles.container}>{children}</div>
+      <div className={cx(styles.container, styles['main-container'])}>{children}</div>
     </div>
   )
 }

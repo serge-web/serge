@@ -63,6 +63,11 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
     >
       {formHeader}
     </TitleWithIcon>
+    <FormGroup title="Planned Route">
+      <div className={styles['planned-route']}>
+        <Button>Plan Route</Button>
+      </div>
+    </FormGroup>
     <FormGroup title="State">
       <RCB
         type="radio"
