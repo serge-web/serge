@@ -68,4 +68,4 @@ Default.story = {
       showPanel: true
     }
   }
-};
+}

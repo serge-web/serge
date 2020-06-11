@@ -23,10 +23,9 @@ const onClick = () => {
   console.log('clicked')
 }
 
-export const Default: React.FC = () => <Button 
-  onClick={onClick} 
+export const Default: React.FC = () => <Button
+  onClick={onClick}
   disabled={boolean('Disabled', false)} >Title</Button>
-
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 Default.story = {
@@ -36,4 +35,4 @@ Default.story = {
       showPanel: true
     }
   }
-};
+}
