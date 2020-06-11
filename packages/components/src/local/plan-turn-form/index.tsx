@@ -52,12 +52,20 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
     }
   }
 
+  /* note: in some selectedAsset update cycles this form gets rendered
+   * when we don't know the status of the selected asset.  For this reason
+   * we use `statusVal &&` guard check in the following block
+   */
+
   return <Form type="planning" headerText={formHeader}>
     <fieldset>
-      <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
-      {statusVal.mobile ? <RCB type="radio" label="Speed" options={speed} value={speedVal} updateState={changeHandler}/> : <><TextInput label="For" name="turns" value={turnsVal} updateState={changeHandler} /> turns</>}
+      <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} 
+        value={statusVal && statusVal.name} updateState={statusHandler}/>
+      { statusVal && statusVal.mobile ? <RCB type="radio" label="Speed" 
+        options={speed} value={speedVal} updateState={changeHandler}/> : <>
+        <TextInput label="For" name="turns" value={turnsVal} updateState={changeHandler} /> turns</>}
     </fieldset>
-    <Button onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Save'}</Button>
+    <Button onClick={submitForm}>{statusVal && statusVal.mobile ? 'Plan turn' : 'Save'}</Button>
   </Form>
 }
 
