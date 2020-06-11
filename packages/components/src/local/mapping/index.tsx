@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { Map, TileLayer, ScaleControl } from 'react-leaflet'
+import { Map, TileLayer, ScaleControl, ZoomControl } from 'react-leaflet'
 import { Phase, ADJUDICATION_PHASE } from '@serge/config'
 import MapBar from '../map-bar'
 
@@ -63,7 +63,6 @@ const defaultProps: PropTypes = {
   zoom: 10,
   zoomDelta: 0.25,
   zoomSnap: 0.25,
-  zoomControl: true,
   attributionControl: false,
   zoomAnimation: false,
   planningConstraintsProp: undefined
@@ -86,7 +85,6 @@ export const Mapping: React.FC<PropTypes> = ({
   zoom,
   zoomDelta,
   zoomSnap,
-  zoomControl,
   attributionControl,
   zoomAnimation,
   planningConstraintsProp,
@@ -313,7 +311,7 @@ export const Mapping: React.FC<PropTypes> = ({
           zoomDelta={zoomDelta}
           zoomSnap={zoomSnap}
           minZoom={minZoom}
-          zoomControl={zoomControl}
+          zoomControl={false}
           maxZoom={maxZoom}
           ref={handleEvents}
           touchZoom={touchZoom}
@@ -326,6 +324,7 @@ export const Mapping: React.FC<PropTypes> = ({
             bounds={latLngBounds}
           />
           <ScaleControl />
+          <ZoomControl position='topright' />
           {children}
         </Map>
       </section>
