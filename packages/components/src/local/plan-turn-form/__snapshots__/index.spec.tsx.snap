@@ -24,26 +24,6 @@ exports[`PlanTurnForm renders correctly 1`] = `
     <div
       className="container title"
     >
-      Planned Route
-    </div>
-    <div
-      className="container main-container align-right"
-    >
-      <button
-        className="main"
-        onClick={[Function]}
-        type="button"
-      >
-        Plan Route
-      </button>
-    </div>
-  </div>
-  <div
-    className="group"
-  >
-    <div
-      className="container title"
-    >
       State
     </div>
     <div
