@@ -67,17 +67,7 @@ export const WorldState: React.FC<PropTypes> = ({
 
     // TODO: ... add other versions for description
 
-<<<<<<< HEAD
-    let checkStatus = false
-    // TODO: change it to right check for checked icon
-    if (pRoute.numPlanned > 0) {
-      checkStatus = false
-    } else {
-      checkStatus = true
-    }
-=======
     const checkStatus: boolean = pRoute.numPlanned > 0
->>>>>>> c883b65cff833752c91e703b544266164c93a4ba
 
     const icClassName = getIconClassname(pRoute.forceName.toLowerCase(), pRoute.platformType, pRoute.selected)
 
@@ -98,16 +88,11 @@ export const WorldState: React.FC<PropTypes> = ({
     )
   }
 
-<<<<<<< HEAD
-  // Remove it if you want name from props
-  const customTitle = showOtherPlatforms ? 'Other Visible Platforms' : 'Orders'
-=======
   // sort out which title to use on orders panel
   const customTitle = showOtherPlatforms ? 'Other Visible Platforms' : name
 
   // find out if this is a non-umpire, and we're in the adjudication phase
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
->>>>>>> c883b65cff833752c91e703b544266164c93a4ba
 
   return <>
     <div className={styles['world-state']}>
