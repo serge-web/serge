@@ -22,9 +22,10 @@ interface PlannedRoute {
   selected: boolean
 }
 
-export const WorldState: React.FC<PropTypes> = ({ name, store, phase, isUmpire, setSelectedAsset, 
-    submitTitle, submitForm, showOtherPlatforms }: PropTypes) => {
-
+export const WorldState: React.FC<PropTypes> = ({
+  name, store, phase, isUmpire, setSelectedAsset,
+  submitTitle, submitForm, showOtherPlatforms
+}: PropTypes) => {
   const [routes, setRoutes] = useState<Array<PlannedRoute>>([])
 
   /** filter the list of cells allowable for this platform
@@ -60,11 +61,10 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, isUmpire, 
     }
   }
 
-  const renderItem = (pRoute: PlannedRoute) => {
-    let descriptionText = ''
-    if (isUmpire || pRoute.underControl && pRoute.numPlanned > 0) {
-      descriptionText = `${pRoute.numPlanned} turns planned`
-    }
+  const renderItem = (pRoute: PlannedRoute): JSX.Element => {
+    const descriptionText = isUmpire || pRoute.underControl ?
+      `${pRoute.numPlanned} turns planned` : ''
+
     // TODO: ... add other versions for description
 
     const checkStatus: boolean = pRoute.numPlanned > 0
