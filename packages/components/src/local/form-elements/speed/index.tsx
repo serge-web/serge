@@ -25,6 +25,12 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
     maxValue = maxOptionsValue + (colCount - options.length) * step
   }
 
+  const handleClick = (e: any) => {
+    if (typeof onClick === 'function') {
+      onClick(e)
+    }
+  }
+
   const renderItem = (key: number): JSX.Element => {
     let itemSize = 0
     let activeItem = false
@@ -50,7 +56,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
 
     const style = { height: `${itemSize}%`, left: `${left}%` }
 
-    const handleClick = (e: any): void => {
+    const handleStickClick = (e: any): void => {
       if (typeof onClick === 'function') {
         onClick(options[key], e)
       }
@@ -59,7 +65,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
     return (
       <div
         key={key}
-        onClick={handleClick}
+        onClick={handleStickClick}
         className={cx(
           styles['speed-item'],
           activeItem && styles['speed-active'],
@@ -72,7 +78,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
 
   return (
     <div
-      onClick={handeClick}
+      onClick={handleClick}
       className={styles.main}
     >
       <div className={styles.speed}>
