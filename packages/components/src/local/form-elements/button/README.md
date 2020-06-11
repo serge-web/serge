@@ -18,10 +18,10 @@ This is an example readme file for the 'Form Group' component.
 
 ### ES6 Import
 ```js
-import FormGroup from './form-elements/form-group'
+import Button from './form-elements/Button'
 ```
 
 ### CommonJS
 
 ```js
-const FormGroup = require('./form-elements/form-group')
+const Button = require('./form-elements/Button')

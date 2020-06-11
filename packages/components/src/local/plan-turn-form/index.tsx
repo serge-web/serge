@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 /* Import Types */
 import PropTypes from './types/props'
 import FormGroup from '../form-elements/form-group'
+import Button from '../form-elements/button'
 import TitleWithIcon from '../form-elements/title-with-icon'
 import RCB from '../form-elements/rcb'
-import { Button } from '@material-ui/core'
 import TextInput from '../form-elements/text-input'
 
 /* Import Stylesheet */

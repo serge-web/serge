@@ -9,7 +9,7 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const PlannedRoute: React.FC<PropTypes> = ({ children, title }) => {
+export const FormGroup: React.FC<PropTypes> = ({ children, title }) => {
   return (
     <div className={styles.group}>
       {title && <div className={cx(styles.container, styles.title)}>{title}</div>}
@@ -18,4 +18,4 @@ export const PlannedRoute: React.FC<PropTypes> = ({ children, title }) => {
   )
 }
 
-export default PlannedRoute
+export default FormGroup

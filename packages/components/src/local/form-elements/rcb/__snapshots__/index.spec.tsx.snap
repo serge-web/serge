@@ -119,7 +119,7 @@ exports['RadioType renders correctly 1'] = `
   </h2>
   <div
     aria-label="Visible to"
-    className="MuiFormGroup-root"
+    className="MuiButton-root"
     role="radiogroup"
   >
     <label
