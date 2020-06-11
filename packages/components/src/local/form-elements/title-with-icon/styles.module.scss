@@ -1,19 +1,28 @@
 .main {
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   color: #fff;
 }
 
 .main h2 {
-  font-size: 18px;
+  font-size: 1.125rem;
   margin: 0;
   flex: 1;
   display: block;
 }
 
 .icon {
-  width: 36px;
-  height: 36px;
+  width: 2.25rem;
+  height: 2.25rem;
+  position: relative;
+  padding-right: 5px;
+}
+
+.icon div {
+  width: 2.25rem;
+  height: 100%;
+  box-sizing: border-box;
+  box-shadow: none;
 }

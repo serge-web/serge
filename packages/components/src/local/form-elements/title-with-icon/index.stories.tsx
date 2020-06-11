@@ -16,4 +16,4 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <TitleWithIcon type="test" force="blue"/>
+export const Default: React.FC = () => <TitleWithIcon platformType="merchant-vessel" forceColor="blue">Test</TitleWithIcon>

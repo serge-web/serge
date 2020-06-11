@@ -1,6 +1,5 @@
 import React from 'react'
 import { getIconClassname } from '../../asset-icon'
-import cx from 'classnames'
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -9,11 +8,14 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const PlannedRoute: React.FC<PropTypes> = ({ children, force, type }) => {
+export const PlannedRoute: React.FC<PropTypes> = ({ children, forceColor, platformType }) => {
+  const iconClassname = getIconClassname(forceColor.toLowerCase(), platformType)
   return (
     <div className={styles.main}>
       <h2>{children}</h2>
-      <div className={cx(styles.icon, getIconClassname(force, type))}/>
+      <div className={styles.icon}>
+        <div className={iconClassname}/>
+      </div>
     </div>
   )
 }

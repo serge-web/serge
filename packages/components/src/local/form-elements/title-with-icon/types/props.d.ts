@@ -1,4 +1,14 @@
 export default interface PropTypes {
-  force: string
-  type: string
+  /**
+   * The the force color to get the background
+   */
+  forceColor: string
+  /**
+   * The platform type to get the svg
+   */
+  platformType: string
+  /**
+   * The title text or node
+   */
+  children: any
 }

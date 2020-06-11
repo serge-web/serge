@@ -145,6 +145,10 @@ export const MapBar: React.FC = () => {
   /* TODO: This should be refactored into a helper */
   const formSelector = (form: string): any => {
     let output = null
+    const icondData = {
+      forceColor: selectedAsset.force,
+      platformType: selectedAsset.type
+    }
     switch (form) {
       case 'PerceivedAs':
         output = <PerceptionForm
@@ -166,6 +170,7 @@ export const MapBar: React.FC = () => {
 
         }
         output = <PlanTurnForm
+          icon={icondData}
           key={selectedAsset.uniqid}
           formHeader={currentAssetName}
           formData={collatePlanFormData(platforms, selectedAsset)}

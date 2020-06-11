@@ -19,6 +19,8 @@ export default {
   }
 }
 
+const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
+
 // put in the post handler
 const postback = (step: PlanTurnFormValues): void => {
   console.log('plan turn postback', step)
@@ -26,4 +28,9 @@ const postback = (step: PlanTurnFormValues): void => {
 
 // TODO: Add some state handling here
 
-export const Default: React.FC = () => <PlanTurnForm turnPlanned={postback} formHeader="Planning header" formData={formData}/>
+export const Default: React.FC = () => <PlanTurnForm
+  turnPlanned={postback}
+  formHeader="Planning header"
+  formData={formData}
+  icon={iconData}
+/>
