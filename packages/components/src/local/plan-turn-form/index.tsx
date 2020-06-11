@@ -39,17 +39,35 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
     )
   }
 
+  const speedHandler = (e: any): void => {
+    if(isNumber(e)) {
+      setFormState(
+        {
+          ...formState,
+          speedVal: e
+        }
+      )
+    }
+  }
+
   // Status has a different data model and requires it's own handler
 
   const statusHandler = (data: any): void => {
-    const { name, value } = data
+    // retrieve the new value
+    const newState: string = data.target && data.target.value
 
-    const selectedStatus = status.find((s: any) => s.name === value)
+    // find the status object for this state
+    const selectedStatus = status.find((s: any) => s.name === newState)
 
-    setFormState({
-      ...formState,
-      [`${name}Val`]: selectedStatus
-    })
+    // if status matched, update it.
+    if(selectedStatus) {
+      setFormState({
+        ...formState,
+        statusVal: selectedStatus
+      })  
+    } else {
+      console.warn('Unable to find state to match:' + newState)
+    }
   }
 
   const submitForm = (): void => {
@@ -94,10 +112,10 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
     {statusVal.mobile
       ? <FormGroup>
         <Speed
-          colCount={6}
+          colCount={undefined}
           value={speedVal}
           options={speed}
-          onClick={changeHandler}
+          onClick={speedHandler}
         />
       </FormGroup>
       /*
