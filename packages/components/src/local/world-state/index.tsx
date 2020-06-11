@@ -64,13 +64,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
     }
     // TODO: ... add other versions for description
 
-    let checkStatus: boolean = false;
-    // TODO: change it to right check for checked icon
-    if (pRoute.numPlanned > 0) {
-      checkStatus = false
-    } else {
-      checkStatus = true
-    }
+    const checkStatus: boolean = pRoute.numPlanned > 0
 
     const icClassName = getIconClassname(pRoute.forceName.toLowerCase(), pRoute.platformType, pRoute.selected);
 
