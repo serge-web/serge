@@ -40,7 +40,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
   }
 
   const speedHandler = (e: any): void => {
-    if(isNumber(e)) {
+    if (isNumber(e)) {
       setFormState(
         {
           ...formState,
@@ -60,11 +60,11 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
     const selectedStatus = status.find((s: any) => s.name === newState)
 
     // if status matched, update it.
-    if(selectedStatus) {
+    if (selectedStatus) {
       setFormState({
         ...formState,
         statusVal: selectedStatus
-      })  
+      })
     } else {
       console.warn('Unable to find state to match:' + newState)
     }
