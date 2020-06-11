@@ -53,7 +53,7 @@ export const Default: React.FC = () => <PlanTurnForm
         name: 'Transiting',
         mobile: true
       },
-      speedVal: 10,
+      speedVal: 0,
       turnsVal: 5
     }
   }}
