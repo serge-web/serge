@@ -223,8 +223,12 @@ export const Mapping: React.FC<PropTypes> = ({
         const origin: string = routeGetLatestPosition(current.currentPosition, current.planned)
 
         // work out how far asset can travel
-        const constraints: PlanMobileAsset = { origin: origin, travelMode: 'sea', 
-                                               status: plannedTurn.statusVal.name, speed: plannedTurn.speedVal}
+        const constraints: PlanMobileAsset = {
+          origin: origin,
+          travelMode: 'sea',
+          status: plannedTurn.statusVal.name,
+          speed: plannedTurn.speedVal
+        }
 
         const speedKts = plannedTurn.speedVal
         // TODO: turn time should come from game definition

@@ -39,7 +39,7 @@ const createTurnMarkers = (routes: RouteData,
               <Popup open={false}>
                 <Button
                 // Note: here we have available handlers to activate the removeLastTurn function
-                onClick={(): void => removeLastTurn(currentTurn)}
+                  onClick={(): void => removeLastTurn(currentTurn)}
                 >{`Clear route from Turn ${turn}`}</Button>
               </Popup>
             </Marker>
