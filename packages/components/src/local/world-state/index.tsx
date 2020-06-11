@@ -62,8 +62,8 @@ export const WorldState: React.FC<PropTypes> = ({
   }
 
   const renderItem = (pRoute: PlannedRoute): JSX.Element => {
-    const descriptionText = isUmpire || pRoute.underControl ?
-      `${pRoute.numPlanned} turns planned` : ''
+    const descriptionText = isUmpire || pRoute.underControl
+      ? `${pRoute.numPlanned} turns planned` : ''
 
     // TODO: ... add other versions for description
 
