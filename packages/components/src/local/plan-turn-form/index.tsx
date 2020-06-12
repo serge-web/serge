@@ -73,7 +73,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
   /** only enable the save button if this is a non-mobile state,
    * or if we have a speed value assigned
    */
-  const saveEnabled: boolean = !statusVal.mobile || (formState.speedVal !== undefined && formState.speedVal !== 0)
+  const saveEnabled: boolean = !statusVal.mobile || (speed.length === 0) || (formState.speedVal !== undefined && formState.speedVal !== 0)
 
   const submitForm = (): void => {
     if (turnPlanned !== undefined) {
@@ -104,12 +104,14 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
     </FormGroup>
     {statusVal.mobile
       ? <FormGroup>
+        {speed.length > 0 &&
         <Speed
           colCount = { undefined }
           value = { speedVal }
           options = { speed }
           onClick = { speedHandler }
-        />
+        />      
+        }
       </FormGroup>
       : <>
         <TextInput
