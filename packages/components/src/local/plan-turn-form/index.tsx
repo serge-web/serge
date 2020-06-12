@@ -110,7 +110,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
           value = { speedVal }
           options = { speed }
           onClick = { speedHandler }
-        />      
+        />
         }
       </FormGroup>
       : <>
