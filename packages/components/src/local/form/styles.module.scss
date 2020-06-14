@@ -1,4 +1,3 @@
-
 .form {
   background-color: rgba(255, 255, 255, 0.65);
   height: 100%;
@@ -10,8 +9,8 @@
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .planning {
@@ -23,11 +22,10 @@
 
 .perceived-as {
   background-color: #434343;
-  color: white;
+  color: #fff;
   position: absolute;
   bottom: 0;
   z-index: 1010;
   width: 400px;
   height: 400px;
 }
-

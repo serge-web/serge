@@ -2,9 +2,9 @@ export default interface PropTypes {
   /**
    * The string to display
    */
-  string: string,
+  string: string
   /**
-   * 
+   *
    */
   className?: string
 }

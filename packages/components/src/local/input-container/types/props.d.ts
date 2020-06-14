@@ -4,7 +4,7 @@ export default interface PropTypes {
    */
   label?: string
   /**
-   * 
+   *
    */
   className?: string
 }

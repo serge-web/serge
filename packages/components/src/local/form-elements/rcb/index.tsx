@@ -66,7 +66,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
   const getLabel = (option: Option): any => force && option.colour ? <div><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{option.name}</div> : option
   const getSelected = (o: any): any => Array.isArray(value) ? value.includes(o) : value
 
-  const selectedClassName = (o: string, selected: string) => o.toLowerCase() === selected.replace("-", " ") ? styles['selected'] : undefined
+  const selectedClassName = (o: string, selected: string): any | undefined => o.toLowerCase() === selected.replace('-', ' ') ? styles.selected : undefined
 
   return <InputContainer label={label} className={className} >
     <ConditionalWrapper

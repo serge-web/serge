@@ -1,4 +1,4 @@
-import { PerceptionFormData, Postback, SelectedAsset } from '@serge/custom-types'
+import { PerceptionFormData, Postback } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
