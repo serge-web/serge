@@ -112,6 +112,8 @@ export const MapBar: React.FC = () => {
       case 'PerceivedAs':
         output = <PerceptionForm
           key={selectedAsset.uniqid}
+          type={selectedAsset.type}
+          force={selectedAsset.force}
           formData={collatePerceptionFormData(platforms, selectedAsset, forces)}
           channelID={channelID}
           postBack={postBack} />
@@ -133,7 +135,7 @@ export const MapBar: React.FC = () => {
           formHeader={currentAssetName}
           formData={collatePlanFormData(platforms, selectedAsset)}
           channelID={channelID}
-          turnPlanned={turnPlanned}/>
+          turnPlanned={turnPlanned} />
         break
       default:
         output = null
@@ -151,7 +153,7 @@ export const MapBar: React.FC = () => {
             name={stateFormTitle}
             phase={phase}
             store={routeStore}
-            submitTitle = {stateSubmitTitle}
+            submitTitle={stateSubmitTitle}
             setSelectedAsset={setSelectedAssetById}
             submitForm={worldStateSubmitHandler} ></WorldState>
         </section>

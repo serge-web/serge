@@ -20,4 +20,12 @@ export default interface PropTypes {
    * Sets the onChange state on a parent
    */
   updateState?: any
+  /**
+   *  The style of the global selector component
+   */
+  className?: string
+  /**
+   *  The style of each select object
+   */
+  selectClassName?: string
 }

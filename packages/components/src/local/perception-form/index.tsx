@@ -12,9 +12,14 @@ import { PerceptionFormValues } from '@serge/custom-types'
 /* Import Context */
 import { MapContext } from '../mapping'
 
+/* Import Stylesheet */
+import styles from './styles.module.scss'
+import cx from 'classnames'
+
 /* Render component */
-export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, postBack }) => {
+export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, type, force, formData, channelID, postBack }) => {
   const [formState, setFormState] = useState<PerceptionFormValues>(formData.values)
+  console.log(type, force)
 
   const { playerForce } = useContext(MapContext).props
 
@@ -56,14 +61,17 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
     }
   }
 
-  return <Form type="perceived-as" headerText={perceivedNameVal || formHeader || ''}>
-    <fieldset>
-      <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={changeHandler}/>
-      <RCB type="radio" force={true} label="Perceived Force" name={'perceivedForce'} options={perceivedForce} value={perceivedForceVal} updateState={changeHandler}/>
-      <Selector label="Percieved Type" name='perceivedType' options={perceivedType} selected={perceivedTypeVal} updateState={selectHandler}/>
-    </fieldset>
-    <Button onClick={submitForm}>Save</Button>
-  </Form>
+  return <div>
+    <Form type="perceived-as" headerText={perceivedNameVal || formHeader || ''} formHeaderClassName={styles['form-header']}>
+      <span className={cx(styles['asset-icon'], styles[`platform-type-${type}`], styles[force!])} />
+      <fieldset className={styles['fieldset']}>
+        <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={changeHandler} className={styles['input-container']} placeholder={"Enter name here"} />
+        <Selector label="Percieved Type" name='perceivedType' options={perceivedType} selected={perceivedTypeVal} updateState={selectHandler} className={styles['input-container']} selectClassName={styles['select']} />
+        <RCB type="radio" force={true} label="Perceived Force" name={'perceivedForce'} options={perceivedForce} value={perceivedForceVal} updateState={changeHandler} className={styles['input-container']} />
+      </fieldset>
+      <Button onClick={submitForm} className={styles['button']}>Save</Button>
+    </Form>
+  </div>
 }
 
 export default PerceptionForm

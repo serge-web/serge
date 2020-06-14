@@ -1,3 +1,4 @@
+
 .form {
   background-color: rgba(255, 255, 255, 0.65);
   height: 100%;
@@ -9,21 +10,24 @@
 }
 
 .content {
-  padding: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
-.perceived-as {
-  background-color: #1a394d;
-  color:white;
-  position: relative;
-  bottom: 0;
-  z-index: 1010;
-  width: 350px;
-  height: 350px;
-}
 .planning {
   background-color: #90ee90;
 }
 .adjudication {
   background-color: #fafad2;
 }
+
+.perceived-as {
+  background-color: #434343;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  z-index: 1010;
+  width: 400px;
+  height: 400px;
+}
+

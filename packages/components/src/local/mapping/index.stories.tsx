@@ -77,7 +77,7 @@ export const WithMapBar: React.FC = () => <Mapping
   tileLayer={LocalTileLayer}
   forces={forces}
   platforms={platformTypes}
-  phase={Phase.Planning}
+  phase={Phase.Adjudication}
   turnNumber={5}
   playerForce={radios(label, forceNames, defaultValue)}
 >

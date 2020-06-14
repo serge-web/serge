@@ -11,13 +11,13 @@ import PropTypes from './types/props'
 import InputContainer from '../../input-container'
 
 /* Render component */
-export const Selector: React.FC<PropTypes> = ({ name, label, options, selected, updateState }: PropTypes) => {
+export const Selector: React.FC<PropTypes> = ({ name, label, options, selected, updateState, className, selectClassName }: PropTypes) => {
   const handleChange = (event: any): void => updateState(event.target.value)
 
   const inputName = name || camelCase(label)
 
-  return <InputContainer label={label}>
-    <Select labelId={label} id={inputName} value={selected} onChange={handleChange}>
+  return <InputContainer label={label} className={className}>
+    <Select labelId={label} id={inputName} value={selected} onChange={handleChange} className={selectClassName}>
       {
         options.map(option => <MenuItem key={option} value={kebabCase(option.toString())}>{capitalize(option.toString())}</MenuItem>)
       }

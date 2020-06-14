@@ -19,4 +19,12 @@ export default interface PropTypes {
    * Sets the onChange state on a parent
    */
   updateState?: any
+  /**
+   * The style assign to the input
+   */
+  className?: string
+  /**
+   * The placeholder of the input
+   */
+  placeholder?: string
 }
