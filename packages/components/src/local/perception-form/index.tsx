@@ -2,18 +2,23 @@ import React, { useState, useContext } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
-import Form from '../form'
-import { Button } from '@material-ui/core'
-import Selector from '../form-elements/selector'
+
+/* Import Stylesheet */
+import styles from './styles.module.scss'
+
 import RCB from '../form-elements/rcb'
-import TextInput from '../form-elements/text-input'
 import { PerceptionFormValues } from '@serge/custom-types'
+import Button from '../form-elements/button'
+import { FormGroup, clSelect, clInput } from '../form-elements/form-group'
+import TitleWithIcon from '../form-elements/title-with-icon'
+import { Input, Select } from '@material-ui/core'
+import { renderOptions } from '../form-elements/selector'
 
 /* Import Context */
 import { MapContext } from '../mapping'
 
 /* Render component */
-export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, postBack }) => {
+export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, postBack, icon }) => {
   const [formState, setFormState] = useState<PerceptionFormValues>(formData.values)
 
   const { playerForce } = useContext(MapContext).props
@@ -32,7 +37,8 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
     )
   }
 
-  const selectHandler = (data: string): void => {
+  const selectHandler = (event: any): void => {
+    const data: string = event.target.value
     setFormState(
       {
         ...formState,
@@ -56,6 +62,39 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
     }
   }
 
+  return <div className={styles.main}>
+    <TitleWithIcon
+      forceColor={icon.forceColor}
+      platformType={icon.platformType}
+    >
+      {perceivedNameVal || formHeader || ''}
+    </TitleWithIcon>
+    <FormGroup title="Perceived Name">
+      <Input className={clInput} name="perceivedName" value={perceivedNameVal} onChange={changeHandler}/>
+    </FormGroup>
+
+    <FormGroup title="Perceived Force" disableOffsets={true}>
+      <RCB
+        disableOffset={true}
+        type="radio"
+        force={true}
+        name={'perceivedForce'}
+        options={perceivedForce}
+        value={perceivedForceVal}
+        updateState={changeHandler}
+      />
+    </FormGroup>
+    <FormGroup title="Perceived Type">
+      <Select
+        name='perceivedType'
+        className={clSelect}
+        value={perceivedTypeVal}
+        onChange={selectHandler}
+      >{renderOptions(perceivedType)}</Select>
+    </FormGroup>
+    <Button onClick={submitForm}>Save</Button>
+  </div>
+  /*
   return <Form type="perceived-as" headerText={perceivedNameVal || formHeader || ''}>
     <fieldset>
       <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={changeHandler}/>
@@ -64,6 +103,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
     </fieldset>
     <Button onClick={submitForm}>Save</Button>
   </Form>
+  */
 }
 
 export default PerceptionForm

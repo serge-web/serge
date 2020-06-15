@@ -10,6 +10,15 @@ import PropTypes from './types/props'
 
 import InputContainer from '../../input-container'
 
+export const renderOptions = (options: Array<string | number>) => options.map(option => (
+  <MenuItem
+    key={option}
+    value={kebabCase(option.toString())}
+  >
+    {capitalize(option.toString())}
+  </MenuItem>
+))
+
 /* Render component */
 export const Selector: React.FC<PropTypes> = ({ name, label, options, selected, updateState }: PropTypes) => {
   const handleChange = (event: any): void => updateState(event.target.value)
@@ -18,9 +27,7 @@ export const Selector: React.FC<PropTypes> = ({ name, label, options, selected, 
 
   return <InputContainer label={label}>
     <Select labelId={label} id={inputName} value={selected} onChange={handleChange}>
-      {
-        options.map(option => <MenuItem key={option} value={kebabCase(option.toString())}>{capitalize(option.toString())}</MenuItem>)
-      }
+      {renderOptions(options)}
     </Select>
   </InputContainer>
 }

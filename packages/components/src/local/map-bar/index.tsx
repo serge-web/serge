@@ -152,6 +152,7 @@ export const MapBar: React.FC = () => {
     switch (form) {
       case 'PerceivedAs':
         output = <PerceptionForm
+          icon={icondData}
           key={selectedAsset.uniqid}
           formData={collatePerceptionFormData(platforms, selectedAsset, forces)}
           channelID={channelID}
