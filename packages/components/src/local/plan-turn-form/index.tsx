@@ -25,7 +25,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
   const { statusVal, turnsVal, speedVal } = formState
 
   const changeHandler = (e: any): void => {
-    const { name, value } = e
+    const { name, value } = e.target
 
     // If a value has been passed as a string when it should be a number,
     // convert it back to a number
@@ -114,8 +114,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
       </FormGroup>
       : <FormGroup title="For">
         <Input className={clInput} name="turns" value={turnsVal} onChange={changeHandler}/>
-        turns
-
+        <span className={styles.text}>turns</span>
         {/*
           <TextInput
             label="For"
@@ -126,6 +125,9 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
         */}
       </FormGroup>
     }
+    <FormGroup title="Condition">
+      <span className={styles.text}>{/* TODO: add real data */}Working</span>
+    </FormGroup>
     <Button disabled={!saveEnabled} onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Save'}</Button>
   </div>
 }
