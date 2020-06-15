@@ -10,8 +10,8 @@ import PropTypes from './types/props'
 /* Import Styles */
 import styles from './styles.module.scss'
 
-export const clInput:string = styles.input
-export const clSelect:string = styles.select
+export const clInput: string = styles.input
+export const clSelect: string = styles.select
 
 /* Render component */
 export const FormGroup: React.FC<PropTypes> = ({ children, title, disableOffsets, align, titlePosition }) => {

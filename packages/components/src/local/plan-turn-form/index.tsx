@@ -8,7 +8,7 @@ import Button from '../form-elements/button'
 import TitleWithIcon from '../form-elements/title-with-icon'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
-import Input from '@material-ui/core/Input';
+import Input from '@material-ui/core/Input'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'

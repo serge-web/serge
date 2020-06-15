@@ -69,6 +69,11 @@ exports[`PlanTurnForm renders correctly 1`] = `
     className="group"
   >
     <div
+      className="container title title-absolute"
+    >
+      Speed (kts)
+    </div>
+    <div
       className="container main-container"
     >
       <div
@@ -128,6 +133,24 @@ exports[`PlanTurnForm renders correctly 1`] = `
           </p>
         </div>
       </div>
+    </div>
+  </div>
+  <div
+    className="group"
+  >
+    <div
+      className="container title"
+    >
+      Condition
+    </div>
+    <div
+      className="container main-container"
+    >
+      <span
+        className="text"
+      >
+        Working
+      </span>
     </div>
   </div>
   <button
