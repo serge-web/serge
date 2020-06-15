@@ -33,7 +33,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, type, force, f
 
   // take a copy of list of types, because we're going to modify it
   const extendedPerceivedForce: Array<any> = deepCopy(perceivedForce)
-  extendedPerceivedForce.push( {name:'Unknown', colour:'#888'} )
+  extendedPerceivedForce.push({ name: 'Unknown', colour: '#888' })
 
   const changeHandler = (e: any): void => {
     const { name, value } = e
