@@ -3,7 +3,7 @@
   padding: 0.75rem;
   background-color: #fefefe;
   box-sizing: border-box;
-  font-family: "Open Sans", "sans-serif";
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   min-height: 140px;
 }
 
@@ -75,17 +75,6 @@
 }
 
 .submit {
-  background-color: #54667c;
-  display: block;
-  border-width: 0;
-  border-radius: 5px;
-  padding: 6px 16px;
-  color: #fff;
-  text-transform: uppercase;
-  margin: 0 auto;
-  font-family: inherit;
-  font-weight: 300;
-  line-height: 1.2;
-  font-size: 18px;
   margin-bottom: 8px;
+  text-align: center;
 }

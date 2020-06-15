@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import Button from '../form-elements/button'
 import cx from 'classnames'
 import { getIconClassname } from '../asset-icon'
 
@@ -111,7 +112,9 @@ export const WorldState: React.FC<PropTypes> = ({
         }
       </ul>
       {submitTitle && !showOtherPlatforms && !playerInAdjudication &&
-        <button onClick={submitCallback} className={styles.submit} type="button">{submitTitle}</button>
+        <div className={styles.submit}>
+          <Button size='m' onClick={submitCallback}>{submitTitle}</Button>
+        </div>
       }
     </div>
   </>

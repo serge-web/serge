@@ -3,5 +3,5 @@ export default interface PropTypes {
   type?: 'submit' | 'reset' | 'button'
   size?: 's' | 'm'
   onClick?: any
-  disabled: boolean
+  disabled?: boolean
 }
