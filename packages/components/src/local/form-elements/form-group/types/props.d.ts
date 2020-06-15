@@ -11,4 +11,8 @@ export default interface PropTypes {
    * Aligin content
    */
   align?: 'left' | 'center' | 'right' | 'justify' | 'justify-center'
+  /**
+   * Title position
+   */
+  titlePosition?: 'absolute' | 'left'
 }

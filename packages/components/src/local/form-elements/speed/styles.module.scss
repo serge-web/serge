@@ -1,8 +1,9 @@
 .main {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   width: 100%;
+  padding-top: 10px;
 }
 
 .speed {
@@ -46,12 +47,13 @@
 }
 
 .result {
-  width: 105px;
+  margin-left: 12px;
+  width: 94px;
   text-align: center;
 }
 
 .result h2 {
-  margin: 4px 0 15px;
+  margin: 0 0 15px;
   line-height: 1.2;
   font-size: 36px;
 }

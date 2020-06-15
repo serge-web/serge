@@ -10,8 +10,11 @@ import PropTypes from './types/props'
 /* Import Styles */
 import styles from './styles.module.scss'
 
+export const clInput:string = styles.input
+export const clSelect:string = styles.select
+
 /* Render component */
-export const FormGroup: React.FC<PropTypes> = ({ children, title, disableOffsets, align }) => {
+export const FormGroup: React.FC<PropTypes> = ({ children, title, disableOffsets, align, titlePosition }) => {
   const theme = createMuiTheme({
     palette: {
       type: 'dark'
@@ -19,8 +22,12 @@ export const FormGroup: React.FC<PropTypes> = ({ children, title, disableOffsets
   })
 
   return (
-    <div className={styles.group}>
-      {title && <div className={cx(styles.container, styles.title)}>{title}</div>}
+    <div className={cx(styles.group)}>
+      {title && <div className={cx(
+        styles.container,
+        styles.title,
+        titlePosition === 'absolute' && styles['title-absolute'])
+      }>{title}</div>}
       <div className={cx(
         styles.container,
         styles['main-container'],

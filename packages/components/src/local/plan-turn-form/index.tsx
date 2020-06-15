@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
-import FormGroup from '../form-elements/form-group'
+import { FormGroup, clSelect, clInput } from '../form-elements/form-group'
 import Speed from '../form-elements/speed'
 import Button from '../form-elements/button'
 import TitleWithIcon from '../form-elements/title-with-icon'
-import TextInput from '../form-elements/text-input'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
+import Input from '@material-ui/core/Input';
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -93,7 +93,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
     </TitleWithIcon>
     <FormGroup title="State" align="right">
       <Select
-        className={styles.select}
+        className={clSelect}
         value={statusVal.name}
         onChange={statusHandler}
       >
@@ -103,25 +103,28 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
       </Select>
     </FormGroup>
     {statusVal.mobile
-      ? <FormGroup>
+      ? <FormGroup title="Speed (kts)" titlePosition="absolute">
         {speed.length > 0 &&
         <Speed
-          colCount = { undefined }
           value = { speedVal }
           options = { speed }
           onClick = { speedHandler }
         />
         }
       </FormGroup>
-      : <>
-        <TextInput
-          label="For"
-          name="turns"
-          value={turnsVal}
-          updateState={changeHandler}
-        />
+      : <FormGroup title="For">
+        <Input className={clInput} name="turns" value={turnsVal} onChange={changeHandler}/>
         turns
-      </>
+
+        {/*
+          <TextInput
+            label="For"
+            name="turns"
+            value={turnsVal}
+            updateState={changeHandler}
+          />
+        */}
+      </FormGroup>
     }
     <Button disabled={!saveEnabled} onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Save'}</Button>
   </div>

@@ -6,6 +6,11 @@
   align-items: flex-start;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   color: #fff;
+  position: relative;
+}
+
+.group-title-absolute {
+  display: block;
 }
 
 .container {
@@ -49,4 +54,29 @@
   text-transform: uppercase;
   padding: 1rem 0 1rem 1rem;
   line-height: 1.2;
+}
+
+.title-absolute {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-bottom: 0;
+}
+
+.title-absolute + .main-container {
+  padding: 0.625rem;
+}
+
+.input input {
+  line-height: 0.8;
+  font-size: 14px;
+  height: auto;
+  padding: 3px 0 4px;
+}
+
+.select > div {
+  font-size: 14px;
+  line-height: 0.8;
+  min-width: 150px;
+  color: #fff;
 }
