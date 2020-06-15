@@ -6,11 +6,14 @@ import assetDialogFor from './helpers/asset-dialog-for'
 import collatePlanFormData from './helpers/collate-plan-form-data'
 import collateAdjudicationFormData from './helpers/collate-adjudication-form-data'
 import collatePerceptionFormData from './helpers/collate-perception-form-data'
+import collatePlanningOrders from './helpers/collate-planning-orders'
+import collateStateOfWorld from './helpers/collate-state-of-world'
 
 import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
-import { SelectedAsset } from '@serge/custom-types'
+import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route } from '@serge/custom-types'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -21,7 +24,6 @@ import WorldState from '../world-state'
 import PerceptionForm from '../perception-form'
 import AdjudicateTurnForm from '../adjudicate-turn-form'
 import PlanTurnForm from '../plan-turn-form'
-import { ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE } from '@serge/config'
 
 /* Render component */
 export const MapBar: React.FC = () => {
@@ -39,6 +41,7 @@ export const MapBar: React.FC = () => {
     platforms,
     forces,
     showMapBar,
+    turnNumber,
     setShowMapBar,
     selectedAsset,
     setSelectedAsset,
@@ -46,6 +49,20 @@ export const MapBar: React.FC = () => {
     postBack,
     routeStore,
     turnPlanned
+  }: {
+    playerForce: any
+    phase: Phase
+    platforms: any
+    forces: any
+    showMapBar: boolean
+    turnNumber: number
+    setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>
+    selectedAsset: SelectedAsset
+    setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset | undefined>>
+    channelID: string | number
+    postBack: Postback
+    routeStore: RouteStore
+    turnPlanned: {(turn: PlanTurnFormValues): void}
   } = useContext(MapContext).props
 
   // sort out the handler for State of World button
@@ -69,16 +86,24 @@ export const MapBar: React.FC = () => {
 
   const worldStateSubmitHandler = (): void => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
-      window.alert('Submitting State of World')
+      const orders = collateStateOfWorld(routeStore.routes, turnNumber)
+      postBack(STATE_OF_WORLD, orders, channelID)
     } else if (phase === PLANNING_PHASE) {
-      window.alert('Submitting my forces')
+      // build the results object
+      const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
+      const orders = collatePlanningOrders(myRoutes, playerForce, turnNumber)
+      postBack(SUBMIT_PLANS, orders, channelID)
     }
   }
 
   // Selects the current asset
   useEffect(() => {
-    setCurrentForm(assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase))
-    setCurrentAssetName(selectedAsset.name)
+    if (selectedAsset) {
+      setCurrentForm(assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase))
+      setCurrentAssetName(selectedAsset.name)
+    } else {
+      setCurrentAssetName('Pending')
+    }
   }, [selectedAsset])
 
   // Toggles the map bar on and off
@@ -88,21 +113,27 @@ export const MapBar: React.FC = () => {
 
   /** an asset has been selected from the list */
   const setSelectedAssetById = (id: string): void => {
-    const asset: any = findAsset(forces, id)
-    const force: any = forceFor(forces, id)
-    const visibleToArr: string[] = visibleTo(asset.perceptions)
-    const selected: SelectedAsset = {
-      uniqid: asset.uniqid,
-      name: asset.name,
-      type: asset.platformType,
-      force: force.uniqid,
-      controlledBy: force.controlledBy,
-      condition: asset.condition,
-      visibleTo: visibleToArr,
-      status: asset.status
+    // is it a new id?
+    if (selectedAsset && selectedAsset.uniqid === id) {
+      // current clicked on, clear it
+      setSelectedAsset(undefined)
+    } else {
+      const asset: any = findAsset(forces, id)
+      const force: any = forceFor(forces, id)
+      const visibleToArr: string[] = visibleTo(asset.perceptions)
+      const selected: SelectedAsset = {
+        uniqid: asset.uniqid,
+        name: asset.name,
+        type: asset.platformType,
+        force: force.uniqid,
+        controlledBy: force.controlledBy,
+        condition: asset.condition,
+        visibleTo: visibleToArr,
+        status: asset.status
+      }
+      // ok done, share the good news
+      setSelectedAsset(selected)
     }
-    // ok done, share the good news
-    setSelectedAsset(selected)
   }
 
   /* TODO: This should be refactored into a helper */
@@ -158,7 +189,7 @@ export const MapBar: React.FC = () => {
             submitForm={worldStateSubmitHandler} ></WorldState>
         </section>
         <section>
-          {currentForm !== '' && selectedAsset.uniqid !== '' && formSelector(currentForm)}
+          {currentForm !== '' && selectedAsset && formSelector(currentForm)}
         </section>
       </div>
     </div>

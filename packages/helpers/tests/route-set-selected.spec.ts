@@ -1,7 +1,7 @@
 /* global it expect */
 
 /* Import mock data */
-import { forces } from '@serge/mocks'
+import { forces, platformTypes } from '@serge/mocks'
 
 import routeCreateStore from '../route-create-store'
 import routeSetCurrent from '../route-set-current'
@@ -9,7 +9,7 @@ import routeSetCurrent from '../route-set-current'
 import { RouteStore } from '@serge/custom-types'
 
 it('can set selected route', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', false)
+  const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes)
 
   const idOne = 'a0pra00003'
   const idTwo = 'a0pra000201'

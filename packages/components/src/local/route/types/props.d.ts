@@ -5,10 +5,6 @@ export default interface PropTypes {
    * name of this platform
    */
   name: string
-  /*
-   * current game turn number
-   */
-  turnNumber: number
   /**
    *  the collated route data for hthis asset
    */
@@ -25,4 +21,8 @@ export default interface PropTypes {
    * if this is for the selected track
    */
   selected: boolean
+  /**
+   *  handler for clear route from selected turn
+   */
+  clearRouteHandler: {(turn: number): void}
 }

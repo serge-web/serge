@@ -12,9 +12,13 @@ export default interface Route {
   /** whether this asset is under control of current player's force */
   underControl: boolean,
   /** name of force for this platform (perceived or real) */
-  forceName: string,
+  perceivedForceName: string,
+  /** real force for this platform */
+  actualForceName: string,
   /** if this is the selected asset */
   selected: boolean,
+  /** if this asset is destroyed */
+  destroyed: boolean
   /** color to render this line */
   color: string,
   /** paste route for this asset */
@@ -27,4 +31,6 @@ export default interface Route {
   planned: Array<RouteStep>
   /** original future planned steps for this asset */
   original: Array<RouteStep>
+  /* store the actual asset (so we have all details for State of World) */
+  asset: any
 }

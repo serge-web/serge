@@ -184,7 +184,7 @@ export const HexGrid: React.FC<{}> = () => {
     // it may be outside the achievable area. Just
     // use the last point in the planning leg
 
-    if (plannedRouteCells && planningRange) {
+    if (plannedRouteCells && planningRange && planningRouteCells.length) {
       // deduct one from planned route, since it includes the origin cell
       const routeLen = planningRouteCells.length - 1
       const lastCell: SergeHex<{}> = planningRouteCells[routeLen]
@@ -207,7 +207,7 @@ export const HexGrid: React.FC<{}> = () => {
         setPlanningRange(planningRangeProps)
 
         // ok, planning complete - fire the event back up the hierarchy
-        setNewLeg(fullCellList)
+        setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
       } else {
         // ok, just some of it has been consumed. Reduce what is remaining
         const remaining = planningRange - routeLen

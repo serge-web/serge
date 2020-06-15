@@ -32,7 +32,7 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
         uniqid: route.uniqid,
         numPlanned: route.planned.length,
         underControl: route.underControl,
-        forceName: route.forceName,
+        forceName: route.perceivedForceName,
         platformType: route.platformType,
         selected: route.selected
       }

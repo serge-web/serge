@@ -1,7 +1,8 @@
-import { RouteStore } from '@serge/custom-types'
+import { RouteStore, Route } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
 import { UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
+import { checkIfDestroyed } from '@serge/helpers'
 
 /** determine which forces this player can control
  * @param {any} forces array of forces
@@ -18,16 +19,27 @@ export const forcesControlledBy = (forces: any, playerForce: string): Array<stri
   return res;
 }
 
+/**
+ * 
+ * @param {any} perceptions how an asset is perceived
+ * @param {string} playerForce the force for the current player
+ * @param {Array<{force: string, color: string}>} forceColors couplets of force & color to use for that color
+ * @param {string} undefinedColor the shade to use for assets of unknown force
+ * @return {string | undefined} color shade to use, or undefined if asset isn't visible
+ */
 const isPerceivedBy = (perceptions: any, playerForce: string, forceColors: Array<{force: string, color: string}>,
   undefinedColor: string): string | undefined => {
   if(perceptions) {
-    const p = perceptions.find((p:any) => p.by === playerForce)
+    const p = perceptions.find((p:any) => p.by.toLowerCase() === playerForce.toLowerCase())
     if(p) {
       // do we know force?
       if(p.force) {
-        const color = forceColors.find((f:any) => f.force === p.force)
+        const color = forceColors.find((f:any) => f.force.toLowerCase() === p.force.toLowerCase())
         if(color) {
           return color.color
+        } else {
+          // force color not know, so probably 'unknown'. Return unknown shade
+          return undefinedColor
         }
       } else {
         return undefinedColor
@@ -45,7 +57,7 @@ const isPerceivedBy = (perceptions: any, playerForce: string, forceColors: Array
  * @param {string[]} controls uniqid for forces controlled by this player. Optional remove for all
  * @returns {RouteStore} RouteStore representing current data
  */
-const routeCreateStore = (forces: any, playerForce: string, adjudication: boolean): RouteStore => {
+const routeCreateStore = (forces: any, playerForce: string, adjudication: boolean, platformTypes: any): RouteStore => {
   const store: RouteStore = { routes: []}
 
   const controls: Array<string> = forcesControlledBy(forces, playerForce)
@@ -73,19 +85,26 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
             // do I actually control this platform type
             controlled = thisForce === playerForce || controls.includes(thisForce)
           }
-        
+
+          // see if platform has been destroyed
+          const assetIsDestroyed = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
+
           if(controlled || playerForce === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
-            store.routes.push(routeCreateRoute(asset, adjudication, force.color, 
-              controlled, force.uniqid, asset.name, asset.platformType))
+            const newRoute: Route = routeCreateRoute(asset, adjudication, force.color, 
+              controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, assetIsDestroyed)
+              store.routes.push(newRoute)
           } else {
             // can't see it directly. See if we can perceive it
             const undefinedColor = '#999' // TODO: this color should not be hard-coded
             const perceivedAs: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColors, undefinedColor)
             if(perceivedAs) {
-              const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId, thisForce, asset.platformType, asset.perceptions, false)
+              const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId, 
+                thisForce, asset.platformType, asset.perceptions, false)
                 // create route for this asset
-                store.routes.push(routeCreateRoute(asset, false, perceivedAs, false, perceptions[1], perceptions[0], perceptions[2]))
+                const newRoute: Route = routeCreateRoute(asset, false, perceivedAs, false, force.uniqid, perceptions[1], 
+                  perceptions[0], perceptions[2], assetIsDestroyed)
+                store.routes.push(newRoute)
             }
           }
         })

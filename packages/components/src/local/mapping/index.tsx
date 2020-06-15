@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { Map, TileLayer, ScaleControl } from 'react-leaflet'
+import { Map, TileLayer, ScaleControl, ZoomControl } from 'react-leaflet'
 import { Phase, ADJUDICATION_PHASE } from '@serge/config'
 import MapBar from '../map-bar'
 
@@ -9,9 +9,10 @@ import boundsFor from './helpers/bounds-for'
 import {
   roundToNearest,
   routeCreateStore,
-  routeAddStep,
+  routeAddSteps,
   routeSetCurrent,
-  routeGetLatestPosition
+  routeGetLatestPosition,
+  routeClearFromStep
 } from '@serge/helpers'
 
 /* Import Types */
@@ -20,6 +21,7 @@ import {
   SergeHex,
   SergeGrid,
   MappingContext,
+  NewTurnValues,
   PlanMobileAsset,
   SelectedAsset,
   RouteStore,
@@ -61,7 +63,6 @@ const defaultProps: PropTypes = {
   zoom: 10,
   zoomDelta: 0.25,
   zoomSnap: 0.25,
-  zoomControl: true,
   attributionControl: false,
   zoomAnimation: false,
   planningConstraintsProp: undefined
@@ -84,7 +85,6 @@ export const Mapping: React.FC<PropTypes> = ({
   zoom,
   zoomDelta,
   zoomSnap,
-  zoomControl,
   attributionControl,
   zoomAnimation,
   planningConstraintsProp,
@@ -94,22 +94,9 @@ export const Mapping: React.FC<PropTypes> = ({
   children
 }) => {
   /* Initialise states */
-  const [showMapBar, setShowMapBar] = useState(false)
-  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset>({
-    uniqid: '',
-    name: '',
-    type: 'Unknown',
-    force: 'Unknown',
-    controlledBy: [],
-    condition: '',
-    visibleTo: [],
-    status: {
-      speedKts: 0,
-      state: ''
-    }
-  })
-
-  const [zoomLevel, setZoomLevel] = useState(zoom || 0)
+  const [showMapBar, setShowMapBar] = useState<boolean>(false)
+  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
+  const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
 
   /* Initialise variables */
   const [mapBounds, setMapBounds] = useState<{
@@ -120,17 +107,11 @@ export const Mapping: React.FC<PropTypes> = ({
   } | undefined>(undefined)
   const [latLngBounds, setLatLngBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
-  const [newLeg, setNewLeg] = useState<Array<SergeHex<{}>> | undefined>(undefined)
+  const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
-  const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
+  const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProp)
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
-
-  // if we've got a planning range from prop, double-check if it is different
-  // to the current one
-  if (planningRangeProp && planningRange !== planningRangeProp) {
-    setPlanningRange(planningRangeProp)
-  }
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -140,16 +121,15 @@ export const Mapping: React.FC<PropTypes> = ({
   // highlight the route for the selected asset
   useEffect(() => {
     // if we were planning a mobile route, clear that
-    if (planningConstraints) {
+    if (planningConstraints && selectedAsset) {
       setPlanningConstraints(undefined)
     }
 
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    if (selectedAsset) {
-      const store: RouteStore = routeSetCurrent(selectedAsset.uniqid, routeStore)
-      setRouteStore(store)
-    }
+    const id: string = selectedAsset ? selectedAsset.uniqid : ''
+    const store: RouteStore = routeSetCurrent(id, routeStore)
+    setRouteStore(store)
   }, [selectedAsset])
 
   useEffect(() => {
@@ -157,7 +137,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     if (forces && gridCells) {
       const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
-      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication)
+      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms)
       setRouteStore(store)
     }
   }, [forces, playerForce, phase, gridCells])
@@ -183,11 +163,10 @@ export const Mapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (newLeg) {
-      // TODO: store the new planned leg for this asset
       const selRoute = routeStore.selected
       if (selRoute) {
         const newTurn = selRoute.planned[selRoute.planned.length - 1].turn + 1
-        const coords: Array<string> = newLeg.map((cell: SergeHex<{}>) => {
+        const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
           return cell.name
         })
         if (selRoute) {
@@ -196,7 +175,7 @@ export const Mapping: React.FC<PropTypes> = ({
             status: { state: 'BBQ', speedKts: 12 },
             coords: coords
           }
-          const newStore: RouteStore = routeAddStep(routeStore, selRoute.uniqid, newStep)
+          const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
           setRouteStore(newStore)
         }
       }
@@ -204,16 +183,33 @@ export const Mapping: React.FC<PropTypes> = ({
       // if we know our planning constraints, we can plan the next leg
       if (planningConstraints) {
         // get the last planned cell, to act as the first new planned cell
-        const lastCell: SergeHex<{}> = newLeg[newLeg.length - 1]
+        const lastCell: SergeHex<{}> = newLeg.route[newLeg.route.length - 1]
         // create new planning contraints
         const newP: PlanMobileAsset = {
           origin: lastCell.name,
-          travelMode: planningConstraints.travelMode
+          travelMode: planningConstraints.travelMode,
+          status: newLeg.state,
+          speed: newLeg.speed
         }
         setPlanningConstraints(newP)
       }
     }
   }, [newLeg])
+
+  const clearFromTurn = (turn: number): void => {
+    const current: Route | undefined = routeStore.selected
+    if (current) {
+      console.log('clear from turn', turn, current.planned.length)
+      const newStore = routeClearFromStep(routeStore, current.uniqid, turn)
+
+      const current2: Route | undefined = newStore.selected
+      if (current2) {
+        console.log('clear after turn', turn, current2.planned.length)
+      }
+      console.log('cleared after turn', turn, newStore.selected)
+      setRouteStore(newStore)
+    }
+  }
 
   const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
     const current: Route | undefined = routeStore.selected
@@ -225,7 +221,12 @@ export const Mapping: React.FC<PropTypes> = ({
         const origin: string = routeGetLatestPosition(current.currentPosition, current.planned)
 
         // work out how far asset can travel
-        const constraints: PlanMobileAsset = { origin: origin, travelMode: 'sea' }
+        const constraints: PlanMobileAsset = {
+          origin: origin,
+          travelMode: 'sea',
+          status: plannedTurn.statusVal.name,
+          speed: plannedTurn.speedVal
+        }
 
         const speedKts = plannedTurn.speedVal
         // TODO: turn time should come from game definition
@@ -249,10 +250,14 @@ export const Mapping: React.FC<PropTypes> = ({
           turnStart = current.planned[current.planned.length - 1].turn
         }
         let store: RouteStore = routeStore
+        const steps: Array<RouteStep> = []
         for (let ctr = 0; ctr < plannedTurn.turnsVal; ctr++) {
           const step: RouteStep = { turn: ++turnStart, status: { state: status.name } }
-          // store this step
-          store = routeAddStep(store, selectedAsset.uniqid, step)
+          steps.push(step)
+        }
+        // store this step
+        if (selectedAsset) {
+          store = routeAddSteps(store, selectedAsset.uniqid, steps)
         }
         setRouteStore(store)
       }
@@ -279,6 +284,7 @@ export const Mapping: React.FC<PropTypes> = ({
     setSelectedAsset,
     setZoomLevel,
     turnPlanned,
+    clearFromTurn,
     postBack
   }
 
@@ -305,7 +311,7 @@ export const Mapping: React.FC<PropTypes> = ({
           zoomDelta={zoomDelta}
           zoomSnap={zoomSnap}
           minZoom={minZoom}
-          zoomControl={zoomControl}
+          zoomControl={false}
           maxZoom={maxZoom}
           ref={handleEvents}
           touchZoom={touchZoom}
@@ -317,7 +323,8 @@ export const Mapping: React.FC<PropTypes> = ({
             attribution={tileLayer.attribution}
             bounds={latLngBounds}
           />
-          <ScaleControl />
+          <ScaleControl position='bottomright' />
+          <ZoomControl position='topright' />
           {children}
         </Map>
       </section>

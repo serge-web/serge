@@ -10,13 +10,10 @@ import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
 import Assets from '../assets'
-import Route from '../route'
 import { HexGrid } from '../hex-grid'
 
 // import data types
 import { Phase } from '@serge/config'
-import { RouteStore, Route as RouteType } from '@serge/custom-types'
-import { routeCreateStore } from '@serge/helpers'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -173,7 +170,7 @@ export const WithAssets: React.FC = () => <Mapping
   playerForce={radios(label, forceNames, defaultValue)}
   platforms={platformTypes}
   phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
-  turnNumber={5}
+  turnNumber={3}
   postBack={postback} >
   <Assets /><HexGrid />
 </Mapping>
@@ -263,7 +260,9 @@ export const WithAllowableRange: React.FC = () => <Mapping
   planningRangeProp={number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)}
   planningConstraintsProp={boolean(allowableOnLabel, allowableDefaultValue) ? {
     origin: text(allowableOriginLabel, allowableOriginValue),
-    travelMode: radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault)
+    travelMode: radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault),
+    status: 'Transiting',
+    speed: 20
   } : undefined}
 >
   <HexGrid />
@@ -328,58 +327,6 @@ export const WithPhases: React.FC = () => <Mapping
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 WithPhases.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
-    }
-  }
-}
-
-/**
- * VIEW WITH ASSET ROUTES
- */
-// knob bits:
-const trimmedLabel = 'Trimmed'
-const trimmedDefaultValue = false
-const selectedLabel = 'Selected'
-const selectedDefaultValue = false
-
-const currentTurnLabel = 'Current turn number'
-const currentTurnDefaultValue = 5
-const currentTurnOptions = {
-  range: true,
-  min: 1,
-  max: 12,
-  step: 1
-}
-
-// test data:
-const store: RouteStore = routeCreateStore(forces, 'umpire', false)
-const route: RouteType = store.routes[0]
-
-export const WithRoute: React.FC = () => <Mapping
-  bounds={bounds}
-  tileLayer={LocalTileLayer}
-  tileDiameterMins={5}
-  forces={forces}
-  platforms={platformTypes}
-  phase={Phase.Planning}
-  turnNumber={5}
-  playerForce='Blue'
-  mapBar={false}
->
-  <HexGrid />
-  <Route name={'test'} route={route}
-    turnNumber={number(currentTurnLabel, currentTurnDefaultValue, currentTurnOptions, 'Adjustments')}
-    color={'#00f'}
-    selected={boolean(selectedLabel, selectedDefaultValue, 'Adjustments')}
-    trimmed={boolean(trimmedLabel, trimmedDefaultValue, 'Adjustments')}
-  />
-</Mapping>
-
-// @ts-ignore TS belives the 'story' property doesn't exist but it does.
-WithRoute.story = {
   parameters: {
     options: {
       // This story requires addons but other stories in this component do not
