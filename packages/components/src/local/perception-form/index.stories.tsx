@@ -16,7 +16,6 @@ export default {
     }
   }
 }
-const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
 
 // put in the post handler
 const postback = (messageType: string, payload: any): void => {
@@ -25,4 +24,4 @@ const postback = (messageType: string, payload: any): void => {
 
 // TODO: Add some state handling here
 
-export const Default: React.FC = () => <PerceptionForm postBack={postback} formHeader="Perception header" formData={formData} icon={iconData}/>
+export const Default: React.FC = () => <PerceptionForm postBack={postback} formHeader="Perception header" formData={formData}/>
