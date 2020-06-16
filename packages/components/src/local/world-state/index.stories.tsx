@@ -10,6 +10,7 @@ export default {
   title: 'local/WorldState',
   component: WorldState,
   decorators: [],
+  isUmpire: false,
   parameters: {
     readme: {
       // Show readme before story
@@ -20,4 +21,4 @@ export default {
 
 const store: RouteStore = { routes: [] }
 
-export const Default: React.FunctionComponent = () => <WorldState phase={ADJUDICATION_PHASE} store={store} name="World State" />
+export const Default: React.FunctionComponent = () => <WorldState phase={ADJUDICATION_PHASE} isUmpire={false} store={store} name="World State" />

@@ -6,10 +6,11 @@ import renderer from 'react-test-renderer'
 import PlanTurnForm from './index'
 
 import formData from './mocks/formData'
+const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
 
 it('PlanTurnForm renders correctly', () => {
   const tree = renderer
-    .create(<PlanTurnForm formHeader="Planning header" formData={formData} />)
+    .create(<PlanTurnForm formHeader="Planning header" formData={formData} icon={iconData} />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

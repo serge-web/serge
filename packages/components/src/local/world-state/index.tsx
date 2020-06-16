@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import Button from '../form-elements/button'
+import cx from 'classnames'
+import { getIconClassname } from '../asset-icon'
+
 /* Import Types */
 import PropTypes from './types/props'
-import { Button } from '@material-ui/core'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 import { Route } from '@serge/custom-types'
+import { ADJUDICATION_PHASE } from '@serge/config'
 
 interface PlannedRoute {
   name: string
@@ -18,7 +23,10 @@ interface PlannedRoute {
   selected: boolean
 }
 
-export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelectedAsset, submitTitle, submitForm }: PropTypes) => {
+export const WorldState: React.FC<PropTypes> = ({
+  name, store, phase, isUmpire, setSelectedAsset,
+  submitTitle, submitForm, showOtherPlatforms
+}: PropTypes) => {
   const [routes, setRoutes] = useState<Array<PlannedRoute>>([])
 
   /** filter the list of cells allowable for this platform
@@ -54,29 +62,60 @@ export const WorldState: React.FC<PropTypes> = ({ name, store, phase, setSelecte
     }
   }
 
+  const renderItem = (pRoute: PlannedRoute): JSX.Element => {
+    const descriptionText = isUmpire || pRoute.underControl
+      ? `${pRoute.numPlanned} turns planned` : ''
+
+    // TODO: ... add other versions for description
+
+    const checkStatus: boolean = pRoute.numPlanned > 0
+
+    const icClassName = getIconClassname(pRoute.forceName.toLowerCase(), pRoute.platformType, pRoute.selected)
+
+    return (
+      <div className={styles.item}>
+        <div className={cx(icClassName, styles['item-icon'])}/>
+        <div className={styles['item-content']}>
+          <div>
+            <p>{pRoute.name}</p>
+            <p>{descriptionText}</p>
+          </div>
+        </div>
+        {!showOtherPlatforms && <div className={styles['item-check']}>
+          {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
+          {checkStatus === false && <CheckCircleIcon style={{ color: '#B1B1B1' }} />}
+        </div>}
+      </div>
+    )
+  }
+
+  // sort out which title to use on orders panel
+  const customTitle = showOtherPlatforms ? 'Other Visible Platforms' : name
+
+  // find out if this is a non-umpire, and we're in the adjudication phase
+  const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
+
   return <>
     <div className={styles['world-state']}>
-      <h2>{name}</h2>
+      <h2 className={styles.title}>{customTitle}</h2>
       <ul>
-        <li>== [Under my control] ==</li>
-        {
-          routes.filter((pRoute: PlannedRoute) => pRoute.underControl)
-            .map((pRoute: PlannedRoute): any => {
-              return <li key={'r_li_' + pRoute.uniqid} onClick={(): void => clickEvent(pRoute.uniqid)} >{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} - {pRoute.numPlanned} planned {pRoute.selected ? '[*]' : ''}</li>
-            })
+        {routes
+          .filter((pRoute: PlannedRoute) => pRoute.underControl === !showOtherPlatforms)
+          .map((pRoute: PlannedRoute): any => (
+            <li
+              key={'r_li_' + pRoute.uniqid}
+              onClick={(): any => clickEvent(pRoute.uniqid)}
+            >
+              {renderItem(pRoute)}
+            </li>
+          ))
         }
-        <li>== [Not under my control] ==</li>
-        {
-          routes.filter((pRoute: PlannedRoute) => !pRoute.underControl)
-            .map((pRoute: PlannedRoute): any => {
-              return <li key={'r_li_' + pRoute.uniqid} onClick={(): void => clickEvent(pRoute.uniqid)} >{pRoute.name}/{pRoute.platformType}/{pRoute.forceName} {pRoute.selected ? '[*]' : ''}</li>
-            })
-
-        }</ul>
-      {
-        submitTitle && <Button onClick={submitCallback}>{submitTitle}</Button>
+      </ul>
+      {submitTitle && !showOtherPlatforms && !playerInAdjudication &&
+        <div className={styles.submit}>
+          <Button size='m' onClick={submitCallback}>{submitTitle}</Button>
+        </div>
       }
-
     </div>
   </>
 }

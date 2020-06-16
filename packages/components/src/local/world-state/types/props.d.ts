@@ -14,6 +14,10 @@ export default interface PropTypes {
    */
   phase: string
   /**
+   * whether this is from umpire force
+   */
+  isUmpire: boolean
+  /**
    * the title of the submit button
    */
   submitTitle?: string
@@ -25,4 +29,8 @@ export default interface PropTypes {
    * callback for submit changes
    */
   submitForm?: {(): void}
+  /**
+   * switch beetween Orders and  Other Visible Platforms
+   */
+  showOtherPlatforms?: boolean
 }

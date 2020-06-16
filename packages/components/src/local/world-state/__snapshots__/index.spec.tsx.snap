@@ -4,16 +4,11 @@ exports[`WorldState renders correctly 1`] = `
 <div
   className="world-state"
 >
-  <h2>
+  <h2
+    className="title"
+  >
     test
   </h2>
-  <ul>
-    <li>
-      == [Under my control] ==
-    </li>
-    <li>
-      == [Not under my control] ==
-    </li>
-  </ul>
+  <ul />
 </div>
 `;
