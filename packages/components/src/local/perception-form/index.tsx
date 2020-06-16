@@ -11,7 +11,6 @@ import { PerceptionFormValues } from '@serge/custom-types'
 
 /* Import Context */
 import { MapContext } from '../mapping'
-import { deepCopy } from '@serge/helpers'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
