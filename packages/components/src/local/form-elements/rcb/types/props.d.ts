@@ -8,7 +8,7 @@ export default interface PropTypes {
   /**
    * The label to show on the form section
    */
-  label: string
+  label?: string
   /**
    * The name of the input, if no input is selected, label is used instead.
    * Should match the value of 'populate' that should be updated in state.
@@ -30,4 +30,8 @@ export default interface PropTypes {
    * Sets the onChange state on a parent
    */
   updateState?: any
+  /**
+   * disable offset for input container
+   */
+  disableOffset?: boolean
 }

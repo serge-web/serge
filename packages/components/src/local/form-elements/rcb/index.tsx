@@ -15,7 +15,7 @@ import { ConditionalWrapper, componentSelector } from './helpers'
 import Option from './types/option'
 
 /* Render component */
-export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState }) => {
+export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState, disableOffset }) => {
   const [checkedArray, updateCheckedArray] = useState(
     options.map((o: any) => {
       const opt = o.name || o
@@ -66,7 +66,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
   const getLabel = (option: Option): any => force && option.colour ? <div><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{option.name}</div> : option
   const getSelected = (o: any): any => Array.isArray(value) ? value.includes(o) : value
 
-  return <InputContainer label={label}>
+  return <InputContainer label={label} disableOffset={disableOffset}>
     <ConditionalWrapper
       condition={type === 'radio'}
       wrapper = {(children: any): React.ReactNode => <RadioGroup aria-label={label} name={inputName} value={getSelected(value)} onChange={handleRadio}>{children}</RadioGroup> }

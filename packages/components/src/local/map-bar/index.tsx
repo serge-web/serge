@@ -28,8 +28,9 @@ import PlanTurnForm from '../plan-turn-form'
 /* Render component */
 export const MapBar: React.FC = () => {
   /* Set our intial states */
-  const [currentForm, setCurrentForm] = useState('')
-  const [currentAssetName, setCurrentAssetName] = useState('')
+  const [currentForm, setCurrentForm] = useState<string>('')
+  const [currentAssetName, setCurrentAssetName] = useState<string>('')
+  const [showOtherPlatforms, setShowOtherPlatforms] = useState<boolean>(false)
 
   const [stateFormTitle, setStateFormTitle] = useState<string>('')
   const [stateSubmitTitle, setStateSubmitTitle] = useState<string>('')
@@ -69,11 +70,11 @@ export const MapBar: React.FC = () => {
   useEffect(() => {
     let formTitle = ''
     let submitTitle = ''
-    if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
-      formTitle = 'State of World'
+    if (phase === ADJUDICATION_PHASE) {
+      formTitle = playerForce === UMPIRE_FORCE ? 'State of World' : 'My Forces'
       submitTitle = 'Submit state of world'
     } else if (phase === PLANNING_PHASE) {
-      formTitle = 'My Forces'
+      formTitle = 'Orders'
       submitTitle = 'Submit routes'
     }
     if (submitTitle !== '') {
@@ -107,8 +108,13 @@ export const MapBar: React.FC = () => {
   }, [selectedAsset])
 
   // Toggles the map bar on and off
-  const clickEvent = (): void => {
-    showMapBar ? setShowMapBar(false) : setShowMapBar(true)
+  const clickEvent = (nextShowOtherPlatforms: boolean): void => {
+    if (nextShowOtherPlatforms === showOtherPlatforms) {
+      setShowMapBar(!showMapBar)
+    } else {
+      setShowOtherPlatforms(nextShowOtherPlatforms)
+      if (!showMapBar) setShowMapBar(!showMapBar)
+    }
   }
 
   /** an asset has been selected from the list */
@@ -139,6 +145,10 @@ export const MapBar: React.FC = () => {
   /* TODO: This should be refactored into a helper */
   const formSelector = (form: string): any => {
     let output = null
+    const icondData = {
+      forceColor: selectedAsset.force,
+      platformType: selectedAsset.type
+    }
     switch (form) {
       case 'PerceivedAs':
         output = <PerceptionForm
@@ -160,6 +170,7 @@ export const MapBar: React.FC = () => {
 
         }
         output = <PlanTurnForm
+          icon={icondData}
           key={selectedAsset.uniqid}
           formHeader={currentAssetName}
           formData={collatePlanFormData(platforms, selectedAsset)}
@@ -175,21 +186,36 @@ export const MapBar: React.FC = () => {
 
   return (
     <div className={cx(styles['map-bar'], showMapBar && styles.open)}>
-      <div className={styles.toggle} onClick={clickEvent}><ArrowRight /></div>
+      <div
+        className={cx(styles.toggle, (!showOtherPlatforms || !showMapBar) && styles['toggle-active'])}
+        onClick={(): void => { clickEvent(false) }}>
+        <ArrowRight />
+      </div>
+      <div
+        className={cx(styles.toggle, (showOtherPlatforms || !showMapBar) && styles['toggle-active'])}
+        onClick={(): void => { clickEvent(true) }}>
+        <ArrowRight />
+      </div>
       <div className={styles.inner}>
         <section>
           <WorldState
             name={stateFormTitle}
             phase={phase}
+            isUmpire={playerForce === UMPIRE_FORCE}
             store={routeStore}
+            showOtherPlatforms={showOtherPlatforms}
             submitTitle = {stateSubmitTitle}
             setSelectedAsset={setSelectedAssetById}
             submitForm={worldStateSubmitHandler} ></WorldState>
         </section>
-        <section>
-          {currentForm !== '' && selectedAsset && formSelector(currentForm)}
-        </section>
       </div>
+      {currentForm !== '' && selectedAsset &&
+        <div className={styles['form-inner']}>
+          <section>
+            {formSelector(currentForm)}
+          </section>
+        </div>
+      }
     </div>
   )
 }
