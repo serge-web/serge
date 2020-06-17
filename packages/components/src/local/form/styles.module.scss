@@ -9,15 +9,20 @@
 }
 
 .content {
-  padding: 5px;
+  display: flex;
+  flex-direction: column;
 }
 
-.perceived-as {
-  background-color: #ffb6c1;
-}
 .planning {
   background-color: #1a394d;
 }
 .adjudication {
   background-color: #fafad2;
+}
+
+.perceived-as {
+  background-color: #434343;
+  color: #fff;
+  bottom: 0;
+  z-index: 1010;
 }

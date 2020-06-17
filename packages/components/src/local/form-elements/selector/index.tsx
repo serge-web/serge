@@ -20,13 +20,13 @@ export const renderOptions = (options: Array<string | number>) => options.map(op
 ))
 
 /* Render component */
-export const Selector: React.FC<PropTypes> = ({ name, label, options, selected, updateState }: PropTypes) => {
+export const Selector: React.FC<PropTypes> = ({ name, label, options, selected, updateState, className, selectClassName }: PropTypes) => {
   const handleChange = (event: any): void => updateState(event.target.value)
 
   const inputName = name || camelCase(label)
 
-  return <InputContainer label={label}>
-    <Select labelId={label} id={inputName} value={selected} onChange={handleChange}>
+  return <InputContainer label={label} className={className}>
+    <Select labelId={label} id={inputName} value={selected} onChange={handleChange} className={selectClassName}>
       {renderOptions(options)}
     </Select>
   </InputContainer>

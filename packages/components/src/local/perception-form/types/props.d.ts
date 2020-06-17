@@ -6,6 +6,14 @@ export default interface PropTypes {
    */
   formHeader?: string
   /**
+   * The asset of the selected force
+   */
+  type?: string
+  /**
+   * The color of the force
+   */
+  force?: string
+  /**
    * All types in this definition are options for a form input
    */
   formData: PerceptionFormData

@@ -8,8 +8,8 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 /* Render component */
-export const InputContainer: React.FunctionComponent<PropTypes> = ({ children, label, disableOffset }) =>
-  <section className={cx(styles['input-container'], disableOffset && styles['disable-offset'])}>
+export const InputContainer: React.FunctionComponent<PropTypes> = ({ children, label, disableOffset, className }) =>
+  <section className={cx(styles['input-container'], disableOffset && styles['disable-offset'], className)}>
     {label && <h2>{label}</h2>}
     {children}
   </section>

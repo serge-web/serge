@@ -8,3 +8,7 @@
   vertical-align: middle;
   margin-right: 0.5rem;
 }
+
+.selected > * {
+  font-weight: 700 !important;
+}

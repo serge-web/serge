@@ -21,7 +21,7 @@ export default interface PropTypes {
   /**
    * The value to set the 'checked' parameter to
    */
-  value: string | number | Array<string | number >
+  value: string | number | Array<string | number>
   /**
    * An option to display the force colours in the label ('colour' must be present in options)
    */
@@ -30,8 +30,9 @@ export default interface PropTypes {
    * Sets the onChange state on a parent
    */
   updateState?: any
-  /**
+  /*
    * disable offset for input container
    */
   disableOffset?: boolean
+  className?: string
 }
