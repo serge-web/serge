@@ -561,6 +561,10 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	}
 */
 
+.leaflet-div-icon text {
+	color: #000;
+}
+
 /* Tooltip */
 /* Base styles for the element that has a tooltip */
 .leaflet-tooltip {
