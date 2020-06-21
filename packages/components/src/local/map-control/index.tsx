@@ -12,7 +12,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import PropTypes from './types/props'
 
 /* Import Styles */
-import styles from './styles.module.scss'
+// import styles from './styles.module.scss'
 
 /* Render component */
 export const MapControl: React.FC<PropTypes> = ({ map }) => {
@@ -39,7 +39,7 @@ export const MapControl: React.FC<PropTypes> = ({ map }) => {
   return (
     <div className='leaflet-control-container' ref={disableMapClickAndScrolll}>
       <div className='leaflet-top leaflet-right'>
-        <div className={cx('leaflet-control', styles['map-controll'])}>
+        <div className={cx('leaflet-control')}>
           <Item onClick={() => { handeZoomChange(1) }}><AddIcon/></Item>
           <Item onClick={() => { handeHome() }}><HomeIcon/></Item>
           <Item onClick={() => { handeZoomChange(-1) }}><RemoveIcon/></Item>
