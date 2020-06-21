@@ -4,9 +4,9 @@ import Item from './helpers/item'
 import cx from 'classnames'
 
 /* Import icons */
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import HomeIcon from '@material-ui/icons/Home';
+import AddIcon from '@material-ui/icons/Add'
+import RemoveIcon from '@material-ui/icons/Remove'
+import HomeIcon from '@material-ui/icons/Home'
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -16,7 +16,6 @@ import PropTypes from './types/props'
 
 /* Render component */
 export const MapControl: React.FC<PropTypes> = ({ map }) => {
-
   // as map bar now works as MapControll need to disable map scroll and click events to allow to use map bar as usual html and don't touch map while doing scroll
   const disableMapClickAndScrolll = (ref: any) => {
     if (ref) {
@@ -30,7 +29,7 @@ export const MapControl: React.FC<PropTypes> = ({ map }) => {
   }
 
   const handeHome = () => {
-    console.log(map.getCenter());
+    console.log(map.getCenter())
     map.flyTo(map.getCenter(), 10)
   }
 
