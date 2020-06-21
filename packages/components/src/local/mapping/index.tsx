@@ -1,7 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { Map, TileLayer, ScaleControl, ZoomControl } from 'react-leaflet'
+import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import { Phase, ADJUDICATION_PHASE } from '@serge/config'
 import MapBar from '../map-bar'
+import MapControl from '../map-control'
 
 /* helper functions */
 import createGrid from './helpers/create-grid'
@@ -288,12 +289,16 @@ export const Mapping: React.FC<PropTypes> = ({
     postBack
   }
 
+  let leafletElement: any
+
   // any events for leafletjs you can get from leafletElement
   // https://leafletjs.com/reference-1.6.0.html#map-event
   const handleEvents = (ref: any): void => {
     if (ref && ref.leafletElement) {
-      ref.leafletElement.on('zoomend', () => {
-        setZoomLevel(ref.leafletElement.getZoom())
+      console.log(ref, 'map2');
+      leafletElement = ref.leafletElement
+      leafletElement.on('zoomend', () => {
+        setZoomLevel(leafletElement.getZoom())
       })
     }
   }
@@ -318,13 +323,13 @@ export const Mapping: React.FC<PropTypes> = ({
           zoomAnimation={zoomAnimation}
           attributionControl={attributionControl}
         >
+          {leafletElement && <MapControl map={leafletElement}/>}
           <TileLayer
             url={tileLayer.url}
             attribution={tileLayer.attribution}
             bounds={latLngBounds}
           />
           <ScaleControl position='bottomright' />
-          <ZoomControl position='topright' />
           {children}
         </Map>
       </section>
