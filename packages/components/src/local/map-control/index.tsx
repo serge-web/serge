@@ -5,8 +5,8 @@ import cx from 'classnames'
 
 /* Import icons */
 import AddIcon from '@material-ui/icons/Add';
-import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import RemoveIcon from '@material-ui/icons/Remove';
+import HomeIcon from '@material-ui/icons/Home';
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -25,21 +25,24 @@ export const MapControl: React.FC<PropTypes> = ({ map }) => {
   }
 
   const handeZoomChange = (changeValue: number) => {
-    console.log(map, 'map2');
-    if (map) {
-      const currentZoom = map.getZoom()
-      if (currentZoom) map.setZoom(currentZoom + changeValue)
-      console.log(currentZoom, map, 'map2');
-    }
+    const currentZoom = map.getZoom()
+    if (currentZoom) map.setZoom(currentZoom + changeValue)
   }
+
+  const handeHome = () => {
+    console.log(map.getCenter());
+    map.flyTo(map.getCenter(), 10)
+  }
+
+  if (!map) return null
 
   return (
     <div className='leaflet-control-container' ref={disableMapClickAndScrolll}>
       <div className='leaflet-top leaflet-right'>
         <div className={cx('leaflet-control', styles['map-controll'])}>
-          <Item onClick={handeZoomChange(1)}><AddIcon/></Item>
-          <Item><FullscreenIcon/></Item>
-          <Item onClick={handeZoomChange(-1)}><RemoveIcon/></Item>
+          <Item onClick={() => { handeZoomChange(1) }}><AddIcon/></Item>
+          <Item onClick={() => { handeHome() }}><HomeIcon/></Item>
+          <Item onClick={() => { handeZoomChange(-1) }}><RemoveIcon/></Item>
         </div>
       </div>
     </div>

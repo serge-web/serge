@@ -113,6 +113,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProp)
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
+  const [leafletElement, setLeafletElement] = useState(undefined)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -289,16 +290,13 @@ export const Mapping: React.FC<PropTypes> = ({
     postBack
   }
 
-  let leafletElement: any
-
   // any events for leafletjs you can get from leafletElement
   // https://leafletjs.com/reference-1.6.0.html#map-event
   const handleEvents = (ref: any): void => {
     if (ref && ref.leafletElement) {
-      console.log(ref, 'map2');
-      leafletElement = ref.leafletElement
-      leafletElement.on('zoomend', () => {
-        setZoomLevel(leafletElement.getZoom())
+      setLeafletElement(ref.leafletElement)
+      ref.leafletElement.on('zoomend', () => {
+        setZoomLevel(ref.leafletElement.getZoom())
       })
     }
   }
@@ -323,7 +321,7 @@ export const Mapping: React.FC<PropTypes> = ({
           zoomAnimation={zoomAnimation}
           attributionControl={attributionControl}
         >
-          {leafletElement && <MapControl map={leafletElement}/>}
+          <MapControl map={leafletElement}/>
           <TileLayer
             url={tileLayer.url}
             attribution={tileLayer.attribution}
