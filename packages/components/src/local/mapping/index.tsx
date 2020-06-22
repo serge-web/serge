@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 
@@ -326,7 +326,7 @@ export const Mapping: React.FC<PropTypes> = ({
           <MapControl
             map={leafletElement}
             home={mapCentre}
-            forces={forces}
+            forces={playerForce === UMPIRE_FORCE && forces}
           />
           <TileLayer
             url={tileLayer.url}
