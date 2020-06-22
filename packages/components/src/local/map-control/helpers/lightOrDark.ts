@@ -1,5 +1,4 @@
 export const lightOrDark = (color: string): 'light' | 'dark' => {
-
   let r: any, g: any, b: any
   // Check the format of the color, HEX or RGB?
   if (color.match(/^rgb/)) {
