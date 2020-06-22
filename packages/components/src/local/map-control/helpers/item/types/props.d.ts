@@ -1,4 +1,5 @@
 export default interface PropTypes {
-  /* half section title */
-  onClick?: any
+  onClick?: any,
+  contentTheme?: 'light' | 'dark'
+  title?: string
 }

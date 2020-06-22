@@ -294,12 +294,14 @@ export const Mapping: React.FC<PropTypes> = ({
   // https://leafletjs.com/reference-1.6.0.html#map-event
   const handleEvents = (ref: any): void => {
     if (ref && ref.leafletElement) {
+      // save map element
       setLeafletElement(ref.leafletElement)
       ref.leafletElement.on('zoomend', () => {
         setZoomLevel(ref.leafletElement.getZoom())
       })
     }
   }
+  console.log(mapCentre, 'mapCentre');
 
   return (
     <MapContext.Provider value={{ props: contextProps }}>
@@ -321,7 +323,11 @@ export const Mapping: React.FC<PropTypes> = ({
           zoomAnimation={zoomAnimation}
           attributionControl={attributionControl}
         >
-          <MapControl map={leafletElement}/>
+          <MapControl
+            map={leafletElement}
+            home={mapCentre}
+            forces={forces}
+          />
           <TileLayer
             url={tileLayer.url}
             attribution={tileLayer.attribution}
