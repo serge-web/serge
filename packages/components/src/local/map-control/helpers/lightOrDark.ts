@@ -1,5 +1,4 @@
 export const lightOrDark = (color: string): 'light' | 'dark' => {
-  console.log(color, 'color')
 
   let r: any, g: any, b: any
   // Check the format of the color, HEX or RGB?
@@ -13,7 +12,6 @@ export const lightOrDark = (color: string): 'light' | 'dark' => {
   } else {
     // If RGB --> Convert it to HEX:
     const newColor: any = +('0x' + color.slice(1).replace(color.length < 5 ? /./g : '', '$&$&'))
-    console.log(newColor, 'color new')
 
     r = newColor >> 16
     g = newColor >> 8 & 255

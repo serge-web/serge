@@ -46,7 +46,6 @@ export const MapControl: React.FC<PropTypes> = ({
 
   /* set map to home view */
   const handeHome = () => {
-    console.log(home || map.getCenter())
     map.flyTo(home || map.getCenter(), 10)
   }
 
