@@ -24,7 +24,7 @@
       "@serge/*": ["../"]
     },
     "composite": false,
-    "declaration": false,
+    "declaration": true,
     "sourceMap": true,
     "outDir": "./build"
   },
