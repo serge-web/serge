@@ -301,7 +301,7 @@ export const Mapping: React.FC<PropTypes> = ({
       })
     }
   }
-  console.log(mapCentre, 'mapCentre');
+  console.log(mapCentre, 'mapCentre')
 
   return (
     <MapContext.Provider value={{ props: contextProps }}>

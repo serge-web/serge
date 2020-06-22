@@ -2,7 +2,7 @@
 
 exports[`MapControlItem renders correctly 1`] = `
 <button
-  className="main"
+  className="main dark-content"
   onClick={[Function]}
   type="button"
 />

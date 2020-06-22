@@ -25,7 +25,7 @@ export const MapControl: React.FC<PropTypes> = ({
   home,
   /* zoom */
   showZoom = true,
-  zoomStepSize = .5,
+  zoomStepSize = 0.5,
   /* view as */
   forces = []
 }) => {
@@ -52,7 +52,7 @@ export const MapControl: React.FC<PropTypes> = ({
 
   /* set view as force */
   const viewAsCallback = (force: string) => {
-    console.log("view as clicked, force:", force, forces)
+    console.log('view as clicked, force:', force, forces)
   }
 
   if (!map) return null

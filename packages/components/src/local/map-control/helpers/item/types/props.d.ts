@@ -1,5 +1,5 @@
 export default interface PropTypes {
-  onClick?: any,
+  onClick?: any
   contentTheme?: 'light' | 'dark'
   title?: string
 }
