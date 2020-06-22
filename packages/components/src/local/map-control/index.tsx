@@ -51,7 +51,7 @@ export const MapControl: React.FC<PropTypes> = ({
 
   /* set view as force */
   const viewAsCallback = (force: string) => {
-    console.log('view as clicked, force:', force, forces)
+    console.log('view as clicked, force:', force)
   }
 
   if (!map) return null
@@ -69,7 +69,7 @@ export const MapControl: React.FC<PropTypes> = ({
             <Item
               contentTheme={lightOrDark(force.color)}
               key={`k_${force.uniqid}`}
-              onClick={() => { viewAsCallback(force) }}
+              onClick={() => { viewAsCallback(force.uniqid) }}
               title={`View As ${force.name}`}
             >
               <PublicIcon style={{ color: force.color }}/>
