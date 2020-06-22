@@ -1,7 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { Map, TileLayer, ScaleControl, ZoomControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE } from '@serge/config'
+import { Map, TileLayer, ScaleControl } from 'react-leaflet'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE } from '@serge/config'
 import MapBar from '../map-bar'
+import MapControl from '../map-control'
 
 /* helper functions */
 import createGrid from './helpers/create-grid'
@@ -112,6 +113,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProp)
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
+  const [leafletElement, setLeafletElement] = useState(undefined)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -292,6 +294,8 @@ export const Mapping: React.FC<PropTypes> = ({
   // https://leafletjs.com/reference-1.6.0.html#map-event
   const handleEvents = (ref: any): void => {
     if (ref && ref.leafletElement) {
+      // save map element
+      setLeafletElement(ref.leafletElement)
       ref.leafletElement.on('zoomend', () => {
         setZoomLevel(ref.leafletElement.getZoom())
       })
@@ -318,13 +322,17 @@ export const Mapping: React.FC<PropTypes> = ({
           zoomAnimation={zoomAnimation}
           attributionControl={attributionControl}
         >
+          <MapControl
+            map={leafletElement}
+            home={mapCentre}
+            forces={playerForce === UMPIRE_FORCE && forces}
+          />
           <TileLayer
             url={tileLayer.url}
             attribution={tileLayer.attribution}
             bounds={latLngBounds}
           />
           <ScaleControl position='bottomright' />
-          <ZoomControl position='topright' />
           {children}
         </Map>
       </section>

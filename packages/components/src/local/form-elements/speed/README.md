@@ -1,6 +1,6 @@
 # Planned Route documentation
 
-This is an example readme file for the 'Form Group' component.
+This is an example readme file for the 'Speed' component.
 
 ## UI Example
 

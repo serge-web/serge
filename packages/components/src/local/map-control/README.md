@@ -1,6 +1,6 @@
 # Planned Route documentation
 
-This is an example readme file for the 'Button' component.
+This is an example readme file for the 'MapControl' component.
 
 ## UI Example
 
@@ -18,10 +18,10 @@ This is an example readme file for the 'Button' component.
 
 ### ES6 Import
 ```js
-import Button from './form-elements/Button'
+import MapControl from './form-elements/map-control'
 ```
 
 ### CommonJS
 
 ```js
-const Button = require('./form-elements/Button')
+const MapControl = require('./form-elements/map-control')
