@@ -15,10 +15,10 @@ it('determines correct controlled routes', () => {
 
 it('can create route as umpire in adjudication mode', () => {
   const store: RouteStore = routeCreateStore(forces, 'umpire', true, platformTypes)
-  expect(store.routes.length).toEqual(12)
+  expect(store.routes.length).toEqual(13)
 
   // check inside a route
-  const route: Route = store.routes[0]
+  const route: Route = store.routes[1]
   expect(route.uniqid).toEqual('a0pra00001')
   expect(route.history.length).toEqual(1)
   expect(route.planned.length).toEqual(1)
@@ -28,20 +28,20 @@ it('can create route as umpire in adjudication mode', () => {
 it('can create route for un-recognised type', () => {
   const store: RouteStore = routeCreateStore(forces, 'Blue', true, platformTypes)
 
-  expect(store.routes.length).toEqual(10)
+  expect(store.routes.length).toEqual(11)
 
   // check inside a route
-  const route: Route = store.routes[3]
+  const route: Route = store.routes[4]
   expect(route.uniqid).toEqual('a0pra000100')
   expect(route.color).toEqual('#999')
 })
 
 it('can create route as umpire in planning mode', () => {
   const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes)
-  expect(store.routes.length).toEqual(12)
+  expect(store.routes.length).toEqual(13)
 
   // check inside a route
-  const route: Route = store.routes[0]
+  const route: Route = store.routes[1]
   expect(route.uniqid).toEqual('a0pra00001')
   expect(route.history.length).toEqual(1)
   expect(route.planned.length).toEqual(2)
@@ -78,10 +78,10 @@ it('support new way of storing past steps', () => {
   ]
 
   const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes)
-  expect(store.routes.length).toEqual(12)
+  expect(store.routes.length).toEqual(13)
 
   // check inside a route
-  const route: any = store.routes[3]
+  const route: any = store.routes[4]
   expect(route.uniqid).toEqual('a0pra000100')
   expect(route.history.length).toEqual(2)
   expect(route.history[0].turn).toEqual(5)
