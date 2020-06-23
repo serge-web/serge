@@ -41,7 +41,7 @@
 
 $platforms: frigate, destroyer, mcmv, unknown, agi, fast-attack-craft, uas,
   merchant-vessel, fixed-wing-aircraft, fishing-vessel, missile, helicopter,
-  boghammer, coastal-radar-site, datum, torpedo, pirate, mine;
+  boghammer, coastal-radar-site, datum, torpedo, pirate, mine, task-group;
 
 @each $platform in $platforms {
   .platform-type-#{$platform} {
