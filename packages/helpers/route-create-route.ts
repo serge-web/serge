@@ -1,5 +1,6 @@
-import { Route, RouteStatus, RouteStep } from '@serge/custom-types'
+import { Route, RouteStatus, RouteStep, RouteChild} from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
+import checkIfDestroyed from './check-if-destroyed'
 
 /** convert legacy array object to new TypeScript structure
  *
@@ -46,6 +47,24 @@ const createStepArray = (turns: any, adjudication: boolean): Array<RouteStep> =>
   return res
 }
 
+const childrenFor = (list: any, platformTypes: any):Array<RouteChild> => {
+  const res: Array<RouteChild> = []
+  if(list) {
+    list.forEach((item: any) => {
+      const newChild: RouteChild = {
+        uniqid: item.uniqid,
+        name: item.name,
+        platformType: item.platformType,
+        destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
+        condition: item.condition,
+        asset: item
+      }
+      res.push(newChild)
+    })
+  }
+  return res
+}
+
 /** create a route object for this asset
  * @param {any} asset single asset
  * @param {boolean} adjudication whether this is umpire in adjudication
@@ -54,7 +73,7 @@ const createStepArray = (turns: any, adjudication: boolean): Array<RouteStep> =>
  */
 const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
-  perceivedType: string, destroyed: boolean): Route => {
+  perceivedType: string, platformTypes: any): Route => {
   const stat = asset.status
   const currentStatus: RouteStatus = stat.speedKts
     ? { state: stat.state, speedKts: stat.speedKts }
@@ -63,6 +82,11 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
   const futureSteps: Array<RouteStep> = createStepArray(asset.plannedTurns, adjudication)
+
+  const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
+
+  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes)
+  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes)
 
   return {
     uniqid: asset.uniqid,
@@ -73,6 +97,8 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
     perceivedForceName: perceivedForce,
     actualForceName: actualForce,
     color: color,
+    hosting: hosting,
+    comprising: comprising,
     destroyed: destroyed,
     history: createStepArray(asset.history, false), // we plot all history, so ignore whether
                                                     // in adjudication

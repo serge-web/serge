@@ -2,6 +2,21 @@ import Role from './role'
 import RouteStatus from './route-status'
 import RouteStep from './route-step'
 
+export interface RouteChild {
+  /** which asset this is */
+  uniqid: string,
+  /** name (perceived or real) */
+  name: string,
+  /** platform-type (perceived or real) */
+  platformType: string,
+  /** if this asset is destroyed */
+  destroyed: boolean,
+  /** condition of this asset */
+  condition: string,
+  /** the original asset (for planning) */
+  asset: any
+}
+
 export default interface Route {
   /** which asset this route is for */
   uniqid: string,
@@ -18,9 +33,13 @@ export default interface Route {
   /** if this is the selected asset */
   selected: boolean,
   /** if this asset is destroyed */
-  destroyed: boolean
+  destroyed: boolean,
   /** color to render this line */
   color: string,
+  /** platforms carried on this one */
+  hosting: Array<RouteChild>,
+  /** platform that comprise this unit */
+  comprising: Array<RouteChild>,
   /** paste route for this asset */
   history: Array<RouteStep>,
   /** current status of this asset */

@@ -2,7 +2,6 @@ import { RouteStore, Route } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
 import { UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import checkIfDestroyed from './check-if-destroyed'
 
 /** determine which forces this player can control
  * @param {any} forces array of forces
@@ -86,14 +85,12 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
             controlled = thisForce === playerForce || controls.includes(thisForce)
           }
 
-          // see if platform has been destroyed
-          const assetIsDestroyed = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
-
           if(controlled || playerForce === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
             const newRoute: Route = routeCreateRoute(asset, adjudication, force.color,
-              controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, assetIsDestroyed)
-              store.routes.push(newRoute)
+              controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
+              platformTypes)
+            store.routes.push(newRoute)
           } else {
             // can't see it directly. See if we can perceive it
             const undefinedColor = '#999' // TODO: this color should not be hard-coded
@@ -103,7 +100,7 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
                 thisForce, asset.platformType, asset.perceptions, false)
                 // create route for this asset
                 const newRoute: Route = routeCreateRoute(asset, false, perceivedAs, false, force.uniqid, perceptions[1],
-                  perceptions[0], perceptions[2], assetIsDestroyed)
+                  perceptions[0], perceptions[2], platformTypes)
                 store.routes.push(newRoute)
             }
           }

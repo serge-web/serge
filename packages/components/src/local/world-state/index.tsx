@@ -10,7 +10,7 @@ import PropTypes from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import { Route } from '@serge/custom-types'
+import { Route, RouteChild } from '@serge/custom-types'
 import { ADJUDICATION_PHASE } from '@serge/config'
 
 interface PlannedRoute {
@@ -21,6 +21,8 @@ interface PlannedRoute {
   forceName: string
   platformType: string
   selected: boolean
+  hosting: Array<RouteChild>
+  comprising: Array<RouteChild>
 }
 
 export const WorldState: React.FC<PropTypes> = ({
@@ -42,7 +44,9 @@ export const WorldState: React.FC<PropTypes> = ({
         underControl: route.underControl,
         forceName: route.perceivedForceName,
         platformType: route.platformType,
-        selected: route.selected
+        selected: route.selected,
+        hosting: route.hosting,
+        comprising: route.comprising
       }
       tmpRoutes.push(pRoute)
     })
@@ -68,6 +72,21 @@ export const WorldState: React.FC<PropTypes> = ({
 
     // TODO: ... add other versions for description
 
+    let hostingTxt: string = ''
+    if(pRoute.hosting) {
+      pRoute.hosting.forEach((child:RouteChild) => {
+        hostingTxt += ' ' + child.name
+      })
+    }
+
+    let comprisingTxt: string = ''
+    if(pRoute.comprising) {
+      pRoute.comprising.forEach((child:RouteChild) => {
+        comprisingTxt += ' ' + child.name
+      })
+    }
+
+
     const checkStatus: boolean = pRoute.numPlanned > 0
 
     const icClassName = getIconClassname(pRoute.forceName.toLowerCase(), pRoute.platformType, pRoute.selected)
@@ -79,6 +98,12 @@ export const WorldState: React.FC<PropTypes> = ({
           <div>
             <p>{pRoute.name}</p>
             <p>{descriptionText}</p>
+            { hostingTxt && 
+              <p>Hosting {hostingTxt}</p>
+            }
+            { comprisingTxt && 
+              <p>Comprising {comprisingTxt}</p>
+            }
           </div>
         </div>
         {!showOtherPlatforms && <div className={styles['item-check']}>
