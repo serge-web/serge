@@ -21,6 +21,90 @@ export const forces = [
     assets: [
       {
         condition: 'Full capability',
+        contactId: 'C713',
+        history: [
+          {
+            position: 'P21',
+            status: {
+              speedKts: 20,
+              state: 'Transiting'
+            },
+            turn: 2
+          }
+        ],
+        comprising: [
+            {
+              condition: 'Full capability',
+              contactId: 'C964',
+              history: [
+              ],
+              name: 'Frigate A',
+              perceptions: [{
+                by: 'Red',
+                force: 'Blue',
+                name: 'NORT',
+                type: 'frigate'
+              }],
+              platformType: 'frigate',
+              uniqid: 'a0prbr6441'
+            }, 
+            {
+              condition: 'Full capability',
+              contactId: 'C653',
+              history: [
+              ],
+              name: 'MCM Delta',
+              perceptions: [{
+                by: 'Red',
+                force: 'Blue',
+                name: 'RICH',
+                type: 'frigate'
+              }],
+              platformType: 'MCMV',
+              uniqid: 'a0traa6441'
+            }
+        ],
+        name: 'CTF 511',
+        perceptions: [{
+          by: 'Red',
+          force: 'Blue',
+          name: 'NORT',
+          type: 'frigate'
+        }],
+        plannedTurns: [
+          {
+            route: [
+              'Q19',
+              'Q18'
+            ],
+            status: {
+              speedKts: 20,
+              state: 'Transiting'
+            },
+            turn: 4
+          },
+          {
+            route: [
+              'R17',
+              'S17'
+            ],
+            status: {
+              speedKts: 20,
+              state: 'Transiting'
+            },
+            turn: 5
+          }
+        ],
+        platformType: 'task group',
+        position: 'P19',
+        status: {
+          speedKts: 20,
+          state: 'Transiting'
+        },
+        uniqid: 'a0pra5431'
+      },
+      {
+        condition: 'Full capability',
         contactId: 'C043',
         history: [
           {
@@ -68,8 +152,7 @@ export const forces = [
           force: 'Blue',
           name: 'NORT',
           type: 'frigate'
-        },
-      ],
+        }],
         plannedTurns: [
           {
             route: [
