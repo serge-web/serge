@@ -368,6 +368,23 @@ export const forces = [
           }
         ],
         locationPending: true,
+        hosting: [
+          {
+            condition: 'Full capability',
+            contactId: 'C158',
+            history: [
+            ],
+            name: 'Bog Draft',
+            perceptions: [],
+            plannedTurns: [],
+            platformType: 'boghammer',
+            route: [
+            ],
+            status: {
+            },
+            uniqid: 'a0pra153102'
+          }
+        ],
         name: 'Dhow-B',
         perceptions: [{
           by: 'Blue',
