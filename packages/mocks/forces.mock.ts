@@ -140,7 +140,7 @@ export const forces = [
             name: 'Dart 42',
             perceptions: [],
             plannedTurns: [],
-            platformType: 'Unmanned Aerial Vehicle',
+            platformType: 'Unmanned-Airborne-Vehicle',
             status: {
               state: 'Landed'
             },
