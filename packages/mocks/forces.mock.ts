@@ -33,12 +33,43 @@ export const forces = [
           }
         ],
         name: 'Frigate',
+        hosting: [
+          {
+            condition: 'Full capability',
+            contactId: 'C572',
+            history: [
+            ],
+            name: 'Merlin',
+            perceptions: [],
+            plannedTurns: [],
+            platformType: 'helicopter',
+            status: {
+              state: 'Landed'
+            },
+            uniqid: 'a0pra11002'
+          },
+          {
+            condition: 'Full capability',
+            contactId: 'C591',
+            history: [
+            ],
+            name: 'Dart 42',
+            perceptions: [],
+            plannedTurns: [],
+            platformType: 'Unmanned Aerial Vehicle',
+            status: {
+              state: 'Landed'
+            },
+            uniqid: 'a0pra18702'
+          }
+        ],
         perceptions: [{
           by: 'Red',
           force: 'Blue',
           name: 'NORT',
           type: 'frigate'
-        }],
+        },
+      ],
         plannedTurns: [
           {
             route: [
