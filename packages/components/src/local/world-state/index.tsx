@@ -72,20 +72,19 @@ export const WorldState: React.FC<PropTypes> = ({
 
     // TODO: ... add other versions for description
 
-    let hostingTxt: string = ''
-    if(pRoute.hosting) {
-      pRoute.hosting.forEach((child:RouteChild) => {
+    let hostingTxt = ''
+    if (pRoute.hosting) {
+      pRoute.hosting.forEach((child: RouteChild) => {
         hostingTxt += ' ' + child.name
       })
     }
 
-    let comprisingTxt: string = ''
-    if(pRoute.comprising) {
-      pRoute.comprising.forEach((child:RouteChild) => {
+    let comprisingTxt = ''
+    if (pRoute.comprising) {
+      pRoute.comprising.forEach((child: RouteChild) => {
         comprisingTxt += ' ' + child.name
       })
     }
-
 
     const checkStatus: boolean = pRoute.numPlanned > 0
 
@@ -98,10 +97,10 @@ export const WorldState: React.FC<PropTypes> = ({
           <div>
             <p>{pRoute.name}</p>
             <p>{descriptionText}</p>
-            { hostingTxt && 
+            { hostingTxt &&
               <p>Hosting {hostingTxt}</p>
             }
-            { comprisingTxt && 
+            { comprisingTxt &&
               <p>Comprising {comprisingTxt}</p>
             }
           </div>
