@@ -261,6 +261,33 @@ export const platformTypes = [
     ],
     travelMode: 'air'
   },
+  ,
+  {
+    name: 'Task Group',
+    conditions: [
+      'Full capability',
+      'Limited capability',
+      'Immobile',
+      'Destroyed'
+    ],
+    icon: 'uas.svg',
+    speedKts: [],
+    states: [
+      {
+        name: 'Transiting',
+        mobile: true
+      },
+      {
+        name: 'Stopped',
+        mobile: false
+      },
+      {
+        name: 'Moored',
+        mobile: false
+      }
+    ],
+    travelMode: 'sea'
+  },
   {
     name: 'Coastal radar site',
     conditions: [
