@@ -95,7 +95,7 @@ export const forces = [
             turn: 5
           }
         ],
-        platformType: 'task group',
+        platformType: 'task-group',
         position: 'P19',
         status: {
           speedKts: 20,
