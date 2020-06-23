@@ -261,7 +261,6 @@ export const platformTypes = [
     ],
     travelMode: 'air'
   },
-  ,
   {
     name: 'Task Group',
     conditions: [
