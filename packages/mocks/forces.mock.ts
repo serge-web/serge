@@ -68,7 +68,7 @@ export const forces = [
         perceptions: [{
           by: 'Red',
           force: 'Blue',
-          name: 'NORT',
+          name: 'BRIT',
           type: 'frigate'
         }],
         plannedTurns: [
@@ -150,7 +150,7 @@ export const forces = [
         perceptions: [{
           by: 'Red',
           force: 'Blue',
-          name: 'NORT',
+          name: 'TRAN',
           type: 'frigate'
         }],
         plannedTurns: [
