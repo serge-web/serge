@@ -45,6 +45,22 @@ export const forces = [
                 name: 'Frigate A Perceived Name'
               }],
               platformType: 'frigate',
+              hosting: [
+                {
+                  condition: 'Full capability',
+                  contactId: 'C721',
+                  history: [
+                  ],
+                  name: 'Dart 45',
+                  perceptions: [],
+                  plannedTurns: [],
+                  platformType: 'Unmanned-Airborne-Vehicle',
+                  status: {
+                    state: 'Landed'
+                  },
+                  uniqid: 'a0pra43302'
+                }
+              ],              
               uniqid: 'a0prbr6441'
             }, 
             {
