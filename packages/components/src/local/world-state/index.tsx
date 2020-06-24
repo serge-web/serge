@@ -67,7 +67,7 @@ export const WorldState: React.FC<PropTypes> = ({
   }
 
   /**
-   * 
+   *
    * @param {PlannedRoute} pRoute this planned route
    * @param {string} forceName name of the force, it's not available lower down the tree
    * @param {boolean} topLevel if this is at the top level of the tree - used to control the level of detail supplied
@@ -79,8 +79,8 @@ export const WorldState: React.FC<PropTypes> = ({
 
     const hostItems: Array<PlannedRoute> = []
     if (pRoute.hosting && pRoute.hosting.length) {
-      pRoute.hosting.forEach((route:RouteChild) => {
-        const newItem:PlannedRoute = {
+      pRoute.hosting.forEach((route: RouteChild) => {
+        const newItem: PlannedRoute = {
           name: route.name,
           comprising: route.asset ? route.asset.comprising : [],
           forceName: route.force,
@@ -94,11 +94,11 @@ export const WorldState: React.FC<PropTypes> = ({
         hostItems.push(newItem)
       })
     }
-  
+
     const compriseItems: Array<PlannedRoute> = []
     if (pRoute.comprising && pRoute.comprising.length) {
-      pRoute.comprising.forEach((route:RouteChild) => {
-        const newItem:PlannedRoute = {
+      pRoute.comprising.forEach((route: RouteChild) => {
+        const newItem: PlannedRoute = {
           name: route.name,
           comprising: route.asset.comprising,
           forceName: route.force,
@@ -124,7 +124,7 @@ export const WorldState: React.FC<PropTypes> = ({
     const assetClick = (id: string) => {
       // only select target if we're in "other platforms"
       // TODO: we need to stop the event propagating back up the tree
-      if(showOtherPlatforms) {
+      if (showOtherPlatforms) {
         clickEvent(id)
       }
     }
@@ -139,12 +139,12 @@ export const WorldState: React.FC<PropTypes> = ({
           </div>
           {hostItems && hostItems.length > 0 && <div>Hosting:<ol>
             {hostItems.map((child: PlannedRoute) => (
-            <li key={'item-' + child.uniqid} onClick={(): any => assetClick(child.uniqid)}>{renderItem(child, forceNameToUse, false)}</li>
-          ))}</ol></div>}
+              <li key={'item-' + child.uniqid} onClick={(): any => assetClick(child.uniqid)}>{renderItem(child, forceNameToUse, false)}</li>
+            ))}</ol></div>}
           {compriseItems && compriseItems.length > 0 && <div>Comprising:<ol>
             {compriseItems.map((child: PlannedRoute) => (
-            <li key={'item-' + child.uniqid} onClick={(): any => assetClick(child.uniqid)}>{renderItem(child, forceNameToUse, false)}</li>
-          ))}</ol></div>}
+              <li key={'item-' + child.uniqid} onClick={(): any => assetClick(child.uniqid)}>{renderItem(child, forceNameToUse, false)}</li>
+            ))}</ol></div>}
         </div>
         {!showOtherPlatforms && topLevel && <div className={styles['item-check']}>
           {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
