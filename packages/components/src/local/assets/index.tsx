@@ -39,51 +39,50 @@ export const Assets: React.FC<{}> = () => {
   useEffect(() => {
     if (gridCells) {
       const tmpAssets: AssetInfo[] = []
-      // REFACTOR:Can these nested loops be done better?
-      forces && forces.forEach((force: any) => {
-        if (force.assets) {
-          force.assets.forEach((asset: any) => {
-            const { uniqid, name, contactId, condition, status, platformType, perceptions } = asset
+      routeStore.routes.forEach((route: RouteType) => {
+        const { uniqid, name, platformType, actualForceName } = route
+        const { contactId, status, condition, perceptions } = route.asset
 
-            // see if the player of this force can see (perceive) this asset
-            const isUmpire: boolean = playerForce === UMPIRE_FORCE
-            const perceivedAs: [string, string, string] = findPerceivedAsTypes(
-              playerForce,
-              name,
-              contactId,
-              force.uniqid,
-              platformType,
-              perceptions,
-              isUmpire
-            )
+        // see if the player of this force can see (perceive) this asset
+        const isUmpire: boolean = playerForce === UMPIRE_FORCE
+        const perceivedAs: [string, string, string] = findPerceivedAsTypes(
+          playerForce,
+          name,
+          contactId,
+          route.perceivedForceName,
+          platformType,
+          perceptions,
+          isUmpire
+        )
 
-            if (perceivedAs) {
-              const cell: SergeHex<{}> | undefined = hexNamed(asset.position, gridCells)
-              const visibleToArr: string[] = visibleTo(perceptions)
-              if (cell != null) {
-                const position: L.LatLng = cell.centreLatLng
-                const assetInfo: AssetInfo = {
-                  name: perceivedAs[0],
-                  condition,
-                  status,
-                  controlledBy: force.controlledBy,
-                  type: perceivedAs[2],
-                  force: perceivedAs[1],
-                  visibleTo: visibleToArr,
-                  position,
-                  uniqid
-                }
-                tmpAssets.push(assetInfo)
-              } else {
-                console.log('!! Failed to find cell numbered:', asset.position)
-              }
+        if (perceivedAs) {
+          const cell: SergeHex<{}> | undefined = hexNamed(route.currentPosition, gridCells)
+          const visibleToArr: string[] = visibleTo(perceptions)
+          if (cell != null) {
+            // sort out who can control this force
+            const assetForce = forces.find((force: any) => force.name === actualForceName)
+
+            const position: L.LatLng = cell.centreLatLng
+            const assetInfo: AssetInfo = {
+              name: perceivedAs[0],
+              condition,
+              status,
+              controlledBy: assetForce.controlledBy,
+              type: perceivedAs[2],
+              force: perceivedAs[1],
+              visibleTo: visibleToArr,
+              position,
+              uniqid
             }
-          })
+            tmpAssets.push(assetInfo)
+          } else {
+            console.log('!! Failed to find cell numbered:', route.currentPosition)
+          }
         }
       })
       setAssets(tmpAssets)
     }
-  }, [gridCells, forces, playerForce])
+  }, [gridCells, forces, playerForce, routeStore])
 
   return <>
     <LayerGroup>{ assets && assets.map((asset) => (
