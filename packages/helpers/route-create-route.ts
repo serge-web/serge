@@ -1,6 +1,8 @@
 import { Route, RouteStatus, RouteStep, RouteChild} from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
+import findPerceivedAsTypes from './find-perceived-as-types'
+import { UMPIRE_FORCE } from '@serge/config'
 
 /** convert legacy array object to new TypeScript structure
  *
@@ -47,19 +49,39 @@ const createStepArray = (turns: any, adjudication: boolean): Array<RouteStep> =>
   return res
 }
 
-const childrenFor = (list: any, platformTypes: any):Array<RouteChild> => {
+const childrenFor = (list: any, platformTypes: any, underControl: boolean, assetForce: string, playerForce: string):Array<RouteChild> => {
   const res: Array<RouteChild> = []
   if(list) {
     list.forEach((item: any) => {
-      const newChild: RouteChild = {
-        uniqid: item.uniqid,
-        name: item.name,
-        platformType: item.platformType,
-        destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
-        condition: item.condition,
-        asset: item
+      if(underControl || playerForce === UMPIRE_FORCE) {
+        // use real values
+        const newChild: RouteChild = {
+          uniqid: item.uniqid,
+          name: item.name,
+          platformType: item.platformType,
+          force: assetForce,
+          destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
+          condition: item.condition,
+          asset: item
+        }        
+        res.push(newChild)    
+      } else {
+        // sort out if this player can see this assset
+        const perceptions: [string, string, string] = findPerceivedAsTypes(playerForce, item.name, item.contactId,
+          assetForce, item.platformType, item.perceptions, false)
+        if(perceptions) {
+          const newChild: RouteChild = {
+            uniqid: item.uniqid,
+            name: perceptions[0],
+            platformType: perceptions[2],
+            force: perceptions[1],
+            destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
+            condition: item.condition,
+            asset: item
+          }
+          res.push(newChild)    
+        }
       }
-      res.push(newChild)
     })
   }
   return res
@@ -73,7 +95,7 @@ const childrenFor = (list: any, platformTypes: any):Array<RouteChild> => {
  */
 const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
-  perceivedType: string, platformTypes: any): Route => {
+  perceivedType: string, platformTypes: any, playerForce: string): Route => {
   const stat = asset.status
   const currentStatus: RouteStatus = stat.speedKts
     ? { state: stat.state, speedKts: stat.speedKts }
@@ -85,8 +107,8 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
 
-  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes)
-  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes)
+  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForce, playerForce /*, forceColors, undefinedColor */)
+  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForce, playerForce /*, forceColors, undefinedColor */)
 
   return {
     uniqid: asset.uniqid,

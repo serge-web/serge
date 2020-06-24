@@ -54,12 +54,7 @@ export const forces = [
               history: [
               ],
               name: 'MCM Delta',
-              perceptions: [{
-                by: 'Red',
-                force: 'Blue',
-                name: 'RICH',
-                type: 'frigate'
-              }],
+              perceptions: [],
               platformType: 'MCMV',
               uniqid: 'a0traa6441'
             }
@@ -124,7 +119,11 @@ export const forces = [
             history: [
             ],
             name: 'Merlin',
-            perceptions: [],
+            perceptions: [{
+              by: 'Red',
+              force: 'Blue',
+              type: 'helicopter'
+            }],
             plannedTurns: [],
             platformType: 'helicopter',
             status: {
@@ -150,7 +149,7 @@ export const forces = [
         perceptions: [{
           by: 'Red',
           force: 'Blue',
-          name: 'TRAN',
+          name: 'Frigate Perceived Name',
           type: 'frigate'
         }],
         plannedTurns: [

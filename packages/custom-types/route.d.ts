@@ -9,6 +9,8 @@ export interface RouteChild {
   name: string,
   /** platform-type (perceived or real) */
   platformType: string,
+  /** force (perceived or real) */
+  force: string
   /** if this asset is destroyed */
   destroyed: boolean,
   /** condition of this asset */
