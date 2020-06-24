@@ -90,12 +90,21 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
 /** create a route object for this asset
  * @param {any} asset single asset
  * @param {boolean} adjudication whether this is umpire in adjudication
- * @param {sting} color color for rendering this asset
+ * @param {string} color color for rendering this asset
+ * @param {boolean} underControl
+ * @param {string} actualForce
+ * @param {string} perceivedForce
+ * @param {string} perceivedName
+ * @param {string} perceivedType
+ * @param {any} platformTypes
+ * @param {string} playerForce
+ * @param {any} status
+ * @param {string} currentPosition
  * @returns {Route} Routefor this asset
  */
 const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
-  perceivedType: string, platformTypes: any, playerForce: string, status: any): Route => {
+  perceivedType: string, platformTypes: any, playerForce: string, status: any, currentPosition: string): Route => {
   const currentStatus: RouteStatus = status.speedKts
     ? { state: status.state, speedKts: status.speedKts }
     : { state: status.state }
@@ -124,7 +133,7 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
     history: createStepArray(asset.history, false), // we plot all history, so ignore whether
                                                     // in adjudication
     currentStatus: currentStatus,
-    currentPosition: asset.position,
+    currentPosition: currentPosition,
     planned: futureSteps,
     original: cloneDeep(futureSteps),
     asset: asset
