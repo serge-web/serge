@@ -72,26 +72,6 @@ export const WorldState: React.FC<PropTypes> = ({
 
     // TODO: ... add other versions for description
 
-    let hostingTxt = ''
-    if (pRoute.hosting) {
-      pRoute.hosting.forEach((child: RouteChild) => {
-        if (hostingTxt.length) {
-          hostingTxt += ', '
-        }
-        hostingTxt += ' ' + child.name
-      })
-    }
-
-    let comprisingTxt = ''
-    if (pRoute.comprising) {
-      pRoute.comprising.forEach((child: RouteChild) => {
-        if (comprisingTxt.length) {
-          comprisingTxt += ', '
-        }
-        comprisingTxt += ' ' + child.name
-      })
-    }
-
     const checkStatus: boolean = pRoute.numPlanned > 0
 
     const icClassName = getIconClassname(pRoute.forceName.toLowerCase(), pRoute.platformType, pRoute.selected)
@@ -103,13 +83,14 @@ export const WorldState: React.FC<PropTypes> = ({
           <div>
             <p>{pRoute.name}</p>
             <p>{descriptionText}</p>
-            { hostingTxt &&
-              <p>Hosting {hostingTxt}</p>
-            }
-            { comprisingTxt &&
-              <p>Comprising {comprisingTxt}</p>
-            }
-          </div>
+          </div>{pRoute.comprising && pRoute.comprising.length > 0 && <div>Comprising:<ol>
+            {pRoute.comprising.map((child:RouteChild) => (
+            <li>child:{child.name}</li>
+          ))}</ol></div>}
+          {pRoute.hosting && pRoute.hosting.length > 0 && <div>Hosting:<ol>
+            {pRoute.hosting.map((child:RouteChild) => (
+            <li>child:{child.name}</li>
+          ))}</ol></div>}
         </div>
         {!showOtherPlatforms && <div className={styles['item-check']}>
           {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
