@@ -75,6 +75,9 @@ export const WorldState: React.FC<PropTypes> = ({
     let hostingTxt = ''
     if (pRoute.hosting) {
       pRoute.hosting.forEach((child: RouteChild) => {
+        if(hostingTxt.length) {
+          hostingTxt += ', '
+        }
         hostingTxt += ' ' + child.name
       })
     }
@@ -82,7 +85,10 @@ export const WorldState: React.FC<PropTypes> = ({
     let comprisingTxt = ''
     if (pRoute.comprising) {
       pRoute.comprising.forEach((child: RouteChild) => {
-        comprisingTxt += ' ' + child.name
+          if(comprisingTxt.length) {
+            comprisingTxt += ', '
+          }
+          comprisingTxt += ' ' + child.name
       })
     }
 
