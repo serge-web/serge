@@ -52,8 +52,13 @@ export const forces = [
                   history: [
                   ],
                   name: 'Dart 45',
-                  perceptions: [],
-                  plannedTurns: [],
+                  perceptions: [{
+                    by: 'Red',
+                    force: 'Blue',
+                    name: 'Unknown UAV',
+                    type: 'Unmanned-Airborne-Vehicle',
+                  }],
+                      plannedTurns: [],
                   platformType: 'Unmanned-Airborne-Vehicle',
                   status: {
                     state: 'Landed'
@@ -71,7 +76,7 @@ export const forces = [
               name: 'MCM Delta',
               perceptions: [],
               platformType: 'MCMV',
-              uniqid: 'a0traa6441'
+              uniqid: 'a0traa6790'
             }
         ],
         name: 'CTF 511',
