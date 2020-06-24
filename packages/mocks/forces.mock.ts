@@ -42,8 +42,7 @@ export const forces = [
               perceptions: [{
                 by: 'Red',
                 force: 'Blue',
-                name: 'NORT',
-                type: 'frigate'
+                name: 'Frigate A Perceived Name'
               }],
               platformType: 'frigate',
               uniqid: 'a0prbr6441'
@@ -64,7 +63,7 @@ export const forces = [
           by: 'Red',
           force: 'Blue',
           name: 'BRIT',
-          type: 'frigate'
+          type: 'task-group'
         }],
         plannedTurns: [
           {

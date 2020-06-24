@@ -158,7 +158,6 @@ it('route displays all hosted & comprising assets for blue force', () => {
   expect(comprising[1].name).toEqual('MCM Delta')
 })
 
-
 it('route displays perceived hosted assets in tree for red force', () => {
   const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes)
   expect(store.routes.length).toEqual(9)
@@ -182,4 +181,25 @@ it('route displays perceived hosted assets in tree for red force', () => {
   expect(hosting[0].name).toEqual('C572')
   expect(hosting[0].force).toEqual('blue')
   expect(hosting[0].platformType).toEqual('helicopter')
+})
+
+
+it('route displays perceived comprised assets in flat layer for red force', () => {
+  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes)
+  expect(store.routes.length).toEqual(9)
+
+  // the first route should be for the frigate in the task group
+  const frigate = store.routes[0]
+  expect(frigate.uniqid).toEqual('a0prbr6441')
+  expect(frigate.name).toEqual('Frigate A Perceived Name')
+  expect(frigate.platformType).toEqual('unknown')
+  expect(frigate.perceivedForceName).toEqual('blue')
+
+
+  // the second route should be the hosting frigate
+  const frigate2 = store.routes[1]
+  expect(frigate2.uniqid).toEqual('a0pra00001')
+  expect(frigate2.name).toEqual('Frigate Perceived Name')
+  expect(frigate2.platformType).toEqual('frigate')
+  expect(frigate2.perceivedForceName).toEqual('blue')
 })

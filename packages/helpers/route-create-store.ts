@@ -62,19 +62,39 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
             // asset under player control or player is umpire, so use real attributes
             const newRoute: Route = routeCreateRoute(asset, adjudication, force.color,
               controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
-              platformTypes, playerForce)
+              platformTypes, playerForce, asset.status)
             store.routes.push(newRoute)
           } else {
-            // can't see it directly. See if we can perceive it
-            const perceivedAs: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColors, undefinedColor)
-            if(perceivedAs) {
-              const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
-                thisForce, asset.platformType, asset.perceptions, false)
-              // create route for this asset
-              const newRoute: Route = routeCreateRoute(asset, false, perceivedAs, false, force.uniqid, perceptions[1],
-                perceptions[0], perceptions[2], platformTypes, playerForce)
-              store.routes.push(newRoute)
+
+            // ok, special handling - if this is an organisation that comprises others
+            if(asset.comprising && asset.comprising.length) {
+              // process list of children
+              asset.comprising.forEach((child:any) => {
+                // can't see it directly. See if we can perceive it
+                const perceivedAs: string | undefined = isPerceivedBy(child.perceptions, playerForce, forceColors, undefinedColor)
+                if(perceivedAs) {
+                  const perceptions = findPerceivedAsTypes(playerForce, child.name, child.contactId,
+                    thisForce, child.platformType, child.perceptions, false)
+                  // create route for this asset
+                  const newRoute: Route = routeCreateRoute(child, false, perceivedAs, false, force.uniqid, perceptions[1],
+                    perceptions[0], perceptions[2], platformTypes, playerForce, asset.status)
+                  store.routes.push(newRoute)
+                }
+              })
+            } else {
+              // can't see it directly. See if we can perceive it
+              const perceivedAs: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColors, undefinedColor)
+              if(perceivedAs) {
+                const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
+                  thisForce, asset.platformType, asset.perceptions, false)
+                // create route for this asset
+                const newRoute: Route = routeCreateRoute(asset, false, perceivedAs, false, force.uniqid, perceptions[1],
+                  perceptions[0], perceptions[2], platformTypes, playerForce, asset.status)
+                store.routes.push(newRoute)
+              }
+
             }
+
           }
         })
       }

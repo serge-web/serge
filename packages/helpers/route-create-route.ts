@@ -95,11 +95,10 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
  */
 const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
-  perceivedType: string, platformTypes: any, playerForce: string): Route => {
-  const stat = asset.status
-  const currentStatus: RouteStatus = stat.speedKts
-    ? { state: stat.state, speedKts: stat.speedKts }
-    : { state: stat.state }
+  perceivedType: string, platformTypes: any, playerForce: string, status: any): Route => {
+  const currentStatus: RouteStatus = status.speedKts
+    ? { state: status.state, speedKts: status.speedKts }
+    : { state: status.state }
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
