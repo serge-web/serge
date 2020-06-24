@@ -63,7 +63,7 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
           destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
           condition: item.condition,
           asset: item
-        }        
+        }
         res.push(newChild)    
       } else {
         // sort out if this player can see this assset

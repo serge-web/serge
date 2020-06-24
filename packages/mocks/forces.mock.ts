@@ -64,6 +64,20 @@ export const forces = [
                     state: 'Landed'
                   },
                   uniqid: 'a0pra43302'
+                },
+                {
+                  condition: 'Full capability',
+                  contactId: 'C932',
+                  history: [
+                  ],
+                  name: 'Dart 46',
+                  perceptions: [],
+                  plannedTurns: [],
+                  platformType: 'Unmanned-Airborne-Vehicle',
+                  status: {
+                    state: 'Landed'
+                  },
+                  uniqid: 'a0pra17943'
                 }
               ],              
               uniqid: 'a0prbr6441'

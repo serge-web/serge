@@ -158,8 +158,9 @@ it('route displays all hosted & comprising assets for blue force', () => {
   expect(comprising[1].name).toEqual('MCM Delta')
 
   // check we can see the frigate is hosting something
-  expect(comprising[0].asset.hosting.length).toEqual(1)
+  expect(comprising[0].asset.hosting.length).toEqual(2)
   expect(comprising[0].asset.hosting[0].name).toEqual('Dart 45')
+  expect(comprising[0].asset.hosting[1].name).toEqual('Dart 46')
 })
 
 it('route displays perceived hosted assets in tree for red force', () => {
