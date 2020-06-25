@@ -30,18 +30,69 @@ export const Assets: React.FC<{}> = () => {
 
   const [assets, setAssets] = useState<AssetInfo[]>([])
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
+  const [viewAsForceValue, setViewAsForceValue] = useState<string>('')
+  const [localRouteStore, setLocalRouteStore] = useState<Array<RouteType>>([])
 
-  // set flag for if this is the umpire in adjudication, so that the
-  // planned routes get trimmed
+
+  /**
+   * determine if this is the umpire in adjudication mode, so that the
+   * planned routes get trimmed
+   */
   useEffect(() => {
     setUmpireInAdjudication(playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE)
-  }, [playerForce, playerForce])
+  }, [playerForce])
 
+  /** 
+   * determine which force to view the plot as, if applicable
+   */
+  useEffect(() => {
+    setViewAsForceValue(playerForce === UMPIRE_FORCE ? viewAsForce || playerForce : playerForce)
+  }, [playerForce, viewAsForce])
+
+  /**
+   * collate the routes, adjusted according to if there is a viewAs in force
+   */
+  useEffect(() => {
+    const tmpRoutes: Array<RouteType> = []
+    const useViewAs: boolean = playerForce === UMPIRE_FORCE && viewAsForceValue != undefined && viewAsForceValue != UMPIRE_FORCE
+    // umpire wishes to view map as another force. loop through routes, and set viewAs color accordingly,
+    // including undefined if the route should not be displayed
+    if(routeStore && routeStore.routes.length) {
+      routeStore.routes.forEach((route:RouteType) => {
+        if(useViewAs) {
+            // see if the player of this force can see (perceive) this asset
+          const perceivedAs: [string, string, string] = findPerceivedAsTypes(
+            viewAsForceValue,
+            name,
+            route.asset.contactId,
+            route.actualForceName,
+            route.asset.platformType,
+            route.asset.perceptions,
+            false)
+          if(perceivedAs) {
+            route.viewAsColor = perceivedAs[1]
+            tmpRoutes.push(route)
+          } else {
+            // this force can't see it, so don't render it
+            route.viewAsColor = undefined
+          }
+        } else {
+          // ok, just use the routes object
+          route.viewAsColor = route.color
+          tmpRoutes.push(route)
+        }
+      })
+    }
+    // update the route store, even if its empty
+    setLocalRouteStore(tmpRoutes)
+  }, [viewAsForceValue, playerForce, routeStore])
+
+  /**
+   *  collate the assets, ready for the icons
+   */
   useEffect(() => {
     if (gridCells) {
       const tmpAssets: AssetInfo[] = []
-
-      const viewAsForceValue = playerForce === UMPIRE_FORCE ? viewAsForce || playerForce : playerForce
 
       // determine if this is an umpire, in which case they can see everything
       const isUmpire: boolean = viewAsForceValue === UMPIRE_FORCE
@@ -88,7 +139,7 @@ export const Assets: React.FC<{}> = () => {
       })
       setAssets(tmpAssets)
     }
-  }, [gridCells, forces, playerForce, viewAsForce])
+  }, [gridCells, forces, playerForce, viewAsForceValue])
 
   return <>
     <LayerGroup>{ assets && assets.map((asset) => (
@@ -107,10 +158,11 @@ export const Assets: React.FC<{}> = () => {
         tooltip={asset.name}/>
     ))}
 
-    { routeStore && routeStore.routes.map((route: RouteType) => (
+    { localRouteStore && localRouteStore.map((route: RouteType) => (
+      route.viewAsColor &&
       <Route name={'test'}
         key = { 'r_for_' + route.uniqid }
-        route = {route} color={route.color}
+        route = {route} color={route.viewAsColor}
         selected = { route.selected}
         trimmed = { umpireInAdjudication }
         clearRouteHandler = { clearFromTurn }
