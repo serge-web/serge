@@ -2,7 +2,6 @@ import React from 'react'
 import { DomEvent } from 'leaflet'
 import Item from './helpers/item'
 import cx from 'classnames'
-import lightOrDark from './helpers/lightOrDark'
 
 /* Import icons */
 import AddIcon from '@material-ui/icons/Add'
@@ -12,6 +11,7 @@ import PublicIcon from '@material-ui/icons/Public'
 
 /* Import proptypes */
 import PropTypes from './types/props'
+import { UMPIRE_FORCE } from '@serge/config'
 
 /* Import Styles */
 // import styles from './styles.module.scss'
@@ -70,12 +70,12 @@ export const MapControl: React.FC<PropTypes> = ({
         {forces.length && <div className={cx('leaflet-control')}>
           {forces.map((force: any) => (
             <Item
-              contentTheme={lightOrDark(force.color)}
+              contentTheme={'dark'}
               key={`k_${force.uniqid}`}
               onClick={() => { viewAs(force.uniqid) }}
               title={`View As ${force.name}`}
             >
-              <PublicIcon style={{ color: force.color }}/>
+              <PublicIcon style={{ color: force.uniqid === UMPIRE_FORCE ? '#777' : force.color }}/>
             </Item>
           ))}
         </div>}
