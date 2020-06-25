@@ -140,12 +140,10 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     if (forces && gridCells) {
       const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
-      // if there is a viewAs value use it, otherwise just use player force
-      const forceToViewAs = ((playerForce === 'umpire') && viewAsForce) || playerForce
-      const store: RouteStore = routeCreateStore(forces, forceToViewAs, umpireInAdjudication, platforms)
+      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms)
       setRouteStore(store)
     }
-  }, [forces, playerForce, viewAsForce, phase, gridCells])
+  }, [forces, playerForce, phase, gridCells])
 
   useEffect(() => {
     if (mapBounds) {
