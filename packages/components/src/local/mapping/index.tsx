@@ -141,7 +141,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forces && gridCells) {
       const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
       // if there is a viewAs value use it, otherwise just use player force
-      const forceToViewAs = viewAsForce || playerForce
+      const forceToViewAs = ((playerForce === 'umpire') && viewAsForce) || playerForce
       const store: RouteStore = routeCreateStore(forces, forceToViewAs, umpireInAdjudication, platforms)
       setRouteStore(store)
     }
