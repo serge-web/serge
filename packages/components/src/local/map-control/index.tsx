@@ -27,7 +27,8 @@ export const MapControl: React.FC<PropTypes> = ({
   showZoom = true,
   zoomStepSize = 0.5,
   /* view as */
-  forces = []
+  forces = [],
+  viewAsCallback
 }) => {
   /*
    * disable map scroll and click events to allow
@@ -50,8 +51,10 @@ export const MapControl: React.FC<PropTypes> = ({
   }
 
   /* set view as force */
-  const viewAsCallback = (force: string) => {
-    console.log('view as clicked, force:', force)
+  const viewAs = (force: string) => {
+    if(viewAsCallback) {
+      viewAsCallback(force)
+    }
   }
 
   if (!map) return null
@@ -69,7 +72,7 @@ export const MapControl: React.FC<PropTypes> = ({
             <Item
               contentTheme={lightOrDark(force.color)}
               key={`k_${force.uniqid}`}
-              onClick={() => { viewAsCallback(force.uniqid) }}
+              onClick={() => { viewAs(force.uniqid) }}
               title={`View As ${force.name}`}
             >
               <PublicIcon style={{ color: force.color }}/>

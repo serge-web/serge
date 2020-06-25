@@ -114,6 +114,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProp)
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
   const [leafletElement, setLeafletElement] = useState(undefined)
+  const [viewAsForce, setViewAsForce] = useState<string | undefined>(undefined)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -139,10 +140,12 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     if (forces && gridCells) {
       const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
-      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms)
+      // if there is a viewAs value use it, otherwise just use player force
+      const forceToViewAs = viewAsForce || playerForce
+      const store: RouteStore = routeCreateStore(forces, forceToViewAs, umpireInAdjudication, platforms)
       setRouteStore(store)
     }
-  }, [forces, playerForce, phase, gridCells])
+  }, [forces, playerForce, viewAsForce, phase, gridCells])
 
   useEffect(() => {
     if (mapBounds) {
@@ -266,12 +269,17 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
+  const viewAsCallback = (force:string): void => {
+    setViewAsForce(force)
+  }
+
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     gridCells,
     forces,
     platforms,
     playerForce,
+    viewAsForce,
     phase,
     turnNumber,
     planningConstraints,
@@ -326,6 +334,7 @@ export const Mapping: React.FC<PropTypes> = ({
             map={leafletElement}
             home={mapCentre}
             forces={playerForce === UMPIRE_FORCE && forces}
+            viewAsCallback={viewAsCallback}
           />
           <TileLayer
             url={tileLayer.url}

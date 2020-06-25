@@ -11,4 +11,6 @@ export default interface PropTypes {
   zoomStepSize?: number
   // view as control
   forces?: any
+  /** callback for umpire clicking on view-as button */
+  viewAsCallback?: {(force: string): void}
 }
