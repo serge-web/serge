@@ -115,7 +115,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
   const [viewAsRouteStore, setViewAsRouteStore] = useState<RouteStore>({ routes: [] })
   const [leafletElement, setLeafletElement] = useState(undefined)
-  const [viewAsForce, setViewAsForce] = useState<string | undefined>(undefined)
+  const [viewAsForce, setViewAsForce] = useState<string>(UMPIRE_FORCE)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -150,7 +150,7 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [forces, playerForce, phase, gridCells])
 
-    /**
+  /**
    * generate the set of routes visible to this player, for display
    * in the Force Overview panel
    */
@@ -160,7 +160,7 @@ export const Mapping: React.FC<PropTypes> = ({
     const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
     if (forces && gridCells && routeStore.routes.length) {
       // if this is umpire and we have view as
-      if (playerForce === 'umpire' && viewAsForce && viewAsForce !== UMPIRE_FORCE) {
+      if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const vStore: RouteStore = routeCreateStore(forces, viewAsForce, umpireInAdjudication, platforms)
         setViewAsRouteStore(vStore)
@@ -170,7 +170,6 @@ export const Mapping: React.FC<PropTypes> = ({
       }
     }
   }, [forces, viewAsForce, phase, gridCells, routeStore])
-
 
   useEffect(() => {
     if (mapBounds) {
@@ -356,10 +355,11 @@ export const Mapping: React.FC<PropTypes> = ({
           attributionControl={attributionControl}
         >
           <MapControl
-            map={leafletElement}
-            home={mapCentre}
-            forces={playerForce === UMPIRE_FORCE && forces}
-            viewAsCallback={viewAsCallback}
+            map = {leafletElement}
+            home = {mapCentre}
+            forces = {playerForce === UMPIRE_FORCE && forces}
+            viewAsCallback = {viewAsCallback}
+            viewAsForce = {viewAsForce}
           />
           <TileLayer
             url={tileLayer.url}

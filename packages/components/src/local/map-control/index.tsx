@@ -28,7 +28,8 @@ export const MapControl: React.FC<PropTypes> = ({
   zoomStepSize = 0.5,
   /* view as */
   forces = [],
-  viewAsCallback
+  viewAsCallback,
+  viewAsForce
 }) => {
   /*
    * disable map scroll and click events to allow
@@ -57,6 +58,11 @@ export const MapControl: React.FC<PropTypes> = ({
     }
   }
 
+  /* utilty method for whether to show view-as button as selected  */
+  const showAsSelected = (force: string): "light" | "dark" | undefined => {
+    return viewAsForce !== undefined ? viewAsForce === force ? 'light' : 'dark' : 'dark'
+  }
+
   if (!map) return null
 
   return (
@@ -70,7 +76,7 @@ export const MapControl: React.FC<PropTypes> = ({
         {forces.length && <div className={cx('leaflet-control')}>
           {forces.map((force: any) => (
             <Item
-              contentTheme={'dark'}
+              contentTheme={ showAsSelected(force.uniqid) }
               key={`k_${force.uniqid}`}
               onClick={() => { viewAs(force.uniqid) }}
               title={`View As ${force.name}`}
