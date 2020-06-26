@@ -52,7 +52,7 @@ export const MapControl: React.FC<PropTypes> = ({
 
   /* set view as force */
   const viewAs = (force: string) => {
-    if(viewAsCallback) {
+    if (viewAsCallback) {
       viewAsCallback(force)
     }
   }

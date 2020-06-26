@@ -267,7 +267,7 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-  const viewAsCallback = (force:string): void => {
+  const viewAsCallback = (force: string): void => {
     setViewAsForce(force)
   }
 

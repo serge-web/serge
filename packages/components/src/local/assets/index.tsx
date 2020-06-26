@@ -33,7 +33,6 @@ export const Assets: React.FC<{}> = () => {
   const [viewAsForceValue, setViewAsForceValue] = useState<string>('')
   const [localRouteStore, setLocalRouteStore] = useState<Array<RouteType>>([])
 
-
   /**
    * determine if this is the umpire in adjudication mode, so that the
    * planned routes get trimmed
@@ -42,7 +41,7 @@ export const Assets: React.FC<{}> = () => {
     setUmpireInAdjudication(playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE)
   }, [playerForce])
 
-  /** 
+  /**
    * determine which force to view the plot as, if applicable
    */
   useEffect(() => {
@@ -57,10 +56,10 @@ export const Assets: React.FC<{}> = () => {
     const useViewAs: boolean = playerForce === UMPIRE_FORCE && viewAsForceValue != undefined && viewAsForceValue != UMPIRE_FORCE
     // umpire wishes to view map as another force. loop through routes, and set viewAs color accordingly,
     // including undefined if the route should not be displayed
-    if(routeStore && routeStore.routes.length) {
-      routeStore.routes.forEach((route:RouteType) => {
-        if(useViewAs) {
-            // see if the player of this force can see (perceive) this asset
+    if (routeStore && routeStore.routes.length) {
+      routeStore.routes.forEach((route: RouteType) => {
+        if (useViewAs) {
+          // see if the player of this force can see (perceive) this asset
           const perceivedAs: [string, string, string] = findPerceivedAsTypes(
             viewAsForceValue,
             name,
@@ -69,7 +68,7 @@ export const Assets: React.FC<{}> = () => {
             route.asset.platformType,
             route.asset.perceptions,
             false)
-          if(perceivedAs) {
+          if (perceivedAs) {
             route.viewAsColor = perceivedAs[1]
             tmpRoutes.push(route)
           } else {
@@ -134,8 +133,8 @@ export const Assets: React.FC<{}> = () => {
                 console.log('!! Failed to find cell numbered:', asset.position)
               }
             }
-        })
-      }
+          })
+        }
       })
       setAssets(tmpAssets)
     }
