@@ -59,7 +59,7 @@ export const MapControl: React.FC<PropTypes> = ({
   }
 
   /* utilty method for whether to show view-as button as selected  */
-  const showAsSelected = (force: string): "light" | "dark" | undefined => {
+  const showAsSelected = (force: string): 'light' | 'dark' | undefined => {
     return viewAsForce !== undefined ? viewAsForce === force ? 'light' : 'dark' : 'dark'
   }
 

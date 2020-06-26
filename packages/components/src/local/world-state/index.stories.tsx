@@ -31,6 +31,9 @@ export default {
 /**
  * VIEW WITH MULTIPLE ASSETS
  */
+const showOthersLabel = 'Show other platforms'
+const showOthersDefaultValues = false
+
 const label = 'View As'
 const forceNames = {
   White: 'umpire',
@@ -46,11 +49,12 @@ const phasesPhaseNames = {
 }
 const phasePhaseValue = Phase.Planning
 
-const showOthersLabel = 'Show other platforms'
-const showOthersDefaultValues = false
-
-export const WithPhases: React.FunctionComponent = () => <WorldState showOtherPlatforms={boolean(showOthersLabel, showOthersDefaultValues)} phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)} isUmpire={false} store={routeCreateStore(forces, radios(label, forceNames, defaultValue),
-  radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue) === ADJUDICATION_PHASE, platformTypes)} name="World State" />
+export const WithPhases: React.FunctionComponent = () => <WorldState showOtherPlatforms={boolean(showOthersLabel, showOthersDefaultValues)} 
+  isUmpire={boolean('Player is umpire', false)} 
+  phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)} 
+  store={routeCreateStore(forces, radios(label, forceNames, defaultValue),
+  radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue) === ADJUDICATION_PHASE, platformTypes)} 
+  submitTitle='Submit' name="World State" />
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 WithPhases.story = {
