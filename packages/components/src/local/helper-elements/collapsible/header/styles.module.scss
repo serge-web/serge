@@ -1,0 +1,29 @@
+$size: 16px;
+
+.main {
+  padding-left: $size + 4;
+  position: relative;
+  min-height: $size;
+}
+
+.control {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: $size;
+  height: $size;
+  line-height: $size;
+  margin-top: -1 * $size/2;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 1px solid #000;
+  display: block;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+.content {
+  display: block;
+}

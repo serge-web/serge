@@ -4,6 +4,9 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import Button from '../form-elements/button'
 import cx from 'classnames'
 import { getIconClassname } from '../asset-icon'
+import Collapsible from '../helper-elements/collapsible'
+import CollapsibleHeader from '../helper-elements/collapsible/header'
+import CollapsibleContent from '../helper-elements/collapsible/content'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -130,30 +133,34 @@ export const WorldState: React.FC<PropTypes> = ({
     }
 
     return (
-      <>
-        <div className={styles.item} onClick={(): any => clickEvent(pRoute.uniqid)}>
-          <div className={cx(icClassName, styles['item-icon'])}/>
-          <div className={styles['item-content']}>
-            <div>
-              <p>{pRoute.name}</p>
-              <p>{descriptionText}</p>
-            </div>
+      <Collapsible>
+        <CollapsibleHeader>
+          <div className={styles.item} onClick={(): any => clickEvent(pRoute.uniqid)}>
+            <div className={cx(icClassName, styles['item-icon'])}/>
+            <div className={styles['item-content']}>
+              <div>
+                <p>{pRoute.name}</p>
+                <p>{descriptionText}</p>
+              </div>
 
+            </div>
+            {!showOtherPlatforms && topLevel && <div className={styles['item-check']}>
+              {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
+              {checkStatus === false && <CheckCircleIcon style={{ color: '#B1B1B1' }} />}
+            </div>}
           </div>
-          {!showOtherPlatforms && topLevel && <div className={styles['item-check']}>
-            {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
-            {checkStatus === false && <CheckCircleIcon style={{ color: '#B1B1B1' }} />}
-          </div>}
-        </div>
-        {hostItems && hostItems.length > 0 && <div>Hosting:<ol>
-          {hostItems.map((child: PlannedRoute) => (
-            <li key={'item-' + child.uniqid} onClick={(): any => assetClick(child.uniqid)}>{renderItem(child, forceNameToUse, false)}</li>
-          ))}</ol></div>}
-        {compriseItems && compriseItems.length > 0 && <div>Comprising:<ol>
-          {compriseItems.map((child: PlannedRoute) => (
-            <li key={'item-' + child.uniqid} onClick={(): any => assetClick(child.uniqid)}>{renderItem(child, forceNameToUse, false)}</li>
-          ))}</ol></div>}
-      </>
+        </CollapsibleHeader>
+        <CollapsibleContent useIndent={40}>
+          {hostItems && hostItems.length > 0 && <div>Hosting:<ul>
+            {hostItems.map((child: PlannedRoute) => (
+              <li key={'item-' + child.uniqid} onClick={(): any => assetClick(child.uniqid)}>{renderItem(child, forceNameToUse, false)}</li>
+            ))}</ul></div>}
+          {compriseItems && compriseItems.length > 0 && <div>Comprising:<ul>
+            {compriseItems.map((child: PlannedRoute) => (
+              <li key={'item-' + child.uniqid} onClick={(): any => assetClick(child.uniqid)}>{renderItem(child, forceNameToUse, false)}</li>
+            ))}</ul></div>}
+        </CollapsibleContent>
+      </Collapsible>
     )
   }
 
