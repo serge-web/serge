@@ -17,12 +17,11 @@ import { SergeHex, SergeGrid, RouteStore, Route as RouteType } from '@serge/cust
 /* Render component */
 export const Assets: React.FC<{}> = () => {
   // pull in some context (with TS definitions)
-  const { gridCells, forces, playerForce, viewAsForce, routeStore, phase, clearFromTurn }:
+  const { gridCells, forces, playerForce, viewAsRouteStore, phase, clearFromTurn }:
     { gridCells: SergeGrid<SergeHex<{}>> | undefined
       forces: any
       playerForce: string
-      viewAsForce: string
-      routeStore: RouteStore
+      viewAsRouteStore: RouteStore
       phase: string
       turnNumber: number
       clearFromTurn: { (turn: number): void } } =
@@ -30,8 +29,6 @@ export const Assets: React.FC<{}> = () => {
 
   const [assets, setAssets] = useState<AssetInfo[]>([])
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
-  const [viewAsForceValue, setViewAsForceValue] = useState<string>('')
-  const [localRouteStore, setLocalRouteStore] = useState<Array<RouteType>>([])
 
   /**
    * determine if this is the umpire in adjudication mode, so that the
@@ -41,104 +38,53 @@ export const Assets: React.FC<{}> = () => {
     setUmpireInAdjudication(playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE)
   }, [playerForce])
 
-  /**
-   * determine which force to view the plot as, if applicable
-   */
-  useEffect(() => {
-    setViewAsForceValue(playerForce === UMPIRE_FORCE ? viewAsForce || playerForce : playerForce)
-  }, [playerForce, viewAsForce])
-
-  /**
-   * collate the routes, adjusted according to if there is a viewAs in force
-   */
-  useEffect(() => {
-    const tmpRoutes: Array<RouteType> = []
-    const useViewAs: boolean = playerForce === UMPIRE_FORCE && viewAsForceValue != undefined && viewAsForceValue != UMPIRE_FORCE
-    // umpire wishes to view map as another force. loop through routes, and set viewAs color accordingly,
-    // including undefined if the route should not be displayed
-    if (routeStore && routeStore.routes.length) {
-      routeStore.routes.forEach((route: RouteType) => {
-        if (useViewAs) {
-          // see if the player of this force can see (perceive) this asset
-          const perceivedAs: [string, string, string] = findPerceivedAsTypes(
-            viewAsForceValue,
-            name,
-            route.asset.contactId,
-            route.actualForceName,
-            route.asset.platformType,
-            route.asset.perceptions,
-            false)
-          if (perceivedAs) {
-            route.viewAsColor = perceivedAs[1]
-            tmpRoutes.push(route)
-          } else {
-            // this force can't see it, so don't render it
-            route.viewAsColor = undefined
-          }
-        } else {
-          // ok, just use the routes object
-          route.viewAsColor = route.color
-          tmpRoutes.push(route)
-        }
-      })
-    }
-    // update the route store, even if its empty
-    setLocalRouteStore(tmpRoutes)
-  }, [viewAsForceValue, playerForce, routeStore])
-
-  /**
-   *  collate the assets, ready for the icons
-   */
   useEffect(() => {
     if (gridCells) {
       const tmpAssets: AssetInfo[] = []
+      viewAsRouteStore.routes.forEach((route: RouteType) => {
+        const { uniqid, name, platformType, actualForceName } = route
+        const { contactId, status, condition, perceptions } = route.asset
 
-      // determine if this is an umpire, in which case they can see everything
-      const isUmpire: boolean = viewAsForceValue === UMPIRE_FORCE
+        // see if the player of this force can see (perceive) this asset
+        const isUmpire: boolean = playerForce === UMPIRE_FORCE
+        const perceivedAs: [string, string, string] = findPerceivedAsTypes(
+          playerForce,
+          name,
+          contactId,
+          route.perceivedForceName,
+          platformType,
+          perceptions,
+          isUmpire
+        )
 
-      forces && forces.forEach((force: any) => {
-        if (force.assets) {
-          force.assets.forEach((asset: any) => {
-            const { uniqid, name, contactId, condition, status, platformType, perceptions } = asset
+        if (perceivedAs) {
+          const cell: SergeHex<{}> | undefined = hexNamed(route.currentPosition, gridCells)
+          const visibleToArr: string[] = visibleTo(perceptions)
+          if (cell != null) {
+            // sort out who can control this force
+            const assetForce = forces.find((force: any) => force.name === actualForceName)
 
-            // see if the player of this force can see (perceive) this asset
-            const perceivedAs: [string, string, string] = findPerceivedAsTypes(
-              viewAsForceValue,
-              name,
-              contactId,
-              force.uniqid,
-              platformType,
-              perceptions,
-              isUmpire
-            )
-
-            if (perceivedAs) {
-              const cell: SergeHex<{}> | undefined = hexNamed(asset.position, gridCells)
-              const visibleToArr: string[] = visibleTo(perceptions)
-              if (cell != null) {
-                const position: L.LatLng = cell.centreLatLng
-                const assetInfo: AssetInfo = {
-                  name: perceivedAs[0],
-                  condition,
-                  status,
-                  controlledBy: force.controlledBy,
-                  type: perceivedAs[2],
-                  force: perceivedAs[1],
-                  visibleTo: visibleToArr,
-                  position,
-                  uniqid
-                }
-                tmpAssets.push(assetInfo)
-              } else {
-                console.log('!! Failed to find cell numbered:', asset.position)
-              }
+            const position: L.LatLng = cell.centreLatLng
+            const assetInfo: AssetInfo = {
+              name: perceivedAs[0],
+              condition,
+              status,
+              controlledBy: assetForce.controlledBy,
+              type: perceivedAs[2],
+              force: perceivedAs[1],
+              visibleTo: visibleToArr,
+              position,
+              uniqid
             }
-          })
+            tmpAssets.push(assetInfo)
+          } else {
+            console.log('!! Failed to find cell numbered:', route.currentPosition)
+          }
         }
       })
       setAssets(tmpAssets)
     }
-  }, [gridCells, forces, playerForce, viewAsForceValue])
+  }, [gridCells, forces, playerForce, viewAsRouteStore])
 
   return <>
     <LayerGroup>{ assets && assets.map((asset) => (
@@ -157,11 +103,10 @@ export const Assets: React.FC<{}> = () => {
         tooltip={asset.name}/>
     ))}
 
-    { localRouteStore && localRouteStore.map((route: RouteType) => (
-      route.viewAsColor &&
+    { viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
       <Route name={'test'}
         key = { 'r_for_' + route.uniqid }
-        route = {route} color={route.viewAsColor}
+        route = {route} color={route.color}
         selected = { route.selected}
         trimmed = { umpireInAdjudication }
         clearRouteHandler = { clearFromTurn }

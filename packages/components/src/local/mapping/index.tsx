@@ -113,6 +113,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProp)
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
+  const [viewAsRouteStore, setViewAsRouteStore] = useState<RouteStore>({ routes: [] })
   const [leafletElement, setLeafletElement] = useState(undefined)
   const [viewAsForce, setViewAsForce] = useState<string | undefined>(undefined)
 
@@ -138,12 +139,22 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
+    const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
     if (forces && gridCells) {
-      const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
       const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms)
       setRouteStore(store)
+
+      // if this is umpire and we have view as
+      if(playerForce === 'umpire' && viewAsForce && viewAsForce !== UMPIRE_FORCE) {
+        // ok, produce customised version
+        const vStore: RouteStore = routeCreateStore(forces, viewAsForce, umpireInAdjudication, platforms)
+        setViewAsRouteStore(vStore)
+      } else {
+        // just use normal route store
+        setViewAsRouteStore(store)
+      }
     }
-  }, [forces, playerForce, phase, gridCells])
+  }, [forces, playerForce, viewAsForce, phase, gridCells])
 
   useEffect(() => {
     if (mapBounds) {
@@ -287,6 +298,7 @@ export const Mapping: React.FC<PropTypes> = ({
     zoomLevel,
     channelID,
     routeStore,
+    viewAsRouteStore,
     setNewLeg,
     setShowMapBar,
     setSelectedAsset,

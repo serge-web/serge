@@ -38,8 +38,6 @@ export default interface Route {
   destroyed: boolean,
   /** color to render this line */
   color: string,
-  /** view as color */
-  viewAsColor?: string,
   /** platforms carried on this one */
   hosting: Array<RouteChild>,
   /** platform that comprise this unit */
