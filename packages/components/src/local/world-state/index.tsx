@@ -124,7 +124,7 @@ export const WorldState: React.FC<PropTypes> = ({
     const icClassName = getIconClassname(forceNameToUse.toLowerCase(), pRoute.platformType.toLowerCase(), pRoute.selected)
 
     /** local click handler, to decide whether to select asset */
-    const assetClick = (id: string) => {
+    const assetClick = (id: string): void => {
       // only select target if we're in "other platforms"
       // TODO: we need to stop the event propagating back up the tree
       if (showOtherPlatforms) {

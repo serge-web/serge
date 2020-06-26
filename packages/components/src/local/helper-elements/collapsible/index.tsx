@@ -18,9 +18,8 @@ const isType = (childs: ReactNodeArray, type: string, hasContent = false): boole
           arrChekck = chChildren.length > 0 && chChildren.filter(f => !f).length !== chChildren.length
         }
         return res && chEl.props.children && arrChekck
-      } else {
-        return res
       }
+      return res
     }
     return false
     // return !ch!.type!.displayName === 'CollapsibleHeader'
