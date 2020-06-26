@@ -25,10 +25,6 @@ export default interface MappingContext {
    * force for current player
    */
   playerForce: string
-  /** 
-   * force to view the map as
-   */
-  viewAsForce: string | undefined
   /**
    * phase of current game
    */

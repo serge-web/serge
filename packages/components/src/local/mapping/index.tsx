@@ -136,6 +136,10 @@ export const Mapping: React.FC<PropTypes> = ({
     setRouteStore(store)
   }, [selectedAsset])
 
+  /**
+   * generate the set of routes visible to this player, for display
+   * in the Force Overview panel
+   */
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
@@ -143,18 +147,30 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forces && gridCells) {
       const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms)
       setRouteStore(store)
+    }
+  }, [forces, playerForce, phase, gridCells])
 
+    /**
+   * generate the set of routes visible to this player, for display
+   * in the Force Overview panel
+   */
+  useEffect(() => {
+    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
+    // we modify the routeStore
+    const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
+    if (forces && gridCells && routeStore.routes.length) {
       // if this is umpire and we have view as
-      if(playerForce === 'umpire' && viewAsForce && viewAsForce !== UMPIRE_FORCE) {
+      if (playerForce === 'umpire' && viewAsForce && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const vStore: RouteStore = routeCreateStore(forces, viewAsForce, umpireInAdjudication, platforms)
         setViewAsRouteStore(vStore)
       } else {
         // just use normal route store
-        setViewAsRouteStore(store)
+        setViewAsRouteStore(routeStore)
       }
     }
-  }, [forces, playerForce, viewAsForce, phase, gridCells])
+  }, [forces, viewAsForce, phase, gridCells, routeStore])
+
 
   useEffect(() => {
     if (mapBounds) {
@@ -288,7 +304,6 @@ export const Mapping: React.FC<PropTypes> = ({
     forces,
     platforms,
     playerForce,
-    viewAsForce,
     phase,
     turnNumber,
     planningConstraints,

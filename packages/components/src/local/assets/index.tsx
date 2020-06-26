@@ -12,15 +12,16 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import AssetInfo from './types/asset_info'
-import { SergeHex, SergeGrid, RouteStore, Route as RouteType } from '@serge/custom-types'
+import { SergeHex, SergeGrid, RouteStore, Route as RouteType, SelectedAsset } from '@serge/custom-types'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
   // pull in some context (with TS definitions)
-  const { gridCells, forces, playerForce, viewAsRouteStore, phase, clearFromTurn }:
+  const { gridCells, forces, playerForce, selectedAsset, viewAsRouteStore, phase, clearFromTurn }:
     { gridCells: SergeGrid<SergeHex<{}>> | undefined
       forces: any
       playerForce: string
+      selectedAsset: SelectedAsset | undefined
       viewAsRouteStore: RouteStore
       phase: string
       turnNumber: number
@@ -65,10 +66,13 @@ export const Assets: React.FC<{}> = () => {
             const assetForce = forces.find((force: any) => force.name === actualForceName)
 
             const position: L.LatLng = cell.centreLatLng
+
+            const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
             const assetInfo: AssetInfo = {
               name: perceivedAs[0],
               condition,
               status,
+              selected: isSelected,
               controlledBy: assetForce.controlledBy,
               type: perceivedAs[2],
               force: perceivedAs[1],
@@ -89,12 +93,12 @@ export const Assets: React.FC<{}> = () => {
   return <>
     <LayerGroup>{ assets && assets.map((asset) => (
       <AssetIcon
-        key={asset.uniqid}
+        key={'a_for_' + asset.uniqid}
         name={asset.name}
         uniqid={asset.uniqid}
         position={asset.position}
         type={asset.type}
-        selected={false}
+        selected={asset.selected}
         condition={asset.condition}
         status={asset.status}
         controlledBy={asset.controlledBy}
