@@ -131,7 +131,7 @@ export const WorldState: React.FC<PropTypes> = ({
 
     return (
       <>
-        <div className={styles.item}>
+        <div className={styles.item} onClick={(): any => clickEvent(pRoute.uniqid)}>
           <div className={cx(icClassName, styles['item-icon'])}/>
           <div className={styles['item-content']}>
             <div>
@@ -172,7 +172,6 @@ export const WorldState: React.FC<PropTypes> = ({
           .map((pRoute: PlannedRoute): any => (
             <li
               key={'r_li_' + pRoute.uniqid}
-              onClick={(): any => clickEvent(pRoute.uniqid)}
             >
               {renderItem(pRoute, pRoute.forceName, true)}
             </li>
