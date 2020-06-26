@@ -24,7 +24,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
     maxValue = maxOptionsValue + (colCount - options.length) * step
   }
 
-  const handleClick = (e: any) => {
+  const handleClick = (e: any): void => {
     if (typeof onClick === 'function') {
       onClick(e)
     }

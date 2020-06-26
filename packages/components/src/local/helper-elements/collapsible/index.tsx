@@ -42,7 +42,7 @@ export const Collapsible: React.FC<PropTypes> = ({ children, onClick }) => {
 
   const hasContent = isType(children, 'CollapsibleContent', true)
 
-  const handeCollapse = (status: boolean) => {
+  const handeCollapse = (status: boolean): void => {
     setCollapse(status)
   }
 
