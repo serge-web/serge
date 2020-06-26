@@ -7,8 +7,8 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Import icons */
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
+import AddIcon from '@material-ui/icons/Add'
+import RemoveIcon from '@material-ui/icons/Remove'
 
 /* Render component */
 export const CollapsibleHeader: React.FC<PropTypes> = ({ children, onClick, collapse = true, hasContent = false, onCollapse = () => {} }) => {
@@ -18,7 +18,7 @@ export const CollapsibleHeader: React.FC<PropTypes> = ({ children, onClick, coll
     }
   }
 
-  const style = {fontSize: 14, color: "#000000"}
+  const style = { fontSize: 14, color: '#000000' }
 
   return (
     <div className={styles.main}>

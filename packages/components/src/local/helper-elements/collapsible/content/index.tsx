@@ -9,7 +9,6 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const CollapsibleContent: React.FC<PropTypes> = ({ children, onClick, useIndent = true, collapse = true }) => {
-
   const handeClick = (e: any): void => {
     if (typeof onClick === 'function') {
       onClick(e)

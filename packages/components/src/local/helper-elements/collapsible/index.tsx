@@ -6,7 +6,7 @@ import PropTypes, { ChildInt } from './types/props'
 /* Import Styles */
 import styles from './styles.module.scss'
 
-const isType = (childs: ReactNodeArray, type: string, hasContent: boolean = false): boolean => {
+const isType = (childs: ReactNodeArray, type: string, hasContent = false): boolean => {
   return childs.findIndex((ch) => {
     if (typeof ch === 'object') {
       const chEl = ch as ChildInt

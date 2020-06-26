@@ -10,6 +10,6 @@ export interface ChildInt {
 }
 
 export default interface PropTypes {
-  onClick?: any,
+  onClick?: any
   children: ReactNodeArray
 }
