@@ -151,11 +151,11 @@ export const WorldState: React.FC<PropTypes> = ({
           </div>
         </CollapsibleHeader>
         <CollapsibleContent useIndent={40}>
-          {hostItems && hostItems.length > 0 && <div>Hosting:<ul>
+          {hostItems && hostItems.length > 0 && <div><ul>
             {hostItems.map((child: PlannedRoute) => (
               <li key={'item-' + child.uniqid} onClick={(): any => assetClick(child.uniqid)}>{renderItem(child, forceNameToUse, false)}</li>
             ))}</ul></div>}
-          {compriseItems && compriseItems.length > 0 && <div>Comprising:<ul>
+          {compriseItems && compriseItems.length > 0 && <div><ul>
             {compriseItems.map((child: PlannedRoute) => (
               <li key={'item-' + child.uniqid} onClick={(): any => assetClick(child.uniqid)}>{renderItem(child, forceNameToUse, false)}</li>
             ))}</ul></div>}
