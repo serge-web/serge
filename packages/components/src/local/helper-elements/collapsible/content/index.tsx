@@ -37,4 +37,6 @@ export const CollapsibleContent: React.FC<PropTypes> = ({ children, onClick, use
   )
 }
 
+CollapsibleContent.displayName = "CollapsibleContent"
+
 export default CollapsibleContent

@@ -22,7 +22,6 @@ const isType = (childs: ReactNodeArray, type: string, hasContent = false): boole
       return res
     }
     return false
-    // return !ch!.type!.displayName === 'CollapsibleHeader'
   }) !== -1
 }
 
@@ -66,5 +65,7 @@ export const Collapsible: React.FC<PropTypes> = ({ children, onClick }) => {
     </div>
   )
 }
+
+Collapsible.displayName = "Collapsible"
 
 export default Collapsible

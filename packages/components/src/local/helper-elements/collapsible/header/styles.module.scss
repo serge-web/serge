@@ -23,6 +23,10 @@ $size: 16px;
   &:hover {
     opacity: 1;
   }
+
+  svg {
+    vertical-align: top;
+  }
 }
 .content {
   display: block;
