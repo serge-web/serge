@@ -16,7 +16,9 @@ export interface RouteChild {
   /** condition of this asset */
   condition: string,
   /** the original asset (for planning) */
-  asset: any
+  asset: any,
+  /** platforms carried on this one */
+  hosting: Array<RouteChild>
 }
 
 export default interface Route {
