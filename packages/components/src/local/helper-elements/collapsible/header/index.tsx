@@ -30,6 +30,6 @@ export const CollapsibleHeader: React.FC<PropTypes> = ({ children, onClick, coll
   )
 }
 
-CollapsibleHeader.displayName = "CollapsibleHeader"
+CollapsibleHeader.displayName = 'CollapsibleHeader'
 
 export default CollapsibleHeader

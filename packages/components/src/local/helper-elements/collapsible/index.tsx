@@ -66,6 +66,6 @@ export const Collapsible: React.FC<PropTypes> = ({ children, onClick }) => {
   )
 }
 
-Collapsible.displayName = "Collapsible"
+Collapsible.displayName = 'Collapsible'
 
 export default Collapsible
