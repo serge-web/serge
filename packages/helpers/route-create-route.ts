@@ -53,7 +53,11 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
   const res: Array<RouteChild> = []
   if(list) {
     list.forEach((item: any) => {
+      let hosting: Array<RouteChild> = item.hosting && item.hosting.length ? 
+        childrenFor(item.hosting, platformTypes, underControl, assetForce, playerForce) :
+        []
       if(underControl || playerForce === UMPIRE_FORCE) {
+
         // use real values
         const newChild: RouteChild = {
           uniqid: item.uniqid,
@@ -62,7 +66,8 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
           force: assetForce,
           destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
           condition: item.condition,
-          asset: item
+          asset: item,
+          hosting: hosting
         }
         res.push(newChild)    
       } else {
@@ -77,7 +82,8 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
             force: perceptions[1],
             destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
             condition: item.condition,
-            asset: item
+            asset: item,
+            hosting:hosting
           }
           res.push(newChild)    
         }
@@ -91,7 +97,7 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
  * @param {any} asset single asset
  * @param {boolean} adjudication whether this is umpire in adjudication
  * @param {string} color color for rendering this asset
- * @param {boolean} underControl
+ * @param {boolesqan} underControl
  * @param {string} actualForce
  * @param {string} perceivedForce
  * @param {string} perceivedName
