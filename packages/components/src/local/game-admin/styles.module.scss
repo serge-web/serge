@@ -15,3 +15,20 @@
 //   composes: example;
 //   background-color: $red;
 // }
+.main {
+  height: 100vh;
+  border: 1px solid #000;
+  padding-bottom: 150px;
+  position: relative;
+}
+
+.messages {
+  height: 100%;
+}
+
+.chat {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}

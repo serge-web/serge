@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core'
 import Props from './types/props'
 
 /* Import Stylesheet */
-// import styles from './styles.module.scss
+import styles from './styles.module.scss'
 
 /* Import components */
 import { TextInput } from '../form-elements/text-input'
@@ -41,9 +41,18 @@ export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack 
     setFormState('')
   }
 
-  return <div>
-    <TextInput label="Post message" name="Message" multiline={4} updateState={changeHandler} value={formState}/>
-    <Button onClick={submitForm}>Send</Button>
+  return <div className={styles.main}>
+    <div className={styles['new-message-creator']}>
+      <div className={styles.media}>
+        <div className={styles['message-creator']}>
+          <TextInput label="Post message" name="Message" multiline={4} updateState={changeHandler} value={formState}/>
+        </div>
+      </div>
+      <div className={styles.send}>
+        <Button onClick={submitForm}>Send</Button>
+      </div>
+
+    </div>
   </div>
 }
 

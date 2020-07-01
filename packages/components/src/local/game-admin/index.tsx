@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { CHAT_CHANNEL_ID } from '@serge/config'
 
 // /* Import Stylesheet */
-// import styles from './styles.module.scss'
+import styles from './styles.module.scss'
 
 /* Import types */
 import PropTypes from './types/props'
@@ -20,9 +20,13 @@ export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, se
 
   const messageHandler = (data: Message): void => setMessages([...messages, data])
 
-  return <div>
-    <MessagesList currentChannel={CHAT_CHANNEL_ID} userId={`${wargameTitle}-${selectedForce}-${selectedRole}`} messages={messages} />
-    <MessageCreator from={selectedForce} channel={CHAT_CHANNEL_ID} role={selectedRole} postBack={messageHandler}/>
+  return <div className={styles.main}>
+    <div className={styles.messages}>
+      <MessagesList currentChannel={CHAT_CHANNEL_ID} userId={`${wargameTitle}-${selectedForce}-${selectedRole}`} messages={messages} />
+    </div>
+    <div className={styles.chat}>
+      <MessageCreator from={selectedForce} channel={CHAT_CHANNEL_ID} role={selectedRole} postBack={messageHandler}/>
+    </div>
   </div>
 }
 
