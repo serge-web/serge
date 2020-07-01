@@ -15,7 +15,7 @@ import { HexGrid } from '../hex-grid'
 // import data types
 import { Phase } from '@serge/config'
 
-const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+const wrapper: React.FC = (storyFn: any) => <div style={{ height: '800px' }}>{storyFn()}</div>
 
 export default {
   title: 'local/Mapping',

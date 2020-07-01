@@ -113,7 +113,9 @@ export const Mapping: React.FC<PropTypes> = ({
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProp)
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
+  const [viewAsRouteStore, setViewAsRouteStore] = useState<RouteStore>({ routes: [] })
   const [leafletElement, setLeafletElement] = useState(undefined)
+  const [viewAsForce, setViewAsForce] = useState<string>(UMPIRE_FORCE)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -134,15 +136,40 @@ export const Mapping: React.FC<PropTypes> = ({
     setRouteStore(store)
   }, [selectedAsset])
 
+  /**
+   * generate the set of routes visible to this player, for display
+   * in the Force Overview panel
+   */
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
+    const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
     if (forces && gridCells) {
-      const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
       const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms)
       setRouteStore(store)
     }
   }, [forces, playerForce, phase, gridCells])
+
+  /**
+   * generate the set of routes visible to this player, for display
+   * in the Force Overview panel
+   */
+  useEffect(() => {
+    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
+    // we modify the routeStore
+    const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
+    if (forces && gridCells && routeStore.routes.length) {
+      // if this is umpire and we have view as
+      if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
+        // ok, produce customised version
+        const vStore: RouteStore = routeCreateStore(forces, viewAsForce, umpireInAdjudication, platforms)
+        setViewAsRouteStore(vStore)
+      } else {
+        // just use normal route store
+        setViewAsRouteStore(routeStore)
+      }
+    }
+  }, [forces, viewAsForce, phase, gridCells, routeStore])
 
   useEffect(() => {
     if (mapBounds) {
@@ -266,6 +293,10 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
+  const viewAsCallback = (force: string): void => {
+    setViewAsForce(force)
+  }
+
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     gridCells,
@@ -281,6 +312,7 @@ export const Mapping: React.FC<PropTypes> = ({
     zoomLevel,
     channelID,
     routeStore,
+    viewAsRouteStore,
     setNewLeg,
     setShowMapBar,
     setSelectedAsset,
@@ -323,9 +355,11 @@ export const Mapping: React.FC<PropTypes> = ({
           attributionControl={attributionControl}
         >
           <MapControl
-            map={leafletElement}
-            home={mapCentre}
-            forces={playerForce === UMPIRE_FORCE && forces}
+            map = {leafletElement}
+            home = {mapCentre}
+            forces = {playerForce === UMPIRE_FORCE && forces}
+            viewAsCallback = {viewAsCallback}
+            viewAsForce = {viewAsForce}
           />
           <TileLayer
             url={tileLayer.url}

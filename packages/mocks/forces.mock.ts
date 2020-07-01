@@ -21,6 +21,119 @@ export const forces = [
     assets: [
       {
         condition: 'Full capability',
+        contactId: 'C713',
+        history: [
+          {
+            position: 'P21',
+            status: {
+              speedKts: 20,
+              state: 'Transiting'
+            },
+            turn: 2
+          }
+        ],
+        comprising: [
+            {
+              condition: 'Full capability',
+              contactId: 'C964',
+              history: [
+              ],
+              name: 'Frigate A',
+              perceptions: [{
+                by: 'Red',
+                force: 'Blue',
+                name: 'Frigate A Perceived Name'
+              }],
+              platformType: 'frigate',
+              hosting: [
+                {
+                  condition: 'Full capability',
+                  contactId: 'C721',
+                  history: [
+                  ],
+                  name: 'Dart 45',
+                  perceptions: [{
+                    by: 'Red',
+                    force: 'Blue',
+                    name: 'Unknown UAV',
+                    type: 'Unmanned-Airborne-Vehicle',
+                  }],
+                      plannedTurns: [],
+                  platformType: 'Unmanned-Airborne-Vehicle',
+                  status: {
+                    state: 'Landed'
+                  },
+                  uniqid: 'a0pra43302'
+                },
+                {
+                  condition: 'Full capability',
+                  contactId: 'C932',
+                  history: [
+                  ],
+                  name: 'Dart 46',
+                  perceptions: [],
+                  plannedTurns: [],
+                  platformType: 'Unmanned-Airborne-Vehicle',
+                  status: {
+                    state: 'Landed'
+                  },
+                  uniqid: 'a0pra17943'
+                }
+              ],              
+              uniqid: 'a0prbr6441'
+            }, 
+            {
+              condition: 'Full capability',
+              contactId: 'C653',
+              history: [
+              ],
+              name: 'MCM Delta',
+              perceptions: [],
+              platformType: 'MCMV',
+              uniqid: 'a0traa6790'
+            }
+        ],
+        name: 'CTF 511',
+        perceptions: [{
+          by: 'Red',
+          force: 'Blue',
+          name: 'BRIT',
+          type: 'task-group'
+        }],
+        plannedTurns: [
+          {
+            route: [
+              'Q19',
+              'Q18'
+            ],
+            status: {
+              speedKts: 20,
+              state: 'Transiting'
+            },
+            turn: 4
+          },
+          {
+            route: [
+              'R17',
+              'S17'
+            ],
+            status: {
+              speedKts: 20,
+              state: 'Transiting'
+            },
+            turn: 5
+          }
+        ],
+        platformType: 'task-group',
+        position: 'P19',
+        status: {
+          speedKts: 20,
+          state: 'Transiting'
+        },
+        uniqid: 'a0pra5431'
+      },
+      {
+        condition: 'Full capability',
         contactId: 'C043',
         history: [
           {
@@ -33,10 +146,44 @@ export const forces = [
           }
         ],
         name: 'Frigate',
+        hosting: [
+          {
+            condition: 'Full capability',
+            contactId: 'C572',
+            history: [
+            ],
+            name: 'Merlin',
+            perceptions: [{
+              by: 'Red',
+              force: 'Blue',
+              type: 'helicopter'
+            }],
+            plannedTurns: [],
+            platformType: 'helicopter',
+            status: {
+              state: 'Landed'
+            },
+            uniqid: 'a0pra11002'
+          },
+          {
+            condition: 'Full capability',
+            contactId: 'C591',
+            history: [
+            ],
+            name: 'Dart 42',
+            perceptions: [],
+            plannedTurns: [],
+            platformType: 'Unmanned-Airborne-Vehicle',
+            status: {
+              state: 'Landed'
+            },
+            uniqid: 'a0pra18702'
+          }
+        ],
         perceptions: [{
           by: 'Red',
           force: 'Blue',
-          name: 'NORT',
+          name: 'Frigate Perceived Name',
           type: 'frigate'
         }],
         plannedTurns: [
@@ -254,6 +401,23 @@ export const forces = [
           }
         ],
         locationPending: true,
+        hosting: [
+          {
+            condition: 'Full capability',
+            contactId: 'C158',
+            history: [
+            ],
+            name: 'Bog Draft',
+            perceptions: [],
+            plannedTurns: [],
+            platformType: 'boghammer',
+            route: [
+            ],
+            status: {
+            },
+            uniqid: 'a0pra153102'
+          }
+        ],
         name: 'Dhow-B',
         perceptions: [{
           by: 'Blue',

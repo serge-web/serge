@@ -2,7 +2,6 @@ import React from 'react'
 import { DomEvent } from 'leaflet'
 import Item from './helpers/item'
 import cx from 'classnames'
-import lightOrDark from './helpers/lightOrDark'
 
 /* Import icons */
 import AddIcon from '@material-ui/icons/Add'
@@ -12,6 +11,7 @@ import PublicIcon from '@material-ui/icons/Public'
 
 /* Import proptypes */
 import PropTypes from './types/props'
+import { UMPIRE_FORCE } from '@serge/config'
 
 /* Import Styles */
 // import styles from './styles.module.scss'
@@ -27,7 +27,9 @@ export const MapControl: React.FC<PropTypes> = ({
   showZoom = true,
   zoomStepSize = 0.5,
   /* view as */
-  forces = []
+  forces = [],
+  viewAsCallback,
+  viewAsForce
 }) => {
   /*
    * disable map scroll and click events to allow
@@ -50,8 +52,15 @@ export const MapControl: React.FC<PropTypes> = ({
   }
 
   /* set view as force */
-  const viewAsCallback = (force: string) => {
-    console.log('view as clicked, force:', force)
+  const viewAs = (force: string) => {
+    if (viewAsCallback) {
+      viewAsCallback(force)
+    }
+  }
+
+  /* utilty method for whether to show view-as button as selected  */
+  const showAsSelected = (force: string): 'light' | 'dark' | undefined => {
+    return viewAsForce !== undefined ? viewAsForce === force ? 'light' : 'dark' : 'dark'
   }
 
   if (!map) return null
@@ -67,12 +76,12 @@ export const MapControl: React.FC<PropTypes> = ({
         {forces.length && <div className={cx('leaflet-control')}>
           {forces.map((force: any) => (
             <Item
-              contentTheme={lightOrDark(force.color)}
+              contentTheme={ showAsSelected(force.uniqid) }
               key={`k_${force.uniqid}`}
-              onClick={() => { viewAsCallback(force.uniqid) }}
+              onClick={() => { viewAs(force.uniqid) }}
               title={`View As ${force.name}`}
             >
-              <PublicIcon style={{ color: force.color }}/>
+              <PublicIcon style={{ color: force.uniqid === UMPIRE_FORCE ? '#777' : force.color }}/>
             </Item>
           ))}
         </div>}

@@ -54,6 +54,10 @@ export default interface MappingContext {
    */
   routeStore: RouteStore
   /**
+   * the modified set of routes to support "view as"
+   */
+  viewAsRouteStore: RouteStore   
+  /**
    * setter for when planned route is complete
    */
   setNewLeg: React.Dispatch<React.SetStateAction<NewTurnValues | undefined>> | undefined

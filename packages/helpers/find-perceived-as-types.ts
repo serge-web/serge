@@ -6,7 +6,7 @@
  * @param {string} theirType platform-type of selected asset
  * @param {any} theirPerceptions list of force perceptions of selected asset
  * @param {boolean} playerIsUmpire whether the current player is an umpire
- * @returns {string, string} pair of class-names, used to describe force and platform-type
+ * @returns {string, string, string} name-class, force-class, type-class
  */
 
 export default function findPerceivedAsTypes (
