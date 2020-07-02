@@ -34,6 +34,7 @@ export const MapBar: React.FC = () => {
 
   const [stateFormTitle, setStateFormTitle] = useState<string>('')
   const [stateSubmitTitle, setStateSubmitTitle] = useState<string>('')
+  const [userIsUmpire, setUserIsUmpire] = useState<boolean | undefined>(undefined)
 
   /* Pull in the context from MappingContext */
   const {
@@ -65,6 +66,11 @@ export const MapBar: React.FC = () => {
     routeStore: RouteStore
     turnPlanned: {(turn: PlanTurnFormValues): void}
   } = useContext(MapContext).props
+
+  // sort out the handler for State of World button
+  useEffect(() => {
+    setUserIsUmpire(playerForce === UMPIRE_FORCE)
+  }, [playerForce])
 
   // sort out the handler for State of World button
   useEffect(() => {
@@ -155,7 +161,7 @@ export const MapBar: React.FC = () => {
           key={selectedAsset.uniqid}
           type={selectedAsset.type}
           force={selectedAsset.force}
-          formData={collatePerceptionFormData(platforms, selectedAsset, forces)}
+          formData={collatePerceptionFormData(platforms, playerForce, selectedAsset, forces, userIsUmpire || false)}
           channelID={channelID}
           postBack={postBack} />
         break
