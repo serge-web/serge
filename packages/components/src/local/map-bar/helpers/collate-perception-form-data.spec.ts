@@ -43,3 +43,16 @@ it('contains relevant current results for my force', () => {
   expect(res.perceivedTypeVal).toEqual('frigate')
   expect(res.perceivedNameVal).toEqual('Dhow-A')
 })
+
+
+it('contains relevant current results for umpire force', () => {
+  const selected2 = {
+    ...selectedAsset,
+    uniqid: 'a0pra000100',
+    force: 'Blue'
+  }
+  const res: PerceptionFormValues = collatePerceptionFormData(platformTypes, 'Red', selected2, forces, true).values
+  expect(res.perceivedForceVal).toEqual('blue')
+  expect(res.perceivedTypeVal).toEqual('frigate')
+  expect(res.perceivedNameVal).toEqual('Dhow-A')
+})
