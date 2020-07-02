@@ -12,10 +12,10 @@
   position: relative;
   overflow-y: auto;
   max-height: calc(100% - 350px);
-  border-top: 1px solid #0a2c41;
-  border-left: 1px solid #0a2c41;
-  border-right: 2px solid #0a2c41;
-  border-bottom: 2px solid #0a2c41;
+  border-top: 1px solid #54667c;
+  border-left: 1px solid #54667c;
+  border-right: 2px solid #54667c;
+  border-bottom: 2px solid #54667c;
   box-sizing: border-box;
   // this block was used to size the world-state panel, but it also caught
   // the first section within the perception panel, so it has been
@@ -52,7 +52,7 @@
 .toggle {
   z-index: 1010;
   cursor: pointer;
-  background-color: #48a65d;
+  background-color: #1a394d;
   color: #fff;
   width: 21px;
   height: 71px;
