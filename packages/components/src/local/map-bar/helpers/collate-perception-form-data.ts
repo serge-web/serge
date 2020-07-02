@@ -12,11 +12,11 @@ const collatePerceptionFormData = (platforms: any, playerForce: string, selected
   userIsUmpire: boolean): PerceptionFormData => {
   // get the actual asset
   const asset = findAsset(forces, selectedAsset.uniqid)
-  const [nameT, forceT, typeT] = findPerceivedAsTypes(playerForce, asset.name, asset.contactId, 
+  const [nameT, forceT, typeT] = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
     selectedAsset.force, selectedAsset.type, asset.perceptions, userIsUmpire)
   const availableForceList: ColorOption[] = availableForces(forces, true)
   const platformTypes = platforms && platforms.map((p: any) => p.name)
-  platformTypes.push('Unknown')  
+  platformTypes.push('Unknown')
   const formData: PerceptionFormData = {
     populate: {
       perceivedForce: availableForceList,
@@ -29,7 +29,7 @@ const collatePerceptionFormData = (platforms: any, playerForce: string, selected
       assetId: selectedAsset.uniqid
     }
   }
-  return formData  
+  return formData
 }
 
 export default collatePerceptionFormData

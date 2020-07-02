@@ -4,7 +4,7 @@ import collatePerceptionFormData from './collate-perception-form-data'
 import platformTypes from '@serge/mocks/platform-types.mock'
 import selectedAsset from '@serge/mocks/selected-asset.mock'
 import forces from '@serge/mocks/forces.mock'
-import {  PerceptionFormPopulate, PerceptionFormValues } from '@serge/custom-types'
+import { PerceptionFormPopulate, PerceptionFormValues } from '@serge/custom-types'
 
 it('contains relevant population results', () => {
   const selected2 = {

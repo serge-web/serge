@@ -67,7 +67,6 @@ export const MapBar: React.FC = () => {
     turnPlanned: {(turn: PlanTurnFormValues): void}
   } = useContext(MapContext).props
 
-
   // sort out the handler for State of World button
   useEffect(() => {
     setUserIsUmpire(playerForce === UMPIRE_FORCE)
