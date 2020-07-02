@@ -44,7 +44,6 @@ it('contains relevant current results for my force', () => {
   expect(res.perceivedNameVal).toEqual('Dhow-A')
 })
 
-
 it('contains relevant current results for umpire force', () => {
   const selected2 = {
     ...selectedAsset,
