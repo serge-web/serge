@@ -26,8 +26,8 @@ const isType = (childs: ReactNodeArray, type: string, hasContent = false): boole
 }
 
 /* Render component */
-export const Collapsible: React.FC<PropTypes> = ({ children, onClick }) => {
-  const [collapse, setCollapse] = useState(false)
+export const Collapsible: React.FC<PropTypes> = ({ children, onClick, openByDefault = false }) => {
+  const [collapse, setCollapse] = useState(openByDefault)
 
   if (!children.length || children.length < 2) return null
   if (!isType(children, 'CollapsibleHeader')) return null

@@ -12,4 +12,5 @@ export interface ChildInt {
 export default interface PropTypes {
   onClick?: any
   children: ReactNodeArray
+  openByDefault?: boolean
 }

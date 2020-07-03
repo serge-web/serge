@@ -7,9 +7,11 @@ import { getIconClassname } from '../asset-icon'
 import Collapsible from '../helper-elements/collapsible'
 import CollapsibleHeader from '../helper-elements/collapsible/header'
 import CollapsibleContent from '../helper-elements/collapsible/content'
+import Groups from '../helper-elements/groups'
 
 /* Import Types */
 import PropTypes from './types/props'
+import { Item } from '../helper-elements/groups/types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -17,6 +19,7 @@ import { Route, RouteChild } from '@serge/custom-types'
 import { ADJUDICATION_PHASE } from '@serge/config'
 
 interface PlannedRoute {
+  id: string,
   name: string
   uniqid: string
   numPlanned: number
@@ -34,6 +37,8 @@ export const WorldState: React.FC<PropTypes> = ({
 }: PropTypes) => {
   const [routes, setRoutes] = useState<Array<PlannedRoute>>([])
 
+  console.log(store.routes, 'store.routes');
+
   /** filter the list of cells allowable for this platform
    * depending on requested cell type
    */
@@ -41,6 +46,7 @@ export const WorldState: React.FC<PropTypes> = ({
     const tmpRoutes: PlannedRoute[] = []
     store.routes.forEach((route: Route) => {
       const pRoute: PlannedRoute = {
+        id: route.uniqid,
         name: route.name,
         uniqid: route.uniqid,
         numPlanned: route.planned.length,
@@ -84,6 +90,7 @@ export const WorldState: React.FC<PropTypes> = ({
     if (pRoute.hosting && pRoute.hosting.length) {
       pRoute.hosting.forEach((route: RouteChild) => {
         const newItem: PlannedRoute = {
+          id: route.uniqid,
           name: route.name,
           comprising: route.asset ? route.asset.comprising : [],
           forceName: route.force,
@@ -98,10 +105,12 @@ export const WorldState: React.FC<PropTypes> = ({
       })
     }
 
+
     const compriseItems: Array<PlannedRoute> = []
     if (pRoute.comprising && pRoute.comprising.length) {
       pRoute.comprising.forEach((route: RouteChild) => {
         const newItem: PlannedRoute = {
+          id: route.uniqid,
           name: route.name,
           comprising: route.asset.comprising,
           forceName: route.force,
@@ -132,6 +141,9 @@ export const WorldState: React.FC<PropTypes> = ({
       }
     }
 
+    const list = [...hostItems, ...compriseItems]
+
+
     return (
       <Collapsible>
         <CollapsibleHeader>
@@ -151,14 +163,16 @@ export const WorldState: React.FC<PropTypes> = ({
           </div>
         </CollapsibleHeader>
         <CollapsibleContent useIndent={40}>
-          {hostItems && hostItems.length > 0 && <div><ul>
+          {list.length > 0 && <ul>
             {hostItems.map((child: PlannedRoute) => (
-              <li key={'item-' + child.uniqid} onClick={(): any => assetClick(child.uniqid)}>{renderItem(child, forceNameToUse, false)}</li>
-            ))}</ul></div>}
-          {compriseItems && compriseItems.length > 0 && <div><ul>
-            {compriseItems.map((child: PlannedRoute) => (
-              <li key={'item-' + child.uniqid} onClick={(): any => assetClick(child.uniqid)}>{renderItem(child, forceNameToUse, false)}</li>
-            ))}</ul></div>}
+              <li
+                key={'item-' + child.uniqid}
+                onClick={(): any => assetClick(child.uniqid)}
+              >
+                {renderItem(child, forceNameToUse, false)}
+              </li>
+            ))}
+          </ul>}
         </CollapsibleContent>
       </Collapsible>
     )
@@ -170,8 +184,46 @@ export const WorldState: React.FC<PropTypes> = ({
   // find out if this is a non-umpire, and we're in the adjudication phase
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
 
+  const renderContent = (routeItem: Item, depth: Array<Item> = []) => {
+    const item = routeItem as PlannedRoute
+
+    let forceName: string = item.forceName || ''
+    // if we don't know the force name, just use the one from the parent
+
+    if (!forceName) {
+      const itemWithForceName = depth.find(i => i && i.forceName)
+      if (itemWithForceName) forceName = itemWithForceName.forceName
+    }
+
+    const icClassName = getIconClassname(forceName.toLowerCase(), item.platformType.toLowerCase(), item.selected)
+    const descriptionText = (isUmpire || item.underControl) && depth.length === 0
+          ? `${item.numPlanned} turns planned` : ''
+    const checkStatus: boolean = item.numPlanned > 0
+
+    return (
+      <div className={styles.item} onClick={(): any => clickEvent(item.uniqid)}>
+        <div className={cx(icClassName, styles['item-icon'])}/>
+        <div className={styles['item-content']}>
+          <div>
+            <p>{item.name}</p>
+            <p>{descriptionText}</p>
+          </div>
+
+        </div>
+        {!showOtherPlatforms && depth.length === 0  && <div className={styles['item-check']}>
+          {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
+          {checkStatus === false && <CheckCircleIcon style={{ color: '#B1B1B1' }} />}
+        </div>}
+      </div>
+    )
+  }
+
   return <>
     <div className={styles['world-state']}>
+      <Groups
+        items={store.routes}
+        renderContent={renderContent}
+      />
       <h2 className={styles.title}>{customTitle}</h2>
       <ul>
         {routes
