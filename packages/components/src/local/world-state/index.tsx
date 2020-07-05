@@ -184,15 +184,15 @@ export const WorldState: React.FC<PropTypes> = ({
   // find out if this is a non-umpire, and we're in the adjudication phase
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
 
-  const renderContent = (routeItem: Item, depth: Array<Item> = []) => {
-    const item = routeItem as PlannedRoute
+  const renderContent = (item: Item, depth: Array<Item> = []) => {
+    // const item = routeItem as PlannedRoute
 
-    let forceName: string = item.forceName || ''
+    let forceName: string = item.perceivedForceName || ''
     // if we don't know the force name, just use the one from the parent
 
     if (!forceName) {
-      const itemWithForceName = depth.find(i => i && i.forceName)
-      if (itemWithForceName) forceName = itemWithForceName.forceName
+      const itemWithForceName = depth.find(i => i && i.perceivedForceName)
+      if (itemWithForceName) forceName = itemWithForceName.perceivedForceName
     }
 
     const icClassName = getIconClassname(forceName.toLowerCase(), item.platformType.toLowerCase(), item.selected)
@@ -201,7 +201,7 @@ export const WorldState: React.FC<PropTypes> = ({
     const checkStatus: boolean = item.numPlanned > 0
 
     return (
-      <div className={styles.item} onClick={(): any => clickEvent(item.uniqid)}>
+      <div className={styles.item} onClick={(): any => clickEvent(`${item.uniqid}`)}>
         <div className={cx(icClassName, styles['item-icon'])}/>
         <div className={styles['item-content']}>
           <div>

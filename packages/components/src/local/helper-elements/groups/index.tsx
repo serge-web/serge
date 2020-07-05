@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // import cx from 'classnames'
 /* Import helpers */
@@ -9,19 +9,21 @@ import Dropzone from '../dropzone'
 
 /* Import proptypes */
 import PropTypes, { Item } from './types/props'
+import { Item as DropzoneItem } from '../dropzone/types/props'
 
 /* Import Styles */
 // import styles from './styles.module.scss'
 
 /* Render component */
-export const Groups: React.FC<PropTypes> = ({ items = [], maxDepth = 3, renderContent = () => '' }) => {
+export const Groups: React.FC<PropTypes> = ({ items = [],  renderContent = () => '' }) => {
 
-  const showDropZone = true;
+  const [dragItem, setDragItem] = useState<string | number>('')
+
+  const onStart = (i: DropzoneItem):void => { setDragItem(i.uniqid) }
+  const onEnd = ():void => { setDragItem('') }
 
   const renderGroupItem = (item: Item, depth: Array<Item> = []) => {
     // const itemInsideOf: Item | undefined = items.find(i => Array.isArray(i.comprising) && i.comprising.find(({ uniqid }) => uniqid === item.uniqid))
-    console.log(maxDepth);
-
 
     // on first level not render items inside of comprising
     if (depth.length === 0) {
@@ -36,10 +38,25 @@ export const Groups: React.FC<PropTypes> = ({ items = [], maxDepth = 3, renderCo
     const subitems = [...(item.comprising || []), ...(item.hosting || [])]
 
     return (<Collapsible openByDefault={!subitems.length}>
-      <CollapsibleHeader><Dropzone item={item}>{renderContent(item, depth)}</Dropzone></CollapsibleHeader>
-      <CollapsibleContent>
-        {showDropZone && <Dropzone item={item}/>}
-        {subitems.length > 0 && <ul>{ subitems.map(item => <li>{ renderGroupItem(item, [item, ...depth]) }</li>) }</ul>}
+      <CollapsibleHeader>
+        <Dropzone
+          item={item}
+          onStart={onStart}
+          onEnd={onEnd}
+          active={dragItem}
+          type='group'
+        >
+          {renderContent(item, depth)}
+        </Dropzone>
+      </CollapsibleHeader>
+      <CollapsibleContent useIndent={40}>
+        {dragItem && dragItem !== item.uniqid && <Dropzone
+          item={item}
+          onStart={onStart}
+          onEnd={onEnd}
+          active={dragItem}
+        />}
+        {subitems.length > 0 && <ul>{ subitems.map(item => <li key={item.uniqid}>{ renderGroupItem(item, [item, ...depth]) }</li>) }</ul>}
       </CollapsibleContent>
     </Collapsible>)
   }

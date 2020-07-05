@@ -9,4 +9,5 @@ export default interface PropTypes {
   items?: Array<Item>
   maxDepth?: number
   renderContent?: (item: Item, depth: Array<Item>) => {}
+  onSet?: (item: Item) => {}
 }

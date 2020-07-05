@@ -8,4 +8,9 @@ export default interface PropTypes {
   type?: 'empty' | 'group' | 'group-out'
   title?: string
   description?: string
+  onStart?: (item: Item) => void
+  onEnd?: (item: Item) => void
+  onSet?: (item: Item) => void
+  active?: string | number
+  mouse?: { x:number, y: number }
 }

@@ -3,8 +3,14 @@
 interface CssExports {
   'collapse': string;
   'dropzone': string;
+  'dropzone-active': string;
+  'empty-active': string;
   'holder': string;
+  'item': string;
+  'loading': string;
   'main': string;
+  'main-active': string;
+  'main-empty': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
