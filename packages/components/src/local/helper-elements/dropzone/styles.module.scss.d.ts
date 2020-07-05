@@ -2,8 +2,10 @@
 // Please do not change this file!
 interface CssExports {
   'collapse': string;
+  'content': string;
+  'content-empty': string;
+  'content-group': string;
   'dropzone': string;
-  'dropzone-active': string;
   'empty-active': string;
   'holder': string;
   'item': string;
@@ -11,6 +13,9 @@ interface CssExports {
   'main': string;
   'main-active': string;
   'main-empty': string;
+  'overlap': string;
+  'switch': string;
+  'switchitem': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

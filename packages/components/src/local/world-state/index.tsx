@@ -37,8 +37,6 @@ export const WorldState: React.FC<PropTypes> = ({
 }: PropTypes) => {
   const [routes, setRoutes] = useState<Array<PlannedRoute>>([])
 
-  console.log(store.routes, 'store.routes');
-
   /** filter the list of cells allowable for this platform
    * depending on requested cell type
    */
@@ -223,6 +221,9 @@ export const WorldState: React.FC<PropTypes> = ({
       <Groups
         items={store.routes}
         renderContent={renderContent}
+        onSet={(items, type) => {
+          console.log(items, type);
+        }}
       />
       <h2 className={styles.title}>{customTitle}</h2>
       <ul>

@@ -8,19 +8,23 @@ import CollapsibleContent from '../collapsible/content'
 import Dropzone from '../dropzone'
 
 /* Import proptypes */
-import PropTypes, { Item } from './types/props'
+import PropTypes, { Item, type } from './types/props'
 import { Item as DropzoneItem } from '../dropzone/types/props'
 
 /* Import Styles */
 // import styles from './styles.module.scss'
 
 /* Render component */
-export const Groups: React.FC<PropTypes> = ({ items = [],  renderContent = () => '' }) => {
+export const Groups: React.FC<PropTypes> = ({ items = [],  renderContent = () => '', maxDepth = 3, onSet }) => {
 
   const [dragItem, setDragItem] = useState<string | number>('')
 
   const onStart = (i: DropzoneItem):void => { setDragItem(i.uniqid) }
   const onEnd = ():void => { setDragItem('') }
+  const handleSet = (items: Array<DropzoneItem>, type: type) => {
+    if(onSet) onSet(items as Array<Item>, type)
+  }
+
 
   const renderGroupItem = (item: Item, depth: Array<Item> = []) => {
     // const itemInsideOf: Item | undefined = items.find(i => Array.isArray(i.comprising) && i.comprising.find(({ uniqid }) => uniqid === item.uniqid))
@@ -39,15 +43,16 @@ export const Groups: React.FC<PropTypes> = ({ items = [],  renderContent = () =>
 
     return (<Collapsible openByDefault={!subitems.length}>
       <CollapsibleHeader>
-        <Dropzone
+        {depth.length >= maxDepth ? renderContent(item, depth) : <Dropzone
           item={item}
           onStart={onStart}
           onEnd={onEnd}
           active={dragItem}
           type='group'
+          onSet={handleSet}
         >
           {renderContent(item, depth)}
-        </Dropzone>
+        </Dropzone>}
       </CollapsibleHeader>
       <CollapsibleContent useIndent={40}>
         {dragItem && dragItem !== item.uniqid && <Dropzone
@@ -55,6 +60,7 @@ export const Groups: React.FC<PropTypes> = ({ items = [],  renderContent = () =>
           onStart={onStart}
           onEnd={onEnd}
           active={dragItem}
+          onSet={handleSet}
         />}
         {subitems.length > 0 && <ul>{ subitems.map(item => <li key={item.uniqid}>{ renderGroupItem(item, [item, ...depth]) }</li>) }</ul>}
       </CollapsibleContent>
