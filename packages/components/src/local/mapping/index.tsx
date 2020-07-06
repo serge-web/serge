@@ -203,7 +203,7 @@ export const Mapping: React.FC<PropTypes> = ({
         if (selRoute) {
           const newStep: RouteStep = {
             turn: newTurn,
-            status: { state: 'BBQ', speedKts: 12 },
+            status: { state: newLeg.state, speedKts: newLeg.speed },
             coords: coords
           }
           const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
