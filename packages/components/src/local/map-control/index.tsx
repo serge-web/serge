@@ -69,16 +69,16 @@ export const MapControl: React.FC<PropTypes> = ({
     <div className='leaflet-control-container' ref={disableMapClickAndScrolll}>
       <div className='leaflet-top leaflet-right'>
         <div className={cx('leaflet-control')}>
-          {showZoom && <Item title="Zoom In" onClick={() => { handeZoomChange(zoomStepSize) }}><AddIcon/></Item>}
-          {showHome && <Item title="Fit to window" onClick={() => { handeHome() }}><HomeIcon/></Item>}
-          {showZoom && <Item title="Zoom Out" onClick={() => { handeZoomChange(-1 * zoomStepSize) }}><RemoveIcon/></Item>}
+          {showZoom && <Item title="Zoom In" onClick={():void => { handeZoomChange(zoomStepSize) }}><AddIcon/></Item>}
+          {showHome && <Item title="Fit to window" onClick={():void => { handeHome() }}><HomeIcon/></Item>}
+          {showZoom && <Item title="Zoom Out" onClick={(): void => { handeZoomChange(-1 * zoomStepSize) }}><RemoveIcon/></Item>}
         </div>
         {forces.length && <div className={cx('leaflet-control')}>
           {forces.map((force: any) => (
             <Item
               contentTheme={ showAsSelected(force.uniqid) }
               key={`k_${force.uniqid}`}
-              onClick={() => { viewAs(force.uniqid) }}
+              onClick={(): void => { viewAs(force.uniqid) }}
               title={`View As ${force.name}`}
             >
               <PublicIcon style={{ color: force.uniqid === UMPIRE_FORCE ? '#777' : force.color }}/>
