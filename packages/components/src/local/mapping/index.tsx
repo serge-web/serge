@@ -13,7 +13,8 @@ import {
   routeAddSteps,
   routeSetCurrent,
   routeGetLatestPosition,
-  routeClearFromStep
+  routeClearFromStep,
+  findPlatformTypeFor
 } from '@serge/helpers'
 
 /* Import Types */
@@ -194,14 +195,15 @@ export const Mapping: React.FC<PropTypes> = ({
     if (newLeg) {
       const selRoute = routeStore.selected
       if (selRoute) {
-        const newTurn = selRoute.planned[selRoute.planned.length - 1].turn + 1
+        // increment turn number, if we have any turns planned, else start with `1`
+        const newTurn = selRoute.planned.length ? selRoute.planned[selRoute.planned.length - 1].turn + 1 : 1
         const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
           return cell.name
         })
         if (selRoute) {
           const newStep: RouteStep = {
             turn: newTurn,
-            status: { state: 'BBQ', speedKts: 12 },
+            status: { state: newLeg.state, speedKts: newLeg.speed },
             coords: coords
           }
           const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
@@ -249,25 +251,35 @@ export const Mapping: React.FC<PropTypes> = ({
         // trigger route planning
         const origin: string = routeGetLatestPosition(current.currentPosition, current.planned)
 
+        // sort out platform type for this asset
+        const pType = findPlatformTypeFor(platforms, current.platformType)
+
         // work out how far asset can travel
         const constraints: PlanMobileAsset = {
           origin: origin,
-          travelMode: 'sea',
+          travelMode: pType.travelMode,
           status: plannedTurn.statusVal.name,
           speed: plannedTurn.speedVal
         }
 
-        const speedKts = plannedTurn.speedVal
-        // TODO: turn time should come from game definition
-        const stepSize = 30
-        const stepsPerHour = (60 / stepSize)
-        const roughRange = speedKts / tileDiameterMins / stepsPerHour // work out how many NM in 30 minutes
+        // special handling, a mobile status may not have a speedVal,
+        // which represents unlimited travel
+        if (plannedTurn.speedVal) {
+          const speedKts = plannedTurn.speedVal
+          // TODO: turn time should come from game definition
+          const stepSize = 30
+          const stepsPerHour = (60 / stepSize)
+          const roughRange = speedKts / tileDiameterMins / stepsPerHour // work out how many NM in 30 minutes
 
-        // check range is in 10s
-        const range = roundToNearest(roughRange, 1)
+          // check range is in 10s
+          const range = roundToNearest(roughRange, 1)
 
-        setPlanningRange(range)
-        setPlanningConstraints(constraints)
+          setPlanningRange(range)
+          setPlanningConstraints(constraints)
+        } else {
+          setPlanningRange(undefined)
+          setPlanningConstraints(constraints)
+        }
       } else {
         // if we were planning a mobile route, clear that
         setPlanningConstraints(undefined)

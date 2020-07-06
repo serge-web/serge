@@ -114,8 +114,8 @@ export const forces = [
           },
           {
             route: [
-              'R17',
-              'S17'
+              'Q17',
+              'P16'
             ],
             status: {
               speedKts: 20,
@@ -200,8 +200,8 @@ export const forces = [
           },
           {
             route: [
-              'R19',
-              'S19'
+              'Q19',
+              'P18'
             ],
             status: {
               speedKts: 20,

@@ -94,25 +94,36 @@ export const HexGrid: React.FC<{}> = () => {
        * as a player plans the leg
        */
   useEffect(() => {
-    if (originHex && gridCells && planningRange) {
-      // special case. if we don't have a planning range, use the one from props
-      const cells: SergeHex<{}>[] = planningRange ? calcAllowableCells(gridCells, originHex, planningRange) : []
-      setAllowableCells(cells)
+    const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
+    if (originHex && gridCells && (planningRange || rangeUnlimited)) {
+      if (planningRange) {
+        // special case. if we don't have a planning range, use the one from props
+        const cells: SergeHex<{}>[] = calcAllowableCells(gridCells, originHex, planningRange)
+        setAllowableCells(cells)
+      } else {
+        // range is unlimited - allow all cells
+        setAllowableCells(gridCells)
+      }
       setOrigin(originHex.centreLatLng)
     } else {
       // clear the route
       setAllowableCells([])
       setOrigin(undefined)
     }
-  }, [originHex, planningRange, gridCells])
+  }, [originHex, planningRange, gridCells, planningConstraints])
 
   /** filter the list of cells allowable for this platform
        * depending on requested cell type
        */
   useEffect(() => {
     if (allowableCells && planningConstraints) {
-      const filteredCells = allowableCells.filter((cell: SergeHex<{}>) => cell.type === planningConstraints.travelMode.toLowerCase())
-      if (filteredCells) {
+      // "air" is a special planning mode, where we don't have to filter it
+      if (planningConstraints.travelMode === 'air') {
+        // can use any of the allowable cells
+        setAllowableFilteredCells(allowableCells)
+      } else {
+        // ok, land or sea. filter accordingly
+        const filteredCells = allowableCells.filter((cell: SergeHex<{}>) => cell.type === planningConstraints.travelMode.toLowerCase())
         setAllowableFilteredCells(filteredCells)
       }
     } else {
@@ -121,7 +132,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [planningConstraints, allowableCells])
 
-  /** produce a Hex cell for the provided cell-name
+  /** store the start/origin cell
        *
        */
   useEffect(() => {
@@ -183,8 +194,8 @@ export const HexGrid: React.FC<{}> = () => {
     // Note: ok, we don't actually use the marker location, since
     // it may be outside the achievable area. Just
     // use the last point in the planning leg
-
-    if (plannedRouteCells && planningRange && planningRouteCells.length) {
+    const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
+    if (plannedRouteCells && (planningRange || rangeUnlimited) && planningRouteCells.length) {
       // deduct one from planned route, since it includes the origin cell
       const routeLen = planningRouteCells.length - 1
       const lastCell: SergeHex<{}> = planningRouteCells[routeLen]
@@ -193,7 +204,7 @@ export const HexGrid: React.FC<{}> = () => {
       marker.setLatLng(lastCell.centreLatLng)
 
       // have we consumed the full length?
-      if (routeLen === planningRange) {
+      if (rangeUnlimited || routeLen === planningRange) {
         // combine planned and planning cells, ready for results
         const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(planningRouteCells)
 
@@ -209,15 +220,17 @@ export const HexGrid: React.FC<{}> = () => {
         // ok, planning complete - fire the event back up the hierarchy
         setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
       } else {
-        // ok, just some of it has been consumed. Reduce what is remaining
-        const remaining = planningRange - routeLen
+        if (planningRange && !rangeUnlimited) {
+          // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
+          const remaining = planningRange - routeLen
 
-        if (lastCell) {
-          setPlannedRouteCells([])
-          // note: we extend the existing planned cells, with the new ones
-          setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
-          setOriginHex(lastCell)
-          setPlanningRange(remaining)
+          if (lastCell) {
+            setPlannedRouteCells([])
+            // note: we extend the existing planned cells, with the new ones
+            setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
+            setOriginHex(lastCell)
+            setPlanningRange(remaining)
+          }
         }
       }
     }

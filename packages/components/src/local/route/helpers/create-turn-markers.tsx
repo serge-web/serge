@@ -1,11 +1,25 @@
 import React, { Fragment } from 'react'
 import { Marker, Popup } from 'react-leaflet'
-import RouteData, { RouteStep } from '../types/route-data'
+import RouteData, { RouteStep, RouteStepStatus } from '../types/route-data'
 import L, { LatLng } from 'leaflet'
 import { simpleIcon, svgIcon } from './create-marker'
 import calculatePolylineAngle from './calculate-polyline-angle'
 import { padInteger } from '@serge/helpers'
 import Button from '@material-ui/core/Button'
+
+/** provided formatted speed label, if
+ * as speed is present
+ */
+const speedLabel = (status: RouteStepStatus): string => {
+  return status.speedKts ? '@ ' + status.speedKts + 'kts' : ''
+}
+
+/** control how wide the text label is. If there is a speed
+ * we allow a wider label
+ */
+const labelLength = (status: RouteStepStatus): number => {
+  return status.speedKts ? 300 : 180
+}
 
 const createTurnMarkers = (routes: RouteData,
   turnNumber: number,
@@ -28,8 +42,8 @@ const createTurnMarkers = (routes: RouteData,
         return (
           <>
             <Marker key={`${type}_text_turns_${index}`} position={rte.position} width="2" icon={L.divIcon({
-              html: `<text>T${turn}: ${rte.status.state} @ ${rte.status.speedKts}kts</text>`,
-              iconSize: [300, 20]
+              html: `<text>T${turn}: ${rte.status.state} ${speedLabel(rte.status)}</text>`,
+              iconSize: [labelLength(rte.status), 20]
             })}>
             </Marker>
             <Marker key={`${type}_turns_${index}`} position={rte.position} width="2" icon={L.divIcon({
