@@ -16,10 +16,12 @@ export default interface RouteData {
   steps: RouteStep[]
 }
 
+export interface RouteStepStatus {
+  speedKts?: number
+  state: string
+}
+
 export interface RouteStep {
   position: LatLng
-  status: {
-    speedKts?: number
-    state: string
-  }
+  status: RouteStepStatus
 }
