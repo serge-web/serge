@@ -118,7 +118,7 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     if (allowableCells && planningConstraints) {
       // "air" is a special planning mode, where we don't have to filter it
-      if (planningConstraints.travelMode == 'air') {
+      if (planningConstraints.travelMode === 'air') {
         // can use any of the allowable cells
         setAllowableFilteredCells(allowableCells)
       } else {

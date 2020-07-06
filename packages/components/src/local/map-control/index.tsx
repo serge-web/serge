@@ -35,24 +35,24 @@ export const MapControl: React.FC<PropTypes> = ({
    * disable map scroll and click events to allow
    * to use map control  as usual html
    */
-  const disableMapClickAndScrolll = (ref: any) => {
+  const disableMapClickAndScrolll = (ref: any): void => {
     if (ref) {
       DomEvent.disableClickPropagation(ref).disableScrollPropagation(ref)
     }
   }
   /* change map zoom level */
-  const handeZoomChange = (changeValue: number) => {
+  const handeZoomChange = (changeValue: number): void => {
     const currentZoom = map.getZoom()
     if (currentZoom) map.setZoom(currentZoom + changeValue)
   }
 
   /* set map to home view */
-  const handeHome = () => {
+  const handeHome = (): void => {
     map.flyTo(home || map.getCenter(), 10)
   }
 
   /* set view as force */
-  const viewAs = (force: string) => {
+  const viewAs = (force: string): void => {
     if (viewAsCallback) {
       viewAsCallback(force)
     }
