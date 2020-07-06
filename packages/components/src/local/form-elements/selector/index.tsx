@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { Select, MenuItem } from '@material-ui/core'
 import { camelCase, capitalize, kebabCase } from 'lodash'
 
@@ -10,7 +10,7 @@ import PropTypes from './types/props'
 
 import InputContainer from '../../input-container'
 
-export const renderOptions = (options: Array<string | number>): ReactElement => options.map(option => (
+export const renderOptions = (options: Array<string | number>): JSX.Element => options.map(option => (
   <MenuItem
     key={option}
     value={kebabCase(option.toString())}
