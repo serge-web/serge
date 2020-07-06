@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, ReactText } from 'react'
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import Button from '../form-elements/button'
@@ -8,6 +8,7 @@ import Collapsible from '../helper-elements/collapsible'
 import CollapsibleHeader from '../helper-elements/collapsible/header'
 import CollapsibleContent from '../helper-elements/collapsible/content'
 import Groups from '../helper-elements/groups'
+// import update from 'react-addons-update'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -36,6 +37,7 @@ export const WorldState: React.FC<PropTypes> = ({
   submitTitle, submitForm, showOtherPlatforms
 }: PropTypes) => {
   const [routes, setRoutes] = useState<Array<PlannedRoute>>([])
+  const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
 
   /** filter the list of cells allowable for this platform
    * depending on requested cell type
@@ -58,6 +60,7 @@ export const WorldState: React.FC<PropTypes> = ({
       tmpRoutes.push(pRoute)
     })
     setRoutes(tmpRoutes)
+    setTmpRoutes(store.routes)
   }, [store, phase])
 
   // an asset has been clicked on
@@ -184,7 +187,6 @@ export const WorldState: React.FC<PropTypes> = ({
 
   const renderContent = (item: Item, depth: Array<Item> = []) => {
     // const item = routeItem as PlannedRoute
-
     let forceName: string = item.perceivedForceName || ''
     // if we don't know the force name, just use the one from the parent
 
@@ -216,13 +218,91 @@ export const WorldState: React.FC<PropTypes> = ({
     )
   }
 
+  // const removeObj = (data: any, uniqid: number | string, prevKey = null): any => {
+  //   for (var i in data) {
+  //     if (i == 'uniqid' && data[i] == uniqid) {
+  //
+  //     }
+  //     if (typeof data[i] == 'object' && removeObj(data[i], uniqid, i)) return removeObj(data[i], uniqid)
+  //   }
+  // }
+
+  const removeItem = (items: Array<Item>, removeKeys: Array<ReactText>): Array<Item> => items.filter(item => {
+    if (Array.isArray(item.comprising)) { item.comprising = removeItem(item.comprising, removeKeys) }
+    if (Array.isArray(item.hosting)) { item.hosting = removeItem(item.hosting, removeKeys) }
+    return true
+  })
+
+  const createNewGroup = (routes:Array<Item>, items: Array<Item>, depth: Array<Item>, index: number = 0):Array<Item> => {
+    if (depth.length && index < depth.length) {
+      return routes.map(item => {
+        if (Array.isArray(item.comprising)) {
+          if (item.comprising.find(({uniqid}) => uniqid === depth[index].uniqid)) {
+            item.comprising = createNewGroup(routes, items, depth, index + 1)
+          }
+        }
+        if (Array.isArray(item.hosting))  {
+          if (item.hosting.find(({uniqid}) => uniqid === depth[index].uniqid)) {
+            item.hosting = createNewGroup(routes, items, depth, index + 1)
+          }
+        }
+        return item
+      })
+    } else {
+      const newGroup = {
+        name: 'new group',
+        comprising: items,
+        forceName: 'Blue',
+        hosting: [],
+        numPlanned: 0,
+        platformType: 'test',
+        selected: false,
+        underControl: true,
+        uniqid: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
+      }
+
+      return [
+        ...routes,
+        newGroup as Item,
+      ]
+    }
+  }
+  const moveToGroup = (routes:Array<Item>, droppedInTo: Item, droppedItem: Item):Array<Item> => {
+    return routes.map(item => {
+      if (Array.isArray(item.comprising)) {
+        if (item.uniqid === droppedInTo.uniqid) {
+          console.log('find');
+          item.comprising = [...item.comprising, droppedItem]
+        } else {
+          item.comprising = moveToGroup(item.comprising, droppedInTo, droppedItem)
+        }
+      }
+      return item
+    })
+  }
   return <>
     <div className={styles['world-state']}>
       <Groups
-        items={store.routes}
+        items={tmpRoutes}
         renderContent={renderContent}
-        onSet={(items, type) => {
-          console.log(items, type);
+        onSet={(itemsLink, type, depth) => {
+          const items = itemsLink.slice(0)
+          const [droppedItem, droppedInTo] = items
+          // const itemsCopy = update()
+          // TODO: remove setTmpRoutes and use api
+          let newRoutes
+          switch (type) {
+            case "group":
+              newRoutes = removeItem(tmpRoutes, items.map(i => i.uniqid));
+              newRoutes = createNewGroup(newRoutes, items, depth)
+              setTmpRoutes(newRoutes as Array<Route>)
+              break;
+            default:
+              newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid]);
+              newRoutes = moveToGroup(newRoutes, droppedInTo, droppedItem)
+              setTmpRoutes(newRoutes as Array<Route>)
+              break;
+          }
         }}
       />
       <h2 className={styles.title}>{customTitle}</h2>

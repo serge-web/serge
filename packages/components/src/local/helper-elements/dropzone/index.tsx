@@ -64,7 +64,8 @@ export const Dropzones: React.FC<PropTypes> = ({ children, item, type = 'empty',
     if (newList.length === 0) {
       if (type !== 'empty') setLoading(true)
     } else if (newList.length > 1) {
-      if (onSet) onSet(newList, type)
+      const dragged = newList.find(it => it.uniqid !== item.uniqid)
+      if (onSet && dragged) onSet([dragged, item], type)
     }
   }
   const handleStart = () => {
@@ -97,6 +98,9 @@ export const Dropzones: React.FC<PropTypes> = ({ children, item, type = 'empty',
 
   if (commingDrop) console.log(commingDrop);
 
+  if (type === 'empty') {
+    type === 'empty'
+  }
 
   return (
     <div ref={innerRef} className={cx(
@@ -110,7 +114,7 @@ export const Dropzones: React.FC<PropTypes> = ({ children, item, type = 'empty',
           group="groupName"
           animation={200}
           delay={2}
-          list={[{id: item.uniqid, ...item}]}
+          list={[{id: `${type}-${item.uniqid}`, ...item}]}
           setList={handeListChange}
           onStart={handleStart}
           onEnd={handleEnd}

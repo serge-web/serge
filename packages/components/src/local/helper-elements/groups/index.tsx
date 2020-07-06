@@ -21,8 +21,8 @@ export const Groups: React.FC<PropTypes> = ({ items = [],  renderContent = () =>
 
   const onStart = (i: DropzoneItem):void => { setDragItem(i.uniqid) }
   const onEnd = ():void => { setDragItem('') }
-  const handleSet = (items: Array<DropzoneItem>, type: type) => {
-    if(onSet) onSet(items as Array<Item>, type)
+  const handleSet = (items: Array<DropzoneItem>, type: type, depth: Array<Item> = []) => {
+    if(onSet) onSet(items as Array<Item>, type, depth)
   }
 
 
@@ -49,7 +49,7 @@ export const Groups: React.FC<PropTypes> = ({ items = [],  renderContent = () =>
           onEnd={onEnd}
           active={dragItem}
           type='group'
-          onSet={handleSet}
+          onSet={(items: Array<DropzoneItem>, type: type) => handleSet(items, type, depth) }
         >
           {renderContent(item, depth)}
         </Dropzone>}
@@ -60,9 +60,9 @@ export const Groups: React.FC<PropTypes> = ({ items = [],  renderContent = () =>
           onStart={onStart}
           onEnd={onEnd}
           active={dragItem}
-          onSet={handleSet}
+          onSet={(items: Array<DropzoneItem>, type: type) => handleSet(items, type, depth) }
         />}
-        {subitems.length > 0 && <ul>{ subitems.map(item => <li key={item.uniqid}>{ renderGroupItem(item, [item, ...depth]) }</li>) }</ul>}
+        {subitems.length > 0 && <ul>{ subitems.map((item, key) => <li key={`${key}-${item.uniqid}`}>{ renderGroupItem(item, [...depth, item]) }</li>) }</ul>}
       </CollapsibleContent>
     </Collapsible>)
   }
