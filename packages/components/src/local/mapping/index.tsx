@@ -270,17 +270,16 @@ export const Mapping: React.FC<PropTypes> = ({
           const stepSize = 30
           const stepsPerHour = (60 / stepSize)
           const roughRange = speedKts / tileDiameterMins / stepsPerHour // work out how many NM in 30 minutes
-  
+
           // check range is in 10s
           const range = roundToNearest(roughRange, 1)
-  
+
           setPlanningRange(range)
           setPlanningConstraints(constraints)
         } else {
           setPlanningRange(undefined)
-          setPlanningConstraints(constraints)  
+          setPlanningConstraints(constraints)
         }
-
       } else {
         // if we were planning a mobile route, clear that
         setPlanningConstraints(undefined)

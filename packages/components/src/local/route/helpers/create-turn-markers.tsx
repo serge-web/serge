@@ -7,7 +7,7 @@ import calculatePolylineAngle from './calculate-polyline-angle'
 import { padInteger } from '@serge/helpers'
 import Button from '@material-ui/core/Button'
 
-/** provided formatted speed label, if 
+/** provided formatted speed label, if
  * as speed is present
  */
 const speedLabel = (status: RouteStepStatus): string => {

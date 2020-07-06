@@ -96,7 +96,7 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
     if (originHex && gridCells && (planningRange || rangeUnlimited)) {
-      if(planningRange) {
+      if (planningRange) {
         // special case. if we don't have a planning range, use the one from props
         const cells: SergeHex<{}>[] = calcAllowableCells(gridCells, originHex, planningRange)
         setAllowableCells(cells)
@@ -118,7 +118,7 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     if (allowableCells && planningConstraints) {
       // "air" is a special planning mode, where we don't have to filter it
-      if(planningConstraints.travelMode == 'air') {
+      if (planningConstraints.travelMode == 'air') {
         // can use any of the allowable cells
         setAllowableFilteredCells(allowableCells)
       } else {
@@ -204,7 +204,7 @@ export const HexGrid: React.FC<{}> = () => {
       marker.setLatLng(lastCell.centreLatLng)
 
       // have we consumed the full length?
-      if (rangeUnlimited || routeLen === planningRange ) {
+      if (rangeUnlimited || routeLen === planningRange) {
         // combine planned and planning cells, ready for results
         const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(planningRouteCells)
 
@@ -220,7 +220,7 @@ export const HexGrid: React.FC<{}> = () => {
         // ok, planning complete - fire the event back up the hierarchy
         setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
       } else {
-        if(planningRange && !rangeUnlimited) {
+        if (planningRange && !rangeUnlimited) {
           // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
           const remaining = planningRange - routeLen
 
