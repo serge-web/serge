@@ -112,7 +112,6 @@ export const HexGrid: React.FC<{}> = () => {
       }
       // store it anyway, even if it's undefined
       setOriginHex(originCell)
-
     } else {
       // clear the route
       setAllowableCells([])
@@ -142,7 +141,6 @@ export const HexGrid: React.FC<{}> = () => {
       setAllowableFilteredCells([])
     }
   }, [allowableCells])
-
 
   /** calculate the set of polygons that represent the map grid, including
        * locations for their text labels, and a similarly indexed set of hex
