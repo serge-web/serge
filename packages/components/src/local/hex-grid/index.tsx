@@ -95,22 +95,29 @@ export const HexGrid: React.FC<{}> = () => {
        */
   useEffect(() => {
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
-    if (originHex && gridCells && (planningRange || rangeUnlimited)) {
-      if (planningRange) {
-        // special case. if we don't have a planning range, use the one from props
-        const cells: SergeHex<{}>[] = calcAllowableCells(gridCells, originHex, planningRange)
-        setAllowableCells(cells)
-      } else {
-        // range is unlimited - allow all cells
-        setAllowableCells(gridCells)
+    if (planningConstraints && planningConstraints.origin && gridCells && (planningRange || rangeUnlimited)) {
+      const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
+      // did we find it?
+      if (originCell) {
+        // is there a limited range?
+        if (planningRange) {
+          // ok, find which cells are within our travel range
+          const cells: SergeHex<{}>[] = calcAllowableCells(gridCells, originCell, planningRange)
+          setAllowableCells(cells)
+        } else {
+          // range is unlimited - allow all cells
+          setAllowableCells(gridCells)
+        }
+        setOrigin(originCell.centreLatLng)
       }
-      setOrigin(originHex.centreLatLng)
+      // store it anyway, even if it's undefined
+      setOriginHex(originCell)
     } else {
       // clear the route
       setAllowableCells([])
       setOrigin(undefined)
     }
-  }, [originHex, planningRange, gridCells, planningConstraints])
+  }, [planningRange, planningConstraints])
 
   /** filter the list of cells allowable for this platform
        * depending on requested cell type
@@ -121,30 +128,19 @@ export const HexGrid: React.FC<{}> = () => {
       if (planningConstraints.travelMode === 'air') {
         // can use any of the allowable cells
         setAllowableFilteredCells(allowableCells)
-      } else {
+      } else if (allowableCells.length) {
         // ok, land or sea. filter accordingly
         const filteredCells = allowableCells.filter((cell: SergeHex<{}>) => cell.type === planningConstraints.travelMode.toLowerCase())
         setAllowableFilteredCells(filteredCells)
+      } else {
+        // clear the allowable cells
+        setAllowableFilteredCells([])
       }
     } else {
       // clear the allowable cells
       setAllowableFilteredCells([])
     }
-  }, [planningConstraints, allowableCells])
-
-  /** store the start/origin cell
-       *
-       */
-  useEffect(() => {
-    if (gridCells && planningConstraints) {
-      const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
-      if (originCell) {
-        setOriginHex(originCell)
-      }
-    } else {
-      setOriginHex(undefined)
-    }
-  }, [planningConstraints, gridCells])
+  }, [allowableCells])
 
   /** calculate the set of polygons that represent the map grid, including
        * locations for their text labels, and a similarly indexed set of hex
