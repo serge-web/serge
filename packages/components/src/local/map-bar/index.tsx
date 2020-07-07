@@ -50,7 +50,9 @@ export const MapBar: React.FC = () => {
     channelID,
     postBack,
     routeStore,
-    turnPlanned
+    turnPlanned,
+    hidePlanningForm,
+    setHidePlanningForm
   }: {
     playerForce: any
     phase: Phase
@@ -65,6 +67,8 @@ export const MapBar: React.FC = () => {
     postBack: Postback
     routeStore: RouteStore
     turnPlanned: {(turn: PlanTurnFormValues): void}
+    hidePlanningForm: boolean
+    setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
   } = useContext(MapContext).props
 
   // sort out the handler for State of World button
@@ -106,6 +110,7 @@ export const MapBar: React.FC = () => {
   // Selects the current asset
   useEffect(() => {
     if (selectedAsset) {
+      setHidePlanningForm(false)
       setCurrentForm(assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase))
       setCurrentAssetName(selectedAsset.name)
     } else {
@@ -179,6 +184,7 @@ export const MapBar: React.FC = () => {
         }
         output = <PlanTurnForm
           icon={icondData}
+          setHidePlanningForm={setHidePlanningForm}
           key={selectedAsset.uniqid}
           formHeader={currentAssetName}
           formData={collatePlanFormData(platforms, selectedAsset)}
@@ -217,7 +223,7 @@ export const MapBar: React.FC = () => {
             submitForm={worldStateSubmitHandler} ></WorldState>
         </section>
       </div>
-      {currentForm !== '' && selectedAsset &&
+      {currentForm !== '' && selectedAsset && (currentForm !== 'Planning' || !hidePlanningForm) &&
         <div className={styles['form-inner']}>
           <section>
             {formSelector(currentForm)}

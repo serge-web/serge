@@ -18,7 +18,8 @@ import { SergeHex } from '@serge/custom-types'
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
-  const { gridCells, planningConstraints, planningRange: planningRangeProps, zoomLevel, setNewLeg } = useContext(MapContext).props
+  const { gridCells, planningConstraints, planningRange: planningRangeProps,
+    zoomLevel, setNewLeg, setHidePlanningForm } = useContext(MapContext).props
 
   // fix the leaflet icon path, using tip from here:
   // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
@@ -244,6 +245,12 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
+  const onMarkerClick = (): void => {
+    if(setHidePlanningForm) {
+      setHidePlanningForm(false)
+    }
+  }
+
   return <>
     <LayerGroup key={'hex_polygons'} >{Object.keys(allowablePolygons).map(k => (
       <Polygon
@@ -269,6 +276,7 @@ export const HexGrid: React.FC<{}> = () => {
           draggable={true}
           onDragend={dropped}
           onDrag={beingDragged}
+          onClick={onMarkerClick}
           position={origin}
           key={'drag_marker_'} />
     }

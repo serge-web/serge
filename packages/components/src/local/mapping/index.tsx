@@ -117,6 +117,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [viewAsRouteStore, setViewAsRouteStore] = useState<RouteStore>({ routes: [] })
   const [leafletElement, setLeafletElement] = useState(undefined)
   const [viewAsForce, setViewAsForce] = useState<string>(UMPIRE_FORCE)
+  const [hidePlanningForm, setHidePlanningForm] = useState<boolean>(false)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -331,7 +332,9 @@ export const Mapping: React.FC<PropTypes> = ({
     setZoomLevel,
     turnPlanned,
     clearFromTurn,
-    postBack
+    postBack,
+    hidePlanningForm,
+    setHidePlanningForm
   }
 
   // any events for leafletjs you can get from leafletElement
