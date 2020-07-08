@@ -65,11 +65,10 @@ export const HexGrid: React.FC<{}> = () => {
     setPlanningRange(planningRangeProps)
   }, [planningRangeProps])
 
-
   /** if no asset is selected, clear the planning elements
    */
   useEffect(() => {
-    if(!selectedAsset) {
+    if (!selectedAsset) {
       setAllowableFilteredCells([])
       setOrigin(undefined)
       setOriginHex(undefined)
