@@ -350,7 +350,7 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   /**
-   * this callback is called when the user clicks on a blank part of the map. 
+   * this callback is called when the user clicks on a blank part of the map.
    * When that happens, clear the selection
    */
   const mapClick = (): void => {
