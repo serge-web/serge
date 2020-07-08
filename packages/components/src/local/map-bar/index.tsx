@@ -110,8 +110,12 @@ export const MapBar: React.FC = () => {
   // Selects the current asset
   useEffect(() => {
     if (selectedAsset) {
+      const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase)
+      // note: since the next call is async, we get a render before the new form
+      // has been assigned. This caused troubles. So, while we set the new form here,
+      // we do a "live-recalculation" in the render code
       setHidePlanningForm(false)
-      setCurrentForm(assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase))
+      setCurrentForm(newForm)
       setCurrentAssetName(selectedAsset.name)
     } else {
       setCurrentAssetName('Pending')
@@ -154,8 +158,11 @@ export const MapBar: React.FC = () => {
   }
 
   /* TODO: This should be refactored into a helper */
-  const formSelector = (form: string): any => {
+  const formSelector = (): any => {
     let output = null
+    // do a fresh calculation on which form to display, to overcome
+    // an async state update issue
+    const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase)
     const icondData = {
       forceColor: selectedAsset.force,
       platformType: selectedAsset.type
@@ -179,9 +186,6 @@ export const MapBar: React.FC = () => {
           postBack={postBack} />
         break
       case 'Planning':
-        if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
-
-        }
         output = <PlanTurnForm
           icon={icondData}
           setHidePlanningForm={setHidePlanningForm}
@@ -226,7 +230,7 @@ export const MapBar: React.FC = () => {
       {currentForm !== '' && selectedAsset && (currentForm !== 'Planning' || !hidePlanningForm) &&
         <div className={styles['form-inner']}>
           <section>
-            {formSelector(currentForm)}
+            {formSelector()}
           </section>
         </div>
       }
