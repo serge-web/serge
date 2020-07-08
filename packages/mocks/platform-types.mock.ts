@@ -270,7 +270,10 @@ export const platformTypes = [
       'Destroyed'
     ],
     icon: 'uas.svg',
-    speedKts: [],
+    speedKts: [
+      10,
+      20
+    ],
     states: [
       {
         name: 'Transiting',
