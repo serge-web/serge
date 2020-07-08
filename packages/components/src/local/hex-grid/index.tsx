@@ -111,12 +111,16 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
     if (planningConstraints && planningConstraints.origin && gridCells && (planningRange || rangeUnlimited)) {
-      const originCell = gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
-      // did we find it?
+
+      // if we're mid-way through a leg, we take the value from the origin hex, not the planning centre
+      const originCell = plannedRoutePoly.length ? originHex : gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
+
+      // did we find cell?
       if (originCell) {
         // is there a limited range?
         if (planningRange) {
           // ok, find which cells are within our travel range
+
           const cells: SergeHex<{}>[] = calcAllowableCells(gridCells, originCell, planningRange)
           setAllowableCells(cells)
         } else {
@@ -130,7 +134,6 @@ export const HexGrid: React.FC<{}> = () => {
     } else {
       // clear the route
       setAllowableCells([])
-      setAllowableFilteredCells([])
       setOrigin(undefined)
       setOriginHex(undefined)
     }
