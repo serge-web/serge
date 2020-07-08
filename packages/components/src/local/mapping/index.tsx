@@ -349,6 +349,14 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
+  /**
+   * this callback is called when the user clicks on a blank part of the map. 
+   * When that happens, clear the selection
+   */
+  const mapClick = (): void => {
+    setSelectedAsset(undefined)
+  }
+
   return (
     <MapContext.Provider value={{ props: contextProps }}>
       <section className={styles['map-container']}>
@@ -364,6 +372,7 @@ export const Mapping: React.FC<PropTypes> = ({
           minZoom={minZoom}
           zoomControl={false}
           maxZoom={maxZoom}
+          onClick={mapClick}
           ref={handleEvents}
           touchZoom={touchZoom}
           zoomAnimation={zoomAnimation}
