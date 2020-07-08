@@ -111,7 +111,6 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
     if (planningConstraints && planningConstraints.origin && gridCells && (planningRange || rangeUnlimited)) {
-
       // if we're mid-way through a leg, we take the value from the origin hex, not the planning centre
       const originCell = plannedRoutePoly.length ? originHex : gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
 
