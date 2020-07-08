@@ -20,7 +20,7 @@ import { SergeHex } from '@serge/custom-types'
 export const HexGrid: React.FC<{}> = () => {
   const {
     gridCells, planningConstraints, planningRange: planningRangeProps,
-    zoomLevel, setNewLeg, setHidePlanningForm
+    zoomLevel, setNewLeg, setHidePlanningForm, selectedAsset
   } = useContext(MapContext).props
 
   // fix the leaflet icon path, using tip from here:
@@ -64,6 +64,19 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     setPlanningRange(planningRangeProps)
   }, [planningRangeProps])
+
+
+  /** if no asset is selected, clear the planning elements
+   */
+  useEffect(() => {
+    if(!selectedAsset) {
+      setAllowableFilteredCells([])
+      setOrigin(undefined)
+      setOriginHex(undefined)
+      setPlanningRoutePoly([])
+      setPlannedRoutePoly([])
+    }
+  }, [selectedAsset])
 
   /** handle the dynamic indicator that follows mouse movement,
        * represented as cells & a line
@@ -118,7 +131,9 @@ export const HexGrid: React.FC<{}> = () => {
     } else {
       // clear the route
       setAllowableCells([])
+      setAllowableFilteredCells([])
       setOrigin(undefined)
+      setOriginHex(undefined)
     }
   }, [planningRange, planningConstraints])
 
