@@ -100,6 +100,7 @@ export const WorldState: React.FC<PropTypes> = ({
   // }
 
   const removeItem = (items: Array<Item>, removeKeys: Array<ReactText>): Array<Item> => items.filter(item => {
+    if (removeKeys.includes(item.uniqid)) return false
     if (Array.isArray(item.comprising)) { item.comprising = removeItem(item.comprising, removeKeys) }
     if (Array.isArray(item.hosting)) { item.hosting = removeItem(item.hosting, removeKeys) }
     return true
@@ -143,7 +144,6 @@ export const WorldState: React.FC<PropTypes> = ({
     return routes.map(item => {
       if (Array.isArray(item.comprising)) {
         if (item.uniqid === droppedInTo.uniqid) {
-          console.log('find');
           item.comprising = [...item.comprising, droppedItem]
         } else {
           item.comprising = moveToGroup(item.comprising, droppedInTo, droppedItem)
@@ -167,12 +167,18 @@ export const WorldState: React.FC<PropTypes> = ({
           let newRoutes
           switch (type) {
             case "group":
-              newRoutes = removeItem(tmpRoutes, items.map(i => i.uniqid));
+              newRoutes = removeItem(tmpRoutes, items.map(i => i.uniqid))
               newRoutes = createNewGroup(newRoutes, items, depth)
               setTmpRoutes(newRoutes as Array<Route>)
               break;
+            case "group-out":
+              newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
+              newRoutes.push(droppedItem)
+              console.log(newRoutes);
+              setTmpRoutes(newRoutes as Array<Route>)
+              break;
             default:
-              newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid]);
+              newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
               newRoutes = moveToGroup(newRoutes, droppedInTo, droppedItem)
               setTmpRoutes(newRoutes as Array<Route>)
               break;
