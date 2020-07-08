@@ -26,11 +26,11 @@ export const Groups: React.FC<PropTypes> = ({ items = [],  renderContent = () =>
     if(onSet) onSet(items as Array<Item>, type, depth)
   }
 
-  const checkdEmptyDropzone = (item: Item, subitems: Array<Item>): boolean => {
-    if (dragItem && dragItem !== item.uniqid) {
-      return !subitems.find((i: Item) => i.uniqId !== dragItem)
-    }
-    return false
+  const checkdEmptyDropzone = (item: Item, subitems: Array<Item>, parents: Array<Item>): boolean => {
+    if (dragItem === item.uniqid) return false
+    if (parents.length >= maxDepth) return false
+    if (subitems.find((i: Item) => i.uniqId === dragItem)) return false
+    return !!dragItem
   }
 
   const renderGroupItem = (item: Item, depth: Array<Item> = []) => {
@@ -62,20 +62,20 @@ export const Groups: React.FC<PropTypes> = ({ items = [],  renderContent = () =>
         </Dropzone>}
       </CollapsibleHeader>
       <CollapsibleContent useIndent={40}>
-        {checkdEmptyDropzone(item, subitems) && <Dropzone
+        {checkdEmptyDropzone(item, subitems, depth) && <Dropzone
           item={item}
           onEnd={onEnd}
           active={dragItem}
           onSet={(items: Array<DropzoneItem>, type: type) => handleSet(items, type, depth) }
         />}
-        {subitems.length > 0 && <ul>{ subitems.map(item => <li key={item.uniqid}>{ renderGroupItem(item, [...depth, item]) }</li>) }</ul>}
+        {subitems.length > 0 && <ul>{subitems.map(i => <li key={i.uniqid}>{ renderGroupItem(i, [...depth, item]) }</li>) }</ul>}
       </CollapsibleContent>
     </Collapsible>)
   }
 
   return (
     <div className={styles.main}>
-      <ul>{ items.map(item => <li key={item.uniqid}>{ renderGroupItem(item) }</li>) }</ul>
+      <ul>{ items.map(i => <li key={i.uniqid}>{ renderGroupItem(i) }</li>) }</ul>
       {dragItem && hasParrent && <Dropzone
         item={{ uniqid: -1 }}
         onEnd={onEnd}

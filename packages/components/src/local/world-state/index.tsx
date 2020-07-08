@@ -90,15 +90,6 @@ export const WorldState: React.FC<PropTypes> = ({
     )
   }
 
-  // const removeObj = (data: any, uniqid: number | string, prevKey = null): any => {
-  //   for (var i in data) {
-  //     if (i == 'uniqid' && data[i] == uniqid) {
-  //
-  //     }
-  //     if (typeof data[i] == 'object' && removeObj(data[i], uniqid, i)) return removeObj(data[i], uniqid)
-  //   }
-  // }
-
   const removeItem = (items: Array<Item>, removeKeys: Array<ReactText>): Array<Item> => items.filter(item => {
     if (removeKeys.includes(item.uniqid)) return false
     if (Array.isArray(item.comprising)) { item.comprising = removeItem(item.comprising, removeKeys) }
@@ -107,21 +98,16 @@ export const WorldState: React.FC<PropTypes> = ({
   })
 
   const createNewGroup = (routes:Array<Item>, items: Array<Item>, depth: Array<Item>, index: number = 0):Array<Item> => {
-    if (depth.length && index < depth.length) {
+    if (depth.length > 0 && index < depth.length) {
       return routes.map(item => {
-        if (Array.isArray(item.comprising)) {
-          if (item.comprising.find(({uniqid}) => uniqid === depth[index].uniqid)) {
-            item.comprising = createNewGroup(routes, items, depth, index + 1)
-          }
-        }
-        if (Array.isArray(item.hosting))  {
-          if (item.hosting.find(({uniqid}) => uniqid === depth[index].uniqid)) {
-            item.hosting = createNewGroup(routes, items, depth, index + 1)
-          }
+        if (item.uniqid === depth[index].uniqid) {
+          item.comprising = createNewGroup(item.comprising || [], items, depth, index + 1)
+          if (index < depth.length - 1) item.hosting = createNewGroup(item.hosting || [], items, depth, index + 1)
         }
         return item
       })
-    } else {
+    }
+    else {
       const newGroup = {
         name: 'new group',
         comprising: items,
@@ -145,7 +131,8 @@ export const WorldState: React.FC<PropTypes> = ({
       if (Array.isArray(item.comprising)) {
         if (item.uniqid === droppedInTo.uniqid) {
           item.comprising = [...item.comprising, droppedItem]
-        } else {
+        }
+        else {
           item.comprising = moveToGroup(item.comprising, droppedInTo, droppedItem)
         }
       }
@@ -162,7 +149,6 @@ export const WorldState: React.FC<PropTypes> = ({
         onSet={(itemsLink, type, depth) => {
           const items = itemsLink.slice(0)
           const [droppedItem, droppedInTo] = items
-          // const itemsCopy = update()
           // TODO: remove setTmpRoutes and use api
           let newRoutes
           switch (type) {
@@ -170,18 +156,17 @@ export const WorldState: React.FC<PropTypes> = ({
               newRoutes = removeItem(tmpRoutes, items.map(i => i.uniqid))
               newRoutes = createNewGroup(newRoutes, items, depth)
               setTmpRoutes(newRoutes as Array<Route>)
-              break;
+              break
             case "group-out":
               newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
               newRoutes.push(droppedItem)
-              console.log(newRoutes);
               setTmpRoutes(newRoutes as Array<Route>)
-              break;
+              break
             default:
               newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
               newRoutes = moveToGroup(newRoutes, droppedInTo, droppedItem)
               setTmpRoutes(newRoutes as Array<Route>)
-              break;
+              break
           }
         }}
       />
@@ -193,118 +178,5 @@ export const WorldState: React.FC<PropTypes> = ({
     </div>
   </>
 }
-
-/*
-<ul>
-  {routes
-    .filter((pRoute: PlannedRoute) => pRoute.underControl === !showOtherPlatforms)
-    .map((pRoute: PlannedRoute): any => (
-      <li
-        key={'r_li_' + pRoute.uniqid}
-      >
-        {renderItem(pRoute, pRoute.forceName, true)}
-      </li>
-    ))
-  }
-</ul>
-*/
-
-/*
-const renderItem = (pRoute: PlannedRoute, forceName: string, topLevel: boolean): JSX.Element => {
-  const descriptionText = (isUmpire || pRoute.underControl) && topLevel
-    ? `${pRoute.numPlanned} turns planned` : ''
-
-  const hostItems: Array<PlannedRoute> = []
-  if (pRoute.hosting && pRoute.hosting.length) {
-    pRoute.hosting.forEach((route: RouteChild) => {
-      const newItem: PlannedRoute = {
-        id: route.uniqid,
-        name: route.name,
-        comprising: route.asset ? route.asset.comprising : [],
-        forceName: route.force,
-        hosting: route.asset ? route.asset.hosting : [],
-        numPlanned: 0,
-        platformType: route.platformType,
-        selected: false,
-        underControl: true,
-        uniqid: route.uniqid
-      }
-      hostItems.push(newItem)
-    })
-  }
-
-
-  const compriseItems: Array<PlannedRoute> = []
-  if (pRoute.comprising && pRoute.comprising.length) {
-    pRoute.comprising.forEach((route: RouteChild) => {
-      const newItem: PlannedRoute = {
-        id: route.uniqid,
-        name: route.name,
-        comprising: route.asset.comprising,
-        forceName: route.force,
-        hosting: route.asset.hosting,
-        numPlanned: 0,
-        platformType: route.platformType,
-        selected: false,
-        underControl: true,
-        uniqid: route.uniqid
-      }
-      compriseItems.push(newItem)
-    })
-  }
-
-  const checkStatus: boolean = pRoute.numPlanned > 0
-
-  // if we don't know the force name, just use the one from the parent
-  const forceNameToUse = pRoute.forceName || forceName
-
-  const icClassName = getIconClassname(forceNameToUse.toLowerCase(), pRoute.platformType.toLowerCase(), pRoute.selected)
-
-  const assetClick = (id: string): void => {
-    // only select target if we're in "other platforms"
-    // TODO: we need to stop the event propagating back up the tree
-    if (showOtherPlatforms) {
-      clickEvent(id)
-    }
-  }
-
-  const list = [...hostItems, ...compriseItems]
-
-
-  return (
-    <Collapsible>
-      <CollapsibleHeader>
-        <div className={styles.item} onClick={(): any => clickEvent(pRoute.uniqid)}>
-          <div className={cx(icClassName, styles['item-icon'])}/>
-          <div className={styles['item-content']}>
-            <div>
-              <p>{pRoute.name}</p>
-              <p>{descriptionText}</p>
-            </div>
-
-          </div>
-          {!showOtherPlatforms && topLevel && <div className={styles['item-check']}>
-            {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
-            {checkStatus === false && <CheckCircleIcon style={{ color: '#B1B1B1' }} />}
-          </div>}
-        </div>
-      </CollapsibleHeader>
-      <CollapsibleContent useIndent={40}>
-        {list.length > 0 && <ul>
-          {hostItems.map((child: PlannedRoute) => (
-            <li
-              key={'item-' + child.uniqid}
-              onClick={(): any => assetClick(child.uniqid)}
-            >
-              {renderItem(child, forceNameToUse, false)}
-            </li>
-          ))}
-        </ul>}
-      </CollapsibleContent>
-    </Collapsible>
-  )
-}
-
-*/
 
 export default WorldState
