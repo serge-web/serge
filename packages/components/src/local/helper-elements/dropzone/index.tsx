@@ -23,6 +23,18 @@ export const Dropzones: React.FC<PropTypes> = ({ children, item, type = 'empty',
   const [commingDrop, setCommingDrop] = useState<boolean>(false)
 
   let holderElement: HTMLDivElement;
+
+  let activeDropzone = false;
+  let typeEmpty = false;
+  let typeGroup = false;
+  let typeOut = false;
+
+  switch (type) {
+    case 'group':   typeGroup = true; activeDropzone = !!active;  break
+    case 'empty':   typeEmpty = true; activeDropzone = showEmpty; break
+    case 'group-out': typeOut = true; activeDropzone = showEmpty; break
+  }
+
   // const currActive: boolean = active === item.uniqid
   // const dropActive: boolean = !currActive && !!active
 
@@ -62,7 +74,7 @@ export const Dropzones: React.FC<PropTypes> = ({ children, item, type = 'empty',
 
   const handeListChange = (newList: Array<Item>) => {
     if (newList.length === 0) {
-      if (type !== 'empty') setLoading(true)
+      if (!typeEmpty) setLoading(true)
     } else if (newList.length > 1) {
       const dragged = newList.find(it => it.uniqid !== item.uniqid)
       if (onSet && dragged) onSet([dragged, item], type)
@@ -86,40 +98,39 @@ export const Dropzones: React.FC<PropTypes> = ({ children, item, type = 'empty',
   const renderGroup = () => (
     <div className={cx(styles.switchitem, commingDrop && styles.switch)}> <AddToPhotosIcon fontSize='small'/><span>Group with {item.name}</span> </div>
   )
+  const renderGroupOut = () => (
+    <div> <DoubleArrowIcon fontSize='small'/><span>Drop to root</span> </div>
+  )
 
   const renderDropzone = () => (
     <div className={cx(styles.dropzone)}>
       <div className={cx(styles.content, styles[`content-${type}`])}>
-        {type === 'empty' && renderEmpty()}
-        {type === 'group' && renderGroup()}
+        {typeEmpty && renderEmpty()}
+        {typeOut && renderGroupOut()}
+        {/* TODO: Add overlap for group label */}
+        {typeGroup && renderGroup()}
       </div>
     </div>
   )
-
-  if (commingDrop) console.log(commingDrop);
-
-  if (type === 'empty') {
-    type === 'empty'
-  }
 
   return (
     <div ref={innerRef} className={cx(
       styles.main,
       styles[`main-${type}`],
-      type === 'empty' ? showEmpty && styles['empty-active'] : active && styles['main-active']
+      activeDropzone && styles[`${type}-active`]
     )}>
       <div className={cx(styles.holder, loading && styles.loading)} ref={handleRef}>
-        { type === 'empty' && renderDropzone() }
+        { renderDropzone() }
         <ReactSortable
           group="groupName"
-          animation={200}
-          delay={2}
-          list={[{id: `${type}-${item.uniqid}`, ...item}]}
+          animation={0}
+          delay={.5}
+          list={[{id: `${item.uniqid}-${type}`, ...item}]}
           setList={handeListChange}
           onStart={handleStart}
           onEnd={handleEnd}
         >
-          <div className={styles.item}>
+          <div className={cx(styles.item, typeOut && styles['item-hide'])}>
             {children}
           </div>
         </ReactSortable>

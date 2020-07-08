@@ -1,3 +1,5 @@
+$item-height: 44px;
+
 .main {
   position: relative;
 }
@@ -5,15 +7,35 @@
 .main-empty {
   height: 0;
   overflow: hidden;
-  transition: height linear 400ms;
+  transition: height linear 150ms;
 }
 
-.main-active {
-  height: 44px;
+.group-active {
+  height: $item-height;
 }
 
 .empty-active {
-  height: 44px;
+  height: $item-height;
+}
+
+.main-group-out {
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 100%;
+  top: 0;
+  background-color: rgba(0,0,0,0.7);
+  overflow: hidden;
+  z-index: 5;
+  border-radius: 4px;
+
+  & > div {
+    margin-top: -1 * $item-height;
+    height: calc(100% + #{$item-height})
+  }
+}
+.group-out-active {
+  width: 22px;
 }
 
 .dropzone {
@@ -24,6 +46,12 @@
   height: 100%;
   width: 100%;
   padding: 1px 0;
+  z-index: 1;
+
+  + div {
+    position: relative;
+    z-index: 2;
+  }
 }
 
 .item {
@@ -37,14 +65,20 @@
   background-color: rgba(255,255,255,0.7);
 }
 
+.item-hide {
+  width: 0;
+  height: 0;
+}
+
 .collapse {
   display: block;
 }
 
 .holder {
-  min-height: 44px;
+  min-height: $item-height;
   & > div {
-    min-height: 44px;
+    min-height: $item-height;
+    height: 100%;
   }
 }
 
@@ -75,6 +109,11 @@
     justify-content: center;
     flex-wrap: nowrap;
   }
+}
+
+.content-group-out {
+  white-space: nowrap;
+  transform: rotateZ(90deg);
 }
 
 .switchitem {

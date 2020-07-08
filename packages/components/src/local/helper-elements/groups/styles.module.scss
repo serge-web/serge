@@ -1,11 +1,11 @@
 .main {
-  display: none;
-}
+  position: relative;
 
-.use-indent {
-  padding-left: 20px;
-}
+  & > ul {
+    z-index: 1;
+  }
 
-.collapse {
-  display: block;
+  & > div {
+    z-index: 2;
+  }
 }
