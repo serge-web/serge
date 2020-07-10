@@ -14,13 +14,13 @@ import getCellStyle from './helpers/get-cell-style'
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import { SergeHex } from '@serge/custom-types'
+import { SergeHex, Route } from '@serge/custom-types'
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
   const {
     gridCells, planningConstraints, planningRange: planningRangeProps,
-    zoomLevel, setNewLeg, setHidePlanningForm, selectedAsset
+    zoomLevel, setNewLeg, setHidePlanningForm, selectedAsset, viewAsRouteStore
   } = useContext(MapContext).props
 
   // fix the leaflet icon path, using tip from here:
@@ -57,6 +57,19 @@ export const HexGrid: React.FC<{}> = () => {
 
   //  allow the achievable range to be changed
   const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProps)
+
+  const [assetColor, setAssetColor] = useState<string>('')
+
+  useEffect(() => {
+    // get the color for this asset
+    console.log(viewAsRouteStore)
+    const current:Route = viewAsRouteStore.routes.find((route:Route) => route.uniqid === selectedAsset.uniqid)
+    console.log(current)
+    if(current) {
+      setAssetColor(current.color)
+      console.log(current.color)
+    }
+  }, [selectedAsset])
 
   /** allow for the props being changed. This could be from the StoryBook testing, but could equally
        *  be from the plan route form
@@ -278,17 +291,20 @@ export const HexGrid: React.FC<{}> = () => {
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
         key={'hex_poly_' + k}
+        color={ assetColor }
         positions={allowablePolygons[k]}
         className={styles[getCellStyle(allowableHexCells[k], planningRouteCells, allowableFilteredCells)]}
       />
     ))}
     <Polyline
       key={'hex_planned_line'}
+      color={ assetColor }
       positions={plannedRoutePoly}
       className={styles['planned-line']}
     />
     <Polyline
       key={'hex_planning_line'}
+      color={ assetColor }
       positions={planningRoutePoly}
       className={styles['planning-line']}
     />
