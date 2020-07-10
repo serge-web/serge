@@ -59,15 +59,36 @@ export const HexGrid: React.FC<{}> = () => {
   const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProps)
 
   const [assetColor, setAssetColor] = useState<string>('')
+  const [darkAssetColor, setDarkAssetColor] = useState<string>('')
 
+  /** utility shade, to make color lighter or darker */
+  const colorShade = (col:string, amt: number) => {
+    col = col.replace(/^#/, '')
+    if (col.length === 3) col = col[0] + col[0] + col[1] + col[1] + col[2] + col[2]
+  
+    let [r, g, b] = col.match(/.{2}/g);
+    ([r, g, b] = [parseInt(r, 16) + amt, parseInt(g, 16) + amt, parseInt(b, 16) + amt])
+  
+    r = Math.max(Math.min(255, r), 0).toString(16)
+    g = Math.max(Math.min(255, g), 0).toString(16)
+    b = Math.max(Math.min(255, b), 0).toString(16)
+  
+    const rr = (r.length < 2 ? '0' : '') + r
+    const gg = (g.length < 2 ? '0' : '') + g
+    const bb = (b.length < 2 ? '0' : '') + b
+  
+    return `#${rr}${gg}${bb}`
+  }
+
+  /** capture the color of this asset, so planning shapes
+   * get rendered in a suitable color
+   */
   useEffect(() => {
     // get the color for this asset
-    console.log(viewAsRouteStore)
-    const current:Route = viewAsRouteStore.routes.find((route:Route) => route.uniqid === selectedAsset.uniqid)
-    console.log(current)
-    if(current) {
+    const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
+    if (current) {
       setAssetColor(current.color)
-      console.log(current.color)
+      setDarkAssetColor(colorShade(current.color, -50))
     }
   }, [selectedAsset])
 
