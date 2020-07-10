@@ -1,7 +1,7 @@
 import { LatLng } from 'leaflet'
 
 /* Impot types */
-import { SergeHex, SergeGrid, RouteStep as RouteStepType } from '@serge/custom-types'
+import { SergeHex, SergeGrid, RouteTurn, RouteTurnDuo, RouteStep as RouteStepType } from '@serge/custom-types'
 import RouteData, { RouteStep } from '../types/route-data'
 
 import { hexNamed } from '@serge/helpers'
@@ -21,13 +21,16 @@ export const lengthOfTrimmedLine = 2
 export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, steps: RouteStepType[],
   trimmed: boolean, history: boolean): RouteData => {
   const polyline: LatLng[] = []
-  const turnEnds: LatLng[] = []
+  const turnEnds: Array<RouteTurn> = []
   const routeSteps: RouteStep[] = []
+  let lastLocation: RouteTurnDuo | undefined = undefined
+  let lastButOneLocation: RouteTurnDuo | undefined = undefined
   let stepCtr = 0
   // start with current position
   const startCell: SergeHex<{}> | undefined = hexNamed(position, gridCells)
   if (startCell) {
     const startPos: LatLng = startCell.centreLatLng
+    console.log('start:', position, ' history:', history)
     if (steps) {
       // store the line start if it's planned routes
       if (!history) {
@@ -39,12 +42,19 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
         // the required length?
         if (step.coords && (!trimmed || stepCtr < lengthOfTrimmedLine)) {
           let thisRouteCtr = 0 // how many steps have been recorded for this route
+          console.log('step.coords', step.coords)
           step.coords.forEach((routeStep: any) => {
             const thisCell: SergeHex<{}> | undefined = hexNamed(routeStep, gridCells)
             if (thisCell) {
+              const currentLocation: RouteTurnDuo = { pos: thisCell.centreLatLng, name: routeStep }
               // is this the first cell?
               if (thisRouteCtr === 0) {
-                turnEnds.push(thisCell.centreLatLng)
+                const newTurn: RouteTurn = {
+                  current: currentLocation,
+                  previous: lastLocation, 
+                  turn: stepCtr
+                }
+                turnEnds.push(newTurn)
               } else if (step.coords && thisRouteCtr === step.coords.length - 1) {
                 let routeStep: RouteStep
                 if (step.status.speedKts) {
@@ -63,8 +73,17 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
                     }
                   }
                 }
+                // handle the turn end
+                if(turnEnds.length) {
+                  const lastTurn: RouteTurn = turnEnds[turnEnds.length - 1]
+                  if(!lastTurn.next) {
+                    lastTurn.next = currentLocation
+                  }
+                }
                 routeSteps.push(routeStep)
               }
+              lastButOneLocation = lastLocation
+              lastLocation = currentLocation
               polyline.push(thisCell.centreLatLng)
               thisRouteCtr++
             }
@@ -73,6 +92,19 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
       })
       if (history) {
         polyline.push(startPos)
+      }
+    }
+
+
+    // see if we need to put in a trailing step
+    if(turnEnds.length) {
+      if(lastButOneLocation && lastLocation) {
+        const lastTurn: RouteTurn = {
+          current: lastLocation,
+          previous: lastButOneLocation,
+          turn: turnEnds[turnEnds.length-1].turn + 1
+        }
+        turnEnds.push(lastTurn)
       }
     }
   }
