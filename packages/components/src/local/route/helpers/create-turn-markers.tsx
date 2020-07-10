@@ -22,17 +22,16 @@ const labelLength = (status: RouteStepStatus): number => {
   return status.speedKts ? 300 : 180
 }
 
-
 const calculateTurnAngle = (thisStep: RouteTurn): number => {
-  let angle = 0;
+  let angle = 0
 
-  if(!thisStep.previous && thisStep.next) {
+  if (!thisStep.previous && thisStep.next) {
     // first marker
     angle = calculatePolylineAngle([thisStep.current.pos, thisStep.next.pos])
-  } else if(thisStep.previous && !thisStep.next) {
+  } else if (thisStep.previous && !thisStep.next) {
     // last marker
     angle = calculatePolylineAngle([thisStep.previous.pos, thisStep.current.pos])
-  } else if(thisStep.previous && thisStep.next) {
+  } else if (thisStep.previous && thisStep.next) {
     const previousAngle = calculatePolylineAngle([thisStep.previous.pos, thisStep.current.pos])
     const nextAngle = calculatePolylineAngle([thisStep.current.pos, thisStep.next.pos])
     // return the mean of both
@@ -47,7 +46,6 @@ const calculateTurnAngle = (thisStep: RouteTurn): number => {
   return (angle + 90)
 }
 
-
 const createTurnMarkers = (routes: RouteData,
   turnNumber: number,
   type: string,
@@ -55,7 +53,6 @@ const createTurnMarkers = (routes: RouteData,
   selected: boolean,
   removeLastTurn: {(turnNumber: number): void}): JSX.Element[] => {
   return routes.steps.map((rte: RouteStep, index: number) => {
-
     const markers = (color: string, routeTurn: RouteTurn): JSX.Element => {
       // start from the current game turn, increment by 0-based offset
       const currentTurn: number = turnNumber + index + 1

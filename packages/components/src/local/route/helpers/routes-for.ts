@@ -23,8 +23,8 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
   const polyline: LatLng[] = []
   const turnEnds: Array<RouteTurn> = []
   const routeSteps: RouteStep[] = []
-  let lastLocation: RouteTurnDuo | undefined = undefined
-  let lastButOneLocation: RouteTurnDuo | undefined = undefined
+  let lastLocation: RouteTurnDuo | undefined
+  let lastButOneLocation: RouteTurnDuo | undefined
   let stepCtr = 0
   // start with current position
   const startCell: SergeHex<{}> | undefined = hexNamed(position, gridCells)
@@ -47,20 +47,17 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
               const currentLocation: RouteTurnDuo = { pos: thisCell.centreLatLng, name: routeStep }
               // is this the first cell?
               if (thisRouteCtr === 0) {
-
                 // do we have two previous steps?
-                if(lastButOneLocation && lastLocation) {
-                  
+                if (lastButOneLocation && lastLocation) {
                   // ok, we have enough for a turn
                   const newTurn: RouteTurn = {
                     current: lastLocation,
-                    previous: lastButOneLocation, 
+                    previous: lastButOneLocation,
                     turn: stepCtr,
                     next: currentLocation
                   }
                   turnEnds.push(newTurn)
                 }
-
               } else if (step.coords && thisRouteCtr === step.coords.length - 1) {
                 let routeStep: RouteStep
                 if (step.status.speedKts) {
@@ -95,12 +92,12 @@ export const routesFor = (gridCells: SergeGrid<SergeHex<{}>>, position: string, 
     }
 
     // see if we need to put in a trailing step
-    if(turnEnds.length) {
-      if(lastButOneLocation && lastLocation) {
+    if (turnEnds.length) {
+      if (lastButOneLocation && lastLocation) {
         const lastTurn: RouteTurn = {
           current: lastLocation,
           previous: lastButOneLocation,
-          turn: turnEnds[turnEnds.length-1].turn + 1
+          turn: turnEnds[turnEnds.length - 1].turn + 1
         }
         turnEnds.push(lastTurn)
       }
