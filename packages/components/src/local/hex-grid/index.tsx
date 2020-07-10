@@ -218,10 +218,13 @@ export const HexGrid: React.FC<{}> = () => {
       const marker = e.target
       marker.setLatLng(lastCell.centreLatLng)
 
+      // drop the first cell, since it's the current location
+      const trimmedPlanningRouteCells = planningRouteCells.slice(1)
+
       // have we consumed the full length?
       if (rangeUnlimited || routeLen === planningRange) {
         // combine planned and planning cells, ready for results
-        const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(planningRouteCells)
+        const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(trimmedPlanningRouteCells)
 
         // clear the planning routes
         setPlannedRouteCells([])
@@ -240,7 +243,7 @@ export const HexGrid: React.FC<{}> = () => {
           const remaining = planningRange - routeLen
 
           if (lastCell) {
-            setPlannedRouteCells([])
+            setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
             // note: we extend the existing planned cells, with the new ones
             setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
             setOriginHex(lastCell)
