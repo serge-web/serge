@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react'
 import { Marker, Popup } from 'react-leaflet'
 import RouteData, { RouteStep, RouteStepStatus } from '../types/route-data'
-import L, { LatLng } from 'leaflet'
+import { RouteTurn } from '@serge/custom-types'
+import L from 'leaflet'
 import { simpleIcon, svgIcon } from './create-marker'
 import calculatePolylineAngle from './calculate-polyline-angle'
 import { padInteger } from '@serge/helpers'
@@ -21,6 +22,32 @@ const labelLength = (status: RouteStepStatus): number => {
   return status.speedKts ? 300 : 180
 }
 
+
+const calculateTurnAngle = (thisStep: RouteTurn): number => {
+  let angle = 0;
+
+  if(!thisStep.previous && thisStep.next) {
+    // first marker
+    angle = calculatePolylineAngle([thisStep.current.pos, thisStep.next.pos])
+  } else if(thisStep.previous && !thisStep.next) {
+    // last marker
+    angle = calculatePolylineAngle([thisStep.previous.pos, thisStep.current.pos])
+  } else if(thisStep.previous && thisStep.next) {
+    const previousAngle = calculatePolylineAngle([thisStep.previous.pos, thisStep.current.pos])
+    const nextAngle = calculatePolylineAngle([thisStep.current.pos, thisStep.next.pos])
+    // return the mean of both
+    angle = (previousAngle + nextAngle) / 2
+  } else {
+    console.warn('inconsistent turn data in create-turn-markers, ' +
+      'we`re missing prev and next locations')
+    angle = 0
+  }
+
+  // add 90 to get the perpendicular angle
+  return (angle + 90)
+}
+
+
 const createTurnMarkers = (routes: RouteData,
   turnNumber: number,
   type: string,
@@ -28,17 +55,13 @@ const createTurnMarkers = (routes: RouteData,
   selected: boolean,
   removeLastTurn: {(turnNumber: number): void}): JSX.Element[] => {
   return routes.steps.map((rte: RouteStep, index: number) => {
-    let angle
 
-    if (selected) {
-      angle = calculateTurnAngle(routes, index, rte)
-    }
-
-    const markers = (color: string, angle?: number): JSX.Element => {
+    const markers = (color: string, routeTurn: RouteTurn): JSX.Element => {
       // start from the current game turn, increment by 0-based offset
       const currentTurn: number = turnNumber + index + 1
       const turn: string = padInteger(currentTurn)
       if (selected === true) {
+        const angle = calculateTurnAngle(routeTurn)
         return (
           <>
             <Marker key={`${type}_text_turns_${index}`} position={rte.position} width="2" icon={L.divIcon({
@@ -71,45 +94,10 @@ const createTurnMarkers = (routes: RouteData,
 
     return (
       <Fragment key={index}>
-        {markers(color, angle)}
+        {markers(color, routes.turnEnds[index])}
       </Fragment>
     )
   })
 }
 
 export default createTurnMarkers
-
-function calculateTurnAngle (routes: RouteData, stepIndex: number, step: RouteStep): number {
-  let angle = 0; let previousAngle = 0; let nextAngle = 0
-
-  // avoid duplication of point in polyline
-  const polyline = [...new Set(routes.polyline)]
-
-  // extract current position in polyline
-  const currentStepIndexInPolyline: number = polyline.findIndex(point => point === step.position)
-
-  // extract previous polyline for the refered step
-  const previousPolyline: LatLng[] = [polyline[currentStepIndexInPolyline - 1], polyline[currentStepIndexInPolyline]]
-
-  // extract the next polyline
-  const nextPolyline: LatLng[] = [polyline[currentStepIndexInPolyline], polyline[currentStepIndexInPolyline + 1]]
-
-  if (stepIndex === routes.steps.length - 1) {
-    // calculate the previous leg angle
-    angle = calculatePolylineAngle(previousPolyline)
-  } else {
-    // calculate the previous leg angle
-    previousAngle = calculatePolylineAngle(previousPolyline)
-
-    // calculate the next leg angle
-    nextAngle = calculatePolylineAngle(nextPolyline)
-
-    // return the mean of both
-    angle = (previousAngle + nextAngle) / 2
-  }
-
-  // add 90 to get the perpendicular angle
-  const perp: number = (angle + 90)
-
-  return perp
-}
