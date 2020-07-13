@@ -93,4 +93,12 @@ export default interface MappingContext {
    * The method for posting messages out of the mapping component
    */
   postBack?: Postback
+  /** 
+   * flag for whether to hide planning form
+   */
+  hidePlanningForm: boolean
+  /**
+   *  setter to change value of whether planning form should be hidden
+   **/
+  setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
 }

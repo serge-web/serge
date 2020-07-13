@@ -17,7 +17,7 @@ import styles from './styles.module.scss'
 import { isNumber } from '@serge/helpers'
 
 /* Render component */
-export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPlanned, icon }) => {
+export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, setHidePlanningForm, turnPlanned, icon }) => {
   // TODO: Refactor this into a reusable helper and remove other instances
   const [formState, setFormState] = useState(formData.values)
 
@@ -78,6 +78,12 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, turnPl
   const submitForm = (): void => {
     if (turnPlanned !== undefined) {
       turnPlanned(formState)
+      // control has reached this point because the player has selected
+      // a mobile state.  Consequently, the planning form will now be hidden,
+      // to allow more space for planning
+      if (setHidePlanningForm) {
+        setHidePlanningForm(true)
+      }
     }
   }
   /* note: in some selectedAsset update cycles this form gets rendered
