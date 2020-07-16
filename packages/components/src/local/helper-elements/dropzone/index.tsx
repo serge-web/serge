@@ -35,18 +35,17 @@ export const Dropzones: React.FC<PropTypes> = ({ children, item, type = 'empty',
     case 'group-out': typeOut = true; activeDropzone = showEmpty; break
   }
 
-  // const currActive: boolean = active === item.uniqid
-  // const dropActive: boolean = !currActive && !!active
-
   const mouseMove = (e: MouseEvent) => {
     if (holderElement) {
       let offsets: DOMRect = holderElement.getBoundingClientRect() as DOMRect;
-      // TODO: fix clientX always 0 on firefox
-      if (offsets && offsets.x <= e.clientX && e.clientX <= offsets.x + offsets.width) {
-        if (offsets.y - itemH <= e.clientY && e.clientY <= offsets.y) {
+      let x = e.clientX
+      let y = e.clientY
+
+      if (offsets && offsets.x <= x && x <= offsets.x + offsets.width) {
+        if (offsets.y - itemH <= y && y <= offsets.y) {
           if (!showEmpty) setShowEmpty(true)
           if (!commingDrop) setCommingDrop(true)
-        } else if (showEmpty && (offsets.y - itemH > e.clientY || e.clientY > offsets.y + itemH)) {
+        } else if (showEmpty && (offsets.y - itemH > y || y > offsets.y + itemH)) {
           setShowEmpty(false)
           if (commingDrop) { setCommingDrop(false) }
         } else if (commingDrop) { setCommingDrop(false) }
@@ -60,17 +59,12 @@ export const Dropzones: React.FC<PropTypes> = ({ children, item, type = 'empty',
 
   useEffect(() => {
     // subscribe event
-    document.addEventListener('drag', mouseMove);
+    document.addEventListener('dragenter', mouseMove);
     return () => {
       // unsubscribe event
-      document.removeEventListener("drag", mouseMove);
+      document.addEventListener('dragenter', mouseMove);
     };
   }, [showEmpty, innerRef, commingDrop]);
-
-  // const showDropzone = false
-  // const currLoading = false
-  // console.log(loading,  'test3');
-  // console.log(mouse, active);
 
   const handeListChange = (newList: Array<Item>) => {
     if (newList.length === 0) {
