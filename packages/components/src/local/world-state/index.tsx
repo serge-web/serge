@@ -68,9 +68,10 @@ export const WorldState: React.FC<PropTypes> = ({
     }
 
     const icClassName = getIconClassname(forceName.toLowerCase(), item.platformType.toLowerCase(), item.selected)
+    const numPlanned = Array.isArray(item.planned) ? item.planned.length : 0
     const descriptionText = (isUmpire || item.underControl) && depth.length === 0
-          ? `${item.numPlanned} turns planned` : ''
-    const checkStatus: boolean = item.numPlanned > 0
+          ? `${numPlanned} turns planned` : ''
+    const checkStatus: boolean = numPlanned > 0
 
     return (
       <div className={styles.item} onClick={(): any => clickEvent(`${item.uniqid}`)}>
@@ -180,3 +181,117 @@ export const WorldState: React.FC<PropTypes> = ({
 }
 
 export default WorldState
+
+
+/*
+<ul>
+  {routes
+    .filter((pRoute: PlannedRoute) => pRoute.underControl === !showOtherPlatforms)
+    .map((pRoute: PlannedRoute): any => (
+      <li
+        key={'r_li_' + pRoute.uniqid}
+      >
+        {renderItem(pRoute, pRoute.forceName, true)}
+      </li>
+    ))
+  }
+</ul>
+*/
+
+/*
+const renderItem = (pRoute: PlannedRoute, forceName: string, topLevel: boolean): JSX.Element => {
+  const descriptionText = (isUmpire || pRoute.underControl) && topLevel
+    ? `${pRoute.numPlanned} turns planned` : ''
+
+  const hostItems: Array<PlannedRoute> = []
+  if (pRoute.hosting && pRoute.hosting.length) {
+    pRoute.hosting.forEach((route: RouteChild) => {
+      const newItem: PlannedRoute = {
+        id: route.uniqid,
+        name: route.name,
+        comprising: route.asset ? route.asset.comprising : [],
+        forceName: route.force,
+        hosting: route.asset ? route.asset.hosting : [],
+        numPlanned: 0,
+        platformType: route.platformType,
+        selected: false,
+        underControl: true,
+        uniqid: route.uniqid
+      }
+      hostItems.push(newItem)
+    })
+  }
+
+
+  const compriseItems: Array<PlannedRoute> = []
+  if (pRoute.comprising && pRoute.comprising.length) {
+    pRoute.comprising.forEach((route: RouteChild) => {
+      const newItem: PlannedRoute = {
+        id: route.uniqid,
+        name: route.name,
+        comprising: route.asset.comprising,
+        forceName: route.force,
+        hosting: route.asset.hosting,
+        numPlanned: 0,
+        platformType: route.platformType,
+        selected: false,
+        underControl: true,
+        uniqid: route.uniqid
+      }
+      compriseItems.push(newItem)
+    })
+  }
+
+  const checkStatus: boolean = pRoute.numPlanned > 0
+
+  // if we don't know the force name, just use the one from the parent
+  const forceNameToUse = pRoute.forceName || forceName
+
+  const icClassName = getIconClassname(forceNameToUse.toLowerCase(), pRoute.platformType.toLowerCase(), pRoute.selected)
+
+  const assetClick = (id: string): void => {
+    // only select target if we're in "other platforms"
+    // TODO: we need to stop the event propagating back up the tree
+    if (showOtherPlatforms) {
+      clickEvent(id)
+    }
+  }
+
+  const list = [...hostItems, ...compriseItems]
+
+
+  return (
+    <Collapsible>
+      <CollapsibleHeader>
+        <div className={styles.item} onClick={(): any => clickEvent(pRoute.uniqid)}>
+          <div className={cx(icClassName, styles['item-icon'])}/>
+          <div className={styles['item-content']}>
+            <div>
+              <p>{pRoute.name}</p>
+              <p>{descriptionText}</p>
+            </div>
+
+          </div>
+          {!showOtherPlatforms && topLevel && <div className={styles['item-check']}>
+            {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
+            {checkStatus === false && <CheckCircleIcon style={{ color: '#B1B1B1' }} />}
+          </div>}
+        </div>
+      </CollapsibleHeader>
+      <CollapsibleContent useIndent={40}>
+        {list.length > 0 && <ul>
+          {hostItems.map((child: PlannedRoute) => (
+            <li
+              key={'item-' + child.uniqid}
+              onClick={(): any => assetClick(child.uniqid)}
+            >
+              {renderItem(child, forceNameToUse, false)}
+            </li>
+          ))}
+        </ul>}
+      </CollapsibleContent>
+    </Collapsible>
+  )
+}
+
+*/

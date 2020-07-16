@@ -59,12 +59,12 @@ export const Dropzones: React.FC<PropTypes> = ({ children, item, type = 'empty',
 
   useEffect(() => {
     // subscribe event
-    document.addEventListener('dragenter', mouseMove);
+    document.addEventListener('dragenter', mouseMove)
     return () => {
       // unsubscribe event
-      document.addEventListener('dragenter', mouseMove);
+      document.removeEventListener('dragenter', mouseMove)
     };
-  }, [showEmpty, innerRef, commingDrop]);
+  }, [showEmpty, innerRef, commingDrop])
 
   const handeListChange = (newList: Array<Item>) => {
     if (newList.length === 0) {
