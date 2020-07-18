@@ -1,4 +1,4 @@
-interface Item {
+export interface Item {
   uniqid: string | number
   hosting?: Array<Item>
   comprising?: Array<Item>

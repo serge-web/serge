@@ -14,8 +14,13 @@ import { Item as DropzoneItem } from '../dropzone/types/props'
 /* Import Styles */
 import styles from './styles.module.scss'
 
+
+const defaulRender = (item: Item, depth: Array<Item>) => <>name: {item.name}<br/>depth: {depth.length}</>
+
 /* Render component */
-export const Groups: React.FC<PropTypes> = ({ items = [],  renderContent = () => '', maxDepth = 3, onSet }) => {
+export const Groups: React.FC<PropTypes> = (props) => {
+  const { items = [],  renderContent = defaulRender, onSet } = props
+  const maxDepth = typeof props.maxDepth === 'undefined' ? 3 : props.maxDepth
 
   const [dragItem, setDragItem] = useState<ReactText>('')
   const [hasParrent, setHasParrent] = useState<boolean>(false)

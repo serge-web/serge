@@ -8,7 +8,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/helper-elements/CollapsibleHeader',
+  title: 'local/helper-elements/collapsible/CollapsibleHeader',
   component: CollapsibleHeader,
   decorators: [withKnobs, wrapper],
   parameters: {
@@ -23,7 +23,7 @@ const onClick = (): void => {
   console.log('clicked')
 }
 
-export const Default: React.FC = () => <CollapsibleHeader onClick={onClick}>Title</CollapsibleHeader>
+export const Default: React.FC = () => <CollapsibleHeader onClick={onClick}>Header</CollapsibleHeader>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 Default.story = {

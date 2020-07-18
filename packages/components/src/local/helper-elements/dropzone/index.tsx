@@ -15,7 +15,7 @@ import styles from './styles.module.scss'
 const itemH = 44
 
 /* Render component */
-export const Dropzones: React.FC<PropTypes> = ({ children, item, type = 'empty', active, onStart, onEnd, onSet }) => {
+export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', active, onStart, onEnd, onSet }) => {
 
   const innerRef = useRef(null);
   const [loading, setLoading] = useState<boolean>(false)
@@ -133,6 +133,6 @@ export const Dropzones: React.FC<PropTypes> = ({ children, item, type = 'empty',
   )
 }
 
-Dropzones.displayName = 'Dropzones'
+Dropzone.displayName = 'Dropzone'
 
-export default Dropzones
+export default Dropzone

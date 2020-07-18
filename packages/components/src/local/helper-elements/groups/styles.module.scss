@@ -2,7 +2,9 @@
   position: relative;
 
   & > ul {
+    list-style: none;
     z-index: 1;
+    padding: 0;
   }
 
   & > div {

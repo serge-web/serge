@@ -11,7 +11,11 @@ import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 
 /* Render component */
-export const CollapsibleHeader: React.FC<PropTypes> = ({ children, onClick, collapse = true, hasContent = false, onCollapse }) => {
+export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
+  const { children, onClick, onCollapse } = props
+  const collapse: boolean = typeof props.collapse === 'undefined' ? true : props.collapse
+  const hasContent: boolean = typeof props.hasContent === 'undefined' ? false : props.hasContent
+
   const handeClick = (e: any): void => {
     if (typeof onClick === 'function') {
       onClick(e)
