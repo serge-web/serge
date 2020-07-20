@@ -9,7 +9,7 @@ it('Dropzone renders correctly', () => {
   const tree = renderer
     .create(
       <>
-        <Dropzone type='group' item={{uniqid: '1'}}>Title</Dropzone>
+        <Dropzone type='group' item={{ uniqid: '1' }}>Title</Dropzone>
       </>
     )
     .toJSON()

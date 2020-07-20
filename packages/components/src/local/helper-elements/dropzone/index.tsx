@@ -16,30 +16,29 @@ const itemH = 44
 
 /* Render component */
 export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', active, onStart, onEnd, onSet }) => {
-
-  const innerRef = useRef(null);
+  const innerRef = useRef(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [showEmpty, setShowEmpty] = useState<boolean>(false)
   const [commingDrop, setCommingDrop] = useState<boolean>(false)
 
-  let holderElement: HTMLDivElement;
+  let holderElement: HTMLDivElement
 
-  let activeDropzone = false;
-  let typeEmpty = false;
-  let typeGroup = false;
-  let typeOut = false;
+  let activeDropzone = false
+  let typeEmpty = false
+  let typeGroup = false
+  let typeOut = false
 
   switch (type) {
-    case 'group':   typeGroup = true; activeDropzone = !!active;  break
-    case 'empty':   typeEmpty = true; activeDropzone = showEmpty; break
+    case 'group': typeGroup = true; activeDropzone = !!active; break
+    case 'empty': typeEmpty = true; activeDropzone = showEmpty; break
     case 'group-out': typeOut = true; activeDropzone = showEmpty; break
   }
 
   const mouseMove = (e: MouseEvent) => {
     if (holderElement) {
-      let offsets: DOMRect = holderElement.getBoundingClientRect() as DOMRect;
-      let x = e.clientX
-      let y = e.clientY
+      const offsets: DOMRect = holderElement.getBoundingClientRect() as DOMRect
+      const x = e.clientX
+      const y = e.clientY
 
       if (offsets && offsets.x <= x && x <= offsets.x + offsets.width) {
         if (offsets.y - itemH <= y && y <= offsets.y) {
@@ -49,8 +48,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
           setShowEmpty(false)
           if (commingDrop) { setCommingDrop(false) }
         } else if (commingDrop) { setCommingDrop(false) }
-      }
-      else {
+      } else {
         if (commingDrop) { setCommingDrop(false) }
         if (showEmpty) setShowEmpty(false)
       }
@@ -63,7 +61,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
     return () => {
       // unsubscribe event
       document.removeEventListener('dragenter', mouseMove)
-    };
+    }
   }, [showEmpty, innerRef, commingDrop])
 
   const handeListChange = (newList: Array<Item>) => {
@@ -81,7 +79,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
     if (onEnd) onEnd(item)
   }
 
-  const handleRef = (ref: HTMLDivElement):void => {
+  const handleRef = (ref: HTMLDivElement): void => {
     if (ref) { holderElement = ref }
   }
 
@@ -118,8 +116,8 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
         <ReactSortable
           group="groupName"
           animation={0}
-          delay={.5}
-          list={[{id: `${item.uniqid}-${type}`, ...item}]}
+          delay={0.5}
+          list={[{ id: `${item.uniqid}-${type}`, ...item }]}
           setList={handeListChange}
           onStart={handleStart}
           onEnd={handleEnd}

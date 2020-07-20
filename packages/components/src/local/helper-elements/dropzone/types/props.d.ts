@@ -14,5 +14,5 @@ export default interface PropTypes {
   onEnd?: (item: Item) => void
   onSet?: (item: Array<Item>, type: type) => void
   active?: string | number
-  mouse?: { x:number, y: number }
+  mouse?: { x: number, y: number }
 }

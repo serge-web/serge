@@ -16,7 +16,6 @@ import styles from './styles.module.scss'
 import { Route } from '@serge/custom-types'
 import { ADJUDICATION_PHASE } from '@serge/config'
 
-
 export const WorldState: React.FC<PropTypes> = ({
   name, store, phase, isUmpire, setSelectedAsset,
   submitTitle, submitForm, showOtherPlatforms
@@ -70,7 +69,7 @@ export const WorldState: React.FC<PropTypes> = ({
     const icClassName = getIconClassname(forceName.toLowerCase(), item.platformType.toLowerCase(), item.selected)
     const numPlanned = Array.isArray(item.planned) ? item.planned.length : 0
     const descriptionText = (isUmpire || item.underControl) && depth.length === 0
-          ? `${numPlanned} turns planned` : ''
+      ? `${numPlanned} turns planned` : ''
     const checkStatus: boolean = numPlanned > 0
 
     return (
@@ -83,7 +82,7 @@ export const WorldState: React.FC<PropTypes> = ({
           </div>
 
         </div>
-        {!showOtherPlatforms && depth.length === 0  && <div className={styles['item-check']}>
+        {!showOtherPlatforms && depth.length === 0 && <div className={styles['item-check']}>
           {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
           {checkStatus === false && <CheckCircleIcon style={{ color: '#B1B1B1' }} />}
         </div>}
@@ -98,7 +97,7 @@ export const WorldState: React.FC<PropTypes> = ({
     return true
   })
 
-  const createNewGroup = (routes:Array<Item>, items: Array<Item>, depth: Array<Item>, index: number = 0):Array<Item> => {
+  const createNewGroup = (routes: Array<Item>, items: Array<Item>, depth: Array<Item>, index = 0): Array<Item> => {
     if (depth.length > 0 && index < depth.length) {
       return routes.map(item => {
         if (item.uniqid === depth[index].uniqid) {
@@ -107,8 +106,7 @@ export const WorldState: React.FC<PropTypes> = ({
         }
         return item
       })
-    }
-    else {
+    } else {
       const newGroup = {
         name: 'new group',
         comprising: items,
@@ -123,17 +121,16 @@ export const WorldState: React.FC<PropTypes> = ({
 
       return [
         ...routes,
-        newGroup as Item,
+        newGroup as Item
       ]
     }
   }
-  const moveToGroup = (routes:Array<Item>, droppedInTo: Item, droppedItem: Item):Array<Item> => {
+  const moveToGroup = (routes: Array<Item>, droppedInTo: Item, droppedItem: Item): Array<Item> => {
     return routes.map(item => {
       if (Array.isArray(item.comprising)) {
         if (item.uniqid === droppedInTo.uniqid) {
           item.comprising = [...item.comprising, droppedItem]
-        }
-        else {
+        } else {
           item.comprising = moveToGroup(item.comprising, droppedInTo, droppedItem)
         }
       }
@@ -153,12 +150,12 @@ export const WorldState: React.FC<PropTypes> = ({
           // TODO: remove setTmpRoutes and use api
           let newRoutes
           switch (type) {
-            case "group":
+            case 'group':
               newRoutes = removeItem(tmpRoutes, items.map(i => i.uniqid))
               newRoutes = createNewGroup(newRoutes, items, depth)
               setTmpRoutes(newRoutes as Array<Route>)
               break
-            case "group-out":
+            case 'group-out':
               newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
               newRoutes.push(droppedItem)
               setTmpRoutes(newRoutes as Array<Route>)
@@ -181,7 +178,6 @@ export const WorldState: React.FC<PropTypes> = ({
 }
 
 export default WorldState
-
 
 /*
 <ul>
@@ -222,7 +218,6 @@ const renderItem = (pRoute: PlannedRoute, forceName: string, topLevel: boolean):
     })
   }
 
-
   const compriseItems: Array<PlannedRoute> = []
   if (pRoute.comprising && pRoute.comprising.length) {
     pRoute.comprising.forEach((route: RouteChild) => {
@@ -258,7 +253,6 @@ const renderItem = (pRoute: PlannedRoute, forceName: string, topLevel: boolean):
   }
 
   const list = [...hostItems, ...compriseItems]
-
 
   return (
     <Collapsible>

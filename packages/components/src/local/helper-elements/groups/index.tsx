@@ -14,21 +14,20 @@ import { Item as DropzoneItem } from '../dropzone/types/props'
 /* Import Styles */
 import styles from './styles.module.scss'
 
-
 const defaulRender = (item: Item, depth: Array<Item>) => <>name: {item.name}<br/>depth: {depth.length}</>
 
 /* Render component */
 export const Groups: React.FC<PropTypes> = (props) => {
-  const { items = [],  renderContent = defaulRender, onSet } = props
+  const { items = [], renderContent = defaulRender, onSet } = props
   const maxDepth = typeof props.maxDepth === 'undefined' ? 3 : props.maxDepth
 
   const [dragItem, setDragItem] = useState<ReactText>('')
   const [hasParrent, setHasParrent] = useState<boolean>(false)
 
-  const onStart = (i: DropzoneItem, hasParrent: boolean):void => { setDragItem(i.uniqid); setHasParrent(hasParrent) }
-  const onEnd = ():void => { setDragItem('') }
+  const onStart = (i: DropzoneItem, hasParrent: boolean): void => { setDragItem(i.uniqid); setHasParrent(hasParrent) }
+  const onEnd = (): void => { setDragItem('') }
   const handleSet = (items: Array<DropzoneItem>, type: type, depth: Array<Item> = []) => {
-    if(onSet) onSet(items as Array<Item>, type, depth)
+    if (onSet) onSet(items as Array<Item>, type, depth)
   }
 
   const checkdEmptyDropzone = (item: Item, subitems: Array<Item>, parents: Array<Item>): boolean => {
