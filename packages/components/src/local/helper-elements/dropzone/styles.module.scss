@@ -24,14 +24,14 @@ $item-height: 44px;
   width: 22px;
   height: 100%;
   top: 0;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   overflow: hidden;
   z-index: 5;
   border-radius: 4px;
 
   & > div {
     margin-top: -1 * $item-height;
-    height: calc(100% + #{$item-height})
+    height: calc(100% + #{$item-height});
   }
 }
 .group-out-active {
@@ -62,7 +62,7 @@ $item-height: 44px;
   height: 100%;
   width: 100%;
   padding: 1px 0;
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .item-hide {
@@ -130,7 +130,7 @@ $item-height: 44px;
 }
 
 .content-group {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .overlap {
