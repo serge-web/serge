@@ -10,7 +10,7 @@ import PropTypes from './types/props'
 
 import InputContainer from '../../input-container'
 
-export const renderOptions = (options: Array<string | number>) => options.map(option => (
+export const renderOptions = (options: Array<string | number>): any => options.map(option => (
   <MenuItem
     key={option}
     value={kebabCase(option.toString())}

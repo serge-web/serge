@@ -34,7 +34,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
     case 'group-out': typeOut = true; activeDropzone = showEmpty; break
   }
 
-  const mouseMove = (e: MouseEvent) => {
+  const mouseMove = (e: MouseEvent): void => {
     if (holderElement) {
       const offsets: DOMRect = holderElement.getBoundingClientRect() as DOMRect
       const x = e.clientX
@@ -58,7 +58,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
   useEffect(() => {
     // subscribe event
     document.addEventListener('dragenter', mouseMove)
-    return () => {
+    return (): void => {
       // unsubscribe event
       document.removeEventListener('dragenter', mouseMove)
     }
@@ -72,10 +72,10 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
       if (onSet && dragged) onSet([dragged, item], type)
     }
   }
-  const handleStart = () => {
+  const handleStart = (): void => {
     if (onStart) onStart(item)
   }
-  const handleEnd = () => {
+  const handleEnd = (): void => {
     if (onEnd) onEnd(item)
   }
 
@@ -83,18 +83,18 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
     if (ref) { holderElement = ref }
   }
 
-  const renderEmpty = () => (
+  const renderEmpty = (): JSX.Element => (
     <div> <DoubleArrowIcon fontSize='small'/><span>Move in to {item.name}</span> </div>
   )
 
-  const renderGroup = () => (
+  const renderGroup = (): JSX.Element => (
     <div className={cx(styles.switchitem, commingDrop && styles.switch)}> <AddToPhotosIcon fontSize='small'/><span>Group with {item.name}</span> </div>
   )
-  const renderGroupOut = () => (
+  const renderGroupOut = (): JSX.Element => (
     <div> <DoubleArrowIcon fontSize='small'/><span>Drop to root</span> </div>
   )
 
-  const renderDropzone = () => (
+  const renderDropzone = (): JSX.Element => (
     <div className={cx(styles.dropzone)}>
       <div className={cx(styles.content, styles[`content-${type}`])}>
         {typeEmpty && renderEmpty()}
