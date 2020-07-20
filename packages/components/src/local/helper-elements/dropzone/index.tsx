@@ -64,7 +64,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
     }
   }, [showEmpty, innerRef, commingDrop])
 
-  const handeListChange = (newList: Array<Item>) => {
+  const handeListChange = (newList: Array<Item>): void => {
     if (newList.length === 0) {
       if (!typeEmpty) setLoading(true)
     } else if (newList.length > 1) {

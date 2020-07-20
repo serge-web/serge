@@ -14,7 +14,7 @@ import { Item as DropzoneItem } from '../dropzone/types/props'
 /* Import Styles */
 import styles from './styles.module.scss'
 
-const defaulRender = (item: Item, depth: Array<Item>) => <>name: {item.name}<br/>depth: {depth.length}</>
+const defaulRender = (item: Item, depth: Array<Item>): JSX.Element => <>name: {item.name}<br/>depth: {depth.length}</>
 
 /* Render component */
 export const Groups: React.FC<PropTypes> = (props) => {
@@ -26,7 +26,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
 
   const onStart = (i: DropzoneItem, hasParrent: boolean): void => { setDragItem(i.uniqid); setHasParrent(hasParrent) }
   const onEnd = (): void => { setDragItem('') }
-  const handleSet = (items: Array<DropzoneItem>, type: type, depth: Array<Item> = []) => {
+  const handleSet = (items: Array<DropzoneItem>, type: type, depth: Array<Item> = []): void => {
     if (onSet) onSet(items as Array<Item>, type, depth)
   }
 
@@ -37,7 +37,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
     return !!dragItem
   }
 
-  const renderGroupItem = (item: Item, depth: Array<Item> = []) => {
+  const renderGroupItem = (item: Item, depth: Array<Item> = []): JSX.Element | null => {
     // const itemInsideOf: Item | undefined = items.find(i => Array.isArray(i.comprising) && i.comprising.find(({ uniqid }) => uniqid === item.uniqid))
 
     // on first level not render items inside of comprising
@@ -70,7 +70,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
           item={item}
           onEnd={onEnd}
           active={dragItem}
-          onSet={(items: Array<DropzoneItem>, type: type) => handleSet(items, type, depth) }
+          onSet={(items: Array<DropzoneItem>, type: type): void => handleSet(items, type, depth) }
         />}
         {subitems.length > 0 && <ul>{subitems.map(i => <li key={i.uniqid}>{ renderGroupItem(i, [...depth, item]) }</li>) }</ul>}
       </CollapsibleContent>
@@ -85,7 +85,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
         onEnd={onEnd}
         active={dragItem}
         type='group-out'
-        onSet={(items: Array<DropzoneItem>, type: type) => handleSet(items, type, []) }
+        onSet={(items: Array<DropzoneItem>, type: type): void => handleSet(items, type, []) }
       />}
     </div>
   )

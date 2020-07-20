@@ -56,7 +56,7 @@ export const WorldState: React.FC<PropTypes> = ({
   // find out if this is a non-umpire, and we're in the adjudication phase
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
 
-  const renderContent = (item: Item, depth: Array<Item> = []) => {
+  const renderContent = (item: Item, depth: Array<Item> = []): void => {
     // const item = routeItem as PlannedRoute
     let forceName: string = item.perceivedForceName || ''
     // if we don't know the force name, just use the one from the parent
@@ -144,7 +144,7 @@ export const WorldState: React.FC<PropTypes> = ({
       <Groups
         items={tmpRoutes}
         renderContent={renderContent}
-        onSet={(itemsLink, type, depth) => {
+        onSet={(itemsLink, type, depth): void => {
           const items = itemsLink.slice(0)
           const [droppedItem, droppedInTo] = items
           // TODO: remove setTmpRoutes and use api
