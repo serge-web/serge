@@ -29,7 +29,7 @@ $item-height: 44px;
   z-index: 5;
   border-radius: 4px;
 
-  & > div {
+  > div {
     margin-top: -1 * $item-height;
     height: calc(100% + #{$item-height});
   }
@@ -76,7 +76,7 @@ $item-height: 44px;
 
 .holder {
   min-height: $item-height;
-  & > div {
+  > div {
     min-height: $item-height;
     height: 100%;
   }
