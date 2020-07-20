@@ -56,7 +56,7 @@ export const WorldState: React.FC<PropTypes> = ({
   // find out if this is a non-umpire, and we're in the adjudication phase
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
 
-  const renderContent = (item: Item, depth: Array<Item> = []): void => {
+  const renderContent = (item: Item, depth: Array<Item> = []): JSX.Element => {
     // const item = routeItem as PlannedRoute
     let forceName: string = item.perceivedForceName || ''
     // if we don't know the force name, just use the one from the parent
