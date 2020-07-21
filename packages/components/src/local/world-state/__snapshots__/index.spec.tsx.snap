@@ -9,6 +9,11 @@ exports[`WorldState renders correctly 1`] = `
   >
     test
   </h2>
-  <ul />
+  <div
+    className="main"
+  >
+    <ul />
+    
+  </div>
 </div>
 `;

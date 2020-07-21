@@ -60,7 +60,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
           onEnd={onEnd}
           active={dragItem}
           type='group'
-          onSet={(items: Array<DropzoneItem>, type: type): void => handleSet(items, type, depth) }
+          onSet={(items: Array<DropzoneItem>, type: NodeType): void => handleSet(items, type, depth) }
         >
           {renderContent(item, depth)}
         </Dropzone>}
@@ -70,7 +70,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
           item={item}
           onEnd={onEnd}
           active={dragItem}
-          onSet={(items: Array<DropzoneItem>, type: type): void => handleSet(items, type, depth) }
+          onSet={(items: Array<DropzoneItem>, type: NodeType): void => handleSet(items, type, depth) }
         />}
         {subitems.length > 0 && <ul>{subitems.map(i => <li key={i.uniqid}>{ renderGroupItem(i, [...depth, item]) }</li>) }</ul>}
       </CollapsibleContent>
@@ -85,7 +85,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
         onEnd={onEnd}
         active={dragItem}
         type='group-out'
-        onSet={(items: Array<DropzoneItem>, type: type): void => handleSet(items, type, []) }
+        onSet={(items: Array<DropzoneItem>, type: NodeType): void => handleSet(items, type, []) }
       />}
     </div>
   )
