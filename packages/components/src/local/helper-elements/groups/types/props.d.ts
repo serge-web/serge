@@ -11,5 +11,5 @@ export default interface PropTypes {
   items?: Array<Item>
   maxDepth?: number
   renderContent?: (item: Item, depth: Array<Item>) => {}
-  onSet?: (item: Array<Item>, type: type, depth: Array<Item>) => void
+  onSet?: (item: Array<Item>, type: NodeType, depth: Array<Item>) => void
 }
