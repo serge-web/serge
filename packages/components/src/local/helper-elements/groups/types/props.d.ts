@@ -5,7 +5,7 @@ export interface Item {
   [property: string]: any
 }
 
-export type type = 'empty' | 'group' | 'group-out'
+export type NodeType = 'empty' | 'group' | 'group-out'
 
 export default interface PropTypes {
   items?: Array<Item>

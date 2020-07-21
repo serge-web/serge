@@ -8,7 +8,7 @@ import CollapsibleContent from '../collapsible/content'
 import Dropzone from '../dropzone'
 
 /* Import proptypes */
-import PropTypes, { Item, type } from './types/props'
+import PropTypes, { Item, NodeType } from './types/props'
 import { Item as DropzoneItem } from '../dropzone/types/props'
 
 /* Import Styles */
@@ -26,7 +26,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
 
   const onStart = (i: DropzoneItem, hasParrent: boolean): void => { setDragItem(i.uniqid); setHasParrent(hasParrent) }
   const onEnd = (): void => { setDragItem('') }
-  const handleSet = (items: Array<DropzoneItem>, type: type, depth: Array<Item> = []): void => {
+  const handleSet = (items: Array<DropzoneItem>, type: NodeType, depth: Array<Item> = []): void => {
     if (onSet) onSet(items as Array<Item>, type, depth)
   }
 
