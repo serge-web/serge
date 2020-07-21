@@ -9,7 +9,7 @@ import Groups from '../helper-elements/groups'
 
 /* Import Types */
 import PropTypes from './types/props'
-import { Item } from '../helper-elements/groups/types/props'
+import { GroupItem } from '../helper-elements/groups/types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -56,7 +56,7 @@ export const WorldState: React.FC<PropTypes> = ({
   // find out if this is a non-umpire, and we're in the adjudication phase
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
 
-  const renderContent = (item: Item, depth: Array<Item> = []): JSX.Element => {
+  const renderContent = (item: GroupItem, depth: Array<GroupItem> = []): JSX.Element => {
     // const item = routeItem as PlannedRoute
     let forceName: string = item.perceivedForceName || ''
     // if we don't know the force name, just use the one from the parent
@@ -90,14 +90,14 @@ export const WorldState: React.FC<PropTypes> = ({
     )
   }
 
-  const removeItem = (items: Array<Item>, removeKeys: Array<ReactText>): Array<Item> => items.filter(item => {
+  const removeItem = (items: Array<GroupItem>, removeKeys: Array<ReactText>): Array<GroupItem> => items.filter(item => {
     if (removeKeys.includes(item.uniqid)) return false
     if (Array.isArray(item.comprising)) { item.comprising = removeItem(item.comprising, removeKeys) }
     if (Array.isArray(item.hosting)) { item.hosting = removeItem(item.hosting, removeKeys) }
     return true
   })
 
-  const createNewGroup = (routes: Array<Item>, items: Array<Item>, depth: Array<Item>, index = 0): Array<Item> => {
+  const createNewGroup = (routes: Array<GroupItem>, items: Array<GroupItem>, depth: Array<GroupItem>, index = 0): Array<GroupItem> => {
     if (depth.length > 0 && index < depth.length) {
       return routes.map(item => {
         if (item.uniqid === depth[index].uniqid) {
@@ -121,11 +121,11 @@ export const WorldState: React.FC<PropTypes> = ({
 
       return [
         ...routes,
-        newGroup as Item
+        newGroup as GroupItem
       ]
     }
   }
-  const moveToGroup = (routes: Array<Item>, droppedInTo: Item, droppedItem: Item): Array<Item> => {
+  const moveToGroup = (routes: Array<GroupItem>, droppedInTo: GroupItem, droppedItem: GroupItem): Array<GroupItem> => {
     return routes.map(item => {
       if (Array.isArray(item.comprising)) {
         if (item.uniqid === droppedInTo.uniqid) {

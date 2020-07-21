@@ -1,15 +1,15 @@
-export interface Item {
+export interface GroupItem {
   uniqid: string | number
-  hosting?: Array<Item>
-  comprising?: Array<Item>
+  hosting?: Array<GroupItem>
+  comprising?: Array<GroupItem>
   [property: string]: any
 }
 
 export type NodeType = 'empty' | 'group' | 'group-out'
 
 export default interface PropTypes {
-  items?: Array<Item>
+  items?: Array<GroupItem>
   maxDepth?: number
-  renderContent?: (item: Item, depth: Array<Item>) => {}
-  onSet?: (item: Array<Item>, type: NodeType, depth: Array<Item>) => void
+  renderContent?: (item: GroupItem, depth: Array<GroupItem>) => {}
+  onSet?: (item: Array<GroupItem>, type: NodeType, depth: Array<GroupItem>) => void
 }

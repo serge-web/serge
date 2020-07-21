@@ -2,7 +2,7 @@ import React from 'react'
 
 // Import component files
 import Groups from './index'
-import { Item } from './types/props'
+import { GroupItem } from './types/props'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 
@@ -20,7 +20,7 @@ export default {
   }
 }
 
-const items: Array<Item> = [
+const items: Array<GroupItem> = [
   { uniqid: 1, name: 'Item 1', comprising: [{ uniqid: 7, name: 'item 7' }, { uniqid: 8, name: 'item 8' }] },
   { uniqid: 2, name: 'Item 2' },
   { uniqid: 3, name: 'Item 3' },

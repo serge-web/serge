@@ -8,13 +8,13 @@ import CollapsibleContent from '../collapsible/content'
 import Dropzone from '../dropzone'
 
 /* Import proptypes */
-import PropTypes, { Item, NodeType } from './types/props'
-import { Item as DropzoneItem } from '../dropzone/types/props'
+import PropTypes, { GroupItem, NodeType } from './types/props'
+import { DropItem } from '../dropzone/types/props'
 
 /* Import Styles */
 import styles from './styles.module.scss'
 
-const defaulRender = (item: Item, depth: Array<Item>): JSX.Element => <>name: {item.name}<br/>depth: {depth.length}</>
+const defaulRender = (item: GroupItem, depth: Array<GroupItem>): JSX.Element => <>name: {item.name}<br/>depth: {depth.length}</>
 
 /* Render component */
 export const Groups: React.FC<PropTypes> = (props) => {
@@ -24,20 +24,20 @@ export const Groups: React.FC<PropTypes> = (props) => {
   const [dragItem, setDragItem] = useState<ReactText>('')
   const [hasParrent, setHasParrent] = useState<boolean>(false)
 
-  const onStart = (i: DropzoneItem, hasParrent: boolean): void => { setDragItem(i.uniqid); setHasParrent(hasParrent) }
+  const onStart = (i: DropItem, hasParrent: boolean): void => { setDragItem(i.uniqid); setHasParrent(hasParrent) }
   const onEnd = (): void => { setDragItem('') }
-  const handleSet = (items: Array<DropzoneItem>, type: NodeType, depth: Array<Item> = []): void => {
-    if (onSet) onSet(items as Array<Item>, type, depth)
+  const handleSet = (items: Array<DropItem>, type: NodeType, depth: Array<GroupItem> = []): void => {
+    if (onSet) onSet(items as Array<GroupItem>, type, depth)
   }
 
-  const checkdEmptyDropzone = (item: Item, subitems: Array<Item>, parents: Array<Item>): boolean => {
+  const checkdEmptyDropzone = (item: GroupItem, subitems: Array<GroupItem>, parents: Array<GroupItem>): boolean => {
     if (dragItem === item.uniqid) return false
     if (parents.length >= maxDepth) return false
-    if (subitems.find((i: Item) => i.uniqId === dragItem)) return false
+    if (subitems.find((i: GroupItem) => i.uniqId === dragItem)) return false
     return !!dragItem
   }
 
-  const renderGroupItem = (item: Item, depth: Array<Item> = []): JSX.Element | null => {
+  const renderGroupItem = (item: GroupItem, depth: Array<GroupItem> = []): JSX.Element | null => {
     // const itemInsideOf: Item | undefined = items.find(i => Array.isArray(i.comprising) && i.comprising.find(({ uniqid }) => uniqid === item.uniqid))
 
     // on first level not render items inside of comprising
@@ -56,11 +56,11 @@ export const Groups: React.FC<PropTypes> = (props) => {
       <CollapsibleHeader>
         {depth.length >= maxDepth ? renderContent(item, depth) : <Dropzone
           item={item}
-          onStart={(i: DropzoneItem): void => onStart(i, depth.length > 0)}
+          onStart={(i: DropItem): void => onStart(i, depth.length > 0)}
           onEnd={onEnd}
           active={dragItem}
           type='group'
-          onSet={(items: Array<DropzoneItem>, type: NodeType): void => handleSet(items, type, depth) }
+          onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, depth) }
         >
           {renderContent(item, depth)}
         </Dropzone>}
@@ -70,7 +70,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
           item={item}
           onEnd={onEnd}
           active={dragItem}
-          onSet={(items: Array<DropzoneItem>, type: NodeType): void => handleSet(items, type, depth) }
+          onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, depth) }
         />}
         {subitems.length > 0 && <ul>{subitems.map(i => <li key={i.uniqid}>{ renderGroupItem(i, [...depth, item]) }</li>) }</ul>}
       </CollapsibleContent>
@@ -85,7 +85,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
         onEnd={onEnd}
         active={dragItem}
         type='group-out'
-        onSet={(items: Array<DropzoneItem>, type: NodeType): void => handleSet(items, type, []) }
+        onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, []) }
       />}
     </div>
   )

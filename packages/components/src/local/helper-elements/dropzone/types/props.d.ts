@@ -1,18 +1,18 @@
-interface Item {
+interface DropItem {
   uniqid: string | number
   [property: string]: any
 }
 
-export type type = 'empty' | 'group' | 'group-out'
+export type DropType = 'empty' | 'group' | 'group-out'
 
 export default interface PropTypes {
-  item: Item
-  type?: type
+  item: DropItem
+  type?: DropType
   title?: string
   description?: string
-  onStart?: (item: Item) => void
-  onEnd?: (item: Item) => void
-  onSet?: (item: Array<Item>, type: type) => void
+  onStart?: (item: DropItem) => void
+  onEnd?: (item: DropItem) => void
+  onSet?: (item: Array<DropItem>, type: DropType) => void
   active?: string | number
   mouse?: { x: number, y: number }
 }

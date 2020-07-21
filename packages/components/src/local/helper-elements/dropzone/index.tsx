@@ -4,7 +4,7 @@ import { ReactSortable } from 'react-sortablejs'
 
 import cx from 'classnames'
 /* Import proptypes */
-import PropTypes, { Item } from './types/props'
+import PropTypes, { DropItem } from './types/props'
 
 /* Import Icons */
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
@@ -64,7 +64,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
     }
   }, [showEmpty, innerRef, commingDrop])
 
-  const handeListChange = (newList: Array<Item>): void => {
+  const handeListChange = (newList: Array<DropItem>): void => {
     if (newList.length === 0) {
       if (!typeEmpty) setLoading(true)
     } else if (newList.length > 1) {
