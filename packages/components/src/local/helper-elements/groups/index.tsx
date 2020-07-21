@@ -56,11 +56,11 @@ export const Groups: React.FC<PropTypes> = (props) => {
       <CollapsibleHeader>
         {depth.length >= maxDepth ? renderContent(item, depth) : <Dropzone
           item={item}
-          onStart={(i: DropzoneItem) => onStart(i, depth.length > 0)}
+          onStart={(i: DropzoneItem): void => onStart(i, depth.length > 0)}
           onEnd={onEnd}
           active={dragItem}
           type='group'
-          onSet={(items: Array<DropzoneItem>, type: type) => handleSet(items, type, depth) }
+          onSet={(items: Array<DropzoneItem>, type: type): void => handleSet(items, type, depth) }
         >
           {renderContent(item, depth)}
         </Dropzone>}

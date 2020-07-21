@@ -78,7 +78,7 @@ export const MapControl: React.FC<PropTypes> = ({
             <Item
               contentTheme={ showAsSelected(force.uniqid) }
               key={`k_${force.uniqid}`}
-              onClick={() => { viewAs(force.uniqid) }}
+              onClick={(): void => { viewAs(force.uniqid) }}
               title={`View As ${force.name}`}
             >
               <PublicIcon style={{ color: force.uniqid === UMPIRE_FORCE ? '#777' : force.color }}/>
