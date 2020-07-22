@@ -84,7 +84,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
         item={{ uniqid: -1 }}
         onEnd={onEnd}
         active={dragItem}
-        type='group-out'
+        type='group_out'
         onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, []) }
       />}
     </div>

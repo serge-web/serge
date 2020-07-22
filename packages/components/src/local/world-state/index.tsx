@@ -137,6 +137,26 @@ export const WorldState: React.FC<PropTypes> = ({
       return item
     })
   }
+
+  const getForceName = (item: GroupItem, routes: Array<GroupItem>): string => {
+    // const item = routeItem as PlannedRoute
+    let forceName: string = item.perceivedForceName || ''
+    // if we don't know the force name, just use the one from the parent
+    if (!forceName) {
+      const finder = (i: GroupItem): boolean => {
+        let res: boolean = i.uniqid === item.uniqid
+        let nextLevel: Array<GroupItem> = []
+        if (Array.isArray(i.comprising)) { nextLevel = [...nextLevel, ...i.comprising] }
+        if (Array.isArray(i.hosting)) { nextLevel = [...nextLevel, ...i.hosting] }
+        if (nextLevel.length && nextLevel.find(finder)) res = true
+        return res
+      }
+      const itemWithForceName = routes.find(finder)
+      if (itemWithForceName) forceName = itemWithForceName.perceivedForceName
+    }
+    return forceName
+  }
+
   return <>
     <div className={styles['world-state']}>
       <h2 className={styles.title}>{customTitle}</h2>
@@ -155,9 +175,13 @@ export const WorldState: React.FC<PropTypes> = ({
               newRoutes = createNewGroup(newRoutes, items, depth)
               setTmpRoutes(newRoutes as Array<Route>)
               break
-            case 'group-out':
+            case 'group_out':
+              const perceivedForceName = getForceName(droppedItem, tmpRoutes)
               newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
-              newRoutes.push(droppedItem)
+              newRoutes.push({
+                ...droppedItem,
+                perceivedForceName
+              })
               setTmpRoutes(newRoutes as Array<Route>)
               break
             default:
