@@ -97,12 +97,12 @@ export const WorldState: React.FC<PropTypes> = ({
     return true
   })
 
-  const createNewGroup = (routes: Array<GroupItem>, items: Array<GroupItem>, depth: Array<GroupItem>, index = 0): Array<GroupItem> => {
+  const createNewGroup = (routes: Array<GroupItem>, items: Array<GroupItem>, depth: Array<GroupItem>, forceName: string, index = 0): Array<GroupItem> => {
     if (depth.length > 0 && index < depth.length) {
       return routes.map(item => {
         if (item.uniqid === depth[index].uniqid) {
-          item.comprising = createNewGroup(item.comprising || [], items, depth, index + 1)
-          if (index < depth.length - 1) item.hosting = createNewGroup(item.hosting || [], items, depth, index + 1)
+          item.comprising = createNewGroup(item.comprising || [], items, depth, forceName, index + 1)
+          if (index < depth.length - 1) item.hosting = createNewGroup(item.hosting || [], items, depth, forceName, index + 1)
         }
         return item
       })
@@ -110,7 +110,7 @@ export const WorldState: React.FC<PropTypes> = ({
       const newGroup = {
         name: 'new group',
         comprising: items,
-        perceivedForceName: 'Blue',
+        perceivedForceName: forceName,
         hosting: [],
         numPlanned: 0,
         platformType: 'test',
@@ -171,8 +171,9 @@ export const WorldState: React.FC<PropTypes> = ({
           let newRoutes
           switch (type) {
             case 'group':
+              const groupForce = getForceName(droppedInTo, tmpRoutes)
               newRoutes = removeItem(tmpRoutes, items.map(i => i.uniqid))
-              newRoutes = createNewGroup(newRoutes, items, depth)
+              newRoutes = createNewGroup(newRoutes, items, depth, groupForce)
               setTmpRoutes(newRoutes as Array<Route>)
               break
             case 'group_out':
