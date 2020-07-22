@@ -110,7 +110,7 @@ export const WorldState: React.FC<PropTypes> = ({
       const newGroup = {
         name: 'new group',
         comprising: items,
-        forceName: 'Blue',
+        perceivedForceName: 'Blue',
         hosting: [],
         numPlanned: 0,
         platformType: 'test',
