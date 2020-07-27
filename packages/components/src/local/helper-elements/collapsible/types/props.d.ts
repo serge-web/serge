@@ -13,4 +13,5 @@ export default interface PropTypes {
   onClick?: any
   children: ReactNodeArray
   openByDefault?: boolean
+  collapseOnDragHover?: boolean
 }

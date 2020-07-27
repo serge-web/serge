@@ -3,4 +3,5 @@ export default interface PropTypes {
   collapse?: boolean
   onCollapse?: (status?: boolean) => void
   hasContent?: boolean
+  collapseOnDragHover?: boolean
 }

@@ -26,7 +26,7 @@ const isType = (childs: ReactNodeArray, type: string, hasContent = false): boole
 }
 
 /* Render component */
-export const Collapsible: React.FC<PropTypes> = ({ children, onClick, openByDefault = false }) => {
+export const Collapsible: React.FC<PropTypes> = ({ children, onClick, openByDefault = false, collapseOnDragHover = false }) => {
   const [collapse, setCollapse] = useState(openByDefault)
 
   if (!children.length || children.length < 2) return null
@@ -54,6 +54,7 @@ export const Collapsible: React.FC<PropTypes> = ({ children, onClick, openByDefa
           return React.cloneElement(child as React.ReactElement, {
             collapse,
             hasContent,
+            collapseOnDragHover,
             onCollapse: handeCollapse
           })
         } else {

@@ -52,7 +52,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
     // get subitems
     const subitems = [...(item.comprising || []), ...(item.hosting || [])]
 
-    return (<Collapsible openByDefault={!subitems.length}>
+    return (<Collapsible collapseOnDragHover={true}>
       <CollapsibleHeader>
         {depth.length >= maxDepth ? renderContent(item, depth) : <Dropzone
           item={item}
