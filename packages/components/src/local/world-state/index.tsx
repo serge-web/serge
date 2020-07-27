@@ -113,7 +113,7 @@ export const WorldState: React.FC<PropTypes> = ({
         perceivedForceName: forceName,
         hosting: [],
         numPlanned: 0,
-        platformType: 'test',
+        platformType: 'task-group',
         selected: false,
         underControl: true,
         uniqid: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
