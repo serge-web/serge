@@ -74,7 +74,7 @@ export const MapControl: React.FC<PropTypes> = ({
           {showZoom && <Item title="Zoom Out" onClick={(): void => { handeZoomChange(-1 * zoomStepSize) }}><RemoveIcon/></Item>}
         </div>
         {forces.length && <div className={cx('leaflet-control')}>
-          {forces.map((force: any) => (
+          {forces.map((force: any): JSX.Element => (
             <Item
               contentTheme={ showAsSelected(force.uniqid) }
               key={`k_${force.uniqid}`}

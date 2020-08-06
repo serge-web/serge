@@ -8,7 +8,13 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const CollapsibleContent: React.FC<PropTypes> = ({ children, onClick, useIndent = true, collapse = true }) => {
+export const CollapsibleContent: React.FC<PropTypes> = (props) => {
+  const { children, onClick } = props
+  // str.replace is not a function: es default values (for boolean) not works with storybook
+  // define default values
+  const useIndent: boolean | number = typeof props.useIndent === 'undefined' ? true : props.useIndent
+  const collapse: boolean = typeof props.collapse === 'undefined' ? true : props.collapse
+
   const handeClick = (e: any): void => {
     if (typeof onClick === 'function') {
       onClick(e)

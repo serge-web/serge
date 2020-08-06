@@ -99,8 +99,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const [showMapBar, setShowMapBar] = useState<boolean>(true)
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
-
-  /* Initialise variables */
   const [mapBounds, setMapBounds] = useState<{
     imageTop: number
     imageLeft: number
