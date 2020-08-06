@@ -25,9 +25,10 @@ export const WorldState: React.FC<PropTypes> = ({
   /** filter the list of cells allowable for this platform
    * depending on requested cell type
    */
+
   useEffect(() => {
-    setTmpRoutes(store.routes.filter(r => r.underControl))
-  }, [store, phase])
+    setTmpRoutes(store.routes.filter(r => r.underControl  === !showOtherPlatforms))
+  }, [store, phase, showOtherPlatforms])
 
   // an asset has been clicked on
   const clickEvent = (id: string): void => {
