@@ -29,7 +29,7 @@ export const Default: React.FC = () => (
     <Dropzone type='empty' active={'2'} item={{ uniqid: '4', name: 'g3' }}>Empty Type</Dropzone>
     <Dropzone type='group' active={'2'} item={{ uniqid: '5', name: 'g4' }}>Group Type</Dropzone>
     <Dropzone type='empty' active={'2'} item={{ uniqid: '5', name: 'g4' }}>Empty Type</Dropzone>
-    <Dropzone type='group_out' active={'2'} item={{ uniqid: '-1' }}>Title</Dropzone>
+    <Dropzone type='group-out' active={'2'} item={{ uniqid: '-1' }}>Title</Dropzone>
   </div>
 )
 

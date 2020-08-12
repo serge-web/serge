@@ -24,7 +24,6 @@ const labelLength = (status: RouteStepStatus): number => {
 
 const calculateTurnAngle = (thisStep: RouteTurn): number => {
   let angle = 0
-
   if (!thisStep.previous && thisStep.next) {
     // first marker
     angle = calculatePolylineAngle([thisStep.current.pos, thisStep.next.pos])
@@ -57,7 +56,8 @@ const createTurnMarkers = (routes: RouteData,
       // start from the current game turn, increment by 0-based offset
       const currentTurn: number = turnNumber + index + 1
       const turn: string = padInteger(currentTurn)
-      if (selected === true) {
+      // note: check for presence of routeTurn - there may be no planned steps
+      if (routeTurn && selected === true) {
         const angle = calculateTurnAngle(routeTurn)
         return (
           <>
