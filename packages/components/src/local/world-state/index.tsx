@@ -177,7 +177,7 @@ export const WorldState: React.FC<PropTypes> = ({
               newRoutes = createNewGroup(newRoutes, items, depth, groupForce)
               setTmpRoutes(newRoutes as Array<Route>)
               break
-            case 'group_out':
+            case 'group-out':
               const perceivedForceName = getForceName(droppedItem, tmpRoutes)
               newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
               newRoutes.push({

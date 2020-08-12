@@ -3,7 +3,7 @@ interface DropItem {
   [property: string]: any
 }
 
-export type DropType = 'empty' | 'group' | 'group_out'
+export type DropType = 'empty' | 'group' | 'group-out'
 
 export default interface PropTypes {
   item: DropItem
