@@ -64,7 +64,7 @@ export const HexGrid: React.FC<{}> = () => {
    * get rendered in a suitable color
    */
   useEffect(() => {
-    if(selectedAsset) {
+    if (selectedAsset) {
       // get the color for this asset
       const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
       if (current) {
