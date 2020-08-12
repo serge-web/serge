@@ -18,7 +18,7 @@ $item-height: 44px;
   height: $item-height;
 }
 
-.main-group_out {
+.main-group-out {
   position: absolute;
   left: 0;
   width: 22px;
@@ -34,7 +34,7 @@ $item-height: 44px;
     height: calc(100% + #{$item-height});
   }
 }
-.group_out-active {
+.group-out-active {
   width: 22px;
 }
 
@@ -111,7 +111,7 @@ $item-height: 44px;
   }
 }
 
-.content-group_out {
+.content-group-out {
   white-space: nowrap;
   transform: rotateZ(90deg);
 }

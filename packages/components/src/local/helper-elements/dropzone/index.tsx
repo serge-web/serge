@@ -31,7 +31,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
   switch (type) {
     case 'group': typeGroup = true; activeDropzone = !!active; break
     case 'empty': typeEmpty = true; activeDropzone = showEmpty; break
-    case 'group_out': typeOut = true; activeDropzone = showEmpty; break
+    case 'group-out': typeOut = true; activeDropzone = showEmpty; break
   }
 
   const mouseMove = (e: MouseEvent): void => {

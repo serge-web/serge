@@ -64,11 +64,13 @@ export const HexGrid: React.FC<{}> = () => {
    * get rendered in a suitable color
    */
   useEffect(() => {
-    // get the color for this asset
-    const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
-    if (current) {
-      setAssetColor(current.color)
-    //  setDarkAssetColor(colorShade(current.color, -50))
+    if (selectedAsset) {
+      // get the color for this asset
+      const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
+      if (current) {
+        setAssetColor(current.color)
+      //  setDarkAssetColor(colorShade(current.color, -50))
+      }
     }
   }, [selectedAsset])
 
