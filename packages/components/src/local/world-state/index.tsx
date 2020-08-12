@@ -27,7 +27,7 @@ export const WorldState: React.FC<PropTypes> = ({
    */
 
   useEffect(() => {
-    setTmpRoutes(store.routes.filter(r => r.underControl  === !showOtherPlatforms))
+    setTmpRoutes(store.routes.filter(r => r.underControl === !showOtherPlatforms))
   }, [store, phase, showOtherPlatforms])
 
   // an asset has been clicked on
@@ -171,13 +171,14 @@ export const WorldState: React.FC<PropTypes> = ({
           // TODO: remove setTmpRoutes and use api
           let newRoutes
           switch (type) {
-            case 'group':
+            case 'group': {
               const groupForce = getForceName(droppedInTo, tmpRoutes)
               newRoutes = removeItem(tmpRoutes, items.map(i => i.uniqid))
               newRoutes = createNewGroup(newRoutes, items, depth, groupForce)
               setTmpRoutes(newRoutes as Array<Route>)
               break
-            case 'group-out':
+            }
+            case 'group-out': {
               const perceivedForceName = getForceName(droppedItem, tmpRoutes)
               newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
               newRoutes.push({
@@ -186,6 +187,7 @@ export const WorldState: React.FC<PropTypes> = ({
               })
               setTmpRoutes(newRoutes as Array<Route>)
               break
+            }
             default:
               newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
               newRoutes = moveToGroup(newRoutes, droppedInTo, droppedItem)
