@@ -194,14 +194,17 @@ export const Mapping: React.FC<PropTypes> = ({
     if (newLeg) {
       const selRoute = routeStore.selected
       if (selRoute) {
+        const turnStart = selRoute.planned && selRoute.planned.length ? 
+          selRoute.planned[selRoute.planned.length - 1].turn: 
+          turnNumber
+
         // increment turn number, if we have any turns planned, else start with `1`
-        const newTurn = selRoute.planned.length ? selRoute.planned[selRoute.planned.length - 1].turn + 1 : 1
         const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
           return cell.name
         })
         if (selRoute) {
           const newStep: RouteStep = {
-            turn: newTurn,
+            turn: turnStart + 1,
             status: { state: newLeg.state, speedKts: newLeg.speed },
             coords: coords
           }
@@ -229,14 +232,9 @@ export const Mapping: React.FC<PropTypes> = ({
   const clearFromTurn = (turn: number): void => {
     const current: Route | undefined = routeStore.selected
     if (current) {
-      console.log('clear from turn', turn, current.planned.length)
-      const newStore = routeClearFromStep(routeStore, current.uniqid, turn)
-
-      const current2: Route | undefined = newStore.selected
-      if (current2) {
-        console.log('clear after turn', turn, current2.planned.length)
-      }
-      console.log('cleared after turn', turn, newStore.selected)
+      const newStore = routeClearFromStep(routeStore, current.uniqid, turn + 1)
+      // TODO: we may need to move the planning marker back to the last valid
+      // location
       setRouteStore(newStore)
     }
   }
