@@ -194,9 +194,9 @@ export const Mapping: React.FC<PropTypes> = ({
     if (newLeg) {
       const selRoute = routeStore.selected
       if (selRoute) {
-        const turnStart = selRoute.planned && selRoute.planned.length ? 
-          selRoute.planned[selRoute.planned.length - 1].turn: 
-          turnNumber
+        const turnStart = selRoute.planned && selRoute.planned.length
+          ? selRoute.planned[selRoute.planned.length - 1].turn
+          : turnNumber
 
         // increment turn number, if we have any turns planned, else start with `1`
         const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
