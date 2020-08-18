@@ -3,6 +3,7 @@ import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
+import { cloneDeep } from 'lodash'
 
 /* helper functions */
 import createGrid from './helpers/create-grid'
@@ -233,9 +234,26 @@ export const Mapping: React.FC<PropTypes> = ({
     const current: Route | undefined = routeStore.selected
     if (current) {
       const newStore = routeClearFromStep(routeStore, current.uniqid, turn + 1)
+      setRouteStore(newStore)
       // TODO: we may need to move the planning marker back to the last valid
       // location
-      setRouteStore(newStore)
+      const current2: Route | undefined = newStore.selected
+      if(current2) {
+        // do we have current planning constraints?
+        if(planningConstraints) {
+          // trigger route planning
+          const origin: string = routeGetLatestPosition(current2.currentPosition, current2.planned)
+
+          // take deep copy
+          const newConstraints: PlanMobileAsset =  cloneDeep(planningConstraints)
+
+          // modify the origin
+          newConstraints.origin = origin
+
+          // trigger UI updatea
+          setPlanningConstraints(newConstraints)
+        }
+      }
     }
   }
 
