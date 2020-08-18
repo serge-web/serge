@@ -235,14 +235,13 @@ export const Mapping: React.FC<PropTypes> = ({
     if (current) {
       const newStore = routeClearFromStep(routeStore, current.uniqid, turn + 1)
       setRouteStore(newStore)
-      // TODO: we may need to move the planning marker back to the last valid
-      // location
-      const current2: Route | undefined = newStore.selected
-      if (current2) {
+      // now move the planning marker back to the last valid location
+      const newCurrent: Route | undefined = newStore.selected
+      if (newCurrent) {
         // do we have current planning constraints?
         if (planningConstraints) {
           // trigger route planning
-          const origin: string = routeGetLatestPosition(current2.currentPosition, current2.planned)
+          const origin: string = routeGetLatestPosition(newCurrent.currentPosition, newCurrent.planned)
 
           // take deep copy
           const newConstraints: PlanMobileAsset = cloneDeep(planningConstraints)
