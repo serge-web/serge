@@ -152,6 +152,8 @@ export const HexGrid: React.FC<{}> = () => {
       setOrigin(undefined)
       setOriginHex(undefined)
     }
+    // also clear any planned cells
+    setAllowableFilteredCells([])
   }, [planningRange, planningConstraints])
 
   /** filter the list of cells allowable for this platform
