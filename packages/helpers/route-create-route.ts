@@ -110,7 +110,8 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
  */
 const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
-  perceivedType: string, platformTypes: any, playerForce: string, status: any, currentPosition: string): Route => {
+  perceivedType: string, platformTypes: any, playerForce: string, status: any, currentPosition: string,
+  currentLocation: L.LatLng): Route => {
   const currentStatus: RouteStatus = status.speedKts
     ? { state: status.state, speedKts: status.speedKts }
     : { state: status.state }
@@ -140,6 +141,7 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
                                                     // in adjudication
     currentStatus: currentStatus,
     currentPosition: currentPosition,
+    currentLocation: currentLocation,
     planned: futureSteps,
     original: cloneDeep(futureSteps),
     asset: asset

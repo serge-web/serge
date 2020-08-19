@@ -11,6 +11,7 @@ import boundsFor from './helpers/bounds-for'
 import {
   roundToNearest,
   routeCreateStore,
+  routeDeclutter,
   routeAddSteps,
   routeSetCurrent,
   routeGetLatestPosition,
@@ -146,7 +147,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
     if (forces && gridCells) {
-      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms)
+      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms, gridCells)
       setRouteStore(store)
     }
   }, [forces, playerForce, phase, gridCells])
@@ -163,14 +164,19 @@ export const Mapping: React.FC<PropTypes> = ({
       // if this is umpire and we have view as
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
-        const vStore: RouteStore = routeCreateStore(forces, viewAsForce, umpireInAdjudication, platforms)
-        setViewAsRouteStore(vStore)
+        const vStore: RouteStore = routeCreateStore(forces, viewAsForce, umpireInAdjudication, platforms, gridCells)
+        declutterRouteStore(vStore)
       } else {
         // just use normal route store
-        setViewAsRouteStore(routeStore)
+        declutterRouteStore(routeStore)
       }
     }
   }, [forces, viewAsForce, phase, gridCells, routeStore])
+
+  const declutterRouteStore = (store: RouteStore) => {
+    const declutteredStore = routeDeclutter(store)
+    setViewAsRouteStore(declutteredStore)
+  }
 
   useEffect(() => {
     if (mapBounds) {

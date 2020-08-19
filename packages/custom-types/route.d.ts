@@ -50,6 +50,8 @@ export default interface Route {
   currentStatus: RouteStatus,
   /** current position of this asset */
   currentPosition: string,
+  /** current position of this asset */
+  currentLocation: L.LatLng | undefined,
   /** current planned steps for this asset */
   planned: Array<RouteStep>
   /** original future planned steps for this asset */

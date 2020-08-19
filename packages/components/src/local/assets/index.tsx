@@ -3,7 +3,6 @@ import L from 'leaflet'
 import { LayerGroup } from 'react-leaflet'
 import AssetIcon from '../asset-icon'
 import { findPerceivedAsTypes, visibleTo } from '@serge/helpers'
-import hexNamed from './helpers/hex-named'
 import { UMPIRE_FORCE, ADJUDICATION_PHASE } from '@serge/config'
 import { Route } from '../route'
 
@@ -59,13 +58,12 @@ export const Assets: React.FC<{}> = () => {
         )
 
         if (perceivedAs) {
-          const cell: SergeHex<{}> | undefined = hexNamed(route.currentPosition, gridCells)
+          const position: L.LatLng | undefined = route.currentLocation
           const visibleToArr: string[] = visibleTo(perceptions)
-          if (cell != null) {
+          if (position != null) {
             // sort out who can control this force
             const assetForce = forces.find((force: any) => force.name === actualForceName)
 
-            const position: L.LatLng = cell.centreLatLng
 
             const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
             const assetInfo: AssetInfo = {

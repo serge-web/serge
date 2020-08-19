@@ -15,7 +15,7 @@ it('determines correct controlled routes', () => {
 })
 
 it('can create route as umpire in adjudication mode', () => {
-  const store: RouteStore = routeCreateStore(forces, 'umpire', true, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'umpire', true, platformTypes, undefined)
   expect(store.routes.length).toEqual(13)
 
   // check inside a route
@@ -27,7 +27,7 @@ it('can create route as umpire in adjudication mode', () => {
 })
 
 it('can create route for un-recognised type', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', true, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'Blue', true, platformTypes, undefined)
 
   expect(store.routes.length).toEqual(11)
 
@@ -38,7 +38,7 @@ it('can create route for un-recognised type', () => {
 })
 
 it('can create route as umpire in planning mode', () => {
-  const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes, undefined)
   expect(store.routes.length).toEqual(13)
 
   // check inside a route
@@ -78,7 +78,7 @@ it('support new way of storing past steps', () => {
     }
   ]
 
-  const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes, undefined)
   expect(store.routes.length).toEqual(13)
 
   // check inside a route
@@ -93,7 +93,7 @@ it('support new way of storing past steps', () => {
 })
 
 it('route displays all hosted & comprising assets for white force', () => {
-  const store: RouteStore = routeCreateStore(forces, UMPIRE_FORCE, false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, UMPIRE_FORCE, false, platformTypes, undefined)
   expect(store.routes.length).toEqual(13)
 
   // get the host platform
@@ -126,7 +126,7 @@ it('route displays all hosted & comprising assets for white force', () => {
 })
 
 it('route displays all hosted & comprising assets for blue force', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes, undefined)
   expect(store.routes.length).toEqual(11)
 
   // get the host platform
@@ -164,7 +164,7 @@ it('route displays all hosted & comprising assets for blue force', () => {
 })
 
 it('route displays perceived hosted assets in tree for red force', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined)
   expect(store.routes.length).toEqual(9)
 
   // try the host platform in the task group
@@ -208,7 +208,7 @@ it('route displays perceived hosted assets in tree for red force', () => {
 
 
 it('route displays perceived comprised assets in flat layer for red force', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined)
   expect(store.routes.length).toEqual(9)
 
   // the first route should be for the frigate in the task group
