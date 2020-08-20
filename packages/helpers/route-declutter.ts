@@ -1,23 +1,82 @@
-import { RouteStore, Route } from '@serge/custom-types'
- import { cloneDeep } from 'lodash'
+import L from 'leaflet'
+import { RouteStore, Route, RouteStep } from '@serge/custom-types'
+import { cloneDeep } from 'lodash'
 
-interface RouteLocation {
+interface Cluster {
+  position: string,
+  location: L.LatLng,
+  items: Array<{(newLoc: L.LatLng): void}>
+}
+
+const storeInCluster = (store: Array<Cluster>, setter: {(newLoc: L.LatLng): void}, position: string, location: L.LatLng ): void => {
+  let cluster: Cluster | undefined = store.find(cluster => cluster.position === position)
+  if(cluster === undefined) {
+    cluster = {
+      position: position,
+      location: location,
+      items: []
+    }
+    store.push(cluster)
+  }
+  cluster.items.push(setter)
 
 }
 
-const findLocations = (store: RouteStore): Array<RouteLocation> => {
-  const res: Array<RouteLocation> = []
+const findLocations = (store: RouteStore): Array<Cluster> => {
+ //  const res: { [position: string]: Array<RouteLocation> } = {};
+ // const res: Record<string, string >  = {}
+ const res: Array<Cluster> = []
 
   // loop through store
   store.routes.forEach((route: Route) => {
-    console.log(route.planned)
+    // start with location
+    if(route.currentLocation) {
+      const updateAssetLocation = (newLoc: L.LatLng): void => {
+        route.currentLocation = newLoc
+      }
+      storeInCluster(res, updateAssetLocation, route.currentPosition, route.currentLocation)
+    }
+
+    // now planned routes
+    route.planned.forEach((step: RouteStep) => {
+      if(step.locations) {
+        let ctr = 0;
+        step.locations.forEach((loc: L.LatLng) => {
+          if(step.coords) {
+            const thisPos: string = step.coords[ctr]
+            const updateThisStep = (newLoc: L.LatLng): void => {
+              if(step.locations) {
+                step.locations[ctr] = newLoc
+              }
+            }
+            storeInCluster(res, updateThisStep, thisPos, loc)
+          }
+        })
+      }
+    })
   }) 
   return res
 }
 
-// const clusterLocations = (locations: Array<RouteLocation>): Array<RouteClusters> => {
-//   const res: Array<Rout
-// }
+const spreadClusters = (clusters: Array<Cluster>): void => {
+  clusters.forEach((cluster: Cluster) => {
+    if(cluster.items && cluster.items.length > 1) {
+      const gridDelta = 0.4
+      // ok, go for it
+      const len = cluster.items.length
+      // note: we start at 1, since we let the first one stay in the middle
+      for (let ctr = 1; ctr < len; ctr++) {
+        const thisAngleDegs = ctr * (360.0 / (len))
+        const thisAngleRads = (90 + thisAngleDegs) / 180 * Math.PI
+        const centre = cluster.location
+        const newLat = centre.lat + gridDelta * Math.sin(thisAngleRads)
+        const newLng = centre.lng + gridDelta * Math.cos(thisAngleRads)
+        const newLoc = L.latLng(newLat, newLng)
+        cluster.items[ctr](newLoc)
+      }
+    }
+  })
+}
 
 /** declutter assets & turn markers
  * @param {RouteStore} store wargame data object
@@ -25,14 +84,18 @@ const findLocations = (store: RouteStore): Array<RouteLocation> => {
  */
 const routeDeclutter = (store: RouteStore): RouteStore => {
   // take deep copy
-  const modified: RouteStore = cloneDeep(store)  
+  const modified: RouteStore = cloneDeep(store)
 
-  // find all locations
-  const locations: Array<RouteLocation> = findLocations(modified)
-  console.log(locations)
+  console.log('before', store.routes[3].currentLocation)
 
-  // cluster the markers into cells
-  // now spread out the clusters
+  // find all clusters
+  const clusters: Array<Cluster> = findLocations(modified)
+
+  // now spread out the clusters (note: we're already working with a clone)
+  spreadClusters(clusters)
+
+  console.log('after', modified.routes[3].currentLocation)
+
   return modified
 }
 

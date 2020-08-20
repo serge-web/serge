@@ -5,6 +5,7 @@ import AssetIcon from '../asset-icon'
 import { findPerceivedAsTypes, visibleTo } from '@serge/helpers'
 import { UMPIRE_FORCE, ADJUDICATION_PHASE } from '@serge/config'
 import { Route } from '../route'
+import hexNamed from './helpers/hex-named'
 
 /* Import Context */
 import { MapContext } from '../mapping'
@@ -58,7 +59,14 @@ export const Assets: React.FC<{}> = () => {
         )
 
         if (perceivedAs) {
-          const position: L.LatLng | undefined = route.currentLocation
+          const cell: SergeHex<{}> | undefined = hexNamed(route.currentPosition, gridCells)
+
+          if(route.name.toLowerCase() === 'mpa') {
+            console.log('asset location', route.name, route.currentPosition, route.currentLocation, cell, cell && cell.centreLatLng)
+          }
+
+          const position: L.LatLng | undefined = cell && cell.centreLatLng || undefined // route.currentLocation
+        //  console.log(name, position)
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
             // sort out who can control this force

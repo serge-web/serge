@@ -4,6 +4,7 @@ import routeCreateRoute from './route-create-route'
 import { UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy from './is-perceived-by'
+import hexNamed from './hex-named'
 
 /** determine which forces this player can control
  * @param {any} forces array of forces
@@ -63,16 +64,22 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
 
           // dummy location, used if we don't have grid (such as in test)
           const dummyLocation: L.LatLng = L.latLng(12.2, 23.3)
-
+          console.log('test phrase')
           // sort out location
-          const matchingHex: SergeHex<{}> | undefined = grid && grid.get(asset.position) || undefined
+          const matchingHex: SergeHex<{}> | undefined = grid && hexNamed(asset.position, grid) || undefined
+          if(asset.name.toLowerCase() === 'mpa') {
+            console.log('matching hex', matchingHex, asset.position)
+          }
           const assetLocation: L.LatLng = matchingHex && matchingHex.centreLatLng || dummyLocation
+          if(asset.name.toLowerCase() === 'mpa') {
+            console.log('create store mpa', asset.position, matchingHex && matchingHex.centreLatLng, assetLocation)
+          }
 
           if(controlled || playerForce === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
             const newRoute: Route = routeCreateRoute(asset, adjudication, force.color,
               controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
-              platformTypes, playerForce, asset.status, asset.position, assetLocation)
+              platformTypes, playerForce, asset.status, asset.position, assetLocation, grid)
             store.routes.push(newRoute)
           } else {
 
@@ -87,7 +94,7 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
                     thisForce, child.platformType, child.perceptions, false)
                   // create route for this asset
                   const newRoute: Route = routeCreateRoute(child, false, perceivedAs, false, force.uniqid, perceptions[1],
-                    perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation)
+                    perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, grid)
                   store.routes.push(newRoute)
                 }
               })
@@ -99,7 +106,7 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
                   thisForce, asset.platformType, asset.perceptions, false)
                 // create route for this asset
                 const newRoute: Route = routeCreateRoute(asset, false, perceivedAs, false, force.uniqid, perceptions[1],
-                  perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation)
+                  perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, grid)
                 store.routes.push(newRoute)
               }
             }

@@ -1,3 +1,4 @@
+import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE } from '@serge/config'
@@ -174,8 +175,9 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [forces, viewAsForce, phase, gridCells, routeStore])
 
   const declutterRouteStore = (store: RouteStore) => {
-    const declutteredStore = routeDeclutter(store)
-    setViewAsRouteStore(declutteredStore)
+    let declutteredStore = routeDeclutter(store)
+    declutteredStore = declutteredStore
+    setViewAsRouteStore(store)
   }
 
   useEffect(() => {
@@ -193,7 +195,9 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (latLngBounds && tileDiameterMins) {
       // note: the list of cells should be re-calculated if `tileDiameterMins` changes
-      setGridCells(createGrid(latLngBounds, tileDiameterMins))
+      const newGrid: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
+    //  console.log('new grid, C17:', newGrid.get())
+      setGridCells(newGrid)
     }
   }, [tileDiameterMins, latLngBounds])
 
@@ -209,11 +213,15 @@ export const Mapping: React.FC<PropTypes> = ({
         const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
           return cell.name
         })
+        const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex<{}>) => {
+          return cell.centreLatLng
+        })
         if (selRoute) {
           const newStep: RouteStep = {
             turn: turnStart + 1,
             status: { state: newLeg.state, speedKts: newLeg.speed },
-            coords: coords
+            coords: coords,
+            locations: locations
           }
           const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
           setRouteStore(newStore)
