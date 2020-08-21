@@ -174,8 +174,8 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [forces, viewAsForce, phase, gridCells, routeStore])
 
-  const declutterRouteStore = (store: RouteStore) => {
-    let declutteredStore = routeDeclutter(store)
+  const declutterRouteStore = (store: RouteStore): void => {
+    const declutteredStore = routeDeclutter(store)
     setViewAsRouteStore(declutteredStore)
   }
 

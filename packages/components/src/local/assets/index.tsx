@@ -65,7 +65,7 @@ export const Assets: React.FC<{}> = () => {
             console.log('asset location', route.name, route.currentPosition, route.currentLocation, cell, cell && cell.centreLatLng)
           }
 
-          const position: L.LatLng | undefined = ( cell && cell.centreLatLng ) || undefined // route.currentLocation
+          const position: L.LatLng | undefined = (cell && cell.centreLatLng) || undefined // route.currentLocation
           //  console.log(name, position)
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
