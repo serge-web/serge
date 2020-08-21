@@ -10,12 +10,12 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 /* Import components */
-import MessagesList from '../messages-list'
-import MessageCreator from '../message-creator'
+import MessagesList from '../../messages-list'
+import MessageCreator from '../../message-creator'
 import { Message } from '@serge/custom-types'
 
 /* Render component */
-export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, selectedRole, chatChannel }) => {
+export const Chat: React.FC<PropTypes> = ({ wargameTitle, selectedForce, selectedRole, chatChannel }) => {
   const [messages, setMessages] = useState(chatChannel)
 
   const messageHandler = (data: Message): void => setMessages([...messages, data])
@@ -30,4 +30,4 @@ export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, se
   </div>
 }
 
-export default GameAdmin
+export default Chat

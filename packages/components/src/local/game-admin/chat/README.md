@@ -18,10 +18,10 @@ This is an example readme file for the 'Game Admin' component.
 
 ### ES6 Import
 ```js
-import GameAdmin from './game-admin'
+import GameAdminChat from './game-admin/chat'
 ```
 
 ### CommonJS
 
 ```js
-const GameAdmin = require('./game-admin')
+const GameAdminChat = require('./game-admin/chat')

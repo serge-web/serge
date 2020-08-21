@@ -1,0 +1,29 @@
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.left-panel {
+  width: 100px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #415b76;
+  padding-top: 6vh;
+}
+
+.container {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.link {
+  color: #fff;
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Import component files
-import GameAdmin from './index'
+import GameAdminChat from './index'
 import docs from './README.md'
 
 import { PlayerStateProvider } from '@serge/store'
@@ -9,8 +9,8 @@ import { PlayerStateProvider } from '@serge/store'
 import { MessagesMock } from '@serge/mocks'
 
 export default {
-  title: 'local/GameAdmin',
-  component: GameAdmin,
+  title: 'local/GameAdmin/Chat',
+  component: GameAdminChat,
   decorators: [],
   parameters: {
     readme: {
@@ -27,5 +27,5 @@ const force = {
 }
 
 export const Default: React.FC = () => <PlayerStateProvider>
-  <GameAdmin wargameTitle="title" chatChannel={MessagesMock} selectedForce={force} selectedRole=""/>
+  <GameAdminChat wargameTitle="title" chatChannel={MessagesMock} selectedForce={force} selectedRole=""/>
 </PlayerStateProvider>
