@@ -13,10 +13,9 @@ exports[`Collapsible renders correctly 1`] = `
       onClick={[Function]}
     >
       <svg
-        aria-hidden="true"
+        aria-hidden={true}
         className="MuiSvgIcon-root"
         focusable="false"
-        role="presentation"
         style={
           Object {
             "color": "#000000",
