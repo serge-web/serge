@@ -64,7 +64,6 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
 
           // dummy location, used if we don't have grid (such as in test)
           const dummyLocation: L.LatLng = L.latLng(12.2, 23.3)
-          console.log('test phrase')
           // sort out location
           const matchingHex: SergeHex<{}> | undefined = grid && hexNamed(asset.position, grid) || undefined
           if(asset.name.toLowerCase() === 'mpa') {
