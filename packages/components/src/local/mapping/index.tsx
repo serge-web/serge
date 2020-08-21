@@ -176,8 +176,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   const declutterRouteStore = (store: RouteStore) => {
     let declutteredStore = routeDeclutter(store)
-    declutteredStore = declutteredStore
-    setViewAsRouteStore(store)
+    setViewAsRouteStore(declutteredStore)
   }
 
   useEffect(() => {
