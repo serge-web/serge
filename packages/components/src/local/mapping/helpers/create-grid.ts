@@ -57,7 +57,7 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
     const centreHex: Point = cell.toPoint()
     newCell.centreLatLng = toWorld(centreHex, correctedOrigin, tileSizeDegs / 2)
 
-    if(newCell.name === 'C17') {
+    if (newCell.name === 'C17') {
       console.log('original C17:', newCell.centreLatLng)
     }
 

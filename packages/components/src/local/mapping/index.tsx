@@ -196,7 +196,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (latLngBounds && tileDiameterMins) {
       // note: the list of cells should be re-calculated if `tileDiameterMins` changes
       const newGrid: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
-    //  console.log('new grid, C17:', newGrid.get())
+      //  console.log('new grid, C17:', newGrid.get())
       setGridCells(newGrid)
     }
   }, [tileDiameterMins, latLngBounds])

@@ -61,17 +61,16 @@ export const Assets: React.FC<{}> = () => {
         if (perceivedAs) {
           const cell: SergeHex<{}> | undefined = hexNamed(route.currentPosition, gridCells)
 
-          if(route.name.toLowerCase() === 'mpa') {
+          if (route.name.toLowerCase() === 'mpa') {
             console.log('asset location', route.name, route.currentPosition, route.currentLocation, cell, cell && cell.centreLatLng)
           }
 
           const position: L.LatLng | undefined = cell && cell.centreLatLng || undefined // route.currentLocation
-        //  console.log(name, position)
+          //  console.log(name, position)
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
             // sort out who can control this force
             const assetForce = forces.find((force: any) => force.name === actualForceName)
-
 
             const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
             const assetInfo: AssetInfo = {
