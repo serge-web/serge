@@ -86,15 +86,11 @@ const routeDeclutter = (store: RouteStore): RouteStore => {
   // take deep copy
   const modified: RouteStore = cloneDeep(store)
 
-  console.log('before', store.routes[3].currentLocation)
-
   // find all clusters
   const clusters: Array<Cluster> = findLocations(modified)
 
   // now spread out the clusters (note: we're already working with a clone)
   spreadClusters(clusters)
-
-  console.log('after', modified.routes[3].currentLocation)
 
   return modified
 }

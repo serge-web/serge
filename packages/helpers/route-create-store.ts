@@ -66,13 +66,7 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
           const dummyLocation: L.LatLng = L.latLng(12.2, 23.3)
           // sort out location
           const matchingHex: SergeHex<{}> | undefined = grid && hexNamed(asset.position, grid) || undefined
-          if(asset.name.toLowerCase() === 'mpa') {
-            console.log('matching hex', matchingHex, asset.position)
-          }
           const assetLocation: L.LatLng = matchingHex && matchingHex.centreLatLng || dummyLocation
-          if(asset.name.toLowerCase() === 'mpa') {
-            console.log('create store mpa', asset.position, matchingHex && matchingHex.centreLatLng, assetLocation)
-          }
 
           if(controlled || playerForce === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
