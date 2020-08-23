@@ -2,8 +2,11 @@
 // Please do not change this file!
 interface CssExports {
   'container': string;
+  'content': string;
+  'header': string;
   'left-panel': string;
   'link': string;
+  'loading': string;
   'main': string;
 }
 export const cssExports: CssExports;

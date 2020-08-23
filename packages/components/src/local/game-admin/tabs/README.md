@@ -1,6 +1,6 @@
 # Planned Route documentation
 
-This is an example readme file for the 'link' component.
+This is an example readme file for the 'tabs' component.
 
 ## UI Example
 
@@ -18,10 +18,10 @@ This is an example readme file for the 'link' component.
 
 ### ES6 Import
 ```js
-import Link from './helper-elements/link'
+import Tabs from './game-admin/tabs'
 ```
 
 ### CommonJS
 
 ```js
-const Link = require('./helper-elements/link')
+const Tabs = require('./game-admin/tabs')

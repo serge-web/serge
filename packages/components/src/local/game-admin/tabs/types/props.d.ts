@@ -1,7 +1,8 @@
 export default interface PropTypes {
   /* half section title */
   href?: string
-  onClick?: any
+  onChange?: (selectedTab: string, e?: any) => void
   disabled?: boolean
   className?: string
+  tabs: Array<string>
 }

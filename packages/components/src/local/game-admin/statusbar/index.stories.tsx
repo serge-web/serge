@@ -3,7 +3,8 @@ import React from 'react'
 // Import component files
 import StatusBar from './index'
 import docs from './README.md'
-import { withKnobs, boolean } from '@storybook/addon-knobs'
+import { withKnobs } from '@storybook/addon-knobs'
+import { WargameMock as wargame } from '@serge/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -19,13 +20,11 @@ export default {
   }
 }
 
-const onClick = (): void => {
-  console.log('clicked')
+const onChange = (newVal: string): void => {
+  console.log('changed', newVal)
 }
 
-export const Default: React.FC = () => <StatusBar
-  onClick={onClick}
-  disabled={boolean('Disabled', false)} >Title</StatusBar>
+export const Default: React.FC = () => <StatusBar wargame={wargame} onChange={onChange} />
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 Default.story = {

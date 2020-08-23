@@ -3,11 +3,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import Link from './index'
+import Tabs from './index'
 
-it('link renders correctly', () => {
+it('tabs renders correctly', () => {
   const tree = renderer
-    .create(<Link disabled={false}>Text</Link>)
+    .create(<Tabs tabs={['tab1', 'tab2', 'tab3']} disabled={false}>Text</Tabs>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

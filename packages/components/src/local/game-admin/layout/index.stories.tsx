@@ -6,6 +6,8 @@ import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 
 const wrapper: React.FC = (storyFn: any) => <div>{storyFn()}</div>
+import { WargameMock as wargame } from '@serge/mocks'
+import { adminTabs } from '@serge/mocks'
 
 export default {
   title: 'local/GameAdmin/AdminLayout',
@@ -23,7 +25,7 @@ const onClick = (): void => {
   console.log('clicked')
 }
 
-export const Default: React.FC = () => <AdminLayout onClick={onClick}>Content</AdminLayout>
+export const Default: React.FC = () => <AdminLayout wargame={wargame} tabs={adminTabs} onClick={onClick}>Content</AdminLayout>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 Default.story = {
