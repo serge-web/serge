@@ -56,11 +56,6 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
     // generate the cell centre in Leaflet coords
     const centreHex: Point = cell.toPoint()
     newCell.centreLatLng = toWorld(centreHex, correctedOrigin, tileSizeDegs / 2)
-
-    if (newCell.name === 'C17') {
-      console.log('original C17:', newCell.centreLatLng)
-    }
-
     return newCell
   })
   const unTyped: any = newCells
