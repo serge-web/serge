@@ -175,7 +175,7 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [forces, viewAsForce, phase, gridCells, routeStore])
 
   const declutterRouteStore = (store: RouteStore): void => {
-    const declutteredStore = routeDeclutter(store)
+    const declutteredStore = routeDeclutter(store, tileDiameterMins)
     setViewAsRouteStore(declutteredStore)
   }
 
