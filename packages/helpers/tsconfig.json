@@ -2,9 +2,9 @@
   "exclude": ["node_modules", "build"],
   "compilerOptions": {
     "skipLibCheck": false,
-    "target": "esnext",
+    "target": "ES2019",
     "module": "commonjs",
-    "lib": ["es5", "es6", "es7", "es2017", "dom"],
+    "lib": ["es5", "es6", "es7", "es2017", "ES2019", "dom"],
     "downlevelIteration": true,
     "strict": true,
     "removeComments": false,
