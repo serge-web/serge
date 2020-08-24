@@ -19,7 +19,6 @@ const storeInCluster = (store: Array<Cluster>, setter: {(newLoc: L.LatLng): void
     store.push(cluster)
   }
   cluster.items.push(setter)
-
 }
 
 const findLocations = (store: RouteStore): Array<Cluster> => {
@@ -41,6 +40,9 @@ const findLocations = (store: RouteStore): Array<Cluster> => {
     route.planned.forEach((step: RouteStep) => {
       if(step.locations) {
         let ctr = 0;
+        // todo - we only declutter the first & last point in a route
+        // also, remember where the last point on the previous leg got
+        // decluttered to, so we use it at the start of the next leg
         step.locations.forEach((loc: L.LatLng) => {
           if(step.coords) {
             const thisPos: string = step.coords[ctr]
@@ -64,6 +66,7 @@ const spreadClusters = (clusters: Array<Cluster>): void => {
       const gridDelta = 0.4
       // ok, go for it
       const len = cluster.items.length
+      console.log('decluttering ', cluster.position, cluster.items)
       // note: we start at 1, since we let the first one stay in the middle
       for (let ctr = 1; ctr < len; ctr++) {
         const thisAngleDegs = ctr * (360.0 / (len))
@@ -72,8 +75,10 @@ const spreadClusters = (clusters: Array<Cluster>): void => {
         const newLat = centre.lat + gridDelta * Math.sin(thisAngleRads)
         const newLng = centre.lng + gridDelta * Math.cos(thisAngleRads)
         const newLoc = L.latLng(newLat, newLng)
+        console.log('moving', cluster.position, cluster.location, newLoc)
         cluster.items[ctr](newLoc)
       }
+      console.log('decluttered ', cluster.position, cluster.items)
     }
   })
 }
