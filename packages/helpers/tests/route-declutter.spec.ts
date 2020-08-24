@@ -27,7 +27,7 @@ it('clear route from selected step', () => {
   const pos4 = store.routes[4].currentLocation
   const pos5 = store.routes[5].currentLocation
 
-  const cleaned = routeDeclutter(store)
+  const cleaned = routeDeclutter(store, 0.5)
 
   expect(cleaned.routes[1].currentLocation).toEqual(pos1)
   // pos2 is the MPA. Nothing else is in it's cell, so 
