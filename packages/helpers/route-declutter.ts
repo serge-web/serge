@@ -67,7 +67,6 @@ const findLocations = (store: RouteStore): Array<Cluster> => {
 
 const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): void => {
   clusters.forEach((cluster: Cluster) => {
-    console.log('spreading:', cluster.position)
     if(cluster.items && cluster.items.length > 1) {
       const gridDelta = tileDiameterMins / 60 / 4
       // ok, go for it

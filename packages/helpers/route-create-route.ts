@@ -133,8 +133,6 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
   // duplicate set (in case the user cancels changes)
   const futureSteps: Array<RouteStep> = createStepArray(asset.plannedTurns, adjudication, grid)
 
-  console.log('route for', asset.name, futureSteps)
-
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
 
   const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForce, playerForce /*, forceColors, undefinedColor */)

@@ -36,7 +36,6 @@ export const routesFor = (startLocation: LatLng | undefined, steps: RouteStepTyp
         // the required length?
         if (step.locations && (!trimmed || stepCtr < lengthOfTrimmedLine)) {
           let thisRouteCtr = 0 // how many steps have been recorded for this route
-          console.log('pts in this route:', step.locations)
           step.locations.forEach((stepLocation: L.LatLng) => {
             const currentLocation: RouteTurnDuo = { pos: stepLocation, name: 'step_' + thisRouteCtr }
             // is this the first cell?
