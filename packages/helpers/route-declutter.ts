@@ -74,7 +74,7 @@ const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): voi
       // note: we start at 1, since we let the first one stay in the middle
       for (let ctr = 0; ctr < len; ctr++) {
         const thisAngleDegs = ctr * (360.0 / (len))
-        const thisAngleRads = (90 + thisAngleDegs) / 180 * Math.PI
+        const thisAngleRads = (thisAngleDegs) / 180 * Math.PI
         const centre = cluster.location
         const newLat = centre.lat + gridDelta * Math.sin(thisAngleRads)
         const newLng = centre.lng + gridDelta * Math.cos(thisAngleRads)
