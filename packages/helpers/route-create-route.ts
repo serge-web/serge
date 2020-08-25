@@ -58,13 +58,19 @@ const processStep = (adjudication: boolean,  grid: SergeGrid<SergeHex<{}>> | und
 /** convert legacy array object to new TypeScript structure
  *
  */
-const createStepArray = (turns: any, adjudication: boolean,  grid: SergeGrid<SergeHex<{}>> | undefined,
-    filterPlannedSteps: boolean): Array<RouteStep> => {
+const createStepArray = (turns: any, adjudication: boolean,  grid: SergeGrid<SergeHex<{}>> | undefined, planned: boolean,
+    filterSteps: boolean): Array<RouteStep> => {
   let res: Array<RouteStep> = []
   if (turns) {
-    if(filterPlannedSteps) {
+    if(filterSteps) {
       if(turns.length > 0) {
-        res = processStep(adjudication, grid, turns[0], res) 
+        if(planned) {
+          // just the first one
+          res = processStep(adjudication, grid, turns[0], res)
+        } else {
+          // just the last one
+          res = processStep(adjudication, grid, turns[turns.length-1], res)
+        }         
       }
     } else {
       turns.forEach((step: any) => {
@@ -132,7 +138,10 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
  * @param {string} playerForce current player force
  * @param {any} status the current status of this asset
  * @param {string} currentPosition the current cell containing this asset
+ * @param {L.LatLng} currentLocation the current cell containing this asset
+ * @param {SergeGrid<SergeHex<{}>> | undefined} grid the grid object, used to find cell centres, used in declutter
  * @param {boolean} includePlanned whether to include planned turns for this platform
+ * @param {boolean} filterHistorySteps whether to filter history steps to just the first one
  * @param {boolean} filterPlannedSteps whether to filter planned steps to just the first one
  * @returns {Route} Routefor this asset
  */
@@ -140,14 +149,17 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
   perceivedType: string, platformTypes: any, playerForce: string, status: any, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
-  filterPlannedSteps: boolean): Route => {
+  filterHistorySteps: boolean, filterPlannedSteps: boolean): Route => {
   const currentStatus: RouteStatus = status.speedKts
     ? { state: status.state, speedKts: status.speedKts }
     : { state: status.state }
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
-  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(asset.plannedTurns, adjudication, grid, filterPlannedSteps) : []
+  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(asset.plannedTurns, adjudication, grid, true, filterPlannedSteps) : []
+
+  const historySteps: Array<RouteStep> = createStepArray(asset.history, false, grid, false, filterHistorySteps) // we plot all history, so ignore whether
+  // in adjudication
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
 
@@ -166,8 +178,7 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
     hosting: hosting,
     comprising: comprising,
     destroyed: destroyed,
-    history: createStepArray(asset.history, false, grid, false), // we plot all history, so ignore whether
-                                                    // in adjudication
+    history: historySteps,
     currentStatus: currentStatus,
     currentPosition: currentPosition,
     currentLocation: currentLocation,
