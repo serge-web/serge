@@ -7,7 +7,7 @@ import { routeCreateStore } from '@serge/helpers'
 import { RouteStore } from '@serge/custom-types'
 
 it('contains relevant population results', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Red', false, platforms, undefined)
+  const store: RouteStore = routeCreateStore(forces, 'Red', false, platforms, undefined, false)
   const stateOfWorld = collateStateOfWorld(store.routes, 3)
   expect(stateOfWorld).toBeDefined()
   expect(stateOfWorld.turn).toEqual(4)
