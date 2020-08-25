@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import HomeIcon from '@material-ui/icons/Home'
 import PublicIcon from '@material-ui/icons/Public'
+import FilterIcon from '@material-ui/icons/FilterList'
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -29,7 +30,9 @@ export const MapControl: React.FC<PropTypes> = ({
   /* view as */
   forces = [],
   viewAsCallback,
-  viewAsForce
+  viewAsForce,
+  filterPlannedRoutes,
+  setFilterPlannedRoutes
 }) => {
   /*
    * disable map scroll and click events to allow
@@ -63,6 +66,18 @@ export const MapControl: React.FC<PropTypes> = ({
     return viewAsForce !== undefined ? viewAsForce === force ? 'light' : 'dark' : 'dark'
   }
 
+  /* utilty method for whether we're filtering planned routes  */
+  const isFilterAsPlannedRoutes = (): 'light' | 'dark' => {
+    return !filterPlannedRoutes ? 'dark' : 'light'
+  }
+
+  /* callback responding to filter planned routes toggle  */
+  const toggleFilter = (): void => {
+    if(setFilterPlannedRoutes) {
+      setFilterPlannedRoutes(!filterPlannedRoutes)
+    }
+  }
+  
   if (!map) return null
 
   return (
@@ -72,6 +87,12 @@ export const MapControl: React.FC<PropTypes> = ({
           {showZoom && <Item title="Zoom In" onClick={(): void => { handeZoomChange(zoomStepSize) }}><AddIcon/></Item>}
           {showHome && <Item title="Fit to window" onClick={(): void => { handeHome() }}><HomeIcon/></Item>}
           {showZoom && <Item title="Zoom Out" onClick={(): void => { handeZoomChange(-1 * zoomStepSize) }}><RemoveIcon/></Item>}
+        </div>
+        <div className={cx('leaflet-control')}>
+          <Item title="Zoom More" onClick={(): void => { toggleFilter() }}
+            contentTheme={ isFilterAsPlannedRoutes() } >
+            <FilterIcon/>
+          </Item>
         </div>
         {forces.length && <div className={cx('leaflet-control')}>
           {forces.map((force: any): JSX.Element => (

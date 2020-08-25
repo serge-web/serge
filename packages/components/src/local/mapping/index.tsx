@@ -117,6 +117,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [leafletElement, setLeafletElement] = useState(undefined)
   const [viewAsForce, setViewAsForce] = useState<string>(UMPIRE_FORCE)
   const [hidePlanningForm, setHidePlanningForm] = useState<boolean>(false)
+  const [filterPlannedRoutes, setFilterPlannedRoutes] = useState<boolean>(true)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -397,6 +398,8 @@ export const Mapping: React.FC<PropTypes> = ({
             forces = {playerForce === UMPIRE_FORCE && forces}
             viewAsCallback = {viewAsCallback}
             viewAsForce = {viewAsForce}
+            filterPlannedRoutes = {filterPlannedRoutes}
+            setFilterPlannedRoutes = {setFilterPlannedRoutes}
           />
           <TileLayer
             url={tileLayer.url}
