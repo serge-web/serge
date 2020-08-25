@@ -24,6 +24,22 @@ export const forces = [
         contactId: 'C713',
         history: [
           {
+            position: 'R23',
+            status: {
+              speedKts: 20,
+              state: 'Transiting'
+            },
+            turn: 0
+          },
+          {
+            position: 'P22',
+            status: {
+              speedKts: 20,
+              state: 'Transiting'
+            },
+            turn: 1
+          },
+          {
             position: 'P21',
             status: {
               speedKts: 20,
