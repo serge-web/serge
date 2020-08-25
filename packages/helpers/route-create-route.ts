@@ -4,6 +4,7 @@ import { cloneDeep } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import { UMPIRE_FORCE } from '@serge/config'
+import hexNamed from './hex-named'
 
 /** convert legacy array object to new TypeScript structure
  *
@@ -24,20 +25,20 @@ const createStepArray = (turns: any, adjudication: boolean,  grid: SergeGrid<Ser
             // ok, this is modern way of planned or history steps
             step.route.forEach((coord: any) => {
               steps.push(coord)
-              const hex: SergeHex<{}> | undefined = grid && grid.get(coord)
+              const hex: SergeHex<{}> | undefined = grid && hexNamed(coord, grid)
               locations.push(hex && hex.centreLatLng || dummyLocation)
             })
           } else if(step.coords) {
             // ok, this is legacy way of planned or history steps
             step.coords.forEach((coord: any) => {
               steps.push(coord)
-              const hex: SergeHex<{}> | undefined = grid && grid.get(coord)
+              const hex: SergeHex<{}> | undefined = grid && hexNamed(coord, grid)
               locations.push(hex && hex.centreLatLng || dummyLocation)
             })
           } else if (step.position) {
             // ok, this is legacy way of recording stationary past steps
             steps.push(step.position)
-            const hex: SergeHex<{}> | undefined = grid && grid.get(step.position)
+            const hex: SergeHex<{}> | undefined = grid && hexNamed(step.position, grid)
             locations.push(hex && hex.centreLatLng || dummyLocation)
           }
 
@@ -46,7 +47,7 @@ const createStepArray = (turns: any, adjudication: boolean,  grid: SergeGrid<Ser
           const status: RouteStatus = step.status.speedKts
             ? { state: step.status.state, speedKts: step.status.speedKts }
             : { state: step.status.state }
-  
+
           // sort the status
           res.push({
             turn: step.turn,
@@ -131,6 +132,8 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
   const futureSteps: Array<RouteStep> = createStepArray(asset.plannedTurns, adjudication, grid)
+
+  console.log('route for', asset.name, futureSteps)
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
 
