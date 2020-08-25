@@ -38,7 +38,6 @@ const findLocations = (store: RouteStore): Array<Cluster> => {
 
   // loop through store
   store.routes.forEach((route: Route) => {
-    console.log('examining', route.name)
     // start with location
     if(route.currentLocation) {
       const updateAssetLocation = (newLoc: L.LatLng): void => {
@@ -49,14 +48,12 @@ const findLocations = (store: RouteStore): Array<Cluster> => {
 
     // now planned routes
     route.planned.forEach((step: RouteStep) => {
-      console.log('INSPECTING', step.coords, step.locations)
       if(step.locations && step.coords) {
         let len = step.locations.length
         for(let ctr:number = 0; ctr < len; ctr++) {
           const thisPos: string = step.coords[ctr]
           const updateThisStep = (newLoc: L.LatLng): void => {
             if(step.locations) {
-              console.log('update step, was:', step.locations[ctr], newLoc)
               step.locations[ctr] = newLoc
             }
           }
@@ -72,13 +69,9 @@ const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): voi
   clusters.forEach((cluster: Cluster) => {
     console.log('spreading:', cluster.position)
     if(cluster.items && cluster.items.length > 1) {
-      if(cluster.position === 'Q20') {
-        console.log('CLUSTER Q20', cluster)
-      }
       const gridDelta = tileDiameterMins / 60 / 4
       // ok, go for it
       const len = cluster.items.length
-      console.log('decluttering ', cluster.position, cluster.items)
       // note: we start at 1, since we let the first one stay in the middle
       for (let ctr = 0; ctr < len; ctr++) {
         const thisAngleDegs = ctr * (360.0 / (len))
@@ -88,14 +81,9 @@ const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): voi
         const newLng = centre.lng + gridDelta * Math.cos(thisAngleRads)
         const newLoc = L.latLng(newLat, newLng)
         const item: ClusterItem = cluster.items[ctr]
-        console.log('moving', item.name, cluster.position, cluster.location, newLoc)
         item.setter(newLoc)
       }
-      console.log('decluttered ', cluster.position, cluster.items)
-    } else {
-      console.log('CLUSTER empty', cluster.position)
     }
-
   })
 }
 
