@@ -120,6 +120,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [viewAsForce, setViewAsForce] = useState<string>(UMPIRE_FORCE)
   const [hidePlanningForm, setHidePlanningForm] = useState<boolean>(false)
   const [filterPlannedRoutes, setFilterPlannedRoutes] = useState<boolean>(true)
+  const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -149,7 +150,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
     if (forces && gridCells) {
-      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms, gridCells, filterPlannedRoutes)
+      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
       setRouteStore(store)
     }
   }, [forces, playerForce, phase, gridCells, filterPlannedRoutes])
@@ -166,7 +167,7 @@ export const Mapping: React.FC<PropTypes> = ({
       // if this is umpire and we have view as
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
-        const vStore: RouteStore = routeCreateStore(forces, viewAsForce, umpireInAdjudication, platforms, gridCells, filterPlannedRoutes)
+        const vStore: RouteStore = routeCreateStore(forces, viewAsForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
         declutterRouteStore(vStore)
       } else {
         // just use normal route store
@@ -412,6 +413,8 @@ export const Mapping: React.FC<PropTypes> = ({
             viewAsForce = {viewAsForce}
             filterPlannedRoutes = {filterPlannedRoutes}
             setFilterPlannedRoutes = {setFilterPlannedRoutes}
+            filterHistoryRoutes = {filterHistoryRoutes}
+            setFilterHistoryRoutes = {setFilterHistoryRoutes}
           />
           <TileLayer
             url={tileLayer.url}

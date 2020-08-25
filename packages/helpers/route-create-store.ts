@@ -29,10 +29,11 @@ export const forcesControlledBy = (forces: any, playerForce: string): Array<stri
  * @param {string[]} controls uniqid for forces controlled by this player. Optional remove for all
  * @param {SergeGrid<SergeHex<{}>> | undefined} grid the grid object, used to find cell centres, used in declutter
  * @param {boolean} filterPlannedSteps whether to filter the planned steps to only one
+ * @param {boolean} filterHistorySteps whether to filter the history steps to only one
  * @returns {RouteStore} RouteStore representing current data
  */
 const routeCreateStore = (forces: any, playerForce: string, adjudication: boolean, 
-    platformTypes: any, grid: SergeGrid<SergeHex<{}>> | undefined, filterPlannedSteps: boolean): RouteStore => {
+    platformTypes: any, grid: SergeGrid<SergeHex<{}>> | undefined, filterHistorySteps: boolean, filterPlannedSteps: boolean): RouteStore => {
   const store: RouteStore = { routes: []}
 
   const controls: Array<string> = forcesControlledBy(forces, playerForce)
@@ -73,7 +74,7 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
             // asset under player control or player is umpire, so use real attributes
             const newRoute: Route = routeCreateRoute(asset, adjudication, force.color,
               controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
-              platformTypes, playerForce, asset.status, asset.position, assetLocation, grid, true, filterPlannedSteps)
+              platformTypes, playerForce, asset.status, asset.position, assetLocation, grid, true, filterHistorySteps, filterPlannedSteps)
             store.routes.push(newRoute)
           } else {
 
@@ -88,7 +89,8 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
                     thisForce, child.platformType, child.perceptions, false)
                   // create route for this asset
                   const newRoute: Route = routeCreateRoute(child, false, perceivedAs, false, force.uniqid, perceptions[1],
-                    perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, grid, false, filterPlannedSteps)
+                    perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, 
+                    grid, false, filterHistorySteps, filterPlannedSteps)
                   store.routes.push(newRoute)
                 }
               })
@@ -100,7 +102,8 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
                   thisForce, asset.platformType, asset.perceptions, false)
                 // create route for this asset
                 const newRoute: Route = routeCreateRoute(asset, false, perceivedAs, false, force.uniqid, perceptions[1],
-                  perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, grid, false, filterPlannedSteps)
+                  perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, 
+                  grid, false, filterHistorySteps, filterPlannedSteps)
                 store.routes.push(newRoute)
               }
             }
