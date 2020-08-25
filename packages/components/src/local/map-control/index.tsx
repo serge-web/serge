@@ -73,11 +73,11 @@ export const MapControl: React.FC<PropTypes> = ({
 
   /* callback responding to filter planned routes toggle  */
   const toggleFilter = (): void => {
-    if(setFilterPlannedRoutes) {
+    if (setFilterPlannedRoutes) {
       setFilterPlannedRoutes(!filterPlannedRoutes)
     }
   }
-  
+
   if (!map) return null
 
   return (
