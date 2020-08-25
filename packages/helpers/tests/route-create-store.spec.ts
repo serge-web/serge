@@ -15,7 +15,7 @@ it('determines correct controlled routes', () => {
 })
 
 it('can create route as umpire in adjudication mode', () => {
-  const store: RouteStore = routeCreateStore(forces, 'umpire', true, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'umpire', true, platformTypes, undefined)
   expect(store.routes.length).toEqual(13)
 
   // check inside a route
@@ -27,7 +27,7 @@ it('can create route as umpire in adjudication mode', () => {
 })
 
 it('can create route for un-recognised type', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', true, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'Blue', true, platformTypes, undefined)
 
   expect(store.routes.length).toEqual(11)
 
@@ -35,10 +35,14 @@ it('can create route for un-recognised type', () => {
   const route: Route = store.routes[4]
   expect(route.uniqid).toEqual('a0pra000100')
   expect(route.color).toEqual('#999')
+
+  // should not create planned steps for non-blue platform
+  expect(route.planned.length).toEqual(0)
+
 })
 
 it('can create route as umpire in planning mode', () => {
-  const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes, undefined)
   expect(store.routes.length).toEqual(13)
 
   // check inside a route
@@ -78,7 +82,7 @@ it('support new way of storing past steps', () => {
     }
   ]
 
-  const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes, undefined)
   expect(store.routes.length).toEqual(13)
 
   // check inside a route
@@ -93,7 +97,7 @@ it('support new way of storing past steps', () => {
 })
 
 it('route displays all hosted & comprising assets for white force', () => {
-  const store: RouteStore = routeCreateStore(forces, UMPIRE_FORCE, false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, UMPIRE_FORCE, false, platformTypes, undefined)
   expect(store.routes.length).toEqual(13)
 
   // get the host platform
@@ -126,12 +130,15 @@ it('route displays all hosted & comprising assets for white force', () => {
 })
 
 it('route displays all hosted & comprising assets for blue force', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes, undefined)
   expect(store.routes.length).toEqual(11)
 
   // get the host platform
   const frigate = store.routes[1]
   expect(frigate.uniqid).toEqual('a0pra00001')
+
+  // check we have planned route
+  expect(frigate.planned.length).toEqual(2)
 
   // find hosted platforms
   const hosting: Array<RouteChild> = frigate.hosting
@@ -143,7 +150,6 @@ it('route displays all hosted & comprising assets for blue force', () => {
   // since this is blue force, we see real names
   expect(hosting[0].name).toEqual('Merlin')
   expect(hosting[1].name).toEqual('Dart 42')
-  
 
   // find comprising platforms
   const taskGroup = store.routes[0]
@@ -164,7 +170,7 @@ it('route displays all hosted & comprising assets for blue force', () => {
 })
 
 it('route displays perceived hosted assets in tree for red force', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined)
   expect(store.routes.length).toEqual(9)
 
   // try the host platform in the task group
@@ -191,6 +197,8 @@ it('route displays perceived hosted assets in tree for red force', () => {
   expect(frigate2.name).toEqual('Frigate Perceived Name')
   expect(frigate2.platformType).toEqual('frigate')
   expect(frigate2.perceivedForceName).toEqual('blue')
+  // don't show planned route for platform from other force
+  expect(frigate2.planned.length).toEqual(0)
 
   // find hosted platforms
   const hosting2: Array<RouteChild> = frigate2.hosting
@@ -208,7 +216,7 @@ it('route displays perceived hosted assets in tree for red force', () => {
 
 
 it('route displays perceived comprised assets in flat layer for red force', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined)
   expect(store.routes.length).toEqual(9)
 
   // the first route should be for the frigate in the task group
