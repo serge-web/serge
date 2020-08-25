@@ -29,10 +29,10 @@ it('clear route from selected step', () => {
 
   const cleaned = routeDeclutter(store, 0.5)
 
-  expect(cleaned.routes[1].currentLocation).toEqual(pos1)
   // pos2 is the MPA. Nothing else is in it's cell, so 
   // it should not get decluttered
   expect(cleaned.routes[2].currentLocation).toEqual(pos2)
+  expect(cleaned.routes[1].currentLocation).not.toEqual(pos1)
   expect(cleaned.routes[3].currentLocation).not.toEqual(pos3)
   expect(cleaned.routes[4].currentLocation).not.toEqual(pos4)
   expect(cleaned.routes[5].currentLocation).not.toEqual(pos5)
