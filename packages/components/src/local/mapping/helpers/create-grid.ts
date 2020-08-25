@@ -1,4 +1,3 @@
-
 import L from 'leaflet'
 import { defineGrid, extendHex, Grid, Point, PointLike } from 'honeycomb-grid'
 import { SergeHex, SergeGrid } from '@serge/custom-types'
