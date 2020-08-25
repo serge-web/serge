@@ -38,6 +38,7 @@ const findLocations = (store: RouteStore): Array<Cluster> => {
 
   // loop through store
   store.routes.forEach((route: Route) => {
+    console.log('examining', route.name)
     // start with location
     if(route.currentLocation) {
       const updateAssetLocation = (newLoc: L.LatLng): void => {
@@ -48,23 +49,19 @@ const findLocations = (store: RouteStore): Array<Cluster> => {
 
     // now planned routes
     route.planned.forEach((step: RouteStep) => {
-      if(step.locations) {
-        let ctr = 0;
-        // todo - we only declutter the first & last point in a route
-        // also, remember where the last point on the previous leg got
-        // decluttered to, so we use it at the start of the next leg
-        step.locations.forEach((loc: L.LatLng) => {
-          if(step.coords) {
-            const thisPos: string = step.coords[ctr]
-            const updateThisStep = (newLoc: L.LatLng): void => {
-              if(step.locations) {
-                console.log('update step, was:', step.locations[ctr], newLoc)
-                step.locations[ctr] = newLoc
-              }
+      console.log('INSPECTING', step.coords, step.locations)
+      if(step.locations && step.coords) {
+        let len = step.locations.length
+        for(let ctr:number = 0; ctr < len; ctr++) {
+          const thisPos: string = step.coords[ctr]
+          const updateThisStep = (newLoc: L.LatLng): void => {
+            if(step.locations) {
+              console.log('update step, was:', step.locations[ctr], newLoc)
+              step.locations[ctr] = newLoc
             }
-            storeInCluster(res, updateThisStep, thisPos, loc, 'step-' + thisPos)
           }
-        })
+          storeInCluster(res, updateThisStep, thisPos, step.locations[ctr], 'step-' + thisPos)
+        }
       }
     })
   }) 
@@ -73,7 +70,11 @@ const findLocations = (store: RouteStore): Array<Cluster> => {
 
 const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): void => {
   clusters.forEach((cluster: Cluster) => {
+    console.log('spreading:', cluster.position)
     if(cluster.items && cluster.items.length > 1) {
+      if(cluster.position === 'Q20') {
+        console.log('CLUSTER Q20', cluster)
+      }
       const gridDelta = tileDiameterMins / 60 / 4
       // ok, go for it
       const len = cluster.items.length
@@ -91,7 +92,10 @@ const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): voi
         item.setter(newLoc)
       }
       console.log('decluttered ', cluster.position, cluster.items)
+    } else {
+      console.log('CLUSTER empty', cluster.position)
     }
+
   })
 }
 
