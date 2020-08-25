@@ -35,6 +35,10 @@ it('can create route for un-recognised type', () => {
   const route: Route = store.routes[4]
   expect(route.uniqid).toEqual('a0pra000100')
   expect(route.color).toEqual('#999')
+
+  // should not create planned steps for non-blue platform
+  expect(route.planned.length).toEqual(0)
+
 })
 
 it('can create route as umpire in planning mode', () => {
@@ -133,6 +137,9 @@ it('route displays all hosted & comprising assets for blue force', () => {
   const frigate = store.routes[1]
   expect(frigate.uniqid).toEqual('a0pra00001')
 
+  // check we have planned route
+  expect(frigate.planned.length).toEqual(2)
+
   // find hosted platforms
   const hosting: Array<RouteChild> = frigate.hosting
   expect(hosting.length).toEqual(2)
@@ -143,7 +150,6 @@ it('route displays all hosted & comprising assets for blue force', () => {
   // since this is blue force, we see real names
   expect(hosting[0].name).toEqual('Merlin')
   expect(hosting[1].name).toEqual('Dart 42')
-  
 
   // find comprising platforms
   const taskGroup = store.routes[0]
@@ -191,6 +197,8 @@ it('route displays perceived hosted assets in tree for red force', () => {
   expect(frigate2.name).toEqual('Frigate Perceived Name')
   expect(frigate2.platformType).toEqual('frigate')
   expect(frigate2.perceivedForceName).toEqual('blue')
+  // don't show planned route for platform from other force
+  expect(frigate2.planned.length).toEqual(0)
 
   // find hosted platforms
   const hosting2: Array<RouteChild> = frigate2.hosting

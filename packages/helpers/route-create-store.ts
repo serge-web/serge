@@ -72,7 +72,7 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
             // asset under player control or player is umpire, so use real attributes
             const newRoute: Route = routeCreateRoute(asset, adjudication, force.color,
               controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
-              platformTypes, playerForce, asset.status, asset.position, assetLocation, grid)
+              platformTypes, playerForce, asset.status, asset.position, assetLocation, grid, true)
             store.routes.push(newRoute)
           } else {
 
@@ -87,7 +87,7 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
                     thisForce, child.platformType, child.perceptions, false)
                   // create route for this asset
                   const newRoute: Route = routeCreateRoute(child, false, perceivedAs, false, force.uniqid, perceptions[1],
-                    perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, grid)
+                    perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, grid, false)
                   store.routes.push(newRoute)
                 }
               })
@@ -99,7 +99,7 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
                   thisForce, asset.platformType, asset.perceptions, false)
                 // create route for this asset
                 const newRoute: Route = routeCreateRoute(asset, false, perceivedAs, false, force.uniqid, perceptions[1],
-                  perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, grid)
+                  perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, grid, false)
                 store.routes.push(newRoute)
               }
             }

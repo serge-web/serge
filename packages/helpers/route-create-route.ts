@@ -119,19 +119,20 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
  * @param {string} playerForce
  * @param {any} status
  * @param {string} currentPosition
+ * @param {boolean} includePlanned whether to include planned turns for this platform
  * @returns {Route} Routefor this asset
  */
 const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
   perceivedType: string, platformTypes: any, playerForce: string, status: any, currentPosition: string,
-  currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined): Route => {
+  currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean): Route => {
   const currentStatus: RouteStatus = status.speedKts
     ? { state: status.state, speedKts: status.speedKts }
     : { state: status.state }
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
-  const futureSteps: Array<RouteStep> = createStepArray(asset.plannedTurns, adjudication, grid)
+  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(asset.plannedTurns, adjudication, grid) : []
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
 
