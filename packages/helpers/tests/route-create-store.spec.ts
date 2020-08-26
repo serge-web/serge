@@ -1,4 +1,5 @@
 /* global it expect */
+import { cloneDeep } from 'lodash'
 
 /* Import mock data */
 import { forces, platformTypes } from '@serge/mocks'
@@ -42,7 +43,7 @@ it('can create route for un-recognised type', () => {
 })
 
 it('create full history & planned for blue unit', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', true, platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes, undefined, false, false)
   expect(store.routes.length).toEqual(11)
 
   // check a blue route
@@ -54,6 +55,7 @@ it('create full history & planned for blue unit', () => {
 
   // check inside a route
   const dhow: Route = store.routes[4]
+  expect(dhow.history.length).toEqual(3)
   // should not create planned steps for non-blue platform
   expect(dhow.planned.length).toEqual(0)
 })
@@ -102,7 +104,8 @@ it('can create route as umpire in planning mode, filtering planned points', () =
 
 
 it('support new way of storing past steps', () => {
-  const redForce: any = forces[2]
+  const forcesClone = cloneDeep(forces)
+  const redForce: any = forcesClone[2]
   const asset: any = redForce.assets[0]
   // switch history for one using new structure (that includes all steps)
   asset.history = [
@@ -130,7 +133,7 @@ it('support new way of storing past steps', () => {
     }
   ]
 
-  const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(forcesClone, 'umpire', false, platformTypes, undefined, false, false)
   expect(store.routes.length).toEqual(13)
 
   // check inside a route
@@ -293,4 +296,36 @@ it('route displays perceived comprised assets in flat layer for red force', () =
   expect(frigate2.name).toEqual('Frigate Perceived Name')
   expect(frigate2.platformType).toEqual('frigate')
   expect(frigate2.perceivedForceName).toEqual('blue')
+})
+
+it('route displays full history for asset in red force', () => {
+  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined, false, true)
+  expect(store.routes.length).toEqual(9)
+
+  // find the dhow
+  const dhow = store.routes.find(route => route.name === 'Dhow-A')
+  expect(dhow).toBeDefined()
+  if(dhow) {
+    expect(dhow.name).toEqual('Dhow-A')
+    expect(dhow.history.length).toEqual(3)
+    expect(dhow.history[1].coords && dhow.history[1].coords.length).toEqual(2)
+    // note: we put the second entry in 'route' structure, to test logic
+    expect(dhow.history[1].coords && dhow.history[1].coords[0]).toEqual('N05')
+  }
+})
+
+it('route displays single step of history for asset in red force', () => {
+  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined, true, false)
+  expect(store.routes.length).toEqual(9)
+
+  // find the dhow
+  const dhow = store.routes.find(route => route.name === 'Dhow-A')
+  expect(dhow).toBeDefined()
+  if(dhow) {
+    expect(dhow.name).toEqual('Dhow-A')
+    expect(dhow.history.length).toEqual(1)
+    expect(dhow.history[0].turn).toEqual(2)
+    expect(dhow.history[0].coords && dhow.history[0].coords.length).toEqual(1)
+    expect(dhow.history[0].coords && dhow.history[0].coords[0]).toEqual('N04')
+  }
 })
