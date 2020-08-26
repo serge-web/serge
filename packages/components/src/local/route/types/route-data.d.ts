@@ -11,18 +11,4 @@ export default interface RouteData {
    * series of end-of-turn locations, one per turn
    */
   turnEnds: Array<RouteTurn>
-  /**
-   * steps of the route
-   */
-  steps: RouteStep[]
-}
-
-export interface RouteStepStatus {
-  speedKts?: number
-  state: string
-}
-
-export interface RouteStep {
-  position: LatLng
-  status: RouteStepStatus
 }
