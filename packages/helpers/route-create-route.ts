@@ -158,8 +158,8 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
   // duplicate set (in case the user cancels changes)
   const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(asset.plannedTurns, adjudication, grid, true, filterPlannedSteps) : []
 
-  const historySteps: Array<RouteStep> = createStepArray(asset.history, false, grid, false, filterHistorySteps) // we plot all history, so ignore whether
-  // in adjudication
+  const historySteps: Array<RouteStep> = createStepArray(asset.history, false, grid, 
+      false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
 
