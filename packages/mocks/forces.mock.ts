@@ -363,7 +363,7 @@ export const forces = [
             turn: 1
           },
           {
-            coords: ['N04', 'N05'],
+            coords: ['N05', 'N04'],
             status: {
               speedKts: 10,
               state: 'Transiting'
