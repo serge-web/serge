@@ -153,7 +153,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
       setRouteStore(store)
     }
-  }, [forces, playerForce, phase, gridCells, filterPlannedRoutes])
+  }, [forces, playerForce, phase, gridCells, filterHistoryRoutes, filterPlannedRoutes])
 
   /**
    * generate the set of routes visible to this player, for display
