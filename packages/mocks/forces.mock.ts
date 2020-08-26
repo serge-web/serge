@@ -347,7 +347,7 @@ export const forces = [
         contactId: 'C065',
         history: [
           {
-            position: 'M06',
+            position: 'M07',
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -355,7 +355,7 @@ export const forces = [
             turn: 0
           },
           {
-            route: [ 'N05', 'M05' ],
+            route: [ 'N06', 'M06' ],
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -363,7 +363,7 @@ export const forces = [
             turn: 1
           },
           {
-            position: 'N04',
+            coords: ['N04', 'N05'],
             status: {
               speedKts: 10,
               state: 'Transiting'

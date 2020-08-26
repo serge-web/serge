@@ -325,7 +325,8 @@ it('route displays full history for asset in red force', () => {
     expect(dhow.history.length).toEqual(3)
     expect(dhow.history[1].coords && dhow.history[1].coords.length).toEqual(2)
     // note: we put the second entry in 'route' structure, to test logic
-    expect(dhow.history[1].coords && dhow.history[1].coords[0]).toEqual('N05')
+    expect(dhow.history[1].coords && dhow.history[1].coords[0]).toEqual('N06')
+    expect(dhow.history[1].coords && dhow.history[1].coords[1]).toEqual('M06')
   }
 })
 
@@ -340,7 +341,8 @@ it('route displays single step of history for asset in red force', () => {
     expect(dhow.name).toEqual('Dhow-A')
     expect(dhow.history.length).toEqual(1)
     expect(dhow.history[0].turn).toEqual(2)
-    expect(dhow.history[0].coords && dhow.history[0].coords.length).toEqual(1)
+    expect(dhow.history[0].coords && dhow.history[0].coords.length).toEqual(2)
     expect(dhow.history[0].coords && dhow.history[0].coords[0]).toEqual('N04')
+    expect(dhow.history[0].coords && dhow.history[0].coords[1]).toEqual('N05')
   }
 })
