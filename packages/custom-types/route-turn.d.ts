@@ -4,6 +4,11 @@ interface RouteTurnDuo {
   name: string
 }
 
+export interface RouteTurnStatus {
+  speedKts?: number
+  state: string
+}
+
 /** data-type that collates the data necessary to
  * generate the rotated turn marker lines
  */
@@ -12,4 +17,5 @@ export default interface RouteTurn {
   previous?: RouteTurnDuo,
   current: RouteTurnDuo,
   next?: RouteTurnDuo
+  status: RouteTurnStatus
 }
