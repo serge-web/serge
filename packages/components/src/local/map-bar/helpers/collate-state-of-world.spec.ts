@@ -17,6 +17,6 @@ it('contains relevant population results', () => {
   const asset = force.assets[0]
   expect(asset.name).toEqual('Dhow-A')
   expect(asset.plannedTurns.length).toEqual(3)
-  expect(asset.history.length).toEqual(1)
+  expect(asset.history.length).toEqual(3)
   expect(asset.newState).toEqual({ speedKts: 10, state: 'Transiting' })
 })
