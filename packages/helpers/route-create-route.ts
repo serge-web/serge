@@ -9,7 +9,7 @@ import hexNamed from './hex-named'
 const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
   step: any, res: Array<RouteStep>): Array<RouteStep> => {
   // dummy location, used if we don't have grid (such as in test)
-  const dummyLocation: L.LatLng = L.latLng(12.2, 23.3)
+  const dummyLocation: L.LatLng = L.latLng(12.2, 23.4)
 
   if (step.status) {
     const steps: string[] = []
