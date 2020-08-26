@@ -424,7 +424,7 @@ export const forces = [
         contactId: 'C105',
         history: [
           {
-            position: 'N10',
+            coords: ['N10'],
             status: {
               speedKts: 10,
               state: 'Transiting'
