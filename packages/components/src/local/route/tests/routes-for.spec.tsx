@@ -12,7 +12,7 @@ it('Provides valid history for single-point history with filter', () => {
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   if(route) {
     console.log(route.currentLocation, route.history[0].locations)
-    const data: RouteData = routesFor('Dhow-B', route.currentLocation, route.history, true)
+    const data: RouteData = routesFor(route.currentLocation, route.history, true)
     expect(data.turnEnds.length).toEqual(1)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
@@ -27,7 +27,7 @@ it('Provides valid history for multi-point history with filter', () => {
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
   if(route) {
     console.log(route.currentLocation, route.history[0].locations)
-    const data: RouteData = routesFor('Dhow-A', route.currentLocation, route.history, true)
+    const data: RouteData = routesFor(route.currentLocation, route.history, true)
     expect(data.turnEnds.length).toEqual(1)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
@@ -42,7 +42,7 @@ it('Provides valid history for single-point history without filter', () => {
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   if(route) {
     console.log(route.currentLocation, route.history[0].locations)
-    const data: RouteData = routesFor('Dhow-B', route.currentLocation, route.history, true)
+    const data: RouteData = routesFor(route.currentLocation, route.history, true)
     expect(data.turnEnds.length).toEqual(1)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
@@ -57,13 +57,10 @@ it('Provides valid history for multi-point history without filter', () => {
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
   if(route) {
     console.log(route.currentLocation, route.history[0].locations)
-    const data: RouteData = routesFor('Dhow-A', route.currentLocation, route.history, true)
+    const data: RouteData = routesFor(route.currentLocation, route.history, true)
     expect(data.turnEnds.length).toEqual(3)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
-
-    expect(data.steps.length).toEqual(3)
-
   } else {
     fail('failed to find track')
   }
