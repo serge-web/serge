@@ -6,51 +6,48 @@ import findPerceivedAsTypes from './find-perceived-as-types'
 import { UMPIRE_FORCE } from '@serge/config'
 import hexNamed from './hex-named'
 
-const processStep = (adjudication: boolean,  grid: SergeGrid<SergeHex<{}>> | undefined,
+const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
   step: any, res: Array<RouteStep>): Array<RouteStep> => {
-  if(!adjudication || res.length == 0)
-  {
-    // dummy location, used if we don't have grid (such as in test)
-    const dummyLocation: L.LatLng = L.latLng(12.2, 23.3)
+  // dummy location, used if we don't have grid (such as in test)
+  const dummyLocation: L.LatLng = L.latLng(12.2, 23.3)
 
-    if (step.status) {
-      const steps: string[] = []
-      const locations: Array<L.LatLng> = []
-      if (step.route) {
-        // ok, this is modern way of planned or history steps
-        step.route.forEach((coord: any) => {
-          steps.push(coord)
-          const hex: SergeHex<{}> | undefined = grid && hexNamed(coord, grid)
-          locations.push(hex && hex.centreLatLng || dummyLocation)
-        })
-      } else if(step.coords) {
-        // ok, this is legacy way of planned or history steps
-        step.coords.forEach((coord: any) => {
-          steps.push(coord)
-          const hex: SergeHex<{}> | undefined = grid && hexNamed(coord, grid)
-          locations.push(hex && hex.centreLatLng || dummyLocation)
-        })
-      } else if (step.position) {
-        // ok, this is legacy way of recording stationary past steps
-        steps.push(step.position)
-        const hex: SergeHex<{}> | undefined = grid && hexNamed(step.position, grid)
+  if (step.status) {
+    const steps: string[] = []
+    const locations: Array<L.LatLng> = []
+    if (step.route) {
+      // ok, this is modern way of planned or history steps
+      step.route.forEach((coord: any) => {
+        steps.push(coord)
+        const hex: SergeHex<{}> | undefined = grid && hexNamed(coord, grid)
         locations.push(hex && hex.centreLatLng || dummyLocation)
-      }
-
-      // only include the speed parameter if there's one present
-      // in the incoming object
-      const status: RouteStatus = step.status.speedKts
-        ? { state: step.status.state, speedKts: step.status.speedKts }
-        : { state: step.status.state }
-
-      // sort the status
-      res.push({
-        turn: step.turn,
-        coords: steps,
-        locations: locations,
-        status: status
       })
-    }  
+    } else if(step.coords) {
+      // ok, this is legacy way of planned or history steps
+      step.coords.forEach((coord: any) => {
+        steps.push(coord)
+        const hex: SergeHex<{}> | undefined = grid && hexNamed(coord, grid)
+        locations.push(hex && hex.centreLatLng || dummyLocation)
+      })
+    } else if (step.position) {
+      // ok, this is legacy way of recording stationary past steps
+      steps.push(step.position)
+      const hex: SergeHex<{}> | undefined = grid && hexNamed(step.position, grid)
+      locations.push(hex && hex.centreLatLng || dummyLocation)
+    }
+
+    // only include the speed parameter if there's one present
+    // in the incoming object
+    const status: RouteStatus = step.status.speedKts
+      ? { state: step.status.state, speedKts: step.status.speedKts }
+      : { state: step.status.state }
+
+    // sort the status
+    res.push({
+      turn: step.turn,
+      coords: steps,
+      locations: locations,
+      status: status
+    })
   }
   return res
 }
@@ -58,7 +55,7 @@ const processStep = (adjudication: boolean,  grid: SergeGrid<SergeHex<{}>> | und
 /** convert legacy array object to new TypeScript structure
  *
  */
-const createStepArray = (turns: any, adjudication: boolean,  grid: SergeGrid<SergeHex<{}>> | undefined, planned: boolean,
+const createStepArray = (turns: any, grid: SergeGrid<SergeHex<{}>> | undefined, planned: boolean,
     filterSteps: boolean): Array<RouteStep> => {
   let res: Array<RouteStep> = []
   if (turns) {
@@ -66,15 +63,15 @@ const createStepArray = (turns: any, adjudication: boolean,  grid: SergeGrid<Ser
       if(turns.length > 0) {
         if(planned) {
           // just the first one
-          res = processStep(adjudication, grid, turns[0], res)
+          res = processStep(grid, turns[0], res)
         } else {
           // just the last one
-          res = processStep(adjudication, grid, turns[turns.length-1], res)
+          res = processStep(grid, turns[turns.length-1], res)
         }         
       }
     } else {
       turns.forEach((step: any) => {
-        res = processStep(adjudication, grid, step, res)  
+        res = processStep(grid, step, res)  
       })
     }
   }
@@ -127,7 +124,6 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
 
 /** create a route object for this asset
  * @param {any} asset single asset
- * @param {boolean} adjudication whether this is umpire in adjudication
  * @param {string} color color for rendering this asset
  * @param {boolean} underControl whether the player is controlling this asset
  * @param {string} actualForce the true force for the asset
@@ -145,7 +141,7 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
  * @param {boolean} filterPlannedSteps whether to filter planned steps to just the first one
  * @returns {Route} Routefor this asset
  */
-const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
+const routeCreateRoute = (asset: any, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
   perceivedType: string, platformTypes: any, playerForce: string, status: any, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
@@ -156,9 +152,9 @@ const routeCreateRoute = (asset: any, adjudication: boolean, color: string,
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
-  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(asset.plannedTurns, adjudication, grid, true, filterPlannedSteps) : []
+  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(asset.plannedTurns,  grid, true, filterPlannedSteps) : []
 
-  const historySteps: Array<RouteStep> = createStepArray(asset.history, false, grid, 
+  const historySteps: Array<RouteStep> = createStepArray(asset.history, grid, 
       false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)

@@ -15,7 +15,7 @@ it('determines correct controlled routes', () => {
   expect(forcesControlledBy(forces, 'umpire')).toEqual(['Green'])
 })
 
-it('can create route as umpire in adjudication mode', () => {
+it('can create route under control as umpire in adjudication phase', () => {
   const store: RouteStore = routeCreateStore(forces, 'umpire', true, platformTypes, undefined, false, false)
   expect(store.routes.length).toEqual(13)
 
@@ -23,9 +23,24 @@ it('can create route as umpire in adjudication mode', () => {
   const route: Route = store.routes[1]
   expect(route.uniqid).toEqual('a0pra00001')
   expect(route.history.length).toEqual(1)
-  expect(route.planned.length).toEqual(1)
-  expect(route.original.length).toEqual(1)
+  expect(route.planned.length).toEqual(2)
+  expect(route.original.length).toEqual(2)
+  expect(route.underControl).toBeTruthy()
 })
+
+it('can create route under control as umpire in playing phase', () => {
+  const store: RouteStore = routeCreateStore(forces, 'umpire', false, platformTypes, undefined, false, false)
+  expect(store.routes.length).toEqual(13)
+
+  // check inside a route
+  const route: Route = store.routes[1]
+  expect(route.uniqid).toEqual('a0pra00001')
+  expect(route.history.length).toEqual(1)
+  expect(route.planned.length).toEqual(2)
+  expect(route.original.length).toEqual(2)
+  expect(route.selected).toBeFalsy()
+})
+
 
 it('can create route for un-recognised type', () => {
   const store: RouteStore = routeCreateStore(forces, 'Blue', true, platformTypes, undefined, false, false)
