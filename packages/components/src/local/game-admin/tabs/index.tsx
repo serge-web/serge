@@ -22,8 +22,8 @@ export const Tabs: React.FC<PropTypes> = ({ onChange, tabs, activeTab = '' }) =>
   }
   return (
     <div className={styles.main}>
-      {tabs.map(tab => (
-        <div className={cx(styles.item, tab === active && styles.active)} onClick={(e): void => { handeClick(tab, e) }}>
+      {tabs.map((tab, key) => (
+        <div key={key} className={cx(styles.item, tab === active && styles.active)} onClick={(e): void => { handeClick(tab, e) }}>
           {tab}
         </div>
       ))}

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`platform-types renders correctly 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="left"
+  >
+    <div
+      className="main"
+    >
+      <div
+        className="section"
+      >
+        <button
+          className="main"
+          onClick={[Function]}
+          type="button"
+        >
+          Add
+        </button>
+      </div>
+      <ul />
+    </div>
+  </div>
+  <div
+    className="right"
+  >
+    <a
+      className="main"
+      href="#"
+      onClick={[Function]}
+    >
+      Text
+    </a>
+  </div>
+</div>
+`;

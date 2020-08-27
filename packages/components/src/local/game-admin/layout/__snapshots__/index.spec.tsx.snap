@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminLayout renders correctly 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="left-panel"
+    onClick={[Function]}
+  >
+    <a
+      className="link main"
+      href="#"
+      onClick={[Function]}
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-arrow-left fa-w-14 fa-2x "
+        data-icon="arrow-left"
+        data-prefix="fas"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </a>
+  </div>
+  <div
+    className="container"
+  >
+    <div
+      className="header"
+    >
+      <div
+        className="main"
+      >
+        <div
+          className="input-box item"
+        >
+          <input
+            className="input"
+            onChange={[Function]}
+            placeholder="Game Title"
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          className="status item"
+        >
+          <svg
+            aria-hidden="true"
+            className="svg-inline--fa fa-hourglass-start fa-w-12 fa-1x "
+            data-icon="hourglass-start"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            style={Object {}}
+            viewBox="0 0 384 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M360 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24 0 90.965 51.016 167.734 120.842 192C75.016 280.266 24 357.035 24 448c-13.255 0-24 10.745-24 24v16c0 13.255 10.745 24 24 24h336c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24 0-90.965-51.016-167.734-120.842-192C308.984 231.734 360 154.965 360 64c13.255 0 24-10.745 24-24V24c0-13.255-10.745-24-24-24zm-64 448H88c0-77.458 46.204-144 104-144 57.786 0 104 66.517 104 144z"
+              fill="currentColor"
+              style={Object {}}
+            />
+          </svg>
+           Wargame in progress
+        </div>
+        <div
+          className="progress-box item"
+        >
+          <div
+            className="progress"
+          >
+            <div
+              className="progress-indicator progress-indicator-active"
+            />
+            <div
+              className="progress-indicator"
+            />
+            <div
+              className="progress-indicator"
+            />
+          </div>
+        </div>
+      </div>
+      0
+    </div>
+    <div
+      className="content"
+    >
+      Content
+    </div>
+  </div>
+</div>
+`;

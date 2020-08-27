@@ -1,10 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`link renders correctly 1`] = `
-<link
+<a
   className="main"
-  disabled={false}
+  href="#"
   onClick={[Function]}
-  type="link"
-/>
+>
+  Text
+</a>
 `;
