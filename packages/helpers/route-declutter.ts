@@ -31,7 +31,7 @@ const storeInCluster = (store: Array<Cluster>, setter: {(newLoc: L.LatLng): void
   cluster.items.push(item)
 }
 
-const findLocations = (store: RouteStore): Array<Cluster> => {
+const findLocations = (store: RouteStore, selected: string | undefined): Array<Cluster> => {
  //  const res: { [position: string]: Array<RouteLocation> } = {};
  // const res: Record<string, string >  = {}
  const res: Array<Cluster> = []
@@ -47,7 +47,9 @@ const findLocations = (store: RouteStore): Array<Cluster> => {
     }
 
     // now planned routes
-    route.planned.forEach((step: RouteStep) => {
+    const numSteps: number = route.planned.length
+    for(let stepCtr:number = 0; stepCtr < numSteps; stepCtr++) {
+      const step: RouteStep = route.planned[stepCtr]
       if(step.locations && step.coords) {
         let len = step.locations.length
         for(let ctr:number = 0; ctr < len; ctr++) {
@@ -57,10 +59,15 @@ const findLocations = (store: RouteStore): Array<Cluster> => {
               step.locations[ctr] = newLoc
             }
           }
-          storeInCluster(res, updateThisStep, thisPos, step.locations[ctr], 'step-' + thisPos)
+          if(route.uniqid === selected && stepCtr === numSteps - 1 && ctr === len - 1) {
+            // this is the selected track, and we're on the last step of the last turn
+            // so don't declutter it
+          } else {
+            storeInCluster(res, updateThisStep, thisPos, step.locations[ctr], 'step-' + thisPos)
+          }
         }
       }
-    })
+    }
   }) 
   return res
 }
@@ -95,8 +102,11 @@ const routeDeclutter = (store: RouteStore, tileDiameterMins: number): RouteStore
   // take deep copy
   const modified: RouteStore = cloneDeep(store)
 
+  // get the id of the selected asset
+  const selected: string | undefined = store.selected && store.selected.uniqid
+
   // find all clusters
-  const clusters: Array<Cluster> = findLocations(modified)
+  const clusters: Array<Cluster> = findLocations(modified, selected)
 
   // now spread out the clusters (note: we're already working with a clone)
   spreadClusters(clusters, tileDiameterMins)
