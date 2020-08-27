@@ -4,11 +4,11 @@ import React from 'react'
 import AdminLayout from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
+import { WargameMock as wargame, adminTabs } from '@serge/mocks'
+
+import { Content, LeftSide, RightSide } from '../content'
 
 const wrapper: React.FC = (storyFn: any) => <div>{storyFn()}</div>
-import { WargameMock as wargame } from '@serge/mocks'
-import { adminTabs } from '@serge/mocks'
-import { Content, LeftSide, RightSide } from '../content'
 
 export default {
   title: 'local/GameAdmin/AdminLayout',

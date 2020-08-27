@@ -5,7 +5,6 @@ import EditableList from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 
-
 // import types
 import { Item } from './types/props'
 import { PlatformTypeData } from '@serge/custom-types'
@@ -27,20 +26,33 @@ export default {
 }
 
 export const Default: React.FC = () => {
-
   const [items, setItems] = useState<Array<PlatformTypeData>>(platformTypes)
 
-  const handleClick = (item: Item) => {
+  const handleClick = (item: Item): void => {
     console.log('selected item:', item)
   }
-  const handleChange = (items: Array<Item>) => {
-    setItems(items as Array<PlatformTypeData>);
+  const handleChange = (items: Array<Item>): void => {
+    setItems(items as Array<PlatformTypeData>)
+  }
+  const handleCreate = (): void => {
+    setItems([
+      {
+        name: 'New Item',
+        conditions: [],
+        icon: '',
+        speedKts: [],
+        states: [],
+        travelMode: 'sea'
+      },
+      ...items
+    ])
   }
   return (<EditableList
     title='Add new platform type'
     items={items}
     onClick={handleClick}
     onChange={handleChange}
+    onCreate={handleCreate}
   />)
 }
 

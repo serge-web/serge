@@ -12,14 +12,14 @@ import styles from './styles.module.scss'
 import Button from '../../form-elements/button'
 
 /* Import Icons */
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCopy, faTrash } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCopy, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
 export const EditableList: React.FC<PropTypes> = ({ onClick, onChange, items, title = 'Add', onCreate }) => {
   const [active, setActive] = useState<string | number>('')
 
-  const handleChange = (changedItems: Array<Item>) => {
+  const handleChange = (changedItems: Array<Item>): void => {
     if (typeof onChange === 'function') {
       onChange(changedItems)
     }
@@ -60,14 +60,14 @@ export const EditableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
           const uniqid = item.uniqid || key
           return (
             <li key={uniqid} className={cx(active === uniqid && styles.active)} >
-              <div className={styles.overlap} onClick={e => { handeClick(e, item, uniqid) }} />
+              <div className={styles.overlap} onClick={(e): void => { handeClick(e, item, uniqid) }} />
               <div className={styles.section}>
                 <div>{item.name}</div>
                 <span>
-                  <div onClick={() => { handeCopy(item, key) }}>
+                  <div onClick={(): void => { handeCopy(item, key) }}>
                     <FontAwesomeIcon icon={faCopy} />
                   </div>
-                  <div onClick={() => { handeRemove(key) }}>
+                  <div onClick={(): void => { handeRemove(key) }}>
                     <FontAwesomeIcon icon={faTrash} />
                   </div>
                 </span>

@@ -13,8 +13,8 @@ import Tabs from '../tabs'
 import StatusBar from '../statusbar'
 
 /* Import Icons */
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {faArrowLeft} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
 export const AdminLayout: React.FC<PropTypes> = ({ children, onClick, wargame, tabs = [] }) => {
@@ -29,7 +29,7 @@ export const AdminLayout: React.FC<PropTypes> = ({ children, onClick, wargame, t
     }
   }
 
-  const renderContainer = (reqWargame: Wargame) => {
+  const renderContainer = (reqWargame: Wargame): React.ReactNode => {
     return <>
       <div className={styles.header}>
         <StatusBar wargame={reqWargame}>test</StatusBar>
@@ -40,7 +40,7 @@ export const AdminLayout: React.FC<PropTypes> = ({ children, onClick, wargame, t
       </div>
     </>
   }
-  const renderLoading = () => (
+  const renderLoading = (): React.ReactNode => (
     // TODO add some loader
     <div className={styles.loading}>Loading</div>
   )

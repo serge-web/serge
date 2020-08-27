@@ -9,12 +9,11 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Import Icons */
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {faHourglassStart} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHourglassStart } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
 export const StatusBar: React.FC<PropTypes> = ({ onChange, wargame }) => {
-
   const [value, setValue] = useState(wargame.wargameTitle)
 
   const handeChange = (e: any): void => {
