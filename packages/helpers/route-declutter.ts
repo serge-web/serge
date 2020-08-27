@@ -63,11 +63,27 @@ const findLocations = (store: RouteStore, selected: string | undefined): Array<C
             // this is the selected track, and we're on the last step of the last turn
             // so don't declutter it
           } else {
-            storeInCluster(res, updateThisStep, thisPos, step.locations[ctr], 'step-' + thisPos)
+            storeInCluster(res, updateThisStep, thisPos, step.locations[ctr], 'planned-step-' + thisPos)
           }
         }
       }
     }
+
+    // and historic tracks
+    route.history.forEach((step: RouteStep) => {
+      if(step.locations && step.coords) {
+        let len = step.locations.length
+        for(let ctr:number = 0; ctr < len; ctr++) {
+          const thisPos: string = step.coords[ctr]
+          const updateThisStep = (newLoc: L.LatLng): void => {
+            if(step.locations) {
+              step.locations[ctr] = newLoc
+            }
+          }
+          storeInCluster(res, updateThisStep, thisPos, step.locations[ctr], 'history-step-' + thisPos)
+        }
+      }
+    })
   }) 
   return res
 }
