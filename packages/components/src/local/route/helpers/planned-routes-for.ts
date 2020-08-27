@@ -4,15 +4,11 @@ import { LatLng } from 'leaflet'
 import { RouteTurn, RouteTurnDuo, RouteTurnStatus, RouteStep as RouteStepType } from '@serge/custom-types'
 import RouteData from '../types/route-data'
 
-/** the number of legs to display if the user wants trimmed data */
-export const lengthOfTrimmedLine = 2
-
 /**
  *  generate the planned routes for this asset
  * @param {LatLng} startLocation location where the asset currently is
  * @param {any} turns series of planned steps for asset
  * @param {boolean} trimmed whether to only show trimmed portion of data
- * @param {boolean} history whether this is history or planned steps
  * @returns {RouteData} composite object containing route lines & end of turn marker locations
  */
 export const plannedRoutesFor = (name: string, startLocation: LatLng | undefined, turns: RouteStepType[]): RouteData => {
@@ -39,10 +35,8 @@ export const plannedRoutesFor = (name: string, startLocation: LatLng | undefined
           turn.locations.forEach((step: L.LatLng) => {
             const currentLocation: RouteTurnDuo = { pos: step, name: 'step_' + stepsThisTurn }
             const status: RouteTurnStatus = turn.status.speedKts
-              ? {
-                speedKts: turn.status.speedKts,
-                state: turn.status.state
-              } : { state: turn.status.state }
+              ? { speedKts: turn.status.speedKts, state: turn.status.state } 
+              : { state: turn.status.state }
 
             // is this the first cell?
             if (stepsThisTurn ===  0) {
@@ -67,7 +61,6 @@ export const plannedRoutesFor = (name: string, startLocation: LatLng | undefined
           })
         }
       })
-      // store the line end if it's history
     }
 
     // see if we need to put in a trailing step

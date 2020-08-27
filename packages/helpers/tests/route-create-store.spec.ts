@@ -342,7 +342,7 @@ it('route displays single step of history for asset in red force', () => {
     expect(dhow.history.length).toEqual(1)
     expect(dhow.history[0].turn).toEqual(2)
     expect(dhow.history[0].coords && dhow.history[0].coords.length).toEqual(2)
-    expect(dhow.history[0].coords && dhow.history[0].coords[0]).toEqual('N04')
-    expect(dhow.history[0].coords && dhow.history[0].coords[1]).toEqual('N05')
+    expect(dhow.history[0].coords && dhow.history[0].coords[0]).toEqual('N05')
+    expect(dhow.history[0].coords && dhow.history[0].coords[1]).toEqual('N04')
   }
 })

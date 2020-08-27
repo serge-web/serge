@@ -3,7 +3,7 @@
 import { forces, platformTypes } from '@serge/mocks'
 import { RouteStore, Route } from '@serge/custom-types'
 import { routeCreateStore } from '@serge/helpers'
-import { historicRoutesFor } from '../helpers/historic-routes-for'
+import { historicRoutesFor } from './historic-routes-for'
 import RouteData from '../types/route-data'
 
 it('Provides valid history for single-point history with filter', () => {
