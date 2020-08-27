@@ -8,7 +8,8 @@ import { MapContext } from '../mapping'
 import RouteData from './types/route-data'
 
 import createTurnMarkers from './helpers/create-turn-markers'
-import { routesFor } from './helpers/routes-for'
+import { historicRoutesFor } from './helpers/historic-routes-for'
+import { plannedRoutesFor } from './helpers/planned-routes-for'
 
 /* Render component */
 export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, selected, clearRouteHandler }: PropTypes) => {
@@ -29,13 +30,13 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
   useEffect(() => {
     if (gridCells) {
       // start with historic
-      const historyRoute: RouteData = routesFor(route.currentLocation, route.history, true)
+      const historyRoute: RouteData = historicRoutesFor(route.name, route.currentLocation, route.history)
       setHistoryRoutes(historyRoute)
       const historyMarkers: JSX.Element[] = createTurnMarkers(historyRoute, turnNumber, 'history', color, selected, clearRouteHandler)
       setHistoryTurnMarkers(historyMarkers)
 
       // and now planned routes
-      const plannedRoute: RouteData = routesFor(route.currentLocation, route.planned, false)
+      const plannedRoute: RouteData = plannedRoutesFor(route.name, route.currentLocation, route.planned)
       setPlannedRoutes(plannedRoute)
       setPlannedTurnMarkers(createTurnMarkers(plannedRoute, turnNumber, 'planned', color, selected, clearRouteHandler))
     }

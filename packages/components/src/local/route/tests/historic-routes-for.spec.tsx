@@ -1,9 +1,9 @@
 /* global it expect */
 
 import { forces, platformTypes } from '@serge/mocks'
-import { RouteStore , Route} from '@serge/custom-types'
+import { RouteStore, Route } from '@serge/custom-types'
 import { routeCreateStore } from '@serge/helpers'
-import { routesFor } from '../helpers/routes-for'
+import { historicRoutesFor } from '../helpers/historic-routes-for'
 import RouteData from '../types/route-data'
 
 it('Provides valid history for single-point history with filter', () => {
@@ -11,8 +11,7 @@ it('Provides valid history for single-point history with filter', () => {
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   if(route) {
-    console.log(route.currentLocation, route.history[0].locations)
-    const data: RouteData = routesFor(route.currentLocation, route.history, true)
+    const data: RouteData = historicRoutesFor('Dhow-B', route.currentLocation, route.history)
     expect(data.turnEnds.length).toEqual(1)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
@@ -26,8 +25,7 @@ it('Provides valid history for multi-point history with filter', () => {
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
   if(route) {
-    console.log(route.currentLocation, route.history[0].locations)
-    const data: RouteData = routesFor(route.currentLocation, route.history, true)
+    const data: RouteData = historicRoutesFor('Dhow-A', route.currentLocation, route.history)
     expect(data.turnEnds.length).toEqual(1)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
@@ -41,8 +39,7 @@ it('Provides valid history for single-point history without filter', () => {
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   if(route) {
-    console.log(route.currentLocation, route.history[0].locations)
-    const data: RouteData = routesFor(route.currentLocation, route.history, true)
+    const data: RouteData = historicRoutesFor('Dhow-B', route.currentLocation, route.history)
     expect(data.turnEnds.length).toEqual(1)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
@@ -56,8 +53,7 @@ it('Provides valid history for multi-point history without filter', () => {
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
   if(route) {
-    console.log(route.currentLocation, route.history[0].locations)
-    const data: RouteData = routesFor(route.currentLocation, route.history, true)
+    const data: RouteData = historicRoutesFor('Dhow-A', route.currentLocation, route.history)
     expect(data.turnEnds.length).toEqual(3)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)

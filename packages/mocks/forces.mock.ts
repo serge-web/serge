@@ -379,7 +379,7 @@ export const forces = [
         plannedTurns: [
           {
             route: [
-              'L04'
+              'L04', 'K05'
             ],
             status: {
               speedKts: 10,
@@ -389,7 +389,7 @@ export const forces = [
           },
           {
             route: [
-              'K05'
+              'J05'
             ],
             status: {
               speedKts: 10,
@@ -399,7 +399,7 @@ export const forces = [
           },
           {
             route: [
-              'J05'
+              'I06'
             ],
             status: {
               speedKts: 10,
