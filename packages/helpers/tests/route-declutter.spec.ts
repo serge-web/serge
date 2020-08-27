@@ -10,7 +10,7 @@ import { RouteStore } from '@serge/custom-types'
 
 it('clear route from selected step', () => {
 
-  const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes, undefined)
+  const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes, undefined, false, false)
 
   // force some platforms into the cell already occupied
   // but the platform in route 2

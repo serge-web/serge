@@ -7,7 +7,7 @@ import MapControl from './index'
 
 it('MapControl renders correctly', () => {
   const tree = renderer
-    .create(<MapControl/>)
+    .create(<MapControl filterPlannedRoutes={true}/>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

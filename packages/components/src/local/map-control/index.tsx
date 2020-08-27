@@ -8,6 +8,8 @@ import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import HomeIcon from '@material-ui/icons/Home'
 import PublicIcon from '@material-ui/icons/Public'
+import HistoryIcon from '@material-ui/icons/History'
+import PlannedIcon from '@material-ui/icons/Update'
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -29,7 +31,11 @@ export const MapControl: React.FC<PropTypes> = ({
   /* view as */
   forces = [],
   viewAsCallback,
-  viewAsForce
+  viewAsForce,
+  filterPlannedRoutes,
+  setFilterPlannedRoutes,
+  filterHistoryRoutes,
+  setFilterHistoryRoutes
 }) => {
   /*
    * disable map scroll and click events to allow
@@ -63,6 +69,30 @@ export const MapControl: React.FC<PropTypes> = ({
     return viewAsForce !== undefined ? viewAsForce === force ? 'light' : 'dark' : 'dark'
   }
 
+  /* utilty method for whether we're filtering planned routes  */
+  const isFilterAsPlannedRoutes = (): 'light' | 'dark' => {
+    return filterPlannedRoutes ? 'dark' : 'light'
+  }
+
+  /* utilty method for whether we're filtering planned routes  */
+  const isFilterAsHistoryRoutes = (): 'light' | 'dark' => {
+    return filterHistoryRoutes ? 'dark' : 'light'
+  }
+
+  /* callback responding to filter planned routes toggle  */
+  const togglePlannedFilter = (): void => {
+    if (setFilterPlannedRoutes) {
+      setFilterPlannedRoutes(!filterPlannedRoutes)
+    }
+  }
+
+  /* callback responding to filter planned routes toggle  */
+  const toggleHistoryFilter = (): void => {
+    if (setFilterHistoryRoutes) {
+      setFilterHistoryRoutes(!filterHistoryRoutes)
+    }
+  }
+
   if (!map) return null
 
   return (
@@ -72,6 +102,16 @@ export const MapControl: React.FC<PropTypes> = ({
           {showZoom && <Item title="Zoom In" onClick={(): void => { handeZoomChange(zoomStepSize) }}><AddIcon/></Item>}
           {showHome && <Item title="Fit to window" onClick={(): void => { handeHome() }}><HomeIcon/></Item>}
           {showZoom && <Item title="Zoom Out" onClick={(): void => { handeZoomChange(-1 * zoomStepSize) }}><RemoveIcon/></Item>}
+        </div>
+        <div className={cx('leaflet-control')}>
+          <Item title="View full history" onClick={(): void => { toggleHistoryFilter() }}
+            contentTheme={ isFilterAsHistoryRoutes() } >
+            <HistoryIcon/>
+          </Item>
+          <Item title="View all planned steps" onClick={(): void => { togglePlannedFilter() }}
+            contentTheme={ isFilterAsPlannedRoutes() } >
+            <PlannedIcon/>
+          </Item>
         </div>
         {forces.length && <div className={cx('leaflet-control')}>
           {forces.map((force: any): JSX.Element => (
