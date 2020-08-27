@@ -75,7 +75,7 @@ export const historicRoutesFor = (name: string, startLocation: LatLng | undefine
       polyline.push(startLocation)
     }
 
-  if (turnEnds.length == 0) {
+    if (turnEnds.length == 0) {
       // there was only a single point in the history, so
       // we weren't able to loop around, then "look back" on the previous
       // step

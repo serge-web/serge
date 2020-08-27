@@ -27,7 +27,7 @@ it('Provides valid planned for multi-point planned without filter', () => {
   const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined, true, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
-  if(route) {
+  if (route) {
     const data: RouteData = plannedRoutesFor('Dhow-A', route.currentLocation, route.planned)
     expect(data.turnEnds.length).toEqual(3)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
@@ -59,7 +59,7 @@ it('Provides valid planned for single-point planned without filter', () => {
   const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined, true, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
-  if(route) {
+  if (route) {
     const data: RouteData = plannedRoutesFor('Dhow-B', route.currentLocation, route.planned)
     expect(data.turnEnds.length).toEqual(3)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)

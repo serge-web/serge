@@ -35,11 +35,11 @@ export const plannedRoutesFor = (name: string, startLocation: LatLng | undefined
           turn.locations.forEach((step: L.LatLng) => {
             const currentLocation: RouteTurnDuo = { pos: step, name: 'step_' + stepsThisTurn }
             const status: RouteTurnStatus = turn.status.speedKts
-              ? { speedKts: turn.status.speedKts, state: turn.status.state } 
+              ? { speedKts: turn.status.speedKts, state: turn.status.state }
               : { state: turn.status.state }
 
             // is this the first cell?
-            if (stepsThisTurn ===  0) {
+            if (stepsThisTurn === 0) {
               // do we have a previous step?
               if (lastLocation && lastStatus) {
                 // ok, we have enough for a turn
