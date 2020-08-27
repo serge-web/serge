@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Marker, Popup } from 'react-leaflet'
-import RouteData, { RouteStep, RouteStepStatus } from '../types/route-data'
-import { RouteTurn } from '@serge/custom-types'
+import RouteData from '../types/route-data'
+import { RouteTurn, RouteTurnStatus } from '@serge/custom-types'
 import L from 'leaflet'
 import { simpleIcon, svgIcon } from './create-marker'
 import calculatePolylineAngle from './calculate-polyline-angle'
@@ -11,20 +11,19 @@ import Button from '@material-ui/core/Button'
 /** provided formatted speed label, if
  * as speed is present
  */
-const speedLabel = (status: RouteStepStatus): string => {
+const speedLabel = (status: RouteTurnStatus): string => {
   return status.speedKts ? '@ ' + status.speedKts + 'kts' : ''
 }
 
 /** control how wide the text label is. If there is a speed
  * we allow a wider label
  */
-const labelLength = (status: RouteStepStatus): number => {
+const labelLength = (status: RouteTurnStatus): number => {
   return status.speedKts ? 300 : 180
 }
 
 const calculateTurnAngle = (thisStep: RouteTurn): number => {
   let angle = 0
-
   if (!thisStep.previous && thisStep.next) {
     // first marker
     angle = calculatePolylineAngle([thisStep.current.pos, thisStep.next.pos])
@@ -52,21 +51,22 @@ const createTurnMarkers = (routes: RouteData,
   color: string,
   selected: boolean,
   removeLastTurn: {(turnNumber: number): void}): JSX.Element[] => {
-  return routes.steps.map((rte: RouteStep, index: number) => {
+  return routes.turnEnds.map((step: RouteTurn, index: number) => {
     const markers = (color: string, routeTurn: RouteTurn): JSX.Element => {
       // start from the current game turn, increment by 0-based offset
       const currentTurn: number = turnNumber + index + 1
       const turn: string = padInteger(currentTurn)
-      if (selected === true) {
+      // note: check for presence of routeTurn - there may be no planned steps
+      if (routeTurn && selected === true) {
         const angle = calculateTurnAngle(routeTurn)
         return (
           <>
-            <Marker key={`${type}_text_turns_${index}`} position={rte.position} width="2" icon={L.divIcon({
-              html: `<text>T${turn}: ${rte.status.state} ${speedLabel(rte.status)}</text>`,
-              iconSize: [labelLength(rte.status), 20]
+            <Marker key={`${type}_text_turns_${index}`} position={step.current.pos} width="2" icon={L.divIcon({
+              html: `<text>T${turn}: ${step.status.state} ${speedLabel(step.status)}</text>`,
+              iconSize: [labelLength(step.status), 20]
             })}>
             </Marker>
-            <Marker key={`${type}_turns_${index}`} position={rte.position} width="2" icon={L.divIcon({
+            <Marker key={`${type}_turns_${index}`} position={step.current.pos} width="2" icon={L.divIcon({
               html: svgIcon(color, angle || 0),
               iconSize: [20, 20]
             })}>
@@ -81,7 +81,7 @@ const createTurnMarkers = (routes: RouteData,
         )
       } else {
         return (
-          <Marker key={`${type}_turns_${index}_unselected`} position={rte.position} icon={L.divIcon({
+          <Marker key={`${type}_turns_${index}_unselected`} position={step.current.pos} icon={L.divIcon({
             html: simpleIcon(color),
             iconSize: [10, 10]
           })} />

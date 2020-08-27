@@ -35,7 +35,6 @@ exports[`PlanTurnForm renders correctly 1`] = `
       >
         <div
           aria-haspopup="listbox"
-          aria-labelledby=" "
           className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
           onBlur={[Function]}
           onFocus={[Function]}
@@ -47,15 +46,17 @@ exports[`PlanTurnForm renders correctly 1`] = `
           Transiting
         </div>
         <input
+          aria-hidden={true}
+          className="MuiSelect-nativeInput"
           onAnimationStart={[Function]}
-          type="hidden"
+          onChange={[Function]}
+          tabIndex={-1}
           value="Transiting"
         />
         <svg
-          aria-hidden="true"
+          aria-hidden={true}
           className="MuiSvgIcon-root MuiSelect-icon"
           focusable="false"
-          role="presentation"
           viewBox="0 0 24 24"
         >
           <path

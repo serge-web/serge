@@ -7,6 +7,7 @@ Array [
   >
     <div
       className="MuiChip-root MuiChip-colorPrimary"
+      onKeyDown={[Function]}
       onKeyUp={[Function]}
     >
       <span
@@ -17,6 +18,7 @@ Array [
     </div>
     <div
       className="MuiChip-root MuiChip-colorSecondary"
+      onKeyDown={[Function]}
       onKeyUp={[Function]}
     >
       <span

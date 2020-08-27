@@ -7,7 +7,7 @@ import FormGroup from './index'
 
 it('FormGroup renders correctly', () => {
   const tree = renderer
-    .create(<FormGroup/>)
+    .create(<FormGroup>My form</FormGroup>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

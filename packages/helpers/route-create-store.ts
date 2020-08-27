@@ -1,8 +1,10 @@
-import { RouteStore, Route } from '@serge/custom-types'
+import L from 'leaflet'
+import { RouteStore, Route, SergeGrid, SergeHex } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
 import { UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy from './is-perceived-by'
+import hexNamed from './hex-named'
 
 /** determine which forces this player can control
  * @param {any} forces array of forces
@@ -25,9 +27,13 @@ export const forcesControlledBy = (forces: any, playerForce: string): Array<stri
  * @param {string} playerForce uniqid for player force
  * @param {string} adjudication whether player is umpire in adjudication
  * @param {string[]} controls uniqid for forces controlled by this player. Optional remove for all
+ * @param {SergeGrid<SergeHex<{}>> | undefined} grid the grid object, used to find cell centres, used in declutter
+ * @param {boolean} filterPlannedSteps whether to filter the planned steps to only one
+ * @param {boolean} filterHistorySteps whether to filter the history steps to only one
  * @returns {RouteStore} RouteStore representing current data
  */
-const routeCreateStore = (forces: any, playerForce: string, adjudication: boolean, platformTypes: any): RouteStore => {
+const routeCreateStore = (forces: any, playerForce: string, adjudication: boolean,
+    platformTypes: any, grid: SergeGrid<SergeHex<{}>> | undefined, filterHistorySteps: boolean, filterPlannedSteps: boolean): RouteStore => {
   const store: RouteStore = { routes: []}
 
   const controls: Array<string> = forcesControlledBy(forces, playerForce)
@@ -58,11 +64,17 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
             controlled = thisForce === playerForce || controls.includes(thisForce)
           }
 
+          // dummy location, used if we don't have grid (such as in test)
+          const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
+          // sort out location
+          const matchingHex: SergeHex<{}> | undefined = grid && hexNamed(asset.position, grid) || undefined
+          const assetLocation: L.LatLng = matchingHex && matchingHex.centreLatLng || dummyLocation
+
           if(controlled || playerForce === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
-            const newRoute: Route = routeCreateRoute(asset, adjudication, force.color,
+            const newRoute: Route = routeCreateRoute(asset, force.color,
               controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
-              platformTypes, playerForce, asset.status, asset.position)
+              platformTypes, playerForce, asset.status, asset.position, assetLocation, grid, true, filterHistorySteps, filterPlannedSteps)
             store.routes.push(newRoute)
           } else {
 
@@ -76,8 +88,9 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
                   const perceptions = findPerceivedAsTypes(playerForce, child.name, child.contactId,
                     thisForce, child.platformType, child.perceptions, false)
                   // create route for this asset
-                  const newRoute: Route = routeCreateRoute(child, false, perceivedAs, false, force.uniqid, perceptions[1],
-                    perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position)
+                  const newRoute: Route = routeCreateRoute(child, perceivedAs, false, force.uniqid, perceptions[1],
+                    perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, 
+                    grid, false, filterHistorySteps, filterPlannedSteps)
                   store.routes.push(newRoute)
                 }
               })
@@ -88,13 +101,12 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
                 const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
                   thisForce, asset.platformType, asset.perceptions, false)
                 // create route for this asset
-                const newRoute: Route = routeCreateRoute(asset, false, perceivedAs, false, force.uniqid, perceptions[1],
-                  perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position)
+                const newRoute: Route = routeCreateRoute(asset, perceivedAs, false, force.uniqid, perceptions[1],
+                  perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, 
+                  grid, false, filterHistorySteps, filterPlannedSteps)
                 store.routes.push(newRoute)
               }
-
             }
-
           }
         })
       }

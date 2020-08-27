@@ -1,8 +1,10 @@
+import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
+import { cloneDeep } from 'lodash'
 
 /* helper functions */
 import createGrid from './helpers/create-grid'
@@ -10,6 +12,7 @@ import boundsFor from './helpers/bounds-for'
 import {
   roundToNearest,
   routeCreateStore,
+  routeDeclutter,
   routeAddSteps,
   routeSetCurrent,
   routeGetLatestPosition,
@@ -116,6 +119,8 @@ export const Mapping: React.FC<PropTypes> = ({
   const [leafletElement, setLeafletElement] = useState(undefined)
   const [viewAsForce, setViewAsForce] = useState<string>(UMPIRE_FORCE)
   const [hidePlanningForm, setHidePlanningForm] = useState<boolean>(false)
+  const [filterPlannedRoutes, setFilterPlannedRoutes] = useState<boolean>(true)
+  const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -145,10 +150,10 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
     if (forces && gridCells) {
-      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms)
+      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
       setRouteStore(store)
     }
-  }, [forces, playerForce, phase, gridCells])
+  }, [forces, playerForce, phase, gridCells, filterHistoryRoutes, filterPlannedRoutes])
 
   /**
    * generate the set of routes visible to this player, for display
@@ -162,14 +167,19 @@ export const Mapping: React.FC<PropTypes> = ({
       // if this is umpire and we have view as
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
-        const vStore: RouteStore = routeCreateStore(forces, viewAsForce, umpireInAdjudication, platforms)
-        setViewAsRouteStore(vStore)
+        const vStore: RouteStore = routeCreateStore(forces, viewAsForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
+        declutterRouteStore(vStore)
       } else {
         // just use normal route store
-        setViewAsRouteStore(routeStore)
+        declutterRouteStore(routeStore)
       }
     }
   }, [forces, viewAsForce, phase, gridCells, routeStore])
+
+  const declutterRouteStore = (store: RouteStore): void => {
+    const declutteredStore = routeDeclutter(store, tileDiameterMins)
+    setViewAsRouteStore(declutteredStore)
+  }
 
   useEffect(() => {
     if (mapBounds) {
@@ -186,7 +196,8 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (latLngBounds && tileDiameterMins) {
       // note: the list of cells should be re-calculated if `tileDiameterMins` changes
-      setGridCells(createGrid(latLngBounds, tileDiameterMins))
+      const newGrid: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
+      setGridCells(newGrid)
     }
   }, [tileDiameterMins, latLngBounds])
 
@@ -194,16 +205,23 @@ export const Mapping: React.FC<PropTypes> = ({
     if (newLeg) {
       const selRoute = routeStore.selected
       if (selRoute) {
+        const turnStart = selRoute.planned && selRoute.planned.length
+          ? selRoute.planned[selRoute.planned.length - 1].turn
+          : turnNumber
+
         // increment turn number, if we have any turns planned, else start with `1`
-        const newTurn = selRoute.planned.length ? selRoute.planned[selRoute.planned.length - 1].turn + 1 : 1
         const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
           return cell.name
         })
+        const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex<{}>) => {
+          return cell.centreLatLng
+        })
         if (selRoute) {
           const newStep: RouteStep = {
-            turn: newTurn,
+            turn: turnStart + 1,
             status: { state: newLeg.state, speedKts: newLeg.speed },
-            coords: coords
+            coords: coords,
+            locations: locations
           }
           const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
           setRouteStore(newStore)
@@ -229,15 +247,26 @@ export const Mapping: React.FC<PropTypes> = ({
   const clearFromTurn = (turn: number): void => {
     const current: Route | undefined = routeStore.selected
     if (current) {
-      console.log('clear from turn', turn, current.planned.length)
-      const newStore = routeClearFromStep(routeStore, current.uniqid, turn)
-
-      const current2: Route | undefined = newStore.selected
-      if (current2) {
-        console.log('clear after turn', turn, current2.planned.length)
-      }
-      console.log('cleared after turn', turn, newStore.selected)
+      const newStore = routeClearFromStep(routeStore, current.uniqid, turn + 1)
       setRouteStore(newStore)
+      // now move the planning marker back to the last valid location
+      const newCurrent: Route | undefined = newStore.selected
+      if (newCurrent) {
+        // do we have current planning constraints?
+        if (planningConstraints) {
+          // trigger route planning
+          const origin: string = routeGetLatestPosition(newCurrent.currentPosition, newCurrent.planned)
+
+          // take deep copy
+          const newConstraints: PlanMobileAsset = cloneDeep(planningConstraints)
+
+          // modify the origin
+          newConstraints.origin = origin
+
+          // trigger UI updatea
+          setPlanningConstraints(newConstraints)
+        }
+      }
     }
   }
 
@@ -382,6 +411,10 @@ export const Mapping: React.FC<PropTypes> = ({
             forces = {playerForce === UMPIRE_FORCE && forces}
             viewAsCallback = {viewAsCallback}
             viewAsForce = {viewAsForce}
+            filterPlannedRoutes = {filterPlannedRoutes}
+            setFilterPlannedRoutes = {setFilterPlannedRoutes}
+            filterHistoryRoutes = {filterHistoryRoutes}
+            setFilterHistoryRoutes = {setFilterHistoryRoutes}
           />
           <TileLayer
             url={tileLayer.url}

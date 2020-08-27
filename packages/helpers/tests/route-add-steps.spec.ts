@@ -9,7 +9,7 @@ import routeAddSteps from '../route-add-steps'
 import { RouteStore, RouteStep } from '@serge/custom-types'
 
 it('clear route from selected step', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes)
+  const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes, undefined, false, false)
 
   const idOne = 'a0pra00003'
 
