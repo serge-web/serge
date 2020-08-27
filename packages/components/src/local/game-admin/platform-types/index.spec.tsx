@@ -3,11 +3,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import Tabs from './index'
+import PlatformTypes from './index'
 
-it('tabs renders correctly', () => {
+it('platform-types renders correctly', () => {
   const tree = renderer
-    .create(<Tabs tabs={['tab1', 'tab2', 'tab3']}>Text</Tabs>)
+    .create(<PlatformTypes disabled={false}>Text</PlatformTypes>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

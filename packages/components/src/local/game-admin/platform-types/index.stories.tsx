@@ -1,15 +1,15 @@
 import React from 'react'
 
 // Import component files
-import Tabs from './index'
+import PlatformTypes from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
-import { adminTabs } from '@serge/mocks'
+import { withKnobs, boolean } from '@storybook/addon-knobs'
+
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/GameAdmin/Tabs',
-  component: Tabs,
+  title: 'local/GameAdmin/PlatformTypes',
+  component: PlatformTypes,
   decorators: [withKnobs, wrapper],
   parameters: {
     readme: {
@@ -19,13 +19,13 @@ export default {
   }
 }
 
-const onChange = (): void => {
+const onClick = (): void => {
   console.log('clicked')
 }
 
-export const Default: React.FC = () => <Tabs
-  onChange={onChange}
-  tabs={adminTabs} >Title</Tabs>
+export const Default: React.FC = () => <PlatformTypes
+  onClick={onClick}
+  disabled={boolean('Disabled', false)} >Title</PlatformTypes>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 Default.story = {

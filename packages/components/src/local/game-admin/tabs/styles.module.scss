@@ -1,12 +1,29 @@
 .main {
-  display: inline-block;
   font-weight: 300;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  cursor: pointer;
-  text-decoration: none;
-  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.disabled {
-  color: #999;
-  cursor: unset;
+
+.item {
+  align-items: center;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  flex-basis: fit-content;
+  min-width: 160px;
+  padding: 10px 15px;
+  position: relative;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.active {
+  border-bottom-color: #415b76;
 }

@@ -4,6 +4,8 @@ interface CssExports {
   'active': string;
   'item': string;
   'main': string;
+  'overlap': string;
+  'section': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

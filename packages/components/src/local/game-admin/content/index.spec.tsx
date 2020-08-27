@@ -3,11 +3,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import Tabs from './index'
+import Content from './index'
 
-it('tabs renders correctly', () => {
+it('content renders correctly', () => {
   const tree = renderer
-    .create(<Tabs tabs={['tab1', 'tab2', 'tab3']}>Text</Tabs>)
+    .create(<Content>Text</Content>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

@@ -1,15 +1,15 @@
 import React from 'react'
 
 // Import component files
-import Tabs from './index'
+import { Content, LeftSide, RightSide } from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { adminTabs } from '@serge/mocks'
+
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/GameAdmin/Tabs',
-  component: Tabs,
+  title: 'local/GameAdmin/Content',
+  component: Content,
   decorators: [withKnobs, wrapper],
   parameters: {
     readme: {
@@ -19,13 +19,13 @@ export default {
   }
 }
 
-const onChange = (): void => {
-  console.log('clicked')
-}
-
-export const Default: React.FC = () => <Tabs
-  onChange={onChange}
-  tabs={adminTabs} >Title</Tabs>
+export const Default: React.FC = () => <Content>
+  <LeftSide>Menu</LeftSide>
+  <RightSide>Content</RightSide>
+</Content>
+export const Main: React.FC = () => <Content>Content</Content>
+export const Left: React.FC = () => <LeftSide>Menu</LeftSide>
+export const Right: React.FC = () => <RightSide>Content</RightSide>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 Default.story = {

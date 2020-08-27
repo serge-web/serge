@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import cx from 'classnames'
 
@@ -9,16 +9,22 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const Tabs: React.FC<PropTypes> = ({ onChange, tabs }) => {
+export const Tabs: React.FC<PropTypes> = ({ onChange, tabs, activeTab = '' }) => {
+
+  const useAsDefault = activeTab || tabs[0]
+
+  const [active, setActive] = useState(useAsDefault || '')
+
   const handeClick = (tab: string, e: any): void => {
+    setActive(tab)
     if (typeof onChange === 'function') {
       onChange(tab, e)
     }
   }
   return (
-    <div className={cx(styles.main)}>
+    <div className={styles.main}>
       {tabs.map(tab => (
-        <div onClick={e => { handeClick(tab, e) }}>
+        <div className={cx(styles.item, tab === active && styles.active)} onClick={e => { handeClick(tab, e) }}>
           {tab}
         </div>
       ))}
