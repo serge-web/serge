@@ -11,16 +11,13 @@ import RouteData from '../types/route-data'
  * @param {boolean} trimmed whether to only show trimmed portion of data
  * @returns {RouteData} composite object containing route lines & end of turn marker locations
  */
-export const plannedRoutesFor = (name: string, startLocation: LatLng | undefined, turns: RouteStepType[]): RouteData => {
+export const plannedRoutesFor = (startLocation: LatLng | undefined, turns: RouteStepType[]): RouteData => {
   const polyline: LatLng[] = []
   const turnEnds: Array<RouteTurn> = []
   let lastLocation: RouteTurnDuo | undefined
   let lastButOneLocation: RouteTurnDuo | undefined
   let lastStatus: RouteTurnStatus | undefined
   let turnCtr = 0
-  // TODO: next couple of lines are just to avoid compiler warning from parameter unused
-  let scrapName = name
-  scrapName = scrapName
   // start with current position
   if (startLocation) {
     if (turns) {

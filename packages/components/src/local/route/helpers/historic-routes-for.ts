@@ -14,7 +14,7 @@ export const lengthOfTrimmedLine = 2
  * @param {boolean} trimmed whether to only show trimmed portion of data
  * @returns {RouteData} composite object containing route lines & end of turn marker locations
  */
-export const historicRoutesFor = (name: string, startLocation: LatLng | undefined, turns: RouteStepType[]): RouteData => {
+export const historicRoutesFor = (startLocation: LatLng | undefined, turns: RouteStepType[]): RouteData => {
   const polyline: LatLng[] = []
   const turnEnds: Array<RouteTurn> = []
   let lastLocation: RouteTurnDuo | undefined
@@ -24,9 +24,6 @@ export const historicRoutesFor = (name: string, startLocation: LatLng | undefine
   // if it was only one step in length
   let lastTurnLength = 0
   let turnCtr = 0
-  // TODO: next couple of lines are just to avoid compiler warning from parameter unused
-  let scrapName = name
-  scrapName = scrapName
   // start with current position
   if (startLocation) {
     if (turns) {
@@ -75,7 +72,7 @@ export const historicRoutesFor = (name: string, startLocation: LatLng | undefine
       polyline.push(startLocation)
     }
 
-    if (turnEnds.length == 0) {
+    if (turnEnds.length === 0) {
       // there was only a single point in the history, so
       // we weren't able to loop around, then "look back" on the previous
       // step
