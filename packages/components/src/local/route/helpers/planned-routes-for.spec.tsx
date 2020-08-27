@@ -56,6 +56,7 @@ it('Provides valid planned for single-point planned without filter', () => {
   const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined, true, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
+  expect(route).toBeTruthy()
   if (route) {
     const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
     expect(data.turnEnds.length).toEqual(3)
@@ -63,7 +64,5 @@ it('Provides valid planned for single-point planned without filter', () => {
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
     // and the polyline
     expect(data.polyline.length).toEqual(4)
-  } else {
-    fail('failed to find track')
   }
 })
