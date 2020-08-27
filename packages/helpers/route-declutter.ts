@@ -27,7 +27,6 @@ const storeInCluster = (store: Array<Cluster>, setter: ClusterSetter, position: 
 
 const findLocations = (store: RouteStore, selected: string | undefined): Array<Cluster> => {
  const res: Array<Cluster> = []
-
   // loop through store
   store.routes.forEach((route: Route) => {
     // start with location
@@ -82,7 +81,10 @@ const findLocations = (store: RouteStore, selected: string | undefined): Array<C
 
 const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): void => {
   clusters.forEach((cluster: Cluster) => {
-    if(cluster.setters && cluster.setters.length > 1) {
+    if(cluster.hex === 'C17') {
+      console.log('decluttering C17', cluster.setters.length)
+    }
+    if(cluster.setters.length > 1) {
       const gridDelta = tileDiameterMins / 60 / 4
       // ok, go for it
       const len = cluster.setters.length
