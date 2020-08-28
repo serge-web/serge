@@ -23,6 +23,7 @@ export const forcesControlledBy = (forces: any, playerForce: string): Array<stri
 
 /** process the forces, to create a route store - used to manage
  * display and edits to planned routes
+ * @param {string | undefined} selectedId uniqid for selected asset
  * @param {any} forces array of forces
  * @param {string} playerForce uniqid for player force
  * @param {string} adjudication whether player is umpire in adjudication
@@ -32,7 +33,7 @@ export const forcesControlledBy = (forces: any, playerForce: string): Array<stri
  * @param {boolean} filterHistorySteps whether to filter the history steps to only one
  * @returns {RouteStore} RouteStore representing current data
  */
-const routeCreateStore = (forces: any, playerForce: string, adjudication: boolean,
+const routeCreateStore = (selectedId: string | undefined, forces: any, playerForce: string, adjudication: boolean,
     platformTypes: any, grid: SergeGrid<SergeHex<{}>> | undefined, filterHistorySteps: boolean, filterPlannedSteps: boolean): RouteStore => {
   const store: RouteStore = { routes: []}
 
@@ -72,9 +73,14 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
 
           if(controlled || playerForce === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
+
+            // if it's the selected asset, we plot all future steps
+            const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
+            const applyFilterPlannedSteps: boolean = filterPlannedSteps && !isSelectedAsset
+
             const newRoute: Route = routeCreateRoute(asset, force.color,
               controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
-              platformTypes, playerForce, asset.status, asset.position, assetLocation, grid, true, filterHistorySteps, filterPlannedSteps)
+              platformTypes, playerForce, asset.status, asset.position, assetLocation, grid, true, filterHistorySteps, applyFilterPlannedSteps)
             store.routes.push(newRoute)
           } else {
 
@@ -111,6 +117,12 @@ const routeCreateStore = (forces: any, playerForce: string, adjudication: boolea
         })
       }
     })
+
+    // also store the selected track
+    if(selectedId) {
+      const selectedRoute: Route | undefined = store.routes.find(route => route.uniqid === selectedId)
+      store.selected = selectedRoute  
+    }
 
   // loop through forces
   return store

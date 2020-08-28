@@ -52,7 +52,7 @@ const phasePhaseValue = Phase.Planning
 export const WithPhases: React.FunctionComponent = () => <WorldState showOtherPlatforms={boolean(showOthersLabel, showOthersDefaultValues)}
   isUmpire={boolean('Player is umpire', false)}
   phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
-  store={routeCreateStore(forces, radios(label, forceNames, defaultValue),
+  store={routeCreateStore(undefined, forces, radios(label, forceNames, defaultValue),
     radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue) === ADJUDICATION_PHASE, platformTypes, undefined, false, false)}
   submitTitle='Submit' name="World State" />
 
