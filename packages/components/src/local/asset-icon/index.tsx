@@ -13,6 +13,14 @@ import styles from './styles.module.scss'
 /* Import context */
 import { MapContext } from '../mapping'
 
+/* Export divIcon classname generator to use icons in to other sections */
+export const getIconClassname = (icForce: string, icType: string, icSelected?: boolean): string => (cx(
+  styles['asset-icon'],
+  styles[icForce],
+  icSelected ? styles.selected : null,
+  styles[`platform-type-${icType}`]
+))
+
 /* Render component */
 export const AssetIcon: React.FC<PropTypes> = ({
   uniqid,
@@ -27,27 +35,32 @@ export const AssetIcon: React.FC<PropTypes> = ({
   tooltip,
   selected
 }) => {
-  const { setShowMapBar, setSelectedAsset } = useContext(MapContext).props
+  const { setShowMapBar, setSelectedAsset, selectedAsset } = useContext(MapContext).props
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    className: cx(styles['asset-icon'], styles[force],
-      selected ? styles.selected : null, styles[`platform-type-${type}`])
+    className: getIconClassname(force, type, selected)
   })
 
   const clickEvent = (): void => {
-    setSelectedAsset({
-      uniqid,
-      name,
-      position,
-      type,
-      force,
-      visibleTo,
-      controlledBy,
-      condition,
-      status
-    })
-    setShowMapBar(true)
+    if (selectedAsset && selectedAsset.uniqid === uniqid) {
+      // clear selected asset, since it has been clicked again
+      setSelectedAsset(undefined)
+      setShowMapBar(false)
+    } else {
+      // select this asset
+      setSelectedAsset({
+        uniqid,
+        name,
+        type,
+        force,
+        visibleTo,
+        controlledBy,
+        condition,
+        status
+      })
+      setShowMapBar(true)
+    }
   }
 
   return <Marker position={position} icon={divIcon} onclick={clickEvent}>

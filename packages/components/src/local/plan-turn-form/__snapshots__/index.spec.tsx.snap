@@ -1,389 +1,166 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['PlanTurnForm renders correctly 1'] = `
+exports[`PlanTurnForm renders correctly 1`] = `
 <div
-  className="form planning"
+  className="main"
 >
-  <h2
-    className="form-header"
-  >
-    Planning header
-  </h2>
   <div
-    className="content"
+    className="main"
   >
-    <fieldset>
-      <section
-        className="input-container"
+    <h2>
+      Planning header
+    </h2>
+    <div
+      className="icon"
+    >
+      <div
+        className="asset-icon blue platform-type-merchant-vessel"
+      />
+    </div>
+  </div>
+  <div
+    className="group"
+  >
+    <div
+      className="container title"
+    >
+      State
+    </div>
+    <div
+      className="container main-container align-right"
+    >
+      <div
+        className="MuiInputBase-root MuiInput-root MuiInput-underline select"
+        onClick={[Function]}
       >
-        <h2>
-          Status
-        </h2>
         <div
-          aria-label="Status"
-          className="MuiFormGroup-root"
-          role="radiogroup"
+          aria-haspopup="listbox"
+          className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          role="button"
+          tabIndex={0}
         >
-          <label
-            className="MuiFormControlLabel-root"
-          >
-            <span
-              aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
-              onBlur={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={null}
-            >
-              <span
-                className="MuiIconButton-label"
-              >
-                <input
-                  checked={false}
-                  className="PrivateSwitchBase-input-17"
-                  name="status"
-                  onChange={[Function]}
-                  type="radio"
-                  value="Moored"
-                />
-                <div
-                  className="PrivateRadioButtonIcon-root-30"
-                >
-                  <svg
-                    aria-hidden="true"
-                    className="MuiSvgIcon-root"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                    />
-                  </svg>
-                  <svg
-                    aria-hidden="true"
-                    className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-31"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
-                    />
-                  </svg>
-                </div>
-              </span>
-            </span>
-            <span
-              className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
-            >
-              Moored
-            </span>
-          </label>
-          <label
-            className="MuiFormControlLabel-root"
-          >
-            <span
-              aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorSecondary"
-              onBlur={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={null}
-            >
-              <span
-                className="MuiIconButton-label"
-              >
-                <input
-                  checked={true}
-                  className="PrivateSwitchBase-input-17"
-                  name="status"
-                  onChange={[Function]}
-                  type="radio"
-                  value="Transiting"
-                />
-                <div
-                  className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
-                >
-                  <svg
-                    aria-hidden="true"
-                    className="MuiSvgIcon-root"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                    />
-                  </svg>
-                  <svg
-                    aria-hidden="true"
-                    className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-31"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
-                    />
-                  </svg>
-                </div>
-              </span>
-            </span>
-            <span
-              className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
-            >
-              Transiting
-            </span>
-          </label>
+          Transiting
         </div>
-      </section>
-      <section
-        className="input-container"
+        <input
+          aria-hidden={true}
+          className="MuiSelect-nativeInput"
+          onAnimationStart={[Function]}
+          onChange={[Function]}
+          tabIndex={-1}
+          value="Transiting"
+        />
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSelect-icon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 10l5 5 5-5z"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div
+    className="group"
+  >
+    <div
+      className="container title title-absolute"
+    >
+      Speed (kts)
+    </div>
+    <div
+      className="container main-container"
+    >
+      <div
+        className="main"
+        onClick={[Function]}
       >
-        <h2>
-          Speed
-        </h2>
         <div
-          aria-label="Speed"
-          className="MuiFormGroup-root"
-          role="radiogroup"
+          className="speed"
         >
-          <label
-            className="MuiFormControlLabel-root"
+          <div
+            className="speed-inner"
           >
-            <span
-              aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorSecondary"
-              onBlur={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={null}
+            <div
+              className="speed-items"
             >
-              <span
-                className="MuiIconButton-label"
-              >
-                <input
-                  checked={true}
-                  className="PrivateSwitchBase-input-17"
-                  name="speed"
-                  onChange={[Function]}
-                  type="radio"
-                  value={10}
-                />
-                <div
-                  className="PrivateRadioButtonIcon-root-30 PrivateRadioButtonIcon-checked-32"
-                >
-                  <svg
-                    aria-hidden="true"
-                    className="MuiSvgIcon-root"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                    />
-                  </svg>
-                  <svg
-                    aria-hidden="true"
-                    className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-31"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
-                    />
-                  </svg>
-                </div>
-              </span>
-            </span>
-            <span
-              className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
-            >
-              10
-            </span>
-          </label>
-          <label
-            className="MuiFormControlLabel-root"
-          >
-            <span
-              aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
-              onBlur={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={null}
-            >
-              <span
-                className="MuiIconButton-label"
-              >
-                <input
-                  checked={false}
-                  className="PrivateSwitchBase-input-17"
-                  name="speed"
-                  onChange={[Function]}
-                  type="radio"
-                  value={20}
-                />
-                <div
-                  className="PrivateRadioButtonIcon-root-30"
-                >
-                  <svg
-                    aria-hidden="true"
-                    className="MuiSvgIcon-root"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                    />
-                  </svg>
-                  <svg
-                    aria-hidden="true"
-                    className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-31"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
-                    />
-                  </svg>
-                </div>
-              </span>
-            </span>
-            <span
-              className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
-            >
-              20
-            </span>
-          </label>
-          <label
-            className="MuiFormControlLabel-root"
-          >
-            <span
-              aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
-              onBlur={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={null}
-            >
-              <span
-                className="MuiIconButton-label"
-              >
-                <input
-                  checked={false}
-                  className="PrivateSwitchBase-input-17"
-                  name="speed"
-                  onChange={[Function]}
-                  type="radio"
-                  value={30}
-                />
-                <div
-                  className="PrivateRadioButtonIcon-root-30"
-                >
-                  <svg
-                    aria-hidden="true"
-                    className="MuiSvgIcon-root"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
-                    />
-                  </svg>
-                  <svg
-                    aria-hidden="true"
-                    className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-31"
-                    focusable="false"
-                    role="presentation"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
-                    />
-                  </svg>
-                </div>
-              </span>
-            </span>
-            <span
-              className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
-            >
-              30
-            </span>
-          </label>
+              <div
+                className="speed-item speed-active speed-selected"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "height": "0%",
+                    "left": "0%",
+                  }
+                }
+              />
+              <div
+                className="speed-item speed-active"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "height": "50%",
+                    "left": "50%",
+                  }
+                }
+              />
+              <div
+                className="speed-item speed-active"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "height": "100%",
+                    "left": "100%",
+                  }
+                }
+              />
+            </div>
+          </div>
         </div>
-      </section>
-    </fieldset>
-    <button
-      className="MuiButtonBase-root MuiButton-root MuiButton-text"
-      disabled={false}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onDragLeave={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      tabIndex={0}
-      type="button"
+        <div
+          className="result"
+        >
+          <h2>
+            10
+          </h2>
+          <p>
+            KTS
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="group"
+  >
+    <div
+      className="container title"
+    >
+      Condition
+    </div>
+    <div
+      className="container main-container"
     >
       <span
-        className="MuiButton-label"
+        className="text"
       >
-        Save
+        Working
       </span>
-    </button>
+    </div>
   </div>
+  <button
+    className="main"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Plan turn
+  </button>
 </div>
-`
+`;

@@ -2,16 +2,22 @@ import React, { useState } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
-import Form from '../form'
-import RCB from '../form-elements/rcb'
-import { Button } from '@material-ui/core'
-import TextInput from '../form-elements/text-input'
+import { FormGroup, clSelect, clInput } from '../form-elements/form-group'
+import Speed from '../form-elements/speed'
+import Button from '../form-elements/button'
+import TitleWithIcon from '../form-elements/title-with-icon'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import Input from '@material-ui/core/Input'
+
+/* Import Stylesheet */
+import styles from './styles.module.scss'
 
 /* Import helpers */
 import { isNumber } from '@serge/helpers'
 
 /* Render component */
-export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
+export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, setHidePlanningForm, turnPlanned, icon }) => {
   // TODO: Refactor this into a reusable helper and remove other instances
   const [formState, setFormState] = useState(formData.values)
 
@@ -19,7 +25,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
   const { statusVal, turnsVal, speedVal } = formState
 
   const changeHandler = (e: any): void => {
-    const { name, value } = e
+    const { name, value } = e.target
 
     // If a value has been passed as a string when it should be a number,
     // convert it back to a number
@@ -33,32 +39,103 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBa
     )
   }
 
-  // Status has a different data model and requires it's own handler
-
-  const statusHandler = (data: any): void => {
-    const { name, value } = data
-
-    const selectedStatus = status.find((s: any) => s.name === value)
-
-    setFormState({
-      ...formState,
-      [`${name}Val`]: selectedStatus
-    })
-  }
-
-  const submitForm = (): void => {
-    if (postBack !== undefined) {
-      postBack('plan-turn', formState)
+  const speedHandler = (e: any): void => {
+    if (isNumber(e)) {
+      setFormState(
+        {
+          ...formState,
+          speedVal: e
+        }
+      )
     }
   }
 
-  return <Form type="planning" headerText={formHeader}>
-    <fieldset>
-      <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
-      {statusVal.mobile ? <RCB type="radio" label="Speed" options={speed} value={speedVal} updateState={changeHandler}/> : <><TextInput label="For" name="turns" value={turnsVal} updateState={changeHandler} /> turns</>}
-    </fieldset>
-    <Button onClick={submitForm}>Save</Button>
-  </Form>
+  // Status has a different data model and requires it's own handler
+
+  const statusHandler = (data: any): void => {
+    // retrieve the new value
+    const newState: string = data.target && data.target.value
+
+    // find the status object for this state
+    const selectedStatus = status.find((s: any) => s.name === newState)
+
+    // if status matched, update it.
+    if (selectedStatus) {
+      setFormState({
+        ...formState,
+        statusVal: selectedStatus
+      })
+    } else {
+      console.warn('Unable to find state to match:' + newState)
+    }
+  }
+
+  /** only enable the save button if this is a non-mobile state,
+   * or if we have a speed value assigned
+   */
+  const saveEnabled: boolean = !statusVal.mobile || (speed.length === 0) || (formState.speedVal !== undefined && formState.speedVal !== 0)
+
+  const submitForm = (): void => {
+    if (turnPlanned !== undefined) {
+      turnPlanned(formState)
+      // control has reached this point because the player has selected
+      // a mobile state.  Consequently, the planning form will now be hidden,
+      // to allow more space for planning
+      if (setHidePlanningForm) {
+        setHidePlanningForm(true)
+      }
+    }
+  }
+  /* note: in some selectedAsset update cycles this form gets rendered
+   * when we don't know the status of the selected asset.  For this reason
+   * we use `statusVal &&` guard check in the following block
+   */
+  return <div className={styles.main}>
+    <TitleWithIcon
+      forceColor={icon.forceColor}
+      platformType={icon.platformType}
+    >
+      {formHeader}
+    </TitleWithIcon>
+    <FormGroup title="State" align="right">
+      <Select
+        className={clSelect}
+        value={statusVal.name}
+        onChange={statusHandler}
+      >
+        {status.map((s: any) => (
+          <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
+        ))}
+      </Select>
+    </FormGroup>
+    {statusVal.mobile
+      ? <FormGroup title="Speed (kts)" titlePosition="absolute">
+        {speed.length > 0 &&
+        <Speed
+          value = { speedVal }
+          options = { speed }
+          onClick = { speedHandler }
+        />
+        }
+      </FormGroup>
+      : <FormGroup title="For">
+        <Input className={clInput} name="turns" value={turnsVal} onChange={changeHandler}/>
+        <span className={styles.text}>turns</span>
+        {/*
+          <TextInput
+            label="For"
+            name="turns"
+            value={turnsVal}
+            updateState={changeHandler}
+          />
+        */}
+      </FormGroup>
+    }
+    <FormGroup title="Condition">
+      <span className={styles.text}>{/* TODO: add real data */}Working</span>
+    </FormGroup>
+    <Button disabled={!saveEnabled} onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Save'}</Button>
+  </div>
 }
 
 export default PlanTurnForm

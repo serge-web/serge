@@ -1,7 +1,24 @@
+import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE } from '@serge/config'
+import MapBar from '../map-bar'
+import MapControl from '../map-control'
+import { cloneDeep } from 'lodash'
+
+/* helper functions */
 import createGrid from './helpers/create-grid'
-import { Phase } from '@serge/config'
+import boundsFor from './helpers/bounds-for'
+import {
+  roundToNearest,
+  routeCreateStore,
+  routeDeclutter,
+  routeAddSteps,
+  routeSetCurrent,
+  routeGetLatestPosition,
+  routeClearFromStep,
+  findPlatformTypeFor
+} from '@serge/helpers'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -9,19 +26,20 @@ import {
   SergeHex,
   SergeGrid,
   MappingContext,
+  NewTurnValues,
   PlanMobileAsset,
-  SelectedAsset
+  SelectedAsset,
+  RouteStore,
+  Route,
+  RouteStep,
+  PlanTurnFormValues
 } from '@serge/custom-types'
+
+import ContextInterface from './types/context'
 
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
-import MapBar from '../map-bar'
-import boundsFor from './helpers/bounds-for'
-
-interface ContextInterface {
-  props?: any
-}
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: null })
@@ -39,6 +57,7 @@ const defaultProps: PropTypes = {
   platforms: [{}],
   playerForce: 'Blue',
   phase: Phase.Planning,
+  turnNumber: 6,
   tileLayer: {
     url: '',
     attribution: ''
@@ -49,7 +68,6 @@ const defaultProps: PropTypes = {
   zoom: 10,
   zoomDelta: 0.25,
   zoomSnap: 0.25,
-  zoomControl: true,
   attributionControl: false,
   zoomAnimation: false,
   planningConstraintsProp: undefined
@@ -64,6 +82,7 @@ export const Mapping: React.FC<PropTypes> = ({
   playerForce,
   platforms,
   phase,
+  turnNumber,
   tileLayer,
   minZoom,
   maxZoom,
@@ -71,37 +90,18 @@ export const Mapping: React.FC<PropTypes> = ({
   zoom,
   zoomDelta,
   zoomSnap,
-  zoomControl,
   attributionControl,
   zoomAnimation,
   planningConstraintsProp,
   planningRangeProp,
+  channelID,
   postBack,
   children
 }) => {
   /* Initialise states */
-  const [showMapBar, setShowMapBar] = useState(false)
-  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset>({
-    uniqid: '',
-    name: '',
-    position: {
-      lat: 0.00,
-      lng: 0.00
-    },
-    type: 'Unknown',
-    force: 'Unknown',
-    controlledBy: [],
-    condition: '',
-    visibleTo: [],
-    status: {
-      speedKts: 0,
-      state: ''
-    }
-  })
-
-  const [zoomLevel, setZoomLevel] = useState(zoom || 0)
-
-  /* Initialise variables */
+  const [showMapBar, setShowMapBar] = useState<boolean>(true)
+  const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
+  const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
   const [mapBounds, setMapBounds] = useState<{
     imageTop: number
     imageLeft: number
@@ -110,20 +110,77 @@ export const Mapping: React.FC<PropTypes> = ({
   } | undefined>(undefined)
   const [latLngBounds, setLatLngBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
-  const [newLeg, setNewLeg] = useState<Array<SergeHex<{}>> | undefined>(undefined)
+  const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
-  const [planningRange, setPlanningRange] = useState<number | undefined>(undefined)
-
-  // if we've got a planning range from prop, double-check if it is different
-  // to the current one
-  if (planningRangeProp && planningRange !== planningRangeProp) {
-    setPlanningRange(planningRangeProp)
-  }
+  const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProp)
+  const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
+  const [viewAsRouteStore, setViewAsRouteStore] = useState<RouteStore>({ routes: [] })
+  const [leafletElement, setLeafletElement] = useState(undefined)
+  const [viewAsForce, setViewAsForce] = useState<string>(UMPIRE_FORCE)
+  const [hidePlanningForm, setHidePlanningForm] = useState<boolean>(false)
+  const [filterPlannedRoutes, setFilterPlannedRoutes] = useState<boolean>(true)
+  const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
     setMapBounds(bounds)
+  }
+
+  // highlight the route for the selected asset
+  useEffect(() => {
+    // if we were planning a mobile route, clear that
+    if (planningConstraints && selectedAsset) {
+      setPlanningConstraints(undefined)
+    }
+
+    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
+    // we modify the routeStore
+    const id: string = selectedAsset ? selectedAsset.uniqid : ''
+    const store: RouteStore = routeSetCurrent(id, routeStore)
+    setRouteStore(store)
+  }, [selectedAsset])
+
+  /**
+   * generate the set of routes visible to this player, for display
+   * in the Force Overview panel
+   */
+  useEffect(() => {
+    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
+    // we modify the routeStore
+    const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
+    if (forces && gridCells) {
+      const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
+      const store: RouteStore = routeCreateStore(selectedId, forces, playerForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
+      setRouteStore(store)
+    }
+  }, [forces, playerForce, phase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
+
+  /**
+   * generate the set of routes visible to this player, for display
+   * in the Force Overview panel
+   */
+  useEffect(() => {
+    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
+    // we modify the routeStore
+    const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
+    if (forces && gridCells && routeStore.routes.length) {
+      // if this is umpire and we have view as
+      if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
+        // ok, produce customised version
+        const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
+        const vStore: RouteStore = routeCreateStore(selectedId, forces, viewAsForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
+        declutterRouteStore(vStore)
+      } else {
+        // just use normal route store
+        declutterRouteStore(routeStore)
+      }
+    }
+  }, [routeStore, viewAsForce])
+
+  const declutterRouteStore = (store: RouteStore): void => {
+    const declutteredStore = routeDeclutter(store, tileDiameterMins)
+    setViewAsRouteStore(declutteredStore)
   }
 
   useEffect(() => {
@@ -141,27 +198,146 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (latLngBounds && tileDiameterMins) {
       // note: the list of cells should be re-calculated if `tileDiameterMins` changes
-      setGridCells(createGrid(latLngBounds, tileDiameterMins))
+      const newGrid: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
+      setGridCells(newGrid)
     }
   }, [tileDiameterMins, latLngBounds])
 
   useEffect(() => {
     if (newLeg) {
-      // TODO: store the new planned leg for this asset
+      const selRoute = routeStore.selected
+      if (selRoute) {
+        const turnStart = selRoute.planned && selRoute.planned.length
+          ? selRoute.planned[selRoute.planned.length - 1].turn
+          : turnNumber
+
+        // increment turn number, if we have any turns planned, else start with `1`
+        const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
+          return cell.name
+        })
+        const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex<{}>) => {
+          return cell.centreLatLng
+        })
+        if (selRoute) {
+          const newStep: RouteStep = {
+            turn: turnStart + 1,
+            status: { state: newLeg.state, speedKts: newLeg.speed },
+            coords: coords,
+            locations: locations
+          }
+          const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
+          setRouteStore(newStore)
+        }
+      }
 
       // if we know our planning constraints, we can plan the next leg
       if (planningConstraints) {
         // get the last planned cell, to act as the first new planned cell
-        const lastCell: SergeHex<{}> = newLeg[newLeg.length - 1]
+        const lastCell: SergeHex<{}> = newLeg.route[newLeg.route.length - 1]
         // create new planning contraints
         const newP: PlanMobileAsset = {
           origin: lastCell.name,
-          travelMode: planningConstraints.travelMode
+          travelMode: planningConstraints.travelMode,
+          status: newLeg.state,
+          speed: newLeg.speed
         }
         setPlanningConstraints(newP)
       }
     }
   }, [newLeg])
+
+  const clearFromTurn = (turn: number): void => {
+    const current: Route | undefined = routeStore.selected
+    if (current) {
+      const newStore = routeClearFromStep(routeStore, current.uniqid, turn + 1)
+      setRouteStore(newStore)
+      // now move the planning marker back to the last valid location
+      const newCurrent: Route | undefined = newStore.selected
+      if (newCurrent) {
+        // do we have current planning constraints?
+        if (planningConstraints) {
+          // trigger route planning
+          const origin: string = routeGetLatestPosition(newCurrent.currentPosition, newCurrent.planned)
+
+          // take deep copy
+          const newConstraints: PlanMobileAsset = cloneDeep(planningConstraints)
+
+          // modify the origin
+          newConstraints.origin = origin
+
+          // trigger UI updatea
+          setPlanningConstraints(newConstraints)
+        }
+      }
+    }
+  }
+
+  const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
+    const current: Route | undefined = routeStore.selected
+    if (current) {
+      // is it a mobile turn
+      const status = plannedTurn.statusVal
+      if (status.mobile) {
+        // trigger route planning
+        const origin: string = routeGetLatestPosition(current.currentPosition, current.planned)
+
+        // sort out platform type for this asset
+        const pType = findPlatformTypeFor(platforms, current.platformType)
+
+        // work out how far asset can travel
+        const constraints: PlanMobileAsset = {
+          origin: origin,
+          travelMode: pType.travelMode,
+          status: plannedTurn.statusVal.name,
+          speed: plannedTurn.speedVal
+        }
+
+        // special handling, a mobile status may not have a speedVal,
+        // which represents unlimited travel
+        if (plannedTurn.speedVal) {
+          const speedKts = plannedTurn.speedVal
+          // TODO: turn time should come from game definition
+          const stepSize = 30
+          const stepsPerHour = (60 / stepSize)
+          const roughRange = speedKts / tileDiameterMins / stepsPerHour // work out how many NM in 30 minutes
+
+          // check range is in 10s
+          const range = roundToNearest(roughRange, 1)
+
+          setPlanningRange(range)
+          setPlanningConstraints(constraints)
+        } else {
+          setPlanningRange(undefined)
+          setPlanningConstraints(constraints)
+        }
+      } else {
+        // if we were planning a mobile route, clear that
+        setPlanningConstraints(undefined)
+
+        // ok, store the new leg
+        // how many turns?
+        let turnStart: number = turnNumber
+        if (current.planned && current.planned.length > 0) {
+          turnStart = current.planned[current.planned.length - 1].turn
+        }
+        let store: RouteStore = routeStore
+        const steps: Array<RouteStep> = []
+        for (let ctr = 0; ctr < plannedTurn.turnsVal; ctr++) {
+          const step: RouteStep = { turn: ++turnStart, status: { state: status.name } }
+          steps.push(step)
+        }
+        // store this step
+        if (selectedAsset) {
+          store = routeAddSteps(store, selectedAsset.uniqid, steps)
+        }
+        setRouteStore(store)
+      }
+    }
+  }
+
+  const viewAsCallback = (force: string): void => {
+    setViewAsForce(force)
+  }
 
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
@@ -170,26 +346,44 @@ export const Mapping: React.FC<PropTypes> = ({
     platforms,
     playerForce,
     phase,
+    turnNumber,
     planningConstraints,
     planningRange,
     showMapBar,
     selectedAsset,
     zoomLevel,
+    channelID,
+    routeStore,
+    viewAsRouteStore,
     setNewLeg,
     setShowMapBar,
     setSelectedAsset,
     setZoomLevel,
-    postBack
+    turnPlanned,
+    clearFromTurn,
+    postBack,
+    hidePlanningForm,
+    setHidePlanningForm
   }
 
   // any events for leafletjs you can get from leafletElement
   // https://leafletjs.com/reference-1.6.0.html#map-event
   const handleEvents = (ref: any): void => {
     if (ref && ref.leafletElement) {
+      // save map element
+      setLeafletElement(ref.leafletElement)
       ref.leafletElement.on('zoomend', () => {
         setZoomLevel(ref.leafletElement.getZoom())
       })
     }
+  }
+
+  /**
+   * this callback is called when the user clicks on a blank part of the map.
+   * When that happens, clear the selection
+   */
+  const mapClick = (): void => {
+    setSelectedAsset(undefined)
   }
 
   return (
@@ -205,19 +399,31 @@ export const Mapping: React.FC<PropTypes> = ({
           zoomDelta={zoomDelta}
           zoomSnap={zoomSnap}
           minZoom={minZoom}
-          zoomControl={zoomControl}
+          zoomControl={false}
           maxZoom={maxZoom}
+          onClick={mapClick}
           ref={handleEvents}
           touchZoom={touchZoom}
           zoomAnimation={zoomAnimation}
           attributionControl={attributionControl}
         >
+          <MapControl
+            map = {leafletElement}
+            home = {mapCentre}
+            forces = {playerForce === UMPIRE_FORCE && forces}
+            viewAsCallback = {viewAsCallback}
+            viewAsForce = {viewAsForce}
+            filterPlannedRoutes = {filterPlannedRoutes}
+            setFilterPlannedRoutes = {setFilterPlannedRoutes}
+            filterHistoryRoutes = {filterHistoryRoutes}
+            setFilterHistoryRoutes = {setFilterHistoryRoutes}
+          />
           <TileLayer
             url={tileLayer.url}
             attribution={tileLayer.attribution}
             bounds={latLngBounds}
           />
-          <ScaleControl />
+          <ScaleControl position='bottomright' />
           {children}
         </Map>
       </section>

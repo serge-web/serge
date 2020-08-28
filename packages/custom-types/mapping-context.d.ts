@@ -3,7 +3,7 @@ import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { PerceptionFormData, PlanTurnFormData, AdjudicateTurnFormData } from './forms'
+import { RouteStore, PlanTurnFormValues, Postback, NewTurnValues } from '@serge/custom-types'
 
 /**
  * mapping context, shared with child elements
@@ -30,6 +30,10 @@ export default interface MappingContext {
    */
   phase: Phase
   /**
+   * Current game turn number
+   */
+  turnNumber: number
+  /**
    * mobility for selected asset
    */
   planningConstraints: PlanMobileAsset | undefined
@@ -42,9 +46,21 @@ export default interface MappingContext {
    */
   showMapBar: boolean
   /**
+   * The channel ID passed down from the client application (optional)
+   */
+  channelID?: string | number
+  /**
+   * the set of routes applicable at this point
+   */
+  routeStore: RouteStore
+  /**
+   * the modified set of routes to support "view as"
+   */
+  viewAsRouteStore: RouteStore   
+  /**
    * setter for when planned route is complete
    */
-  setNewLeg: React.Dispatch<React.SetStateAction<Array<SergeHex<{}>> | undefined>>
+  setNewLeg: React.Dispatch<React.SetStateAction<NewTurnValues | undefined>> | undefined
   /**
    *  setter, to modify if map bar is open or not
    */
@@ -52,11 +68,11 @@ export default interface MappingContext {
   /**
    * state for which form should appear in the map bar
    */
-  selectedAsset: SelectedAsset
+  selectedAsset: SelectedAsset | undefined
   /**
-   *  setter, to modify the currently selected asset
+   *  setter, to modify the currently selected asset (or to clear it)
    **/
-  setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset>>
+  setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset | undefined>>
   /**
    *  state for zoom Level
    **/
@@ -66,7 +82,23 @@ export default interface MappingContext {
    **/
   setZoomLevel: React.Dispatch<React.SetStateAction<number>>
   /**
+   * player has added new step
+   */
+  turnPlanned?: {(turn: PlanTurnFormValues): void}
+  /**
+   * handler to clear current route from specified number
+   */
+  clearFromTurn?: {(turn: number): void}
+  /**
    * The method for posting messages out of the mapping component
    */
-  postBack?: {(messageType:string, payload: any): void}
+  postBack?: Postback
+  /** 
+   * flag for whether to hide planning form
+   */
+  hidePlanningForm: boolean
+  /**
+   *  setter to change value of whether planning form should be hidden
+   **/
+  setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
 }

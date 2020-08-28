@@ -236,6 +236,61 @@ export const platformTypes = [
     travelMode: 'air'
   },
   {
+    name: 'Unmanned Airborne Vehicle',
+    conditions: [
+      'Full capability',
+      'Limited capability',
+      'Immobile',
+      'Destroyed'
+    ],
+    icon: 'uas.svg',
+    speedKts: [],
+    states: [
+      {
+        name: 'Airborne',
+        mobile: true
+      },
+      {
+        name: 'Landed',
+        mobile: false
+      },
+      {
+        name: 'Preparing for launch',
+        mobile: false
+      }
+    ],
+    travelMode: 'air'
+  },
+  {
+    name: 'Task Group',
+    conditions: [
+      'Full capability',
+      'Limited capability',
+      'Immobile',
+      'Destroyed'
+    ],
+    icon: 'uas.svg',
+    speedKts: [
+      10,
+      20
+    ],
+    states: [
+      {
+        name: 'Transiting',
+        mobile: true
+      },
+      {
+        name: 'Stopped',
+        mobile: false
+      },
+      {
+        name: 'Moored',
+        mobile: false
+      }
+    ],
+    travelMode: 'sea'
+  },
+  {
     name: 'Coastal radar site',
     conditions: [
       'Full capability',

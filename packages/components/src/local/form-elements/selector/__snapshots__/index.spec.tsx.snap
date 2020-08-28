@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['Selector renders correctly 1'] = `
+exports[`Selector renders correctly 1`] = `
 <section
   className="input-container"
 >
@@ -32,15 +32,17 @@ exports['Selector renders correctly 1'] = `
       />
     </div>
     <input
+      aria-hidden={true}
+      className="MuiSelect-nativeInput"
       onAnimationStart={[Function]}
-      type="hidden"
+      onChange={[Function]}
+      tabIndex={-1}
       value="item2"
     />
     <svg
-      aria-hidden="true"
+      aria-hidden={true}
       className="MuiSvgIcon-root MuiSelect-icon"
       focusable="false"
-      role="presentation"
       viewBox="0 0 24 24"
     >
       <path
@@ -49,4 +51,4 @@ exports['Selector renders correctly 1'] = `
     </svg>
   </div>
 </section>
-`
+`;

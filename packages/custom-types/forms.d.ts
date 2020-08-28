@@ -1,4 +1,5 @@
 import ColorOption from './color-option'
+import SergeHex from './serge-hex'
 
 interface Status {
   name: string,
@@ -19,6 +20,7 @@ export interface PerceptionFormValues {
   perceivedNameVal: string
   perceivedForceVal: string
   perceivedTypeVal: string
+  assetId: string
 }
 
 export interface PerceptionFormData {
@@ -26,6 +28,12 @@ export interface PerceptionFormData {
   values: PerceptionFormValues
 }
 
+/** message for when player has planned new turn of data */
+export interface NewTurnValues {
+  state: string
+  speed: number
+  route: Array<SergeHex<{}>>
+}
 
 export interface PlanTurnFormPopulate {
   status: Array<Status>

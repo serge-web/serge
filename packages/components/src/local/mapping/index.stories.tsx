@@ -10,16 +10,17 @@ import Mapping from './index'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
 import Assets from '../assets'
-import Route from '../route'
 import { HexGrid } from '../hex-grid'
 
 // import data types
 import { Phase } from '@serge/config'
 
+const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
+
 export default {
   title: 'local/Mapping',
   component: Mapping,
-  decorators: [withKnobs],
+  decorators: [withKnobs, wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -60,6 +61,7 @@ export const Default: React.FC = () => <Mapping
   playerForce='Blue'
   platforms={platformTypes}
   phase={Phase.Planning}
+  turnNumber={5}
   mapBar={false}
 />
 
@@ -72,7 +74,8 @@ export const WithMapBar: React.FC = () => <Mapping
   tileLayer={LocalTileLayer}
   forces={forces}
   platforms={platformTypes}
-  phase={Phase.Planning}
+  phase={Phase.Adjudication}
+  turnNumber={5}
   playerForce={radios(label, forceNames, defaultValue)}
 >
 </Mapping>
@@ -108,6 +111,7 @@ export const WithMarker: React.FC = () => <Mapping
   playerForce='Blue'
   platforms={platformTypes}
   phase={Phase.Planning}
+  turnNumber={5}
   mapBar={false}
 >
   <AssetIcon
@@ -125,7 +129,6 @@ export const WithMarker: React.FC = () => <Mapping
     }}
     tooltip="Tooltip for marker" />
 </Mapping>
-
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 WithMarker.story = {
   parameters: {
@@ -147,6 +150,13 @@ const forceNames = {
 }
 const defaultValue = 'Blue'
 
+const assetsPhasesPhaseLabel = 'Game phase'
+const assetsPhasesPhaseNames = {
+  Planning: Phase.Planning,
+  Adjudication: Phase.Adjudication
+}
+const assetsPhasePhaseValue = Phase.Planning
+
 // generic postback handler, for forms
 const postback = (messageType: string, payload: any): void => {
   console.log('postback', messageType, payload)
@@ -159,10 +169,10 @@ export const WithAssets: React.FC = () => <Mapping
   forces={forces}
   playerForce={radios(label, forceNames, defaultValue)}
   platforms={platformTypes}
-  phase={Phase.Planning}
-  postBack={postback}
->
-  <Assets />
+  phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
+  turnNumber={3}
+  postBack={postback} >
+  <Assets /><HexGrid />
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
@@ -194,6 +204,7 @@ export const WithGrid: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
+  turnNumber={5}
   playerForce='Blue'
   mapBar={false}
 >
@@ -243,12 +254,15 @@ export const WithAllowableRange: React.FC = () => <Mapping
   forces={forces}
   platforms={platformTypes}
   phase={Phase.Planning}
+  turnNumber={5}
   playerForce='Blue'
   mapBar={false}
   planningRangeProp={number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)}
   planningConstraintsProp={boolean(allowableOnLabel, allowableDefaultValue) ? {
     origin: text(allowableOriginLabel, allowableOriginValue),
-    travelMode: radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault)
+    travelMode: radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault),
+    status: 'Transiting',
+    speed: 20
   } : undefined}
 >
   <HexGrid />
@@ -275,6 +289,7 @@ export const OpenStreetMap: React.FC = () => <Mapping
   playerForce='Blue'
   platforms={platformTypes}
   phase={Phase.Planning}
+  turnNumber={5}
   mapBar={false}
 />
 
@@ -305,64 +320,13 @@ export const WithPhases: React.FC = () => <Mapping
   playerForce={radios(phasesViewLabel, phasesViewNames, phaseViewValue)}
   platforms={platformTypes}
   phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
+  turnNumber={5}
 >
   <Assets />
 </Mapping>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 WithPhases.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
-    }
-  }
-}
-
-/**
- * VIEW WITH ASSET ROUTES
- */
-// knob bits:
-const trimmedLabel = 'Trimmed'
-const trimmedDefaultValue = false
-const selectedLabel = 'Selected'
-const selectedDefaultValue = false
-
-const currentTurnLabel = 'Current turn number'
-const currentTurnDefaultValue = 5
-const currentTurnOptions = {
-  range: true,
-  min: 1,
-  max: 12,
-  step: 1
-}
-
-// test data:
-const greenForce: any = forces[3]
-const platform: any = greenForce.assets[0]
-const { plannedTurns, history } = platform
-
-export const WithRoute: React.FC = () => <Mapping
-  bounds={bounds}
-  tileLayer={LocalTileLayer}
-  tileDiameterMins={5}
-  forces={forces}
-  platforms={platformTypes}
-  phase={Phase.Planning}
-  playerForce='Green'
-  mapBar={false}
->
-  <HexGrid />
-  <Route name={'test'} location={platform.position}
-    turnNumber={number(currentTurnLabel, currentTurnDefaultValue, currentTurnOptions, 'Adjustments')}
-    history={history} planned={plannedTurns} color={'#00f'}
-    selected={boolean(selectedLabel, selectedDefaultValue, 'Adjustments')}
-    trimmed={boolean(trimmedLabel, trimmedDefaultValue, 'Adjustments')}
-  />
-</Mapping>
-
-// @ts-ignore TS belives the 'story' property doesn't exist but it does.
-WithRoute.story = {
   parameters: {
     options: {
       // This story requires addons but other stories in this component do not

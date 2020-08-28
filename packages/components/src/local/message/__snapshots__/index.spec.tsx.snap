@@ -1,12 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['Message renders correctly 1'] = `
+exports[`Message renders correctly 1`] = `
 Array [
   <div
     className="info-wrap"
   >
     <div
       className="MuiChip-root MuiChip-colorPrimary"
+      onKeyDown={[Function]}
       onKeyUp={[Function]}
     >
       <span
@@ -17,6 +18,7 @@ Array [
     </div>
     <div
       className="MuiChip-root MuiChip-colorSecondary"
+      onKeyDown={[Function]}
       onKeyUp={[Function]}
     >
       <span
@@ -42,4 +44,4 @@ Array [
     }
   />,
 ]
-`
+`;

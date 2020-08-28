@@ -16,7 +16,7 @@ import RCB from '../form-elements/rcb'
 import { isNumber } from '@serge/helpers'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, postBack }) => {
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, postBack }) => {
   const [formState, setFormState] = useState(formData.values)
 
   const { status, speed, visibleTo, condition } = formData.populate
@@ -62,7 +62,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
 
   const submitForm = (): void => {
     if (postBack !== undefined) {
-      postBack('adjudicate', formState)
+      postBack('adjudicate', formState, channelID)
     }
   }
 

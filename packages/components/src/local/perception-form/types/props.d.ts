@@ -1,4 +1,4 @@
-import { PerceptionFormData } from '@serge/custom-types'
+import { PerceptionFormData, Postback } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -6,11 +6,23 @@ export default interface PropTypes {
    */
   formHeader?: string
   /**
+   * The asset of the selected force
+   */
+  type?: string
+  /**
+   * The color of the force
+   */
+  force?: string
+  /**
    * All types in this definition are options for a form input
    */
   formData: PerceptionFormData
   /**
+   * The channel idea from the client (optional)
+   */
+  channelID?: string | number
+  /**
    * The method for posting messages out of the mapping component
    */
-  postBack?: {(messageType: string, payload: any): void}
+  postBack?: Postback
 }

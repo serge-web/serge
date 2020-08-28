@@ -15,7 +15,7 @@ import { ConditionalWrapper, componentSelector } from './helpers'
 import Option from './types/option'
 
 /* Render component */
-export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState }) => {
+export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState, className, disableOffset }) => {
   const [checkedArray, updateCheckedArray] = useState(
     options.map((o: any) => {
       const opt = o.name || o
@@ -66,10 +66,12 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
   const getLabel = (option: Option): any => force && option.colour ? <div><span className={styles['color-box']} style={{ backgroundColor: option.colour }}></span>{option.name}</div> : option
   const getSelected = (o: any): any => Array.isArray(value) ? value.includes(o) : value
 
-  return <InputContainer label={label}>
+  const selectedClassName = (o: string, selected: string): any | undefined => o.toLowerCase() === selected.replace('-', ' ') ? styles.selected : undefined
+
+  return <InputContainer label={label} className={className} disableOffset={disableOffset}>
     <ConditionalWrapper
       condition={type === 'radio'}
-      wrapper = {(children: any): React.ReactNode => <RadioGroup aria-label={label} name={inputName} value={getSelected(value)} onChange={handleRadio}>{children}</RadioGroup> }
+      wrapper={(children: any): React.ReactNode => <RadioGroup aria-label={label} name={inputName} value={getSelected(value)} onChange={handleRadio}>{children}</RadioGroup>}
     >
       {
         options.map((option: any) => {
@@ -79,7 +81,9 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
             key={option.name || option.toString()}
             control={componentSelector(type, option, selected, handleCheckbox, inputName)}
             label={getLabel(option)}
-            value={kebabCase(option.name) || option}/>
+            value={kebabCase(option.name) || option}
+            className={typeof selected === 'string' ? selectedClassName(o, selected) : ''}
+          />
         }
         )
       }

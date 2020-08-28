@@ -1,4 +1,4 @@
-import { SergeHex, SergeGrid } from '@serge/custom-types'
+import { Route as RouteType } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -6,25 +6,9 @@ export default interface PropTypes {
    */
   name: string
   /**
-   * current game turn number
+   *  the collated route data for hthis asset
    */
-  turnNumber: number
-  /**
-   * the grid of hex cells
-   */
-  gridCells?: SergeGrid<SergeHex<{}>>
-  /**
-   * current position of this asset (hex coords)
-   */
-  location: string
-  /**
-   * past positions for this asset
-   */
-  history: [any]
-  /**
-   * planned turns for this asset
-   */
-  planned: [any]
+  route: RouteType
   /**
    * whether to show trimmed or full routes
    */
@@ -37,4 +21,8 @@ export default interface PropTypes {
    * if this is for the selected track
    */
   selected: boolean
+  /**
+   *  handler for clear route from selected turn
+   */
+  clearRouteHandler: {(turn: number): void}
 }

@@ -1,6 +1,6 @@
 /** find the asset with the provided id */
-const findAsset = (allForces: any, assetId: string): any => {
-  var res
+export default function findAsset (allForces: any, assetId: string): any {
+  var res: any
   allForces.find((force: any) => {
     const assets = force.assets
     if (assets) {
@@ -14,6 +14,4 @@ const findAsset = (allForces: any, assetId: string): any => {
     }
   })
   return res
-}
-
-export default findAsset
+};

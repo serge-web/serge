@@ -19,7 +19,7 @@ const collatePlanFormData = (platforms: any, selectedAsset: SelectedAsset
     values: {
       statusVal: availableStatus,
       speedVal: selectedAsset.status.speedKts,
-      turnsVal: 0
+      turnsVal: 1
     }
   }
   return formData

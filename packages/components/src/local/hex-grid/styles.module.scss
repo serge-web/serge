@@ -1,36 +1,33 @@
 .default-hex {
   fill: transparent;
   stroke: #fff;
-  opacity: 0.2;
+  opacity: 0.6;
   stroke-width: 2;
 }
 
 .allowable-hex {
-  fill: #ccc;
   stroke: #fff;
-  opacity: 1;
+  opacity: 0.4;
   stroke-width: 2;
 }
 
 .planned-hex {
-  fill: #249;
   stroke: #fff;
   opacity: 1;
-  stroke-width: 2;
+  stroke-width: 3;
 }
 
 .planned-line {
-  stroke: #249;
   stroke-width: 4;
 }
 
 .planning-line {
-  stroke: #249;
   stroke-width: 2;
 }
 
 .default-coords {
+  color: #444;
   line-height: 20px;
-  opacity: 0.4;
+  opacity: 0.8;
   text-align: center;
 }

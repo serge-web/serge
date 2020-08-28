@@ -10,11 +10,11 @@ import styles from './styles.module.scss'
 import FormHeader from '../form-header'
 
 /* Render component */
-export const Form: React.FC<PropTypes> = ({ children, type, headerText }) => {
+export const Form: React.FC<PropTypes> = ({ children, type, headerText, formClassName, formHeaderClassName }) => {
   const typeClass = kebabCase(type) || 'default'
   return (
-    <div className={cx(styles.form, styles[typeClass])}>
-      <FormHeader string={headerText} />
+    <div className={cx(styles.form, styles[typeClass], formClassName)}>
+      <FormHeader string={headerText} className={formHeaderClassName} />
       <div className={styles.content}>
         {children}
       </div>

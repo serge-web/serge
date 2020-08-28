@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { Select, MenuItem } from '@material-ui/core'
 import { camelCase, capitalize, kebabCase } from 'lodash'
 
@@ -10,17 +10,24 @@ import PropTypes from './types/props'
 
 import InputContainer from '../../input-container'
 
+export const renderOptions = (options: Array<string | number>): Array<ReactElement> => options.map(option => (
+  <MenuItem
+    key={option}
+    value={kebabCase(option.toString())}
+  >
+    {capitalize(option.toString())}
+  </MenuItem>
+))
+
 /* Render component */
-export const Selector: React.FC<PropTypes> = ({ name, label, options, selected, updateState }: PropTypes) => {
+export const Selector: React.FC<PropTypes> = ({ name, label, options, selected, updateState, className, selectClassName }: PropTypes) => {
   const handleChange = (event: any): void => updateState(event.target.value)
 
   const inputName = name || camelCase(label)
 
-  return <InputContainer label={label}>
-    <Select labelId={label} id={inputName} value={selected} onChange={handleChange}>
-      {
-        options.map(option => <MenuItem key={option} value={kebabCase(option.toString())}>{capitalize(option.toString())}</MenuItem>)
-      }
+  return <InputContainer label={label} className={className}>
+    <Select labelId={label} id={inputName} value={selected} onChange={handleChange} className={selectClassName}>
+      {renderOptions(options)}
     </Select>
   </InputContainer>
 }

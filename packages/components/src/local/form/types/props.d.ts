@@ -7,4 +7,12 @@ export default interface PropTypes {
    * Header Text
    */
   headerText: string
+  /**
+   * ClassName of form
+   */
+  formClassName?: string
+  /**
+   * ClassName of form header
+   */
+  formHeaderClassName?: string
 }

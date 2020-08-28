@@ -3,10 +3,6 @@ import SelectedAsset from '@serge/custom-types/selected-asset'
 const selected: SelectedAsset = {
   uniqid: 'id001',
   name: 'asset-name',
-  position: {
-    lat: 12,
-    lng: 21
-  },
   type: 'Frigate',
   force: 'Blue',
   controlledBy: [],

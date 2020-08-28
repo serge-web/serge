@@ -20,12 +20,14 @@ interface CssExports {
   'platform-type-mine': string;
   'platform-type-missile': string;
   'platform-type-pirate': string;
+  'platform-type-task-group': string;
   'platform-type-torpedo': string;
-  'platform-type-uas': string;
   'platform-type-unknown': string;
+  'platform-type-unmanned-airborne-vehicle': string;
   'popup': string;
   'red': string;
   'selected': string;
+  'unknown': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
