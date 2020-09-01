@@ -9,7 +9,7 @@ import routeSetCurrent from '../route-set-current'
 import { RouteStore } from '@serge/custom-types'
 
 it('can set selected route', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Blue', false, platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, forces, 'Blue', false, platformTypes, undefined, false, false)
 
   const idOne = 'a0pra00003'
   const idTwo = 'a0pra000201'

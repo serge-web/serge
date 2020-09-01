@@ -7,7 +7,7 @@ import { plannedRoutesFor } from './planned-routes-for'
 import RouteData from '../types/route-data'
 
 it('Provides valid planned for multi-point planned with filter', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', false, platformTypes, undefined, true, true)
   expect(store).toBeTruthy()
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
@@ -23,7 +23,7 @@ it('Provides valid planned for multi-point planned with filter', () => {
 })
 
 it('Provides valid planned for multi-point planned without filter', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined, true, false)
+  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', false, platformTypes, undefined, true, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
   expect(route).toBeTruthy()
@@ -38,7 +38,7 @@ it('Provides valid planned for multi-point planned without filter', () => {
 })
 
 it('Provides valid planned for single-point planned with filter', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', false, platformTypes, undefined, true, true)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
@@ -53,7 +53,7 @@ it('Provides valid planned for single-point planned with filter', () => {
 })
 
 it('Provides valid planned for single-point planned without filter', () => {
-  const store: RouteStore = routeCreateStore(forces, 'Red', false, platformTypes, undefined, true, false)
+  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', false, platformTypes, undefined, true, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()

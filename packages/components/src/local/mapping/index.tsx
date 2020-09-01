@@ -150,10 +150,11 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
     if (forces && gridCells) {
-      const store: RouteStore = routeCreateStore(forces, playerForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
+      const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
+      const store: RouteStore = routeCreateStore(selectedId, forces, playerForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
       setRouteStore(store)
     }
-  }, [forces, playerForce, phase, gridCells, filterHistoryRoutes, filterPlannedRoutes])
+  }, [forces, playerForce, phase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
 
   /**
    * generate the set of routes visible to this player, for display
@@ -167,14 +168,15 @@ export const Mapping: React.FC<PropTypes> = ({
       // if this is umpire and we have view as
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
-        const vStore: RouteStore = routeCreateStore(forces, viewAsForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
+        const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
+        const vStore: RouteStore = routeCreateStore(selectedId, forces, viewAsForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
         declutterRouteStore(vStore)
       } else {
         // just use normal route store
         declutterRouteStore(routeStore)
       }
     }
-  }, [forces, viewAsForce, phase, gridCells, routeStore])
+  }, [routeStore, viewAsForce])
 
   const declutterRouteStore = (store: RouteStore): void => {
     const declutteredStore = routeDeclutter(store, tileDiameterMins)

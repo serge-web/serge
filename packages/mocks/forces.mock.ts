@@ -238,13 +238,6 @@ export const forces = [
         condition: 'Full capability',
         contactId: 'C072',
         history: [
-          {
-            position: 'C17',
-            status: {
-              state: 'Landed'
-            },
-            turn: 2
-          }
         ],
         name: 'MPA',
         perceptions: [],
