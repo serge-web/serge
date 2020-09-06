@@ -5,7 +5,7 @@ import cx from 'classnames'
 /* Import proptypes */
 import PropTypes from './types/props'
 import { PlatformType, PlatformTypeData, States } from '@serge/custom-types'
-import { Item } from '../editable-list'
+import EditableList, { Item } from '../editable-list'
 import Button from '../../form-elements/button'
 
 /* Import Styles */
@@ -13,19 +13,18 @@ import styles from './styles.module.scss'
 
 /* Import Components */
 import { Content, LeftSide, RightSide } from '../content'
-import EditableList from '../editable-list'
+
 import TransparentInput from '../../form-elements/transparent-input'
 import FormGroup from '../../form-elements/form-group-shadow'
 import SortableList, { Item as SortableListItem } from '../../form-elements/sortable-list'
 
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormControl from '@material-ui/core/FormControl'
 
 /* Render component */
 export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave }) => {
-
   const newPlatformType: PlatformType = {
     complete: false,
     dirty: false,
@@ -36,7 +35,7 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
 
   const localPlatformType: PlatformType = platformType || newPlatformType
 
-  console.log(onChange);
+  console.log(onChange)
 
   const [selectedItem, setSelectedItem] = useState(0)
 
@@ -57,7 +56,7 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
     handleChangePlatformTypes(copyTypes)
   }
 
-  const renderContent = () => {
+  const renderContent = (): React.ReactNode => {
     if (!localPlatformType.platformTypes[selectedItem]) return null
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
 
@@ -68,29 +67,29 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
       handleChamgePlatformTypeData({ ...data, travelMode: e.target.value }, selectedItem)
     }
     const handleChangeConditions = (conditions: Array<SortableListItem>): void => {
-      handleChamgePlatformTypeData({ ...data, conditions: conditions as Array<string> } , selectedItem)
+      handleChamgePlatformTypeData({ ...data, conditions: conditions as Array<string> }, selectedItem)
     }
     const handleChangeStates = (states: Array<SortableListItem>): void => {
-      handleChamgePlatformTypeData({ ...data, states: states as Array<States> } , selectedItem)
+      handleChamgePlatformTypeData({ ...data, states: states as Array<States> }, selectedItem)
     }
     const handleChangeSpeeds = (speedKts: Array<SortableListItem>): void => {
-      handleChamgePlatformTypeData({ ...data, speedKts: speedKts as Array<number> } , selectedItem)
+      handleChamgePlatformTypeData({ ...data, speedKts: speedKts as Array<number> }, selectedItem)
     }
 
     const handleCreateConditions = (): void => {
       const conditions: Array<string> = [...data.conditions, 'New Condition']
-      handleChamgePlatformTypeData({ ...data, conditions } , selectedItem)
+      handleChamgePlatformTypeData({ ...data, conditions }, selectedItem)
     }
     const handleCreateStates = (): void => {
       const states: Array<States> = [...data.states, {
         name: 'New State',
         mobile: false
       }]
-      handleChamgePlatformTypeData({ ...data, states } , selectedItem)
+      handleChamgePlatformTypeData({ ...data, states }, selectedItem)
     }
     const handleCreateSpeeds = (): void => {
       const speedKts: Array<number> = [...data.speedKts, Math.max.apply(null, [0, ...data.speedKts]) + 10]
-      handleChamgePlatformTypeData({ ...data, speedKts } , selectedItem)
+      handleChamgePlatformTypeData({ ...data, speedKts }, selectedItem)
     }
 
     return (
@@ -106,7 +105,7 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
             Change Icon
           </div>
           <div className={styles.actions}>
-            <Button onClick={() => { if (onSave) onSave() }}>Save</Button>
+            <Button onClick={(): void => { if (onSave) onSave() }}>Save</Button>
           </div>
         </div>
         <div className={styles['form-row']}>

@@ -8,7 +8,6 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const TransparentInput: React.FC<PropTypes> = ({ value, placeholder, onChange }) => {
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (typeof onChange === 'function') {
       onChange(e.target.value)

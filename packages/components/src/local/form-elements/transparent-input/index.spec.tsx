@@ -7,7 +7,7 @@ import TransparentInput from './index'
 
 it('TransparentInput renders correctly', () => {
   const tree = renderer
-    .create(<TransparentInput  value='5' />)
+    .create(<TransparentInput value='5' />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

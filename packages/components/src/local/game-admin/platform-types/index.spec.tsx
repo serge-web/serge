@@ -8,16 +8,16 @@ import PlatformTypes from './index'
 import { platformType } from '@serge/mocks'
 import { PlatformType } from '@serge/custom-types'
 
-const onChange = (platformType: PlatformType) => {
+const onChange = (platformType: PlatformType): void => {
   console.log(platformType)
 }
 
 it('platform-types renders correctly', () => {
   const tree = renderer
     .create(<PlatformTypes
-        platformType={platformType}
-        onChange={onChange}
-      />)
+      platformType={platformType}
+      onChange={onChange}
+    />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

@@ -1,6 +1,6 @@
 export interface ItemObject {
-  name: string,
-  uniqid?: string | number,
+  name: string
+  uniqid?: string | number
   [property: string]: any
 }
 

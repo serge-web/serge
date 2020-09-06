@@ -22,13 +22,8 @@
     }
   }
 
-  input[type='text'] {
-    flex: 1;
-  }
-  input[type='number'] {
-    width: 70px;
-  }
   input {
+    flex: 1;
     font-family: inherit;
     font-size: 18px;
     background: none;
@@ -52,11 +47,8 @@
   }
 }
 
-.main li > div {
+.presection {
   padding: 0 25px;
-}
-.main li > div > div {
-  border-bottom: 1px solid rgba(255,255,255,0);
 }
 
 .active span {
@@ -87,6 +79,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0);
 }
 
 .overlap {
@@ -106,7 +99,7 @@
   font-family: inherit;
   font-size: 18px;
   font-weight: 300;
-  color: #AAAAAA;
+  color: #aaa;
   cursor: pointer;
   line-height: 24px;
 }
