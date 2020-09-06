@@ -5,9 +5,19 @@ import renderer from 'react-test-renderer'
 
 import PlatformTypes from './index'
 
+import { platformType } from '@serge/mocks'
+import { PlatformType } from '@serge/custom-types'
+
+const onChange = (platformType: PlatformType) => {
+  console.log(platformType)
+}
+
 it('platform-types renders correctly', () => {
   const tree = renderer
-    .create(<PlatformTypes disabled={false}>Text</PlatformTypes>)
+    .create(<PlatformTypes
+        platformType={platformType}
+        onChange={onChange}
+      />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

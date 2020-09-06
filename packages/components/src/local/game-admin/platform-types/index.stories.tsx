@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Import component files
 import PlatformTypes from './index'
 import docs from './README.md'
-import { withKnobs, boolean } from '@storybook/addon-knobs'
+import { withKnobs } from '@storybook/addon-knobs'
+
+import { platformType as platformTypeMock } from '@serge/mocks'
+import { PlatformType } from '@serge/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -19,13 +22,15 @@ export default {
   }
 }
 
-const onClick = (): void => {
-  console.log('clicked')
-}
+export const Default: React.FC = () => {
+  const [platformType, setPlatformType] = useState<PlatformType>(platformTypeMock)
 
-export const Default: React.FC = () => <PlatformTypes
-  onClick={onClick}
-  disabled={boolean('Disabled', false)} >Title</PlatformTypes>
+  const onChange = (netPlatformType: PlatformType): void => {
+    setPlatformType(netPlatformType)
+  }
+
+  return <PlatformTypes platformType={platformType} onChange={onChange} />
+}
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 Default.story = {

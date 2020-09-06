@@ -25,10 +25,10 @@ export const EditableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
     }
   }
 
-  const handeClick = (e: any, item: Item, uniqid: string | number): void => {
+  const handeClick = (e: any, item: Item, uniqid: string | number, key: number): void => {
     setActive(uniqid)
     if (typeof onClick === 'function') {
-      onClick(item, e)
+      onClick(item, key, e)
     }
   }
 
@@ -60,7 +60,7 @@ export const EditableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
           const uniqid = item.uniqid || key
           return (
             <li key={uniqid} className={cx(active === uniqid && styles.active)} >
-              <div className={styles.overlap} onClick={(e): void => { handeClick(e, item, uniqid) }} />
+              <div className={styles.overlap} onClick={(e): void => { handeClick(e, item, uniqid, key) }} />
               <div className={styles.section}>
                 <div>{item.name}</div>
                 <span>
@@ -79,5 +79,7 @@ export const EditableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
     </div>
   )
 }
+
+export { Item } from './types/props'
 
 export default EditableList

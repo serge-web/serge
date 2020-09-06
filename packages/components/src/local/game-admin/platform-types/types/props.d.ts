@@ -1,7 +1,7 @@
+import { PlatformType } from '@serge/custom-types'
+
 export default interface PropTypes {
-  /* half section title */
-  href?: string
-  onClick?: any
-  disabled?: boolean
-  className?: string
+  platformType?: PlatformType
+  onChange: (platformType: PlatformType) => void
+  onSave?: () => void
 }

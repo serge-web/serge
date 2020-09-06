@@ -1,12 +1,28 @@
-.main {
-  display: inline-block;
-  font-weight: 300;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  cursor: pointer;
-  text-decoration: none;
-  outline: none;
+.row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
 }
-.disabled {
-  color: #999;
-  cursor: unset;
+
+.col {
+  flex: 1;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section {
+  padding: 12px;
+}
+
+.form-row {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: row;
 }
