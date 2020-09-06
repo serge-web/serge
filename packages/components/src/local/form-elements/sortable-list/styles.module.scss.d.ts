@@ -8,6 +8,7 @@ interface CssExports {
   'item': string;
   'main': string;
   'overlap': string;
+  'presection': string;
   'section': string;
 }
 export const cssExports: CssExports;

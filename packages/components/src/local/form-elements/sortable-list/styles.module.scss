@@ -55,8 +55,8 @@
   display: block;
 }
 
-.active > div > div,
-.main li:hover > div > div {
+.active section,
+.main li:hover section {
   border-bottom: 1px solid #434343 !important;
 }
 

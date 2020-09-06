@@ -14,7 +14,7 @@ import { platformTypes } from '@serge/mocks'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/GameAdmin/SortableList',
+  title: 'local/form-elements/SortableList',
   component: SortableList,
   decorators: [withKnobs, wrapper],
   parameters: {
