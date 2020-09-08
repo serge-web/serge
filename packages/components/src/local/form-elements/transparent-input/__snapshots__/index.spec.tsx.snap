@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransparentInput renders correctly 1`] = `
+<input
+  className="main"
+  onChange={[Function]}
+  value="5"
+/>
+`;
