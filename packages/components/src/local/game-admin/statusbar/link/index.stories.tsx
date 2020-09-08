@@ -8,7 +8,7 @@ import { withKnobs, boolean } from '@storybook/addon-knobs'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/game-admin/link',
+  title: 'local/GameAdmin/StatusBar/link',
   component: Link,
   decorators: [withKnobs, wrapper],
   parameters: {
