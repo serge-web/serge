@@ -1005,7 +1005,7 @@ exports[`platform-types renders correctly 1`] = `
               >
                 <ul>
                   <li
-                    className=""
+                    className="li"
                     data-id="0"
                     onClick={[Function]}
                   >
@@ -1074,7 +1074,7 @@ exports[`platform-types renders correctly 1`] = `
                     </div>
                   </li>
                   <li
-                    className=""
+                    className="li"
                     data-id="1"
                     onClick={[Function]}
                   >
@@ -1143,7 +1143,7 @@ exports[`platform-types renders correctly 1`] = `
                     </div>
                   </li>
                   <li
-                    className=""
+                    className="li"
                     data-id="2"
                     onClick={[Function]}
                   >
@@ -1212,7 +1212,7 @@ exports[`platform-types renders correctly 1`] = `
                     </div>
                   </li>
                   <li
-                    className=""
+                    className="li"
                     data-id="3"
                     onClick={[Function]}
                   >
@@ -1281,7 +1281,7 @@ exports[`platform-types renders correctly 1`] = `
                     </div>
                   </li>
                   <li
-                    className=""
+                    className="li"
                     data-id="4"
                     onClick={[Function]}
                   >
@@ -1350,7 +1350,7 @@ exports[`platform-types renders correctly 1`] = `
                     </div>
                   </li>
                   <li
-                    className=""
+                    className="li"
                     data-id="5"
                     onClick={[Function]}
                   >
@@ -1441,237 +1441,369 @@ exports[`platform-types renders correctly 1`] = `
           className="col section"
         >
           <div
-            className="main"
+            className="states-holder"
           >
             <div
-              className="placeholder"
-            >
-              States
-            </div>
-            <div
-              className="content"
+              className="main"
             >
               <div
-                className="main"
+                className="placeholder"
               >
-                <ul>
-                  <li
-                    className=""
-                    data-id="0"
-                    onClick={[Function]}
-                  >
-                    <div
-                      className="drag"
-                    >
-                      <span>
-                        <div
-                          onClick={[Function]}
-                        >
-                          <svg
-                            aria-hidden="true"
-                            className="svg-inline--fa fa-grip-vertical fa-w-10 "
-                            data-icon="grip-vertical"
-                            data-prefix="fas"
-                            focusable="false"
-                            role="img"
-                            style={Object {}}
-                            viewBox="0 0 320 512"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
-                              fill="currentColor"
-                              style={Object {}}
-                            />
-                          </svg>
-                        </div>
-                      </span>
-                    </div>
-                    <div
-                      className="presection"
-                    >
-                      <section
-                        className="section"
-                      >
-                        <input
-                          onChange={[Function]}
-                          type="text"
-                          value="Transiting"
-                        />
-                        <span>
-                          <div
-                            onClick={[Function]}
-                          >
-                            <svg
-                              aria-hidden="true"
-                              className="svg-inline--fa fa-times fa-w-11 "
-                              data-icon="times"
-                              data-prefix="fas"
-                              focusable="false"
-                              role="img"
-                              style={Object {}}
-                              viewBox="0 0 352 512"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
-                                fill="currentColor"
-                                style={Object {}}
-                              />
-                            </svg>
-                          </div>
-                        </span>
-                      </section>
-                    </div>
-                  </li>
-                  <li
-                    className=""
-                    data-id="1"
-                    onClick={[Function]}
-                  >
-                    <div
-                      className="drag"
-                    >
-                      <span>
-                        <div
-                          onClick={[Function]}
-                        >
-                          <svg
-                            aria-hidden="true"
-                            className="svg-inline--fa fa-grip-vertical fa-w-10 "
-                            data-icon="grip-vertical"
-                            data-prefix="fas"
-                            focusable="false"
-                            role="img"
-                            style={Object {}}
-                            viewBox="0 0 320 512"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
-                              fill="currentColor"
-                              style={Object {}}
-                            />
-                          </svg>
-                        </div>
-                      </span>
-                    </div>
-                    <div
-                      className="presection"
-                    >
-                      <section
-                        className="section"
-                      >
-                        <input
-                          onChange={[Function]}
-                          type="text"
-                          value="Fishing"
-                        />
-                        <span>
-                          <div
-                            onClick={[Function]}
-                          >
-                            <svg
-                              aria-hidden="true"
-                              className="svg-inline--fa fa-times fa-w-11 "
-                              data-icon="times"
-                              data-prefix="fas"
-                              focusable="false"
-                              role="img"
-                              style={Object {}}
-                              viewBox="0 0 352 512"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
-                                fill="currentColor"
-                                style={Object {}}
-                              />
-                            </svg>
-                          </div>
-                        </span>
-                      </section>
-                    </div>
-                  </li>
-                  <li
-                    className=""
-                    data-id="2"
-                    onClick={[Function]}
-                  >
-                    <div
-                      className="drag"
-                    >
-                      <span>
-                        <div
-                          onClick={[Function]}
-                        >
-                          <svg
-                            aria-hidden="true"
-                            className="svg-inline--fa fa-grip-vertical fa-w-10 "
-                            data-icon="grip-vertical"
-                            data-prefix="fas"
-                            focusable="false"
-                            role="img"
-                            style={Object {}}
-                            viewBox="0 0 320 512"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
-                              fill="currentColor"
-                              style={Object {}}
-                            />
-                          </svg>
-                        </div>
-                      </span>
-                    </div>
-                    <div
-                      className="presection"
-                    >
-                      <section
-                        className="section"
-                      >
-                        <input
-                          onChange={[Function]}
-                          type="text"
-                          value="Moored"
-                        />
-                        <span>
-                          <div
-                            onClick={[Function]}
-                          >
-                            <svg
-                              aria-hidden="true"
-                              className="svg-inline--fa fa-times fa-w-11 "
-                              data-icon="times"
-                              data-prefix="fas"
-                              focusable="false"
-                              role="img"
-                              style={Object {}}
-                              viewBox="0 0 352 512"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
-                                fill="currentColor"
-                                style={Object {}}
-                              />
-                            </svg>
-                          </div>
-                        </span>
-                      </section>
-                    </div>
-                  </li>
-                </ul>
+                States
+              </div>
+              <div
+                className="content"
+              >
                 <div
-                  className="add-section"
+                  className="main"
                 >
-                  <button
-                    className="button"
-                    onClick={[Function]}
+                  <ul>
+                    <li
+                      className="li"
+                      data-id="0"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="drag"
+                      >
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-grip-vertical fa-w-10 "
+                              data-icon="grip-vertical"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 320 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </div>
+                      <div
+                        className="presection"
+                      >
+                        <section
+                          className="section"
+                        >
+                          <input
+                            onChange={[Function]}
+                            type="text"
+                            value="Transiting"
+                          />
+                          <div
+                            className="mobile"
+                          >
+                            <div
+                              className="mobile-title"
+                            >
+                              Mobile
+                            </div>
+                            <span
+                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                            >
+                              <span
+                                aria-disabled={false}
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-2 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
+                                onBlur={[Function]}
+                                onDragLeave={[Function]}
+                                onFocus={[Function]}
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseLeave={[Function]}
+                                onMouseUp={[Function]}
+                                onTouchEnd={[Function]}
+                                onTouchMove={[Function]}
+                                onTouchStart={[Function]}
+                                tabIndex={null}
+                              >
+                                <span
+                                  className="MuiIconButton-label"
+                                >
+                                  <input
+                                    checked={true}
+                                    className="PrivateSwitchBase-input-4 MuiSwitch-input"
+                                    onChange={[Function]}
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    className="MuiSwitch-thumb"
+                                  />
+                                </span>
+                              </span>
+                              <span
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                              />
+                            </span>
+                          </div>
+                          <span>
+                            <div
+                              onClick={[Function]}
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-times fa-w-11 "
+                                data-icon="times"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 352 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </div>
+                          </span>
+                        </section>
+                      </div>
+                    </li>
+                    <li
+                      className="li"
+                      data-id="1"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="drag"
+                      >
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-grip-vertical fa-w-10 "
+                              data-icon="grip-vertical"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 320 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </div>
+                      <div
+                        className="presection"
+                      >
+                        <section
+                          className="section"
+                        >
+                          <input
+                            onChange={[Function]}
+                            type="text"
+                            value="Fishing"
+                          />
+                          <div
+                            className="mobile"
+                          >
+                            <span
+                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                            >
+                              <span
+                                aria-disabled={false}
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary"
+                                onBlur={[Function]}
+                                onDragLeave={[Function]}
+                                onFocus={[Function]}
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseLeave={[Function]}
+                                onMouseUp={[Function]}
+                                onTouchEnd={[Function]}
+                                onTouchMove={[Function]}
+                                onTouchStart={[Function]}
+                                tabIndex={null}
+                              >
+                                <span
+                                  className="MuiIconButton-label"
+                                >
+                                  <input
+                                    checked={false}
+                                    className="PrivateSwitchBase-input-4 MuiSwitch-input"
+                                    onChange={[Function]}
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    className="MuiSwitch-thumb"
+                                  />
+                                </span>
+                              </span>
+                              <span
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                              />
+                            </span>
+                          </div>
+                          <span>
+                            <div
+                              onClick={[Function]}
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-times fa-w-11 "
+                                data-icon="times"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 352 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </div>
+                          </span>
+                        </section>
+                      </div>
+                    </li>
+                    <li
+                      className="li"
+                      data-id="2"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="drag"
+                      >
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-grip-vertical fa-w-10 "
+                              data-icon="grip-vertical"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 320 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </div>
+                      <div
+                        className="presection"
+                      >
+                        <section
+                          className="section"
+                        >
+                          <input
+                            onChange={[Function]}
+                            type="text"
+                            value="Moored"
+                          />
+                          <div
+                            className="mobile"
+                          >
+                            <span
+                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                            >
+                              <span
+                                aria-disabled={false}
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary"
+                                onBlur={[Function]}
+                                onDragLeave={[Function]}
+                                onFocus={[Function]}
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseLeave={[Function]}
+                                onMouseUp={[Function]}
+                                onTouchEnd={[Function]}
+                                onTouchMove={[Function]}
+                                onTouchStart={[Function]}
+                                tabIndex={null}
+                              >
+                                <span
+                                  className="MuiIconButton-label"
+                                >
+                                  <input
+                                    checked={false}
+                                    className="PrivateSwitchBase-input-4 MuiSwitch-input"
+                                    onChange={[Function]}
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    className="MuiSwitch-thumb"
+                                  />
+                                </span>
+                              </span>
+                              <span
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                              />
+                            </span>
+                          </div>
+                          <span>
+                            <div
+                              onClick={[Function]}
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-times fa-w-11 "
+                                data-icon="times"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 352 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </div>
+                          </span>
+                        </section>
+                      </div>
+                    </li>
+                  </ul>
+                  <div
+                    className="add-section"
                   >
-                    Add State
-                  </button>
+                    <button
+                      className="button"
+                      onClick={[Function]}
+                    >
+                      Add State
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1696,7 +1828,7 @@ exports[`platform-types renders correctly 1`] = `
               >
                 <ul>
                   <li
-                    className=""
+                    className="li"
                     onClick={[Function]}
                   >
                     <div
@@ -1737,7 +1869,7 @@ exports[`platform-types renders correctly 1`] = `
                     </div>
                   </li>
                   <li
-                    className=""
+                    className="li"
                     onClick={[Function]}
                   >
                     <div

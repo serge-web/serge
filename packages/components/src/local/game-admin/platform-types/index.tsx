@@ -16,8 +16,8 @@ import FormGroup from '../../form-elements/form-group-shadow'
 import SortableList, { Item as SortableListItem } from '../../form-elements/sortable-list'
 import EditableList, { Item } from '../editable-list'
 import Button from '../../form-elements/button'
-import { withStyles } from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
+import { withStyles } from '@material-ui/core/styles'
+import Switch from '@material-ui/core/Switch'
 
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
@@ -37,15 +37,15 @@ const MobileSwitch = withStyles({
   switchBase: {
     color: '#FFFFFF',
     '&$checked': {
-      color: '#1A394D',
+      color: '#1A394D'
     },
     '&$checked + $track': {
-      backgroundColor: '#1A394D',
-    },
+      backgroundColor: '#1A394D'
+    }
   },
   checked: {},
-  track: {},
-})(Switch);
+  track: {}
+})(Switch)
 
 /* Render component */
 export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave }) => {
@@ -91,7 +91,7 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
     return (
       <div className={styles.mobile}>
         {key === 0 && <div className={styles['mobile-title']}>Mobile</div>}
-        <MobileSwitch size='small' checked={stateItem.mobile} onChange={() => { handleChangeMobile(stateItem, key) }} />
+        <MobileSwitch size='small' checked={stateItem.mobile} onChange={(): void => { handleChangeMobile(stateItem, key) }} />
       </div>
     )
   }
