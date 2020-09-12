@@ -16,34 +16,9 @@
     position: relative;
   }
 
-  li:hover {
-    span {
-      display: flex;
-    }
-  }
-
-  input {
-    flex: 1;
-    font-family: inherit;
-    font-size: 18px;
-    background: none;
-    border-width: 0;
-    line-height: 20px;
-    font-weight: 300;
-    color: #434343;
-  }
-
-  span {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
-  }
-
-  span div {
-    cursor: pointer;
-    color: #434343;
+  li:hover > div > span,
+  li:hover section > span {
+    opacity: 1;
   }
 }
 
@@ -51,8 +26,9 @@
   padding: 0 25px;
 }
 
-.active span {
-  display: block;
+.active > div > span,
+.active section > span {
+  opacity: 1;
 }
 
 .active section,
@@ -80,6 +56,29 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid rgba(255, 255, 255, 0);
+}
+
+.drag > span,
+.section > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  cursor: pointer;
+  color: #434343;
+}
+
+.section > input {
+  flex: 1;
+  font-family: inherit;
+  font-size: 18px;
+  background: none;
+  border-width: 0;
+  line-height: 20px;
+  font-weight: 300;
+  color: #434343;
 }
 
 .overlap {

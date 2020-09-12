@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 export interface ItemObject {
   name: string
   uniqid?: string | number
@@ -24,6 +26,7 @@ export default interface PropTypes {
   onClick?: (item: Item, key: number, e?: any) => void
   onChange?: (items: Array<Item>) => void
   onCreate?: () => void
+  renderItemSection?: (items: Item, key: number) => ReactNode
   title?: string
   copy?: boolean
   sortable?: 'manual' | 'auto'

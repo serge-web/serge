@@ -4,8 +4,11 @@ interface CssExports {
   'actions': string;
   'col': string;
   'form-row': string;
+  'mobile': string;
+  'mobile-title': string;
   'row': string;
   'section': string;
+  'states-holder': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

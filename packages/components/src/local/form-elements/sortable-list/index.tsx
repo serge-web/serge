@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopy, faTimes, faGripVertical } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
-export const SortableList: React.FC<PropTypes> = ({ onClick, onChange, items, title = 'Add', onCreate, copy = false, sortable = 'manual' }) => {
+export const SortableList: React.FC<PropTypes> = ({ onClick, onChange, items, title = 'Add', onCreate, copy = false, sortable = 'manual', renderItemSection }) => {
   const [active, setActive] = useState<string | number>('')
 
   const handleChange = (changedItems: Array<Item>): void => {
@@ -55,7 +55,7 @@ export const SortableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
       id: key,
       item: item
     }
-    return sItem;
+    return sItem
   })
 
   const handleSetList = (list: Array<SortableItem>): void => {
@@ -67,8 +67,8 @@ export const SortableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
     let value = item
     const isNumber = typeof item === 'number'
     if (typeof item === 'object') {
-       value = item.name
-       if (item.uniqid) { uniqid = item.uniqid }
+      value = item.name
+      if (item.uniqid) { uniqid = item.uniqid }
     }
 
     const handleINputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -78,8 +78,7 @@ export const SortableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
         if (newItems[key] && item.name) {
           newItems[key] = { ...item as ItemObject, name: newValue } as ItemObject
         }
-      }
-      else {
+      } else {
         newItems[key] = newValue
       }
       handleChange(newItems)
@@ -101,6 +100,7 @@ export const SortableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
               onChange={handleINputChange}
               value={`${value}`}
             />
+            {renderItemSection && renderItemSection(item, key)}
             <span>
               {copy && <div onClick={(): void => { handeCopy(item, key) }}>
                 <FontAwesomeIcon icon={faCopy} />
@@ -117,11 +117,11 @@ export const SortableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
 
   return (
     <div className={styles.main}>
-      {sortable === 'manual' ?
-        <ReactSortable tag='ul' list={sortableItems} setList={handleSetList}>
+      {sortable === 'manual'
+        ? <ReactSortable tag='ul' list={sortableItems} setList={handleSetList}>
           {renderItems}
-        </ReactSortable> :
-        <ul>{renderItems}</ul>
+        </ReactSortable>
+        : <ul>{renderItems}</ul>
       }
       <div className={styles['add-section']}>
         <button className={styles.button} onClick={handeCreate}>{title}</button>

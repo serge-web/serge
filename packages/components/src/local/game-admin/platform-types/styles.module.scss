@@ -26,3 +26,31 @@
   justify-content: space-between;
   flex-direction: row;
 }
+
+.mobile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+}
+
+.mobile-title {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1A394D;
+  padding-bottom: 22px;
+}
+
+.states-holder > div > div:last-child::before {
+  content: "";
+  display: block;
+  z-index: 1;
+  height: 38px;
+  position: relative;
+}

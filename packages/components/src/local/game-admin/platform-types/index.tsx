@@ -5,23 +5,47 @@ import cx from 'classnames'
 /* Import proptypes */
 import PropTypes from './types/props'
 import { PlatformType, PlatformTypeData, States } from '@serge/custom-types'
-import EditableList, { Item } from '../editable-list'
-import Button from '../../form-elements/button'
 
 /* Import Styles */
 import styles from './styles.module.scss'
 
 /* Import Components */
 import { Content, LeftSide, RightSide } from '../content'
-
 import TransparentInput from '../../form-elements/transparent-input'
 import FormGroup from '../../form-elements/form-group-shadow'
 import SortableList, { Item as SortableListItem } from '../../form-elements/sortable-list'
+import EditableList, { Item } from '../editable-list'
+import Button from '../../form-elements/button'
+import { withStyles } from '@material-ui/core/styles';
+import Switch from '@material-ui/core/Switch';
 
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
+
+const MobileSwitch = withStyles({
+  // root: {
+  //   height: 34,
+  //   padding: 12,
+  //   width: 54
+  // },
+  // thumb: {
+  //   width: 16,
+  //   height: 16,
+  // },
+  switchBase: {
+    color: '#FFFFFF',
+    '&$checked': {
+      color: '#1A394D',
+    },
+    '&$checked + $track': {
+      backgroundColor: '#1A394D',
+    },
+  },
+  checked: {},
+  track: {},
+})(Switch);
 
 /* Render component */
 export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave }) => {
@@ -54,6 +78,22 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
     const copyTypes: Array<PlatformTypeData> = [...localPlatformType.platformTypes]
     copyTypes[key] = data
     handleChangePlatformTypes(copyTypes)
+  }
+
+  const handleChangeMobile = (item: States, key: number): void => {
+    const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
+    const newStates: Array<States> = [...data.states]
+    newStates[key].mobile = !item.mobile
+    handleChamgePlatformTypeData({ ...data, states: newStates }, selectedItem)
+  }
+  const renderStatesMobileSection = (item: SortableListItem, key: number): React.ReactNode => {
+    const stateItem = item as States
+    return (
+      <div className={styles.mobile}>
+        {key === 0 && <div className={styles['mobile-title']}>Mobile</div>}
+        <MobileSwitch size='small' checked={stateItem.mobile} onChange={() => { handleChangeMobile(stateItem, key) }} />
+      </div>
+    )
   }
 
   const renderContent = (): React.ReactNode => {
@@ -132,13 +172,16 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
         </div>
         <div className={styles['form-row']}>
           <div className={cx(styles.col, styles.section)}>
-            <FormGroup placeholder="States">
-              <SortableList
-                onChange={handleChangeStates}
-                onCreate={handleCreateStates}
-                items={data.states}
-                title='Add State' />
-            </FormGroup>
+            <div className={styles['states-holder']}>
+              <FormGroup placeholder="States">
+                <SortableList
+                  onChange={handleChangeStates}
+                  onCreate={handleCreateStates}
+                  renderItemSection={renderStatesMobileSection}
+                  items={data.states}
+                  title='Add State' />
+              </FormGroup>
+            </div>
           </div>
           <div className={cx(styles.col, styles.section)}>
             <FormGroup placeholder="Speed (kts)">
