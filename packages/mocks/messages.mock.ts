@@ -25,7 +25,7 @@ export default [
       "from": {
         "force": "Blue",
         "forceColor": "#1989dc",
-        "role": "Game Control",
+        "role": "CO",
         "name": "Blue",
         "icon": "default_img/umpireDefault.png"
       },
