@@ -10,7 +10,7 @@ import { CHAT_CHANNEL_ID } from '@serge/config'
 import PropTypes from './types/props'
 
 /* Import components */
-import MessagesList from '../messages-list'
+import AdminMessagesList from '../admin-messages-list'
 import MessageCreator from '../message-creator'
 import { Message } from '@serge/custom-types'
 
@@ -21,7 +21,7 @@ export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, se
   const messageHandler = (data: Message): void => setMessages([...messages, data])
 
   return <div>
-    <MessagesList currentChannel={CHAT_CHANNEL_ID} userId={`${wargameTitle}-${selectedForce}-${selectedRole}`} messages={messages} />
+    <AdminMessagesList currentChannel={CHAT_CHANNEL_ID} userId={`${wargameTitle}-${selectedForce}-${selectedRole}`} messages={messages} />
     <MessageCreator from={selectedForce} channel={CHAT_CHANNEL_ID} role={selectedRole} postBack={messageHandler}/>
   </div>
 }

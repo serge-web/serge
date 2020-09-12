@@ -26,6 +26,8 @@ const force = {
   icon: ''
 }
 
-export const Default: React.FC = () => <PlayerStateProvider>
-  <GameAdmin wargameTitle="title" chatChannel={MessagesMock} selectedForce={force} selectedRole=""/>
-</PlayerStateProvider>
+export const Default: React.FC = () => (
+  <PlayerStateProvider>
+    <GameAdmin wargameTitle="title" chatChannel={MessagesMock} selectedForce={force} selectedRole=""/>
+  </PlayerStateProvider>
+)
