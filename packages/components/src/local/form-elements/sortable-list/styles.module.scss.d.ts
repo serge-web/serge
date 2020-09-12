@@ -6,6 +6,7 @@ interface CssExports {
   'button': string;
   'drag': string;
   'item': string;
+  'li': string;
   'main': string;
   'overlap': string;
   'presection': string;

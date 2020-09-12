@@ -85,7 +85,7 @@ export const SortableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
     }
 
     return (
-      <li key={uniqid} className={cx(active === uniqid && styles.active)} onClick={(e): void => { handeClick(e, item, uniqid, key) }}>
+      <li key={uniqid} className={cx(styles.li, active === uniqid && styles.active)} onClick={(e): void => { handeClick(e, item, uniqid, key) }}>
         {sortable === 'manual' && <div className={styles.drag}>
           <span>
             <div onClick={(): void => { handeRemove(key) }}>

@@ -15,11 +15,11 @@
     margin-bottom: 12px;
     position: relative;
   }
+}
 
-  li:hover > div > span,
-  li:hover section > span {
-    opacity: 1;
-  }
+.li:hover > div > span,
+.li:hover section > span {
+  opacity: 1 !important;
 }
 
 .presection {
