@@ -1,6 +1,6 @@
 # Game Admin documentation
 
-This is an example readme file for the 'Game Admin' component.
+Game Admin page panel outside of the main game channel section.
 
 ## UI Example
 

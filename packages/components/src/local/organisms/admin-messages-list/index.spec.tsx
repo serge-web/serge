@@ -10,7 +10,7 @@ import { MessagesMock } from '@serge/mocks'
 describe('AdminMessage component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
-      .create(<AdminMessagesList userId="" messages={MessagesMock} />)
+      .create(<AdminMessagesList messages={MessagesMock} markAllAsRead={null} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

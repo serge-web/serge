@@ -7,7 +7,7 @@ import docs from './README.md'
 import { MessagesMock } from '@serge/mocks'
 
 export default {
-  title: 'local/AdminMessagesList',
+  title: 'local/organisms/AdminMessagesList',
   component: AdminMessagesList,
   decorators: [],
   parameters: {
@@ -22,4 +22,5 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <AdminMessagesList userId="" messages={MessagesMock} />
+const markAllAsRead = (): void => window.alert('Callback on mark all as read')
+export const Default: React.FC = () => <AdminMessagesList messages={MessagesMock} markAllAsRead={markAllAsRead} />

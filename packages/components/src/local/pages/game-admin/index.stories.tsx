@@ -9,7 +9,7 @@ import { PlayerStateProvider } from '@serge/store'
 import { MessagesMock } from '@serge/mocks'
 
 export default {
-  title: 'local/GameAdmin',
+  title: 'local/pages/GameAdmin',
   component: GameAdmin,
   decorators: [],
   parameters: {

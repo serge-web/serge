@@ -1,12 +1,10 @@
-@import "~@serge/themes/dependencies/variables";
+@import "../../../../../../node_modules/@serge/themes/dependencies/variables";
 
 .message-list {
   max-height: calc(100vh - 372px);
+  overflow-x: hidden;
+  overflow-y: scroll;
   padding: 16px;
-
-  .data {
-    font-size: 13px;
-  }
 
   .message-bullet {
     background-color: $grey2;
@@ -49,21 +47,6 @@
   }
 }
 
-.link {
-  @include primary-shadow;
-  @include transition();
-  background-color: #666;
-  border-radius: 2px;
-  color: $primary-triad-color;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 500;
-  padding: 8px 14px;
-  text-transform: uppercase;
-  width: fit-content;
-
-  &:hover {
-    background-color: $primary-triad-color-transparent;
-  }
+.action-label {
+  font-size: .65rem;
 }

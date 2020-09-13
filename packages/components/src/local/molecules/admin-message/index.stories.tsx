@@ -6,7 +6,7 @@ import docs from './README.md'
 import { MessagesMock } from '@serge/mocks'
 
 export default {
-  title: 'local/AdminMessage',
+  title: 'local/molecules/AdminMessage',
   component: AdminMessage,
   decorators: [(story: Function) => (
     <div style={{ overflow: 'hidden' }}>{ story() }</div>
