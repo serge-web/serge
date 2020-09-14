@@ -28,6 +28,6 @@ const force = {
 
 export const Default: React.FC = () => (
   <PlayerStateProvider>
-    <GameAdmin wargameTitle="title" chatChannel={MessagesMock} selectedForce={force} selectedRole=""/>
+    <GameAdmin wargameTitle="title" chatChannel={MessagesMock} selectedForce={force} selectedRole="Game Control" />
   </PlayerStateProvider>
 )

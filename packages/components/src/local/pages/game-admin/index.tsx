@@ -12,7 +12,7 @@ import PropTypes from './types/props'
 
 /* Import components */
 import AdminMessagesList from '../../organisms/admin-messages-list'
-import MessageCreator from '../../message-creator'
+import AdminMessageCreator from '../../molecules/admin-message-creator'
 
 /* Render component */
 export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, selectedRole, chatChannel }) => {
@@ -60,7 +60,7 @@ export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, se
 
   return <div>
     <AdminMessagesList force={selectedForce} messages={messageList} markAllAsRead={markAllAsRead} />
-    <MessageCreator from={selectedForce} channel={currentChannel} role={selectedRole} postBack={messageHandler}/>
+    <AdminMessageCreator from={selectedForce} channel={currentChannel} role={selectedRole} postBack={messageHandler}/>
   </div>
 }
 
