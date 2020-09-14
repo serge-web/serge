@@ -9,4 +9,12 @@ export default interface PropTypes {
    *  The function to perform to mark all messages as read
    */
   markAllAsRead: any
+  /**
+   * Current force that is seeing the messages
+   */
+  force: {
+    name: string
+    color: string
+    icon?: string
+  }
 }

@@ -19,7 +19,7 @@ export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, se
   const [messages, setMessages] = useState(chatChannel)
   const [messageList, setMessageList] = useState<Array<MessageType>>([])
   const [allMarkedRead, setAllMarkedRead] = useState(false)
-  const userId = `${wargameTitle}-${selectedForce}-${selectedRole}`
+  const userId = `${wargameTitle}-${selectedForce.name}-${selectedRole}`
   const currentChannel = CHAT_CHANNEL_ID
   useEffect(() => {
     setMessageList(messages.map((message: MessageType) => {
@@ -59,7 +59,7 @@ export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, se
   const messageHandler = (data: MessageType): void => setMessages([...messages, data])
 
   return <div>
-    <AdminMessagesList messages={messageList} markAllAsRead={markAllAsRead} />
+    <AdminMessagesList force={selectedForce} messages={messageList} markAllAsRead={markAllAsRead} />
     <MessageCreator from={selectedForce} channel={currentChannel} role={selectedRole} postBack={messageHandler}/>
   </div>
 }

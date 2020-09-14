@@ -3,7 +3,7 @@ import React from 'react'
 // Import component files
 import AdminMessage from './index'
 import docs from './README.md'
-import { MessagesMock } from '@serge/mocks'
+import { MessagesMock, forces } from '@serge/mocks'
 
 export default {
   title: 'local/molecules/AdminMessage',
@@ -22,6 +22,8 @@ export default {
     }
   }
 }
+const [whiteForce, blueForce] = forces
+const [, blueMessage] = MessagesMock
 
-export const Default: React.FC = () => <AdminMessage message={MessagesMock[0]}/>
-export const OwnMessage: React.FC = () => <AdminMessage message={MessagesMock[1]}/>
+export const Default: React.FC = () => <AdminMessage force={whiteForce} message={blueMessage}/>
+export const OwnMessage: React.FC = () => <AdminMessage force={blueForce} message={blueMessage}/>

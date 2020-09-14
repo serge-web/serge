@@ -12,7 +12,7 @@ import AdminMessage from '../../molecules/admin-message'
 import { Box, Button } from '@material-ui/core'
 
 /* Render component */
-export const AdminMessagesList: React.FC<PropTypes> = ({ messages, markAllAsRead }: PropTypes) => {
+export const AdminMessagesList: React.FC<PropTypes> = ({ messages, markAllAsRead, force }: PropTypes) => {
   return (
     <div className={styles['message-list']}>
       <Box mb={2}>
@@ -26,7 +26,7 @@ export const AdminMessagesList: React.FC<PropTypes> = ({ messages, markAllAsRead
         </Button>
       </Box>
       {
-        messages && messages.map((message: MessageType) => <AdminMessage key={message._id} message={message} />)
+        messages && messages.map((message: MessageType) => <AdminMessage force={force} key={message._id} message={message} />)
       }
     </div>
   )

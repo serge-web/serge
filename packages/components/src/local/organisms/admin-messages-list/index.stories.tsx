@@ -4,7 +4,7 @@ import React from 'react'
 import AdminMessagesList from './index'
 import docs from './README.md'
 
-import { MessagesMock } from '@serge/mocks'
+import { MessagesMock, forces } from '@serge/mocks'
 
 export default {
   title: 'local/organisms/AdminMessagesList',
@@ -22,5 +22,6 @@ export default {
   }
 }
 
+const [whiteForce] = forces
 const markAllAsRead = (): void => window.alert('Callback on mark all as read')
-export const Default: React.FC = () => <AdminMessagesList messages={MessagesMock} markAllAsRead={markAllAsRead} />
+export const Default: React.FC = () => <AdminMessagesList force={whiteForce} messages={MessagesMock} markAllAsRead={markAllAsRead} />

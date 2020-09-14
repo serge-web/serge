@@ -2,15 +2,15 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
-
 import AdminMessagesList from './index'
+import { MessagesMock, forces } from '@serge/mocks'
 
-import { MessagesMock } from '@serge/mocks'
+const [whiteForce] = forces
 
 describe('AdminMessage component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
-      .create(<AdminMessagesList messages={MessagesMock} markAllAsRead={null} />)
+      .create(<AdminMessagesList force={whiteForce} messages={MessagesMock} markAllAsRead={null} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

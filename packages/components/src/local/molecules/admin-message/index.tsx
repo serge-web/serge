@@ -10,10 +10,10 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const AdminMessage: React.FC<PropTypes> = ({ message }: PropTypes) => {
+export const AdminMessage: React.FC<PropTypes> = ({ message, force }: PropTypes) => {
   const { details } = message
-  const { force, role, name } = details.from
-  const isOwnMessage = name === force
+  const { from } = details
+  const isOwnMessage = force.name === from.force
   return (
     <div className={classNames([
       styles['message-preview-player'],
@@ -22,7 +22,7 @@ export const AdminMessage: React.FC<PropTypes> = ({ message }: PropTypes) => {
       {
         isOwnMessage
           ? null
-          : <span className={styles['message-bullet']} style={{ backgroundColor: details.from.forceColor }}>&nbsp;</span>
+          : <span className={styles['message-bullet']} style={{ backgroundColor: from.forceColor }}>&nbsp;</span>
       }
       <div className={message.hasBeenRead ? undefined : styles.bold}>
         {message.message.content}
@@ -32,7 +32,7 @@ export const AdminMessage: React.FC<PropTypes> = ({ message }: PropTypes) => {
         (isOwnMessage ? styles['info-wrap--own-message'] : null)
       ])}>
         <time dateTime={message.details.timestamp}>{moment(message.details.timestamp).format('HH:mm')}</time>
-        <small><Chip size="small" color="default" label={role} /></small>
+        <small><Chip size="small" color="default" label={from.role} /></small>
       </div>
     </div>
   )
