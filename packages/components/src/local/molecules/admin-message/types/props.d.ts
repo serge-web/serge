@@ -8,9 +8,5 @@ export default interface PropTypes {
   /**
    * Current force
    */
-  force: {
-    name: string
-    color: string
-    icon?: string
-  }
+  force: string
 }

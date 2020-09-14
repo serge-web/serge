@@ -25,5 +25,5 @@ export default {
 const [whiteForce, blueForce] = forces
 const [, blueMessage] = MessagesMock
 
-export const Default: React.FC = () => <AdminMessage force={whiteForce} message={blueMessage}/>
-export const OwnMessage: React.FC = () => <AdminMessage force={blueForce} message={blueMessage}/>
+export const Default: React.FC = () => <AdminMessage force={whiteForce.name} message={blueMessage}/>
+export const OwnMessage: React.FC = () => <AdminMessage force={blueForce.name} message={blueMessage}/>
