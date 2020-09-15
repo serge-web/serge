@@ -1,14 +1,20 @@
 import React from 'react'
-import { addParameters, addDecorator } from '@storybook/react'; 
+import { addParameters, addDecorator } from '@storybook/react';
 import { addReadme, configureReadme } from 'storybook-readme';
+import { MuiThemeProvider as ThemeProvider } from '@material-ui/core/styles';
+import theme from '../themes/serge';
 
 configureReadme({
   /**
    * Wrapper for story. Usually used to set some styles
    * React: React.ReactNode
    */
-  StoryPreview: ({ children }) => <div style={{ margin: '2rem 1rem' }}>{children}</div>,
- 
+  StoryPreview: ({ children }) => (
+    <ThemeProvider theme={theme}>
+      <div style={{ margin: '2rem 1rem' }}>{children}</div>
+    </ThemeProvider>
+  ),
+
   /**
    * Wrapper for content and sidebar docs. Usually used to set some styles
    * React: React.ReactNode
@@ -31,7 +37,7 @@ addParameters({
     { name: 'message', value: '#00274b' },
     { name: 'sea', value: '#8ec7e8' },
     { name: 'land', value: '#d9b86c' },
-  ], 
+  ],
   readme: {
     info: { inline: true },
     codeTheme: 'atom-dark',

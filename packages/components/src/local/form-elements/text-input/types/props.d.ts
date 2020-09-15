@@ -6,7 +6,7 @@ export default interface PropTypes {
   /***
    * The label of the text input
    */
-  label: string
+  label?: string
   /**
    * The value of the input
    */
@@ -27,4 +27,8 @@ export default interface PropTypes {
    * The placeholder of the input
    */
   placeholder?: string
+  /**
+   * Text input full width
+   */
+  fullWidth?: boolean
 }
