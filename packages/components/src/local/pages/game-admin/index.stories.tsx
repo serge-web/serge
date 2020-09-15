@@ -9,7 +9,7 @@ import { PlayerStateProvider } from '@serge/store'
 import { MessagesMock } from '@serge/mocks'
 
 export default {
-  title: 'local/GameAdmin',
+  title: 'local/pages/GameAdmin',
   component: GameAdmin,
   decorators: [],
   parameters: {
@@ -26,6 +26,8 @@ const force = {
   icon: ''
 }
 
-export const Default: React.FC = () => <PlayerStateProvider>
-  <GameAdmin wargameTitle="title" chatChannel={MessagesMock} selectedForce={force} selectedRole=""/>
-</PlayerStateProvider>
+export const Default: React.FC = () => (
+  <PlayerStateProvider>
+    <GameAdmin wargameTitle="title" chatChannel={MessagesMock} selectedForce={force} selectedRole="Game Control" />
+  </PlayerStateProvider>
+)

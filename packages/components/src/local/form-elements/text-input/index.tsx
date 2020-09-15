@@ -8,7 +8,7 @@ import { TextField } from '@material-ui/core'
 import PropTypes from './types/props'
 
 /* Render component */
-export const TextInput: React.FC<PropTypes> = ({ label, name, value, multiline, updateState, className, placeholder }) => {
+export const TextInput: React.FC<PropTypes> = ({ label, name, value, multiline, updateState, className, placeholder, fullWidth }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     updateState(event.target)
   }
@@ -20,9 +20,19 @@ export const TextInput: React.FC<PropTypes> = ({ label, name, value, multiline, 
     isMultiline = true
   }
 
-  return <InputContainer label={label} className={className}>
-    <TextField multiline={isMultiline} rows={multiline} name={inputName} value={value} onChange={handleChange} placeholder={placeholder}></TextField>
-  </InputContainer>
+  return (
+    <InputContainer label={label} className={className}>
+      <TextField
+        multiline={isMultiline}
+        rows={multiline}
+        name={inputName}
+        value={value}
+        onChange={handleChange}
+        placeholder={placeholder}
+        fullWidth={fullWidth}
+      />
+    </InputContainer>
+  )
 }
 
 export default TextInput
