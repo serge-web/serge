@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default interface Props {
   adjudicationStartTime: string
   turnEndTime: string
@@ -6,4 +8,5 @@ export default interface Props {
   phase: string
   gameDate: string
   controlUi: boolean
+  onNextTurn?: React.ReactEventHandler<any>
 }
