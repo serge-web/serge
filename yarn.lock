@@ -3657,6 +3657,18 @@
   dependencies:
     "@types/geojson" "*"
 
+"@types/lodash.debounce@^4.0.6":
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/@types/lodash.debounce/-/lodash.debounce-4.0.6.tgz#c5a2326cd3efc46566c47e4c0aa248dc0ee57d60"
+  integrity sha512-4WTmnnhCfDvvuLMaF3KV4Qfki93KebocUF45msxhYyjMttZDQYzHkO639ohhk8+oco2cluAFL3t5+Jn4mleylQ==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.161"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.161.tgz#a21ca0777dabc6e4f44f3d07f37b765f54188b18"
+  integrity sha512-EP6O3Jkr7bXvZZSZYlsgt5DIjiGr0dXP1/jVEwVLTFgg0d+3lWVQkRavYVQszV7dYUwvg0B8R0MBDpcmXg7XIA==
+
 "@types/lodash@^4.14.149":
   version "4.14.159"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.159.tgz#61089719dc6fdd9c5cb46efc827f2571d1517065"
@@ -10471,6 +10483,11 @@ flexlayout-react@^0.3.4:
   version "0.3.11"
   resolved "https://registry.yarnpkg.com/flexlayout-react/-/flexlayout-react-0.3.11.tgz#fc2246f2b0bfa36b54d5294ac5dc7461ef3c2759"
   integrity sha512-V+rEfyYJBqNk9oBgotPoXg8rmom4/ji9Mvr6f7T8sIJs83RuyK1D3oOrya2ydZIUCP2T6BIvj7rFTmRRkzpU8w==
+
+flexlayout-react@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/flexlayout-react/-/flexlayout-react-0.5.2.tgz#02bf445131c5d3a7bf7ef4b1e4bc4979ca89af80"
+  integrity sha512-FbCL+4EWvZ01lxQbvwoabjQeXdFntz3xv6Pn2kF0IWhgHcSQWAeQMjthXjNZJYrwkwAfbFemIRDGXZB7l4pTLA==
 
 flow-parser@^0.132.0:
   version "0.132.0"
