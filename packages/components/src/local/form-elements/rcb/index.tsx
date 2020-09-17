@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { camelCase, kebabCase } from 'lodash'
 
-import InputContainer from '../../input-container'
+import InputContainer from '../../atoms/input-container'
 import { FormControlLabel, RadioGroup } from '@material-ui/core'
 
 /* Import Stylesheet */

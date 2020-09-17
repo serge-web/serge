@@ -1,7 +1,7 @@
 import React from 'react'
 import { kebabCase } from 'lodash'
 
-import InputContainer from '../../input-container'
+import InputContainer from '../input-container'
 import { FilledInputProps, TextField, fade } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
@@ -28,7 +28,21 @@ const useFilledStyle = makeStyles((theme: Theme) =>
 )
 
 /* Render component */
-export const TextInput: React.FC<PropTypes> = ({ label, name, variant, value, multiline, rows, rowsMax, updateState, className, placeholder, fullWidth }) => {
+export const TextInput: React.FC<PropTypes> = ({
+  label,
+  labelSize,
+  labelColor,
+  name,
+  variant,
+  value,
+  multiline,
+  rows,
+  rowsMax,
+  updateState,
+  className,
+  placeholder,
+  fullWidth
+}) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     updateState(event.target)
   }
@@ -38,7 +52,7 @@ export const TextInput: React.FC<PropTypes> = ({ label, name, variant, value, mu
   const filledClasses = useFilledStyle()
 
   return (
-    <InputContainer label={label} className={className}>
+    <InputContainer label={label} labelColor={labelColor} labelSize={labelSize} className={className}>
       <TextField
         InputProps={{
           classes: isFilled ? filledClasses : {},

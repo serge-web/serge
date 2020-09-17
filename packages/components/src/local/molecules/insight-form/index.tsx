@@ -4,9 +4,10 @@ import React, { useState } from 'react'
 import Props from './types/props'
 
 /* Import Stylesheet */
-// import styles from './styles.module.scss'
+import styles from './styles.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCommentAlt } from '@fortawesome/free-solid-svg-icons'
+import { Box } from '@material-ui/core'
 import TextInput from '../../atoms/text-input'
 
 /* Render component */
@@ -28,13 +29,13 @@ export const InsightForm: React.FC<Props> = ({ onCancel, onSend }: Props) => {
     })
   }
   return (
-    <div className="display-text-wrapper lessons-modal">
-      <div className="title">
+    <div className={styles['lessons-modal']}>
+      <div className={styles.title}>
         <FontAwesomeIcon icon={faCommentAlt} size="2x"/><h3>Insights</h3>
       </div>
       <p>Use this form to give private feedback on the game itself.</p>
       <p>Comments are only visible to the Game Controller. No other player has access to the comments you post here.</p>
-      <div className="text-input-wrap">
+      <Box display="flex" flexDirection="column">
         <TextInput
           multiline
           rows={4}
@@ -42,8 +43,8 @@ export const InsightForm: React.FC<Props> = ({ onCancel, onSend }: Props) => {
           updateState={setMessage}
           value={inputValues.message}
         />
-      </div>
-      <div className="text-input-wrap">
+      </Box>
+      <Box display="flex" flexDirection="column">
         <div className="row">
           <div className="col-md-6">
             <TextInput
@@ -54,11 +55,11 @@ export const InsightForm: React.FC<Props> = ({ onCancel, onSend }: Props) => {
             />
           </div>
         </div>
-      </div>
-      <div className="buttons">
+      </Box>
+      <Box mt={2}>
         <button name="cancel" className="btn btn-action btn-action--secondary" onClick={onCancel}>Cancel</button>
         <button name="continue" className="btn btn-action btn-action--primary" onClick={onSend}>Send</button>
-      </div>
+      </Box>
     </div>
   )
 }

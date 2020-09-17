@@ -3,6 +3,7 @@
 interface CssExports {
   'disable-offset': string;
   'input-container': string;
+  'input-label': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

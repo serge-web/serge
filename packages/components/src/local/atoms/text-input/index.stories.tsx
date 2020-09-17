@@ -28,3 +28,8 @@ export const Filled: React.FC = () => (
     <TextInput variant="filled" placeholder="Enter some value" />
   </BlueContainer>
 )
+export const FilledWithLabel: React.FC = () => (
+  <BlueContainer>
+    <TextInput variant="filled" label="Enter a value" labelColor="common.white" labelSize={12} />
+  </BlueContainer>
+)

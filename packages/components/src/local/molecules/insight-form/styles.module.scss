@@ -1,17 +1,31 @@
-$red: #f00;
-$white: #fff;
-$blue: #69C;
+@import '~@serge/themes/dependencies/variables';
 
-.example {
-  color: $white;
-  font-weight: bold;
-}
+.lessons-modal {
+  max-width: 500px;
 
-.blue {
-  composes: example;
-  background-color: $blue;
-}
-.red {
-  composes: example;
-  background-color: $red;
+  .title {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+  }
+
+  svg {
+    color: $primary-color;
+  }
+  h3 {
+    background-color: transparent;
+    display: inline;
+    font-weight: bold;
+    line-height: 1em;
+    margin-left: 0.5em;
+    width: fit-content;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  textarea {
+    resize: none;
+  }
 }

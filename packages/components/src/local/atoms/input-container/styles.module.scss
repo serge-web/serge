@@ -1,12 +1,11 @@
-@import "~@serge/themes/dependencies/variables";
+@import "../../../../../../node_modules/@serge/themes/dependencies/variables";
 .input-container {
   padding: 1rem;
 
-  h2 {
+  .input-label {
     @include typo-primary;
-    font-size: 1rem;
+    display: block;
     font-weight: 700;
-    color: $text-field-admin;
   }
 }
 
