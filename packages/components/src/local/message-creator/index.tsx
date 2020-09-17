@@ -8,7 +8,7 @@ import Props from './types/props'
 // import styles from './styles.module.scss
 
 /* Import components */
-import { TextInput } from '../form-elements/text-input'
+import { TextInput } from '../atoms/text-input'
 
 /* Render component */
 export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack }) => {

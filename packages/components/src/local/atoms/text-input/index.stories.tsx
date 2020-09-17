@@ -11,7 +11,7 @@ const BlueContainer = styled(Box)({
 })
 
 export default {
-  title: 'local/form-elements/TextInput',
+  title: 'local/atoms/TextInput',
   component: TextInput,
   decorators: [],
   parameters: {
