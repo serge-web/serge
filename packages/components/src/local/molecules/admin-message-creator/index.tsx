@@ -47,7 +47,8 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, role, post
       <Box flexGrow={1}>
         <TextInput
           name="Message"
-          multiline={4}
+          multiline
+          rowsMax={4}
           updateState={changeHandler}
           value={formState}
           fullWidth

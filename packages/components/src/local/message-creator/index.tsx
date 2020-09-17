@@ -42,7 +42,7 @@ export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack 
   }
 
   return <div>
-    <TextInput label="Post message" name="Message" multiline={4} updateState={changeHandler} value={formState}/>
+    <TextInput label="Post message" name="Message" multiline rowsMax={4} updateState={changeHandler} value={formState}/>
     <Button onClick={submitForm}>Send</Button>
   </div>
 }

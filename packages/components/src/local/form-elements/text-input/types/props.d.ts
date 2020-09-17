@@ -8,13 +8,17 @@ export default interface PropTypes {
    */
   label?: string
   /**
+   * Text field variants
+   */
+  variant?: 'standard' | 'filled' | 'outlined'
+  /**
    * The value of the input
    */
-  value: number | string
+  value?: number | string
   /**
    * The number of lines the input should have (default 1)
    */
-  multiline?: number
+  multiline?: boolean
   /**
    * Sets the onChange state on a parent
    */
@@ -31,4 +35,12 @@ export default interface PropTypes {
    * Text input full width
    */
   fullWidth?: boolean
+  /**
+   * Multiline rows length
+   */
+  rows?: number
+  /**
+   * Multiline maximum rows length
+   */
+  rowsMax?: number
 }
