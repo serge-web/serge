@@ -5,13 +5,12 @@ import Props from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCommentAlt } from '@fortawesome/free-solid-svg-icons'
-import { Box } from '@material-ui/core'
+import { Box, Button } from '@material-ui/core'
+import { ModeComment } from '@material-ui/icons'
 import TextInput from '../../atoms/text-input'
 
 /* Render component */
-export const InsightForm: React.FC<Props> = ({ onCancel, onSend }: Props) => {
+export const InsightForm: React.FC<Props> = ({ onCancel, onSend, darkMode }: Props) => {
   const [inputValues, setInputValues] = useState({
     message: '',
     name: ''
@@ -29,36 +28,44 @@ export const InsightForm: React.FC<Props> = ({ onCancel, onSend }: Props) => {
     })
   }
   return (
-    <div className={styles['lessons-modal']}>
-      <div className={styles.title}>
-        <FontAwesomeIcon icon={faCommentAlt} size="2x"/><h3>Insights</h3>
+    <div className={styles['insight-form']}>
+      <div className={styles['insight-title']}>
+        <ModeComment fontSize="large" />
+        <h3>Insights</h3>
       </div>
       <p>Use this form to give private feedback on the game itself.</p>
       <p>Comments are only visible to the Game Controller. No other player has access to the comments you post here.</p>
-      <Box display="flex" flexDirection="column">
+      <Box display="flex" flexDirection="column" mb={4}>
         <TextInput
           multiline
+          fullWidth
           rows={4}
           label="Message"
+          labelSize={12}
+          labelColor={darkMode ? 'common.white' : 'common.black'}
           updateState={setMessage}
           value={inputValues.message}
+          variant={darkMode ? 'filled' : 'outlined'}
         />
       </Box>
-      <Box display="flex" flexDirection="column">
-        <div className="row">
-          <div className="col-md-6">
-            <TextInput
-              className="material-input"
-              label="Name: optional"
-              updateState={setName}
-              value={inputValues.name}
-            />
-          </div>
-        </div>
+      <Box display="flex" flexDirection="column" mb={4}>
+        <Box width="50%">
+          <TextInput
+            fullWidth
+            label="Name: optional"
+            labelSize={12}
+            labelColor={darkMode ? 'common.white' : 'common.black'}
+            updateState={setName}
+            value={inputValues.name}
+            variant={darkMode ? 'filled' : 'outlined'}
+          />
+        </Box>
       </Box>
-      <Box mt={2}>
-        <button name="cancel" className="btn btn-action btn-action--secondary" onClick={onCancel}>Cancel</button>
-        <button name="continue" className="btn btn-action btn-action--primary" onClick={onSend}>Send</button>
+      <Box mt={2} display="flex" justifyContent="flex-end">
+        <Button className={styles['btn-cancel']} onClick={onCancel}>Cancel</Button>
+        <Box ml={2}>
+          <Button variant="contained" color="primary" onClick={onSend}>Send</Button>
+        </Box>
       </Box>
     </div>
   )

@@ -9,4 +9,8 @@ export default interface Props {
    * Callback on send button click event
    */
   onSend: React.ReactEventHandler
+  /**
+   * Whether to show form in dark mode
+   */
+  darkMode?: boolean
 }

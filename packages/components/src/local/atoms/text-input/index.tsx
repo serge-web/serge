@@ -21,8 +21,11 @@ const useFilledStyle = makeStyles((theme: Theme) =>
       }
     },
     input: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(1.5),
       height: 'auto'
+    },
+    multiline: {
+      padding: 0
     }
   })
 )
@@ -52,7 +55,13 @@ export const TextInput: React.FC<PropTypes> = ({
   const filledClasses = useFilledStyle()
 
   return (
-    <InputContainer label={label} labelColor={labelColor} labelSize={labelSize} className={className}>
+    <InputContainer
+      label={label}
+      labelColor={labelColor}
+      labelSize={labelSize}
+      className={className}
+      disableOffset={true}
+    >
       <TextField
         InputProps={{
           classes: isFilled ? filledClasses : {},
