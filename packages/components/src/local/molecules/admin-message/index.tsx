@@ -13,7 +13,7 @@ import styles from './styles.module.scss'
 export const AdminMessage: React.FC<PropTypes> = ({ message, force }: PropTypes) => {
   const { details } = message
   const { from } = details
-  const isOwnMessage = force.name === from.force
+  const isOwnMessage = force === from.force
   return (
     <div className={classNames([
       styles['message-preview-player'],

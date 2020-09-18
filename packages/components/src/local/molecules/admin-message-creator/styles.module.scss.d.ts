@@ -2,7 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'btn-send': string;
-  'message-creator__wrap': string;
+  'message-creator-wrap': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

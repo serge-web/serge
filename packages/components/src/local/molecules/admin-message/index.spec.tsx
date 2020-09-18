@@ -9,7 +9,7 @@ const [whiteForce] = forces
 describe('AdminMessage component:', () => {
   it('renders component correctly', () => {
     const tree = renderer
-      .create(<AdminMessage force={whiteForce} message={MessagesMock[0]}/>)
+      .create(<AdminMessage force={whiteForce.name} message={MessagesMock[0]}/>)
     expect(tree.toJSON()).toMatchSnapshot()
   })
 })

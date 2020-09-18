@@ -43,7 +43,7 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, role, post
   }
 
   return (
-    <Box className={styles['message-creator__wrap']} mt={2} p={2} pb={0}>
+    <Box className={styles['message-creator-wrap']} mt={2} p={2} pb={0}>
       <Box flexGrow={1}>
         <TextInput
           name="Message"

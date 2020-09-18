@@ -26,7 +26,7 @@ export const AdminMessagesList: React.FC<PropTypes> = ({ messages, markAllAsRead
         </Button>
       </Box>
       {
-        messages && messages.map((message: MessageType) => <AdminMessage force={force} key={message._id} message={message} />)
+        messages && messages.map((message: MessageType) => <AdminMessage force={force.name} key={message._id} message={message} />)
       }
     </div>
   )
