@@ -21,18 +21,17 @@ export const IconUploader: React.FC<PropTypes> = ({
   limit,
   icon
 }) => {
-
   const getBase64 = (file: any, cb: (res: string) => void): void => {
-    let reader = new FileReader()
+    const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = () => {
       if (typeof reader.result === 'string') {
         cb(reader.result)
       }
-    };
+    }
     reader.onerror = (error): void => {
-      console.log('Error: ', error);
-    };
+      console.log('Error: ', error)
+    }
   }
 
   const [modal, setModal] = useState<boolean>(false)
@@ -46,7 +45,7 @@ export const IconUploader: React.FC<PropTypes> = ({
   const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted: (acceptedFiles: Array<any>): void => {
       const [file] = acceptedFiles
-      getBase64(file, (src:string) => {
+      getBase64(file, (src: string) => {
         setModal(false)
         handleChange(src)
       })
@@ -55,7 +54,7 @@ export const IconUploader: React.FC<PropTypes> = ({
     maxSize: limit,
     multiple: false,
     onDropRejected: (rejected: any): void => {
-      console.log('rejected', rejected);
+      console.log('rejected', rejected)
     }
   })
   const handeClick = (): void => {
@@ -66,7 +65,7 @@ export const IconUploader: React.FC<PropTypes> = ({
     <div className={styles.main}>
       <div
         onClick={handeClick}
-        style={{background: background}}
+        style={{ background: background }}
         className={styles.icon}
       >
         {icon && <img src={icon} alt='icon' />}

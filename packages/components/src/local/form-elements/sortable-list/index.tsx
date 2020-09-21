@@ -102,8 +102,7 @@ export const SortableList: React.FC<PropTypes> = ({
         if (!newValueFilled) {
           if (valueOnEmpty) {
             newValue = valueOnEmpty
-          }
-          else {
+          } else {
             newValue = getValue(itemsSaved[key])
             setSelectAllText(true)
           }
@@ -137,7 +136,7 @@ export const SortableList: React.FC<PropTypes> = ({
               value={`${value}`}
               ref={(input): void => {
                 if (selectAllText && input && uniqid === active) {
-                  input.select();
+                  input.select()
                   setSelectAllText(false)
                 }
               }}

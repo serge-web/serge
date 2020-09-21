@@ -18,7 +18,6 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
 export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargame, tabs = [], wargameChanged }) => {
-
   const handeTabChange = (changedTab: string, key: number, e: any): void => {
     if (typeof onTabChange === 'function') {
       onTabChange(changedTab, key, e)

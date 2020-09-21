@@ -9,8 +9,8 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Import Icons */
-import {faAsterisk} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faAsterisk } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* Render component */
 export const Tabs: React.FC<PropTypes> = ({ onChange, tabs, activeTab = '', changed }) => {

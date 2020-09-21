@@ -40,5 +40,8 @@ module.exports = {
   },
   'env': {
     'jest': true
+  },
+  "globals": {
+    "FileReader": "readonly"
   }
 }

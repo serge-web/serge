@@ -6,8 +6,8 @@ import PlatformTypes from '../platform-types'
 
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { WargameMock, adminTabs } from '@serge/mocks'
-import { platformType as platformTypeMock } from '@serge/mocks'
+import { WargameMock, adminTabs, platformType as platformTypeMock } from '@serge/mocks'
+
 import { PlatformType, Wargame } from '@serge/custom-types'
 
 import { Content } from '../content'
@@ -84,7 +84,6 @@ Default.story = {
   }
 }
 /*
-
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
 
