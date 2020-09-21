@@ -6,7 +6,6 @@ exports[`AdminLayout renders correctly 1`] = `
 >
   <div
     className="left-panel"
-    onClick={[Function]}
   >
     <a
       className="link main"

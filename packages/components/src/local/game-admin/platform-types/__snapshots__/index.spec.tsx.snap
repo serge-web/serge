@@ -753,7 +753,29 @@ exports[`platform-types renders correctly 1`] = `
         <div
           className="col"
         >
-          Change Icon
+          <div
+            className="main"
+          >
+            <div
+              className="icon"
+              onClick={[Function]}
+              style={
+                Object {
+                  "background": "rgba(0,0,0,0)",
+                }
+              }
+            >
+              <img
+                alt="icon"
+                src="fishing-vessel.svg"
+              />
+            </div>
+            <div
+              onClick={[Function]}
+            >
+              Change Icon
+            </div>
+          </div>
         </div>
         <div
           className="actions"

@@ -24,7 +24,7 @@ export const IconUploader: React.FC<PropTypes> = ({
   const getBase64 = (file: any, cb: (res: string) => void): void => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
-    reader.onload = () => {
+    reader.onload = (): void => {
       if (typeof reader.result === 'string') {
         cb(reader.result)
       }
