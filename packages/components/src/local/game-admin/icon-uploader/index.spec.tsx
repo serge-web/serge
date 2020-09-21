@@ -3,11 +3,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import Link from './index'
+import IconUploader from './index'
 
-it('link renders correctly', () => {
+it('icon-uploader renders correctly', () => {
   const tree = renderer
-    .create(<Link disabled={false}>Text</Link>)
+    .create(<IconUploader limit={20000}>Text</IconUploader>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

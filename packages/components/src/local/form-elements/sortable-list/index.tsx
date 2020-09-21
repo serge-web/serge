@@ -16,8 +16,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopy, faTimes, faGripVertical } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
-export const SortableList: React.FC<PropTypes> = ({ onClick, onChange, items, title = 'Add', onCreate, copy = false, sortable = 'manual', renderItemSection }) => {
+export const SortableList: React.FC<PropTypes> = ({
+  onClick,
+  onChange,
+  items,
+  title = 'Add',
+  onCreate,
+  copy = false,
+  sortable = 'manual',
+  renderItemSection,
+  required = false,
+  valueOnEmpty
+}) => {
   const [active, setActive] = useState<string | number>('')
+  const [itemsSaved] = useState<Array<Item>>(items)
+  const [selectAllText, setSelectAllText] = useState<boolean>(false)
 
   const handleChange = (changedItems: Array<Item>): void => {
     if (typeof onChange === 'function') {
@@ -59,7 +72,18 @@ export const SortableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
   })
 
   const handleSetList = (list: Array<SortableItem>): void => {
-    handleChange(list.map(sItem => sItem.item))
+    const changedListItems = list.map(sItem => sItem.item)
+    if (JSON.stringify(items) !== JSON.stringify(changedListItems)) {
+      handleChange(changedListItems)
+    }
+  }
+
+  const getValue = (item: Item): React.ReactText => {
+    let value = item
+    if (typeof item === 'object') {
+      value = item.name
+    }
+    return value as React.ReactText
   }
 
   const renderItems = items.map((item, key) => {
@@ -72,7 +96,19 @@ export const SortableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
     }
 
     const handleINputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-      const newValue = isNumber ? parseInt(e.target.value) : e.target.value
+      let newValue = isNumber ? parseInt(e.target.value) : e.target.value
+      const newValueFilled: boolean = `${newValue}`.length > 0
+      if (required) {
+        if (!newValueFilled) {
+          if (valueOnEmpty) {
+            newValue = valueOnEmpty
+          }
+          else {
+            newValue = getValue(itemsSaved[key])
+            setSelectAllText(true)
+          }
+        }
+      }
       const newItems: Array<Item> = [...items]
       if (typeof item === 'object') {
         if (newItems[key] && item.name) {
@@ -99,6 +135,12 @@ export const SortableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
               type={isNumber ? 'number' : 'text'}
               onChange={handleINputChange}
               value={`${value}`}
+              ref={(input): void => {
+                if (selectAllText && input && uniqid === active) {
+                  input.select();
+                  setSelectAllText(false)
+                }
+              }}
             />
             {renderItemSection && renderItemSection(item, key)}
             <span>

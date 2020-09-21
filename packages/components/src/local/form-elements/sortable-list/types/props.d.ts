@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, ReactText } from 'react'
 
 export interface ItemObject {
   name: string
@@ -10,7 +10,7 @@ export type Item = number | string | ItemObject
 
 export interface SortableItem {
   /** The unique id associated with your item. It's recommended this is the same as the key prop for your list item. */
-  id: string | number
+  id: ReactText
   /** When true, the item is selected using MultiDrag */
   selected?: boolean
   /** When true, the item is deemed "chosen", which basically just a mousedown event. */
@@ -30,4 +30,6 @@ export default interface PropTypes {
   title?: string
   copy?: boolean
   sortable?: 'manual' | 'auto'
+  required?: boolean
+  valueOnEmpty?: ReactText
 }

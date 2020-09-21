@@ -1,18 +1,15 @@
 import React, { useState } from 'react'
 
 // Import component files
-import PlatformTypes from './index'
+import IconUploader from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-
-import { platformType as platformTypeMock } from '@serge/mocks'
-import { PlatformType } from '@serge/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/GameAdmin/PlatformTypes',
-  component: PlatformTypes,
+  title: 'local/GameAdmin/IconUploader',
+  component: IconUploader,
   decorators: [withKnobs, wrapper],
   parameters: {
     readme: {
@@ -23,13 +20,12 @@ export default {
 }
 
 export const Default: React.FC = () => {
-  const [platformType, setPlatformType] = useState<PlatformType>(platformTypeMock)
-
-  const onChange = (netPlatformType: PlatformType): void => {
-    setPlatformType(netPlatformType)
+  const [src, setSrc] = useState<string>('')
+  const handleChange = (newSrc: string): void => {
+    console.log(newSrc)
+    setSrc(newSrc)
   }
-
-  return <PlatformTypes platformType={platformType} onChange={onChange} />
+  return <IconUploader onChange={handleChange} limit={20000} icon={src} background={'red'}>change icon</IconUploader>
 }
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.

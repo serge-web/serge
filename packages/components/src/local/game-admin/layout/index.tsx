@@ -17,15 +17,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
-export const AdminLayout: React.FC<PropTypes> = ({ children, onClick, wargame, tabs = [] }) => {
-  const handeClick = (e: any): void => {
-    if (typeof onClick === 'function') {
-      onClick(e)
-    }
-  }
-  const handeTabChange = (e: any): void => {
-    if (typeof onClick === 'function') {
-      onClick(e)
+export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargame, tabs = [], wargameChanged }) => {
+
+  const handeTabChange = (changedTab: string, key: number, e: any): void => {
+    if (typeof onTabChange === 'function') {
+      onTabChange(changedTab, key, e)
     }
   }
 
@@ -33,7 +29,7 @@ export const AdminLayout: React.FC<PropTypes> = ({ children, onClick, wargame, t
     return <>
       <div className={styles.header}>
         <StatusBar wargame={reqWargame}>test</StatusBar>
-        {tabs.length && <Tabs onChange={handeTabChange} tabs={tabs} />}
+        {tabs.length && <Tabs onChange={handeTabChange} tabs={tabs} changed={wargameChanged} />}
       </div>
       <div className={styles.content}>
         {children}
@@ -49,7 +45,7 @@ export const AdminLayout: React.FC<PropTypes> = ({ children, onClick, wargame, t
     <div
       className={styles.main}
     >
-      <div className={styles['left-panel']} onClick={handeClick}>
+      <div className={styles['left-panel']}>
         <Link className={styles.link}>
           <FontAwesomeIcon icon={faArrowLeft} size="2x" />
         </Link>

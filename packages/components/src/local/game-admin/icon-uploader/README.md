@@ -1,6 +1,6 @@
 # Planned Route documentation
 
-This is an example readme file for the 'link' component.
+This is an example readme file for the 'icon-uploader' component.
 
 ## UI Example
 
@@ -18,10 +18,10 @@ This is an example readme file for the 'link' component.
 
 ### ES6 Import
 ```js
-import Link from './helper-elements/link'
+import IconUploader from './game-admin/icon-uploader'
 ```
 
 ### CommonJS
 
 ```js
-const Link = require('./helper-elements/link')
+const IconUploader = require('./game-admin/icon-uploader')

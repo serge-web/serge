@@ -18,6 +18,7 @@ import EditableList, { Item } from '../editable-list'
 import Button from '../../form-elements/button'
 import { withStyles } from '@material-ui/core/styles'
 import Switch from '@material-ui/core/Switch'
+import IconUploader from '../icon-uploader'
 
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
@@ -58,8 +59,6 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
   }
 
   const localPlatformType: PlatformType = platformType || newPlatformType
-
-  console.log(onChange)
 
   const [selectedItem, setSelectedItem] = useState(0)
 
@@ -115,11 +114,15 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
     const handleChangeSpeeds = (speedKts: Array<SortableListItem>): void => {
       handleChamgePlatformTypeData({ ...data, speedKts: speedKts as Array<number> }, selectedItem)
     }
+    const handleChangeIcon = (icon: string): void => {
+      handleChamgePlatformTypeData({ ...data, icon }, selectedItem)
+    }
 
     const handleCreateConditions = (): void => {
       const conditions: Array<string> = [...data.conditions, 'New Condition']
       handleChamgePlatformTypeData({ ...data, conditions }, selectedItem)
     }
+
     const handleCreateStates = (): void => {
       const states: Array<States> = [...data.states, {
         name: 'New State',
@@ -142,7 +145,7 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
               placeholder="Platform Name"/>
           </div>
           <div className={styles.col}>
-            Change Icon
+            <IconUploader limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
           </div>
           <div className={styles.actions}>
             <Button onClick={(): void => { if (onSave) onSave() }}>Save</Button>
@@ -163,6 +166,7 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
           <div className={cx(styles.col, styles.section)}>
             <FormGroup placeholder="Conditions">
               <SortableList
+                required
                 onChange={handleChangeConditions}
                 onCreate={handleCreateConditions}
                 items={data.conditions}
@@ -175,6 +179,7 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
             <div className={styles['states-holder']}>
               <FormGroup placeholder="States">
                 <SortableList
+                  required
                   onChange={handleChangeStates}
                   onCreate={handleCreateStates}
                   renderItemSection={renderStatesMobileSection}
@@ -186,6 +191,7 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
           <div className={cx(styles.col, styles.section)}>
             <FormGroup placeholder="Speed (kts)">
               <SortableList
+                required
                 sortable='auto'
                 onChange={handleChangeSpeeds}
                 onCreate={handleCreateSpeeds}

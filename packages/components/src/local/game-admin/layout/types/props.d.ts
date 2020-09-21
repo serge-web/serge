@@ -4,8 +4,9 @@ export default interface PropTypes {
   /* half section title */
   type?: 'submit' | 'reset' | 'button'
   size?: 's' | 'm'
-  onClick?: any
+  onTabChange?: (tab: string, key: number, e:any) => void
   disabled?: boolean
   wargame?: Wargame
   tabs?: Array<string>
+  wargameChanged?: boolean
 }
