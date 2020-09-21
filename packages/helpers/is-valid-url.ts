@@ -7,7 +7,7 @@ const isValidURI = (str: string): boolean => {
     '(\\#[-a-z\\d_]*)?$', 'i') // fragment locator
   const windowsFilePath = new RegExp('^[\\w\\\\.:\\s]+?\\.\\w{2,4}')
 
-  return !!httpPattern.test(str) || str.startsWith('file:///') || !!windowsFilePath.test(str)
+  return httpPattern.test(str) || str.startsWith('file:///') || windowsFilePath.test(str)
 }
 
 export default isValidURI
