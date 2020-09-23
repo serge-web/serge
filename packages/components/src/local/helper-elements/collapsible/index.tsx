@@ -34,7 +34,7 @@ export const Collapsible: React.FC<PropTypes> = ({
   header = null,
   content = null
 }) => {
-  const [collapse, setCollapse] = useState(openByDefault)
+  const [collapsed, setCollapse] = useState(!openByDefault)
   const customStructure = (header && content)
   const shouldRender = (
     children &&
@@ -53,7 +53,7 @@ export const Collapsible: React.FC<PropTypes> = ({
 
   const hasContent = isType(children, 'CollapsibleContent', true)
 
-  const handleCollapse = (status: boolean): void => {
+  const handleExpand = (status: boolean): void => {
     setCollapse(status)
   }
 
@@ -65,15 +65,14 @@ export const Collapsible: React.FC<PropTypes> = ({
       ch === header
     ) {
       return React.cloneElement(child as React.ReactElement, {
-        collapse,
+        collapsed,
         hasContent,
         collapseOnDragHover,
-        onCollapse: handleCollapse,
-        onClick: customStructure ? handleCollapse : onClick
+        onExpand: handleExpand
       })
     } else {
       return React.cloneElement(child as React.ReactElement, {
-        collapse
+        collapsed
       })
     }
   }

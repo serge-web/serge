@@ -13,7 +13,7 @@ export const CollapsibleContent: React.FC<PropTypes> = (props) => {
   // str.replace is not a function: es default values (for boolean) not works with storybook
   // define default values
   const useIndent: boolean | number = typeof props.useIndent === 'undefined' ? true : props.useIndent
-  const collapse: boolean = typeof props.collapse === 'undefined' ? true : props.collapse
+  const collapsed: boolean = typeof props.collapsed === 'undefined' ? true : props.collapsed
 
   const handleClick = (e: any): void => {
     if (typeof onClick === 'function') {
@@ -34,7 +34,7 @@ export const CollapsibleContent: React.FC<PropTypes> = (props) => {
       className={cx(
         styles.main,
         useIndent && styles['use-indent'],
-        collapse && styles.collapse
+        !collapsed && styles.expanded
       )}
       style={style}
     >

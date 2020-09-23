@@ -31,24 +31,24 @@ export const Default: React.FC = () => <Collapsible onClick={onClick}>
   <CollapsibleContent>Content</CollapsibleContent>
 </Collapsible>
 
-const CustomHeader = ({ onCollapse, collapse }: any): React.ReactElement => {
+const CustomHeader = ({ onExpand, collapsed }: any): React.ReactElement => {
   const CustomHeaderInner = styled('div')({
     cursor: 'pointer',
     backgroundColor: '#f0f0f0',
     padding: '6px'
   })
   return (
-    <CustomHeaderInner onClick={(): Function => onCollapse(!collapse)}>
-      Custom Header { collapse ? '-' : '+'}
+    <CustomHeaderInner onClick={(): Function => onExpand(!collapsed)}>
+      Custom Header { collapsed ? '+' : '-'}
     </CustomHeaderInner>
   )
 }
-const CustomContent = ({ collapse }: any): React.ReactElement => {
+const CustomContent = ({ collapsed }: any): React.ReactElement => {
   const CustomContentInner = styled('div')({
     border: '1px solid #f0f0f0',
     padding: '6px'
   })
-  return collapse && <CustomContentInner>Custom Content</CustomContentInner>
+  return collapsed ? <></> : <CustomContentInner>Custom Content</CustomContentInner>
 }
 export const CustomStructure: React.FC = () => (
   <Collapsible

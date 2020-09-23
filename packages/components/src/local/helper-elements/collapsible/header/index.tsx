@@ -12,8 +12,8 @@ import RemoveIcon from '@material-ui/icons/Remove'
 
 /* Render component */
 export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
-  const { children, onClick, onCollapse } = props
-  const collapse: boolean = typeof props.collapse === 'undefined' ? true : props.collapse
+  const { children, onClick, onExpand } = props
+  const collapsed: boolean = typeof props.collapsed === 'undefined' ? true : props.collapsed
   const hasContent: boolean = typeof props.hasContent === 'undefined' ? false : props.hasContent
   const collapseOnDragHover: boolean = typeof props.collapseOnDragHover === 'undefined' ? false : props.collapseOnDragHover
 
@@ -23,9 +23,9 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
     }
   }
 
-  const handleCollapse = (): void => {
-    if (typeof onCollapse === 'function') {
-      onCollapse(!collapse)
+  const handleExpand = (): void => {
+    if (typeof onExpand === 'function') {
+      onExpand(!collapsed)
     }
   }
 
@@ -45,7 +45,7 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
 
       if (offsets && offsets.x <= x && x <= offsets.x + offsets.width) {
         if (offsets.y <= y && y <= offsets.y + offsets.height) {
-          if (!collapse) { handleCollapse() }
+          if (!collapsed) { handleExpand() }
         }
       }
     }
@@ -62,12 +62,12 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
         document.removeEventListener('dragenter', handleDragenter)
       }
     }
-  }, [collapse])
+  }, [collapsed])
 
   return (
     <div className={styles.main}>
-      {hasContent && <div className={styles.control} onClick={handleCollapse}>
-        {collapse ? <RemoveIcon style={style}/> : <AddIcon style={style}/> }
+      {hasContent && <div className={styles.control} onClick={handleExpand}>
+        {collapsed ? <AddIcon style={style}/> : <RemoveIcon style={style}/> }
       </div>}
       <div ref={handleRef} className={styles.content} onClick={handleClick}>{children}</div>
     </div>
