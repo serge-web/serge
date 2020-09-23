@@ -17,13 +17,13 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
   const hasContent: boolean = typeof props.hasContent === 'undefined' ? false : props.hasContent
   const collapseOnDragHover: boolean = typeof props.collapseOnDragHover === 'undefined' ? false : props.collapseOnDragHover
 
-  const handeClick = (e: any): void => {
+  const handleClick = (e: any): void => {
     if (typeof onClick === 'function') {
       onClick(e)
     }
   }
 
-  const handeCollapse = (): void => {
+  const handleCollapse = (): void => {
     if (typeof onCollapse === 'function') {
       onCollapse(!collapse)
     }
@@ -45,7 +45,7 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
 
       if (offsets && offsets.x <= x && x <= offsets.x + offsets.width) {
         if (offsets.y <= y && y <= offsets.y + offsets.height) {
-          if (!collapse) { handeCollapse() }
+          if (!collapse) { handleCollapse() }
         }
       }
     }
@@ -66,10 +66,10 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
 
   return (
     <div className={styles.main}>
-      {hasContent && <div className={styles.control} onClick={handeCollapse}>
+      {hasContent && <div className={styles.control} onClick={handleCollapse}>
         {collapse ? <RemoveIcon style={style}/> : <AddIcon style={style}/> }
       </div>}
-      <div ref={handleRef} className={styles.content} onClick={handeClick}>{children}</div>
+      <div ref={handleRef} className={styles.content} onClick={handleClick}>{children}</div>
     </div>
   )
 }

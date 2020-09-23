@@ -8,8 +8,8 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const Paragraph: React.FC<Props> = ({ content }: Props) =>
-  <p className={styles.paragraph}>
+  <div className={styles.paragraph}>
     { content }
-  </p>
+  </div>
 
 export default Paragraph

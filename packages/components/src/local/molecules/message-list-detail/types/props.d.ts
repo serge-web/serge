@@ -6,9 +6,9 @@ export default interface Props {
   /**
    * Checks if user is an umpire
    */
-  isUmpire: boolean
+  isUmpire?: boolean
   /**
    * Checks if contains a private message
    */
-  privateMessage: string
+  privateMessage?: string
 }

@@ -1,18 +1,24 @@
 import React, { Fragment } from 'react'
+import moment from 'moment'
 
 /* Import Types */
 import Props from './types/props'
 
 /* Import Stylesheet */
-// import styles from './styles.module.scss'
-import moment from 'moment'
+import styles from './styles.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import isPlainObject from '@serge/helpers/is-plain-object'
 import isArrayOfObject from '@serge/helpers/is-array-of-object'
 import isBoolean from '@serge/helpers/is-boolean'
 import isValidURI from '@serge/helpers/is-valid-url'
+import capitalize from '@serge/helpers/capitalize'
 import Paragraph from '../../atoms/paragraph'
+import MessageLabel from '../../atoms/message-label'
+
+const DetailLabel = ({ label }: any): React.ReactElement => (
+  <span className={styles.detail}><MessageLabel label={label} /></span>
+)
 
 const createObjItem = (pair: Array<any>): React.ReactFragment => {
   return (
@@ -27,8 +33,8 @@ const createBoolItem = (pair: Array<any>): React.ClassicElement<any> => {
 const createTimeItem = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`dateTime-${pair[0]}${pair[1]}`}>
-      <span className='detail'>{pair[0]}:</span>
-      <span className='data'>{moment(pair[1]).format('DD/MM/YY,HH:mm')}</span>
+      <DetailLabel label={`${pair[0]}:`}/>
+      <span className={styles.data}>{moment(pair[1]).format('DD/MM/YY,HH:mm')}</span>
     </Fragment>
   )
 }
@@ -36,10 +42,8 @@ const createTimeItem = (pair: Array<any>): React.ReactFragment => {
 const createStrItem = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`strItem-${pair[0]}${pair[1]}`}>
-      <span className='detail'>
-        {pair[0]}:
-      </span>
-      <span className='data'>
+      <DetailLabel label={`${pair[0]}:`}/>
+      <span className={styles.data}>
         {pair[1]}
       </span>
     </Fragment>
@@ -49,10 +53,8 @@ const createStrItem = (pair: Array<any>): React.ReactFragment => {
 const createUrlItem = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`urlItem-${pair[0]}${pair[1]}`}>
-      <span className='detail'>
-        {pair[0]}:
-      </span>
-      <span className='data'>
+      <DetailLabel label={`${pair[0]}:`}/>
+      <span className={styles.data}>
         <a href={pair[1]} target='_blank' rel='noopener noreferrer'>{pair[1]}</a>
       </span>
     </Fragment>
@@ -62,10 +64,11 @@ const createUrlItem = (pair: Array<any>): React.ReactFragment => {
 const deconstructArr = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`${pair[0]}-group`}>
-      <span className='detail detail-title'>{pair[0]}:</span><p className='detail-rows'>
+      <DetailLabel label={`${pair[0]}:`}/>
+      <p className={styles['detail-rows']}>
         {pair[1].map((item: Record<any, any>) => {
           return (
-            <p className='detail-row'>
+            <p className={styles['detail-row']}>
               {deconstructObj(item)}
             </p>
           )
@@ -80,16 +83,11 @@ const deconstructObj = (obj: Record<any, any>): React.ReactFragment => {
   return keyPropPairs.map(pair => decideRender(pair)(createStrItem))
 }
 
-const capitalize = (s: any): string => {
-  if (typeof s !== 'string') return ''
-  return s.charAt(0).toUpperCase() + s.slice(1)
-}
-
 const defaultRender = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`${pair[0]}-${pair[1]}`}>
-      <span className='detail'>{capitalize(pair[0])}: </span>
-      <span className='data'>
+      <DetailLabel label={`${capitalize(pair[0])}:`}/>
+      <span className={styles.data}>
         <Paragraph content={pair[1]} />
       </span>
     </Fragment>
@@ -125,21 +123,26 @@ const decideRender = (pair: Array<any>) => (fallback: Function): React.ReactFrag
 /* Render component */
 export const MessageListDetail: React.FC<Props> = ({ detail, privateMessage, isUmpire }: Props) => {
   const keyPropPairs = Object.entries(detail)
+  const PrivateBadge = (): React.ReactElement => (
+    <span>
+      <span className={styles['icon-private']}>
+        <FontAwesomeIcon size='1x' icon={faUserSecret} />
+      </span>
+      Private:
+    </span>
+  )
   return (
     <>
       { keyPropPairs.map(pair => decideRender(pair)(defaultRender)) }
       {
         privateMessage &&
         isUmpire && (
-          <>
-            <span className='detail'>
-              <FontAwesomeIcon size='1x' icon={faUserSecret}/>
-              Private:
-            </span>
-            <span className='data private'>
+          <div className={styles['wrap-private']}>
+            <DetailLabel label={<PrivateBadge />}/>
+            <span className={styles.private}>
               <Paragraph content={privateMessage} />
             </span>
-          </>
+          </div>
         )
       }
     </>

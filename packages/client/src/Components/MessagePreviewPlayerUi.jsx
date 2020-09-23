@@ -104,10 +104,12 @@ class MessagePreview extends Component {
 
   render() {
     if (!this.props.detail) return false;
-
     const that = this;
     const keyPropPairs = Object.entries(this.props.detail);
     const [ state ] = this.context;
+    console.log(`detail={${JSON.stringify(this.props.detail)}}`)
+    console.log(this.props.privateMessage ? `privateMessage={${this.props.privateMessage}}`:'')
+    console.log(state.selectedForce === umpireForceTemplate.uniqid ? `isUmpire={true}`:'')
 
     return (
       <>

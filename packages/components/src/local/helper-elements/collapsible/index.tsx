@@ -33,7 +33,7 @@ export const Collapsible: React.FC<PropTypes> = ({ children, onClick, openByDefa
   if (!isType(children, 'CollapsibleHeader')) return null
   if (!isType(children, 'CollapsibleContent')) return null
 
-  const handeClick = (e: any): void => {
+  const handleClick = (e: any): void => {
     if (typeof onClick === 'function') {
       onClick(e)
     }
@@ -41,12 +41,12 @@ export const Collapsible: React.FC<PropTypes> = ({ children, onClick, openByDefa
 
   const hasContent = isType(children, 'CollapsibleContent', true)
 
-  const handeCollapse = (status: boolean): void => {
+  const handleCollapse = (status: boolean): void => {
     setCollapse(status)
   }
 
   return (
-    <div onClick={handeClick} className={styles.main} >
+    <div onClick={handleClick} className={styles.main} >
       {React.Children.map(children, (child) => {
         const ch = child as ChildInt
 
@@ -55,7 +55,7 @@ export const Collapsible: React.FC<PropTypes> = ({ children, onClick, openByDefa
             collapse,
             hasContent,
             collapseOnDragHover,
-            onCollapse: handeCollapse
+            onCollapse: handleCollapse
           })
         } else {
           return React.cloneElement(child as React.ReactElement, {

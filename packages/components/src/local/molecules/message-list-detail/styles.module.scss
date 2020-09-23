@@ -1,17 +1,43 @@
-$red: #f00;
-$white: #fff;
-$blue: #69C;
+@import '~@serge/themes/dependencies/variables';
 
-.example {
-  color: $white;
-  font-weight: bold;
+.data {
+  display: inline-block;
+  word-break: break-word;
+  font-size: 14px;
+  opacity: 0.8;
+  @include typo-primary;
+
+  + .detail {
+    margin-left: 16px;
+  }
 }
 
-.blue {
-  composes: example;
-  background-color: $blue;
+.detail {
+  margin-right: 4px;
 }
-.red {
-  composes: example;
-  background-color: $red;
+
+.detail-row {
+  font-size: 14px;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+
+.detail-rows {
+  padding-left: 14px;
+}
+
+.wrap-private {
+  margin-top: 1rem;
+}
+
+.icon-private {
+  display: inline-block;
+  margin-right: 5px;
+  margin-top: -3px;
+  vertical-align: middle;
+}
+
+.private {
+  display: inline-block;
+  font-style: italic;
 }
