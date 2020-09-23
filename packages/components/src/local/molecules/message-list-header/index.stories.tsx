@@ -27,7 +27,6 @@ export default {
 export const Default: React.FC = () => (
   <BlueContainer>
     <MessageListHeader
-      borderColor="#3dd0ffB3"
       isOpen={false}
       title="lorem ipsum do lor sit amet"
       timestamp="2020-09-18T05:41:17.349Z"
@@ -41,21 +40,6 @@ export const Default: React.FC = () => (
 export const Opened: React.FC = () => (
   <BlueContainer>
     <MessageListHeader
-      borderColor="#3dd0ffB3"
-      isOpen={true}
-      title="lorem ipsum do lor sit amet"
-      timestamp="2020-09-18T05:41:17.349Z"
-      role="CO"
-      messageType="Chat"
-      hasBeenRead={true}
-    />
-  </BlueContainer>
-)
-
-export const ColorVariation: React.FC = () => (
-  <BlueContainer>
-    <MessageListHeader
-      borderColor="#a33730"
       isOpen={true}
       title="lorem ipsum do lor sit amet"
       timestamp="2020-09-18T05:41:17.349Z"

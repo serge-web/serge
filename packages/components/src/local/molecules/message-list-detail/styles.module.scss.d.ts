@@ -7,6 +7,8 @@ interface CssExports {
   'detail-rows': string;
   'icon-private': string;
   'private': string;
+  'wrap-detail': string;
+  'wrap-detail-opened': string;
   'wrap-private': string;
 }
 export const cssExports: CssExports;

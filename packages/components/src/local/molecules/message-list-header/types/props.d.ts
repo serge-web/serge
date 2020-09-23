@@ -1,12 +1,10 @@
+import React from 'react'
+
 export default interface Props {
-  /**
-   * Header border color
-   */
-  borderColor: string
   /**
    * Header collapsible open state
    */
-  isOpen: boolean
+  isOpen?: boolean
   /**
    * Header item title
    */
@@ -26,5 +24,9 @@ export default interface Props {
   /**
    * Message read state
    */
-  hasBeenRead: boolean
+  hasBeenRead?: boolean
+  /**
+   * Handle on collapse event
+   */
+  onExpand?: React.ReactEventHandler
 }

@@ -14,17 +14,19 @@ import Badge from '../../atoms/badge'
 
 /* Render component */
 export const MessageListHeader: React.FC<Props> = ({
-  borderColor,
   isOpen,
   title,
   timestamp,
   role,
   messageType,
-  hasBeenRead
+  hasBeenRead,
+  onExpand
 }: Props) => {
   return (
-    <div className={!hasBeenRead ? styles['message-item-unread'] : ''}>
-      <div className={styles['message-title-wrap']} style={{ borderColor }}>
+    <div onClick={onExpand} className={!hasBeenRead ? styles['message-item-unread'] : ''}>
+      <div className={
+        `${styles['message-title-wrap']} ${isOpen ? styles['message-title-opened'] : ''}`
+      }>
         {
           isOpen
             ? <RemoveIcon fontSize="small" style={{ color: cyan.A200 }} />

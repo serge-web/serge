@@ -5,6 +5,7 @@ interface CssExports {
   'info-body': string;
   'message-item-unread': string;
   'message-title': string;
+  'message-title-opened': string;
   'message-title-wrap': string;
 }
 export const cssExports: CssExports;

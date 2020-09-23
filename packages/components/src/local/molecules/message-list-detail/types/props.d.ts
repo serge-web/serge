@@ -11,4 +11,8 @@ export default interface Props {
    * Checks if contains a private message
    */
   privateMessage?: string
+  /**
+   * Collapsible state
+   */
+  collapsed?: boolean
 }

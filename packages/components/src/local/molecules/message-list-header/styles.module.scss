@@ -6,14 +6,16 @@
 }
 
 .message-title-wrap {
-  border-left-style: solid;
-  border-left-width: 4px;
   display: block;
-  margin-left: 16px;
+  cursor: pointer;
   padding: 6px 12px 12px;
   position: relative;
   @include panel-item-wrap(0 4px 4px 0);
   @include typo-primary;
+
+  &.message-title-opened {
+    @include panel-item-wrap(0 4px 0 0);
+  }
 
   &::after {
     background-color: rgba(0, 0, 0, 0.4);

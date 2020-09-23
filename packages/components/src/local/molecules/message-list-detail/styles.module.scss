@@ -1,5 +1,10 @@
 @import '~@serge/themes/dependencies/variables';
 
+@mixin panel-item-wrap($radius) {
+  background-color: $background-alpha-primary;
+  border-radius: $radius;
+}
+
 .data {
   display: inline-block;
   word-break: break-word;
@@ -40,4 +45,17 @@
 .private {
   display: inline-block;
   font-style: italic;
+}
+
+.wrap-detail {
+  height: 0;
+  overflow: hidden;
+  transition: height .3s;
+  padding: 0 12px;
+  @include panel-item-wrap(0 0 4px 0);
+
+  &.wrap-detail-opened {
+    height: auto;
+    padding: 6px 12px 12px;
+  }
 }

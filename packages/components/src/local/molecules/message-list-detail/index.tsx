@@ -121,7 +121,7 @@ const decideRender = (pair: Array<any>) => (fallback: Function): React.ReactFrag
 }
 
 /* Render component */
-export const MessageListDetail: React.FC<Props> = ({ detail, privateMessage, isUmpire }: Props) => {
+export const MessageListDetail: React.FC<Props> = ({ detail, privateMessage, isUmpire, collapsed }: Props) => {
   const keyPropPairs = Object.entries(detail)
   const PrivateBadge = (): React.ReactElement => (
     <span>
@@ -132,7 +132,9 @@ export const MessageListDetail: React.FC<Props> = ({ detail, privateMessage, isU
     </span>
   )
   return (
-    <>
+    <div className={
+      `${styles['wrap-detail']} ${!collapsed ? styles['wrap-detail-opened'] : ''}`
+    }>
       { keyPropPairs.map(pair => decideRender(pair)(defaultRender)) }
       {
         privateMessage &&
@@ -145,7 +147,7 @@ export const MessageListDetail: React.FC<Props> = ({ detail, privateMessage, isU
           </div>
         )
       }
-    </>
+    </div>
   )
 }
 
