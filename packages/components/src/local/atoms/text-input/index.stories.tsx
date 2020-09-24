@@ -26,7 +26,7 @@ export default {
 export const Default: React.FC = () => <TextInput multiline={boolean('Multi-Line', false)} label="turns" value={5}/>
 export const Filled: React.FC = () => (
   <BlueContainer>
-    <TextInput value={text('Initial value', 'Lorem ipsum')}  multiline={boolean('Multi-Line', true)} variant="filled" placeholder="Enter some value" />
+    <TextInput value={text('Initial value', 'Lorem ipsum')} multiline={boolean('Multi-Line', true)} variant="filled" placeholder="Enter some value" />
   </BlueContainer>
 )
 export const FilledWithLabel: React.FC = () => (
@@ -39,19 +39,18 @@ const rowValues = {
   range: true,
   min: 1,
   max: 4,
-  step: 1,
-};
+  step: 1
+}
 
 export const FilledWithLabelSixRows: React.FC = () => (
   <BlueContainer>
-    <TextInput multiline={boolean('Multi-Line', true)} fullWidth rows={number('Rows',2, rowValues)}  variant="filled" label="Enter a value" labelColor="common.white" labelSize={12} />
+    <TextInput multiline={boolean('Multi-Line', true)} fullWidth rows={number('Rows', 2, rowValues)} variant="filled" label="Enter a value" labelColor="common.white" labelSize={12} />
   </BlueContainer>
 )
 
-
 export const FilledWithLabelTwoRowsMaxFour: React.FC = () => (
   <BlueContainer>
-    <TextInput multiline={boolean('Multi-Line', true)} value={text('Initial value', 'Lorem ipsum')} rows={number('Rows',2, rowValues)} rowsMax={number('Max rows',4, rowValues)} variant="filled" label="Enter a value" labelColor="common.white" labelSize={12} />
+    <TextInput multiline={boolean('Multi-Line', true)} value={text('Initial value', 'Lorem ipsum')} rows={number('Rows', 2, rowValues)} rowsMax={number('Max rows', 4, rowValues)} variant="filled" label="Enter a value" labelColor="common.white" labelSize={12} />
   </BlueContainer>
 )
 
