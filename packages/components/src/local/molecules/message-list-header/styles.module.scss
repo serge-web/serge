@@ -1,4 +1,4 @@
-@import '~@serge/themes/dependencies/variables';
+@import "~@serge/themes/dependencies/variables";
 
 @mixin panel-item-wrap($radius) {
   background-color: $background-alpha-primary;
@@ -6,12 +6,12 @@
 }
 
 .message-title-wrap {
+  @include panel-item-wrap(0 4px 4px 0);
+  @include typo-primary;
   display: block;
   cursor: pointer;
   padding: 6px 12px 12px;
   position: relative;
-  @include panel-item-wrap(0 4px 4px 0);
-  @include typo-primary;
 
   &.message-title-opened {
     @include panel-item-wrap(0 4px 0 0);
