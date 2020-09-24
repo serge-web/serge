@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 import { styled } from '@material-ui/core/styles'
-import { withKnobs, boolean } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs'
 
 // Import component files
 import MessageListDetail from './index'
@@ -24,7 +24,7 @@ export default {
     readme: {
       // Show readme before story
       content: docs
-    },     
+    },
     options: {
       // This story requires addons but other stories in this component do not
       showPanel: true
