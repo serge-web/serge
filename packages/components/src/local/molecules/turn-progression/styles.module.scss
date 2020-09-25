@@ -1,11 +1,11 @@
 @import "~@serge/themes/dependencies/variables";
 
 .flex-content-wrapper {
+  @include typo-primary;
   align-items: flex-start;
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  @include typo-primary;
 }
 
 .turn-progression-ui {

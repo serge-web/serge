@@ -1,8 +1,8 @@
-@import '~@serge/themes/dependencies/variables';
+@import "~@serge/themes/dependencies/variables";
 
 .insight-form {
-  max-width: 500px;
   @include typo-primary;
+  max-width: 500px;
 
   svg {
     color: $primary-color;

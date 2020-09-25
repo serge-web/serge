@@ -1,4 +1,4 @@
-@import '~@serge/themes/dependencies/variables';
+@import "~@serge/themes/dependencies/variables";
 
 @mixin panel-item-wrap($radius) {
   background-color: $background-alpha-primary;
@@ -6,11 +6,11 @@
 }
 
 .data {
+  @include typo-primary;
   display: inline-block;
   word-break: break-word;
   font-size: 14px;
   opacity: 0.8;
-  @include typo-primary;
 
   + .detail {
     margin-left: 16px;
@@ -48,11 +48,11 @@
 }
 
 .wrap-detail {
+  @include panel-item-wrap(0 0 4px 0);
   height: 0;
   overflow: hidden;
-  transition: height .3s;
+  transition: height 0.3s;
   padding: 0 12px;
-  @include panel-item-wrap(0 0 4px 0);
 
   &.wrap-detail-opened {
     height: auto;

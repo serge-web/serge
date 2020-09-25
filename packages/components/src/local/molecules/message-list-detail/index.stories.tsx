@@ -1,6 +1,7 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 import { styled } from '@material-ui/core/styles'
+import { withKnobs, boolean } from '@storybook/addon-knobs'
 
 // Import component files
 import MessageListDetail from './index'
@@ -16,13 +17,17 @@ const BlueContainer = styled(Box)({
 export default {
   title: 'local/molecules/MessageListDetail',
   component: MessageListDetail,
-  decorators: [(story: Function): React.ReactElement => (
+  decorators: [withKnobs, (story: Function): React.ReactElement => (
     <BlueContainer>{ story() }</BlueContainer>
   )],
   parameters: {
     readme: {
       // Show readme before story
       content: docs
+    },
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
     }
   }
 }
@@ -87,13 +92,15 @@ export const StateOfTheWorld: React.FC = () => (
 export const PrivateMessage: React.FC = () => (
   <MessageListDetail
     privateMessage="Private message"
-    isUmpire={true}
+    isUmpire={boolean('Player from umpire force', true)}
     detail={{ content: 'Lorem ipsum do lor sit amet' }}
   />
 )
 
 export const WeatherForecast: React.FC = () => (
   <MessageListDetail
+    privateMessage="Private weather message"
+    isUmpire={boolean('Player from umpire force', true)}
     detail={{
       title: 'Forecast',
       Location: { Lat: 19, 'Lat Hemi': 'N', Long: 33, 'Long Hemi': 'E' },

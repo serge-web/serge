@@ -4,15 +4,15 @@ export default interface Props {
    */
   detail: object
   /**
-   * Checks if user is an umpire
+   * Checks if user is an umpire. Assume not umpire if parameter missing
    */
   isUmpire?: boolean
   /**
-   * Checks if contains a private message
+   * Private message, visible only to umpire force
    */
   privateMessage?: string
   /**
-   * Collapsible state
+   * If control should be rendered in collapsed state
    */
   collapsed?: boolean
 }
