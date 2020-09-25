@@ -20,7 +20,8 @@ export default interface PropTypes {
    */
   variant?: 'standard' | 'filled' | 'outlined'
   /**
-   * The value of the input
+   * The default value of the input,
+   * can be derived from component state or store
    */
   value?: number | string
   /**

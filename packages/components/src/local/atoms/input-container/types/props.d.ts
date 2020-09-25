@@ -4,7 +4,10 @@ export default interface PropTypes {
    */
   label?: string
   /**
-   * The color of the input label
+   * The color of the input label,
+   * Should be one of the palette values defined in Material-UI default theme
+   * https://material-ui.com/customization/default-theme/#default-theme
+   * or its extended custom colors from the theme configuration (themes/serge)
    */
   labelColor?: string
   /**

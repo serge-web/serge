@@ -5,6 +5,7 @@
   background: $force-default-color;
   display: block;
   position: relative;
+  @include typo-primary;
 
   a {
     cursor: pointer;
@@ -28,11 +29,9 @@
   .contain-force-skin {
     border-bottom: 48px solid $force-default-color;
     border-left: 26px solid transparent;
-    bottom: 0;
-    margin: -8px 0 0;
     position: absolute;
     right: 0;
-    top: 0;
+    bottom: 1px;
     width: 50%;
   }
 

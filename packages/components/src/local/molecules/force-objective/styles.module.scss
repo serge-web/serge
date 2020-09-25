@@ -19,7 +19,7 @@
   .objective-text {
     margin-top: 15px;
     max-height: 400px;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .role-info {
@@ -27,5 +27,10 @@
     left: 0;
     position: absolute;
     right: 0;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+    font-weight: normal;
   }
 }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GameAdmin renders correctly 1`] = `
+exports[`GameAdmin page: renders correctly 1`] = `
 <div>
   <div
     className="message-list"
@@ -35,7 +35,94 @@ exports[`GameAdmin renders correctly 1`] = `
             Mark all as read
           </span>
         </span>
+        <span
+          className="MuiTouchRipple-root"
+        />
       </button>
+    </div>
+    <div
+      className="message-preview-player"
+    >
+      <span
+        className="message-bullet"
+        style={
+          Object {
+            "backgroundColor": "#FCFBEE",
+          }
+        }
+      >
+         
+      </span>
+      <div
+        className="bold"
+      >
+        test
+
+      </div>
+      <div
+        className="info-wrap"
+      >
+        <time
+          dateTime="2020-03-25T15:08:47.510Z"
+        >
+          22:08
+        </time>
+        <small>
+          <div
+            className="MuiChip-root MuiChip-sizeSmall"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label MuiChip-labelSmall"
+            >
+              Game Control
+            </span>
+          </div>
+        </small>
+      </div>
+    </div>
+    <div
+      className="message-preview-player"
+    >
+      <span
+        className="message-bullet"
+        style={
+          Object {
+            "backgroundColor": "#1989dc",
+          }
+        }
+      >
+         
+      </span>
+      <div
+        className="bold"
+      >
+        Lorem ipsum do lor sit amet adipiscius elit
+
+      </div>
+      <div
+        className="info-wrap"
+      >
+        <time
+          dateTime="2020-03-25T15:08:47.510Z"
+        >
+          22:08
+        </time>
+        <small>
+          <div
+            className="MuiChip-root MuiChip-sizeSmall"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label MuiChip-labelSmall"
+            >
+              CO
+            </span>
+          </div>
+        </small>
+      </div>
     </div>
   </div>
   <div
@@ -45,7 +132,7 @@ exports[`GameAdmin renders correctly 1`] = `
       className="MuiBox-root MuiBox-root-3"
     >
       <section
-        className="input-container"
+        className="input-container disable-offset"
       >
         <div
           className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -65,15 +152,38 @@ exports[`GameAdmin renders correctly 1`] = `
               onChange={[Function]}
               onFocus={[Function]}
               required={false}
-              rows={4}
+              rows={1}
+              style={
+                Object {
+                  "height": 0,
+                  "overflow": "hidden",
+                }
+              }
               value=""
+            />
+            <textarea
+              aria-hidden={true}
+              className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+              readOnly={true}
+              style={
+                Object {
+                  "height": 0,
+                  "left": 0,
+                  "overflow": "hidden",
+                  "position": "absolute",
+                  "top": 0,
+                  "transform": "translateZ(0)",
+                  "visibility": "hidden",
+                }
+              }
+              tabIndex={-1}
             />
           </div>
         </div>
       </section>
     </div>
     <div
-      className="MuiBox-root MuiBox-root-4"
+      className="MuiBox-root MuiBox-root-7"
     >
       <button
         className="MuiButtonBase-root MuiButton-root MuiButton-contained btn-send MuiButton-containedSecondary MuiButton-containedSizeSmall MuiButton-sizeSmall"
@@ -128,8 +238,14 @@ exports[`GameAdmin renders correctly 1`] = `
                 />
               </svg>
             </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
           </span>
         </span>
+        <span
+          className="MuiTouchRipple-root"
+        />
       </button>
     </div>
   </div>
