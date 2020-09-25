@@ -14,7 +14,7 @@ const useBadgeStyle = makeStyles((theme: Theme) =>
       fontWeight: 700,
       paddingTop: theme.spacing(0.25),
       paddingBottom: theme.spacing(0.25),
-      ...type ? { backgroundColor: theme.palette[type].main } : {}
+      ...type ? { backgroundColor: (theme.palette[type] || {}).main } : {}
     }),
     sizeSmall: {
       height: '15px',
