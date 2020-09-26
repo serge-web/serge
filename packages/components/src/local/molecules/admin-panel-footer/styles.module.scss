@@ -1,11 +1,11 @@
 @import "~@serge/themes/dependencies/variables";
 
 .role-info {
+  @include typo-primary;
   align-items: center;
   background: $force-default-color;
   display: block;
   position: relative;
-  @include typo-primary;
 
   a {
     cursor: pointer;
