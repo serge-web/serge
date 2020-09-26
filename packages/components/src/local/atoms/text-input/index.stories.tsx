@@ -31,7 +31,7 @@ export const Filled: React.FC = () => (
 )
 export const FilledWithLabel: React.FC = () => (
   <BlueContainer>
-    <TextInput value={text('Initial value', 'Lorem ipsum')} multiline={boolean('Multi-Line', true)} variant="filled" label="Enter a value" labelColor="common.white" labelSize={12} />
+    <TextInput multiline={boolean('Multi-Line', true)} variant="filled" label="Enter a value" labelColor="common.white" labelSize={12} />
   </BlueContainer>
 )
 
