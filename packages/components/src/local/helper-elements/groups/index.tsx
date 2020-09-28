@@ -1,4 +1,4 @@
-import React, { useState, ReactText } from 'react'
+import React, { useState } from 'react'
 
 // import cx from 'classnames'
 /* Import helpers */
@@ -21,20 +21,26 @@ export const Groups: React.FC<PropTypes> = (props) => {
   const { items = [], renderContent = defaulRender, onSet } = props
   const maxDepth = typeof props.maxDepth === 'undefined' ? 3 : props.maxDepth
 
-  const [dragItem, setDragItem] = useState<ReactText>('')
+  const [dragItem, setDragItem] = useState<GroupItem>({ uniqid: -1 })
   const [hasParrent, setHasParrent] = useState<boolean>(false)
 
-  const onStart = (i: DropItem, hasParrent: boolean): void => { setDragItem(i.uniqid); setHasParrent(hasParrent) }
-  const onEnd = (): void => { setDragItem('') }
+  const onStart = (i: DropItem, hasParrent: boolean): void => { setDragItem({...i}); setHasParrent(hasParrent) }
+  const onEnd = (): void => { setDragItem({ uniqid: -1 }); }
   const handleSet = (items: Array<DropItem>, type: NodeType, depth: Array<GroupItem> = []): void => {
     if (onSet) onSet(items as Array<GroupItem>, type, depth)
   }
 
+  const canCombineWithDefault = (_dragItem: GroupItem, _item: GroupItem, _parents: Array<GroupItem>, _type: NodeType) : boolean => {
+    return true
+  }
+
+  const { canCombineWith = canCombineWithDefault } = props
+
   const checkdEmptyDropzone = (item: GroupItem, subitems: Array<GroupItem>, parents: Array<GroupItem>): boolean => {
-    if (dragItem === item.uniqid) return false
+    if (dragItem.uniqid === item.uniqid) return false
     if (parents.length >= maxDepth) return false
-    if (subitems.find((i: GroupItem) => i.uniqId === dragItem)) return false
-    return !!dragItem
+    if (subitems.find((i: GroupItem) => i.uniqId === dragItem.uniqid)) return false
+    return !!(dragItem.uniqid && dragItem.uniqid !== -1)
   }
 
   const renderGroupItem = (item: GroupItem, depth: Array<GroupItem> = []): JSX.Element | null => {
@@ -56,9 +62,10 @@ export const Groups: React.FC<PropTypes> = (props) => {
       <CollapsibleHeader>
         {depth.length >= maxDepth ? renderContent(item, depth) : <Dropzone
           item={item}
+          disable={!canCombineWith(dragItem, item, depth, 'group')}
           onStart={(i: DropItem): void => onStart(i, depth.length > 0)}
           onEnd={onEnd}
-          active={dragItem}
+          active={dragItem.uniqid}
           type='group'
           onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, depth) }
         >
@@ -67,9 +74,10 @@ export const Groups: React.FC<PropTypes> = (props) => {
       </CollapsibleHeader>
       <CollapsibleContent useIndent={40}>
         {checkdEmptyDropzone(item, subitems, depth) && <Dropzone
+          disable={!canCombineWith(dragItem, item, depth, 'empty')}
           item={item}
           onEnd={onEnd}
-          active={dragItem}
+          active={dragItem.uniqid}
           onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, depth) }
         />}
         {subitems.length > 0 && <ul>{subitems.map(i => <li key={i.uniqid}>{ renderGroupItem(i, [...depth, item]) }</li>) }</ul>}
@@ -80,10 +88,11 @@ export const Groups: React.FC<PropTypes> = (props) => {
   return (
     <div className={styles.main}>
       <ul>{ items.map(i => <li key={i.uniqid}>{ renderGroupItem(i) }</li>) }</ul>
-      {dragItem && hasParrent && <Dropzone
+      {dragItem.uniqid && dragItem.uniqid !== -1 && hasParrent && <Dropzone
+        disable={!canCombineWith(dragItem, { uniqid: -1 }, [], 'empty')}
         item={{ uniqid: -1 }}
         onEnd={onEnd}
-        active={dragItem}
+        active={dragItem.uniqid}
         type='group-out'
         onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, []) }
       />}

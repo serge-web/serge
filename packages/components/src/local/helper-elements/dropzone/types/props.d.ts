@@ -15,4 +15,5 @@ export default interface PropTypes {
   onSet?: (item: Array<DropItem>, type: DropType) => void
   active?: string | number
   mouse?: { x: number, y: number }
+  disable?: boolean
 }

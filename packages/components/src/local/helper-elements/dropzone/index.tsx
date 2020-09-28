@@ -15,7 +15,7 @@ import styles from './styles.module.scss'
 const itemH = 44
 
 /* Render component */
-export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', active, onStart, onEnd, onSet }) => {
+export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', active, onStart, onEnd, onSet, disable }) => {
   const innerRef = useRef(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [showEmpty, setShowEmpty] = useState<boolean>(false)
@@ -96,7 +96,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
 
   const renderDropzone = (): JSX.Element => (
     <div className={cx(styles.dropzone)}>
-      <div className={cx(styles.content, styles[`content-${type}`])}>
+      <div className={cx(styles.content, styles[`content-${type}`], disable && styles['content-disable'])}>
         {typeEmpty && renderEmpty()}
         {typeOut && renderGroupOut()}
         {/* TODO: Add overlap for group label */}
@@ -112,20 +112,27 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
       activeDropzone && styles[`${type}-active`]
     )}>
       <div className={cx(styles.holder, loading && styles.loading)} ref={handleRef}>
-        { renderDropzone() }
-        <ReactSortable
-          group="groupName"
-          animation={0}
-          delay={0.5}
-          list={[{ id: `${item.uniqid}-${type}`, ...item }]}
-          setList={handeListChange}
-          onStart={handleStart}
-          onEnd={handleEnd}
-        >
-          <div className={cx(styles.item, typeOut && styles['item-hide'])}>
-            {children}
-          </div>
-        </ReactSortable>
+        {disable ? <>
+            { renderDropzone() }
+            <div className={cx(styles.item, typeOut && styles['item-hide'])}>
+              {children}
+            </div>
+          </> : <>
+          { renderDropzone() }
+          <ReactSortable
+            group="groupName"
+            animation={0}
+            delay={0.5}
+            list={[{ id: `${item.uniqid}-${type}`, ...item }]}
+            setList={handeListChange}
+            onStart={handleStart}
+            onEnd={handleEnd}
+          >
+            <div className={cx(styles.item, typeOut && styles['item-hide'])}>
+              {children}
+            </div>
+          </ReactSortable>
+        </>}
       </div>
     </div>
   )
