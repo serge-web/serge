@@ -24,13 +24,13 @@ export const Groups: React.FC<PropTypes> = (props) => {
   const [dragItem, setDragItem] = useState<GroupItem>({ uniqid: -1 })
   const [hasParrent, setHasParrent] = useState<boolean>(false)
 
-  const onStart = (i: DropItem, hasParrent: boolean): void => { setDragItem({...i}); setHasParrent(hasParrent) }
-  const onEnd = (): void => { setDragItem({ uniqid: -1 }); }
+  const onStart = (i: DropItem, hasParrent: boolean): void => { setDragItem({ ...i }); setHasParrent(hasParrent) }
+  const onEnd = (): void => { setDragItem({ uniqid: -1 }) }
   const handleSet = (items: Array<DropItem>, type: NodeType, depth: Array<GroupItem> = []): void => {
     if (onSet) onSet(items as Array<GroupItem>, type, depth)
   }
 
-  const canCombineWithDefault = (_dragItem: GroupItem, _item: GroupItem, _parents: Array<GroupItem>, _type: NodeType) : boolean => {
+  const canCombineWithDefault = (_dragItem: GroupItem, _item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
     return true
   }
 

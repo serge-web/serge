@@ -113,11 +113,11 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
     )}>
       <div className={cx(styles.holder, loading && styles.loading)} ref={handleRef}>
         {disable ? <>
-            { renderDropzone() }
-            <div className={cx(styles.item, typeOut && styles['item-hide'])}>
-              {children}
-            </div>
-          </> : <>
+          { renderDropzone() }
+          <div className={cx(styles.item, typeOut && styles['item-hide'])}>
+            {children}
+          </div>
+        </> : <>
           { renderDropzone() }
           <ReactSortable
             group="groupName"

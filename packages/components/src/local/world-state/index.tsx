@@ -159,7 +159,7 @@ export const WorldState: React.FC<PropTypes> = ({
   }
 
   // Note: draggingItem.uniq === -1 when no active dragging item
-  const canCombineWith = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType) : boolean => {
+  const canCombineWith = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
     // console.log(draggingItem.name, item.name, !(draggingItem.name > item.name));
     // Note: !(draggingItem.name > item.name) it's equal draggingItem.name <= item.name || draggingItem.name === undefined
     return !(draggingItem.name > item.name)
