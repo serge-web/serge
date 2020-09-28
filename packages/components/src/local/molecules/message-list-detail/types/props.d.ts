@@ -1,6 +1,7 @@
 export default interface Props {
   /**
    * Message detail object
+   * TODO: produce a TypeScript interface for the detail contents
    */
   detail: object
   /**
