@@ -3,7 +3,7 @@ import { styled } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 
 // Import component files
-import MessageList from './index'
+import ChannelMessage from './index'
 import docs from './README.md'
 
 const BlueContainer = styled(Box)({
@@ -14,8 +14,8 @@ const BlueContainer = styled(Box)({
 })
 
 export default {
-  title: 'local/molecules/MessageList',
-  component: MessageList,
+  title: 'local/molecules/ChannelMessage',
+  component: ChannelMessage,
   decorators: [(story: Function): React.ReactElement => (
     <BlueContainer>{ story() }</BlueContainer>
   )],
@@ -30,7 +30,7 @@ export default {
 export const Default: React.FC = () => {
   const [isRead, setIsRead] = useState(false)
   return (
-    <MessageList
+    <ChannelMessage
       borderColor="#3dd0ffB3"
       title="lorem ipsum do lor sit amet"
       timestamp="2020-09-18T05:41:17.349Z"
@@ -48,7 +48,7 @@ export const Default: React.FC = () => {
 export const StateOfTheWorld: React.FC = () => {
   const [isRead, setIsRead] = useState(false)
   return (
-    <MessageList
+    <ChannelMessage
       borderColor="#ffffff"
       title="lorem ipsum do lor sit amet"
       timestamp="2020-09-18T05:41:17.349Z"

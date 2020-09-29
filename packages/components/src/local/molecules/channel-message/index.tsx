@@ -1,7 +1,7 @@
 import React from 'react'
 import Collapsible from '../../helper-elements/collapsible'
-import MessageListHeader from '../message-list-header'
-import MessageListDetail from '../message-list-detail'
+import MessageListHeader from '../channel-message-header'
+import MessageListDetail from '../channel-message-detail'
 
 /* Import Types */
 import Props from './types/props'
@@ -10,7 +10,7 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const MessageList: React.FC<Props> = (props: Props) => {
+export const ChannelMessage: React.FC<Props> = (props: Props) => {
   const CollapsibleHeader = ({ onExpand, collapsed }: any): React.ReactElement => {
     const { onRead } = props
     const handleOnExpand = (): void => {
@@ -45,4 +45,4 @@ export const MessageList: React.FC<Props> = (props: Props) => {
   )
 }
 
-export default MessageList
+export default ChannelMessage

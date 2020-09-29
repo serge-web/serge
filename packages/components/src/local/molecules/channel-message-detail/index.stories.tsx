@@ -4,7 +4,7 @@ import { styled } from '@material-ui/core/styles'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
 
 // Import component files
-import MessageListDetail from './index'
+import ChannelMessageDetail from './index'
 import docs from './README.md'
 
 const BlueContainer = styled(Box)({
@@ -15,8 +15,8 @@ const BlueContainer = styled(Box)({
 })
 
 export default {
-  title: 'local/molecules/MessageListDetail',
-  component: MessageListDetail,
+  title: 'local/molecules/ChannelMessageDetail',
+  component: ChannelMessageDetail,
   decorators: [withKnobs, (story: Function): React.ReactElement => (
     <BlueContainer>{ story() }</BlueContainer>
   )],
@@ -33,13 +33,13 @@ export default {
 }
 
 export const Chat: React.FC = () => (
-  <MessageListDetail
+  <ChannelMessageDetail
     detail={{ content: 'common chat' }}
   />
 )
 
 export const Link: React.FC = () => (
-  <MessageListDetail
+  <ChannelMessageDetail
     detail={{
       title: 'lorem ipsum',
       URL: 'https://google.com'
@@ -48,7 +48,7 @@ export const Link: React.FC = () => (
 )
 
 export const DailyIntention: React.FC = () => (
-  <MessageListDetail
+  <ChannelMessageDetail
     detail={{
       TurnNumber: '1',
       OverallIntentions: 'Some intentions',
@@ -64,7 +64,7 @@ export const DailyIntention: React.FC = () => (
 )
 
 export const StateOfTheWorld: React.FC = () => (
-  <MessageListDetail
+  <ChannelMessageDetail
     detail={{
       Forces: [{
         assets: [{
@@ -90,7 +90,7 @@ export const StateOfTheWorld: React.FC = () => (
 )
 
 export const PrivateMessage: React.FC = () => (
-  <MessageListDetail
+  <ChannelMessageDetail
     privateMessage="Private message"
     isUmpire={boolean('Player from umpire force', true)}
     detail={{ content: 'Lorem ipsum do lor sit amet' }}
@@ -98,7 +98,7 @@ export const PrivateMessage: React.FC = () => (
 )
 
 export const WeatherForecast: React.FC = () => (
-  <MessageListDetail
+  <ChannelMessageDetail
     privateMessage="Private weather message"
     isUmpire={boolean('Player from umpire force', true)}
     detail={{

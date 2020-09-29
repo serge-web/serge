@@ -121,7 +121,7 @@ const decideRender = (pair: Array<any>) => (fallback: Function): React.ReactFrag
 }
 
 /* Render component */
-export const MessageListDetail: React.FC<Props> = ({ detail, privateMessage, isUmpire, collapsed }: Props) => {
+export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, isUmpire, collapsed }: Props) => {
   const keyPropPairs = Object.entries(detail)
   const PrivateBadge = (): React.ReactElement => (
     <span>
@@ -151,4 +151,4 @@ export const MessageListDetail: React.FC<Props> = ({ detail, privateMessage, isU
   )
 }
 
-export default MessageListDetail
+export default ChannelMessageDetail

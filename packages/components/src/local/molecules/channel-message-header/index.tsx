@@ -13,7 +13,7 @@ import moment from 'moment'
 import Badge from '../../atoms/badge'
 
 /* Render component */
-export const MessageListHeader: React.FC<Props> = ({
+export const ChannelMessageHeader: React.FC<Props> = ({
   isOpen,
   title,
   timestamp,
@@ -44,4 +44,4 @@ export const MessageListHeader: React.FC<Props> = ({
   )
 }
 
-export default MessageListHeader
+export default ChannelMessageHeader

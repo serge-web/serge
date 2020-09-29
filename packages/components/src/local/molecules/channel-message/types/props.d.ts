@@ -1,5 +1,5 @@
-import MessageListHeaderProps from '../../message-list-header/types/props'
-import MessageListDetailProps from '../../message-list-detail/types/props'
+import MessageListHeaderProps from '../../channel-message-header/types/props'
+import MessageListDetailProps from '../../channel-message-detail/types/props'
 
 export default interface Props extends MessageListHeaderProps, MessageListDetailProps{
   /**

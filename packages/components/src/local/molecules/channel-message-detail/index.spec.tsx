@@ -1,15 +1,13 @@
 /* global it expect */
-
 import React from 'react'
 import renderer from 'react-test-renderer'
+import ChannelMessageDetail from './index'
 
-import MessageListDetail from './index'
-
-describe('MessageListDetail:', () => {
+describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <MessageListDetail
+        <ChannelMessageDetail
           detail={{ content: 'common chat' }}
         />
       )
