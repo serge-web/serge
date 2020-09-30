@@ -81,9 +81,6 @@ const findLocations = (store: RouteStore, selected: string | undefined): Array<C
 
 const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): void => {
   clusters.forEach((cluster: Cluster) => {
-    if(cluster.hex === 'C17') {
-      console.log('decluttering C17', cluster.setters.length)
-    }
     if(cluster.setters.length > 1) {
       const gridDelta = tileDiameterMins / 60 / 4
       // ok, go for it
