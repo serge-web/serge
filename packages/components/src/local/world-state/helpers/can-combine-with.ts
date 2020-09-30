@@ -8,10 +8,16 @@ import { hexNamed } from '@serge/helpers'
  */
 const canCombineWith = ( store: RouteStore, draggingItem: string | number, item: string | number, _parents: Array<GroupItem>, _type: NodeType, gridCells: SergeGrid<SergeHex<{}>> | undefined): boolean => {
   const ACCEPTABLE_RANGE = 1
-  // check we have all data 
-  if(draggingItem !== -1) {
-    // check they're not sample platform
-    if(draggingItem !== item) {
+  if(draggingItem === -1) {
+    // on initial render, nothing is being dragged, so
+    // a value of -1 is passed for draggingItem
+    return true
+  } else {}
+    // check they're not same platform
+    if(draggingItem === item) {
+      // this can't really happen, but return true
+      return true
+    } else {
       if(gridCells) {
         const dragging: Route | undefined = store.routes.find(route => route.uniqid === draggingItem)
         const over: Route | undefined = store.routes.find(route => route.uniqid === item)
@@ -20,7 +26,6 @@ const canCombineWith = ( store: RouteStore, draggingItem: string | number, item:
           const overHex = hexNamed(over.currentPosition, gridCells)
           if(dragHex && overHex) {
             const range: number = dragHex.distance(overHex)
-            console.log('dragging', dragging.name, over.name, !(draggingItem > item), _type, range);
             return range <= ACCEPTABLE_RANGE
           } else {
             console.warn('Didnt find hex cells for', dragging.currentPosition, over.currentPosition)
@@ -34,11 +39,7 @@ const canCombineWith = ( store: RouteStore, draggingItem: string | number, item:
         // don't have grid cells, maybe under test
         return !(draggingItem > item)
       }
-    } else {
-      return false
     }
-  } else {
-    return true
   }
 }
 

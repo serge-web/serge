@@ -9,7 +9,7 @@ import { RouteStore, SergeGrid, SergeHex } from '@serge/custom-types'
 import createGrid from '../../mapping/helpers/create-grid'
 import boundsFor from '../../mapping/helpers/bounds-for'
 
-it('clear route from selected step', () => {
+it('returns correct combine with answers', () => {
 
   const bounds = {
     imageTop: 14.194809302,
@@ -31,7 +31,15 @@ it('clear route from selected step', () => {
   const frigateId = 'a0pra00001'
   const groupId = 'a0pra5431'
 
+  // when component first renders, there isn't anything selected, so id of '-1' is used
+  const initialId = -1
+
   // export type NodeType = 'empty' | 'group' | 'group-out'
+
+  // by default everything should be draggable
+  expect(canCombineWith(store, initialId, frigateId, [], 'group', grid)).toBeTruthy()
+  expect(canCombineWith(store, initialId, groupId, [], 'group', grid)).toBeTruthy()
+
 
   // start off at the top level
   expect(canCombineWith(store, tankerId, frigateId, [], 'group', grid)).toBeTruthy()
