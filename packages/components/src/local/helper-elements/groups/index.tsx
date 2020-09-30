@@ -8,7 +8,8 @@ import CollapsibleContent from '../collapsible/content'
 import Dropzone from '../dropzone'
 
 /* Import proptypes */
-import PropTypes, { GroupItem, NodeType } from './types/props'
+import PropTypes, { NodeType } from './types/props'
+import { GroupItem } from '@serge/custom-types'
 import { DropItem } from '../dropzone/types/props'
 
 /* Import Styles */

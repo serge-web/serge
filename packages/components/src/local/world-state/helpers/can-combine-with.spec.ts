@@ -10,7 +10,6 @@ import createGrid from '../../mapping/helpers/create-grid'
 import boundsFor from '../../mapping/helpers/bounds-for'
 
 it('returns correct combine with answers', () => {
-
   const bounds = {
     imageTop: 14.194809302,
     imageLeft: 42.3558566271,
@@ -19,7 +18,6 @@ it('returns correct combine with answers', () => {
   }
 
   const latLongBounds: L.LatLngBounds = boundsFor(bounds)
-
 
   // note: the list of cells should be re-calculated if `tileDiameterMins` changes
   const grid: SergeGrid<SergeHex<{}>> = createGrid(latLongBounds, 5)
@@ -40,7 +38,6 @@ it('returns correct combine with answers', () => {
   // by default everything should be draggable
   expect(canCombineWith(store, UNSELECTED_ID, frigateId, [], 'group', grid)).toBeTruthy()
   expect(canCombineWith(store, UNSELECTED_ID, groupId, [], 'group', grid)).toBeTruthy()
-
 
   // start off at the top level
   expect(canCombineWith(store, tankerId, frigateId, [], 'group', grid)).toBeTruthy()

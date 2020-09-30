@@ -1,9 +1,4 @@
-export interface GroupItem {
-  uniqid: string | number
-  hosting?: Array<GroupItem>
-  comprising?: Array<GroupItem>
-  [property: string]: any
-}
+import { GroupItem } from '@serge/custom-types'
 
 export type NodeType = 'empty' | 'group' | 'group-out'
 
