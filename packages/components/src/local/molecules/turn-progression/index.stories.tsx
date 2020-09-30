@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import moment from 'moment'
 import { PLANNING_PHASE, ADJUDICATION_PHASE } from '@serge/config'
 
@@ -42,15 +42,27 @@ export const Planning: React.FC = () => (
   />
 )
 
-export const WithGameControl: React.FC = () => (
-  <TurnProgression
-    adjudicationStartTime="2019-09-30T14:13:22+01:00"
-    turnEndTime={moment(new Date()).add(1.1, 'm').toString()}
-    timeWarning={60000}
-    currentTurn={1}
-    phase={PLANNING_PHASE}
-    gameDate="2019-10-01T02:02"
-    controlUi={true}
-    onNextTurn={(): any => window.alert('Start next turn')}
-  />
-)
+export const WithGameControl: React.FC = () => {
+  const [state, setState] = useState({
+    phase: PLANNING_PHASE,
+    currentTurn: 1
+  })
+  const updateState = () => {
+    setState({
+      phase: ADJUDICATION_PHASE,
+      currentTurn: 2
+    })
+  }
+  return (
+    <TurnProgression
+      adjudicationStartTime="2019-09-30T14:13:22+01:00"
+      turnEndTime={moment(new Date()).add(1.1, 'm').toString()}
+      timeWarning={60000}
+      currentTurn={state.currentTurn}
+      phase={state.phase}
+      gameDate="2019-10-01T02:02"
+      controlUi={true}
+      onNextTurn={updateState}
+    />
+  )
+}

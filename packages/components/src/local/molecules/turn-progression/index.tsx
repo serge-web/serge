@@ -32,22 +32,20 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     controlUi,
     onNextTurn
   } = props
-  let interval: any
   const now = Math.floor(new Date().getTime() / 1000)
   const end = Math.round(new Date(turnEndTime).getTime() / 1000)
   const seconds = end - now
+  const adjudicationPhase = phase === ADJUDICATION_PHASE
   const initialState = {
     minutesLeft: ('0' + Math.floor(seconds / 60)).slice(-2),
     secondsLeft: ('0' + Math.floor(seconds % 60)).slice(-2),
     ended: false,
-    startTime: Math.round(new Date(adjudicationStartTime).getTime() / 1000),
-    minutesUp: '',
-    secondsUp: '',
     warning: false,
+    minutesUp: adjudicationPhase ? '00' : '',
+    secondsUp: adjudicationPhase ? '00' : '',
+    startTime: Math.round(new Date(adjudicationStartTime).getTime() / 1000),
     phase
   }
-  const [progressionState, setProgressionState] = useState(initialState)
-  const adjudicationPhase = phase === ADJUDICATION_PHASE
   const timer = (): any => {
     const now = Math.floor(new Date().getTime() / 1000)
     const end = Math.round(new Date(turnEndTime).getTime() / 1000)
@@ -59,13 +57,21 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
       seconds = end - now
     }
 
+    if (seconds < (timeWarning / 1000)) {
+      setProgressionState({
+        ...progressionState,
+        warning: true
+      })
+    }
+
     const minsLeft = Math.floor(seconds / 60)
     const minutesLeft = minsLeft < 100 ? ('0' + minsLeft).slice(-2) : minsLeft.toString()
 
     setProgressionState({
       ...progressionState,
       minutesLeft,
-      secondsLeft: ('0' + Math.round(seconds % 60)).slice(-2)
+      secondsLeft: ('0' + Math.round(seconds % 60)).slice(-2),
+      ended: seconds === 0 && minsLeft === 0
     })
   }
   const countup = (): any => {
@@ -80,76 +86,29 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
       secondsUp: ('0' + Math.round(seconds % 60)).slice(-2)
     })
   }
-  const initInterval = (): any => {
-    const startInterval = {
-      [PLANNING_PHASE]: timer,
-      [ADJUDICATION_PHASE]: countup
-    }
-
-    if (progressionState.phase === phase) return
-
-    if (
-      phase === ADJUDICATION_PHASE
-    ) {
-      setProgressionState({
-        ...progressionState,
-        minutesUp: '00',
-        secondsUp: '00',
-        startTime: Math.round(new Date(adjudicationStartTime).getTime() / 1000)
-      })
-    }
-
-    clearInterval()
-    interval = setInterval(startInterval[phase], 1000)
-    setProgressionState({
-      ...progressionState,
-      phase
-    })
+  const startInterval = {
+    [PLANNING_PHASE]: timer,
+    [ADJUDICATION_PHASE]: countup
   }
+  const [progressionState, setProgressionState] = useState(initialState)
 
-  const clearComponentInterval = (): any => {
+  let interval: any
+
+  useEffect(() => {
     setProgressionState({
       ...progressionState,
-      ended: false,
-      warning: false
+      minutesUp: adjudicationPhase ? '00' : '',
+      secondsUp: adjudicationPhase ? '00' : '',
+      startTime: Math.round(new Date(adjudicationStartTime).getTime() / 1000)
     })
     clearInterval(interval)
-  }
+    interval = setInterval(startInterval[phase], 1000)
+    return (): any => clearInterval(interval)
+  }, [phase])
 
-  useEffect(() => {
-    if (phase === PLANNING_PHASE) {
-      interval = setInterval(timer, 1000)
-    } else if (phase === ADJUDICATION_PHASE) {
-      interval = setInterval(countup, 1000)
-    }
-    initInterval()
-    return clearComponentInterval
-  }, [])
-  useEffect(() => {
-    const { secondsLeft, minutesLeft } = progressionState
-    if (
-      Number(secondsLeft) < (timeWarning / 1000) &&
-      !progressionState.warning &&
-      phase === PLANNING_PHASE
-    ) {
-      setProgressionState({
-        ...progressionState,
-        warning: true
-      })
-    } else if (
-      secondsLeft === '00' &&
-      minutesLeft === '00' &&
-      !progressionState.ended &&
-      phase === PLANNING_PHASE
-    ) {
-      setProgressionState({
-        ...progressionState,
-        ended: true
-      })
-    }
-  }, [progressionState])
   const warningStyle = progressionState.warning ? styles.warning : null
   const endedStyle = progressionState.ended ? styles.ended : null
+
   return (
     <div className={classNames([
       styles['flex-content-wrapper'],
