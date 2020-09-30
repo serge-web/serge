@@ -15,7 +15,7 @@ import { GroupItem, NodeType } from '../helper-elements/groups/types/props'
 import styles from './styles.module.scss'
 import { Route } from '@serge/custom-types'
 import { ADJUDICATION_PHASE } from '@serge/config'
-//import canCombineWith from './helpers/can-combine-with'
+import canCombineWith from './helpers/can-combine-with'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, phase, isUmpire, setSelectedAsset,
@@ -161,9 +161,8 @@ export const WorldState: React.FC<PropTypes> = ({
 
   // Note: draggingItem.uniq === -1 when no active dragging item
   const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
-    // return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type, gridCells)
-    console.log(gridCells?.length)
-    return draggingItem.name < item.name
+    // console.log(draggingItem.uniqid, item.uniqid, _type, _parents)
+    return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type, gridCells)
   }
 
   return <>
