@@ -30,15 +30,16 @@ it('returns correct combine with answers', () => {
   const tankerId = 'a0pra00003'
   const frigateId = 'a0pra00001'
   const groupId = 'a0pra5431'
+  const merlinId = 'a0pra11002'
 
   // when component first renders, there isn't anything selected, so id of '-1' is used
-  const initialId = -1
+  const UNSELECTED_ID = -1
 
   // export type NodeType = 'empty' | 'group' | 'group-out'
 
   // by default everything should be draggable
-  expect(canCombineWith(store, initialId, frigateId, [], 'group', grid)).toBeTruthy()
-  expect(canCombineWith(store, initialId, groupId, [], 'group', grid)).toBeTruthy()
+  expect(canCombineWith(store, UNSELECTED_ID, frigateId, [], 'group', grid)).toBeTruthy()
+  expect(canCombineWith(store, UNSELECTED_ID, groupId, [], 'group', grid)).toBeTruthy()
 
 
   // start off at the top level
@@ -46,4 +47,7 @@ it('returns correct combine with answers', () => {
   expect(canCombineWith(store, frigateId, tankerId, [], 'group', grid)).toBeTruthy()
   expect(canCombineWith(store, frigateId, groupId, [], 'group', grid)).toBeFalsy()
 
+  // for a platform that is a child, if the target id is -1, it's the operation to
+  // go the top level
+  expect(canCombineWith(store, merlinId, UNSELECTED_ID, [], 'empty', grid)).toBeTruthy()
 })

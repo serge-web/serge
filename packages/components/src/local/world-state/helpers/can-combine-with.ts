@@ -6,7 +6,7 @@ import { hexNamed } from '@serge/helpers'
  *  indicate if two assets can be combined
 
  */
-const canCombineWith = ( store: RouteStore, draggingItem: string | number, item: string | number, _parents: Array<GroupItem>, _type: NodeType, gridCells: SergeGrid<SergeHex<{}>> | undefined): boolean => {
+const canCombineWith = ( store: RouteStore, draggingItem: string | number, item: string | number, _parents: Array<GroupItem>, nodeType: NodeType, gridCells: SergeGrid<SergeHex<{}>> | undefined): boolean => {
   const ACCEPTABLE_RANGE = 1
   if(draggingItem === -1) {
     // on initial render, nothing is being dragged, so
@@ -18,6 +18,18 @@ const canCombineWith = ( store: RouteStore, draggingItem: string | number, item:
       // this can't really happen, but return true
       return true
     } else {
+      // see what the mode is
+      switch(nodeType) {
+        case 'empty': {
+          if(item === -1) {
+            // special case, being dragged to root level
+            return true
+          }
+          break
+        } 
+        case 'group' : break;
+        case 'group-out': break;
+      }
       if(gridCells) {
         const dragging: Route | undefined = store.routes.find(route => route.uniqid === draggingItem)
         const over: Route | undefined = store.routes.find(route => route.uniqid === item)
@@ -28,11 +40,15 @@ const canCombineWith = ( store: RouteStore, draggingItem: string | number, item:
             const range: number = dragHex.distance(overHex)
             return range <= ACCEPTABLE_RANGE
           } else {
-            console.warn('Didnt find hex cells for', dragging.currentPosition, over.currentPosition)
+            console.warn('failed to find hex cell for locations', dragHex, overHex, 
+              dragging.currentPosition, over.currentPosition)
             return false
           }
         } else {
-          console.warn('Didnt find routes for', draggingItem, item, dragging, over)
+          // we didn't find one or both of the platforms in the top level
+          // of a force.  If the platforms aren't at the top level we don't allow them to
+          // be combined.
+          // TODO: Eventually we should let a helo be put on a ship in a task group
           return false
         }
       } else {
