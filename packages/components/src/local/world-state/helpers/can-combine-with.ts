@@ -12,7 +12,7 @@ const canCombineWith = ( store: RouteStore, draggingItem: string | number, item:
     // on initial render, nothing is being dragged, so
     // a value of -1 is passed for draggingItem
     return true
-  } else {}
+  } else {
     // check they're not same platform
     if(draggingItem === item) {
       // this can't really happen, but return true
