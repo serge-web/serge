@@ -15,10 +15,11 @@ import { GroupItem, NodeType } from '../helper-elements/groups/types/props'
 import styles from './styles.module.scss'
 import { Route } from '@serge/custom-types'
 import { ADJUDICATION_PHASE } from '@serge/config'
+import { hexNamed } from '@serge/helpers'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, phase, isUmpire, setSelectedAsset,
-  submitTitle, submitForm, showOtherPlatforms
+  submitTitle, submitForm, showOtherPlatforms, gridCells
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
 
@@ -160,9 +161,38 @@ export const WorldState: React.FC<PropTypes> = ({
 
   // Note: draggingItem.uniq === -1 when no active dragging item
   const canCombineWith = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
-    // console.log(draggingItem.name, item.name, !(draggingItem.name > item.name));
-    // Note: !(draggingItem.name > item.name) it's equal draggingItem.name <= item.name || draggingItem.name === undefined
-    return !(draggingItem.name > item.name)
+    // check we have all data 
+    if(draggingItem.uniqid !== -1) {
+      // check they're not sample platform
+      if(draggingItem.uniqid !== item.uniqid) {
+        if(gridCells) {
+          const dragging: Route | undefined = store.routes.find(route => route.uniqid === draggingItem.uniqid)
+          const over: Route | undefined = store.routes.find(route => route.uniqid === item.uniqid)
+          if(dragging && over) {
+            const dragHex = hexNamed(dragging.currentPosition, gridCells)
+            const overHex = hexNamed(over.currentPosition, gridCells)
+            if(dragHex && overHex) {
+              const range: number = dragHex.distance(overHex)
+              console.log('dragging', dragging.name, over.name, !(draggingItem.name > item.name), _type, range);
+              return !(draggingItem.name > item.name)
+            } else {
+              console.warn('Didnt find hex cells for', dragging.currentPosition, over.currentPosition)
+              return false
+            }
+          } else {
+            console.warn('Didnt find routes for', draggingItem.uniqid, item.uniqid)
+            return false
+          }
+        } else {
+          // don't have grid cells, maybe under test
+          return !(draggingItem.name > item.name)
+        }
+      } else {
+        return false
+      }
+    } else {
+      return true
+    }
   }
 
   return <>
