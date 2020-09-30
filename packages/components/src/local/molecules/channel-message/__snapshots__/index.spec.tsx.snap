@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MessageList renders correctly 1`] = `
+exports[`ChannelMessage component: renders correctly 1`] = `
 <div
   className="message-list-wrapper"
   style={

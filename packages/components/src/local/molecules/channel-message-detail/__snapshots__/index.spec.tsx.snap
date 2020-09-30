@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MessageListDetail: renders correctly 1`] = `
+exports[`ChannelMessageDetail: renders correctly 1`] = `
 <div
   className="wrap-detail wrap-detail-opened"
 >
