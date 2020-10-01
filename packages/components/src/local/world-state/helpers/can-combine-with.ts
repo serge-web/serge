@@ -7,7 +7,9 @@ import { hexNamed } from '@serge/helpers'
 
  */
 const canCombineWith = (store: RouteStore, draggingItem: string | number, item: string | number, _parents: Array<GroupItem>, nodeType: NodeType, gridCells: SergeGrid<SergeHex<{}>> | undefined): boolean => {
-  const ACCEPTABLE_RANGE = 1
+  // an acceptable range of zero means the assets have to be in the same cell,
+  // a value of 1 means adjacent cells
+  const ACCEPTABLE_RANGE = 0
   if (draggingItem === -1) {
     // on initial render, nothing is being dragged, so
     // a value of -1 is passed for draggingItem
