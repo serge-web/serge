@@ -24,10 +24,10 @@ it('returns correct combine with answers', () => {
   expect(grid.length).toEqual(525)
 
   // put the tanker in the same cell as the frigate
-  if(forces[1].assets) {
+  if (forces[1].assets) {
     forces[1].assets[3].position = forces[1].assets[1].position
   }
-  
+
   const store: RouteStore = routeCreateStore(undefined, forces, 'Blue', false, platformTypes, grid, false, false)
 
   const tankerId = 'a0pra00003'
