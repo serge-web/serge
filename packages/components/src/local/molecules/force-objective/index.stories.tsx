@@ -19,38 +19,42 @@ export default {
   }
 }
 
-export const Default: React.FC = () => (
-  <ForceObjective
-    force={{
-      color: '#3dd0ff',
-      name: 'Blue',
-      icon: 'http://localhost:8080/default_img/forceDefault.png',
-      overview: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, praesentium sed! Animi atque incidunt maiores nisi vel voluptate? Adipisci architecto aspernatur earum error incidunt laborum magni neque odio repellendus, voluptate!'
-    }}
-    selectedRole="Comms"
-    onIconClick={(): any => window.alert('Icon clicked')}
-  />
-)
-
-export const ColorVariation: React.FC = () => (
-  <ForceObjective
-    force={{
-      color: '#2b900f',
-      name: 'Green',
-      icon: 'http://localhost:8080/default_img/forceDefault.png',
-      overview: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, praesentium sed! Animi atque incidunt maiores nisi vel voluptate? Adipisci architecto aspernatur earum error incidunt laborum magni neque odio repellendus, voluptate!'
-    }}
-    selectedRole="Comms"
-    onIconClick={(): any => window.alert('Icon clicked')}
-  />
-)
-
 const BlueContainer = styled(Box)({
   backgroundColor: '#1a394d',
   height: '50vh',
   borderRadius: '2px',
   position: 'relative'
 })
+
+export const Default: React.FC = () => (
+  <BlueContainer>
+    <ForceObjective
+      force={{
+        color: '#3dd0ff',
+        name: 'Blue',
+        icon: 'http://localhost:8080/default_img/forceDefault.png',
+        overview: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, praesentium sed! Animi atque incidunt maiores nisi vel voluptate? Adipisci architecto aspernatur earum error incidunt laborum magni neque odio repellendus, voluptate!'
+      }}
+      selectedRole="Comms"
+      onIconClick={(): any => window.alert('Icon clicked')}
+    />
+  </BlueContainer>
+)
+
+export const ColorVariation: React.FC = () => (
+  <BlueContainer>
+    <ForceObjective
+      force={{
+        color: '#2b900f',
+        name: 'Green',
+        icon: 'http://localhost:8080/default_img/forceDefault.png',
+        overview: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, praesentium sed! Animi atque incidunt maiores nisi vel voluptate? Adipisci architecto aspernatur earum error incidunt laborum magni neque odio repellendus, voluptate!'
+      }}
+      selectedRole="Comms"
+      onIconClick={(): any => window.alert('Icon clicked')}
+    />
+  </BlueContainer>
+)
 
 export const Implementation: React.FC = () => {
   const [visible, setVisible] = useState(false)

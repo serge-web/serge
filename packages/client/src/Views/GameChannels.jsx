@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoePrints } from '@fortawesome/free-solid-svg-icons';
-import { TurnProgression } from '@serge/components';
+import { TurnProgression, ForceObjective } from '@serge/components';
 import {
   nextGameTurn,
   openModal,
@@ -78,22 +78,11 @@ class GameChannels extends Component {
           <AdminAndInsightsTabsContainer />
         </div>
         { state.showObjective &&
-        <div className="force-objectives" style={{borderColor: state.forceColor}}>
-          <h3>Objectives</h3>
-          <div className="objective-text">
-            {force.overview}
-          </div>
-
-          <div className="role-info" style={{ backgroundColor: state.forceColor, }}>
-            <span className="role-type">&nbsp;</span>
-            <div className="contain-force-skin">
-              <div className="force-skin">
-                <span className="force-type">{ force.name }</span>
-                <img className="role-icon" src={force.icon} alt="" onClick={this.showHideForceObjectives} />
-              </div>
-            </div>
-          </div>
-        </div>
+        <ForceObjective
+          force={force}
+          selectedRole={state.selectedRole}
+          onIconClick={this.showHideForceObjectives}
+        />
         }
       </div>
     )
