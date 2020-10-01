@@ -7,7 +7,6 @@ import docs from './README.md'
 
 const BlueContainer = styled(Box)({
   backgroundColor: '#1a394d',
-  padding: '20px',
   borderRadius: '2px'
 })
 

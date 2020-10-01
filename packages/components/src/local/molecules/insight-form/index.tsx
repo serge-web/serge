@@ -62,9 +62,9 @@ export const InsightForm: React.FC<Props> = ({ onCancel, onSend, darkMode }: Pro
         </Box>
       </Box>
       <Box mt={2} display="flex" justifyContent="flex-end">
-        <Button className={styles['btn-cancel']} onClick={onCancel}>Cancel</Button>
+        <Button className={styles['btn-cancel']} onClick={(): void => onCancel()}>Cancel</Button>
         <Box ml={2}>
-          <Button variant="contained" color="primary" onClick={onSend}>Send</Button>
+          <Button variant="contained" color="primary" onClick={(): void => onSend(inputValues)}>Send</Button>
         </Box>
       </Box>
     </div>

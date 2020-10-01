@@ -48,7 +48,7 @@ export const TextInput: React.FC<PropTypes> = ({
   placeholder,
   fullWidth
 }) => {
-  const [inputValue, setInputValue] = useState(value);
+  const [inputValue, setInputValue] = useState(value)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setInputValue(event.target.value)
     updateState(event.target)

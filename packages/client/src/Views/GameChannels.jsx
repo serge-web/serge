@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoePrints } from '@fortawesome/free-solid-svg-icons';
 import { TurnProgression } from '@serge/components';
-import { nextGameTurn, showHideObjectives } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators';
+import {
+  nextGameTurn,
+  openModal,
+  openTour,
+  showHideObjectives
+} from '../ActionsAndReducers/playerUi/playerUi_ActionCreators';
 import ChannelTabsContainer from './ChannelTabsContainer';
 import AdminAndInsightsTabsContainer from './AdminAndInsightsTabsContainer';
 import { PlayerStateContext } from '../Store/PlayerUi';
@@ -13,6 +20,16 @@ class GameChannels extends Component {
   showHideForceObjectives = () => {
     const [ , dispatch ] = this.context;
     dispatch(showHideObjectives());
+  };
+
+  showLessonsModal = () => {
+    const [ , dispatch ] = this.context;
+    dispatch(openModal("lessons"));
+  };
+
+  openTour = () => {
+    const [ , dispatch ] = this.context;
+    dispatch(openTour(true));
   };
 
   nextTurn = () => {
@@ -39,6 +56,15 @@ class GameChannels extends Component {
           <ChannelTabsContainer ref={el => window.channelTabsContainer[force.uniqid] = el} />
         </div>
         <div className={classNames({"message-feed": true, "out-of-game-feed": true, "umpire-feed": state.controlUi})} data-tour="fifth-step">
+          <div className="flex-content wargame-title">
+            <h3>{state.wargameTitle}</h3>
+            {
+              <span onClick={this.showLessonsModal} className="wargame-title-icon" data-tour="third-step">
+              <strong className="sr-only">Show lesson</strong>
+            </span>
+            }
+            <FontAwesomeIcon icon={faShoePrints} size="2x" onClick={this.openTour} data-tour="third-step" />
+          </div>
           <TurnProgression
             adjudicationStartTime={state.adjudicationStartTime}
             controlUi={state.controlUi}
