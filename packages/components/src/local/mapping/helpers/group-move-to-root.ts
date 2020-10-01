@@ -1,5 +1,5 @@
 
-/** 
+/**
  * Move the specified child asset to the root level for that force
  */
 const groupMoveToRoot = (uniqid: string, forces: any): any => {

@@ -188,7 +188,7 @@ export const WorldState: React.FC<PropTypes> = ({
               break
             }
             case 'group-out': {
-              if(groupMoveToRoot) {
+              if (groupMoveToRoot) {
                 groupMoveToRoot(droppedItem.uniqid)
               } else {
                 console.warn('No move to root handler found')
