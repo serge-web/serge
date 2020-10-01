@@ -10,10 +10,10 @@ import Groups from '../helper-elements/groups'
 /* Import Types */
 import PropTypes from './types/props'
 import { NodeType } from '../helper-elements/groups/types/props'
-import { GroupItem } from '@serge/custom-types'
+import { GroupItem, Route } from '@serge/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import { Route } from '@serge/custom-types'
+
 import { ADJUDICATION_PHASE } from '@serge/config'
 import canCombineWith from './helpers/can-combine-with'
 
