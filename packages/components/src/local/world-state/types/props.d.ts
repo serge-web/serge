@@ -37,4 +37,8 @@ export default interface PropTypes {
    * grid of cells, used for movement
    */
   gridCells?: SergeGrid<SergeHex<{}>> | undefined
+ /**
+   * handler to clear current route from specified number
+   */
+  groupMoveToRoot?: {(uniqid: string): void}
 }

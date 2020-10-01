@@ -101,4 +101,8 @@ export default interface MappingContext {
    *  setter to change value of whether planning form should be hidden
    **/
   setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
+ /**
+   * handler to clear current route from specified number
+   */
+  groupMoveToRoot?: {(uniqid: string): void}
 }

@@ -19,7 +19,7 @@ import canCombineWith from './helpers/can-combine-with'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, phase, isUmpire, setSelectedAsset,
-  submitTitle, submitForm, showOtherPlatforms, gridCells
+  submitTitle, submitForm, showOtherPlatforms, gridCells, groupMoveToRoot
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
 
@@ -180,6 +180,7 @@ export const WorldState: React.FC<PropTypes> = ({
           let newRoutes
           switch (type) {
             case 'group': {
+              console.log('group')
               const groupForce = getForceName(droppedInTo, tmpRoutes)
               newRoutes = removeItem(tmpRoutes, items.map((i: any) => i.uniqid))
               newRoutes = createNewGroup(newRoutes, items, depth, groupForce)
@@ -187,19 +188,25 @@ export const WorldState: React.FC<PropTypes> = ({
               break
             }
             case 'group-out': {
-              const perceivedForceName = getForceName(droppedItem, tmpRoutes)
-              newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
-              newRoutes.push({
-                ...droppedItem,
-                perceivedForceName
-              })
-              setTmpRoutes(newRoutes as Array<Route>)
+              if(groupMoveToRoot) {
+                groupMoveToRoot(droppedItem.uniqid)
+              } else {
+                console.warn('No move to root handler found')
+              }
+              // const perceivedForceName = getForceName(droppedItem, tmpRoutes)
+              // newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
+              // newRoutes.push({
+              //   ...droppedItem,
+              //   perceivedForceName
+              // })
+              // setTmpRoutes(newRoutes as Array<Route>)
               break
             }
             default:
-              newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
-              newRoutes = moveToGroup(newRoutes, droppedInTo, droppedItem)
-              setTmpRoutes(newRoutes as Array<Route>)
+              console.log('world state, moving to top')
+              // newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
+              // newRoutes = moveToGroup(newRoutes, droppedInTo, droppedItem)
+              // setTmpRoutes(newRoutes as Array<Route>)
               break
           }
         }}

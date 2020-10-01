@@ -7,6 +7,7 @@ import MapControl from '../map-control'
 import { cloneDeep } from 'lodash'
 
 /* helper functions */
+import groupMoveToRoot from './helpers/group-move-to-root'
 import createGrid from './helpers/create-grid'
 import boundsFor from './helpers/bounds-for'
 import {
@@ -339,6 +340,11 @@ export const Mapping: React.FC<PropTypes> = ({
     setViewAsForce(force)
   }
 
+  const groupMoveToRootLocal = (uniqid: string): void => {
+    const newForces = groupMoveToRoot(uniqid, forces)
+    console.log(newForces.length)
+  }
+
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     gridCells,
@@ -363,7 +369,8 @@ export const Mapping: React.FC<PropTypes> = ({
     clearFromTurn,
     postBack,
     hidePlanningForm,
-    setHidePlanningForm
+    setHidePlanningForm,
+    groupMoveToRoot: groupMoveToRootLocal
   }
 
   // any events for leafletjs you can get from leafletElement

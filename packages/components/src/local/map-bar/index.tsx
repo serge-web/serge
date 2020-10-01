@@ -53,7 +53,8 @@ export const MapBar: React.FC = () => {
     routeStore,
     turnPlanned,
     hidePlanningForm,
-    setHidePlanningForm
+    setHidePlanningForm,
+    groupMoveToRoot
   }: {
     gridCells: SergeGrid<SergeHex<{}>> | undefined
     playerForce: any
@@ -71,6 +72,7 @@ export const MapBar: React.FC = () => {
     turnPlanned: {(turn: PlanTurnFormValues): void}
     hidePlanningForm: boolean
     setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
+    groupMoveToRoot?: {(uniqid: string): void}
   } = useContext(MapContext).props
 
   // sort out the handler for State of World button
@@ -227,6 +229,7 @@ export const MapBar: React.FC = () => {
             submitTitle = {stateSubmitTitle}
             setSelectedAsset={setSelectedAssetById}
             submitForm={worldStateSubmitHandler}
+            groupMoveToRoot={groupMoveToRoot}
             gridCells={gridCells} ></WorldState>
         </section>
       </div>
