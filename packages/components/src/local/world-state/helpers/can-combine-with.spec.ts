@@ -23,6 +23,11 @@ it('returns correct combine with answers', () => {
   const grid: SergeGrid<SergeHex<{}>> = createGrid(latLongBounds, 5)
   expect(grid.length).toEqual(525)
 
+  // put the tanker in the same cell as the frigate
+  if(forces[1].assets) {
+    forces[1].assets[3].position = forces[1].assets[1].position
+  }
+  
   const store: RouteStore = routeCreateStore(undefined, forces, 'Blue', false, platformTypes, grid, false, false)
 
   const tankerId = 'a0pra00003'
@@ -35,13 +40,15 @@ it('returns correct combine with answers', () => {
 
   // export type NodeType = 'empty' | 'group' | 'group-out'
 
-  // by default everything should be draggable
+  // if nothing is selected, just let it be draggable
   expect(canCombineWith(store, UNSELECTED_ID, frigateId, [], 'group', grid)).toBeTruthy()
   expect(canCombineWith(store, UNSELECTED_ID, groupId, [], 'group', grid)).toBeTruthy()
 
-  // start off at the top level
+  // let platforms in same cell be draggable
   expect(canCombineWith(store, tankerId, frigateId, [], 'group', grid)).toBeTruthy()
   expect(canCombineWith(store, frigateId, tankerId, [], 'group', grid)).toBeTruthy()
+
+  // if they're not in same cell, they're not draggable
   expect(canCombineWith(store, frigateId, groupId, [], 'group', grid)).toBeFalsy()
 
   // for a platform that is a child, if the target id is -1, it's the operation to
