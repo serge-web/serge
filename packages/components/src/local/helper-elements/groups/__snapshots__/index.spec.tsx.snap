@@ -5,6 +5,5 @@ exports[`Groups renders correctly 1`] = `
   className="main"
 >
   <ul />
-  
 </div>
 `;

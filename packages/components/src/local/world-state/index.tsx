@@ -9,16 +9,17 @@ import Groups from '../helper-elements/groups'
 
 /* Import Types */
 import PropTypes from './types/props'
-import { GroupItem } from '../helper-elements/groups/types/props'
-
+import { NodeType } from '../helper-elements/groups/types/props'
+import { GroupItem, Route } from '@serge/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import { Route } from '@serge/custom-types'
+
 import { ADJUDICATION_PHASE } from '@serge/config'
+import canCombineWith from './helpers/can-combine-with'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, phase, isUmpire, setSelectedAsset,
-  submitTitle, submitForm, showOtherPlatforms
+  submitTitle, submitForm, showOtherPlatforms, gridCells
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
 
@@ -158,6 +159,12 @@ export const WorldState: React.FC<PropTypes> = ({
     return forceName
   }
 
+  // Note: draggingItem.uniq === -1 when no active dragging item
+  const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
+    // console.log(draggingItem.uniqid, item.uniqid, _type, _parents)
+    return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type, gridCells)
+  }
+
   return <>
     <div className={styles['world-state']}>
       <h2 className={styles.title}>{customTitle}</h2>
@@ -165,7 +172,8 @@ export const WorldState: React.FC<PropTypes> = ({
       <Groups
         items={tmpRoutes}
         renderContent={renderContent}
-        onSet={(itemsLink, type, depth): void => {
+        canCombineWith={canCombineWithLocal}
+        onSet={(itemsLink: any, type: any, depth: any): void => {
           const items = itemsLink.slice(0)
           const [droppedItem, droppedInTo] = items
           // TODO: remove setTmpRoutes and use api
@@ -173,7 +181,7 @@ export const WorldState: React.FC<PropTypes> = ({
           switch (type) {
             case 'group': {
               const groupForce = getForceName(droppedInTo, tmpRoutes)
-              newRoutes = removeItem(tmpRoutes, items.map(i => i.uniqid))
+              newRoutes = removeItem(tmpRoutes, items.map((i: any) => i.uniqid))
               newRoutes = createNewGroup(newRoutes, items, depth, groupForce)
               setTmpRoutes(newRoutes as Array<Route>)
               break
@@ -206,114 +214,3 @@ export const WorldState: React.FC<PropTypes> = ({
 }
 
 export default WorldState
-
-/*
-<ul>
-  {routes
-    .filter((pRoute: PlannedRoute) => pRoute.underControl === !showOtherPlatforms)
-    .map((pRoute: PlannedRoute): any => (
-      <li
-        key={'r_li_' + pRoute.uniqid}
-      >
-        {renderItem(pRoute, pRoute.forceName, true)}
-      </li>
-    ))
-  }
-</ul>
-*/
-
-/*
-const renderItem = (pRoute: PlannedRoute, forceName: string, topLevel: boolean): JSX.Element => {
-  const descriptionText = (isUmpire || pRoute.underControl) && topLevel
-    ? `${pRoute.numPlanned} turns planned` : ''
-
-  const hostItems: Array<PlannedRoute> = []
-  if (pRoute.hosting && pRoute.hosting.length) {
-    pRoute.hosting.forEach((route: RouteChild) => {
-      const newItem: PlannedRoute = {
-        id: route.uniqid,
-        name: route.name,
-        comprising: route.asset ? route.asset.comprising : [],
-        forceName: route.force,
-        hosting: route.asset ? route.asset.hosting : [],
-        numPlanned: 0,
-        platformType: route.platformType,
-        selected: false,
-        underControl: true,
-        uniqid: route.uniqid
-      }
-      hostItems.push(newItem)
-    })
-  }
-
-  const compriseItems: Array<PlannedRoute> = []
-  if (pRoute.comprising && pRoute.comprising.length) {
-    pRoute.comprising.forEach((route: RouteChild) => {
-      const newItem: PlannedRoute = {
-        id: route.uniqid,
-        name: route.name,
-        comprising: route.asset.comprising,
-        forceName: route.force,
-        hosting: route.asset.hosting,
-        numPlanned: 0,
-        platformType: route.platformType,
-        selected: false,
-        underControl: true,
-        uniqid: route.uniqid
-      }
-      compriseItems.push(newItem)
-    })
-  }
-
-  const checkStatus: boolean = pRoute.numPlanned > 0
-
-  // if we don't know the force name, just use the one from the parent
-  const forceNameToUse = pRoute.forceName || forceName
-
-  const icClassName = getIconClassname(forceNameToUse.toLowerCase(), pRoute.platformType.toLowerCase(), pRoute.selected)
-
-  const assetClick = (id: string): void => {
-    // only select target if we're in "other platforms"
-    // TODO: we need to stop the event propagating back up the tree
-    if (showOtherPlatforms) {
-      clickEvent(id)
-    }
-  }
-
-  const list = [...hostItems, ...compriseItems]
-
-  return (
-    <Collapsible>
-      <CollapsibleHeader>
-        <div className={styles.item} onClick={(): any => clickEvent(pRoute.uniqid)}>
-          <div className={cx(icClassName, styles['item-icon'])}/>
-          <div className={styles['item-content']}>
-            <div>
-              <p>{pRoute.name}</p>
-              <p>{descriptionText}</p>
-            </div>
-
-          </div>
-          {!showOtherPlatforms && topLevel && <div className={styles['item-check']}>
-            {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
-            {checkStatus === false && <CheckCircleIcon style={{ color: '#B1B1B1' }} />}
-          </div>}
-        </div>
-      </CollapsibleHeader>
-      <CollapsibleContent useIndent={40}>
-        {list.length > 0 && <ul>
-          {hostItems.map((child: PlannedRoute) => (
-            <li
-              key={'item-' + child.uniqid}
-              onClick={(): any => assetClick(child.uniqid)}
-            >
-              {renderItem(child, forceNameToUse, false)}
-            </li>
-          ))}
-        </ul>}
-      </CollapsibleContent>
-    </Collapsible>
-  )
-}
-
-*/
