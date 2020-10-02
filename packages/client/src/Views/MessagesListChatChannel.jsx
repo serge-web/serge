@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import Badge from "react-bootstrap/Badge";
-import moment from "moment";
-import classNames from "classnames";
+import { AdminMessage } from "@serge/components";
 import { PlayerStateContext } from "../Store/PlayerUi";
-
 import "@serge/themes/App.scss";
 
 class MessagesListChatChannel extends Component {
@@ -36,25 +33,10 @@ class MessagesListChatChannel extends Component {
       <>
         <span className="link link--noIcon link--secondary" onClick={this.props.markAllAsRead}>Mark all as read</span>
           {
-            messages.map((item, i) => {
-              const { details, message } = item;
-              const isOwnMessage = name === details.from.force;
-              const listItemClass = isOwnMessage ? 'own-message' : '';
-
+            messages.map((message, id) => {
               return (
-                <div key={`preview-${i}`} className={`message-preview-player wrap ${listItemClass}`}>
-                  {
-                    isOwnMessage ?
-                      null :
-                      <span className="message-bullet" style={{ backgroundColor: details.from.forceColor }}>&nbsp;</span>
-                  }
-                  <div className={classNames("message-item-content", {"bold": !item.hasBeenRead})}>
-                    {message.content}
-                  </div>
-                  <div className="info-wrap">
-                    <time dateTime={details.timestamp}>{moment(details.timestamp).format("HH:mm")}</time>
-                    <Badge pill variant="secondary">{details.from.role}</Badge>
-                  </div>
+                <div key={id}>
+                  <AdminMessage force={name} message={message} />
                 </div>
               );
             })

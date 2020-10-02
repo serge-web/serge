@@ -65,13 +65,14 @@ class Channel extends Component {
               return <p className="turn-marker" key={`${item.gameTurn}-turnmarker`}>Turn {item.gameTurn}</p>
             }
             return (
-              <MessageListItem
-                detail={item}
-                key={`${item._id}-messageitem`}
-                userId={`${state.currentWargame}-${state.selectedForce}-${state.selectedRole}`}
-                open={this.openMessage}
-                close={this.closeMessage}
-              />
+              <div key={`${item._id}-messageitem`}>
+                <MessageListItem
+                  detail={item}
+                  userId={`${state.currentWargame}-${state.selectedForce}-${state.selectedRole}`}
+                  open={this.openMessage}
+                  close={this.closeMessage}
+                />
+              </div>
             );
           })}
         </div>

@@ -1,7 +1,7 @@
-import isValidURI from '../is-valid-url'
+import isValidUrl from '../is-valid-url'
 
-describe('isValidURI', () => {
-  it('checks is string is a valid URI', () => {
+describe('isValidUrl', () => {
+  it('checks is string is a valid URL', () => {
     const http = 'http://'
     const https = 'https://'
     const base = 'google.com'
@@ -14,14 +14,14 @@ describe('isValidURI', () => {
     const withQuery = `${fullHttpsDomain}/?q=search`
     const filePath = 'file:///fake-path'
     const misformatted = 'http/www'
-    expect(isValidURI(httpStr)).toBeTruthy()
-    expect(isValidURI(httpsStr)).toBeTruthy()
-    expect(isValidURI(fullDomain)).toBeTruthy()
-    expect(isValidURI(fullHttpsDomain)).toBeTruthy()
-    expect(isValidURI(ipAdr)).toBeTruthy()
-    expect(isValidURI(withPort)).toBeTruthy()
-    expect(isValidURI(withQuery)).toBeTruthy()
-    expect(isValidURI(filePath)).toBeTruthy()
-    expect(isValidURI(misformatted)).toBeFalsy()
+    expect(isValidUrl(httpStr)).toBeTruthy()
+    expect(isValidUrl(httpsStr)).toBeTruthy()
+    expect(isValidUrl(fullDomain)).toBeTruthy()
+    expect(isValidUrl(fullHttpsDomain)).toBeTruthy()
+    expect(isValidUrl(ipAdr)).toBeTruthy()
+    expect(isValidUrl(withPort)).toBeTruthy()
+    expect(isValidUrl(withQuery)).toBeTruthy()
+    expect(isValidUrl(filePath)).toBeTruthy()
+    expect(isValidUrl(misformatted)).toBeFalsy()
   })
 })

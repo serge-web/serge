@@ -8,11 +8,13 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import isPlainObject from '@serge/helpers/is-plain-object'
-import isArrayOfObject from '@serge/helpers/is-array-of-object'
-import isBoolean from '@serge/helpers/is-boolean'
-import isValidURI from '@serge/helpers/is-valid-url'
-import capitalize from '@serge/helpers/capitalize'
+import {
+  isPlainObject,
+  isArrayOfObject,
+  isBoolean,
+  isValidUrl,
+  capitalize
+} from '@serge/helpers'
 import Paragraph from '../../atoms/paragraph'
 import MessageLabel from '../../atoms/message-label'
 
@@ -107,7 +109,7 @@ const decideRender = (pair: Array<any>) => (fallback: Function): React.ReactFrag
     case isBoolean(detail):
       renderer = createBoolItem
       break
-    case isValidURI(detail):
+    case isValidUrl(detail):
       renderer = createUrlItem
       break
     case moment(detail, moment.ISO_8601, true).isValid():
