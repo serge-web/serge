@@ -1,4 +1,4 @@
-import { RouteStore } from '@serge/custom-types'
+import { RouteStore, SergeGrid, SergeHex } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -33,4 +33,8 @@ export default interface PropTypes {
    * switch beetween Orders and  Other Visible Platforms
    */
   showOtherPlatforms?: boolean
+  /**
+   * grid of cells, used for movement
+   */
+  gridCells?: SergeGrid<SergeHex<{}>> | undefined
 }
