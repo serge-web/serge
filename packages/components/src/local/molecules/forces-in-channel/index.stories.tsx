@@ -29,7 +29,7 @@ export default {
 
 export const Default: React.FC = () => {
   const icons = [
-    '/images/default_img/forceDefault.png'
+    './images/default_img/forceDefault.png'
   ]
   return (
     <ForcesInChannel
@@ -41,9 +41,9 @@ export const Default: React.FC = () => {
 
 export const MultipleForces: React.FC = () => {
   const icons = [
-    '/images/default_img/forceDefault.png',
-    '/images/default_img/sergeDefault.png',
-    '/images/default_img/umpireDefault.png'
+    './images/default_img/forceDefault.png',
+    './images/default_img/sergeDefault.png',
+    './images/default_img/umpireDefault.png'
   ]
   return (
     <ForcesInChannel

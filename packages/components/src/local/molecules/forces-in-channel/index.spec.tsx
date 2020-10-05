@@ -8,7 +8,7 @@ import ForcesInChannel from './index'
 describe('ForcesInChannel component:', () => {
   it('renders correctly', () => {
     const icons = [
-      '/images/default_img/forceDefault.png'
+      './images/default_img/forceDefault.png'
     ]
     const tree = renderer
       .create(

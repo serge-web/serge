@@ -33,7 +33,7 @@ export default {
 
 export const Default: React.FC = () => {
   const icons = [
-    '/images/default_img/forceDefault.png'
+    './images/default_img/forceDefault.png'
   ]
   const [isRead, setIsRead] = useState([true, false])
   const messages = [

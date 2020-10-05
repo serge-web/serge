@@ -6,7 +6,7 @@ import ChannelMessagesList from './index'
 describe('ChannelMessagesList component: ', () => {
   it('renders component correctly', () => {
     const icons = [
-      '/images/default_img/forceDefault.png'
+      './images/default_img/forceDefault.png'
     ]
     const markAllAsRead = (): void => window.alert('Callback on mark all as read')
     const messages = [{
