@@ -8,6 +8,9 @@ describe('ChannelMessagesList component: ', () => {
     const icons = [
       './images/default_img/forceDefault.png'
     ]
+    const colors = [
+      '#F00'
+    ]
     const markAllAsRead = (): void => window.alert('Callback on mark all as read')
     const messages = [{
       borderColor: '#ffffff',
@@ -41,7 +44,7 @@ describe('ChannelMessagesList component: ', () => {
       }
     }]
     const tree = renderer
-      .create(<ChannelMessagesList messages={messages} icons={icons} onMarkAllAsRead={markAllAsRead} />)
+      .create(<ChannelMessagesList messages={messages} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

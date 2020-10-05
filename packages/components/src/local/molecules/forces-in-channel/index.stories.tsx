@@ -31,9 +31,13 @@ export const Default: React.FC = () => {
   const icons = [
     './images/default_img/forceDefault.png'
   ]
+  const colors = [
+    '#F00'
+  ]
   return (
     <ForcesInChannel
       icons={icons}
+      colors={colors}
       onMarkAllAsRead={(): void => window.alert('Mark all as read')}
     />
   )
@@ -45,9 +49,15 @@ export const MultipleForces: React.FC = () => {
     './images/default_img/sergeDefault.png',
     './images/default_img/umpireDefault.png'
   ]
+  const colors = [
+    '#F00',
+    '#0F0',
+    '#00F',
+  ]
   return (
     <ForcesInChannel
       icons={icons}
+      colors={colors}
       onMarkAllAsRead={(): void => window.alert('Mark all as read')}
     />
   )

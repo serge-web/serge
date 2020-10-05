@@ -35,6 +35,9 @@ export const Default: React.FC = () => {
   const icons = [
     './images/default_img/forceDefault.png'
   ]
+  const colors = [
+    '#0F0'
+  ]
   const [isRead, setIsRead] = useState([true, false])
   const messages = [
     {
@@ -107,6 +110,7 @@ export const Default: React.FC = () => {
   return <ChannelMessagesList
     messages={messages}
     icons={icons}
+    colors={colors}
     onMarkAllAsRead={markAllAsRead}
     onRead={onRead}
   />

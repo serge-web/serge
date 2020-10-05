@@ -88,12 +88,14 @@ class Channel extends Component {
       }
     })
     const icons = state.channels[curChannel].forceIcons
+    const colors = state.channels[curChannel].forceColors
 
     return (
       <div className={this.state.channelTabClass} data-channel-id={curChannel}>
         <ChannelMessagesList
           messages={messages}
           icons={icons}
+          colors={colors}
           onMarkAllAsRead={this.markAllRead}
         />
         {

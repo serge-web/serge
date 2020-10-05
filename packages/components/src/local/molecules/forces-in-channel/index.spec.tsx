@@ -10,10 +10,14 @@ describe('ForcesInChannel component:', () => {
     const icons = [
       './images/default_img/forceDefault.png'
     ]
+    const colors = [
+      '#00F'
+    ]
     const tree = renderer
       .create(
         <ForcesInChannel
           icons={icons}
+          colors={colors}
           onMarkAllAsRead={(): void => window.alert('Mark all as read')}
         />
       )

@@ -4,6 +4,10 @@ export default interface Props {
    */
   icons: Array<string>
   /**
+   * List of colods generated from each force's color
+   */
+  colors: Array<string>
+  /**
    * Callback on mark all as read button click event
    */
   onMarkAllAsRead: {(): void}

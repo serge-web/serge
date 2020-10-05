@@ -12,11 +12,11 @@ import ForcesInChannel from '../../molecules/forces-in-channel'
 import { Box } from '@material-ui/core'
 
 /* Render component */
-export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, onMarkAllAsRead, onRead }: PropTypes) => {
+export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead }: PropTypes) => {
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
-        <ForcesInChannel icons={icons} onMarkAllAsRead={onMarkAllAsRead} />
+        <ForcesInChannel colors={colors} icons={icons} onMarkAllAsRead={onMarkAllAsRead} />
       </Box>
       <Box ml={2} className={styles['messages-list']}>
         {
