@@ -15,7 +15,7 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
     const { onRead } = props
     const handleOnExpand = (): void => {
       onExpand(!collapsed)
-      onRead && onRead()
+      onRead && onRead(props.detail)
     }
     return (
       <MessageListHeader

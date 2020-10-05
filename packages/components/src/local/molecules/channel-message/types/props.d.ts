@@ -9,5 +9,5 @@ export default interface Props extends MessageListHeaderProps, MessageListDetail
   /**
    * Handle on reading detail
    */
-  onRead?: Function
+  onRead?: {(detail: object): void}
 }
