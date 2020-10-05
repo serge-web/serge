@@ -1,9 +1,9 @@
 @import "~@serge/themes/dependencies/variables";
 
 .insight-form {
+  @include typo-primary;
   max-width: 500px;
   padding: 20px;
-  @include typo-primary;
 
   svg {
     color: $primary-color;

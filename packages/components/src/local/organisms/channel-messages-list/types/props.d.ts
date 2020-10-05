@@ -7,8 +7,8 @@ interface MessagesTypes extends ChannelMessageProps {
    * as new wargame data object), or a message
    */
   infoType?: boolean
-  /** 
-   * turn number that this message was sent in 
+  /**
+   * turn number that this message was sent in
    * */
   gameTurn?: number
 }

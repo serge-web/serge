@@ -52,7 +52,7 @@ export const MultipleForces: React.FC = () => {
   const colors = [
     '#F00',
     '#0F0',
-    '#00F',
+    '#00F'
   ]
   return (
     <ForcesInChannel
