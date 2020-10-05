@@ -143,16 +143,13 @@ export const Mapping: React.FC<PropTypes> = ({
     setRouteStore(store)
   }, [selectedAsset])
 
-
-  
   /**
    * if the player force changes, clear the selected assets (for StoryBook debugging)
    */
   useEffect(() => {
     // clear the selected assets
     setSelectedAsset(undefined)
-  }, [ playerForce ])
-
+  }, [playerForce])
 
   /**
    * generate the set of routes visible to this player, for display
