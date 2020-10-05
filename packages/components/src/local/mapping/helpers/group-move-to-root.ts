@@ -8,6 +8,7 @@ import { cloneDeep } from 'lodash'
 const groupMoveToRoot = (uniqid: string, forces: any): any => {
   const newForces: any = cloneDeep(forces)
   // find the force
+  var topLevelAsset: any
   var parentForce: any
   var parentListType: listType | undefined
   var parentAsset: any
@@ -19,6 +20,7 @@ const groupMoveToRoot = (uniqid: string, forces: any): any => {
   newForces.forEach((force: any) => {
     if(force.assets && !parentForce) {
       force.assets.forEach((asset:any) => {
+        topLevelAsset = asset
         // only carry on hunting if we haven't found it
         if(!parentForce) {
           const hosted = findInList(uniqid, asset.hosting)    
@@ -76,6 +78,11 @@ const groupMoveToRoot = (uniqid: string, forces: any): any => {
       }
     }
 
+    // put the asset in the same cell as the parent. We may need to use
+    // the top level one, if this is actually in a lower one
+    const position = parentAsset.position ? parentAsset.position : topLevelAsset.position
+    theAsset.position = cloneDeep(position)
+    
     // add at the top level
     parentForce.assets.push(theAsset)
 

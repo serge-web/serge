@@ -10,7 +10,13 @@ it('Moves merlin to top level from hosting', () => {
   // check merlin is where we expect it to be
   if(forces[1].assets && forces[1].assets[1]) {
     const frigate:any = forces[1].assets[1]
+    // check frigate is where we expect it to be
+    expect(frigate.position).toEqual('P21')
+    expect(frigate.status).toBeTruthy()
+    // check item zero is merlin
     expect(frigate.hosting[0].uniqid).toEqual(merlinId)
+    // check merlin doesn't have location
+    expect(frigate.hosting[0].position).toEqual(undefined)
   }
 
   // move the merlin to the top level
@@ -27,6 +33,8 @@ it('Moves merlin to top level from hosting', () => {
   // check merlin is where we expect it to be
   if(forces2[1].assets && forces2[1].assets[4]) {
     expect(forces2[1].assets[4].uniqid).toEqual(merlinId)
+    // check it has a location
+    expect(forces2[1].assets[4].position).toEqual('P21')
   }
 })
 
