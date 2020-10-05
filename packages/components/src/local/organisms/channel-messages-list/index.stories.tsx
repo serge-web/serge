@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 
@@ -35,17 +35,17 @@ export const Default: React.FC = () => {
   const icons = [
     '/images/default_img/forceDefault.png'
   ]
-  const markAllAsRead = (): void => window.alert('Callback on mark all as read')
+  const [isRead, setIsRead] = useState([true, false])
   const messages = [{
     borderColor: '#ffffff',
     title: 'lorem ipsum do lor sit amet',
     timestamp: '2020-09-18T05:41:17.349Z',
     role: 'Game Control',
     messageType: 'State of The World',
-    hasBeenRead: true,
     privateMessage: 'Private message',
     isUmpire: true,
     detail: {
+      id: '1',
       Forces: [{
         assets: [{
           location: 'loc',
@@ -66,6 +66,34 @@ export const Default: React.FC = () => {
         force: 'Red'
       }]
     }
-  }]
-  return <ChannelMessagesList messages={messages} icons={icons} onMarkAllAsRead={markAllAsRead} />
+  }, {
+    borderColor: '#3dd0ffB3',
+    title: 'lorem ipsum do lor sit amet',
+    timestamp: '2020-09-18T05:41:17.349Z',
+    role: 'CO',
+    messageType: 'Chat',
+    privateMessage: 'Private message',
+    isUmpire: true,
+    detail: { id: '2', content: 'Lorem ipsum do lor sit amet' }
+  }].map((message, id) => {
+    return { ...message, hasBeenRead: isRead[id] }
+  })
+  const markAllAsRead = () => {
+    setIsRead(isRead.map(() => true))
+  }
+  const onRead = (detail: any): void => {
+    const newState = isRead.map((state, id) => {
+      if (id === messages.findIndex(item => item.detail.id === detail.id)) {
+        state = true
+      }
+      return state
+    })
+    setIsRead(newState)
+  }
+  return <ChannelMessagesList
+    messages={messages}
+    icons={icons}
+    onMarkAllAsRead={markAllAsRead}
+    onRead={onRead}
+  />
 }

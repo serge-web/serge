@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import moment from "moment";
 import { umpireForceTemplate } from "../consts";
-import MessageListItem from "../Components/MessageListItem";
 import NewMessage from "./NewMessage";
+import {ChannelMessagesList} from '@serge/components';
 import {
   closeMessage,
   getAllWargameMessages,
@@ -49,33 +50,52 @@ class Channel extends Component {
   render() {
     let curChannel = this.props.channelId;
     const [ state ] = this.context;
+    const messages = state.channels[curChannel].messages.map(item => {
+      const { details, message, isOpen, hasBeenRead, infoType, gameTurn } = item || {};
+      const { role, forceColor } = details.from || {}
+      const { messageType, privateMessage } = details
+      const dynamicBorderColor = `${forceColor}${hasBeenRead ? 'B3':''}`;
+      const timestamp = moment(details.timestamp)
+      const isUmpire = state.selectedForce === umpireForceTemplate.uniqid
+      const detail = message || {}
+      const onRead = this.openMessage
+      let title;
+      if (detail.title) {
+        title = detail.title;
+      } else if(detail.content) {
+        // yes, we have content (probably chat) use it
+        title = detail.content;
+      } else {
+        // no content, just use message-type
+        title = detail.messageType;
+      }
+      return {
+        ...item,
+        borderColor: dynamicBorderColor,
+        infoType,
+        gameTurn,
+        isOpen,
+        title,
+        timestamp,
+        role,
+        forceColor,
+        messageType,
+        hasBeenRead,
+        privateMessage,
+        isUmpire,
+        detail,
+        onRead,
+      }
+    })
+    const icons = state.channels[curChannel].forceIcons
 
     return (
       <div className={this.state.channelTabClass} data-channel-id={curChannel}>
-        <div className="forces-in-channel">
-          {state.channels[curChannel].forceIcons.map((url, i) => <img key={`indicator${i}`} className="force-indicator role-icon" src={url} alt="" />)}
-          <button name="mark as read" className="btn btn-action btn-action--secondary" onClick={this.markAllRead}>Mark all read</button>
-        </div>
-
-        <div className="message-list">
-
-          {state.channels[curChannel].messages.map((item, i) => {
-
-            if (item.infoType) {
-              return <p className="turn-marker" key={`${item.gameTurn}-turnmarker`}>Turn {item.gameTurn}</p>
-            }
-            return (
-              <div key={`${item._id}-messageitem`}>
-                <MessageListItem
-                  detail={item}
-                  userId={`${state.currentWargame}-${state.selectedForce}-${state.selectedRole}`}
-                  open={this.openMessage}
-                  close={this.closeMessage}
-                />
-              </div>
-            );
-          })}
-        </div>
+        <ChannelMessagesList
+          messages={messages}
+          icons={icons}
+          onMarkAllAsRead={this.markAllRead}
+        />
         {
           state.channels[curChannel].observing === false &&
           <NewMessage
