@@ -5,7 +5,7 @@ export default interface Props extends MessageListHeaderProps, MessageListDetail
   /**
    * Header border color
    */
-  borderColor: string
+  borderColor?: string
   /**
    * Handle on reading detail
    */

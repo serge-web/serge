@@ -8,19 +8,19 @@ export default interface Props {
   /**
    * Header item title
    */
-  title: string
+  title?: string
   /**
    * Message timestamp
    */
-  timestamp: string
+  timestamp?: string
   /**
    * Message sender role
    */
-  role: string
+  role?: string
   /**
    * Message type
    */
-  messageType: string
+  messageType?: string
   /**
    * Message read state
    */
