@@ -1,0 +1,30 @@
+@import '~@serge/themes/dependencies/variables';
+
+.forces-in-channel {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding: 0 28px 0 16px;
+
+  button {
+    font-size: 12px;
+    margin-left: auto;
+    margin-right: -16px;
+  }
+}
+
+.force-indicator {
+  height: 24px;
+  width: 24px;
+
+  + .force-indicator {
+    margin-left: 10px;
+  }
+}
+
+.role-icon {
+  border: 1px solid $force-default-color;
+  border-radius: 100%;
+  height: 24px;
+  width: 24px;
+}
