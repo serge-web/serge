@@ -204,9 +204,9 @@ export const WorldState: React.FC<PropTypes> = ({
             }
             default:
               console.log('world state, moving to top')
-              // newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
-              // newRoutes = moveToGroup(newRoutes, droppedInTo, droppedItem)
-              // setTmpRoutes(newRoutes as Array<Route>)
+              newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
+              newRoutes = moveToGroup(newRoutes, droppedInTo, droppedItem)
+              setTmpRoutes(newRoutes as Array<Route>)
               break
           }
         }}
