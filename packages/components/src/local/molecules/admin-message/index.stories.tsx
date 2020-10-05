@@ -8,7 +8,7 @@ import { MessagesMock, forces } from '@serge/mocks'
 export default {
   title: 'local/molecules/AdminMessage',
   component: AdminMessage,
-  decorators: [(story: Function):JSX.Element => (
+  decorators: [(story: Function): JSX.Element => (
     <div style={{ overflow: 'hidden' }}>{ story() }</div>
   )],
   parameters: {
