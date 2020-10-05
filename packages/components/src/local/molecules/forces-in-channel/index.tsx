@@ -21,8 +21,9 @@ const useButtonStyle = makeStyles(() =>
   })
 )
 
-export const ForcesInChannel: React.FC<Props> = ({ icons, onMarkAllAsRead }: Props) => {
+export const ForcesInChannel: React.FC<Props> = ({ icons, colors, onMarkAllAsRead }: Props) => {
   const buttonStyles = useButtonStyle()
+  console.log(icons, colors)
   return (
     <div className={styles['forces-in-channel']}>
       {
