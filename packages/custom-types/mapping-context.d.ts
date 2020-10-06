@@ -109,5 +109,8 @@ export default interface MappingContext {
    * handler to move assets into new group 
    * */
   groupCreateNewGroup?: {(dragged: string, target: string): void}
-
+ /**
+   * handler to host one platform on another
+   */
+  groupHostPlatform?: {(dragged: string, target: string): void}
 }

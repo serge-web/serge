@@ -9,6 +9,7 @@ import { cloneDeep } from 'lodash'
 /* helper functions */
 import groupMoveToRoot from './helpers/group-move-to-root'
 import groupCreateNewGroup from './helpers/group-create-new-group'
+import groupHostPlatform from './helpers/group-host-platform'
 import createGrid from './helpers/create-grid'
 import boundsFor from './helpers/bounds-for'
 import {
@@ -360,6 +361,12 @@ export const Mapping: React.FC<PropTypes> = ({
     setForcesState(newForces)
   }
 
+  const groupHostPlatformLocal = (dragged: string, target: string): void => {
+    console.log('host platform', dragged, target)
+    const newForces = groupHostPlatform(dragged, target, forcesState)
+    setForcesState(newForces)
+  }
+
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     gridCells,
@@ -386,7 +393,8 @@ export const Mapping: React.FC<PropTypes> = ({
     hidePlanningForm,
     setHidePlanningForm,
     groupMoveToRoot: groupMoveToRootLocal,
-    groupCreateNewGroup: groupCreateNewGroupLocal
+    groupCreateNewGroup: groupCreateNewGroupLocal,
+    groupHostPlatform: groupHostPlatformLocal
   }
 
   // any events for leafletjs you can get from leafletElement

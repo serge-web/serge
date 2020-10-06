@@ -45,4 +45,8 @@ export default interface PropTypes {
    * handler to create new group for provided assets
    */
   groupCreateNewGroup?: {(dragged: string, target: string): void}
+ /**
+   * handler to host one platform on another
+   */
+  groupHostPlatform?: {(dragged: string, target: string): void}
 }

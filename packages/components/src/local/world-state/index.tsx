@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ReactText } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import Button from '../form-elements/button'
@@ -19,7 +19,7 @@ import canCombineWith from './helpers/can-combine-with'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, phase, isUmpire, setSelectedAsset,
-  submitTitle, submitForm, showOtherPlatforms, gridCells, groupMoveToRoot, groupCreateNewGroup
+  submitTitle, submitForm, showOtherPlatforms, gridCells, groupMoveToRoot, groupCreateNewGroup, groupHostPlatform
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
 
@@ -92,53 +92,53 @@ export const WorldState: React.FC<PropTypes> = ({
     )
   }
 
-  const removeItem = (items: Array<GroupItem>, removeKeys: Array<ReactText>): Array<GroupItem> => items.filter(item => {
-    if (removeKeys.includes(item.uniqid)) return false
-    if (Array.isArray(item.comprising)) { item.comprising = removeItem(item.comprising, removeKeys) }
-    if (Array.isArray(item.hosting)) { item.hosting = removeItem(item.hosting, removeKeys) }
-    return true
-  })
+  // const removeItem = (items: Array<GroupItem>, removeKeys: Array<ReactText>): Array<GroupItem> => items.filter(item => {
+  //   if (removeKeys.includes(item.uniqid)) return false
+  //   if (Array.isArray(item.comprising)) { item.comprising = removeItem(item.comprising, removeKeys) }
+  //   if (Array.isArray(item.hosting)) { item.hosting = removeItem(item.hosting, removeKeys) }
+  //   return true
+  // })
 
-  const createNewGroup = (routes: Array<GroupItem>, items: Array<GroupItem>, depth: Array<GroupItem>, forceName: string, index = 0): Array<GroupItem> => {
-    if (depth.length > 0 && index < depth.length) {
-      return routes.map(item => {
-        if (item.uniqid === depth[index].uniqid) {
-          item.comprising = createNewGroup(item.comprising || [], items, depth, forceName, index + 1)
-          if (index < depth.length - 1) item.hosting = createNewGroup(item.hosting || [], items, depth, forceName, index + 1)
-        }
-        return item
-      })
-    } else {
-      const newGroup = {
-        name: 'new group',
-        comprising: items,
-        perceivedForceName: forceName,
-        hosting: [],
-        numPlanned: 0,
-        platformType: 'task-group',
-        selected: false,
-        underControl: true,
-        uniqid: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
-      }
+  // const createNewGroup = (routes: Array<GroupItem>, items: Array<GroupItem>, depth: Array<GroupItem>, forceName: string, index = 0): Array<GroupItem> => {
+  //   if (depth.length > 0 && index < depth.length) {
+  //     return routes.map(item => {
+  //       if (item.uniqid === depth[index].uniqid) {
+  //         item.comprising = createNewGroup(item.comprising || [], items, depth, forceName, index + 1)
+  //         if (index < depth.length - 1) item.hosting = createNewGroup(item.hosting || [], items, depth, forceName, index + 1)
+  //       }
+  //       return item
+  //     })
+  //   } else {
+  //     const newGroup = {
+  //       name: 'new group',
+  //       comprising: items,
+  //       perceivedForceName: forceName,
+  //       hosting: [],
+  //       numPlanned: 0,
+  //       platformType: 'task-group',
+  //       selected: false,
+  //       underControl: true,
+  //       uniqid: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
+  //     }
 
-      return [
-        ...routes,
-        newGroup as GroupItem
-      ]
-    }
-  }
-  const moveToGroup = (routes: Array<GroupItem>, droppedInTo: GroupItem, droppedItem: GroupItem): Array<GroupItem> => {
-    return routes.map(item => {
-      if (Array.isArray(item.comprising)) {
-        if (item.uniqid === droppedInTo.uniqid) {
-          item.comprising = [...item.comprising, droppedItem]
-        } else {
-          item.comprising = moveToGroup(item.comprising, droppedInTo, droppedItem)
-        }
-      }
-      return item
-    })
-  }
+  //     return [
+  //       ...routes,
+  //       newGroup as GroupItem
+  //     ]
+  //   }
+  // }
+  // const moveToGroup = (routes: Array<GroupItem>, droppedInTo: GroupItem, droppedItem: GroupItem): Array<GroupItem> => {
+  //   return routes.map(item => {
+  //     if (Array.isArray(item.comprising)) {
+  //       if (item.uniqid === droppedInTo.uniqid) {
+  //         item.comprising = [...item.comprising, droppedItem]
+  //       } else {
+  //         item.comprising = moveToGroup(item.comprising, droppedInTo, droppedItem)
+  //       }
+  //     }
+  //     return item
+  //   })
+  // }
 
   // Note: draggingItem.uniq === -1 when no active dragging item
   const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
@@ -158,19 +158,13 @@ export const WorldState: React.FC<PropTypes> = ({
           const items = itemsLink.slice(0)
           const [droppedItem, droppedInTo] = items
           // TODO: remove setTmpRoutes and use api
-          let newRoutes
           switch (type) {
             case 'group': {
-              console.log('start new group', droppedItem, droppedInTo, depth)
               if(groupCreateNewGroup) {
                 groupCreateNewGroup(droppedItem.uniqid, droppedInTo.uniqid)
               } else {
                 console.warn('No new group handler', depth)
               }
-              // const groupForce = getForceName(droppedInTo, tmpRoutes)
-              // newRoutes = removeItem(tmpRoutes, items.map((i: any) => i.uniqid))
-              // newRoutes = createNewGroup(newRoutes, items, depth, groupForce)
-              // setTmpRoutes(newRoutes as Array<Route>)
               break
             }
             case 'group-out': {
@@ -182,10 +176,11 @@ export const WorldState: React.FC<PropTypes> = ({
               break
             }
             default:
-              console.log('world state, moving to top')
-              newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
-              newRoutes = moveToGroup(newRoutes, droppedInTo, droppedItem)
-              setTmpRoutes(newRoutes as Array<Route>)
+              if(groupHostPlatform) {
+                groupHostPlatform(droppedItem.uniqid, droppedInTo.uniqid)
+              } else {
+                console.warn('No handler for host platform')
+              }
               break
           }
         }}
