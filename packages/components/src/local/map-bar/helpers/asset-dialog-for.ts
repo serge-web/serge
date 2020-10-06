@@ -26,7 +26,7 @@ const assetDialogFor = (
       } else if (playerForce.toLowerCase() !== 'umpire') {
         // a player has clicked on an asset from a force they don't control
         // check this force can see the asset
-        const canSee = assetVisibleTo && assetVisibleTo.find((force:string) => force.toLowerCase() === playerForce.toLowerCase())
+        const canSee = assetVisibleTo && assetVisibleTo.find((force: string) => force.toLowerCase() === playerForce.toLowerCase())
         res = canSee ? 'PerceivedAs' : ''
       } else {
         res = ''

@@ -160,7 +160,7 @@ export const WorldState: React.FC<PropTypes> = ({
           // TODO: remove setTmpRoutes and use api
           switch (type) {
             case 'group': {
-              if(groupCreateNewGroup) {
+              if (groupCreateNewGroup) {
                 groupCreateNewGroup(droppedItem.uniqid, droppedInTo.uniqid)
               } else {
                 console.warn('No new group handler', depth)
@@ -176,7 +176,7 @@ export const WorldState: React.FC<PropTypes> = ({
               break
             }
             default:
-              if(groupHostPlatform) {
+              if (groupHostPlatform) {
                 groupHostPlatform(droppedItem.uniqid, droppedInTo.uniqid)
               } else {
                 console.warn('No handler for host platform')

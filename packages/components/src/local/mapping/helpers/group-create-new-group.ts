@@ -6,7 +6,7 @@ import { cloneDeep } from 'lodash'
  * @param (any) forces list of forces
  * @returns modified list of forces
  */
-const groupCreateNewGroup = (dragging: string, target:string, forces: any): any => {
+const groupCreateNewGroup = (dragging: string, target: string, forces: any): any => {
   const newForces: any = cloneDeep(forces)
 
   // find the parent force
@@ -52,15 +52,14 @@ const groupCreateNewGroup = (dragging: string, target:string, forces: any): any 
 const forceFor = (item: string, forces: any): any => {
   const match: any = forces.find((force: any) => {
     const assets: any = force.assets
-    if(assets) {
+    if (assets) {
       const asset = assets.find((asset: any) => asset.uniqid === item)
-      if(asset) return force
+      if (asset) return force
     } else {
       return false
     }
   })
   return match
 }
-
 
 export default groupCreateNewGroup

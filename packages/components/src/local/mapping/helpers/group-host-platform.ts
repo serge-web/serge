@@ -6,7 +6,7 @@ import { cloneDeep } from 'lodash'
  * @param (any) forces list of forces
  * @returns modified list of forces
  */
-const groupHostPlatform = (dragging: string, target:string, forces: any): any => {
+const groupHostPlatform = (dragging: string, target: string, forces: any): any => {
   const newForces: any = cloneDeep(forces)
 
   // find the force for the target platform
@@ -23,7 +23,7 @@ const groupHostPlatform = (dragging: string, target:string, forces: any): any =>
   const assets2 = assets.filter((item: any) => item.uniqid !== dragging)
 
   // put the dragged item onto the host
-  if(!targetAsset.hosting) {
+  if (!targetAsset.hosting) {
     targetAsset.hosting = []
   }
   targetAsset.hosting.push(dragAsset)
@@ -37,15 +37,14 @@ const groupHostPlatform = (dragging: string, target:string, forces: any): any =>
 const forceFor = (item: string, forces: any): any => {
   const match: any = forces.find((force: any) => {
     const assets: any = force.assets
-    if(assets) {
+    if (assets) {
       const asset = assets.find((asset: any) => asset.uniqid === item)
-      if(asset) return force
+      if (asset) return force
     } else {
       return false
     }
   })
   return match
 }
-
 
 export default groupHostPlatform

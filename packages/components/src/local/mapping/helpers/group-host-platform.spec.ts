@@ -36,7 +36,7 @@ it('Moves merlin back onto frigate', () => {
 
   // check merlin is on frigate
   if (forces2[1].assets && forces2[1].assets.length) {
-    const helo = forces2[1].assets.find((asset:any) => asset.uniqid === merlinId)
+    const helo = forces2[1].assets.find((asset: any) => asset.uniqid === merlinId)
     expect(helo).toBeTruthy()
   }
 })
