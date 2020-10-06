@@ -102,7 +102,12 @@ export default interface MappingContext {
    **/
   setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
  /**
-   * handler to clear current route from specified number
+   * handler to move asset to top level
    */
   groupMoveToRoot?: {(uniqid: string): void}
+  /** 
+   * handler to move assets into new group 
+   * */
+  groupCreateNewGroup?: {(dragged: string, target: string): void}
+
 }

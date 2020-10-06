@@ -38,7 +38,11 @@ export default interface PropTypes {
    */
   gridCells?: SergeGrid<SergeHex<{}>> | undefined
  /**
-   * handler to clear current route from specified number
+   * handler to move asset to top level of this force
    */
   groupMoveToRoot?: {(uniqid: string): void}
+ /**
+   * handler to create new group for provided assets
+   */
+  groupCreateNewGroup?: {(dragged: string, target: string): void}
 }

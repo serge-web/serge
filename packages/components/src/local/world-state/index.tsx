@@ -19,7 +19,7 @@ import canCombineWith from './helpers/can-combine-with'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, phase, isUmpire, setSelectedAsset,
-  submitTitle, submitForm, showOtherPlatforms, gridCells, groupMoveToRoot
+  submitTitle, submitForm, showOtherPlatforms, gridCells, groupMoveToRoot, groupCreateNewGroup
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
 
@@ -140,25 +140,6 @@ export const WorldState: React.FC<PropTypes> = ({
     })
   }
 
-  const getForceName = (item: GroupItem, routes: Array<GroupItem>): string => {
-    // const item = routeItem as PlannedRoute
-    let forceName: string = item.perceivedForceName || ''
-    // if we don't know the force name, just use the one from the parent
-    if (!forceName) {
-      const finder = (i: GroupItem): boolean => {
-        let res: boolean = i.uniqid === item.uniqid
-        let nextLevel: Array<GroupItem> = []
-        if (Array.isArray(i.comprising)) { nextLevel = [...nextLevel, ...i.comprising] }
-        if (Array.isArray(i.hosting)) { nextLevel = [...nextLevel, ...i.hosting] }
-        if (nextLevel.length && nextLevel.find(finder)) res = true
-        return res
-      }
-      const itemWithForceName = routes.find(finder)
-      if (itemWithForceName) forceName = itemWithForceName.perceivedForceName
-    }
-    return forceName
-  }
-
   // Note: draggingItem.uniq === -1 when no active dragging item
   const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
     // console.log(draggingItem.uniqid, item.uniqid, _type, _parents)
@@ -180,11 +161,16 @@ export const WorldState: React.FC<PropTypes> = ({
           let newRoutes
           switch (type) {
             case 'group': {
-              console.log('group')
-              const groupForce = getForceName(droppedInTo, tmpRoutes)
-              newRoutes = removeItem(tmpRoutes, items.map((i: any) => i.uniqid))
-              newRoutes = createNewGroup(newRoutes, items, depth, groupForce)
-              setTmpRoutes(newRoutes as Array<Route>)
+              console.log('start new group', droppedItem, droppedInTo, depth)
+              if(groupCreateNewGroup) {
+                groupCreateNewGroup(droppedItem.uniqid, droppedInTo.uniqid)
+              } else {
+                console.warn('No new group handler', depth)
+              }
+              // const groupForce = getForceName(droppedInTo, tmpRoutes)
+              // newRoutes = removeItem(tmpRoutes, items.map((i: any) => i.uniqid))
+              // newRoutes = createNewGroup(newRoutes, items, depth, groupForce)
+              // setTmpRoutes(newRoutes as Array<Route>)
               break
             }
             case 'group-out': {
@@ -193,13 +179,6 @@ export const WorldState: React.FC<PropTypes> = ({
               } else {
                 console.warn('No move to root handler found')
               }
-              // const perceivedForceName = getForceName(droppedItem, tmpRoutes)
-              // newRoutes = removeItem(tmpRoutes, [droppedItem.uniqid])
-              // newRoutes.push({
-              //   ...droppedItem,
-              //   perceivedForceName
-              // })
-              // setTmpRoutes(newRoutes as Array<Route>)
               break
             }
             default:
