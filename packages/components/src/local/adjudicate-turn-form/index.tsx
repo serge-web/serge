@@ -89,61 +89,61 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
   }
 
   return (
-    <div className={styles['adjudicate']}>
-          <TitleWithIcon
-          forceColor={icon.forceColor}
-          platformType={icon.platformType}
-        >
-          {formHeader}
-        </TitleWithIcon>
-        { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
-        { conditionVal.toLowerCase() === 'working' && <fieldset>
-          <FormGroup title="Planned Route" align="right">
-            <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
-          </FormGroup>
-          {
-            plannedRouteStatusVal === 'rejected' && <div>
-              <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
-              { statusVal.mobile &&
+    <div className={styles.adjudicate}>
+      <TitleWithIcon
+        forceColor={icon.forceColor}
+        platformType={icon.platformType}
+      >
+        {formHeader}
+      </TitleWithIcon>
+      { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
+      { conditionVal.toLowerCase() === 'working' && <fieldset>
+        <FormGroup title="Planned Route" align="right">
+          <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
+        </FormGroup>
+        {
+          plannedRouteStatusVal === 'rejected' && <div>
+            <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
+            { statusVal.mobile &&
               <RCB type="radio" label="Speed (kts)" name="speed" options={speed} value={speedVal} updateState={changeHandler}/>
-              }
-            </div>
-          }
-          {
-            plannedRouteStatusVal !== 'rejected' && <>
-              <FormGroup title="State" align="right">
-                <Select
-                  className={clSelect}
-                  value={statusVal.name}
-                  onChange={statusHandler}
-                >
-                  {status.map((s: any) => (
-                    <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
-                  ))}
-                </Select>
-              </FormGroup>
-              <FormGroup title="Speed (kts)" titlePosition="absolute">
-                {speed.length > 0 &&
+            }
+          </div>
+        }
+        {
+          plannedRouteStatusVal !== 'rejected' && <>
+            <FormGroup title="State" align="right">
+              <Select
+                className={clSelect}
+                value={statusVal.name}
+                onChange={statusHandler}
+              >
+                {status.map((s: any) => (
+                  <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
+                ))}
+              </Select>
+            </FormGroup>
+            <FormGroup title="Speed (kts)" titlePosition="absolute">
+              {speed.length > 0 &&
                 <Speed
                   value = { speedVal }
                   options = { speed }
                   onClick = { speedHandler }
                 />
-                }
-              </FormGroup>
-            </>
-          }
-        </fieldset>
+              }
+            </FormGroup>
+          </>
         }
-        <fieldset>
+      </fieldset>
+      }
+      <fieldset>
         <FormGroup title="Visible to" align="right">
-          <RCB className={styles['rcb']} type="checkbox" force={true} label="" options={visibleTo} value={visibleToVal} updateState={changeHandler}/>
+          <RCB type="checkbox" force={true} label="" options={visibleTo} value={visibleToVal} updateState={changeHandler}/>
         </FormGroup>
         <FormGroup title="Condition" align="right">
-          <RCB className={styles['rcb']} type="radio" label="" options={condition} value={conditionVal} updateState={changeHandler}/>
+          <RCB type="radio" label="" options={condition} value={conditionVal} updateState={changeHandler}/>
         </FormGroup>
-        </fieldset>
-        <Button onClick={submitForm}>Save</Button>
+      </fieldset>
+      <Button onClick={submitForm}>Save</Button>
     </div>
   )
 }
