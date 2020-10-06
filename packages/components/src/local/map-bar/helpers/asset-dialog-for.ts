@@ -3,6 +3,7 @@ import { Phase } from '@serge/config'
 /** determine which form to show on this click
  * @param {string} playerForce the force for the current player
  * @param {string} assetForce the force for the selected asset
+ * @param {Array<string>} assetVisibleTo the forces that can see the asset
  * @param {Array<string>} assetControlledBy which forces can control this asset
  * @param {Phase} gamePhase the name of the current game phase
  * @return {string} name of dialog to show
@@ -10,6 +11,7 @@ import { Phase } from '@serge/config'
 const assetDialogFor = (
   playerForce: string,
   assetForce: string,
+  assetVisibleTo: Array<string> | undefined,
   assetControlledBy: Array<string> | undefined,
   gamePhase: Phase): string => {
   let res = ''
@@ -23,7 +25,9 @@ const assetDialogFor = (
         res = 'Planning'
       } else if (playerForce.toLowerCase() !== 'umpire') {
         // a player has clicked on an asset from a force they don't control
-        res = 'PerceivedAs'
+        // check this force can see the asset
+        const canSee = assetVisibleTo && assetVisibleTo.find((force:string) => force.toLowerCase() === playerForce.toLowerCase())
+        res = canSee ? 'PerceivedAs' : ''
       } else {
         res = ''
       }
