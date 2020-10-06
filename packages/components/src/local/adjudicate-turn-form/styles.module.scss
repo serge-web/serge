@@ -1,17 +1,13 @@
-$red: #f00;
-$white: #fff;
-$blue: #00f;
+@import "~@serge/themes/dependencies/variables";
 
-.example {
-  color: $white;
-  font-weight: bold;
+.adjudicate {
+  padding: 10px;
+  background: $background-field;
+  color: #fff;
+
+  fieldset {
+    border: 0;
+    padding: 0;
+  }
 }
 
-.blue {
-  composes: example;
-  background-color: $blue;
-}
-.red {
-  composes: example;
-  background-color: $red;
-}

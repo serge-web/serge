@@ -4,19 +4,23 @@ import React, { useState } from 'react'
 import PropTypes from './types/props'
 
 /* Import components */
-import Form from '../form'
 import PlannedRoute from '../form-elements/planned-route'
-import { Button } from '@material-ui/core'
+import Speed from '../form-elements/speed'
+import { Button } from '../form-elements/button'
+import TitleWithIcon from '../form-elements/title-with-icon'
 import RCB from '../form-elements/rcb'
+import { FormGroup, clSelect } from '../form-elements/form-group'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
 
 /* Import Stylesheet */
-// import styles from './styles.module.scss'
+import styles from './styles.module.scss'
 
 /* Import helpers */
 import { isNumber } from '@serge/helpers'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, postBack }) => {
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, icon, postBack }) => {
   const [formState, setFormState] = useState(formData.values)
 
   const { status, speed, visibleTo, condition } = formData.populate
@@ -35,14 +39,32 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
   // Status has a different data model and requires it's own handler
 
   const statusHandler = (data: any): void => {
-    const { name, value } = data
+    // retrieve the new value
+    const newState: string = data.target && data.target.value
 
-    const selectedStatus = status.find((s: any) => s.name === value)
+    // find the status object for this state
+    const selectedStatus = status.find((s: any) => s.name === newState)
 
-    updateState({
-      name,
-      value: selectedStatus
-    })
+    // if status matched, update it.
+    if (selectedStatus) {
+      setFormState({
+        ...formState,
+        statusVal: selectedStatus
+      })
+    } else {
+      console.warn('Unable to find state to match:' + newState)
+    }
+  }
+
+  const speedHandler = (e: any): void => {
+    if (isNumber(e)) {
+      setFormState(
+        {
+          ...formState,
+          speedVal: e
+        }
+      )
+    }
   }
 
   const updateState = (data: any): void => {
@@ -67,33 +89,62 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
   }
 
   return (
-    <Form type="adjudication" headerText={formHeader} >
-      { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
-      { conditionVal.toLowerCase() === 'working' && <fieldset>
-        <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
-        {
-          plannedRouteStatusVal === 'rejected' && <div>
-            <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
-            { statusVal.mobile &&
-             <RCB type="radio" label="Speed (kts)" name="speed" options={speed} value={speedVal} updateState={changeHandler}/>
-            }
-          </div>
+    <div className={styles['adjudicate']}>
+          <TitleWithIcon
+          forceColor={icon.forceColor}
+          platformType={icon.platformType}
+        >
+          {formHeader}
+        </TitleWithIcon>
+        { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
+        { conditionVal.toLowerCase() === 'working' && <fieldset>
+          <FormGroup title="Planned Route" align="right">
+            <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
+          </FormGroup>
+          {
+            plannedRouteStatusVal === 'rejected' && <div>
+              <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
+              { statusVal.mobile &&
+              <RCB type="radio" label="Speed (kts)" name="speed" options={speed} value={speedVal} updateState={changeHandler}/>
+              }
+            </div>
+          }
+          {
+            plannedRouteStatusVal !== 'rejected' && <>
+              <FormGroup title="State" align="right">
+                <Select
+                  className={clSelect}
+                  value={statusVal.name}
+                  onChange={statusHandler}
+                >
+                  {status.map((s: any) => (
+                    <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormGroup>
+              <FormGroup title="Speed (kts)" titlePosition="absolute">
+                {speed.length > 0 &&
+                <Speed
+                  value = { speedVal }
+                  options = { speed }
+                  onClick = { speedHandler }
+                />
+                }
+              </FormGroup>
+            </>
+          }
+        </fieldset>
         }
-        {
-          plannedRouteStatusVal !== 'rejected' && <>
-            <div>Status: {statusVal.name}</div>
-            <div>Speed (kts): {speedVal}</div>
-          </>
-        }
-      </fieldset>
-      }
-      <fieldset>
-        <RCB type="checkbox" force={true} label="Visible to" options={visibleTo} value={visibleToVal} updateState={changeHandler}/>
-        <hr />
-        <RCB type="radio" label="Condition" options={condition} value={conditionVal} updateState={changeHandler}/>
-      </fieldset>
-      <Button onClick={submitForm}>Save</Button>
-    </Form>
+        <fieldset>
+        <FormGroup title="Visible to" align="right">
+          <RCB className={styles['rcb']} type="checkbox" force={true} label="" options={visibleTo} value={visibleToVal} updateState={changeHandler}/>
+        </FormGroup>
+        <FormGroup title="Condition" align="right">
+          <RCB className={styles['rcb']} type="radio" label="" options={condition} value={conditionVal} updateState={changeHandler}/>
+        </FormGroup>
+        </fieldset>
+        <Button onClick={submitForm}>Save</Button>
+    </div>
   )
 }
 
