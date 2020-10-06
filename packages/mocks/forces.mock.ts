@@ -447,6 +447,8 @@ export const forces = [
             route: [
             ],
             status: {
+              speedKts: 10,
+              state: 'Transiting'
             },
             uniqid: 'a0pra153102'
           }
