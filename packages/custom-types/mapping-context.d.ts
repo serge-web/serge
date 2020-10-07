@@ -72,7 +72,7 @@ export default interface MappingContext {
   /**
    *  setter, to modify the currently selected asset (or to clear it)
    **/
-  setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset | undefined>>
+  setSelectedAsset: {(asset: SelectedAsset): void}
   /**
    *  state for zoom Level
    **/
