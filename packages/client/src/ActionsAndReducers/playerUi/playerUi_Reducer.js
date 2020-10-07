@@ -242,12 +242,14 @@ export const playerUiReducer = (state = initialState, action) => {
             } = getParticipantStates(channel, newState)
 
             if (allRolesIncluded || isParticipant || newState.isObserver) {
-              const otherParticipants = channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce)
               channels[channel.uniqid] = {
                 name: channel.name,
                 templates,
-                forceIcons: otherParticipants.map((participant) => participant.icon),
-                forceColors: otherParticipants.map((participant) => participant.color),
+                forceIcons: channel.participants.map((participant) => participant.icon),
+                forceColors: channel.participants.map((participant) => {
+                  const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
+                  return force && force.color || '#FFF'
+                }),
                 messages: [],
                 unreadMessageCount: 0,
                 observing
@@ -305,12 +307,14 @@ export const playerUiReducer = (state = initialState, action) => {
         if (!newState.isObserver && !isParticipant && !allRolesIncluded) return
 
         if (allRolesIncluded || isParticipant || newState.isObserver) {
-          const otherParticipants = channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce)
           channels[channel.uniqid] = {
             name: channel.name,
             templates,
-            forceIcons: otherParticipants.map((participant) => participant.icon),
-            forceColors: otherParticipants.map((participant) => participant.color),
+            forceIcons: channel.participants.map((participant) => participant.icon),
+            forceColors: channel.participants.map((participant) => {
+              const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
+              return force && force.color || '#FFF'
+            }),
             messages: messages.filter((message) => message.details.channel === channel.uniqid || message.infoType === true),
             unreadMessageCount: messages.filter((message) => {
               if (message.hasOwnProperty('infoType')) {
