@@ -369,17 +369,14 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const setSelectedAssetLocal = (asset: SelectedAsset | undefined): void => {
-    // do we have a previous asset?
-    if (selectedAsset && routeStore && routeStore.selected && routeStore.selected.planned && routeStore.selected.planned.length > 0) {
-      // do we have planned routes for it
+    // do we have a previous asset, does it have planned routes?
+    if (selectedAsset && routeStore && routeStore.selected && 
+        routeStore.selected.planned && routeStore.selected.planned.length > 0) {
       const route: RouteStep[] = routeStore.selected.planned
 
       // create an updated forces object, with the new planned routes
       const newForces = storePlannedRoute(selectedAsset.uniqid, route, forcesState)
       setForcesState(newForces)
-
-      // store planned route in force
-      //      console.log('mapping', selectedAsset.name, route.length)
     }
     setSelectedAsset(asset)
   }
