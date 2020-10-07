@@ -68,7 +68,7 @@ it('Stores the shortened planned route', () => {
   if (frigRoute) {
     // trim the route
     const store3: RouteStore = routeClearFromStep(store2, frigateId, 5)
-    
+
     // get the modified frigate route
     const frigRoute2: Route | undefined = store3.selected
     if (frigRoute2) {
