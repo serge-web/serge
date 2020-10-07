@@ -31,7 +31,7 @@ export const ForcesInChannel: React.FC<Props> = ({ icons, colors, onMarkAllAsRea
             key={`indicator${i}`}
             className={`${styles['force-indicator']} ${styles['role-icon']}`}
             style={{
-              ...(colors[i] && { borderColor: colors[i] })
+              ...(colors[i] && { borderColor: colors[i], backgroundColor: colors[i] })
             }}
             src={url} alt=""
           />
