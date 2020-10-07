@@ -248,7 +248,7 @@ export const playerUiReducer = (state = initialState, action) => {
                 forceIcons: channel.participants.map((participant) => participant.icon),
                 forceColors: channel.participants.map((participant) => {
                   const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
-                  return force && force.color || '#FFF'
+                  return (force && force.color) || '#FFF'
                 }),
                 messages: [],
                 unreadMessageCount: 0,
@@ -313,7 +313,7 @@ export const playerUiReducer = (state = initialState, action) => {
             forceIcons: channel.participants.map((participant) => participant.icon),
             forceColors: channel.participants.map((participant) => {
               const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
-              return force && force.color || '#FFF'
+              return (force && force.color) || '#FFF'
             }),
             messages: messages.filter((message) => message.details.channel === channel.uniqid || message.infoType === true),
             unreadMessageCount: messages.filter((message) => {
