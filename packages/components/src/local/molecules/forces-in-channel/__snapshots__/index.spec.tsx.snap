@@ -8,6 +8,12 @@ exports[`ForcesInChannel component: renders correctly 1`] = `
     alt=""
     className="force-indicator role-icon"
     src="./images/default_img/forceDefault.png"
+    style={
+      Object {
+        "backgroundColor": "#00F",
+        "borderColor": "#00F",
+      }
+    }
   />
   <button
     className="MuiButtonBase-root MuiButton-root makeStyles-root-1 MuiButton-text MuiButton-textSecondary"
