@@ -10,6 +10,7 @@ import { cloneDeep } from 'lodash'
 import groupMoveToRoot from './helpers/group-move-to-root'
 import groupCreateNewGroup from './helpers/group-create-new-group'
 import groupHostPlatform from './helpers/group-host-platform'
+import storePlannedRoute from './helpers/store-planned-route'
 import createGrid from './helpers/create-grid'
 import boundsFor from './helpers/bounds-for'
 import {
@@ -367,6 +368,23 @@ export const Mapping: React.FC<PropTypes> = ({
     setForcesState(newForces)
   }
 
+  const setSelectedAssetLocal = (asset: SelectedAsset | undefined): void => {
+    // do we have a previous asset?
+    if(selectedAsset && routeStore && routeStore.selected && routeStore.selected.planned && routeStore.selected.planned.length > 0) {
+
+      // do we have planned routes for it
+      const route: RouteStep[] = routeStore.selected.planned
+
+      // create an updated forces object, with the new planned routes
+      const newForces = storePlannedRoute(selectedAsset.uniqid, route, forcesState)
+      setForcesState(newForces)
+     
+      // store planned route in force
+//      console.log('mapping', selectedAsset.name, route.length)
+    }
+    setSelectedAsset(asset)
+  }
+
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     gridCells,
@@ -385,7 +403,7 @@ export const Mapping: React.FC<PropTypes> = ({
     viewAsRouteStore,
     setNewLeg,
     setShowMapBar,
-    setSelectedAsset,
+    setSelectedAsset: setSelectedAssetLocal,
     setZoomLevel,
     turnPlanned,
     clearFromTurn,
