@@ -4,7 +4,7 @@ export default interface Props {
    */
   icons: Array<string>
   /**
-   * List of colods generated from each force's color
+   * List of colors generated from each force's color
    */
   colors: Array<string>
   /**

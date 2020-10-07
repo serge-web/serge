@@ -242,11 +242,12 @@ export const playerUiReducer = (state = initialState, action) => {
             } = getParticipantStates(channel, newState)
 
             if (allRolesIncluded || isParticipant || newState.isObserver) {
+              const otherParticipants = channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce)
               channels[channel.uniqid] = {
                 name: channel.name,
                 templates,
-                forceIcons: channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce).map((participant) => participant.icon),
-                forceColors: channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce).map((participant) => participant.color),
+                forceIcons: otherParticipants.map((participant) => participant.icon),
+                forceColors: otherParticipants.map((participant) => participant.color),
                 messages: [],
                 unreadMessageCount: 0,
                 observing
@@ -304,11 +305,12 @@ export const playerUiReducer = (state = initialState, action) => {
         if (!newState.isObserver && !isParticipant && !allRolesIncluded) return
 
         if (allRolesIncluded || isParticipant || newState.isObserver) {
+          const otherParticipants = channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce)
           channels[channel.uniqid] = {
             name: channel.name,
             templates,
-            forceIcons: channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce).map((participant) => participant.icon),
-            forceColors: channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce).map((participant) => participant.color),
+            forceIcons: otherParticipants.map((participant) => participant.icon),
+            forceColors: otherParticipants.map((participant) => participant.color),
             messages: messages.filter((message) => message.details.channel === channel.uniqid || message.infoType === true),
             unreadMessageCount: messages.filter((message) => {
               if (message.hasOwnProperty('infoType')) {
@@ -326,7 +328,7 @@ export const playerUiReducer = (state = initialState, action) => {
 
         newState.channels = channels
       })
-    
+
       break
 
     case ActionConstant.OPEN_MESSAGE:
