@@ -370,7 +370,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   const setSelectedAssetLocal = (asset: SelectedAsset | undefined): void => {
     // do we have a previous asset, does it have planned routes?
-    if (selectedAsset && routeStore && routeStore.selected && 
+    if (selectedAsset && routeStore && routeStore.selected &&
         routeStore.selected.planned && routeStore.selected.planned.length > 0) {
       const route: RouteStep[] = routeStore.selected.planned
 
