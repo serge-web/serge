@@ -53,7 +53,10 @@ export const MapBar: React.FC = () => {
     routeStore,
     turnPlanned,
     hidePlanningForm,
-    setHidePlanningForm
+    setHidePlanningForm,
+    groupMoveToRoot,
+    groupCreateNewGroup,
+    groupHostPlatform
   }: {
     gridCells: SergeGrid<SergeHex<{}>> | undefined
     playerForce: any
@@ -71,6 +74,9 @@ export const MapBar: React.FC = () => {
     turnPlanned: {(turn: PlanTurnFormValues): void}
     hidePlanningForm: boolean
     setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
+    groupMoveToRoot?: {(uniqid: string): void}
+    groupCreateNewGroup?: {(dragged: string, target: string): void}
+    groupHostPlatform?: {(dragged: string, target: string): void}
   } = useContext(MapContext).props
 
   // sort out the handler for State of World button
@@ -112,7 +118,7 @@ export const MapBar: React.FC = () => {
   // Selects the current asset
   useEffect(() => {
     if (selectedAsset) {
-      const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase)
+      const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase)
       // note: since the next call is async, we get a render before the new form
       // has been assigned. This caused troubles. So, while we set the new form here,
       // we do a "live-recalculation" in the render code
@@ -164,7 +170,7 @@ export const MapBar: React.FC = () => {
     let output = null
     // do a fresh calculation on which form to display, to overcome
     // an async state update issue
-    const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.controlledBy, phase)
+    const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase)
     const icondData = {
       forceColor: selectedAsset.force,
       platformType: selectedAsset.type
@@ -227,6 +233,9 @@ export const MapBar: React.FC = () => {
             submitTitle = {stateSubmitTitle}
             setSelectedAsset={setSelectedAssetById}
             submitForm={worldStateSubmitHandler}
+            groupMoveToRoot={groupMoveToRoot}
+            groupCreateNewGroup={groupCreateNewGroup}
+            groupHostPlatform={groupHostPlatform}
             gridCells={gridCells} ></WorldState>
         </section>
       </div>

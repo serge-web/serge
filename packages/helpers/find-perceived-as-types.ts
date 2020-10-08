@@ -1,3 +1,5 @@
+import { upperFirst } from 'lodash'
+
 /** provide classnames for an asset, as perceived by current player
  * @param {string} myForce force of current player
  * @param {string} theirName name of selected asset
@@ -8,7 +10,6 @@
  * @param {boolean} playerIsUmpire whether the current player is an umpire
  * @returns {string, string, string} name-class, force-class, type-class
  */
-
 export default function findPerceivedAsTypes (
   myForce: string,
   theirName: string,
@@ -24,8 +25,14 @@ export default function findPerceivedAsTypes (
     perception = { name: theirName, force: theirForce, type: theirType }
   } else {
     if (theirPerceptions) {
-      // use the perceived values
-      perception = theirPerceptions.find(p => p.by.toLowerCase() === myForce.toLowerCase()) || null
+      if(Array.isArray(theirPerceptions)) {
+        // use the perceived values
+        perception = theirPerceptions.find(p => p.by.toLowerCase() === myForce.toLowerCase()) || null
+      } else {
+        const upperForce = upperFirst(myForce)
+        const tmpPerception = theirPerceptions[upperForce]
+        perception = tmpPerception ? tmpPerception : null
+      }
     } else {
       perception = null
     }
