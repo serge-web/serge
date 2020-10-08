@@ -22,6 +22,7 @@ export const WorldState: React.FC<PropTypes> = ({
   submitTitle, submitForm, showOtherPlatforms, gridCells, groupMoveToRoot, groupCreateNewGroup, groupHostPlatform
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
+  const [submitEnabled, setSubmitEnabled] = useState<boolean>(true)
 
   /** filter the list of cells allowable for this platform
    * depending on requested cell type
@@ -41,8 +42,16 @@ export const WorldState: React.FC<PropTypes> = ({
   const submitCallback = (): any => {
     if (submitForm) {
       submitForm()
+      setSubmitEnabled(false)
     }
   }
+
+  /** when we move to a new phase, enable the submit button */
+  useEffect(() => {
+    setSubmitEnabled(true)
+  }, [phase])
+
+
 
   /**
    *
@@ -187,7 +196,7 @@ export const WorldState: React.FC<PropTypes> = ({
       />
       {submitTitle && !showOtherPlatforms && !playerInAdjudication &&
         <div className={styles.submit}>
-          <Button size='m' onClick={submitCallback}>{submitTitle}</Button>
+          <Button disabled={!submitEnabled} size='m' onClick={submitCallback}>{submitTitle}</Button>
         </div>
       }
     </div>
