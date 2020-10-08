@@ -78,7 +78,6 @@ class EditSubscriptionRow extends Component {
   };
 
   updateChannel = () => {
-
     let templateIds = this.state.editSubscriptionTemplates.map(function(template) {
       if (typeof template.value === "string") {
         return {_id: template.value};
@@ -88,12 +87,24 @@ class EditSubscriptionRow extends Component {
     let templates = _.intersectionBy(this.props.messageTypes.messages, templateIds, (item) => item._id);
         templates = templates.map((template) => ({label: template.title, value: template}));
 
+    const {
+      value: forceUniqid,
+      label: force
+    } = this.state.editSubscriptionForce
+    const currentEditedForce = this.props.forcesList.find((force) => {
+      return forceUniqid === force.uniqid
+    })
+    const {
+      icon,
+      color
+    } = currentEditedForce
     let subscriptionData = {
-      force: this.state.editSubscriptionForce.label,
+      force,
       roles: this.state.editSubscriptionRoles,
       templates,
-      forceUniqid: this.state.editSubscriptionForce.value,
-      icon: this.props.forcesList.find((force) => this.state.editSubscriptionForce.value === force.uniqid).icon,
+      forceUniqid,
+      icon,
+      color
     };
     this.props.updateRecipient(this.state.subscriptionId, subscriptionData);
     this.props.cancelEdit();

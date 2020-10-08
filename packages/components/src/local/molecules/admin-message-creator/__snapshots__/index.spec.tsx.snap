@@ -8,7 +8,7 @@ exports[`AdminMessageCreator component: renders correctly 1`] = `
     className="MuiBox-root MuiBox-root-2"
   >
     <section
-      className="input-container"
+      className="input-container disable-offset"
     >
       <div
         className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -28,15 +28,38 @@ exports[`AdminMessageCreator component: renders correctly 1`] = `
             onChange={[Function]}
             onFocus={[Function]}
             required={false}
-            rows={4}
+            rows={1}
+            style={
+              Object {
+                "height": 0,
+                "overflow": "hidden",
+              }
+            }
             value=""
+          />
+          <textarea
+            aria-hidden={true}
+            className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+            readOnly={true}
+            style={
+              Object {
+                "height": 0,
+                "left": 0,
+                "overflow": "hidden",
+                "position": "absolute",
+                "top": 0,
+                "transform": "translateZ(0)",
+                "visibility": "hidden",
+              }
+            }
+            tabIndex={-1}
           />
         </div>
       </div>
     </section>
   </div>
   <div
-    className="MuiBox-root MuiBox-root-3"
+    className="MuiBox-root MuiBox-root-6"
   >
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-contained btn-send MuiButton-containedSecondary MuiButton-containedSizeSmall MuiButton-sizeSmall"
@@ -91,8 +114,14 @@ exports[`AdminMessageCreator component: renders correctly 1`] = `
               />
             </svg>
           </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
         </span>
       </span>
+      <span
+        className="MuiTouchRipple-root"
+      />
     </button>
   </div>
 </div>
