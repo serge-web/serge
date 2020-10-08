@@ -8,7 +8,7 @@ import formData from './mocks/formData'
 
 it('AdjudicateTurnForm renders correctly', () => {
   const tree = renderer
-    .create(<AdjudicateTurnForm formHeader="Adjudicate header" formData={formData} />)
+    .create(<AdjudicateTurnForm plansSubmitted={false} formHeader="Adjudicate header" formData={formData} />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

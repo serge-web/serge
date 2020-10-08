@@ -24,4 +24,6 @@ const postback = (messageType: string, payload: any): void => {
 
 // TODO: Add some state handling here
 
-export const Default: React.FC = () => <AdjudicateTurnForm postBack={postback} formHeader="Adjudicate header" formData={formData} />
+export const Default: React.FC = () => <AdjudicateTurnForm postBack={postback} plansSubmitted={false} formHeader="Adjudicate header" formData={formData} />
+
+export const TurnsPlanned: React.FC = () => <AdjudicateTurnForm postBack={postback} plansSubmitted={true} formHeader="Adjudicate header" formData={formData} />

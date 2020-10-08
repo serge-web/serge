@@ -126,6 +126,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [hidePlanningForm, setHidePlanningForm] = useState<boolean>(false)
   const [filterPlannedRoutes, setFilterPlannedRoutes] = useState<boolean>(true)
   const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
+  const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -195,6 +196,11 @@ export const Mapping: React.FC<PropTypes> = ({
     const declutteredStore = routeDeclutter(store, tileDiameterMins)
     setViewAsRouteStore(declutteredStore)
   }
+
+  // on a new phase, we have to allow plans to be submitted
+  useEffect(() => {
+    setPlansSubmitted(false)
+  }, [phase])
 
   useEffect(() => {
     if (mapBounds) {
@@ -408,7 +414,9 @@ export const Mapping: React.FC<PropTypes> = ({
     setHidePlanningForm,
     groupMoveToRoot: groupMoveToRootLocal,
     groupCreateNewGroup: groupCreateNewGroupLocal,
-    groupHostPlatform: groupHostPlatformLocal
+    groupHostPlatform: groupHostPlatformLocal,
+    plansSubmitted,
+    setPlansSubmitted
   }
 
   // any events for leafletjs you can get from leafletElement

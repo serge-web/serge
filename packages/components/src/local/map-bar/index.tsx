@@ -56,7 +56,9 @@ export const MapBar: React.FC = () => {
     setHidePlanningForm,
     groupMoveToRoot,
     groupCreateNewGroup,
-    groupHostPlatform
+    groupHostPlatform,
+    plansSubmitted,
+    setPlansSubmitted
   }: {
     gridCells: SergeGrid<SergeHex<{}>> | undefined
     playerForce: any
@@ -77,7 +79,12 @@ export const MapBar: React.FC = () => {
     groupMoveToRoot?: {(uniqid: string): void}
     groupCreateNewGroup?: {(dragged: string, target: string): void}
     groupHostPlatform?: {(dragged: string, target: string): void}
+    plansSubmitted: boolean
+    setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
   } = useContext(MapContext).props
+
+
+
 
   // sort out the handler for State of World button
   useEffect(() => {
@@ -188,6 +195,7 @@ export const MapBar: React.FC = () => {
       case 'Adjudication':
         output = <AdjudicateTurnForm
           key={selectedAsset.uniqid}
+          plansSubmitted={plansSubmitted}
           formHeader={currentAssetName}
           formData={collateAdjudicationFormData(platforms, selectedAsset, forces)}
           channelID={channelID}
@@ -197,6 +205,7 @@ export const MapBar: React.FC = () => {
         output = <PlanTurnForm
           icon={icondData}
           setHidePlanningForm={setHidePlanningForm}
+          plansSubmitted={plansSubmitted}
           key={selectedAsset.uniqid}
           formHeader={currentAssetName}
           formData={collatePlanFormData(platforms, selectedAsset)}
@@ -236,6 +245,8 @@ export const MapBar: React.FC = () => {
             groupMoveToRoot={groupMoveToRoot}
             groupCreateNewGroup={groupCreateNewGroup}
             groupHostPlatform={groupHostPlatform}
+            plansSubmitted={plansSubmitted}
+            setPlansSubmitted={setPlansSubmitted}
             gridCells={gridCells} ></WorldState>
         </section>
       </div>
