@@ -89,9 +89,8 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
               // process list of children
               asset.comprising.forEach((child:any) => {
                 // can't see it directly. See if we can perceive it
-                const perceivedAs: string | undefined = isPerceivedBy(child.perceptions, playerForce, forceColors)
-                if(perceivedAs) {
-                  const perceivedColor: string = perceivedAs ? perceivedAs : undefinedColor
+                const perceivedColor: string | undefined = isPerceivedBy(child.perceptions, playerForce, forceColors, undefinedColor)
+                if(perceivedColor) {
                   const perceptions = findPerceivedAsTypes(playerForce, child.name, child.contactId,
                     thisForce, child.platformType, child.perceptions, false)
                   // create route for this asset
@@ -103,9 +102,8 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
               })
             } else {
               // can't see it directly. See if we can perceive it
-              const perceivedAs: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColors)
-              if(perceivedAs) {
-                const perceivedColor: string = perceivedAs ? perceivedAs : undefinedColor
+              const perceivedColor: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColors, undefinedColor)
+              if(perceivedColor) {
                 const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
                   thisForce, asset.platformType, asset.perceptions, false)
                 // create route for this asset
