@@ -1,17 +1,12 @@
 import React, { Component } from "react";
-import Badge from "react-bootstrap/Badge";
-import {
-  faPlus,
-  faMinus,
-} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import moment from "moment";
-import Collapsible from "react-collapsible";
-import MessagePreview from "../Components/MessagePreviewPlayerUi";
-
+import { ChannelMessage } from "@serge/components";
 import "@serge/themes/App.scss";
+import { umpireForceTemplate } from "../consts";
+import { PlayerStateContext } from '../Store/PlayerUi';
 
 class MessageListItem extends Component {
+  static contextType = PlayerStateContext;
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     return (
       this.props.detail._id !== nextProps.detail._id ||
@@ -26,18 +21,13 @@ class MessageListItem extends Component {
 
   close = () => {
     this.props.close(this.props.detail);
-    this.setState({
-      collapsed: true,
-    });
   };
 
   render() {
-
     let itemTitle;
+    const [ state ] = this.context;
     const { detail } = this.props;
     const { details, message, isOpen, hasBeenRead } = detail || {};
-    // const expanded = !collapsed || isOpen;
-    // const hasBeenRead = expiredStorage.getItem(this.props.userId + this.props.detail._id) === "read";
     const dynamicBorderColor = `${details.from.forceColor}${hasBeenRead ? 'B3':''}`;
     if (message.title) {
       itemTitle = message.title;
@@ -51,29 +41,22 @@ class MessageListItem extends Component {
 
     return (
       <React.Fragment key={this.props.key}>
-        <Collapsible
-          trigger={
-            <div className="message-title-wrap" style={{borderColor: dynamicBorderColor}}>
-              <FontAwesomeIcon icon={isOpen ? faMinus : faPlus} size="1x" />
-              <div className="message-title">{itemTitle}</div>
-              <div className="info-wrap">
-                <span className="info-body">{moment(details.timestamp).format("HH:mm")}</span>
-                <Badge pill variant="dark">{details.from.role}</Badge>
-                <Badge pill variant="secondary">{details.messageType}</Badge>
-                {!hasBeenRead && <Badge pill variant="warning">Unread</Badge>}
-              </div>
-            </div>
-          }
-          transitionTime={200}
-          easing={'ease-in-out'}
-          open={isOpen}
-          onOpening={this.open}
-          onClosing={this.close}
-          className={ !hasBeenRead ? 'message-item-unread' : '' }
-        >
-          <div key={`${this.props.key}-preview`} className="message-preview-player wrap"
-           style={{borderColor: dynamicBorderColor}}><MessagePreview detail={message} from={details.from} privateMessage={details.privateMessage} /></div>
-        </Collapsible>
+        <div style={{ margin: '0 15px 8px' }}>
+          <ChannelMessage
+            borderColor={dynamicBorderColor}
+            isOpen={isOpen}
+            title={itemTitle}
+            timestamp={moment(details.timestamp)}
+            role={details.from.role}
+            forceColor={details.from.forceColor}
+            messageType={details.messageType}
+            hasBeenRead={hasBeenRead}
+            privateMessage={details.privateMessage}
+            isUmpire={state.selectedForce === umpireForceTemplate.uniqid}
+            detail={message}
+            onRead={this.open}
+          />
+        </div>
       </React.Fragment>
     )
   }

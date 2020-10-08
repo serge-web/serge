@@ -8,7 +8,7 @@ import PropTypes from './types/props'
 /* Import Stylesheet */
 // import styles from './styles.module.scss'
 
-import InputContainer from '../../input-container'
+import InputContainer from '../../atoms/input-container'
 
 export const renderOptions = (options: Array<string | number>): Array<ReactElement> => options.map(option => (
   <MenuItem

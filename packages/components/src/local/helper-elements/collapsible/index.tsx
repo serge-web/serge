@@ -1,4 +1,4 @@
-import React, { ReactNodeArray, useState } from 'react'
+import React, { useState } from 'react'
 
 /* Import proptypes */
 import PropTypes, { ChildInt } from './types/props'
@@ -6,18 +6,18 @@ import PropTypes, { ChildInt } from './types/props'
 /* Import Styles */
 import styles from './styles.module.scss'
 
-const isType = (childs: ReactNodeArray, type: string, hasContent = false): boolean => {
-  return childs.findIndex((ch) => {
+const isType = (childs: React.ReactNodeArray | undefined, type: string, hasContent = false): boolean => {
+  return (childs || []).findIndex((ch) => {
     if (typeof ch === 'object') {
       const chEl = ch as ChildInt
       const res = chEl.type.displayName === type
       if (hasContent) {
-        let arrChekck = true
+        let arrCheck = true
         const chChildren = chEl.props.children
         if (Array.isArray(chChildren)) {
-          arrChekck = chChildren.length > 0 && chChildren.filter(f => !f).length !== chChildren.length
+          arrCheck = chChildren.length > 0 && chChildren.filter(f => !f).length !== chChildren.length
         }
-        return res && chEl.props.children && arrChekck
+        return res && chEl.props.children && arrCheck
       }
       return res
     }
@@ -26,14 +26,26 @@ const isType = (childs: ReactNodeArray, type: string, hasContent = false): boole
 }
 
 /* Render component */
-export const Collapsible: React.FC<PropTypes> = ({ children, onClick, openByDefault = false, collapseOnDragHover = false }) => {
-  const [collapse, setCollapse] = useState(openByDefault)
+export const Collapsible: React.FC<PropTypes> = ({
+  children,
+  onClick,
+  openByDefault = false,
+  collapseOnDragHover = false,
+  header = null,
+  content = null
+}) => {
+  const [collapsed, setCollapse] = useState(!openByDefault)
+  const customStructure = (header && content)
+  const shouldRender = (
+    children &&
+      children.length &&
+      children.length > 1 &&
+      isType(children, 'CollapsibleHeader') &&
+      isType(children, 'CollapsibleContent')
+  ) || customStructure
+  if (!shouldRender) return null
 
-  if (!children.length || children.length < 2) return null
-  if (!isType(children, 'CollapsibleHeader')) return null
-  if (!isType(children, 'CollapsibleContent')) return null
-
-  const handeClick = (e: any): void => {
+  const handleClick = (e: any): void => {
     if (typeof onClick === 'function') {
       onClick(e)
     }
@@ -41,28 +53,37 @@ export const Collapsible: React.FC<PropTypes> = ({ children, onClick, openByDefa
 
   const hasContent = isType(children, 'CollapsibleContent', true)
 
-  const handeCollapse = (status: boolean): void => {
+  const handleExpand = (status: boolean): void => {
     setCollapse(status)
   }
 
-  return (
-    <div onClick={handeClick} className={styles.main} >
-      {React.Children.map(children, (child) => {
-        const ch = child as ChildInt
+  const renderStructures = (child: any): React.ReactElement => {
+    const ch = child as ChildInt
 
-        if (ch.type.displayName === 'CollapsibleHeader') {
-          return React.cloneElement(child as React.ReactElement, {
-            collapse,
-            hasContent,
-            collapseOnDragHover,
-            onCollapse: handeCollapse
-          })
-        } else {
-          return React.cloneElement(child as React.ReactElement, {
-            collapse
-          })
-        }
-      })}
+    if (
+      ch.type.displayName === 'CollapsibleHeader' ||
+      ch === header
+    ) {
+      return React.cloneElement(child as React.ReactElement, {
+        collapsed,
+        hasContent,
+        collapseOnDragHover,
+        onExpand: handleExpand
+      })
+    } else {
+      return React.cloneElement(child as React.ReactElement, {
+        collapsed
+      })
+    }
+  }
+
+  return (
+    <div onClick={handleClick} className={styles.main} >
+      {
+        customStructure
+          ? [header, content].map(renderStructures)
+          : React.Children.map(children, renderStructures)
+      }
     </div>
   )
 }
