@@ -69,7 +69,8 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
   return (
     <Form type="adjudication" headerText={formHeader} >
       { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
-      { conditionVal.toLowerCase() === 'working' && <fieldset>
+      {/* Don't provide accept/reject state if platform destroyed, allow for all other states */}
+      { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
         {
           plannedRouteStatusVal === 'rejected' && <div>
