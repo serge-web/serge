@@ -100,7 +100,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, setHid
        <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
       }
     </TitleWithIcon>
-    
+
     <FormGroup title="State" align="right">
       <Select
         className={clSelect}

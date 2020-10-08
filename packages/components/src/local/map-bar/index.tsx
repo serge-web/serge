@@ -83,9 +83,6 @@ export const MapBar: React.FC = () => {
     setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
   } = useContext(MapContext).props
 
-
-
-
   // sort out the handler for State of World button
   useEffect(() => {
     setUserIsUmpire(playerForce === UMPIRE_FORCE)

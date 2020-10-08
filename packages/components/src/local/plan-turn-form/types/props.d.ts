@@ -28,7 +28,7 @@ export default interface PropTypes {
     forceColor: string
     platformType: string
   }
-  /** 
+  /**
    * flag for if turns have been planned
    */
   plansSubmitted: boolean

@@ -19,7 +19,7 @@ import canCombineWith from './helpers/can-combine-with'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, phase, isUmpire, setSelectedAsset,
-  submitTitle, submitForm, showOtherPlatforms, gridCells, 
+  submitTitle, submitForm, showOtherPlatforms, gridCells,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted
 }: PropTypes) => {
@@ -43,7 +43,7 @@ export const WorldState: React.FC<PropTypes> = ({
   const submitCallback = (): any => {
     if (submitForm) {
       submitForm()
-      if(setPlansSubmitted) {
+      if (setPlansSubmitted) {
         setPlansSubmitted(true)
       }
     }
