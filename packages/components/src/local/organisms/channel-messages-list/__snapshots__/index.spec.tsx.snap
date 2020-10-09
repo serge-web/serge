@@ -12,6 +12,12 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
         alt=""
         className="force-indicator role-icon"
         src="./images/default_img/forceDefault.png"
+        style={
+          Object {
+            "backgroundColor": "#F00",
+            "borderColor": "#F00",
+          }
+        }
       />
       <button
         className="MuiButtonBase-root MuiButton-root makeStyles-root-2 MuiButton-text MuiButton-textSecondary"

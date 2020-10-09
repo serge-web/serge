@@ -57,7 +57,7 @@ export const Collapsible: React.FC<PropTypes> = ({
     setCollapse(status)
   }
 
-  const renderStructures = (child: any): React.ReactElement => {
+  const renderStructures = (child: any, key: number): React.ReactElement => {
     const ch = child as ChildInt
 
     if (
@@ -65,6 +65,7 @@ export const Collapsible: React.FC<PropTypes> = ({
       ch === header
     ) {
       return React.cloneElement(child as React.ReactElement, {
+        key: key,
         collapsed,
         hasContent,
         collapseOnDragHover,
@@ -72,6 +73,7 @@ export const Collapsible: React.FC<PropTypes> = ({
       })
     } else {
       return React.cloneElement(child as React.ReactElement, {
+        key: key,
         collapsed
       })
     }

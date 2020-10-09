@@ -55,7 +55,8 @@ export default {
               "password": "pk6w5y28j",
               "control": true,
               "isObserver": true,
-              "isInsightViewer": true
+              "isInsightViewer": true,
+              "canSubmitPlans": true
             }
           ],
           "icon": "http://localhost:8080/default_img/umpireDefault.png",
