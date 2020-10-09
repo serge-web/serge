@@ -1,8 +1,9 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import lineBreak from '../Helpers/splitNewLineBreak'
-import { ADMIN_ROUTE } from '../consts'
+import { ADMIN_ROUTE, STORYBOOK_ROUTE } from '../consts'
 import { faTools } from '@fortawesome/free-solid-svg-icons'
+import { ReactComponent as StorybookIcon } from '../storybook-logo.svg'
 
 export default function PlayerUiLandingScreen ({ gameInfo, enterSerge }) {
   return (
@@ -14,9 +15,14 @@ export default function PlayerUiLandingScreen ({ gameInfo, enterSerge }) {
               gameInfo.imageUrlSet ? <img className="serge-logo" src={gameInfo.imageUrl} alt="Serge gaming" /> : null
             }
           </div>
-          <a href={ADMIN_ROUTE} className="link-admin">
-            <FontAwesomeIcon icon={faTools} />
-          </a>
+          <div className="shortcuts">
+            <a href={ADMIN_ROUTE} className="link-admin">
+              <FontAwesomeIcon icon={faTools} />
+            </a>
+            <a href={STORYBOOK_ROUTE} className="link-admin">
+              <StorybookIcon />
+            </a>
+          </div>
           <div className="welcome-desc">
             <h1>{gameInfo.title}</h1>
             {lineBreak(gameInfo.description)}
