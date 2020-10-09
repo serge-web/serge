@@ -89,12 +89,12 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
               // process list of children
               asset.comprising.forEach((child:any) => {
                 // can't see it directly. See if we can perceive it
-                const perceivedAs: string | undefined = isPerceivedBy(child.perceptions, playerForce, forceColors, undefinedColor)
-                if(perceivedAs) {
+                const perceivedColor: string | undefined = isPerceivedBy(child.perceptions, playerForce, forceColors, undefinedColor)
+                if(perceivedColor) {
                   const perceptions = findPerceivedAsTypes(playerForce, child.name, child.contactId,
                     thisForce, child.platformType, child.perceptions, false)
                   // create route for this asset
-                  const newRoute: Route = routeCreateRoute(child, perceivedAs, false, force.uniqid, perceptions[1],
+                  const newRoute: Route = routeCreateRoute(child, perceivedColor, false, force.uniqid, perceptions[1],
                     perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, 
                     grid, false, filterHistorySteps, filterPlannedSteps)
                   store.routes.push(newRoute)
@@ -102,12 +102,12 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
               })
             } else {
               // can't see it directly. See if we can perceive it
-              const perceivedAs: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColors, undefinedColor)
-              if(perceivedAs) {
+              const perceivedColor: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColors, undefinedColor)
+              if(perceivedColor) {
                 const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
                   thisForce, asset.platformType, asset.perceptions, false)
                 // create route for this asset
-                const newRoute: Route = routeCreateRoute(asset, perceivedAs, false, force.uniqid, perceptions[1],
+                const newRoute: Route = routeCreateRoute(asset, perceivedColor, false, force.uniqid, perceptions[1],
                   perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, 
                   grid, false, filterHistorySteps, filterPlannedSteps)
                 store.routes.push(newRoute)

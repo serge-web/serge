@@ -3,7 +3,7 @@ import React from 'react'
 // Import component files
 import Form from './index'
 import docs from './README.md'
-import InputContainer from '../input-container'
+import InputContainer from '../atoms/input-container'
 import { Input, InputLabel, Button } from '@material-ui/core'
 
 export default {

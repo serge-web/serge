@@ -2,7 +2,7 @@
 
 exports[`CollapsibleContent renders correctly 1`] = `
 <div
-  className="main use-indent collapse"
+  className="main use-indent"
   onClick={[Function]}
   style={Object {}}
 >

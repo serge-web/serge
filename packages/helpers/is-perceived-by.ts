@@ -1,26 +1,44 @@
-/**
+import { upperFirst } from 'lodash'
+
+/** Find how a force perceives this asset
  * @param {any} perceptions how an asset is perceived
  * @param {string} playerForce the force for the current player
  * @param {Array<{force: string, color: string}>} forceColors couplets of force & color to use for that color
- * @param {string} undefinedColor the shade to use for assets of unknown force
+ * @param {string} undefinedColor the color to use for non-perceived types
  * @return {string | undefined} color shade to use, or undefined if asset isn't visible
  */
-const isPerceivedBy = (perceptions: any, playerForce: string, forceColors: Array<{force: string, color: string}>,
-  undefinedColor: string): string | undefined => {
+const isPerceivedBy = (perceptions: any, playerForce: string, 
+  forceColors: Array<{force: string, color: string}>, undefinedColor: string): string | undefined => {
   if(perceptions) {
-    const p = perceptions.find((p:any) => p.by.toLowerCase() === playerForce.toLowerCase())
-    if(p) {
-      // do we know force?
-      if(p.force) {
-        const color = forceColors.find((f:any) => f.force.toLowerCase() === p.force.toLowerCase())
-        if(color) {
-          return color.color
+    if(Array.isArray(perceptions)) {
+      const p = perceptions.find((p:any) => p.by.toLowerCase() === playerForce.toLowerCase())
+      if(p) {
+        // do we know force?
+        if(p.force) {
+          const color = forceColors.find((f:any) => f.force.toLowerCase() === p.force.toLowerCase())
+          if(color) {
+            return color.color
+          } else {
+            // force color not known, so probably 'unknown'. Return unknown shade
+            return undefinedColor
+          }
         } else {
-          // force color not know, so probably 'unknown'. Return unknown shade
+          // perceive it, but don't know force
           return undefinedColor
         }
       } else {
-        return undefinedColor
+        // not perceived
+        return undefined
+      }  
+    } else {
+      // legacy way of representing perceptions, as a dictionary
+      const upperForce = upperFirst(playerForce)
+      const perception = perceptions[upperForce]
+      if(perception) {
+        const force = forceColors.find((f:any) => f.force.toLowerCase() === playerForce.toLowerCase())
+        return (force && force.color) || undefined
+      } else {
+        return undefined
       }
     }
   }
