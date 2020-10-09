@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core'
 import Props from './types/props'
 
 /* Import Stylesheet */
-// import styles from './styles.module.scss
+// import styles from './styles.module.scss'
 
 /* Import components */
 import { TextInput } from '../atoms/text-input'

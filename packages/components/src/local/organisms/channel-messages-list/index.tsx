@@ -20,16 +20,16 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
       </Box>
       <Box ml={2} className={styles['messages-list']}>
         {
-          messages && messages.map(props => {
+          messages && messages.map((props, key) => {
             if (props.infoType) {
               return (
-                <Box mr={2}>
-                  <p className={styles['turn-marker']} key={`${props.gameTurn}-turnmarker`}>Turn {props.gameTurn}</p>
+                <Box mr={2} key={`${props.gameTurn}-turnmarker-${key}`}>
+                  <p className={styles['turn-marker']}>Turn {props.gameTurn}</p>
                 </Box>
               )
             }
             return (
-              <Box mb={2} mr={2}>
+              <Box mb={2} mr={2} key={key}>
                 <ChannelMessage onRead={onRead} {...props} />
               </Box>
             )

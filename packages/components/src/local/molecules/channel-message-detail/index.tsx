@@ -68,9 +68,9 @@ const deconstructArr = (pair: Array<any>): React.ReactFragment => {
     <Fragment key={`${pair[0]}-group`}>
       <DetailLabel label={`${pair[0]}:`}/>
       <p className={styles['detail-rows']}>
-        {pair[1].map((item: Record<any, any>) => {
+        {pair[1].map((item: Record<any, any>, key: number) => {
           return (
-            <p className={styles['detail-row']}>
+            <p key={key} className={styles['detail-row']}>
               {deconstructObj(item)}
             </p>
           )
