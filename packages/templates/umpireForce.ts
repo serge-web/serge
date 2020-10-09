@@ -11,7 +11,8 @@ export default {
       password: `p${uniqId.time()}`,
       control: true,
       isObserver: true,
-      isInsightViewer: true
+      isInsightViewer: true,
+      canSubmitPlans: true
     }
   ],
   icon: serverPath + 'default_img/umpireDefault.png',

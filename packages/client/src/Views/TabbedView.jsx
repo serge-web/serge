@@ -53,7 +53,7 @@ class TabbedView extends Component {
                 })}
             >
               {tabName}
-              { this.props.wargame.data[tabName].dirty ?
+              { this.props.wargame.data[tabName] && this.props.wargame.data[tabName].dirty ?
                 <FontAwesomeIcon icon={faAsterisk} size="1x" className="dirty-flag" />
               : false }
             </li>

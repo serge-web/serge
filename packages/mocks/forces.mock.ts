@@ -9,6 +9,7 @@ export const forces = [
       {
         control: true,
         isInsightViewer: true,
+        canSubmitPlans: true,
         isObserver: true,
         name: 'Game Control',
         password: 'p2311'
@@ -332,6 +333,7 @@ export const forces = [
     roles: [
       {
         control: false,
+        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO',
@@ -605,6 +607,7 @@ export const forces = [
     roles: [
       {
         control: false,
+        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO',
@@ -1275,6 +1278,7 @@ export const forces = [
     roles: [
       {
         control: false,
+        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO',

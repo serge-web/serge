@@ -128,6 +128,7 @@
 					"control": true,
 					"isInsightViewer": true,
 					"isObserver": true,
+					"canSubmitPlans": true,
 					"name": "Game Control",
 					"password": "p2311"
 				}],
@@ -189,6 +190,7 @@
 					"control": false,
 					"isInsightViewer": false,
 					"isObserver": false,
+					"canSubmitPlans": true,
 					"name": "CO",
 					"password": "p5543"
 				}],
@@ -232,6 +234,7 @@
 					"control": false,
 					"isInsightViewer": false,
 					"isObserver": false,
+					"canSubmitPlans": true,
 					"name": "CO",
 					"password": "p5545"
 				}],
@@ -394,6 +397,7 @@
 					"isInsightViewer": false,
 					"isObserver": false,
 					"name": "CO",
+					"canSubmitPlans": true,
 					"password": "p3244"
 				}],
 				"umpire": false,
@@ -1676,6 +1680,7 @@
 						"control": false,
 						"isInsightViewer": false,
 						"isObserver": false,
+						"canSubmitPlans": true,
 						"name": "CO",
 						"password": "P9454"
 					}

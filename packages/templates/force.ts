@@ -11,7 +11,8 @@ export default {
       password: `p${uniqId.time()}`,
       control: false,
       isObserver: false,
-      isInsightViewer: false
+      isInsightViewer: false,
+      canSubmitPlans: true
     }
   ],
   icon: serverPath + 'default_img/forceDefault.png',
