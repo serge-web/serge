@@ -9,7 +9,7 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 /* Import components */
-import { TextInput } from '../../form-elements/text-input'
+import { TextInput } from '../../atoms/text-input'
 
 /* Render component */
 export const AdminMessageCreator: React.FC<Props> = ({ from, channel, role, postBack }) => {
@@ -43,11 +43,12 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, role, post
   }
 
   return (
-    <Box className={styles['message-creator-wrap']}>
+    <Box className={styles['message-creator-wrap']} mt={2} p={2} pb={0}>
       <Box flexGrow={1}>
         <TextInput
           name="Message"
-          multiline={4}
+          multiline
+          rowsMax={4}
           updateState={changeHandler}
           value={formState}
           fullWidth

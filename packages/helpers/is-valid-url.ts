@@ -1,4 +1,4 @@
-const isValidURI = (str: string): boolean => {
+const isValidUrl = (str: string): boolean => {
   const httpPattern = new RegExp('^(https?:\\/\\/)?' + // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -7,7 +7,7 @@ const isValidURI = (str: string): boolean => {
     '(\\#[-a-z\\d_]*)?$', 'i') // fragment locator
   const windowsFilePath = new RegExp('^[\\w\\\\.:\\s]+?\\.\\w{2,4}')
 
-  return !!httpPattern.test(str) || str.startsWith('file:///') || !!windowsFilePath.test(str)
+  return httpPattern.test(str) || (typeof str === 'string' && str.startsWith('file:///')) || windowsFilePath.test(str)
 }
 
-export default isValidURI
+export default isValidUrl

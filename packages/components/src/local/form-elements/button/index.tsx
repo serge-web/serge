@@ -10,14 +10,14 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const Button: React.FC<PropTypes> = ({ children, size, type, onClick, disabled }) => {
-  const handeClick = (e: any): void => {
+  const handleClick = (e: any): void => {
     if (typeof onClick === 'function') {
       onClick(e)
     }
   }
   return (
     <button
-      onClick={handeClick}
+      onClick={handleClick}
       disabled={disabled}
       type={type || 'button'}
       className={cx(styles.main, size && styles[size], disabled && styles.disabled)}

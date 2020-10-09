@@ -36,6 +36,22 @@ const perceptionsEmpty: any = [{
   by: 'Blue'
 }]
 
+/** the original data-store used an indexed dictionary
+ * to store perceptions. It was later replaced by an array,
+ * to allow array functions. But, an example is provided here, just
+ * in case
+ */
+const legacyPerceptions: any = {
+  Red: {
+    force: 'Yellow',
+    name: 'Fish'
+  },
+  Blue: {
+    type: 'merchant-vessel',
+    name: 'Dumbo'
+  }
+}
+
 it('gives true details for same force', () => {
   expect(findPerceivedAsTypes('yellow', 'osaka', 'C0011', 'yellow', 'submarine',
     perceptions, false)).toEqual(['osaka', 'yellow', 'submarine'])
@@ -74,4 +90,14 @@ it('gives perceived details for force with entry but name missing', () => {
 it('gives perceived details for force with no details', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', 'C0011', 'yellow', 'submarine',
   perceptionsEmpty, false)).toEqual(['C0011', 'unknown', 'unknown'])
+})
+
+it('give details for same force in legacy perception store', () => {
+  expect(findPerceivedAsTypes('red', 'osaka', 'C0011', 'red', 'submarine',
+  legacyPerceptions, false)).toEqual(['osaka', 'red', 'submarine'])
+})
+
+it('give details for other force in legacy perception store', () => {
+  expect(findPerceivedAsTypes('blue', 'osaka', 'C0011', 'yellow', 'submarine',
+  legacyPerceptions, false)).toEqual(['Dumbo', 'unknown', 'merchant-vessel'])
 })

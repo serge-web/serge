@@ -298,6 +298,8 @@ export const platformTypes = [
       'Destroyed'
     ],
     icon: 'coastal-radar-site.svg',
+    speedKts: [
+    ],
     states: [
       {
         name: 'Inactive',

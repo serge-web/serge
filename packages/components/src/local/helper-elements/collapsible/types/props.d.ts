@@ -11,7 +11,9 @@ export interface ChildInt {
 
 export default interface PropTypes {
   onClick?: any
-  children: ReactNodeArray
+  children?: ReactNodeArray | undefined
   openByDefault?: boolean
   collapseOnDragHover?: boolean
+  header?: ChildInt
+  content?: ChildInt
 }
