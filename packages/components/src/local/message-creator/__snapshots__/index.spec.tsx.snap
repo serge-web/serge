@@ -11,10 +11,11 @@ exports[`MessageCreator component: renders correctly 1`] = `
       Post message
     </div>
     <div
-      className="media"
+      className="MuiFormControl-root MuiTextField-root"
     >
       <div
-        className="message-creator"
+        className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
+        onClick={[Function]}
       >
         <textarea
           aria-invalid={false}
@@ -55,8 +56,27 @@ exports[`MessageCreator component: renders correctly 1`] = `
         />
       </div>
     </div>
-    <div
-      className="send"
+  </section>
+  <button
+    className="MuiButtonBase-root MuiButton-root MuiButton-text"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+    type="button"
+  >
+    <span
+      className="MuiButton-label"
     >
       Send
     </span>
