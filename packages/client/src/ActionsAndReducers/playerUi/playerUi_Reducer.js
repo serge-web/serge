@@ -15,6 +15,7 @@ export const initialState = {
   forceColor: '',
   selectedRole: '',
   isObserver: false,
+  canSubmitPlans: false,
   controlUi: false,
   currentTurn: 0,
   phase: '',
@@ -245,7 +246,11 @@ export const playerUiReducer = (state = initialState, action) => {
               channels[channel.uniqid] = {
                 name: channel.name,
                 templates,
-                forceIcons: channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce).map((participant) => participant.icon),
+                forceIcons: channel.participants.map((participant) => participant.icon),
+                forceColors: channel.participants.map((participant) => {
+                  const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
+                  return (force && force.color) || '#FFF'
+                }),
                 messages: [],
                 unreadMessageCount: 0,
                 observing
@@ -306,7 +311,11 @@ export const playerUiReducer = (state = initialState, action) => {
           channels[channel.uniqid] = {
             name: channel.name,
             templates,
-            forceIcons: channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce).map((participant) => participant.icon),
+            forceIcons: channel.participants.map((participant) => participant.icon),
+            forceColors: channel.participants.map((participant) => {
+              const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
+              return (force && force.color) || '#FFF'
+            }),
             messages: messages.filter((message) => message.details.channel === channel.uniqid || message.infoType === true),
             unreadMessageCount: messages.filter((message) => {
               if (message.hasOwnProperty('infoType')) {
@@ -324,7 +333,7 @@ export const playerUiReducer = (state = initialState, action) => {
 
         newState.channels = channels
       })
-    
+
       break
 
     case ActionConstant.OPEN_MESSAGE:

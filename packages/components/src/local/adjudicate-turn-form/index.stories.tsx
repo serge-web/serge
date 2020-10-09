@@ -17,6 +17,8 @@ export default {
   }
 }
 
+const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
+
 // put in the post handler
 const postback = (messageType: string, payload: any): void => {
   console.log('postback', messageType, payload)
@@ -24,4 +26,4 @@ const postback = (messageType: string, payload: any): void => {
 
 // TODO: Add some state handling here
 
-export const Default: React.FC = () => <AdjudicateTurnForm postBack={postback} formHeader="Adjudicate header" formData={formData} />
+export const Default: React.FC = () => <AdjudicateTurnForm postBack={postback} formHeader="Adjudicate header" icon={iconData} formData={formData} />

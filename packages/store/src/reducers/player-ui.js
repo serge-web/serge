@@ -18,6 +18,7 @@ export const initialState = {
   forceColor: '',
   selectedRole: '',
   isObserver: false,
+  canSubmitPlans: false,
   controlUi: false,
   currentTurn: 0,
   phase: '',
@@ -139,6 +140,7 @@ export const playerUiReducer = (state = initialState, action) => {
       newState.selectedRole = action.payload.name
       newState.controlUi = action.payload.control
       newState.isObserver = action.payload.isObserver
+      newState.canSubmitPlans = action.payload.canSubmitPlans
       newState.isInsightViewer = action.payload.isInsightViewer
       break
 
@@ -249,6 +251,7 @@ export const playerUiReducer = (state = initialState, action) => {
                 name: channel.name,
                 templates,
                 forceIcons: channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce).map((participant) => participant.icon),
+                forceColors: channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce).map((participant) => participant.color),
                 messages: [],
                 unreadMessageCount: 0,
                 observing
@@ -310,6 +313,7 @@ export const playerUiReducer = (state = initialState, action) => {
             name: channel.name,
             templates,
             forceIcons: channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce).map((participant) => participant.icon),
+            forceColors: channel.participants.filter((participant) => participant.forceUniqid !== newState.selectedForce).map((participant) => participant.color),
             messages: messages.filter((message) => message.details.channel === channel.uniqid || message.infoType === true),
             unreadMessageCount: messages.filter((message) => {
               if (message.hasOwnProperty('infoType')) {

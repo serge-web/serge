@@ -24,6 +24,7 @@ class AddRoleModal extends Component {
       roleName: this.props.currentModal.data ? this.props.currentModal.data.name : '',
       rolePassword: this.props.currentModal.data ? this.props.currentModal.data.password : `p${uniqId.time()}`,
       isObserver: this.props.currentModal.data ? this.props.currentModal.data.isObserver : false,
+      canSubmitPlans: this.props.currentModal.data ? this.props.currentModal.data.canSubmitPlans : false,
       isInsightViewer: this.props.currentModal.data ? this.props.currentModal.data.isInsightViewer : false,
     };
   }
@@ -35,6 +36,7 @@ class AddRoleModal extends Component {
       rolePassword: '',
       isObserver: false,
       isInsightViewer: false,
+      canSubmitPlans:false
     });
 
     this.props.dispatch(modalAction.close());
@@ -71,6 +73,12 @@ class AddRoleModal extends Component {
     });
   };
 
+  setCanSubmitPlans= (value) => {
+    this.setState({
+      canSubmitPlans: value
+    });
+  };
+
 
   addRole = () => {
     let selectedForce = this.props.wargame.data.forces.selectedForce.name;
@@ -78,6 +86,7 @@ class AddRoleModal extends Component {
       name: this.state.roleName,
       password: this.state.rolePassword,
       isObserver: this.state.isObserver,
+      canSubmitPlans: this.state.canSubmitPlans,
       isInsightViewer: this.state.isInsightViewer,
       control: this.props.currentModal.data ? this.props.currentModal.data.control : false,
     };
@@ -152,6 +161,15 @@ class AddRoleModal extends Component {
               />
             </div>
             </>}
+            <div className="flex-content">
+              <Checkbox
+                id="c3"
+                label="Can submit mapping plans"
+                updateStore={this.setCanSubmitPlans}
+                isChecked={this.state.canSubmitPlans}
+                title="Role can submit mapping plans"
+              />
+            </div>
           </div>
           <div className="buttons">
             <button name="cancel" className="btn btn-action btn-action--secondary" onClick={this.hideModal}>Cancel</button>
