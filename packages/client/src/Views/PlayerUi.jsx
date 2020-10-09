@@ -5,7 +5,6 @@ import {
   getWargame,
   setForce,
   setRole,
-  showHideObjectives,
   startListening,
   setAllTemplates,
   failedLoginFeedbackMessage,
@@ -134,11 +133,6 @@ class PlayerUi extends Component {
     const [ state ] = this.context;
     return state.allForces.map((force) => ({name: force.name, roles: force.roles}));
   }
-
-  showHideForceObjectives = () => {
-    const [ , dispatch ] = this.context;
-    dispatch(showHideObjectives());
-  };
 
   enterSerge = () => {
     this.setState({

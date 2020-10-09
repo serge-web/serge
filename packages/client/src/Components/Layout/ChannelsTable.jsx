@@ -81,6 +81,7 @@ class ChannelsTable extends Component {
       if (prop === "subscriptionId") continue;
       if (prop === "forceUniqid") continue;
       if (prop === "icon") continue;
+      if (prop === "color") continue;
       key++;
 
       var value = '';
@@ -160,13 +161,21 @@ class ChannelsTable extends Component {
     let templateIds = this.state.selectedTemplates.map((template) => ({_id: template.value}));
     let templates = _.intersectionBy(this.props.messageTypes.messages, templateIds, (item) => item._id);
     templates = templates.map((template) => ({label: template.title, value: template}));
-
+    const { forces } = this.props.wargame.data.forces
+    const addedForce = forces.find((f) => f.uniqid === this.state.selectedForce.value)
+    const {
+      name: force,
+      uniqid: forceUniqid,
+      icon,
+      color
+    } = addedForce
     let recipient = {
-      force: this.props.wargame.data.forces.forces.find((f) => f.uniqid === this.state.selectedForce.value).name,
-      forceUniqid: this.props.wargame.data.forces.forces.find((f) => f.uniqid === this.state.selectedForce.value).uniqid,
+      force,
+      forceUniqid,
       roles: this.state.selectedRoles,
       templates,
-      icon: this.props.wargame.data.forces.forces.find((f) => f.uniqid === this.state.selectedForce.value).icon,
+      icon,
+      color
     };
     this.props.dispatch(setTabUnsaved());
     this.props.dispatch(addRecipientToChannel(recipient));

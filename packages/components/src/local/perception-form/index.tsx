@@ -6,7 +6,7 @@ import Form from '../form'
 import { Button } from '@material-ui/core'
 import Selector from '../form-elements/selector'
 import RCB from '../form-elements/rcb'
-import TextInput from '../form-elements/text-input'
+import TextInput from '../atoms/text-input'
 import { PerceptionFormValues } from '@serge/custom-types'
 
 /* Import Context */

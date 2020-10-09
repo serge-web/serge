@@ -7,6 +7,10 @@ import MapControl from '../map-control'
 import { cloneDeep } from 'lodash'
 
 /* helper functions */
+import groupMoveToRoot from './helpers/group-move-to-root'
+import groupCreateNewGroup from './helpers/group-create-new-group'
+import groupHostPlatform from './helpers/group-host-platform'
+import storePlannedRoute from './helpers/store-planned-route'
 import createGrid from './helpers/create-grid'
 import boundsFor from './helpers/bounds-for'
 import {
@@ -99,6 +103,7 @@ export const Mapping: React.FC<PropTypes> = ({
   children
 }) => {
   /* Initialise states */
+  const [forcesState, setForcesState] = useState<any>(forces)
   const [showMapBar, setShowMapBar] = useState<boolean>(true)
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
@@ -142,19 +147,12 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [selectedAsset])
 
   /**
-   * generate the set of routes visible to this player, for display
-   * in the Force Overview panel
+   * if the player force changes, clear the selected assets (for StoryBook debugging)
    */
   useEffect(() => {
-    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
-    // we modify the routeStore
-    const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
-    if (forces && gridCells) {
-      const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-      const store: RouteStore = routeCreateStore(selectedId, forces, playerForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
-      setRouteStore(store)
-    }
-  }, [forces, playerForce, phase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
+    // clear the selected assets
+    setSelectedAsset(undefined)
+  }, [playerForce])
 
   /**
    * generate the set of routes visible to this player, for display
@@ -164,12 +162,27 @@ export const Mapping: React.FC<PropTypes> = ({
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
     const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
-    if (forces && gridCells && routeStore.routes.length) {
+    if (forcesState && gridCells) {
+      const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
+      const store: RouteStore = routeCreateStore(selectedId, forcesState, playerForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
+      setRouteStore(store)
+    }
+  }, [forcesState, playerForce, phase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
+
+  /**
+   * generate the set of routes visible to this player, for display
+   * in the Force Overview panel
+   */
+  useEffect(() => {
+    // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
+    // we modify the routeStore
+    const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
+    if (forcesState && gridCells && routeStore.routes.length) {
       // if this is umpire and we have view as
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-        const vStore: RouteStore = routeCreateStore(selectedId, forces, viewAsForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
+        const vStore: RouteStore = routeCreateStore(selectedId, forcesState, viewAsForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
         declutterRouteStore(vStore)
       } else {
         // just use normal route store
@@ -339,10 +352,39 @@ export const Mapping: React.FC<PropTypes> = ({
     setViewAsForce(force)
   }
 
+  const groupMoveToRootLocal = (uniqid: string): void => {
+    const newForces = groupMoveToRoot(uniqid, forcesState)
+    setForcesState(newForces)
+  }
+
+  const groupCreateNewGroupLocal = (dragged: string, target: string): void => {
+    const newForces = groupCreateNewGroup(dragged, target, forcesState)
+    setForcesState(newForces)
+  }
+
+  const groupHostPlatformLocal = (dragged: string, target: string): void => {
+    console.log('host platform', dragged, target)
+    const newForces = groupHostPlatform(dragged, target, forcesState)
+    setForcesState(newForces)
+  }
+
+  const setSelectedAssetLocal = (asset: SelectedAsset | undefined): void => {
+    // do we have a previous asset, does it have planned routes?
+    if (selectedAsset && routeStore && routeStore.selected &&
+        routeStore.selected.planned && routeStore.selected.planned.length > 0) {
+      const route: RouteStep[] = routeStore.selected.planned
+
+      // create an updated forces object, with the new planned routes
+      const newForces = storePlannedRoute(selectedAsset.uniqid, route, forcesState)
+      setForcesState(newForces)
+    }
+    setSelectedAsset(asset)
+  }
+
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     gridCells,
-    forces,
+    forces: forcesState,
     platforms,
     playerForce,
     phase,
@@ -357,13 +399,16 @@ export const Mapping: React.FC<PropTypes> = ({
     viewAsRouteStore,
     setNewLeg,
     setShowMapBar,
-    setSelectedAsset,
+    setSelectedAsset: setSelectedAssetLocal,
     setZoomLevel,
     turnPlanned,
     clearFromTurn,
     postBack,
     hidePlanningForm,
-    setHidePlanningForm
+    setHidePlanningForm,
+    groupMoveToRoot: groupMoveToRootLocal,
+    groupCreateNewGroup: groupCreateNewGroupLocal,
+    groupHostPlatform: groupHostPlatformLocal
   }
 
   // any events for leafletjs you can get from leafletElement
@@ -410,7 +455,7 @@ export const Mapping: React.FC<PropTypes> = ({
           <MapControl
             map = {leafletElement}
             home = {mapCentre}
-            forces = {playerForce === UMPIRE_FORCE && forces}
+            forces = {playerForce === UMPIRE_FORCE && forcesState}
             viewAsCallback = {viewAsCallback}
             viewAsForce = {viewAsForce}
             filterPlannedRoutes = {filterPlannedRoutes}

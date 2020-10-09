@@ -1,0 +1,14 @@
+@import "~@serge/themes/dependencies/variables";
+.input-container {
+  padding: 1rem;
+
+  .input-label {
+    @include typo-primary;
+    display: block;
+    font-weight: 700;
+  }
+}
+
+.disable-offset {
+  padding: 0;
+}
