@@ -4,9 +4,11 @@ exports[`Selector renders correctly 1`] = `
 <section
   className="input-container"
 >
-  <h2>
+  <div
+    className="MuiBox-root MuiBox-root-1 input-label"
+  >
     test
-  </h2>
+  </div>
   <div
     className="MuiInputBase-root MuiInput-root MuiInput-underline"
     onClick={[Function]}

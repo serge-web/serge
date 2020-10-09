@@ -7,5 +7,5 @@ export default function (str) {
     '(\\#[-a-z\\d_]*)?$', 'i') // fragment locator
   var windowsFilePath = new RegExp('^[\\w\\\\.:\\s]+?\\.\\w{2,4}')
 
-  return !!httpPattern.test(str) || str.startsWith('file:///') || !!windowsFilePath.test(str)
+  return typeof str === 'string' && (!!httpPattern.test(str) || str.startsWith('file:///') || !!windowsFilePath.test(str))
 }

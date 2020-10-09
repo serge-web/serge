@@ -13,9 +13,21 @@ const force = {
   icon: ''
 }
 
-it('GameAdmin renders correctly', () => {
-  const tree = renderer
-    .create(<GameAdmin wargameTitle="title" chatChannel={MessagesMock} selectedForce={force} selectedRole=""/>)
-    .toJSON()
-  expect(tree).toMatchSnapshot()
+const createNodeMock = (el: any): HTMLTextAreaElement | null => {
+  if (el.type === 'textarea') {
+    return document.createElement('textarea')
+  }
+  return null
+}
+
+describe('GameAdmin page:', () => {
+  it('renders correctly', () => {
+    const tree = renderer
+      .create(
+        <GameAdmin wargameTitle="title" chatChannel={MessagesMock} selectedForce={force} selectedRole=""/>,
+        { createNodeMock }
+      )
+      .toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 })

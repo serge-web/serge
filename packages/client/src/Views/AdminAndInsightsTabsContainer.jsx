@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import FlexLayout from "flexlayout-react";
+import { AdminPanelFooter } from '@serge/components';
 import GameAdmin from "./GameAdmin";
 import InsightsChannel from "./InsightsChannel";
 import { showHideObjectives } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
@@ -102,19 +103,12 @@ class AdminAndInsightsTabsContainer extends Component {
           factory={this.factory}
           classNameMapper={this.classNameMapper}
         />
-        <div className="role-info" style={{ backgroundColor: force.color, }} data-tour="second-step">
-          {
-            byPassUrl ?
-              <a href={byPassUrl} className="role-type">{ state.selectedRole }</a> :
-              <span className="role-type">{ state.selectedRole }</span>
-          }
-          <div className="contain-force-skin">
-            <div className="force-skin">
-              <span className="force-type">{ force.name }</span>
-              <img className="role-icon" src={force.icon} alt="" onClick={this.showHideForceObjectives} />
-            </div>
-          </div>
-        </div>
+        <AdminPanelFooter
+          force={force}
+          selectedRole={state.selectedRole}
+          byPassUrl={byPassUrl}
+          onIconClick={this.showHideForceObjectives}
+        />
       </>
     );
   }

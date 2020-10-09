@@ -1,12 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['PlannedRoute renders correctly 1'] = `
+exports[`PlannedRoute renders correctly 1`] = `
 <section
   className="input-container"
 >
-  <h2>
+  <div
+    className="MuiBox-root MuiBox-root-1 input-label"
+  >
     Planned Route
-  </h2>
+  </div>
   <button
     className="MuiButtonBase-root MuiButton-root MuiButton-text"
     disabled={false}
@@ -56,4 +58,4 @@ exports['PlannedRoute renders correctly 1'] = `
     </span>
   </button>
 </section>
-`
+`;

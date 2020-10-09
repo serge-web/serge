@@ -3,6 +3,7 @@
 interface CssExports {
   'collapse': string;
   'content': string;
+  'content-disable': string;
   'content-empty': string;
   'content-group': string;
   'content-group-out': string;

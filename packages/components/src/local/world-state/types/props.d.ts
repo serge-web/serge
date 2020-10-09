@@ -1,4 +1,4 @@
-import { RouteStore } from '@serge/custom-types'
+import { RouteStore, SergeGrid, SergeHex } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -33,4 +33,20 @@ export default interface PropTypes {
    * switch beetween Orders and  Other Visible Platforms
    */
   showOtherPlatforms?: boolean
+  /**
+   * grid of cells, used for movement
+   */
+  gridCells?: SergeGrid<SergeHex<{}>> | undefined
+ /**
+   * handler to move asset to top level of this force
+   */
+  groupMoveToRoot?: {(uniqid: string): void}
+ /**
+   * handler to create new group for provided assets
+   */
+  groupCreateNewGroup?: {(dragged: string, target: string): void}
+ /**
+   * handler to host one platform on another
+   */
+  groupHostPlatform?: {(dragged: string, target: string): void}
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import InputContainer from '../../input-container'
+import InputContainer from '../../atoms/input-container'
 import { Button } from '@material-ui/core'
 
 /* Import proptypes */

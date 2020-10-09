@@ -1,78 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MessageCreator renders correctly 1`] = `
-<div
-  className="main"
->
-  <div
-    className="new-message-creator"
+exports[`MessageCreator component: renders correctly 1`] = `
+<div>
+  <section
+    className="input-container disable-offset"
   >
+    <div
+      className="MuiBox-root MuiBox-root-4 input-label"
+    >
+      Post message
+    </div>
     <div
       className="media"
     >
       <div
         className="message-creator"
       >
-        <section
-          className="input-container"
-        >
-          <h2>
-            Post message
-          </h2>
-          <div
-            className="MuiFormControl-root MuiTextField-root"
-          >
-            <div
-              className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
-              onClick={[Function]}
-            >
-              <textarea
-                aria-invalid={false}
-                autoFocus={false}
-                className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
-                disabled={false}
-                name="Message"
-                onAnimationStart={[Function]}
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={false}
-                rows={4}
-                value=""
-              />
-            </div>
-          </div>
-        </section>
+        <textarea
+          aria-invalid={false}
+          autoFocus={false}
+          className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+          disabled={false}
+          name="Message"
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={false}
+          rows={1}
+          style={
+            Object {
+              "height": 0,
+              "overflow": "hidden",
+            }
+          }
+          value=""
+        />
+        <textarea
+          aria-hidden={true}
+          className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
+          readOnly={true}
+          style={
+            Object {
+              "height": 0,
+              "left": 0,
+              "overflow": "hidden",
+              "position": "absolute",
+              "top": 0,
+              "transform": "translateZ(0)",
+              "visibility": "hidden",
+            }
+          }
+          tabIndex={-1}
+        />
       </div>
     </div>
     <div
       className="send"
     >
-      <button
-        className="MuiButtonBase-root MuiButton-root MuiButton-text"
-        disabled={false}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onDragLeave={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex={0}
-        type="button"
-      >
-        <span
-          className="MuiButton-label"
-        >
-          Send
-        </span>
-      </button>
-    </div>
-  </div>
+      Send
+    </span>
+    <span
+      className="MuiTouchRipple-root"
+    />
+  </button>
 </div>
 `;
