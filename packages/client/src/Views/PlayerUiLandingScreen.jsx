@@ -18,7 +18,7 @@ export default function PlayerUiLandingScreen ({ gameInfo, enterSerge }) {
             <a href={ADMIN_ROUTE} title="Game design/Admin pages" className="link-admin">
               <FontAwesomeIcon icon={faUserCog} />
             </a>
-            <a href={STORYBOOK_ROUTE} className="link-admin">
+            <a href={STORYBOOK_ROUTE} title="User Interface review pages" className="link-admin">
             <FontAwesomeIcon icon={faPencilRuler} />
             </a>
           </div>
