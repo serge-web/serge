@@ -13,6 +13,7 @@ import {
 import "@serge/themes/App.scss";
 
 import Checkbox from "../Inputs/Checkbox";
+import { UMPIRE_FORCE } from '../../consts';
 
 class AddRoleModal extends Component {
 
@@ -73,7 +74,6 @@ class AddRoleModal extends Component {
 
   addRole = () => {
     let selectedForce = this.props.wargame.data.forces.selectedForce.name;
-
     let newRole = {
       name: this.state.roleName,
       password: this.state.rolePassword,
@@ -131,6 +131,8 @@ class AddRoleModal extends Component {
                 options={{numInput: false}}
               />
             </div>
+            {selectedForce === UMPIRE_FORCE &&
+            <>
             <div className="flex-content">
               <Checkbox
                 id="c1"
@@ -149,6 +151,7 @@ class AddRoleModal extends Component {
                 title="Role has view of all submitted feedback"
               />
             </div>
+            </>}
           </div>
           <div className="buttons">
             <button name="cancel" className="btn btn-action btn-action--secondary" onClick={this.hideModal}>Cancel</button>
