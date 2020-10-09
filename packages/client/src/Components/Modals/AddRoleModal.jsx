@@ -111,6 +111,7 @@ class AddRoleModal extends Component {
     if (!this.props.currentModal.open) return false;
 
     var disable = this.state.roleName.length < 1 || this.state.sameName || this.state.samePassword || this.state.rolePassword.length > 30;
+    let selectedForce = this.props.wargame.data.forces.selectedForce.uniqid;
 
     return (
       <ModalWrapper>
@@ -166,7 +167,9 @@ class AddRoleModal extends Component {
                 id="c3"
                 label="Can submit mapping plans"
                 updateStore={this.setCanSubmitPlans}
-                isChecked={this.state.canSubmitPlans}
+                // submit plans is a new parameter. It is missing from some wargames.
+                // so use value of false if its missing
+                isChecked={this.state.canSubmitPlans || false} 
                 title="Role can submit mapping plans"
               />
             </div>
