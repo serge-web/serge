@@ -95,7 +95,7 @@ export const Default: React.FC = () => {
     }].map((message, id) => {
     return { ...message, hasBeenRead: isRead[id] }
   })
-  const markAllAsRead = () => {
+  const markAllAsRead = (): void => {
     setIsRead(isRead.map(() => true))
   }
   const onRead = (detail: any): void => {
