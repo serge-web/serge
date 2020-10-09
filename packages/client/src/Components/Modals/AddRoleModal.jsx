@@ -13,6 +13,7 @@ import {
 import "@serge/themes/App.scss";
 
 import Checkbox from "../Inputs/Checkbox";
+import { UMPIRE_FORCE } from '../../consts';
 
 class AddRoleModal extends Component {
 
@@ -81,7 +82,6 @@ class AddRoleModal extends Component {
 
   addRole = () => {
     let selectedForce = this.props.wargame.data.forces.selectedForce.name;
-
     let newRole = {
       name: this.state.roleName,
       password: this.state.rolePassword,
@@ -111,6 +111,7 @@ class AddRoleModal extends Component {
     if (!this.props.currentModal.open) return false;
 
     var disable = this.state.roleName.length < 1 || this.state.sameName || this.state.samePassword || this.state.rolePassword.length > 30;
+    let selectedForce = this.props.wargame.data.forces.selectedForce.uniqid;
 
     return (
       <ModalWrapper>
@@ -140,6 +141,8 @@ class AddRoleModal extends Component {
                 options={{numInput: false}}
               />
             </div>
+            {selectedForce === UMPIRE_FORCE &&
+            <>
             <div className="flex-content">
               <Checkbox
                 id="c1"
@@ -158,12 +161,15 @@ class AddRoleModal extends Component {
                 title="Role has view of all submitted feedback"
               />
             </div>
+            </>}
             <div className="flex-content">
               <Checkbox
                 id="c3"
                 label="Can submit mapping plans"
                 updateStore={this.setCanSubmitPlans}
-                isChecked={this.state.canSubmitPlans}
+                // submit plans is a new parameter. It is missing from some wargames.
+                // so use value of false if its missing
+                isChecked={this.state.canSubmitPlans || false} 
                 title="Role can submit mapping plans"
               />
             </div>
