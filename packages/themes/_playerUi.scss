@@ -772,11 +772,28 @@
   }
 }
 
-.link-admin {
-  color: #fff;
+.shortcuts {
   position: absolute;
   right: 0;
   top: 0;
+
+  a {
+    display: inline-block;
+    width: 16px;
+
+    + a {
+      margin-left: 16px;
+    }
+  }
+}
+
+.link-admin {
+  color: #fff;
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
 
   &:hover {
     color: #fff;
