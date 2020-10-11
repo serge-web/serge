@@ -47,7 +47,7 @@ export const WithGameControl: React.FC = () => {
     phase: PLANNING_PHASE,
     currentTurn: 1
   })
-  const updateState = () => {
+  const updateState = (): void => {
     setState({
       phase: ADJUDICATION_PHASE,
       currentTurn: 2

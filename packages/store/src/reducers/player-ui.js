@@ -18,6 +18,7 @@ export const initialState = {
   forceColor: '',
   selectedRole: '',
   isObserver: false,
+  canSubmitPlans: false,
   controlUi: false,
   currentTurn: 0,
   phase: '',
@@ -139,6 +140,7 @@ export const playerUiReducer = (state = initialState, action) => {
       newState.selectedRole = action.payload.name
       newState.controlUi = action.payload.control
       newState.isObserver = action.payload.isObserver
+      newState.canSubmitPlans = action.payload.canSubmitPlans
       newState.isInsightViewer = action.payload.isInsightViewer
       break
 
