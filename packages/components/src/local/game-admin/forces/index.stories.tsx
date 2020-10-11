@@ -27,7 +27,7 @@ export const Default: React.FC = () => {
     setForces(forces)
   }
   const onSave = (): void => {
-    console.log('Your save logick', forces);
+    console.log('Your save logick', forces)
   }
 
   return <Forces forces={forces} onChange={onChange} onSave={onSave} />

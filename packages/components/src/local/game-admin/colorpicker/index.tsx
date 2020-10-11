@@ -10,14 +10,13 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const Colorpicker: React.FC<PropTypes> = ({ onChange, value }) => {
-
   const [active, setActive] = useState(false)
 
-  const handleClick = ():void => {
+  const handleClick = (): void => {
     setActive(!active)
   }
 
-  const handleChange = (color: ColorResult):void => {
+  const handleChange = (color: ColorResult): void => {
     onChange(color.hex)
     handleClick()
   }

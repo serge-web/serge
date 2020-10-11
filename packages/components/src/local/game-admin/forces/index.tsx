@@ -52,7 +52,7 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
     if (!forces[selectedItem]) return null
     const data = forces[selectedItem]
 
-    const handleChangeForce = (force: ForceData) => {
+    const handleChangeForce = (force: ForceData): void => {
       const nextForces: Array<ForceData> = [...forces]
       nextForces[selectedItem] = force
       handleChangeForces(nextForces)
@@ -72,7 +72,7 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
     const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
       const roleItem = item as Role
 
-      const handleChangeRole = (nextRole: Role) => {
+      const handleChangeRole = (nextRole: Role): void => {
         const roles: Array<Role> = [...data.roles]
         roles[key] = nextRole
         handleChangeForce({ ...data, roles })
@@ -81,7 +81,7 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
       return (
         <div className={styles.role}>
           <div className={styles['role-item']}>
-            <PasswordView value={roleItem.password} onChange={(password: string) => {
+            <PasswordView value={roleItem.password} onChange={(password: string): void => {
               handleChangeRole({ ...roleItem, password })
             }}/>
             {key === 0 && <div className={styles['role-title']}>Password</div>}
@@ -103,7 +103,7 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
             {key === 0 && <div
               title='Role can view feedback/insights'
               className={cx(styles['role-title'], styles['title-center'])}>
-              <FontAwesomeIcon icon={faComments}  />
+              <FontAwesomeIcon icon={faComments} />
             </div>}
           </div>
         </div>
@@ -122,8 +122,8 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
               placeholder="Platform Name"/>
           </div>
           <div className={styles['color-box']}>
-            <Colorpicker value={data.color} onChange={(newColor: string):void => {
-              handleChangeForce({...data, color: newColor })
+            <Colorpicker value={data.color} onChange={(newColor: string): void => {
+              handleChangeForce({ ...data, color: newColor })
             }} />
           </div>
           <div className={styles.col}>
@@ -138,8 +138,8 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
         <div className={styles.row}>
           <div className={cx(styles.col, styles.section)}>
             <FormGroup placeholder="Overview & Objectives">
-              <textarea rows={8} className={styles.textarea} onChange={(e):void => {
-                handleChangeForce({ ...data, overview: e.target.value})
+              <textarea rows={8} className={styles.textarea} onChange={(e): void => {
+                handleChangeForce({ ...data, overview: e.target.value })
               }}>{data.overview}</textarea>
             </FormGroup>
           </div>

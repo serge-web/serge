@@ -19,8 +19,6 @@ export default {
   }
 }
 
-
-
 export const Default: React.FC = () => {
   const [value, setValue] = useState('Password')
   const onChange = (nextValue: string): void => {

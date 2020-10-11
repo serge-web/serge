@@ -15,7 +15,7 @@ import TransparentInput from '../../form-elements/transparent-input'
 export const PasswordView: React.FC<PropTypes> = ({ value, onChange }) => {
   return (
     <div className={styles.main} title='Click to Copy or Edit'>
-      <TransparentInput value={value || ''} onChange={(val) => { onChange(val) }} />
+      <TransparentInput value={value || ''} onChange={(val): void => { onChange(val) }} />
       <section>
         <div className={styles.dots}>
           {[...Array((value || '').length)].map((_e, i) => (

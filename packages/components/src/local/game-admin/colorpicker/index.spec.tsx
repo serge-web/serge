@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer'
 
 import Colorpicker from './index'
 
-const handleChange = (_color: string):void => {}
+const handleChange = (_color: string): void => { console.log(_color) }
 
 it('colorpicker renders correctly', () => {
   const tree = renderer

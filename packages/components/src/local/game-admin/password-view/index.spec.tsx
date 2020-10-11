@@ -4,7 +4,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 
 import PasswordView from './index'
-const onChange = (_nextValue: string): void => {}
+const onChange = (nextValue: string): void => { console.log(nextValue) }
 
 it('password-view renders correctly', () => {
   const tree = renderer
