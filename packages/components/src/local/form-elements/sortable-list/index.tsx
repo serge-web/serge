@@ -26,11 +26,14 @@ export const SortableList: React.FC<PropTypes> = ({
   sortable = 'manual',
   renderItemSection,
   required = false,
-  valueOnEmpty
+  valueOnEmpty,
+  remove
 }) => {
   const [active, setActive] = useState<string | number>('')
   const [itemsSaved] = useState<Array<Item>>(items)
   const [selectAllText, setSelectAllText] = useState<boolean>(false)
+
+  const removeLocal = typeof remove === 'undefined' ? true : remove
 
   const handleChange = (changedItems: Array<Item>): void => {
     if (typeof onChange === 'function') {
@@ -146,9 +149,9 @@ export const SortableList: React.FC<PropTypes> = ({
               {copy && <div onClick={(): void => { handeCopy(item, key) }}>
                 <FontAwesomeIcon icon={faCopy} />
               </div>}
-              <div onClick={(): void => { handeRemove(key) }}>
+              {removeLocal && <div onClick={(): void => { handeRemove(key) }}>
                 <FontAwesomeIcon icon={faTimes} />
-              </div>
+              </div>}
             </span>
           </section>
         </div>

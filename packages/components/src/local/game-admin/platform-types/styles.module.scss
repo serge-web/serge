@@ -19,6 +19,14 @@
   padding: 12px;
 }
 
+.section:first-child {
+  padding-left: 0;
+}
+
+.section:last-child {
+  padding-right: 0;
+}
+
 .form-row {
   display: flex;
   width: 100%;

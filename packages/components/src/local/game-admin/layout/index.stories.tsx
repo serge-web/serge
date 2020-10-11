@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 // Import component files
 import AdminLayout from './index'
 import PlatformTypes from '../platform-types'
+// import Forces from '../forces'
 
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'

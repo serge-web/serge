@@ -29,6 +29,7 @@ export default interface PropTypes {
   renderItemSection?: (items: Item, key: number) => ReactNode
   title?: string
   copy?: boolean
+  remove?: boolean
   sortable?: 'manual' | 'auto'
   required?: boolean
   valueOnEmpty?: ReactText
