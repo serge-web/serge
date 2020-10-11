@@ -61,7 +61,8 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
     const handleCreateRole = (): void => {
       const roles: Array<Role> = [...data.roles, {
         name: 'New Role',
-        password: '',
+        canSubmitPlans: true,
+        password: Math.random().toString(36).substring(5),
         control: false,
         isInsightViewer: false,
         isObserver: false
