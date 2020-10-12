@@ -24,7 +24,7 @@ const onClick = (): void => {
 }
 
 export const Default: React.FC = () => (
-  <CollapsibleContent onClick={onClick}>Content</CollapsibleContent>
+  <CollapsibleContent collapsed={false} onClick={onClick}>Content</CollapsibleContent>
 )
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.

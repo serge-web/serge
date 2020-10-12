@@ -9,6 +9,7 @@ export const forces = [
       {
         control: true,
         isInsightViewer: true,
+        canSubmitPlans: true,
         isObserver: true,
         name: 'Game Control',
         password: 'p2311'
@@ -95,7 +96,11 @@ export const forces = [
                   },
                   uniqid: 'a0pra17943'
                 }
-              ],              
+              ],
+              status: {
+                speedKts: 20,
+                state: 'Transiting'
+              },
               uniqid: 'a0prbr6441'
             }, 
             {
@@ -106,7 +111,11 @@ export const forces = [
               name: 'MCM Delta',
               perceptions: [],
               platformType: 'MCMV',
-              uniqid: 'a0traa6790'
+              status: {
+                speedKts: 20,
+                state: 'Transiting'
+              },
+                uniqid: 'a0traa6790'
             }
         ],
         name: 'CTF 511',
@@ -324,6 +333,7 @@ export const forces = [
     roles: [
       {
         control: false,
+        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO',
@@ -439,6 +449,8 @@ export const forces = [
             route: [
             ],
             status: {
+              speedKts: 10,
+              state: 'Transiting'
             },
             uniqid: 'a0pra153102'
           }
@@ -595,6 +607,7 @@ export const forces = [
     roles: [
       {
         control: false,
+        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO',
@@ -1265,6 +1278,7 @@ export const forces = [
     roles: [
       {
         control: false,
+        canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO',

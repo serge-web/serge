@@ -72,7 +72,7 @@ export default interface MappingContext {
   /**
    *  setter, to modify the currently selected asset (or to clear it)
    **/
-  setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset | undefined>>
+  setSelectedAsset: {(asset: SelectedAsset): void}
   /**
    *  state for zoom Level
    **/
@@ -101,4 +101,16 @@ export default interface MappingContext {
    *  setter to change value of whether planning form should be hidden
    **/
   setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
+ /**
+   * handler to move asset to top level
+   */
+  groupMoveToRoot?: {(uniqid: string): void}
+  /** 
+   * handler to move assets into new group 
+   * */
+  groupCreateNewGroup?: {(dragged: string, target: string): void}
+ /**
+   * handler to host one platform on another
+   */
+  groupHostPlatform?: {(dragged: string, target: string): void}
 }

@@ -104,7 +104,6 @@ class MessagePreview extends Component {
 
   render() {
     if (!this.props.detail) return false;
-
     const that = this;
     const keyPropPairs = Object.entries(this.props.detail);
     const [ state ] = this.context;

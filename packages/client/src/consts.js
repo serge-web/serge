@@ -109,7 +109,8 @@ export const forceTemplate = {
       password: `p${uniqId.time()}`,
       control: false,
       isObserver: false,
-      isInsightViewer: false
+      isInsightViewer: false,
+      canSubmitPlans: true
     }
   ],
   icon: serverPath + 'default_img/forceDefault.png',
@@ -128,7 +129,8 @@ export const umpireForceTemplate = {
       password: `p${uniqId.time()}`,
       control: true,
       isObserver: true,
-      isInsightViewer: true
+      isInsightViewer: true,
+      canSubmitPlans: true
     }
   ],
   icon: serverPath + 'default_img/umpireDefault.png',

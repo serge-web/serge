@@ -4,6 +4,7 @@ import {
   faTimes,
   faPencilAlt,
   faEye,
+  faDirections,
   faComments,
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -49,6 +50,7 @@ class RemovableGroupItem extends Component {
     return (
       <span className="group-item" key={this.props.children} onMouseOver={this.showEditBtn} onMouseOut={this.hideEditBtn}>
         { this.props.data.isObserver && <FontAwesomeIcon title="Role can view all channels" icon={faEye} /> }
+        { this.props.data.canSubmitPlans && <FontAwesomeIcon title="Role can submit plans" icon={faDirections} /> }
         { this.props.data.isInsightViewer && <FontAwesomeIcon title="Role can view feedback/insights" icon={faComments} /> }
         { this.props.children }
         <FontAwesomeIcon className="edit-icon" icon={faPencilAlt} onClick={this.editRole} />

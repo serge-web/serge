@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Badge component: renders correctly 1`] = `
+<div
+  className="MuiChip-root makeStyles-root-1 makeStyles-root-4"
+  onKeyDown={[Function]}
+  onKeyUp={[Function]}
+>
+  <span
+    className="MuiChip-label makeStyles-label-3 makeStyles-label-5"
+  >
+    Charcoal
+  </span>
+</div>
+`;
