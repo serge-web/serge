@@ -104,27 +104,29 @@ class GameSetup extends Component {
               onClickHandler={this.notSavedNotification} href={ADMIN_ROUTE} id="home-btn"><FontAwesomeIcon icon={faArrowLeft} size="2x" /></Link>
           </div>
           <div className="flex-content-wrapper flex-content-wrapper--distribute" id="game-setup-head">
-            <div className="flex-content flex-content--row">
-              <TextInput
-                id="title-editable"
-                updateStore={this.updateWargameTitle}
-                options={{numInput: false}}
-                data={wargameTitle}
-              />
-              {this.checkWargameNameSaveable() ?
-                <FontAwesomeIcon className="savewargame-icon" icon={faSave} onClick={this.saveWargame } size="2x" />
-                : false
+            <div className="wargame-title-container">
+              <div className="flex-content flex-content--row">
+                <TextInput
+                  id="title-editable"
+                  updateStore={this.updateWargameTitle}
+                  options={{numInput: false}}
+                  data={wargameTitle}
+                />
+                {this.checkWargameNameSaveable() ?
+                  <FontAwesomeIcon className="savewargame-icon" icon={faSave} onClick={this.saveWargame } size="2x" />
+                  : false
+                }
+              </div>
+              {this.props.wargame.wargameInitiated &&
+                <div className="wargame-in-progress-warning">
+                  <FontAwesomeIcon icon={faHourglassStart} size="1x" />
+                  <h6>Wargame in progress</h6>
+                </div>
               }
             </div>
             <ProgressBar>
               {this.createIndicators()}
             </ProgressBar>
-            {this.props.wargame.wargameInitiated &&
-              <div className="wargame-in-progress-warning">
-                <FontAwesomeIcon icon={faHourglassStart} size="1x" />
-                <h6>Wargame in progress</h6>
-              </div>
-            }
           </div>
           <TabbedView
             tabs={this.props.wargame.data}
