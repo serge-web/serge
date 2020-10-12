@@ -95,6 +95,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
         platformType={icon.platformType}
       >
         {formHeader}
+        { plansSubmitted &&
+         <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
+        }
+
       </TitleWithIcon>
       { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
       { conditionVal.toLowerCase() === 'working' && <fieldset>
