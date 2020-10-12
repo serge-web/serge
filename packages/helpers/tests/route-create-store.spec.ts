@@ -87,7 +87,8 @@ it('create trimmed history & full planned for selected blue unit', () => {
   if(frigate) {
     expect(frigate.name).toEqual('Frigate')
     expect(frigate.history.length).toEqual(1)
-    expect(frigate.planned.length).toEqual(2)  
+    expect(frigate.planned.length).toEqual(2)
+    expect(frigate.selected).toBeTruthy()
   }
   
   // check a blue route
@@ -97,7 +98,14 @@ it('create trimmed history & full planned for selected blue unit', () => {
     expect(frigate2.name).toEqual('Frigate')
     expect(frigate2.history.length).toEqual(1)
     expect(frigate2.planned.length).toEqual(2)  
+    expect(frigate2.selected).toBeTruthy()
   }
+
+  // check no other routes set as selected
+  store.routes.forEach((route: Route) => {
+    // selected flag should be false if this isn't the frigate
+    expect(route.selected).toEqual(route.uniqid === frigateId)
+  })
 })
 
 it('create trimmed history & trimmed planned for without selected blue unit', () => {
