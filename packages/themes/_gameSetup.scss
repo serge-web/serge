@@ -2,16 +2,21 @@
 
 #game-setup-head {
   background: $grey-bg;
-  padding: 6vh 1vw 0;
+  padding: 2vh 1vw 0;
   position: relative;
   z-index: 2;
 }
 
+.wargame-title-container {
+  display: flex;
+  flex-direction: row;
+}
+
 .wargame-in-progress-warning {
-  left: 50%;
-  margin-left: -100px;
-  position: absolute;
-  top: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 15px;
   width: 200px;
 
   h6 {
@@ -21,7 +26,7 @@
   svg {
     color: $secondary-color;
     margin-bottom: 5px;
-    width: 100% !important;
+    margin-right: 10px;
   }
 }
 
