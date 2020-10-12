@@ -100,6 +100,12 @@ it('create trimmed history & full planned for selected blue unit', () => {
     expect(frigate2.planned.length).toEqual(2)  
     expect(frigate2.selected).toBeTruthy()
   }
+
+  // check no other routes set as selected
+  store.routes.forEach((route: Route) => {
+    // selected flag should be false if this isn't the frigate
+    expect(route.selected).toEqual(route.uniqid === frigateId)
+  })
 })
 
 it('create trimmed history & trimmed planned for without selected blue unit', () => {
