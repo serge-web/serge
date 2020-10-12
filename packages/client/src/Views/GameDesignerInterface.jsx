@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import Link from "../Components/Link";
 import SidebarAdmin from "../Components/SidebarAdmin";
 import TextInput from "../Components/Inputs/TextInput";
+import ImportWargame from "../Components/ImportWargame";
 import WargameSearchList from "../Components/WargameSearchList";
 import Loader from "../Components/Loader";
 import {
@@ -82,16 +83,22 @@ class GameDesignerInterface extends Component {
         <div className="flex-content flex-content--big flex-content--last">
           <h2 id="page-title">Games</h2>
           <div className="btn-group game-designer-action">
-            <Link
-                href={GAME_SETUP_ROUTE}
-                class="link link--noIcon"
-                onClickHandler={this.createWargame}
-            >Create</Link>
-            <Link
-                href={ADMIN_ROUTE}
-                class="link link--noIcon link--secondary"
-                onClickHandler={this.clearWargames}
-            >Clear wargames</Link>
+            <div className="game-designer-action--item">
+
+              <Link
+                  href={GAME_SETUP_ROUTE}
+                  class="link link--noIcon"
+                  onClickHandler={this.createWargame}
+              >Create</Link>
+              <ImportWargame wargameList={this.props.wargame.wargameList}/>
+            </div>
+            <div className="game-designer-action--item">
+              <Link
+                  href={ADMIN_ROUTE}
+                  class="link link--noIcon link--secondary"
+                  onClickHandler={this.clearWargames}
+              >Clear wargames</Link>
+            </div>
           </div>
           <WargameSearchList key="searchlist"
             listData={this.props.wargame.wargameList}

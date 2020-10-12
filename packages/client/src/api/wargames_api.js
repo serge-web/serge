@@ -57,6 +57,10 @@ export const listenForWargameChanges = (name, dispatch) => {
   listenNewMessage({ db, name, dispatch })
 }
 
+export const createWargameListItemObject = (dbName, wargame) => (
+  { name: dbName, title: wargame.wargameTitle, initiated: wargame.wargameInitiated }
+)
+
 export const populateWargame = (dispatch) => {
   return fetch(serverPath + 'allDbs')
     .then((response) => {
@@ -77,11 +81,7 @@ export const populateWargame = (dispatch) => {
       const promises = wargameDbStore.map((game) => {
         return getLatestWargameRevision(game.name)
           .then(function (res) {
-            return {
-              name: game.db.name,
-              title: res.wargameTitle,
-              initiated: res.wargameInitiated
-            }
+            return createWargameListItemObject(game.db.name, res)
           })
           .catch((err) => {
             console.log(err)
@@ -125,31 +125,29 @@ export const deleteWargame = (wargamePath) => {
   wargameDbStore.splice(index, 1)
 }
 
-export const createWargame = (dispatch) => {
+export const createWargame = (dispatch, importWargame) => {
+  const defaultWargame = importWargame || dbDefaultSettings
   const uniqId = uniqid.time()
 
   const name = `wargame-${uniqId}`
 
-  return new Promise((resolve, reject) => {
-    const db = new PouchDB(databasePath + name)
+  const db = new PouchDB(databasePath + name)
 
-    db.setMaxListeners(15)
+  db.setMaxListeners(15)
 
-    wargameDbStore.unshift({ name, db })
+  wargameDbStore.unshift({ name, db })
 
-    const settings = { ...dbDefaultSettings, name: name, wargameTitle: name }
+  const initWargame = {
+    ...defaultWargame,
+    name: name,
+    wargameTitle: defaultWargame.wargameTitle || name
+  }
 
-    db.put(settings)
-      .then(() => {
-        return db.get(dbDefaultSettings._id)
-      })
-      .then((res) => {
-        resolve(res)
-      })
-      .catch((err) => {
-        reject(err)
-        console.log(err)
-      })
+  return db.put(initWargame).then(() => {
+    return db.get(initWargame._id)
+  }).catch((err) => {
+    console.log(err)
+    return err
   })
 }
 
