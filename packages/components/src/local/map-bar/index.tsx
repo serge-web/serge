@@ -109,14 +109,18 @@ export const MapBar: React.FC = () => {
 
   const worldStateSubmitHandler = (): void => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
+      // Umpire has finshed adjudication phase, and is now ready
+      // to submit new State of the World object
       const orders = collateStateOfWorld(routeStore.routes, turnNumber)
       postBack(STATE_OF_WORLD, orders, channelID)
     } else if (phase === PLANNING_PHASE) {
-      // build the results object
+      // Player has finished planning process, and now
+      // wants to submit them
       const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
       const orders = collatePlanningOrders(myRoutes, playerForce, turnNumber)
       postBack(SUBMIT_PLANS, orders, channelID)
     }
+    setPlansSubmitted(true)
   }
 
   // Selects the current asset
