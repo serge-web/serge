@@ -29,6 +29,7 @@ export const EXPORT_FORCES_SUBROUTE = '/foeces'
 export const EXPORT_PRINT_SUBROUTE = '/print/:id'
 export const PLAYERUI_ROUTE = '/serge/player'
 export const DEMO_ROUTE = '/serge/demo'
+export const STORYBOOK_ROUTE = './storybook'
 
 export const expiredStorage = new ExpiredStorage()
 export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
@@ -109,7 +110,8 @@ export const forceTemplate = {
       password: `p${uniqId.time()}`,
       control: false,
       isObserver: false,
-      isInsightViewer: false
+      isInsightViewer: false,
+      canSubmitPlans: true
     }
   ],
   icon: serverPath + 'default_img/forceDefault.png',
@@ -128,7 +130,8 @@ export const umpireForceTemplate = {
       password: `p${uniqId.time()}`,
       control: true,
       isObserver: true,
-      isInsightViewer: true
+      isInsightViewer: true,
+      canSubmitPlans: true
     }
   ],
   icon: serverPath + 'default_img/umpireDefault.png',

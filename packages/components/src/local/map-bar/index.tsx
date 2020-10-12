@@ -196,6 +196,7 @@ export const MapBar: React.FC = () => {
           formHeader={currentAssetName}
           formData={collateAdjudicationFormData(platforms, selectedAsset, forces)}
           channelID={channelID}
+          icon={icondData}
           postBack={postBack} />
         break
       case 'Planning':

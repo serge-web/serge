@@ -13,6 +13,7 @@ import {
 import "@serge/themes/App.scss";
 
 import Checkbox from "../Inputs/Checkbox";
+import { UMPIRE_FORCE } from '../../consts';
 
 class AddRoleModal extends Component {
 
@@ -23,6 +24,7 @@ class AddRoleModal extends Component {
       roleName: this.props.currentModal.data ? this.props.currentModal.data.name : '',
       rolePassword: this.props.currentModal.data ? this.props.currentModal.data.password : `p${uniqId.time()}`,
       isObserver: this.props.currentModal.data ? this.props.currentModal.data.isObserver : false,
+      canSubmitPlans: this.props.currentModal.data ? this.props.currentModal.data.canSubmitPlans : false,
       isInsightViewer: this.props.currentModal.data ? this.props.currentModal.data.isInsightViewer : false,
     };
   }
@@ -34,6 +36,7 @@ class AddRoleModal extends Component {
       rolePassword: '',
       isObserver: false,
       isInsightViewer: false,
+      canSubmitPlans:false
     });
 
     this.props.dispatch(modalAction.close());
@@ -70,14 +73,20 @@ class AddRoleModal extends Component {
     });
   };
 
+  setCanSubmitPlans= (value) => {
+    this.setState({
+      canSubmitPlans: value
+    });
+  };
+
 
   addRole = () => {
     let selectedForce = this.props.wargame.data.forces.selectedForce.name;
-
     let newRole = {
       name: this.state.roleName,
       password: this.state.rolePassword,
       isObserver: this.state.isObserver,
+      canSubmitPlans: this.state.canSubmitPlans,
       isInsightViewer: this.state.isInsightViewer,
       control: this.props.currentModal.data ? this.props.currentModal.data.control : false,
     };
@@ -102,6 +111,7 @@ class AddRoleModal extends Component {
     if (!this.props.currentModal.open) return false;
 
     var disable = this.state.roleName.length < 1 || this.state.sameName || this.state.samePassword || this.state.rolePassword.length > 30;
+    let selectedForce = this.props.wargame.data.forces.selectedForce.uniqid;
 
     return (
       <ModalWrapper>
@@ -131,6 +141,8 @@ class AddRoleModal extends Component {
                 options={{numInput: false}}
               />
             </div>
+            {selectedForce === UMPIRE_FORCE &&
+            <>
             <div className="flex-content">
               <Checkbox
                 id="c1"
@@ -147,6 +159,18 @@ class AddRoleModal extends Component {
                 updateStore={this.setInsightViewer}
                 isChecked={this.state.isInsightViewer}
                 title="Role has view of all submitted feedback"
+              />
+            </div>
+            </>}
+            <div className="flex-content">
+              <Checkbox
+                id="c3"
+                label="Can submit mapping plans"
+                updateStore={this.setCanSubmitPlans}
+                // submit plans is a new parameter. It is missing from some wargames.
+                // so use value of false if its missing
+                isChecked={this.state.canSubmitPlans || false} 
+                title="Role can submit mapping plans"
               />
             </div>
           </div>

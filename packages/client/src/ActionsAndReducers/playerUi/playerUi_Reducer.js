@@ -15,6 +15,7 @@ export const initialState = {
   forceColor: '',
   selectedRole: '',
   isObserver: false,
+  canSubmitPlans: false,
   controlUi: false,
   currentTurn: 0,
   phase: '',
