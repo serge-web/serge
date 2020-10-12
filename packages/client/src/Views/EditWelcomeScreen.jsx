@@ -124,7 +124,7 @@ class EditWelcomeScreen extends Component {
           <div className="section">
             <h5>Title</h5>
             <TextInput
-              id="title-editable"
+              id="setup-title-editable"
               updateStore={this.updateSergeTitle}
               options={{numInput: false}}
               data={this.state.title}

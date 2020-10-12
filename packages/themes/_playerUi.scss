@@ -68,10 +68,25 @@
   }
 }
 
-#title-editable {
+#setup-title-editable {
   background: transparent;
   border: 0;
   color: rgba(255, 255, 255, 0.7);
+  display: inline-block;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.85em;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  width: 300px;
+
+  &.input-game-title {
+    color: $admin-color;
+  }
+}
+#title-editable {
+  background: transparent;
+  border: 0;
+  color: rgba(20, 20, 20, 0.7);
   display: inline-block;
   font-family: "Open Sans", sans-serif;
   font-size: 1.85em;
@@ -757,11 +772,28 @@
   }
 }
 
-.link-admin {
-  color: #fff;
+.shortcuts {
   position: absolute;
   right: 0;
   top: 0;
+
+  a {
+    display: inline-block;
+    width: 16px;
+
+    + a {
+      margin-left: 16px;
+    }
+  }
+}
+
+.link-admin {
+  color: #fff;
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
 
   &:hover {
     color: #fff;
