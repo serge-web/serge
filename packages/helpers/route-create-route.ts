@@ -146,7 +146,7 @@ const routeCreateRoute = (asset: any, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
   perceivedType: string, platformTypes: any, playerForce: string, status: any, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
-  filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean): Route => {
+  filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean ): Route => {
   const currentStatus: RouteStatus = status.speedKts
     ? { state: status.state, speedKts: status.speedKts }
     : { state: status.state }

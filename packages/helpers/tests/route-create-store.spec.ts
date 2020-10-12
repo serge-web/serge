@@ -87,7 +87,8 @@ it('create trimmed history & full planned for selected blue unit', () => {
   if(frigate) {
     expect(frigate.name).toEqual('Frigate')
     expect(frigate.history.length).toEqual(1)
-    expect(frigate.planned.length).toEqual(2)  
+    expect(frigate.planned.length).toEqual(2)
+    expect(frigate.selected).toBeTruthy()
   }
   
   // check a blue route
@@ -97,6 +98,7 @@ it('create trimmed history & full planned for selected blue unit', () => {
     expect(frigate2.name).toEqual('Frigate')
     expect(frigate2.history.length).toEqual(1)
     expect(frigate2.planned.length).toEqual(2)  
+    expect(frigate2.selected).toBeTruthy()
   }
 })
 
