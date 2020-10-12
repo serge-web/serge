@@ -1,0 +1,35 @@
+@import '~@serge/themes/dependencies/variables';
+
+.wargame-option-menu {
+  background: #fff;
+  border: 1px solid $grey;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 160px;
+  z-index: 3;
+  @include typo-primary;
+
+  span {
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    padding: 2px 12px;
+    color: $dark-grey;
+
+    svg {
+      margin-right: 6px;
+      min-width: 1.25em;
+    }
+
+    path {
+      fill: $grey;
+    }
+
+    &:hover {
+      path {
+        fill: $dark-grey;
+      }
+    }
+  }
+}
