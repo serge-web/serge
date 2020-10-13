@@ -56,7 +56,9 @@ export const MapBar: React.FC = () => {
     setHidePlanningForm,
     groupMoveToRoot,
     groupCreateNewGroup,
-    groupHostPlatform
+    groupHostPlatform,
+    plansSubmitted,
+    setPlansSubmitted
   }: {
     gridCells: SergeGrid<SergeHex<{}>> | undefined
     playerForce: any
@@ -77,6 +79,8 @@ export const MapBar: React.FC = () => {
     groupMoveToRoot?: {(uniqid: string): void}
     groupCreateNewGroup?: {(dragged: string, target: string): void}
     groupHostPlatform?: {(dragged: string, target: string): void}
+    plansSubmitted: boolean
+    setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
   } = useContext(MapContext).props
 
   // sort out the handler for State of World button
@@ -105,14 +109,18 @@ export const MapBar: React.FC = () => {
 
   const worldStateSubmitHandler = (): void => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
+      // Umpire has finshed adjudication phase, and is now ready
+      // to submit new State of the World object
       const orders = collateStateOfWorld(routeStore.routes, turnNumber)
       postBack(STATE_OF_WORLD, orders, channelID)
     } else if (phase === PLANNING_PHASE) {
-      // build the results object
+      // Player has finished planning process, and now
+      // wants to submit them
       const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
       const orders = collatePlanningOrders(myRoutes, playerForce, turnNumber)
       postBack(SUBMIT_PLANS, orders, channelID)
     }
+    setPlansSubmitted(true)
   }
 
   // Selects the current asset
@@ -188,6 +196,7 @@ export const MapBar: React.FC = () => {
       case 'Adjudication':
         output = <AdjudicateTurnForm
           key={selectedAsset.uniqid}
+          plansSubmitted={plansSubmitted}
           formHeader={currentAssetName}
           formData={collateAdjudicationFormData(platforms, selectedAsset, forces)}
           channelID={channelID}
@@ -198,6 +207,7 @@ export const MapBar: React.FC = () => {
         output = <PlanTurnForm
           icon={icondData}
           setHidePlanningForm={setHidePlanningForm}
+          plansSubmitted={plansSubmitted}
           key={selectedAsset.uniqid}
           formHeader={currentAssetName}
           formData={collatePlanFormData(platforms, selectedAsset)}
@@ -237,6 +247,8 @@ export const MapBar: React.FC = () => {
             groupMoveToRoot={groupMoveToRoot}
             groupCreateNewGroup={groupCreateNewGroup}
             groupHostPlatform={groupHostPlatform}
+            plansSubmitted={plansSubmitted}
+            setPlansSubmitted={setPlansSubmitted}
             gridCells={gridCells} ></WorldState>
         </section>
       </div>

@@ -20,7 +20,7 @@ import styles from './styles.module.scss'
 import { isNumber } from '@serge/helpers'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, icon, postBack }) => {
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, icon, plansSubmitted, postBack }) => {
   const [formState, setFormState] = useState(formData.values)
 
   const { status, speed, visibleTo, condition } = formData.populate
@@ -95,6 +95,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
         platformType={icon.platformType}
       >
         {formHeader}
+        { plansSubmitted &&
+         <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
+        }
+
       </TitleWithIcon>
       { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
       { conditionVal.toLowerCase() === 'working' && <fieldset>
@@ -143,7 +147,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
           <RCB type="radio" label="" options={condition} value={conditionVal} updateState={changeHandler}/>
         </FormGroup>
       </fieldset>
-      <Button onClick={submitForm}>Save</Button>
+      <Button disabled={plansSubmitted} onClick={submitForm}>Save</Button>
     </div>
   )
 }

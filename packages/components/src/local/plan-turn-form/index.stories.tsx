@@ -58,6 +58,35 @@ export const Default: React.FC = () => <PlanTurnForm
     }
   }}
   icon={iconData}
+  plansSubmitted={false}
+/>
+
+export const TurnsPlanned: React.FC = () => <PlanTurnForm
+  turnPlanned={postback}
+  formHeader="Planning header"
+  formData={{
+    populate: {
+      status: [{
+        name: 'Moored',
+        mobile: false
+      },
+      {
+        name: 'Transiting',
+        mobile: true
+      }],
+      speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40]
+    },
+    values: {
+      statusVal: {
+        name: 'Transiting',
+        mobile: true
+      },
+      speedVal: 0,
+      turnsVal: 5
+    }
+  }}
+  icon={iconData}
+  plansSubmitted={true}
 />
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.

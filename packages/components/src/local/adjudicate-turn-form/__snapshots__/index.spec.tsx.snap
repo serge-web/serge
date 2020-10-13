@@ -640,6 +640,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
   </fieldset>
   <button
     className="main"
+    disabled={false}
     onClick={[Function]}
     type="button"
   >

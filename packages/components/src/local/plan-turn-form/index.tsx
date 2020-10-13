@@ -17,7 +17,7 @@ import styles from './styles.module.scss'
 import { isNumber } from '@serge/helpers'
 
 /* Render component */
-export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, setHidePlanningForm, turnPlanned, icon }) => {
+export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, setHidePlanningForm, turnPlanned, icon, plansSubmitted }) => {
   // TODO: Refactor this into a reusable helper and remove other instances
   const [formState, setFormState] = useState(formData.values)
 
@@ -96,10 +96,15 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, setHid
       platformType={icon.platformType}
     >
       {formHeader}
+      { plansSubmitted &&
+       <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
+      }
     </TitleWithIcon>
+
     <FormGroup title="State" align="right">
       <Select
         className={clSelect}
+        disabled={plansSubmitted}
         value={statusVal.name}
         onChange={statusHandler}
       >
@@ -119,7 +124,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, setHid
         }
       </FormGroup>
       : <FormGroup title="For">
-        <Input className={clInput} name="turns" value={turnsVal} onChange={changeHandler}/>
+        <Input className={clInput} disabled={plansSubmitted} name="turns" value={turnsVal} onChange={changeHandler}/>
         <span className={styles.text}>turns</span>
         {/*
           <TextInput
@@ -134,7 +139,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, setHid
     <FormGroup title="Condition">
       <span className={styles.text}>{/* TODO: add real data */}Working</span>
     </FormGroup>
-    <Button disabled={!saveEnabled} onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Save'}</Button>
+    <Button disabled={!saveEnabled || plansSubmitted} onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Save'}</Button>
   </div>
 }
 
