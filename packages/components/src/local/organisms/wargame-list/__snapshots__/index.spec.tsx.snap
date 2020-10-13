@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WargameList component: renders correctly 1`] = `
+<div
+  className="wargame-searchlist"
+>
+  <section
+    className="input-container disable-offset"
+  >
+    <div
+      className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+    >
+      <div
+        className="MuiInputBase-root MuiFilledInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInputBase-formControl"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          autoFocus={false}
+          className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2"
+          disabled={false}
+          name=""
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="Search games"
+          required={false}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </section>
+  <div
+    className="searchlist-list"
+  >
+    <div
+      className="searchlist-title"
+    >
+      <span
+        className="wargame-title"
+      >
+        <span
+          className="wargame-started-highlight"
+        >
+           
+        </span>
+        <span
+          onClick={[Function]}
+          title="Wargame A"
+        >
+          Wargame A
+        </span>
+      </span>
+      <svg
+        aria-labelledby="svg-inline--fa-title-MafEgHoB4xTg"
+        className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
+        data-icon="ellipsis-h"
+        data-prefix="fas"
+        onClick={[Function]}
+        role="img"
+        style={Object {}}
+        viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title
+          id="svg-inline--fa-title-MafEgHoB4xTg"
+          style={Object {}}
+        >
+          Wargame menu
+        </title>
+        <path
+          d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+    <div
+      className="searchlist-title"
+    >
+      <span
+        className="wargame-title"
+      >
+        <span
+          className="wargame-unstarted-highlight"
+        >
+           
+        </span>
+        <span
+          onClick={[Function]}
+          title="Wargame B"
+        >
+          Wargame B
+        </span>
+      </span>
+      <svg
+        aria-labelledby="svg-inline--fa-title-J2ZuCzgrocnD"
+        className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
+        data-icon="ellipsis-h"
+        data-prefix="fas"
+        onClick={[Function]}
+        role="img"
+        style={Object {}}
+        viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title
+          id="svg-inline--fa-title-J2ZuCzgrocnD"
+          style={Object {}}
+        >
+          Wargame menu
+        </title>
+        <path
+          d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+    <div
+      className="searchlist-title"
+    >
+      <span
+        className="wargame-title"
+      >
+        <span
+          className="wargame-started-highlight"
+        >
+           
+        </span>
+        <span
+          onClick={[Function]}
+          title="Wargame C"
+        >
+          Wargame C
+        </span>
+      </span>
+      <svg
+        aria-labelledby="svg-inline--fa-title-0RnVd9mSzBUd"
+        className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
+        data-icon="ellipsis-h"
+        data-prefix="fas"
+        onClick={[Function]}
+        role="img"
+        style={Object {}}
+        viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title
+          id="svg-inline--fa-title-0RnVd9mSzBUd"
+          style={Object {}}
+        >
+          Wargame menu
+        </title>
+        <path
+          d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;

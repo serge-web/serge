@@ -1,10 +1,10 @@
-@import '~@serge/themes/dependencies/variables';
+@import "~@serge/themes/dependencies/variables";
 
 .wargame-title {
+  @include typo-primary;
   cursor: pointer;
   display: block;
   width: 100%;
-  @include typo-primary;
 
   &:hover {
     color: #3eedd8;
