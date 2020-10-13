@@ -71,16 +71,19 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
           const matchingHex: SergeHex<{}> | undefined = grid && hexNamed(asset.position, grid) || undefined
           const assetLocation: L.LatLng = matchingHex && matchingHex.centreLatLng || dummyLocation
 
+          // is it the selected asset?
+          const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
+
           if(controlled || playerForce === UMPIRE_FORCE) {
             // asset under player control or player is umpire, so use real attributes
 
             // if it's the selected asset, we plot all future steps
-            const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
             const applyFilterPlannedSteps: boolean = filterPlannedSteps && !isSelectedAsset
 
             const newRoute: Route = routeCreateRoute(asset, force.color,
               controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
-              platformTypes, playerForce, asset.status, asset.position, assetLocation, grid, true, filterHistorySteps, applyFilterPlannedSteps)
+              platformTypes, playerForce, asset.status, asset.position, assetLocation, 
+              grid, true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset)
             store.routes.push(newRoute)
           } else {
 
@@ -96,7 +99,7 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
                   // create route for this asset
                   const newRoute: Route = routeCreateRoute(child, perceivedColor, false, force.uniqid, perceptions[1],
                     perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, 
-                    grid, false, filterHistorySteps, filterPlannedSteps)
+                    grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset)
                   store.routes.push(newRoute)
                 }
               })
@@ -109,7 +112,7 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
                 // create route for this asset
                 const newRoute: Route = routeCreateRoute(asset, perceivedColor, false, force.uniqid, perceptions[1],
                   perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, 
-                  grid, false, filterHistorySteps, filterPlannedSteps)
+                  grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset)
                 store.routes.push(newRoute)
               }
             }
