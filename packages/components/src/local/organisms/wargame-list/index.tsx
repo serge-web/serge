@@ -1,0 +1,71 @@
+import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
+import TextInput from '../../atoms/text-input'
+import GameTitle from '../../atoms/game-title'
+import OptionMenu from '../../molecules/option-menu'
+
+/* Import Types */
+import Props from './types/props'
+
+/* Import Stylesheet */
+import styles from './styles.module.scss'
+
+/* Render component */
+export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick }: Props) => {
+  const [wargameQuery, setWargameQuery] = useState('')
+  const [wargameMenuOpen, setWargameMenuOpen] = useState('')
+  const searchByQuery = (listItem: { title: string }): boolean => {
+    const { title } = listItem
+    return title === '' || title.toLowerCase().includes(wargameQuery.toLowerCase())
+  }
+  const setQuery = (target: { value: string }): any => {
+    setWargameQuery(target.value)
+  }
+
+  return (
+    <div className={styles['wargame-searchlist']}>
+      <TextInput
+        fullWidth
+        placeholder="Search games"
+        updateState={setQuery}
+        value={wargameQuery}
+        variant="filled"
+      />
+      <div className={styles['searchlist-list']}>
+        { wargames.filter(searchByQuery).map((game, id) => {
+          const gameTitleProps = {
+            ...game,
+            onClick: onGameClick
+          }
+          return (
+            <div
+              className={styles['searchlist-title']}
+              key={id}
+            >
+              <GameTitle {...gameTitleProps} />
+              <FontAwesomeIcon
+                icon={faEllipsisH}
+                className={styles['wargame-option-menu-btn']}
+                title="Wargame menu"
+                onClick={(): void => setWargameMenuOpen(game.title)}
+              />
+              {
+                wargameMenuOpen === game.title && (
+                  <div className={styles['contain-option-menu']}>
+                    <OptionMenu
+                      menus={menuConfig}
+                      gameTitle={game.title}
+                    />
+                  </div>
+                )
+              }
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export default WargameList

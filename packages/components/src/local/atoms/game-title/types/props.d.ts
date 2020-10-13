@@ -10,5 +10,5 @@ export default interface Props {
   /**
    * Callback on clicking the game title
    */
-  onClick: (title: string) => {}
+  onClick?: (title: string) => void
 }

@@ -5,7 +5,7 @@ interface MenuItem {
   /**
    * Callback on menu item click event
    */
-  onClick: ((event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void) | undefined
+  onClick: ((gameTitle: string) => void)
   /**
    * Menu icon taken from fontawesome icons list
    */
@@ -25,4 +25,8 @@ export default interface Props {
    * List of menus
    */
   menus: Array<MenuItem>
+  /**
+   * Game title that is used as the option menu parameter
+   */
+  gameTitle: string
 }

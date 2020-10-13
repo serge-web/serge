@@ -1,7 +1,14 @@
 @import '~@serge/themes/dependencies/variables';
 
 .wargame-title {
+  cursor: pointer;
+  display: block;
+  width: 100%;
   @include typo-primary;
+
+  &:hover {
+    color: $dark-grey;
+  }
 }
 
 .wargame-started-highlight {

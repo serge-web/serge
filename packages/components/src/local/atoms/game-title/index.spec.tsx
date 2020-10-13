@@ -5,9 +5,8 @@ import renderer from 'react-test-renderer'
 
 import GameTitle from './index'
 
-const onTitleClick = (title: string) => {
+const onTitleClick = (title: string): void => {
   window.alert(title)
-  return {}
 }
 
 describe('GameTitle component:', () => {

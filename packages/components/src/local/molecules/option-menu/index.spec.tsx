@@ -35,7 +35,7 @@ describe('OptionMenu component:', () => {
       }
     ]
     const tree = renderer
-      .create(<OptionMenu menus={menus} />)
+      .create(<OptionMenu menus={menus} gameTitle="IMWARC-New" />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
