@@ -4,7 +4,7 @@ import React from 'react'
 import MessagesList from './index'
 import docs from './README.md'
 
-import { MessagesMock } from '@serge/mocks'
+import { AdminMessagesMock } from '@serge/mocks'
 
 export default {
   title: 'local/MessagesList',
@@ -22,4 +22,4 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <MessagesList userId="" messages={MessagesMock} />
+export const Default: React.FC = () => <MessagesList userId="" messages={AdminMessagesMock} />
