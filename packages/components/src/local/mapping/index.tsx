@@ -155,7 +155,6 @@ export const Mapping: React.FC<PropTypes> = ({
     setSelectedAsset(undefined)
   }, [playerForce])
 
-
   /**
    * reflect external changes in planning range prop (mostly
    * just in Storybook testing)
@@ -164,7 +163,7 @@ export const Mapping: React.FC<PropTypes> = ({
     setPlanningRange(planningRangeProp)
   }, [planningRangeProp])
 
-    /**
+  /**
    * reflect external changes in planning range prop (mostly
    * just in Storybook testing)
    */
@@ -172,7 +171,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // test to see if constraints have actually changed
     const oldVal = JSON.stringify(planningConstraints)
     const newVal = JSON.stringify(planningConstraintsProp)
-    if(oldVal !== newVal) {
+    if (oldVal !== newVal) {
       setPlanningConstraints(planningConstraintsProp)
     }
   }, [planningConstraintsProp])
