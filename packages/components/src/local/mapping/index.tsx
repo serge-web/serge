@@ -155,6 +155,28 @@ export const Mapping: React.FC<PropTypes> = ({
     setSelectedAsset(undefined)
   }, [playerForce])
 
+
+  /**
+   * reflect external changes in planning range prop (mostly
+   * just in Storybook testing)
+   */
+  useEffect(() => {
+    setPlanningRange(planningRangeProp)
+  }, [planningRangeProp])
+
+    /**
+   * reflect external changes in planning range prop (mostly
+   * just in Storybook testing)
+   */
+  useEffect(() => {
+    // test to see if constraints have actually changed
+    const oldVal = JSON.stringify(planningConstraints)
+    const newVal = JSON.stringify(planningConstraintsProp)
+    if(oldVal !== newVal) {
+      setPlanningConstraints(planningConstraintsProp)
+    }
+  }, [planningConstraintsProp])
+
   /**
    * generate the set of routes visible to this player, for display
    * in the Force Overview panel
