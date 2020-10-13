@@ -436,7 +436,7 @@ export const Mapping: React.FC<PropTypes> = ({
    * When that happens, clear the selection
    */
   const mapClick = (): void => {
-    setSelectedAsset(undefined)
+    setSelectedAssetLocal(undefined)
   }
 
   return (
