@@ -3,7 +3,7 @@ import React from 'react'
 // Import component files
 import Message from './index'
 import docs from './README.md'
-import { MessagesMock } from '@serge/mocks'
+import { AdminMessagesMock } from '@serge/mocks'
 
 export default {
   title: 'local/Message',
@@ -21,4 +21,4 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <Message message={MessagesMock[0]}/>
+export const Default: React.FC = () => <Message message={AdminMessagesMock[0]}/>
