@@ -105,7 +105,11 @@ export const WorldState: React.FC<PropTypes> = ({
 
   return <>
     <div className={styles['world-state']}>
-      <h2 className={styles.title}>{customTitle}</h2>
+      <h2 className={styles.title}>{customTitle}
+      { plansSubmitted &&
+       <h5 className='sub-title'>(Form disabled, World State submitted)</h5>
+      }
+      </h2>
 
       <Groups
         items={tmpRoutes}
