@@ -319,6 +319,7 @@ export const WithPhases: React.FC = () => <Mapping
   forces={forces}
   playerForce={radios(phasesViewLabel, phasesViewNames, phaseViewValue)}
   platforms={platformTypes}
+  postBack={postback}
   phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
   turnNumber={5}
 >
