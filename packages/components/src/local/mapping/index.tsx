@@ -164,7 +164,7 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [planningRangeProp])
 
   /**
-   * reflect external changes in planning range prop (mostly
+   * reflect external changes in planning constraints prop (mostly
    * just in Storybook testing)
    */
   useEffect(() => {
