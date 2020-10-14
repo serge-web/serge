@@ -7,18 +7,18 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const GameTitle: React.FC<Props> = ({ initiated, title, onClick }: Props) => {
+export const GameTitle: React.FC<Props> = ({ initiated, title, name, onClick }: Props) => {
   const handleOnClick = (): void => {
-    onClick && onClick(title)
+    onClick && onClick(name)
   }
 
   return (
-    <span className={styles['wargame-title']}>
+    <span className={styles['wargame-title']} onClick={handleOnClick}>
       {initiated
         ? <span className={styles['wargame-started-highlight']}>&nbsp;</span>
         : <span className={styles['wargame-unstarted-highlight']}>&nbsp;</span>
       }
-      <span title={title} onClick={handleOnClick}>{title}</span>
+      <span title={name}>{title}</span>
     </span>
   )
 }

@@ -30,25 +30,25 @@ export default {
 
 const menus = [
   {
-    onClick: (): void => window.alert('Click on menu #1'),
+    onClick: (title: string): void => window.alert(`Clean copy ${title}`),
     icon: faBath,
     title: 'Save clean copy of wargame (no messages)',
     label: 'Clean copy'
   },
   {
-    onClick: (): void => window.alert('Click on menu #2'),
+    onClick: (title: string): void => window.alert(`Duplicate ${title}`),
     icon: faClone,
     title: 'Duplicate wargame',
     label: 'Duplicate'
   },
   {
-    onClick: (): void => window.alert('Click on menu #3'),
+    onClick: (title: string): void => window.alert(`Export ${title}`),
     icon: faFileDownload,
     title: 'Export wargame',
     label: 'Export'
   },
   {
-    onClick: (): void => window.alert('Click on menu #4'),
+    onClick: (title: string): void => window.alert(`Delete ${title}`),
     icon: faTrash,
     title: 'Delete wargame',
     label: 'Delete'
@@ -57,12 +57,15 @@ const menus = [
 
 const wargames = [{
   title: 'Wargame A',
+  name: 'http://localhost/wargame-a',
   initiated: true
 }, {
   title: 'Wargame B',
+  name: 'http://localhost/wargame-b',
   initiated: false
 }, {
   title: 'Wargame C',
+  name: 'http://localhost/wargame-c',
   initiated: true
 }]
 

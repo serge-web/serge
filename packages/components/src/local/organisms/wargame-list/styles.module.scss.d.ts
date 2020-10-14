@@ -4,6 +4,7 @@ interface CssExports {
   'contain-option-menu': string;
   'searchlist-list': string;
   'searchlist-title': string;
+  'wargame-option-menu-bg': string;
   'wargame-option-menu-btn': string;
   'wargame-searchlist': string;
 }

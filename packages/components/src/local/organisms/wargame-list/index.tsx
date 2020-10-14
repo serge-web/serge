@@ -53,9 +53,14 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
               {
                 wargameMenuOpen === game.title && (
                   <div className={styles['contain-option-menu']}>
+                    <div
+                      className={styles['wargame-option-menu-bg']}
+                      onClick={(): void => setWargameMenuOpen('')}
+                    >&nbsp;</div>
                     <OptionMenu
                       menus={menuConfig}
-                      gameTitle={game.title}
+                      gameName={game.name}
+                      onHideMenu={(): void => setWargameMenuOpen('')}
                     />
                   </div>
                 )

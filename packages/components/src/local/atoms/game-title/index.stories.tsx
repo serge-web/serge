@@ -34,9 +34,9 @@ const onTitleClick = (title: string): void => {
 }
 
 export const Default: React.FC = () => (
-  <GameTitle initiated={false} title="IMWARC-New" onClick={onTitleClick} />
+  <GameTitle initiated={false} name="http://localhost/imwarc" title="IMWARC-New" onClick={onTitleClick} />
 )
 
 export const Initiated: React.FC = () => (
-  <GameTitle initiated={true} title="IMWARC-New" onClick={onTitleClick} />
+  <GameTitle initiated={true} name="http://localhost/imwarc" title="IMWARC-New" onClick={onTitleClick} />
 )

@@ -45,6 +45,6 @@ export const Default: React.FC = () => {
     }
   ]
   return (
-    <OptionMenu menus={menus} gameTitle="IMWARC-New" />
+    <OptionMenu menus={menus} gameName="http://localhost/IMWARC-New" />
   )
 }

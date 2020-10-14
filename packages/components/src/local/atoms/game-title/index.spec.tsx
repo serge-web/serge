@@ -13,7 +13,7 @@ describe('GameTitle component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <GameTitle initiated={false} title="IMWARC-New" onClick={onTitleClick} />
+        <GameTitle initiated={false} name="http://localhost/imwarc" title="IMWARC-New" onClick={onTitleClick} />
       )
       .toJSON()
     expect(tree).toMatchSnapshot()

@@ -12,6 +12,16 @@
   z-index: 3;
 }
 
+.wargame-option-menu-bg {
+  display: flex;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
 .wargame-option-menu-btn {
   cursor: pointer;
   margin: 0 8px 0 auto;

@@ -1,7 +1,7 @@
 import React from 'react'
 import FontAwesomeCommonTypes from '@fortawesome/fontawesome-common-types'
 
-interface MenuItem {
+export interface MenuItem {
   /**
    * Callback on menu item click event
    */
@@ -26,7 +26,11 @@ export default interface Props {
    */
   menus: Array<MenuItem>
   /**
-   * Game title that is used as the option menu parameter
+   * Game name that is used as the option menu parameter
    */
-  gameTitle: string
+  gameName: string
+  /**
+   * Callback on hide menu event
+   */
+  onHideMenu?: () => void
 }

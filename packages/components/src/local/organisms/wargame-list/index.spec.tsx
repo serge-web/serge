@@ -33,12 +33,15 @@ const menus = [
 
 const wargames = [{
   title: 'Wargame A',
+  name: 'http://localhost/wargame-a',
   initiated: true
 }, {
   title: 'Wargame B',
+  name: 'http://localhost/wargame-b',
   initiated: false
 }, {
   title: 'Wargame C',
+  name: 'http://localhost/wargame-c',
   initiated: true
 }]
 
