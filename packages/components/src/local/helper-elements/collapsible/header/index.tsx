@@ -42,10 +42,9 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
       const offsets: DOMRect = holderElement.getBoundingClientRect() as DOMRect
       const x = e.clientX
       const y = e.clientY
-
       if (offsets && offsets.x <= x && x <= offsets.x + offsets.width) {
         if (offsets.y <= y && y <= offsets.y + offsets.height) {
-          if (!collapsed) { handleExpand() }
+          if (collapsed) { handleExpand() }
         }
       }
     }
