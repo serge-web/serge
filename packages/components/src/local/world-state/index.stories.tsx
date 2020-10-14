@@ -37,7 +37,6 @@ const showOthersDefaultValues = false
 const canSubmitLabel = 'Show other platforms'
 const canSubmitDefaultValues = true
 
-
 const label = 'View As'
 const forceNames = {
   White: 'umpire',

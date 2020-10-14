@@ -18,7 +18,7 @@ export default interface PropTypes {
    */
   isUmpire: boolean
   /** whether this player can submit ordres
-   * 
+   *
    */
   canSubmitOrders: boolean
   /**

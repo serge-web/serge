@@ -31,7 +31,7 @@ export default interface PropTypes {
    *
   */
   playerForce: string
-  /** 
+  /**
    * if the current player can submit orders
    */
   canSubmitOrders: boolean
