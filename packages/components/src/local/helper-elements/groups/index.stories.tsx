@@ -4,7 +4,7 @@ import React from 'react'
 import Groups from './index'
 import { GroupItem } from '@serge/custom-types'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
+import { withKnobs, boolean } from '@storybook/addon-knobs'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -29,7 +29,7 @@ const items: Array<GroupItem> = [
   { uniqid: 6, name: 'Item 6' }
 ]
 
-export const Default: React.FC = () => <Groups items={items}/>
+export const Default: React.FC = () => <Groups canOrganise={boolean('Player can organise assets', true)} items={items}/>
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 Default.story = {

@@ -10,4 +10,8 @@ export default interface PropTypes {
   /** helper function to indicate if draggingItem can be combined with item
    */
   canCombineWith?: (draggingItem: GroupItem, item: GroupItem, parents: Array<GroupItem>, type: NodeType) => boolean
+  /** 
+   * whether the current user can reorganise the assets
+   */
+  canOrganise?: boolean
 }

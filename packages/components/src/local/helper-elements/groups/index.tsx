@@ -21,6 +21,9 @@ const defaulRender = (item: GroupItem, depth: Array<GroupItem>): JSX.Element => 
 export const Groups: React.FC<PropTypes> = (props) => {
   const { items = [], renderContent = defaulRender, onSet } = props
   const maxDepth = typeof props.maxDepth === 'undefined' ? 3 : props.maxDepth
+  const canOrganise: boolean = props.canOrganise || false
+
+  console.log('can organise:', canOrganise)
 
   const [dragItem, setDragItem] = useState<GroupItem>({ uniqid: -1 })
   const [hasParrent, setHasParrent] = useState<boolean>(false)
