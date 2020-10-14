@@ -2,7 +2,7 @@
   border-left-style: solid;
   border-left-width: 4px;
 }
-.plain_message-list-wrapper{
+.plain_message-list-wrapper {
   border-left-style: solid;
   border-left-width: 8px;
   border-right-style: solid;
@@ -12,7 +12,7 @@
   max-width: 80%;
   float: right;
   width: auto;
-  &:after{
+  &::after {
     content: attr(x);
     display: block;
     clear: both;

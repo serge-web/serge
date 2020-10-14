@@ -6,7 +6,7 @@
   overflow-x: hidden;
   flex-grow: 2;
 }
-.messages-list-plain{
+.messages-list-plain {
   max-height: calc(100vh - 100px);
   overflow-y: scroll;
   overflow-x: hidden;
@@ -25,6 +25,6 @@
   text-align: right;
   width: 100%;
 }
-.messageContiner{
+.messageContiner {
   overflow: auto;
 }

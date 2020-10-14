@@ -65,7 +65,7 @@ class PlainMessageCreator extends Component {
                         <span>Send Message</span>
                     </button>
                 </div>
-            </>
+            </div>
         );
     }
 }
