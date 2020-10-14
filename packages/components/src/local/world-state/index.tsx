@@ -114,6 +114,7 @@ export const WorldState: React.FC<PropTypes> = ({
       <Groups
         items={tmpRoutes}
         renderContent={renderContent}
+        canOrganise={canSubmitOrders}
         canCombineWith={canCombineWithLocal}
         onSet={(itemsLink: any, type: any, depth: any): void => {
           const items = itemsLink.slice(0)
