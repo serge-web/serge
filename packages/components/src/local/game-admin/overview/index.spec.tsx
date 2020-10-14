@@ -7,7 +7,7 @@ import Overview from './index'
 import { WargameExportedMock } from '@serge/mocks'
 import { WargameOverview } from './types/props'
 
-const handleChange = (nextOverview: WargameOverview) => {
+const handleChange = (nextOverview: WargameOverview): void => {
   console.log(nextOverview)
 }
 

@@ -15,13 +15,13 @@ import TransparentInput from '../../form-elements/transparent-input'
 import Button from '../../form-elements/button'
 import FormGroup from '../../form-elements/form-group-shadow'
 import EditableRow, { Item as RowItem, Option } from '../editable-row'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TableCell from '@material-ui/core/TableCell'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
 
 /* Render component */
 export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forces, messages }) => {
@@ -56,7 +56,7 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
       handleChangeChannels(nextChannels)
     }
 
-    const handleSaveRows = (participants: Array<Participant>):void => {
+    const handleSaveRows = (participants: Array<Participant>): void => {
       handleChangeChannel({
         ...data,
         participants: participants
@@ -106,7 +106,7 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
                   </TableHead>
                   <TableBody>
                     {data.participants.map((participant, participantKey) => {
-                      const generateRowItems = (nextParticipant: Participant):Array<RowItem> => {
+                      const generateRowItems = (nextParticipant: Participant): Array<RowItem> => {
                         let forceSelected: Array<number> = [0]
                         let roleOptions: Array<Option> = []
 
@@ -154,8 +154,8 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
                         ]
                       }
 
-                      const rowToParticipant = (nextItems: Array<RowItem>):Participant => {
-                        const [ force, access, template ] = nextItems
+                      const rowToParticipant = (nextItems: Array<RowItem>): Participant => {
+                        const [force, access, template] = nextItems
                         const selectedForce = forces[force.active ? force.active[0] : 0]
                         const roles: Array<Role> = access.active ? access.active.map(key => (
                           selectedForce.roles[key]
@@ -172,14 +172,14 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
                         }
                       }
 
-                      const handleSaveRow = (row :Array<RowItem>):void => {
+                      const handleSaveRow = (row: Array<RowItem>): void => {
                         const nextParticipants = [...data.participants]
                         nextParticipants[participantKey] = rowToParticipant(row)
                         handleSaveRows(nextParticipants)
                       }
 
-                      const handleChangeRow = (nextItems:Array<RowItem>, itKey: number):Array<RowItem> => {
-                        const newNextItems = {...nextItems}
+                      const handleChangeRow = (nextItems: Array<RowItem>, itKey: number): Array<RowItem> => {
+                        const newNextItems = { ...nextItems }
                         if (itKey === 0) {
                           newNextItems[1].active = []
                           newNextItems[2].active = []

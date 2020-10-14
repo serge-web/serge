@@ -20,7 +20,7 @@ export default {
   }
 }
 
-const items:Array<Item> = [
+const items: Array<Item> = [
   {
     title: 'Column 1',
     active: [0],
@@ -28,7 +28,7 @@ const items:Array<Item> = [
     options: [
       { name: 'Option 1', uniqid: 'op1' },
       { name: 'Option 2', uniqid: 'op2' },
-      { name: 'Option 3', uniqid: 'op3' },
+      { name: 'Option 3', uniqid: 'op3' }
     ]
   },
   {
@@ -42,7 +42,7 @@ const items:Array<Item> = [
       { name: 'Option 3', uniqid: 'op3' },
       { name: 'Option 4', uniqid: 'op4' },
       { name: 'Option 5', uniqid: 'op5' },
-      { name: 'Option 6', uniqid: 'op6' },
+      { name: 'Option 6', uniqid: 'op6' }
     ]
   }
 ]

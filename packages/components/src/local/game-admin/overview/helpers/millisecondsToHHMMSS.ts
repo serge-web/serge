@@ -14,4 +14,4 @@ export default (milliseconds: number): string => {
   seconds = seconds < 10 ? '0' + seconds : seconds.toString()
 
   return hours + minutes + seconds
-};
+}

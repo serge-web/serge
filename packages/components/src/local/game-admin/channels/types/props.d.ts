@@ -1,8 +1,8 @@
 import { ChannelData, ForceData } from '@serge/custom-types'
 
 interface MessageTemplate {
-  title: string,
-  _id: string,
+  title: string
+  _id: string
   [property: string]: any
 }
 

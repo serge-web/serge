@@ -5,6 +5,9 @@ import Overview from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 
+import { WargameExportedMock } from '@serge/mocks'
+import { WargameOverview } from './types/props'
+
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
@@ -19,14 +22,10 @@ export default {
   }
 }
 
-import { WargameExportedMock } from '@serge/mocks'
-import { WargameOverview } from './types/props'
-
-
 export const Default: React.FC = () => {
   const [overview, setOverview] = useState<WargameOverview>(WargameExportedMock.data.overview)
 
-  const handleChange = (nextOverview: WargameOverview) => {
+  const handleChange = (nextOverview: WargameOverview): void => {
     setOverview(nextOverview)
   }
   const handleSave = (): void => {

@@ -14,31 +14,29 @@ import styles from './styles.module.scss'
 import Button from '../../form-elements/button'
 import FormGroup from '../../form-elements/form-group-shadow'
 import MaskedInput from 'react-maskedinput'
-import { Input, Checkbox, FormControlLabel } from '@material-ui/core';
+import { Input, Checkbox, FormControlLabel } from '@material-ui/core'
 
 /* Render component */
 export const Overview: React.FC<PropTypes> = ({ overview, onSave, onChange }) => {
-
   const updateGameTime = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target
 
     if (value.length === 0) {
-      onChange({ ...overview, gameTurnTime: 0})
+      onChange({ ...overview, gameTurnTime: 0 })
       return
     }
-    if (value.indexOf("_") > -1) return
+    if (value.indexOf('_') > -1) return
     const time: Array<number> = [parseInt(value.slice(0, 2)), parseInt(value.slice(3, 5)), parseInt(value.slice(6, 8)), parseInt(value.slice(9, 11))]
     const [days, hrs, secs, mins] = time
-    let milliseconds:number = (secs * 1000) + (mins * 60 * 1000) + (hrs * 60 * 60 * 1000) + (days * 24 * 60 * 60 * 1000)
+    let milliseconds: number = (secs * 1000) + (mins * 60 * 1000) + (hrs * 60 * 60 * 1000) + (days * 24 * 60 * 60 * 1000)
 
     if (name === 'timeWarning') {
       const [hrs, secs, mins] = time
       milliseconds = (secs * 1000) + (mins * 60 * 1000) + (hrs * 60 * 60 * 1000)
     }
 
-    onChange({ ...overview, [name]: milliseconds, dirty: true})
-  };
-
+    onChange({ ...overview, [name]: milliseconds, dirty: true })
+  }
 
   return <div className={styles.main}>
     <div className={styles.row}>
@@ -50,8 +48,8 @@ export const Overview: React.FC<PropTypes> = ({ overview, onSave, onChange }) =>
     <div className={styles.row}>
       <div className={cx(styles.col, styles.section)}>
         <FormGroup placeholder="Game description & objectives">
-          <textarea onChange={({ target }):void => {
-            onChange({...overview, gameDescription: target.value })
+          <textarea onChange={({ target }): void => {
+            onChange({ ...overview, gameDescription: target.value })
           }} rows={8} className={styles.textarea} value={overview.gameDescription}/>
         </FormGroup>
       </div>
@@ -107,19 +105,19 @@ export const Overview: React.FC<PropTypes> = ({ overview, onSave, onChange }) =>
           </div>
           <div className={styles.hidden}><Input/></div>
           <div>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={overview.showAccessCodes}
-                onChange={():void => {
-                  onChange({...overview, showAccessCodes: !overview.showAccessCodes })
-                }}
-                value='1'
-                color='primary'
-              />
-            }
-            label="Show Access codes"
-          />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={overview.showAccessCodes}
+                  onChange={(): void => {
+                    onChange({ ...overview, showAccessCodes: !overview.showAccessCodes })
+                  }}
+                  value='1'
+                  color='primary'
+                />
+              }
+              label="Show Access codes"
+            />
           </div>
         </FormGroup>
       </div>

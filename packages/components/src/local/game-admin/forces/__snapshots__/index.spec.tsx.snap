@@ -357,9 +357,8 @@ exports[`forces renders correctly 1`] = `
                 className="textarea"
                 onChange={[Function]}
                 rows={8}
-              >
-                Umpire force.
-              </textarea>
+                value="Umpire force."
+              />
             </div>
           </div>
         </div>
@@ -576,7 +575,7 @@ exports[`forces renders correctly 1`] = `
                             </span>
                             <div
                               className="role-title title-center"
-                              title="Role can view all channels"
+                              title="Can view all channels"
                             >
                               <svg
                                 aria-hidden="true"
@@ -639,7 +638,7 @@ exports[`forces renders correctly 1`] = `
                             </span>
                             <div
                               className="role-title title-center"
-                              title="Role can view feedback/insights"
+                              title="Can view feedback/insights"
                             >
                               <svg
                                 aria-hidden="true"
@@ -654,6 +653,69 @@ exports[`forces renders correctly 1`] = `
                               >
                                 <path
                                   d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                          <div
+                            className="role-item"
+                          >
+                            <span
+                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                            >
+                              <span
+                                aria-disabled={false}
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                                onBlur={[Function]}
+                                onDragLeave={[Function]}
+                                onFocus={[Function]}
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseLeave={[Function]}
+                                onMouseUp={[Function]}
+                                onTouchEnd={[Function]}
+                                onTouchMove={[Function]}
+                                onTouchStart={[Function]}
+                                tabIndex={null}
+                              >
+                                <span
+                                  className="MuiIconButton-label"
+                                >
+                                  <input
+                                    checked={true}
+                                    className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                    onChange={[Function]}
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    className="MuiSwitch-thumb"
+                                  />
+                                </span>
+                              </span>
+                              <span
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                              />
+                            </span>
+                            <div
+                              className="role-title title-center"
+                              title="Can submit mapping plans"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-directions fa-w-16 "
+                                data-icon="directions"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 512 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M502.61 233.32L278.68 9.39c-12.52-12.52-32.83-12.52-45.36 0L9.39 233.32c-12.52 12.53-12.52 32.83 0 45.36l223.93 223.93c12.52 12.53 32.83 12.53 45.36 0l223.93-223.93c12.52-12.53 12.52-32.83 0-45.36zm-100.98 12.56l-84.21 77.73c-5.12 4.73-13.43 1.1-13.43-5.88V264h-96v64c0 4.42-3.58 8-8 8h-32c-4.42 0-8-3.58-8-8v-80c0-17.67 14.33-32 32-32h112v-53.73c0-6.97 8.3-10.61 13.43-5.88l84.21 77.73c3.43 3.17 3.43 8.59 0 11.76z"
                                   fill="currentColor"
                                   style={Object {}}
                                 />

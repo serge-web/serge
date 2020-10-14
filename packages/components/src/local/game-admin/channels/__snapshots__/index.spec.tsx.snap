@@ -1,0 +1,536 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`channels renders correctly 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="left"
+  >
+    <div
+      className="main"
+    >
+      <div
+        className="section"
+      >
+        <button
+          className="main"
+          onClick={[Function]}
+          type="button"
+        >
+          Add
+        </button>
+      </div>
+      <ul>
+        <li
+          className=""
+        >
+          <div
+            className="overlap"
+            onClick={[Function]}
+          />
+          <div
+            className="section"
+          >
+            <div>
+              Channel 16
+            </div>
+            <span>
+              <div
+                onClick={[Function]}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-copy fa-w-14 "
+                  data-icon="copy"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 448 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+              <div
+                onClick={[Function]}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-trash fa-w-14 "
+                  data-icon="trash"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 448 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+            </span>
+          </div>
+        </li>
+        <li
+          className=""
+        >
+          <div
+            className="overlap"
+            onClick={[Function]}
+          />
+          <div
+            className="section"
+          >
+            <div>
+              Blue Net
+            </div>
+            <span>
+              <div
+                onClick={[Function]}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-copy fa-w-14 "
+                  data-icon="copy"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 448 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+              <div
+                onClick={[Function]}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-trash fa-w-14 "
+                  data-icon="trash"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 448 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+            </span>
+          </div>
+        </li>
+        <li
+          className=""
+        >
+          <div
+            className="overlap"
+            onClick={[Function]}
+          />
+          <div
+            className="section"
+          >
+            <div>
+              Mapping
+            </div>
+            <span>
+              <div
+                onClick={[Function]}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-copy fa-w-14 "
+                  data-icon="copy"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 448 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+              <div
+                onClick={[Function]}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-trash fa-w-14 "
+                  data-icon="trash"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 448 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </div>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div
+    className="right"
+  >
+    <div>
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          <input
+            className="main"
+            onChange={[Function]}
+            placeholder="Channel Name"
+            value="Channel 16"
+          />
+        </div>
+        <div
+          className="actions"
+        >
+          <button
+            className="main"
+            onClick={[Function]}
+            type="button"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col section"
+        >
+          <div
+            className="main"
+          >
+            <div
+              className="placeholder"
+            >
+              Participants and messages
+            </div>
+            <div
+              className="content"
+            >
+              <div
+                className="MuiPaper-root MuiTableContainer-root MuiPaper-elevation1 MuiPaper-rounded"
+              >
+                <table
+                  aria-label="simple table"
+                  className="MuiTable-root"
+                  role={null}
+                >
+                  <thead
+                    className="MuiTableHead-root"
+                    role={null}
+                  >
+                    <tr
+                      className="MuiTableRow-root MuiTableRow-head"
+                      role={null}
+                    >
+                      <th
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-head"
+                        scope="col"
+                      >
+                        Force
+                      </th>
+                      <th
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft"
+                        scope="col"
+                      >
+                        Restrict access to specific roles
+                      </th>
+                      <th
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft"
+                        scope="col"
+                      >
+                        Templates
+                      </th>
+                      <th
+                        aria-sort={null}
+                        className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignRight"
+                        scope="col"
+                      >
+                        Actions
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    className="MuiTableBody-root"
+                    role={null}
+                  >
+                    <tr>
+                      <td
+                        className="td"
+                      >
+                        <div
+                          className="input-box"
+                        >
+                          White
+                        </div>
+                      </td>
+                      <td
+                        className="td"
+                      >
+                        <div
+                          className="input-box"
+                        >
+                          All roles
+                        </div>
+                      </td>
+                      <td
+                        className="td"
+                      >
+                        <div
+                          className="input-box"
+                        >
+                          Chat if empty
+                        </div>
+                      </td>
+                      <td
+                        align="right"
+                        className="td"
+                      >
+                        <span
+                          aria-disabled={false}
+                          aria-label="upload picture"
+                          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onDragLeave={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onKeyUp={[Function]}
+                          onMouseDown={[Function]}
+                          onMouseLeave={[Function]}
+                          onMouseUp={[Function]}
+                          onTouchEnd={[Function]}
+                          onTouchMove={[Function]}
+                          onTouchStart={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="MuiIconButton-label"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-pencil-alt fa-w-16 fa-sm "
+                              data-icon="pencil-alt"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 512 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        className="td"
+                      >
+                        <div
+                          className="input-box"
+                        >
+                          Red
+                        </div>
+                      </td>
+                      <td
+                        className="td"
+                      >
+                        <div
+                          className="input-box"
+                        >
+                          All roles
+                        </div>
+                      </td>
+                      <td
+                        className="td"
+                      >
+                        <div
+                          className="input-box"
+                        >
+                          Chat if empty
+                        </div>
+                      </td>
+                      <td
+                        align="right"
+                        className="td"
+                      >
+                        <span
+                          aria-disabled={false}
+                          aria-label="upload picture"
+                          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onDragLeave={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onKeyUp={[Function]}
+                          onMouseDown={[Function]}
+                          onMouseLeave={[Function]}
+                          onMouseUp={[Function]}
+                          onTouchEnd={[Function]}
+                          onTouchMove={[Function]}
+                          onTouchStart={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="MuiIconButton-label"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-pencil-alt fa-w-16 fa-sm "
+                              data-icon="pencil-alt"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 512 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        className="td"
+                      >
+                        <div
+                          className="input-box"
+                        >
+                          Blue
+                        </div>
+                      </td>
+                      <td
+                        className="td"
+                      >
+                        <div
+                          className="input-box"
+                        >
+                          All roles
+                        </div>
+                      </td>
+                      <td
+                        className="td"
+                      >
+                        <div
+                          className="input-box"
+                        >
+                          Chat if empty
+                        </div>
+                      </td>
+                      <td
+                        align="right"
+                        className="td"
+                      >
+                        <span
+                          aria-disabled={false}
+                          aria-label="upload picture"
+                          className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onDragLeave={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onKeyUp={[Function]}
+                          onMouseDown={[Function]}
+                          onMouseLeave={[Function]}
+                          onMouseUp={[Function]}
+                          onTouchEnd={[Function]}
+                          onTouchMove={[Function]}
+                          onTouchStart={[Function]}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <span
+                            className="MuiIconButton-label"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-pencil-alt fa-w-16 fa-sm "
+                              data-icon="pencil-alt"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 512 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

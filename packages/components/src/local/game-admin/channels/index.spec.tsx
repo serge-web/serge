@@ -12,11 +12,11 @@ const onChange = (channels: Array<ChannelData>): void => { console.log(channels)
 it('channels renders correctly', () => {
   const tree = renderer
     .create(<Channels
-        channels={WargameExportedMock.data.channels.channels}
-        forces={WargameExportedMock.data.forces.forces}
-        onChange={onChange}
-        messages={MessageTemplatesMock}
-      />)
+      channels={WargameExportedMock.data.channels.channels}
+      forces={WargameExportedMock.data.forces.forces}
+      onChange={onChange}
+      messages={MessageTemplatesMock}
+    />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

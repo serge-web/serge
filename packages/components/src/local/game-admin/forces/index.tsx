@@ -72,7 +72,7 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
     const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
       const roleItem = item as Role
 
-      const handleChangeRole = (nextRole: Role, submitPlans: boolean = false): void => {
+      const handleChangeRole = (nextRole: Role, submitPlans = false): void => {
         const roles: Array<Role> = submitPlans ? data.roles.map(role => ({ ...role, canSubmitPlans: false })) : [...data.roles]
         roles[key] = nextRole
         handleChangeForce({ ...data, roles })

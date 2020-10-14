@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactNode } from 'react'
 // import cx from 'classnames'
 
 /* Import proptypes */
@@ -28,7 +28,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
   const handleChange = (item: Item, target: any, itemKey: number): void => {
     let newActive: Array<number> = []
     if (item.multiple) {
-      newActive = target.value.map((val:any) => parseInt(val))
+      newActive = target.value.map((val: any) => parseInt(val))
     } else {
       newActive = [parseInt(target.value)]
     }
@@ -56,54 +56,59 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
 
   return (
     <tr>
-      {itemsLocal.map((item, itemKey) => <td key={item.uniqid} className={styles.td}>
-        {mode === 'edit' ? <>
-          <div className={styles['input-box']}>
-            <FormControl>
-              {item.title && <InputLabel id={item.uniqid}>{item.title}</InputLabel>}
-              <Select
-                name={item.uniqid}
-                value={item.active}
-                multiple={item.multiple}
-                displayEmpty
-                onChange={(e): void => { handleChange(item, e.target, itemKey) }}
-                renderValue={item.multiple ? (selected) => {
-                  const selectedKeys = (selected || []) as Array<number>
-                  if (selectedKeys.length === 0) return <div>{item.emptyTitle}</div>
+      {itemsLocal.map((item, itemKey) => {
+        const value: Array<number> = item.active || []
 
-                  return <div className={styles.clips}>
-                    {selectedKeys.map(activeKey => (
-                      <div className={styles.clip} key={activeKey}>
-                        <Chip
-                          size="small"
-                          label={item.options[activeKey].name}
-                          onDelete={() => {
-                            handleChange(item, {
-                              value: (item.active || []).filter(ait => ait !== activeKey)
-                            }, itemKey)
-                          }}
-                        />
+        return (
+          <td key={item.uniqid} className={styles.td}>
+            {mode === 'edit' ? <>
+              <div className={styles['input-box']}>
+                <FormControl>
+                  {item.title && <InputLabel id={item.uniqid}>{item.title}</InputLabel>}
+                  <Select
+                    name={item.uniqid}
+                    value={value}
+                    multiple={item.multiple}
+                    displayEmpty
+                    onChange={(e): void => { handleChange(item, e.target, itemKey) }}
+                    renderValue={item.multiple ? (selected): ReactNode => {
+                      const selectedKeys = (selected || []) as Array<number>
+                      if (selectedKeys.length === 0) return <div>{item.emptyTitle}</div>
+
+                      return <div className={styles.clips}>
+                        {selectedKeys.map(activeKey => (
+                          <div className={styles.clip} key={activeKey}>
+                            <Chip
+                              size="small"
+                              label={item.options[activeKey].name}
+                              onDelete={(): void => {
+                                handleChange(item, {
+                                  value: value.filter(ait => ait !== activeKey)
+                                }, itemKey)
+                              }}
+                            />
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                } : undefined}
-              >
-                {item.options.map((option, key) => {
-                  return <MenuItem value={key}>{option.name}</MenuItem>
-                })}
-              </Select>
-            </FormControl>
-          </div>
-        </> : <>
-          <div className={styles['input-box']}>
-            {(item.active || []).length ?
-              (item.active || []).map(itemKey => item.options[itemKey].name).join(', ') :
-              item.emptyTitle
-            }
-          </div>
-        </>}
-
-      </td>)}
+                    } : undefined}
+                  >
+                    {item.options.map((option, key) => {
+                      return <MenuItem value={key}>{option.name}</MenuItem>
+                    })}
+                  </Select>
+                </FormControl>
+              </div>
+            </> : <>
+              <div className={styles['input-box']}>
+                {value.length
+                  ? value.map(itemKey => item.options[itemKey].name).join(', ')
+                  : item.emptyTitle
+                }
+              </div>
+            </>}
+          </td>
+        )
+      })}
       {actions && <td align='right' className={styles.td}>
         {mode === 'edit' ? <>
           <IconButton size='small' onClick={handleUndo} aria-label="upload picture" component="span">

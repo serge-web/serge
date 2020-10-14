@@ -6,7 +6,7 @@ import renderer from 'react-test-renderer'
 import EditableRow from './index'
 import { Item } from './types/props'
 
-const items:Array<Item> = [
+const items: Array<Item> = [
   {
     title: 'Column 1',
     active: [0],
@@ -14,7 +14,7 @@ const items:Array<Item> = [
     options: [
       { name: 'Option 1', uniqid: 'op1' },
       { name: 'Option 2', uniqid: 'op2' },
-      { name: 'Option 3', uniqid: 'op3' },
+      { name: 'Option 3', uniqid: 'op3' }
     ]
   },
   {
@@ -25,11 +25,10 @@ const items:Array<Item> = [
     options: [
       { name: 'Option 1', uniqid: 'op1' },
       { name: 'Option 2', uniqid: 'op2' },
-      { name: 'Option 3', uniqid: 'op3' },
+      { name: 'Option 3', uniqid: 'op3' }
     ]
   }
 ]
-
 
 const handleChange = (nextItems: Array<Item>, _changedKey: number): Array<Item> => nextItems
 

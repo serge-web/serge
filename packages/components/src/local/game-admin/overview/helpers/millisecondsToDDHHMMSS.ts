@@ -16,4 +16,4 @@ export default (milliseconds: number): string => {
   seconds = seconds < 10 ? '0' + seconds : seconds.toString()
 
   return days + hours + minutes + seconds
-};
+}
