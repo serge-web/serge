@@ -13,6 +13,7 @@ import ChannelTabsContainer from './ChannelTabsContainer';
 import AdminAndInsightsTabsContainer from './AdminAndInsightsTabsContainer';
 import { PlayerStateContext } from '../Store/PlayerUi';
 import '@serge/themes/App.scss';
+import PlainChannelTabsContainer from './PlainChannelTabsContainer';
 
 class GameChannels extends Component {
   static contextType = PlayerStateContext;
@@ -54,6 +55,9 @@ class GameChannels extends Component {
       <div className="flex-content flex-content--row-wrap">
         <div className="message-feed in-game-feed" data-tour="fourth-step">
           <ChannelTabsContainer ref={el => window.channelTabsContainer[force.uniqid] = el} />
+        </div>
+        <div className="message-feed in-game-feed plainChatContainer" data-tour="fourth-step">
+          <PlainChannelTabsContainer ref={el => window.channelTabsContainer[force.uniqid] = el} />
         </div>
         <div className={classNames({"message-feed": true, "out-of-game-feed": true, "umpire-feed": state.controlUi})} data-tour="fifth-step">
           <div className="flex-content wargame-title">

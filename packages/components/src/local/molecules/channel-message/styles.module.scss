@@ -2,3 +2,21 @@
   border-left-style: solid;
   border-left-width: 4px;
 }
+.plain_message-list-wrapper{
+  border-left-style: solid;
+  border-left-width: 8px;
+  border-right-style: solid;
+  border-radius: 5px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.2);
+  max-width: 80%;
+  float: right;
+  width: auto;
+  &:after{
+    content: attr(x);
+    display: block;
+    clear: both;
+    width: 100%;
+    height: 1px;
+  }
+}

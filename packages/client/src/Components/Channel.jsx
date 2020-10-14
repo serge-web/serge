@@ -97,6 +97,7 @@ class Channel extends Component {
           icons={icons}
           colors={colors}
           onMarkAllAsRead={this.markAllRead}
+          plainChat={this.props.plainChat}
         />
         {
           state.channels[curChannel].observing === false &&
@@ -105,6 +106,7 @@ class Channel extends Component {
             curChannel={curChannel}
             privateMessage={state.selectedForce === umpireForceTemplate.uniqid}
             templates={state.channels[curChannel].templates}
+            plainChat={this.props.plainChat}
           />
         }
       </div>

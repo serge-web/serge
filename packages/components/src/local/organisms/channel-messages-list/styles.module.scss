@@ -6,6 +6,13 @@
   overflow-x: hidden;
   flex-grow: 2;
 }
+.messages-list-plain{
+  max-height: calc(100vh - 100px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  flex-grow: 2;
+  padding: 10px 0;
+}
 
 .turn-marker {
   @include typo-primary;
@@ -17,4 +24,7 @@
   padding-top: 4px;
   text-align: right;
   width: 100%;
+}
+.messageContiner{
+  overflow: auto;
 }

@@ -23,4 +23,6 @@ export default interface PropTypes extends ForcesInChannelProps{
    * Callback on expanding message item
    */
   onRead?: { (detail: object): void }
+
+  plainChat?: boolean
 }

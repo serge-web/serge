@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Collapsible from "react-collapsible";
 import MessageCreator from "../Components/MessageCreator.jsx";
+import PlainMessageCreator from "../Components/PlainMessageCreator.jsx";
 import DropdownInput from "../Components/Inputs/DropdownInput";
 
 import "@serge/themes/App.scss";
@@ -42,34 +43,46 @@ class NewMessage extends Component {
     });
   };
 
+  renderNewMessageCon = () => {
+    if (this.props.plainChat) {
+      return <PlainMessageCreator
+        schema={this.state.selectedSchema}
+        curChannel={this.props.curChannel}
+        //privateMessage={this.props.privateMessage}
+      />
+    } else {
+      const templates = this.props.templates.map((item) => ({ value: JSON.stringify(item.details), option: item.title }));
+      return <Collapsible
+        trigger={"New Message"}
+        transitionTime={200}
+        easing={'ease-in-out'}
+      >
+        {templates.length > 1 &&
+          <DropdownInput
+            updateStore={this.setTemplate}
+            // data={this.state.dropdownValue}
+            selectOptions={templates}
+            placeholder="Select message"
+            className="message-input"
+          />
+        }
+        <MessageCreator
+          schema={this.state.selectedSchema}
+          curChannel={this.props.curChannel}
+          privateMessage={this.props.privateMessage}
+        />
+      </Collapsible>
+    }
+  }
+
 
   render() {
-    const templates = this.props.templates.map((item) => ({value: JSON.stringify(item.details), option: item.title }));
     let classes = "new-message-creator wrap";
     if (this.props.orderableChannel) classes += " new-message-orderable";
 
     return (
       <div className={classes}>
-        <Collapsible
-          trigger={"New Message"}
-          transitionTime={200}
-          easing={'ease-in-out'}
-        >
-          {templates.length > 1 &&
-            <DropdownInput
-              updateStore={this.setTemplate}
-              // data={this.state.dropdownValue}
-              selectOptions={templates}
-              placeholder="Select message"
-              className="message-input"
-            />
-          }
-          <MessageCreator
-            schema={this.state.selectedSchema}
-            curChannel={this.props.curChannel}
-            privateMessage={this.props.privateMessage}
-          />
-        </Collapsible>
+        {this.renderNewMessageCon()}
       </div>
     );
   }
