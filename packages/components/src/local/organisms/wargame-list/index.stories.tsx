@@ -80,3 +80,61 @@ export const Default: React.FC = () => (
     onGameClick={onGameClick}
   />
 )
+
+const lotsWargames = [{
+  title: 'Wargame A',
+  name: 'http://localhost/wargame-a',
+  initiated: true
+}, {
+  title: 'Wargame B',
+  name: 'http://localhost/wargame-b',
+  initiated: false
+}, {
+  title: 'Wargame C',
+  name: 'http://localhost/wargame-c',
+  initiated: true
+}, {
+  title: 'Wargame E',
+  name: 'http://localhost/wargame-a',
+  initiated: true
+}, {
+  title: 'Wargame F',
+  name: 'http://localhost/wargame-b',
+  initiated: false
+}, {
+  title: 'Wargame G',
+  name: 'http://localhost/wargame-c',
+  initiated: true
+}, {
+  title: 'Wargame H',
+  name: 'http://localhost/wargame-a',
+  initiated: true
+}, {
+  title: 'Wargame I',
+  name: 'http://localhost/wargame-b',
+  initiated: false
+}, {
+  title: 'Wargame J',
+  name: 'http://localhost/wargame-c',
+  initiated: true
+}, {
+  title: 'Wargame K',
+  name: 'http://localhost/wargame-a',
+  initiated: true
+}, {
+  title: 'Wargame L',
+  name: 'http://localhost/wargame-b',
+  initiated: false
+}, {
+  title: 'Wargame M',
+  name: 'http://localhost/wargame-c',
+  initiated: true
+}]
+
+export const LotsOfWargames: React.FC = () => (
+  <WargameList
+    wargames={lotsWargames}
+    menuConfig={menus}
+    onGameClick={onGameClick}
+  />
+)
