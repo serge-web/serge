@@ -200,6 +200,7 @@ export const MapBar: React.FC = () => {
           key={selectedAsset.uniqid}
           plansSubmitted={plansSubmitted}
           formHeader={currentAssetName}
+          canSubmitPlans={canSubmitOrders}
           formData={collateAdjudicationFormData(platforms, selectedAsset, forces)}
           channelID={channelID}
           icon={icondData}
