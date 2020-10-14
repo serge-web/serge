@@ -46,14 +46,14 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
 
   const renderClassName = () => {
     if (props.plainChat) {
-      return styles['plain_message-list-wrapper']
+      return styles['plain-message-list-wrapper']
     } else {
       return styles['message-list-wrapper']
     }
   }
 
-  const renderMessageContainer = () => { 
-    if(props.plainChat) {
+  const renderMessageContainer = () => {
+    if (props.plainChat) {
       return <ChannelMessageBubble {...props} />
     } else {
       return <Collapsible

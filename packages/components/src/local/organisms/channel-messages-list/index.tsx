@@ -13,7 +13,6 @@ import { Box } from '@material-ui/core'
 
 /* Render component */
 export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, plainChat }: PropTypes) => {
-  
   const renderChatHeader = () => {
     if (!plainChat) {
       return <Box mb={2} ml={2} mr={3}>
@@ -31,7 +30,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
       return styles['messages-list']
     }
   }
-  
+
   return (
     <div>
       {renderChatHeader()}
@@ -50,7 +49,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
               )
             }
             return (
-              <Box mb={2} mr={2} key={key} className={styles['messageContiner']}>
+              <Box mb={2} mr={2} key={key} className={styles['message-continer']}>
                 <ChannelMessage onRead={onRead} {...props} plainChat={plainChat} />
               </Box>
             )
