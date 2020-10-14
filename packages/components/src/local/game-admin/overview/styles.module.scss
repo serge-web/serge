@@ -1,0 +1,58 @@
+.main {
+  padding: 20px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+.row {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 52px;
+}
+
+.col {
+  flex: 1;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section {
+  padding: 12px;
+}
+
+.section:first-child {
+  padding-left: 0;
+  flex: 1.5;
+}
+
+.section:last-child {
+  padding-right: 0;
+}
+
+
+.textarea {
+  resize: none;
+  margin-top: 6px;
+  padding: 8px 12px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  margin-bottom: -15px;
+}
+
+.label {
+  font-size: 14px;
+  color: #1a394d;
+  display: block;
+}
+
+.group {
+  margin-bottom: 30px;
+}
+
+.hidden {
+  display: none;
+}

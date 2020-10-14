@@ -23,7 +23,7 @@ import "@serge/themes/App.scss";
 class ForcesTab extends Component {
   constructor(props) {
     super(props);
-
+    console.log(JSON.stringify(this.props.wargame), 'chn');
     this.state = {
       channelList: this.props.wargame.data[this.props.wargame.currentTab].channels,
       searchQuery: '',

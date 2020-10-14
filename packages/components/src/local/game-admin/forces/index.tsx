@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import cx from 'classnames'
-
 /* Import proptypes */
 import PropTypes, { ForceData, Role } from './types/props'
 
@@ -21,7 +20,7 @@ import PasswordView from '../password-view'
 import Switch from '@material-ui/core/Switch'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faComments } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faComments, faDirections } from '@fortawesome/free-solid-svg-icons'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -61,8 +60,8 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
     const handleCreateRole = (): void => {
       const roles: Array<Role> = [...data.roles, {
         name: 'New Role',
-        canSubmitPlans: true,
-        password: Math.random().toString(36).substring(5),
+        canSubmitPlans: false,
+        password: 'p' + Math.random().toString(36).substring(8),
         control: false,
         isInsightViewer: false,
         isObserver: false
@@ -73,8 +72,8 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
     const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
       const roleItem = item as Role
 
-      const handleChangeRole = (nextRole: Role): void => {
-        const roles: Array<Role> = [...data.roles]
+      const handleChangeRole = (nextRole: Role, submitPlans: boolean = false): void => {
+        const roles: Array<Role> = submitPlans ? data.roles.map(role => ({ ...role, canSubmitPlans: false })) : [...data.roles]
         roles[key] = nextRole
         handleChangeForce({ ...data, roles })
       }
@@ -92,7 +91,7 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
               handleChangeRole({ ...roleItem, isObserver: !roleItem.isObserver })
             }} />
             {key === 0 && <div
-              title='Role can view all channels'
+              title='Can view all channels'
               className={cx(styles['role-title'], styles['title-center'])}>
               <FontAwesomeIcon icon={faEye} />
             </div>}
@@ -102,9 +101,19 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
               handleChangeRole({ ...roleItem, isInsightViewer: !roleItem.isInsightViewer })
             }} />
             {key === 0 && <div
-              title='Role can view feedback/insights'
+              title='Can view feedback/insights'
               className={cx(styles['role-title'], styles['title-center'])}>
               <FontAwesomeIcon icon={faComments} />
+            </div>}
+          </div>
+          <div className={styles['role-item']}>
+            <MobileSwitch size='small' checked={roleItem.canSubmitPlans} onChange={(): void => {
+              handleChangeRole({ ...roleItem, canSubmitPlans: !roleItem.canSubmitPlans }, !roleItem.canSubmitPlans)
+            }} />
+            {key === 0 && <div
+              title='Can submit mapping plans'
+              className={cx(styles['role-title'], styles['title-center'])}>
+              <FontAwesomeIcon icon={faDirections} />
             </div>}
           </div>
         </div>
@@ -141,7 +150,7 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
             <FormGroup placeholder="Overview & Objectives">
               <textarea rows={8} className={styles.textarea} onChange={(e): void => {
                 handleChangeForce({ ...data, overview: e.target.value })
-              }}>{data.overview}</textarea>
+              }} value={data.overview} />
             </FormGroup>
           </div>
         </div>
