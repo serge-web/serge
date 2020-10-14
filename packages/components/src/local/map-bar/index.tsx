@@ -209,6 +209,7 @@ export const MapBar: React.FC = () => {
         output = <PlanTurnForm
           icon={icondData}
           setHidePlanningForm={setHidePlanningForm}
+          canSubmitPlans={canSubmitOrders}
           plansSubmitted={plansSubmitted}
           key={selectedAsset.uniqid}
           formHeader={currentAssetName}
