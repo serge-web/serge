@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GameTitle component: renders correctly 1`] = `
+<span
+  className="wargame-title"
+>
+  <span
+    className="wargame-unstarted-highlight"
+  >
+     
+  </span>
+  <span
+    onClick={[Function]}
+    title="IMWARC-New"
+  >
+    IMWARC-New
+  </span>
+</span>
+`;

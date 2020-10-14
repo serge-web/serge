@@ -1,6 +1,7 @@
-@import '~@serge/themes/dependencies/variables';
+@import "~@serge/themes/dependencies/variables";
 
 .wargame-option-menu {
+  @include typo-primary;
   background: #fff;
   border: 1px solid $grey;
   display: flex;
@@ -9,7 +10,6 @@
   width: 160px;
   z-index: 3;
   position: relative;
-  @include typo-primary;
 
   span {
     align-items: center;
