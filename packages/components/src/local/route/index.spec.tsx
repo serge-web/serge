@@ -42,6 +42,7 @@ it('Mapping renders correctly with Route', () => {
     platforms = {platformTypes}
     forces={forces}
     playerForce={'Blue'}
+    canSubmitOrders = {true}
     phase={Phase.Planning}
     turnNumber={2}
   >

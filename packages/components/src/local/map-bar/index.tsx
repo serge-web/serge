@@ -40,6 +40,7 @@ export const MapBar: React.FC = () => {
   const {
     gridCells,
     playerForce,
+    canSubmitOrders,
     phase,
     platforms,
     forces,
@@ -62,6 +63,7 @@ export const MapBar: React.FC = () => {
   }: {
     gridCells: SergeGrid<SergeHex<{}>> | undefined
     playerForce: any
+    canSubmitOrders: boolean
     phase: Phase
     platforms: any
     forces: any
@@ -239,6 +241,7 @@ export const MapBar: React.FC = () => {
             name={stateFormTitle}
             phase={phase}
             isUmpire={playerForce === UMPIRE_FORCE}
+            canSubmitOrders={canSubmitOrders}
             store={routeStore}
             showOtherPlatforms={showOtherPlatforms}
             submitTitle = {stateSubmitTitle}

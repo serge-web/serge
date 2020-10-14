@@ -25,6 +25,10 @@ export default interface MappingContext {
    * force for current player
    */
   playerForce: string
+  /** 
+   * if the current player can submit orders
+   */
+  canSubmitOrders: boolean
   /**
    * phase of current game
    */

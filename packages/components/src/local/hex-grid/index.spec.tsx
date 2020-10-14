@@ -32,6 +32,7 @@ it('Mapping renders correctly with HexGrid', () => {
     forces={forces}
     platforms = {platformTypes}
     playerForce={'Blue'}
+    canSubmitOrders = {true}
     phase={Phase.Planning}
     turnNumber={5}
   >
