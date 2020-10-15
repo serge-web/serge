@@ -36,6 +36,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     forces = {forces}
     platforms = {platformTypes}
     playerForce = 'blue'
+    canSubmitOrders = {false}
     phase={Phase.Planning}
     turnNumber={5}
   ><MapBar /></Mapping>, { attachTo: div })

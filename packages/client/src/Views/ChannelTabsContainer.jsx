@@ -170,6 +170,7 @@ class ChannelTabsContainer extends Component {
       phase={state.phase}
       turnNumber={state.currentTurn}
       playerForce={state.selectedForce}
+      canSubmitOrders={true} // TODO get value from role
       channelID = {channelid}
       postBack={postback}
     ><Assets /><HexGrid/>

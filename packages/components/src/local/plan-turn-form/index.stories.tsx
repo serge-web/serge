@@ -36,6 +36,36 @@ const speedValues = {
 export const Default: React.FC = () => <PlanTurnForm
   turnPlanned={postback}
   formHeader="Planning header"
+  canSubmitPlans={true}
+  formData={{
+    populate: {
+      status: [{
+        name: 'Moored',
+        mobile: false
+      },
+      {
+        name: 'Transiting',
+        mobile: true
+      }],
+      speed: radios(speedLabel, speedValues, 'Four') === 'One' ? [10] : [10, 20, 30, 40]
+    },
+    values: {
+      statusVal: {
+        name: 'Transiting',
+        mobile: true
+      },
+      speedVal: 0,
+      turnsVal: 5
+    }
+  }}
+  icon={iconData}
+  plansSubmitted={false}
+/>
+
+export const CannotSubmitPlans: React.FC = () => <PlanTurnForm
+  turnPlanned={postback}
+  formHeader="Planning header"
+  canSubmitPlans={false}
   formData={{
     populate: {
       status: [{
@@ -64,6 +94,7 @@ export const Default: React.FC = () => <PlanTurnForm
 export const TurnsPlanned: React.FC = () => <PlanTurnForm
   turnPlanned={postback}
   formHeader="Planning header"
+  canSubmitPlans={true}
   formData={{
     populate: {
       status: [{

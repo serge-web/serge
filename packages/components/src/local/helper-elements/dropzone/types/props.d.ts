@@ -15,5 +15,8 @@ export default interface PropTypes {
   onSet?: (item: Array<DropItem>, type: DropType) => void
   active?: string | number
   mouse?: { x: number, y: number }
+  // do not allow to drag item in to dropzone
   disable?: boolean
+  // do not render dropzone - use as static html
+  disableDrag?: boolean
 }

@@ -24,6 +24,26 @@ const postback = (messageType: string, payload: any): void => {
   console.log('postback', messageType, payload)
 }
 
-export const Default: React.FC = () => <AdjudicateTurnForm postBack={postback} icon={iconData} plansSubmitted={false} formHeader="Adjudicate header" formData={formData} />
+export const Default: React.FC = () => <AdjudicateTurnForm
+  postBack={postback}
+  icon={iconData}
+  canSubmitPlans={true}
+  plansSubmitted={false}
+  formHeader="Adjudicate header"
+  formData={formData} />
 
-export const TurnsPlanned: React.FC = () => <AdjudicateTurnForm postBack={postback} icon={iconData} plansSubmitted={true} formHeader="Adjudicate header" formData={formData} />
+export const TurnsPlanned: React.FC = () => <AdjudicateTurnForm
+  postBack={postback}
+  icon={iconData}
+  canSubmitPlans={true}
+  plansSubmitted={true}
+  formHeader="Adjudicate header"
+  formData={formData} />
+
+export const CannotSubmitPlans: React.FC = () => <AdjudicateTurnForm
+  postBack={postback}
+  icon={iconData}
+  plansSubmitted={false}
+  canSubmitPlans={false}
+  formHeader="Adjudicate header"
+  formData={formData} />

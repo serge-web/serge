@@ -10,7 +10,7 @@ const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
 
 it('PlanTurnForm renders correctly', () => {
   const tree = renderer
-    .create(<PlanTurnForm formHeader="Planning header" plansSubmitted={false} formData={formData} icon={iconData} />)
+    .create(<PlanTurnForm canSubmitPlans={true} formHeader="Planning header" plansSubmitted={false} formData={formData} icon={iconData} />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

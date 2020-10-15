@@ -35,6 +35,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     forces = {forces}
     platforms = {platformTypes}
     playerForce = 'blue'
+    canSubmitOrders = {true}
     phase = {Phase.Planning}
     turnNumber={5}
   ><AssetIcon uniqid='id1' name="Jeffrey" position={L.latLng(13.298034302, 43.0488191271)}

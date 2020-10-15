@@ -18,7 +18,7 @@ import { ADJUDICATION_PHASE } from '@serge/config'
 import canCombineWith from './helpers/can-combine-with'
 
 export const WorldState: React.FC<PropTypes> = ({
-  name, store, phase, isUmpire, setSelectedAsset,
+  name, store, phase, isUmpire, canSubmitOrders, setSelectedAsset,
   submitTitle, submitForm, showOtherPlatforms, gridCells,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted
@@ -114,6 +114,7 @@ export const WorldState: React.FC<PropTypes> = ({
       <Groups
         items={tmpRoutes}
         renderContent={renderContent}
+        canOrganise={canSubmitOrders}
         canCombineWith={canCombineWithLocal}
         onSet={(itemsLink: any, type: any, depth: any): void => {
           const items = itemsLink.slice(0)
@@ -146,7 +147,7 @@ export const WorldState: React.FC<PropTypes> = ({
           }
         }}
       />
-      {submitTitle && !showOtherPlatforms && !playerInAdjudication &&
+      {submitTitle && !showOtherPlatforms && !playerInAdjudication && canSubmitOrders &&
         <div className={styles.submit}>
           <Button disabled={plansSubmitted} size='m' onClick={submitCallback}>{submitTitle}</Button>
         </div>

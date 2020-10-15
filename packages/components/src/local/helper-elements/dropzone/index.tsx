@@ -15,7 +15,7 @@ import styles from './styles.module.scss'
 const itemH = 44
 
 /* Render component */
-export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', active, onStart, onEnd, onSet, disable }) => {
+export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', active, onStart, onEnd, onSet, disable, disableDrag }) => {
   const innerRef = useRef(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [showEmpty, setShowEmpty] = useState<boolean>(false)
@@ -112,7 +112,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
       activeDropzone && styles[`${type}-active`]
     )}>
       <div className={cx(styles.holder, loading && styles.loading)} ref={handleRef}>
-        {disable ? <>
+        {disable || disableDrag ? <>
           { renderDropzone() }
           <div className={cx(styles.item, typeOut && styles['item-hide'])}>
             {children}

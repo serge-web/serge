@@ -60,6 +60,7 @@ const defaultProps: PropTypes = {
   forces: [{}],
   platforms: [{}],
   playerForce: 'Blue',
+  canSubmitOrders: true,
   phase: Phase.Planning,
   turnNumber: 6,
   tileLayer: {
@@ -84,6 +85,7 @@ export const Mapping: React.FC<PropTypes> = ({
   tileDiameterMins,
   forces,
   playerForce,
+  canSubmitOrders,
   platforms,
   phase,
   turnNumber,
@@ -414,6 +416,7 @@ export const Mapping: React.FC<PropTypes> = ({
     forces: forcesState,
     platforms,
     playerForce,
+    canSubmitOrders,
     phase,
     turnNumber,
     planningConstraints,

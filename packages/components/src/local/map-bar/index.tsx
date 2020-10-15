@@ -40,6 +40,7 @@ export const MapBar: React.FC = () => {
   const {
     gridCells,
     playerForce,
+    canSubmitOrders,
     phase,
     platforms,
     forces,
@@ -62,6 +63,7 @@ export const MapBar: React.FC = () => {
   }: {
     gridCells: SergeGrid<SergeHex<{}>> | undefined
     playerForce: any
+    canSubmitOrders: boolean
     phase: Phase
     platforms: any
     forces: any
@@ -198,6 +200,7 @@ export const MapBar: React.FC = () => {
           key={selectedAsset.uniqid}
           plansSubmitted={plansSubmitted}
           formHeader={currentAssetName}
+          canSubmitPlans={canSubmitOrders}
           formData={collateAdjudicationFormData(platforms, selectedAsset, forces)}
           channelID={channelID}
           icon={icondData}
@@ -207,6 +210,7 @@ export const MapBar: React.FC = () => {
         output = <PlanTurnForm
           icon={icondData}
           setHidePlanningForm={setHidePlanningForm}
+          canSubmitPlans={canSubmitOrders}
           plansSubmitted={plansSubmitted}
           key={selectedAsset.uniqid}
           formHeader={currentAssetName}
@@ -239,6 +243,7 @@ export const MapBar: React.FC = () => {
             name={stateFormTitle}
             phase={phase}
             isUmpire={playerForce === UMPIRE_FORCE}
+            canSubmitOrders={canSubmitOrders}
             store={routeStore}
             showOtherPlatforms={showOtherPlatforms}
             submitTitle = {stateSubmitTitle}
