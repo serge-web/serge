@@ -64,10 +64,9 @@ export const WorldState: React.FC<PropTypes> = ({
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
 
   const renderContent = (item: GroupItem, depth: Array<GroupItem> = []): JSX.Element => {
-
     // determine if this asset can be selected. We only allow assets at the top level
     // to be selected, since child elements are "managed" by the parent
-    const canBeSelected:boolean = depth && depth.length === 0
+    const canBeSelected: boolean = depth && depth.length === 0
 
     // const item = routeItem as PlannedRoute
     let forceName: string = item.perceivedForceName || ''
