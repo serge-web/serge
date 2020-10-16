@@ -44,6 +44,7 @@ const MessageTemplates = () => {
       <SearchList
         key="searchlist"
         listData={messageTypes.messages}
+        selected={umpireMenu.selectedSchemaID}
         setSelected={setSelectedSchemaId}
         placeholder="Select template"
       />

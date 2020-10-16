@@ -50,6 +50,7 @@ const MessageLibrary = () => {
       <SearchList
         key="searchlist"
         listData={messages.messages}
+        selected={messages.messagePreviewId}
         setSelected={setSelectedSchemaId}
         placeholder="Select template"
       />
