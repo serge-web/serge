@@ -18,7 +18,7 @@ export const SearchList: React.FC<Props> = ({
   const [searchQuery, setSearchQuery] = useState('')
   const searchByQuery = (listItem: ListItem): boolean => {
     const { details } = listItem
-    return details.title === '' || details.title.toLowerCase().includes(searchQuery.toLowerCase())
+    return (details.title === '' || typeof details.title === 'undefined') || (details.title || '').toLowerCase().includes(searchQuery.toLowerCase())
   }
   const setQuery = (target: { value: string }): any => {
     setSearchQuery(target.value)
