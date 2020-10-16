@@ -154,6 +154,7 @@ const routeCreateRoute = (asset: any, color: string,
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
   const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(asset.plannedTurns,  grid, true, filterPlannedSteps) : []
+  const numberOfPlannedTurns = asset.plannedTurns ? asset.plannedTurns.length : 0
 
   const historySteps: Array<RouteStep> = createStepArray(asset.history, grid, 
       false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
@@ -180,6 +181,7 @@ const routeCreateRoute = (asset: any, color: string,
     currentPosition: currentPosition,
     currentLocation: currentLocation,
     planned: futureSteps,
+    plannedTurnsCount: numberOfPlannedTurns,
     original: cloneDeep(futureSteps),
     asset: asset
   }

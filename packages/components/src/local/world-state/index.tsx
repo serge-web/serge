@@ -74,7 +74,7 @@ export const WorldState: React.FC<PropTypes> = ({
     }
 
     const icClassName = getIconClassname(forceName.toLowerCase(), item.platformType.toLowerCase(), item.selected)
-    const numPlanned = Array.isArray(item.planned) ? item.planned.length : 0
+    const numPlanned = item.plannedTurnsCount
     const descriptionText = (isUmpire || item.underControl) && depth.length === 0
       ? `${numPlanned} turns planned` : ''
     const checkStatus: boolean = numPlanned > 0
