@@ -54,6 +54,8 @@ export default interface Route {
   currentLocation: L.LatLng | undefined,
   /** current planned steps for this asset */
   planned: Array<RouteStep>
+  /** number of planned steps for this asset (does not get clipped) */
+  plannedTurnsCount: number,
   /** original future planned steps for this asset */
   original: Array<RouteStep>
   /* store the actual asset (so we have all details for State of World) */

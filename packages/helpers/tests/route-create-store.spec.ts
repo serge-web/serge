@@ -78,7 +78,7 @@ it('create full history & planned for blue unit', () => {
 it('create trimmed history & full planned for selected blue unit', () => {
 
   const frigateId = 'a0pra00001'
-  const store: RouteStore = routeCreateStore(frigateId, forces, 'Blue', true, platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(frigateId, forces, 'Blue', true, platformTypes, undefined, true, false)
   expect(store.routes.length).toEqual(11)
 
   // check selected route
@@ -91,14 +91,16 @@ it('create trimmed history & full planned for selected blue unit', () => {
     expect(frigate.selected).toBeTruthy()
   }
   
-  // check a blue route
-  const frigate2: Route | undefined = store.routes.find(route => route.uniqid === frigateId)
-  expect(frigate2).toBeTruthy()
-  if(frigate2) {
-    expect(frigate2.name).toEqual('Frigate')
-    expect(frigate2.history.length).toEqual(1)
-    expect(frigate2.planned.length).toEqual(2)  
-    expect(frigate2.selected).toBeTruthy()
+  // check a blue route other than frigate (it should have full length route)
+  const tankerId = 'a0pra00003'
+  const tanker: Route | undefined = store.routes.find(route => route.uniqid === tankerId)
+  expect(tanker).toBeTruthy()
+  if(tanker) {
+    expect(tanker.name).toEqual('Tanker')
+    expect(tanker.history.length).toEqual(1)
+    expect(tanker.planned.length).toEqual(3)  
+    expect(tanker.plannedTurnsCount).toEqual(3)
+    expect(tanker.selected).toBeFalsy()
   }
 
   // check no other routes set as selected
@@ -123,6 +125,7 @@ it('create trimmed history & trimmed planned for without selected blue unit', ()
     expect(frigate.name).toEqual('Frigate')
     expect(frigate.history.length).toEqual(1)
     expect(frigate.planned.length).toEqual(1)  
+    expect(frigate.plannedTurnsCount).toEqual(2)  
   }
 })
 
@@ -171,6 +174,21 @@ it('create trimmed history & planned for blue unit', () => {
   // should not create planned steps for non-blue platform
   expect(dhow.planned.length).toEqual(0)
 })
+
+it('create trimmed history & planned for blue unit but with full num of turns in attribute', () => {
+  const store: RouteStore = routeCreateStore(undefined, forces, 'Blue', true, platformTypes, undefined, true, true)
+  expect(store.routes.length).toEqual(11)
+
+  // check a blue route
+  const group: Route = store.routes[0]
+  expect(group.color).toEqual('#00F')
+  expect(group.name).toEqual('CTF 511')
+  expect(group.history.length).toEqual(1)
+  expect(group.planned.length).toEqual(1)
+  // the full number of planned turns should still be returned here
+  expect(group.plannedTurnsCount).toEqual(2)
+})
+
 
 
 it('can create route as umpire in planning mode', () => {
