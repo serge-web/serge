@@ -1,7 +1,7 @@
 /* global it expect */
 import React from 'react'
 import renderer from 'react-test-renderer'
-import ChannelMessageBubble from "./index";
+import ChannelMessageBubble from './index'
 
 describe('ChannelMessageBubble component:', () => {
   it('renders correctly', () => {
@@ -15,7 +15,7 @@ describe('ChannelMessageBubble component:', () => {
           hasBeenRead={false}
         />
       )
-      .toJSON();
+      .toJSON()
     expect(tree).toMatchSnapshot()
   })
 })

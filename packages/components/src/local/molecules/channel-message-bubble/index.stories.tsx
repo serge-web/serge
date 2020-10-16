@@ -35,4 +35,3 @@ export const Default: React.FC = () => (
     />
   </BlueContainer>
 )
-
