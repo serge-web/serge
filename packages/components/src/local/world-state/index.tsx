@@ -64,6 +64,10 @@ export const WorldState: React.FC<PropTypes> = ({
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
 
   const renderContent = (item: GroupItem, depth: Array<GroupItem> = []): JSX.Element => {
+    // determine if this asset can be selected. We only allow assets at the top level
+    // to be selected, since child elements are "managed" by the parent
+    const canBeSelected: boolean = depth && depth.length === 0
+
     // const item = routeItem as PlannedRoute
     let forceName: string = item.perceivedForceName || ''
     // if we don't know the force name, just use the one from the parent
@@ -80,7 +84,7 @@ export const WorldState: React.FC<PropTypes> = ({
     const checkStatus: boolean = numPlanned > 0
 
     return (
-      <div className={styles.item} onClick={(): any => clickEvent(`${item.uniqid}`)}>
+      <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
         <div className={cx(icClassName, styles['item-icon'])}/>
         <div className={styles['item-content']}>
           <div>
