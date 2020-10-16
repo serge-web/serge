@@ -3,6 +3,7 @@
 exports[`GameTitle component: renders correctly 1`] = `
 <span
   className="wargame-title"
+  onClick={[Function]}
 >
   <span
     className="wargame-unstarted-highlight"
@@ -10,8 +11,7 @@ exports[`GameTitle component: renders correctly 1`] = `
      
   </span>
   <span
-    onClick={[Function]}
-    title="IMWARC-New"
+    title="http://localhost/imwarc"
   >
     IMWARC-New
   </span>

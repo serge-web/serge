@@ -40,6 +40,7 @@ exports[`WargameList component: renders correctly 1`] = `
     >
       <span
         className="wargame-title"
+        onClick={[Function]}
       >
         <span
           className="wargame-started-highlight"
@@ -47,14 +48,13 @@ exports[`WargameList component: renders correctly 1`] = `
            
         </span>
         <span
-          onClick={[Function]}
-          title="Wargame A"
+          title="http://localhost/wargame-a"
         >
           Wargame A
         </span>
       </span>
       <svg
-        aria-labelledby="svg-inline--fa-title-8HAoNI53m1q6"
+        aria-labelledby="svg-inline--fa-title-PIZRy1Reicbk"
         className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
         data-icon="ellipsis-h"
         data-prefix="fas"
@@ -65,7 +65,7 @@ exports[`WargameList component: renders correctly 1`] = `
         xmlns="http://www.w3.org/2000/svg"
       >
         <title
-          id="svg-inline--fa-title-8HAoNI53m1q6"
+          id="svg-inline--fa-title-PIZRy1Reicbk"
           style={Object {}}
         >
           Wargame menu
@@ -82,6 +82,7 @@ exports[`WargameList component: renders correctly 1`] = `
     >
       <span
         className="wargame-title"
+        onClick={[Function]}
       >
         <span
           className="wargame-unstarted-highlight"
@@ -89,14 +90,13 @@ exports[`WargameList component: renders correctly 1`] = `
            
         </span>
         <span
-          onClick={[Function]}
-          title="Wargame B"
+          title="http://localhost/wargame-b"
         >
           Wargame B
         </span>
       </span>
       <svg
-        aria-labelledby="svg-inline--fa-title-Jb8LFh8jt2Cn"
+        aria-labelledby="svg-inline--fa-title-ZdvJM7Jq7VVT"
         className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
         data-icon="ellipsis-h"
         data-prefix="fas"
@@ -107,7 +107,7 @@ exports[`WargameList component: renders correctly 1`] = `
         xmlns="http://www.w3.org/2000/svg"
       >
         <title
-          id="svg-inline--fa-title-Jb8LFh8jt2Cn"
+          id="svg-inline--fa-title-ZdvJM7Jq7VVT"
           style={Object {}}
         >
           Wargame menu
@@ -124,6 +124,7 @@ exports[`WargameList component: renders correctly 1`] = `
     >
       <span
         className="wargame-title"
+        onClick={[Function]}
       >
         <span
           className="wargame-started-highlight"
@@ -131,14 +132,13 @@ exports[`WargameList component: renders correctly 1`] = `
            
         </span>
         <span
-          onClick={[Function]}
-          title="Wargame C"
+          title="http://localhost/wargame-c"
         >
           Wargame C
         </span>
       </span>
       <svg
-        aria-labelledby="svg-inline--fa-title-JVVN4sv62mjB"
+        aria-labelledby="svg-inline--fa-title-TA89a5uOHFNg"
         className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
         data-icon="ellipsis-h"
         data-prefix="fas"
@@ -149,7 +149,7 @@ exports[`WargameList component: renders correctly 1`] = `
         xmlns="http://www.w3.org/2000/svg"
       >
         <title
-          id="svg-inline--fa-title-JVVN4sv62mjB"
+          id="svg-inline--fa-title-TA89a5uOHFNg"
           style={Object {}}
         >
           Wargame menu
