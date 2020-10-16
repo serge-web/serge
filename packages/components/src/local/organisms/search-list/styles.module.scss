@@ -13,26 +13,4 @@
     max-height: calc(59vh - 153px);
     overflow-y: scroll;
   }
-
-  &-title {
-    align-items: center;
-    border-bottom: 1px solid #f2f2f2;
-    cursor: pointer;
-    display: flex;
-    margin-bottom: 0 !important;
-    padding: 1em 0;
-    position: relative;
-    width: 100%;
-
-    &:hover {
-      color: $dark-grey;
-      text-decoration: none;
-    }
-
-    &.active {
-      background: #fff;
-      color: $dark-grey;
-      font-weight: bold;
-    }
-  }
 }

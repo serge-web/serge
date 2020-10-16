@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Import component files
 import SearchList from './index'
@@ -17,6 +17,7 @@ export default {
 }
 
 export const Default: React.FC = () => {
+  const [selected, setSelected] = useState('')
   const listData = [{
     completed: false,
     details: {
@@ -55,6 +56,6 @@ export const Default: React.FC = () => {
     _rev: '1-09ab7a18ff677cec5d9a56f02a45788d'
   }]
   return (
-    <SearchList placeholder="Select template" listData={listData} setSelected={item => window.alert(item.details.title)} />
+    <SearchList placeholder="Select template" listData={listData} selected={selected} setSelected={(item): void => setSelected(item._id)} />
   )
 }
