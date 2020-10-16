@@ -23,7 +23,7 @@ export { default as InsightForm } from './local/molecules/insight-form'
 export { default as AdminPanelFooter } from './local/molecules/admin-panel-footer'
 export { default as ForceObjective } from './local/molecules/force-objective'
 export { default as ChannelMessageHeader } from './local/molecules/channel-message-header'
-export { default as ChatMessageBubble } from "./local/molecules/chat-message-bubble"
+export { default as ChatMessageBubble } from './local/molecules/chat-message-bubble'
 export { default as ChannelMessageDetail } from './local/molecules/channel-message-detail'
 export { default as ChannelMessage } from './local/molecules/channel-message'
 export { default as ChannelMessagesList } from './local/organisms/channel-messages-list'

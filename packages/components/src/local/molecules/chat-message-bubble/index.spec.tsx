@@ -1,10 +1,10 @@
 /* global it expect */
 import React from 'react'
 import renderer from 'react-test-renderer'
-import ChatMessageBubble from "./index";
+import ChatMessageBubble from './index'
 
-describe("ChatMessageBubble component:", () => {
-  it("renders correctly", () => {
+describe('ChatMessageBubble component:', () => {
+  it('renders correctly', () => {
     const tree = renderer
       .create(
         <ChatMessageBubble
@@ -13,9 +13,11 @@ describe("ChatMessageBubble component:", () => {
           role="CO"
           messageType="Chat"
           hasBeenRead={false}
+          borderColor="#3dd0ffB3"
+          isSent={true}
         />
       )
       .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
+    expect(tree).toMatchSnapshot()
+  })
+})

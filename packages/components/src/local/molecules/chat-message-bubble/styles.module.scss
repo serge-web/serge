@@ -5,14 +5,35 @@
   border-radius: $radius;
 }
 
+.chat-messgae-bubble {
+  border-left-style: solid;
+  border-left-width: 8px;
+  display: flex;
+  border-radius: 5px;
+}
+.chat-messgae-bubble-sent{
+  border-left-width: 0;
+  border-right-width: 8px;
+  border-right-style: solid;
+  justify-content: flex-end;
+  .info-body {
+    order: 3;
+  }
+  .message-title-wrap {
+    border-radius: 5px 0 0 5px;
+  }
+}
+.chat-inner-bubble{
+  max-width: 60%;
+}
+
 .message-title-wrap {
-  @include panel-item-wrap(0 4px 4px 0);
+  @include panel-item-wrap(0 5px 5px 0);
   @include typo-primary;
   display: block;
   cursor: pointer;
-  padding: 6px 12px 12px;
+  padding: 6px 12px 8px;
   position: relative;
-
   &.message-title-opened {
     @include panel-item-wrap(0 4px 0 0);
   }
@@ -32,10 +53,7 @@
   font-size: 14px;
   font-weight: normal;
   max-width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
+  margin-bottom: 4px;
   .message-item-unread & {
     color: #fff;
     font-weight: 600;

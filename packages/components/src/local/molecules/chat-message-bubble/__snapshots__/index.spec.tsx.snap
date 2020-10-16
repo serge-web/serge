@@ -5,23 +5,8 @@ exports[`ChatMessageBubble component: renders correctly 1`] = `
   className="message-item-unread"
 >
   <div
-    className="message-title-wrap "
+    className="message-title-wrap"
   >
-    <svg
-      aria-hidden={true}
-      className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
-      focusable="false"
-      style={
-        Object {
-          "color": "#18ffff",
-        }
-      }
-      viewBox="0 0 24 24"
-    >
-      <path
-        d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
-      />
-    </svg>
     <div
       className="message-title"
     >
@@ -33,7 +18,7 @@ exports[`ChatMessageBubble component: renders correctly 1`] = `
       <span
         className="info-body"
       >
-        06:41
+        11:11
       </span>
       <div
         className="MuiChip-root makeStyles-root-2 makeStyles-root-5 MuiChip-sizeSmall makeStyles-sizeSmall-3"
@@ -55,17 +40,6 @@ exports[`ChatMessageBubble component: renders correctly 1`] = `
           className="MuiChip-label makeStyles-label-4 makeStyles-label-8 MuiChip-labelSmall"
         >
           Chat
-        </span>
-      </div>
-      <div
-        className="MuiChip-root makeStyles-root-2 makeStyles-root-9 MuiChip-sizeSmall makeStyles-sizeSmall-3"
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-      >
-        <span
-          className="MuiChip-label makeStyles-label-4 makeStyles-label-10 MuiChip-labelSmall"
-        >
-          Unread
         </span>
       </div>
     </div>
