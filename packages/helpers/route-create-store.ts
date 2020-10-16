@@ -5,6 +5,7 @@ import { UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy from './is-perceived-by'
 import hexNamed from './hex-named'
+import forceColors from './force-colors'
 
 /** determine which forces this player can control
  * @param {any} forces array of forces
@@ -38,9 +39,7 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
   const store: RouteStore = { routes: []}
 
   const controls: Array<string> = forcesControlledBy(forces, playerForce)
-  const forceColors: Array<{force: string, color: string}> = forces.map((force: any) => {
-    return {force: force.uniqid, color: force.color}
-  })
+  const forceColorList: Array<{force: string, color: string}> = forceColors(forces)
 
   const undefinedColor = '#999' // TODO: this color should not be hard-coded
 
@@ -92,7 +91,7 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
               // process list of children
               asset.comprising.forEach((child:any) => {
                 // can't see it directly. See if we can perceive it
-                const perceivedColor: string | undefined = isPerceivedBy(child.perceptions, playerForce, forceColors, undefinedColor)
+                const perceivedColor: string | undefined = isPerceivedBy(child.perceptions, playerForce, forceColorList, undefinedColor)
                 if(perceivedColor) {
                   const perceptions = findPerceivedAsTypes(playerForce, child.name, child.contactId,
                     thisForce, child.platformType, child.perceptions, false)
@@ -105,7 +104,7 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
               })
             } else {
               // can't see it directly. See if we can perceive it
-              const perceivedColor: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColors, undefinedColor)
+              const perceivedColor: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColorList, undefinedColor)
               if(perceivedColor) {
                 const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
                   thisForce, asset.platformType, asset.perceptions, false)
