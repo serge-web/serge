@@ -38,9 +38,9 @@ export default interface Props {
   /**
    * Callback on duplicate menu click event
    */
-  onDuplicate?: () => void
+  onDuplicate?: (item: ListItem) => void
   /**
    * Callback on delete menu click event
    */
-  onDelete?: () => void
+  onDelete?: (item: ListItem) => void
 }

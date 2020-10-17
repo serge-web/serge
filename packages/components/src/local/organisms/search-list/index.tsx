@@ -39,8 +39,8 @@ export const SearchList: React.FC<Props> = ({
                 active={activeRow(item)}
                 onClick={(): void => setSelected(item)}
                 key={id}
-                onDuplicate={onDuplicate}
-                onDelete={onDelete}
+                onDuplicate={onDuplicate ? (): void => onDuplicate(item) : undefined}
+                onDelete={onDelete ? (): void => onDelete(item) : undefined}
               >
                 { rowLabel(item) }
               </SearchListRow>
