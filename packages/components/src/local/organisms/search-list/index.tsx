@@ -9,7 +9,7 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const SearchList: React.FC<Props> = ({
+const SearchList: React.FC<Props> = ({
   placeholder,
   listData,
   setSelected,
@@ -17,7 +17,8 @@ export const SearchList: React.FC<Props> = ({
   rowLabel,
   rowFilter,
   onDuplicate,
-  onDelete
+  onDelete,
+  withSearch
 }: Props) => {
   const [searchQuery, setSearchQuery] = useState('')
   const setQuery = (target: { value: string }): any => {
@@ -25,12 +26,16 @@ export const SearchList: React.FC<Props> = ({
   }
   return (
     <div className={styles.searchlist}>
-      <TextInput
-        fullWidth
-        placeholder={placeholder}
-        updateState={setQuery}
-        value={searchQuery}
-      />
+      {
+        withSearch && (
+          <TextInput
+            fullWidth
+            placeholder={placeholder}
+            updateState={setQuery}
+            value={searchQuery}
+          />
+        )
+      }
       <div className={styles['searchlist-list']}>
         {
           listData.filter(list => rowFilter(list, searchQuery)).map((item, id) => {
@@ -50,6 +55,10 @@ export const SearchList: React.FC<Props> = ({
       </div>
     </div>
   )
+}
+
+SearchList.defaultProps = {
+  withSearch: true
 }
 
 export default SearchList

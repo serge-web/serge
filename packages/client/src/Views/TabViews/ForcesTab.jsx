@@ -6,8 +6,8 @@ import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { forceTemplate } from "../../consts";
+import { SearchList } from "@serge/components";
 import checkUnique from "../../Helpers/checkUnique";
-import TabsSearchList from "../../Components/TabsSearchList";
 import TextArea from "../../Components/Inputs/TextArea";
 import RemovableGroupItem from "../../Components/Layout/RemovableGroupItem";
 import TextInput from "../../Components/Inputs/TextInput";
@@ -241,17 +241,22 @@ class ForcesTab extends Component {
       <div className="flex-content-wrapper" id="game-setup-tab-forces">
         <div className="flex-content searchlist-wrap">
           <span className="link link--noIcon" onClick={this.createForce} data-qa-type="add">Add a new force</span>
-          <TabsSearchList listData={this.state.forcesList}
+          <SearchList
+            listData={this.state.forcesList}
             setSelected={this.setSelected}
-            selected={selectedForce}
-            delete={this.deleteForceFromList}
-            name="forces"
+            activeRow={item => item.name === selectedForce}
+            rowLabel={item => item.name}
+            rowFilter={() => true}
+            onDelete={item => this.deleteForceFromList(item.uniqid)}
+            withSearch={false}
           />
         </div>
 
-        {selectedForce ?
-          this.createForceEditor()
-        : null}
+        {
+          selectedForce ?
+            this.createForceEditor()
+            : null
+        }
       </div>
     );
   }

@@ -43,4 +43,8 @@ export default interface Props {
    * Callback on delete menu click event
    */
   onDelete?: (item: ListItem) => void
+  /**
+   * Whether to show search input text or not
+   */
+  withSearch?: boolean
 }
