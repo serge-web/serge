@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencilAlt, faClone, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
 import {
@@ -34,6 +35,25 @@ const MessageTemplates = () => {
     dispatch(setSelectedSchema(item._id))
   }
 
+  const activeRow = item => {
+    return item._id === umpireMenu.selectedSchemaID
+  }
+
+  const rowLabel = item => {
+    const title = item.details.title ? item.details.title : '[Title missing]'
+    const date = moment(item.lastUpdated).format('DD/MM/YY')
+    return `${title} - ${date}`
+  }
+
+  const rowFilter = (item, query) => {
+    const { details } = item
+    return (
+      details.title === '' ||
+      typeof details.title === 'undefined') ||
+      (details.title || '').toLowerCase().includes(query.toLowerCase()
+      )
+  }
+
   const createSearchListSection = () => {
     return [
       <Link
@@ -44,9 +64,11 @@ const MessageTemplates = () => {
       <SearchList
         key="searchlist"
         listData={messageTypes.messages}
-        selected={umpireMenu.selectedSchemaID}
         setSelected={setSelectedSchemaId}
         placeholder="Select template"
+        activeRow={activeRow}
+        rowLabel={rowLabel}
+        rowFilter={rowFilter}
       />
     ]
   }

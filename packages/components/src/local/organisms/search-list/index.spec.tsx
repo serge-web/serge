@@ -44,7 +44,14 @@ describe('SearchList component:', () => {
     }]
     const tree = renderer
       .create(
-        <SearchList listData={listData} setSelected={item => window.alert(item.details.title)} />
+        <SearchList
+          placeholder="Select template"
+          listData={listData}
+          setSelected={(item): void => window.alert(item)}
+          activeRow={(): boolean => true}
+          rowLabel={(): string => 'Label'}
+          rowFilter={(): boolean => true}
+        />
       )
       .toJSON()
     expect(tree).toMatchSnapshot()

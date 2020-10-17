@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import moment from 'moment'
 import TextInput from '../../atoms/text-input'
 import SearchListRow from '../../atoms/search-list-row'
 
 /* Import Types */
-import Props, { ListItem } from './types/props'
+import Props from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -13,14 +12,14 @@ import styles from './styles.module.scss'
 export const SearchList: React.FC<Props> = ({
   placeholder,
   listData,
-  selected,
-  setSelected
+  setSelected,
+  activeRow,
+  rowLabel,
+  rowFilter,
+  onDuplicate,
+  onDelete
 }: Props) => {
   const [searchQuery, setSearchQuery] = useState('')
-  const searchByQuery = (listItem: ListItem): boolean => {
-    const { details } = listItem
-    return (details.title === '' || typeof details.title === 'undefined') || (details.title || '').toLowerCase().includes(searchQuery.toLowerCase())
-  }
   const setQuery = (target: { value: string }): any => {
     setSearchQuery(target.value)
   }
@@ -34,17 +33,16 @@ export const SearchList: React.FC<Props> = ({
       />
       <div className={styles['searchlist-list']}>
         {
-          listData.filter(searchByQuery).map((item) => {
-            const active = item._id === selected
-            const title = item.details.title ? item.details.title : '[Title missing]'
-            const date = moment(item.lastUpdated).format('DD/MM/YY')
+          listData.filter(list => rowFilter(list, searchQuery)).map((item, id) => {
             return (
               <SearchListRow
-                active={active}
+                active={activeRow(item)}
                 onClick={(): void => setSelected(item)}
-                key={item._id}
+                key={id}
+                onDuplicate={onDuplicate}
+                onDelete={onDelete}
               >
-                {title} - {date}
+                { rowLabel(item) }
               </SearchListRow>
             )
           })

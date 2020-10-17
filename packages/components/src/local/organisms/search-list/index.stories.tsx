@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import moment from 'moment'
 
 // Import component files
 import SearchList from './index'
+import { TemplateListItem } from './types/props'
 import docs from './README.md'
 
 export default {
@@ -56,6 +58,25 @@ export const Default: React.FC = () => {
     _rev: '1-09ab7a18ff677cec5d9a56f02a45788d'
   }]
   return (
-    <SearchList placeholder="Select template" listData={listData} selected={selected} setSelected={(item): void => setSelected(item._id)} />
+    <SearchList
+      placeholder="Select template"
+      listData={listData}
+      setSelected={(item): void => setSelected((item as TemplateListItem)._id)}
+      activeRow={(item): boolean => (item as TemplateListItem)._id === selected}
+      rowLabel={(listItem): string => {
+        const item = listItem as TemplateListItem
+        const title = item.details.title ? item.details.title : '[Title missing]'
+        const date = moment(item.lastUpdated).format('DD/MM/YY')
+        return `${title} - ${date}`
+      }}
+      rowFilter={(item, query): boolean => {
+        const { details } = item as TemplateListItem
+        return (
+          details.title === '' ||
+          typeof details.title === 'undefined') ||
+          (details.title || '').toLowerCase().includes(query.toLowerCase()
+          )
+      }}
+    />
   )
 }
