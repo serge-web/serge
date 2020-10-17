@@ -2,26 +2,31 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencilAlt, faClone, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPencilAlt, faClone, faTrash } from '@fortawesome/free-solid-svg-icons'
 import {
   CREATE_TEMPLATE_ROUTE,
   EDIT_TEMPLATE_ROUTE,
   MESSAGE_CREATOR_BASE_ROUTE,
   MESSAGE_TEMPLATE_ROUTE
 } from '../consts'
-import { SearchList } from '@serge/components'
+import { SearchList, Button } from '@serge/components'
 import Link from '../Components/Link'
 import SidebarAdmin from '../Components/SidebarAdmin'
 import JsonCreator from '../Components/JsonCreator'
 import { getAllMessageTypes, duplicateMessageType } from '../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setSelectedSchema } from '../ActionsAndReducers/UmpireMenu/umpireMenu_ActionCreators'
+import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import '@serge/themes/App.scss'
 
 const MessageTemplates = () => {
   const dispatch = useDispatch()
   const messageTypes = useSelector(state => state.messageTypes)
   const umpireMenu = useSelector(state => state.umpireMenu)
+
+  const setView = route => {
+    dispatch(setCurrentViewFromURI(route))
+  }
 
   const duplicateTemplate = () => {
     dispatch(duplicateMessageType(umpireMenu.selectedSchemaID))
@@ -56,11 +61,15 @@ const MessageTemplates = () => {
 
   const createSearchListSection = () => {
     return [
-      <Link
-        href={`${MESSAGE_CREATOR_BASE_ROUTE}${CREATE_TEMPLATE_ROUTE}`}
-        key="templates" class="link">
-        <FontAwesomeIcon icon={faPlus}/>Create new template
-      </Link>,
+      <Button
+        onClick={() => setView(`${MESSAGE_CREATOR_BASE_ROUTE}${CREATE_TEMPLATE_ROUTE}`)}
+        color="secondary"
+        icon="add"
+        key="templates"
+        fullWidth
+      >
+        Create new template
+      </Button>,
       <SearchList
         key="searchlist"
         listData={messageTypes.messages}

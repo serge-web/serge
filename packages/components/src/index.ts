@@ -6,6 +6,7 @@
 
 export { default as ProgressIndicator } from './local/progress-indicator'
 export { default as InputContainer } from './local/atoms/input-container'
+export { default as Button } from './local/atoms/button'
 export { default as FormHeader } from './local/form-header'
 export { default as Mapping } from './local/mapping'
 export { default as AssetIcon } from './local/asset-icon'

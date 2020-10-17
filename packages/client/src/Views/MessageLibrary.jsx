@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencilAlt, faClone, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPencilAlt, faClone, faTrash } from '@fortawesome/free-solid-svg-icons'
 import {
   CREATE_MESSAGE_ROUTE,
   EDIT_MESSAGE_ROUTE,
   MESSAGE_CREATOR_BASE_ROUTE,
   MESSAGE_LIBRARY_ROUTE
 } from '../consts'
-import { SearchList } from '@serge/components'
+import { SearchList, Button } from '@serge/components'
 import Link from '../Components/Link'
 import MessagePreview from '../Components/MessagePreview'
 import SidebarAdmin from '../Components/SidebarAdmin'
@@ -19,12 +19,17 @@ import {
   getSingleMessage
 } from '../ActionsAndReducers/dbMessages/messages_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
+import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators';
 import { setSelectedSchema } from '../ActionsAndReducers/UmpireMenu/umpireMenu_ActionCreators'
 import '@serge/themes/App.scss'
 
 const MessageLibrary = () => {
   const dispatch = useDispatch()
   const messages = useSelector(state => state.messages)
+
+  const setView = route => {
+    dispatch(setCurrentViewFromURI(route))
+  }
 
   const setSelectedSchemaId = (item) => {
     dispatch(setSelectedSchema(item.schema._id))
@@ -60,13 +65,15 @@ const MessageLibrary = () => {
 
   const createSearchListSection = () => {
     return [
-      <Link
-        href={`${MESSAGE_CREATOR_BASE_ROUTE}${CREATE_MESSAGE_ROUTE}`}
-        key="messages"
-        class="link"
+      <Button
+        onClick={() => setView(`${MESSAGE_CREATOR_BASE_ROUTE}${CREATE_MESSAGE_ROUTE}`)}
+        color="secondary"
+        icon="add"
+        key="templates"
+        fullWidth
       >
-        <FontAwesomeIcon icon={faPlus} />Create new Message
-      </Link>,
+        Create new message
+      </Button>,
       <SearchList
         key="searchlist"
         listData={messages.messages}

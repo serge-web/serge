@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {connect} from "react-redux";
-import Link from "../Components/Link";
 import SidebarAdmin from "../Components/SidebarAdmin";
 import TextInput from "../Components/Inputs/TextInput";
 import WargameSearchList from "../Components/WargameSearchList";
@@ -9,6 +8,7 @@ import {
   ADMIN_ROUTE,
   GAME_SETUP_ROUTE,
 } from "../consts";
+import { Button } from "@serge/components";
 import {
   createNewWargameDB,
   clearWargames,
@@ -16,7 +16,7 @@ import {
   checkAdminAccess,
 } from "../ActionsAndReducers/dbWargames/wargames_ActionCreators";
 import { populateMessageTypesDb } from "../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators";
-
+import {setCurrentViewFromURI} from "../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators";
 import "@serge/themes/App.scss";
 
 class GameDesignerInterface extends Component {
@@ -50,6 +50,11 @@ class GameDesignerInterface extends Component {
     this.props.dispatch(checkAdminAccess(this.state.password));
   };
 
+  onButtonClick = onClick => route => {
+    onClick && onClick()
+    route && this.props.dispatch(setCurrentViewFromURI(route))
+  }
+
   render() {
 
     let loading = Object.values(this.props.dbLoading).some((loading) => loading );
@@ -82,16 +87,17 @@ class GameDesignerInterface extends Component {
         <div className="flex-content flex-content--big flex-content--last">
           <h2 id="page-title">Games</h2>
           <div className="btn-group game-designer-action">
-            <Link
-                href={GAME_SETUP_ROUTE}
-                class="link link--noIcon"
-                onClickHandler={this.createWargame}
-            >Create</Link>
-            <Link
-                href={ADMIN_ROUTE}
-                class="link link--noIcon link--secondary"
-                onClickHandler={this.clearWargames}
-            >Clear wargames</Link>
+            <Button
+              onClick={() => this.onButtonClick(this.createWargame)(GAME_SETUP_ROUTE)}
+            >
+              Create
+            </Button>
+            <Button
+              onClick={() => this.onButtonClick(this.clearWargames)(ADMIN_ROUTE)}
+              color="primary"
+            >
+              Clear wargames
+            </Button>
           </div>
           <WargameSearchList key="searchlist"
             listData={this.props.wargame.wargameList}

@@ -6,7 +6,7 @@ import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { forceTemplate } from "../../consts";
-import { SearchList } from "@serge/components";
+import { SearchList, Button } from "@serge/components";
 import checkUnique from "../../Helpers/checkUnique";
 import TextArea from "../../Components/Inputs/TextArea";
 import RemovableGroupItem from "../../Components/Layout/RemovableGroupItem";
@@ -240,7 +240,14 @@ class ForcesTab extends Component {
     return (
       <div className="flex-content-wrapper" id="game-setup-tab-forces">
         <div className="flex-content searchlist-wrap">
-          <span className="link link--noIcon" onClick={this.createForce} data-qa-type="add">Add a new force</span>
+          <Button
+            color="secondary"
+            size="large"
+            onClick={this.createForce}
+            data-qa-type="add"
+          >
+            Add a new force
+          </Button>
           <SearchList
             listData={this.state.forcesList}
             setSelected={this.setSelected}

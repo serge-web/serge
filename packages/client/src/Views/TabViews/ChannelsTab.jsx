@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import uniqid from "uniqid";
 import _ from "lodash";
 import { channelTemplate } from "../../consts";
-import { SearchList } from "@serge/components";
+import { SearchList, Button } from "@serge/components";
 import checkUnique from "../../Helpers/checkUnique";
 import TextInput from "../../Components/Inputs/TextInput";
 import ChannelsTable from "../../Components/Layout/ChannelsTable";
@@ -139,7 +139,14 @@ class ForcesTab extends Component {
     return (
       <div className="flex-content-wrapper" id="game-setup-tab-channels">
         <div className="flex-content searchlist-wrap">
-          <span className="link link--noIcon" onClick={this.createChannel} data-qa-type="add">Add channel</span>
+          <Button
+            color="secondary"
+            size="large"
+            onClick={this.createChannel}
+            data-qa-type="add"
+          >
+            Add channel
+          </Button>
           <SearchList
             listData={this.state.channelList}
             setSelected={this.setSelected}
