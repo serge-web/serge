@@ -1,12 +1,11 @@
-import { ButtonTypeMap } from '@material-ui/core/Button'
+import { ButtonProps } from '@material-ui/core/Button'
 
-type ButtonType = ButtonTypeMap['props']
-type Icons = 'add' | 'save'
-export default interface Props extends ButtonType {
+type Icons = 'add' | 'save' | 'delete' | 'edit' | 'copy'
+export type Props = ButtonProps & {
   /**
-   * Button custom types
+   * Button custom color
    */
-  type?: 'warning' | 'charcoal' | undefined
+  customColor?: 'warning' | 'charcoal' | string
   /**
    * Button start icon
    */

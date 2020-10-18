@@ -30,3 +30,4 @@ export { default as ChannelMessagesList } from './local/organisms/channel-messag
 export { default as AdminMessagesList } from './local/organisms/admin-messages-list'
 export { default as SearchList } from './local/organisms/search-list'
 export { default as WargameList } from './local/organisms/wargame-list'
+export { default as AdminLogin } from './local/organisms/admin-login'

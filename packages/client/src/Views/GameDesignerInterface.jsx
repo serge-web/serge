@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import {connect} from "react-redux";
 import SidebarAdmin from "../Components/SidebarAdmin";
-import TextInput from "../Components/Inputs/TextInput";
 import WargameSearchList from "../Components/WargameSearchList";
 import Loader from "../Components/Loader";
 import {
   ADMIN_ROUTE,
   GAME_SETUP_ROUTE,
 } from "../consts";
-import { Button } from "@serge/components";
+import { Button, AdminLogin } from "@serge/components";
 import {
   createNewWargameDB,
   clearWargames,
@@ -20,13 +19,6 @@ import {setCurrentViewFromURI} from "../ActionsAndReducers/setCurrentViewFromURI
 import "@serge/themes/App.scss";
 
 class GameDesignerInterface extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      password: "",
-    }
-  }
-
   componentWillMount() {
     this.props.dispatch(populateMessageTypesDb());
     this.props.dispatch(populateWargameStore());
@@ -40,14 +32,8 @@ class GameDesignerInterface extends Component {
     this.props.dispatch(clearWargames());
   };
 
-  updatePassword = (password) => {
-    this.setState({
-      password,
-    })
-  };
-
-  checkPassword = () => {
-    this.props.dispatch(checkAdminAccess(this.state.password));
+  checkPassword = password => {
+    this.props.dispatch(checkAdminAccess(password));
   };
 
   onButtonClick = onClick => route => {
@@ -67,15 +53,7 @@ class GameDesignerInterface extends Component {
       return (
         <div id="umpire" className="flex-content-wrapper flex-landing-screen">
           <div className="flex-content flex-content--center" id="form-login-admin">
-            <h2>Password</h2>
-            <TextInput
-              className="material-input"
-              label="Password"
-              data={this.state.password}
-              updateStore={this.updatePassword}
-              options={{numInput: false, password: true}}
-            />
-            <span className="link link--noIcon" onClick={this.checkPassword}>Enter</span>
+            <AdminLogin onSubmit={this.checkPassword} />
           </div>
         </div>
       )

@@ -5,7 +5,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import InputContainer from '../input-container'
 
 /* Import proptypes */
-import PropTypes from './types/props'
+import { PropTypes } from './types/props'
 
 const useFilledStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,7 +46,8 @@ export const TextInput: React.FC<PropTypes> = ({
   updateState,
   className,
   placeholder,
-  fullWidth
+  fullWidth,
+  ...inputProps
 }) => {
   const [inputValue, setInputValue] = useState(value)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -81,6 +82,7 @@ export const TextInput: React.FC<PropTypes> = ({
           fullWidth,
           variant
         }}
+        {...inputProps}
       />
     </InputContainer>
   )

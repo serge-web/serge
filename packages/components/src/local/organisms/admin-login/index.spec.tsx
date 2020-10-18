@@ -1,18 +1,13 @@
 /* global it expect */
-
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import Button from './index'
+import AdminLogin from './index'
 
-describe('Button component:', () => {
+describe('AdminLogin component:', () => {
   it('renders correctly', () => {
     const tree = renderer
-      .create(
-        <Button customColor="charcoal">
-          Charcoal
-        </Button>
-      )
+      .create(<AdminLogin onSubmit={window.alert}/>)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
