@@ -28,7 +28,7 @@ export default interface Props {
    */
   playerForceId: string
   /** list of forces 
-   * 
+   * // TODO: Ian thinks this should eventually be replaced by ForceColors object
    */
   forces?: Array<any>;
 }
