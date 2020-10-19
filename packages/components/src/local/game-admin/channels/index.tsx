@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import cx from 'classnames'
 
 /* Import proptypes */
-import PropTypes, { ChannelData, Participant, Role } from './types/props'
+import PropTypes, { ChannelData, Participant } from './types/props'
 
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -22,6 +22,14 @@ import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
+import { TableFooter } from '@material-ui/core';
+
+/* Import Helpers */
+import generateRowItems from './helpers/generateRowItems'
+import rowToParticipant from './helpers/rowToParticipant'
+import defaultParticipant from './helpers/defaultParticipant'
+import createParticipant from './helpers/createParticipant'
+import createChannel from './helpers/createChannel'
 
 /* Render component */
 export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forces, messages }) => {
@@ -31,12 +39,6 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
     name: message.title,
     value: message
   }))
-  // const itemsTemplate:<Array<Item>> = [
-  //   {
-  //
-  //   }
-  // ]
-  // const [parcipiants] = useState<Array<Array<Item>>>([itemsTemplate])
 
   const handleSwitch = (_item: Item, key: number): void => {
     setSelectedItem(key)
@@ -44,6 +46,13 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
 
   const handleChangeChannels = (nextChannels: Array<ChannelData>): void => {
     onChange(nextChannels)
+  }
+
+  const handleCreateChannel = (): void => {
+    handleChangeChannels([
+      ...channels,
+      createChannel(channels)
+    ])
   }
 
   const renderContent = (): React.ReactNode => {
@@ -63,18 +72,22 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
       })
     }
 
-    //
-    // const handleCreateRole = (): void => {
-    //   const roles: Array<Role> = [...data.roles, {
-    //     name: 'New Role',
-    //     canSubmitPlans: true,
-    //     password: Math.random().toString(36).substring(5),
-    //     control: false,
-    //     isInsightViewer: false,
-    //     isObserver: false
-    //   }]
-    //   handleChangeForce({ ...data, roles: roles })
-    // }
+    const handleChangeRow = (nextItems: Array<RowItem>, itKey: number, participant: Participant = defaultParticipant): Array<RowItem> => {
+      const newNextItems = { ...nextItems }
+      if (itKey === 0) {
+        newNextItems[1].active = []
+        newNextItems[2].active = []
+      }
+      const nextParcipiant = rowToParticipant(messageTemplatesOptions, forces, nextItems, participant)
+      return generateRowItems(messageTemplatesOptions, forces, nextParcipiant)
+    }
+
+    const handleCreateParticipant = (rowItems: Array<RowItem>): void => {
+      handleSaveRows([
+        ...data.participants,
+        createParticipant(messageTemplatesOptions, forces, rowItems)
+      ])
+    }
 
     return (
       <div key={selectedItem}>
@@ -92,7 +105,7 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
           </div>
         </div>
         <div className={styles.row}>
-          <div className={cx(styles.col, styles.section)}>
+          <div className={cx(styles.col, styles.section, styles.table)}>
             <FormGroup placeholder="Participants and messages">
               <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -106,98 +119,34 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
                   </TableHead>
                   <TableBody>
                     {data.participants.map((participant, participantKey) => {
-                      const generateRowItems = (nextParticipant: Participant): Array<RowItem> => {
-                        let forceSelected: Array<number> = [0]
-                        let roleOptions: Array<Option> = []
-
-                        if (nextParticipant.forceUniqid) {
-                          const forceIndex = forces.findIndex(force => force.uniqid === nextParticipant.forceUniqid)
-                          if (forceIndex !== -1) {
-                            roleOptions = forces[forceIndex].roles
-                            forceSelected = [forceIndex]
-                          }
-                        }
-
-                        const activeRoles: Array<number> = nextParticipant.roles.map(role => {
-                          return roleOptions.findIndex(option => option.name === role.name)
-                        }).filter(active => active !== -1)
-
-                        let activeTemplates: Array<number> = []
-
-                        if (nextParticipant.templates.length) {
-                          activeTemplates = nextParticipant.templates.map(template => {
-                            return messageTemplatesOptions.findIndex(option => option.name === template.title)
-                          }).filter(active => active !== -1)
-                        }
-
-                        return [
-                          {
-                            active: forceSelected,
-                            multiple: false,
-                            options: forces,
-                            uniqid: 'forces'
-                          },
-                          {
-                            active: activeRoles,
-                            emptyTitle: 'All roles',
-                            multiple: true,
-                            options: roleOptions,
-                            uniqid: 'access'
-                          },
-                          {
-                            active: activeTemplates,
-                            emptyTitle: 'Chat if empty',
-                            multiple: true,
-                            options: messageTemplatesOptions,
-                            uniqid: 'templates'
-                          }
-                        ]
-                      }
-
-                      const rowToParticipant = (nextItems: Array<RowItem>): Participant => {
-                        const [force, access, template] = nextItems
-                        const selectedForce = forces[force.active ? force.active[0] : 0]
-                        const roles: Array<Role> = access.active ? access.active.map(key => (
-                          selectedForce.roles[key]
-                        )) : []
-                        const templates: Array<any> = template.active ? template.active.map(key => (
-                          messageTemplatesOptions[key].value
-                        )) : []
-                        return {
-                          ...participant,
-                          force: selectedForce.name,
-                          forceUniqid: selectedForce.uniqid,
-                          roles,
-                          templates
-                        }
-                      }
-
                       const handleSaveRow = (row: Array<RowItem>): void => {
                         const nextParticipants = [...data.participants]
-                        nextParticipants[participantKey] = rowToParticipant(row)
+                        nextParticipants[participantKey] = rowToParticipant(messageTemplatesOptions, forces, row, participant)
                         handleSaveRows(nextParticipants)
-                      }
-
-                      const handleChangeRow = (nextItems: Array<RowItem>, itKey: number): Array<RowItem> => {
-                        const newNextItems = { ...nextItems }
-                        if (itKey === 0) {
-                          newNextItems[1].active = []
-                          newNextItems[2].active = []
-                        }
-                        return generateRowItems(rowToParticipant(nextItems))
                       }
 
                       return <EditableRow
                         key={participant.subscriptionId}
-                        onChange={handleChangeRow}
+                        onChange={(nextItems: Array<RowItem>, itKey: number):Array<RowItem>  => {
+                          return handleChangeRow(nextItems, itKey, participant)
+                        }}
                         onSave={handleSaveRow}
-                        items={generateRowItems(participant)}
+                        items={generateRowItems(messageTemplatesOptions, forces, participant)}
                         defaultMode='view'
                         actions={true}
 
                       />
                     })}
                   </TableBody>
+                  <TableFooter>
+                    <EditableRow
+                      onChange={handleChangeRow}
+                      onSave={handleCreateParticipant}
+                      items={generateRowItems(messageTemplatesOptions, forces, defaultParticipant)}
+                      defaultMode='edit'
+                      actions={true}
+                    />
+                  </TableFooter>
                 </Table>
               </TableContainer>
             </FormGroup>
@@ -210,7 +159,12 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
   return (
     <Content>
       <LeftSide>
-        <EditableList items={channels} onClick={handleSwitch} />
+        <EditableList
+          search
+          items={channels}
+          onClick={handleSwitch}
+          onCreate={handleCreateChannel}
+        />
       </LeftSide>
       <RightSide>
         {renderContent()}

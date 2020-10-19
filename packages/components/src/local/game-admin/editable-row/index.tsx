@@ -93,7 +93,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
                     } : undefined}
                   >
                     {item.options.map((option, key) => {
-                      return <MenuItem value={key}>{option.name}</MenuItem>
+                      return <MenuItem key={key} value={key}>{option.name}</MenuItem>
                     })}
                   </Select>
                 </FormControl>

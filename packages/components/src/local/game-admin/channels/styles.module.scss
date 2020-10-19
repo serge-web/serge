@@ -19,3 +19,14 @@
 .section {
   padding: 12px 0;
 }
+
+
+.table {
+  th {
+    font-weight: bold;
+  }
+
+  tfoot tr {
+    border-top: 1px solid #E0E0E0;
+  }
+}

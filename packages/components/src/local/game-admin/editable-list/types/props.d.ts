@@ -9,4 +9,5 @@ export default interface PropTypes {
   onChange?: (items: Array<Item>) => void
   onCreate?: () => void
   title?: string
+  search?: boolean
 }
