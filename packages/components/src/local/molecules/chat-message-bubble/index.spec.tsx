@@ -16,7 +16,8 @@ describe('ChatMessageBubble component:', () => {
           role="CO"
           messageType="Chat"
           hasBeenRead={false}
-          forceId={whiteForce.name}
+          authorForceId={whiteForce.name}
+          playerForceId={whiteForce.name}
           forces={forces}
         />
       )

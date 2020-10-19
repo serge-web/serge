@@ -19,8 +19,16 @@ export default interface Props {
    * Message read state
    */
   hasBeenRead?: boolean;
-
-  forceId?: string;
-
+  /**
+   * force that sent message
+   */
+  authorForceId: string;
+  /**
+   * force of logged in player
+   */
+  playerForceId: string
+  /** list of forces 
+   * 
+   */
   forces?: Array<any>;
 }
