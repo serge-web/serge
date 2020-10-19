@@ -87,6 +87,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     tileLayer = {LocalTileLayer}
     forces={forces}
     platforms = {platformTypes}
+    canSubmitOrders = {true}
     playerForce="Blue"
     phase={Phase.Planning}
     turnNumber={5}

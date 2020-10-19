@@ -59,6 +59,7 @@ export const Default: React.FC = () => <Mapping
   tileLayer={LocalTileLayer}
   forces={forces}
   playerForce='Blue'
+  canSubmitOrders={false}
   platforms={platformTypes}
   phase={Phase.Planning}
   turnNumber={5}
@@ -73,6 +74,7 @@ export const WithMapBar: React.FC = () => <Mapping
   bounds={bounds}
   tileLayer={LocalTileLayer}
   forces={forces}
+  canSubmitOrders={false}
   platforms={platformTypes}
   phase={Phase.Adjudication}
   turnNumber={5}
@@ -109,6 +111,7 @@ export const WithMarker: React.FC = () => <Mapping
   tileLayer={LocalTileLayer}
   forces={forces}
   playerForce='Blue'
+  canSubmitOrders={false}
   platforms={platformTypes}
   phase={Phase.Planning}
   turnNumber={5}
@@ -157,6 +160,9 @@ const assetsPhasesPhaseNames = {
 }
 const assetsPhasePhaseValue = Phase.Planning
 
+const canSubmitLabel = 'Can submit orders'
+const canSubmitDefaultValue = true
+
 // generic postback handler, for forms
 const postback = (messageType: string, payload: any): void => {
   console.log('postback', messageType, payload)
@@ -168,9 +174,10 @@ export const WithAssets: React.FC = () => <Mapping
   tileLayer={LocalTileLayer}
   forces={forces}
   playerForce={radios(label, forceNames, defaultValue)}
+  canSubmitOrders={boolean(canSubmitLabel, canSubmitDefaultValue)}
   platforms={platformTypes}
   phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
-  turnNumber={3}
+  turnNumber={2}
   postBack={postback} >
   <Assets /><HexGrid />
 </Mapping>
@@ -206,6 +213,7 @@ export const WithGrid: React.FC = () => <Mapping
   phase={Phase.Planning}
   turnNumber={5}
   playerForce='Blue'
+  canSubmitOrders={false}
   mapBar={false}
 >
   <HexGrid />
@@ -255,6 +263,7 @@ export const WithAllowableRange: React.FC = () => <Mapping
   platforms={platformTypes}
   phase={Phase.Planning}
   turnNumber={5}
+  canSubmitOrders={false}
   playerForce='Blue'
   mapBar={false}
   planningRangeProp={number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)}
@@ -287,6 +296,7 @@ export const OpenStreetMap: React.FC = () => <Mapping
   tileLayer={OSMTileLayer}
   forces={forces}
   playerForce='Blue'
+  canSubmitOrders={false}
   platforms={platformTypes}
   phase={Phase.Planning}
   turnNumber={5}
@@ -318,7 +328,9 @@ export const WithPhases: React.FC = () => <Mapping
   tileLayer={LocalTileLayer}
   forces={forces}
   playerForce={radios(phasesViewLabel, phasesViewNames, phaseViewValue)}
+  canSubmitOrders={false}
   platforms={platformTypes}
+  postBack={postback}
   phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
   turnNumber={5}
 >

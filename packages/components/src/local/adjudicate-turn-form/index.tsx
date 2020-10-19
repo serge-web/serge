@@ -20,9 +20,10 @@ import styles from './styles.module.scss'
 import { isNumber } from '@serge/helpers'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, icon, postBack }) => {
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, icon, plansSubmitted, canSubmitPlans, postBack }) => {
   const [formState, setFormState] = useState(formData.values)
 
+  const formDisabled: boolean = plansSubmitted || !canSubmitPlans
   const { status, speed, visibleTo, condition } = formData.populate
   const { plannedRouteStatusVal, statusVal, speedVal, visibleToVal, conditionVal } = formState
 
@@ -95,11 +96,17 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
         platformType={icon.platformType}
       >
         {formHeader}
+        { plansSubmitted &&
+         <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
+        }
+
       </TitleWithIcon>
       { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
       { conditionVal.toLowerCase() === 'working' && <fieldset>
         <FormGroup title="Planned Route" align="right">
-          <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
+          { !formDisabled &&
+            <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
+          }
         </FormGroup>
         {
           plannedRouteStatusVal === 'rejected' && <div>
@@ -143,7 +150,9 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
           <RCB type="radio" label="" options={condition} value={conditionVal} updateState={changeHandler}/>
         </FormGroup>
       </fieldset>
-      <Button onClick={submitForm}>Save</Button>
+      { !formDisabled &&
+        <Button onClick={submitForm}>Save</Button>
+      }
     </div>
   )
 }

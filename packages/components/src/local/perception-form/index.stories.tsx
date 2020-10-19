@@ -52,6 +52,7 @@ export const Default: React.FC = () => <Mapping
   tileLayer={LocalTileLayer}
   forces={forces}
   playerForce='Blue'
+  canSubmitOrders = {true}
   platforms={platformTypes}
   phase={Phase.Adjudication}
   turnNumber={5}

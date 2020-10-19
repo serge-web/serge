@@ -25,6 +25,10 @@ export default interface MappingContext {
    * force for current player
    */
   playerForce: string
+  /** 
+   * if the current player can submit orders
+   */
+  canSubmitOrders: boolean
   /**
    * phase of current game
    */
@@ -113,4 +117,12 @@ export default interface MappingContext {
    * handler to host one platform on another
    */
   groupHostPlatform?: {(dragged: string, target: string): void}
+  /**
+   * if current set of plans (or SofW) have been submitted
+   */
+  plansSubmitted: boolean
+  /** 
+   * update whether plans have been submitted
+   */
+  setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
 }

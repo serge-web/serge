@@ -58,7 +58,9 @@ export const HexGrid: React.FC<{}> = () => {
   //  allow the achievable range to be changed
   const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProps)
 
-  const [assetColor, setAssetColor] = useState<string>('')
+  // the AllowableRange story doesn't have a selected asset. Set to red in here
+  // it won't have impact on real game play
+  const [assetColor, setAssetColor] = useState<string>('#f00')
 
   /** capture the color of this asset, so planning shapes
    * get rendered in a suitable color
@@ -69,7 +71,6 @@ export const HexGrid: React.FC<{}> = () => {
       const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
       if (current) {
         setAssetColor(current.color)
-      //  setDarkAssetColor(colorShade(current.color, -50))
       }
     }
   }, [selectedAsset])
@@ -126,6 +127,7 @@ export const HexGrid: React.FC<{}> = () => {
        */
   useEffect(() => {
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
+    // check all data necessary for rendering is present
     if (planningConstraints && planningConstraints.origin && gridCells && (planningRange || rangeUnlimited)) {
       // if we're mid-way through a leg, we take the value from the origin hex, not the planning centre
       const originCell = plannedRoutePoly.length ? originHex : gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
@@ -143,6 +145,9 @@ export const HexGrid: React.FC<{}> = () => {
           setAllowableCells(gridCells)
         }
         setOrigin(originCell.centreLatLng)
+      } else {
+        // drop the marker if we can't find it
+        setOrigin(undefined)
       }
       // store it anyway, even if it's undefined
       setOriginHex(originCell)
@@ -154,7 +159,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
     // also clear any planned cells
     setAllowableFilteredCells([])
-  }, [planningRange, planningConstraints])
+  }, [planningRange, planningConstraints, gridCells])
 
   /** filter the list of cells allowable for this platform
        * depending on requested cell type

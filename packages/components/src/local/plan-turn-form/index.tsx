@@ -17,12 +17,14 @@ import styles from './styles.module.scss'
 import { isNumber } from '@serge/helpers'
 
 /* Render component */
-export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, setHidePlanningForm, turnPlanned, icon }) => {
+export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, canSubmitPlans, setHidePlanningForm, turnPlanned, icon, plansSubmitted }) => {
   // TODO: Refactor this into a reusable helper and remove other instances
   const [formState, setFormState] = useState(formData.values)
 
   const { status, speed } = formData.populate
   const { statusVal, turnsVal, speedVal } = formState
+
+  const formDisabled: boolean = plansSubmitted || !canSubmitPlans
 
   const changeHandler = (e: any): void => {
     const { name, value } = e.target
@@ -96,10 +98,15 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, setHid
       platformType={icon.platformType}
     >
       {formHeader}
+      { plansSubmitted &&
+       <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
+      }
     </TitleWithIcon>
+
     <FormGroup title="State" align="right">
       <Select
         className={clSelect}
+        disabled={formDisabled}
         value={statusVal.name}
         onChange={statusHandler}
       >
@@ -114,12 +121,12 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, setHid
         <Speed
           value = { speedVal }
           options = { speed }
-          onClick = { speedHandler }
+          onClick = { !formDisabled && speedHandler }
         />
         }
       </FormGroup>
       : <FormGroup title="For">
-        <Input className={clInput} name="turns" value={turnsVal} onChange={changeHandler}/>
+        <Input className={clInput} disabled={formDisabled} name="turns" value={turnsVal} onChange={changeHandler}/>
         <span className={styles.text}>turns</span>
         {/*
           <TextInput
@@ -134,7 +141,9 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, setHid
     <FormGroup title="Condition">
       <span className={styles.text}>{/* TODO: add real data */}Working</span>
     </FormGroup>
-    <Button disabled={!saveEnabled} onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Save'}</Button>
+    { !formDisabled &&
+      <Button disabled={!saveEnabled} onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Save'}</Button>
+    }
   </div>
 }
 

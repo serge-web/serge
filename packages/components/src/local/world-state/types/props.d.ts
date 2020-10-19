@@ -17,6 +17,10 @@ export default interface PropTypes {
    * whether this is from umpire force
    */
   isUmpire: boolean
+  /** whether this player can submit ordres
+   *
+   */
+  canSubmitOrders: boolean
   /**
    * the title of the submit button
    */
@@ -49,4 +53,12 @@ export default interface PropTypes {
    * handler to host one platform on another
    */
   groupHostPlatform?: {(dragged: string, target: string): void}
+  /**
+   * whether plans have been submitted
+   */
+  plansSubmitted: boolean
+    /**
+   * update whether plans have been submitted
+   */
+  setPlansSubmitted?: React.Dispatch<React.SetStateAction<boolean>>
 }

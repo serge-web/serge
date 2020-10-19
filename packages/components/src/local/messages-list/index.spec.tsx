@@ -5,11 +5,11 @@ import renderer from 'react-test-renderer'
 
 import MessagesList from './index'
 
-import { MessagesMock } from '@serge/mocks'
+import { AdminMessagesMock } from '@serge/mocks'
 
 it('MessagesList renders correctly', () => {
   const tree = renderer
-    .create(<MessagesList userId="" messages={MessagesMock} />)
+    .create(<MessagesList userId="" messages={AdminMessagesMock} />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })
