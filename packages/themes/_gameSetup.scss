@@ -105,6 +105,7 @@
 
   .force-color-icon {
     display: flex;
+    flex-wrap: wrap;
 
     .link {
       align-self: center;
@@ -117,11 +118,8 @@
 
   .force-button-wrap {
     flex-grow: 2;
-
-    span {
-      float: right;
-      margin-left: 20px;
-    }
+    display: flex;
+    justify-content: flex-end;
   }
 
   .roles {
@@ -286,4 +284,17 @@
 .serge-custom-logo {
   height: auto;
   width: 300px;
+}
+
+.panel-actions {
+  justify-content: center;
+}
+
+.channel-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.template-actions {
+  max-width: 80%;
 }

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { WELCOME_SCREEN_EDIT_ROUTE } from "../consts";
+import { Button } from "@serge/components";
 import splitNewLineBreak from "../Helpers/splitNewLineBreak";
 import TextArea from "../Components/Inputs/TextArea";
 import TextInput from "../Components/Inputs/TextInput";
@@ -118,7 +119,13 @@ class EditWelcomeScreen extends Component {
               <h5>Image</h5>
               <span className="image-upload-link" onClick={this.uploadImage}>Upload new image</span>
             </div>
-            <span className="link link--noIcon welcome-screen-save align-self-center" onClick={this.saveWelcomeScreen}>Save changes</span>
+            <Button
+              color="secondary"
+              onClick={this.saveWelcomeScreen}
+              className="welcome-screen-save align-self-center"
+            >
+              Save changes
+            </Button>
           </div>
           <img alt="Serge logo" className="serge-custom-logo" src={this.props.gameInfo.imageUrl} />
           <div className="section">

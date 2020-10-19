@@ -161,7 +161,7 @@ class ForcesTab extends Component {
 
         {selectedChannel ?
           <div className="flex-content--fill channelsTab">
-            <div className="flex-content--row">
+            <div className="flex-content--row channel-actions">
               <TextInput
                 name="channel-name"
                 id="editable-title"
@@ -170,11 +170,16 @@ class ForcesTab extends Component {
                 data={channelName}
               />
               <div className="button-wrap-tab">
-                <span className="link link--noIcon" onClick={this.saveChannel} data-qa-type="save">Save Channel</span>
+                <Button
+                  color="secondary"
+                  onClick={this.saveChannel}
+                  data-qa-type="save"
+                >
+                  Save Channel
+                </Button>
               </div>
             </div>
             <p className="heading--sml">Participants and messages</p>
-
             <ChannelsTable data={this.props.wargame.data[curTab].channels.find((f) => f.name === selectedChannel).participants} />
           </div>
         : null}

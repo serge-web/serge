@@ -16,7 +16,11 @@ const useButtonStyle = makeStyles((theme: Theme) =>
     root: ({ customColor }: Props) => ({
       ...customColor ? { backgroundColor: (theme.palette[customColor] || {}).main } : {},
       '& + .MuiButton-root': {
-        marginLeft: theme.spacing(1)
+        marginLeft: theme.spacing(1),
+        '.button-list-fullwidth &': {
+          marginLeft: 0,
+          marginTop: theme.spacing(1)
+        }
       }
     })
   })

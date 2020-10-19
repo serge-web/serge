@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencilAlt, faClone, faTrash } from '@fortawesome/free-solid-svg-icons'
 import {
   CREATE_MESSAGE_ROUTE,
   EDIT_MESSAGE_ROUTE,
   MESSAGE_CREATOR_BASE_ROUTE,
   MESSAGE_LIBRARY_ROUTE
 } from '../consts'
-import { SearchList, Button } from '@serge/components'
-import Link from '../Components/Link'
+import { SearchList, Button, ButtonList } from '@serge/components'
 import MessagePreview from '../Components/MessagePreview'
 import SidebarAdmin from '../Components/SidebarAdmin'
 import {
@@ -87,20 +84,27 @@ const MessageLibrary = () => {
   }
 
   const createMessagesActions = () => {
+    const actions = [{
+      onClick: () => setView(`${MESSAGE_CREATOR_BASE_ROUTE}${EDIT_MESSAGE_ROUTE}`),
+      color: 'secondary',
+      fullWidth: true,
+      icon: 'edit',
+      children: 'Edit'
+    }, {
+      onClick: duplicateMessage,
+      color: 'secondary',
+      fullWidth: true,
+      icon: 'copy',
+      children: 'Duplicate'
+    }, {
+      onClick: deleteMessage,
+      color: 'secondary',
+      fullWidth: true,
+      icon: 'delete',
+      children: 'Delete'
+    }]
     return messages.messagePreviewId.length > 0
-      ? (
-        <>
-          <Link class="link link--secondary" href={`${MESSAGE_CREATOR_BASE_ROUTE}${EDIT_MESSAGE_ROUTE}`}>
-            <FontAwesomeIcon icon={faPencilAlt} />Edit
-          </Link>
-          <Link class="link link--secondary" href="" onClickHandler={duplicateMessage}>
-            <FontAwesomeIcon icon={faClone} />Duplicate
-          </Link>
-          <Link class="link link--secondary" href="" onClickHandler={deleteMessage}>
-            <FontAwesomeIcon icon={faTrash} />Delete
-          </Link>
-        </>
-      )
+      ? <ButtonList buttons={actions} />
       : null
   }
 
@@ -126,7 +130,9 @@ const MessageLibrary = () => {
           </div>
           <div id="function" className="flex-content flex-content--sml">
             <p className="heading--sml">Actions</p>
-            {createMessagesActions()}
+            <div className="template-actions">
+              {createMessagesActions()}
+            </div>
           </div>
         </div>
       </div>

@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencilAlt, faClone, faTrash } from '@fortawesome/free-solid-svg-icons'
 import {
   CREATE_TEMPLATE_ROUTE,
   EDIT_TEMPLATE_ROUTE,
   MESSAGE_CREATOR_BASE_ROUTE,
   MESSAGE_TEMPLATE_ROUTE
 } from '../consts'
-import { SearchList, Button } from '@serge/components'
-import Link from '../Components/Link'
+import { SearchList, Button, ButtonList } from '@serge/components'
 import SidebarAdmin from '../Components/SidebarAdmin'
 import JsonCreator from '../Components/JsonCreator'
 import { getAllMessageTypes, duplicateMessageType } from '../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
@@ -83,18 +80,27 @@ const MessageTemplates = () => {
   }
 
   const createTemplatesActions = () => {
+    const actions = [{
+      onClick: () => setView(`${MESSAGE_CREATOR_BASE_ROUTE}${EDIT_TEMPLATE_ROUTE}`),
+      color: 'secondary',
+      fullWidth: true,
+      icon: 'edit',
+      children: 'Edit'
+    }, {
+      onClick: duplicateTemplate,
+      color: 'secondary',
+      fullWidth: true,
+      icon: 'copy',
+      children: 'Duplicate'
+    }, {
+      onClick: deleteTemplate,
+      color: 'secondary',
+      fullWidth: true,
+      icon: 'delete',
+      children: 'Delete'
+    }]
     return umpireMenu.selectedSchemaID.length > 0
-      ? <>
-        <Link class="link link--secondary" href={`${MESSAGE_CREATOR_BASE_ROUTE}${EDIT_TEMPLATE_ROUTE}`}>
-          <FontAwesomeIcon icon={faPencilAlt} />Edit
-        </Link>
-        <Link class="link link--secondary" href="" onClickHandler={duplicateTemplate}>
-          <FontAwesomeIcon icon={faClone} />Duplicate
-        </Link>
-        <Link class="link link--secondary" href="" onClickHandler={deleteTemplate}>
-          <FontAwesomeIcon icon={faTrash} />Delete
-        </Link>
-      </>
+      ? <ButtonList buttons={actions} />
       : null
   }
 
@@ -122,7 +128,9 @@ const MessageTemplates = () => {
           </div>
           <div id="function" className="flex-content flex-content--sml">
             <p className="heading--sml">Actions</p>
-            {createTemplatesActions()}
+            <div className="template-actions">
+              {createTemplatesActions()}
+            </div>
           </div>
         </div>
       </div>

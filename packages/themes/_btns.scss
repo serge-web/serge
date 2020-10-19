@@ -27,11 +27,7 @@
 .button-wrap-tab {
   display: flex;
   flex-direction: row-reverse;
-  float: right;
-
-  span {
-    margin-left: 20px;
-  }
+  align-self: flex-end;
 }
 
 .btn-block {
