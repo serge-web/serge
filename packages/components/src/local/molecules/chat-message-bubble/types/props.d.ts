@@ -19,10 +19,8 @@ export default interface Props {
    * Message read state
    */
   hasBeenRead?: boolean;
-  /**
-   * Header border color
-   */
-  borderColor?: string;
 
-  isSent?: boolean
+  forceId?: string;
+
+  forces?: Array<any>;
 }

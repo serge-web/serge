@@ -1,6 +1,9 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 import { styled } from '@material-ui/core/styles'
+import { forces } from "@serge/mocks";
+
+const [whiteForce, blueForce] = forces;
 
 // Import component files
 import ChatMessageBubble from './index'
@@ -25,17 +28,18 @@ export default {
 }
 
 export const Default: React.FC = () => (
-         <BlueContainer>
-           <ChatMessageBubble
-             title="lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet"
-             timestamp="2020-09-18T05:41:17.349Z"
-             role="CO"
-             messageType="Chat"
-             hasBeenRead={false}
-             borderColor="#3dd0ffB3"
-           />
-         </BlueContainer>
-       );
+  <BlueContainer>
+    <ChatMessageBubble
+      title="lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet"
+      timestamp="2020-09-18T05:41:17.349Z"
+      role="CO"
+      messageType="Chat"
+      hasBeenRead={false}
+      forceId={whiteForce.name}
+      forces={forces}
+    />
+  </BlueContainer>
+)
 export const SentMessage: React.FC = () => (
   <BlueContainer>
     <ChatMessageBubble
@@ -44,8 +48,8 @@ export const SentMessage: React.FC = () => (
       role="CO"
       messageType="Chat"
       hasBeenRead={false}
-      borderColor="#fff"
-      isSent={true}
+      forceId={blueForce.name}
+      forces={forces}
     />
   </BlueContainer>
-);
+)

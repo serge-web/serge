@@ -2,6 +2,9 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import ChatMessageBubble from './index'
+import { forces } from "@serge/mocks";
+
+const [whiteForce] = forces;
 
 describe('ChatMessageBubble component:', () => {
   it('renders correctly', () => {
@@ -13,8 +16,8 @@ describe('ChatMessageBubble component:', () => {
           role="CO"
           messageType="Chat"
           hasBeenRead={false}
-          borderColor="#3dd0ffB3"
-          isSent={true}
+          forceId={whiteForce.name}
+          forces={forces}
         />
       )
       .toJSON();
