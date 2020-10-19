@@ -18,10 +18,8 @@
 .button-wrap {
   display: flex;
   flex-direction: row-reverse;
-
-  span {
-    margin: $umpire-menu-margin 0;
-  }
+  flex-wrap: wrap;
+  margin: $umpire-menu-margin 0;
 }
 
 .button-wrap-tab {

@@ -1,19 +1,9 @@
-import React, { Component } from 'react';
-
+import React, { Component } from "react";
 import { connect } from "react-redux";
-
-import {
-  createMessage,
-} from "../ActionsAndReducers/dbMessages/messages_ActionCreators";
-
-import JSONEditor from '@json-editor/json-editor';
-// necessary import for date
-// import flatpickr from "flatpickr";
-
+import JSONEditor from "@json-editor/json-editor";
+import { Button } from "@serge/components";
+import { createMessage } from "../ActionsAndReducers/dbMessages/messages_ActionCreators";
 import "@serge/themes/App.scss";
-
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSave} from "@fortawesome/free-solid-svg-icons";
 
 
 class JsonCreator extends Component {
@@ -77,18 +67,18 @@ class JsonCreator extends Component {
 
 
   render() {
-    const SaveMessage = () => (
+    const SaveMessageButton = () => (
       this.editor ? (
         <div className="button-wrap">
-          { !this.props.disabled ? <span onClick={this.saveMessage} className="link"><FontAwesomeIcon icon={faSave} />Save Message</span> : null }
+          { !this.props.disabled ? <Button color="secondary" onClick={this.saveMessage} icon="save">Save Message</Button> : null }
         </div>
       ) : null
     );
     return (
       <>
-        <SaveMessage />
-        <div id="preview-editor" ref={this.editorPreviewRef}></div>
-        <SaveMessage />
+        <SaveMessageButton />
+        <div id="preview-editor" ref={this.editorPreviewRef} />
+        <SaveMessageButton />
       </>
     );
   }

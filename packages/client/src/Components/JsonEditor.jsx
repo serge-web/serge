@@ -1,20 +1,11 @@
-import React, { Component } from 'react';
-
+import React, { Component } from "react";
 import { connect } from "react-redux";
-
-import {
-  updateMessage,
-} from "../ActionsAndReducers/dbMessages/messages_ActionCreators";
-
-import JSONEditor from '@json-editor/json-editor';
-
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSave} from "@fortawesome/free-solid-svg-icons";
-
+import JSONEditor from "@json-editor/json-editor";
+import { Button } from "@serge/components";
+import { updateMessage } from "../ActionsAndReducers/dbMessages/messages_ActionCreators";
 import "@serge/themes/App.scss";
 
 class JsonCreator extends Component {
-
   constructor(props) {
     super(props);
 
@@ -25,7 +16,6 @@ class JsonCreator extends Component {
       selectedSchema: ''
     };
   }
-
 
   componentWillUpdate(nextProps, nextState, nextContext) {
 
@@ -38,8 +28,6 @@ class JsonCreator extends Component {
     if (
       nextProps.messages.messagePreviewId.length > 0 ||
       nextProps.umpireMenu.selectedSchemaID.length > 0
-      // nextProps.messages.messagePreviewId.length > 0 &&
-      // nextProps.umpireMenu.selectedSchemaID.length > 0
     ) {
 
       if (this.editor) return;
@@ -59,22 +47,21 @@ class JsonCreator extends Component {
     }
   }
 
-
   saveMessage = () => {
     this.props.dispatch(updateMessage(this.editor.getValue(), this.props.messages.messagePreviewId));
   };
 
-
   render() {
+    const SaveMessageButton = () => (
+      <div className="button-wrap">
+        {!this.props.disabled ? <Button color="secondary" onClick={this.saveMessage} icon="save">Save Message</Button> : null }
+      </div>
+    )
     return (
       <>
-        <div className="button-wrap">
-          {!this.props.disabled ? <span onClick={this.saveMessage} className="link"><FontAwesomeIcon icon={faSave} />Save Message</span> : null }
-        </div>
-          <div id="preview-editor" ref={this.editorPreviewRef}></div>
-        <div className="button-wrap">
-          {!this.props.disabled ? <span onClick={this.saveMessage} className="link"><FontAwesomeIcon icon={faSave} />Save Message</span> : null }
-        </div>
+        <SaveMessageButton />
+        <div id="preview-editor" ref={this.editorPreviewRef} />
+        <SaveMessageButton />
       </>
     );
   }
