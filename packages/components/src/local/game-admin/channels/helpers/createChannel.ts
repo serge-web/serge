@@ -1,5 +1,5 @@
 import { ChannelData } from '../types/props'
-const newChannelName: string = 'Channel '
+const newChannelName = 'Channel '
 export default (channels: Array<ChannelData>): ChannelData => {
   const channelNumber: Array<number> = channels
     .filter(channel => channel.name.match(/Channel [0-9]{1,}$/))

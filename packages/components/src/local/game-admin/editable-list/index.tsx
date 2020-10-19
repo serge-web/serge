@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 
 /* Import Components */
 import Button from '../../form-elements/button'
-import TextField from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -64,7 +64,7 @@ export const EditableList: React.FC<PropTypes> = ({ onClick, onChange, items, ti
           variant='outlined'
           value={searchValue}
           size='small'
-          onChange={(e):void => { setSearchValue(e.target.value || '') }}
+          onChange={(e): void => { setSearchValue(e.target.value || '') }}
         />
       </div>}
       <ul>

@@ -22,7 +22,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import { TableFooter } from '@material-ui/core';
+import { TableFooter } from '@material-ui/core'
 
 /* Import Helpers */
 import generateRowItems from './helpers/generateRowItems'
@@ -127,7 +127,7 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
 
                       return <EditableRow
                         key={participant.subscriptionId}
-                        onChange={(nextItems: Array<RowItem>, itKey: number):Array<RowItem>  => {
+                        onChange={(nextItems: Array<RowItem>, itKey: number): Array<RowItem> => {
                           return handleChangeRow(nextItems, itKey, participant)
                         }}
                         onSave={handleSaveRow}
