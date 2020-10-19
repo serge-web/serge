@@ -7,7 +7,7 @@ import { TemplateListItem } from './types/props'
 import docs from './README.md'
 
 export default {
-  title: 'local/organisms/SearchList',
+  title: 'local/molecules/SearchList',
   component: SearchList,
   decorators: [],
   parameters: {
