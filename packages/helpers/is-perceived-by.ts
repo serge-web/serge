@@ -35,8 +35,14 @@ const isPerceivedBy = (perceptions: any, playerForce: string,
       const upperForce = upperFirst(playerForce)
       const perception = perceptions[upperForce]
       if(perception) {
-        const force = forceColors.find((f:any) => f.force.toLowerCase() === playerForce.toLowerCase())
-        return (force && force.color) || undefined
+        if(perception.force) {
+          // find the force color for this force name
+          const force = forceColors.find((f:any) => f.force.toLowerCase() === perception.force.toLowerCase())
+          return (force && force.color) || undefinedColor  
+        } else {
+          // this force can perceive it, but doesn't know force. So, use undefined color
+          return undefinedColor
+        }
       } else {
         return undefined
       }
