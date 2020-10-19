@@ -18,9 +18,9 @@ export const ChatMessageBubble: React.FC<Props> = ({
   hasBeenRead,
   authorForceId,
   playerForceId,
-  forces
+  forceColors
 }: Props) => {
-  const currentColor = forces?.find(item => item.uniqid === authorForceId)
+  const currentColor = forceColors?.find((item:{force: string, color: string})=> item.force === authorForceId)
   return (
     <div
       className={`${styles['chat-messgae-bubble']} ${authorForceId === playerForceId ? styles['chat-messgae-bubble-sent'] : ''}`}

@@ -3,8 +3,11 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import ChatMessageBubble from './index'
 import { forces } from '@serge/mocks'
+import { forceColors } from '@serge/helpers'
 
 const [whiteForce] = forces
+
+const forceColorList = forceColors(forces)
 
 describe('ChatMessageBubble component:', () => {
   it('renders correctly', () => {
@@ -18,7 +21,7 @@ describe('ChatMessageBubble component:', () => {
           hasBeenRead={false}
           authorForceId={whiteForce.name}
           playerForceId={whiteForce.name}
-          forces={forces}
+          forceColors={forceColorList}
         />
       )
       .toJSON()

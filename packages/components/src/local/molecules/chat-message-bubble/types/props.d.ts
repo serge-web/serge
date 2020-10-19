@@ -27,8 +27,8 @@ export default interface Props {
    * force of logged in player
    */
   playerForceId: string
-  /** list of forces
-   * // TODO: Ian thinks this should eventually be replaced by ForceColors object
+  /**
+   * list of force colors
    */
-  forces?: Array<any>
+  forceColors?: Array<{force: string, color: string}>
 }

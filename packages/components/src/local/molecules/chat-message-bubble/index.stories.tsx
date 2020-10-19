@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box'
 import { styled } from '@material-ui/core/styles'
 import { forces } from '@serge/mocks'
 import { withKnobs, radios, boolean } from '@storybook/addon-knobs'
+import { forceColors } from '@serge/helpers'
 
 // Import component files
 import ChatMessageBubble from './index'
@@ -26,6 +27,8 @@ export default {
   }
 }
 
+const forceColorList = forceColors(forces)
+
 const forceValues = {
   Blue: 'Blue',
   White: 'White',
@@ -42,7 +45,7 @@ export const Default: React.FC = () => (
       hasBeenRead={boolean('Has been read', false)}
       authorForceId={radios('Author force', forceValues, 'Blue')}
       playerForceId={radios('Player force', forceValues, 'Blue')}
-      forces={forces}
+      forceColors={forceColorList}
     />
   </BlueContainer>
 )
