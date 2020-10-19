@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 import { styled } from '@material-ui/core/styles'
-import { forces } from "@serge/mocks";
+import { forces } from '@serge/mocks'
 import { withKnobs, radios, boolean } from '@storybook/addon-knobs'
 
 // Import component files

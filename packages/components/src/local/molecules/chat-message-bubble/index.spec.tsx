@@ -2,9 +2,9 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import ChatMessageBubble from './index'
-import { forces } from "@serge/mocks";
+import { forces } from '@serge/mocks'
 
-const [whiteForce] = forces;
+const [whiteForce] = forces
 
 describe('ChatMessageBubble component:', () => {
   it('renders correctly', () => {
@@ -21,7 +21,7 @@ describe('ChatMessageBubble component:', () => {
           forces={forces}
         />
       )
-      .toJSON();
+      .toJSON()
     expect(tree).toMatchSnapshot()
   })
 })

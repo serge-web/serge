@@ -2,33 +2,33 @@ export default interface Props {
   /**
    * Header item title
    */
-  title?: string;
+  title?: string
   /**
    * Message timestamp
    */
-  timestamp?: string;
+  timestamp?: string
   /**
    * Message sender role
    */
-  role?: string;
+  role?: string
   /**
    * Message type
    */
-  messageType?: string;
+  messageType?: string
   /**
    * Message read state
    */
-  hasBeenRead?: boolean;
+  hasBeenRead?: boolean
   /**
    * force that sent message
    */
-  authorForceId: string;
+  authorForceId: string
   /**
    * force of logged in player
    */
   playerForceId: string
-  /** list of forces 
+  /** list of forces
    * // TODO: Ian thinks this should eventually be replaced by ForceColors object
    */
-  forces?: Array<any>;
+  forces?: Array<any>
 }
