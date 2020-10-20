@@ -7,7 +7,6 @@ export default interface SelectedAsset {
     name: string,
     type: string,
     force: string,
-    perceivedForce: string,
     controlledBy: Array<string>,
     condition: string,
     visibleTo: Array<string>

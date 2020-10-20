@@ -88,7 +88,6 @@ export const WithMapBar: React.FC = () => <Mapping
 const visLabel = 'Selected'
 const visDefaultValue = false
 
-const assetForcelabel = 'Force'
 const assetForceNames = {
   Green: 'green',
   Blue: 'blue',
@@ -124,7 +123,8 @@ export const WithMarker: React.FC = () => <Mapping
     position={L.latLng(13.298034302, 43.0488191271)}
     selected={boolean(visLabel, visDefaultValue)}
     type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)}
-    force={radios(assetForcelabel, assetForceNames, assetForceDefaultValue)}
+    force={radios('Asset force', assetForceNames, assetForceDefaultValue)}
+    perceivedForce={radios('Perceived asset force', assetForceNames, assetForceDefaultValue)}
     visibleTo={['blue,', 'red']}
     status={{
       speedKts: 10,
