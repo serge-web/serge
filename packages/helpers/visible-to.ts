@@ -2,7 +2,7 @@
 export default function visibleTo ( perceptions: any): string[] {
   if(Array.isArray(perceptions)) {
     // current perceptions schema
-    const visibleTo: Array<string> = perceptions && perceptions.length ? perceptions.map((p: any) => p.by) : []
+    const visibleTo: Array<string> = perceptions.length ? perceptions.map((p: any) => p.by) : []
     return visibleTo
   } else {
     // legacy perceptions schema

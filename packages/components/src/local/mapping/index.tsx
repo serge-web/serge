@@ -178,7 +178,6 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [planningConstraintsProp])
 
-
   // const compareUserData = (oldData: any, newData: any, result: [any | undefined]) => {
   //   Object.keys(oldData).forEach(function (k) {
   //       if (typeof oldData[k] !== 'object') {
@@ -194,12 +193,11 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // is it different to current force state?
     const forceStateEmptyOrChanged = !forcesState || !isEqual(forcesState, forces)
-    if(forceStateEmptyOrChanged) {
+    if (forceStateEmptyOrChanged) {
       // console.log('new forces', forcesChanged, compareUserData(forcesState, forces, []))
       setForcesState(forces)
     }
   }, [forces])
-
 
   /**
    * generate the set of routes visible to this player, for display
