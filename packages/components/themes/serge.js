@@ -2,6 +2,9 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 export default createMuiTheme({
   palette: {
+    base: {
+      main: '#212529'
+    },
     grey: {
       300: '#6c757d'
     },
@@ -16,6 +19,9 @@ export default createMuiTheme({
     },
     charcoal: {
       main: '#343a40'
+    },
+    swissCoffee: {
+      main: '#dbd2d4'
     }
   }
 })

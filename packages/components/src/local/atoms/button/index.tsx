@@ -13,16 +13,25 @@ import { Props } from './types/props'
 /* Render component */
 const useButtonStyle = makeStyles((theme: Theme) =>
   createStyles({
-    root: ({ customColor }: Props) => ({
-      ...customColor ? { backgroundColor: (theme.palette[customColor] || {}).main } : {},
-      '& + .MuiButton-root': {
-        marginLeft: theme.spacing(1),
-        '.button-list-fullwidth &': {
-          marginLeft: 0,
-          marginTop: theme.spacing(1)
+    root: ({ customColor }: Props) => {
+      return {
+        ...customColor ? { backgroundColor: (theme.palette[customColor] || {}).main } : {},
+        '& + .MuiButton-root': {
+          marginLeft: theme.spacing(1),
+          '.button-list-fullwidth &': {
+            marginLeft: 0,
+            marginTop: theme.spacing(1)
+          }
         }
       }
-    })
+    },
+    contained: ({ customColor }: Props) => {
+      const lightColors = ['swissCoffee']
+      const baseColor = 'base'
+      return {
+        ...lightColors.includes(customColor as string) ? { color: theme.palette[baseColor].main } : {}
+      }
+    }
   })
 )
 

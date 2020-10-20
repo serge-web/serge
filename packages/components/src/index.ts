@@ -6,6 +6,7 @@
 
 export { default as ProgressIndicator } from './local/progress-indicator'
 export { default as InputContainer } from './local/atoms/input-container'
+export { default as TextInput } from './local/atoms/text-input'
 export { default as Button } from './local/atoms/button'
 export { default as FormHeader } from './local/form-header'
 export { default as Mapping } from './local/mapping'
@@ -28,6 +29,7 @@ export { default as ChannelMessageDetail } from './local/molecules/channel-messa
 export { default as ChannelMessage } from './local/molecules/channel-message'
 export { default as ButtonList } from './local/molecules/button-list'
 export { default as SearchList } from './local/molecules/search-list'
+export { default as RoleAction } from './local/molecules/role-action'
 export { default as ChannelMessagesList } from './local/organisms/channel-messages-list'
 export { default as AdminMessagesList } from './local/organisms/admin-messages-list'
 export { default as WargameList } from './local/organisms/wargame-list'
