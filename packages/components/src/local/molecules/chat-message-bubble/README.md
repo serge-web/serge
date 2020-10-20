@@ -1,4 +1,4 @@
-# Message List Header documentation
+# Chat Message Bubble documentation
 
 This is an example readme file for the 'Channel Message Bubble' component.
 
