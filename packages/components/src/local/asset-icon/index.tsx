@@ -28,6 +28,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   position,
   type,
   force,
+  perceivedForce,
   visibleTo,
   controlledBy,
   condition,
@@ -39,8 +40,10 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    className: getIconClassname(force, type, selected)
+    className: getIconClassname(perceivedForce, type, selected)
   })
+
+  console.log('asset', name, force, perceivedForce)
 
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
@@ -54,6 +57,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
         name,
         type,
         force,
+        perceivedForce,
         visibleTo,
         controlledBy,
         condition,
