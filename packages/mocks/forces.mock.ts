@@ -338,6 +338,14 @@ export const forces = [
         isObserver: false,
         name: 'CO',
         password: 'p5543'
+      },
+      {
+        control: false,
+        canSubmitPlans: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'Comms',
+        password: 'p5542'
       }
     ],
     umpire: false,
