@@ -21,6 +21,7 @@ import Switch from '@material-ui/core/Switch'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faComments, faDirections } from '@fortawesome/free-solid-svg-icons'
+import { UMPIRE_FORCE } from '@serge/config'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -71,7 +72,6 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
 
     const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
       const roleItem = item as Role
-
       const handleChangeRole = (nextRole: Role, submitPlans = false): void => {
         const roles: Array<Role> = submitPlans ? data.roles.map(role => ({ ...role, canSubmitPlans: false })) : [...data.roles]
         roles[key] = nextRole
@@ -87,7 +87,7 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
             {key === 0 && <div className={styles['role-title']}>Password</div>}
           </div>
           <div className={styles['role-item']}>
-            <MobileSwitch size='small' checked={roleItem.isObserver} onChange={(): void => {
+            <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isObserver} onChange={(): void => {
               handleChangeRole({ ...roleItem, isObserver: !roleItem.isObserver })
             }} />
             {key === 0 && <div
@@ -95,9 +95,9 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
               className={cx(styles['role-title'], styles['title-center'])}>
               <FontAwesomeIcon icon={faEye} />
             </div>}
-          </div>
+          </div>   
           <div className={styles['role-item']}>
-            <MobileSwitch size='small' checked={roleItem.isInsightViewer} onChange={(): void => {
+            <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isInsightViewer} onChange={(): void => {
               handleChangeRole({ ...roleItem, isInsightViewer: !roleItem.isInsightViewer })
             }} />
             {key === 0 && <div
