@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDropzone } from 'react-dropzone'
-
-// import cx from 'classnames'
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -9,17 +7,15 @@ import PropTypes from './types/props'
 /* Import Styles */
 import styles from './styles.module.scss'
 
-/* IMport Icons */
+/* Import Icons */
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* Render component */
-export const IconUploader: React.FC<PropTypes> = ({
-  children,
-  background = 'rgba(0,0,0,0)',
+export const ImageDropzone: React.FC<PropTypes> = ({
+  title,
   onChange,
-  limit,
-  icon
+  limit
 }) => {
   const getBase64 = (file: any, cb: (res: string) => void): void => {
     const reader = new FileReader()
@@ -34,8 +30,6 @@ export const IconUploader: React.FC<PropTypes> = ({
     }
   }
 
-  const [modal, setModal] = useState<boolean>(false)
-
   const handleChange = (newSrc: string): void => {
     if (typeof onChange === 'function') {
       onChange(newSrc)
@@ -46,7 +40,6 @@ export const IconUploader: React.FC<PropTypes> = ({
     onDropAccepted: (acceptedFiles: Array<any>): void => {
       const [file] = acceptedFiles
       getBase64(file, (src: string) => {
-        setModal(false)
         handleChange(src)
       })
     },
@@ -57,33 +50,20 @@ export const IconUploader: React.FC<PropTypes> = ({
       console.log('rejected', rejected)
     }
   })
-  const handeClick = (): void => {
-    setModal(!modal)
-  }
 
   return (
-    <div className={styles.main}>
-      <div
-        onClick={handeClick}
-        style={{ background: background }}
-        className={styles.icon}
-      >
-        {icon && <img src={icon} alt='icon' />}
+    <div className={styles['image-dropzone']}>
+      <h2>{ title }</h2>
+      <div {...getRootProps()} className={styles['dropzone-content']}>
+        <input {...getInputProps()} />
+        <FontAwesomeIcon icon={faFileUpload} size="3x" />
+        <p>Drag and drop a png icon, or click to select. {limit / 1000}kb limit.</p>
       </div>
-      <div onClick={handeClick}>{children}</div>
-      {modal && <div className={styles.modal}>
-        <div className={styles['modal-bg']} onClick={handeClick}/>
-        <div className={styles['modal-content']}>
-          <h2>Add an icon</h2>
-          <div {...getRootProps()} className={styles['dropzone-content']}>
-            <input {...getInputProps()} />
-            <FontAwesomeIcon icon={faFileUpload} size="3x" />
-            <p>Drag and drop a png  icon, or click to select. {limit / 1000}kb limit.</p>
-          </div>
-        </div>
-      </div>}
     </div>
   )
 }
 
-export default IconUploader
+ImageDropzone.defaultProps = {
+  title: 'Add an icon'
+}
+export default ImageDropzone

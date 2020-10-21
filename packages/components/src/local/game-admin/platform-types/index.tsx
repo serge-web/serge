@@ -18,7 +18,7 @@ import EditableList, { Item } from '../editable-list'
 import Button from '../../form-elements/button'
 import { withStyles } from '@material-ui/core/styles'
 import Switch from '@material-ui/core/Switch'
-import IconUploader from '../icon-uploader'
+import IconUploader from '../../molecules/icon-uploader'
 
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
