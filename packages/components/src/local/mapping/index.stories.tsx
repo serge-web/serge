@@ -123,7 +123,7 @@ export const WithMarker: React.FC = () => <Mapping
     position={L.latLng(13.298034302, 43.0488191271)}
     selected={boolean(visLabel, visDefaultValue)}
     type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)}
-    force={radios('Asset force', assetForceNames, assetForceDefaultValue)}
+    force={'Red'}
     perceivedForce={radios('Perceived asset force', assetForceNames, assetForceDefaultValue)}
     visibleTo={['blue,', 'red']}
     status={{
