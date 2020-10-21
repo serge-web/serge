@@ -95,7 +95,7 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
               className={cx(styles['role-title'], styles['title-center'])}>
               <FontAwesomeIcon icon={faEye} />
             </div>}
-          </div>   
+          </div>
           <div className={styles['role-item']}>
             <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isInsightViewer} onChange={(): void => {
               handleChangeRole({ ...roleItem, isInsightViewer: !roleItem.isInsightViewer })

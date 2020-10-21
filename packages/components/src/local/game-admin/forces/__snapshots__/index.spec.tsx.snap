@@ -561,6 +561,7 @@ exports[`forces renders correctly 1`] = `
                                   <input
                                     checked={true}
                                     className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                    disabled={false}
                                     onChange={[Function]}
                                     type="checkbox"
                                   />
@@ -624,6 +625,7 @@ exports[`forces renders correctly 1`] = `
                                   <input
                                     checked={true}
                                     className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                    disabled={false}
                                     onChange={[Function]}
                                     type="checkbox"
                                   />
