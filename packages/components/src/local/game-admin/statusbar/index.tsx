@@ -24,7 +24,7 @@ export const StatusBar: React.FC<PropTypes> = ({ onChange, wargame }) => {
   }
 
   const showStatus = wargame.wargameInitiated || true
-  
+
   return (
     <div className={cx(styles.main)}>
       <div className={cx(styles['input-box'], styles.item)}>

@@ -125,7 +125,7 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
                         handleSaveRows(nextParticipants)
                       }
 
-                      const handleRemoveParticipant = ():void => {
+                      const handleRemoveParticipant = (): void => {
                         const newItems = [...data.participants]
                         newItems.splice(participantKey, 1)
                         handleSaveRows(newItems)

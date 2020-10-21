@@ -63,11 +63,11 @@ export const Default: React.FC = () => {
         ...wargame.data,
         overview: changedOverview,
         platformTypes: changedPlatformType,
-        forces : {
+        forces: {
           ...wargame.data.forces,
           forces: changedForces
         },
-        channels : {
+        channels: {
           ...wargame.data.channels,
           channels: changedChannels
         }
