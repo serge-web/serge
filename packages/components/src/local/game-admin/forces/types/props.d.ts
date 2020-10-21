@@ -6,5 +6,4 @@ export default interface PropTypes {
   onSave?: () => void
 }
 
-export { ForceData } from '@serge/custom-types'
-export { Role } from '@serge/custom-types'
+export { ForceData, Role } from '@serge/custom-types'

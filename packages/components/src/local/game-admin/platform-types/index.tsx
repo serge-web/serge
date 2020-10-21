@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import cx from 'classnames'
 
 /* Import proptypes */
-import PropTypes from './types/props'
-import { PlatformType, PlatformTypeData, States } from '@serge/custom-types'
+import PropTypes, { PlatformType, PlatformTypeData, States } from './types/props'
 
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -217,3 +216,5 @@ export const PlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onS
 }
 
 export default PlatformTypes
+
+export { PlatformType, PlatformTypeData, States } from './types/props'

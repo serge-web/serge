@@ -18,4 +18,5 @@ export default interface PropTypes {
   onRemove?: () => void
   actions?: boolean
   defaultMode: 'view' | 'edit'
+  noSwitchOnReset?: boolean
 }

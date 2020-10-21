@@ -73,7 +73,7 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
     }
 
     const handleChangeRow = (nextItems: Array<RowItem>, itKey: number, participant: Participant = defaultParticipant): Array<RowItem> => {
-      const newNextItems = { ...nextItems }
+      const newNextItems = [...nextItems]
       if (itKey === 0) {
         newNextItems[1].active = []
         newNextItems[2].active = []
@@ -125,7 +125,14 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
                         handleSaveRows(nextParticipants)
                       }
 
+                      const handleRemoveParticipant = ():void => {
+                        const newItems = [...data.participants]
+                        newItems.splice(participantKey, 1)
+                        handleSaveRows(newItems)
+                      }
+
                       return <EditableRow
+                        onRemove={handleRemoveParticipant}
                         key={participant.subscriptionId}
                         onChange={(nextItems: Array<RowItem>, itKey: number): Array<RowItem> => {
                           return handleChangeRow(nextItems, itKey, participant)
@@ -140,11 +147,12 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
                   </TableBody>
                   <TableFooter>
                     <EditableRow
+                      noSwitchOnReset
                       onChange={handleChangeRow}
                       onSave={handleCreateParticipant}
                       items={generateRowItems(messageTemplatesOptions, forces, defaultParticipant)}
                       defaultMode='edit'
-                      actions={true}
+                      actions
                     />
                   </TableFooter>
                 </Table>
@@ -162,6 +170,7 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
         <EditableList
           search
           items={channels}
+          onChange={(items): void => { handleChangeChannels(items as Array<ChannelData>) }}
           onClick={handleSwitch}
           onCreate={handleCreateChannel}
         />
@@ -174,3 +183,5 @@ export const Channels: React.FC<PropTypes> = ({ onChange, onSave, channels, forc
 }
 
 export default Channels
+
+export { ChannelData } from './types/props'

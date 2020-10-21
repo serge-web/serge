@@ -126,3 +126,5 @@ export const Overview: React.FC<PropTypes> = ({ overview, onSave, onChange }) =>
 }
 
 export default Overview
+
+export { WargameOverview } from '@serge/custom-types'

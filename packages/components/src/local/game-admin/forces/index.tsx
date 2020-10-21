@@ -188,3 +188,5 @@ export const Forces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
 }
 
 export default Forces
+
+export { ForceData } from './types/props'
