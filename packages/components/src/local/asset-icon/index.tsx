@@ -43,8 +43,6 @@ export const AssetIcon: React.FC<PropTypes> = ({
     className: getIconClassname(perceivedForce, type, selected)
   })
 
-  console.log('asset', name, force, perceivedForce)
-
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
       // clear selected asset, since it has been clicked again
