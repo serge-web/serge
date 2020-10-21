@@ -73,7 +73,8 @@ export const Assets: React.FC<{}> = () => {
               selected: isSelected,
               controlledBy: assetForce.controlledBy,
               type: perceivedAs[2],
-              force: perceivedAs[1],
+              perceivedForce: perceivedAs[1],
+              force: assetForce.uniqid,
               visibleTo: visibleToArr,
               position,
               uniqid
@@ -102,6 +103,7 @@ export const Assets: React.FC<{}> = () => {
         controlledBy={asset.controlledBy}
         visibleTo={asset.visibleTo}
         force={asset.force}
+        perceivedForce={asset.perceivedForce}
         tooltip={asset.name}/>
     ))}
 
