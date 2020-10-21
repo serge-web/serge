@@ -27,11 +27,12 @@ export const Overview: React.FC<PropTypes> = ({ overview, onSave, onChange }) =>
     }
     if (value.indexOf('_') > -1) return
     const time: Array<number> = [parseInt(value.slice(0, 2)), parseInt(value.slice(3, 5)), parseInt(value.slice(6, 8)), parseInt(value.slice(9, 11))]
-    const [days, hrs, secs, mins] = time
+    const [days, hrs, mins, secs] = time
     let milliseconds: number = (secs * 1000) + (mins * 60 * 1000) + (hrs * 60 * 60 * 1000) + (days * 24 * 60 * 60 * 1000)
+    console.log(time);
 
     if (name === 'timeWarning') {
-      const [hrs, secs, mins] = time
+      const [hrs, mins, secs] = time
       milliseconds = (secs * 1000) + (mins * 60 * 1000) + (hrs * 60 * 60 * 1000)
     }
 
