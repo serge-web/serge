@@ -327,6 +327,14 @@ export default {
               name: 'CO',
               password: 'p5543',
               canSubmitPlans: false
+            },
+            {
+              control: false,
+              isInsightViewer: false,
+              isObserver: false,
+              name: 'Comms',
+              password: 'p5143',
+              canSubmitPlans: false
             }
           ],
           umpire: false,
