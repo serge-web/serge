@@ -1,42 +1,31 @@
-import React, {Component} from 'react';
-import ModalWrapper from './ModalWrapper';
-import { connect } from 'react-redux';
-import DropZone from "../Inputs/DropZone";
-import {saveIcon} from "../../ActionsAndReducers/dbWargames/wargames_ActionCreators";
-import { modalAction } from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
+import React from 'react'
+import ModalWrapper from './ModalWrapper'
+import { useDispatch, useSelector } from 'react-redux'
+import { ImageDropzone } from '@serge/components'
+import { saveIcon } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
+import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
+import '@serge/themes/App.scss'
 
-import "@serge/themes/App.scss";
+const AddIconModal = () => {
+  const dispatch = useDispatch()
+  const currentModal = useSelector(state => state.currentModal)
 
-class AddIconModal extends Component {
-
-  hideModal = () => {
-    this.props.dispatch(modalAction.close());
-  };
-
-  saveIcon = (file) => {
-    this.props.dispatch(saveIcon(file));
-  };
-
-  render() {
-
-    if (!this.props.currentModal.open) return false;
-
-    return (
-      <ModalWrapper>
-        <div className="display-text-wrapper">
-          <h3>Add an icon</h3>
-          <DropZone
-            maxSize={20000}
-            saveHandler={this.saveIcon}
-          />
-        </div>
-      </ModalWrapper>
-    )
+  const onSaveIcon = (src, file) => {
+    dispatch(saveIcon(file))
+    dispatch(modalAction.close())
   }
+
+  if (!currentModal.open) return false
+
+  return (
+    <ModalWrapper>
+      <div className="display-text-wrapper">
+        <ImageDropzone
+          limit={20000}
+          onChange={onSaveIcon}
+        />
+      </div>
+    </ModalWrapper>
+  )
 }
-
-const mapStateToProps = ({ currentModal }) => ({
-  currentModal
-});
-
-export default connect(mapStateToProps)(AddIconModal);
+export default AddIconModal

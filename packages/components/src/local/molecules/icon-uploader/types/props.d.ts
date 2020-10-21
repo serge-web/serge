@@ -1,9 +1,6 @@
-export default interface PropTypes {
-  /**
-   * Callback on icon change event
-   */
-  onChange?: (src: string) => void
+import ImageDropzoneProps from '../../../atoms/image-dropzone/types/props'
+
+export default interface PropTypes extends ImageDropzoneProps {
   background?: string
   icon?: string
-  limit: number
 }

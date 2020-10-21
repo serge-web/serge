@@ -6,7 +6,7 @@ export default interface PropTypes {
   /**
    * Callback on icon change event
    */
-  onChange?: (src: string) => void
+  onChange?: (src: string, file?: any) => void
   /**
    * Size limit of the uploaded image in bytes
    */

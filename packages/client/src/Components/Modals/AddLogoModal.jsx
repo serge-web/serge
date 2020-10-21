@@ -1,42 +1,32 @@
-import React, {Component} from 'react';
-import ModalWrapper from './ModalWrapper';
-import { connect } from 'react-redux';
-import DropZone from "../Inputs/DropZone";
-import { modalAction } from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
-import {saveSergeLogo} from "../../ActionsAndReducers/sergeInfo/sergeInfo_ActionCreators";
+import React from 'react'
+import ModalWrapper from './ModalWrapper'
+import { useDispatch, useSelector } from 'react-redux'
+import { ImageDropzone } from '@serge/components'
+import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
+import { saveSergeLogo } from '../../ActionsAndReducers/sergeInfo/sergeInfo_ActionCreators'
+import '@serge/themes/App.scss'
 
-import "@serge/themes/App.scss";
+const AddLogoModal = () => {
+  const dispatch = useDispatch()
+  const currentModal = useSelector(state => state.currentModal)
 
-class AddLogoModal extends Component {
-
-  hideModal = () => {
-    this.props.dispatch(modalAction.close());
-  };
-
-  saveLogo = (file) => {
-    this.props.dispatch(saveSergeLogo(file));
-  };
-
-  render() {
-
-    if (!this.props.currentModal.open) return false;
-
-    return (
-      <ModalWrapper>
-        <div className="display-text-wrapper">
-          <h3>Add an image</h3>
-          <DropZone
-            maxSize={100000}
-            saveHandler={this.saveLogo}
-          />
-        </div>
-      </ModalWrapper>
-    )
+  const saveLogo = (src, file) => {
+    dispatch(saveSergeLogo(file))
+    dispatch(modalAction.close())
   }
+
+  if (!currentModal.open) return false
+
+  return (
+    <ModalWrapper>
+      <div className="display-text-wrapper">
+        <ImageDropzone
+          title="Add an image"
+          limit={100000}
+          onChange={saveLogo}
+        />
+      </div>
+    </ModalWrapper>
+  )
 }
-
-const mapStateToProps = ({ currentModal }) => ({
-  currentModal
-});
-
-export default connect(mapStateToProps)(AddLogoModal);
+export default AddLogoModal

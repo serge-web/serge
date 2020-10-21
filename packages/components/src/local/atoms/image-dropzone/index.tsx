@@ -30,9 +30,9 @@ export const ImageDropzone: React.FC<PropTypes> = ({
     }
   }
 
-  const handleChange = (newSrc: string): void => {
+  const handleChange = (newSrc: string, file: any): void => {
     if (typeof onChange === 'function') {
-      onChange(newSrc)
+      onChange(newSrc, file)
     }
   }
 
@@ -40,7 +40,7 @@ export const ImageDropzone: React.FC<PropTypes> = ({
     onDropAccepted: (acceptedFiles: Array<any>): void => {
       const [file] = acceptedFiles
       getBase64(file, (src: string) => {
-        handleChange(src)
+        handleChange(src, file)
       })
     },
     accept: 'image/png',
