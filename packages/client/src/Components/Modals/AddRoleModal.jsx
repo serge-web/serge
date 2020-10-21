@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { connect } from "react-redux";
 import uniqId from "uniqid";
-import { Button, TextInput } from "@serge/components";
+import { ButtonList, TextInput } from "@serge/components";
 import { modalAction } from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
 import {
   addRole,
@@ -103,11 +103,23 @@ class AddRoleModal extends Component {
 
 
   render() {
-
     if (!this.props.currentModal.open) return false;
 
-    var disable = this.state.roleName.length < 1 || this.state.sameName || this.state.samePassword || this.state.rolePassword.length > 30;
+    const disabled = this.state.roleName.length < 1 || this.state.sameName || this.state.samePassword || this.state.rolePassword.length > 30;
     let selectedForce = this.props.wargame.data.forces.selectedForce.uniqid;
+
+    const buttons = [{
+      name: 'add',
+      color: 'primary',
+      onClick: this.addRole,
+      children: 'Add',
+      disabled
+    }, {
+      name: 'cancel',
+      color: 'secondary',
+      onClick: this.hideModal,
+      children: 'Cancel'
+    }]
 
     return (
       <ModalWrapper>
@@ -173,21 +185,7 @@ class AddRoleModal extends Component {
             </div>
           </div>
           <div className="buttons">
-            <Button
-              name="cancel"
-              color="secondary"
-              onClick={this.hideModal}
-            >
-              Cancel
-            </Button>
-            <Button
-              name="add"
-              color="primary"
-              onClick={this.addRole}
-              disabled={disable}
-            >
-              Add
-            </Button>
+            <ButtonList buttons={buttons}/>
           </div>
         </div>
       </ModalWrapper>

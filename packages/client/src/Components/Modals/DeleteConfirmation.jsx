@@ -1,67 +1,61 @@
-import React, {Component} from 'react';
-import ModalWrapper from './ModalWrapper';
-import { connect } from 'react-redux';
-import { modalAction } from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
-import { deleteSelectedForce, deleteSelectedChannel } from "../../ActionsAndReducers/dbWargames/wargames_ActionCreators";
+import React from 'react'
+import ModalWrapper from './ModalWrapper'
+import { useDispatch, useSelector } from 'react-redux'
+import { ButtonList } from '@serge/components'
+import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
+import { deleteSelectedForce, deleteSelectedChannel } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
+import '@serge/themes/App.scss'
 
+const DeleteModal = () => {
+  const dispatch = useDispatch()
+  const currentModal = useSelector(state => state.currentModal)
+  const wargame = useSelector(state => state.wargame)
 
-import "@serge/themes/App.scss";
-
-class DeleteModal extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      action: this.props.currentModal.data
-    }
+  const onHideModal = () => {
+    dispatch(modalAction.close())
   }
 
-  hideModal = () => {
-    this.props.dispatch(modalAction.close());
-  };
+  const onDelete = () => {
+    const { type, data } = currentModal.data
+    const curTab = wargame.currentTab
 
-  delete = () => {
-    
-    let curTab = this.props.wargame.currentTab;
-
-    if (this.state.action.type === "force") {
-      let isUmpire = this.props.wargame.data[curTab].forces.find((f) => f.uniqid === this.state.action.data).umpire;
-      if (isUmpire) return;
-      this.props.dispatch(deleteSelectedForce(this.props.wargame.currentWargame, this.state.action.data));
-    }
-    
-    if (this.state.action.type === "channel") {
-      this.props.dispatch(deleteSelectedChannel(this.props.wargame.currentWargame, this.state.action.data));
+    if (type === 'force') {
+      const isUmpire = wargame.data[curTab].forces.find((f) => f.uniqid === data).umpire
+      if (isUmpire) return
+      dispatch(deleteSelectedForce(wargame.currentWargame, data))
     }
 
-    this.props.dispatch(modalAction.close());
-  };
+    if (type === 'channel') {
+      dispatch(deleteSelectedChannel(wargame.currentWargame, data))
+    }
 
-  render() {
+    dispatch(modalAction.close())
+  }
 
-    if (!this.props.currentModal.open) return false; // needed ?
+  if (!currentModal.open) return false
 
-    return (
-      <ModalWrapper>
-        <div className="display-text-wrapper">
-          <h3>Delete</h3>
-          <p>This action is permanent.<br/>Are you sure?</p>
-          <div className="buttons">
-            <button name="cancel" className="btn btn-action btn-action--secondary" onClick={this.hideModal}>Cancel</button>
-            <button name="delete" className="btn btn-action btn-action--primary" onClick={this.delete}>Delete</button>
-          </div>
+  const buttons = [{
+    name: 'delete',
+    color: 'primary',
+    onClick: onDelete,
+    children: 'Delete'
+  }, {
+    name: 'cancel',
+    color: 'secondary',
+    onClick: onHideModal,
+    children: 'Cancel'
+  }]
+
+  return (
+    <ModalWrapper>
+      <div className="display-text-wrapper">
+        <h3>Delete</h3>
+        <p>This action is permanent.<br/>Are you sure?</p>
+        <div className="buttons">
+          <ButtonList buttons={buttons} />
         </div>
-      </ModalWrapper>
-    )
-  }
+      </div>
+    </ModalWrapper>
+  )
 }
-
-const mapStateToProps = ({ currentModal, messages, umpireMenu, currentViewURI, wargame }) => ({
-  currentModal,
-  messages,
-  umpireMenu,
-  currentViewURI,
-  wargame,
-});
-
-export default connect(mapStateToProps)(DeleteModal);
+export default DeleteModal

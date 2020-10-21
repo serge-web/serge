@@ -14,7 +14,6 @@ import {
   setSelectedForce,
   saveForce,
   addNewForce,
-  deleteSelectedForce,
   setTabUnsaved,
   setTabSaved,
 } from "../../ActionsAndReducers/dbWargames/wargames_ActionCreators";
@@ -127,17 +126,6 @@ class ForcesTab extends Component {
     }
   };
 
-  deleteForce = () => {
-
-    let curTab = this.props.wargame.currentTab;
-    let selectedForce = this.props.wargame.data[curTab].selectedForce.uniqid;
-    let isUmpire = this.props.wargame.data[curTab].forces.find((f) => f.uniqid === selectedForce).umpire;
-
-    if (isUmpire) return;
-
-    this.props.dispatch(deleteSelectedForce(this.props.wargame.currentWargame, selectedForce));
-  };
-
   deleteForceFromList = (force) => {
     this.props.dispatch(modalAction.open("confirmDelete", {type: "force", data: force}));
   };
@@ -188,11 +176,11 @@ class ForcesTab extends Component {
         <div className="flex-content flex-content--row panel-actions">
           <div className="force-input-wrap">
             <TextInput
-                name="force-name"
-                id="editable-title"
-                updateStore={this.updateForceName}
-                options={{numInput: false}}
-                data={forceName}
+              name="force-name"
+              id="editable-title"
+              updateStore={this.updateForceName}
+              options={{numInput: false}}
+              data={forceName}
             />
 
             <div className="force-color-icon">
@@ -209,7 +197,7 @@ class ForcesTab extends Component {
           <div className="force-button-wrap">
             <Button
               color="secondary"
-              onClick={this.deleteForce}
+              onClick={() => this.deleteForceFromList(selectedForce)}
               disabled={isUmpire}
               icon="delete"
             >
