@@ -25,7 +25,7 @@ export default {
 
 export const Default: React.FC = () => (
   <BlueContainer>
-    <TextEntryField fullWidth variant="filled" labelColor="common.white" labelSize={12} placeholder="type the text" />
+    <TextEntryField fullWidth variant="filled" placeholder="type the text" />
   </BlueContainer>
 )
 

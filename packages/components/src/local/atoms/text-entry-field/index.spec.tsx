@@ -7,7 +7,7 @@ import TextEntryField from './index'
 
 it('TextEntryField renders correctly', () => {
   const tree = renderer
-    .create(<TextEntryField label="Turns" value={5}/>)
+    .create(<TextEntryField value={5}/>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

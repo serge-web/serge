@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { kebabCase } from 'lodash'
 import { FilledInputProps, TextField, fade } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import InputContainer from '../input-container'
@@ -25,19 +24,12 @@ const useFilledStyle = makeStyles((theme: Theme) =>
     input: {
       padding: theme.spacing(1.5),
       height: 'auto'
-    },
-    multiline: {
-      padding: 0
     }
   })
 )
 
 /* Render component */
 export const TextEntryField: React.FC<PropTypes> = ({
-  label,
-  labelSize,
-  labelColor,
-  name,
   variant,
   value,
   updateState,
@@ -50,15 +42,11 @@ export const TextEntryField: React.FC<PropTypes> = ({
     setInputValue(event.target.value)
     updateState(event.target)
   }
-  const inputName = name || kebabCase(label)
   const isFilled = variant === 'filled'
   const filledClasses = useFilledStyle()
 
   return (
     <InputContainer
-      label={label}
-      labelColor={labelColor}
-      labelSize={labelSize}
       className={className}
       disableOffset={true}
     >
@@ -68,7 +56,6 @@ export const TextEntryField: React.FC<PropTypes> = ({
           disableUnderline: isFilled
         } as Partial<FilledInputProps>}
         {...{
-          name: inputName,
           value: inputValue,
           onChange: handleChange,
           placeholder,
