@@ -15,9 +15,9 @@ export const OptionMenu: React.FC<Props> = ({ menus, gameName, onHideMenu }: Pro
   }
   return (
     <div className={styles['wargame-option-menu']}>
-      {menus.length && menus.map(menu => {
+      {menus.length > 0 && menus.map((menu, id) => {
         return (
-          <span onClick={(): void => onMenuClick(menu)}>
+          <span key={id} onClick={(): void => onMenuClick(menu)}>
             <FontAwesomeIcon icon={menu.icon} title={menu.title} />
             {menu.label}
           </span>
