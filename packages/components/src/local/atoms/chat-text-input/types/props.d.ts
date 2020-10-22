@@ -1,21 +1,5 @@
 export default interface PropTypes {
   /**
-   * The name of the input, usually matches the state to update. If not used then a kebab-case version of the label will be used.
-   */
-  name?: string
-  /***
-   * The label of the text input
-   */
-  label?: string
-  /**
-   * The color of the input label
-   */
-  labelColor?: string
-  /**
-   * The size of the input label
-   */
-  labelSize?: string | number
-  /**
    * Text field variants
    */
   variant?: 'standard' | 'filled' | 'outlined'
@@ -44,4 +28,12 @@ export default interface PropTypes {
    * Text input full width
    */
   fullWidth?: boolean
+  /**
+   * Multiline rows length
+   */
+  rows?: number
+  /**
+   * Multiline maximum rows length
+   */
+  rowsMax?: number
 }

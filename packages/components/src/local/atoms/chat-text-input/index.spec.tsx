@@ -3,11 +3,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import TextEntryField from './index'
+import ChatTextInput from './index'
 
-it('TextEntryField renders correctly', () => {
+it('ChatTextInput renders correctly', () => {
   const tree = renderer
-    .create(<TextEntryField value={5}/>)
+    .create(<ChatTextInput value={5}/>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

@@ -9,7 +9,7 @@ import PropTypes from './types/props'
 const useFilledStyle = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      backgroundColor: theme.palette.common.white,
+      backgroundColor: 'rgba(255, 255, 255, 0.85)',
       borderRadius: '8px',
       '&.Mui-focused': {
         backgroundColor: fade(theme.palette.common.white, 0.75)
@@ -24,12 +24,18 @@ const useFilledStyle = makeStyles((theme: Theme) =>
     input: {
       padding: theme.spacing(1.5),
       height: 'auto'
+    },
+    multiline: {
+      padding: 0
     }
   })
 )
 
 /* Render component */
-export const TextEntryField: React.FC<PropTypes> = ({
+export const ChatTextInput: React.FC<PropTypes> = ({
+  multiline,
+  rows,
+  rowsMax,
   variant,
   value,
   updateState,
@@ -56,6 +62,9 @@ export const TextEntryField: React.FC<PropTypes> = ({
           disableUnderline: isFilled
         } as Partial<FilledInputProps>}
         {...{
+          multiline,
+          rows,
+          rowsMax,
           value: inputValue,
           onChange: handleChange,
           placeholder,
@@ -67,4 +76,4 @@ export const TextEntryField: React.FC<PropTypes> = ({
   )
 }
 
-export default TextEntryField
+export default ChatTextInput
