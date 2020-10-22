@@ -1,24 +1,13 @@
 import React, { useState } from 'react'
-import { styled } from '@material-ui/core/styles'
-import Box from '@material-ui/core/Box'
 
 // Import component files
 import ChannelMessagesList from './index'
 import docs from './README.md'
 
-const BlueContainer = styled(Box)({
-  backgroundColor: '#1a394d',
-  padding: '20px',
-  borderRadius: '2px',
-  color: '#fff'
-})
-
 export default {
   title: 'local/organisms/ChannelMessagesList',
   component: ChannelMessagesList,
-  decorators: [(story: Function): React.ReactElement => (
-    <BlueContainer>{ story() }</BlueContainer>
-  )],
+  decorators: [],
   parameters: {
     options: {
       // No addons are used in this story so don't show the addon panel

@@ -21,13 +21,17 @@ configureReadme({
   StoryPreview: ({ children }) => {
     const component = children.props.children.type.displayName;
     const withBlueBackground = [
+      'AdminLogin',
+      'ChannelMessage',
       'ChannelMessageDetail',
       'ChannelMessageHeader',
-      'ChannelMessage',
+      'ChannelMessagesList',
       'ForcesInChannel',
       'GameTitle',
+      'InsightForm',
       'MessageLabel',
       'TextInput',
+      'WargameList',
       'WrapForceObjective'
     ]
     const WrappedComponent = () => {

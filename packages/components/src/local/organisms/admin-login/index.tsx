@@ -14,6 +14,11 @@ export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {
   const setPasswordValue = (target: { value: string }): void => {
     setPassword(target.value)
   }
+  const handleOnKeyPress = (evt: React.KeyboardEvent): void => {
+    if (evt.key === 'Enter') {
+      onSubmit && onSubmit(password)
+    }
+  }
 
   return (
     <>
@@ -26,6 +31,7 @@ export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {
           type="password"
           variant="filled"
           updateState={setPasswordValue}
+          onKeyPress={handleOnKeyPress}
           fullWidth
         />
       </div>
