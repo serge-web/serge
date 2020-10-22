@@ -1,4 +1,4 @@
-import { AdjudicateTurnFormData, Postback } from '@serge/custom-types'
+import { AdjudicateTurnFormData, AdjudicateTurnFormValues, Postback } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -10,10 +10,6 @@ export default interface PropTypes {
    */
   formData: AdjudicateTurnFormData
   /**
-   * Channel ID from Serge app (optional)
-   */
-  channelID?: string | number
-  /**
    * Data for icon generation
    */
   icon: {
@@ -21,9 +17,9 @@ export default interface PropTypes {
     platformType: string
   }
   /**
-   * The method for posting messages out of the mapping component
+   * handler for umpire accepting aroute
    */
-  postBack?: Postback
+  routeAccepted?: {(route: AdjudicateTurnFormValues): void}
   /**
    * flag for if SofW have already been submitted
    */

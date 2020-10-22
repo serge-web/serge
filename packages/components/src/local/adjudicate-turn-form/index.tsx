@@ -20,7 +20,7 @@ import styles from './styles.module.scss'
 import { isNumber } from '@serge/helpers'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, icon, plansSubmitted, canSubmitPlans, postBack }) => {
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, icon, plansSubmitted, canSubmitPlans, routeAccepted }) => {
   const [formState, setFormState] = useState(formData.values)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
@@ -84,8 +84,8 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
   }
 
   const submitForm = (): void => {
-    if (postBack !== undefined) {
-      postBack('adjudicate', formState, channelID)
+    if (routeAccepted !== undefined) {
+      routeAccepted(formState)
     }
   }
 

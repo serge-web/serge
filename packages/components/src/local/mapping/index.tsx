@@ -36,7 +36,7 @@ import {
   RouteStore,
   Route,
   RouteStep,
-  PlanTurnFormValues
+  PlanTurnFormValues, AdjudicateTurnFormValues
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -335,6 +335,16 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
+
+  /**
+   * Umpire has accepted (or modified a route)
+   * @param assetId
+   * @param plannedTurn 
+   */
+  const routeAccepted = (plannedRoute: AdjudicateTurnFormValues): void => {
+    console.log('route accepted', routeStore.selected && routeStore.selected.name, plannedRoute)
+  }
+
   const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
     const current: Route | undefined = routeStore.selected
     if (current) {
@@ -452,6 +462,7 @@ export const Mapping: React.FC<PropTypes> = ({
     setSelectedAsset: setSelectedAssetLocal,
     setZoomLevel,
     turnPlanned,
+    routeAccepted,
     clearFromTurn,
     postBack,
     hidePlanningForm,

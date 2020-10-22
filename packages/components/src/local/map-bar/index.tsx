@@ -12,7 +12,7 @@ import collateStateOfWorld from './helpers/collate-state-of-world'
 import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
-import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid } from '@serge/custom-types'
+import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid, AdjudicateTurnFormValues } from '@serge/custom-types'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
 
 /* Import Stylesheet */
@@ -53,6 +53,7 @@ export const MapBar: React.FC = () => {
     postBack,
     routeStore,
     turnPlanned,
+    routeAccepted,
     hidePlanningForm,
     setHidePlanningForm,
     groupMoveToRoot,
@@ -75,7 +76,8 @@ export const MapBar: React.FC = () => {
     channelID: string | number
     postBack: Postback
     routeStore: RouteStore
-    turnPlanned: {(turn: PlanTurnFormValues): void}
+    turnPlanned: {(turn: PlanTurnFormValues): void}    
+    routeAccepted: {(route: AdjudicateTurnFormValues): void}
     hidePlanningForm: boolean
     setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
     groupMoveToRoot?: {(uniqid: string): void}
@@ -202,9 +204,8 @@ export const MapBar: React.FC = () => {
           formHeader={currentAssetName}
           canSubmitPlans={canSubmitOrders}
           formData={collateAdjudicationFormData(platforms, selectedAsset, forces)}
-          channelID={channelID}
           icon={icondData}
-          postBack={postBack} />
+          routeAccepted={routeAccepted} />
         break
       case 'Planning':
         output = <PlanTurnForm
