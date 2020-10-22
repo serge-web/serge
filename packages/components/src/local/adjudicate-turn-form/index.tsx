@@ -102,7 +102,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
 
       </TitleWithIcon>
       { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
-      { conditionVal.toLowerCase() === 'working' && <fieldset>
+      { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Planned Route" align="right">
           { !formDisabled &&
             <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
