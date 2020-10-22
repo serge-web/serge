@@ -10,7 +10,7 @@ const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
 
 it('AdjudicateTurnForm renders correctly', () => {
   const tree = renderer
-    .create(<AdjudicateTurnForm formHeader="Adjudicate header" icon={iconData} formData={formData} />)
+    .create(<AdjudicateTurnForm canSubmitPlans={true} plansSubmitted={false} formHeader="Adjudicate header" icon={iconData} formData={formData} />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

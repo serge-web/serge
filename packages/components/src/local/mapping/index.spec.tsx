@@ -33,6 +33,7 @@ it('Mapping renders correctly', () => {
     tileLayer = {LocalTileLayer}
     forces = {forces}
     playerForce = 'Blue'
+    canSubmitOrders = {true}
     platforms = {platformTypes}
     phase = {Phase.Planning}
     turnNumber = {4}

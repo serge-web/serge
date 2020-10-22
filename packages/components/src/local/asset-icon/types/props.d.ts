@@ -20,6 +20,10 @@ export default interface PropTypes {
    */
   force: string
   /**
+   * The perceived force for this asset
+   */
+  perceivedForce: string
+  /**
    * if this asset is selected
    */
   selected: boolean

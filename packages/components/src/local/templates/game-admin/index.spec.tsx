@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer'
 
 import GameAdmin from './index'
 
-import { MessagesMock } from '@serge/mocks'
+import { AdminMessagesMock } from '@serge/mocks'
 
 const force = {
   name: 'blue',
@@ -24,7 +24,7 @@ describe('GameAdmin page:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <GameAdmin wargameTitle="title" chatChannel={MessagesMock} selectedForce={force} selectedRole=""/>,
+        <GameAdmin wargameTitle="title" chatChannel={AdminMessagesMock} selectedForce={force} selectedRole=""/>,
         { createNodeMock }
       )
       .toJSON()

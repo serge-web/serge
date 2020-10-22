@@ -31,7 +31,11 @@ export default interface PropTypes {
    *
   */
   playerForce: string
-  /** current player's force
+  /**
+   * if the current player can submit orders
+   */
+  canSubmitOrders: boolean
+  /** current phase of game
    *
   */
   phase: Phase
