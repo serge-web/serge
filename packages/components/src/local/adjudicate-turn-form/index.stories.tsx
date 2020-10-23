@@ -4,6 +4,7 @@ import React from 'react'
 import AdjudicateTurnForm from './index'
 import docs from './README.md'
 import formData from './mocks/formData'
+import { AdjudicateTurnFormValues } from '@serge/custom-types'
 
 export default {
   title: 'local/AdjudicateTurnForm',
@@ -19,13 +20,12 @@ export default {
 
 const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
 
-// put in the post handler
-const postback = (messageType: string, payload: any): void => {
-  console.log('postback', messageType, payload)
+const routeAccepted = (route: AdjudicateTurnFormValues): void => {
+  console.log('route accepted in story', route)
 }
 
 export const Default: React.FC = () => <AdjudicateTurnForm
-  postBack={postback}
+  routeAccepted={routeAccepted}
   icon={iconData}
   canSubmitPlans={true}
   plansSubmitted={false}
@@ -33,7 +33,7 @@ export const Default: React.FC = () => <AdjudicateTurnForm
   formData={formData} />
 
 export const TurnsPlanned: React.FC = () => <AdjudicateTurnForm
-  postBack={postback}
+  routeAccepted={routeAccepted}
   icon={iconData}
   canSubmitPlans={true}
   plansSubmitted={true}
@@ -41,7 +41,7 @@ export const TurnsPlanned: React.FC = () => <AdjudicateTurnForm
   formData={formData} />
 
 export const CannotSubmitPlans: React.FC = () => <AdjudicateTurnForm
-  postBack={postback}
+  routeAccepted={routeAccepted}
   icon={iconData}
   plansSubmitted={false}
   canSubmitPlans={false}
