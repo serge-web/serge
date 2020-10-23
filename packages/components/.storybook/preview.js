@@ -1,19 +1,52 @@
 import React from 'react'
 import { addParameters, addDecorator } from '@storybook/react';
 import { addReadme, configureReadme } from 'storybook-readme';
-import { MuiThemeProvider as ThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider as ThemeProvider, styled } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import theme from '../themes/serge';
+
+const BlueContainer = styled(Box)({
+  backgroundColor: '#1a394d',
+  padding: '20px',
+  borderRadius: '2px',
+  color: '#fff',
+  position: 'relative'
+})
 
 configureReadme({
   /**
    * Wrapper for story. Usually used to set some styles
    * React: React.ReactNode
    */
-  StoryPreview: ({ children }) => (
-    <ThemeProvider theme={theme}>
-      <div style={{ margin: '2rem 1rem' }}>{children}</div>
-    </ThemeProvider>
-  ),
+  StoryPreview: ({ children }) => {
+    const component = children.props.children.type.displayName;
+    const withBlueBackground = [
+      'AdminLogin',
+      'ChannelMessage',
+      'ChannelMessageDetail',
+      'ChannelMessageHeader',
+      'ChannelMessagesList',
+      'ForcesInChannel',
+      'GameTitle',
+      'InsightForm',
+      'MessageLabel',
+      'TextInput',
+      'WargameList',
+      'WrapForceObjective'
+    ]
+    const WrappedComponent = () => {
+      return withBlueBackground.includes(component)
+        ? <BlueContainer>{ children }</BlueContainer>
+        : children
+    }
+    return (
+      <ThemeProvider theme={theme}>
+        <div style={{ margin: '2rem 1rem' }}>
+          <WrappedComponent />
+        </div>
+      </ThemeProvider>
+    )
+  },
 
   /**
    * Wrapper for content and sidebar docs. Usually used to set some styles

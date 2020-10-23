@@ -1,4 +1,6 @@
-export default interface PropTypes {
+import { TextFieldProps } from '@material-ui/core/TextField'
+
+export type PropTypes = TextFieldProps & {
   /**
    * The name of the input, usually matches the state to update. If not used then a kebab-case version of the label will be used.
    */
@@ -11,6 +13,10 @@ export default interface PropTypes {
    * The color of the input label
    */
   labelColor?: string
+  /**
+   * Custom color for base input border and text
+   */
+  customColor?: string
   /**
    * The size of the input label
    */

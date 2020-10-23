@@ -1,19 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "@serge/components";
 import {
   getAllMessageTypes,
   createMessageType
 } from "../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators";
-
 import { resetMessagePreview } from "../ActionsAndReducers/dbMessages/messages_ActionCreators";
-
 import Link from "../Components/Link";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowLeft, faSave} from "@fortawesome/free-solid-svg-icons";
 import SchemaEditor from "../Components/jsonSchemaEditor/index";
-import {ADMIN_ROUTE} from "../consts";
-
+import { ADMIN_ROUTE } from "../consts";
 import "@serge/themes/App.scss";
 
 class EditMessage extends Component {
@@ -49,21 +46,22 @@ class EditMessage extends Component {
   };
 
   render() {
+    const SaveMessageButton = () => (
+      <div className="button-wrap">
+        <Button color="secondary" onClick={this.saveSchema} icon="save">Save Message</Button>
+      </div>
+    );
     return (
       <div className="view-wrapper">
         <div id="sidebar">
           <Link href={ADMIN_ROUTE} id="home-btn"><FontAwesomeIcon icon={faArrowLeft} size="2x" /></Link>
         </div>
         <h1>Message template</h1>
-        <div className="button-wrap">
-          <span onClick={this.saveSchema} className="link"><FontAwesomeIcon icon={faSave} />Save Message</span>
-        </div>
+        <SaveMessageButton />
         <div className="flex-content-wrapper">
           <SchemaEditor />
         </div>
-        <div className="button-wrap">
-          <span onClick={this.saveSchema} className="link"><FontAwesomeIcon icon={faSave} />Save Message</span>
-        </div>
+        <SaveMessageButton />
       </div>
     );
   }
