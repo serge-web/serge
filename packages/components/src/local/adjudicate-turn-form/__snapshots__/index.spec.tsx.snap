@@ -9,6 +9,8 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
   >
     <h2>
       Adjudicate header
+       
+      pending
     </h2>
     <div
       className="icon"
@@ -18,6 +20,9 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
       />
     </div>
   </div>
+  <span>
+     Reviewed 
+  </span>
   <fieldset>
     <div
       className="group"
@@ -62,18 +67,19 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
         className="container main-container align-right"
       >
         <div
-          className="MuiInputBase-root MuiInput-root MuiInput-underline select"
+          className="MuiInputBase-root MuiInput-root MuiInput-underline select Mui-disabled Mui-disabled"
           onClick={[Function]}
         >
           <div
+            aria-disabled="true"
             aria-haspopup="listbox"
-            className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+            className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input Mui-disabled Mui-disabled Mui-disabled"
             onBlur={[Function]}
             onFocus={[Function]}
             onKeyDown={[Function]}
-            onMouseDown={[Function]}
+            onMouseDown={null}
             role="button"
-            tabIndex={0}
+            tabIndex={null}
           >
             Transiting
           </div>
@@ -87,7 +93,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
           />
           <svg
             aria-hidden={true}
-            className="MuiSvgIcon-root MuiSelect-icon"
+            className="MuiSvgIcon-root MuiSelect-icon Mui-disabled"
             focusable="false"
             viewBox="0 0 24 24"
           >
