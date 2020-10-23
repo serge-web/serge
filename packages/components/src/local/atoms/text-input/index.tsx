@@ -32,11 +32,32 @@ const useFilledStyle = makeStyles((theme: Theme) =>
   })
 )
 
+const useBaseStyle = makeStyles((theme: Theme) => {
+  const generateColor = (color: string): string => {
+    return color.split('.').reduce((o: any, i: string | number) => o[i], theme.palette)
+  }
+  return createStyles({
+    root: ({ customColor }: PropTypes) => customColor ? { color: generateColor(customColor) } : {},
+    underline: ({ customColor }: PropTypes) => customColor ? {
+      '&:after': {
+        borderBottomColor: generateColor(customColor)
+      },
+      '&:before': {
+        borderBottomColor: generateColor(customColor)
+      },
+      '&:hover:not(.Mui-disabled):before': {
+        borderBottomColor: generateColor(customColor)
+      }
+    } : {}
+  })
+})
+
 /* Render component */
 export const TextInput: React.FC<PropTypes> = ({
   label,
   labelSize,
   labelColor,
+  customColor,
   name,
   variant,
   value,
@@ -57,6 +78,7 @@ export const TextInput: React.FC<PropTypes> = ({
   const inputName = name || kebabCase(label)
   const isFilled = variant === 'filled'
   const filledClasses = useFilledStyle()
+  const baseClasses = useBaseStyle({ customColor })
 
   return (
     <InputContainer
@@ -68,7 +90,7 @@ export const TextInput: React.FC<PropTypes> = ({
     >
       <TextField
         InputProps={{
-          classes: isFilled ? filledClasses : {},
+          classes: isFilled ? filledClasses : baseClasses,
           disableUnderline: isFilled
         } as Partial<FilledInputProps>}
         {...{

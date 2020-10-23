@@ -17,7 +17,7 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <TextInput multiline={boolean('Multi-Line', false)} label="turns" value={5}/>
+export const Default: React.FC = () => <TextInput multiline={boolean('Multi-Line', false)} label="turns" labelColor="common.white" customColor="common.white" value={5}/>
 export const Filled: React.FC = () => <TextInput value={text('Initial value', 'Lorem ipsum')} multiline={boolean('Multi-Line', true)} variant="filled" placeholder="Enter some value" />
 export const FilledWithLabel: React.FC = () => <TextInput multiline={boolean('Multi-Line', true)} variant="filled" label="Enter a value" labelColor="common.white" labelSize={12} />
 

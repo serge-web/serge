@@ -14,6 +14,10 @@ export type PropTypes = TextFieldProps & {
    */
   labelColor?: string
   /**
+   * Custom color for base input border and text
+   */
+  customColor?: string
+  /**
    * The size of the input label
    */
   labelSize?: string | number
