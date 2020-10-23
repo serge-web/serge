@@ -67,6 +67,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options, 
         onClick={handleStickClick}
         className={cx(
           styles['speed-item'],
+          !disabled && styles['speed-enabled'],
           activeItem && styles['speed-active'],
           selectedItem && styles['speed-selected']
         )}
