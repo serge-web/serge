@@ -1,4 +1,4 @@
-import { AdjudicateTurnFormData, AdjudicateTurnFormValues, Postback } from '@serge/custom-types'
+import { AdjudicateTurnFormData, AdjudicateTurnFormValues } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**

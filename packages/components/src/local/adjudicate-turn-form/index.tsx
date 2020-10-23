@@ -114,7 +114,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
           <Select
             className={clSelect}
             value={statusVal.name}
-            disabled={plannedRouteStatusVal != PlanningStates.Planning}
+            disabled={plannedRouteStatusVal !== PlanningStates.Planning}
             onChange={statusHandler}
           >
             {status.map((s: any) => (
@@ -125,7 +125,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
         <FormGroup title="Speed (kts)" titlePosition="absolute">
           {speed.length > 0 &&
             <Speed
-              disabled={plannedRouteStatusVal != PlanningStates.Planning}
+              disabled={plannedRouteStatusVal !== PlanningStates.Planning}
               value = { speedVal }
               options = { speed }
               onClick = { speedHandler }

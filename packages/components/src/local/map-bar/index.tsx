@@ -76,7 +76,7 @@ export const MapBar: React.FC = () => {
     channelID: string | number
     postBack: Postback
     routeStore: RouteStore
-    turnPlanned: {(turn: PlanTurnFormValues): void}    
+    turnPlanned: {(turn: PlanTurnFormValues): void}
     routeAccepted: {(route: AdjudicateTurnFormValues): void}
     hidePlanningForm: boolean
     setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>

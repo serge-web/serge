@@ -335,11 +335,10 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-
   /**
    * Umpire has accepted (or modified a route)
    * @param assetId
-   * @param plannedTurn 
+   * @param plannedTurn
    */
   const routeAccepted = (plannedRoute: AdjudicateTurnFormValues): void => {
     console.log('route accepted', routeStore.selected && routeStore.selected.name, plannedRoute)

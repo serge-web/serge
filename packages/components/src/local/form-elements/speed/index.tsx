@@ -25,7 +25,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options, 
   }
 
   const handleClick = (e: any): void => {
-    if (typeof onClick === 'function' && !disabled ) {
+    if (typeof onClick === 'function' && !disabled) {
       onClick(e)
     }
   }
