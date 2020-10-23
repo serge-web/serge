@@ -110,40 +110,28 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
             <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
           }
         </FormGroup>
-        {
-          plannedRouteStatusVal !== PlanningStates.Planning && false && <div>
-            {statusVal.name} - {statusVal.mobile && speedVal}
-            {/* <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
-            { statusVal.mobile &&
-              <RCB type="radio" label="Speed (kts)" name="speed" options={speed} value={speedVal} updateState={changeHandler}/>
-            } */}
-          </div>
-        }
-          
-            <FormGroup title="State" align="right">
-              <Select
-                className={clSelect}
-                value={statusVal.name}
-                disabled={plannedRouteStatusVal != PlanningStates.Planning}
-                onChange={statusHandler}
-              >
-                {status.map((s: any) => (
-                  <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
-                ))}
-              </Select>
-            </FormGroup>
-            <FormGroup title="Speed (kts)" titlePosition="absolute">
-              {speed.length > 0 &&
-                <Speed
-                  disabled={plannedRouteStatusVal != PlanningStates.Planning}
-                  value = { speedVal }
-                  options = { speed }
-                  onClick = { speedHandler }
-                />
-              }
-            </FormGroup>
-         
-       
+        <FormGroup title="State" align="right">
+          <Select
+            className={clSelect}
+            value={statusVal.name}
+            disabled={plannedRouteStatusVal != PlanningStates.Planning}
+            onChange={statusHandler}
+          >
+            {status.map((s: any) => (
+              <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
+            ))}
+          </Select>
+        </FormGroup>
+        <FormGroup title="Speed (kts)" titlePosition="absolute">
+          {speed.length > 0 &&
+            <Speed
+              disabled={plannedRouteStatusVal != PlanningStates.Planning}
+              value = { speedVal }
+              options = { speed }
+              onClick = { speedHandler }
+            />
+          }
+        </FormGroup>
       </fieldset>
       }
       <fieldset>
