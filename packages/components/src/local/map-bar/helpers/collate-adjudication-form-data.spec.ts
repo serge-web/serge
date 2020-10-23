@@ -5,6 +5,7 @@ import platformTypes from '@serge/mocks/platform-types.mock'
 import selectedAsset from '@serge/mocks/selected-asset.mock'
 import forces from '@serge/mocks/forces.mock'
 import { ColorOption, Status } from '@serge/custom-types'
+import { PlanningStates } from '@serge/config'
 
 it('contains relevant population results', () => {
   const { condition, speed, status, visibleTo }:
@@ -24,7 +25,7 @@ it('contains relevant current results', () => {
   const { plannedRouteStatusVal, statusVal, speedVal, visibleToVal, conditionVal }:
     { plannedRouteStatusVal: string, statusVal: Status, speedVal: number, visibleToVal: Array<string>, conditionVal: string} =
     collateAdjudicationFormData(platformTypes, selectedAsset, forces).values
-  expect(plannedRouteStatusVal).toEqual('pending')
+  expect(plannedRouteStatusVal).toEqual(PlanningStates.Pending)
   expect(statusVal).toEqual({ mobile: true, name: 'Transiting' })
   expect(speedVal).toEqual(10)
   expect(visibleToVal.length).toEqual(2)

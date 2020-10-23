@@ -3,6 +3,7 @@ import { Button } from '../button'
 
 /* Import proptypes */
 import PropTypes from './types/props'
+import { PlanningStates } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -18,10 +19,10 @@ export const PlannedRoute: React.FC<PropTypes> = ({ name, status, updateState })
 
   return <div className={styles['planned-route']}>
 
-    { status === 'pending' && <Button onClick={(): void => handleChange(name, 'accepted')}>Accept</Button> }
-    { status === 'pending' && <Button onClick={(): void => handleChange(name, 'rejected')}>Reject</Button> }
-    { status === 'rejected' && <Button onClick={(): void => handleChange(name, 'planning')}>Plan Route</Button> }
-    { (status !== 'pending') && <Button onClick={(): void => handleChange(name, 'pending')}>Revert</Button> }
+    { status === PlanningStates.Pending && <Button onClick={(): void => handleChange(name, PlanningStates.Accepted)}>Accept</Button> }
+    { status === PlanningStates.Pending && <Button onClick={(): void => handleChange(name, PlanningStates.Rejected)}>Reject</Button> }
+    { status === PlanningStates.Rejected && <Button onClick={(): void => handleChange(name, PlanningStates.Planning)}>Plan Route</Button> }
+    { (status !== PlanningStates.Pending) && <Button onClick={(): void => handleChange(name, PlanningStates.Pending)}>Revert</Button> }
 
   </div>
 }

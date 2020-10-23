@@ -1,5 +1,6 @@
 import ColorOption from './color-option'
 import SergeHex from './serge-hex'
+import { PlanningStates } from '@serge/config'
 
 interface Status {
   name: string,
@@ -60,7 +61,7 @@ export interface AdjudicateTurnFormPopulate {
 }
 
 export interface AdjudicateTurnFormValues {
-  plannedRouteStatusVal: string
+  plannedRouteStatusVal: PlanningStates
   statusVal: Status
   speedVal: number
   visibleToVal: Array<string>

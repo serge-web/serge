@@ -5,4 +5,4 @@
 
 export * from './globals'
 export * from './routes'
-export * from './enums'
+export { Phase, PlanningStates } from './enums'

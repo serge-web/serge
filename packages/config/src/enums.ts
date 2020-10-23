@@ -9,3 +9,13 @@ export enum Phase {
   /** umpire is resolving planned turns */
   Adjudication = 'adjudication'
 }
+
+/**
+ * the possible states for a planned route
+ */
+export enum PlanningStates {
+  Planning = 'planning',
+  Pending = 'pending',
+  Accepted = 'accepted',
+  Rejected = 'rejected'
+}

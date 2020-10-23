@@ -2,6 +2,7 @@ import { SelectedAsset, AdjudicateTurnFormData, ColorOption } from '@serge/custo
 
 import { kebabCase } from 'lodash'
 import availableForces from './available-forces'
+import { PlanningStates } from '@serge/config'
 
 /** determine which form to show on this click
  * @param {any} platforms list of platform types in the wargame
@@ -22,7 +23,7 @@ const collateAdjudicationFormData = (platforms: any, selectedAsset: SelectedAsse
       condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
     },
     values: {
-      plannedRouteStatusVal: 'pending',
+      plannedRouteStatusVal: PlanningStates.Pending,
       statusVal: availableStatus,
       speedVal: selectedAsset.status.speedKts,
       visibleToVal: selectedAsset.visibleTo,

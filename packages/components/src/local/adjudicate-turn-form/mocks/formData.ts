@@ -1,3 +1,5 @@
+import { PlanningStates } from '@serge/config'
+
 const formData = {
   populate: {
     /* All types in this definition are options for a form input */
@@ -33,7 +35,7 @@ const formData = {
     condition: ['Working', 'Disabled', 'Immobile', 'Destroyed']
   },
   values: {
-    plannedRouteStatusVal: 'pending',
+    plannedRouteStatusVal: PlanningStates.Pending,
     statusVal: {
       name: 'Transiting',
       mobile: true

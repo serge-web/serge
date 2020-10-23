@@ -13,6 +13,8 @@ import { FormGroup, clSelect } from '../form-elements/form-group'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 
+import { PlanningStates } from '@serge/config'
+
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
@@ -95,13 +97,13 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
         forceColor={icon.forceColor}
         platformType={icon.platformType}
       >
-        {formHeader}
+        {formHeader} {plannedRouteStatusVal}
         { plansSubmitted &&
          <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
         }
 
       </TitleWithIcon>
-      { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
+      { plannedRouteStatusVal === PlanningStates.Pending && <span> Reviewed </span>}
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Planned Route" align="right">
           { !formDisabled &&
@@ -109,19 +111,20 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
           }
         </FormGroup>
         {
-          plannedRouteStatusVal === 'rejected' && <div>
-            <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
+          plannedRouteStatusVal !== PlanningStates.Planning && false && <div>
+            {statusVal.name} - {statusVal.mobile && speedVal}
+            {/* <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
             { statusVal.mobile &&
               <RCB type="radio" label="Speed (kts)" name="speed" options={speed} value={speedVal} updateState={changeHandler}/>
-            }
+            } */}
           </div>
         }
-        {
-          plannedRouteStatusVal !== 'rejected' && <>
+          
             <FormGroup title="State" align="right">
               <Select
                 className={clSelect}
                 value={statusVal.name}
+                disabled={plannedRouteStatusVal != PlanningStates.Planning}
                 onChange={statusHandler}
               >
                 {status.map((s: any) => (
@@ -132,14 +135,15 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
             <FormGroup title="Speed (kts)" titlePosition="absolute">
               {speed.length > 0 &&
                 <Speed
+                  disabled={plannedRouteStatusVal != PlanningStates.Planning}
                   value = { speedVal }
                   options = { speed }
                   onClick = { speedHandler }
                 />
               }
             </FormGroup>
-          </>
-        }
+         
+       
       </fieldset>
       }
       <fieldset>
