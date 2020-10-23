@@ -5,6 +5,7 @@ interface CssExports {
   'result': string;
   'speed': string;
   'speed-active': string;
+  'speed-enabled': string;
   'speed-inner': string;
   'speed-item': string;
   'speed-items': string;
