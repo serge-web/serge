@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="write-message-panel"
+>
+  <section
+    className="input-container disable-offset"
+  >
+    <div
+      className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+    >
+      <div
+        className="MuiInputBase-root MuiFilledInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInputBase-formControl"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          autoFocus={false}
+          className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2"
+          disabled={false}
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={false}
+          rows={2}
+          type="text"
+        />
+      </div>
+    </div>
+  </section>
+  <div
+    className="send-message-icon"
+  >
+    <img
+      src="./images/send_message.png"
+    />
+  </div>
+</div>
+`;
