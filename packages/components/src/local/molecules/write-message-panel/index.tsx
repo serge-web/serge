@@ -9,7 +9,7 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const WriteMessagePanel: React.FC<Props> = ({ isUmpire }) => {
+export const WriteMessagePanel: React.FC<Props> = ({ isUmpire }: Props) => {
   return (
     <div className={styles['write-message-panel']}>
       <ChatTextInput multiline={true} fullWidth variant="filled"
