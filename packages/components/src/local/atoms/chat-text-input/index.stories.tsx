@@ -9,7 +9,7 @@ import docs from './README.md'
 const BlueContainer = styled(Box)({
   backgroundColor: '#394959',
   padding: '20px'
-}) 
+})
 
 export default {
   title: 'local/atoms/ChatTextInput',
@@ -32,7 +32,7 @@ const rowValues = {
 
 export const Default: React.FC = () => (
   <BlueContainer>
-    <ChatTextInput multiline={boolean('Multi-Line', true)} fullWidth variant="filled" placeholder="type the text" rowsMax={number('Max rows', 4, rowValues)}  rows={number('Rows', 2, rowValues)}/>
+    <ChatTextInput multiline={boolean('Multi-Line', true)} fullWidth variant="filled" placeholder="type the text" rowsMax={number('Max rows', 4, rowValues)} rows={number('Rows', 2, rowValues)}/>
   </BlueContainer>
 )
 

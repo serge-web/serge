@@ -1,14 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TextInput renders correctly 1`] = `
+exports[`ChatTextInput renders correctly 1`] = `
 <section
   className="input-container disable-offset"
 >
-  <div
-    className="MuiBox-root MuiBox-root-4 input-label"
-  >
-    Turns
-  </div>
   <div
     className="MuiFormControl-root MuiTextField-root"
   >
@@ -21,7 +16,6 @@ exports[`TextInput renders correctly 1`] = `
         autoFocus={false}
         className="MuiInputBase-input MuiInput-input"
         disabled={false}
-        name="turns"
         onAnimationStart={[Function]}
         onBlur={[Function]}
         onChange={[Function]}
