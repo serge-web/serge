@@ -9,7 +9,7 @@ export default interface PropTypes {
    */
   value?: number | string
   /**
-   * The number of lines the input should have (default 1)
+   * Whether to use multiline display
    */
   multiline?: boolean
   /**
@@ -29,7 +29,7 @@ export default interface PropTypes {
    */
   fullWidth?: boolean
   /**
-   * Multiline rows length
+   * Multiline initial rows length
    */
   rows?: number
   /**
