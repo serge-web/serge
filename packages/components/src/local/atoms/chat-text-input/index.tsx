@@ -46,7 +46,7 @@ export const ChatTextInput: React.FC<PropTypes> = ({
   const [inputValue, setInputValue] = useState(value)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setInputValue(event.target.value)
-    updateState(event.target)
+    updateState && updateState(event.target)
   }
   const isFilled = variant === 'filled'
   const filledClasses = useFilledStyle()
