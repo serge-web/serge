@@ -18,7 +18,7 @@ export const WriteMessagePanel: React.FC<Props> = ({ isUmpire }: Props) => {
         <img src="./images/send_message.png" />
       </div>
       { isUmpire &&
-      <div className={styles['private-chat-text-input']}>
+      <div className={styles['private-chat-text-block']}>
         <PrivateChatTextInput />
       </div>
       }
