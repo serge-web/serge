@@ -1,0 +1,12 @@
+.write-message-panel {
+  position: relative;
+  .private-chat-text-input {
+    padding-top: 13px;
+  }
+  .send-message-icon {
+    position: absolute;
+    top: 21px;
+    right: 20px;
+    cursor: pointer;
+  }
+}
