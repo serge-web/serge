@@ -9,17 +9,19 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const WriteMessagePanel: React.FC<Props> = () => {
+export const WriteMessagePanel: React.FC<Props> = ({isUmpire}) => {
   return (
     <div className={styles['write-message-panel']}>
-      <ChatTextInput multiline={true} fullWidth variant="filled" 
-          rowsMax={4} rows={2} />
+      <ChatTextInput multiline={true} fullWidth variant="filled"
+        rowsMax={4} rows={2} />
       <div className={styles['send-message-icon']}>
         <img src="./images/send_message.png" />
       </div>
+      { isUmpire &&
       <div className={styles['private-chat-text-input']}>
         <PrivateChatTextInput />
       </div>
+      }
     </div>
   )
 }
