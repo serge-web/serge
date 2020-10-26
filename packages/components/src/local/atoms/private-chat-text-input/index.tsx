@@ -36,8 +36,8 @@ export const PrivateChatTextInput: React.FC<Props> = () => {
       <>
         {!collapsed
           ? <div className={styles['chat-text-input']}>
-            <ChatTextInput multiline={true} fullWidth variant="filled" 
-              placeholder="A private message is sent at the same time as the main message, but is only visible to other umpires." 
+            <ChatTextInput multiline={true} fullWidth variant="filled"
+              placeholder="A private message is sent at the same time as the main message, but is only visible to other umpires."
               rowsMax={4} rows={2} />
           </div> : null
         }
