@@ -8,17 +8,17 @@ import WriteMessagePanel from './index'
  * https://github.com/mui-org/material-ui/issues/16491
  */
 const createNodeMock = (element: any): any => {
-  if (element.type === "textarea") {
-    return document.createElement("textarea");
+  if (element.type === 'textarea') {
+    return document.createElement('textarea')
   } else {
-    return null;
+    return null
   }
-};
+}
 
 it('renders correctly', () => {
   const tree = renderer
     .create(
-      <WriteMessagePanel isUmpire={true}/>, {createNodeMock}
+      <WriteMessagePanel isUmpire={true}/>, { createNodeMock }
     )
     .toJSON()
   expect(tree).toMatchSnapshot()
