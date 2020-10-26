@@ -11,13 +11,13 @@ exports[`renders correctly 1`] = `
       className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
     >
       <div
-        className="MuiInputBase-root MuiFilledInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInputBase-formControl"
+        className="MuiInputBase-root MuiFilledInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-3"
         onClick={[Function]}
       >
-        <input
+        <textarea
           aria-invalid={false}
           autoFocus={false}
-          className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2"
+          className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
           disabled={false}
           onAnimationStart={[Function]}
           onBlur={[Function]}
@@ -25,7 +25,29 @@ exports[`renders correctly 1`] = `
           onFocus={[Function]}
           required={false}
           rows={2}
-          type="text"
+          style={
+            Object {
+              "height": 0,
+              "overflow": "hidden",
+            }
+          }
+        />
+        <textarea
+          aria-hidden={true}
+          className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+          readOnly={true}
+          style={
+            Object {
+              "height": 0,
+              "left": 0,
+              "overflow": "hidden",
+              "position": "absolute",
+              "top": 0,
+              "transform": "translateZ(0)",
+              "visibility": "hidden",
+            }
+          }
+          tabIndex={-1}
         />
       </div>
     </div>
