@@ -7,7 +7,7 @@ describe('WriteMessagePanel component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <WriteMessagePanel />
+        <WriteMessagePanel isUmpire={true}/>
       )
       .toJSON()
     expect(tree).toMatchSnapshot()
