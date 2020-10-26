@@ -12,8 +12,8 @@ import styles from './styles.module.scss'
 export const WriteMessagePanel: React.FC<Props> = ({ isUmpire }: Props) => {
   return (
     <div className={styles['write-message-panel']}>
-      { <ChatTextInput multiline={false} fullWidth variant="filled"
-        rowsMax={4} rows={2}/> }
+      <ChatTextInput multiline={false} fullWidth variant="filled"
+        rowsMax={4} rows={2}/>
       <div className={styles['send-message-icon']}>
         <img src="./images/send_message.png" />
       </div>
