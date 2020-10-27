@@ -8,6 +8,10 @@ export default interface PropTypes {
    */
   status: string
   /**
+   * If the status is mobile
+   */
+  isMobile: boolean
+  /**
    * Sets the onChange state on a parent
    */
   updateState?: any

@@ -9,7 +9,7 @@ import { PlanningStates } from '@serge/config'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const PlannedRoute: React.FC<PropTypes> = ({ name, status, updateState }) => {
+export const PlannedRoute: React.FC<PropTypes> = ({ name, status, updateState, isMobile }) => {
   const handleChange = (name: string, value: string): void => {
     updateState({
       name,
@@ -21,7 +21,7 @@ export const PlannedRoute: React.FC<PropTypes> = ({ name, status, updateState })
 
     { status === PlanningStates.Pending && <Button onClick={(): void => handleChange(name, PlanningStates.Accepted)}>Accept</Button> }
     { status === PlanningStates.Pending && <Button onClick={(): void => handleChange(name, PlanningStates.Rejected)}>Reject</Button> }
-    { status === PlanningStates.Rejected && <Button onClick={(): void => handleChange(name, PlanningStates.Planning)}>Plan Route</Button> }
+    { status === PlanningStates.Rejected && isMobile && <Button onClick={(): void => handleChange(name, PlanningStates.Planning)}>Plan Route</Button> }
     { (status !== PlanningStates.Pending) && <Button onClick={(): void => handleChange(name, PlanningStates.Pending)}>Revert</Button> }
 
   </div>
