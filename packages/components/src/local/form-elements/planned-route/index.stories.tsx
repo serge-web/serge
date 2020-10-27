@@ -28,9 +28,7 @@ const handleChange = (message: any): void => {
   alert('Moving to new state:' + message.value)
 }
 
-export const Default: React.FC = () => <PlannedRoute name="plannedRouteStatus" 
-  isMobile={boolean('Current status is mobile', true)} 
+export const Default: React.FC = () => <PlannedRoute name="plannedRouteStatus"
+  isMobile={boolean('Current status is mobile', true)}
   updateState={handleChange}
   status={radios('Current planning state', states, PlanningStates.Pending)}/>
-
-

@@ -16,7 +16,6 @@ import Option from './types/option'
 
 /* Render component */
 export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState, compact, className, disableOffset }) => {
-
   const [checkedArray, updateCheckedArray] = useState(
     options.map((o: any) => {
       const opt = o.name || o
