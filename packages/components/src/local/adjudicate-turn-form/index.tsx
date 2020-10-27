@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -20,14 +20,18 @@ import styles from './styles.module.scss'
 
 /* Import helpers */
 import { isNumber } from '@serge/helpers'
+import { PlanTurnFormValues, Status } from '@serge/custom-types'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, icon, plansSubmitted, canSubmitPlans, routeAccepted }) => {
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, icon, plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned }) => {
   const [formState, setFormState] = useState(formData.values)
+  const [stateIsMobile, setStateIsMobile] = useState<boolean>(false)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
   const { status, speed, visibleTo, condition } = formData.populate
   const { plannedRouteStatusVal, statusVal, speedVal, visibleToVal, conditionVal } = formState
+
+  const canChangeState: boolean = plannedRouteStatusVal === PlanningStates.Rejected 
 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
@@ -36,8 +40,42 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
   }
 
   const clickHandler = (data: any): void => {
+    console.log('click', data)
     updateState(data)
   }
+
+  useEffect(() => {
+    console.log('speeds', speed)
+  }, [speed])
+
+  useEffect(() => {
+    console.log('status', formState)
+    const newStatus: Status | undefined = formState && formState.statusVal
+    if(newStatus) {
+      setStateIsMobile(newStatus.mobile)
+      console.log('form data', formData.populate)
+    }
+  }, [formState])
+
+
+  useEffect(() => {
+    console.log('new planed status', plannedRouteStatusVal)
+    // see if we've just entered planning phase
+    if(plannedRouteStatusVal === PlanningStates.Planning) {
+      const state: Status | undefined = formState && formState.statusVal
+      if(state) {
+        // ok, start planning
+        const turnData: PlanTurnFormValues = {
+          statusVal: state,
+          speedVal: speedVal,
+          turnsVal: 1
+        }
+        if(turnPlanned) {
+          turnPlanned(turnData)
+        }
+      }
+    }
+  }, [plannedRouteStatusVal])
 
   // Status has a different data model and requires it's own handler
 
@@ -107,14 +145,14 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Planned Route" align="right">
           { !formDisabled &&
-            <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
+            <PlannedRoute name="plannedRouteStatus" isMobile={stateIsMobile} status={plannedRouteStatusVal} updateState={clickHandler} />
           }
         </FormGroup>
         <FormGroup title="State" align="right">
           <Select
             className={clSelect}
             value={statusVal.name}
-            disabled={plannedRouteStatusVal !== PlanningStates.Planning}
+            disabled={ !canChangeState }
             onChange={statusHandler}
           >
             {status.map((s: any) => (
@@ -122,17 +160,17 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
             ))}
           </Select>
         </FormGroup>
-        <FormGroup title="Speed (kts)" titlePosition="absolute">
-          {speed.length > 0 &&
-            <Speed
-              disabled={plannedRouteStatusVal !== PlanningStates.Planning}
-              value = { speedVal }
-              options = { speed }
-              onClick = { speedHandler }
-            />
-          }
-        </FormGroup>
-      </fieldset>
+        {speed.length > 0 && formState && formState.statusVal && formState.statusVal.mobile &&
+          <FormGroup title="Speed (kts)" titlePosition="absolute">
+              <Speed
+                disabled={ !canChangeState }
+                value = { speedVal }
+                options = { speed }
+                onClick = { speedHandler }
+              />
+          </FormGroup>
+        }
+        </fieldset>
       }
       <fieldset>
         <FormGroup title="Visible to" align="right">
