@@ -335,15 +335,15 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-  /** determine if the route from the adjudication step is different to what the 
+  /** determine if the route from the adjudication step is different to what the
    * force had planned
    * TODO: refactor to standalone function/helper
    */
   const routeChanged = (existingPlanned: RouteStep[] | undefined, adjudicated: AdjudicateTurnFormValues): boolean => {
-    if(!existingPlanned || existingPlanned.length === 0) {
+    if (!existingPlanned || existingPlanned.length === 0) {
       return true
     } else {
-      return (existingPlanned != undefined) || (adjudicated.speedVal > 0)
+      return (existingPlanned !== undefined) || (adjudicated.speedVal > 0)
     }
   }
 
@@ -360,8 +360,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (selRoute) {
       // check if old planned route is different to the one from adjudication
       const routeDifferent: boolean = routeChanged(selRoute.planned, plannedRoute)
-      if(routeDifferent)
-      {
+      if (routeDifferent) {
         // different. Store the new route
         // Create new route object
         // Store the new route
@@ -370,7 +369,6 @@ export const Mapping: React.FC<PropTypes> = ({
       } else {
         // route unchanged, so we don't need to do anything.
       }
-      
 
       // const turnStart = selRoute.planned && selRoute.planned.length
       //   ? selRoute.planned[selRoute.planned.length - 1].turn
