@@ -205,7 +205,8 @@ export const MapBar: React.FC = () => {
           canSubmitPlans={canSubmitOrders}
           formData={collateAdjudicationFormData(platforms, selectedAsset, forces)}
           icon={icondData}
-          routeAccepted={routeAccepted} />
+          routeAccepted={routeAccepted}
+          turnPlanned={turnPlanned} />
         break
       case 'Planning':
         output = <PlanTurnForm
