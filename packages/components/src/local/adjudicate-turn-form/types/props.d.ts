@@ -1,4 +1,4 @@
-import { AdjudicateTurnFormData, AdjudicateTurnFormValues } from '@serge/custom-types'
+import { AdjudicateTurnFormData, AdjudicateTurnFormValues, PlanTurnFormValues } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -28,4 +28,8 @@ export default interface PropTypes {
    * whether this user can plan turns
    */
   canSubmitPlans: boolean
+  /**
+   * The method for posting messages out of the mapping component
+   */
+  turnPlanned?: {(turn: PlanTurnFormValues): void}
 }
