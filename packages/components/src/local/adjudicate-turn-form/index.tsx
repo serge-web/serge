@@ -25,13 +25,15 @@ import { PlanTurnFormValues, Status } from '@serge/custom-types'
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, icon, plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned }) => {
   const [formState, setFormState] = useState(formData.values)
-  const [stateIsMobile, setStateIsMobile] = useState<boolean>(false)
+
+  // flag for if the current state is mobile
+  const [stateIsMobile, setStateIsMobile] = useState<boolean>(formState.statusVal.mobile)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
   const { status, speed, visibleTo, condition } = formData.populate
   const { plannedRouteStatusVal, statusVal, speedVal, visibleToVal, conditionVal } = formState
 
-  const canChangeState: boolean = plannedRouteStatusVal === PlanningStates.Rejected 
+  const canChangeState: boolean = plannedRouteStatusVal === PlanningStates.Rejected
 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
@@ -40,37 +42,29 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
   }
 
   const clickHandler = (data: any): void => {
-    console.log('click', data)
     updateState(data)
   }
 
   useEffect(() => {
-    console.log('speeds', speed)
-  }, [speed])
-
-  useEffect(() => {
     console.log('status', formState)
     const newStatus: Status | undefined = formState && formState.statusVal
-    if(newStatus) {
+    if (newStatus) {
       setStateIsMobile(newStatus.mobile)
-      console.log('form data', formData.populate)
     }
   }, [formState])
 
-
   useEffect(() => {
-    console.log('new planed status', plannedRouteStatusVal)
     // see if we've just entered planning phase
-    if(plannedRouteStatusVal === PlanningStates.Planning) {
+    if (plannedRouteStatusVal === PlanningStates.Planning) {
       const state: Status | undefined = formState && formState.statusVal
-      if(state) {
+      if (state) {
         // ok, start planning
         const turnData: PlanTurnFormValues = {
           statusVal: state,
           speedVal: speedVal,
           turnsVal: 1
         }
-        if(turnPlanned) {
+        if (turnPlanned) {
           turnPlanned(turnData)
         }
       }
@@ -162,15 +156,15 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
         </FormGroup>
         {speed.length > 0 && formState && formState.statusVal && formState.statusVal.mobile &&
           <FormGroup title="Speed (kts)" titlePosition="absolute">
-              <Speed
-                disabled={ !canChangeState }
-                value = { speedVal }
-                options = { speed }
-                onClick = { speedHandler }
-              />
+            <Speed
+              disabled={ !canChangeState }
+              value = { speedVal }
+              options = { speed }
+              onClick = { speedHandler }
+            />
           </FormGroup>
         }
-        </fieldset>
+      </fieldset>
       }
       <fieldset>
         <FormGroup title="Visible to" align="right">
