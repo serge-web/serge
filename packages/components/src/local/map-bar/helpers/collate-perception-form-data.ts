@@ -14,7 +14,7 @@ const collatePerceptionFormData = (platforms: any, playerForce: string, selected
   const asset = findAsset(forces, selectedAsset.uniqid)
   const [nameT, forceT, typeT] = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
     selectedAsset.force, selectedAsset.type, asset.perceptions, userIsUmpire)
-  const availableForceList: ColorOption[] = availableForces(forces, true)
+  const availableForceList: ColorOption[] = availableForces(forces, true, true)
   const platformTypes = platforms && platforms.map((p: any) => p.name)
   platformTypes.push('Unknown')
   const formData: PerceptionFormData = {

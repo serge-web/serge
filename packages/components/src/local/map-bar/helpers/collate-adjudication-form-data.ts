@@ -14,7 +14,7 @@ const collateAdjudicationFormData = (platforms: any, selectedAsset: SelectedAsse
 ): AdjudicateTurnFormData => {
   const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
   const availableStatus = currentPlatform && currentPlatform.states.find((s: any) => s.name === selectedAsset.status.state)
-  const availableForcesList: ColorOption[] = availableForces(forces, true)
+  const availableForcesList: ColorOption[] = availableForces(forces, false, true)
   const formData: AdjudicateTurnFormData = {
     populate: {
       status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : [],
