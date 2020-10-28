@@ -6,8 +6,8 @@ import { PlanningStates } from '@serge/config'
 import { deepCompare } from '@serge/helpers'
 
 const routeIsPlannedFor = (store: RouteStore): boolean => {
-  const route:Route | undefined = store.selected 
-  if(route) {
+  const route: Route | undefined = store.selected
+  if (route) {
     const planned = route.planned
     const original = route.original
     return deepCompare(planned, original)
