@@ -10,7 +10,7 @@ const routeIsPlannedFor = (store: RouteStore): boolean => {
   if (route) {
     const planned = route.planned
     const original = route.original
-    return deepCompare(planned, original)
+    return !deepCompare(planned, original)
   } else {
     return false
   }
