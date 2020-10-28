@@ -193,6 +193,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
           
           <label
             className="MuiFormControlLabel-root"
+            title="Blue Force"
           >
             <span
               aria-disabled={false}
@@ -237,7 +238,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
             <span
               className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
             >
-              <div>
+              <span>
                 <span
                   className="color-box"
                   style={
@@ -246,12 +247,12 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
                     }
                   }
                 />
-                Blue Force
-              </div>
+              </span>
             </span>
           </label>
           <label
             className="MuiFormControlLabel-root"
+            title="Red Force"
           >
             <span
               aria-disabled={false}
@@ -296,7 +297,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
             <span
               className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
             >
-              <div>
+              <span>
                 <span
                   className="color-box"
                   style={
@@ -305,12 +306,12 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
                     }
                   }
                 />
-                Red Force
-              </div>
+              </span>
             </span>
           </label>
           <label
             className="MuiFormControlLabel-root"
+            title="White Force"
           >
             <span
               aria-disabled={false}
@@ -355,7 +356,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
             <span
               className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
             >
-              <div>
+              <span>
                 <span
                   className="color-box"
                   style={
@@ -364,8 +365,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
                     }
                   }
                 />
-                White Force
-              </div>
+              </span>
             </span>
           </label>
         </section>
@@ -393,6 +393,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
           >
             <label
               className="MuiFormControlLabel-root"
+              title="Working"
             >
               <span
                 aria-disabled={false}
@@ -455,6 +456,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
             </label>
             <label
               className="MuiFormControlLabel-root"
+              title="Disabled"
             >
               <span
                 aria-disabled={false}
@@ -517,6 +519,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
             </label>
             <label
               className="MuiFormControlLabel-root"
+              title="Immobile"
             >
               <span
                 aria-disabled={false}
@@ -579,6 +582,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
             </label>
             <label
               className="MuiFormControlLabel-root"
+              title="Destroyed"
             >
               <span
                 aria-disabled={false}
