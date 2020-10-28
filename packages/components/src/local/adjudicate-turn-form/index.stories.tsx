@@ -5,6 +5,7 @@ import AdjudicateTurnForm from './index'
 import docs from './README.md'
 import formData from './mocks/formData'
 import { AdjudicateTurnFormValues } from '@serge/custom-types'
+import { PlanningStates } from '@serge/config'
 
 export default {
   title: 'local/AdjudicateTurnForm',
@@ -26,6 +27,7 @@ const routeAccepted = (route: AdjudicateTurnFormValues): void => {
 
 export const Default: React.FC = () => <AdjudicateTurnForm
   routeAccepted={routeAccepted}
+  plannedRouteStatus={PlanningStates.Pending}
   icon={iconData}
   canSubmitPlans={true}
   plansSubmitted={false}
@@ -34,6 +36,7 @@ export const Default: React.FC = () => <AdjudicateTurnForm
 
 export const TurnsPlanned: React.FC = () => <AdjudicateTurnForm
   routeAccepted={routeAccepted}
+  plannedRouteStatus={PlanningStates.Pending}
   icon={iconData}
   canSubmitPlans={true}
   plansSubmitted={true}
@@ -42,6 +45,7 @@ export const TurnsPlanned: React.FC = () => <AdjudicateTurnForm
 
 export const CannotSubmitPlans: React.FC = () => <AdjudicateTurnForm
   routeAccepted={routeAccepted}
+  plannedRouteStatus={PlanningStates.Pending}
   icon={iconData}
   plansSubmitted={false}
   canSubmitPlans={false}

@@ -1,3 +1,4 @@
+import { PlanningStates } from '@serge/config';
 import { AdjudicateTurnFormData, AdjudicateTurnFormValues, PlanTurnFormValues } from '@serge/custom-types'
 
 export default interface PropTypes {
@@ -5,10 +6,14 @@ export default interface PropTypes {
    * The header text for the form
    */
   formHeader: string
-   /**
+  /**
    * All types in this definition are options for a form input
    */
   formData: AdjudicateTurnFormData
+  /**
+   * status of current planned route 
+   */
+  plannedRouteStatus: PlanningStates
   /**
    * Data for icon generation
    */

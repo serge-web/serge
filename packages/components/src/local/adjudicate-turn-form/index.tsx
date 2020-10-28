@@ -21,9 +21,10 @@ import styles from './styles.module.scss'
 /* Import helpers */
 import { isNumber } from '@serge/helpers'
 import { PlanTurnFormValues, Status } from '@serge/custom-types'
+import Badge from '../atoms/badge'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, icon, plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned }) => {
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, plannedRouteStatus, icon, plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned }) => {
   const [formState, setFormState] = useState(formData.values)
 
   // flag for if the current state is mobile
@@ -31,9 +32,16 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
   const { status, speed, visibleTo, condition } = formData.populate
-  const { plannedRouteStatusVal, statusVal, speedVal, visibleToVal, conditionVal } = formState
+  const {   statusVal, speedVal, visibleToVal, conditionVal } = formState
+
+  const [plannedRouteStatusVal, setPlannedRouteStatusVal] = useState<string>(plannedRouteStatus)
 
   const canChangeState: boolean = plannedRouteStatusVal === PlanningStates.Rejected
+
+  useEffect(() => {
+    console.log('planned route status changed from ', plannedRouteStatusVal, ' to ', plannedRouteStatus)
+    setPlannedRouteStatusVal(plannedRouteStatus)
+  }, [plannedRouteStatus])
 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
@@ -42,11 +50,11 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
   }
 
   const clickHandler = (data: any): void => {
+    setPlannedRouteStatusVal(data.value)
     updateState(data)
   }
 
   useEffect(() => {
-    console.log('status', formState)
     const newStatus: Status | undefined = formState && formState.statusVal
     if (newStatus) {
       setStateIsMobile(newStatus.mobile)
@@ -129,13 +137,12 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
         forceColor={icon.forceColor}
         platformType={icon.platformType}
       >
-        {formHeader} {plannedRouteStatusVal}
+        {formHeader} <Badge label={plannedRouteStatusVal} />
         { plansSubmitted &&
          <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
         }
 
       </TitleWithIcon>
-      { plannedRouteStatusVal === PlanningStates.Pending && <span> Reviewed </span>}
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Planned Route" align="right">
           { !formDisabled &&
