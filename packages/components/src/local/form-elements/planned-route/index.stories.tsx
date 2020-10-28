@@ -25,7 +25,7 @@ const states = {
 }
 
 const handleChange = (message: any): void => {
-  alert('Moving to new state:' + message.value)
+  window.alert('Moving to new state:' + message.value)
 }
 
 export const Default: React.FC = () => <PlannedRoute name="plannedRouteStatus"
