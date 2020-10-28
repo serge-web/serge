@@ -85,7 +85,9 @@ export const playerUiReducer = (state = initialState, action) => {
       if (chosenTemplates.length === 0) {
         templates = newState.allTemplates.filter((template) => template.title === 'Chat')
       } else {
-        templates = chosenTemplates.map((template) => template.value)
+        templates = chosenTemplates.map(({ value }) => {
+          return typeof value === 'string' ? newState.allTemplates.find(item => item._id === value) : value
+        })
       }
     }
 
