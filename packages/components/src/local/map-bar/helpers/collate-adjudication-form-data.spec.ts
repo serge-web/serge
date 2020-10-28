@@ -13,7 +13,7 @@ it('contains relevant population results', () => {
   const { condition, speed, status, visibleTo }:
     {condition: Array<string>, speed: Array<number>, status: Array<Status>, visibleTo: Array<ColorOption>} =
     collateAdjudicationFormData(platformTypes, selectedAsset, forces, store).populate
-  expect(condition.length).toEqual(5)
+  expect(condition.length).toEqual(3)
   expect(condition[0]).toEqual('Full capability')
   expect(speed.length).toEqual(3)
   expect(speed[0]).toEqual(10)

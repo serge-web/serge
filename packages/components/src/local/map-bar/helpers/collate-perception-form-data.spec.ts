@@ -12,7 +12,7 @@ it('contains relevant population results', () => {
     uniqid: 'a0pra000100'
   }
   const res: PerceptionFormPopulate = collatePerceptionFormData(platformTypes, 'Blue', selected2, forces, false).populate
-  expect(res.perceivedForce.length).toEqual(5)
+  expect(res.perceivedForce.length).toEqual(4)
   expect(res.perceivedForce[0]).toEqual({ colour: '#FCFBEE', name: 'White' })
   expect(res.perceivedForce).toContainEqual({ colour: '#ccc', name: 'Unknown' })
   expect(res.perceivedType.length).toEqual(13)
