@@ -268,6 +268,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (newLeg) {
+      const inAdjudicate: boolean = phase === ADJUDICATION_PHASE
       const selRoute = routeStore.selected
       if (selRoute) {
         const turnStart = selRoute.planned && selRoute.planned.length
@@ -288,13 +289,18 @@ export const Mapping: React.FC<PropTypes> = ({
             coords: coords,
             locations: locations
           }
-          const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
+
+          // if we're in adjudicate phase, we have to wipe the planned steps, since umpire
+          // only plans next step
+          const readyToAdd: RouteStore = inAdjudicate ? routeClearFromStep(routeStore, selRoute.uniqid, turnNumber) : routeStore
+          const newStore: RouteStore = routeAddSteps(readyToAdd, selRoute.uniqid, [newStep])
           setRouteStore(newStore)
         }
       }
 
-      // if we know our planning constraints, we can plan the next leg
-      if (planningConstraints) {
+      // if we know our planning constraints, we can plan the next leg, as long as we're not
+      // in adjudication phase. In that phase, only one step is created
+      if (planningConstraints && !inAdjudicate) {
         // get the last planned cell, to act as the first new planned cell
         const lastCell: SergeHex<{}> = newLeg.route[newLeg.route.length - 1]
         // create new planning contraints
@@ -305,6 +311,11 @@ export const Mapping: React.FC<PropTypes> = ({
           speed: newLeg.speed
         }
         setPlanningConstraints(newP)
+      } else {
+        // we're in adjudicate mode, cancel the planning
+        setPlanningConstraints(undefined)
+
+        // TODO: we change the status in the adjudicate form
       }
     }
   }, [newLeg])
@@ -403,7 +414,8 @@ export const Mapping: React.FC<PropTypes> = ({
       const status = plannedTurn.statusVal
       if (status.mobile) {
         // trigger route planning
-        const origin: string = routeGetLatestPosition(current.currentPosition, current.planned)
+        const inAdjudicate: boolean = phase === ADJUDICATION_PHASE
+        const origin: string = inAdjudicate ? current.currentPosition : routeGetLatestPosition(current.currentPosition, current.planned)
 
         // sort out platform type for this asset
         const pType = findPlatformTypeFor(platforms, current.platformType)

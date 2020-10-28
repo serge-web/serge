@@ -14,8 +14,14 @@ export enum Phase {
  * the possible states for a planned route
  */
 export enum PlanningStates {
+  /** umpire is planning steps */
   Planning = 'planning',
+  /** umpire has planned steps, but not saved */
+  Planned = 'planned',
+  /** accept/reject decision is pending */
   Pending = 'pending',
+  /** umpire has accepted planned route (even if it's umpire's replacement route) */
   Accepted = 'accepted',
+  /** umpire has rejected planned route */
   Rejected = 'rejected'
 }
