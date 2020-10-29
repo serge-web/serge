@@ -25,6 +25,7 @@ export const PlannedRoute: React.FC<PropTypes> = ({ name, status, updateState, i
     { status === PlanningStates.Rejected && isMobile && <Button onClick={(): void => handleChange(name, PlanningStates.Planning)}>Plan Route</Button> }
     { status === PlanningStates.Planning && <Button onClick={(): void => handleChange(name, PlanningStates.Pending)}>Cancel Planning</Button> }
     { (status !== PlanningStates.Planning && status !== PlanningStates.Pending) && <Button onClick={(): void => handleChange(name, PlanningStates.Pending)}>Revert</Button> }
+    { status === PlanningStates.Planned && <Button onClick={(): void => handleChange(name, PlanningStates.Accepted)}>Accept</Button> }
 
   </div>
 }

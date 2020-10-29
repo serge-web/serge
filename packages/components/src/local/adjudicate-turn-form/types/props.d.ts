@@ -37,4 +37,8 @@ export default interface PropTypes {
    * The method for posting messages out of the mapping component
    */
   turnPlanned?: {(turn: PlanTurnFormValues): void}
+  /**
+   * Handle for if umpire wishes to drop their modifications
+   */
+  revertRouteChanges?: {(): void}
 }

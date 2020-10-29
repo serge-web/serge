@@ -15,4 +15,8 @@ export default interface PropTypes {
    * Sets the onChange state on a parent
    */
   updateState?: any
+  /**
+   * handler for reverting the changesß
+   */
+  revertRouteChanges?: {(): void}
 }

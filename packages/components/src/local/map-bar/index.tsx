@@ -54,6 +54,7 @@ export const MapBar: React.FC = () => {
     routeStore,
     turnPlanned,
     routeAccepted,
+    revertRouteChanges,
     hidePlanningForm,
     setHidePlanningForm,
     groupMoveToRoot,
@@ -78,6 +79,7 @@ export const MapBar: React.FC = () => {
     routeStore: RouteStore
     turnPlanned: {(turn: PlanTurnFormValues): void}
     routeAccepted: {(route: AdjudicateTurnFormValues): void}
+    revertRouteChanges: {(): void}
     hidePlanningForm: boolean
     setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
     groupMoveToRoot?: {(uniqid: string): void}
@@ -207,6 +209,7 @@ export const MapBar: React.FC = () => {
           canSubmitPlans={canSubmitOrders}
           formData={formData}
           icon={icondData}
+          revertRouteChanges={revertRouteChanges}
           routeAccepted={routeAccepted}
           turnPlanned={turnPlanned} />
         break
