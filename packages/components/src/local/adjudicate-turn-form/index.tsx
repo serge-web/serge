@@ -20,26 +20,27 @@ import styles from './styles.module.scss'
 
 /* Import helpers */
 import { isNumber } from '@serge/helpers'
-import { PlanTurnFormValues, Status } from '@serge/custom-types'
+import { AdjudicateTurnFormValues, PlanTurnFormValues, Status } from '@serge/custom-types'
 import Badge from '../atoms/badge'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, plannedRouteStatus, icon, plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned }) => {
-  const [formState, setFormState] = useState(formData.values)
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, plannedRouteStatus, icon, 
+    plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned, revertRouteChanges }) => {
+
+  const [formState, setFormState] = useState<AdjudicateTurnFormValues>(formData.values)
 
   // flag for if the current state is mobile
   const [stateIsMobile, setStateIsMobile] = useState<boolean>(formState.statusVal.mobile)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
   const { status, speed, visibleTo, condition } = formData.populate
-  const {   statusVal, speedVal, visibleToVal, conditionVal } = formState
+  const { statusVal, speedVal, visibleToVal, conditionVal } = formState
 
   const [plannedRouteStatusVal, setPlannedRouteStatusVal] = useState<string>(plannedRouteStatus)
 
   const canChangeState: boolean = plannedRouteStatusVal === PlanningStates.Rejected
 
   useEffect(() => {
-    console.log('planned route status changed from ', plannedRouteStatusVal, ' to ', plannedRouteStatus)
     setPlannedRouteStatusVal(plannedRouteStatus)
   }, [plannedRouteStatus])
 
@@ -146,7 +147,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Planned Route" align="right">
           { !formDisabled &&
-            <PlannedRoute name="plannedRouteStatus" isMobile={stateIsMobile} status={plannedRouteStatusVal} updateState={clickHandler} />
+            <PlannedRoute name="plannedRouteStatus" isMobile={stateIsMobile} status={plannedRouteStatusVal} updateState={clickHandler} revertChanges={revertRouteChanges} />
           }
         </FormGroup>
         <FormGroup title="State" align="right">
@@ -161,7 +162,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
             ))}
           </Select>
         </FormGroup>
-        {speed.length > 0 && formState && formState.statusVal && formState.statusVal.mobile &&
+        {speed.length > 0 && formState.statusVal && formState.statusVal.mobile &&
           <FormGroup title="Speed (kts)" titlePosition="absolute">
             <Speed
               disabled={ !canChangeState }
@@ -182,7 +183,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
         </FormGroup>
       </fieldset>
       { !formDisabled &&
-        <Button onClick={submitForm}>Save</Button>
+        <Button disabled={ plannedRouteStatusVal !== PlanningStates.Accepted } onClick={submitForm}>Save</Button>
       }
     </div>
   )
