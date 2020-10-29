@@ -354,7 +354,15 @@ export const Mapping: React.FC<PropTypes> = ({
     if (!existingPlanned || existingPlanned.length === 0) {
       return true
     } else {
-      return (existingPlanned !== undefined) || (adjudicated.speedVal > 0)
+      // TODO: compare the next step with the adjudicated plan
+      return  (adjudicated.speedVal > 0)
+    }
+  }
+
+  const revertRouteChanges = (): void => {
+    // TODO: implement this code
+    if(routeStore.selected) {
+      console.log('clear changing route for ', routeStore.selected.name)
     }
   }
 
@@ -527,6 +535,7 @@ export const Mapping: React.FC<PropTypes> = ({
     turnPlanned,
     routeAccepted,
     clearFromTurn,
+    revertRouteChanges,
     postBack,
     hidePlanningForm,
     setHidePlanningForm,
