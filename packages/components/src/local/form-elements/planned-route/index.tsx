@@ -35,9 +35,10 @@ export const PlannedRoute: React.FC<PropTypes> = ({ name, status, updateState, i
         return <Button onClick={(): void => handleChange(name, PlanningStates.Rejected)}>Cancel Planning</Button>
       case PlanningStates.Planned:
         return <><Button onClick={(): void => handleChange(name, PlanningStates.Accepted)}>Accept</Button>
-          <Button onClick={(): void => handleChange(name, PlanningStates.Rejected)}>Revert</Button> </>
-      case PlanningStates.Accepted:
-        return <span>Nothing to see</span>
+          <Button onClick={(): void => handleChange(name, PlanningStates.Rejected)}>Revert</Button>
+          <Button onClick={(): void => handleChange(name, PlanningStates.Planning)}>Clear Route</Button> </>
+          case PlanningStates.Accepted:
+        return <Button onClick={(): void => handleChange(name, PlanningStates.Pending)}>Revert</Button>
       default:
         return <></>
     }
