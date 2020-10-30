@@ -18,15 +18,34 @@ export const PlannedRoute: React.FC<PropTypes> = ({ name, status, updateState, i
     })
   }
 
+  const buttonsFor = (status: string, isMobile: boolean): React.ReactNode => {
+    switch(status) {
+      case PlanningStates.Pending:
+        return <><Button onClick={(): void => handleChange(name, PlanningStates.Accepted)}>Accept</Button>
+        <Button onClick={(): void => handleChange(name, PlanningStates.Rejected)}>Reject</Button> </>
+      case PlanningStates.Rejected:
+        if(isMobile) {
+          return <><Button onClick={(): void => handleChange(name, PlanningStates.Planning)}>Plan Route</Button>
+          <Button onClick={(): void => handleChange(name, PlanningStates.Pending)}>Revert</Button> </>
+        } else {
+          return <><Button onClick={(): void => handleChange(name, PlanningStates.Accepted)}>Accept</Button>
+          <Button onClick={(): void => handleChange(name, PlanningStates.Pending)}>Revert</Button> </>
+        }
+      case PlanningStates.Planning:
+        return <Button onClick={(): void => handleChange(name, PlanningStates.Rejected)}>Cancel Planning</Button>
+      case PlanningStates.Planned:
+        return <><Button onClick={(): void => handleChange(name, PlanningStates.Accepted)}>Accept</Button>
+        <Button onClick={(): void => handleChange(name, PlanningStates.Rejected)}>Revert</Button> </>
+      case PlanningStates.Accepted:
+        return <span>Nothing to see</span>
+      default: 
+        return <></>
+      }
+
+  }
+
   return <div className={styles['planned-route']}>
-
-    { status === PlanningStates.Pending && <Button onClick={(): void => handleChange(name, PlanningStates.Accepted)}>Accept</Button> }
-    { status === PlanningStates.Pending && <Button onClick={(): void => handleChange(name, PlanningStates.Rejected)}>Reject</Button> }
-    { status === PlanningStates.Rejected && isMobile && <Button onClick={(): void => handleChange(name, PlanningStates.Planning)}>Plan Route</Button> }
-    { status === PlanningStates.Planning && <Button onClick={(): void => handleChange(name, PlanningStates.Pending)}>Cancel Planning</Button> }
-    { (status !== PlanningStates.Planning && status !== PlanningStates.Pending) && <Button onClick={(): void => handleChange(name, PlanningStates.Pending)}>Revert</Button> }
-    { status === PlanningStates.Planned && <Button onClick={(): void => handleChange(name, PlanningStates.Accepted)}>Accept</Button> }
-
+    { buttonsFor(status, isMobile) }
   </div>
 }
 
