@@ -18,6 +18,7 @@ export const WriteMessagePanel: React.FC<Props> = ({ isUmpire }: Props) => {
         variant="filled"
         rowsMax={4}
         rows={2}
+        placeholder="type the text"
       />
       <div className={styles['send-message-icon']}>
         <img src="./images/send_message.png" />

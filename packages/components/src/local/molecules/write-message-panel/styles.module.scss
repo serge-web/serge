@@ -1,11 +1,14 @@
 .write-message-panel {
   position: relative;
+  padding: 10px;
+  background-color: #00274B;
+  border-radius: 5px 5px 0px 0px;
   .private-chat-text-block {
     padding-top: 13px;
   }
   .send-message-icon {
     position: absolute;
-    top: 21px;
+    top: 31px;
     right: 20px;
     cursor: pointer;
   }

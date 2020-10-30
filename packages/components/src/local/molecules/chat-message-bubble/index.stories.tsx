@@ -14,7 +14,7 @@ const BlueContainer = styled(Box)({
   padding: '20px',
   borderRadius: '2px'
 })
-const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+const wrapper: React.FC = (storyFn: any) => <div>{storyFn()}</div>
 export default {
   title: 'local/molecules/ChatMessageBubble',
   component: ChatMessageBubble,
