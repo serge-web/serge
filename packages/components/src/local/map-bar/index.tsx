@@ -200,7 +200,7 @@ export const MapBar: React.FC = () => {
           postBack={postBack} />
         break
       case 'Adjudication':
-        var formData = collateAdjudicationFormData(platforms, selectedAsset, forces, routeStore)
+        let formData = collateAdjudicationFormData(platforms, selectedAsset, forces, routeStore)
         output = <AdjudicateTurnForm
           key={selectedAsset.uniqid}
           plannedRouteStatus={formData.values.plannedRouteStatusVal}
