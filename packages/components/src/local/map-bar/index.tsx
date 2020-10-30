@@ -180,8 +180,7 @@ export const MapBar: React.FC = () => {
   }
 
   /* TODO: This should be refactored into a helper */
-  const formSelector = (): any => {
-    let output = null
+  const formSelector = (): React.ReactNode => {
     // do a fresh calculation on which form to display, to overcome
     // an async state update issue
     const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase)
@@ -191,17 +190,16 @@ export const MapBar: React.FC = () => {
     }
     switch (form) {
       case 'PerceivedAs':
-        output = <PerceptionForm
+        return <PerceptionForm
           key={selectedAsset.uniqid}
           type={selectedAsset.type}
           force={selectedAsset.force}
           formData={collatePerceptionFormData(platforms, playerForce, selectedAsset, forces, userIsUmpire || false)}
           channelID={channelID}
           postBack={postBack} />
-        break
-      case 'Adjudication':
-        let formData = collateAdjudicationFormData(platforms, selectedAsset, forces, routeStore)
-        output = <AdjudicateTurnForm
+      case 'Adjudication': {
+        const formData = collateAdjudicationFormData(platforms, selectedAsset, forces, routeStore)
+        return <AdjudicateTurnForm
           key={selectedAsset.uniqid}
           plannedRouteStatus={formData.values.plannedRouteStatusVal}
           plansSubmitted={plansSubmitted}
@@ -211,10 +209,10 @@ export const MapBar: React.FC = () => {
           icon={icondData}
           revertRouteChanges={revertRouteChanges}
           routeAccepted={routeAccepted}
-          turnPlanned={turnPlanned} />
-        break
+          turnPlanned={turnPlanned} />  
+        }
       case 'Planning':
-        output = <PlanTurnForm
+        return <PlanTurnForm
           icon={icondData}
           setHidePlanningForm={setHidePlanningForm}
           canSubmitPlans={canSubmitOrders}
@@ -224,12 +222,9 @@ export const MapBar: React.FC = () => {
           formData={collatePlanFormData(platforms, selectedAsset)}
           channelID={channelID}
           turnPlanned={turnPlanned} />
-        break
       default:
-        output = null
-        break
+        return <></>
     }
-    return output
   }
 
   return (
