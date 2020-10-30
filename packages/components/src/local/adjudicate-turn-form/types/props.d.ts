@@ -1,4 +1,4 @@
-import { PlanningStates } from '@serge/config';
+import { PlanningStates } from '@serge/config'
 import { AdjudicateTurnFormData, AdjudicateTurnFormValues, PlanTurnFormValues } from '@serge/custom-types'
 
 export default interface PropTypes {
@@ -11,7 +11,7 @@ export default interface PropTypes {
    */
   formData: AdjudicateTurnFormData
   /**
-   * status of current planned route 
+   * status of current planned route
    */
   plannedRouteStatus: PlanningStates
   /**

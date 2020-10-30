@@ -24,9 +24,10 @@ import { AdjudicateTurnFormValues, PlanTurnFormValues, Status } from '@serge/cus
 import Badge from '../atoms/badge'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, plannedRouteStatus, icon, 
-    plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned, revertRouteChanges }) => {
-
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({
+  formHeader, formData, plannedRouteStatus, icon,
+  plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned, revertRouteChanges
+}) => {
   const [formState, setFormState] = useState<AdjudicateTurnFormValues>(formData.values)
 
   // flag for if the current state is mobile
@@ -147,7 +148,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Planned Route" align="right">
           { !formDisabled &&
-            <PlannedRoute name="plannedRouteStatus" isMobile={stateIsMobile} status={plannedRouteStatusVal} updateState={clickHandler} revertChanges={revertRouteChanges} />
+            <PlannedRoute name="plannedRouteStatus" isMobile={stateIsMobile} status={plannedRouteStatusVal} updateState={clickHandler} revertRouteChanges={revertRouteChanges} />
           }
         </FormGroup>
         <FormGroup title="State" align="right">

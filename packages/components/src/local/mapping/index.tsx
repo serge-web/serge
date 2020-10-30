@@ -355,13 +355,13 @@ export const Mapping: React.FC<PropTypes> = ({
       return true
     } else {
       // TODO: compare the next step with the adjudicated plan
-      return  (adjudicated.speedVal > 0)
+      return (adjudicated.speedVal > 0)
     }
   }
 
   const revertRouteChanges = (): void => {
     // TODO: implement this code
-    if(routeStore.selected) {
+    if (routeStore.selected) {
       console.log('clear changing route for ', routeStore.selected.name)
     }
   }
