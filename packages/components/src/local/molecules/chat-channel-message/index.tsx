@@ -10,7 +10,6 @@ import { forceColors } from '@serge/helpers'
 import { forces } from '@serge/mocks'
 import WriteMessagePanel from '../write-message-panel'
 
-
 const forceColorList = forceColors(forces)
 
 const forceValues = {
