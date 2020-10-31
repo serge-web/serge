@@ -13,7 +13,7 @@ export const WriteMessagePanel: React.FC<Props> = ({ isUmpire }: Props) => {
   return (
     <div className={styles['write-message-panel']}>
       <ChatTextInput
-        multiline={false}
+        multiline={true}
         fullWidth
         variant="filled"
         rowsMax={4}
