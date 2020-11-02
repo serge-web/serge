@@ -3,13 +3,23 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import ChatChannelMessage from './index'
 
-describe('ChatChannelMessage component:', () => {
-  it('renders correctly', () => {
-    const tree = renderer
-      .create(
-        <ChatChannelMessage />
-      )
-      .toJSON()
-    expect(tree).toMatchSnapshot()
-  })
+/** mock function to workaround issue where multiline textarea
+ * failing, as documented here:
+ * https://github.com/mui-org/material-ui/issues/16491
+ */
+const createNodeMock = (element: any): any => {
+  if (element.type === 'textarea') {
+    return document.createElement('textarea')
+  } else {
+    return null
+  }
+}
+
+it('renders correctly', () => {
+  const tree = renderer
+    .create(
+      <ChatChannelMessage />, { createNodeMock }
+    )
+    .toJSON()
+  expect(tree).toMatchSnapshot()
 })
