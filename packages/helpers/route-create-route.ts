@@ -3,7 +3,7 @@ import { Route, RouteStatus, RouteStep, RouteChild, SergeGrid, SergeHex} from '@
 import { cloneDeep } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import { UMPIRE_FORCE } from '@serge/config'
+import { PlanningStates, UMPIRE_FORCE } from '@serge/config'
 import hexNamed from './hex-named'
 
 const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
@@ -164,6 +164,8 @@ const routeCreateRoute = (asset: any, color: string,
   const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForce, playerForce /*, forceColors, undefinedColor */)
   const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForce, playerForce /*, forceColors, undefinedColor */)
 
+  const adjudicationState: PlanningStates | undefined  = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
+  
   return {
     uniqid: asset.uniqid,
     name: perceivedName,
@@ -183,7 +185,8 @@ const routeCreateRoute = (asset: any, color: string,
     planned: futureSteps,
     plannedTurnsCount: numberOfPlannedTurns,
     original: cloneDeep(futureSteps),
-    asset: asset
+    asset: asset,
+    adjudicationState: adjudicationState
   }
 }
 
