@@ -11,13 +11,13 @@ import { PlanningCommands, PlanningStates } from '@serge/config'
  */
 const setAdjudicationPlanningState = (store: RouteStore, command: PlanningCommands): RouteStore | undefined => {
   const newStore: RouteStore = cloneDeep(store)
-  if(newStore.selected) {
+  if (newStore.selected) {
     const route: Route = newStore.selected
     const curState: PlanningStates | undefined = route.adjudicationState
-    if(curState) {
-      switch(curState) {
+    if (curState) {
+      switch (curState) {
         case PlanningStates.Pending: {
-          switch(command) {
+          switch (command) {
             case PlanningCommands.Accept:
               route.adjudicationState = PlanningStates.Saved
               break
@@ -31,7 +31,7 @@ const setAdjudicationPlanningState = (store: RouteStore, command: PlanningComman
           break
         }
         case PlanningStates.Saved: {
-          switch(command) {
+          switch (command) {
             case PlanningCommands.Revert:
               route.adjudicationState = PlanningStates.Pending
               // TODO: if the planned route is different to the original route,
@@ -44,7 +44,7 @@ const setAdjudicationPlanningState = (store: RouteStore, command: PlanningComman
           break
         }
         case PlanningStates.Rejected: {
-          switch(command) {
+          switch (command) {
             case PlanningCommands.PlanRoute:
               route.adjudicationState = PlanningStates.Planning
               break
@@ -58,7 +58,7 @@ const setAdjudicationPlanningState = (store: RouteStore, command: PlanningComman
           break
         }
         case PlanningStates.Planning: {
-          switch(command) {
+          switch (command) {
             case PlanningCommands.TurnPlanned:
               route.adjudicationState = PlanningStates.Planned
               break
@@ -72,7 +72,7 @@ const setAdjudicationPlanningState = (store: RouteStore, command: PlanningComman
           break
         }
         case PlanningStates.Planned: {
-          switch(command) {
+          switch (command) {
             case PlanningCommands.ClearRoute:
               route.adjudicationState = PlanningStates.Planning
               // TODO: reinstate origin of planning marker, plus planning range

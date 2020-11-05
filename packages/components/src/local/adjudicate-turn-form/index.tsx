@@ -26,7 +26,7 @@ import Badge from '../atoms/badge'
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   formHeader, formData, plannedRouteStatus, icon,
-  plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned, revertRouteChanges
+  plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned, revertRouteChanges, handleCommand
 }) => {
   const [formState, setFormState] = useState<AdjudicateTurnFormValues>(formData.values)
 
@@ -37,23 +37,12 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const { status, speed, visibleTo, condition } = formData.populate
   const { statusVal, speedVal, visibleToVal, conditionVal } = formState
 
-  const [plannedRouteStatusVal, setPlannedRouteStatusVal] = useState<string>(plannedRouteStatus)
-
-  const canChangeState: boolean = plannedRouteStatusVal === PlanningStates.Rejected
-
-  useEffect(() => {
-    setPlannedRouteStatusVal(plannedRouteStatus)
-  }, [plannedRouteStatus])
+  const canChangeState: boolean = plannedRouteStatus === PlanningStates.Rejected
 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
     const { name, value } = e
     updateState({ name, value })
-  }
-
-  const clickHandler = (data: any): void => {
-    setPlannedRouteStatusVal(data.value)
-    updateState(data)
   }
 
   useEffect(() => {
@@ -65,7 +54,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // see if we've just entered planning phase
-    if (plannedRouteStatusVal === PlanningStates.Planning) {
+    if (plannedRouteStatus === PlanningStates.Planning) {
       const state: Status | undefined = formState && formState.statusVal
       if (state) {
         // ok, start planning
@@ -79,7 +68,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         }
       }
     }
-  }, [plannedRouteStatusVal])
+  }, [plannedRouteStatus])
 
   // Status has a different data model and requires it's own handler
 
@@ -139,7 +128,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         forceColor={icon.forceColor}
         platformType={icon.platformType}
       >
-        {formHeader} <Badge label={plannedRouteStatusVal} />
+        {formHeader} <Badge label={plannedRouteStatus} />
         { plansSubmitted &&
          <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
         }
@@ -148,7 +137,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Planned Route" align="right">
           { !formDisabled &&
-            <PlannedRoute name="plannedRouteStatus" isMobile={stateIsMobile} status={plannedRouteStatusVal} updateState={clickHandler} revertRouteChanges={revertRouteChanges} />
+            <PlannedRoute name="plannedRouteStatus" isMobile={stateIsMobile} status={plannedRouteStatus} handleCommand={handleCommand} revertRouteChanges={revertRouteChanges} />
           }
         </FormGroup>
         <FormGroup title="State" align="right">
@@ -184,7 +173,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         </FormGroup>
       </fieldset>
       { !formDisabled &&
-        <Button disabled={ plannedRouteStatusVal !== PlanningStates.Accepted } onClick={submitForm}>Save</Button>
+        <Button disabled={ plannedRouteStatus !== PlanningStates.Saved } onClick={submitForm}>Save</Button>
       }
     </div>
   )

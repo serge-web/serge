@@ -1,4 +1,4 @@
-import { PlanningStates } from '@serge/config'
+import { PlanningCommands, PlanningStates } from '@serge/config'
 import { AdjudicateTurnFormData, AdjudicateTurnFormValues, PlanTurnFormValues } from '@serge/custom-types'
 
 export default interface PropTypes {
@@ -41,4 +41,9 @@ export default interface PropTypes {
    * Handle for if umpire wishes to drop their modifications
    */
   revertRouteChanges?: {(): void}
+  /**
+   * Umpire has triggered a command
+   */
+  handleCommand: {(command: PlanningCommands): void}
+
 }

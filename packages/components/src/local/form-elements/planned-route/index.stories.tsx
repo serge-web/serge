@@ -18,17 +18,18 @@ export default {
 }
 
 const states = {
-  Accepted: PlanningStates.Accepted,
+  Saved: PlanningStates.Saved,
   Pending: PlanningStates.Pending,
   Planning: PlanningStates.Planning,
+  Planned: PlanningStates.Planned,
   Rejected: PlanningStates.Rejected
 }
 
-const handleChange = (message: any): void => {
-  window.alert('Moving to new state:' + message.value)
+const handleChange = (command: string): void => {
+  window.alert('Firing command:' + command)
 }
 
 export const Default: React.FC = () => <PlannedRoute name="plannedRouteStatus"
   isMobile={boolean('Current status is mobile', true)}
-  updateState={handleChange}
+  handleCommand={handleChange}
   status={radios('Current planning state', states, PlanningStates.Pending)}/>

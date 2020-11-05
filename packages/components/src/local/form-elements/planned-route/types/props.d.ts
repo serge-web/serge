@@ -1,3 +1,5 @@
+import { PlanningCommands } from "@serge/config";
+
 export default interface PropTypes {
   /**
    * The name of the state to be updated
@@ -12,9 +14,9 @@ export default interface PropTypes {
    */
   isMobile: boolean
   /**
-   * Sets the onChange state on a parent
+   * Umpire has triggered a command
    */
-  updateState?: any
+  handleCommand: {(command: PlanningCommands): void}
   /**
    * handler for reverting the changesß
    */

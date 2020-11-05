@@ -13,7 +13,7 @@ import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
 import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid, AdjudicateTurnFormValues } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD, PlanningCommands } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -61,7 +61,8 @@ export const MapBar: React.FC = () => {
     groupCreateNewGroup,
     groupHostPlatform,
     plansSubmitted,
-    setPlansSubmitted
+    setPlansSubmitted,
+    handleAdjudicationCommand
   }: {
     gridCells: SergeGrid<SergeHex<{}>> | undefined
     playerForce: any
@@ -87,6 +88,7 @@ export const MapBar: React.FC = () => {
     groupHostPlatform?: {(dragged: string, target: string): void}
     plansSubmitted: boolean
     setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
+    handleAdjudicationCommand: {(command: PlanningCommands): void}
   } = useContext(MapContext).props
 
   // sort out the handler for State of World button
@@ -207,10 +209,11 @@ export const MapBar: React.FC = () => {
           canSubmitPlans={canSubmitOrders}
           formData={formData}
           icon={icondData}
+          handleCommand={handleAdjudicationCommand}
           revertRouteChanges={revertRouteChanges}
           routeAccepted={routeAccepted}
-          turnPlanned={turnPlanned} />  
-        }
+          turnPlanned={turnPlanned} />
+      }
       case 'Planning':
         return <PlanTurnForm
           icon={icondData}
