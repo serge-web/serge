@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import moment from "moment";
 import { umpireForceTemplate } from "../consts";
 import NewMessage from "./NewMessage";
-import {ChannelMessagesList} from '@serge/components';
+import {ChannelMessagesList,ChatChannelMessage} from '@serge/components';
 import {
   closeMessage,
   getAllWargameMessages,
@@ -89,24 +89,56 @@ class Channel extends Component {
     })
     const icons = state.channels[curChannel].forceIcons
     const colors = state.channels[curChannel].forceColors
-
     return (
       <div className={this.state.channelTabClass} data-channel-id={curChannel}>
-        <ChannelMessagesList
-          messages={messages}
-          icons={icons}
-          colors={colors}
-          onMarkAllAsRead={this.markAllRead}
-        />
-        {
-          state.channels[curChannel].observing === false &&
-          <NewMessage
-            orderableChannel={true}
-            curChannel={curChannel}
-            privateMessage={state.selectedForce === umpireForceTemplate.uniqid}
-            templates={state.channels[curChannel].templates}
+        {state.channels[curChannel].templates.length === 1 && state.channels[curChannel].templates[0].title === 'Chat' ?
+        <div className="chat-channel-message">
+          <ChatChannelMessage
+            authorForceId={state.selectedForce}
+            forceColors={[
+              {
+                color: '#FCFBEE',
+                force: 'umpire'
+              },
+              {
+                color: '#00F',
+                force: 'Blue'
+              },
+              {
+                color: '#F00',
+                force: 'Red'
+              },
+              {
+                color: '#0F0',
+                force: 'Green'
+              }
+            ]}
+            isUmpire={state.selectedForce === umpireForceTemplate.uniqid}
+            messageType={state.channels[curChannel].templates[0].title}
+            playerForceId={state.selectedForce}
+            role={state.selectedRole}
+            timestamp="2020-09-18T05:41:17.349Z"
+            title="lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet"
           />
-        }
+        </div>:
+        <Fragment>
+          <ChannelMessagesList
+            messages={messages}
+            icons={icons}
+            colors={colors}
+            onMarkAllAsRead={this.markAllRead}
+          />
+          {
+            state.channels[curChannel].observing === false &&
+            <NewMessage
+              orderableChannel={true}
+              curChannel={curChannel}
+              privateMessage={state.selectedForce === umpireForceTemplate.uniqid}
+              templates={state.channels[curChannel].templates}
+            />
+          }
+        </Fragment>}
+        
       </div>
     );
   }

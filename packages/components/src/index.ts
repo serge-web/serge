@@ -27,4 +27,5 @@ export { default as ChatMessageBubble } from './local/molecules/chat-message-bub
 export { default as ChannelMessageDetail } from './local/molecules/channel-message-detail'
 export { default as ChannelMessage } from './local/molecules/channel-message'
 export { default as ChannelMessagesList } from './local/organisms/channel-messages-list'
+export { default as ChatChannelMessage } from './local/molecules/chat-channel-message'
 export { default as AdminMessagesList } from './local/organisms/admin-messages-list'
