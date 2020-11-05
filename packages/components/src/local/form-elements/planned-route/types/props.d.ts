@@ -1,4 +1,4 @@
-import { PlanningCommands } from "@serge/config";
+import { PlanningCommands } from '@serge/config'
 
 export default interface PropTypes {
   /**

@@ -13,7 +13,7 @@ import { FormGroup, clSelect } from '../form-elements/form-group'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 
-import { PlanningStates } from '@serge/config'
+import { PlanningCommands, PlanningStates } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -26,7 +26,7 @@ import Badge from '../atoms/badge'
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   formHeader, formData, plannedRouteStatus, icon,
-  plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned, revertRouteChanges, handleCommand
+  plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned, revertRouteChanges, manager
 }) => {
   const [formState, setFormState] = useState<AdjudicateTurnFormValues>(formData.values)
 
@@ -38,6 +38,13 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const { statusVal, speedVal, visibleToVal, conditionVal } = formState
 
   const canChangeState: boolean = plannedRouteStatus === PlanningStates.Rejected
+
+  const handleCommandLocal = (command: PlanningCommands): void => {
+    console.log('in local')
+    if(manager) {
+      manager.handleState(command)
+    }
+  }
 
   // TODO: Refactor this into a reusable helper and remove other instances
   const changeHandler = (e: any): void => {
@@ -137,7 +144,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Planned Route" align="right">
           { !formDisabled &&
-            <PlannedRoute name="plannedRouteStatus" isMobile={stateIsMobile} status={plannedRouteStatus} handleCommand={handleCommand} revertRouteChanges={revertRouteChanges} />
+            <PlannedRoute name="plannedRouteStatus" isMobile={stateIsMobile} status={plannedRouteStatus} handleCommand={handleCommandLocal} revertRouteChanges={revertRouteChanges} />
           }
         </FormGroup>
         <FormGroup title="State" align="right">

@@ -1,5 +1,6 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
-import { AdjudicateTurnFormData, AdjudicateTurnFormValues, PlanTurnFormValues } from '@serge/custom-types'
+import { AdjudicateTurnFormData, AdjudicateTurnFormValues, PlanTurnFormValues, RouteStore } from '@serge/custom-types'
+import AdjudicationManager from '../helpers/adjudication-manager'
 
 export default interface PropTypes {
   /**
@@ -42,8 +43,7 @@ export default interface PropTypes {
    */
   revertRouteChanges?: {(): void}
   /**
-   * Umpire has triggered a command
+   * adjudication manager
    */
-  handleCommand: {(command: PlanningCommands): void}
-
+  manager?: AdjudicationManager
 }

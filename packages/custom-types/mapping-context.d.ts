@@ -57,6 +57,10 @@ export default interface MappingContext {
    * the set of routes applicable at this point
    */
   routeStore: RouteStore
+  /** 
+   * allow route store to be updated 
+   */
+  setRouteStore: {(store: RouteStore): void}
   /**
    * the modified set of routes to support "view as"
    */
@@ -133,9 +137,4 @@ export default interface MappingContext {
    * update whether plans have been submitted
    */
   setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
-    /**
-   * Umpire has triggered a command
-   */
-  handleAdjudicationCommand: {(command: PlanningCommands): void}
-
 }

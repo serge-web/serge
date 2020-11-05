@@ -13,7 +13,7 @@ import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
 import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid, AdjudicateTurnFormValues } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD, PlanningCommands } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -24,6 +24,7 @@ import WorldState from '../world-state'
 import PerceptionForm from '../perception-form'
 import AdjudicateTurnForm from '../adjudicate-turn-form'
 import PlanTurnForm from '../plan-turn-form'
+import AdjudicationManager from '../adjudicate-turn-form/helpers/adjudication-manager'
 
 /* Render component */
 export const MapBar: React.FC = () => {
@@ -52,6 +53,7 @@ export const MapBar: React.FC = () => {
     channelID,
     postBack,
     routeStore,
+    setRouteStore,
     turnPlanned,
     routeAccepted,
     revertRouteChanges,
@@ -61,8 +63,7 @@ export const MapBar: React.FC = () => {
     groupCreateNewGroup,
     groupHostPlatform,
     plansSubmitted,
-    setPlansSubmitted,
-    handleAdjudicationCommand
+    setPlansSubmitted
   }: {
     gridCells: SergeGrid<SergeHex<{}>> | undefined
     playerForce: any
@@ -78,6 +79,7 @@ export const MapBar: React.FC = () => {
     channelID: string | number
     postBack: Postback
     routeStore: RouteStore
+    setRouteStore: {(store: RouteStore): void}
     turnPlanned: {(turn: PlanTurnFormValues): void}
     routeAccepted: {(route: AdjudicateTurnFormValues): void}
     revertRouteChanges: {(): void}
@@ -88,7 +90,6 @@ export const MapBar: React.FC = () => {
     groupHostPlatform?: {(dragged: string, target: string): void}
     plansSubmitted: boolean
     setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
-    handleAdjudicationCommand: {(command: PlanningCommands): void}
   } = useContext(MapContext).props
 
   // sort out the handler for State of World button
@@ -190,6 +191,7 @@ export const MapBar: React.FC = () => {
       forceColor: selectedAsset.force,
       platformType: selectedAsset.type
     }
+    console.log('map bar routes', routeStore)
     switch (form) {
       case 'PerceivedAs':
         return <PerceptionForm
@@ -201,15 +203,16 @@ export const MapBar: React.FC = () => {
           postBack={postBack} />
       case 'Adjudication': {
         const formData = collateAdjudicationFormData(platforms, selectedAsset, forces, routeStore)
+        const manager: AdjudicationManager = new AdjudicationManager(routeStore, setRouteStore)
         return <AdjudicateTurnForm
           key={selectedAsset.uniqid}
           plannedRouteStatus={formData.values.plannedRouteStatusVal}
+          manager={manager}
           plansSubmitted={plansSubmitted}
           formHeader={currentAssetName}
           canSubmitPlans={canSubmitOrders}
           formData={formData}
           icon={icondData}
-          handleCommand={handleAdjudicationCommand}
           revertRouteChanges={revertRouteChanges}
           routeAccepted={routeAccepted}
           turnPlanned={turnPlanned} />

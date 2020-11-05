@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningCommands } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
@@ -366,10 +366,6 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-  const handleAdjudicationCommand = (command: PlanningCommands): void => {
-    console.log('handling new planning command', command)
-  }
-
   /**
    * Umpire has accepted (or modified a route)
    * @param assetId
@@ -531,6 +527,7 @@ export const Mapping: React.FC<PropTypes> = ({
     zoomLevel,
     channelID,
     routeStore,
+    setRouteStore,
     viewAsRouteStore,
     setNewLeg,
     setShowMapBar,
@@ -547,8 +544,7 @@ export const Mapping: React.FC<PropTypes> = ({
     groupCreateNewGroup: groupCreateNewGroupLocal,
     groupHostPlatform: groupHostPlatformLocal,
     plansSubmitted,
-    setPlansSubmitted,
-    handleAdjudicationCommand
+    setPlansSubmitted
   }
 
   // any events for leafletjs you can get from leafletElement

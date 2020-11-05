@@ -10,7 +10,6 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const PlannedRoute: React.FC<PropTypes> = ({ status, handleCommand, isMobile }) => {
-
   const buttonsFor = (status: string, isMobile: boolean): React.ReactNode => {
     switch (status) {
       case PlanningStates.Pending:
@@ -29,7 +28,7 @@ export const PlannedRoute: React.FC<PropTypes> = ({ status, handleCommand, isMob
       case PlanningStates.Planned:
         return <><Button onClick={(): void => handleCommand(PlanningCommands.Save)}>Save</Button>
           <Button onClick={(): void => handleCommand(PlanningCommands.ClearRoute)}>Clear Route</Button> </>
-      case PlanningStates.Accepted:
+      case PlanningStates.Saved:
         return <Button onClick={(): void => handleCommand(PlanningCommands.Revert)}>Revert</Button>
       default:
         return <></>

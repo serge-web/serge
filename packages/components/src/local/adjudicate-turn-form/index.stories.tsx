@@ -1,16 +1,22 @@
 import React from 'react'
+import { withKnobs, radios } from '@storybook/addon-knobs'
 
 // Import component files
 import AdjudicateTurnForm from './index'
 import docs from './README.md'
 import formData from './mocks/formData'
-import { AdjudicateTurnFormValues } from '@serge/custom-types'
+import { AdjudicateTurnFormValues, RouteStore } from '@serge/custom-types'
 import { PlanningStates } from '@serge/config'
+import { routeCreateStore, routeSetCurrent } from '@serge/helpers'
+
+/* Import mock data */
+import { forces, platformTypes } from '@serge/mocks'
+import AdjudicationManager from './helpers/adjudication-manager'
 
 export default {
   title: 'local/AdjudicateTurnForm',
   component: AdjudicateTurnForm,
-  decorators: [],
+  decorators: [withKnobs],
   parameters: {
     readme: {
       // Show readme before story
@@ -25,10 +31,31 @@ const routeAccepted = (route: AdjudicateTurnFormValues): void => {
   console.log('route accepted in story', route)
 }
 
+// prepare some routes, and a selected item
+const store2: RouteStore = routeCreateStore(undefined, forces, 'umpire', true, platformTypes, undefined, false, false)
+const frigateId = 'a0pra00001'
+const store: RouteStore = routeSetCurrent(frigateId, store2)
+
+const setRouteStore = (store: RouteStore): void => {
+  console.log('new store', store.routes.length)
+}
+
+const manager: AdjudicationManager = new AdjudicationManager(store, setRouteStore)
+
+
+const states = {
+  Saved: PlanningStates.Saved,
+  Pending: PlanningStates.Pending,
+  Planning: PlanningStates.Planning,
+  Planned: PlanningStates.Planned,
+  Rejected: PlanningStates.Rejected
+}
+
 export const Default: React.FC = () => <AdjudicateTurnForm
   routeAccepted={routeAccepted}
-  plannedRouteStatus={PlanningStates.Pending}
+  plannedRouteStatus={radios('Current planning state', states, PlanningStates.Pending)}
   icon={iconData}
+  manager={manager}
   canSubmitPlans={true}
   plansSubmitted={false}
   formHeader="Adjudicate header"
