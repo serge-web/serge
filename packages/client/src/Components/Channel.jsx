@@ -95,24 +95,7 @@ class Channel extends Component {
         <div className="chat-channel-message">
           <ChatChannelMessage
             authorForceId={state.selectedForce}
-            forceColors={[
-              {
-                color: '#FCFBEE',
-                force: 'umpire'
-              },
-              {
-                color: '#00F',
-                force: 'Blue'
-              },
-              {
-                color: '#F00',
-                force: 'Red'
-              },
-              {
-                color: '#0F0',
-                force: 'Green'
-              }
-            ]}
+            forceColors={colors}
             isUmpire={state.selectedForce === umpireForceTemplate.uniqid}
             messageType={state.channels[curChannel].templates[0].title}
             playerForceId={state.selectedForce}
