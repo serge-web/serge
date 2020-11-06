@@ -9,4 +9,9 @@
     border: 0;
     padding: 0;
   }
+
+  // put space between action buttons
+  button + button {
+    margin-left: 1rem;
+  }
 }
