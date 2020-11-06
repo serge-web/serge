@@ -32,6 +32,8 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   // flag for if the current state is mobile
   const [stateIsMobile, setStateIsMobile] = useState<boolean>(formState.statusVal.mobile)
+  const [planningActions, setPlanningActions] = useState<Array<{label:String, action: PlanningCommands}>>([]])
+
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
   const { status, speed, visibleTo, condition } = formData.populate
@@ -74,6 +76,11 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
           turnPlanned(turnData)
         }
       }
+    }
+
+    if(manager) {
+      const actions = manager.actionsFor(plannedRouteStatus)
+      setPlanningActions(actions)
     }
   }, [plannedRouteStatus])
 
@@ -129,6 +136,12 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     }
   }
 
+  const handleCommand = (command: PlanningCommands): void => {
+    if(manager) {
+      manager.handleState(command)
+    }
+  }
+
   return (
     <div className={styles.adjudicate}>
       <TitleWithIcon
@@ -143,8 +156,12 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       </TitleWithIcon>
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Planned Route" align="right">
-          { !formDisabled &&
-            <PlannedRoute name="plannedRouteStatus" isMobile={stateIsMobile} status={plannedRouteStatus} handleCommand={handleCommandLocal} revertRouteChanges={revertRouteChanges} />
+          { !formDisabled && planningActions && planningActions.map(item => {
+            <Button onClick={(): void => handleCommand(item.action)}>{item.label}</Button>
+          }
+
+          )
+            // <PlannedRoute name="plannedRouteStatus" isMobile={stateIsMobile} status={plannedRouteStatus} handleCommand={handleCommandLocal} revertRouteChanges={revertRouteChanges} />
           }
         </FormGroup>
         <FormGroup title="State" align="right">

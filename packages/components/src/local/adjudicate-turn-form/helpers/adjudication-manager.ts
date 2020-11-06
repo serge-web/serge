@@ -14,6 +14,19 @@ class AdjudicationManager {
     this.store = store
     this.setRouteStore = setRouteStore
   }
+  actionsFor(state: PlanningStates): Array<{label:String, action: PlanningCommands}> {
+    switch(state) {
+      case PlanningStates.Pending:
+        return [
+          {label: 'Accept', action: PlanningCommands.Accept},
+          {label: 'Reject', action: PlanningCommands.Reject}
+        ]
+    }
+    return [
+      {label: 'anchor', action: PlanningCommands.Accept},
+      {label: 'sparrow', action: PlanningCommands.Reject}
+    ]
+}
   handleState(command: PlanningCommands): void {
     console.log('handling command', command)
     // make a new route store
