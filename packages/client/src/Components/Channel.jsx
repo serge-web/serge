@@ -89,15 +89,16 @@ class Channel extends Component {
     })
     const icons = state.channels[curChannel].forceIcons
     const colors = state.channels[curChannel].forceColors
+    const templates = state.channels[curChannel].templates
     return (
       <div className={this.state.channelTabClass} data-channel-id={curChannel}>
-        {state.channels[curChannel].templates.length === 1 && state.channels[curChannel].templates[0].title === 'Chat' ?
+        {templates.length === 1 && templates[0].title === 'Chat' ?
         <div className="chat-channel-message">
           <ChatChannelMessage
             authorForceId={state.selectedForce}
             forceColors={colors}
             isUmpire={state.selectedForce === umpireForceTemplate.uniqid}
-            messageType={state.channels[curChannel].templates[0].title}
+            messageType={templates[0].title}
             playerForceId={state.selectedForce}
             role={state.selectedRole}
             timestamp="2020-09-18T05:41:17.349Z"
