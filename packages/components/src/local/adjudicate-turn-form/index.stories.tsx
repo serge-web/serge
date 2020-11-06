@@ -5,7 +5,7 @@ import { withKnobs, radios } from '@storybook/addon-knobs'
 import AdjudicateTurnForm from './index'
 import docs from './README.md'
 import formData from './mocks/formData'
-import { AdjudicateTurnFormValues, RouteStore } from '@serge/custom-types'
+import { AdjudicateTurnFormValues, PlanTurnFormValues, RouteStore } from '@serge/custom-types'
 import { PlanningStates } from '@serge/config'
 import { routeCreateStore, routeSetCurrent } from '@serge/helpers'
 
@@ -40,7 +40,11 @@ const setRouteStore = (store: RouteStore): void => {
   console.log('new store', store.routes.length)
 }
 
-const manager: AdjudicationManager = new AdjudicationManager(store, setRouteStore)
+const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
+  console.log('turn planned', plannedTurn)
+}
+
+const manager: AdjudicationManager = new AdjudicationManager(store, setRouteStore, turnPlanned)
 
 
 const states = {

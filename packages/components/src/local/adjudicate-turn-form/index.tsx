@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from './types/props'
 
 /* Import components */
-import PlannedRoute from '../form-elements/planned-route'
 import Speed from '../form-elements/speed'
 import { Button } from '../form-elements/button'
 import TitleWithIcon from '../form-elements/title-with-icon'
@@ -20,31 +19,29 @@ import styles from './styles.module.scss'
 
 /* Import helpers */
 import { isNumber } from '@serge/helpers'
-import { AdjudicateTurnFormValues, PlanTurnFormValues, Status } from '@serge/custom-types'
+import { AdjudicateTurnFormValues, Status } from '@serge/custom-types'
 import Badge from '../atoms/badge'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   formHeader, formData, plannedRouteStatus, icon,
-  plansSubmitted, canSubmitPlans, routeAccepted, turnPlanned, revertRouteChanges, manager
+  plansSubmitted, canSubmitPlans, routeAccepted, manager
 }) => {
   const [formState, setFormState] = useState<AdjudicateTurnFormValues>(formData.values)
-
   // flag for if the current state is mobile
   const [stateIsMobile, setStateIsMobile] = useState<boolean>(formState.statusVal.mobile)
-  const [planningActions, setPlanningActions] = useState<Array<{label:String, action: PlanningCommands}>>([]])
+  const [planningActions, setPlanningActions] = useState<Array<{label:String, action: PlanningCommands}>>([])
 
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
   const { status, speed, visibleTo, condition } = formData.populate
   const { statusVal, speedVal, visibleToVal, conditionVal } = formState
 
-  const canChangeState: boolean = plannedRouteStatus === PlanningStates.Rejected
+  const canChangeState: boolean = manager ? manager.canChangeState() : false
 
-  const handleCommandLocal = (command: PlanningCommands): void => {
-    console.log('in local')
+  const handleCommandLocal = (command: PlanningCommands, formState?: AdjudicateTurnFormValues): void => {
     if(manager) {
-      manager.handleState(command)
+      manager.handleState(command, formState)
     }
   }
 
@@ -57,32 +54,19 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   useEffect(() => {
     const newStatus: Status | undefined = formState && formState.statusVal
     if (newStatus) {
+      console.log('setting mobile state to', newStatus.mobile)
       setStateIsMobile(newStatus.mobile)
     }
   }, [formState])
 
   useEffect(() => {
-    // see if we've just entered planning phase
-    if (plannedRouteStatus === PlanningStates.Planning) {
-      const state: Status | undefined = formState && formState.statusVal
-      if (state) {
-        // ok, start planning
-        const turnData: PlanTurnFormValues = {
-          statusVal: state,
-          speedVal: speedVal,
-          turnsVal: 1
-        }
-        if (turnPlanned) {
-          turnPlanned(turnData)
-        }
-      }
-    }
-
     if(manager) {
-      const actions = manager.actionsFor(plannedRouteStatus)
-      setPlanningActions(actions)
+      console.log('manager changed', plannedRouteStatus, manager.actionsFor(stateIsMobile))
+      setPlanningActions(manager.actionsFor(stateIsMobile))
+    } else {
+      console.error('no manager')
     }
-  }, [plannedRouteStatus])
+  }, [plannedRouteStatus, manager])
 
   // Status has a different data model and requires it's own handler
 
@@ -136,12 +120,6 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     }
   }
 
-  const handleCommand = (command: PlanningCommands): void => {
-    if(manager) {
-      manager.handleState(command)
-    }
-  }
-
   return (
     <div className={styles.adjudicate}>
       <TitleWithIcon
@@ -155,14 +133,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
       </TitleWithIcon>
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
-        <FormGroup title="Planned Route" align="right">
-          { !formDisabled && planningActions && planningActions.map(item => {
-            <Button onClick={(): void => handleCommand(item.action)}>{item.label}</Button>
-          }
-
-          )
-            // <PlannedRoute name="plannedRouteStatus" isMobile={stateIsMobile} status={plannedRouteStatus} handleCommand={handleCommandLocal} revertRouteChanges={revertRouteChanges} />
-          }
+        <FormGroup title="Player Route" align="right">
+          { !formDisabled && planningActions && planningActions.map((item: any) =>
+            <Button key={item.label} onClick={(): void => handleCommandLocal(item.action, formState)}>{item.label}</Button>
+          )}
         </FormGroup>
         <FormGroup title="State" align="right">
           <Select

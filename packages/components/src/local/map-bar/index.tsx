@@ -191,7 +191,6 @@ export const MapBar: React.FC = () => {
       forceColor: selectedAsset.force,
       platformType: selectedAsset.type
     }
-    console.log('map bar routes', routeStore)
     switch (form) {
       case 'PerceivedAs':
         return <PerceptionForm
@@ -203,7 +202,7 @@ export const MapBar: React.FC = () => {
           postBack={postBack} />
       case 'Adjudication': {
         const formData = collateAdjudicationFormData(platforms, selectedAsset, forces, routeStore)
-        const manager: AdjudicationManager = new AdjudicationManager(routeStore, setRouteStore)
+        const manager: AdjudicationManager = new AdjudicationManager(routeStore, setRouteStore, turnPlanned)
         return <AdjudicateTurnForm
           key={selectedAsset.uniqid}
           plannedRouteStatus={formData.values.plannedRouteStatusVal}

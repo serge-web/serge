@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
@@ -315,7 +315,14 @@ export const Mapping: React.FC<PropTypes> = ({
         // we're in adjudicate mode, cancel the planning
         setPlanningConstraints(undefined)
 
-        // TODO: we change the status in the adjudicate form
+        // create a new route store
+        const modified: RouteStore = cloneDeep(routeStore)
+        // tell the current route it's been planned
+        const selected: Route | undefined = modified.selected
+        if(selected) {
+          selected.adjudicationState = PlanningStates.Planned
+          setRouteStore(modified)
+        }
       }
     }
   }, [newLeg])
