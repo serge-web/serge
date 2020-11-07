@@ -10,14 +10,14 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const Link: React.FC<PropTypes> = ({ children, onClick, disabled, className = '', href = '#' }) => {
-  const handeClick = (e: any): void => {
+  const handleClick = (e: any): void => {
     if (typeof onClick === 'function') {
       onClick(e)
     }
   }
   return (
     <a href={href}
-      onClick={handeClick}
+      onClick={handleClick}
       className={cx(className && className, styles.main, disabled && styles.disabled)}>
       {children}
     </a>

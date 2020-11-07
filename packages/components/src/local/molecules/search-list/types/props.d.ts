@@ -1,4 +1,4 @@
-import { Template, Channel } from '@serge/custom-types'
+import { Template, Channel, PlatformTypeData } from '@serge/custom-types'
 
 type TemplateValue = Template['value']
 
@@ -7,8 +7,11 @@ export interface TemplateListItem extends TemplateValue {
     title: string
   }
 }
-
-export type ListItem = Channel | TemplateListItem
+export interface Item {
+  name?: string
+  [property: string]: any
+}
+export type ListItem = Channel | TemplateListItem | PlatformTypeData | Item
 
 export default interface Props {
   /**

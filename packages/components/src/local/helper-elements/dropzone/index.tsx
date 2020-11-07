@@ -64,7 +64,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
     }
   }, [showEmpty, innerRef, commingDrop])
 
-  const handeListChange = (newList: Array<DropItem>): void => {
+  const handleListChange = (newList: Array<DropItem>): void => {
     if (newList.length === 0) {
       if (!typeEmpty) setLoading(true)
     } else if (newList.length > 1) {
@@ -124,7 +124,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
             animation={0}
             delay={0.5}
             list={[{ id: `${item.uniqid}-${type}`, ...item }]}
-            setList={handeListChange}
+            setList={handleListChange}
             onStart={handleStart}
             onEnd={handleEnd}
           >

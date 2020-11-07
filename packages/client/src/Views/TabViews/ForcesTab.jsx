@@ -1,21 +1,21 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 import uniqid from "uniqid";
 import _ from "lodash";
-import { forceTemplate } from "../../consts";
-import { SearchList, Button } from "@serge/components";
+import {forceTemplate} from "../../consts";
+import {Button, SearchList} from "@serge/components";
 import checkUnique from "../../Helpers/checkUnique";
 import TextArea from "../../Components/Inputs/TextArea";
 import RemovableGroupItem from "../../Components/Layout/RemovableGroupItem";
 import TextInput from "../../Components/Inputs/TextInput";
-import { addNotification } from "../../ActionsAndReducers/Notification/Notification_ActionCreators";
-import { modalAction } from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
+import {addNotification} from "../../ActionsAndReducers/Notification/Notification_ActionCreators";
+import {modalAction} from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
 import {
-  setSelectedForce,
-  saveForce,
   addNewForce,
-  setTabUnsaved,
+  saveForce,
+  setSelectedForce,
   setTabSaved,
+  setTabUnsaved,
 } from "../../ActionsAndReducers/dbWargames/wargames_ActionCreators";
 
 import "@serge/themes/App.scss";
@@ -108,9 +108,7 @@ class ForcesTab extends Component {
     let selectedForceId = this.props.wargame.data[curTab].selectedForce.uniqid;
 
     let newForceData = this.props.wargame.data[curTab].forces.find((f) => f.uniqid === selectedForceId);
-    let forceOverview = typeof this.state.newForceOverview === 'string' ? this.state.newForceOverview : this.props.wargame.data[curTab].forces.find((force) => force.uniqid === selectedForceId).overview;
-
-    newForceData.overview = forceOverview;
+    newForceData.overview = typeof this.state.newForceOverview === 'string' ? this.state.newForceOverview : this.props.wargame.data[curTab].forces.find((force) => force.uniqid === selectedForceId).overview;
 
     if (typeof this.state.newForceName === 'string' && this.state.newForceName.length > 0) {
       if (!this.checkUnique()) return;
