@@ -28,7 +28,7 @@ export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargam
     return <>
       <div className={styles.header}>
         <StatusBar wargame={reqWargame}>test</StatusBar>
-        {tabs.length && <Tabs onChange={handleTabChange} tabs={tabs} changed={wargameChanged} />}
+        {tabs.length > 0 && <Tabs onChange={handleTabChange} tabs={tabs} changed={wargameChanged} />}
       </div>
       <div className={styles.content}>
         {children}

@@ -23,7 +23,6 @@ export const StatusBar: React.FC<PropTypes> = ({ onChange, wargame }) => {
     }
   }
 
-  const showStatus = wargame.wargameInitiated || true
   const progressList = Object.entries(wargame.data).map(entry => ({
     active: wargame.currentTab === entry[0],
     complete: entry[1].complete
@@ -40,7 +39,7 @@ export const StatusBar: React.FC<PropTypes> = ({ onChange, wargame }) => {
           value={value}
         />
       </div>
-      {showStatus && <div className={cx(styles.status, styles.item)}>
+      {wargame.wargameInitiated && <div className={cx(styles.status, styles.item)}>
         <FontAwesomeIcon icon={faHourglassStart} size="1x" /> Wargame in progress
       </div>}
       <div className={styles.item}>
