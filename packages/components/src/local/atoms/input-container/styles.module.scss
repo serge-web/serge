@@ -1,7 +1,5 @@
 @import "~@serge/themes/dependencies/variables";
 .input-container {
-  padding: 1rem;
-
   .input-label {
     @include typo-primary;
     display: block;

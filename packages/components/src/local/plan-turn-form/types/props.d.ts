@@ -22,10 +22,18 @@ export default interface PropTypes {
    */
   turnPlanned?: {(turn: PlanTurnFormValues): void}
   /**
+   * whether this user can plan turns
+   */
+  canSubmitPlans: boolean
+  /**
    * Data for icon generation
    */
   icon: {
     forceColor: string
     platformType: string
   }
+  /**
+   * flag for if turns have been planned
+   */
+  plansSubmitted: boolean
 }

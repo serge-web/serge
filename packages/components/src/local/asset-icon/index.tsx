@@ -28,6 +28,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   position,
   type,
   force,
+  perceivedForce,
   visibleTo,
   controlledBy,
   condition,
@@ -39,7 +40,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    className: getIconClassname(force, type, selected)
+    className: getIconClassname(perceivedForce, type, selected)
   })
 
   const clickEvent = (): void => {
@@ -54,6 +55,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
         name,
         type,
         force,
+        perceivedForce,
         visibleTo,
         controlledBy,
         condition,

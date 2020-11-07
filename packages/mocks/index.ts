@@ -3,7 +3,8 @@
 * To generate an updated version, please run `yarn genreg`
 ***/
 
-export { default as MessagesMock } from './messages.mock'
+export { default as GameMessagesMock } from './game-messages.mock'
+export { default as AdminMessagesMock } from './admin-messages.mock'
 export { default as WargameMock } from './wargame.mock'
 export { default as MessageTemplatesMock } from './message-templates.mock'
 export { default as WargameExportedMock } from './wargame-exported.mock'

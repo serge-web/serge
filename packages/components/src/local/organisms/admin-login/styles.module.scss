@@ -1,0 +1,9 @@
+@import "~@serge/themes/dependencies/variables";
+
+.login-form-head {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 2rem;
+  margin-bottom: 1em;
+  @include typo-primary;
+}

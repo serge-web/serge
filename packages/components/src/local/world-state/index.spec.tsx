@@ -10,7 +10,7 @@ const store: RouteStore = { routes: [] }
 
 it('WorldState renders correctly', () => {
   const tree = renderer
-    .create(<WorldState phase={ADJUDICATION_PHASE} isUmpire={true} store={store} name="test" />)
+    .create(<WorldState phase={ADJUDICATION_PHASE} canSubmitOrders={true} plansSubmitted={false} isUmpire={true} store={store} name="test" />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

@@ -17,7 +17,9 @@ export default interface GroupItem {
    */
   comprising?: Array<GroupItem>
   /** 
-   * other properties
+   * other properties 
+   * TODO: I think GroupItem should actually be extending Route.  We should reflect
+   * that here, so that the Route parameters become accessible
    */
   [property: string]: any
 }

@@ -139,13 +139,14 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
  * @param {boolean} includePlanned whether to include planned turns for this platform
  * @param {boolean} filterHistorySteps whether to filter history steps to just the first one
  * @param {boolean} filterPlannedSteps whether to filter planned steps to just the first one
+ * @param {boolean} isSelected whether is the route for the selected Asset
  * @returns {Route} Routefor this asset
  */
 const routeCreateRoute = (asset: any, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
   perceivedType: string, platformTypes: any, playerForce: string, status: any, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
-  filterHistorySteps: boolean, filterPlannedSteps: boolean): Route => {
+  filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean ): Route => {
   const currentStatus: RouteStatus = status.speedKts
     ? { state: status.state, speedKts: status.speedKts }
     : { state: status.state }
@@ -153,6 +154,7 @@ const routeCreateRoute = (asset: any, color: string,
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
   const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(asset.plannedTurns,  grid, true, filterPlannedSteps) : []
+  const numberOfPlannedTurns = asset.plannedTurns ? asset.plannedTurns.length : 0
 
   const historySteps: Array<RouteStep> = createStepArray(asset.history, grid, 
       false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
@@ -165,7 +167,7 @@ const routeCreateRoute = (asset: any, color: string,
   return {
     uniqid: asset.uniqid,
     name: perceivedName,
-    selected: false,
+    selected: isSelected,
     platformType: perceivedType,
     underControl: underControl,
     perceivedForceName: perceivedForce,
@@ -179,6 +181,7 @@ const routeCreateRoute = (asset: any, color: string,
     currentPosition: currentPosition,
     currentLocation: currentLocation,
     planned: futureSteps,
+    plannedTurnsCount: numberOfPlannedTurns,
     original: cloneDeep(futureSteps),
     asset: asset
   }

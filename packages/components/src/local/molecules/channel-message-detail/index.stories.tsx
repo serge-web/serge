@@ -1,25 +1,14 @@
 import React from 'react'
-import Box from '@material-ui/core/Box'
-import { styled } from '@material-ui/core/styles'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
 
 // Import component files
 import ChannelMessageDetail from './index'
 import docs from './README.md'
 
-const BlueContainer = styled(Box)({
-  backgroundColor: '#1a394d',
-  padding: '20px',
-  borderRadius: '2px',
-  color: '#fff'
-})
-
 export default {
   title: 'local/molecules/ChannelMessageDetail',
   component: ChannelMessageDetail,
-  decorators: [withKnobs, (story: Function): React.ReactElement => (
-    <BlueContainer>{ story() }</BlueContainer>
-  )],
+  decorators: [withKnobs],
   parameters: {
     readme: {
       // Show readme before story

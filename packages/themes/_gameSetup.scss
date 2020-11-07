@@ -2,16 +2,21 @@
 
 #game-setup-head {
   background: $grey-bg;
-  padding: 6vh 1vw 0;
+  padding: 2vh 1vw 0;
   position: relative;
   z-index: 2;
 }
 
+.wargame-title-container {
+  display: flex;
+  flex-direction: row;
+}
+
 .wargame-in-progress-warning {
-  left: 50%;
-  margin-left: -100px;
-  position: absolute;
-  top: 50px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
   width: 200px;
 
   h6 {
@@ -21,7 +26,7 @@
   svg {
     color: $secondary-color;
     margin-bottom: 5px;
-    width: 100% !important;
+    margin-right: 10px;
   }
 }
 
@@ -105,6 +110,7 @@
 
   .force-color-icon {
     display: flex;
+    flex-wrap: wrap;
 
     .link {
       align-self: center;
@@ -117,11 +123,8 @@
 
   .force-button-wrap {
     flex-grow: 2;
-
-    span {
-      float: right;
-      margin-left: 20px;
-    }
+    display: flex;
+    justify-content: flex-end;
   }
 
   .roles {
@@ -286,4 +289,17 @@
 .serge-custom-logo {
   height: auto;
   width: 300px;
+}
+
+.panel-actions {
+  justify-content: center;
+}
+
+.channel-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.template-actions {
+  max-width: 80%;
 }

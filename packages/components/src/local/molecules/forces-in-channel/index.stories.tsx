@@ -1,24 +1,13 @@
 import React from 'react'
-import Box from '@material-ui/core/Box'
-import { styled } from '@material-ui/core/styles'
 
 // Import component files
 import ForcesInChannel from './index'
 import docs from './README.md'
 
-const BlueContainer = styled(Box)({
-  backgroundColor: '#1a394d',
-  padding: '20px',
-  borderRadius: '2px',
-  color: '#fff'
-})
-
 export default {
   title: 'local/molecules/ForcesInChannel',
   component: ForcesInChannel,
-  decorators: [(story: Function): React.ReactElement => (
-    <BlueContainer>{ story() }</BlueContainer>
-  )],
+  decorators: [],
   parameters: {
     readme: {
       // Show readme before story

@@ -4,7 +4,7 @@ import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, isEqual } from 'lodash'
 
 /* helper functions */
 import groupMoveToRoot from './helpers/group-move-to-root'
@@ -60,6 +60,7 @@ const defaultProps: PropTypes = {
   forces: [{}],
   platforms: [{}],
   playerForce: 'Blue',
+  canSubmitOrders: true,
   phase: Phase.Planning,
   turnNumber: 6,
   tileLayer: {
@@ -84,6 +85,7 @@ export const Mapping: React.FC<PropTypes> = ({
   tileDiameterMins,
   forces,
   playerForce,
+  canSubmitOrders,
   platforms,
   phase,
   turnNumber,
@@ -126,6 +128,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [hidePlanningForm, setHidePlanningForm] = useState<boolean>(false)
   const [filterPlannedRoutes, setFilterPlannedRoutes] = useState<boolean>(true)
   const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
+  const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -153,6 +156,48 @@ export const Mapping: React.FC<PropTypes> = ({
     // clear the selected assets
     setSelectedAsset(undefined)
   }, [playerForce])
+
+  /**
+   * reflect external changes in planning range prop (mostly
+   * just in Storybook testing)
+   */
+  useEffect(() => {
+    setPlanningRange(planningRangeProp)
+  }, [planningRangeProp])
+
+  /**
+   * reflect external changes in planning constraints prop (mostly
+   * just in Storybook testing)
+   */
+  useEffect(() => {
+    // test to see if constraints have actually changed
+    const oldVal = JSON.stringify(planningConstraints)
+    const newVal = JSON.stringify(planningConstraintsProp)
+    if (oldVal !== newVal) {
+      setPlanningConstraints(planningConstraintsProp)
+    }
+  }, [planningConstraintsProp])
+
+  // const compareUserData = (oldData: any, newData: any, result: [any | undefined]) => {
+  //   Object.keys(oldData).forEach(function (k) {
+  //       if (typeof oldData[k] !== 'object') {
+  //           if (oldData[k] != newData[k]) result.push({'old': oldData[k], 'new': newData[k]});
+  //       } else {
+  //           compareUserData(oldData[k], newData[k], result);
+  //       }
+  //   }, result);
+  //   return result;
+  // }
+
+  /** the forces from props has changed */
+  useEffect(() => {
+    // is it different to current force state?
+    const forceStateEmptyOrChanged = !forcesState || !isEqual(forcesState, forces)
+    if (forceStateEmptyOrChanged) {
+      // console.log('new forces', forcesChanged, compareUserData(forcesState, forces, []))
+      setForcesState(forces)
+    }
+  }, [forces])
 
   /**
    * generate the set of routes visible to this player, for display
@@ -195,6 +240,11 @@ export const Mapping: React.FC<PropTypes> = ({
     const declutteredStore = routeDeclutter(store, tileDiameterMins)
     setViewAsRouteStore(declutteredStore)
   }
+
+  // on a new phase, we have to allow plans to be submitted
+  useEffect(() => {
+    setPlansSubmitted(false)
+  }, [phase])
 
   useEffect(() => {
     if (mapBounds) {
@@ -363,7 +413,6 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const groupHostPlatformLocal = (dragged: string, target: string): void => {
-    console.log('host platform', dragged, target)
     const newForces = groupHostPlatform(dragged, target, forcesState)
     setForcesState(newForces)
   }
@@ -387,6 +436,7 @@ export const Mapping: React.FC<PropTypes> = ({
     forces: forcesState,
     platforms,
     playerForce,
+    canSubmitOrders,
     phase,
     turnNumber,
     planningConstraints,
@@ -408,7 +458,9 @@ export const Mapping: React.FC<PropTypes> = ({
     setHidePlanningForm,
     groupMoveToRoot: groupMoveToRootLocal,
     groupCreateNewGroup: groupCreateNewGroupLocal,
-    groupHostPlatform: groupHostPlatformLocal
+    groupHostPlatform: groupHostPlatformLocal,
+    plansSubmitted,
+    setPlansSubmitted
   }
 
   // any events for leafletjs you can get from leafletElement
@@ -428,7 +480,7 @@ export const Mapping: React.FC<PropTypes> = ({
    * When that happens, clear the selection
    */
   const mapClick = (): void => {
-    setSelectedAsset(undefined)
+    setSelectedAssetLocal(undefined)
   }
 
   return (
