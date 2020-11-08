@@ -1,5 +1,4 @@
-import React, { ChangeEvent, useState, useEffect } from 'react'
-
+import React, { ChangeEvent, useState } from 'react'
 import cx from 'classnames'
 import millisecondsToDDHHMMSS from './helpers/millisecondsToDDHHMMSS'
 import millisecondsToHHMMSS from './helpers/millisecondsToHHMMSS'
@@ -38,21 +37,28 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     }
 
     setOverview({ ...overview, [name]: milliseconds })
+    setDirty()
   }
 
-  const setGameDescription = (target: { value: string }): any => {
+  const updateGameDescription = (target: { value: string }): any => {
     setOverview({
       ...overview,
       gameDescription: target.value
     })
+    setDirty()
   }
 
-  useEffect(() => {
+  const updateAccessCodeVisibility = (): void => {
+    setOverview({ ...overview, showAccessCodes: !overview.showAccessCodes })
+    setDirty()
+  }
+
+  const setDirty = (): void => {
     onChange && onChange({
       ...overview,
       dirty: true
     })
-  }, [overview])
+  }
 
   return <div className={styles.main}>
     <div className={styles.row}>
@@ -77,7 +83,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
             variant="filled"
             rows={8}
             rowsMax={8}
-            updateState={setGameDescription}
+            updateState={updateGameDescription}
             value={overview.gameDescription}
             className={styles.textarea}
           />
@@ -139,9 +145,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
               control={
                 <Checkbox
                   checked={overview.showAccessCodes}
-                  onChange={(): void => {
-                    setOverview({ ...overview, showAccessCodes: !overview.showAccessCodes })
-                  }}
+                  onChange={updateAccessCodeVisibility}
                   value='1'
                   color='primary'
                 />

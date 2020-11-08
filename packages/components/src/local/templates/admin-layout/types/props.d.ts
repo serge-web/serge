@@ -9,4 +9,5 @@ export default interface PropTypes {
   wargame?: Wargame
   tabs?: Array<string>
   wargameChanged?: boolean
+  activeTab?: string
 }

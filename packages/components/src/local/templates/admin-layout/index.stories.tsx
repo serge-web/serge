@@ -2,12 +2,10 @@ import React, { useState } from 'react'
 
 /* Import component files */
 import AdminLayout from './index'
-import Overview, { WargameOverview } from '../../organisms/setting-overview'
-import PlatformTypes, { PlatformType } from '../../organisms/setting-platform-types'
-import Forces, { ForceData } from '../../organisms/setting-forces'
-import Channels, { ChannelData } from '../../organisms/setting-channels'
-
-// import Forces from '../forces'
+import SettingOverview, { WargameOverview } from '../../organisms/setting-overview'
+import SettingPlatformTypes, { PlatformType } from '../../organisms/setting-platform-types'
+import SettingForces, { ForceData } from '../../organisms/setting-forces'
+import SettingChannels, { ChannelData } from '../../organisms/setting-channels'
 
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
@@ -54,6 +52,10 @@ export const Default: React.FC = () => {
     setChangedForces(wargame.data.forces.forces)
     setChangedChannels(wargame.data.channels.channels || [])
     setWargameChanged(false)
+    setWargame({
+      ...wargame,
+      currentTab: adminTabs[key]
+    })
   }
 
   const handleSave = (): void => {
@@ -97,12 +99,12 @@ export const Default: React.FC = () => {
   }
 
   return (
-    <AdminLayout wargame={wargame} tabs={adminTabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
+    <AdminLayout wargame={wargame} activeTab={adminTabs[activeTab]} tabs={adminTabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>
-        {activeTab === 0 && <Overview overview={changedOverview} onChange={onOverviewChange} onSave={handleSave} />}
-        {activeTab === 1 && <PlatformTypes platformType={changedPlatformType} onChange={onPlatformChange} onSave={handleSave} />}
-        {activeTab === 2 && <Forces forces={changedForces} onChange={onForcesChange} onSave={handleSave} />}
-        {activeTab === 3 && <Channels
+        {activeTab === 0 && <SettingOverview overview={changedOverview} onChange={onOverviewChange} onSave={handleSave} />}
+        {activeTab === 1 && <SettingPlatformTypes platformType={changedPlatformType} onChange={onPlatformChange} onSave={handleSave} />}
+        {activeTab === 2 && <SettingForces forces={changedForces} onChange={onForcesChange} onSave={handleSave} />}
+        {activeTab === 3 && <SettingChannels
           channels={changedChannels}
           onChange={onChannelsChange}
           onSave={handleSave}

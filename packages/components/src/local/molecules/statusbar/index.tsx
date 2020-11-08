@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
 import ProgressIndicator from '../../atoms/progress-indicator'
+import TextInput from '../../atoms/text-input'
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -13,35 +14,51 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHourglassStart } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
-export const StatusBar: React.FC<PropTypes> = ({ onChange, wargame }) => {
+export const StatusBar: React.FC<PropTypes> = ({
+  onChange,
+  wargame,
+  tabs = [
+    'overview',
+    'platform_types',
+    'forces',
+    'channels'
+  ]
+}) => {
   const [value, setValue] = useState(wargame.wargameTitle)
 
-  const handleChange = (e: any): void => {
-    setValue(e.target.value)
+  const handleChange = (target: {value: string}): void => {
+    setValue(target.value)
     if (typeof onChange === 'function') {
-      onChange(e)
+      onChange(target.value)
     }
   }
 
-  const progressList = Object.entries(wargame.data).map(entry => ({
-    active: wargame.currentTab === entry[0],
-    complete: entry[1].complete
-  }))
+  const wargameData = Object.entries(wargame.data)
+  const progressList = [...tabs].map((tab, index) => {
+    const tabEntry = wargameData.find(entry => entry[0] === tab)
+    return tabEntry ? {
+      active: wargame.currentTab ? wargame.currentTab === tabEntry[0] : index === 0,
+      complete: tabEntry[1].complete
+    } : {}
+  }).filter(item => Object.keys(item).length)
 
   return (
     <div className={cx(styles.main)}>
       <div className={cx(styles['input-box'], styles.item)}>
-        <input
-          className={styles.input}
-          type='text'
-          placeholder='Game Title'
-          onChange={handleChange}
+        <TextInput
+          customColor="transparent"
+          titleInput={true}
           value={value}
+          updateState={handleChange}
         />
       </div>
-      {wargame.wargameInitiated && <div className={cx(styles.status, styles.item)}>
-        <FontAwesomeIcon icon={faHourglassStart} size="1x" /> Wargame in progress
-      </div>}
+      {
+        wargame.wargameInitiated && (
+          <div className={cx(styles.status, styles.item)}>
+            <FontAwesomeIcon icon={faHourglassStart} size="1x" /> Wargame in progress
+          </div>
+        )
+      }
       <div className={styles.item}>
         <ProgressIndicator list={progressList} />
       </div>

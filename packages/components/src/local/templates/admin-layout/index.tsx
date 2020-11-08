@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
-export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargame, tabs = [], wargameChanged }) => {
+export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargame, tabs = [], wargameChanged, activeTab = '' }) => {
   const handleTabChange = (changedTab: string, key: number, e: any): void => {
     if (typeof onTabChange === 'function') {
       onTabChange(changedTab, key, e)
@@ -25,15 +25,17 @@ export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargam
   }
 
   const renderContainer = (reqWargame: Wargame): React.ReactNode => {
-    return <>
-      <div className={styles.header}>
-        <StatusBar wargame={reqWargame}>test</StatusBar>
-        {tabs.length > 0 && <Tabs onChange={handleTabChange} tabs={tabs} changed={wargameChanged} />}
-      </div>
-      <div className={styles.content}>
-        {children}
-      </div>
-    </>
+    return (
+      <>
+        <div className={styles.header}>
+          <StatusBar wargame={reqWargame} tabs={tabs} />
+          {tabs.length > 0 && <Tabs activeTab={activeTab} onChange={handleTabChange} tabs={tabs} changed={wargameChanged} />}
+        </div>
+        <div className={styles.content}>
+          {children}
+        </div>
+      </>
+    )
   }
   const renderLoading = (): React.ReactNode => (
     // TODO add some loader
@@ -41,9 +43,7 @@ export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargam
   )
 
   return (
-    <div
-      className={styles.main}
-    >
+    <div className={styles.main}>
       <div className={styles['left-panel']}>
         <Link className={styles.link}>
           <FontAwesomeIcon icon={faArrowLeft} size="2x" />
