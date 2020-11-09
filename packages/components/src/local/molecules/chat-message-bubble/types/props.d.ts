@@ -31,4 +31,12 @@ export default interface Props {
    * list of force colors
    */
   forceColors?: Array<{force: string, color: string}>
+  /**
+   * Private message
+   */
+  privateMessage?: string
+  /**
+   * Show Private message
+   */
+  hasPrivate?: boolean
 }

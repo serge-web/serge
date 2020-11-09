@@ -46,6 +46,8 @@ export const Default: React.FC = () => (
       authorForceId={radios('Author force', forceValues, 'Blue')}
       playerForceId={radios('Player force', forceValues, 'Blue')}
       forceColors={forceColorList}
+      privateMessage={'This is an example of a private message.'}
+      hasPrivate={boolean('Has been private message', false)}
     />
   </BlueContainer>
 )

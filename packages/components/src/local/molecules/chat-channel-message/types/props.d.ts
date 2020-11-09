@@ -35,4 +35,12 @@ export default interface Props {
    * if player is from umpire force
    */
   isUmpire?: boolean
+  /**
+   * Private Message
+   */
+  privateMessage?: string
+  /**
+   * Has Private Message
+   */
+  hasPrivate?: boolean
 }

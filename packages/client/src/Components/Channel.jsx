@@ -103,6 +103,8 @@ class Channel extends Component {
             role={state.selectedRole}
             timestamp="2020-09-18T05:41:17.349Z"
             title="lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet"
+            privateMessage="This is an example of a private message."
+            hasPrivate={true}
           />
         </div>:
         <Fragment>

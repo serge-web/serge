@@ -22,6 +22,7 @@ describe('ChatMessageBubble component:', () => {
           authorForceId={whiteForce.name}
           playerForceId={whiteForce.name}
           forceColors={forceColorList}
+          privateMessage={'This is an example of a private message.'}
         />
       )
       .toJSON()

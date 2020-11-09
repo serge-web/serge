@@ -39,6 +39,8 @@ it('renders correctly', () => {
         playerForceId={radios('Player force', forceValues, 'Blue')}
         forceColors={forceColorList}  
         isUmpire={boolean('Player from umpire force', true)}
+        privateMessage={'This is an example of a private message.'}
+        hasPrivate={false}
       />, { createNodeMock }
     )
     .toJSON()
