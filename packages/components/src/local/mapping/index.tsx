@@ -294,36 +294,36 @@ export const Mapping: React.FC<PropTypes> = ({
           // only plans next step
           const readyToAdd: RouteStore = inAdjudicate ? routeClearFromStep(routeStore, selRoute.uniqid, turnNumber) : routeStore
           const newStore: RouteStore = routeAddSteps(readyToAdd, selRoute.uniqid, [newStep])
+
+          // if we know our planning constraints, we can plan the next leg, as long as we're not
+          // in adjudication phase. In that phase, only one step is created
+          if (planningConstraints && !inAdjudicate) {
+            // get the last planned cell, to act as the first new planned cell
+            const lastCell: SergeHex<{}> = newLeg.route[newLeg.route.length - 1]
+            // create new planning contraints
+            const newP: PlanMobileAsset = {
+              origin: lastCell.name,
+              travelMode: planningConstraints.travelMode,
+              status: newLeg.state,
+              speed: newLeg.speed
+            }
+            setPlanningConstraints(newP)
+          } else {
+            // we're in adjudicate mode, cancel the planning
+            setPlanningConstraints(undefined)
+
+            // create a new route store
+            // tell the current route it's been planned
+            const selected: Route | undefined = newStore.selected
+            if(selected) {
+              selected.adjudicationState = PlanningStates.Planned
+            }
+          }
+
           setRouteStore(newStore)
         }
       }
 
-      // if we know our planning constraints, we can plan the next leg, as long as we're not
-      // in adjudication phase. In that phase, only one step is created
-      if (planningConstraints && !inAdjudicate) {
-        // get the last planned cell, to act as the first new planned cell
-        const lastCell: SergeHex<{}> = newLeg.route[newLeg.route.length - 1]
-        // create new planning contraints
-        const newP: PlanMobileAsset = {
-          origin: lastCell.name,
-          travelMode: planningConstraints.travelMode,
-          status: newLeg.state,
-          speed: newLeg.speed
-        }
-        setPlanningConstraints(newP)
-      } else {
-        // we're in adjudicate mode, cancel the planning
-        setPlanningConstraints(undefined)
-
-        // create a new route store
-        const modified: RouteStore = cloneDeep(routeStore)
-        // tell the current route it's been planned
-        const selected: Route | undefined = modified.selected
-        if(selected) {
-          selected.adjudicationState = PlanningStates.Planned
-          setRouteStore(modified)
-        }
-      }
     }
   }, [newLeg])
 
@@ -366,11 +366,9 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-  const revertRouteChanges = (): void => {
-    // TODO: implement this code
-    if (routeStore.selected) {
-      console.log('clear changing route for ', routeStore.selected.name)
-    }
+  const cancelRoutePlanning = (): void => {
+    console.log(`clearing planning constraints`)
+    setPlanningConstraints(undefined)
   }
 
   /**
@@ -543,7 +541,7 @@ export const Mapping: React.FC<PropTypes> = ({
     turnPlanned,
     routeAccepted,
     clearFromTurn,
-    revertRouteChanges,
+    cancelRoutePlanning,
     postBack,
     hidePlanningForm,
     setHidePlanningForm,
