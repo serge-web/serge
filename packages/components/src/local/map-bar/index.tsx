@@ -56,7 +56,7 @@ export const MapBar: React.FC = () => {
     setRouteStore,
     turnPlanned,
     routeAccepted,
-    revertRouteChanges,
+    cancelRoutePlanning,
     hidePlanningForm,
     setHidePlanningForm,
     groupMoveToRoot,
@@ -82,7 +82,7 @@ export const MapBar: React.FC = () => {
     setRouteStore: {(store: RouteStore): void}
     turnPlanned: {(turn: PlanTurnFormValues): void}
     routeAccepted: {(route: AdjudicateTurnFormValues): void}
-    revertRouteChanges: {(): void}
+    cancelRoutePlanning: {(): void}
     hidePlanningForm: boolean
     setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
     groupMoveToRoot?: {(uniqid: string): void}
@@ -202,7 +202,7 @@ export const MapBar: React.FC = () => {
           postBack={postBack} />
       case 'Adjudication': {
         const formData = collateAdjudicationFormData(platforms, selectedAsset, forces, routeStore)
-        const manager: AdjudicationManager = new AdjudicationManager(routeStore, setRouteStore, turnPlanned)
+        const manager: AdjudicationManager = new AdjudicationManager(routeStore, setRouteStore, turnPlanned, cancelRoutePlanning)
         return <AdjudicateTurnForm
           key={selectedAsset.uniqid}
           plannedRouteStatus={formData.values.plannedRouteStatusVal}
@@ -212,7 +212,6 @@ export const MapBar: React.FC = () => {
           canSubmitPlans={canSubmitOrders}
           formData={formData}
           icon={icondData}
-          revertRouteChanges={revertRouteChanges}
           routeAccepted={routeAccepted}
           turnPlanned={turnPlanned} />
       }

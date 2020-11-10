@@ -44,7 +44,11 @@ const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
   console.log('turn planned', plannedTurn)
 }
 
-const manager: AdjudicationManager = new AdjudicationManager(store, setRouteStore, turnPlanned)
+const cancelPlanning = (): void => {
+  console.log('cancelling planning')
+}
+
+const manager: AdjudicationManager = new AdjudicationManager(store, setRouteStore, turnPlanned, cancelPlanning)
 
 
 const states = {

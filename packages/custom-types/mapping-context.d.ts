@@ -98,9 +98,9 @@ export default interface MappingContext {
    */
   routeAccepted?: {(route: AdjudicateTurnFormValues): void}
   /**
-   * drop route changes produced by umpire
+   * Cancel route planning
    */
-  revertRouteChanges?: {(): void}
+  cancelRoutePlanning?: {(): void}
   /**
    * handler to clear current route from specified number
    */
