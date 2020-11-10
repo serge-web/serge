@@ -1,11 +1,13 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
-import { AdjudicateTurnFormValues, PlanTurnFormValues, Route, RouteStore, Status } from '@serge/custom-types'
+import { AdjudicateTurnFormValues, PlanTurnFormValues, Route, RouteStep, RouteStore, Status } from '@serge/custom-types'
+import { deepCompare } from '@serge/helpers'
 import { cloneDeep } from 'lodash'
 
 class AdjudicationManager {
   store: RouteStore
   setRouteStore: {(store: RouteStore): void}
   turnPlanned: {(turn: PlanTurnFormValues): void}
+  cancelRoutePlanning: { (): void }
   /**
    * 
    * @param {RouteStore} store the current route store
@@ -13,10 +15,12 @@ class AdjudicationManager {
    */
   constructor(store: RouteStore, 
               setRouteStore: {(store: RouteStore): void},
-              turnPlanned: {(turn: PlanTurnFormValues): void} ) {
+              turnPlanned: {(turn: PlanTurnFormValues): void} ,
+              cancelRoutePlanning: {(): void}) {
     this.store = store
     this.setRouteStore = setRouteStore
     this.turnPlanned = turnPlanned
+    this.cancelRoutePlanning = cancelRoutePlanning
     console.log('new adj manager')
   }
   /** provide a series of actions for available at the current state */
@@ -48,6 +52,7 @@ class AdjudicationManager {
           ]
         case PlanningStates.Planned:
           return [
+            {label: 'Revert', action: PlanningCommands.Revert},
             {label: 'Clear route', action: PlanningCommands.ClearRoute},
             {label: 'Save', action: PlanningCommands.Save}
           ]
@@ -87,6 +92,25 @@ class AdjudicationManager {
     this.turnPlanned(turnData)
     }
   }
+
+  /** if the Umpire has provided a new route, restore it to what
+   * the player planned
+   */
+  restoreOriginalRouteIfChanged(newStore: RouteStore): void {
+    if(newStore.selected) {
+      const selected: Route = newStore.selected
+      const planned: RouteStep[] = selected.planned
+      const original: RouteStep[] = selected.original
+      console.log('1. checking if route has changed')
+      if(!deepCompare(original, planned)) {
+        console.log('2. restoring original route')
+        // modified, reinstate it
+        selected.planned = cloneDeep(original)
+      }
+    } else {
+      console.warn('No route selected in store')
+    }
+  }
   /** handler for adjudication commands */
   handleState(command: PlanningCommands, formValues?: AdjudicateTurnFormValues): void {
     // make a new route store
@@ -113,8 +137,7 @@ class AdjudicationManager {
           switch (command) {
             case PlanningCommands.Revert:
               route.adjudicationState = PlanningStates.Pending
-              // TODO: if the planned route is different to the original route,
-              // restore to the original route
+              this.restoreOriginalRouteIfChanged(newStore)
               break
             default:
               console.warn('Not expecting ', command, ' in state ', curState)
@@ -134,10 +157,14 @@ class AdjudicationManager {
               break
             case PlanningCommands.Revert:
               route.adjudicationState = PlanningStates.Pending
+              this.restoreOriginalRouteIfChanged(newStore)
+              break
+            case PlanningCommands.Save:
+              route.adjudicationState = PlanningStates.Saved
               break
             default:
-              console.warn('Not expecting ', command, ' in state ', curState)
-              break
+            console.warn('Not expecting ', command, ' in state ', curState)
+            break
           }
           break
         }
@@ -145,9 +172,11 @@ class AdjudicationManager {
           switch (command) {
             case PlanningCommands.TurnPlanned:
               route.adjudicationState = PlanningStates.Planned
+              // this.cancelRoutePlanning()
               break
             case PlanningCommands.Cancel:
               route.adjudicationState = PlanningStates.Rejected
+              this.cancelRoutePlanning()
               break
             default:
               console.warn('Not expecting ', command, ' in state ', curState)
@@ -159,10 +188,19 @@ class AdjudicationManager {
           switch (command) {
             case PlanningCommands.ClearRoute:
               route.adjudicationState = PlanningStates.Planning
-              // TODO: reinstate origin of planning marker, plus planning range
+              this.cancelRoutePlanning()
+              if(formValues) {
+                this.readyForDragging(formValues)
+              } else {
+                console.error('failed to receive form values')
+              }
               break
             case PlanningCommands.Save:
               route.adjudicationState = PlanningStates.Saved
+              break
+            case PlanningCommands.Revert:
+              route.adjudicationState = PlanningStates.Pending
+              this.restoreOriginalRouteIfChanged(newStore)
               break
             default:
               console.warn('Not expecting ', command, ' in state ', curState)
