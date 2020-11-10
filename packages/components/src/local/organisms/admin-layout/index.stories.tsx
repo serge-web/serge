@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 
 /* Import component files */
 import AdminLayout from './index'
-import SettingOverview, { WargameOverview } from '../../organisms/setting-overview'
-import SettingPlatformTypes, { PlatformType } from '../../organisms/setting-platform-types'
-import SettingForces, { ForceData } from '../../organisms/setting-forces'
-import SettingChannels, { ChannelData } from '../../organisms/setting-channels'
+import SettingOverview, { WargameOverview } from '../setting-overview'
+import SettingPlatformTypes, { PlatformType } from '../setting-platform-types'
+import SettingForces, { ForceData } from '../setting-forces'
+import SettingChannels, { ChannelData } from '../setting-channels'
 
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
@@ -17,7 +17,7 @@ import { AdminContent } from '../../atoms/admin-content'
 const wrapper: React.FC = (storyFn: any) => <div>{storyFn()}</div>
 
 export default {
-  title: 'local/templates/AdminLayout',
+  title: 'local/organisms/AdminLayout',
   component: AdminLayout,
   decorators: [withKnobs, wrapper],
   parameters: {
