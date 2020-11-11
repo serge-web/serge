@@ -315,7 +315,7 @@ export const Mapping: React.FC<PropTypes> = ({
             // create a new route store
             // tell the current route it's been planned
             const selected: Route | undefined = newStore.selected
-            if(selected) {
+            if (selected) {
               selected.adjudicationState = PlanningStates.Planned
             }
           }
@@ -323,7 +323,6 @@ export const Mapping: React.FC<PropTypes> = ({
           setRouteStore(newStore)
         }
       }
-
     }
   }, [newLeg])
 

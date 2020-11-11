@@ -3,8 +3,8 @@ import { AdjudicateTurnFormValues, PlanTurnFormValues, Route, RouteStep, RouteSt
 import { deepCompare } from '@serge/helpers'
 import { cloneDeep } from 'lodash'
 
-/** 
- * support utility, encapsulating state management during umpire 
+/**
+ * support utility, encapsulating state management during umpire
  * adjudication phase
  */
 class AdjudicationManager {
@@ -13,78 +13,81 @@ class AdjudicationManager {
   turnPlanned: {(turn: PlanTurnFormValues): void}
   cancelRoutePlanning: { (): void }
   /**
-   * 
+   *
    * @param {RouteStore} store the current route store
    * @param {(store: RouteStore): void} setRouteStore - setter, for new store
    * @param {(turn: PlanTurnFormValues): void} turnPlanned - tell map that a turn has been planned
    * @param {(): void} cancelRoutePlanning - cancel dynamic map plotting
    */
-  constructor(store: RouteStore, 
-              setRouteStore: {(store: RouteStore): void},
-              turnPlanned: {(turn: PlanTurnFormValues): void} ,
-              cancelRoutePlanning: {(): void}) {
+  constructor (store: RouteStore,
+    setRouteStore: {(store: RouteStore): void},
+    turnPlanned: {(turn: PlanTurnFormValues): void},
+    cancelRoutePlanning: {(): void}) {
     this.store = store
     this.setRouteStore = setRouteStore
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
   }
+
   /** provide a series of actions for available at the current state */
-  actionsFor(isMobile: boolean): Array<{label:String, action: PlanningCommands}> {
+  actionsFor (isMobile: boolean): Array<{label: string, action: PlanningCommands}> {
     const selected: Route | undefined = this.store.selected
-    if(selected) {
+    if (selected) {
       const state = selected.adjudicationState
-      switch(state) {
+      switch (state) {
         case PlanningStates.Pending:
           return [
-            {label: 'Accept', action: PlanningCommands.Accept},
-            {label: 'Reject', action: PlanningCommands.Reject}
+            { label: 'Accept', action: PlanningCommands.Accept },
+            { label: 'Reject', action: PlanningCommands.Reject }
           ]
         case PlanningStates.Rejected:
-          if(isMobile) {
+          if (isMobile) {
             return [
-              {label: 'Plan Route', action: PlanningCommands.PlanRoute},
-              {label: 'Revert', action: PlanningCommands.Revert}
-            ]  
+              { label: 'Plan Route', action: PlanningCommands.PlanRoute },
+              { label: 'Revert', action: PlanningCommands.Revert }
+            ]
           } else {
             return [
-              {label: 'Save', action: PlanningCommands.Save},
-              {label: 'Revert', action: PlanningCommands.Revert}
-            ]  
+              { label: 'Save', action: PlanningCommands.Save },
+              { label: 'Revert', action: PlanningCommands.Revert }
+            ]
           }
         case PlanningStates.Planning:
           return [
-            {label: 'Cancel', action: PlanningCommands.Cancel},
+            { label: 'Cancel', action: PlanningCommands.Cancel }
           ]
         case PlanningStates.Planned:
           return [
-            {label: 'Revert', action: PlanningCommands.Revert},
-            {label: 'Clear route', action: PlanningCommands.ClearRoute},
-            {label: 'Save', action: PlanningCommands.Save}
+            { label: 'Revert', action: PlanningCommands.Revert },
+            { label: 'Clear route', action: PlanningCommands.ClearRoute },
+            { label: 'Save', action: PlanningCommands.Save }
           ]
         case PlanningStates.Saved:
           return [
-            {label: 'Revert', action: PlanningCommands.Revert},
+            { label: 'Revert', action: PlanningCommands.Revert }
           ]
         default:
-            return [
-              {label: 'UNPLANNED: state', action: PlanningCommands.ClearRoute}
-            ]
-        }
+          return [
+            { label: 'UNPLANNED: state', action: PlanningCommands.ClearRoute }
+          ]
+      }
     } else {
       return []
     }
   }
+
   /** whether the state dropdown should be enabled in this state */
-  canChangeState(): boolean {
+  canChangeState (): boolean {
     const route: Route | undefined = this.store.selected
-    if(route) {
+    if (route) {
       return route.adjudicationState === PlanningStates.Rejected
     } else {
       return false
     }
   }
+
   /** the umpire is ready to plan the turn using the marker */
-  readyForDragging(formValues: AdjudicateTurnFormValues): void {
+  readyForDragging (formValues: AdjudicateTurnFormValues): void {
     // convert the data object
     const state: Status | undefined = formValues && formValues.statusVal
     if (state) {
@@ -94,19 +97,19 @@ class AdjudicationManager {
         speedVal: formValues.speedVal,
         turnsVal: 1
       }
-    this.turnPlanned(turnData)
+      this.turnPlanned(turnData)
     }
   }
 
   /** if the Umpire has provided a new route, restore it to what
    * the player planned
    */
-  restoreOriginalRouteIfChanged(newStore: RouteStore): void {
-    if(newStore.selected) {
+  restoreOriginalRouteIfChanged (newStore: RouteStore): void {
+    if (newStore.selected) {
       const selected: Route = newStore.selected
       const planned: RouteStep[] = selected.planned
       const original: RouteStep[] = selected.original
-      if(!deepCompare(original, planned)) {
+      if (!deepCompare(original, planned)) {
         // modified, reinstate it
         selected.planned = cloneDeep(original)
       }
@@ -114,12 +117,13 @@ class AdjudicationManager {
       console.warn('No route selected in store')
     }
   }
+
   /** handler for adjudication commands */
-  handleState(command: PlanningCommands, formValues?: AdjudicateTurnFormValues): void {
+  handleState (command: PlanningCommands, formValues?: AdjudicateTurnFormValues): void {
     // make a new route store
     const newStore: RouteStore = cloneDeep(this.store)
     const route: Route | undefined = newStore.selected
-    if(route) {
+    if (route) {
       const curState: PlanningStates = route.adjudicationState ? route.adjudicationState : PlanningStates.Pending
       switch (curState) {
         case PlanningStates.Pending: {
@@ -152,7 +156,7 @@ class AdjudicationManager {
           switch (command) {
             case PlanningCommands.PlanRoute:
               route.adjudicationState = PlanningStates.Planning
-              if(formValues) {
+              if (formValues) {
                 this.readyForDragging(formValues)
               } else {
                 console.error('failed to receive form values')
@@ -166,8 +170,8 @@ class AdjudicationManager {
               route.adjudicationState = PlanningStates.Saved
               break
             default:
-            console.warn('Not expecting ', command, ' in state ', curState)
-            break
+              console.warn('Not expecting ', command, ' in state ', curState)
+              break
           }
           break
         }
@@ -193,7 +197,7 @@ class AdjudicationManager {
               route.adjudicationState = PlanningStates.Planning
               this.cancelRoutePlanning()
               this.restoreOriginalRouteIfChanged(newStore)
-              if(formValues) {
+              if (formValues) {
                 this.readyForDragging(formValues)
               } else {
                 console.error('failed to receive form values')

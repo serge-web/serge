@@ -30,8 +30,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const [formState, setFormState] = useState<AdjudicateTurnFormValues>(formData.values)
   // flag for if the current state is mobile
   const [stateIsMobile, setStateIsMobile] = useState<boolean>(formState.statusVal.mobile)
-  const [planningActions, setPlanningActions] = useState<Array<{label:String, action: PlanningCommands}>>([])
-
+  const [planningActions, setPlanningActions] = useState<Array<{label: string, action: PlanningCommands}>>([])
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
   const { status, speed, visibleTo, condition } = formData.populate
@@ -40,7 +39,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const canChangeState: boolean = manager ? manager.canChangeState() : false
 
   const handleCommandLocal = (command: PlanningCommands, formState?: AdjudicateTurnFormValues): void => {
-    if(manager) {
+    if (manager) {
       manager.handleState(command, formState)
     }
   }
@@ -60,7 +59,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   }, [formState])
 
   useEffect(() => {
-    if(manager) {
+    if (manager) {
       setPlanningActions(manager.actionsFor(stateIsMobile))
     }
   }, [plannedRouteStatus, manager])

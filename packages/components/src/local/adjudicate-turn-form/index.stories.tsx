@@ -50,7 +50,6 @@ const cancelPlanning = (): void => {
 
 const manager: AdjudicationManager = new AdjudicationManager(store, setRouteStore, turnPlanned, cancelPlanning)
 
-
 const states = {
   Saved: PlanningStates.Saved,
   Pending: PlanningStates.Pending,
