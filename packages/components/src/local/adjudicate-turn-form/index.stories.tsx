@@ -4,7 +4,7 @@ import React from 'react'
 import AdjudicateTurnForm from './index'
 import docs from './README.md'
 import formData from './mocks/formData'
-import { AdjudicateTurnFormValues, PlanTurnFormValues, RouteStore } from '@serge/custom-types'
+import { PlanTurnFormValues, RouteStore } from '@serge/custom-types'
 import { routeCreateStore, routeSetCurrent } from '@serge/helpers'
 
 /* Import mock data */
@@ -24,10 +24,6 @@ export default {
 }
 
 const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
-
-const routeAccepted = (route: AdjudicateTurnFormValues): void => {
-  console.log('route accepted in story', route)
-}
 
 // prepare some routes, and a selected item
 const store2: RouteStore = routeCreateStore(undefined, forces, 'umpire', true, platformTypes, undefined, false, false)
@@ -50,7 +46,6 @@ const manager: AdjudicationManager = new AdjudicationManager(store, setRouteStor
 
 
 export const Default: React.FC = () => <AdjudicateTurnForm
-  routeAccepted={routeAccepted}
   icon={iconData}
   manager={manager}
   canSubmitPlans={true}
@@ -59,7 +54,6 @@ export const Default: React.FC = () => <AdjudicateTurnForm
   formData={formData} />
 
 export const TurnsPlanned: React.FC = () => <AdjudicateTurnForm
-  routeAccepted={routeAccepted}
   icon={iconData}
   canSubmitPlans={true}
   plansSubmitted={true}
@@ -67,7 +61,6 @@ export const TurnsPlanned: React.FC = () => <AdjudicateTurnForm
   formData={formData} />
 
 export const CannotSubmitPlans: React.FC = () => <AdjudicateTurnForm
-  routeAccepted={routeAccepted}
   icon={iconData}
   plansSubmitted={false}
   canSubmitPlans={false}

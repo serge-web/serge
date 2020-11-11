@@ -94,10 +94,6 @@ export default interface MappingContext {
    */
   turnPlanned?: {(turn: PlanTurnFormValues): void}
   /**
-   * umpire has accepted route
-   */
-  routeAccepted?: {(route: AdjudicateTurnFormValues): void}
-  /**
    * Cancel route planning
    */
   cancelRoutePlanning?: {(): void}

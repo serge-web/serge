@@ -12,7 +12,7 @@ import collateStateOfWorld from './helpers/collate-state-of-world'
 import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
-import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid, AdjudicateTurnFormValues } from '@serge/custom-types'
+import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid } from '@serge/custom-types'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
 
 /* Import Stylesheet */
@@ -55,7 +55,6 @@ export const MapBar: React.FC = () => {
     routeStore,
     setRouteStore,
     turnPlanned,
-    routeAccepted,
     cancelRoutePlanning,
     hidePlanningForm,
     setHidePlanningForm,
@@ -81,7 +80,6 @@ export const MapBar: React.FC = () => {
     routeStore: RouteStore
     setRouteStore: {(store: RouteStore): void}
     turnPlanned: {(turn: PlanTurnFormValues): void}
-    routeAccepted: {(route: AdjudicateTurnFormValues): void}
     cancelRoutePlanning: {(): void}
     hidePlanningForm: boolean
     setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -210,9 +208,7 @@ export const MapBar: React.FC = () => {
           formHeader={currentAssetName}
           canSubmitPlans={canSubmitOrders}
           formData={formData}
-          icon={icondData}
-          routeAccepted={routeAccepted}
-          turnPlanned={turnPlanned} />
+          icon={icondData} />
       }
       case 'Planning':
         return <PlanTurnForm
