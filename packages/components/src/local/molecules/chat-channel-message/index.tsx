@@ -8,23 +8,28 @@ import styles from './styles.module.scss'
 import WriteMessagePanel from '../write-message-panel'
 
 /* Render component */
-export const ChatChannelMessage: React.FC<Props> = ({ title, timestamp, role, messageType, hasBeenRead, authorForceId, playerForceId, forceColors, isUmpire, privateMessage, hasPrivate }: Props) => {
+export const ChatChannelMessage: React.FC<Props> = ({ isUmpire, messages, colors }: Props) => {
   return (
     <div
       className={`${styles['chat-channel-message']}`}
     >
-      <ChatMessageBubble
-        title={title}
-        timestamp={timestamp}
-        role={role}
-        messageType={messageType}
-        hasBeenRead={hasBeenRead}
-        authorForceId={authorForceId}
-        playerForceId={playerForceId}
-        forceColors={forceColors}
-        privateMessage={privateMessage}
-        hasPrivate={hasPrivate}
-      />
+      {messages.map((item,index) => {
+        return (
+          <ChatMessageBubble
+            title={item.title}
+            timestamp={item.timestamp}
+            role={item.role}
+            messageType={item.messageType}
+            hasBeenRead={item.hasBeenRead}
+            authorForceId={item.authorForceId}
+            playerForceId={item.playerForceId}
+            forceColors={colors}
+            privateMessage={item.privateMessage}
+            hasPrivate={item.hasPrivate}
+            key={index}
+          />
+        )
+      })}
       <WriteMessagePanel isUmpire={isUmpire}/>
     </div>
   )

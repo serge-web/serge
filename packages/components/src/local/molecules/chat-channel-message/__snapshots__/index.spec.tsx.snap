@@ -24,7 +24,7 @@ exports[`renders correctly 1`] = `
           lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet
         </div>
         <div
-          className="MuiBox-root MuiBox-root-1"
+          className="MuiBox-root MuiBox-root-1 badges-box"
         >
           <span
             className="info-body"
