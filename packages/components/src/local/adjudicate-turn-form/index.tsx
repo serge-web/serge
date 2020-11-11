@@ -12,7 +12,7 @@ import { FormGroup, clSelect } from '../form-elements/form-group'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 
-import { PlanningCommands, PlanningStates } from '@serge/config'
+import { PlanningCommands } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -24,8 +24,8 @@ import Badge from '../atoms/badge'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
-  formHeader, formData, plannedRouteStatus, icon,
-  plansSubmitted, canSubmitPlans, routeAccepted, manager
+  formHeader, formData, icon,
+  plansSubmitted, canSubmitPlans, manager
 }) => {
   const [formState, setFormState] = useState<AdjudicateTurnFormValues>(formData.values)
   // flag for if the current state is mobile
@@ -62,7 +62,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     if (manager) {
       setPlanningActions(manager.actionsFor(stateIsMobile))
     }
-  }, [plannedRouteStatus, manager])
+  }, [manager])
 
   // Status has a different data model and requires it's own handler
 
@@ -110,19 +110,16 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     )
   }
 
-  const submitForm = (): void => {
-    if (routeAccepted !== undefined) {
-      routeAccepted(formState)
-    }
-  }
-
   return (
     <div className={styles.adjudicate}>
       <TitleWithIcon
         forceColor={icon.forceColor}
         platformType={icon.platformType}
       >
-        {formHeader} <Badge label={plannedRouteStatus} />
+        {formHeader} 
+        { manager && 
+          <Badge label={manager.currentPlanningStatus()} /> 
+        }
         { plansSubmitted &&
          <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
         }
@@ -166,9 +163,6 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
           <RCB type="radio" label="" options={condition} value={conditionVal} updateState={changeHandler}/>
         </FormGroup>
       </fieldset>
-      { !formDisabled &&
-        <Button disabled={ plannedRouteStatus !== PlanningStates.Saved } onClick={submitForm}>Save</Button>
-      }
     </div>
   )
 }

@@ -205,7 +205,6 @@ export const MapBar: React.FC = () => {
         const manager: AdjudicationManager = new AdjudicationManager(routeStore, setRouteStore, turnPlanned, cancelRoutePlanning)
         return <AdjudicateTurnForm
           key={selectedAsset.uniqid}
-          plannedRouteStatus={formData.values.plannedRouteStatusVal}
           manager={manager}
           plansSubmitted={plansSubmitted}
           formHeader={currentAssetName}

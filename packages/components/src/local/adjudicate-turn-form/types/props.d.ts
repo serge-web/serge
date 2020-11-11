@@ -1,5 +1,5 @@
-import { PlanningCommands, PlanningStates } from '@serge/config'
-import { AdjudicateTurnFormData, AdjudicateTurnFormValues, PlanTurnFormValues, RouteStore } from '@serge/custom-types'
+import { PlanningStates } from '@serge/config'
+import { AdjudicateTurnFormData, AdjudicateTurnFormValues, PlanTurnFormValues } from '@serge/custom-types'
 import AdjudicationManager from '../helpers/adjudication-manager'
 
 export default interface PropTypes {
@@ -11,10 +11,6 @@ export default interface PropTypes {
    * All types in this definition are options for a form input
    */
   formData: AdjudicateTurnFormData
-  /**
-   * status of current planned route
-   */
-  plannedRouteStatus: PlanningStates
   /**
    * Data for icon generation
    */

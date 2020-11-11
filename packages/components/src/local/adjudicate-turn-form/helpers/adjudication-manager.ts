@@ -28,7 +28,15 @@ class AdjudicationManager {
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
   }
-
+  currentPlanningStatus(): PlanningStates {
+    const selected: Route | undefined = this.store.selected
+    if (selected && selected.adjudicationState) {
+      return selected.adjudicationState
+    } else {
+      console.error("No adjudication planning state found")
+      return PlanningStates.Pending
+    }
+  }
   /** provide a series of actions for available at the current state */
   actionsFor (isMobile: boolean): Array<{label: string, action: PlanningCommands}> {
     const selected: Route | undefined = this.store.selected
