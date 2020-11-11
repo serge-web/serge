@@ -3,6 +3,10 @@ import { AdjudicateTurnFormValues, PlanTurnFormValues, Route, RouteStep, RouteSt
 import { deepCompare } from '@serge/helpers'
 import { cloneDeep } from 'lodash'
 
+/** 
+ * support utility, encapsulating state management during umpire 
+ * adjudication phase
+ */
 class AdjudicationManager {
   store: RouteStore
   setRouteStore: {(store: RouteStore): void}
@@ -12,6 +16,8 @@ class AdjudicationManager {
    * 
    * @param {RouteStore} store the current route store
    * @param {(store: RouteStore): void} setRouteStore - setter, for new store
+   * @param {(turn: PlanTurnFormValues): void} turnPlanned - tell map that a turn has been planned
+   * @param {(): void} cancelRoutePlanning - cancel dynamic map plotting
    */
   constructor(store: RouteStore, 
               setRouteStore: {(store: RouteStore): void},
@@ -21,7 +27,6 @@ class AdjudicationManager {
     this.setRouteStore = setRouteStore
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
-    console.log('new adj manager')
   }
   /** provide a series of actions for available at the current state */
   actionsFor(isMobile: boolean): Array<{label:String, action: PlanningCommands}> {
@@ -101,9 +106,7 @@ class AdjudicationManager {
       const selected: Route = newStore.selected
       const planned: RouteStep[] = selected.planned
       const original: RouteStep[] = selected.original
-      console.log('1. checking if route has changed')
       if(!deepCompare(original, planned)) {
-        console.log('2. restoring original route')
         // modified, reinstate it
         selected.planned = cloneDeep(original)
       }
@@ -189,6 +192,7 @@ class AdjudicationManager {
             case PlanningCommands.ClearRoute:
               route.adjudicationState = PlanningStates.Planning
               this.cancelRoutePlanning()
+              this.restoreOriginalRouteIfChanged(newStore)
               if(formValues) {
                 this.readyForDragging(formValues)
               } else {

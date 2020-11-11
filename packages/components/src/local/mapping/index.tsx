@@ -367,7 +367,6 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const cancelRoutePlanning = (): void => {
-    console.log(`clearing planning constraints`)
     setPlanningConstraints(undefined)
   }
 

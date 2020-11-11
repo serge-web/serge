@@ -61,10 +61,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if(manager) {
-      console.log('manager changed', plannedRouteStatus, manager.actionsFor(stateIsMobile))
       setPlanningActions(manager.actionsFor(stateIsMobile))
-    } else {
-      console.error('no manager')
     }
   }, [plannedRouteStatus, manager])
 
