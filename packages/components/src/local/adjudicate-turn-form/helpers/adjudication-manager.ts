@@ -66,7 +66,7 @@ class AdjudicationManager {
           ]
         case PlanningStates.Planned:
           return [
-            { label: 'Revert', action: PlanningCommands.Revert },
+            { label: 'Revert', action: PlanningCommands.Revert }
           ]
         case PlanningStates.Saved:
           return [
@@ -91,7 +91,7 @@ class AdjudicationManager {
         case PlanningStates.Rejected:
           if (isMobile) {
             return [
-              { label: 'Plan Route', action: PlanningCommands.PlanRoute },
+              { label: 'Plan Route', action: PlanningCommands.PlanRoute }
             ]
           } else {
             return [
@@ -119,7 +119,7 @@ class AdjudicationManager {
       return []
     }
   }
-  
+
   /** whether the state dropdown should be enabled in this state */
   canChangeState (): boolean {
     const route: Route | undefined = this.store.selected
