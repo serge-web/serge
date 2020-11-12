@@ -30,7 +30,8 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const [formState, setFormState] = useState<AdjudicateTurnFormValues>(formData.values)
   // flag for if the current state is mobile
   const [stateIsMobile, setStateIsMobile] = useState<boolean>(formState.statusVal.mobile)
-  const [planningActions, setPlanningActions] = useState<Array<{label: string, action: PlanningCommands}>>([])
+  const [upperPlanningActions, setUpperPlanningActions] = useState<Array<{label: string, action: PlanningCommands}>>([])
+  const [lowerPlanningActions, setLowerPlanningActions] = useState<Array<{label: string, action: PlanningCommands}>>([])
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
   const { status, speed, visibleTo, condition } = formData.populate
@@ -60,7 +61,8 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (manager) {
-      setPlanningActions(manager.actionsFor(stateIsMobile))
+      setUpperPlanningActions(manager.upperActionsFor(stateIsMobile))
+      setLowerPlanningActions(manager.lowerActionsFor(stateIsMobile))
     }
   }, [manager])
 
@@ -116,9 +118,9 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         forceColor={icon.forceColor}
         platformType={icon.platformType}
       >
-        {formHeader} 
-        { manager && 
-          <Badge label={manager.currentPlanningStatus()} /> 
+        {formHeader}
+        { manager &&
+          <Badge label={manager.currentPlanningStatus()} />
         }
         { plansSubmitted &&
          <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
@@ -127,7 +129,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       </TitleWithIcon>
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Player Route" align="right">
-          { !formDisabled && planningActions && planningActions.map((item: any) =>
+          { !formDisabled && upperPlanningActions && upperPlanningActions.map((item: any) =>
             <Button key={item.label} onClick={(): void => handleCommandLocal(item.action, formState)}>{item.label}</Button>
           )}
         </FormGroup>
@@ -161,6 +163,13 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         </FormGroup>
         <FormGroup title="Condition" align="right">
           <RCB type="radio" label="" options={condition} value={conditionVal} updateState={changeHandler}/>
+        </FormGroup>
+      </fieldset>
+      <fieldset>
+        <FormGroup title="Adjudication" align="right">
+            { !formDisabled && lowerPlanningActions && lowerPlanningActions.map((item: any) =>
+              <Button key={item.label} onClick={(): void => handleCommandLocal(item.action, formState)}>{item.label}</Button>
+            )}
         </FormGroup>
       </fieldset>
     </div>

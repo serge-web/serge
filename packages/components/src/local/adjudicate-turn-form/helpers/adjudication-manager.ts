@@ -28,17 +28,19 @@ class AdjudicationManager {
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
   }
-  currentPlanningStatus(): PlanningStates {
+
+  currentPlanningStatus (): PlanningStates {
     const selected: Route | undefined = this.store.selected
     if (selected && selected.adjudicationState) {
       return selected.adjudicationState
     } else {
-      console.error("No adjudication planning state found")
+      console.error('No adjudication planning state found')
       return PlanningStates.Pending
     }
   }
+
   /** provide a series of actions for available at the current state */
-  actionsFor (isMobile: boolean): Array<{label: string, action: PlanningCommands}> {
+  upperActionsFor (isMobile: boolean): Array<{label: string, action: PlanningCommands}> {
     const selected: Route | undefined = this.store.selected
     if (selected) {
       const state = selected.adjudicationState
@@ -51,24 +53,20 @@ class AdjudicationManager {
         case PlanningStates.Rejected:
           if (isMobile) {
             return [
-              { label: 'Plan Route', action: PlanningCommands.PlanRoute },
               { label: 'Revert', action: PlanningCommands.Revert }
             ]
           } else {
             return [
-              { label: 'Save', action: PlanningCommands.Save },
               { label: 'Revert', action: PlanningCommands.Revert }
             ]
           }
         case PlanningStates.Planning:
           return [
-            { label: 'Cancel', action: PlanningCommands.Cancel }
+            { label: 'Revert', action: PlanningCommands.Revert }
           ]
         case PlanningStates.Planned:
           return [
             { label: 'Revert', action: PlanningCommands.Revert },
-            { label: 'Clear route', action: PlanningCommands.ClearRoute },
-            { label: 'Save', action: PlanningCommands.Save }
           ]
         case PlanningStates.Saved:
           return [
@@ -84,6 +82,44 @@ class AdjudicationManager {
     }
   }
 
+  /** provide a series of actions for available at the current state */
+  lowerActionsFor (isMobile: boolean): Array<{label: string, action: PlanningCommands}> {
+    const selected: Route | undefined = this.store.selected
+    if (selected) {
+      const state = selected.adjudicationState
+      switch (state) {
+        case PlanningStates.Rejected:
+          if (isMobile) {
+            return [
+              { label: 'Plan Route', action: PlanningCommands.PlanRoute },
+            ]
+          } else {
+            return [
+              { label: 'Save', action: PlanningCommands.Save },
+              { label: 'Cancel', action: PlanningCommands.Revert }
+            ]
+          }
+        case PlanningStates.Planning:
+          return [
+            { label: 'Cancel', action: PlanningCommands.Cancel }
+          ]
+        case PlanningStates.Planned:
+          return [
+            { label: 'Clear route', action: PlanningCommands.ClearRoute },
+            { label: 'Save', action: PlanningCommands.Save }
+          ]
+        case PlanningStates.Saved:
+          return [
+          ]
+        default:
+          return [
+          ]
+      }
+    } else {
+      return []
+    }
+  }
+  
   /** whether the state dropdown should be enabled in this state */
   canChangeState (): boolean {
     const route: Route | undefined = this.store.selected
