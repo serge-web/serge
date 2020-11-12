@@ -44,7 +44,6 @@ const cancelPlanning = (): void => {
 
 const manager: AdjudicationManager = new AdjudicationManager(store, setRouteStore, turnPlanned, cancelPlanning)
 
-
 export const Default: React.FC = () => <AdjudicateTurnForm
   icon={iconData}
   manager={manager}
@@ -66,4 +65,3 @@ export const CannotSubmitPlans: React.FC = () => <AdjudicateTurnForm
   canSubmitPlans={false}
   formHeader="Adjudicate header"
   formData={formData} />
-

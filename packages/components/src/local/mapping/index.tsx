@@ -210,7 +210,7 @@ export const Mapping: React.FC<PropTypes> = ({
     const umpireInAdjudication = playerForce === 'umpire' && currentPhase === ADJUDICATION_PHASE
     if (forcesState && gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-      const store: RouteStore = routeCreateStore(selectedId, forcesState, playerForce, umpireInAdjudication, 
+      const store: RouteStore = routeCreateStore(selectedId, forcesState, playerForce, umpireInAdjudication,
         platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
       setRouteStore(store)
     }
@@ -229,7 +229,7 @@ export const Mapping: React.FC<PropTypes> = ({
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-        const vStore: RouteStore = routeCreateStore(selectedId, forcesState, viewAsForce, umpireInAdjudication, platforms, 
+        const vStore: RouteStore = routeCreateStore(selectedId, forcesState, viewAsForce, umpireInAdjudication, platforms,
           gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
         declutterRouteStore(vStore)
       } else {
@@ -244,16 +244,16 @@ export const Mapping: React.FC<PropTypes> = ({
     setViewAsRouteStore(declutteredStore)
   }
 
-  /** 
+  /**
    * on a new phase, we have to allow plans to be submitted. Wrap `phase` into `currentPhase` so that
    * we can confidently wipe and old planning steps from the last phase, and not risk
    * pulling them into the new routes object
-   */ 
+   */
   useEffect(() => {
     setPlansSubmitted(false)
 
     // wipe the route store, to ensure any routes that were being planned get forgotten
-    setRouteStore({routes:[]})
+    setRouteStore({ routes: [] })
     // now update the phase
     setCurrentPhase(phase)
   }, [phase])
