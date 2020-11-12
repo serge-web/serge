@@ -129,6 +129,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [filterPlannedRoutes, setFilterPlannedRoutes] = useState<boolean>(true)
   const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
+  const [currentPhase, setCurrentPhase] = useState<string>(phase)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -206,13 +207,14 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
+    const umpireInAdjudication = playerForce === 'umpire' && currentPhase === ADJUDICATION_PHASE
     if (forcesState && gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-      const store: RouteStore = routeCreateStore(selectedId, forcesState, playerForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
+      const store: RouteStore = routeCreateStore(selectedId, forcesState, playerForce, umpireInAdjudication, 
+        platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
       setRouteStore(store)
     }
-  }, [forcesState, playerForce, phase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
+  }, [forcesState, playerForce, currentPhase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
 
   /**
    * generate the set of routes visible to this player, for display
@@ -221,13 +223,14 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
+    const umpireInAdjudication = playerForce === 'umpire' && currentPhase === ADJUDICATION_PHASE
     if (forcesState && gridCells && routeStore.routes.length) {
       // if this is umpire and we have view as
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-        const vStore: RouteStore = routeCreateStore(selectedId, forcesState, viewAsForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
+        const vStore: RouteStore = routeCreateStore(selectedId, forcesState, viewAsForce, umpireInAdjudication, platforms, 
+          gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
         declutterRouteStore(vStore)
       } else {
         // just use normal route store
@@ -241,9 +244,18 @@ export const Mapping: React.FC<PropTypes> = ({
     setViewAsRouteStore(declutteredStore)
   }
 
-  // on a new phase, we have to allow plans to be submitted
+  /** 
+   * on a new phase, we have to allow plans to be submitted. Wrap `phase` into `currentPhase` so that
+   * we can confidently wipe and old planning steps from the last phase, and not risk
+   * pulling them into the new routes object
+   */ 
   useEffect(() => {
     setPlansSubmitted(false)
+
+    // wipe the route store, to ensure any routes that were being planned get forgotten
+    setRouteStore({routes:[]})
+    // now update the phase
+    setCurrentPhase(phase)
   }, [phase])
 
   useEffect(() => {
@@ -268,7 +280,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (newLeg) {
-      const inAdjudicate: boolean = phase === ADJUDICATION_PHASE
+      const inAdjudicate: boolean = currentPhase === ADJUDICATION_PHASE
       const selRoute = routeStore.selected
       if (selRoute) {
         const turnStart = selRoute.planned && selRoute.planned.length
@@ -425,7 +437,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const status = plannedTurn.statusVal
       if (status.mobile) {
         // trigger route planning
-        const inAdjudicate: boolean = phase === ADJUDICATION_PHASE
+        const inAdjudicate: boolean = currentPhase === ADJUDICATION_PHASE
         const origin: string = inAdjudicate ? current.currentPosition : routeGetLatestPosition(current.currentPosition, current.planned)
 
         // sort out platform type for this asset

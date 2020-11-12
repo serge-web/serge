@@ -32,10 +32,12 @@ export const forcesControlledBy = (forces: any, playerForce: string): Array<stri
  * @param {SergeGrid<SergeHex<{}>> | undefined} grid the grid object, used to find cell centres, used in declutter
  * @param {boolean} filterPlannedSteps whether to filter the planned steps to only one
  * @param {boolean} filterHistorySteps whether to filter the history steps to only one
+ * @param {RouteStore} oldStore existing RouteStore, so we can persist player modifications
  * @returns {RouteStore} RouteStore representing current data
  */
 const routeCreateStore = (selectedId: string | undefined, forces: any, playerForce: string, adjudication: boolean,
-    platformTypes: any, grid: SergeGrid<SergeHex<{}>> | undefined, filterHistorySteps: boolean, filterPlannedSteps: boolean): RouteStore => {
+    platformTypes: any, grid: SergeGrid<SergeHex<{}>> | undefined, filterHistorySteps: boolean, 
+    filterPlannedSteps: boolean, oldStore?: RouteStore): RouteStore => {
   const store: RouteStore = { routes: []}
 
   const controls: Array<string> = forcesControlledBy(forces, playerForce)
@@ -83,6 +85,15 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
               controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
               platformTypes, playerForce, asset.status, asset.position, assetLocation, 
               grid, true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset)
+
+            // see if there is an existing planned route for this asset
+            if(oldStore) {
+              const existing: Route | undefined = oldStore.routes.find((route: Route) => route.uniqid === asset.uniqid)
+              if(existing) {
+                newRoute.adjudicationState = existing.adjudicationState
+              }
+            }
+
             store.routes.push(newRoute)
           } else {
 
