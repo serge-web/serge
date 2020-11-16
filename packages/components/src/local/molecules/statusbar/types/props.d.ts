@@ -5,5 +5,5 @@ export default interface PropTypes {
   href?: string
   onChange?: (e?: any) => void
   wargame: Wargame
-  tabs?: Array<string>
+  tabsOrder?: Array<string>
 }

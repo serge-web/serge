@@ -30,10 +30,10 @@ const AdminGameSetup = () => {
   const dispatch = useDispatch()
   const wargame = useSelector(state => state.wargame)
   const messageTypes = useSelector(state => state.messageTypes)
+  const currentTab = useSelector(state => state.currentTab)
   const {
     data,
     currentWargame,
-    currentTab
   } = wargame
   const {
     overview,
@@ -47,7 +47,7 @@ const AdminGameSetup = () => {
   }
   const onTabChange = tab => {
     if (!isWargameChanged()) {
-      setCurrentTab(tab)
+      dispatch(setCurrentTab(tab))
     } else {
       dispatch(addNotification('Unsaved changes', 'warning'))
     }
@@ -162,7 +162,7 @@ const AdminGameSetup = () => {
       overview={overview}
       platformTypes={platformTypes}
       forces={forces.forces}
-      channels={channels}
+      channels={channels.channels}
       onOverviewChange={handleFormChange}
       onPlatformTypesChange={handleFormChange}
       onForcesChange={handleFormChange}

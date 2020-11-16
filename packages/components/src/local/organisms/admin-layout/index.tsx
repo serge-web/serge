@@ -24,12 +24,19 @@ export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargam
     }
   }
 
+  const contentTabs = [
+    'overview',
+    'platform_types',
+    'forces',
+    'channels'
+  ]
+
   const renderContainer = (reqWargame: Wargame): React.ReactNode => {
     return (
       <>
         <div className={styles.header}>
-          <StatusBar wargame={reqWargame} tabs={tabs} />
-          {tabs.length > 0 && <Tabs activeTab={activeTab} onChange={handleTabChange} tabs={tabs} changed={wargameChanged} />}
+          <StatusBar wargame={reqWargame} />
+          {tabs.length > 0 && <Tabs activeTab={activeTab} onChange={handleTabChange} tabs={contentTabs} changed={wargameChanged} />}
         </div>
         <div className={styles.content}>
           {children}

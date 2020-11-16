@@ -17,7 +17,7 @@ import { faHourglassStart } from '@fortawesome/free-solid-svg-icons'
 export const StatusBar: React.FC<PropTypes> = ({
   onChange,
   wargame,
-  tabs = [
+  tabsOrder = [
     'overview',
     'platform_types',
     'forces',
@@ -34,7 +34,7 @@ export const StatusBar: React.FC<PropTypes> = ({
   }
 
   const wargameData = Object.entries(wargame.data)
-  const progressList = [...tabs].map((tab, index) => {
+  const progressList = [...tabsOrder].map((tab, index) => {
     const tabEntry = wargameData.find(entry => entry[0] === tab)
     return tabEntry ? {
       active: wargame.currentTab ? wargame.currentTab === tabEntry[0] : index === 0,
