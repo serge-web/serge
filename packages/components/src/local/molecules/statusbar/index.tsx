@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
+import { usePrevious } from '@serge/helpers'
 import ProgressIndicator from '../../atoms/progress-indicator'
 import TextInput from '../../atoms/text-input'
 
@@ -16,7 +17,7 @@ import { faHourglassStart } from '@fortawesome/free-solid-svg-icons'
 /* Render component */
 export const StatusBar: React.FC<PropTypes> = ({
   onChange,
-  wargame,
+  wargame: initialWargame,
   tabsOrder = [
     'overview',
     'platform_types',
@@ -24,7 +25,9 @@ export const StatusBar: React.FC<PropTypes> = ({
     'channels'
   ]
 }) => {
+  const [wargame, setWargame] = useState(initialWargame)
   const [value, setValue] = useState(wargame.wargameTitle)
+  const prevWargame = usePrevious(wargame)
 
   const handleChange = (target: {value: string}): void => {
     setValue(target.value)
@@ -41,6 +44,12 @@ export const StatusBar: React.FC<PropTypes> = ({
       complete: tabEntry[1].complete
     } : {}
   }).filter(item => Object.keys(item).length)
+
+  useEffect(() => {
+    if (!prevWargame && Object.keys(initialWargame).length > 0) {
+      setWargame(initialWargame)
+    }
+  }, [initialWargame])
 
   return (
     <div className={cx(styles.main)}>
