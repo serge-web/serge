@@ -1,4 +1,4 @@
-/* global it expect */
+// /* global it expect */
 import { cloneDeep } from 'lodash'
 
 /* Import mock data */
@@ -7,7 +7,7 @@ import { forces, platformTypes } from '@serge/mocks'
 import routeCreateStore from '../route-create-store'
 import { forcesControlledBy } from '../route-create-store'
 
-import { RouteStore , Route, RouteChild } from '@serge/custom-types'
+import { RouteStore , Route,  RouteChild } from '@serge/custom-types'
 import { UMPIRE_FORCE } from '@serge/config'
 
 it('determines correct controlled routes', () => {
@@ -26,6 +26,13 @@ it('can create route under control as umpire in adjudication phase', () => {
   expect(route.planned.length).toEqual(2)
   expect(route.original.length).toEqual(2)
   expect(route.underControl).toBeTruthy()
+
+  expect(route.visibleTo).toBeTruthy()
+  expect(route.visibleTo.length).toEqual(1)
+  expect(route.visibleTo[0]).toEqual("Red")
+
+  expect(route.condition).toEqual('Full capability')
+
 })
 
 it('can create route under control as umpire in playing phase', () => {
@@ -55,6 +62,10 @@ it('can create route for un-recognised type', () => {
 
   // should not create planned steps for non-blue platform
   expect(dhow.planned.length).toEqual(0)
+
+  // should not create visible or condition elements for Blue force
+  expect(dhow.visibleTo.length).toEqual(0)
+  expect(dhow.condition).toBeUndefined()
 })
 
 it('create full history & planned for blue unit', () => {

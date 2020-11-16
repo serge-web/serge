@@ -122,6 +122,16 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
   return res
 }
 
+/** determine which forces can see this asset
+ * @param {any} asset the asset in question
+ * @param {string} playerForce the force for this player, we only collate this data for the umpire force
+ */
+const determineVisibleTo = (asset:any, playerForce: string): Array<string> => {
+  return playerForce != UMPIRE_FORCE ? [] : asset.perceptions ? asset.perceptions.map((perception: any) => {
+    return perception.by
+  }) : []
+}
+
 /** create a route object for this asset
  * @param {any} asset single asset
  * @param {string} color color for rendering this asset
@@ -166,6 +176,10 @@ const routeCreateRoute = (asset: any, color: string,
 
   const adjudicationState: PlanningStates | undefined  = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
   
+  const visibleTo: Array<string> = determineVisibleTo(asset, playerForce)
+
+  const condition: string | undefined = playerForce === UMPIRE_FORCE ? asset.condition : undefined
+
   return {
     uniqid: asset.uniqid,
     name: perceivedName,
@@ -186,6 +200,8 @@ const routeCreateRoute = (asset: any, color: string,
     plannedTurnsCount: numberOfPlannedTurns,
     original: cloneDeep(futureSteps),
     asset: asset,
+    visibleTo: visibleTo,
+    condition: condition,
     adjudicationState: adjudicationState
   }
 }
