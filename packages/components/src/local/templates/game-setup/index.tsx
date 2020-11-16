@@ -29,49 +29,53 @@ export const GameSetup: React.FC<Props> = ({
   onChannelsChange,
   onSave,
   messageTemplates
-}: Props) => (
-  <AdminLayout wargame={wargame} activeTab={tabs[activeTab]} tabs={tabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
-    <AdminContent>
-      {
-        activeTab === 'overview' && (
-          <SettingOverview
-            overview={overview}
-            onChange={onOverviewChange}
-            onSave={onSave}
-          />
-        )
-      }
-      {
-        activeTab === 'platform_types' && (
-          <SettingPlatformTypes
-            platformType={platformTypes}
-            onChange={onPlatformTypesChange}
-            onSave={onSave}
-          />
-        )
-      }
-      {
-        activeTab === 'forces' && (
-          <SettingForces
-            forces={forces}
-            onChange={onForcesChange}
-            onSave={onSave}
-          />
-        )
-      }
-      {
-        activeTab === 'channels' && (
-          <SettingChannels
-            channels={channels}
-            onChange={onChannelsChange}
-            onSave={onSave}
-            forces={forces}
-            messages={messageTemplates}
-          />
-        )
-      }
-    </AdminContent>
-  </AdminLayout>
-)
+}: Props) => {
+  const currentActiveTab = wargame?.currentTab || activeTab
+
+  return (
+    <AdminLayout wargame={wargame} activeTab={currentActiveTab} tabs={tabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
+      <AdminContent>
+        {
+          currentActiveTab === 'overview' && (
+            <SettingOverview
+              overview={overview}
+              onChange={onOverviewChange}
+              onSave={onSave}
+            />
+          )
+        }
+        {
+          currentActiveTab === 'platform_types' && (
+            <SettingPlatformTypes
+              platformType={platformTypes}
+              onChange={onPlatformTypesChange}
+              onSave={onSave}
+            />
+          )
+        }
+        {
+          currentActiveTab === 'forces' && (
+            <SettingForces
+              forces={forces}
+              onChange={onForcesChange}
+              onSave={onSave}
+            />
+          )
+        }
+        {
+          currentActiveTab === 'channels' && (
+            <SettingChannels
+              channels={channels}
+              onChange={onChannelsChange}
+              onSave={onSave}
+              forces={forces}
+              messages={messageTemplates}
+            />
+          )
+        }
+      </AdminContent>
+    </AdminLayout>
+  )
+}
 
 export default GameSetup

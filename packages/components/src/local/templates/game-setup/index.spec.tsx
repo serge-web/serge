@@ -46,24 +46,8 @@ const Component = () => {
     })
   }
 
-  const onSave = (): void => {
-    setWargame({
-      ...wargame,
-      data: {
-        ...wargame.data,
-        overview: changedOverview,
-        platformTypes: changedPlatformType,
-        forces: {
-          ...wargame.data.forces,
-          forces: changedForces
-        },
-        channels: {
-          ...wargame.data.channels,
-          channels: changedChannels
-        }
-      }
-    })
-    setWargameChanged(false)
+  const onSave = (updates: any): void => {
+    console.log(updates)
   }
 
   const onOverviewChange = (nextOverview: WargameOverview): void => {

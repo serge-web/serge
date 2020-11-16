@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState, useEffect } from 'react'
 import cx from 'classnames'
 import millisecondsToDDHHMMSS from './helpers/millisecondsToDDHHMMSS'
 import millisecondsToHHMMSS from './helpers/millisecondsToHHMMSS'
@@ -12,6 +12,7 @@ import styles from './styles.module.scss'
 /* Import Components */
 import MaskedInput from 'react-maskedinput'
 import { Input, Checkbox, FormControlLabel } from '@material-ui/core'
+import { usePrevious } from '@serge/helpers'
 import Button from '../../atoms/button'
 import TextInput from '../../atoms/text-input'
 import FormGroup from '../../atoms/form-group-shadow'
@@ -19,6 +20,7 @@ import FormGroup from '../../atoms/form-group-shadow'
 /* Render component */
 export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange }) => {
   const [overview, setOverview] = useState<WargameOverview>(initialOverview)
+  const prevOverview = usePrevious(overview)
   const updateGameTime = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target
 
@@ -36,29 +38,38 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
       milliseconds = (secs * 1000) + (mins * 60 * 1000) + (hrs * 60 * 60 * 1000)
     }
 
-    setOverview({ ...overview, [name]: milliseconds })
-    setDirty()
+    const updates = { ...overview, [name]: milliseconds }
+    setOverview(updates)
+    setDirty(updates)
   }
 
   const updateGameDescription = (target: { value: string }): any => {
-    setOverview({
+    const updates = {
       ...overview,
       gameDescription: target.value
-    })
-    setDirty()
+    }
+    setOverview(updates)
+    setDirty(updates)
   }
 
   const updateAccessCodeVisibility = (): void => {
-    setOverview({ ...overview, showAccessCodes: !overview.showAccessCodes })
-    setDirty()
+    const updates = { ...overview, showAccessCodes: !overview.showAccessCodes }
+    setOverview(updates)
+    setDirty(updates)
   }
 
-  const setDirty = (): void => {
+  const setDirty = (updates: WargameOverview): void => {
     onChange && onChange({
-      ...overview,
+      ...updates,
       dirty: true
     })
   }
+
+  useEffect(() => {
+    if (!prevOverview && Object.keys(initialOverview).length > 0) {
+      setOverview(initialOverview)
+    }
+  }, [initialOverview])
 
   return <div className={styles.main}>
     <div className={styles.row}>
@@ -84,7 +95,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
             rows={8}
             rowsMax={8}
             updateState={updateGameDescription}
-            value={overview.gameDescription}
+            value={initialOverview.gameDescription}
             className={styles.textarea}
           />
         </FormGroup>

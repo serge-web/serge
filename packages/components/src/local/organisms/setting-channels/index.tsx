@@ -33,7 +33,7 @@ import createChannel from './helpers/createChannel'
 /* Render component */
 export const SettingChannels: React.FC<PropTypes> = ({ onChange, onSave, channels, forces, messages }) => {
   const [selectedItem, setSelectedItem] = useState(0)
-
+  const [localChannelUpdates, setLocalChannelUpdates] = useState(channels)
   const messageTemplatesOptions: Array<Option> = messages.map(message => ({
     name: message.title,
     value: message
@@ -62,6 +62,7 @@ export const SettingChannels: React.FC<PropTypes> = ({ onChange, onSave, channel
       const nextChannels: Array<ChannelData> = [...channels]
       nextChannels[selectedItem] = channel
       handleChangeChannels(nextChannels)
+      setLocalChannelUpdates(nextChannels)
     }
 
     const handleSaveRows = (participants: Array<Participant>): void => {
@@ -104,7 +105,7 @@ export const SettingChannels: React.FC<PropTypes> = ({ onChange, onSave, channel
           <div className={styles.actions}>
             <Button
               color="secondary"
-              onClick={(): void => { if (onSave) onSave() }}
+              onClick={(): void => { if (onSave) onSave(localChannelUpdates) }}
               data-qa-type="save"
             >
               Save Channel

@@ -1,35 +1,19 @@
 import 'whatwg-fetch'
 import _ from 'lodash'
 
-import { DEFAULT_SERVER } from '@serge/coanfig'
+import { DEFAULT_SERVER } from '@serge/config'
 
 import {
-  saveIcon,
   populateWargame,
   createWargame,
-  getAllWargames,
-  clearWargames,
-  getAllWargames,
-  deleteWargame,
-  getAllWargames,
-  editWargame,
-  exportWargame,
-  getWargameLocalFromName,
-  checkIfWargameStarted,
-  createLatestWargameRevision,
   getWargameLocalFromName,
   checkIfWargameStarted,
   createLatestWargameRevision,
   updateWargameTitle,
   getAllWargames,
-  saveSettings,
-  saveForce,
-  saveChannel,
   deleteChannel,
-  duplicateChannel,
   deleteForce,
-  cleanWargame,
-  duplicateWargame
+  saveSettings as commitSaveSettings
 } from '../api/wargames'
 
 import { addNotification } from '../actions/notification'
@@ -270,7 +254,7 @@ export const saveWargameTitle = (dbName, title) => {
 
 export const saveSettings = (dbName, data) => {
   return async (dispatch) => {
-    const wargame = await saveSettings(dbName, data)
+    const wargame = await commitSaveSettings(dbName, data)
 
     dispatch(setCurrentWargame(wargame))
 

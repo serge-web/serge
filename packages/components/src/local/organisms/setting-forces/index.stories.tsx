@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 // Import component files
 import SettingForces from './index'
@@ -21,16 +21,14 @@ export default {
   }
 }
 export const Default: React.FC = () => {
-  const [forces, setForces] = useState<Array<ForceData>>(forcesMock)
-
   const onChange = (forces: Array<ForceData>): void => {
-    setForces(forces)
+    console.log(forces)
   }
-  const onSave = (): void => {
-    console.log('Your save logick', forces)
+  const onSave = (forces: any): void => {
+    console.log('Your save logic', forces)
   }
 
-  return <SettingForces forces={forces} onChange={onChange} onSave={onSave} />
+  return <SettingForces forces={forcesMock} onChange={onChange} onSave={onSave} />
 }
 
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.

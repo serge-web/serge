@@ -7,13 +7,25 @@ import SettingOverview from './index'
 import { WargameExportedMock } from '@serge/mocks'
 import { WargameOverview } from './types/props'
 
+const handleSave = (overview: WargameOverview): void => {
+  console.log('Your save logic', overview)
+}
+
 const handleChange = (nextOverview: WargameOverview): void => {
   console.log(nextOverview)
 }
 
-it('overview renders correctly', () => {
-  const tree = renderer
-    .create(<SettingOverview overview={WargameExportedMock.data.overview} onChange={handleChange} />)
-    .toJSON()
-  expect(tree).toMatchSnapshot()
+describe('SettingOverview component:', () => {
+  it('renders correctly', () => {
+    const tree = renderer
+      .create(
+        <SettingOverview
+          overview={WargameExportedMock.data.overview}
+          onChange={handleChange}
+          onSave={handleSave}
+        />
+      )
+      .toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 })

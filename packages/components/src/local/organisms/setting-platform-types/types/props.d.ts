@@ -3,7 +3,7 @@ import { PlatformType } from '@serge/custom-types'
 export default interface PropTypes {
   platformType?: PlatformType
   onChange: (platformType: PlatformType) => void
-  onSave?: () => void
+  onSave?: (platformType: PlatformType) => void
 }
 
 export { PlatformType, PlatformTypeData, States } from '@serge/custom-types'

@@ -2,17 +2,12 @@ import { isError } from '@serge/helpers'
 
 import ActionConstant from '../constants'
 
-import { 
+import {
   listenForWargameChanges,
-  initiateGame,
-  getWargame,
-  nextGameTurn,
   postFeedback,
   getIpAddress,
-  postFeedback,
   postNewMessage,
   postNewMapMessage,
-  getAllMessages,
   getAllMessages
 } from '../api/wargames'
 

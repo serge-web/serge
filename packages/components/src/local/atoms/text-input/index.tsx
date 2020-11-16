@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { kebabCase } from 'lodash'
 import { FilledInputProps, TextField, fade } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
@@ -95,6 +95,10 @@ export const TextInput: React.FC<PropTypes> = ({
   const isFilled = variant === 'filled'
   const filledClasses = useFilledStyle()
   const baseClasses = useBaseStyle({ customColor, titleInput })
+
+  useEffect(() => {
+    setInputValue(value)
+  }, [value])
 
   return (
     <InputContainer

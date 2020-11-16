@@ -10,8 +10,8 @@ export default interface PropTypes {
   channels: Array<ChannelData>
   messages: Array<MessageTemplate>
   forces: Array<ForceData>
-  onChange: (forces: Array<ChannelData>) => void
-  onSave?: () => void
+  onChange: (channels: Array<ChannelData>) => void
+  onSave?: (channels: Array<ChannelData>) => void
 }
 
 export { ChannelData, Channel, ForceData, Role, Participant } from '@serge/custom-types'

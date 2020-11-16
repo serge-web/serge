@@ -46,8 +46,8 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     platformTypes: []
   }
 
-  const localPlatformType: PlatformType = platformType || newPlatformType
-
+  const initialPlatformType: PlatformType = platformType || newPlatformType
+  const [localPlatformType, setLocalPlatformType] = useState(initialPlatformType)
   const [selectedItem, setSelectedItem] = useState(0)
 
   const handleSwitch = (_item: Item): void => {
@@ -55,10 +55,12 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   }
 
   const handleChangePlatformTypes = (nextPlatformTypes: Array<PlatformTypeData>): void => {
-    onChange({
+    const updates = {
       ...localPlatformType,
       platformTypes: nextPlatformTypes
-    })
+    }
+    onChange(updates)
+    setLocalPlatformType(updates)
   }
 
   const handleChangePlatformTypeData = (data: PlatformTypeData, key: number): void => {
@@ -142,7 +144,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
           <div className={styles.actions}>
             <Button
               color="primary"
-              onClick={(): void => { if (onSave) onSave() }}
+              onClick={(): void => { if (onSave) onSave(localPlatformType) }}
               data-qa-type="save"
             >
               Save

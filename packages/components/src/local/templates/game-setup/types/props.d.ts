@@ -41,7 +41,7 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on each of the game setup tab save events
    */
-  onSave: () => void
+  onSave: (updates: any) => void
   /**
    * Message templates to be shown on channel setting
    */

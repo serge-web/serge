@@ -40,7 +40,7 @@ export const Default: React.FC = () => {
 
   const [wargame, setWargame] = useState<Wargame>(initialWargame)
   const [isWargameChanged, setWargameChanged] = useState<boolean>(false)
-  const [changedOverview, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
+  const [, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
   const [changedPlatformType, setChangedPlatformType] = useState<PlatformType | undefined>(wargame.data.platformTypes)
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
   const [changedChannels, setChangedChannels] = useState<Array<ChannelData>>(wargame.data.channels.channels || [])
@@ -59,44 +59,24 @@ export const Default: React.FC = () => {
     })
   }
 
-  const onSave = (): void => {
-    setWargame({
-      ...wargame,
-      data: {
-        ...wargame.data,
-        overview: changedOverview,
-        platformTypes: changedPlatformType,
-        forces: {
-          ...wargame.data.forces,
-          forces: changedForces
-        },
-        channels: {
-          ...wargame.data.channels,
-          channels: changedChannels
-        }
-      }
-    })
-    setWargameChanged(false)
+  const onSave = (updates: any): void => {
+    console.log(updates)
   }
 
   const onOverviewChange = (nextOverview: WargameOverview): void => {
-    setChangedOverview(nextOverview)
-    setWargameChanged(true)
+    console.log('new overview', nextOverview)
   }
 
   const onPlatformTypesChange = (nextPlatformType: PlatformType): void => {
-    setChangedPlatformType(nextPlatformType)
-    setWargameChanged(true)
+    console.log('new platform type', nextPlatformType)
   }
 
   const onForcesChange = (nextForces: Array<ForceData>): void => {
-    setChangedForces(nextForces)
-    setWargameChanged(true)
+    console.log('new forces', nextForces)
   }
 
   const onChannelsChange = (nextChannels: Array<ChannelData>): void => {
-    setChangedChannels(nextChannels)
-    setWargameChanged(true)
+    console.log('new channels', nextChannels)
   }
 
   return (
@@ -106,7 +86,7 @@ export const Default: React.FC = () => {
       wargame={wargame}
       wargameChanged={isWargameChanged}
       onTabChange={onTabChange}
-      overview={changedOverview}
+      overview={wargame.data.overview}
       platformTypes={changedPlatformType}
       forces={changedForces}
       channels={changedChannels}

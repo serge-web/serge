@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 
 /* Import proptypes */
@@ -38,8 +38,9 @@ const MobileSwitch = withStyles({
 })(Switch)
 
 /* Render component */
-export const SettingForces: React.FC<PropTypes> = ({ forces, onChange, onSave }) => {
+export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSave, onChange }) => {
   const [selectedItem, setSelectedItem] = useState(0)
+  const [forcesData, setForcesData] = useState(initialForces)
   const handleSwitch = (_item: Item): void => {
     setSelectedItem(_item.uniqid)
   }
@@ -48,12 +49,16 @@ export const SettingForces: React.FC<PropTypes> = ({ forces, onChange, onSave })
     onChange(nextForces)
   }
 
+  useEffect(() => {
+    setForcesData(initialForces)
+  }, [initialForces])
+
   const renderContent = (): React.ReactNode => {
-    if (!forces[selectedItem]) return null
-    const data = forces[selectedItem]
+    const data = initialForces[0]
+    if (!data) return null
 
     const handleChangeForce = (force: ForceData): void => {
-      const nextForces: Array<ForceData> = [...forces]
+      const nextForces: Array<ForceData> = [...initialForces]
       nextForces[selectedItem] = force
       handleChangeForces(nextForces)
     }
@@ -146,7 +151,7 @@ export const SettingForces: React.FC<PropTypes> = ({ forces, onChange, onSave })
           <div className={styles.actions}>
             <Button
               color="primary"
-              onClick={(): void => { if (onSave) onSave() }}
+              onClick={(): void => { if (onSave) onSave(forcesData) }}
               data-qa-type="save"
             >
               Save Force
@@ -156,9 +161,18 @@ export const SettingForces: React.FC<PropTypes> = ({ forces, onChange, onSave })
         <div className={styles.row}>
           <div className={cx(styles.col, styles.section)}>
             <FormGroup placeholder="Overview & Objectives">
-              <textarea rows={8} className={styles.textarea} onChange={(e): void => {
-                handleChangeForce({ ...data, overview: e.target.value })
-              }} value={data.overview} />
+              <TextInput
+                multiline
+                fullWidth
+                variant="filled"
+                rows={8}
+                rowsMax={8}
+                updateState={(target: { value: string }): void => {
+                  handleChangeForce({ ...data, overview: target.value })
+                }}
+                value={data.overview}
+                className={styles.textarea}
+              />
             </FormGroup>
           </div>
         </div>
@@ -186,7 +200,7 @@ export const SettingForces: React.FC<PropTypes> = ({ forces, onChange, onSave })
   return (
     <AdminContent>
       <LeftSide>
-        <EditableList items={forces} onClick={handleSwitch} withSearch={false} />
+        <EditableList items={initialForces} onClick={handleSwitch} withSearch={false} />
       </LeftSide>
       <RightSide>
         {renderContent()}
