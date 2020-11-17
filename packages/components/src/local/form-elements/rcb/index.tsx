@@ -21,7 +21,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
       const opt = o.name || o
       let selected = false
       if (Array.isArray(value)) {
-        selected = opt.includes(value)
+        selected = value.includes(opt)
       } else {
         selected = opt === value
       }
