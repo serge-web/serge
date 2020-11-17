@@ -39,8 +39,9 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
   const handleCheckbox = (data: any): void => {
     const { name, value } = data
 
+    const lowerValue: string = value.toLowerCase()
     const updatedArray: any = checkedArray.map((c: any) => {
-      if (c.name === value) {
+      if (c.name.toLowerCase() === lowerValue) {
         if (c.selected === true) {
           c.selected = false
         } else {
