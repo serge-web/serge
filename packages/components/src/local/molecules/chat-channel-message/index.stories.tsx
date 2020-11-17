@@ -39,9 +39,7 @@ const messages = [
     hasBeenRead: false,
     authorForceId: 'Blue',
     playerForceId: 'Blue',
-    isUmpire:true,
-    privateMessage:'This is an example of a private message.',
-    hasPrivate: false
+    privateMessage:'This is an example of a private message.'
   },
   {
     id: '2',
@@ -52,9 +50,8 @@ const messages = [
     hasBeenRead: false,
     authorForceId: 'Blue',
     playerForceId: 'Red',
-    isUmpire:true,
-    privateMessage:'This is an example of a private message.',
-    hasPrivate: false
+    isUmpire:false,
+    privateMessage:'This is an example of a private message.'
   }
 ]
 
@@ -64,6 +61,8 @@ export const Default: React.FC = () => (
       isUmpire={boolean('Player from umpire force', true)}
       messages={messages}
       colors={forceColorList}
+      onSendMessage={():any => console.log('hi')}
+      onChange={(): any => console.log('hello')}
     />
   </BlueContainer>
 )

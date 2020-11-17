@@ -41,13 +41,12 @@ export const Default: React.FC = () => (
       title="lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet"
       timestamp="2020-09-18T05:41:17.349Z"
       role="CO"
-      messageType="Chat"
       hasBeenRead={boolean('Has been read', false)}
       authorForceId={radios('Author force', forceValues, 'Blue')}
       playerForceId={radios('Player force', forceValues, 'Blue')}
       forceColors={forceColorList}
       privateMessage={'This is an example of a private message.'}
-      hasPrivate={boolean('Has been private message', false)}
+      isUmpire={boolean('Has been private message', false)}
     />
   </BlueContainer>
 )

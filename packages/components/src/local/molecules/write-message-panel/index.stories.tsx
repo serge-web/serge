@@ -31,7 +31,7 @@ export default {
 
 export const Default: React.FC = () => {
   return (
-    <WriteMessagePanel isUmpire={boolean('Player from umpire force', true)} />
+    <WriteMessagePanel isUmpire={boolean('Player from umpire force', true)} onSendMessage={(): any => window.alert('Click Send')} onChange={(): any => console.log('here')} />
   )
 }
 

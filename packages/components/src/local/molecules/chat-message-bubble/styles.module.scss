@@ -12,6 +12,9 @@
   border-radius: 5px;
   margin-bottom: 10px;
 }
+.message-title-wrap {
+  min-width: 300px;
+}
 .chat-messgae-bubble-sent {
   border-left-width: 0;
   border-right-width: 8px;
@@ -31,7 +34,7 @@
   max-width: 60%;
 }
 .private-message {
-  margin-top: -20px;
+  margin-top: -21px;
 }
 .icon-private {
   color: #434343;
@@ -39,13 +42,16 @@
 }
 .private-message-text {
   color: #434343;
+  font-size: 13px;
 }
 .private-message-box {
   padding: 9px;
   background-color: #fff;
   border-radius: 5px;
   margin-top: 6px;
-  min-height: 45px;
+  min-height: 40px;
+  color: #00274B;
+  font-size: 12px;
 }
 
 .message-title-wrap {

@@ -17,12 +17,12 @@ describe('ChatMessageBubble component:', () => {
           title="lorem ipsum do lor sit amet"
           timestamp="2020-09-18T05:41:17.349Z"
           role="CO"
-          messageType="Chat"
           hasBeenRead={false}
           authorForceId={whiteForce.name}
           playerForceId={whiteForce.name}
           forceColors={forceColorList}
           privateMessage={'This is an example of a private message.'}
+          isUmpire={false}
         />
       )
       .toJSON()

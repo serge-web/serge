@@ -12,6 +12,7 @@ import {
 import { PlayerStateContext } from "../Store/PlayerUi";
 
 import "@serge/themes/App.scss";
+import ChatMessageCreator from "./ChatMessageCreator";
 
 class Channel extends Component {
   static contextType = PlayerStateContext;
@@ -90,17 +91,13 @@ class Channel extends Component {
     const icons = state.channels[curChannel].forceIcons
     const colors = state.channels[curChannel].forceColors
     const templates = state.channels[curChannel].templates
-    console.log(messages,"messages")
     return (
       <div className={this.state.channelTabClass} data-channel-id={curChannel}>
         {templates.length === 1 && templates[0].title === 'Chat' ?
-        <div className="chat-channel-message">
-          <ChatChannelMessage
-            forceColors={colors}
-            isUmpire={state.selectedForce === umpireForceTemplate.uniqid}
-            messages={messages}
-          />
-        </div>:
+        <ChatMessageCreator
+          messages={messages}
+          curChannel={curChannel}
+        />:
         <Fragment>
           <ChannelMessagesList
             messages={messages}

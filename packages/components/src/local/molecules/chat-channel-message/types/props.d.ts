@@ -4,7 +4,12 @@ export default interface Props {
    */
   isUmpire?: boolean
   
-  messages: Array<any>
+  messages?: Array<any>
 
-  colors: Array<any>
+  colors?: Array<any>
+
+  onSendMessage: Function
+
+  onChange: Function
+
 }

@@ -18,7 +18,7 @@ const createNodeMock = (element: any): any => {
 it('renders correctly', () => {
   const tree = renderer
     .create(
-      <WriteMessagePanel isUmpire={true}/>, { createNodeMock }
+      <WriteMessagePanel isUmpire={true} onSendMessage={(): any => window.alert('Click Send')} onChange={(): any => console.log('here')} />, { createNodeMock }
     )
     .toJSON()
   expect(tree).toMatchSnapshot()

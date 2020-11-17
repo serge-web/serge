@@ -7,7 +7,7 @@ describe('PrivateChatTextInput component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <PrivateChatTextInput />
+        <PrivateChatTextInput onChange={(): any => console.log('here')}/>
       )
       .toJSON()
     expect(tree).toMatchSnapshot()

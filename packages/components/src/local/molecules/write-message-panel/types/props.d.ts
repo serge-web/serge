@@ -7,4 +7,8 @@ export default interface Props {
    * if player is from umpire force
    */
   isUmpire?: boolean
+
+  onSendMessage: Function
+
+  onChange: Function
 }

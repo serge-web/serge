@@ -9,7 +9,7 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const WriteMessagePanel: React.FC<Props> = ({ isUmpire }: Props) => {
+export const WriteMessagePanel: React.FC<Props> = ({ isUmpire, onSendMessage, onChange }: Props) => {
   return (
     <div className={styles['write-message-panel']}>
       <ChatTextInput
@@ -19,13 +19,14 @@ export const WriteMessagePanel: React.FC<Props> = ({ isUmpire }: Props) => {
         rowsMax={4}
         rows={2}
         placeholder="type the text"
+        updateState={(event: HTMLInputElement): void => onChange(event,'content')}
       />
-      <div className={styles['send-message-icon']}>
+      <div className={styles['send-message-icon']} onClick={(): void => onSendMessage()}>
         <img src="./images/send_message.png" />
       </div>
       { isUmpire &&
       <div className={styles['private-chat-text-block']}>
-        <PrivateChatTextInput />
+        <PrivateChatTextInput onChange={(event: HTMLInputElement): void => onChange(event,'privateMessage')}/>
       </div>
       }
     </div>

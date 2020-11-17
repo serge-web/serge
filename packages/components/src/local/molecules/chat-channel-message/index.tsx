@@ -8,7 +8,7 @@ import styles from './styles.module.scss'
 import WriteMessagePanel from '../write-message-panel'
 
 /* Render component */
-export const ChatChannelMessage: React.FC<Props> = ({ isUmpire, messages, colors }: Props) => {
+export const ChatChannelMessage: React.FC<Props> = ({ isUmpire, messages=[], colors, onSendMessage, onChange }: Props) => {
   return (
     <div
       className={`${styles['chat-channel-message']}`}
@@ -19,18 +19,17 @@ export const ChatChannelMessage: React.FC<Props> = ({ isUmpire, messages, colors
             title={item.title}
             timestamp={item.timestamp}
             role={item.role}
-            messageType={item.messageType}
             hasBeenRead={item.hasBeenRead}
             authorForceId={item.authorForceId}
             playerForceId={item.playerForceId}
             forceColors={colors}
             privateMessage={item.privateMessage}
-            hasPrivate={item.hasPrivate}
+            isUmpire={isUmpire}
             key={index}
           />
         )
       })}
-      <WriteMessagePanel isUmpire={isUmpire}/>
+      <WriteMessagePanel isUmpire={isUmpire} onSendMessage={(): any => onSendMessage()} onChange={(event: HTMLInputElement, key: string): any => onChange(event, key)}/>
     </div>
   )
 }

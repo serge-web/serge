@@ -12,10 +12,6 @@ export default interface Props {
    */
   role?: string
   /**
-   * Message type
-   */
-  messageType?: string
-  /**
    * Message read state
    */
   hasBeenRead?: boolean
@@ -38,5 +34,5 @@ export default interface Props {
   /**
    * Show Private message
    */
-  hasPrivate?: boolean
+  isUmpire?: boolean
 }

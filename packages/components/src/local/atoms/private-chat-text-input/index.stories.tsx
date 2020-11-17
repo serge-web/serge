@@ -29,6 +29,6 @@ export default {
 
 export const Default: React.FC = () => {
   return (
-    <PrivateChatTextInput />
+    <PrivateChatTextInput onChange={(): any => console.log('here')}/>
   )
 }

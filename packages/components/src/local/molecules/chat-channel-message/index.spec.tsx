@@ -57,6 +57,8 @@ it('renders correctly', () => {
         isUmpire={boolean('Player from umpire force', true)}
         messages={messages}
         colors={forceColorList}
+        onSendMessage={(): any => console.log('hi')}
+        onChange={(): any => console.log('hello')}
       />, { createNodeMock }
     )
     .toJSON()
