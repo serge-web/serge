@@ -90,7 +90,13 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
             if(oldStore) {
               const existing: Route | undefined = oldStore.routes.find((route: Route) => route.uniqid === asset.uniqid)
               if(existing) {
+                // ok, copy the adjudication state
                 newRoute.adjudicationState = existing.adjudicationState
+                // and visible to
+                newRoute.visibleTo = existing.visibleTo
+                if(existing.condition) {
+                  newRoute.condition = existing.condition
+                }
               }
             }
 
