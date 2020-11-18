@@ -4,5 +4,7 @@ export default interface Props {
    */
   borderColor?: string
 
+  privateMessage?:String
+
   onChange: Function
 }

@@ -33,15 +33,23 @@ class ChatMessageCreator extends Component {
       },
       timestamp: new Date().toISOString(),
     };
-    // if (this.props.privateMessage) {
-    //   details.privateMessage = this.privateMessageRef.current.value;
-    //   this.privateMessageRef.current.value = "";
-    // }
+    if (this.props.privateMessage) {
+      details.privateMessage = this.privateMessageRef.current.value;
+      this.privateMessageRef.current.value = "";
+    }
 
     // if (this.editor.getValue().content === "") return;
 
-    saveMessage(state.currentWargame, details, {content: this.state.message.content})();
-
+    const {content, privateMessage} = this.state.message;
+    if(content && content !== "")
+    {
+      saveMessage(state.currentWargame, details, {content: content})();
+    }
+    if(privateMessage && privateMessage !== "")
+    {
+      saveMessage(state.currentWargame, details, {privateMessage: privateMessage})();
+    }
+    this.setState({message:{content:"",privateMessage:""}})
   }
 
   onChange = (event,key) => {
@@ -53,6 +61,7 @@ class ChatMessageCreator extends Component {
   render() {
     const [ state ] = this.context;
     const { messages, curChannel } = this.props
+    const {content, privateMessage} = this.state.message;
     const colors = state.channels[curChannel].forceColors
     const templates = state.channels[curChannel].templates
     
@@ -66,6 +75,8 @@ class ChatMessageCreator extends Component {
             curChannel={curChannel}
             onSendMessage={this.onSendMessage}
             onChange={this.onChange}
+            content={content}
+            privateMessage={privateMessage}
         />
       </>
     );

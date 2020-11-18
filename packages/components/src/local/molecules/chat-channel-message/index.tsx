@@ -8,12 +8,12 @@ import styles from './styles.module.scss'
 import WriteMessagePanel from '../write-message-panel'
 
 /* Render component */
-export const ChatChannelMessage: React.FC<Props> = ({ isUmpire, messages=[], colors, onSendMessage, onChange }: Props) => {
+export const ChatChannelMessage: React.FC<Props> = ({ isUmpire, messages=[], colors, onSendMessage, onChange, content, privateMessage } : Props) => {
   return (
     <div
       className={`${styles['chat-channel-message']}`}
     >
-      {messages.map((item,index) => {
+      {messages.reverse().map((item,index) => {
         return (
           <ChatMessageBubble
             title={item.title}
@@ -29,7 +29,7 @@ export const ChatChannelMessage: React.FC<Props> = ({ isUmpire, messages=[], col
           />
         )
       })}
-      <WriteMessagePanel isUmpire={isUmpire} onSendMessage={(): any => onSendMessage()} onChange={(event: HTMLInputElement, key: string): any => onChange(event, key)}/>
+      <WriteMessagePanel isUmpire={isUmpire} content={content} privateMessage={privateMessage} onSendMessage={(): any => onSendMessage()} onChange={(event: HTMLInputElement, key: string): any => onChange(event, key)} />
     </div>
   )
 }

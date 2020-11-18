@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { FilledInputProps, TextField, fade } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import InputContainer from '../input-container'
@@ -37,15 +37,16 @@ export const ChatTextInput: React.FC<PropTypes> = ({
   rows,
   rowsMax,
   variant,
-  value,
+  //value,
   updateState,
   className,
   placeholder,
-  fullWidth
+  fullWidth,
+  content
 }) => {
-  const [inputValue, setInputValue] = useState(value)
+  //const [inputValue, setInputValue] = useState(value)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setInputValue(event.target.value)
+    //setInputValue(event.target.value);
     updateState && updateState(event.target)
   }
   const isFilled = variant === 'filled'
@@ -65,7 +66,7 @@ export const ChatTextInput: React.FC<PropTypes> = ({
           multiline,
           rows,
           rowsMax,
-          value: inputValue,
+          value: content,
           onChange: handleChange,
           placeholder,
           fullWidth,

@@ -11,7 +11,7 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const PrivateChatTextInput: React.FC<Props> = ({ onChange }: Props) => {
+export const PrivateChatTextInput: React.FC<Props> = ({ onChange, privateMessage }: Props) => {
   const CollapsibleHeader = ({ onExpand, collapsed }: any): React.ReactElement => {
     const handleOnExpand = (): void => {
       onExpand(!collapsed)
@@ -38,7 +38,7 @@ export const PrivateChatTextInput: React.FC<Props> = ({ onChange }: Props) => {
           ? <div className={styles['chat-text-input']}>
             <ChatTextInput multiline={true} fullWidth variant="filled"
               placeholder="A private message is sent at the same time as the main message, but is only visible to other umpires."
-              rowsMax={4} rows={2} updateState={(event: HTMLInputElement): void => onChange(event)}/>
+              rowsMax={4} rows={2} content={privateMessage} updateState={(event: HTMLInputElement): void => onChange(event,'privateMessage')}/>
           </div> : null
         }
       </>

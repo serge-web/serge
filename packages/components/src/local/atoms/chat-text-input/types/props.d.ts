@@ -36,4 +36,6 @@ export default interface PropTypes {
    * Multiline maximum rows length
    */
   rowsMax?: number
+
+  content?:String
 }
