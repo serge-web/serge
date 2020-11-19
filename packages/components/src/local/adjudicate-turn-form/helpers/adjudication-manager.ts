@@ -1,5 +1,5 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
-import { AdjudicateTurnFormValues, PlanTurnFormValues, Route, RouteStep, RouteStore, Status } from '@serge/custom-types'
+import { AdjudicateTurnFormValues, PlanTurnFormValues, Route, RouteStatus, RouteStep, RouteStore, Status } from '@serge/custom-types'
 import { deepCompare } from '@serge/helpers'
 import { cloneDeep } from 'lodash'
 
@@ -9,6 +9,7 @@ import { cloneDeep } from 'lodash'
  */
 class AdjudicationManager {
   store: RouteStore
+  platforms: any
   setRouteStore: {(store: RouteStore): void}
   turnPlanned: {(turn: PlanTurnFormValues): void}
   cancelRoutePlanning: { (): void }
@@ -19,14 +20,84 @@ class AdjudicationManager {
    * @param {(turn: PlanTurnFormValues): void} turnPlanned - tell map that a turn has been planned
    * @param {(): void} cancelRoutePlanning - cancel dynamic map plotting
    */
-  constructor (store: RouteStore,
+  constructor (store: RouteStore, platforms: any,
     setRouteStore: {(store: RouteStore): void},
     turnPlanned: {(turn: PlanTurnFormValues): void},
     cancelRoutePlanning: {(): void}) {
     this.store = store
+    this.platforms = platforms
     this.setRouteStore = setRouteStore
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
+  }
+
+
+  /** indicate the current status of the selected asset */
+  currentStatus (): RouteStatus  {
+    const selected: Route | undefined = this.store.selected
+    if (selected) {
+      if(selected.currentStatus !== undefined) {
+        return selected.currentStatus
+      } else {
+        // no current status, use the first one
+        const pType = selected.platformType
+        const platform = this.platforms.find((platform:any) => platform.name === pType)
+        if(platform) {
+          const defaultState = platform.states[0]
+          // create new state
+          const speeds = platform.speeds
+          if(speeds && speeds.length > 0) {
+            return { state: defaultState, speedKts: speeds[0]}
+          } else {
+            return { state: defaultState}
+          }
+        } else {
+          return { state:'type unknown' }
+        }
+      }
+    } else {
+      return { state:'unknown' }
+    }
+  }
+
+  /** indicate the current condition of the selected asset */
+  currentCondition (): string {
+    const selected: Route | undefined = this.store.selected
+    if (selected && selected.condition) {
+      return selected.condition
+    } else {
+      return ''
+    }
+  }
+
+  /** indicate the current condition of the selected asset */
+  setCurrentCondition (value: string): void {
+    const selected: Route | undefined = this.store.selected
+    if (selected) {
+      selected.condition = value
+    } else {
+      console.warn('cant find selected for condition')
+    }
+  }
+
+  /** indicate the current condition of the selected asset */
+  setCurrentVisibleTo (value: Array<string>): void {
+    const selected: Route | undefined = this.store.selected
+    if (selected) {
+      selected.visibleTo = value
+    } else {
+      console.warn('cant find selected for visible')
+    }
+  }
+
+  /** indicate which forces can see the selected asset */
+  currentVisibleTo (): Array<string> {
+    const selected: Route | undefined = this.store.selected
+    if (selected && selected.visibleTo) {
+      return selected.visibleTo
+    } else {
+      return []
+    }
   }
 
   currentPlanningStatus (): PlanningStates {
