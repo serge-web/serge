@@ -18,98 +18,96 @@ import { PlanningCommands } from '@serge/config'
 import styles from './styles.module.scss'
 
 /* Import helpers */
-import { isNumber } from '@serge/helpers'
-import { AdjudicateTurnFormValues, Status } from '@serge/custom-types'
+import { deepCompare, isNumber } from '@serge/helpers'
 import Badge from '../atoms/badge'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
-  formHeader, formData, icon,
+  formHeader, formData,
   plansSubmitted, canSubmitPlans, manager
 }) => {
-  const [formState, setFormState] = useState<AdjudicateTurnFormValues>(formData.values)
   // flag for if the current state is mobile
-  const [stateIsMobile, setStateIsMobile] = useState<boolean>(formState.statusVal.mobile)
-  const [upperPlanningActions, setUpperPlanningActions] = useState<Array<{label: string, action: PlanningCommands}>>([])
-  const [lowerPlanningActions, setLowerPlanningActions] = useState<Array<{label: string, action: PlanningCommands}>>([])
+  const [stateIsMobile, setStateIsMobile] = useState<boolean>(manager ? manager.currentState().mobile : false)
+  const [upperPlanningActions, setUpperPlanningActions] = useState<Array<{ label: string, action: PlanningCommands }>>([])
+  const [lowerPlanningActions, setLowerPlanningActions] = useState<Array<{ label: string, action: PlanningCommands }>>([])
+  const [statusVal, setStatusVal] = useState<string>('')
+  const [speedVal, setSpeedVal] = useState<number>(0)
+  const [conditionVal, setConditionVal] = useState<string>('')
+  const [visibleVal, setVisibleVal] = useState<Array<string>>(manager ? manager.currentVisibleTo() : [])
+  const icon: {forceColor: string, platformType: string} = manager ? manager.iconData: {forceColor: '', platformType: ''}
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
-  const { status, speed, visibleTo, condition } = formData.populate
-  const { statusVal, speedVal, visibleToVal, conditionVal } = formState
+  const { status, speed, visibleTo, condition } = formData
+
+
+  // console.log('condition', conditionVal, visibleVal, manager && manager.currentVisibleTo())
 
   const canChangeState: boolean = manager ? manager.canChangeState() : false
 
-  const handleCommandLocal = (command: PlanningCommands, formState?: AdjudicateTurnFormValues): void => {
+  const handleCommandLocal = (command: PlanningCommands): void => {
     if (manager) {
-      manager.handleState(command, formState)
+      manager.handleState(command, formData)
     }
   }
 
-  // TODO: Refactor this into a reusable helper and remove other instances
-  const changeHandler = (e: any): void => {
-    const { name, value } = e
-    updateState({ name, value })
+  const conditionHandler = (e: any): void => {
+    console.log('condition change!', e.name, e.value)
+    manager && manager.setCurrentCondition(e.value)
+    setConditionVal(e.value)
   }
 
-  useEffect(() => {
-    const newStatus: Status | undefined = formState && formState.statusVal
-    if (newStatus) {
-      console.log('setting mobile state to', newStatus.mobile)
-      setStateIsMobile(newStatus.mobile)
+  const visibleHandler = (e: any): void => {
+    console.log('visible change!', e.name, e.value)
+    setVisibleVal(e.value)
+    manager && manager.setCurrentVisibleTo(e.value)
+  }
+
+  const updateIfNecessary = (name: string, before: any, after: any, doUpdate: {(value: any): void} ): void => {
+    name && name
+    if(!deepCompare(before, after)) {
+      // console.log('+ updating ', name, before, after)
+      doUpdate(after)
+    } else {
+      // console.log('- not updating', name)
     }
-  }, [formState])
+  }
+
+//   console.log('rendering', manager && manager.currentVisibleTo(), formData.status, icon)
 
   useEffect(() => {
+  //  console.log('manager change', manager && manager.currentVisibleTo())
+
     if (manager) {
-      setUpperPlanningActions(manager.upperActionsFor(stateIsMobile))
-      setLowerPlanningActions(manager.lowerActionsFor(stateIsMobile))
+      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(stateIsMobile), setUpperPlanningActions )
+      updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions )
+      updateIfNecessary('visible ', visibleVal, manager.currentVisibleTo(), setVisibleVal )
+      updateIfNecessary('condition ', conditionVal, manager.currentCondition(), setConditionVal )
+      updateIfNecessary('mobile', stateIsMobile, manager.currentState().mobile, setStateIsMobile)
+      updateIfNecessary('status', statusVal, manager.currentStatus().state, setStatusVal)
+      updateIfNecessary('speed', speedVal, manager.currentStatus().speedKts, setSpeedVal)
+      updateIfNecessary('state is mobile', stateIsMobile, manager.currentState().mobile, setStateIsMobile)
     }
   }, [manager])
 
   // Status has a different data model and requires it's own handler
 
   const statusHandler = (data: any): void => {
+//   console.log('new status')
     // retrieve the new value
     const newState: string = data.target && data.target.value
 
-    // find the status object for this state
-    const selectedStatus = status.find((s: any) => s.name === newState)
-
-    // if status matched, update it.
-    if (selectedStatus) {
-      setFormState({
-        ...formState,
-        statusVal: selectedStatus
-      })
-    } else {
-      console.warn('Unable to find state to match:' + newState)
+    if(manager) {
+      manager.setStatus(newState, speedVal)
     }
   }
 
   const speedHandler = (e: any): void => {
+ //   console.log('new speed')
     if (isNumber(e)) {
-      setFormState(
-        {
-          ...formState,
-          speedVal: e
-        }
-      )
-    }
-  }
-
-  const updateState = (data: any): void => {
-    const { name, value } = data
-
-    // If a value has been passed as a string when it should be a number,
-    // convert it back to a number
-    const outputVal = isNumber(value) ? parseInt(value) : value
-
-    setFormState(
-      {
-        ...formState,
-        [`${name}Val`]: outputVal
+      if(manager) {
+        manager.setStatus(statusVal, e)
       }
-    )
+    }
   }
 
   return (
@@ -119,25 +117,25 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         platformType={icon.platformType}
       >
         {formHeader}
-        { manager &&
+        {manager &&
           <Badge label={manager.currentPlanningStatus()} />
         }
-        { plansSubmitted &&
-         <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
+        {plansSubmitted &&
+          <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
         }
 
       </TitleWithIcon>
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Player Route" align="right">
-          { !formDisabled && upperPlanningActions && upperPlanningActions.map((item: any) =>
-            <Button key={item.label} onClick={(): void => handleCommandLocal(item.action, formState)}>{item.label}</Button>
+          {!formDisabled && upperPlanningActions && upperPlanningActions.map((item: any) =>
+            <Button key={item.label} onClick={(): void => handleCommandLocal(item.action)}>{item.label}</Button>
           )}
         </FormGroup>
         <FormGroup title="State" align="right">
           <Select
             className={clSelect}
-            value={statusVal.name}
-            disabled={ !canChangeState }
+            value={statusVal}
+            disabled={!canChangeState}
             onChange={statusHandler}
           >
             {status.map((s: any) => (
@@ -145,13 +143,13 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
             ))}
           </Select>
         </FormGroup>
-        {speed.length > 0 && formState.statusVal && formState.statusVal.mobile &&
+        {speed.length > 0 && stateIsMobile &&
           <FormGroup title="Speed (kts)" titlePosition="absolute">
             <Speed
-              disabled={ !canChangeState }
-              value = { speedVal }
-              options = { speed }
-              onClick = { speedHandler }
+              disabled={!canChangeState}
+              value={speedVal}
+              options={speed}
+              onClick={speedHandler}
             />
           </FormGroup>
         }
@@ -159,16 +157,16 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       }
       <fieldset>
         <FormGroup title="Visible to" align="right">
-          <RCB type="checkbox" force={true} label="" compact={true} options={visibleTo} value={visibleToVal} updateState={changeHandler}/>
+          <RCB type="checkbox" force={true} label="" compact={true} options={visibleTo} value={visibleVal} updateState={visibleHandler} />
         </FormGroup>
         <FormGroup title="Condition" align="right">
-          <RCB type="radio" label="" options={condition} value={conditionVal} updateState={changeHandler}/>
+          <RCB type="radio" label="" options={condition} value={conditionVal} updateState={conditionHandler} />
         </FormGroup>
       </fieldset>
       <fieldset>
         <FormGroup title="Adjudication" align="right">
-          { !formDisabled && lowerPlanningActions && lowerPlanningActions.map((item: any) =>
-            <Button key={item.label} onClick={(): void => handleCommandLocal(item.action, formState)}>{item.label}</Button>
+          {!formDisabled && lowerPlanningActions && lowerPlanningActions.map((item: any) =>
+            <Button key={item.label} onClick={(): void => handleCommandLocal(item.action)}>{item.label}</Button>
           )}
         </FormGroup>
       </fieldset>

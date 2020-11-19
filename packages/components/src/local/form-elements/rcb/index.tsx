@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { camelCase, kebabCase } from 'lodash'
 
 import InputContainer from '../../atoms/input-container'
@@ -16,8 +16,10 @@ import Option from './types/option'
 
 /* Render component */
 export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, force, updateState, compact, className, disableOffset }) => {
-  const [checkedArray, updateCheckedArray] = useState(
-    options.map((o: any) => {
+  const [checkedArray, updateCheckedArray] = useState<Array<{}>>([])
+
+  useEffect(() => {
+    const selection = options.map((o: any) => {
       const opt = o.name || o
       let selected = false
       if (Array.isArray(value)) {
@@ -30,7 +32,8 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
         selected
       }
     })
-  )
+    updateCheckedArray(selection)
+  }, [value])
 
   const handleRadio = (event: React.ChangeEvent<HTMLInputElement>): void => {
     updateState((event.target))

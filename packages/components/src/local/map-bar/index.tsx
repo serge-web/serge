@@ -37,6 +37,8 @@ export const MapBar: React.FC = () => {
   const [stateSubmitTitle, setStateSubmitTitle] = useState<string>('')
   const [userIsUmpire, setUserIsUmpire] = useState<boolean | undefined>(undefined)
 
+  const [adjudicationManager, setAdjudicationManager] = useState<AdjudicationManager | undefined>(undefined)
+
   /* Pull in the context from MappingContext */
   const {
     gridCells,
@@ -94,6 +96,22 @@ export const MapBar: React.FC = () => {
   useEffect(() => {
     setUserIsUmpire(playerForce === UMPIRE_FORCE)
   }, [playerForce])
+
+  // sort out the handler for State of World button
+  useEffect(() => {
+
+    if(playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE && routeStore.selected) {
+      console.log(`create adj manager`)
+      const iconData = {
+        forceColor: selectedAsset.force,
+        platformType: selectedAsset.type
+      }
+      setAdjudicationManager(new AdjudicationManager(routeStore, platforms, setRouteStore, turnPlanned, cancelRoutePlanning, iconData))
+    } else {
+      console.log(`clear adj manager`)
+      setAdjudicationManager(undefined)
+    }
+  }, [routeStore])  
 
   // sort out the handler for State of World button
   useEffect(() => {
@@ -185,7 +203,7 @@ export const MapBar: React.FC = () => {
     // do a fresh calculation on which form to display, to overcome
     // an async state update issue
     const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase)
-    const icondData = {
+    const iconData = {
       forceColor: selectedAsset.force,
       platformType: selectedAsset.type
     }
@@ -199,20 +217,18 @@ export const MapBar: React.FC = () => {
           channelID={channelID}
           postBack={postBack} />
       case 'Adjudication': {
-        const formData = collateAdjudicationFormData(platforms, selectedAsset, forces, routeStore)
-        const manager: AdjudicationManager = new AdjudicationManager(routeStore, setRouteStore, turnPlanned, cancelRoutePlanning)
+        const formData = collateAdjudicationFormData(platforms, selectedAsset, forces)
         return <AdjudicateTurnForm
           key={selectedAsset.uniqid}
-          manager={manager}
+          manager={adjudicationManager}
           plansSubmitted={plansSubmitted}
           formHeader={currentAssetName}
           canSubmitPlans={canSubmitOrders}
-          formData={formData}
-          icon={icondData} />
+          formData={formData} />
       }
       case 'Planning':
         return <PlanTurnForm
-          icon={icondData}
+          icon={iconData}
           setHidePlanningForm={setHidePlanningForm}
           canSubmitPlans={canSubmitOrders}
           plansSubmitted={plansSubmitted}

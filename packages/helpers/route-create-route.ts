@@ -1,6 +1,6 @@
 import L from 'leaflet'
 import { Route, RouteStatus, RouteStep, RouteChild, SergeGrid, SergeHex} from '@serge/custom-types'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, kebabCase } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import { PlanningStates, UMPIRE_FORCE } from '@serge/config'
@@ -132,6 +132,34 @@ const determineVisibleTo = (asset:any, playerForce: string): Array<string> => {
   }) : []
 }
 
+const produceStatusFor = (status: any, platformTypes: any, asset: any): RouteStatus => {
+
+    // handle when missing current status
+    let currentState: string = `undefined-tyoe`
+    let currentSpeed: number = 0
+    if(status && status.state) {
+      currentState = status.state
+      currentSpeed = status.speedKts
+    } else {
+      const platform = platformTypes.find((platform: any) => kebabCase(platform.name) === kebabCase(asset.platformType))
+      if(platform) {
+        const states = platform.states
+        if(states && states.length) {
+          currentState = states[0].name
+        }
+        const speeds = platform.speedKts
+        if(speeds && speeds.length) {
+          currentSpeed = speeds[0]
+        }
+      }
+    }
+  const currentStatus: RouteStatus =  currentSpeed
+    ? { state: currentState, speedKts: currentSpeed }
+    : { state: currentState }
+
+  return currentStatus
+}
+
 /** create a route object for this asset
  * @param {any} asset single asset
  * @param {string} color color for rendering this asset
@@ -157,9 +185,8 @@ const routeCreateRoute = (asset: any, color: string,
   perceivedType: string, platformTypes: any, playerForce: string, status: any, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean ): Route => {
-  const currentStatus: RouteStatus = status.speedKts
-    ? { state: status.state, speedKts: status.speedKts }
-    : { state: status.state }
+
+  const currentStatus: RouteStatus =  produceStatusFor(status, platformTypes, asset)
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)

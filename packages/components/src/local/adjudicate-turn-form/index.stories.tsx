@@ -42,10 +42,9 @@ const cancelPlanning = (): void => {
   console.log('cancelling planning')
 }
 
-const manager: AdjudicationManager = new AdjudicationManager(store, setRouteStore, turnPlanned, cancelPlanning)
+const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, setRouteStore, turnPlanned, cancelPlanning, iconData)
 
 export const Default: React.FC = () => <AdjudicateTurnForm
-  icon={iconData}
   manager={manager}
   canSubmitPlans={true}
   plansSubmitted={false}
@@ -53,14 +52,12 @@ export const Default: React.FC = () => <AdjudicateTurnForm
   formData={formData} />
 
 export const TurnsPlanned: React.FC = () => <AdjudicateTurnForm
-  icon={iconData}
   canSubmitPlans={true}
   plansSubmitted={true}
   formHeader="Adjudicate header"
   formData={formData} />
 
 export const CannotSubmitPlans: React.FC = () => <AdjudicateTurnForm
-  icon={iconData}
   plansSubmitted={false}
   canSubmitPlans={false}
   formHeader="Adjudicate header"

@@ -1,4 +1,4 @@
-import { AdjudicateTurnFormData } from '@serge/custom-types'
+import { AdjudicateTurnFormPopulate } from '@serge/custom-types'
 import AdjudicationManager from '../helpers/adjudication-manager'
 
 export default interface PropTypes {
@@ -9,14 +9,7 @@ export default interface PropTypes {
   /**
    * All types in this definition are options for a form input
    */
-  formData: AdjudicateTurnFormData
-  /**
-   * Data for icon generation
-   */
-  icon: {
-    forceColor: string
-    platformType: string
-  }
+  formData: AdjudicateTurnFormPopulate
   /**
    * flag for if SofW have already been submitted
    */

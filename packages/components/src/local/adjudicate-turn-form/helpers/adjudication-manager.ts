@@ -1,7 +1,7 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
-import { AdjudicateTurnFormValues, PlanTurnFormValues, Route, RouteStatus, RouteStep, RouteStore, Status } from '@serge/custom-types'
+import { PlanTurnFormValues, Route, RouteStatus, RouteStep, RouteStore, Status, AdjudicateTurnFormPopulate } from '@serge/custom-types'
 import { deepCompare } from '@serge/helpers'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, kebabCase } from 'lodash'
 
 /**
  * support utility, encapsulating state management during umpire
@@ -13,6 +13,7 @@ class AdjudicationManager {
   setRouteStore: {(store: RouteStore): void}
   turnPlanned: {(turn: PlanTurnFormValues): void}
   cancelRoutePlanning: { (): void }
+  iconData: {forceColor: string, platformType: string}
   /**
    *
    * @param {RouteStore} store the current route store
@@ -23,14 +24,44 @@ class AdjudicationManager {
   constructor (store: RouteStore, platforms: any,
     setRouteStore: {(store: RouteStore): void},
     turnPlanned: {(turn: PlanTurnFormValues): void},
-    cancelRoutePlanning: {(): void}) {
+    cancelRoutePlanning: {(): void},
+    iconData: {forceColor: string, platformType: string}) {
     this.store = store
     this.platforms = platforms
     this.setRouteStore = setRouteStore
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
+    this.iconData = iconData
   }
 
+  setStatus (status: string, speedKts: number | undefined): void {
+    const selected: Route | undefined = this.store.selected
+    if (selected) {
+      const result = speedKts === undefined ? { state: status} : { state: status, speedKts: speedKts}
+      selected.currentStatus = result
+    }
+  }
+
+  /** indicate the current status of the selected asset */
+  currentState (): Status  {
+    const selected: Route | undefined = this.store.selected
+    if (selected) {
+      if(selected.currentStatus !== undefined) {
+        // no current status, use the first one
+        const pType = selected.platformType
+        const platform = this.platforms.find((platform:any) => kebabCase(platform.name) === pType)
+        if(platform) {
+          const statusName: string = selected.currentStatus.state
+          const state = platform.states.find((state: any) => state.name === statusName)
+          if(state) {
+            return state
+          }
+        }
+      }
+    }
+    console.error('State not found', selected)
+    return {name: 'State not found', mobile: false}
+  }
 
   /** indicate the current status of the selected asset */
   currentStatus (): RouteStatus  {
@@ -41,7 +72,7 @@ class AdjudicationManager {
       } else {
         // no current status, use the first one
         const pType = selected.platformType
-        const platform = this.platforms.find((platform:any) => platform.name === pType)
+        const platform = this.platforms.find((platform:any) => kebabCase(platform.name) === pType)
         if(platform) {
           const defaultState = platform.states[0]
           // create new state
@@ -202,14 +233,15 @@ class AdjudicationManager {
   }
 
   /** the umpire is ready to plan the turn using the marker */
-  readyForDragging (formValues: AdjudicateTurnFormValues): void {
+  readyForDragging (): void {
     // convert the data object
-    const state: Status | undefined = formValues && formValues.statusVal
+    const state: Status | undefined = this.currentState()
+    const status: RouteStatus = this.currentStatus()
     if (state) {
       // ok, start planning
       const turnData: PlanTurnFormValues = {
         statusVal: state,
-        speedVal: formValues.speedVal,
+        speedVal: status.speedKts ? status.speedKts : 0,
         turnsVal: 1
       }
       this.turnPlanned(turnData)
@@ -234,7 +266,7 @@ class AdjudicationManager {
   }
 
   /** handler for adjudication commands */
-  handleState (command: PlanningCommands, formValues?: AdjudicateTurnFormValues): void {
+  handleState (command: PlanningCommands, formValues?: AdjudicateTurnFormPopulate): void {
     // make a new route store
     const newStore: RouteStore = cloneDeep(this.store)
     const route: Route | undefined = newStore.selected
@@ -272,7 +304,7 @@ class AdjudicationManager {
             case PlanningCommands.PlanRoute:
               route.adjudicationState = PlanningStates.Planning
               if (formValues) {
-                this.readyForDragging(formValues)
+                this.readyForDragging()
               } else {
                 console.error('failed to receive form values')
               }
@@ -313,7 +345,7 @@ class AdjudicationManager {
               this.cancelRoutePlanning()
               this.restoreOriginalRouteIfChanged(newStore)
               if (formValues) {
-                this.readyForDragging(formValues)
+                this.readyForDragging()
               } else {
                 console.error('failed to receive form values')
               }

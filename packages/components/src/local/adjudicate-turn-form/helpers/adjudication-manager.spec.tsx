@@ -18,6 +18,8 @@ const cancelPlanning = (): void => {
   console.log('cancelling planning')
 }
 
+const icon = {forceColor: 'Red', platformType: 'fishing-vessel'}
+
 it('configures adjudicate manager correctly', () => {
 
   // prepare some routes, and a selected item
@@ -25,7 +27,8 @@ it('configures adjudicate manager correctly', () => {
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
-  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, setRouteStore, turnPlanned, cancelPlanning)
+
+  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, setRouteStore, turnPlanned, cancelPlanning, icon)
 
   expect(manager.currentStatus()).toEqual({"speedKts": 20, "state": "Transiting"})
   expect(manager.upperActionsFor(true)).toEqual([{"action": "accept", "label": "Accept"}, {"action": "reject", "label": "Reject"}])
@@ -43,7 +46,7 @@ it('configures adjudicate manager correctly with missing current state', () => {
   const store2: RouteStore = routeCreateStore(undefined, forcesCopy, 'umpire', true, platformTypes, undefined, false, false)
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
-  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, setRouteStore, turnPlanned, cancelPlanning)
+  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, setRouteStore, turnPlanned, cancelPlanning, icon)
 
-  expect(manager.currentStatus()).toEqual({"speedKts": 20, "state": "Transiting"})
+  expect(manager.currentStatus()).toEqual({"speedKts": 10, "state": "Transiting"})
 })

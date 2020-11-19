@@ -52,23 +52,9 @@ export interface PlanTurnFormData {
   values: PlanTurnFormValues
 }
 
-
 export interface AdjudicateTurnFormPopulate {
   status: Array<Status>
   speed: Array<number>
   visibleTo: Array<ColorOption>
   condition: Array<string>
-}
-
-export interface AdjudicateTurnFormValues {
-  plannedRouteStatusVal: PlanningStates
-  statusVal: Status
-  speedVal: number
-  visibleToVal: Array<string>
-  conditionVal: string
-}
-
-export interface AdjudicateTurnFormData {
-  populate: AdjudicateTurnFormPopulate
-  values: AdjudicateTurnFormValues
 }
