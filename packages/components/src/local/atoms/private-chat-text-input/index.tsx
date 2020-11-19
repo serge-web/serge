@@ -38,7 +38,7 @@ export const PrivateChatTextInput: React.FC<Props> = ({ onChange, privateMessage
           ? <div className={styles['chat-text-input']}>
             <ChatTextInput multiline={true} fullWidth variant="filled"
               placeholder="A private message is sent at the same time as the main message, but is only visible to other umpires."
-              rowsMax={4} rows={2} content={privateMessage} updateState={(event: HTMLInputElement): void => onChange(event,'privateMessage')}/>
+              rowsMax={4} rows={2} content={privateMessage} updateState={(event: HTMLInputElement): void => onChange(event)}/>
           </div> : null
         }
       </>

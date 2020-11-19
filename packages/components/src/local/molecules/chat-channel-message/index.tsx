@@ -13,7 +13,7 @@ export const ChatChannelMessage: React.FC<Props> = ({ isUmpire, messages=[], col
     <div
       className={`${styles['chat-channel-message']}`}
     >
-      {messages.reverse().map((item,index) => {
+      {messages.map((item,index) => {
         return (
           <ChatMessageBubble
             title={item.title}

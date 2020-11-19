@@ -10,7 +10,6 @@ class ChatMessageCreator extends Component {
 
   constructor(props) {
     super(props);
-    this.privateMessageRef = React.createRef();
     this.state = {
       selectedSchema: '',
       message: {
@@ -33,22 +32,11 @@ class ChatMessageCreator extends Component {
       },
       timestamp: new Date().toISOString(),
     };
-    if (this.props.privateMessage) {
-      details.privateMessage = this.privateMessageRef.current.value;
-      this.privateMessageRef.current.value = "";
-    }
-
-    // if (this.editor.getValue().content === "") return;
-
     const {content, privateMessage} = this.state.message;
-    if(content && content !== "")
-    {
-      saveMessage(state.currentWargame, details, {content: content})();
+    if(privateMessage){
+      details.privateMessage = privateMessage;
     }
-    if(privateMessage && privateMessage !== "")
-    {
-      saveMessage(state.currentWargame, details, {privateMessage: privateMessage})();
-    }
+    saveMessage(state.currentWargame, details, {content: content})();
     this.setState({message:{content:"",privateMessage:""}})
   }
 
