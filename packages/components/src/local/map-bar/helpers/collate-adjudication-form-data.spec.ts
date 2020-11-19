@@ -18,4 +18,3 @@ it('contains relevant population results', () => {
   expect(visibleTo.length).toEqual(3)
   expect(visibleTo[0]).toEqual({ colour: '#00F', name: 'Blue' })
 })
-

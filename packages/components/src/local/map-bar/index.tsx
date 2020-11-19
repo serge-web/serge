@@ -99,19 +99,18 @@ export const MapBar: React.FC = () => {
 
   // sort out the handler for State of World button
   useEffect(() => {
-
-    if(playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE && routeStore.selected) {
-      console.log(`create adj manager`)
+    if (playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE && routeStore.selected) {
+      console.log('create adj manager')
       const iconData = {
         forceColor: selectedAsset.force,
         platformType: selectedAsset.type
       }
       setAdjudicationManager(new AdjudicationManager(routeStore, platforms, setRouteStore, turnPlanned, cancelRoutePlanning, iconData))
     } else {
-      console.log(`clear adj manager`)
+      console.log('clear adj manager')
       setAdjudicationManager(undefined)
     }
-  }, [routeStore])  
+  }, [routeStore])
 
   // sort out the handler for State of World button
   useEffect(() => {

@@ -34,11 +34,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const [speedVal, setSpeedVal] = useState<number>(0)
   const [conditionVal, setConditionVal] = useState<string>('')
   const [visibleVal, setVisibleVal] = useState<Array<string>>(manager ? manager.currentVisibleTo() : [])
-  const icon: {forceColor: string, platformType: string} = manager ? manager.iconData: {forceColor: '', platformType: ''}
+  const icon: {forceColor: string, platformType: string} = manager ? manager.iconData : { forceColor: '', platformType: '' }
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
   const { status, speed, visibleTo, condition } = formData
-
 
   // console.log('condition', conditionVal, visibleVal, manager && manager.currentVisibleTo())
 
@@ -62,9 +61,9 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     manager && manager.setCurrentVisibleTo(e.value)
   }
 
-  const updateIfNecessary = (name: string, before: any, after: any, doUpdate: {(value: any): void} ): void => {
+  const updateIfNecessary = (name: string, before: any, after: any, doUpdate: {(value: any): void}): void => {
     name && name
-    if(!deepCompare(before, after)) {
+    if (!deepCompare(before, after)) {
       // console.log('+ updating ', name, before, after)
       doUpdate(after)
     } else {
@@ -72,16 +71,16 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     }
   }
 
-//   console.log('rendering', manager && manager.currentVisibleTo(), formData.status, icon)
+  //   console.log('rendering', manager && manager.currentVisibleTo(), formData.status, icon)
 
   useEffect(() => {
   //  console.log('manager change', manager && manager.currentVisibleTo())
 
     if (manager) {
-      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(stateIsMobile), setUpperPlanningActions )
-      updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions )
-      updateIfNecessary('visible ', visibleVal, manager.currentVisibleTo(), setVisibleVal )
-      updateIfNecessary('condition ', conditionVal, manager.currentCondition(), setConditionVal )
+      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(stateIsMobile), setUpperPlanningActions)
+      updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
+      updateIfNecessary('visible ', visibleVal, manager.currentVisibleTo(), setVisibleVal)
+      updateIfNecessary('condition ', conditionVal, manager.currentCondition(), setConditionVal)
       updateIfNecessary('mobile', stateIsMobile, manager.currentState().mobile, setStateIsMobile)
       updateIfNecessary('status', statusVal, manager.currentStatus().state, setStatusVal)
       updateIfNecessary('speed', speedVal, manager.currentStatus().speedKts, setSpeedVal)
@@ -92,19 +91,19 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   // Status has a different data model and requires it's own handler
 
   const statusHandler = (data: any): void => {
-//   console.log('new status')
+    //   console.log('new status')
     // retrieve the new value
     const newState: string = data.target && data.target.value
 
-    if(manager) {
+    if (manager) {
       manager.setStatus(newState, speedVal)
     }
   }
 
   const speedHandler = (e: any): void => {
- //   console.log('new speed')
+    //   console.log('new speed')
     if (isNumber(e)) {
-      if(manager) {
+      if (manager) {
         manager.setStatus(statusVal, e)
       }
     }

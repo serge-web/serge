@@ -37,57 +37,57 @@ class AdjudicationManager {
   setStatus (status: string, speedKts: number | undefined): void {
     const selected: Route | undefined = this.store.selected
     if (selected) {
-      const result = speedKts === undefined ? { state: status} : { state: status, speedKts: speedKts}
+      const result = speedKts === undefined ? { state: status } : { state: status, speedKts: speedKts }
       selected.currentStatus = result
     }
   }
 
   /** indicate the current status of the selected asset */
-  currentState (): Status  {
+  currentState (): Status {
     const selected: Route | undefined = this.store.selected
     if (selected) {
-      if(selected.currentStatus !== undefined) {
+      if (selected.currentStatus !== undefined) {
         // no current status, use the first one
         const pType = selected.platformType
-        const platform = this.platforms.find((platform:any) => kebabCase(platform.name) === pType)
-        if(platform) {
+        const platform = this.platforms.find((platform: any) => kebabCase(platform.name) === pType)
+        if (platform) {
           const statusName: string = selected.currentStatus.state
           const state = platform.states.find((state: any) => state.name === statusName)
-          if(state) {
+          if (state) {
             return state
           }
         }
       }
     }
     console.error('State not found', selected)
-    return {name: 'State not found', mobile: false}
+    return { name: 'State not found', mobile: false }
   }
 
   /** indicate the current status of the selected asset */
-  currentStatus (): RouteStatus  {
+  currentStatus (): RouteStatus {
     const selected: Route | undefined = this.store.selected
     if (selected) {
-      if(selected.currentStatus !== undefined) {
+      if (selected.currentStatus !== undefined) {
         return selected.currentStatus
       } else {
         // no current status, use the first one
         const pType = selected.platformType
-        const platform = this.platforms.find((platform:any) => kebabCase(platform.name) === pType)
-        if(platform) {
+        const platform = this.platforms.find((platform: any) => kebabCase(platform.name) === pType)
+        if (platform) {
           const defaultState = platform.states[0]
           // create new state
           const speeds = platform.speeds
-          if(speeds && speeds.length > 0) {
-            return { state: defaultState, speedKts: speeds[0]}
+          if (speeds && speeds.length > 0) {
+            return { state: defaultState, speedKts: speeds[0] }
           } else {
-            return { state: defaultState}
+            return { state: defaultState }
           }
         } else {
-          return { state:'type unknown' }
+          return { state: 'type unknown' }
         }
       }
     } else {
-      return { state:'unknown' }
+      return { state: 'unknown' }
     }
   }
 
