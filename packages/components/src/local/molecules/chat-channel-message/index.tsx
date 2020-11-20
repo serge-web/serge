@@ -6,31 +6,35 @@ import Props from './types/props'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 import WriteMessagePanel from '../write-message-panel'
+import Grid from '@material-ui/core/Grid';
 
 /* Render component */
 export const ChatChannelMessage: React.FC<Props> = ({ isUmpire, messages=[], colors, onSendMessage, onChange, content, privateMessage } : Props) => {
   return (
-    <div
-      className={`${styles['chat-channel-message']}`}
-    >
-      {messages.map((item,index) => {
-        return (
-          <ChatMessageBubble
-            title={item.title}
-            timestamp={item.timestamp}
-            role={item.role}
-            hasBeenRead={item.hasBeenRead}
-            authorForceId={item.authorForceId}
-            playerForceId={item.playerForceId}
-            forceColors={colors}
-            privateMessage={item.privateMessage}
-            isUmpire={isUmpire}
-            key={index}
-          />
-        )
-      })}
-      <WriteMessagePanel isUmpire={isUmpire} content={content} privateMessage={privateMessage} onSendMessage={(): any => onSendMessage()} onChange={(event: HTMLInputElement, key: string): any => onChange(event, key)} />
-    </div>
+    <Grid container spacing={3}>
+        <Grid item xs={12} className={styles['chat-bubble-grid']}>
+            {messages.map((item,index) => {
+            return (
+              <ChatMessageBubble
+                title={item.title}
+                timestamp={item.timestamp}
+                role={item.role}
+                hasBeenRead={item.hasBeenRead}
+                authorForceId={item.authorForceId}
+                playerForceId={item.playerForceId}
+                forceColors={colors}
+                privateMessage={item.privateMessage}
+                isUmpire={isUmpire}
+                key={index}
+              />
+            )
+          })}
+        </Grid>
+        <Grid item xs={12} className={styles['chat-input-grid']}>
+        <WriteMessagePanel isUmpire={isUmpire} content={content} privateMessage={privateMessage} onSendMessage={(): any => onSendMessage()} onChange={(event: HTMLInputElement, key: string): any => onChange(event, key)} />
+        </Grid>
+      </Grid>
+   
   )
 }
 
