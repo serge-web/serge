@@ -14,6 +14,10 @@ class AdjudicationManager {
   turnPlanned: {(turn: PlanTurnFormValues): void}
   cancelRoutePlanning: { (): void }
   iconData: {forceColor: string, platformType: string}
+  formData: AdjudicateTurnFormPopulate
+  formHeader: string
+  uniqid: string
+  myId: string
   /**
    *
    * @param {RouteStore} store the current route store
@@ -22,16 +26,23 @@ class AdjudicationManager {
    * @param {(): void} cancelRoutePlanning - cancel dynamic map plotting
    */
   constructor (store: RouteStore, platforms: any,
+    uniqid: string,
+    formHeader: string,
     setRouteStore: {(store: RouteStore): void},
     turnPlanned: {(turn: PlanTurnFormValues): void},
     cancelRoutePlanning: {(): void},
-    iconData: {forceColor: string, platformType: string}) {
+    iconData: {forceColor: string, platformType: string},
+    formData: AdjudicateTurnFormPopulate) {
     this.store = store
     this.platforms = platforms
     this.setRouteStore = setRouteStore
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
     this.iconData = iconData
+    this.formData = formData
+    this.formHeader = formHeader
+    this.uniqid = uniqid
+    this.myId = '' + new Date().getTime()
   }
 
   setStatus (status: string, speedKts: number | undefined): void {
@@ -39,6 +50,7 @@ class AdjudicationManager {
     if (selected) {
       const result = speedKts === undefined ? { state: status } : { state: status, speedKts: speedKts }
       selected.currentStatus = result
+      this.setRouteStore(this.store)
     }
   }
 
@@ -266,7 +278,7 @@ class AdjudicationManager {
   }
 
   /** handler for adjudication commands */
-  handleState (command: PlanningCommands, formValues?: AdjudicateTurnFormPopulate): void {
+  handleState (command: PlanningCommands): void {
     // make a new route store
     const newStore: RouteStore = cloneDeep(this.store)
     const route: Route | undefined = newStore.selected
@@ -303,7 +315,7 @@ class AdjudicationManager {
           switch (command) {
             case PlanningCommands.PlanRoute:
               route.adjudicationState = PlanningStates.Planning
-              if (formValues) {
+              if (this.formData) {
                 this.readyForDragging()
               } else {
                 console.error('failed to receive form values')
@@ -344,7 +356,7 @@ class AdjudicationManager {
               route.adjudicationState = PlanningStates.Planning
               this.cancelRoutePlanning()
               this.restoreOriginalRouteIfChanged(newStore)
-              if (formValues) {
+              if (this.formData) {
                 this.readyForDragging()
               } else {
                 console.error('failed to receive form values')

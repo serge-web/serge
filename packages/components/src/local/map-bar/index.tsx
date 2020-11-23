@@ -100,15 +100,28 @@ export const MapBar: React.FC = () => {
   // sort out the handler for State of World button
   useEffect(() => {
     if (playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE && routeStore.selected) {
-      console.log('create adj manager')
       const iconData = {
         forceColor: selectedAsset.force,
         platformType: selectedAsset.type
       }
-      setAdjudicationManager(new AdjudicationManager(routeStore, platforms, setRouteStore, turnPlanned, cancelRoutePlanning, iconData))
+      const formData = collateAdjudicationFormData(platforms, selectedAsset, forces)
+      setAdjudicationManager(new AdjudicationManager(routeStore, platforms, selectedAsset.uniqid, selectedAsset.name, setRouteStore, turnPlanned, cancelRoutePlanning, iconData, formData))
     } else {
-      console.log('clear adj manager')
       setAdjudicationManager(undefined)
+    }
+
+    // Selects the current asset. Note: this was in a selectedAsset useEffect, but it's been put in here,
+    // since the routeStore will update on a new selected asset
+    if (selectedAsset) {
+      const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase)
+      // note: since the next call is async, we get a render before the new form
+      // has been assigned. This caused troubles. So, while we set the new form here,
+      // we do a "live-recalculation" in the render code
+      setHidePlanningForm(false)
+      setCurrentForm(newForm)
+      setCurrentAssetName(selectedAsset.name)
+    } else {
+      setCurrentAssetName('Pending')
     }
   }, [routeStore])
 
@@ -146,21 +159,6 @@ export const MapBar: React.FC = () => {
     }
     setPlansSubmitted(true)
   }
-
-  // Selects the current asset
-  useEffect(() => {
-    if (selectedAsset) {
-      const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase)
-      // note: since the next call is async, we get a render before the new form
-      // has been assigned. This caused troubles. So, while we set the new form here,
-      // we do a "live-recalculation" in the render code
-      setHidePlanningForm(false)
-      setCurrentForm(newForm)
-      setCurrentAssetName(selectedAsset.name)
-    } else {
-      setCurrentAssetName('Pending')
-    }
-  }, [selectedAsset])
 
   // Toggles the map bar on and off
   const clickEvent = (nextShowOtherPlatforms: boolean): void => {
@@ -216,14 +214,11 @@ export const MapBar: React.FC = () => {
           channelID={channelID}
           postBack={postBack} />
       case 'Adjudication': {
-        const formData = collateAdjudicationFormData(platforms, selectedAsset, forces)
         return <AdjudicateTurnForm
-          key={selectedAsset.uniqid}
+          key={adjudicationManager && adjudicationManager.uniqid}
           manager={adjudicationManager}
           plansSubmitted={plansSubmitted}
-          formHeader={currentAssetName}
-          canSubmitPlans={canSubmitOrders}
-          formData={formData} />
+          canSubmitPlans={canSubmitOrders} />
       }
       case 'Planning':
         return <PlanTurnForm

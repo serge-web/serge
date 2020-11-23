@@ -42,23 +42,17 @@ const cancelPlanning = (): void => {
   console.log('cancelling planning')
 }
 
-const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, setRouteStore, turnPlanned, cancelPlanning, iconData)
+const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a1', "Asset name", setRouteStore, turnPlanned, cancelPlanning, iconData, formData)
 
 export const Default: React.FC = () => <AdjudicateTurnForm
   manager={manager}
   canSubmitPlans={true}
-  plansSubmitted={false}
-  formHeader="Adjudicate header"
-  formData={formData} />
+  plansSubmitted={false} />
 
 export const TurnsPlanned: React.FC = () => <AdjudicateTurnForm
   canSubmitPlans={true}
-  plansSubmitted={true}
-  formHeader="Adjudicate header"
-  formData={formData} />
+  plansSubmitted={true} />
 
 export const CannotSubmitPlans: React.FC = () => <AdjudicateTurnForm
   plansSubmitted={false}
-  canSubmitPlans={false}
-  formHeader="Adjudicate header"
-  formData={formData} />
+  canSubmitPlans={false} />

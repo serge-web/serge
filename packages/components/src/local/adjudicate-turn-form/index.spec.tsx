@@ -4,11 +4,10 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 
 import AdjudicateTurnForm from './index'
-import formData from './mocks/formData'
 
 it('AdjudicateTurnForm renders correctly', () => {
   const tree = renderer
-    .create(<AdjudicateTurnForm canSubmitPlans={true} plansSubmitted={false} formHeader="Adjudicate header" formData={formData} />)
+    .create(<AdjudicateTurnForm canSubmitPlans={true} plansSubmitted={false}/>)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

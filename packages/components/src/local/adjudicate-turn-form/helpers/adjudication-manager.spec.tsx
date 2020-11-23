@@ -1,8 +1,9 @@
 /* global it expect */
-import { forces, platformTypes } from '@serge/mocks'
+import { forces, platformTypes, selectedAsset } from '@serge/mocks'
 import AdjudicationManager from './/adjudication-manager'
 import { PlanTurnFormValues, RouteStore } from '@serge/custom-types'
 import { deepCopy, findAsset, routeCreateStore, routeSetCurrent } from '@serge/helpers'
+import collateAdjudicationFormData from 'src/local/map-bar/helpers/collate-adjudication-form-data'
 
 const setRouteStore = (store: RouteStore): void => {
   console.log('new store', store.routes.length)
@@ -18,13 +19,15 @@ const cancelPlanning = (): void => {
 
 const icon = { forceColor: 'Red', platformType: 'fishing-vessel' }
 
+const formData = collateAdjudicationFormData(platformTypes, selectedAsset, forces)
+
 it('configures adjudicate manager correctly', () => {
   // prepare some routes, and a selected item
   const store2: RouteStore = routeCreateStore(undefined, forces, 'umpire', true, platformTypes, undefined, false, false)
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
-  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, setRouteStore, turnPlanned, cancelPlanning, icon)
+  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', setRouteStore, turnPlanned, cancelPlanning, icon, formData)
 
   expect(manager.currentStatus()).toEqual({ speedKts: 20, state: 'Transiting' })
   expect(manager.upperActionsFor(true)).toEqual([{ action: 'accept', label: 'Accept' }, { action: 'reject', label: 'Reject' }])
@@ -42,7 +45,7 @@ it('configures adjudicate manager correctly with missing current state', () => {
   const store2: RouteStore = routeCreateStore(undefined, forcesCopy, 'umpire', true, platformTypes, undefined, false, false)
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
-  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, setRouteStore, turnPlanned, cancelPlanning, icon)
+  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a3', 'Asset name', setRouteStore, turnPlanned, cancelPlanning, icon, formData)
 
   expect(manager.currentStatus()).toEqual({ speedKts: 10, state: 'Transiting' })
 })

@@ -20,13 +20,23 @@ import styles from './styles.module.scss'
 /* Import helpers */
 import { deepCompare, isNumber } from '@serge/helpers'
 import Badge from '../atoms/badge'
+import { ColorOption, Status } from '@serge/custom-types'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
-  formHeader, formData,
   plansSubmitted, canSubmitPlans, manager
 }) => {
-  // flag for if the current state is mobile
+  // flag for if the current state is mobile#
+  const [statusValues, setStatusValues] = useState<Array<Status>>([])
+  const [speedValues, setSpeedValues] = useState<Array<number>>([])
+  const [visibleToValues, setVisibleToValues] = useState<Array<ColorOption>>([])
+  const [conditionValues, setConditionValues] = useState<Array<string>>([])
+
+  const [plansSubmittedVal, setPlansSubmittedVal] = useState<boolean>(true)
+
+
+  console.log('adj render', plansSubmitted, canSubmitPlans, manager && manager.myId)
+
   const [stateIsMobile, setStateIsMobile] = useState<boolean>(manager ? manager.currentState().mobile : false)
   const [upperPlanningActions, setUpperPlanningActions] = useState<Array<{ label: string, action: PlanningCommands }>>([])
   const [lowerPlanningActions, setLowerPlanningActions] = useState<Array<{ label: string, action: PlanningCommands }>>([])
@@ -37,15 +47,13 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const icon: {forceColor: string, platformType: string} = manager ? manager.iconData : { forceColor: '', platformType: '' }
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
-  const { status, speed, visibleTo, condition } = formData
-
-  // console.log('condition', conditionVal, visibleVal, manager && manager.currentVisibleTo())
 
   const canChangeState: boolean = manager ? manager.canChangeState() : false
 
   const handleCommandLocal = (command: PlanningCommands): void => {
     if (manager) {
-      manager.handleState(command, formData)
+      console.log('new command')
+      manager.handleState(command)
     }
   }
 
@@ -64,25 +72,36 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const updateIfNecessary = (name: string, before: any, after: any, doUpdate: {(value: any): void}): void => {
     name && name
     if (!deepCompare(before, after)) {
-      // console.log('+ updating ', name, before, after)
+      //console.log('+ updating ', name, before, after)
       doUpdate(after)
     } else {
-      // console.log('- not updating', name)
+      //ßconsole.log('- not updating', name)
     }
   }
 
   //   console.log('rendering', manager && manager.currentVisibleTo(), formData.status, icon)
 
   useEffect(() => {
-  //  console.log('manager change', manager && manager.currentVisibleTo())
+    console.log('manager change', manager && manager.myId)
 
     if (manager) {
+
+      updateIfNecessary('plans', plansSubmittedVal, plansSubmitted, setPlansSubmittedVal)
+
+      // the available options
+      const formData = manager.formData
+      updateIfNecessary('status values', statusValues, formData.status, setStatusValues)
+      updateIfNecessary('visible values', visibleToValues, formData.visibleTo, setVisibleToValues)
+      updateIfNecessary('speed values', speedValues, formData.speed, setSpeedValues)
+      updateIfNecessary('condition values', conditionValues, formData.condition, setConditionValues)
+
+      // and the actual state
+      updateIfNecessary('status', statusVal, manager.currentStatus().state, setStatusVal)
       updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(stateIsMobile), setUpperPlanningActions)
       updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
       updateIfNecessary('visible ', visibleVal, manager.currentVisibleTo(), setVisibleVal)
       updateIfNecessary('condition ', conditionVal, manager.currentCondition(), setConditionVal)
       updateIfNecessary('mobile', stateIsMobile, manager.currentState().mobile, setStateIsMobile)
-      updateIfNecessary('status', statusVal, manager.currentStatus().state, setStatusVal)
       updateIfNecessary('speed', speedVal, manager.currentStatus().speedKts, setSpeedVal)
       updateIfNecessary('state is mobile', stateIsMobile, manager.currentState().mobile, setStateIsMobile)
     }
@@ -96,6 +115,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     const newState: string = data.target && data.target.value
 
     if (manager) {
+      console.log('set status')
       manager.setStatus(newState, speedVal)
     }
   }
@@ -104,6 +124,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     //   console.log('new speed')
     if (isNumber(e)) {
       if (manager) {
+        console.log('set speed')
         manager.setStatus(statusVal, e)
       }
     }
@@ -115,11 +136,11 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         forceColor={icon.forceColor}
         platformType={icon.platformType}
       >
-        {formHeader}
+        {manager && manager.formHeader}
         {manager &&
           <Badge label={manager.currentPlanningStatus()} />
         }
-        {plansSubmitted &&
+        {plansSubmittedVal &&
           <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
         }
 
@@ -137,17 +158,17 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
             disabled={!canChangeState}
             onChange={statusHandler}
           >
-            {status.map((s: any) => (
+            {statusValues.map((s: any) => (
               <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
             ))}
           </Select>
         </FormGroup>
-        {speed.length > 0 && stateIsMobile &&
+        {speedValues.length > 0 && stateIsMobile &&
           <FormGroup title="Speed (kts)" titlePosition="absolute">
             <Speed
               disabled={!canChangeState}
               value={speedVal}
-              options={speed}
+              options={speedValues}
               onClick={speedHandler}
             />
           </FormGroup>
@@ -156,10 +177,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       }
       <fieldset>
         <FormGroup title="Visible to" align="right">
-          <RCB type="checkbox" force={true} label="" compact={true} options={visibleTo} value={visibleVal} updateState={visibleHandler} />
+          <RCB type="checkbox" force={true} label="" compact={true} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
         </FormGroup>
         <FormGroup title="Condition" align="right">
-          <RCB type="radio" label="" options={condition} value={conditionVal} updateState={conditionHandler} />
+          <RCB type="radio" label="" options={conditionValues} value={conditionVal} updateState={conditionHandler} />
         </FormGroup>
       </fieldset>
       <fieldset>
