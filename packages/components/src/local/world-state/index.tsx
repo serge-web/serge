@@ -14,7 +14,7 @@ import { GroupItem, Route } from '@serge/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
-import { ADJUDICATION_PHASE } from '@serge/config'
+import { ADJUDICATION_PHASE, PlanningStates } from '@serge/config'
 import canCombineWith from './helpers/can-combine-with'
 
 export const WorldState: React.FC<PropTypes> = ({
@@ -81,7 +81,8 @@ export const WorldState: React.FC<PropTypes> = ({
     const numPlanned = item.plannedTurnsCount
     const descriptionText = (isUmpire || item.underControl) && depth.length === 0
       ? `${numPlanned} turns planned` : ''
-    const checkStatus: boolean = numPlanned > 0
+    const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
+    const checkStatus: boolean = inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
 
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
