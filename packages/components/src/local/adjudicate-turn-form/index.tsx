@@ -20,7 +20,7 @@ import styles from './styles.module.scss'
 /* Import helpers */
 import { deepCompare, isNumber } from '@serge/helpers'
 import Badge from '../atoms/badge'
-import { ColorOption, Status } from '@serge/custom-types'
+import { ColorOption, RouteStatus, Status } from '@serge/custom-types'
 
 /* Render component */
 export const AdjudicateTurnForm: React.FC<PropTypes> = ({
@@ -34,10 +34,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   const [plansSubmittedVal, setPlansSubmittedVal] = useState<boolean>(true)
 
-
-  console.log('adj render', plansSubmitted, canSubmitPlans, manager && manager.myId)
-
-  const [stateIsMobile, setStateIsMobile] = useState<boolean>(manager ? manager.currentState().mobile : false)
+  const [stateIsMobile, setStateIsMobile] = useState<boolean>(false)
   const [upperPlanningActions, setUpperPlanningActions] = useState<Array<{ label: string, action: PlanningCommands }>>([])
   const [lowerPlanningActions, setLowerPlanningActions] = useState<Array<{ label: string, action: PlanningCommands }>>([])
   const [statusVal, setStatusVal] = useState<string>('')
@@ -82,10 +79,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   //   console.log('rendering', manager && manager.currentVisibleTo(), formData.status, icon)
 
   useEffect(() => {
-    console.log('manager change', manager && manager.myId)
-
     if (manager) {
-
       updateIfNecessary('plans', plansSubmittedVal, plansSubmitted, setPlansSubmittedVal)
 
       // the available options
@@ -96,27 +90,40 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       updateIfNecessary('condition values', conditionValues, formData.condition, setConditionValues)
 
       // and the actual state
-      updateIfNecessary('status', statusVal, manager.currentStatus().state, setStatusVal)
-      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(stateIsMobile), setUpperPlanningActions)
-      updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
+      updateIfNecessary('status', statusVal, manager.plannedState().name, setStatusVal)
+      updateIfNecessary('mobile', stateIsMobile, manager.plannedState().mobile, setStateIsMobile)
+      updateIfNecessary('speed', speedVal, manager.plannedSpeed(), setSpeedVal)
+
+      // visibility & condition
       updateIfNecessary('visible ', visibleVal, manager.currentVisibleTo(), setVisibleVal)
       updateIfNecessary('condition ', conditionVal, manager.currentCondition(), setConditionVal)
-      updateIfNecessary('mobile', stateIsMobile, manager.currentState().mobile, setStateIsMobile)
-      updateIfNecessary('speed', speedVal, manager.currentStatus().speedKts, setSpeedVal)
-      updateIfNecessary('state is mobile', stateIsMobile, manager.currentState().mobile, setStateIsMobile)
+
+      // the command buttons
+      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(stateIsMobile), setUpperPlanningActions)
+      updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
     }
   }, [manager])
+
+  /** update the state mobility flag */
+  useEffect(() => {
+    if(statusVal && manager) {
+      setStateIsMobile(manager.stateIsMobile(statusVal))
+    }
+  }, [statusVal])
+
 
   // Status has a different data model and requires it's own handler
 
   const statusHandler = (data: any): void => {
-    //   console.log('new status')
     // retrieve the new value
     const newState: string = data.target && data.target.value
 
     if (manager) {
-      console.log('set status')
       manager.setStatus(newState, speedVal)
+      const newStatus: RouteStatus = manager.currentStatus()
+      setStatusVal(newStatus.state)
+
+      // also update the mobile state
     }
   }
 
@@ -124,8 +131,8 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     //   console.log('new speed')
     if (isNumber(e)) {
       if (manager) {
-        console.log('set speed')
         manager.setStatus(statusVal, e)
+        setSpeedVal(e)
       }
     }
   }

@@ -18,6 +18,7 @@ class AdjudicationManager {
   formHeader: string
   uniqid: string
   myId: string
+  platformDetails: any
   /**
    *
    * @param {RouteStore} store the current route store
@@ -43,6 +44,18 @@ class AdjudicationManager {
     this.formHeader = formHeader
     this.uniqid = uniqid
     this.myId = '' + new Date().getTime()
+    this.platformDetails = undefined
+  }
+
+  getPlatformDetails(): any {
+    if(this.platformDetails === undefined) {
+      const selected: Route | undefined = this.store.selected
+      if(selected) {
+        const pType = selected.platformType
+        this.platformDetails = this.platforms.find((platform: any) => kebabCase(platform.name) === pType)  
+      }
+    }
+    return this.platformDetails
   }
 
   setStatus (status: string, speedKts: number | undefined): void {
@@ -54,19 +67,44 @@ class AdjudicationManager {
     }
   }
 
-  /** indicate the current status of the selected asset */
-  currentState (): Status {
+
+  /** indicate the planned status of the selected asset */
+  plannedSpeed (): number {
     const selected: Route | undefined = this.store.selected
     if (selected) {
-      if (selected.currentStatus !== undefined) {
-        // no current status, use the first one
-        const pType = selected.platformType
-        const platform = this.platforms.find((platform: any) => kebabCase(platform.name) === pType)
-        if (platform) {
-          const statusName: string = selected.currentStatus.state
-          const state = platform.states.find((state: any) => state.name === statusName)
-          if (state) {
-            return state
+      const platform = this.getPlatformDetails()
+      if (platform) {
+        const planned = selected.planned
+        if (planned !== undefined && planned.length > 0) {
+          const firstStep: RouteStep = planned[0]
+          const firstStepSpeed = firstStep.status.speedKts
+          if(firstStepSpeed !== undefined) {
+            return firstStepSpeed
+          }
+        }
+      }
+    }
+    console.warn('failed to find planned speed')
+    return 0
+  }
+
+  /** indicate the planned status of the selected asset */
+  plannedState (): Status {
+    const selected: Route | undefined = this.store.selected
+    if (selected) {
+      const platform = this.getPlatformDetails()
+      if (platform) {
+        const planned = selected.planned
+        if (planned !== undefined && planned.length > 0) {
+          const step: RouteStatus = planned[0].status
+          const status: any = platform.states.find((state: any) => state.name === step.state)
+          if(status) {
+            return status
+          }
+        } else {
+          const states: Array<Status> = platform.states
+          if(states && states.length) {
+            return states[0]
           }
         }
       }
@@ -75,7 +113,23 @@ class AdjudicationManager {
     return { name: 'State not found', mobile: false }
   }
 
-  /** indicate the current status of the selected asset */
+  /** find out if the provided state is a mobile one for the current platform type */
+  stateIsMobile(stateName: string): boolean {
+    const platform = this.getPlatformDetails()
+    if(platform) {
+      const states = platform.states
+      if(states && states.length) {
+        const theState: Status | undefined = states.find((state: Status) => state.name === stateName)
+        if(theState) {
+          return theState.mobile
+        }
+      }
+    }
+    console.warn('State mobility not found for', stateName)
+    return false
+  }
+
+  /** find the current status of the selected asset */
   currentStatus (): RouteStatus {
     const selected: Route | undefined = this.store.selected
     if (selected) {
@@ -247,7 +301,7 @@ class AdjudicationManager {
   /** the umpire is ready to plan the turn using the marker */
   readyForDragging (): void {
     // convert the data object
-    const state: Status | undefined = this.currentState()
+    const state: Status | undefined = this.plannedState()
     const status: RouteStatus = this.currentStatus()
     if (state) {
       // ok, start planning
