@@ -47,6 +47,34 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   const canChangeState: boolean = manager ? manager.canChangeState() : false
 
+  // initialise, from manager helper
+  useEffect(() => {
+    if (manager) {
+      // visibility & condition
+      updateIfNecessary('visible ', visibleVal, manager.currentVisibleTo(), setVisibleVal)
+      updateIfNecessary('condition ', conditionVal, manager.currentCondition(), setConditionVal)
+
+      // whether these plans have already been submitted
+      updateIfNecessary('plans', plansSubmittedVal, plansSubmitted, setPlansSubmittedVal)
+
+      // the available options
+      const formData = manager.formData
+      updateIfNecessary('status values', statusValues, formData.status, setStatusValues)
+      updateIfNecessary('visible values', visibleToValues, formData.visibleTo, setVisibleToValues)
+      updateIfNecessary('speed values', speedValues, formData.speed, setSpeedValues)
+      updateIfNecessary('condition values', conditionValues, formData.condition, setConditionValues)
+
+      // and the actual state
+      updateIfNecessary('status', statusVal, manager.plannedState().name, setStatusVal)
+      updateIfNecessary('mobile', stateIsMobile, manager.plannedState().mobile, setStateIsMobile)
+      updateIfNecessary('speed', speedVal, manager.plannedSpeed(), setSpeedVal)
+
+      // the command buttons
+      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(stateIsMobile), setUpperPlanningActions)
+      updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
+    }
+  }, [manager])
+
   const handleCommandLocal = (command: PlanningCommands): void => {
     if (manager) {
       console.log('new command')
@@ -75,34 +103,6 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       // ßconsole.log('- not updating', name)
     }
   }
-
-  //   console.log('rendering', manager && manager.currentVisibleTo(), formData.status, icon)
-
-  useEffect(() => {
-    if (manager) {
-      updateIfNecessary('plans', plansSubmittedVal, plansSubmitted, setPlansSubmittedVal)
-
-      // the available options
-      const formData = manager.formData
-      updateIfNecessary('status values', statusValues, formData.status, setStatusValues)
-      updateIfNecessary('visible values', visibleToValues, formData.visibleTo, setVisibleToValues)
-      updateIfNecessary('speed values', speedValues, formData.speed, setSpeedValues)
-      updateIfNecessary('condition values', conditionValues, formData.condition, setConditionValues)
-
-      // and the actual state
-      updateIfNecessary('status', statusVal, manager.plannedState().name, setStatusVal)
-      updateIfNecessary('mobile', stateIsMobile, manager.plannedState().mobile, setStateIsMobile)
-      updateIfNecessary('speed', speedVal, manager.plannedSpeed(), setSpeedVal)
-
-      // visibility & condition
-      updateIfNecessary('visible ', visibleVal, manager.currentVisibleTo(), setVisibleVal)
-      updateIfNecessary('condition ', conditionVal, manager.currentCondition(), setConditionVal)
-
-      // the command buttons
-      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(stateIsMobile), setUpperPlanningActions)
-      updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
-    }
-  }, [manager])
 
   /** update the state mobility flag */
   useEffect(() => {
@@ -183,10 +183,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       }
       <fieldset>
         <FormGroup title="Visible to" align="right">
-          <RCB type="checkbox" force={true} label="" compact={true} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
+          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={true} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
         </FormGroup>
         <FormGroup title="Condition" align="right">
-          <RCB type="radio" label="" options={conditionValues} value={conditionVal} updateState={conditionHandler} />
+          <RCB name="condition" type="radio" label="" options={conditionValues} value={conditionVal} updateState={conditionHandler} /> 
         </FormGroup>
       </fieldset>
       <fieldset>
