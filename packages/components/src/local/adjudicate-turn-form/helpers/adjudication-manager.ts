@@ -16,6 +16,7 @@ class AdjudicationManager {
   iconData: {forceColor: string, platformType: string}
   formData: AdjudicateTurnFormPopulate
   formHeader: string
+  turn: number
   uniqid: string
   myId: string
   platformDetails: any
@@ -29,6 +30,7 @@ class AdjudicationManager {
   constructor (store: RouteStore, platforms: any,
     uniqid: string,
     formHeader: string,
+    turn: number,
     setRouteStore: {(store: RouteStore): void},
     turnPlanned: {(turn: PlanTurnFormValues): void},
     cancelRoutePlanning: {(): void},
@@ -36,6 +38,7 @@ class AdjudicationManager {
     formData: AdjudicateTurnFormPopulate) {
     this.store = store
     this.platforms = platforms
+    this.turn = turn
     this.setRouteStore = setRouteStore
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
@@ -62,8 +65,11 @@ class AdjudicationManager {
     const selected: Route | undefined = this.store.selected
     if (selected) {
       const result = speedKts === undefined ? { state: status } : { state: status, speedKts: speedKts }
+      const routeStatus: RouteStatus = speedKts === undefined ? {state: status} : {state: status, speedKts: speedKts}
+      const routeStep: RouteStep = {turn: this.turn + 1, status: routeStatus} 
+      selected.planned = [routeStep]
+      selected.plannedTurnsCount = 1
       selected.currentStatus = result
-      this.setRouteStore(this.store)
     }
   }
 

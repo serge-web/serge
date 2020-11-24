@@ -27,7 +27,7 @@ it('configures adjudicate manager correctly', () => {
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
-  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', setRouteStore, turnPlanned, cancelPlanning, icon, formData)
+  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)
 
   expect(manager.currentStatus()).toEqual({ speedKts: 20, state: 'Transiting' })
   expect(manager.upperActionsFor(true)).toEqual([{ action: 'accept', label: 'Accept' }, { action: 'reject', label: 'Reject' }])
@@ -45,7 +45,7 @@ it('configures adjudicate manager correctly with missing current state', () => {
   const store2: RouteStore = routeCreateStore(undefined, forcesCopy, 'umpire', true, platformTypes, undefined, false, false)
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
-  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a3', 'Asset name', setRouteStore, turnPlanned, cancelPlanning, icon, formData)
+  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a3', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)
 
   expect(manager.currentStatus()).toEqual({ speedKts: 10, state: 'Transiting' })
 })

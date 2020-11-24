@@ -97,6 +97,8 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
                 if(existing.condition) {
                   newRoute.condition = existing.condition
                 }
+                // and planned status
+                newRoute.planned = existing.planned
               }
             }
 
