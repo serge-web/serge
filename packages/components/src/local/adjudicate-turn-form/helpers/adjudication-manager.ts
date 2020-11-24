@@ -50,12 +50,12 @@ class AdjudicationManager {
     this.platformDetails = undefined
   }
 
-  getPlatformDetails(): any {
-    if(this.platformDetails === undefined) {
+  getPlatformDetails (): any {
+    if (this.platformDetails === undefined) {
       const selected: Route | undefined = this.store.selected
-      if(selected) {
+      if (selected) {
         const pType = selected.platformType
-        this.platformDetails = this.platforms.find((platform: any) => kebabCase(platform.name) === pType)  
+        this.platformDetails = this.platforms.find((platform: any) => kebabCase(platform.name) === pType)
       }
     }
     return this.platformDetails
@@ -65,14 +65,13 @@ class AdjudicationManager {
     const selected: Route | undefined = this.store.selected
     if (selected) {
       const result = speedKts === undefined ? { state: status } : { state: status, speedKts: speedKts }
-      const routeStatus: RouteStatus = speedKts === undefined ? {state: status} : {state: status, speedKts: speedKts}
-      const routeStep: RouteStep = {turn: this.turn + 1, status: routeStatus} 
+      const routeStatus: RouteStatus = speedKts === undefined ? { state: status } : { state: status, speedKts: speedKts }
+      const routeStep: RouteStep = { turn: this.turn + 1, status: routeStatus }
       selected.planned = [routeStep]
       selected.plannedTurnsCount = 1
       selected.currentStatus = result
     }
   }
-
 
   /** indicate the planned status of the selected asset */
   plannedSpeed (): number {
@@ -84,7 +83,7 @@ class AdjudicationManager {
         if (planned !== undefined && planned.length > 0) {
           const firstStep: RouteStep = planned[0]
           const firstStepSpeed = firstStep.status.speedKts
-          if(firstStepSpeed !== undefined) {
+          if (firstStepSpeed !== undefined) {
             return firstStepSpeed
           }
         }
@@ -104,12 +103,12 @@ class AdjudicationManager {
         if (planned !== undefined && planned.length > 0) {
           const step: RouteStatus = planned[0].status
           const status: any = platform.states.find((state: any) => state.name === step.state)
-          if(status) {
+          if (status) {
             return status
           }
         } else {
           const states: Array<Status> = platform.states
-          if(states && states.length) {
+          if (states && states.length) {
             return states[0]
           }
         }
@@ -120,13 +119,13 @@ class AdjudicationManager {
   }
 
   /** find out if the provided state is a mobile one for the current platform type */
-  stateIsMobile(stateName: string): boolean {
+  stateIsMobile (stateName: string): boolean {
     const platform = this.getPlatformDetails()
-    if(platform) {
+    if (platform) {
       const states = platform.states
-      if(states && states.length) {
+      if (states && states.length) {
         const theState: Status | undefined = states.find((state: Status) => state.name === stateName)
-        if(theState) {
+        if (theState) {
           return theState.mobile
         }
       }

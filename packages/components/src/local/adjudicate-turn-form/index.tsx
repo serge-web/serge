@@ -69,10 +69,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   const updateIfNecessary = (name: string, before: any, after: any, doUpdate: {(value: any): void}): void => {
     name && name
     if (!deepCompare(before, after)) {
-      //console.log('+ updating ', name, before, after)
+      // console.log('+ updating ', name, before, after)
       doUpdate(after)
     } else {
-      //ßconsole.log('- not updating', name)
+      // ßconsole.log('- not updating', name)
     }
   }
 
@@ -106,11 +106,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   /** update the state mobility flag */
   useEffect(() => {
-    if(statusVal && manager) {
+    if (statusVal && manager) {
       setStateIsMobile(manager.stateIsMobile(statusVal))
     }
   }, [statusVal])
-
 
   // Status has a different data model and requires it's own handler
 
