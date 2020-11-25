@@ -77,19 +77,16 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   const handleCommandLocal = (command: PlanningCommands): void => {
     if (manager) {
-      console.log('new command')
       manager.handleState(command)
     }
   }
 
   const conditionHandler = (e: any): void => {
-    console.log('condition change!', e.name, e.value)
     manager && manager.setCurrentCondition(e.value)
     setConditionVal(e.value)
   }
 
   const visibleHandler = (e: any): void => {
-    console.log('visible change!', e.name, e.value)
     setVisibleVal(e.value)
     manager && manager.setCurrentVisibleTo(e.value)
   }
