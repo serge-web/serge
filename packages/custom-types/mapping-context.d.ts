@@ -3,7 +3,7 @@ import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { RouteStore, PlanTurnFormValues, Postback, NewTurnValues, AdjudicateTurnFormValues } from '@serge/custom-types'
+import { RouteStore, PlanTurnFormValues, Postback, NewTurnValues } from '@serge/custom-types'
 
 /**
  * mapping context, shared with child elements
