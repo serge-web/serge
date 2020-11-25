@@ -33,7 +33,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
       }
     })
     updateCheckedArray(selection)
-  }, [value])
+  }, [value, options])
 
   const handleRadio = (event: React.ChangeEvent<HTMLInputElement>): void => {
     updateState((event.target))
@@ -74,6 +74,8 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
 
   const selectedClassName = (o: string, selected: string): any | undefined => o.toLowerCase() === selected.replace('-', ' ') ? styles.selected : undefined
 
+  const labelPlacement: "bottom" | "end" | "start" | "top" | undefined = type === 'checkbox' && compact ? 'bottom' : undefined
+
   return <InputContainer label={label} className={className} disableOffset={disableOffset}>
     <ConditionalWrapper
       condition={type === 'radio'}
@@ -85,6 +87,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
           const selected = getSelected(o)
           return <FormControlLabel
             key={option.name || option.toString()}
+            labelPlacement={labelPlacement}
             title={option.name || option.toString()}
             control={componentSelector(type, option, selected, handleCheckbox, inputName)}
             label={getLabel(option)}
