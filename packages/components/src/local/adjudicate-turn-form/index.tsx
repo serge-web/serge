@@ -186,7 +186,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
           <RCB name="visibleTo" type="checkbox" force={true} label="" compact={true} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
         </FormGroup>
         <FormGroup title="Condition" align="right">
-          <RCB name="condition" type="radio" label="" options={conditionValues} value={conditionVal} updateState={conditionHandler} /> 
+          <RCB name="condition" type="radio" label="" options={conditionValues} value={conditionVal} updateState={conditionHandler} />
         </FormGroup>
       </fieldset>
       <fieldset>

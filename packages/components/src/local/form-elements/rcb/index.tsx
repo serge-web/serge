@@ -74,7 +74,7 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
 
   const selectedClassName = (o: string, selected: string): any | undefined => o.toLowerCase() === selected.replace('-', ' ') ? styles.selected : undefined
 
-  const labelPlacement: "bottom" | "end" | "start" | "top" | undefined = type === 'checkbox' && compact ? 'bottom' : undefined
+  const labelPlacement: 'bottom' | 'end' | 'start' | 'top' | undefined = type === 'checkbox' && compact ? 'bottom' : undefined
 
   return <InputContainer label={label} className={className} disableOffset={disableOffset}>
     <ConditionalWrapper
