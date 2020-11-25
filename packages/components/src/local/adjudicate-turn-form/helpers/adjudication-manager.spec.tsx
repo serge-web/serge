@@ -3,7 +3,7 @@ import { forces, platformTypes, selectedAsset } from '@serge/mocks'
 import AdjudicationManager from './/adjudication-manager'
 import { PlanTurnFormValues, RouteStore } from '@serge/custom-types'
 import { deepCopy, findAsset, routeCreateStore, routeSetCurrent } from '@serge/helpers'
-import collateAdjudicationFormData from 'src/local/map-bar/helpers/collate-adjudication-form-data'
+import collateAdjudicationFormData from '../..//map-bar/helpers/collate-adjudication-form-data'
 
 const setRouteStore = (store: RouteStore): void => {
   console.log('new store', store.routes.length)
