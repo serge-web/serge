@@ -192,7 +192,6 @@ WithAssets.story = {
   }
 }
 
-
 /**
  * VIEW WITH TRIMMED ASSETS
  */
