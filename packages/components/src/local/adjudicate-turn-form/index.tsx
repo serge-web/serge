@@ -94,8 +94,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     manager && manager.setCurrentVisibleTo(e.value)
   }
 
-  const updateIfNecessary = (name: string, before: any, after: any, doUpdate: {(value: any): void}): void => {
-    name && name
+  const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: {(value: any): void}): void => {
     if (!deepCompare(before, after)) {
       // console.log('+ updating ', name, before, after)
       doUpdate(after)
