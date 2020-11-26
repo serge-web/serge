@@ -8,7 +8,6 @@ import { forceColors } from '@serge/helpers'
 
 const forceColorList = forceColors(forces)
 
-
 /** mock function to workaround issue where multiline textarea
  * failing, as documented here:
  * https://github.com/mui-org/material-ui/issues/16491
@@ -24,28 +23,28 @@ const createNodeMock = (element: any): any => {
 const messages = [
   {
     id: '1',
-    title:"lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet",
-    timestamp:"2020-09-18T05:41:17.349Z",
-    role:"CO",
-    messageType:"Chat",
+    title: 'lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet',
+    timestamp: '2020-09-18T05:41:17.349Z',
+    role: 'CO',
+    messageType: 'Chat',
     hasBeenRead: false,
     authorForceId: 'Blue',
     playerForceId: 'Blue',
-    isUmpire:true,
-    privateMessage:'This is an example of a private message.',
+    isUmpire: true,
+    privateMessage: 'This is an example of a private message.',
     hasPrivate: false
   },
   {
     id: '2',
-    title:"lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet",
-    timestamp:"2020-09-18T05:41:17.349Z",
-    role:"CO",
-    messageType:"Chat",
+    title: 'lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet',
+    timestamp: '2020-09-18T05:41:17.349Z',
+    role: 'CO',
+    messageType: 'Chat',
     hasBeenRead: false,
     authorForceId: 'Blue',
     playerForceId: 'Red',
-    isUmpire:true,
-    privateMessage:'This is an example of a private message.',
+    isUmpire: true,
+    privateMessage: 'This is an example of a private message.',
     hasPrivate: false
   }
 ]

@@ -37,5 +37,5 @@ export default interface PropTypes {
    */
   rowsMax?: number
 
-  content?:String
+  content?: string
 }

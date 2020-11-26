@@ -22,7 +22,6 @@ exports[`ChatTextInput renders correctly 1`] = `
         onFocus={[Function]}
         required={false}
         type="text"
-        value={5}
       />
     </div>
   </div>

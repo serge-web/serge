@@ -19,7 +19,7 @@ export const NewChatMessage: React.FC<Props> = ({ isUmpire, content, privateMess
         rowsMax={4}
         rows={2}
         placeholder="type the text"
-        updateState={(event: HTMLInputElement): void => onChange(event,'content')}
+        updateState={(event: HTMLInputElement): void => onChange(event, 'content')}
         content={content}
       />
       <div className={styles['send-message-icon']} onClick={(): void => onSendMessage()}>
@@ -27,7 +27,7 @@ export const NewChatMessage: React.FC<Props> = ({ isUmpire, content, privateMess
       </div>
       { isUmpire &&
       <div className={styles['private-chat-text-block']}>
-        <PrivateChatTextInput privateMessage={privateMessage} onChange={(event: HTMLInputElement): void => onChange(event,'privateMessage')}/>
+        <PrivateChatTextInput privateMessage={privateMessage} onChange={(event: HTMLInputElement): void => onChange(event, 'privateMessage')}/>
       </div>
       }
     </div>

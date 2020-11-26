@@ -55,6 +55,7 @@ exports[`renders correctly 1`] = `
   </section>
   <div
     className="send-message-icon"
+    onClick={[Function]}
   >
     <img
       src="./images/send_message.png"

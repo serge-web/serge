@@ -26,7 +26,7 @@ exports[`ChatMessageBubble component: renders correctly 1`] = `
         <span
           className="info-body"
         >
-          11:11
+          06:41
         </span>
         <div
           className="MuiChip-root makeStyles-root-2 makeStyles-root-5 MuiChip-sizeSmall makeStyles-sizeSmall-3"
@@ -37,17 +37,6 @@ exports[`ChatMessageBubble component: renders correctly 1`] = `
             className="MuiChip-label makeStyles-label-4 makeStyles-label-6 MuiChip-labelSmall"
           >
             CO
-          </span>
-        </div>
-        <div
-          className="MuiChip-root makeStyles-root-2 makeStyles-root-7 MuiChip-sizeSmall makeStyles-sizeSmall-3"
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-        >
-          <span
-            className="MuiChip-label makeStyles-label-4 makeStyles-label-8 MuiChip-labelSmall"
-          >
-            Chat
           </span>
         </div>
       </div>

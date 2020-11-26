@@ -8,9 +8,9 @@ export default interface Props {
    */
   isUmpire?: boolean
 
-  content?:String
+  content?: string
 
-  privateMessage?:String
+  privateMessage?: string
 
   onSendMessage: Function
 

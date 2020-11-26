@@ -32,26 +32,26 @@ export default {
 const messages = [
   {
     id: '1',
-    title:"MESSAGE ONE ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet",
-    timestamp:"2020-09-18T05:41:17.349Z",
-    role:"CO",
-    messageType:"Chat",
+    title: 'MESSAGE ONE ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet',
+    timestamp: '2020-09-18T05:41:17.349Z',
+    role: 'CO',
+    messageType: 'Chat',
     hasBeenRead: true,
     authorForceId: 'Blue',
     playerForceId: 'Blue',
-    privateMessage:'This is first example of a private message.'
+    privateMessage: 'This is first example of a private message.'
   },
   {
     id: '2',
-    title:"MESSAGE TWO ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet",
-    timestamp:"2020-09-18T05:43:17.349Z",
-    role:"ENG",
-    messageType:"Chat",
+    title: 'MESSAGE TWO ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet',
+    timestamp: '2020-09-18T05:43:17.349Z',
+    role: 'ENG',
+    messageType: 'Chat',
     hasBeenRead: false,
     authorForceId: 'Blue',
     playerForceId: 'Red',
-    isUmpire:false,
-    privateMessage:'This is second example of a private message.'
+    isUmpire: false,
+    privateMessage: 'This is second example of a private message.'
   }
 ]
 
@@ -61,7 +61,7 @@ export const Default: React.FC = () => (
       isUmpire={boolean('Player from umpire force', true)}
       messages={messages}
       colors={forceColorList}
-      onSendMessage={():any => console.log('hi')}
+      onSendMessage={(): any => console.log('hi')}
       onChange={(): any => console.log('hello')}
     />
   </BlueContainer>

@@ -2,156 +2,54 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="chat-channel-message"
+  className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
 >
   <div
-    className="chat-messgae-bubble chat-messgae-bubble-sent"
-    style={
-      Object {
-        "borderColor": "#00F",
+    className="MuiGrid-root chat-bubble-grid MuiGrid-item MuiGrid-grid-xs-12"
+  >
+    <div
+      className="chat-messgae-bubble chat-messgae-bubble-sent"
+      style={
+        Object {
+          "borderColor": "#00F",
+        }
       }
-    }
-  >
-    <div
-      className="chat-inner-bubble message-item-unread"
     >
       <div
-        className="message-title-wrap"
+        className="chat-inner-bubble message-item-unread"
       >
         <div
-          className="message-title"
+          className="message-title-wrap"
         >
-          lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet
-        </div>
-        <div
-          className="MuiBox-root MuiBox-root-1 badges-box"
-        >
-          <span
-            className="info-body"
-          >
-            11:11
-          </span>
           <div
-            className="MuiChip-root makeStyles-root-2 makeStyles-root-5 MuiChip-sizeSmall makeStyles-sizeSmall-3"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
+            className="message-title"
           >
-            <span
-              className="MuiChip-label makeStyles-label-4 makeStyles-label-6 MuiChip-labelSmall"
-            >
-              CO
-            </span>
+            lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet
           </div>
           <div
-            className="MuiChip-root makeStyles-root-2 makeStyles-root-7 MuiChip-sizeSmall makeStyles-sizeSmall-3"
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
+            className="MuiBox-root MuiBox-root-1 badges-box"
           >
             <span
-              className="MuiChip-label makeStyles-label-4 makeStyles-label-8 MuiChip-labelSmall"
+              className="info-body"
             >
-              Chat
+              06:41
             </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="write-message-panel"
-  >
-    <section
-      className="input-container disable-offset"
-    >
-      <div
-        className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
-      >
-        <div
-          className="MuiInputBase-root MuiFilledInput-root makeStyles-root-9 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-11"
-          onClick={[Function]}
-        >
-          <textarea
-            aria-invalid={false}
-            autoFocus={false}
-            className="MuiInputBase-input MuiFilledInput-input makeStyles-input-10 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
-            disabled={false}
-            onAnimationStart={[Function]}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            placeholder="type the text"
-            required={false}
-            rows={2}
-            style={
-              Object {
-                "height": 0,
-                "overflow": "hidden",
-              }
-            }
-          />
-          <textarea
-            aria-hidden={true}
-            className="MuiInputBase-input MuiFilledInput-input makeStyles-input-10 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
-            readOnly={true}
-            style={
-              Object {
-                "height": 0,
-                "left": 0,
-                "overflow": "hidden",
-                "position": "absolute",
-                "top": 0,
-                "transform": "translateZ(0)",
-                "visibility": "hidden",
-              }
-            }
-            tabIndex={-1}
-          />
-        </div>
-      </div>
-    </section>
-    <div
-      className="send-message-icon"
-    >
-      <img
-        src="./images/send_message.png"
-      />
-    </div>
-    <div
-      className="private-chat-text-block"
-    >
-      <div
-        className="private-chat-text-input"
-      >
-        <div
-          className="main"
-          onClick={[Function]}
-        >
-          <div
-            className="header-collapsible"
-            onClick={[Function]}
-          >
-            <span>
+            <div
+              className="MuiChip-root makeStyles-root-2 makeStyles-root-5 MuiChip-sizeSmall makeStyles-sizeSmall-3"
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
               <span
-                className="icon-paperclip"
+                className="MuiChip-label makeStyles-label-4 makeStyles-label-6 MuiChip-labelSmall"
               >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-paperclip fa-w-14 fa-1x "
-                  data-icon="paperclip"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M43.246 466.142c-58.43-60.289-57.341-157.511 1.386-217.581L254.392 34c44.316-45.332 116.351-45.336 160.671 0 43.89 44.894 43.943 117.329 0 162.276L232.214 383.128c-29.855 30.537-78.633 30.111-107.982-.998-28.275-29.97-27.368-77.473 1.452-106.953l143.743-146.835c6.182-6.314 16.312-6.422 22.626-.241l22.861 22.379c6.315 6.182 6.422 16.312.241 22.626L171.427 319.927c-4.932 5.045-5.236 13.428-.648 18.292 4.372 4.634 11.245 4.711 15.688.165l182.849-186.851c19.613-20.062 19.613-52.725-.011-72.798-19.189-19.627-49.957-19.637-69.154 0L90.39 293.295c-34.763 35.56-35.299 93.12-1.191 128.313 34.01 35.093 88.985 35.137 123.058.286l172.06-175.999c6.177-6.319 16.307-6.433 22.626-.256l22.877 22.364c6.319 6.177 6.434 16.307.256 22.626l-172.06 175.998c-59.576 60.938-155.943 60.216-214.77-.485z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
+                CO
               </span>
+            </div>
+          </div>
+          <div>
+            <div
+              className="private-message"
+            >
               <span
                 className="icon-private"
               >
@@ -173,8 +71,224 @@ exports[`renders correctly 1`] = `
                   />
                 </svg>
               </span>
-              Private message
+              <span
+                className="private-message-text"
+              >
+                Private Message
+              </span>
+            </div>
+            <div
+              className="private-message-box"
+            >
+              This is an example of a private message.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="chat-messgae-bubble "
+      style={
+        Object {
+          "borderColor": "#00F",
+        }
+      }
+    >
+      <div
+        className="chat-inner-bubble message-item-unread"
+      >
+        <div
+          className="message-title-wrap"
+        >
+          <div
+            className="message-title"
+          >
+            lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet
+          </div>
+          <div
+            className="MuiBox-root MuiBox-root-7 badges-box"
+          >
+            <span
+              className="info-body"
+            >
+              06:41
             </span>
+            <div
+              className="MuiChip-root makeStyles-root-2 makeStyles-root-8 MuiChip-sizeSmall makeStyles-sizeSmall-3"
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <span
+                className="MuiChip-label makeStyles-label-4 makeStyles-label-9 MuiChip-labelSmall"
+              >
+                CO
+              </span>
+            </div>
+          </div>
+          <div>
+            <div
+              className="private-message"
+            >
+              <span
+                className="icon-private"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-user-secret fa-w-14 fa-1x "
+                  data-icon="user-secret"
+                  data-prefix="fas"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 448 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M383.9 308.3l23.9-62.6c4-10.5-3.7-21.7-15-21.7h-58.5c11-18.9 17.8-40.6 17.8-64v-.3c39.2-7.8 64-19.1 64-31.7 0-13.3-27.3-25.1-70.1-33-9.2-32.8-27-65.8-40.6-82.8-9.5-11.9-25.9-15.6-39.5-8.8l-27.6 13.8c-9 4.5-19.6 4.5-28.6 0L182.1 3.4c-13.6-6.8-30-3.1-39.5 8.8-13.5 17-31.4 50-40.6 82.8-42.7 7.9-70 19.7-70 33 0 12.6 24.8 23.9 64 31.7v.3c0 23.4 6.8 45.1 17.8 64H56.3c-11.5 0-19.2 11.7-14.7 22.3l25.8 60.2C27.3 329.8 0 372.7 0 422.4v44.8C0 491.9 20.1 512 44.8 512h358.4c24.7 0 44.8-20.1 44.8-44.8v-44.8c0-48.4-25.8-90.4-64.1-114.1zM176 480l-41.6-192 49.6 32 24 40-32 120zm96 0l-32-120 24-40 49.6-32L272 480zm41.7-298.5c-3.9 11.9-7 24.6-16.5 33.4-10.1 9.3-48 22.4-64-25-2.8-8.4-15.4-8.4-18.3 0-17 50.2-56 32.4-64 25-9.5-8.8-12.7-21.5-16.5-33.4-.8-2.5-6.3-5.7-6.3-5.8v-10.8c28.3 3.6 61 5.8 96 5.8s67.7-2.1 96-5.8v10.8c-.1.1-5.6 3.2-6.4 5.8z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </span>
+              <span
+                className="private-message-text"
+              >
+                Private Message
+              </span>
+            </div>
+            <div
+              className="private-message-box"
+            >
+              This is an example of a private message.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="MuiGrid-root chat-input-grid MuiGrid-item MuiGrid-grid-xs-12"
+  >
+    <div
+      className="write-message-panel"
+    >
+      <section
+        className="input-container disable-offset"
+      >
+        <div
+          className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+        >
+          <div
+            className="MuiInputBase-root MuiFilledInput-root makeStyles-root-10 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-12"
+            onClick={[Function]}
+          >
+            <textarea
+              aria-invalid={false}
+              autoFocus={false}
+              className="MuiInputBase-input MuiFilledInput-input makeStyles-input-11 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+              disabled={false}
+              onAnimationStart={[Function]}
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              placeholder="type the text"
+              required={false}
+              rows={2}
+              style={
+                Object {
+                  "height": 0,
+                  "overflow": "hidden",
+                }
+              }
+            />
+            <textarea
+              aria-hidden={true}
+              className="MuiInputBase-input MuiFilledInput-input makeStyles-input-11 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+              readOnly={true}
+              style={
+                Object {
+                  "height": 0,
+                  "left": 0,
+                  "overflow": "hidden",
+                  "position": "absolute",
+                  "top": 0,
+                  "transform": "translateZ(0)",
+                  "visibility": "hidden",
+                }
+              }
+              tabIndex={-1}
+            />
+          </div>
+        </div>
+      </section>
+      <div
+        className="send-message-icon"
+        onClick={[Function]}
+      >
+        <img
+          src="./images/send_message.png"
+        />
+      </div>
+      <div
+        className="private-chat-text-block"
+      >
+        <div
+          className="private-chat-text-input"
+        >
+          <div
+            className="main"
+            onClick={[Function]}
+          >
+            <div
+              className="header-collapsible"
+              onClick={[Function]}
+            >
+              <span>
+                <span
+                  className="icon-paperclip"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="svg-inline--fa fa-paperclip fa-w-14 fa-1x "
+                    data-icon="paperclip"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    style={Object {}}
+                    viewBox="0 0 448 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M43.246 466.142c-58.43-60.289-57.341-157.511 1.386-217.581L254.392 34c44.316-45.332 116.351-45.336 160.671 0 43.89 44.894 43.943 117.329 0 162.276L232.214 383.128c-29.855 30.537-78.633 30.111-107.982-.998-28.275-29.97-27.368-77.473 1.452-106.953l143.743-146.835c6.182-6.314 16.312-6.422 22.626-.241l22.861 22.379c6.315 6.182 6.422 16.312.241 22.626L171.427 319.927c-4.932 5.045-5.236 13.428-.648 18.292 4.372 4.634 11.245 4.711 15.688.165l182.849-186.851c19.613-20.062 19.613-52.725-.011-72.798-19.189-19.627-49.957-19.637-69.154 0L90.39 293.295c-34.763 35.56-35.299 93.12-1.191 128.313 34.01 35.093 88.985 35.137 123.058.286l172.06-175.999c6.177-6.319 16.307-6.433 22.626-.256l22.877 22.364c6.319 6.177 6.434 16.307.256 22.626l-172.06 175.998c-59.576 60.938-155.943 60.216-214.77-.485z"
+                      fill="currentColor"
+                      style={Object {}}
+                    />
+                  </svg>
+                </span>
+                <span
+                  className="icon-private"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="svg-inline--fa fa-user-secret fa-w-14 fa-1x "
+                    data-icon="user-secret"
+                    data-prefix="fas"
+                    focusable="false"
+                    role="img"
+                    style={Object {}}
+                    viewBox="0 0 448 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M383.9 308.3l23.9-62.6c4-10.5-3.7-21.7-15-21.7h-58.5c11-18.9 17.8-40.6 17.8-64v-.3c39.2-7.8 64-19.1 64-31.7 0-13.3-27.3-25.1-70.1-33-9.2-32.8-27-65.8-40.6-82.8-9.5-11.9-25.9-15.6-39.5-8.8l-27.6 13.8c-9 4.5-19.6 4.5-28.6 0L182.1 3.4c-13.6-6.8-30-3.1-39.5 8.8-13.5 17-31.4 50-40.6 82.8-42.7 7.9-70 19.7-70 33 0 12.6 24.8 23.9 64 31.7v.3c0 23.4 6.8 45.1 17.8 64H56.3c-11.5 0-19.2 11.7-14.7 22.3l25.8 60.2C27.3 329.8 0 372.7 0 422.4v44.8C0 491.9 20.1 512 44.8 512h358.4c24.7 0 44.8-20.1 44.8-44.8v-44.8c0-48.4-25.8-90.4-64.1-114.1zM176 480l-41.6-192 49.6 32 24 40-32 120zm96 0l-32-120 24-40 49.6-32L272 480zm41.7-298.5c-3.9 11.9-7 24.6-16.5 33.4-10.1 9.3-48 22.4-64-25-2.8-8.4-15.4-8.4-18.3 0-17 50.2-56 32.4-64 25-9.5-8.8-12.7-21.5-16.5-33.4-.8-2.5-6.3-5.7-6.3-5.8v-10.8c28.3 3.6 61 5.8 96 5.8s67.7-2.1 96-5.8v10.8c-.1.1-5.6 3.2-6.4 5.8z"
+                      fill="currentColor"
+                      style={Object {}}
+                    />
+                  </svg>
+                </span>
+                Private message
+              </span>
+            </div>
           </div>
         </div>
       </div>
