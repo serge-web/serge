@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import moment from "moment";
 import { umpireForceTemplate } from "../consts";
 import NewMessage from "./NewMessage";
-import {ChannelMessagesList,ChatChannelMessage} from '@serge/components';
+import {ChannelMessagesList} from '@serge/components';
 import {
   closeMessage,
   getAllWargameMessages,
