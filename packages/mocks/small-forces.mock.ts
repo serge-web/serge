@@ -25,6 +25,59 @@ export const forces = [
         contactId: 'C043',
         history: [
           {
+            position: 'K03',
+            status: {
+              speedKts: 20,
+              state: 'Transiting'
+            },
+            turn: 2
+          }
+        ],
+        name: 'Frigate 2',
+        hosting: [],
+        perceptions: [{
+          by: 'Red',
+          force: 'Blue',
+          name: 'Frigate Perceived Name',
+          type: 'frigate'
+        }],
+        plannedTurns: [
+          {
+            route: [
+              'M05',
+              'M06'
+            ],
+            status: {
+              speedKts: 20,
+              state: 'Transiting'
+            },
+            turn: 4
+          },
+          {
+            route: [
+              'M07',
+              'M08'
+            ],
+            status: {
+              speedKts: 20,
+              state: 'Transiting'
+            },
+            turn: 5
+          }
+        ],
+        platformType: 'frigate',
+        position: 'L04',
+        status: {
+          speedKts: 20,
+          state: 'Transiting'
+        },
+        uniqid: 'a0pra001111'
+      },
+      {
+        condition: 'Full capability',
+        contactId: 'C043',
+        history: [
+          {
             position: 'L03',
             status: {
               speedKts: 20,
