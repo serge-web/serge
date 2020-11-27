@@ -65,6 +65,15 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     })
   }
 
+  const onSaveOverview = (): void => {
+    if (onSave) {
+      onSave({
+        ...overview,
+        dirty: false
+      })
+    }
+  }
+
   useEffect(() => {
     if (!isObjectEquivalent(prevOverview || {}, initialOverview)) {
       setOverview(initialOverview)
@@ -78,7 +87,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
         <Button
           color="secondary"
           size="large"
-          onClick={(): void => { if (onSave) onSave(overview) }}
+          onClick={onSaveOverview}
           data-qa-type="submit"
         >
           Save Overview
