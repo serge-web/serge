@@ -7,7 +7,7 @@ import {
   saveForce,
   saveChannel,
   setTabSaved,
-  setTabUnsaved
+  setGameData
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { checkUnique } from '@serge/helpers'
@@ -15,14 +15,13 @@ import _ from 'lodash'
 
 /**
  * TODOS:
- * updateWargameTitle
+ updateWargameTitle
  game setup: saveWargame
  checkWargameNameSaveable
  notSavedNotification
  forces: setSelected
  forces: deleteForceFromList
  forces: createForce
-
  channels: createChannel
  back button
  */
@@ -30,10 +29,10 @@ const AdminGameSetup = () => {
   const dispatch = useDispatch()
   const wargame = useSelector(state => state.wargame)
   const messageTypes = useSelector(state => state.messageTypes)
-  const currentTab = useSelector(state => state.currentTab)
   const {
     data,
     currentWargame,
+    currentTab
   } = wargame
   const {
     overview,
@@ -85,7 +84,7 @@ const AdminGameSetup = () => {
   }
 
   const handleFormChange = changes => {
-    dispatch(setTabUnsaved())
+    dispatch(setGameData(changes))
   }
 
   const handleSaveOverview = overview => {

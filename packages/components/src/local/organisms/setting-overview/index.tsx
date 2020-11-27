@@ -12,7 +12,7 @@ import styles from './styles.module.scss'
 /* Import Components */
 import MaskedInput from 'react-maskedinput'
 import { Input, Checkbox, FormControlLabel } from '@material-ui/core'
-import { usePrevious } from '@serge/helpers'
+import { usePrevious, isObjectEquivalent } from '@serge/helpers'
 import Button from '../../atoms/button'
 import TextInput from '../../atoms/text-input'
 import FormGroup from '../../atoms/form-group-shadow'
@@ -66,7 +66,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
   }
 
   useEffect(() => {
-    if (!prevOverview && Object.keys(initialOverview).length > 0) {
+    if (!isObjectEquivalent(prevOverview || {}, initialOverview)) {
       setOverview(initialOverview)
     }
   }, [initialOverview])
@@ -114,7 +114,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
                 placeholder="DD HH MM SS"
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
-                value={millisecondsToDDHHMMSS(overview.gameTurnTime)}
+                value={millisecondsToDDHHMMSS(initialOverview.gameTurnTime)}
               />}
             </div>
           </div>
@@ -130,7 +130,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
                 placeholder="DD HH MM SS"
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
-                value={millisecondsToDDHHMMSS(overview.realtimeTurnTime)}
+                value={millisecondsToDDHHMMSS(initialOverview.realtimeTurnTime)}
               />
             </div>
           </div>
@@ -146,7 +146,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
                 placeholder="HH MM SS"
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
-                value={millisecondsToHHMMSS(overview.timeWarning)}
+                value={millisecondsToHHMMSS(initialOverview.timeWarning)}
               />
             </div>
           </div>
@@ -155,7 +155,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={overview.showAccessCodes}
+                  checked={initialOverview.showAccessCodes}
                   onChange={updateAccessCodeVisibility}
                   value='1'
                   color='primary'
