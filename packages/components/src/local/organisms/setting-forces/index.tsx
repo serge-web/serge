@@ -38,7 +38,7 @@ const MobileSwitch = withStyles({
 })(Switch)
 
 /* Render component */
-export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSave, onChange }) => {
+export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSave, onChange, onRejectedIcon }) => {
   const [selectedItem, setSelectedItem] = useState(0)
   const [forcesData, setForcesData] = useState(initialForces)
   const handleSwitch = (_item: Item): void => {
@@ -46,7 +46,8 @@ export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSa
   }
 
   const handleChangeForces = (nextForces: Array<ForceData>): void => {
-    onChange(nextForces)
+    setForcesData(nextForces)
+    onChange({ forces: nextForces })
   }
 
   useEffect(() => {
@@ -54,7 +55,7 @@ export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSa
   }, [initialForces])
 
   const renderContent = (): React.ReactNode => {
-    const data = initialForces[0]
+    const data = forcesData[0]
     if (!data) return null
 
     const handleChangeForce = (force: ForceData): void => {
@@ -73,6 +74,14 @@ export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSa
         isObserver: false
       }]
       handleChangeForce({ ...data, roles: roles })
+    }
+
+    const handleOnRejectedIcon = (rejected: any): void => {
+      if (typeof onRejectedIcon === 'function') {
+        onRejectedIcon(rejected)
+      } else {
+        console.log(rejected)
+      }
     }
 
     const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
@@ -146,7 +155,7 @@ export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSa
           <div className={styles.col}>
             <IconUploader limit={20000} icon={data.icon} onChange={(icon: string): void => {
               handleChangeForce({ ...data, icon })
-            }}>Change Icon</IconUploader>
+            }} onRejected={handleOnRejectedIcon}>Change Icon</IconUploader>
           </div>
           <div className={styles.actions}>
             <Button

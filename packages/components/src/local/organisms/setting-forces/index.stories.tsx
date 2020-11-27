@@ -28,7 +28,11 @@ export const Default: React.FC = () => {
     console.log('Your save logic', forces)
   }
 
-  return <SettingForces forces={forcesMock} onChange={onChange} onSave={onSave} />
+  const onRejectedIcon = (rejected: any): void => {
+    console.log(rejected)
+  }
+
+  return <SettingForces forces={forcesMock} onChange={onChange} onSave={onSave} onRejectedIcon={onRejectedIcon} />
 }
 
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.

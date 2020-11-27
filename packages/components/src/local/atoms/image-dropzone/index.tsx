@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export const ImageDropzone: React.FC<PropTypes> = ({
   title,
   onChange,
+  onRejected,
   limit
 }) => {
   const getBase64 = (file: any, cb: (res: string) => void): void => {
@@ -47,7 +48,9 @@ export const ImageDropzone: React.FC<PropTypes> = ({
     maxSize: limit,
     multiple: false,
     onDropRejected: (rejected: any): void => {
-      console.log('rejected', rejected)
+      if (typeof onRejected === 'function') {
+        onRejected(rejected)
+      }
     }
   })
 

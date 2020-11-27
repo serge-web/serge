@@ -2,7 +2,7 @@ export const forces = [
   {
     color: '#FCFBEE',
     dirty: false,
-    icon: 'default_img/umpireDefault.png',
+    icon: 'images/default_img/umpireDefault.png',
     name: 'White',
     overview: 'Umpire force.',
     roles: [
@@ -102,7 +102,7 @@ export const forces = [
                 state: 'Transiting'
               },
               uniqid: 'a0prbr6441'
-            }, 
+            },
             {
               condition: 'Full capability',
               contactId: 'C653',
@@ -327,7 +327,7 @@ export const forces = [
     ],
     color: '#00F',
     dirty: false,
-    icon: 'default_img/umpireDefault.png',
+    icon: 'images/default_img/umpireDefault.png',
     name: 'Blue',
     overview: 'Blue force.',
     roles: [
@@ -609,7 +609,7 @@ export const forces = [
     ],
     color: '#F00',
     dirty: false,
-    icon: 'default_img/umpireDefault.png',
+    icon: 'images/default_img/umpireDefault.png',
     name: 'Red',
     overview: 'Red force.',
     roles: [
@@ -1280,7 +1280,7 @@ export const forces = [
       'umpire'
     ],
     dirty: false,
-    icon: 'default_img/umpireDefault.png',
+    icon: 'images/default_img/umpireDefault.png',
     name: 'Green',
     overview: 'Green Shipping',
     roles: [

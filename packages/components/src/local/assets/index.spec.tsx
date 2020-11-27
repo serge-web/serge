@@ -25,7 +25,7 @@ const forces = [
   {
     color: '#FCFBEE',
     dirty: false,
-    icon: 'default_img/umpireDefault.png',
+    icon: 'images/default_img/umpireDefault.png',
     name: 'White',
     overview: 'Umpire force.',
     roles: [
@@ -58,7 +58,7 @@ const forces = [
     ],
     color: '#00F',
     dirty: false,
-    icon: 'default_img/umpireDefault.png',
+    icon: 'images/default_img/umpireDefault.png',
     name: 'Blue',
     overview: 'Blue force.',
     roles: [

@@ -54,7 +54,7 @@ export default {
             {
               force: 'White',
               forceUniqid: 'umpire',
-              icon: 'default_img/umpireDefault.png',
+              icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k63pjpfv',
               templates: []
@@ -62,7 +62,7 @@ export default {
             {
               force: 'Red',
               forceUniqid: 'Red',
-              icon: 'default_img/umpireDefault.png',
+              icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k63pjsbv',
               templates: []
@@ -70,7 +70,7 @@ export default {
             {
               force: 'Blue',
               forceUniqid: 'Blue',
-              icon: 'default_img/umpireDefault.png',
+              icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k63pju7l',
               templates: []
@@ -84,7 +84,7 @@ export default {
             {
               force: 'White',
               forceUniqid: 'umpire',
-              icon: 'default_img/umpireDefault.png',
+              icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k63pk0d3',
               templates: []
@@ -92,7 +92,7 @@ export default {
             {
               force: 'Blue',
               forceUniqid: 'Blue',
-              icon: 'default_img/umpireDefault.png',
+              icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k63pk2o6',
               templates: []
@@ -106,7 +106,7 @@ export default {
             {
               force: 'White',
               forceUniqid: 'umpire',
-              icon: 'default_img/umpireDefault.png',
+              icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k53tifeo',
               templates: []
@@ -114,7 +114,7 @@ export default {
             {
               force: 'Blue',
               forceUniqid: 'Blue',
-              icon: 'default_img/umpireDefault.png',
+              icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k53tij98',
               templates: []
@@ -122,7 +122,7 @@ export default {
             {
               force: 'Red',
               forceUniqid: 'Red',
-              icon: 'default_img/umpireDefault.png',
+              icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k53tiqdf',
               templates: []
@@ -130,7 +130,7 @@ export default {
             {
               force: 'Green',
               forceUniqid: 'Green',
-              icon: 'default_img/umpireDefault.png',
+              icon: 'images/default_img/umpireDefault.png',
               roles: [],
               subscriptionId: 'k53tivj5',
               templates: []
@@ -151,7 +151,7 @@ export default {
         {
           color: '#FCFBEE',
           dirty: false,
-          icon: 'default_img/umpireDefault.png',
+          icon: 'images/default_img/umpireDefault.png',
           name: 'White',
           overview: 'Umpire force.',
           roles: [
@@ -316,7 +316,7 @@ export default {
           ],
           color: '#00F',
           dirty: false,
-          icon: 'default_img/umpireDefault.png',
+          icon: 'images/default_img/umpireDefault.png',
           name: 'Blue',
           overview: 'Blue force.',
           roles: [
@@ -569,7 +569,7 @@ export default {
           ],
           color: '#F00',
           dirty: false,
-          icon: 'default_img/umpireDefault.png',
+          icon: 'images/default_img/umpireDefault.png',
           name: 'Red',
           overview: 'Red force.',
           roles: [
@@ -1247,7 +1247,7 @@ export default {
             'umpire'
           ],
           dirty: false,
-          icon: 'default_img/umpireDefault.png',
+          icon: 'images/default_img/umpireDefault.png',
           name: 'Green',
           overview: 'Green Shipping',
           roles: [
