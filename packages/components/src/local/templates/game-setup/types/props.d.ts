@@ -33,7 +33,11 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on forces setting change events
    */
-  onForcesChange: (forces: ForceData[]) => void
+  onForcesChange: (updates: { forces: ForceData[] }) => void
+  /**
+   * Callback on forces' sidebar click events
+   */
+  onSidebarForcesClick?: (force: ForceData) => void
   /**
    * Callback on channels setting change events
    */

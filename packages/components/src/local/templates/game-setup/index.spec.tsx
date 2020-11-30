@@ -60,8 +60,8 @@ const Component = () => {
     setWargameChanged(true)
   }
 
-  const onForcesChange = (nextForces: Array<ForceData>): void => {
-    setChangedForces(nextForces)
+  const onForcesChange = (updates: { forces: Array<ForceData> }): void => {
+    setChangedForces(updates.forces)
     setWargameChanged(true)
   }
 

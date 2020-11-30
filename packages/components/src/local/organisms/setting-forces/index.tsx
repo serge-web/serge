@@ -38,11 +38,13 @@ const MobileSwitch = withStyles({
 })(Switch)
 
 /* Render component */
-export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSave, onChange, onRejectedIcon }) => {
+export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSave, onChange, onRejectedIcon, onSidebarClick }) => {
   const [selectedItem, setSelectedItem] = useState(0)
   const [forcesData, setForcesData] = useState(initialForces)
   const handleSwitch = (_item: Item): void => {
-    setSelectedItem(_item.uniqid)
+    const selectedForce = forcesData.findIndex(force => force.uniqid === _item.uniqid)
+    setSelectedItem(selectedForce)
+    onSidebarClick && onSidebarClick(_item as ForceData)
   }
 
   const handleChangeForces = (nextForces: Array<ForceData>): void => {
@@ -55,7 +57,7 @@ export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSa
   }, [initialForces])
 
   const renderContent = (): React.ReactNode => {
-    const data = forcesData[0]
+    const data = forcesData[selectedItem]
     if (!data) return null
 
     const handleChangeForce = (force: ForceData): void => {

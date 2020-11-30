@@ -4,9 +4,9 @@ import { forces } from '@serge/mocks'
 import SettingForces from './index'
 import { ForceData } from './types/props'
 
-const onChange = (_forces: Array<ForceData>): void => { console.log(_forces) }
+const onChange = (updates: { forces: Array<ForceData> }): void => { console.log(updates) }
 const onSave = (): void => {
-  console.log('Your save logick', forces)
+  console.log('Your save logic', forces)
 }
 const onRejectedIcon = (rejected: any): void => {
   console.log(rejected)

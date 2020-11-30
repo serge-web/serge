@@ -71,8 +71,8 @@ export const Default: React.FC = () => {
     console.log('new platform type', nextPlatformType)
   }
 
-  const onForcesChange = (nextForces: Array<ForceData>): void => {
-    console.log('new forces', nextForces)
+  const onForcesChange = (updates: { forces: Array<ForceData> }): void => {
+    console.log('new forces', updates.forces)
   }
 
   const onChannelsChange = (nextChannels: Array<ChannelData>): void => {

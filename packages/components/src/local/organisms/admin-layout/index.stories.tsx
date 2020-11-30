@@ -79,8 +79,7 @@ export const Default: React.FC = () => {
   }
 
   const onOverviewChange = (nextOverview: WargameOverview): void => {
-    setChangedOverview(nextOverview)
-    setWargameChanged(true)
+    console.log(nextOverview)
   }
 
   const onPlatformChange = (nextPlatformType: PlatformType): void => {
@@ -88,9 +87,8 @@ export const Default: React.FC = () => {
     setWargameChanged(true)
   }
 
-  const onForcesChange = (nextForces: Array<ForceData>): void => {
-    setChangedForces(nextForces)
-    setWargameChanged(true)
+  const onForcesChange = (updates: {forces: Array<ForceData>}): void => {
+    console.log(updates.forces)
   }
 
   const onChannelsChange = (nextChannels: Array<ChannelData>): void => {
@@ -103,7 +101,7 @@ export const Default: React.FC = () => {
       <AdminContent>
         {activeTab === 0 && <SettingOverview overview={changedOverview} onChange={onOverviewChange} onSave={handleSave} />}
         {activeTab === 1 && <SettingPlatformTypes platformType={changedPlatformType} onChange={onPlatformChange} onSave={handleSave} />}
-        {activeTab === 2 && <SettingForces forces={changedForces} onChange={onForcesChange} onSave={handleSave} />}
+        {activeTab === 2 && <SettingForces forces={wargame.data.forces.forces} onChange={onForcesChange} onSave={handleSave} />}
         {activeTab === 3 && <SettingChannels
           channels={changedChannels}
           onChange={onChannelsChange}

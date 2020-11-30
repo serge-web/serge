@@ -7,6 +7,7 @@ export default interface PropTypes {
   onChange: (updates: { forces: Forces }) => void
   onRejectedIcon?: (rejected: any) => void
   onSave: (forces: Array<ForceData>) => void
+  onSidebarClick?: (selectedForce: ForceData) => void
 }
 
 export { ForceData, Role } from '@serge/custom-types'

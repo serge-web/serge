@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import _ from 'lodash'
 import { useSelector, useDispatch } from 'react-redux'
 import { GameSetup } from '@serge/components'
+import { checkUnique } from '@serge/helpers'
 import {
   setCurrentTab,
   saveSettings,
   saveForce,
   saveChannel,
   setTabSaved,
-  setGameData
+  setGameData,
+  setSelectedForce
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
-import { checkUnique } from '@serge/helpers'
-import _ from 'lodash'
+import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 
 /**
  * TODOS:
@@ -91,16 +93,16 @@ const AdminGameSetup = () => {
     dispatch(saveSettings(currentWargame, overview))
   }
 
-  const handleSaveForce = force => {
+  const handleSaveForce = newForces => {
     const { selectedForce } = forces
     const selectedForceId = selectedForce.uniqid
-    const forceOverview = force.overview
-    const forceName = force.name
-    const newForceData = forces.forces.find((f) => f.uniqid === selectedForceId)
+    const newForceData = newForces.find(force => force.uniqid === selectedForceId)
+    const forceOverview = newForceData.overview
+    const forceName = newForceData.name
     newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview
 
     if (typeof forceName === 'string' && forceName.length > 0) {
-      if (!isUniqueForceName(force)) return
+      if (!isUniqueForceName(newForceData)) return
       const selectedForce = forces.selectedForce.name
       dispatch(saveForce(currentWargame, forceName, newForceData, selectedForce))
     }
@@ -151,6 +153,20 @@ const AdminGameSetup = () => {
     saveAction(updates)
   }
 
+  const handleSidebarForcesClick = force => {
+    if (forces.dirty) {
+      dispatch(modalAction.open('unsavedForce', force))
+    } else {
+      dispatch(setSelectedForce(force))
+    }
+  }
+
+  useEffect(() => {
+    if (currentTab === 'forces' && forces.selectedForce === '') {
+      dispatch(setSelectedForce(forces.forces[0]))
+    }
+  }, [currentTab])
+
   return (
     <GameSetup
       activeTab={currentTab || tabs[0]}
@@ -165,6 +181,7 @@ const AdminGameSetup = () => {
       onOverviewChange={handleFormChange}
       onPlatformTypesChange={handleFormChange}
       onForcesChange={handleFormChange}
+      onSidebarForcesClick={handleSidebarForcesClick}
       onChannelsChange={handleFormChange}
       onSave={onSave}
       messageTemplates={messageTypes.messages}
