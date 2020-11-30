@@ -1,5 +1,5 @@
 import { RouteStore, SergeGrid, SergeHex } from '@serge/custom-types'
-import { WorldStatePanels } from '../helpers/enums';
+import { WorldStatePanels } from '../helpers/enums'
 
 export default interface PropTypes {
   /**

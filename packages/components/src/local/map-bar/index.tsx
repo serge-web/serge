@@ -244,25 +244,25 @@ export const MapBar: React.FC = () => {
   return (
     <div className={cx(styles['map-bar'], showMapBar && styles.open)}>
       <div
-        className={cx(styles.toggle, styles['control'], (worldStatePanel === WorldStatePanels.Control) && styles['toggle-active'])}
+        className={cx(styles.toggle, styles.control, (worldStatePanel === WorldStatePanels.Control) && styles['toggle-active'])}
         onClick={(): void => { tabClickEvent(WorldStatePanels.Control) }}>
         <ArrowRight />
-        <span className={cx(styles['rotated'])}>Control</span>
+        <span className={cx(styles.rotated)}>Control</span>
       </div>
       <div
-        className={cx(styles.toggle, styles['visibility'], (worldStatePanel === WorldStatePanels.Visibility) && styles['toggle-active'])}
+        className={cx(styles.toggle, styles.visibility, (worldStatePanel === WorldStatePanels.Visibility) && styles['toggle-active'])}
         onClick={(): void => { tabClickEvent(WorldStatePanels.Visibility) }}>
         <ArrowRight />
-        <span className={cx(styles['rotated'])}>Visibility</span>
+        <span className={cx(styles.rotated)}>Visibility</span>
       </div>
       {
         // only show tab 3 if umpire is adjudicating
-        userIsUmpire && phase === ADJUDICATION_PHASE && 
+        userIsUmpire && phase === ADJUDICATION_PHASE &&
         <div
-          className={cx(styles.toggle, styles['controlled'], (worldStatePanel === WorldStatePanels.ControlledBy) && styles['toggle-active'])}
+          className={cx(styles.toggle, styles.controlled, (worldStatePanel === WorldStatePanels.ControlledBy) && styles['toggle-active'])}
           onClick={(): void => { tabClickEvent(WorldStatePanels.ControlledBy) }}>
           <ArrowRight />
-          <span className={cx(styles['rotated'])}>My Assets</span>
+          <span className={cx(styles.rotated)}>My Assets</span>
         </div>
       }
       <div className={styles.inner}>

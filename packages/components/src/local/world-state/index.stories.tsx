@@ -33,7 +33,6 @@ export default {
 const canSubmitLabel = 'Show other platforms'
 const canSubmitDefaultValues = true
 
-
 const label = 'View As'
 const forceNames = {
   White: 'umpire',
@@ -51,13 +50,11 @@ const phasePhaseValue = Phase.Planning
 
 const panelsLabel = 'Panel Tab'
 const panelsNames: Record<ReactText, WorldStatePanels> = {
-  Control : WorldStatePanels.Control,
+  Control: WorldStatePanels.Control,
   Visiblity: WorldStatePanels.Visibility,
   Controlled: WorldStatePanels.ControlledBy
 }
 const panelsValue: WorldStatePanels = WorldStatePanels.Control
-
-
 
 export const WithPhases: React.FunctionComponent = () => <WorldState panel={radios<WorldStatePanels>(panelsLabel, panelsNames, panelsValue)}
   isUmpire={boolean('Player is umpire', false)}

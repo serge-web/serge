@@ -37,8 +37,8 @@ const canCombineWith = (store: RouteStore, draggingItem: string | number, item: 
         case 'group-out': break
       }
       if (dragging && over) {
-        // check they are on the same force        
-        if(dragging.actualForceName !== over.actualForceName) {
+        // check they are on the same force
+        if (dragging.actualForceName !== over.actualForceName) {
           return false
         }
 
@@ -56,7 +56,7 @@ const canCombineWith = (store: RouteStore, draggingItem: string | number, item: 
         } else {
           // don't have grid cells, maybe under test
           return !(draggingItem > item)
-        }        
+        }
       } else {
         // we didn't find one or both of the platforms in the top level
         // of a force.  If the platforms aren't at the top level we don't allow them to

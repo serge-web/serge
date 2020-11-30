@@ -16,7 +16,7 @@ import styles from './styles.module.scss'
 
 import { ADJUDICATION_PHASE, PlanningStates } from '@serge/config'
 import canCombineWith from './helpers/can-combine-with'
-import { WorldStatePanels } from './helpers/enums';
+import { WorldStatePanels } from './helpers/enums'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, phase, isUmpire, canSubmitOrders, setSelectedAsset,
@@ -31,7 +31,7 @@ export const WorldState: React.FC<PropTypes> = ({
    */
 
   useEffect(() => {
-    setTmpRoutes(store.routes.filter(r => r.underControl === (panel ===  WorldStatePanels.Control)))
+    setTmpRoutes(store.routes.filter(r => r.underControl === (panel === WorldStatePanels.Control)))
   }, [store, phase, panel])
 
   // an asset has been clicked on
