@@ -18,6 +18,8 @@ import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
+import { WorldStatePanels } from '../world-state/helpers/enums'
+
 /* Import child components */
 import { MapContext } from '../mapping'
 import WorldState from '../world-state'
@@ -31,7 +33,7 @@ export const MapBar: React.FC = () => {
   /* Set our intial states */
   const [currentForm, setCurrentForm] = useState<string>('')
   const [currentAssetName, setCurrentAssetName] = useState<string>('')
-  const [showOtherPlatforms, setShowOtherPlatforms] = useState<boolean>(false)
+  const [worldStatePanel, setWorldStatePanel] = useState<WorldStatePanels>(WorldStatePanels.Control)
 
   const [stateFormTitle, setStateFormTitle] = useState<string>('')
   const [stateSubmitTitle, setStateSubmitTitle] = useState<string>('')
@@ -161,12 +163,15 @@ export const MapBar: React.FC = () => {
   }
 
   // Toggles the map bar on and off
-  const clickEvent = (nextShowOtherPlatforms: boolean): void => {
-    if (nextShowOtherPlatforms === showOtherPlatforms) {
-      setShowMapBar(!showMapBar)
+  const tabClickEvent = (nextPanel: WorldStatePanels): void => {
+    // has the current panel been clicked on?
+    if (nextPanel === worldStatePanel) {
+      // ok, hide it
+      setShowMapBar(false)
     } else {
-      setShowOtherPlatforms(nextShowOtherPlatforms)
-      if (!showMapBar) setShowMapBar(!showMapBar)
+      setWorldStatePanel(nextPanel)
+      // check it's displayed
+      if (!showMapBar) setShowMapBar(true)
     }
   }
 
@@ -239,15 +244,27 @@ export const MapBar: React.FC = () => {
   return (
     <div className={cx(styles['map-bar'], showMapBar && styles.open)}>
       <div
-        className={cx(styles.toggle, (!showOtherPlatforms || !showMapBar) && styles['toggle-active'])}
-        onClick={(): void => { clickEvent(false) }}>
+        className={cx(styles.toggle, styles['control'], (worldStatePanel === WorldStatePanels.Control) && styles['toggle-active'])}
+        onClick={(): void => { tabClickEvent(WorldStatePanels.Control) }}>
         <ArrowRight />
+        <span className={cx(styles['rotated'])}>Control</span>
       </div>
       <div
-        className={cx(styles.toggle, (showOtherPlatforms || !showMapBar) && styles['toggle-active'])}
-        onClick={(): void => { clickEvent(true) }}>
+        className={cx(styles.toggle, styles['visibility'], (worldStatePanel === WorldStatePanels.Visibility) && styles['toggle-active'])}
+        onClick={(): void => { tabClickEvent(WorldStatePanels.Visibility) }}>
         <ArrowRight />
+        <span className={cx(styles['rotated'])}>Visibility</span>
       </div>
+      {
+        // only show tab 3 if umpire is adjudicating
+        userIsUmpire && phase === ADJUDICATION_PHASE && 
+        <div
+          className={cx(styles.toggle, styles['controlled'], (worldStatePanel === WorldStatePanels.ControlledBy) && styles['toggle-active'])}
+          onClick={(): void => { tabClickEvent(WorldStatePanels.ControlledBy) }}>
+          <ArrowRight />
+          <span className={cx(styles['rotated'])}>My Assets</span>
+        </div>
+      }
       <div className={styles.inner}>
         <section>
           <WorldState
@@ -256,7 +273,7 @@ export const MapBar: React.FC = () => {
             isUmpire={playerForce === UMPIRE_FORCE}
             canSubmitOrders={canSubmitOrders}
             store={routeStore}
-            showOtherPlatforms={showOtherPlatforms}
+            panel={worldStatePanel}
             submitTitle = {stateSubmitTitle}
             setSelectedAsset={setSelectedAssetById}
             submitForm={worldStateSubmitHandler}

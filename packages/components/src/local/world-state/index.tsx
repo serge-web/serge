@@ -16,10 +16,11 @@ import styles from './styles.module.scss'
 
 import { ADJUDICATION_PHASE, PlanningStates } from '@serge/config'
 import canCombineWith from './helpers/can-combine-with'
+import { WorldStatePanels } from './helpers/enums';
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, phase, isUmpire, canSubmitOrders, setSelectedAsset,
-  submitTitle, submitForm, showOtherPlatforms, gridCells,
+  submitTitle, submitForm, panel, gridCells,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted
 }: PropTypes) => {
@@ -30,8 +31,8 @@ export const WorldState: React.FC<PropTypes> = ({
    */
 
   useEffect(() => {
-    setTmpRoutes(store.routes.filter(r => r.underControl === !showOtherPlatforms))
-  }, [store, phase, showOtherPlatforms])
+    setTmpRoutes(store.routes.filter(r => r.underControl === (panel ===  WorldStatePanels.Control)))
+  }, [store, phase, panel])
 
   // an asset has been clicked on
   const clickEvent = (id: string): void => {
@@ -58,7 +59,7 @@ export const WorldState: React.FC<PropTypes> = ({
    */
 
   // sort out which title to use on orders panel
-  const customTitle = showOtherPlatforms ? 'Other Visible Platforms' : name
+  const customTitle = (panel === WorldStatePanels.Visibility) ? 'Other Visible Platforms' : name
 
   // find out if this is a non-umpire, and we're in the adjudication phase
   const playerInAdjudication: boolean = !isUmpire && phase === ADJUDICATION_PHASE
@@ -94,7 +95,7 @@ export const WorldState: React.FC<PropTypes> = ({
           </div>
 
         </div>
-        {!showOtherPlatforms && depth.length === 0 && <div className={styles['item-check']}>
+        {(panel === WorldStatePanels.Control) && depth.length === 0 && <div className={styles['item-check']}>
           {checkStatus === true && <CheckCircleIcon style={{ color: '#007219' }} />}
           {checkStatus === false && <CheckCircleIcon style={{ color: '#B1B1B1' }} />}
         </div>}
@@ -152,7 +153,7 @@ export const WorldState: React.FC<PropTypes> = ({
           }
         }}
       />
-      {submitTitle && !showOtherPlatforms && !playerInAdjudication && canSubmitOrders &&
+      {submitTitle && (panel === WorldStatePanels.Control) && !playerInAdjudication && canSubmitOrders &&
         <div className={styles.submit}>
           <Button disabled={plansSubmitted} size='m' onClick={submitCallback}>{submitTitle}</Button>
         </div>
