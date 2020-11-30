@@ -82,8 +82,17 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   }
 
   const conditionHandler = (e: any): void => {
-    manager && manager.setCurrentCondition(e.value)
-    setConditionVal(e.value)
+    if(e && e.value != undefined) {
+      // original (RCB) way of presenting conditions
+      manager && manager.setCurrentCondition(e.value)
+      setConditionVal(e.value)
+    } else if(e && e.target && e.target.value) {
+      // updated (menu) way of presenting conditions
+      manager && manager.setCurrentCondition(e.target.value)
+      setConditionVal(e.target.value)
+    } else {
+      console.warn('Adjudicate form received unexpected condition', e)
+    }
   }
 
   const visibleHandler = (e: any): void => {
@@ -181,8 +190,19 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         <FormGroup title="Visible to" align="right">
           <RCB name="visibleTo" type="checkbox" force={true} label="" compact={true} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
         </FormGroup>
-        <FormGroup title="Condition" align="right">
+        {/* previous (more verbose way of showing conditions) <FormGroup title="Condition" align="right">
           <RCB name="condition" type="radio" label="" options={conditionValues} value={conditionVal} updateState={conditionHandler} />
+        </FormGroup> */}
+        <FormGroup title="Condition" align="right">
+        <Select
+            className={clSelect}
+            value={conditionVal}
+            onChange={conditionHandler}
+          >
+            {conditionValues.map((s: any) => (
+              <MenuItem key={s} value={s}>{s}</MenuItem>
+            ))}
+          </Select>
         </FormGroup>
       </fieldset>
       <fieldset>
