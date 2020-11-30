@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import uniqid from "uniqid";
-import classNames from "classnames";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { forceTemplate } from "../../consts";
+import { SearchList, Button } from "@serge/components";
 import checkUnique from "../../Helpers/checkUnique";
-import TabsSearchList from "../../Components/TabsSearchList";
 import TextArea from "../../Components/Inputs/TextArea";
 import RemovableGroupItem from "../../Components/Layout/RemovableGroupItem";
 import TextInput from "../../Components/Inputs/TextInput";
@@ -17,7 +14,6 @@ import {
   setSelectedForce,
   saveForce,
   addNewForce,
-  deleteSelectedForce,
   setTabUnsaved,
   setTabSaved,
 } from "../../ActionsAndReducers/dbWargames/wargames_ActionCreators";
@@ -130,17 +126,6 @@ class ForcesTab extends Component {
     }
   };
 
-  deleteForce = () => {
-
-    let curTab = this.props.wargame.currentTab;
-    let selectedForce = this.props.wargame.data[curTab].selectedForce.uniqid;
-    let isUmpire = this.props.wargame.data[curTab].forces.find((f) => f.uniqid === selectedForce).umpire;
-
-    if (isUmpire) return;
-
-    this.props.dispatch(deleteSelectedForce(this.props.wargame.currentWargame, selectedForce));
-  };
-
   deleteForceFromList = (force) => {
     this.props.dispatch(modalAction.open("confirmDelete", {type: "force", data: force}));
   };
@@ -188,26 +173,43 @@ class ForcesTab extends Component {
     return (
       <div className="flex-content--fill forcesTab">
 
-        <div className="flex-content flex-content--row">
+        <div className="flex-content flex-content--row panel-actions">
           <div className="force-input-wrap">
             <TextInput
-                name="force-name"
-                id="editable-title"
-                updateStore={this.updateForceName}
-                options={{numInput: false}}
-                data={forceName}
+              name="force-name"
+              id="editable-title"
+              updateStore={this.updateForceName}
+              options={{numInput: false}}
+              data={forceName}
             />
 
             <div className="force-color-icon">
               <div className="force-color" style={{background: forceColor}} onClick={this.toggleColorPicker} />
               <img className="force-icon" src={forceIcon} alt="" />
-              <span className="link link--secondary link--noIcon" onClick={this.openIconModal}>Change icon</span>
+              <Button
+                color="secondary"
+                onClick={this.openIconModal}
+              >
+                Change icon
+              </Button>
             </div>
           </div>
-
           <div className="force-button-wrap">
-            <span className="link link--noIcon" onClick={this.saveForce} data-qa-type="save">Save Force</span>
-            <span className={classNames({"link": true, "link--secondary": true, "link--disabled": isUmpire})} onClick={this.deleteForce}><FontAwesomeIcon icon={faTrash} />Delete</span>
+            <Button
+              color="secondary"
+              onClick={() => this.deleteForceFromList(selectedForce)}
+              disabled={isUmpire}
+              icon="delete"
+            >
+              Delete
+            </Button>
+            <Button
+               color="primary"
+               onClick={this.saveForce}
+               data-qa-type="save"
+            >
+              Save Force
+            </Button>
           </div>
         </div>
 
@@ -219,7 +221,12 @@ class ForcesTab extends Component {
         />
 
         <p className="heading--sml">Roles</p>
-        <span className="link link--secondary link--noIcon" onClick={this.addNewRoleModal}>Add a new role</span>
+        <Button
+          color="secondary"
+          onClick={this.addNewRoleModal}
+        >
+          Add a new role
+        </Button>
 
         <div className="flex-content">
           <div className="roles">
@@ -240,18 +247,30 @@ class ForcesTab extends Component {
     return (
       <div className="flex-content-wrapper" id="game-setup-tab-forces">
         <div className="flex-content searchlist-wrap">
-          <span className="link link--noIcon" onClick={this.createForce} data-qa-type="add">Add a new force</span>
-          <TabsSearchList listData={this.state.forcesList}
+          <Button
+            color="secondary"
+            size="large"
+            onClick={this.createForce}
+            data-qa-type="add"
+          >
+            Add a new force
+          </Button>
+          <SearchList
+            listData={this.state.forcesList}
             setSelected={this.setSelected}
-            selected={selectedForce}
-            delete={this.deleteForceFromList}
-            name="forces"
+            activeRow={item => item.name === selectedForce}
+            rowLabel={item => item.name}
+            rowFilter={() => true}
+            onDelete={item => this.deleteForceFromList(item.uniqid)}
+            withSearch={false}
           />
         </div>
 
-        {selectedForce ?
-          this.createForceEditor()
-        : null}
+        {
+          selectedForce ?
+            this.createForceEditor()
+            : null
+        }
       </div>
     );
   }

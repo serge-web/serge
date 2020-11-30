@@ -8,7 +8,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/GameAdmin/IconUploader',
+  title: 'local/molecules/IconUploader',
   component: IconUploader,
   decorators: [withKnobs, wrapper],
   parameters: {

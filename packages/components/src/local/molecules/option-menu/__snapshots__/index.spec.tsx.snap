@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OptionMenu component: renders correctly 1`] = `
+<div
+  className="wargame-option-menu"
+>
+  <span
+    onClick={[Function]}
+  >
+    <svg
+      aria-labelledby="svg-inline--fa-title-Lvb1ThlihvDB"
+      className="svg-inline--fa fa-bath fa-w-16 "
+      data-icon="bath"
+      data-prefix="fas"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title
+        id="svg-inline--fa-title-Lvb1ThlihvDB"
+        style={Object {}}
+      >
+        Save clean copy of wargame (no messages)
+      </title>
+      <path
+        d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+    Clean copy
+  </span>
+  <span
+    onClick={[Function]}
+  >
+    <svg
+      aria-labelledby="svg-inline--fa-title-RDv2ckVFf9Jz"
+      className="svg-inline--fa fa-clone fa-w-16 "
+      data-icon="clone"
+      data-prefix="fas"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title
+        id="svg-inline--fa-title-RDv2ckVFf9Jz"
+        style={Object {}}
+      >
+        Duplicate wargame
+      </title>
+      <path
+        d="M464 0c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48H176c-26.51 0-48-21.49-48-48V48c0-26.51 21.49-48 48-48h288M176 416c-44.112 0-80-35.888-80-80V128H48c-26.51 0-48 21.49-48 48v288c0 26.51 21.49 48 48 48h288c26.51 0 48-21.49 48-48v-48H176z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+    Duplicate
+  </span>
+  <span
+    onClick={[Function]}
+  >
+    <svg
+      aria-labelledby="svg-inline--fa-title-o4IqU5aJl8nV"
+      className="svg-inline--fa fa-file-download fa-w-12 "
+      data-icon="file-download"
+      data-prefix="fas"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 384 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title
+        id="svg-inline--fa-title-o4IqU5aJl8nV"
+        style={Object {}}
+      >
+        Export wargame
+      </title>
+      <path
+        d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm76.45 211.36l-96.42 95.7c-6.65 6.61-17.39 6.61-24.04 0l-96.42-95.7C73.42 337.29 80.54 320 94.82 320H160v-80c0-8.84 7.16-16 16-16h32c8.84 0 16 7.16 16 16v80h65.18c14.28 0 21.4 17.29 11.27 27.36zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+    Export
+  </span>
+  <span
+    onClick={[Function]}
+  >
+    <svg
+      aria-labelledby="svg-inline--fa-title-rNEeGkT2TroI"
+      className="svg-inline--fa fa-trash fa-w-14 "
+      data-icon="trash"
+      data-prefix="fas"
+      role="img"
+      style={Object {}}
+      viewBox="0 0 448 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title
+        id="svg-inline--fa-title-rNEeGkT2TroI"
+        style={Object {}}
+      >
+        Delete wargame
+      </title>
+      <path
+        d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+        fill="currentColor"
+        style={Object {}}
+      />
+    </svg>
+    Delete
+  </span>
+</div>
+`;

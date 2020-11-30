@@ -160,7 +160,7 @@ class ChannelsTable extends Component {
 
     let templateIds = this.state.selectedTemplates.map((template) => ({_id: template.value}));
     let templates = _.intersectionBy(this.props.messageTypes.messages, templateIds, (item) => item._id);
-    templates = templates.map((template) => ({label: template.title, value: template}));
+    templates = templates.map(({ _id, title }) => ({ label: title, value: _id, }));
     const { forces } = this.props.wargame.data.forces
     const addedForce = forces.find((f) => f.uniqid === this.state.selectedForce.value)
     const {

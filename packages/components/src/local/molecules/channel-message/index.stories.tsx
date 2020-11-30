@@ -1,24 +1,13 @@
 import React, { useState } from 'react'
-import { styled } from '@material-ui/core/styles'
-import Box from '@material-ui/core/Box'
 
 // Import component files
 import ChannelMessage from './index'
 import docs from './README.md'
 
-const BlueContainer = styled(Box)({
-  backgroundColor: '#1a394d',
-  padding: '20px',
-  borderRadius: '2px',
-  color: '#fff'
-})
-
 export default {
   title: 'local/molecules/ChannelMessage',
   component: ChannelMessage,
-  decorators: [(story: Function): React.ReactElement => (
-    <BlueContainer>{ story() }</BlueContainer>
-  )],
+  decorators: [],
   parameters: {
     readme: {
       // Show readme before story
