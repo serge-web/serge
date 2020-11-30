@@ -1255,7 +1255,7 @@ export const forces = [
           }
         ],
         platformType: 'fishing-vessel',
-        position: 'L10',
+        position: 'L09',
         route: [
           'N11',
           'L10'
