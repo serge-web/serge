@@ -82,11 +82,11 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   }
 
   const conditionHandler = (e: any): void => {
-    if(e && e.value != undefined) {
+    if (e && e.value !== undefined) {
       // original (RCB) way of presenting conditions
       manager && manager.setCurrentCondition(e.value)
       setConditionVal(e.value)
-    } else if(e && e.target && e.target.value) {
+    } else if (e && e.target && e.target.value) {
       // updated (menu) way of presenting conditions
       manager && manager.setCurrentCondition(e.target.value)
       setConditionVal(e.target.value)
@@ -194,7 +194,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
           <RCB name="condition" type="radio" label="" options={conditionValues} value={conditionVal} updateState={conditionHandler} />
         </FormGroup> */}
         <FormGroup title="Condition" align="right">
-        <Select
+          <Select
             className={clSelect}
             value={conditionVal}
             onChange={conditionHandler}
