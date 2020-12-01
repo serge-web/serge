@@ -27,11 +27,12 @@ import PerceptionForm from '../perception-form'
 import AdjudicateTurnForm from '../adjudicate-turn-form'
 import PlanTurnForm from '../plan-turn-form'
 import AdjudicationManager from '../adjudicate-turn-form/helpers/adjudication-manager'
+import { MapBarForms } from './helpers/enums'
 
 /* Render component */
 export const MapBar: React.FC = () => {
   /* Set our intial states */
-  const [currentForm, setCurrentForm] = useState<string>('')
+  const [currentForm, setCurrentForm] = useState<MapBarForms | undefined>(undefined)
   const [currentAssetName, setCurrentAssetName] = useState<string>('')
   const [worldStatePanel, setWorldStatePanel] = useState<WorldStatePanels>(WorldStatePanels.Control)
 
@@ -115,7 +116,7 @@ export const MapBar: React.FC = () => {
     // Selects the current asset. Note: this was in a selectedAsset useEffect, but it's been put in here,
     // since the routeStore will update on a new selected asset
     if (selectedAsset) {
-      const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase)
+      const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel)
       // note: since the next call is async, we get a render before the new form
       // has been assigned. This caused troubles. So, while we set the new form here,
       // we do a "live-recalculation" in the render code
@@ -204,13 +205,13 @@ export const MapBar: React.FC = () => {
   const formSelector = (): React.ReactNode => {
     // do a fresh calculation on which form to display, to overcome
     // an async state update issue
-    const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase)
+    const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel)
     const iconData = {
       forceColor: selectedAsset.force,
       platformType: selectedAsset.type
     }
     switch (form) {
-      case 'PerceivedAs':
+      case MapBarForms.Perception:
         return <PerceptionForm
           key={selectedAsset.uniqid}
           type={selectedAsset.type}
@@ -218,18 +219,19 @@ export const MapBar: React.FC = () => {
           formData={collatePerceptionFormData(platforms, playerForce, selectedAsset, forces, userIsUmpire || false)}
           channelID={channelID}
           postBack={postBack} />
-      case 'Adjudication': {
+      case MapBarForms.Adjudicaton: {
         return <AdjudicateTurnForm
           key={adjudicationManager && adjudicationManager.uniqid}
           manager={adjudicationManager}
           plansSubmitted={plansSubmitted}
           canSubmitPlans={canSubmitOrders} />
       }
-      case 'Planning':
+      case MapBarForms.Planning:
+        const canSubmit = canSubmitOrders && phase === PLANNING_PHASE
         return <PlanTurnForm
           icon={iconData}
           setHidePlanningForm={setHidePlanningForm}
-          canSubmitPlans={canSubmitOrders}
+          canSubmitPlans={canSubmit}
           plansSubmitted={plansSubmitted}
           key={selectedAsset.uniqid}
           formHeader={currentAssetName}
@@ -285,7 +287,7 @@ export const MapBar: React.FC = () => {
             gridCells={gridCells} ></WorldState>
         </section>
       </div>
-      {currentForm !== '' && selectedAsset && (currentForm !== 'Planning' || !hidePlanningForm) &&
+      {currentForm !== undefined && selectedAsset && (currentForm !== MapBarForms.Planning || !hidePlanningForm) &&
         <div className={styles['form-inner']}>
           <section>
             {formSelector()}
