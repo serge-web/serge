@@ -208,10 +208,9 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    const umpireInAdjudication = playerForce === 'umpire' && currentPhase === ADJUDICATION_PHASE
     if (forcesState && gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-      const store: RouteStore = routeCreateStore(selectedId, forcesState, playerForce, umpireInAdjudication,
+      const store: RouteStore = routeCreateStore(selectedId, forcesState, playerForce,
         platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
       setRouteStore(store)
     }
@@ -224,13 +223,12 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    const umpireInAdjudication = playerForce === 'umpire' && currentPhase === ADJUDICATION_PHASE
     if (forcesState && gridCells && routeStore.routes.length) {
       // if this is umpire and we have view as
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-        const vStore: RouteStore = routeCreateStore(selectedId, forcesState, viewAsForce, umpireInAdjudication, platforms,
+        const vStore: RouteStore = routeCreateStore(selectedId, forcesState, viewAsForce, platforms,
           gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
         declutterRouteStore(vStore)
       } else {

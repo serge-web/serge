@@ -138,7 +138,7 @@ exports[`GameAdmin page: renders correctly 1`] = `
           className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
         >
           <div
-            className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
+            className="MuiInputBase-root MuiInput-root makeStyles-root-7 makeStyles-root-9 MuiInput-underline makeStyles-underline-8 makeStyles-underline-10 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
             onClick={[Function]}
           >
             <textarea
@@ -183,7 +183,7 @@ exports[`GameAdmin page: renders correctly 1`] = `
       </section>
     </div>
     <div
-      className="MuiBox-root MuiBox-root-7"
+      className="MuiBox-root MuiBox-root-11"
     >
       <button
         className="MuiButtonBase-root MuiButton-root MuiButton-contained btn-send MuiButton-containedSecondary MuiButton-containedSizeSmall MuiButton-sizeSmall"

@@ -23,7 +23,7 @@ const formData = collateAdjudicationFormData(platformTypes, selectedAsset, force
 
 it('configures adjudicate manager correctly', () => {
   // prepare some routes, and a selected item
-  const store2: RouteStore = routeCreateStore(undefined, forces, 'umpire', true, platformTypes, undefined, false, false)
+  const store2: RouteStore = routeCreateStore(undefined, forces, 'umpire', platformTypes, undefined, false, false)
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
@@ -42,7 +42,7 @@ it('configures adjudicate manager correctly with missing current state', () => {
   frigate.status = {}
 
   // prepare some routes, and a selected item
-  const store2: RouteStore = routeCreateStore(undefined, forcesCopy, 'umpire', true, platformTypes, undefined, false, false)
+  const store2: RouteStore = routeCreateStore(undefined, forcesCopy, 'umpire', platformTypes, undefined, false, false)
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
   const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a3', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)

@@ -7,7 +7,7 @@ import WorldState from './index'
 import docs from './README.md'
 import { routeCreateStore } from '@serge/helpers'
 import { forces, platformTypes } from '@serge/mocks'
-import { ADJUDICATION_PHASE, Phase } from '@serge/config'
+import { Phase } from '@serge/config'
 
 import { WorldStatePanels } from './helpers/enums'
 
@@ -61,8 +61,7 @@ export const WithPhases: React.FunctionComponent = () => <WorldState panel={radi
   plansSubmitted={false}
   canSubmitOrders={boolean(canSubmitLabel, canSubmitDefaultValues)}
   phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
-  store={routeCreateStore(undefined, forces, radios(label, forceNames, defaultValue),
-    radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue) === ADJUDICATION_PHASE, platformTypes, undefined, false, false)}
+  store={routeCreateStore(undefined, forces, radios(label, forceNames, defaultValue), platformTypes, undefined, false, false)}
   submitTitle='Submit' name="World State" />
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.

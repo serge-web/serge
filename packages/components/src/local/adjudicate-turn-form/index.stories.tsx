@@ -26,7 +26,7 @@ export default {
 const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
 
 // prepare some routes, and a selected item
-const store2: RouteStore = routeCreateStore(undefined, forces, 'umpire', true, platformTypes, undefined, false, false)
+const store2: RouteStore = routeCreateStore(undefined, forces, 'umpire', platformTypes, undefined, false, false)
 const frigateId = 'a0pra00001'
 const store: RouteStore = routeSetCurrent(frigateId, store2)
 

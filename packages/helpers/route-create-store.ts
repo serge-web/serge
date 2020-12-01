@@ -27,7 +27,6 @@ export const forcesControlledBy = (forces: any, playerForce: string): Array<stri
  * @param {string | undefined} selectedId uniqid for selected asset
  * @param {any} forces array of forces
  * @param {string} playerForce uniqid for player force
- * @param {string} adjudication whether player is umpire in adjudication
  * @param {string[]} controls uniqid for forces controlled by this player. Optional remove for all
  * @param {SergeGrid<SergeHex<{}>> | undefined} grid the grid object, used to find cell centres, used in declutter
  * @param {boolean} filterPlannedSteps whether to filter the planned steps to only one
@@ -35,7 +34,7 @@ export const forcesControlledBy = (forces: any, playerForce: string): Array<stri
  * @param {RouteStore} oldStore existing RouteStore, so we can persist player modifications
  * @returns {RouteStore} RouteStore representing current data
  */
-const routeCreateStore = (selectedId: string | undefined, forces: any, playerForce: string, adjudication: boolean,
+const routeCreateStore = (selectedId: string | undefined, forces: any, playerForce: string,
     platformTypes: any, grid: SergeGrid<SergeHex<{}>> | undefined, filterHistorySteps: boolean, 
     filterPlannedSteps: boolean, oldStore?: RouteStore): RouteStore => {
   const store: RouteStore = { routes: []}
@@ -51,20 +50,8 @@ const routeCreateStore = (selectedId: string | undefined, forces: any, playerFor
     if (force.assets) {
         // loop through assets
         force.assets.forEach((asset: any) => {
-          // different handling for planning vs adjudication
-          let controlled = false
-          if(playerForce == UMPIRE_FORCE) {
-            if(adjudication) {
-              // if we're white in adjudication mode, we control all
-              controlled = true
-            } else {
-              // do I actually control this platform type
-              controlled = thisForce === playerForce || controls.includes(thisForce)
-            }
-          } else {
-            // do I actually control this platform type
-            controlled = thisForce === playerForce || controls.includes(thisForce)
-          }
+          // do I actually control this platform type
+          const controlled = thisForce === playerForce || controls.includes(thisForce)
 
           // dummy location, used if we don't have grid (such as in test)
           const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)

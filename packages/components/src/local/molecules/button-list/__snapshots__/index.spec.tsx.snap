@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonList component: renders correctly 1`] = `
+<div
+  className=""
+>
+  <button
+    className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4"
+    disabled={false}
+    onBlur={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+    type="button"
+  >
+    <span
+      className="MuiButton-label"
+    />
+  </button>
+</div>
+`;

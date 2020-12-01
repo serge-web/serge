@@ -14,7 +14,7 @@ import { GroupItem, Route } from '@serge/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
-import { ADJUDICATION_PHASE, PlanningStates } from '@serge/config'
+import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE } from '@serge/config'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
 
@@ -31,7 +31,28 @@ export const WorldState: React.FC<PropTypes> = ({
    */
 
   useEffect(() => {
-    setTmpRoutes(store.routes.filter(r => r.underControl === (panel === WorldStatePanels.Control)))
+    switch(panel) {
+      case WorldStatePanels.Control: {
+        if(phase === PLANNING_PHASE) {
+          // in planning phase, umpire only gets assets they control
+          setTmpRoutes(store.routes.filter(r => r.underControl))
+        } else {
+          // umpire gets all, player only gets theirs
+          setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControl))
+        }
+        break;
+      }
+      case WorldStatePanels.Visibility: {
+          // umpire gets all, player only gets theirs
+          setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => !r.underControl))
+        break;
+      }
+      case WorldStatePanels.ControlledBy: {
+          // umpire gets theirs
+          setTmpRoutes(store.routes.filter(r => r.underControl))
+        break;
+      }
+    }
   }, [store, phase, panel])
 
   // an asset has been clicked on
