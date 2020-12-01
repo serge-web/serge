@@ -173,6 +173,13 @@ const AdminGameSetup = () => {
     }
   }
 
+  const onDeleteForce = ({ uniqid: data }) => {
+    dispatch(modalAction.open('confirmDelete', {
+      type: 'force',
+      data
+    }))
+  }
+
   const handleSidebarForcesClick = force => {
     if (forces.dirty) {
       dispatch(modalAction.open('unsavedForce', force))
@@ -203,6 +210,7 @@ const AdminGameSetup = () => {
       onPlatformTypesChange={handleFormChange}
       onForcesChange={handleFormChange}
       onCreateForce={onCreateForce}
+      onDeleteForce={onDeleteForce}
       onSidebarForcesClick={handleSidebarForcesClick}
       onChannelsChange={handleFormChange}
       onSave={onSave}

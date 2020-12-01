@@ -45,6 +45,7 @@ export const SettingForces: React.FC<PropTypes> = ({
   onRejectedIcon,
   onSidebarClick,
   onCreate,
+  onDelete,
   selectedForce
 }) => {
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
@@ -59,12 +60,6 @@ export const SettingForces: React.FC<PropTypes> = ({
   const handleChangeForces = (nextForces: Array<ForceData>): void => {
     setForcesData(nextForces)
     onChange({ forces: nextForces })
-  }
-
-  const handleOnCreate = (): void => {
-    if (typeof onCreate === 'function') {
-      onCreate()
-    }
   }
 
   useEffect(() => {
@@ -233,7 +228,8 @@ export const SettingForces: React.FC<PropTypes> = ({
           selectedItem={forcesData[selectedItem].uniqid}
           filterKey="uniqid"
           onClick={handleSwitch}
-          onCreate={handleOnCreate}
+          onCreate={onCreate}
+          onDelete={onDelete}
           withSearch={false}
           title="Add a New Force"
         />

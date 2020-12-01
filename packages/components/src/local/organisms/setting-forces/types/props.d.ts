@@ -9,6 +9,7 @@ export default interface PropTypes {
   onRejectedIcon?: (rejected: any) => void
   onSidebarClick?: (selectedForce: ForceData) => void
   onCreate?: () => void
+  onDelete?: () => void
   selectedForce?: ForceData
 }
 
