@@ -8,7 +8,7 @@ import availableForces from './available-forces'
  */
 const collateVisibilityFormData = (selectedAsset: SelectedAsset, forces: any): VisibilityFormData => {
   // get the actual asset
-  const visibleTo: Array<String> = selectedAsset.visibleTo
+  const visibleTo: Array<string> = selectedAsset.visibleTo
   const availableForcesList: ColorOption[] = availableForces(forces, false, true)
   const formData: VisibilityFormData = {
     populate: availableForcesList,

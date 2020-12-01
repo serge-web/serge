@@ -9,7 +9,6 @@ import { Button } from '@material-ui/core'
 // import TextInput from '../atoms/text-input'
 // import { ColorOption, VisibilityFormValues } from '@serge/custom-types'
 
-
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 // import cx from 'classnames'

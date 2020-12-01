@@ -18,54 +18,53 @@ const assetDialogFor = (
   assetControlledBy: Array<string> | undefined,
   gamePhase: Phase,
   panel: WorldStatePanels): MapBarForms | undefined => {
-    const myForce = assetForce.toLowerCase() === playerForce.toLowerCase() 
-    const forceThatIControl = assetControlledBy != null && assetControlledBy.includes(playerForce)
-    const canControl: boolean = myForce || forceThatIControl
-    const isUmpire = playerForce.toLowerCase() === UMPIRE_FORCE
-    switch (gamePhase) {
-      case Phase.Planning:
-        if (isUmpire) {
-          // this depends on the panel
-          switch(panel) {
-            case WorldStatePanels.Control:
-              return canControl ? MapBarForms.Planning : MapBarForms.Visibility
-            case WorldStatePanels.Visibility:
-              return MapBarForms.Visibility
-            default:
-              return undefined
-          }
-        } else if (canControl) {
-          return MapBarForms.Planning
-        } else {
-          // a player has clicked on an asset from a force they don't control
-          // check this force can see the asset
-          const canSee = assetVisibleTo && assetVisibleTo.find((force: string) => force.toLowerCase() === playerForce.toLowerCase())
-          return canSee ? MapBarForms.Perception : undefined
-
+  const myForce = assetForce.toLowerCase() === playerForce.toLowerCase()
+  const forceThatIControl = assetControlledBy != null && assetControlledBy.includes(playerForce)
+  const canControl: boolean = myForce || forceThatIControl
+  const isUmpire = playerForce.toLowerCase() === UMPIRE_FORCE
+  switch (gamePhase) {
+    case Phase.Planning:
+      if (isUmpire) {
+        // this depends on the panel
+        switch (panel) {
+          case WorldStatePanels.Control:
+            return canControl ? MapBarForms.Planning : MapBarForms.Visibility
+          case WorldStatePanels.Visibility:
+            return MapBarForms.Visibility
+          default:
+            return undefined
         }
-      case Phase.Adjudication:
-        if (isUmpire) {
-          console.log(isUmpire, canControl, panel)
-          // this depends on the panel
-          switch(panel) {
-            case WorldStatePanels.Control:
-              return MapBarForms.Adjudicaton
-            case WorldStatePanels.Visibility:
-              return MapBarForms.Visibility
-            case WorldStatePanels.ControlledBy:
-              return canControl ? MapBarForms.Planning : undefined
-            default:
-              return undefined
-          }
-        } else if (canControl) {
-          // my force in adjudication. Show planning
-          return MapBarForms.Planning
-        } else {
-          // in adj' mode, clicking on a platform of another force lets the
-          // player update/change the player's perception of that platform
-          return MapBarForms.Perception
+      } else if (canControl) {
+        return MapBarForms.Planning
+      } else {
+        // a player has clicked on an asset from a force they don't control
+        // check this force can see the asset
+        const canSee = assetVisibleTo && assetVisibleTo.find((force: string) => force.toLowerCase() === playerForce.toLowerCase())
+        return canSee ? MapBarForms.Perception : undefined
+      }
+    case Phase.Adjudication:
+      if (isUmpire) {
+        console.log(isUmpire, canControl, panel)
+        // this depends on the panel
+        switch (panel) {
+          case WorldStatePanels.Control:
+            return MapBarForms.Adjudicaton
+          case WorldStatePanels.Visibility:
+            return MapBarForms.Visibility
+          case WorldStatePanels.ControlledBy:
+            return canControl ? MapBarForms.Planning : undefined
+          default:
+            return undefined
         }
-    }
+      } else if (canControl) {
+        // my force in adjudication. Show planning
+        return MapBarForms.Planning
+      } else {
+        // in adj' mode, clicking on a platform of another force lets the
+        // player update/change the player's perception of that platform
+        return MapBarForms.Perception
+      }
+  }
 }
 
 export default assetDialogFor

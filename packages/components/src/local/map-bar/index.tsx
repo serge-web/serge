@@ -228,7 +228,7 @@ export const MapBar: React.FC = () => {
           plansSubmitted={plansSubmitted}
           canSubmitPlans={canSubmitOrders} />
       }
-      case MapBarForms.Planning:
+      case MapBarForms.Planning:{
         const canSubmit = canSubmitOrders && phase === PLANNING_PHASE
         return <PlanTurnForm
           icon={iconData}
@@ -239,7 +239,8 @@ export const MapBar: React.FC = () => {
           formHeader={currentAssetName}
           formData={collatePlanFormData(platforms, selectedAsset)}
           channelID={channelID}
-          turnPlanned={turnPlanned} />
+          turnPlanned={turnPlanned} />  
+      }
       case MapBarForms.Visibility:
         return <VisibilityForm
           icon={iconData}
@@ -248,7 +249,7 @@ export const MapBar: React.FC = () => {
           formData={collateVisibilityFormData(selectedAsset, forces)}
           postBack={postBack}
           channelID={channelID} />
-          default:
+      default:
         return <></>
     }
   }

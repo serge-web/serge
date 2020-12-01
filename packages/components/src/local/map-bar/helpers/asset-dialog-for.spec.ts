@@ -75,4 +75,3 @@ it('provides the correct form when umpire clicks on controlled platform in adjud
 it('provides the correct form when umpire clicks on controlled platform in adjudication in visibility tab', () => {
   expect(assetDialogFor('Umpire', 'Green', [], ['Umpire'], Phase.Planning, WorldStatePanels.Visibility)).toEqual(MapBarForms.Visibility)
 })
-
