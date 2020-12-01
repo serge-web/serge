@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import moment from "moment";
 import { umpireForceTemplate } from "../consts";
 import NewMessage from "./NewMessage";
-import {ChannelMessagesList,ChatChannelMessage} from '@serge/components';
+import {ChannelMessagesList,ChatMessagesList, NewChatMessage} from '@serge/components';
 import {
   closeMessage,
   getAllWargameMessages,
@@ -10,16 +10,21 @@ import {
   markAllAsRead,
 } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
 import { PlayerStateContext } from "../Store/PlayerUi";
-
 import "@serge/themes/App.scss";
-import ChatMessageCreator from "./ChatMessageCreator";
+import { saveMessage } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
 
 class Channel extends Component {
   static contextType = PlayerStateContext;
 
-  constructor() {
-    super();
-    this.state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedSchema: '',
+      message: {
+          content: '',
+          privateMessage: ''
+      }
+    };
   }
 
   componentDidMount() {
@@ -47,8 +52,39 @@ class Channel extends Component {
     const [ , dispatch ] = this.context;
     dispatch(closeMessage(this.props.channelId, message));
   };
+  onSendMessage = () => {
+    const [ state ] = this.context;
+    let curForce = state.allForces.find((force) => force.uniqid === state.selectedForce);
+    let details = {
+      channel: this.props.channelId,
+      from: {
+        force: curForce.name,
+        forceColor: state.forceColor,
+        role: state.selectedRole,
+        icon: curForce.icon,
+      },
+      timestamp: new Date().toISOString(),
+    };
+    const {content, privateMessage} = this.state.message;
+    if(privateMessage){
+      details.privateMessage = privateMessage;
+    }
+    saveMessage(state.currentWargame, details, {content: content})();
+    this.setState({message:{content:"",privateMessage:""}})
+  }
 
+  onChange = (event,key) => {
+    let { message } = this.state;
+    message[key] = event.value
+    this.setState({ message })
+  }
   render() {
+    const chat_input_grid = {
+      position: "fixed",
+      width: "75.3%",
+      bottom: 0,
+      paddingBottom: 0
+    }
     let curChannel = this.props.channelId;
     const [ state ] = this.context;
     const messages = state.channels[curChannel].messages.map(item => {
@@ -91,13 +127,23 @@ class Channel extends Component {
     const icons = state.channels[curChannel].forceIcons
     const colors = state.channels[curChannel].forceColors
     const templates = state.channels[curChannel].templates
+    const {content, privateMessage} = this.state.message;
     return (
       <div className={this.state.channelTabClass} data-channel-id={curChannel}>
         {templates.length === 1 && templates[0].title === 'Chat' ?
-        <ChatMessageCreator
-          messages={messages}
-          curChannel={curChannel}
-        />:
+        <>
+        <ChatMessagesList
+            forceColors={colors}
+            isUmpire={state.selectedForce === umpireForceTemplate.uniqid}
+            messages={messages}
+            templates={templates}
+            curChannel={curChannel}
+            privateMessage={privateMessage}
+        />
+        <div item xs={12} style={chat_input_grid}>
+        <NewChatMessage isUmpire={state.selectedForce === umpireForceTemplate.uniqid} content={content} privateMessage={privateMessage} onSendMessage={() => this.onSendMessage()} onChange={(event,key) => this.onChange(event, key)} />
+        </div>
+        </>:
         <Fragment>
           <ChannelMessagesList
             messages={messages}
