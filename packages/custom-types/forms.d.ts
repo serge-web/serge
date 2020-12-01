@@ -58,3 +58,9 @@ export interface AdjudicateTurnFormPopulate {
   visibleTo: Array<ColorOption>
   condition: Array<string>
 }
+
+export interface VisibilityFormData {
+  populate: Array<ColorOption>
+  values: Array<String>
+}
+
