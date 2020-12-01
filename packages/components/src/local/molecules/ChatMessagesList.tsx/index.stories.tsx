@@ -32,26 +32,26 @@ export default {
 const messages = [
   {
     id: '1',
-    title:"lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet",
+    title:"MESSAGE ONE ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet",
     timestamp:"2020-09-18T05:41:17.349Z",
     role:"CO",
     messageType:"Chat",
-    hasBeenRead: false,
+    hasBeenRead: true,
     authorForceId: 'Blue',
     playerForceId: 'Blue',
-    privateMessage:'This is an example of a private message.'
+    privateMessage:'This is first example of a private message.'
   },
   {
     id: '2',
-    title:"lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet",
-    timestamp:"2020-09-18T05:41:17.349Z",
-    role:"CO",
+    title:"MESSAGE TWO ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet",
+    timestamp:"2020-09-18T05:43:17.349Z",
+    role:"ENG",
     messageType:"Chat",
     hasBeenRead: false,
     authorForceId: 'Blue',
     playerForceId: 'Red',
     isUmpire:false,
-    privateMessage:'This is an example of a private message.'
+    privateMessage:'This is second example of a private message.'
   }
 ]
 
