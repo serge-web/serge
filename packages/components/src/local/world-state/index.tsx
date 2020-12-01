@@ -31,26 +31,26 @@ export const WorldState: React.FC<PropTypes> = ({
    */
 
   useEffect(() => {
-    switch(panel) {
+    switch (panel) {
       case WorldStatePanels.Control: {
-        if(phase === PLANNING_PHASE) {
+        if (phase === PLANNING_PHASE) {
           // in planning phase, umpire only gets assets they control
           setTmpRoutes(store.routes.filter(r => r.underControl))
         } else {
           // umpire gets all, player only gets theirs
           setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControl))
         }
-        break;
+        break
       }
       case WorldStatePanels.Visibility: {
-          // umpire gets all, player only gets theirs
-          setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => !r.underControl))
-        break;
+        // umpire gets all, player only gets theirs
+        setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => !r.underControl))
+        break
       }
       case WorldStatePanels.ControlledBy: {
-          // umpire gets theirs
-          setTmpRoutes(store.routes.filter(r => r.underControl))
-        break;
+        // umpire gets theirs
+        setTmpRoutes(store.routes.filter(r => r.underControl))
+        break
       }
     }
   }, [store, phase, panel])
