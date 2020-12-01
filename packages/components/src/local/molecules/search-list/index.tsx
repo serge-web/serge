@@ -36,7 +36,7 @@ const SearchList: React.FC<Props> = ({
           />
         )
       }
-      <div className={styles['searchlist-list']}>
+      <div className={`${styles['searchlist-list']} searchlist-list`}>
         {
           listData.filter(list => rowFilter(list, searchQuery)).map((item, id) => {
             return (

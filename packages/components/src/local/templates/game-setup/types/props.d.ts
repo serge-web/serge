@@ -35,9 +35,18 @@ export default interface Props extends AdminLayoutProps {
    */
   onForcesChange: (updates: { forces: ForceData[] }) => void
   /**
+   * Callback on forces Add button click events
+   */
+  onCreateForce?: () => void
+  /**
    * Callback on forces' sidebar click events
    */
   onSidebarForcesClick?: (force: ForceData) => void
+  /**
+   * Selected force to indicate which force should be active
+   * in forces setting tab
+   */
+  selectedForce?: ForceData
   /**
    * Callback on channels setting change events
    */

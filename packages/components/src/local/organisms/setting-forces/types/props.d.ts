@@ -5,9 +5,11 @@ type Forces = Array<ForceData>
 export default interface PropTypes {
   forces: Forces
   onChange: (updates: { forces: Forces }) => void
-  onRejectedIcon?: (rejected: any) => void
   onSave: (forces: Array<ForceData>) => void
+  onRejectedIcon?: (rejected: any) => void
   onSidebarClick?: (selectedForce: ForceData) => void
+  onCreate?: () => void
+  selectedForce?: ForceData
 }
 
 export { ForceData, Role } from '@serge/custom-types'

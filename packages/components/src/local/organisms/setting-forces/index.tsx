@@ -38,8 +38,17 @@ const MobileSwitch = withStyles({
 })(Switch)
 
 /* Render component */
-export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSave, onChange, onRejectedIcon, onSidebarClick }) => {
-  const [selectedItem, setSelectedItem] = useState(0)
+export const SettingForces: React.FC<PropTypes> = ({
+  forces: initialForces,
+  onSave,
+  onChange,
+  onRejectedIcon,
+  onSidebarClick,
+  onCreate,
+  selectedForce
+}) => {
+  const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
+  const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
   const [forcesData, setForcesData] = useState(initialForces)
   const handleSwitch = (_item: Item): void => {
     const selectedForce = forcesData.findIndex(force => force.uniqid === _item.uniqid)
@@ -52,7 +61,15 @@ export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSa
     onChange({ forces: nextForces })
   }
 
+  const handleOnCreate = (): void => {
+    if (typeof onCreate === 'function') {
+      onCreate()
+    }
+  }
+
   useEffect(() => {
+    const selectedId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
+    setSelectedItem(Math.max(selectedId, 0))
     setForcesData(initialForces)
   }, [initialForces])
 
@@ -211,7 +228,15 @@ export const SettingForces: React.FC<PropTypes> = ({ forces: initialForces, onSa
   return (
     <AdminContent>
       <LeftSide>
-        <EditableList items={initialForces} onClick={handleSwitch} withSearch={false} />
+        <EditableList
+          items={initialForces}
+          selectedItem={forcesData[selectedItem].uniqid}
+          filterKey="uniqid"
+          onClick={handleSwitch}
+          onCreate={handleOnCreate}
+          withSearch={false}
+          title="Add a New Force"
+        />
       </LeftSide>
       <RightSide>
         {renderContent()}

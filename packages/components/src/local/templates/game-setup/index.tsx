@@ -26,7 +26,9 @@ export const GameSetup: React.FC<Props> = ({
   onOverviewChange,
   onPlatformTypesChange,
   onForcesChange,
+  onCreateForce,
   onSidebarForcesClick,
+  selectedForce,
   onChannelsChange,
   onSave,
   messageTemplates
@@ -61,6 +63,8 @@ export const GameSetup: React.FC<Props> = ({
               onChange={onForcesChange}
               onSave={onSave}
               onSidebarClick={onSidebarForcesClick}
+              onCreate={onCreateForce}
+              selectedForce={selectedForce}
             />
           )
         }

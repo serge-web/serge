@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
 import _ from 'lodash'
+import uniqid from 'uniqid'
 import { useSelector, useDispatch } from 'react-redux'
 import { GameSetup } from '@serge/components'
 import { checkUnique } from '@serge/helpers'
+import { forceTemplate } from '../consts'
 import {
+  addNewForce,
   setCurrentTab,
   saveSettings,
   saveForce,
@@ -54,9 +57,9 @@ const AdminGameSetup = () => {
     }
   }
 
-  const isUniqueName = ({ oldName, newName, list, label }) => {
+  const isUniqueName = ({ newName, list, label }) => {
     let listNames = list.map((item) => item.name)
-    listNames = _.pull(listNames, oldName)
+    listNames = _.pull(listNames, newName)
 
     if (!checkUnique(newName, listNames)) {
       dispatch(addNotification(`${label} name is not unique.`, 'warning'))
@@ -153,6 +156,23 @@ const AdminGameSetup = () => {
     saveAction(updates)
   }
 
+  const onCreateForce = async callback => {
+    if (forces.dirty) {
+      dispatch(modalAction.open('unsavedForce', 'create-new'))
+    } else {
+      const id = 'force-' + uniqid.time()
+      const newForce = { name: id, uniqid: id }
+      dispatch(addNewForce(newForce))
+      dispatch(setSelectedForce(newForce))
+
+      const template = forceTemplate
+      template.name = id
+      template.uniqid = id
+
+      await dispatch(saveForce(currentWargame, id, template, id))
+    }
+  }
+
   const handleSidebarForcesClick = force => {
     if (forces.dirty) {
       dispatch(modalAction.open('unsavedForce', force))
@@ -177,10 +197,12 @@ const AdminGameSetup = () => {
       overview={overview}
       platformTypes={platformTypes}
       forces={forces.forces}
+      selectedForce={forces.selectedForce}
       channels={channels.channels}
       onOverviewChange={handleFormChange}
       onPlatformTypesChange={handleFormChange}
       onForcesChange={handleFormChange}
+      onCreateForce={onCreateForce}
       onSidebarForcesClick={handleSidebarForcesClick}
       onChannelsChange={handleFormChange}
       onSave={onSave}
