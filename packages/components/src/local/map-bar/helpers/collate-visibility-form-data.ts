@@ -11,6 +11,7 @@ const collateVisibilityFormData = (selectedAsset: SelectedAsset, forces: any): V
   const visibleTo: Array<string> = selectedAsset.visibleTo
   const availableForcesList: ColorOption[] = availableForces(forces, false, true)
   const formData: VisibilityFormData = {
+    assetId: selectedAsset.uniqid,
     populate: availableForcesList,
     values: visibleTo
   }

@@ -60,7 +60,8 @@ export interface AdjudicateTurnFormPopulate {
 }
 
 export interface VisibilityFormData {
+  assetId: string
   populate: Array<ColorOption>
-  values: Array<String>
+  values: Array<string>
 }
 
