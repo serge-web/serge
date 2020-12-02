@@ -44,7 +44,6 @@ const assetDialogFor = (
       }
     case Phase.Adjudication:
       if (isUmpire) {
-        console.log(isUmpire, canControl, panel)
         // this depends on the panel
         switch (panel) {
           case WorldStatePanels.Control:
