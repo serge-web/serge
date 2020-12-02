@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
-import { usePrevious } from '@serge/helpers'
 import ProgressIndicator from '../../atoms/progress-indicator'
 import TextInput from '../../atoms/text-input'
 
@@ -27,7 +26,6 @@ export const StatusBar: React.FC<PropTypes> = ({
 }) => {
   const [wargame, setWargame] = useState(initialWargame)
   const [value, setValue] = useState(wargame.wargameTitle)
-  const prevWargame = usePrevious(wargame)
 
   const handleChange = (target: {value: string}): void => {
     setValue(target.value)
@@ -46,9 +44,8 @@ export const StatusBar: React.FC<PropTypes> = ({
   }).filter(item => Object.keys(item).length)
 
   useEffect(() => {
-    if (!prevWargame && Object.keys(initialWargame).length > 0) {
-      setWargame(initialWargame)
-    }
+    setWargame(initialWargame)
+    setValue(initialWargame.wargameTitle)
   }, [initialWargame])
 
   return (
