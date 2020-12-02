@@ -25,7 +25,7 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
     setWargameQuery(target.value)
   }
 
-  const renderContent = ():React.ReactNode => wargames.filter(searchByQuery).map((game, id) => {
+  const renderContent = (): React.ReactNode => wargames.filter(searchByQuery).map((game, id) => {
     const gameTitleProps = {
       ...game,
       onClick: onGameClick
