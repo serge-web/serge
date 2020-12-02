@@ -450,6 +450,7 @@ export const duplicateChannel = (dbName, channelUniqid) => {
 
       updatedData.channels.channels = channels
       updatedData.channels.complete = calcComplete(channels) && channels.length !== 0
+      updatedData.channels.selectedChannel = duplicateChannel
 
       return new Promise((resolve, reject) => {
         if (res.wargameInitiated) {

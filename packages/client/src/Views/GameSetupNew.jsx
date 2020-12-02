@@ -252,6 +252,7 @@ const AdminGameSetup = () => {
       onCreateChannel={onCreateChannel}
       onDeleteChannel={onDeleteChannel}
       onDuplicateChannel={onDuplicateChannel}
+      selectedChannel={channels.selectedChannel}
       onSave={onSave}
       messageTemplates={messageTypes.messages}
     />

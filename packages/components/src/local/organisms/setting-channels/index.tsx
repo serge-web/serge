@@ -42,7 +42,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
   messages,
   selectedChannel
 }) => {
-  const selectedChannelId = channels.findIndex(({ name }) => name === selectedChannel?.name)
+  const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedChannelId, 0))
   const [localChannelUpdates, setLocalChannelUpdates] = useState(channels)
   const messageTemplatesOptions: Array<Option> = messages.map(message => ({
@@ -178,7 +178,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const selectedChannelId = channels.findIndex(({ name }) => name === selectedChannel?.name)
+    const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)
     setSelectedItem(Math.max(selectedChannelId, 0))
     setLocalChannelUpdates(channels)
   }, [channels])
@@ -189,8 +189,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
         <EditableList
           title="Add Channel"
           items={channels}
-          selectedItem={channels[selectedItem].name}
-          filterKey="name"
+          selectedItem={channels[selectedItem].uniqid}
+          filterKey="uniqid"
           onClick={handleSwitch}
           onCreate={onCreate}
           onDelete={onDelete}

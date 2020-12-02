@@ -72,6 +72,11 @@ export default interface Props extends AdminLayoutProps {
    */
   onDuplicateChannel?: () => void
   /**
+   * Selected channel to indicate which channel should be active
+   * in channels setting tab
+   */
+  selectedChannel?: ChannelData
+  /**
    * Callback on each of the game setup tab save events
    */
   onSave: (updates: any) => void
