@@ -37,12 +37,15 @@
   margin-top: -21px;
 }
 .icon-private {
-  color: #434343;
+  color: black;
   margin-right: 7px;
 }
 .private-message-text {
-  color: #434343;
+  color: white;
   font-size: 13px;
+  background: black;
+  padding: 2px 6px;
+  border-radius: 6px;
 }
 .private-message-box {
   padding: 9px;
