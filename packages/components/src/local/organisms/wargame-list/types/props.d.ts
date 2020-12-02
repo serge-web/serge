@@ -16,7 +16,8 @@ export default interface Props {
    */
   onGameClick: (title: string) => void
   /**
-   * Callback on each of war game title click event
+   * Workaround to prevent using custom scrollbar in unit tests,
+   * since it was failing
    */
   useCustomScroll?: boolean
 }
