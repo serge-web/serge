@@ -1,6 +1,6 @@
 # Percieved As Form documentation
 
-This is an example readme file for the 'Percieved As Form' component.
+This is an example readme file for the 'Visibility Form' component.
 
 ## UI Example
 
@@ -18,10 +18,10 @@ This is an example readme file for the 'Percieved As Form' component.
 
 ### ES6 Import
 ```js
-import VisibilityForm from './plan-turn-form'
+import VisibilityForm from './visibility-form'
 ```
 
 ### CommonJS
 
 ```js
-const VisibilityForm = require('./plan-turn-form')
+const VisibilityForm = require('./visibility-form')

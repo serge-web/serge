@@ -21,19 +21,18 @@ export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID,
   }
   const submitForm = (): void => {
     if (postBack !== undefined) {
-      console.log(visibleTo)
       const payload = {
         values: {
           visibleTo: visibleTo
         },
         assetId: formData.assetId
       }
-      postBack('perception', payload, channelID)
+      postBack('visibility', payload, channelID)
     }
   }
 
   return <div>
-     <div className={styles.visibility}>
+    <div className={styles.visibility}>
       <TitleWithIcon
         forceColor={icon.forceColor}
         platformType={icon.platformType}
