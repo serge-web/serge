@@ -73,7 +73,7 @@ export const EditableList: React.FC<PropTypes> = ({
         rowLabel={(item: Item): string => item[labelKey]}
         rowFilter={filterChannels}
         onDuplicate={onDuplicate ? handleDuplicate : undefined}
-        onDelete={handleDelete}
+        onDelete={onDelete ? handleDelete : undefined}
         withSearch={withSearch === undefined ? true : withSearch}
       />
     </div>

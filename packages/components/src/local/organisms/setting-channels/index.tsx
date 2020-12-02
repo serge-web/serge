@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 
 /* Import proptypes */
@@ -28,11 +28,22 @@ import generateRowItems from './helpers/generateRowItems'
 import rowToParticipant from './helpers/rowToParticipant'
 import defaultParticipant from './helpers/defaultParticipant'
 import createParticipant from './helpers/createParticipant'
-import createChannel from './helpers/createChannel'
 
 /* Render component */
-export const SettingChannels: React.FC<PropTypes> = ({ onChange, onSave, channels, forces, messages }) => {
-  const [selectedItem, setSelectedItem] = useState(0)
+export const SettingChannels: React.FC<PropTypes> = ({
+  onChange,
+  onSave,
+  onSidebarClick,
+  onCreate,
+  onDelete,
+  onDuplicate,
+  channels,
+  forces,
+  messages,
+  selectedChannel
+}) => {
+  const selectedChannelId = channels.findIndex(({ name }) => name === selectedChannel?.name)
+  const [selectedItem, setSelectedItem] = useState(Math.max(selectedChannelId, 0))
   const [localChannelUpdates, setLocalChannelUpdates] = useState(channels)
   const messageTemplatesOptions: Array<Option> = messages.map(message => ({
     name: message.title,
@@ -41,17 +52,11 @@ export const SettingChannels: React.FC<PropTypes> = ({ onChange, onSave, channel
 
   const handleSwitch = (_item: Item): void => {
     setSelectedItem(channels.findIndex(item => item === _item))
+    onSidebarClick && onSidebarClick(_item as ChannelData)
   }
 
   const handleChangeChannels = (nextChannels: Array<ChannelData>): void => {
     onChange(nextChannels)
-  }
-
-  const handleCreateChannel = (): void => {
-    handleChangeChannels([
-      ...channels,
-      createChannel(channels)
-    ])
   }
 
   const renderContent = (): React.ReactNode => {
@@ -105,7 +110,7 @@ export const SettingChannels: React.FC<PropTypes> = ({ onChange, onSave, channel
           <div className={styles.actions}>
             <Button
               color="secondary"
-              onClick={(): void => { if (onSave) onSave(localChannelUpdates) }}
+              onClick={(): void => { if (onSave) onSave(localChannelUpdates[selectedItem]) }}
               data-qa-type="save"
             >
               Save Channel
@@ -172,13 +177,24 @@ export const SettingChannels: React.FC<PropTypes> = ({ onChange, onSave, channel
     )
   }
 
+  useEffect(() => {
+    const selectedChannelId = channels.findIndex(({ name }) => name === selectedChannel?.name)
+    setSelectedItem(Math.max(selectedChannelId, 0))
+    setLocalChannelUpdates(channels)
+  }, [channels])
+
   return (
     <AdminContent>
       <LeftSide>
         <EditableList
+          title="Add Channel"
           items={channels}
+          selectedItem={channels[selectedItem].name}
+          filterKey="name"
           onClick={handleSwitch}
-          onCreate={handleCreateChannel}
+          onCreate={onCreate}
+          onDelete={onDelete}
+          onDuplicate={onDuplicate}
         />
       </LeftSide>
       <RightSide>

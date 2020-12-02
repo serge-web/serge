@@ -4,7 +4,7 @@ import uniqid from 'uniqid'
 import { useSelector, useDispatch } from 'react-redux'
 import { GameSetup } from '@serge/components'
 import { checkUnique } from '@serge/helpers'
-import { forceTemplate } from '../consts'
+import { channelTemplate, forceTemplate } from '../consts'
 import {
   addNewForce,
   setCurrentTab,
@@ -13,7 +13,10 @@ import {
   saveChannel,
   setTabSaved,
   setGameData,
-  setSelectedForce
+  setSelectedForce,
+  setSelectedChannel,
+  addNewChannel,
+  duplicateChannel
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
@@ -24,9 +27,6 @@ import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
  game setup: saveWargame
  checkWargameNameSaveable
  notSavedNotification
- forces: setSelected
- forces: deleteForceFromList
- forces: createForce
  channels: createChannel
  back button
  */
@@ -156,7 +156,7 @@ const AdminGameSetup = () => {
     saveAction(updates)
   }
 
-  const onCreateForce = async callback => {
+  const onCreateForce = async () => {
     if (forces.dirty) {
       dispatch(modalAction.open('unsavedForce', 'create-new'))
     } else {
@@ -180,6 +180,30 @@ const AdminGameSetup = () => {
     }))
   }
 
+  const onCreateChannel = () => {
+    if (channels.dirty) {
+      dispatch(modalAction.open('unsavedChannel', 'create-new'))
+    } else {
+      const id = `channel-${uniqid.time()}`
+      dispatch(addNewChannel({ name: id, uniqid: id }))
+      dispatch(setSelectedChannel({ name: id, uniqid: id }))
+
+      const template = channelTemplate
+      template.name = id
+      template.uniqid = id
+
+      dispatch(saveChannel(currentWargame, id, template, id))
+    }
+  }
+
+  const onDeleteChannel = ({ uniqid }) => {
+    dispatch(modalAction.open('confirmDelete', { type: 'channel', data: uniqid }))
+  }
+
+  const onDuplicateChannel = ({ uniqid }) => {
+    dispatch(duplicateChannel(currentWargame, uniqid))
+  }
+
   const handleSidebarForcesClick = force => {
     if (forces.dirty) {
       dispatch(modalAction.open('unsavedForce', force))
@@ -188,9 +212,20 @@ const AdminGameSetup = () => {
     }
   }
 
+  const handleSidebarChannelsClick = channel => {
+    if (channels.dirty) {
+      dispatch(modalAction.open('unsavedChannel', channel))
+    } else {
+      dispatch(setTabSaved())
+      dispatch(setSelectedChannel(channel))
+    }
+  }
+
   useEffect(() => {
     if (currentTab === 'forces' && forces.selectedForce === '') {
       dispatch(setSelectedForce(forces.forces[0]))
+    } else if (currentTab === 'channels' && channels.selectedChannel === '') {
+      dispatch(setSelectedChannel(channels.channels[0]))
     }
   }, [currentTab])
 
@@ -212,7 +247,11 @@ const AdminGameSetup = () => {
       onCreateForce={onCreateForce}
       onDeleteForce={onDeleteForce}
       onSidebarForcesClick={handleSidebarForcesClick}
+      onSidebarChannelsClick={handleSidebarChannelsClick}
       onChannelsChange={handleFormChange}
+      onCreateChannel={onCreateChannel}
+      onDeleteChannel={onDeleteChannel}
+      onDuplicateChannel={onDuplicateChannel}
       onSave={onSave}
       messageTemplates={messageTypes.messages}
     />

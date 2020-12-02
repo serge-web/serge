@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8a1fce70-954d-4566-bbb2-e0586bdc2e11" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/packages/client/src/Views/GameSetupNew.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/Views/GameSetupNew.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/editable-list/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/editable-list/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/index.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/index.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/types/props.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/types/props.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/game-setup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/game-setup/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/game-setup/types/props.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/game-setup/types/props.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/server/db/wargame-keeemiss" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/db/wargame-keeemiss" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/packages/e2e/package.json" />
+  </component>
+  <component name="ProjectId" id="1SDgajvSU2VAb9oaK5k8aaUzWRF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/helpers" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.detected.package.stylelint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.path.for.package.stylelint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="$PROJECT_DIR$/node_modules/standard" />
+    <property name="node.js.selected.package.stylelint" value="$PROJECT_DIR$/node_modules/stylelint" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/packages/helpers" />
+      <recent name="$PROJECT_DIR$/packages/components/src/local/atoms" />
+      <recent name="$PROJECT_DIR$/packages/components/src/local/organisms" />
+      <recent name="$PROJECT_DIR$/packages/components/static/images" />
+      <recent name="$PROJECT_DIR$/packages/components/src/local" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/packages/components/src/local/organisms" />
+      <recent name="$PROJECT_DIR$/packages/components/src/local/molecules" />
+      <recent name="$PROJECT_DIR$/packages/components/src/local/atoms" />
+      <recent name="$PROJECT_DIR$/packages/components/src/local/templates" />
+      <recent name="$PROJECT_DIR$/packages/components/src/templates" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8a1fce70-954d-4566-bbb2-e0586bdc2e11" name="Default Changelist" comment="" />
+      <created>1571103645621</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1571103645621</updated>
+      <workItem from="1571103646830" duration="856000" />
+      <workItem from="1571107581140" duration="4000" />
+      <workItem from="1571189791527" duration="677000" />
+      <workItem from="1571613076190" duration="2825000" />
+      <workItem from="1571618985441" duration="8946000" />
+      <workItem from="1571632652785" duration="99000" />
+      <workItem from="1571795308116" duration="3874000" />
+      <workItem from="1571805871585" duration="17000" />
+      <workItem from="1572019667119" duration="3671000" />
+      <workItem from="1572390790951" duration="2655000" />
+      <workItem from="1572881717730" duration="2489000" />
+      <workItem from="1572885320040" duration="615000" />
+      <workItem from="1573085615830" duration="3524000" />
+      <workItem from="1573599977210" duration="8292000" />
+      <workItem from="1573622110169" duration="71000" />
+      <workItem from="1573785393980" duration="1161000" />
+      <workItem from="1573992739857" duration="9419000" />
+      <workItem from="1574203623886" duration="11019000" />
+      <workItem from="1574461788730" duration="21100000" />
+      <workItem from="1587982972484" duration="800000" />
+      <workItem from="1594383846965" duration="1309000" />
+      <workItem from="1594432934831" duration="5205000" />
+      <workItem from="1594507307925" duration="744000" />
+      <workItem from="1594510969730" duration="603000" />
+      <workItem from="1594978345512" duration="2219000" />
+      <workItem from="1599818805673" duration="2325000" />
+      <workItem from="1599866695828" duration="19575000" />
+      <workItem from="1599958097740" duration="14638000" />
+      <workItem from="1600007109409" duration="1807000" />
+      <workItem from="1600076155541" duration="14243000" />
+      <workItem from="1600101672244" duration="607000" />
+      <workItem from="1600155927369" duration="979000" />
+      <workItem from="1600216983161" duration="6781000" />
+      <workItem from="1600255616831" duration="10829000" />
+      <workItem from="1600302957672" duration="8000" />
+      <workItem from="1600302976786" duration="7332000" />
+      <workItem from="1600342589861" duration="12445000" />
+      <workItem from="1600407444369" duration="10483000" />
+      <workItem from="1600427071952" duration="4656000" />
+      <workItem from="1600645359024" duration="9083000" />
+      <workItem from="1600694664874" duration="7168000" />
+      <workItem from="1600819809281" duration="5833000" />
+      <workItem from="1600861381955" duration="7050000" />
+      <workItem from="1600889169990" duration="7472000" />
+      <workItem from="1601040341448" duration="11010000" />
+      <workItem from="1601217271586" duration="1802000" />
+      <workItem from="1601337978723" duration="8106000" />
+      <workItem from="1601421581315" duration="11305000" />
+      <workItem from="1601511976218" duration="6882000" />
+      <workItem from="1601598881723" duration="6342000" />
+      <workItem from="1601694103011" duration="955000" />
+      <workItem from="1601855138956" duration="20422000" />
+      <workItem from="1602032060368" duration="5000000" />
+      <workItem from="1602243591279" duration="3374000" />
+      <workItem from="1602462286053" duration="5675000" />
+      <workItem from="1602547930189" duration="6507000" />
+      <workItem from="1602629932137" duration="10064000" />
+      <workItem from="1602803864402" duration="12341000" />
+      <workItem from="1602892337576" duration="13032000" />
+      <workItem from="1602981032495" duration="7289000" />
+      <workItem from="1603066174255" duration="9129000" />
+      <workItem from="1603152030723" duration="8320000" />
+      <workItem from="1603238130651" duration="9179000" />
+      <workItem from="1603324752102" duration="6878000" />
+      <workItem from="1603410275117" duration="411000" />
+      <workItem from="1603410774055" duration="4109000" />
+      <workItem from="1603877182485" duration="16273000" />
+      <workItem from="1604708547079" duration="28655000" />
+      <workItem from="1604753310541" duration="154000" />
+      <workItem from="1604788989366" duration="10747000" />
+      <workItem from="1604863297590" duration="606000" />
+      <workItem from="1604965284901" duration="7752000" />
+      <workItem from="1605007888221" duration="7872000" />
+      <workItem from="1605094051084" duration="10005000" />
+      <workItem from="1605223264416" duration="12645000" />
+      <workItem from="1605531482211" duration="8236000" />
+      <workItem from="1605765292883" duration="68000" />
+      <workItem from="1606431270376" duration="10799000" />
+      <workItem from="1606687037596" duration="7785000" />
+      <workItem from="1606774846724" duration="8908000" />
+      <workItem from="1606828338215" duration="2961000" />
+      <workItem from="1606864161323" duration="7721000" />
+    </task>
+    <task id="LOCAL-00065" summary="Add forces in channel component">
+      <created>1601859863670</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1601859863671</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Add Channel Messages List organism">
+      <created>1601863472723</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1601863472723</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Implement channel message list component">
+      <created>1601905479927</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1601905479927</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Add story for channel message with info type">
+      <created>1601906301325</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1601906301325</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Fix image paths">
+      <created>1601909930242</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1601909930242</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Implement force's color in channel">
+      <created>1602036303294</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1602036303294</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Add storybook shortcut">
+      <created>1602245706620</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1602245706621</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Add wargame title component">
+      <created>1602464666088</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1602464666089</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Add option menu component">
+      <created>1602467718342</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1602467718342</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Add wargame list component - in progress">
+      <created>1602554390857</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1602554390858</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Implement wargame list component">
+      <created>1602634124966</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1602634124966</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Add search list component - in progress">
+      <created>1602640633733</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1602640633733</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Implement search list component on message templates page">
+      <created>1602806135357</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1602806135357</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Implement search list component on message library page">
+      <created>1602808142428</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1602808142428</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Add selected property to enable active class addition">
+      <created>1602812182615</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1602812182615</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Refactor search list row into component">
+      <created>1602815373641</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1602815373641</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Refactor search list component with generic properties">
+      <created>1602895021126</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1602895021126</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Implement search list component on channels tab">
+      <created>1602896001403</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1602896001403</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Implement search list component on forces tab">
+      <created>1602899052271</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1602899052272</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Add and implement Button component">
+      <created>1602907438908</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1602907438908</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Add and implement Admin login component">
+      <created>1602990871102</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1602990871103</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Add and implement Button list component">
+      <created>1603073096317</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1603073096317</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Implement button on message template and library editor">
+      <created>1603074321914</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1603074321914</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Move search list into molecules">
+      <created>1603075294004</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1603075294004</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Add and implement role action component">
+      <created>1603160219126</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1603160219127</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Implement button list to confirmation modals">
+      <created>1603243275916</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1603243275916</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Refactor image dropzone component">
+      <created>1603245577671</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1603245577671</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Implement image dropzone component">
+      <created>1603247255309</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1603247255309</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Add global BlueContainer story wrapper">
+      <created>1603327254513</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1603327254514</updated>
+    </task>
+    <task id="LOCAL-00094" summary="Add option menu mock">
+      <created>1603327810399</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1603327810399</updated>
+    </task>
+    <task id="LOCAL-00095" summary="Add blue container story wrapper">
+      <created>1603329370021</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1603329370021</updated>
+    </task>
+    <task id="LOCAL-00096" summary="Fix deepscan error">
+      <created>1603329521506</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1603329521506</updated>
+    </task>
+    <task id="LOCAL-00097" summary="Add cross browser custom scroll bar">
+      <created>1603331342298</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1603331342298</updated>
+    </task>
+    <task id="LOCAL-00098" summary="Add custom color prop to text input">
+      <created>1603413988362</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1603413988363</updated>
+    </task>
+    <task id="LOCAL-00099" summary="Store template _id instead of object">
+      <created>1603893189016</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1603893189016</updated>
+    </task>
+    <task id="LOCAL-00100" summary="Fix icon uploader path">
+      <created>1604709998981</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1604709998982</updated>
+    </task>
+    <task id="LOCAL-00101" summary="Refactor game admin components into atomic structures">
+      <created>1604753201351</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1604753201351</updated>
+    </task>
+    <task id="LOCAL-00102" summary="Fix deepscan issues">
+      <created>1604753453117</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1604753453117</updated>
+    </task>
+    <task id="LOCAL-00103" summary="Fix various admin layout template bugs">
+      <created>1604800095322</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1604800095322</updated>
+    </task>
+    <task id="LOCAL-00104" summary="Add game setup template component">
+      <created>1604972439216</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1604972439216</updated>
+    </task>
+    <task id="LOCAL-00105" summary="Implement game overview in game setup">
+      <created>1605532684444</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1605532684445</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Fix game setup tabs order">
+      <created>1605537916394</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1605537916394</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Fix game setup content background color">
+      <created>1605539707079</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1605539707079</updated>
+    </task>
+    <task id="LOCAL-00108" summary="Fix game overview state updates bugs">
+      <created>1606435316430</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1606435316431</updated>
+    </task>
+    <task id="LOCAL-00109" summary="Clean up overview state on save">
+      <created>1606436091581</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1606436091582</updated>
+    </task>
+    <task id="LOCAL-00110" summary="Fix forces updates event handler">
+      <created>1606442058371</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1606442058372</updated>
+    </task>
+    <task id="LOCAL-00111" summary="Fix forces sidebar click event handler">
+      <created>1606694697251</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1606694697252</updated>
+    </task>
+    <task id="LOCAL-00112" summary="Handle add new force event">
+      <created>1606784023083</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1606784023084</updated>
+    </task>
+    <task id="LOCAL-00113" summary="Add force's delete event handler">
+      <created>1606830403116</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1606830403116</updated>
+    </task>
+    <option name="localTasksCounter" value="114" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Add and implement role action component" />
+    <MESSAGE value="Implement button list to confirmation modals" />
+    <MESSAGE value="Refactor image dropzone component" />
+    <MESSAGE value="Implement image dropzone component" />
+    <MESSAGE value="Add global BlueContainer story wrapper" />
+    <MESSAGE value="Add option menu mock" />
+    <MESSAGE value="Add blue container story wrapper" />
+    <MESSAGE value="Fix deepscan error" />
+    <MESSAGE value="Add cross browser custom scroll bar" />
+    <MESSAGE value="Add custom color prop to text input" />
+    <MESSAGE value="Store template _id instead of object" />
+    <MESSAGE value="Fix icon uploader path" />
+    <MESSAGE value="Refactor game admin components into atomic structures" />
+    <MESSAGE value="Fix deepscan issues" />
+    <MESSAGE value="Fix various admin layout template bugs" />
+    <MESSAGE value="Add game setup template component" />
+    <MESSAGE value="Implement game overview in game setup" />
+    <MESSAGE value="Fix game setup tabs order" />
+    <MESSAGE value="Fix game setup content background color" />
+    <MESSAGE value="Fix game overview state updates bugs" />
+    <MESSAGE value="Clean up overview state on save" />
+    <MESSAGE value="Fix forces updates event handler" />
+    <MESSAGE value="Fix forces sidebar click event handler" />
+    <MESSAGE value="Handle add new force event" />
+    <MESSAGE value="Add force's delete event handler" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add force's delete event handler" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/node_modules/@json-editor/json-editor/dist/jsoneditor.js</url>
+          <line>7930</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

@@ -31,6 +31,10 @@ export const GameSetup: React.FC<Props> = ({
   onSidebarForcesClick,
   selectedForce,
   onChannelsChange,
+  onSidebarChannelsClick,
+  onCreateChannel,
+  onDeleteChannel,
+  onDuplicateChannel,
   onSave,
   messageTemplates
 }: Props) => {
@@ -76,6 +80,10 @@ export const GameSetup: React.FC<Props> = ({
               channels={channels}
               onChange={onChannelsChange}
               onSave={onSave}
+              onSidebarClick={onSidebarChannelsClick}
+              onCreate={onCreateChannel}
+              onDelete={onDeleteChannel}
+              onDuplicate={onDuplicateChannel}
               forces={forces}
               messages={messageTemplates}
             />

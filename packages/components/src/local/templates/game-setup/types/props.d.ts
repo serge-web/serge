@@ -56,6 +56,22 @@ export default interface Props extends AdminLayoutProps {
    */
   onChannelsChange: (channels: ChannelData[]) => void
   /**
+   * Callback on channel' sidebar click events
+   */
+  onSidebarChannelsClick?: (channel: ChannelData) => void
+  /**
+   * Callback on channels Add button click events
+   */
+  onCreateChannel?: () => void
+  /**
+   * Callback on channels delete button click events
+   */
+  onDeleteChannel?: () => void
+  /**
+   * Callback on channels delete button click events
+   */
+  onDuplicateChannel?: () => void
+  /**
    * Callback on each of the game setup tab save events
    */
   onSave: (updates: any) => void

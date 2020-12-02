@@ -28,8 +28,13 @@ export const Default: React.FC = () => {
     setChannels(nextChannels)
   }
 
+  const handleOnSave = (updates: ChannelData): void => {
+    console.log(updates)
+  }
+
   return <SettingChannels
     onChange={handleChangeChannels}
+    onSave={handleOnSave}
     channels={channels}
     forces={WargameExportedMock.data.forces.forces}
     messages={MessageTemplatesMock}

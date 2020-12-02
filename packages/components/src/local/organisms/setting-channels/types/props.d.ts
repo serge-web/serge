@@ -11,7 +11,12 @@ export default interface PropTypes {
   messages: Array<MessageTemplate>
   forces: Array<ForceData>
   onChange: (channels: Array<ChannelData>) => void
-  onSave?: (channels: Array<ChannelData>) => void
+  onSave?: (channel: ChannelData) => void
+  onSidebarClick?: (selectedChannel: ChannelData) => void
+  onCreate?: () => void
+  onDelete?: () => void
+  onDuplicate?: () => void
+  selectedChannel?: ChannelData
 }
 
 export { ChannelData, Channel, ForceData, Role, Participant } from '@serge/custom-types'
