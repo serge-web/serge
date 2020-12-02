@@ -140,7 +140,7 @@ class Channel extends Component {
             curChannel={curChannel}
             privateMessage={privateMessage}
         />
-        <div item xs={12} style={chat_input_grid}>
+        <div style={chat_input_grid}>
         <NewChatMessage isUmpire={state.selectedForce === umpireForceTemplate.uniqid} content={content} privateMessage={privateMessage} onSendMessage={() => this.onSendMessage()} onChange={(event,key) => this.onChange(event, key)} />
         </div>
         </>:

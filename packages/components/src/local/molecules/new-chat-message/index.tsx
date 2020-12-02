@@ -9,7 +9,7 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const WriteMessagePanel: React.FC<Props> = ({ isUmpire, content, privateMessage, onSendMessage, onChange }: Props) => {
+export const NewChatMessage: React.FC<Props> = ({ isUmpire, content, privateMessage, onSendMessage, onChange }: Props) => {
   return (
     <div className={styles['write-message-panel']}>
       <ChatTextInput
@@ -34,4 +34,4 @@ export const WriteMessagePanel: React.FC<Props> = ({ isUmpire, content, privateM
   )
 }
 
-export default WriteMessagePanel
+export default NewChatMessage

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { PlayerStateContext } from "../Store/PlayerUi";
 import "@serge/themes/App.scss";
-import { ChatChannelMessage } from "@serge/components";
+import { ChatMessagesList } from "@serge/components";
 import { umpireForceTemplate } from "../consts";
 import { saveMessage } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
 
@@ -55,7 +55,7 @@ class ChatMessageCreator extends Component {
     
     return (
       <>
-        <ChatChannelMessage
+        <ChatMessagesList
             forceColors={colors}
             isUmpire={state.selectedForce === umpireForceTemplate.uniqid}
             messages={messages}

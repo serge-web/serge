@@ -5,13 +5,11 @@ import Props from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import Grid from '@material-ui/core/Grid';
 
 /* Render component */
-export const ChatChannelMessage: React.FC<Props> = ({ isUmpire, messages=[], colors} : Props) => {
+export const ChatMessagesList: React.FC<Props> = ({ isUmpire, messages=[], colors} : Props) => {
   return (
-    <Grid container spacing={3}>
-        <Grid item xs={12} className={styles['chat-bubble-grid']}>
+        <div className={styles['chat-bubble-grid']}>
             {messages.map((item,index) => {
             return (
               <ChatMessageBubble
@@ -28,9 +26,8 @@ export const ChatChannelMessage: React.FC<Props> = ({ isUmpire, messages=[], col
               />
             )
           })}
-        </Grid>
-      </Grid>
+        </div>
   )
 }
 
-export default ChatChannelMessage
+export default ChatMessagesList

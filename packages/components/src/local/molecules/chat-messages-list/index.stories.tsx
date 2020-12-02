@@ -4,7 +4,7 @@ import { styled } from '@material-ui/core/styles'
 import { boolean, withKnobs } from '@storybook/addon-knobs'
 
 // Import component files
-import ChatChannelMessage from './index'
+import ChatMessagesList from './index'
 import docs from './README.md'
 import { forces } from '@serge/mocks'
 import { forceColors } from '@serge/helpers'
@@ -18,8 +18,8 @@ const BlueContainer = styled(Box)({
 })
 const wrapper: React.FC = (storyFn: any) => <div>{storyFn()}</div>
 export default {
-  title: 'local/molecules/ChatChannelMessage',
-  component: ChatChannelMessage,
+  title: 'local/molecules/ChatMessagesList',
+  component: ChatMessagesList,
   decorators: [withKnobs, wrapper],
   parameters: {
     readme: {
@@ -57,7 +57,7 @@ const messages = [
 
 export const Default: React.FC = () => (
   <BlueContainer>
-    <ChatChannelMessage
+    <ChatMessagesList
       isUmpire={boolean('Player from umpire force', true)}
       messages={messages}
       colors={forceColorList}

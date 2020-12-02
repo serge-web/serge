@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
 
 // Import component files
-import WriteMessagePanel from './index'
+import NewChatMessage from './index'
 import docs from './README.md'
 
 const BlueContainer = styled(Box)({
@@ -16,8 +16,8 @@ const BlueContainer = styled(Box)({
 })
 
 export default {
-  title: 'local/molecules/WriteMessagePanel',
-  component: WriteMessagePanel,
+  title: 'local/molecules/NewChatMessage',
+  component: NewChatMessage,
   decorators: [withKnobs, (story: Function): React.ReactElement => (
     <BlueContainer>{ story() }</BlueContainer>
   )],
@@ -31,7 +31,7 @@ export default {
 
 export const Default: React.FC = () => {
   return (
-    <WriteMessagePanel isUmpire={boolean('Player from umpire force', true)} onSendMessage={(): any => window.alert('Click Send')} onChange={(): any => console.log('here')} />
+    <NewChatMessage isUmpire={boolean('Player from umpire force', true)} onSendMessage={(): any => window.alert('Click Send')} onChange={(): any => console.log('here')} />
   )
 }
 

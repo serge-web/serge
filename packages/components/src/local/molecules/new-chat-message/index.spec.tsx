@@ -1,7 +1,7 @@
 /* global it expect */
 import React from 'react'
 import renderer from 'react-test-renderer'
-import WriteMessagePanel from './index'
+import NewChatMessage from './index'
 
 /** mock function to workaround issue where multiline textarea
  * failing, as documented here:
@@ -18,7 +18,7 @@ const createNodeMock = (element: any): any => {
 it('renders correctly', () => {
   const tree = renderer
     .create(
-      <WriteMessagePanel isUmpire={true} onSendMessage={(): any => window.alert('Click Send')} onChange={(): any => console.log('here')} />, { createNodeMock }
+      <NewChatMessage isUmpire={true} onSendMessage={(): any => window.alert('Click Send')} onChange={(): any => console.log('here')} />, { createNodeMock }
     )
     .toJSON()
   expect(tree).toMatchSnapshot()

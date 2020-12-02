@@ -2,7 +2,7 @@
 import { boolean } from '@storybook/addon-knobs'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import ChatChannelMessage from './index'
+import ChatMessagesList from './index'
 import { forces } from '@serge/mocks'
 import { forceColors } from '@serge/helpers'
 
@@ -53,7 +53,7 @@ const messages = [
 it('renders correctly', () => {
   const tree = renderer
     .create(
-      <ChatChannelMessage
+      <ChatMessagesList
         isUmpire={boolean('Player from umpire force', true)}
         messages={messages}
         colors={forceColorList}
