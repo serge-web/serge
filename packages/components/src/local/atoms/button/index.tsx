@@ -29,7 +29,7 @@ const useButtonStyle = makeStyles((theme: Theme) =>
       const lightColors = ['swissCoffee']
       const baseColor = 'base'
       return {
-        ...lightColors.includes(customColor as string) ? { color: theme.palette[baseColor].main } : {}
+        ...lightColors.includes(customColor as string) ? { color: (theme.palette[baseColor] || {}) } : {}
       }
     }
   })

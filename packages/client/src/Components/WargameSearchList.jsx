@@ -61,6 +61,7 @@ const WargameSearchList = ({ listData: wargames }) => {
   return (
     <WargameList
       wargames={wargames}
+      useCustomScroll={true}
       menuConfig={menus}
       onGameClick={onGameClick}
     />
