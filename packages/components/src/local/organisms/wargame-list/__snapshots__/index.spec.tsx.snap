@@ -54,7 +54,7 @@ exports[`WargameList component: renders correctly 1`] = `
         </span>
       </span>
       <svg
-        aria-labelledby="svg-inline--fa-title-PIZRy1Reicbk"
+        aria-labelledby="svg-inline--fa-title-9tu43qYt993c"
         className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
         data-icon="ellipsis-h"
         data-prefix="fas"
@@ -65,7 +65,7 @@ exports[`WargameList component: renders correctly 1`] = `
         xmlns="http://www.w3.org/2000/svg"
       >
         <title
-          id="svg-inline--fa-title-PIZRy1Reicbk"
+          id="svg-inline--fa-title-9tu43qYt993c"
           style={Object {}}
         >
           Wargame menu
@@ -96,7 +96,7 @@ exports[`WargameList component: renders correctly 1`] = `
         </span>
       </span>
       <svg
-        aria-labelledby="svg-inline--fa-title-ZdvJM7Jq7VVT"
+        aria-labelledby="svg-inline--fa-title-JYpgSsqsJDGZ"
         className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
         data-icon="ellipsis-h"
         data-prefix="fas"
@@ -107,7 +107,7 @@ exports[`WargameList component: renders correctly 1`] = `
         xmlns="http://www.w3.org/2000/svg"
       >
         <title
-          id="svg-inline--fa-title-ZdvJM7Jq7VVT"
+          id="svg-inline--fa-title-JYpgSsqsJDGZ"
           style={Object {}}
         >
           Wargame menu
@@ -138,7 +138,7 @@ exports[`WargameList component: renders correctly 1`] = `
         </span>
       </span>
       <svg
-        aria-labelledby="svg-inline--fa-title-TA89a5uOHFNg"
+        aria-labelledby="svg-inline--fa-title-lZOUyCd5wdCh"
         className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
         data-icon="ellipsis-h"
         data-prefix="fas"
@@ -149,7 +149,7 @@ exports[`WargameList component: renders correctly 1`] = `
         xmlns="http://www.w3.org/2000/svg"
       >
         <title
-          id="svg-inline--fa-title-TA89a5uOHFNg"
+          id="svg-inline--fa-title-lZOUyCd5wdCh"
           style={Object {}}
         >
           Wargame menu
