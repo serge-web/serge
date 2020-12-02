@@ -245,7 +245,7 @@ export const MapBar: React.FC = () => {
         return <VisibilityForm
           icon={iconData}
           key={selectedAsset.uniqid}
-          formHeader={currentAssetName}
+          formHeader={'Set visibility'}
           formData={collateVisibilityFormData(selectedAsset, forces)}
           postBack={postBack}
           channelID={channelID} />
