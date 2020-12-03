@@ -8,7 +8,10 @@ import {
   getIpAddress,
   postNewMessage,
   postNewMapMessage,
-  getAllMessages
+  getAllMessages,
+  initiateGame as commitInitiateGame,
+  getWargame as commitGetWargame,
+  nextGameTurn as commitNextGameTurn
 } from '../api/wargames'
 
 import { addNotification } from '../actions/notification'
@@ -94,14 +97,14 @@ export const startListening = (dbName) => {
 
 export const initiateGame = (dbName) => {
   return async (dispatch) => {
-    const wargame = await initiateGame(dbName)
+    const wargame = await commitInitiateGame(dbName)
     dispatch(setCurrentWargame(wargame))
   }
 }
 
 export const getWargame = (gamePath) => {
   return async (dispatch) => {
-    const wargame = await getWargame(gamePath)
+    const wargame = await commitGetWargame(gamePath)
     if (isError(wargame)) {
       dispatch(addNotification('Serge disconnected', 'error'))
     } else {
@@ -112,7 +115,7 @@ export const getWargame = (gamePath) => {
 
 export const nextGameTurn = (dbName) => {
   return async () => {
-    await nextGameTurn(dbName)
+    await commitNextGameTurn(dbName)
   }
 }
 
