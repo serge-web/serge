@@ -31,7 +31,6 @@ const postback = (messageType: string, payload: any): void => {
   console.log('postback', messageType, payload)
 }
 
-
 const formData = collateVisibilityFormData(selectedAsset, forces)
 const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
 
