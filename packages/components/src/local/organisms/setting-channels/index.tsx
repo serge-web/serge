@@ -83,8 +83,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
         newNextItems[1].active = []
         newNextItems[2].active = []
       }
-      const nextParcipiant = rowToParticipant(messageTemplatesOptions, forces, nextItems, participant)
-      return generateRowItems(messageTemplatesOptions, forces, nextParcipiant)
+      const nextParticipant = rowToParticipant(messageTemplatesOptions, forces, nextItems, participant)
+      return generateRowItems(messageTemplatesOptions, forces, nextParticipant)
     }
 
     const handleCreateParticipant = (rowItems: Array<RowItem>): void => {
@@ -160,6 +160,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                   </TableBody>
                   <TableFooter>
                     <EditableRow
+                      isGenerator={true}
                       noSwitchOnReset
                       onChange={handleChangeRow}
                       onSave={handleCreateParticipant}

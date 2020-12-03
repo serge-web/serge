@@ -20,8 +20,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUndoAlt, faCheck, faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
-export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onSave, defaultMode, onRemove, noSwitchOnReset }) => {
-  const [backup, setBacup] = useState(items)
+export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onSave, defaultMode, onRemove, noSwitchOnReset, isGenerator }) => {
+  const [backup, setBackup] = useState(items)
   const [itemsLocal, setItemsLocal] = useState(items)
   const [mode, setMode] = useState(defaultMode)
 
@@ -51,7 +51,8 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
   }
   const handleApply = (): void => {
     if (onSave) onSave(itemsLocal)
-    setBacup(itemsLocal)
+    if (isGenerator) return
+    setBackup(itemsLocal)
     switchMode()
   }
 

@@ -19,4 +19,5 @@ export default interface PropTypes {
   actions?: boolean
   defaultMode: 'view' | 'edit'
   noSwitchOnReset?: boolean
+  isGenerator?: boolean
 }

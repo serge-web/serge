@@ -184,7 +184,7 @@ export const createNewWargameDB = () => {
 
 export const clearWargames = () => {
   return async (dispatch) => {
-    await commitClearWargames()
+    commitClearWargames()
 
     const wargames = await getAllWargames()
     dispatch(saveAllWargameNames(wargames))
@@ -193,7 +193,7 @@ export const clearWargames = () => {
 
 export const deleteWargame = (name) => {
   return async (dispatch) => {
-    await commitDeleteWargame(name)
+    commitDeleteWargame(name)
 
     const wargames = await getAllWargames()
     dispatch(saveAllWargameNames(wargames))
