@@ -12,7 +12,7 @@ const collateVisibilityFormData = (selectedAsset: SelectedAsset, forces: any): V
   const availableForcesList: ColorOption[] = availableForces(forces, false, true)
 
   // remove asset's own force, since they can always see their own assets
-  const trimmedForcesList: ColorOption[] = availableForcesList.filter((c: ColorOption) => c.name != selectedAsset.force)
+  const trimmedForcesList: ColorOption[] = availableForcesList.filter((c: ColorOption) => c.name !== selectedAsset.force)
 
   const formData: VisibilityFormData = {
     assetId: selectedAsset.uniqid,
