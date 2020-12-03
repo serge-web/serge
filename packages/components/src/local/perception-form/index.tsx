@@ -15,6 +15,7 @@ import { MapContext } from '../mapping'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 import cx from 'classnames'
+import { PERCEPTION_OF_CONTACT } from '@serge/config'
 
 /* Render component */
 export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, type, force, formData, channelID, postBack }) => {
@@ -55,7 +56,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, type, force, f
         },
         assetId: formState.assetId
       }
-      postBack('perception', payload, channelID)
+      postBack(PERCEPTION_OF_CONTACT, payload, channelID)
     }
   }
 

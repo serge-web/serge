@@ -10,6 +10,7 @@ import FormGroup from '../form-elements/form-group'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
+import { VISIBILIY_CHANGES } from '@serge/config'
 
 /* Render component */
 export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID, postBack }) => {
@@ -27,7 +28,7 @@ export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID,
         },
         assetId: formData.assetId
       }
-      postBack('visibility', payload, channelID)
+      postBack(VISIBILIY_CHANGES, payload, channelID)
     }
   }
 
