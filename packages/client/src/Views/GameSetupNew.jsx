@@ -9,6 +9,7 @@ import {
   addNewForce,
   setCurrentTab,
   saveSettings,
+  savePlatformTypes,
   saveForce,
   saveChannel,
   setTabSaved,
@@ -96,6 +97,10 @@ const AdminGameSetup = () => {
     dispatch(saveSettings(currentWargame, overview))
   }
 
+  const handleSavePlatformTypes = platformTypes => {
+    dispatch(savePlatformTypes(currentWargame, platformTypes))
+  }
+
   const handleSaveForce = newForces => {
     const { selectedForce } = forces
     const selectedForceId = selectedForce.uniqid
@@ -142,6 +147,9 @@ const AdminGameSetup = () => {
     switch (currentTab) {
       case 'overview':
         saveAction = handleSaveOverview
+        break
+      case 'platform_types':
+        saveAction = handleSavePlatformTypes
         break
       case 'forces':
         saveAction = handleSaveForce

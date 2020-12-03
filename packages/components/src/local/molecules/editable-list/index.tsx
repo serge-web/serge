@@ -55,16 +55,21 @@ export const EditableList: React.FC<PropTypes> = ({
 
   return (
     <div className={styles.main}>
-      <div className={styles.section}>
-        <Button
-          color="secondary"
-          size="large"
-          onClick={handleCreate}
-          data-qa-type={qaType}
-        >
-          {title}
-        </Button>
-      </div>
+      {
+        onCreate
+          ? (
+            <div className={styles.section}>
+              <Button
+                color="secondary"
+                size="large"
+                onClick={handleCreate}
+                data-qa-type={qaType}
+              >
+                {title}
+              </Button>
+            </div>
+          ) : null
+      }
       <SearchList
         listData={items}
         setSelected={handleClick}

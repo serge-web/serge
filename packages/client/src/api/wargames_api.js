@@ -319,6 +319,38 @@ export const saveSettings = (dbName, data) => {
     })
 }
 
+export const savePlatformTypes = (dbName, data) => {
+  const db = wargameDbStore.find((wargame) => dbName === wargame.name).db
+
+  return getLatestWargameRevision(dbName)
+    .then(function (res) {
+      const newDoc = deepCopy(res)
+      newDoc.data.platform_types = data
+
+      return new Promise((resolve, reject) => {
+        if (newDoc.wargameInitiated) {
+          resolve(createLatestWargameRevision(dbName, newDoc))
+        } else {
+          return db.put({
+            _id: dbDefaultSettings._id,
+            _rev: newDoc._rev,
+            name: newDoc.name,
+            wargameTitle: newDoc.wargameTitle,
+            data: newDoc.data,
+            gameTurn: newDoc.gameTurn,
+            phase: newDoc.phase,
+            adjudicationStartTime: newDoc.adjudicationStartTime,
+            turnEndTime: moment().add(newDoc.data.overview.realtimeTurnTime, 'ms').format(),
+            wargameInitiated: newDoc.wargameInitiated
+          })
+            .then(() => {
+              resolve(db.get(dbDefaultSettings._id))
+            })
+        }
+      })
+    })
+}
+
 export const saveForce = (dbName, newName, newData, oldName) => {
   const db = wargameDbStore.find((wargame) => dbName === wargame.name).db
 

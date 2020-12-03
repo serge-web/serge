@@ -28,7 +28,11 @@ export const Default: React.FC = () => {
     setPlatformType(netPlatformType)
   }
 
-  return <SettingPlatformTypes platformType={platformType} onChange={onChange} />
+  const onSave = (netPlatformType: PlatformType): void => {
+    console.log(netPlatformType)
+  }
+
+  return <SettingPlatformTypes platformType={platformType} onChange={onChange} onSave={onSave} />
 }
 
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.

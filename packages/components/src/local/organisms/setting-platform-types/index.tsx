@@ -207,7 +207,12 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   return (
     <AdminContent>
       <LeftSide>
-        <EditableList items={localPlatformType.platformTypes} onClick={handleSwitch}/>
+        <EditableList
+          items={localPlatformType.platformTypes}
+          onClick={handleSwitch}
+          selectedItem={platformType?.platformTypes[selectedItem].name}
+          filterKey="name"
+        />
       </LeftSide>
       <RightSide>
         {renderContent()}

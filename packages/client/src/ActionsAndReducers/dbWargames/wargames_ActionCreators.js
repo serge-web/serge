@@ -250,6 +250,18 @@ export const saveSettings = (dbName, data) => {
   }
 }
 
+export const savePlatformTypes = (dbName, data) => {
+  return async (dispatch) => {
+    const wargame = await wargamesApi.savePlatformTypes(dbName, data)
+
+    dispatch(setCurrentWargame(wargame))
+
+    dispatch(setTabSaved())
+
+    dispatch(addNotification('Platform types saved.', 'success'))
+  }
+}
+
 export const saveForce = (dbName, newName, newData, oldName) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.saveForce(dbName, newName, newData, oldName)
