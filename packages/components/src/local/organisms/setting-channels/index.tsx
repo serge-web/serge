@@ -56,15 +56,15 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }
 
   const handleChangeChannels = (nextChannels: Array<ChannelData>): void => {
-    onChange(nextChannels)
+    onChange({ channels: nextChannels })
   }
 
   const renderContent = (): React.ReactNode => {
-    if (!channels[selectedItem]) return null
-    const data = channels[selectedItem]
+    if (!localChannelUpdates[selectedItem]) return null
+    const data = localChannelUpdates[selectedItem]
 
     const handleChangeChannel = (channel: ChannelData): void => {
-      const nextChannels: Array<ChannelData> = [...channels]
+      const nextChannels: Array<ChannelData> = [...localChannelUpdates]
       nextChannels[selectedItem] = channel
       handleChangeChannels(nextChannels)
       setLocalChannelUpdates(nextChannels)

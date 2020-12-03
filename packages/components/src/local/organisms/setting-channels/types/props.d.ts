@@ -10,7 +10,7 @@ export default interface PropTypes {
   channels: Array<ChannelData>
   messages: Array<MessageTemplate>
   forces: Array<ForceData>
-  onChange: (channels: Array<ChannelData>) => void
+  onChange: (updates: { channels: Array<ChannelData> }) => void
   onSave?: (channel: ChannelData) => void
   onSidebarClick?: (selectedChannel: ChannelData) => void
   onCreate?: () => void

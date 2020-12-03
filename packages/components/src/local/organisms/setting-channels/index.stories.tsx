@@ -24,8 +24,8 @@ export default {
 export const Default: React.FC = () => {
   const [channels, setChannels] = useState<Array<ChannelData>>(WargameExportedMock.data.channels.channels)
 
-  const handleChangeChannels = (nextChannels: Array<ChannelData>): void => {
-    setChannels(nextChannels)
+  const handleChangeChannels = (updates: { channels: Array<ChannelData> }): void => {
+    setChannels(updates.channels)
   }
 
   const handleOnSave = (updates: ChannelData): void => {

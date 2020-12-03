@@ -75,8 +75,8 @@ export const Default: React.FC = () => {
     console.log('new forces', updates.forces)
   }
 
-  const onChannelsChange = (nextChannels: Array<ChannelData>): void => {
-    console.log('new channels', nextChannels)
+  const onChannelsChange = (updates: { channels: Array<ChannelData> }): void => {
+    console.log('new channels', updates.channels)
   }
 
   return (

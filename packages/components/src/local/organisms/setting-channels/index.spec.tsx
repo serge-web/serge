@@ -5,7 +5,7 @@ import SettingChannels from './index'
 import { ChannelData } from './types/props'
 import { WargameExportedMock, MessageTemplatesMock } from '@serge/mocks'
 
-const onChange = (channels: Array<ChannelData>): void => { console.log(channels) }
+const onChange = (updates: { channels: Array<ChannelData> }): void => { console.log(updates.channels) }
 
 describe('SettingChannels component:', () => {
   it('renders correctly', () => {

@@ -65,8 +65,8 @@ const Component = () => {
     setWargameChanged(true)
   }
 
-  const onChannelsChange = (nextChannels: Array<ChannelData>): void => {
-    setChangedChannels(nextChannels)
+  const onChannelsChange = (updates: { channels: Array<ChannelData> }): void => {
+    setChangedChannels(updates.channels)
     setWargameChanged(true)
   }
 

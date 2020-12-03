@@ -54,7 +54,7 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on channels setting change events
    */
-  onChannelsChange: (channels: ChannelData[]) => void
+  onChannelsChange: (updates: { channels: ChannelData[] }) => void
   /**
    * Callback on channel' sidebar click events
    */
