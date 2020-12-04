@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 // Import component files
 import SettingPlatformTypes from './index'
@@ -22,17 +22,15 @@ export default {
 }
 
 export const Default: React.FC = () => {
-  const [platformType, setPlatformType] = useState<PlatformType>(platformTypeMock)
-
   const onChange = (netPlatformType: PlatformType): void => {
-    setPlatformType(netPlatformType)
+    console.log(netPlatformType)
   }
 
   const onSave = (netPlatformType: PlatformType): void => {
     console.log(netPlatformType)
   }
 
-  return <SettingPlatformTypes platformType={platformType} onChange={onChange} onSave={onSave} />
+  return <SettingPlatformTypes platformType={platformTypeMock} onChange={onChange} onSave={onSave} />
 }
 
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.

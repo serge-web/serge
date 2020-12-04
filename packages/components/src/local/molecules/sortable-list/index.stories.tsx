@@ -26,34 +26,43 @@ export default {
 }
 
 export const Default: React.FC = () => {
-  const [items, setItems] = useState<Array<PlatformTypeData>>(platformTypes)
+  const Wrapper = (): React.ReactElement => {
+    const initialState = { types: platformTypes }
+    const [items, setItems] = useState<{ types: Array<PlatformTypeData> }>(initialState)
 
-  const handleClick = (item: Item): void => {
-    console.log('selected item:', item)
+    const handleClick = (item: Item): void => {
+      console.log('selected item:', item)
+    }
+    const handleChange = (items: Array<Item>): void => {
+      setItems({ types: items as Array<PlatformTypeData> })
+    }
+    const handleCreate = (): void => {
+      setItems({
+        types: [
+          {
+            name: 'New Item',
+            conditions: [],
+            icon: '',
+            speedKts: [],
+            states: [],
+            travelMode: 'sea'
+          },
+          ...items.types
+        ]
+      })
+    }
+
+    return (
+      <SortableList
+        title='Add new platform type'
+        items={items.types}
+        onClick={handleClick}
+        onChange={handleChange}
+        onCreate={handleCreate}
+      />
+    )
   }
-  const handleChange = (items: Array<Item>): void => {
-    setItems(items as Array<PlatformTypeData>)
-  }
-  const handleCreate = (): void => {
-    setItems([
-      {
-        name: 'New Item',
-        conditions: [],
-        icon: '',
-        speedKts: [],
-        states: [],
-        travelMode: 'sea'
-      },
-      ...items
-    ])
-  }
-  return (<SortableList
-    title='Add new platform type'
-    items={items}
-    onClick={handleClick}
-    onChange={handleChange}
-    onCreate={handleCreate}
-  />)
+  return <Wrapper />
 }
 
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
