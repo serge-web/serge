@@ -7,26 +7,26 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const ChatMessagesList: React.FC<Props> = ({ isUmpire, messages=[], colors} : Props) => {
+export const ChatMessagesList: React.FC<Props> = ({ isUmpire, messages = [], colors }: Props) => {
   return (
-        <div className={styles['chat-bubble-grid']}>
-            {messages.map((item,index) => {
-            return (
-              <ChatMessageBubble
-                title={item.title}
-                timestamp={item.timestamp}
-                role={item.role}
-                hasBeenRead={item.hasBeenRead}
-                authorForceId={item.authorForceId}
-                playerForceId={item.playerForceId}
-                forceColors={colors}
-                privateMessage={item.privateMessage}
-                isUmpire={isUmpire}
-                key={index}
-              />
-            )
-          })}
-        </div>
+    <div className={styles['chat-bubble-grid']}>
+      {messages.map((item, index) => {
+        return (
+          <ChatMessageBubble
+            title={item.title}
+            timestamp={item.timestamp}
+            role={item.role}
+            hasBeenRead={item.hasBeenRead}
+            authorForceId={item.authorForceId}
+            playerForceId={item.playerForceId}
+            forceColors={colors}
+            privateMessage={item.privateMessage}
+            isUmpire={isUmpire}
+            key={index}
+          />
+        )
+      })}
+    </div>
   )
 }
 
