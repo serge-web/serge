@@ -144,7 +144,7 @@ class ChannelTabsContainer extends Component {
  
       switch(form) {
         case VISIBILIY_CHANGES:
-          sendMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+          sendMessage(VISIBILIY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
           break
         case PERCEPTION_OF_CONTACT:
           sendMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
