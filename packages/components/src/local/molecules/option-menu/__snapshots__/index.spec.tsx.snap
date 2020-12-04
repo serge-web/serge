@@ -8,7 +8,7 @@ exports[`OptionMenu component: renders correctly 1`] = `
     onClick={[Function]}
   >
     <svg
-      aria-labelledby="svg-inline--fa-title-NU3CUWK0hqn4"
+      aria-labelledby="svg-inline--fa-title-5iWhmryIX71u"
       className="svg-inline--fa fa-bath fa-w-16 "
       data-icon="bath"
       data-prefix="fas"
@@ -18,7 +18,7 @@ exports[`OptionMenu component: renders correctly 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="svg-inline--fa-title-NU3CUWK0hqn4"
+        id="svg-inline--fa-title-5iWhmryIX71u"
         style={Object {}}
       >
         Save clean copy of wargame (no messages)
@@ -35,7 +35,7 @@ exports[`OptionMenu component: renders correctly 1`] = `
     onClick={[Function]}
   >
     <svg
-      aria-labelledby="svg-inline--fa-title-252rDX1LRa8o"
+      aria-labelledby="svg-inline--fa-title-oy2Gmg98re5e"
       className="svg-inline--fa fa-clone fa-w-16 "
       data-icon="clone"
       data-prefix="fas"
@@ -45,7 +45,7 @@ exports[`OptionMenu component: renders correctly 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="svg-inline--fa-title-252rDX1LRa8o"
+        id="svg-inline--fa-title-oy2Gmg98re5e"
         style={Object {}}
       >
         Duplicate wargame
@@ -62,7 +62,7 @@ exports[`OptionMenu component: renders correctly 1`] = `
     onClick={[Function]}
   >
     <svg
-      aria-labelledby="svg-inline--fa-title-qEUgbIhY3XeX"
+      aria-labelledby="svg-inline--fa-title-QzMg7ca780iT"
       className="svg-inline--fa fa-file-download fa-w-12 "
       data-icon="file-download"
       data-prefix="fas"
@@ -72,7 +72,7 @@ exports[`OptionMenu component: renders correctly 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="svg-inline--fa-title-qEUgbIhY3XeX"
+        id="svg-inline--fa-title-QzMg7ca780iT"
         style={Object {}}
       >
         Export wargame
@@ -89,7 +89,7 @@ exports[`OptionMenu component: renders correctly 1`] = `
     onClick={[Function]}
   >
     <svg
-      aria-labelledby="svg-inline--fa-title-bPQuRxm0yM2q"
+      aria-labelledby="svg-inline--fa-title-WxHHhKi5ALBz"
       className="svg-inline--fa fa-trash fa-w-14 "
       data-icon="trash"
       data-prefix="fas"
@@ -99,7 +99,7 @@ exports[`OptionMenu component: renders correctly 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="svg-inline--fa-title-bPQuRxm0yM2q"
+        id="svg-inline--fa-title-WxHHhKi5ALBz"
         style={Object {}}
       >
         Delete wargame

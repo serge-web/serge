@@ -18,7 +18,7 @@ const BlueContainer = styled(Box)({
 })
 const wrapper: React.FC = (storyFn: any) => <div>{storyFn()}</div>
 export default {
-  title: 'local/molecules/ChatMessagesList',
+  title: 'local/organisms/ChatMessagesList',
   component: ChatMessagesList,
   decorators: [withKnobs, wrapper],
   parameters: {
@@ -37,8 +37,8 @@ const messages = [
     role: 'CO',
     messageType: 'Chat',
     hasBeenRead: true,
-    authorForceId: 'Blue',
-    playerForceId: 'Blue',
+    authorForceId: 'Red',
+    playerForceId: 'White',
     privateMessage: 'This is first example of a private message.'
   },
   {
@@ -49,7 +49,19 @@ const messages = [
     messageType: 'Chat',
     hasBeenRead: false,
     authorForceId: 'Blue',
-    playerForceId: 'Red',
+    playerForceId: 'White',
+    isUmpire: false,
+    privateMessage: 'This is second example of a private message.'
+  },
+  {
+    id: '3',
+    title: 'MESSAGE THREE ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet lorem ipsum do lor sit amet',
+    timestamp: '2020-09-18T05:45:17.349Z',
+    role: 'ENG',
+    messageType: 'Chat',
+    hasBeenRead: false,
+    authorForceId: 'White',
+    playerForceId: 'White',
     isUmpire: false,
     privateMessage: 'This is second example of a private message.'
   }
@@ -66,3 +78,13 @@ export const Default: React.FC = () => (
     />
   </BlueContainer>
 )
+
+// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+Default.story = {
+  parameters: {
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
+    }
+  }
+}

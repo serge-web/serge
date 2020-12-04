@@ -1,5 +1,5 @@
 import React from 'react'
-import ChatMessageBubble from '../chat-message-bubble'
+import ChatMessageBubble from '../../molecules/chat-message-bubble'
 /* Import Types */
 import Props from './types/props'
 
