@@ -1,0 +1,16 @@
+@import "../../../../../../node_modules/@serge/themes/dependencies/variables";
+
+.searchlist {
+  @include typo-primary;
+  height: 100%;
+  margin-top: 1.2em;
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    height: 100%;
+    max-height: calc(59vh - 153px);
+    overflow-y: scroll;
+  }
+}

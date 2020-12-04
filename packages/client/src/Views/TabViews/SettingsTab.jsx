@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-// import TextInput from "../../Components/Inputs/TextInput";
-// import DropdownInput from "../../Components/Inputs/DropdownInput";
+import 'flatpickr/dist/themes/material_blue.css';
+import Flatpickr from "react-flatpickr";
+import moment from "moment";
+import { Button } from "@serge/components";
 import TextInputMasked from "../../Components/Inputs/TextInputMasked";
 import millisecondsToDDHHMMSS from "../../Helpers/millisecondsToDDHHMMSS";
 import millisecondsToHHMMSS from "../../Helpers/millisecondsToHHMMSS";
 import Row from "../../Components/Layout/Row";
+import TextArea from "../../Components/Inputs/TextArea";
+import Checkbox from "../../Components/Inputs/Checkbox";
 import {
   setGameData,
   saveSettings,
 } from "../../ActionsAndReducers/dbWargames/wargames_ActionCreators";
-import TextArea from "../../Components/Inputs/TextArea";
-
-import 'flatpickr/dist/themes/material_blue.css';
-import Flatpickr from "react-flatpickr";
-import moment from "moment";
-import Checkbox from "../../Components/Inputs/Checkbox";
 
 class SettingsTab extends Component {
 
@@ -103,7 +101,14 @@ class SettingsTab extends Component {
       <div id="game-setup-tab-settings">
         <div className="flex-content-wrapper">
           <Row className="flex-content--rowend flex-content--fill">
-            <span className="link link--noIcon" onClick={this.saveSettings} data-qa-type="submit">Save Overview</span>
+            <Button
+              color="secondary"
+              size="large"
+              onClick={this.saveSettings}
+              data-qa-type="submit"
+            >
+              Save Overview
+            </Button>
           </Row>
         </div>
         <div className="flex-content-wrapper settingsTab">

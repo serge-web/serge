@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Select from "react-select";
 import {
   faCheck,
@@ -7,7 +6,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-
 import "@serge/themes/App.scss";
 
 class EditSubscriptionRow extends Component {
@@ -85,7 +83,7 @@ class EditSubscriptionRow extends Component {
       return {_id: template.value._id};
     });
     let templates = _.intersectionBy(this.props.messageTypes.messages, templateIds, (item) => item._id);
-        templates = templates.map((template) => ({label: template.title, value: template}));
+        templates = templates.map(({ _id, title }) => ({ label: title, value: _id }));
 
     const {
       value: forceUniqid,

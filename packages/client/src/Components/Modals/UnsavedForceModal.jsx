@@ -1,67 +1,71 @@
-import React, {Component} from 'react';
-import ModalWrapper from './ModalWrapper';
-import { connect } from 'react-redux';
-import { modalAction } from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
+import React from 'react'
+import uniqid from 'uniqid'
+import ModalWrapper from './ModalWrapper'
+import { useDispatch, useSelector } from 'react-redux'
+import { ButtonList } from '@serge/components'
+import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 import {
   setSelectedForce,
   setTabSaved,
   addNewForce,
   saveForce,
-  refreshForce,
-} from "../../ActionsAndReducers/dbWargames/wargames_ActionCreators";
-import uniqid from "uniqid";
-import {forceTemplate} from "../../consts";
+  refreshForce
+} from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
+import { forceTemplate } from '../../consts'
+import '@serge/themes/App.scss'
 
-import "@serge/themes/App.scss";
+const UnsavedForceModal = () => {
+  const dispatch = useDispatch()
+  const currentModal = useSelector(state => state.currentModal)
+  const wargame = useSelector(state => state.wargame)
 
-class UnsavedForceModal extends Component {
+  const dontSave = () => {
+    if (currentModal.data === 'create-new') {
+      const id = 'force-' + uniqid.time()
+      dispatch(addNewForce({ name: id, uniqid: id }))
+      dispatch(setSelectedForce({ name: id, uniqid: id }))
 
-  dontSave = () => {
+      const template = forceTemplate
+      template.name = id
+      template.uniqid = id
 
-    if (this.props.currentModal.data === "create-new") {
-      let id = 'force-' + uniqid.time();
-      this.props.dispatch(addNewForce({name: id, uniqid: id}));
-      this.props.dispatch(setSelectedForce({name: id, uniqid: id}));
-
-      let template = forceTemplate;
-      template.name = id;
-      template.uniqid = id;
-
-      this.props.dispatch(saveForce(this.props.wargame.currentWargame, id, template, id));
-
+      dispatch(saveForce(wargame.currentWargame, id, template, id))
     } else {
-      this.props.dispatch(refreshForce(this.props.wargame.currentWargame, this.props.currentModal.data));
+      dispatch(refreshForce(wargame.currentWargame, currentModal.data))
     }
-      this.props.dispatch(setTabSaved());
-      this.props.dispatch(modalAction.close());
-  };
-
-  hideModal = () => {
-    this.props.dispatch(modalAction.close());
-  };
-
-  render() {
-
-    if (!this.props.currentModal.open) return false;
-
-    return (
-      <ModalWrapper>
-        <div className="display-text-wrapper">
-          <h3>Are you sure?</h3>
-          <p>There are unsaved changes.</p>
-          <div className="buttons">
-            <button name="continue" className="btn btn-action btn-action--primary" onClick={this.dontSave}>Don't save</button>
-            <button name="cancel" className="btn btn-action btn-action--secondary" onClick={this.hideModal}>Cancel</button>
-          </div>
-        </div>
-      </ModalWrapper>
-    )
+    dispatch(setTabSaved())
+    dispatch(modalAction.close())
   }
+
+  const onHideModal = () => {
+    dispatch(modalAction.close())
+  }
+
+  if (!currentModal.open) return false
+
+  const buttons = [{
+    name: 'continue',
+    color: 'primary',
+    onClick: dontSave,
+    children: 'Don\'t save'
+  }, {
+    name: 'cancel',
+    color: 'secondary',
+    onClick: onHideModal,
+    children: 'Cancel'
+  }]
+
+  return (
+    <ModalWrapper>
+      <div className="display-text-wrapper">
+        <h3>Are you sure?</h3>
+        <p>There are unsaved changes.</p>
+        <div className="buttons">
+          <ButtonList buttons={buttons} />
+        </div>
+      </div>
+    </ModalWrapper>
+  )
 }
 
-const mapStateToProps = ({ currentModal, wargame }) => ({
-  currentModal,
-  wargame,
-});
-
-export default connect(mapStateToProps)(UnsavedForceModal);
+export default UnsavedForceModal

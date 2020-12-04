@@ -136,7 +136,7 @@ export const postNewMessage = (schema) => {
     (async () => {
       const allMessages = await getAllMessagesFromDb()
 
-      const matchedName = allMessages.find((messageType) => messageType.title.toLowerCase() === schema.title.toLowerCase())
+      const matchedName = allMessages.find((messageType) => messageType.title && schema.title && messageType.title.toLowerCase() === schema.title.toLowerCase())
 
       if (matchedName) {
         reject('Message title already used')

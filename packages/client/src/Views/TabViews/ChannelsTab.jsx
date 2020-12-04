@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import uniqid from "uniqid";
 import _ from "lodash";
 import { channelTemplate } from "../../consts";
+import { SearchList, Button } from "@serge/components";
 import checkUnique from "../../Helpers/checkUnique";
-import TabsSearchList from "../../Components/TabsSearchList";
 import TextInput from "../../Components/Inputs/TextInput";
 import ChannelsTable from "../../Components/Layout/ChannelsTable";
 import {
@@ -17,7 +17,6 @@ import {
 } from "../../ActionsAndReducers/dbWargames/wargames_ActionCreators";
 import { addNotification } from "../../ActionsAndReducers/Notification/Notification_ActionCreators";
 import { modalAction } from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
-
 import "@serge/themes/App.scss";
 
 class ForcesTab extends Component {
@@ -80,28 +79,22 @@ class ForcesTab extends Component {
     }
   };
 
-  filterChannels = (input) => {
-    let value = input.target.value;
-    let list = this.props.wargame.data[this.props.wargame.currentTab].channels;
-
-    this.setState({
-      channelList: list.filter((item) => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1),
-      searchQuery: value
-    });
+  filterChannels = (item, value) => {
+    return item.name.toLowerCase().indexOf(value.toLowerCase()) > -1
   };
 
-  deleteChannel = (uniqid) => {
+  deleteChannel = ({ uniqid }) => {
     this.props.dispatch(modalAction.open("confirmDelete", {type: "channel", data: uniqid}));
   };
 
-  duplicateChannel = (uniqid) => {
+  duplicateChannel = ({ uniqid }) => {
     this.props.dispatch(duplicateChannel(this.props.wargame.currentWargame, uniqid));
   };
 
   updateChannelName = (channel) => {
     this.props.dispatch(setTabUnsaved());
     this.setState({
-      newChannelName: channel,
+      newChannelName: channel
     })
   };
 
@@ -146,22 +139,29 @@ class ForcesTab extends Component {
     return (
       <div className="flex-content-wrapper" id="game-setup-tab-channels">
         <div className="flex-content searchlist-wrap">
-          <span className="link link--noIcon" onClick={this.createChannel} data-qa-type="add">Add channel</span>
-          <TabsSearchList listData={this.state.channelList}
-            filter={this.filterChannels}
-            searchQuery={this.state.searchQuery}
+          <Button
+            color="secondary"
+            size="large"
+            onClick={this.createChannel}
+            data-qa-type="add"
+          >
+            Add channel
+          </Button>
+          <SearchList
+            listData={this.state.channelList}
             setSelected={this.setSelected}
-            selected={selectedChannel}
-            placeholder={"Search channels"}
-            delete={this.deleteChannel}
-            duplicate={this.duplicateChannel}
-            name="channels"
+            placeholder="Search channels"
+            activeRow={item => item.name === selectedChannel}
+            rowLabel={item => item.name}
+            rowFilter={this.filterChannels}
+            onDuplicate={this.duplicateChannel}
+            onDelete={this.deleteChannel}
           />
         </div>
 
         {selectedChannel ?
           <div className="flex-content--fill channelsTab">
-            <div className="flex-content--row">
+            <div className="flex-content--row channel-actions">
               <TextInput
                 name="channel-name"
                 id="editable-title"
@@ -170,11 +170,16 @@ class ForcesTab extends Component {
                 data={channelName}
               />
               <div className="button-wrap-tab">
-                <span className="link link--noIcon" onClick={this.saveChannel} data-qa-type="save">Save Channel</span>
+                <Button
+                  color="secondary"
+                  onClick={this.saveChannel}
+                  data-qa-type="save"
+                >
+                  Save Channel
+                </Button>
               </div>
             </div>
             <p className="heading--sml">Participants and messages</p>
-
             <ChannelsTable data={this.props.wargame.data[curTab].channels.find((f) => f.name === selectedChannel).participants} />
           </div>
         : null}

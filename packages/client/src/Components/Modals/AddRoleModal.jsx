@@ -1,22 +1,19 @@
-import React, {Component} from 'react';
-import ModalWrapper from './ModalWrapper';
-import { connect } from 'react-redux';
+import React, {Component} from "react";
+import { connect } from "react-redux";
 import uniqId from "uniqid";
+import { ButtonList, TextInput } from "@serge/components";
 import { modalAction } from "../../ActionsAndReducers/Modal/Modal_ActionCreators";
-import TextInput from "../Inputs/TextInput";
 import {
   addRole,
   updateRole,
   setTabUnsaved,
 } from "../../ActionsAndReducers/dbWargames/wargames_ActionCreators";
-
 import "@serge/themes/App.scss";
-
 import Checkbox from "../Inputs/Checkbox";
-import { UMPIRE_FORCE } from '../../consts';
+import ModalWrapper from "./ModalWrapper";
+import { UMPIRE_FORCE } from "../../consts";
 
 class AddRoleModal extends Component {
-
   constructor(props) {
     super(props);
 
@@ -30,7 +27,6 @@ class AddRoleModal extends Component {
   }
 
   hideModal = () => {
-
     this.setState({
       roleName: '',
       rolePassword: '',
@@ -107,11 +103,23 @@ class AddRoleModal extends Component {
 
 
   render() {
-
     if (!this.props.currentModal.open) return false;
 
-    var disable = this.state.roleName.length < 1 || this.state.sameName || this.state.samePassword || this.state.rolePassword.length > 30;
+    const disabled = this.state.roleName.length < 1 || this.state.sameName || this.state.samePassword || this.state.rolePassword.length > 30;
     let selectedForce = this.props.wargame.data.forces.selectedForce.uniqid;
+
+    const buttons = [{
+      name: 'add',
+      color: 'primary',
+      onClick: this.addRole,
+      children: 'Add',
+      disabled
+    }, {
+      name: 'cancel',
+      color: 'secondary',
+      onClick: this.hideModal,
+      children: 'Cancel'
+    }]
 
     return (
       <ModalWrapper>
@@ -122,23 +130,25 @@ class AddRoleModal extends Component {
           {this.state.rolePassword.length > 30 && <p className="notification">Password limit is 30 chars.</p>}
 
           <div className="flex-content-wrapper flex-content-wrapper--column">
-            <div className="flex-content">
+            <div className="flex-content form-group">
               <TextInput
-                className="material-input"
+                fullWidth
+                labelColor="common.white"
                 label="Name"
-                updateStore={this.setNewRoleName}
-                data={this.state.roleName}
-                options={{numInput: false}}
+                variant="filled"
+                updateState={el => this.setNewRoleName(el.value)}
+                value={this.state.roleName}
                 autoFocus={true}
               />
             </div>
-            <div className="flex-content">
+            <div className="flex-content form-group">
               <TextInput
-                className="material-input"
+                fullWidth
+                labelColor="common.white"
                 label="Password"
-                updateStore={this.setNewRolePassword}
-                data={this.state.rolePassword}
-                options={{numInput: false}}
+                variant="filled"
+                updateState={target => this.setNewRolePassword(target.value)}
+                value={this.state.rolePassword}
               />
             </div>
             {selectedForce === UMPIRE_FORCE &&
@@ -169,14 +179,13 @@ class AddRoleModal extends Component {
                 updateStore={this.setCanSubmitPlans}
                 // submit plans is a new parameter. It is missing from some wargames.
                 // so use value of false if its missing
-                isChecked={this.state.canSubmitPlans || false} 
+                isChecked={this.state.canSubmitPlans || false}
                 title="Role can submit mapping plans"
               />
             </div>
           </div>
           <div className="buttons">
-            <button name="cancel" className="btn btn-action btn-action--secondary" onClick={this.hideModal}>Cancel</button>
-            <button disabled={disable} name="add" className="btn btn-action btn-action--primary" onClick={this.addRole}>Add</button>
+            <ButtonList buttons={buttons}/>
           </div>
         </div>
       </ModalWrapper>
