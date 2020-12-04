@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
@@ -10,7 +10,8 @@ import { cloneDeep, isEqual } from 'lodash'
 import groupMoveToRoot from './helpers/group-move-to-root'
 import groupCreateNewGroup from './helpers/group-create-new-group'
 import groupHostPlatform from './helpers/group-host-platform'
-import storePlannedRoute from './helpers/store-planned-route'
+// TODO: verify we still handle planned routes properly
+// import storePlannedRoute from './helpers/store-planned-route'
 import createGrid from './helpers/create-grid'
 import boundsFor from './helpers/bounds-for'
 import {
@@ -129,6 +130,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [filterPlannedRoutes, setFilterPlannedRoutes] = useState<boolean>(true)
   const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
+  const [currentPhase, setCurrentPhase] = useState<string>(phase)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -206,13 +208,13 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
     if (forcesState && gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-      const store: RouteStore = routeCreateStore(selectedId, forcesState, playerForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
+      const store: RouteStore = routeCreateStore(selectedId, forcesState, playerForce,
+        platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
       setRouteStore(store)
     }
-  }, [forcesState, playerForce, phase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
+  }, [forcesState, playerForce, currentPhase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
 
   /**
    * generate the set of routes visible to this player, for display
@@ -221,13 +223,13 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // note: we introduced the `gridCells` dependency to ensure the UI is `up` before
     // we modify the routeStore
-    const umpireInAdjudication = playerForce === 'umpire' && phase === ADJUDICATION_PHASE
     if (forcesState && gridCells && routeStore.routes.length) {
       // if this is umpire and we have view as
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-        const vStore: RouteStore = routeCreateStore(selectedId, forcesState, viewAsForce, umpireInAdjudication, platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes)
+        const vStore: RouteStore = routeCreateStore(selectedId, forcesState, viewAsForce, platforms,
+          gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
         declutterRouteStore(vStore)
       } else {
         // just use normal route store
@@ -241,9 +243,18 @@ export const Mapping: React.FC<PropTypes> = ({
     setViewAsRouteStore(declutteredStore)
   }
 
-  // on a new phase, we have to allow plans to be submitted
+  /**
+   * on a new phase, we have to allow plans to be submitted. Wrap `phase` into `currentPhase` so that
+   * we can confidently wipe and old planning steps from the last phase, and not risk
+   * pulling them into the new routes object
+   */
   useEffect(() => {
     setPlansSubmitted(false)
+
+    // wipe the route store, to ensure any routes that were being planned get forgotten
+    setRouteStore({ routes: [] })
+    // now update the phase
+    setCurrentPhase(phase)
   }, [phase])
 
   useEffect(() => {
@@ -264,10 +275,12 @@ export const Mapping: React.FC<PropTypes> = ({
       const newGrid: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
       setGridCells(newGrid)
     }
+    console.clear() // TODO: remove this, it's just a shortcut to ensuring each "session" starts with clear console.ß
   }, [tileDiameterMins, latLngBounds])
 
   useEffect(() => {
     if (newLeg) {
+      const inAdjudicate: boolean = currentPhase === ADJUDICATION_PHASE
       const selRoute = routeStore.selected
       if (selRoute) {
         const turnStart = selRoute.planned && selRoute.planned.length
@@ -288,23 +301,39 @@ export const Mapping: React.FC<PropTypes> = ({
             coords: coords,
             locations: locations
           }
-          const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
+
+          // if we're in adjudicate phase, we have to wipe the planned steps, since umpire
+          // only plans next step
+          const readyToAdd: RouteStore = inAdjudicate ? routeClearFromStep(routeStore, selRoute.uniqid, turnNumber) : routeStore
+          const newStore: RouteStore = routeAddSteps(readyToAdd, selRoute.uniqid, [newStep])
+
+          // if we know our planning constraints, we can plan the next leg, as long as we're not
+          // in adjudication phase. In that phase, only one step is created
+          if (planningConstraints && !inAdjudicate) {
+            // get the last planned cell, to act as the first new planned cell
+            const lastCell: SergeHex<{}> = newLeg.route[newLeg.route.length - 1]
+            // create new planning contraints
+            const newP: PlanMobileAsset = {
+              origin: lastCell.name,
+              travelMode: planningConstraints.travelMode,
+              status: newLeg.state,
+              speed: newLeg.speed
+            }
+            setPlanningConstraints(newP)
+          } else {
+            // we're in adjudicate mode, cancel the planning
+            setPlanningConstraints(undefined)
+
+            // create a new route store
+            // tell the current route it's been planned
+            const selected: Route | undefined = newStore.selected
+            if (selected) {
+              selected.adjudicationState = PlanningStates.Planned
+            }
+          }
+
           setRouteStore(newStore)
         }
-      }
-
-      // if we know our planning constraints, we can plan the next leg
-      if (planningConstraints) {
-        // get the last planned cell, to act as the first new planned cell
-        const lastCell: SergeHex<{}> = newLeg.route[newLeg.route.length - 1]
-        // create new planning contraints
-        const newP: PlanMobileAsset = {
-          origin: lastCell.name,
-          travelMode: planningConstraints.travelMode,
-          status: newLeg.state,
-          speed: newLeg.speed
-        }
-        setPlanningConstraints(newP)
       }
     }
   }, [newLeg])
@@ -335,6 +364,72 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
+  /** determine if the route from the adjudication step is different to what the
+   * force had planned
+   * TODO: refactor to standalone function/helper
+   */
+  // const routeChanged = (existingPlanned: RouteStep[] | undefined, adjudicated: AdjudicateTurnFormValues): boolean => {
+  //   if (!existingPlanned || existingPlanned.length === 0) {
+  //     return true
+  //   } else {
+  //     // TODO: compare the next step with the adjudicated plan
+  //     return (adjudicated.speedVal > 0)
+  //   }
+  // }
+
+  const cancelRoutePlanning = (): void => {
+    setPlanningConstraints(undefined)
+  }
+
+  /**
+   * Umpire has accepted (or modified a route)
+   * @param assetId
+   * @param plannedTurn
+   */
+  // const routeAccepted = (plannedRoute: AdjudicateTurnFormValues): void => {
+  //   console.log('route accepted', routeStore.selected && routeStore.selected.name, plannedRoute)
+
+  //   // store the planned route for this asset
+  //   const selRoute: Route | undefined = routeStore.selected
+  //   if (selRoute) {
+  //     // check if old planned route is different to the one from adjudication
+  //     const routeDifferent: boolean = routeChanged(selRoute.planned, plannedRoute)
+  //     if (routeDifferent) {
+  //       // different. Store the new route
+  //       // Create new route object
+  //       // Store the new route
+
+  //       // fire new routeStore
+  //     } else {
+  //       // route unchanged, so we don't need to do anything.
+  //     }
+
+  //     // const turnStart = selRoute.planned && selRoute.planned.length
+  //     //   ? selRoute.planned[selRoute.planned.length - 1].turn
+  //     //   : turnNumber
+
+  //     // // increment turn number, if we have any turns planned, else start with `1`
+  //     // const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
+  //     //   return cell.name
+  //     // })
+  //     // const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex<{}>) => {
+  //     //   return cell.centreLatLng
+  //     // })
+  //     // if (selRoute) {
+  //     //   const newStep: RouteStep = {
+  //     //     turn: turnStart + 1,
+  //     //     status: { state: newLeg.state, speedKts: newLeg.speed },
+  //     //     coords: coords,
+  //     //     locations: locations
+  //     //   }
+  //     //   const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
+  //     //   setRouteStore(newStore)
+  //     // }
+  //   }
+
+  //   // store what will be the new condition, visibility, in this route.
+  // }
+
   const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
     const current: Route | undefined = routeStore.selected
     if (current) {
@@ -342,7 +437,8 @@ export const Mapping: React.FC<PropTypes> = ({
       const status = plannedTurn.statusVal
       if (status.mobile) {
         // trigger route planning
-        const origin: string = routeGetLatestPosition(current.currentPosition, current.planned)
+        const inAdjudicate: boolean = currentPhase === ADJUDICATION_PHASE
+        const origin: string = inAdjudicate ? current.currentPosition : routeGetLatestPosition(current.currentPosition, current.planned)
 
         // sort out platform type for this asset
         const pType = findPlatformTypeFor(platforms, current.platformType)
@@ -419,14 +515,17 @@ export const Mapping: React.FC<PropTypes> = ({
 
   const setSelectedAssetLocal = (asset: SelectedAsset | undefined): void => {
     // do we have a previous asset, does it have planned routes?
-    if (selectedAsset && routeStore && routeStore.selected &&
-        routeStore.selected.planned && routeStore.selected.planned.length > 0) {
-      const route: RouteStep[] = routeStore.selected.planned
 
-      // create an updated forces object, with the new planned routes
-      const newForces = storePlannedRoute(selectedAsset.uniqid, route, forcesState)
-      setForcesState(newForces)
-    }
+    // NO, don't store the object in the forces object. Keep them in the route store
+    // TODO: verify we're still handling planned routes
+    // if (selectedAsset && routeStore && routeStore.selected &&
+    //     routeStore.selected.planned && routeStore.selected.planned.length > 0) {
+    //   const route: RouteStep[] = routeStore.selected.planned
+
+    //   // create an updated forces object, with the new planned routes
+    //   const newForces = storePlannedRoute(selectedAsset.uniqid, route, forcesState)
+    //   setForcesState(newForces)
+    // }
     setSelectedAsset(asset)
   }
 
@@ -446,6 +545,7 @@ export const Mapping: React.FC<PropTypes> = ({
     zoomLevel,
     channelID,
     routeStore,
+    setRouteStore,
     viewAsRouteStore,
     setNewLeg,
     setShowMapBar,
@@ -453,6 +553,7 @@ export const Mapping: React.FC<PropTypes> = ({
     setZoomLevel,
     turnPlanned,
     clearFromTurn,
+    cancelRoutePlanning,
     postBack,
     hidePlanningForm,
     setHidePlanningForm,

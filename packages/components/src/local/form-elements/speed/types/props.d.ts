@@ -15,4 +15,8 @@ export default interface PropTypes {
    * on click on other speeds
    */
   onClick?: any
+  /**
+   * whether component is disabled
+   */
+  disabled?: boolean
 }

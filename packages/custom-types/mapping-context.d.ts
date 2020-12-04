@@ -1,4 +1,4 @@
-import { Phase } from '@serge/config'
+import { Phase, PlanningCommands } from '@serge/config'
 import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
@@ -57,6 +57,10 @@ export default interface MappingContext {
    * the set of routes applicable at this point
    */
   routeStore: RouteStore
+  /** 
+   * allow route store to be updated 
+   */
+  setRouteStore: {(store: RouteStore): void}
   /**
    * the modified set of routes to support "view as"
    */
@@ -89,6 +93,10 @@ export default interface MappingContext {
    * player has added new step
    */
   turnPlanned?: {(turn: PlanTurnFormValues): void}
+  /**
+   * Cancel route planning
+   */
+  cancelRoutePlanning?: {(): void}
   /**
    * handler to clear current route from specified number
    */

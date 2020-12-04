@@ -72,6 +72,14 @@ export const HexGrid: React.FC<{}> = () => {
       if (current) {
         setAssetColor(current.color)
       }
+    } else {
+      /** if no asset is selected, clear the planning elements
+       */
+      setAllowableFilteredCells([])
+      setOrigin(undefined)
+      setOriginHex(undefined)
+      setPlanningRoutePoly([])
+      setPlannedRoutePoly([])
     }
   }, [selectedAsset])
 
@@ -81,18 +89,6 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     setPlanningRange(planningRangeProps)
   }, [planningRangeProps])
-
-  /** if no asset is selected, clear the planning elements
-   */
-  useEffect(() => {
-    if (!selectedAsset) {
-      setAllowableFilteredCells([])
-      setOrigin(undefined)
-      setOriginHex(undefined)
-      setPlanningRoutePoly([])
-      setPlannedRoutePoly([])
-    }
-  }, [selectedAsset])
 
   /** handle the dynamic indicator that follows mouse movement,
        * represented as cells & a line

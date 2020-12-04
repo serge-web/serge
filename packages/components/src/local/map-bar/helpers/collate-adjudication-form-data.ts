@@ -1,4 +1,4 @@
-import { SelectedAsset, AdjudicateTurnFormData, ColorOption } from '@serge/custom-types'
+import { SelectedAsset, AdjudicateTurnFormPopulate, ColorOption } from '@serge/custom-types'
 
 import { kebabCase } from 'lodash'
 import availableForces from './available-forces'
@@ -10,24 +10,14 @@ import availableForces from './available-forces'
  */
 const collateAdjudicationFormData = (platforms: any, selectedAsset: SelectedAsset,
   forces: any
-): AdjudicateTurnFormData => {
+): AdjudicateTurnFormPopulate => {
   const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
-  const availableStatus = currentPlatform && currentPlatform.states.find((s: any) => s.name === selectedAsset.status.state)
-  const availableForcesList: ColorOption[] = availableForces(forces, true)
-  const formData: AdjudicateTurnFormData = {
-    populate: {
-      status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : [],
-      speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
-      visibleTo: availableForcesList,
-      condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
-    },
-    values: {
-      plannedRouteStatusVal: 'pending',
-      statusVal: availableStatus,
-      speedVal: selectedAsset.status.speedKts,
-      visibleToVal: selectedAsset.visibleTo,
-      conditionVal: selectedAsset.condition
-    }
+  const availableForcesList: ColorOption[] = availableForces(forces, false, true)
+  const formData: AdjudicateTurnFormPopulate = {
+    status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : [],
+    speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
+    visibleTo: availableForcesList,
+    condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
   }
   return formData
 }

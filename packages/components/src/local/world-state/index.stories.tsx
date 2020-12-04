@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactText } from 'react'
 
 import { withKnobs, radios, boolean } from '@storybook/addon-knobs'
 
@@ -7,7 +7,9 @@ import WorldState from './index'
 import docs from './README.md'
 import { routeCreateStore } from '@serge/helpers'
 import { forces, platformTypes } from '@serge/mocks'
-import { ADJUDICATION_PHASE, Phase } from '@serge/config'
+import { Phase } from '@serge/config'
+
+import { WorldStatePanels } from './helpers/enums'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -28,12 +30,6 @@ export default {
   }
 }
 
-/**
- * VIEW WITH MULTIPLE ASSETS
- */
-const showOthersLabel = 'Show other platforms'
-const showOthersDefaultValues = false
-
 const canSubmitLabel = 'Show other platforms'
 const canSubmitDefaultValues = true
 
@@ -52,13 +48,20 @@ const phasesPhaseNames = {
 }
 const phasePhaseValue = Phase.Planning
 
-export const WithPhases: React.FunctionComponent = () => <WorldState showOtherPlatforms={boolean(showOthersLabel, showOthersDefaultValues)}
+const panelsLabel = 'Panel Tab'
+const panelsNames: Record<ReactText, WorldStatePanels> = {
+  Control: WorldStatePanels.Control,
+  Visiblity: WorldStatePanels.Visibility,
+  Controlled: WorldStatePanels.ControlledBy
+}
+const panelsValue: WorldStatePanels = WorldStatePanels.Control
+
+export const WithPhases: React.FunctionComponent = () => <WorldState panel={radios<WorldStatePanels>(panelsLabel, panelsNames, panelsValue)}
   isUmpire={boolean('Player is umpire', false)}
   plansSubmitted={false}
   canSubmitOrders={boolean(canSubmitLabel, canSubmitDefaultValues)}
   phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
-  store={routeCreateStore(undefined, forces, radios(label, forceNames, defaultValue),
-    radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue) === ADJUDICATION_PHASE, platformTypes, undefined, false, false)}
+  store={routeCreateStore(undefined, forces, radios(label, forceNames, defaultValue), platformTypes, undefined, false, false)}
   submitTitle='Submit' name="World State" />
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.

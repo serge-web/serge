@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import FlexLayout from "flexlayout-react";
 import Channel from "../Components/Channel";
 import _ from "lodash";
-import { expiredStorage, LOCAL_STORAGE_TIMEOUT, STATE_OF_WORLD, SUBMIT_PLANS } from "../consts";
+import { expiredStorage, LOCAL_STORAGE_TIMEOUT, STATE_OF_WORLD, SUBMIT_PLANS, PERCEPTION_OF_CONTACT, VISIBILIY_CHANGES } from "../consts";
 import { getAllWargameMessages } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
 import { PlayerStateContext } from "../Store/PlayerUi";
 import "@serge/themes/dependencies/flexlayout-react.scss";
@@ -10,8 +10,6 @@ import "@serge/themes/App.scss";
 import { Mapping, Assets, HexGrid } from "@serge/components"
 import { saveMapMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { sendMessage } from '@serge/helpers'
-
-import { PERCEPTION_OF_CONTACT } from '@serge/config'
 
 const json = {
   global: {
@@ -145,7 +143,10 @@ class ChannelTabsContainer extends Component {
     const postback = (form, payload, channelID) => {
  
       switch(form) {
-        case 'perception':
+        case VISIBILIY_CHANGES:
+          sendMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+          break
+        case PERCEPTION_OF_CONTACT:
           sendMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
           break
         case SUBMIT_PLANS:

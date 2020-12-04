@@ -3,7 +3,7 @@ import React from 'react'
 import { withKnobs, number, radios, boolean, text } from '@storybook/addon-knobs'
 
 /* Import mock data */
-import { forces, platformTypes } from '@serge/mocks'
+import { forces, platformTypes, smallForces } from '@serge/mocks'
 
 // Import component files
 import Mapping from './index'
@@ -184,6 +184,33 @@ export const WithAssets: React.FC = () => <Mapping
 
 // @ts-ignore TS belives the 'story' property doesn't exist but it does.
 WithAssets.story = {
+  parameters: {
+    options: {
+      // This story requires addons but other stories in this component do not
+      showPanel: true
+    }
+  }
+}
+
+/**
+ * VIEW WITH TRIMMED ASSETS
+ */
+export const WithLimitedAssets: React.FC = () => <Mapping
+  tileDiameterMins={5}
+  bounds={bounds}
+  tileLayer={LocalTileLayer}
+  forces={smallForces}
+  playerForce={radios(label, forceNames, defaultValue)}
+  canSubmitOrders={boolean(canSubmitLabel, canSubmitDefaultValue)}
+  platforms={platformTypes}
+  phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
+  turnNumber={2}
+  postBack={postback} >
+  <Assets /><HexGrid />
+</Mapping>
+
+// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+WithLimitedAssets.story = {
   parameters: {
     options: {
       // This story requires addons but other stories in this component do not

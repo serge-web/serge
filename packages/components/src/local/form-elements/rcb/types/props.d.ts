@@ -30,6 +30,10 @@ export default interface PropTypes {
    * Sets the onChange state on a parent
    */
   updateState?: any
+  /**
+   * Whether to use compact format (esp for list of color shades)
+   */
+  compact?: boolean
   /*
    * disable offset for input container
    */
