@@ -24,8 +24,12 @@ const onChange = (newVal: string): void => {
   console.log('changed', newVal)
 }
 
-export const Default: React.FC = () => <StatusBar wargame={wargame} onChange={onChange} />
-export const Initiated: React.FC = () => <StatusBar wargame={{ ...wargame, wargameInitiated: true }} onChange={onChange} />
+const onSave = (update: string): void => {
+  console.log(update)
+}
+
+export const Default: React.FC = () => <StatusBar wargame={wargame} onChange={onChange} onSave={onSave} />
+export const Initiated: React.FC = () => <StatusBar wargame={{ ...wargame, wargameInitiated: true }} onChange={onChange} onSave={onSave} />
 
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {

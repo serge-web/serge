@@ -17,7 +17,8 @@ import {
   setSelectedForce,
   setSelectedChannel,
   addNewChannel,
-  duplicateChannel
+  duplicateChannel,
+  saveWargameTitle
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
@@ -38,7 +39,9 @@ const AdminGameSetup = () => {
   const {
     data,
     currentWargame,
-    currentTab
+    currentTab,
+    wargameList,
+    wargameTitle
   } = wargame
   const {
     overview,
@@ -229,6 +232,24 @@ const AdminGameSetup = () => {
     }
   }
 
+  const handleSaveWargameTitle = (newGameTitle) => {
+    let wargameNames = wargameList.map((game) => game.title)
+    wargameNames = _.pull(wargameNames, wargameTitle)
+
+    if (!checkUnique(newGameTitle, wargameNames)) {
+      dispatch(addNotification('Wargame name is not unique.', 'warning'))
+      return
+    }
+
+    if (typeof newGameTitle === 'string' && newGameTitle.length > 0) {
+      dispatch(saveWargameTitle(currentWargame, newGameTitle))
+    }
+
+    if (newGameTitle === null || newGameTitle.length === 0) {
+      window.alert('no channel name')
+    }
+  }
+
   useEffect(() => {
     if (currentTab === 'forces' && forces.selectedForce === '') {
       dispatch(setSelectedForce(forces.forces[0]))
@@ -263,6 +284,7 @@ const AdminGameSetup = () => {
       selectedChannel={channels.selectedChannel}
       onSave={onSave}
       messageTemplates={messageTypes.messages}
+      onSaveGameTitle={handleSaveWargameTitle}
     />
   )
 }

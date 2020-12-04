@@ -2,8 +2,10 @@
 // Please do not change this file!
 interface CssExports {
   'input': string;
+  'input-box': string;
   'item': string;
   'main': string;
+  'save-icon': string;
   'status': string;
 }
 export const cssExports: CssExports;

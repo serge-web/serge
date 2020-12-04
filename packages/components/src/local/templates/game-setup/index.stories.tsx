@@ -79,6 +79,10 @@ export const Default: React.FC = () => {
     console.log('new channels', updates.channels)
   }
 
+  const onSaveGameTitle = (update: string): void => {
+    console.log(update)
+  }
+
   return (
     <GameSetup
       activeTab={adminTabs[activeTab]}
@@ -96,6 +100,7 @@ export const Default: React.FC = () => {
       onChannelsChange={onChannelsChange}
       onSave={onSave}
       messageTemplates={MessageTemplatesMock}
+      onSaveGameTitle={onSaveGameTitle}
     />
   )
 }

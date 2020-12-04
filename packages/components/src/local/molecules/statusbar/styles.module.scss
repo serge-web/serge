@@ -16,6 +16,7 @@
 .status {
   color: $secondary-color;
   font-size: 1rem;
+  text-align: center;
 }
 
 .input {
@@ -33,4 +34,14 @@
   :focus {
     color: #000;
   }
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+}
+
+.save-icon {
+  cursor: pointer;
+  color: #415b76;
 }

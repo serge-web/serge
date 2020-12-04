@@ -84,4 +84,8 @@ export default interface Props extends AdminLayoutProps {
    * Message templates to be shown on channel setting
    */
   messageTemplates: Array<MessageTemplate>
+  /**
+   * Handle game title save event
+   */
+  onSaveGameTitle?: (update: string) => void
 }

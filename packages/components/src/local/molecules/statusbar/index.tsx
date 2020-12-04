@@ -11,11 +11,12 @@ import styles from './styles.module.scss'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHourglassStart } from '@fortawesome/free-solid-svg-icons'
+import { faHourglassStart, faSave } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
 export const StatusBar: React.FC<PropTypes> = ({
   onChange,
+  onSave,
   wargame: initialWargame,
   tabsOrder = [
     'overview',
@@ -26,11 +27,20 @@ export const StatusBar: React.FC<PropTypes> = ({
 }) => {
   const [wargame, setWargame] = useState(initialWargame)
   const [value, setValue] = useState(wargame.wargameTitle)
+  const [dirty, setDirty] = useState(false)
 
   const handleChange = (target: {value: string}): void => {
+    setDirty(true)
     setValue(target.value)
     if (typeof onChange === 'function') {
       onChange(target.value)
+    }
+  }
+
+  const handleSave = (): void => {
+    setDirty(false)
+    if (typeof onSave === 'function') {
+      onSave(value)
     }
   }
 
@@ -57,6 +67,11 @@ export const StatusBar: React.FC<PropTypes> = ({
           value={value}
           updateState={handleChange}
         />
+        {
+          dirty
+            ? <FontAwesomeIcon className={styles['save-icon']} icon={faSave} size="2x" onClick={handleSave} />
+            : null
+        }
       </div>
       {
         wargame.wargameInitiated && (

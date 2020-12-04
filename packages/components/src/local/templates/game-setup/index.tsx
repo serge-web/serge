@@ -37,12 +37,13 @@ export const GameSetup: React.FC<Props> = ({
   onDuplicateChannel,
   selectedChannel,
   onSave,
-  messageTemplates
+  messageTemplates,
+  onSaveGameTitle
 }: Props) => {
   const currentActiveTab = wargame?.currentTab || activeTab
 
   return (
-    <AdminLayout wargame={wargame} activeTab={currentActiveTab} tabs={tabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
+    <AdminLayout onSave={onSaveGameTitle} wargame={wargame} activeTab={currentActiveTab} tabs={tabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>
         {
           currentActiveTab === 'overview' && (
