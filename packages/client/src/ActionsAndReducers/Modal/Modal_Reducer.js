@@ -1,5 +1,5 @@
-import ActionConstant from '../ActionConstants.js'
-import copyState from '../../Helpers/copyStateHelper.js'
+import * as ActionConstant from '../ActionConstants'
+import copyState from '../../Helpers/copyStateHelper'
 
 const initialState = {
   open: false,

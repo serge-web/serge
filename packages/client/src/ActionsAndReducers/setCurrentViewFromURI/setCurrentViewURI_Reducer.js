@@ -1,4 +1,4 @@
-import ActionConstant from '../ActionConstants'
+import * as ActionConstant from '../ActionConstants'
 
 export const currentViewURIReducer = (state = '/', action) => {
   let newState = state

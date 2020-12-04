@@ -1,4 +1,4 @@
-import ActionConstant from '../ActionConstants'
+import * as ActionConstant from '../ActionConstants'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
 

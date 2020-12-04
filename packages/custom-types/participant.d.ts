@@ -5,5 +5,6 @@ export default interface Participant {
   forceUniqid: string,
   roles: Array<Role>,
   subscriptionId: string,
-  templates: Array<any>
+  templates: Array<any>,
+  icon?: any // TODO: Check it
 }

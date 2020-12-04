@@ -1,4 +1,4 @@
-import ActionConstant from '../ActionConstants'
+import * as ActionConstant from '../ActionConstants'
 import flatten from 'flat'
 
 export const createExportItem = (exportData) => ({
