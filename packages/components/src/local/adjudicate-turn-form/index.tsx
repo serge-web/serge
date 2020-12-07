@@ -70,7 +70,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       updateIfNecessary('speed', speedVal, manager.plannedSpeed(), setSpeedVal)
 
       // the command buttons
-      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(stateIsMobile), setUpperPlanningActions)
+      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(), setUpperPlanningActions)
       updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
     }
   }, [manager])
@@ -101,6 +101,8 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   }
 
   const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: {(value: any): void}): void => {
+    // avoid unused param warning. TODO: remove once no need for debugging
+    _name && _name
     if (!deepCompare(before, after)) {
       // console.log('+ updating ', name, before, after)
       doUpdate(after)
