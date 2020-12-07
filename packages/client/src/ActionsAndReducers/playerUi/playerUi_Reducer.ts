@@ -28,8 +28,8 @@ export const initialState: PlayerUi = {
   gameDate: '',
   gameTurnTime: 0,
   realtimeTurnTime: 0,
-  turnEndTime: '',
-  adjudicationStartTime: 0,
+  turnEndTime: 0,
+  adjudicationStartTime: '',
   gameDescription: '',
   currentWargame: '',
   wargameTitle: '',
@@ -160,6 +160,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
     default:
       return newState
   }
+  console.log('Player UI' + action.type, JSON.stringify({action, state, newState}));
 
   return newState
 }

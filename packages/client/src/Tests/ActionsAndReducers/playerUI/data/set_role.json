@@ -1,0 +1,610 @@
+{
+  "action": {
+    "type": "SET_ROLE",
+    "payload": {
+      "name": "CO",
+      "password": "pk16fdykk",
+      "control": false,
+      "isObserver": false,
+      "isInsightViewer": false
+    }
+  },
+  "state": {
+    "selectedForce": "force-k16fdykj",
+    "forceColor": "#3dd0ff",
+    "selectedRole": "",
+    "isObserver": false,
+    "canSubmitPlans": false,
+    "controlUi": false,
+    "currentTurn": 57,
+    "phase": "adjudication",
+    "gameDate": "2019-10-29T02:02",
+    "gameTurnTime": 43200000,
+    "realtimeTurnTime": 300000,
+    "turnEndTime": 0,
+    "adjudicationStartTime": "2020-09-30T09:17:56+07:00",
+    "gameDescription": "",
+    "currentWargame": "wargame-k16fadm4",
+    "wargameTitle": "Monday",
+    "chatChannel": {
+      "name": "game-admin",
+      "template": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "format": "textarea",
+            "options": {
+              "inputAttributes": {
+                "placeholder": "type the text"
+              }
+            }
+          }
+        },
+        "title": "Chat",
+        "format": "grid"
+      },
+      "messages": []
+    },
+    "channels": {},
+    "allChannels": [
+      {
+        "name": "Blue Chat",
+        "uniqid": "channel-k16fgs63",
+        "participants": [
+          {
+            "force": "Blue",
+            "forceUniqid": "force-k16fdykj",
+            "roles": [],
+            "templates": [
+              {
+                "label": "Chat",
+                "value": {
+                  "lastUpdated": "2019-09-30T12:37:26.705Z",
+                  "title": "Chat",
+                  "details": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string",
+                        "format": "textarea",
+                        "options": {
+                          "inputAttributes": {
+                            "placeholder": "type the text"
+                          }
+                        }
+                      }
+                    },
+                    "title": "Chat",
+                    "format": "grid"
+                  },
+                  "completed": false,
+                  "_id": "k16eedkl",
+                  "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
+                }
+              }
+            ],
+            "icon": "http://localhost:8080/default_img/forceDefault.png",
+            "subscriptionId": "k16fh4xo"
+          }
+        ]
+      },
+      {
+        "name": "Blue HQ",
+        "uniqid": "channel-k16fheej",
+        "participants": [
+          {
+            "force": "Blue",
+            "forceUniqid": "force-k16fdykj",
+            "roles": [
+              {
+                "value": "CO",
+                "label": "CO"
+              }
+            ],
+            "templates": [
+              {
+                "label": "PG19 Weekly Orders",
+                "value": {
+                  "lastUpdated": "2019-09-30T12:37:26.705Z",
+                  "title": "PG19 Weekly Orders",
+                  "details": {
+                    "type": "object",
+                    "properties": {
+                      "CommandersIntent": {
+                        "title": "Commanders Intent",
+                        "type": "string",
+                        "format": "textarea"
+                      },
+                      "Orders": {
+                        "items": {
+                          "properties": {
+                            "Unit": {
+                              "title": "Unit",
+                              "type": "string",
+                              "format": "text"
+                            },
+                            "Orders": {
+                              "title": "Orders",
+                              "type": "string",
+                              "format": "textarea"
+                            },
+                            "ContingencyOrders": {
+                              "title": "Contingency Orders",
+                              "type": "string",
+                              "format": "textarea"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "title": "Orders",
+                        "type": "array",
+                        "format": "table",
+                        "minItems": 1
+                      },
+                      "PxTasking": {
+                        "title": "Px Tasking",
+                        "type": "string",
+                        "format": "textarea"
+                      },
+                      "AlliedUnitTasking": {
+                        "title": "Allied Unit Tasking",
+                        "type": "string",
+                        "format": "textarea"
+                      },
+                      "ForceActionOnContact": {
+                        "title": "Force action on contact",
+                        "type": "string",
+                        "format": "textarea"
+                      },
+                      "ForceActionOnLossOfContact": {
+                        "title": "Force action on loss of contact",
+                        "type": "string",
+                        "format": "textarea"
+                      },
+                      "SupportingLogisticsActivity": {
+                        "title": "Supporting logistics activity",
+                        "type": "string",
+                        "format": "textarea"
+                      }
+                    },
+                    "title": "PG19 Weekly Orders",
+                    "required": [
+                      "CommandersIntent",
+                      "Orders",
+                      "PxTasking",
+                      "AlliedUnitTasking",
+                      "ForceActionOnContact",
+                      "ForceActionOnLossOfContact",
+                      "SupportingLogisticsActivity"
+                    ]
+                  },
+                  "completed": false,
+                  "_id": "k16eedko",
+                  "_rev": "1-9682b67e15ded61bd4f8d863179d5c04"
+                }
+              }
+            ],
+            "icon": "http://localhost:8080/default_img/forceDefault.png",
+            "subscriptionId": "k16fhq4b"
+          },
+          {
+            "force": "White",
+            "forceUniqid": "umpire",
+            "roles": [
+              {
+                "value": "Game Control",
+                "label": "Game Control"
+              }
+            ],
+            "templates": [
+              {
+                "label": "Chat",
+                "value": {
+                  "lastUpdated": "2019-09-30T12:37:26.705Z",
+                  "title": "Chat",
+                  "details": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string",
+                        "format": "textarea",
+                        "options": {
+                          "inputAttributes": {
+                            "placeholder": "type the text"
+                          }
+                        }
+                      }
+                    },
+                    "title": "Chat",
+                    "format": "grid"
+                  },
+                  "completed": false,
+                  "_id": "k16eedkl",
+                  "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
+                }
+              }
+            ],
+            "icon": "http://localhost:8080/default_img/umpireDefault.png",
+            "subscriptionId": "k16fhy24"
+          }
+        ]
+      },
+      {
+        "name": "Mapping",
+        "uniqid": "channel-k4cnw3nr",
+        "participants": [
+          {
+            "force": "White",
+            "forceUniqid": "umpire",
+            "roles": [],
+            "templates": [],
+            "icon": "http://localhost:8080/default_img/umpireDefault.png",
+            "subscriptionId": "k4cnwg1q"
+          },
+          {
+            "force": "Blue",
+            "forceUniqid": "force-k16fdykj",
+            "roles": [],
+            "templates": [],
+            "icon": "http://localhost:8080/default_img/forceDefault.png",
+            "subscriptionId": "k4cnwjfx"
+          }
+        ]
+      }
+    ],
+    "allForces": [
+      {
+        "name": "White",
+        "uniqid": "umpire",
+        "overview": "Umpire force.",
+        "roles": [
+          {
+            "name": "Game Control",
+            "password": "pk16fa8oa",
+            "control": true,
+            "isObserver": true,
+            "isInsightViewer": true
+          }
+        ],
+        "icon": "http://localhost:8080/default_img/umpireDefault.png",
+        "color": "#FCFBEE",
+        "umpire": true,
+        "dirty": false
+      },
+      {
+        "name": "Blue",
+        "uniqid": "force-k16fdykj",
+        "overview": "An overview written here..",
+        "roles": [
+          {
+            "name": "CO",
+            "password": "pk16fdykk",
+            "control": false,
+            "isObserver": false,
+            "isInsightViewer": false
+          },
+          {
+            "name": "Comms",
+            "password": "pk16ffhn3",
+            "isObserver": false,
+            "isInsightViewer": false,
+            "control": false
+          }
+        ],
+        "icon": "http://localhost:8080/default_img/forceDefault.png",
+        "color": "#3dd0ff",
+        "umpire": false,
+        "dirty": false
+      }
+    ],
+    "allTemplates": [],
+    "allPlatformTypes": [],
+    "showObjective": false,
+    "wargameInitiated": true,
+    "feedbackMessages": [],
+    "tourIsOpen": false,
+    "showAccessCodes": true,
+    "isInsightViewer": false,
+    "timeWarning": 60000
+  },
+  "newState": {
+    "selectedForce": "force-k16fdykj",
+    "forceColor": "#3dd0ff",
+    "selectedRole": "CO",
+    "isObserver": false,
+    "canSubmitPlans": false,
+    "controlUi": false,
+    "currentTurn": 57,
+    "phase": "adjudication",
+    "gameDate": "2019-10-29T02:02",
+    "gameTurnTime": 43200000,
+    "realtimeTurnTime": 300000,
+    "turnEndTime": 0,
+    "adjudicationStartTime": "2020-09-30T09:17:56+07:00",
+    "gameDescription": "",
+    "currentWargame": "wargame-k16fadm4",
+    "wargameTitle": "Monday",
+    "chatChannel": {
+      "name": "game-admin",
+      "template": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "format": "textarea",
+            "options": {
+              "inputAttributes": {
+                "placeholder": "type the text"
+              }
+            }
+          }
+        },
+        "title": "Chat",
+        "format": "grid"
+      },
+      "messages": []
+    },
+    "channels": {},
+    "allChannels": [
+      {
+        "name": "Blue Chat",
+        "uniqid": "channel-k16fgs63",
+        "participants": [
+          {
+            "force": "Blue",
+            "forceUniqid": "force-k16fdykj",
+            "roles": [],
+            "templates": [
+              {
+                "label": "Chat",
+                "value": {
+                  "lastUpdated": "2019-09-30T12:37:26.705Z",
+                  "title": "Chat",
+                  "details": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string",
+                        "format": "textarea",
+                        "options": {
+                          "inputAttributes": {
+                            "placeholder": "type the text"
+                          }
+                        }
+                      }
+                    },
+                    "title": "Chat",
+                    "format": "grid"
+                  },
+                  "completed": false,
+                  "_id": "k16eedkl",
+                  "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
+                }
+              }
+            ],
+            "icon": "http://localhost:8080/default_img/forceDefault.png",
+            "subscriptionId": "k16fh4xo"
+          }
+        ]
+      },
+      {
+        "name": "Blue HQ",
+        "uniqid": "channel-k16fheej",
+        "participants": [
+          {
+            "force": "Blue",
+            "forceUniqid": "force-k16fdykj",
+            "roles": [
+              {
+                "value": "CO",
+                "label": "CO"
+              }
+            ],
+            "templates": [
+              {
+                "label": "PG19 Weekly Orders",
+                "value": {
+                  "lastUpdated": "2019-09-30T12:37:26.705Z",
+                  "title": "PG19 Weekly Orders",
+                  "details": {
+                    "type": "object",
+                    "properties": {
+                      "CommandersIntent": {
+                        "title": "Commanders Intent",
+                        "type": "string",
+                        "format": "textarea"
+                      },
+                      "Orders": {
+                        "items": {
+                          "properties": {
+                            "Unit": {
+                              "title": "Unit",
+                              "type": "string",
+                              "format": "text"
+                            },
+                            "Orders": {
+                              "title": "Orders",
+                              "type": "string",
+                              "format": "textarea"
+                            },
+                            "ContingencyOrders": {
+                              "title": "Contingency Orders",
+                              "type": "string",
+                              "format": "textarea"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "title": "Orders",
+                        "type": "array",
+                        "format": "table",
+                        "minItems": 1
+                      },
+                      "PxTasking": {
+                        "title": "Px Tasking",
+                        "type": "string",
+                        "format": "textarea"
+                      },
+                      "AlliedUnitTasking": {
+                        "title": "Allied Unit Tasking",
+                        "type": "string",
+                        "format": "textarea"
+                      },
+                      "ForceActionOnContact": {
+                        "title": "Force action on contact",
+                        "type": "string",
+                        "format": "textarea"
+                      },
+                      "ForceActionOnLossOfContact": {
+                        "title": "Force action on loss of contact",
+                        "type": "string",
+                        "format": "textarea"
+                      },
+                      "SupportingLogisticsActivity": {
+                        "title": "Supporting logistics activity",
+                        "type": "string",
+                        "format": "textarea"
+                      }
+                    },
+                    "title": "PG19 Weekly Orders",
+                    "required": [
+                      "CommandersIntent",
+                      "Orders",
+                      "PxTasking",
+                      "AlliedUnitTasking",
+                      "ForceActionOnContact",
+                      "ForceActionOnLossOfContact",
+                      "SupportingLogisticsActivity"
+                    ]
+                  },
+                  "completed": false,
+                  "_id": "k16eedko",
+                  "_rev": "1-9682b67e15ded61bd4f8d863179d5c04"
+                }
+              }
+            ],
+            "icon": "http://localhost:8080/default_img/forceDefault.png",
+            "subscriptionId": "k16fhq4b"
+          },
+          {
+            "force": "White",
+            "forceUniqid": "umpire",
+            "roles": [
+              {
+                "value": "Game Control",
+                "label": "Game Control"
+              }
+            ],
+            "templates": [
+              {
+                "label": "Chat",
+                "value": {
+                  "lastUpdated": "2019-09-30T12:37:26.705Z",
+                  "title": "Chat",
+                  "details": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string",
+                        "format": "textarea",
+                        "options": {
+                          "inputAttributes": {
+                            "placeholder": "type the text"
+                          }
+                        }
+                      }
+                    },
+                    "title": "Chat",
+                    "format": "grid"
+                  },
+                  "completed": false,
+                  "_id": "k16eedkl",
+                  "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
+                }
+              }
+            ],
+            "icon": "http://localhost:8080/default_img/umpireDefault.png",
+            "subscriptionId": "k16fhy24"
+          }
+        ]
+      },
+      {
+        "name": "Mapping",
+        "uniqid": "channel-k4cnw3nr",
+        "participants": [
+          {
+            "force": "White",
+            "forceUniqid": "umpire",
+            "roles": [],
+            "templates": [],
+            "icon": "http://localhost:8080/default_img/umpireDefault.png",
+            "subscriptionId": "k4cnwg1q"
+          },
+          {
+            "force": "Blue",
+            "forceUniqid": "force-k16fdykj",
+            "roles": [],
+            "templates": [],
+            "icon": "http://localhost:8080/default_img/forceDefault.png",
+            "subscriptionId": "k4cnwjfx"
+          }
+        ]
+      }
+    ],
+    "allForces": [
+      {
+        "name": "White",
+        "uniqid": "umpire",
+        "overview": "Umpire force.",
+        "roles": [
+          {
+            "name": "Game Control",
+            "password": "pk16fa8oa",
+            "control": true,
+            "isObserver": true,
+            "isInsightViewer": true
+          }
+        ],
+        "icon": "http://localhost:8080/default_img/umpireDefault.png",
+        "color": "#FCFBEE",
+        "umpire": true,
+        "dirty": false
+      },
+      {
+        "name": "Blue",
+        "uniqid": "force-k16fdykj",
+        "overview": "An overview written here..",
+        "roles": [
+          {
+            "name": "CO",
+            "password": "pk16fdykk",
+            "control": false,
+            "isObserver": false,
+            "isInsightViewer": false
+          },
+          {
+            "name": "Comms",
+            "password": "pk16ffhn3",
+            "isObserver": false,
+            "isInsightViewer": false,
+            "control": false
+          }
+        ],
+        "icon": "http://localhost:8080/default_img/forceDefault.png",
+        "color": "#3dd0ff",
+        "umpire": false,
+        "dirty": false
+      }
+    ],
+    "allTemplates": [],
+    "allPlatformTypes": [],
+    "showObjective": false,
+    "wargameInitiated": true,
+    "feedbackMessages": [],
+    "tourIsOpen": false,
+    "showAccessCodes": true,
+    "isInsightViewer": false,
+    "timeWarning": 60000
+  }
+}

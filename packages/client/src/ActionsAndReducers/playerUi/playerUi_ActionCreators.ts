@@ -1,9 +1,10 @@
+import React from 'react'
 import * as ActionConstant from '../ActionConstants'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import isError from '../../Helpers/isError'
 
-import { Wargame, Role, PlayerUiMessageTypes, Message, PlayerDbMessageTypes } from '@serge/custom-types'
+import { Wargame, Role, PlayerUiMessageTypes, Message, MessageDetails, PlayerDbMessageTypes } from '@serge/custom-types'
 import {
   PlayerUiActionTypes
 } from './types'
@@ -75,50 +76,45 @@ export const closeModal = (): PlayerUiActionTypes => ({
   type: ActionConstant.CLOSE_MODAL
 })
 
-// @ts-ignore
-export const startListening = (dbName) => {
-  // @ts-ignore
-  return (dispatch) => {
+export const startListening = (dbName: string): Function => {
+  return (dispatch: React.Dispatch<PlayerUiActionTypes>): void => {
     wargamesApi.listenForWargameChanges(dbName, dispatch)
   }
 }
-// @ts-ignore
-export const initiateGame = (dbName) => {
-  // @ts-ignore
-  return async (dispatch) => {
+
+export const initiateGame = (dbName: string): Function => {
+  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     const wargame = await wargamesApi.initiateGame(dbName)
     dispatch(setCurrentWargame(wargame))
   }
 }
-// @ts-ignore
-export const getWargame = (gamePath) => {
-  // @ts-ignore
-  return async (dispatch) => {
+export const getWargame = (gamePath: string): Function => {
+  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     const wargame = await wargamesApi.getWargame(gamePath)
     if (isError(wargame)) {
+      // @ts-ignore
       dispatch(addNotification('Serge disconnected', 'error'))
     } else {
       dispatch(setCurrentWargame(wargame))
     }
   }
 }
-// @ts-ignore
-export const nextGameTurn = (dbName) => {
-  return async () => {
+export const nextGameTurn = (dbName: string): Function => {
+  return async (): Promise<void> => {
     await wargamesApi.nextGameTurn(dbName)
   }
 }
-// @ts-ignore
-export const sendFeedbackMessage = (dbName, fromDetails, message) => {
-  // @ts-ignore
-  return async (dispatch) => {
+
+// TODO: fromDetails check type
+export const sendFeedbackMessage = (dbName: string, fromDetails: any, message: PlayerUiMessageTypes): Function => {
+  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     await wargamesApi.postFeedback(dbName, fromDetails, message)
     dispatch(closeModal())
   }
 }
-// @ts-ignore
-export const failedLoginFeedbackMessage = (dbName, password) => {
-  return async () => {
+
+export const failedLoginFeedbackMessage = (dbName: string, password: string): Function => {
+  return async (): Promise<void> => {
     const address = await wargamesApi.getIpAddress()
     const from = {
       force: address.ip,
@@ -129,36 +125,29 @@ export const failedLoginFeedbackMessage = (dbName, password) => {
     await wargamesApi.postFeedback(dbName, from, 'A failed login attempt has been made.')
   }
 }
-// @ts-ignore
-export const saveMessage = (dbName, details, message) => {
-  return async () => {
+
+export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {
+  return async (): Promise<void> => {
     await wargamesApi.postNewMessage(dbName, details, message)
   }
 }
-// @ts-ignore
-export const saveMapMessage = (dbName, details, message) => {
+
+export const saveMapMessage = (dbName: string, details: MessageDetails, message: object): Promise<Message> => {
   return wargamesApi.postNewMapMessage(dbName, details, message)
 }
-// @ts-ignore
-export const getAllWargameFeedback = (dbName) => {
-  // @ts-ignore
-  return async (dispatch) => {
-    let messages = await wargamesApi.getAllMessages(dbName)
-    // @ts-ignore
-    messages = messages.filter((message) => message.hasOwnProperty('feedback'))
-    dispatch(setWargameFeedback(messages))
+
+export const getAllWargameFeedback = (dbName: string): Function => {
+  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
+    const messages: Array<Message> = await wargamesApi.getAllMessages(dbName)
+    const feedbackMessages = messages.filter(({ feedback }) => feedback)
+    dispatch(setWargameFeedback(feedbackMessages))
   }
 }
-// @ts-ignore
-export const getAllWargameMessages = (name) => {
-  // @ts-ignore
-  return async (dispatch) => {
-    const allMessages = await wargamesApi.getAllMessages(name); let messages; let feedback
-    // @ts-ignore
-    messages = allMessages.filter((message) => !message.hasOwnProperty('feedback'))
-    // @ts-ignore
-    feedback = allMessages.filter((message) => message.hasOwnProperty('feedback'))
-    await dispatch(setWargameMessages(messages))
-    await dispatch(setWargameFeedback(feedback))
+
+export const getAllWargameMessages = (dbName: string): Function => {
+  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
+    const allMessages: Array<Message> = await wargamesApi.getAllMessages(dbName);
+    dispatch(setWargameMessages(allMessages.filter(({ feedback }) => !feedback)))
+    dispatch(setWargameFeedback(allMessages.filter(({ feedback }) => feedback)))
   }
 }

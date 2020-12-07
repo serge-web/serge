@@ -174,10 +174,9 @@ const reduceTurnMarkers = (message: PlayerUiMessageTypes):string => {
 }
 
 export const handleSetAllMEssages = (payload: Array<PlayerDbMessageTypes>, newState: PlayerUi): SetWargameMessage => {
-  console.log('handleSetAllMEssages', JSON.stringify(payload));
 
   const messagesFiltered: Array<PlayerUiMessageTypes> = payload.map((message) => {
-    if (message.infoType !== undefined) {
+    if (message.infoType === true) {
       return {
         details: {
           channel: `infoTypeChannelMarker${uniqId.time()}`
@@ -233,7 +232,7 @@ export const handleSetAllMEssages = (payload: Array<PlayerDbMessageTypes>, newSt
       }
     }
   })
-
+  
   return {
     channels,
     chatChannel: {

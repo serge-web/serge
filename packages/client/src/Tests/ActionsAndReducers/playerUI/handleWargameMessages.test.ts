@@ -1,9 +1,13 @@
-import reducer, { initialState } from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
-import { PlayerUi } from '../../../ActionsAndReducers/playerUi/types'
-import { PlayerDbMessageTypes } from '@serge/custom-types'
+import reducer from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
 
 // data from db
-import allMessagesDb from './data/messagesDb.json'
+import setAllMessagesData from './data/set_all_messages.json'
+import setAllFeedbackMessagesData from './data/set_all_feedback_messages.json'
+import openMessageData from './data/open_message.json'
+import closeMessageData from './data/close_message.json'
+import markAllAsReadData from './data/mark_all_as_read.json'
+import setLatestFeedbackMessageData from './data/set_latest_feedback_message.json'
+import setLatestWargameMessageData from './data/set_latest_wargame_message.json'
 
 import {
   setWargameFeedback,
@@ -26,81 +30,84 @@ import {
 } from '../../../ActionsAndReducers/ActionConstants'
 
 describe('PlayerUi Message Actions', () => {
+  it('Should set all feedback messages gained from db to state', () => {
+    const expectedAction = {
+      type: SET_FEEDBACK_MESSAGES,
+      payload: setAllFeedbackMessagesData.action.payload
+    }
+    expect(setWargameFeedback(setAllFeedbackMessagesData.action.payload)).toEqual(expectedAction)
+  })
+  it('Should set feedback Message to state', () => {
+    const expectedAction = {
+      type: SET_LATEST_FEEDBACK_MESSAGE,
+      payload: setLatestFeedbackMessageData.action.payload
+    }
+    expect(setLatestFeedbackMessage(setLatestFeedbackMessageData.action.payload)).toEqual(expectedAction)
+  })
+  it('Should set wargame Message to state', () => {
+    const expectedAction = {
+      type: SET_LATEST_WARGAME_MESSAGE,
+      payload: setLatestWargameMessageData.action.payload
+    }
+    expect(setLatestWargameMessage(setLatestWargameMessageData.action.payload)).toEqual(expectedAction)
+  })
   it('Should set all messages gained from db to state', () => {
     const expectedAction = {
       type: SET_ALL_MESSAGES,
-      payload: allMessagesDb
+      payload: setAllMessagesData.action.payload
     }
-    expect(setWargameMessages(allMessagesDb)).toEqual(expectedAction)
+    expect(setWargameMessages(setAllMessagesData.action.payload)).toEqual(expectedAction)
+  })
+  it('Should set channelId and message to reducer', () => {
+    const expectedAction = {
+      type: OPEN_MESSAGE,
+      payload: openMessageData.action.payload
+    }
+    expect(openMessage(openMessageData.action.payload.channel, openMessageData.action.payload.message)).toEqual(expectedAction)
+  })
+  it('Should set channelId and message to reducer', () => {
+    const expectedAction = {
+      type: CLOSE_MESSAGE,
+      payload: closeMessageData.action.payload
+    }
+    expect(closeMessage(closeMessageData.action.payload.channel, closeMessageData.action.payload.message)).toEqual(expectedAction)
+  })
+  it('Should set channelId to reducer', () => {
+    const expectedAction = {
+      type: MARK_ALL_AS_READ,
+      payload: markAllAsReadData.action.payload
+    }
+    expect(markAllAsRead(markAllAsReadData.action.payload)).toEqual(expectedAction)
   })
 })
 
-// export const setWargameFeedback = (messages: Array<MessageTypes>): PlayerUiActionTypes => ({
-//   type: ActionConstant.SET_FEEDBACK_MESSAGES,
-//   payload: messages
-// })
-//
-// export const setLatestFeedbackMessage = (message: MessageTypes): PlayerUiActionTypes => ({
-//   type: ActionConstant.SET_LATEST_FEEDBACK_MESSAGE,
-//   payload: message
-// })
-// export const setLatestWargameMessage = (message: MessageTypes): PlayerUiActionTypes => ({
-//   type: ActionConstant.SET_LATEST_WARGAME_MESSAGE,
-//   payload: message
-// })
-// export const setWargameMessages = (messages: Array<MessageTypes>): PlayerUiActionTypes => ({
-//   type: ActionConstant.SET_ALL_MESSAGES,
-//   payload: messages
-// })
-// export const openMessage = (channel: string, message: Message): PlayerUiActionTypes => ({
-//   type: ActionConstant.OPEN_MESSAGE,
-//   payload: { channel, message }
-// })
-// export const closeMessage = (channel: string, message: Message): PlayerUiActionTypes => ({
-//   type: ActionConstant.CLOSE_MESSAGE,
-//   payload: { channel, message }
-// })
-//
-// export const markAllAsRead = (channel: string): PlayerUiActionTypes => ({
-//   type: ActionConstant.MARK_ALL_AS_READ,
-//   payload: channel
-// })
-
-
-// describe('PlayerUi Tour Actions', () => {
-//   it('should set a payload true', () => {
-//     const expectedAction = {
-//       type: OPEN_TOUR,
-//       payload: true
-//     }
-//     expect(openTour(true)).toEqual(expectedAction)
-//   })
-//   it('should set a payload false', () => {
-//     const expectedAction = {
-//       type: OPEN_TOUR,
-//       payload: false
-//     }
-//     expect(openTour(false)).toEqual(expectedAction)
-//   })
-// })
-
-// describe('PlayerUi Tour Reducer', () => {
-//   it('should handle OPEN_MODAL and set tourIsOpen true', () => {
-//     expect(reducer({
-//       ...initialState,
-//       tourIsOpen: false
-//     }, openTour(true))).toEqual({
-//       ...initialState,
-//       tourIsOpen: true
-//     })
-//   })
-//   it('should handle OPEN_MODAL and set tourIsOpen false', () => {
-//     expect(reducer({
-//       ...initialState,
-//       tourIsOpen: true
-//     }, openTour(false))).toEqual({
-//       ...initialState,
-//       tourIsOpen: false
-//     })
-//   })
-// })
+describe('PlayerUi Message Reducers', () => {
+  it('Should set SET_FEEDBACK_MESSAGES gained from db to state', () => {
+    expect(reducer(setAllFeedbackMessagesData.state, setWargameFeedback(setAllFeedbackMessagesData.action.payload)))
+      .toEqual(setAllFeedbackMessagesData.newState)
+  })
+  it('Should add SET_LATEST_FEEDBACK_MESSAGE to state', () => {
+    expect(reducer(setLatestFeedbackMessageData.state, setLatestFeedbackMessage(setLatestFeedbackMessageData.action.payload)))
+      .toEqual(setLatestFeedbackMessageData.newState)
+  })
+  it('Should add SET_LATEST_WARGAME_MESSAGE to state', () => {
+    expect(reducer(setLatestWargameMessageData.state, setLatestWargameMessage(setLatestWargameMessageData.action.payload)))
+      .toEqual(setLatestWargameMessageData.newState)
+  })
+  it('Should convert and set SET_ALL_MESSAGES gained from db to state', () => {
+    expect(reducer(setAllMessagesData.state, setWargameMessages(setAllMessagesData.action.payload)))
+      .toEqual(setAllMessagesData.newState)
+  })
+  it('Should set OPEN_MESSAGE by channelId and messsage', () => {
+    expect(reducer(openMessageData.state, openMessage(openMessageData.action.payload.channel, openMessageData.action.payload.message)))
+      .toEqual(openMessageData.newState)
+  })
+  it('Should set CLOSE_MESSAGE by channelId and messsage', () => {
+    expect(reducer(closeMessageData.state, closeMessage(closeMessageData.action.payload.channel, closeMessageData.action.payload.message)))
+      .toEqual(closeMessageData.newState)
+  })
+  it('Should set MARK_ALL_AS_READ by channel', () => {
+    expect(reducer(markAllAsReadData.state, markAllAsRead(markAllAsReadData.action.payload)))
+      .toEqual(markAllAsReadData.newState)
+  })
+})
