@@ -23,19 +23,23 @@ export interface MessageDetails {
   timestamp: string,
 }
 
+export interface MessageStructure {
+  /** TODO: Ian thinks could be a structure for formatted messages. This Message
+   * type is initially just being used for Admin messages - which are pure chat.
+   * Once we have in-game messages, we should encounter structured messages
+   */
+  content: string
+}
+
 export default interface Message {
   details: MessageDetails,
-  message: {
-    /** TODO: Ian thinks could be a structure for formatted messages. This Message
-     * type is initially just being used for Admin messages - which are pure chat.
-     * Once we have in-game messages, we should encounter structured messages
-     */
-    content: string
-  },
+  message: MessageStructure,
   open: boolean,
   isOpen: boolean
   hasBeenRead: boolean
   _id: string
+  _rev?: string
   gameTurn?: number,
+  feedback?: boolean,
   infoType: undefined
 }
