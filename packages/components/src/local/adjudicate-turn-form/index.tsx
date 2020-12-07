@@ -51,27 +51,27 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
   useEffect(() => {
     if (manager) {
       // visibility & condition
-      updateIfNecessary('visible ', visibleVal, manager.currentVisibleTo(), setVisibleVal)
-      updateIfNecessary('condition ', conditionVal, manager.currentCondition(), setConditionVal)
+      updateIfNecessary(visibleVal, manager.currentVisibleTo(), setVisibleVal)
+      updateIfNecessary(conditionVal, manager.currentCondition(), setConditionVal)
 
       // whether these plans have already been submitted
-      updateIfNecessary('plans', plansSubmittedVal, plansSubmitted, setPlansSubmittedVal)
+      updateIfNecessary(plansSubmittedVal, plansSubmitted, setPlansSubmittedVal)
 
       // the available options
       const formData = manager.formData
-      updateIfNecessary('status values', statusValues, formData.status, setStatusValues)
-      updateIfNecessary('visible values', visibleToValues, formData.visibleTo, setVisibleToValues)
-      updateIfNecessary('speed values', speedValues, formData.speed, setSpeedValues)
-      updateIfNecessary('condition values', conditionValues, formData.condition, setConditionValues)
+      updateIfNecessary(statusValues, formData.status, setStatusValues)
+      updateIfNecessary(visibleToValues, formData.visibleTo, setVisibleToValues)
+      updateIfNecessary(speedValues, formData.speed, setSpeedValues)
+      updateIfNecessary(conditionValues, formData.condition, setConditionValues)
 
       // and the actual state
-      updateIfNecessary('status', statusVal, manager.plannedState().name, setStatusVal)
-      updateIfNecessary('mobile', stateIsMobile, manager.plannedState().mobile, setStateIsMobile)
-      updateIfNecessary('speed', speedVal, manager.plannedSpeed(), setSpeedVal)
+      updateIfNecessary(statusVal, manager.plannedState().name, setStatusVal)
+      updateIfNecessary(stateIsMobile, manager.plannedState().mobile, setStateIsMobile)
+      updateIfNecessary(speedVal, manager.plannedSpeed(), setSpeedVal)
 
       // the command buttons
-      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(), setUpperPlanningActions)
-      updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
+      updateIfNecessary(upperPlanningActions, manager.upperActionsFor(), setUpperPlanningActions)
+      updateIfNecessary(lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
     }
   }, [manager])
 
@@ -100,9 +100,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     manager && manager.setCurrentVisibleTo(e.value)
   }
 
-  const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: {(value: any): void}): void => {
-    // avoid unused param warning. TODO: remove once no need for debugging
-    _name && _name
+  const updateIfNecessary = (before: any, after: any, doUpdate: {(value: any): void}): void => {
     if (!deepCompare(before, after)) {
       // console.log('+ updating ', name, before, after)
       doUpdate(after)
