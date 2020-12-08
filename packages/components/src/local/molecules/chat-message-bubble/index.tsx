@@ -10,6 +10,7 @@ import styles from './styles.module.scss'
 import Box from '@material-ui/core/Box'
 import moment from 'moment'
 import Badge from '../../atoms/badge'
+import Grid from '@material-ui/core/Grid';
 
 /* Render component */
 export const ChatMessageBubble: React.FC<Props> = ({
@@ -17,22 +18,24 @@ export const ChatMessageBubble: React.FC<Props> = ({
   timestamp,
   role,
   hasBeenRead,
-  authorForceId,
-  playerForceId,
-  forceColors,
+  //authorForceId,
+  //playerForceId,
   privateMessage,
-  isUmpire
+  isUmpire,
+  borderColor,
+  messagePosition
 }: Props) => {
-  const currentColor = forceColors?.find((item: {force: string, color: string}) => item.force === authorForceId)
   return (
-    <div
-      className={`${styles['chat-messgae-bubble']} ${authorForceId === playerForceId ? styles['chat-messgae-bubble-sent'] : ''}`}
-      style={{ borderColor: currentColor && currentColor.color }}
+    <Grid container>
+      <Grid item xs={12}>
+      <div
+      className={`${styles['chat-messgae-bubble']} ${messagePosition ? styles['chat-messgae-bubble-sent'] : ''}`}
+      style={{ borderColor: borderColor, float: messagePosition ? 'right' : 'left'}}
     >
       <div className={`${styles['chat-inner-bubble']} ${!hasBeenRead ? styles['message-item-unread'] : ''}`}>
         <div className={styles['message-title-wrap']}>
           <div className={styles['message-title']}>{title}</div>
-          <Box display="flex" alignItems="center" justifyContent={(authorForceId === playerForceId) || (isUmpire && privateMessage) ? 'flex-end' : ''} className={styles['badges-box']}>
+          <Box display="flex" alignItems="center" justifyContent={(messagePosition) || (isUmpire && privateMessage) ? 'flex-end' : ''} className={styles['badges-box']}>
             <span className={styles['info-body']}>
               {moment(timestamp).format('HH:mm')}
             </span>
@@ -52,6 +55,9 @@ export const ChatMessageBubble: React.FC<Props> = ({
         </div>
       </div>
     </div>
+      </Grid>
+    </Grid>
+    
   )
 }
 

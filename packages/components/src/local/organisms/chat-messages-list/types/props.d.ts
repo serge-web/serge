@@ -12,6 +12,8 @@ export default interface Props {
 
   colors?: Array<any>
 
+  currentForce? : {name: string}
+
   onSendMessage: Function
 
   onChange: Function

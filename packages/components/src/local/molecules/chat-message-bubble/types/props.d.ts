@@ -35,4 +35,13 @@ export default interface Props {
    * Show Private message
    */
   isUmpire?: boolean
+  /**
+   * Chat Message Position
+   */
+  messagePosition? : boolean
+  /**
+   * color for message border
+   */
+  borderColor?: string
+
 }

@@ -133,12 +133,13 @@ class Channel extends Component {
         {templates.length === 1 && templates[0].title === 'Chat' ?
         <>
         <ChatMessagesList
-            forceColors={colors}
+            colors={colors}
             isUmpire={state.selectedForce === umpireForceTemplate.uniqid}
             messages={messages}
             templates={templates}
             curChannel={curChannel}
             privateMessage={privateMessage}
+            currentForce = {state.allForces.find((force) => force.uniqid === state.selectedForce)}
         />
         <div style={chat_input_grid}>
         <NewChatMessage isUmpire={state.selectedForce === umpireForceTemplate.uniqid} content={content} privateMessage={privateMessage} onSendMessage={() => this.onSendMessage()} onChange={(event,key) => this.onChange(event, key)} />
