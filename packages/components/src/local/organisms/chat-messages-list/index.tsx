@@ -13,7 +13,7 @@ export const ChatMessagesList: React.FC<Props> = ({ isUmpire, messages = [], col
       {messages.map((item, index) => {
         const currentForceName = currentForce ? currentForce.name : "";
         const messagePosition = item && item.details && item.details.from && item.details.from.force && item.details.from.force === currentForceName ? true : false
-        return (
+        return ( item &&
           <ChatMessageBubble
             title={item.title}
             timestamp={item.timestamp}
