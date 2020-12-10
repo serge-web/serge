@@ -14,7 +14,6 @@ import {
 import {
   CHAT_CHANNEL_ID,
 } from '../../consts'
-import _ from 'lodash'
 
 export const initialState: PlayerUi = {
   selectedForce: '',
