@@ -160,7 +160,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
     default:
       return newState
   }
-  console.log('Player UI' + action.type, JSON.stringify({action, state, newState}));
 
   return newState
 }

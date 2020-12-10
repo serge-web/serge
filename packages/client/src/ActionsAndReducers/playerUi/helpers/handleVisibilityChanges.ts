@@ -1,36 +1,29 @@
+import { ForceData, Vis, Asset } from '@serge/custom-types'
+
 import findAsset from '../../../Components/Mapping/helpers/findAsset'
 
 /** create a marker for the supplied set of details */
-// @ts-ignore
-export default (/* object */ message, /* object */ allForces) => {
-  const payload = message.payload
-  // @ts-ignore
-  payload.forEach(visChange => {
-    const asset = findAsset(allForces, visChange.assetId)
-    if (!asset) {
-      console.warn('failed to find asset while handling vis id', visChange.assetId)
-    } else {
+// TODO: Check why the data is wrapped in an object. Tmp interface for now
+interface Action {
+  payload: Vis[]
+}
+export default (action: Action, allForces: ForceData[]): ForceData[] => {
+  action.payload.forEach(visChange => {
+    const asset: Asset | undefined = findAsset(allForces, visChange.assetId)
+    if (asset !== undefined) {
       if (visChange.newVis) {
-        // ok, we're making something visible
-        // @ts-ignore
-        if (!asset.perceptions) {
-          // make sure there's
-          // a perceptions entry for it.
-          // @ts-ignore
-          asset.perceptions = []
-        }
-        // @ts-ignore
-        asset.perceptions[visChange.by] = { force: null, type: null }
+        asset.perceptions.push({ force: '', type: '', by: visChange.by })
       } else {
         // ok, we're removing something
-        // @ts-ignore
-        if (!asset.perceptions) {
+        const index = asset.perceptions.findIndex(({ by }) => by == visChange.by)
+        if (index === -1) {
           console.warn('possible issue: we\'re trying to remove a perception, but there aren\'t any')
         } else {
-          // @ts-ignore
-          delete asset.perceptions[visChange.by]
+          asset.perceptions.splice(index, 1)
         }
       }
+    } else {
+      console.warn('failed to find asset while handling vis id', visChange.assetId)
     }
   })
   return allForces

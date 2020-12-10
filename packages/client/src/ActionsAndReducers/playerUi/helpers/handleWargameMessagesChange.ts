@@ -232,7 +232,7 @@ export const handleSetAllMEssages = (payload: Array<PlayerDbMessageTypes>, newSt
       }
     }
   })
-  
+
   return {
     channels,
     chatChannel: {

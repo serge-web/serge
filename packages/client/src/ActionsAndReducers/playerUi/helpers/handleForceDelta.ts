@@ -1,3 +1,4 @@
+import { Message, ForceData } from '@serge/custom-types'
 
 import handleVisibilityChanges from './handleVisibilityChanges'
 import handlePerceptionChange from './handlePerceptionChanges'
@@ -13,7 +14,7 @@ import {
 } from '../../../consts'
 
 /** create a marker for the supplied set of details */
-export default (/* object */message, /* object */ allForces) => {
+export default (message: Message, allForces: ForceData[]): ForceData[] => {
   const msgType = message.details.messageType
   if (!msgType) {
     console.error('problem - we need message type in ', message)
@@ -22,10 +23,13 @@ export default (/* object */message, /* object */ allForces) => {
   }
   switch (msgType) {
     case FORCE_LAYDOWN:
+      // @ts-ignore
       return handleForceLaydownChanges(message, allForces)
     case VISIBILIY_CHANGES:
+      // @ts-ignore
       return handleVisibilityChanges(message, allForces)
     case PERCEPTION_OF_CONTACT:
+      // @ts-ignore
       return handlePerceptionChange(message, allForces)
     case SUBMIT_PLANS:
       return handlePlansSubmittedChanges(message, allForces)
