@@ -4,7 +4,7 @@ import PlannedTurn from './planned-turn'
 export interface Asset {
   name: string,
   uniqid: string,
-  string: number,
+  position: string,
   perceptions: Perception[],
   plannedTurns?: PlannedTurn[]
 }
