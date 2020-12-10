@@ -1,11 +1,12 @@
 import Perception from './perception'
+import PlannedTurn from './planned-turn'
 
 export interface Asset {
   name: string,
   uniqid: string,
-  position: number,
+  string: number,
   perceptions: Perception[],
-  plannedTurns?: any[] // Todo Create type for plannedTurns
+  plannedTurns?: PlannedTurn[]
 }
 
 export default Asset
