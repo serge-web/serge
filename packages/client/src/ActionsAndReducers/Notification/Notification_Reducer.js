@@ -1,4 +1,4 @@
-import ActionConstant from '../ActionConstants.js'
+import * as ActionConstant from '../ActionConstants'
 import copyState from '../../Helpers/copyStateHelper.js'
 
 const initialState = []

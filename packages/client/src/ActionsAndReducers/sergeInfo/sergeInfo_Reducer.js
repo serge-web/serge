@@ -1,4 +1,4 @@
-import ActionConstant from '../ActionConstants'
+import * as ActionConstant from '../ActionConstants'
 import copyState from '../../Helpers/copyStateHelper'
 import { defaultGameInfo, serverPath } from '../../consts'
 import _ from 'lodash'
