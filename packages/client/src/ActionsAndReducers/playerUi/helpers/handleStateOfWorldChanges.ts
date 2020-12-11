@@ -1,25 +1,43 @@
+import { PlayerUiMessageTypes, ForceData } from '@serge/custom-types'
+
 import findAsset from '../../../Components/Mapping/helpers/findAsset'
-/** create a marker for the supplied set of details */
-export default (/* object */ payload, /* object */ allForces) => {
-  const detail = payload.detail
+
+
+
+
+export default (payload: PlayerUiMessageTypes, allForces: ForceData[]): ForceData[] => {
+// @ts-ignore
+  const { detail } = payload
+  // @ts-ignore
   detail.data.forEach(force => {
+  // @ts-ignore
     force.assets.forEach(entry => {
-      // ok, get the asset
+    // @ts-ignore
       const asset = findAsset(allForces, entry.uniqid)
-      // check we have history
       if (entry.destroyed) {
+      // @ts-ignore
         asset.destroyed = entry.destroyed
+        // @ts-ignore
         asset.plannedTurns = []
+        // @ts-ignore
         asset.route = []
       } else {
+      // @ts-ignore
         asset.plannedTurns = entry.plannedTurns
+        // @ts-ignore
         asset.route = entry.newState ? entry.newState.route : asset.route
       }
+      // @ts-ignore
       asset.history = asset.history ? asset.history : []
+      // @ts-ignore
       asset.history.push(entry.history)
+      // @ts-ignore
       asset.status = entry.newState ? entry.newState.status : asset.status
+      // @ts-ignore
       asset.position = entry.newState ? entry.newState.position : asset.position
+      // @ts-ignore
       asset.condition = entry.condition
+      // @ts-ignore
       asset.perceptions = entry.perceptions
     })
   })

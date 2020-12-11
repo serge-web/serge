@@ -1,4 +1,4 @@
-import ActionConstant from '../ActionConstants'
+import * as ActionConstant from '../ActionConstants'
 
 export const setSelectedSchema = (schemaId) => ({
   type: ActionConstant.SET_SELECTED_SCHEMA,
