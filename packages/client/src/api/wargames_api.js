@@ -24,6 +24,9 @@ import {
   setLatestWargameMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
+import { CUSTOM_MESSAGE } from '@serge/config/src/globals'
+// TODO: change it to @serge/config
+
 const wargameDbStore = []
 
 const listenNewMessage = ({ db, name, dispatch }) => {
@@ -800,6 +803,9 @@ export const postNewMessage = (dbName, details, message) => {
   return new Promise((resolve, reject) => {
     db.put({
       _id: new Date().toISOString(),
+      // defined constat for messages, it's not same as message.details.messageType,
+      // ex for all template based messages will be used CUSTOM_MESSAGE Type
+      messageType: CUSTOM_MESSAGE,
       details,
       message
     })
@@ -821,6 +827,9 @@ export const postNewMapMessage = (dbName, details, message) => {
   db.put({
     _id: new Date().toISOString(),
     details,
+    // defined constat for messages, it's not same as message.details.messageType,
+    // ex for all template based messages will be used CUSTOM_MESSAGE Type
+    messageType: details.messageType,
     message
   }).catch((err) => {
     console.log(err)

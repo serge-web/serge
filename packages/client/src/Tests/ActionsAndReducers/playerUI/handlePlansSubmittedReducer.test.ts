@@ -1,4 +1,7 @@
-import { ForceData } from '@serge/custom-types'
+import { ForceData, MessageSubmitPlans } from '@serge/custom-types'
+import {
+  SUBMIT_PLANS
+} from '@serge/config/src/globals'
 /* global it expect */
 import handlePlansSubmittedChanges from '../../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
 import findAsset from '../../../Components/Mapping/helpers/findAsset'
@@ -95,47 +98,52 @@ const allForces: ForceData[] = [
   dirty: false
   }
 ]
-const payload = {
+const payload: MessageSubmitPlans = {
   name: 'Blue Orders 1',
+  messageType: SUBMIT_PLANS,
   comment: '',
   turn: 2,
   force: 'Blue',
   plannedRoutes: [
     {
       uniqid: 'C01',
-      plannedTurns: [{
-        turn: 1,
-        status: { state: 'Transiting', speedKts: 20 },
-        route: ['P12', 'O21', 'O20', 'N19']
-      },
-      {
-        turn: 2,
-        status: { state: 'Transiting', speedKts: 20 },
-        route: ['019', '018', '017', 'N17']
-      },
-      {
-        turn: 3,
-        status: { state: 'Transiting', speedKts: 20 },
-        route: ['M17', 'L16', 'L15', 'L14']
-      }
+      plannedTurns: [
+        {
+          turn: 1,
+          status: { state: 'Transiting', speedKts: 20 },
+          route: ['P12', 'O21', 'O20', 'N19']
+        },
+        {
+          turn: 2,
+          status: { state: 'Transiting', speedKts: 20 },
+          route: ['019', '018', '017', 'N17']
+        },
+        {
+          turn: 3,
+          status: { state: 'Transiting', speedKts: 20 },
+          route: ['M17', 'L16', 'L15', 'L14']
+        }
       ]
     },
     {
       uniqid: 'C02',
-      plannedTurns: [{
-        turn: 1,
-        status: { state: 'Transiting', speedKts: 10 },
-        route: ['S23', 'R22']
-      },
-      {
-        turn: 2,
-        status: { state: 'Fishing' }
-      },
-      {
-        turn: 3,
-        status: { state: 'Transiting', speedKts: 10 },
-        route: ['O21', 'O20']
-      }]
+      plannedTurns: [
+        {
+          turn: 1,
+          status: { state: 'Transiting', speedKts: 10 },
+          route: ['S23', 'R22']
+        },
+        {
+          turn: 2,
+          status: { state: 'Fishing' },
+          route: []
+        },
+        {
+          turn: 3,
+          status: { state: 'Transiting', speedKts: 10 },
+          route: ['O21', 'O20']
+        }
+      ]
     }]
 }
 

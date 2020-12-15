@@ -12,7 +12,22 @@ export { default as GroupItem } from './group-item.d'
 export * from './forms.d'
 export { default as MappingContext } from './mapping-context.d'
 export { default as MarkerPerception } from './marker-perception.d'
-export { default as Message, MessageDetails } from './message.d'
+export { default as Message,
+         MessageDetails,
+         // Map Types
+         MessageForceLaydown,
+         MessagePerceptionOfContact,
+         MessageVisibilityChanges,
+         MessageSubmitPlans,
+         MessageStateOfWorld,
+         MessageMap,
+         // System Messages
+         MessageFeedback,
+         MessageInfoType,
+         // All template based messages
+         MessageCustom,
+         MessageChannel
+       } from './message.d'
 export { default as Participant } from './participant.d'
 export { default as PlanMobileAsset } from './plan-mobile-asset'
 export { default as PlatformTypeData } from './platform-type-data.d'

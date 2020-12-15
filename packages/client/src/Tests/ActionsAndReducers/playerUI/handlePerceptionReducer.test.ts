@@ -1,22 +1,26 @@
-import { ForceData, Perception } from '@serge/custom-types'
+import { ForceData, MessagePerceptionOfContact } from '@serge/custom-types'
+import { PERCEPTION_OF_CONTACT } from '@serge/config/src/globals'
+// TODO: change it to @serge/config
+
 /* global it expect */
 import handlePerceptionChanges from '../../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
 import findAsset from '../../../Components/Mapping/helpers/findAsset'
 
-interface Payload { assetId: string, perception: Perception }
-
-const payload1: Payload = {
+const payload1: MessagePerceptionOfContact = {
   assetId: 'C01',
+  messageType: PERCEPTION_OF_CONTACT,
   perception: { by: 'Red', force: 'Green', type: 'Frigate'}
 }
 
-const payload2: Payload = {
+const payload2: MessagePerceptionOfContact = {
   assetId: 'C02',
+  messageType: PERCEPTION_OF_CONTACT,
   perception: { by: 'Red', force: 'Red', type: 'MPA'}
 }
 
-const payload3: Payload = {
+const payload3: MessagePerceptionOfContact = {
   assetId: 'C06',
+  messageType: PERCEPTION_OF_CONTACT,
   perception: { by: 'Red', force: 'Red', type: 'Fisher'}
 }
 

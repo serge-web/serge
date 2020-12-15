@@ -1,5 +1,10 @@
 import * as ActionConstant from '../ActionConstants'
-import { Wargame, Role, PlayerUiMessageTypes, Message, PlayerDbMessageTypes } from '@serge/custom-types'
+import {
+  Wargame,
+  Role,
+  MessageFeedback,
+  MessageChannel
+} from '@serge/custom-types'
 
 interface SetCurrentWargameAction {
   type: typeof ActionConstant.SET_CURRENT_WARGAME_PLAYER,
@@ -22,32 +27,32 @@ interface ShowHideObjectivesAction {
 }
 interface SetWargameFeedbackAction {
   type: typeof ActionConstant.SET_FEEDBACK_MESSAGES,
-  payload: Array<PlayerUiMessageTypes>
+  payload: Array<MessageFeedback>
 }
 interface SetLatestFeedbackMessageAction {
   type: typeof ActionConstant.SET_LATEST_FEEDBACK_MESSAGE,
-  payload: PlayerUiMessageTypes
+  payload: MessageFeedback
 }
 interface SetLatestWargameMessageAction {
   type: typeof ActionConstant.SET_LATEST_WARGAME_MESSAGE,
-  payload: PlayerUiMessageTypes
+  payload: MessageChannel
 }
 interface SetWargameMessagesAction {
   type: typeof ActionConstant.SET_ALL_MESSAGES,
-  payload: Array<PlayerDbMessageTypes>
+  payload: Array<MessageChannel>
 }
 interface OpenMessageAction {
   type: typeof ActionConstant.OPEN_MESSAGE,
   payload: {
     channel: string,
-    message: Message
+    message: MessageChannel
   }
 }
 interface CloseMessageAction {
   type: typeof ActionConstant.CLOSE_MESSAGE,
   payload: {
     channel: string,
-    message: Message
+    message: MessageChannel
   }
 }
 interface MarkAllAsReadAction {
