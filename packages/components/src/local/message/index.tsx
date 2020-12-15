@@ -13,7 +13,6 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const Message: React.FC<PropTypes> = ({ message }: PropTypes) => {
-
   // MessageInfoType has no those fields
   if (message.messageType === CUSTOM_MESSAGE) {
     const { force, role, name } = message.details.from
