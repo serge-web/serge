@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from '@material-ui/core'
-
+import { CUSTOM_MESSAGE } from '@serge/config/src/globals'
+// TODO: change it to @serge/config
 /* Import Types */
 import Props from './types/props'
 
@@ -19,6 +20,7 @@ export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack 
   const changeHandler = (e: any): void => setFormState(e.value)
   const submitForm = (): void => {
     postBack && postBack({
+      messageType: CUSTOM_MESSAGE,
       details: {
         channel: channel,
         from: {

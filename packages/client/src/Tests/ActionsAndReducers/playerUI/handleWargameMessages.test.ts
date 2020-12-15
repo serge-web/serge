@@ -2,7 +2,6 @@ import reducer from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
 
 // data from db
 import setAllMessagesData from './data/set_all_messages.json'
-import setAllFeedbackMessagesData from './data/set_all_feedback_messages.json'
 import openMessageData from './data/open_message.json'
 import closeMessageData from './data/close_message.json'
 import markAllAsReadData from './data/mark_all_as_read.json'
@@ -10,7 +9,6 @@ import setLatestFeedbackMessageData from './data/set_latest_feedback_message.jso
 import setLatestWargameMessageData from './data/set_latest_wargame_message.json'
 
 import {
-  setWargameFeedback,
   setLatestFeedbackMessage,
   setLatestWargameMessage,
   setWargameMessages,
