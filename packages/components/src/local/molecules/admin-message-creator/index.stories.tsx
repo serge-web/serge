@@ -4,7 +4,7 @@ import React from 'react'
 import AdminMessageCreator from './index'
 import docs from './README.md'
 
-import { Message } from '@serge/custom-types'
+import { MessageChannel } from '@serge/custom-types'
 
 export default {
   title: 'local/molecules/AdminMessageCreator',
@@ -24,6 +24,7 @@ const force = {
   icon: ''
 }
 
-const showMessage = (message: Message): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
+// @ts-ignore
+const showMessage = (message: MessageChannel): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
 
 export const Default: React.FC = () => <AdminMessageCreator from={force} channel={'Game Admin'} role={'Umpire'} postBack={showMessage} />

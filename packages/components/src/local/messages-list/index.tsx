@@ -3,7 +3,7 @@ import { expiredStorage } from '@serge/config'
 
 /* Import Types */
 import PropTypes from './types/props'
-import { Message as MessageType } from '@serge/custom-types'
+import { MessageChannel } from '@serge/custom-types'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -14,7 +14,7 @@ import { Button } from '@material-ui/core'
 
 /* Render component */
 export const MessagesList: React.FC<PropTypes> = ({ currentChannel, userId, messages }: PropTypes) => {
-  const [messageList, setMessageList] = useState<Array<MessageType>>()
+  const [messageList, setMessageList] = useState<Array<MessageChannel>>()
   const [allMarkedRead, setAllMarkedRead] = useState(false)
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export const MessagesList: React.FC<PropTypes> = ({ currentChannel, userId, mess
     <div className={styles['message-list']}>
       <Button onClick={markAllAsRead}>Mark all as read</Button>
       {
-        messageList && messageList.map((message: MessageType) => <Message key={message._id} message={message} />)
+        messageList && messageList.map((message: MessageChannel) => <Message key={message._id} message={message} />)
       }
     </div>
   )
