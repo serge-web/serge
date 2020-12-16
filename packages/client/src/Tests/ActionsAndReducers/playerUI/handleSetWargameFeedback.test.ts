@@ -1,8 +1,8 @@
 import reducer from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
 import { setWargameFeedback } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FEEDBACK_MESSAGE, CUSTOM_MESSAGE } from '@serge/config/src/globals'
+import { FEEDBACK_MESSAGE, CUSTOM_MESSAGE } from '@serge/config'
 import { PlayerUiActionTypes } from '../../../ActionsAndReducers/playerUi/types'
-import { SET_FEEDBACK_MESSAGES } from '../../../ActionsAndReducers/ActionConstants'
+import { SET_FEEDBACK_MESSAGES } from '@serge/config'
 import { PlayerUi } from '@serge/custom-types'
 
 const setAllFeedbackMessagesActoin: PlayerUiActionTypes = {

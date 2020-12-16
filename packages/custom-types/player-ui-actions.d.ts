@@ -1,4 +1,21 @@
-import * as ActionConstant from '../ActionConstants'
+import {
+  SET_CURRENT_WARGAME_PLAYER,
+  SET_FORCE,
+  SET_ROLE,
+  SET_ALL_TEMPLATES_PLAYERUI,
+  SHOW_HIDE_OBJECTIVES,
+  SET_FEEDBACK_MESSAGES,
+  SET_LATEST_FEEDBACK_MESSAGE,
+  SET_LATEST_WARGAME_MESSAGE,
+  SET_ALL_MESSAGES,
+  OPEN_MESSAGE,
+  CLOSE_MESSAGE,
+  MARK_ALL_AS_READ,
+  OPEN_TOUR,
+  OPEN_MODAL,
+  CLOSE_MODAL
+} from '@serge/config'
+
 import {
   Wargame,
   Role,
@@ -7,68 +24,68 @@ import {
 } from '@serge/custom-types'
 
 interface SetCurrentWargameAction {
-  type: typeof ActionConstant.SET_CURRENT_WARGAME_PLAYER,
+  type: typeof SET_CURRENT_WARGAME_PLAYER,
   payload: Wargame
 }
 interface SetForceAction {
-  type: typeof ActionConstant.SET_FORCE,
+  type: typeof SET_FORCE,
   payload: string
 }
 interface SetRoleAction {
-  type: typeof ActionConstant.SET_ROLE,
+  type: typeof SET_ROLE,
   payload: Role
 }
 interface SetAllTemplatesAction {
-  type: typeof ActionConstant.SET_ALL_TEMPLATES_PLAYERUI,
+  type: typeof SET_ALL_TEMPLATES_PLAYERUI,
   payload: Array<any>
 }
 interface ShowHideObjectivesAction {
-  type: typeof ActionConstant.SHOW_HIDE_OBJECTIVES
+  type: typeof SHOW_HIDE_OBJECTIVES
 }
 interface SetWargameFeedbackAction {
-  type: typeof ActionConstant.SET_FEEDBACK_MESSAGES,
+  type: typeof SET_FEEDBACK_MESSAGES,
   payload: Array<MessageFeedback>
 }
 interface SetLatestFeedbackMessageAction {
-  type: typeof ActionConstant.SET_LATEST_FEEDBACK_MESSAGE,
+  type: typeof SET_LATEST_FEEDBACK_MESSAGE,
   payload: MessageFeedback
 }
 interface SetLatestWargameMessageAction {
-  type: typeof ActionConstant.SET_LATEST_WARGAME_MESSAGE,
+  type: typeof SET_LATEST_WARGAME_MESSAGE,
   payload: MessageChannel
 }
 interface SetWargameMessagesAction {
-  type: typeof ActionConstant.SET_ALL_MESSAGES,
+  type: typeof SET_ALL_MESSAGES,
   payload: Array<MessageChannel>
 }
 interface OpenMessageAction {
-  type: typeof ActionConstant.OPEN_MESSAGE,
+  type: typeof OPEN_MESSAGE,
   payload: {
     channel: string,
     message: MessageChannel
   }
 }
 interface CloseMessageAction {
-  type: typeof ActionConstant.CLOSE_MESSAGE,
+  type: typeof CLOSE_MESSAGE,
   payload: {
     channel: string,
     message: MessageChannel
   }
 }
 interface MarkAllAsReadAction {
-  type: typeof ActionConstant.MARK_ALL_AS_READ,
+  type: typeof MARK_ALL_AS_READ,
   payload: string
 }
 interface OpenTourAction {
-  type: typeof ActionConstant.OPEN_TOUR,
+  type: typeof OPEN_TOUR,
   payload: boolean
 }
 interface OpenModalAction {
-  type: typeof ActionConstant.OPEN_MODAL,
+  type: typeof OPEN_MODAL,
   payload: string
 }
 interface CloseModalAction {
-  type: typeof ActionConstant.CLOSE_MODAL
+  type: typeof CLOSE_MODAL
 }
 
 export type PlayerUiActionTypes = SetCurrentWargameAction |

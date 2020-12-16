@@ -3,7 +3,7 @@ import moment from 'moment'
 import Chip from '@material-ui/core/Chip'
 import DoneAllIcon from '@material-ui/icons/DoneAll'
 
-import { CUSTOM_MESSAGE } from '@serge/config/src/globals'
+import { CUSTOM_MESSAGE } from '@serge/config'
 
 /* Import Types */
 import PropTypes from './types/props'

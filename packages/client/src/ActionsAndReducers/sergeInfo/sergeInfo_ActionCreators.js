@@ -1,5 +1,5 @@
 import * as sergeInfoApi from '../../api/sergeInfo_api'
-import * as ActionConstant from '../ActionConstants'
+import * as ActionConstant from '@serge/config'
 
 export const sergeInfo = (info) => ({
   type: ActionConstant.LOAD_SERGE_GAME_INFO,

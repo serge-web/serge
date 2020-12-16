@@ -1,5 +1,5 @@
 import { ForceData, MessagePerceptionOfContact } from '@serge/custom-types'
-import { PERCEPTION_OF_CONTACT } from '@serge/config/src/globals'
+import { PERCEPTION_OF_CONTACT } from '@serge/config'
 // TODO: change it to @serge/config
 
 /* global it expect */

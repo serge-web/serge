@@ -13,7 +13,7 @@ import copyState from '../../../Helpers/copyStateHelper'
 
 import {
   INFO_MESSAGE
-} from '@serge/config/src/globals'
+} from '@serge/config'
 // TODO: change it to @serge/config
 
 // @ts-ignore

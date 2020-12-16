@@ -1,5 +1,5 @@
 import { ForceData, MessageVisibilityChanges } from '@serge/custom-types'
-import { VISIBILIY_CHANGES } from '@serge/config/src/globals'
+import { VISIBILIY_CHANGES } from '@serge/config'
 /* global it expect */
 import handleVisibilityChanges from '../../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
 import findAsset from '../../../Components/Mapping/helpers/findAsset'

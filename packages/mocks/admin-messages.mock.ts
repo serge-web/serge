@@ -1,4 +1,4 @@
-import { CUSTOM_MESSAGE } from '@serge/config/src/globals'
+import { CUSTOM_MESSAGE } from '@serge/config'
 import { MessageCustom } from '@serge/custom-types'
 
 const message1: MessageCustom = {

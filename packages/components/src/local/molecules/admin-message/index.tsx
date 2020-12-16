@@ -1,4 +1,4 @@
-import { CUSTOM_MESSAGE } from '@serge/config/src/globals'
+import { CUSTOM_MESSAGE } from '@serge/config'
 // TODO: change it to @serge/config
 
 import React from 'react'

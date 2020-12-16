@@ -1,7 +1,7 @@
 import { ForceData, MessageSubmitPlans } from '@serge/custom-types'
 import {
   SUBMIT_PLANS
-} from '@serge/config/src/globals'
+} from '@serge/config'
 /* global it expect */
 import handlePlansSubmittedChanges from '../../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
 import findAsset from '../../../Components/Mapping/helpers/findAsset'

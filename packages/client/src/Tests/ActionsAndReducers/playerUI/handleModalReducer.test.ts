@@ -1,6 +1,6 @@
 import { openModal, closeModal } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import reducer, { initialState } from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
-import { OPEN_MODAL, CLOSE_MODAL } from '../../../ActionsAndReducers/ActionConstants'
+import { OPEN_MODAL, CLOSE_MODAL } from '@serge/config'
 
 describe('PlayerUi Modal Actions', () => {
   it('should set a Modal Name', () => {

@@ -11,7 +11,7 @@ import {
   PERCEPTION_OF_CONTACT,
   SUBMIT_PLANS,
   STATE_OF_WORLD
-} from '@serge/config/src/globals'
+} from '@serge/config'
 // TODO: change it to @serge/config
 
 /** create a marker for the supplied set of details */

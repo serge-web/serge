@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from '@material-ui/core'
-import { CUSTOM_MESSAGE } from '@serge/config/src/globals'
+import { CUSTOM_MESSAGE } from '@serge/config'
 // TODO: change it to @serge/config
 /* Import Types */
 import Props from './types/props'
