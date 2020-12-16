@@ -1,4 +1,4 @@
-import { PastTurn, Perception, PlannedTurn, PlannedTurnStatus } from '@serge/custom-types'
+import { Perception, PlannedTurn, PlannedTurnStatus } from '@serge/custom-types'
 
 export interface Asset {
   /**

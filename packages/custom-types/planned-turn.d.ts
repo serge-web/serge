@@ -1,5 +1,5 @@
 import PlannedTurnStatus from './planned-turn-status'
-
+// TODO: re-name, so it can relate to planned or histoic data
 interface PlannedTurn {
   /** when this turn happened */
   turn: number,
