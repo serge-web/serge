@@ -38,6 +38,7 @@ export interface MessageDetails {
   }
   messageType: string,
   timestamp: string,
+  privateMessage?: string
 }
 
 export interface MessageStructure {
