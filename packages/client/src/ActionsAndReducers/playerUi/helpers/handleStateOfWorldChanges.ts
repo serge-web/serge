@@ -1,4 +1,4 @@
-import { MessageStateOfWorld, ForceData } from '@serge/custom-types'
+import { MessageStateOfWorld, ForceData, Asset } from '@serge/custom-types'
 
 import findAsset from '../../../Components/Mapping/helpers/findAsset'
 
@@ -6,8 +6,8 @@ export default (payload: MessageStateOfWorld, allForces: ForceData[]): ForceData
   const { detail } = payload
   detail.data.forEach(force => {
     // @ts-ignore
-    force.assets.forEach(entry => {
-      const asset = findAsset(allForces, entry.uniqid)
+    force.assets.forEach((entry: Asset) => {
+      const asset: Asset | undefined = findAsset(allForces, entry.uniqid)
       if (asset !== undefined) {
         if (entry.destroyed) {
           // @ts-ignore

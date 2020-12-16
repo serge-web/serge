@@ -57,7 +57,7 @@ const defaultProps: PropTypes = {
     imageBottom: 0
   },
   tileDiameterMins: 5,
-  forces: [{}],
+  forces: [],
   platforms: [{}],
   playerForce: 'Blue',
   canSubmitOrders: true,
@@ -129,6 +129,8 @@ export const Mapping: React.FC<PropTypes> = ({
   const [filterPlannedRoutes, setFilterPlannedRoutes] = useState<boolean>(true)
   const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
+
+  console.log('forces', forces)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {

@@ -1,4 +1,4 @@
-import Role from './role'
+import { Asset, Role } from '.';
 
 export default interface ForceData {
   name: string,
@@ -9,5 +9,6 @@ export default interface ForceData {
   color: string,
   umpire: boolean,
   dirty: boolean,
-  assets?: any
+  assets?: Array<Asset>,
+  controlledBy?: Array<string>
 }
