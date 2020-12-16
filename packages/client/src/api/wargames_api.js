@@ -18,14 +18,14 @@ import {
   SERGE_INFO,
   ERROR_THROTTLE
 } from '../consts'
+
+import { INFO_MESSAGE, FEEDBACK_MESSAGE, CUSTOM_MESSAGE } from '@serge/config'
+
 import {
   setLatestFeedbackMessage,
   setCurrentWargame,
   setLatestWargameMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-
-import { CUSTOM_MESSAGE } from '@serge/config'
-// TODO: change it to @serge/config
 
 const wargameDbStore = []
 
@@ -33,13 +33,13 @@ const listenNewMessage = ({ db, name, dispatch }) => {
   db.changes({ since: 'now', live: true, timeout: false, heartbeat: false, include_docs: true })
     .on('change', function (changes) {
       (async () => {
-        if (Object.prototype.hasOwnProperty.call(changes.doc, 'infoType')) {
+        if (changes.doc.messageType === INFO_MESSAGE) {
           dispatch(setCurrentWargame(changes.doc))
           dispatch(setLatestWargameMessage(changes.doc))
           return
         }
 
-        if (Object.prototype.hasOwnProperty.call(changes.doc, 'feedback')) {
+        if (changes.doc.messageType === FEEDBACK_MESSAGE) {
           dispatch(setLatestFeedbackMessage(changes.doc))
         } else {
           dispatch(setLatestWargameMessage(changes.doc))
@@ -159,7 +159,7 @@ export const createWargame = (dispatch) => {
 export const checkIfWargameStarted = (dbName) => {
   return getAllMessages(dbName)
     .then((messages) => {
-      const latestWargame = messages.find((message) => message.infoType)
+      const latestWargame = messages.find((message) => (message.messageType === INFO_MESSAGE))
       return !!latestWargame
     })
 }
@@ -167,7 +167,7 @@ export const checkIfWargameStarted = (dbName) => {
 export const getLatestWargameRevision = (dbName) => {
   return getAllMessages(dbName)
     .then((messages) => {
-      const latestWargame = messages.find((message) => message.infoType)
+      const latestWargame = messages.find((message) => (message.messageType === INFO_MESSAGE))
       if (latestWargame) return latestWargame
       return getWargameLocalFromName(dbName)
     })
@@ -186,7 +186,7 @@ export const exportWargame = dbPath => {
   const dbName = getNameFromPath(dbPath)
 
   return getAllMessages(dbName).then(messages => {
-    const latestWargame = messages.find(message => message.infoType)
+    const latestWargame = messages.find(message => (message.messageType === INFO_MESSAGE))
 
     if (latestWargame) {
       return { ...latestWargame, exportMessagelist: messages }
@@ -226,7 +226,7 @@ export const initiateGame = (dbName) => {
       .then((res) => {
         return game.db.put({
           _id: new Date().toISOString(),
-          infoType: true,
+          messageType: INFO_MESSAGE,
           name: res.name,
           wargameTitle: res.wargameTitle,
           data: res.data,
@@ -711,7 +711,7 @@ export const createLatestWargameRevision = (dbName, wargameData) => {
   return new Promise((resolve, reject) => {
     game.db.put({
       _id: new Date().toISOString(),
-      infoType: true,
+      messageType: INFO_MESSAGE,
       ...copiedData
     })
       .then((res) => {
@@ -728,9 +728,7 @@ export const getAllWargameRevisions = (dbName) => {
   return new Promise((resolve, reject) => {
     getAllMessages(dbName)
       .then((messages) => {
-        const revisions = messages.filter((message) => {
-          return Object.prototype.hasOwnProperty.call(message, 'infoType')
-        })
+        const revisions = messages.filter((message) => (message.messageType === INFO_MESSAGE))
         resolve(revisions)
       })
       .catch((err) => {
@@ -785,7 +783,7 @@ export const postFeedback = (dbName, fromDetails, message) => {
       message: {
         content: message
       },
-      feedback: true
+      messageType: FEEDBACK_MESSAGE
     })
       .then((res) => {
         resolve(res)
