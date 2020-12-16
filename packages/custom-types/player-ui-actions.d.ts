@@ -42,11 +42,11 @@ interface SetAllTemplatesAction {
 interface ShowHideObjectivesAction {
   type: typeof SHOW_HIDE_OBJECTIVES
 }
-interface SetWargameFeedbackAction {
+export interface SetWargameFeedbackAction {
   type: typeof SET_FEEDBACK_MESSAGES,
   payload: Array<MessageFeedback>
 }
-interface SetLatestFeedbackMessageAction {
+export interface SetLatestFeedbackMessageAction {
   type: typeof SET_LATEST_FEEDBACK_MESSAGE,
   payload: MessageFeedback
 }
