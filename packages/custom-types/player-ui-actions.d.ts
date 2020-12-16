@@ -50,7 +50,7 @@ export interface SetLatestFeedbackMessageAction {
   type: typeof SET_LATEST_FEEDBACK_MESSAGE,
   payload: MessageFeedback
 }
-interface SetLatestWargameMessageAction {
+export interface SetLatestWargameMessageAction {
   type: typeof SET_LATEST_WARGAME_MESSAGE,
   payload: MessageChannel
 }

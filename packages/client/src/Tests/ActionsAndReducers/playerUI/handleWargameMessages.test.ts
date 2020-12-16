@@ -17,7 +17,6 @@ import {
 import { PlayerUiActionTypes } from '@serge/custom-types'
 
 import {
-  SET_ALL_MESSAGES,
   OPEN_MESSAGE,
   CLOSE_MESSAGE,
   MARK_ALL_AS_READ
@@ -25,13 +24,6 @@ import {
 
 describe('PlayerUi Message Actions', () => {
 
-  it('Should set all messages gained from db to state', () => {
-    const expectedAction = {
-      type: SET_ALL_MESSAGES,
-      payload: setAllMessagesData.action.payload
-    }
-    expect(setWargameMessages(setAllMessagesData.action.payload)).toEqual(expectedAction)
-  })
   it('Should set channelId and message to reducer', () => {
     const expectedAction = {
       type: OPEN_MESSAGE,
@@ -57,11 +49,6 @@ describe('PlayerUi Message Actions', () => {
 
 describe('PlayerUi Message Reducers', () => {
   /*
-
-  it('Should convert and set SET_ALL_MESSAGES gained from db to state', () => {
-    expect(reducer(setAllMessagesData.state, setWargameMessages(setAllMessagesData.action.payload)))
-      .toEqual(setAllMessagesData.newState)
-  })
   it('Should set OPEN_MESSAGE by channelId and messsage', () => {
     expect(reducer(openMessageData.state, openMessage(openMessageData.action.payload.channel, openMessageData.action.payload.message)))
       .toEqual(openMessageData.newState)
