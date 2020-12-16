@@ -1,4 +1,4 @@
-import ActionConstant from '../ActionConstants.js'
+import * as ActionConstant from '../ActionConstants'
 
 export const modalAction = {
   open: (openModal, data) => ({

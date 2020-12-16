@@ -1,4 +1,4 @@
-import ActionConstant from '../ActionConstants'
+import * as ActionConstant from '../ActionConstants'
 import copyState from '../../Helpers/copyStateHelper'
 import uniqId from 'uniqid'
 
@@ -143,7 +143,6 @@ export const wargamesReducer = (state = initialState, action) => {
       break
 
     case ActionConstant.ADD_ICON:
-
       selected = newState.data[tab].selectedForce.name
       newState.data[tab].forces.find((f) => f.name === selected).icon = serverPath + action.icon.slice(1)
       break

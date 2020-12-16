@@ -1,4 +1,4 @@
-import ActionConstant from '../ActionConstants'
+import * as ActionConstant from '../ActionConstants'
 import copyState from '../../Helpers/copyStateHelper.js'
 
 var initialState = {

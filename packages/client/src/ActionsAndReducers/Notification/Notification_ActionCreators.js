@@ -1,4 +1,4 @@
-import ActionConstant from '../ActionConstants.js'
+import * as ActionConstant from '../ActionConstants'
 import uniqid from 'uniqid'
 
 export const addNotification = (message, type) => ({

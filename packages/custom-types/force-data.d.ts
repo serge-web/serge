@@ -8,5 +8,6 @@ export default interface ForceData {
   icon: string,
   color: string,
   umpire: boolean,
-  dirty: boolean
+  dirty: boolean,
+  assets?: any
 }
