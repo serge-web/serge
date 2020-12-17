@@ -7,7 +7,9 @@ export default (channels: Array<ChannelData>): ChannelData => {
 
   const channelData: ChannelData = {
     name: `${newChannelName}${Math.max.apply(null, channelNumber) + 1}`,
-    participants: []
+    participants: [],
+    forceIcons: [],
+    forceColors: []
   }
   return channelData
 }

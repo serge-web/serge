@@ -41,5 +41,5 @@ export default interface Message {
   _rev?: string
   gameTurn?: number,
   feedback?: boolean,
-  infoType: undefined
+  infoType?: boolean
 }

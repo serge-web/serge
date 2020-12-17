@@ -10,6 +10,8 @@ export default interface ChannelData {
   name: string,
   participants: Array<Participant>
   unreadMessageCount?: number
-  forceIcons: Array<any>
-  forceColors: Array<string>
+  // TODO: dynamically retrieve force icons and colors,
+  // don't store them in the database
+  forceIcons?: Array<any>
+  forceColors?: Array<string>
 }

@@ -147,7 +147,8 @@ export const getAllWargameFeedback = (dbName: string): Function => {
 export const getAllWargameMessages = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     const allMessages: Array<Message> = await wargamesApi.getAllMessages(dbName);
-    dispatch(setWargameMessages(allMessages.filter(({ feedback }) => !feedback)))
+    // FIXME: we can't cast the types in the next line
+    // dispatch(setWargameMessages(allMessages.filter(({ feedback }) => !feedback)))
     dispatch(setWargameFeedback(allMessages.filter(({ feedback }) => feedback)))
   }
 }
