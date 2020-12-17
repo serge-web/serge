@@ -1,7 +1,7 @@
 /* global it expect */
 import React from 'react'
 import renderer from 'react-test-renderer'
-import SearchListRow from "./index";
+import SearchListRow from './index'
 
 describe('SearchListRow component:', () => {
   it('renders correctly', () => {
