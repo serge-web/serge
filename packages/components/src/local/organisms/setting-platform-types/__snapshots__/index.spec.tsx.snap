@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`platform-types renders correctly 1`] = `
+exports[`SettingPlatformTypes component: renders correctly 1`] = `
 <div
   className="main"
 >
@@ -11,726 +11,185 @@ exports[`platform-types renders correctly 1`] = `
       className="main"
     >
       <div
-        className="section"
+        className="searchlist"
       >
-        <button
-          className="main"
-          onClick={[Function]}
-          type="button"
-        >
-          Add
-        </button>
-      </div>
-      <ul>
-        <li
-          className=""
+        <section
+          className="input-container disable-offset"
         >
           <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
           >
-            <div>
+            <div
+              className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+              onClick={[Function]}
+            >
+              <input
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInputBase-input MuiInput-input"
+                disabled={false}
+                name=""
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder="Search"
+                required={false}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </section>
+        <div
+          className="searchlist-list searchlist-list"
+        >
+          <span
+            className="searchlist-row active"
+          >
+            <span
+              onClick={[Function]}
+            >
               Fishing vessel
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               Frigate
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               Boghammer
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               torpedo
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               Fast attack craft
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               MCMV
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               Helicopter
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               Fixed wing aircraft
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               Unmanned Airborne Vehicle
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               Task Group
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               Coastal radar site
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               Merchant vessel
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-      </ul>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+        </div>
+      </div>
     </div>
   </div>
   <div
@@ -743,12 +202,33 @@ exports[`platform-types renders correctly 1`] = `
         <div
           className="col"
         >
-          <input
-            className="main"
-            onChange={[Function]}
-            placeholder="Platform Name"
-            value="Fishing vessel"
-          />
+          <section
+            className="input-container disable-offset"
+          >
+            <div
+              className="MuiFormControl-root MuiTextField-root"
+            >
+              <div
+                className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-8 MuiInput-underline makeStyles-underline-5 makeStyles-underline-9 MuiInputBase-formControl MuiInput-formControl"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiInput-input"
+                  disabled={false}
+                  name=""
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  type="text"
+                  value="Fishing vessel"
+                />
+              </div>
+            </div>
+          </section>
         </div>
         <div
           className="col"
@@ -781,11 +261,29 @@ exports[`platform-types renders correctly 1`] = `
           className="actions"
         >
           <button
-            className="main"
+            className="MuiButtonBase-root MuiButton-root makeStyles-root-10 makeStyles-root-12 MuiButton-contained makeStyles-contained-11 makeStyles-contained-13 MuiButton-containedPrimary"
+            data-qa-type="save"
+            disabled={false}
+            onBlur={[Function]}
             onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
             type="button"
           >
-            Save
+            <span
+              className="MuiButton-label"
+            >
+              Save
+            </span>
           </button>
         </div>
       </div>
@@ -819,7 +317,7 @@ exports[`platform-types renders correctly 1`] = `
                   >
                     <span
                       aria-disabled={false}
-                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-checked-2 Mui-checked MuiIconButton-colorPrimary"
+                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorPrimary"
                       onBlur={[Function]}
                       onDragLeave={[Function]}
                       onFocus={[Function]}
@@ -838,7 +336,7 @@ exports[`platform-types renders correctly 1`] = `
                       >
                         <input
                           checked={true}
-                          className="PrivateSwitchBase-input-4"
+                          className="PrivateSwitchBase-input-17"
                           disabled={false}
                           name="position"
                           onChange={[Function]}
@@ -846,7 +344,7 @@ exports[`platform-types renders correctly 1`] = `
                           value="sea"
                         />
                         <div
-                          className="PrivateRadioButtonIcon-root-5 PrivateRadioButtonIcon-checked-7"
+                          className="PrivateRadioButtonIcon-root-18 PrivateRadioButtonIcon-checked-20"
                         >
                           <svg
                             aria-hidden={true}
@@ -860,7 +358,7 @@ exports[`platform-types renders correctly 1`] = `
                           </svg>
                           <svg
                             aria-hidden={true}
-                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-6"
+                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-19"
                             focusable="false"
                             viewBox="0 0 24 24"
                           >
@@ -882,7 +380,7 @@ exports[`platform-types renders correctly 1`] = `
                   >
                     <span
                       aria-disabled={false}
-                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
                       onBlur={[Function]}
                       onDragLeave={[Function]}
                       onFocus={[Function]}
@@ -901,7 +399,7 @@ exports[`platform-types renders correctly 1`] = `
                       >
                         <input
                           checked={false}
-                          className="PrivateSwitchBase-input-4"
+                          className="PrivateSwitchBase-input-17"
                           disabled={false}
                           name="position"
                           onChange={[Function]}
@@ -909,7 +407,7 @@ exports[`platform-types renders correctly 1`] = `
                           value="land"
                         />
                         <div
-                          className="PrivateRadioButtonIcon-root-5"
+                          className="PrivateRadioButtonIcon-root-18"
                         >
                           <svg
                             aria-hidden={true}
@@ -923,7 +421,7 @@ exports[`platform-types renders correctly 1`] = `
                           </svg>
                           <svg
                             aria-hidden={true}
-                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-6"
+                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-19"
                             focusable="false"
                             viewBox="0 0 24 24"
                           >
@@ -945,7 +443,7 @@ exports[`platform-types renders correctly 1`] = `
                   >
                     <span
                       aria-disabled={false}
-                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
                       onBlur={[Function]}
                       onDragLeave={[Function]}
                       onFocus={[Function]}
@@ -964,7 +462,7 @@ exports[`platform-types renders correctly 1`] = `
                       >
                         <input
                           checked={false}
-                          className="PrivateSwitchBase-input-4"
+                          className="PrivateSwitchBase-input-17"
                           disabled={false}
                           name="position"
                           onChange={[Function]}
@@ -972,7 +470,7 @@ exports[`platform-types renders correctly 1`] = `
                           value="air"
                         />
                         <div
-                          className="PrivateRadioButtonIcon-root-5"
+                          className="PrivateRadioButtonIcon-root-18"
                         >
                           <svg
                             aria-hidden={true}
@@ -986,7 +484,7 @@ exports[`platform-types renders correctly 1`] = `
                           </svg>
                           <svg
                             aria-hidden={true}
-                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-6"
+                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-19"
                             focusable="false"
                             viewBox="0 0 24 24"
                           >
@@ -1536,7 +1034,7 @@ exports[`platform-types renders correctly 1`] = `
                             >
                               <span
                                 aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-2 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-21 MuiSwitch-colorSecondary PrivateSwitchBase-checked-15 Mui-checked WithStyles(ForwardRef(Switch))-checked-22"
                                 onBlur={[Function]}
                                 onDragLeave={[Function]}
                                 onFocus={[Function]}
@@ -1555,7 +1053,7 @@ exports[`platform-types renders correctly 1`] = `
                                 >
                                   <input
                                     checked={true}
-                                    className="PrivateSwitchBase-input-4 MuiSwitch-input"
+                                    className="PrivateSwitchBase-input-17 MuiSwitch-input"
                                     onChange={[Function]}
                                     type="checkbox"
                                   />
@@ -1565,7 +1063,7 @@ exports[`platform-types renders correctly 1`] = `
                                 </span>
                               </span>
                               <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-23"
                               />
                             </span>
                           </div>
@@ -1646,7 +1144,7 @@ exports[`platform-types renders correctly 1`] = `
                             >
                               <span
                                 aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary"
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-21 MuiSwitch-colorSecondary"
                                 onBlur={[Function]}
                                 onDragLeave={[Function]}
                                 onFocus={[Function]}
@@ -1665,7 +1163,7 @@ exports[`platform-types renders correctly 1`] = `
                                 >
                                   <input
                                     checked={false}
-                                    className="PrivateSwitchBase-input-4 MuiSwitch-input"
+                                    className="PrivateSwitchBase-input-17 MuiSwitch-input"
                                     onChange={[Function]}
                                     type="checkbox"
                                   />
@@ -1675,7 +1173,7 @@ exports[`platform-types renders correctly 1`] = `
                                 </span>
                               </span>
                               <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-23"
                               />
                             </span>
                           </div>
@@ -1756,7 +1254,7 @@ exports[`platform-types renders correctly 1`] = `
                             >
                               <span
                                 aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary"
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-21 MuiSwitch-colorSecondary"
                                 onBlur={[Function]}
                                 onDragLeave={[Function]}
                                 onFocus={[Function]}
@@ -1775,7 +1273,7 @@ exports[`platform-types renders correctly 1`] = `
                                 >
                                   <input
                                     checked={false}
-                                    className="PrivateSwitchBase-input-4 MuiSwitch-input"
+                                    className="PrivateSwitchBase-input-17 MuiSwitch-input"
                                     onChange={[Function]}
                                     type="checkbox"
                                   />
@@ -1785,7 +1283,7 @@ exports[`platform-types renders correctly 1`] = `
                                 </span>
                               </span>
                               <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-23"
                               />
                             </span>
                           </div>

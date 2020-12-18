@@ -34,18 +34,52 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
           className="planned-route"
         >
           <button
-            className="main"
+            className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+            disabled={false}
+            onBlur={[Function]}
             onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
             type="button"
           >
-            Accept
+            <span
+              className="MuiButton-label"
+            >
+              Accept
+            </span>
           </button>
           <button
-            className="main"
+            className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-5 MuiButton-contained makeStyles-contained-2 makeStyles-contained-6 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+            disabled={false}
+            onBlur={[Function]}
             onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
             type="button"
           >
-            Reject
+            <span
+              className="MuiButton-label"
+            >
+              Reject
+            </span>
           </button>
         </div>
       </div>
@@ -190,7 +224,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary PrivateSwitchBase-checked-2 Mui-checked MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root MuiCheckbox-colorSecondary PrivateSwitchBase-checked-8 Mui-checked MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -209,7 +243,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
               >
                 <input
                   checked={true}
-                  className="PrivateSwitchBase-input-4"
+                  className="PrivateSwitchBase-input-10"
                   data-indeterminate={false}
                   name="objectObject"
                   onChange={[Function]}
@@ -249,7 +283,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -268,7 +302,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
               >
                 <input
                   checked={false}
-                  className="PrivateSwitchBase-input-4"
+                  className="PrivateSwitchBase-input-10"
                   data-indeterminate={false}
                   name="objectObject"
                   onChange={[Function]}
@@ -308,7 +342,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
           >
             <span
               aria-disabled={false}
-              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
+              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
               onBlur={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
@@ -327,7 +361,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
               >
                 <input
                   checked={false}
-                  className="PrivateSwitchBase-input-4"
+                  className="PrivateSwitchBase-input-10"
                   data-indeterminate={false}
                   name="objectObject"
                   onChange={[Function]}
@@ -390,7 +424,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
             >
               <span
                 aria-disabled={false}
-                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-5 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-6 Mui-checked MuiIconButton-colorSecondary"
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-12 Mui-checked MuiIconButton-colorSecondary"
                 onBlur={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
@@ -409,14 +443,14 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
                 >
                   <input
                     checked={true}
-                    className="PrivateSwitchBase-input-8"
+                    className="PrivateSwitchBase-input-14"
                     name=""
                     onChange={[Function]}
                     type="radio"
                     value="Working"
                   />
                   <div
-                    className="PrivateRadioButtonIcon-root-9 PrivateRadioButtonIcon-checked-11"
+                    className="PrivateRadioButtonIcon-root-15 PrivateRadioButtonIcon-checked-17"
                   >
                     <svg
                       aria-hidden={true}
@@ -430,7 +464,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
                     </svg>
                     <svg
                       aria-hidden={true}
-                      className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-10"
+                      className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-16"
                       focusable="false"
                       viewBox="0 0 24 24"
                     >
@@ -452,7 +486,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
             >
               <span
                 aria-disabled={false}
-                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-5 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
                 onBlur={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
@@ -471,14 +505,14 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
                 >
                   <input
                     checked={false}
-                    className="PrivateSwitchBase-input-8"
+                    className="PrivateSwitchBase-input-14"
                     name=""
                     onChange={[Function]}
                     type="radio"
                     value="Disabled"
                   />
                   <div
-                    className="PrivateRadioButtonIcon-root-9"
+                    className="PrivateRadioButtonIcon-root-15"
                   >
                     <svg
                       aria-hidden={true}
@@ -492,7 +526,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
                     </svg>
                     <svg
                       aria-hidden={true}
-                      className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-10"
+                      className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-16"
                       focusable="false"
                       viewBox="0 0 24 24"
                     >
@@ -514,7 +548,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
             >
               <span
                 aria-disabled={false}
-                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-5 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
                 onBlur={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
@@ -533,14 +567,14 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
                 >
                   <input
                     checked={false}
-                    className="PrivateSwitchBase-input-8"
+                    className="PrivateSwitchBase-input-14"
                     name=""
                     onChange={[Function]}
                     type="radio"
                     value="Immobile"
                   />
                   <div
-                    className="PrivateRadioButtonIcon-root-9"
+                    className="PrivateRadioButtonIcon-root-15"
                   >
                     <svg
                       aria-hidden={true}
@@ -554,7 +588,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
                     </svg>
                     <svg
                       aria-hidden={true}
-                      className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-10"
+                      className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-16"
                       focusable="false"
                       viewBox="0 0 24 24"
                     >
@@ -576,7 +610,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
             >
               <span
                 aria-disabled={false}
-                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-5 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
                 onBlur={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
@@ -595,14 +629,14 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
                 >
                   <input
                     checked={false}
-                    className="PrivateSwitchBase-input-8"
+                    className="PrivateSwitchBase-input-14"
                     name=""
                     onChange={[Function]}
                     type="radio"
                     value="Destroyed"
                   />
                   <div
-                    className="PrivateRadioButtonIcon-root-9"
+                    className="PrivateRadioButtonIcon-root-15"
                   >
                     <svg
                       aria-hidden={true}
@@ -616,7 +650,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
                     </svg>
                     <svg
                       aria-hidden={true}
-                      className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-10"
+                      className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-16"
                       focusable="false"
                       viewBox="0 0 24 24"
                     >
@@ -639,11 +673,28 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
     </div>
   </fieldset>
   <button
-    className="main"
+    className="MuiButtonBase-root MuiButton-root makeStyles-root-18 makeStyles-root-20 MuiButton-contained makeStyles-contained-19 makeStyles-contained-21"
+    disabled={false}
+    onBlur={[Function]}
     onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
-    Save
+    <span
+      className="MuiButton-label"
+    >
+      Save
+    </span>
   </button>
 </div>
 `;

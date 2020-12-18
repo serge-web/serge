@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`forces renders correctly 1`] = `
+exports[`SettingForces component: renders correctly 1`] = `
 <div
   className="main"
 >
@@ -11,254 +11,61 @@ exports[`forces renders correctly 1`] = `
       className="main"
     >
       <div
-        className="section"
+        className="searchlist"
       >
-        <button
-          className="main"
-          onClick={[Function]}
-          type="button"
+        <div
+          className="searchlist-list searchlist-list"
         >
-          Add
-        </button>
-      </div>
-      <ul>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+          <span
+            className="searchlist-row active"
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               White
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               Blue
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               Red
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-        <li
-          className=""
-        >
-          <div
-            className="overlap"
-            onClick={[Function]}
-          />
-          <div
-            className="section"
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
           >
-            <div>
+            <span
+              onClick={[Function]}
+            >
               Green
-            </div>
-            <span>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-copy fa-w-14 "
-                  data-icon="copy"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
-              <div
-                onClick={[Function]}
-              >
-                <svg
-                  aria-hidden="true"
-                  className="svg-inline--fa fa-trash fa-w-14 "
-                  data-icon="trash"
-                  data-prefix="fas"
-                  focusable="false"
-                  role="img"
-                  style={Object {}}
-                  viewBox="0 0 448 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                    fill="currentColor"
-                    style={Object {}}
-                  />
-                </svg>
-              </div>
             </span>
-          </div>
-        </li>
-      </ul>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+        </div>
+      </div>
     </div>
   </div>
   <div
@@ -271,12 +78,33 @@ exports[`forces renders correctly 1`] = `
         <div
           className="col"
         >
-          <input
-            className="main"
-            onChange={[Function]}
-            placeholder="Platform Name"
-            value="White"
-          />
+          <section
+            className="input-container disable-offset"
+          >
+            <div
+              className="MuiFormControl-root MuiTextField-root"
+            >
+              <div
+                className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-formControl MuiInput-formControl"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiInput-input"
+                  disabled={false}
+                  name=""
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  type="text"
+                  value="White"
+                />
+              </div>
+            </div>
+          </section>
         </div>
         <div
           className="color-box"
@@ -314,7 +142,7 @@ exports[`forces renders correctly 1`] = `
             >
               <img
                 alt="icon"
-                src="default_img/umpireDefault.png"
+                src="images/default_img/umpireDefault.png"
               />
             </div>
             <div
@@ -328,11 +156,32 @@ exports[`forces renders correctly 1`] = `
           className="actions"
         >
           <button
-            className="main"
+            className="MuiButtonBase-root MuiButton-root makeStyles-root-8 makeStyles-root-10 MuiButton-contained makeStyles-contained-9 makeStyles-contained-11 MuiButton-containedPrimary"
+            data-qa-type="save"
+            disabled={false}
+            onBlur={[Function]}
             onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
             type="button"
           >
-            Save
+            <span
+              className="MuiButton-label"
+            >
+              Save Force
+            </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
           </button>
         </div>
       </div>
@@ -353,12 +202,56 @@ exports[`forces renders correctly 1`] = `
             <div
               className="content"
             >
-              <textarea
-                className="textarea"
-                onChange={[Function]}
-                rows={8}
-                value="Umpire force."
-              />
+              <section
+                className="input-container disable-offset textarea"
+              >
+                <div
+                  className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                >
+                  <div
+                    className="MuiInputBase-root MuiInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline makeStyles-multiline-3"
+                    onClick={[Function]}
+                  >
+                    <textarea
+                      aria-invalid={false}
+                      autoFocus={false}
+                      className="MuiInputBase-input MuiInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                      disabled={false}
+                      name=""
+                      onAnimationStart={[Function]}
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      required={false}
+                      rows={8}
+                      style={
+                        Object {
+                          "height": 0,
+                          "overflow": "hidden",
+                        }
+                      }
+                      value="Umpire force."
+                    />
+                    <textarea
+                      aria-hidden={true}
+                      className="MuiInputBase-input MuiInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                      readOnly={true}
+                      style={
+                        Object {
+                          "height": 0,
+                          "left": 0,
+                          "overflow": "hidden",
+                          "position": "absolute",
+                          "top": 0,
+                          "transform": "translateZ(0)",
+                          "visibility": "hidden",
+                        }
+                      }
+                      tabIndex={-1}
+                    />
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
         </div>
@@ -409,12 +302,36 @@ exports[`forces renders correctly 1`] = `
                               className="main"
                               title="Click to Copy or Edit"
                             >
-                              <input
-                                className="main"
-                                onChange={[Function]}
-                                value="p2311"
-                              />
-                              <section>
+                              <section
+                                className="input-container disable-offset"
+                              >
+                                <div
+                                  className="MuiFormControl-root MuiTextField-root"
+                                >
+                                  <div
+                                    className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-14 MuiInput-underline makeStyles-underline-5 makeStyles-underline-15 MuiInputBase-formControl MuiInput-formControl"
+                                    onClick={[Function]}
+                                  >
+                                    <input
+                                      aria-invalid={false}
+                                      autoFocus={false}
+                                      className="MuiInputBase-input MuiInput-input"
+                                      disabled={false}
+                                      name=""
+                                      onAnimationStart={[Function]}
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onFocus={[Function]}
+                                      required={false}
+                                      type="text"
+                                      value="p2311"
+                                    />
+                                  </div>
+                                </div>
+                              </section>
+                              <section
+                                className="password-mask"
+                              >
                                 <div
                                   className="dots"
                                 >
@@ -541,7 +458,7 @@ exports[`forces renders correctly 1`] = `
                             >
                               <span
                                 aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-19 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-16 MuiSwitch-colorSecondary PrivateSwitchBase-checked-20 Mui-checked WithStyles(ForwardRef(Switch))-checked-17"
                                 onBlur={[Function]}
                                 onDragLeave={[Function]}
                                 onFocus={[Function]}
@@ -560,7 +477,7 @@ exports[`forces renders correctly 1`] = `
                                 >
                                   <input
                                     checked={true}
-                                    className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                    className="PrivateSwitchBase-input-22 MuiSwitch-input"
                                     disabled={false}
                                     onChange={[Function]}
                                     type="checkbox"
@@ -569,9 +486,12 @@ exports[`forces renders correctly 1`] = `
                                     className="MuiSwitch-thumb"
                                   />
                                 </span>
+                                <span
+                                  className="MuiTouchRipple-root"
+                                />
                               </span>
                               <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-18"
                               />
                             </span>
                             <div
@@ -605,7 +525,7 @@ exports[`forces renders correctly 1`] = `
                             >
                               <span
                                 aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-19 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-16 MuiSwitch-colorSecondary PrivateSwitchBase-checked-20 Mui-checked WithStyles(ForwardRef(Switch))-checked-17"
                                 onBlur={[Function]}
                                 onDragLeave={[Function]}
                                 onFocus={[Function]}
@@ -624,7 +544,7 @@ exports[`forces renders correctly 1`] = `
                                 >
                                   <input
                                     checked={true}
-                                    className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                    className="PrivateSwitchBase-input-22 MuiSwitch-input"
                                     disabled={false}
                                     onChange={[Function]}
                                     type="checkbox"
@@ -633,9 +553,12 @@ exports[`forces renders correctly 1`] = `
                                     className="MuiSwitch-thumb"
                                   />
                                 </span>
+                                <span
+                                  className="MuiTouchRipple-root"
+                                />
                               </span>
                               <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-18"
                               />
                             </span>
                             <div
@@ -669,7 +592,7 @@ exports[`forces renders correctly 1`] = `
                             >
                               <span
                                 aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-19 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-16 MuiSwitch-colorSecondary PrivateSwitchBase-checked-20 Mui-checked WithStyles(ForwardRef(Switch))-checked-17"
                                 onBlur={[Function]}
                                 onDragLeave={[Function]}
                                 onFocus={[Function]}
@@ -688,7 +611,7 @@ exports[`forces renders correctly 1`] = `
                                 >
                                   <input
                                     checked={true}
-                                    className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                    className="PrivateSwitchBase-input-22 MuiSwitch-input"
                                     onChange={[Function]}
                                     type="checkbox"
                                   />
@@ -696,9 +619,12 @@ exports[`forces renders correctly 1`] = `
                                     className="MuiSwitch-thumb"
                                   />
                                 </span>
+                                <span
+                                  className="MuiTouchRipple-root"
+                                />
                               </span>
                               <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-18"
                               />
                             </span>
                             <div

@@ -130,8 +130,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
 
-  console.log('forces', forces)
-
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
     setMapBounds(bounds)

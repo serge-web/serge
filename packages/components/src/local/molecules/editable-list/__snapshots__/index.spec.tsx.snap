@@ -5,135 +5,64 @@ exports[`editable-list renders correctly 1`] = `
   className="main"
 >
   <div
-    className="section"
+    className="searchlist"
   >
-    <button
-      className="main"
-      onClick={[Function]}
-      type="button"
-    >
-      Add
-    </button>
-  </div>
-  <ul>
-    <li
-      className=""
+    <section
+      className="input-container disable-offset"
     >
       <div
-        className="overlap"
-        onClick={[Function]}
-      />
-      <div
-        className="section"
+        className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
       >
-        <div>
+        <div
+          className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiInputBase-input MuiInput-input"
+            disabled={false}
+            name=""
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Search"
+            required={false}
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </section>
+    <div
+      className="searchlist-list searchlist-list"
+    >
+      <span
+        className="searchlist-row "
+      >
+        <span
+          onClick={[Function]}
+        >
           list item 1
-        </div>
-        <span>
-          <div
-            onClick={[Function]}
-          >
-            <svg
-              aria-hidden="true"
-              className="svg-inline--fa fa-copy fa-w-14 "
-              data-icon="copy"
-              data-prefix="fas"
-              focusable="false"
-              role="img"
-              style={Object {}}
-              viewBox="0 0 448 512"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                fill="currentColor"
-                style={Object {}}
-              />
-            </svg>
-          </div>
-          <div
-            onClick={[Function]}
-          >
-            <svg
-              aria-hidden="true"
-              className="svg-inline--fa fa-trash fa-w-14 "
-              data-icon="trash"
-              data-prefix="fas"
-              focusable="false"
-              role="img"
-              style={Object {}}
-              viewBox="0 0 448 512"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                fill="currentColor"
-                style={Object {}}
-              />
-            </svg>
-          </div>
         </span>
-      </div>
-    </li>
-    <li
-      className=""
-    >
-      <div
-        className="overlap"
-        onClick={[Function]}
-      />
-      <div
-        className="section"
+        <div
+          className="searchlist-menu"
+        />
+      </span>
+      <span
+        className="searchlist-row "
       >
-        <div>
+        <span
+          onClick={[Function]}
+        >
           list item 2
-        </div>
-        <span>
-          <div
-            onClick={[Function]}
-          >
-            <svg
-              aria-hidden="true"
-              className="svg-inline--fa fa-copy fa-w-14 "
-              data-icon="copy"
-              data-prefix="fas"
-              focusable="false"
-              role="img"
-              style={Object {}}
-              viewBox="0 0 448 512"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"
-                fill="currentColor"
-                style={Object {}}
-              />
-            </svg>
-          </div>
-          <div
-            onClick={[Function]}
-          >
-            <svg
-              aria-hidden="true"
-              className="svg-inline--fa fa-trash fa-w-14 "
-              data-icon="trash"
-              data-prefix="fas"
-              focusable="false"
-              role="img"
-              style={Object {}}
-              viewBox="0 0 448 512"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-                fill="currentColor"
-                style={Object {}}
-              />
-            </svg>
-          </div>
         </span>
-      </div>
-    </li>
-  </ul>
+        <div
+          className="searchlist-menu"
+        />
+      </span>
+    </div>
+  </div>
 </div>
 `;
