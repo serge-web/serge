@@ -1,4 +1,4 @@
-import { SelectedAsset, ColorOption, PerceptionFormData } from '@serge/custom-types'
+import { SelectedAsset, ColorOption, PerceptionFormData, ForceData, Asset } from '@serge/custom-types'
 import availableForces from './available-forces'
 import { findPerceivedAsTypes, findAsset } from '@serge/helpers'
 
@@ -8,10 +8,10 @@ import { findPerceivedAsTypes, findAsset } from '@serge/helpers'
  * @param {SelectedAsset} selectedAsset the currently selected asset
  * @return {string} data necessary for the plan turn form
  */
-const collatePerceptionFormData = (platforms: any, playerForce: string, selectedAsset: SelectedAsset, forces: any,
+const collatePerceptionFormData = (platforms: any, playerForce: string, selectedAsset: SelectedAsset, forces: ForceData[],
   userIsUmpire: boolean): PerceptionFormData => {
   // get the actual asset
-  const asset = findAsset(forces, selectedAsset.uniqid)
+  const asset: Asset = findAsset(forces, selectedAsset.uniqid)
   const [nameT, forceT, typeT] = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
     selectedAsset.force, selectedAsset.type, asset.perceptions, userIsUmpire)
   const availableForceList: ColorOption[] = availableForces(forces, true, true)

@@ -1,3 +1,4 @@
+import { ForceData } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 /**
  * Create a new Task Group using the provided assets
@@ -6,8 +7,8 @@ import { cloneDeep } from 'lodash'
  * @param (any) forces list of forces
  * @returns modified list of forces
  */
-const groupCreateNewGroup = (dragging: string, target: string, forces: any): any => {
-  const newForces: any = cloneDeep(forces)
+const groupCreateNewGroup = (dragging: string, target: string, forces: ForceData[]): ForceData[] => {
+  const newForces: ForceData[] = cloneDeep(forces)
 
   // find the parent force
   const parent = forceFor(dragging, newForces)
@@ -49,7 +50,7 @@ const groupCreateNewGroup = (dragging: string, target: string, forces: any): any
 }
 
 /** find the force counter for this asset id */
-const forceFor = (item: string, forces: any): any => {
+const forceFor = (item: string, forces: ForceData[]): any => {
   const match: any = forces.find((force: any) => {
     const assets: any = force.assets
     if (assets) {

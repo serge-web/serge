@@ -76,7 +76,7 @@ export const MapBar: React.FC = () => {
     canSubmitOrders: boolean
     phase: Phase
     platforms: any
-    forces: any
+    forces: ForceData[]
     showMapBar: boolean
     turnNumber: number
     setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>

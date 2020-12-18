@@ -14,5 +14,5 @@ export default interface AssetInfo {
   selected: boolean
   visibleTo: Array<string>
   uniqid: string
-  controlledBy: [string]
+  controlledBy?: Array<string>
 }

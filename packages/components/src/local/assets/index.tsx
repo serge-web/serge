@@ -11,14 +11,14 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import AssetInfo from './types/asset_info'
-import { SergeHex, SergeGrid, RouteStore, Route as RouteType, SelectedAsset } from '@serge/custom-types'
+import { SergeHex, SergeGrid, RouteStore, Route as RouteType, SelectedAsset, ForceData } from '@serge/custom-types'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
   // pull in some context (with TS definitions)
   const { gridCells, forces, playerForce, selectedAsset, viewAsRouteStore, phase, clearFromTurn }:
     { gridCells: SergeGrid<SergeHex<{}>> | undefined
-      forces: any
+      forces: ForceData[]
       playerForce: string
       selectedAsset: SelectedAsset | undefined
       viewAsRouteStore: RouteStore
@@ -63,23 +63,24 @@ export const Assets: React.FC<{}> = () => {
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
             // sort out who can control this force
-            const assetForce = forces.find((force: any) => force.name === actualForceName)
-
-            const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
-            const assetInfo: AssetInfo = {
-              name: perceivedAs[0],
-              condition,
-              status,
-              selected: isSelected,
-              controlledBy: assetForce.controlledBy,
-              type: perceivedAs[2],
-              perceivedForce: perceivedAs[1],
-              force: assetForce.uniqid,
-              visibleTo: visibleToArr,
-              position,
-              uniqid
+            const assetForce: ForceData | undefined = forces.find((force: any) => force.name === actualForceName)
+            if(assetForce) {
+              const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
+              const assetInfo: AssetInfo = {
+                name: perceivedAs[0],
+                condition,
+                status,
+                selected: isSelected,
+                controlledBy: assetForce.controlledBy,
+                type: perceivedAs[2],
+                perceivedForce: perceivedAs[1],
+                force: assetForce.uniqid,
+                visibleTo: visibleToArr,
+                position,
+                uniqid
+              }
+              tmpAssets.push(assetInfo)  
             }
-            tmpAssets.push(assetInfo)
           } else {
             console.log('!! Failed to find cell numbered:', route.currentPosition)
           }

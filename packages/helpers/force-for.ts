@@ -1,8 +1,10 @@
-export default function forceFor ( allForces: any, assetId: string): any {
-  return allForces.find((force: any) => {
+import { Asset, ForceData } from "@serge/custom-types"
+
+export default function forceFor ( allForces: ForceData[], assetId: string): any {
+  return allForces.find((force: ForceData) => {
     const assets = force.assets
     if (assets) {
-      return assets.find((asset: any) => asset.uniqid === assetId)
+      return assets.find((asset: Asset) => asset.uniqid === assetId)
     } else {
       return false
     }

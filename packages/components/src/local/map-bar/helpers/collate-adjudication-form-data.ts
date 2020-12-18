@@ -1,4 +1,4 @@
-import { SelectedAsset, AdjudicateTurnFormPopulate, ColorOption } from '@serge/custom-types'
+import { SelectedAsset, AdjudicateTurnFormPopulate, ColorOption, ForceData } from '@serge/custom-types'
 
 import { kebabCase } from 'lodash'
 import availableForces from './available-forces'
@@ -9,7 +9,7 @@ import availableForces from './available-forces'
  * @return {string} data necessary for the plan turn form
  */
 const collateAdjudicationFormData = (platforms: any, selectedAsset: SelectedAsset,
-  forces: any
+  forces: ForceData[]
 ): AdjudicateTurnFormPopulate => {
   const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
   const availableForcesList: ColorOption[] = availableForces(forces, false, true)

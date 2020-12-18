@@ -3,7 +3,7 @@ import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { RouteStore, PlanTurnFormValues, Postback, NewTurnValues } from '@serge/custom-types'
+import { RouteStore, PlanTurnFormValues, Postback, NewTurnValues, ForceData } from '@serge/custom-types'
 
 /**
  * mapping context, shared with child elements
@@ -16,7 +16,7 @@ export default interface MappingContext {
   /**
    * list of forces within this wargame
    */
-  forces: any
+  forces: ForceData[]
   /**
    * list of platforms within this wargame
    */

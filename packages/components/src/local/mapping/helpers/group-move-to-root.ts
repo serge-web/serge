@@ -1,3 +1,4 @@
+import { Asset, ForceData } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 /**
  * Move the specified child asset to the root level for that force
@@ -5,11 +6,11 @@ import { cloneDeep } from 'lodash'
  * @param (any) forces list of forces
  * @returns modified list of forces
  */
-const groupMoveToRoot = (uniqid: string, forces: any): any => {
-  const newForces: any = cloneDeep(forces)
+const groupMoveToRoot = (uniqid: string, forces: ForceData[]): any => {
+  const newForces: ForceData[] = cloneDeep(forces)
   // find the force
-  let topLevelAsset: any
-  let parentForce: any
+  let topLevelAsset: Asset | undefined
+  let parentForce: ForceData | undefined
   let parentListType: listType | undefined
   let parentAsset: any
   let theAsset: any
@@ -17,9 +18,9 @@ const groupMoveToRoot = (uniqid: string, forces: any): any => {
     HOSTING,
     COMPRISING
   }
-  newForces.forEach((force: any) => {
+  newForces.forEach((force: ForceData) => {
     if (force.assets && !parentForce) {
-      force.assets.forEach((asset: any) => {
+      force.assets.forEach((asset: Asset) => {
         topLevelAsset = asset
         // only carry on hunting if we haven't found it
         if (!parentForce) {
@@ -33,7 +34,7 @@ const groupMoveToRoot = (uniqid: string, forces: any): any => {
           } else {
             // we have to search a layer deeper
             if (asset.hosting) {
-              asset.hosting.forEach((asset2: any) => {
+              asset.hosting.forEach((asset2: Asset) => {
                 const hosted = findInList(uniqid, asset2.hosting)
                 const contains = findInList(uniqid, asset2.comprising)
                 if (hosted || contains) {
@@ -63,9 +64,7 @@ const groupMoveToRoot = (uniqid: string, forces: any): any => {
   })
 
   // did it work?
-  if (!parentForce) {
-    return undefined
-  } else {
+  if (parentForce && parentForce.assets && topLevelAsset) {
     // remove from the parent
     switch (parentListType) {
       case listType.HOSTING : {
@@ -85,9 +84,11 @@ const groupMoveToRoot = (uniqid: string, forces: any): any => {
 
     // add at the top level
     parentForce.assets.push(theAsset)
-
     return newForces
-  }
+  } else {
+    return undefined
+  }    
+
 }
 
 const findInList = (uniqid: string, items: any): any => {

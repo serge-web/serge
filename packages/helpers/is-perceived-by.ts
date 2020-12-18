@@ -11,11 +11,11 @@ const isPerceivedBy = (perceptions: Perception[], playerForce: string,
   forceColors: Array<{force: string, color: string}>, undefinedColor: string): string | undefined => {
   if(perceptions) {
     if(Array.isArray(perceptions)) {
-      const p = perceptions.find((p:Perception) => p.by.toLowerCase() === playerForce.toLowerCase())
+      const p: Perception | undefined = perceptions.find((p:Perception) => p.by.toLowerCase() === playerForce.toLowerCase())
       if(p) {
         // do we know force?
-        if(p.force) {
-          const color = forceColors.find((f:any) => f.force.toLowerCase() === p.force.toLowerCase())
+        if(p.force ) {
+          const color = forceColors.find((f:{force: string, color: string}) => f.force.toLowerCase() === p.force.toLowerCase())
           if(color) {
             return color.color
           } else {
