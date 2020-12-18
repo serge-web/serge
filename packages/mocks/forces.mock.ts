@@ -1236,10 +1236,7 @@ export const forces: ForceData[] = [
           }
         ],
         platformType: 'fishing-vessel',
-        route: [
-          'N11',
-          'L10'
-        ],
+        position: 'N11',
         status: {
           speedKts: 10,
           state: 'Transiting'
