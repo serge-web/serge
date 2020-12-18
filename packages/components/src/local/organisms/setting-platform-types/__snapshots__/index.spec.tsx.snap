@@ -1,0 +1,1451 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SettingPlatformTypes component: renders correctly 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="left"
+  >
+    <div
+      className="main"
+    >
+      <div
+        className="searchlist"
+      >
+        <section
+          className="input-container disable-offset"
+        >
+          <div
+            className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+          >
+            <div
+              className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+              onClick={[Function]}
+            >
+              <input
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInputBase-input MuiInput-input"
+                disabled={false}
+                name=""
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder="Search"
+                required={false}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </section>
+        <div
+          className="searchlist-list searchlist-list"
+        >
+          <span
+            className="searchlist-row active"
+          >
+            <span
+              onClick={[Function]}
+            >
+              Fishing vessel
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              Frigate
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              Boghammer
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              torpedo
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              Fast attack craft
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              MCMV
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              Helicopter
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              Fixed wing aircraft
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              Unmanned Airborne Vehicle
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              Task Group
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              Coastal radar site
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              Merchant vessel
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="right"
+  >
+    <div>
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          <section
+            className="input-container disable-offset"
+          >
+            <div
+              className="MuiFormControl-root MuiTextField-root"
+            >
+              <div
+                className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-8 MuiInput-underline makeStyles-underline-5 makeStyles-underline-9 MuiInputBase-formControl MuiInput-formControl"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiInput-input"
+                  disabled={false}
+                  name=""
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  type="text"
+                  value="Fishing vessel"
+                />
+              </div>
+            </div>
+          </section>
+        </div>
+        <div
+          className="col"
+        >
+          <div
+            className="main"
+          >
+            <div
+              className="icon"
+              onClick={[Function]}
+              style={
+                Object {
+                  "background": "rgba(0,0,0,0)",
+                }
+              }
+            >
+              <img
+                alt="icon"
+                src="fishing-vessel.svg"
+              />
+            </div>
+            <div
+              onClick={[Function]}
+            >
+              Change Icon
+            </div>
+          </div>
+        </div>
+        <div
+          className="actions"
+        >
+          <button
+            className="MuiButtonBase-root MuiButton-root makeStyles-root-10 makeStyles-root-12 MuiButton-contained makeStyles-contained-11 makeStyles-contained-13 MuiButton-containedPrimary"
+            data-qa-type="save"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiButton-label"
+            >
+              Save
+            </span>
+          </button>
+        </div>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="col section"
+        >
+          <div
+            className="main"
+          >
+            <div
+              className="placeholder"
+            >
+              Travel Mode
+            </div>
+            <div
+              className="content"
+            >
+              <fieldset
+                className="MuiFormControl-root"
+              >
+                <div
+                  aria-label="position"
+                  className="MuiFormGroup-root MuiFormGroup-row"
+                  role="radiogroup"
+                >
+                  <label
+                    className="MuiFormControlLabel-root"
+                  >
+                    <span
+                      aria-disabled={false}
+                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorPrimary"
+                      onBlur={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      tabIndex={null}
+                    >
+                      <span
+                        className="MuiIconButton-label"
+                      >
+                        <input
+                          checked={true}
+                          className="PrivateSwitchBase-input-17"
+                          disabled={false}
+                          name="position"
+                          onChange={[Function]}
+                          type="radio"
+                          value="sea"
+                        />
+                        <div
+                          className="PrivateRadioButtonIcon-root-18 PrivateRadioButtonIcon-checked-20"
+                        >
+                          <svg
+                            aria-hidden={true}
+                            className="MuiSvgIcon-root"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                            />
+                          </svg>
+                          <svg
+                            aria-hidden={true}
+                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-19"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
+                            />
+                          </svg>
+                        </div>
+                      </span>
+                    </span>
+                    <span
+                      className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                    >
+                      Sea
+                    </span>
+                  </label>
+                  <label
+                    className="MuiFormControlLabel-root"
+                  >
+                    <span
+                      aria-disabled={false}
+                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                      onBlur={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      tabIndex={null}
+                    >
+                      <span
+                        className="MuiIconButton-label"
+                      >
+                        <input
+                          checked={false}
+                          className="PrivateSwitchBase-input-17"
+                          disabled={false}
+                          name="position"
+                          onChange={[Function]}
+                          type="radio"
+                          value="land"
+                        />
+                        <div
+                          className="PrivateRadioButtonIcon-root-18"
+                        >
+                          <svg
+                            aria-hidden={true}
+                            className="MuiSvgIcon-root"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                            />
+                          </svg>
+                          <svg
+                            aria-hidden={true}
+                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-19"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
+                            />
+                          </svg>
+                        </div>
+                      </span>
+                    </span>
+                    <span
+                      className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                    >
+                      Land
+                    </span>
+                  </label>
+                  <label
+                    className="MuiFormControlLabel-root"
+                  >
+                    <span
+                      aria-disabled={false}
+                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                      onBlur={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      tabIndex={null}
+                    >
+                      <span
+                        className="MuiIconButton-label"
+                      >
+                        <input
+                          checked={false}
+                          className="PrivateSwitchBase-input-17"
+                          disabled={false}
+                          name="position"
+                          onChange={[Function]}
+                          type="radio"
+                          value="air"
+                        />
+                        <div
+                          className="PrivateRadioButtonIcon-root-18"
+                        >
+                          <svg
+                            aria-hidden={true}
+                            className="MuiSvgIcon-root"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"
+                            />
+                          </svg>
+                          <svg
+                            aria-hidden={true}
+                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-19"
+                            focusable="false"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"
+                            />
+                          </svg>
+                        </div>
+                      </span>
+                    </span>
+                    <span
+                      className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                    >
+                      Air
+                    </span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col section"
+        >
+          <div
+            className="main"
+          >
+            <div
+              className="placeholder"
+            >
+              Conditions
+            </div>
+            <div
+              className="content"
+            >
+              <div
+                className="main"
+              >
+                <ul>
+                  <li
+                    className="li"
+                    data-id="0"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="drag"
+                    >
+                      <span>
+                        <div
+                          onClick={[Function]}
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="svg-inline--fa fa-grip-vertical fa-w-10 "
+                            data-icon="grip-vertical"
+                            data-prefix="fas"
+                            focusable="false"
+                            role="img"
+                            style={Object {}}
+                            viewBox="0 0 320 512"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
+                              fill="currentColor"
+                              style={Object {}}
+                            />
+                          </svg>
+                        </div>
+                      </span>
+                    </div>
+                    <div
+                      className="presection"
+                    >
+                      <section
+                        className="section"
+                      >
+                        <input
+                          onChange={[Function]}
+                          type="text"
+                          value="Full capability"
+                        />
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-times fa-w-11 "
+                              data-icon="times"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 352 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </section>
+                    </div>
+                  </li>
+                  <li
+                    className="li"
+                    data-id="1"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="drag"
+                    >
+                      <span>
+                        <div
+                          onClick={[Function]}
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="svg-inline--fa fa-grip-vertical fa-w-10 "
+                            data-icon="grip-vertical"
+                            data-prefix="fas"
+                            focusable="false"
+                            role="img"
+                            style={Object {}}
+                            viewBox="0 0 320 512"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
+                              fill="currentColor"
+                              style={Object {}}
+                            />
+                          </svg>
+                        </div>
+                      </span>
+                    </div>
+                    <div
+                      className="presection"
+                    >
+                      <section
+                        className="section"
+                      >
+                        <input
+                          onChange={[Function]}
+                          type="text"
+                          value="Limited capability"
+                        />
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-times fa-w-11 "
+                              data-icon="times"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 352 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </section>
+                    </div>
+                  </li>
+                  <li
+                    className="li"
+                    data-id="2"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="drag"
+                    >
+                      <span>
+                        <div
+                          onClick={[Function]}
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="svg-inline--fa fa-grip-vertical fa-w-10 "
+                            data-icon="grip-vertical"
+                            data-prefix="fas"
+                            focusable="false"
+                            role="img"
+                            style={Object {}}
+                            viewBox="0 0 320 512"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
+                              fill="currentColor"
+                              style={Object {}}
+                            />
+                          </svg>
+                        </div>
+                      </span>
+                    </div>
+                    <div
+                      className="presection"
+                    >
+                      <section
+                        className="section"
+                      >
+                        <input
+                          onChange={[Function]}
+                          type="text"
+                          value="Illegally boarded"
+                        />
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-times fa-w-11 "
+                              data-icon="times"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 352 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </section>
+                    </div>
+                  </li>
+                  <li
+                    className="li"
+                    data-id="3"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="drag"
+                    >
+                      <span>
+                        <div
+                          onClick={[Function]}
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="svg-inline--fa fa-grip-vertical fa-w-10 "
+                            data-icon="grip-vertical"
+                            data-prefix="fas"
+                            focusable="false"
+                            role="img"
+                            style={Object {}}
+                            viewBox="0 0 320 512"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
+                              fill="currentColor"
+                              style={Object {}}
+                            />
+                          </svg>
+                        </div>
+                      </span>
+                    </div>
+                    <div
+                      className="presection"
+                    >
+                      <section
+                        className="section"
+                      >
+                        <input
+                          onChange={[Function]}
+                          type="text"
+                          value="Immobile"
+                        />
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-times fa-w-11 "
+                              data-icon="times"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 352 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </section>
+                    </div>
+                  </li>
+                  <li
+                    className="li"
+                    data-id="4"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="drag"
+                    >
+                      <span>
+                        <div
+                          onClick={[Function]}
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="svg-inline--fa fa-grip-vertical fa-w-10 "
+                            data-icon="grip-vertical"
+                            data-prefix="fas"
+                            focusable="false"
+                            role="img"
+                            style={Object {}}
+                            viewBox="0 0 320 512"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
+                              fill="currentColor"
+                              style={Object {}}
+                            />
+                          </svg>
+                        </div>
+                      </span>
+                    </div>
+                    <div
+                      className="presection"
+                    >
+                      <section
+                        className="section"
+                      >
+                        <input
+                          onChange={[Function]}
+                          type="text"
+                          value="Sinking"
+                        />
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-times fa-w-11 "
+                              data-icon="times"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 352 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </section>
+                    </div>
+                  </li>
+                  <li
+                    className="li"
+                    data-id="5"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="drag"
+                    >
+                      <span>
+                        <div
+                          onClick={[Function]}
+                        >
+                          <svg
+                            aria-hidden="true"
+                            className="svg-inline--fa fa-grip-vertical fa-w-10 "
+                            data-icon="grip-vertical"
+                            data-prefix="fas"
+                            focusable="false"
+                            role="img"
+                            style={Object {}}
+                            viewBox="0 0 320 512"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
+                              fill="currentColor"
+                              style={Object {}}
+                            />
+                          </svg>
+                        </div>
+                      </span>
+                    </div>
+                    <div
+                      className="presection"
+                    >
+                      <section
+                        className="section"
+                      >
+                        <input
+                          onChange={[Function]}
+                          type="text"
+                          value="Destroyed"
+                        />
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-times fa-w-11 "
+                              data-icon="times"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 352 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+                <div
+                  className="add-section"
+                >
+                  <button
+                    className="button"
+                    onClick={[Function]}
+                  >
+                    Add Condition
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="col section"
+        >
+          <div
+            className="states-holder"
+          >
+            <div
+              className="main"
+            >
+              <div
+                className="placeholder"
+              >
+                States
+              </div>
+              <div
+                className="content"
+              >
+                <div
+                  className="main"
+                >
+                  <ul>
+                    <li
+                      className="li"
+                      data-id="0"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="drag"
+                      >
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-grip-vertical fa-w-10 "
+                              data-icon="grip-vertical"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 320 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </div>
+                      <div
+                        className="presection"
+                      >
+                        <section
+                          className="section"
+                        >
+                          <input
+                            onChange={[Function]}
+                            type="text"
+                            value="Transiting"
+                          />
+                          <div
+                            className="mobile"
+                          >
+                            <div
+                              className="mobile-title"
+                            >
+                              Mobile
+                            </div>
+                            <span
+                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                            >
+                              <span
+                                aria-disabled={false}
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-21 MuiSwitch-colorSecondary PrivateSwitchBase-checked-15 Mui-checked WithStyles(ForwardRef(Switch))-checked-22"
+                                onBlur={[Function]}
+                                onDragLeave={[Function]}
+                                onFocus={[Function]}
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseLeave={[Function]}
+                                onMouseUp={[Function]}
+                                onTouchEnd={[Function]}
+                                onTouchMove={[Function]}
+                                onTouchStart={[Function]}
+                                tabIndex={null}
+                              >
+                                <span
+                                  className="MuiIconButton-label"
+                                >
+                                  <input
+                                    checked={true}
+                                    className="PrivateSwitchBase-input-17 MuiSwitch-input"
+                                    onChange={[Function]}
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    className="MuiSwitch-thumb"
+                                  />
+                                </span>
+                              </span>
+                              <span
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-23"
+                              />
+                            </span>
+                          </div>
+                          <span>
+                            <div
+                              onClick={[Function]}
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-times fa-w-11 "
+                                data-icon="times"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 352 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </div>
+                          </span>
+                        </section>
+                      </div>
+                    </li>
+                    <li
+                      className="li"
+                      data-id="1"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="drag"
+                      >
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-grip-vertical fa-w-10 "
+                              data-icon="grip-vertical"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 320 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </div>
+                      <div
+                        className="presection"
+                      >
+                        <section
+                          className="section"
+                        >
+                          <input
+                            onChange={[Function]}
+                            type="text"
+                            value="Fishing"
+                          />
+                          <div
+                            className="mobile"
+                          >
+                            <span
+                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                            >
+                              <span
+                                aria-disabled={false}
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-21 MuiSwitch-colorSecondary"
+                                onBlur={[Function]}
+                                onDragLeave={[Function]}
+                                onFocus={[Function]}
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseLeave={[Function]}
+                                onMouseUp={[Function]}
+                                onTouchEnd={[Function]}
+                                onTouchMove={[Function]}
+                                onTouchStart={[Function]}
+                                tabIndex={null}
+                              >
+                                <span
+                                  className="MuiIconButton-label"
+                                >
+                                  <input
+                                    checked={false}
+                                    className="PrivateSwitchBase-input-17 MuiSwitch-input"
+                                    onChange={[Function]}
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    className="MuiSwitch-thumb"
+                                  />
+                                </span>
+                              </span>
+                              <span
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-23"
+                              />
+                            </span>
+                          </div>
+                          <span>
+                            <div
+                              onClick={[Function]}
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-times fa-w-11 "
+                                data-icon="times"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 352 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </div>
+                          </span>
+                        </section>
+                      </div>
+                    </li>
+                    <li
+                      className="li"
+                      data-id="2"
+                      onClick={[Function]}
+                    >
+                      <div
+                        className="drag"
+                      >
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-grip-vertical fa-w-10 "
+                              data-icon="grip-vertical"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 320 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </div>
+                      <div
+                        className="presection"
+                      >
+                        <section
+                          className="section"
+                        >
+                          <input
+                            onChange={[Function]}
+                            type="text"
+                            value="Moored"
+                          />
+                          <div
+                            className="mobile"
+                          >
+                            <span
+                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                            >
+                              <span
+                                aria-disabled={false}
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-21 MuiSwitch-colorSecondary"
+                                onBlur={[Function]}
+                                onDragLeave={[Function]}
+                                onFocus={[Function]}
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseLeave={[Function]}
+                                onMouseUp={[Function]}
+                                onTouchEnd={[Function]}
+                                onTouchMove={[Function]}
+                                onTouchStart={[Function]}
+                                tabIndex={null}
+                              >
+                                <span
+                                  className="MuiIconButton-label"
+                                >
+                                  <input
+                                    checked={false}
+                                    className="PrivateSwitchBase-input-17 MuiSwitch-input"
+                                    onChange={[Function]}
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    className="MuiSwitch-thumb"
+                                  />
+                                </span>
+                              </span>
+                              <span
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-23"
+                              />
+                            </span>
+                          </div>
+                          <span>
+                            <div
+                              onClick={[Function]}
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-times fa-w-11 "
+                                data-icon="times"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 352 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </div>
+                          </span>
+                        </section>
+                      </div>
+                    </li>
+                  </ul>
+                  <div
+                    className="add-section"
+                  >
+                    <button
+                      className="button"
+                      onClick={[Function]}
+                    >
+                      Add State
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col section"
+        >
+          <div
+            className="main"
+          >
+            <div
+              className="placeholder"
+            >
+              Speed (kts)
+            </div>
+            <div
+              className="content"
+            >
+              <div
+                className="main"
+              >
+                <ul>
+                  <li
+                    className="li"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="presection"
+                    >
+                      <section
+                        className="section"
+                      >
+                        <input
+                          onChange={[Function]}
+                          type="number"
+                          value="10"
+                        />
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-times fa-w-11 "
+                              data-icon="times"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 352 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </section>
+                    </div>
+                  </li>
+                  <li
+                    className="li"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="presection"
+                    >
+                      <section
+                        className="section"
+                      >
+                        <input
+                          onChange={[Function]}
+                          type="number"
+                          value="20"
+                        />
+                        <span>
+                          <div
+                            onClick={[Function]}
+                          >
+                            <svg
+                              aria-hidden="true"
+                              className="svg-inline--fa fa-times fa-w-11 "
+                              data-icon="times"
+                              data-prefix="fas"
+                              focusable="false"
+                              role="img"
+                              style={Object {}}
+                              viewBox="0 0 352 512"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+                                fill="currentColor"
+                                style={Object {}}
+                              />
+                            </svg>
+                          </div>
+                        </span>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+                <div
+                  className="add-section"
+                >
+                  <button
+                    className="button"
+                    onClick={[Function]}
+                  >
+                    Add Speed
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

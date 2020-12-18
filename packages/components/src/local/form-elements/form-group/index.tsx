@@ -17,7 +17,13 @@ export const clSelect: string = styles.select
 export const FormGroup: React.FC<PropTypes> = ({ children, title, disableOffsets, align, titlePosition }) => {
   const theme = createMuiTheme({
     palette: {
-      type: 'dark'
+      type: 'dark',
+      secondary: {
+        main: '#394959'
+      },
+      grey: {
+        300: '#6c757d'
+      }
     }
   })
 

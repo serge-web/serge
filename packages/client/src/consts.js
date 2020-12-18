@@ -40,13 +40,6 @@ export const UMPIRE_FORCE = 'umpire'
 
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
 
-// series of constants used for `messageType` when sending map events
-export const FORCE_LAYDOWN = 'ForceLaydown'
-export const VISIBILIY_CHANGES = 'VisibilityChanges'
-export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
-export const SUBMIT_PLANS = 'SubmitPlans'
-export const STATE_OF_WORLD = 'StateOfWorld'
-
 // return states of adjudication form
 export const PLAN_ACCEPTED = 'accepted'
 export const PLAN_REJECTED = 'rejected'

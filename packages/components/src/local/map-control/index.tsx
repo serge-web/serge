@@ -47,13 +47,13 @@ export const MapControl: React.FC<PropTypes> = ({
     }
   }
   /* change map zoom level */
-  const handeZoomChange = (changeValue: number): void => {
+  const handleZoomChange = (changeValue: number): void => {
     const currentZoom = map.getZoom()
     if (currentZoom) map.setZoom(currentZoom + changeValue)
   }
 
   /* set map to home view */
-  const handeHome = (): void => {
+  const handleHome = (): void => {
     map.flyTo(home || map.getCenter(), 10)
   }
 
@@ -99,9 +99,9 @@ export const MapControl: React.FC<PropTypes> = ({
     <div className='leaflet-control-container' ref={disableMapClickAndScrolll}>
       <div className='leaflet-top leaflet-right'>
         <div className={cx('leaflet-control')}>
-          {showZoom && <Item title="Zoom In" onClick={(): void => { handeZoomChange(zoomStepSize) }}><AddIcon/></Item>}
-          {showHome && <Item title="Fit to window" onClick={(): void => { handeHome() }}><HomeIcon/></Item>}
-          {showZoom && <Item title="Zoom Out" onClick={(): void => { handeZoomChange(-1 * zoomStepSize) }}><RemoveIcon/></Item>}
+          {showZoom && <Item title="Zoom In" onClick={(): void => { handleZoomChange(zoomStepSize) }}><AddIcon/></Item>}
+          {showHome && <Item title="Fit to window" onClick={(): void => { handleHome() }}><HomeIcon/></Item>}
+          {showZoom && <Item title="Zoom Out" onClick={(): void => { handleZoomChange(-1 * zoomStepSize) }}><RemoveIcon/></Item>}
         </div>
         <div className={cx('leaflet-control')}>
           <Item title="View full history" onClick={(): void => { toggleHistoryFilter() }}

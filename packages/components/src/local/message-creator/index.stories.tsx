@@ -4,7 +4,7 @@ import React from 'react'
 import MessageCreator from './index'
 import docs from './README.md'
 
-import { Message } from '@serge/custom-types'
+import { MessageCustom } from '@serge/custom-types'
 
 export default {
   title: 'local/MessageCreator',
@@ -24,6 +24,6 @@ const force = {
   icon: ''
 }
 
-const showMessage = (message: Message): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
+const showMessage = (message: MessageCustom): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
 
 export const Default: React.FC = () => <MessageCreator from={force} channel={'Game Admin'} role={'Umpire'} postBack={showMessage} />

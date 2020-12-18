@@ -10,7 +10,7 @@ import {
   channelTemplate
 } from '../../../consts'
 
-import * as ActionConstant from '../../../ActionsAndReducers/ActionConstants'
+import * as ActionConstant from '@serge/config'
 import _ from 'lodash'
 import deepCopy from '../../../Helpers/copyStateHelper'
 

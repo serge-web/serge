@@ -1,35 +1,29 @@
 import 'whatwg-fetch'
 import _ from 'lodash'
 
-import { DEFAULT_SERVER } from '@serge/coanfig'
+import { DEFAULT_SERVER } from '@serge/config'
 
 import {
-  saveIcon,
   populateWargame,
   createWargame,
-  getAllWargames,
-  clearWargames,
-  getAllWargames,
-  deleteWargame,
-  getAllWargames,
-  editWargame,
-  exportWargame,
-  getWargameLocalFromName,
-  checkIfWargameStarted,
-  createLatestWargameRevision,
   getWargameLocalFromName,
   checkIfWargameStarted,
   createLatestWargameRevision,
   updateWargameTitle,
   getAllWargames,
-  saveSettings,
-  saveForce,
-  saveChannel,
   deleteChannel,
-  duplicateChannel,
   deleteForce,
-  cleanWargame,
-  duplicateWargame
+  saveSettings as commitSaveSettings,
+  clearWargames as commitClearWargames,
+  duplicateWargame as commitDuplicateWargame,
+  saveChannel as commitSaveChannel,
+  exportWargame as commitExportWargame,
+  deleteWargame as commitDeleteWargame,
+  editWargame as commitEditWargame,
+  duplicateChannel as commitDuplicateChannel,
+  saveForce as commitSaveForce,
+  cleanWargame as commitCleanWargame,
+  saveIcon as commitSaveIcon
 } from '../api/wargames'
 
 import { addNotification } from '../actions/notification'
@@ -157,8 +151,8 @@ export const checkAdminAccess = (phrase) => {
 
 export const saveIcon = (file) => {
   return async (dispatch) => {
-    const iconLocation = await saveIcon(file)
-    const { path } = iconLocation || {}
+    const iconLocation = await commitSaveIcon(file)
+    const { path } = iconLocation
     const iconPath = String(path).replace(/^\./g, '')
     dispatch(addIcon(iconPath))
   }
@@ -190,7 +184,7 @@ export const createNewWargameDB = () => {
 
 export const clearWargames = () => {
   return async (dispatch) => {
-    await clearWargames()
+    commitClearWargames()
 
     const wargames = await getAllWargames()
     dispatch(saveAllWargameNames(wargames))
@@ -199,7 +193,7 @@ export const clearWargames = () => {
 
 export const deleteWargame = (name) => {
   return async (dispatch) => {
-    await deleteWargame(name)
+    commitDeleteWargame(name)
 
     const wargames = await getAllWargames()
     dispatch(saveAllWargameNames(wargames))
@@ -208,7 +202,7 @@ export const deleteWargame = (name) => {
 
 export const editWargame = (name) => {
   return async (dispatch) => {
-    const wargame = await editWargame(name)
+    const wargame = await commitEditWargame(name)
 
     dispatch(setCurrentWargame(wargame))
   }
@@ -216,7 +210,7 @@ export const editWargame = (name) => {
 
 export const exportWargame = (name) => {
   return async (dispatch) => {
-    const wargame = await exportWargame(name)
+    const wargame = await commitExportWargame(name)
 
     dispatch(setExportWargame(wargame))
   }
@@ -270,7 +264,7 @@ export const saveWargameTitle = (dbName, title) => {
 
 export const saveSettings = (dbName, data) => {
   return async (dispatch) => {
-    const wargame = await saveSettings(dbName, data)
+    const wargame = await commitSaveSettings(dbName, data)
 
     dispatch(setCurrentWargame(wargame))
 
@@ -282,7 +276,7 @@ export const saveSettings = (dbName, data) => {
 
 export const saveForce = (dbName, newName, newData, oldName) => {
   return async (dispatch) => {
-    const wargame = await saveForce(dbName, newName, newData, oldName)
+    const wargame = await commitSaveForce(dbName, newName, newData, oldName)
 
     dispatch(setCurrentWargame(wargame))
     dispatch(setTabSaved())
@@ -294,7 +288,7 @@ export const saveForce = (dbName, newName, newData, oldName) => {
 
 export const saveChannel = (dbName, newName, newData, oldName) => {
   return async (dispatch) => {
-    const wargame = await saveChannel(dbName, newName, newData, oldName)
+    const wargame = await commitSaveChannel(dbName, newName, newData, oldName)
 
     dispatch(setCurrentWargame(wargame))
     dispatch(setSelectedChannel({ name: newName, uniqid: newData.uniqid }))
@@ -315,7 +309,7 @@ export const deleteSelectedChannel = (dbName, channel) => {
 
 export const duplicateChannel = (dbName, channel) => {
   return async (dispatch) => {
-    const wargame = await duplicateChannel(dbName, channel)
+    const wargame = await commitDuplicateChannel(dbName, channel)
 
     dispatch(setCurrentWargame(wargame))
     dispatch(addNotification('Channel duplicated.', 'success'))
@@ -334,7 +328,7 @@ export const deleteSelectedForce = (dbName, force) => {
 
 export const cleanWargame = (dbName) => {
   return async (dispatch) => {
-    var games = await cleanWargame(dbName)
+    var games = await commitCleanWargame(dbName)
 
     dispatch(saveAllWargameNames(games))
   }
@@ -342,7 +336,7 @@ export const cleanWargame = (dbName) => {
 
 export const duplicateWargame = (dbName) => {
   return async (dispatch) => {
-    var games = await duplicateWargame(dbName)
+    var games = await commitDuplicateWargame(dbName)
 
     dispatch(saveAllWargameNames(games))
   }

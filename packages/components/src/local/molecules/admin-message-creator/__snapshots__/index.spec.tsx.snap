@@ -14,7 +14,7 @@ exports[`AdminMessageCreator component: renders correctly 1`] = `
         className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
       >
         <div
-          className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
+          className="MuiInputBase-root MuiInput-root makeStyles-root-6 makeStyles-root-8 MuiInput-underline makeStyles-underline-7 makeStyles-underline-9 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
           onClick={[Function]}
         >
           <textarea
@@ -59,7 +59,7 @@ exports[`AdminMessageCreator component: renders correctly 1`] = `
     </section>
   </div>
   <div
-    className="MuiBox-root MuiBox-root-6"
+    className="MuiBox-root MuiBox-root-10"
   >
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-contained btn-send MuiButton-containedSecondary MuiButton-containedSizeSmall MuiButton-sizeSmall"

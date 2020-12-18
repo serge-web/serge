@@ -18,6 +18,9 @@ import {
   SERGE_INFO,
   ERROR_THROTTLE
 } from '../consts'
+
+import { INFO_MESSAGE, FEEDBACK_MESSAGE, CUSTOM_MESSAGE } from '@serge/config'
+
 import {
   setLatestFeedbackMessage,
   setCurrentWargame,
@@ -30,13 +33,13 @@ const listenNewMessage = ({ db, name, dispatch }) => {
   db.changes({ since: 'now', live: true, timeout: false, heartbeat: false, include_docs: true })
     .on('change', function (changes) {
       (async () => {
-        if (Object.prototype.hasOwnProperty.call(changes.doc, 'infoType')) {
+        if (changes.doc.messageType === INFO_MESSAGE) {
           dispatch(setCurrentWargame(changes.doc))
           dispatch(setLatestWargameMessage(changes.doc))
           return
         }
 
-        if (Object.prototype.hasOwnProperty.call(changes.doc, 'feedback')) {
+        if (changes.doc.messageType === FEEDBACK_MESSAGE) {
           dispatch(setLatestFeedbackMessage(changes.doc))
         } else {
           dispatch(setLatestWargameMessage(changes.doc))
@@ -156,7 +159,7 @@ export const createWargame = (dispatch) => {
 export const checkIfWargameStarted = (dbName) => {
   return getAllMessages(dbName)
     .then((messages) => {
-      const latestWargame = messages.find((message) => message.infoType)
+      const latestWargame = messages.find((message) => (message.messageType === INFO_MESSAGE))
       return !!latestWargame
     })
 }
@@ -164,7 +167,7 @@ export const checkIfWargameStarted = (dbName) => {
 export const getLatestWargameRevision = (dbName) => {
   return getAllMessages(dbName)
     .then((messages) => {
-      const latestWargame = messages.find((message) => message.infoType)
+      const latestWargame = messages.find((message) => (message.messageType === INFO_MESSAGE))
       if (latestWargame) return latestWargame
       return getWargameLocalFromName(dbName)
     })
@@ -183,7 +186,7 @@ export const exportWargame = dbPath => {
   const dbName = getNameFromPath(dbPath)
 
   return getAllMessages(dbName).then(messages => {
-    const latestWargame = messages.find(message => message.infoType)
+    const latestWargame = messages.find(message => (message.messageType === INFO_MESSAGE))
 
     if (latestWargame) {
       return { ...latestWargame, exportMessagelist: messages }
@@ -223,7 +226,7 @@ export const initiateGame = (dbName) => {
       .then((res) => {
         return game.db.put({
           _id: new Date().toISOString(),
-          infoType: true,
+          messageType: INFO_MESSAGE,
           name: res.name,
           wargameTitle: res.wargameTitle,
           data: res.data,
@@ -294,6 +297,38 @@ export const saveSettings = (dbName, data) => {
       const newDoc = deepCopy(res)
       newDoc.data.overview = data
       newDoc.data.overview.complete = calcComplete(data)
+
+      return new Promise((resolve, reject) => {
+        if (newDoc.wargameInitiated) {
+          resolve(createLatestWargameRevision(dbName, newDoc))
+        } else {
+          return db.put({
+            _id: dbDefaultSettings._id,
+            _rev: newDoc._rev,
+            name: newDoc.name,
+            wargameTitle: newDoc.wargameTitle,
+            data: newDoc.data,
+            gameTurn: newDoc.gameTurn,
+            phase: newDoc.phase,
+            adjudicationStartTime: newDoc.adjudicationStartTime,
+            turnEndTime: moment().add(newDoc.data.overview.realtimeTurnTime, 'ms').format(),
+            wargameInitiated: newDoc.wargameInitiated
+          })
+            .then(() => {
+              resolve(db.get(dbDefaultSettings._id))
+            })
+        }
+      })
+    })
+}
+
+export const savePlatformTypes = (dbName, data) => {
+  const db = wargameDbStore.find((wargame) => dbName === wargame.name).db
+
+  return getLatestWargameRevision(dbName)
+    .then(function (res) {
+      const newDoc = deepCopy(res)
+      newDoc.data.platform_types = data
 
       return new Promise((resolve, reject) => {
         if (newDoc.wargameInitiated) {
@@ -450,6 +485,7 @@ export const duplicateChannel = (dbName, channelUniqid) => {
 
       updatedData.channels.channels = channels
       updatedData.channels.complete = calcComplete(channels) && channels.length !== 0
+      updatedData.channels.selectedChannel = duplicateChannel
 
       return new Promise((resolve, reject) => {
         if (res.wargameInitiated) {
@@ -708,7 +744,7 @@ export const createLatestWargameRevision = (dbName, wargameData) => {
   return new Promise((resolve, reject) => {
     game.db.put({
       _id: new Date().toISOString(),
-      infoType: true,
+      messageType: INFO_MESSAGE,
       ...copiedData
     })
       .then((res) => {
@@ -725,9 +761,7 @@ export const getAllWargameRevisions = (dbName) => {
   return new Promise((resolve, reject) => {
     getAllMessages(dbName)
       .then((messages) => {
-        const revisions = messages.filter((message) => {
-          return Object.prototype.hasOwnProperty.call(message, 'infoType')
-        })
+        const revisions = messages.filter((message) => (message.messageType === INFO_MESSAGE))
         resolve(revisions)
       })
       .catch((err) => {
@@ -782,7 +816,7 @@ export const postFeedback = (dbName, fromDetails, message) => {
       message: {
         content: message
       },
-      feedback: true
+      messageType: FEEDBACK_MESSAGE
     })
       .then((res) => {
         resolve(res)
@@ -800,6 +834,9 @@ export const postNewMessage = (dbName, details, message) => {
   return new Promise((resolve, reject) => {
     db.put({
       _id: new Date().toISOString(),
+      // defined constat for messages, it's not same as message.details.messageType,
+      // ex for all template based messages will be used CUSTOM_MESSAGE Type
+      messageType: CUSTOM_MESSAGE,
       details,
       message
     })
@@ -821,6 +858,9 @@ export const postNewMapMessage = (dbName, details, message) => {
   db.put({
     _id: new Date().toISOString(),
     details,
+    // defined constat for messages, it's not same as message.details.messageType,
+    // ex for all template based messages will be used CUSTOM_MESSAGE Type
+    messageType: details.messageType,
     message
   }).catch((err) => {
     console.log(err)

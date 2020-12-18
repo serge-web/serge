@@ -12,7 +12,7 @@ export default createMuiTheme({
       main: '#00274b'
     },
     secondary: {
-      main: '#394959'
+      main: '#394959',
     },
     warning: {
       main: '#ffc107'
@@ -22,6 +22,7 @@ export default createMuiTheme({
     },
     swissCoffee: {
       main: '#dbd2d4'
-    }
+    },
+    transparent: 'transparent'
   }
 })

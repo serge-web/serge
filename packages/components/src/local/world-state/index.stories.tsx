@@ -61,7 +61,7 @@ export const WithPhases: React.FunctionComponent = () => <WorldState showOtherPl
     radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue) === ADJUDICATION_PHASE, platformTypes, undefined, false, false)}
   submitTitle='Submit' name="World State" />
 
-// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 WithPhases.story = {
   parameters: {
     options: {

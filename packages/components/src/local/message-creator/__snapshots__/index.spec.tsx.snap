@@ -6,7 +6,7 @@ exports[`MessageCreator component: renders correctly 1`] = `
     className="input-container disable-offset"
   >
     <div
-      className="MuiBox-root MuiBox-root-4 input-label"
+      className="MuiBox-root MuiBox-root-8 input-label"
     >
       Post message
     </div>
@@ -14,7 +14,7 @@ exports[`MessageCreator component: renders correctly 1`] = `
       className="MuiFormControl-root MuiTextField-root"
     >
       <div
-        className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
+        className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
         onClick={[Function]}
       >
         <textarea

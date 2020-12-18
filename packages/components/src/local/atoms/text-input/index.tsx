@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { kebabCase } from 'lodash'
 import { FilledInputProps, TextField, fade } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
@@ -37,7 +37,15 @@ const useBaseStyle = makeStyles((theme: Theme) => {
     return color.split('.').reduce((o: any, i: string | number) => o[i], theme.palette)
   }
   return createStyles({
-    root: ({ customColor }: PropTypes) => customColor ? { color: generateColor(customColor) } : {},
+    root: ({ customColor, titleInput }: PropTypes) => {
+      const inputColor = customColor === 'transparent' ? 'secondary.main' : customColor
+      const colorProps = customColor ? { color: generateColor(String(inputColor)) } : {}
+      const sizeProps = titleInput ? { fontSize: '1.85em' } : {}
+      return {
+        ...colorProps,
+        ...sizeProps
+      }
+    },
     underline: ({ customColor }: PropTypes) => customColor ? {
       '&:after': {
         borderBottomColor: generateColor(customColor)
@@ -68,17 +76,29 @@ export const TextInput: React.FC<PropTypes> = ({
   className,
   placeholder,
   fullWidth,
+  titleInput,
   ...inputProps
 }) => {
+  const containerRef = useRef<HTMLElement>(null)
   const [inputValue, setInputValue] = useState(value)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setInputValue(event.target.value)
     updateState(event.target)
   }
+  const handleFocus = (): void => {
+    containerRef.current && containerRef.current.classList.add('input-container--focused')
+  }
+  const handleBlur = (): void => {
+    containerRef.current && containerRef.current.classList.remove('input-container--focused')
+  }
   const inputName = name || kebabCase(label)
   const isFilled = variant === 'filled'
   const filledClasses = useFilledStyle()
-  const baseClasses = useBaseStyle({ customColor })
+  const baseClasses = useBaseStyle({ customColor, titleInput })
+
+  useEffect(() => {
+    setInputValue(value)
+  }, [value])
 
   return (
     <InputContainer
@@ -87,6 +107,7 @@ export const TextInput: React.FC<PropTypes> = ({
       labelSize={labelSize}
       className={className}
       disableOffset={true}
+      ref={containerRef}
     >
       <TextField
         InputProps={{
@@ -100,6 +121,8 @@ export const TextInput: React.FC<PropTypes> = ({
           name: inputName,
           value: inputValue,
           onChange: handleChange,
+          onFocus: handleFocus,
+          onBlur: handleBlur,
           placeholder,
           fullWidth,
           variant

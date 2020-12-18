@@ -2,7 +2,6 @@ import React from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
-import { Message as MessageType } from '@serge/custom-types'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -26,7 +25,7 @@ export const AdminMessagesList: React.FC<PropTypes> = ({ messages, markAllAsRead
         </Button>
       </Box>
       {
-        messages && messages.map((message: MessageType) => <AdminMessage force={force.name} key={message._id} message={message} />)
+        messages && messages.map(message => <AdminMessage force={force.name} key={message._id} message={message} />)
       }
     </div>
   )

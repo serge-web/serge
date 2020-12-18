@@ -33,7 +33,7 @@ export const Default: React.FC = () => (
   </div>
 )
 
-// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

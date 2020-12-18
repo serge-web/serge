@@ -16,5 +16,5 @@ export default interface Role {
   /**
    * whether this role can submit plans from the Mapping component
    */
-  canSubmitPlans: boolean
+  canSubmitPlans?: boolean
 }

@@ -1,0 +1,24 @@
+.td {
+  padding: 4px 16px;
+}
+
+.input-box {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.clips {
+  white-space: normal;
+}
+
+.clip {
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+.clip:last-child {
+  margin-right: 0;
+  margin-bottom: 0;
+}

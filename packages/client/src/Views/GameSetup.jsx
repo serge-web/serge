@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-
 import {
   setCurrentTab,
   saveWargameTitle,
@@ -12,7 +11,6 @@ import ProgressBar from "../Components/ProgressBar/ProgressBar";
 import Link from "../Components/Link";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faSave, faHourglassStart } from "@fortawesome/free-solid-svg-icons";
-
  import _ from "lodash";
 import checkUnique from "../Helpers/checkUnique";
 

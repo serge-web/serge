@@ -1,4 +1,4 @@
-import * as ActionConstant from '../ActionConstants'
+import * as ActionConstant from '@serge/config'
 import deepCopy from '../../Helpers/copyStateHelper.js'
 
 const initialState = {

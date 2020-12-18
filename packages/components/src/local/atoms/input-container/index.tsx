@@ -9,15 +9,15 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 /* Render component */
-export const InputContainer: React.FunctionComponent<PropTypes> = ({
+export const InputContainer: React.FunctionComponent<PropTypes> = React.forwardRef(({
   children,
   label,
   labelColor,
   labelSize,
   disableOffset,
   className
-}) =>
-  <section className={
+}, ref) =>
+  <section ref={ref} className={
     cx(styles['input-container'],
       disableOffset && styles['disable-offset'],
       className)}
@@ -35,6 +35,6 @@ export const InputContainer: React.FunctionComponent<PropTypes> = ({
       )
     }
     {children}
-  </section>
+  </section>)
 
 export default InputContainer

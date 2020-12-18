@@ -18,10 +18,10 @@ This is an example readme file for the 'icon-uploader' component.
 
 ### ES6 Import
 ```js
-import IconUploader from './game-admin/icon-uploader'
+import IconUploader from './molecules/icon-uploader'
 ```
 
 ### CommonJS
 
 ```js
-const IconUploader = require('./game-admin/icon-uploader')
+const IconUploader = require('./molecules/icon-uploader')

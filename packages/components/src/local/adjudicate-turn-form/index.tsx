@@ -6,7 +6,7 @@ import PropTypes from './types/props'
 /* Import components */
 import PlannedRoute from '../form-elements/planned-route'
 import Speed from '../form-elements/speed'
-import { Button } from '../form-elements/button'
+import { Button } from '../atoms/button'
 import TitleWithIcon from '../form-elements/title-with-icon'
 import RCB from '../form-elements/rcb'
 import { FormGroup, clSelect } from '../form-elements/form-group'
