@@ -76,7 +76,7 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
           verticalScrollbarStyle={{ borderRadius: '6px' }}
         >
           {renderContent()}
-        </ScrollArea> : <div>{renderContent()}</div>}    
+        </ScrollArea> : <div>{renderContent()}</div>}
       </div>
     </div>
   )
