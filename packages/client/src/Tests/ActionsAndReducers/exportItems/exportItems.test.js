@@ -2,7 +2,7 @@ import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import { createMessageExportItem } from '../../../ActionsAndReducers/ExportItems/ExportItems_ActionsCreators'
 import { exportItems } from '../../../ActionsAndReducers/ExportItems/ExportItems_Reducer'
-import * as ActionConstants from '../../../ActionsAndReducers/ActionConstants'
+import * as ActionConstants from '@serge/config'
 
 const mockStore = configureStore([thunk])
 // wargame backup

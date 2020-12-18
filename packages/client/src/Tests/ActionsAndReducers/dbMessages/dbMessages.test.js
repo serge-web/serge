@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import * as messages from '../../../ActionsAndReducers/dbMessages/messages_ActionCreators'
 import * as messagesApi from '../../../api/messages_api'
 import machineryFailure from '../../../Schemas/machinery_failure.json'
-import * as ActionConstant from '../../../ActionsAndReducers/ActionConstants'
+import * as ActionConstant from '@serge/config'
 import { messagesReducer } from '../../../ActionsAndReducers/dbMessages/messages_Reducer'
 import { ADMIN_ROUTE, MESSAGE_LIBRARY_ROUTE } from '../../../consts'
 

@@ -1396,7 +1396,9 @@
             "_id": "2020-12-07T06:38:43.643Z",
             "_rev": "1-aa5428939cd0e0dd1a5ec9106316aa08",
             "hasBeenRead": false,
-            "isOpen": false
+            "isOpen": false,
+            "open": false,
+            "messageType": "CustomMessage"
           },
           {
             "details": {

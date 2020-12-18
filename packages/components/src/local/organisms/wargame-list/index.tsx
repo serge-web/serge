@@ -14,7 +14,7 @@ import styles from './styles.module.scss'
 const ScrollArea = require('react-scrollbar').default
 
 /* Render component */
-export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick, useCustomScroll = false  }: Props) => {
+export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick, useCustomScroll = false }: Props) => {
   const [wargameQuery, setWargameQuery] = useState('')
   const [wargameMenuOpen, setWargameMenuOpen] = useState('')
   const searchByQuery = (listItem: { title: string }): boolean => {
@@ -71,12 +71,20 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
         variant="filled"
       />
       <div className={styles['searchlist-list']}>
+<<<<<<< HEAD
       {useCustomScroll ? <ScrollArea
+=======
+        {useCustomScroll ? <ScrollArea
+>>>>>>> ffeaee1ee15bfe1a68accae5585e06395a2a7d1d
           verticalContainerStyle={{ borderRadius: '6px' }}
           verticalScrollbarStyle={{ borderRadius: '6px' }}
         >
           {renderContent()}
-        </ScrollArea> : <div>{renderContent()}</div>}    
+<<<<<<< HEAD
+        </ScrollArea> : <div>{renderContent()}</div>}
+=======
+        </ScrollArea> : <div>{renderContent()}</div>}
+>>>>>>> ffeaee1ee15bfe1a68accae5585e06395a2a7d1d
       </div>
     </div>
   )

@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import { Box, IconButton, Button } from '@material-ui/core'
 import { SendOutlined } from '@material-ui/icons'
 
+import { CUSTOM_MESSAGE } from '@serge/config'
+
 /* Import Types */
 import Props from './types/props'
+import { MessageCustom } from '@serge/custom-types'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -19,7 +22,8 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, role, post
 
   const changeHandler = (e: any): void => setFormState(e.value)
   const submitForm = (): void => {
-    postBack && postBack({
+    const post: MessageCustom = {
+      messageType: CUSTOM_MESSAGE,
       details: {
         channel: channel,
         from: {
@@ -38,7 +42,8 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, role, post
       hasBeenRead: false,
       isOpen: false,
       open: false
-    })
+    }
+    postBack && postBack(post)
     setFormState('')
   }
 

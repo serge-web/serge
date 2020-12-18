@@ -1,4 +1,4 @@
-import * as ActionConstant from './ActionConstants'
+import * as ActionConstant from '@serge/config'
 import copyState from '../Helpers/copyStateHelper'
 
 var initialState = {
