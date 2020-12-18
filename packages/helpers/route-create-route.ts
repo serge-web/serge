@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { Route, RouteStatus, RouteStep, RouteChild, SergeGrid, SergeHex} from '@serge/custom-types'
+import { Route, RouteStatus, RouteStep, RouteChild, SergeGrid, SergeHex, Asset, PlannedTurnStatus} from '@serge/custom-types'
 import { cloneDeep, kebabCase } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
@@ -161,7 +161,7 @@ const produceStatusFor = (status: any, platformTypes: any, asset: any): RouteSta
 }
 
 /** create a route object for this asset
- * @param {any} asset single asset
+ * @param {Asset} asset single asset
  * @param {string} color color for rendering this asset
  * @param {boolean} underControl whether the player is controlling this asset
  * @param {string} actualForce the true force for the asset
@@ -170,7 +170,7 @@ const produceStatusFor = (status: any, platformTypes: any, asset: any): RouteSta
  * @param {string} perceivedType the perceived type of the asset
  * @param {any} platformTypes the list of platform types
  * @param {string} playerForce current player force
- * @param {any} status the current status of this asset
+ * @param {PlannedTurnStatus | undefined} status the current status of this asset
  * @param {string} currentPosition the current cell containing this asset
  * @param {L.LatLng} currentLocation the current cell containing this asset
  * @param {SergeGrid<SergeHex<{}>> | undefined} grid the grid object, used to find cell centres, used in declutter
@@ -180,9 +180,9 @@ const produceStatusFor = (status: any, platformTypes: any, asset: any): RouteSta
  * @param {boolean} isSelected whether is the route for the selected Asset
  * @returns {Route} Routefor this asset
  */
-const routeCreateRoute = (asset: any, color: string,
+const routeCreateRoute = (asset: Asset, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
-  perceivedType: string, platformTypes: any, playerForce: string, status: any, currentPosition: string,
+  perceivedType: string, platformTypes: any, playerForce: string, status: PlannedTurnStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean ): Route => {
 

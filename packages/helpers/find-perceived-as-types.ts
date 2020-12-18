@@ -1,3 +1,4 @@
+import { Perception } from '@serge/custom-types'
 import { upperFirst } from 'lodash'
 
 /** provide classnames for an asset, as perceived by current player
@@ -6,7 +7,7 @@ import { upperFirst } from 'lodash'
  * @param {string} theirContactID contactID of selected asset (used when no perceived name)
  * @param {string} theirForce force for selected asset
  * @param {string} theirType platform-type of selected asset
- * @param {any} theirPerceptions list of force perceptions of selected asset
+ * @param {Perception[]} theirPerceptions list of force perceptions of selected asset
  * @param {boolean} playerIsUmpire whether the current player is an umpire
  * @returns {string, string, string} name-class, force-class, type-class
  */
@@ -16,7 +17,7 @@ export default function findPerceivedAsTypes (
   theirContactID: string,
   theirForce: string,
   theirType: string,
-  theirPerceptions: [any],
+  theirPerceptions: Perception[],
   userIsUmpire: boolean
 ): [string, string, string] {
   let perception: any
