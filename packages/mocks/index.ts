@@ -16,3 +16,5 @@ export { default as actionFeedbackMessages } from './action-feedback-messages.mo
 export { default as actionSetLatestFeedbackMessage } from './action-set-latest-feedback-message.mock'
 export { default as actionSetLatestWargameMessage } from './action-set-latest-wargame-message.mock'
 export { default as actionSetWargameMessages } from './action-set-wargame-messages.mock'
+export { default as actionOpenMessage } from './action-open-message.mock'
+export { default as actionCloseMessage } from './action-close-message.mock'

@@ -58,21 +58,21 @@ interface SetWargameMessagesAction {
   type: typeof SET_ALL_MESSAGES,
   payload: Array<MessageChannel>
 }
-interface OpenMessageAction {
+export interface OpenMessageAction {
   type: typeof OPEN_MESSAGE,
   payload: {
     channel: string,
     message: MessageChannel
   }
 }
-interface CloseMessageAction {
+export interface CloseMessageAction {
   type: typeof CLOSE_MESSAGE,
   payload: {
     channel: string,
     message: MessageChannel
   }
 }
-interface MarkAllAsReadAction {
+export interface MarkAllAsReadAction {
   type: typeof MARK_ALL_AS_READ,
   payload: string
 }

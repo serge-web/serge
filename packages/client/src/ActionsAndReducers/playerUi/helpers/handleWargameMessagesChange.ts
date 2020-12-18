@@ -253,9 +253,9 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
 }
 
 
-const openMessageChange = (message: MessageChannel, id: string): { message: Message, changed: boolean } => {
+const openMessageChange = (message: MessageChannel, id: string): { message: MessageChannel, changed: boolean } => {
   let changed: boolean = false
-  if (message.messageType === INFO_MESSAGE /* InfoType have no id */ && message._id === id) {
+  if (message._id === id) {
     changed = true
     message.isOpen = true
     message.hasBeenRead = true
@@ -265,25 +265,20 @@ const openMessageChange = (message: MessageChannel, id: string): { message: Mess
 
 export const openMessage = (channel: string, payloadMessage: MessageChannel, newState: PlayerUi): ChannelData => {
   // mutating `messages` array - copyState at top of switch
-  // @ts-ignore
   const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
-  for (let i in channelMessages) {
-      // @ts-ignore
-    const res = openMessageChange(channelMessages[i], payloadMessage._id)
-    if (res.changed) {
-      // @ts-ignore
-      channelMessages[i] = res.message
-      expiredStorage.setItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${payloadMessage._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
-      break;
+  if (payloadMessage._id !== undefined) {
+    for (let i in channelMessages) {
+      const res = openMessageChange(channelMessages[i], payloadMessage._id)
+      if (res.changed) {
+        channelMessages[i] = res.message
+        expiredStorage.setItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${payloadMessage._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
+        break;
+      }
     }
   }
 
   const unreadMessageCount = channelMessages.filter((message) => {
-    if (message.messageType !== INFO_MESSAGE) {
-      return false
-    } else {
-      return expiredStorage.getItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${message._id}`) === null
-    }
+    return message._id && expiredStorage.getItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${message._id}`) === null
   }).length
 
   return {
@@ -305,13 +300,13 @@ const closeMessageChange = (message: MessageChannel, id: string): { message: Mes
 export const closeMessage = (channel: string, payloadMessage: MessageChannel, newState: PlayerUi): (MessageChannel)[] => {
   // mutating messages array - copyState at top of switch
   const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
-
-  for (let i in channelMessages) {
-    // @ts-ignore
-    const res = closeMessageChange(channelMessages[i], payloadMessage._id)
-    if (res.changed) {
-      channelMessages[i] = res.message
-      break;
+  if (payloadMessage._id !== undefined) {
+    for (let i in channelMessages) {
+      const res = closeMessageChange(channelMessages[i], payloadMessage._id)
+      if (res.changed) {
+        channelMessages[i] = res.message
+        break;
+      }
     }
   }
 
@@ -320,7 +315,7 @@ export const closeMessage = (channel: string, payloadMessage: MessageChannel, ne
 
 export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelData => {
   const channelMessages: MessageChannel[] = (newState.channels[channel].messages || []).map((message) => {
-    if (message.messageType === INFO_MESSAGE) {
+    if (message._id) {
       message.hasBeenRead = true
       expiredStorage.setItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${message._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
     }

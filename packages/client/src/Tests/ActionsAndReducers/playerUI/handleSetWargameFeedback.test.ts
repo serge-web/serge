@@ -12,7 +12,6 @@ describe('PlayerUi Message Actions', () => {
 describe('PlayerUi Message Reducers', () => {
   it('Should set SET_FEEDBACK_MESSAGES gained from db to state', () => {
     const expection: PlayerUi = { ...initialState, feedbackMessages: actionFeedbackMessages.payload }
-    console.log(expection)
     expect(reducer(undefined, setWargameFeedback(actionFeedbackMessages.payload)))
       .toEqual(expection)
   })
