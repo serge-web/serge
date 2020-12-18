@@ -57,7 +57,7 @@ const defaultProps: PropTypes = {
     imageBottom: 0
   },
   tileDiameterMins: 5,
-  forces: [{}],
+  forces: [],
   platforms: [{}],
   playerForce: 'Blue',
   canSubmitOrders: true,

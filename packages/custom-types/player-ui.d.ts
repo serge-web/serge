@@ -1,7 +1,7 @@
 import ChannelData from './channel-data'
 import ForceData from './force-data'
 import PlatformTypeData from './platform-type-data'
-import PlayerUiMessageTypes from './player-ui-message'
+import { MessageFeedback, MessageChannel } from './message'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelData
@@ -10,7 +10,7 @@ export interface PlayerUiChannels {
 export interface PlayerUiChatChannel {
   name: string,
   template: object,
-  messages: Array<PlayerUiMessageTypes>
+  messages: Array<MessageChannel>
 }
 
 export default interface PlayerUi {
@@ -38,7 +38,7 @@ export default interface PlayerUi {
   allPlatformTypes: Array<PlatformTypeData>,
   showObjective: boolean,
   wargameInitiated: boolean,
-  feedbackMessages: Array<PlayerUiMessageTypes>,
+  feedbackMessages: Array<MessageFeedback>,
   tourIsOpen: boolean,
   modalOpened?: string,
   showAccessCodes: boolean,

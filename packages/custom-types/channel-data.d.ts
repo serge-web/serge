@@ -1,12 +1,12 @@
 import Participant from './participant'
-import PlayerUiMessageTypes from './player-ui-message'
+import { MessageChannel } from './message'
 
 export default interface ChannelData {
   // TODO: change it to use name
   uniqid?: string,
   observing?: boolean,
   templates?: Array<any>,
-  messages?: Array<PlayerUiMessageTypes>,
+  messages?: Array<MessageChannel>,
   name: string,
   participants: Array<Participant>
   unreadMessageCount?: number

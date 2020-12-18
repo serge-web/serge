@@ -43,55 +43,56 @@ exports[`AdminLayout renders correctly 1`] = `
         <div
           className="input-box item"
         >
-          <input
-            className="input"
-            onChange={[Function]}
-            placeholder="Game Title"
-            type="text"
-            value=""
-          />
-        </div>
-        <div
-          className="status item"
-        >
-          <svg
-            aria-hidden="true"
-            className="svg-inline--fa fa-hourglass-start fa-w-12 fa-1x "
-            data-icon="hourglass-start"
-            data-prefix="fas"
-            focusable="false"
-            role="img"
-            style={Object {}}
-            viewBox="0 0 384 512"
-            xmlns="http://www.w3.org/2000/svg"
+          <section
+            className="input-container disable-offset"
           >
-            <path
-              d="M360 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24 0 90.965 51.016 167.734 120.842 192C75.016 280.266 24 357.035 24 448c-13.255 0-24 10.745-24 24v16c0 13.255 10.745 24 24 24h336c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24 0-90.965-51.016-167.734-120.842-192C308.984 231.734 360 154.965 360 64c13.255 0 24-10.745 24-24V24c0-13.255-10.745-24-24-24zm-64 448H88c0-77.458 46.204-144 104-144 57.786 0 104 66.517 104 144z"
-              fill="currentColor"
-              style={Object {}}
-            />
-          </svg>
-           Wargame in progress
+            <div
+              className="MuiFormControl-root MuiTextField-root"
+            >
+              <div
+                className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-formControl MuiInput-formControl"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiInput-input"
+                  disabled={false}
+                  name=""
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  type="text"
+                  value="Task-Group"
+                />
+              </div>
+            </div>
+          </section>
         </div>
         <div
-          className="progress-box item"
+          className="item"
         >
           <div
-            className="progress"
+            className="progress-box"
           >
             <div
-              className="progress-indicator progress-indicator-active"
-            />
-            <div
-              className="progress-indicator"
-            />
-            <div
-              className="progress-indicator"
-            />
+              className="progress"
+            >
+              <div
+                className="progress-indicator progress-indicator-active"
+              />
+              <div
+                className="progress-indicator"
+              />
+              <div
+                className="progress-indicator"
+              />
+            </div>
           </div>
         </div>
       </div>
-      0
     </div>
     <div
       className="content"

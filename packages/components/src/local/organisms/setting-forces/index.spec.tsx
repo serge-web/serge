@@ -16,7 +16,8 @@ describe('SettingForces component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <SettingForces onChange={onChange} onSave={onSave} onRejectedIcon={onRejectedIcon} forces={forces}/>
+        <SettingForces onChange={onChange} onSave={onSave} onRejectedIcon={onRejectedIcon} forces={forces}/>,
+        { createNodeMock: () => document.createElement('textarea') }
       )
       .toJSON()
     expect(tree).toMatchSnapshot()

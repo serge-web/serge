@@ -1,5 +1,9 @@
-export default [
+import { MessageChannel } from '@serge/custom-types'
+import { CUSTOM_MESSAGE } from '@serge/config'
+
+const gameMessages: MessageChannel[] = [
   {
+    "messageType": CUSTOM_MESSAGE,
     "details": {
       "channel": "channel-k63pjit0",
       "from": {
@@ -20,6 +24,7 @@ export default [
     "open": false
   },
   {
+    "messageType": CUSTOM_MESSAGE,
     "details": {
       "channel": "channel-k63pjit0",
       "from": {
@@ -40,6 +45,7 @@ export default [
     "open": false
   },
   {
+    "messageType": CUSTOM_MESSAGE,
     "details": {
       "channel": "channel-k63pjit0",
       "from": {
@@ -61,3 +67,4 @@ export default [
     "open": false
   }
 ]
+export default gameMessages

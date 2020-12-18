@@ -1,4 +1,4 @@
-import { Message } from '@serge/custom-types'
+import { MessageChannel } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -12,7 +12,7 @@ export default interface PropTypes {
   /**
    * The messages array
    */
-  messages: Array<Message>
+  messages: Array<MessageChannel>
   /**
    * The user id
    */

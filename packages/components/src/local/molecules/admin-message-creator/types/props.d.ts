@@ -1,4 +1,4 @@
-import { Message } from '@serge/custom-types'
+import { MessageChannel } from '@serge/custom-types'
 
 export default interface Props {
   from: {
@@ -11,5 +11,5 @@ export default interface Props {
   /**
    * The method for posting messages out of the component
    */
-  postBack?: {(value: Message): void}
+  postBack?: {(value: MessageChannel): void}
 }

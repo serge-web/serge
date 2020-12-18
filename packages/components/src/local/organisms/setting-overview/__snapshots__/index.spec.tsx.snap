@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`overview renders correctly 1`] = `
+exports[`SettingOverview component: renders correctly 1`] = `
 <div
   className="main"
 >
@@ -14,11 +14,32 @@ exports[`overview renders correctly 1`] = `
       className="actions"
     >
       <button
-        className="main"
+        className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4 MuiButton-containedSecondary MuiButton-containedSizeLarge MuiButton-sizeLarge"
+        data-qa-type="submit"
+        disabled={false}
+        onBlur={[Function]}
         onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
         type="button"
       >
-        Save
+        <span
+          className="MuiButton-label"
+        >
+          Save Overview
+        </span>
+        <span
+          className="MuiTouchRipple-root"
+        />
       </button>
     </div>
   </div>
@@ -39,12 +60,56 @@ exports[`overview renders correctly 1`] = `
         <div
           className="content"
         >
-          <textarea
-            className="textarea"
-            onChange={[Function]}
-            rows={8}
-            value="Sample MWARC Wargame"
-          />
+          <section
+            className="input-container disable-offset textarea"
+          >
+            <div
+              className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            >
+              <div
+                className="MuiInputBase-root MuiInput-root makeStyles-root-5 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline makeStyles-multiline-7"
+                onClick={[Function]}
+              >
+                <textarea
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiInput-input makeStyles-input-6 MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                  disabled={false}
+                  name=""
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  rows={8}
+                  style={
+                    Object {
+                      "height": 0,
+                      "overflow": "hidden",
+                    }
+                  }
+                  value="Sample MWARC Wargame"
+                />
+                <textarea
+                  aria-hidden={true}
+                  className="MuiInputBase-input MuiInput-input makeStyles-input-6 MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                  readOnly={true}
+                  style={
+                    Object {
+                      "height": 0,
+                      "left": 0,
+                      "overflow": "hidden",
+                      "position": "absolute",
+                      "top": 0,
+                      "transform": "translateZ(0)",
+                      "visibility": "hidden",
+                    }
+                  }
+                  tabIndex={-1}
+                />
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>
@@ -167,7 +232,7 @@ exports[`overview renders correctly 1`] = `
             >
               <span
                 aria-disabled={false}
-                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-checked-2 Mui-checked MuiIconButton-colorPrimary"
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-12 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-checked-13 Mui-checked MuiIconButton-colorPrimary"
                 onBlur={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
@@ -186,7 +251,7 @@ exports[`overview renders correctly 1`] = `
                 >
                   <input
                     checked={true}
-                    className="PrivateSwitchBase-input-4"
+                    className="PrivateSwitchBase-input-15"
                     data-indeterminate={false}
                     onChange={[Function]}
                     type="checkbox"
@@ -203,6 +268,9 @@ exports[`overview renders correctly 1`] = `
                     />
                   </svg>
                 </span>
+                <span
+                  className="MuiTouchRipple-root"
+                />
               </span>
               <span
                 className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"

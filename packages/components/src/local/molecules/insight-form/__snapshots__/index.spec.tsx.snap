@@ -34,7 +34,7 @@ exports[`InsightForm renders correctly 1`] = `
       className="input-container disable-offset"
     >
       <div
-        className="MuiBox-root MuiBox-root-5 input-label"
+        className="MuiBox-root MuiBox-root-9 input-label"
       >
         Message
       </div>
@@ -42,14 +42,13 @@ exports[`InsightForm renders correctly 1`] = `
         className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
       >
         <div
-          className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiOutlinedInput-multiline"
-          disableUnderline={false}
+          className="MuiInputBase-root MuiInput-root makeStyles-root-5 makeStyles-root-7 MuiInput-underline makeStyles-underline-6 makeStyles-underline-8 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline"
           onClick={[Function]}
         >
           <textarea
             aria-invalid={false}
             autoFocus={false}
-            className="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputMultiline MuiOutlinedInput-inputMultiline"
+            className="MuiInputBase-input MuiInput-input MuiInputBase-inputMultiline MuiInput-inputMultiline"
             disabled={false}
             name="message"
             onAnimationStart={[Function]}
@@ -60,32 +59,6 @@ exports[`InsightForm renders correctly 1`] = `
             rows={4}
             value=""
           />
-          <fieldset
-            aria-hidden={true}
-            className="PrivateNotchedOutline-root-6 MuiOutlinedInput-notchedOutline"
-            style={
-              Object {
-                "paddingLeft": 8,
-              }
-            }
-          >
-            <legend
-              className="PrivateNotchedOutline-legend-7"
-              style={
-                Object {
-                  "width": 0.01,
-                }
-              }
-            >
-              <span
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "&#8203;",
-                  }
-                }
-              />
-            </legend>
-          </fieldset>
         </div>
       </div>
     </section>
@@ -100,7 +73,7 @@ exports[`InsightForm renders correctly 1`] = `
         className="input-container disable-offset"
       >
         <div
-          className="MuiBox-root MuiBox-root-12 input-label"
+          className="MuiBox-root MuiBox-root-14 input-label"
         >
           Name: optional
         </div>
@@ -108,14 +81,13 @@ exports[`InsightForm renders correctly 1`] = `
           className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
         >
           <div
-            className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
-            disableUnderline={false}
+            className="MuiInputBase-root MuiInput-root makeStyles-root-5 makeStyles-root-12 MuiInput-underline makeStyles-underline-6 makeStyles-underline-13 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
             onClick={[Function]}
           >
             <input
               aria-invalid={false}
               autoFocus={false}
-              className="MuiInputBase-input MuiOutlinedInput-input"
+              className="MuiInputBase-input MuiInput-input"
               disabled={false}
               name="name-optional"
               onAnimationStart={[Function]}
@@ -126,39 +98,13 @@ exports[`InsightForm renders correctly 1`] = `
               type="text"
               value=""
             />
-            <fieldset
-              aria-hidden={true}
-              className="PrivateNotchedOutline-root-6 MuiOutlinedInput-notchedOutline"
-              style={
-                Object {
-                  "paddingLeft": 8,
-                }
-              }
-            >
-              <legend
-                className="PrivateNotchedOutline-legend-7"
-                style={
-                  Object {
-                    "width": 0.01,
-                  }
-                }
-              >
-                <span
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "&#8203;",
-                    }
-                  }
-                />
-              </legend>
-            </fieldset>
           </div>
         </div>
       </section>
     </div>
   </div>
   <div
-    className="MuiBox-root MuiBox-root-13"
+    className="MuiBox-root MuiBox-root-15"
   >
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-text btn-cancel"
@@ -185,7 +131,7 @@ exports[`InsightForm renders correctly 1`] = `
       </span>
     </button>
     <div
-      className="MuiBox-root MuiBox-root-14"
+      className="MuiBox-root MuiBox-root-16"
     >
       <button
         className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"

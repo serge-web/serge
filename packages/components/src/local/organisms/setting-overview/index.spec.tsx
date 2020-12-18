@@ -17,15 +17,13 @@ const handleChange = (nextOverview: WargameOverview): void => {
 
 describe('SettingOverview component:', () => {
   it('renders correctly', () => {
-    const tree = renderer
-      .create(
-        <SettingOverview
-          overview={WargameExportedMock.data.overview}
-          onChange={handleChange}
-          onSave={handleSave}
-        />
-      )
-      .toJSON()
+    const tree = renderer.create(<SettingOverview
+      overview={WargameExportedMock.data.overview}
+      onChange={handleChange}
+      onSave={handleSave}
+    />, {
+      createNodeMock: () => document.createElement('textarea')
+    }).toJSON()
     expect(tree).toMatchSnapshot()
   })
 })
