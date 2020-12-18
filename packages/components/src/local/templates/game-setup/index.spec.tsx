@@ -16,7 +16,7 @@ import {
   WargameOverview
 } from '@serge/custom-types'
 
-const Component = () => {
+const Component = (): React.ReactElement => {
   const initialWargame: Wargame = {
     ...WargameExportedMock,
     data: {

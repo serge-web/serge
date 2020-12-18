@@ -71,20 +71,12 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
         variant="filled"
       />
       <div className={styles['searchlist-list']}>
-<<<<<<< HEAD
-      {useCustomScroll ? <ScrollArea
-=======
         {useCustomScroll ? <ScrollArea
->>>>>>> ffeaee1ee15bfe1a68accae5585e06395a2a7d1d
           verticalContainerStyle={{ borderRadius: '6px' }}
           verticalScrollbarStyle={{ borderRadius: '6px' }}
         >
           {renderContent()}
-<<<<<<< HEAD
         </ScrollArea> : <div>{renderContent()}</div>}
-=======
-        </ScrollArea> : <div>{renderContent()}</div>}
->>>>>>> ffeaee1ee15bfe1a68accae5585e06395a2a7d1d
       </div>
     </div>
   )
