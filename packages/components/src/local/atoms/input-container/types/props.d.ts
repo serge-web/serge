@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default interface PropTypes {
   /**
    * The name of the input label
@@ -22,4 +24,8 @@ export default interface PropTypes {
    * add custom classname for section
    */
   className?: string
+  /**
+   * Container element ref
+   */
+  ref?: React.Ref<any>
 }

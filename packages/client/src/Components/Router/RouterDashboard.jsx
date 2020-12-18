@@ -15,7 +15,8 @@ import EditMessage from '../../Views/EditMessage'
 import CreateMessage from '../../Views/CreateMessage'
 import EditTemplate from '../../Views/EditTemplate'
 import CreateTemplate from '../../Views/CreateTemplate'
-import GameSetup from '../../Views/GameSetup'
+import AdminGameSetup from '../../Views/GameSetupNew'
+// import GameSetup from '../../Views/GameSetup'
 import ExportMessages from '../../Views/ExportMessages'
 import ExportForces from '../../Views/ExportForces'
 import ExportPrint from '../../Views/ExportPrint'
@@ -48,7 +49,7 @@ const routes = [
       { path: EXPORT_PRINT_SUBROUTE, action: () => <ExportPrint /> }
     ]
   },
-  { path: GAME_SETUP_ROUTE, action: () => <GameSetup /> },
+  { path: GAME_SETUP_ROUTE, action: () => <AdminGameSetup /> },
   { path: EXPORT_ROUTE, action: () => <ExportMessages /> },
   { path: WELCOME_SCREEN_EDIT_ROUTE, action: () => <EditWelcomeScreen /> }
 ]

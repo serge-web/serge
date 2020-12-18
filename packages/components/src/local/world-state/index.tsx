@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import Button from '../form-elements/button'
+import Button from '../atoms/button'
 import cx from 'classnames'
 import { getIconClassname } from '../asset-icon'
 import Groups from '../helper-elements/groups'
@@ -176,7 +176,7 @@ export const WorldState: React.FC<PropTypes> = ({
       />
       {submitTitle && (panel === WorldStatePanels.Control) && !playerInAdjudication && canSubmitOrders &&
         <div className={styles.submit}>
-          <Button disabled={plansSubmitted} size='m' onClick={submitCallback}>{submitTitle}</Button>
+          <Button disabled={plansSubmitted} onClick={submitCallback}>{submitTitle}</Button>
         </div>
       }
     </div>

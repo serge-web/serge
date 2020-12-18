@@ -31,7 +31,7 @@ const items: Array<GroupItem> = [
 
 export const Default: React.FC = () => <Groups canOrganise={boolean('Player can organise assets', true)} items={items}/>
 
-// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

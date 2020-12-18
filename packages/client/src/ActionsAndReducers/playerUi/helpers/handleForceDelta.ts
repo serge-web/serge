@@ -1,4 +1,4 @@
-import { Message, ForceData } from '@serge/custom-types'
+import { MessageMap, ForceData } from '@serge/custom-types'
 
 import handleVisibilityChanges from './handleVisibilityChanges'
 import handlePerceptionChange from './handlePerceptionChanges'
@@ -11,32 +11,29 @@ import {
   PERCEPTION_OF_CONTACT,
   SUBMIT_PLANS,
   STATE_OF_WORLD
-} from '../../../consts'
+} from '@serge/config'
+// TODO: change it to @serge/config
 
 /** create a marker for the supplied set of details */
-export default (message: Message, allForces: ForceData[]): ForceData[] => {
-  const msgType = message.details.messageType
-  if (!msgType) {
+export default (message: MessageMap, allForces: ForceData[]): ForceData[] => {
+  if (!message.messageType) {
     console.error('problem - we need message type in ', message)
   } else {
-    console.log('Player reducer handling forceDelta:', msgType)
+    console.log('Player reducer handling forceDelta:', message.messageType)
   }
-  switch (msgType) {
+  switch (message.messageType) {
     case FORCE_LAYDOWN:
-      // @ts-ignore
       return handleForceLaydownChanges(message, allForces)
     case VISIBILIY_CHANGES:
-      // @ts-ignore
       return handleVisibilityChanges(message, allForces)
     case PERCEPTION_OF_CONTACT:
-      // @ts-ignore
       return handlePerceptionChange(message, allForces)
     case SUBMIT_PLANS:
       return handlePlansSubmittedChanges(message, allForces)
     case STATE_OF_WORLD:
       return handleStateOfWorldChanges(message, allForces)
     default:
-      console.error('failed to create player reducer handler for:' + msgType)
+      console.error(`failed to create player reducer handler for: ${message!.messageType}`)
       return allForces
   }
 }

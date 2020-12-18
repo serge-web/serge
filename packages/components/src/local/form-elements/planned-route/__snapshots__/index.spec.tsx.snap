@@ -5,18 +5,52 @@ exports[`PlannedRoute renders correctly 1`] = `
   className="planned-route"
 >
   <button
-    className="main"
+    className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+    disabled={false}
+    onBlur={[Function]}
     onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
-    Accept
+    <span
+      className="MuiButton-label"
+    >
+      Accept
+    </span>
   </button>
   <button
-    className="main"
+    className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-5 MuiButton-contained makeStyles-contained-2 makeStyles-contained-6 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+    disabled={false}
+    onBlur={[Function]}
     onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
-    Reject
+    <span
+      className="MuiButton-label"
+    >
+      Reject
+    </span>
   </button>
    
 </div>

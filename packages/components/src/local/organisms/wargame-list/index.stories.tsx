@@ -123,6 +123,7 @@ const lotsWargames = [{
 
 export const LotsOfWargames: React.FC = () => (
   <WargameList
+    useCustomScroll
     wargames={lotsWargames}
     menuConfig={menus}
     onGameClick={onGameClick}

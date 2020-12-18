@@ -58,4 +58,8 @@ export type PropTypes = TextFieldProps & {
    * Multiline maximum rows length
    */
   rowsMax?: number
+  /**
+   * Is the field input being used as section title as well?
+   */
+  titleInput?: boolean
 }

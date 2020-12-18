@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import FlexLayout from "flexlayout-react";
 import Channel from "../Components/Channel";
 import _ from "lodash";
-import { expiredStorage, LOCAL_STORAGE_TIMEOUT, STATE_OF_WORLD, SUBMIT_PLANS, PERCEPTION_OF_CONTACT, VISIBILIY_CHANGES } from "../consts";
+import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from "../consts";
 import { getAllWargameMessages } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
 import { PlayerStateContext } from "../Store/PlayerUi";
 import "@serge/themes/dependencies/flexlayout-react.scss";
@@ -11,6 +11,7 @@ import { Mapping, Assets, HexGrid } from "@serge/components"
 import { saveMapMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { sendMessage } from '@serge/helpers'
 
+import { PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILIY_CHANGES } from '@serge/config'
 const json = {
   global: {
     tabSetTabStripHeight: 45,
@@ -43,14 +44,14 @@ const LocalTileLayer = {
 
 class ChannelTabsContainer extends Component {
   static contextType = PlayerStateContext;
-  
+
   static findChannelByName = (channels, name) => {
     return Object.entries(channels).find(entry => {
       const [ , attrs ] = entry;
       return attrs.name === name
     });
   }
-  
+
   constructor(props, context) {
     super(props);
     const [ state, dispatch ] = context;
@@ -62,20 +63,20 @@ class ChannelTabsContainer extends Component {
     };
     getAllWargameMessages(state.currentWargame)(dispatch);
   }
-  
+
   componentDidUpdate() {
     this.computeTabs();
   }
-  
+
   computeTabs() {
     const [ state ] = this.context;
     let channels = state.channels;
     let channelNames = [];
-    
+
     for (let channelId in channels) {
       channelNames.push({id: channelId, name: channels[channelId].name});
     }
-    
+
     let modelTabs = Object.values(this.model._idMap)
     .filter((node) => node._attributes.type === "tab")
     .map((node) => ({ id: node._attributes.id, name: node._attributes.name }));
@@ -83,20 +84,20 @@ class ChannelTabsContainer extends Component {
     let channelsToRemove = _.differenceBy(modelTabs, channelNames, (channel) => channel.id);
     let matchingChannels = _.intersectionBy(channelNames, modelTabs, (item) => item.id);
     let channelsToRename = _.differenceBy(matchingChannels, modelTabs, (item) => item.name);
-    
+
     if (channelsToRename.length > 0) {
       this.renameTabs(channelsToRename);
     }
-    
+
     if (newChannels.length > 0) {
       this.addToTabs(newChannels);
     }
-    
+
     if (channelsToRemove.length > 0) {
       this.removeFromTabs(channelsToRemove);
     }
   }
-  
+
   addToTabs(newChannels) {
     let modelTabs = Object.values(this.model._idMap);
     let tabsetMatch = modelTabs.find((tab) => tab._attributes.type === "tabset");
@@ -109,7 +110,7 @@ class ChannelTabsContainer extends Component {
         }
       });
     }
-    
+
     removeFromTabs(channelsToRemove) {
       channelsToRemove.forEach((channel) => {
         if (this.model._idMap[channel.id]) {
@@ -118,16 +119,16 @@ class ChannelTabsContainer extends Component {
             );
           }
         });
-        
+
         let modelTabs = Object.values(this.model._idMap)
         .filter((node) => node._attributes.type === "tab")
         .map((node) => ({ id: node._attributes.id, name: node._attributes.name }));
-        
+
         if (modelTabs.length === 0) {
           this.addToTabs([{id: "default", name: "No subscriptions"}]);
         }
       }
-      
+
       renameTabs(nameChanges) {
         nameChanges.forEach((channel) => {
           this.model.doAction(
@@ -135,13 +136,13 @@ class ChannelTabsContainer extends Component {
             )
           })
         }
-        
+
 
   factory = (node) => {
     const [ state ] = this.context;
 
     const postback = (form, payload, channelID) => {
- 
+
       switch(form) {
         case VISIBILIY_CHANGES:
           sendMessage(VISIBILIY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
@@ -158,7 +159,7 @@ class ChannelTabsContainer extends Component {
           default:
         console.log('Handler not created for', form)
       }
-  
+
     }
 
     // Render the map
@@ -180,7 +181,7 @@ class ChannelTabsContainer extends Component {
     if (_.isEmpty(state.channels)) return;
     const channelsArray = Object.entries(state.channels);
     if (channelsArray && channelsArray.length === 1) {
-      const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === "mapping");  
+      const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === "mapping");
       if (isOnlyMap) {
         return renderMap('map')
       } else {
@@ -189,8 +190,8 @@ class ChannelTabsContainer extends Component {
     } else {
       const matchedChannel = ChannelTabsContainer.findChannelByName(state.channels, node.getName());
       if (node.getName().toLowerCase() === 'mapping') {
-   
-  
+
+
         // return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
         return renderMap(node._attributes.id)
       }
@@ -234,7 +235,7 @@ class ChannelTabsContainer extends Component {
     render() {
     const [ state ] = this.context;
     let force = state.allForces.find((force) => force.uniqid === state.selectedForce);
-   
+
     return (
       <div className="contain-channel-tabs" data-force={force.uniqid}>
         <FlexLayout.Layout

@@ -291,7 +291,7 @@ export const updateWargameTitle = (dbName, title) => {
 }
 
 export const saveSettings = (dbName, data) => {
-  const db = wargameDbStore.find((wargame) => dbName === wargame.name).db
+  const db = (wargameDbStore.find((wargame) => dbName === wargame.name) || {}).db
 
   return getLatestWargameRevision(dbName)
     .then(function (res) {
@@ -821,7 +821,7 @@ export const postNewMessage = (dbName, details, message) => {
 // console logs will not works there
 export const postNewMapMessage = (dbName, details, message) => {
   // first, send the message
-  const db = wargameDbStore.find((db) => db.name === dbName).db
+  const db = (wargameDbStore.find((db) => db.name === dbName) || {}).db
   db.put({
     _id: new Date().toISOString(),
     details,
@@ -853,7 +853,7 @@ export const postNewMapMessage = (dbName, details, message) => {
 }
 
 export const getAllMessages = dbName => {
-  const db = wargameDbStore.find(db => db.name === dbName).db
+  const db = (wargameDbStore.find(db => db.name === dbName) || {}).db
 
   return db.allDocs({ include_docs: true, descending: true })
     .then(res => res.rows.map(a => a.doc))

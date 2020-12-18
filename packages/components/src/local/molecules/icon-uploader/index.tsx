@@ -27,6 +27,10 @@ export const IconUploader: React.FC<PropTypes> = ({
     setModal(!modal)
   }
 
+  const onRejected = (rejected: any): void => {
+    console.log(rejected)
+  }
+
   return (
     <div className={styles.main}>
       <div
@@ -40,7 +44,7 @@ export const IconUploader: React.FC<PropTypes> = ({
       {modal && <div className={styles.modal}>
         <div className={styles['modal-bg']} onClick={handleClick}/>
         <div className={styles['modal-content']}>
-          <ImageDropzone limit={limit} onChange={handleChange} />
+          <ImageDropzone limit={limit} onChange={handleChange} onRejected={onRejected} />
         </div>
       </div>}
     </div>

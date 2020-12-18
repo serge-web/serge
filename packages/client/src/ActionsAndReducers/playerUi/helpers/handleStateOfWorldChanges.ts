@@ -1,44 +1,37 @@
-import { PlayerUiMessageTypes, ForceData } from '@serge/custom-types'
+import { MessageStateOfWorld, ForceData, Asset } from '@serge/custom-types'
 
 import findAsset from '../../../Components/Mapping/helpers/findAsset'
 
-
-
-
-export default (payload: PlayerUiMessageTypes, allForces: ForceData[]): ForceData[] => {
-// @ts-ignore
+export default (payload: MessageStateOfWorld, allForces: ForceData[]): ForceData[] => {
   const { detail } = payload
-  // @ts-ignore
   detail.data.forEach(force => {
-  // @ts-ignore
-    force.assets.forEach(entry => {
     // @ts-ignore
-      const asset = findAsset(allForces, entry.uniqid)
-      if (entry.destroyed) {
-      // @ts-ignore
-        asset.destroyed = entry.destroyed
+    force.assets.forEach((entry: Asset) => {
+      const asset: Asset | undefined = findAsset(allForces, entry.uniqid)
+      if (asset !== undefined) {
+        if (entry.destroyed) {
+          // @ts-ignore
+          asset.destroyed = entry.destroyed
+          asset.plannedTurns = []
+          // @ts-ignore
+          asset.route = []
+        } else {
+          asset.plannedTurns = entry.plannedTurns
+          // @ts-ignore
+          asset.route = entry.newState ? entry.newState.route : asset.route
+        }
         // @ts-ignore
-        asset.plannedTurns = []
+        asset.history = asset.history ? asset.history : []
         // @ts-ignore
-        asset.route = []
-      } else {
-      // @ts-ignore
-        asset.plannedTurns = entry.plannedTurns
+        asset.history.push(entry.history)
         // @ts-ignore
-        asset.route = entry.newState ? entry.newState.route : asset.route
+        asset.status = entry.newState ? entry.newState.status : asset.status
+        // @ts-ignore
+        asset.position = entry.newState ? entry.newState.position : asset.position
+        // @ts-ignore
+        asset.condition = entry.condition
+        asset.perceptions = entry.perceptions
       }
-      // @ts-ignore
-      asset.history = asset.history ? asset.history : []
-      // @ts-ignore
-      asset.history.push(entry.history)
-      // @ts-ignore
-      asset.status = entry.newState ? entry.newState.status : asset.status
-      // @ts-ignore
-      asset.position = entry.newState ? entry.newState.position : asset.position
-      // @ts-ignore
-      asset.condition = entry.condition
-      // @ts-ignore
-      asset.perceptions = entry.perceptions
     })
   })
   return allForces

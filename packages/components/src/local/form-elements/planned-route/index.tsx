@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '../button'
+import { Button } from '../../atoms/button'
 
 /* Import proptypes */
 import PropTypes from './types/props'

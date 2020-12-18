@@ -1,79 +1,100 @@
 import React from 'react'
-import * as ActionConstant from '../ActionConstants'
+import {
+  SET_CURRENT_WARGAME_PLAYER,
+  SET_FORCE,
+  SET_ROLE,
+  SET_ALL_TEMPLATES_PLAYERUI,
+  SHOW_HIDE_OBJECTIVES,
+  SET_FEEDBACK_MESSAGES,
+  SET_LATEST_FEEDBACK_MESSAGE,
+  SET_LATEST_WARGAME_MESSAGE,
+  SET_ALL_MESSAGES,
+  OPEN_MESSAGE,
+  CLOSE_MESSAGE,
+  MARK_ALL_AS_READ,
+  OPEN_TOUR,
+  OPEN_MODAL,
+  CLOSE_MODAL
+} from '@serge/config'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import isError from '../../Helpers/isError'
-
-import { Wargame, Role, PlayerUiMessageTypes, Message, MessageDetails, PlayerDbMessageTypes } from '@serge/custom-types'
+import { FEEDBACK_MESSAGE } from '@serge/config'
 import {
-  PlayerUiActionTypes
-} from './types'
+  Wargame,
+  Role,
+  Message,
+  MessageDetails,
+  MessageFeedback,
+  MessageChannel
+} from '@serge/custom-types'
+import { PlayerUiActionTypes } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
-  type: ActionConstant.SET_CURRENT_WARGAME_PLAYER,
+  type: SET_CURRENT_WARGAME_PLAYER,
   payload: wargame
 })
 
 export const setForce = (forceName: string): PlayerUiActionTypes => ({
-  type: ActionConstant.SET_FORCE,
+  type: SET_FORCE,
   payload: forceName
 })
 
 export const setRole = (data: Role): PlayerUiActionTypes => ({
-  type: ActionConstant.SET_ROLE,
+  type: SET_ROLE,
   payload: data
 })
 
 export const setAllTemplates = (templates: Array<any>): PlayerUiActionTypes => ({
-  type: ActionConstant.SET_ALL_TEMPLATES_PLAYERUI,
+  type: SET_ALL_TEMPLATES_PLAYERUI,
   payload: templates
 })
 
 export const showHideObjectives = (): PlayerUiActionTypes => ({
-  type: ActionConstant.SHOW_HIDE_OBJECTIVES
+  type: SHOW_HIDE_OBJECTIVES
 })
 
-export const setWargameFeedback = (messages: Array<PlayerUiMessageTypes>): PlayerUiActionTypes => ({
-  type: ActionConstant.SET_FEEDBACK_MESSAGES,
+export const setWargameFeedback = (messages: MessageFeedback[]): PlayerUiActionTypes => ({
+  type: SET_FEEDBACK_MESSAGES,
   payload: messages
 })
 
-export const setLatestFeedbackMessage = (message: PlayerUiMessageTypes): PlayerUiActionTypes => ({
-  type: ActionConstant.SET_LATEST_FEEDBACK_MESSAGE,
+export const setLatestFeedbackMessage = (message: MessageFeedback): PlayerUiActionTypes => ({
+  type: SET_LATEST_FEEDBACK_MESSAGE,
   payload: message
 })
-export const setLatestWargameMessage = (message: PlayerUiMessageTypes): PlayerUiActionTypes => ({
-  type: ActionConstant.SET_LATEST_WARGAME_MESSAGE,
+export const setLatestWargameMessage = (message: MessageChannel): PlayerUiActionTypes => ({
+  type: SET_LATEST_WARGAME_MESSAGE,
   payload: message
 })
-export const setWargameMessages = (messages: Array<PlayerDbMessageTypes>): PlayerUiActionTypes => ({
-  type: ActionConstant.SET_ALL_MESSAGES,
+export const setWargameMessages = (messages: Array<MessageChannel>): PlayerUiActionTypes => ({
+  type: SET_ALL_MESSAGES,
   payload: messages
 })
-export const openMessage = (channel: string, message: Message): PlayerUiActionTypes => ({
-  type: ActionConstant.OPEN_MESSAGE,
+export const openMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
+  type: OPEN_MESSAGE,
   payload: { channel, message }
 })
-export const closeMessage = (channel: string, message: Message): PlayerUiActionTypes => ({
-  type: ActionConstant.CLOSE_MESSAGE,
+export const closeMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
+  type: CLOSE_MESSAGE,
   payload: { channel, message }
 })
 
 export const markAllAsRead = (channel: string): PlayerUiActionTypes => ({
-  type: ActionConstant.MARK_ALL_AS_READ,
+  type: MARK_ALL_AS_READ,
   payload: channel
 })
 
 export const openTour = (isOpen: boolean): PlayerUiActionTypes => ({
-  type: ActionConstant.OPEN_TOUR,
+  type: OPEN_TOUR,
   payload: isOpen
 })
 export const openModal = (modalName: string): PlayerUiActionTypes => ({
-  type: ActionConstant.OPEN_MODAL,
+  type: OPEN_MODAL,
   payload: modalName
 })
 export const closeModal = (): PlayerUiActionTypes => ({
-  type: ActionConstant.CLOSE_MODAL
+  type: CLOSE_MODAL
 })
 
 export const startListening = (dbName: string): Function => {
@@ -106,7 +127,7 @@ export const nextGameTurn = (dbName: string): Function => {
 }
 
 // TODO: fromDetails check type
-export const sendFeedbackMessage = (dbName: string, fromDetails: any, message: PlayerUiMessageTypes): Function => {
+export const sendFeedbackMessage = (dbName: string, fromDetails: any, message: MessageFeedback): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     await wargamesApi.postFeedback(dbName, fromDetails, message)
     dispatch(closeModal())
@@ -139,15 +160,15 @@ export const saveMapMessage = (dbName: string, details: MessageDetails, message:
 export const getAllWargameFeedback = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     const messages: Array<Message> = await wargamesApi.getAllMessages(dbName)
-    const feedbackMessages = messages.filter(({ feedback }) => feedback)
+    const feedbackMessages: MessageFeedback[] = messages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]
     dispatch(setWargameFeedback(feedbackMessages))
   }
 }
 
 export const getAllWargameMessages = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
-    const allMessages: Array<Message> = await wargamesApi.getAllMessages(dbName);
-    dispatch(setWargameMessages(allMessages.filter(({ feedback }) => !feedback)))
-    dispatch(setWargameFeedback(allMessages.filter(({ feedback }) => feedback)))
+    const allMessages: Array<Message> = await wargamesApi.getAllMessages(dbName)
+    dispatch(setWargameMessages(allMessages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageChannel)[]))
+    dispatch(setWargameFeedback(allMessages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
   }
 }

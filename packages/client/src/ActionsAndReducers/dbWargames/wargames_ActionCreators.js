@@ -1,4 +1,4 @@
-import * as ActionConstant from '../ActionConstants'
+import * as ActionConstant from '@serge/config'
 import 'whatwg-fetch'
 import _ from 'lodash'
 
@@ -250,6 +250,18 @@ export const saveSettings = (dbName, data) => {
   }
 }
 
+export const savePlatformTypes = (dbName, data) => {
+  return async (dispatch) => {
+    const wargame = await wargamesApi.savePlatformTypes(dbName, data)
+
+    dispatch(setCurrentWargame(wargame))
+
+    dispatch(setTabSaved())
+
+    dispatch(addNotification('Platform types saved.', 'success'))
+  }
+}
+
 export const saveForce = (dbName, newName, newData, oldName) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.saveForce(dbName, newName, newData, oldName)
@@ -265,10 +277,11 @@ export const saveForce = (dbName, newName, newData, oldName) => {
 export const saveChannel = (dbName, newName, newData, oldName) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.saveChannel(dbName, newName, newData, oldName)
+    const selectedChannel = { name: newName, uniqid: newData.uniqid }
 
+    dispatch(setSelectedChannel(selectedChannel))
+    wargame.data.channels.selectedChannel = selectedChannel
     dispatch(setCurrentWargame(wargame))
-    dispatch(setSelectedChannel({ name: newName, uniqid: newData.uniqid }))
-
     dispatch(addNotification('channel saved.', 'success'))
   }
 }
@@ -277,8 +290,12 @@ export const deleteSelectedChannel = (dbName, channel) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.deleteChannel(dbName, channel)
 
+    if (channel === wargame.data.channels.selectedChannel.uniqid) {
+      const selectedChannel = wargame.data.channels.channels[0]
+      dispatch(setSelectedChannel(selectedChannel))
+      wargame.data.channels.selectedChannel = selectedChannel
+    }
     dispatch(setCurrentWargame(wargame))
-
     dispatch(addNotification('Channel deleted.', 'warning'))
   }
 }

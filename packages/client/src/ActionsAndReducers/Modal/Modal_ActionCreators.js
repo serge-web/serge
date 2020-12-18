@@ -1,4 +1,4 @@
-import * as ActionConstant from '../ActionConstants'
+import * as ActionConstant from '@serge/config'
 
 export const modalAction = {
   open: (openModal, data) => ({

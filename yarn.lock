@@ -3770,6 +3770,13 @@
     "@types/leaflet" "*"
     "@types/react" "*"
 
+"@types/react-maskedinput@^4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@types/react-maskedinput/-/react-maskedinput-4.0.4.tgz#3239487fd1aadea44e0b5706304fe1e66c655f07"
+  integrity sha512-sMR4X2a4hKK77W0rBWtBPkoallrCbhT4mcg8dyGNMW7uMabGZ23uhJGleheUNQ5mYsVJIDl3IXGn3m49qigDQA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-syntax-highlighter@11.0.4":
   version "11.0.4"
   resolved "https://registry.yarnpkg.com/@types/react-syntax-highlighter/-/react-syntax-highlighter-11.0.4.tgz#d86d17697db62f98046874f62fdb3e53a0bbc4cd"

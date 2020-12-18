@@ -132,7 +132,7 @@ export const WithMarker: React.FC = () => <Mapping
     }}
     tooltip="Tooltip for marker" />
 </Mapping>
-// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 WithMarker.story = {
   parameters: {
     options: {
@@ -182,7 +182,7 @@ export const WithAssets: React.FC = () => <Mapping
   <Assets /><HexGrid />
 </Mapping>
 
-// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 WithAssets.story = {
   parameters: {
     options: {
@@ -246,7 +246,7 @@ export const WithGrid: React.FC = () => <Mapping
   <HexGrid />
 </Mapping>
 
-// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 WithGrid.story = {
   parameters: {
     options: {
@@ -304,7 +304,7 @@ export const WithAllowableRange: React.FC = () => <Mapping
   <HexGrid />
 </Mapping>
 
-// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 WithAllowableRange.story = {
   parameters: {
     options: {
@@ -364,7 +364,7 @@ export const WithPhases: React.FC = () => <Mapping
   <Assets />
 </Mapping>
 
-// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 WithPhases.story = {
   parameters: {
     options: {

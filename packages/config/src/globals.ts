@@ -29,6 +29,14 @@ export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 export const SUBMIT_PLANS = 'SubmitPlans'
 export const STATE_OF_WORLD = 'StateOfWorld'
 
+
+// series of constants used for `messageType` when sending custom messages
+export const CUSTOM_MESSAGE = 'CustomMessage'
+
+// series of constants used for `messageType` when sending system messages
+export const FEEDBACK_MESSAGE = 'FeedbackMessage'
+export const INFO_MESSAGE = 'InfoMessage'
+
 // return states of adjudication form
 export const PLAN_ACCEPTED = 'accepted'
 export const PLAN_REJECTED = 'rejected'

@@ -155,12 +155,28 @@ exports[`PlanTurnForm renders correctly 1`] = `
     </div>
   </div>
   <button
-    className="main"
+    className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4"
     disabled={false}
+    onBlur={[Function]}
     onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
     type="button"
   >
-    Plan turn
+    <span
+      className="MuiButton-label"
+    >
+      Plan turn
+    </span>
   </button>
 </div>
 `;

@@ -28,7 +28,7 @@ export const Default: React.FC = () => {
   return <IconUploader onChange={handleChange} limit={20000} icon={src} background={'red'}>change icon</IconUploader>
 }
 
-// @ts-ignore TS belives the 'story' property doesn't exist but it does.
+// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

@@ -1,0 +1,677 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SettingForces component: renders correctly 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="left"
+  >
+    <div
+      className="main"
+    >
+      <div
+        className="searchlist"
+      >
+        <div
+          className="searchlist-list searchlist-list"
+        >
+          <span
+            className="searchlist-row active"
+          >
+            <span
+              onClick={[Function]}
+            >
+              White
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              Blue
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              Red
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+          >
+            <span
+              onClick={[Function]}
+            >
+              Green
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="right"
+  >
+    <div>
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          <section
+            className="input-container disable-offset"
+          >
+            <div
+              className="MuiFormControl-root MuiTextField-root"
+            >
+              <div
+                className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-formControl MuiInput-formControl"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiInput-input"
+                  disabled={false}
+                  name=""
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  type="text"
+                  value="White"
+                />
+              </div>
+            </div>
+          </section>
+        </div>
+        <div
+          className="color-box"
+        >
+          <div>
+            <div
+              className="swatch"
+              onClick={[Function]}
+            >
+              <div
+                className="color"
+                style={
+                  Object {
+                    "backgroundColor": "#FCFBEE",
+                  }
+                }
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="col"
+        >
+          <div
+            className="main"
+          >
+            <div
+              className="icon"
+              onClick={[Function]}
+              style={
+                Object {
+                  "background": "rgba(0,0,0,0)",
+                }
+              }
+            >
+              <img
+                alt="icon"
+                src="images/default_img/umpireDefault.png"
+              />
+            </div>
+            <div
+              onClick={[Function]}
+            >
+              Change Icon
+            </div>
+          </div>
+        </div>
+        <div
+          className="actions"
+        >
+          <button
+            className="MuiButtonBase-root MuiButton-root makeStyles-root-8 makeStyles-root-10 MuiButton-contained makeStyles-contained-9 makeStyles-contained-11 MuiButton-containedPrimary"
+            data-qa-type="save"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiButton-label"
+            >
+              Save Force
+            </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col section"
+        >
+          <div
+            className="main"
+          >
+            <div
+              className="placeholder"
+            >
+              Overview & Objectives
+            </div>
+            <div
+              className="content"
+            >
+              <section
+                className="input-container disable-offset textarea"
+              >
+                <div
+                  className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                >
+                  <div
+                    className="MuiInputBase-root MuiInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline makeStyles-multiline-3"
+                    onClick={[Function]}
+                  >
+                    <textarea
+                      aria-invalid={false}
+                      autoFocus={false}
+                      className="MuiInputBase-input MuiInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                      disabled={false}
+                      name=""
+                      onAnimationStart={[Function]}
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      required={false}
+                      rows={8}
+                      style={
+                        Object {
+                          "height": 0,
+                          "overflow": "hidden",
+                        }
+                      }
+                      value="Umpire force."
+                    />
+                    <textarea
+                      aria-hidden={true}
+                      className="MuiInputBase-input MuiInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                      readOnly={true}
+                      style={
+                        Object {
+                          "height": 0,
+                          "left": 0,
+                          "overflow": "hidden",
+                          "position": "absolute",
+                          "top": 0,
+                          "transform": "translateZ(0)",
+                          "visibility": "hidden",
+                        }
+                      }
+                      tabIndex={-1}
+                    />
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col section"
+        >
+          <div
+            className="main"
+          >
+            <div
+              className="placeholder"
+            >
+              Roles
+            </div>
+            <div
+              className="content"
+            >
+              <div
+                className="main"
+              >
+                <ul>
+                  <li
+                    className="li"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="presection"
+                    >
+                      <section
+                        className="section"
+                      >
+                        <input
+                          onChange={[Function]}
+                          type="text"
+                          value="Game Control"
+                        />
+                        <div
+                          className="role"
+                        >
+                          <div
+                            className="role-item"
+                          >
+                            <div
+                              className="main"
+                              title="Click to Copy or Edit"
+                            >
+                              <section
+                                className="input-container disable-offset"
+                              >
+                                <div
+                                  className="MuiFormControl-root MuiTextField-root"
+                                >
+                                  <div
+                                    className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-14 MuiInput-underline makeStyles-underline-5 makeStyles-underline-15 MuiInputBase-formControl MuiInput-formControl"
+                                    onClick={[Function]}
+                                  >
+                                    <input
+                                      aria-invalid={false}
+                                      autoFocus={false}
+                                      className="MuiInputBase-input MuiInput-input"
+                                      disabled={false}
+                                      name=""
+                                      onAnimationStart={[Function]}
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      onFocus={[Function]}
+                                      required={false}
+                                      type="text"
+                                      value="p2311"
+                                    />
+                                  </div>
+                                </div>
+                              </section>
+                              <section
+                                className="password-mask"
+                              >
+                                <div
+                                  className="dots"
+                                >
+                                  <svg
+                                    aria-hidden="true"
+                                    className="svg-inline--fa fa-circle fa-w-16 fa-xs "
+                                    data-icon="circle"
+                                    data-prefix="fas"
+                                    focusable="false"
+                                    role="img"
+                                    style={Object {}}
+                                    viewBox="0 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
+                                      fill="currentColor"
+                                      style={Object {}}
+                                    />
+                                  </svg>
+                                  <svg
+                                    aria-hidden="true"
+                                    className="svg-inline--fa fa-circle fa-w-16 fa-xs "
+                                    data-icon="circle"
+                                    data-prefix="fas"
+                                    focusable="false"
+                                    role="img"
+                                    style={Object {}}
+                                    viewBox="0 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
+                                      fill="currentColor"
+                                      style={Object {}}
+                                    />
+                                  </svg>
+                                  <svg
+                                    aria-hidden="true"
+                                    className="svg-inline--fa fa-circle fa-w-16 fa-xs "
+                                    data-icon="circle"
+                                    data-prefix="fas"
+                                    focusable="false"
+                                    role="img"
+                                    style={Object {}}
+                                    viewBox="0 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
+                                      fill="currentColor"
+                                      style={Object {}}
+                                    />
+                                  </svg>
+                                  <svg
+                                    aria-hidden="true"
+                                    className="svg-inline--fa fa-circle fa-w-16 fa-xs "
+                                    data-icon="circle"
+                                    data-prefix="fas"
+                                    focusable="false"
+                                    role="img"
+                                    style={Object {}}
+                                    viewBox="0 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
+                                      fill="currentColor"
+                                      style={Object {}}
+                                    />
+                                  </svg>
+                                  <svg
+                                    aria-hidden="true"
+                                    className="svg-inline--fa fa-circle fa-w-16 fa-xs "
+                                    data-icon="circle"
+                                    data-prefix="fas"
+                                    focusable="false"
+                                    role="img"
+                                    style={Object {}}
+                                    viewBox="0 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"
+                                      fill="currentColor"
+                                      style={Object {}}
+                                    />
+                                  </svg>
+                                </div>
+                              </section>
+                              <div
+                                className="key"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  className="svg-inline--fa fa-key fa-w-16 "
+                                  data-icon="key"
+                                  data-prefix="fas"
+                                  focusable="false"
+                                  role="img"
+                                  style={Object {}}
+                                  viewBox="0 0 512 512"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M512 176.001C512 273.203 433.202 352 336 352c-11.22 0-22.19-1.062-32.827-3.069l-24.012 27.014A23.999 23.999 0 0 1 261.223 384H224v40c0 13.255-10.745 24-24 24h-40v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24v-78.059c0-6.365 2.529-12.47 7.029-16.971l161.802-161.802C163.108 213.814 160 195.271 160 176 160 78.798 238.797.001 335.999 0 433.488-.001 512 78.511 512 176.001zM336 128c0 26.51 21.49 48 48 48s48-21.49 48-48-21.49-48-48-48-48 21.49-48 48z"
+                                    fill="currentColor"
+                                    style={Object {}}
+                                  />
+                                </svg>
+                              </div>
+                            </div>
+                            <div
+                              className="role-title"
+                            >
+                              Password
+                            </div>
+                          </div>
+                          <div
+                            className="role-item"
+                          >
+                            <span
+                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                            >
+                              <span
+                                aria-disabled={false}
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-19 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-16 MuiSwitch-colorSecondary PrivateSwitchBase-checked-20 Mui-checked WithStyles(ForwardRef(Switch))-checked-17"
+                                onBlur={[Function]}
+                                onDragLeave={[Function]}
+                                onFocus={[Function]}
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseLeave={[Function]}
+                                onMouseUp={[Function]}
+                                onTouchEnd={[Function]}
+                                onTouchMove={[Function]}
+                                onTouchStart={[Function]}
+                                tabIndex={null}
+                              >
+                                <span
+                                  className="MuiIconButton-label"
+                                >
+                                  <input
+                                    checked={true}
+                                    className="PrivateSwitchBase-input-22 MuiSwitch-input"
+                                    disabled={false}
+                                    onChange={[Function]}
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    className="MuiSwitch-thumb"
+                                  />
+                                </span>
+                                <span
+                                  className="MuiTouchRipple-root"
+                                />
+                              </span>
+                              <span
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-18"
+                              />
+                            </span>
+                            <div
+                              className="role-title title-center"
+                              title="Can view all channels"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-eye fa-w-18 "
+                                data-icon="eye"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 576 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                          <div
+                            className="role-item"
+                          >
+                            <span
+                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                            >
+                              <span
+                                aria-disabled={false}
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-19 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-16 MuiSwitch-colorSecondary PrivateSwitchBase-checked-20 Mui-checked WithStyles(ForwardRef(Switch))-checked-17"
+                                onBlur={[Function]}
+                                onDragLeave={[Function]}
+                                onFocus={[Function]}
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseLeave={[Function]}
+                                onMouseUp={[Function]}
+                                onTouchEnd={[Function]}
+                                onTouchMove={[Function]}
+                                onTouchStart={[Function]}
+                                tabIndex={null}
+                              >
+                                <span
+                                  className="MuiIconButton-label"
+                                >
+                                  <input
+                                    checked={true}
+                                    className="PrivateSwitchBase-input-22 MuiSwitch-input"
+                                    disabled={false}
+                                    onChange={[Function]}
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    className="MuiSwitch-thumb"
+                                  />
+                                </span>
+                                <span
+                                  className="MuiTouchRipple-root"
+                                />
+                              </span>
+                              <span
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-18"
+                              />
+                            </span>
+                            <div
+                              className="role-title title-center"
+                              title="Can view feedback/insights"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-comments fa-w-18 "
+                                data-icon="comments"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 576 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M416 192c0-88.4-93.1-160-208-160S0 103.6 0 192c0 34.3 14.1 65.9 38 92-13.4 30.2-35.5 54.2-35.8 54.5-2.2 2.3-2.8 5.7-1.5 8.7S4.8 352 8 352c36.6 0 66.9-12.3 88.7-25 32.2 15.7 70.3 25 111.3 25 114.9 0 208-71.6 208-160zm122 220c23.9-26 38-57.7 38-92 0-66.9-53.5-124.2-129.3-148.1.9 6.6 1.3 13.3 1.3 20.1 0 105.9-107.7 192-240 192-10.8 0-21.3-.8-31.7-1.9C207.8 439.6 281.8 480 368 480c41 0 79.1-9.2 111.3-25 21.8 12.7 52.1 25 88.7 25 3.2 0 6.1-1.9 7.3-4.8 1.3-2.9.7-6.3-1.5-8.7-.3-.3-22.4-24.2-35.8-54.5z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                          <div
+                            className="role-item"
+                          >
+                            <span
+                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                            >
+                              <span
+                                aria-disabled={false}
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-19 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-16 MuiSwitch-colorSecondary PrivateSwitchBase-checked-20 Mui-checked WithStyles(ForwardRef(Switch))-checked-17"
+                                onBlur={[Function]}
+                                onDragLeave={[Function]}
+                                onFocus={[Function]}
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseLeave={[Function]}
+                                onMouseUp={[Function]}
+                                onTouchEnd={[Function]}
+                                onTouchMove={[Function]}
+                                onTouchStart={[Function]}
+                                tabIndex={null}
+                              >
+                                <span
+                                  className="MuiIconButton-label"
+                                >
+                                  <input
+                                    checked={true}
+                                    className="PrivateSwitchBase-input-22 MuiSwitch-input"
+                                    onChange={[Function]}
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    className="MuiSwitch-thumb"
+                                  />
+                                </span>
+                                <span
+                                  className="MuiTouchRipple-root"
+                                />
+                              </span>
+                              <span
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-18"
+                              />
+                            </span>
+                            <div
+                              className="role-title title-center"
+                              title="Can submit mapping plans"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                className="svg-inline--fa fa-directions fa-w-16 "
+                                data-icon="directions"
+                                data-prefix="fas"
+                                focusable="false"
+                                role="img"
+                                style={Object {}}
+                                viewBox="0 0 512 512"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M502.61 233.32L278.68 9.39c-12.52-12.52-32.83-12.52-45.36 0L9.39 233.32c-12.52 12.53-12.52 32.83 0 45.36l223.93 223.93c12.52 12.53 32.83 12.53 45.36 0l223.93-223.93c12.52-12.53 12.52-32.83 0-45.36zm-100.98 12.56l-84.21 77.73c-5.12 4.73-13.43 1.1-13.43-5.88V264h-96v64c0 4.42-3.58 8-8 8h-32c-4.42 0-8-3.58-8-8v-80c0-17.67 14.33-32 32-32h112v-53.73c0-6.97 8.3-10.61 13.43-5.88l84.21 77.73c3.43 3.17 3.43 8.59 0 11.76z"
+                                  fill="currentColor"
+                                  style={Object {}}
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+                        <span />
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+                <div
+                  className="add-section"
+                >
+                  <button
+                    className="button"
+                    onClick={[Function]}
+                  >
+                    Add Role
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

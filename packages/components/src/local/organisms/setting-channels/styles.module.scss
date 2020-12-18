@@ -1,0 +1,31 @@
+.row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+}
+
+.col {
+  flex: 1;
+  max-width: 100%;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section {
+  padding: 12px 0;
+}
+
+.table {
+  th {
+    font-weight: bold;
+  }
+
+  tfoot tr {
+    border-top: 1px solid #e0e0e0;
+  }
+}

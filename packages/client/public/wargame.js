@@ -131,7 +131,7 @@ const umpireForce = {
     isObserver: true,
     isInsightViewer: true
   }],
-  icon: 'default_img/umpireDefault.png',
+  icon: 'images/default_img/umpireDefault.png',
   color: '#FCFBEE',
   umpire: true,
   dirty: false
@@ -150,7 +150,7 @@ const blueForce = {
       isInsightViewer: false
     }
   ],
-  icon: 'default_img/umpireDefault.png',
+  icon: 'images/default_img/umpireDefault.png',
   color: '#00F',
   assets: [
     {
@@ -271,7 +271,7 @@ const redForce = {
       }
     }
   ],
-  icon: 'default_img/umpireDefault.png',
+  icon: 'images/default_img/umpireDefault.png',
   color: '#F00',
   umpire: false,
   dirty: false
@@ -290,7 +290,7 @@ const greenForce = {
       isInsightViewer: false
     }
   ],
-  icon: 'default_img/umpireDefault.png',
+  icon: 'images/default_img/umpireDefault.png',
   color: '#0F0',
   assets: [
     {

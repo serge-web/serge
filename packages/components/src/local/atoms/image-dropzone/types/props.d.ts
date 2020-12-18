@@ -8,6 +8,10 @@ export default interface PropTypes {
    */
   onChange?: (src: string, file?: any) => void
   /**
+   * Callback on rejected icon change event
+   */
+  onRejected?: (rejected: any) => void
+  /**
    * Size limit of the uploaded image in bytes
    */
   limit: number

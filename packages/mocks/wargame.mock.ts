@@ -1,4 +1,4 @@
-export default { 
+export default {
   "isLoading": false,
   "wargameList": [
     {
@@ -29,7 +29,7 @@ export default {
   ],
   "currentWargame": "",
   "exportMessagelist": [],
-  "wargameTitle": "",
+  "wargameTitle": "Task-Group",
   "data": {
     "overview": {
       "name": "Overview - settings",

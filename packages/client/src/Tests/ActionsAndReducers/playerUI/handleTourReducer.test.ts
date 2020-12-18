@@ -1,6 +1,6 @@
 import { openTour } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import reducer, { initialState } from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
-import { OPEN_TOUR } from '../../../ActionsAndReducers/ActionConstants'
+import { OPEN_TOUR } from '@serge/config'
 
 describe('PlayerUi Tour Actions', () => {
   it('should set a payload true', () => {
