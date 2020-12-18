@@ -1,5 +1,7 @@
-export const forces = [
-  {
+import { ForceData } from "@serge/custom-types"
+
+export const forces: ForceData[] = [
+{
     color: '#FCFBEE',
     dirty: false,
     icon: 'default_img/umpireDefault.png',
@@ -25,7 +27,7 @@ export const forces = [
         contactId: 'C713',
         history: [
           {
-            position: 'R23',
+            route: ['R23'],
             status: {
               speedKts: 20,
               state: 'Transiting'
@@ -33,7 +35,7 @@ export const forces = [
             turn: 0
           },
           {
-            position: 'P22',
+            route: ['P22'],
             status: {
               speedKts: 20,
               state: 'Transiting'
@@ -41,7 +43,7 @@ export const forces = [
             turn: 1
           },
           {
-            position: 'P21',
+            route: ['P21'],
             status: {
               speedKts: 20,
               state: 'Transiting'
@@ -162,7 +164,7 @@ export const forces = [
         contactId: 'C043',
         history: [
           {
-            position: 'P22',
+            route: ['P22'],
             status: {
               speedKts: 20,
               state: 'Transiting'
@@ -263,7 +265,7 @@ export const forces = [
         contactId: 'C012',
         history: [
           {
-            position: 'S23',
+            route: ['S23'],
             status: {
               speedKts: 20,
               state: 'Transiting'
@@ -314,10 +316,6 @@ export const forces = [
         ],
         platformType: 'merchant-vessel',
         position: 'O21',
-        route: [
-          'P21',
-          'O21'
-        ],
         status: {
           speedKts: 20,
           state: 'Transiting'
@@ -350,7 +348,7 @@ export const forces = [
         contactId: 'C065',
         history: [
           {
-            position: 'M07',
+            route: ['M07'],
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -366,7 +364,7 @@ export const forces = [
             turn: 1
           },
           {
-            coords: ['N05', 'N04'],
+            route: ['N05', 'N04'],
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -413,9 +411,6 @@ export const forces = [
         ],
         platformType: 'fishing-vessel',
         position: 'M04',
-        route: [
-          'M04'
-        ],
         status: {
           speedKts: 10,
           state: 'Transiting'
@@ -427,7 +422,7 @@ export const forces = [
         contactId: 'C105',
         history: [
           {
-            coords: ['N10'],
+            route: ['N10'],
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -446,8 +441,6 @@ export const forces = [
             perceptions: [],
             plannedTurns: [],
             platformType: 'boghammer',
-            route: [
-            ],
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -508,9 +501,6 @@ export const forces = [
         ],
         platformType: 'fishing-vessel',
         position: 'M10',
-        route: [
-          'M10'
-        ],
         status: {
           speedKts: 10,
           state: 'Transiting'
@@ -522,7 +512,7 @@ export const forces = [
         contactId: 'C008',
         history: [
           {
-            position: 'Q18',
+            route: ['Q18'],
             status: {
               state: 'Moored'
             },
@@ -566,9 +556,6 @@ export const forces = [
         ],
         platformType: 'fishing-vessel',
         position: 'P17',
-        route: [
-          'P17'
-        ],
         status: {
           speedKts: 10,
           state: 'Transiting'
@@ -580,7 +567,7 @@ export const forces = [
         contactId: 'C076',
         history: [
           {
-            position: 'Q12',
+            route: ['Q12'],
             status: {
               state: 'Inactive'
             },
@@ -624,7 +611,7 @@ export const forces = [
         contactId: 'C015',
         history: [
           {
-            position: 'H00',
+            route: ['H00'],
             status: {
               speedKts: 20,
               state: 'Transiting'
@@ -739,12 +726,6 @@ export const forces = [
         ],
         platformType: 'merchant-vessel',
         position: 'H03',
-        route: [
-          'H00',
-          'H01',
-          'H02',
-          'H03'
-        ],
         status: {
           speedKts: 20,
           state: 'Transiting'
@@ -756,7 +737,7 @@ export const forces = [
         contactId: 'C081',
         history: [
           {
-            position: 'C00',
+            route: ['C00'],
             status: {
               speedKts: 20,
               state: 'Transiting'
@@ -909,7 +890,7 @@ export const forces = [
         contactId: 'C116',
         history: [
           {
-            position: 'M02',
+            route: ['M02'],
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -1012,10 +993,6 @@ export const forces = [
         ],
         platformType: 'fishing-vessel',
         position: 'K03',
-        route: [
-          'M02',
-          'K03'
-        ],
         status: {
           speedKts: 10,
           state: 'Transiting'
@@ -1027,7 +1004,7 @@ export const forces = [
         contactId: 'C026',
         history: [
           {
-            position: 'N08',
+            route: ['N08'],
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -1130,10 +1107,6 @@ export const forces = [
         ],
         platformType: 'fishing-vessel',
         position: 'L09',
-        route: [
-          'N08',
-          'L09'
-        ],
         status: {
           speedKts: 10,
           state: 'Transiting'
@@ -1145,7 +1118,7 @@ export const forces = [
         contactId: 'C115',
         history: [
           {
-            position: 'N11',
+            route: ['N11'],
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -1256,10 +1229,6 @@ export const forces = [
         ],
         platformType: 'fishing-vessel',
         position: 'L10',
-        route: [
-          'N11',
-          'L10'
-        ],
         status: {
           speedKts: 10,
           state: 'Transiting'
