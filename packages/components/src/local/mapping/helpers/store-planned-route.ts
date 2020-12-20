@@ -16,7 +16,7 @@ const storePlannedRoute = (uniqid: string, route: RouteStep[], forces: ForceData
   // find the asset
   const asset: Asset | undefined = findAsset(newForces, uniqid)
 
-  if(asset) {
+  if (asset) {
     // store the planned route
     asset.plannedTurns = route.map((step: RouteStep) => {
       const res: any = {

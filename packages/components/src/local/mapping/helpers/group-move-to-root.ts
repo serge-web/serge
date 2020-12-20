@@ -87,8 +87,7 @@ const groupMoveToRoot = (uniqid: string, forces: ForceData[]): any => {
     return newForces
   } else {
     return undefined
-  }    
-
+  }
 }
 
 const findInList = (uniqid: string, items: any): any => {

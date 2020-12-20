@@ -64,7 +64,7 @@ export const Assets: React.FC<{}> = () => {
           if (position != null) {
             // sort out who can control this force
             const assetForce: ForceData | undefined = forces.find((force: any) => force.name === actualForceName)
-            if(assetForce) {
+            if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const assetInfo: AssetInfo = {
                 name: perceivedAs[0],
@@ -79,7 +79,7 @@ export const Assets: React.FC<{}> = () => {
                 position,
                 uniqid
               }
-              tmpAssets.push(assetInfo)  
+              tmpAssets.push(assetInfo)
             }
           } else {
             console.log('!! Failed to find cell numbered:', route.currentPosition)
