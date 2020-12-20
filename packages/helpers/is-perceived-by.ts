@@ -14,7 +14,7 @@ const isPerceivedBy = (perceptions: Perception[], playerForce: string,
       const p: Perception | undefined = perceptions.find((p:Perception) => p.by.toLowerCase() === playerForce.toLowerCase())
       if(p) {
         // do we know force?
-        if(p.force ) {
+        if(p.force) {
           const color = forceColors.find((f:{force: string, color: string}) => f.force.toLowerCase() === p.force.toLowerCase())
           if(color) {
             return color.color

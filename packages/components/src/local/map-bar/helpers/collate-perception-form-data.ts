@@ -9,27 +9,31 @@ import { findPerceivedAsTypes, findAsset } from '@serge/helpers'
  * @return {string} data necessary for the plan turn form
  */
 const collatePerceptionFormData = (platforms: any, playerForce: string, selectedAsset: SelectedAsset, forces: ForceData[],
-  userIsUmpire: boolean): PerceptionFormData => {
+  userIsUmpire: boolean): PerceptionFormData | null => {
   // get the actual asset
-  const asset: Asset = findAsset(forces, selectedAsset.uniqid)
-  const [nameT, forceT, typeT] = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
-    selectedAsset.force, selectedAsset.type, asset.perceptions, userIsUmpire)
-  const availableForceList: ColorOption[] = availableForces(forces, true, true)
-  const platformTypes = platforms && platforms.map((p: any) => p.name)
-  platformTypes.push('Unknown')
-  const formData: PerceptionFormData = {
-    populate: {
-      perceivedForce: availableForceList,
-      perceivedType: platformTypes
-    },
-    values: {
-      perceivedNameVal: nameT,
-      perceivedForceVal: forceT,
-      perceivedTypeVal: typeT,
-      assetId: selectedAsset.uniqid
+  const asset: Asset | undefined = findAsset(forces, selectedAsset.uniqid)
+  if(asset) {
+    const [nameT, forceT, typeT] = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
+      selectedAsset.force, selectedAsset.type, asset.perceptions, userIsUmpire)
+    const availableForceList: ColorOption[] = availableForces(forces, true, true)
+    const platformTypes = platforms && platforms.map((p: any) => p.name)
+    platformTypes.push('Unknown')
+    const formData: PerceptionFormData = {
+      populate: {
+        perceivedForce: availableForceList,
+        perceivedType: platformTypes
+      },
+      values: {
+        perceivedNameVal: nameT,
+        perceivedForceVal: forceT,
+        perceivedTypeVal: typeT,
+        assetId: selectedAsset.uniqid
+      }
     }
+    return formData  
+  } else {
+    return null
   }
-  return formData
 }
 
 export default collatePerceptionFormData

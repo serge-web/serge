@@ -39,7 +39,7 @@ export default interface PropTypes {
   /**
    * the list of forces that can control this asset
    */
-  controlledBy?: [string]
+  controlledBy?: Array<string>
   /**
    * A list of forces able to see the asset
    */

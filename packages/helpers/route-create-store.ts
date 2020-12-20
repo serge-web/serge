@@ -92,10 +92,8 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
                   newRoute.planned = existing.planned
                 }
               }
-
               store.routes.push(newRoute)
             } else {
-
               // ok, special handling - if this is an organisation that comprises others
               if(asset.comprising && asset.comprising.length) {
                 // process list of children
@@ -105,11 +103,15 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
                   if(perceivedColor) {
                     const perceptions = findPerceivedAsTypes(playerForce, child.name, child.contactId,
                       thisForce, child.platformType, child.perceptions, false)
-                    // create route for this asset
-                    const newRoute: Route = routeCreateRoute(child, perceivedColor, false, force.uniqid, perceptions[1],
-                      perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, 
-                      grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset)
-                    store.routes.push(newRoute)
+
+                    // note: compiler/linter forcing us to re-check asset.position
+                    if(asset.position) {
+                      // create route for this asset
+                      const newRoute: Route = routeCreateRoute(child, perceivedColor, false, force.uniqid, perceptions[1],
+                        perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, 
+                        grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset)
+                      store.routes.push(newRoute)
+                    }
                   }
                 })
               } else {
