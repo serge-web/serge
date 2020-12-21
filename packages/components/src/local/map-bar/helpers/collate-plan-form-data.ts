@@ -1,15 +1,15 @@
-import { SelectedAsset, PlanTurnFormData } from '@serge/custom-types'
+import { SelectedAsset, PlanTurnFormData, PlatformTypeData } from '@serge/custom-types'
 
 import { kebabCase } from 'lodash'
 
 /** determine which form to show on this click
- * @param {any} platforms list of platform types in the wargame
+ * @param {PlatformTypeData[]} platforms list of platform types in the wargame
  * @param {SelectedAsset} selectedAsset the currently selected asset
  * @return {string} data necessary for the plan turn form
  */
-const collatePlanFormData = (platforms: any, selectedAsset: SelectedAsset
+const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: SelectedAsset
 ): PlanTurnFormData => {
-  const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
+  const currentPlatform = platforms && platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
   const availableStatus = currentPlatform && currentPlatform.states.find((s: any) => s.name === selectedAsset.status.state)
   const formData: PlanTurnFormData = {
     populate: {
@@ -17,7 +17,8 @@ const collatePlanFormData = (platforms: any, selectedAsset: SelectedAsset
       speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : []
     },
     values: {
-      statusVal: availableStatus,
+      // we will always have the status, but compiler doesn't trust us
+      statusVal: availableStatus || {name: 'unfound', mobile: false},
       speedVal: selectedAsset.status.speedKts,
       turnsVal: 1
     }

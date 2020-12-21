@@ -41,9 +41,13 @@ it('Stores the extended planned route', () => {
 
       // get the frigate, to check it
       const newFrigate = findAsset(newForces, frigateId)
-      const planned2 = newFrigate.plannedTurns
-      // check the planned turns are one step longer
-      expect(planned2.length).toEqual(routeLen + 1)
+      if (newFrigate) {
+        const planned2 = newFrigate.plannedTurns
+        // check the planned turns are one step longer
+        expect(planned2 && planned2.length).toEqual(routeLen + 1)
+      } else {
+        fail('failed to find asset')
+      }
     } else {
       expect(false).toBeTruthy()
     }
@@ -78,9 +82,13 @@ it('Stores the shortened planned route', () => {
 
       // get the frigate, to check it
       const newFrigate = findAsset(newForces, frigateId)
-      const planned2 = newFrigate.plannedTurns
-      // check the planned turns is now just one step
-      expect(planned2.length).toEqual(1)
+      if (newFrigate) {
+        const planned2 = newFrigate.plannedTurns
+        // check the planned turns is now just one step
+        expect(planned2 && planned2.length).toEqual(1)  
+      } else {
+        fail('failed t fined asset')
+      }
     } else {
       expect(false).toBeTruthy()
     }

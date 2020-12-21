@@ -1,9 +1,8 @@
 import AdminLayoutProps from '../../../organisms/admin-layout/types/props'
 import { WargameOverview } from '../../../organisms/setting-overview'
-import { PlatformType } from '../../../organisms/setting-platform-types'
-import { ForceData } from '../../../organisms/setting-forces'
 import { ChannelData } from '../../../organisms/setting-channels'
 import { MessageTemplate } from '../../../organisms/setting-channels/types/props'
+import { ForceData, PlatformType } from '@serge/custom-types'
 
 export default interface Props extends AdminLayoutProps {
   /**

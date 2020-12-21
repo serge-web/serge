@@ -11,7 +11,7 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import AssetInfo from './types/asset_info'
-import { SergeHex, SergeGrid, RouteStore, Route as RouteType, SelectedAsset, ForceData } from '@serge/custom-types'
+import { SergeHex, SergeGrid, RouteStore, Route as RouteType, SelectedAsset, ForceData, PerceivedTypes } from '@serge/custom-types'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
@@ -47,7 +47,7 @@ export const Assets: React.FC<{}> = () => {
 
         // see if the player of this force can see (perceive) this asset
         const isUmpire: boolean = playerForce === UMPIRE_FORCE
-        const perceivedAs: [string, string, string] = findPerceivedAsTypes(
+        const perceivedAsTypes: PerceivedTypes | null = findPerceivedAsTypes(
           playerForce,
           name,
           contactId,
@@ -57,7 +57,7 @@ export const Assets: React.FC<{}> = () => {
           isUmpire
         )
 
-        if (perceivedAs) {
+        if (perceivedAsTypes) {
           const position: L.LatLng | undefined = route.currentLocation // (cell && cell.centreLatLng) || undefined // route.currentLocation
           //  console.log(name, position)
           const visibleToArr: string[] = visibleTo(perceptions)
@@ -67,13 +67,13 @@ export const Assets: React.FC<{}> = () => {
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const assetInfo: AssetInfo = {
-                name: perceivedAs[0],
+                name: perceivedAsTypes.name,
                 condition,
                 status,
                 selected: isSelected,
                 controlledBy: assetForce.controlledBy,
-                type: perceivedAs[2],
-                perceivedForce: perceivedAs[1],
+                type: perceivedAsTypes.type,
+                perceivedForce: perceivedAsTypes.force,
                 force: assetForce.uniqid,
                 visibleTo: visibleToArr,
                 position,

@@ -1,5 +1,4 @@
-import { Perception } from '@serge/custom-types'
-import { upperFirst } from 'lodash'
+import { Perception, PerceivedTypes } from '@serge/custom-types'
 
 /** provide classnames for an asset, as perceived by current player
  * @param {string} myForce force of current player
@@ -19,31 +18,25 @@ export default function findPerceivedAsTypes (
   theirType: string,
   theirPerceptions: Perception[],
   userIsUmpire: boolean
-): [string, string, string] {
-  let perception: any
+): PerceivedTypes | null {
+  let tmpPerception: any
   if (myForce.toLowerCase() === theirForce.toLowerCase() || userIsUmpire) {
     // just use the real value
-    perception = { name: theirName, force: theirForce, type: theirType }
+    tmpPerception = { name: theirName, force: theirForce, type: theirType }
   } else {
-    if (theirPerceptions) {
-      if(Array.isArray(theirPerceptions)) {
-        // use the perceived values
-        perception = theirPerceptions.find(p => p.by.toLowerCase() === myForce.toLowerCase()) || null
-      } else {
-        const upperForce = upperFirst(myForce)
-        const tmpPerception = theirPerceptions[upperForce]
-        perception = tmpPerception ? tmpPerception : null
-      }
+    if (theirPerceptions && Array.isArray(theirPerceptions)) {
+      // use the perceived values
+      tmpPerception = theirPerceptions.find(p => p.by.toLowerCase() === myForce.toLowerCase()) || null
     } else {
-      perception = null
+      tmpPerception = null
     }
   }
-  if (perception) {
-    const nameClass: string = perception.name ? perception.name : theirContactID
-    const forceClass: string = perception.force ? perception.force.replace(/ /g, '-').toLowerCase() : 'unknown'
-    const typeClass: string = perception.type ? perception.type.replace(/ /g, '-').toLowerCase() : 'unknown'
-    return [nameClass, forceClass, typeClass]
+  if (tmpPerception) {
+    const nameClass: string = tmpPerception.name ? tmpPerception.name : theirContactID
+    const forceClass: string = tmpPerception.force ? tmpPerception.force.replace(/ /g, '-').toLowerCase() : 'unknown'
+    const typeClass: string = tmpPerception.type ? tmpPerception.type.replace(/ /g, '-').toLowerCase() : 'unknown'
+    return { name: nameClass, force: forceClass, type: typeClass }
   } else {
-    return perception
+    return null
   }
 }

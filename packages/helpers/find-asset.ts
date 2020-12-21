@@ -1,19 +1,19 @@
 import { Asset, ForceData } from "@serge/custom-types"
 
 /** find the asset with the provided id */
-export default function findAsset (allForces: ForceData[], assetId: string): Asset | undefined {
-  var res: Asset | undefined
-  allForces.find((force: ForceData) => {
-    const assets = force.assets
-    if (assets) {
-      res = assets.find((asset: Asset) => asset.uniqid === assetId)
+export default (allForces: ForceData[], assetId: string): Asset => {
+  let res: Asset | undefined = undefined
+  allForces.find((force) => {
+    const assets: Asset[] | undefined = force.assets
+    if (Array.isArray(assets)) {
+      res = assets.find(asset => asset.uniqid === assetId) || undefined
       // if the above find works, we'll return true, which will
       // terminate the find process. If it returns undefined,
       // we'll return false, and carry on to the next force
-      return res
-    } else {
-      return undefined
+      return !!res
     }
+    return false
   })
-  return res
+  if (res !== undefined) return res
+  throw new Error('Asset not found from id:' + assetId);
 };

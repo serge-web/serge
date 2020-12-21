@@ -1,14 +1,14 @@
-import { SelectedAsset, AdjudicateTurnFormPopulate, ColorOption, ForceData } from '@serge/custom-types'
+import { SelectedAsset, AdjudicateTurnFormPopulate, ColorOption, ForceData, PlatformTypeData } from '@serge/custom-types'
 
 import { kebabCase } from 'lodash'
 import availableForces from './available-forces'
 
 /** determine which form to show on this click
- * @param {any} platforms list of platform types in the wargame
+ * @param {PlatformTypeData} platforms list of platform types in the wargame
  * @param {SelectedAsset} selectedAsset the currently selected asset
  * @return {string} data necessary for the plan turn form
  */
-const collateAdjudicationFormData = (platforms: any, selectedAsset: SelectedAsset,
+const collateAdjudicationFormData = (platforms: PlatformTypeData[], selectedAsset: SelectedAsset,
   forces: ForceData[]
 ): AdjudicateTurnFormPopulate => {
   const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === kebabCase(selectedAsset.type))

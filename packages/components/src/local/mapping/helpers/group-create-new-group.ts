@@ -16,42 +16,45 @@ const groupCreateNewGroup = (dragging: string, target: string, forces: ForceData
   // get the assets
   const assets = parent.assets
 
-  // capture the assets
-  const dragAsset = assets.find((item: any) => item.uniqid === dragging)
-  const targetAsset = assets.find((item: any) => item.uniqid === target)
+  if (assets) {
+    // capture the assets
+    const dragAsset = assets.find((item: any) => item.uniqid === dragging)
+    const targetAsset = assets.find((item: any) => item.uniqid === target)
 
-  // remove the assets
-  const assets2 = assets.filter((item: any) => item.uniqid !== dragging)
-  const assets3 = assets2.filter((item: any) => item.uniqid !== target)
+    // remove the assets
+    const assets2 = assets.filter((item: any) => item.uniqid !== dragging)
+    const assets3 = assets2.filter((item: any) => item.uniqid !== target)
 
-  // create the new task group
-  const contactId: string = 'C' + Math.floor(Math.random() * 999)
-  const assetId: string = 'a' + Math.floor(Math.random() * 1000000)
-  const groupId: string = 'CTF ' + (300 + Math.floor(Math.random() * 99))
-  const newGroup: any = {
-    condition: 'Full capability',
-    contactId: contactId,
-    comprising: [dragAsset, targetAsset],
-    name: groupId,
-    perceptions: [],
-    platformType: 'task-group',
-    position: targetAsset.position,
-    status: {
-      speedKts: 20,
-      state: 'Transiting'
-    },
-    uniqid: assetId
+    // create the new task group
+    const contactId: string = 'C' + Math.floor(Math.random() * 999)
+    const assetId: string = 'a' + Math.floor(Math.random() * 1000000)
+    const groupId: string = 'CTF ' + (300 + Math.floor(Math.random() * 99))
+    const newGroup: any = {
+      condition: 'Full capability',
+      contactId: contactId,
+      comprising: [dragAsset, targetAsset],
+      name: groupId,
+      perceptions: [],
+      platformType: 'task-group',
+      position: targetAsset && targetAsset.position,
+      status: {
+        speedKts: 20,
+        state: 'Transiting'
+      },
+      uniqid: assetId
+    }
+    assets3.push(newGroup)
+
+    // overwrite the assets with the new list
+    parent.assets = assets3
   }
-  assets3.push(newGroup)
 
-  // overwrite the assets with the new list
-  parent.assets = assets3
   return newForces
 }
 
 /** find the force counter for this asset id */
-const forceFor = (item: string, forces: ForceData[]): any => {
-  const match: any = forces.find((force: any) => {
+const forceFor = (item: string, forces: ForceData[]): ForceData => {
+  const match: ForceData | undefined = forces.find((force: any) => {
     const assets: any = force.assets
     if (assets) {
       const asset = assets.find((asset: any) => asset.uniqid === item)
@@ -60,7 +63,8 @@ const forceFor = (item: string, forces: ForceData[]): any => {
       return false
     }
   })
-  return match
+  if (match !== undefined) return match
+  throw new Error('Failed to find force for asset:' + item)
 }
 
 export default groupCreateNewGroup

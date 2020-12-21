@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { RouteStore, Route, SergeGrid, SergeHex, ForceData, Asset } from '@serge/custom-types'
+import { RouteStore, Route, SergeGrid, SergeHex, ForceData, Asset, PlatformTypeData } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
 import { UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
@@ -35,7 +35,7 @@ export const forcesControlledBy = (forces: ForceData[], playerForce: string): Ar
  * @returns {RouteStore} RouteStore representing current data
  */
 const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], playerForce: string,
-    platformTypes: any, grid: SergeGrid<SergeHex<{}>> | undefined, filterHistorySteps: boolean, 
+    platformTypes: PlatformTypeData[], grid: SergeGrid<SergeHex<{}>> | undefined, filterHistorySteps: boolean, 
     filterPlannedSteps: boolean, oldStore?: RouteStore): RouteStore => {
   const store: RouteStore = { routes: []}
 
@@ -105,10 +105,10 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
                       thisForce, child.platformType, child.perceptions, false)
 
                     // note: compiler/linter forcing us to re-check asset.position
-                    if(asset.position) {
+                    if(asset.position && perceptions) {
                       // create route for this asset
-                      const newRoute: Route = routeCreateRoute(child, perceivedColor, false, force.uniqid, perceptions[1],
-                        perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, 
+                      const newRoute: Route = routeCreateRoute(child, perceivedColor, false, force.uniqid, perceptions.force,
+                        perceptions.name, perceptions.type, platformTypes, playerForce, asset.status, asset.position, assetLocation, 
                         grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset)
                       store.routes.push(newRoute)
                     }
@@ -120,11 +120,13 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
                 if(perceivedColor) {
                   const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
                     thisForce, asset.platformType, asset.perceptions, false)
-                  // create route for this asset
-                  const newRoute: Route = routeCreateRoute(asset, perceivedColor, false, force.uniqid, perceptions[1],
-                    perceptions[0], perceptions[2], platformTypes, playerForce, asset.status, asset.position, assetLocation, 
-                    grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset)
-                  store.routes.push(newRoute)
+                  if(perceptions) {
+                    // create route for this asset
+                    const newRoute: Route = routeCreateRoute(asset, perceivedColor, false, force.uniqid, perceptions.force,
+                      perceptions.name, perceptions.type, platformTypes, playerForce, asset.status, asset.position, assetLocation, 
+                      grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset)
+                    store.routes.push(newRoute)
+                  }
                 }
               }
             }

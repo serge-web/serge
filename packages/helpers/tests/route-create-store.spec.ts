@@ -7,7 +7,7 @@ import { forces, platformTypes } from '@serge/mocks'
 import routeCreateStore from '../route-create-store'
 import { forcesControlledBy } from '../route-create-store'
 
-import { RouteStore , Route,  RouteChild } from '@serge/custom-types'
+import { RouteStore , Route,  RouteChild, ForceData, Asset } from '@serge/custom-types'
 import { UMPIRE_FORCE } from '@serge/config'
 
 it('determines correct controlled routes', () => {
@@ -229,46 +229,51 @@ it('can create route as umpire in planning mode, filtering planned points', () =
 
 it('support new way of storing past steps', () => {
   const forcesClone = cloneDeep(forces)
-  const redForce: any = forcesClone[2]
-  const asset: any = redForce.assets[0]
-  // switch history for one using new structure (that includes all steps)
-  asset.history = [
-    {
-      route: [
-        'N16',
-        'M16'
-      ],
-      status: {
-        speedKts: 20,
-        state: 'Transiting'
+  const redForce: ForceData = forcesClone[2]
+  if (redForce && redForce.assets) {
+    const asset: Asset = redForce.assets[0]
+    // switch history for one using new structure (that includes all steps)
+    asset.history = [
+      {
+        route: [
+          'N16',
+          'M16'
+        ],
+        status: {
+          speedKts: 20,
+          state: 'Transiting'
+        },
+        turn: 5
       },
-      turn: 5
-    },
-    {
-      route: [
-        'M16',
-        'L16'
-      ],
-      status: {
-        speedKts: 10,
-        state: 'Transiting'
-      },
-      turn: 6
+      {
+        route: [
+          'M16',
+          'L16'
+        ],
+        status: {
+          speedKts: 10,
+          state: 'Transiting'
+        },
+        turn: 6
+      }
+    ]
+  
+    const store: RouteStore = routeCreateStore(undefined, forcesClone, 'umpire', platformTypes, undefined, false, false)
+    expect(store.routes.length).toEqual(13)
+  
+    // check inside a route
+    const route: Route = store.routes[4]
+    expect(route.uniqid).toEqual('a0pra000100')
+    expect(route.history.length).toEqual(2)
+    expect(route.history[0].turn).toEqual(5)
+    expect(route.history[0].coords).toBeDefined()
+    if (route.history[0].coords) {
+      expect(route.history[0].coords.length).toEqual(2)
     }
-  ]
-
-  const store: RouteStore = routeCreateStore(undefined, forcesClone, 'umpire', platformTypes, undefined, false, false)
-  expect(store.routes.length).toEqual(13)
-
-  // check inside a route
-  const route: any = store.routes[4]
-  expect(route.uniqid).toEqual('a0pra000100')
-  expect(route.history.length).toEqual(2)
-  expect(route.history[0].turn).toEqual(5)
-  expect(route.history[0].coords).toBeDefined()
-  if (route.history[0].coords) {
-    expect(route.history[0].coords.length).toEqual(2)
+  } else {
+    fail('failed to find red asset')
   }
+
 })
 
 it('route displays all hosted & comprising assets for white force', () => {

@@ -12,7 +12,7 @@ import collateStateOfWorld from './helpers/collate-state-of-world'
 import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
-import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid } from '@serge/custom-types'
+import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid, ForceData, PlatformTypeData } from '@serge/custom-types'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
 
 /* Import Stylesheet */
@@ -75,7 +75,7 @@ export const MapBar: React.FC = () => {
     playerForce: any
     canSubmitOrders: boolean
     phase: Phase
-    platforms: any
+    platforms: PlatformTypeData[]
     forces: ForceData[]
     showMapBar: boolean
     turnNumber: number

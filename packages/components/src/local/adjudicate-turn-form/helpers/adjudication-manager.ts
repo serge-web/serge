@@ -1,5 +1,5 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
-import { PlanTurnFormValues, Route, RouteStatus, RouteStep, RouteStore, Status, AdjudicateTurnFormPopulate } from '@serge/custom-types'
+import { PlanTurnFormValues, Route, RouteStatus, RouteStep, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData } from '@serge/custom-types'
 import { deepCompare } from '@serge/helpers'
 import { cloneDeep, kebabCase } from 'lodash'
 
@@ -9,7 +9,7 @@ import { cloneDeep, kebabCase } from 'lodash'
  */
 class AdjudicationManager {
   store: RouteStore
-  platforms: any
+  platforms: PlatformTypeData[]
   setRouteStore: {(store: RouteStore): void}
   turnPlanned: {(turn: PlanTurnFormValues): void}
   cancelRoutePlanning: { (): void }
@@ -19,7 +19,7 @@ class AdjudicationManager {
   turn: number
   uniqid: string
   myId: string
-  platformDetails: any
+  platformDetails: PlatformTypeData | undefined
   /**
    *
    * @param {RouteStore} store the current route store
@@ -27,7 +27,7 @@ class AdjudicationManager {
    * @param {(turn: PlanTurnFormValues): void} turnPlanned - tell map that a turn has been planned
    * @param {(): void} cancelRoutePlanning - cancel dynamic map plotting
    */
-  constructor (store: RouteStore, platforms: any,
+  constructor (store: RouteStore, platforms: PlatformTypeData[],
     uniqid: string,
     formHeader: string,
     turn: number,
@@ -50,15 +50,16 @@ class AdjudicationManager {
     this.platformDetails = undefined
   }
 
-  getPlatformDetails (): any {
+  getPlatformDetails (): PlatformTypeData {
     if (this.platformDetails === undefined) {
       const selected: Route | undefined = this.store.selected
       if (selected) {
         const pType = selected.platformType
-        this.platformDetails = this.platforms.find((platform: any) => kebabCase(platform.name) === pType)
+        this.platformDetails = this.platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === pType)
       }
     }
-    return this.platformDetails
+    if(this.platformDetails !== undefined) return this.platformDetails
+    throw new Error('Failed to find platform details for ' + this.uniqid)
   }
 
   setStatus (status: string, speedKts: number | undefined): void {
@@ -145,13 +146,13 @@ class AdjudicationManager {
         const pType = selected.platformType
         const platform = this.platforms.find((platform: any) => kebabCase(platform.name) === pType)
         if (platform) {
-          const defaultState = platform.states[0]
+          const defaultState: State = platform.states[0]
           // create new state
-          const speeds = platform.speeds
+          const speeds = platform.speedKts
           if (speeds && speeds.length > 0) {
-            return { state: defaultState, speedKts: speeds[0] }
+            return { state: defaultState.name, speedKts: speeds[0] }
           } else {
-            return { state: defaultState }
+            return { state: defaultState.name }
           }
         } else {
           return { state: 'type unknown' }

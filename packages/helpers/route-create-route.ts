@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { Route, RouteStatus, RouteStep, RouteChild, SergeGrid, SergeHex, Asset, PlannedTurnStatus} from '@serge/custom-types'
+import { Route, RouteStatus, RouteStep, RouteChild, SergeGrid, SergeHex, Asset, PlannedTurnStatus, PlatformTypeData, PlannedTurn, PerceivedTypes} from '@serge/custom-types'
 import { cloneDeep, kebabCase } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
@@ -7,7 +7,7 @@ import { PlanningStates, UMPIRE_FORCE } from '@serge/config'
 import hexNamed from './hex-named'
 
 const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
-  step: any, res: Array<RouteStep>): Array<RouteStep> => {
+  step: PlannedTurn, res: Array<RouteStep>): Array<RouteStep> => {
   // dummy location, used if we don't have grid (such as in test)
   const dummyLocation: L.LatLng = L.latLng(12.2, 23.4)
 
@@ -21,20 +21,7 @@ const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
         const hex: SergeHex<{}> | undefined = grid && hexNamed(coord, grid)
         locations.push(hex && hex.centreLatLng || dummyLocation)
       })
-    } else if(step.coords) {
-      // ok, this is legacy way of planned or history steps
-      step.coords.forEach((coord: any) => {
-        steps.push(coord)
-        const hex: SergeHex<{}> | undefined = grid && hexNamed(coord, grid)
-        locations.push(hex && hex.centreLatLng || dummyLocation)
-      })
-    } else if (step.position) {
-      // ok, this is legacy way of recording stationary past steps
-      steps.push(step.position)
-      const hex: SergeHex<{}> | undefined = grid && hexNamed(step.position, grid)
-      locations.push(hex && hex.centreLatLng || dummyLocation)
     }
-
     // only include the speed parameter if there's one present
     // in the incoming object
     const status: RouteStatus = step.status.speedKts
@@ -55,7 +42,7 @@ const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
 /** convert legacy array object to new TypeScript structure
  *
  */
-const createStepArray = (turns: any, grid: SergeGrid<SergeHex<{}>> | undefined, planned: boolean,
+const createStepArray = (turns: PlannedTurn[] | undefined, grid: SergeGrid<SergeHex<{}>> | undefined, planned: boolean,
     filterSteps: boolean): Array<RouteStep> => {
   let res: Array<RouteStep> = []
   if (turns) {
@@ -78,10 +65,10 @@ const createStepArray = (turns: any, grid: SergeGrid<SergeHex<{}>> | undefined, 
   return res
 }
 
-const childrenFor = (list: any, platformTypes: any, underControl: boolean, assetForce: string, playerForce: string):Array<RouteChild> => {
+const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[], underControl: boolean, assetForce: string, playerForce: string):Array<RouteChild> => {
   const res: Array<RouteChild> = []
   if(list) {
-    list.forEach((item: any) => {
+    list.forEach((item: Asset) => {
       let hosting: Array<RouteChild> = item.hosting && item.hosting.length ? 
         childrenFor(item.hosting, platformTypes, underControl, assetForce, playerForce) :
         []
@@ -101,14 +88,14 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
         res.push(newChild)    
       } else {
         // sort out if this player can see this assset
-        const perceptions: [string, string, string] = findPerceivedAsTypes(playerForce, item.name, item.contactId,
+        const perceptions: PerceivedTypes | null = findPerceivedAsTypes(playerForce, item.name, item.contactId,
           assetForce, item.platformType, item.perceptions, false)
         if(perceptions) {
           const newChild: RouteChild = {
             uniqid: item.uniqid,
-            name: perceptions[0],
-            platformType: perceptions[2],
-            force: perceptions[1],
+            name: perceptions.name,
+            platformType: perceptions.type,
+            force: perceptions.force,
             destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
             condition: item.condition,
             asset: item,
@@ -123,16 +110,16 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
 }
 
 /** determine which forces can see this asset
- * @param {any} asset the asset in question
+ * @param {Asset} asset the asset in question
  * @param {string} playerForce the force for this player, we only collate this data for the umpire force
  */
-const determineVisibleTo = (asset:any, playerForce: string): Array<string> => {
+const determineVisibleTo = (asset: Asset, playerForce: string): Array<string> => {
   return playerForce != UMPIRE_FORCE ? [] : asset.perceptions ? asset.perceptions.map((perception: any) => {
     return perception.by
   }) : []
 }
 
-const produceStatusFor = (status: any, platformTypes: any, asset: any): RouteStatus => {
+const produceStatusFor = (status: any, platformTypes: PlatformTypeData[], asset: any): RouteStatus => {
 
     // handle when missing current status
     let currentState: string = `undefined-tyoe`
@@ -141,7 +128,7 @@ const produceStatusFor = (status: any, platformTypes: any, asset: any): RouteSta
       currentState = status.state
       currentSpeed = status.speedKts
     } else {
-      const platform = platformTypes.find((platform: any) => kebabCase(platform.name) === kebabCase(asset.platformType))
+      const platform: PlatformTypeData | undefined = platformTypes.find((platform: any) => kebabCase(platform.name) === kebabCase(asset.platformType))
       if(platform) {
         const states = platform.states
         if(states && states.length) {
@@ -182,7 +169,7 @@ const produceStatusFor = (status: any, platformTypes: any, asset: any): RouteSta
  */
 const routeCreateRoute = (asset: Asset, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
-  perceivedType: string, platformTypes: any, playerForce: string, status: PlannedTurnStatus | undefined, currentPosition: string,
+  perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: PlannedTurnStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean ): Route => {
 

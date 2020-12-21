@@ -1,6 +1,5 @@
 import ColorOption from './color-option'
 import SergeHex from './serge-hex'
-import { PlanningStates } from '@serge/config'
 
 interface Status {
   name: string,

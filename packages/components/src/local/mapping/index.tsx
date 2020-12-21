@@ -37,7 +37,8 @@ import {
   RouteStore,
   Route,
   RouteStep,
-  PlanTurnFormValues
+  PlanTurnFormValues,
+  ForceData
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -59,7 +60,7 @@ const defaultProps: PropTypes = {
   },
   tileDiameterMins: 5,
   forces: [],
-  platforms: [{}],
+  platforms: [],
   playerForce: 'Blue',
   canSubmitOrders: true,
   phase: Phase.Planning,
@@ -106,7 +107,7 @@ export const Mapping: React.FC<PropTypes> = ({
   children
 }) => {
   /* Initialise states */
-  const [forcesState, setForcesState] = useState<any>(forces)
+  const [forcesState, setForcesState] = useState<ForceData[]>(forces)
   const [showMapBar, setShowMapBar] = useState<boolean>(true)
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)

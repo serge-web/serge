@@ -1,4 +1,6 @@
-export const forces = [
+import { ForceData } from "@serge/custom-types"
+
+export const forces: ForceData[] = [
   {
     color: '#FCFBEE',
     dirty: false,
@@ -25,7 +27,7 @@ export const forces = [
         contactId: 'C043',
         history: [
           {
-            position: 'K03',
+            route: ['K03'],
             status: {
               speedKts: 20,
               state: 'Transiting'
@@ -78,7 +80,7 @@ export const forces = [
         contactId: 'C043',
         history: [
           {
-            position: 'L03',
+            route: ['L03'],
             status: {
               speedKts: 20,
               state: 'Transiting'
@@ -152,7 +154,7 @@ export const forces = [
         contactId: 'C065',
         history: [
           {
-            position: 'M07',
+            route: ['M07'],
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -168,7 +170,7 @@ export const forces = [
             turn: 1
           },
           {
-            coords: ['N05', 'N04'],
+            route: ['N05', 'N04'],
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -215,9 +217,6 @@ export const forces = [
         ],
         platformType: 'fishing-vessel',
         position: 'M04',
-        route: [
-          'M04'
-        ],
         status: {
           speedKts: 10,
           state: 'Transiting'
@@ -249,7 +248,7 @@ export const forces = [
         contactId: 'C015',
         history: [
           {
-            position: 'M03',
+            route: ['M03'],
             status: {
               speedKts: 20,
               state: 'Transiting'
@@ -290,10 +289,6 @@ export const forces = [
         ],
         platformType: 'merchant-vessel',
         position: 'M04',
-        route: [
-          'M05',
-          'M06'
-        ],
         status: {
           speedKts: 20,
           state: 'Transiting'

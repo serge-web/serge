@@ -17,7 +17,7 @@ it('contains relevant population results', () => {
   expect(res.perceivedForce).toContainEqual({ colour: '#ccc', name: 'Unknown' })
   expect(res.perceivedType.length).toEqual(13)
   expect(res.perceivedType[0]).toEqual('Fishing vessel')
-  expect(res.perceivedType).toContain('Unknown')
+  expect(res.perceivedType).toContain('Unknown')  
 })
 
 it('contains relevant current results for other force', () => {
@@ -50,7 +50,7 @@ it('contains relevant current results for umpire force', () => {
     uniqid: 'a0pra000100',
     force: 'Blue'
   }
-  const res: PerceptionFormValues = collatePerceptionFormData(platformTypes, 'Red', selected2, forces, true).values
+  const res: PerceptionFormValues = collatePerceptionFormData(platformTypes, 'Red', selected2, forces, false).values
   expect(res.perceivedForceVal).toEqual('blue')
   expect(res.perceivedTypeVal).toEqual('frigate')
   expect(res.perceivedNameVal).toEqual('Dhow-A')
