@@ -1,4 +1,4 @@
-import { PlannedTurnStatus } from "@serge/custom-types";
+import { PlannedTurnStatus } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -33,7 +33,7 @@ export default interface PropTypes {
    * The tooltip label for the marker
    */
   tooltip?: string
-  /** 
+  /**
    * current condition of the asset
    */
   condition?: string

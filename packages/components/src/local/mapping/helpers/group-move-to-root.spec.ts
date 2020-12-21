@@ -15,7 +15,7 @@ it('Moves merlin to top level from hosting', () => {
     expect(frigate.position).toEqual('P21')
     expect(frigate.status).toBeTruthy()
     // check item zero is merlin
-    expect(frigate.hosting &&frigate.hosting[0].uniqid).toEqual(merlinId)
+    expect(frigate.hosting && frigate.hosting[0].uniqid).toEqual(merlinId)
     // check merlin doesn't have location
     expect(frigate.hosting && frigate.hosting[0].position).toEqual(undefined)
   }
@@ -97,7 +97,7 @@ it('Moves uav to top level from comprising and hosting', () => {
   }
 
   // check merlin is where we expect it to be
-  if (forces2 &&forces2[1].assets && forces2[1].assets[5]) {
+  if (forces2 && forces2[1].assets && forces2[1].assets[5]) {
     expect(forces2[1].assets[4].uniqid).toEqual(uavId)
   }
 })

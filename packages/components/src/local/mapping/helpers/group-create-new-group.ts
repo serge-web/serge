@@ -52,7 +52,6 @@ const groupCreateNewGroup = (dragging: string, target: string, forces: ForceData
     } else {
       throw new Error('Failed to find drag or targetAsset:' + dragAsset + ' other:' + targetAsset)
     }
-
   }
 
   return newForces

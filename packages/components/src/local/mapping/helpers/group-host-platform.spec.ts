@@ -33,15 +33,15 @@ it('Moves merlin back onto frigate', () => {
   const forces3: ForceData[] = groupHostPlatform(merlinId, frigateId, forces)
 
   // check num assets shrunk by 1
-  if(numBeforeDrag !== undefined) {
+  if (numBeforeDrag !== undefined) {
     expect(forces3 && forces3[1].assets && forces3[1].assets.length).toEqual(numBeforeDrag - 1)
 
     // check merlin is on frigate
     if (forces2 && forces2[1].assets && forces2[1].assets.length) {
       const helo = forces2[1].assets.find((asset: Asset) => asset.uniqid === merlinId)
       expect(helo).toBeTruthy()
-    }  
+    }
   } else {
-    fail('didnt determine number before drag')
+    expect(false).toBeTruthy()
   }
 })

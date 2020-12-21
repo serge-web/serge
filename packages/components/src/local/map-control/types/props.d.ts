@@ -1,4 +1,4 @@
-import { ForceData } from '@serge/custom-types';
+import { ForceData } from '@serge/custom-types'
 import { LatLng } from 'leaflet'
 
 export default interface PropTypes {

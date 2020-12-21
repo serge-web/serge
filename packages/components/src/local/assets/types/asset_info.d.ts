@@ -1,4 +1,4 @@
-import { PlannedTurnStatus } from '@serge/custom-types';
+import { PlannedTurnStatus } from '@serge/custom-types'
 import L from 'leaflet'
 
 export default interface AssetInfo {

@@ -80,11 +80,11 @@ const groupMoveToRoot = (uniqid: string, forces: ForceData[]): ForceData[] => {
     // put the asset in the same cell as the parent. We may need to use
     // the top level one, if this is actually in a lower one
     const position = parentAsset.position ? parentAsset.position : topLevelAsset.position
-    if(theAsset !== undefined) {
+    if (theAsset !== undefined) {
       theAsset.position = cloneDeep(position)
 
       // add at the top level
-      parentForce.assets.push(theAsset)  
+      parentForce.assets.push(theAsset)
     }
     return newForces
   }
@@ -92,7 +92,7 @@ const groupMoveToRoot = (uniqid: string, forces: ForceData[]): ForceData[] => {
 }
 
 const findInList = (uniqid: string, items: Asset[] | undefined): Asset | undefined => {
-  if(items && items.length) {
+  if (items && items.length) {
     return items.find((item: Asset) => item.uniqid === uniqid)
   } else {
     return undefined

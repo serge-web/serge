@@ -17,7 +17,7 @@ const groupHostPlatform = (dragging: string, target: string, forces: ForceData[]
   // get the assets
   const assets = parent.assets
 
-  if(assets) {
+  if (assets) {
     // capture the assets
     const dragAsset: Asset | undefined = assets.find((item: Asset) => item.uniqid === dragging)
     const targetAsset: Asset | undefined = assets.find((item: Asset) => item.uniqid === target)
