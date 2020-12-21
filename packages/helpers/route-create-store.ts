@@ -102,7 +102,7 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
                   const perceivedColor: string | undefined = isPerceivedBy(child.perceptions, playerForce, forceColorList, undefinedColor)
                   if(perceivedColor) {
                     const perceptions = findPerceivedAsTypes(playerForce, child.name, child.contactId,
-                      thisForce, child.platformType, child.perceptions, false)
+                      thisForce, child.platformType, child.perceptions)
 
                     // note: compiler/linter forcing us to re-check asset.position
                     if(asset.position && perceptions) {
@@ -119,7 +119,7 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
                 const perceivedColor: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColorList, undefinedColor)
                 if(perceivedColor) {
                   const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
-                    thisForce, asset.platformType, asset.perceptions, false)
+                    thisForce, asset.platformType, asset.perceptions)
                   if(perceptions) {
                     // create route for this asset
                     const newRoute: Route = routeCreateRoute(asset, perceivedColor, false, force.uniqid, perceptions.force,

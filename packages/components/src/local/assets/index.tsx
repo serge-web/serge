@@ -46,15 +46,13 @@ export const Assets: React.FC<{}> = () => {
         const { contactId, status, condition, perceptions } = route.asset
 
         // see if the player of this force can see (perceive) this asset
-        const isUmpire: boolean = playerForce === UMPIRE_FORCE
         const perceivedAsTypes: PerceivedTypes | null = findPerceivedAsTypes(
           playerForce,
           name,
           contactId,
           route.perceivedForceName,
           platformType,
-          perceptions,
-          isUmpire
+          perceptions
         )
 
         if (perceivedAsTypes) {

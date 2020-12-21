@@ -8,12 +8,11 @@ import { findPerceivedAsTypes, findAsset } from '@serge/helpers'
  * @param {SelectedAsset} selectedAsset the currently selected asset
  * @return {string} data necessary for the plan turn form
  */
-const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForce: string, selectedAsset: SelectedAsset, forces: ForceData[],
-  userIsUmpire: boolean): PerceptionFormData => {
+const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForce: string, selectedAsset: SelectedAsset, forces: ForceData[]): PerceptionFormData | null => {
   // get the actual asset
   const asset: Asset = findAsset(forces, selectedAsset.uniqid)
   const perceivedTypes: PerceivedTypes | null = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
-    selectedAsset.force, selectedAsset.type, asset.perceptions, userIsUmpire)
+    selectedAsset.force, selectedAsset.type, asset.perceptions)
   const availableForceList: ColorOption[] = availableForces(forces, true, true)
   const platformTypes = platforms && platforms.map((p: PlatformTypeData) => p.name)
   platformTypes.push('Unknown')
@@ -31,8 +30,9 @@ const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForce: s
       }
     }
     return formData
+  } else {
+    return null
   }
-  throw new Error('Failed to find perceived types for:' + selectedAsset.name + ' type:' + selectedAsset.type)
 }
 
 export default collatePerceptionFormData

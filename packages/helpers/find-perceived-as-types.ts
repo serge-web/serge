@@ -1,3 +1,4 @@
+import { UMPIRE_FORCE } from '@serge/config'
 import { Perception, PerceivedTypes } from '@serge/custom-types'
 
 /** provide classnames for an asset, as perceived by current player
@@ -16,20 +17,15 @@ export default function findPerceivedAsTypes (
   theirContactID: string,
   theirForce: string,
   theirType: string,
-  theirPerceptions: Perception[],
-  userIsUmpire: boolean
+  theirPerceptions: Perception[]
 ): PerceivedTypes | null {
   let tmpPerception: any
-  if (myForce.toLowerCase() === theirForce.toLowerCase() || userIsUmpire) {
+  if (myForce.toLowerCase() === theirForce.toLowerCase() || myForce === UMPIRE_FORCE) {
     // just use the real value
     tmpPerception = { name: theirName, force: theirForce, type: theirType }
   } else {
-    if (theirPerceptions && Array.isArray(theirPerceptions)) {
-      // use the perceived values
-      tmpPerception = theirPerceptions.find(p => p.by.toLowerCase() === myForce.toLowerCase()) || null
-    } else {
-      tmpPerception = null
-    }
+    // use the perceived values
+    tmpPerception = theirPerceptions.find(p => p.by.toLowerCase() === myForce.toLowerCase()) || null
   }
   if (tmpPerception) {
     const nameClass: string = tmpPerception.name ? tmpPerception.name : theirContactID

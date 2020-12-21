@@ -89,7 +89,7 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
       } else {
         // sort out if this player can see this assset
         const perceptions: PerceivedTypes | null = findPerceivedAsTypes(playerForce, item.name, item.contactId,
-          assetForce, item.platformType, item.perceptions, false)
+          assetForce, item.platformType, item.perceptions)
         if(perceptions) {
           const newChild: RouteChild = {
             uniqid: item.uniqid,
