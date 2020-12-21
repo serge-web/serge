@@ -6,7 +6,7 @@ import { cloneDeep } from 'lodash'
  * @param (any) forces list of forces
  * @returns modified list of forces
  */
-const groupMoveToRoot = (uniqid: string, forces: ForceData[]): ForceData[] | undefined => {
+const groupMoveToRoot = (uniqid: string, forces: ForceData[]): ForceData[] => {
   const newForces: ForceData[] = cloneDeep(forces)
   // find the force
   let topLevelAsset: Asset | undefined
@@ -87,9 +87,8 @@ const groupMoveToRoot = (uniqid: string, forces: ForceData[]): ForceData[] | und
       parentForce.assets.push(theAsset)  
     }
     return newForces
-  } else {
-    return undefined
   }
+  throw new Error('Failed to find elements being dragged')
 }
 
 const findInList = (uniqid: string, items: Asset[] | undefined): Asset | undefined => {

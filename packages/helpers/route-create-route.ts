@@ -119,16 +119,16 @@ const determineVisibleTo = (asset: Asset, playerForce: string): Array<string> =>
   }) : []
 }
 
-const produceStatusFor = (status: any, platformTypes: PlatformTypeData[], asset: any): RouteStatus => {
+const produceStatusFor = (status: PlannedTurnStatus | undefined, platformTypes: PlatformTypeData[], asset: Asset): RouteStatus => {
 
     // handle when missing current status
     let currentState: string = `undefined-tyoe`
     let currentSpeed: number = 0
     if(status && status.state) {
       currentState = status.state
-      currentSpeed = status.speedKts
+      currentSpeed = status.speedKts !== undefined ? status.speedKts : 0
     } else {
-      const platform: PlatformTypeData | undefined = platformTypes.find((platform: any) => kebabCase(platform.name) === kebabCase(asset.platformType))
+      const platform: PlatformTypeData | undefined = platformTypes.find((platform: PlatformTypeData) => kebabCase(platform.name) === kebabCase(asset.platformType))
       if(platform) {
         const states = platform.states
         if(states && states.length) {

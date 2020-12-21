@@ -46,7 +46,7 @@ it('Stores the extended planned route', () => {
         // check the planned turns are one step longer
         expect(planned2 && planned2.length).toEqual(routeLen + 1)
       } else {
-        fail('failed to find asset')
+        expect(false).toBeTruthy()
       }
     } else {
       expect(false).toBeTruthy()
@@ -87,7 +87,7 @@ it('Stores the shortened planned route', () => {
         // check the planned turns is now just one step
         expect(planned2 && planned2.length).toEqual(1)
       } else {
-        fail('failed t fined asset')
+        expect(false).toBeTruthy()
       }
     } else {
       expect(false).toBeTruthy()

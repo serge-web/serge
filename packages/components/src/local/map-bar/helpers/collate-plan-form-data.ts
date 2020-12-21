@@ -1,4 +1,4 @@
-import { SelectedAsset, PlanTurnFormData, PlatformTypeData, State } from '@serge/custom-types'
+import { SelectedAsset, PlanTurnFormData, PlatformTypeData, State, PlannedTurnStatus } from '@serge/custom-types'
 
 import { kebabCase } from 'lodash'
 
@@ -11,6 +11,7 @@ const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: Selec
 ): PlanTurnFormData => {
   const currentPlatform = platforms && platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
   const availableStatus = currentPlatform && currentPlatform.states.find((s: State) => selectedAsset.status && s.name === selectedAsset.status.state)
+  const status: PlannedTurnStatus | undefined = selectedAsset.status
   const formData: PlanTurnFormData = {
     populate: {
       status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: State) => { return { name: s.name, mobile: s.mobile } }) : [],
@@ -19,7 +20,7 @@ const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: Selec
     values: {
       // we will always have the status, but compiler doesn't trust us
       statusVal: availableStatus || { name: 'unfound', mobile: false },
-      speedVal: selectedAsset.status ? selectedAsset.status.speedKts : 0,
+      speedVal: status && status.speedKts != undefined ? status.speedKts : 0,
       turnsVal: 1
     }
   }
