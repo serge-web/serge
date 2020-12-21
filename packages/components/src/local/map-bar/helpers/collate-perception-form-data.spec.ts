@@ -4,7 +4,8 @@ import collatePerceptionFormData from './collate-perception-form-data'
 import platformTypes from '@serge/mocks/platform-types.mock'
 import selectedAsset from '@serge/mocks/selected-asset.mock'
 import forces from '@serge/mocks/forces.mock'
-import { PerceptionFormData, PerceptionFormPopulate, PerceptionFormValues } from '@serge/custom-types'
+import { PerceptionFormData, PerceptionFormPopulate,  PerceptionFormValues } from '@serge/custom-types'
+import { UMPIRE_FORCE } from '@serge/config'
 
 it('contains relevant population results', () => {
   const selected2 = {
@@ -65,7 +66,7 @@ it('contains relevant current results for umpire force', () => {
     uniqid: 'a0pra000100',
     force: 'Blue'
   }
-  const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, 'White', selected2, forces)
+  const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, UMPIRE_FORCE, selected2, forces)
   if(data) {
     const res: PerceptionFormValues = data.values
     expect(res.perceivedForceVal).toEqual('blue')

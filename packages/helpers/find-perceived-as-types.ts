@@ -20,7 +20,7 @@ export default function findPerceivedAsTypes (
   theirPerceptions: Perception[]
 ): PerceivedTypes | null {
   let tmpPerception: any
-  if (myForce.toLowerCase() === theirForce.toLowerCase() || myForce === UMPIRE_FORCE) {
+  if (myForce.toLowerCase() === theirForce.toLowerCase() || myForce.toLowerCase() === UMPIRE_FORCE) {
     // just use the real value
     tmpPerception = { name: theirName, force: theirForce, type: theirType }
   } else {
