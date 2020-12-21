@@ -58,7 +58,7 @@ class AdjudicationManager {
         this.platformDetails = this.platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === pType)
       }
     }
-    if(this.platformDetails !== undefined) return this.platformDetails
+    if (this.platformDetails !== undefined) return this.platformDetails
     throw new Error('Failed to find platform details for ' + this.uniqid)
   }
 
@@ -103,7 +103,7 @@ class AdjudicationManager {
         const planned = selected.planned
         if (planned !== undefined && planned.length > 0) {
           const step: RouteStatus = planned[0].status
-          const status: any = platform.states.find((state: any) => state.name === step.state)
+          const status: State | undefined = platform.states.find((state: State) => state.name === step.state)
           if (status) {
             return status
           }
@@ -144,7 +144,7 @@ class AdjudicationManager {
       } else {
         // no current status, use the first one
         const pType = selected.platformType
-        const platform = this.platforms.find((platform: any) => kebabCase(platform.name) === pType)
+        const platform = this.platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === pType)
         if (platform) {
           const defaultState: State = platform.states[0]
           // create new state

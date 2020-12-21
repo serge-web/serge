@@ -9,7 +9,7 @@ import { ColorOption, ForceData } from '@serge/custom-types'
  */
 const availableForces = (forces: ForceData[], withUnknown: boolean, excludeUmpire: boolean): Array<ColorOption> => {
   if (forces) {
-    const nonUmpire: ForceData[] = excludeUmpire ? forces.filter((force: any) => force.uniqid !== UMPIRE_FORCE) : forces
+    const nonUmpire: ForceData[] = excludeUmpire ? forces.filter((force: ForceData) => force.uniqid !== UMPIRE_FORCE) : forces
     const res = nonUmpire.map((force: ForceData) => {
       return {
         colour: force.color,

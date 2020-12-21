@@ -1,4 +1,4 @@
-import { SelectedAsset, AdjudicateTurnFormPopulate, ColorOption, ForceData, PlatformTypeData } from '@serge/custom-types'
+import { SelectedAsset, AdjudicateTurnFormPopulate, ColorOption, ForceData, PlatformTypeData, State } from '@serge/custom-types'
 
 import { kebabCase } from 'lodash'
 import availableForces from './available-forces'
@@ -11,13 +11,13 @@ import availableForces from './available-forces'
 const collateAdjudicationFormData = (platforms: PlatformTypeData[], selectedAsset: SelectedAsset,
   forces: ForceData[]
 ): AdjudicateTurnFormPopulate => {
-  const currentPlatform = platforms && platforms.find((platform: any) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
+  const currentPlatform = platforms && platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
   const availableForcesList: ColorOption[] = availableForces(forces, false, true)
   const formData: AdjudicateTurnFormPopulate = {
-    status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: any) => { return { name: s.name, mobile: s.mobile } }) : [],
+    status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: State) => { return { name: s.name, mobile: s.mobile } }) : [],
     speed: currentPlatform && currentPlatform.speedKts ? currentPlatform.speedKts : [],
     visibleTo: availableForcesList,
-    condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: any) => c) : []
+    condition: currentPlatform && currentPlatform.conditions ? currentPlatform.conditions.map((c: string) => c) : []
   }
   return formData
 }

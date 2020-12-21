@@ -85,7 +85,7 @@ it('Stores the shortened planned route', () => {
       if (newFrigate) {
         const planned2 = newFrigate.plannedTurns
         // check the planned turns is now just one step
-        expect(planned2 && planned2.length).toEqual(1)  
+        expect(planned2 && planned2.length).toEqual(1)
       } else {
         fail('failed t fined asset')
       }

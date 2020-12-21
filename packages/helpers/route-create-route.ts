@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { Route, RouteStatus, RouteStep, RouteChild, SergeGrid, SergeHex, Asset, PlannedTurnStatus, PlatformTypeData, PlannedTurn, PerceivedTypes} from '@serge/custom-types'
+import { Route, RouteStatus, RouteStep, RouteChild, SergeGrid, SergeHex, Asset, PlannedTurnStatus, PlatformTypeData, PlannedTurn, PerceivedTypes, Perception} from '@serge/custom-types'
 import { cloneDeep, kebabCase } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
@@ -16,7 +16,7 @@ const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
     const locations: Array<L.LatLng> = []
     if (step.route) {
       // ok, this is modern way of planned or history steps
-      step.route.forEach((coord: any) => {
+      step.route.forEach((coord: string) => {
         steps.push(coord)
         const hex: SergeHex<{}> | undefined = grid && hexNamed(coord, grid)
         locations.push(hex && hex.centreLatLng || dummyLocation)
@@ -57,7 +57,7 @@ const createStepArray = (turns: PlannedTurn[] | undefined, grid: SergeGrid<Serge
         }         
       }
     } else {
-      turns.forEach((step: any) => {
+      turns.forEach((step: PlannedTurn) => {
         res = processStep(grid, step, res)  
       })
     }
@@ -114,7 +114,7 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
  * @param {string} playerForce the force for this player, we only collate this data for the umpire force
  */
 const determineVisibleTo = (asset: Asset, playerForce: string): Array<string> => {
-  return playerForce != UMPIRE_FORCE ? [] : asset.perceptions ? asset.perceptions.map((perception: any) => {
+  return playerForce != UMPIRE_FORCE ? [] : asset.perceptions ? asset.perceptions.map((perception: Perception) => {
     return perception.by
   }) : []
 }

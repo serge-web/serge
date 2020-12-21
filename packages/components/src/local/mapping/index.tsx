@@ -181,17 +181,6 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [planningConstraintsProp])
 
-  // const compareUserData = (oldData: any, newData: any, result: [any | undefined]) => {
-  //   Object.keys(oldData).forEach(function (k) {
-  //       if (typeof oldData[k] !== 'object') {
-  //           if (oldData[k] != newData[k]) result.push({'old': oldData[k], 'new': newData[k]});
-  //       } else {
-  //           compareUserData(oldData[k], newData[k], result);
-  //       }
-  //   }, result);
-  //   return result;
-  // }
-
   /** the forces from props has changed */
   useEffect(() => {
     // is it different to current force state?
@@ -609,7 +598,7 @@ export const Mapping: React.FC<PropTypes> = ({
           <MapControl
             map = {leafletElement}
             home = {mapCentre}
-            forces = {playerForce === UMPIRE_FORCE && forcesState}
+            forces = {playerForce === UMPIRE_FORCE ? forcesState : undefined}
             viewAsCallback = {viewAsCallback}
             viewAsForce = {viewAsForce}
             filterPlannedRoutes = {filterPlannedRoutes}

@@ -1,4 +1,5 @@
 import { PlanningStates } from '@serge/config'
+import { Asset } from '.'
 import Role from './role'
 import RouteStatus from './route-status'
 import RouteStep from './route-step'
@@ -60,7 +61,7 @@ export default interface Route {
   /** original future planned steps for this asset */
   original: Array<RouteStep>
   /** store the actual asset (so we have all details for State of World) */
-  asset: any
+  asset: Asset
   /** which forces can see this platform (force uniqids) */
   visibleTo: Array<string>
   /** condition of this asset (only for umpire in adjudication) */

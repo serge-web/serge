@@ -63,7 +63,7 @@ export const Assets: React.FC<{}> = () => {
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
             // sort out who can control this force
-            const assetForce: ForceData | undefined = forces.find((force: any) => force.name === actualForceName)
+            const assetForce: ForceData | undefined = forces.find((force: ForceData) => force.name === actualForceName)
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const assetInfo: AssetInfo = {

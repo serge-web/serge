@@ -4,7 +4,7 @@ interface PlannedTurn {
   /** when this turn happened */
   turn: number,
   /** the steps followed during the turn */
-  route?: Array<String>,
+  route?: Array<string>,
   /** the status during the turn */
   status: PlannedTurnStatus
 }

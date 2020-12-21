@@ -7,10 +7,10 @@ export default interface SelectedAsset {
     name: string,
     type: string,
     force: string,
-    controlledBy: Array<string>,
+    controlledBy?: Array<string>,
     condition: string,
     visibleTo: Array<string>
-    status: {
+    status?: {
       speedKts: number,
       state: string
     }

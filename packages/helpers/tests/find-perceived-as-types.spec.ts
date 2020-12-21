@@ -1,9 +1,10 @@
 /* global it expect */
 
+import { Perception } from '@serge/custom-types'
 import findPerceivedAsTypes from '../find-perceived-as-types'
 
 // perceptions element
-const perceptions: any = [{
+const perceptions: Perception[] = [{
   by: 'Blue',
   force: 'Green',
   name: 'Dumbo',
@@ -11,46 +12,30 @@ const perceptions: any = [{
 }]
 
 // get a perceptions element with Force missing
-const perceptionsForceMissing: any = [{
+const perceptionsForceMissing: Perception[] = [{
   by: 'Blue',
   name: 'Dumbo',
   type: 'merchant-vessel'
 }]
 
 // get a perceptions element with type missing
-const perceptionsTypeMissing: any = [{
+const perceptionsTypeMissing: Perception[] = [{
   by: 'Blue',
   force: 'Green',
   name: 'Dumbo'
 }]
 
 // get a perceptions element with name missing
-const perceptionsNameMissing: any = [{
+const perceptionsNameMissing: Perception[] = [{
   by: 'Blue',
   force: 'Green',
   type: 'merchant-vessel'
 }]
 
 // perceptions with nothing known
-const perceptionsEmpty: any = [{
+const perceptionsEmpty: Perception[] = [{
   by: 'Blue'
 }]
-
-/** the original data-store used an indexed dictionary
- * to store perceptions. It was later replaced by an array,
- * to allow array functions. But, an example is provided here, just
- * in case
- */
-const legacyPerceptions: any = {
-  Red: {
-    force: 'Yellow',
-    name: 'Fish'
-  },
-  Blue: {
-    type: 'merchant-vessel',
-    name: 'Dumbo'
-  }
-}
 
 it('gives true details for same force', () => {
   expect(findPerceivedAsTypes('yellow', 'osaka', 'C0011', 'yellow', 'submarine',
@@ -90,14 +75,4 @@ it('gives perceived details for force with entry but name missing', () => {
 it('gives perceived details for force with no details', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', 'C0011', 'yellow', 'submarine',
   perceptionsEmpty, false)).toEqual(['C0011', 'unknown', 'unknown'])
-})
-
-it('give details for same force in legacy perception store', () => {
-  expect(findPerceivedAsTypes('red', 'osaka', 'C0011', 'red', 'submarine',
-  legacyPerceptions, false)).toEqual(['osaka', 'red', 'submarine'])
-})
-
-it('give details for other force in legacy perception store', () => {
-  expect(findPerceivedAsTypes('blue', 'osaka', 'C0011', 'yellow', 'submarine',
-  legacyPerceptions, false)).toEqual(['Dumbo', 'unknown', 'merchant-vessel'])
 })

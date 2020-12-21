@@ -38,7 +38,7 @@ it('configures adjudicate manager correctly with missing current state', () => {
   const forcesCopy = deepCopy(forces)
   const frigateId = 'a0pra00001'
   const frigate: Asset | undefined = findAsset(forcesCopy, frigateId)
-  if(frigate) {
+  if (frigate) {
     // clear status
     frigate.status = undefined
 
