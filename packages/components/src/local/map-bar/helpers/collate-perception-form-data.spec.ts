@@ -4,7 +4,7 @@ import collatePerceptionFormData from './collate-perception-form-data'
 import platformTypes from '@serge/mocks/platform-types.mock'
 import selectedAsset from '@serge/mocks/selected-asset.mock'
 import forces from '@serge/mocks/forces.mock'
-import { PerceptionFormData, PerceptionFormPopulate,  PerceptionFormValues } from '@serge/custom-types'
+import { PerceptionFormData, PerceptionFormPopulate, PerceptionFormValues } from '@serge/custom-types'
 import { UMPIRE_FORCE } from '@serge/config'
 
 it('contains relevant population results', () => {
@@ -13,7 +13,7 @@ it('contains relevant population results', () => {
     uniqid: 'a0pra000100'
   }
   const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, 'Blue', selected2, forces)
-  if(data) {
+  if (data) {
     const res: PerceptionFormPopulate = data.populate
     expect(res.perceivedForce.length).toEqual(4)
     expect(res.perceivedForce[0]).toEqual({ colour: '#00F', name: 'Blue' })
@@ -33,7 +33,7 @@ it('contains relevant current results for other force', () => {
     force: 'Red'
   }
   const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, 'Blue', selected2, forces)
-  if(data) {
+  if (data) {
     const res: PerceptionFormValues = data.values
     expect(res.perceivedForceVal).toEqual('unknown')
     expect(res.perceivedTypeVal).toEqual('unknown')
@@ -50,7 +50,7 @@ it('contains relevant current results for my force', () => {
     force: 'Blue'
   }
   const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, 'Blue', selected2, forces)
-  if(data) {
+  if (data) {
     const res: PerceptionFormValues = data.values
     expect(res.perceivedForceVal).toEqual('blue')
     expect(res.perceivedTypeVal).toEqual('frigate')
@@ -67,11 +67,11 @@ it('contains relevant current results for umpire force', () => {
     force: 'Blue'
   }
   const data: PerceptionFormData | null = collatePerceptionFormData(platformTypes, UMPIRE_FORCE, selected2, forces)
-  if(data) {
+  if (data) {
     const res: PerceptionFormValues = data.values
     expect(res.perceivedForceVal).toEqual('blue')
     expect(res.perceivedTypeVal).toEqual('frigate')
-    expect(res.perceivedNameVal).toEqual('Dhow-A')  
+    expect(res.perceivedNameVal).toEqual('Dhow-A')
   } else {
     expect(false).toBeTruthy()
   }
