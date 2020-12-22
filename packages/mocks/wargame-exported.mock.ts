@@ -156,7 +156,7 @@ export default {
           overview: 'Umpire force.',
           roles: [
             {
-              control: true,
+              isGameControl: true,
               isInsightViewer: true,
               isObserver: true,
               name: 'Game Control',
@@ -321,7 +321,7 @@ export default {
           overview: 'Blue force.',
           roles: [
             {
-              control: false,
+              isGameControl: false,
               isInsightViewer: false,
               isObserver: false,
               name: 'CO',
@@ -329,7 +329,7 @@ export default {
               canSubmitPlans: false
             },
             {
-              control: false,
+              isGameControl: false,
               isInsightViewer: false,
               isObserver: false,
               name: 'Comms',
@@ -574,7 +574,7 @@ export default {
           overview: 'Red force.',
           roles: [
             {
-              control: false,
+              isGameControl: false,
               isInsightViewer: false,
               isObserver: false,
               name: 'CO',
@@ -1252,7 +1252,7 @@ export default {
           overview: 'Green Shipping',
           roles: [
             {
-              control: false,
+              isGameControl: false,
               isInsightViewer: false,
               isObserver: false,
               name: 'CO',

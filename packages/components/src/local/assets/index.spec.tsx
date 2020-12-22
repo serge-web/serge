@@ -31,7 +31,7 @@ const forces: Array<ForceData> = [
     overview: 'Umpire force.',
     roles: [
       {
-        control: true,
+        isGameControl: true,
         isInsightViewer: true,
         isObserver: true,
         name: 'Game Control',
@@ -64,7 +64,7 @@ const forces: Array<ForceData> = [
     overview: 'Blue force.',
     roles: [
       {
-        control: false,
+        isGameControl: false,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO',

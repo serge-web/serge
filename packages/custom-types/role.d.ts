@@ -4,7 +4,7 @@ export default interface Role {
   /**
    * If this role is `Game Control` - a role which cannot be deleted
    */
-  control: boolean,
+  isGameControl: boolean,
   /**
    * whether this role can monitor all channels (umpire force only)
    */

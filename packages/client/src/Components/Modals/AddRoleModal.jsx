@@ -84,7 +84,7 @@ class AddRoleModal extends Component {
       isObserver: this.state.isObserver,
       canSubmitPlans: this.state.canSubmitPlans,
       isInsightViewer: this.state.isInsightViewer,
-      control: this.props.currentModal.data ? this.props.currentModal.data.control : false,
+      isGameControl: this.props.currentModal.data ? this.props.currentModal.data.isGameControl : false,
     };
 
     if (this.props.currentModal.data) {

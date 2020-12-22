@@ -115,7 +115,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SET_ROLE:
       newState.selectedRole = action.payload.name
-      newState.controlUi = action.payload.control
+      newState.isGameControl = action.payload.isGameControl
       newState.isObserver = action.payload.isObserver
       newState.isInsightViewer = action.payload.isInsightViewer
       break

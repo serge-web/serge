@@ -53,7 +53,7 @@ export default {
             {
               "name": "Game Control",
               "password": "pk6w5y28j",
-              "control": true,
+              "isGameControl":true,
               "isObserver": true,
               "isInsightViewer": true,
               "canSubmitPlans": true

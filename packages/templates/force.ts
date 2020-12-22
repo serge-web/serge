@@ -9,7 +9,7 @@ export default {
     {
       name: 'CO',
       password: `p${uniqId.time()}`,
-      control: false,
+      isGameControl: false,
       isObserver: false,
       isInsightViewer: false,
       canSubmitPlans: true
