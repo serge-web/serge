@@ -1,13 +1,13 @@
 import L from 'leaflet'
-import { Route, RouteStatus, RouteStep, RouteChild, SergeGrid, SergeHex} from '@serge/custom-types'
-import { cloneDeep } from 'lodash'
+import { Route, RouteStatus, RouteStep, RouteChild, SergeGrid, SergeHex, Asset, PlannedTurnStatus, PlatformTypeData, PlannedTurn, PerceivedTypes, Perception} from '@serge/custom-types'
+import { cloneDeep, kebabCase } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import { UMPIRE_FORCE } from '@serge/config'
+import { PlanningStates, UMPIRE_FORCE } from '@serge/config'
 import hexNamed from './hex-named'
 
 const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
-  step: any, res: Array<RouteStep>): Array<RouteStep> => {
+  step: PlannedTurn, res: Array<RouteStep>): Array<RouteStep> => {
   // dummy location, used if we don't have grid (such as in test)
   const dummyLocation: L.LatLng = L.latLng(12.2, 23.4)
 
@@ -16,25 +16,12 @@ const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
     const locations: Array<L.LatLng> = []
     if (step.route) {
       // ok, this is modern way of planned or history steps
-      step.route.forEach((coord: any) => {
+      step.route.forEach((coord: string) => {
         steps.push(coord)
         const hex: SergeHex<{}> | undefined = grid && hexNamed(coord, grid)
         locations.push(hex && hex.centreLatLng || dummyLocation)
       })
-    } else if(step.coords) {
-      // ok, this is legacy way of planned or history steps
-      step.coords.forEach((coord: any) => {
-        steps.push(coord)
-        const hex: SergeHex<{}> | undefined = grid && hexNamed(coord, grid)
-        locations.push(hex && hex.centreLatLng || dummyLocation)
-      })
-    } else if (step.position) {
-      // ok, this is legacy way of recording stationary past steps
-      steps.push(step.position)
-      const hex: SergeHex<{}> | undefined = grid && hexNamed(step.position, grid)
-      locations.push(hex && hex.centreLatLng || dummyLocation)
     }
-
     // only include the speed parameter if there's one present
     // in the incoming object
     const status: RouteStatus = step.status.speedKts
@@ -55,7 +42,7 @@ const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
 /** convert legacy array object to new TypeScript structure
  *
  */
-const createStepArray = (turns: any, grid: SergeGrid<SergeHex<{}>> | undefined, planned: boolean,
+const createStepArray = (turns: PlannedTurn[] | undefined, grid: SergeGrid<SergeHex<{}>> | undefined, planned: boolean,
     filterSteps: boolean): Array<RouteStep> => {
   let res: Array<RouteStep> = []
   if (turns) {
@@ -70,7 +57,7 @@ const createStepArray = (turns: any, grid: SergeGrid<SergeHex<{}>> | undefined, 
         }         
       }
     } else {
-      turns.forEach((step: any) => {
+      turns.forEach((step: PlannedTurn) => {
         res = processStep(grid, step, res)  
       })
     }
@@ -78,10 +65,10 @@ const createStepArray = (turns: any, grid: SergeGrid<SergeHex<{}>> | undefined, 
   return res
 }
 
-const childrenFor = (list: any, platformTypes: any, underControl: boolean, assetForce: string, playerForce: string):Array<RouteChild> => {
+const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[], underControl: boolean, assetForce: string, playerForce: string):Array<RouteChild> => {
   const res: Array<RouteChild> = []
   if(list) {
-    list.forEach((item: any) => {
+    list.forEach((item: Asset) => {
       let hosting: Array<RouteChild> = item.hosting && item.hosting.length ? 
         childrenFor(item.hosting, platformTypes, underControl, assetForce, playerForce) :
         []
@@ -101,14 +88,14 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
         res.push(newChild)    
       } else {
         // sort out if this player can see this assset
-        const perceptions: [string, string, string] = findPerceivedAsTypes(playerForce, item.name, item.contactId,
-          assetForce, item.platformType, item.perceptions, false)
+        const perceptions: PerceivedTypes | null = findPerceivedAsTypes(playerForce, item.name, item.contactId,
+          assetForce, item.platformType, item.perceptions)
         if(perceptions) {
           const newChild: RouteChild = {
             uniqid: item.uniqid,
-            name: perceptions[0],
-            platformType: perceptions[2],
-            force: perceptions[1],
+            name: perceptions.name,
+            platformType: perceptions.type,
+            force: perceptions.force,
             destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
             condition: item.condition,
             asset: item,
@@ -122,8 +109,46 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
   return res
 }
 
+/** determine which forces can see this asset
+ * @param {Asset} asset the asset in question
+ * @param {string} playerForce the force for this player, we only collate this data for the umpire force
+ */
+const determineVisibleTo = (asset: Asset, playerForce: string): Array<string> => {
+  return playerForce != UMPIRE_FORCE ? [] : asset.perceptions ? asset.perceptions.map((perception: Perception) => {
+    return perception.by
+  }) : []
+}
+
+const produceStatusFor = (status: PlannedTurnStatus | undefined, platformTypes: PlatformTypeData[], asset: Asset): RouteStatus => {
+
+    // handle when missing current status
+    let currentState: string = `undefined-tyoe`
+    let currentSpeed: number = 0
+    if(status && status.state) {
+      currentState = status.state
+      currentSpeed = status.speedKts !== undefined ? status.speedKts : 0
+    } else {
+      const platform: PlatformTypeData | undefined = platformTypes.find((platform: PlatformTypeData) => kebabCase(platform.name) === kebabCase(asset.platformType))
+      if(platform) {
+        const states = platform.states
+        if(states && states.length) {
+          currentState = states[0].name
+        }
+        const speeds = platform.speedKts
+        if(speeds && speeds.length) {
+          currentSpeed = speeds[0]
+        }
+      }
+    }
+  const currentStatus: RouteStatus =  currentSpeed
+    ? { state: currentState, speedKts: currentSpeed }
+    : { state: currentState }
+
+  return currentStatus
+}
+
 /** create a route object for this asset
- * @param {any} asset single asset
+ * @param {Asset} asset single asset
  * @param {string} color color for rendering this asset
  * @param {boolean} underControl whether the player is controlling this asset
  * @param {string} actualForce the true force for the asset
@@ -132,7 +157,7 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
  * @param {string} perceivedType the perceived type of the asset
  * @param {any} platformTypes the list of platform types
  * @param {string} playerForce current player force
- * @param {any} status the current status of this asset
+ * @param {PlannedTurnStatus | undefined} status the current status of this asset
  * @param {string} currentPosition the current cell containing this asset
  * @param {L.LatLng} currentLocation the current cell containing this asset
  * @param {SergeGrid<SergeHex<{}>> | undefined} grid the grid object, used to find cell centres, used in declutter
@@ -142,14 +167,13 @@ const childrenFor = (list: any, platformTypes: any, underControl: boolean, asset
  * @param {boolean} isSelected whether is the route for the selected Asset
  * @returns {Route} Routefor this asset
  */
-const routeCreateRoute = (asset: any, color: string,
+const routeCreateRoute = (asset: Asset, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
-  perceivedType: string, platformTypes: any, playerForce: string, status: any, currentPosition: string,
+  perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: PlannedTurnStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean ): Route => {
-  const currentStatus: RouteStatus = status.speedKts
-    ? { state: status.state, speedKts: status.speedKts }
-    : { state: status.state }
+
+  const currentStatus: RouteStatus =  produceStatusFor(status, platformTypes, asset)
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
@@ -163,6 +187,12 @@ const routeCreateRoute = (asset: any, color: string,
 
   const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForce, playerForce /*, forceColors, undefinedColor */)
   const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForce, playerForce /*, forceColors, undefinedColor */)
+
+  const adjudicationState: PlanningStates | undefined  = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
+  
+  const visibleTo: Array<string> = determineVisibleTo(asset, playerForce)
+
+  const condition: string | undefined = playerForce === UMPIRE_FORCE ? asset.condition : undefined
 
   return {
     uniqid: asset.uniqid,
@@ -183,7 +213,10 @@ const routeCreateRoute = (asset: any, color: string,
     planned: futureSteps,
     plannedTurnsCount: numberOfPlannedTurns,
     original: cloneDeep(futureSteps),
-    asset: asset
+    asset: asset,
+    visibleTo: visibleTo,
+    condition: condition,
+    adjudicationState: adjudicationState
   }
 }
 

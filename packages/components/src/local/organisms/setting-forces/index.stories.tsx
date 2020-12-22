@@ -24,7 +24,7 @@ export const Default: React.FC = () => {
   const onChange = (updates: {forces: Array<ForceData>}): void => {
     console.log(updates)
   }
-  const onSave = (forces: any): void => {
+  const onSave = (forces: ForceData[]): void => {
     console.log('Your save logic', forces)
   }
 

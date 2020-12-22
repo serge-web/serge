@@ -1,3 +1,4 @@
+import { ForceData } from '@serge/custom-types'
 import { LatLng } from 'leaflet'
 
 export default interface PropTypes {
@@ -10,7 +11,7 @@ export default interface PropTypes {
   showZoom?: boolean
   zoomStepSize?: number
   // view as control
-  forces?: any
+  forces?: ForceData[]
   /** callback for umpire clicking on view-as button */
   viewAsCallback?: {(force: string): void}
   /** current value of `view as` */

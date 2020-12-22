@@ -1,3 +1,5 @@
+import { PlannedTurnStatus } from '@serge/custom-types'
+
 export default interface PropTypes {
   /**
    * The unique identifier for the asset marker
@@ -31,15 +33,18 @@ export default interface PropTypes {
    * The tooltip label for the marker
    */
   tooltip?: string
+  /**
+   * current condition of the asset
+   */
   condition?: string
-  status: {
-    speedKts: number
-    state: string
-  }
+  /**
+   * current status of this asset
+   */
+  status?: PlannedTurnStatus
   /**
    * the list of forces that can control this asset
    */
-  controlledBy?: [string]
+  controlledBy?: Array<string>
   /**
    * A list of forces able to see the asset
    */

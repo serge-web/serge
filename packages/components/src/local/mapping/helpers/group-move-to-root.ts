@@ -1,3 +1,4 @@
+import { Asset, ForceData } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 /**
  * Move the specified child asset to the root level for that force
@@ -5,21 +6,21 @@ import { cloneDeep } from 'lodash'
  * @param (any) forces list of forces
  * @returns modified list of forces
  */
-const groupMoveToRoot = (uniqid: string, forces: any): any => {
-  const newForces: any = cloneDeep(forces)
+const groupMoveToRoot = (uniqid: string, forces: ForceData[]): ForceData[] => {
+  const newForces: ForceData[] = cloneDeep(forces)
   // find the force
-  let topLevelAsset: any
-  let parentForce: any
+  let topLevelAsset: Asset | undefined
+  let parentForce: ForceData | undefined
   let parentListType: listType | undefined
-  let parentAsset: any
-  let theAsset: any
+  let parentAsset: Asset | undefined
+  let theAsset: Asset | undefined
   enum listType {
     HOSTING,
     COMPRISING
   }
-  newForces.forEach((force: any) => {
+  newForces.forEach((force: ForceData) => {
     if (force.assets && !parentForce) {
-      force.assets.forEach((asset: any) => {
+      force.assets.forEach((asset: Asset) => {
         topLevelAsset = asset
         // only carry on hunting if we haven't found it
         if (!parentForce) {
@@ -33,7 +34,7 @@ const groupMoveToRoot = (uniqid: string, forces: any): any => {
           } else {
             // we have to search a layer deeper
             if (asset.hosting) {
-              asset.hosting.forEach((asset2: any) => {
+              asset.hosting.forEach((asset2: Asset) => {
                 const hosted = findInList(uniqid, asset2.hosting)
                 const contains = findInList(uniqid, asset2.comprising)
                 if (hosted || contains) {
@@ -45,7 +46,7 @@ const groupMoveToRoot = (uniqid: string, forces: any): any => {
               })
             }
             if (asset.comprising) {
-              asset.comprising.forEach((asset2: any) => {
+              asset.comprising.forEach((asset2: Asset) => {
                 const hosted = findInList(uniqid, asset2.hosting)
                 const contains = findInList(uniqid, asset2.comprising)
                 if (hosted || contains) {
@@ -63,17 +64,15 @@ const groupMoveToRoot = (uniqid: string, forces: any): any => {
   })
 
   // did it work?
-  if (!parentForce) {
-    return undefined
-  } else {
+  if (parentForce && parentForce.assets && topLevelAsset && parentAsset !== undefined) {
     // remove from the parent
     switch (parentListType) {
       case listType.HOSTING : {
-        parentAsset.hosting = parentAsset.hosting.filter((asset: any) => asset.uniqid !== uniqid)
+        parentAsset.hosting = parentAsset.hosting && parentAsset.hosting.filter((asset: Asset) => asset.uniqid !== uniqid)
         break
       }
       case listType.COMPRISING : {
-        parentAsset.comprising = parentAsset.comprising.filter((asset: any) => asset.uniqid !== uniqid)
+        parentAsset.comprising = parentAsset.comprising && parentAsset.comprising.filter((asset: Asset) => asset.uniqid !== uniqid)
         break
       }
     }
@@ -81,17 +80,23 @@ const groupMoveToRoot = (uniqid: string, forces: any): any => {
     // put the asset in the same cell as the parent. We may need to use
     // the top level one, if this is actually in a lower one
     const position = parentAsset.position ? parentAsset.position : topLevelAsset.position
-    theAsset.position = cloneDeep(position)
+    if (theAsset !== undefined) {
+      theAsset.position = cloneDeep(position)
 
-    // add at the top level
-    parentForce.assets.push(theAsset)
-
+      // add at the top level
+      parentForce.assets.push(theAsset)
+    }
     return newForces
   }
+  throw new Error('Failed to find elements being dragged')
 }
 
-const findInList = (uniqid: string, items: any): any => {
-  return items && items.length && items.find((item: any) => item.uniqid === uniqid)
+const findInList = (uniqid: string, items: Asset[] | undefined): Asset | undefined => {
+  if (items && items.length) {
+    return items.find((item: Asset) => item.uniqid === uniqid)
+  } else {
+    return undefined
+  }
 }
 
 export default groupMoveToRoot

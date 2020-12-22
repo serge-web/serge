@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import cx from 'classnames'
 
 /* Import proptypes */
-import PropTypes, { PlatformType, PlatformTypeData, States } from './types/props'
+import PropTypes from './types/props'
 
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -21,6 +21,7 @@ import Button from '../../atoms/button'
 import IconUploader from '../../molecules/icon-uploader'
 import SortableList, { Item as SortableListItem } from '../../molecules/sortable-list'
 import EditableList, { Item } from '../../molecules/editable-list'
+import { PlatformType, PlatformTypeData, State } from '@serge/custom-types'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -69,14 +70,14 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     handleChangePlatformTypes(copyTypes)
   }
 
-  const handleChangeMobile = (item: States, key: number): void => {
+  const handleChangeMobile = (item: State, key: number): void => {
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
-    const newStates: Array<States> = [...data.states]
+    const newStates: Array<State> = [...data.states]
     newStates[key].mobile = !item.mobile
     handleChangePlatformTypeData({ ...data, states: newStates }, selectedItem)
   }
   const renderStatesMobileSection = (item: SortableListItem, key: number): React.ReactNode => {
-    const stateItem = item as States
+    const stateItem = item as State
     return (
       <div className={styles.mobile}>
         {key === 0 && <div className={styles['mobile-title']}>Mobile</div>}
@@ -99,7 +100,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       handleChangePlatformTypeData({ ...data, conditions: conditions as Array<string> }, selectedItem)
     }
     const handleChangeStates = (states: Array<SortableListItem>): void => {
-      handleChangePlatformTypeData({ ...data, states: states as Array<States> }, selectedItem)
+      handleChangePlatformTypeData({ ...data, states: states as Array<State> }, selectedItem)
     }
     const handleChangeSpeeds = (speedKts: Array<SortableListItem>): void => {
       handleChangePlatformTypeData({ ...data, speedKts: speedKts as Array<number> }, selectedItem)
@@ -114,7 +115,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
     }
 
     const handleCreateStates = (): void => {
-      const states: Array<States> = [...data.states, {
+      const states: Array<State> = [...data.states, {
         name: 'New State',
         mobile: false
       }]
@@ -222,5 +223,3 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
 }
 
 export default SettingPlatformTypes
-
-export { PlatformType, PlatformTypeData, States } from './types/props'

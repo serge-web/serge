@@ -16,7 +16,8 @@ export default interface Props {
    */
   onGameClick: (title: string) => void
   /**
-   * Whether to use scroll area component (failing in tests)
+   * Workaround to prevent using custom scrollbar in unit tests,
+   * since it was failing
    */
   useCustomScroll?: boolean
 }

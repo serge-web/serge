@@ -242,5 +242,3 @@ export const SettingForces: React.FC<PropTypes> = ({
 }
 
 export default SettingForces
-
-export { ForceData } from './types/props'

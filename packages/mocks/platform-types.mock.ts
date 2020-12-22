@@ -1,4 +1,6 @@
-export const platformTypes = [
+import { PlatformTypeData } from "@serge/custom-types"
+
+export const platformTypes: PlatformTypeData[] = [
   {
     name: 'Fishing vessel',
     conditions: [

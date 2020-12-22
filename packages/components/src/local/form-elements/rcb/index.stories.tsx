@@ -18,22 +18,24 @@ export default {
 
 const forces = [
   {
-    name: 'Blue Force',
+    name: 'Blue',
     colour: '#69c'
   },
   {
-    name: 'Red Force',
+    name: 'Red',
     colour: '#f00'
   },
   {
-    name: 'White Force',
+    name: 'White',
     colour: '#fff'
   }
 ]
 
-const logData = (data: any): void => data
+const logData = (data: any): void => {
+  console.log('callback', data)
+}
 
 export const Checkbox: React.FC = () => <RCB type="checkbox" label="Visible to" options={['Red', 'Blue']} value={['Red']} updateState={logData}/>
 export const Radio: React.FC = () => <RCB type="radio" label="Visible to" options={['Red', 'Blue']} value="Red" updateState={logData}/>
-export const RadioWithForce: React.FC = () => <RCB type="radio" force={true} label="Visible to" options={forces} value="Red Force" updateState={logData}/>
-export const CheckboxWithForce: React.FC = () => <RCB type="checkbox" force={true} label="Visible to" options={forces} value={['Blue Force']} updateState={logData}/>
+export const RadioWithForce: React.FC = () => <RCB type="radio" force={true} label="Visible to" options={forces} value="Red" updateState={logData}/>
+export const CheckboxWithForce: React.FC = () => <RCB type="checkbox" force={true} label="Visible to" options={forces} value={['Blue']} updateState={logData}/>

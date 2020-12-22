@@ -1,29 +1,6 @@
-import { AdjudicateTurnFormData, Postback } from '@serge/custom-types'
+import AdjudicationManager from '../helpers/adjudication-manager'
 
 export default interface PropTypes {
-  /**
-   * The header text for the form
-   */
-  formHeader: string
-   /**
-   * All types in this definition are options for a form input
-   */
-  formData: AdjudicateTurnFormData
-  /**
-   * Channel ID from Serge app (optional)
-   */
-  channelID?: string | number
-  /**
-   * Data for icon generation
-   */
-  icon: {
-    forceColor: string
-    platformType: string
-  }
-  /**
-   * The method for posting messages out of the mapping component
-   */
-  postBack?: Postback
   /**
    * flag for if SofW have already been submitted
    */
@@ -32,4 +9,8 @@ export default interface PropTypes {
    * whether this user can plan turns
    */
   canSubmitPlans: boolean
+  /**
+   * adjudication manager
+   */
+  manager?: AdjudicationManager
 }

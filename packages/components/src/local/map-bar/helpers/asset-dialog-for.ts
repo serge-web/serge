@@ -1,4 +1,6 @@
-import { Phase } from '@serge/config'
+import { Phase, UMPIRE_FORCE } from '@serge/config'
+import { WorldStatePanels } from '../../world-state/helpers/enums'
+import { MapBarForms } from './enums'
 
 /** determine which form to show on this click
  * @param {string} playerForce the force for the current player
@@ -6,6 +8,7 @@ import { Phase } from '@serge/config'
  * @param {Array<string>} assetVisibleTo the forces that can see the asset
  * @param {Array<string>} assetControlledBy which forces can control this asset
  * @param {Phase} gamePhase the name of the current game phase
+ * @param {WorldStatePanels} panel the currently active tab in WorldState
  * @return {string} name of dialog to show
  */
 const assetDialogFor = (
@@ -13,39 +16,54 @@ const assetDialogFor = (
   assetForce: string,
   assetVisibleTo: Array<string> | undefined,
   assetControlledBy: Array<string> | undefined,
-  gamePhase: Phase): string => {
-  let res = ''
+  gamePhase: Phase,
+  panel: WorldStatePanels): MapBarForms | undefined => {
+  const myForce = assetForce.toLowerCase() === playerForce.toLowerCase()
+  const forceThatIControl = assetControlledBy != null && assetControlledBy.includes(playerForce)
+  const canControl: boolean = myForce || forceThatIControl
+  const isUmpire = playerForce.toLowerCase() === UMPIRE_FORCE
   switch (gamePhase) {
     case Phase.Planning:
-      if (assetForce.toLowerCase() === playerForce.toLowerCase()) {
-        // it's the players' own ship, plan next turn
-        res = 'Planning'
-      } else if (assetControlledBy != null && assetControlledBy.includes(playerForce)) {
-        // it's from a force that the player can control, plan next turn
-        res = 'Planning'
-      } else if (playerForce.toLowerCase() !== 'umpire') {
+      if (isUmpire) {
+        // this depends on the panel
+        switch (panel) {
+          case WorldStatePanels.Control:
+            return canControl ? MapBarForms.Planning : MapBarForms.Visibility
+          case WorldStatePanels.Visibility:
+            return MapBarForms.Visibility
+          default:
+            return undefined
+        }
+      } else if (canControl) {
+        return MapBarForms.Planning
+      } else {
         // a player has clicked on an asset from a force they don't control
         // check this force can see the asset
         const canSee = assetVisibleTo && assetVisibleTo.find((force: string) => force.toLowerCase() === playerForce.toLowerCase())
-        res = canSee ? 'PerceivedAs' : ''
-      } else {
-        res = ''
+        return canSee ? MapBarForms.Perception : undefined
       }
-      break
     case Phase.Adjudication:
-      if (playerForce.toLowerCase() === 'umpire') {
-        // in adjudication mode, umpire force performs adjudication
-        res = 'Adjudication'
-      } else if (assetForce.toLowerCase() !== playerForce.toLowerCase()) {
+      if (isUmpire) {
+        // this depends on the panel
+        switch (panel) {
+          case WorldStatePanels.Control:
+            return MapBarForms.Adjudicaton
+          case WorldStatePanels.Visibility:
+            return MapBarForms.Visibility
+          case WorldStatePanels.ControlledBy:
+            return canControl ? MapBarForms.Planning : undefined
+          default:
+            return undefined
+        }
+      } else if (canControl) {
+        // my force in adjudication. Show planning
+        return MapBarForms.Planning
+      } else {
         // in adj' mode, clicking on a platform of another force lets the
         // player update/change the player's perception of that platform
-        res = 'PerceivedAs'
-      } else {
-        res = ''
+        return MapBarForms.Perception
       }
-      break
   }
-  return res
 }
 
 export default assetDialogFor

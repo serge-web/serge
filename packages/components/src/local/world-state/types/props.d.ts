@@ -1,4 +1,5 @@
 import { RouteStore, SergeGrid, SergeHex } from '@serge/custom-types'
+import { WorldStatePanels } from '../helpers/enums'
 
 export default interface PropTypes {
   /**
@@ -34,9 +35,9 @@ export default interface PropTypes {
    */
   submitForm?: {(): void}
   /**
-   * switch beetween Orders and  Other Visible Platforms
+   * which world state panel to display
    */
-  showOtherPlatforms?: boolean
+  panel: WorldStatePanels
   /**
    * grid of cells, used for movement
    */

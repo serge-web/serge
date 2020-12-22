@@ -1,10 +1,10 @@
-import States from './states'
+import State from './state'
 
 export default interface PlatformTypeData {
   name: string,
   conditions: Array<string>,
   icon: string,
   speedKts: Array<number>,
-  states: Array<States>
+  states: Array<State>
   travelMode: string
 }

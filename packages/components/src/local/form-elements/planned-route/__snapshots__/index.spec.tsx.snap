@@ -52,5 +52,6 @@ exports[`PlannedRoute renders correctly 1`] = `
       Reject
     </span>
   </button>
+   
 </div>
 `;

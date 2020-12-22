@@ -1,3 +1,5 @@
+import { Asset, ForceData } from '@serge/custom-types'
+import { forceFor } from '@serge/helpers'
 import { cloneDeep } from 'lodash'
 /**
  * Create a new Task Group using the provided assets
@@ -6,60 +8,53 @@ import { cloneDeep } from 'lodash'
  * @param (any) forces list of forces
  * @returns modified list of forces
  */
-const groupCreateNewGroup = (dragging: string, target: string, forces: any): any => {
-  const newForces: any = cloneDeep(forces)
+const groupCreateNewGroup = (dragging: string, target: string, forces: ForceData[]): ForceData[] => {
+  const newForces: ForceData[] = cloneDeep(forces)
 
   // find the parent force
-  const parent = forceFor(dragging, newForces)
+  const parent = forceFor(newForces, dragging)
 
   // get the assets
   const assets = parent.assets
 
-  // capture the assets
-  const dragAsset = assets.find((item: any) => item.uniqid === dragging)
-  const targetAsset = assets.find((item: any) => item.uniqid === target)
+  if (assets) {
+    // capture the assets
+    const dragAsset: Asset | undefined = assets.find((item: Asset) => item.uniqid === dragging)
+    const targetAsset: Asset | undefined = assets.find((item: Asset) => item.uniqid === target)
 
-  // remove the assets
-  const assets2 = assets.filter((item: any) => item.uniqid !== dragging)
-  const assets3 = assets2.filter((item: any) => item.uniqid !== target)
+    if (dragAsset !== undefined && targetAsset !== undefined) {
+      // remove the assets
+      const assets2 = assets.filter((item: Asset) => item.uniqid !== dragging)
+      const assets3 = assets2.filter((item: Asset) => item.uniqid !== target)
 
-  // create the new task group
-  const contactId: string = 'C' + Math.floor(Math.random() * 999)
-  const assetId: string = 'a' + Math.floor(Math.random() * 1000000)
-  const groupId: string = 'CTF ' + (300 + Math.floor(Math.random() * 99))
-  const newGroup: any = {
-    condition: 'Full capability',
-    contactId: contactId,
-    comprising: [dragAsset, targetAsset],
-    name: groupId,
-    perceptions: [],
-    platformType: 'task-group',
-    position: targetAsset.position,
-    status: {
-      speedKts: 20,
-      state: 'Transiting'
-    },
-    uniqid: assetId
-  }
-  assets3.push(newGroup)
+      // create the new task group
+      const contactId: string = 'C' + Math.floor(Math.random() * 999)
+      const assetId: string = 'a' + Math.floor(Math.random() * 1000000)
+      const groupId: string = 'CTF ' + (300 + Math.floor(Math.random() * 99))
+      const newGroup: Asset = {
+        condition: 'Full capability',
+        contactId: contactId,
+        comprising: [dragAsset, targetAsset],
+        name: groupId,
+        perceptions: [],
+        platformType: 'task-group',
+        position: targetAsset && targetAsset.position,
+        status: {
+          speedKts: 20,
+          state: 'Transiting'
+        },
+        uniqid: assetId
+      }
+      assets3.push(newGroup)
 
-  // overwrite the assets with the new list
-  parent.assets = assets3
-  return newForces
-}
-
-/** find the force counter for this asset id */
-const forceFor = (item: string, forces: any): any => {
-  const match: any = forces.find((force: any) => {
-    const assets: any = force.assets
-    if (assets) {
-      const asset = assets.find((asset: any) => asset.uniqid === item)
-      if (asset) return force
+      // overwrite the assets with the new list
+      parent.assets = assets3
     } else {
-      return false
+      throw new Error('Failed to find drag or targetAsset:' + dragAsset + ' other:' + targetAsset)
     }
-  })
-  return match
+  }
+
+  return newForces
 }
 
 export default groupCreateNewGroup
