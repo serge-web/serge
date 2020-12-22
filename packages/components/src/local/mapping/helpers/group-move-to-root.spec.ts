@@ -89,7 +89,7 @@ it('Moves uav to top level from comprising and hosting', () => {
   if (forces2 && forces2[1].assets && forces2[1].assets[0]) {
     const taskGroup: Asset = forces2[1].assets[0]
     expect(taskGroup).toBeTruthy()
-    const frigate = taskGroup && taskGroup.comprising && taskGroup.comprising[0]
+    const frigate = taskGroup.comprising && taskGroup.comprising[0]
     expect(frigate).toBeTruthy()
     expect(frigate && frigate.hosting && frigate.hosting.length).toEqual(1)
   } else {

@@ -70,7 +70,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       updateIfNecessary('speed', speedVal, manager.plannedSpeed(), setSpeedVal)
 
       // the command buttons
-      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(stateIsMobile), setUpperPlanningActions)
+      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(), setUpperPlanningActions)
       updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
     }
   }, [manager])
@@ -100,7 +100,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     manager && manager.setCurrentVisibleTo(e.value)
   }
 
-  const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: {(value: any): void}): void => {
+  const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: {(value: any): void}): void => { // deepscan-disable-line UNUSED_PARAM
     if (!deepCompare(before, after)) {
       // console.log('+ updating ', name, before, after)
       doUpdate(after)

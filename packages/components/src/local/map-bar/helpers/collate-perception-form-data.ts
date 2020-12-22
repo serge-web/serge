@@ -15,7 +15,11 @@ const collatePerceptionFormData = (platforms: PlatformTypeData[], playerForce: s
     selectedAsset.force, selectedAsset.type, asset.perceptions)
   const availableForceList: ColorOption[] = availableForces(forces, true, true)
   const platformTypes = platforms && platforms.map((p: PlatformTypeData) => p.name)
-  platformTypes.push('Unknown')
+  if (platformTypes) {
+    platformTypes.push('Unknown')
+  } else {
+    throw new Error('Failed to find list of platforms')
+  }
   if (perceivedTypes) {
     const formData: PerceptionFormData = {
       populate: {

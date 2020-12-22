@@ -30,7 +30,7 @@ it('configures adjudicate manager correctly', () => {
   const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)
 
   expect(manager.currentStatus()).toEqual({ speedKts: 20, state: 'Transiting' })
-  expect(manager.upperActionsFor(true)).toEqual([{ action: 'accept', label: 'Accept' }, { action: 'reject', label: 'Reject' }])
+  expect(manager.upperActionsFor()).toEqual([{ action: 'accept', label: 'Accept' }, { action: 'reject', label: 'Reject' }])
   expect(manager.lowerActionsFor(true)).toEqual([])
 })
 

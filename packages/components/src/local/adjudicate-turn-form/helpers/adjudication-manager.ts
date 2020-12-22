@@ -214,7 +214,7 @@ class AdjudicationManager {
   }
 
   /** provide a series of actions for available at the current state */
-  upperActionsFor (isMobile: boolean): Array<{label: string, action: PlanningCommands}> {
+  upperActionsFor (): Array<{label: string, action: PlanningCommands}> {
     const selected: Route | undefined = this.store.selected
     if (selected) {
       const state = selected.adjudicationState
@@ -225,23 +225,8 @@ class AdjudicationManager {
             { label: 'Reject', action: PlanningCommands.Reject }
           ]
         case PlanningStates.Rejected:
-          if (isMobile) {
-            return [
-              { label: 'Revert', action: PlanningCommands.Revert }
-            ]
-          } else {
-            return [
-              { label: 'Revert', action: PlanningCommands.Revert }
-            ]
-          }
         case PlanningStates.Planning:
-          return [
-            { label: 'Revert', action: PlanningCommands.Revert }
-          ]
         case PlanningStates.Planned:
-          return [
-            { label: 'Revert', action: PlanningCommands.Revert }
-          ]
         case PlanningStates.Saved:
           return [
             { label: 'Revert', action: PlanningCommands.Revert }
