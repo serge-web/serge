@@ -52,11 +52,11 @@ export interface MessageStructure {
 
 export interface CoreMessage {
   /** unique id (PouchDB for this document) */
-  _id: string
+  readonly _id: string
   /** PouchDB revision for this document */
   _rev?: string
   /** admin detail for message */
-  details: MessageDetails,
+  readonly details: MessageDetails,
 }
 
 export interface MessageCustom extends CoreMessage {
