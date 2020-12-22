@@ -37,7 +37,7 @@ export const initialState: PlayerUi = {
   selectedRole: '',
   isObserver: false,
   canSubmitPlans: false,
-  controlUi: false,
+  isGameControl: false,
   currentTurn: 0,
   phase: '',
   gameDate: '',

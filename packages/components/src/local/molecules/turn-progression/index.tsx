@@ -29,7 +29,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     currentTurn,
     phase,
     gameDate,
-    controlUi,
+    isGameControl,
     onNextTurn
   } = props
   const now = Math.floor(new Date().getTime() / 1000)
@@ -122,7 +122,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
         <h5>Turn {currentTurn} - {phase} phase</h5>
         <time dateTime={gameDate}>{moment(gameDate).format('DD/MM/YYYY HH:mm')}</time>
         {
-          controlUi
+          isGameControl
             ? (
               <Box mt={2}>
                 <GameControl onClick={onNextTurn} size="small" variant="contained" color="secondary">Start next phase</GameControl>
