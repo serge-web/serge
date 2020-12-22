@@ -15,18 +15,18 @@ export interface ParticipantStates {
 
 export const checkParticipantStates = (channel: ChannelData, newState: PlayerUi): CheckParticipantStates => {
 
-  const participatingForce: Participant | undefined = channel.participants.find(p => matchedForceFilter(p, newState.selectedForce))
+  const participatingForce: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceFilter(p, newState.selectedForce))
   if (!participatingForce && !newState.isObserver) return {
     isParticipant: false,
     participatingRole: undefined,
     allRolesIncluded: undefined
   }
 
-  const participatingRole: Participant | undefined = channel.participants.find(p => matchedForceAndRoleFilter(p, newState))
+  const participatingRole: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceAndRoleFilter(p, newState))
   return {
     isParticipant: !!participatingRole,
     participatingRole: participatingRole,
-    allRolesIncluded: channel.participants.find(p => matchedAllRolesFilter(p, newState.selectedForce))
+    allRolesIncluded: channel.participants && channel.participants.find(p => matchedAllRolesFilter(p, newState.selectedForce))
   }
 }
 

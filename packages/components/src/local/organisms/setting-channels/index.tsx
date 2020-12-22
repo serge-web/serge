@@ -131,7 +131,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data.participants.map((participant, participantKey) => {
+                    { data.participants && data.participants.map((participant, participantKey) => {
                       const handleSaveRow = (row: Array<RowItem>): void => {
                         const nextParticipants = [...data.participants]
                         nextParticipants[participantKey] = rowToParticipant(messageTemplatesOptions, forces, row, participant)

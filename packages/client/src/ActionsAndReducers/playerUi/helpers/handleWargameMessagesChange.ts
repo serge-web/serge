@@ -138,8 +138,8 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
             participants: [], // new
             name: channel.name,
             templates,
-            forceIcons: channel.participants.map((participant) => participant.icon),
-            forceColors: channel.participants.map((participant) => {
+            forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
+            forceColors: channel.participants && channel.participants.map((participant) => {
               const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
               return (force && force.color) || '#FFF'
             }),
@@ -221,8 +221,8 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
       channels[channel.uniqid || channel.name] = {
         name: channel.name,
         templates,
-        forceIcons: channel.participants.map((participant) => participant.icon),
-        forceColors: channel.participants.map((participant) => {
+        forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
+        forceColors: channel.participants && channel.participants.map((participant) => {
           const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
           return (force && force.color) || '#FFF'
         }),
