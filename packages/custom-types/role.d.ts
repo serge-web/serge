@@ -2,7 +2,7 @@ export default interface Role {
   name: string,
   password: string,
   /**
-   * TODO - I suspect the `control` attribute doesn't get used.  Needs further investigation
+   * If this role is `Game Control` - a role which cannot be deleted
    */
   control: boolean,
   /**
