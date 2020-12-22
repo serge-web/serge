@@ -37,8 +37,7 @@ export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack 
       },
       _id: timestamp,
       hasBeenRead: false,
-      isOpen: false,
-      open: false
+      isOpen: false
     })
     setFormState('')
   }

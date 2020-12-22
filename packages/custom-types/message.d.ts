@@ -50,26 +50,28 @@ export interface MessageStructure {
   content?: string
 }
 
-export interface MessageCustom {
-  messageType: typeof CUSTOM_MESSAGE,
+export interface CoreMessage {
+  /** unique id (PouchDB for this document) */
+  _id: string
+  /** PouchDB revision for this document */
+  _rev?: string
+  /** admin detail for message */
   details: MessageDetails,
+}
+
+export interface MessageCustom extends CoreMessage {
+  messageType: typeof CUSTOM_MESSAGE,
   message: MessageStructure,
-  open: boolean,
   isOpen: boolean
   hasBeenRead: boolean
-  _id: string
-  _rev?: string
   gameTurn?: number,
   feedback?: boolean,
   infoType?: boolean
 }
 
-export interface MessageFeedback {
+export interface MessageFeedback extends CoreMessage {
   messageType: typeof FEEDBACK_MESSAGE,
-  details: MessageDetails,
-  message: MessageStructure,
-  _id: string,
-  _rev?: string
+  message: MessageStructure
 }
 
 export interface MessageInfoType {

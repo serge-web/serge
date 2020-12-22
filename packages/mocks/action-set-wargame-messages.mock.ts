@@ -7,7 +7,6 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
     {
       messageType: CUSTOM_MESSAGE,
       isOpen: false,
-      open: false,
       hasBeenRead: false,
       "details": {
         "channel": "channel-k16fgs63",
@@ -29,7 +28,6 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
     {
       messageType: CUSTOM_MESSAGE,
       isOpen: false,
-      open: false,
       hasBeenRead: false,
       "details": {
         "channel": "channel-k16fgs63",
@@ -51,7 +49,6 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
     {
       messageType: CUSTOM_MESSAGE,
       isOpen: false,
-      open: false,
       hasBeenRead: false,
       "details": {
         "channel": "channel-k16fheej",
@@ -85,7 +82,6 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
     {
       messageType: CUSTOM_MESSAGE,
       isOpen: false,
-      open: false,
       hasBeenRead: false,
       "details": {
         "channel": "game-admin",
@@ -107,7 +103,6 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
     {
       messageType: CUSTOM_MESSAGE,
       isOpen: false,
-      open: false,
       hasBeenRead: false,
       "details": {
         "channel": "game-admin",
@@ -129,7 +124,6 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
     {
       messageType: CUSTOM_MESSAGE,
       isOpen: false,
-      open: false,
       hasBeenRead: false,
       "details": {
         "channel": "game-admin",

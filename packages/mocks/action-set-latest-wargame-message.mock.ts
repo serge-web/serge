@@ -5,7 +5,6 @@ const actionSetLatestFeedbackMessage: SetLatestWargameMessageAction = {
   type: SET_LATEST_WARGAME_MESSAGE,
   payload: {
     messageType: CUSTOM_MESSAGE,
-    open: false,
     isOpen: false,
     hasBeenRead: false,
     "details": {
