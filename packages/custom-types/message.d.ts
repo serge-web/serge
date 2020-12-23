@@ -74,6 +74,10 @@ export interface MessageFeedback extends CoreMessage {
   message: MessageStructure
 }
 
+/** message containing updated game status, could be one of:
+ * new turn
+ * updated wargame
+ */
 export interface MessageInfoType {
   messageType: typeof INFO_MESSAGE,
   details: {
