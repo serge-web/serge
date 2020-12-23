@@ -31,6 +31,7 @@ export { default as Message,
 export { default as Participant } from './participant.d'
 export { default as PerceivedTypes } from './perceived-types.d'
 export { default as PlanMobileAsset } from './plan-mobile-asset'
+export { default as PlannedRoute } from './planned-route.d'
 export { default as PlatformTypeData } from './platform-type-data.d'
 export { default as PlatformType } from './platform-type.d'
 export { default as PlayerUi, PlayerUiChatChannel, PlayerUiChannels } from './player-ui.d'

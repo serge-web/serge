@@ -15,12 +15,14 @@ import styles from './styles.module.scss'
 
 /* Import helpers */
 import { isNumber } from '@serge/helpers'
-import { Status } from '@serge/custom-types'
+import { PlanTurnFormValues, Status } from '@serge/custom-types'
 
 /* Render component */
-export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, canSubmitPlans, setHidePlanningForm, turnPlanned, icon, plansSubmitted }) => {
+export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, canSubmitPlans, setHidePlanningForm, 
+  turnPlanned, icon, plansSubmitted }) => {
+
   // TODO: Refactor this into a reusable helper and remove other instances
-  const [formState, setFormState] = useState(formData.values)
+  const [formState, setFormState] = useState<PlanTurnFormValues>(formData.values)
 
   const { status, speed } = formData.populate
   const { statusVal, turnsVal, speedVal } = formState
@@ -143,7 +145,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, canSub
       <span className={styles.text}>{/* TODO: add real data */}Working</span>
     </FormGroup>
     { !formDisabled &&
-      <Button disabled={!saveEnabled} onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Save'}</Button>
+      <Button disabled={!saveEnabled} onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Next Turn'}</Button>
     }
   </div>
 }

@@ -1,47 +1,41 @@
+import { SUBMIT_PLANS } from '@serge/config'
+import { MessageSubmitPlans, PlannedRoute, PlannedTurn, PlannedTurnStatus } from '@serge/custom-types'
 import { Route, RouteStep } from '@serge/custom-types'
-import { padInteger } from '@serge/helpers'
 
-interface PlannedRoute {
-  uniqid: string
-  destroyed: boolean
-  plannedTurns: Array<RouteStep>
-}
+const collatePlanningOrders = (routes: Array<Route>, uniqid: string): MessageSubmitPlans => {
 
-interface PlannedOrders {
-  comment: string
-  turn: number
-  name: string
-  plannedRoutes: Array<PlannedRoute>
-}
-
-const collatePlanningOrders = (routes: Array<Route>, playerForce: string, turnNumber: number): PlannedOrders => {
-  const planningFor: number = turnNumber + 1
   const results: Array<PlannedRoute> = routes.map((route: Route): PlannedRoute => {
-    const plannedTurns: Array<RouteStep> = []
-    if (route.planned && route.planned.length > 0) {
+      const res: PlannedTurn[] = []
       route.planned.forEach((step: RouteStep) => {
-        // check the plans are in the future. Note: game logic
-        // should prevent this problem arising in the future
-        if (step.turn >= planningFor) {
-          plannedTurns.push(step)
+        const coords: string[] | undefined = step.coords
+        const status: PlannedTurnStatus = step.status.speedKts ? {
+          state: step.status.state,
+          speedKts: step.status.speedKts
+        } : {
+          state: step.status.state
         }
+        const newStep: PlannedTurn = coords !== undefined ? {        
+          turn: step.turn,
+          route: coords,
+          status: status
+        } :  {        
+          turn: step.turn,
+          status: status
+        }
+        res.push(newStep)
       })
-    }
-    const thisRoute: PlannedRoute = {
-      uniqid: route.uniqid,
-      destroyed: route.destroyed,
-      plannedTurns: plannedTurns
-    }
-    return thisRoute
-  })
-
-  const res: PlannedOrders = {
-    comment: '',
-    turn: turnNumber + 1,
-    name: playerForce + ' Plans for T' + padInteger(turnNumber),
+      const plannedRoute: PlannedRoute = {
+        uniqid: uniqid,
+        plannedTurns: res
+      }
+      return plannedRoute
+    })
+  const message: MessageSubmitPlans = {
+    messageType: SUBMIT_PLANS,
     plannedRoutes: results
   }
-  return res
+  return message
+
 }
 
 export default collatePlanningOrders

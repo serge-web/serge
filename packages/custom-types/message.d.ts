@@ -93,30 +93,26 @@ export interface MessageInfoType {
 
 export interface MessageForceLaydown {
   messageType: typeof FORCE_LAYDOWN,
-  uniqid: string,
-  position: string,
+  readonly uniqid: string,
+  readonly position: string,
 }
 export interface MessagePerceptionOfContact {
   messageType: typeof PERCEPTION_OF_CONTACT,
-  assetId: string,
-  perception: Perception
+  readonly assetId: string,
+  readonly perception: Perception
 }
 
 export interface MessageVisibilityChanges {
   messageType: typeof VISIBILIY_CHANGES,
-  payload: Visibility[]
+  readonly payload: Visibility[]
 }
 export interface MessageSubmitPlans {
-  messageType: typeof SUBMIT_PLANS,
-  name: string,
-  comment: string,
-  turn: number,
-  force: string,
-  plannedRoutes: PlannedRoute[]
+  readonly messageType: typeof SUBMIT_PLANS,
+  readonly plannedRoutes: PlannedRoute[]
 }
 export interface MessageStateOfWorld {
   messageType: typeof STATE_OF_WORLD,
-  detail: {
+  readonly detail: {
     data: ForceData[]
   }
 }
