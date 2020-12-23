@@ -13,7 +13,7 @@ import {
 import Perception from './perception'
 import PlannedRoute from './planned-route'
 import ForceData from './force-data'
-import Vis from './vis'
+import Visibility from './visibility'
 
 export interface MessageDetails {
   /** id of channel message sent from */
@@ -104,7 +104,7 @@ export interface MessagePerceptionOfContact {
 
 export interface MessageVisibilityChanges {
   messageType: typeof VISIBILIY_CHANGES,
-  payload: Vis[]
+  payload: Visibility[]
 }
 export interface MessageSubmitPlans {
   messageType: typeof SUBMIT_PLANS,
