@@ -18,9 +18,10 @@ import { isNumber } from '@serge/helpers'
 import { PlanTurnFormValues, Status } from '@serge/custom-types'
 
 /* Render component */
-export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, canSubmitPlans, setHidePlanningForm, 
-  turnPlanned, icon, plansSubmitted }) => {
-
+export const PlanTurnForm: React.FC<PropTypes> = ({
+  formHeader, formData, canSubmitPlans, setHidePlanningForm,
+  turnPlanned, icon, plansSubmitted
+}) => {
   // TODO: Refactor this into a reusable helper and remove other instances
   const [formState, setFormState] = useState<PlanTurnFormValues>(formData.values)
 
