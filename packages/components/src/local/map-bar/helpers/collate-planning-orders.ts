@@ -2,7 +2,7 @@ import { SUBMIT_PLANS } from '@serge/config'
 import { MessageSubmitPlans, PlannedRoute, PlannedTurn, PlannedTurnStatus } from '@serge/custom-types'
 import { Route, RouteStep } from '@serge/custom-types'
 
-const collatePlanningOrders = (routes: Array<Route>, uniqid: string): MessageSubmitPlans => {
+const collatePlanningOrders = (routes: Array<Route>): MessageSubmitPlans => {
 
   const results: Array<PlannedRoute> = routes.map((route: Route): PlannedRoute => {
       const res: PlannedTurn[] = []
@@ -25,7 +25,7 @@ const collatePlanningOrders = (routes: Array<Route>, uniqid: string): MessageSub
         res.push(newStep)
       })
       const plannedRoute: PlannedRoute = {
-        uniqid: uniqid,
+        uniqid: route.uniqid,
         plannedTurns: res
       }
       return plannedRoute

@@ -160,7 +160,7 @@ export const MapBar: React.FC = () => {
       // Player has finished planning process, and now
       // wants to submit them
       const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
-      const orders = collatePlanningOrders(myRoutes, selectedAsset ? selectedAsset.uniqid : '')
+      const orders = collatePlanningOrders(myRoutes)
       postBack(SUBMIT_PLANS, orders, channelID)
     }
     setPlansSubmitted(true)
