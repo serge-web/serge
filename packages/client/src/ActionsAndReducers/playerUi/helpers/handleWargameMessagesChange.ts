@@ -202,7 +202,7 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
   })
 
   const messages = _.uniqBy(messagesFiltered, reduceTurnMarkers)
-    .filter((message) => message.details.channel === newState.chatChannel.name)
+    .filter((message) => message.details && message.details.channel === newState.chatChannel.name)
 
   const channels = {}
 
@@ -226,7 +226,7 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
           const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
           return (force && force.color) || '#FFF'
         }),
-        messages: messages.filter((message) => message.details.channel === channel.uniqid || message.messageType === INFO_MESSAGE),
+        messages: messages.filter((message) => message.details && message.details.channel === channel.uniqid || message.messageType === INFO_MESSAGE),
         unreadMessageCount: messages.filter((message) => {
           if (message.messageType !== INFO_MESSAGE) {
             return false
