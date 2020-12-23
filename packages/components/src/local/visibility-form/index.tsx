@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import PropTypes from './types/props'
 import { Button } from '@material-ui/core'
 import RCB from '../form-elements/rcb'
-import { ColorOption } from '@serge/custom-types'
+import { ColorOption, MessageVisibilityChanges, Visibility } from '@serge/custom-types'
 import TitleWithIcon from '../form-elements/title-with-icon'
 import FormGroup from '../form-elements/form-group'
 
@@ -22,13 +22,32 @@ export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID,
   }
   const submitForm = (): void => {
     if (postBack !== undefined) {
-      const payload = {
-        values: {
-          visibleTo: visibleTo
-        },
-        assetId: formData.assetId
+      const originalVis: string[] = formData.values
+      // collate list of visibility changes
+      const res: Visibility[] = []
+      // see if any forces have been hidden
+      originalVis.filter(item => !visibleTo.includes(item)).forEach(item => {
+        const vis: Visibility = {
+          assetId: formData.assetId,
+          by: item,
+          newVis: false
+        }
+        res.push(vis)
+      })
+      // or revealed
+      visibleTo.filter(item => !originalVis.includes(item)).forEach(item => {
+        const vis: Visibility = {
+          assetId: formData.assetId,
+          by: item,
+          newVis: true
+        }
+        res.push(vis)
+      })
+      const message: MessageVisibilityChanges = {
+        messageType: VISIBILIY_CHANGES,
+        payload: res
       }
-      postBack(VISIBILIY_CHANGES, payload, channelID)
+      postBack(VISIBILIY_CHANGES, message, channelID)
     }
   }
 
