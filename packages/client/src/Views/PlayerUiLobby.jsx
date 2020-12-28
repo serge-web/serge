@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import Select from 'react-select'
 import TextInput from '../Components/Inputs/TextInput'
-import { useStateValue } from '../Store/PlayerUi'
+import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { getWargame } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { serverPath } from '../consts'
 
@@ -29,7 +29,7 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
       rolePassword: ''
     }
   )
-  const [state, dispatch] = useStateValue()
+  const [state, dispatch] = [usePlayerUiState(), usePlayerUiDispatch()]
   const { selectedWargame, rolePassword } = localState
   const updateSelectedWargame = (selectedWargame) => {
     setState({ selectedWargame })

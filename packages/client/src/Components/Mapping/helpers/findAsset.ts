@@ -1,7 +1,7 @@
 import { ForceData, Asset } from '@serge/custom-types'
 
 /** find the asset with the provided id */
-export default (allForces: ForceData[], assetId: string): Asset | undefined => {
+export default (allForces: ForceData[], assetId: string): Asset => {
   let res: Asset | undefined = undefined
   allForces.find((force) => {
     const assets: Asset[] | undefined = force.assets
@@ -14,5 +14,6 @@ export default (allForces: ForceData[], assetId: string): Asset | undefined => {
     }
     return false
   })
-  return res
+  if (res !== undefined) return res
+  throw new Error('Something bad happened');
 };

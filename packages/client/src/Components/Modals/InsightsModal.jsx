@@ -5,20 +5,20 @@ import {
   sendFeedbackMessage,
   closeModal
 } from "../../ActionsAndReducers/playerUi/playerUi_ActionCreators";
-import { PlayerStateContext } from "../../Store/PlayerUi";
+import { usePlayerUiState, usePlayerUiDispatch } from "../../Store/PlayerUi";
 
 import "@serge/themes/App.scss";
 
 class InsightsModal extends Component {
-  static contextType = PlayerStateContext;
+  
 
   hideModal = () => {
-    const [ , dispatch ] = this.context;
+    const [state, dispatch] = [usePlayerUiState(), usePlayerUiDispatch()];
     dispatch(closeModal());
   };
 
   send = ({ name, message }) => {
-    const [ state, dispatch ] = this.context;
+    const [state, dispatch] = [usePlayerUiState(), usePlayerUiDispatch()];
     let forceName = state.allForces.find((force) => force.uniqid === state.selectedForce).name;
 
     let from = {
@@ -32,7 +32,7 @@ class InsightsModal extends Component {
   };
 
   render() {
-    const [ state ] = this.context;
+    const state = usePlayerUiState();
 
     if (!state.modalOpened) return false;
 

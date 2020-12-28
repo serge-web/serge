@@ -9,12 +9,12 @@ import {
   openMessage,
   markAllAsRead,
 } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
-import { PlayerStateContext } from "../Store/PlayerUi";
+import { usePlayerUiState, usePlayerUiDispatch } from "../Store/PlayerUi";
 
 import "@serge/themes/App.scss";
 
 class Channel extends Component {
-  static contextType = PlayerStateContext;
+  
 
   constructor() {
     super();
@@ -22,7 +22,7 @@ class Channel extends Component {
   }
 
   componentDidMount() {
-    const [ state, dispatch ] = this.context;
+    const [state, dispatch] = [usePlayerUiState(), usePlayerUiDispatch()];
     const channelClassName = state.channels[this.props.channelId].name.toLowerCase().replace(/ /g, '-');
     if (state.channels[this.props.channelId].messages.length === 0) {
       getAllWargameMessages(state.currentWargame)(dispatch);
@@ -33,23 +33,23 @@ class Channel extends Component {
   }
 
   markAllRead = () => {
-    const [ , dispatch ] = this.context;
+    const [state, dispatch] = [usePlayerUiState(), usePlayerUiDispatch()];
     dispatch(markAllAsRead(this.props.channelId));
   };
 
   openMessage = (message) => {
-    const [ , dispatch ] = this.context;
+    const [state, dispatch] = [usePlayerUiState(), usePlayerUiDispatch()];
     dispatch(openMessage(this.props.channelId, message));
   };
 
   closeMessage = (message) => {
-    const [ , dispatch ] = this.context;
+    const [state, dispatch] = [usePlayerUiState(), usePlayerUiDispatch()];
     dispatch(closeMessage(this.props.channelId, message));
   };
 
   render() {
     let curChannel = this.props.channelId;
-    const [ state ] = this.context;
+    const state = usePlayerUiState();
     const messages = state.channels[curChannel].messages.map(item => {
       const { details, message, isOpen, hasBeenRead, infoType, gameTurn } = item || {};
       const { role, forceColor } = details.from || {}

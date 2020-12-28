@@ -3,10 +3,10 @@ import moment from "moment";
 import { ChannelMessage } from "@serge/components";
 import "@serge/themes/App.scss";
 import { umpireForceTemplate } from "../consts";
-import { PlayerStateContext } from '../Store/PlayerUi';
+import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi';
 
 class MessageListItem extends Component {
-  static contextType = PlayerStateContext;
+  
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     return (
       this.props.detail._id !== nextProps.detail._id ||
@@ -25,7 +25,7 @@ class MessageListItem extends Component {
 
   render() {
     let itemTitle;
-    const [ state ] = this.context;
+    const state = usePlayerUiState();
     const { detail } = this.props;
     const { details, message, isOpen, hasBeenRead } = detail || {};
     const dynamicBorderColor = `${details.from.forceColor}${hasBeenRead ? 'B3':''}`;

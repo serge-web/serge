@@ -6,14 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { umpireForceTemplate } from "../consts";
 import isValidUrl from "../Helpers/isValidUrl";
 import lineBreak from "../Helpers/splitNewLineBreak";
-import { PlayerStateContext } from "../Store/PlayerUi";
+import { usePlayerUiState, usePlayerUiDispatch } from "../Store/PlayerUi";
 
 import "@serge/themes/App.scss";
 
 const Fragment = React.Fragment;
 
 class MessagePreview extends Component {
-  static contextType = PlayerStateContext;
+  
 
   createObjItem(pair) {
     const that = this;
@@ -106,7 +106,7 @@ class MessagePreview extends Component {
     if (!this.props.detail) return false;
     const that = this;
     const keyPropPairs = Object.entries(this.props.detail);
-    const [ state ] = this.context;
+    const state = usePlayerUiState();
 
     return (
       <>

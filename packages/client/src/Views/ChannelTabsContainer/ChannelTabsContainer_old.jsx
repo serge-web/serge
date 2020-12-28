@@ -230,7 +230,7 @@ class ChannelTabsContainer extends Component {
     }
   };
 
-    render() {
+  render() {
     const [ state ] = this.context;
     let force = state.allForces.find((force) => force.uniqid === state.selectedForce);
 

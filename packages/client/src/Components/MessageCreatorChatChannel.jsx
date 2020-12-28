@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import JSONEditor from "@json-editor/json-editor";
 import { saveMessage } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
-import { PlayerStateContext } from "../Store/PlayerUi";
+import { usePlayerUiState } from "../Store/PlayerUi";
 
 import "@serge/themes/App.scss";
 
 class JsonCreator extends Component {
-  static contextType = PlayerStateContext;
 
   constructor(props) {
     super(props);
@@ -19,7 +18,7 @@ class JsonCreator extends Component {
   }
 
   sendMessage = () => {
-    const [ state ] = this.context;
+    const state = usePlayerUiState();
     let curForce = state.allForces.find((force) => force.uniqid === state.selectedForce);
 
     let messageDetails = {

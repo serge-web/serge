@@ -1,14 +1,13 @@
 import React, {Component} from "react";
 import InsightsModal from "../InsightsModal";
-import { PlayerStateContext } from "../../../Store/PlayerUi";
+import { usePlayerUiState } from "../../../Store/PlayerUi";
 
 import "@serge/themes/App.scss";
 
 class ModalSwitchPlayer extends Component {
-  static contextType = PlayerStateContext;
-
   render() {
-    const [ state ] = this.context;
+    return null
+    const state = usePlayerUiState();
     let modal;
     switch (state.modalOpened) {
       case "lessons":

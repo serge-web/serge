@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { nextGameTurn } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
-import { PlayerStateContext } from "../Store/PlayerUi";
+import { usePlayerUiState, usePlayerUiDispatch } from "../Store/PlayerUi";
 
 import "@serge/themes/App.scss";
 
 class GameControls extends Component {
-  static contextType = PlayerStateContext;
+  
 
   nextTurn = () => {
-    const [ state ] = this.context;
+    const state = usePlayerUiState();
     nextGameTurn(state.currentWargame)();
   };
 

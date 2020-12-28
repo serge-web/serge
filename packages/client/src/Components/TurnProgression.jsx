@@ -10,12 +10,12 @@ import {
   openTour,
   openModal
 } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
-import { PlayerStateContext } from "../Store/PlayerUi";
+import { usePlayerUiState, usePlayerUiDispatch } from "../Store/PlayerUi";
 
 import "@serge/themes/App.scss";
 
 class TurnProgression extends Component {
-  static contextType = PlayerStateContext;
+  
 
   constructor(props, context) {
     super(props);
@@ -46,7 +46,7 @@ class TurnProgression extends Component {
   }
 
   componentDidUpdate() {
-    const [ state ] = this.context;
+    const state = usePlayerUiState();
     this.initInterval();
     if (
       this.state.minutesLeft === '00' &&
@@ -62,7 +62,7 @@ class TurnProgression extends Component {
   }
 
   timer = () => {
-    const [ state ] = this.context;
+    const state = usePlayerUiState();
     if (this.state.secondsLeft === '00' && this.state.minutesLeft === '00') this.setState({ended: true});
 
     let now = Math.floor(new Date().getTime() / 1000);
@@ -98,7 +98,7 @@ class TurnProgression extends Component {
   };
 
   initInterval = () => {
-    const [ state ] = this.context;
+    const state = usePlayerUiState();
     const startInterval = {
       [PLANNING_PHASE]: this.timer,
       [ADJUDICATION_PHASE]: this.countup,
@@ -130,17 +130,17 @@ class TurnProgression extends Component {
   };
 
   showLessonsModal = () => {
-    const [ , dispatch ] = this.context;
+    const [state, dispatch] = [usePlayerUiState(), usePlayerUiDispatch()];
     dispatch(openModal("lessons"));
   };
 
   openTour = () => {
-    const [ , dispatch ] = this.context;
+    const [state, dispatch] = [usePlayerUiState(), usePlayerUiDispatch()];
     dispatch(openTour(true));
   };
 
   render() {
-    const [ state ] = this.context;
+    const state = usePlayerUiState();
     let adjudicationPhase = state.phase === ADJUDICATION_PHASE;
 
     return (

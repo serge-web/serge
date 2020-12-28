@@ -3,12 +3,12 @@ import JSONEditor from "@json-editor/json-editor";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { saveMessage } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
-import { PlayerStateContext } from "../Store/PlayerUi";
+import { usePlayerUiState, usePlayerUiDispatch } from "../Store/PlayerUi";
 
 import "@serge/themes/App.scss";
 
 class JsonCreator extends Component {
-  static contextType = PlayerStateContext;
+  
 
   constructor(props) {
     super(props);
@@ -21,7 +21,7 @@ class JsonCreator extends Component {
   }
 
   sendMessage = () => {
-    const [ state ] = this.context;
+    const state = usePlayerUiState();
     let curForce = state.allForces.find((force) => force.uniqid === state.selectedForce);
     let details = {
       channel: this.props.curChannel,

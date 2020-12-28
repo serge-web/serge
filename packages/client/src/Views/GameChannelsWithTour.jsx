@@ -1,12 +1,12 @@
 import React from 'react'
-import GameChannels from './GameChannels'
+import GameChannels from './GameChannels/GameChannels'
 import Tour from 'reactour'
-import { useStateValue } from '../Store/PlayerUi'
+import { usePlayerUiDispatch } from '../Store/PlayerUi'
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../consts'
 import { openTour } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 export default function GameChannelsWithTour ({ storageKey, tourIsOpen }) {
-  const [, dispatch] = useStateValue()
+  const dispatch = usePlayerUiDispatch()
 
   const closeTour = () => {
     expiredStorage.setItem(storageKey, 'done', LOCAL_STORAGE_TIMEOUT)
