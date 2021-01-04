@@ -3,7 +3,6 @@ import L from 'leaflet'
 import {
   assetsVisibleToMe,
   declutterLayer,
-  findPerceivedAsClasses,
   forceFor,
   GridImplementation,
   hasPendingForces,
@@ -21,7 +20,6 @@ import Perception from './components/Perception'
 import PlannedStatus from './components/PlannedStatus'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
-import removeClassNamesFrom from './helpers/removeClassNamesFrom'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import './helpers/mousePosition'
