@@ -47,7 +47,10 @@ const GameChannels: React.FC = (): React.ReactElement => {
 
   return <div className="flex-content flex-content--row-wrap">
     <div className="message-feed in-game-feed" data-tour="fourth-step">
-      <ChannelTabsContainer />
+      <ChannelTabsContainer ref={el => {
+        // @ts-ignore
+        window.channelTabsContainer[force.uniqid] = el
+      }}/>
     </div>
     <div className={classNames({"message-feed": true, "out-of-game-feed": true, "umpire-feed": controlUi})} data-tour="fifth-step">
       <div className="flex-content wargame-title">

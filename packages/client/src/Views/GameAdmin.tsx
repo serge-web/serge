@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { CHAT_CHANNEL_ID, expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../consts'
-import MessageCreatorChatChannel from '../Components/MessageCreatorChatChannel'
+import MessageCreatorChatChannel from '../Components/MessageCreatorChatChannel/MessageCreatorChatChannel'
 import MessagesListChatChannel from './MessagesListChatChannel/MessagesListChatChannel'
 import MessagesListRenderProp from './MessagesListRenderProp'
 import { usePlayerUiState } from '../Store/PlayerUi'
@@ -34,10 +34,7 @@ const GameAdmin = (): React.ReactElement => {
       />
 
       <div className='new-message-creator wrap' data-tour='seventh-step'>
-        <MessageCreatorChatChannel
-          curChannel={CHAT_CHANNEL_ID}
-          schema={state.chatChannel.template}
-        />
+        <MessageCreatorChatChannel schema={state.chatChannel.template} />
       </div>
     </div>
   )

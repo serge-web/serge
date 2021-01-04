@@ -6,7 +6,8 @@ import tabRender from './helpers/tabRender'
 import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../../consts'
 import { getAllWargameMessages } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import _ from 'lodash';
+import _ from 'lodash'
+import Props from './types'
 
 const json = {
   global: {
@@ -23,7 +24,7 @@ const json = {
   }
 }
 
-const ChannelTabsContainer: React.FC = () => {
+const ChannelTabsContainer: React.FC<Props> = (): React.ReactElement => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
 
@@ -39,13 +40,13 @@ const ChannelTabsContainer: React.FC = () => {
   }, [state])
 
   const getModel = ():Model => {
-    let model = expiredStorage.getItem(modelName);
+    let model = expiredStorage.getItem(modelName)
     if (model) FlexLayout.Model.fromJson(JSON.parse(model))
     return FlexLayout.Model.fromJson(json)
   }
 
   const force = state.allForces.find((force) => force.uniqid === state.selectedForce)
-  if (!force) return null
+  if (!force) return <div/>
 
   const model = getModel()
 
