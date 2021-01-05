@@ -1,15 +1,15 @@
-import { Route } from '@serge/custom-types'
+import { Perception, Route, RouteStatus, RouteStep } from '@serge/custom-types'
 import { padInteger } from '@serge/helpers'
 
 interface AssetState {
   uniqid: string
   name: string
   condition: string
-  perceptions: any
+  perceptions: Perception[]
   destroyed?: boolean
-  history?: any
-  plannedTurns?: any
-  newState?: any
+  history?: RouteStep[]
+  plannedTurns?: RouteStep[]
+  newState?: RouteStatus
 }
 
 interface ForceState {

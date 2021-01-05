@@ -7,6 +7,7 @@ interface CssExports {
   'form': string;
   'perceived-as': string;
   'planning': string;
+  'visibility': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

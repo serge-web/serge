@@ -60,7 +60,8 @@ export interface MessageCustom {
   _id: string
   _rev?: string
   gameTurn?: number,
-  feedback?: boolean
+  feedback?: boolean,
+  infoType?: boolean
 }
 
 export interface MessageFeedback {

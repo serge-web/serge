@@ -1,21 +1,22 @@
-import { upperFirst } from 'lodash'
+import { Perception } from '@serge/custom-types'
 
 /** Find how a force perceives this asset
- * @param {any} perceptions how an asset is perceived
+ * @param {Perception[]} perceptions how an asset is perceived
  * @param {string} playerForce the force for the current player
  * @param {Array<{force: string, color: string}>} forceColors couplets of force & color to use for that color
  * @param {string} undefinedColor the color to use for non-perceived types
  * @return {string | undefined} color shade to use, or undefined if asset isn't visible
  */
-const isPerceivedBy = (perceptions: any, playerForce: string, 
+const isPerceivedBy = (perceptions: Perception[], playerForce: string, 
   forceColors: Array<{force: string, color: string}>, undefinedColor: string): string | undefined => {
   if(perceptions) {
     if(Array.isArray(perceptions)) {
-      const p = perceptions.find((p:any) => p.by.toLowerCase() === playerForce.toLowerCase())
+      const p: Perception | undefined = perceptions.find((p:Perception) => p.by.toLowerCase() === playerForce.toLowerCase())
       if(p) {
         // do we know force?
-        if(p.force) {
-          const color = forceColors.find((f:any) => f.force.toLowerCase() === p.force.toLowerCase())
+        const { force } = p
+        if(force) {
+          const color = forceColors.find((f:{force: string, color: string}) => f.force.toLowerCase() === force.toLowerCase())
           if(color) {
             return color.color
           } else {
@@ -32,20 +33,8 @@ const isPerceivedBy = (perceptions: any, playerForce: string,
       }  
     } else {
       // legacy way of representing perceptions, as a dictionary
-      const upperForce = upperFirst(playerForce)
-      const perception = perceptions[upperForce]
-      if(perception) {
-        if(perception.force) {
-          // find the force color for this force name
-          const force = forceColors.find((f:any) => f.force.toLowerCase() === perception.force.toLowerCase())
-          return (force && force.color) || undefinedColor  
-        } else {
-          // this force can perceive it, but doesn't know force. So, use undefined color
-          return undefinedColor
-        }
-      } else {
-        return undefined
-      }
+      console.warn("Have encountered perception in legacy format. Can't handle it")
+      return undefined
     }
   }
   return undefined

@@ -3,15 +3,15 @@ import React, { useState } from 'react'
 /* Import component files */
 import AdminLayout from './index'
 import SettingOverview, { WargameOverview } from '../setting-overview'
-import SettingPlatformTypes, { PlatformType } from '../setting-platform-types'
-import SettingForces, { ForceData } from '../setting-forces'
+import SettingPlatformTypes from '../setting-platform-types'
+import SettingForces from '../setting-forces'
 import SettingChannels, { ChannelData } from '../setting-channels'
 
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 import { WargameExportedMock, MessageTemplatesMock, adminTabs, platformType as platformTypeMock } from '@serge/mocks'
 
-import { Wargame } from '@serge/custom-types'
+import { ForceData, PlatformType, Wargame } from '@serge/custom-types'
 import { AdminContent } from '../../atoms/admin-content'
 
 const wrapper: React.FC = (storyFn: any) => <div>{storyFn()}</div>

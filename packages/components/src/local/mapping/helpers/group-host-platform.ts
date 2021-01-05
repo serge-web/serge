@@ -1,3 +1,5 @@
+import { Asset, ForceData } from '@serge/custom-types'
+import { forceFor } from '@serge/helpers'
 import { cloneDeep } from 'lodash'
 /**
  * Create a new Task Group using the provided assets
@@ -6,45 +8,35 @@ import { cloneDeep } from 'lodash'
  * @param (any) forces list of forces
  * @returns modified list of forces
  */
-const groupHostPlatform = (dragging: string, target: string, forces: any): any => {
-  const newForces: any = cloneDeep(forces)
+const groupHostPlatform = (dragging: string, target: string, forces: ForceData[]): ForceData[] => {
+  const newForces: ForceData[] = cloneDeep(forces)
 
   // find the force for the target platform
-  const parent = forceFor(target, newForces)
+  const parent = forceFor(newForces, target)
 
   // get the assets
   const assets = parent.assets
 
-  // capture the assets
-  const dragAsset = assets.find((item: any) => item.uniqid === dragging)
-  const targetAsset = assets.find((item: any) => item.uniqid === target)
+  if (assets) {
+    // capture the assets
+    const dragAsset: Asset | undefined = assets.find((item: Asset) => item.uniqid === dragging)
+    const targetAsset: Asset | undefined = assets.find((item: Asset) => item.uniqid === target)
 
-  // remove the assets from the force
-  const assets2 = assets.filter((item: any) => item.uniqid !== dragging)
+    if (dragAsset && targetAsset) {
+      // remove the assets from the force
+      const assets2: Asset[] = assets.filter((item: Asset) => item.uniqid !== dragging)
 
-  // put the dragged item onto the host
-  if (!targetAsset.hosting) {
-    targetAsset.hosting = []
-  }
-  targetAsset.hosting.push(dragAsset)
+      // put the dragged item onto the host
+      if (!targetAsset.hosting) {
+        targetAsset.hosting = []
+      }
+      targetAsset.hosting.push(dragAsset)
 
-  // overwrite the assets with the new list
-  parent.assets = assets2
-  return newForces
-}
-
-/** find the force counter for this asset id */
-const forceFor = (item: string, forces: any): any => {
-  const match: any = forces.find((force: any) => {
-    const assets: any = force.assets
-    if (assets) {
-      const asset = assets.find((asset: any) => asset.uniqid === item)
-      if (asset) return force
-    } else {
-      return false
+      // overwrite the assets with the new list
+      parent.assets = assets2
     }
-  })
-  return match
+  }
+  return newForces
 }
 
 export default groupHostPlatform

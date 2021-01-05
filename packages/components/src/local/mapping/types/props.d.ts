@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { ForceData, PlanMobileAsset, Postback } from '@serge/custom-types'
+import { ForceData, PlanMobileAsset, PlatformTypeData, Postback } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -26,7 +26,7 @@ export default interface PropTypes {
   /** platforms for this wargame
    *
    */
-  platforms: any
+  platforms: PlatformTypeData[]
   /** current player's force
    *
   */

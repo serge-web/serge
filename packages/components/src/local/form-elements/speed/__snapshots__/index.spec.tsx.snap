@@ -15,7 +15,7 @@ exports[`Speed renders correctly 1`] = `
         className="speed-items"
       >
         <div
-          className="speed-item speed-active"
+          className="speed-item speed-enabled speed-active"
           onClick={[Function]}
           style={
             Object {
@@ -25,7 +25,7 @@ exports[`Speed renders correctly 1`] = `
           }
         />
         <div
-          className="speed-item speed-active speed-selected"
+          className="speed-item speed-enabled speed-active speed-selected"
           onClick={[Function]}
           style={
             Object {
@@ -35,7 +35,7 @@ exports[`Speed renders correctly 1`] = `
           }
         />
         <div
-          className="speed-item speed-active"
+          className="speed-item speed-enabled speed-active"
           onClick={[Function]}
           style={
             Object {
@@ -45,7 +45,7 @@ exports[`Speed renders correctly 1`] = `
           }
         />
         <div
-          className="speed-item speed-active"
+          className="speed-item speed-enabled speed-active"
           onClick={[Function]}
           style={
             Object {
@@ -55,7 +55,7 @@ exports[`Speed renders correctly 1`] = `
           }
         />
         <div
-          className="speed-item"
+          className="speed-item speed-enabled"
           onClick={[Function]}
           style={
             Object {
@@ -65,7 +65,7 @@ exports[`Speed renders correctly 1`] = `
           }
         />
         <div
-          className="speed-item"
+          className="speed-item speed-enabled"
           onClick={[Function]}
           style={
             Object {

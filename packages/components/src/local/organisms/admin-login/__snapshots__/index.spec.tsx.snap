@@ -27,13 +27,13 @@ Array [
         onKeyPress={[Function]}
       >
         <div
-          className="MuiInputBase-root MuiInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+          className="MuiInputBase-root MuiFilledInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInputBase-formControl"
           onClick={[Function]}
         >
           <input
             aria-invalid={false}
             autoFocus={false}
-            className="MuiInputBase-input MuiInput-input makeStyles-input-2"
+            className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2"
             disabled={false}
             name="password"
             onAnimationStart={[Function]}

@@ -11,8 +11,7 @@ import { Mapping, Assets, HexGrid } from "@serge/components"
 import { saveMapMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { sendMessage } from '@serge/helpers'
 
-import { PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS } from '@serge/config'
-
+import { PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILIY_CHANGES } from '@serge/config'
 const json = {
   global: {
     tabSetTabStripHeight: 45,
@@ -145,7 +144,10 @@ class ChannelTabsContainer extends Component {
     const postback = (form, payload, channelID) => {
 
       switch(form) {
-        case 'perception':
+        case VISIBILIY_CHANGES:
+          sendMessage(VISIBILIY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+          break
+        case PERCEPTION_OF_CONTACT:
           sendMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
           break
         case SUBMIT_PLANS:

@@ -64,6 +64,7 @@ const onGameClick = (title: string): void => {
 
 export const Default: React.FC = () => (
   <WargameList
+    useCustomScroll
     wargames={wargames}
     menuConfig={menus}
     onGameClick={onGameClick}
@@ -121,6 +122,14 @@ const lotsWargames = [{
 }]
 
 export const LotsOfWargames: React.FC = () => (
+  <WargameList
+    useCustomScroll
+    wargames={lotsWargames}
+    menuConfig={menus}
+    onGameClick={onGameClick}
+  />
+)
+export const LotsOfWargamesCustomScroll: React.FC = () => (
   <WargameList
     useCustomScroll
     wargames={lotsWargames}

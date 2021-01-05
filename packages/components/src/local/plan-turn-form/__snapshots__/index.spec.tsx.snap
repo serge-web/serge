@@ -91,7 +91,7 @@ exports[`PlanTurnForm renders correctly 1`] = `
               className="speed-items"
             >
               <div
-                className="speed-item speed-active speed-selected"
+                className="speed-item speed-enabled speed-active speed-selected"
                 onClick={[Function]}
                 style={
                   Object {
@@ -101,7 +101,7 @@ exports[`PlanTurnForm renders correctly 1`] = `
                 }
               />
               <div
-                className="speed-item speed-active"
+                className="speed-item speed-enabled speed-active"
                 onClick={[Function]}
                 style={
                   Object {
@@ -111,7 +111,7 @@ exports[`PlanTurnForm renders correctly 1`] = `
                 }
               />
               <div
-                className="speed-item speed-active"
+                className="speed-item speed-enabled speed-active"
                 onClick={[Function]}
                 style={
                   Object {

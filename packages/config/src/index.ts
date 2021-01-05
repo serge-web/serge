@@ -5,6 +5,5 @@
 
 export * from './globals'
 export * from './routes'
-export * from './enums'
-export * from './enums'
+export { Phase, PlanningStates, PlanningCommands } from './enums'
 export * from './action-constants'

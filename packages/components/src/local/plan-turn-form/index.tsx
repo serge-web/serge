@@ -15,6 +15,7 @@ import styles from './styles.module.scss'
 
 /* Import helpers */
 import { isNumber } from '@serge/helpers'
+import { Status } from '@serge/custom-types'
 
 /* Render component */
 export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, canSubmitPlans, setHidePlanningForm, turnPlanned, icon, plansSubmitted }) => {
@@ -59,7 +60,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, canSub
     const newState: string = data.target && data.target.value
 
     // find the status object for this state
-    const selectedStatus = status.find((s: any) => s.name === newState)
+    const selectedStatus = status.find((s: Status) => s.name === newState)
 
     // if status matched, update it.
     if (selectedStatus) {
@@ -110,7 +111,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({ formHeader, formData, canSub
         value={statusVal.name}
         onChange={statusHandler}
       >
-        {status.map((s: any) => (
+        {status.map((s: Status) => (
           <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
         ))}
       </Select>

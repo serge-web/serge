@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
 
 /* Import components */
-import PlannedRoute from '../form-elements/planned-route'
 import Speed from '../form-elements/speed'
 import { Button } from '../atoms/button'
 import TitleWithIcon from '../form-elements/title-with-icon'
@@ -13,29 +12,109 @@ import { FormGroup, clSelect } from '../form-elements/form-group'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 
+import { PlanningCommands } from '@serge/config'
+
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
 /* Import helpers */
-import { isNumber } from '@serge/helpers'
+import { deepCompare, isNumber } from '@serge/helpers'
+import Badge from '../atoms/badge'
+import { ColorOption, RouteStatus, Status } from '@serge/custom-types'
 
 /* Render component */
-export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, channelID, icon, plansSubmitted, canSubmitPlans, postBack }) => {
-  const [formState, setFormState] = useState(formData.values)
+export const AdjudicateTurnForm: React.FC<PropTypes> = ({
+  plansSubmitted, canSubmitPlans, manager
+}) => {
+  // flag for if the current state is mobile#
+  const [statusValues, setStatusValues] = useState<Array<Status>>([])
+  const [speedValues, setSpeedValues] = useState<Array<number>>([])
+  const [visibleToValues, setVisibleToValues] = useState<Array<ColorOption>>([])
+  const [conditionValues, setConditionValues] = useState<Array<string>>([])
+
+  const [plansSubmittedVal, setPlansSubmittedVal] = useState<boolean>(true)
+
+  const [stateIsMobile, setStateIsMobile] = useState<boolean>(false)
+  const [upperPlanningActions, setUpperPlanningActions] = useState<Array<{ label: string, action: PlanningCommands }>>([])
+  const [lowerPlanningActions, setLowerPlanningActions] = useState<Array<{ label: string, action: PlanningCommands }>>([])
+  const [statusVal, setStatusVal] = useState<string>('')
+  const [speedVal, setSpeedVal] = useState<number>(0)
+  const [conditionVal, setConditionVal] = useState<string>('')
+  const [visibleVal, setVisibleVal] = useState<Array<string>>(manager ? manager.currentVisibleTo() : [])
+  const icon: {forceColor: string, platformType: string} = manager ? manager.iconData : { forceColor: '', platformType: '' }
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
-  const { status, speed, visibleTo, condition } = formData.populate
-  const { plannedRouteStatusVal, statusVal, speedVal, visibleToVal, conditionVal } = formState
 
-  // TODO: Refactor this into a reusable helper and remove other instances
-  const changeHandler = (e: any): void => {
-    const { name, value } = e
-    updateState({ name, value })
+  const canChangeState: boolean = manager ? manager.canChangeState() : false
+
+  // initialise, from manager helper
+  useEffect(() => {
+    if (manager) {
+      // visibility & condition
+      updateIfNecessary('visible ', visibleVal, manager.currentVisibleTo(), setVisibleVal)
+      updateIfNecessary('condition ', conditionVal, manager.currentCondition(), setConditionVal)
+
+      // whether these plans have already been submitted
+      updateIfNecessary('plans', plansSubmittedVal, plansSubmitted, setPlansSubmittedVal)
+
+      // the available options
+      const formData = manager.formData
+      updateIfNecessary('status values', statusValues, formData.status, setStatusValues)
+      updateIfNecessary('visible values', visibleToValues, formData.visibleTo, setVisibleToValues)
+      updateIfNecessary('speed values', speedValues, formData.speed, setSpeedValues)
+      updateIfNecessary('condition values', conditionValues, formData.condition, setConditionValues)
+
+      // and the actual state
+      updateIfNecessary('status', statusVal, manager.plannedState().name, setStatusVal)
+      updateIfNecessary('mobile', stateIsMobile, manager.plannedState().mobile, setStateIsMobile)
+      updateIfNecessary('speed', speedVal, manager.plannedSpeed(), setSpeedVal)
+
+      // the command buttons
+      updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(), setUpperPlanningActions)
+      updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
+    }
+  }, [manager])
+
+  const handleCommandLocal = (command: PlanningCommands): void => {
+    if (manager) {
+      manager.handleState(command)
+    }
   }
 
-  const clickHandler = (data: any): void => {
-    updateState(data)
+  const conditionHandler = (e: any): void => {
+    if (e && e.value !== undefined) {
+      // original (RCB) way of presenting conditions
+      manager && manager.setCurrentCondition(e.value)
+      setConditionVal(e.value)
+    } else if (e && e.target && e.target.value) {
+      // updated (menu) way of presenting conditions
+      manager && manager.setCurrentCondition(e.target.value)
+      setConditionVal(e.target.value)
+    } else {
+      console.warn('Adjudicate form received unexpected condition', e)
+    }
   }
+
+  const visibleHandler = (e: any): void => {
+    setVisibleVal(e.value)
+    manager && manager.setCurrentVisibleTo(e.value)
+  }
+
+  const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: {(value: any): void}): void => { // deepscan-disable-line UNUSED_PARAM
+    if (!deepCompare(before, after)) {
+      // console.log('+ updating ', name, before, after)
+      doUpdate(after)
+    } else {
+      // ßconsole.log('- not updating', name)
+    }
+  }
+
+  /** update the state mobility flag */
+  useEffect(() => {
+    if (statusVal && manager) {
+      setStateIsMobile(manager.stateIsMobile(statusVal))
+    }
+  }, [statusVal])
 
   // Status has a different data model and requires it's own handler
 
@@ -43,49 +122,22 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
     // retrieve the new value
     const newState: string = data.target && data.target.value
 
-    // find the status object for this state
-    const selectedStatus = status.find((s: any) => s.name === newState)
+    if (manager) {
+      manager.setStatus(newState, speedVal)
+      const newStatus: RouteStatus = manager.currentStatus()
+      setStatusVal(newStatus.state)
 
-    // if status matched, update it.
-    if (selectedStatus) {
-      setFormState({
-        ...formState,
-        statusVal: selectedStatus
-      })
-    } else {
-      console.warn('Unable to find state to match:' + newState)
+      // also update the mobile state
     }
   }
 
   const speedHandler = (e: any): void => {
+    //   console.log('new speed')
     if (isNumber(e)) {
-      setFormState(
-        {
-          ...formState,
-          speedVal: e
-        }
-      )
-    }
-  }
-
-  const updateState = (data: any): void => {
-    const { name, value } = data
-
-    // If a value has been passed as a string when it should be a number,
-    // convert it back to a number
-    const outputVal = isNumber(value) ? parseInt(value) : value
-
-    setFormState(
-      {
-        ...formState,
-        [`${name}Val`]: outputVal
+      if (manager) {
+        manager.setStatus(statusVal, e)
+        setSpeedVal(e)
       }
-    )
-  }
-
-  const submitForm = (): void => {
-    if (postBack !== undefined) {
-      postBack('adjudicate', formState, channelID)
     }
   }
 
@@ -95,64 +147,71 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({ formHeader, formData, 
         forceColor={icon.forceColor}
         platformType={icon.platformType}
       >
-        {formHeader}
-        { plansSubmitted &&
-         <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
+        {manager && manager.formHeader}
+        {manager &&
+          <Badge label={manager.currentPlanningStatus()} />
+        }
+        {plansSubmittedVal &&
+          <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
         }
 
       </TitleWithIcon>
-      { plannedRouteStatusVal === 'accepted' && <span> Reviewed </span>}
-      { conditionVal.toLowerCase() === 'working' && <fieldset>
-        <FormGroup title="Planned Route" align="right">
-          { !formDisabled &&
-            <PlannedRoute name="plannedRouteStatus" status={plannedRouteStatusVal} updateState={clickHandler} />
-          }
+      { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
+        <FormGroup title="Player Route" align="right">
+          {!formDisabled && upperPlanningActions && upperPlanningActions.map((item: any) =>
+            <Button key={item.label} onClick={(): void => handleCommandLocal(item.action)}>{item.label}</Button>
+          )}
         </FormGroup>
-        {
-          plannedRouteStatusVal === 'rejected' && <div>
-            <RCB type="radio" label="Status" options={status.map((s: any) => s.name)} value={statusVal.name} updateState={statusHandler}/>
-            { statusVal.mobile &&
-              <RCB type="radio" label="Speed (kts)" name="speed" options={speed} value={speedVal} updateState={changeHandler}/>
-            }
-          </div>
-        }
-        {
-          plannedRouteStatusVal !== 'rejected' && <>
-            <FormGroup title="State" align="right">
-              <Select
-                className={clSelect}
-                value={statusVal.name}
-                onChange={statusHandler}
-              >
-                {status.map((s: any) => (
-                  <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
-                ))}
-              </Select>
-            </FormGroup>
-            <FormGroup title="Speed (kts)" titlePosition="absolute">
-              {speed.length > 0 &&
-                <Speed
-                  value = { speedVal }
-                  options = { speed }
-                  onClick = { speedHandler }
-                />
-              }
-            </FormGroup>
-          </>
+        <FormGroup title="State" align="right">
+          <Select
+            className={clSelect}
+            value={statusVal}
+            disabled={!canChangeState}
+            onChange={statusHandler}
+          >
+            {statusValues.map((s: any) => (
+              <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
+            ))}
+          </Select>
+        </FormGroup>
+        {speedValues.length > 0 && stateIsMobile &&
+          <FormGroup title="Speed (kts)" titlePosition="absolute">
+            <Speed
+              disabled={!canChangeState}
+              value={speedVal}
+              options={speedValues}
+              onClick={speedHandler}
+            />
+          </FormGroup>
         }
       </fieldset>
       }
       <fieldset>
         <FormGroup title="Visible to" align="right">
-          <RCB type="checkbox" force={true} label="" options={visibleTo} value={visibleToVal} updateState={changeHandler}/>
+          <RCB name="visibleTo" type="checkbox" force={true} label="" compact={true} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
         </FormGroup>
+        {/* previous (more verbose way of showing conditions) <FormGroup title="Condition" align="right">
+          <RCB name="condition" type="radio" label="" options={conditionValues} value={conditionVal} updateState={conditionHandler} />
+        </FormGroup> */}
         <FormGroup title="Condition" align="right">
-          <RCB type="radio" label="" options={condition} value={conditionVal} updateState={changeHandler}/>
+          <Select
+            className={clSelect}
+            value={conditionVal}
+            onChange={conditionHandler}
+          >
+            {conditionValues.map((s: any) => (
+              <MenuItem key={s} value={s}>{s}</MenuItem>
+            ))}
+          </Select>
         </FormGroup>
       </fieldset>
-      { !formDisabled &&
-        <Button onClick={submitForm}>Save</Button>
-      }
+      <fieldset>
+        <FormGroup title="Adjudication" align="right">
+          {!formDisabled && lowerPlanningActions && lowerPlanningActions.map((item: any) =>
+            <Button key={item.label} onClick={(): void => handleCommandLocal(item.action)}>{item.label}</Button>
+          )}
+        </FormGroup>
+      </fieldset>
     </div>
   )
 }

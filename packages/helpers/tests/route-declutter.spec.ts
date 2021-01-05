@@ -11,7 +11,7 @@ import { RouteStore, Route, RouteStep } from '@serge/custom-types'
 
 it('declutter routes', () => {
 
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Blue', false, platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, forces, 'Blue', platformTypes, undefined, false, false)
 
   // force some platforms into the cell already occupied
   // but the platform in route 2
@@ -42,7 +42,7 @@ it('declutter routes', () => {
 it('dont declutter last point on selected track', () => {
   const fisherAId = 'a0pra000202'
   const dhowAId = 'a0pra000100'
-  const store: RouteStore = routeCreateStore(fisherAId, forces, 'umpire', false, platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(fisherAId, forces, 'umpire', platformTypes, undefined, true, true)
 
   // check dhow location & end of fisher planned match
   const fisherA_1: Route | undefined = store.selected
@@ -93,7 +93,7 @@ it('dont declutter last point on selected track', () => {
 it('declutter last point on un-selected track', () => {
   const fisherAId = 'a0pra000202'
   const dhowAId = 'a0pra000100'
-  const store: RouteStore = routeCreateStore(undefined, forces, 'umpire', false, platformTypes, undefined, true, false)
+  const store: RouteStore = routeCreateStore(undefined, forces, 'umpire', platformTypes, undefined, true, false)
 
   // check dhow location & end of fisher planned match
   const fisherA_1: Route | undefined = store.routes.find(route => route.uniqid === fisherAId)

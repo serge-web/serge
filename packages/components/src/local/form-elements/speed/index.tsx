@@ -9,7 +9,7 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }) => {
+export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options, disabled }) => {
   // create array with keys based on colCount or options length
   const columns = Array.from(Array(colCount || options.length || 6).keys())
   // get max value from options
@@ -25,7 +25,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
   }
 
   const handleClick = (e: any): void => {
-    if (typeof onClick === 'function') {
+    if (typeof onClick === 'function' && !disabled) {
       onClick(e)
     }
   }
@@ -56,7 +56,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
     const style = { height: `${itemSize}%`, left: `${left}%` }
 
     const handleStickClick = (e: any): void => {
-      if (typeof onClick === 'function') {
+      if (typeof onClick === 'function' && !disabled) {
         onClick(options[key], e)
       }
     }
@@ -67,6 +67,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options }
         onClick={handleStickClick}
         className={cx(
           styles['speed-item'],
+          !disabled && styles['speed-enabled'],
           activeItem && styles['speed-active'],
           selectedItem && styles['speed-selected']
         )}

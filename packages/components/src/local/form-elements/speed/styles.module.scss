@@ -34,7 +34,6 @@
   bottom: -16px;
   width: 6px;
   position: absolute;
-  cursor: pointer;
 }
 .speed-active {
   background-color: #9ea9b1;
@@ -42,8 +41,11 @@
 .speed-selected {
   background-color: #fff;
 }
-.speed-item:hover {
+.speed-enabled:hover {
   opacity: 0.8;
+}
+.speed-enabled {
+  cursor: pointer;
 }
 
 .result {
