@@ -15,6 +15,7 @@ it('clear route from selected step', () => {
 
   // length of route at start
   expect(store.routes[3].planned.length).toEqual(3)
+  expect(store.routes[3].plannedTurnsCount).toEqual(3)
 
   const step: RouteStep = {
     turn: 12,
@@ -27,4 +28,5 @@ it('clear route from selected step', () => {
 
   // is now set
   expect(store2.routes[3].planned.length).toEqual(4)
+  expect(store2.routes[3].plannedTurnsCount).toEqual(4)
 })

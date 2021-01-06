@@ -15,6 +15,9 @@ const routeAddSteps = (store: RouteStore, selectedId: string, steps: Array<Route
   if (route) {
     // ok, add the planned step
     route.planned = route.planned.concat(steps)
+
+    // update number of planned steps
+    route.plannedTurnsCount = route.planned.length
   }
   return modified
 }
