@@ -19,7 +19,7 @@ export default interface PlayerUi {
   selectedRole: string,
   isObserver: boolean,
   canSubmitPlans: boolean,
-  controlUi: boolean,
+  isGameControl: boolean,
   currentTurn: number,
   phase: string,
   gameDate: string,

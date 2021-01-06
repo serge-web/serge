@@ -871,10 +871,8 @@ export const postNewMapMessage = (dbName, details, message) => {
   return new Promise((resolve, reject) => {
     getLatestWargameRevision(dbName)
       .then((res) => {
-        // combine the message data
-        const composite = { ...message, details: details }
         // apply the reducer to this wargame
-        res.data.forces.forces = handleForceDelta(composite, res.data.forces.forces)
+        res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces)
         // store the new verison
         return createLatestWargameRevision(dbName, res)
       })

@@ -40,8 +40,7 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, role, post
       },
       _id: timestamp,
       hasBeenRead: false,
-      isOpen: false,
-      open: false
+      isOpen: false
     }
     postBack && postBack(post)
     setFormState('')

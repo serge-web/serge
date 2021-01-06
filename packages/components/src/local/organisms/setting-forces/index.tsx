@@ -83,7 +83,7 @@ export const SettingForces: React.FC<PropTypes> = ({
         name: 'New Role',
         canSubmitPlans: false,
         password: 'p' + Math.random().toString(36).substring(8),
-        control: false,
+        isGameControl: false,
         isInsightViewer: false,
         isObserver: false
       }]

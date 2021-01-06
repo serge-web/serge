@@ -55,7 +55,7 @@ class GameChannels extends Component {
         <div className="message-feed in-game-feed" data-tour="fourth-step">
           <ChannelTabsContainer ref={el => window.channelTabsContainer[force.uniqid] = el} />
         </div>
-        <div className={classNames({"message-feed": true, "out-of-game-feed": true, "umpire-feed": state.controlUi})} data-tour="fifth-step">
+        <div className={classNames({"message-feed": true, "out-of-game-feed": true, "umpire-feed": state.isGameControl})} data-tour="fifth-step">
           <div className="flex-content wargame-title">
             <h3>{state.wargameTitle}</h3>
             {
@@ -67,7 +67,7 @@ class GameChannels extends Component {
           </div>
           <TurnProgression
             adjudicationStartTime={state.adjudicationStartTime}
-            controlUi={state.controlUi}
+            isGameControl={state.isGameControl}
             currentTurn={state.currentTurn}
             gameDate={state.gameDate}
             onNextTurn={this.nextTurn}

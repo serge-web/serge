@@ -127,7 +127,7 @@ const umpireForce = {
   roles: [{
     name: 'Game Control',
     password: 'p2311',
-    control: true,
+    isGameControl: true,
     isObserver: true,
     isInsightViewer: true
   }],
@@ -145,7 +145,7 @@ const blueForce = {
     {
       name: 'CO',
       password: 'p5543',
-      control: false,
+      isGameControl: false,
       isObserver: false,
       isInsightViewer: false
     }
@@ -208,7 +208,7 @@ const redForce = {
     {
       name: 'CO',
       password: 'p3244',
-      control: false,
+      isGameControl: false,
       isObserver: false,
       isInsightViewer: false
     }
@@ -285,7 +285,7 @@ const greenForce = {
     {
       name: 'CO',
       password: 'P9454',
-      control: false,
+      isGameControl: false,
       isObserver: false,
       isInsightViewer: false
     }

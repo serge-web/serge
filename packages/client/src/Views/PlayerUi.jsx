@@ -147,7 +147,7 @@ class PlayerUi extends Component {
 
   isUmpire() {
     const [ state ] = this.context;
-    return state.selectedForce === umpireForceTemplate.uniqid && state.controlUi;
+    return state.selectedForce === umpireForceTemplate.uniqid && state.isGameControl;
   }
 
   render() {

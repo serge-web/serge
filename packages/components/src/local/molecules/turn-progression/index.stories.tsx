@@ -26,7 +26,7 @@ export const Default: React.FC = () => (
     currentTurn={1}
     phase={ADJUDICATION_PHASE}
     gameDate="2019-10-01T02:02"
-    controlUi={false}
+    isGameControl={false}
   />
 )
 
@@ -38,7 +38,7 @@ export const Planning: React.FC = () => (
     currentTurn={1}
     phase={PLANNING_PHASE}
     gameDate="2019-10-01T02:02"
-    controlUi={false}
+    isGameControl={false}
   />
 )
 
@@ -61,7 +61,7 @@ export const WithGameControl: React.FC = () => {
       currentTurn={state.currentTurn}
       phase={state.phase}
       gameDate="2019-10-01T02:02"
-      controlUi={true}
+      isGameControl={true}
       onNextTurn={updateState}
     />
   )

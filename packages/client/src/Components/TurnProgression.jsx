@@ -159,7 +159,7 @@ class TurnProgression extends Component {
           <div className="turn-info-phase">
             <h5>Turn {state.currentTurn} - {state.phase} phase</h5>
             <time dateTime={state.gameDate}>{moment(state.gameDate).format("DD/MM/YYYY HH:mm")}</time>
-            {state.controlUi ? <GameControls /> : false}
+            {state.isGameControl ? <GameControls /> : false}
           </div>
           <div className="turn-info-remaining text-center">
             {state.phase === PLANNING_PHASE &&

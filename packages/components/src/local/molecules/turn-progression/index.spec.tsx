@@ -16,7 +16,7 @@ describe('TurnProgression component:', () => {
           currentTurn={1}
           phase="adjudication"
           gameDate="2019-10-01T02:02"
-          controlUi={false}
+          isGameControl={false}
         />
       )
       .toJSON()

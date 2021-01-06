@@ -9,7 +9,7 @@ const RemovableGroupItem = props => {
   const {
     data,
     children,
-    isControl: isGameControl
+    isGameControl: isGameControl
   } = props
   const {
     isObserver,
@@ -25,7 +25,7 @@ const RemovableGroupItem = props => {
   const onEditRole = () => {
     const role = {
       ...data,
-      control: isGameControl
+      isGameControl: isGameControl
     }
     dispatch(modalAction.open('newRole', role))
   }

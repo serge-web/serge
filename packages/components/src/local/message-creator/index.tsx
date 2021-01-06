@@ -10,6 +10,7 @@ import Props from './types/props'
 
 /* Import components */
 import { TextInput } from '../atoms/text-input'
+import { MessageCustom } from '@serge/custom-types'
 
 /* Render component */
 export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack }) => {
@@ -19,7 +20,7 @@ export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack 
 
   const changeHandler = (e: any): void => setFormState(e.value)
   const submitForm = (): void => {
-    postBack && postBack({
+    const post: MessageCustom = {
       messageType: CUSTOM_MESSAGE,
       details: {
         channel: channel,
@@ -37,9 +38,9 @@ export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack 
       },
       _id: timestamp,
       hasBeenRead: false,
-      isOpen: false,
-      open: false
-    })
+      isOpen: false
+    }
+    postBack && postBack(post)
     setFormState('')
   }
 

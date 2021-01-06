@@ -1,4 +1,4 @@
-import { MessageMap, ForceData } from '@serge/custom-types'
+import { MessageMap, ForceData, MessageDetails, MessageForceLaydown, MessageVisibilityChanges, MessagePerceptionOfContact, MessageSubmitPlans, MessageStateOfWorld } from '@serge/custom-types'
 
 import handleVisibilityChanges from './handleVisibilityChanges'
 import handlePerceptionChange from './handlePerceptionChanges'
@@ -15,23 +15,25 @@ import {
 // TODO: change it to @serge/config
 
 /** create a marker for the supplied set of details */
-export default (message: MessageMap, allForces: ForceData[]): ForceData[] => {
-  if (!message.messageType) {
+export default (message: MessageMap, details: MessageDetails, allForces: ForceData[]): ForceData[] => {
+  const msgType: string = details.messageType
+  if (!msgType) {
     console.error('problem - we need message type in ', message)
   } else {
-    console.log('Player reducer handling forceDelta:', message.messageType)
+    console.log('Player reducer handling forceDelta:', msgType, message)
   }
-  switch (message.messageType) {
+
+  switch (msgType) {
     case FORCE_LAYDOWN:
-      return handleForceLaydownChanges(message, allForces)
+      return handleForceLaydownChanges(message as MessageForceLaydown, allForces)
     case VISIBILIY_CHANGES:
-      return handleVisibilityChanges(message, allForces)
+      return handleVisibilityChanges(message as MessageVisibilityChanges, allForces)
     case PERCEPTION_OF_CONTACT:
-      return handlePerceptionChange(message, allForces)
+      return handlePerceptionChange(message as MessagePerceptionOfContact, allForces)
     case SUBMIT_PLANS:
-      return handlePlansSubmittedChanges(message, allForces)
+      return handlePlansSubmittedChanges(message as MessageSubmitPlans, allForces)
     case STATE_OF_WORLD:
-      return handleStateOfWorldChanges(message, allForces)
+      return handleStateOfWorldChanges(message as MessageStateOfWorld, allForces)
     default:
       console.error(`failed to create player reducer handler for: ${message!.messageType}`)
       return allForces

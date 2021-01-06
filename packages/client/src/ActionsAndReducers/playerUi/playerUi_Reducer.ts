@@ -37,7 +37,7 @@ export const initialState: PlayerUi = {
   selectedRole: '',
   isObserver: false,
   canSubmitPlans: false,
-  controlUi: false,
+  isGameControl: false,
   currentTurn: 0,
   phase: '',
   gameDate: '',
@@ -115,7 +115,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SET_ROLE:
       newState.selectedRole = action.payload.name
-      newState.controlUi = action.payload.control
+      newState.isGameControl = action.payload.isGameControl
       newState.isObserver = action.payload.isObserver
       newState.isInsightViewer = action.payload.isInsightViewer
       break
