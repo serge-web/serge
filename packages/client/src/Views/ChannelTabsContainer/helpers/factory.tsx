@@ -43,18 +43,20 @@ const factory = (state: PlayerUi): Factory => {
   return (node: TabNode): React.ReactNode => {
     // Render the map
     const renderMap = (channelid: string) => <Mapping
-      tileDiameterMins={5}
-      bounds={bounds}
-      tileLayer={LocalTileLayer}
-      forces={state.allForces}
-      platforms={state.allPlatformTypes}
-      phase={state.phase}
-      turnNumber={state.currentTurn}
-      playerForce={state.selectedForce}
-      canSubmitOrders={true} // TODO get value from role
-      channelID = {channelid}
-      postBack={postback}
-    ><Assets /><HexGrid/>
+        tileDiameterMins={5}
+        bounds={bounds}
+        tileLayer={LocalTileLayer}
+        forces={state.allForces}
+        platforms={state.allPlatformTypes}
+        phase={state.phase}
+        turnNumber={state.currentTurn}
+        playerForce={state.selectedForce}
+        canSubmitOrders={true} // TODO get value from role
+        channelID = {channelid}
+        postBack={postback}
+    >
+      <Assets />
+      <HexGrid/>
     </Mapping>
 
     if (_.isEmpty(state.channels)) return;

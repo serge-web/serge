@@ -1,20 +1,20 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import moment from "moment";
-import { umpireForceTemplate } from "../consts";
-import NewMessage from "./NewMessage";
+import { umpireForceTemplate } from "../../consts";
+import NewMessage from "../NewMessage";
 import {ChannelMessagesList} from '@serge/components';
 import {
   closeMessage,
   getAllWargameMessages,
   openMessage,
   markAllAsRead,
-} from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
-import { usePlayerUiState, usePlayerUiDispatch } from "../Store/PlayerUi";
+} from "../../ActionsAndReducers/playerUi/playerUi_ActionCreators";
+import { usePlayerUiState, usePlayerUiDispatch } from "../../Store/PlayerUi";
 
 import "@serge/themes/App.scss";
 
 class Channel extends Component {
-  
+
 
   constructor() {
     super();

@@ -57,6 +57,7 @@ const NewMessage = props => {
 export default NewMessage
 
 NewMessage.propTypes = {
+  orderableChannel: PropTypes.bool,
   templates: PropTypes.array.isRequired,
   curChannel: PropTypes.string.isRequired,
   privateMessage: PropTypes.bool.isRequired
