@@ -35,6 +35,28 @@ it('can create route under control as umpire ', () => {
 
 })
 
+it('can create route with static steps under control as umpire in playing phase', () => {
+  const store: RouteStore = routeCreateStore('a0pra000100', forces, 'umpire', platformTypes, undefined, false, false)
+  expect(store.routes.length).toEqual(13)
+
+  // check inside a route
+  const route: Route | undefined = store.selected
+
+  if(route) {
+    expect(route.uniqid).toEqual('a0pra000100')
+    expect(route.history.length).toEqual(3)
+    // check non-mobile points looks how we expect
+    expect(route.history[0].coords).toBeTruthy()
+    expect(route.history[1].coords).toBeUndefined()
+    expect(route.history[2].coords).toBeTruthy()
+    expect(route.planned.length).toEqual(3)
+    expect(route.planned[0].coords).toBeTruthy()
+    expect(route.planned[1].coords).toBeUndefined()
+    expect(route.planned[2].coords).toBeTruthy()
+    expect(route.original.length).toEqual(3)
+  }
+})
+
 it('can create route under control as umpire in playing phase', () => {
   const store: RouteStore = routeCreateStore(undefined, forces, 'umpire', platformTypes, undefined, false, false)
   expect(store.routes.length).toEqual(13)
@@ -47,7 +69,6 @@ it('can create route under control as umpire in playing phase', () => {
   expect(route.original.length).toEqual(2)
   expect(route.selected).toBeFalsy()
 })
-
 
 it('can create route for un-recognised type', () => {
   const store: RouteStore = routeCreateStore(undefined, forces, 'Blue', platformTypes, undefined, false, false)
@@ -437,10 +458,10 @@ it('route displays full history for asset in red force', () => {
   if(dhow) {
     expect(dhow.name).toEqual('Dhow-A')
     expect(dhow.history.length).toEqual(3)
-    expect(dhow.history[1].coords && dhow.history[1].coords.length).toEqual(2)
+    expect(dhow.history[2].coords && dhow.history[2].coords.length).toEqual(2)
     // note: we put the second entry in 'route' structure, to test logic
-    expect(dhow.history[1].coords && dhow.history[1].coords[0]).toEqual('N06')
-    expect(dhow.history[1].coords && dhow.history[1].coords[1]).toEqual('M06')
+    expect(dhow.history[2].coords && dhow.history[2].coords[0]).toEqual('N05')
+    expect(dhow.history[2].coords && dhow.history[2].coords[1]).toEqual('N04')
   }
 })
 

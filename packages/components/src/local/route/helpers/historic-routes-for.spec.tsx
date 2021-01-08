@@ -52,7 +52,7 @@ it('Provides valid history for multi-point history without filter', () => {
   expect(route).toBeTruthy()
   if (route) {
     const data: RouteData = historicRoutesFor(route.currentLocation, route.history)
-    expect(data.turnEnds.length).toEqual(3)
+    expect(data.turnEnds.length).toEqual(2)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
   }
