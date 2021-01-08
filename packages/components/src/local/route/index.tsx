@@ -32,13 +32,13 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
       // start with historic
       const historyRoute: RouteData = historicRoutesFor(route.currentLocation, route.history)
       setHistoryRoutes(historyRoute)
-      const historyMarkers: JSX.Element[] = createTurnMarkers(historyRoute, turnNumber, 'history', color, selected, clearRouteHandler)
+      const historyMarkers: JSX.Element[] = createTurnMarkers(historyRoute, 'history', color, selected, clearRouteHandler)
       setHistoryTurnMarkers(historyMarkers)
 
       // and now planned routes
       const plannedRoute: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
       setPlannedRoutes(plannedRoute)
-      setPlannedTurnMarkers(createTurnMarkers(plannedRoute, turnNumber, 'planned', color, selected, clearRouteHandler))
+      setPlannedTurnMarkers(createTurnMarkers(plannedRoute, 'planned', color, selected, clearRouteHandler))
     }
   }, [gridCells, route, trimmed, selected, turnNumber])
 
