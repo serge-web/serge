@@ -56,6 +56,16 @@ export const plannedRoutesFor = (startLocation: LatLng | undefined, turns: Route
             polyline.push(step)
             stepsThisTurn++
           })
+        } else {
+          if(lastLocation && lastStatus) {
+            // ok, we have enough for a turn
+            const newTurn: RouteTurn = {
+              current: lastLocation,
+              turn: turnCtr,
+              status: lastStatus
+            }
+            turnEnds.push(newTurn)
+          }
         }
       })
     }
