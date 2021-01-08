@@ -364,10 +364,8 @@ export const forces: ForceData[] = [
             turn: 0
           },
           {
-            route: [ 'N06', 'M06' ],
             status: {
-              speedKts: 10,
-              state: 'Transiting'
+              state: 'Moored'
             },
             turn: 1
           },
@@ -397,12 +395,8 @@ export const forces: ForceData[] = [
             turn: 3
           },
           {
-            route: [
-              'J05'
-            ],
             status: {
-              speedKts: 10,
-              state: 'Transiting'
+              state: 'Moored'
             },
             turn: 4
           },
