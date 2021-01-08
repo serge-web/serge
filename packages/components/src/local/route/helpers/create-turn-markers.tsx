@@ -58,7 +58,7 @@ const createTurnMarkers = (routes: RouteData,
       // note: check for presence of routeTurn - there may be no planned steps
       if (routeTurn && selected === true) {
         // see if it's a marker for a mobile state
-        if(routeTurn.previous || routeTurn.next) {
+        if (routeTurn.previous || routeTurn.next) {
           const angle = calculateTurnAngle(routeTurn)
           return (
             <>

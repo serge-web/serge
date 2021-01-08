@@ -57,7 +57,7 @@ export const plannedRoutesFor = (startLocation: LatLng | undefined, turns: Route
             stepsThisTurn++
           })
         } else {
-          if(lastLocation && lastStatus) {
+          if (lastLocation && lastStatus) {
             // ok, we have enough for a turn
             const newTurn: RouteTurn = {
               current: lastLocation,
