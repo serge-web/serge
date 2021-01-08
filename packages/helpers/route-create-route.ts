@@ -29,12 +29,19 @@ const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
       : { state: step.status.state }
 
     // sort the status
-    res.push({
-      turn: step.turn,
-      coords: steps,
-      locations: locations,
-      status: status
-    })
+    if(steps.length) {
+      res.push({
+        turn: step.turn,
+        coords: steps,
+        locations: locations,
+        status: status
+      })  
+    } else {
+      res.push({
+        turn: step.turn,
+        status: status
+      })
+    }
   }
   return res
 }
