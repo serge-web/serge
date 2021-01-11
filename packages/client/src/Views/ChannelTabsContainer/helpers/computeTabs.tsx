@@ -58,14 +58,14 @@ const addToTabs = (newChannels: TabMapped[], model: ModelLoc) => {
   if (tabsetMatch !== undefined) {
     let tabsetId = tabsetMatch.getId()
     newChannels.forEach((channel) => {
-    if (!model.getNodeById(channel.id)) {
-      model.doAction(
-        FlexLayout.Actions.addNode({
-          type: 'tab',
-          component: channel.name,
-          name: channel.name,
-          id: channel.id
-        }, tabsetId, FlexLayout.DockLocation.CENTER, -1))
+      if (!model._idMap[channel.id]) {
+        model.doAction(
+          FlexLayout.Actions.addNode({
+            type: 'tab',
+            component: channel.name,
+            name: channel.name,
+            id: channel.id
+          }, tabsetId, FlexLayout.DockLocation.CENTER, -1))
       }
     })
   }

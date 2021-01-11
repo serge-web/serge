@@ -6,11 +6,9 @@ export const matchedForceFilter = (
 ): boolean => (
   participant.forceUniqid === selectedForce
 )
-const matchedRole = (role: Role, selectedRole: string): boolean => (
-  // @ts-ignore
-  role.value === selectedRole
-  // TODO: double check ^^ 
-)
+const matchedRole = (role: Role, selectedRole: string): boolean => {
+  return role.name === selectedRole
+}
 
 export const matchedForceAndRoleFilter = (
   participant: Participant,

@@ -215,8 +215,7 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
     } = getParticipantStates(channel, newState)
 
     if (!newState.isObserver && !isParticipant && !allRolesIncluded) return
-
-    if (allRolesIncluded || isParticipant || newState.isObserver) {
+    else {
       // TODO: use channel name
       channels[channel.uniqid || channel.name] = {
         name: channel.name,

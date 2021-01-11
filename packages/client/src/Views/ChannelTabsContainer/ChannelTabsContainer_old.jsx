@@ -238,6 +238,7 @@ class ChannelTabsContainer extends Component {
 
     return (
       <div className="contain-channel-tabs" data-force={force.uniqid}>
+        Test
         <FlexLayout.Layout
           model={this.model}
           factory={this.factory}

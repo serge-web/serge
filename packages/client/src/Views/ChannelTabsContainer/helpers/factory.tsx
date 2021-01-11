@@ -1,11 +1,11 @@
 import React from 'react'
 import { PlayerUi } from '@serge/custom-types'
-import { PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS } from '@serge/config'
+import { PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILIY_CHANGES } from '@serge/config'
 import { sendMessage } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { Mapping, Assets, HexGrid } from '@serge/components'
-import _ from 'lodash';
+import _ from 'lodash'
 import Channel from '../../../Components/Channel'
 import findChannelByName from './findChannelByName'
 
@@ -26,7 +26,10 @@ type Factory = (node: TabNode) => React.ReactNode
 const factory = (state: PlayerUi): Factory => {
   const postback = (form: string, payload: any, channelID: string): void => {
     switch(form) {
-      case 'perception':
+      case VISIBILIY_CHANGES:
+        sendMessage(VISIBILIY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        break
+      case PERCEPTION_OF_CONTACT:
         sendMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
         break
       case SUBMIT_PLANS:
@@ -59,17 +62,18 @@ const factory = (state: PlayerUi): Factory => {
       <HexGrid/>
     </Mapping>
 
-    if (_.isEmpty(state.channels)) return;
-    const channelsArray = Object.entries(state.channels);
+    if (_.isEmpty(state.channels)) return
+    const channelsArray = Object.entries(state.channels)
+
     if (channelsArray && channelsArray.length === 1) {
-      const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === 'mapping');
+      const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === 'mapping')
       if (isOnlyMap) {
         return renderMap('map')
       } else {
-          return <Channel channelId={channelsArray[0][0]} />;
+        return <Channel channelId={channelsArray[0][0]} />
       }
     } else {
-      const matchedChannel = findChannelByName(state.channels, node.getName());
+      const matchedChannel = findChannelByName(state.channels, node.getName())
       if (node.getName().toLowerCase() === 'mapping') {
         // return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
         // _attributes.id

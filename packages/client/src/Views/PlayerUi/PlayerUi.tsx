@@ -32,11 +32,8 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
   } = usePlayerUiState()
 
   const dispatch = usePlayerUiDispatch()
-  console.log('render PlayerUi');
 
   useEffect(() => {
-    console.log('useEffect PlayerUi');
-
     loadData()
     // @ts-ignore
     window.channelTabsContainer = window.channelTabsContainer || {}
@@ -84,8 +81,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     const roleOptions = (): ({ name: string, roles: Role[] })[] => allForces.map(
       force => ({name: force.name, roles: force.roles})
     )
-    console.log(wargame)
-
+    
     return <PlayerUiLobby
       wargameList={wargame.wargameList}
       roleOptions={roleOptions()}

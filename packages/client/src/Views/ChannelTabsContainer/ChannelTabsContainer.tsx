@@ -24,34 +24,33 @@ const json = {
   }
 }
 
-const ChannelTabsContainer: React.FC<Props> = (): React.ReactElement => {
+const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
 
-  // TODO: why it's in state?
   const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${state.selectedForce}-${state.selectedRole}`)
+
+  const getModel = ():Model => {
+    let model = expiredStorage.getItem(modelName)
+    if (model) return FlexLayout.Model.fromJson(JSON.parse(model))
+    return FlexLayout.Model.fromJson(json)
+  }
+
+  const [model] = useState<Model>(getModel())
 
   useEffect(() => {
     getAllWargameMessages(state.currentWargame)(dispatch)
   }, [])
 
   useEffect(() => {
-    computeTabs(state, getModel())
+    computeTabs(state, model)
   }, [state])
-
-  const getModel = ():Model => {
-    let model = expiredStorage.getItem(modelName)
-    if (model) FlexLayout.Model.fromJson(JSON.parse(model))
-    return FlexLayout.Model.fromJson(json)
-  }
 
   const force = state.allForces.find((force) => force.uniqid === state.selectedForce)
   if (!force) return <div/>
 
-  const model = getModel()
-
   return (
-    <div className='contain-channel-tabs' data-force={force.uniqid}>
+    <div className='contain-channel-tabs' data-force={force.uniqid} ref={rootRef}>
       <FlexLayout.Layout
         model={model}
         factory={factory(state)}

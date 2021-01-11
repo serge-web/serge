@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Collapsible from 'react-collapsible'
-import MessageCreator from '../Components/MessageCreator.jsx'
+import MessageCreator from '../Components/MessageCreator/MessageCreator'
 import DropdownInput from '../Components/Inputs/DropdownInput'
 import '@serge/themes/App.scss'
 

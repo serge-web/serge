@@ -1,4 +1,4 @@
 interface Props {
-  ref?: React.Ref<HTMLDivElement>
+  rootRef?: React.Ref<HTMLDivElement>
 }
 export default Props

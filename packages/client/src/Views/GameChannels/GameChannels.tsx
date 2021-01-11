@@ -1,11 +1,11 @@
 import React from 'react'
 import ChannelTabsContainer from '../ChannelTabsContainer/ChannelTabsContainer'
-import classNames from 'classnames';
+import classNames from 'classnames'
 import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
 import { faShoePrints } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { TurnProgression, ForceObjective } from '@serge/components';
-import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { TurnProgression, ForceObjective } from '@serge/components'
+import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer'
 import { ForceData } from '@serge/custom-types'
 import {
   nextGameTurn,
@@ -47,9 +47,9 @@ const GameChannels: React.FC = (): React.ReactElement => {
 
   return <div className="flex-content flex-content--row-wrap">
     <div className="message-feed in-game-feed" data-tour="fourth-step">
-      <ChannelTabsContainer ref={el => {
+      <ChannelTabsContainer rootRef={el => {
         // @ts-ignore
-        window.channelTabsContainer[force.uniqid] = el
+        if (el) window.channelTabsContainer[force.uniqid] = el
       }}/>
     </div>
     <div className={classNames({"message-feed": true, "out-of-game-feed": true, "umpire-feed": controlUi})} data-tour="fifth-step">

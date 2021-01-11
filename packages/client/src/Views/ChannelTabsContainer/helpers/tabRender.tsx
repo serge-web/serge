@@ -7,7 +7,7 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void  => {
   return (node: TabNode): void => {
     let channel;
 
-    const setUnreadClassName = (className: string) => {
+    const setUnreadClassName = (className: string): void => {
       if(node.getClassName() !== className) {
         node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className }))
       }
