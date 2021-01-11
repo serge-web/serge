@@ -485,7 +485,7 @@ export const forces: ForceData[] = [
               'K09'
             ],
             status: {
-              speedKts: 10,
+              speedKts: 20,
               state: 'Transiting'
             },
             turn: 6
@@ -495,7 +495,7 @@ export const forces: ForceData[] = [
               'J09'
             ],
             status: {
-              speedKts: 10,
+              speedKts: 30,
               state: 'Transiting'
             },
             turn: 7
