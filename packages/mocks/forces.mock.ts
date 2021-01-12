@@ -372,7 +372,7 @@ export const forces: ForceData[] = [
           {
             route: ['N05', 'N04'],
             status: {
-              speedKts: 10,
+              speedKts: 20,
               state: 'Transiting'
             },
             turn: 2
