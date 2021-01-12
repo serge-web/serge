@@ -81,7 +81,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     const roleOptions = (): ({ name: string, roles: Role[] })[] => allForces.map(
       force => ({name: force.name, roles: force.roles})
     )
-    
+
     return <PlayerUiLobby
       wargameList={wargame.wargameList}
       roleOptions={roleOptions()}
