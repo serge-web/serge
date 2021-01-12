@@ -10,15 +10,15 @@ export const lengthOfTrimmedLine = 2
 /** convenience method to find the first known location in a series of steps */
 const firstLocation = (turns: RouteStepType[], currentLocation: LatLng): LatLng => {
   if (turns) {
-    let firstLoc: LatLng | undefined = undefined
+    let firstLoc: LatLng | undefined
     turns.forEach((turn: RouteStepType) => {
-      if(turn.locations) {
-        if(!firstLoc) {
+      if (turn.locations) {
+        if (!firstLoc) {
           firstLoc = turn.locations[0]
         }
       }
     })
-    if(firstLoc) return firstLoc
+    if (firstLoc) return firstLoc
   }
   return currentLocation
 }
@@ -39,7 +39,7 @@ export const historicRoutesFor = (currentLocation: LatLng, turns: RouteStepType[
   // if it was only one step in length
   let lastTurnLength = 0
   let turnCtr = 0
-  let pendingMobile: boolean = false
+  let pendingMobile = false
   // start with current position
   if (currentLocation) {
     if (turns) {
@@ -115,7 +115,7 @@ export const historicRoutesFor = (currentLocation: LatLng, turns: RouteStepType[
           lastLocation = currentLocation
 
           // clear lastStatus, so mobile doesn't try to re-store this turn
-          lastStatus = undefined          
+          lastStatus = undefined
         }
       })
       // store the line end if it's history

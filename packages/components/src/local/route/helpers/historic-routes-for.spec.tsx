@@ -73,5 +73,6 @@ it('Provides valid history for multi-point history without filter', () => {
     expect(data.turnEnds[2].status.speedKts).toEqual(20)
     expect(data.turnEnds[2].turn).toEqual(3)
   } else {
-    expect(false).toBeTruthy()  }
+    expect(false).toBeTruthy()
+  }
 })

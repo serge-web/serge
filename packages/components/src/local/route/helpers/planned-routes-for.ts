@@ -13,11 +13,11 @@ import RouteData from '../types/route-data'
 export const plannedRoutesFor = (startLocation: LatLng, turns: RouteStepType[]): RouteData => {
   const polyline: LatLng[] = []
   const turnEnds: Array<RouteTurn> = []
-  let lastLocation: RouteTurnDuo  = { pos: startLocation, name: 'step_0' }
+  let lastLocation: RouteTurnDuo = { pos: startLocation, name: 'step_0' }
   let lastButOneLocation: RouteTurnDuo | undefined
   let lastStatus: RouteTurnStatus | undefined
   let turnCtr = 0
-  let pendingMobile: boolean = false
+  let pendingMobile = false
   // start with current position
   if (startLocation) {
     if (turns) {
