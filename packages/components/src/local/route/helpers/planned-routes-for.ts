@@ -8,7 +8,6 @@ import RouteData from '../types/route-data'
  *  generate the planned routes for this asset
  * @param {LatLng} startLocation location where the asset currently is
  * @param {any} turns series of planned steps for asset
- * @param {boolean} trimmed whether to only show trimmed portion of data
  * @returns {RouteData} composite object containing route lines & end of turn marker locations
  */
 export const plannedRoutesFor = (startLocation: LatLng, turns: RouteStepType[]): RouteData => {
