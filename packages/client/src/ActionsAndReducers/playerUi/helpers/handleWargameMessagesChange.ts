@@ -51,8 +51,8 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
       if (!matchedChannel) {
         delete channels[channelId]
       } else {
-        const isParticipant = matchedChannel.participants.some(p => matchedForceAndRoleFilter(p, newState))
-        const allRolesIncluded = matchedChannel.participants.some(p => matchedAllRolesFilter(p, newState.selectedForce))
+        const isParticipant = matchedChannel.participants && matchedChannel.participants.some(p => matchedForceAndRoleFilter(p, newState))
+        const allRolesIncluded = matchedChannel.participants && matchedChannel.participants.some(p => matchedAllRolesFilter(p, newState.selectedForce))
 
         if (isParticipant || allRolesIncluded || newState.isObserver) {
           // ok, this is a channel we wish to display
@@ -65,8 +65,8 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
 
     // create any new channels & add to current channel
     newState.allChannels.forEach((channel) => {
-      const channelActive = channel.participants.some(p => matchedForceAndRoleFilter(p, newState))
-      const allRoles = channel.participants.some(p => matchedAllRolesFilter(p, newState.selectedForce))
+      const channelActive = channel.participants && channel.participants.some(p => matchedForceAndRoleFilter(p, newState))
+      const allRoles = channel.participants && channel.participants.some(p => matchedAllRolesFilter(p, newState.selectedForce))
 
       // rename channel
       if (
@@ -138,8 +138,8 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
             participants: [], // new
             name: channel.name,
             templates,
-            forceIcons: channel.participants.map((participant) => participant.icon),
-            forceColors: channel.participants.map((participant) => {
+            forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
+            forceColors: channel.participants && channel.participants.map((participant) => {
               const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
               return (force && force.color) || '#FFF'
             }),
@@ -202,7 +202,7 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
   })
 
   const messages = _.uniqBy(messagesFiltered, reduceTurnMarkers)
-    .filter((message) => message.details.channel === newState.chatChannel.name)
+    .filter((message) => message.details && message.details.channel === newState.chatChannel.name)
 
   const channels = {}
 
@@ -220,12 +220,12 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
       channels[channel.uniqid || channel.name] = {
         name: channel.name,
         templates,
-        forceIcons: channel.participants.map((participant) => participant.icon),
-        forceColors: channel.participants.map((participant) => {
+        forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
+        forceColors: channel.participants && channel.participants.map((participant) => {
           const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
           return (force && force.color) || '#FFF'
         }),
-        messages: messages.filter((message) => message.details.channel === channel.uniqid || message.messageType === INFO_MESSAGE),
+        messages: messages.filter((message) => message.details && message.details.channel === channel.uniqid || message.messageType === INFO_MESSAGE),
         unreadMessageCount: messages.filter((message) => {
           if (message.messageType !== INFO_MESSAGE) {
             return false

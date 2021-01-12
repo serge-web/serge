@@ -101,7 +101,7 @@ export const forceTemplate = {
     {
       name: 'CO',
       password: `p${uniqId.time()}`,
-      control: false,
+      isGameControl: false,
       isObserver: false,
       isInsightViewer: false,
       canSubmitPlans: true
@@ -121,7 +121,7 @@ export const umpireForceTemplate = {
     {
       name: 'Game Control',
       password: `p${uniqId.time()}`,
-      control: true,
+      isGameControl: true,
       isObserver: true,
       isInsightViewer: true,
       canSubmitPlans: true

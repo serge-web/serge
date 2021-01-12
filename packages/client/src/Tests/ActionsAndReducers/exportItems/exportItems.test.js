@@ -106,7 +106,7 @@ const wargame = {
                 {
                   name: 'Game Control',
                   password: 'pk16fa8oa',
-                  control: true,
+                  isGameControl: true,
                   isObserver: true,
                   isInsightViewer: true
                 }
@@ -124,7 +124,7 @@ const wargame = {
                 {
                   name: 'CO',
                   password: 'pk16fdykk',
-                  control: false,
+                  isGameControl: false,
                   isObserver: false,
                   isInsightViewer: false
                 },
@@ -133,7 +133,7 @@ const wargame = {
                   password: 'pk16ffhn3',
                   isObserver: false,
                   isInsightViewer: false,
-                  control: false
+                  isGameControl: false
                 }
               ],
               icon: 'http://localhost:8080/default_img/forceDefault.png',
@@ -441,7 +441,7 @@ const wargame = {
                 {
                   name: 'Game Control',
                   password: 'pk16fa8oa',
-                  control: true,
+                  isGameControl: true,
                   isObserver: true,
                   isInsightViewer: true
                 }
@@ -459,7 +459,7 @@ const wargame = {
                 {
                   name: 'CO',
                   password: 'pk16fdykk',
-                  control: false,
+                  isGameControl: false,
                   isObserver: false,
                   isInsightViewer: false
                 },
@@ -468,7 +468,7 @@ const wargame = {
                   password: 'pk16ffhn3',
                   isObserver: false,
                   isInsightViewer: false,
-                  control: false
+                  isGameControl: false
                 }
               ],
               icon: 'http://localhost:8080/default_img/forceDefault.png',
@@ -707,7 +707,7 @@ const wargame = {
                 {
                   name: 'Game Control',
                   password: 'pk16fa8oa',
-                  control: true,
+                  isGameControl: true,
                   isObserver: true,
                   isInsightViewer: true
                 }
@@ -725,7 +725,7 @@ const wargame = {
                 {
                   name: 'CO',
                   password: 'pk16fdykk',
-                  control: false,
+                  isGameControl: false,
                   isObserver: false,
                   isInsightViewer: false
                 },
@@ -734,7 +734,7 @@ const wargame = {
                   password: 'pk16ffhn3',
                   isObserver: false,
                   isInsightViewer: false,
-                  control: false
+                  isGameControl: false
                 }
               ],
               icon: 'http://localhost:8080/default_img/forceDefault.png',
@@ -973,7 +973,7 @@ const wargame = {
                 {
                   name: 'Game Control',
                   password: 'pk16fa8oa',
-                  control: true,
+                  isGameControl: true,
                   isObserver: true,
                   isInsightViewer: true
                 }
@@ -991,7 +991,7 @@ const wargame = {
                 {
                   name: 'CO',
                   password: 'pk16fdykk',
-                  control: false,
+                  isGameControl: false,
                   isObserver: false,
                   isInsightViewer: false
                 },
@@ -1000,7 +1000,7 @@ const wargame = {
                   password: 'pk16ffhn3',
                   isObserver: false,
                   isInsightViewer: false,
-                  control: false
+                  isGameControl: false
                 }
               ],
               icon: 'http://localhost:8080/default_img/forceDefault.png',
@@ -1237,7 +1237,7 @@ const wargame = {
             {
               name: 'Game Control',
               password: 'pk16fa8oa',
-              control: true,
+              isGameControl: true,
               isObserver: true,
               isInsightViewer: true
             }
@@ -1255,7 +1255,7 @@ const wargame = {
             {
               name: 'CO',
               password: 'pk16fdykk',
-              control: false,
+              isGameControl: false,
               isObserver: false,
               isInsightViewer: false
             },
@@ -1264,7 +1264,7 @@ const wargame = {
               password: 'pk16ffhn3',
               isObserver: false,
               isInsightViewer: false,
-              control: false
+              isGameControl: false
             }
           ],
           icon: 'http://localhost:8080/default_img/forceDefault.png',

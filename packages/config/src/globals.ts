@@ -33,8 +33,10 @@ export const STATE_OF_WORLD = 'StateOfWorld'
 // series of constants used for `messageType` when sending custom messages
 export const CUSTOM_MESSAGE = 'CustomMessage'
 
-// series of constants used for `messageType` when sending system messages
+// series of constants used for `messageType` when sending feedback
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'
+
+// series of constants used for `messageType` when sending system messages
 export const INFO_MESSAGE = 'InfoMessage'
 
 // return states of adjudication form

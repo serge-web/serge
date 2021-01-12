@@ -4,7 +4,6 @@ import createDebugButton from './createDebugButton'
 import createStateButtonsFor from './createStateButtonsFor'
 import declutterLayer from './declutterLayer'
 import declutterMarkers from './declutterMarkers'
-import findAsset from './findAsset'
 import findLastRouteLocation from './findLastRouteLocation'
 import findPerceivedAsClasses from './findPerceivedAsClassName'
 import findPlatformTypeFor from './findPlatformTypeFor'
@@ -28,7 +27,6 @@ export {
   createStateButtonsFor,
   declutterLayer,
   declutterMarkers,
-  findAsset,
   findLastRouteLocation,
   findPerceivedAsClasses,
   findPlatformTypeFor,

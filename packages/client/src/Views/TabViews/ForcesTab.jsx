@@ -229,7 +229,7 @@ class ForcesTab extends Component {
         <div className="flex-content">
           <div className="roles">
             {this.props.wargame.data[curTab].forces.find((force) => force.name === selectedForce).roles.map((role) => {
-              return (<RemovableGroupItem key={role.name} data={role} isControl={role.control}>{role.name}</RemovableGroupItem>)
+              return (<RemovableGroupItem key={role.name} data={role} isGameControl={role.isGameControl}>{role.name}</RemovableGroupItem>)
             })}
           </div>
         </div>

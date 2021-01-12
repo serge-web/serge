@@ -13,7 +13,7 @@ import {
 import Perception from './perception'
 import PlannedRoute from './planned-route'
 import ForceData from './force-data'
-import Vis from './vis'
+import Visibility from './visibility'
 
 export interface MessageDetails {
   /** id of channel message sent from */
@@ -50,28 +50,34 @@ export interface MessageStructure {
   content?: string
 }
 
-export interface MessageCustom {
+export interface CoreMessage {
+  /** unique id (PouchDB for this document) */
+  readonly _id: string
+  /** PouchDB revision for this document */
+  _rev?: string
+  /** admin detail for message */
+  readonly details: MessageDetails,
+}
+
+export interface MessageCustom extends CoreMessage {
   messageType: typeof CUSTOM_MESSAGE,
-  details: MessageDetails,
   message: MessageStructure,
-  open: boolean,
   isOpen: boolean
   hasBeenRead: boolean
-  _id: string
-  _rev?: string
   gameTurn?: number,
   feedback?: boolean,
   infoType?: boolean
 }
 
-export interface MessageFeedback {
+export interface MessageFeedback extends CoreMessage {
   messageType: typeof FEEDBACK_MESSAGE,
-  details: MessageDetails,
-  message: MessageStructure,
-  _id: string,
-  _rev?: string
+  message: MessageStructure
 }
 
+/** message containing updated game status, could be one of:
+ * new turn
+ * updated wargame
+ */
 export interface MessageInfoType {
   messageType: typeof INFO_MESSAGE,
   details: {
@@ -87,30 +93,26 @@ export interface MessageInfoType {
 
 export interface MessageForceLaydown {
   messageType: typeof FORCE_LAYDOWN,
-  uniqid: string,
-  position: string,
+  readonly uniqid: string,
+  readonly position: string,
 }
 export interface MessagePerceptionOfContact {
   messageType: typeof PERCEPTION_OF_CONTACT,
-  assetId: string,
-  perception: Perception
+  readonly assetId: string,
+  readonly perception: Perception
 }
 
 export interface MessageVisibilityChanges {
   messageType: typeof VISIBILIY_CHANGES,
-  payload: Vis[]
+  readonly payload: Visibility[]
 }
 export interface MessageSubmitPlans {
-  messageType: typeof SUBMIT_PLANS,
-  name: string,
-  comment: string,
-  turn: number,
-  force: string,
-  plannedRoutes: PlannedRoute[]
+  readonly messageType: typeof SUBMIT_PLANS,
+  readonly plannedRoutes: PlannedRoute[]
 }
 export interface MessageStateOfWorld {
   messageType: typeof STATE_OF_WORLD,
-  detail: {
+  readonly detail: {
     data: ForceData[]
   }
 }

@@ -19,8 +19,7 @@ const message1: MessageCustom = {
   },
   "_id": "2020-03-25T15:08:47.510Z",
   "hasBeenRead": false,
-  "isOpen": false,
-  "open": false
+  "isOpen": false
 }
 const message2: MessageCustom = {
   "messageType": CUSTOM_MESSAGE,
@@ -41,8 +40,7 @@ const message2: MessageCustom = {
   },
   "_id": "2020-03-25T15:08:47.520Z",
   "hasBeenRead": false,
-  "isOpen": false,
-  "open": false
+  "isOpen": false
 }
 
 const messages: MessageCustom[] = [message1, message2]

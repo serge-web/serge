@@ -12,7 +12,10 @@ import collateStateOfWorld from './helpers/collate-state-of-world'
 import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
-import { PlanTurnFormValues, Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid, ForceData, PlatformTypeData, Asset } from '@serge/custom-types'
+import {
+  PlanTurnFormValues,
+  Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid, ForceData, PlatformTypeData, Asset
+} from '@serge/custom-types'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
 
 /* Import Stylesheet */
@@ -159,7 +162,7 @@ export const MapBar: React.FC = () => {
       // Player has finished planning process, and now
       // wants to submit them
       const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
-      const orders = collatePlanningOrders(myRoutes, playerForce, turnNumber)
+      const orders = collatePlanningOrders(myRoutes)
       postBack(SUBMIT_PLANS, orders, channelID)
     }
     setPlansSubmitted(true)

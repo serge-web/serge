@@ -7,7 +7,7 @@ import { Button } from '@material-ui/core'
 import Selector from '../form-elements/selector'
 import RCB from '../form-elements/rcb'
 import TextInput from '../atoms/text-input'
-import { PerceptionFormValues } from '@serge/custom-types'
+import { MessagePerceptionOfContact, PerceptionFormValues } from '@serge/custom-types'
 
 /* Import Context */
 import { MapContext } from '../mapping'
@@ -47,7 +47,8 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, type, force, f
 
   const submitForm = (): void => {
     if (postBack !== undefined) {
-      const payload = {
+      const payload: MessagePerceptionOfContact = {
+        messageType: PERCEPTION_OF_CONTACT,
         perception: {
           by: playerForce,
           force: formState.perceivedForceVal,

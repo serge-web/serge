@@ -7,6 +7,6 @@ export default interface Props {
   currentTurn: number
   phase: string
   gameDate: string
-  controlUi: boolean
+  isGameControl: boolean
   onNextTurn?: React.ReactEventHandler<any>
 }

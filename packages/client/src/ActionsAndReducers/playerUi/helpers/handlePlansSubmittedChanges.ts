@@ -1,15 +1,11 @@
-import { ForceData, MessageSubmitPlans } from '@serge/custom-types'
-import findAsset from '../../../Components/Mapping/helpers/findAsset'
+import { Asset, ForceData, MessageSubmitPlans } from '@serge/custom-types'
+import { findAsset } from '@serge/helpers'
 
 /** create a marker for the supplied set of details */
 export default (payload: MessageSubmitPlans, allForces: ForceData[]) => {
-  const routes = payload.plannedRoutes
-
-  routes.forEach(route => {
-    const asset = findAsset(allForces, route.uniqid)
-    // ok, now the route (just overwrite it!)
-    // @ts-ignore
-    if (asset !== undefined) asset.plannedTurns = route.plannedTurns
+  payload.plannedRoutes.forEach(route => {
+    const asset: Asset = findAsset(allForces, route.uniqid)
+    asset.plannedTurns = route.plannedTurns
   })
   return allForces
 }

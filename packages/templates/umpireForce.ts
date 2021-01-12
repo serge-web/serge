@@ -9,7 +9,7 @@ export default {
     {
       name: 'Game Control',
       password: `p${uniqId.time()}`,
-      control: true,
+      isGameControl: true,
       isObserver: true,
       isInsightViewer: true,
       canSubmitPlans: true

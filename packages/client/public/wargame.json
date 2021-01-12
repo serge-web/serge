@@ -125,7 +125,7 @@
 				"name": "White",
 				"overview": "Umpire force.",
 				"roles": [{
-					"control": true,
+					"isGameControl":true,
 					"isInsightViewer": true,
 					"isObserver": true,
 					"canSubmitPlans": true,
@@ -187,7 +187,7 @@
 				"name": "Blue",
 				"overview": "Blue force.",
 				"roles": [{
-					"control": false,
+					"isGameControl":false,
 					"isInsightViewer": false,
 					"isObserver": false,
 					"canSubmitPlans": true,
@@ -231,7 +231,7 @@
 				"controlledBy": ["umpire"],
 				"overview": "Blue force.",
 				"roles": [{
-					"control": false,
+					"isGameControl":false,
 					"isInsightViewer": false,
 					"isObserver": false,
 					"canSubmitPlans": true,
@@ -393,7 +393,7 @@
 				"name": "Red",
 				"overview": "Red force.",
 				"roles": [{
-					"control": false,
+					"isGameControl":false,
 					"isInsightViewer": false,
 					"isObserver": false,
 					"name": "CO",
@@ -1677,7 +1677,7 @@
 				"overview": "Green Shipping",
 				"roles": [
 					{
-						"control": false,
+						"isGameControl":false,
 						"isInsightViewer": false,
 						"isObserver": false,
 						"canSubmitPlans": true,

@@ -3,8 +3,6 @@ import L from 'leaflet'
 import {
   assetsVisibleToMe,
   declutterLayer,
-  findAsset,
-  findPerceivedAsClasses,
   forceFor,
   GridImplementation,
   hasPendingForces,
@@ -22,7 +20,6 @@ import Perception from './components/Perception'
 import PlannedStatus from './components/PlannedStatus'
 
 import handleVisibilityChanges from '../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
-import removeClassNamesFrom from './helpers/removeClassNamesFrom'
 
 // TODO: This needs to be refactored so we're not just importing the whole file.
 import './helpers/mousePosition'
@@ -331,7 +328,10 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
     const foundItems = []
     const toDelete = []
 
-    const userIsUmpire = myForceRef.current === UMPIRE_FORCE
+    /** Note: code block commented out, since it doesn't get called below
+     * around line 355
+     */
+    // const userIsUmpire = myForceRef.current === UMPIRE_FORCE
 
     markers.eachLayer(marker => {
       const uniqid = marker.asset.uniqid
@@ -341,22 +341,23 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
       if (found) {
         foundItems.push(uniqid)
 
-        const asset = findAsset(allForces, marker.asset.uniqid)
-        if (!asset.force) {
-          asset.force = forceFor(allForces, asset.uniqid).name
-        }
+        /** NOTE: code block removed, now that we don't have
+         * findAsset in the local helpers package
+         */ 
 
-        // also check it's formatted correctly
-        const perceptionClassName = findPerceivedAsClasses(perceiveAsForceRef.current, asset.force,
-          asset.platformType, asset.perceptions, userIsUmpire)
-
-        if (perceptionClassName) {
-          // remove existing types
-          removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
-
-          // now store the new ones
-          L.DomUtil.addClass(marker._icon, perceptionClassName)
-        }
+        // const asset = findAsset(allForces, marker.asset.uniqid)
+        // if (!asset.force) {
+        //   asset.force = forceFor(allForces, asset.uniqid).name
+        // }
+        // // also check it's formatted correctly
+        // const perceptionClassName = findPerceivedAsClasses(perceiveAsForceRef.current, asset.force,
+        //   asset.platformType, asset.perceptions, userIsUmpire)
+        // if (perceptionClassName) {
+        //   // remove existing types
+        //   removeClassNamesFrom(marker, ['platform-force-', 'platform-type-'])
+        //   // now store the new ones
+        //   L.DomUtil.addClass(marker._icon, perceptionClassName)
+        // }
       } else {
         // ok, it's no longer visible to me. hide it
         marker.remove()
