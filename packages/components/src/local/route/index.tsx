@@ -28,7 +28,7 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
   // Note : the planned and history data are often created in the same way,
   // maybe some refactoring would be necessary in this case
   useEffect(() => {
-    if (gridCells) {
+    if (gridCells && route && route.currentLocation) {
       // start with historic
       const historyRoute: RouteData = historicRoutesFor(route.currentLocation, route.history)
       setHistoryRoutes(historyRoute)
