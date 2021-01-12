@@ -28,7 +28,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     selectedRole,
     wargameTitle,
     wargameInitiated,
-    controlUi
+    isGameControl
   } = usePlayerUiState()
 
   const dispatch = usePlayerUiDispatch()
@@ -97,7 +97,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     />
   }
 
-  if (selectedForce === umpireForceTemplate.uniqid && controlUi) {
+  if (selectedForce === umpireForceTemplate.uniqid && isGameControl) {
     const initiateGameplay = (): void => {
       initiateGame(currentWargame)(dispatch)
     }

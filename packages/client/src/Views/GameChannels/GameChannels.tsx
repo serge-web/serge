@@ -22,7 +22,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
     currentTurn,
     wargameTitle,
     adjudicationStartTime,
-    controlUi,
+    isGameControl,
     phase,
     selectedRole,
     showObjective,
@@ -52,7 +52,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
         if (el) window.channelTabsContainer[force.uniqid] = el
       }}/>
     </div>
-    <div className={classNames({"message-feed": true, "out-of-game-feed": true, "umpire-feed": controlUi})} data-tour="fifth-step">
+    <div className={classNames({"message-feed": true, "out-of-game-feed": true, "umpire-feed": isGameControl})} data-tour="fifth-step">
       <div className="flex-content wargame-title">
         <h3>{wargameTitle}</h3>
         {
@@ -64,13 +64,13 @@ const GameChannels: React.FC = (): React.ReactElement => {
       </div>
       <TurnProgression
         adjudicationStartTime={adjudicationStartTime}
-        controlUi={controlUi}
+        isGameControl={isGameControl}
         currentTurn={currentTurn}
         gameDate={gameDate}
-        onNextTurn={nextGameTurn(currentWargame)}
+        onNextTurn={() => { nextGameTurn(currentWargame)() }}
         phase={phase}
         timeWarning={timeWarning}
-        turnEndTime={turnEndTime}
+        turnEndTime={`${turnEndTime}`}
       />
       <AdminAndInsightsTabsContainer />
       {showObjective && <ForceObjective
