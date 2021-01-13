@@ -126,6 +126,23 @@ const determineVisibleTo = (asset: Asset, playerForce: string): Array<string> =>
   }) : []
 }
 
+/** determine if any new turns have been planned
+ * 
+ */
+const turnsHaveBeenPlanned = (original: RouteStep[] | undefined, planned: RouteStep[] | undefined): RouteStep[] | undefined => {
+  if(original && planned) {
+    if(original.length != planned.length) {
+      return planned
+    } else {
+      const len = original.length
+      if(original[len] !== planned[len]) {
+        return planned
+      }
+    }
+  }
+  return undefined
+}
+
 const produceStatusFor = (status: PlannedTurnStatus | undefined, platformTypes: PlatformTypeData[], asset: Asset): RouteStatus => {
 
     // handle when missing current status
@@ -178,14 +195,17 @@ const routeCreateRoute = (asset: Asset, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
   perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: PlannedTurnStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
-  filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean ): Route => {
+  filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean, existingRoute: Route | undefined ): Route => {
 
   const currentStatus: RouteStatus =  produceStatusFor(status, platformTypes, asset)
 
+  // see if the local user has planned some turns
+  const plannedTurns: RouteStep[] | undefined = turnsHaveBeenPlanned(existingRoute && existingRoute.original, existingRoute && existingRoute.planned)
+
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
-  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(asset.plannedTurns,  grid, true, filterPlannedSteps) : []
-  const numberOfPlannedTurns = asset.plannedTurns ? asset.plannedTurns.length : 0
+  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, filterPlannedSteps) : []
+  const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
   const historySteps: Array<RouteStep> = createStepArray(asset.history, grid, 
       false, filterHistorySteps) // we plot all history, so ignore whether in adjudication

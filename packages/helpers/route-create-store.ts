@@ -88,8 +88,6 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
                 if(existingRoute.condition) {
                   newRoute.condition = existingRoute.condition
                 }
-                // and planned status
-                newRoute.planned = existingRoute.planned
               }
 
               store.routes.push(newRoute)

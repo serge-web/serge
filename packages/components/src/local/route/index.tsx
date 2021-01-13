@@ -38,7 +38,8 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
       // and now planned routes
       const plannedRoute: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
       setPlannedRoutes(plannedRoute)
-      setPlannedTurnMarkers(createTurnMarkers(plannedRoute, 'planned', color, selected, clearRouteHandler))
+      const plannedMarkers: JSX.Element[] = createTurnMarkers(plannedRoute, 'planned', color, selected, clearRouteHandler)
+      setPlannedTurnMarkers(plannedMarkers)
     }
   }, [gridCells, route, trimmed, selected, turnNumber])
 
