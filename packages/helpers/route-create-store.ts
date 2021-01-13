@@ -66,6 +66,9 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
             // is it the selected asset?
             const isSelectedAsset: boolean = selectedId ? asset.uniqid === selectedId : false
 
+            // see if there is an existing planned route for this asset
+            const existingRoute: Route | undefined = oldStore && oldStore.routes.find((route: Route) => route.uniqid === asset.uniqid)
+
             if(controlled || playerForce === UMPIRE_FORCE) {
               // asset under player control or player is umpire, so use real attributes
 
@@ -75,23 +78,20 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
               const newRoute: Route = routeCreateRoute(asset, force.color,
                 controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
                 platformTypes, playerForce, asset.status, asset.position, assetLocation, 
-                grid, true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset)
+                grid, true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute)
 
-              // see if there is an existing planned route for this asset
-              if(oldStore) {
-                const existing: Route | undefined = oldStore.routes.find((route: Route) => route.uniqid === asset.uniqid)
-                if(existing) {
-                  // ok, copy the adjudication state
-                  newRoute.adjudicationState = existing.adjudicationState
-                  // and visible to
-                  newRoute.visibleTo = existing.visibleTo
-                  if(existing.condition) {
-                    newRoute.condition = existing.condition
-                  }
-                  // and planned status
-                  newRoute.planned = existing.planned
+              if(existingRoute) {
+                // ok, copy the adjudication state
+                newRoute.adjudicationState = existingRoute.adjudicationState
+                // and visible to
+                newRoute.visibleTo = existingRoute.visibleTo
+                if(existingRoute.condition) {
+                  newRoute.condition = existingRoute.condition
                 }
+                // and planned status
+                newRoute.planned = existingRoute.planned
               }
+
               store.routes.push(newRoute)
             } else {
               // ok, special handling - if this is an organisation that comprises others
@@ -109,7 +109,7 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
                       // create route for this asset
                       const newRoute: Route = routeCreateRoute(child, perceivedColor, false, force.uniqid, perceptions.force,
                         perceptions.name, perceptions.type, platformTypes, playerForce, asset.status, asset.position, assetLocation, 
-                        grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset)
+                        grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute)
                       store.routes.push(newRoute)
                     }
                   }
@@ -124,7 +124,7 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
                     // create route for this asset
                     const newRoute: Route = routeCreateRoute(asset, perceivedColor, false, force.uniqid, perceptions.force,
                       perceptions.name, perceptions.type, platformTypes, playerForce, asset.status, asset.position, assetLocation, 
-                      grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset)
+                      grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute)
                     store.routes.push(newRoute)
                   }
                 }
