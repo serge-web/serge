@@ -1,6 +1,6 @@
 import { Wargame, Template } from '@serge/custom-types'
 
-interface GameInfo {
+export interface GameInfo {
   description: string,
   imageUrl: string,
   imageUrlSet: boolean,

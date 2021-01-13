@@ -5,10 +5,12 @@ import { usePlayerUiDispatch } from '../Store/PlayerUi'
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../consts'
 import { openTour } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-export default function GameChannelsWithTour ({ storageKey, tourIsOpen }) {
+interface Props { storageKey: string, tourIsOpen: boolean }
+
+const GameChannelsWithTour: React.FC<Props> = ({ storageKey, tourIsOpen }) => {
   const dispatch = usePlayerUiDispatch()
 
-  const closeTour = () => {
+  const closeTour = (): void => {
     expiredStorage.setItem(storageKey, 'done', LOCAL_STORAGE_TIMEOUT)
     dispatch(openTour(false))
   }
@@ -43,15 +45,11 @@ export default function GameChannelsWithTour ({ storageKey, tourIsOpen }) {
     },
     {
       selector: '[data-tour="fourth-step"]',
-      content: function LastTourItem () {
-        return (
-          <div>
-            Drag and drop a tab to create a new column and re-organize your channels. And use the vertical bars to
-            resize the area occupied by channels.
-            <span className="link link--noIcon" onClick={closeTour} data-qa-type="close-tour">Close the tour</span>
-          </div>
-        )
-      }
+      content: () => (<div>
+        Drag and drop a tab to create a new column and re-organize your channels. And use the vertical bars to
+        resize the area occupied by channels.
+        <span className="link link--noIcon" onClick={closeTour} data-qa-type="close-tour">Close the tour</span>
+      </div>)
     }
   ]
 
@@ -72,3 +70,5 @@ export default function GameChannelsWithTour ({ storageKey, tourIsOpen }) {
     </>
   )
 }
+
+export default GameChannelsWithTour

@@ -1,11 +1,20 @@
-import React, { useReducer } from 'react'
+import React, { useState } from 'react'
 import Select from 'react-select'
-import TextInput from '../Components/Inputs/TextInput'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { getWargame } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { serverPath } from '../consts'
+import { Role, WargameList } from '@serge/custom-types'
+import { TextInput } from '@serge/components'
 
-export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword }) {
+interface Props {
+  wargameList: WargameList[],
+  roleOptions: ({ name: string, roles: Role[] })[],
+  checkPassword: (pass: string) => void
+}
+
+interface Option { label: string, value: string }
+
+const PlayerUiLobby: React.FC<Props> = ({ wargameList, roleOptions, checkPassword }) => {
   if (!wargameList) {
     return (
       <div className="flex-content-wrapper flex-content-wrapper--welcome">
@@ -22,23 +31,22 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
       </div>
     )
   }
-  const [localState, setState] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    {
-      selectedWargame: '',
-      rolePassword: ''
+
+  const [selectedWargame, setSelectedWargame] = useState<Option | undefined>()
+  const [rolePassword, setRolePassword] = useState<string>('')
+  const state = usePlayerUiState()
+  const dispatch = usePlayerUiDispatch()
+
+  const updateSelectedWargame = (selectedWargame?: Option | null): void => {
+    if (selectedWargame) {
+      setSelectedWargame(selectedWargame)
+      getWargame(selectedWargame.value)(dispatch)
+    } else {
+      setSelectedWargame(undefined)
     }
-  )
-  const [state, dispatch] = [usePlayerUiState(), usePlayerUiDispatch()]
-  const { selectedWargame, rolePassword } = localState
-  const updateSelectedWargame = (selectedWargame) => {
-    setState({ selectedWargame })
-    getWargame(selectedWargame.value)(dispatch)
   }
-  const setRolePassword = val => {
-    setState({ rolePassword: val })
-  }
-  const setRolePasswordDemo = (e, val) => {
+
+  const setRolePasswordDemo = (e: React.MouseEvent, val: string): void => {
     e.preventDefault()
     setRolePassword(val)
   }
@@ -60,43 +68,46 @@ export default function PlayerUiLobby ({ wargameList, roleOptions, checkPassword
           </div>
           <div className="flex-content">
             <TextInput
-              label="Access code"
-              className="material-input"
+              placeholder="Access code"
+              variant="filled"
+              type='password'
+              value={rolePassword}
               updateStore={setRolePassword}
               options={{ numInput: false }}
-              data={rolePassword || ''}
             />
           </div>
           {selectedWargame && state.showAccessCodes &&
           <div className="demo-passwords">
             <h3>Not visible in production</h3>
             <ul className="demo-list-forces">
-              {roleOptions.map((force) => {
-                return (
-                  <li key={force.name} className="list-item-demo-passwords">
-                    <h4>{force.name}</h4>
-                    <ul data-qa-force-name={force.name}>
-                      {
-                        force.roles.map((role) => (
-                          <li key={role.name}>
-                            <button onClick={e => setRolePasswordDemo(e, role.password)} className="btn btn-sm btn-primary">
-                              {role.name}
-                            </button>
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  </li>
-                )
-              })
-              }
+              {roleOptions.map((force) => (<li key={force.name} className="list-item-demo-passwords">
+                <h4>{force.name}</h4>
+                <ul data-qa-force-name={force.name}>
+                  {force.roles.map((role) => (
+                    <li key={role.name}>
+                      <button onClick={e => setRolePasswordDemo(e, role.password)} className="btn btn-sm btn-primary">
+                        {role.name}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </li>))}
             </ul>
           </div>
           }
-          <button name="enter-game" disabled={!rolePassword} className="btn btn-action btn-action--primary" onClick={() => checkPassword(rolePassword)}>Enter</button>
+          <button
+            name="enter-game"
+            disabled={!rolePassword}
+            className="btn btn-action btn-action--primary"
+            onClick={() => checkPassword(rolePassword)}
+          >
+            Enter
+          </button>
         </div>
         }
       </div>
     </div>
   )
 }
+
+export default PlayerUiLobby
