@@ -64,7 +64,8 @@ const factory = (state: PlayerUi): Factory => {
 
     if (_.isEmpty(state.channels)) return
     const channelsArray = Object.entries(state.channels)
-
+    // NOTE: we were checking that channelsArray wasn't null
+    // DeepScan linter said it couldn't be
     if (channelsArray && channelsArray.length === 1) {
       const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === 'mapping')
       if (isOnlyMap) {
