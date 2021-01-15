@@ -17,6 +17,7 @@ const routeClearFromStep = (store: RouteStore, selectedId: string, stepNumber: n
     const planned: RouteStep[] = route.planned
     const trimmed = planned.filter((step: RouteStep) => step.turn < stepNumber)
     route.planned = trimmed
+    route.planned_trimmed = trimmed
   }
   
   return modified

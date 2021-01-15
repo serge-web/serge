@@ -7,25 +7,41 @@ import RouteData from '../types/route-data'
 /** the number of legs to display if the user wants trimmed data */
 export const lengthOfTrimmedLine = 2
 
+/** convenience method to find the first known location in a series of steps */
+const firstLocation = (turns: RouteStepType[], currentLocation: LatLng): LatLng => {
+  if (turns) {
+    let firstLoc: LatLng | undefined
+    turns.forEach((turn: RouteStepType) => {
+      if (turn.locations) {
+        if (!firstLoc) {
+          firstLoc = turn.locations[0]
+        }
+      }
+    })
+    if (firstLoc) return firstLoc
+  }
+  return currentLocation
+}
+
 /**
  *  generate the planned routes for this asset
- * @param {LatLng} startLocation location where the asset currently is
+ * @param {LatLng} currentLocation location where the asset currently is
  * @param {any} turns series of planned steps for asset
- * @param {boolean} trimmed whether to only show trimmed portion of data
  * @returns {RouteData} composite object containing route lines & end of turn marker locations
  */
-export const historicRoutesFor = (startLocation: LatLng | undefined, turns: RouteStepType[]): RouteData => {
+export const historicRoutesFor = (currentLocation: LatLng, turns: RouteStepType[]): RouteData => {
   const polyline: LatLng[] = []
   const turnEnds: Array<RouteTurn> = []
-  let lastLocation: RouteTurnDuo | undefined
+  let lastLocation: RouteTurnDuo = { pos: firstLocation(turns, currentLocation), name: 'step_0' }
   let lastButOneLocation: RouteTurnDuo | undefined
   let lastStatus: RouteTurnStatus | undefined
   // track the lenth of the previous turn. We use special processing
   // if it was only one step in length
   let lastTurnLength = 0
   let turnCtr = 0
+  let pendingMobile = false
   // start with current position
-  if (startLocation) {
+  if (currentLocation) {
     if (turns) {
       turns.forEach((turn: RouteStepType) => {
         turnCtr++
@@ -46,16 +62,17 @@ export const historicRoutesFor = (startLocation: LatLng | undefined, turns: Rout
             const firstStepAfterSingleLegTurn = stepsThisTurn === 0 && lastTurnLength === 1
             if (stepsThisTurn === 1 || firstStepAfterSingleLegTurn) {
               // do we have a previous step?
-              if (lastLocation && lastStatus) {
+              if (lastLocation && lastStatus && pendingMobile) {
                 // ok, we have enough for a turn
                 const newTurn: RouteTurn = {
                   current: lastLocation,
                   previous: lastButOneLocation,
-                  turn: turnCtr,
+                  turn: turnCtr - 1,
                   next: currentLocation,
                   status: lastStatus
                 }
                 turnEnds.push(newTurn)
+                pendingMobile = false
               }
             }
             lastButOneLocation = lastLocation
@@ -64,28 +81,57 @@ export const historicRoutesFor = (startLocation: LatLng | undefined, turns: Rout
             polyline.push(step)
             stepsThisTurn++
           })
-
+          pendingMobile = true
           lastTurnLength = thisTurnLength
+        } else {
+          if (lastLocation && lastStatus && pendingMobile) {
+            // store the previous data
+            const newTurn: RouteTurn = {
+              current: lastLocation,
+              previous: lastButOneLocation,
+              turn: turnCtr - 1,
+              next: undefined,
+              status: lastStatus
+            }
+            turnEnds.push(newTurn)
+          }
+          pendingMobile = false
+          // now create the static marker
+          const currentLocation: RouteTurnDuo = { pos: lastLocation.pos, name: 'step_' + turnCtr }
+          const status: RouteTurnStatus = turn.status.speedKts
+            ? { speedKts: turn.status.speedKts, state: turn.status.state }
+            : { state: turn.status.state }
+
+          // ok, we have enough for a turn
+          const newTurn: RouteTurn = {
+            current: currentLocation,
+            turn: turnCtr,
+            status: status
+          }
+          turnEnds.push(newTurn)
+
+          // store these values
+          lastButOneLocation = lastLocation
+          lastLocation = currentLocation
+
+          // clear lastStatus, so mobile doesn't try to re-store this turn
+          lastStatus = undefined
         }
       })
       // store the line end if it's history
-      polyline.push(startLocation)
+      polyline.push(currentLocation)
     }
 
-    if (turnEnds.length === 0) {
-      // there was only a single point in the history, so
-      // we weren't able to loop around, then "look back" on the previous
-      // step
-      if (lastLocation && lastStatus) {
-        const nextLocation: RouteTurnDuo = { pos: startLocation, name: 'step_0' }
-        const lastTurn: RouteTurn = {
-          current: lastLocation,
-          next: nextLocation,
-          turn: 1,
-          status: lastStatus
-        }
-        turnEnds.push(lastTurn)
+    if (lastLocation && lastStatus && pendingMobile) {
+      const turn: number = turnEnds.length ? turnEnds[turnEnds.length - 1].turn + 1 : 1
+      const nextLocation: RouteTurnDuo = { pos: currentLocation, name: 'step_0' }
+      const lastTurn: RouteTurn = {
+        current: lastLocation,
+        next: nextLocation,
+        turn: turn,
+        status: lastStatus
       }
+      turnEnds.push(lastTurn)
     }
   }
   const res: RouteData = { polyline: polyline, turnEnds: turnEnds }

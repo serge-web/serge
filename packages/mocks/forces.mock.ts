@@ -29,7 +29,7 @@ export const forces: ForceData[] = [
           {
             route: ['R23'],
             status: {
-              speedKts: 20,
+              speedKts: 10,
               state: 'Transiting'
             },
             turn: 0
@@ -45,7 +45,7 @@ export const forces: ForceData[] = [
           {
             route: ['P21'],
             status: {
-              speedKts: 20,
+              speedKts: 30,
               state: 'Transiting'
             },
             turn: 2
@@ -364,17 +364,15 @@ export const forces: ForceData[] = [
             turn: 0
           },
           {
-            route: [ 'N06', 'M06' ],
             status: {
-              speedKts: 10,
-              state: 'Transiting'
+              state: 'Moored'
             },
             turn: 1
           },
           {
             route: ['N05', 'N04'],
             status: {
-              speedKts: 10,
+              speedKts: 20,
               state: 'Transiting'
             },
             turn: 2
@@ -397,12 +395,8 @@ export const forces: ForceData[] = [
             turn: 3
           },
           {
-            route: [
-              'J05'
-            ],
             status: {
-              speedKts: 10,
-              state: 'Transiting'
+              state: 'Moored'
             },
             turn: 4
           },
@@ -491,7 +485,7 @@ export const forces: ForceData[] = [
               'K09'
             ],
             status: {
-              speedKts: 10,
+              speedKts: 20,
               state: 'Transiting'
             },
             turn: 6
@@ -501,7 +495,7 @@ export const forces: ForceData[] = [
               'J09'
             ],
             status: {
-              speedKts: 10,
+              speedKts: 30,
               state: 'Transiting'
             },
             turn: 7

@@ -46,7 +46,6 @@ const calculateTurnAngle = (thisStep: RouteTurn): number => {
 }
 
 const createTurnMarkers = (routes: RouteData,
-  turnNumber: number,
   type: string,
   color: string,
   selected: boolean,
@@ -54,31 +53,48 @@ const createTurnMarkers = (routes: RouteData,
   return routes.turnEnds.map((step: RouteTurn, index: number) => {
     const markers = (color: string, routeTurn: RouteTurn): JSX.Element => {
       // start from the current game turn, increment by 0-based offset
-      const currentTurn: number = turnNumber + index + 1
+      const currentTurn: number = step.turn
       const turn: string = padInteger(currentTurn)
       // note: check for presence of routeTurn - there may be no planned steps
       if (routeTurn && selected === true) {
-        const angle = calculateTurnAngle(routeTurn)
-        return (
-          <>
-            <Marker key={`${type}_text_turns_${index}`} position={step.current.pos} width="2" icon={L.divIcon({
-              html: `<text>T${turn}: ${step.status.state} ${speedLabel(step.status)}</text>`,
-              iconSize: [labelLength(step.status), 20]
-            })}>
-            </Marker>
-            <Marker key={`${type}_turns_${index}`} position={step.current.pos} width="2" icon={L.divIcon({
-              html: svgIcon(color, angle || 0),
-              iconSize: [20, 20]
-            })}>
-              <Popup open={false}>
-                <Button
-                // Note: here we have available handlers to activate the removeLastTurn function
-                  onClick={(): void => removeLastTurn(currentTurn)}
-                >{`Clear route from Turn ${turn}`}</Button>
-              </Popup>
-            </Marker>
-          </>
-        )
+        // see if it's a marker for a mobile state
+        if (routeTurn.previous || routeTurn.next) {
+          const angle = calculateTurnAngle(routeTurn)
+          return (
+            <>
+              <Marker key={`${type}_text_turns_${index}`} position={step.current.pos} width="2" icon={L.divIcon({
+                html: `<text>T${turn}: ${step.status.state} ${speedLabel(step.status)}</text>`,
+                iconSize: [labelLength(step.status), 20]
+              })}>
+              </Marker>
+              <Marker key={`${type}_turns_${index}`} position={step.current.pos} width="2" icon={L.divIcon({
+                html: svgIcon(color, angle || 0),
+                iconSize: [20, 20]
+              })}>
+                <Popup open={false}>
+                  <Button
+                  // Note: here we have available handlers to activate the removeLastTurn function
+                    onClick={(): void => removeLastTurn(currentTurn)}
+                  >{`Clear route from Turn ${turn}`}</Button>
+                </Popup>
+              </Marker>
+            </>
+          )
+        } else {
+          // ok, just return dumb stationery turn marker
+          return (
+            <>
+              <Marker key={`${type}_text_turns_${index}`} position={step.current.pos} width="2" icon={L.divIcon({
+                html: `<text>T${turn}: ${step.status.state}</text>`,
+                iconSize: [labelLength(step.status), 20]
+              })}/>
+              <Marker key={`${type}_turns_${index}_unselected`} position={step.current.pos} icon={L.divIcon({
+                html: simpleIcon(color),
+                iconSize: [10, 10]
+              })} />
+            </>
+          )
+        }
       } else {
         return (
           <Marker key={`${type}_turns_${index}_unselected`} position={step.current.pos} icon={L.divIcon({
