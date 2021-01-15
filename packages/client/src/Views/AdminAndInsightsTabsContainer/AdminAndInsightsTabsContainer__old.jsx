@@ -4,7 +4,6 @@ import { AdminPanelFooter } from '@serge/components';
 import GameAdmin from "./GameAdmin";
 import InsightsChannel from "./InsightsChannel";
 import { showHideObjectives } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
-import { PlayerStateContext } from "../Store/PlayerUi";
 import "@serge/themes/dependencies/flexlayout-react.scss";
 import "@serge/themes/App.scss";
 

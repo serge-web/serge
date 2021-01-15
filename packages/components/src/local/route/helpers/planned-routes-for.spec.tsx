@@ -14,7 +14,7 @@ it('Provides valid planned for multi-point planned with filter', () => {
   expect(route).toBeTruthy()
   if (route) {
     const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
-    expect(data.turnEnds.length).toEqual(1)
+    expect(data.turnEnds.length).toEqual(3)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
     // and the polyline
@@ -44,7 +44,7 @@ it('Provides valid planned for single-point planned with filter', () => {
   expect(route).toBeTruthy()
   if (route) {
     const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
-    expect(data.turnEnds.length).toEqual(1)
+    expect(data.turnEnds.length).toEqual(3)
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
     // and the polyline
