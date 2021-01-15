@@ -18,7 +18,7 @@ it('Provides valid planned for multi-point planned with filter', () => {
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
     // and the polyline
-    expect(data.polyline.length).toEqual(3)
+    expect(data.polyline.length).toEqual(5)
   }
 })
 
@@ -48,7 +48,7 @@ it('Provides valid planned for single-point planned with filter', () => {
     expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
     expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
     // and the polyline
-    expect(data.polyline.length).toEqual(2)
+    expect(data.polyline.length).toEqual(4)
   }
 })
 
