@@ -108,7 +108,6 @@ it('create full history & planned for blue unit', () => {
 })
 
 it('create trimmed history & full planned for selected blue unit', () => {
-
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeCreateStore(frigateId, forces, 'Blue', platformTypes, undefined, true, false)
   expect(store.routes.length).toEqual(11)
@@ -120,6 +119,7 @@ it('create trimmed history & full planned for selected blue unit', () => {
     expect(frigate.name).toEqual('Frigate')
     expect(frigate.history.length).toEqual(1)
     expect(frigate.planned.length).toEqual(2)
+    expect(frigate.planned_trimmed.length).toEqual(2)
     expect(frigate.selected).toBeTruthy()
   }
   
@@ -131,6 +131,7 @@ it('create trimmed history & full planned for selected blue unit', () => {
     expect(tanker.name).toEqual('Tanker')
     expect(tanker.history.length).toEqual(1)
     expect(tanker.planned.length).toEqual(3)  
+    expect(tanker.planned_trimmed.length).toEqual(3)
     expect(tanker.plannedTurnsCount).toEqual(3)
     expect(tanker.selected).toBeFalsy()
   }
@@ -156,7 +157,8 @@ it('create trimmed history & trimmed planned for without selected blue unit', ()
   if(frigate) {
     expect(frigate.name).toEqual('Frigate')
     expect(frigate.history.length).toEqual(1)
-    expect(frigate.planned.length).toEqual(1)  
+    expect(frigate.planned.length).toEqual(2)  
+    expect(frigate.planned_trimmed.length).toEqual(1)
     expect(frigate.plannedTurnsCount).toEqual(2)  
   }
 })
@@ -176,7 +178,8 @@ it('create trimmed history & trimmed planned for without selected red unit', () 
     if(frigate) {
       expect(frigate.name).toEqual('Frigate')
       expect(frigate.history.length).toEqual(1)
-      expect(frigate.planned.length).toEqual(1)  
+      expect(frigate.planned.length).toEqual(2)
+      expect(frigate.planned_trimmed.length).toEqual(1)
     }
   
   // check a red route
@@ -185,6 +188,7 @@ it('create trimmed history & trimmed planned for without selected red unit', () 
   if(dhow) {
     expect(dhow.name).toEqual('C065')
     expect(dhow.history.length).toEqual(1)
+    expect(dhow.planned_trimmed.length).toEqual(0)
     expect(dhow.planned.length).toEqual(0)  
   }  
 })
@@ -199,7 +203,8 @@ it('create trimmed history & planned for blue unit', () => {
   expect(group.color).toEqual('#00F')
   expect(group.name).toEqual('CTF 511')
   expect(group.history.length).toEqual(1)
-  expect(group.planned.length).toEqual(1)
+  expect(group.planned.length).toEqual(2)
+  expect(group.planned_trimmed.length).toEqual(1)
 
   // check inside a route
   const dhow: Route = store.routes[4]
@@ -216,7 +221,8 @@ it('create trimmed history & planned for blue unit but with full num of turns in
   expect(group.color).toEqual('#00F')
   expect(group.name).toEqual('CTF 511')
   expect(group.history.length).toEqual(1)
-  expect(group.planned.length).toEqual(1)
+  expect(group.planned_trimmed.length).toEqual(1)
+  expect(group.planned.length).toEqual(2)
   // the full number of planned turns should still be returned here
   expect(group.plannedTurnsCount).toEqual(2)
 })
@@ -232,6 +238,7 @@ it('can create route as umpire in planning mode', () => {
   expect(route.uniqid).toEqual('a0pra00001')
   expect(route.history.length).toEqual(1)
   expect(route.planned.length).toEqual(2)
+  expect(route.planned_trimmed.length).toEqual(2)
   expect(route.original.length).toEqual(2)
 })
 
@@ -243,8 +250,9 @@ it('can create route as umpire in planning mode, filtering planned points', () =
   const route: Route = store.routes[1]
   expect(route.uniqid).toEqual('a0pra00001')
   expect(route.history.length).toEqual(1)
-  expect(route.planned.length).toEqual(1)
-  expect(route.original.length).toEqual(1)
+  expect(route.planned.length).toEqual(2)
+  expect(route.planned_trimmed.length).toEqual(1)
+  expect(route.original.length).toEqual(2)
 })
 
 
@@ -339,7 +347,8 @@ it('route displays all hosted & comprising assets for blue force with filtered p
   expect(frigate.uniqid).toEqual('a0pra00001')
 
   // check we have planned route with only one step
-  expect(frigate.planned.length).toEqual(1)
+  expect(frigate.planned.length).toEqual(2)
+  expect(frigate.planned_trimmed.length).toEqual(1)
 })
 
 it('route displays all hosted & comprising assets for blue force', () => {

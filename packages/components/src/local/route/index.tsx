@@ -36,7 +36,7 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
       setHistoryTurnMarkers(historyMarkers)
 
       // and now planned routes
-      const plannedRoute: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
+      const plannedRoute: RouteData = plannedRoutesFor(route.currentLocation, route.planned_trimmed)
       setPlannedRoutes(plannedRoute)
       const plannedMarkers: JSX.Element[] = createTurnMarkers(plannedRoute, 'planned', color, selected, clearRouteHandler)
       setPlannedTurnMarkers(plannedMarkers)

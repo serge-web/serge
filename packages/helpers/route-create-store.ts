@@ -89,7 +89,6 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
                   newRoute.condition = existingRoute.condition
                 }
               }
-
               store.routes.push(newRoute)
             } else {
               // ok, special handling - if this is an organisation that comprises others

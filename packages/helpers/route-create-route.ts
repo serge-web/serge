@@ -126,19 +126,21 @@ const determineVisibleTo = (asset: Asset, playerForce: string): Array<string> =>
   }) : []
 }
 
-/** determine if any new turns have been planned
+/** convert steps to turns, so they look like what comes from the Forces object
  * 
  */
-const turnsHaveBeenPlanned = (original: RouteStep[] | undefined, planned: RouteStep[] | undefined): RouteStep[] | undefined => {
-  if(original && planned) {
-    if(original.length != planned.length) {
-      return planned
-    } else {
-      const len = original.length
-      if(original[len] !== planned[len]) {
-        return planned
-      }
-    }
+const stepsToTurns = (planned: RouteStep[] | undefined): PlannedTurn[] | undefined => {
+  if(planned && planned.length) {
+    const res: PlannedTurn[] = []
+    // TODO: switch tp map function
+    planned.forEach((step: RouteStep) => {
+      res.push({
+        turn: step.turn,
+        status: step.status,
+        route: step.coords
+      })
+    })
+    return res
   }
   return undefined
 }
@@ -197,14 +199,16 @@ const routeCreateRoute = (asset: Asset, color: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean, existingRoute: Route | undefined ): Route => {
 
+
   const currentStatus: RouteStatus =  produceStatusFor(status, platformTypes, asset)
 
-  // see if the local user has planned some turns
-  const plannedTurns: RouteStep[] | undefined = turnsHaveBeenPlanned(existingRoute && existingRoute.original, existingRoute && existingRoute.planned)
+  // provide the existing planned route as turns (which step array expects)
+  const plannedTurns: PlannedTurn[] | undefined = stepsToTurns(existingRoute && existingRoute.planned)
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
-  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, filterPlannedSteps) : []
+  const futureSteps_trimmed: Array<RouteStep> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, filterPlannedSteps) : []
+  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, false) : []
   const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
   const historySteps: Array<RouteStep> = createStepArray(asset.history, grid, 
@@ -238,6 +242,7 @@ const routeCreateRoute = (asset: Asset, color: string,
     currentPosition: currentPosition,
     currentLocation: currentLocation,
     planned: futureSteps,
+    planned_trimmed: futureSteps_trimmed,
     plannedTurnsCount: numberOfPlannedTurns,
     original: cloneDeep(futureSteps),
     asset: asset,
