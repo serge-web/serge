@@ -131,16 +131,12 @@ const determineVisibleTo = (asset: Asset, playerForce: string): Array<string> =>
  */
 const stepsToTurns = (planned: RouteStep[] | undefined): PlannedTurn[] | undefined => {
   if(planned && planned.length) {
-    const res: PlannedTurn[] = []
-    // TODO: switch tp map function
-    planned.forEach((step: RouteStep) => {
-      res.push({
+    return planned.map((step: RouteStep): PlannedTurn => {
+      return {
         turn: step.turn,
         status: step.status,
         route: step.coords
-      })
-    })
-    return res
+      }})
   }
   return undefined
 }
