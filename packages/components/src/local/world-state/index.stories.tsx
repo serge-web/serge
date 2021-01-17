@@ -55,20 +55,42 @@ export default {
           WorldStatePanels.ControlledBy
         ]
       }
+    },
+    viewAs: {
+      name: 'View As',
+      defaultValue: 'Blue',
+      control: {
+        type: 'radio',
+        options: [
+          'White',
+          'Blue',
+          'Red'
+        ]
+      }
     }
   }
 }
 
-const Template: Story<WorldStatePropTypes> = (args) => <WorldState {...args} />
+const Template: Story<WorldStatePropTypes> = (args) => {
+  // @ts-ignore: Add custom property for storybook
+  const { viewAs, store, ...props } = args
+  const forceNames = {
+    White: 'umpire',
+    Blue: 'Blue',
+    Red: 'Red'
+  }
+  const forceName = forceNames[viewAs]
+  const storeProp = store || routeCreateStore(undefined, forces, forceName, platformTypes, undefined, false, false)
+  return <WorldState store={storeProp} {...props} />
+}
 
-export const WithPhases = Template.bind({})
+export const WithPhases = Template
 WithPhases.args = {
   panel: WorldStatePanels.Control,
   isUmpire: false,
   plansSubmitted: false,
   canSubmitOrders: true,
   phase: Phase.Planning,
-  store: routeCreateStore(undefined, forces, 'Blue', platformTypes, undefined, false, false),
   submitTitle: 'Submit',
   name: 'World State'
 }
