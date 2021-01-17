@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import TextInput from '../../atoms/text-input'
@@ -25,11 +25,33 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
     setWargameQuery(target.value)
   }
 
+  const openWargameMenu = async (title: string, menuRef: any): Promise<void> => {
+    await setWargameMenuOpen(title)
+    const menuEl = (menuRef || {}).current
+    const parentEl = (menuEl || {}).parentElement
+    const scrollEl = document.querySelector('.wargame-list__scrollbar')
+    const { scrollHeight, offsetTop } = menuEl || {}
+    const { offsetTop: parentElOffsetTop } = parentEl || {}
+    const {
+      height: scrollElHeight = '0',
+      paddingBottom: parentElPaddingBottom = '0'
+    } = scrollEl ? window.getComputedStyle(scrollEl) : {}
+    const containerHeight = parseFloat(scrollElHeight) - parseFloat(parentElPaddingBottom)
+    if (menuEl &&
+      parentEl &&
+      scrollHeight + offsetTop + parentElOffsetTop > containerHeight
+    ) {
+      menuEl.style.top = 'auto'
+      menuEl.style.bottom = 0
+    }
+  }
+
   const renderContent = (): React.ReactNode => wargames.filter(searchByQuery).map((game, id) => {
     const gameTitleProps = {
       ...game,
       onClick: onGameClick
     }
+    const optionMenuRef = useRef(null)
     return (
       <div
         className={styles['searchlist-title']}
@@ -40,11 +62,11 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
           icon={faEllipsisH}
           className={styles['wargame-option-menu-btn']}
           title="Wargame menu"
-          onClick={(): void => setWargameMenuOpen(game.title)}
+          onClick={async (): Promise<void> => await openWargameMenu(game.title, optionMenuRef)}
         />
         {
           wargameMenuOpen === game.title && (
-            <div className={styles['contain-option-menu']}>
+            <div ref={optionMenuRef} className={styles['contain-option-menu']}>
               <div
                 className={styles['wargame-option-menu-bg']}
                 onClick={(): void => setWargameMenuOpen('')}
@@ -72,6 +94,7 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
       />
       <div className={styles['searchlist-list']}>
         {useCustomScroll ? <ScrollArea
+          className="wargame-list__scrollbar"
           verticalContainerStyle={{ borderRadius: '6px' }}
           verticalScrollbarStyle={{ borderRadius: '6px' }}
         >
