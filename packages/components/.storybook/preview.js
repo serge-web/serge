@@ -1,5 +1,4 @@
 import React from 'react'
-import { addParameters, addDecorator } from '@storybook/react';
 import { addReadme, configureReadme } from 'storybook-readme';
 import { MuiThemeProvider as ThemeProvider, styled } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -57,24 +56,30 @@ configureReadme({
   )
 });
 
-addParameters({
+export const parameters = {
   options: {
     showSearchBox: true
   },
-  backgrounds: [
-    { name: 'white', value: '#fff', default: true },
-    { name: 'black', value: '#000' },
-    { name: 'grey', value: '#ddd' },
-    { name: 'splash', value: '#013c5d' },
-    { name: 'channel', value: '#0e5680' },
-    { name: 'message', value: '#00274b' },
-    { name: 'sea', value: '#8ec7e8' },
-    { name: 'land', value: '#d9b86c' },
-  ],
+  backgrounds: {
+    default: 'white',
+    values: [{ name: 'white', value: '#fff', default: true },
+      { name: 'black', value: '#000' },
+      { name: 'grey', value: '#ddd' },
+      { name: 'splash', value: '#013c5d' },
+      { name: 'channel', value: '#0e5680' },
+      { name: 'message', value: '#00274b' },
+      { name: 'sea', value: '#8ec7e8' },
+      { name: 'land', value: '#d9b86c' },]
+  },
   readme: {
     info: { inline: true },
     codeTheme: 'atom-dark',
+  },
+  actions: {
+    argTypesRegex: "^on[A-Z].*"
   }
-});
+};
 
-addDecorator(addReadme);
+export const decorators = [
+  addReadme
+];
