@@ -18,18 +18,17 @@ const MessageCreator: React.FC<Props> = (props) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [selectedSchema, setSelectedSchema] = useState<any>(props.schema)
   const state = usePlayerUiState()
+  const { selectedForce } = state
+  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const sendMessage = (): void => {
-    const curForce = state.allForces.find((force) => force.uniqid === state.selectedForce)
-    if (!curForce) return
-
     const details: MessageDetails = {
       channel: props.curChannel,
       from: {
-        force: curForce.name,
-        forceColor: state.forceColor,
+        force: selectedForce.name,
+        forceColor: selectedForce.color,
         role: state.selectedRole,
-        icon: curForce.icon,
+        icon: selectedForce.icon,
       },
       messageType: selectedSchema.title,
       timestamp: new Date().toISOString(),

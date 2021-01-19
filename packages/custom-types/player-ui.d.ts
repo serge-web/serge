@@ -14,8 +14,7 @@ export interface PlayerUiChatChannel {
 }
 
 export default interface PlayerUi {
-  selectedForce: string,
-  forceColor: string,
+  selectedForce?: ForceData,
   selectedRole: string,
   isObserver: boolean,
   canSubmitPlans: boolean,

@@ -12,18 +12,17 @@ import '@serge/themes/App.scss'
 const InsightsModal: React.FC = () => {
 
   const state = usePlayerUiState()
+  const { selectedForce } = state
+  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   const dispatch = usePlayerUiDispatch()
   if (!state.modalOpened) return <></>
 
   // TODO: Non defined types in @serge/components/InsightForm
   // @ts-ignore
   const handleSend = ({ name, message }) => {
-    const force = state.allForces.find((force) => force.uniqid === state.selectedForce)
-    if (force === undefined) throw Error('Selected Force not found')
-
     let from = {
-      force: force.name,
-      forceColor: state.forceColor,
+      force: selectedForce.name,
+      forceColor: selectedForce.color,
       role: state.selectedRole,
       name
     }

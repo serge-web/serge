@@ -27,8 +27,10 @@ const json = {
 const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
-
-  const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${state.selectedForce}-${state.selectedRole}`)
+  const { selectedForce } = state
+  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
+  
+  const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
 
   const getModel = ():Model => {
     let model = expiredStorage.getItem(modelName)
@@ -46,11 +48,8 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
     computeTabs(state, model)
   }, [state])
 
-  const force = state.allForces.find((force) => force.uniqid === state.selectedForce)
-  if (!force) return <div/>
-
   return (
-    <div className='contain-channel-tabs' data-force={force.uniqid} ref={rootRef}>
+    <div className='contain-channel-tabs' data-force={selectedForce.uniqid} ref={rootRef}>
       <FlexLayout.Layout
         model={model}
         factory={factory(state)}

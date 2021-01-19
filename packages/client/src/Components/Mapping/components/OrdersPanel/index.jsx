@@ -11,14 +11,14 @@ const OrdersPanel = ({ selectedForce, allForces, phase, onSendClick, planningNow
   /** only show the orders panel if we're umpire in adjudication, or anyone in planning phase */
   const showOrders = () => {
     if (phase === ADJUDICATION_PHASE) {
-      return selectedForce === UMPIRE_FORCE && turn !== 0
+      return selectedForce.uniqid === UMPIRE_FORCE && turn !== 0
     } else {
       return true
     }
   }
 
   const panelTitle = () => {
-    if (phase === ADJUDICATION_PHASE && selectedForce === UMPIRE_FORCE) {
+    if (phase === ADJUDICATION_PHASE && selectedForce.uniqid === UMPIRE_FORCE) {
       return 'State of World'
     } else {
       return 'Planning Orders'
@@ -43,7 +43,7 @@ const OrdersPanel = ({ selectedForce, allForces, phase, onSendClick, planningNow
         transitionLeaveTimeout={300}>
         { active &&
         <Body
-          selectedForce={selectedForce}
+          selectedForce={selectedForce.uniqid}
           planningNow={planningNow}
           allForces={allForces}
           onSendClick={onSendClick} />

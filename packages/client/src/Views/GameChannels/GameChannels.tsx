@@ -32,9 +32,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
     selectedForce
   } = usePlayerUiState()
 
-  const force: ForceData | undefined = allForces.find((force) => force.uniqid === selectedForce)
-
-  if (force == undefined) {
+  if (selectedForce == undefined) {
     return (
       <div className="flex-content--center">
         <h1>Chosen force not in game</h1>
@@ -49,7 +47,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
     <div className="message-feed in-game-feed" data-tour="fourth-step">
       <ChannelTabsContainer rootRef={el => {
         // @ts-ignore
-        if (el) window.channelTabsContainer[force.uniqid] = el
+        if (el) window.channelTabsContainer[selectedForce.uniqid] = el
       }}/>
     </div>
     <div className={classNames({"message-feed": true, "out-of-game-feed": true, "umpire-feed": isGameControl})} data-tour="fifth-step">
@@ -74,7 +72,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
       />
       <AdminAndInsightsTabsContainer />
       {showObjective && <ForceObjective
-        force={force}
+        force={selectedForce}
         selectedRole={selectedRole}
         onIconClick={(): void => dispatch(showHideObjectives())}
       />}

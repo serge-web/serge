@@ -4,7 +4,7 @@ import { AdminPanelFooter } from '@serge/components'
 import getByPassUrl from './helpers/getByPassUrl'
 import addTabs from './helpers/addTabs'
 import factory from './helpers/factory'
-import json from './helpers/json'
+import { FLEX_LAYOUT_MODEL_DEFAULT } from '../../consts'
 import FlexLayout, { Model } from 'flexlayout-react'
 import { showHideObjectives } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
@@ -12,17 +12,17 @@ import { showHideObjectives } from '../../ActionsAndReducers/playerUi/playerUi_A
 const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const state = usePlayerUiState()
   const [byPassUrl] = useState<URL>(getByPassUrl(state))
-  const [model] = useState<Model>(FlexLayout.Model.fromJson(json))
+  const [model] = useState<Model>(FlexLayout.Model.fromJson(FLEX_LAYOUT_MODEL_DEFAULT))
   const gameAdmin = 'Game Admin'
   const gameAdminTitle = 'Social Media'
   const insights = 'Insights'
   const dispatch = usePlayerUiDispatch()
+  const { selectedForce } = state
+  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   useEffect(() => {
     addTabs(state, model, gameAdmin, gameAdminTitle, insights)
   }, [])
-
-  const force = state.allForces.find((force) => force.uniqid === state.selectedForce)
 
   return (
     <>
@@ -32,8 +32,9 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
         classNameMapper={defaultClassName => `${defaultClassName} ${defaultClassName}--undo-transparent`}
       />
       <AdminPanelFooter
-        force={force}
+        force={selectedForce}
         selectedRole={state.selectedRole}
+        // @ts-ignore TODO: change type for admin panel
         byPassUrl={byPassUrl}
         onIconClick={(): void => dispatch(showHideObjectives())}
       />

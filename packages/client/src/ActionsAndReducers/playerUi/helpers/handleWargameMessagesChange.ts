@@ -51,8 +51,9 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
       if (!matchedChannel) {
         delete channels[channelId]
       } else {
+        const { selectedForce } = newState
         const isParticipant = matchedChannel.participants && matchedChannel.participants.some(p => matchedForceAndRoleFilter(p, newState))
-        const allRolesIncluded = matchedChannel.participants && matchedChannel.participants.some(p => matchedAllRolesFilter(p, newState.selectedForce))
+        const allRolesIncluded = selectedForce && matchedChannel.participants && matchedChannel.participants.some(p => matchedAllRolesFilter(p, selectedForce.uniqid))
 
         if (isParticipant || allRolesIncluded || newState.isObserver) {
           // ok, this is a channel we wish to display
@@ -66,7 +67,8 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
     // create any new channels & add to current channel
     newState.allChannels.forEach((channel) => {
       const channelActive = channel.participants && channel.participants.some(p => matchedForceAndRoleFilter(p, newState))
-      const allRoles = channel.participants && channel.participants.some(p => matchedAllRolesFilter(p, newState.selectedForce))
+      const { selectedForce } = newState
+      const allRoles = selectedForce && channel.participants && channel.participants.some(p => matchedAllRolesFilter(p, selectedForce.uniqid))
 
       // rename channel
       if (

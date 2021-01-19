@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 import { umpireForceTemplate } from '../consts'
 import NewMessage from './NewMessage'
-import {ChannelMessagesList} from '@serge/components'
+import { ChannelMessagesList } from '@serge/components'
+
 import {
   getAllWargameMessages,
   openMessage,
@@ -16,6 +17,9 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
+  const { selectedForce } = state
+  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
+
   useEffect(() => {
     const channelClassName = state.channels[channelId].name.toLowerCase().replace(/ /g, '-')
     if (state.channels[channelId].messages!.length === 0) {
@@ -45,7 +49,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
     const dynamicBorderColor = `${forceColor}${hasBeenRead ? 'B3':''}`
     // @ts-ignore
     const timestamp = moment(details.timestamp)
-    const isUmpire = state.selectedForce === umpireForceTemplate.uniqid
+    const isUmpire = selectedForce.uniqid === umpireForceTemplate.uniqid
     const detail = message || {}
     const onRead = handleOpenMessage
     let title
@@ -83,8 +87,8 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
     <div className={channelTabClass} data-channel-id={channelId}>
       <ChannelMessagesList
         messages={messages}
-        icons={icons}
-        colors={colors}
+        icons={icons || []}
+        colors={colors || []}
         onMarkAllAsRead={(): void => dispatch(markAllAsRead(channelId))}
       />
       {
@@ -92,7 +96,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         <NewMessage
           orderableChannel={true}
           curChannel={channelId}
-          privateMessage={state.selectedForce === umpireForceTemplate.uniqid}
+          privateMessage={selectedForce.uniqid === umpireForceTemplate.uniqid}
           templates={state.channels[channelId].templates || []}
         />
       }

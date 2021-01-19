@@ -2,9 +2,9 @@ import { Participant, PlayerUi, Role } from '@serge/custom-types';
 
 export const matchedForceFilter = (
   participant: Participant,
-  selectedForce: string
+  selectedForceId: string
 ): boolean => (
-  participant.forceUniqid === selectedForce
+  participant.forceUniqid === selectedForceId
 )
 
 /**
@@ -19,7 +19,8 @@ export const matchedForceAndRoleFilter = (
   participant: Participant,
   { selectedForce, selectedRole }: PlayerUi
 ): boolean => (
-  matchedForceFilter(participant, selectedForce) &&
+  selectedForce !== undefined &&
+  matchedForceFilter(participant, selectedForce.uniqid) &&
   participant.roles.some(role => matchedRole(role, selectedRole))
 )
 

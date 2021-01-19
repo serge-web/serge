@@ -10,6 +10,8 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
 
   let itemTitle
   const state = usePlayerUiState()
+  const { selectedForce } = state
+  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   const { details, message, isOpen, hasBeenRead } = detail
   const dynamicBorderColor = `${details.from.forceColor}${hasBeenRead ? 'B3':''}`
   if (message.title) {
@@ -29,13 +31,14 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
           borderColor={dynamicBorderColor}
           isOpen={isOpen}
           title={itemTitle}
-          timestamp={moment(details.timestamp)}
+          timestamp={`${moment(details.timestamp)}`}
           role={details.from.role}
+          // @ts-ignore
           forceColor={details.from.forceColor}
           messageType={details.messageType}
           hasBeenRead={hasBeenRead}
           privateMessage={details.privateMessage}
-          isUmpire={state.selectedForce === umpireForceTemplate.uniqid}
+          isUmpire={selectedForce.uniqid === umpireForceTemplate.uniqid}
           detail={message}
           onRead={(): void => { open(detail) }}
         />

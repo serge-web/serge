@@ -38,7 +38,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     // @ts-ignore
     window.channelTabsContainer = window.channelTabsContainer || {}
     if(selectedForce && selectedRole) {
-      const storageTourIsOpen = expiredStorage.getItem(`${wargameTitle}-${selectedForce}-${selectedRole}-tourDone`) !== 'done'
+      const storageTourIsOpen = expiredStorage.getItem(`${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`) !== 'done'
       if (storageTourIsOpen !== tourIsOpen) setTourIsOpen(storageTourIsOpen)
     }
   }, [])
@@ -89,18 +89,21 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     />
   }
 
-  if (wargameInitiated) {
-    const setStorageKey = (): string => `${wargameTitle}-${selectedForce}-${selectedRole}-tourDone`
-    return <GameChannelsWithTour
-      storageKey={setStorageKey()}
-      tourIsOpen={tourIsOpen}
-    />
-  }
+  if (selectedForce) {
 
-  if (selectedForce === umpireForceTemplate.uniqid && isGameControl) {
-    <PlayerUiInitiate initiateGameplay={(): void => {
-      initiateGame(currentWargame)(dispatch)
-    }} />
+    if (wargameInitiated) {
+      const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
+      return <GameChannelsWithTour
+        storageKey={setStorageKey()}
+        tourIsOpen={tourIsOpen}
+      />
+    }
+
+    if (selectedForce.uniqid === umpireForceTemplate.uniqid && isGameControl) {
+      <PlayerUiInitiate initiateGameplay={(): void => {
+        initiateGame(currentWargame)(dispatch)
+      }} />
+    }
   }
 
   return <LoaderScreen />

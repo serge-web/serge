@@ -14,8 +14,9 @@ export interface ParticipantStates {
 }
 
 export const checkParticipantStates = (channel: ChannelData, newState: PlayerUi): CheckParticipantStates => {
-
-  const participatingForce: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceFilter(p, newState.selectedForce))
+  const { selectedForce } = newState
+  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
+  const participatingForce: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceFilter(p, selectedForce.uniqid))
   if (!participatingForce && !newState.isObserver) return {
     isParticipant: false,
     participatingRole: undefined,
@@ -26,7 +27,7 @@ export const checkParticipantStates = (channel: ChannelData, newState: PlayerUi)
   return {
     isParticipant: !!participatingRole,
     participatingRole: participatingRole,
-    allRolesIncluded: channel.participants && channel.participants.find(p => matchedAllRolesFilter(p, newState.selectedForce))
+    allRolesIncluded: channel.participants && channel.participants.find(p => matchedAllRolesFilter(p, selectedForce.uniqid))
   }
 }
 

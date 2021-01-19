@@ -9,21 +9,23 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
   const editorPreviewRef = createRef<HTMLDivElement>()
   const [editor, setEditor] = useState<Editor | null>(null)
   const state = usePlayerUiState()
+  const { selectedForce } = state
+  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   useEffect(() => {
     setEditor(setupEditor(editor, schema, editorPreviewRef))
   }, [])
 
   const sendMessage = (): void => {
-    const curForce = state.allForces.find(({ uniqid }) => uniqid === state.selectedForce)
-    if (curForce !== undefined && editor !== null) {
+
+    if (editor !== null) {
       let messageDetails = {
         channel: state.chatChannel.name,
         from: {
-          force: curForce.name,
-          forceColor: state.forceColor,
+          force: selectedForce.name,
+          forceColor: selectedForce.color,
           role: state.selectedRole,
-          icon: curForce.icon,
+          icon: selectedForce.icon,
         },
         messageType: schema.title,
         timestamp: new Date().toISOString(),
