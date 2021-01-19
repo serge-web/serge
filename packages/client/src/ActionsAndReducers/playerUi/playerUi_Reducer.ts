@@ -41,6 +41,7 @@ export const initialState: PlayerUi = {
   phase: '',
   gameDate: '',
   gameTurnTime: 0,
+  timeWarning: 0,
   realtimeTurnTime: 0,
   turnEndTime: 0,
   adjudicationStartTime: '',
