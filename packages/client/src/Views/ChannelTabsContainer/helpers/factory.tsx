@@ -53,7 +53,7 @@ const factory = (state: PlayerUi): Factory => {
         platforms={state.allPlatformTypes}
         phase={state.phase}
         turnNumber={state.currentTurn}
-        playerForce={state.selectedForce}
+        playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
         canSubmitOrders={true} // TODO get value from role
         channelID = {channelid}
         postBack={postback}
