@@ -25,6 +25,10 @@ export default interface PlayerUi {
   gameTurnTime: number,
   realtimeTurnTime: number,
   turnEndTime: number,
+  /**
+   * how long before end of turn that warning inidicator should appear (millis)
+   */
+  timeWarning: number,
   adjudicationStartTime: string,
   gameDescription: string,
   currentWargame: string,
