@@ -6,7 +6,6 @@ import { faShoePrints } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TurnProgression, ForceObjective } from '@serge/components'
 import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer'
-import { ForceData } from '@serge/custom-types'
 import {
   nextGameTurn,
   openModal,
@@ -16,7 +15,6 @@ import {
 
 const GameChannels: React.FC = (): React.ReactElement => {
   const {
-    allForces,
     currentWargame,
     gameDate,
     currentTurn,
