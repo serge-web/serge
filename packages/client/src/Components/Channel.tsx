@@ -10,8 +10,9 @@ import {
   markAllAsRead,
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel, MessageCustom } from '@serge/custom-types'
 import '@serge/themes/App.scss'
+import { INFO_MESSAGE } from '@serge/config'
 
 const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
@@ -33,51 +34,53 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   }
 
   const messages = (state.channels[channelId].messages || []).map(item => {
-    const {
-      details,
-      // @ts-ignore
-      message,
-      isOpen,
-      hasBeenRead,
-      infoType,
-      gameTurn
-    } = item
-    // @ts-ignore
-    const { role, forceColor } = details.from || {}
-    // @ts-ignore
-    const { messageType, privateMessage } = details
-    const dynamicBorderColor = `${forceColor}${hasBeenRead ? 'B3':''}`
-    // @ts-ignore
-    const timestamp = moment(details.timestamp)
-    const isUmpire = selectedForce.uniqid === umpireForceTemplate.uniqid
-    const detail = message || {}
-    const onRead = handleOpenMessage
-    let title
-    if (detail.title) {
-      title = detail.title
-    } else if(detail.content) {
-      // yes, we have content (probably chat) use it
-      title = detail.content
+    if(item.messageType === INFO_MESSAGE) {
+      // we don't display info messages in channels
+      return undefined
     } else {
-      // no content, just use message-type
-      title = detail.messageType
-    }
-    return {
-      ...item,
-      borderColor: dynamicBorderColor,
-      infoType,
-      gameTurn,
-      isOpen,
-      title,
-      timestamp,
-      role,
-      forceColor,
-      messageType,
-      hasBeenRead,
-      privateMessage,
-      isUmpire,
-      detail,
-      onRead,
+      const messageItem: MessageCustom = item
+      const {
+        details,
+        message,
+        isOpen,
+        hasBeenRead,
+        infoType,
+        gameTurn
+      } = messageItem
+      const { role, forceColor } = details.from || {}
+      const { messageType, privateMessage } = details
+      const dynamicBorderColor = `${forceColor}${hasBeenRead ? 'B3':''}`
+      const timestamp = moment(details.timestamp)
+      const isUmpire = selectedForce.uniqid === umpireForceTemplate.uniqid
+      const detail = message || {}
+      const onRead = handleOpenMessage
+      let title
+      if (detail.title) {
+        title = detail.title
+      } else if(detail.content) {
+        // yes, we have content (probably chat) use it
+        title = detail.content
+      } else {
+        // no content, just use message-type
+        title = detail.messageType
+      }
+      return {
+        ...item,
+        borderColor: dynamicBorderColor,
+        infoType,
+        gameTurn,
+        isOpen,
+        title,
+        timestamp,
+        role,
+        forceColor,
+        messageType,
+        hasBeenRead,
+        privateMessage,
+        isUmpire,
+        detail,
+        onRead,
+      }
     }
   })
   const icons = state.channels[channelId].forceIcons
