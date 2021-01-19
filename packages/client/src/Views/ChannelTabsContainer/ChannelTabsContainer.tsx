@@ -4,37 +4,22 @@ import factory from './helpers/factory'
 import computeTabs from './helpers/computeTabs'
 import tabRender from './helpers/tabRender'
 import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
-import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../../consts'
+import { expiredStorage, LOCAL_STORAGE_TIMEOUT, FLEX_LAYOUT_MODEL_DEFAULT } from '../../consts'
 import { getAllWargameMessages } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import Props from './types'
-
-const json = {
-  global: {
-    tabSetTabStripHeight: 45,
-    tabEnableClose: false,
-    tabEnableRenderOnDemand: false,
-  },
-  borders: [],
-  layout:{
-    'type': 'row',
-    'weight': 100,
-    'children': [
-    ]
-  }
-}
 
 const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
-  
+
   const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
 
   const getModel = ():Model => {
     let model = expiredStorage.getItem(modelName)
     if (model) return FlexLayout.Model.fromJson(JSON.parse(model))
-    return FlexLayout.Model.fromJson(json)
+    return FlexLayout.Model.fromJson(FLEX_LAYOUT_MODEL_DEFAULT)
   }
 
   const [model] = useState<Model>(getModel())
