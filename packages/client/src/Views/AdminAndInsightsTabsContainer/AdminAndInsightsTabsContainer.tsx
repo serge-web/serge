@@ -34,7 +34,6 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
       <AdminPanelFooter
         force={selectedForce}
         selectedRole={state.selectedRole}
-        // @ts-ignore TODO: change type for admin panel
         byPassUrl={byPassUrl}
         onIconClick={(): void => dispatch(showHideObjectives())}
       />
