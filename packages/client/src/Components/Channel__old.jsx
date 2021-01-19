@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component } from "react";
 import moment from "moment";
 import { umpireForceTemplate } from "../../consts";
 import NewMessage from "../NewMessage";

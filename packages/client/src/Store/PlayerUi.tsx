@@ -26,7 +26,8 @@ export const usePlayerUiState = (): PlayerUi => {
 
 export const usePlayerUiDispatch = (): Dispatch<PlayerUiActionTypes> => {
   const context = useContext(PlayerDispatchContext)
-  if (context === undefined || context === {}) {
+  const empty_context = {}
+  if (context === undefined || context === empty_context) {
     throw new Error('usePlayerUiDispatch must be used within a PlayerDispatchContext.Provider')
   }
   return context

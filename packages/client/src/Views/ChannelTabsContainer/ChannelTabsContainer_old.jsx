@@ -180,7 +180,9 @@ class ChannelTabsContainer extends Component {
 
     if (_.isEmpty(state.channels)) return;
     const channelsArray = Object.entries(state.channels);
-    if (channelsArray && channelsArray.length === 1) {
+    // note: we were checking for channelsArray not null in next line
+    // but linter said it can't be null
+    if (channelsArray.length === 1) {
       const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === "mapping");
       if (isOnlyMap) {
         return renderMap('map')

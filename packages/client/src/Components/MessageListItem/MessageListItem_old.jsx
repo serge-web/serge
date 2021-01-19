@@ -3,7 +3,7 @@ import moment from "moment"
 import { ChannelMessage } from "@serge/components"
 import "@serge/themes/App.scss"
 import { umpireForceTemplate } from "../consts"
-import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
+import { usePlayerUiState } from '../Store/PlayerUi'
 
 class MessageListItem extends Component {
 

@@ -6,7 +6,6 @@ import tabRender from './helpers/tabRender'
 import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../../consts'
 import { getAllWargameMessages } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import _ from 'lodash'
 import Props from './types'
 
 const json = {

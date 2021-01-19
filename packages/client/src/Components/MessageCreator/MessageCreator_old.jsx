@@ -3,7 +3,7 @@ import JSONEditor from "@json-editor/json-editor";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { saveMessage } from "../ActionsAndReducers/playerUi/playerUi_ActionCreators";
-import { usePlayerUiState, usePlayerUiDispatch } from "../Store/PlayerUi";
+import { usePlayerUiState } from "../Store/PlayerUi";
 
 import "@serge/themes/App.scss";
 
