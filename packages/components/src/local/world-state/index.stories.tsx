@@ -1,9 +1,9 @@
-import React, { ReactText } from 'react'
-
-import { withKnobs, radios, boolean } from '@storybook/addon-knobs'
+import React from 'react'
+import { Story } from '@storybook/react/types-6-0'
 
 // Import component files
 import WorldState from './index'
+import WorldStatePropTypes from './types/props'
 import docs from './README.md'
 import { routeCreateStore } from '@serge/helpers'
 import { forces, platformTypes } from '@serge/mocks'
@@ -16,60 +16,81 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/WorldState',
   component: WorldState,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   isUmpire: false,
   parameters: {
     readme: {
-      // Show readme before story
       content: docs
+    },
+    controls: {
+      expanded: true
+    },
+    actions: {
+      handles: [
+        'click .MuiButton-root'
+      ]
     }
   },
-  options: {
-    // We have no addons enabled in this story, so the addon panel should be hidden
-    showPanel: false
-  }
-}
-
-const canSubmitLabel = 'Show other platforms'
-const canSubmitDefaultValues = true
-
-const label = 'View As'
-const forceNames = {
-  White: 'umpire',
-  Blue: 'Blue',
-  Red: 'Red'
-}
-const defaultValue = 'Blue'
-
-const phasesPhaseLabel = 'Game phase'
-const phasesPhaseNames = {
-  Planning: Phase.Planning,
-  Adjudication: Phase.Adjudication
-}
-const phasePhaseValue = Phase.Planning
-
-const panelsLabel = 'Panel Tab'
-const panelsNames: Record<ReactText, WorldStatePanels> = {
-  Control: WorldStatePanels.Control,
-  Visiblity: WorldStatePanels.Visibility,
-  Controlled: WorldStatePanels.ControlledBy
-}
-const panelsValue: WorldStatePanels = WorldStatePanels.Control
-
-export const WithPhases: React.FunctionComponent = () => <WorldState panel={radios<WorldStatePanels>(panelsLabel, panelsNames, panelsValue)}
-  isUmpire={boolean('Player is umpire', false)}
-  plansSubmitted={false}
-  canSubmitOrders={boolean(canSubmitLabel, canSubmitDefaultValues)}
-  phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
-  store={routeCreateStore(undefined, forces, radios(label, forceNames, defaultValue), platformTypes, undefined, false, false)}
-  submitTitle='Submit' name="World State" />
-
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
-WithPhases.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
+  argTypes: {
+    canSubmitOrders: {
+      description: 'Show other platforms'
+    },
+    phase: {
+      description: 'Game phase',
+      control: {
+        type: 'radio',
+        options: [
+          Phase.Planning,
+          Phase.Adjudication
+        ]
+      }
+    },
+    panel: {
+      description: 'Panel Tab',
+      control: {
+        type: 'radio',
+        options: [
+          WorldStatePanels.Control,
+          WorldStatePanels.Visibility,
+          WorldStatePanels.ControlledBy
+        ]
+      }
+    },
+    viewAs: {
+      name: 'View As',
+      defaultValue: 'Blue',
+      control: {
+        type: 'radio',
+        options: [
+          'White',
+          'Blue',
+          'Red'
+        ]
+      }
     }
   }
+}
+
+const Template: Story<WorldStatePropTypes> = (args) => {
+  // @ts-ignore: Add custom property for storybook
+  const { viewAs, store, ...props } = args
+  const forceNames = {
+    White: 'umpire',
+    Blue: 'Blue',
+    Red: 'Red'
+  }
+  const forceName = forceNames[viewAs]
+  const storeProp = store || routeCreateStore(undefined, forces, forceName, platformTypes, undefined, false, false)
+  return <WorldState store={storeProp} {...props} />
+}
+
+export const WithPhases = Template
+WithPhases.args = {
+  panel: WorldStatePanels.Control,
+  isUmpire: false,
+  plansSubmitted: false,
+  canSubmitOrders: true,
+  phase: Phase.Planning,
+  submitTitle: 'Submit',
+  name: 'World State'
 }

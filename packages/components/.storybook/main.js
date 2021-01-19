@@ -2,12 +2,12 @@ const path = require('path')
 
 module.exports = {
     stories: [
-        '../src/**/*.stories.(tsx|mdx)',
+      '../src/**/*.stories.mdx',
+      '../src/**/*.stories.@(tsx)'
     ],
     addons: [
-        '@storybook/addon-knobs/register',
-        '@storybook/addon-viewport/register',
-        '@storybook/addon-backgrounds/register',
+        '@storybook/addon-links',
+        '@storybook/addon-essentials',
     ],
     webpackFinal: async config => {
         config.module.rules.push(
@@ -51,14 +51,14 @@ module.exports = {
         {
           test: /\.module.scss$/,
           use: [
-            require.resolve('style-loader'), 
+            require.resolve('style-loader'),
             {
               loader: 'css-modules-typescript-loader',
               options: {
                 mode: process.env.CI ? 'verify' : 'emit'
               }
             },
-            { 
+            {
               loader: require.resolve('css-loader'),
               options: {
                 importLoaders: 1,
