@@ -29,12 +29,19 @@ const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
       : { state: step.status.state }
 
     // sort the status
-    res.push({
-      turn: step.turn,
-      coords: steps,
-      locations: locations,
-      status: status
-    })
+    if(steps.length) {
+      res.push({
+        turn: step.turn,
+        coords: steps,
+        locations: locations,
+        status: status
+      })  
+    } else {
+      res.push({
+        turn: step.turn,
+        status: status
+      })
+    }
   }
   return res
 }
@@ -119,6 +126,21 @@ const determineVisibleTo = (asset: Asset, playerForce: string): Array<string> =>
   }) : []
 }
 
+/** convert steps to turns, so they look like what comes from the Forces object
+ * 
+ */
+const stepsToTurns = (planned: RouteStep[] | undefined): PlannedTurn[] | undefined => {
+  if(planned && planned.length) {
+    return planned.map((step: RouteStep): PlannedTurn => {
+      return {
+        turn: step.turn,
+        status: step.status,
+        route: step.coords
+      }})
+  }
+  return undefined
+}
+
 const produceStatusFor = (status: PlannedTurnStatus | undefined, platformTypes: PlatformTypeData[], asset: Asset): RouteStatus => {
 
     // handle when missing current status
@@ -171,14 +193,19 @@ const routeCreateRoute = (asset: Asset, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
   perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: PlannedTurnStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
-  filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean ): Route => {
+  filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean, existingRoute: Route | undefined ): Route => {
+
 
   const currentStatus: RouteStatus =  produceStatusFor(status, platformTypes, asset)
 
+  // provide the existing planned route as turns (which step array expects)
+  const plannedTurns: PlannedTurn[] | undefined = stepsToTurns(existingRoute && existingRoute.planned)
+
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
-  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(asset.plannedTurns,  grid, true, filterPlannedSteps) : []
-  const numberOfPlannedTurns = asset.plannedTurns ? asset.plannedTurns.length : 0
+  const futureSteps_trimmed: Array<RouteStep> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, filterPlannedSteps) : []
+  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, false) : []
+  const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
   const historySteps: Array<RouteStep> = createStepArray(asset.history, grid, 
       false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
@@ -211,6 +238,7 @@ const routeCreateRoute = (asset: Asset, color: string,
     currentPosition: currentPosition,
     currentLocation: currentLocation,
     planned: futureSteps,
+    planned_trimmed: futureSteps_trimmed,
     plannedTurnsCount: numberOfPlannedTurns,
     original: cloneDeep(futureSteps),
     asset: asset,

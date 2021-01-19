@@ -56,6 +56,8 @@ export default interface Route {
   currentLocation: L.LatLng | undefined,
   /** current planned steps for this asset */
   planned: Array<RouteStep>
+  /** trimmed/filtered version of current planned steps for this asset */
+  planned_trimmed: Array<RouteStep>
   /** number of planned steps for this asset (does not get clipped) */
   plannedTurnsCount: number,
   /** original future planned steps for this asset */
