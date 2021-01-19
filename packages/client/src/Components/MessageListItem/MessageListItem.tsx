@@ -33,7 +33,6 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
           title={itemTitle}
           timestamp={`${moment(details.timestamp)}`}
           role={details.from.role}
-          // @ts-ignore
           forceColor={details.from.forceColor}
           messageType={details.messageType}
           hasBeenRead={hasBeenRead}
