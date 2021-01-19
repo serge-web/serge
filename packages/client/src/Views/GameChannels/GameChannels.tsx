@@ -24,7 +24,6 @@ const GameChannels: React.FC = (): React.ReactElement => {
     phase,
     selectedRole,
     showObjective,
-    // @ts-ignore
     timeWarning,
     turnEndTime,
     selectedForce
