@@ -79,7 +79,6 @@ it('Provides valid planned for single-point planned with filter', () => {
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
-<<<<<<< HEAD
   if (route && route.currentLocation) {
     const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned_trimmed)
     expect(data.turnEnds.length).toEqual(1)
@@ -89,15 +88,6 @@ it('Provides valid planned for single-point planned with filter', () => {
     expect(data.polyline.length).toEqual(2)
   } else {
     expect(false).toBeTruthy() // should have route
-=======
-  if (route) {
-    const data: RouteData = plannedRoutesFor(route.currentLocation, route.planned)
-    expect(data.turnEnds.length).toEqual(3)
-    expect(data.turnEnds[0].current.pos.lat).toEqual(12.2)
-    expect(data.turnEnds[0].current.pos.lng).toEqual(23.4)
-    // and the polyline
-    expect(data.polyline.length).toEqual(4)
->>>>>>> 624c8b4ab63263f7d846bf626aca4e4ffbe36c9f
   }
 })
 
