@@ -100,7 +100,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     }
 
     if (selectedForce.uniqid === umpireForceTemplate.uniqid && isGameControl) {
-      <PlayerUiInitiate initiateGameplay={(): void => {
+      return <PlayerUiInitiate initiateGameplay={(): void => {
         initiateGame(currentWargame)(dispatch)
       }} />
     }
