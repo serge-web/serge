@@ -17,18 +17,8 @@ const storePlannedRoute = (uniqid: string, route: RouteTurn[], forces: ForceData
   const asset: Asset | undefined = findAsset(newForces, uniqid)
 
   if (asset) {
-    // store the planned route
-    asset.plannedTurns = route.map((step: RouteTurn) => {
-      // TODO: we probably don't need to do this conversion
-      const res: RouteTurn = {
-        turn: step.turn,
-        status: step.status
-      }
-      if (step.route && step.route.length) {
-        res.route = step.route
-      }
-      return res
-    })
+    // store copy of planned route
+    asset.plannedTurns = route.slice()
   }
   return newForces
 }
