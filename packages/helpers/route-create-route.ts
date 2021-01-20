@@ -126,22 +126,6 @@ const determineVisibleTo = (asset: Asset, playerForce: string): Array<string> =>
   }) : []
 }
 
-/** convert steps to turns, so they look like what comes from the Forces object
- * 
- */
-const stepsToTurns = (planned: RouteTurn[] | undefined): RouteTurn[] | undefined => {
-  // TODO: this method is now unnecessary
-  if(planned && planned.length) {
-    return planned.map((step: RouteTurn): RouteTurn => {
-      return {
-        turn: step.turn,
-        status: step.status,
-        route: step.route
-      }})
-  }
-  return undefined
-}
-
 const produceStatusFor = (status: RouteStatus | undefined, platformTypes: PlatformTypeData[], asset: Asset): RouteStatus => {
 
     // handle when missing current status
@@ -199,8 +183,8 @@ const routeCreateRoute = (asset: Asset, color: string,
 
   const currentStatus: RouteStatus =  produceStatusFor(status, platformTypes, asset)
 
-  // provide the existing planned route as turns (which step array expects)
-  const plannedTurns: RouteTurn[] | undefined = stepsToTurns(existingRoute && existingRoute.planned)
+  // store the existing planned route
+  const plannedTurns: RouteTurn[] | undefined = existingRoute && existingRoute.planned
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
