@@ -1,13 +1,13 @@
-import { RouteStore, Route, RouteStep } from '@serge/custom-types'
+import { RouteStore, Route, RouteTurn } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 
 /** add the step to this route
  * @param {RouteStore} store wargame data object
  * @param {string} selectedId uniqid route to be extended
- * @param {Array<RouteStep>} steps new step to store
+ * @param {Array<RouteTurn>} steps new step to store
  * @returns {RouteStore} updated route store
  */
-const routeAddSteps = (store: RouteStore, selectedId: string, steps: Array<RouteStep>): RouteStore => {
+const routeAddSteps = (store: RouteStore, selectedId: string, steps: Array<RouteTurn>): RouteStore => {
   // take deep copy
   const modified: RouteStore = cloneDeep(store)
   // find the matching route

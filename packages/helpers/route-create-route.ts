@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { Route, RouteStep, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception} from '@serge/custom-types'
+import { Route, RouteTurn, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception} from '@serge/custom-types'
 import { cloneDeep, kebabCase } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
@@ -7,7 +7,7 @@ import { PlanningStates, UMPIRE_FORCE } from '@serge/config'
 import hexNamed from './hex-named'
 
 const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
-  step: RouteStep, res: Array<RouteStep>): Array<RouteStep> => {
+  step: RouteTurn, res: Array<RouteTurn>): Array<RouteTurn> => {
   // dummy location, used if we don't have grid (such as in test)
   const dummyLocation: L.LatLng = L.latLng(12.2, 23.4)
 
@@ -49,9 +49,9 @@ const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
 /** convert legacy array object to new TypeScript structure
  *
  */
-const createStepArray = (turns: RouteStep[] | undefined, grid: SergeGrid<SergeHex<{}>> | undefined, planned: boolean,
-    filterSteps: boolean): Array<RouteStep> => {
-  let res: Array<RouteStep> = []
+const createStepArray = (turns: RouteTurn[] | undefined, grid: SergeGrid<SergeHex<{}>> | undefined, planned: boolean,
+    filterSteps: boolean): Array<RouteTurn> => {
+  let res: Array<RouteTurn> = []
   if (turns) {
     if(filterSteps) {
       if(turns.length > 0) {
@@ -64,7 +64,7 @@ const createStepArray = (turns: RouteStep[] | undefined, grid: SergeGrid<SergeHe
         }         
       }
     } else {
-      turns.forEach((step: RouteStep) => {
+      turns.forEach((step: RouteTurn) => {
         res = processStep(grid, step, res)  
       })
     }
@@ -129,10 +129,10 @@ const determineVisibleTo = (asset: Asset, playerForce: string): Array<string> =>
 /** convert steps to turns, so they look like what comes from the Forces object
  * 
  */
-const stepsToTurns = (planned: RouteStep[] | undefined): RouteStep[] | undefined => {
+const stepsToTurns = (planned: RouteTurn[] | undefined): RouteTurn[] | undefined => {
   // TODO: this method is now unnecessary
   if(planned && planned.length) {
-    return planned.map((step: RouteStep): RouteStep => {
+    return planned.map((step: RouteTurn): RouteTurn => {
       return {
         turn: step.turn,
         status: step.status,
@@ -200,15 +200,15 @@ const routeCreateRoute = (asset: Asset, color: string,
   const currentStatus: RouteStatus =  produceStatusFor(status, platformTypes, asset)
 
   // provide the existing planned route as turns (which step array expects)
-  const plannedTurns: RouteStep[] | undefined = stepsToTurns(existingRoute && existingRoute.planned)
+  const plannedTurns: RouteTurn[] | undefined = stepsToTurns(existingRoute && existingRoute.planned)
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
-  const futureSteps_trimmed: Array<RouteStep> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, filterPlannedSteps) : []
-  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, false) : []
+  const futureSteps_trimmed: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, filterPlannedSteps) : []
+  const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, false) : []
   const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
-  const historySteps: Array<RouteStep> = createStepArray(asset.history, grid, 
+  const historySteps: Array<RouteTurn> = createStepArray(asset.history, grid, 
       false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)

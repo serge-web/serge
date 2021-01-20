@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { RouteStore, Route, RouteStep } from '@serge/custom-types'
+import { RouteStore, Route, RouteTurn } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 
 interface ClusterSetter {
@@ -40,7 +40,7 @@ const findLocations = (store: RouteStore, selected: string | undefined): Array<C
     // now planned routes
     const numSteps: number = route.planned.length
     for(let stepCtr:number = 0; stepCtr < numSteps; stepCtr++) {
-      const step: RouteStep = route.planned[stepCtr]
+      const step: RouteTurn = route.planned[stepCtr]
       if(step.locations && step.route) {
         let len = step.locations.length
         for(let ctr:number = 0; ctr < len; ctr++) {
@@ -61,7 +61,7 @@ const findLocations = (store: RouteStore, selected: string | undefined): Array<C
     }
 
     // and historic tracks
-    route.history.forEach((step: RouteStep) => {
+    route.history.forEach((step: RouteTurn) => {
       if(step.locations && step.route) {
         let len = step.locations.length
         for(let ctr:number = 0; ctr < len; ctr++) {

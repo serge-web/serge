@@ -6,7 +6,7 @@ import { forces, platformTypes } from '@serge/mocks'
 import routeCreateStore from '../route-create-store'
 import routeDeclutter from '../route-declutter'
 
-import { RouteStore, Route, RouteStep } from '@serge/custom-types'
+import { RouteStore, Route, RouteTurn } from '@serge/custom-types'
 
 
 it('declutter routes', () => {
@@ -60,7 +60,7 @@ it('dont declutter last point on selected track', () => {
   }
 
   // store location of last planned cell for fisherman
-  const fisherPlanned: RouteStep | undefined = fisherA_1 && fisherA_1.planned && fisherA_1.planned[fisherA_1.planned.length-1]
+  const fisherPlanned: RouteTurn | undefined = fisherA_1 && fisherA_1.planned && fisherA_1.planned[fisherA_1.planned.length-1]
   const fisherLast = fisherPlanned && fisherPlanned.locations && fisherPlanned.locations[fisherPlanned.locations.length-1]
   expect(fisherLast).toBeTruthy()
 
@@ -111,7 +111,7 @@ it('declutter last point on un-selected track', () => {
   }
 
   // store location of last planned cell for fisherman
-  const fisherPlanned: RouteStep | undefined = fisherA_1 && fisherA_1.planned && fisherA_1.planned[fisherA_1.planned.length-1]
+  const fisherPlanned: RouteTurn | undefined = fisherA_1 && fisherA_1.planned && fisherA_1.planned[fisherA_1.planned.length-1]
   const fisherLast = fisherPlanned && fisherPlanned.locations && fisherPlanned.locations[fisherPlanned.locations.length-1]
   expect(fisherLast).toBeTruthy()
 

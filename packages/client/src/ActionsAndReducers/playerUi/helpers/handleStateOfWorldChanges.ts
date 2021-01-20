@@ -1,4 +1,4 @@
-import { MessageStateOfWorld, ForceData, Asset, ForceState, AssetState, RouteStep } from '@serge/custom-types'
+import { MessageStateOfWorld, ForceData, Asset, ForceState, AssetState, RouteTurn } from '@serge/custom-types'
 import { findAsset } from '@serge/helpers'
 
 export default (payload: MessageStateOfWorld, allForces: ForceData[]): ForceData[] => {
@@ -12,7 +12,7 @@ export default (payload: MessageStateOfWorld, allForces: ForceData[]): ForceData
       } else {
         asset.plannedTurns = entry.plannedTurns
       }
-      const history: RouteStep[] = asset.history ? asset.history : []
+      const history: RouteTurn[] = asset.history ? asset.history : []
       asset.history = entry.history ? history.concat(entry.history) : history
       asset.status = entry.newState || asset.status
       asset.position = entry.position || asset.position

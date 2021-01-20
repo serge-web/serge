@@ -1,6 +1,6 @@
-import RouteStep from './route-step'
+import RouteTurn from './route-turn'
 
 export default interface PlannedRoute {
   uniqid: string,
-  plannedTurns: RouteStep[]
+  plannedTurns: RouteTurn[]
 }

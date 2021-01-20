@@ -1,10 +1,10 @@
 import { SUBMIT_PLANS } from '@serge/config'
-import { MessageSubmitPlans, PlannedRoute, RouteStatus, Route, RouteStep } from '@serge/custom-types'
+import { MessageSubmitPlans, PlannedRoute, RouteStatus, Route, RouteTurn } from '@serge/custom-types'
 
 const collatePlanningOrders = (routes: Array<Route>): MessageSubmitPlans => {
   const results: Array<PlannedRoute> = routes.map((route: Route): PlannedRoute => {
-    const res: RouteStep[] = []
-    route.planned.forEach((step: RouteStep) => {
+    const res: RouteTurn[] = []
+    route.planned.forEach((step: RouteTurn) => {
       const coords: string[] | undefined = step.route
       const status: RouteStatus = step.status.speedKts ? {
         state: step.status.state,
@@ -12,7 +12,7 @@ const collatePlanningOrders = (routes: Array<Route>): MessageSubmitPlans => {
       } : {
         state: step.status.state
       }
-      const newStep: RouteStep = coords !== undefined ? {
+      const newStep: RouteTurn = coords !== undefined ? {
         turn: step.turn,
         route: coords,
         status: status

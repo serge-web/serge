@@ -1,4 +1,4 @@
-import { Perception, RouteStatus, RouteStep } from ".";
+import { Perception, RouteStatus, RouteTurn } from ".";
 
 /** state of world for an asset */
 export interface AssetState {
@@ -8,8 +8,8 @@ export interface AssetState {
   position: string
   perceptions: Perception[]
   destroyed?: boolean
-  history?: RouteStep[]
-  plannedTurns?: RouteStep[]
+  history?: RouteTurn[]
+  plannedTurns?: RouteTurn[]
   newState?: RouteStatus
 }
 

@@ -1,21 +1,8 @@
-/** details necessary to determine the orientation of a turn marker */
-interface RouteTurnDuo {
-  pos: L.LatLng,
-  name: string
-}
+import RouteStatus from './route-status'
 
-export interface RouteTurnStatus {
-  speedKts?: number
-  state: string
-}
-
-/** data-type that collates the data necessary to
- * generate the rotated turn marker lines
- */
 export default interface RouteTurn {
   turn: number,
-  previous?: RouteTurnDuo,
-  current: RouteTurnDuo,
-  next?: RouteTurnDuo
-  status: RouteTurnStatus
+  route?: Array<string>,
+  locations?: Array<L.LatLng>,
+  status: RouteStatus
 }

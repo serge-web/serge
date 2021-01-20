@@ -6,7 +6,7 @@ import { forces, platformTypes } from '@serge/mocks'
 import routeCreateStore from '../route-create-store'
 import routeAddSteps from '../route-add-steps'
 
-import { RouteStore, RouteStep } from '@serge/custom-types'
+import { RouteStore, RouteTurn } from '@serge/custom-types'
 
 it('clear route from selected step', () => {
   const store: RouteStore = routeCreateStore(undefined, forces, 'Blue', platformTypes, undefined, false, false)
@@ -17,7 +17,7 @@ it('clear route from selected step', () => {
   expect(store.routes[3].planned.length).toEqual(3)
   expect(store.routes[3].plannedTurnsCount).toEqual(3)
 
-  const step: RouteStep = {
+  const step: RouteTurn = {
     turn: 12,
     route: ['A01', 'A02', 'A03', 'A04'],
     status: { state: 'BBQ Alongside' }

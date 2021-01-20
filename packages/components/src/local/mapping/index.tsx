@@ -36,7 +36,7 @@ import {
   SelectedAsset,
   RouteStore,
   Route,
-  RouteStep,
+  RouteTurn,
   PlanTurnFormValues,
   ForceData
 } from '@serge/custom-types'
@@ -285,7 +285,7 @@ export const Mapping: React.FC<PropTypes> = ({
           return cell.centreLatLng
         })
         if (selRoute) {
-          const newStep: RouteStep = {
+          const newStep: RouteTurn = {
             turn: turnStart + 1,
             status: { state: newLeg.state, speedKts: newLeg.speed },
             route: coords,
@@ -358,7 +358,7 @@ export const Mapping: React.FC<PropTypes> = ({
    * force had planned
    * TODO: refactor to standalone function/helper
    */
-  // const routeChanged = (existingPlanned: RouteStep[] | undefined, adjudicated: AdjudicateTurnFormValues): boolean => {
+  // const routeChanged = (existingPlanned: RouteTurn[] | undefined, adjudicated: AdjudicateTurnFormValues): boolean => {
   //   if (!existingPlanned || existingPlanned.length === 0) {
   //     return true
   //   } else {
@@ -406,7 +406,7 @@ export const Mapping: React.FC<PropTypes> = ({
   //     //   return cell.centreLatLng
   //     // })
   //     // if (selRoute) {
-  //     //   const newStep: RouteStep = {
+  //     //   const newStep: RouteTurn = {
   //     //     turn: turnStart + 1,
   //     //     status: { state: newLeg.state, speedKts: newLeg.speed },
   //     //     coords: coords,
@@ -470,9 +470,9 @@ export const Mapping: React.FC<PropTypes> = ({
           turnStart = current.planned[current.planned.length - 1].turn
         }
         let store: RouteStore = routeStore
-        const steps: Array<RouteStep> = []
+        const steps: Array<RouteTurn> = []
         for (let ctr = 0; ctr < plannedTurn.turnsVal; ctr++) {
-          const step: RouteStep = { turn: ++turnStart, status: { state: status.name } }
+          const step: RouteTurn = { turn: ++turnStart, status: { state: status.name } }
           steps.push(step)
         }
         // store this step
@@ -510,7 +510,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // TODO: verify we're still handling planned routes
     // if (selectedAsset && routeStore && routeStore.selected &&
     //     routeStore.selected.planned && routeStore.selected.planned.length > 0) {
-    //   const route: RouteStep[] = routeStore.selected.planned
+    //   const route: RouteTurn[] = routeStore.selected.planned
 
     //   // create an updated forces object, with the new planned routes
     //   const newForces = storePlannedRoute(selectedAsset.uniqid, route, forcesState)

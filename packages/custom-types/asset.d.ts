@@ -1,4 +1,4 @@
-import { Perception, RouteStatus, RouteStep } from '@serge/custom-types'
+import { Perception, RouteStatus, RouteTurn } from '@serge/custom-types'
 
 export interface Asset {
   /**
@@ -8,12 +8,12 @@ export interface Asset {
   /** when an asset is first identified, only the 
    * contact id is shown.  Something like `C023`.
    */
-  contactId: string,
+  readonly contactId: string,
   /** the uniq id of this asset, present to allow
    * assets to be renamed, or multiple assets of same 
    * name present in game
    */
-  uniqid: string,
+  readonly uniqid: string,
   /** the current position of an asset. It's optional,
    * since an asset may be carried by another
    */
@@ -23,10 +23,10 @@ export interface Asset {
   perceptions: Array<Perception>,
   /** where this platform has already been
    */
-  history?: Array<RouteStep>,
+  history?: Array<RouteTurn>,
   /** the set of planned turns for this asset
    */
-  plannedTurns?: Array<RouteStep>,
+  plannedTurns?: Array<RouteTurn>,
   /** the current condition of this asset
    */
   condition: string,
