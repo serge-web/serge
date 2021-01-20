@@ -2,7 +2,6 @@ import { MessageStateOfWorld, ForceData, Asset, ForceState, AssetState, RouteTur
 import { findAsset } from '@serge/helpers'
 
 export default (payload: MessageStateOfWorld, allForces: ForceData[]): ForceData[] => {
-  const { detail } = payload
   payload.detail.data.detail.forEach((force: ForceState) => {
     force.assets.forEach((entry: AssetState) => {
       const asset: Asset = findAsset(allForces, entry.uniqid)
