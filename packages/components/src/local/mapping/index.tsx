@@ -245,6 +245,9 @@ export const Mapping: React.FC<PropTypes> = ({
     setRouteStore({ routes: [] })
     // now update the phase
     setCurrentPhase(phase)
+
+    // clear the selected asset - this has the effect of removing the planning/adjducation form
+    setSelectedAsset(undefined)
   }, [phase])
 
   useEffect(() => {
