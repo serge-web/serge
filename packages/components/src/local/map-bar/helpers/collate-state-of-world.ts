@@ -1,28 +1,5 @@
-import { Perception, Route, RouteStatus, RouteStep } from '@serge/custom-types'
+import { AssetState, ForceState, Route, StateOfWorld } from '@serge/custom-types'
 import { padInteger } from '@serge/helpers'
-
-interface AssetState {
-  uniqid: string
-  name: string
-  condition: string
-  perceptions: Perception[]
-  destroyed?: boolean
-  history?: RouteStep[]
-  plannedTurns?: RouteStep[]
-  newState?: RouteStatus
-}
-
-interface ForceState {
-  name: string
-  assets: Array<AssetState>
-}
-
-interface StateOfWorld {
-  comment: string
-  turn: number
-  name: string
-  detail: Array<ForceState>
-}
 
 const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): StateOfWorld => {
   const forces: Array<ForceState> = []
@@ -40,13 +17,14 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): StateOfW
       uniqid: route.uniqid,
       name: route.name,
       condition: route.asset.condition,
-      perceptions: route.asset.perceptions
+      perceptions: route.asset.perceptions,
+      history: route.history,
+      position: route.currentPosition
     }
 
     if (route.asset.destroyed) {
       assetState.destroyed = route.asset.destroyed
     } else {
-      assetState.history = route.history
       assetState.plannedTurns = route.planned
       assetState.newState = route.currentStatus
     }
@@ -54,7 +32,6 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): StateOfW
   })
 
   const res: StateOfWorld = {
-    comment: '',
     turn: turnNumber + 1,
     name: 'State of World T' + padInteger(turnNumber),
     detail: forces

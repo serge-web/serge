@@ -54,7 +54,7 @@ it('dont declutter last point on selected track', () => {
     // start off with cells
     const dhowLoc_1_cell: string = dhow_1.currentPosition
     const fisherPlanned_1 = fisherA_1.planned[fisherA_1.planned.length-1]
-    const lastLoc_1_cell: string | undefined = fisherPlanned_1.coords && fisherPlanned_1.coords[fisherPlanned_1.coords.length-1]
+    const lastLoc_1_cell: string | undefined = fisherPlanned_1.route && fisherPlanned_1.route[fisherPlanned_1.route.length-1]
     // confirm they're in the same cell
     expect(dhowLoc_1_cell).toEqual(lastLoc_1_cell)
   }
@@ -77,7 +77,7 @@ it('dont declutter last point on selected track', () => {
   if(fisherA_2 && dhow_2) {
     const dhowLoc_2: string = dhow_2.currentPosition
     const fisherPlanned_2 = fisherA_2.planned[fisherA_2.planned.length-1]
-    const lastLoc_2: string | undefined = fisherPlanned_2.coords && fisherPlanned_2.coords[fisherPlanned_2.coords.length-1]
+    const lastLoc_2: string | undefined = fisherPlanned_2.route && fisherPlanned_2.route[fisherPlanned_2.route.length-1]
     // confirm they're in the same cell
     expect(dhowLoc_2).toEqual(lastLoc_2)
 
@@ -105,7 +105,7 @@ it('declutter last point on un-selected track', () => {
     // start off with cells
     const dhowLoc_1_cell: string = dhow_1.currentPosition
     const fisherPlanned_1 = fisherA_1.planned[fisherA_1.planned.length-1]
-    const lastLoc_1_cell: string | undefined = fisherPlanned_1.coords && fisherPlanned_1.coords[fisherPlanned_1.coords.length-1]
+    const lastLoc_1_cell: string | undefined = fisherPlanned_1.route && fisherPlanned_1.route[fisherPlanned_1.route.length-1]
     // confirm they're in the same cell
     expect(dhowLoc_1_cell).toEqual(lastLoc_1_cell)
   }
@@ -128,7 +128,7 @@ it('declutter last point on un-selected track', () => {
   if(fisherA_2 && dhow_2) {
     const dhowLoc_2: string = dhow_2.currentPosition
     const fisherPlanned_2 = fisherA_2.planned[fisherA_2.planned.length-1]
-    const lastLoc_2: string | undefined = fisherPlanned_2.coords && fisherPlanned_2.coords[fisherPlanned_2.coords.length-1]
+    const lastLoc_2: string | undefined = fisherPlanned_2.route && fisherPlanned_2.route[fisherPlanned_2.route.length-1]
     // confirm they're in the same cell
     expect(dhowLoc_2).toEqual(lastLoc_2)
 

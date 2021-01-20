@@ -1,4 +1,4 @@
-import { Perception, PlannedTurn, PlannedTurnStatus } from '@serge/custom-types'
+import { Perception, RouteStatus, RouteStep } from '@serge/custom-types'
 
 export interface Asset {
   /**
@@ -23,10 +23,10 @@ export interface Asset {
   perceptions: Array<Perception>,
   /** where this platform has already been
    */
-  history?: Array<PlannedTurn>,
+  history?: Array<RouteStep>,
   /** the set of planned turns for this asset
    */
-  plannedTurns?: Array<PlannedTurn>,
+  plannedTurns?: Array<RouteStep>,
   /** the current condition of this asset
    */
   condition: string,
@@ -51,7 +51,7 @@ export interface Asset {
   /** current status of this asset 
    * 
   */
-  status?: PlannedTurnStatus
+  status?: RouteStatus
 }
 
 export default Asset

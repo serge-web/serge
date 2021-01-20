@@ -41,10 +41,10 @@ const findLocations = (store: RouteStore, selected: string | undefined): Array<C
     const numSteps: number = route.planned.length
     for(let stepCtr:number = 0; stepCtr < numSteps; stepCtr++) {
       const step: RouteStep = route.planned[stepCtr]
-      if(step.locations && step.coords) {
+      if(step.locations && step.route) {
         let len = step.locations.length
         for(let ctr:number = 0; ctr < len; ctr++) {
-          const thisPos: string = step.coords[ctr]
+          const thisPos: string = step.route[ctr]
           const updateThisStep: ClusterSetter = (newLoc: L.LatLng): void => {
             if(step.locations) {
               step.locations[ctr] = newLoc
@@ -62,10 +62,10 @@ const findLocations = (store: RouteStore, selected: string | undefined): Array<C
 
     // and historic tracks
     route.history.forEach((step: RouteStep) => {
-      if(step.locations && step.coords) {
+      if(step.locations && step.route) {
         let len = step.locations.length
         for(let ctr:number = 0; ctr < len; ctr++) {
-          const thisPos: string = step.coords[ctr]
+          const thisPos: string = step.route[ctr]
           const updateThisStep: ClusterSetter = (newLoc: L.LatLng): void => {
             if(step.locations) {
               step.locations[ctr] = newLoc

@@ -46,13 +46,13 @@ it('can create route with static steps under control as umpire in playing phase'
     expect(route.uniqid).toEqual('a0pra000100')
     expect(route.history.length).toEqual(3)
     // check non-mobile points looks how we expect
-    expect(route.history[0].coords).toBeTruthy()
-    expect(route.history[1].coords).toBeUndefined()
-    expect(route.history[2].coords).toBeTruthy()
+    expect(route.history[0].route).toBeTruthy()
+    expect(route.history[1].route).toBeUndefined()
+    expect(route.history[2].route).toBeTruthy()
     expect(route.planned.length).toEqual(3)
-    expect(route.planned[0].coords).toBeTruthy()
-    expect(route.planned[1].coords).toBeUndefined()
-    expect(route.planned[2].coords).toBeTruthy()
+    expect(route.planned[0].route).toBeTruthy()
+    expect(route.planned[1].route).toBeUndefined()
+    expect(route.planned[2].route).toBeTruthy()
     expect(route.original.length).toEqual(3)
   }
 })
@@ -295,9 +295,9 @@ it('support new way of storing past steps', () => {
     expect(route.uniqid).toEqual('a0pra000100')
     expect(route.history.length).toEqual(2)
     expect(route.history[0].turn).toEqual(5)
-    expect(route.history[0].coords).toBeDefined()
-    if (route.history[0].coords) {
-      expect(route.history[0].coords.length).toEqual(2)
+    expect(route.history[0].route).toBeDefined()
+    if (route.history[0].route) {
+      expect(route.history[0].route.length).toEqual(2)
     }
   } else {
     fail('failed to find red asset')
@@ -467,10 +467,10 @@ it('route displays full history for asset in red force', () => {
   if(dhow) {
     expect(dhow.name).toEqual('Dhow-A')
     expect(dhow.history.length).toEqual(3)
-    expect(dhow.history[2].coords && dhow.history[2].coords.length).toEqual(2)
+    expect(dhow.history[2].route && dhow.history[2].route.length).toEqual(2)
     // note: we put the second entry in 'route' structure, to test logic
-    expect(dhow.history[2].coords && dhow.history[2].coords[0]).toEqual('N05')
-    expect(dhow.history[2].coords && dhow.history[2].coords[1]).toEqual('N04')
+    expect(dhow.history[2].route && dhow.history[2].route[0]).toEqual('N05')
+    expect(dhow.history[2].route && dhow.history[2].route[1]).toEqual('N04')
   }
 })
 
@@ -485,8 +485,8 @@ it('route displays single step of history for asset in red force', () => {
     expect(dhow.name).toEqual('Dhow-A')
     expect(dhow.history.length).toEqual(1)
     expect(dhow.history[0].turn).toEqual(2)
-    expect(dhow.history[0].coords && dhow.history[0].coords.length).toEqual(2)
-    expect(dhow.history[0].coords && dhow.history[0].coords[0]).toEqual('N05')
-    expect(dhow.history[0].coords && dhow.history[0].coords[1]).toEqual('N04')
+    expect(dhow.history[0].route && dhow.history[0].route.length).toEqual(2)
+    expect(dhow.history[0].route && dhow.history[0].route[0]).toEqual('N05')
+    expect(dhow.history[0].route && dhow.history[0].route[1]).toEqual('N04')
   }
 })

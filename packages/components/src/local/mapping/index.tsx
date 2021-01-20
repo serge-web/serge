@@ -288,7 +288,7 @@ export const Mapping: React.FC<PropTypes> = ({
           const newStep: RouteStep = {
             turn: turnStart + 1,
             status: { state: newLeg.state, speedKts: newLeg.speed },
-            coords: coords,
+            route: coords,
             locations: locations
           }
 

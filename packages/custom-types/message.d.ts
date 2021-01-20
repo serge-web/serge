@@ -12,8 +12,8 @@ import {
 
 import Perception from './perception'
 import PlannedRoute from './planned-route'
-import ForceData from './force-data'
 import Visibility from './visibility'
+import { StateOfWorld } from '.'
 
 export interface MessageDetails {
   /** id of channel message sent from */
@@ -113,7 +113,7 @@ export interface MessageSubmitPlans {
 export interface MessageStateOfWorld {
   messageType: typeof STATE_OF_WORLD,
   readonly detail: {
-    data: ForceData[]
+    data: StateOfWorld
   }
 }
 

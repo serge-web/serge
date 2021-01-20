@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash'
 
-import { Asset, ForceData, PlannedTurn, RouteStep } from '@serge/custom-types'
+import { Asset, ForceData, RouteStep } from '@serge/custom-types'
 import { findAsset } from '@serge/helpers'
 
 /**
@@ -19,12 +19,13 @@ const storePlannedRoute = (uniqid: string, route: RouteStep[], forces: ForceData
   if (asset) {
     // store the planned route
     asset.plannedTurns = route.map((step: RouteStep) => {
-      const res: PlannedTurn = {
+      // TODO: we probably don't need to do this conversion
+      const res: RouteStep = {
         turn: step.turn,
         status: step.status
       }
-      if (step.coords && step.coords.length) {
-        res.route = step.coords
+      if (step.route && step.route.length) {
+        res.route = step.route
       }
       return res
     })

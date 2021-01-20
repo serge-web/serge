@@ -19,7 +19,7 @@ it('clear route from selected step', () => {
 
   const step: RouteStep = {
     turn: 12,
-    coords: ['A01', 'A02', 'A03', 'A04'],
+    route: ['A01', 'A02', 'A03', 'A04'],
     status: { state: 'BBQ Alongside' }
   }
 

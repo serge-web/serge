@@ -11,8 +11,8 @@ const routeGetLatestPosition = (currentLocation: string, planned: Array<RouteSte
   } else {
     let lastLocation:string = ''
     planned.forEach((step: RouteStep) => {
-      if(step.coords && step.coords.length > 0) {
-        lastLocation = step.coords[step.coords.length-1]
+      if(step.route && step.route.length > 0) {
+        lastLocation = step.route[step.route.length-1]
       }
     })
     if(lastLocation !== '') {

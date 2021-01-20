@@ -3,7 +3,7 @@ import RouteStatus from './route-status'
 
 export default interface RouteStep {
   turn: number,
-  coords?: Array<string>,
+  route?: Array<string>,
   locations?: Array<L.LatLng>,
   status: RouteStatus
 }

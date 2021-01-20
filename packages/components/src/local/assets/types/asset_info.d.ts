@@ -1,11 +1,11 @@
-import { PlannedTurnStatus } from '@serge/custom-types'
+import { RouteStatus } from '@serge/custom-types'
 import L from 'leaflet'
 
 export default interface AssetInfo {
   position: L.LatLng
   name: string
   condition: string
-  status?: PlannedTurnStatus
+  status?: RouteStatus
   type: string
   force: string
   perceivedForce: string
