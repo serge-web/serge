@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Props } from './types.d'
-import { Role } from '@serge/custom-types'
+import { Role, WargameList } from '@serge/custom-types'
 
 import PlayerUiLandingScreen from '../PlayerUiLandingScreen'
 import PlayerUiLobby from '../PlayerUiLobby'
@@ -48,10 +48,10 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     const _wargame = searchParams.get('wargame')
     const _access = searchParams.get('access')
     if (_wargame && _access) {
-      const selectedWargame = wargame.wargameList.filter(game => game.name.match(_wargame))
-      if (selectedWargame.length) {
+      const selectedWargame: WargameList | undefined = wargame.wargameList.find(game => game.name.match(_wargame))
+      if (selectedWargame) {
         setLoggedIn(true)
-        await getWargame(selectedWargame[0].name)(dispatch)
+        await getWargame(selectedWargame.name)(dispatch)
         handleCheckPassword(_access)
       }
     }
