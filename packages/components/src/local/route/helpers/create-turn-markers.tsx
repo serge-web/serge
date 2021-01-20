@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Marker, Popup } from 'react-leaflet'
 import RouteData from '../types/route-data'
-import { RouteTurn, RouteTurnStatus } from '@serge/custom-types'
+import { RouteMarker, RouteMarkerStatus } from '@serge/custom-types'
 import L from 'leaflet'
 import { simpleIcon, svgIcon } from './create-marker'
 import calculatePolylineAngle from './calculate-polyline-angle'
@@ -11,18 +11,18 @@ import Button from '@material-ui/core/Button'
 /** provided formatted speed label, if
  * as speed is present
  */
-const speedLabel = (status: RouteTurnStatus): string => {
+const speedLabel = (status: RouteMarkerStatus): string => {
   return status.speedKts ? '@ ' + status.speedKts + 'kts' : ''
 }
 
 /** control how wide the text label is. If there is a speed
  * we allow a wider label
  */
-const labelLength = (status: RouteTurnStatus): number => {
+const labelLength = (status: RouteMarkerStatus): number => {
   return status.speedKts ? 300 : 180
 }
 
-const calculateTurnAngle = (thisStep: RouteTurn): number => {
+const calculateTurnAngle = (thisStep: RouteMarker): number => {
   let angle = 0
   if (!thisStep.previous && thisStep.next) {
     // first marker
@@ -50,8 +50,8 @@ const createTurnMarkers = (routes: RouteData,
   color: string,
   selected: boolean,
   removeLastTurn: {(turnNumber: number): void}): JSX.Element[] => {
-  return routes.turnEnds.map((step: RouteTurn, index: number) => {
-    const markers = (color: string, routeTurn: RouteTurn): JSX.Element => {
+  return routes.turnEnds.map((step: RouteMarker, index: number) => {
+    const markers = (color: string, routeTurn: RouteMarker): JSX.Element => {
       // start from the current game turn, increment by 0-based offset
       const currentTurn: number = step.turn
       const turn: string = padInteger(currentTurn)

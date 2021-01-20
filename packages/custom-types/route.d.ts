@@ -1,8 +1,7 @@
 import { PlanningStates } from '@serge/config'
 import { Asset } from '.'
-import Role from './role'
 import RouteStatus from './route-status'
-import RouteStep from './route-step'
+import RouteTurn from './route-turn'
 
 export interface RouteChild {
   /** which asset this is */
@@ -47,7 +46,7 @@ export default interface Route {
   /** platform that comprise this unit */
   comprising: Array<RouteChild>,
   /** paste route for this asset */
-  history: Array<RouteStep>,
+  history: Array<RouteTurn>,
   /** current status of this asset */
   currentStatus: RouteStatus,
   /** current position of this asset */
@@ -55,13 +54,13 @@ export default interface Route {
   /** current position of this asset */
   currentLocation: L.LatLng | undefined,
   /** current planned steps for this asset */
-  planned: Array<RouteStep>
+  planned: Array<RouteTurn>
   /** trimmed/filtered version of current planned steps for this asset */
-  planned_trimmed: Array<RouteStep>
+  plannedTrimmed: Array<RouteTurn>
   /** number of planned steps for this asset (does not get clipped) */
   plannedTurnsCount: number,
   /** original future planned steps for this asset */
-  original: Array<RouteStep>
+  original: Array<RouteTurn>
   /** store the actual asset (so we have all details for State of World) */
   asset: Asset
   /** which forces can see this platform (force uniqids) */

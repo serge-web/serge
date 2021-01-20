@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { Route, RouteStatus, RouteStep, RouteChild, SergeGrid, SergeHex, Asset, PlannedTurnStatus, PlatformTypeData, PlannedTurn, PerceivedTypes, Perception} from '@serge/custom-types'
+import { Route, RouteTurn, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception} from '@serge/custom-types'
 import { cloneDeep, kebabCase } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
@@ -7,7 +7,7 @@ import { PlanningStates, UMPIRE_FORCE } from '@serge/config'
 import hexNamed from './hex-named'
 
 const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
-  step: PlannedTurn, res: Array<RouteStep>): Array<RouteStep> => {
+  step: RouteTurn, res: Array<RouteTurn>): Array<RouteTurn> => {
   // dummy location, used if we don't have grid (such as in test)
   const dummyLocation: L.LatLng = L.latLng(12.2, 23.4)
 
@@ -32,7 +32,7 @@ const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
     if(steps.length) {
       res.push({
         turn: step.turn,
-        coords: steps,
+        route: steps,
         locations: locations,
         status: status
       })  
@@ -49,9 +49,9 @@ const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
 /** convert legacy array object to new TypeScript structure
  *
  */
-const createStepArray = (turns: PlannedTurn[] | undefined, grid: SergeGrid<SergeHex<{}>> | undefined, planned: boolean,
-    filterSteps: boolean): Array<RouteStep> => {
-  let res: Array<RouteStep> = []
+const createStepArray = (turns: RouteTurn[] | undefined, grid: SergeGrid<SergeHex<{}>> | undefined, planned: boolean,
+    filterSteps: boolean): Array<RouteTurn> => {
+  let res: Array<RouteTurn> = []
   if (turns) {
     if(filterSteps) {
       if(turns.length > 0) {
@@ -64,7 +64,7 @@ const createStepArray = (turns: PlannedTurn[] | undefined, grid: SergeGrid<Serge
         }         
       }
     } else {
-      turns.forEach((step: PlannedTurn) => {
+      turns.forEach((step: RouteTurn) => {
         res = processStep(grid, step, res)  
       })
     }
@@ -126,22 +126,7 @@ const determineVisibleTo = (asset: Asset, playerForce: string): Array<string> =>
   }) : []
 }
 
-/** convert steps to turns, so they look like what comes from the Forces object
- * 
- */
-const stepsToTurns = (planned: RouteStep[] | undefined): PlannedTurn[] | undefined => {
-  if(planned && planned.length) {
-    return planned.map((step: RouteStep): PlannedTurn => {
-      return {
-        turn: step.turn,
-        status: step.status,
-        route: step.coords
-      }})
-  }
-  return undefined
-}
-
-const produceStatusFor = (status: PlannedTurnStatus | undefined, platformTypes: PlatformTypeData[], asset: Asset): RouteStatus => {
+const produceStatusFor = (status: RouteStatus | undefined, platformTypes: PlatformTypeData[], asset: Asset): RouteStatus => {
 
     // handle when missing current status
     let currentState: string = `undefined-tyoe`
@@ -179,7 +164,7 @@ const produceStatusFor = (status: PlannedTurnStatus | undefined, platformTypes: 
  * @param {string} perceivedType the perceived type of the asset
  * @param {any} platformTypes the list of platform types
  * @param {string} playerForce current player force
- * @param {PlannedTurnStatus | undefined} status the current status of this asset
+ * @param {RouteStatus | undefined} status the current status of this asset
  * @param {string} currentPosition the current cell containing this asset
  * @param {L.LatLng} currentLocation the current cell containing this asset
  * @param {SergeGrid<SergeHex<{}>> | undefined} grid the grid object, used to find cell centres, used in declutter
@@ -191,23 +176,27 @@ const produceStatusFor = (status: PlannedTurnStatus | undefined, platformTypes: 
  */
 const routeCreateRoute = (asset: Asset, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
-  perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: PlannedTurnStatus | undefined, currentPosition: string,
+  perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean, existingRoute: Route | undefined ): Route => {
 
 
   const currentStatus: RouteStatus =  produceStatusFor(status, platformTypes, asset)
 
-  // provide the existing planned route as turns (which step array expects)
-  const plannedTurns: PlannedTurn[] | undefined = stepsToTurns(existingRoute && existingRoute.planned)
+  // store the existing planned route
+  const plannedTurns: RouteTurn[] | undefined = existingRoute && existingRoute.planned
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
-  const futureSteps_trimmed: Array<RouteStep> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, filterPlannedSteps) : []
-  const futureSteps: Array<RouteStep> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, false) : []
+  const futureSteps_trimmed: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, filterPlannedSteps) : []
+  const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, false) : []
+ // if(asset.name === 'Tanker') {
+  //  console.log('planned', plannedTurns, futureSteps_trimmed)
+//    checking why the turn markers have wrong counter
+ // }
   const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
-  const historySteps: Array<RouteStep> = createStepArray(asset.history, grid, 
+  const historySteps: Array<RouteTurn> = createStepArray(asset.history, grid, 
       false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
@@ -238,7 +227,7 @@ const routeCreateRoute = (asset: Asset, color: string,
     currentPosition: currentPosition,
     currentLocation: currentLocation,
     planned: futureSteps,
-    planned_trimmed: futureSteps_trimmed,
+    plannedTrimmed: futureSteps_trimmed,
     plannedTurnsCount: numberOfPlannedTurns,
     original: cloneDeep(futureSteps),
     asset: asset,

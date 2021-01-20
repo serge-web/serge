@@ -1,18 +1,18 @@
 import { SUBMIT_PLANS } from '@serge/config'
-import { MessageSubmitPlans, PlannedRoute, PlannedTurn, PlannedTurnStatus, Route, RouteStep } from '@serge/custom-types'
+import { MessageSubmitPlans, PlannedRoute, RouteStatus, Route, RouteTurn } from '@serge/custom-types'
 
 const collatePlanningOrders = (routes: Array<Route>): MessageSubmitPlans => {
   const results: Array<PlannedRoute> = routes.map((route: Route): PlannedRoute => {
-    const res: PlannedTurn[] = []
-    route.planned.forEach((step: RouteStep) => {
-      const coords: string[] | undefined = step.coords
-      const status: PlannedTurnStatus = step.status.speedKts ? {
+    const res: RouteTurn[] = []
+    route.planned.forEach((step: RouteTurn) => {
+      const coords: string[] | undefined = step.route
+      const status: RouteStatus = step.status.speedKts ? {
         state: step.status.state,
         speedKts: step.status.speedKts
       } : {
         state: step.status.state
       }
-      const newStep: PlannedTurn = coords !== undefined ? {
+      const newStep: RouteTurn = coords !== undefined ? {
         turn: step.turn,
         route: coords,
         status: status

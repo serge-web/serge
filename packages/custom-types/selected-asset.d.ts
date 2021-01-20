@@ -1,4 +1,4 @@
-import { PlannedTurnStatus } from ".";
+import { RouteStatus } from ".";
 
 /**
  * note: for some of the fields in this structure, it's the perceived name/type/force,
@@ -12,5 +12,5 @@ export default interface SelectedAsset {
     controlledBy?: Array<string>,
     condition: string,
     visibleTo: Array<string>
-    status?: PlannedTurnStatus
+    status?: RouteStatus
   }

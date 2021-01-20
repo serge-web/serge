@@ -24,6 +24,10 @@ export default (
     }) !== undefined
   ))
 
+  if(allForces.length === 0) {
+    console.error("Can't check password, forces data missing")
+  }
+
   if (force === undefined || role === undefined) {
     failedLoginFeedbackMessage(currentWargame, pass);
     return false;

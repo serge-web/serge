@@ -1,5 +1,5 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
-import { PlanTurnFormValues, Route, RouteStatus, RouteStep, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData } from '@serge/custom-types'
+import { PlanTurnFormValues, Route, RouteStatus, RouteTurn, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData } from '@serge/custom-types'
 import { deepCompare } from '@serge/helpers'
 import { cloneDeep, kebabCase } from 'lodash'
 
@@ -67,7 +67,7 @@ class AdjudicationManager {
     if (selected) {
       const result = speedKts === undefined ? { state: status } : { state: status, speedKts: speedKts }
       const routeStatus: RouteStatus = speedKts === undefined ? { state: status } : { state: status, speedKts: speedKts }
-      const routeStep: RouteStep = { turn: this.turn + 1, status: routeStatus }
+      const routeStep: RouteTurn = { turn: this.turn + 1, status: routeStatus }
       selected.planned = [routeStep]
       selected.plannedTurnsCount = 1
       selected.currentStatus = result
@@ -82,7 +82,7 @@ class AdjudicationManager {
       if (platform) {
         const planned = selected.planned
         if (planned !== undefined && planned.length > 0) {
-          const firstStep: RouteStep = planned[0]
+          const firstStep: RouteTurn = planned[0]
           const firstStepSpeed = firstStep.status.speedKts
           if (firstStepSpeed !== undefined) {
             return firstStepSpeed
@@ -311,8 +311,8 @@ class AdjudicationManager {
   restoreOriginalRouteIfChanged (newStore: RouteStore): void {
     if (newStore.selected) {
       const selected: Route = newStore.selected
-      const planned: RouteStep[] = selected.planned
-      const original: RouteStep[] = selected.original
+      const planned: RouteTurn[] = selected.planned
+      const original: RouteTurn[] = selected.original
       if (!deepCompare(original, planned)) {
         // modified, reinstate it
         selected.planned = cloneDeep(original)
@@ -337,6 +337,9 @@ class AdjudicationManager {
               break
             case PlanningCommands.Reject:
               route.adjudicationState = PlanningStates.Rejected
+              // clear the planned oute
+              route.planned = []
+              route.plannedTrimmed = []
               break
             default:
               console.warn('Not expecting ', command, ' in state ', curState)

@@ -36,7 +36,7 @@ import {
   SelectedAsset,
   RouteStore,
   Route,
-  RouteStep,
+  RouteTurn,
   PlanTurnFormValues,
   ForceData
 } from '@serge/custom-types'
@@ -245,6 +245,9 @@ export const Mapping: React.FC<PropTypes> = ({
     setRouteStore({ routes: [] })
     // now update the phase
     setCurrentPhase(phase)
+
+    // clear the selected asset - this has the effect of removing the planning/adjducation form
+    setSelectedAsset(undefined)
   }, [phase])
 
   useEffect(() => {
@@ -285,10 +288,10 @@ export const Mapping: React.FC<PropTypes> = ({
           return cell.centreLatLng
         })
         if (selRoute) {
-          const newStep: RouteStep = {
+          const newStep: RouteTurn = {
             turn: turnStart + 1,
             status: { state: newLeg.state, speedKts: newLeg.speed },
-            coords: coords,
+            route: coords,
             locations: locations
           }
 
@@ -354,71 +357,9 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-  /** determine if the route from the adjudication step is different to what the
-   * force had planned
-   * TODO: refactor to standalone function/helper
-   */
-  // const routeChanged = (existingPlanned: RouteStep[] | undefined, adjudicated: AdjudicateTurnFormValues): boolean => {
-  //   if (!existingPlanned || existingPlanned.length === 0) {
-  //     return true
-  //   } else {
-  //     // TODO: compare the next step with the adjudicated plan
-  //     return (adjudicated.speedVal > 0)
-  //   }
-  // }
-
   const cancelRoutePlanning = (): void => {
     setPlanningConstraints(undefined)
   }
-
-  /**
-   * Umpire has accepted (or modified a route)
-   * @param assetId
-   * @param plannedTurn
-   */
-  // const routeAccepted = (plannedRoute: AdjudicateTurnFormValues): void => {
-  //   console.log('route accepted', routeStore.selected && routeStore.selected.name, plannedRoute)
-
-  //   // store the planned route for this asset
-  //   const selRoute: Route | undefined = routeStore.selected
-  //   if (selRoute) {
-  //     // check if old planned route is different to the one from adjudication
-  //     const routeDifferent: boolean = routeChanged(selRoute.planned, plannedRoute)
-  //     if (routeDifferent) {
-  //       // different. Store the new route
-  //       // Create new route object
-  //       // Store the new route
-
-  //       // fire new routeStore
-  //     } else {
-  //       // route unchanged, so we don't need to do anything.
-  //     }
-
-  //     // const turnStart = selRoute.planned && selRoute.planned.length
-  //     //   ? selRoute.planned[selRoute.planned.length - 1].turn
-  //     //   : turnNumber
-
-  //     // // increment turn number, if we have any turns planned, else start with `1`
-  //     // const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
-  //     //   return cell.name
-  //     // })
-  //     // const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex<{}>) => {
-  //     //   return cell.centreLatLng
-  //     // })
-  //     // if (selRoute) {
-  //     //   const newStep: RouteStep = {
-  //     //     turn: turnStart + 1,
-  //     //     status: { state: newLeg.state, speedKts: newLeg.speed },
-  //     //     coords: coords,
-  //     //     locations: locations
-  //     //   }
-  //     //   const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
-  //     //   setRouteStore(newStore)
-  //     // }
-  //   }
-
-  //   // store what will be the new condition, visibility, in this route.
-  // }
 
   const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
     const current: Route | undefined = routeStore.selected
@@ -470,9 +411,9 @@ export const Mapping: React.FC<PropTypes> = ({
           turnStart = current.planned[current.planned.length - 1].turn
         }
         let store: RouteStore = routeStore
-        const steps: Array<RouteStep> = []
+        const steps: Array<RouteTurn> = []
         for (let ctr = 0; ctr < plannedTurn.turnsVal; ctr++) {
-          const step: RouteStep = { turn: ++turnStart, status: { state: status.name } }
+          const step: RouteTurn = { turn: ++turnStart, status: { state: status.name } }
           steps.push(step)
         }
         // store this step
@@ -510,7 +451,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // TODO: verify we're still handling planned routes
     // if (selectedAsset && routeStore && routeStore.selected &&
     //     routeStore.selected.planned && routeStore.selected.planned.length > 0) {
-    //   const route: RouteStep[] = routeStore.selected.planned
+    //   const route: RouteTurn[] = routeStore.selected.planned
 
     //   // create an updated forces object, with the new planned routes
     //   const newForces = storePlannedRoute(selectedAsset.uniqid, route, forcesState)

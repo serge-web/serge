@@ -1,5 +1,5 @@
 import React from 'react'
-import { PlayerUi } from '@serge/custom-types'
+import { ForceData, PlayerUi, Role } from '@serge/custom-types'
 import { PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILIY_CHANGES } from '@serge/config'
 import { sendMessage } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
@@ -23,6 +23,20 @@ const bounds = {
 
 type Factory = (node: TabNode) => React.ReactNode
 
+/** utility to find the role for this role name */
+const findRole = (roleName: string, allForces: ForceData[]): Role => {
+  let res: Role | undefined = undefined
+  allForces.find((force: ForceData) => {
+      res = force.roles.find((role: Role) => role.name === roleName) || undefined
+      // if the above find works, we'll return true, which will
+      // terminate the find process. If it returns undefined,
+      // we'll return false, and carry on to the next force
+      return !!res
+  })
+  if (res !== undefined) return res
+  throw new Error('Roled not found for:' + roleName);
+}
+
 const factory = (state: PlayerUi): Factory => {
   const postback = (form: string, payload: any, channelID: string): void => {
     switch(form) {
@@ -44,6 +58,10 @@ const factory = (state: PlayerUi): Factory => {
   }
 
   return (node: TabNode): React.ReactNode => {
+    // sort out if role can submit orders
+    const role: Role = findRole(state.selectedRole, state.allForces)
+    const canSubmitOrders: boolean = !!role.canSubmitPlans 
+
     // Render the map
     const renderMap = (channelid: string) => <Mapping
         tileDiameterMins={5}
@@ -54,7 +72,7 @@ const factory = (state: PlayerUi): Factory => {
         phase={state.phase}
         turnNumber={state.currentTurn}
         playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
-        canSubmitOrders={true} // TODO get value from role
+        canSubmitOrders={canSubmitOrders}
         channelID = {channelid}
         postBack={postback}
     >

@@ -8,7 +8,9 @@ import { TextInput } from '@serge/components'
 
 interface Props {
   wargameList: WargameList[],
+  /** list of roles in this wargame, organised by force */
   roleOptions: ({ name: string, roles: Role[] })[],
+  /** function to check if the password is valid, and do routing if successful */
   checkPassword: (pass: string) => void
 }
 
@@ -62,7 +64,7 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, roleOptions, checkPasswor
               value={selectedWargame}
               className="react-select"
               classNamePrefix="react-select"
-              options={wargameList.map((wargame) => ({ label: wargame.title, value: wargame.name }))}
+              options={wargameList.map((wargame: WargameList) => ({ label: wargame.title, value: wargame.name }))}
               onChange={updateSelectedWargame}
             />
           </div>
@@ -83,7 +85,7 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, roleOptions, checkPasswor
               {roleOptions.map((force) => (<li key={force.name} className="list-item-demo-passwords">
                 <h4>{force.name}</h4>
                 <ul data-qa-force-name={force.name}>
-                  {force.roles.map((role) => (
+                  {force.roles.map((role: Role) => (
                     <li key={role.name}>
                       <button onClick={e => setRolePasswordDemo(e, role.password)} className="btn btn-sm btn-primary">
                         {role.name}

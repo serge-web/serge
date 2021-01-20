@@ -1,7 +1,7 @@
 import { LatLng } from 'leaflet'
 
 /* Impot types */
-import { RouteTurn, RouteTurnDuo, RouteTurnStatus, RouteStep as RouteStepType } from '@serge/custom-types'
+import { RouteMarker, RouteMarkerDuo, RouteMarkerStatus, RouteTurn as RouteTurnType } from '@serge/custom-types'
 import RouteData from '../types/route-data'
 
 /**
@@ -10,12 +10,12 @@ import RouteData from '../types/route-data'
  * @param {any} turns series of planned steps for asset
  * @returns {RouteData} composite object containing route lines & end of turn marker locations
  */
-export const plannedRoutesFor = (startLocation: LatLng, turns: RouteStepType[]): RouteData => {
+export const plannedRoutesFor = (startLocation: LatLng, turns: RouteTurnType[]): RouteData => {
   const polyline: LatLng[] = []
-  const turnEnds: Array<RouteTurn> = []
-  let lastLocation: RouteTurnDuo = { pos: startLocation, name: 'step_0' }
-  let lastButOneLocation: RouteTurnDuo | undefined
-  let lastStatus: RouteTurnStatus | undefined
+  const turnEnds: Array<RouteMarker> = []
+  let lastLocation: RouteMarkerDuo = { pos: startLocation, name: 'step_0' }
+  let lastButOneLocation: RouteMarkerDuo | undefined
+  let lastStatus: RouteMarkerStatus | undefined
   let turnCtr = 0
   let pendingMobile = false
   // start with current position
@@ -23,7 +23,7 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteStepType[]):
     if (turns) {
       // store the line start if it's planned routes
       polyline.push(startLocation)
-      turns.forEach((turn: RouteStepType) => {
+      turns.forEach((turn: RouteTurnType) => {
         turnCtr++
         // first, does it contain a plain position, and is it within
         // the required length?
@@ -32,8 +32,8 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteStepType[]):
           // this mobile-specific variable "leak" out of the step handling, since we use
           // it as a flag to show there are pending steps from the previous turn
           turn.locations.forEach((step: L.LatLng) => {
-            const currentLocation: RouteTurnDuo = { pos: step, name: 'step_' + stepsThisTurn }
-            const status: RouteTurnStatus = turn.status.speedKts
+            const currentLocation: RouteMarkerDuo = { pos: step, name: 'step_' + stepsThisTurn }
+            const status: RouteMarkerStatus = turn.status.speedKts
               ? { speedKts: turn.status.speedKts, state: turn.status.state }
               : { state: turn.status.state }
 
@@ -42,7 +42,7 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteStepType[]):
               // do we have a previous step?
               if (lastLocation && lastStatus && pendingMobile) {
                 // ok, we have enough for a turn
-                const newTurn: RouteTurn = {
+                const newTurn: RouteMarker = {
                   current: lastLocation,
                   previous: lastButOneLocation,
                   turn: turnCtr - 1,
@@ -65,7 +65,7 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteStepType[]):
         } else {
           if (lastLocation && lastStatus && pendingMobile) {
             // store the previous data
-            const newTurn: RouteTurn = {
+            const newTurn: RouteMarker = {
               current: lastLocation,
               previous: lastButOneLocation,
               turn: turnCtr - 1,
@@ -76,13 +76,13 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteStepType[]):
             pendingMobile = false
           }
           // now create the static marker
-          const currentLocation: RouteTurnDuo = { pos: lastLocation.pos, name: 'step_' + turnCtr }
-          const status: RouteTurnStatus = turn.status.speedKts
+          const currentLocation: RouteMarkerDuo = { pos: lastLocation.pos, name: 'step_' + turnCtr }
+          const status: RouteMarkerStatus = turn.status.speedKts
             ? { speedKts: turn.status.speedKts, state: turn.status.state }
             : { state: turn.status.state }
 
           // ok, we have enough for a turn
-          const newTurn: RouteTurn = {
+          const newTurn: RouteMarker = {
             current: currentLocation,
             turn: turnCtr,
             status: status
@@ -102,7 +102,7 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteStepType[]):
     // see if we need to put in a trailing step
     if (lastLocation && lastStatus && pendingMobile) {
       const turn: number = turnEnds.length ? turnEnds[turnEnds.length - 1].turn + 1 : 1
-      const lastTurn: RouteTurn = {
+      const lastTurn: RouteMarker = {
         current: lastLocation,
         previous: lastButOneLocation,
         turn: turn,

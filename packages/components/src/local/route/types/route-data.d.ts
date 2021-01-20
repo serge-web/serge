@@ -1,5 +1,5 @@
 import { LatLng } from 'leaflet'
-import { RouteTurn } from '@serge/custom-types'
+import { RouteMarker } from '@serge/custom-types'
 
 /** composite return tuple */
 export default interface RouteData {
@@ -10,5 +10,5 @@ export default interface RouteData {
   /**
    * series of end-of-turn locations, one per turn
    */
-  turnEnds: Array<RouteTurn>
+  turnEnds: Array<RouteMarker>
 }

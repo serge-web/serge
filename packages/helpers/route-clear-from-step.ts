@@ -1,4 +1,4 @@
-import { RouteStore, Route, RouteStep } from '@serge/custom-types'
+import { RouteStore, Route, RouteTurn } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 
 /** clear planned steps, from the indicated turn
@@ -14,10 +14,20 @@ const routeClearFromStep = (store: RouteStore, selectedId: string, stepNumber: n
   const route: Route | undefined = modified.routes.find((route: Route) => route.uniqid === selectedId)
   if (route) {
     // ok, sort out the planned steps
-    const planned: RouteStep[] = route.planned
-    const trimmed = planned.filter((step: RouteStep) => step.turn < stepNumber)
+    const planned: RouteTurn[] = route.planned
+
+    // note: in some test situations, the planned steps are so far in the future
+    // that all get deleted. Explain that with a comment
+    if(planned.length > 0) {
+      const firstStep = planned[0].turn
+      if(firstStep > stepNumber + 1) {
+        console.warn('Planned steps in the future. All will be deleted.')
+      }
+    }
+
+    const trimmed = planned.filter((step: RouteTurn) => step.turn < stepNumber)
     route.planned = trimmed
-    route.planned_trimmed = trimmed
+    route.plannedTrimmed = trimmed
   }
   
   return modified

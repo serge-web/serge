@@ -1,4 +1,4 @@
-import { PlannedTurnStatus } from '@serge/custom-types'
+import { RouteStatus } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -40,7 +40,7 @@ export default interface PropTypes {
   /**
    * current status of this asset
    */
-  status?: PlannedTurnStatus
+  status?: RouteStatus
   /**
    * the list of forces that can control this asset
    */

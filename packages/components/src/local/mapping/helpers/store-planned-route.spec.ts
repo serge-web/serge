@@ -28,7 +28,7 @@ it('Stores the extended planned route', () => {
     // add another point
     const store3: RouteStore = routeAddSteps(store2, frigateId, [{
       turn: 6,
-      coords: ['Q19', 'P18'],
+      route: ['Q19', 'P18'],
       status: { state: 'Transiting', speedKts: 20 }
     }])
 
