@@ -177,3 +177,19 @@ export const dbDefaultSettings = {
   turnEndTime: null,
   adjudicationStartTime: moment().format()
 }
+
+export const FLEX_LAYOUT_MODEL_DEFAULT = {
+  global: {
+    tabSetTabStripHeight: 45,
+    tabEnableClose: false,
+    tabEnableRenderOnDemand: false,
+    tabEnableDrag: false
+  },
+  borders: [],
+  layout: {
+    type: 'row',
+    weight: 100,
+    children: [
+    ]
+  }
+}

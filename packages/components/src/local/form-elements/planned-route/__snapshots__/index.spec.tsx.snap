@@ -5,7 +5,7 @@ exports[`PlannedRoute renders correctly 1`] = `
   className="planned-route"
 >
   <button
-    className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+    className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}
@@ -29,7 +29,7 @@ exports[`PlannedRoute renders correctly 1`] = `
     </span>
   </button>
   <button
-    className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-5 MuiButton-contained makeStyles-contained-2 makeStyles-contained-6 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+    className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-5 MuiButton-contained makeStyles-contained-2 makeStyles-contained-6"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}

@@ -209,13 +209,13 @@ exports[`SettingForces component: renders correctly 1`] = `
                   className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
                 >
                   <div
-                    className="MuiInputBase-root MuiInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl MuiInputBase-multiline MuiInput-multiline makeStyles-multiline-3"
+                    className="MuiInputBase-root MuiFilledInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-3"
                     onClick={[Function]}
                   >
                     <textarea
                       aria-invalid={false}
                       autoFocus={false}
-                      className="MuiInputBase-input MuiInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                      className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
                       disabled={false}
                       name=""
                       onAnimationStart={[Function]}
@@ -234,7 +234,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                     />
                     <textarea
                       aria-hidden={true}
-                      className="MuiInputBase-input MuiInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiInput-inputMultiline"
+                      className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
                       readOnly={true}
                       style={
                         Object {

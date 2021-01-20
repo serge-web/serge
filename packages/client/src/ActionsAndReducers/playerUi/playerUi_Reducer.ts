@@ -32,8 +32,7 @@ import {
 } from '../../consts'
 
 export const initialState: PlayerUi = {
-  selectedForce: '',
-  forceColor: '',
+  selectedForce: undefined,
   selectedRole: '',
   isObserver: false,
   canSubmitPlans: false,
@@ -42,6 +41,7 @@ export const initialState: PlayerUi = {
   phase: '',
   gameDate: '',
   gameTurnTime: 0,
+  timeWarning: 0,
   realtimeTurnTime: 0,
   turnEndTime: 0,
   adjudicationStartTime: '',
@@ -108,9 +108,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_FORCE:
-      newState.selectedForce = action.payload
-      const force = newState.allForces.find((force) => force.uniqid === action.payload)
-      if (force) newState.forceColor = force.color
+      newState.selectedForce = newState.allForces.find((force) => force.uniqid === action.payload)
       break
 
     case SET_ROLE:
@@ -176,6 +174,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       return newState
   }
 
+  console.log(`PlayerUI: ${action.type}`, newState)
   return newState
 }
 

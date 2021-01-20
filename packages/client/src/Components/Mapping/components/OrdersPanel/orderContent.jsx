@@ -13,7 +13,7 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planningNow 
   const filteredForces = useRef([])
   const controlledBy = useRef([])
 
-  if (selectedForce === 'umpire') {
+  if (selectedForce.uniqid === 'umpire') {
     if (inAdjudication) {
       // collate a list of all forces for adjudication
       for (const force of allForces) {
@@ -42,7 +42,7 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planningNow 
       }
     }
   } else {
-    selectedForceData = allForces.find(force => force.uniqid === selectedForce)
+    selectedForceData = allForces.find(force => force.uniqid === selectedForce.uniqid)
   }
 
   // has phase changed?
@@ -99,7 +99,7 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planningNow 
   }
 
   const showAllForcesExceptUmpire = () => allForces.filter(force => force.name !== 'White')
-  const showAllForcesControlledByUser = () => allForces.filter(force => force.name === selectedForce)
+  const showAllForcesControlledByUser = () => allForces.filter(force => force.name === selectedForce.uniqid)
   const getCurrentForceAssets = force => getAssets().filter(asset => asset.force === force.name)
 
   const getAssets = () => selectedForceData && selectedForceData.assets && selectedForceData.assets
@@ -114,7 +114,7 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planningNow 
   }
 
   useEffect(() => {
-    filteredForces.current = selectedForce === 'umpire'
+    filteredForces.current = selectedForce.uniqid === 'umpire'
       ? showAllForcesExceptUmpire()
       : showAllForcesControlledByUser()
     setActiveForces(filteredForces.current.map(f => f.name))
@@ -126,7 +126,7 @@ const OrderPanelContent = ({ selectedForce, allForces, onSendClick, planningNow 
         { filteredForces.current.map(force => {
           return <li key={force.name}>
             {
-              (selectedForce === 'umpire' && getCurrentForceAssets(force).length > 0) &&
+              (selectedForce.uniqid === 'umpire' && getCurrentForceAssets(force).length > 0) &&
               <>
                 <div
                   className={`orders-panel__toggler orders-panel__toggler--${isForceActive(force.name) ? 'active' : 'inactive'}`}

@@ -122,7 +122,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }, [])
 
   const sendMessage = (mType, message) => {
-    const curForce = allForces.find((force) => force.uniqid === selectedForce)
+    const curForce = allForces.find((force) => force.uniqid === selectedForce.uniqid)
     const details = {
       channel: channelID,
       forceDelta: true, // to indicate it represents a change in forces state
@@ -343,7 +343,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
 
         /** NOTE: code block removed, now that we don't have
          * findAsset in the local helpers package
-         */ 
+         */
 
         // const asset = findAsset(allForces, marker.asset.uniqid)
         // if (!asset.force) {
