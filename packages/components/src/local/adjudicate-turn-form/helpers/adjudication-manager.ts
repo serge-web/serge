@@ -337,6 +337,9 @@ class AdjudicationManager {
               break
             case PlanningCommands.Reject:
               route.adjudicationState = PlanningStates.Rejected
+              // clear the planned oute
+              route.planned = []
+              route.planned_trimmed = []
               break
             default:
               console.warn('Not expecting ', command, ' in state ', curState)
