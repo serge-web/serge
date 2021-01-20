@@ -56,7 +56,7 @@ export default interface Route {
   /** current planned steps for this asset */
   planned: Array<RouteTurn>
   /** trimmed/filtered version of current planned steps for this asset */
-  planned_trimmed: Array<RouteTurn>
+  plannedTrimmed: Array<RouteTurn>
   /** number of planned steps for this asset (does not get clipped) */
   plannedTurnsCount: number,
   /** original future planned steps for this asset */
