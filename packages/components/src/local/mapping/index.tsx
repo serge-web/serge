@@ -357,71 +357,9 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-  /** determine if the route from the adjudication step is different to what the
-   * force had planned
-   * TODO: refactor to standalone function/helper
-   */
-  // const routeChanged = (existingPlanned: RouteTurn[] | undefined, adjudicated: AdjudicateTurnFormValues): boolean => {
-  //   if (!existingPlanned || existingPlanned.length === 0) {
-  //     return true
-  //   } else {
-  //     // TODO: compare the next step with the adjudicated plan
-  //     return (adjudicated.speedVal > 0)
-  //   }
-  // }
-
   const cancelRoutePlanning = (): void => {
     setPlanningConstraints(undefined)
   }
-
-  /**
-   * Umpire has accepted (or modified a route)
-   * @param assetId
-   * @param plannedTurn
-   */
-  // const routeAccepted = (plannedRoute: AdjudicateTurnFormValues): void => {
-  //   console.log('route accepted', routeStore.selected && routeStore.selected.name, plannedRoute)
-
-  //   // store the planned route for this asset
-  //   const selRoute: Route | undefined = routeStore.selected
-  //   if (selRoute) {
-  //     // check if old planned route is different to the one from adjudication
-  //     const routeDifferent: boolean = routeChanged(selRoute.planned, plannedRoute)
-  //     if (routeDifferent) {
-  //       // different. Store the new route
-  //       // Create new route object
-  //       // Store the new route
-
-  //       // fire new routeStore
-  //     } else {
-  //       // route unchanged, so we don't need to do anything.
-  //     }
-
-  //     // const turnStart = selRoute.planned && selRoute.planned.length
-  //     //   ? selRoute.planned[selRoute.planned.length - 1].turn
-  //     //   : turnNumber
-
-  //     // // increment turn number, if we have any turns planned, else start with `1`
-  //     // const coords: Array<string> = newLeg.route.map((cell: SergeHex<{}>) => {
-  //     //   return cell.name
-  //     // })
-  //     // const locations: Array<L.LatLng> = newLeg.route.map((cell: SergeHex<{}>) => {
-  //     //   return cell.centreLatLng
-  //     // })
-  //     // if (selRoute) {
-  //     //   const newStep: RouteTurn = {
-  //     //     turn: turnStart + 1,
-  //     //     status: { state: newLeg.state, speedKts: newLeg.speed },
-  //     //     coords: coords,
-  //     //     locations: locations
-  //     //   }
-  //     //   const newStore: RouteStore = routeAddSteps(routeStore, selRoute.uniqid, [newStep])
-  //     //   setRouteStore(newStore)
-  //     // }
-  //   }
-
-  //   // store what will be the new condition, visibility, in this route.
-  // }
 
   const turnPlanned = (plannedTurn: PlanTurnFormValues): void => {
     const current: Route | undefined = routeStore.selected
