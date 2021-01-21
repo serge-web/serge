@@ -103,7 +103,7 @@ export const Mapping: React.FC<PropTypes> = ({
   planningConstraintsProp,
   planningRangeProp,
   channelID,
-  mapPostBack: mapPostBack,
+  mapPostBack,
   children
 }) => {
   /* Initialise states */
