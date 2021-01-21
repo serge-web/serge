@@ -16,7 +16,6 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteTurnType[]):
   let lastLocation: RouteMarkerDuo = { pos: startLocation, name: 'step_0' }
   let lastButOneLocation: RouteMarkerDuo | undefined
   let lastStatus: RouteMarkerStatus | undefined
-  let turnCtr = 0
   let pendingMobile = false
   // start with current position
   if (startLocation) {
@@ -24,7 +23,6 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteTurnType[]):
       // store the line start if it's planned routes
       polyline.push(startLocation)
       turns.forEach((turn: RouteTurnType) => {
-        turnCtr++
         // first, does it contain a plain position, and is it within
         // the required length?
         if (turn.locations) {
@@ -45,7 +43,7 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteTurnType[]):
                 const newTurn: RouteMarker = {
                   current: lastLocation,
                   previous: lastButOneLocation,
-                  turn: turnCtr - 1,
+                  turn: turn.turn - 1,
                   next: currentLocation,
                   status: lastStatus
                 }
@@ -68,7 +66,7 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteTurnType[]):
             const newTurn: RouteMarker = {
               current: lastLocation,
               previous: lastButOneLocation,
-              turn: turnCtr - 1,
+              turn: turn.turn - 1,
               next: undefined,
               status: lastStatus
             }
@@ -76,7 +74,7 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteTurnType[]):
             pendingMobile = false
           }
           // now create the static marker
-          const currentLocation: RouteMarkerDuo = { pos: lastLocation.pos, name: 'step_' + turnCtr }
+          const currentLocation: RouteMarkerDuo = { pos: lastLocation.pos, name: 'step_' + turn.turn }
           const status: RouteMarkerStatus = turn.status.speedKts
             ? { speedKts: turn.status.speedKts, state: turn.status.state }
             : { state: turn.status.state }
@@ -84,7 +82,7 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteTurnType[]):
           // ok, we have enough for a turn
           const newTurn: RouteMarker = {
             current: currentLocation,
-            turn: turnCtr,
+            turn: turn.turn,
             status: status
           }
           turnEnds.push(newTurn)

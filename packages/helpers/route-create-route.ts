@@ -188,12 +188,8 @@ const routeCreateRoute = (asset: Asset, color: string,
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
-  const futureSteps_trimmed: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, filterPlannedSteps) : []
+  const futureStepsTrimmed: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, filterPlannedSteps) : []
   const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, false) : []
- // if(asset.name === 'Tanker') {
-  //  console.log('planned', plannedTurns, futureSteps_trimmed)
-//    checking why the turn markers have wrong counter
- // }
   const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
   const historySteps: Array<RouteTurn> = createStepArray(asset.history, grid, 
@@ -227,7 +223,7 @@ const routeCreateRoute = (asset: Asset, color: string,
     currentPosition: currentPosition,
     currentLocation: currentLocation,
     planned: futureSteps,
-    plannedTrimmed: futureSteps_trimmed,
+    plannedTrimmed: futureStepsTrimmed,
     plannedTurnsCount: numberOfPlannedTurns,
     original: cloneDeep(futureSteps),
     asset: asset,
