@@ -112,9 +112,7 @@ export interface MessageSubmitPlans {
 }
 export interface MessageStateOfWorld {
   messageType: typeof STATE_OF_WORLD,
-  readonly detail: {
-    data: StateOfWorld
-  }
+  readonly state: StateOfWorld
 }
 
 export type MessageMap = MessageForceLaydown |

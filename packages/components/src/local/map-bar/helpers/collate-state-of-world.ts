@@ -1,7 +1,8 @@
-import { AssetState, ForceState, Route, StateOfWorld } from '@serge/custom-types'
+import { STATE_OF_WORLD } from '@serge/config'
+import { AssetState, ForceState, MessageStateOfWorld, Route, StateOfWorld } from '@serge/custom-types'
 import { padInteger } from '@serge/helpers'
 
-const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): StateOfWorld => {
+const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): MessageStateOfWorld => {
   const forces: Array<ForceState> = []
   routes.forEach((route: Route) => {
     const forceName: string = route.actualForceName
@@ -34,9 +35,14 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): StateOfW
   const res: StateOfWorld = {
     turn: turnNumber + 1,
     name: 'State of World T' + padInteger(turnNumber),
-    detail: forces
+    forces: forces
   }
-  return res
+
+  const message: MessageStateOfWorld = {
+    messageType: STATE_OF_WORLD,
+    state: res
+  }
+  return message
 }
 
 export default collateStateOfWorld
