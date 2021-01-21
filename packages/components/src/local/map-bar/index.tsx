@@ -14,7 +14,8 @@ import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 /* import types */
 import {
   PlanTurnFormValues,
-  Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid, ForceData, PlatformTypeData, Asset
+  Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid, 
+  ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans
 } from '@serge/custom-types'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
 
@@ -156,13 +157,13 @@ export const MapBar: React.FC = () => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
       // Umpire has finshed adjudication phase, and is now ready
       // to submit new State of the World object
-      const orders = collateStateOfWorld(routeStore.routes, turnNumber)
+      const orders: MessageStateOfWorld = collateStateOfWorld(routeStore.routes, turnNumber)
       postBack(STATE_OF_WORLD, orders, channelID)
     } else if (phase === PLANNING_PHASE) {
       // Player has finished planning process, and now
       // wants to submit them
       const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
-      const orders = collatePlanningOrders(myRoutes)
+      const orders: MessageSubmitPlans = collatePlanningOrders(myRoutes)
       postBack(SUBMIT_PLANS, orders, channelID)
     }
     setPlansSubmitted(true)

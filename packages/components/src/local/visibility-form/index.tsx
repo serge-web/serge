@@ -10,7 +10,7 @@ import FormGroup from '../form-elements/form-group'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import { VISIBILIY_CHANGES } from '@serge/config'
+import { VISIBILITY_CHANGES } from '@serge/config'
 
 /* Render component */
 export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID, postBack }) => {
@@ -44,10 +44,10 @@ export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID,
         res.push(vis)
       })
       const message: MessageVisibilityChanges = {
-        messageType: VISIBILIY_CHANGES,
-        payload: res
+        messageType: VISIBILITY_CHANGES,
+        visibility: res
       }
-      postBack(VISIBILIY_CHANGES, message, channelID)
+      postBack(VISIBILITY_CHANGES, message, channelID)
     }
   }
 

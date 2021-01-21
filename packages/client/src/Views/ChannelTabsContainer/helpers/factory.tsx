@@ -1,6 +1,6 @@
 import React from 'react'
 import { ForceData, PlayerUi, Role } from '@serge/custom-types'
-import { PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILIY_CHANGES } from '@serge/config'
+import { PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES } from '@serge/config'
 import { sendMessage } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -40,8 +40,8 @@ const findRole = (roleName: string, allForces: ForceData[]): Role => {
 const factory = (state: PlayerUi): Factory => {
   const postback = (form: string, payload: any, channelID: string): void => {
     switch(form) {
-      case VISIBILIY_CHANGES:
-        sendMessage(VISIBILIY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+      case VISIBILITY_CHANGES:
+        sendMessage(VISIBILITY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
         break
       case PERCEPTION_OF_CONTACT:
         sendMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)

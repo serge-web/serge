@@ -1,3 +1,5 @@
+import { MessageMap } from ".";
+
 export default interface Postback {
-    (messageType: string, payload: any, channelID?: string | number | undefined): void
+    (messageType: string, payload: MessageMap, channelID?: string | number | undefined): void
 }
