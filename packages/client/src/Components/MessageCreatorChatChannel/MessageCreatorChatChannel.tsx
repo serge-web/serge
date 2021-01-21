@@ -1,7 +1,7 @@
 import React, { createRef, useEffect, useState } from 'react'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
-import { Editor } from '@serge/custom-types'
+import { Editor, MessageDetails } from '@serge/custom-types'
 import setupEditor from './helpers/setupEditor'
 import Props from './types'
 
@@ -19,7 +19,7 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
   const sendMessage = (): void => {
 
     if (editor !== null) {
-      let messageDetails = {
+      let messageDetails: MessageDetails = {
         channel: state.chatChannel.name,
         from: {
           force: selectedForce.name,

@@ -57,5 +57,5 @@ export const Default: React.FC = () => <Mapping
   phase={Phase.Adjudication}
   turnNumber={5}
 >
-  <PerceptionForm postBack={postback} formHeader="Perception header" formData={formData} />
+  <PerceptionForm mapPostBack={postback} formHeader="Perception header" formData={formData} />
 </Mapping>

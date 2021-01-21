@@ -10,10 +10,10 @@ import FormGroup from '../form-elements/form-group'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import { VISIBILIY_CHANGES } from '@serge/config'
+import { VISIBILITY_CHANGES } from '@serge/config'
 
 /* Render component */
-export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID, postBack }) => {
+export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID, mapPostBack }) => {
   const [visibleTo, setVisibleTo] = useState<Array<string>>(formData.values)
   const forces: Array<ColorOption> = formData.populate
 
@@ -21,7 +21,7 @@ export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID,
     setVisibleTo(e.value)
   }
   const submitForm = (): void => {
-    if (postBack !== undefined) {
+    if (mapPostBack !== undefined) {
       const originalVis: string[] = formData.values
       // collate list of visibility changes
       const res: Visibility[] = []
@@ -44,10 +44,10 @@ export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID,
         res.push(vis)
       })
       const message: MessageVisibilityChanges = {
-        messageType: VISIBILIY_CHANGES,
-        payload: res
+        messageType: VISIBILITY_CHANGES,
+        visibility: res
       }
-      postBack(VISIBILIY_CHANGES, message, channelID)
+      mapPostBack(VISIBILITY_CHANGES, message, channelID)
     }
   }
 

@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { ForceData, PlanMobileAsset, PlatformTypeData, Postback } from '@serge/custom-types'
+import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -116,5 +116,5 @@ export default interface PropTypes {
   /**
    * The method for posting messages out of the mapping component
    */
-  postBack?: Postback
+  mapPostBack?: MapPostBack
 }
