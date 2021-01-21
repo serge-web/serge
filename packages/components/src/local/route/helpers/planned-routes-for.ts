@@ -45,7 +45,7 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteTurnType[]):
                 const newTurn: RouteMarker = {
                   current: lastLocation,
                   previous: lastButOneLocation,
-                  turn: turnCtr - 1,
+                  turn: turn.turn - 1,
                   next: currentLocation,
                   status: lastStatus
                 }
@@ -68,7 +68,7 @@ export const plannedRoutesFor = (startLocation: LatLng, turns: RouteTurnType[]):
             const newTurn: RouteMarker = {
               current: lastLocation,
               previous: lastButOneLocation,
-              turn: turnCtr - 1,
+              turn: turn.turn - 1,
               next: undefined,
               status: lastStatus
             }
