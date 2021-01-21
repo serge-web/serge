@@ -23,5 +23,5 @@ export interface ForceState {
 export interface StateOfWorld {
   turn: number
   name: string
-  detail: Array<ForceState>
+  forces: Array<ForceState>
 }
