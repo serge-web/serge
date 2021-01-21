@@ -24,11 +24,11 @@ it('Provides valid planned markers for multi-point planned route without filter'
     expect(markers.length).toEqual(5)
 
     // check the labels
-    expect(markers[0].props.children.props.children[0].props.icon.options.html).toEqual('<text>T01: Transiting @ 10kts</text>')
-    expect(markers[1].props.children.props.children[0].props.icon.options.html).toEqual('<text>T02: Fishing</text>')
-    expect(markers[2].props.children.props.children[0].props.icon.options.html).toEqual('<text>T03: Fishing</text>')
-    expect(markers[3].props.children.props.children[0].props.icon.options.html).toEqual('<text>T04: Transiting @ 20kts</text>')
-    expect(markers[4].props.children.props.children[0].props.icon.options.html).toEqual('<text>T05: Transiting @ 30kts</text>')
+    expect(markers[0].props.children.props.children[0].props.icon.options.html).toEqual('<text>T03: Transiting @ 10kts</text>')
+    expect(markers[1].props.children.props.children[0].props.icon.options.html).toEqual('<text>T04: Fishing</text>')
+    expect(markers[2].props.children.props.children[0].props.icon.options.html).toEqual('<text>T05: Fishing</text>')
+    expect(markers[3].props.children.props.children[0].props.icon.options.html).toEqual('<text>T06: Transiting @ 20kts</text>')
+    expect(markers[4].props.children.props.children[0].props.icon.options.html).toEqual('<text>T07: Transiting @ 30kts</text>')
 
     // check clear hasn't been called
     expect(turnToDelete).toEqual(0)
@@ -36,7 +36,7 @@ it('Provides valid planned markers for multi-point planned route without filter'
     // call the clear event
     markers[3].props.children.props.children[1].props.children.props.children.props.onClick()
 
-    expect(turnToDelete).toEqual(4)
+    expect(turnToDelete).toEqual(6)
 
     // expect(first.props.length).toEqual(5)
   } else {
