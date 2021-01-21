@@ -14,6 +14,7 @@ import { HexGrid } from '../hex-grid'
 
 // import data types
 import { Phase } from '@serge/config'
+import { MessageMap } from '@serge/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
@@ -164,7 +165,7 @@ const canSubmitLabel = 'Can submit orders'
 const canSubmitDefaultValue = true
 
 // generic postback handler, for forms
-const postback = (messageType: string, payload: any): void => {
+const mapPostBack = (messageType: string, payload: MessageMap): void => {
   console.log('postback', messageType, payload)
   window.alert('postback:' + messageType + ', ' + JSON.stringify(payload))
 }
@@ -178,7 +179,7 @@ export const WithAssets: React.FC = () => <Mapping
   platforms={platformTypes}
   phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
   turnNumber={2}
-  postBack={postback} >
+  mapPostBack={mapPostBack} >
   <Assets /><HexGrid />
 </Mapping>
 
@@ -205,7 +206,7 @@ export const WithLimitedAssets: React.FC = () => <Mapping
   platforms={platformTypes}
   phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
   turnNumber={2}
-  postBack={postback} >
+  mapPostBack={mapPostBack} >
   <Assets /><HexGrid />
 </Mapping>
 
@@ -357,7 +358,7 @@ export const WithPhases: React.FC = () => <Mapping
   playerForce={radios(phasesViewLabel, phasesViewNames, phaseViewValue)}
   canSubmitOrders={false}
   platforms={platformTypes}
-  postBack={postback}
+  mapPostBack={mapPostBack}
   phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
   turnNumber={5}
 >

@@ -1,4 +1,4 @@
-import { VisibilityFormData, Postback } from '@serge/custom-types'
+import { VisibilityFormData, MapPostBack } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -23,5 +23,5 @@ export default interface PropTypes {
   /**
    * The method for posting messages out of the mapping component
    */
-  postBack?: Postback
+  mapPostBack?: MapPostBack
 }

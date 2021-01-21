@@ -103,7 +103,7 @@ export const Mapping: React.FC<PropTypes> = ({
   planningConstraintsProp,
   planningRangeProp,
   channelID,
-  postBack,
+  mapPostBack: mapPostBack,
   children
 }) => {
   /* Initialise states */
@@ -485,7 +485,7 @@ export const Mapping: React.FC<PropTypes> = ({
     turnPlanned,
     clearFromTurn,
     cancelRoutePlanning,
-    postBack,
+    mapPostBack: mapPostBack,
     hidePlanningForm,
     setHidePlanningForm,
     groupMoveToRoot: groupMoveToRootLocal,
