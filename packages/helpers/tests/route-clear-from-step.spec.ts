@@ -5,11 +5,12 @@ import { forces, platformTypes } from '@serge/mocks'
 
 import routeCreateStore from '../route-create-store'
 import routeClearFromStep from '../route-clear-from-step'
+import { Phase } from '@serge/config'
 
 import { RouteStore } from '@serge/custom-types'
 
 it('clear route from selected step', () => {
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Blue', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, false, false)
 
   const idOne = 'a0pra00003'
 

@@ -122,15 +122,18 @@ export const MapBar: React.FC = () => {
     // Selects the current asset. Note: this was in a selectedAsset useEffect, but it's been put in here,
     // since the routeStore will update on a new selected asset
     if (selectedAsset) {
-      const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel)
-      // note: since the next call is async, we get a render before the new form
-      // has been assigned. This caused troubles. So, while we set the new form here,
-      // we do a "live-recalculation" in the render code
-      setHidePlanningForm(false)
-      setCurrentForm(newForm)
-      setCurrentAssetName(selectedAsset.name)
-    } else {
-      setCurrentAssetName('Pending')
+      // note: we don't show the planning form if this is a non-umpire in force-laydown phase
+      if(playerForce === UMPIRE_FORCE || phase === Phase.Planning || turnNumber !== 0) {
+        const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel)
+        // note: since the next call is async, we get a render before the new form
+        // has been assigned. This caused troubles. So, while we set the new form here,
+        // we do a "live-recalculation" in the render code
+        setHidePlanningForm(false)
+        setCurrentForm(newForm)
+        setCurrentAssetName(selectedAsset.name)
+      } else {
+        setCurrentAssetName('Pending')
+      }
     }
   }, [routeStore])
 
@@ -200,7 +203,8 @@ export const MapBar: React.FC = () => {
         controlledBy: force.controlledBy,
         condition: asset.condition,
         visibleTo: visibleToArr,
-        status: asset.status
+        status: asset.status,
+        locationPending: !!asset.locationPending
       }
       // ok done, share the good news
       setSelectedAsset(selected)
@@ -295,13 +299,14 @@ export const MapBar: React.FC = () => {
             store={routeStore}
             panel={worldStatePanel}
             submitTitle = {stateSubmitTitle}
-            setSelectedAsset={setSelectedAssetById}
+            setSelectedAssetById={setSelectedAssetById}
             submitForm={worldStateSubmitHandler}
             groupMoveToRoot={groupMoveToRoot}
             groupCreateNewGroup={groupCreateNewGroup}
             groupHostPlatform={groupHostPlatform}
             plansSubmitted={plansSubmitted}
             setPlansSubmitted={setPlansSubmitted}
+            turnNumber={turnNumber}
             gridCells={gridCells} ></WorldState>
         </section>
       </div>

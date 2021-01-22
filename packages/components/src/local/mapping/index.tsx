@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
@@ -22,7 +22,8 @@ import {
   routeSetCurrent,
   routeGetLatestPosition,
   routeClearFromStep,
-  findPlatformTypeFor
+  findPlatformTypeFor,
+  findAsset
 } from '@serge/helpers'
 
 /* Import Types */
@@ -38,7 +39,8 @@ import {
   Route,
   RouteTurn,
   PlanTurnFormValues,
-  ForceData
+  ForceData,
+  Asset
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -150,6 +152,26 @@ export const Mapping: React.FC<PropTypes> = ({
     const id: string = selectedAsset ? selectedAsset.uniqid : ''
     const store: RouteStore = routeSetCurrent(id, routeStore)
     setRouteStore(store)
+
+    // if we are in turn 0 adjudication phase, we have special processing, since 
+    // the player may be doing force laydown
+    if(store.selected && turnNumber === 0 && phase === Phase.Adjudication) {
+      console.log('correct phase', store.selected.laydownPhase)
+      const layPhase = store.selected.laydownPhase
+      if(layPhase) {
+        if(layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
+          const asset: Asset = findAsset(forces, store.selected.uniqid)
+          const pType = findPlatformTypeFor(platforms, asset.platformType)
+          const moves: PlanMobileAsset = {
+            origin: store.selected.currentPosition,
+            travelMode: pType.travelMode,
+            status: `LAYDOWN`
+          }
+          console.log('plan', moves)
+          setPlanningConstraints(moves)  
+        }
+      }
+    } 
   }, [selectedAsset])
 
   /**
@@ -200,7 +222,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     if (forcesState && gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-      const store: RouteStore = routeCreateStore(selectedId, forcesState, playerForce,
+      const store: RouteStore = routeCreateStore(selectedId, turnNumber, Phase.Adjudication, forcesState, playerForce,
         platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
       setRouteStore(store)
     }
@@ -218,7 +240,7 @@ export const Mapping: React.FC<PropTypes> = ({
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-        const vStore: RouteStore = routeCreateStore(selectedId, forcesState, viewAsForce, platforms,
+        const vStore: RouteStore = routeCreateStore(selectedId, turnNumber, Phase.Adjudication, forcesState, viewAsForce, platforms,
           gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
         declutterRouteStore(vStore)
       } else {

@@ -14,6 +14,10 @@ export default interface PropTypes {
    * phase of the wargame
    */
   phase: string
+  /** current turn number
+   * 
+   */
+  turnNumber: number
   /**
    * whether this is from umpire force
    */
@@ -29,7 +33,7 @@ export default interface PropTypes {
   /**
    * callback for asset selected
    */
-  setSelectedAsset?: {(id: string): void}
+  setSelectedAssetById?: {(id: string): void}
   /**
    * callback for submit changes
    */

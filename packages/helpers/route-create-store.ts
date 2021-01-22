@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import { RouteStore, Route, SergeGrid, SergeHex, ForceData, Asset, PlatformTypeData } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
-import { UMPIRE_FORCE } from '@serge/config'
+import { Phase, UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy from './is-perceived-by'
 import hexNamed from './hex-named'
@@ -34,7 +34,7 @@ export const forcesControlledBy = (forces: ForceData[], playerForce: string): Ar
  * @param {RouteStore} oldStore existing RouteStore, so we can persist player modifications
  * @returns {RouteStore} RouteStore representing current data
  */
-const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], playerForce: string,
+const routeCreateStore = (selectedId: string | undefined, turn: number, phase: Phase, forces: ForceData[], playerForce: string,
     platformTypes: PlatformTypeData[], grid: SergeGrid<SergeHex<{}>> | undefined, filterHistorySteps: boolean, 
     filterPlannedSteps: boolean, oldStore?: RouteStore): RouteStore => {
   const store: RouteStore = { routes: []}
@@ -75,7 +75,7 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
               // if it's the selected asset, we plot all future steps
               const applyFilterPlannedSteps: boolean = filterPlannedSteps && !isSelectedAsset
 
-              const newRoute: Route = routeCreateRoute(asset, force.color,
+              const newRoute: Route = routeCreateRoute(asset, turn, phase, force.color,
                 controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
                 platformTypes, playerForce, asset.status, asset.position, assetLocation, 
                 grid, true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute)
@@ -104,7 +104,7 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
                     // note: compiler/linter forcing us to re-check asset.position
                     if(asset.position && perceptions) {
                       // create route for this asset
-                      const newRoute: Route = routeCreateRoute(child, perceivedColor, false, force.uniqid, perceptions.force,
+                      const newRoute: Route = routeCreateRoute(child, turn, phase, perceivedColor, false, force.uniqid, perceptions.force,
                         perceptions.name, perceptions.type, platformTypes, playerForce, asset.status, asset.position, assetLocation, 
                         grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute)
                       store.routes.push(newRoute)
@@ -119,7 +119,7 @@ const routeCreateStore = (selectedId: string | undefined, forces: ForceData[], p
                     thisForce, asset.platformType, asset.perceptions)
                   if(perceptions) {
                     // create route for this asset
-                    const newRoute: Route = routeCreateRoute(asset, perceivedColor, false, force.uniqid, perceptions.force,
+                    const newRoute: Route = routeCreateRoute(asset, turn, phase, perceivedColor, false, force.uniqid, perceptions.force,
                       perceptions.name, perceptions.type, platformTypes, playerForce, asset.status, asset.position, assetLocation, 
                       grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute)
                     store.routes.push(newRoute)

@@ -14,12 +14,12 @@ import { GroupItem, Route } from '@serge/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
-import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE } from '@serge/config'
+import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases } from '@serge/config'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
 
 export const WorldState: React.FC<PropTypes> = ({
-  name, store, phase, isUmpire, canSubmitOrders, setSelectedAsset,
+  name, store, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
   submitTitle, submitForm, panel, gridCells,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted
@@ -57,8 +57,8 @@ export const WorldState: React.FC<PropTypes> = ({
 
   // an asset has been clicked on
   const clickEvent = (id: string): void => {
-    if (setSelectedAsset) {
-      setSelectedAsset(id)
+    if (setSelectedAssetById) {
+      setSelectedAssetById(id)
     }
   }
 
@@ -71,13 +71,22 @@ export const WorldState: React.FC<PropTypes> = ({
     }
   }
 
-  /**
-   *
-   * @param {PlannedRoute} pRoute this planned route
-   * @param {string} forceName name of the force, it's not available lower down the tree
-   * @param {boolean} topLevel if this is at the top level of the tree - used to control the level of detail supplied
-   * @returns  JSX for this route, plus children if applicable
-   */
+  const laydownMessageFor = (phase?: LaydownPhases): string => {
+    if(phase) {
+      return phase
+      // switch(phase) {
+      //   case LaydownPhases.Immobile:
+      //     return 'immobile'
+      //   case LaydownPhases.NotInLaydown:
+      //     return 'not in laydown'
+      //   case LaydownPhases.Unmoved:
+      //     return 'Pending'
+      //   case LaydownPhases.Moved:
+      //     return 'Moved'
+      // }  
+    }
+    return 'no phase'
+  }
 
   // sort out which title to use on orders panel
   const customTitle = (panel === WorldStatePanels.Visibility) ? 'Other Visible Platforms' : name
@@ -106,13 +115,16 @@ export const WorldState: React.FC<PropTypes> = ({
     const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
     const checkStatus: boolean = inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
 
+    const laydownMessage: string = laydownMessageFor(item.laydownPhase)
+    const fullDescripton: string = descriptionText + ' ' + laydownMessage
+
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
         <div className={cx(icClassName, styles['item-icon'])}/>
         <div className={styles['item-content']}>
           <div>
             <p>{item.name}</p>
-            <p>{descriptionText}</p>
+            <p>{fullDescripton}</p>
           </div>
 
         </div>

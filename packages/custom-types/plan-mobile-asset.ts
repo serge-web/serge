@@ -17,5 +17,5 @@ export default interface PlanMobileAsset {
   /** 
    * speed of travel
    */
-  speed: number
+  speed?: number
 }

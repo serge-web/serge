@@ -43,7 +43,7 @@ export const Assets: React.FC<{}> = () => {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
         const { uniqid, name, platformType, actualForceName } = route
-        const { contactId, status, condition, perceptions } = route.asset
+        const { contactId, status, condition, perceptions, locationPending } = route.asset
 
         // see if the player of this force can see (perceive) this asset
         const perceivedAsTypes: PerceivedTypes | null = findPerceivedAsTypes(
@@ -65,17 +65,18 @@ export const Assets: React.FC<{}> = () => {
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const assetInfo: AssetInfo = {
+                position: position,
                 name: perceivedAsTypes.name,
-                condition,
-                status,
+                condition: condition,
+                status: status,
                 selected: isSelected,
-                controlledBy: assetForce.controlledBy,
                 type: perceivedAsTypes.type,
                 perceivedForce: perceivedAsTypes.force,
                 force: assetForce.uniqid,
                 visibleTo: visibleToArr,
-                position,
-                uniqid
+                uniqid: uniqid,
+                controlledBy: assetForce.controlledBy,
+                locationPending: locationPending
               }
               tmpAssets.push(assetInfo)
             }
@@ -103,7 +104,8 @@ export const Assets: React.FC<{}> = () => {
         visibleTo={asset.visibleTo}
         force={asset.force}
         perceivedForce={asset.perceivedForce}
-        tooltip={asset.name}/>
+        tooltip={asset.name}
+        locationPending={asset.locationPending}/>
     ))}
 
     { viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (

@@ -96,23 +96,31 @@ export const HexGrid: React.FC<{}> = () => {
        */
   useEffect(() => {
     if (dragDestination && originHex) {
-      // work out the available cells
-      const plannedRoute: SergeHex<{}>[] = planningConstraints && dragDestination
-        ? plannedRouteFor(gridCells, allowableFilteredCells, originHex, dragDestination) : []
 
-      // combine with any existing planned cells
-      setPlanningRouteCells(plannedRoute)
+      // check we're not in laydown mode
+      if(planningConstraints && planningConstraints.status === 'LAYDOWN') {
+        // we don't show path in laydown mode
+        setPlanningRouteCells([])
+        setPlanningRoutePoly([])
+      } else {
+        // work out the available cells
+        const plannedRoute: SergeHex<{}>[] = planningConstraints && dragDestination
+          ? plannedRouteFor(gridCells, allowableFilteredCells, originHex, dragDestination) : []
 
-      // also produce the lat-long values needed for the polylines
-      const tmpPlannedRoutePoly: L.LatLng[] = []
-      plannedRoute.forEach((cell: SergeHex<{}>) => {
-        tmpPlannedRoutePoly.push(cell.centreLatLng)
-      })
+        // combine with any existing planned cells
+        setPlanningRouteCells(plannedRoute)
 
-      // combine with any existing planned cells
-      setPlanningRoutePoly(tmpPlannedRoutePoly)
+        // also produce the lat-long values needed for the polylines
+        const tmpPlannedRoutePoly: L.LatLng[] = []
+        plannedRoute.forEach((cell: SergeHex<{}>) => {
+          tmpPlannedRoutePoly.push(cell.centreLatLng)
+        })
+
+        // combine with any existing planned cells
+        setPlanningRoutePoly(tmpPlannedRoutePoly)
+      }
     } else {
-      // combine with any existing planned cells
+      // drop cells
       setPlanningRouteCells([])
       setPlanningRoutePoly([])
     }
@@ -127,13 +135,11 @@ export const HexGrid: React.FC<{}> = () => {
     if (planningConstraints && planningConstraints.origin && gridCells && (planningRange || rangeUnlimited)) {
       // if we're mid-way through a leg, we take the value from the origin hex, not the planning centre
       const originCell = plannedRoutePoly.length ? originHex : gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
-
       // did we find cell?
       if (originCell) {
         // is there a limited range?
         if (planningRange) {
           // ok, find which cells are within our travel range
-
           const cells: SergeHex<{}>[] = calcAllowableCells(gridCells, originCell, planningRange)
           setAllowableCells(cells)
         } else {
