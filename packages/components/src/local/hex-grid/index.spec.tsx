@@ -35,8 +35,7 @@ it('Mapping renders correctly with HexGrid', () => {
     canSubmitOrders = {true}
     phase={Phase.Planning}
     turnNumber={5}
-  >
-  </Mapping>, { attachTo: div })
+  />, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
 })
