@@ -117,4 +117,8 @@ export default interface PropTypes {
    * The method for posting messages out of the mapping component
    */
   mapPostBack?: MapPostBack
+  /**
+   * Optional mapping structure with children component
+   */
+  children?: JSX.Element
 }

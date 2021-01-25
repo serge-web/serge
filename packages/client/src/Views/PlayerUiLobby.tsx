@@ -59,22 +59,25 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, roleOptions, checkPasswor
         <div className={`flex-content--center ${selectedWargame && state.showAccessCodes ? 'has-demo-passwords' : ''}`}>
           <h1>Set wargame</h1>
           <div id="custom-select-wargame-selection">
-            <Select
-              name="wargame-selection"
-              value={selectedWargame}
-              className="react-select"
-              classNamePrefix="react-select"
-              options={wargameList.map((wargame: WargameList) => ({ label: wargame.title, value: wargame.name }))}
-              onChange={updateSelectedWargame}
-            />
+            <p>
+              <Select
+                name="wargame-selection"
+                value={selectedWargame}
+                className="react-select"
+                classNamePrefix="react-select"
+                options={wargameList.map((wargame: WargameList) => ({ label: wargame.title, value: wargame.name }))}
+                onChange={updateSelectedWargame}
+              />
+            </p>
           </div>
           <div className="flex-content">
             <TextInput
+              className="material-input"
               placeholder="Access code"
               variant="filled"
               type='password'
               value={rolePassword}
-              updateStore={setRolePassword}
+              updateState={(el: { value: string }) => setRolePassword(el.value)}
               options={{ numInput: false }}
             />
           </div>

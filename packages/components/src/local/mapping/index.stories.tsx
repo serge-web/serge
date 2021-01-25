@@ -1,12 +1,14 @@
 import L from 'leaflet'
 import React from 'react'
-import { withKnobs, number, radios, boolean, text } from '@storybook/addon-knobs'
+import { Story } from '@storybook/react/types-6-0'
+import { boolean, radios } from '@storybook/addon-knobs'
 
 /* Import mock data */
 import { forces, platformTypes, smallForces } from '@serge/mocks'
 
 // Import component files
 import Mapping from './index'
+import MappingPropTypes from './types/props'
 import docs from './README.md'
 import AssetIcon from '../asset-icon'
 import Assets from '../assets'
@@ -21,7 +23,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{st
 export default {
   title: 'local/Mapping',
   component: Mapping,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -30,6 +32,85 @@ export default {
     options: {
       // We have no addons enabled in this story, so the addon panel should be hidden
       showPanel: false
+    },
+    controls: {
+      expanded: true
+    }
+  },
+  argTypes: {
+    zoom: {
+      control: {
+        type: 'number'
+      }
+    },
+    playerForce: {
+      name: 'View as',
+      control: {
+        type: 'radio',
+        defaultValue: 'Blue',
+        options: [
+          'White',
+          'Blue',
+          'Red'
+        ]
+      }
+    },
+    phase: {
+      name: 'Game phase',
+      control: {
+        type: 'radio',
+        defaultValue: Phase.Planning,
+        options: [
+          Phase.Planning,
+          Phase.Adjudication
+        ]
+      }
+    },
+    tileDiameterMins: {
+      name: 'Tile diameter, nm',
+      control: {
+        type: 'range',
+        defaultValue: 5,
+        min: 1,
+        max: 15,
+        step: 1
+      }
+    },
+    planningRangeProp: {
+      name: 'Platform range',
+      control: {
+        type: 'range',
+        defaultValue: 1,
+        min: 1,
+        max: 6,
+        step: 1
+      }
+    },
+    showAllowableCells: {
+      name: 'Show allowable cells',
+      control: {
+        type: 'boolean'
+      }
+    },
+    allowableOrigin: {
+      name: 'Current location'
+    },
+    allowableTerrain: {
+      name: 'Platform terrain constraints',
+      defaultValue: 'Sea',
+      control: {
+        type: 'radio',
+        options: [
+          'Sea',
+          'Land',
+          'Air'
+        ]
+      }
+    },
+    children: {
+      table: {
+        disable: true
+      }
     }
   }
 }
@@ -51,37 +132,72 @@ const OSMTileLayer = {
   attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
 }
 
+interface StoryPropTypes extends MappingPropTypes {
+  showAllowableCells?: boolean
+  allowableOrigin?: string
+  allowableTerrain?: string
+}
+
+const Template: Story<StoryPropTypes> = (args) => {
+  const {
+    playerForce,
+    showAllowableCells,
+    allowableOrigin = '',
+    allowableTerrain = '',
+    ...props
+  } = args
+  const forceNames = {
+    White: 'umpire',
+    Blue: 'Blue',
+    Red: 'Red'
+  }
+  if (showAllowableCells) {
+    props.planningConstraintsProp = {
+      origin: allowableOrigin,
+      travelMode: allowableTerrain,
+      status: 'Transiting',
+      speed: 20
+    }
+  }
+
+  return (
+    <Mapping
+      playerForce={forceNames[playerForce]}
+      {...props}
+    />
+  )
+}
+
 /**
  * DEFAULT VIEW
  */
-export const Default: React.FC = () => <Mapping
-  tileDiameterMins={5}
-  bounds={bounds}
-  tileLayer={LocalTileLayer}
-  forces={forces}
-  playerForce='Blue'
-  canSubmitOrders={false}
-  platforms={platformTypes}
-  phase={Phase.Planning}
-  turnNumber={5}
-  mapBar={false}
-/>
-
+export const Default = Template
+Default.args = {
+  tileDiameterMins: 5,
+  bounds: bounds,
+  tileLayer: LocalTileLayer,
+  forces: forces,
+  playerForce: 'Blue',
+  canSubmitOrders: false,
+  platforms: platformTypes,
+  phase: Phase.Planning,
+  turnNumber: 5,
+  mapBar: false
+}
 /**
  * VIEW WITH MAPPING BAR
  */
-export const WithMapBar: React.FC = () => <Mapping
-  tileDiameterMins={5}
-  bounds={bounds}
-  tileLayer={LocalTileLayer}
-  forces={forces}
-  canSubmitOrders={false}
-  platforms={platformTypes}
-  phase={Phase.Adjudication}
-  turnNumber={5}
-  playerForce={radios(label, forceNames, defaultValue)}
->
-</Mapping>
+export const WithMapBar = Template
+WithMapBar.args = {
+  tileDiameterMins: 5,
+  bounds: bounds,
+  tileLayer: LocalTileLayer,
+  forces: forces,
+  canSubmitOrders: false,
+  platforms: platformTypes,
+  phase: Phase.Adjudication,
+  turnNumber: 5
+}
 
 /**
  * VIEW WITH SINGLE ASSET
@@ -105,272 +221,151 @@ const assetTypeNames = {
 }
 const assetTypeDefaultValue = 'agi'
 
-export const WithMarker: React.FC = () => <Mapping
-  tileDiameterMins={5}
-  bounds={bounds}
-  tileLayer={LocalTileLayer}
-  forces={forces}
-  playerForce='Blue'
-  canSubmitOrders={false}
-  platforms={platformTypes}
-  phase={Phase.Planning}
-  turnNumber={5}
-  mapBar={false}
->
-  <AssetIcon
-    uniqid="id1"
-    name="Jeffrey"
-    condition='Working'
-    position={L.latLng(13.298034302, 43.0488191271)}
-    selected={boolean(visLabel, visDefaultValue)}
-    type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)}
-    force={'Red'}
-    perceivedForce={radios('Perceived asset force', assetForceNames, assetForceDefaultValue)}
-    visibleTo={['blue,', 'red']}
-    status={{
-      speedKts: 10,
-      state: 'Working'
-    }}
-    tooltip="Tooltip for marker" />
-</Mapping>
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
-WithMarker.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
-    }
-  }
+export const WithMarker = Template
+WithMarker.args = {
+  tileDiameterMins: 5,
+  bounds: bounds,
+  tileLayer: LocalTileLayer,
+  forces: forces,
+  playerForce: 'Blue',
+  canSubmitOrders: false,
+  platforms: platformTypes,
+  phase: Phase.Planning,
+  turnNumber: 5,
+  mapBar: false,
+  children: (
+    <AssetIcon
+      uniqid="id1"
+      name="Jeffrey"
+      condition='Working'
+      position={L.latLng(13.298034302, 43.0488191271)}
+      selected={boolean(visLabel, visDefaultValue)}
+      type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)}
+      force={'Red'}
+      perceivedForce={radios('Perceived asset force', assetForceNames, assetForceDefaultValue)}
+      visibleTo={['blue,', 'red']}
+      status={{
+        speedKts: 10,
+        state: 'Working'
+      }}
+      tooltip="Tooltip for marker" />
+  )
 }
 
 /**
  * VIEW WITH MULTIPLE ASSETS
  */
-const label = 'View As'
-const forceNames = {
-  White: 'umpire',
-  Blue: 'Blue',
-  Red: 'Red'
-}
-const defaultValue = 'Blue'
-
-const assetsPhasesPhaseLabel = 'Game phase'
-const assetsPhasesPhaseNames = {
-  Planning: Phase.Planning,
-  Adjudication: Phase.Adjudication
-}
-const assetsPhasePhaseValue = Phase.Planning
-
-const canSubmitLabel = 'Can submit orders'
-const canSubmitDefaultValue = true
 
 // generic postback handler, for forms
 const mapPostBack = (messageType: string, payload: MessageMap): void => {
   console.log('postback', messageType, payload)
   window.alert('postback:' + messageType + ', ' + JSON.stringify(payload))
 }
-export const WithAssets: React.FC = () => <Mapping
-  tileDiameterMins={5}
-  bounds={bounds}
-  tileLayer={LocalTileLayer}
-  forces={forces}
-  playerForce={radios(label, forceNames, defaultValue)}
-  canSubmitOrders={boolean(canSubmitLabel, canSubmitDefaultValue)}
-  platforms={platformTypes}
-  phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
-  turnNumber={2}
-  mapPostBack={mapPostBack} >
-  <Assets /><HexGrid />
-</Mapping>
-
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
-WithAssets.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
-    }
-  }
+export const WithAssets = Template
+WithAssets.args = {
+  tileDiameterMins: 5,
+  bounds: bounds,
+  tileLayer: LocalTileLayer,
+  forces: forces,
+  platforms: platformTypes,
+  turnNumber: 2,
+  mapPostBack: mapPostBack,
+  children: (
+    <>
+      <Assets />
+      <HexGrid />
+    </>
+  )
 }
 
 /**
  * VIEW WITH TRIMMED ASSETS
  */
-export const WithLimitedAssets: React.FC = () => <Mapping
-  tileDiameterMins={5}
-  bounds={bounds}
-  tileLayer={LocalTileLayer}
-  forces={smallForces}
-  playerForce={radios(label, forceNames, defaultValue)}
-  canSubmitOrders={boolean(canSubmitLabel, canSubmitDefaultValue)}
-  platforms={platformTypes}
-  phase={radios(assetsPhasesPhaseLabel, assetsPhasesPhaseNames, assetsPhasePhaseValue)}
-  turnNumber={2}
-  mapPostBack={mapPostBack} >
-  <Assets /><HexGrid />
-</Mapping>
-
-// @ts-ignore TS belives the 'story' property doesn't exist but it does.
-WithLimitedAssets.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
-    }
-  }
+export const WithLimitedAssets = Template
+WithLimitedAssets.args = {
+  tileDiameterMins: 5,
+  bounds: bounds,
+  tileLayer: LocalTileLayer,
+  forces: smallForces,
+  platforms: platformTypes,
+  turnNumber: 2,
+  mapPostBack: mapPostBack,
+  children: (
+    <>
+      <Assets />
+      <HexGrid />
+    </>
+  )
 }
 
 /**
  * VIEW WITH HEX GRID
  */
-const hexGridLabel = 'Tile diameter, nm'
-const hexGridDefaultValue = 5
-const hexGridOptions = {
-  range: true,
-  min: 1,
-  max: 15,
-  step: 1
-}
+export const WithGrid = Template
 
-export const WithGrid: React.FC = () => <Mapping
-  bounds={bounds}
-  tileLayer={LocalTileLayer}
-  tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
-  forces={forces}
-  platforms={platformTypes}
-  phase={Phase.Planning}
-  turnNumber={5}
-  playerForce='Blue'
-  canSubmitOrders={false}
-  mapBar={false}
->
-  <HexGrid />
-</Mapping>
-
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
-WithGrid.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
-    }
-  }
+WithGrid.args = {
+  bounds: bounds,
+  tileLayer: LocalTileLayer,
+  forces: forces,
+  platforms: platformTypes,
+  phase: Phase.Planning,
+  turnNumber: 5,
+  playerForce: 'Blue',
+  canSubmitOrders: false,
+  mapBar: false,
+  children: <HexGrid />
 }
 
 /**
  * VIEW WITH ALLOWABLE CELLS
  */
-const allowableOnLabel = 'Show allowable cells'
-const allowableDefaultValue = true
-
-const allowableOriginLabel = 'Current location'
-const allowableOriginValue = 'F10'
-
-const allowableTerrain = 'Platform terrain constraints'
-const allowableTerrainDefault = 'Sea'
-const allowableTerrainOptions = {
-  Sea: 'Sea',
-  Land: 'Land',
-  Air: 'Air'
-}
-
-const allowableGridLabel = 'Platform range'
-const allowableGridDefaultValue = 3
-const allowableGridOptions = {
-  range: true,
-  min: 1,
-  max: 6,
-  step: 1
-}
-
-export const WithAllowableRange: React.FC = () => <Mapping
-  bounds={bounds}
-  tileLayer={LocalTileLayer}
-  tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
-  forces={forces}
-  platforms={platformTypes}
-  phase={Phase.Planning}
-  turnNumber={5}
-  canSubmitOrders={false}
-  playerForce='Blue'
-  mapBar={false}
-  planningRangeProp={number(allowableGridLabel, allowableGridDefaultValue, allowableGridOptions)}
-  planningConstraintsProp={boolean(allowableOnLabel, allowableDefaultValue) ? {
-    origin: text(allowableOriginLabel, allowableOriginValue),
-    travelMode: radios(allowableTerrain, allowableTerrainOptions, allowableTerrainDefault),
-    status: 'Transiting',
-    speed: 20
-  } : undefined}
->
-  <HexGrid />
-</Mapping>
-
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
-WithAllowableRange.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
-    }
-  }
+export const WithAllowableRange = Template
+WithAllowableRange.args = {
+  bounds: bounds,
+  tileLayer: LocalTileLayer,
+  forces: forces,
+  platforms: platformTypes,
+  phase: Phase.Planning,
+  turnNumber: 5,
+  canSubmitOrders: false,
+  playerForce: 'Blue',
+  mapBar: false,
+  planningRangeProp: 3,
+  showAllowableCells: true,
+  allowableOrigin: 'F10',
+  children: <HexGrid />
 }
 
 /**
  * VIEW WITH OPEN STREET MAP
  */
-export const OpenStreetMap: React.FC = () => <Mapping
-  tileDiameterMins={5}
-  bounds={bounds}
-  tileLayer={OSMTileLayer}
-  forces={forces}
-  playerForce='Blue'
-  canSubmitOrders={false}
-  platforms={platformTypes}
-  phase={Phase.Planning}
-  turnNumber={5}
-  mapBar={false}
-/>
-
+export const OpenStreetMap = Template
+OpenStreetMap.args = {
+  tileDiameterMins: 5,
+  bounds: bounds,
+  tileLayer: OSMTileLayer,
+  forces: forces,
+  playerForce: 'Blue',
+  canSubmitOrders: false,
+  platforms: platformTypes,
+  phase: Phase.Planning,
+  turnNumber: 5,
+  mapBar: false
+}
 /**
  * VIEW ALLOWING GAME PHASE & PLAYER FORCE TO CHANGE
  * (with the intention of verifyin that the correct form is displayed)
  */
-const phasesViewLabel = 'View as'
-const phasesViewNames = {
-  White: 'umpire',
-  Blue: 'Blue',
-  Red: 'Red'
-}
-const phaseViewValue = 'Blue'
 
-const phasesPhaseLabel = 'Game phase'
-const phasesPhaseNames = {
-  Planning: Phase.Planning,
-  Adjudication: Phase.Adjudication
-}
-const phasePhaseValue = Phase.Planning
-
-export const WithPhases: React.FC = () => <Mapping
-  tileDiameterMins={5}
-  bounds={bounds}
-  tileLayer={LocalTileLayer}
-  forces={forces}
-  playerForce={radios(phasesViewLabel, phasesViewNames, phaseViewValue)}
-  canSubmitOrders={false}
-  platforms={platformTypes}
-  mapPostBack={mapPostBack}
-  phase={radios(phasesPhaseLabel, phasesPhaseNames, phasePhaseValue)}
-  turnNumber={5}
->
-  <Assets />
-</Mapping>
-
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
-WithPhases.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
-    }
-  }
+export const WithPhases = Template
+WithPhases.args = {
+  tileDiameterMins: 5,
+  bounds: bounds,
+  tileLayer: LocalTileLayer,
+  forces: forces,
+  canSubmitOrders: false,
+  platforms: platformTypes,
+  mapPostBack: mapPostBack,
+  turnNumber: 5,
+  children: <Assets />
 }
