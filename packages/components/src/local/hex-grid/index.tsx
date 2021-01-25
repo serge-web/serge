@@ -14,7 +14,7 @@ import getCellStyle from './helpers/get-cell-style'
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import { SergeHex, Route } from '@serge/custom-types'
+import { SergeHex, Route, NewTurnValues } from '@serge/custom-types'
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
@@ -230,48 +230,72 @@ export const HexGrid: React.FC<{}> = () => {
        *
        */
   const dropped = (e: any): void => {
-    // Note: ok, we don't actually use the marker location, since
-    // it may be outside the achievable area. Just
-    // use the last point in the planning leg
-    const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
-    if (plannedRouteCells && (planningRange || rangeUnlimited) && planningRouteCells.length) {
-      // deduct one from planned route, since it includes the origin cell
-      const routeLen = planningRouteCells.length - 1
-      const lastCell: SergeHex<{}> = planningRouteCells[routeLen]
-
+    if(planningConstraints && planningConstraints.status === 'LAYDOWN') {
+      // Special Case - in Force Laydown
+      // find the drop location
       const marker = e.target
-      marker.setLatLng(lastCell.centreLatLng)
+      const location = marker.getLatLng()
+      const cellPos: SergeHex<{}> | undefined = gridCells.cellFor(location)
+      if (cellPos) {
+        const laydown: NewTurnValues = {
+          state: planningConstraints.status,
+          speed: planningConstraints.speed,
+          route: [cellPos]
+        }
+        setNewLeg(laydown)
+      }
+      // also clear other bits
+      setOrigin(undefined)
+      setPlannedRouteCells([])
+      setPlannedRoutePoly([])
+      setPlanningRouteCells([])
+      setPlanningRoutePoly([])
+      setPlanningRange(undefined)
+      setAllowableFilteredCells([])
+    } else {
+      // Note: ok, we don't actually use the marker location, since
+      // it may be outside the achievable area. Just
+      // use the last point in the planning leg
+      const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
+      if (plannedRouteCells && (planningRange || rangeUnlimited) && planningRouteCells.length) {
+        // deduct one from planned route, since it includes the origin cell
+        const routeLen = planningRouteCells.length - 1
+        const lastCell: SergeHex<{}> = planningRouteCells[routeLen]
 
-      // drop the first cell, since it's the current location
-      const trimmedPlanningRouteCells = planningRouteCells.slice(1)
+        const marker = e.target
+        marker.setLatLng(lastCell.centreLatLng)
 
-      // have we consumed the full length?
-      if (rangeUnlimited || routeLen === planningRange) {
-        // combine planned and planning cells, ready for results
-        const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(trimmedPlanningRouteCells)
+        // drop the first cell, since it's the current location
+        const trimmedPlanningRouteCells = planningRouteCells.slice(1)
 
-        // clear the planning routes
-        setPlannedRouteCells([])
-        setPlannedRoutePoly([])
-        setPlanningRouteCells([])
-        setPlanningRoutePoly([])
+        // have we consumed the full length?
+        if (rangeUnlimited || routeLen === planningRange) {
+          // combine planned and planning cells, ready for results
+          const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(trimmedPlanningRouteCells)
 
-        // restore the full planning range allowance
-        setPlanningRange(planningRangeProps)
+          // clear the planning routes
+          setPlannedRouteCells([])
+          setPlannedRoutePoly([])
+          setPlanningRouteCells([])
+          setPlanningRoutePoly([])
 
-        // ok, planning complete - fire the event back up the hierarchy
-        setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
-      } else {
-        if (planningRange && !rangeUnlimited) {
-          // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
-          const remaining = planningRange - routeLen
+          // restore the full planning range allowance
+          setPlanningRange(planningRangeProps)
 
-          if (lastCell) {
-            setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
-            // note: we extend the existing planned cells, with the new ones
-            setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
-            setOriginHex(lastCell)
-            setPlanningRange(remaining)
+          // ok, planning complete - fire the event back up the hierarchy
+          setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
+        } else {
+          if (planningRange && !rangeUnlimited) {
+            // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
+            const remaining = planningRange - routeLen
+
+            if (lastCell) {
+              setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
+              // note: we extend the existing planned cells, with the new ones
+              setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
+              setOriginHex(lastCell)
+              setPlanningRange(remaining)
+            }
           }
         }
       }

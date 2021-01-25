@@ -168,6 +168,12 @@ export const MapBar: React.FC = () => {
       const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
       const orders: MessageSubmitPlans = collatePlanningOrders(myRoutes)
       mapPostBack(SUBMIT_PLANS, orders, channelID)
+    } else if (turnNumber === 0) {
+      // special case - in force laydown
+      console.log('collating force laydown')
+      // collate laydown data
+
+      // send laydown
     }
     setPlansSubmitted(true)
   }
