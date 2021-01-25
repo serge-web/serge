@@ -153,25 +153,25 @@ export const Mapping: React.FC<PropTypes> = ({
     const store: RouteStore = routeSetCurrent(id, routeStore)
     setRouteStore(store)
 
-    // if we are in turn 0 adjudication phase, we have special processing, since 
+    // if we are in turn 0 adjudication phase, we have special processing, since
     // the player may be doing force laydown
-    if(store.selected && turnNumber === 0 && phase === Phase.Adjudication) {
+    if (store.selected && turnNumber === 0 && phase === Phase.Adjudication) {
       console.log('correct phase', store.selected.laydownPhase)
       const layPhase = store.selected.laydownPhase
-      if(layPhase) {
-        if(layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
+      if (layPhase) {
+        if (layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
           const asset: Asset = findAsset(forces, store.selected.uniqid)
           const pType = findPlatformTypeFor(platforms, asset.platformType)
           const moves: PlanMobileAsset = {
             origin: store.selected.currentPosition,
             travelMode: pType.travelMode,
-            status: `LAYDOWN`
+            status: 'LAYDOWN'
           }
           console.log('plan', moves)
-          setPlanningConstraints(moves)  
+          setPlanningConstraints(moves)
         }
       }
-    } 
+    }
   }, [selectedAsset])
 
   /**

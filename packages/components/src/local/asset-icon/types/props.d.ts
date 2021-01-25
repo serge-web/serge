@@ -49,8 +49,8 @@ export default interface PropTypes {
    * A list of forces able to see the asset
    */
   visibleTo: Array<string>
-  /** 
-   * whether the asset can be dragged in turn zero 
+  /**
+   * whether the asset can be dragged in turn zero
    */
   locationPending?: boolean
 }

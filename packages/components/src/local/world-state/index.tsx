@@ -72,7 +72,7 @@ export const WorldState: React.FC<PropTypes> = ({
   }
 
   const laydownMessageFor = (phase?: LaydownPhases): string => {
-    if(phase) {
+    if (phase) {
       return phase
       // switch(phase) {
       //   case LaydownPhases.Immobile:
@@ -83,7 +83,7 @@ export const WorldState: React.FC<PropTypes> = ({
       //     return 'Pending'
       //   case LaydownPhases.Moved:
       //     return 'Moved'
-      // }  
+      // }
     }
     return 'no phase'
   }

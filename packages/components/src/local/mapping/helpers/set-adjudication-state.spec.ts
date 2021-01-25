@@ -5,10 +5,9 @@ import { forces, platformTypes } from '@serge/mocks'
 import { RouteStore } from '@serge/custom-types'
 
 import setAdjudicationState from './set-adjudication-state'
-import { Phase } from '@serge/config'
+import { Phase, PlanningStates, PlanningCommands, UMPIRE_FORCE } from '@serge/config'
 
 import { routeCreateStore, routeSetCurrent } from '@serge/helpers'
-import { PlanningStates, PlanningCommands, UMPIRE_FORCE } from '@serge/config'
 
 it('Handles manually setting route', () => {
   const frigateId = 'a0pra00001'

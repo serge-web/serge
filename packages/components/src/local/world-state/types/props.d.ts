@@ -15,7 +15,7 @@ export default interface PropTypes {
    */
   phase: string
   /** current turn number
-   * 
+   *
    */
   turnNumber: number
   /**

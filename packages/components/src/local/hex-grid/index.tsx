@@ -96,9 +96,8 @@ export const HexGrid: React.FC<{}> = () => {
        */
   useEffect(() => {
     if (dragDestination && originHex) {
-
       // check we're not in laydown mode
-      if(planningConstraints && planningConstraints.status === 'LAYDOWN') {
+      if (planningConstraints && planningConstraints.status === 'LAYDOWN') {
         // we don't show path in laydown mode
         setPlanningRouteCells([])
         setPlanningRoutePoly([])

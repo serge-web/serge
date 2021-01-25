@@ -123,7 +123,7 @@ export const MapBar: React.FC = () => {
     // since the routeStore will update on a new selected asset
     if (selectedAsset) {
       // note: we don't show the planning form if this is a non-umpire in force-laydown phase
-      if(playerForce === UMPIRE_FORCE || phase === Phase.Planning || turnNumber !== 0) {
+      if (playerForce === UMPIRE_FORCE || phase === Phase.Planning || turnNumber !== 0) {
         const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel)
         // note: since the next call is async, we get a render before the new form
         // has been assigned. This caused troubles. So, while we set the new form here,

@@ -61,7 +61,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
         condition: condition || 'unknown',
         visibleTo: visibleTo,
         status: status,
-        locationPending: locationPending      
+        locationPending: locationPending
       }
       setSelectedAsset(selection)
       setShowMapBar(true)
