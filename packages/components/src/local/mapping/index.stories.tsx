@@ -171,7 +171,7 @@ const Template: Story<StoryPropTypes> = (args) => {
 /**
  * DEFAULT VIEW
  */
-export const Default = Template.bind({})
+export const Default = Template
 Default.args = {
   tileDiameterMins: 5,
   bounds: bounds,
@@ -187,7 +187,7 @@ Default.args = {
 /**
  * VIEW WITH MAPPING BAR
  */
-export const WithMapBar = Template.bind({})
+export const WithMapBar = Template
 WithMapBar.args = {
   tileDiameterMins: 5,
   bounds: bounds,
@@ -221,7 +221,7 @@ const assetTypeNames = {
 }
 const assetTypeDefaultValue = 'agi'
 
-export const WithMarker = Template.bind({})
+export const WithMarker = Template
 WithMarker.args = {
   tileDiameterMins: 5,
   bounds: bounds,
@@ -261,7 +261,7 @@ const mapPostBack = (messageType: string, payload: MessageMap): void => {
   console.log('postback', messageType, payload)
   window.alert('postback:' + messageType + ', ' + JSON.stringify(payload))
 }
-export const WithAssets = Template.bind({})
+export const WithAssets = Template
 WithAssets.args = {
   tileDiameterMins: 5,
   bounds: bounds,
@@ -281,7 +281,7 @@ WithAssets.args = {
 /**
  * VIEW WITH TRIMMED ASSETS
  */
-export const WithLimitedAssets = Template.bind({})
+export const WithLimitedAssets = Template
 WithLimitedAssets.args = {
   tileDiameterMins: 5,
   bounds: bounds,
@@ -301,7 +301,7 @@ WithLimitedAssets.args = {
 /**
  * VIEW WITH HEX GRID
  */
-export const WithGrid = Template.bind({})
+export const WithGrid = Template
 
 WithGrid.args = {
   bounds: bounds,
@@ -319,7 +319,7 @@ WithGrid.args = {
 /**
  * VIEW WITH ALLOWABLE CELLS
  */
-export const WithAllowableRange = Template.bind({})
+export const WithAllowableRange = Template
 WithAllowableRange.args = {
   bounds: bounds,
   tileLayer: LocalTileLayer,
@@ -339,7 +339,7 @@ WithAllowableRange.args = {
 /**
  * VIEW WITH OPEN STREET MAP
  */
-export const OpenStreetMap = Template.bind({})
+export const OpenStreetMap = Template
 OpenStreetMap.args = {
   tileDiameterMins: 5,
   bounds: bounds,
@@ -357,7 +357,7 @@ OpenStreetMap.args = {
  * (with the intention of verifyin that the correct form is displayed)
  */
 
-export const WithPhases = Template.bind({})
+export const WithPhases = Template
 WithPhases.args = {
   tileDiameterMins: 5,
   bounds: bounds,

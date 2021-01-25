@@ -84,7 +84,7 @@ const Template: Story<WorldStatePropTypes> = (args) => {
   return <WorldState store={storeProp} {...props} />
 }
 
-export const WithPhases = Template.bind({})
+export const WithPhases = Template
 WithPhases.args = {
   panel: WorldStatePanels.Control,
   isUmpire: false,
