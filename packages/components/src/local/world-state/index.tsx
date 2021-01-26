@@ -100,7 +100,7 @@ export const WorldState: React.FC<PropTypes> = ({
     const laydownMessage: string = item.laydownPhase === LaydownPhases.NotInLaydown ? '' : ' ' + item.laydownPhase
     const checkStatus: boolean = item.laydownPhase === LaydownPhases.NotInLaydown ? 
       inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
-      : item.laydownPhase === LaydownPhases.Moved
+      : item.laydownPhase !== LaydownPhases.Unmoved
     const fullDescripton: string = descriptionText + ' ' + laydownMessage
 
     return (
