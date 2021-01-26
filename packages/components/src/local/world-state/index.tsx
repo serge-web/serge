@@ -71,23 +71,6 @@ export const WorldState: React.FC<PropTypes> = ({
     }
   }
 
-  const laydownMessageFor = (phase?: LaydownPhases): string => {
-    if (phase) {
-      return phase
-      // switch(phase) {
-      //   case LaydownPhases.Immobile:
-      //     return 'immobile'
-      //   case LaydownPhases.NotInLaydown:
-      //     return 'not in laydown'
-      //   case LaydownPhases.Unmoved:
-      //     return 'Pending'
-      //   case LaydownPhases.Moved:
-      //     return 'Moved'
-      // }
-    }
-    return 'no phase'
-  }
-
   // sort out which title to use on orders panel
   const customTitle = (panel === WorldStatePanels.Visibility) ? 'Other Visible Platforms' : name
 
@@ -113,9 +96,11 @@ export const WorldState: React.FC<PropTypes> = ({
     const descriptionText = (isUmpire || item.underControl) && depth.length === 0
       ? `${numPlanned} turns planned` : ''
     const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
-    const checkStatus: boolean = inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
 
-    const laydownMessage: string = laydownMessageFor(item.laydownPhase)
+    const laydownMessage: string = item.laydownPhase === LaydownPhases.NotInLaydown ? '' : ' ' + item.laydownPhase
+    const checkStatus: boolean = item.laydownPhase === LaydownPhases.NotInLaydown ? 
+      inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
+      : item.laydownPhase === LaydownPhases.Moved
     const fullDescripton: string = descriptionText + ' ' + laydownMessage
 
     return (

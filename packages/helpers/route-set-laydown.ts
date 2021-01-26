@@ -21,8 +21,6 @@ const routeSetLaydown = (store: RouteStore, location: string, grid: SergeGrid<Se
       route.currentLocation = cell.centreLatLng
     } 
 
-    console.log('have set route', route.currentPosition, route.currentLocation)
-
     // update the phase
     route.laydownPhase = LaydownPhases.Moved
 

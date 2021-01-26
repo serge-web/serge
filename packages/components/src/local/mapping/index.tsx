@@ -293,7 +293,6 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [tileDiameterMins, latLngBounds])
 
   const handleForceLaydown = (turn:NewTurnValues): void => {
-    console.log('laydown:', turn)
     if(routeStore.selected) {
       if(turn.route.length !== 1) {
         console.error('Force Laydown - failed to receive single step route')
@@ -306,9 +305,7 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    console.log('new leg handler', newLeg)
     if (newLeg) {
-      console.log('new leg received', newLeg)
       if(currentPhase === ADJUDICATION_PHASE && turnNumber == 0) {
         handleForceLaydown(newLeg)
         return

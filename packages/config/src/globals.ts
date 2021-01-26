@@ -10,6 +10,7 @@ export const CHAT_CHANNEL_ID = 'game-admin'
 
 export const PLANNING_PHASE = 'planning'
 export const ADJUDICATION_PHASE = 'adjudication'
+export const LAYDOWN_TURN = 'laydown'
 
 export const expiredStorage = new ExpiredStorage()
 export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
