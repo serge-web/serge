@@ -288,12 +288,12 @@ export const Mapping: React.FC<PropTypes> = ({
       const newGrid: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
       setGridCells(newGrid)
     }
-//    console.clear() // TODO: remove this, it's just a shortcut to ensuring each "session" starts with clear console.ß
+    //    console.clear() // TODO: remove this, it's just a shortcut to ensuring each "session" starts with clear console.ß
   }, [tileDiameterMins, latLngBounds])
 
-  const handleForceLaydown = (turn:NewTurnValues): void => {
-    if(routeStore.selected) {
-      if(turn.route.length !== 1) {
+  const handleForceLaydown = (turn: NewTurnValues): void => {
+    if (routeStore.selected) {
+      if (turn.route.length !== 1) {
         console.error('Force Laydown - failed to receive single step route')
       } else {
         const newStore: RouteStore = routeSetLaydown(routeStore, turn.route[0].name, gridCells)
@@ -305,7 +305,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (newLeg) {
-      if(currentPhase === ADJUDICATION_PHASE && turnNumber == 0) {
+      if (currentPhase === ADJUDICATION_PHASE && turnNumber == 0) {
         handleForceLaydown(newLeg)
         return
       }

@@ -33,6 +33,7 @@ import PlanTurnForm from '../plan-turn-form'
 import AdjudicationManager from '../adjudicate-turn-form/helpers/adjudication-manager'
 import { MapBarForms } from './helpers/enums'
 import collateVisibilityFormData from './helpers/collate-visibility-form-data'
+import collateForceLaydown from './helpers/collate-force-laydown'
 import VisibilityForm from '../visibility-form'
 
 /* Render component */
@@ -139,13 +140,13 @@ export const MapBar: React.FC = () => {
 
   // sort out the handler for State of World button
   useEffect(() => {
-    if(routeStore) {
+    if (routeStore) {
       let formTitle = ''
       let submitTitle = ''
       if (phase === ADJUDICATION_PHASE) {
-        if(turnNumber === 0) {
+        if (turnNumber === 0) {
           // see if player can submit orders
-          if(canSubmitOrders) {
+          if (canSubmitOrders) {
             // see if it has any forces that laydown
             const needsLaydown = routeStore.routes.find((route: Route) => {
               return route.underControl && (route.laydownPhase === LaydownPhases.Unmoved || route.laydownPhase === LaydownPhases.Moved)
@@ -154,11 +155,11 @@ export const MapBar: React.FC = () => {
             submitTitle = needsLaydown ? 'Submit Force Laydown' : 'dobbin'
           } else {
             formTitle = playerForce === UMPIRE_FORCE ? 'My Forces' : 'Force Laydown'
-            submitTitle = 'Submit Force Laydown'    
+            submitTitle = 'Submit Force Laydown'
           }
         } else {
           formTitle = playerForce === UMPIRE_FORCE ? 'State of World' : 'My Forces'
-          submitTitle = 'Submit state of world'  
+          submitTitle = 'Submit state of world'
         }
       } else if (phase === PLANNING_PHASE) {
         formTitle = 'Orders'
@@ -190,7 +191,7 @@ export const MapBar: React.FC = () => {
       // special case - in force laydown
       console.log('collating force laydown')
       // collate laydown data
-      const orders: MessageForceLaydown = collateLaydownDetails(routeStore.routes)
+      const orders: MessageForceLaydown = collateForceLaydown(routeStore.routes)
       mapPostBack(FORCE_LAYDOWN, orders, channelID)
       // send laydown
     }

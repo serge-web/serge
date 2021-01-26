@@ -230,7 +230,7 @@ export const HexGrid: React.FC<{}> = () => {
        *
        */
   const dropped = (e: any): void => {
-    if(planningConstraints && planningConstraints.status === 'LAYDOWN') {
+    if (planningConstraints && planningConstraints.status === 'LAYDOWN') {
       // Special Case - in Force Laydown
       // find the drop location
       const marker = e.target

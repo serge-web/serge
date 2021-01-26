@@ -27,7 +27,7 @@ export const WorldState: React.FC<PropTypes> = ({
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
 
   const inLaydown = phase === ADJUDICATION_PHASE && turnNumber === 0
-  
+
   /** filter the list of cells allowable for this platform
    * depending on requested cell type
    */
@@ -100,8 +100,8 @@ export const WorldState: React.FC<PropTypes> = ({
     const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
 
     const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
-    const checkStatus: boolean = item.laydownPhase === LaydownPhases.NotInLaydown ? 
-      inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
+    const checkStatus: boolean = item.laydownPhase === LaydownPhases.NotInLaydown
+      ? inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
       : item.laydownPhase !== LaydownPhases.Unmoved
     const fullDescription: string = descriptionText + laydownMessage
 
@@ -128,7 +128,7 @@ export const WorldState: React.FC<PropTypes> = ({
     // console.log(draggingItem.uniqid, item.uniqid, _type, _parents)
     return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type, gridCells)
   }
- 
+
   return <>
     <div className={styles['world-state']}>
       <h2 className={styles.title}>{customTitle}

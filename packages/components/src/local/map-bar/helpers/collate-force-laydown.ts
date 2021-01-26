@@ -1,36 +1,16 @@
-import { SUBMIT_PLANS } from '@serge/config'
-import { MessageSubmitPlans, PlannedRoute, RouteStatus, Route, RouteTurn, MessageForceLaydown } from '@serge/custom-types'
+import { FORCE_LAYDOWN, LaydownPhases } from '@serge/config'
+import { Route, MessageForceLaydown } from '@serge/custom-types'
 
 const collateForceLaydown = (routes: Array<Route>): MessageForceLaydown => {
-  const results: Array<PlannedRoute> = routes.map((route: Route): PlannedRoute => {
-    const res: RouteTurn[] = []
-    route.planned.forEach((step: RouteTurn) => {
-      const coords: string[] | undefined = step.route
-      const status: RouteStatus = step.status.speedKts ? {
-        state: step.status.state,
-        speedKts: step.status.speedKts
-      } : {
-        state: step.status.state
-      }
-      const newStep: RouteTurn = coords !== undefined ? {
-        turn: step.turn,
-        route: coords,
-        status: status
-      } : {
-        turn: step.turn,
-        status: status
-      }
-      res.push(newStep)
-    })
-    const plannedRoute: PlannedRoute = {
-      uniqid: route.uniqid,
-      plannedTurns: res
-    }
-    return plannedRoute
+
+  const moved: Array<Route> = routes.filter((route: Route) => route.laydownPhase && route.laydownPhase === LaydownPhases.Moved)
+  const results: Array<{uniqid: string, position: string }> = moved.map((route: Route):{uniqid: string, position: string} => {
+    return {uniqid: route.uniqid, position: route.currentPosition}
   })
-  const message: MessageSubmitPlans = {
-    messageType: SUBMIT_PLANS,
-    plannedRoutes: results
+
+  const message: MessageForceLaydown = {
+    messageType: FORCE_LAYDOWN,
+    updates: results
   }
   return message
 }
