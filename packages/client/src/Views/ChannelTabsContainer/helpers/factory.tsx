@@ -1,6 +1,6 @@
 import React from 'react'
 import { ForceData, MessageMap, PlayerUi, Role } from '@serge/custom-types'
-import { PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES } from '@serge/config'
+import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES } from '@serge/config'
 import { sendMapMessage } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -37,6 +37,9 @@ const findRole = (roleName: string, forceData: ForceData | undefined): Role => {
 const factory = (state: PlayerUi): Factory => {
   const mapPostBack = (form: string, payload: MessageMap, channelID: string): void => {
     switch(form) {
+      case FORCE_LAYDOWN:
+        sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        break
       case VISIBILITY_CHANGES:
         sendMapMessage(VISIBILITY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
         break
