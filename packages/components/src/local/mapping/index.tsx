@@ -158,7 +158,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // the player may be doing force laydown
     if (store.selected && turnNumber === 0 && phase === Phase.Adjudication) {
       const layPhase = store.selected.laydownPhase
-      if (layPhase) {
+      if (layPhase && canSubmitOrders) {
         if (layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
           const asset: Asset = findAsset(forces, store.selected.uniqid)
           const pType = findPlatformTypeFor(platforms, asset.platformType)
@@ -207,7 +207,6 @@ export const Mapping: React.FC<PropTypes> = ({
     // is it different to current force state?
     const forceStateEmptyOrChanged = !forcesState || !isEqual(forcesState, forces)
     if (forceStateEmptyOrChanged) {
-      // console.log('new forces', forcesChanged, compareUserData(forcesState, forces, []))
       setForcesState(forces)
     }
   }, [forces])
@@ -289,7 +288,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const newGrid: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
       setGridCells(newGrid)
     }
-    console.clear() // TODO: remove this, it's just a shortcut to ensuring each "session" starts with clear console.ß
+//    console.clear() // TODO: remove this, it's just a shortcut to ensuring each "session" starts with clear console.ß
   }, [tileDiameterMins, latLngBounds])
 
   const handleForceLaydown = (turn:NewTurnValues): void => {

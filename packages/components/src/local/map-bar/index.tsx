@@ -15,9 +15,9 @@ import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 import {
   PlanTurnFormValues,
   SelectedAsset, RouteStore, Route, SergeHex, SergeGrid,
-  ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans, MapPostBack
+  ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans, MapPostBack, MessageForceLaydown
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -139,24 +139,42 @@ export const MapBar: React.FC = () => {
 
   // sort out the handler for State of World button
   useEffect(() => {
-    let formTitle = ''
-    let submitTitle = ''
-    if (phase === ADJUDICATION_PHASE) {
-      formTitle = playerForce === UMPIRE_FORCE ? 'State of World' : 'My Forces'
-      submitTitle = 'Submit state of world'
-    } else if (phase === PLANNING_PHASE) {
-      formTitle = 'Orders'
-      submitTitle = 'Submit routes'
+    if(routeStore) {
+      let formTitle = ''
+      let submitTitle = ''
+      if (phase === ADJUDICATION_PHASE) {
+        if(turnNumber === 0) {
+          // see if player can submit orders
+          if(canSubmitOrders) {
+            // see if it has any forces that laydown
+            const needsLaydown = routeStore.routes.find((route: Route) => {
+              return route.underControl && (route.laydownPhase === LaydownPhases.Unmoved || route.laydownPhase === LaydownPhases.Moved)
+            })
+            formTitle = needsLaydown ? 'Force Laydown' : 'My Forces'
+            submitTitle = needsLaydown ? 'Submit Force Laydown' : 'dobbin'
+          } else {
+            formTitle = playerForce === UMPIRE_FORCE ? 'My Forces' : 'Force Laydown'
+            submitTitle = 'Submit Force Laydown'    
+          }
+        } else {
+          formTitle = playerForce === UMPIRE_FORCE ? 'State of World' : 'My Forces'
+          submitTitle = 'Submit state of world'  
+        }
+      } else if (phase === PLANNING_PHASE) {
+        formTitle = 'Orders'
+        submitTitle = 'Submit routes'
+      }
+      if (submitTitle !== '' && submitTitle !== stateSubmitTitle) {
+        setStateSubmitTitle(submitTitle)
+      }
+      if (formTitle !== '' && formTitle != stateFormTitle) {
+        setStateFormTitle(formTitle)
+      }
     }
-    if (submitTitle !== '') {
-      setStateSubmitTitle(submitTitle)
-    }
-    if (formTitle !== '') {
-      setStateFormTitle(formTitle)
-    }
-  }, [phase, playerForce])
+  }, [phase, playerForce, turnNumber, routeStore])
 
   const worldStateSubmitHandler = (): void => {
+    console.log('world state submit received')
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
       // Umpire has finshed adjudication phase, and is now ready
       // to submit new State of the World object
@@ -172,7 +190,8 @@ export const MapBar: React.FC = () => {
       // special case - in force laydown
       console.log('collating force laydown')
       // collate laydown data
-
+      const orders: MessageForceLaydown = collateLaydownDetails(routeStore.routes)
+      mapPostBack(FORCE_LAYDOWN, orders, channelID)
       // send laydown
     }
     setPlansSubmitted(true)

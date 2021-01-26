@@ -20,12 +20,14 @@ import { WorldStatePanels } from './helpers/enums'
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
-  submitTitle, submitForm, panel, gridCells,
+  submitTitle, submitForm, panel, gridCells, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
 
+  const inLaydown = phase === ADJUDICATION_PHASE && turnNumber === 0
+  
   /** filter the list of cells allowable for this platform
    * depending on requested cell type
    */
@@ -97,11 +99,11 @@ export const WorldState: React.FC<PropTypes> = ({
       ? `${numPlanned} turns planned` : ''
     const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
 
-    const laydownMessage: string = item.laydownPhase === LaydownPhases.NotInLaydown ? '' : ' ' + item.laydownPhase
+    const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
     const checkStatus: boolean = item.laydownPhase === LaydownPhases.NotInLaydown ? 
       inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
       : item.laydownPhase !== LaydownPhases.Unmoved
-    const fullDescripton: string = descriptionText + ' ' + laydownMessage
+    const fullDescription: string = descriptionText + laydownMessage
 
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
@@ -109,7 +111,7 @@ export const WorldState: React.FC<PropTypes> = ({
         <div className={styles['item-content']}>
           <div>
             <p>{item.name}</p>
-            <p>{fullDescripton}</p>
+            <p>{fullDescription}</p>
           </div>
 
         </div>
@@ -126,12 +128,12 @@ export const WorldState: React.FC<PropTypes> = ({
     // console.log(draggingItem.uniqid, item.uniqid, _type, _parents)
     return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type, gridCells)
   }
-
+ 
   return <>
     <div className={styles['world-state']}>
       <h2 className={styles.title}>{customTitle}
         { plansSubmitted &&
-       <h5 className='sub-title'>(Form disabled, World State submitted)</h5>
+       <h5 className='sub-title'>(Form disabled, {customTitle} submitted)</h5>
         }
       </h2>
 
@@ -171,7 +173,7 @@ export const WorldState: React.FC<PropTypes> = ({
           }
         }}
       />
-      {submitTitle && (panel === WorldStatePanels.Control) && !playerInAdjudication && canSubmitOrders &&
+      {submitTitle && (panel === WorldStatePanels.Control) && (!playerInAdjudication || inLaydown) && canSubmitOrders &&
         <div className={styles.submit}>
           <Button disabled={plansSubmitted} onClick={submitCallback}>{submitTitle}</Button>
         </div>
