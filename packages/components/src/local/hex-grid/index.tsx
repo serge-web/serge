@@ -186,21 +186,20 @@ export const HexGrid: React.FC<{}> = () => {
       gridCells.forEach((hex: SergeHex<{}>) => {
         // move coords to our map
         const centreWorld: L.LatLng = hex.centreLatLng
-        // build up an array of correctly mapped corners
-        const cornerArr: L.LatLng[] = []
         // get hex center
         const centreH = hex.center()
         // get hex corners coords
         const corners = hex.corners()
         // convert hex corners coords to our map
-        corners.forEach((value: Point) => {
+        // build up an array of correctly mapped corners
+        const cornerArr: L.LatLng[] = corners.map((value: Point) => {
           // the corners are relative to the origin (TL). So, offset them to the centre
           const point: PointLike = {
             x: value.x - centreH.x,
             y: value.y - centreH.y
           }
           const newP = toWorld(point, centreWorld, gridCells.tileDiameterDegs / 2)
-          cornerArr.push(newP)
+          return newP
         })
         // add the polygon to polygons array, indexed by the cell name
         tmpPolys[hex.name] = cornerArr
