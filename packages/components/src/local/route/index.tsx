@@ -10,6 +10,7 @@ import RouteData from './types/route-data'
 import createTurnMarkers from './helpers/create-turn-markers'
 import { historicRoutesFor } from './helpers/historic-routes-for'
 import { plannedRoutesFor } from './helpers/planned-routes-for'
+import { LaydownPhases } from '@serge/config'
 
 /* Render component */
 export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, selected, clearRouteHandler }: PropTypes) => {
@@ -29,17 +30,24 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
   // maybe some refactoring would be necessary in this case
   useEffect(() => {
     if (gridCells && route && route.currentLocation) {
-      // start with historic
-      const historyRoute: RouteData = historicRoutesFor(route.currentLocation, route.history)
-      setHistoryRoutes(historyRoute)
-      const historyMarkers: JSX.Element[] = createTurnMarkers(historyRoute, 'history', color, selected, clearRouteHandler)
-      setHistoryTurnMarkers(historyMarkers)
+      // see if we're in laydown mode
+      if(!route.laydownPhase || route.laydownPhase === LaydownPhases.NotInLaydown || route.laydownPhase === LaydownPhases.Immobile || route.selected) {
+        // start with historic
+        const historyRoute: RouteData = historicRoutesFor(route.currentLocation, route.history)
+        setHistoryRoutes(historyRoute)
+        setHistoryTurnMarkers(createTurnMarkers(historyRoute, 'history', color, selected, clearRouteHandler))
 
-      // and now planned routes
-      const plannedRoute: RouteData = plannedRoutesFor(route.currentLocation, route.plannedTrimmed)
-      setPlannedRoutes(plannedRoute)
-      const plannedMarkers: JSX.Element[] = createTurnMarkers(plannedRoute, 'planned', color, selected, clearRouteHandler)
-      setPlannedTurnMarkers(plannedMarkers)
+        // now planned
+        const plannedRoute: RouteData = plannedRoutesFor(route.currentLocation, route.plannedTrimmed)
+        setPlannedRoutes(plannedRoute)
+        setPlannedTurnMarkers(createTurnMarkers(plannedRoute, 'planned', color, selected, clearRouteHandler))  
+      } else {
+        setHistoryRoutes(undefined)
+        setHistoryTurnMarkers([])
+        setPlannedRoutes(undefined)
+        setPlannedTurnMarkers([])
+      }
+
     }
   }, [gridCells, route, trimmed, selected, turnNumber])
 
