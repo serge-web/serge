@@ -1,8 +1,19 @@
-import { ForceData, MessageMap } from "@serge/custom-types"
+import { ForceData, MessageMap, Message, MessageDetails } from "@serge/custom-types"
 
+/**
+ * 
+ * @param mType message type
+ * @param message contents of message
+ * @param force  force sending message
+ * @param channelID channel for message
+ * @param role logged in player
+ * @param currentWargame name of wargame
+ * @param saveMapMessage callback to actually store message
+ */
 const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | undefined, 
   channelID: string, role: string, currentWargame: string, 
-  saveMapMessage: any): void => {
+  saveMapMessage: {(dbName: string, details: MessageDetails, message: object): Promise<Message>}): void => {
+
     if(force) {
       const { name, color, icon } = force
 
