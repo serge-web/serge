@@ -168,7 +168,7 @@ export const MapBar: React.FC = () => {
       if (submitTitle !== '' && submitTitle !== stateSubmitTitle) {
         setStateSubmitTitle(submitTitle)
       }
-      if (formTitle !== '' && formTitle != stateFormTitle) {
+      if (formTitle !== '' && formTitle !== stateFormTitle) {
         setStateFormTitle(formTitle)
       }
     }

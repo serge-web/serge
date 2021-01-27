@@ -308,7 +308,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (newLeg) {
-      if (currentPhase === ADJUDICATION_PHASE && turnNumber == 0) {
+      if (currentPhase === ADJUDICATION_PHASE && turnNumber === 0) {
         handleForceLaydown(newLeg)
         return
       }
