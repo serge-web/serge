@@ -74,7 +74,7 @@ class AdjudicationManager {
     }
   }
 
-  /** indicate the planned status of the selected asset */
+  /** indicate the planned speed of the selected asset */
   plannedSpeed (): number {
     const selected: Route | undefined = this.store.selected
     if (selected) {
@@ -89,8 +89,8 @@ class AdjudicationManager {
           }
         }
       }
+      console.warn('failed to find platform type data')
     }
-    console.warn('failed to find planned speed')
     return 0
   }
 
