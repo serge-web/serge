@@ -173,18 +173,6 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [selectedAsset])
 
-    /**
-   * if the player force changes, clear the selected assets (for StoryBook debugging)
-   */
-  useEffect(() => {
-    const newPhase: Phase = phase === ADJUDICATION_PHASE ? Phase.Adjudication : Phase.Planning
-    setCurrentPhase(newPhase)
-    console.log('mapping - setting new phase', phase)
-
-    // clear the route store. It was generated for the previous phase
-    setRouteStore({routes:[]})
-  }, [phase])
-
   /**
    * if the player force changes, clear the selected assets (for StoryBook debugging)
    */
@@ -218,8 +206,8 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // is it different to current force state?
     const forceStateEmptyOrChanged = !forcesState || !isEqual(forcesState, forces)
-    console.log('mapping new forces', forceStateEmptyOrChanged)
     if (forceStateEmptyOrChanged) {
+      console.log('mapping - creating', forceStateEmptyOrChanged)
       setForcesState(forces)
     }
   }, [forces])
@@ -235,7 +223,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const store: RouteStore = routeCreateStore(selectedId, turnNumber, currentPhase, forcesState, playerForce,
         platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
-        console.log('update route store', store)
+        console.log('mapping - update route store', store)
         setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
@@ -269,7 +257,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   /**
    * on a new phase, we have to allow plans to be submitted. Wrap `phase` into `currentPhase` so that
-   * we can confidently wipe and old planning steps from the last phase, and not risk
+   * we can confidently wipe any old planning steps from the last phase, and not risk
    * pulling them into the new routes object
    */
   useEffect(() => {
@@ -277,6 +265,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
     // wipe the route store, to ensure any routes that were being planned get forgotten
     setRouteStore({ routes: [] })
+
     // now update the phase
     setCurrentPhase(phase)
 
