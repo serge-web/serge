@@ -11,7 +11,7 @@ import {
   markerFor
 } from './helpers'
 import { saveMapMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { FORCE_LAYDOWN, VISIBILIY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, UMPIRE_FORCE } from '@serge/config'
+import { FORCE_LAYDOWN, VISIBILITY_CHANGES, PERCEPTION_OF_CONTACT, SUBMIT_PLANS, STATE_OF_WORLD, ADJUDICATION_PHASE, UMPIRE_FORCE } from '@serge/config'
 // TODO: change it to @serge/config
 
 // declare the forms in JSX space, so we can pass them to JS space
@@ -144,7 +144,7 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }
 
   const visChangesFunc = changes => {
-    sendMessage(VISIBILIY_CHANGES, changes)
+    sendMessage(VISIBILITY_CHANGES, changes)
 
     /** note: we aren't currently receiving messages that we've sent. So we
      * to trigger the reducer ourselves

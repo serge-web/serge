@@ -3,7 +3,7 @@ import {
   INFO_MESSAGE,
   FEEDBACK_MESSAGE,
   FORCE_LAYDOWN,
-  VISIBILIY_CHANGES,
+  VISIBILITY_CHANGES,
   PERCEPTION_OF_CONTACT,
   SUBMIT_PLANS,
   STATE_OF_WORLD
@@ -103,8 +103,8 @@ export interface MessagePerceptionOfContact {
 }
 
 export interface MessageVisibilityChanges {
-  messageType: typeof VISIBILIY_CHANGES,
-  readonly payload: Visibility[]
+  messageType: typeof VISIBILITY_CHANGES,
+  readonly visibility: Visibility[]
 }
 export interface MessageSubmitPlans {
   readonly messageType: typeof SUBMIT_PLANS,
@@ -112,9 +112,7 @@ export interface MessageSubmitPlans {
 }
 export interface MessageStateOfWorld {
   messageType: typeof STATE_OF_WORLD,
-  readonly detail: {
-    data: StateOfWorld
-  }
+  readonly state: StateOfWorld
 }
 
 export type MessageMap = MessageForceLaydown |

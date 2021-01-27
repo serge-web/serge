@@ -1,7 +1,7 @@
 import React from 'react'
-import { ForceData, PlayerUi, Role } from '@serge/custom-types'
-import { PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILIY_CHANGES } from '@serge/config'
-import { sendMessage } from '@serge/helpers'
+import { ForceData, MessageMap, PlayerUi, Role } from '@serge/custom-types'
+import { PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES } from '@serge/config'
+import { sendMapMessage } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { Mapping, Assets, HexGrid } from '@serge/components'
@@ -38,19 +38,19 @@ const findRole = (roleName: string, allForces: ForceData[]): Role => {
 }
 
 const factory = (state: PlayerUi): Factory => {
-  const postback = (form: string, payload: any, channelID: string): void => {
+  const mapPostBack = (form: string, payload: MessageMap, channelID: string): void => {
     switch(form) {
-      case VISIBILIY_CHANGES:
-        sendMessage(VISIBILIY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+      case VISIBILITY_CHANGES:
+        sendMapMessage(VISIBILITY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
         break
       case PERCEPTION_OF_CONTACT:
-        sendMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
         break
       case SUBMIT_PLANS:
-        sendMessage(SUBMIT_PLANS, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(SUBMIT_PLANS, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
         break
       case STATE_OF_WORLD:
-        sendMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
         break
         default:
       console.log('Handler not created for', form)
@@ -74,7 +74,7 @@ const factory = (state: PlayerUi): Factory => {
         playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
         canSubmitOrders={canSubmitOrders}
         channelID = {channelid}
-        postBack={postback}
+        mapPostBack={mapPostBack}
     >
       <Assets />
       <HexGrid/>

@@ -4,7 +4,7 @@ import { findAsset } from '@serge/helpers'
 /** create/remove perceptions for assets */
 
 export default (message: MessageVisibilityChanges, allForces: ForceData[]): ForceData[] => {
-  message.payload.forEach((visChange: Visibility) => {
+  message.visibility.forEach((visChange: Visibility) => {
     const asset: Asset = findAsset(allForces, visChange.assetId)
     if (visChange.newVis) {
       asset.perceptions.push({ force: '', type: '', by: visChange.by })

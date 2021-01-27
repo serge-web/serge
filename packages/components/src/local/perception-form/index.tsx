@@ -18,7 +18,7 @@ import cx from 'classnames'
 import { PERCEPTION_OF_CONTACT } from '@serge/config'
 
 /* Render component */
-export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, type, force, formData, channelID, postBack }) => {
+export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, type, force, formData, channelID, mapPostBack }) => {
   const [formState, setFormState] = useState<PerceptionFormValues>(formData.values)
 
   const { playerForce } = useContext(MapContext).props
@@ -46,7 +46,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, type, force, f
   }
 
   const submitForm = (): void => {
-    if (postBack !== undefined) {
+    if (mapPostBack !== undefined) {
       const payload: MessagePerceptionOfContact = {
         messageType: PERCEPTION_OF_CONTACT,
         perception: {
@@ -57,7 +57,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, type, force, f
         },
         assetId: formState.assetId
       }
-      postBack(PERCEPTION_OF_CONTACT, payload, channelID)
+      mapPostBack(PERCEPTION_OF_CONTACT, payload, channelID)
     }
   }
 

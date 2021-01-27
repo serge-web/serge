@@ -14,7 +14,8 @@ import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 /* import types */
 import {
   PlanTurnFormValues,
-  Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid, ForceData, PlatformTypeData, Asset
+  SelectedAsset, RouteStore, Route, SergeHex, SergeGrid,
+  ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans, MapPostBack
 } from '@serge/custom-types'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
 
@@ -61,7 +62,7 @@ export const MapBar: React.FC = () => {
     selectedAsset,
     setSelectedAsset,
     channelID,
-    postBack,
+    mapPostBack,
     routeStore,
     setRouteStore,
     turnPlanned,
@@ -86,7 +87,7 @@ export const MapBar: React.FC = () => {
     selectedAsset: SelectedAsset
     setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset | undefined>>
     channelID: string | number
-    postBack: Postback
+    mapPostBack: MapPostBack
     routeStore: RouteStore
     setRouteStore: {(store: RouteStore): void}
     turnPlanned: {(turn: PlanTurnFormValues): void}
@@ -156,14 +157,14 @@ export const MapBar: React.FC = () => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
       // Umpire has finshed adjudication phase, and is now ready
       // to submit new State of the World object
-      const orders = collateStateOfWorld(routeStore.routes, turnNumber)
-      postBack(STATE_OF_WORLD, orders, channelID)
+      const orders: MessageStateOfWorld = collateStateOfWorld(routeStore.routes, turnNumber)
+      mapPostBack(STATE_OF_WORLD, orders, channelID)
     } else if (phase === PLANNING_PHASE) {
       // Player has finished planning process, and now
       // wants to submit them
       const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
-      const orders = collatePlanningOrders(myRoutes)
-      postBack(SUBMIT_PLANS, orders, channelID)
+      const orders: MessageSubmitPlans = collatePlanningOrders(myRoutes)
+      mapPostBack(SUBMIT_PLANS, orders, channelID)
     }
     setPlansSubmitted(true)
   }
@@ -225,7 +226,7 @@ export const MapBar: React.FC = () => {
           force={selectedAsset.force}
           formData={data}
           channelID={channelID}
-          postBack={postBack} />
+          mapPostBack={mapPostBack} />
       }
       case MapBarForms.Adjudicaton: {
         return <AdjudicateTurnForm
@@ -253,7 +254,7 @@ export const MapBar: React.FC = () => {
           key={selectedAsset.uniqid}
           formHeader={'Set visibility'}
           formData={collateVisibilityFormData(selectedAsset, forces)}
-          postBack={postBack}
+          mapPostBack={mapPostBack}
           channelID={channelID} />
       default:
         return <></>
