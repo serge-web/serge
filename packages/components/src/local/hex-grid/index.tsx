@@ -99,8 +99,8 @@ export const HexGrid: React.FC<{}> = () => {
 
         // see if current cell is acceptable
         // work out the available cells
-        if(allowableFilteredCells.includes(dragDestination)) {
-          // ok, set planning route to just that cell - to mark the 
+        if (allowableFilteredCells.includes(dragDestination)) {
+          // ok, set planning route to just that cell - to mark the
           // last acceptable cell
           setPlanningRouteCells([dragDestination])
         }
@@ -219,7 +219,7 @@ export const HexGrid: React.FC<{}> = () => {
     if (planningConstraints && planningConstraints.status === 'LAYDOWN') {
       // Special Case - in Force Laydown
       // find the drop location
-      if(planningRouteCells && planningRouteCells.length) {
+      if (planningRouteCells && planningRouteCells.length) {
         const laydown: NewTurnValues = {
           state: planningConstraints.status,
           speed: planningConstraints.speed,
