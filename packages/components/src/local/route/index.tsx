@@ -31,7 +31,7 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
   useEffect(() => {
     if (gridCells && route && route.currentLocation) {
       // see if we're in laydown mode
-      if(!route.laydownPhase || route.laydownPhase === LaydownPhases.NotInLaydown || route.laydownPhase === LaydownPhases.Immobile || route.selected) {
+      if (!route.laydownPhase || route.laydownPhase === LaydownPhases.NotInLaydown || route.laydownPhase === LaydownPhases.Immobile || route.selected) {
         // start with historic
         const historyRoute: RouteData = historicRoutesFor(route.currentLocation, route.history)
         setHistoryRoutes(historyRoute)
@@ -40,14 +40,13 @@ export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, select
         // now planned
         const plannedRoute: RouteData = plannedRoutesFor(route.currentLocation, route.plannedTrimmed)
         setPlannedRoutes(plannedRoute)
-        setPlannedTurnMarkers(createTurnMarkers(plannedRoute, 'planned', color, selected, clearRouteHandler))  
+        setPlannedTurnMarkers(createTurnMarkers(plannedRoute, 'planned', color, selected, clearRouteHandler))
       } else {
         setHistoryRoutes(undefined)
         setHistoryTurnMarkers([])
         setPlannedRoutes(undefined)
         setPlannedTurnMarkers([])
       }
-
     }
   }, [gridCells, route, trimmed, selected, turnNumber])
 
