@@ -1,6 +1,8 @@
 import { ForceData, MessageMap } from "@serge/custom-types"
 
-const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | undefined, channelID: string, role: string, currentWargame: any, saveMapMessage: any): void => {
+const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | undefined, 
+  channelID: string, role: string, currentWargame: string, 
+  saveMapMessage: any): void => {
     if(force) {
       const { name, color, icon } = force
 
