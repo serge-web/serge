@@ -152,7 +152,7 @@ export const MapBar: React.FC = () => {
               return route.underControl && (route.laydownPhase === LaydownPhases.Unmoved || route.laydownPhase === LaydownPhases.Moved)
             })
             formTitle = needsLaydown ? 'Force Laydown' : 'My Forces'
-            submitTitle = needsLaydown ? 'Submit Force Laydown' : 'dobbin'
+            submitTitle = needsLaydown ? 'Submit Force Laydown' : ''
           } else {
             formTitle = playerForce === UMPIRE_FORCE ? 'My Forces' : 'Force Laydown'
             submitTitle = 'Submit Force Laydown'
