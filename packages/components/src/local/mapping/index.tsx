@@ -134,7 +134,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [filterPlannedRoutes, setFilterPlannedRoutes] = useState<boolean>(true)
   const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
-  const [currentPhase, setCurrentPhase] = useState<string>(phase)
+  const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -173,6 +173,17 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [selectedAsset])
 
+    /**
+   * if the player force changes, clear the selected assets (for StoryBook debugging)
+   */
+  useEffect(() => {
+    const newPhase: Phase = phase === ADJUDICATION_PHASE ? Phase.Adjudication : Phase.Planning
+    setCurrentPhase(newPhase)
+    console.log('mapping - setting new phase', phase)
+
+    // TODO: Clear route store?
+  }, [phase])
+
   /**
    * if the player force changes, clear the selected assets (for StoryBook debugging)
    */
@@ -206,6 +217,7 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     // is it different to current force state?
     const forceStateEmptyOrChanged = !forcesState || !isEqual(forcesState, forces)
+    console.log('mapping new forces', forceStateEmptyOrChanged)
     if (forceStateEmptyOrChanged) {
       setForcesState(forces)
     }
@@ -220,9 +232,10 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     if (forcesState && gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-      const store: RouteStore = routeCreateStore(selectedId, turnNumber, Phase.Adjudication, forcesState, playerForce,
+      const store: RouteStore = routeCreateStore(selectedId, turnNumber, currentPhase, forcesState, playerForce,
         platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
-      setRouteStore(store)
+        console.log('update route store', store)
+        setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
 
@@ -238,7 +251,7 @@ export const Mapping: React.FC<PropTypes> = ({
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-        const vStore: RouteStore = routeCreateStore(selectedId, turnNumber, Phase.Adjudication, forcesState, viewAsForce, platforms,
+        const vStore: RouteStore = routeCreateStore(selectedId, turnNumber, currentPhase, forcesState, viewAsForce, platforms,
           gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
         declutterRouteStore(vStore)
       } else {
