@@ -27,9 +27,6 @@ export const HexGrid: React.FC<{}> = () => {
   // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
   L.Icon.Default.imagePath = '/images/'
 
-  // Set up an 'allowableCells' state to monitor
-  const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>([])
-
   // allowable cells filtered depending on cell type
   const [allowableFilteredCells, setAllowableFilteredCells] = useState<Array<SergeHex<{}>>>([])
 
@@ -91,9 +88,8 @@ export const HexGrid: React.FC<{}> = () => {
   }, [planningRangeProps])
 
   /** handle the dynamic indicator that follows mouse movement,
-       * represented as cells & a line
-       *
-       */
+   * represented as cells & a line
+   */
   useEffect(() => {
     if (dragDestination && originHex) {
       // check we're not in laydown mode
@@ -144,54 +140,39 @@ export const HexGrid: React.FC<{}> = () => {
       const originCell = plannedRoutePoly.length ? originHex : gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
       // did we find cell?
       if (originCell) {
-        // is there a limited range?
-        if (planningRange) {
-          // ok, find which cells are within our travel range
-          const cells: SergeHex<{}>[] = calcAllowableCells(gridCells, originCell, planningRange)
-          setAllowableCells(cells)
-        } else {
-          // range is unlimited - allow all cells
-          setAllowableCells(gridCells)
-        }
         setOrigin(originCell.centreLatLng)
+
+        // is there a limited range?
+        const allowableCells: SergeHex<{}>[] = planningRange ? calcAllowableCells(gridCells, originCell, planningRange) : gridCells
+
+        // ok, see which ones are filterd
+        // "air" is a special planning mode, where we don't have to filter it
+        if (planningConstraints.travelMode === 'air') {
+          // can use any of the allowable cells
+          setAllowableFilteredCells(allowableCells)
+        } else if (allowableCells.length) {
+          // ok, land or sea. filter accordingly
+          const filteredCells = allowableCells.filter((cell: SergeHex<{}>) => cell.type === planningConstraints.travelMode.toLowerCase())
+          setAllowableFilteredCells(filteredCells)
+        } else {
+          // clear the allowable cells
+          console.warn('Hex grid - travel mode missing in ', planningConstraints)
+          setAllowableFilteredCells([])
+        }
       } else {
         // drop the marker if we can't find it
         setOrigin(undefined)
+        setAllowableFilteredCells([])
       }
       // store it anyway, even if it's undefined
       setOriginHex(originCell)
     } else {
       // clear the route
-      setAllowableCells([])
+      setAllowableFilteredCells([])
       setOrigin(undefined)
       setOriginHex(undefined)
     }
-    // also clear any planned cells
-    setAllowableFilteredCells([])
   }, [planningRange, planningConstraints, gridCells])
-
-  /** filter the list of cells allowable for this platform
-       * depending on requested cell type
-       */
-  useEffect(() => {
-    if (allowableCells && planningConstraints) {
-      // "air" is a special planning mode, where we don't have to filter it
-      if (planningConstraints.travelMode === 'air') {
-        // can use any of the allowable cells
-        setAllowableFilteredCells(allowableCells)
-      } else if (allowableCells.length) {
-        // ok, land or sea. filter accordingly
-        const filteredCells = allowableCells.filter((cell: SergeHex<{}>) => cell.type === planningConstraints.travelMode.toLowerCase())
-        setAllowableFilteredCells(filteredCells)
-      } else {
-        // clear the allowable cells
-        setAllowableFilteredCells([])
-      }
-    } else {
-      // clear the allowable cells
-      setAllowableFilteredCells([])
-    }
-  }, [allowableCells])
 
   /** calculate the set of polygons that represent the map grid, including
        * locations for their text labels, and a similarly indexed set of hex
