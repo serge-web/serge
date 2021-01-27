@@ -99,8 +99,16 @@ export const HexGrid: React.FC<{}> = () => {
       // check we're not in laydown mode
       if (planningConstraints && planningConstraints.status === 'LAYDOWN') {
         // we don't show path in laydown mode
-        setPlanningRouteCells([])
         setPlanningRoutePoly([])
+
+        // see if current cell is acceptable
+        // work out the available cells
+        if(allowableFilteredCells.includes(dragDestination)) {
+          // ok, set planning route to just that cell - to mark the 
+          // last acceptable cell
+          setPlanningRouteCells([dragDestination])
+        }
+
       } else {
         // work out the available cells
         const plannedRoute: SergeHex<{}>[] = planningConstraints && dragDestination
@@ -233,18 +241,17 @@ export const HexGrid: React.FC<{}> = () => {
     if (planningConstraints && planningConstraints.status === 'LAYDOWN') {
       // Special Case - in Force Laydown
       // find the drop location
-      const marker = e.target
-      const location = marker.getLatLng()
-      const cellPos: SergeHex<{}> | undefined = gridCells.cellFor(location)
-      if (cellPos) {
+      if(planningRouteCells && planningRouteCells.length) {
         const laydown: NewTurnValues = {
           state: planningConstraints.status,
           speed: planningConstraints.speed,
-          route: [cellPos]
+          route: [planningRouteCells[0]]
         }
         setNewLeg(laydown)
+      } else {
+        console.warn('Pin dropped in laydown mode, but we do not have acceptable cells')
       }
-      // also clear other bits
+      // clear other bits anyway
       setOrigin(undefined)
       setPlannedRouteCells([])
       setPlannedRoutePoly([])
