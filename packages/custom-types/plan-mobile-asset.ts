@@ -15,7 +15,7 @@ export default interface PlanMobileAsset {
    */
   status: string
   /** 
-   * speed of travel
+   * speed of travel. Omit if travel is unrestricted (such as with aircraft)
    */
   speed?: number
 }

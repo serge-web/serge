@@ -413,12 +413,16 @@ export const Mapping: React.FC<PropTypes> = ({
         // sort out platform type for this asset
         const pType = findPlatformTypeFor(platforms, current.platformType)
 
-        // work out how far asset can travel
-        const constraints: PlanMobileAsset = {
+        // package up planning constraints, sensitive to if there is a speed or not
+        const constraints: PlanMobileAsset = plannedTurn.speedVal ? {
           origin: origin,
           travelMode: pType.travelMode,
           status: plannedTurn.statusVal.name,
           speed: plannedTurn.speedVal
+        } : {
+          origin: origin,
+          travelMode: pType.travelMode,
+          status: plannedTurn.statusVal.name
         }
 
         // special handling, a mobile status may not have a speedVal,
