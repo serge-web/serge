@@ -55,14 +55,17 @@ const routeCreateStore = (selectedId: string | undefined, turn: number, phase: P
           if(asset.position) {
 
             // see if there is an existing planned route for this asset
-            const existingRoute: Route | undefined = oldStore && oldStore.routes.find((route: Route) => route.uniqid === asset.uniqid)
+            const existingRouteBase: Route | undefined = oldStore && oldStore.routes.find((route: Route) => route.uniqid === asset.uniqid)
 
             // do I actually control this platform type
             const controlled = thisForce === playerForce || controls.includes(thisForce)
 
+            // keep existing route if this is for one of our assets, otherwise use the incoming one
+            const existingRoute: Route | undefined = controlled ? existingRouteBase : undefined
+
             // dummy location, used if we don't have grid (such as in test)
             const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
-            // sort out location
+            // sort out location.
             const assetPosition: string = existingRoute && existingRoute.currentPosition || asset.position
             const matchingHex: SergeHex<{}> | undefined = grid && hexNamed(assetPosition, grid) || undefined
             const assetLocation: L.LatLng =  matchingHex && matchingHex.centreLatLng || dummyLocation
