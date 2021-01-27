@@ -104,7 +104,6 @@ export const HexGrid: React.FC<{}> = () => {
           // last acceptable cell
           setPlanningRouteCells([dragDestination])
         }
-
       } else {
         // work out the available cells
         const plannedRoute: SergeHex<{}>[] = planningConstraints && dragDestination
@@ -114,9 +113,8 @@ export const HexGrid: React.FC<{}> = () => {
         setPlanningRouteCells(plannedRoute)
 
         // also produce the lat-long values needed for the polylines
-        const tmpPlannedRoutePoly: L.LatLng[] = []
-        plannedRoute.forEach((cell: SergeHex<{}>) => {
-          tmpPlannedRoutePoly.push(cell.centreLatLng)
+        const tmpPlannedRoutePoly: L.LatLng[] = plannedRoute.map((cell: SergeHex<{}>) => {
+          return cell.centreLatLng
         })
 
         // combine with any existing planned cells
