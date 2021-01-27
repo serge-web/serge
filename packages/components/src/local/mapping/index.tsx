@@ -181,7 +181,8 @@ export const Mapping: React.FC<PropTypes> = ({
     setCurrentPhase(newPhase)
     console.log('mapping - setting new phase', phase)
 
-    // TODO: Clear route store?
+    // clear the route store. It was generated for the previous phase
+    setRouteStore({routes:[]})
   }, [phase])
 
   /**
