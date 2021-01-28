@@ -9,6 +9,7 @@ import { MapBarForms } from './enums'
  * @param {Array<string>} assetControlledBy which forces can control this asset
  * @param {Phase} gamePhase the name of the current game phase
  * @param {WorldStatePanels} panel the currently active tab in WorldState
+ * @param {number} turnNumber the current turn
  * @return {string} name of dialog to show
  */
 const assetDialogFor = (
@@ -17,7 +18,8 @@ const assetDialogFor = (
   assetVisibleTo: Array<string> | undefined,
   assetControlledBy: Array<string> | undefined,
   gamePhase: Phase,
-  panel: WorldStatePanels): MapBarForms | undefined => {
+  panel: WorldStatePanels,
+  turnNumber: number): MapBarForms | undefined => {
   const myForce = assetForce.toLowerCase() === playerForce.toLowerCase()
   const forceThatIControl = assetControlledBy != null && assetControlledBy.includes(playerForce)
   const canControl: boolean = myForce || forceThatIControl
@@ -47,7 +49,7 @@ const assetDialogFor = (
         // this depends on the panel
         switch (panel) {
           case WorldStatePanels.Control:
-            return MapBarForms.Adjudicaton
+            return turnNumber !== 0 ? MapBarForms.Adjudicaton : undefined
           case WorldStatePanels.Visibility:
             return MapBarForms.Visibility
           case WorldStatePanels.ControlledBy:
