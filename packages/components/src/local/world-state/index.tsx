@@ -39,8 +39,14 @@ export const WorldState: React.FC<PropTypes> = ({
           // in planning phase, umpire only gets assets they control
           setTmpRoutes(store.routes.filter(r => r.underControl))
         } else {
-          // umpire gets all, player only gets theirs
-          setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControl))
+          // check turn number, in case we're in laydown
+          if(turnNumber === 0) {
+            // in laydown phase, umpire only gets assets they control
+            setTmpRoutes(store.routes.filter(r => r.underControl))
+          } else {
+            // umpire gets all, player only gets theirs
+            setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControl))
+          }
         }
         break
       }
@@ -125,7 +131,6 @@ export const WorldState: React.FC<PropTypes> = ({
 
   // Note: draggingItem.uniq === -1 when no active dragging item
   const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
-    // console.log(draggingItem.uniqid, item.uniqid, _type, _parents)
     return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type, gridCells)
   }
 
