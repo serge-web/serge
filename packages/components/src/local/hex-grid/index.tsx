@@ -106,7 +106,7 @@ export const HexGrid: React.FC<{}> = () => {
         }
       } else {
         // work out the available cells
-        const plannedRoute: SergeHex<{}>[] = planningConstraints && dragDestination
+        const plannedRoute: SergeHex<{}>[] = planningConstraints
           ? plannedRouteFor(gridCells, allowableFilteredCells, originHex, dragDestination) : []
 
         // combine with any existing planned cells
