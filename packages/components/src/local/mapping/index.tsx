@@ -223,7 +223,6 @@ export const Mapping: React.FC<PropTypes> = ({
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const store: RouteStore = routeCreateStore(selectedId, turnNumber, currentPhase, forcesState, playerForce,
         platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
-      console.log('mapping - update route store', store)
       setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
