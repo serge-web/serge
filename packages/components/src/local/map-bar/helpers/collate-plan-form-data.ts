@@ -16,7 +16,7 @@ const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: Selec
   // we're doing extra check that platform type has speeds, in case initialisation
   // data accidentally has speed in current/historic states, but that platform type
   // doesn't
-  const platformTypeHasSpeeds = currentPlatform && currentPlatform.speedKts.length > 0
+  const platformTypeHasSpeeds = currentPlatform && currentPlatform.speedKts && currentPlatform.speedKts.length
   const formData: PlanTurnFormData = {
     populate: {
       status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: State) => { return { name: s.name, mobile: s.mobile } }) : [],
