@@ -50,7 +50,6 @@ it('provides the correct form when umpire clicks on controlled platform in adjud
   expect(assetDialogFor('Umpire', 'Green', [], ['Umpire'], Phase.Adjudication, WorldStatePanels.Control, 1)).toEqual(MapBarForms.Adjudicaton)
 })
 
-
 it('provides the correct form when umpire clicks on controlled platform in adjudication in turn zero control tab', () => {
   expect(assetDialogFor('Umpire', 'Green', [], ['Umpire'], Phase.Adjudication, WorldStatePanels.Control, 0)).toEqual(undefined)
 })
