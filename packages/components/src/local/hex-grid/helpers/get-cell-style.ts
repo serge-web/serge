@@ -9,11 +9,11 @@ import { SergeHex } from '@serge/custom-types'
  * @returns string to be used in polygon cell style
  */
 const getCellStyle = (cell: SergeHex<{}>, plannedCells: Array<SergeHex<{}>>, achievableCells: Array<SergeHex<{}>>, selected: string | undefined): string => {
-  if(selected && selected === cell.name) {
+  if (selected && selected === cell.name) {
     return 'selected-hex'
-  } else if(plannedCells && plannedCells.includes(cell)) {
+  } else if (plannedCells && plannedCells.includes(cell)) {
     return 'planned-hex'
-  } else if(achievableCells && achievableCells.includes(cell)) {
+  } else if (achievableCells && achievableCells.includes(cell)) {
     return 'allowable-hex'
   } else {
     return 'default-hex'
