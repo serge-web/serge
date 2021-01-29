@@ -15,6 +15,7 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import { SergeHex, Route, NewTurnValues } from '@serge/custom-types'
+import { LAYDOWN_TURN } from '@serge/config'
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
@@ -98,7 +99,7 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     if (dragDestination && originHex) {
       // check we're not in laydown mode
-      if (planningConstraints && planningConstraints.status === 'LAYDOWN') {
+      if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
         // we don't show path in laydown mode
         setPlanningRoutePoly([])
 
@@ -221,7 +222,7 @@ export const HexGrid: React.FC<{}> = () => {
        *
        */
   const dropped = (e: any): void => {
-    if (planningConstraints && planningConstraints.status === 'LAYDOWN') {
+    if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
       // Special Case - in Force Laydown
       // find the drop location
       if (planningRouteCells && planningRouteCells.length) {
