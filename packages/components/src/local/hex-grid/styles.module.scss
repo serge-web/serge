@@ -6,15 +6,24 @@
 }
 
 .allowable-hex {
+  fill-opacity: 0.2;
   stroke: #fff;
   opacity: 0.4;
   stroke-width: 2;
 }
 
 .planned-hex {
+  fill-opacity: 0.4;
   stroke: #fff;
   opacity: 1;
   stroke-width: 3;
+}
+
+.selected-hex {
+  stroke: #f00;
+  opacity: 1;
+  fill-opacity: 0.6;
+  stroke-width: 4;
 }
 
 .planned-line {
