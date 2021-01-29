@@ -31,6 +31,9 @@ export const HexGrid: React.FC<{}> = () => {
   // allowable cells filtered depending on cell type
   const [allowableFilteredCells, setAllowableFilteredCells] = useState<Array<SergeHex<{}>>>([])
 
+  // the cell for the selected asset
+  const [cellForSelected, setCellForSelected] = useState<string | undefined>(undefined)
+
   // cells representing the route that is currently being dragged
   const [planningRouteCells, setPlanningRouteCells] = useState<Array<SergeHex<{}>>>([])
   const [planningRoutePoly, setPlanningRoutePoly] = useState<L.LatLng[]>([])
@@ -58,7 +61,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   // the AllowableRange story doesn't have a selected asset. Set to red in here
   // it won't have impact on real game play
-  const [assetColor, setAssetColor] = useState<string>('#f00')
+  const [assetColor, setAssetColor] = useState<string | undefined>(undefined)
 
   /** capture the color of this asset, so planning shapes
    * get rendered in a suitable color
@@ -74,17 +77,22 @@ export const HexGrid: React.FC<{}> = () => {
       const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
       if (current) {
         setAssetColor(current.color)
+
+        // and the cell for the selected asset
+        setCellForSelected(current.currentPosition)
       }
     } else {
       /** if no asset is selected, clear the planning elements
        */
       setAllowableFilteredCells([])
       setOrigin(undefined)
+      setAssetColor(undefined)
       setOriginHex(undefined)
       setPlanningRoutePoly([])
       setPlannedRoutePoly([])
+      setCellForSelected(undefined)
     }
-  }, [selectedAsset])
+  }, [selectedAsset, gridCells])
 
   /** allow for the props being changed. This could be from the StoryBook testing, but could equally
        *  be from the plan route form
@@ -312,14 +320,14 @@ export const HexGrid: React.FC<{}> = () => {
   }
 
   return <>
-    <LayerGroup key={'hex_polygons'} >{Object.keys(allowablePolygons).map(k => (
+    <LayerGroup key={'hex_polygons'} >{Object.keys(allowablePolygons).map((k: string) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
         key={'hex_poly_' + k}
         color={ assetColor }
         positions={allowablePolygons[k]}
-        className={styles[getCellStyle(allowableHexCells[k], planningRouteCells, allowableFilteredCells)]}
+        className={styles[getCellStyle(allowableHexCells[k], planningRouteCells, allowableFilteredCells, cellForSelected)]}
       />
     ))}
     <Polyline
