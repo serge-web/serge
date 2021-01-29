@@ -51,7 +51,6 @@ const MessageCreator: React.FC<Props> = (props) => {
     if (props.schema && (!selectedSchema || selectedSchema.title !== props.schema.title)) {
       if(editor) editor.destroy()
       setEditor(null)
-      console.log(props.schema, 'props.schema');
       setSelectedSchema(props.schema)
     }
 

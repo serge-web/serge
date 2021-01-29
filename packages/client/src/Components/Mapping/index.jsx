@@ -211,8 +211,6 @@ const Mapping = ({ currentTurn, role, currentWargame, selectedForce, allForces, 
   }
 
   useEffect(() => {
-    console.log('Re-rendering map Component at:', new Date(), 'phase:', phase)
-
     // we're going to be re-generating all the markers, so delete any that are there already
     if (platformsLayerRef.current) {
       platformsLayerRef.current.clearLayers()

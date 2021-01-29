@@ -3,8 +3,9 @@ import { Route, RouteTurn, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, 
 import { cloneDeep, kebabCase } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import { PlanningStates, UMPIRE_FORCE } from '@serge/config'
+import { PlanningStates, UMPIRE_FORCE, LaydownPhases } from '@serge/config'
 import hexNamed from './hex-named'
+import { Phase } from '@serge/config'
 
 const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
   step: RouteTurn, res: Array<RouteTurn>): Array<RouteTurn> => {
@@ -154,6 +155,18 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
   return currentStatus
 }
 
+const laydownPhaseFor = (turn: number, phase: Phase, route?: Route, locationPending?: boolean): LaydownPhases => {
+  if(turn === 0 && phase === Phase.Adjudication) {
+    if(route) {
+      return route.laydownPhase || LaydownPhases.NotInLaydown
+    } else {
+      return locationPending ? LaydownPhases.Unmoved : LaydownPhases.Immobile
+    }
+  } else {
+    return LaydownPhases.NotInLaydown
+  }
+}
+
 /** create a route object for this asset
  * @param {Asset} asset single asset
  * @param {string} color color for rendering this asset
@@ -174,7 +187,7 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
  * @param {boolean} isSelected whether is the route for the selected Asset
  * @returns {Route} Routefor this asset
  */
-const routeCreateRoute = (asset: Asset, color: string,
+const routeCreateRoute = (asset: Asset, turn: number, phase: Phase, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
   perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
@@ -206,6 +219,8 @@ const routeCreateRoute = (asset: Asset, color: string,
 
   const condition: string | undefined = playerForce === UMPIRE_FORCE ? asset.condition : undefined
 
+  const laydownPhase = laydownPhaseFor(turn, phase, existingRoute, asset.locationPending) 
+
   return {
     uniqid: asset.uniqid,
     name: perceivedName,
@@ -222,6 +237,7 @@ const routeCreateRoute = (asset: Asset, color: string,
     currentStatus: currentStatus,
     currentPosition: currentPosition,
     currentLocation: currentLocation,
+    laydownPhase: laydownPhase,
     planned: futureSteps,
     plannedTrimmed: futureStepsTrimmed,
     plannedTurnsCount: numberOfPlannedTurns,

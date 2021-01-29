@@ -105,7 +105,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       // console.log('+ updating ', name, before, after)
       doUpdate(after)
     } else {
-      // ßconsole.log('- not updating', name)
+      // console.log('- not updating', name)
     }
   }
 

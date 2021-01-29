@@ -13,4 +13,5 @@ export default interface AssetInfo {
   visibleTo: Array<string>
   uniqid: string
   controlledBy?: Array<string>
+  locationPending?: boolean
 }

@@ -14,17 +14,19 @@ import { GroupItem, Route } from '@serge/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
-import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE } from '@serge/config'
+import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases } from '@serge/config'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
 
 export const WorldState: React.FC<PropTypes> = ({
-  name, store, phase, isUmpire, canSubmitOrders, setSelectedAsset,
-  submitTitle, submitForm, panel, gridCells,
+  name, store, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
+  submitTitle, submitForm, panel, gridCells, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
+
+  const inLaydown = phase === ADJUDICATION_PHASE && turnNumber === 0
 
   /** filter the list of cells allowable for this platform
    * depending on requested cell type
@@ -37,8 +39,14 @@ export const WorldState: React.FC<PropTypes> = ({
           // in planning phase, umpire only gets assets they control
           setTmpRoutes(store.routes.filter(r => r.underControl))
         } else {
-          // umpire gets all, player only gets theirs
-          setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControl))
+          // check turn number, in case we're in laydown
+          if (turnNumber === 0) {
+            // in laydown phase, umpire only gets assets they control
+            setTmpRoutes(store.routes.filter(r => r.underControl))
+          } else {
+            // umpire gets all, player only gets theirs
+            setTmpRoutes(isUmpire ? store.routes : store.routes.filter(r => r.underControl))
+          }
         }
         break
       }
@@ -57,8 +65,8 @@ export const WorldState: React.FC<PropTypes> = ({
 
   // an asset has been clicked on
   const clickEvent = (id: string): void => {
-    if (setSelectedAsset) {
-      setSelectedAsset(id)
+    if (setSelectedAssetById) {
+      setSelectedAssetById(id)
     }
   }
 
@@ -70,14 +78,6 @@ export const WorldState: React.FC<PropTypes> = ({
       }
     }
   }
-
-  /**
-   *
-   * @param {PlannedRoute} pRoute this planned route
-   * @param {string} forceName name of the force, it's not available lower down the tree
-   * @param {boolean} topLevel if this is at the top level of the tree - used to control the level of detail supplied
-   * @returns  JSX for this route, plus children if applicable
-   */
 
   // sort out which title to use on orders panel
   const customTitle = (panel === WorldStatePanels.Visibility) ? 'Other Visible Platforms' : name
@@ -104,7 +104,12 @@ export const WorldState: React.FC<PropTypes> = ({
     const descriptionText = (isUmpire || item.underControl) && depth.length === 0
       ? `${numPlanned} turns planned` : ''
     const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
-    const checkStatus: boolean = inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
+
+    const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
+    const checkStatus: boolean = item.laydownPhase === LaydownPhases.NotInLaydown
+      ? inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
+      : item.laydownPhase !== LaydownPhases.Unmoved
+    const fullDescription: string = descriptionText + laydownMessage
 
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
@@ -112,7 +117,7 @@ export const WorldState: React.FC<PropTypes> = ({
         <div className={styles['item-content']}>
           <div>
             <p>{item.name}</p>
-            <p>{descriptionText}</p>
+            <p>{fullDescription}</p>
           </div>
 
         </div>
@@ -126,7 +131,6 @@ export const WorldState: React.FC<PropTypes> = ({
 
   // Note: draggingItem.uniq === -1 when no active dragging item
   const canCombineWithLocal = (draggingItem: GroupItem, item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
-    // console.log(draggingItem.uniqid, item.uniqid, _type, _parents)
     return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type, gridCells)
   }
 
@@ -134,7 +138,7 @@ export const WorldState: React.FC<PropTypes> = ({
     <div className={styles['world-state']}>
       <h2 className={styles.title}>{customTitle}
         { plansSubmitted &&
-       <h5 className='sub-title'>(Form disabled, World State submitted)</h5>
+       <h5 className='sub-title'>(Form disabled, {customTitle} submitted)</h5>
         }
       </h2>
 
@@ -174,7 +178,7 @@ export const WorldState: React.FC<PropTypes> = ({
           }
         }}
       />
-      {submitTitle && (panel === WorldStatePanels.Control) && !playerInAdjudication && canSubmitOrders &&
+      {submitTitle && (panel === WorldStatePanels.Control) && (!playerInAdjudication || inLaydown) && canSubmitOrders &&
         <div className={styles.submit}>
           <Button disabled={plansSubmitted} onClick={submitCallback}>{submitTitle}</Button>
         </div>

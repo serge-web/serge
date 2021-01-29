@@ -10,8 +10,13 @@ import { kebabCase } from 'lodash'
 const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: SelectedAsset
 ): PlanTurnFormData => {
   const currentPlatform = platforms && platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === kebabCase(selectedAsset.type))
-  const availableStatus = currentPlatform && currentPlatform.states.find((s: State) => selectedAsset.status && s.name === selectedAsset.status.state)
+  const currentStatus: State | undefined = currentPlatform && currentPlatform.states.find((s: State) => selectedAsset.status && s.name === selectedAsset.status.state)
+  const availableStatus: State | undefined = currentStatus || (currentPlatform && currentPlatform.states[0])
   const status: RouteStatus | undefined = selectedAsset.status
+  // we're doing extra check that platform type has speeds, in case initialisation
+  // data accidentally has speed in current/historic states, but that platform type
+  // doesn't
+  const platformTypeHasSpeeds = currentPlatform && currentPlatform.speedKts && currentPlatform.speedKts.length
   const formData: PlanTurnFormData = {
     populate: {
       status: currentPlatform && currentPlatform.states ? currentPlatform.states.map((s: State) => { return { name: s.name, mobile: s.mobile } }) : [],
@@ -20,7 +25,7 @@ const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: Selec
     values: {
       // we will always have the status, but compiler doesn't trust us
       statusVal: availableStatus || { name: 'unfound', mobile: false },
-      speedVal: status && status.speedKts !== undefined ? status.speedKts : 0,
+      speedVal: status && status.speedKts !== undefined && platformTypeHasSpeeds ? status.speedKts : 0,
       turnsVal: 1
     }
   }

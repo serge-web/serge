@@ -11,7 +11,7 @@ const store: RouteStore = { routes: [] }
 
 it('WorldState renders correctly', () => {
   const tree = renderer
-    .create(<WorldState phase={ADJUDICATION_PHASE} panel={WorldStatePanels.Control} canSubmitOrders={true} plansSubmitted={false} isUmpire={true} store={store} name="test" />)
+    .create(<WorldState phase={ADJUDICATION_PHASE} turnNumber={2} panel={WorldStatePanels.Control} canSubmitOrders={true} plansSubmitted={false} isUmpire={true} store={store} name="test" />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })
