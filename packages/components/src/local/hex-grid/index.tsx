@@ -76,9 +76,10 @@ export const HexGrid: React.FC<{}> = () => {
       // get the color for this asset
       const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
       if (current) {
+        // remember the color of the selected asset, so we shade correctly shade background
+        // for highlighted cells
         setAssetColor(current.color)
-
-        // and the cell for the selected asset
+        // store coords of selected asset, so we can highlight that cell
         setCellForSelected(current.currentPosition)
       }
     } else {
@@ -327,6 +328,7 @@ export const HexGrid: React.FC<{}> = () => {
         key={'hex_poly_' + k}
         color={ assetColor }
         positions={allowablePolygons[k]}
+        stroke={k === cellForSelected && assetColor? assetColor : '#fff'}
         className={styles[getCellStyle(allowableHexCells[k], planningRouteCells, allowableFilteredCells, cellForSelected)]}
       />
     ))}
