@@ -75,29 +75,29 @@ export const HexGrid: React.FC<{}> = () => {
     setPlanningRange(undefined)
 
     if (selectedAsset) {
-        // get the color for this asset
-        const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
-        if (current) {
-          // double-check it's not the current asset (to reduce renders, and maybe lost plotted route)
-          if(selectedAsset.uniqid !== selectedAssetId) {
-            setSelectedAssetId(selectedAsset.uniqid)
-            // remember the color of the selected asset, so we shade correctly shade background
-            // for highlighted cell
-            if(current.color != assetColor) {
-              console.log('new color', current.color)
-              setAssetColor(current.color)
-            }
-            // store coords of selected asset, so we can highlight that cell
-            if(cellForSelected !== current.currentPosition) {
-              console.log('new position', current.currentPosition)
-              setCellForSelected(current.currentPosition)
-            }
+      // get the color for this asset
+      const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
+      if (current) {
+        // double-check it's not the current asset (to reduce renders, and maybe lost plotted route)
+        if (selectedAsset.uniqid !== selectedAssetId) {
+          setSelectedAssetId(selectedAsset.uniqid)
+          // remember the color of the selected asset, so we shade correctly shade background
+          // for highlighted cell
+          if (current.color !== assetColor) {
+            console.log('new color', current.color)
+            setAssetColor(current.color)
           }
-        } else {
-          // selected asset no longer present - hide it
-          setCellForSelected(undefined)
-          setOrigin(undefined)
+          // store coords of selected asset, so we can highlight that cell
+          if (cellForSelected !== current.currentPosition) {
+            console.log('new position', current.currentPosition)
+            setCellForSelected(current.currentPosition)
+          }
         }
+      } else {
+        // selected asset no longer present - hide it
+        setCellForSelected(undefined)
+        setOrigin(undefined)
+      }
     } else {
       setSelectedAssetId(undefined)
       /** if no asset is selected, clear the planning elements
