@@ -63,12 +63,14 @@ export const HexGrid: React.FC<{}> = () => {
   // it won't have impact on real game play
   const [assetColor, setAssetColor] = useState<string | undefined>(undefined)
 
+  // remember the id of the current asset, so we can check if we're receiving a new one
+  const [selectedAssetId, setSelectedAssetId] = useState<string | undefined>(undefined)
+
   /** capture the color of this asset, so planning shapes
    * get rendered in a suitable color
    */
   useEffect(() => {
     // asset has changed. Clear the dynamic marker elements
-    setDragDestination(undefined)
     setAllowableFilteredCells([])
     setPlanningRange(undefined)
 
@@ -76,15 +78,33 @@ export const HexGrid: React.FC<{}> = () => {
       // get the color for this asset
       const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
       if (current) {
-        setAssetColor(current.color)
-
-        // and the cell for the selected asset
-        setCellForSelected(current.currentPosition)
+        // double-check it's not the current asset (to reduce renders, and maybe lost plotted route)
+        if (selectedAsset.uniqid !== selectedAssetId) {
+          setSelectedAssetId(selectedAsset.uniqid)
+          // remember the color of the selected asset, so we shade correctly shade background
+          // for highlighted cell
+          if (current.color !== assetColor) {
+            console.log('new color', current.color)
+            setAssetColor(current.color)
+          }
+          // store coords of selected asset, so we can highlight that cell
+          if (cellForSelected !== current.currentPosition) {
+            console.log('new position', current.currentPosition)
+            setCellForSelected(current.currentPosition)
+          }
+        }
+      } else {
+        // selected asset no longer present - hide it
+        setCellForSelected(undefined)
+        setOrigin(undefined)
       }
     } else {
+      setSelectedAssetId(undefined)
       /** if no asset is selected, clear the planning elements
        */
+      setDragDestination(undefined)
       setAllowableFilteredCells([])
+      setPlanningRange(undefined)
       setOrigin(undefined)
       setAssetColor(undefined)
       setOriginHex(undefined)
@@ -92,7 +112,7 @@ export const HexGrid: React.FC<{}> = () => {
       setPlannedRoutePoly([])
       setCellForSelected(undefined)
     }
-  }, [selectedAsset, gridCells])
+  }, [selectedAsset, gridCells, viewAsRouteStore])
 
   /** allow for the props being changed. This could be from the StoryBook testing, but could equally
        *  be from the plan route form
@@ -327,6 +347,7 @@ export const HexGrid: React.FC<{}> = () => {
         key={'hex_poly_' + k}
         color={ assetColor }
         positions={allowablePolygons[k]}
+        stroke={k === cellForSelected && assetColor ? assetColor : '#fff'}
         className={styles[getCellStyle(allowableHexCells[k], planningRouteCells, allowableFilteredCells, cellForSelected)]}
       />
     ))}
