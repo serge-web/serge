@@ -32,4 +32,10 @@ it('find asset that is towards end of list', () => {
   expect(findAsset(forces, 'a0pra000204').uniqid).toEqual('a0pra000204')
 })
 
+it('find asset that is in hosting, in comprising', () => {
+  // try the host platform in the task group
+  expect(findAsset(forces, 'a0pra43302').uniqid).toEqual('a0pra43302')
+})
+
+
 
