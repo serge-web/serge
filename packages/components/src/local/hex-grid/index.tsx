@@ -84,12 +84,10 @@ export const HexGrid: React.FC<{}> = () => {
           // remember the color of the selected asset, so we shade correctly shade background
           // for highlighted cell
           if (current.color !== assetColor) {
-            console.log('new color', current.color)
             setAssetColor(current.color)
           }
           // store coords of selected asset, so we can highlight that cell
           if (cellForSelected !== current.currentPosition) {
-            console.log('new position', current.currentPosition)
             setCellForSelected(current.currentPosition)
           }
         }
