@@ -4,7 +4,7 @@ import { Asset, ForceData } from "@serge/custom-types"
  * comprising and hosting lists
  * 
  */
-const isAsset = (asset: Asset, assetId: string): Asset | undefined => {
+export const isAsset = (asset: Asset, assetId: string): Asset | undefined => {
   if(asset.uniqid === assetId) {
     return asset
   } else {
