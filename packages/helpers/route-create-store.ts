@@ -95,7 +95,8 @@ const routeCreateStore = (selectedId: string | undefined, turn: number, phase: P
               }
               store.routes.push(newRoute)
             } else {
-              // ok, special handling - if this is an organisation that comprises others
+              // ok, special handling - if this is an organisation that comprises others. We return the tangible assets,
+              // not the organisational unit
               if(asset.comprising && asset.comprising.length) {
                 // process list of children
                 asset.comprising.forEach((child: Asset) => {
