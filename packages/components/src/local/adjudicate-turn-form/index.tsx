@@ -73,7 +73,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(), setUpperPlanningActions)
       updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
     }
-  }, [manager])
+  }, [manager, stateIsMobile])
 
   const handleCommandLocal = (command: PlanningCommands): void => {
     if (manager) {
@@ -102,10 +102,10 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: {(value: any): void}): void => { // deepscan-disable-line UNUSED_PARAM
     if (!deepCompare(before, after)) {
-      // console.log('+ updating ', name, before, after)
+      // console.log('+ updating ', _name, before, after)
       doUpdate(after)
     } else {
-      // console.log('- not updating', name)
+      // console.log('- not updating', _name, before, after)
     }
   }
 
