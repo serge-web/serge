@@ -88,9 +88,9 @@ class AdjudicationManager {
             return firstStepSpeed
           }
         }
+      } else {
+        console.warn('failed to find platform type data for', selected.name, selected.uniqid)
       }
-      // no, don't provide warning. Airborne platforms don't have speed
-      // console.warn('failed to find platform type data')
     }
     return 0
   }
