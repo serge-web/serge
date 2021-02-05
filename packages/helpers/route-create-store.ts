@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import { RouteStore, Route, SergeGrid, SergeHex, ForceData, Asset, PlatformTypeData } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
-import { Phase, UMPIRE_FORCE } from '@serge/config'
+import { ADJUDICATION_PHASE, Phase, UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy from './is-perceived-by'
 import hexNamed from './hex-named'
@@ -57,11 +57,14 @@ const routeCreateStore = (selectedId: string | undefined, turn: number, phase: P
             // see if there is an existing planned route for this asset
             const existingRouteBase: Route | undefined = oldStore && oldStore.routes.find((route: Route) => route.uniqid === asset.uniqid)
 
-            // do I actually control this platform type
+            // do I actually control this platform type?
             const controlled = thisForce === playerForce || controls.includes(thisForce)
 
+            // or are we admin in adjudication?
+            const adminInAdj = playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE
+
             // keep existing route if this is for one of our assets, otherwise use the incoming one
-            const existingRoute: Route | undefined = controlled ? existingRouteBase : undefined
+            const existingRoute: Route | undefined = controlled || adminInAdj ? existingRouteBase : undefined
 
             // dummy location, used if we don't have grid (such as in test)
             const dummyLocation: L.LatLng = L.latLng(12.2, 23.2)
