@@ -70,16 +70,17 @@ export const HexGrid: React.FC<{}> = () => {
    * get rendered in a suitable color
    */
   useEffect(() => {
-    // asset has changed. Clear the dynamic marker elements
-    setAllowableFilteredCells([])
-    setPlanningRange(undefined)
-
     if (selectedAsset) {
       // get the color for this asset
       const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
       if (current) {
         // double-check it's not the current asset (to reduce renders, and maybe lost plotted route)
         if (selectedAsset.uniqid !== selectedAssetId) {
+          // clear the current planning details
+          setPlanningRange(undefined)
+          setAllowableFilteredCells([])
+
+          // and update the asset id
           setSelectedAssetId(selectedAsset.uniqid)
           // remember the color of the selected asset, so we shade correctly shade background
           // for highlighted cell
