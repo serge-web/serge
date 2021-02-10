@@ -47,7 +47,7 @@ it('derives current speed correctly', () => {
 
   // try clearing the planned speed
   const selected: Route | undefined = store.selected
-  if(selected) {
+  if (selected) {
     selected.planned = []
     expect(manager.plannedSpeed()).toEqual(20)
 
@@ -92,4 +92,20 @@ it('checks isMobile for a mobile platform type', () => {
   const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)
   expect(manager.stateIsMobile(`Transiting`)).toBeTruthy()
   expect(manager.stateIsMobile(`Stopped`)).toBeFalsy()
+})
+
+
+it('checks platform types are correct', () => {
+  // prepare some routes, and a selected item
+  const store2: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'umpire', platformTypes, undefined, false, false)
+  const frigateId = 'a0pra00001'
+  const store: RouteStore = routeSetCurrent(frigateId, store2)
+
+  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)
+  expect(manager.platformDetails).toBeFalsy() // not retrieved yet
+  const details = manager.getPlatformDetails();
+  expect(details).toBeTruthy()
+  expect(details.name.toUpperCase()).toEqual(store.selected && store.selected.platformType.toUpperCase())
+  expect(manager.platformDetails).toBeTruthy() // cached object available
+
 })
