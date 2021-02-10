@@ -74,23 +74,47 @@ class AdjudicationManager {
     }
   }
 
+  /** convenience function to find first step with speed
+   * 
+   */
+  firstSpeed(route: RouteTurn[]): number | undefined {
+    if(route && route.length) {
+      const first: RouteTurn | undefined = route.find((turn: RouteTurn) => turn.status.speedKts !== undefined)
+      if(first) {
+        return first.status.speedKts;
+      } else {
+        console.log('failed to find speed')
+      }
+    }
+    return undefined
+  }
+
   /** indicate the planned speed of the selected asset */
   plannedSpeed (): number {
     const selected: Route | undefined = this.store.selected
     if (selected) {
-      const platform = this.getPlatformDetails()
+      const platform: PlatformTypeData = this.getPlatformDetails()
       if (platform) {
-        const planned = selected.planned
-        if (planned !== undefined && planned.length > 0) {
-          const firstStep: RouteTurn = planned[0]
-          const firstStepSpeed = firstStep.status.speedKts
-          if (firstStepSpeed !== undefined) {
-            return firstStepSpeed
+        const plannedSpeed: number | undefined = this.firstSpeed(selected.planned)
+        if(plannedSpeed) {
+          return plannedSpeed
+        } else {
+          const originalSpeed: number | undefined = this.firstSpeed(selected.original)
+          if(originalSpeed) {
+            return originalSpeed
+          } else {
+            // check platform chars
+            const speeds: number[] = platform.speedKts
+            if(speeds.length){
+              return speeds[0]
+            }
           }
         }
       } else {
         console.warn('failed to find platform type data for', selected.name, selected.uniqid)
       }
+    } else {
+      console.warn('adjudication manager doesnt have selected asset')
     }
     return 0
   }
