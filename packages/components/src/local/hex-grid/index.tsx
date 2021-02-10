@@ -75,8 +75,8 @@ export const HexGrid: React.FC<{}> = () => {
       const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
       if (current) {
         // double-check it's not the current asset (to reduce renders, and maybe lost plotted route)
-        if (selectedAsset.uniqid !== selectedAssetId) {          
-          // clear the current planning details 
+        if (selectedAsset.uniqid !== selectedAssetId) {
+          // clear the current planning details
           setPlanningRange(undefined)
           setAllowableFilteredCells([])
 

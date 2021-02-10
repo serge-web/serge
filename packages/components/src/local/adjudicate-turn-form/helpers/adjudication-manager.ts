@@ -75,13 +75,13 @@ class AdjudicationManager {
   }
 
   /** convenience function to find first step with speed
-   * 
+   *
    */
-  firstSpeed(route: RouteTurn[]): number | undefined {
-    if(route && route.length) {
+  firstSpeed (route: RouteTurn[]): number | undefined {
+    if (route && route.length) {
       const first: RouteTurn | undefined = route.find((turn: RouteTurn) => turn.status.speedKts !== undefined)
-      if(first) {
-        return first.status.speedKts;
+      if (first) {
+        return first.status.speedKts
       } else {
         console.log('failed to find speed')
       }
@@ -96,16 +96,16 @@ class AdjudicationManager {
       const platform: PlatformTypeData = this.getPlatformDetails()
       if (platform) {
         const plannedSpeed: number | undefined = this.firstSpeed(selected.planned)
-        if(plannedSpeed) {
+        if (plannedSpeed) {
           return plannedSpeed
         } else {
           const originalSpeed: number | undefined = this.firstSpeed(selected.original)
-          if(originalSpeed) {
+          if (originalSpeed) {
             return originalSpeed
           } else {
             // check platform chars
             const speeds: number[] = platform.speedKts
-            if(speeds.length){
+            if (speeds.length) {
               return speeds[0]
             }
           }

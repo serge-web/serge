@@ -90,10 +90,9 @@ it('checks isMobile for a mobile platform type', () => {
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
   const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)
-  expect(manager.stateIsMobile(`Transiting`)).toBeTruthy()
-  expect(manager.stateIsMobile(`Stopped`)).toBeFalsy()
+  expect(manager.stateIsMobile('Transiting')).toBeTruthy()
+  expect(manager.stateIsMobile('Stopped')).toBeFalsy()
 })
-
 
 it('checks platform types are correct', () => {
   // prepare some routes, and a selected item
@@ -103,9 +102,8 @@ it('checks platform types are correct', () => {
 
   const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)
   expect(manager.platformDetails).toBeFalsy() // not retrieved yet
-  const details = manager.getPlatformDetails();
+  const details = manager.getPlatformDetails()
   expect(details).toBeTruthy()
   expect(details.name.toUpperCase()).toEqual(store.selected && store.selected.platformType.toUpperCase())
   expect(manager.platformDetails).toBeTruthy() // cached object available
-
 })
