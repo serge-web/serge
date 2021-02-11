@@ -300,8 +300,9 @@ class AdjudicationManager {
           return [
           ]
         case PlanningStates.Pending:
-          const destroyed = this.isDestroyed(selected.condition, this.getPlatformDetails())
-          return destroyed ? [{ label: 'Save', action: PlanningCommands.Save }] : []
+          return this.isDestroyed(selected.condition, this.getPlatformDetails()) 
+            ? [{ label: 'Save', action: PlanningCommands.Save }] 
+            : []
         default:
           return [
           ]
