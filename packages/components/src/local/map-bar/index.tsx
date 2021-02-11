@@ -320,6 +320,7 @@ export const MapBar: React.FC = () => {
             isUmpire={playerForce === UMPIRE_FORCE}
             canSubmitOrders={canSubmitOrders}
             store={routeStore}
+            platforms={platforms}
             panel={worldStatePanel}
             submitTitle = {stateSubmitTitle}
             setSelectedAssetById={setSelectedAssetById}

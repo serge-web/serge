@@ -266,6 +266,10 @@ class AdjudicationManager {
     }
   }
 
+  isDestroyed (condition: string | undefined, platform: PlatformTypeData) : boolean {
+    return (condition === platform.conditions[platform.conditions.length-1])
+  }
+
   /** provide a series of actions for available at the current state */
   lowerActionsFor (isMobile: boolean): Array<{label: string, action: PlanningCommands}> {
     const selected: Route | undefined = this.store.selected
@@ -295,9 +299,12 @@ class AdjudicationManager {
         case PlanningStates.Saved:
           return [
           ]
+        case PlanningStates.Pending:
+          const destroyed = this.isDestroyed(selected.condition, this.getPlatformDetails())
+          return destroyed ? [{ label: 'Save', action: PlanningCommands.Save }] : [ ]
         default:
           return [
-          ]
+        ]
       }
     } else {
       return []
@@ -365,6 +372,9 @@ class AdjudicationManager {
               // clear the planned oute
               route.planned = []
               route.plannedTrimmed = []
+              break
+            case PlanningCommands.Save:
+              route.adjudicationState = PlanningStates.Saved
               break
             default:
               console.warn('Not expecting ', command, ' in state ', curState)

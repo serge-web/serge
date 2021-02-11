@@ -73,7 +73,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       updateIfNecessary('upper ', upperPlanningActions, manager.upperActionsFor(), setUpperPlanningActions)
       updateIfNecessary('lower ', lowerPlanningActions, manager.lowerActionsFor(stateIsMobile), setLowerPlanningActions)
     }
-  }, [manager, stateIsMobile])
+  }, [manager, stateIsMobile, conditionVal])
 
   const handleCommandLocal = (command: PlanningCommands): void => {
     if (manager) {
