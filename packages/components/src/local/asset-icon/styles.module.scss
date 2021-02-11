@@ -9,6 +9,10 @@
     border: 4px solid rgba(255, 255, 255, 0.7);
     box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
   }
+  &.destroyed {
+    border-radius: 20%;
+    filter: brightness(0.5);
+  }
 }
 
 .force {

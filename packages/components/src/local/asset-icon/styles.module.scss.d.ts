@@ -27,6 +27,7 @@ interface CssExports {
   'popup': string;
   'red': string;
   'selected': string;
+  'destroyed': string;
   'unknown': string;
 }
 export const cssExports: CssExports;
