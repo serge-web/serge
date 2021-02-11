@@ -266,8 +266,8 @@ class AdjudicationManager {
     }
   }
 
-  isDestroyed (condition: string | undefined, platform: PlatformTypeData) : boolean {
-    return (condition === platform.conditions[platform.conditions.length-1])
+  isDestroyed (condition: string | undefined, platform: PlatformTypeData): boolean {
+    return (condition === platform.conditions[platform.conditions.length - 1])
   }
 
   /** provide a series of actions for available at the current state */
@@ -301,10 +301,10 @@ class AdjudicationManager {
           ]
         case PlanningStates.Pending:
           const destroyed = this.isDestroyed(selected.condition, this.getPlatformDetails())
-          return destroyed ? [{ label: 'Save', action: PlanningCommands.Save }] : [ ]
+          return destroyed ? [{ label: 'Save', action: PlanningCommands.Save }] : []
         default:
           return [
-        ]
+          ]
       }
     } else {
       return []

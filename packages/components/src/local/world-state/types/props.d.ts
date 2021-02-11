@@ -10,8 +10,8 @@ export default interface PropTypes {
    * the set of routes currently being planned
    */
   store: RouteStore
-  /** 
-   * list of platform types 
+  /**
+   * list of platform types
    */
   platforms?: PlatformTypeData[]
   /**
