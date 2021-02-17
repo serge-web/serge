@@ -97,7 +97,7 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     if (dragDestination && originHex) {
       // work out the available cells
-      const plannedRoute: SergeHex<{}>[] = planningConstraints && dragDestination
+      const plannedRoute: SergeHex<{}>[] = planningConstraints
         ? plannedRouteFor(gridCells, allowableFilteredCells, originHex, dragDestination) : []
 
       // combine with any existing planned cells
@@ -261,13 +261,11 @@ export const HexGrid: React.FC<{}> = () => {
           // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
           const remaining = planningRange - routeLen
 
-          if (lastCell) {
-            setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
-            // note: we extend the existing planned cells, with the new ones
-            setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
-            setOriginHex(lastCell)
-            setPlanningRange(remaining)
-          }
+          setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
+          // note: we extend the existing planned cells, with the new ones
+          setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
+          setOriginHex(lastCell)
+          setPlanningRange(remaining)
         }
       }
     }
