@@ -1,8 +1,0 @@
-/* global expect it */
-
-import getLastLegRemoved from '../../Components/Mapping/helpers/getLastLegRemoved'
-import legs from '../Mocks/plannedLegs.json'
-
-it('Correctly returns an array without the last turn', () => {
-  expect(getLastLegRemoved(legs)).toEqual([{ route: ['H00', 'H01', 'H02', 'H03'], status: { state: 'Transiting', speedKts: 20 }, turn: 1 }, { route: ['I04', 'I05', 'I06', 'I06'], status: { state: 'Transiting', speedKts: 20 }, turn: 2 }, { route: ['I07', 'I08', 'I09', 'I10'], status: { state: 'Transiting', speedKts: 20 }, turn: 3 }, { route: ['I11', 'J11', 'J12', 'J13'], status: { state: 'Transiting', speedKts: 20 }, turn: 4 }])
-})
