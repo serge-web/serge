@@ -10,16 +10,17 @@ import Groups from '../helper-elements/groups'
 /* Import Types */
 import PropTypes from './types/props'
 import { NodeType } from '../helper-elements/groups/types/props'
-import { GroupItem, Route } from '@serge/custom-types'
+import { GroupItem, PlatformTypeData, Route } from '@serge/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
 import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases } from '@serge/config'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
+import { findPlatformTypeFor } from '@serge/helpers'
 
 export const WorldState: React.FC<PropTypes> = ({
-  name, store, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
+  name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
   submitTitle, submitForm, panel, gridCells, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted
@@ -105,11 +106,15 @@ export const WorldState: React.FC<PropTypes> = ({
       ? `${numPlanned} turns planned` : ''
     const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
 
+    // sort out if this asset is destroyed
+    const platformType: PlatformTypeData | undefined = platforms && findPlatformTypeFor(platforms, item.platformType)
+    const isDestroyed = platformType && item.condition === platformType.conditions[platformType.conditions.length - 1]
+
     const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
     const checkStatus: boolean = item.laydownPhase === LaydownPhases.NotInLaydown
       ? inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
       : item.laydownPhase !== LaydownPhases.Unmoved
-    const fullDescription: string = descriptionText + laydownMessage
+    const fullDescription: string = isDestroyed ? 'Destroyed' : descriptionText + laydownMessage
 
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>

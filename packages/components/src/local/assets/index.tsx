@@ -42,8 +42,8 @@ export const Assets: React.FC<{}> = () => {
     if (gridCells) {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
-        const { uniqid, name, platformType, actualForceName } = route
-        const { contactId, status, condition, perceptions, locationPending } = route.asset
+        const { uniqid, name, platformType, actualForceName, condition } = route
+        const { contactId, status, perceptions, locationPending } = route.asset
 
         // see if the player of this force can see (perceive) this asset
         const perceivedAsTypes: PerceivedTypes | null = findPerceivedAsTypes(
