@@ -4,7 +4,7 @@ import L from 'leaflet'
 export default interface AssetInfo {
   position: L.LatLng
   name: string
-  condition: string
+  condition?: string
   status?: RouteStatus
   type: string
   force: string
@@ -13,4 +13,5 @@ export default interface AssetInfo {
   visibleTo: Array<string>
   uniqid: string
   controlledBy?: Array<string>
+  locationPending?: boolean
 }

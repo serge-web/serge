@@ -120,15 +120,14 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
       </Select>
     </FormGroup>
     {statusVal.mobile
-      ? <FormGroup title="Speed (kts)" titlePosition="absolute">
-        {speed.length > 0 &&
-        <Speed
-          value = { speedVal }
-          options = { speed }
-          onClick = { !formDisabled && speedHandler }
-        />
-        }
-      </FormGroup>
+      ? speed.length > 0 &&
+        <FormGroup title="Speed (kts)" titlePosition="absolute">
+          <Speed
+            value = { speedVal }
+            options = { speed }
+            onClick = { !formDisabled && speedHandler }
+          />
+        </FormGroup>
       : <FormGroup title="For">
         <Input className={clInput} disabled={formDisabled} name="turns" value={turnsVal} onChange={changeHandler}/>
         <span className={styles.text}>turns</span>

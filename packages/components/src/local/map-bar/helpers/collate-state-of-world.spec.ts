@@ -5,9 +5,10 @@ import forces from '@serge/mocks/forces.mock'
 import platforms from '@serge/mocks/platform-types.mock'
 import { routeCreateStore } from '@serge/helpers'
 import { MessageStateOfWorld, RouteStore, StateOfWorld } from '@serge/custom-types'
+import { Phase } from '@serge/config'
 
 it('contains relevant population results', () => {
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', platforms, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Red', platforms, undefined, false, false)
   const message: MessageStateOfWorld = collateStateOfWorld(store.routes, 3)
   const stateOfWorld: StateOfWorld = message.state
   expect(stateOfWorld).toBeDefined()

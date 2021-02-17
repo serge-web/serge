@@ -93,8 +93,7 @@ export interface MessageInfoType {
 
 export interface MessageForceLaydown {
   messageType: typeof FORCE_LAYDOWN,
-  readonly uniqid: string,
-  readonly position: string,
+  readonly updates: Array<{uniqid: string, position: string}>
 }
 export interface MessagePerceptionOfContact {
   messageType: typeof PERCEPTION_OF_CONTACT,

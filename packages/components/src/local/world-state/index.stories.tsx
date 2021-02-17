@@ -80,7 +80,7 @@ const Template: Story<WorldStatePropTypes> = (args) => {
     Red: 'Red'
   }
   const forceName = forceNames[viewAs]
-  const storeProp = store || routeCreateStore(undefined, forces, forceName, platformTypes, undefined, false, false)
+  const storeProp = store || routeCreateStore(undefined, 1, Phase.Adjudication, forces, forceName, platformTypes, undefined, false, false)
   return <WorldState store={storeProp} {...props} />
 }
 
@@ -90,6 +90,7 @@ WithPhases.args = {
   isUmpire: false,
   plansSubmitted: false,
   canSubmitOrders: true,
+  turnNumber: 1,
   phase: Phase.Planning,
   submitTitle: 'Submit',
   name: 'World State'

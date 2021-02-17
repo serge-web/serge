@@ -3,8 +3,7 @@ import { MessageSubmitPlans, PlannedRoute, RouteStatus, Route, RouteTurn } from 
 
 const collatePlanningOrders = (routes: Array<Route>): MessageSubmitPlans => {
   const results: Array<PlannedRoute> = routes.map((route: Route): PlannedRoute => {
-    const res: RouteTurn[] = []
-    route.planned.forEach((step: RouteTurn) => {
+    const res: RouteTurn[] = route.planned.map((step: RouteTurn) => {
       const coords: string[] | undefined = step.route
       const status: RouteStatus = step.status.speedKts ? {
         state: step.status.state,
@@ -20,7 +19,7 @@ const collatePlanningOrders = (routes: Array<Route>): MessageSubmitPlans => {
         turn: step.turn,
         status: status
       }
-      res.push(newStep)
+      return newStep
     })
     const plannedRoute: PlannedRoute = {
       uniqid: route.uniqid,

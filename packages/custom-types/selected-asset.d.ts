@@ -12,5 +12,7 @@ export default interface SelectedAsset {
     controlledBy?: Array<string>,
     condition: string,
     visibleTo: Array<string>
-    status?: RouteStatus
+    status?: RouteStatus,
+    /** flag for if player is free to relocate this asset to a suitable cell in turn zero */
+    locationPending?: boolean
   }
