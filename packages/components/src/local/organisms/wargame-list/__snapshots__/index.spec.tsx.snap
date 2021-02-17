@@ -55,7 +55,7 @@ exports[`WargameList component: renders correctly 1`] = `
           </span>
         </span>
         <svg
-          aria-labelledby="svg-inline--fa-title-OnE5Z024ivn8"
+          aria-labelledby="svg-inline--fa-title-SHlBL4QhJQ1N"
           className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
           data-icon="ellipsis-h"
           data-prefix="fas"
@@ -66,7 +66,7 @@ exports[`WargameList component: renders correctly 1`] = `
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="svg-inline--fa-title-OnE5Z024ivn8"
+            id="svg-inline--fa-title-SHlBL4QhJQ1N"
             style={Object {}}
           >
             Wargame menu
@@ -97,7 +97,7 @@ exports[`WargameList component: renders correctly 1`] = `
           </span>
         </span>
         <svg
-          aria-labelledby="svg-inline--fa-title-xnO9vMn1L0vh"
+          aria-labelledby="svg-inline--fa-title-JUuHCCEBmeeW"
           className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
           data-icon="ellipsis-h"
           data-prefix="fas"
@@ -108,7 +108,7 @@ exports[`WargameList component: renders correctly 1`] = `
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="svg-inline--fa-title-xnO9vMn1L0vh"
+            id="svg-inline--fa-title-JUuHCCEBmeeW"
             style={Object {}}
           >
             Wargame menu
@@ -139,7 +139,7 @@ exports[`WargameList component: renders correctly 1`] = `
           </span>
         </span>
         <svg
-          aria-labelledby="svg-inline--fa-title-eXIALWu3phOt"
+          aria-labelledby="svg-inline--fa-title-zw1CjAzpLYtG"
           className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
           data-icon="ellipsis-h"
           data-prefix="fas"
@@ -150,7 +150,7 @@ exports[`WargameList component: renders correctly 1`] = `
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="svg-inline--fa-title-eXIALWu3phOt"
+            id="svg-inline--fa-title-zw1CjAzpLYtG"
             style={Object {}}
           >
             Wargame menu

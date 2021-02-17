@@ -4,7 +4,7 @@ import { PERCEPTION_OF_CONTACT } from '@serge/config'
 
 /* global it expect */
 import handlePerceptionChanges from '../../../ActionsAndReducers/playerUi/helpers/handlePerceptionChanges'
-import findAsset from '../../../Components/Mapping/helpers/findAsset'
+import findAsset from '../../../Helpers/findAsset'
 
 const payload1: MessagePerceptionOfContact = {
   assetId: 'C01',
