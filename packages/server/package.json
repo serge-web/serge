@@ -1,6 +1,7 @@
 {
   "name": "@serge/server",
   "version": "0.3.0",
+  "description": "NodeJS backend for Serge application",
   "license": "Apache-2.0",
   "main": "main.js",
   "bin": "bin.js",

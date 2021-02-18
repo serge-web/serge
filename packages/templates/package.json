@@ -2,6 +2,7 @@
   "name": "@serge/templates",
   "version": "0.3.0",
   "license": "Apache-2.0",
+  "description": "Blocks of JS/JSON used across the Serge app",
   "author": "foxleigh81 <alex@alexfoxleigh.com>",
   "dependencies": {
     "moment": "^2.24.0",

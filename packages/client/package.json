@@ -2,6 +2,7 @@
   "name": "@serge/client",
   "version": "0.3.0",
   "main": "index.js",
+  "description": "Core front-end code, including some that can't be represented as Storybook components due to non-react JS",
   "license": "Apache-2.0",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",

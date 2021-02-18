@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "license": "Apache-2.0",
   "author": "foxleigh81 <alex@alexfoxleigh.com>",
+  "description": "Collection of Serge UI components, mostly covered by StoreBook tests",
   "main": "build/index.js",
   "scripts": {
     "storybook": "start-storybook -s ./static -p 6611",

@@ -2,6 +2,7 @@
   "name": "@serge/e2e-tests",
   "version": "0.3.0",
   "main": "index.js",
+  "description": "End-to-End acceptance testing, using cypress framework",
   "license": "Apache-2.0",
   "devDependencies": {
     "cypress": "^3.8.2"

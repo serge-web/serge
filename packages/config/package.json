@@ -2,6 +2,7 @@
   "name": "@serge/config",
   "version": "0.3.0",
   "license": "Apache-2.0",
+  "description": "Settings and high level types used across Serge",
   "author": "foxleigh81 <alex@alexfoxleigh.com>",
   "main": "build/index.js",
   "dependencies": {

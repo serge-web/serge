@@ -2,6 +2,7 @@
   "name": "@serge/themes",
   "version": "0.3.0",
   "main": "App.scss",
+  "description": "Stylesheets for Serge app",
   "license": "Apache-2.0",
   "dependencies": {
     "sass": "^1.23.0",
