@@ -19,13 +19,15 @@ import {
   ERROR_THROTTLE
 } from '../consts'
 
+import { addWargameDbStore } from '@serge/api'
+
 import { INFO_MESSAGE, FEEDBACK_MESSAGE, CUSTOM_MESSAGE } from '@serge/config'
 
 import {
   setLatestFeedbackMessage,
   setCurrentWargame,
   setLatestWargameMessage
-} from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+} from '@serge/actions'
 
 const wargameDbStore = []
 
@@ -75,6 +77,7 @@ export const populateWargame = (dispatch) => {
         db.setMaxListeners(MAX_LISTENERS)
 
         wargameDbStore.unshift({ name, db })
+        addWargameDbStore({ name, db })
       })
 
       const promises = wargameDbStore.map((game) => {
@@ -118,16 +121,6 @@ export const saveIcon = (file) => {
     .then((res) => res.json())
 }
 
-export const deleteWargame = (wargamePath) => {
-  const name = getNameFromPath(wargamePath)
-
-  const wargame = wargameDbStore.find((item) => item.name === name)
-  wargame.db.destroy()
-
-  const index = wargameDbStore.findIndex((item) => item.name === name)
-  wargameDbStore.splice(index, 1)
-}
-
 export const createWargame = (dispatch) => {
   const uniqId = uniqid.time()
 
@@ -139,6 +132,7 @@ export const createWargame = (dispatch) => {
     db.setMaxListeners(15)
 
     wargameDbStore.unshift({ name, db })
+    addWargameDbStore({ name, db })
 
     const settings = { ...dbDefaultSettings, name: name, wargameTitle: name }
 
@@ -649,6 +643,7 @@ export const cleanWargame = (dbPath) => {
       })
       .then(() => {
         wargameDbStore.unshift({ name: newDbName, db: newDb })
+        addWargameDbStore({ name: newDbName, db: newDb })
         return getAllWargames()
       })
       .then((res) => {
@@ -673,6 +668,7 @@ export const duplicateWargame = (dbPath) => {
 
     return dbInStore.db.replicate.to(newDb)
       .then(() => {
+        addWargameDbStore({ name: newDbName, db: newDb })
         return wargameDbStore.unshift({ name: newDbName, db: newDb })
       })
       .then(() => {

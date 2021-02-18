@@ -4,7 +4,12 @@ import moment from 'moment'
 import PouchDB from 'pouchdb'
 import { fetch } from 'whatwg-fetch'
 
-import { deepCopy, calcComplete }  from '@serge/helpers'
+import { deepCopy, calcComplete } from '@serge/helpers'
+
+import {
+  addWargameDbStore,
+  listenNewMessage
+} from '@serge/api'
 
 import {
   databasePath,
@@ -15,45 +20,12 @@ import {
   PLANNING_PHASE,
   ADJUDICATION_PHASE,
   MAX_LISTENERS,
-  SERGE_INFO,
-  ERROR_THROTTLE
+  SERGE_INFO
 } from '@serge/config'
 
 import handleForceDelta from '../helpers/handle-force-delta'
 
-import {
-  setLatestFeedbackMessage,
-  setCurrentWargame,
-  setLatestWargameMessage
-} from '../actions/player-ui'
-
 const wargameDbStore = []
-
-const listenNewMessage = ({ db, name, dispatch }) => {
-  db.changes({ since: 'now', live: true, timeout: false, heartbeat: false, include_docs: true })
-    .on('change', function (changes) {
-      const { doc } = changes
-      (async () => {
-        if (Object.prototype.hasOwnProperty.call(doc, 'infoType')) {
-          dispatch(setCurrentWargame(doc))
-          dispatch(setLatestWargameMessage(doc))
-          return
-        }
-
-        if (Object.prototype.hasOwnProperty.call(doc, 'feedback')) {
-          dispatch(setLatestFeedbackMessage(doc))
-        } else {
-          dispatch(setLatestWargameMessage(doc))
-        }
-      })()
-    })
-    .on('error', function (err) {
-      // hey, maybe the server is down. introduce a pause
-      setTimeout(e => {
-        listenNewMessage({ db, name, dispatch, err })
-      }, ERROR_THROTTLE)
-    })
-}
 
 export const listenForWargameChanges = (name, dispatch) => {
   const wargame = wargameDbStore.find((item) => item.name === name)
@@ -76,6 +48,7 @@ export const populateWargame = (dispatch) => {
         db.setMaxListeners(MAX_LISTENERS)
 
         wargameDbStore.unshift({ name, db })
+        addWargameDbStore({ name, db })
       })
 
       const promises = wargameDbStore.map((game) => {
@@ -119,16 +92,6 @@ export const saveIcon = (file) => {
     .then((res) => res.json())
 }
 
-export const deleteWargame = (wargamePath) => {
-  const name = getNameFromPath(wargamePath)
-
-  const wargame = wargameDbStore.find((item) => item.name === name)
-  wargame.db.destroy()
-
-  const index = wargameDbStore.findIndex((item) => item.name === name)
-  wargameDbStore.splice(index, 1)
-}
-
 export const createWargame = (dispatch) => {
   const uniqId = uniqid.time()
 
@@ -140,6 +103,7 @@ export const createWargame = (dispatch) => {
     db.setMaxListeners(15)
 
     wargameDbStore.unshift({ name, db })
+    addWargameDbStore({ name, db })
 
     const settings = { ...dbDefaultSettings, name: name, wargameTitle: name }
 
@@ -617,6 +581,7 @@ export const cleanWargame = (dbPath) => {
       })
       .then(() => {
         wargameDbStore.unshift({ name: newDbName, db: newDb })
+        addWargameDbStore({ name: newDbName, db: newDb })
         return getAllWargames()
       })
       .then((res) => {
@@ -641,6 +606,7 @@ export const duplicateWargame = (dbPath) => {
 
     return dbInStore.db.replicate.to(newDb)
       .then(() => {
+        addWargameDbStore({ name: newDbName, db: newDb })
         return wargameDbStore.unshift({ name: newDbName, db: newDb })
       })
       .then(() => {

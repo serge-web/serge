@@ -21,19 +21,17 @@ import { addNotification } from '../Notification/Notification_ActionCreators'
 import isError from '../../Helpers/isError'
 import { FEEDBACK_MESSAGE } from '@serge/config'
 import {
-  Wargame,
   Role,
   Message,
   MessageDetails,
   MessageFeedback,
-  MessageChannel
+  MessageChannel,
+  PlayerUiActionTypes
 } from '@serge/custom-types'
-import { PlayerUiActionTypes } from '@serge/custom-types'
 
-export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
-  type: SET_CURRENT_WARGAME_PLAYER,
-  payload: wargame
-})
+import {
+  setCurrentWargame
+} from '@serge/actions'
 
 export const setForce = (forceName: string): PlayerUiActionTypes => ({
   type: SET_FORCE,
@@ -59,14 +57,6 @@ export const setWargameFeedback = (messages: MessageFeedback[]): PlayerUiActionT
   payload: messages
 })
 
-export const setLatestFeedbackMessage = (message: MessageFeedback): PlayerUiActionTypes => ({
-  type: SET_LATEST_FEEDBACK_MESSAGE,
-  payload: message
-})
-export const setLatestWargameMessage = (message: MessageChannel): PlayerUiActionTypes => ({
-  type: SET_LATEST_WARGAME_MESSAGE,
-  payload: message
-})
 export const setWargameMessages = (messages: Array<MessageChannel>): PlayerUiActionTypes => ({
   type: SET_ALL_MESSAGES,
   payload: messages

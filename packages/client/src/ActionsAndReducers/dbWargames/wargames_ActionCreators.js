@@ -3,6 +3,9 @@ import 'whatwg-fetch'
 import _ from 'lodash'
 
 import * as wargamesApi from '../../api/wargames_api'
+import {
+  deleteWargame as deleteWargameApi
+} from '@serge/api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import { DEFAULT_SERVER } from '../../consts'
 
@@ -169,8 +172,7 @@ export const clearWargames = () => {
 
 export const deleteWargame = (name) => {
   return async (dispatch) => {
-    await wargamesApi.deleteWargame(name)
-
+    await deleteWargameApi(name)
     const wargames = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(wargames))
   }

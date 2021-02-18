@@ -5,6 +5,8 @@
   "main": "build/index.js",
   "dependencies": {
     "@serge/config": "^0.3.0",
+    "@serge/actions": "^0.3.0",
+    "@serge/api": "^0.3.0",
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.20.0",
     "check-types": "^11.1.2",

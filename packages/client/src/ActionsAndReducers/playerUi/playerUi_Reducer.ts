@@ -174,7 +174,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       return newState
   }
 
-  // console.log(`PlayerUI: ${action.type}`, newState)
+  console.log(`PlayerUI: ${action.type}`, newState)
   return newState
 }
 

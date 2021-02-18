@@ -14,12 +14,11 @@ import {
   nextGameTurn as commitNextGameTurn
 } from '../api/wargames'
 
-import { addNotification } from '../actions/notification'
+import {
+  setCurrentWargame
+} from '@serge/actions'
 
-export const setCurrentWargame = (data) => ({
-  type: ActionConstant.SET_CURRENT_WARGAME_PLAYER,
-  payload: data
-})
+import { addNotification } from '../actions/notification'
 
 export const setForce = (data) => ({
   type: ActionConstant.SET_FORCE,
@@ -38,16 +37,6 @@ export const setRole = (data) => ({
 export const setWargameFeedback = (messages) => ({
   type: ActionConstant.SET_FEEDBACK_MESSAGES,
   payload: messages
-})
-
-export const setLatestFeedbackMessage = (message) => ({
-  type: ActionConstant.SET_LATEST_FEEDBACK_MESSAGE,
-  payload: message
-})
-
-export const setLatestWargameMessage = (message) => ({
-  type: ActionConstant.SET_LATEST_WARGAME_MESSAGE,
-  payload: message
 })
 
 export const setWargameMessages = (messages) => ({

@@ -1,3 +1,5 @@
+import { Dispatch } from 'react'
+
 import {
   SET_CURRENT_WARGAME_PLAYER,
   SET_FORCE,
@@ -87,6 +89,8 @@ interface OpenModalAction {
 interface CloseModalAction {
   type: typeof CLOSE_MODAL
 }
+
+export type PlayerUiDispatch = Dispatch<PlayerUiActionTypes>
 
 export type PlayerUiActionTypes = SetCurrentWargameAction |
                                   SetForceAction |

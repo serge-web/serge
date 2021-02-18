@@ -2,7 +2,6 @@ import uniqId from 'uniqid'
 
 import { copyState } from '@serge/helpers'
 
-
 import {
   forceTemplate,
   channelTemplate,
