@@ -10,6 +10,22 @@ export enum Phase {
   Adjudication = 'adjudication'
 }
 
+/** the phases of an asset that is 
+ * available for movement by a player during
+ * force laydown
+ *  
+ */ 
+export enum LaydownPhases {
+  // we're not in laydown phase
+  NotInLaydown = ' ',
+  // can't be moved
+  Immobile = 'Immobile',
+  // can be moved, but hasn'd
+  Unmoved = 'Unmoved',
+  // has moved
+  Moved = 'Moved'
+}
+
 /**
  * the possible states for a planned route
  */

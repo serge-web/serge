@@ -1,4 +1,4 @@
-import { RouteStore, SergeGrid, SergeHex } from '@serge/custom-types'
+import { PlatformTypeData, RouteStore, SergeGrid, SergeHex } from '@serge/custom-types'
 import { WorldStatePanels } from '../helpers/enums'
 
 export default interface PropTypes {
@@ -11,9 +11,17 @@ export default interface PropTypes {
    */
   store: RouteStore
   /**
+   * list of platform types
+   */
+  platforms?: PlatformTypeData[]
+  /**
    * phase of the wargame
    */
   phase: string
+  /** current turn number
+   *
+   */
+  turnNumber: number
   /**
    * whether this is from umpire force
    */
@@ -29,7 +37,7 @@ export default interface PropTypes {
   /**
    * callback for asset selected
    */
-  setSelectedAsset?: {(id: string): void}
+  setSelectedAssetById?: {(id: string): void}
   /**
    * callback for submit changes
    */

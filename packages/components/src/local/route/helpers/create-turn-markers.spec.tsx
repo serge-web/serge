@@ -6,9 +6,10 @@ import { routeCreateStore } from '@serge/helpers'
 import { plannedRoutesFor } from './planned-routes-for'
 import RouteData from '../types/route-data'
 import createTurnMarkers from './create-turn-markers'
+import { Phase } from '@serge/config'
 
 it('Provides valid planned markers for multi-point planned route without filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Red', platformTypes, undefined, false, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()

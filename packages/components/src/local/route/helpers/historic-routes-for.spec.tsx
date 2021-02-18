@@ -5,9 +5,10 @@ import { RouteStore, Route } from '@serge/custom-types'
 import { routeCreateStore } from '@serge/helpers'
 import { historicRoutesFor } from './historic-routes-for'
 import RouteData from '../types/route-data'
+import { Phase } from '@serge/config'
 
 it('Provides valid history for single-point history with filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', platformTypes, undefined, true, false)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Red', platformTypes, undefined, true, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
@@ -22,7 +23,7 @@ it('Provides valid history for single-point history with filter', () => {
 })
 
 it('Provides valid history for multi-point history with filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', platformTypes, undefined, true, false)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Red', platformTypes, undefined, true, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
   expect(route).toBeTruthy()
@@ -37,7 +38,7 @@ it('Provides valid history for multi-point history with filter', () => {
 })
 
 it('Provides valid history for single-point history without filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Red', platformTypes, undefined, false, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
@@ -52,7 +53,7 @@ it('Provides valid history for single-point history without filter', () => {
 })
 
 it('Provides valid history for multi-point history without filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Red', platformTypes, undefined, false, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
   expect(route).toBeTruthy()

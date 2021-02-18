@@ -1,4 +1,4 @@
-import { PlanningStates } from '@serge/config'
+import { PlanningStates, LaydownPhases } from '@serge/config'
 import { Asset } from '.'
 import RouteStatus from './route-status'
 import RouteTurn from './route-turn'
@@ -53,6 +53,8 @@ export default interface Route {
   currentPosition: string,
   /** current position of this asset */
   currentLocation: L.LatLng | undefined,
+  /** status of laydown */
+  laydownPhase?: LaydownPhases
   /** current planned steps for this asset */
   planned: Array<RouteTurn>
   /** trimmed/filtered version of current planned steps for this asset */

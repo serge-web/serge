@@ -7,9 +7,10 @@ import routeCreateStore from '../route-create-store'
 import routeSetCurrent from '../route-set-current'
 
 import { RouteStore } from '@serge/custom-types'
+import { Phase } from '@serge/config'
 
 it('can set selected route', () => {
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Blue', platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, false, false)
 
   const idOne = 'a0pra00003'
   const idTwo = 'a0pra000201'

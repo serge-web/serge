@@ -1,6 +1,6 @@
 import React from 'react'
 import { ForceData, MessageMap, PlayerUi, Role } from '@serge/custom-types'
-import { PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES } from '@serge/config'
+import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES } from '@serge/config'
 import { sendMapMessage } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -24,22 +24,22 @@ const bounds = {
 type Factory = (node: TabNode) => React.ReactNode
 
 /** utility to find the role for this role name */
-const findRole = (roleName: string, allForces: ForceData[]): Role => {
-  let res: Role | undefined = undefined
-  allForces.find((force: ForceData) => {
-      res = force.roles.find((role: Role) => role.name === roleName) || undefined
-      // if the above find works, we'll return true, which will
-      // terminate the find process. If it returns undefined,
-      // we'll return false, and carry on to the next force
-      return !!res
-  })
-  if (res !== undefined) return res
-  throw new Error('Roled not found for:' + roleName);
+const findRole = (roleName: string, forceData: ForceData | undefined): Role => {
+  if(forceData) {
+    const role = forceData.roles.find((role: Role) => role.name === roleName)
+    if(role) {
+      return role
+    } 
+  }
+  throw new Error('Role not found for:' + roleName);
 }
 
 const factory = (state: PlayerUi): Factory => {
   const mapPostBack = (form: string, payload: MessageMap, channelID: string): void => {
     switch(form) {
+      case FORCE_LAYDOWN:
+        sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        break
       case VISIBILITY_CHANGES:
         sendMapMessage(VISIBILITY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
         break
@@ -59,7 +59,7 @@ const factory = (state: PlayerUi): Factory => {
 
   return (node: TabNode): React.ReactNode => {
     // sort out if role can submit orders
-    const role: Role = findRole(state.selectedRole, state.allForces)
+    const role: Role = findRole(state.selectedRole, state.selectedForce)
     const canSubmitOrders: boolean = !!role.canSubmitPlans 
 
     // Render the map

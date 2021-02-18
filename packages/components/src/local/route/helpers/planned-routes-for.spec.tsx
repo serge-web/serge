@@ -5,9 +5,10 @@ import { RouteStore, Route } from '@serge/custom-types'
 import { routeCreateStore } from '@serge/helpers'
 import { plannedRoutesFor } from './planned-routes-for'
 import RouteData from '../types/route-data'
+import { Phase } from '@serge/config'
 
 it('Provides valid planned for multi-point planned with filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Red', platformTypes, undefined, true, true)
   expect(store).toBeTruthy()
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-A')
@@ -25,7 +26,7 @@ it('Provides valid planned for multi-point planned with filter', () => {
 })
 
 it('Provides valid planned for multi-point including static steps planned without filter', () => {
-  const store: RouteStore = routeCreateStore('a0pra000100', forces, 'Red', platformTypes, undefined, true, false)
+  const store: RouteStore = routeCreateStore('a0pra000100', 1, Phase.Adjudication, forces, 'Red', platformTypes, undefined, true, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.selected
   expect(route).toBeTruthy()
@@ -42,7 +43,7 @@ it('Provides valid planned for multi-point including static steps planned withou
 })
 
 it('Provides valid planned for multi-point planned without filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', platformTypes, undefined, true, false)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Red', platformTypes, undefined, true, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
@@ -75,7 +76,7 @@ it('Provides valid planned for multi-point planned without filter', () => {
 })
 
 it('Provides valid planned for single-point planned with filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', platformTypes, undefined, true, true)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Red', platformTypes, undefined, true, true)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
@@ -92,7 +93,7 @@ it('Provides valid planned for single-point planned with filter', () => {
 })
 
 it('Provides valid planned for single-point planned without filter', () => {
-  const store: RouteStore = routeCreateStore(undefined, forces, 'Red', platformTypes, undefined, true, false)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Red', platformTypes, undefined, true, false)
   expect(store.routes.length).toEqual(9)
   const route: Route | undefined = store.routes.find(route => route.name === 'Dhow-B')
   expect(route).toBeTruthy()
