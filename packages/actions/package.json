@@ -1,5 +1,6 @@
 {
   "name": "@serge/actions",
+  "description": "All actions that are run from @serge/client, @serge/store and @serge/api",
   "version": "0.3.0",
   "license": "Apache-2.0",
   "author": "",
