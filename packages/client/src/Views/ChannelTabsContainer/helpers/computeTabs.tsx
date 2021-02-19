@@ -1,14 +1,22 @@
 import { PlayerUi } from '@serge/custom-types'
-import FlexLayout, { Model, TabNode } from 'flexlayout-react'
+import FlexLayout, { Model, TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
 
 interface ModelLoc extends Model {
-  _idMap: {[property: string]: TabNode}
+  _idMap: {[property: string]: TabNode | TabSetNode}
 }
 
 interface TabMapped {
   id: string,
   name: string
+}
+
+const getModelTabs = (model: ModelLoc): TabMapped[] => {
+  const modelValues = Object.values(model._idMap)
+  const tabs = modelValues.filter((node) => node.getType() === 'tab')
+  const tabsets = modelValues.filter((node) => node.getType() === 'tabset')
+  const contents = tabs.length ? tabs : tabsets.length && tabsets['children'] && tabsets['children'].length ? tabsets['children'] : [];
+  return contents.map((node: TabNode) => ({ id: node.getId(), name: node.getName() }))
 }
 
 const computeTabs = (state: PlayerUi, modelOrig: Model): void => {
@@ -22,10 +30,7 @@ const computeTabs = (state: PlayerUi, modelOrig: Model): void => {
     })
   }
 
-  let modelTabs = Object.values(model._idMap)
-    .filter((node: TabNode) => node.getType() === 'tab')
-    .map((node: TabNode) => ({ id: node.getId(), name: node.getName() }))
-
+  let modelTabs = getModelTabs(model)
   let newChannels = _.differenceBy(channelNames, modelTabs, (channel) => channel.id)
   let channelsToRemove = _.differenceBy(modelTabs, channelNames, (channel) => channel.id)
   let matchingChannels = _.intersectionBy(channelNames, modelTabs, (item) => item.id)
@@ -76,10 +81,7 @@ const removeFromTabs = (channelsToRemove: TabMapped[], model: ModelLoc) => {
     if (model.getNodeById(channel.id))
       model.doAction(FlexLayout.Actions.deleteTab(channel.id))
   })
-
-  let modelTabs: TabMapped[] = Object.values(model._idMap)
-    .filter((node) => node.getType() === 'tab')
-    .map((node) => ({ id: node.getId(), name: node.getName() }))
+  let modelTabs = getModelTabs(model)
 
   if (modelTabs.length === 0) addToTabs([{id: 'default', name: 'No subscriptions'}], model)
 }
