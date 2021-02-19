@@ -31,6 +31,10 @@ import {
 
 const wargameDbStore = []
 
+// give database documents a suffix, so they're easier to open
+// in database utility tools
+const dbSuffix = '.sqlite'
+
 const listenNewMessage = ({ db, name, dispatch }) => {
   db.changes({ since: 'now', live: true, timeout: false, heartbeat: false, include_docs: true })
     .on('change', function (changes) {
@@ -127,7 +131,7 @@ export const createWargame = (dispatch) => {
   const name = `wargame-${uniqId}`
 
   return new Promise((resolve, reject) => {
-    const db = new PouchDB(databasePath + name)
+    const db = new PouchDB(databasePath + name + dbSuffix)
 
     db.setMaxListeners(15)
 
@@ -625,7 +629,7 @@ export const cleanWargame = (dbPath) => {
 
     db.get(dbDefaultSettings._id)
       .then((res) => {
-        newDb = new PouchDB(databasePath + newDbName)
+        newDb = new PouchDB(databasePath + newDbName + dbSuffix)
         return res
       })
       .then((res) => {
@@ -664,7 +668,7 @@ export const duplicateWargame = (dbPath) => {
 
   return new Promise((resolve, reject) => {
     var newDbName = `wargame-${uniqId}`
-    var newDb = new PouchDB(databasePath + newDbName)
+    var newDb = new PouchDB(databasePath + newDbName + dbSuffix)
 
     return dbInStore.db.replicate.to(newDb)
       .then(() => {
