@@ -4,8 +4,6 @@ import React from 'react'
 import GameAdmin from './index'
 import docs from './README.md'
 
-import { PlayerStateProvider } from '@serge/store'
-
 import { AdminMessagesMock } from '@serge/mocks'
 
 export default {
@@ -27,7 +25,5 @@ const force = {
 }
 
 export const Default: React.FC = () => (
-  <PlayerStateProvider>
-    <GameAdmin wargameTitle="title" chatChannel={AdminMessagesMock} selectedForce={force} selectedRole="Game Control" />
-  </PlayerStateProvider>
+  <GameAdmin wargameTitle="title" chatChannel={AdminMessagesMock} selectedForce={force} selectedRole="Game Control" />
 )
