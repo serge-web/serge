@@ -23,6 +23,10 @@ import {
   MessageChannel
 } from '@serge/custom-types'
 
+import { Dispatch } from 'react'
+
+export type PlayerUiDispatch = Dispatch<PlayerUiActionTypes>
+
 interface SetCurrentWargameAction {
   type: typeof SET_CURRENT_WARGAME_PLAYER,
   payload: Wargame
