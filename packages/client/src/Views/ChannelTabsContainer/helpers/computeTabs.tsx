@@ -15,7 +15,7 @@ const getModelTabs = (model: ModelLoc): TabMapped[] => {
   const modelValues = Object.values(model._idMap)
   const tabs = modelValues.filter((node) => node.getType() === 'tab')
   const tabsets = modelValues.filter((node) => node.getType() === 'tabset')
-  const contents = tabs.length ? tabs : tabsets && tabsets['children'] && tabsets['children'].length ? tabsets['children'] : [];
+  const contents = tabs.length ? tabs : tabsets.length && tabsets['children'] && tabsets['children'].length ? tabsets['children'] : [];
   return contents.map((node: TabNode) => ({ id: node.getId(), name: node.getName() }))
 }
 
