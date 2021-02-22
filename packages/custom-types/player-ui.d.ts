@@ -34,17 +34,25 @@ export default interface PlayerUi {
   currentWargame: string,
   wargameTitle: string,
   chatChannel: PlayerUiChatChannel,
+  /** dictionary for set of channels visible to logged in player */
   channels: PlayerUiChannels,
+  /** all channels in this wargame */
   allChannels: Array<ChannelData>,
+  /** set of forces for ths current wargame */
   allForces: Array<ForceData>,
   allTemplates: Array<any>,
+  /** descriptions of platforms available in current wargame */
   allPlatformTypes: Array<PlatformTypeData>,
   showObjective: boolean,
   wargameInitiated: boolean,
   feedbackMessages: Array<MessageFeedback>,
+  /** whether the introductory tour is running */
   tourIsOpen: boolean,
   modalOpened?: string,
+  /** whether access codes are displayed for current wargame */
   showAccessCodes: boolean,
+  /** whether logged in user can view insights & feedback */
   isInsightViewer: boolean,
+  /** whether logged in user can release RFIs */
   isRFIManager: boolean
 }
