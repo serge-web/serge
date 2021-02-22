@@ -1,10 +1,11 @@
-import { Participant, PlayerUi, Role } from '@serge/custom-types';
+import { ForceData, Participant, PlayerUi, Role } from '@serge/custom-types';
 
+/** determine if the participant force matches the supplied force */
 export const matchedForceFilter = (
-  participant: Participant,
+  participantForceId: string,
   selectedForceId: string
 ): boolean => (
-  participant.forceUniqid === selectedForceId
+  participantForceId === selectedForceId
 )
 
 /**
@@ -14,22 +15,17 @@ const matchedRole = (role: Role, selectedRole: string): boolean => (
   role.name === selectedRole
 )
 
-/** check if the current player role is named for the channel */
-export const matchedForceAndRoleFilter = (
-  participant: Participant,
-  { selectedForce, selectedRole }: PlayerUi
-): boolean => (
+/** check if the current player role is named for the channel, or if no roles are named */
+export const matchedForceAndRoleFilter = (participant: Participant, selectedForce: string | undefined, selectedRole: string): boolean => (
   selectedForce !== undefined &&
-  matchedForceFilter(participant, selectedForce.uniqid) &&
-  participant.roles.some(role => matchedRole(role, selectedRole))
+  matchedForceFilter(participant.forceUniqid, selectedForce) && 
+  (participant.roles.length == 0 || participant.roles.some(role => matchedRole(role, selectedRole)))
 )
 
 /**
- *  check if the current player's force is present in the channel
+ * check if the current player's force is present in the channel,
+ * but no specific roles are identified, so they all are
  */
-export const matchedAllRolesFilter = (
-  participant: Participant,
-  selectedForce:string
-): boolean => (
-  matchedForceFilter(participant, selectedForce) && participant.roles.length === 0
+export const matchedAllRolesFilter = (participant: Participant, selectedForce:string): boolean => (
+  matchedForceFilter(participant.forceUniqid, selectedForce) && participant.roles.length === 0
 )

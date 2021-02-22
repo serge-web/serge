@@ -46,6 +46,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
       infoType: true,
       gameTurn: payload.gameTurn
     }
+    const { selectedForce } = newState
 
     console.log('tune channels', newState.allChannels, newState.channels)
 
@@ -55,8 +56,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
       if (!matchedChannel) {
         delete channels[channelId]
       } else {
-        const { selectedForce } = newState
-        const isParticipant = matchedChannel.participants && matchedChannel.participants.some(p => matchedForceAndRoleFilter(p, newState))
+        const isParticipant = matchedChannel.participants && matchedChannel.participants.some(p => matchedForceAndRoleFilter(p, selectedForce ? selectedForce.uniqid : undefined, newState.selectedRole))
         const allRolesIncluded = selectedForce && matchedChannel.participants && matchedChannel.participants.some(p => matchedAllRolesFilter(p, selectedForce.uniqid))
 
         if (isParticipant || allRolesIncluded || newState.isObserver) {
@@ -70,7 +70,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
 
     // create any new channels & add to current channel
     newState.allChannels.forEach((channel) => {
-      const channelActive = channel.participants && channel.participants.some(p => matchedForceAndRoleFilter(p, newState))
+      const channelActive = channel.participants && channel.participants.some(p => matchedForceAndRoleFilter(p, selectedForce ? selectedForce.uniqid : undefined, newState.selectedRole))
       const { selectedForce } = newState
       const allRoles = selectedForce && channel.participants && channel.participants.some(p => matchedAllRolesFilter(p, selectedForce.uniqid))
 
