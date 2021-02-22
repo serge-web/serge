@@ -23,6 +23,7 @@ class AddRoleModal extends Component {
       isObserver: this.props.currentModal.data ? this.props.currentModal.data.isObserver : false,
       canSubmitPlans: this.props.currentModal.data ? this.props.currentModal.data.canSubmitPlans : false,
       isInsightViewer: this.props.currentModal.data ? this.props.currentModal.data.isInsightViewer : false,
+      isRFIManager: this.props.currentModal.data ? this.props.currentModal.data.isRFIManager : false
     };
   }
 
@@ -32,6 +33,7 @@ class AddRoleModal extends Component {
       rolePassword: '',
       isObserver: false,
       isInsightViewer: false,
+      isRFIManager: false,
       canSubmitPlans:false
     });
 
@@ -69,6 +71,13 @@ class AddRoleModal extends Component {
     });
   };
 
+
+  setRFIManager = (value) => {
+    this.setState({
+      isRFIManager: value
+    });
+  };
+
   setCanSubmitPlans= (value) => {
     this.setState({
       canSubmitPlans: value
@@ -84,6 +93,7 @@ class AddRoleModal extends Component {
       isObserver: this.state.isObserver,
       canSubmitPlans: this.state.canSubmitPlans,
       isInsightViewer: this.state.isInsightViewer,
+      isRFIManager: this.state.isRFIManager,
       isGameControl: this.props.currentModal.data ? this.props.currentModal.data.isGameControl : false,
     };
 
@@ -169,6 +179,15 @@ class AddRoleModal extends Component {
                 updateStore={this.setInsightViewer}
                 isChecked={this.state.isInsightViewer}
                 title="Role has view of all submitted feedback"
+              />
+            </div>
+            <div className="flex-content">
+              <Checkbox
+                id="c3"
+                label="Can Release RFIs"
+                updateStore={this.setRFIManager}
+                isChecked={this.state.isRFIManager}
+                title="Role is authorised to release RFIs"
               />
             </div>
             </>}

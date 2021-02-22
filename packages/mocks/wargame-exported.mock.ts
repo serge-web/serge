@@ -158,6 +158,7 @@ export default {
             {
               isGameControl: true,
               isInsightViewer: true,
+              isRFIManager: true,
               isObserver: true,
               name: 'Game Control',
               password: 'p2311',

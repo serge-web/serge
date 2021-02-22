@@ -11,6 +11,7 @@ export const forces: ForceData[] = [
       {
         isGameControl: true,
         isInsightViewer: true,
+        isRFIManager: true,
         canSubmitPlans: true,
         isObserver: true,
         name: 'Game Control',

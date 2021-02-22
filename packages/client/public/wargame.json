@@ -128,6 +128,7 @@
 					"isGameControl":true,
 					"isInsightViewer": true,
 					"isObserver": true,
+					"isRFIManager": true,
 					"canSubmitPlans": true,
 					"name": "Game Control",
 					"password": "p2311"

@@ -11,7 +11,7 @@ import styles from './styles.module.scss'
 import Switch from '@material-ui/core/Switch'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faComments, faDirections } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faComments, faDirections, faBookReader } from '@fortawesome/free-solid-svg-icons'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import TextInput from '../../atoms/text-input'
 import Button from '../../atoms/button'
@@ -85,6 +85,7 @@ export const SettingForces: React.FC<PropTypes> = ({
         password: 'p' + Math.random().toString(36).substring(8),
         isGameControl: false,
         isInsightViewer: false,
+        isRFIManager: false,
         isObserver: false
       }]
       handleChangeForce({ ...data, roles: roles })
@@ -132,6 +133,16 @@ export const SettingForces: React.FC<PropTypes> = ({
               title='Can view feedback/insights'
               className={cx(styles['role-title'], styles['title-center'])}>
               <FontAwesomeIcon icon={faComments} />
+            </div>}
+          </div>
+          <div className={styles['role-item']}>
+            <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isRFIManager} onChange={(): void => {
+              handleChangeRole({ ...roleItem, isRFIManager: !roleItem.isRFIManager })
+            }} />
+            {key === 0 && <div
+              title='Can release RFI responses'
+              className={cx(styles['role-title'], styles['title-center'])}>
+              <FontAwesomeIcon icon={faBookReader} />
             </div>}
           </div>
           <div className={styles['role-item']}>

@@ -45,5 +45,6 @@ export default interface PlayerUi {
   tourIsOpen: boolean,
   modalOpened?: string,
   showAccessCodes: boolean,
-  isInsightViewer: boolean
+  isInsightViewer: boolean,
+  isRFIManager: boolean
 }
