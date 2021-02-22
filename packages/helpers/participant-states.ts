@@ -20,7 +20,9 @@ export interface ParticipantStates {
   templates: Array<any>
 }
 
-/** find out if the role is active in the supplied channel */
+/** find out if the role is active in the supplied channel 
+ * Always returns a structure, use isParticipant to determine if role is in channel (registered or as observer)
+*/
 export const checkParticipantStates = (channel: ChannelData, selectedForce: string | undefined, selectedRole: string, isObserver: boolean): CheckParticipantStates => {
 
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
@@ -32,14 +34,14 @@ export const checkParticipantStates = (channel: ChannelData, selectedForce: stri
   }
 
   const participatingRole: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
-  console.log('passed', participatingRole)
   return {
-    isParticipant: !!participatingRole,
+    isParticipant: !!participatingRole || isObserver,
     participatingRole: participatingRole,
     allRolesIncluded: channel.participants && channel.participants.find(p => matchedAllRolesFilter(p, selectedForce))
   }
 }
 
+/** find out how the user can participate in this channel */
 export const getParticipantStates = (channel: ChannelData, newState: PlayerUi): ParticipantStates => {
   let chosenTemplates: Array<any> = []
   let observing: boolean = false

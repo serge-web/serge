@@ -7,7 +7,7 @@ import {
   ChannelData,
   MessageCustom
 } from '@serge/custom-types'
-import { deepCopy, matchedForceAndRoleFilter, matchedAllRolesFilter, getParticipantStates } from '@serge/helpers'
+import { deepCopy, matchedForceAndRoleFilter, matchedAllRolesFilter, getParticipantStates, checkParticipantStates } from '@serge/helpers'
 
 import {
   INFO_MESSAGE
@@ -46,18 +46,17 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
     }
     const { selectedForce } = newState
 
-    console.log('tune channels', newState.allChannels, newState.channels)
-
     for (const channelId in channels) {
       const matchedChannel = newState.allChannels.find((channel) => channel.uniqid === channelId)
 
       if (!matchedChannel) {
         delete channels[channelId]
       } else {
+        const matches = checkParticipantStates(matchedChannel, selectedForce ? selectedForce.uniqid : undefined, newState.selectedRole, newState.isObserver)
         const isParticipant = matchedChannel.participants && matchedChannel.participants.some(p => matchedForceAndRoleFilter(p, selectedForce ? selectedForce.uniqid : undefined, newState.selectedRole))
         const allRolesIncluded = selectedForce && matchedChannel.participants && matchedChannel.participants.some(p => matchedAllRolesFilter(p, selectedForce.uniqid))
 
-        if (isParticipant || allRolesIncluded || newState.isObserver) {
+        if (matches.isParticipant || matches.allRolesIncluded || newState.isObserver) {
           // ok, this is a channel we wish to display
         } else {
           // no, we no longer need to display this channel
