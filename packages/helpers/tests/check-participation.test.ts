@@ -1,4 +1,4 @@
-import { checkParticipantStates } from '@serge/helpers'
+import { checkParticipantStates, getParticipantStates } from '@serge/helpers'
 import { ChannelData, Participant, Role } from '@serge/custom-types'
 
 import { forces} from '@serge/mocks'
@@ -95,4 +95,16 @@ it('Check missing force in channel if observer', () => {
   expect(res.isParticipant).toBeTruthy()
   expect(res.participatingRole).toBeFalsy()
   expect(res.allRolesIncluded).toBeFalsy()
+})
+
+it('Check states for observer who is not registered', () => {
+  // get rid of the white force mmembership
+  const newChannel: ChannelData = deepCopy(allForcesChannel)
+  newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
+  const selForce = 'umpire'
+  const selRole = gameControl.name
+  const allTemplates: any = []
+  const states = getParticipantStates(newChannel, selForce, selRole, true, allTemplates)
+  console.log(states)
+  expect(states).toBeTruthy()
 })

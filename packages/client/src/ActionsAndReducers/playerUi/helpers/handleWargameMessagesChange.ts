@@ -34,6 +34,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
 
   let channels: PlayerUiChannels = { ...newState.channels }
   const chatChannel: PlayerUiChatChannel = { ...newState.chatChannel }
+  const forceId: string | undefined = newState.selectedForce ? newState.selectedForce.uniqid : undefined
 
   if (payload.messageType === INFO_MESSAGE) {
     // this message is a new version of the wargame document
@@ -104,7 +105,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
         channel.uniqid !== undefined &&
         !!channels[channel.uniqid]
       ) {
-        const { templates } = getParticipantStates(channel, newState)
+        const { templates } = getParticipantStates(channel, forceId, newState.selectedRole, newState.isObserver, newState.allTemplates)
         channels[channel.uniqid].templates = templates
       }
 
@@ -134,7 +135,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
           allRolesIncluded,
           observing,
           templates
-        } = getParticipantStates(channel, newState)
+        } = getParticipantStates(channel, forceId, newState.selectedRole, newState.isObserver, newState.allTemplates)
 
         if (allRolesIncluded || isParticipant || newState.isObserver) {
           channels[channel.uniqid || channel.name] = {
@@ -212,6 +213,7 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
     .filter((message) => message.details && message.details.channel === newState.chatChannel.name)
 
   const channels = {}
+  const forceId: string | undefined = newState.selectedForce ? newState.selectedForce.uniqid : undefined
 
   newState.allChannels.forEach((channel) => {
     const {
@@ -219,11 +221,11 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
       allRolesIncluded,
       observing,
       templates
-    } = getParticipantStates(channel, newState)
+    } = getParticipantStates(channel, forceId, newState.selectedRole, newState.isObserver, newState.allTemplates)
 
     if (!newState.isObserver && !isParticipant && !allRolesIncluded) return
     else {
-      // TODO: use channel name
+      // TODO: use channel uniqid
       channels[channel.uniqid || channel.name] = {
         name: channel.name,
         templates,

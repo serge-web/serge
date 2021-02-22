@@ -1,4 +1,4 @@
-import { PlayerUi, ChannelData, Participant } from '@serge/custom-types';
+import { ChannelData, Participant } from '@serge/custom-types';
 import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } from './participant-filters';
 
 export interface CheckParticipantStates {
@@ -42,7 +42,7 @@ export const checkParticipantStates = (channel: ChannelData, selectedForce: stri
 }
 
 /** find out how the user can participate in this channel */
-export const getParticipantStates = (channel: ChannelData, newState: PlayerUi): ParticipantStates => {
+export const getParticipantStates = (channel: ChannelData, forceId: string | undefined, role: string, isObserver: boolean, allTemplates: any): ParticipantStates => {
   let chosenTemplates: Array<any> = []
   let observing: boolean = false
   let templates: Array<any> = []
@@ -51,7 +51,7 @@ export const getParticipantStates = (channel: ChannelData, newState: PlayerUi): 
     isParticipant,
     participatingRole,
     allRolesIncluded
-  }: CheckParticipantStates = checkParticipantStates(channel, newState.selectedForce?.uniqid, newState.selectedRole, newState.isObserver)
+  }: CheckParticipantStates = checkParticipantStates(channel, forceId, role, isObserver)
 
   if (participatingRole) {
     chosenTemplates = participatingRole.templates
@@ -61,15 +61,15 @@ export const getParticipantStates = (channel: ChannelData, newState: PlayerUi): 
 
   if (isParticipant || allRolesIncluded) {
     if (chosenTemplates.length === 0) {
-      templates = newState.allTemplates.filter((template) => template.title === 'Chat')
+      templates = allTemplates.filter((template: any) => template.title === 'Chat')
     } else {
       templates = chosenTemplates.map(({ value }) => {
-        return typeof value === 'string' ? newState.allTemplates.find(item => item._id === value) : value
+        return typeof value === 'string' ? allTemplates.find((item: any) => item._id === value) : value
       })
     }
   }
 
-  if (newState.isObserver && !isParticipant && !allRolesIncluded) {
+  if (isObserver && !isParticipant && !allRolesIncluded) {
     observing = true
     templates = []
   }
