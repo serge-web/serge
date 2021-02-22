@@ -3,6 +3,7 @@
 interface CssExports {
   'asset-icon': string;
   'blue': string;
+  'destroyed': string;
   'force': string;
   'green': string;
   'platform-type-agi': string;
@@ -27,7 +28,6 @@ interface CssExports {
   'popup': string;
   'red': string;
   'selected': string;
-  'destroyed': string;
   'unknown': string;
 }
 export const cssExports: CssExports;

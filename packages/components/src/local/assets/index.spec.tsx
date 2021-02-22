@@ -35,7 +35,8 @@ const forces: Array<ForceData> = [
         isInsightViewer: true,
         isObserver: true,
         name: 'Game Control',
-        password: 'p2311'
+        password: 'p2311',
+        isRFIManager: true
       }
     ],
     umpire: true,
