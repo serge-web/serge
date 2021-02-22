@@ -108,7 +108,8 @@ const wargame = {
                   password: 'pk16fa8oa',
                   isGameControl: true,
                   isObserver: true,
-                  isInsightViewer: true
+                  isInsightViewer: true,
+                  isRFIManager: true
                 }
               ],
               icon: 'http://localhost:8080/default_img/umpireDefault.png',
@@ -443,7 +444,8 @@ const wargame = {
                   password: 'pk16fa8oa',
                   isGameControl: true,
                   isObserver: true,
-                  isInsightViewer: true
+                  isInsightViewer: true,
+                  isRFIManager: true
                 }
               ],
               icon: 'http://localhost:8080/default_img/umpireDefault.png',
@@ -709,7 +711,8 @@ const wargame = {
                   password: 'pk16fa8oa',
                   isGameControl: true,
                   isObserver: true,
-                  isInsightViewer: true
+                  isInsightViewer: true,
+                  isRFIManager: true
                 }
               ],
               icon: 'http://localhost:8080/default_img/umpireDefault.png',
@@ -975,7 +978,8 @@ const wargame = {
                   password: 'pk16fa8oa',
                   isGameControl: true,
                   isObserver: true,
-                  isInsightViewer: true
+                  isInsightViewer: true,
+                  isRFIManager: true
                 }
               ],
               icon: 'http://localhost:8080/default_img/umpireDefault.png',
@@ -1239,7 +1243,8 @@ const wargame = {
               password: 'pk16fa8oa',
               isGameControl: true,
               isObserver: true,
-              isInsightViewer: true
+              isInsightViewer: true,
+              isRFIManager: true
             }
           ],
           icon: 'http://localhost:8080/default_img/umpireDefault.png',

@@ -56,6 +56,7 @@ export default {
               "isGameControl":true,
               "isObserver": true,
               "isInsightViewer": true,
+              "isRFIManager": true,
               "canSubmitPlans": true
             }
           ],

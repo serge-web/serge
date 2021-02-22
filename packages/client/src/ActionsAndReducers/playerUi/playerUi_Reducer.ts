@@ -65,7 +65,8 @@ export const initialState: PlayerUi = {
   modalOpened: undefined,
   // DODO: check defaults for new ones
   showAccessCodes: false,
-  isInsightViewer: false
+  isInsightViewer: false,
+  isRFIManager: false
 }
 
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes):PlayerUi => {
@@ -116,6 +117,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.isGameControl = action.payload.isGameControl
       newState.isObserver = action.payload.isObserver
       newState.isInsightViewer = action.payload.isInsightViewer
+      newState.isRFIManager = !!action.payload.isRFIManager
       break
 
     case SET_ALL_TEMPLATES_PLAYERUI:

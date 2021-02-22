@@ -17,4 +17,8 @@ export default interface Role {
    * whether this role can submit plans from the Mapping component
    */
   canSubmitPlans?: boolean
+  /** 
+   * whether this role can manage (release) RFIs 
+   */
+  isRFIManager?: boolean
 }
