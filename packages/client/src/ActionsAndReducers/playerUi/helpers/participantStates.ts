@@ -1,4 +1,4 @@
-import { PlayerUi, ChannelData, Participant, ForceData } from '@serge/custom-types';
+import { PlayerUi, ChannelData, Participant } from '@serge/custom-types';
 import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } from '../helpers/filters';
 
 export interface CheckParticipantStates {
@@ -16,6 +16,7 @@ export interface ParticipantStates {
   allRolesIncluded: Participant | undefined,
   /** whether player is just channel observer */
   observing: boolean,
+  /** the templates available to this player in this channel */
   templates: Array<any>
 }
 
