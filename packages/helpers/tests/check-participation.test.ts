@@ -1,7 +1,7 @@
-import { checkParticipantStates } from '../../../ActionsAndReducers/playerUi/helpers/participantStates'
-import { ChannelData, ForceData, Participant, Role } from '@serge/custom-types'
+import { checkParticipantStates } from '@serge/helpers'
+import { ChannelData, Participant, Role } from '@serge/custom-types'
 
-import { forces, WargameExportedMock} from '@serge/mocks'
+import { forces} from '@serge/mocks'
 import { deepCopy } from '@serge/helpers'
 
 const gameControl: Role = forces[0].roles[0]

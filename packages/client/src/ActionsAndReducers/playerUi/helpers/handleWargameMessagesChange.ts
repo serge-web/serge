@@ -7,9 +7,7 @@ import {
   ChannelData,
   MessageCustom
 } from '@serge/custom-types'
-import { matchedForceAndRoleFilter, matchedAllRolesFilter } from './filters'
-import { getParticipantStates } from './participantStates'
-import copyState from '../../../Helpers/copyStateHelper'
+import { deepCopy, matchedForceAndRoleFilter, matchedAllRolesFilter, getParticipantStates } from '@serge/helpers'
 
 import {
   INFO_MESSAGE
@@ -169,10 +167,10 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
 
 const handleMessage = (chatChannel: PlayerUiChatChannel, channels: PlayerUiChannels, channel: string, payload: MessageCustom) => {
   if (channel === CHAT_CHANNEL_ID) {
-    chatChannel.messages.unshift(copyState(payload))
+    chatChannel.messages.unshift(deepCopy(payload))
   } else if (channels[channel] && channels[channel].messages !== undefined) {
     channels[channel].messages!.unshift({
-      ...copyState(payload),
+      ...deepCopy(payload),
       hasBeenRead: false,
       isOpen: false
     })
