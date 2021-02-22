@@ -4,7 +4,8 @@ import {
   PlayerUi,
   PlayerUiChatChannel,
   PlayerUiChannels,
-  ChannelData
+  ChannelData,
+  MessageCustom
 } from '@serge/custom-types'
 import { matchedForceAndRoleFilter, matchedAllRolesFilter } from './filters'
 import { getParticipantStates } from './participantStates'
@@ -37,6 +38,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
   const chatChannel: PlayerUiChatChannel = { ...newState.chatChannel }
 
   if (payload.messageType === INFO_MESSAGE) {
+    // this message is a new version of the wargame document
     const message = {
       details: {
         channel: `infoTypeChannelMarker${uniqId.time()}`
@@ -44,6 +46,8 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
       infoType: true,
       gameTurn: payload.gameTurn
     }
+
+    console.log('tune channels', newState.allChannels, newState.channels)
 
     for (const channelId in channels) {
       const matchedChannel = newState.allChannels.find((channel) => channel.uniqid === channelId)
@@ -154,22 +158,26 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
       }
     })
   } else {
-    if (payload.details.channel === CHAT_CHANNEL_ID) {
-      chatChannel.messages.unshift(copyState(payload))
-    } else if (channels[payload.details.channel] && channels[payload.details.channel].messages !== undefined) {
-      channels[payload.details.channel].messages!.unshift({
-        ...copyState(payload),
-        hasBeenRead: false,
-        isOpen: false
-      })
-
-      channels[payload.details.channel].unreadMessageCount = (channels[payload.details.channel].unreadMessageCount || 0) + 1
-    }
+    handleMessage(chatChannel, channels, payload.details.channel, payload)
   }
 
   return {
     channels,
     chatChannel
+  }
+}
+
+const handleMessage = (chatChannel: PlayerUiChatChannel, channels: PlayerUiChannels, channel: string, payload: MessageCustom) => {
+  if (channel === CHAT_CHANNEL_ID) {
+    chatChannel.messages.unshift(copyState(payload))
+  } else if (channels[channel] && channels[channel].messages !== undefined) {
+    channels[channel].messages!.unshift({
+      ...copyState(payload),
+      hasBeenRead: false,
+      isOpen: false
+    })
+
+    channels[payload.details.channel].unreadMessageCount = (channels[payload.details.channel].unreadMessageCount || 0) + 1
   }
 }
 
