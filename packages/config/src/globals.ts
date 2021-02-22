@@ -38,6 +38,7 @@ export const CUSTOM_MESSAGE = 'CustomMessage'
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'
 
 // series of constants used for `messageType` when sending system messages
+// an INFO_MESSAGE is an update to the wargame document
 export const INFO_MESSAGE = 'InfoMessage'
 
 // return states of adjudication form
