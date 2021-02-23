@@ -1,8 +1,6 @@
-import { checkParticipantStates, getParticipantStates } from '@serge/helpers'
+import { deepCopy, checkParticipantStates, getParticipantStates } from '@serge/helpers'
 import { ChannelData, Participant, Role } from '@serge/custom-types'
-
 import { forces} from '@serge/mocks'
-import { deepCopy } from '@serge/helpers'
 
 const gameControl: Role = forces[0].roles[0]
 const allForcesChannel: ChannelData = {
