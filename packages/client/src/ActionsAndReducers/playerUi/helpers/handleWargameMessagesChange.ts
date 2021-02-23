@@ -46,6 +46,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
       gameTurn: payload.gameTurn
     }
     const { selectedForce } = newState
+    const selectedForceId: string | undefined = selectedForce && selectedForce.uniqid
 
     for (const channelId in channels) {
       const matchedChannel = newState.allChannels.find((channel) => channel.uniqid === channelId)
@@ -53,10 +54,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
       if (!matchedChannel) {
         delete channels[channelId]
       } else {
-        const matches = checkParticipantStates(matchedChannel, selectedForce ? selectedForce.uniqid : undefined, newState.selectedRole, newState.isObserver)
-        const isParticipant = matchedChannel.participants && matchedChannel.participants.some(p => matchedForceAndRoleFilter(p, selectedForce ? selectedForce.uniqid : undefined, newState.selectedRole))
-        const allRolesIncluded = selectedForce && matchedChannel.participants && matchedChannel.participants.some(p => matchedAllRolesFilter(p, selectedForce.uniqid))
-
+        const matches = checkParticipantStates(matchedChannel, selectedForceId, newState.selectedRole, newState.isObserver)
         if (matches.isParticipant || matches.allRolesIncluded || newState.isObserver) {
           // ok, this is a channel we wish to display
         } else {
@@ -68,22 +66,26 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
 
     // create any new channels & add to current channel
     newState.allChannels.forEach((channel) => {
-      const channelActive = channel.participants && channel.participants.some(p => matchedForceAndRoleFilter(p, selectedForce ? selectedForce.uniqid : undefined, newState.selectedRole))
-      const { selectedForce } = newState
+      const channelMember = channel.participants && channel.participants.some(p => matchedForceAndRoleFilter(p, selectedForceId, newState.selectedRole))
       const allRoles = selectedForce && channel.participants && channel.participants.some(p => matchedAllRolesFilter(p, selectedForce.uniqid))
+
+      if(channel.uniqid === undefined) {
+        console.error('Received channel without uniqid')
+      }
 
       // rename channel
       if (
-        (channelActive || allRoles) &&
+        (channelMember || allRoles) &&
         channel.uniqid !== undefined &&
         !!channels[channel.uniqid]
       ) {
+        console.log('renaming channel from', channels[channel.uniqid].name, 'to',channel.name)
         channels[channel.uniqid].name = channel.name
       }
 
       // update observing status when observer removed from channel participants
       if (
-        (!channelActive && !allRoles) &&
+        (!channelMember && !allRoles) &&
         newState.isObserver &&
         channel.uniqid !== undefined &&
         !!channels[channel.uniqid]
@@ -91,7 +93,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
 
         channels[channel.uniqid].observing = true
       } else if (
-        (channelActive || allRoles) &&
+        (channelMember || allRoles) &&
         newState.isObserver &&
         channel.uniqid !== undefined &&
         !!channels[channel.uniqid]
@@ -101,7 +103,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
 
       // if channel already created update templates.
       if (
-        (channelActive || allRoles) &&
+        (channelMember || allRoles) &&
         channel.uniqid !== undefined &&
         !!channels[channel.uniqid]
       ) {
@@ -111,7 +113,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
 
       // if channel already created
       if (
-        (channelActive || allRoles) &&
+        (channelMember || allRoles) &&
         channel.uniqid !== undefined &&
         channels[channel.uniqid] !== undefined &&
         channels[channel.uniqid].messages!.findIndex(
@@ -126,7 +128,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
 
       // if no channel created yet
       if (
-        (channelActive || allRoles) &&
+        (channelMember || allRoles) &&
         channel.uniqid !== undefined &&
         !channels[channel.uniqid]
       ) {
@@ -139,6 +141,7 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
 
         if (allRolesIncluded || isParticipant || newState.isObserver) {
           channels[channel.uniqid || channel.name] = {
+            uniqid: channel.uniqid,
             participants: [], // new
             name: channel.name,
             templates,
@@ -198,7 +201,6 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
         infoType: true,
         gameTurn: message.gameTurn
       }
-
       return res
     }
 
@@ -212,10 +214,10 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
   const messages = _.uniqBy(messagesFiltered, reduceTurnMarkers)
     .filter((message) => message.details && message.details.channel === newState.chatChannel.name)
 
-  const channels = {}
+  const channels: PlayerUiChannels = {}
   const forceId: string | undefined = newState.selectedForce ? newState.selectedForce.uniqid : undefined
 
-  newState.allChannels.forEach((channel) => {
+  newState.allChannels.forEach((channel: ChannelData) => {
     const {
       isParticipant,
       allRolesIncluded,
@@ -223,12 +225,12 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
       templates
     } = getParticipantStates(channel, forceId, newState.selectedRole, newState.isObserver, newState.allTemplates)
 
-    if (!newState.isObserver && !isParticipant && !allRolesIncluded) return
-    else {
-      // TODO: use channel uniqid
-      channels[channel.uniqid || channel.name] = {
+    if (newState.isObserver || isParticipant || allRolesIncluded) {
+      const newChannel: ChannelData = {
         name: channel.name,
+        uniqid: channel.uniqid,
         templates,
+        participants: [],
         forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
         forceColors: channel.participants && channel.participants.map((participant) => {
           const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
@@ -247,6 +249,8 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
         }).length,
         observing
       }
+      // TODO: use channel uniqid
+      channels[channel.uniqid || channel.name] = newChannel
     }
   })
 
