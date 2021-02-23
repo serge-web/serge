@@ -160,7 +160,7 @@ it('Check states for role in force with all members, but with no templates provi
   // get rid of the white force mmembership
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
-  const noChat = allTemplates.filter((tem:any) => tem.title !== 'Chat')
+  const noChat: any = allTemplates.filter((tem:any) => tem.title !== 'Chat')
   const selForce = 'Blue'
   const selRole = 'Dragon'
   const states = getParticipantStates(newChannel, selForce, selRole, false, noChat)
