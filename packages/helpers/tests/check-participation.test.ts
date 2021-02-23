@@ -104,7 +104,6 @@ it('Check states for observer who is not registered', () => {
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'umpire'
   const selRole = gameControl.name
-  const allTemplates: any = []
   const states = getParticipantStates(newChannel, selForce, selRole, true, allTemplates)
   expect(states).toBeTruthy()
   expect(states.observing).toBeTruthy() // since member is participant
@@ -154,7 +153,7 @@ it('Check states for role in force with all members', () => {
   expect(states.allRolesIncluded).toEqual(newChannel.participants[1])
 })
 
-it('Check states for role in force with all members, but with no templates provided', () => {
+it('Check states for role in force with all members, but with no chat templates provided', () => {
   // get rid of the white force mmembership
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
