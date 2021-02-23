@@ -14,7 +14,7 @@ export interface ParticipantStates {
   isParticipant: boolean,
   /** whether all roles for this force are included in the channel */
   allRolesIncluded: Participant | undefined,
-  /** whether player is just channel observer */
+  /** whether player is just channel observer (and not participant) */
   observing: boolean,
   /** the templates available to this player in this channel */
   templates: Array<any>
@@ -35,7 +35,7 @@ export const checkParticipantStates = (channel: ChannelData, selectedForce: stri
 
   const participatingRole: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
   return {
-    isParticipant: !!participatingRole || isObserver,
+    isParticipant: !!participatingRole,
     participatingRole: participatingRole,
     allRolesIncluded: channel.participants && channel.participants.find(p => matchedAllRolesFilter(p, selectedForce))
   }
@@ -62,6 +62,9 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
   if (isParticipant || allRolesIncluded) {
     if (chosenTemplates.length === 0) {
       templates = allTemplates.filter((template: any) => template.title === 'Chat')
+      if(templates.length === 0) {
+        console.warn('Warning, unable to find Chat template for channel with no templates defined')
+      }
     } else {
       templates = chosenTemplates.map(({ value }) => {
         return typeof value === 'string' ? allTemplates.find((item: any) => item._id === value) : value
