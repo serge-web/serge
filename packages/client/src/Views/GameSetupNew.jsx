@@ -128,18 +128,19 @@ const AdminGameSetup = () => {
 
   const handleSaveChannel = channel => {
     const channelName = channel.name
-    const selectedChannel = channels.selectedChannel.name
-    const newChannelData = channels.channels.find((c) => c.name === selectedChannel)
+    const selectedChannelName = channels.selectedChannel.name
+    const selectedChannelId = channels.selectedChannel.uniqid
+    const newChannelData = channels.channels.find((c) => c.uniqid === selectedChannelId)
 
     if (typeof channelName === 'string' && channelName.length > 0) {
       if (!isUniqueChannelName(channel)) return
 
       dispatch(setTabSaved())
-      dispatch(saveChannel(currentWargame, channelName, newChannelData, selectedChannel))
+      dispatch(saveChannel(currentWargame, channelName, newChannelData, selectedChannelName))
     }
 
     if (channelName === null) {
-      dispatch(saveChannel(currentWargame, selectedChannel, newChannelData, selectedChannel))
+      dispatch(saveChannel(currentWargame, selectedChannelName, newChannelData, selectedChannelName))
     } else if (channelName.length === 0) {
       window.alert('no channel name')
     }
