@@ -1,5 +1,5 @@
 import { ChannelData, Participant } from '@serge/custom-types';
-import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } from './participant-filters';
+import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } from '@serge/helpers';
 
 export interface CheckParticipantStates {
   /** whether role is participant in channel */
