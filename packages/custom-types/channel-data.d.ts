@@ -2,7 +2,7 @@ import Participant from './participant'
 import { MessageChannel } from './message'
 
 export default interface ChannelData {
-  // TODO: change it to use name
+  // TODO: make uniqid non-optional, and read-only
   uniqid?: string,
   observing?: boolean,
   templates?: Array<any>,
