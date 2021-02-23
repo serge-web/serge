@@ -277,7 +277,7 @@ export const saveForce = (dbName, newName, newData, oldName) => {
 export const saveChannel = (dbName, newName, newData, oldName) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.saveChannel(dbName, newName, newData, oldName)
-    const selectedChannel = { name: newName, uniqid: newData.uniqid }
+    const selectedChannel = { name: newName }
 
     dispatch(setSelectedChannel(selectedChannel))
     wargame.data.channels.selectedChannel = selectedChannel
