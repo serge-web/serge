@@ -46,6 +46,8 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
     channels: { ...channels },
     chatChannel: { ...chatChannel }
   }
+
+
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
 
   if (payload.messageType === INFO_MESSAGE) {
@@ -55,7 +57,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
     deleteChannels(res.channels, allChannels, forceId, selectedRole, isObserver)
 
     // create any new channels & add to current channel
-    allChannels.forEach((channel) => {
+    allChannels.forEach((channel: ChannelData) => {
       if(channel.uniqid === undefined) {
         console.error('Received channel without uniqid')
       }
