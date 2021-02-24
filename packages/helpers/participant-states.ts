@@ -66,8 +66,8 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
         console.warn('Warning, unable to find Chat template for channel with no templates defined')
       }
     } else {
-      templates = chosenTemplates.map(({ value }) => {
-        return typeof value === 'string' ? allTemplates.find((item: any) => item._id === value) : value
+      templates = chosenTemplates.map((template: any) => {
+        return typeof template === 'string' ? template : allTemplates.find((item: any) => item._id === template._id)
       })
     }
   }

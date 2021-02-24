@@ -31,7 +31,6 @@ import {
 
 // TODO: remove uniqid and use name
 export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
-
   const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel, 
     newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
     newState.allTemplates, newState.allForces)

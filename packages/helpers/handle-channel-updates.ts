@@ -47,6 +47,8 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
   }
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
 
+  console.log('handle channels', allChannels)
+
   if (payload.messageType === INFO_MESSAGE) {
     // this message is a new version of the wargame document
 
