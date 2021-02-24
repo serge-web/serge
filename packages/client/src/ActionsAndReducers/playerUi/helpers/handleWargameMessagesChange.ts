@@ -29,6 +29,23 @@ import {
   expiredStorage,
 } from '../../../consts'
 
+const deleteChannels = (channels: PlayerUiChannels, allChannels: ChannelData[], selectedForceId: string | undefined, selectedRole: string, isObserver: boolean) => {
+    for (const channelId in channels) {
+      const matchedChannel = allChannels.find((channel) => channel.uniqid === channelId)
+      if (!matchedChannel) {
+        delete channels[channelId]
+      } else {
+        const matches = checkParticipantStates(matchedChannel, selectedForceId, selectedRole, isObserver)
+        if (matches.isParticipant || matches.allRolesIncluded || isObserver) {
+          // ok, this is a channel we wish to display
+        } else {
+          // no, we no longer need to display this channel
+          delete channels[channelId]
+        }
+      }
+    }
+}
+
 // TODO: remove uniqid and use name
 export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
 
@@ -38,64 +55,42 @@ export const handleSetLatestWargameMessage = (payload: MessageChannel, newState:
 
   if (payload.messageType === INFO_MESSAGE) {
     // this message is a new version of the wargame document
-    const message = {
-      details: {
-        channel: `infoTypeChannelMarker${uniqId.time()}`
-      },
-      infoType: true,
-      gameTurn: payload.gameTurn
-    }
-    const { selectedForce } = newState
-    const selectedForceId: string | undefined = selectedForce && selectedForce.uniqid
 
-    for (const channelId in channels) {
-      const matchedChannel = newState.allChannels.find((channel) => channel.uniqid === channelId)
-
-      if (!matchedChannel) {
-        delete channels[channelId]
-      } else {
-        const matches = checkParticipantStates(matchedChannel, selectedForceId, newState.selectedRole, newState.isObserver)
-        if (matches.isParticipant || matches.allRolesIncluded || newState.isObserver) {
-          // ok, this is a channel we wish to display
-        } else {
-          // no, we no longer need to display this channel
-          delete channels[channelId]
-        }
-      }
-    }
+    // remove ourselves from any channels we're no longer a member of
+    deleteChannels(channels, newState.allChannels, forceId, newState.selectedRole, newState.isObserver)
 
     // create any new channels & add to current channel
     newState.allChannels.forEach((channel) => {
-      const channelMember = channel.participants && channel.participants.some(p => matchedForceAndRoleFilter(p, selectedForceId, newState.selectedRole))
-      const allRoles = selectedForce && channel.participants && channel.participants.some(p => matchedAllRolesFilter(p, selectedForce.uniqid))
-
       if(channel.uniqid === undefined) {
         console.error('Received channel without uniqid')
       }
 
-      // rename channel
+      const {
+        isParticipant,
+        allRolesIncluded,
+        observing,
+        templates
+      } = getParticipantStates(channel, forceId, newState.selectedRole, newState.isObserver, newState.allTemplates)
+
+      // rename channel, if necessary
       if (
-        (channelMember || allRoles) &&
-        channel.uniqid !== undefined &&
-        !!channels[channel.uniqid]
+        (isParticipant || allRolesIncluded) &&
+        !!channels[channel.uniqid] &&
+        channels[channel.uniqid].name !== channel.name
       ) {
-        console.log('renaming channel from', channels[channel.uniqid].name, 'to',channel.name)
         channels[channel.uniqid].name = channel.name
       }
 
       // update observing status when observer removed from channel participants
       if (
-        (!channelMember && !allRoles) &&
+        (!isParticipant && !allRolesIncluded) &&
         newState.isObserver &&
-        channel.uniqid !== undefined &&
         !!channels[channel.uniqid]
       ) {
-
         channels[channel.uniqid].observing = true
       } else if (
-        (channelMember || allRoles) &&
+        (isParticipant || allRolesIncluded) &&
         newState.isObserver &&
-        channel.uniqid !== undefined &&
         !!channels[channel.uniqid]
       ) {
         channels[channel.uniqid].observing = false
@@ -103,24 +98,29 @@ export const handleSetLatestWargameMessage = (payload: MessageChannel, newState:
 
       // if channel already created update templates.
       if (
-        (channelMember || allRoles) &&
-        channel.uniqid !== undefined &&
+        (isParticipant || allRolesIncluded) &&
         !!channels[channel.uniqid]
       ) {
-        const { templates } = getParticipantStates(channel, forceId, newState.selectedRole, newState.isObserver, newState.allTemplates)
         channels[channel.uniqid].templates = templates
       }
 
       // if channel already created
       if (
-        (channelMember || allRoles) &&
-        channel.uniqid !== undefined &&
+        (isParticipant || allRolesIncluded) &&
         channels[channel.uniqid] !== undefined &&
         channels[channel.uniqid].messages!.findIndex(
           // @ts-ignore
           (prevMessage) => prevMessage.gameTurn === message.gameTurn
         ) === -1
       ) {
+        // no turn marker found, create one
+        const message = {
+          details: {
+            channel: `infoTypeChannelMarker${uniqId.time()}`
+          },
+          infoType: true,
+          gameTurn: payload.gameTurn
+        }
         // @ts-ignore
         channels[channel.uniqid || channel.name].messages!.unshift(message)
         return
@@ -128,16 +128,9 @@ export const handleSetLatestWargameMessage = (payload: MessageChannel, newState:
 
       // if no channel created yet
       if (
-        (channelMember || allRoles) &&
-        channel.uniqid !== undefined &&
+        (isParticipant || allRolesIncluded) &&
         !channels[channel.uniqid]
       ) {
-        const {
-          isParticipant,
-          allRolesIncluded,
-          observing,
-          templates
-        } = getParticipantStates(channel, forceId, newState.selectedRole, newState.isObserver, newState.allTemplates)
 
         if (allRolesIncluded || isParticipant || newState.isObserver) {
           channels[channel.uniqid || channel.name] = {
