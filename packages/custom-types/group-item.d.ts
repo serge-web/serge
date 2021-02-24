@@ -7,8 +7,7 @@ export default interface GroupItem {
   /** 
    * id number for this asset
    */
-  // TODO: make uniqid readonly
-  uniqid: string | number
+  readonly uniqid: string | number
   /**
    * platforms hosted on this platform
    */

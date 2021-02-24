@@ -11,7 +11,7 @@ export default interface AssetInfo {
   perceivedForce: string
   selected: boolean
   visibleTo: Array<string>
-  uniqid: string
+  readonly uniqid: string
   controlledBy?: Array<string>
   locationPending?: boolean
 }

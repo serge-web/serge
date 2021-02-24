@@ -2,7 +2,7 @@ import { Perception, RouteStatus, RouteTurn } from ".";
 
 /** state of world for an asset */
 export interface AssetState {
-  uniqid: string
+  readonly uniqid: string
   name: string
   condition: string
   position: string
