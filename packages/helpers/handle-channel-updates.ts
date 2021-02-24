@@ -1,5 +1,6 @@
 import { CHAT_CHANNEL_ID, INFO_MESSAGE } from "@serge/config"
-import { ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel, MessageCustom, ChannelData } from "@serge/custom-types"
+import { ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, 
+  MessageChannel, MessageCustom, ChannelData } from "@serge/custom-types"
 import { checkParticipantStates, getParticipantStates } from "./participant-states"
 import deepCopy from './deep-copy'
 // @ts-ignore
@@ -46,8 +47,6 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
     chatChannel: { ...chatChannel }
   }
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
-
-  console.log('handle channels', allChannels)
 
   if (payload.messageType === INFO_MESSAGE) {
     // this message is a new version of the wargame document
