@@ -20,7 +20,7 @@ import copyState from '../../Helpers/copyStateHelper'
 import { PlayerUiActionTypes } from '@serge/custom-types'
 import { PlayerUi } from '@serge/custom-types';
 import {
-  hanldeSetLatestWargameMessage,
+  handleSetLatestWargameMessage,
   handleSetAllMEssages,
   openMessage,
   closeMessage,
@@ -137,7 +137,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_LATEST_WARGAME_MESSAGE:
-      const changedLatestState = hanldeSetLatestWargameMessage(action.payload, newState)
+      const changedLatestState = handleSetLatestWargameMessage(action.payload, newState)
       newState.channels = changedLatestState.channels
       newState.chatChannel = changedLatestState.chatChannel
       break

@@ -129,7 +129,7 @@ const AdminGameSetup = () => {
   const handleSaveChannel = channel => {
     const channelName = channel.name
     const selectedChannelName = channels.selectedChannel.name
-    const selectedChannelId = channels.selectedChannel.uniqid
+    const selectedChannelId = channel.uniqid
     const newChannelData = channels.channels.find((c) => c.uniqid === selectedChannelId)
 
     if (typeof channelName === 'string' && channelName.length > 0) {

@@ -30,7 +30,7 @@ import {
 } from '../../../consts'
 
 // TODO: remove uniqid and use name
-export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
+export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
 
   let channels: PlayerUiChannels = { ...newState.channels }
   const chatChannel: PlayerUiChatChannel = { ...newState.chatChannel }
