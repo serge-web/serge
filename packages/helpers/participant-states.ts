@@ -27,12 +27,14 @@ export const checkParticipantStates = (channel: ChannelData, selectedForce: stri
 
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   const participatingForce: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceFilter(p.forceUniqid, selectedForce))
+  // not a member of this channel, return false answer
   if (!participatingForce && !isObserver) return {
     isParticipant: false,
     participatingRole: undefined,
     allRolesIncluded: undefined
   }
 
+  // is a member of this channel, find out if they're named, or a where all roles for this force are in channel
   const participatingRole: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
   return {
     isParticipant: !!participatingRole,

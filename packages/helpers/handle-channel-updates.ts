@@ -22,7 +22,7 @@ const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: Player
     }
 
     // now insert the message
-    theChannel.messages!.unshift({
+    theChannel.messages.unshift({
       ...deepCopy(payload),
       hasBeenRead: false,
       isOpen: false
@@ -31,6 +31,31 @@ const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: Player
     // update message count
     theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
   }
+}
+
+/** create a new turn marker */
+const getTurnMarker = (turn: number): MessageChannel => {
+  const res: MessageChannel = {
+    details: {
+      from: {
+        force: 'unset-game-turn-marker',
+        forceColor: 'unset-game-turn-marker',
+        role: 'unset-game-turn-marker',
+        icon: 'unset-game-turn-marker',
+      },
+      messageType: 'turn marker',
+      timestamp: new Date().toISOString(),
+      channel: `infoTypeChannelMarker${uniqId.time()}`,
+    },
+    infoType: true,
+    messageType: CUSTOM_MESSAGE,
+    gameTurn: turn,
+    isOpen: true,
+    hasBeenRead: false,
+    _id: uniqId.time(),
+    message: {}
+  }
+  return res
 }
 
 const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel,
@@ -50,9 +75,6 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
   if (payload.messageType === INFO_MESSAGE) {
     // this message is a new version of the wargame document
 
-    // remove ourselves from any channels we're no longer a member of
-    // deleteChannels(res.channels, allChannels, forceId, selectedRole, isObserver)
-
     // create any new channels & add to current channel
     allChannels.forEach((channel: ChannelData) => {
       if (channel.uniqid === undefined) {
@@ -68,36 +90,19 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
         templates
       } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplates)
 
-      // make note that we've procesed this channel
+      // make a note that we've procesed this channel
       delete unprocessedChannels[channelId]
 
-      // if we're not a participant, drop out
+      // are we participating in this channel?
       if (!isParticipant && !observing) {
+        // we're not a participant, delete it
         delete res.channels[channelId]
       } else {
         // see if there is a channel for this id
         if (isParticipant || allRolesIncluded || observing) {
           // ok, we're in this channel
           // does it exist?
-          if (!res.channels[channelId]) {
-            // no, create it
-            const newChannel: ChannelUI = {
-              uniqid: channelId,
-              participants: [], // new
-              name: channel.name,
-              templates,
-              forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
-              forceColors: channel.participants && channel.participants.map((participant) => {
-                const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
-                return (force && force.color) || '#FFF'
-              }),
-              messages: [],
-              unreadMessageCount: 0,
-              observing
-            }
-            // ok, we need to create one
-            res.channels[channelId] = newChannel
-          } else {
+          if (res.channels[channelId]) {
             // already exists, get shortcut
             const thisChannel: ChannelUI = res.channels[channelId]
 
@@ -115,6 +120,24 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
             if (templates !== thisChannel.templates) {
               thisChannel.templates = templates
             }
+          } else {
+            // no, create it
+            const newChannel: ChannelUI = {
+              uniqid: channelId,
+              participants: [], // new
+              name: channel.name,
+              templates: templates,
+              forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
+              forceColors: channel.participants && channel.participants.map((participant) => {
+                const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
+                return (force && force.color) || '#FFF'
+              }),
+              messages: [],
+              unreadMessageCount: 0,
+              observing
+            }
+            // ok, we need to create one
+            res.channels[channelId] = newChannel
           }
           // channel will now exist, get shortcut
           const thisChannel: ChannelUI = res.channels[channelId]
@@ -122,26 +145,9 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
           // check if we're missing a turn marker for this turn
           if (thisChannel.messages!.findIndex((prevMessage: MessageChannel) => prevMessage.gameTurn === payload.gameTurn) === -1) {
             // no turn marker found, create one
-            const message: MessageChannel = {
-              details: {
-                from: {
-                  force: 'unset-game-turn-marker',
-                  forceColor: 'unset-game-turn-marker',
-                  role: 'unset-game-turn-marker',
-                  icon: 'unset-game-turn-marker',
-                },
-                messageType: 'turn marker',
-                timestamp: new Date().toISOString(),
-                channel: `infoTypeChannelMarker${uniqId.time()}`,
-              },
-              infoType: true,
-              messageType: CUSTOM_MESSAGE,
-              gameTurn: payload.gameTurn,
-              isOpen: true,
-              hasBeenRead: false,
-              _id: uniqId.time(),
-              message: {}
-            }
+            const message: MessageChannel = getTurnMarker(payload.gameTurn)
+
+            // if messages array is missing, create one
             if (!thisChannel.messages) {
               thisChannel.messages = []
             }
