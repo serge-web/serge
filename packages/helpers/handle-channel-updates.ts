@@ -4,7 +4,7 @@ import {
   MessageChannel, MessageCustom, ChannelData, ChannelUI
 } from "@serge/custom-types"
 import { getParticipantStates } from "./participant-states"
-import deepCopy from './deep-copy'
+import { deepCopy } from '@serge/helpers'
 // @ts-ignore
 import uniqId from 'uniqid'
 import _ from 'lodash'
@@ -34,7 +34,7 @@ const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: Player
 }
 
 /** create a new turn marker */
-const getTurnMarker = (turn: number): MessageChannel => {
+const createTurnMarker = (turn: number): MessageChannel => {
   const res: MessageChannel = {
     details: {
       from: {
@@ -58,6 +58,22 @@ const getTurnMarker = (turn: number): MessageChannel => {
   return res
 }
 
+/** create a new (empty) channel */
+const createNewChannel = (channelId: string): ChannelUI => {
+  const res: ChannelUI = {
+    uniqid: channelId,
+    participants: [],
+    name: 'channelName',
+    templates: [],
+    forceIcons: [] ,
+    forceColors: [],
+    messages: [],
+    unreadMessageCount: 0,
+    observing: false
+  }
+  return res
+}
+
 const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel,
   selectedForce: ForceData | undefined, allChannels: ChannelData[], selectedRole: string,
   isObserver: boolean, allTemplates: any[], allForces: ForceData[]): SetWargameMessage => {
@@ -72,6 +88,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
 
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
 
+  // is this an information (wargame) update, or a channel message?
   if (payload.messageType === INFO_MESSAGE) {
     // this message is a new version of the wargame document
 
@@ -100,59 +117,58 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
       } else {
         // see if there is a channel for this id
         if (isParticipant || allRolesIncluded || observing) {
-          // ok, we're in this channel
-          // does it exist?
-          if (res.channels[channelId]) {
-            // already exists, get shortcut
-            const thisChannel: ChannelUI = res.channels[channelId]
-
-            // rename channel, if necessary
-            if (thisChannel.name !== channel.name) {
-              res.channels[channelId].name = channel.name
-            }
-
-            // update observing status when observer removed from channel participants
-            if (isObserver !== thisChannel.observing) {
-              thisChannel.observing = isObserver
-            }
-
-            // templates
-            if (templates !== thisChannel.templates) {
-              thisChannel.templates = templates
-            }
-          } else {
-            // no, create it
-            const newChannel: ChannelUI = {
-              uniqid: channelId,
-              participants: [], // new
-              name: channel.name,
-              templates: templates,
-              forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
-              forceColors: channel.participants && channel.participants.map((participant) => {
-                const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
-                return (force && force.color) || '#FFF'
-              }),
-              messages: [],
-              unreadMessageCount: 0,
-              observing
-            }
-            // ok, we need to create one
-            res.channels[channelId] = newChannel
+          // does this channel exist?
+          if (!res.channels[channelId]) {
+            // create and store it
+            res.channels[channelId] = createNewChannel(channel.uniqid)
           }
-          // channel will now exist, get shortcut
+
+          // already exists, get shortcut
           const thisChannel: ChannelUI = res.channels[channelId]
 
-          // check if we're missing a turn marker for this turn
-          if (thisChannel.messages!.findIndex((prevMessage: MessageChannel) => prevMessage.gameTurn === payload.gameTurn) === -1) {
-            // no turn marker found, create one
-            const message: MessageChannel = getTurnMarker(payload.gameTurn)
-
-            // if messages array is missing, create one
-            if (!thisChannel.messages) {
-              thisChannel.messages = []
-            }
-            thisChannel.messages.unshift(message)
+          // rename channel, if necessary
+          if (thisChannel.name !== channel.name) {
+            res.channels[channelId].name = channel.name
           }
+
+          // update observing status when observer removed from channel participants
+          if (isObserver !== thisChannel.observing) {
+            thisChannel.observing = isObserver
+          }
+
+          // templates
+          if (templates !== thisChannel.templates) {
+            thisChannel.templates = templates
+          }
+
+          // force icons
+          const forceIcons = channel.participants && channel.participants.map((participant) => participant.icon)
+          if(forceIcons != thisChannel.forceIcons) {
+            thisChannel.forceIcons = forceIcons
+          }
+
+          // force colors
+          const forceColors = channel.participants && channel.participants.map((participant) => {
+            const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
+            return (force && force.color) || '#FFF'
+          })
+          if(forceColors != thisChannel.forceColors) {
+            thisChannel.forceColors = forceColors
+          }
+        }
+        // channel will now exist, get shortcut
+        const thisChannel: ChannelUI = res.channels[channelId]
+
+        // check if we're missing a turn marker for this turn
+        if (!thisChannel.messages!.find((prevMessage: MessageChannel) => prevMessage.gameTurn === payload.gameTurn)) {
+          // no messages, or no turn marker found, create one
+          const message: MessageChannel = createTurnMarker(payload.gameTurn)
+
+          // if messages array is missing, create one
+          if (!thisChannel.messages) {
+            thisChannel.messages = []
+          }
+          thisChannel.messages.unshift(message)
         }
       }
     })
