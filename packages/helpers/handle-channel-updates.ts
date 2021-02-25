@@ -12,7 +12,7 @@ const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: Player
   if (channel === CHAT_CHANNEL_ID) {
     chatChannel.messages.unshift(deepCopy(payload))
   } else if (channels[channel]) {
-    const theChannel: ChannelData = channels[channel]
+    const theChannel: ChannelUI = channels[channel]
 
     // create the messages array, if necessary
     if(theChannel.messages === undefined) {

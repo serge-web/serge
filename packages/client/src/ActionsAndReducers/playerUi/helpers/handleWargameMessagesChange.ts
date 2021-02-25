@@ -6,7 +6,8 @@ import {
   PlayerUiChannels,
   ChannelData,
   MessageCustom,
-  SetWargameMessage
+  SetWargameMessage,
+  ChannelUI
 } from '@serge/custom-types'
 import { deepCopy, matchedForceAndRoleFilter, matchedAllRolesFilter, getParticipantStates, checkParticipantStates, handleChannelUpdates } from '@serge/helpers'
 
@@ -27,14 +28,13 @@ import {
   expiredStorage,
 } from '../../../consts'
 
-
-
-// TODO: remove uniqid and use name
+/** a new document has been received, either add it to the correct channel,
+ * or update the channels to reflect the new channel definitions
+ */
 export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
   const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel, 
     newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
     newState.allTemplates, newState.allForces)
-
   return res
 }
 
@@ -83,7 +83,7 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
     } = getParticipantStates(channel, forceId, newState.selectedRole, newState.isObserver, newState.allTemplates)
 
     if (newState.isObserver || isParticipant || allRolesIncluded) {
-      const newChannel: ChannelData = {
+      const newChannel: ChannelUI = {
         name: channel.name,
         uniqid: channel.uniqid,
         templates,
@@ -131,7 +131,7 @@ const openMessageChange = (message: MessageChannel, id: string): { message: Mess
   return { message, changed }
 }
 
-export const openMessage = (channel: string, payloadMessage: MessageChannel, newState: PlayerUi): ChannelData => {
+export const openMessage = (channel: string, payloadMessage: MessageChannel, newState: PlayerUi): ChannelUI => {
   // mutating `messages` array - copyState at top of switch
   const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
   if (payloadMessage._id !== undefined) {
@@ -181,7 +181,7 @@ export const closeMessage = (channel: string, payloadMessage: MessageChannel, ne
   return channelMessages
 }
 
-export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelData => {
+export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI => {
   const channelMessages: MessageChannel[] = (newState.channels[channel].messages || []).map((message) => {
     if (message._id) {
       message.hasBeenRead = true

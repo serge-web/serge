@@ -3,15 +3,10 @@ import { MessageChannel } from './message'
 
 /** description of channel, as stored in database */
 export default interface ChannelData {
+  /** unique id for this channel */
   readonly uniqid: string,
-  observing?: boolean,
-  templates?: Array<any>,
-  messages?: Array<MessageChannel>,
+  /** name of this channel */
   name: string,
+  /** list of participants for this channel */
   participants: Array<Participant>
-  unreadMessageCount?: number
-  // TODO: dynamically retrieve force icons and colors,
-  // don't store them in the database
-  forceIcons?: Array<any>
-  forceColors?: Array<string>
 }
