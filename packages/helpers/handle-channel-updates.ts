@@ -1,6 +1,6 @@
 import { CHAT_CHANNEL_ID, INFO_MESSAGE } from "@serge/config"
 import { ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, 
-  MessageChannel, MessageCustom, ChannelData } from "@serge/custom-types"
+  MessageChannel, MessageCustom, ChannelData, ChannelUI } from "@serge/custom-types"
 import { /*checkParticipantStates,*/ getParticipantStates } from "./participant-states"
 import deepCopy from './deep-copy'
 // @ts-ignore
@@ -25,7 +25,7 @@ const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: Player
       hasBeenRead: false,
       isOpen: false
     })
-    
+
     // update message count
     theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
   }
@@ -75,8 +75,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
       } else {
         // see if there is a channel for this id
         if((isParticipant || allRolesIncluded) && !res.channels[channelId]) {
-          // ok, we need to create one
-          res.channels[channelId] = {
+          const newChannel: ChannelUI = {
             uniqid: channelId,
             participants: [], // new
             name: channel.name,
@@ -90,6 +89,8 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
             unreadMessageCount: 0,
             observing
           }
+          // ok, we need to create one
+          res.channels[channelId] = newChannel
         }
 
         // rename channel, if necessary
