@@ -8,10 +8,6 @@ import { handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/he
 
 import { INFO_MESSAGE } from '@serge/config'
 
-import _ from 'lodash'
-
-
-
 import {
   LOCAL_STORAGE_TIMEOUT,
   expiredStorage,
@@ -27,19 +23,13 @@ export const handleSetLatestWargameMessage = (payload: MessageChannel, newState:
   return res
 }
 
-
-const reduceTurnMarkers = (message: MessageChannel):string => {
-  if (message.messageType === INFO_MESSAGE) {
-    return '' + message.gameTurn
-  }
-  return message._id
-}
-
-export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: PlayerUi): SetWargameMessage => {
+/** when the app first opens it processes a list of all existing messages,,
+ * grouping them into channels
+ */
+export const handleSetAllMessages = (payload: Array<MessageChannel>, newState: PlayerUi): SetWargameMessage => {
   const res: SetWargameMessage = handleAllInitialChannelMessages(payload, newState.currentWargame, newState.selectedForce, 
     newState.selectedRole, newState.allChannels, newState.allForces, newState.chatChannel,
     newState.isObserver, newState.allTemplates)
-
   return res
 }
 

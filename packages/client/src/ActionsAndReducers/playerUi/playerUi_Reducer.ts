@@ -21,7 +21,7 @@ import { PlayerUiActionTypes } from '@serge/custom-types'
 import { PlayerUi } from '@serge/custom-types';
 import {
   handleSetLatestWargameMessage,
-  handleSetAllMEssages,
+  handleSetAllMessages,
   openMessage,
   closeMessage,
   markAllAsRead
@@ -143,7 +143,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_ALL_MESSAGES:
-      const changedAllMesagesState = handleSetAllMEssages(action.payload, newState)
+      const changedAllMesagesState = handleSetAllMessages(action.payload, newState)
       newState.channels = changedAllMesagesState.channels
       newState.chatChannel = changedAllMesagesState.chatChannel
       break
