@@ -7,36 +7,29 @@ import deepCopy from './deep-copy'
 import uniqId from 'uniqid'
 import _ from 'lodash'
 
+/** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: PlayerUiChannels, channel: string, payload: MessageCustom) => {
   if (channel === CHAT_CHANNEL_ID) {
     chatChannel.messages.unshift(deepCopy(payload))
-  } else if (channels[channel] && channels[channel].messages !== undefined) {
-    channels[channel].messages!.unshift({
+  } else if (channels[channel]) {
+    const theChannel: ChannelData = channels[channel]
+
+    // create the messages array, if necessary
+    if(theChannel.messages === undefined) {
+      theChannel.messages = []
+    }
+
+    // now insert the message
+    theChannel.messages!.unshift({
       ...deepCopy(payload),
       hasBeenRead: false,
       isOpen: false
     })
-
-    channels[payload.details.channel].unreadMessageCount = (channels[payload.details.channel].unreadMessageCount || 0) + 1
+    
+    // update message count
+    theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
   }
 }
-
-// const deleteChannels = (channels: PlayerUiChannels, allChannels: ChannelData[], selectedForceId: string | undefined, selectedRole: string, isObserver: boolean) => {
-//   for (const channelId in channels) {
-//     const matchedChannel = allChannels.find((channel) => channel.uniqid === channelId)
-//     if (!matchedChannel) {
-//       delete channels[channelId]
-//     } else {
-//       const matches = checkParticipantStates(matchedChannel, selectedForceId, selectedRole, isObserver)
-//       if (matches.isParticipant || matches.allRolesIncluded || isObserver) {
-//         // ok, this is a channel we wish to display
-//       } else {
-//         // no, we no longer need to display this channel
-//         delete channels[channelId]
-//       }
-//     }
-//   }
-// }
 
 const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel,
   selectedForce: ForceData | undefined, allChannels: ChannelData[], selectedRole: string,
@@ -153,19 +146,6 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
           res.channels[channelId || channel.name].messages!.unshift(message)
           return
         }
-
-        // if no channel created yet
-        // if (
-        //   (isParticipant || allRolesIncluded) &&
-        //   !res.channels[channelId]
-        // ) {
-
-        //   if (allRolesIncluded || isParticipant || isObserver) {
-           
-        //   }
-        //   // ian has no idea what this call is doing
-        //   res.channels = _.defaults({}, res.channels)
-        // }
       }
 
 
