@@ -2,14 +2,12 @@ import {
   MessageInfoType,
   MessageChannel,
   PlayerUi,
-  PlayerUiChatChannel,
   PlayerUiChannels,
   ChannelData,
-  MessageCustom,
   SetWargameMessage,
   ChannelUI
 } from '@serge/custom-types'
-import { deepCopy, matchedForceAndRoleFilter, matchedAllRolesFilter, getParticipantStates, checkParticipantStates, handleChannelUpdates } from '@serge/helpers'
+import { getParticipantStates, handleChannelUpdates } from '@serge/helpers'
 
 import {
   INFO_MESSAGE
@@ -24,7 +22,6 @@ import _ from 'lodash'
 
 import {
   LOCAL_STORAGE_TIMEOUT,
-  CHAT_CHANNEL_ID,
   expiredStorage,
 } from '../../../consts'
 

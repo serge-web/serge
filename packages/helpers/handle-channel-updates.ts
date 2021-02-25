@@ -7,7 +7,6 @@ import { getParticipantStates } from "./participant-states"
 import { deepCopy } from '@serge/helpers'
 // @ts-ignore
 import uniqId from 'uniqid'
-import _ from 'lodash'
 
 /** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: PlayerUiChannels, channel: string, payload: MessageCustom) => {
