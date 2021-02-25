@@ -1,7 +1,9 @@
-import { CHAT_CHANNEL_ID, INFO_MESSAGE } from "@serge/config"
-import { ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, 
-  MessageChannel, MessageCustom, ChannelData, ChannelUI } from "@serge/custom-types"
-import { /*checkParticipantStates,*/ getParticipantStates } from "./participant-states"
+import { CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE } from "@serge/config"
+import {
+  ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
+  MessageChannel, MessageCustom, ChannelData, ChannelUI
+} from "@serge/custom-types"
+import { getParticipantStates } from "./participant-states"
 import deepCopy from './deep-copy'
 // @ts-ignore
 import uniqId from 'uniqid'
@@ -15,7 +17,7 @@ const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: Player
     const theChannel: ChannelUI = channels[channel]
 
     // create the messages array, if necessary
-    if(theChannel.messages === undefined) {
+    if (theChannel.messages === undefined) {
       theChannel.messages = []
     }
 
@@ -33,7 +35,7 @@ const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: Player
 
 const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel,
   selectedForce: ForceData | undefined, allChannels: ChannelData[], selectedRole: string,
-  isObserver: boolean, allTemplates:any[], allForces: ForceData[]): SetWargameMessage => {
+  isObserver: boolean, allTemplates: any[], allForces: ForceData[]): SetWargameMessage => {
 
   const res: SetWargameMessage = {
     channels: { ...channels },
@@ -41,7 +43,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
   }
 
   // keep track of the channels that have been processed. We'll delete the other later
-  const unprocessedChannels: PlayerUiChannels = {... channels}
+  const unprocessedChannels: PlayerUiChannels = { ...channels }
 
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
 
@@ -53,7 +55,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
 
     // create any new channels & add to current channel
     allChannels.forEach((channel: ChannelData) => {
-      if(channel.uniqid === undefined) {
+      if (channel.uniqid === undefined) {
         console.error('Received channel without uniqid')
       }
 
@@ -70,86 +72,83 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
       delete unprocessedChannels[channelId]
 
       // if we're not a participant, drop out
-      if(!isParticipant && !observing) {
+      if (!isParticipant && !observing) {
         delete res.channels[channelId]
       } else {
         // see if there is a channel for this id
-        if((isParticipant || allRolesIncluded || observing) && !res.channels[channelId]) {
-          const newChannel: ChannelUI = {
-            uniqid: channelId,
-            participants: [], // new
-            name: channel.name,
-            templates,
-            forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
-            forceColors: channel.participants && channel.participants.map((participant) => {
-              const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
-              return (force && force.color) || '#FFF'
-            }),
-            messages: [],
-            unreadMessageCount: 0,
-            observing
+        if (isParticipant || allRolesIncluded || observing) {
+          // ok, we're in this channel
+          // does it exist?
+          if (!res.channels[channelId]) {
+            // no, create it
+            const newChannel: ChannelUI = {
+              uniqid: channelId,
+              participants: [], // new
+              name: channel.name,
+              templates,
+              forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
+              forceColors: channel.participants && channel.participants.map((participant) => {
+                const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
+                return (force && force.color) || '#FFF'
+              }),
+              messages: [],
+              unreadMessageCount: 0,
+              observing
+            }
+            // ok, we need to create one
+            res.channels[channelId] = newChannel
+          } else {
+            // already exists, get shortcut
+            const thisChannel: ChannelUI = res.channels[channelId]
+
+            // rename channel, if necessary
+            if (thisChannel.name !== channel.name) {
+              res.channels[channelId].name = channel.name
+            }
+
+            // update observing status when observer removed from channel participants
+            if (isObserver !== thisChannel.observing) {
+              thisChannel.observing = isObserver
+            }
+
+            // templates
+            if (templates !== thisChannel.templates) {
+              thisChannel.templates = templates
+            }
           }
-          // ok, we need to create one
-          res.channels[channelId] = newChannel
-        }
+          // channel will now exist, get shortcut
+          const thisChannel: ChannelUI = res.channels[channelId]
 
-        // rename channel, if necessary
-        if (
-          (isParticipant || allRolesIncluded) &&
-          !!res.channels[channelId] &&
-          res.channels[channelId].name !== channel.name
-        ) {
-          res.channels[channelId].name = channel.name
-        }
-
-        // update observing status when observer removed from channel participants
-        if (
-          (!isParticipant && !allRolesIncluded) &&
-          isObserver &&
-          !!res.channels[channelId]
-        ) {
-          res.channels[channelId].observing = true
-        } else if (
-          (isParticipant || allRolesIncluded) &&
-          isObserver &&
-          !!res.channels[channelId]
-        ) {
-          res.channels[channelId].observing = false
-        }
-
-        // if channel already created update templates.
-        if (
-          (isParticipant || allRolesIncluded) &&
-          !!res.channels[channelId]
-        ) {
-          res.channels[channelId].templates = templates
-        }
-
-        
-        // if channel already created
-        if (
-          (isParticipant || allRolesIncluded) &&
-          res.channels[channelId] !== undefined &&
-          res.channels[channelId].messages!.findIndex(
-            // @ts-ignore
-            (prevMessage) => prevMessage.gameTurn === payload.gameTurn
-          ) === -1
-        ) {
-        // no turn marker found, create one
-        const message = {
-          details: {
-            channel: `infoTypeChannelMarker${uniqId.time()}`
-          },
-          infoType: true,
-          gameTurn: payload.gameTurn
-        }
-          // @ts-ignore
-          res.channels[channelId || channel.name].messages!.unshift(message)
-          return
+          // check if we're missing a turn marker for this turn
+          if (thisChannel.messages!.findIndex((prevMessage: MessageChannel) => prevMessage.gameTurn === payload.gameTurn) === -1) {
+            // no turn marker found, create one
+            const message: MessageChannel = {
+              details: {
+                from: {
+                  force: 'unset-game-turn-marker',
+                  forceColor: 'unset-game-turn-marker',
+                  role: 'unset-game-turn-marker',
+                  icon: 'unset-game-turn-marker',
+                },
+                messageType: 'turn marker',
+                timestamp: new Date().toISOString(),
+                channel: `infoTypeChannelMarker${uniqId.time()}`,
+              },
+              infoType: true,
+              messageType: CUSTOM_MESSAGE,
+              gameTurn: payload.gameTurn,
+              isOpen: true,
+              hasBeenRead: false,
+              _id: uniqId.time(),
+              message: {}
+            }
+            if (!thisChannel.messages) {
+              thisChannel.messages = []
+            }
+            thisChannel.messages.unshift(message)
+          }
         }
       }
-
-
     })
 
     // delete any unprocessed channels
@@ -161,7 +160,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
   } else {
     handleNonInfoMessage(res.chatChannel, res.channels, payload.details.channel, payload)
   }
-  
+
   return res
 }
 export default handleChannelUpdates

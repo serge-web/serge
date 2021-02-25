@@ -3,6 +3,7 @@ import { ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
   ChannelData,  MessageChannel, MessageInfoType, MessageCustom } from '@serge/custom-types'
 import { InfoMessagesMock, GameMessagesMock, MessageTemplatesMock, forces, GameChannels } from '@serge/mocks'
 import deepCopy from '../deep-copy'
+import { INFO_MESSAGE } from '@serge/config'
 import { CHAT_CHANNEL_ID, CUSTOM_MESSAGE } from '@serge/config'
 
 const channels: PlayerUiChannels = {}
@@ -188,12 +189,13 @@ describe('handle channel update for info message', () => {
     expect(Object.keys(res3.channels).length).toEqual(2)
   })
 
-  it('deletes channels', () => {
+  it('fire a message into chat channel', () => {
     const payload: MessageChannel = GameMessagesMock[0]
+    const myChatChannel = deepCopy(chatChannel)
 
-    expect(chatChannel.messages.length).toEqual(3)
+    expect(myChatChannel.messages.length).toEqual(3)
 
-    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce, 
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, myChatChannel, blueForce, 
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
@@ -223,7 +225,7 @@ describe('handle channel update for info message', () => {
     }
 
     // regenerate channels
-    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, chatChannel, blueForce, 
+    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, blueForce, 
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
@@ -232,41 +234,107 @@ describe('handle channel update for info message', () => {
     expect(res2.chatChannel.messages[0]._id).toEqual(messageId)
   })
 
-  describe('send in new normal channel message', () => {
-    it('deletes channels', () => {
-      expect(chatChannel.messages.length).toEqual(4)
-  
-      // send in a wargame message, to get channels
-      const payload: MessageInfoType = InfoMessagesMock[0]
+  it('fire a message into normal channel', () => {
+    // use info message to recreate channels
+    const payload: MessageInfoType = InfoMessagesMock[0]
 
-      const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce, 
-        allChannels, selectedRole, isObserver, allTemplates, allForces)
-  
-      expect(res).toBeTruthy()
-      const channelId = 'channel-k63pjvpb'
-      expect(res.channels[channelId].messages).toBeTruthy()
-      expect(res.channels[channelId].messages?.length).toEqual(1)
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce, 
+      allChannels, selectedRole, isObserver, allTemplates, allForces)
 
-      // send in a new normal channel message
-      const payload2: MessageCustom =   deepCopy(GameMessagesMock[0])
-      payload2.details.channel = channelId
-      // replace the message id
-      const messageId = 'bongo'
-      const payload3 = Object.assign(payload2, {_id: messageId})
-    
-      // regenerate channels
-      const res2: SetWargameMessage = handleChannelUpdates(payload3, res.channels, chatChannel, blueForce, 
-        allChannels, selectedRole, isObserver, allTemplates, allForces)
-  
-      expect(res2).toBeTruthy()
-      expect(res2.channels[channelId].messages).toBeTruthy()
-      expect(res2.channels[channelId].messages?.length).toEqual(2)
-      const messages = res2.channels[channelId].messages
-      if(messages) {
-        expect(messages[0]._id).toEqual(messageId)
-      }
+    expect(res).toBeTruthy()
+    const channelId = "channel-k63pjit0"
+    expect(res.channels[channelId].messages?.length).toEqual(1) // turn marker
 
-    })
+    const messageId = 'bingo'
+    const payload2: MessageCustom = {
+      'messageType': CUSTOM_MESSAGE,
+      'details': {
+        'channel': channelId,
+        'from': {
+          'force': 'White',
+          'forceColor': '#FCFBEE',
+          'icon': 'default_img/umpireDefault.png',
+          'role': 'Game Control'
+        },
+        'messageType': 'Chat',
+        'privateMessage': 'The private content goes in here',
+        'timestamp': '2020-10-13T08:52:40.930Z'
+      },
+      'message': {
+        'content': 'Message from White, with Private content'
+      },
+      '_id': messageId,
+      'hasBeenRead': false,
+      'isOpen': false
+    }
+
+    // regenerate channels
+    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, blueForce, 
+      allChannels, selectedRole, isObserver, allTemplates, allForces)
+
+    expect(res2).toBeTruthy()
+    expect(res2.channels[channelId].messages?.length).toEqual(2)
   })
 
+  it('deletes channels', () => {
+    expect(chatChannel.messages.length).toEqual(3)
+
+    // send in a wargame message, to get channels
+    const payload: MessageInfoType = {
+      gameTurn: 0,
+      messageType: INFO_MESSAGE,
+      infoType: true,
+      details: { channel: 'Net 16'},
+      _id: "2021-02-24T17:50:31.603Z",
+    }
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce, 
+      allChannels, selectedRole, isObserver, allTemplates, allForces)
+
+    expect(res).toBeTruthy()
+    const channelId = 'channel-k63pjvpb'
+    expect(res.channels[channelId].messages).toBeTruthy()
+    expect(res.channels[channelId].messages?.length).toEqual(1)
+
+    // send in a new normal channel message
+    const payload2: MessageCustom =   deepCopy(GameMessagesMock[0])
+    payload2.details.channel = channelId
+    // replace the message id
+    const messageId = 'bongo'
+    const payload3 = Object.assign(payload2, {_id: messageId})
+  
+    // regenerate channels
+    const res2: SetWargameMessage = handleChannelUpdates(payload3, res.channels, chatChannel, blueForce, 
+      allChannels, selectedRole, isObserver, allTemplates, allForces)
+
+    expect(res2).toBeTruthy()
+    expect(res2.channels[channelId].messages).toBeTruthy()
+    expect(res2.channels[channelId].messages?.length).toEqual(2)
+    const messages = res2.channels[channelId].messages
+    if(messages) {
+      expect(messages[0]._id).toEqual(messageId)
+    }
+  })
+
+  // TODO: check for generation of turn marker
+  it('generate new turn marker', () => {
+    // use info message to recreate channels
+    const payload: MessageInfoType = InfoMessagesMock[0]
+
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce, 
+      allChannels, selectedRole, isObserver, allTemplates, allForces)
+
+    expect(res).toBeTruthy()
+    const channelId = "channel-k63pjit0"
+    expect(res.channels[channelId].messages?.length).toEqual(1) // turn marker
+
+    // generate a new turn
+    const payload2: MessageInfoType = deepCopy(payload)
+    payload2.gameTurn = 1
+
+    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, blueForce, 
+      allChannels, selectedRole, isObserver, allTemplates, allForces)
+
+    expect(res2).toBeTruthy()
+    expect(res2.channels[channelId].messages?.length).toEqual(2) // new turn marker
+  })
 })
