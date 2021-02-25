@@ -1,12 +1,17 @@
 import { CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE } from "@serge/config"
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
-  MessageChannel, MessageCustom, ChannelData, ChannelUI
+  MessageChannel, MessageCustom, ChannelData, ChannelUI, MessageInfoType
 } from "@serge/custom-types"
 import { getParticipantStates } from "./participant-states"
 import { deepCopy } from '@serge/helpers'
 // @ts-ignore
 import uniqId from 'uniqid'
+import _ from 'lodash'
+
+import {
+  expiredStorage,
+} from '@serge/config'
 
 /** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: PlayerUiChannels, channel: string, payload: MessageCustom) => {
@@ -71,6 +76,91 @@ const createNewChannel = (channelId: string): ChannelUI => {
     observing: false
   }
   return res
+}
+
+
+const reduceTurnMarkers = (message: MessageChannel):string => {
+  if (message.messageType === INFO_MESSAGE) {
+    return '' + message.gameTurn
+  }
+  return message._id
+}
+
+export const handleAllInitialChannelMessages = (payload: Array<MessageChannel>, currentWargame: string,
+  selectedForce: ForceData | undefined, selectedRole: string, allChannels: ChannelData[],
+  allForces: ForceData[], chatChannel: PlayerUiChatChannel, isObserver: boolean,
+  allTemplates: any[]): SetWargameMessage  => {
+  const messagesFiltered: Array<MessageChannel> = payload.map((message) => {
+    if (message.messageType === INFO_MESSAGE) {
+      // convert the big wargame message into a turn marker
+      const res: MessageInfoType = {
+        messageType: INFO_MESSAGE,
+        details: {
+          channel: `infoTypeChannelMarker${uniqId.time()}`
+        },
+        infoType: true,
+        gameTurn: message.gameTurn
+      }
+      return res
+    }
+
+    return {
+      ...message,
+      hasBeenRead: expiredStorage.getItem(`${currentWargame}-${selectedForce}-${selectedRole}${message._id}`) === 'read',
+      isOpen: false
+    }
+  })
+
+  const chatMessages = _.uniqBy(messagesFiltered, reduceTurnMarkers)
+    .filter((message) => message.details && message.details.channel === chatChannel.name)
+
+  const channels: PlayerUiChannels = {}
+  const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
+
+  allChannels.forEach((channel: ChannelData) => {
+    const {
+      isParticipant,
+      allRolesIncluded,
+      observing,
+      templates
+    } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplates)
+
+    if (isObserver || isParticipant || allRolesIncluded) {
+      const newChannel: ChannelUI = {
+        name: channel.name,
+        uniqid: channel.uniqid,
+        templates: templates,
+        participants: [],
+        forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
+        forceColors: channel.participants && channel.participants.map((participant) => {
+          const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
+          return (force && force.color) || '#FFF'
+        }),
+        messages: messagesFiltered.filter((message) => message.details && message.details.channel === channel.uniqid || message.messageType === INFO_MESSAGE),
+        unreadMessageCount: messagesFiltered.filter((message) => {
+          if (message.messageType !== INFO_MESSAGE) {
+            return false
+          } else {
+            return (
+              expiredStorage.getItem(`${currentWargame}-${selectedForce}-${selectedRole}${message._id}`) === null &&
+              message.details.channel === channel.uniqid
+            )
+          }
+        }).length,
+        observing: observing
+      }
+      // TODO: use channel uniqid
+      channels[channel.uniqid] = newChannel
+    }
+  })
+
+  return {
+    channels,
+    chatChannel: {
+      ...chatChannel,
+      messages: chatMessages
+    }
+  }
 }
 
 const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel,

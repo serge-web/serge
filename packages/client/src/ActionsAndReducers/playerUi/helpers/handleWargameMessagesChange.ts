@@ -7,7 +7,7 @@ import {
   SetWargameMessage,
   ChannelUI
 } from '@serge/custom-types'
-import { getParticipantStates, handleChannelUpdates } from '@serge/helpers'
+import { getParticipantStates, handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
 
 import {
   INFO_MESSAGE
@@ -44,77 +44,11 @@ const reduceTurnMarkers = (message: MessageChannel):string => {
 }
 
 export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: PlayerUi): SetWargameMessage => {
+  const res: SetWargameMessage = handleAllInitialChannelMessages(payload, newState.currentWargame, newState.selectedForce, 
+    newState.selectedRole, newState.allChannels, newState.allForces, newState.chatChannel,
+    newState.isObserver, newState.allTemplates)
 
-  const messagesFiltered: Array<MessageChannel> = payload.map((message) => {
-    if (message.messageType === INFO_MESSAGE) {
-      const res: MessageInfoType = {
-        messageType: INFO_MESSAGE,
-        details: {
-          channel: `infoTypeChannelMarker${uniqId.time()}`
-        },
-        infoType: true,
-        gameTurn: message.gameTurn
-      }
-      return res
-    }
-
-    return {
-      ...message,
-      hasBeenRead: expiredStorage.getItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${message._id}`) === 'read',
-      isOpen: false
-    }
-  })
-
-  const messages = _.uniqBy(messagesFiltered, reduceTurnMarkers)
-    .filter((message) => message.details && message.details.channel === newState.chatChannel.name)
-
-  const channels: PlayerUiChannels = {}
-  const forceId: string | undefined = newState.selectedForce ? newState.selectedForce.uniqid : undefined
-
-  newState.allChannels.forEach((channel: ChannelData) => {
-    const {
-      isParticipant,
-      allRolesIncluded,
-      observing,
-      templates
-    } = getParticipantStates(channel, forceId, newState.selectedRole, newState.isObserver, newState.allTemplates)
-
-    if (newState.isObserver || isParticipant || allRolesIncluded) {
-      const newChannel: ChannelUI = {
-        name: channel.name,
-        uniqid: channel.uniqid,
-        templates,
-        participants: [],
-        forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
-        forceColors: channel.participants && channel.participants.map((participant) => {
-          const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
-          return (force && force.color) || '#FFF'
-        }),
-        messages: messages.filter((message) => message.details && message.details.channel === channel.uniqid || message.messageType === INFO_MESSAGE),
-        unreadMessageCount: messages.filter((message) => {
-          if (message.messageType !== INFO_MESSAGE) {
-            return false
-          } else {
-            return (
-              expiredStorage.getItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${message._id}`) === null &&
-              message.details.channel === channel.uniqid
-            )
-          }
-        }).length,
-        observing
-      }
-      // TODO: use channel uniqid
-      channels[channel.uniqid || channel.name] = newChannel
-    }
-  })
-
-  return {
-    channels,
-    chatChannel: {
-      ...newState.chatChannel,
-      messages
-    }
-  }
+  return res
 }
 
 

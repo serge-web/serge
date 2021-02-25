@@ -9,7 +9,7 @@ import { CHAT_CHANNEL_ID, CUSTOM_MESSAGE } from '@serge/config'
 const channels: PlayerUiChannels = {}
 const adminMessages: MessageChannel[] = GameMessagesMock
 const chatTemplate = MessageTemplatesMock.find((template:any) => template.name === 'Chat') || {a:'chat'}
-const chatChannel: PlayerUiChatChannel = {name:'chat', template:chatTemplate, messages: adminMessages}
+const chatChannel: PlayerUiChatChannel = {name:CHAT_CHANNEL_ID, template:chatTemplate, messages: adminMessages}
 const allForces: ForceData[] = forces
 const whiteForce: ForceData = allForces[0]
 const blueForce: ForceData = allForces[1]
