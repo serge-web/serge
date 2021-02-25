@@ -17,7 +17,7 @@ class AdjudicationManager {
   formData: AdjudicateTurnFormPopulate
   formHeader: string
   turn: number
-  uniqid: string
+  readonly uniqid: string
   myId: string
   platformDetails: PlatformTypeData | undefined
   /**

@@ -2,9 +2,10 @@ import ChannelData from './channel-data'
 import ForceData from './force-data'
 import PlatformTypeData from './platform-type-data'
 import { MessageFeedback, MessageChannel } from './message'
+import ChannelUI from './channel-ui'
 
 export interface PlayerUiChannels {
-  [property: string]: ChannelData
+  [property: string]: ChannelUI
 }
 
 export interface PlayerUiChatChannel {

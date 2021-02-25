@@ -4,6 +4,7 @@
 ***/
 
 export { default as ChannelData } from './channel-data.d'
+export { default as ChannelUI } from './channel-ui.d'
 export { default as Channel } from './channel.d'
 export { default as ColorOption } from './color-option.d'
 export { default as ForceData } from './force-data.d'
@@ -47,6 +48,7 @@ export { RouteMarkerDuo } from './route-marker'
 export { default as SergeGrid } from './serge-grid.d'
 export { default as SergeHex } from './serge-hex.d'
 export { default as SelectedAsset } from './selected-asset.d'
+export { default as SetWargameMessage } from './set-wargame-message.d'
 export { default as State } from './state.d'
 export { AssetState, ForceState, StateOfWorld } from './state-of-world.d'
 export { default as Template } from './template.d'
