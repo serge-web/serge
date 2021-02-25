@@ -1,21 +1,13 @@
 import {
-  MessageInfoType,
   MessageChannel,
   PlayerUi,
-  PlayerUiChannels,
-  ChannelData,
   SetWargameMessage,
   ChannelUI
 } from '@serge/custom-types'
-import { getParticipantStates, handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
+import { handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
 
-import {
-  INFO_MESSAGE
-} from '@serge/config'
-// TODO: change it to @serge/config
+import { INFO_MESSAGE } from '@serge/config'
 
-// @ts-ignore
-import uniqId from 'uniqid'
 import _ from 'lodash'
 
 
