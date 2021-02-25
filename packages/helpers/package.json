@@ -22,7 +22,7 @@
     "build" : "tsc --pretty",
     "watch" : "tsc --watch",
     "test": "run-p test:*",
-    "test:unit": "jest --coverage --passWithNoTests",
+    "test:unit": "jest --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",
     "test:ts": "tsc --pretty",
     "lint": "eslint --fix",
