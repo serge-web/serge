@@ -5,12 +5,17 @@ import Button from '../../atoms/button'
 /* Import Types */
 import Props from './types/props'
 
+import { DEFAULT_SERVER } from '@serge/config'
+
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
 /* Render component */
 export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {
-  const [password, setPassword] = useState('')
+  // (temporarily) put password in box
+  const [password, setPassword] = useState(DEFAULT_SERVER)
+  // const [password, setPassword] = useState(''DEFAULT_SERVER'')
+
   const setPasswordValue = (target: { value: string }): void => {
     setPassword(target.value)
   }
