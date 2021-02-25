@@ -4,6 +4,7 @@
 ***/
 
 export { default as ChannelData } from './channel-data.d'
+export { default as ChannelUI } from './channel-ui.d'
 export { default as Channel } from './channel.d'
 export { default as ColorOption } from './color-option.d'
 export { default as ForceData } from './force-data.d'
