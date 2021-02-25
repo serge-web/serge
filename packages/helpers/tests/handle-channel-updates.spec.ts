@@ -75,8 +75,8 @@ describe('handle channel update for info message', () => {
     const isObserver = true
 
     // change channel so we're not a member
-    const limWhiteRoles: ChannelData = deepCopy(allChannels)
-    limWhiteRoles.participants[0].roles = [{
+    const limWhiteRoles: ChannelData[] = deepCopy(allChannels)
+    limWhiteRoles[0].participants[0].roles = [{
       isGameControl: false,
       isInsightViewer: true,
       isRFIManager: true,
@@ -87,18 +87,20 @@ describe('handle channel update for info message', () => {
     }]
 
     const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, whiteForce, 
-      allChannels, selectedRole, isObserver, allTemplates, allForces)
+      limWhiteRoles, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    expect(Object.keys(res.channels).length).toEqual(2)
+    expect(Object.keys(res.channels).length).toEqual(3)
+
+    // we're no longer an observer
     const notObserver = false
 
-    // regenerate channels, now we're an observer
-    const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, blueForce, 
-      allChannels, selectedRole, notObserver , allTemplates, allForces)
+    // regenerate channels, now we're not an observer
+    const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, whiteForce, 
+      limWhiteRoles, selectedRole, notObserver , allTemplates, allForces)
 
     expect(res2).toBeTruthy()
-    expect(Object.keys(res2.channels).length).toEqual(3)
+    expect(Object.keys(res2.channels).length).toEqual(2)
   })
 
   it('keeps us in channels were just an observer for', () => {
@@ -130,7 +132,7 @@ describe('handle channel update for info message', () => {
     expect(Object.keys(res2.channels).length).toEqual(3)
   })
 
-  it('adds us to new channels', () => {
+  it('adds us to new channels (blue)', () => {
     const payload: MessageInfoType = InfoMessagesMock[0]
 
     const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce, 
@@ -150,19 +152,40 @@ describe('handle channel update for info message', () => {
     }
     copyChannels.push(newChannel)
 
-    // regenerate channels
+    // check if blue gets added
     const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, blueForce, 
-      copyChannels, selectedRole, true, allTemplates, allForces)
+      copyChannels, selectedRole, false, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
     expect(Object.keys(res2.channels).length).toEqual(4)
+  })
+
+  it('does not add us to new channels (red)', () => {
+    const payload: MessageInfoType = InfoMessagesMock[0]
+
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, redForce, 
+      allChannels, selectedRole, isObserver, allTemplates, allForces)
+
+    expect(res).toBeTruthy()
+    expect(Object.keys(res.channels).length).toEqual(2)
+
+    // ok. now add a channel
+    const copyChannels: ChannelData[] = deepCopy(allChannels)
+    const newChannel: ChannelData = {
+      name: 'Blue Net 2',
+      participants: [
+        { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk0d3', templates: [] },
+        { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pk2o6', templates: [] }],
+      uniqid: 'channel-k63pjv111'
+    }
+    copyChannels.push(newChannel)
 
     // check red force don't get channel added
     const res3: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, redForce, 
-      copyChannels, selectedRole, true, allTemplates, allForces)
+      copyChannels, selectedRole, false, allTemplates, allForces)
 
     expect(res3).toBeTruthy()
-    expect(Object.keys(res3.channels).length).toEqual(3)
+    expect(Object.keys(res3.channels).length).toEqual(2)
   })
 
   it('deletes channels', () => {

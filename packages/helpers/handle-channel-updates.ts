@@ -74,7 +74,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
         delete res.channels[channelId]
       } else {
         // see if there is a channel for this id
-        if((isParticipant || allRolesIncluded) && !res.channels[channelId]) {
+        if((isParticipant || allRolesIncluded || observing) && !res.channels[channelId]) {
           const newChannel: ChannelUI = {
             uniqid: channelId,
             participants: [], // new
