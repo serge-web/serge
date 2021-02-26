@@ -6,14 +6,25 @@ import {
   VISIBILITY_CHANGES,
   PERCEPTION_OF_CONTACT,
   SUBMIT_PLANS,
-  STATE_OF_WORLD
+  STATE_OF_WORLD,
+  RFI_States
 } from '@serge/config'
-// TODO: change it to @serge/config
 
 import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
 import { StateOfWorld } from '.'
+
+
+/** additional message detail used for management of RFIs */
+export interface RFIData {
+  // current state
+  status: RFI_States,
+  // id of current owner
+  owner: string,
+  // response to RFI
+  answer: string
+}
 
 export interface MessageDetails {
   /** id of channel message sent from */
@@ -36,9 +47,16 @@ export interface MessageDetails {
     /** user-name, as typed into Feedback/insights form */
     name?: string
   }
+  /** enumerated types for message (see typeof entries in child interfaces) */
   messageType: string,
+  /** time message sent */
   timestamp: string,
-  privateMessage?: string
+  /** private (umpire-only) component of message, potentially to
+   * explain source for answer, or assumptions made
+   */
+  privateMessage?: string,
+  /** data related to RFI (Request for Information) */
+  rfi?: RFIData
 }
 
 export interface MessageStructure {
