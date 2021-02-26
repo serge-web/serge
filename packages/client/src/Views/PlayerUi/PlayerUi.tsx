@@ -54,6 +54,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     const _wargame = searchParams.get('wargame')
     const _access = searchParams.get('access')
     if (_wargame && _access) {
+      // @ts-ignore
       const selectedWargame: WargameList | undefined = wargame.wargameList.find(game => game.name.match(_wargame))
       if (selectedWargame) {
         setLoggedIn(true)
@@ -102,14 +103,14 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
             tourIsOpen={tourIsOpen}
           />
         }
-    
+
         if (selectedForce.uniqid === umpireForceTemplate.uniqid && isGameControl) {
           return <PlayerUiInitiate initiateGameplay={(): void => {
             initiateGame(currentWargame)(dispatch)
           }} />
         }
       }
-      return <LoaderScreen />    
+      return <LoaderScreen />
   }
 }
 

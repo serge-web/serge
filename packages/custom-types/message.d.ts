@@ -14,6 +14,7 @@ import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
 import { StateOfWorld } from '.'
+// import Wargame from './wargame'
 
 export interface MessageDetails {
   /** id of channel message sent from */

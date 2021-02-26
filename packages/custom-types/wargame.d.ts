@@ -1,5 +1,6 @@
 import WargameList from './wargame-list'
 import WargameData from './wargame-data'
+import Message from './message'
 
 export default interface Wargame {
   isLoading: boolean,
@@ -10,5 +11,6 @@ export default interface Wargame {
   data: WargameData,
   currentTab: string,
   wargameInitiated: boolean,
-  adminNotLoggedIn: boolean
+  adminNotLoggedIn: boolean,
+  exportMessagelist?: Message[]
 }

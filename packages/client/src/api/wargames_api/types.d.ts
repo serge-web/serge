@@ -1,10 +1,10 @@
 import { PlayerUiDispatch, PlayerUiActionTypes } from './player-ui-actions'
-import { Database } from '@types'
-import Message from './message.d'
+import { Message } from '@serge/custom-types'
+import PouchDB from 'pouchdb'
 
-export type ApiWargameDb = Database<Message>
+export type ApiWargameDb = PouchDB.Database<Message>
 
-export interface ApiWargameListenNewMessage {
+export interface ListenNewMessageType {
   db: ApiWargameDb,
   name: string,
   dispatch: PlayerUiDispatch
