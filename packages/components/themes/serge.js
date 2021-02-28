@@ -23,6 +23,9 @@ export default createMuiTheme({
     swissCoffee: {
       main: '#dbd2d4'
     },
+    primaryAccent: {
+      main: '#3ef1ea'
+    },
     transparent: 'transparent'
   }
 })
