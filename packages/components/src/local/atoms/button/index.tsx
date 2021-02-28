@@ -13,11 +13,30 @@ import { Props } from './types/props'
 /* Render component */
 const useButtonStyle = makeStyles((theme: Theme) =>
   createStyles({
-    root: ({ customColor }: Props) => {
+    root: ({ customColor, customVariant }: Props) => {
+      const variants = {
+        'form-action': {
+          backgroundColor: theme.palette.secondary.main,
+          border: `1px solid ${theme.palette[`${'primaryAccent'}`].main}`,
+
+          '&:hover': {
+            backgroundColor: theme.palette.primary.main
+          },
+
+          '&.MuiButton-sizeSmall': {
+            minWidth: '144px',
+            fontSize: '12px',
+            fontWeight: '600',
+            borderRadius: '5px'
+          }
+        }
+      }
       return {
         ...customColor ? { backgroundColor: (theme.palette[customColor] || {}).main } : {},
+        ...customVariant ? variants[customVariant] : {},
         '& + .MuiButton-root': {
           marginLeft: theme.spacing(1),
+
           '.button-list-fullwidth &': {
             marginLeft: 0,
             marginTop: theme.spacing(1)
@@ -43,8 +62,8 @@ const iconsMap = {
   copy: <CopyIcon />
 }
 
-export const Button: React.FC<Props> = ({ customColor, icon, children, ...props }: Props) => {
-  const buttonStyles = useButtonStyle({ customColor })
+export const Button: React.FC<Props> = ({ customColor, icon, children, customVariant, ...props }: Props) => {
+  const buttonStyles = useButtonStyle({ customColor, customVariant })
   return (
     <MaterialButton
       classes={buttonStyles}

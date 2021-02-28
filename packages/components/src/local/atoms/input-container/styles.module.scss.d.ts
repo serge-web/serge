@@ -2,8 +2,10 @@
 // Please do not change this file!
 interface CssExports {
   'disable-offset': string;
+  'fullwidth': string;
   'input-container': string;
   'input-label': string;
+  'private-input__label': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     '& .MuiTableCell-head': {
       fontWeight: 'bold',
+      padding: '8px 16px',
       color: 'white',
 
       '&:not(:first-child)': {
@@ -33,7 +34,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: 'white',
 
     '& .MuiTableCell-body': {
-      color: theme.palette.primary.main
+      color: theme.palette.primary.main,
+      padding: '8px 16px'
     }
   },
   tableRow: {
@@ -69,7 +71,8 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
       const filter = filtersGroup[id]
       localData = localData.filter(row => {
         const localDataFilter = (filter as Array<string>)
-        return localDataFilter.length === 0 || localDataFilter.includes(row[id])
+        const value = row[id]?.label || row[id]
+        return localDataFilter.length === 0 || localDataFilter.includes(value)
       })
     })
     return localData
@@ -93,8 +96,14 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
             rows.map(row => (
               <TableRow className={classes.tableRow} key={Math.random()}>
                 {
-                  row.map(cell => (
-                    <TableCell key={Math.random()}>{ cell }</TableCell>
+                  row.map((cell) => (
+                    <TableCell key={Math.random()}>
+                      {
+                        typeof cell !== 'string' && cell?.component !== undefined
+                          ? cell.component
+                          : cell
+                      }
+                    </TableCell>
                   ))
                 }
               </TableRow>

@@ -5,6 +5,7 @@ import DataTable from './index'
 import DataTableProps from './types/props'
 import docs from './README.md'
 import { Story } from '@storybook/react/types-6-0'
+import Badge from '../../atoms/badge'
 
 export default {
   title: 'local/organisms/DataTable',
@@ -98,5 +99,34 @@ Implementation.args = {
     ['RFI-red-32', 'Red Support', 'Logistic', 'Fuel availability', 'In Progress', 'Fuel specialist'],
     ['RFI-red-28', 'Blue Support', 'Logistic', 'Air drop', 'Pending Review', 'Aeronautic specialist'],
     ['RFI-red-27', 'Blue Support', 'CO', 'Weapon authorization', 'Released', 'Weapons specialist']
-  ]
+  ].map(row => {
+    const [id, channel, role, content, status, owner] = row
+    const roleColors = {
+      'Red Support': '#F94248',
+      'Blue Support': '#00A3DE'
+    }
+    const statusColors = {
+      Unallocated: '#B10303',
+      'In Progress': '#E7740A',
+      'Pending Review': '#434343',
+      Released: '#007219'
+    }
+    return [
+      id,
+      channel,
+      {
+        component: <Badge customBackgroundColor={roleColors[channel]} label={role} />,
+        label: role
+      },
+      content,
+      {
+        component: <Badge customBackgroundColor={statusColors[status]} customSize="large" label={status} />,
+        label: status
+      },
+      {
+        component: owner ? <Badge customBackgroundColor="#434343" label={owner} /> : null,
+        label: owner
+      }
+    ]
+  })
 }

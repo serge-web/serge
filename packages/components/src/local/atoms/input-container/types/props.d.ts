@@ -28,4 +28,12 @@ export default interface PropTypes {
    * Container element ref
    */
   ref?: React.Ref<any>
+  /**
+   * Optional full width variant
+   */
+  fullWidth?: boolean
+  /**
+   * Is isPrivate input?
+   */
+  isPrivate?: boolean
 }

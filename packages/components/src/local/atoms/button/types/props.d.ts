@@ -10,4 +10,8 @@ export type Props = ButtonProps & {
    * Button start icon
    */
   icon?: Icons
+  /**
+   * Button predefined custom variant
+   */
+  customVariant?: 'form-action' | string
 }

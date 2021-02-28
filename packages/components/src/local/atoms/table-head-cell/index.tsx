@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   button: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: '1em',
     textTransform: 'none',
     width: '100%',
     justifyContent: 'space-between',
@@ -64,6 +65,7 @@ export const TableHeadCell = (props: Props): (React.ReactElement | null) => {
             className={classes.button}
             onClick={onToggle}
             endIcon={<FilterIcon />}
+            size="small"
           >
             { contentFilter.label }
           </Button>
