@@ -103,19 +103,11 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
       />
     case Room.player:
       if (selectedForce) {
-        if (wargameInitiated) {
-          const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
-          return <GameChannelsWithTour
-            storageKey={setStorageKey()}
-            tourIsOpen={tourIsOpen}
-          />
-        }
-
-        if (selectedForce.uniqid === umpireForceTemplate.uniqid && isGameControl) {
-          return <PlayerUiInitiate initiateGameplay={(): void => {
-            initiateGame(currentWargame)(dispatch)
-          }} />
-        }
+        const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
+        return <GameChannelsWithTour
+          storageKey={setStorageKey()}
+          tourIsOpen={tourIsOpen}
+        />
       }
       return <LoaderScreen />
   }
