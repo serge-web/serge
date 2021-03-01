@@ -45,6 +45,9 @@ export default interface PlayerUi {
   /** descriptions of platforms available in current wargame */
   allPlatformTypes: Array<PlatformTypeData>,
   showObjective: boolean,
+  /** whether wargame changes stored as new documents (true) or whether
+   * change overwrite the original wargame document (false)
+   */
   wargameInitiated: boolean,
   feedbackMessages: Array<MessageFeedback>,
   /** whether the introductory tour is running */
