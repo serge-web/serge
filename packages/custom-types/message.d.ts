@@ -6,7 +6,8 @@ import {
   VISIBILIY_CHANGES,
   PERCEPTION_OF_CONTACT,
   SUBMIT_PLANS,
-  STATE_OF_WORLD
+  STATE_OF_WORLD,
+  INFO_MESSAGE_CLIPPED
 } from '@serge/config'
 // TODO: change it to @serge/config
 
@@ -14,7 +15,7 @@ import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
 import { StateOfWorld } from '.'
-// import Wargame from './wargame'
+import Wargame from './wargame'
 
 export interface MessageDetails {
   /** id of channel message sent from */
@@ -79,16 +80,26 @@ export interface MessageFeedback extends CoreMessage {
  * new turn
  * updated wargame
  */
-export interface MessageInfoType {
+export interface MessageInfoType extends Wargame {
   messageType: typeof INFO_MESSAGE,
+  infoType: boolean,
+  gameTurn: number,
+  _id?: string
+}
+
+/**
+  * Mapped/Clipped version of MessageInfoType for channel
+  */
+export interface MessageInfoTypeClipped {
+  messageType: typeof INFO_MESSAGE_CLIPPED,
   details: {
     /** id of channel `infoTypeChannelMarker${uniqId.time()}` */
     channel: string
   },
   infoType: boolean,
   gameTurn: number,
-  isOpen?: boolean,
-  hasBeenRead?: boolean
+  isOpen: boolean,
+  hasBeenRead: boolean
   _id?: string
 }
 
@@ -125,12 +136,13 @@ export type MessageMap = MessageForceLaydown |
                          MessageStateOfWorld
 
 
-export type MessageChannel = MessageInfoType |
+export type MessageChannel = MessageInfoTypeClipped |
                              MessageCustom
 
 type Message = MessageCustom |
                MessageFeedback |
-               MessageInfoType |
-               MessageMap
+               MessageInfoTypeClipped |
+               MessageMap |
+               MessageInfoType
 
 export default Message

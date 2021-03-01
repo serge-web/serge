@@ -20,7 +20,9 @@ import {
   Wargame,
   Role,
   MessageFeedback,
-  MessageChannel
+  MessageChannel,
+  MessageCustom,
+  MessageInfoType
 } from '@serge/custom-types'
 
 import { Dispatch } from 'react'
@@ -56,11 +58,11 @@ export interface SetLatestFeedbackMessageAction {
 }
 export interface SetLatestWargameMessageAction {
   type: typeof SET_LATEST_WARGAME_MESSAGE,
-  payload: MessageChannel
+  payload: MessageChannel | MessageInfoType
 }
 interface SetWargameMessagesAction {
   type: typeof SET_ALL_MESSAGES,
-  payload: Array<MessageChannel>
+  payload: Array<MessageCustom | MessageInfoType>
 }
 export interface OpenMessageAction {
   type: typeof OPEN_MESSAGE,

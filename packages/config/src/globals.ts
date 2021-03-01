@@ -37,6 +37,7 @@ export const FEEDBACK_MESSAGE = 'FeedbackMessage'
 
 // series of constants used for `messageType` when sending system messages
 export const INFO_MESSAGE = 'InfoMessage'
+export const INFO_MESSAGE_CLIPPED = 'InfoMessageClipped'
 
 // return states of adjudication form
 export const PLAN_ACCEPTED = 'accepted'

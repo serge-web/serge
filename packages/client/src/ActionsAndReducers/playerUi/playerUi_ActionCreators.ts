@@ -26,7 +26,9 @@ import {
   Message,
   MessageDetails,
   MessageFeedback,
-  MessageChannel
+  MessageChannel,
+  MessageCustom,
+  MessageInfoType
 } from '@serge/custom-types'
 import { PlayerUiActionTypes } from '@serge/custom-types'
 
@@ -63,11 +65,11 @@ export const setLatestFeedbackMessage = (message: MessageFeedback): PlayerUiActi
   type: SET_LATEST_FEEDBACK_MESSAGE,
   payload: message
 })
-export const setLatestWargameMessage = (message: MessageChannel): PlayerUiActionTypes => ({
+export const setLatestWargameMessage = (message: MessageChannel | MessageInfoType): PlayerUiActionTypes => ({
   type: SET_LATEST_WARGAME_MESSAGE,
   payload: message
 })
-export const setWargameMessages = (messages: Array<MessageChannel>): PlayerUiActionTypes => ({
+export const setWargameMessages = (messages: Array<MessageCustom | MessageInfoType>): PlayerUiActionTypes => ({
   type: SET_ALL_MESSAGES,
   payload: messages
 })
@@ -173,7 +175,7 @@ export const getAllWargameMessages = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     // @ts-ignore
     const allMessages: Array<Message> = await wargamesApi.getAllMessages(dbName)
-    dispatch(setWargameMessages(allMessages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageChannel)[]))
+    dispatch(setWargameMessages(allMessages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageInfoType | MessageCustom)[]))
     dispatch(setWargameFeedback(allMessages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
   }
 }

@@ -24,6 +24,7 @@ export { default as Message,
          // System Messages
          MessageFeedback,
          MessageInfoType,
+         MessageInfoTypeClipped,
          // All template based messages
          MessageCustom,
          MessageChannel

@@ -1,17 +1,20 @@
 import {
-  MessageInfoType,
+  MessageInfoTypeClipped,
   MessageChannel,
   PlayerUi,
   PlayerUiChatChannel,
   PlayerUiChannels,
-  ChannelData
+  ChannelData,
+  MessageInfoType,
+  MessageCustom
 } from '@serge/custom-types'
 import { matchedForceAndRoleFilter, matchedAllRolesFilter } from './filters'
 import { getParticipantStates } from './participantStates'
 import copyState from '../../../Helpers/copyStateHelper'
 
 import {
-  INFO_MESSAGE
+  INFO_MESSAGE,
+  INFO_MESSAGE_CLIPPED
 } from '@serge/config'
 // TODO: change it to @serge/config
 
@@ -31,12 +34,12 @@ import {
 } from '../../../consts'
 
 // TODO: remove uniqid and use name
-export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
+export const hanldeSetLatestWargameMessage = (payload: MessageChannel | MessageInfoType, newState: PlayerUi):SetWargameMessage => {
 
   let channels: PlayerUiChannels = { ...newState.channels }
   const chatChannel: PlayerUiChatChannel = { ...newState.chatChannel }
 
-  if (payload.messageType === INFO_MESSAGE) {
+  if (payload.messageType === INFO_MESSAGE_CLIPPED || payload.messageType === INFO_MESSAGE) {
     const message = {
       details: {
         channel: `infoTypeChannelMarker${uniqId.time()}`
@@ -174,23 +177,30 @@ export const hanldeSetLatestWargameMessage = (payload: MessageChannel, newState:
 }
 
 const reduceTurnMarkers = (message: MessageChannel):string => {
-  if (message.messageType === INFO_MESSAGE) {
+  if (message.messageType === INFO_MESSAGE_CLIPPED) {
     return '' + message.gameTurn
   }
   return message._id
 }
 
-export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: PlayerUi): SetWargameMessage => {
+export const isMessageHasBeenRead = (id: string, { currentWargame, selectedForce, selectedRole }: PlayerUi): boolean => (
+  expiredStorage.getItem(`${currentWargame}-${selectedForce}-${selectedRole}${id}`) === 'read'
+)
+
+export const handleSetAllMEssages = (payload: (MessageInfoType | MessageCustom)[], newState: PlayerUi): SetWargameMessage => {
 
   const messagesFiltered: Array<MessageChannel> = payload.map((message) => {
     if (message.messageType === INFO_MESSAGE) {
-      const res: MessageInfoType = {
-        messageType: INFO_MESSAGE,
+      const res: MessageInfoTypeClipped = {
+        messageType: INFO_MESSAGE_CLIPPED,
         details: {
           channel: `infoTypeChannelMarker${uniqId.time()}`
         },
         infoType: true,
-        gameTurn: message.gameTurn
+        gameTurn: message.gameTurn,
+        isOpen: false,
+        hasBeenRead: typeof message._id === 'string' && isMessageHasBeenRead(message._id, newState),
+        _id: message._id
       }
 
       return res
@@ -198,7 +208,7 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
 
     return {
       ...message,
-      hasBeenRead: expiredStorage.getItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${message._id}`) === 'read',
+      hasBeenRead: isMessageHasBeenRead(message._id, newState),
       isOpen: false
     }
   })
@@ -227,9 +237,9 @@ export const handleSetAllMEssages = (payload: Array<MessageChannel>, newState: P
           const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
           return (force && force.color) || '#FFF'
         }),
-        messages: messages.filter((message) => message.details && message.details.channel === channel.uniqid || message.messageType === INFO_MESSAGE),
+        messages: messages.filter((message) => message.details && message.details.channel === channel.uniqid || message.messageType === INFO_MESSAGE_CLIPPED),
         unreadMessageCount: messages.filter((message) => {
-          if (message.messageType !== INFO_MESSAGE) {
+          if (message.messageType !== INFO_MESSAGE_CLIPPED) {
             return false
           } else {
             return (
@@ -290,7 +300,7 @@ export const openMessage = (channel: string, payloadMessage: MessageChannel, new
 
 const closeMessageChange = (message: MessageChannel, id: string): { message: MessageChannel, changed: boolean } => {
   let changed: boolean = false
-  if (message.messageType === INFO_MESSAGE /* InfoType have no id */ && message._id === id) {
+  if (message.messageType === INFO_MESSAGE_CLIPPED /* InfoType have no id */ && message._id === id) {
     message.isOpen = false
   }
   return { message, changed }

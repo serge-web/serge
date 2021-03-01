@@ -85,11 +85,11 @@ export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): 
     timeout: false,
     heartbeat: false,
     include_docs: true
-  }).on('change', ({ doc }) => {
+  }).on('change', (res) => {
+    const doc = res.doc as Message
     (async () => {
       if (doc === undefined) return
       if (doc.messageType === INFO_MESSAGE) {
-        // @ts-ignore
         dispatch(setCurrentWargame(doc as Wargame))
         dispatch(setLatestWargameMessage(doc))
         return
@@ -117,7 +117,7 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const populateWargame = () => {
+export const populateWargame = (): Promise<Wargame> => {
   return fetch(serverPath + 'allDbs')
     .then((response: Response): Promise<string[]> => response.json())
     .then((dbs: string[]) => {
@@ -149,19 +149,21 @@ export const populateWargame = () => {
     })
 }
 
-export const clearWargames = () => {
+export const clearWargames = (): void => {
   fetch(serverPath + 'clearAll')
     .then(() => {
       window.location.reload(true)
     })
 }
 
-export const getIpAddress = () => {
+
+export const getIpAddress = (): Promise<{ ip: string }> => {
   return fetch(serverPath + 'getIp')
-    .then((res) => res.json())
+    .then<{ ip: string }>((res) => res.json())
 }
 
-  // @ts-ignore
+// TODO: Need to check component "ImageDropzone" it returns file with Any type
+// @ts-ignore
 export const saveIcon = (file) => {
   return fetch(serverPath + 'saveIcon', {
     method: 'POST',
@@ -173,35 +175,31 @@ export const saveIcon = (file) => {
     .then((res) => res.json())
 }
 
-  // @ts-ignore
-export const createWargame = (dispatch) => {
-  const uniqId = uniqid.time()
+export const createWargame = (): Promise<Wargame> => {
 
-  const name = `wargame-${uniqId}`
+  const name: string = `wargame-${uniqid.time()}`
+  const db: ApiWargameDb = new PouchDB(databasePath + name)
+
+  db.setMaxListeners(15)
+  addWargameDbStore({ name, db })
+
+  // TODo: update dbDefaultSettings to valid wargame json
+  // @ts-ignore
+  const settings: Wargame = { ...dbDefaultSettings, wargameTitle: name }
+
 
   return new Promise((resolve, reject) => {
-    const db = new PouchDB(databasePath + name)
-
-    db.setMaxListeners(15)
-
-      // @ts-ignore
-    wargameDbStore.unshift({ name, db })
-
-    // TODo: update dbDefaultSettings to valid wargame json
-    // @ts-ignore
-    const settings: Wargame = { ...dbDefaultSettings, wargameTitle: name }
-
     db.put(settings)
-      .then(() => {
-        return db.get(dbDefaultSettings._id)
-      })
-      .then((res) => {
+    .then(() => {
+      db.get<Promise<Wargame>>(dbDefaultSettings._id).then((res) => {
         resolve(res)
-      })
-      .catch((err) => {
+      }).catch((err) => {
         reject(err)
-        console.log(err)
       })
+    }).catch((err) => {
+      console.log(err)
+      reject(err)
+    })
   })
 }
 
@@ -232,14 +230,10 @@ export const exportWargame = (dbPath: string): Promise<Wargame> => {
     const latestWargame: MessageInfoType = messages.find(({ messageType }) => (messageType === INFO_MESSAGE)) as MessageInfoType
 
     if (latestWargame) {
-      // @ts-ignore
       return { ...latestWargame, exportMessagelist: messages } as Wargame
     } else {
-      // @ts-ignore: need to update INFO_MESSAGE to be able to use it as Wargame object
       const { db } = getWargameDbByName(dbName)
-
       return db.get<Wargame>(dbDefaultSettings._id).then(res => {
-        // @ts-ignore
         return { ...res, exportMessagelist: messages } as Wargame
       })
     }

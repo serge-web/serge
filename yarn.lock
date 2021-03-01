@@ -5369,20 +5369,6 @@
     "@types/webpack-sources" "*"
     source-map "^0.6.0"
 
-"@types/whatwg-fetch@^0.0.33":
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/@types/whatwg-fetch/-/whatwg-fetch-0.0.33.tgz#19c0d2863c8cb2380f21a1c736b79cbf7895bb13"
-  integrity sha1-GcDShjyMsjgPIaHHNrecv3iVuxM=
-  dependencies:
-    "@types/whatwg-streams" "*"
-
-"@types/whatwg-streams@*":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/@types/whatwg-streams/-/whatwg-streams-3.2.1.tgz#225009a823e8b44be12569a24e60374ccdabe29e"
-  integrity sha512-Syv05sRL25b8cC8tqgXSQgLZZmqGq2GO+NafrtHbjPJccP6gWBXmHvo2Trw3AWXQ4QLIkVuOB7uStCuhzswyiw==
-  dependencies:
-    whatwg-streams "*"
-
 "@types/xml2js@0.4.5":
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/@types/xml2js/-/xml2js-0.4.5.tgz#d21759b056f282d9c7066f15bbf5c19b908f22fa"
