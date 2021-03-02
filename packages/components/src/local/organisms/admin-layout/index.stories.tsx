@@ -105,7 +105,7 @@ export const Default: React.FC = (args) => {
   return (
     <AdminLayout wargame={wargame} activeTab={adminTabs[activeTab]} tabs={adminTabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>
-        
+
         { // @ts-ignore we're using knobs to provide wargameInitiated, prevent compiler complaining about it
           activeTab === 0 && <SettingOverview overview={changedOverview} onChange={onOverviewChange} onSave={handleSave} initiateWargame={handleInitiateWargame} {...args}/>}
         {activeTab === 1 && <SettingPlatformTypes platformType={changedPlatformType} onChange={onPlatformChange} onSave={handleSave} />}
