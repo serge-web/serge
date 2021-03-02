@@ -1,11 +1,11 @@
-import { PlanningStates } from '@serge/config'
+import { PlanningStates, LaydownPhases } from '@serge/config'
 import { Asset } from '.'
 import RouteStatus from './route-status'
 import RouteTurn from './route-turn'
 
 export interface RouteChild {
   /** which asset this is */
-  uniqid: string,
+  readonly uniqid: string,
   /** name (perceived or real) */
   name: string,
   /** platform-type (perceived or real) */
@@ -24,7 +24,7 @@ export interface RouteChild {
 
 export default interface Route {
   /** which asset this route is for */
-  uniqid: string,
+  readonly uniqid: string,
   /** name (perceived or real) */
   name: string,
   /** platform-type (perceived or real) */
@@ -53,6 +53,8 @@ export default interface Route {
   currentPosition: string,
   /** current position of this asset */
   currentLocation: L.LatLng | undefined,
+  /** status of laydown */
+  laydownPhase?: LaydownPhases
   /** current planned steps for this asset */
   planned: Array<RouteTurn>
   /** trimmed/filtered version of current planned steps for this asset */

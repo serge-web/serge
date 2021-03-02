@@ -4,7 +4,7 @@ import {
 } from '@serge/config'
 /* global it expect */
 import handlePlansSubmittedChanges from '../../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
-import findAsset from '../../../Components/Mapping/helpers/findAsset'
+import findAsset from '../../../Helpers/findAsset'
 
 const allForces: ForceData[] = [
   {

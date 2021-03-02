@@ -7,7 +7,7 @@ import handleForceLaydownChanges from './handleForceLaydownChanges'
 import handlePlansSubmittedChanges from './handlePlansSubmittedChanges'
 import {
   FORCE_LAYDOWN,
-  VISIBILIY_CHANGES,
+  VISIBILITY_CHANGES,
   PERCEPTION_OF_CONTACT,
   SUBMIT_PLANS,
   STATE_OF_WORLD
@@ -26,7 +26,7 @@ export default (message: MessageMap, details: MessageDetails, allForces: ForceDa
   switch (msgType) {
     case FORCE_LAYDOWN:
       return handleForceLaydownChanges(message as MessageForceLaydown, allForces)
-    case VISIBILIY_CHANGES:
+    case VISIBILITY_CHANGES:
       return handleVisibilityChanges(message as MessageVisibilityChanges, allForces)
     case PERCEPTION_OF_CONTACT:
       return handlePerceptionChange(message as MessagePerceptionOfContact, allForces)

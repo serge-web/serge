@@ -38,6 +38,6 @@ export const Default: React.FC = () => <VisibilityForm
   formHeader="Planning header"
   formData={formData}
   icon={iconData}
-  postBack={postback}
+  mapPostBack={postback}
 
 />

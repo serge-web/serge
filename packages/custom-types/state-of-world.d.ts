@@ -2,7 +2,7 @@ import { Perception, RouteStatus, RouteTurn } from ".";
 
 /** state of world for an asset */
 export interface AssetState {
-  uniqid: string
+  readonly uniqid: string
   name: string
   condition: string
   position: string
@@ -23,5 +23,5 @@ export interface ForceState {
 export interface StateOfWorld {
   turn: number
   name: string
-  detail: Array<ForceState>
+  forces: Array<ForceState>
 }

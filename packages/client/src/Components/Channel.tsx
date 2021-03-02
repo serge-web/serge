@@ -35,8 +35,8 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const messages = (state.channels[channelId].messages || []).map(item => {
     if(item.messageType === INFO_MESSAGE_CLIPPED) {
-      // we don't display info messages in channels
-      return undefined
+      // this is a turn marker, we return it unchanged
+      return item
     } else {
       const messageItem: MessageCustom = item
       const {

@@ -3,6 +3,7 @@
 interface CssExports {
   'asset-icon': string;
   'blue': string;
+  'destroyed': string;
   'force': string;
   'green': string;
   'platform-type-agi': string;

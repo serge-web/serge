@@ -12,11 +12,13 @@ import styles from './styles.module.scss'
 
 /* Import context */
 import { MapContext } from '../mapping'
+import { SelectedAsset } from '@serge/custom-types'
 
 /* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForce: string, icType: string, icSelected?: boolean): string => (cx(
+export const getIconClassname = (icForce: string, icType: string, destroyed?: boolean, icSelected?: boolean): string => (cx(
   styles['asset-icon'],
   styles[icForce],
+  destroyed ? styles.destroyed : null,
   icSelected ? styles.selected : null,
   styles[`platform-type-${icType}`]
 ))
@@ -34,13 +36,16 @@ export const AssetIcon: React.FC<PropTypes> = ({
   condition,
   status,
   tooltip,
-  selected
+  selected,
+  locationPending
 }) => {
   const { setShowMapBar, setSelectedAsset, selectedAsset } = useContext(MapContext).props
 
+  const isDestroyed: boolean = !!condition && condition.toLowerCase() === 'destroyed'
+
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    className: getIconClassname(perceivedForce, type, selected)
+    className: getIconClassname(perceivedForce, type, isDestroyed, selected)
   })
 
   const clickEvent = (): void => {
@@ -50,17 +55,18 @@ export const AssetIcon: React.FC<PropTypes> = ({
       setShowMapBar(false)
     } else {
       // select this asset
-      setSelectedAsset({
-        uniqid,
-        name,
-        type,
-        force,
-        perceivedForce,
-        visibleTo,
-        controlledBy,
-        condition,
-        status
-      })
+      const selection: SelectedAsset = {
+        uniqid: uniqid,
+        name: name,
+        type: type,
+        force: force,
+        controlledBy: controlledBy,
+        condition: condition || 'unknown',
+        visibleTo: visibleTo,
+        status: status,
+        locationPending: locationPending
+      }
+      setSelectedAsset(selection)
       setShowMapBar(true)
     }
   }

@@ -1,16 +1,13 @@
 import {
-  MessageInfoTypeClipped,
   MessageChannel,
   PlayerUi,
   PlayerUiChatChannel,
   PlayerUiChannels,
-  ChannelData,
-  MessageInfoType,
-  MessageCustom
+  ChannelUI,
+  MessageCustom,
+  MessageInfoType
 } from '@serge/custom-types'
-import { matchedForceAndRoleFilter, matchedAllRolesFilter } from './filters'
-import { getParticipantStates } from './participantStates'
-import copyState from '../../../Helpers/copyStateHelper'
+import { handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
 
 import {
   INFO_MESSAGE,
@@ -18,8 +15,6 @@ import {
 } from '@serge/config'
 // TODO: change it to @serge/config
 
-// @ts-ignore
-import uniqId from 'uniqid'
 import _ from 'lodash'
 
 interface SetWargameMessage {
@@ -29,237 +24,27 @@ interface SetWargameMessage {
 
 import {
   LOCAL_STORAGE_TIMEOUT,
-  CHAT_CHANNEL_ID,
   expiredStorage,
 } from '../../../consts'
 
-// TODO: remove uniqid and use name
-export const hanldeSetLatestWargameMessage = (payload: MessageChannel | MessageInfoType, newState: PlayerUi):SetWargameMessage => {
-
-  let channels: PlayerUiChannels = { ...newState.channels }
-  const chatChannel: PlayerUiChatChannel = { ...newState.chatChannel }
-
-  if (payload.messageType === INFO_MESSAGE_CLIPPED || payload.messageType === INFO_MESSAGE) {
-    const message = {
-      details: {
-        channel: `infoTypeChannelMarker${uniqId.time()}`
-      },
-      infoType: true,
-      gameTurn: payload.gameTurn
-    }
-
-    for (const channelId in channels) {
-      const matchedChannel = newState.allChannels.find((channel) => channel.uniqid === channelId)
-
-      if (!matchedChannel) {
-        delete channels[channelId]
-      } else {
-        const { selectedForce } = newState
-        const isParticipant = matchedChannel.participants && matchedChannel.participants.some(p => matchedForceAndRoleFilter(p, newState))
-        const allRolesIncluded = selectedForce && matchedChannel.participants && matchedChannel.participants.some(p => matchedAllRolesFilter(p, selectedForce.uniqid))
-
-        if (isParticipant || allRolesIncluded || newState.isObserver) {
-          // ok, this is a channel we wish to display
-        } else {
-          // no, we no longer need to display this channel
-          delete channels[channelId]
-        }
-      }
-    }
-
-    // create any new channels & add to current channel
-    newState.allChannels.forEach((channel) => {
-      const channelActive = channel.participants && channel.participants.some(p => matchedForceAndRoleFilter(p, newState))
-      const { selectedForce } = newState
-      const allRoles = selectedForce && channel.participants && channel.participants.some(p => matchedAllRolesFilter(p, selectedForce.uniqid))
-
-      // rename channel
-      if (
-        (channelActive || allRoles) &&
-        channel.uniqid !== undefined &&
-        !!channels[channel.uniqid]
-      ) {
-        channels[channel.uniqid].name = channel.name
-      }
-
-      // update observing status when observer removed from channel participants
-      if (
-        (!channelActive && !allRoles) &&
-        newState.isObserver &&
-        channel.uniqid !== undefined &&
-        !!channels[channel.uniqid]
-      ) {
-
-        channels[channel.uniqid].observing = true
-      } else if (
-        (channelActive || allRoles) &&
-        newState.isObserver &&
-        channel.uniqid !== undefined &&
-        !!channels[channel.uniqid]
-      ) {
-        channels[channel.uniqid].observing = false
-      }
-
-      // if channel already created update templates.
-      if (
-        (channelActive || allRoles) &&
-        channel.uniqid !== undefined &&
-        !!channels[channel.uniqid]
-      ) {
-        const { templates } = getParticipantStates(channel, newState)
-        channels[channel.uniqid].templates = templates
-      }
-
-      // if channel already created
-      if (
-        (channelActive || allRoles) &&
-        channel.uniqid !== undefined &&
-        channels[channel.uniqid] !== undefined &&
-        channels[channel.uniqid].messages!.findIndex(
-          // @ts-ignore
-          (prevMessage) => prevMessage.gameTurn === message.gameTurn
-        ) === -1
-      ) {
-        // @ts-ignore
-        channels[channel.uniqid || channel.name].messages!.unshift(message)
-        return
-      }
-
-      // if no channel created yet
-      if (
-        (channelActive || allRoles) &&
-        channel.uniqid !== undefined &&
-        !channels[channel.uniqid]
-      ) {
-        const {
-          isParticipant,
-          allRolesIncluded,
-          observing,
-          templates
-        } = getParticipantStates(channel, newState)
-
-        if (allRolesIncluded || isParticipant || newState.isObserver) {
-          channels[channel.uniqid || channel.name] = {
-            participants: [], // new
-            name: channel.name,
-            templates,
-            forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
-            forceColors: channel.participants && channel.participants.map((participant) => {
-              const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
-              return (force && force.color) || '#FFF'
-            }),
-            messages: [],
-            unreadMessageCount: 0,
-            observing
-          }
-        }
-        channels = _.defaults({}, channels)
-      }
-    })
-  } else {
-    if (payload.details.channel === CHAT_CHANNEL_ID) {
-      chatChannel.messages.unshift(copyState(payload))
-    } else if (channels[payload.details.channel] && channels[payload.details.channel].messages !== undefined) {
-      channels[payload.details.channel].messages!.unshift({
-        ...copyState(payload),
-        hasBeenRead: false,
-        isOpen: false
-      })
-
-      channels[payload.details.channel].unreadMessageCount = (channels[payload.details.channel].unreadMessageCount || 0) + 1
-    }
-  }
-
-  return {
-    channels,
-    chatChannel
-  }
+/** a new document has been received, either add it to the correct channel,
+ * or update the channels to reflect the new channel definitions
+ */
+export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
+  const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel,
+    newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
+    newState.allTemplates, newState.allForces)
+  return res
 }
 
-const reduceTurnMarkers = (message: MessageChannel):string => {
-  if (message.messageType === INFO_MESSAGE_CLIPPED) {
-    return '' + message.gameTurn
-  }
-  return message._id
-}
-
-export const isMessageHasBeenRead = (id: string, { currentWargame, selectedForce, selectedRole }: PlayerUi): boolean => (
-  expiredStorage.getItem(`${currentWargame}-${selectedForce}-${selectedRole}${id}`) === 'read'
-)
-
-export const handleSetAllMEssages = (payload: (MessageInfoType | MessageCustom)[], newState: PlayerUi): SetWargameMessage => {
-
-  const messagesFiltered: Array<MessageChannel> = payload.map((message) => {
-    if (message.messageType === INFO_MESSAGE) {
-      const res: MessageInfoTypeClipped = {
-        messageType: INFO_MESSAGE_CLIPPED,
-        details: {
-          channel: `infoTypeChannelMarker${uniqId.time()}`
-        },
-        infoType: true,
-        gameTurn: message.gameTurn,
-        isOpen: false,
-        hasBeenRead: typeof message._id === 'string' && isMessageHasBeenRead(message._id, newState),
-        _id: message._id
-      }
-
-      return res
-    }
-
-    return {
-      ...message,
-      hasBeenRead: isMessageHasBeenRead(message._id, newState),
-      isOpen: false
-    }
-  })
-
-  const messages = _.uniqBy(messagesFiltered, reduceTurnMarkers)
-    .filter((message) => message.details && message.details.channel === newState.chatChannel.name)
-
-  const channels = {}
-
-  newState.allChannels.forEach((channel) => {
-    const {
-      isParticipant,
-      allRolesIncluded,
-      observing,
-      templates
-    } = getParticipantStates(channel, newState)
-
-    if (!newState.isObserver && !isParticipant && !allRolesIncluded) return
-    else {
-      // TODO: use channel name
-      channels[channel.uniqid || channel.name] = {
-        name: channel.name,
-        templates,
-        forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
-        forceColors: channel.participants && channel.participants.map((participant) => {
-          const force = newState.allForces.find((force) => force.uniqid === participant.forceUniqid)
-          return (force && force.color) || '#FFF'
-        }),
-        messages: messages.filter((message) => message.details && message.details.channel === channel.uniqid || message.messageType === INFO_MESSAGE_CLIPPED),
-        unreadMessageCount: messages.filter((message) => {
-          if (message.messageType !== INFO_MESSAGE_CLIPPED) {
-            return false
-          } else {
-            return (
-              expiredStorage.getItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${message._id}`) === null &&
-              message.details.channel === channel.uniqid
-            )
-          }
-        }).length,
-        observing
-      }
-    }
-  })
-
-  return {
-    channels,
-    chatChannel: {
-      ...newState.chatChannel,
-      messages
-    }
-  }
+/** when the app first opens it processes a list of all existing messages,,
+ * grouping them into channels
+ */
+export const handleSetAllMessages = (payload: Array<MessageCustom | MessageInfoType>, newState: PlayerUi): SetWargameMessage => {
+  const res: SetWargameMessage = handleAllInitialChannelMessages(payload, newState.currentWargame, newState.selectedForce,
+    newState.selectedRole, newState.allChannels, newState.allForces, newState.chatChannel,
+    newState.isObserver, newState.allTemplates)
+  return res
 }
 
 
@@ -273,7 +58,7 @@ const openMessageChange = (message: MessageChannel, id: string): { message: Mess
   return { message, changed }
 }
 
-export const openMessage = (channel: string, payloadMessage: MessageChannel, newState: PlayerUi): ChannelData => {
+export const openMessage = (channel: string, payloadMessage: MessageChannel, newState: PlayerUi): ChannelUI => {
   // mutating `messages` array - copyState at top of switch
   const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
   if (payloadMessage._id !== undefined) {
@@ -323,7 +108,7 @@ export const closeMessage = (channel: string, payloadMessage: MessageChannel, ne
   return channelMessages
 }
 
-export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelData => {
+export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI => {
   const channelMessages: MessageChannel[] = (newState.channels[channel].messages || []).map((message) => {
     if (message._id) {
       message.hasBeenRead = true

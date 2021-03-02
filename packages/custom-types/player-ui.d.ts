@@ -2,9 +2,10 @@ import ChannelData from './channel-data'
 import ForceData from './force-data'
 import PlatformTypeData from './platform-type-data'
 import { MessageFeedback, MessageChannel } from './message'
+import ChannelUI from './channel-ui'
 
 export interface PlayerUiChannels {
-  [property: string]: ChannelData
+  [property: string]: ChannelUI
 }
 
 export interface PlayerUiChatChannel {
@@ -34,16 +35,25 @@ export default interface PlayerUi {
   currentWargame: string,
   wargameTitle: string,
   chatChannel: PlayerUiChatChannel,
+  /** dictionary for set of channels visible to logged in player */
   channels: PlayerUiChannels,
+  /** all channels in this wargame */
   allChannels: Array<ChannelData>,
+  /** set of forces for ths current wargame */
   allForces: Array<ForceData>,
   allTemplates: Array<any>,
+  /** descriptions of platforms available in current wargame */
   allPlatformTypes: Array<PlatformTypeData>,
   showObjective: boolean,
   wargameInitiated: boolean,
   feedbackMessages: Array<MessageFeedback>,
+  /** whether the introductory tour is running */
   tourIsOpen: boolean,
   modalOpened?: string,
+  /** whether access codes are displayed for current wargame */
   showAccessCodes: boolean,
-  isInsightViewer: boolean
+  /** whether logged in user can view insights & feedback */
+  isInsightViewer: boolean,
+  /** whether logged in user can release RFIs */
+  isRFIManager: boolean
 }

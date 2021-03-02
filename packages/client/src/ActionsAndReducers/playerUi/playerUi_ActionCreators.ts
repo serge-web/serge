@@ -65,7 +65,7 @@ export const setLatestFeedbackMessage = (message: MessageFeedback): PlayerUiActi
   type: SET_LATEST_FEEDBACK_MESSAGE,
   payload: message
 })
-export const setLatestWargameMessage = (message: MessageChannel | MessageInfoType): PlayerUiActionTypes => ({
+export const setLatestWargameMessage = (message: MessageChannel): PlayerUiActionTypes => ({
   type: SET_LATEST_WARGAME_MESSAGE,
   payload: message
 })

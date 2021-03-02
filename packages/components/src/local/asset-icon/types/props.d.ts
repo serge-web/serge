@@ -4,7 +4,7 @@ export default interface PropTypes {
   /**
    * The unique identifier for the asset marker
    */
-  uniqid: string
+  readonly uniqid: string
   /**
    * The name of the asset marker
    */
@@ -49,4 +49,8 @@ export default interface PropTypes {
    * A list of forces able to see the asset
    */
   visibleTo: Array<string>
+  /**
+   * whether the asset can be dragged in turn zero
+   */
+  locationPending?: boolean
 }

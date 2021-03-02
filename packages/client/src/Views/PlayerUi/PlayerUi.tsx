@@ -26,6 +26,7 @@ enum Room {
 const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData }: Props): React.ReactElement => {
   const [tourIsOpen, setTourIsOpen] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
+  const [waitingLoginPassword, setWaitingLoginPassword] = useState('')
   const [screen, setScreen] = useState<Room>(Room.landing)
   const {
     allForces,
@@ -49,17 +50,23 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     }
   }, [])
 
+  useEffect(() => {
+    if (waitingLoginPassword && loggedIn && allForces.length > 0) {
+      handleCheckPassword(waitingLoginPassword)
+      setWaitingLoginPassword('')
+    }
+  }, [waitingLoginPassword, allForces, loggedIn])
+
   const byPassLogin = async () => {
     const { searchParams } = new URL(window.location.href)
     const _wargame = searchParams.get('wargame')
     const _access = searchParams.get('access')
     if (_wargame && _access) {
-      // @ts-ignore
-      const selectedWargame: WargameList | undefined = wargame.wargameList.find(game => game.name.match(_wargame))
+      const selectedWargame: WargameList | undefined = wargame.wargameList.find(game => !!game.name.match(_wargame))
       if (selectedWargame) {
         setLoggedIn(true)
+        setWaitingLoginPassword(_access)
         await getWargame(selectedWargame.name)(dispatch)
-        handleCheckPassword(_access)
       }
     }
   }

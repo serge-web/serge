@@ -1,7 +1,7 @@
 import { CUSTOM_MESSAGE } from '@serge/config'
-import { MessageCustom } from '@serge/custom-types'
+import { MessageCustom, MessageChannel } from '@serge/custom-types'
 
-const message1: MessageCustom = {
+const message1: MessageChannel = {
   "messageType": CUSTOM_MESSAGE,
   "details": {
     "channel": "game-admin",
@@ -43,6 +43,6 @@ const message2: MessageCustom = {
   "isOpen": false
 }
 
-const messages: MessageCustom[] = [message1, message2]
+const messages: MessageChannel[] = [message1, message2]
 
 export default messages

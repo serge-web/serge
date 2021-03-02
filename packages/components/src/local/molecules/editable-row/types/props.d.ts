@@ -3,7 +3,7 @@ export interface Option {
   [property: string]: any
 }
 export interface Item {
-  uniqid: string
+  readonly uniqid: string
   title?: string
   active?: Array<number>
   multiple?: boolean

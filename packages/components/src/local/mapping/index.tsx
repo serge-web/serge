@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
@@ -22,7 +22,9 @@ import {
   routeSetCurrent,
   routeGetLatestPosition,
   routeClearFromStep,
-  findPlatformTypeFor
+  findPlatformTypeFor,
+  findAsset,
+  routeSetLaydown
 } from '@serge/helpers'
 
 /* Import Types */
@@ -38,7 +40,8 @@ import {
   Route,
   RouteTurn,
   PlanTurnFormValues,
-  ForceData
+  ForceData,
+  Asset
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -103,7 +106,7 @@ export const Mapping: React.FC<PropTypes> = ({
   planningConstraintsProp,
   planningRangeProp,
   channelID,
-  postBack,
+  mapPostBack,
   children
 }) => {
   /* Initialise states */
@@ -131,7 +134,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [filterPlannedRoutes, setFilterPlannedRoutes] = useState<boolean>(true)
   const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
-  const [currentPhase, setCurrentPhase] = useState<string>(phase)
+  const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
@@ -150,6 +153,24 @@ export const Mapping: React.FC<PropTypes> = ({
     const id: string = selectedAsset ? selectedAsset.uniqid : ''
     const store: RouteStore = routeSetCurrent(id, routeStore)
     setRouteStore(store)
+
+    // if we are in turn 0 adjudication phase, we have special processing, since
+    // the player may be doing force laydown
+    if (store.selected && turnNumber === 0 && phase === Phase.Adjudication) {
+      const layPhase = store.selected.laydownPhase
+      if (layPhase && canSubmitOrders) {
+        if (layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
+          const asset: Asset = findAsset(forces, store.selected.uniqid)
+          const pType = findPlatformTypeFor(platforms, asset.platformType)
+          const moves: PlanMobileAsset = {
+            origin: store.selected.currentPosition,
+            travelMode: pType.travelMode,
+            status: 'LAYDOWN'
+          }
+          setPlanningConstraints(moves)
+        }
+      }
+    }
   }, [selectedAsset])
 
   /**
@@ -186,7 +207,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // is it different to current force state?
     const forceStateEmptyOrChanged = !forcesState || !isEqual(forcesState, forces)
     if (forceStateEmptyOrChanged) {
-      // console.log('new forces', forcesChanged, compareUserData(forcesState, forces, []))
+      console.log('mapping - creating', forceStateEmptyOrChanged)
       setForcesState(forces)
     }
   }, [forces])
@@ -200,7 +221,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     if (forcesState && gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-      const store: RouteStore = routeCreateStore(selectedId, forcesState, playerForce,
+      const store: RouteStore = routeCreateStore(selectedId, turnNumber, currentPhase, forcesState, playerForce,
         platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
       setRouteStore(store)
     }
@@ -218,7 +239,7 @@ export const Mapping: React.FC<PropTypes> = ({
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-        const vStore: RouteStore = routeCreateStore(selectedId, forcesState, viewAsForce, platforms,
+        const vStore: RouteStore = routeCreateStore(selectedId, turnNumber, currentPhase, forcesState, viewAsForce, platforms,
           gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
         declutterRouteStore(vStore)
       } else {
@@ -235,7 +256,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   /**
    * on a new phase, we have to allow plans to be submitted. Wrap `phase` into `currentPhase` so that
-   * we can confidently wipe and old planning steps from the last phase, and not risk
+   * we can confidently wipe any old planning steps from the last phase, and not risk
    * pulling them into the new routes object
    */
   useEffect(() => {
@@ -243,6 +264,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
     // wipe the route store, to ensure any routes that were being planned get forgotten
     setRouteStore({ routes: [] })
+
     // now update the phase
     setCurrentPhase(phase)
 
@@ -268,11 +290,28 @@ export const Mapping: React.FC<PropTypes> = ({
       const newGrid: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
       setGridCells(newGrid)
     }
-    console.clear() // TODO: remove this, it's just a shortcut to ensuring each "session" starts with clear console.ß
+    //    console.clear() // TODO: remove this, it's just a shortcut to ensuring each "session" starts with clear console.ß
   }, [tileDiameterMins, latLngBounds])
+
+  const handleForceLaydown = (turn: NewTurnValues): void => {
+    if (routeStore.selected) {
+      if (turn.route.length !== 1) {
+        console.error('Force Laydown - failed to receive single step route')
+      } else {
+        const newStore: RouteStore = routeSetLaydown(routeStore, turn.route[0].name, gridCells)
+        const newStore2: RouteStore = routeSetCurrent('', newStore)
+        setRouteStore(newStore2)
+      }
+    }
+  }
 
   useEffect(() => {
     if (newLeg) {
+      if (currentPhase === ADJUDICATION_PHASE && turnNumber === 0) {
+        handleForceLaydown(newLeg)
+        return
+      }
+
       const inAdjudicate: boolean = currentPhase === ADJUDICATION_PHASE
       const selRoute = routeStore.selected
       if (selRoute) {
@@ -324,7 +363,6 @@ export const Mapping: React.FC<PropTypes> = ({
               selected.adjudicationState = PlanningStates.Planned
             }
           }
-
           setRouteStore(newStore)
         }
       }
@@ -374,12 +412,16 @@ export const Mapping: React.FC<PropTypes> = ({
         // sort out platform type for this asset
         const pType = findPlatformTypeFor(platforms, current.platformType)
 
-        // work out how far asset can travel
-        const constraints: PlanMobileAsset = {
+        // package up planning constraints, sensitive to if there is a speed or not
+        const constraints: PlanMobileAsset = plannedTurn.speedVal ? {
           origin: origin,
           travelMode: pType.travelMode,
           status: plannedTurn.statusVal.name,
           speed: plannedTurn.speedVal
+        } : {
+          origin: origin,
+          travelMode: pType.travelMode,
+          status: plannedTurn.statusVal.name
         }
 
         // special handling, a mobile status may not have a speedVal,
@@ -485,7 +527,7 @@ export const Mapping: React.FC<PropTypes> = ({
     turnPlanned,
     clearFromTurn,
     cancelRoutePlanning,
-    postBack,
+    mapPostBack: mapPostBack,
     hidePlanningForm,
     setHidePlanningForm,
     groupMoveToRoot: groupMoveToRootLocal,

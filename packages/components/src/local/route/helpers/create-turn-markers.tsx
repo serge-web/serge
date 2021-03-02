@@ -97,7 +97,7 @@ const createTurnMarkers = (routes: RouteData,
         }
       } else {
         return (
-          <Marker key={`${type}_turns_${index}_unselected`} position={step.current.pos} icon={L.divIcon({
+          <Marker key={`${type}_turns_${index}_unselected`} interactive={false} position={step.current.pos} icon={L.divIcon({
             html: simpleIcon(color),
             iconSize: [10, 10]
           })} />

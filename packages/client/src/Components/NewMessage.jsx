@@ -17,7 +17,8 @@ const NewMessage = props => {
     setSelectedSchema(JSON.parse(val))
   }
 
-  const allTemplates = templates.map(mapTemplateToDropdown)
+  const allTemplates = (templates.length && templates[0] && templates.map(mapTemplateToDropdown)) || []
+
   const classes = `new-message-creator wrap ${orderableChannel ? 'new-message-orderable' : ''}`
 
   useEffect(() => {

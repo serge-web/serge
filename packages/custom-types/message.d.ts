@@ -3,19 +3,30 @@ import {
   INFO_MESSAGE,
   FEEDBACK_MESSAGE,
   FORCE_LAYDOWN,
-  VISIBILIY_CHANGES,
+  VISIBILITY_CHANGES,
   PERCEPTION_OF_CONTACT,
   SUBMIT_PLANS,
   STATE_OF_WORLD,
-  INFO_MESSAGE_CLIPPED
+  INFO_MESSAGE_CLIPPED,
+  RFI_States
 } from '@serge/config'
-// TODO: change it to @serge/config
 
 import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
 import { StateOfWorld } from '.'
 import Wargame from './wargame'
+
+
+/** additional message detail used for management of RFIs */
+export interface RFIData {
+  // current state
+  status: RFI_States,
+  // id of current owner
+  owner: string,
+  // response to RFI
+  answer: string
+}
 
 export interface MessageDetails {
   /** id of channel message sent from */
@@ -38,9 +49,16 @@ export interface MessageDetails {
     /** user-name, as typed into Feedback/insights form */
     name?: string
   }
+  /** enumerated types for message (see typeof entries in child interfaces) */
   messageType: string,
+  /** time message sent */
   timestamp: string,
-  privateMessage?: string
+  /** private (umpire-only) component of message, potentially to
+   * explain source for answer, or assumptions made
+   */
+  privateMessage?: string,
+  /** data related to RFI (Request for Information) */
+  rfi?: RFIData
 }
 
 export interface MessageStructure {
@@ -105,8 +123,7 @@ export interface MessageInfoTypeClipped {
 
 export interface MessageForceLaydown {
   messageType: typeof FORCE_LAYDOWN,
-  readonly uniqid: string,
-  readonly position: string,
+  readonly updates: Array<{uniqid: string, position: string}>
 }
 export interface MessagePerceptionOfContact {
   messageType: typeof PERCEPTION_OF_CONTACT,
@@ -115,8 +132,8 @@ export interface MessagePerceptionOfContact {
 }
 
 export interface MessageVisibilityChanges {
-  messageType: typeof VISIBILIY_CHANGES,
-  readonly payload: Visibility[]
+  messageType: typeof VISIBILITY_CHANGES,
+  readonly visibility: Visibility[]
 }
 export interface MessageSubmitPlans {
   readonly messageType: typeof SUBMIT_PLANS,
@@ -124,9 +141,7 @@ export interface MessageSubmitPlans {
 }
 export interface MessageStateOfWorld {
   messageType: typeof STATE_OF_WORLD,
-  readonly detail: {
-    data: StateOfWorld
-  }
+  readonly state: StateOfWorld
 }
 
 export type MessageMap = MessageForceLaydown |

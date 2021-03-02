@@ -35,7 +35,8 @@ const forces: Array<ForceData> = [
         isInsightViewer: true,
         isObserver: true,
         name: 'Game Control',
-        password: 'p2311'
+        password: 'p2311',
+        isRFIManager: true
       }
     ],
     umpire: true,
@@ -92,8 +93,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     playerForce="Blue"
     phase={Phase.Planning}
     turnNumber={5}
-  >
-  </Mapping>, { attachTo: div })
+  />, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
 })

@@ -1,5 +1,5 @@
 interface DropItem {
-  uniqid: string | number
+  readonly uniqid: string | number
   [property: string]: any
 }
 

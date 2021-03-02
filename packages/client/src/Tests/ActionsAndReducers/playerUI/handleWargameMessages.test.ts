@@ -34,6 +34,7 @@ const state: PlayerUi = {
   ...initialState,
   "channels": {
     [GameMessagesMock[0].details.channel]: {
+      uniqid: '345345',
       participants: [],
       "name": "Blue Chat",
       "templates": [],

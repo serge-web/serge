@@ -129,7 +129,8 @@ const umpireForce = {
     password: 'p2311',
     isGameControl: true,
     isObserver: true,
-    isInsightViewer: true
+    isInsightViewer: true,
+    isRFIManager: true
   }],
   icon: 'images/default_img/umpireDefault.png',
   color: '#FCFBEE',

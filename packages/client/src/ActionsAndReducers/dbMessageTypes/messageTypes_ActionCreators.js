@@ -70,7 +70,7 @@ export const createMessageType = (schema) => {
         dispatch(setCurrentViewFromURI(MESSAGE_TEMPLATE_ROUTE))
       }
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 }

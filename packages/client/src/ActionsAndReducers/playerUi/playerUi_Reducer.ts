@@ -20,8 +20,8 @@ import copyState from '../../Helpers/copyStateHelper'
 import { PlayerUiActionTypes } from '@serge/custom-types'
 import { PlayerUi } from '@serge/custom-types';
 import {
-  hanldeSetLatestWargameMessage,
-  handleSetAllMEssages,
+  handleSetLatestWargameMessage,
+  handleSetAllMessages,
   openMessage,
   closeMessage,
   markAllAsRead
@@ -65,7 +65,8 @@ export const initialState: PlayerUi = {
   modalOpened: undefined,
   // DODO: check defaults for new ones
   showAccessCodes: false,
-  isInsightViewer: false
+  isInsightViewer: false,
+  isRFIManager: false
 }
 
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes):PlayerUi => {
@@ -116,6 +117,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.isGameControl = action.payload.isGameControl
       newState.isObserver = action.payload.isObserver
       newState.isInsightViewer = action.payload.isInsightViewer
+      newState.isRFIManager = !!action.payload.isRFIManager
       break
 
     case SET_ALL_TEMPLATES_PLAYERUI:
@@ -135,13 +137,13 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_LATEST_WARGAME_MESSAGE:
-      const changedLatestState = hanldeSetLatestWargameMessage(action.payload, newState)
+      const changedLatestState = handleSetLatestWargameMessage(action.payload, newState)
       newState.channels = changedLatestState.channels
       newState.chatChannel = changedLatestState.chatChannel
       break
 
     case SET_ALL_MESSAGES:
-      const changedAllMesagesState = handleSetAllMEssages(action.payload, newState)
+      const changedAllMesagesState = handleSetAllMessages(action.payload, newState)
       newState.channels = changedAllMesagesState.channels
       newState.chatChannel = changedAllMesagesState.chatChannel
       break
@@ -174,7 +176,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       return newState
   }
 
-  console.log(`PlayerUI: ${action.type}`, newState)
+  // console.log(`PlayerUI: ${action.type}`, newState)
   return newState
 }
 

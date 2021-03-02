@@ -1,12 +1,12 @@
 import { ForceData, MessageVisibilityChanges } from '@serge/custom-types'
-import { VISIBILIY_CHANGES } from '@serge/config'
+import { VISIBILITY_CHANGES } from '@serge/config'
 /* global it expect */
 import handleVisibilityChanges from '../../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
-import findAsset from '../../../Components/Mapping/helpers/findAsset'
+import findAsset from '../../../Helpers/findAsset'
 
 const payload: MessageVisibilityChanges = {
-  messageType: VISIBILIY_CHANGES,
-  payload: [
+  messageType: VISIBILITY_CHANGES,
+  visibility: [
     {
       assetId: 'C06',
       by: 'Red',
@@ -16,8 +16,8 @@ const payload: MessageVisibilityChanges = {
 }
 
 const payload2: MessageVisibilityChanges = {
-  messageType: VISIBILIY_CHANGES,
-  payload: [
+  messageType: VISIBILITY_CHANGES,
+  visibility: [
     {
       assetId: 'C05',
       by: 'Blue',

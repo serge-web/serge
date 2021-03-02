@@ -42,6 +42,10 @@ import {
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
+// give database documents a suffix, so they're easier to open
+// in database utility tools
+const dbSuffix = '.sqlite'
+
 // get db name from path
 const getNameFromPath = (dbPath: string): string => {
   if (!dbPath) throw new Error('Wrong dbPath')
@@ -91,6 +95,7 @@ export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): 
       if (doc === undefined) return
       if (doc.messageType === INFO_MESSAGE) {
         dispatch(setCurrentWargame(doc as Wargame))
+        // @ts-ignore
         dispatch(setLatestWargameMessage(doc))
         return
       }
@@ -126,7 +131,7 @@ export const populateWargame = (): Promise<Wargame> => {
       const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
 
       toCreate.forEach((name) => {
-        const db: ApiWargameDb = new PouchDB(databasePath + name)
+        const db: ApiWargameDb = new PouchDB(databasePath + name + dbSuffix)
         db.setMaxListeners(MAX_LISTENERS)
         wargameDbStore.unshift({ name, db })
       })
@@ -178,7 +183,7 @@ export const saveIcon = (file) => {
 export const createWargame = (): Promise<Wargame> => {
 
   const name: string = `wargame-${uniqid.time()}`
-  const db: ApiWargameDb = new PouchDB(databasePath + name)
+  const db: ApiWargameDb = new PouchDB(databasePath + name + dbSuffix)
 
   db.setMaxListeners(15)
   addWargameDbStore({ name, db })
@@ -244,9 +249,10 @@ export const initiateGame = (dbName: string) => {
   const { db } = getWargameDbByName(dbName)
 
   return db.get(dbDefaultSettings._id)
-    .then((res) => {
+    // @ts-ignore
+    .then<Wargame>((res) => {
       // @ts-ignore
-      return  game.db.put({
+      return  db.put({
         _id: dbDefaultSettings._id,
         _rev: res._rev,
           // @ts-ignore
@@ -819,7 +825,7 @@ export const cleanWargame = (dbPath) => {
 
     db.get(dbDefaultSettings._id)
       .then((res) => {
-        newDb = new PouchDB(databasePath + newDbName)
+        newDb = new PouchDB(databasePath + newDbName + dbSuffix)
         return res
       })
       .then((res) => {
@@ -866,7 +872,7 @@ export const duplicateWargame = (dbPath) => {
 
   return new Promise((resolve, reject) => {
     var newDbName = `wargame-${uniqId}`
-    var newDb = new PouchDB(databasePath + newDbName)
+    var newDb = new PouchDB(databasePath + newDbName + dbSuffix)
 
     // @ts-ignore
     return dbInStore.db.replicate.to(newDb)

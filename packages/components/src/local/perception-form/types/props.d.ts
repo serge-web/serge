@@ -1,4 +1,4 @@
-import { PerceptionFormData, Postback } from '@serge/custom-types'
+import { PerceptionFormData, MapPostBack } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -24,5 +24,5 @@ export default interface PropTypes {
   /**
    * The method for posting messages out of the mapping component
    */
-  postBack?: Postback
+  mapPostBack?: MapPostBack
 }

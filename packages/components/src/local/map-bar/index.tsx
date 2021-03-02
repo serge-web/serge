@@ -14,9 +14,10 @@ import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 /* import types */
 import {
   PlanTurnFormValues,
-  Postback, SelectedAsset, RouteStore, Route, SergeHex, SergeGrid, ForceData, PlatformTypeData, Asset
+  SelectedAsset, RouteStore, Route, SergeHex, SergeGrid,
+  ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans, MapPostBack, MessageForceLaydown
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -32,6 +33,7 @@ import PlanTurnForm from '../plan-turn-form'
 import AdjudicationManager from '../adjudicate-turn-form/helpers/adjudication-manager'
 import { MapBarForms } from './helpers/enums'
 import collateVisibilityFormData from './helpers/collate-visibility-form-data'
+import collateForceLaydown from './helpers/collate-force-laydown'
 import VisibilityForm from '../visibility-form'
 
 /* Render component */
@@ -61,7 +63,7 @@ export const MapBar: React.FC = () => {
     selectedAsset,
     setSelectedAsset,
     channelID,
-    postBack,
+    mapPostBack,
     routeStore,
     setRouteStore,
     turnPlanned,
@@ -86,7 +88,7 @@ export const MapBar: React.FC = () => {
     selectedAsset: SelectedAsset
     setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset | undefined>>
     channelID: string | number
-    postBack: Postback
+    mapPostBack: MapPostBack
     routeStore: RouteStore
     setRouteStore: {(store: RouteStore): void}
     turnPlanned: {(turn: PlanTurnFormValues): void}
@@ -121,49 +123,74 @@ export const MapBar: React.FC = () => {
     // Selects the current asset. Note: this was in a selectedAsset useEffect, but it's been put in here,
     // since the routeStore will update on a new selected asset
     if (selectedAsset) {
-      const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel)
-      // note: since the next call is async, we get a render before the new form
-      // has been assigned. This caused troubles. So, while we set the new form here,
-      // we do a "live-recalculation" in the render code
-      setHidePlanningForm(false)
-      setCurrentForm(newForm)
-      setCurrentAssetName(selectedAsset.name)
-    } else {
-      setCurrentAssetName('Pending')
+      // note: we don't show the planning form if this is a non-umpire in force-laydown phase
+      if (playerForce === UMPIRE_FORCE || phase === Phase.Planning || turnNumber !== 0) {
+        const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber)
+        // note: since the next call is async, we get a render before the new form
+        // has been assigned. This caused troubles. So, while we set the new form here,
+        // we do a "live-recalculation" in the render code
+        setHidePlanningForm(false)
+        setCurrentForm(newForm)
+        setCurrentAssetName(selectedAsset.name)
+      } else {
+        setCurrentAssetName('Pending')
+      }
     }
   }, [routeStore])
 
   // sort out the handler for State of World button
   useEffect(() => {
-    let formTitle = ''
-    let submitTitle = ''
-    if (phase === ADJUDICATION_PHASE) {
-      formTitle = playerForce === UMPIRE_FORCE ? 'State of World' : 'My Forces'
-      submitTitle = 'Submit state of world'
-    } else if (phase === PLANNING_PHASE) {
-      formTitle = 'Orders'
-      submitTitle = 'Submit routes'
+    if (routeStore) {
+      let formTitle = ''
+      let submitTitle = ''
+      if (phase === ADJUDICATION_PHASE) {
+        if (turnNumber === 0) {
+          // see if player can submit orders
+          if (canSubmitOrders) {
+            // see if it has any forces that laydown
+            const needsLaydown = routeStore.routes.find((route: Route) => {
+              return route.underControl && (route.laydownPhase === LaydownPhases.Unmoved || route.laydownPhase === LaydownPhases.Moved)
+            })
+            formTitle = needsLaydown ? 'Force Laydown' : 'My Forces'
+            submitTitle = needsLaydown ? 'Submit Force Laydown' : ''
+          } else {
+            formTitle = playerForce === UMPIRE_FORCE ? 'My Forces' : 'Force Laydown'
+            submitTitle = 'Submit Force Laydown'
+          }
+        } else {
+          formTitle = playerForce === UMPIRE_FORCE ? 'State of World' : 'My Forces'
+          submitTitle = 'Submit state of world'
+        }
+      } else if (phase === PLANNING_PHASE) {
+        formTitle = 'Orders'
+        submitTitle = 'Submit routes'
+      }
+      if (submitTitle !== '' && submitTitle !== stateSubmitTitle) {
+        setStateSubmitTitle(submitTitle)
+      }
+      if (formTitle !== '' && formTitle !== stateFormTitle) {
+        setStateFormTitle(formTitle)
+      }
     }
-    if (submitTitle !== '') {
-      setStateSubmitTitle(submitTitle)
-    }
-    if (formTitle !== '') {
-      setStateFormTitle(formTitle)
-    }
-  }, [phase, playerForce])
+  }, [phase, playerForce, turnNumber, routeStore])
 
   const worldStateSubmitHandler = (): void => {
     if (phase === ADJUDICATION_PHASE && playerForce === UMPIRE_FORCE) {
       // Umpire has finshed adjudication phase, and is now ready
       // to submit new State of the World object
-      const orders = collateStateOfWorld(routeStore.routes, turnNumber)
-      postBack(STATE_OF_WORLD, orders, channelID)
+      const orders: MessageStateOfWorld = collateStateOfWorld(routeStore.routes, turnNumber)
+      mapPostBack(STATE_OF_WORLD, orders, channelID)
     } else if (phase === PLANNING_PHASE) {
       // Player has finished planning process, and now
       // wants to submit them
       const myRoutes: Array<Route> = routeStore.routes.filter(route => route.underControl)
-      const orders = collatePlanningOrders(myRoutes)
-      postBack(SUBMIT_PLANS, orders, channelID)
+      const orders: MessageSubmitPlans = collatePlanningOrders(myRoutes)
+      mapPostBack(SUBMIT_PLANS, orders, channelID)
+    } else if (turnNumber === 0) {
+      // collate laydown data
+      const orders: MessageForceLaydown = collateForceLaydown(routeStore.routes)
+      mapPostBack(FORCE_LAYDOWN, orders, channelID)
+      // send laydown
     }
     setPlansSubmitted(true)
   }
@@ -199,7 +226,8 @@ export const MapBar: React.FC = () => {
         controlledBy: force.controlledBy,
         condition: asset.condition,
         visibleTo: visibleToArr,
-        status: asset.status
+        status: asset.status,
+        locationPending: !!asset.locationPending
       }
       // ok done, share the good news
       setSelectedAsset(selected)
@@ -210,7 +238,7 @@ export const MapBar: React.FC = () => {
   const formSelector = (): React.ReactNode => {
     // do a fresh calculation on which form to display, to overcome
     // an async state update issue
-    const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel)
+    const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber)
     const iconData = {
       forceColor: selectedAsset.force,
       platformType: selectedAsset.type
@@ -225,7 +253,7 @@ export const MapBar: React.FC = () => {
           force={selectedAsset.force}
           formData={data}
           channelID={channelID}
-          postBack={postBack} />
+          mapPostBack={mapPostBack} />
       }
       case MapBarForms.Adjudicaton: {
         return <AdjudicateTurnForm
@@ -253,7 +281,7 @@ export const MapBar: React.FC = () => {
           key={selectedAsset.uniqid}
           formHeader={'Set visibility'}
           formData={collateVisibilityFormData(selectedAsset, forces)}
-          postBack={postBack}
+          mapPostBack={mapPostBack}
           channelID={channelID} />
       default:
         return <></>
@@ -292,15 +320,17 @@ export const MapBar: React.FC = () => {
             isUmpire={playerForce === UMPIRE_FORCE}
             canSubmitOrders={canSubmitOrders}
             store={routeStore}
+            platforms={platforms}
             panel={worldStatePanel}
             submitTitle = {stateSubmitTitle}
-            setSelectedAsset={setSelectedAssetById}
+            setSelectedAssetById={setSelectedAssetById}
             submitForm={worldStateSubmitHandler}
             groupMoveToRoot={groupMoveToRoot}
             groupCreateNewGroup={groupCreateNewGroup}
             groupHostPlatform={groupHostPlatform}
             plansSubmitted={plansSubmitted}
             setPlansSubmitted={setPlansSubmitted}
+            turnNumber={turnNumber}
             gridCells={gridCells} ></WorldState>
         </section>
       </div>

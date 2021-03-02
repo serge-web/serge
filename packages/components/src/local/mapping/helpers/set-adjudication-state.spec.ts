@@ -5,15 +5,15 @@ import { forces, platformTypes } from '@serge/mocks'
 import { RouteStore } from '@serge/custom-types'
 
 import setAdjudicationState from './set-adjudication-state'
+import { Phase, PlanningStates, PlanningCommands, UMPIRE_FORCE } from '@serge/config'
 
 import { routeCreateStore, routeSetCurrent } from '@serge/helpers'
-import { PlanningStates, PlanningCommands, UMPIRE_FORCE } from '@serge/config'
 
 it('Handles manually setting route', () => {
   const frigateId = 'a0pra00001'
 
   // create the route store
-  const store: RouteStore = routeCreateStore(undefined, forces, UMPIRE_FORCE, platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, UMPIRE_FORCE, platformTypes, undefined, false, false)
   expect(store).toBeTruthy()
   expect(store.selected).toBeFalsy()
 
@@ -56,7 +56,7 @@ it('Handles accepting player route', () => {
   const frigateId = 'a0pra00001'
 
   // create the route store
-  const store: RouteStore = routeCreateStore(undefined, forces, UMPIRE_FORCE, platformTypes, undefined, false, false)
+  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, UMPIRE_FORCE, platformTypes, undefined, false, false)
   expect(store).toBeTruthy()
   expect(store.selected).toBeFalsy()
 

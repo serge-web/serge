@@ -10,6 +10,7 @@ export const CHAT_CHANNEL_ID = 'game-admin'
 
 export const PLANNING_PHASE = 'planning'
 export const ADJUDICATION_PHASE = 'adjudication'
+export const LAYDOWN_TURN = 'laydown'
 
 export const expiredStorage = new ExpiredStorage()
 export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
@@ -24,7 +25,7 @@ export const LOCATION_PENDING = 'LocationPending' // special state where platfor
 
 // series of constants used for `messageType` when sending map events
 export const FORCE_LAYDOWN = 'ForceLaydown'
-export const VISIBILIY_CHANGES = 'VisibilityChanges'
+export const VISIBILITY_CHANGES = 'VisibilityChanges'
 export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 export const SUBMIT_PLANS = 'SubmitPlans'
 export const STATE_OF_WORLD = 'StateOfWorld'
@@ -36,6 +37,7 @@ export const CUSTOM_MESSAGE = 'CustomMessage'
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'
 
 // series of constants used for `messageType` when sending system messages
+// an INFO_MESSAGE is an update to the wargame document
 export const INFO_MESSAGE = 'InfoMessage'
 export const INFO_MESSAGE_CLIPPED = 'InfoMessageClipped'
 

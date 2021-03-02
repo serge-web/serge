@@ -5,12 +5,14 @@ import { RouteStatus } from ".";
  * not the actual one
  */
 export default interface SelectedAsset {
-    uniqid: string,
+    readonly uniqid: string,
     name: string,
     type: string,
     force: string,
     controlledBy?: Array<string>,
     condition: string,
     visibleTo: Array<string>
-    status?: RouteStatus
+    status?: RouteStatus,
+    /** flag for if player is free to relocate this asset to a suitable cell in turn zero */
+    locationPending?: boolean
   }
