@@ -47,12 +47,10 @@ const Template: Story<TurnPropTypes> = (args) => {
     currentTurn: 1
   })
   const updateState = (): void => {
-    const newState = {
+    setState({
       phase: state.phase === Phase.Planning ? Phase.Adjudication : Phase.Planning,
       currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn
-    }
-    console.log('new state', state, newState)
-    setState(newState)
+    })
   }
   // @ts-ignore: Add custom property for storybook
   const { viewAs, store, ...props } = args

@@ -17,6 +17,7 @@ describe('TurnProgression component:', () => {
           phase="adjudication"
           gameDate="2019-10-01T02:02"
           isGameControl={false}
+          wargameInitiated={false}
         />
       )
       .toJSON()

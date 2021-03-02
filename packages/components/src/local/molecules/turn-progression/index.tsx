@@ -30,6 +30,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     phase,
     gameDate,
     isGameControl,
+    wargameInitiated,
     onNextTurn
   } = props
   const now = Math.floor(new Date().getTime() / 1000)
@@ -146,7 +147,12 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
           <span className={styles['info-helper']}>Elapsed</span>
         </>
         }
+        {
+          !wargameInitiated && 
+          <span title='Initiate wargame via Admin Panel' className={styles['not-initiated']}>WARGAME NOT INITIATED</span>
+        }
       </div>
+
     </div>
   )
 }

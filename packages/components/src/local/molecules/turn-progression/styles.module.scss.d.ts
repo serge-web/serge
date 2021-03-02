@@ -7,6 +7,7 @@ interface CssExports {
   'flex-content-wrapper': string;
   'info-helper': string;
   'info-phase-label': string;
+  'not-initiated': string;
   'time-left': string;
   'turn-info-phase': string;
   'turn-info-remaining': string;
