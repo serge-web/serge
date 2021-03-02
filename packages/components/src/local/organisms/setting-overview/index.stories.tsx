@@ -35,7 +35,7 @@ export const Default: React.FC = (args) => {
     console.log('Initiating wargame')
   }
   return (
-    //@ts-ignore it thinks we're missing wargame initiated, but storybook is providing that
+    // @ts-ignore it thinks we're missing wargame initiated, but storybook is providing that
     <SettingOverview
       overview={overview}
       onChange={handleChange}

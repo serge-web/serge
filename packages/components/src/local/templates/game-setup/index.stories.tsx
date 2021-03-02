@@ -30,7 +30,6 @@ export default {
 }
 
 export const Default: React.FC = () => {
-
   const initialWargame: Wargame = {
     ...WargameExportedMock,
     data: {
@@ -39,7 +38,6 @@ export const Default: React.FC = () => {
     },
     wargameInitiated: false
   }
-
 
   const [wargame, setWargame] = useState<Wargame>(initialWargame)
   const [isWargameChanged, setWargameChanged] = useState<boolean>(false)
@@ -63,7 +61,7 @@ export const Default: React.FC = () => {
   }
 
   const onSave = (updates: any): void => {
-    console.log('GameSetup, updates:',updates)
+    console.log('GameSetup, updates:', updates)
   }
 
   const onOverviewChange = (nextOverview: WargameOverview): void => {
@@ -98,7 +96,7 @@ export const Default: React.FC = () => {
     const updatedWargame = {
       ...wargame,
       data: updatedData,
-      wargameInitiated: true,
+      wargameInitiated: true
     }
     setChangedOverview(updatedOverview)
     setWargame(updatedWargame)

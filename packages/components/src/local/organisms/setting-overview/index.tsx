@@ -3,9 +3,8 @@ import cx from 'classnames'
 import millisecondsToDDHHMMSS from './helpers/millisecondsToDDHHMMSS'
 import millisecondsToHHMMSS from './helpers/millisecondsToHHMMSS'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 /* Import proptypes */
 import PropTypes, { WargameOverview } from './types/props'
@@ -179,11 +178,12 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
           </div>
           <div>
             <>{
-              !wargameInitiated && 
+              !wargameInitiated &&
               <Button onClick={(): void => {
-                initiateWargame && initiateWargame()}}>Initiate Wargame</Button>
+                initiateWargame && initiateWargame()
+              }}>Initiate Wargame</Button>
             }{
-              wargameInitiated && 
+              wargameInitiated &&
               <p><FontAwesomeIcon icon={faCheck} size="2x" />&nbsp;Wargame initiated</p>
             }
             </>
