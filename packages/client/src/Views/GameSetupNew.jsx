@@ -218,7 +218,7 @@ const AdminGameSetup = () => {
 
   const onWargameInitiate = () => {
     // TOOD: handle this call
-    console.log('TODO handling initiate wargame in GameSetupNew.jsx')
+    console.log('TODO handling initiate wargame in GameSetupNew.jsx', 'To be implemented once action reducers moved to TS')
   }
 
   const handleSidebarForcesClick = force => {
