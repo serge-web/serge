@@ -36,10 +36,9 @@ export default {
           Phase.Adjudication
         ]
       }
-    },
+    }
   }
 }
-
 
 const Template: Story<TurnPropTypes> = (args) => {
   const [state, setState] = useState({
@@ -54,7 +53,7 @@ const Template: Story<TurnPropTypes> = (args) => {
   }
   // @ts-ignore: Add custom property for storybook
   const { viewAs, store, ...props } = args
-  return <TurnProgression 
+  return <TurnProgression
     {...props}
     onNextTurn={updateState}
     currentTurn={state.currentTurn}
@@ -63,9 +62,8 @@ const Template: Story<TurnPropTypes> = (args) => {
 
 export const WithPhases = Template
 WithPhases.args = {
-    adjudicationStartTime:"2019-09-30T14:13:22+01:00",
-    turnEndTime:"0",
-    timeWarning:60000,
-    gameDate:"2019-10-01T02:02"
+  adjudicationStartTime: '2019-09-30T14:13:22+01:00',
+  turnEndTime: '0',
+  timeWarning: 60000,
+  gameDate: '2019-10-01T02:02'
 }
-
