@@ -13,10 +13,6 @@ export default interface WargameOverview {
   gameDate: string,
   /** allow easy login, during game development/test */
   showAccessCodes: boolean,
-  /** whether to mark wargame as initialised, saving
-   * each wargame change as new document
-   */
-  wargameInitiated: boolean,
   /** whether all necessary data for this page is complete */
   complete: boolean,
   /** whether this page has unsaved edits */
