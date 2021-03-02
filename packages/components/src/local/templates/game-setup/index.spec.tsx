@@ -75,11 +75,6 @@ const Component = (): React.ReactElement => {
       ...wargame,
       wargameInitiated: true
     })
-    // also set it in the overview tab
-    // setChangedOverview({
-    //   ...wargame.data.overview,
-    //   wargameInitiated: true
-    // })
     setWargameChanged(true)
   }
 
