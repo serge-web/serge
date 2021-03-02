@@ -52,7 +52,7 @@ const Template: Story<TurnPropTypes> = (args) => {
     })
   }
   // @ts-ignore: Add custom property for storybook
-  const { viewAs, store, ...props } = args
+  const { ...props } = args
   return <TurnProgression
     {...props}
     onNextTurn={updateState}
