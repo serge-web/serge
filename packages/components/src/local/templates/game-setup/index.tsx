@@ -38,7 +38,8 @@ export const GameSetup: React.FC<Props> = ({
   selectedChannel,
   onSave,
   messageTemplates,
-  onSaveGameTitle
+  onSaveGameTitle,
+  onWargameInitiate,
 }: Props) => {
   const currentActiveTab = wargame?.currentTab || activeTab
 
@@ -51,6 +52,7 @@ export const GameSetup: React.FC<Props> = ({
               overview={overview}
               onChange={onOverviewChange}
               onSave={onSave}
+              initiateWargame={onWargameInitiate}
             />
           )
         }

@@ -31,11 +31,15 @@ export const Default: React.FC = () => {
   const handleSave = (overview: WargameOverview): void => {
     console.log('Your save logic', overview)
   }
+  const initiateWargame = (): void => {
+    console.log('Initiating wargame')
+  }
   return (
     <SettingOverview
       overview={overview}
       onChange={handleChange}
       onSave={handleSave}
+      initiateWargame={initiateWargame}
     />
   )
 }

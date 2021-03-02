@@ -30,17 +30,22 @@ export default {
 }
 
 export const Default: React.FC = () => {
+
   const initialWargame: Wargame = {
     ...WargameExportedMock,
     data: {
       ...WargameExportedMock.data,
       platformTypes: platformTypeMock
-    }
+    },
+    wargameInitiated: false
   }
+
+
+  console.log('wargame init', initialWargame.wargameInitiated)
 
   const [wargame, setWargame] = useState<Wargame>(initialWargame)
   const [isWargameChanged, setWargameChanged] = useState<boolean>(false)
-  const [, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
+  const [changedOverview, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
   const [changedPlatformType, setChangedPlatformType] = useState<PlatformType | undefined>(wargame.data.platformTypes)
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
   const [changedChannels, setChangedChannels] = useState<Array<ChannelData>>(wargame.data.channels.channels || [])
@@ -60,7 +65,7 @@ export const Default: React.FC = () => {
   }
 
   const onSave = (updates: any): void => {
-    console.log(updates)
+    console.log('GameSetup, updates:',updates)
   }
 
   const onOverviewChange = (nextOverview: WargameOverview): void => {
@@ -83,6 +88,24 @@ export const Default: React.FC = () => {
     console.log(update)
   }
 
+  const onWargameInitiated = (): void => {
+    const updatedOverview = {
+      ...changedOverview,
+      wargameInitiated: true
+    }
+    const updatedData = {
+      ...wargame.data,
+      overview: updatedOverview
+    }
+    const updatedWargame = {
+      ...wargame,
+      data: updatedData,
+      wargameInitiated: true,
+    }
+    setChangedOverview(updatedOverview)
+    setWargame(updatedWargame)
+  }
+
   return (
     <GameSetup
       activeTab={adminTabs[activeTab]}
@@ -101,6 +124,7 @@ export const Default: React.FC = () => {
       onSave={onSave}
       messageTemplates={MessageTemplatesMock}
       onSaveGameTitle={onSaveGameTitle}
+      onWargameInitiate={onWargameInitiated}
     />
   )
 }

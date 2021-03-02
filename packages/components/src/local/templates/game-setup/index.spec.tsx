@@ -70,6 +70,19 @@ const Component = (): React.ReactElement => {
     setWargameChanged(true)
   }
 
+  const onWargameInitiated = (): void => {
+    setWargame({
+      ...wargame,
+      wargameInitiated: true
+    })
+    // also set it in the overview tab
+    // setChangedOverview({
+    //   ...wargame.data.overview,
+    //   wargameInitiated: true
+    // })
+    setWargameChanged(true)
+  }
+
   return (
     <GameSetup
       activeTab={adminTabs[activeTab]}
@@ -87,6 +100,7 @@ const Component = (): React.ReactElement => {
       onChannelsChange={onChannelsChange}
       onSave={onSave}
       messageTemplates={MessageTemplatesMock}
+      onWargameInitiate={onWargameInitiated}
     />
   )
 }

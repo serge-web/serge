@@ -4,6 +4,7 @@ export default interface PropTypes {
   overview: WargameOverview
   onChange: (nextOverview: WargameOverview) => void
   onSave: (overview: WargameOverview) => void
+  initiateWargame: () => void
 }
 
 export { WargameOverview } from '@serge/custom-types'

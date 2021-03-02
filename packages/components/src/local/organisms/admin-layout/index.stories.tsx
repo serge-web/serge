@@ -96,10 +96,16 @@ export const Default: React.FC = () => {
     setWargameChanged(true)
   }
 
+  const handleInitiateWargame = (): void => {
+    // TODO: handler for this event
+    console.log('wargame initiated')
+    setWargameChanged(true)
+  }
+
   return (
     <AdminLayout wargame={wargame} activeTab={adminTabs[activeTab]} tabs={adminTabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>
-        {activeTab === 0 && <SettingOverview overview={changedOverview} onChange={onOverviewChange} onSave={handleSave} />}
+        {activeTab === 0 && <SettingOverview overview={changedOverview} onChange={onOverviewChange} onSave={handleSave} initiateWargame={handleInitiateWargame} />}
         {activeTab === 1 && <SettingPlatformTypes platformType={changedPlatformType} onChange={onPlatformChange} onSave={handleSave} />}
         {activeTab === 2 && <SettingForces forces={wargame.data.forces.forces} onChange={onForcesChange} onSave={handleSave} />}
         {activeTab === 3 && <SettingChannels
