@@ -22,7 +22,7 @@ export default {
   }
 }
 
-export const Default: React.FC = () => {
+export const Default: React.FC = (args) => {
   const { overview } = WargameExportedMock.data
 
   const handleChange = (nextOverview: WargameOverview): void => {
@@ -35,11 +35,13 @@ export const Default: React.FC = () => {
     console.log('Initiating wargame')
   }
   return (
+    //@ts-ignore it thinks we're missing wargame initiated, but storybook is providing that
     <SettingOverview
       overview={overview}
       onChange={handleChange}
       onSave={handleSave}
       initiateWargame={initiateWargame}
+      {...args}
     />
   )
 }
@@ -51,5 +53,8 @@ Default.story = {
       // This story requires addons but other stories in this component do not
       showPanel: true
     }
+  },
+  args: {
+    wargameInitiated: true
   }
 }

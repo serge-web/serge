@@ -22,7 +22,7 @@ import TextInput from '../../atoms/text-input'
 import FormGroup from '../../atoms/form-group-shadow'
 
 /* Render component */
-export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, initiateWargame }) => {
+export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, initiateWargame, wargameInitiated }) => {
   const [overview, setOverview] = useState<WargameOverview>(initialOverview)
   const prevOverview = usePrevious(overview)
   const updateGameTime = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -179,12 +179,12 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
           </div>
           <div>
             <>{
-              !initialOverview.wargameInitiated && 
+              !wargameInitiated && 
               <Button onClick={(): void => {
                 initiateWargame && initiateWargame()}}>Initiate Wargame</Button>
             }{
-              initialOverview.wargameInitiated && 
-              <p>Wargame initiated<FontAwesomeIcon icon={faCheck} size="2x" /></p>
+              wargameInitiated && 
+              <p><FontAwesomeIcon icon={faCheck} size="2x" />&nbsp;Wargame initiated</p>
             }
             </>
           </div>

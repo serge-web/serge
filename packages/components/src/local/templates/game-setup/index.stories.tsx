@@ -41,8 +41,6 @@ export const Default: React.FC = () => {
   }
 
 
-  console.log('wargame init', initialWargame.wargameInitiated)
-
   const [wargame, setWargame] = useState<Wargame>(initialWargame)
   const [isWargameChanged, setWargameChanged] = useState<boolean>(false)
   const [changedOverview, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)

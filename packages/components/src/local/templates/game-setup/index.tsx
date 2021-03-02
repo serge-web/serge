@@ -53,6 +53,7 @@ export const GameSetup: React.FC<Props> = ({
               onChange={onOverviewChange}
               onSave={onSave}
               initiateWargame={onWargameInitiate}
+              wargameInitiated={wargame.wargameInitiated}
             />
           )
         }

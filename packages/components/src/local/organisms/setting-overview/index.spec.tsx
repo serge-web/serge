@@ -26,6 +26,7 @@ describe('SettingOverview component:', () => {
       onChange={handleChange}
       onSave={handleSave}
       initiateWargame={initiateWargame}
+      wargameInitiated={false}
     />, {
       createNodeMock: () => document.createElement('textarea')
     }).toJSON()
