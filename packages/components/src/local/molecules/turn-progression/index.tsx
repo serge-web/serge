@@ -149,7 +149,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
         }
         {
           !wargameInitiated && 
-          <span title='Initiate wargame via Admin Panel' className={styles['not-initiated']}>WARGAME NOT INITIATED</span>
+          <span title='Initiate wargame via Admin Panel' className={styles['not-initiated']}>WARGAME<br/>NOT INITIATED</span>
         }
       </div>
 
