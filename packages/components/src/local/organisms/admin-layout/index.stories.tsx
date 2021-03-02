@@ -36,7 +36,7 @@ const wargameInit: Wargame = {
   }
 }
 
-export const Default: React.FC = () => {
+export const Default: React.FC = (args) => {
   const [wargame, setWargame] = useState<Wargame>(wargameInit)
   const [wargameChanged, setWargameChanged] = useState<boolean>(false)
   const [changedOverview, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
@@ -105,7 +105,9 @@ export const Default: React.FC = () => {
   return (
     <AdminLayout wargame={wargame} activeTab={adminTabs[activeTab]} tabs={adminTabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>
-        {activeTab === 0 && <SettingOverview overview={changedOverview} onChange={onOverviewChange} onSave={handleSave} initiateWargame={handleInitiateWargame} />}
+        
+        { // @ts-ignore we're using knobs to provide wargameInitiated, prevent compiler complaining about it
+          activeTab === 0 && <SettingOverview overview={changedOverview} onChange={onOverviewChange} onSave={handleSave} initiateWargame={handleInitiateWargame} {...args}/>}
         {activeTab === 1 && <SettingPlatformTypes platformType={changedPlatformType} onChange={onPlatformChange} onSave={handleSave} />}
         {activeTab === 2 && <SettingForces forces={wargame.data.forces.forces} onChange={onForcesChange} onSave={handleSave} />}
         {activeTab === 3 && <SettingChannels
@@ -127,5 +129,8 @@ Default.story = {
       // This story requires addons but other stories in this component do not
       showPanel: true
     }
+  },
+  args: {
+    wargameInitiated: false
   }
 }
