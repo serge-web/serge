@@ -1276,6 +1276,7 @@ export default {
       gameTurnTime: 5400000,
       name: 'Overview - settings',
       realtimeTurnTime: 600000,
+      wargameInitiated: false,
       showAccessCodes: true,
       timeWarning: 60000
     },

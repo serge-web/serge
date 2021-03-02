@@ -216,6 +216,11 @@ const AdminGameSetup = () => {
     dispatch(duplicateChannel(currentWargame, uniqid))
   }
 
+  const onWargameInitiate = () => {
+    // TOOD: handle this call
+    console.log('TODO handling initiate wargame in GameSetupNew.jsx', 'To be implemented once action reducers moved to TS')
+  }
+
   const handleSidebarForcesClick = force => {
     if (forces.dirty) {
       dispatch(modalAction.open('unsavedForce', force))
@@ -286,6 +291,7 @@ const AdminGameSetup = () => {
       onSave={onSave}
       messageTemplates={messageTypes.messages}
       onSaveGameTitle={handleSaveWargameTitle}
+      onWargameInitiate={onWargameInitiate}
     />
   )
 }

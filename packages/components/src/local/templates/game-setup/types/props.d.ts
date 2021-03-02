@@ -87,4 +87,8 @@ export default interface Props extends AdminLayoutProps {
    * Handle game title save event
    */
   onSaveGameTitle?: (update: string) => void
+  /**
+   * Handle wargame being initiated
+   */
+  onWargameInitiate: () => void
 }
