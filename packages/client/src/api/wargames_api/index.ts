@@ -6,10 +6,10 @@ import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import calcComplete from '../../Helpers/calcComplete'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
+import { clipInfoMEssage } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
-  dbDefaultSettings,
   MSG_STORE,
   MSG_TYPE_STORE,
   PLANNING_PHASE,
@@ -17,7 +17,8 @@ import {
   MAX_LISTENERS,
   SERGE_INFO,
   ERROR_THROTTLE
-} from '../../consts'
+} from '@serge/config'
+import { dbDefaultSettings } from '../../consts'
 
 import { INFO_MESSAGE, FEEDBACK_MESSAGE, CUSTOM_MESSAGE } from '@serge/config'
 
@@ -95,8 +96,7 @@ export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): 
       if (doc === undefined) return
       if (doc.messageType === INFO_MESSAGE) {
         dispatch(setCurrentWargame(doc as Wargame))
-        // @ts-ignore
-        dispatch(setLatestWargameMessage(doc))
+        dispatch(setLatestWargameMessage(clipInfoMEssage(doc)))
         return
       }
 
@@ -218,7 +218,6 @@ export const checkIfWargameStarted = (dbName: string): Promise<boolean> => {
 export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
   return getAllMessages(dbName).then((messages) => {
     const latestWargame: MessageInfoType | undefined = messages.find(({ messageType }) => messageType === INFO_MESSAGE) as MessageInfoType
-    // @ts-ignore: need to update INFO_MESSAGE to be able to use it as Wargame object
     if (latestWargame !== undefined) return latestWargame as Wargame
     return getWargameLocalFromName(dbName)
   }).catch(err => err)
@@ -245,63 +244,36 @@ export const exportWargame = (dbPath: string): Promise<Wargame> => {
   })
 }
 
-export const initiateGame = (dbName: string) => {
+export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
   const { db } = getWargameDbByName(dbName)
 
   return db.get(dbDefaultSettings._id)
-    // @ts-ignore
-    .then<Wargame>((res) => {
-      // @ts-ignore
-      return  db.put({
-        _id: dbDefaultSettings._id,
-        _rev: res._rev,
-          // @ts-ignore
-        name: res.name,
-          // @ts-ignore
-        wargameTitle: res.wargameTitle,
-          // @ts-ignore
-        data: res.data,
-        gameTurn: 0,
+    .then((res) => {
+      const wargame = res as Wargame
+      const initiatedWargame: Wargame = {
+        ...wargame,
         phase: ADJUDICATION_PHASE,
         adjudicationStartTime: moment().format(),
-          // @ts-ignore
-        turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
+        turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
         wargameInitiated: true
-      })
-    })
-    .then(() => {
-      // @ts-ignore
-      return game.db.get(dbDefaultSettings._id)
-    })
-    .then((res) => {
-      // @ts-ignore
-      return db.put({
-        // @ts-ignore
+      }
+      // return  db.put(initiatedWargame)
+      db.put(initiatedWargame)
+      return initiatedWargame
+    }).then((wargame) => {
+      const messageInfoType: MessageInfoType = {
+        ...wargame,
         _id: new Date().toISOString(),
-          // @ts-ignore
         messageType: INFO_MESSAGE,
-          // @ts-ignore
-        name: res.name,
-          // @ts-ignore
-        wargameTitle: res.wargameTitle,
-          // @ts-ignore
-        data: res.data,
-          // @ts-ignore
-        gameTurn: res.gameTurn,
-          // @ts-ignore
-        phase: res.phase,
-          // @ts-ignore
-        adjudicationStartTime: res.adjudicationStartTime,
-          // @ts-ignore
-        turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
-          // @ts-ignore
-        wargameInitiated: res.wargameInitiated
-      })
-    })
-    .then(() => {
-      return db.get(dbDefaultSettings._id)
-    })
-    .catch((err) => {
+        wargameTitle: wargame.wargameTitle,
+        data: wargame.data,
+        turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
+        gameTurn: 0,
+        infoType: true // TODO: remove infoType
+      }
+      db.put(messageInfoType)
+      return messageInfoType
+    }).catch((err) => {
       console.log(err)
       return err
     })
