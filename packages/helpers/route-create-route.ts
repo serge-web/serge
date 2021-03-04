@@ -155,12 +155,16 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
   return currentStatus
 }
 
-const laydownPhaseFor = (turn: number, phase: Phase, route?: Route, locationPending?: boolean): LaydownPhases => {
-  if(turn === 0 && phase === Phase.Adjudication) {
-    if(route) {
-      return route.laydownPhase || LaydownPhases.NotInLaydown
+const laydownPhaseFor = (turn: number, phase: Phase, wargameInitated: boolean, route?: Route, locationPending?: boolean): LaydownPhases => {
+  if(wargameInitated) {
+    if(turn === 0 && phase === Phase.Adjudication) {
+      if(route) {
+        return route.laydownPhase || LaydownPhases.NotInLaydown
+      } else {
+        return locationPending ? LaydownPhases.Unmoved : LaydownPhases.Immobile
+      }
     } else {
-      return locationPending ? LaydownPhases.Unmoved : LaydownPhases.Immobile
+      return LaydownPhases.NotInLaydown
     }
   } else {
     return LaydownPhases.NotInLaydown
@@ -185,13 +189,16 @@ const laydownPhaseFor = (turn: number, phase: Phase, route?: Route, locationPend
  * @param {boolean} filterHistorySteps whether to filter history steps to just the first one
  * @param {boolean} filterPlannedSteps whether to filter planned steps to just the first one
  * @param {boolean} isSelected whether is the route for the selected Asset
+ * @param {Route} an existing route for this asset
+ * @param {boolean} wargameInitiated whether this wargame has been initiated
  * @returns {Route} Routefor this asset
  */
 const routeCreateRoute = (asset: Asset, turn: number, phase: Phase, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
   perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
-  filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean, existingRoute: Route | undefined ): Route => {
+  filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean, existingRoute: Route | undefined,
+  wargameInitiated: boolean ): Route => {
 
 
   const currentStatus: RouteStatus =  produceStatusFor(status, platformTypes, asset)
@@ -219,7 +226,7 @@ const routeCreateRoute = (asset: Asset, turn: number, phase: Phase, color: strin
 
   const condition: string | undefined = playerForce === UMPIRE_FORCE ? asset.condition : undefined
 
-  const laydownPhase = laydownPhaseFor(turn, phase, existingRoute, asset.locationPending) 
+  const laydownPhase = laydownPhaseFor(turn, phase, wargameInitiated, existingRoute, asset.locationPending) 
 
   return {
     uniqid: asset.uniqid,

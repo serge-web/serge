@@ -1,3 +1,4 @@
+
 import L from 'leaflet'
 import { RouteStore, Route, SergeGrid, SergeHex, ForceData, Asset, PlatformTypeData } from '@serge/custom-types'
 import routeCreateRoute from './route-create-route'
@@ -31,18 +32,21 @@ export const forcesControlledBy = (forces: ForceData[], playerForce: string): Ar
  * @param {SergeGrid<SergeHex<{}>> | undefined} grid the grid object, used to find cell centres, used in declutter
  * @param {boolean} filterPlannedSteps whether to filter the planned steps to only one
  * @param {boolean} filterHistorySteps whether to filter the history steps to only one
+ * @param {boolean} wargameInitiated whether this wargame has been initated yet
  * @param {RouteStore} oldStore existing RouteStore, so we can persist player modifications
  * @returns {RouteStore} RouteStore representing current data
  */
 const routeCreateStore = (selectedId: string | undefined, turn: number, phase: Phase, forces: ForceData[], playerForce: string,
     platformTypes: PlatformTypeData[], grid: SergeGrid<SergeHex<{}>> | undefined, filterHistorySteps: boolean, 
-    filterPlannedSteps: boolean, oldStore?: RouteStore): RouteStore => {
+    filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore): RouteStore => {
   const store: RouteStore = { routes: []}
 
   const controls: Array<string> = forcesControlledBy(forces, playerForce)
   const forceColorList: Array<{force: string, color: string}> = forceColors(forces)
 
   const undefinedColor = '#999' // TODO: this color should not be hard-coded
+
+  const localWargameInitiated: boolean = (wargameInitiated === undefined) ? true : wargameInitiated
 
   forces.forEach((force: ForceData) => {
     // see if we control it
@@ -85,7 +89,7 @@ const routeCreateStore = (selectedId: string | undefined, turn: number, phase: P
               const newRoute: Route = routeCreateRoute(asset, turn, phase, force.color,
                 controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
                 platformTypes, playerForce, asset.status, assetPosition, assetLocation, 
-                grid, true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute)
+                grid, true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
 
               if(existingRoute) {
                 // ok, copy the adjudication state
@@ -114,7 +118,7 @@ const routeCreateStore = (selectedId: string | undefined, turn: number, phase: P
                       // create route for this asset
                       const newRoute: Route = routeCreateRoute(child, turn, phase, perceivedColor, false, force.uniqid, perceptions.force,
                         perceptions.name, perceptions.type, platformTypes, playerForce, asset.status, assetPosition, assetLocation, 
-                        grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute)
+                        grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                       store.routes.push(newRoute)
                     }
                   }
@@ -129,7 +133,7 @@ const routeCreateStore = (selectedId: string | undefined, turn: number, phase: P
                     // create route for this asset
                     const newRoute: Route = routeCreateRoute(asset, turn, phase, perceivedColor, false, force.uniqid, perceptions.force,
                       perceptions.name, perceptions.type, platformTypes, playerForce, asset.status, assetPosition, assetLocation, 
-                      grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute)
+                      grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                     store.routes.push(newRoute)
                   }
                 }
