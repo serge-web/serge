@@ -75,6 +75,7 @@ const factory = (state: PlayerUi): Factory => {
         canSubmitOrders={canSubmitOrders}
         channelID = {channelid}
         mapPostBack={mapPostBack}
+        wargameInitiated={state.wargameInitiated}
     >
       <Assets />
       <HexGrid/>
