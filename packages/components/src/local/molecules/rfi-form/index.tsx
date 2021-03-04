@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import TextInput from '../../atoms/text-input'
 import Button from '../../atoms/button'
@@ -7,10 +7,12 @@ import Button from '../../atoms/button'
 /* Import Types */
 import Props, { State, Action } from './types/props'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   formContainer: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    background: theme.palette.primary.main,
+    padding: '10px'
   },
   formColumn: {
     display: 'flex',

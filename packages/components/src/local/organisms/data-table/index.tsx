@@ -6,10 +6,11 @@ import TableBody from '@material-ui/core/TableBody'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
+import Collapse from '@material-ui/core/Collapse'
 import TableHeadCell from '../../atoms/table-head-cell'
 
 /* Import Types */
-import Props from './types/props'
+import Props, { RowDataType, RowWithCollapsibleType } from './types/props'
 
 /* Render component */
 const useStyles = makeStyles((theme: Theme) => ({
@@ -42,12 +43,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     '&:nth-child(2n + 2)': {
       backgroundColor: theme.palette.grey['200']
     }
+  },
+  tableRowCollapsible: {
+    '& .MuiTableCell-body': {
+      padding: 0,
+      borderBottom: 'none'
+    }
+  },
+  tableRowCollapsibleTrigger: {
+    cursor: 'pointer'
   }
 }))
 export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
   const classes = useStyles()
   const [filters, setFilters] = useState<Array<string>>([])
   const [filtersGroup, setFiltersGroup] = useState({})
+  const [expandedRow, setExpandedRow] = useState(-1)
   const onFilter = (id: number, filter: string): void => {
     const filterGroup = filtersGroup[id] ? filtersGroup[id] : []
     if (filters.includes(filter)) {
@@ -64,6 +75,9 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
         ...{ [id]: [...filterGroup, filter] }
       })
     }
+  }
+  const onToggleRow = (rowIndex: number): void => {
+    setExpandedRow(rowIndex === expandedRow ? -1 : rowIndex)
   }
   const rows = useMemo(() => {
     let localData = [...data]
@@ -93,21 +107,46 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
         </TableHead>
         <TableBody className={classes.tableBody}>
           {
-            rows.map(row => (
-              <TableRow className={classes.tableRow} key={Math.random()}>
-                {
-                  row.map((cell) => (
-                    <TableCell key={Math.random()}>
-                      {
-                        typeof cell !== 'string' && cell?.component !== undefined
-                          ? cell.component
-                          : cell
-                      }
-                    </TableCell>
-                  ))
-                }
-              </TableRow>
-            ))
+            rows.map((row, rowIndex) => {
+              const { collapsible, cells } = row as unknown as RowWithCollapsibleType
+              const tableCells = cells || row
+              return (
+                <>
+                  <TableRow
+                    className={`${classes.tableRow} ${collapsible ? classes.tableRowCollapsibleTrigger : ''}`}
+                    onClick={(): void => collapsible && onToggleRow(rowIndex)}
+                    key={Math.random()}
+                  >
+                    {
+                      tableCells.map((cell: RowDataType) => {
+                        return (
+                          <TableCell key={Math.random()}>
+                            {
+                              typeof cell !== 'string' && cell?.component !== undefined
+                                ? cell.component
+                                : cell
+                            }
+                          </TableCell>
+                        )
+                      })
+                    }
+                  </TableRow>
+                  {
+                    collapsible
+                      ? (
+                        <TableRow className={classes.tableRowCollapsible}>
+                          <TableCell colSpan={cells.length}>
+                            <Collapse in={rowIndex === expandedRow}>
+                              { collapsible }
+                            </Collapse>
+                          </TableCell>
+                        </TableRow>
+                      )
+                      : null
+                  }
+                </>
+              )
+            })
           }
         </TableBody>
       </Table>
