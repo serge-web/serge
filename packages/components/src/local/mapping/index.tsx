@@ -80,7 +80,8 @@ const defaultProps: PropTypes = {
   zoomSnap: 0.25,
   attributionControl: false,
   zoomAnimation: false,
-  planningConstraintsProp: undefined
+  planningConstraintsProp: undefined,
+  wargameInitiated: false
 }
 
 /* Render component */
@@ -94,6 +95,7 @@ export const Mapping: React.FC<PropTypes> = ({
   platforms,
   phase,
   turnNumber,
+  wargameInitiated,
   tileLayer,
   minZoom,
   maxZoom,
@@ -222,7 +224,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (forcesState && gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
       const store: RouteStore = routeCreateStore(selectedId, turnNumber, currentPhase, forcesState, playerForce,
-        platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
+        platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
       setRouteStore(store)
     }
   }, [forcesState, playerForce, currentPhase, gridCells, filterHistoryRoutes, filterPlannedRoutes, selectedAsset])
@@ -240,7 +242,7 @@ export const Mapping: React.FC<PropTypes> = ({
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
         const vStore: RouteStore = routeCreateStore(selectedId, turnNumber, currentPhase, forcesState, viewAsForce, platforms,
-          gridCells, filterHistoryRoutes, filterPlannedRoutes, routeStore)
+          gridCells, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
         declutterRouteStore(vStore)
       } else {
         // just use normal route store
