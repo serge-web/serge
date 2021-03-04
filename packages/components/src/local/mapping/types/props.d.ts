@@ -44,6 +44,10 @@ export default interface PropTypes {
    */
   turnNumber: number
   /**
+   * whether this wargame has been initiated
+   */
+  wargameInitiated: boolean
+  /**
    *  The TileLayer object for the leaflet map
    */
   tileLayer: {

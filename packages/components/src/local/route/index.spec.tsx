@@ -41,6 +41,7 @@ it('Mapping renders correctly with Route', () => {
     tileDiameterMins={5}
     platforms = {platformTypes}
     forces={forces}
+    wargameInitiated={true}
     playerForce={'Blue'}
     canSubmitOrders = {true}
     phase={Phase.Planning}

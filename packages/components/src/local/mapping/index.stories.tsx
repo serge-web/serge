@@ -86,6 +86,12 @@ export default {
         step: 1
       }
     },
+    wargameInitiated: {
+      name: 'Wargame has been initiated',
+      control: {
+        type: 'boolean'
+      }
+    },
     showAllowableCells: {
       name: 'Show allowable cells',
       control: {
