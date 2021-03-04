@@ -30,6 +30,8 @@ export enum RFI_States {
 export enum LaydownPhases {
   // we're not in laydown phase
   NotInLaydown = ' ',
+  // hasn't been given location yet
+  NoLocation = 'No location assigned',
   // can't be moved
   Immobile = 'Immobile',
   // can be moved, but hasn'd
