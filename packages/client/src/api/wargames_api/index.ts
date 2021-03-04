@@ -32,13 +32,15 @@ import {
   PlayerUiDispatch,
   Wargame,
   Message,
-  MessageInfoType
+  MessageInfoType,
+  WargameOverview
 } from '@serge/custom-types'
 
 import {
   ApiWargameDbObject,
   ApiWargameDb,
-  ListenNewMessageType
+  ListenNewMessageType,
+  WargameRevision
 } from './types.d'
 
 const wargameDbStore: ApiWargameDbObject[] = []
@@ -131,7 +133,7 @@ export const populateWargame = (): Promise<Wargame> => {
       const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
 
       toCreate.forEach((name) => {
-        const db: ApiWargameDb = new PouchDB(databasePath + name + dbSuffix)
+        const db: ApiWargameDb = new PouchDB(databasePath + name)
         db.setMaxListeners(MAX_LISTENERS)
         wargameDbStore.unshift({ name, db })
       })
@@ -183,7 +185,7 @@ export const saveIcon = (file) => {
 export const createWargame = (): Promise<Wargame> => {
 
   const name: string = `wargame-${uniqid.time()}`
-  const db: ApiWargameDb = new PouchDB(databasePath + name + dbSuffix)
+  const db: ApiWargameDb = new PouchDB(databasePath + name)
 
   db.setMaxListeners(15)
   addWargameDbStore({ name, db })
@@ -279,107 +281,53 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
     })
 }
 
-  // @ts-ignore
-export const updateWargameTitle = (dbName, title) => {
+export const updateWargameTitle = (dbName: string, title: string): Promise<Wargame> => {
   return getAllWargames()
-    .then(function (games) {
-      // @ts-ignore
-      if (games.some((game) => game.title === title && getNameFromPath(game.name) !== dbName)) return 'Name already in use.'
+    .then((games) => {
+      if (games.some((game) => game && game.title === title && getNameFromPath(game.name) !== dbName)) {
+        throw new Error('Name already in use.')
+      }
+      const {db} = getWargameDbByName(name)
 
-        // @ts-ignore
-      const db = wargameDbStore.find((db) => db.name === dbName).db
-
-      return new Promise((resolve, reject) => {
-        return getLatestWargameRevision(dbName)
-          .then(function (doc) {
-            // @ts-ignore
-            if (doc.wargameInitiated) {
-              // @ts-ignore
-              doc.wargameTitle = title
-              resolve(createLatestWargameRevision(dbName, doc))
-            } else {
-              // @ts-ignore
-              return db.put({
-                _id: dbDefaultSettings._id,
-                // @ts-ignore
-                _rev: doc._rev,
-                // @ts-ignore
-                name: doc.name,
-                wargameTitle: title,
-                  // @ts-ignore
-                data: doc.data,
-                  // @ts-ignore
-                gameTurn: doc.gameTurn,
-                  // @ts-ignore
-                phase: doc.phase,
-                  // @ts-ignore
-                timeWarning: doc.timeWarning,
-                  // @ts-ignore
-                adjudicationStartTime: doc.adjudicationStartTime,
-                  // @ts-ignore
-                turnEndTime: moment().add(doc.data.overview.realtimeTurnTime, 'ms').format(),
-                  // @ts-ignore
-                wargameInitiated: doc.wargameInitiated
-              })
-                // @ts-ignore
-                .then(() => {
-                  resolve(db.get(dbDefaultSettings._id))
-                })
-                  // @ts-ignore
-                .catch((err) => {
-                  reject(err)
-                })
-            }
+      return getLatestWargameRevision(dbName).then((doc) => {
+        if (doc.wargameInitiated) {
+          doc.wargameTitle = title
+          return createLatestWargameRevision(dbName, doc)
+        } else {
+          return db.put({
+            ...doc,
+            _id: dbDefaultSettings._id,
+            wargameTitle: title,
+            turnEndTime: moment().add(doc.data.overview.realtimeTurnTime, 'ms').format(),
+          }).then(() => {
+            return db.get<Wargame>(dbDefaultSettings._id)
           })
+        }
       })
     })
 }
 
-  // @ts-ignore
-export const saveSettings = (dbName, data) => {
-  // @ts-ignore
-  const db = wargameDbStore.find((wargame) => dbName === wargame.name).db
+export const saveSettings = (dbName: string, data: WargameOverview): Promise<Wargame> => {
+  const {db} = getWargameDbByName(dbName)
 
-  return getLatestWargameRevision(dbName)
-    .then(function (res) {
-      const newDoc = deepCopy(res)
-      newDoc.data.overview = data
-      newDoc.data.overview.complete = calcComplete(data)
+  return getLatestWargameRevision(dbName).then((res) => {
+    const wargame: Wargame = deepCopy(res)
+    wargame.data.overview = data
+    wargame.data.overview.complete = calcComplete(data)
 
-      return new Promise((resolve, reject) => {
-        if (newDoc.wargameInitiated) {
-          resolve(createLatestWargameRevision(dbName, newDoc))
-        } else {
-        // @ts-ignore
-          return db.put({
-          // @ts-ignore
-            _id: dbDefaultSettings._id,
-            // @ts-ignore
-            _rev: newDoc._rev,
-            // @ts-ignore
-            name: newDoc.name,
-            // @ts-ignore
-            wargameTitle: newDoc.wargameTitle,
-            // @ts-ignore
-            data: newDoc.data,
-            // @ts-ignore
-            gameTurn: newDoc.gameTurn,
-            // @ts-ignore
-            phase: newDoc.phase,
-            // @ts-ignore
-            adjudicationStartTime: newDoc.adjudicationStartTime,
-            // @ts-ignore
-            turnEndTime: moment().add(newDoc.data.overview.realtimeTurnTime, 'ms').format(),
-            // @ts-ignore
-            wargameInitiated: newDoc.wargameInitiated
-          })
-          // @ts-ignore
-            .then(() => {
-              resolve(db.get(dbDefaultSettings._id))
-            })
-        }
+    if (wargame.wargameInitiated) {
+      return createLatestWargameRevision(dbName, wargame)
+    } else {
+      return db.put({
+        ...wargame,
+        _id: dbDefaultSettings._id,
+        turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
+        wargameInitiated: wargame.wargameInitiated
+      }).then<Wargame>(() => {
+        return db.get(dbDefaultSettings._id)
       })
-    })
+    }
+  })
 }
 
 // @ts-ignore
@@ -797,7 +745,7 @@ export const cleanWargame = (dbPath) => {
 
     db.get(dbDefaultSettings._id)
       .then((res) => {
-        newDb = new PouchDB(databasePath + newDbName + dbSuffix)
+        newDb = new PouchDB(databasePath + newDbName)
         return res
       })
       .then((res) => {
@@ -844,7 +792,7 @@ export const duplicateWargame = (dbPath) => {
 
   return new Promise((resolve, reject) => {
     var newDbName = `wargame-${uniqId}`
-    var newDb = new PouchDB(databasePath + newDbName + dbSuffix)
+    var newDb = new PouchDB(databasePath + newDbName)
 
     // @ts-ignore
     return dbInStore.db.replicate.to(newDb)
@@ -912,27 +860,20 @@ export const getWargame = (gamePath) => {
 }
 
 // @ts-ignore
-export const createLatestWargameRevision = (dbName, wargameData) => {
-  const copiedData = deepCopy(wargameData)
-  delete copiedData._id
-  delete copiedData._rev
+export const createLatestWargameRevision = (dbName: string, wargame: Wargame): Promise<Wargame> => {
+  const copiedData = deepCopy(wargame)
 
-  const game = wargameDbStore.find((wargame) => dbName === wargame.name)
+  const { db } = getWargameDbByName(dbName)
 
-  return new Promise((resolve, reject) => {
-  // @ts-ignore
-    game.db.put({
-      _id: new Date().toISOString(),
-      messageType: INFO_MESSAGE,
-      ...copiedData
-    })
-      .then((res) => {
-        resolve(getLatestWargameRevision(dbName))
-      })
-      .catch((err) => {
-        reject(err)
-        throw new Error(err)
-      })
+  db.put({
+    ...copiedData,
+    _rev: undefined,
+    _id: new Date().toISOString(),
+    messageType: INFO_MESSAGE,
+  }).then(() => {
+    return getLatestWargameRevision(dbName)
+  }).catch((err) => {
+    throw new Error(err)
   })
 }
 
@@ -1096,21 +1037,20 @@ export const getAllMessages = (dbName: string): Promise<Message[]> => {
     })
 }
 
-export const getAllWargames = function () {
-  const promises = wargameDbStore.map((game) => {
+export const getAllWargames = (): Promise<WargameRevision[]> => {
+  const promises = wargameDbStore.map<Promise<WargameRevision>>((game) => {
     return getLatestWargameRevision(game.name)
-      .then(function (res) {
+      .then(({ wargameTitle, wargameInitiated }) => {
         return {
           name: game.db.name,
-            // @ts-ignore
-          title: res.wargameTitle,
-            // @ts-ignore
-          initiated: res.wargameInitiated
+          title: wargameTitle,
+          initiated: wargameInitiated
         }
       })
       .catch((err) => {
         console.log(err)
+        return err
       })
   })
-  return Promise.all(promises)
+  return Promise.all<WargameRevision>(promises)
 }
