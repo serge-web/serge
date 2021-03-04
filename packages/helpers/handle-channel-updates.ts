@@ -90,6 +90,23 @@ export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId
   expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}${id}`) === 'read'
 )
 
+export const clipInfoMEssage = (message: MessageInfoType, hasBeenRead: boolean = false): MessageInfoTypeClipped => {
+  if (message.messageType !== INFO_MESSAGE) {
+    throw new TypeError(`Message should be INFO_MESSAGE: "${INFO_MESSAGE}" type`)
+  }
+  return {
+    messageType: INFO_MESSAGE_CLIPPED,
+    details: {
+      channel: `infoTypeChannelMarker${uniqId.time()}`
+    },
+    infoType: true,
+    gameTurn: message.gameTurn,
+    isOpen: false,
+    hasBeenRead,
+    _id: message._id
+  }
+}
+
 export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType | MessageCustom>, currentWargame: string,
   selectedForce: ForceData | undefined, selectedRole: string, allChannels: ChannelData[],
   allForces: ForceData[], chatChannel: PlayerUiChatChannel, isObserver: boolean,
@@ -97,25 +114,15 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
     const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
 
     const messagesFiltered: Array<MessageChannel> = payload.map((message) => {
-      if (message.messageType === INFO_MESSAGE) {
-        const res: MessageInfoTypeClipped = {
-          messageType: INFO_MESSAGE_CLIPPED,
-          details: {
-            channel: `infoTypeChannelMarker${uniqId.time()}`
-          },
-          infoType: true,
-          gameTurn: message.gameTurn,
-          isOpen: false,
-          hasBeenRead: typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole),
-          _id: message._id
-        }
+      const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
 
-        return res
+      if (message.messageType === INFO_MESSAGE) {
+        return clipInfoMEssage(message, hasBeenRead)
       }
 
       return {
         ...message,
-        hasBeenRead: isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole),
+        hasBeenRead: hasBeenRead,
         isOpen: false
       }
     })
