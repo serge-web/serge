@@ -333,55 +333,6 @@ export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<W
   })
 }
 
-export const saveForce = (dbName: string, newName: string, newData: ForceData, oldName: string) => {
-  const {db} = getWargameDbByName(dbName)
-
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-    const updatedData = newDoc.data
-    const forces = updatedData.forces.forces
-    const forceNew = forces.every((force) => force.name !== oldName)
-
-    if (forceNew) {
-      forces.push({ ...newData, name: newName })
-    } else {
-      const forceIndex = forces.findIndex((force) => force.name === oldName)
-      // forces.forceName = newName;
-      forces.splice(forceIndex, 1, { ...newData, name: newName })
-    }
-
-    updatedData.forces.forces = forces
-
-    // remove default before calc
-
-    const forceCheck: ForceData[] = deepCopy(forces)
-    const umpireIndex = forceCheck.findIndex((force) => force.umpire)
-    forceCheck.splice(umpireIndex, 1)
-
-    updatedData.forces.complete = calcComplete(forceCheck)
-
-    return updateWargame({
-      ...newDoc,
-      data: updatedData
-    }, dbName)
-    // if (newDoc.wargameInitiated) {
-    //   return createLatestWargameRevision(dbName, newDoc) // TODO: <<< check this part  `updatedData` saves only if wargame not Initiated
-    // } else {
-    //   return db.put({
-    //     ...newDoc,
-    //     _id: dbDefaultSettings._id,
-    //     data: updatedData,  // TODO: <<< check this part  `updatedData` saves only if wargame not Initiated
-    //     turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
-    //     // @ts-ignore
-    //     wargameInitiated: res.wargameInitiated
-    //   }).then<Wargame>(() => {
-    //     return db.get(dbDefaultSettings._id)
-    //   })
-    // }
-  })
-}
-
-// @ts-ignore
 export const saveChannel = (dbName: string, newName: string, newData: ChannelData, oldName: string): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
@@ -439,76 +390,65 @@ export const deleteChannel = (dbName: string, channelUniqid: string): Promise<Wa
   })
 }
 
-// @ts-ignore
-export const deleteForce = (dbName, forceName) => {
-// @ts-ignore
-  const db = wargameDbStore.find((wargame) => dbName === wargame.name).db
-  //
-  return getLatestWargameRevision(dbName)
-    .then(function (res) {
-      const newDoc = deepCopy(res)
+export const saveForce = (dbName: string, newName: string, newData: ForceData, oldName: string) => {
+  const {db} = getWargameDbByName(dbName)
 
-      const updatedData = newDoc.data
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const forces = updatedData.forces.forces
+    const forceNew = forces.every((force) => force.name !== oldName)
 
-      const forces = updatedData.forces.forces
+    if (forceNew) {
+      forces.push({ ...newData, name: newName })
+    } else {
+      const forceIndex = forces.findIndex((force) => force.name === oldName)
+      // forces.forceName = newName;
+      forces.splice(forceIndex, 1, { ...newData, name: newName })
+    }
 
-      // @ts-ignore
-      const forceIndex = forces.findIndex((force) => force.name === forceName)
+    updatedData.forces.forces = forces
 
-      forces.splice(forceIndex, 1)
+    // remove default before calc
 
-      updatedData.forces.forces = forces
-      updatedData.channels.complete = calcComplete(forces)
+    const forceCheck: ForceData[] = deepCopy(forces)
+    const umpireIndex = forceCheck.findIndex((force) => force.umpire)
+    forceCheck.splice(umpireIndex, 1)
 
-      return new Promise((resolve, reject) => {
-      // @ts-ignore
-        if (res.wargameInitiated) {
-          const data = res
-          // @ts-ignore
-          data.data = updatedData
-          createLatestWargameRevision(dbName, data)
-            .then((res) => {
-              resolve(res)
-            })
-        } else {
-        // @ts-ignore
-          db.put({
-          // @ts-ignore
-            _id: dbDefaultSettings._id,
-            // @ts-ignore
-            _rev: res._rev,
-            // @ts-ignore
-            name: res.name,
-            // @ts-ignore
-            wargameTitle: res.wargameTitle,
-            // @ts-ignore
-            data: updatedData,
-            // @ts-ignore
-            gameTurn: res.gameTurn,
-            // @ts-ignore
-            phase: res.phase,
-            // @ts-ignore
-            adjudicationStartTime: res.adjudicationStartTime,
-            // @ts-ignore
-            turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
-            // @ts-ignore
-            wargameInitiated: res.wargameInitiated
-          })
-          // @ts-ignore
-            .then(() => {
-              resolve(db.get(dbDefaultSettings._id))
-            })
-            // @ts-ignore
-            .catch((err) => {
-              reject(err)
-            })
-        }
-      })
-    })
+    updatedData.forces.complete = calcComplete(forceCheck)
+
+    return updateWargame({...res, data: updatedData}, dbName)
+    // if (newDoc.wargameInitiated) {
+    //   return createLatestWargameRevision(dbName, newDoc) // TODO: <<< check this part  `updatedData` saves only if wargame not Initiated
+    // } else {
+    //   return db.put({
+    //     ...newDoc,
+    //     _id: dbDefaultSettings._id,
+    //     data: updatedData,  // TODO: <<< check this part  `updatedData` saves only if wargame not Initiated
+    //     turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
+    //     // @ts-ignore
+    //     wargameInitiated: res.wargameInitiated
+    //   }).then<Wargame>(() => {
+    //     return db.get(dbDefaultSettings._id)
+    //   })
+    // }
+  })
 }
 
-// @ts-ignore
-export const cleanWargame = (dbPath) => {
+export const deleteForce = (dbName: string, forceName: string): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const forces = updatedData.forces.forces
+    const forceIndex = forces.findIndex((force) => force.name === forceName)
+    forces.splice(forceIndex, 1)
+    updatedData.forces.forces = forces
+    updatedData.channels.complete = calcComplete(forces)
+    return updateWargame({...res, data: updatedData}, dbName)
+  })
+}
+
+export const cleanWargame = (dbPath: string) => {
   const dbName = getNameFromPath(dbPath)
 
   // @ts-ignore
