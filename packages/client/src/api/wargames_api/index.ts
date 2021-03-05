@@ -52,6 +52,11 @@ const wargameDbStore: ApiWargameDbObject[] = []
 // in database utility tools
 const dbSuffix = '.sqlite'
 
+const rejectDefault = (err: any): any => {
+  console.log(err)
+  return err
+}
+
 // get db name from path
 const getNameFromPath = (dbPath: string): string => {
   if (!dbPath) throw new Error('Wrong dbPath')
@@ -286,9 +291,9 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
 
 
 
-const updateWargame = (nextWargame: Wargame, dbName: string): Promise<Wargame> => {
+const updateWargame = (nextWargame: Wargame, dbName: string, revisionCheck: boolean = true): Promise<Wargame> => {
   const {db} = getWargameDbByName(name)
-  if (nextWargame.wargameInitiated) {
+  if (nextWargame.wargameInitiated && revisionCheck) {
     return createLatestWargameRevision(dbName, nextWargame)
   }
   return db.put({
@@ -448,115 +453,48 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>
   })
 }
 
-export const cleanWargame = (dbPath: string) => {
+export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
   const dbName = getNameFromPath(dbPath)
-
-  // @ts-ignore
-  const db = wargameDbStore.find((db) => db.name === dbName).db
+  const {db} = getWargameDbByName(dbName)
   const uniqId = uniqid.time()
 
-  return new Promise((resolve, reject) => {
-  // @ts-ignore
-    var newDb
-    var newDbName = `wargame-${uniqId}`
-
-    db.get(dbDefaultSettings._id)
-      .then((res) => {
-        newDb = new PouchDB(databasePath + newDbName)
-        return res
-      })
-      .then((res) => {
-      // @ts-ignore
-        return newDb.put({
-          _id: dbDefaultSettings._id,
-          name: newDbName,
-          // @ts-ignore
-          wargameTitle: `${res.wargameTitle}-${uniqId}`,
-          // @ts-ignore
-          data: res.data,
-          // @ts-ignore
-          gameTurn: res.gameTurn,
-          // @ts-ignore
-          phase: res.phase,
-          // @ts-ignore
-          adjudicationStartTime: res.adjudicationStartTime,
-          // @ts-ignore
-          turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
-          wargameInitiated: false
-        })
-      })
-      .then(() => {
-      // @ts-ignore
-        wargameDbStore.unshift({ name: newDbName, db: newDb })
-        return getAllWargames()
-      })
-      .then((res) => {
-        resolve(res)
-      })
-      .catch((err) => {
-        reject(err)
-        console.log(err)
-      })
+  const newDbName = `wargame-${uniqId}`
+  return db.get(dbDefaultSettings._id).then((res) => {
+    const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName)
+    const wargame = res as Wargame
+    return updateWargame({
+      ...wargame,
+      name: newDbName,
+      wargameTitle: `${wargame.wargameTitle}-${uniqId}`,
+      wargameInitiated: false
+    }, newDbName).then(() => {
+      addWargameDbStore({ name: newDbName, db: newDb })
+      return getAllWargames()
+    }).catch((err) => {
+      console.log(err)
+      return err
+    })
   })
 }
 
-// @ts-ignore
-export const duplicateWargame = (dbPath) => {
+export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => {
   const dbName = getNameFromPath(dbPath)
-
-  const dbInStore = wargameDbStore.find((db) => db.name === dbName)
+  const {db} = getWargameDbByName(dbName)
   const uniqId = uniqid.time()
+  const newDbName = `wargame-${uniqId}`
+  const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName)
 
-  return new Promise((resolve, reject) => {
-    var newDbName = `wargame-${uniqId}`
-    var newDb = new PouchDB(databasePath + newDbName)
-
-    // @ts-ignore
-    return dbInStore.db.replicate.to(newDb)
-      .then(() => {
-      // @ts-ignore
-        return wargameDbStore.unshift({ name: newDbName, db: newDb })
-      })
-      .then(() => {
-        return getLatestWargameRevision(dbName)
-      })
-      .then((res) => {
-        return newDb.put({
-          _id: dbDefaultSettings._id,
-          name: newDbName,
-          // @ts-ignore
-          wargameTitle: `${res.wargameTitle}-${uniqId}`,
-          // @ts-ignore
-          data: res.data,
-          // @ts-ignore
-          gameTurn: res.gameTurn,
-          // @ts-ignore
-          phase: res.phase,
-          // @ts-ignore
-          adjudicationStartTime: res.adjudicationStartTime,
-          // @ts-ignore
-          turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
-          // @ts-ignore
-          wargameInitiated: res.wargameInitiated
-        })
-      })
-      .then(() => {
-        return newDb.get(dbDefaultSettings._id)
-      })
-      .then((res) => {
-        return createLatestWargameRevision(newDbName, res)
-      })
-      .then(() => {
-        return getAllWargames()
-      })
-      .then((res) => {
-        resolve(res)
-      })
-      .catch((err) => {
-        reject(err)
-        console.log(err)
-      })
+  return db.replicate.to(newDb).then(() => {
+    addWargameDbStore({ name: newDbName, db: newDb })
+    return getLatestWargameRevision(dbName)
+  }).then((res) => {
+    const wargame = res as Wargame
+    return updateWargame({ ...res, _id: dbDefaultSettings._id, name: newDbName }, newDbName, false)
+  }).then((res) => {
+    return createLatestWargameRevision(newDbName, res)
   })
+  .then(() => getAllWargames())
+  .catch((err) => rejectDefault(err))
 }
 
 export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
