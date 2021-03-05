@@ -1,9 +1,9 @@
 import L from 'leaflet'
-import { Route, RouteTurn, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception} from '@serge/custom-types'
+import { Route, RouteTurn, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception } from '@serge/custom-types'
 import { cloneDeep, kebabCase } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import { PlanningStates, UMPIRE_FORCE, LaydownPhases, LaydownTypes, FORCE_LAYDOWN, UMPIRE_LAYDOWN, Phase, } from '@serge/config'
+import { PlanningStates, UMPIRE_FORCE, LaydownPhases, LaydownTypes, Phase } from '@serge/config'
 import hexNamed from './hex-named'
 
 const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
@@ -29,13 +29,13 @@ const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
       : { state: step.status.state }
 
     // sort the status
-    if(steps.length) {
+    if (steps.length) {
       res.push({
         turn: step.turn,
         route: steps,
         locations: locations,
         status: status
-      })  
+      })
     } else {
       res.push({
         turn: step.turn,
@@ -50,36 +50,36 @@ const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
  *
  */
 const createStepArray = (turns: RouteTurn[] | undefined, grid: SergeGrid<SergeHex<{}>> | undefined, planned: boolean,
-    filterSteps: boolean): Array<RouteTurn> => {
+  filterSteps: boolean): Array<RouteTurn> => {
   let res: Array<RouteTurn> = []
   if (turns) {
-    if(filterSteps) {
-      if(turns.length > 0) {
-        if(planned) {
+    if (filterSteps) {
+      if (turns.length > 0) {
+        if (planned) {
           // just the first one
           res = processStep(grid, turns[0], res)
         } else {
           // just the last one
-          res = processStep(grid, turns[turns.length-1], res)
-        }         
+          res = processStep(grid, turns[turns.length - 1], res)
+        }
       }
     } else {
       turns.forEach((step: RouteTurn) => {
-        res = processStep(grid, step, res)  
+        res = processStep(grid, step, res)
       })
     }
   }
   return res
 }
 
-const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[], underControl: boolean, assetForce: string, playerForce: string):Array<RouteChild> => {
+const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[], underControl: boolean, assetForce: string, playerForce: string): Array<RouteChild> => {
   const res: Array<RouteChild> = []
-  if(list) {
+  if (list) {
     list.forEach((item: Asset) => {
-      let hosting: Array<RouteChild> = item.hosting && item.hosting.length ? 
+      let hosting: Array<RouteChild> = item.hosting && item.hosting.length ?
         childrenFor(item.hosting, platformTypes, underControl, assetForce, playerForce) :
         []
-      if(underControl || playerForce === UMPIRE_FORCE) {
+      if (underControl || playerForce === UMPIRE_FORCE) {
 
         // use real values
         const newChild: RouteChild = {
@@ -92,12 +92,12 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
           asset: item,
           hosting: hosting
         }
-        res.push(newChild)    
+        res.push(newChild)
       } else {
         // sort out if this player can see this assset
         const perceptions: PerceivedTypes | null = findPerceivedAsTypes(playerForce, item.name, item.contactId,
           assetForce, item.platformType, item.perceptions)
-        if(perceptions) {
+        if (perceptions) {
           const newChild: RouteChild = {
             uniqid: item.uniqid,
             name: perceptions.name,
@@ -106,9 +106,9 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
             destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
             condition: item.condition,
             asset: item,
-            hosting:hosting
+            hosting: hosting
           }
-          res.push(newChild)    
+          res.push(newChild)
         }
       }
     })
@@ -128,26 +128,26 @@ const determineVisibleTo = (asset: Asset, playerForce: string): Array<string> =>
 
 const produceStatusFor = (status: RouteStatus | undefined, platformTypes: PlatformTypeData[], asset: Asset): RouteStatus => {
 
-    // handle when missing current status
-    let currentState: string = `undefined-tyoe`
-    let currentSpeed: number = 0
-    if(status && status.state) {
-      currentState = status.state
-      currentSpeed = status.speedKts !== undefined ? status.speedKts : 0
-    } else {
-      const platform: PlatformTypeData | undefined = platformTypes.find((platform: PlatformTypeData) => kebabCase(platform.name) === kebabCase(asset.platformType))
-      if(platform) {
-        const states = platform.states
-        if(states && states.length) {
-          currentState = states[0].name
-        }
-        const speeds = platform.speedKts
-        if(speeds && speeds.length) {
-          currentSpeed = speeds[0]
-        }
+  // handle when missing current status
+  let currentState: string = `undefined-tyoe`
+  let currentSpeed: number = 0
+  if (status && status.state) {
+    currentState = status.state
+    currentSpeed = status.speedKts !== undefined ? status.speedKts : 0
+  } else {
+    const platform: PlatformTypeData | undefined = platformTypes.find((platform: PlatformTypeData) => kebabCase(platform.name) === kebabCase(asset.platformType))
+    if (platform) {
+      const states = platform.states
+      if (states && states.length) {
+        currentState = states[0].name
+      }
+      const speeds = platform.speedKts
+      if (speeds && speeds.length) {
+        currentSpeed = speeds[0]
       }
     }
-  const currentStatus: RouteStatus =  currentSpeed
+  }
+  const currentStatus: RouteStatus = currentSpeed
     ? { state: currentState, speedKts: currentSpeed }
     : { state: currentState }
 
@@ -155,37 +155,38 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
 }
 
 const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, locationPending?: LaydownTypes, position?: string, route?: Route): LaydownPhases => {
-  if(locationPending) {
-    if(wargameInitated) {
-      if(phase === Phase.Adjudication) {
+  if (locationPending) {
+    if (wargameInitated) {
+      if (phase === Phase.Adjudication) {
         // ok, adjudication phase
-        switch(locationPending) {
+        switch (locationPending) {
           case LaydownTypes.UmpireLaydown:
             // if we're initiated then the player/umpire can't move it
             console.log('warning - encountered umpire lockdown after wargame initiated')
             return LaydownPhases.Immobile
           case LaydownTypes.ForceLaydown: {
-              if(position) {
-                // on map, but still can be moved
-                return LaydownPhases.Moved
-              } else {
-                // not on map yet
-                return LaydownPhases.NoLocation
-              }  
+            const routePos = route || route.currentPosition
+            if (position || routePos) {
+              // on map, but still can be moved
+              return LaydownPhases.Moved
+            } else {
+              // not on map yet
+              return LaydownPhases.NoLocation
             }
+          }
         }
-      }  else {
+      } else {
         // in planning phase
         return LaydownPhases.Immobile
       }
     } else {
       // wargame not initiated - we're in umpire laydown phase
-      switch(locationPending) {
+      switch (locationPending) {
         case LaydownTypes.ForceLaydown:
           // if we're not initiated then the umpire can't move it
           return LaydownPhases.Immobile
         case LaydownTypes.UmpireLaydown: {
-          if(position) {
+          if (position) {
             // on map, but still can be moved
             return LaydownPhases.Moved
           } else {
@@ -193,13 +194,14 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, locationPending
             return LaydownPhases.NoLocation
           }
         }
-      }  
+      }
     }
   }
 }
 
 /** create a route object for this asset
  * @param {Asset} asset single asset
+ * @param {Phase} phase current game phase
  * @param {string} color color for rendering this asset
  * @param {boolean} underControl whether the player is controlling this asset
  * @param {string} actualForce the true force for the asset
@@ -220,40 +222,40 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, locationPending
  * @param {boolean} wargameInitiated whether this wargame has been initiated
  * @returns {Route} Routefor this asset
  */
-const routeCreateRoute = (asset: Asset, turn: number, phase: Phase, color: string,
-  underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string, 
+const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
+  underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string,
   perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
-  currentLocation: L.LatLng,  grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
-  filterHistorySteps: boolean, filterPlannedSteps: boolean , isSelected: boolean, existingRoute: Route | undefined,
-  wargameInitiated: boolean ): Route => {
+  currentLocation: L.LatLng, grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
+  filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean, existingRoute: Route | undefined,
+  wargameInitiated: boolean): Route => {
 
 
-  const currentStatus: RouteStatus =  produceStatusFor(status, platformTypes, asset)
+  const currentStatus: RouteStatus = produceStatusFor(status, platformTypes, asset)
 
   // store the existing planned route
   const plannedTurns: RouteTurn[] | undefined = existingRoute && existingRoute.planned
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
-  const futureStepsTrimmed: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, filterPlannedSteps) : []
-  const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns,  grid, true, false) : []
+  const futureStepsTrimmed: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, grid, true, filterPlannedSteps) : []
+  const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, grid, true, false) : []
   const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
-  const historySteps: Array<RouteTurn> = createStepArray(asset.history, grid, 
-      false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
+  const historySteps: Array<RouteTurn> = createStepArray(asset.history, grid,
+    false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
 
   const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForce, playerForce /*, forceColors, undefinedColor */)
   const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForce, playerForce /*, forceColors, undefinedColor */)
 
-  const adjudicationState: PlanningStates | undefined  = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
-  
+  const adjudicationState: PlanningStates | undefined = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
+
   const visibleTo: Array<string> = determineVisibleTo(asset, playerForce)
 
   const condition: string | undefined = playerForce === UMPIRE_FORCE ? asset.condition : undefined
 
-  const laydownPhase = laydownPhaseFor(phase, wargameInitiated, asset.locationPending, asset.position, existingRoute) 
+  const laydownPhase = laydownPhaseFor(phase, wargameInitiated, asset.locationPending, asset.position, existingRoute)
 
   return {
     uniqid: asset.uniqid,
