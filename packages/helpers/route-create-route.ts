@@ -3,7 +3,7 @@ import { Route, RouteTurn, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, 
 import { cloneDeep, kebabCase } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import { PlanningStates, UMPIRE_FORCE, LaydownPhases } from '@serge/config'
+import { PlanningStates, UMPIRE_FORCE, LaydownPhases, FORCE_LAYDOWN, UMPIRE_LAYDOWN } from '@serge/config'
 import hexNamed from './hex-named'
 import { Phase } from '@serge/config'
 
@@ -155,7 +155,7 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
   return currentStatus
 }
 
-const laydownPhaseFor = (turn: number, phase: Phase, wargameInitated: boolean, route?: Route, locationPending?: boolean): LaydownPhases => {
+const laydownPhaseFor = (turn: number, phase: Phase, wargameInitated: boolean, position?: string, route?: Route, locationPending?: boolean): LaydownPhases => {
   if(wargameInitated) {
     if(turn === 0 && phase === Phase.Adjudication) {
       if(route) {
@@ -167,7 +167,21 @@ const laydownPhaseFor = (turn: number, phase: Phase, wargameInitated: boolean, r
       return LaydownPhases.NotInLaydown
     }
   } else {
-    return LaydownPhases.NotInLaydown
+    if(position) {
+      if(position === UMPIRE_LAYDOWN) {
+        // ok - umpire has to position this asset
+        return LaydownPhases.NoLocation
+      } else if(position === FORCE_LAYDOWN) {
+        // no, leave it for the player to arrange
+        return LaydownPhases.Immobile
+      } else {
+        // has position - it has already been moved
+        return LaydownPhases.Moved
+      }
+    } else {
+      // no value. Assume it needs to be given location
+      return LaydownPhases.NoLocation
+    }
   }
 }
 
@@ -226,7 +240,7 @@ const routeCreateRoute = (asset: Asset, turn: number, phase: Phase, color: strin
 
   const condition: string | undefined = playerForce === UMPIRE_FORCE ? asset.condition : undefined
 
-  const laydownPhase = laydownPhaseFor(turn, phase, wargameInitiated, existingRoute, asset.locationPending) 
+  const laydownPhase = laydownPhaseFor(turn, phase, wargameInitiated, asset.position, existingRoute, asset.locationPending) 
 
   return {
     uniqid: asset.uniqid,

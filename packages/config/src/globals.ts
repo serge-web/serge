@@ -23,6 +23,8 @@ export const LOCATION_PENDING = 'LocationPending' // special state where platfor
 
 //TODO: Some of the below would be better to either come from a database or be replaced with ENUMS
 
+export const UMPIRE_LAYDOWN = 'UmpireLaydown'
+
 // series of constants used for `messageType` when sending map events
 export const FORCE_LAYDOWN = 'ForceLaydown'
 export const VISIBILITY_CHANGES = 'VisibilityChanges'

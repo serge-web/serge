@@ -69,7 +69,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "task-group",
-                position: "UMPIRE_LAYDOWN",
+                position: "UmpireLaydown",
                 uniqid: "a0pra5431"
             },
             {
@@ -99,7 +99,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "frigate",
-                position: "UMPIRE_LAYDOWN",
+                position: "UmpireLaydown",
                 uniqid: "a0pra00001"
             },
             {
@@ -109,7 +109,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fixed-wing-aircraft",
-                position: "UMPIRE_LAYDOWN",
+                position: "UmpireLaydown",
                 uniqid: "a0pra00002"
             },
             {
@@ -119,7 +119,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "merchant-vessel",
-                position: "UMPIRE_LAYDOWN",
+                position: "UmpireLaydown",
                 uniqid: "a0pra00003"
             }
         ],
@@ -159,7 +159,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
-                position: "PLAYER_LAYDOWN",
+                position: "ForceLaydown",
                 uniqid: "a0pra000100"
             },
             {
@@ -181,7 +181,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
-                position: "PLAYER_LAYDOWN",
+                position: "ForceLaydown",
                 uniqid: "a0pra000101"
             },
             {
@@ -192,7 +192,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
-                position: "PLAYER_LAYDOWN",
+                position: "ForceLaydown",
                 uniqid: "a0pra000102"
             },
             {
@@ -203,7 +203,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "coastal-radar-site",
-                position: "PLAYER_LAYDOWN",
+                position: "ForceLaydown",
                 uniqid: "a0pra000103"
             }
         ],
@@ -242,7 +242,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "merchant-vessel",
-                position: "UMPIRE_LAYDOWN",
+                position: "UmpireLaydown",
                 uniqid: "a0pra000200"
             },
             {
@@ -252,7 +252,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "merchant-vessel",
-                position: "UMPIRE_LAYDOWN",
+                position: "UmpireLaydown",
                 uniqid: "a0pra000201"
             },
             {
@@ -262,7 +262,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
-                position: "UMPIRE_LAYDOWN",
+                position: "UmpireLaydown",
                 uniqid: "a0pra000202"
             },
             {
@@ -272,7 +272,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
-                position: "UMPIRE_LAYDOWN",
+                position: "UmpireLaydown",
                 uniqid: "a0pra000203"
             },
             {
@@ -282,7 +282,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
-                position: "UMPIRE_LAYDOWN",
+                position: "UmpireLaydown",
                 uniqid: "a0pra000204"
             }
         ],
