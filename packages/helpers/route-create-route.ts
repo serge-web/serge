@@ -3,9 +3,8 @@ import { Route, RouteTurn, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, 
 import { cloneDeep, kebabCase } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import { PlanningStates, UMPIRE_FORCE, LaydownPhases, FORCE_LAYDOWN, UMPIRE_LAYDOWN } from '@serge/config'
+import { PlanningStates, UMPIRE_FORCE, LaydownPhases, LaydownTypes, FORCE_LAYDOWN, UMPIRE_LAYDOWN, Phase, } from '@serge/config'
 import hexNamed from './hex-named'
-import { Phase } from '@serge/config'
 
 const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
   step: RouteTurn, res: Array<RouteTurn>): Array<RouteTurn> => {
@@ -155,32 +154,46 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
   return currentStatus
 }
 
-const laydownPhaseFor = (turn: number, phase: Phase, wargameInitated: boolean, position?: string, route?: Route, locationPending?: boolean): LaydownPhases => {
-  if(wargameInitated) {
-    if(turn === 0 && phase === Phase.Adjudication) {
-      if(route) {
-        return route.laydownPhase || LaydownPhases.NotInLaydown
-      } else {
-        return locationPending ? LaydownPhases.Unmoved : LaydownPhases.Immobile
-      }
-    } else {
-      return LaydownPhases.NotInLaydown
-    }
-  } else {
-    if(position) {
-      if(position === UMPIRE_LAYDOWN) {
-        // ok - umpire has to position this asset
-        return LaydownPhases.NoLocation
-      } else if(position === FORCE_LAYDOWN) {
-        // no, leave it for the player to arrange
+const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, locationPending?: LaydownTypes, position?: string, route?: Route): LaydownPhases => {
+  if(locationPending) {
+    if(wargameInitated) {
+      if(phase === Phase.Adjudication) {
+        // ok, adjudication phase
+        switch(locationPending) {
+          case LaydownTypes.UmpireLaydown:
+            // if we're initiated then the player/umpire can't move it
+            console.log('warning - encountered umpire lockdown after wargame initiated')
+            return LaydownPhases.Immobile
+          case LaydownTypes.ForceLaydown: {
+              if(position) {
+                // on map, but still can be moved
+                return LaydownPhases.Moved
+              } else {
+                // not on map yet
+                return LaydownPhases.NoLocation
+              }  
+            }
+        }
+      }  else {
+        // in planning phase
         return LaydownPhases.Immobile
-      } else {
-        // has position - it has already been moved
-        return LaydownPhases.Moved
       }
     } else {
-      // no value. Assume it needs to be given location
-      return LaydownPhases.NoLocation
+      // wargame not initiated - we're in umpire laydown phase
+      switch(locationPending) {
+        case LaydownTypes.ForceLaydown:
+          // if we're not initiated then the umpire can't move it
+          return LaydownPhases.Immobile
+        case LaydownTypes.UmpireLaydown: {
+          if(position) {
+            // on map, but still can be moved
+            return LaydownPhases.Moved
+          } else {
+            // not on map yet
+            return LaydownPhases.NoLocation
+          }
+        }
+      }  
     }
   }
 }
@@ -240,7 +253,7 @@ const routeCreateRoute = (asset: Asset, turn: number, phase: Phase, color: strin
 
   const condition: string | undefined = playerForce === UMPIRE_FORCE ? asset.condition : undefined
 
-  const laydownPhase = laydownPhaseFor(turn, phase, wargameInitiated, asset.position, existingRoute, asset.locationPending) 
+  const laydownPhase = laydownPhaseFor(phase, wargameInitiated, asset.locationPending, asset.position, existingRoute) 
 
   return {
     uniqid: asset.uniqid,

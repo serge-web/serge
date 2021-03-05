@@ -1,5 +1,5 @@
 import { Perception, RouteStatus, RouteTurn } from '@serge/custom-types'
-
+import { LaydownTypes } from '@serge/config'
 export interface Asset {
   /**
    * the name of this asset
@@ -36,7 +36,7 @@ export interface Asset {
   /** if the player is allowed to change the position of this asset
    * during turn-zero of a wargame
    */
-  locationPending?: boolean
+  locationPending?: LaydownTypes
   /** whether this asset has been destroyoed
    * //TODO: move away from this, use condition
    */
