@@ -36,7 +36,12 @@ import {
   WargameOverview,
   PlatformType,
   ForceData,
-  ChannelData
+  ChannelData,
+  MessageDetailsFrom,
+  MessageDetails,
+  MessageFeedback,
+  MessageStructure,
+  MessageCustom
 } from '@serge/custom-types'
 
 import {
@@ -257,36 +262,35 @@ export const exportWargame = (dbPath: string): Promise<Wargame> => {
 export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
   const { db } = getWargameDbByName(dbName)
 
-  return db.get(dbDefaultSettings._id)
-    .then((res) => {
-      const wargame = res as Wargame
-      const initiatedWargame: Wargame = {
-        ...wargame,
-        phase: ADJUDICATION_PHASE,
-        adjudicationStartTime: moment().format(),
-        turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
-        wargameInitiated: true
-      }
-      // return  db.put(initiatedWargame)
-      db.put(initiatedWargame)
-      return initiatedWargame
-    }).then((wargame) => {
-      const messageInfoType: MessageInfoType = {
-        ...wargame,
-        _id: new Date().toISOString(),
-        messageType: INFO_MESSAGE,
-        wargameTitle: wargame.wargameTitle,
-        data: wargame.data,
-        turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
-        gameTurn: 0,
-        infoType: true // TODO: remove infoType
-      }
-      db.put(messageInfoType)
-      return messageInfoType
-    }).catch((err) => {
-      console.log(err)
-      return err
-    })
+  return db.get(dbDefaultSettings._id).then((res) => {
+    const wargame = res as Wargame
+    const initiatedWargame: Wargame = {
+      ...wargame,
+      phase: ADJUDICATION_PHASE,
+      adjudicationStartTime: moment().format(),
+      turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
+      wargameInitiated: true
+    }
+    // return  db.put(initiatedWargame)
+    db.put(initiatedWargame)
+    return initiatedWargame
+  }).then((wargame) => {
+    const messageInfoType: MessageInfoType = {
+      ...wargame,
+      _id: new Date().toISOString(),
+      messageType: INFO_MESSAGE,
+      wargameTitle: wargame.wargameTitle,
+      data: wargame.data,
+      turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
+      gameTurn: 0,
+      infoType: true // TODO: remove infoType
+    }
+    db.put(messageInfoType)
+    return messageInfoType
+  }).catch((err) => {
+    console.log(err)
+    return err
+  })
 }
 
 
@@ -470,10 +474,8 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
     }, newDbName).then(() => {
       addWargameDbStore({ name: newDbName, db: newDb })
       return getAllWargames()
-    }).catch((err) => {
-      console.log(err)
-      return err
     })
+    .catch(rejectDefault)
   })
 }
 
@@ -488,160 +490,96 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
     addWargameDbStore({ name: newDbName, db: newDb })
     return getLatestWargameRevision(dbName)
   }).then((res) => {
-    const wargame = res as Wargame
     return updateWargame({ ...res, _id: dbDefaultSettings._id, name: newDbName }, newDbName, false)
   }).then((res) => {
     return createLatestWargameRevision(newDbName, res)
   })
   .then(() => getAllWargames())
-  .catch((err) => rejectDefault(err))
+  .catch(rejectDefault)
 }
 
 export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
   const { db } = getWargameDbByName(dbName)
-  // @ts-ignore: need to update INFO_MESSAGE to be able to use it as Wargame object
   return db.get(dbDefaultSettings._id).then((res) => res as Wargame)
 }
 
-// @ts-ignore
-export const getWargame = (gamePath) => {
+export const getWargame = (gamePath: string): Promise<Wargame> => {
   return (async () => {
     const name = getNameFromPath(gamePath)
-
-    const wargame = await getLatestWargameRevision(name)
-
-    return wargame
+    return await getLatestWargameRevision(name)
   })()
 }
 
-// @ts-ignore
 export const createLatestWargameRevision = (dbName: string, wargame: Wargame): Promise<Wargame> => {
   const copiedData = deepCopy(wargame)
-
   const { db } = getWargameDbByName(dbName)
 
-  db.put({
+  return db.put({
     ...copiedData,
     _rev: undefined,
     _id: new Date().toISOString(),
     messageType: INFO_MESSAGE,
   }).then(() => {
     return getLatestWargameRevision(dbName)
-  }).catch((err) => {
-    throw new Error(err)
-  })
+  }).catch(rejectDefault)
 }
 
-// @ts-ignore
-export const getAllWargameRevisions = (dbName) => {
-  return new Promise((resolve, reject) => {
-    getAllMessages(dbName)
-      .then((messages) => {
-      // @ts-ignore
-        const revisions = messages.filter((message) => (message.messageType === INFO_MESSAGE))
-        resolve(revisions)
-      })
-      .catch((err) => {
-        reject(err)
-      })
-  })
+export const getAllWargameRevisions = (dbName: string) => {
+  getAllMessages(dbName).then((messages) => {
+    return messages.filter((message) => (message.messageType === INFO_MESSAGE))
+  }).catch(rejectDefault)
 }
 
-// @ts-ignore
-export const nextGameTurn = (dbName) => {
-  return new Promise((resolve, reject) => {
-    getLatestWargameRevision(dbName)
-      .then((res) => {
-      // @ts-ignore
-        switch (res.phase) {
-          case PLANNING_PHASE:
-          // @ts-ignore
-            res.phase = ADJUDICATION_PHASE
-            // @ts-ignore
-            res.turnEndTime = 0
-            // @ts-ignore
-            res.adjudicationStartTime = moment().format()
-            break
-          case ADJUDICATION_PHASE:
-          // @ts-ignore
-            res.phase = PLANNING_PHASE
-            // @ts-ignore
-            res.gameTurn += 1
-            // @ts-ignore
-            res.data.overview.gameDate = moment(res.data.overview.gameDate).add(res.data.overview.gameTurnTime, 'ms').format('YYYY-MM-DDTHH:mm')
-            // @ts-ignore
-            res.turnEndTime = moment().add(res.data.overview.realtimeTurnTime, 'ms').format()
-            break
-          default:
-            break
-        }
-        return createLatestWargameRevision(dbName, res)
-      })
-      .then((res) => {
-        resolve(res)
-      })
-      .catch((err) => {
-        console.log(err)
-        reject(err)
-      })
+export const nextGameTurn = (dbName: string): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    switch (res.phase) {
+      case PLANNING_PHASE:
+        res.phase = ADJUDICATION_PHASE
+        res.turnEndTime = '0'
+        res.adjudicationStartTime = moment().format()
+        break
+      case ADJUDICATION_PHASE:
+        res.phase = PLANNING_PHASE
+        res.data.overview.gameDate = moment(res.data.overview.gameDate).add(res.data.overview.gameTurnTime, 'ms').format('YYYY-MM-DDTHH:mm')
+        res.turnEndTime = moment().add(res.data.overview.realtimeTurnTime, 'ms').format()
+        break
+    }
+    return createLatestWargameRevision(dbName, res)
   })
+  .catch(rejectDefault)
 }
 
-// @ts-ignore
-export const postFeedback = (dbName, fromDetails, message) => {
-// @ts-ignore
-  const db = wargameDbStore.find((db) => db.name === dbName).db
-
-  return new Promise((resolve, reject) => {
-    db.put({
-      _id: new Date().toISOString(),
-      details: {
-        channel: 'Feedback',
-        from: fromDetails,
-        messageType: 'Chat',
-        timestamp: new Date().toISOString()
-      },
-      message: {
-        content: message
-      },
-      messageType: FEEDBACK_MESSAGE
-    })
-      .then((res) => {
-        resolve(res)
-      })
-      .catch((err) => {
-        console.log(err)
-        reject(err)
-      })
-  })
+export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, message: string): Promise<MessageFeedback> => {
+  const { db } = getWargameDbByName(dbName)
+  const feedback: MessageFeedback = {
+    _id: new Date().toISOString(),
+    details: {
+      channel: 'Feedback',
+      from: fromDetails,
+      messageType: 'Chat',
+      timestamp: new Date().toISOString()
+    },
+    message: {
+      content: message
+    },
+    messageType: FEEDBACK_MESSAGE
+  }
+  return db.put(feedback).catch(rejectDefault)
 }
-// @ts-ignore
-export const postNewMessage = (dbName, details, message) => {
-  // @ts-ignore
-  const db = wargameDbStore.find((db) => db.name === dbName).db
 
-  return new Promise((resolve, reject) => {
-    // @ts-ignore
-    db.put({
-      // @ts-ignore
-      _id: new Date().toISOString(),
-      // defined constat for messages, it's not same as message.details.messageType,
-      // ex for all template based messages will be used CUSTOM_MESSAGE Type
-        // @ts-ignore
-      messageType: CUSTOM_MESSAGE,
-      details,
-      message
-    })
-      // @ts-ignore
-      .then((res) => {
-        resolve(res)
-      })
-        // @ts-ignore
-      .catch((err) => {
-        console.log(err)
-        reject(err)
-      })
-  })
+export const postNewMessage = (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
+  const { db } = getWargameDbByName(dbName)
+  const customMessage: MessageCustom = {
+    _id: new Date().toISOString(),
+    // defined constat for messages, it's not same as message.details.messageType,
+    // ex for all template based messages will be used CUSTOM_MESSAGE Type
+    messageType: CUSTOM_MESSAGE,
+    details,
+    message,
+    isOpen: false,
+    hasBeenRead: false
+  }
+  return db.put(customMessage).catch(rejectDefault)
 }
 
 // Copied from postNewMessage cgange and add new logic for Mapping
@@ -702,10 +640,7 @@ export const getAllWargames = (): Promise<WargameRevision[]> => {
           initiated: wargameInitiated
         }
       })
-      .catch((err) => {
-        console.log(err)
-        return err
-      })
+      .catch(rejectDefault)
   })
   return Promise.all<WargameRevision>(promises)
 }

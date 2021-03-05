@@ -28,27 +28,29 @@ export interface RFIData {
   answer: string
 }
 
+export interface MessageDetailsFrom {
+  /** id of user force
+   * TODO: check we're using id, not force name
+   */
+  force: string,
+  /** CSS color shade for this force */
+  forceColor: string,
+  /** role of the individual that wrote message */
+  role: string,
+  /** URL of icon to display for this force
+   * TODO: once all code under TypeScript try making it non-optional,
+   * and fix cases where it's not assigned
+   */
+  icon: string
+  /** user-name, as typed into Feedback/insights form */
+  name?: string
+}
+
 export interface MessageDetails {
   /** id of channel message sent from */
   channel: string,
   /** details of author */
-  from: {
-    /** id of user force
-     * TODO: check we're using id, not force name
-     */
-    force: string,
-    /** CSS color shade for this force */
-    forceColor: string,
-    /** role of the individual that wrote message */
-    role: string,
-    /** URL of icon to display for this force
-     * TODO: once all code under TypeScript try making it non-optional,
-     * and fix cases where it's not assigned
-     */
-    icon: string
-    /** user-name, as typed into Feedback/insights form */
-    name?: string
-  }
+  from: MessageDetailsFrom,
   /** enumerated types for message (see typeof entries in child interfaces) */
   messageType: string,
   /** time message sent */
@@ -101,8 +103,7 @@ export interface MessageFeedback extends CoreMessage {
 export interface MessageInfoType extends Wargame {
   messageType: typeof INFO_MESSAGE,
   infoType: boolean,
-  gameTurn: number,
-  _id?: string
+  gameTurn: number
 }
 
 /**

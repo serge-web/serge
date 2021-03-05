@@ -16,6 +16,8 @@ export { default as MapPostBack } from './map-postback-data.d'
 export { default as MarkerPerception } from './marker-perception.d'
 export { default as Message,
          MessageDetails,
+         MessageDetailsFrom,
+         MessageStructure,
          // Map Types
          MessageForceLaydown,
          MessagePerceptionOfContact,

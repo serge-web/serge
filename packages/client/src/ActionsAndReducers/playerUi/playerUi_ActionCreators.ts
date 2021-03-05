@@ -28,7 +28,8 @@ import {
   MessageFeedback,
   MessageChannel,
   MessageCustom,
-  MessageInfoType
+  MessageInfoType,
+  MessageDetailsFrom
 } from '@serge/custom-types'
 import { PlayerUiActionTypes } from '@serge/custom-types'
 
@@ -130,8 +131,7 @@ export const nextGameTurn = (dbName: string): Function => {
   }
 }
 
-// TODO: fromDetails check type
-export const sendFeedbackMessage = (dbName: string, fromDetails: any, message: MessageFeedback): Function => {
+export const sendFeedbackMessage = (dbName: string, fromDetails: MessageDetailsFrom, message: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     await wargamesApi.postFeedback(dbName, fromDetails, message)
     dispatch(closeModal())
@@ -141,8 +141,9 @@ export const sendFeedbackMessage = (dbName: string, fromDetails: any, message: M
 export const failedLoginFeedbackMessage = (dbName: string, password: string): Function => {
   return async (): Promise<void> => {
     const address = await wargamesApi.getIpAddress()
-    const from = {
+    const from: MessageDetailsFrom = {
       force: address.ip,
+      icon: '',
       forceColor: '#970000',
       role: '',
       name: password
