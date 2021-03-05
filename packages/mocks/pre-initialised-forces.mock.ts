@@ -1,7 +1,7 @@
 import { LaydownTypes } from "@serge/config";
 import { ForceData } from "@serge/custom-types"
 
-export const forces: ForceData[] = [
+const forces: ForceData[] = [
     {
         color: "#FCFBEE",
         dirty: false,

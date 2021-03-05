@@ -35,8 +35,9 @@ export interface Asset {
   platformType: string,
   /** if the player is allowed to change the position of this asset
    * during turn-zero of a wargame
+   * TODO: remove boolean format, it's just there for transition
    */
-  locationPending?: LaydownTypes
+  locationPending?: LaydownTypes | boolean
   /** whether this asset has been destroyoed
    * //TODO: move away from this, use condition
    */

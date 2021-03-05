@@ -26,6 +26,7 @@ export const forcesControlledBy = (forces: ForceData[], playerForce: string): Ar
 /** process the forces, to create a route store - used to manage
  * display and edits to planned routes
  * @param {string | undefined} selectedId uniqid for selected asset
+ * @param {Phase} phase current game phase
  * @param {ForceData[]} forces array of forces
  * @param {string} playerForce uniqid for player force
  * @param {string[]} controls uniqid for forces controlled by this player. Optional remove for all
@@ -36,7 +37,7 @@ export const forcesControlledBy = (forces: ForceData[], playerForce: string): Ar
  * @param {RouteStore} oldStore existing RouteStore, so we can persist player modifications
  * @returns {RouteStore} RouteStore representing current data
  */
-const routeCreateStore = (selectedId: string | undefined, turn: number, phase: Phase, forces: ForceData[], playerForce: string,
+const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: ForceData[], playerForce: string,
     platformTypes: PlatformTypeData[], grid: SergeGrid<SergeHex<{}>> | undefined, filterHistorySteps: boolean, 
     filterPlannedSteps: boolean, wargameInitiated?: boolean, oldStore?: RouteStore): RouteStore => {
   const store: RouteStore = { routes: []}
@@ -86,7 +87,7 @@ const routeCreateStore = (selectedId: string | undefined, turn: number, phase: P
               // if it's the selected asset, we plot all future steps
               const applyFilterPlannedSteps: boolean = filterPlannedSteps && !isSelectedAsset
 
-              const newRoute: Route = routeCreateRoute(asset, turn, phase, force.color,
+              const newRoute: Route = routeCreateRoute(asset, phase, force.color,
                 controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
                 platformTypes, playerForce, asset.status, assetPosition, assetLocation, 
                 grid, true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
@@ -116,7 +117,7 @@ const routeCreateStore = (selectedId: string | undefined, turn: number, phase: P
                     // note: compiler/linter forcing us to re-check asset.position
                     if(asset.position && perceptions) {
                       // create route for this asset
-                      const newRoute: Route = routeCreateRoute(child, turn, phase, perceivedColor, false, force.uniqid, perceptions.force,
+                      const newRoute: Route = routeCreateRoute(child, phase, perceivedColor, false, force.uniqid, perceptions.force,
                         perceptions.name, perceptions.type, platformTypes, playerForce, asset.status, assetPosition, assetLocation, 
                         grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                       store.routes.push(newRoute)
@@ -131,7 +132,7 @@ const routeCreateStore = (selectedId: string | undefined, turn: number, phase: P
                     thisForce, asset.platformType, asset.perceptions)
                   if(perceptions) {
                     // create route for this asset
-                    const newRoute: Route = routeCreateRoute(asset, turn, phase, perceivedColor, false, force.uniqid, perceptions.force,
+                    const newRoute: Route = routeCreateRoute(asset, phase, perceivedColor, false, force.uniqid, perceptions.force,
                       perceptions.name, perceptions.type, platformTypes, playerForce, asset.status, assetPosition, assetLocation, 
                       grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                     store.routes.push(newRoute)

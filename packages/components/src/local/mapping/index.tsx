@@ -223,7 +223,7 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     if (forcesState && gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-      const store: RouteStore = routeCreateStore(selectedId, turnNumber, currentPhase, forcesState, playerForce,
+      const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, playerForce,
         platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
       setRouteStore(store)
     }
@@ -241,7 +241,7 @@ export const Mapping: React.FC<PropTypes> = ({
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-        const vStore: RouteStore = routeCreateStore(selectedId, turnNumber, currentPhase, forcesState, viewAsForce, platforms,
+        const vStore: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, viewAsForce, platforms,
           gridCells, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
         declutterRouteStore(vStore)
       } else {

@@ -42,8 +42,8 @@ export const Assets: React.FC<{}> = () => {
     if (gridCells) {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
-        const { uniqid, name, platformType, actualForceName, condition } = route
-        const { contactId, status, perceptions, locationPending } = route.asset
+        const { uniqid, name, platformType, actualForceName, condition, laydownPhase } = route
+        const { contactId, status, perceptions } = route.asset
 
         // see if the player of this force can see (perceive) this asset
         const perceivedAsTypes: PerceivedTypes | null = findPerceivedAsTypes(
@@ -76,7 +76,7 @@ export const Assets: React.FC<{}> = () => {
                 visibleTo: visibleToArr,
                 uniqid: uniqid,
                 controlledBy: assetForce.controlledBy,
-                locationPending: locationPending
+                laydownPhase: laydownPhase
               }
               tmpAssets.push(assetInfo)
             }
@@ -105,7 +105,7 @@ export const Assets: React.FC<{}> = () => {
         force={asset.force}
         perceivedForce={asset.perceivedForce}
         tooltip={asset.name}
-        locationPending={asset.locationPending}/>
+        locationPending={!!asset.laydownPhase}/>
     ))}
 
     { viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (

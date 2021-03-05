@@ -154,8 +154,25 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
   return currentStatus
 }
 
-const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, locationPending?: LaydownTypes, position?: string, route?: Route): LaydownPhases => {
-  if (locationPending) {
+const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, locationPending?: LaydownTypes | boolean, 
+  position?: string, route?: Route): LaydownPhases => {
+  if(locationPending === undefined) {
+    return LaydownPhases.Immobile
+  } else if (typeof locationPending === 'boolean') {
+    // TODO - remove support for this legacy construct (boolean)
+    if(wargameInitated) {
+      const routePos = route && route.currentPosition
+      if (position || routePos) {
+        // on map, but still can be moved
+        return LaydownPhases.Moved
+      } else {
+        // not on map yet
+        return LaydownPhases.Unmoved
+      }
+    } else {
+      return LaydownPhases.Immobile
+    }
+  } else {
     if (wargameInitated) {
       if (phase === Phase.Adjudication) {
         // ok, adjudication phase
@@ -165,13 +182,13 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, locationPending
             console.log('warning - encountered umpire lockdown after wargame initiated')
             return LaydownPhases.Immobile
           case LaydownTypes.ForceLaydown: {
-            const routePos = route || route.currentPosition
+            const routePos = route && route.currentPosition
             if (position || routePos) {
               // on map, but still can be moved
               return LaydownPhases.Moved
             } else {
               // not on map yet
-              return LaydownPhases.NoLocation
+              return LaydownPhases.Unmoved
             }
           }
         }
@@ -191,7 +208,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, locationPending
             return LaydownPhases.Moved
           } else {
             // not on map yet
-            return LaydownPhases.NoLocation
+            return LaydownPhases.Unmoved
           }
         }
       }
