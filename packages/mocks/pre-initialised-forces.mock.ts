@@ -1,3 +1,4 @@
+import { LaydownTypes } from "@serge/config";
 import { ForceData } from "@serge/custom-types"
 
 export const forces: ForceData[] = [
@@ -69,7 +70,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "task-group",
-                position: "UmpireLaydown",
+                locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra5431"
             },
             {
@@ -99,7 +100,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "frigate",
-                position: "UmpireLaydown",
+                locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra00001"
             },
             {
@@ -109,7 +110,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fixed-wing-aircraft",
-                position: "UmpireLaydown",
+                locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra00002"
             },
             {
@@ -119,7 +120,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "merchant-vessel",
-                position: "UmpireLaydown",
+                locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra00003"
             }
         ],
@@ -154,12 +155,11 @@ export const forces: ForceData[] = [
             {
                 condition: "Full capability",
                 contactId: "C065",
-                locationPending: true,
+                locationPending: LaydownTypes.ForceLaydown,
                 name: "Dhow-A",
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
-                position: "ForceLaydown",
                 uniqid: "a0pra000100"
             },
             {
@@ -176,34 +176,31 @@ export const forces: ForceData[] = [
                         uniqid: "a0pra153102"
                     }
                 ],
-                locationPending: true,
+                locationPending: LaydownTypes.ForceLaydown,
                 name: "Dhow-B",
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
-                position: "ForceLaydown",
                 uniqid: "a0pra000101"
             },
             {
                 condition: "Full capability",
                 contactId: "C008",
-                locationPending: true,
+                locationPending: LaydownTypes.ForceLaydown,
                 name: "Dhow-C",
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
-                position: "ForceLaydown",
                 uniqid: "a0pra000102"
             },
             {
                 condition: "Full capability",
                 contactId: "C076",
-                locationPending: true,
+                locationPending: LaydownTypes.ForceLaydown,
                 name: "Missile-A",
                 perceptions: [
                 ],
                 platformType: "coastal-radar-site",
-                position: "ForceLaydown",
                 uniqid: "a0pra000103"
             }
         ],
@@ -242,7 +239,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "merchant-vessel",
-                position: "UmpireLaydown",
+                locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra000200"
             },
             {
@@ -252,7 +249,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "merchant-vessel",
-                position: "UmpireLaydown",
+                locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra000201"
             },
             {
@@ -262,7 +259,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
-                position: "UmpireLaydown",
+                locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra000202"
             },
             {
@@ -272,7 +269,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
-                position: "UmpireLaydown",
+                locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra000203"
             },
             {
@@ -282,7 +279,7 @@ export const forces: ForceData[] = [
                 perceptions: [
                 ],
                 platformType: "fishing-vessel",
-                position: "UmpireLaydown",
+                locationPending: LaydownTypes.UmpireLaydown,
                 uniqid: "a0pra000204"
             }
         ],
