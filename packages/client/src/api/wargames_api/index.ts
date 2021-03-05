@@ -33,7 +33,10 @@ import {
   Wargame,
   Message,
   MessageInfoType,
-  WargameOverview
+  WargameOverview,
+  PlatformType,
+  ForceData,
+  ChannelData
 } from '@serge/custom-types'
 
 import {
@@ -281,30 +284,32 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
     })
 }
 
-export const updateWargameTitle = (dbName: string, title: string): Promise<Wargame> => {
-  return getAllWargames()
-    .then((games) => {
-      if (games.some((game) => game && game.title === title && getNameFromPath(game.name) !== dbName)) {
-        throw new Error('Name already in use.')
-      }
-      const {db} = getWargameDbByName(name)
 
-      return getLatestWargameRevision(dbName).then((doc) => {
-        if (doc.wargameInitiated) {
-          doc.wargameTitle = title
-          return createLatestWargameRevision(dbName, doc)
-        } else {
-          return db.put({
-            ...doc,
-            _id: dbDefaultSettings._id,
-            wargameTitle: title,
-            turnEndTime: moment().add(doc.data.overview.realtimeTurnTime, 'ms').format(),
-          }).then(() => {
-            return db.get<Wargame>(dbDefaultSettings._id)
-          })
-        }
-      })
+
+const updateWargame = (nextWargame: Wargame, dbName: string): Promise<Wargame> => {
+  const {db} = getWargameDbByName(name)
+  if (nextWargame.wargameInitiated) {
+    return createLatestWargameRevision(dbName, nextWargame)
+  }
+  return db.put({
+    ...nextWargame,
+    _id: dbDefaultSettings._id,
+    turnEndTime: moment().add(nextWargame.data.overview.realtimeTurnTime, 'ms').format(),
+  }).then(() => {
+    return db.get<Wargame>(dbDefaultSettings._id)
+  })
+}
+
+export const updateWargameTitle = (dbName: string, title: string): Promise<Wargame> => {
+  return getAllWargames().then((games) => {
+    if (games.some((game) => game && game.title === title && getNameFromPath(game.name) !== dbName)) {
+      throw new Error('Name already in use.')
+    }
+    const {db} = getWargameDbByName(name)
+    return getLatestWargameRevision(dbName).then((doc) => {
+      return updateWargame({ ...doc, wargameTitle: title }, dbName)
     })
+  })
 }
 
 export const saveSettings = (dbName: string, data: WargameOverview): Promise<Wargame> => {
@@ -314,352 +319,124 @@ export const saveSettings = (dbName: string, data: WargameOverview): Promise<War
     const wargame: Wargame = deepCopy(res)
     wargame.data.overview = data
     wargame.data.overview.complete = calcComplete(data)
+    return updateWargame(wargame, dbName)
+  })
+}
 
-    if (wargame.wargameInitiated) {
-      return createLatestWargameRevision(dbName, wargame)
+export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<Wargame> => {
+  const {db} = getWargameDbByName(dbName)
+
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc = deepCopy(res)
+    newDoc.data.platform_types = data
+    return updateWargame(newDoc, dbName)
+  })
+}
+
+export const saveForce = (dbName: string, newName: string, newData: ForceData, oldName: string) => {
+  const {db} = getWargameDbByName(dbName)
+
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const forces = updatedData.forces.forces
+    const forceNew = forces.every((force) => force.name !== oldName)
+
+    if (forceNew) {
+      forces.push({ ...newData, name: newName })
     } else {
-      return db.put({
-        ...wargame,
-        _id: dbDefaultSettings._id,
-        turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
-        wargameInitiated: wargame.wargameInitiated
-      }).then<Wargame>(() => {
-        return db.get(dbDefaultSettings._id)
-      })
+      const forceIndex = forces.findIndex((force) => force.name === oldName)
+      // forces.forceName = newName;
+      forces.splice(forceIndex, 1, { ...newData, name: newName })
     }
+
+    updatedData.forces.forces = forces
+
+    // remove default before calc
+
+    const forceCheck: ForceData[] = deepCopy(forces)
+    const umpireIndex = forceCheck.findIndex((force) => force.umpire)
+    forceCheck.splice(umpireIndex, 1)
+
+    updatedData.forces.complete = calcComplete(forceCheck)
+
+    return updateWargame({
+      ...newDoc,
+      data: updatedData
+    }, dbName)
+    // if (newDoc.wargameInitiated) {
+    //   return createLatestWargameRevision(dbName, newDoc) // TODO: <<< check this part  `updatedData` saves only if wargame not Initiated
+    // } else {
+    //   return db.put({
+    //     ...newDoc,
+    //     _id: dbDefaultSettings._id,
+    //     data: updatedData,  // TODO: <<< check this part  `updatedData` saves only if wargame not Initiated
+    //     turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
+    //     // @ts-ignore
+    //     wargameInitiated: res.wargameInitiated
+    //   }).then<Wargame>(() => {
+    //     return db.get(dbDefaultSettings._id)
+    //   })
+    // }
   })
 }
 
 // @ts-ignore
-export const savePlatformTypes = (dbName, data) => {
-// @ts-ignore
-  const db = wargameDbStore.find((wargame) => dbName === wargame.name).db
+export const saveChannel = (dbName: string, newName: string, newData: ChannelData, oldName: string): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const channels = updatedData.channels.channels || []
+    const channelNew = channels.every((channel: any) => channel.name !== oldName)
 
-  return getLatestWargameRevision(dbName)
-    .then(function (res) {
-      const newDoc = deepCopy(res)
-      newDoc.data.platform_types = data
+    if (channelNew) {
+      channels.push({ ...newData, name: newName })
+    } else {
+      const channelIndex = channels.findIndex((channel) => channel.name === oldName)
+      channels.splice(channelIndex, 1, { ...newData, name: newName })
+    }
 
-      return new Promise((resolve, reject) => {
-        if (newDoc.wargameInitiated) {
-          resolve(createLatestWargameRevision(dbName, newDoc))
-        } else {
-        // @ts-ignore
-          return db.put({
-            _id: dbDefaultSettings._id,
-            // @ts-ignore
-            _rev: newDoc._rev,
-            // @ts-ignore
-            name: newDoc.name,
-            // @ts-ignore
-            wargameTitle: newDoc.wargameTitle,
-            // @ts-ignore
-            data: newDoc.data,
-            // @ts-ignore
-            gameTurn: newDoc.gameTurn,
-            // @ts-ignore
-            phase: newDoc.phase,
-            // @ts-ignore
-            adjudicationStartTime: newDoc.adjudicationStartTime,
-            // @ts-ignore
-            turnEndTime: moment().add(newDoc.data.overview.realtimeTurnTime, 'ms').format(),
-            // @ts-ignore
-            wargameInitiated: newDoc.wargameInitiated
-          })
-          // @ts-ignore
-            .then(() => {
-              resolve(db.get(dbDefaultSettings._id))
-            })
-        }
-      })
-    })
+    updatedData.channels.channels = channels
+    updatedData.channels.complete = calcComplete(channels)
+
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
 }
 
-// @ts-ignore
-export const saveForce = (dbName, newName, newData, oldName) => {
-// @ts-ignore
-  const db = wargameDbStore.find((wargame) => dbName === wargame.name).db
+export const duplicateChannel = (dbName: string, channelUniqid: string): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const channels = updatedData.channels.channels || []
+    const channelIndex = channels.findIndex((channel) => channel.uniqid === channelUniqid)
 
-  return getLatestWargameRevision(dbName)
-    .then(function (res) {
-      const newDoc = deepCopy(res)
+    const duplicateChannel = deepCopy(channels[channelIndex])
 
-      const updatedData = newDoc.data
+    const uniq = uniqid.time()
 
-      const forces = updatedData.forces.forces
+    duplicateChannel.name = duplicateChannel.name + `-${uniq}`
+    duplicateChannel.uniqid = `channel-${uniq}`
 
-      // @ts-ignore
-      const forceNew = forces.every((force) => force.name !== oldName)
-
-      if (forceNew) {
-        forces.push({ ...newData, name: newName })
-      } else {
-      // @ts-ignore
-        const forceIndex = forces.findIndex((force) => force.name === oldName)
-        // forces.forceName = newName;
-        forces.splice(forceIndex, 1, { ...newData, name: newName })
-      }
-
-      updatedData.forces.forces = forces
-
-      // remove default before calc
-
-      const forceCheck = deepCopy(forces)
-      // @ts-ignore
-      const umpireIndex = forceCheck.findIndex((force) => force.umpire)
-      forceCheck.splice(umpireIndex, 1)
-
-      updatedData.forces.complete = calcComplete(forceCheck)
-
-      return new Promise((resolve, reject) => {
-        if (newDoc.wargameInitiated) {
-          resolve(createLatestWargameRevision(dbName, newDoc))
-        } else {
-        // @ts-ignore
-          return db.put({
-            _id: dbDefaultSettings._id,
-            // @ts-ignore
-            _rev: res._rev,
-            // @ts-ignore
-            name: res.name,
-            // @ts-ignore
-            wargameTitle: res.wargameTitle,
-            // @ts-ignore
-            data: updatedData,
-            // @ts-ignore
-            gameTurn: res.gameTurn,
-            // @ts-ignore
-            phase: res.phase,
-            // @ts-ignore
-            adjudicationStartTime: res.adjudicationStartTime,
-            // @ts-ignore
-            turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
-            // @ts-ignore
-            wargameInitiated: res.wargameInitiated
-          })
-          // @ts-ignore
-            .then(() => {
-              resolve(db.get(dbDefaultSettings._id))
-            })
-        }
-      })
-    })
+    channels.splice(channelIndex, 0, duplicateChannel)
+    updatedData.channels.channels = channels
+    updatedData.channels.complete = calcComplete(channels) && channels.length !== 0
+    updatedData.channels.selectedChannel = duplicateChannel
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
 }
 
-// @ts-ignore
-export const saveChannel = (dbName, newName, newData, oldName) => {
-// @ts-ignore
-  const db = wargameDbStore.find((wargame) => dbName === wargame.name).db
+export const deleteChannel = (dbName: string, channelUniqid: string): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const channels = updatedData.channels.channels || []
+    const channelIndex = channels.findIndex((channel) => channel.uniqid === channelUniqid)
+    channels.splice(channelIndex, 1)
+    updatedData.channels.channels = channels
+    updatedData.channels.complete = calcComplete(channels) && channels.length !== 0
 
-  return getLatestWargameRevision(dbName)
-    .then(function (res) {
-      const newDoc = deepCopy(res)
-
-      const updatedData = newDoc.data
-
-      const channels = updatedData.channels.channels
-
-      // @ts-ignore
-      const channelNew = channels.every((channel) => channel.name !== oldName)
-
-      if (channelNew) {
-        channels.push({ ...newData, name: newName })
-      } else {
-      // @ts-ignore
-        const channelIndex = channels.findIndex((channel) => channel.name === oldName)
-        channels.splice(channelIndex, 1, { ...newData, name: newName })
-      }
-
-      updatedData.channels.channels = channels
-      updatedData.channels.complete = calcComplete(channels)
-
-      return new Promise((resolve, reject) => {
-      // @ts-ignore
-        if (res.wargameInitiated) {
-          const data = res
-          // @ts-ignore
-          data.data = updatedData
-          resolve(createLatestWargameRevision(dbName, data))
-        } else {
-        // @ts-ignore
-          db.put({
-            _id: dbDefaultSettings._id,
-            // @ts-ignore
-            _rev: res._rev,
-            // @ts-ignore
-            name: res.name,
-            // @ts-ignore
-            wargameTitle: res.wargameTitle,
-            // @ts-ignore
-            data: updatedData,
-            // @ts-ignore
-            gameTurn: res.gameTurn,
-            // @ts-ignore
-            phase: res.phase,
-            // @ts-ignore
-            adjudicationStartTime: res.adjudicationStartTime,
-            // @ts-ignore
-            turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
-            // @ts-ignore
-            wargameInitiated: res.wargameInitiated
-            // @ts-ignore
-          })
-          // @ts-ignore
-            .then(() => {
-              resolve(db.get(dbDefaultSettings._id))
-            })
-            // @ts-ignore
-            .catch((err) => {
-              reject(err)
-            })
-        }
-      })
-    })
-}
-
-// @ts-ignore
-export const duplicateChannel = (dbName, channelUniqid) => {
-// @ts-ignore
-  const db = wargameDbStore.find((wargame) => dbName === wargame.name).db
-
-  return getLatestWargameRevision(dbName)
-    .then(function (res) {
-      const newDoc = deepCopy(res)
-
-      const updatedData = newDoc.data
-
-      const channels = updatedData.channels.channels
-
-      // @ts-ignore
-      const channelIndex = channels.findIndex((channel) => channel.uniqid === channelUniqid)
-
-      const duplicateChannel = deepCopy(channels[channelIndex])
-
-      const uniq = uniqid.time()
-
-      duplicateChannel.name = duplicateChannel.name + `-${uniq}`
-      duplicateChannel.uniqid = `channel-${uniq}`
-
-      channels.splice(channelIndex, 0, duplicateChannel)
-
-      updatedData.channels.channels = channels
-      updatedData.channels.complete = calcComplete(channels) && channels.length !== 0
-      updatedData.channels.selectedChannel = duplicateChannel
-
-      return new Promise((resolve, reject) => {
-      // @ts-ignore
-        if (res.wargameInitiated) {
-          const data = res
-          // @ts-ignore
-          data.data = updatedData
-          createLatestWargameRevision(dbName, data)
-            .then((res) => {
-              resolve(res)
-            })
-        } else {
-        // @ts-ignore
-          db.put({
-          // @ts-ignore
-            _id: dbDefaultSettings._id,
-            // @ts-ignore
-            _rev: res._rev,
-            // @ts-ignore
-            name: res.name,
-            // @ts-ignore
-            wargameTitle: res.wargameTitle,
-            // @ts-ignore
-            data: updatedData,
-            // @ts-ignore
-            gameTurn: res.gameTurn,
-            // @ts-ignore
-            phase: res.phase,
-            // @ts-ignore
-            adjudicationStartTime: res.adjudicationStartTime,
-            // @ts-ignore
-            turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
-            // @ts-ignore
-            wargameInitiated: res.wargameInitiated
-          })
-          // @ts-ignore
-            .then(() => {
-            // @ts-ignore
-              resolve(db.get(dbDefaultSettings._id))
-            })
-            // @ts-ignore
-            .catch((err) => {
-              reject(err)
-            })
-        }
-      })
-    })
-}
-
-// @ts-ignore
-export const deleteChannel = (dbName, channelUniqid) => {
-// @ts-ignore
-  const db = wargameDbStore.find((wargame) => dbName === wargame.name).db
-  //
-  return getLatestWargameRevision(dbName)
-    .then(function (res) {
-      const newDoc = deepCopy(res)
-
-      const updatedData = newDoc.data
-
-      const channels = updatedData.channels.channels
-
-      // @ts-ignore
-      const channelIndex = channels.findIndex((channel) => channel.uniqid === channelUniqid)
-
-      channels.splice(channelIndex, 1)
-
-      updatedData.channels.channels = channels
-      updatedData.channels.complete = calcComplete(channels) && channels.length !== 0
-
-      return new Promise((resolve, reject) => {
-      // @ts-ignore
-        if (res.wargameInitiated) {
-          const data = res
-          // @ts-ignore
-          data.data = updatedData
-          createLatestWargameRevision(dbName, data)
-            .then((res) => {
-              resolve(res)
-            })
-        } else {
-        // @ts-ignore
-          db.put({
-          // @ts-ignore
-            _id: dbDefaultSettings._id,
-            // @ts-ignore
-            _rev: res._rev,
-            // @ts-ignore
-            name: res.name,
-            // @ts-ignore
-            wargameTitle: res.wargameTitle,
-            // @ts-ignore
-            data: updatedData,
-            // @ts-ignore
-            gameTurn: res.gameTurn,
-            // @ts-ignore
-            phase: res.phase,
-            // @ts-ignore
-            adjudicationStartTime: res.adjudicationStartTime,
-            // @ts-ignore
-            turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
-            // @ts-ignore
-            wargameInitiated: res.wargameInitiated
-          })
-          // @ts-ignore
-            .then(() => {
-              resolve(db.get(dbDefaultSettings._id))
-            })
-            // @ts-ignore
-            .catch((err) => {
-              reject(err)
-            })
-        }
-      })
-    })
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
 }
 
 // @ts-ignore
