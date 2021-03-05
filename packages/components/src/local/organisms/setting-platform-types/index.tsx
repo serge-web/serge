@@ -122,9 +122,9 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       handleChangePlatformTypeData({ ...data, states }, selectedItem)
     }
     const handleCreateSpeeds = (): void => {
-      if(data.speedKts){
+      if (data.speedKts) {
         const speedKts: Array<number> = [...data.speedKts, Math.max.apply(null, [0, ...data.speedKts]) + 10]
-        handleChangePlatformTypeData({ ...data, speedKts }, selectedItem)  
+        handleChangePlatformTypeData({ ...data, speedKts }, selectedItem)
       } else {
         console.warn('Did not expect to receive new speeds for platform without speeds')
       }
