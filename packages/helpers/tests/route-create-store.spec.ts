@@ -492,7 +492,7 @@ import { RouteStore, Route, ForceData /*,  RouteChild, Asset */ } from '@serge/c
 //   }
 // })
 
-it('can create valid routes in pre-init with no existing routes ', () => {
+it('creates routes for assets with positions in pre-init', () => {
   const safeForces: ForceData[] = cloneDeep(preInitialisedForces)
 
   // mangle the data a bit
@@ -502,33 +502,16 @@ it('can create valid routes in pre-init with no existing routes ', () => {
     return
   }
   blue.assets[2].position = "G23"
-  const blueId = blue.assets[2].uniqid
 
   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, safeForces, 'umpire', platformTypes, undefined, false, false, false)
-  expect(store.routes.length).toEqual(13)
+  expect(store.routes.length).toEqual(1) // only one route has a position
 
-  // check inside a route
-  const route: Route = store.routes[1]
-  expect(route.uniqid).toEqual('a0pra00001')
+  // check inside the route with a position
+  const route: Route = store.routes[0]
+  expect(route.uniqid).toEqual('a0pra00002')
   expect(route.history.length).toEqual(0)
   expect(route.planned.length).toEqual(0)
   expect(route.original.length).toEqual(0)
-  expect(route.laydownPhase).toEqual(LaydownPhases.Unmoved)
+  expect(route.laydownPhase).toEqual(LaydownPhases.Moved)
   expect(route.underControl).toBeFalsy()
-
-  // check an asset that is for force laydown
-  const redTest = store.routes.find((route:Route) => route.uniqid === 'a0pra000103')
-  if(!redTest) {
-    expect(false).toBeTruthy()
-    return
-  }
-  expect(redTest.laydownPhase).toEqual(LaydownPhases.Immobile)
-  
-  // check a platform that has been moved by player
-  const blueTest = store.routes.find((route:Route) => route.uniqid === blueId)
-  if(!blueTest) {
-    expect(false).toBeTruthy()
-    return
-  }
-  expect(blueTest.laydownPhase).toEqual(LaydownPhases.Moved)  
 })
