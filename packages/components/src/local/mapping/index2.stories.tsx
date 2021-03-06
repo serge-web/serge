@@ -121,7 +121,7 @@ const Template: Story<StoryPropTypes> = (args) => {
 
 // give an asset a position, so it gets plotted
 const newForces = deepCopy(preInitialisedForces)
-newForces[1].assets[0].position='G12'
+newForces[1].assets[0].position = 'G12'
 
 /**
  * DEFAULT VIEW
