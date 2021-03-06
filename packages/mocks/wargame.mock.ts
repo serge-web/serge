@@ -1,4 +1,8 @@
-export default {
+import { Wargame } from "@serge/custom-types"
+const game:Wargame = {
+  "_id": "some_id",
+  "name": "name of wargame",
+  "phase": "adjudication",
   "isLoading": false,
   "wargameList": [
     {
@@ -39,7 +43,6 @@ export default {
       "timeWarning": 60000,
       "gameDate": "2020-02-21T12:41:20+00:00",
       "showAccessCodes": false,
-      "wargameInitiated": false,
       "complete": false,
       "dirty": false
     },
@@ -83,3 +86,5 @@ export default {
   "wargameInitiated": false,
   "adminNotLoggedIn": false
 }
+
+export default game

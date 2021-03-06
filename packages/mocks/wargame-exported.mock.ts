@@ -1,7 +1,10 @@
 import { Wargame } from "@serge/custom-types"
-import { LaydownTypes } from "@serge/config"
+import { LaydownTypes, Phase } from "@serge/config"
 
 const game:Wargame = {
+  _id: 'some_id',
+  name: 'name of wargame',
+  phase: Phase.Adjudication,
   isLoading: false,
   wargameList: [
     {
