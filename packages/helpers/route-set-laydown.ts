@@ -1,6 +1,6 @@
 import { LaydownPhases } from '@serge/config'
 import { RouteStore, Route, SergeGrid, SergeHex } from '@serge/custom-types'
-import { hexNamed } from '@serge/helpers'
+import hexNamed from './hex-named'
 import { cloneDeep } from 'lodash'
 
 /** set the asset location
@@ -19,7 +19,7 @@ const routeSetLaydown = (store: RouteStore, location: string, grid: SergeGrid<Se
     const cell =  grid && hexNamed(location, grid)
     if(cell) {
       route.currentLocation = cell.centreLatLng
-    } 
+    }
 
     // update the phase
     route.laydownPhase = LaydownPhases.Moved

@@ -1,6 +1,6 @@
 import { handleAllInitialChannelMessages } from '../handle-channel-updates'
-import { ForceData, PlayerUiChatChannel, SetWargameMessage, 
-  ChannelData,  MessageChannel } from '@serge/custom-types'
+import { ForceData, PlayerUiChatChannel, SetWargameMessage,
+  ChannelData,  MessageChannel, MessageInfoType, MessageCustom } from '@serge/custom-types'
 import { AdminMessagesMock, GameMessagesMock, MessageTemplatesMock, forces, GameChannels, InfoMessagesMock } from '@serge/mocks'
 import { CHAT_CHANNEL_ID } from '@serge/config'
 
@@ -17,7 +17,8 @@ const allTemplates: any[] = MessageTemplatesMock
 describe('handle initial channel creation', () => {
   it('fire a message into normal channel', () => {
     // use info message to recreate channels
-    const payload: Array<MessageChannel> = AdminMessagesMock.concat(GameMessagesMock).concat(InfoMessagesMock)
+    // TODO: check it handleAllInitialChannelMessages should get full (not clipped) infoType message
+    const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMock).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
 
     const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
     allForces, chatChannel, isObserver, allTemplates)

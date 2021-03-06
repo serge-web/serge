@@ -1,5 +1,5 @@
-import { ChannelData, Participant } from '@serge/custom-types';
-import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } from '@serge/helpers';
+import { ChannelData, Participant } from '@serge/custom-types'
+import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } from './participant-filters'
 
 export interface CheckParticipantStates {
   /** whether role is participant in channel */
@@ -20,7 +20,7 @@ export interface ParticipantStates {
   templates: Array<any>
 }
 
-/** find out if the role is active in the supplied channel 
+/** find out if the role is active in the supplied channel
  * Always returns a structure, use isParticipant to determine if role is in channel (registered or as observer)
 */
 export const checkParticipantStates = (channel: ChannelData, selectedForce: string | undefined, selectedRole: string, isObserver: boolean): CheckParticipantStates => {

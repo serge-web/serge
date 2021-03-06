@@ -1,4 +1,4 @@
-import { deepCopy, checkParticipantStates, getParticipantStates } from '@serge/helpers'
+import { deepCopy, checkParticipantStates, getParticipantStates } from '../'
 import { ChannelData, Participant, Role } from '@serge/custom-types'
 import { forces} from '@serge/mocks'
 
