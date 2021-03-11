@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
@@ -167,7 +167,7 @@ export const Mapping: React.FC<PropTypes> = ({
           const moves: PlanMobileAsset = {
             origin: store.selected.currentPosition,
             travelMode: pType.travelMode,
-            status: 'LAYDOWN'
+            status: LAYDOWN_TURN
           }
           setPlanningConstraints(moves)
         }
@@ -209,7 +209,6 @@ export const Mapping: React.FC<PropTypes> = ({
     // is it different to current force state?
     const forceStateEmptyOrChanged = !forcesState || !isEqual(forcesState, forces)
     if (forceStateEmptyOrChanged) {
-      console.log('mapping - creating', forceStateEmptyOrChanged)
       setForcesState(forces)
     }
   }, [forces])
@@ -303,6 +302,7 @@ export const Mapping: React.FC<PropTypes> = ({
         const newStore: RouteStore = routeSetLaydown(routeStore, turn.route[0].name, gridCells)
         const newStore2: RouteStore = routeSetCurrent('', newStore)
         setRouteStore(newStore2)
+        setSelectedAsset(undefined)
       }
     }
   }
