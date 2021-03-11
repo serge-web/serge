@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import L from 'leaflet'
+import L, { DragEndEvent } from 'leaflet'
 import { Point, PointLike } from 'honeycomb-grid'
 import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 /* Import Stylesheet */
@@ -248,7 +248,7 @@ export const HexGrid: React.FC<{}> = () => {
   /** handler for planning marker being droppped
        *
        */
-  const dropped = (e: any): void => {
+  const dropped = (e: DragEndEvent): void => {
     if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
       // Special Case - in Force Laydown
       // find the drop location
