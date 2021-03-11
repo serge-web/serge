@@ -154,22 +154,34 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
   return currentStatus
 }
 
-const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, locationPending?: LaydownTypes | boolean, 
-  position?: string, route?: Route): LaydownPhases => {
+/** determine laydown phase for this asset
+ * @param {Phase} phase current game phase
+ * @param {boolean} wargameInitiated whether wargame has been initiated
+ * @param {string} currentPosition the current asset position, from route or asset
+ * @param {laydownTypes | boolean} locationPending the flag for laydown pending (or marker for Umpire/Force laydown)
+ * @param {string} original position the original position for the asset
+ * @param {Route} route current route description, potentially including location of laid-down asset
+ */
+const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition?: string, locationPending?: LaydownTypes | boolean, 
+  originalPosition?: string, route?: Route): LaydownPhases => {
   if(locationPending === undefined) {
     return LaydownPhases.Immobile
   } else if (typeof locationPending === 'boolean') {
     // TODO - remove support for this legacy construct (boolean)
     if(wargameInitated) {
       const routePos = route && route.currentPosition
-      if (position || routePos) {
+      const currentPos = routePos ? routePos : currentPosition
+      if (currentPos !== originalPosition) {
+        console.log('moved', locationPending, currentPosition, routePos, originalPosition)
         // on map, but still can be moved
         return LaydownPhases.Moved
       } else {
+        console.log('unmoved', locationPending, currentPosition, routePos, originalPosition)
         // not on map yet
         return LaydownPhases.Unmoved
       }
     } else {
+      console.log('immobile', locationPending, currentPosition, originalPosition)
       return LaydownPhases.Immobile
     }
   } else {
@@ -183,7 +195,8 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, locationPending
             return LaydownPhases.Immobile
           case LaydownTypes.ForceLaydown: {
             const routePos = route && route.currentPosition
-            if (position || routePos) {
+            const currentPos = routePos ? routePos : currentPosition
+            if (currentPos !== originalPosition) {
               // on map, but still can be moved
               return LaydownPhases.Moved
             } else {
@@ -203,7 +216,9 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, locationPending
           // if we're not initiated then the umpire can't move it
           return LaydownPhases.Immobile
         case LaydownTypes.UmpireLaydown: {
-          if (position) {
+          const routePos = route && route.currentPosition
+          const currentPos = routePos ? routePos : currentPosition
+          if (currentPos !== originalPosition) {
             // on map, but still can be moved
             return LaydownPhases.Moved
           } else {
@@ -235,9 +250,9 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, locationPending
  * @param {boolean} filterHistorySteps whether to filter history steps to just the first one
  * @param {boolean} filterPlannedSteps whether to filter planned steps to just the first one
  * @param {boolean} isSelected whether is the route for the selected Asset
- * @param {Route} an existing route for this asset
+ * @param {Route} existingRoute an existing route for this asset
  * @param {boolean} wargameInitiated whether this wargame has been initiated
- * @returns {Route} Routefor this asset
+ * @returns {Route} Route for this asset
  */
 const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string,
@@ -246,11 +261,11 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean, existingRoute: Route | undefined,
   wargameInitiated: boolean): Route => {
 
-
   const currentStatus: RouteStatus = produceStatusFor(status, platformTypes, asset)
 
-  // store the existing planned route
+  // store the potentially modified route data
   const plannedTurns: RouteTurn[] | undefined = existingRoute && existingRoute.planned
+  const historyTurns: RouteTurn[] | undefined = existingRoute && existingRoute.history
 
   // collate the planned turns, since we want to keep a
   // duplicate set (in case the user cancels changes)
@@ -258,7 +273,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, grid, true, false) : []
   const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
-  const historySteps: Array<RouteTurn> = createStepArray(asset.history, grid,
+  const historySteps: Array<RouteTurn> = createStepArray(historyTurns || asset.history, grid,
     false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
@@ -272,7 +287,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const condition: string | undefined = playerForce === UMPIRE_FORCE ? asset.condition : undefined
 
-  const laydownPhase = laydownPhaseFor(phase, wargameInitiated, asset.locationPending, asset.position, existingRoute)
+  const laydownPhase = laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
 
   return {
     uniqid: asset.uniqid,
@@ -290,6 +305,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     currentStatus: currentStatus,
     currentPosition: currentPosition,
     currentLocation: currentLocation,
+    originalPosition: asset.position,
     laydownPhase: laydownPhase,
     planned: futureSteps,
     plannedTrimmed: futureStepsTrimmed,
