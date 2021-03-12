@@ -164,7 +164,10 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
  */
 const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition?: string, locationPending?: LaydownTypes | boolean, 
   originalPosition?: string, route?: Route): LaydownPhases => {
-  if(locationPending === undefined) {
+  if(phase != Phase.Adjudication) {
+    // ok, we only do laydown in adjudication phase
+    return LaydownPhases.NotInLaydown
+  } else if(locationPending === undefined) {
     return LaydownPhases.Immobile
   } else if (typeof locationPending === 'boolean') {
     // TODO - remove support for this legacy construct (boolean)
