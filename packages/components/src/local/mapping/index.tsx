@@ -41,7 +41,8 @@ import {
   RouteTurn,
   PlanTurnFormValues,
   ForceData,
-  Asset
+  Asset,
+  Status
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -405,7 +406,7 @@ export const Mapping: React.FC<PropTypes> = ({
     const current: Route | undefined = routeStore.selected
     if (current) {
       // is it a mobile turn
-      const status = plannedTurn.statusVal
+      const status: Status = plannedTurn.statusVal
       if (status.mobile) {
         // trigger route planning
         const inAdjudicate: boolean = currentPhase === ADJUDICATION_PHASE
@@ -418,13 +419,15 @@ export const Mapping: React.FC<PropTypes> = ({
         const constraints: PlanMobileAsset = plannedTurn.speedVal ? {
           origin: origin,
           travelMode: pType.travelMode,
-          status: plannedTurn.statusVal.name,
+          status: status.name,
           speed: plannedTurn.speedVal
         } : {
           origin: origin,
           travelMode: pType.travelMode,
-          status: plannedTurn.statusVal.name
+          status: status.name
         }
+
+        console.log('has mobile', plannedTurn.speedVal)
 
         // special handling, a mobile status may not have a speedVal,
         // which represents unlimited travel

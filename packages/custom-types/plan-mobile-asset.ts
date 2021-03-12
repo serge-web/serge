@@ -1,5 +1,5 @@
 /**
- * mapping context, shared with child elements
+ * Details necessary for planning a turn for a mobile asset
  */
 export default interface PlanMobileAsset {
   /**
