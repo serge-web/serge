@@ -73,7 +73,8 @@ const getNameFromPath = (dbPath: string): string => {
 
 // get database object by :name key
 const getWargameDbByName = (name: string): ApiWargameDbObject => {
-  const dbObject = wargameDbStore.find((item) => item.name === name)
+  const dbObject = wargameDbStore.find((item) => item.name === name || item.name === name + dbSuffix)
+
   if (dbObject === undefined) throw new Error(`wargame database with "${name}" not found`)
   return dbObject
 }
@@ -170,10 +171,9 @@ export const populateWargame = (): Promise<Wargame> => {
 }
 
 export const clearWargames = (): void => {
-  fetch(serverPath + 'clearAll')
-    .then(() => {
-      window.location.reload(true)
-    })
+  fetch(serverPath + 'clearAll').then(() => {
+    window.location.reload(true)
+  })
 }
 
 
@@ -196,16 +196,15 @@ export const saveIcon = (file) => {
 }
 
 export const createWargame = (): Promise<Wargame> => {
-
   const name: string = `wargame-${uniqid.time()}`
-  const db: ApiWargameDb = new PouchDB(databasePath + name)
+  const db: ApiWargameDb = new PouchDB(databasePath + name + dbSuffix)
 
   db.setMaxListeners(15)
   addWargameDbStore({ name, db })
 
   // TODo: update dbDefaultSettings to valid wargame json
   // @ts-ignore
-  const settings: Wargame = { ...dbDefaultSettings, wargameTitle: name }
+  const settings: Wargame = { ...dbDefaultSettings, name: name, wargameTitle: name }
 
 
   return new Promise((resolve, reject) => {
@@ -279,8 +278,6 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
       ...wargame,
       _id: new Date().toISOString(),
       messageType: INFO_MESSAGE,
-      wargameTitle: wargame.wargameTitle,
-      data: wargame.data,
       turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       gameTurn: 0,
       infoType: true // TODO: remove infoType
@@ -296,7 +293,7 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
 
 
 const updateWargame = (nextWargame: Wargame, dbName: string, revisionCheck: boolean = true): Promise<Wargame> => {
-  const {db} = getWargameDbByName(name)
+  const { db } = getWargameDbByName(dbName)
   if (nextWargame.wargameInitiated && revisionCheck) {
     return createLatestWargameRevision(dbName, nextWargame)
   }
@@ -314,7 +311,6 @@ export const updateWargameTitle = (dbName: string, title: string): Promise<Warga
     if (games.some((game) => game && game.title === title && getNameFromPath(game.name) !== dbName)) {
       throw new Error('Name already in use.')
     }
-    const {db} = getWargameDbByName(name)
     return getLatestWargameRevision(dbName).then((doc) => {
       return updateWargame({ ...doc, wargameTitle: title }, dbName)
     })
@@ -322,7 +318,6 @@ export const updateWargameTitle = (dbName: string, title: string): Promise<Warga
 }
 
 export const saveSettings = (dbName: string, data: WargameOverview): Promise<Wargame> => {
-
   return getLatestWargameRevision(dbName).then((res) => {
     const wargame: Wargame = deepCopy(res)
     wargame.data.overview = data
@@ -459,7 +454,7 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
 
   const newDbName = `wargame-${uniqId}`
   return db.get(dbDefaultSettings._id).then((res) => {
-    const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName)
+    const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName + dbSuffix)
     const wargame = res as Wargame
     return updateWargame({
       ...wargame,
@@ -479,7 +474,7 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
   const { db } = getWargameDbByName(dbName)
   const uniqId = uniqid.time()
   const newDbName = `wargame-${uniqId}`
-  const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName)
+  const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName + dbSuffix)
 
   return db.replicate.to(newDb).then(() => {
     addWargameDbStore({ name: newDbName, db: newDb })
