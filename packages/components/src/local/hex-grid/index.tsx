@@ -20,7 +20,7 @@ import { LAYDOWN_TURN } from '@serge/config'
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
   const {
-    gridCells, planningConstraints, zoomLevel, setNewLeg, setHidePlanningForm, 
+    gridCells, planningConstraints, zoomLevel, setNewLeg, setHidePlanningForm,
     selectedAsset, viewAsRouteStore
   } = useContext(MapContext).props
 
@@ -122,7 +122,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [selectedAsset, gridCells, viewAsRouteStore])
 
- /** provide a list of cells allowable for this platform. The area may reduce
+  /** provide a list of cells allowable for this platform. The area may reduce
        * as a player plans the leg
        */
   // useEffect(() => {
@@ -169,22 +169,21 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [dragDestination, originHex])
 
- /** listen out for just planning constraints changing, since we
+  /** listen out for just planning constraints changing, since we
   * update planning range from it.
   */
   useEffect(() => {
-    if(planningConstraints !== undefined) {
+    if (planningConstraints !== undefined) {
       setPlanningRange(planningConstraints.range)
     }
   }, [planningConstraints])
-
 
   /** provide a list of cells allowable for this platform. The area may reduce
        * as a player plans the leg
        */
   useEffect(() => {
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
-    if(planningRange === undefined && planningConstraints != undefined) {
+    if (planningRange === undefined && planningConstraints != undefined) {
       setPlanningRange(planningConstraints.range)
     }
     // check all data necessary for rendering is present
