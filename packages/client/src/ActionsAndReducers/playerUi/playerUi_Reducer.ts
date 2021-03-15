@@ -83,6 +83,8 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
         // @ts-ignore
       newState.phase = action.payload.phase
       newState.showAccessCodes = action.payload.data.overview.showAccessCodes
+      // note: wargameInitiated comes from the top level element, not in the overview summary
+      newState.wargameInitiated = action.payload.wargameInitiated
       newState.gameDate = action.payload.data.overview.gameDate
       newState.gameTurnTime = action.payload.data.overview.gameTurnTime
         // @ts-ignore

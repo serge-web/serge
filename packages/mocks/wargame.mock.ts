@@ -39,6 +39,7 @@ export default {
       "timeWarning": 60000,
       "gameDate": "2020-02-21T12:41:20+00:00",
       "showAccessCodes": false,
+      "wargameInitiated": false,
       "complete": false,
       "dirty": false
     },

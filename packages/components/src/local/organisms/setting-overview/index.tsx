@@ -3,6 +3,9 @@ import cx from 'classnames'
 import millisecondsToDDHHMMSS from './helpers/millisecondsToDDHHMMSS'
 import millisecondsToHHMMSS from './helpers/millisecondsToHHMMSS'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+
 /* Import proptypes */
 import PropTypes, { WargameOverview } from './types/props'
 
@@ -18,7 +21,7 @@ import TextInput from '../../atoms/text-input'
 import FormGroup from '../../atoms/form-group-shadow'
 
 /* Render component */
-export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange }) => {
+export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, initiateWargame, wargameInitiated }) => {
   const [overview, setOverview] = useState<WargameOverview>(initialOverview)
   const prevOverview = usePrevious(overview)
   const updateGameTime = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -172,6 +175,18 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
               }
               label="Show Access codes"
             />
+          </div>
+          <div>
+            <>{
+              !wargameInitiated &&
+              <Button onClick={(): void => {
+                initiateWargame && initiateWargame()
+              }}>Initiate Wargame</Button>
+            }{
+              wargameInitiated &&
+              <p><FontAwesomeIcon icon={faCheck} size="2x" />&nbsp;Wargame initiated</p>
+            }
+            </>
           </div>
         </FormGroup>
       </div>

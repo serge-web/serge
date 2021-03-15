@@ -1,68 +1,69 @@
 import React, { useState } from 'react'
-import moment from 'moment'
-import { PLANNING_PHASE, ADJUDICATION_PHASE } from '@serge/config'
 
+import { Phase } from '@serge/config'
+import { Story } from '@storybook/react/types-6-0'
 // Import component files
 import TurnProgression from './index'
+import TurnPropTypes from './types/props'
+
 import docs from './README.md'
+
+const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
   title: 'local/molecules/TurnProgression',
   component: TurnProgression,
-  decorators: [],
+  decorators: [wrapper],
   parameters: {
     readme: {
-      // Show readme before story
       content: docs
+    },
+    options: {
+      showPanel: true
+    },
+    controls: {
+      expanded: true
+    }
+  },
+  argTypes: {
+    phase: {
+      name: 'Game phase',
+      control: {
+        type: 'radio',
+        defaultValue: Phase.Planning,
+        options: [
+          Phase.Planning,
+          Phase.Adjudication
+        ]
+      }
     }
   }
 }
 
-export const Default: React.FC = () => (
-  <TurnProgression
-    adjudicationStartTime="2019-09-30T14:13:22+01:00"
-    turnEndTime="0"
-    timeWarning={60000}
-    currentTurn={1}
-    phase={ADJUDICATION_PHASE}
-    gameDate="2019-10-01T02:02"
-    isGameControl={false}
-  />
-)
-
-export const Planning: React.FC = () => (
-  <TurnProgression
-    adjudicationStartTime="2019-09-30T14:13:22+01:00"
-    turnEndTime={moment(new Date()).add(1.1, 'm').toString()}
-    timeWarning={60000}
-    currentTurn={1}
-    phase={PLANNING_PHASE}
-    gameDate="2019-10-01T02:02"
-    isGameControl={false}
-  />
-)
-
-export const WithGameControl: React.FC = () => {
+const Template: Story<TurnPropTypes> = (args) => {
   const [state, setState] = useState({
-    phase: PLANNING_PHASE,
+    phase: Phase.Planning,
     currentTurn: 1
   })
   const updateState = (): void => {
     setState({
-      phase: ADJUDICATION_PHASE,
-      currentTurn: 2
+      phase: state.phase === Phase.Planning ? Phase.Adjudication : Phase.Planning,
+      currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn
     })
   }
-  return (
-    <TurnProgression
-      adjudicationStartTime="2019-09-30T14:13:22+01:00"
-      turnEndTime={moment(new Date()).add(1.1, 'm').toString()}
-      timeWarning={60000}
-      currentTurn={state.currentTurn}
-      phase={state.phase}
-      gameDate="2019-10-01T02:02"
-      isGameControl={true}
-      onNextTurn={updateState}
-    />
-  )
+  // @ts-ignore: Add custom property for storybook
+  const { ...props } = args
+  return <TurnProgression
+    {...props}
+    onNextTurn={updateState}
+    currentTurn={state.currentTurn}
+    phase={state.phase} />
+}
+
+export const WithPhases = Template
+WithPhases.args = {
+  adjudicationStartTime: '2019-09-30T14:13:22+01:00',
+  turnEndTime: '0',
+  timeWarning: 60000,
+  gameDate: '2019-10-01T02:02'
 }
