@@ -271,6 +271,7 @@ export const HexGrid: React.FC<{}> = () => {
        *
        */
   const dropped = (e: DragEndEvent): void => {
+    setDragDestination(undefined)
     if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
       // Special Case - in Force Laydown
       // find the drop location

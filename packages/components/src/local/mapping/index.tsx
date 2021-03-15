@@ -107,7 +107,6 @@ export const Mapping: React.FC<PropTypes> = ({
   attributionControl,
   zoomAnimation,
   planningConstraintsProp,
-  planningRangeProp,
   channelID,
   mapPostBack,
   children
@@ -128,7 +127,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
-  const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProp)
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
   const [viewAsRouteStore, setViewAsRouteStore] = useState<RouteStore>({ routes: [] })
   const [leafletElement, setLeafletElement] = useState(undefined)
@@ -183,14 +181,6 @@ export const Mapping: React.FC<PropTypes> = ({
     // clear the selected assets
     setSelectedAsset(undefined)
   }, [playerForce])
-
-  /**
-   * reflect external changes in planning range prop (mostly
-   * just in Storybook testing)
-   */
-  useEffect(() => {
-    setPlanningRange(planningRangeProp)
-  }, [planningRangeProp])
 
   /**
    * reflect external changes in planning constraints prop (mostly
@@ -352,7 +342,8 @@ export const Mapping: React.FC<PropTypes> = ({
               origin: lastCell.name,
               travelMode: planningConstraints.travelMode,
               status: newLeg.state,
-              speed: newLeg.speed
+              speed: newLeg.speed,
+              range: planningConstraints && planningConstraints.range
             }
             setPlanningConstraints(newP)
           } else {
@@ -427,8 +418,6 @@ export const Mapping: React.FC<PropTypes> = ({
           status: status.name
         }
 
-        console.log('has mobile', plannedTurn.speedVal)
-
         // special handling, a mobile status may not have a speedVal,
         // which represents unlimited travel
         if (plannedTurn.speedVal) {
@@ -440,12 +429,12 @@ export const Mapping: React.FC<PropTypes> = ({
 
           // check range is in 10s
           const range = roundToNearest(roughRange, 1)
+          constraints.range = range
 
-          setPlanningRange(range)
           setPlanningConstraints(constraints)
         } else {
-          setPlanningRange(undefined)
           setPlanningConstraints(constraints)
+          constraints.range = undefined
         }
       } else {
         // if we were planning a mobile route, clear that
@@ -517,7 +506,6 @@ export const Mapping: React.FC<PropTypes> = ({
     phase,
     turnNumber,
     planningConstraints,
-    planningRange,
     showMapBar,
     selectedAsset,
     zoomLevel,
