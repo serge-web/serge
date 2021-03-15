@@ -183,7 +183,7 @@ export const HexGrid: React.FC<{}> = () => {
        */
   useEffect(() => {
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
-    if (planningRange === undefined && planningConstraints != undefined) {
+    if (planningRange === undefined && planningConstraints !== undefined) {
       setPlanningRange(planningConstraints.range)
     }
     // check all data necessary for rendering is present
