@@ -322,7 +322,6 @@ export const updateWargameTitle = (dbName: string, title: string): Promise<Warga
 }
 
 export const saveSettings = (dbName: string, data: WargameOverview): Promise<Wargame> => {
-  const {db} = getWargameDbByName(dbName)
 
   return getLatestWargameRevision(dbName).then((res) => {
     const wargame: Wargame = deepCopy(res)
@@ -333,8 +332,6 @@ export const saveSettings = (dbName: string, data: WargameOverview): Promise<War
 }
 
 export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<Wargame> => {
-  const {db} = getWargameDbByName(dbName)
-
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc = deepCopy(res)
     newDoc.data.platform_types = data
@@ -400,8 +397,6 @@ export const deleteChannel = (dbName: string, channelUniqid: string): Promise<Wa
 }
 
 export const saveForce = (dbName: string, newName: string, newData: ForceData, oldName: string) => {
-  const {db} = getWargameDbByName(dbName)
-
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
@@ -459,7 +454,7 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>
 
 export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
   const dbName = getNameFromPath(dbPath)
-  const {db} = getWargameDbByName(dbName)
+  const { db } = getWargameDbByName(dbName)
   const uniqId = uniqid.time()
 
   const newDbName = `wargame-${uniqId}`
@@ -481,7 +476,7 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
 
 export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => {
   const dbName = getNameFromPath(dbPath)
-  const {db} = getWargameDbByName(dbName)
+  const { db } = getWargameDbByName(dbName)
   const uniqId = uniqid.time()
   const newDbName = `wargame-${uniqId}`
   const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName)
