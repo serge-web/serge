@@ -22,7 +22,7 @@ export default {
 }
 
 export const Default: React.FC = () => {
-  if(WargameExportedMock.data.channels.channels === undefined) {
+  if (WargameExportedMock.data.channels.channels === undefined) {
     return <div/>
   }
   const [channels, setChannels] = useState<Array<ChannelData>>(WargameExportedMock.data.channels.channels)
