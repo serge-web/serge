@@ -77,7 +77,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.currentWargame = action.payload.name
       newState.wargameTitle = action.payload.wargameTitle
       newState.wargameInitiated = action.payload.wargameInitiated
-      // @ts-ignore
       newState.currentTurn = action.payload.gameTurn
       newState.phase = action.payload.phase
       newState.showAccessCodes = action.payload.data.overview.showAccessCodes
