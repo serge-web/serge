@@ -30,7 +30,6 @@ export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 export const SUBMIT_PLANS = 'SubmitPlans'
 export const STATE_OF_WORLD = 'StateOfWorld'
 
-
 // series of constants used for `messageType` when sending custom messages
 export const CUSTOM_MESSAGE = 'CustomMessage'
 
@@ -40,6 +39,7 @@ export const FEEDBACK_MESSAGE = 'FeedbackMessage'
 // series of constants used for `messageType` when sending system messages
 // an INFO_MESSAGE is an update to the wargame document
 export const INFO_MESSAGE = 'InfoMessage'
+export const INFO_MESSAGE_CLIPPED = 'InfoMessageClipped'
 
 // return states of adjudication form
 export const PLAN_ACCEPTED = 'accepted'

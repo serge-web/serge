@@ -15,11 +15,14 @@
     "@serge/themes": "0.3.0",
     "@types/jest": "^25.2.3",
     "@types/node": "^14.0.4",
+    "@types/node-fetch": "^2.5.8",
+    "@types/pouchdb": "^6.4.0",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.12",
     "@types/react-select": "^3.1.2",
     "@types/reactour": "^1.17.1",
+    "@types/uniqid": "^5.2.0",
     "bootstrap": "^4.3.1",
     "check-types": "^8.0.1",
     "classnames": "^2.2.6",
@@ -38,6 +41,7 @@
     "lodash": "^4.17.15",
     "lorem-ipsum": "^2.0.3",
     "moment": "^2.24.0",
+    "node-fetch": "^2.6.1",
     "node-sass": "^4.11.0",
     "nodemon": "^2.0.4",
     "pouchdb": "^7.0.0",
@@ -70,7 +74,7 @@
     "styled-components": "^4.0.0",
     "uniqid": "^5.0.3",
     "universal-router": "^8.1.0",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.6.1"
   },
   "devDependencies": {
     "eslint": "^6.5.1",

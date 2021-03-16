@@ -1,4 +1,6 @@
-export default {
+import { Wargame } from '@serge/custom-types'
+
+const wargame: Wargame = {
   isLoading: false,
   wargameList: [
     {
@@ -175,6 +177,7 @@ export default {
               contactId: 'C043',
               history: [
                 {
+                  // @ts-ignore
                   position: 'P21',
                   status: {
                     speedKts: 20,
@@ -217,6 +220,7 @@ export default {
                 }
               ],
               platformType: 'frigate',
+                // @ts-ignore
               position: 'P21',
               status: {
                 speedKts: 20,
@@ -229,6 +233,7 @@ export default {
               contactId: 'C072',
               history: [
                 {
+                  // @ts-ignore
                   position: 'C17',
                   status: {
                     state: 'Landed'
@@ -251,6 +256,7 @@ export default {
               contactId: 'C012',
               history: [
                 {
+                  // @ts-ignore
                   position: 'S23',
                   status: {
                     speedKts: 20,
@@ -348,6 +354,7 @@ export default {
               contactId: 'C065',
               history: [
                 {
+                  // @ts-ignore
                   position: 'N04',
                   status: {
                     speedKts: 10,
@@ -399,9 +406,6 @@ export default {
               ],
               platformType: 'fishing-vessel',
               position: 'M04',
-              route: [
-                'M04'
-              ],
               status: {
                 speedKts: 10,
                 state: 'Transiting'
@@ -413,6 +417,7 @@ export default {
               contactId: 'C105',
               history: [
                 {
+                  // @ts-ignore
                   position: 'N10',
                   status: {
                     speedKts: 10,
@@ -491,6 +496,7 @@ export default {
               contactId: 'C008',
               history: [
                 {
+                  // @ts-ignore
                   position: 'Q18',
                   status: {
                     state: 'Moored'
@@ -549,6 +555,7 @@ export default {
               contactId: 'C076',
               history: [
                 {
+                  // @ts-ignore
                   position: 'Q12',
                   status: {
                     state: 'Inactive'
@@ -593,6 +600,7 @@ export default {
               contactId: 'C015',
               history: [
                 {
+                  // @ts-ignore
                   position: 'H00',
                   status: {
                     speedKts: 20,
@@ -710,6 +718,7 @@ export default {
               ],
               platformType: 'merchant-vessel',
               position: 'H03',
+              // @ts-ignore
               route: [
                 'H00',
                 'H01',
@@ -727,6 +736,7 @@ export default {
               contactId: 'C081',
               history: [
                 {
+                  // @ts-ignore
                   position: 'C00',
                   status: {
                     speedKts: 20,
@@ -881,6 +891,7 @@ export default {
               contactId: 'C116',
               history: [
                 {
+                  // @ts-ignore
                   position: 'M02',
                   status: {
                     speedKts: 10,
@@ -1001,6 +1012,7 @@ export default {
               contactId: 'C026',
               history: [
                 {
+                  // @ts-ignore
                   position: 'N08',
                   status: {
                     speedKts: 10,
@@ -1121,6 +1133,7 @@ export default {
               contactId: 'C115',
               history: [
                 {
+                  // @ts-ignore
                   position: 'N11',
                   status: {
                     speedKts: 10,
@@ -1276,7 +1289,6 @@ export default {
       gameTurnTime: 5400000,
       name: 'Overview - settings',
       realtimeTurnTime: 600000,
-      wargameInitiated: false,
       showAccessCodes: true,
       timeWarning: 60000
     },
@@ -1584,3 +1596,5 @@ export default {
   wargameInitiated: true,
   adminNotLoggedIn: false
 }
+
+export default wargame

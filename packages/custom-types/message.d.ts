@@ -7,6 +7,7 @@ import {
   PERCEPTION_OF_CONTACT,
   SUBMIT_PLANS,
   STATE_OF_WORLD,
+  INFO_MESSAGE_CLIPPED,
   RFI_States
 } from '@serge/config'
 
@@ -14,6 +15,7 @@ import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
 import { StateOfWorld } from '.'
+import Wargame from './wargame'
 
 
 /** additional message detail used for management of RFIs */
@@ -26,27 +28,29 @@ export interface RFIData {
   answer: string
 }
 
+export interface MessageDetailsFrom {
+  /** id of user force
+   * TODO: check we're using id, not force name
+   */
+  force: string,
+  /** CSS color shade for this force */
+  forceColor: string,
+  /** role of the individual that wrote message */
+  role: string,
+  /** URL of icon to display for this force
+   * TODO: once all code under TypeScript try making it non-optional,
+   * and fix cases where it's not assigned
+   */
+  icon: string
+  /** user-name, as typed into Feedback/insights form */
+  name?: string
+}
+
 export interface MessageDetails {
   /** id of channel message sent from */
   channel: string,
   /** details of author */
-  from: {
-    /** id of user force
-     * TODO: check we're using id, not force name
-     */
-    force: string,
-    /** CSS color shade for this force */
-    forceColor: string,
-    /** role of the individual that wrote message */
-    role: string,
-    /** URL of icon to display for this force
-     * TODO: once all code under TypeScript try making it non-optional,
-     * and fix cases where it's not assigned
-     */
-    icon: string
-    /** user-name, as typed into Feedback/insights form */
-    name?: string
-  }
+  from: MessageDetailsFrom,
   /** enumerated types for message (see typeof entries in child interfaces) */
   messageType: string,
   /** time message sent */
@@ -96,16 +100,25 @@ export interface MessageFeedback extends CoreMessage {
  * new turn
  * updated wargame
  */
-export interface MessageInfoType {
+export interface MessageInfoType extends Wargame {
   messageType: typeof INFO_MESSAGE,
+  infoType: boolean,
+  gameTurn: number
+}
+
+/**
+  * Mapped/Clipped version of MessageInfoType for channel
+  */
+export interface MessageInfoTypeClipped {
+  messageType: typeof INFO_MESSAGE_CLIPPED,
   details: {
     /** id of channel `infoTypeChannelMarker${uniqId.time()}` */
     channel: string
   },
   infoType: boolean,
   gameTurn: number,
-  isOpen?: boolean,
-  hasBeenRead?: boolean
+  isOpen: boolean,
+  hasBeenRead: boolean
   _id?: string
 }
 
@@ -139,12 +152,13 @@ export type MessageMap = MessageForceLaydown |
                          MessageStateOfWorld
 
 
-export type MessageChannel = MessageInfoType |
+export type MessageChannel = MessageInfoTypeClipped |
                              MessageCustom
 
 type Message = MessageCustom |
                MessageFeedback |
-               MessageInfoType |
-               MessageMap
+               MessageInfoTypeClipped |
+               MessageMap |
+               MessageInfoType
 
 export default Message

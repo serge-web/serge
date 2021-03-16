@@ -1,5 +1,4 @@
 {
-  "exclude": ["node_modules", "build"],
   "compilerOptions": {
     "skipLibCheck": false,
     "target": "ES2019",
@@ -29,6 +28,10 @@
     "outDir": "./build"
   },
   "include": [
-    "./"
+    "./**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "./build/**/*"
   ]
 }

@@ -1,12 +1,23 @@
 import {
   MessageChannel,
   PlayerUi,
-  SetWargameMessage,
-  ChannelUI
+  PlayerUiChatChannel,
+  PlayerUiChannels,
+  ChannelUI,
+  MessageCustom,
+  MessageInfoType
 } from '@serge/custom-types'
 import { handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
 
-import { INFO_MESSAGE } from '@serge/config'
+import {
+  INFO_MESSAGE_CLIPPED
+} from '@serge/config'
+// TODO: change it to @serge/config
+
+interface SetWargameMessage {
+  channels: PlayerUiChannels,
+  chatChannel: PlayerUiChatChannel,
+}
 
 import {
   LOCAL_STORAGE_TIMEOUT,
@@ -17,7 +28,7 @@ import {
  * or update the channels to reflect the new channel definitions
  */
 export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
-  const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel, 
+  const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel,
     newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
     newState.allTemplates, newState.allForces)
   return res
@@ -26,8 +37,8 @@ export const handleSetLatestWargameMessage = (payload: MessageChannel, newState:
 /** when the app first opens it processes a list of all existing messages,,
  * grouping them into channels
  */
-export const handleSetAllMessages = (payload: Array<MessageChannel>, newState: PlayerUi): SetWargameMessage => {
-  const res: SetWargameMessage = handleAllInitialChannelMessages(payload, newState.currentWargame, newState.selectedForce, 
+export const handleSetAllMessages = (payload: Array<MessageCustom | MessageInfoType>, newState: PlayerUi): SetWargameMessage => {
+  const res: SetWargameMessage = handleAllInitialChannelMessages(payload, newState.currentWargame, newState.selectedForce,
     newState.selectedRole, newState.allChannels, newState.allForces, newState.chatChannel,
     newState.isObserver, newState.allTemplates)
   return res
@@ -71,7 +82,7 @@ export const openMessage = (channel: string, payloadMessage: MessageChannel, new
 
 const closeMessageChange = (message: MessageChannel, id: string): { message: MessageChannel, changed: boolean } => {
   let changed: boolean = false
-  if (message.messageType === INFO_MESSAGE /* InfoType have no id */ && message._id === id) {
+  if (message.messageType === INFO_MESSAGE_CLIPPED /* InfoType have no id */ && message._id === id) {
     message.isOpen = false
   }
   return { message, changed }

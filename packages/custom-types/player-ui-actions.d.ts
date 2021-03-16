@@ -20,8 +20,14 @@ import {
   Wargame,
   Role,
   MessageFeedback,
-  MessageChannel
+  MessageChannel,
+  MessageCustom,
+  MessageInfoType
 } from '@serge/custom-types'
+
+import { Dispatch } from 'react'
+
+export type PlayerUiDispatch = Dispatch<PlayerUiActionTypes>
 
 interface SetCurrentWargameAction {
   type: typeof SET_CURRENT_WARGAME_PLAYER,
@@ -56,7 +62,7 @@ export interface SetLatestWargameMessageAction {
 }
 interface SetWargameMessagesAction {
   type: typeof SET_ALL_MESSAGES,
-  payload: Array<MessageChannel>
+  payload: Array<MessageCustom | MessageInfoType>
 }
 export interface OpenMessageAction {
   type: typeof OPEN_MESSAGE,

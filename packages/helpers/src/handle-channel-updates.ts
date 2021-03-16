@@ -1,10 +1,10 @@
-import { CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE } from "@serge/config"
+import { CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from "@serge/config"
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
-  MessageChannel, MessageCustom, ChannelData, ChannelUI, MessageInfoType
+  MessageChannel, MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped
 } from "@serge/custom-types"
 import { getParticipantStates } from "./participant-states"
-import { deepCopy } from '@serge/helpers'
+import deepCopy from './deep-copy'
 // @ts-ignore
 import uniqId from 'uniqid'
 import _ from 'lodash'
@@ -80,42 +80,57 @@ const createNewChannel = (channelId: string): ChannelUI => {
 
 
 const reduceTurnMarkers = (message: MessageChannel):string => {
-  if (message.messageType === INFO_MESSAGE) {
+  if (message.messageType === INFO_MESSAGE_CLIPPED) {
     return '' + message.gameTurn
   }
   return message._id
 }
 
-export const handleAllInitialChannelMessages = (payload: Array<MessageChannel>, currentWargame: string,
+export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRole: string): boolean => (
+  expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}${id}`) === 'read'
+)
+
+export const clipInfoMEssage = (message: MessageInfoType, hasBeenRead: boolean = false): MessageInfoTypeClipped => {
+  if (message.messageType !== INFO_MESSAGE) {
+    throw new TypeError(`Message should be INFO_MESSAGE: "${INFO_MESSAGE}" type`)
+  }
+  return {
+    messageType: INFO_MESSAGE_CLIPPED,
+    details: {
+      channel: `infoTypeChannelMarker${uniqId.time()}`
+    },
+    infoType: true,
+    gameTurn: message.gameTurn,
+    isOpen: false,
+    hasBeenRead,
+    _id: message._id
+  }
+}
+
+export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType | MessageCustom>, currentWargame: string,
   selectedForce: ForceData | undefined, selectedRole: string, allChannels: ChannelData[],
   allForces: ForceData[], chatChannel: PlayerUiChatChannel, isObserver: boolean,
   allTemplates: any[]): SetWargameMessage  => {
-  const messagesFiltered: Array<MessageChannel> = payload.map((message) => {
-    if (message.messageType === INFO_MESSAGE) {
-      // convert the big wargame message into a turn marker
-      const res: MessageInfoType = {
-        messageType: INFO_MESSAGE,
-        details: {
-          channel: `infoTypeChannelMarker${uniqId.time()}`
-        },
-        infoType: true,
-        gameTurn: message.gameTurn
-      }
-      return res
-    }
+    const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
 
-    return {
-      ...message,
-      hasBeenRead: expiredStorage.getItem(`${currentWargame}-${selectedForce}-${selectedRole}${message._id}`) === 'read',
-      isOpen: false
-    }
-  })
+    const messagesFiltered: Array<MessageChannel> = payload.map((message) => {
+      const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
+
+      if (message.messageType === INFO_MESSAGE) {
+        return clipInfoMEssage(message, hasBeenRead)
+      }
+
+      return {
+        ...message,
+        hasBeenRead: hasBeenRead,
+        isOpen: false
+      }
+    })
 
   const chatMessages = _.uniqBy(messagesFiltered, reduceTurnMarkers)
     .filter((message) => message.details && message.details.channel === chatChannel.name)
 
   const channels: PlayerUiChannels = {}
-  const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
 
   allChannels.forEach((channel: ChannelData) => {
     const {
@@ -136,9 +151,9 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageChannel>, 
           const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
           return (force && force.color) || '#FFF'
         }),
-        messages: messagesFiltered.filter((message) => message.details && message.details.channel === channel.uniqid || message.messageType === INFO_MESSAGE),
+        messages: messagesFiltered.filter((message) => message.details && message.details.channel === channel.uniqid || message.messageType === INFO_MESSAGE_CLIPPED),
         unreadMessageCount: messagesFiltered.filter((message) => {
-          if (message.messageType !== INFO_MESSAGE) {
+          if (message.messageType !== INFO_MESSAGE_CLIPPED) {
             return false
           } else {
             return (
@@ -178,7 +193,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
 
   // is this an information (wargame) update, or a channel message?
-  if (payload.messageType === INFO_MESSAGE) {
+  if (payload.messageType === INFO_MESSAGE_CLIPPED) {
     // this message is a new version of the wargame document
 
     // create any new channels & add to current channel

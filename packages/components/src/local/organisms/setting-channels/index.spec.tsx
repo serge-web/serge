@@ -11,7 +11,7 @@ describe('SettingChannels component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(<SettingChannels
-        channels={WargameExportedMock.data.channels.channels}
+        channels={WargameExportedMock.data.channels.channels || []}
         forces={WargameExportedMock.data.forces.forces}
         onChange={onChange}
         messages={MessageTemplatesMock}
