@@ -92,7 +92,13 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.allChannels = action.payload.data.channels.channels || []
       newState.allForces = action.payload.data.forces.forces
-
+      // trip over in its absence
+      // @ts-ignore
+      if (action.payload.data.platform_types) {
+        // @ts-ignore
+        newState.allPlatformTypes = action.payload.data.platform_types.platformTypes
+      }
+      // TODO: remove this ^^
       if (action.payload.data.platformTypes) {
         newState.allPlatformTypes = action.payload.data.platformTypes.platformTypes
       }
@@ -166,7 +172,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       return newState
   }
 
-  // console.log(`PlayerUI: ${action.type}`, newState)
+  console.log(`PlayerUI: ${action.type}`, newState)
   return newState
 }
 
