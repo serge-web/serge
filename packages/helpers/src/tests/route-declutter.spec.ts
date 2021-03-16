@@ -83,7 +83,7 @@ it('dont declutter last point on selected track', () => {
     expect(dhowLoc_2).toEqual(lastLoc_2)
 
     // store new location of last planned cell for fisherman
-    const fisherLast_2 = fisherPlanned_2 && fisherPlanned_2.locations && fisherPlanned_2.locations[fisherPlanned_2.locations.length-1]
+    const fisherLast_2 = fisherPlanned_2.locations && fisherPlanned_2.locations[fisherPlanned_2.locations.length-1]
     expect(fisherLast_2).toBeTruthy()
 
     // ok, we don't expect fisher last 2 to have changed
@@ -134,7 +134,7 @@ it('declutter last point on un-selected track', () => {
     expect(dhowLoc_2).toEqual(lastLoc_2)
 
     // store new location of last planned cell for fisherman
-    const fisherLast_2 = fisherPlanned_2 && fisherPlanned_2.locations && fisherPlanned_2.locations[fisherPlanned_2.locations.length-1]
+    const fisherLast_2 = fisherPlanned_2.locations && fisherPlanned_2.locations[fisherPlanned_2.locations.length-1]
     expect(fisherLast_2).toBeTruthy()
 
     // ok, do expect fisher last 2 to have changed, since neither is the selected track
