@@ -175,16 +175,13 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
       const routePos = route && route.currentPosition
       const currentPos = routePos ? routePos : currentPosition
       if (currentPos !== originalPosition) {
-        console.log('moved', locationPending, currentPosition, routePos, originalPosition)
         // on map, but still can be moved
         return LaydownPhases.Moved
       } else {
-        console.log('unmoved', locationPending, currentPosition, routePos, originalPosition)
         // not on map yet
         return LaydownPhases.Unmoved
       }
     } else {
-      console.log('immobile', locationPending, currentPosition, originalPosition)
       return LaydownPhases.Immobile
     }
   } else {
@@ -194,7 +191,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
         switch (locationPending) {
           case LaydownTypes.UmpireLaydown:
             // if we're initiated then the player/umpire can't move it
-            console.log('warning - encountered umpire lockdown after wargame initiated')
+            console.warn('warning - encountered umpire lockdown after wargame initiated')
             return LaydownPhases.Immobile
           case LaydownTypes.ForceLaydown: {
             const routePos = route && route.currentPosition

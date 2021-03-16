@@ -29,7 +29,7 @@ export const forcesControlledBy = (forces: ForceData[], playerForce: string): Ar
  * @param {Phase} phase current game phase
  * @param {ForceData[]} forces array of forces
  * @param {string} playerForce uniqid for player force
- * @param {string[]} controls uniqid for forces controlled by this player. Optional remove for all
+ * @param {PlatformTypeData[]} platformTypes descriptions for all types of platform
  * @param {SergeGrid<SergeHex<{}>> | undefined} grid the grid object, used to find cell centres, used in declutter
  * @param {boolean} filterPlannedSteps whether to filter the planned steps to only one
  * @param {boolean} filterHistorySteps whether to filter the history steps to only one
