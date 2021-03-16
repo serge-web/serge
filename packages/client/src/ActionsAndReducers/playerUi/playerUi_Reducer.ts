@@ -90,7 +90,8 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.allChannels = action.payload.data.channels.channels || []
       newState.allForces = action.payload.data.forces.forces
-      // trip over in its absence
+      // legacy versions of the wargame used platform_types instead of
+      // platformTypes, don't trip over when encountering legacy version
       // @ts-ignore
       if (action.payload.data.platform_types) {
         // @ts-ignore
@@ -98,8 +99,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       }
       // TODO: remove this ^^
 
-      // legacy versions of the wargame lacked a player types element, don't
-      // trip over in its absence. TODO: eventually delete
       if (action.payload.data.platformTypes) {
         newState.allPlatformTypes = action.payload.data.platformTypes.platformTypes
       }
