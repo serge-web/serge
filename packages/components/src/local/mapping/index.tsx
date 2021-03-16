@@ -343,7 +343,7 @@ export const Mapping: React.FC<PropTypes> = ({
               travelMode: planningConstraints.travelMode,
               status: newLeg.state,
               speed: newLeg.speed,
-              range: planningConstraints && planningConstraints.range
+              range: planningConstraints.range
             }
             setPlanningConstraints(newP)
           } else {
