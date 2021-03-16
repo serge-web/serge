@@ -122,8 +122,12 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       handleChangePlatformTypeData({ ...data, states }, selectedItem)
     }
     const handleCreateSpeeds = (): void => {
-      const speedKts: Array<number> = [...data.speedKts, Math.max.apply(null, [0, ...data.speedKts]) + 10]
-      handleChangePlatformTypeData({ ...data, speedKts }, selectedItem)
+      if (data.speedKts) {
+        const speedKts: Array<number> = [...data.speedKts, Math.max.apply(null, [0, ...data.speedKts]) + 10]
+        handleChangePlatformTypeData({ ...data, speedKts }, selectedItem)
+      } else {
+        console.warn('Did not expect to receive new speeds for platform without speeds')
+      }
     }
 
     return (
@@ -190,6 +194,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
             </div>
           </div>
           <div className={cx(styles.col, styles.section)}>
+            { data.speedKts &&
             <FormGroup placeholder="Speed (kts)">
               <SortableList
                 required
@@ -199,6 +204,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
                 items={data.speedKts}
                 title='Add Speed' />
             </FormGroup>
+            }
           </div>
         </div>
       </div>

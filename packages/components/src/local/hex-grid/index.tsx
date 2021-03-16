@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import L from 'leaflet'
+import L, { DragEndEvent } from 'leaflet'
 import { Point, PointLike } from 'honeycomb-grid'
 import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 /* Import Stylesheet */
@@ -20,8 +20,8 @@ import { LAYDOWN_TURN } from '@serge/config'
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
   const {
-    gridCells, planningConstraints, planningRange: planningRangeProps,
-    zoomLevel, setNewLeg, setHidePlanningForm, selectedAsset, viewAsRouteStore
+    gridCells, planningConstraints, zoomLevel, setNewLeg, setHidePlanningForm,
+    selectedAsset, viewAsRouteStore
   } = useContext(MapContext).props
 
   // fix the leaflet icon path, using tip from here:
@@ -57,7 +57,7 @@ export const HexGrid: React.FC<{}> = () => {
   const [dragDestination, setDragDestination] = useState<SergeHex<{}> | undefined>(undefined)
 
   //  allow the achievable range to be changed
-  const [planningRange, setPlanningRange] = useState<number | undefined>(planningRangeProps)
+  const [planningRange, setPlanningRange] = useState<number | undefined>(planningConstraints && planningConstraints.range)
 
   // the AllowableRange story doesn't have a selected asset. Set to red in here
   // it won't have impact on real game play
@@ -79,6 +79,12 @@ export const HexGrid: React.FC<{}> = () => {
           // clear the current planning details
           setPlanningRange(undefined)
           setAllowableFilteredCells([])
+          setOrigin(undefined)
+          setDragDestination(undefined)
+          setPlanningRouteCells([])
+          setPlanningRoutePoly([])
+          setPlannedRouteCells([])
+          setPlannedRoutePoly([])
 
           // and update the asset id
           setSelectedAssetId(selectedAsset.uniqid)
@@ -96,6 +102,8 @@ export const HexGrid: React.FC<{}> = () => {
         // selected asset no longer present - hide it
         setCellForSelected(undefined)
         setOrigin(undefined)
+        setPlanningRange(undefined)
+        setDragDestination(undefined)
       }
     } else {
       setSelectedAssetId(undefined)
@@ -109,16 +117,17 @@ export const HexGrid: React.FC<{}> = () => {
       setOriginHex(undefined)
       setPlanningRoutePoly([])
       setPlannedRoutePoly([])
+      setPlannedRouteCells([])
       setCellForSelected(undefined)
     }
   }, [selectedAsset, gridCells, viewAsRouteStore])
 
-  /** allow for the props being changed. This could be from the StoryBook testing, but could equally
-       *  be from the plan route form
+  /** provide a list of cells allowable for this platform. The area may reduce
+       * as a player plans the leg
        */
-  useEffect(() => {
-    setPlanningRange(planningRangeProps)
-  }, [planningRangeProps])
+  // useEffect(() => {
+  //   console.log('new View As Route Store')
+  // }, [viewAsRouteStore])
 
   /** handle the dynamic indicator that follows mouse movement,
    * represented as cells & a line
@@ -160,13 +169,25 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [dragDestination, originHex])
 
+  /** listen out for just planning constraints changing, since we
+  * update planning range from it.
+  */
+  useEffect(() => {
+    if (planningConstraints !== undefined) {
+      setPlanningRange(planningConstraints.range)
+    }
+  }, [planningConstraints])
+
   /** provide a list of cells allowable for this platform. The area may reduce
        * as a player plans the leg
        */
   useEffect(() => {
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
+    if (planningRange === undefined && planningConstraints !== undefined) {
+      setPlanningRange(planningConstraints.range)
+    }
     // check all data necessary for rendering is present
-    if (planningConstraints && planningConstraints.origin && gridCells && (planningRange || rangeUnlimited)) {
+    if (selectedAsset && planningConstraints && planningConstraints.origin && gridCells && (planningRange || rangeUnlimited)) {
       // if we're mid-way through a leg, we take the value from the origin hex, not the planning centre
       const originCell = plannedRoutePoly.length ? originHex : gridCells.find((cell: SergeHex<{}>) => cell.name === planningConstraints.origin)
       // did we find cell?
@@ -248,7 +269,8 @@ export const HexGrid: React.FC<{}> = () => {
   /** handler for planning marker being droppped
        *
        */
-  const dropped = (e: any): void => {
+  const dropped = (e: DragEndEvent): void => {
+    setDragDestination(undefined)
     if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
       // Special Case - in Force Laydown
       // find the drop location
@@ -298,7 +320,7 @@ export const HexGrid: React.FC<{}> = () => {
           setPlanningRoutePoly([])
 
           // restore the full planning range allowance
-          setPlanningRange(planningRangeProps)
+          setPlanningRange(planningConstraints.range)
 
           // ok, planning complete - fire the event back up the hierarchy
           setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })

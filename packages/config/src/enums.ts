@@ -22,6 +22,14 @@ export enum RFI_States {
   Released = 'Released'
 }
 
+/** who is required to give asset an initial location */
+export enum LaydownTypes {
+  /** the umpire (game designer) can position asset */
+  UmpireLaydown = 'Umpire laydown',
+  /** the player controlling the asset can position it */
+  ForceLaydown = 'Force laydown'
+}
+
 /** the phases of an asset that is 
  * available for movement by a player during
  * force laydown
@@ -29,7 +37,7 @@ export enum RFI_States {
  */ 
 export enum LaydownPhases {
   // we're not in laydown phase
-  NotInLaydown = ' ',
+  NotInLaydown = 'not-in-laydown',
   // can't be moved
   Immobile = 'Immobile',
   // can be moved, but hasn'd

@@ -34,6 +34,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
     forces = {forces}
+    wargameInitiated = {true}
     platforms = {platformTypes}
     playerForce = 'blue'
     canSubmitOrders = {false}

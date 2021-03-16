@@ -31,7 +31,7 @@ export default {
     },
     options: {
       // We have no addons enabled in this story, so the addon panel should be hidden
-      showPanel: false
+      showPanel: true
     },
     controls: {
       expanded: true
@@ -84,6 +84,12 @@ export default {
         min: 1,
         max: 6,
         step: 1
+      }
+    },
+    wargameInitiated: {
+      name: 'Wargame has been initiated',
+      control: {
+        type: 'boolean'
       }
     },
     showAllowableCells: {

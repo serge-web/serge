@@ -4,7 +4,12 @@ export default interface PlatformTypeData {
   name: string,
   conditions: Array<string>,
   icon: string,
-  speedKts: Array<number>,
+  /** list of potential speeds for this platform,
+   * omitted if the platform isn't mobile, empty if the
+   * platform is effectively capable of infinite speed 
+   * (within current turn time)
+   */ 
+  speedKts?: Array<number>,
   states: Array<State>
   travelMode: string
 }

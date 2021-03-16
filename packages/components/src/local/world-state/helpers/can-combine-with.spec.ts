@@ -29,7 +29,7 @@ it('returns correct combine with answers', () => {
     forces[1].assets[3].position = forces[1].assets[1].position
   }
 
-  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Blue', platformTypes, grid, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, grid, false, false)
 
   const tankerId = 'a0pra00003'
   const frigateId = 'a0pra00001'

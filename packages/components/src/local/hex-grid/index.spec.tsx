@@ -30,6 +30,7 @@ it('Mapping renders correctly with HexGrid', () => {
     tileLayer = {LocalTileLayer}
     tileDiameterMins={5}
     forces={forces}
+    wargameInitiated = {true}
     platforms = {platformTypes}
     playerForce={'Blue'}
     canSubmitOrders = {true}

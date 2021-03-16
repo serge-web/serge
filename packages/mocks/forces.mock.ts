@@ -1,3 +1,4 @@
+import { LaydownTypes } from "@serge/config"
 import { ForceData } from "@serge/custom-types"
 
 export const forces: ForceData[] = [
@@ -379,7 +380,7 @@ export const forces: ForceData[] = [
             turn: 2
           }
         ],
-        locationPending: true,
+        locationPending: LaydownTypes.ForceLaydown,
         name: 'Dhow-A',
         perceptions: [{
           by: 'Blue',
@@ -433,7 +434,7 @@ export const forces: ForceData[] = [
             turn: 2
           }
         ],
-        locationPending: true,
+        locationPending: LaydownTypes.ForceLaydown,
         hosting: [
           {
             condition: 'Full capability',
@@ -522,7 +523,7 @@ export const forces: ForceData[] = [
             turn: 2
           }
         ],
-        locationPending: true,
+        locationPending: LaydownTypes.ForceLaydown,
         name: 'Dhow-C',
         perceptions: [],
         plannedTurns: [
@@ -577,7 +578,7 @@ export const forces: ForceData[] = [
             turn: 2
           }
         ],
-        locationPending: true,
+        locationPending: LaydownTypes.ForceLaydown,
         name: 'Missile-A',
         perceptions: [],
         plannedTurns: [],

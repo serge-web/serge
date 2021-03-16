@@ -53,6 +53,8 @@ export default interface Route {
   currentPosition: string,
   /** current position of this asset */
   currentLocation: L.LatLng | undefined,
+  /** original position, used to determine if moved in force laydown */
+  originalPosition?: string,
   /** status of laydown */
   laydownPhase?: LaydownPhases
   /** current planned steps for this asset */

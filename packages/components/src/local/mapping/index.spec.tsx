@@ -32,6 +32,7 @@ it('Mapping renders correctly', () => {
     bounds = {bounds}
     tileLayer = {LocalTileLayer}
     forces = {forces}
+    wargameInitiated = {true}
     playerForce = 'Blue'
     canSubmitOrders = {true}
     platforms = {platformTypes}
