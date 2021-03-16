@@ -1,4 +1,5 @@
 import ExpiredStorage from 'expired-storage'
+import { LaydownTypes } from './enums'
 
 export const DEFAULT_SERVER = 'Nelson'
 export const DEFAULT_PORT = '8080'
@@ -23,7 +24,7 @@ export const LOCATION_PENDING = 'LocationPending' // special state where platfor
 
 //TODO: Some of the below would be better to either come from a database or be replaced with ENUMS
 
-export const UMPIRE_LAYDOWN = 'UmpireLaydown'
+export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
 
 // series of constants used for `messageType` when sending map events
 export const FORCE_LAYDOWN = 'ForceLaydown'

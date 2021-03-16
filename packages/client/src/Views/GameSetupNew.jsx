@@ -35,6 +35,7 @@ import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 const AdminGameSetup = () => {
   const dispatch = useDispatch()
   const wargame = useSelector(state => state.wargame)
+  console.log(wargame, 'dDDD');
   const messageTypes = useSelector(state => state.messageTypes)
   const {
     data,
@@ -97,6 +98,7 @@ const AdminGameSetup = () => {
   }
 
   const handleSaveOverview = overview => {
+    console.log('currentWargame', currentWargame, overview)
     dispatch(saveSettings(currentWargame, overview))
   }
 

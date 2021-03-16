@@ -6,6 +6,7 @@ const game:Wargame = {
   name: 'name of wargame',
   phase: Phase.Adjudication,
   isLoading: false,
+  gameTurn: 2,
   wargameList: [
     {
       name: 'http://localhost:8080/db/wargame-keeemiss',

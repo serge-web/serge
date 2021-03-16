@@ -1,8 +1,10 @@
-import { Wargame } from "@serge/custom-types"
-const game:Wargame = {
-  "_id": "some_id",
-  "name": "name of wargame",
-  "phase": "adjudication",
+import { Wargame } from '@serge/custom-types'
+const wargame: Wargame =  {
+  _id: '1',
+  name:'mock',
+  adjudicationStartTime: '',
+  phase: 'planning',
+  gameTurn: 2,
   "isLoading": false,
   "wargameList": [
     {
@@ -87,4 +89,4 @@ const game:Wargame = {
   "adminNotLoggedIn": false
 }
 
-export default game
+export default wargame

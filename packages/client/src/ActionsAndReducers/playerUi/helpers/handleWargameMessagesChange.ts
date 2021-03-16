@@ -10,12 +10,9 @@ import {
 import { handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
 
 import {
-  INFO_MESSAGE,
   INFO_MESSAGE_CLIPPED
 } from '@serge/config'
 // TODO: change it to @serge/config
-
-import _ from 'lodash'
 
 interface SetWargameMessage {
   channels: PlayerUiChannels,
