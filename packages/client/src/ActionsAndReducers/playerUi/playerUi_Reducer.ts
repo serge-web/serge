@@ -86,13 +86,14 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.gameTurnTime = action.payload.data.overview.gameTurnTime
       newState.adjudicationStartTime = action.payload.adjudicationStartTime || ''
       newState.realtimeTurnTime = action.payload.data.overview.realtimeTurnTime
-      // @ts-ignore
       newState.timeWarning = action.payload.data.overview.timeWarning
       newState.turnEndTime = action.payload.turnEndTime || ''
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.allChannels = action.payload.data.channels.channels || []
       newState.allForces = action.payload.data.forces.forces
 
+      // legacy versions of the wargame lacked a player types element, don't
+      // trip over in its absence. TODO: eventually delete
       if (action.payload.data.platformTypes) {
         newState.allPlatformTypes = action.payload.data.platformTypes.platformTypes
       }
