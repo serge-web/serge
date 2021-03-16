@@ -22,7 +22,9 @@ export default {
 }
 
 export const Default: React.FC = () => {
-  if (WargameExportedMock.data.channels.channels === undefined) {
+  // the channels child element may theoretically be undefined, we 
+  // make the compiler happy 
+  if(WargameExportedMock.data.channels.channels === undefined) {
     return <div/>
   }
   const [channels, setChannels] = useState<Array<ChannelData>>(WargameExportedMock.data.channels.channels)
