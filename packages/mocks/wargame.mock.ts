@@ -4,6 +4,7 @@ const wargame: Wargame =  {
   name:'mock',
   adjudicationStartTime: '',
   phase: 'planning',
+  gameTurn: 2,
   "isLoading": false,
   "wargameList": [
     {

@@ -8,6 +8,7 @@ export default interface Wargame {
   _rev?: string,
   name: string,
   phase: typeof ADJUDICATION_PHASE | typeof PLANNING_PHASE ,
+  gameTurn: number,
   turnEndTime?: string,
   adjudicationStartTime?: string,
   isLoading: boolean,
