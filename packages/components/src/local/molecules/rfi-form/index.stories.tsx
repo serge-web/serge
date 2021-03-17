@@ -22,6 +22,8 @@ export default {
 }
 
 const Template: Story<RfiFormTypes> = (args) => <RfiForm {...args} />
+
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 export const Default = Template.bind({})
 Default.args = {
   request: {
