@@ -39,7 +39,6 @@ it('find new message in specific channel (red)', () => {
   expect(lastMessage._rev).toEqual("4")
 })
 
-
 it('find new message in specific channel (not present)', () => {
   // check full list present at start
   expect(GameMessagesMockRFI.length).toEqual(13)
@@ -48,6 +47,25 @@ it('find new message in specific channel (not present)', () => {
   const mostRecent: MessageCustom[] = mostRecentOnly(GameMessagesMockRFI, "Dud channel")
   expect(mostRecent.length).toEqual(0)
 })
+
+it('find new chat message in all channels', () => {
+  // check full list present at start
+  expect(GameMessagesMockRFI.length).toEqual(13)
+
+  // check we get reduced set of messages
+  const mostRecent: MessageCustom[] = mostRecentOnly(GameMessagesMockRFI, undefined, "Chat")
+  expect(mostRecent.length).toEqual(3)
+})
+
+it('find new RFI message in all channels', () => {
+  // check full list present at start
+  expect(GameMessagesMockRFI.length).toEqual(13)
+
+  // check we get reduced set of messages
+  const mostRecent: MessageCustom[] = mostRecentOnly(GameMessagesMockRFI, undefined, "RFI")
+  expect(mostRecent.length).toEqual(4)
+})
+
 
 
 
