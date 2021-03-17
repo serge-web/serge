@@ -14,10 +14,8 @@ import MenuItem from '@material-ui/core/MenuItem'
 import CheckIcon from '@material-ui/icons/Check'
 
 /* Render component */
-// TODO: reinstate next line, to provide theme for later commented out cell
-//const useStyles = makeStyles((theme: Theme) => ({
-const useStyles = makeStyles(() => ({
-    button: {
+const useStyles = makeStyles((theme: Theme) => ({
+  button: {
     color: 'white',
     fontWeight: 'bold',
     fontSize: '1em',
@@ -34,8 +32,7 @@ const useStyles = makeStyles(() => ({
       display: 'inline-block',
       width: '16px',
       marginLeft: '10px'
-      // TODO: reinstate next line
-      // color: theme.palette[`${'primaryAccent'}`].main
+      color: theme.palette[`${'primaryAccent'}`].main
     }
   }
 }))
