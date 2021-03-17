@@ -76,7 +76,7 @@ export interface CollaborationDetails {
    /**
     * Current message owner
     */
-   owner: Role['name']
+   owner?: Role['name']
    /** 
     * response to message, only used in RFIs 
     */
