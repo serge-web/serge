@@ -31,8 +31,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     '& svg': {
       display: 'inline-block',
       width: '16px',
-      marginLeft: '10px',
-      color: theme.palette[`${'primaryAccent'}`].main
+      marginLeft: '10px'
+      // TODO: reinstate next line
+      // color: theme.palette[`${'primaryAccent'}`].main
     }
   }
 }))
