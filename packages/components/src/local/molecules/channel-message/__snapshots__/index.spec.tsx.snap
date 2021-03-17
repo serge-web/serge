@@ -46,7 +46,7 @@ exports[`ChannelMessage component: renders correctly 1`] = `
           <span
             className="info-body"
           >
-            09:41
+            12:41
           </span>
           <div
             className="MuiChip-root makeStyles-root-2 makeStyles-root-5 MuiChip-sizeSmall makeStyles-sizeSmall-3"
