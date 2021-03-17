@@ -6,7 +6,6 @@ import { MessageChannel, MessageCustom } from '@serge/custom-types'
  * of that message encountered in the list
  */
 const mostRecentOnly = (messages: MessageChannel[], channel?: string): MessageCustom[] => {
-
   const matches = new Map<string, MessageCustom>();
   messages.forEach((message: MessageChannel) => {
     if(message.messageType === CUSTOM_MESSAGE && channel === undefined || message.details.channel === channel) {
@@ -17,10 +16,6 @@ const mostRecentOnly = (messages: MessageChannel[], channel?: string): MessageCu
       }
     }
   })
-  const trimmed: MessageCustom[] = []
-  matches.forEach((message: MessageCustom) => {
-    trimmed.push(message)
-  })
-  return trimmed
+  return Array.from(matches.values())
 }
 export default mostRecentOnly
