@@ -82,7 +82,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:52:21.119Z",
       collaboration: {
-        status: CollaborativeMessageStates.Pending
+        status: CollaborativeMessageStates.Unallocated
       }
     },
     message: {
@@ -106,7 +106,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:53:21.119Z",
       collaboration: {
-        status: CollaborativeMessageStates.Pending
+        status: CollaborativeMessageStates.Unallocated
       }
     },
     message: {
@@ -130,7 +130,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
-        status: CollaborativeMessageStates.Pending
+        status: CollaborativeMessageStates.Unallocated
       }
     },
     message: {
@@ -230,7 +230,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
-        status: CollaborativeMessageStates.Pending
+        status: CollaborativeMessageStates.Unallocated
       }
     },
     message: {
