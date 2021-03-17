@@ -6,13 +6,15 @@ import {
   VISIBILITY_CHANGES,
   PERCEPTION_OF_CONTACT,
   SUBMIT_PLANS,
-  STATE_OF_WORLD
+  STATE_OF_WORLD,
+  CollaborativeMessageStates
 } from '@serge/config'
 // TODO: change it to @serge/config
 
 import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
+import Role from './role'
 import { StateOfWorld } from '.'
 
 export interface MessageDetails {
@@ -36,6 +38,10 @@ export interface MessageDetails {
     /** user-name, as typed into Feedback/insights form */
     name?: string
   }
+  /** 
+   * extra data for when message being edited collaboratively 
+   */
+  collaboration?: CollaborationDetails
   messageType: string,
   timestamp: string,
   privateMessage?: string
@@ -59,6 +65,24 @@ export interface CoreMessage {
   readonly details: MessageDetails,
 }
 
+/** data for a message that is being
+ * collaboarively edited
+ */
+export interface CollaborationDetails {
+  /**
+   * Message status
+   */
+   status: CollaborativeMessageStates
+   /**
+    * Current message owner
+    */
+   owner: Role['name']
+   /** 
+    * response to message, only used in RFIs 
+    */
+   response?: string
+}
+
 export interface MessageCustom extends CoreMessage {
   messageType: typeof CUSTOM_MESSAGE,
   message: MessageStructure,
@@ -66,7 +90,7 @@ export interface MessageCustom extends CoreMessage {
   hasBeenRead: boolean
   gameTurn?: number,
   feedback?: boolean,
-  infoType?: boolean
+  infoType?: boolean,
 }
 
 export interface MessageFeedback extends CoreMessage {
