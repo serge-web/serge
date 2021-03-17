@@ -4,7 +4,7 @@ export default interface PropTypes {
   /**
    * The unique identifier for the asset marker
    */
-  uniqid: string
+  readonly uniqid: string
   /**
    * The name of the asset marker
    */

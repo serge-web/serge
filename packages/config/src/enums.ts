@@ -10,6 +10,26 @@ export enum Phase {
   Adjudication = 'adjudication'
 }
 
+/** states for a Request for Information */
+export enum RFI_States {
+  // request sent, no owner
+  Pending = 'Pending',
+  // someone has taken ownership
+  InProgress = 'In Progress',
+  // response submitted for review
+  PendingReview = 'Pending Review',
+  // response accepted by RFI manager 
+  Released = 'Released'
+}
+
+/** who is required to give asset an initial location */
+export enum LaydownTypes {
+  /** the umpire (game designer) can position asset */
+  UmpireLaydown = 'Umpire laydown',
+  /** the player controlling the asset can position it */
+  ForceLaydown = 'Force laydown'
+}
+
 /** the phases of an asset that is 
  * available for movement by a player during
  * force laydown
@@ -17,7 +37,7 @@ export enum Phase {
  */ 
 export enum LaydownPhases {
   // we're not in laydown phase
-  NotInLaydown = ' ',
+  NotInLaydown = 'not-in-laydown',
   // can't be moved
   Immobile = 'Immobile',
   // can be moved, but hasn'd

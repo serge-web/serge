@@ -2,9 +2,10 @@ import ChannelData from './channel-data'
 import ForceData from './force-data'
 import PlatformTypeData from './platform-type-data'
 import { MessageFeedback, MessageChannel } from './message'
+import ChannelUI from './channel-ui'
 
 export interface PlayerUiChannels {
-  [property: string]: ChannelData
+  [property: string]: ChannelUI
 }
 
 export interface PlayerUiChatChannel {
@@ -24,7 +25,7 @@ export default interface PlayerUi {
   gameDate: string,
   gameTurnTime: number,
   realtimeTurnTime: number,
-  turnEndTime: number,
+  turnEndTime: string,
   /**
    * how long before end of turn that warning inidicator should appear (millis)
    */
@@ -44,6 +45,9 @@ export default interface PlayerUi {
   /** descriptions of platforms available in current wargame */
   allPlatformTypes: Array<PlatformTypeData>,
   showObjective: boolean,
+  /** whether wargame changes stored as new documents (true) or whether
+   * change overwrite the original wargame document (false)
+   */
   wargameInitiated: boolean,
   feedbackMessages: Array<MessageFeedback>,
   /** whether the introductory tour is running */

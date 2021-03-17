@@ -6,14 +6,11 @@ import PlayerUiLandingScreen from '../PlayerUiLandingScreen'
 import PlayerUiLobby from '../PlayerUiLobby'
 import GameChannelsWithTour from '../GameChannelsWithTour'
 import LoaderScreen from '../../Components/LoaderScreen'
-import PlayerUiInitiate from '../PlayerUiInitiate'
-
 
 import checkPassword from './helpers/checkPassword'
-import { umpireForceTemplate, expiredStorage } from '../../consts'
+import {  expiredStorage } from '../../consts'
 import {
   getWargame,
-  initiateGame,
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
 
@@ -33,9 +30,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     currentWargame,
     selectedForce,
     selectedRole,
-    wargameTitle,
-    wargameInitiated,
-    isGameControl
+    wargameTitle
   } = usePlayerUiState()
 
   const dispatch = usePlayerUiDispatch()
@@ -103,19 +98,11 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
       />
     case Room.player:
       if (selectedForce) {
-        if (wargameInitiated) {
-          const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
-          return <GameChannelsWithTour
-            storageKey={setStorageKey()}
-            tourIsOpen={tourIsOpen}
-          />
-        }
-
-        if (selectedForce.uniqid === umpireForceTemplate.uniqid && isGameControl) {
-          return <PlayerUiInitiate initiateGameplay={(): void => {
-            initiateGame(currentWargame)(dispatch)
-          }} />
-        }
+        const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
+        return <GameChannelsWithTour
+          storageKey={setStorageKey()}
+          tourIsOpen={tourIsOpen}
+        />
       }
       return <LoaderScreen />
   }

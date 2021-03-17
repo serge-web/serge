@@ -51,6 +51,7 @@ export const Default: React.FC = () => <Mapping
   bounds={bounds}
   tileLayer={LocalTileLayer}
   forces={forces}
+  wargameInitiated={true}
   playerForce='Blue'
   canSubmitOrders = {true}
   platforms={platformTypes}

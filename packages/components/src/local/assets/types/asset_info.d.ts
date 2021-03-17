@@ -1,3 +1,4 @@
+import { LaydownPhases } from '@serge/config'
 import { RouteStatus } from '@serge/custom-types'
 import L from 'leaflet'
 
@@ -11,7 +12,7 @@ export default interface AssetInfo {
   perceivedForce: string
   selected: boolean
   visibleTo: Array<string>
-  uniqid: string
+  readonly uniqid: string
   controlledBy?: Array<string>
-  locationPending?: boolean
+  laydownPhase?: LaydownPhases
 }

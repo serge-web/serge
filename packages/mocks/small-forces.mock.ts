@@ -1,3 +1,4 @@
+import { LaydownTypes } from "@serge/config"
 import { ForceData } from "@serge/custom-types"
 
 export const forces: ForceData[] = [
@@ -179,7 +180,7 @@ export const forces: ForceData[] = [
             turn: 2
           }
         ],
-        locationPending: true,
+        locationPending: LaydownTypes.ForceLaydown,
         name: 'Dhow-A',
         perceptions: [{
           by: 'Blue',
@@ -217,7 +218,6 @@ export const forces: ForceData[] = [
           }
         ],
         platformType: 'fishing-vessel',
-        position: 'M04',
         status: {
           speedKts: 10,
           state: 'Transiting'

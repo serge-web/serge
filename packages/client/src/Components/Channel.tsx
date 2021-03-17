@@ -12,7 +12,7 @@ import {
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { MessageChannel, MessageCustom } from '@serge/custom-types'
 import '@serge/themes/App.scss'
-import { INFO_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED } from '@serge/config'
 
 const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
@@ -34,9 +34,9 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   }
 
   const messages = (state.channels[channelId].messages || []).map(item => {
-    if(item.messageType === INFO_MESSAGE) {
-      // we don't display info messages in channels
-      return undefined
+    if(item.messageType === INFO_MESSAGE_CLIPPED) {
+      // this is a turn marker, we return it unchanged
+      return item
     } else {
       const messageItem: MessageCustom = item
       const {

@@ -5,7 +5,7 @@ import RouteTurn from './route-turn'
 
 export interface RouteChild {
   /** which asset this is */
-  uniqid: string,
+  readonly uniqid: string,
   /** name (perceived or real) */
   name: string,
   /** platform-type (perceived or real) */
@@ -24,7 +24,7 @@ export interface RouteChild {
 
 export default interface Route {
   /** which asset this route is for */
-  uniqid: string,
+  readonly uniqid: string,
   /** name (perceived or real) */
   name: string,
   /** platform-type (perceived or real) */
@@ -53,6 +53,8 @@ export default interface Route {
   currentPosition: string,
   /** current position of this asset */
   currentLocation: L.LatLng | undefined,
+  /** original position, used to determine if moved in force laydown */
+  originalPosition?: string,
   /** status of laydown */
   laydownPhase?: LaydownPhases
   /** current planned steps for this asset */

@@ -1,6 +1,6 @@
 import { LaydownPhases } from '@serge/config'
 import { RouteStore, Route, SergeGrid, SergeHex } from '@serge/custom-types'
-import { hexNamed } from '@serge/helpers'
+import hexNamed from './hex-named'
 import { cloneDeep } from 'lodash'
 
 /** set the asset location
@@ -19,16 +19,21 @@ const routeSetLaydown = (store: RouteStore, location: string, grid: SergeGrid<Se
     const cell =  grid && hexNamed(location, grid)
     if(cell) {
       route.currentLocation = cell.centreLatLng
-    } 
+    }
 
     // update the phase
     route.laydownPhase = LaydownPhases.Moved
 
-    // clear any planned steps
+    // clear any planned steps, since they apply to a different origin
     if(route.planned) {
       route.planned = []
       route.plannedTrimmed = []
       route.plannedTurnsCount = 0
+    }
+
+    // we also need to clear history, since it's to a different origin
+    if(route.history) {
+      route.history = []
     }
   } else {
     console.warn('no selected asset')

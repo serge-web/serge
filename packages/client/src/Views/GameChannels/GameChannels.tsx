@@ -26,7 +26,8 @@ const GameChannels: React.FC = (): React.ReactElement => {
     showObjective,
     timeWarning,
     turnEndTime,
-    selectedForce
+    selectedForce,
+    wargameInitiated
   } = usePlayerUiState()
 
   if (selectedForce == undefined) {
@@ -66,6 +67,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
         phase={phase}
         timeWarning={timeWarning}
         turnEndTime={`${turnEndTime}`}
+        wargameInitiated={wargameInitiated}
       />
       <AdminAndInsightsTabsContainer />
       {showObjective && <ForceObjective

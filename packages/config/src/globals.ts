@@ -1,4 +1,5 @@
 import ExpiredStorage from 'expired-storage'
+import { LaydownTypes } from './enums'
 
 export const DEFAULT_SERVER = 'Nelson'
 export const DEFAULT_PORT = '8080'
@@ -23,13 +24,14 @@ export const LOCATION_PENDING = 'LocationPending' // special state where platfor
 
 //TODO: Some of the below would be better to either come from a database or be replaced with ENUMS
 
+export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
+
 // series of constants used for `messageType` when sending map events
 export const FORCE_LAYDOWN = 'ForceLaydown'
 export const VISIBILITY_CHANGES = 'VisibilityChanges'
 export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 export const SUBMIT_PLANS = 'SubmitPlans'
 export const STATE_OF_WORLD = 'StateOfWorld'
-
 
 // series of constants used for `messageType` when sending custom messages
 export const CUSTOM_MESSAGE = 'CustomMessage'
@@ -38,7 +40,9 @@ export const CUSTOM_MESSAGE = 'CustomMessage'
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'
 
 // series of constants used for `messageType` when sending system messages
+// an INFO_MESSAGE is an update to the wargame document
 export const INFO_MESSAGE = 'InfoMessage'
+export const INFO_MESSAGE_CLIPPED = 'InfoMessageClipped'
 
 // return states of adjudication form
 export const PLAN_ACCEPTED = 'accepted'

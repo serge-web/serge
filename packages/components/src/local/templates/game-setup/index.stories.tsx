@@ -35,7 +35,8 @@ export const Default: React.FC = () => {
     data: {
       ...WargameExportedMock.data,
       platformTypes: platformTypeMock
-    }
+    },
+    wargameInitiated: false
   }
 
   const [wargame, setWargame] = useState<Wargame>(initialWargame)
@@ -60,7 +61,7 @@ export const Default: React.FC = () => {
   }
 
   const onSave = (updates: any): void => {
-    console.log(updates)
+    console.log('GameSetup, updates:', updates)
   }
 
   const onOverviewChange = (nextOverview: WargameOverview): void => {
@@ -83,6 +84,14 @@ export const Default: React.FC = () => {
     console.log(update)
   }
 
+  const onWargameInitiated = (): void => {
+    const updatedWargame = {
+      ...wargame,
+      wargameInitiated: true
+    }
+    setWargame(updatedWargame)
+  }
+
   return (
     <GameSetup
       activeTab={adminTabs[activeTab]}
@@ -101,6 +110,7 @@ export const Default: React.FC = () => {
       onSave={onSave}
       messageTemplates={MessageTemplatesMock}
       onSaveGameTitle={onSaveGameTitle}
+      onWargameInitiate={onWargameInitiated}
     />
   )
 }

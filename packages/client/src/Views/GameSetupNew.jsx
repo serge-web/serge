@@ -35,6 +35,7 @@ import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 const AdminGameSetup = () => {
   const dispatch = useDispatch()
   const wargame = useSelector(state => state.wargame)
+  console.log(wargame, 'dDDD');
   const messageTypes = useSelector(state => state.messageTypes)
   const {
     data,
@@ -97,6 +98,7 @@ const AdminGameSetup = () => {
   }
 
   const handleSaveOverview = overview => {
+    console.log('currentWargame', currentWargame, overview)
     dispatch(saveSettings(currentWargame, overview))
   }
 
@@ -129,7 +131,7 @@ const AdminGameSetup = () => {
   const handleSaveChannel = channel => {
     const channelName = channel.name
     const selectedChannelName = channels.selectedChannel.name
-    const selectedChannelId = channels.selectedChannel.uniqid
+    const selectedChannelId = channel.uniqid
     const newChannelData = channels.channels.find((c) => c.uniqid === selectedChannelId)
 
     if (typeof channelName === 'string' && channelName.length > 0) {
@@ -216,6 +218,11 @@ const AdminGameSetup = () => {
     dispatch(duplicateChannel(currentWargame, uniqid))
   }
 
+  const onWargameInitiate = () => {
+    // TOOD: handle this call
+    console.log('TODO handling initiate wargame in GameSetupNew.jsx', 'To be implemented once action reducers moved to TS')
+  }
+
   const handleSidebarForcesClick = force => {
     if (forces.dirty) {
       dispatch(modalAction.open('unsavedForce', force))
@@ -286,6 +293,7 @@ const AdminGameSetup = () => {
       onSave={onSave}
       messageTemplates={messageTypes.messages}
       onSaveGameTitle={handleSaveWargameTitle}
+      onWargameInitiate={onWargameInitiate}
     />
   )
 }

@@ -5,7 +5,7 @@ import { forces, platformTypes } from '@serge/mocks'
 import { Phase } from '@serge/config'
 
 import canCombineWith from './can-combine-with'
-import routeCreateStore from '@serge/helpers/route-create-store'
+import { routeCreateStore } from '@serge/helpers'
 import { RouteStore, SergeGrid, SergeHex } from '@serge/custom-types'
 import createGrid from '../../mapping/helpers/create-grid'
 import boundsFor from '../../mapping/helpers/bounds-for'
@@ -29,7 +29,7 @@ it('returns correct combine with answers', () => {
     forces[1].assets[3].position = forces[1].assets[1].position
   }
 
-  const store: RouteStore = routeCreateStore(undefined, 1, Phase.Adjudication, forces, 'Blue', platformTypes, grid, false, false)
+  const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, grid, false, false)
 
   const tankerId = 'a0pra00003'
   const frigateId = 'a0pra00001'

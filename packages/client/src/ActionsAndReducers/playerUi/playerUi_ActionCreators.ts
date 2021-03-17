@@ -26,7 +26,10 @@ import {
   Message,
   MessageDetails,
   MessageFeedback,
-  MessageChannel
+  MessageChannel,
+  MessageCustom,
+  MessageInfoType,
+  MessageDetailsFrom
 } from '@serge/custom-types'
 import { PlayerUiActionTypes } from '@serge/custom-types'
 
@@ -67,7 +70,7 @@ export const setLatestWargameMessage = (message: MessageChannel): PlayerUiAction
   type: SET_LATEST_WARGAME_MESSAGE,
   payload: message
 })
-export const setWargameMessages = (messages: Array<MessageChannel>): PlayerUiActionTypes => ({
+export const setWargameMessages = (messages: Array<MessageCustom | MessageInfoType>): PlayerUiActionTypes => ({
   type: SET_ALL_MESSAGES,
   payload: messages
 })
@@ -126,8 +129,7 @@ export const nextGameTurn = (dbName: string): Function => {
   }
 }
 
-// TODO: fromDetails check type
-export const sendFeedbackMessage = (dbName: string, fromDetails: any, message: MessageFeedback): Function => {
+export const sendFeedbackMessage = (dbName: string, fromDetails: MessageDetailsFrom, message: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     await wargamesApi.postFeedback(dbName, fromDetails, message)
     dispatch(closeModal())
@@ -137,8 +139,9 @@ export const sendFeedbackMessage = (dbName: string, fromDetails: any, message: M
 export const failedLoginFeedbackMessage = (dbName: string, password: string): Function => {
   return async (): Promise<void> => {
     const address = await wargamesApi.getIpAddress()
-    const from = {
+    const from: MessageDetailsFrom = {
       force: address.ip,
+      icon: '',
       forceColor: '#970000',
       role: '',
       name: password
@@ -154,6 +157,7 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
 }
 
 export const saveMapMessage = (dbName: string, details: MessageDetails, message: object): Promise<Message> => {
+  // @ts-ignore
   return wargamesApi.postNewMapMessage(dbName, details, message)
 }
 
@@ -168,7 +172,7 @@ export const getAllWargameFeedback = (dbName: string): Function => {
 export const getAllWargameMessages = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     const allMessages: Array<Message> = await wargamesApi.getAllMessages(dbName)
-    dispatch(setWargameMessages(allMessages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageChannel)[]))
+    dispatch(setWargameMessages(allMessages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageInfoType | MessageCustom)[]))
     dispatch(setWargameFeedback(allMessages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
   }
 }

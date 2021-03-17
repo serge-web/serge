@@ -20,8 +20,8 @@ import copyState from '../../Helpers/copyStateHelper'
 import { PlayerUiActionTypes } from '@serge/custom-types'
 import { PlayerUi } from '@serge/custom-types';
 import {
-  hanldeSetLatestWargameMessage,
-  handleSetAllMEssages,
+  handleSetLatestWargameMessage,
+  handleSetAllMessages,
   openMessage,
   closeMessage,
   markAllAsRead
@@ -43,7 +43,7 @@ export const initialState: PlayerUi = {
   gameTurnTime: 0,
   timeWarning: 0,
   realtimeTurnTime: 0,
-  turnEndTime: 0,
+  turnEndTime: '0',
   adjudicationStartTime: '',
   gameDescription: '',
   currentWargame: '',
@@ -74,35 +74,31 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
   switch (action.type) {
     case SET_CURRENT_WARGAME_PLAYER:
-      // @ts-ignore
       newState.currentWargame = action.payload.name
       newState.wargameTitle = action.payload.wargameTitle
       newState.wargameInitiated = action.payload.wargameInitiated
-        // @ts-ignore
       newState.currentTurn = action.payload.gameTurn
-        // @ts-ignore
       newState.phase = action.payload.phase
       newState.showAccessCodes = action.payload.data.overview.showAccessCodes
+      newState.wargameInitiated = action.payload.wargameInitiated
       newState.gameDate = action.payload.data.overview.gameDate
       newState.gameTurnTime = action.payload.data.overview.gameTurnTime
-        // @ts-ignore
-      newState.adjudicationStartTime = action.payload.adjudicationStartTime
+      newState.adjudicationStartTime = action.payload.adjudicationStartTime || ''
       newState.realtimeTurnTime = action.payload.data.overview.realtimeTurnTime
-      // @ts-ignore
       newState.timeWarning = action.payload.data.overview.timeWarning
-        // @ts-ignore
-      newState.turnEndTime = action.payload.turnEndTime
+      newState.turnEndTime = action.payload.turnEndTime || ''
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.allChannels = action.payload.data.channels.channels || []
       newState.allForces = action.payload.data.forces.forces
-      // legacy versions of the wargame lacked a player types element, don't
-      // trip over in its absence
-        // @ts-ignore
+      // legacy versions of the wargame used platform_types instead of
+      // platformTypes, don't trip over when encountering legacy version
+      // @ts-ignore
       if (action.payload.data.platform_types) {
         // @ts-ignore
         newState.allPlatformTypes = action.payload.data.platform_types.platformTypes
       }
       // TODO: remove this ^^
+
       if (action.payload.data.platformTypes) {
         newState.allPlatformTypes = action.payload.data.platformTypes.platformTypes
       }
@@ -137,13 +133,13 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_LATEST_WARGAME_MESSAGE:
-      const changedLatestState = hanldeSetLatestWargameMessage(action.payload, newState)
+      const changedLatestState = handleSetLatestWargameMessage(action.payload, newState)
       newState.channels = changedLatestState.channels
       newState.chatChannel = changedLatestState.chatChannel
       break
 
     case SET_ALL_MESSAGES:
-      const changedAllMesagesState = handleSetAllMEssages(action.payload, newState)
+      const changedAllMesagesState = handleSetAllMessages(action.payload, newState)
       newState.channels = changedAllMesagesState.channels
       newState.chatChannel = changedAllMesagesState.chatChannel
       break
@@ -176,7 +172,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       return newState
   }
 
-  // console.log(`PlayerUI: ${action.type}`, newState)
+  console.log(`PlayerUI: ${action.type}`, newState)
   return newState
 }
 

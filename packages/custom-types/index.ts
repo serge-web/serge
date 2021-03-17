@@ -4,6 +4,7 @@
 ***/
 
 export { default as ChannelData } from './channel-data.d'
+export { default as ChannelUI } from './channel-ui.d'
 export { default as Channel } from './channel.d'
 export { default as ColorOption } from './color-option.d'
 export { default as ForceData } from './force-data.d'
@@ -15,6 +16,8 @@ export { default as MapPostBack } from './map-postback-data.d'
 export { default as MarkerPerception } from './marker-perception.d'
 export { default as Message,
          MessageDetails,
+         MessageDetailsFrom,
+         MessageStructure,
          // Map Types
          MessageForceLaydown,
          MessagePerceptionOfContact,
@@ -25,6 +28,7 @@ export { default as Message,
          // System Messages
          MessageFeedback,
          MessageInfoType,
+         MessageInfoTypeClipped,
          // All template based messages
          MessageCustom,
          MessageChannel
@@ -47,6 +51,7 @@ export { RouteMarkerDuo } from './route-marker'
 export { default as SergeGrid } from './serge-grid.d'
 export { default as SergeHex } from './serge-hex.d'
 export { default as SelectedAsset } from './selected-asset.d'
+export { default as SetWargameMessage } from './set-wargame-message.d'
 export { default as State } from './state.d'
 export { AssetState, ForceState, StateOfWorld } from './state-of-world.d'
 export { default as Template } from './template.d'

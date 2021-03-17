@@ -17,7 +17,7 @@ class AdjudicationManager {
   formData: AdjudicateTurnFormPopulate
   formHeader: string
   turn: number
-  uniqid: string
+  readonly uniqid: string
   myId: string
   platformDetails: PlatformTypeData | undefined
   /**
@@ -104,8 +104,8 @@ class AdjudicationManager {
             return originalSpeed
           } else {
             // check platform chars
-            const speeds: number[] = platform.speedKts
-            if (speeds.length) {
+            const speeds: number[] | undefined = platform.speedKts
+            if (speeds && speeds.length) {
               return speeds[0]
             }
           }

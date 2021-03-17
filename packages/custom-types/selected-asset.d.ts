@@ -5,7 +5,7 @@ import { RouteStatus } from ".";
  * not the actual one
  */
 export default interface SelectedAsset {
-    uniqid: string,
+    readonly uniqid: string,
     name: string,
     type: string,
     force: string,
