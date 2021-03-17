@@ -75,35 +75,42 @@ const Template: Story<BadgePropTypes> = (args) => {
   const { ...props } = args
   return <Badge {...props} />
 }
+
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 export const Default = Template.bind({})
 Default.args = {
   label: 'Default'
 }
 
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 export const Warning = Template.bind({})
 Warning.args = {
   label: 'Warning',
   type: 'warning'
 }
 
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 export const Charcoal = Template.bind({})
 Charcoal.args = {
   label: 'Charcoal',
   type: 'charcoal'
 }
 
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 export const CustomBackgroundColor = Template.bind({})
 CustomBackgroundColor.args = {
   label: 'Custom color',
   customBackgroundColor: '#F94248'
 }
 
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 export const customSize = Template.bind({})
 customSize.args = {
   label: 'Custom size',
   customSize: 'large'
 }
 
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 export const noCapital = Template.bind({})
 noCapital.args = {
   label: 'No Capital',
