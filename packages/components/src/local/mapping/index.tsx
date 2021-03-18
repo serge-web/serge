@@ -111,7 +111,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
   const [mapBounds, setMapBounds] = useState<L.LatLngBounds | undefined>(undefined)
-  const [latLngBounds, setLatLngBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
   const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
@@ -254,31 +253,21 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [phase])
 
   useEffect(() => {
-  //  console.log('map bounds')
     if (mapBounds) {
-//      const lBounds = boundsFor(mapBounds)
-  //    console.log('map bounds', lBounds, mapBounds)
-      setLatLngBounds(mapBounds)
+      setMapCentre(mapBounds.getCenter())
     }
   }, [mapBounds])
-
-  useEffect(() => {
-    console.log('lat lng bounds updated', latLngBounds)
-    if (latLngBounds) {
-      setMapCentre(latLngBounds.getCenter())
-    }
-  }, [latLngBounds])
 
   console.log('mapping render')
 
   useEffect(() => {
-    if (latLngBounds && tileDiameterMins) {
+    if (mapBounds && tileDiameterMins) {
       // note: the list of cells should be re-calculated if `tileDiameterMins` changes
-      const newGrid: SergeGrid<SergeHex<{}>> = createGrid(latLngBounds, tileDiameterMins)
+      const newGrid: SergeGrid<SergeHex<{}>> = createGrid(mapBounds, tileDiameterMins)
       setGridCells(newGrid)
     }
     //    console.clear() // TODO: remove this, it's just a shortcut to ensuring each "session" starts with clear console.ß
-  }, [tileDiameterMins, latLngBounds])
+  }, [tileDiameterMins, mapBounds])
 
   const handleForceLaydown = (turn: NewTurnValues): void => {
     if (routeStore.selected) {
@@ -552,8 +541,8 @@ export const Mapping: React.FC<PropTypes> = ({
         <Map
           className={styles.map}
           center={mapCentre}
-          bounds={latLngBounds}
-          maxBounds={latLngBounds}
+          bounds={mapBounds}
+          maxBounds={mapBounds}
           zoom={zoom}
           zoomDelta={zoomDelta}
           zoomSnap={zoomSnap}
@@ -580,7 +569,7 @@ export const Mapping: React.FC<PropTypes> = ({
           <TileLayer
             url={tileLayer.url}
             attribution={tileLayer.attribution}
-            bounds={latLngBounds}
+            bounds={mapBounds}
           />
           <ScaleControl position='bottomright' />
           {children}
