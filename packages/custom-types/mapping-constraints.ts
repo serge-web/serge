@@ -1,4 +1,4 @@
-import L from 'leaflet'
+//import L from 'leaflet'
 
 export interface LocalTileLayer {
   url: string,
@@ -10,12 +10,7 @@ export interface LocalTileLayer {
  */
 export default interface MappingConstraints {
   /** bounding rectangle */
-  bounds: {
-    imageTop: number
-    imageLeft: number
-    imageRight: number
-    imageBottom: number
-  }
+  bounds: L.LatLngBounds
   /**
    * diameter of tiles in use
    */

@@ -9,12 +9,7 @@ export default interface PropTypes {
   /**
    * The bounds of the map iamge
    */
-  bounds: {
-    imageTop: number
-    imageLeft: number
-    imageRight: number
-    imageBottom: number
-  }
+  bounds: L.LatLngBounds
   /**
    * diameter of tiles in use
    */

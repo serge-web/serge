@@ -121,12 +121,7 @@ export default {
   }
 }
 
-const bounds = {
-  imageTop: 14.194809302,
-  imageLeft: 42.3558566271,
-  imageRight: 43.7417816271,
-  imageBottom: 12.401259302
-}
+const bounds =  L.latLngBounds(L.latLng(14.194809302, 42.3558566271), L.latLng(12.401259302, 43.7417816271))
 
 const LocalTileLayer = {
   url: './tiles/{z}/{x}/{y}.png',

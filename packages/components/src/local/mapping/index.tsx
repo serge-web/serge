@@ -13,7 +13,6 @@ import groupHostPlatform from './helpers/group-host-platform'
 // TODO: verify we still handle planned routes properly
 // import storePlannedRoute from './helpers/store-planned-route'
 import createGrid from './helpers/create-grid'
-import boundsFor from './helpers/bounds-for'
 import {
   roundToNearest,
   routeCreateStore,
@@ -56,12 +55,7 @@ export const MapContext = createContext<ContextInterface>({ props: null })
 
 const defaultProps: PropTypes = {
   mapBar: true,
-  bounds: {
-    imageTop: 0,
-    imageLeft: 0,
-    imageRight: 0,
-    imageBottom: 0
-  },
+  bounds: L.latLngBounds(L.latLng(0,0), L.latLng(0,0)),
   tileDiameterMins: 5,
   forces: [],
   platforms: [],
@@ -116,12 +110,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [showMapBar, setShowMapBar] = useState<boolean>(true)
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
-  const [mapBounds, setMapBounds] = useState<{
-    imageTop: number
-    imageLeft: number
-    imageRight: number
-    imageBottom: number
-  } | undefined>(undefined)
+  const [mapBounds, setMapBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [latLngBounds, setLatLngBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
   const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
@@ -265,16 +254,22 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [phase])
 
   useEffect(() => {
+  //  console.log('map bounds')
     if (mapBounds) {
-      setLatLngBounds(boundsFor(mapBounds))
+//      const lBounds = boundsFor(mapBounds)
+  //    console.log('map bounds', lBounds, mapBounds)
+      setLatLngBounds(mapBounds)
     }
   }, [mapBounds])
 
   useEffect(() => {
+    console.log('lat lng bounds updated', latLngBounds)
     if (latLngBounds) {
       setMapCentre(latLngBounds.getCenter())
     }
   }, [latLngBounds])
+
+  console.log('mapping render')
 
   useEffect(() => {
     if (latLngBounds && tileDiameterMins) {

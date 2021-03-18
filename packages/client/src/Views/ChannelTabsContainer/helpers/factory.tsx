@@ -12,13 +12,6 @@ import findChannelByName from './findChannelByName'
 
 type Factory = (node: TabNode) => React.ReactNode
 
-// const bounds = {
-//   imageTop: 14.194809302,
-//   imageLeft: 42.3558566271,
-//   imageRight: 43.7417816271,
-//   imageBottom: 12.401259302
-// }
-
 /** utility to find the role for this role name */
 const findRole = (roleName: string, forceData: ForceData | undefined): Role => {
   if(forceData) {
@@ -34,12 +27,7 @@ const factory = (state: PlayerUi): Factory => {
 
   // provide some default mapping constraints if we aren't supplied with any
   const mappingConstraints = state.mappingConstaints !== undefined ? state.mappingConstaints : {
-//    bounds: L.latLngBounds(L.latLng(14.194809302, 42.3558566271), L.latLng(12.401259302, 43.7417816271)),
-    bounds: {
-      imageTop: 14.194809302,
-      imageLeft: 42.3558566271,
-      imageRight: 43.7417816271,
-      imageBottom: 12.401259302 },
+    bounds: L.latLngBounds(L.latLng(14.194809302, 42.3558566271), L.latLng(12.401259302, 43.7417816271)),
     tileDiameterMins: 5,
     tileLayer: {
       url: './tiles/{z}/{x}/{y}.png',
