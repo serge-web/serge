@@ -1,4 +1,4 @@
-//import L from 'leaflet'
+import L from 'leaflet'
 
 export interface LocalTileLayer {
   url: string,
@@ -10,15 +10,15 @@ export interface LocalTileLayer {
  */
 export default interface MappingConstraints {
   /** bounding rectangle */
-  bounds: L.LatLngBounds
+  bounds: number[][]
   /**
-   * diameter of tiles in use
+   * diameter of tiles in use (nautical miles)
    */
   tileDiameterMins: number,
   /**
    * definition of tiled backdrop
    */
-  tileLayer: LocalTileLayer
+  tileLayer?: LocalTileLayer
   /** 
    * url of tile descriptions
    */

@@ -258,8 +258,6 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }, [mapBounds])
 
-  console.log('mapping render')
-
   useEffect(() => {
     if (mapBounds && tileDiameterMins) {
       // note: the list of cells should be re-calculated if `tileDiameterMins` changes

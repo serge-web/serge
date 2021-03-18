@@ -1,5 +1,5 @@
 import React from 'react'
-import { ForceData, MessageMap, PlayerUi, Role } from '@serge/custom-types'
+import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints } from '@serge/custom-types'
 import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES } from '@serge/config'
 import { sendMapMessage } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
@@ -26,8 +26,9 @@ const findRole = (roleName: string, forceData: ForceData | undefined): Role => {
 const factory = (state: PlayerUi): Factory => {
 
   // provide some default mapping constraints if we aren't supplied with any
-  const mappingConstraints = state.mappingConstaints !== undefined ? state.mappingConstaints : {
-    bounds: L.latLngBounds(L.latLng(14.194809302, 42.3558566271), L.latLng(12.401259302, 43.7417816271)),
+  console.log('FACTORY', !!state.mappingConstaints, state.mappingConstaints)
+  const mappingConstraints: MappingConstraints = state.mappingConstaints !== undefined ? state.mappingConstaints : {
+    bounds: [[14.194809302, 42.3558566271],[12.401259302, 43.7417816271]],
     tileDiameterMins: 5,
     tileLayer: {
       url: './tiles/{z}/{x}/{y}.png',
@@ -60,12 +61,16 @@ const factory = (state: PlayerUi): Factory => {
   return (node: TabNode): React.ReactNode => {
     // sort out if role can submit orders
     const role: Role = findRole(state.selectedRole, state.selectedForce)
-    const canSubmitOrders: boolean = !!role.canSubmitPlans 
+    const canSubmitOrders: boolean = !!role.canSubmitPlans
+
+    // note: we have to convert the bounds that comes from the database
+    // from a number array to a Leaflet bounds object.
+    const mapBounds = L.latLngBounds(mappingConstraints.bounds as L.LatLngTuple[])
 
     // Render the map
     const renderMap = (channelid: string) => <Mapping
         tileDiameterMins={mappingConstraints.tileDiameterMins}
-        bounds={mappingConstraints.bounds}
+        bounds={mapBounds}
         tileLayer={mappingConstraints.tileLayer}
         forces={state.allForces}
         platforms={state.allPlatformTypes}
