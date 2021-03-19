@@ -5,6 +5,7 @@ import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
+import cellTypesList from './data/cell-types-2-small'
 
 /* helper functions */
 import groupMoveToRoot from './helpers/group-move-to-root'
@@ -12,7 +13,7 @@ import groupCreateNewGroup from './helpers/group-create-new-group'
 import groupHostPlatform from './helpers/group-host-platform'
 // TODO: verify we still handle planned routes properly
 // import storePlannedRoute from './helpers/store-planned-route'
-import createGrid from './helpers/create-grid'
+import createGridFromCSV from './helpers/create-grid-from-csv'
 import {
   roundToNearest,
   routeCreateStore,
@@ -55,7 +56,7 @@ export const MapContext = createContext<ContextInterface>({ props: null })
 
 const defaultProps: PropTypes = {
   mapBar: true,
-  bounds: L.latLngBounds(L.latLng(0,0), L.latLng(0,0)),
+  bounds: L.latLngBounds(L.latLng(0, 0), L.latLng(0, 0)),
   tileDiameterMins: 5,
   forces: [],
   platforms: [],
@@ -67,10 +68,10 @@ const defaultProps: PropTypes = {
     url: '',
     attribution: ''
   },
-  minZoom: 8,
+  minZoom: 1,
   maxZoom: 12,
   touchZoom: true,
-  zoom: 10,
+  zoom: 3,
   zoomDelta: 0.25,
   zoomSnap: 0.25,
   attributionControl: false,
@@ -117,7 +118,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
   const [viewAsRouteStore, setViewAsRouteStore] = useState<RouteStore>({ routes: [] })
-  const [leafletElement, setLeafletElement] = useState(undefined)
+  const [leafletElement, setLeafletElement] = useState<L.Map | undefined>(undefined)
   const [viewAsForce, setViewAsForce] = useState<string>(UMPIRE_FORCE)
   const [hidePlanningForm, setHidePlanningForm] = useState<boolean>(false)
   const [filterPlannedRoutes, setFilterPlannedRoutes] = useState<boolean>(true)
@@ -127,6 +128,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   // only update bounds if they're different to the current one
   if (bounds && bounds !== mapBounds) {
+    console.log('map bounds', bounds)
     setMapBounds(bounds)
   }
 
@@ -259,12 +261,14 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [mapBounds])
 
   useEffect(() => {
+    console.log('about to create grid')
     if (mapBounds && tileDiameterMins) {
       // note: the list of cells should be re-calculated if `tileDiameterMins` changes
-      const newGrid: SergeGrid<SergeHex<{}>> = createGrid(mapBounds, tileDiameterMins)
+      const newGrid: SergeGrid<SergeHex<{}>> = createGridFromCSV(cellTypesList, mapBounds.getNorthWest(), tileDiameterMins, L.point(2,2))
+      console.log('new grid', newGrid)
+      // setGridCells(undefined)
       setGridCells(newGrid)
     }
-    //    console.clear() // TODO: remove this, it's just a shortcut to ensuring each "session" starts with clear console.ß
   }, [tileDiameterMins, mapBounds])
 
   const handleForceLaydown = (turn: NewTurnValues): void => {

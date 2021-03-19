@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react'
 import L, { DragEndEvent } from 'leaflet'
-import { Point, PointLike } from 'honeycomb-grid'
 import { Marker, LayerGroup, Polyline } from 'react-leaflet'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
 /* Import helpers */
-import { toWorld, calcAllowableCells, plannedRouteFor } from '@serge/helpers'
+import { calcAllowableCells, plannedRouteFor } from '@serge/helpers'
 import Polygon from './helpers/polygon'
 import getCellStyle from './helpers/get-cell-style'
 
@@ -122,12 +121,36 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [selectedAsset, gridCells, viewAsRouteStore])
 
-  /** provide a list of cells allowable for this platform. The area may reduce
-       * as a player plans the leg
-       */
-  // useEffect(() => {
-  //   console.log('new View As Route Store')
-  // }, [viewAsRouteStore])
+    /**
+       Returns the point that is a distance and heading away from
+       the given origin point.
+       @param {L.LatLng} latlng: origin point
+       @param {float} heading: heading in degrees, clockwise from 0 degrees north.
+       @param {float} distance: distance in meters
+       @returns {L.latLng} the destination point.
+       Many thanks to Chris Veness at http://www.movable-type.co.uk/scripts/latlong.html
+       for a great reference and examples.
+    */
+    const destination = (latlng: L.LatLng, heading: number, distance: number): L.LatLng => {
+        heading = (heading + 360) % 360;
+        var rad = Math.PI / 180,
+            radInv = 180 / Math.PI,
+            R = 6378137, // approximation of Earth's radius
+            lon1 = latlng.lng * rad,
+            lat1 = latlng.lat * rad,
+            rheading = heading * rad,
+            sinLat1 = Math.sin(lat1),
+            cosLat1 = Math.cos(lat1),
+            cosDistR = Math.cos(distance / R),
+            sinDistR = Math.sin(distance / R),
+            lat2 = Math.asin(sinLat1 * cosDistR + cosLat1 *
+                sinDistR * Math.cos(rheading)),
+            lon2 = lon1 + Math.atan2(Math.sin(rheading) * sinDistR *
+                cosLat1, cosDistR - sinLat1 * Math.sin(lat2));
+        lon2 = lon2 * radInv;
+        lon2 = lon2 > 180 ? lon2 - 360 : lon2 < -180 ? lon2 + 360 : lon2;
+        return L.latLng([lat2 * radInv, lon2]);
+    }
 
   /** handle the dynamic indicator that follows mouse movement,
    * represented as cells & a line
@@ -240,21 +263,21 @@ export const HexGrid: React.FC<{}> = () => {
       gridCells.forEach((hex: SergeHex<{}>) => {
         // move coords to our map
         const centreWorld: L.LatLng = hex.centreLatLng
+
         // get hex center
-        const centreH = hex.center()
-        // get hex corners coords
-        const corners = hex.corners()
-        // convert hex corners coords to our map
-        // build up an array of correctly mapped corners
-        const cornerArr: L.LatLng[] = corners.map((value: Point) => {
-          // the corners are relative to the origin (TL). So, offset them to the centre
-          const point: PointLike = {
-            x: value.x - centreH.x,
-            y: value.y - centreH.y
+        const centreH = hex.centreLatLng
+        const cornerArr: L.LatLng[] = []
+        for (let i: number = 0; i < 6; i++) {
+          const angle = 30 + i * 60
+          const point = destination(centreH, angle, 36 * 1852)
+          cornerArr.push(point)
+          if(Object.keys(tmpPolys).length === 0) {
+            console.log('corner', centreH, angle, point)
           }
-          const newP = toWorld(point, centreWorld, gridCells.tileDiameterDegs / 2)
-          return newP
-        })
+        }
+        if(Object.keys(tmpPolys).length <= 3) {
+          console.log('corner arr', hex.name, cornerArr)
+        }
         // add the polygon to polygons array, indexed by the cell name
         tmpPolys[hex.name] = cornerArr
         tmpCentres[hex.name] = centreWorld
@@ -395,7 +418,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 11 &&
+      zoomLevel > 6 &&
       <LayerGroup key={'hex_labels'} >{Object.keys(allowableCentres).map(k => (
         <Marker
           key={'hex_label_' + k}
