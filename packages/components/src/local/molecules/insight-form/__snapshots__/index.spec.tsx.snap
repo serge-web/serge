@@ -31,7 +31,7 @@ exports[`InsightForm renders correctly 1`] = `
     className="MuiBox-root MuiBox-root-1"
   >
     <section
-      className="input-container disable-offset"
+      className="input-container disable-offset fullwidth"
     >
       <div
         className="MuiBox-root MuiBox-root-9 input-label"
@@ -97,7 +97,7 @@ exports[`InsightForm renders correctly 1`] = `
       className="MuiBox-root MuiBox-root-15"
     >
       <section
-        className="input-container disable-offset"
+        className="input-container disable-offset fullwidth"
       >
         <div
           className="MuiBox-root MuiBox-root-18 input-label"

@@ -17,7 +17,7 @@ const useButtonStyle = makeStyles((theme: Theme) =>
       const variants = {
         'form-action': {
           backgroundColor: theme.palette.secondary.main,
-          border: `1px solid ${theme.palette[`${'primaryAccent'}`].main}`,
+          border: `1px solid ${theme.palette[`${'primaryAccent'}`]?.main}`,
 
           '&:hover': {
             backgroundColor: theme.palette.primary.main

@@ -26,6 +26,7 @@ const Template: Story<DataTableProps> = args => {
   )
 }
 
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 export const Default = Template.bind({})
 Default.args = {
   columns: ['First column', 'Second column', 'Third column'],
@@ -35,6 +36,7 @@ Default.args = {
   ]
 }
 
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 export const WithFilter = Template.bind({})
 WithFilter.args = {
   columns: [
@@ -58,6 +60,7 @@ WithFilter.args = {
   ]
 }
 
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 export const Implementation = Template.bind({})
 Implementation.args = {
   columns: [

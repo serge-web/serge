@@ -18,7 +18,7 @@ export enum RFI_States {
   InProgress = 'In Progress',
   // response submitted for review
   PendingReview = 'Pending Review',
-  // response accepted by RFI manager 
+  // response accepted by RFI manager
   Released = 'Released'
 }
 
@@ -30,11 +30,33 @@ export enum LaydownTypes {
   ForceLaydown = 'Force laydown'
 }
 
-/** the phases of an asset that is 
+/** the phases a collaborative message goes through before
+ * being approved to send
+ */
+export enum CollaborativeMessageStates {
+  /**
+   * message is waiting to be allocated to owner
+   */
+  Unallocated = 'Unallocated',
+  /**
+   * message with owner
+   */
+  InProgress = 'In progress',
+  /**
+   * owner finished editing, waiting for review
+   */
+  PendingReview = 'Pending review',
+  /**
+   * approved and released
+   */
+  Released = 'Released'
+}
+
+/** the phases of an asset that is
  * available for movement by a player during
  * force laydown
- *  
- */ 
+ *
+ */
 export enum LaydownPhases {
   // we're not in laydown phase
   NotInLaydown = 'not-in-laydown',

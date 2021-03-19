@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   tableHead: {
     backgroundColor: theme.palette.primary.main,
-    border: `1px solid ${theme.palette[`${'primaryAccent'}`].main}`,
+    border: `1px solid ${theme.palette[`${'primaryAccent'}`]?.main}`,
 
     '& .MuiTableCell-head': {
       fontWeight: 'bold',
