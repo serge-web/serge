@@ -11,7 +11,7 @@ import { forces, platformTypes } from '@serge/mocks'
 import { RouteStore, Route as RouteType } from '@serge/custom-types'
 import { routeCreateStore } from '@serge/helpers'
 
-const bounds =  L.latLngBounds(L.latLng(14.194809302, 42.3558566271), L.latLng(12.401259302, 43.7417816271))
+const bounds = L.latLngBounds(L.latLng(14.194809302, 42.3558566271), L.latLng(12.401259302, 43.7417816271))
 
 const LocalTileLayer = {
   url: '/tiles/{z}/{x}/{y}.png',

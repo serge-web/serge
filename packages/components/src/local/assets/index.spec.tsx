@@ -10,7 +10,7 @@ import { Phase } from '@serge/config'
 import { platformTypes } from '@serge/mocks'
 import { ForceData } from '@serge/custom-types'
 
-const bounds =  L.latLngBounds(L.latLng(14.194809302, 42.3558566271), L.latLng(12.401259302, 43.7417816271))
+const bounds = L.latLngBounds(L.latLng(14.194809302, 42.3558566271), L.latLng(12.401259302, 43.7417816271))
 
 const LocalTileLayer = {
   url: '/tiles/{z}/{x}/{y}.png',

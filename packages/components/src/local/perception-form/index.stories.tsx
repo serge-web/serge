@@ -13,7 +13,6 @@ import Mapping from '../mapping'
 // import data types
 import { Phase } from '@serge/config'
 
-
 export default {
   title: 'local/PerceptionForm',
   component: PerceptionForm,
@@ -35,7 +34,7 @@ const postback = (messageType: string, payload: any): void => {
   console.log('postback', messageType, payload)
 }
 
-const bounds =  L.latLngBounds(L.latLng(14.194809302, 42.3558566271), L.latLng(12.401259302, 43.7417816271))
+const bounds = L.latLngBounds(L.latLng(14.194809302, 42.3558566271), L.latLng(12.401259302, 43.7417816271))
 
 const LocalTileLayer = {
   url: './tiles/{z}/{x}/{y}.png',
