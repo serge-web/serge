@@ -1,6 +1,5 @@
 /* global it expect */
 import L from 'leaflet'
-import { SergeHex } from '@serge/custom-types'
 import cellTypesList from '../data/cell-types-2-small'
 import cellTypesList3 from '../data/cell-types-3-small'
 import createGridFromCSV from './create-grid-from-csv'

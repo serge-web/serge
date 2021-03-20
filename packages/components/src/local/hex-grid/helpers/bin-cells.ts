@@ -8,9 +8,7 @@ export interface PolyBin {
 
 export interface CellDetails {
   readonly id: string
-  // make poly optional, so we only generate it once
-  // we know the cell is to be rendered
-  poly?: L.LatLng[]
+  poly: L.LatLng[]
   centre: L.LatLng
   hexCell: SergeHex<{}>
 }
@@ -20,7 +18,7 @@ const binCells = (bounds: L.LatLngBounds, store: CellDetails[]): PolyBin[] => {
   // create the bins
   const bl = bounds.getSouthWest()
   const tr = bounds.getNorthEast()
-  const steps = 8
+  const steps = 4
   const xDelta = (tr.lng - bl.lng) / steps
   const yDelta = (tr.lat - bl.lat) / steps
   const res: PolyBin[] = []

@@ -255,37 +255,39 @@ export const HexGrid: React.FC<{}> = () => {
        * grid cells that can be used to lookup styling
        */
   useEffect(() => {
-    if (gridCells) {
-      const store: CellDetails[] = []
-      let bounds: L.LatLngBounds | undefined
-
-      // create a polygon for each hex, add it to the parent
-      gridCells.forEach((hex: SergeHex<{}>) => {
-        // move coords to our map
-        const centreWorld: L.LatLng = hex.centreLatLng
-
-        bounds = bounds === undefined ? L.latLngBounds(centreWorld, centreWorld) : bounds.extend(centreWorld)
-
-        // add the polygon to polygons array, indexed by the cell name
-        const details: CellDetails = {
-          id: hex.name,
-          centre: centreWorld,
-          hexCell: hex
-        }
-        store.push(details)
-      })
-
-      if (bounds) {
-        const polyBin = binCells(bounds, store)
-        const bins = polyBin.map((bin: PolyBin) => bin.cells.length)
-        console.log('bin sizes:', bins)
-        setPolyBin(polyBin)
-      }
-    }
   }, [gridCells])
 
   useEffect(() => {
     if (zoomLevel && viewport && zoomLevel > MIN_ZOOM_FOR_HEXES) {
+      if (polyBin === undefined) {
+        if (gridCells) {
+          const store: CellDetails[] = []
+          let bounds: L.LatLngBounds | undefined
+    
+          // create a polygon for each hex, add it to the parent
+          gridCells.forEach((hex: SergeHex<{}>) => {
+            // move coords to our map
+            const centreWorld: L.LatLng = hex.centreLatLng
+            bounds = bounds === undefined ? L.latLngBounds(centreWorld, centreWorld) : bounds.extend(centreWorld)
+    
+            // create a cell
+            const details: CellDetails = {
+              id: hex.name,
+              centre: centreWorld,
+              hexCell: hex,
+              poly: hex.poly
+            }
+            store.push(details)
+          })
+          if(bounds) {
+            const polyBin = binCells(bounds, store)
+            const bins = polyBin.map((bin: PolyBin) => bin.cells.length)
+            console.log('bin sizes:', bins)
+            setPolyBin(polyBin)
+          }
+        }
+      }
+
       let visible: CellDetails[] = []
       let count = 0
       polyBin.forEach((bin: PolyBin) => {
@@ -314,7 +316,7 @@ export const HexGrid: React.FC<{}> = () => {
     } else {
       setVisibleCells([])
     }
-  }, [polyBin, zoomLevel, viewport])
+  }, [zoomLevel, viewport])
 
   /** handler for planning marker being droppped
        *
