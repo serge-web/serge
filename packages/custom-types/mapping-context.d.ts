@@ -77,6 +77,10 @@ export default interface MappingContext {
    *  setter, to modify the currently selected asset (or to clear it)
    **/
   setSelectedAsset: {(asset: SelectedAsset): void}
+  /** 
+   * the current map bounds
+   */
+   viewport: L.Bounds | undefined,
   /**
    *  state for zoom Level
    **/

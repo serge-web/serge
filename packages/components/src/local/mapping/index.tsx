@@ -111,6 +111,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [showMapBar, setShowMapBar] = useState<boolean>(true)
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
+  const [viewport, setViewport] = useState<L.Bounds | undefined>(undefined)
   const [mapBounds, setMapBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
   const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
@@ -494,6 +495,7 @@ export const Mapping: React.FC<PropTypes> = ({
     planningConstraints,
     showMapBar,
     selectedAsset,
+    viewport,
     zoomLevel,
     channelID,
     routeStore,
@@ -521,10 +523,16 @@ export const Mapping: React.FC<PropTypes> = ({
   const handleEvents = (ref: any): void => {
     if (ref && ref.leafletElement) {
       // save map element
-      setLeafletElement(ref.leafletElement)
-      ref.leafletElement.on('zoomend', () => {
-        setZoomLevel(ref.leafletElement.getZoom())
-      })
+      if(leafletElement === undefined) {
+        setLeafletElement(ref.leafletElement)
+        ref.leafletElement.on('zoomend', () => {
+          setZoomLevel(ref.leafletElement.getZoom())
+        })
+        ref.leafletElement.on('moveend', () => {
+          setViewport(ref.leafletElement.getBounds())
+        })
+
+      }
     }
   }
 

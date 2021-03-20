@@ -9,6 +9,8 @@ import { calcAllowableCells, plannedRouteFor } from '@serge/helpers'
 import Polygon from './helpers/polygon'
 import getCellStyle from './helpers/get-cell-style'
 
+import binCells, { PolyBin, CellDetails } from './helpers/bin-cells'
+
 /* Import mapping context */
 import { MapContext } from '../mapping'
 
@@ -20,7 +22,7 @@ import { LAYDOWN_TURN } from '@serge/config'
 export const HexGrid: React.FC<{}> = () => {
   const {
     gridCells, planningConstraints, zoomLevel, setNewLeg, setHidePlanningForm,
-    selectedAsset, viewAsRouteStore
+    selectedAsset, viewAsRouteStore, viewport
   } = useContext(MapContext).props
 
   // fix the leaflet icon path, using tip from here:
@@ -42,11 +44,15 @@ export const HexGrid: React.FC<{}> = () => {
   const [plannedRoutePoly, setPlannedRoutePoly] = useState<L.LatLng[]>([])
 
   // collate list of named polygons
-  const [allowablePolygons, setAllowablePolygons] = useState<{ [id: string]: L.LatLng[] }>({})
+  const [/*allowablePolygons*/, setAllowablePolygons] = useState<{ [id: string]: L.LatLng[] }>({})
   // collate list of named polygon centres
-  const [allowableCentres, setAllowableCentres] = useState<{ [id: string]: L.LatLng }>({})
+  const [/*allowableCentres*/, setAllowableCentres] = useState<{ [id: string]: L.LatLng }>({})
   // collate list of named hex cells
-  const [allowableHexCells, setAllowableHexCells] = useState<{ [id: string]: SergeHex<{}> }>({})
+  const [/*allowableHexCells*/, setAllowableHexCells] = useState<{ [id: string]: SergeHex<{}> }>({})
+
+  // the binned polygons
+  const [polyBin, setPolyBin] = useState<PolyBin[] | undefined>(undefined)
+  const [visibleCells, setVisibleCells] = useState<CellDetails[]>([])
 
   // allow the planning marker origin to be changed
   const [origin, setOrigin] = useState<L.LatLng | undefined>(undefined)
@@ -271,12 +277,6 @@ export const HexGrid: React.FC<{}> = () => {
           const angle = 30 + i * 60
           const point = destination(centreH, angle, 36 * 1852)
           cornerArr.push(point)
-          if(Object.keys(tmpPolys).length === 0) {
-            console.log('corner', centreH, angle, point)
-          }
-        }
-        if(Object.keys(tmpPolys).length <= 3) {
-          console.log('corner arr', hex.name, cornerArr)
         }
         // add the polygon to polygons array, indexed by the cell name
         tmpPolys[hex.name] = cornerArr
@@ -289,6 +289,60 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [gridCells])
 
+  useEffect(() => {
+    if (gridCells) {
+      const store: CellDetails[] = []
+      var bounds: L.LatLngBounds | undefined = undefined
+  
+      // create a polygon for each hex, add it to the parent
+      gridCells.forEach((hex: SergeHex<{}>) => {
+        // move coords to our map
+        const centreWorld: L.LatLng = hex.centreLatLng
+  
+        bounds = bounds === undefined ? L.latLngBounds(centreWorld, centreWorld) : bounds.extend(centreWorld)
+  
+        // get hex center
+        const centreH = hex.centreLatLng
+        const cornerArr: L.LatLng[] = []
+        for (let i: number = 0; i < 6; i++) {
+          const angle = 30 + i * 60
+          const point = destination(centreH, angle, 36 * 1852)
+          cornerArr.push(point)
+        }
+        // add the polygon to polygons array, indexed by the cell name
+        const details: CellDetails = {
+          id:hex.name,
+          poly: cornerArr,
+          centre: centreWorld,
+          hexCell: hex
+        }
+        store.push(details)
+      })
+  
+      if(bounds) {
+        const polyBin = binCells(bounds, store)
+        const bins = polyBin.map((bin:PolyBin) => bin.cells.length)
+        console.log('bin sizes:', bins)
+        setPolyBin(polyBin)
+      }
+    }
+  }, [gridCells])
+  
+
+  useEffect(() => {
+    if (polyBin && zoomLevel && viewport) {
+      var visible: CellDetails[] = []
+      polyBin.forEach((bin: PolyBin) =>
+      {
+        if(bin.bounds.intersects(viewport)) {
+          visible = visible.concat(bin.cells)
+        }
+      })
+      setVisibleCells(visible)
+      console.log('visible cells', visible.length)
+    }
+  }, [polyBin, zoomLevel, viewport])
+  
   /** handler for planning marker being droppped
        *
        */
@@ -383,16 +437,18 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
+  console.log('visible', visibleCells && visibleCells.length)
+
   return <>
-    <LayerGroup key={'hex_polygons'} >{Object.keys(allowablePolygons).map((k: string) => (
+    <LayerGroup key={'hex_polygons'} >{visibleCells.map((cell: CellDetails) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
-        key={'hex_poly_' + k}
+        key={'hex_poly_' + cell.id}
         color={ assetColor }
-        positions={allowablePolygons[k]}
-        stroke={k === cellForSelected && assetColor ? assetColor : '#fff'}
-        className={styles[getCellStyle(allowableHexCells[k], planningRouteCells, allowableFilteredCells, cellForSelected)]}
+        positions={cell.poly}
+        stroke={cell.id === cellForSelected && assetColor ? assetColor : '#fff'}
+        className={styles[getCellStyle(cell.hexCell, planningRouteCells, allowableFilteredCells, cellForSelected)]}
       />
     ))}
     <Polyline
@@ -418,14 +474,14 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 6 &&
-      <LayerGroup key={'hex_labels'} >{Object.keys(allowableCentres).map(k => (
+      zoomLevel > 6 && visibleCells &&
+      <LayerGroup key={'hex_labels'} >{visibleCells.map((cell:CellDetails) => (
         <Marker
-          key={'hex_label_' + k}
-          position={allowableCentres[k]}
+          key={'hex_label_' + cell.id}
+          position={cell.centre}
           width="120"
           icon={L.divIcon({
-            html: k,
+            html: cell.id,
             className: styles['default-coords'],
             iconSize: [30, 20]
           })}
