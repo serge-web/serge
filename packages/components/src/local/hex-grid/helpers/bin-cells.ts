@@ -2,17 +2,17 @@ import L from 'leaflet'
 import { SergeHex } from '@serge/custom-types'
 
 export interface PolyBin {
-  bounds: L.LatLngBounds,
+  bounds: L.LatLngBounds
   cells: CellDetails[]
 }
 
 export interface CellDetails {
   readonly id: string
-  // make poly optional, so we only generate it once 
+  // make poly optional, so we only generate it once
   // we know the cell is to be rendered
-  poly?: L.LatLng[], 
-  centre: L.LatLng ,
-  hexCell: SergeHex<{}>, 
+  poly?: L.LatLng[]
+  centre: L.LatLng
+  hexCell: SergeHex<{}>
 }
 
 /** Generate the Serge name for the supplied cell (1,3) == "B03" */
@@ -24,12 +24,12 @@ const binCells = (bounds: L.LatLngBounds, store: CellDetails[]): PolyBin[] => {
   const xDelta = (tr.lng - bl.lng) / steps
   const yDelta = (tr.lat - bl.lat) / steps
   const res: PolyBin[] = []
-  for(let x=0;x<steps;x++) {
-    for(let y=0;y<steps;y++) {
+  for (let x = 0; x < steps; x++) {
+    for (let y = 0; y < steps; y++) {
       const _bl = L.latLng(bl.lat + y * yDelta, bl.lng + x * xDelta)
-      const _tr = L.latLng(bl.lat + (y+1) * yDelta, bl.lng + (x+1) * xDelta)
+      const _tr = L.latLng(bl.lat + (y + 1) * yDelta, bl.lng + (x + 1) * xDelta)
       const bounds = L.latLngBounds(_bl, _tr)
-      const bin: PolyBin = {bounds: bounds, cells: []}
+      const bin: PolyBin = { bounds: bounds, cells: [] }
       res.push(bin)
     }
   }

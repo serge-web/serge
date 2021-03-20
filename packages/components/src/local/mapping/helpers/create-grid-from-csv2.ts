@@ -30,6 +30,7 @@ const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: 
       x: cell.Row,
       y: cell.Col,
       centreLatLng: latLon,
+      poly_str: cell.poly,
       type: typeFor(cell.Type as number) && 'sea',
       name: cell.Name
     }

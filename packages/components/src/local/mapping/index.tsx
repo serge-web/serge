@@ -128,8 +128,8 @@ export const Mapping: React.FC<PropTypes> = ({
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
 
   // only update bounds if they're different to the current one
-  if(mapBounds === undefined || !bounds.equals(mapBounds)) {
-    setMapBounds(bounds)  
+  if (mapBounds === undefined || !bounds.equals(mapBounds)) {
+    setMapBounds(bounds)
   }
 
   // highlight the route for the selected asset
@@ -263,7 +263,7 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (mapBounds && tileDiameterMins) {
       // note: the list of cells should be re-calculated if `tileDiameterMins` changes
-      const newGrid: SergeGrid<SergeHex<{}>> = createGridFromCSV(cellTypesList, mapBounds.getNorthWest(), tileDiameterMins, L.point(2,2))
+      const newGrid: SergeGrid<SergeHex<{}>> = createGridFromCSV(cellTypesList, mapBounds.getNorthWest(), tileDiameterMins, L.point(2, 2))
       // setGridCells(undefined)
       setGridCells(newGrid)
     }
@@ -520,7 +520,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const handleEvents = (ref: any): void => {
     if (ref && ref.leafletElement) {
       // save map element
-      if(leafletElement === undefined) {
+      if (leafletElement === undefined) {
         setLeafletElement(ref.leafletElement)
         ref.leafletElement.on('zoomend', () => {
           setZoomLevel(ref.leafletElement.getZoom())
@@ -529,7 +529,6 @@ export const Mapping: React.FC<PropTypes> = ({
           console.log('moveend')
           setViewport(ref.leafletElement.getBounds())
         })
-
       }
     }
   }

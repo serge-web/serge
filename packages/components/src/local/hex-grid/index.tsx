@@ -122,7 +122,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [selectedAsset, gridCells, viewAsRouteStore])
 
-    /**
+  /**
        Returns the point that is a distance and heading away from
        the given origin point.
        @param {L.LatLng} latlng: origin point
@@ -132,26 +132,26 @@ export const HexGrid: React.FC<{}> = () => {
        Many thanks to Chris Veness at http://www.movable-type.co.uk/scripts/latlong.html
        for a great reference and examples.
     */
-    const destination = (latlng: L.LatLng, heading: number, distance: number): L.LatLng => {
-        heading = (heading + 360) % 360;
-        var rad = Math.PI / 180,
-            radInv = 180 / Math.PI,
-            R = 6378137, // approximation of Earth's radius
-            lon1 = latlng.lng * rad,
-            lat1 = latlng.lat * rad,
-            rheading = heading * rad,
-            sinLat1 = Math.sin(lat1),
-            cosLat1 = Math.cos(lat1),
-            cosDistR = Math.cos(distance / R),
-            sinDistR = Math.sin(distance / R),
-            lat2 = Math.asin(sinLat1 * cosDistR + cosLat1 *
-                sinDistR * Math.cos(rheading)),
-            lon2 = lon1 + Math.atan2(Math.sin(rheading) * sinDistR *
-                cosLat1, cosDistR - sinLat1 * Math.sin(lat2));
-        lon2 = lon2 * radInv;
-        lon2 = lon2 > 180 ? lon2 - 360 : lon2 < -180 ? lon2 + 360 : lon2;
-        return L.latLng([lat2 * radInv, lon2]);
-    }
+  const destination = (latlng: L.LatLng, heading: number, distance: number): L.LatLng => {
+    heading = (heading + 360) % 360
+    const rad = Math.PI / 180
+    const radInv = 180 / Math.PI
+    const R = 6378137 // approximation of Earth's radius
+    const lon1 = latlng.lng * rad
+    const lat1 = latlng.lat * rad
+    const rheading = heading * rad
+    const sinLat1 = Math.sin(lat1)
+    const cosLat1 = Math.cos(lat1)
+    const cosDistR = Math.cos(distance / R)
+    const sinDistR = Math.sin(distance / R)
+    const lat2 = Math.asin(sinLat1 * cosDistR + cosLat1 *
+                sinDistR * Math.cos(rheading))
+    let lon2 = lon1 + Math.atan2(Math.sin(rheading) * sinDistR *
+                cosLat1, cosDistR - sinLat1 * Math.sin(lat2))
+    lon2 = lon2 * radInv
+    lon2 = lon2 > 180 ? lon2 - 360 : lon2 < -180 ? lon2 + 360 : lon2
+    return L.latLng([lat2 * radInv, lon2])
+  }
 
   /** handle the dynamic indicator that follows mouse movement,
    * represented as cells & a line
@@ -257,41 +257,39 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     if (gridCells) {
       const store: CellDetails[] = []
-      var bounds: L.LatLngBounds | undefined = undefined
-  
+      let bounds: L.LatLngBounds | undefined
+
       // create a polygon for each hex, add it to the parent
       gridCells.forEach((hex: SergeHex<{}>) => {
         // move coords to our map
         const centreWorld: L.LatLng = hex.centreLatLng
-  
+
         bounds = bounds === undefined ? L.latLngBounds(centreWorld, centreWorld) : bounds.extend(centreWorld)
-  
+
         // add the polygon to polygons array, indexed by the cell name
         const details: CellDetails = {
-          id:hex.name,
+          id: hex.name,
           centre: centreWorld,
           hexCell: hex
         }
         store.push(details)
       })
-  
-      if(bounds) {
+
+      if (bounds) {
         const polyBin = binCells(bounds, store)
-        const bins = polyBin.map((bin:PolyBin) => bin.cells.length)
+        const bins = polyBin.map((bin: PolyBin) => bin.cells.length)
         console.log('bin sizes:', bins)
         setPolyBin(polyBin)
       }
     }
   }, [gridCells])
-  
 
   useEffect(() => {
     if (zoomLevel && viewport && zoomLevel > MIN_ZOOM_FOR_HEXES) {
-      var visible: CellDetails[] = []
-      var count = 0
-      polyBin.forEach((bin: PolyBin) =>
-      {
-        if(bin.bounds.intersects(viewport)) {
+      let visible: CellDetails[] = []
+      let count = 0
+      polyBin.forEach((bin: PolyBin) => {
+        if (bin.bounds.intersects(viewport)) {
           visible = visible.concat(bin.cells)
           count++
         }
@@ -299,10 +297,10 @@ export const HexGrid: React.FC<{}> = () => {
 
       // now check each cell has its polygon generated
       visible.forEach((cell: CellDetails) => {
-        if(!cell.poly) {
+        if (!cell.poly) {
           const centreH = cell.centre
           const cornerArr: L.LatLng[] = []
-          for (let i: number = 0; i < 6; i++) {
+          for (let i = 0; i < 6; i++) {
             const angle = 30 + i * 60
             const point = destination(centreH, angle, 36 * 1852)
             cornerArr.push(point)
@@ -317,7 +315,7 @@ export const HexGrid: React.FC<{}> = () => {
       setVisibleCells([])
     }
   }, [polyBin, zoomLevel, viewport])
-  
+
   /** handler for planning marker being droppped
        *
        */
@@ -448,7 +446,7 @@ export const HexGrid: React.FC<{}> = () => {
     </LayerGroup>
     {
       zoomLevel > 8 && visibleCells &&
-      <LayerGroup key={'hex_labels'} >{visibleCells.map((cell:CellDetails) => (
+      <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: CellDetails) => (
         <Marker
           key={'hex_label_' + cell.id}
           position={cell.centre}
@@ -462,17 +460,16 @@ export const HexGrid: React.FC<{}> = () => {
       ))}
       </LayerGroup>
     }
-      <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin:PolyBin) => (
-            <Polygon
-            key={'bin_line_' + bin.bounds.getCenter().toString()}
-            color={ bin.bounds.intersects(viewport) ? "#00f" : "#f00" }
-            fillColor={ bin.bounds.intersects(viewport) ? "#00f" : "#f00" }
-            positions={[bin.bounds.getNorthWest(), bin.bounds.getSouthWest(),bin.bounds.getSouthEast(), bin.bounds.getNorthEast()]}
-            className={styles['planning-line']}
-          />
-      ))}
-      </LayerGroup>
-
+    <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin) => (
+      <Polygon
+        key={'bin_line_' + bin.bounds.getCenter().toString()}
+        color={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
+        fillColor={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
+        positions={[bin.bounds.getNorthWest(), bin.bounds.getSouthWest(), bin.bounds.getSouthEast(), bin.bounds.getNorthEast()]}
+        className={styles['planning-line']}
+      />
+    ))}
+    </LayerGroup>
 
   </>
 }
