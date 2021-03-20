@@ -17,7 +17,6 @@ it('Construct grid from very new dataset', () => {
   expect(grid.cellFor(L.latLng(44, -22))).toEqual({ a: 12 })
 })
 
-
 it('Construct grid from new dataset', () => {
   const cells: any = cellTypesList
   expect(cells.length).toEqual(20)
