@@ -259,7 +259,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   useEffect(() => {
     if (zoomLevel && viewport && zoomLevel > MIN_ZOOM_FOR_HEXES) {
-      if (polyBin === undefined) {
+      if (polyBin.length == 0) {
         if (gridCells) {
           const store: CellDetails[] = []
           let bounds: L.LatLngBounds | undefined
@@ -276,6 +276,9 @@ export const HexGrid: React.FC<{}> = () => {
               centre: centreWorld,
               hexCell: hex,
               poly: hex.poly
+            }
+            if(store.length === 0) {
+              console.log(details, details.centre, details.poly)
             }
             store.push(details)
           })
@@ -304,7 +307,7 @@ export const HexGrid: React.FC<{}> = () => {
           const cornerArr: L.LatLng[] = []
           for (let i = 0; i < 6; i++) {
             const angle = 30 + i * 60
-            const point = destination(centreH, angle, 36 * 1852)
+            const point = destination(centreH, angle, 18 * 1852)
             cornerArr.push(point)
           }
           cell.poly = cornerArr
@@ -316,7 +319,7 @@ export const HexGrid: React.FC<{}> = () => {
     } else {
       setVisibleCells([])
     }
-  }, [zoomLevel, viewport])
+  }, [zoomLevel, viewport, gridCells])
 
   /** handler for planning marker being droppped
        *
@@ -411,6 +414,8 @@ export const HexGrid: React.FC<{}> = () => {
       setHidePlanningForm(false)
     }
   }
+
+  console.log('zoom level', zoomLevel)
 
   return <>
     <LayerGroup key={'hex_polygons'} >{zoomLevel > MIN_ZOOM_FOR_HEXES && visibleCells.map((cell: CellDetails) => (

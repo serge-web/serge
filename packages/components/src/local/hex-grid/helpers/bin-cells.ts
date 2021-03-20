@@ -18,7 +18,7 @@ const binCells = (bounds: L.LatLngBounds, store: CellDetails[]): PolyBin[] => {
   // create the bins
   const bl = bounds.getSouthWest()
   const tr = bounds.getNorthEast()
-  const steps = 4
+  const steps = 8
   const xDelta = (tr.lng - bl.lng) / steps
   const yDelta = (tr.lat - bl.lat) / steps
   const res: PolyBin[] = []

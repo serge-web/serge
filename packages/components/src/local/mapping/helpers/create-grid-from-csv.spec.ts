@@ -24,13 +24,9 @@ it('Construct grid from new dataset', () => {
 
   const grid = createGridFromCSV(cells, L.latLng(72, -50), 0.5, L.point(52, -5))
   expect(grid.length).toEqual(20)
-
-  expect(grid.cellFor(L.latLng(44, -22))).toEqual({ a: 12 })
 })
 
 it('Construct grid from legacy dataset', () => {
   const grid = createGrid(L.latLngBounds(L.latLng(70, -30), L.latLng(40, -5)), 0.5)
   expect(grid.length).toEqual(20)
-
-  expect(grid.cellFor(L.latLng(44, -22))).toEqual({ a: 12 })
 })
