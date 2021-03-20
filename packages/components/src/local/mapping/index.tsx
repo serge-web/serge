@@ -128,9 +128,8 @@ export const Mapping: React.FC<PropTypes> = ({
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
 
   // only update bounds if they're different to the current one
-  if (bounds && bounds !== mapBounds) {
-    console.log('map bounds', bounds)
-    setMapBounds(bounds)
+  if(mapBounds === undefined || !bounds.equals(mapBounds)) {
+    setMapBounds(bounds)  
   }
 
   // highlight the route for the selected asset
@@ -527,6 +526,7 @@ export const Mapping: React.FC<PropTypes> = ({
           setZoomLevel(ref.leafletElement.getZoom())
         })
         ref.leafletElement.on('moveend', () => {
+          console.log('moveend')
           setViewport(ref.leafletElement.getBounds())
         })
 

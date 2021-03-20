@@ -8,7 +8,9 @@ export interface PolyBin {
 
 export interface CellDetails {
   readonly id: string
-  poly: L.LatLng[], 
+  // make poly optional, so we only generate it once 
+  // we know the cell is to be rendered
+  poly?: L.LatLng[], 
   centre: L.LatLng ,
   hexCell: SergeHex<{}>, 
 }

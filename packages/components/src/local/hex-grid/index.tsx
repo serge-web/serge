@@ -266,18 +266,9 @@ export const HexGrid: React.FC<{}> = () => {
   
         bounds = bounds === undefined ? L.latLngBounds(centreWorld, centreWorld) : bounds.extend(centreWorld)
   
-        // get hex center
-        const centreH = hex.centreLatLng
-        const cornerArr: L.LatLng[] = []
-        for (let i: number = 0; i < 6; i++) {
-          const angle = 30 + i * 60
-          const point = destination(centreH, angle, 36 * 1852)
-          cornerArr.push(point)
-        }
         // add the polygon to polygons array, indexed by the cell name
         const details: CellDetails = {
           id:hex.name,
-          poly: cornerArr,
           centre: centreWorld,
           hexCell: hex
         }
@@ -305,6 +296,21 @@ export const HexGrid: React.FC<{}> = () => {
           count++
         }
       })
+
+      // now check each cell has its polygon generated
+      visible.forEach((cell: CellDetails) => {
+        if(!cell.poly) {
+          const centreH = cell.centre
+          const cornerArr: L.LatLng[] = []
+          for (let i: number = 0; i < 6; i++) {
+            const angle = 30 + i * 60
+            const point = destination(centreH, angle, 36 * 1852)
+            cornerArr.push(point)
+          }
+          cell.poly = cornerArr
+        }
+      })
+
       setVisibleCells(visible)
       console.log('visible bins', count, 'visible cells', visible.length)
     } else {
