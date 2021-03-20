@@ -1,5 +1,6 @@
 /* global it expect */
 import L from 'leaflet'
+import { SergeHex } from '@serge/custom-types'
 import cellTypesList from '../data/cell-types-2-small'
 import cellTypesList3 from '../data/cell-types-3-small'
 import createGridFromCSV from './create-grid-from-csv'
@@ -8,13 +9,14 @@ import createGrid from './create-grid'
 
 it('Construct grid from very new dataset', () => {
   const cells: any = cellTypesList3
-  expect(cells.length).toEqual(20)
-
+  expect(cells.length).toEqual(19)
   const grid = createGridFromCSV2(cells, L.latLng(72, -50), 0.5, L.point(52, -5))
-  expect(grid.length).toEqual(20)
-  console.log(grid[0])
-
-  expect(grid.cellFor(L.latLng(44, -22))).toEqual({ a: 12 })
+  expect(grid.length).toEqual(19)
+  const first: any = grid[0]
+  expect(first.poly.length).toEqual(7)
+  expect(first.type).toEqual('sea')
+  expect(first.name).toEqual(23042)
+  console.log(first)
 })
 
 it('Construct grid from new dataset', () => {

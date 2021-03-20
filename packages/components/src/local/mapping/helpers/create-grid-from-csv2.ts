@@ -24,13 +24,11 @@ const typeFor = (type: number): string => {
  */
 const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: number, centreOffset: L.Point): SergeGrid<SergeHex<{}>> => {
   const hexes = cells.map((cell: any) => {
-    const coords: string[] = cell.LatLon.split('/')
-    const latLon = L.latLng(parseFloat(coords[0]), parseFloat(coords[1]))
     return {
       x: cell.Row,
       y: cell.Col,
-      centreLatLng: latLon,
-      poly_str: cell.poly,
+      centreLatLng: L.latLng(cell.centreLng, cell.centreLat),
+      poly: cell.poly,
       type: typeFor(cell.Type as number) && 'sea',
       name: cell.Name
     }
