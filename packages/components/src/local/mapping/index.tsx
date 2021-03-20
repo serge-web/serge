@@ -5,7 +5,7 @@ import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
-import cellTypesList from './data/cell-types-2-small'
+import cellTypesList from './data/cell-types-2'
 
 /* helper functions */
 import groupMoveToRoot from './helpers/group-move-to-root'
@@ -262,11 +262,9 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [mapBounds])
 
   useEffect(() => {
-    console.log('about to create grid')
     if (mapBounds && tileDiameterMins) {
       // note: the list of cells should be re-calculated if `tileDiameterMins` changes
       const newGrid: SergeGrid<SergeHex<{}>> = createGridFromCSV(cellTypesList, mapBounds.getNorthWest(), tileDiameterMins, L.point(2,2))
-      console.log('new grid', newGrid)
       // setGridCells(undefined)
       setGridCells(newGrid)
     }

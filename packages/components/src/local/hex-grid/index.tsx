@@ -44,7 +44,7 @@ export const HexGrid: React.FC<{}> = () => {
   const [plannedRoutePoly, setPlannedRoutePoly] = useState<L.LatLng[]>([])
 
   // the binned polygons
-  const [polyBin, setPolyBin] = useState<PolyBin[] | undefined>(undefined)
+  const [polyBin, setPolyBin] = useState<PolyBin[]>([])
   const [visibleCells, setVisibleCells] = useState<CellDetails[]>([])
 
   // allow the planning marker origin to be changed
@@ -63,6 +63,8 @@ export const HexGrid: React.FC<{}> = () => {
 
   // remember the id of the current asset, so we can check if we're receiving a new one
   const [selectedAssetId, setSelectedAssetId] = useState<string | undefined>(undefined)
+
+  const MIN_ZOOM_FOR_HEXES = 6
 
   /** capture the color of this asset, so planning shapes
    * get rendered in a suitable color
@@ -293,16 +295,20 @@ export const HexGrid: React.FC<{}> = () => {
   
 
   useEffect(() => {
-    if (polyBin && zoomLevel && viewport) {
+    if (zoomLevel && viewport && zoomLevel > MIN_ZOOM_FOR_HEXES) {
       var visible: CellDetails[] = []
+      var count = 0
       polyBin.forEach((bin: PolyBin) =>
       {
         if(bin.bounds.intersects(viewport)) {
           visible = visible.concat(bin.cells)
+          count++
         }
       })
       setVisibleCells(visible)
-      console.log('visible cells', visible.length)
+      console.log('visible bins', count, 'visible cells', visible.length)
+    } else {
+      setVisibleCells([])
     }
   }, [polyBin, zoomLevel, viewport])
   
@@ -400,10 +406,8 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  console.log('visible', visibleCells && visibleCells.length)
-
   return <>
-    <LayerGroup key={'hex_polygons'} >{zoomLevel > 6 && visibleCells.map((cell: CellDetails) => (
+    <LayerGroup key={'hex_polygons'} >{zoomLevel > MIN_ZOOM_FOR_HEXES && visibleCells.map((cell: CellDetails) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
@@ -453,10 +457,11 @@ export const HexGrid: React.FC<{}> = () => {
       </LayerGroup>
     }
       <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin:PolyBin) => (
-            <Polyline
+            <Polygon
             key={'bin_line_' + bin.bounds.getCenter().toString()}
-            color={ "#04f" }
-            positions={[bin.bounds.getNorthWest(), bin.bounds.getSouthWest(),bin.bounds.getSouthEast(), bin.bounds.getNorthEast(), bin.bounds.getNorthWest()]}
+            color={ bin.bounds.intersects(viewport) ? "#00f" : "#f00" }
+            fillColor={ bin.bounds.intersects(viewport) ? "#00f" : "#f00" }
+            positions={[bin.bounds.getNorthWest(), bin.bounds.getSouthWest(),bin.bounds.getSouthEast(), bin.bounds.getNorthEast()]}
             className={styles['planning-line']}
           />
       ))}
