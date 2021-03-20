@@ -43,13 +43,6 @@ export const HexGrid: React.FC<{}> = () => {
   const [plannedRouteCells, setPlannedRouteCells] = useState<Array<SergeHex<{}>>>([])
   const [plannedRoutePoly, setPlannedRoutePoly] = useState<L.LatLng[]>([])
 
-  // collate list of named polygons
-  const [/*allowablePolygons*/, setAllowablePolygons] = useState<{ [id: string]: L.LatLng[] }>({})
-  // collate list of named polygon centres
-  const [/*allowableCentres*/, setAllowableCentres] = useState<{ [id: string]: L.LatLng }>({})
-  // collate list of named hex cells
-  const [/*allowableHexCells*/, setAllowableHexCells] = useState<{ [id: string]: SergeHex<{}> }>({})
-
   // the binned polygons
   const [polyBin, setPolyBin] = useState<PolyBin[] | undefined>(undefined)
   const [visibleCells, setVisibleCells] = useState<CellDetails[]>([])
@@ -261,36 +254,6 @@ export const HexGrid: React.FC<{}> = () => {
        */
   useEffect(() => {
     if (gridCells) {
-      const tmpPolys: { [id: string]: L.LatLng[] } = {}
-      const tmpCentres: { [id: string]: L.LatLng } = {}
-      const tmpHexCells: { [id: string]: SergeHex<{}> } = {}
-
-      // create a polygon for each hex, add it to the parent
-      gridCells.forEach((hex: SergeHex<{}>) => {
-        // move coords to our map
-        const centreWorld: L.LatLng = hex.centreLatLng
-
-        // get hex center
-        const centreH = hex.centreLatLng
-        const cornerArr: L.LatLng[] = []
-        for (let i: number = 0; i < 6; i++) {
-          const angle = 30 + i * 60
-          const point = destination(centreH, angle, 36 * 1852)
-          cornerArr.push(point)
-        }
-        // add the polygon to polygons array, indexed by the cell name
-        tmpPolys[hex.name] = cornerArr
-        tmpCentres[hex.name] = centreWorld
-        tmpHexCells[hex.name] = hex
-      })
-      setAllowablePolygons(tmpPolys)
-      setAllowableCentres(tmpCentres)
-      setAllowableHexCells(tmpHexCells)
-    }
-  }, [gridCells])
-
-  useEffect(() => {
-    if (gridCells) {
       const store: CellDetails[] = []
       var bounds: L.LatLngBounds | undefined = undefined
   
@@ -440,7 +403,7 @@ export const HexGrid: React.FC<{}> = () => {
   console.log('visible', visibleCells && visibleCells.length)
 
   return <>
-    <LayerGroup key={'hex_polygons'} >{visibleCells.map((cell: CellDetails) => (
+    <LayerGroup key={'hex_polygons'} >{zoomLevel > 6 && visibleCells.map((cell: CellDetails) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
@@ -474,7 +437,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 6 && visibleCells &&
+      zoomLevel > 8 && visibleCells &&
       <LayerGroup key={'hex_labels'} >{visibleCells.map((cell:CellDetails) => (
         <Marker
           key={'hex_label_' + cell.id}
@@ -489,6 +452,17 @@ export const HexGrid: React.FC<{}> = () => {
       ))}
       </LayerGroup>
     }
+      <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin:PolyBin) => (
+            <Polyline
+            key={'bin_line_' + bin.bounds.getCenter().toString()}
+            color={ "#04f" }
+            positions={[bin.bounds.getNorthWest(), bin.bounds.getSouthWest(),bin.bounds.getSouthEast(), bin.bounds.getNorthEast(), bin.bounds.getNorthWest()]}
+            className={styles['planning-line']}
+          />
+      ))}
+      </LayerGroup>
+
+
   </>
 }
 
