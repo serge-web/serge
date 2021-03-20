@@ -26,7 +26,7 @@ const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: 
   const hexes = cells.map((cell: any) => {
     // todo fix the raw data, don't swap them here
     // const rawArr: number[][] = cell.poly
-    // const outArr: number[][] = rawArr.map((point:number[]) => 
+    // const outArr: number[][] = rawArr.map((point:number[]) =>
     //   [point[1], point[0]]
     // )
     return {
@@ -34,7 +34,7 @@ const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: 
       y: cell.Col,
       centreLatLng: L.latLng(cell.centreLat, cell.centreLng),
       // don't read poly from file, they don't look right
-     // poly: outArr,
+      // poly: outArr,
       type: typeFor(cell.Type as number) && 'sea',
       name: cell.Name
     }

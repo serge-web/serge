@@ -250,26 +250,19 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [planningRange, planningConstraints, gridCells])
 
-  /** calculate the set of polygons that represent the map grid, including
-       * locations for their text labels, and a similarly indexed set of hex
-       * grid cells that can be used to lookup styling
-       */
-  useEffect(() => {
-  }, [gridCells])
-
   useEffect(() => {
     if (zoomLevel && viewport && zoomLevel > MIN_ZOOM_FOR_HEXES) {
-      if (polyBin.length == 0) {
+      if (polyBin.length === 0) {
         if (gridCells) {
           const store: CellDetails[] = []
           let bounds: L.LatLngBounds | undefined
-    
+
           // create a polygon for each hex, add it to the parent
           gridCells.forEach((hex: SergeHex<{}>) => {
             // move coords to our map
             const centreWorld: L.LatLng = hex.centreLatLng
             bounds = bounds === undefined ? L.latLngBounds(centreWorld, centreWorld) : bounds.extend(centreWorld)
-    
+
             // create a cell
             const details: CellDetails = {
               id: hex.name,
@@ -277,12 +270,12 @@ export const HexGrid: React.FC<{}> = () => {
               hexCell: hex,
               poly: hex.poly
             }
-            if(store.length === 0) {
+            if (store.length === 0) {
               console.log(details, details.centre, details.poly)
             }
             store.push(details)
           })
-          if(bounds) {
+          if (bounds) {
             const polyBin = binCells(bounds, store)
             const bins = polyBin.map((bin: PolyBin) => bin.cells.length)
             console.log('bin sizes:', bins)
