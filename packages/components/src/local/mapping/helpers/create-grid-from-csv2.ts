@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { defineGrid, extendHex, Grid, PointLike } from 'honeycomb-grid'
+import { defineGrid, extendHex, PointLike } from 'honeycomb-grid'
 import { SergeHex, SergeGrid } from '@serge/custom-types'
 import { toScreen, toWorld } from '@serge/helpers'
 
@@ -39,12 +39,11 @@ const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: 
       name: cell.Name
     }
   })
-  const grid: Grid<SergeHex<{}>> = hexes as Grid<SergeHex<{}>>
-  const sergeGrid: SergeGrid<SergeHex<{}>> = grid as SergeGrid<SergeHex<{}>>
-
   // define grid as flat
   const Hex = extendHex({ orientation: 'flat' })
   const honeyGrid = defineGrid(Hex)
+  const grid = honeyGrid(hexes)
+  const sergeGrid: SergeGrid<SergeHex<{}>> = grid as SergeGrid<SergeHex<{}>>
 
   sergeGrid.origin = correctedOrigin
   sergeGrid.tileDiameterDegs = tileSizeDegs
@@ -76,7 +75,7 @@ const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: 
     const shiftedCellCoords = honeyGrid.pointToHex(cellCoords.x, cellCoords.y)
 
     // and now retrieve the cell at these coords
-    return grid.get(shiftedCellCoords)
+    return sergeGrid.get(shiftedCellCoords)
   }
 
   return sergeGrid
