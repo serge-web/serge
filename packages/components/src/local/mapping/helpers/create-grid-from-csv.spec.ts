@@ -5,17 +5,22 @@ import cellTypesList3 from '../data/cell-types-3-small'
 import createGridFromCSV from './create-grid-from-csv'
 import createGridFromCSV2 from './create-grid-from-csv2'
 import createGrid from './create-grid'
+import { SergeHex } from '@serge/custom-types'
 
 it('Construct grid from very new dataset', () => {
   const cells: any = cellTypesList3
   expect(cells.length).toEqual(19)
   const grid = createGridFromCSV2(cells, L.latLng(72, -50), 0.5, L.point(52, -5))
   expect(grid.length).toEqual(19)
-  const first: any = grid[0]
+  const first: SergeHex<{}> = grid[0]
   //  expect(first.poly.length).toEqual(7)
   expect(first.type).toEqual('sea')
   expect(first.name).toEqual(23042)
-  console.log(first)
+
+  // ok, check routing
+  const tenth: SergeHex<{}> = grid[10]
+  const between = grid.hexesBetween(first, tenth)
+  expect(between.length).toEqual(3)
 })
 
 it('Construct grid from new dataset', () => {
