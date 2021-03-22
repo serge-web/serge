@@ -526,7 +526,6 @@ export const Mapping: React.FC<PropTypes> = ({
           setZoomLevel(ref.leafletElement.getZoom())
         })
         ref.leafletElement.on('moveend', () => {
-          console.log('moveend')
           setViewport(ref.leafletElement.getBounds())
         })
       }

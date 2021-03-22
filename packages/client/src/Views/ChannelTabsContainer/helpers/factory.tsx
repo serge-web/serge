@@ -26,7 +26,6 @@ const findRole = (roleName: string, forceData: ForceData | undefined): Role => {
 const factory = (state: PlayerUi): Factory => {
 
   // provide some default mapping constraints if we aren't supplied with any
-  console.log('FACTORY', !!state.mappingConstaints, state.mappingConstaints)
   const mappingConstraints: MappingConstraints = state.mappingConstaints !== undefined ? state.mappingConstaints : {
     bounds: [[14.194809302, 42.3558566271],[12.401259302, 43.7417816271]],
     tileDiameterMins: 5,
