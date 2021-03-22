@@ -1,4 +1,3 @@
-import L from 'leaflet'
 import {
   SET_CURRENT_WARGAME_PLAYER,
   SET_FORCE,
@@ -18,7 +17,7 @@ import {
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import { PlayerUi, MappingConstraints, PlayerUiActionTypes } from '@serge/custom-types';
+import { PlayerUi, PlayerUiActionTypes } from '@serge/custom-types';
 import {
   handleSetLatestWargameMessage,
   handleSetAllMessages,
@@ -74,6 +73,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
   switch (action.type) {
     case SET_CURRENT_WARGAME_PLAYER:
+      console.log('payload turn', action.payload.turn)
       newState.currentWargame = action.payload.name
       newState.wargameTitle = action.payload.wargameTitle
       newState.wargameInitiated = action.payload.wargameInitiated
