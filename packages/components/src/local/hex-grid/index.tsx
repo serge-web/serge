@@ -266,7 +266,7 @@ export const HexGrid: React.FC<{}> = () => {
             // create a cell
             const details: CellDetails = {
               id: hex.name,
-              hexCell: hex,
+              hexCell: hex
             }
             store.push(details)
           })

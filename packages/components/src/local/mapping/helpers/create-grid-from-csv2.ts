@@ -17,21 +17,21 @@ const typeFor = (type: number): string => {
 }
 
 const isMarkerInsidePolygon = (marker: L.LatLng, poly: L.Polyline) => {
-  var polyPoints = poly.getLatLngs() as L.LatLng[];       
-  var x = marker.lat, y = marker.lng;
+  const polyPoints = poly.getLatLngs() as L.LatLng[]
+  const x = marker.lat; const y = marker.lng
 
-  var inside = false;
-  for (var i = 0, j = polyPoints.length - 1; i < polyPoints.length; j = i++) {
-      var xi = polyPoints[i].lat, yi = polyPoints[i].lng;
-      var xj = polyPoints[j].lat, yj = polyPoints[j].lng;
+  let inside = false
+  for (let i = 0, j = polyPoints.length - 1; i < polyPoints.length; j = i++) {
+    const xi = polyPoints[i].lat; const yi = polyPoints[i].lng
+    const xj = polyPoints[j].lat; const yj = polyPoints[j].lng
 
-      var intersect = ((yi > y) != (yj > y))
-          && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-      if (intersect) inside = !inside;
+    const intersect = ((yi > y) != (yj > y)) &&
+          (x < (xj - xi) * (y - yi) / (yj - yi) + xi)
+    if (intersect) inside = !inside
   }
 
-  return inside;
-};
+  return inside
+}
 
 /**
  *  create hexagonal grid
@@ -85,22 +85,22 @@ const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: 
    */
   sergeGrid.cellFor = (latLng: L.LatLng, origin: SergeHex<{}>): SergeHex<{}> | undefined => {
     console.log('cell for', latLng, origin)
-    if(origin.poly) {
+    if (origin.poly) {
       console.log('poly', origin.poly)
       const oPoly = L.polyline(origin.poly)
-      if(isMarkerInsidePolygon(latLng, oPoly)) {
+      if (isMarkerInsidePolygon(latLng, oPoly)) {
         console.log('origin hex')
         return origin
       } else {
         // successively work out
         const MAX_RING = 5
-        for(let i=1; i<MAX_RING;i++) {
+        for (let i = 1; i < MAX_RING; i++) {
           const ring = sergeGrid.hexesInRange(origin, 3)
           const found = ring.find(hex => {
             const oPoly = L.polyline(hex.poly)
-            return isMarkerInsidePolygon(latLng, oPoly)                 
+            return isMarkerInsidePolygon(latLng, oPoly)
           })
-          if(found) {
+          if (found) {
             console.log(found)
             return found
           }
@@ -108,7 +108,7 @@ const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: 
         console.log('diff hex')
         return undefined
       }
-    } 
+    }
     console.log('poly not found', isMarkerInsidePolygon)
     return undefined
 

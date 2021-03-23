@@ -32,7 +32,7 @@ const binCells = (bounds: L.LatLngBounds, store: CellDetails[]): PolyBin[] => {
   // now bin the cells
   store.forEach((cell: CellDetails) => {
     const centre = cell.hexCell.centreLatLng
-    if(centre) {
+    if (centre) {
       const lat = centre.lat
       const lng = centre.lng
       const xd = lng - bl.lng
