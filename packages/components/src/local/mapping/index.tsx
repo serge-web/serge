@@ -93,6 +93,7 @@ export const Mapping: React.FC<PropTypes> = ({
   turnNumber,
   wargameInitiated,
   tileLayer,
+  initialViewport,
   minZoom,
   maxZoom,
   touchZoom,
@@ -111,7 +112,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [showMapBar, setShowMapBar] = useState<boolean>(true)
   const [selectedAsset, setSelectedAsset] = useState<SelectedAsset | undefined >(undefined)
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
-  const [viewport, setViewport] = useState<L.Bounds | undefined>(undefined)
+  const [viewport, setViewport] = useState<L.LatLngBounds | undefined>(initialViewport)
   const [mapBounds, setMapBounds] = useState<L.LatLngBounds | undefined>(undefined)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
   const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)

@@ -266,12 +266,7 @@ export const HexGrid: React.FC<{}> = () => {
             // create a cell
             const details: CellDetails = {
               id: hex.name,
-              centre: centreWorld,
               hexCell: hex,
-              poly: hex.poly
-            }
-            if (store.length === 0) {
-              console.log(details, details.centre, details.poly)
             }
             store.push(details)
           })
@@ -285,30 +280,27 @@ export const HexGrid: React.FC<{}> = () => {
       }
 
       let visible: CellDetails[] = []
-      let count = 0
       polyBin.forEach((bin: PolyBin) => {
         if (bin.bounds.intersects(viewport)) {
           visible = visible.concat(bin.cells)
-          count++
         }
       })
 
       // now check each cell has its polygon generated
       visible.forEach((cell: CellDetails) => {
-        if (!cell.poly) {
-          const centreH = cell.centre
+        if (!cell.hexCell.poly) {
+          const centreH = cell.hexCell.centreLatLng
           const cornerArr: L.LatLng[] = []
           for (let i = 0; i < 6; i++) {
             const angle = 30 + i * 60
             const point = destination(centreH, angle, 18 * 1852)
             cornerArr.push(point)
           }
-          cell.poly = cornerArr
+          cell.hexCell.poly = cornerArr
         }
       })
 
       setVisibleCells(visible)
-      console.log('visible bins', count, 'visible cells', visible.length)
     } else {
       setVisibleCells([])
     }
@@ -396,7 +388,7 @@ export const HexGrid: React.FC<{}> = () => {
   const beingDragged = (e: any): void => {
     const marker = e.target
     const location = marker.getLatLng()
-    const cellPos: SergeHex<{}> | undefined = gridCells.cellFor(location)
+    const cellPos: SergeHex<{}> | undefined = gridCells.cellFor(location, dragDestination || originHex)
     if (cellPos) {
       setDragDestination(cellPos)
     }
@@ -415,7 +407,7 @@ export const HexGrid: React.FC<{}> = () => {
         // such as labels so include prefix in key
         key={'hex_poly_' + cell.id}
         color={ assetColor }
-        positions={cell.poly}
+        positions={cell.hexCell.poly}
         stroke={cell.id === cellForSelected && assetColor ? assetColor : '#fff'}
         className={styles[getCellStyle(cell.hexCell, planningRouteCells, allowableFilteredCells, cellForSelected)]}
       />
@@ -443,11 +435,11 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 8 && visibleCells &&
+      zoomLevel > 6 && visibleCells &&
       <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: CellDetails) => (
         <Marker
           key={'hex_label_' + cell.id}
-          position={cell.centre}
+          position={cell.hexCell.centreLatLng}
           width="120"
           icon={L.divIcon({
             html: cell.id,

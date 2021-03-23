@@ -27,5 +27,5 @@ export default interface SergeGrid<T> extends Grid<SergeHex<HexFactory<T>>> {
   /**
    * get the cell at the world location
    */
-  cellFor (point: L.LatLng): SergeHex<{}> | undefined
+  cellFor (point: L.LatLng, origin?:SergeHex<{}>): SergeHex<{}> | undefined
 }

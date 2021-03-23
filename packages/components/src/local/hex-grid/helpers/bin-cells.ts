@@ -8,8 +8,6 @@ export interface PolyBin {
 
 export interface CellDetails {
   readonly id: string
-  poly: L.LatLng[]
-  centre: L.LatLng
   hexCell: SergeHex<{}>
 }
 
@@ -33,17 +31,21 @@ const binCells = (bounds: L.LatLngBounds, store: CellDetails[]): PolyBin[] => {
   }
   // now bin the cells
   store.forEach((cell: CellDetails) => {
-    const centre = cell.centre
-    const lat = centre.lat
-    const lng = centre.lng
-    const xd = lng - bl.lng
-    const yd = lat - bl.lat
-    const x = Math.floor(xd / xDelta)
-    const y = Math.floor(yd / yDelta)
-    // note: the cell at the top-right may end up with an
-    // invalid index - clip it to the top right corner
-    const index = Math.min(steps * steps - 1, x * steps + y)
-    res[index].cells.push(cell)
+    const centre = cell.hexCell.centreLatLng
+    if(centre) {
+      const lat = centre.lat
+      const lng = centre.lng
+      const xd = lng - bl.lng
+      const yd = lat - bl.lat
+      const x = Math.floor(xd / xDelta)
+      const y = Math.floor(yd / yDelta)
+      // note: the cell at the top-right may end up with an
+      // invalid index - clip it to the top right corner
+      const index = Math.min(steps * steps - 1, x * steps + y)
+      res[index].cells.push(cell)
+    } else {
+      console.log('cell', cell, cell.hexCell, centre)
+    }
   })
   return res
 }

@@ -56,6 +56,10 @@ export default interface PropTypes {
     attribution: string
   }
   /**
+   * the initial viewport
+   */
+  initialViewport?: L.LatLngBounds
+  /**
    * The zoom level
    * @default 10
    */

@@ -19,6 +19,7 @@ it('Construct grid from very new dataset', () => {
 
   // ok, check routing
   const tenth: SergeHex<{}> = grid[10]
+  expect(tenth.name).toEqual('25042')
   const between = grid.hexesBetween(first, tenth)
   expect(between.length).toEqual(3)
 })

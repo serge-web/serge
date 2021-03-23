@@ -34,9 +34,9 @@ export default {
   }
 }
 
-const bounds = L.latLngBounds([[80,-50.0],[40.0,45]])
+const bounds = L.latLngBounds([[80, -50.0], [40.0, 45]])
 
-const ukViewport = L.latLngBounds([[56.30916, -4.4472763], [ 52.1762846,-23.464036]])
+const ukViewport = L.latLngBounds([[56.30916, -4.4472763], [52.1762846, -23.464036]])
 
 const LocalTileLayer = {
   url: './tiles/{z}/{x}/{y}.png',
@@ -183,9 +183,9 @@ export const WithAssets: React.FC = () => <Mapping
   zoom={6.5}
   mapPostBack={mapPostBack} >
   <>
-      <Assets />
-      <HexGrid />
- </>
+    <Assets />
+    <HexGrid />
+  </>
 </Mapping>
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 WithAssets.story = {
