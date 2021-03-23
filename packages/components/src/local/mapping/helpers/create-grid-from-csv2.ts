@@ -16,7 +16,10 @@ const typeFor = (type: number): string => {
   }
 }
 
-const isMarkerInsidePolygon = (marker: L.LatLng, poly: L.Polyline) => {
+/** helper to determine if point in polygon, taken from
+ * here: https://stackoverflow.com/a/31813714/92441
+ */
+const isMarkerInsidePolygon = (marker: L.LatLng, poly: L.Polyline): boolean => {
   const polyPoints = poly.getLatLngs() as L.LatLng[]
   const x = marker.lat; const y = marker.lng
 
@@ -25,7 +28,7 @@ const isMarkerInsidePolygon = (marker: L.LatLng, poly: L.Polyline) => {
     const xi = polyPoints[i].lat; const yi = polyPoints[i].lng
     const xj = polyPoints[j].lat; const yj = polyPoints[j].lng
 
-    const intersect = ((yi > y) != (yj > y)) &&
+    const intersect = ((yi > y) !== (yj > y)) &&
           (x < (xj - xi) * (y - yi) / (yj - yi) + xi)
     if (intersect) inside = !inside
   }
