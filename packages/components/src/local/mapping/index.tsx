@@ -114,6 +114,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [zoomLevel, setZoomLevel] = useState<number>(zoom || 0)
   const [viewport, setViewport] = useState<L.LatLngBounds | undefined>(initialViewport)
   const [mapBounds, setMapBounds] = useState<L.LatLngBounds | undefined>(undefined)
+  const [mapResized, setMapResized] = useState<boolean>(false)
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
   const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
@@ -521,17 +522,31 @@ export const Mapping: React.FC<PropTypes> = ({
   const handleEvents = (ref: any): void => {
     if (ref && ref.leafletElement) {
       // save map element
+      const map: L.Map = ref.leafletElement
       if (leafletElement === undefined) {
-        setLeafletElement(ref.leafletElement)
-        ref.leafletElement.on('zoomend', () => {
-          setZoomLevel(ref.leafletElement.getZoom())
+        setLeafletElement(map)
+        map.on('zoomend', () => {
+          setZoomLevel(map.getZoom())
         })
-        ref.leafletElement.on('moveend', () => {
-          setViewport(ref.leafletElement.getBounds())
+        map.on('moveend', () => {
+          setViewport(map.getBounds())
+        })
+        // this handler is to overcome the issue where the 
+        // mapping component doesn't load tiles if it isn't 
+        // visible on application start. This code triggers
+        // a resize, which loads the correct tiles as soon
+        // as the mouse moves of the map once it is visible
+        map.on('mousemove', () => {
+          // do we need to invalidate map?
+          if(!mapResized) {
+            setMapResized(true)
+            map.invalidateSize()
+          }
         })
       }
     }
   }
+
 
   /**
    * this callback is called when the user clicks on a blank part of the map.
