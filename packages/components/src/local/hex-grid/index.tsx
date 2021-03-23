@@ -435,7 +435,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 6 && visibleCells &&
+      zoomLevel > 8 && visibleCells &&
       <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: CellDetails) => (
         <Marker
           key={'hex_label_' + cell.id}
