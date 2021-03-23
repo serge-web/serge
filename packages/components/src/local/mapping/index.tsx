@@ -531,14 +531,14 @@ export const Mapping: React.FC<PropTypes> = ({
         map.on('moveend', () => {
           setViewport(map.getBounds())
         })
-        // this handler is to overcome the issue where the 
-        // mapping component doesn't load tiles if it isn't 
+        // this handler is to overcome the issue where the
+        // mapping component doesn't load tiles if it isn't
         // visible on application start. This code triggers
         // a resize, which loads the correct tiles as soon
         // as the mouse moves of the map once it is visible
         map.on('mousemove', () => {
           // do we need to invalidate map?
-          if(!mapResized) {
+          if (!mapResized) {
             setMapResized(true)
             map.invalidateSize()
           }
@@ -546,7 +546,6 @@ export const Mapping: React.FC<PropTypes> = ({
       }
     }
   }
-
 
   /**
    * this callback is called when the user clicks on a blank part of the map.
