@@ -17,7 +17,7 @@ export default {
     },
     controls: {
       expanded: true
-    },  
+    }
   },
   argTypes: {
     isUmpire: {
@@ -33,16 +33,16 @@ export default {
 }
 
 const Template: Story<ChatMessageProps> = (args) => {
-  const {  ...props } = args
-  return <ChatMessage  
+  const { ...props } = args
+  return <ChatMessage
     {...props} />
 }
 
 export const Demonstration = Template
 Demonstration.args = {
-  message: "Content of message",
-  privateMessage: "Private weather message",
-  borderColor: "#fff",
+  message: 'Content of message',
+  privateMessage: 'Private weather message',
+  borderColor: '#fff',
   role: 'GAME CONTROL',
   isUmpire: true,
   isOwner: false
