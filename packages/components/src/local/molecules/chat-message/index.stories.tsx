@@ -25,6 +25,9 @@ export default {
     },
     isOwner: {
       description: 'Message sent from this player'
+    },
+    borderColor: {
+      control: 'color'
     }
   }
 }
@@ -32,12 +35,15 @@ export default {
 const Template: Story<ChatMessageProps> = (args) => {
   const {  ...props } = args
   return <ChatMessage  
-    borderColor="#fff"
-    role={'GAME CONTROL'} {...props} />
+    {...props} />
 }
 
 export const Demonstration = Template
 Demonstration.args = {
   message: "Content of message",
-  privateMessage: "Private weather message"
+  privateMessage: "Private weather message",
+  borderColor: "#fff",
+  role: 'GAME CONTROL',
+  isUmpire: true,
+  isOwner: false
 }
