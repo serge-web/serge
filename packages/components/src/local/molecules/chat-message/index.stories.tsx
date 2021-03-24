@@ -1,9 +1,10 @@
-import { boolean } from '@storybook/addon-knobs'
 import React from 'react'
+import { Story } from '@storybook/react/types-6-0'
 
 // Import component files
 import ChatMessage from './index'
 import docs from './README.md'
+import ChatMessageProps from './types/props'
 
 export default {
   title: 'local/molecules/ChatMessage',
@@ -13,31 +14,30 @@ export default {
     readme: {
       // Show readme before story
       content: docs
+    },
+    controls: {
+      expanded: true
+    },  
+  },
+  argTypes: {
+    isUmpire: {
+      description: 'Player from umpire force'
+    },
+    isOwner: {
+      description: 'Message sent from this player'
     }
   }
 }
 
-export const Default: React.FC = () => (
-  <ChatMessage
-    message="This is a simple chat message."
+const Template: Story<ChatMessageProps> = (args) => {
+  const {  ...props } = args
+  return <ChatMessage  
     borderColor="#fff"
-    role={'GAME CONTROL'}
-    isOwner
-  />
-)
-export const OtherUserMessage: React.FC = () => (
-  <ChatMessage
-    message="This is a simple chat message."
-    borderColor="#fff"
-    role={'GAME CONTROL'}
-  />
-)
-export const PrivateMessage: React.FC = () => (
-  <ChatMessage message="This is a simple chat message."
-    borderColor="#fff"
-    role={'GAME CONTROL'}
-    privateMessage="Private weather message"
-    isUmpire={boolean('Player from umpire force', true)}
-    isOwner
-  />
-)
+    role={'GAME CONTROL'} {...props} />
+}
+
+export const Demonstration = Template
+Demonstration.args = {
+  message: "Content of message",
+  privateMessage: "Private weather message"
+}

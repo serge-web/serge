@@ -2,11 +2,11 @@ export default interface Props {
   /**
    * Message timestamp
    */
-  timestamp?: string
+  timestamp: string
   /**
    * Message sender role
    */
-  role?: string
+  role: string
   /**
    * Message text
    */
@@ -14,11 +14,11 @@ export default interface Props {
   /**
   * Header border color
   */
-  borderColor?: string
+  borderColor: string
   /**
    * Checks if user is an umpire. Assume not umpire if parameter missing
    */
-   isUmpire?: boolean
+   isUmpire: boolean
    /**
     * Private message, visible only to umpire force
     */
@@ -26,5 +26,5 @@ export default interface Props {
    /**
     * Message owner, either is self message or other user message
     */
-   isOwner?: boolean
+   isOwner: boolean
 }
