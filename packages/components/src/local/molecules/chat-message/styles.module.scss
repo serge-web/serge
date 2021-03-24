@@ -1,0 +1,45 @@
+@import "~@serge/themes/dependencies/variables";
+
+.chat-message-wrapper {
+  @include typo-primary;
+  background-color: rgba(255, 255, 255, 0.2);;
+  border-radius: 5px;
+  display: block;
+  cursor: pointer;
+  padding: 12px 15px;
+  text-align: right;
+}
+
+.message-text {
+  color: #fff;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 18px;
+}
+
+.info-body {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 14px;
+  margin-left: 10px;
+  color: #00A3DE;
+}
+
+.icon-private {
+  display: inline-block;
+  margin-right: 5px;
+  margin-top: -3px;
+  vertical-align: middle;
+}
+
+.private {
+  display: block;
+  font-style: italic;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 9px 8px;
+  color: #000;
+  font-size: 12px;
+}
