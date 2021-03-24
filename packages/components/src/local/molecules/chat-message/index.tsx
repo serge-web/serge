@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 /* Import Types */
 import Props from './types/props'
@@ -18,13 +18,13 @@ const useStyles = makeStyles({
     borderRightColor: (props: Props) => props.borderColor,
     borderRightWidth: 8,
     borderRightStyle: 'solid',
-    textAlign: 'right',
+    textAlign: 'right'
   },
   other: {
     borderLeftColor: (props: Props) => props.borderColor,
     borderLeftWidth: 8,
     borderLeftStyle: 'solid',
-    textAlign: 'left',
+    textAlign: 'left'
   },
   ownerInfoBody: {
     marginLeft: 10
@@ -32,13 +32,11 @@ const useStyles = makeStyles({
   otherInfoBody: {
     marginRight: 0
   }
-});
+})
 
 /* Render component */
 export const ChatMessage: React.FC<Props> = (props: Props) => {
-
-
-  const classes = useStyles(props);
+  const classes = useStyles(props)
 
   const PrivateBadge = (): React.ReactElement => (
     <span>
@@ -53,11 +51,11 @@ export const ChatMessage: React.FC<Props> = (props: Props) => {
     <div className={`${styles['chat-message-wrapper']} ${props.isOwner ? classes.owner : classes.other}`}>
       <div className={styles['message-text']}>{props.message}</div>
       <Box display="flex" alignItems="center"
-        justifyContent={props.isUmpire && props.privateMessage ? "space-between" : "flex-end"}
-        flexDirection={!props.isOwner ? "row-reverse" : ""}
+        justifyContent={props.isUmpire && props.privateMessage ? 'space-between' : 'flex-end'}
+        flexDirection={!props.isOwner ? 'row-reverse' : ''}
         mt={1}>
         {props.isUmpire && props.privateMessage && <PrivateBadge />}
-        <Box display="flex" flexDirection={!props.isOwner ? "row-reverse" : ""}>
+        <Box display="flex" flexDirection={!props.isOwner ? 'row-reverse' : ''}>
           <Badge size="small" label={props.role} color={'default'} />
           <span className={`${styles['info-body']} ${props.isOwner ? classes.ownerInfoBody : classes.otherInfoBody}`}>
             {moment(props.timestamp).format('HH:mm')}

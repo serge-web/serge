@@ -8,6 +8,6 @@ import ChatMessage from './index'
 it('ChatMessage renders correctly', () => {
   const tree = renderer
     .create(<ChatMessage message="This is simple chat message" borderColor="#fff" />)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
-});
+    .toJSON()
+  expect(tree).toMatchSnapshot()
+})

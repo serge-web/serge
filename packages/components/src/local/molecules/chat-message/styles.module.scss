@@ -2,7 +2,7 @@
 
 .chat-message-wrapper {
   @include typo-primary;
-  background-color: rgba(255, 255, 255, 0.2);;
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   display: block;
   cursor: pointer;
@@ -22,7 +22,7 @@
   font-size: 12px;
   font-weight: normal;
   line-height: 14px;
-  color: #00A3DE;
+  color: #00a3de;
 }
 
 .icon-private {

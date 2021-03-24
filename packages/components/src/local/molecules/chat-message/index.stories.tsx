@@ -5,7 +5,6 @@ import React from 'react'
 import ChatMessage from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/molecules/ChatMessage',
   component: ChatMessage,
@@ -42,4 +41,3 @@ export const PrivateMessage: React.FC = () => (
     isOwner
   />
 )
-
