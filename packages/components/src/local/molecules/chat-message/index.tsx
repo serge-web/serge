@@ -1,4 +1,5 @@
 import React from 'react'
+import { makeStyles } from '@material-ui/core/styles';
 
 /* Import Types */
 import Props from './types/props'
@@ -12,8 +13,32 @@ import moment from 'moment'
 import Badge from '../../atoms/badge'
 import Paragraph from '../../atoms/paragraph'
 
+const useStyles = makeStyles({
+  owner: {
+    borderRightColor: (props: Props) => props.borderColor,
+    borderRightWidth: 8,
+    borderRightStyle: 'solid',
+    textAlign: 'right',
+  },
+  other: {
+    borderLeftColor: (props: Props) => props.borderColor,
+    borderLeftWidth: 8,
+    borderLeftStyle: 'solid',
+    textAlign: 'left',
+  },
+  ownerInfoBody: {
+    marginLeft: 10
+  },
+  otherInfoBody: {
+    marginRight: 0
+  }
+});
+
 /* Render component */
-export const ChatMessage: React.FC<Props> = ({ message, borderColor, role, timestamp, isUmpire, privateMessage }: Props) => {
+export const ChatMessage: React.FC<Props> = (props: Props) => {
+
+
+  const classes = useStyles(props);
 
   const PrivateBadge = (): React.ReactElement => (
     <span>
@@ -25,18 +50,23 @@ export const ChatMessage: React.FC<Props> = ({ message, borderColor, role, times
   )
 
   return (
-    <div className={styles['chat-message-wrapper']} style={{ borderRightColor: borderColor, borderRightWidth: 8, borderRightStyle: 'solid' }}>
-      <div className={styles['message-text']}>{message}</div>
-      <Box display="flex" alignItems="center" justifyContent={isUmpire && privateMessage ? "space-between" : "flex-end"} mt={1}>
-        {isUmpire && privateMessage && <PrivateBadge />}
-        <div>
-          <Badge size="small" label={role} color={'default'} />
-          <span className={styles['info-body']}>{moment(timestamp).format('HH:mm')}</span>
-        </div>
+    <div className={`${styles['chat-message-wrapper']} ${props.isOwner ? classes.owner : classes.other}`}>
+      <div className={styles['message-text']}>{props.message}</div>
+      <Box display="flex" alignItems="center"
+        justifyContent={props.isUmpire && props.privateMessage ? "space-between" : "flex-end"}
+        flexDirection={!props.isOwner ? "row-reverse" : ""}
+        mt={1}>
+        {props.isUmpire && props.privateMessage && <PrivateBadge />}
+        <Box display="flex" flexDirection={!props.isOwner ? "row-reverse" : ""}>
+          <Badge size="small" label={props.role} color={'default'} />
+          <span className={`${styles['info-body']} ${props.isOwner ? classes.ownerInfoBody : classes.otherInfoBody}`}>
+            {moment(props.timestamp).format('HH:mm')}
+          </span>
+        </Box>
       </Box>
-      {isUmpire && privateMessage &&
+      {props.isUmpire && props.privateMessage &&
         (<Box mt={1} className={styles.private} textAlign="left">
-          <Paragraph content={privateMessage} />
+          <Paragraph content={props.privateMessage} />
         </Box>)
       }
     </div>

@@ -23,6 +23,7 @@ export const Default: React.FC = () => (
     message="This is a simple chat message."
     borderColor="#fff"
     role={'GAME CONTROL'}
+    isOwner
   />
 )
 export const OtherUserMessage: React.FC = () => (
@@ -30,7 +31,6 @@ export const OtherUserMessage: React.FC = () => (
     message="This is a simple chat message."
     borderColor="#fff"
     role={'GAME CONTROL'}
-    isOwner={false}
   />
 )
 export const PrivateMessage: React.FC = () => (
@@ -39,6 +39,7 @@ export const PrivateMessage: React.FC = () => (
     role={'GAME CONTROL'}
     privateMessage="Private weather message"
     isUmpire={boolean('Player from umpire force', true)}
+    isOwner
   />
 )
 
