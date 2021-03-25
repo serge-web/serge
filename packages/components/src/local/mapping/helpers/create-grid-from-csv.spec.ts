@@ -14,7 +14,7 @@ it('Construct grid from very new dataset', () => {
   expect(grid.length).toEqual(19)
   const first: SergeHex<{}> = grid[0]
   //  expect(first.poly.length).toEqual(7)
-  expect(first.type).toEqual('sea')
+  expect(first.type).toEqual('loud')
   expect(first.name).toEqual('23042')
 
   // ok, check routing
