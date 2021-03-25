@@ -20,11 +20,6 @@ export default interface SergeGrid<T> extends Grid<SergeHex<HexFactory<T>>> {
    */
   toScreen (point: L.LatLng): PointLike
   /**
-   * convert hex coord location to world coords
-   * @param point {PointLike} to convert
-   */
-  toWorld (point: PointLike): L.LatLng
-  /**
    * get the cell at the world location
    */
   cellFor (point: L.LatLng, origin?:SergeHex<{}>): SergeHex<{}> | undefined

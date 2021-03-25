@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import { defineGrid, extendHex, PointLike } from 'honeycomb-grid'
 import { SergeHex, SergeGrid } from '@serge/custom-types'
-import { toScreen, toWorld } from '@serge/helpers'
+import { toScreen } from '@serge/helpers'
 
 /** lookup for types to styles */
 const typeFor = (type: number): string => {
@@ -75,57 +75,30 @@ const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: 
   sergeGrid.toScreen = (point: L.LatLng): PointLike => {
     return toScreen(point, sergeGrid.origin, sergeGrid.tileDiameterDegs / 2)
   }
-  /** provide method that only requires the hex location,
-   * taking other params from grid
-   */
-  sergeGrid.toWorld = (point: PointLike): L.LatLng => {
-    return toWorld(point, sergeGrid.origin, sergeGrid.tileDiameterDegs)
-  }
   /** provide method that only requires the world location,
    * taking other params from grid object
    * @param (L.LatLng) latLng point on map
    * @param (SergeHex<{}>) origin latest point accessed. We'll search outwards from this one
    */
   sergeGrid.cellFor = (latLng: L.LatLng, origin: SergeHex<{}>): SergeHex<{}> | undefined => {
-    console.log('cell for', latLng, origin)
     if (origin.poly) {
-      console.log('poly', origin.poly)
       const oPoly = L.polyline(origin.poly)
       if (isMarkerInsidePolygon(latLng, oPoly)) {
-        console.log('origin hex')
         return origin
       } else {
-        // successively work out
-        const MAX_RING = 5
-        for (let i = 1; i < MAX_RING; i++) {
-          const ring = sergeGrid.hexesInRange(origin, 3)
-          const found = ring.find(hex => {
-            const oPoly = L.polyline(hex.poly)
-            return isMarkerInsidePolygon(latLng, oPoly)
-          })
-          if (found) {
-            console.log(found)
-            return found
-          }
+        // find adjacent hexes
+        const ring = sergeGrid.hexesInRange(origin, 3)
+        const found = ring.find(hex => {
+          const oPoly = L.polyline(hex.poly)
+          return isMarkerInsidePolygon(latLng, oPoly)
+        })
+        if (found) {
+          return found
         }
-        console.log('diff hex')
         return undefined
       }
     }
-    console.log('poly not found', isMarkerInsidePolygon)
     return undefined
-
-    // // convert to hex coordinates
-    // const hexCoords: PointLike = sergeGrid.toScreen(latLng)
-
-    // // apply the offset, since the cell origin is at the top left
-    // const cellCoords = L.point(hexCoords.x + sergeGrid.centerOffset.x, hexCoords.y + sergeGrid.centerOffset.y)
-
-    // // find the nearest hex cell reference to this location
-    // const shiftedCellCoords = honeyGrid.pointToHex(cellCoords.x, cellCoords.y)
-
-    // // and now retrieve the cell at these coords
-    // return sergeGrid.get(shiftedCellCoords)
   }
 
   return sergeGrid

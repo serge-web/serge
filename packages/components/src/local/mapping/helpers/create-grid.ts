@@ -85,12 +85,6 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
   sergeGrid.toScreen = (point: L.LatLng): PointLike => {
     return toScreen(point, sergeGrid.origin, sergeGrid.tileDiameterDegs / 2)
   }
-  /** provide method that only requires the hex location,
-   * taking other params from grid
-   */
-  sergeGrid.toWorld = (point: PointLike): L.LatLng => {
-    return toWorld(point, sergeGrid.origin, sergeGrid.tileDiameterDegs)
-  }
   /** provide method that only requires the world location,
    * taking other params from grid object
    */
