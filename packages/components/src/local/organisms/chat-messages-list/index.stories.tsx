@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import ChatMessagesList from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/organisms/ChatMessagesList',
   component: ChatMessagesList,
@@ -34,7 +33,7 @@ export const Default: React.FC = () => {
       role: 'Game Control',
       privateMessage: 'Private message',
       isUmpire: true,
-      isOwner: true,
+      isOwner: true
     }, {
       _id: '2',
       borderColor: '#3dd0ffB3',
@@ -42,7 +41,7 @@ export const Default: React.FC = () => {
       timestamp: '2020-09-18T07:41:17.349Z',
       role: 'CO',
       isUmpire: false,
-      isOwner: false,
+      isOwner: false
     }, {
       _id: '3',
       borderColor: '#ffffff',
@@ -50,7 +49,7 @@ export const Default: React.FC = () => {
       timestamp: '2020-09-18T08:41:17.349Z',
       role: 'Game Control',
       isUmpire: false,
-      isOwner: true,
+      isOwner: true
     },
     {
       _id: '4',
@@ -59,7 +58,7 @@ export const Default: React.FC = () => {
       timestamp: '2020-09-18T09:41:17.349Z',
       role: 'CO',
       isUmpire: false,
-      isOwner: false,
+      isOwner: false
     },
     {
       _id: '5',
@@ -68,10 +67,10 @@ export const Default: React.FC = () => {
       timestamp: '2020-09-18T10:42:17.349Z',
       role: 'MEDIA',
       isUmpire: false,
-      isOwner: false,
+      isOwner: false
     }].map((message, id) => {
-      return { ...message, hasBeenRead: isRead[id] }
-    })
+    return { ...message, hasBeenRead: isRead[id] }
+  })
   const markAllAsRead = (): void => {
     setIsRead(isRead.map(() => true))
   }
@@ -82,4 +81,3 @@ export const Default: React.FC = () => {
     onMarkAllAsRead={markAllAsRead}
   />
 }
-

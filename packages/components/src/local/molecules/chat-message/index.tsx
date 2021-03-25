@@ -14,7 +14,6 @@ import Paragraph from '../../atoms/paragraph'
 
 /* Render component */
 export const ChatMessage: React.FC<Props> = (props: Props) => {
-
   const PrivateBadge = (): React.ReactElement => (
     <span>
       <span className={styles['icon-private']}>
@@ -33,7 +32,7 @@ export const ChatMessage: React.FC<Props> = (props: Props) => {
       ${props.isOwner ? styles['chat-message-wrapper__owner'] : styles['chat-message-wrapper__other']}`
       }
       style={{
-        [props.isOwner ? "borderRightColor" : "borderLeftColor"]: props.borderColor
+        [props.isOwner ? 'borderRightColor' : 'borderLeftColor']: props.borderColor
       }}
     >
       <div className={styles['message-text']}>{props.message}</div>

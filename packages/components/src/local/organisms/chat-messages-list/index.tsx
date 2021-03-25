@@ -23,7 +23,7 @@ export const ChatMessagesList: React.FC<PropTypes> = ({ messages, icons, colors,
           messages && messages.map((props, key) => {
             return (
               <Box mb={2} mr={2} key={key} justifyContent="flex-end" display="block">
-                <Box maxWidth={'60%'} minWidth={'40%'} display="inline-block" style={{float : props.isOwner ? "right" : "left"}}> 
+                <Box maxWidth={'60%'} minWidth={'40%'} display="inline-block" style={{ float: props.isOwner ? 'right' : 'left' }}>
                   <ChatMessage {...props} />
                 </Box>
               </Box>

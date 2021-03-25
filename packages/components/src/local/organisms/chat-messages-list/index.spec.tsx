@@ -22,11 +22,11 @@ it('ChatMessagesList renders correctly', () => {
       role: 'Game Control',
       privateMessage: 'Private message',
       isUmpire: true,
-      isOwner: true,
+      isOwner: true
     }]
     const tree = renderer
       .create(<ChatMessagesList messages={messages} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
-});
+})
