@@ -1,25 +1,27 @@
 import L from 'leaflet'
 import React from 'react'
-import { withKnobs, number } from '@storybook/addon-knobs'
+import { Story } from '@storybook/react/types-6-0'
 
 /* Import mock data */
-import { atlanticForces as forces, platformTypes } from '@serge/mocks'
+import { forces, platformTypes } from '@serge/mocks'
 
 // Import component files
 import Mapping from './index'
+import MappingPropTypes from './types/props'
 import docs from './README.md'
+import Assets from '../assets'
 import { HexGrid } from '../hex-grid'
-import { Assets } from '../assets'
 
 // import data types
 import { Phase } from '@serge/config'
+import { MessageMap } from '@serge/custom-types'
 
-const wrapper: React.FC = (storyFn: any) => <div style={{ height: '1200px' }}>{storyFn()}</div>
+const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
 export default {
   title: 'local/AtlanticMapping',
   component: Mapping,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -27,7 +29,92 @@ export default {
     },
     options: {
       // We have no addons enabled in this story, so the addon panel should be hidden
-      showPanel: false
+      showPanel: true
+    },
+    controls: {
+      expanded: true
+    }
+  },
+  argTypes: {
+    zoom: {
+      control: {
+        type: 'number'
+      }
+    },
+    playerForce: {
+      name: 'View as',
+      control: {
+        type: 'radio',
+        defaultValue: 'Blue',
+        options: [
+          'White',
+          'Blue',
+          'Red'
+        ]
+      }
+    },
+    phase: {
+      name: 'Game phase',
+      control: {
+        type: 'radio',
+        defaultValue: Phase.Planning,
+        options: [
+          Phase.Planning,
+          Phase.Adjudication
+        ]
+      }
+    },
+    tileDiameterMins: {
+      name: 'Tile diameter, nm',
+      control: {
+        type: 'range',
+        defaultValue: 5,
+        min: 1,
+        max: 15,
+        step: 1
+      }
+    },
+    planningRangeProp: {
+      name: 'Platform range',
+      control: {
+        type: 'range',
+        defaultValue: 1,
+        min: 1,
+        max: 6,
+        step: 1
+      }
+    },
+    wargameInitiated: {
+      name: 'Wargame has been initiated',
+      control: {
+        type: 'boolean'
+      }
+    },
+    showAllowableCells: {
+      name: 'Show allowable cells',
+      control: {
+        type: 'boolean'
+      }
+    },
+    allowableOrigin: {
+      name: 'Current location'
+    },
+    allowableTerrain: {
+      name: 'Platform terrain constraints',
+      defaultValue: 'Sea',
+      control: {
+        type: 'radio',
+        options: [
+          'Sea',
+          'Land',
+          'Air'
+        ]
+      }
+    },
+    children: {
+      table: {
+        disable: true
+      }
     }
   }
 }
@@ -44,68 +131,95 @@ const OSMTileLayer = {
   attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
 }
 
+interface StoryPropTypes extends MappingPropTypes {
+  showAllowableCells?: boolean
+  allowableOrigin?: string
+  allowableTerrain?: string
+}
+
+const Template: Story<StoryPropTypes> = (args) => {
+  const {
+    playerForce,
+    showAllowableCells,
+    allowableOrigin = '',
+    allowableTerrain = '',
+    ...props
+  } = args
+  const forceNames = {
+    White: 'umpire',
+    Blue: 'Blue',
+    Red: 'Red'
+  }
+  if (showAllowableCells) {
+    props.planningConstraintsProp = {
+      origin: allowableOrigin,
+      travelMode: allowableTerrain,
+      status: 'Transiting',
+      speed: 20
+    }
+  }
+
+  return (
+    <Mapping
+      playerForce={forceNames[playerForce]}
+      {...props}
+    />
+  )
+}
+
 /**
- * VIEW WITH HEX GRID
+ * DEFAULT VIEW
  */
-const hexGridLabel = 'Tile diameter, nm'
-const hexGridDefaultValue = 5
-const hexGridOptions = {
-  range: true,
-  min: 1,
-  max: 15,
-  step: 1
+export const Default = Template
+Default.args = {
+  tileDiameterMins: 5,
+  bounds: bounds,
+  tileLayer: LocalTileLayer,
+  forces: forces,
+  playerForce: 'Blue',
+  canSubmitOrders: false,
+  platforms: platformTypes,
+  phase: Phase.Planning,
+  turnNumber: 5,
+  mapBar: false
 }
 
-export const NaturalEarth: React.FC = () => <Mapping
-  bounds={bounds}
-  tileLayer={LocalTileLayer}
-  tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
-  forces={forces}
-  wargameInitiated={true}
-  platforms={platformTypes}
-  phase={Phase.Planning}
-  turnNumber={5}
-  playerForce='Blue'
-  canSubmitOrders={false}
-  mapBar={false}
-> <>
-    <Assets />
-    <HexGrid />
-  </>
-</Mapping>
 
-export const OpenStreetMap: React.FC = () => <Mapping
-  bounds={bounds}
-  tileLayer={OSMTileLayer}
-  tileDiameterMins={number(hexGridLabel, hexGridDefaultValue, hexGridOptions)}
-  forces={forces}
-  wargameInitiated={true}
-  platforms={platformTypes}
-  phase={Phase.Planning}
-  turnNumber={5}
-  playerForce='Blue'
-  canSubmitOrders={false}
-  mapBar={false}
->
-  <HexGrid />
-</Mapping>
-
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
-NaturalEarth.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
-    }
-  }
+// generic postback handler, for forms
+const mapPostBack = (messageType: string, payload: MessageMap): void => {
+  console.log('postback', messageType, payload)
+  window.alert('postback:' + messageType + ', ' + JSON.stringify(payload))
+}
+export const NaturalEarth = Template
+NaturalEarth.args = {
+  tileDiameterMins: 5,
+  bounds: bounds,
+  tileLayer: LocalTileLayer,
+  forces: forces,
+  platforms: platformTypes,
+  turnNumber: 2,
+  mapPostBack: mapPostBack,
+  children: (
+    <>
+      <Assets />
+      <HexGrid />
+    </>
+  )
 }
 
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
-OpenStreetMap.story = {
-  parameters: {
-    options: {
-      // This story requires addons but other stories in this component do not
-      showPanel: true
-    }
-  }
+  export const OpenStreetMap = Template
+  OpenStreetMap.args = {
+  tileDiameterMins: 5,
+  bounds: bounds,
+  tileLayer: OSMTileLayer,
+  forces: forces,
+  platforms: platformTypes,
+  turnNumber: 2,
+  mapPostBack: mapPostBack,
+  children: (
+    <>
+      <Assets />
+      <HexGrid />
+    </>
+  )
 }
