@@ -4,7 +4,7 @@ import { SergeHex, SergeGrid } from '@serge/custom-types'
 import { toScreen } from '@serge/helpers'
 
 /** lookup for types to styles */
-const typeFor = (type: number): {type:string, fillColor: string} => {
+const typeFor = (type: number): {type: string, fillColor: string} => {
   switch (type) {
     case 0: return { type: 'sea', fillColor: '#0f0' }
     case 1: return { type: 'land', fillColor: '#f00' }

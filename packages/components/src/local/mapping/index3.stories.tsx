@@ -44,7 +44,6 @@ const OSMTileLayer = {
   attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
 }
 
-
 /**
  * VIEW WITH HEX GRID
  */
@@ -70,8 +69,8 @@ export const NaturalEarth: React.FC = () => <Mapping
   canSubmitOrders={false}
   mapBar={false}
 > <>
-  <Assets />
-  <HexGrid />
+    <Assets />
+    <HexGrid />
   </>
 </Mapping>
 
@@ -90,7 +89,6 @@ export const OpenStreetMap: React.FC = () => <Mapping
 >
   <HexGrid />
 </Mapping>
-
 
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 NaturalEarth.story = {
