@@ -98,6 +98,10 @@ const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: 
         return undefined
       }
     }
+    // TODO: search through whole grid. Maybe start with some kind
+    // of binary search? Maybe not, since they're not in order.
+    // maybe access bins, instead.
+    console.warn("Didn't receive origin hex, can't find it")
     return undefined
   }
 
