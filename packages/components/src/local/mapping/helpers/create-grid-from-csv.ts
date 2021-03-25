@@ -1,7 +1,7 @@
 import L from 'leaflet'
 import { defineGrid, extendHex, Grid, PointLike } from 'honeycomb-grid'
 import { SergeHex, SergeGrid } from '@serge/custom-types'
-import { toScreen, toWorld } from '@serge/helpers'
+import { toScreen } from '@serge/helpers'
 
 /** lookup for types to styles */
 const typeFor = (type: number): string => {
@@ -50,12 +50,6 @@ const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: 
    */
   sergeGrid.toScreen = (point: L.LatLng): PointLike => {
     return toScreen(point, sergeGrid.origin, sergeGrid.tileDiameterDegs / 2)
-  }
-  /** provide method that only requires the hex location,
-   * taking other params from grid
-   */
-  sergeGrid.toWorld = (point: PointLike): L.LatLng => {
-    return toWorld(point, sergeGrid.origin, sergeGrid.tileDiameterDegs)
   }
   /** provide method that only requires the world location,
    * taking other params from grid object
