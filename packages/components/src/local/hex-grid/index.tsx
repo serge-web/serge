@@ -400,13 +400,14 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
+  console.log('zoom', zoomLevel)
   return <>
     <LayerGroup key={'hex_polygons'} >{zoomLevel > MIN_ZOOM_FOR_HEXES && visibleCells.map((cell: CellDetails) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
         key={'hex_poly_' + cell.id}
-        color={ assetColor }
+        fillColor={ cell.hexCell.fillColor || '#f00' }
         positions={cell.hexCell.poly}
         stroke={cell.id === cellForSelected && assetColor ? assetColor : '#fff'}
         className={styles[getCellStyle(cell.hexCell, planningRouteCells, allowableFilteredCells, cellForSelected)]}
@@ -450,7 +451,7 @@ export const HexGrid: React.FC<{}> = () => {
       ))}
       </LayerGroup>
     }
-    <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin) => (
+    {/* <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin) => (
       <Polygon
         key={'bin_line_' + bin.bounds.getCenter().toString()}
         color={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
@@ -459,7 +460,7 @@ export const HexGrid: React.FC<{}> = () => {
         className={styles['planning-line']}
       />
     ))}
-    </LayerGroup>
+    </LayerGroup> */}
 
   </>
 }
