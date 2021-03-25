@@ -184,7 +184,6 @@ Default.args = {
   mapBar: false
 }
 
-
 // generic postback handler, for forms
 const mapPostBack = (messageType: string, payload: MessageMap): void => {
   console.log('postback', messageType, payload)
@@ -207,8 +206,8 @@ NaturalEarth.args = {
   )
 }
 
-  export const OpenStreetMap = Template
-  OpenStreetMap.args = {
+export const OpenStreetMap = Template
+OpenStreetMap.args = {
   tileDiameterMins: 5,
   bounds: bounds,
   tileLayer: OSMTileLayer,
