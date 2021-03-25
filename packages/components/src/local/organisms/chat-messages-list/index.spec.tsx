@@ -6,7 +6,7 @@ import ChatMessageProps from '../../molecules/chat-message/types/props'
 
 import ChatMessagesList from './index'
 
-it('ChatMessagesList renders correctly', () => {
+describe('ChatMessagesList renders correctly', () => {
   it('renders component correctly', () => {
     const icons = [
       './images/default_img/forceDefault.png'
