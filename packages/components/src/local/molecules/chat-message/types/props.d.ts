@@ -12,7 +12,7 @@ export default interface Props {
    */
   message: string
   /**
-  * Header border color
+  * Message border color
   */
   borderColor: string
   /**

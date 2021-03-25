@@ -7,6 +7,20 @@
   display: block;
   cursor: pointer;
   padding: 12px 15px;
+
+  &__owner {
+    border-right-color : #fff;
+    border-right-width: 8px;
+    border-right-style: solid;
+    text-align: right;
+  }
+
+  &__other {
+    border-left-color : #fff;
+    border-left-width: 8px;
+    border-left-style: solid;
+    text-align: left;
+  }
 }
 
 .message-text {
@@ -23,6 +37,14 @@
   font-weight: normal;
   line-height: 14px;
   color: #00a3de;
+
+  &__owner {
+    margin-left: 10px;
+  }
+
+  &__other {
+    margin-right: 0;
+  }
 }
 
 .icon-private {
@@ -30,6 +52,12 @@
   margin-right: 5px;
   margin-top: -3px;
   vertical-align: middle;
+}
+
+.label-private {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .private {

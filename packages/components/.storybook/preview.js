@@ -25,6 +25,7 @@ configureReadme({
       'ChannelMessageDetail',
       'ChannelMessageHeader',
       'ChannelMessagesList',
+      'ChatMessagesList',
       'ChatMessage',
       'ForcesInChannel',
       'GameTitle',

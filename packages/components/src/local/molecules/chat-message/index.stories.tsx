@@ -28,6 +28,9 @@ export default {
     },
     borderColor: {
       control: 'color'
+    },
+    timestamp: {
+      control: 'date'
     }
   }
 }

@@ -2,8 +2,13 @@
 // Please do not change this file!
 interface CssExports {
   'chat-message-wrapper': string;
+  'chat-message-wrapper__other': string;
+  'chat-message-wrapper__owner': string;
   'icon-private': string;
   'info-body': string;
+  'info-body__other': string;
+  'info-body__owner': string;
+  'label-private': string;
   'message-text': string;
   'private': string;
 }
