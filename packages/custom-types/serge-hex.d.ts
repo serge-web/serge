@@ -5,6 +5,7 @@ export default interface SergeHex<T> extends Hex<HexFactory<T>> {
   centreLatLng: L.LatLng
   name: string
   type: string
+  fillColor?: string
   x: number
   y: number
   poly: L.LatLng[]

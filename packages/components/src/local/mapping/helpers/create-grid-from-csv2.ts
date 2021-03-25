@@ -4,15 +4,15 @@ import { SergeHex, SergeGrid } from '@serge/custom-types'
 import { toScreen } from '@serge/helpers'
 
 /** lookup for types to styles */
-const typeFor = (type: number): string => {
+const typeFor = (type: number): {type:string, fillColor: string} => {
   switch (type) {
-    case 0: return 'sea'
-    case 1: return 'land'
-    case 2: return 'loud'
-    case 3: return 'quiet'
-    case 4: return 'medium'
-    case 7: return 'front'
-    default: return 'sea'
+    case 0: return { type: 'sea', fillColor: '#0f0' }
+    case 1: return { type: 'land', fillColor: '#f00' }
+    case 2: return { type: 'loud', fillColor: '#0ff' }
+    case 3: return { type: 'quiet', fillColor: '#a0a' }
+    case 4: return { type: 'medium', fillColor: '#0a0' }
+    case 7: return { type: 'front', fillColor: '#b66' }
+    default: return { type: 'sea', fillColor: '#6bb' }
   }
 }
 
@@ -49,13 +49,15 @@ const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: 
     // const outArr: number[][] = rawArr.map((point:number[]) =>
     //   [point[1], point[0]]
     // )
+    const { type, fillColor } = typeFor(cell.Type as number)
     return {
       x: cell.Row,
       y: cell.Col,
       centreLatLng: L.latLng(cell.centreLat, cell.centreLng),
       // don't read poly from file, they don't look right
       // poly: outArr,
-      type: typeFor(cell.Type as number) && 'sea',
+      type: type,
+      fillColor: fillColor,
       name: cell.Name
     }
   })
