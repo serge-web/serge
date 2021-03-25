@@ -590,6 +590,7 @@ export const Mapping: React.FC<PropTypes> = ({
           <TileLayer
             url={tileLayer.url}
             attribution={tileLayer.attribution}
+            maxNativeZoom={7}
             bounds={mapBounds}
           />
           <ScaleControl position='bottomright' />
