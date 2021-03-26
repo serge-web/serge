@@ -3,6 +3,7 @@ import moment from 'moment'
 
 /* Import Types */
 import Props from './types/props'
+import { MessageStructure } from '@serge/custom-types/message'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -123,8 +124,10 @@ const decideRender = (pair: Array<any>) => (fallback: Function): React.ReactFrag
 }
 
 /* Render component */
-export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, isUmpire, collapsed }: Props) => {
+export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, messageType, collaboration, isUmpire, collapsed }: Props) => {
   const keyPropPairs = Object.entries(detail)
+  const isRFI = messageType === 'RFI'
+  const RFIAnswer = collaboration?.response
   const PrivateBadge = (): React.ReactElement => (
     <span>
       <span className={styles['icon-private']}>
@@ -135,19 +138,49 @@ export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, 
   )
   return (
     <div className={
-      `${styles['wrap-detail']} ${!collapsed ? styles['wrap-detail-opened'] : ''}`
+      `
+        ${styles['wrap-detail']}
+        ${!collapsed ? styles['wrap-detail-opened'] : ''}
+        ${isRFI ? styles['wrap-detail--rfi'] : ''}
+      `
     }>
-      { keyPropPairs.map(pair => decideRender(pair)(defaultRender)) }
       {
-        privateMessage &&
-        isUmpire && (
-          <div className={styles['wrap-private']}>
-            <DetailLabel label={<PrivateBadge />}/>
-            <span className={styles.private}>
-              <Paragraph content={privateMessage} />
-            </span>
-          </div>
-        )
+        isRFI
+          ? (
+            <>
+              <div className={styles['message-detail__rfi-content']}>
+                <Paragraph content={(detail as MessageStructure).content || ''} />
+              </div>
+              {
+                RFIAnswer
+                  ? (
+                    <div className={styles['message-detail__rfi-response']}>
+                      <p className={styles['message-detail__rfi-response__title']}>Answer</p>
+                      <div className={styles['message-detail__rfi-response__body']}>
+                        <Paragraph content={collaboration?.response || ''} />
+                      </div>
+                    </div>
+                  )
+                  : null
+              }
+            </>
+          )
+          : (
+            <>
+              { keyPropPairs.map(pair => decideRender(pair)(defaultRender)) }
+              {
+                privateMessage &&
+                isUmpire && (
+                  <div className={styles['wrap-private']}>
+                    <DetailLabel label={<PrivateBadge />}/>
+                    <span className={styles.private}>
+                      <Paragraph content={privateMessage} />
+                    </span>
+                  </div>
+                )
+              }
+            </>
+          )
       }
     </div>
   )

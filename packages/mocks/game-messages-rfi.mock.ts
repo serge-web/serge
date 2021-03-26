@@ -1,7 +1,7 @@
 import { MessageChannel } from '@serge/custom-types'
 import { CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
 
-/** set of mock messages that includes 
+/** set of mock messages that includes
  * extra data for collaborative editing
  */
 const gameMessagesWithRFI: MessageChannel[] = [
@@ -86,6 +86,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
+      title: "RFI title example",
       content: "RFI 1 from Blue"
     },
     _id: "2020-03-25T15:08:52.530Z",
@@ -110,6 +111,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
+      title: "RFI title example",
       content: "RFI 2 from Blue"
     },
     _id: "2020-03-25T15:08:53.530Z",
@@ -134,6 +136,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
+      title: "RFI title example",
       content: "RFI 3 from Blue"
     },
     _id: "2020-03-25T15:08:54.530Z",
@@ -159,6 +162,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
+      title: "RFI title example",
       content: "RFI 2 from Blue"
     },
     _id: "2020-03-25T15:08:53.530Z",
@@ -184,6 +188,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
+      title: "RFI title example",
       content: "RFI 3 from Blue"
     },
     _id: "2020-03-25T15:08:54.530Z",
@@ -206,11 +211,12 @@ const gameMessagesWithRFI: MessageChannel[] = [
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
         owner: 'Logistics',
-        response: 'RFI 3 response from White Logistics',
+        response: 'Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME.',
       }
     },
     message: {
-      content: "RFI 3 from Blue"
+      title: "RFI title example",
+      content: "Request for Information text example - This is a request for more information on refueling possibilities nearby. Request for Information text example - This is a request for more information on refueling possibilities nearby."
     },
     _id: "2020-03-25T15:08:54.530Z",
     _rev: "3",
@@ -234,6 +240,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
+      title: "RFI title example",
       content: "RFI 4 from Red"
     },
     _rev: "1",
@@ -250,7 +257,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
           forceColor: "#F00",
           icon: "default_img/umpireDefault.png",
           role: "CO"
-        },  
+        },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
@@ -259,6 +266,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
+      title: "RFI title example",
       content: "RFI 4 from Red"
     },
     _id: "2020-03-25T15:08:55.530Z",
@@ -275,7 +283,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
             forceColor: "#F00",
             icon: "default_img/umpireDefault.png",
             role: "CO"
-        },      
+        },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
@@ -285,6 +293,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
+      title: "RFI title example",
       content: "RFI 4 from Red"
     },
     _id: "2020-03-25T15:08:55.530Z",
@@ -310,6 +319,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
+      title: "RFI title example",
       content: "RFI 4 from Red"
     },
     _id: "2020-03-25T15:08:55.530Z",

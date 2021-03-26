@@ -67,5 +67,35 @@
   &.wrap-detail-opened {
     height: auto;
     padding: 6px 12px 12px;
+
+    &.wrap-detail--rfi {
+      padding-top: 0;
+      background: $background-action-head;
+    }
+  }
+}
+
+.message-detail {
+  &__rfi-content {
+    @include typo-primary;
+    background: $button-action-admin;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  &__rfi-response {
+    @include typo-primary;
+    font-size: 12px;
+
+    &__title {
+      font-weight: 600;
+    }
+
+    &__body {
+      background: $background-field;
+      border-radius: 5px;
+      padding: 10px;
+    }
   }
 }

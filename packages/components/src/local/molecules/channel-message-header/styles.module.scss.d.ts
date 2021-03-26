@@ -3,10 +3,13 @@
 interface CssExports {
   'info-badge': string;
   'info-body': string;
+  'message-item--rfi': string;
   'message-item-unread': string;
   'message-title': string;
   'message-title-opened': string;
   'message-title-wrap': string;
+  'message-title__rfi-id': string;
+  'message-title__rfi-status': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

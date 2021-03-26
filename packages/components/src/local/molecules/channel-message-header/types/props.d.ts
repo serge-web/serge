@@ -1,4 +1,5 @@
 import React from 'react'
+import { CollaborativeMessageStates } from '@serge/config'
 
 export default interface Props {
   /**
@@ -29,4 +30,12 @@ export default interface Props {
    * Handle on collapse event
    */
   onExpand?: React.ReactEventHandler
+  /**
+   * RFI status
+   */
+  rfiStatus?: CollaborativeMessageStates
+  /**
+   * RFI id
+   */
+  rfiId?: string
 }

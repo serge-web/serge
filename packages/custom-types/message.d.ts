@@ -75,6 +75,7 @@ export interface MessageStructure {
    * Once we have in-game messages, we should encounter structured messages
    */
   [property: string]: any
+  title?: string
   content?: string
 }
 

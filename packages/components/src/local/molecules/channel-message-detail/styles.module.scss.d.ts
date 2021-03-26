@@ -6,8 +6,13 @@ interface CssExports {
   'detail-row': string;
   'detail-rows': string;
   'icon-private': string;
+  'message-detail__rfi-content': string;
+  'message-detail__rfi-response': string;
+  'message-detail__rfi-response__body': string;
+  'message-detail__rfi-response__title': string;
   'private': string;
   'wrap-detail': string;
+  'wrap-detail--rfi': string;
   'wrap-detail-opened': string;
   'wrap-private': string;
 }

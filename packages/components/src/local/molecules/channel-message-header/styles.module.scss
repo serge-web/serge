@@ -15,6 +15,10 @@
 
   &.message-title-opened {
     @include panel-item-wrap(0 4px 0 0);
+
+    .message-item--rfi & {
+      background-color: $background-action-head;
+    }
   }
 
   &::after {
@@ -28,6 +32,10 @@
     top: 50%;
     transform: translate3d(0, -50%, 0);
     width: 6px;
+
+    .message-item--rfi & {
+      display: none;
+    }
   }
 
   .message-item-unread & {
@@ -52,6 +60,19 @@
   .message-item-unread & {
     color: $action-secondary-color;
     font-weight: 600;
+  }
+
+  &__rfi-status {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: $action-secondary-color;
+  }
+
+  &__rfi-id {
+    font-weight: 600;
+    font-size: 12px;
+    display: inline-block;
+    margin-left: 14px;
   }
 }
 

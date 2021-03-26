@@ -21,6 +21,10 @@ const NewMessage = props => {
 
   const classes = `new-message-creator wrap ${orderableChannel ? 'new-message-orderable' : ''}`
 
+  const collapsibleTile = templates.length === 1 && templates[0].title === 'Request for Information'
+    ? 'New Request'
+    : 'New Message'
+
   useEffect(() => {
     setSelectedSchema(null)
   }, [curChannel])
@@ -32,7 +36,7 @@ const NewMessage = props => {
   return (
     <div className={classes}>
       <Collapsible
-        trigger={'New Message'}
+        trigger={collapsibleTile}
         transitionTime={200}
         easing={'ease-in-out'}
       >
