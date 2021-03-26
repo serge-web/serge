@@ -14,7 +14,6 @@ import { HexGrid } from '../hex-grid'
 
 // import data types
 import { Phase } from '@serge/config'
-import { MessageMap } from '@serge/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
@@ -36,11 +35,6 @@ export default {
     }
   },
   argTypes: {
-    zoom: {
-      control: {
-        type: 'number'
-      }
-    },
     playerForce: {
       name: 'View as',
       control: {
@@ -64,51 +58,10 @@ export default {
         ]
       }
     },
-    tileDiameterMins: {
-      name: 'Tile diameter, nm',
-      control: {
-        type: 'range',
-        defaultValue: 5,
-        min: 1,
-        max: 15,
-        step: 1
-      }
-    },
-    planningRangeProp: {
-      name: 'Platform range',
-      control: {
-        type: 'range',
-        defaultValue: 1,
-        min: 1,
-        max: 6,
-        step: 1
-      }
-    },
     wargameInitiated: {
       name: 'Wargame has been initiated',
       control: {
         type: 'boolean'
-      }
-    },
-    showAllowableCells: {
-      name: 'Show allowable cells',
-      control: {
-        type: 'boolean'
-      }
-    },
-    allowableOrigin: {
-      name: 'Current location'
-    },
-    allowableTerrain: {
-      name: 'Platform terrain constraints',
-      defaultValue: 'Sea',
-      control: {
-        type: 'radio',
-        options: [
-          'Sea',
-          'Land',
-          'Air'
-        ]
       }
     },
     children: {
@@ -140,9 +93,6 @@ interface StoryPropTypes extends MappingPropTypes {
 const Template: Story<StoryPropTypes> = (args) => {
   const {
     playerForce,
-    showAllowableCells,
-    allowableOrigin = '',
-    allowableTerrain = '',
     ...props
   } = args
   const forceNames = {
@@ -150,15 +100,6 @@ const Template: Story<StoryPropTypes> = (args) => {
     Blue: 'Blue',
     Red: 'Red'
   }
-  if (showAllowableCells) {
-    props.planningConstraintsProp = {
-      origin: allowableOrigin,
-      travelMode: allowableTerrain,
-      status: 'Transiting',
-      speed: 20
-    }
-  }
-
   return (
     <Mapping
       playerForce={forceNames[playerForce]}
@@ -172,9 +113,7 @@ const Template: Story<StoryPropTypes> = (args) => {
  */
 export const Default = Template
 Default.args = {
-  tileDiameterMins: 5,
   bounds: bounds,
-  tileLayer: LocalTileLayer,
   forces: forces,
   playerForce: 'Blue',
   canSubmitOrders: false,
@@ -184,24 +123,17 @@ Default.args = {
   mapBar: false
 }
 
-// generic postback handler, for forms
-const mapPostBack = (messageType: string, payload: MessageMap): void => {
-  console.log('postback', messageType, payload)
-  window.alert('postback:' + messageType + ', ' + JSON.stringify(payload))
-}
 export const NaturalEarth = Template
 NaturalEarth.args = {
-  tileDiameterMins: 5,
   bounds: bounds,
   tileLayer: LocalTileLayer,
   forces: forces,
   platforms: platformTypes,
   turnNumber: 2,
-  mapPostBack: mapPostBack,
   children: (
     <>
-      <Assets />
       <HexGrid />
+      <Assets />
     </>
   )
 }
@@ -214,7 +146,6 @@ OpenStreetMap.args = {
   forces: forces,
   platforms: platformTypes,
   turnNumber: 2,
-  mapPostBack: mapPostBack,
   children: (
     <>
       <Assets />
