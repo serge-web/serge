@@ -15,12 +15,11 @@ import TextInput from '../../atoms/text-input'
 
 /* Render component */
 export const PrivateChatInputToggle: React.FC<Props> = ({ placeholder, postBack }: Props) => {
-
   const [formState, setFormState] = useState('')
 
   const changeHandler = (e: any): void => {
-    setFormState(e.value);
-    postBack && postBack(e.value);
+    setFormState(e.value)
+    postBack && postBack(e.value)
   }
 
   const PrivateBadge = (): React.ReactElement => (
