@@ -77,6 +77,7 @@ export const TextInput: React.FC<PropTypes> = ({
   placeholder,
   fullWidth,
   titleInput,
+  endAdornment,
   ...inputProps
 }) => {
   const containerRef = useRef<HTMLElement>(null)
@@ -112,7 +113,8 @@ export const TextInput: React.FC<PropTypes> = ({
       <TextField
         InputProps={{
           classes: isFilled ? filledClasses : baseClasses,
-          disableUnderline: isFilled
+          disableUnderline: isFilled,
+          endAdornment: endAdornment
         } as Partial<FilledInputProps>}
         {...{
           multiline,

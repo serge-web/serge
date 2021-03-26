@@ -32,6 +32,7 @@ configureReadme({
       'InsightForm',
       'MessageLabel',
       'TextInput',
+      'ChatInputText',
       'WargameList',
       'WrapForceObjective'
     ]
