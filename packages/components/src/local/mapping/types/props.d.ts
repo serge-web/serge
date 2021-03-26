@@ -11,7 +11,7 @@ export default interface PropTypes {
    */
   bounds: L.LatLngBounds
   /** description of the mapping
-   * 
+   *
    */
   mappingConstraints?: MappingConstraints
   /**

@@ -13,8 +13,8 @@ import groupHostPlatform from './helpers/group-host-platform'
 // TODO: verify we still handle planned routes properly
 // import storePlannedRoute from './helpers/store-planned-route'
 import createGrid from './helpers/create-grid'
-//import createGridFromCSV2 from './helpers/create-grid-from-csv2'
-//import cellTypesList from './data/cell-types-3'
+// import createGridFromCSV2 from './helpers/create-grid-from-csv2'
+// import cellTypesList from './data/cell-types-3'
 
 import {
   roundToNearest,
@@ -267,7 +267,7 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (mapBounds && tileDiameterMins) {
       // note: the list of cells should be re-calculated if `tileDiameterMins` changes
-//      const newGrid: SergeGrid<SergeHex<{}>> = createGridFromCSV2(cellTypesList, mapBounds.getNorthWest(), tileDiameterMins, L.point(2, 2))
+      //      const newGrid: SergeGrid<SergeHex<{}>> = createGridFromCSV2(cellTypesList, mapBounds.getNorthWest(), tileDiameterMins, L.point(2, 2))
       const newGrid: SergeGrid<SergeHex<{}>> = createGrid(mapBounds, tileDiameterMins)
       // setGridCells(undefined)
       setGridCells(newGrid)

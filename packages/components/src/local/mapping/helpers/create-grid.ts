@@ -83,18 +83,18 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
    * taking other params from grid
    */
   sergeGrid.toScreen = (point: L.LatLng): PointLike => {
-    if(sergeGrid.origin) {
+    if (sergeGrid.origin) {
       return toScreen(point, sergeGrid.origin, sergeGrid.tileDiameterDegs / 2)
     } else {
       console.warn('insufficient data for toScreen() calculation')
-      return L.point(1,1)
+      return L.point(1, 1)
     }
   }
   /** provide method that only requires the world location,
    * taking other params from grid object
    */
   sergeGrid.cellFor = (latLng: L.LatLng): SergeHex<{}> | undefined => {
-    if(sergeGrid.centerOffset) {
+    if (sergeGrid.centerOffset) {
       // convert to hex coordinates
       const hexCoords: PointLike = sergeGrid.toScreen(latLng)
 
@@ -105,7 +105,7 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
       const shiftedCellCoords = grid.pointToHex(cellCoords.x, cellCoords.y)
 
       // and now retrieve the cell at these coords
-      return sergeGrid.get(shiftedCellCoords)       
+      return sergeGrid.get(shiftedCellCoords)
     } else {
       return undefined
     }
