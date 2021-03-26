@@ -1,4 +1,4 @@
-import { Domain, Phase } from '@serge/config'
+import { Phase } from '@serge/config'
 import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints } from '@serge/custom-types'
 
 export default interface PropTypes {
