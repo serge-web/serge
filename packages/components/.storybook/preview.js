@@ -33,6 +33,7 @@ configureReadme({
       'MessageLabel',
       'TextInput',
       'ChatInputText',
+      'PrivateChatInputToggle',
       'WargameList',
       'WrapForceObjective'
     ]

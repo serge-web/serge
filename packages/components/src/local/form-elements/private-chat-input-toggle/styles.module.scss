@@ -1,0 +1,15 @@
+@import "~@serge/themes/dependencies/variables";
+
+.private-badge-wrapper {
+  cursor: pointer;
+  .icon-private {
+    display: inline-block;
+    margin: 0 5px;
+  }
+  
+  .label-private {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+  }
+}
