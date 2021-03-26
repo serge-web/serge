@@ -1,7 +1,6 @@
 import L from 'leaflet'
 import { defineGrid, extendHex, PointLike } from 'honeycomb-grid'
 import { SergeHex, SergeGrid } from '@serge/custom-types'
-import { toScreen } from '@serge/helpers'
 
 /** lookup for types to styles */
 const typeFor = (type: number): {type: string, fillColor: string} => {
@@ -42,7 +41,7 @@ const isMarkerInsidePolygon = (marker: L.LatLng, poly: L.Polyline): boolean => {
  * @param {number} tileDiameterMins Tile diamater, in minutes
  * @returns {SergeGrid<SergeHex<{}>>} Honeycomb hex grid
  */
-const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: number, centreOffset: L.Point): SergeGrid<SergeHex<{}>> => {
+const createGridFromCSV = (cells: any, tileSizeDegs: number): SergeGrid<SergeHex<{}>> => {
   const hexes = cells.map((cell: any) => {
     // todo fix the raw data, don't swap them here
     // const rawArr: number[][] = cell.poly
@@ -67,15 +66,14 @@ const createGridFromCSV = (cells: any, correctedOrigin: L.LatLng, tileSizeDegs: 
   const grid = honeyGrid(hexes)
   const sergeGrid: SergeGrid<SergeHex<{}>> = grid as SergeGrid<SergeHex<{}>>
 
-  sergeGrid.origin = correctedOrigin
   sergeGrid.tileDiameterDegs = tileSizeDegs
-  sergeGrid.centerOffset = centreOffset
 
   /** provide method that only requires the world location,
    * taking other params from grid
    */
   sergeGrid.toScreen = (point: L.LatLng): PointLike => {
-    return toScreen(point, sergeGrid.origin, sergeGrid.tileDiameterDegs / 2)
+    // TODO: remove toScreen method, we don't need it
+    return L.point(point.lat, point.lng)
   }
   /** provide method that only requires the world location,
    * taking other params from grid object

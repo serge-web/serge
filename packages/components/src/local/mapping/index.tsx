@@ -5,7 +5,6 @@ import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
-import cellTypesList from './data/cell-types-3'
 
 /* helper functions */
 import groupMoveToRoot from './helpers/group-move-to-root'
@@ -13,7 +12,10 @@ import groupCreateNewGroup from './helpers/group-create-new-group'
 import groupHostPlatform from './helpers/group-host-platform'
 // TODO: verify we still handle planned routes properly
 // import storePlannedRoute from './helpers/store-planned-route'
-import createGridFromCSV2 from './helpers/create-grid-from-csv2'
+import createGrid from './helpers/create-grid'
+//import createGridFromCSV2 from './helpers/create-grid-from-csv2'
+//import cellTypesList from './data/cell-types-3'
+
 import {
   roundToNearest,
   routeCreateStore,
@@ -265,7 +267,8 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (mapBounds && tileDiameterMins) {
       // note: the list of cells should be re-calculated if `tileDiameterMins` changes
-      const newGrid: SergeGrid<SergeHex<{}>> = createGridFromCSV2(cellTypesList, mapBounds.getNorthWest(), tileDiameterMins, L.point(2, 2))
+//      const newGrid: SergeGrid<SergeHex<{}>> = createGridFromCSV2(cellTypesList, mapBounds.getNorthWest(), tileDiameterMins, L.point(2, 2))
+      const newGrid: SergeGrid<SergeHex<{}>> = createGrid(mapBounds, tileDiameterMins)
       // setGridCells(undefined)
       setGridCells(newGrid)
     }
@@ -554,6 +557,8 @@ export const Mapping: React.FC<PropTypes> = ({
   const mapClick = (): void => {
     setSelectedAssetLocal(undefined)
   }
+
+  console.log('tile layer', tileLayer.url, zoom, bounds, mapCentre)
 
   return (
     <MapContext.Provider value={{ props: contextProps }}>

@@ -6,7 +6,7 @@ export default interface SergeGrid<T> extends Grid<SergeHex<HexFactory<T>>> {
   /**
    * world coords of top-left of map
    */
-  origin: L.LatLng
+  origin?: L.LatLng
   /**
    * size of a hex cell (Degrees)
    */
@@ -14,7 +14,7 @@ export default interface SergeGrid<T> extends Grid<SergeHex<HexFactory<T>>> {
   /**
    * offset from centre of hex to top-left corner
    */
-  centerOffset: L.Point
+  centerOffset?: L.Point
   /**
    * convert world coords to hex coords
    */

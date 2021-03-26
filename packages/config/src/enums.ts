@@ -10,6 +10,15 @@ export enum Phase {
   Adjudication = 'adjudication'
 }
 
+
+/** TODO: remove this
+ * Temporary classifier for which dataset is in use
+ */
+ export enum Domain {
+  ATLANTIC = 'Atlantic',
+  GULF = 'Gulf'
+}
+
 /** states for a Request for Information */
 export enum RFI_States {
   // request sent, no owner

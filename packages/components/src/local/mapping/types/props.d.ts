@@ -1,5 +1,5 @@
-import { Phase } from '@serge/config'
-import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack } from '@serge/custom-types'
+import { Domain, Phase } from '@serge/config'
+import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
@@ -10,6 +10,10 @@ export default interface PropTypes {
    * The bounds of the map iamge
    */
   bounds: L.LatLngBounds
+  /** description of the mapping
+   * 
+   */
+  mappingConstraints?: MappingConstraints
   /**
    * diameter of tiles in use
    */

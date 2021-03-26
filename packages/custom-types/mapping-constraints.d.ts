@@ -1,4 +1,4 @@
-import L from 'leaflet'
+import { Domain } from '@serge/config'
 
 export interface LocalTileLayer {
   url: string,
@@ -23,4 +23,17 @@ export default interface MappingConstraints {
    * url of tile descriptions
    */
   tileDataFile?: string
+  /** 
+   * min zoom to display hexes 
+   */
+  minZoomHexes: number
+  /** 
+   * min zoom level to allow
+   */
+  minZoom: number
+  /**
+   * target dataset
+   * // TODO: remove this, make generic
+   */
+  targetDataset: Domain
 }
