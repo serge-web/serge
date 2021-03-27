@@ -121,7 +121,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
   const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
-  const [mapCentre, setMapCentre] = useState<L.LatLng | undefined>(undefined)
+  const [mapCentre /*, setMapCentre */] = useState<L.LatLng | undefined>(undefined)
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
   const [viewAsRouteStore, setViewAsRouteStore] = useState<RouteStore>({ routes: [] })
   const [leafletElement, setLeafletElement] = useState<L.Map | undefined>(undefined)
@@ -133,10 +133,25 @@ export const Mapping: React.FC<PropTypes> = ({
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
 
   // only update bounds if they're different to the current one
-  if (mapBounds === undefined || ! mappingConstraints.bounds.equals(mapBounds)) {
-    setMapBounds(mappingConstraints.bounds)
-    setMapCentre(mappingConstraints.bounds.getCenter())
-  }
+  useEffect(() => {
+    console.log('1', mappingConstraints.bounds, mapBounds, mapBounds && mappingConstraints.bounds.equals(mapBounds))
+    if(mapBounds !== undefined) {
+      const conBounds: L.LatLngBounds = mappingConstraints.bounds
+      const ne: L.LatLng = conBounds.getNorthEast()
+      const sw: L.LatLng = conBounds.getSouthWest()
+      if(mapBounds.getNorthEast().equals(ne) && mapBounds.getSouthWest().equals(sw)) {
+        // no change - do nothing
+        console.log('no change')
+      } else {
+        console.log('new bounds')
+        setMapBounds(mappingConstraints.bounds)
+      }
+    } else {
+      console.log('bounds unset')
+      setMapBounds(mappingConstraints.bounds)
+    }
+  }, [mappingConstraints])
+
 
   // highlight the route for the selected asset
   useEffect(() => {
