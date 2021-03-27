@@ -400,7 +400,8 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  console.log('zoom', zoomLevel)
+  console.log('zoom', zoomLevel, visibleCells.length)
+
   return <>
     <LayerGroup key={'hex_polygons'} >{zoomLevel > MIN_ZOOM_FOR_HEXES && visibleCells.map((cell: CellDetails) => (
       <Polygon

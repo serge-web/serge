@@ -1,6 +1,6 @@
 import { Domain } from '@serge/config'
 
-export interface LocalTileLayer {
+export interface TileLayerDefinition {
   url: string,
   attribution: string
 }
@@ -9,8 +9,10 @@ export interface LocalTileLayer {
  * specification of hex grid & mapping backdrop details
  */
 export default interface MappingConstraints {
-  /** bounding rectangle */
-  bounds: number[][]
+  /** 
+   * bounding rectangle 
+   */
+  bounds: L.LatLngBounds,
   /**
    * diameter of tiles in use (nautical miles)
    */
@@ -18,7 +20,7 @@ export default interface MappingConstraints {
   /**
    * definition of tiled backdrop
    */
-  tileLayer?: LocalTileLayer
+  tileLayer?: TileLayerDefinition
   /** 
    * url of tile descriptions
    */
@@ -31,6 +33,14 @@ export default interface MappingConstraints {
    * min zoom level to allow
    */
   minZoom: number
+  /**
+   * The maximum zoom level
+   */
+  maxZoom?: number
+  /** the maximum zoom present for tiles, after this
+   * they will be scaled
+   */
+  maxNativeZoom: number
   /**
    * target dataset
    * // TODO: remove this, make generic

@@ -41,7 +41,7 @@ const isMarkerInsidePolygon = (marker: L.LatLng, poly: L.Polyline): boolean => {
  * @param {number} tileDiameterMins Tile diamater, in minutes
  * @returns {SergeGrid<SergeHex<{}>>} Honeycomb hex grid
  */
-const createGridFromCSV = (cells: any, tileSizeMins: number): SergeGrid<SergeHex<{}>> => {
+const createGridFromCSV = (cells: any, tileSizeDegs: number): SergeGrid<SergeHex<{}>> => {
   const hexes = cells.map((cell: any) => {
     // todo fix the raw data, don't swap them here
     // const rawArr: number[][] = cell.poly
@@ -66,7 +66,7 @@ const createGridFromCSV = (cells: any, tileSizeMins: number): SergeGrid<SergeHex
   const grid = honeyGrid(hexes)
   const sergeGrid: SergeGrid<SergeHex<{}>> = grid as SergeGrid<SergeHex<{}>>
 
-  sergeGrid.tileDiameterDegs = tileSizeMins
+  sergeGrid.tileDiameterDegs = tileSizeDegs
 
   /** provide method that only requires the world location,
    * taking other params from grid

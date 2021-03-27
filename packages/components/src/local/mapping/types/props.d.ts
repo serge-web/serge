@@ -6,18 +6,10 @@ export default interface PropTypes {
    * A boolean to determine if the MapBar component should be displayed (default: true)
    */
   mapBar?: boolean
-  /**
-   * The bounds of the map iamge
-   */
-  bounds: L.LatLngBounds
   /** description of the mapping
    *
    */
-  mappingConstraints?: MappingConstraints
-  /**
-   * diameter of tiles in use
-   */
-  tileDiameterMins: number
+  mappingConstraints: MappingConstraints
   /** forces for this wargame
    *
    */
@@ -47,19 +39,6 @@ export default interface PropTypes {
    */
   wargameInitiated: boolean
   /**
-   *  The TileLayer object for the leaflet map
-   */
-  tileLayer: {
-    /**
-     * The url of the tile layer to use for the maps
-     */
-    url: string
-    /**
-     * The attribution copy for the map
-     */
-    attribution: string
-  }
-  /**
    * the initial viewport
    */
   initialViewport?: L.LatLngBounds
@@ -68,16 +47,6 @@ export default interface PropTypes {
    * @default 10
    */
   zoom?: number
-  /**
-   * The minumum zoom level
-   * @default 8
-   */
-  minZoom?: number
-  /**
-   * The maximum zoom level
-   * @default 12
-   */
-  maxZoom?: number
   /**
    * The incremental zoom steps from '+/-' controls
    * @default 0.25
