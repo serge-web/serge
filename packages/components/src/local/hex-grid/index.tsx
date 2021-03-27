@@ -250,7 +250,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [planningRange, planningConstraints, gridCells])
 
-  const createPolyBin = (cells: SergeGrid<SergeHex<{}>>, domain:Domain): PolyBin[] | undefined => {
+  const createPolyBin = (cells: SergeGrid<SergeHex<{}>>, domain: Domain): PolyBin[] | undefined => {
     if (gridCells) {
       console.log('generating empty bins')
       const store: SergeHex<{}>[] = []
