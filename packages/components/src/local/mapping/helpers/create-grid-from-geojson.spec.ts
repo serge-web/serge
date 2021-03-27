@@ -5,7 +5,7 @@ import atlanticCells from '../data/atlantic-cells-short'
 import createGridFromGeoJSON from './create-grid-from-geojson'
 import createGrid from './create-grid'
 import { SergeHex } from '@serge/custom-types'
-//import cellTypesList3 from '../data/cell-types-3-small'
+// import cellTypesList3 from '../data/cell-types-3-small'
 
 it('Construct grid from very new dataset', () => {
   const cells: any = atlanticCells.features

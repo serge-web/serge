@@ -6,7 +6,6 @@ export interface PolyBin {
   cells: SergeHex<{}>[]
 }
 
-
 /** Generate the Serge name for the supplied cell (1,3) == "B03" */
 const binCells = (bounds: L.LatLngBounds, store: SergeHex<{}>[]): PolyBin[] => {
   // create the bins

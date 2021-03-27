@@ -134,11 +134,11 @@ export const Mapping: React.FC<PropTypes> = ({
 
   // only update bounds if they're different to the current one
   useEffect(() => {
-    if(mappingConstraints) {
+    if (mappingConstraints) {
       const conBounds = mappingConstraints.bounds
       const ne = conBounds[0]
       const sw = conBounds[1]
-      const newBounds =  L.latLngBounds(ne, sw)
+      const newBounds = L.latLngBounds(ne, sw)
       if (mapBounds !== undefined) {
         if (mapBounds.equals(newBounds)) {
           // no change - do nothing

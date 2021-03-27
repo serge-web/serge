@@ -287,9 +287,9 @@ export const HexGrid: React.FC<{}> = () => {
             visible = visible.concat(bin.cells)
           }
         })
-  
+
         console.log('binned, visible:', visible.length)
-  
+
         // now check each cell has its polygon generated
         visible.forEach((cell: SergeHex<{}>) => {
           if (!cell.poly) {
@@ -303,7 +303,7 @@ export const HexGrid: React.FC<{}> = () => {
             cell.poly = cornerArr
           }
         })
-  
+
         setVisibleCells(visible)
       }
     } else {
@@ -408,7 +408,7 @@ export const HexGrid: React.FC<{}> = () => {
   console.log('zoom', zoomLevel, visibleCells.length)
 
   return <>
-    <LayerGroup key={'hex_polygons'} >{zoomLevel > MIN_ZOOM_FOR_HEXES && visibleCells.map((cell: SergeHex<{}>, index:number) => (
+    <LayerGroup key={'hex_polygons'} >{zoomLevel > MIN_ZOOM_FOR_HEXES && visibleCells.map((cell: SergeHex<{}>, index: number) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
