@@ -1,4 +1,4 @@
-import { Phase, PlanningCommands } from '@serge/config'
+import { Phase, Domain } from '@serge/config'
 import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
@@ -133,4 +133,8 @@ export default interface MappingContext {
    * update whether plans have been submitted
    */
   setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
+  /** 
+   * domain for this wargame 
+   */
+  domain: Domain
 }

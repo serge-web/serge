@@ -16,13 +16,13 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import { SergeHex, SergeGrid, Route, NewTurnValues } from '@serge/custom-types'
-import { LAYDOWN_TURN } from '@serge/config'
+import { LAYDOWN_TURN, Domain } from '@serge/config'
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
   const {
     gridCells, planningConstraints, zoomLevel, setNewLeg, setHidePlanningForm,
-    selectedAsset, viewAsRouteStore, viewport
+    selectedAsset, viewAsRouteStore, viewport, domain
   } = useContext(MapContext).props
 
   // fix the leaflet icon path, using tip from here:
@@ -250,7 +250,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [planningRange, planningConstraints, gridCells])
 
-  const createPolyBin = (cells: SergeGrid<SergeHex<{}>>): PolyBin[] | undefined => {
+  const createPolyBin = (cells: SergeGrid<SergeHex<{}>>, domain:Domain): PolyBin[] | undefined => {
     if (gridCells) {
       console.log('generating empty bins')
       const store: SergeHex<{}>[] = []
@@ -265,7 +265,7 @@ export const HexGrid: React.FC<{}> = () => {
         store.push(hex)
       })
       if (bounds) {
-        const polyBin = binCells(bounds, store)
+        const polyBin = binCells(bounds, store, domain)
         const bins = polyBin.map((bin: PolyBin) => bin.cells.length)
         console.log('bin sizes:', bins)
         return polyBin
@@ -275,10 +275,9 @@ export const HexGrid: React.FC<{}> = () => {
   }
 
   useEffect(() => {
-    console.log('binning cells', zoomLevel, viewport, MIN_ZOOM_FOR_HEXES)
     if (zoomLevel && viewport && zoomLevel > MIN_ZOOM_FOR_HEXES) {
       if (polyBin.length === 0) {
-        const bin = createPolyBin(gridCells)
+        const bin = createPolyBin(gridCells, domain)
         bin && setPolyBin(bin)
       } else {
         let visible: SergeHex<{}>[] = []
@@ -442,7 +441,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 8 && visibleCells &&
+      zoomLevel > 8 &&
       <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>) => (
         <Marker
           key={'hex_label_' + cell.name}
@@ -457,7 +456,7 @@ export const HexGrid: React.FC<{}> = () => {
       ))}
       </LayerGroup>
     }
-    {/* <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin) => (
+    <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin) => (
       <Polygon
         key={'bin_line_' + bin.bounds.getCenter().toString()}
         color={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
@@ -466,7 +465,7 @@ export const HexGrid: React.FC<{}> = () => {
         className={styles['planning-line']}
       />
     ))}
-    </LayerGroup> */}
+    </LayerGroup>
 
   </>
 }

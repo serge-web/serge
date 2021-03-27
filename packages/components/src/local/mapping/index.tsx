@@ -525,7 +525,8 @@ export const Mapping: React.FC<PropTypes> = ({
     groupCreateNewGroup: groupCreateNewGroupLocal,
     groupHostPlatform: groupHostPlatformLocal,
     plansSubmitted,
-    setPlansSubmitted
+    setPlansSubmitted,
+    domain: mappingConstraints.targetDataset
   }
 
   // any events for leafletjs you can get from leafletElement
