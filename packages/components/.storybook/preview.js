@@ -34,6 +34,7 @@ configureReadme({
       'TextInput',
       'ChatInputText',
       'PrivateChatInputToggle',
+      'ChatEntryForm',
       'WargameList',
       'WrapForceObjective'
     ]

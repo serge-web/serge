@@ -8,8 +8,20 @@
   }
 
   .label-private {
+    @include typo-primary;
     color: #fff;
     font-size: 13px;
     font-weight: 600;
+  }
+}
+
+.wrap-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+
+  &.wrap-detail-opened {
+    max-height: 90px;
+    transition: max-height 0.3s  ease-in;
   }
 }

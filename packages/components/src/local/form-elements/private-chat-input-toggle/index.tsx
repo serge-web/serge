@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useImperativeHandle } from 'react'
 import { Box } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperclip, faUserSecret } from '@fortawesome/free-solid-svg-icons'
@@ -10,12 +10,21 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 /* Import Component */
-import Collapsible from '../../helper-elements/collapsible'
 import TextInput from '../../atoms/text-input'
 
 /* Render component */
-export const PrivateChatInputToggle: React.FC<Props> = ({ placeholder, postBack }: Props) => {
+export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ placeholder, postBack }: Props, ref) => {
   const [formState, setFormState] = useState('')
+  const [collapsed, setCollapsed] = useState(true);
+
+  useImperativeHandle(ref, () => ({
+    setFormState(text: string) {
+      setFormState(text);
+    },
+    clear() {
+      setFormState('');
+    }
+  }));
 
   const changeHandler = (e: any): void => {
     setFormState(e.value)
@@ -36,43 +45,31 @@ export const PrivateChatInputToggle: React.FC<Props> = ({ placeholder, postBack 
     </span>
   )
 
-  const CollapsibleHeader = ({ onExpand, collapsed }: any): React.ReactElement => {
-    const handleOnExpand = (): void => {
-      onExpand(!collapsed)
-    }
-    return (
-      <Box onClick={handleOnExpand}>
-        <PrivateBadge />
-      </Box>
-    )
-  }
-
-  const CollapsibleContent = ({ collapsed }: any): React.ReactElement => {
-    return (
-      <Box mt={1}>
-        {
-          !collapsed &&
-          <TextInput
-            fullWidth
-            multiline
-            rows={2}
-            rowsMax={3}
-            variant="filled"
-            updateState={changeHandler}
-            value={formState}
-            placeholder={placeholder}
-          />
-        }
-      </Box>
-    )
+  const handleOnExpand = (): void => {
+    setCollapsed(prev => !prev);
   }
 
   return (
-    <Collapsible
-      header={<CollapsibleHeader />}
-      content={<CollapsibleContent />}
-    />
+    <React.Fragment>
+      <Box onClick={handleOnExpand}>
+        <PrivateBadge />
+      </Box>
+      <Box mt={1} className={
+        `${styles['wrap-detail']} ${!collapsed ? styles['wrap-detail-opened'] : ''}`
+      }>
+        <TextInput
+          fullWidth
+          multiline
+          rows={2}
+          rowsMax={3}
+          variant="filled"
+          updateState={changeHandler}
+          value={formState}
+          placeholder={placeholder}
+        />
+      </Box>
+    </React.Fragment>
   )
-}
+})
 
 export default PrivateChatInputToggle
