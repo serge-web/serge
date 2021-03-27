@@ -74,7 +74,6 @@ export default {
   }
 }
 
-
 const atlanticConstraints: MappingConstraints = deepCopy(localMappingConstraints)
 atlanticConstraints.bounds = L.latLngBounds([[80, -50.0], [40.0, 45]])
 atlanticConstraints.targetDataset = Domain.ATLANTIC
@@ -90,7 +89,6 @@ osmConstraints.tileLayer = {
   url: 'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
   attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
 }
-
 
 interface StoryPropTypes extends MappingPropTypes {
   showAllowableCells?: boolean

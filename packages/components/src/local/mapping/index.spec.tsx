@@ -8,7 +8,6 @@ import { Phase } from '@serge/config'
 /* Import mock data */
 import { forces, platformTypes, localMappingConstraints } from '@serge/mocks'
 
-
 it('Mapping renders correctly', () => {
   const div = document.createElement('div')
   document.body.appendChild(div)

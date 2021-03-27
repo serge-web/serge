@@ -59,7 +59,7 @@ export const MapContext = createContext<ContextInterface>({ props: null })
 const defaultProps: PropTypes = {
   mapBar: true,
   mappingConstraints: {
-    bounds: L.latLngBounds([[14.194809302, 42.3558566271],[12.401259302, 43.7417816271]]),
+    bounds: L.latLngBounds([[14.194809302, 42.3558566271], [12.401259302, 43.7417816271]]),
     tileDiameterMins: 5,
     tileLayer: {
       url: './gulf_tiles/{z}/{x}/{y}.png',
@@ -121,7 +121,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [gridCells, setGridCells] = useState<SergeGrid<SergeHex<{}>> | undefined>(undefined)
   const [newLeg, setNewLeg] = useState<NewTurnValues | undefined>(undefined)
   const [planningConstraints, setPlanningConstraints] = useState<PlanMobileAsset | undefined>(planningConstraintsProp)
-  const [mapCentre /*, setMapCentre */] = useState<L.LatLng | undefined>(undefined)
+  const [mapCentre] = useState<L.LatLng | undefined>(undefined)
   const [routeStore, setRouteStore] = useState<RouteStore>({ routes: [] })
   const [viewAsRouteStore, setViewAsRouteStore] = useState<RouteStore>({ routes: [] })
   const [leafletElement, setLeafletElement] = useState<L.Map | undefined>(undefined)
@@ -135,11 +135,11 @@ export const Mapping: React.FC<PropTypes> = ({
   // only update bounds if they're different to the current one
   useEffect(() => {
     console.log('1', mappingConstraints.bounds, mapBounds, mapBounds && mappingConstraints.bounds.equals(mapBounds))
-    if(mapBounds !== undefined) {
+    if (mapBounds !== undefined) {
       const conBounds: L.LatLngBounds = mappingConstraints.bounds
       const ne: L.LatLng = conBounds.getNorthEast()
       const sw: L.LatLng = conBounds.getSouthWest()
-      if(mapBounds.getNorthEast().equals(ne) && mapBounds.getSouthWest().equals(sw)) {
+      if (mapBounds.getNorthEast().equals(ne) && mapBounds.getSouthWest().equals(sw)) {
         // no change - do nothing
         console.log('no change')
       } else {
@@ -151,7 +151,6 @@ export const Mapping: React.FC<PropTypes> = ({
       setMapBounds(mappingConstraints.bounds)
     }
   }, [mappingConstraints])
-
 
   // highlight the route for the selected asset
   useEffect(() => {
@@ -278,7 +277,7 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (mapBounds && mappingConstraints.tileDiameterMins) {
       const newGrid = (mappingConstraints.targetDataset === Domain.GULF) ? createGrid(mapBounds, mappingConstraints.tileDiameterMins)
-      : createGridFromCSV2(cellTypesList, mappingConstraints.tileDiameterMins)
+        : createGridFromCSV2(cellTypesList, mappingConstraints.tileDiameterMins)
       console.log('cells created', newGrid.length)
       setGridCells(newGrid)
     }
@@ -604,12 +603,12 @@ export const Mapping: React.FC<PropTypes> = ({
           />
           { mappingConstraints.tileLayer &&
             <TileLayer
-            url={mappingConstraints.tileLayer.url}
-            attribution={mappingConstraints.tileLayer.attribution}
-            maxNativeZoom={mappingConstraints.maxNativeZoom}
-            bounds={mapBounds}
-        />
-        }
+              url={mappingConstraints.tileLayer.url}
+              attribution={mappingConstraints.tileLayer.attribution}
+              maxNativeZoom={mappingConstraints.maxNativeZoom}
+              bounds={mapBounds}
+            />
+          }
           <ScaleControl position='bottomright' />
           {children}
         </Map>

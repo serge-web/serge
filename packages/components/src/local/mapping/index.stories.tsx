@@ -128,7 +128,7 @@ interface StoryPropTypes extends MappingPropTypes {
 }
 
 const osmMappingConstraints: MappingConstraints = {
-  bounds: L.latLngBounds([[14.194809302, 42.3558566271],[12.401259302, 43.7417816271]]),
+  bounds: L.latLngBounds([[14.194809302, 42.3558566271], [12.401259302, 43.7417816271]]),
   tileDiameterMins: 5,
   tileLayer: {
     url: 'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',

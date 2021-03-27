@@ -35,8 +35,8 @@ const postback = (messageType: string, payload: any): void => {
 
 // TODO: Add some state handling here
 export const Default: React.FC = () => <Mapping
-mappingConstraints = {localMappingConstraints}
-forces={forces}
+  mappingConstraints = {localMappingConstraints}
+  forces={forces}
   wargameInitiated={true}
   playerForce='Blue'
   canSubmitOrders = {true}
