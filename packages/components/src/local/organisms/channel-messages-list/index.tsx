@@ -2,6 +2,7 @@ import React from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
+import { CoreMessage } from '@serge/custom-types/message'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -21,6 +22,13 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
       <Box ml={2} className={styles['messages-list']}>
         {
           messages && messages.map((props, key) => {
+            const messageItem = props as unknown as CoreMessage
+            const rfiProps = {
+              rfiStatus: messageItem.details.collaboration?.status,
+              rfiId: messageItem._id,
+              collaboration: messageItem.details.collaboration
+            }
+            const isRFI = messageItem.details.messageType === 'RFI'
             if (props.infoType) {
               return (
                 <Box mr={2} key={`${props.gameTurn}-turnmarker-${key}`}>
@@ -30,7 +38,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
             }
             return (
               <Box mb={2} mr={2} key={key}>
-                <ChannelMessage onRead={onRead} {...props} />
+                <ChannelMessage onRead={onRead} {...props} {...isRFI ? rfiProps : {}} />
               </Box>
             )
           })

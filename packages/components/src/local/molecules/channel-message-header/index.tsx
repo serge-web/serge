@@ -37,14 +37,14 @@ export const ChannelMessageHeader: React.FC<Props> = ({
         `${styles['message-title-wrap']} ${isOpen ? styles['message-title-opened'] : ''}`
       }>
         <Box display="flex" alignItems="center" justifyContent="space-between">
-          <div>
+          <Box display="flex" alignItems="center">
             {
               isOpen
                 ? <RemoveIcon fontSize="small" style={{ color: cyan.A200 }} />
                 : <AddIcon fontSize="small" style={{ color: cyan.A200 }} />
             }
             <div className={styles['message-title']}>{title}</div>
-          </div>
+          </Box>
           {
             rfiStatus && rfiId
               ? (

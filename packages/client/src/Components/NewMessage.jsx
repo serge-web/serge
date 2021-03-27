@@ -3,11 +3,14 @@ import PropTypes from 'prop-types'
 import Collapsible from 'react-collapsible'
 import MessageCreator from '../Components/MessageCreator/MessageCreator'
 import DropdownInput from '../Components/Inputs/DropdownInput'
+import { usePlayerUiState } from '../Store/PlayerUi'
 import '@serge/themes/App.scss'
 
 const NewMessage = props => {
   const { templates, curChannel, privateMessage, orderableChannel } = props
   const [selectedSchema, setSelectedSchema] = useState(null)
+  const { channels } = usePlayerUiState()
+  const isRFI = channels[curChannel].name.toLowerCase().match(/rfis/)
 
   const mapTemplateToDropdown = (item) => ({
     value: JSON.stringify(item.details),
@@ -21,7 +24,7 @@ const NewMessage = props => {
 
   const classes = `new-message-creator wrap ${orderableChannel ? 'new-message-orderable' : ''}`
 
-  const collapsibleTile = templates.length === 1 && templates[0].title === 'Request for Information'
+  const collapsibleTile = templates.length === 1 && isRFI
     ? 'New Request'
     : 'New Message'
 
@@ -30,7 +33,36 @@ const NewMessage = props => {
   }, [curChannel])
 
   useEffect(() => {
-    setSelectedSchema(templates[0].details)
+    const RFISchema = {
+      type: 'object',
+      properties: {
+        title: {
+          type: 'string',
+          format: 'text',
+          options: {
+            inputAttributes: {
+              placeholder: 'type the title'
+            }
+          }
+        },
+        content: {
+          type: 'string',
+          format: 'textarea',
+          options: {
+            inputAttributes: {
+              placeholder: 'type the content'
+            }
+          }
+        }
+      },
+      title: 'RFI',
+      format: 'grid'
+    }
+    setSelectedSchema(
+      isRFI
+        ? RFISchema
+        : templates[0].details
+    )
   }, [templates])
 
   return (
@@ -54,6 +86,7 @@ const NewMessage = props => {
           schema={selectedSchema}
           curChannel={curChannel}
           privateMessage={privateMessage}
+          isRFI={isRFI}
         />
       </Collapsible>
     </div>

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import { Editor, MessageDetails } from '@serge/custom-types'
+import { CollaborativeMessageStates} from '@serge/config'
 import Props from './types'
 
 // @ts-ignore
@@ -32,6 +33,15 @@ const MessageCreator: React.FC<Props> = (props) => {
       },
       messageType: selectedSchema.title,
       timestamp: new Date().toISOString(),
+      ...(
+        props.isRFI
+         ? {
+            collaboration: {
+              status: CollaborativeMessageStates.PendingReview
+            }
+          }
+          : {}
+      )
     }
 
     if (props.privateMessage && privateMessageRef.current) {
