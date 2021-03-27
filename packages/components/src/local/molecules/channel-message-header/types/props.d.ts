@@ -1,5 +1,6 @@
 import React from 'react'
 import { CollaborativeMessageStates } from '@serge/config'
+import {CollaborationDetails} from "@serge/custom-types/message";
 
 export default interface Props {
   /**
@@ -31,6 +32,10 @@ export default interface Props {
    */
   onExpand?: React.ReactEventHandler
   /**
+   * RFI collaboration details
+   */
+  collaboration?: CollaborationDetails
+  /**
    * RFI status
    */
   rfiStatus?: CollaborativeMessageStates
@@ -38,4 +43,8 @@ export default interface Props {
    * RFI id
    */
   rfiId?: string
+  /**
+   * Whether current user is an RFI manager or not
+   */
+  isRFIManager?: boolean
 }

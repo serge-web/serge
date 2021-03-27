@@ -1,4 +1,5 @@
 import { CollaborationDetails } from '@serge/custom-types/message'
+import {CollaborativeMessageStates} from "@serge/config";
 
 export default interface Props {
   /**
@@ -26,4 +27,12 @@ export default interface Props {
    * RFI collaboration details
    */
   collaboration?: CollaborationDetails
+  /**
+   * RFI status
+   */
+  rfiStatus?: CollaborativeMessageStates
+  /**
+   * Whether current user is an RFI manager or not
+   */
+  isRFIManager?: boolean
 }

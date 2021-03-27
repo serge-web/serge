@@ -9,6 +9,8 @@ import Box from '@material-ui/core/Box'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import cyan from '@material-ui/core/colors/cyan'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faIdBadge } from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
 import Badge from '../../atoms/badge'
 
@@ -21,10 +23,18 @@ export const ChannelMessageHeader: React.FC<Props> = ({
   messageType,
   rfiStatus,
   rfiId,
+  isRFIManager,
   hasBeenRead,
+  collaboration,
   onExpand
 }: Props) => {
   const isRFI = messageType === 'RFI'
+  const statusColors = {
+    Unallocated: '#B10303',
+    'In progress': '#E7740A',
+    'Pending review': '#434343',
+    Released: '#007219'
+  }
   return (
     <div onClick={onExpand} className={
       `
@@ -49,33 +59,66 @@ export const ChannelMessageHeader: React.FC<Props> = ({
             rfiStatus && rfiId
               ? (
                 <Box display="flex" alignItems="center">
-                  <span className={styles['message-title__rfi-status']}>{ rfiStatus }</span>
+                  {
+                    isRFIManager
+                      ? null
+                      : <span className={styles['message-title__rfi-status']}>{ rfiStatus }</span>
+                  }
                   <span className={styles['message-title__rfi-id']}>{ rfiId }</span>
                 </Box>
               )
               : null
           }
         </Box>
-        <Box display="flex" alignItems="center" pl={3}>
+        <Box display="flex" alignItems="center" justifyContent="space-between" pl={3}>
+          <Box>
+            <div>
+              {
+                isRFI && isOpen && !isRFIManager
+                  ? null
+                  : (
+                    <>
+                      <span className={styles['info-body']}>{moment(timestamp).format('HH:mm')}</span>
+                      <Badge {...isRFIManager ? { customBackgroundColor: '#00A3DE' } : {}} size="small" type="charcoal" label={role} />
+                    </>
+                  )
+              }
+              {
+                isRFI
+                  ? null
+                  : (
+                    <>
+                      <Badge size="small" label={messageType} />
+                      {!hasBeenRead && <Badge size="small" label="Unread" type="warning" />}
+                    </>
+                  )
+              }
+            </div>
+            <div>
+              {
+                isOpen && isRFI && collaboration
+                  ? (
+                    <Box>
+                      <FontAwesomeIcon icon={faIdBadge} />
+                      {
+                        collaboration.owner
+                          ? <Badge size="small" type="charcoal" label={collaboration.owner} />
+                          : null
+                      }
+                    </Box>
+                  )
+                  : null
+              }
+            </div>
+          </Box>
           {
-            isRFI && isOpen
-              ? null
-              : (
-                <>
-                  <span className={styles['info-body']}>{moment(timestamp).format('HH:mm')}</span>
-                  <Badge size="small" type="charcoal" label={role} />
-                </>
+            isRFIManager && rfiStatus
+              ? (
+                <div className={styles['message-title__rfi-status-badge']}>
+                  <Badge customBackgroundColor={statusColors[rfiStatus]} label={rfiStatus} />
+                </div>
               )
-          }
-          {
-            isRFI
-              ? null
-              : (
-                <>
-                  <Badge size="small" label={messageType} />
-                  {!hasBeenRead && <Badge size="small" label="Unread" type="warning" />}
-                </>
-              )
+              : null
           }
         </Box>
       </div>

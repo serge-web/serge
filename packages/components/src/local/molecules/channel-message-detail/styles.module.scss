@@ -98,4 +98,15 @@
       padding: 10px;
     }
   }
+
+  &__form-group {
+    margin-top: 10px;
+
+    :global(.MuiInputBase-formControl) {
+      @include typo-primary;
+      background: $button-action-admin;
+      font-size: 12px;
+      color: #fff;
+    }
+  }
 }

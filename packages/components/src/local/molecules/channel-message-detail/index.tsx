@@ -1,21 +1,19 @@
 import React, { Fragment } from 'react'
 import moment from 'moment'
+import Box from '@material-ui/core/Box'
+import TextInput from '../../atoms/text-input'
+import Button from '../../atoms/button'
 
 /* Import Types */
 import Props from './types/props'
 import { MessageStructure } from '@serge/custom-types/message'
+import { CollaborativeMessageStates } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import {
-  isPlainObject,
-  isArrayOfObject,
-  isBoolean,
-  isValidUrl,
-  capitalize
-} from '@serge/helpers'
+import { capitalize, isArrayOfObject, isBoolean, isPlainObject, isValidUrl } from '@serge/helpers'
 import Paragraph from '../../atoms/paragraph'
 import MessageLabel from '../../atoms/message-label'
 
@@ -124,7 +122,7 @@ const decideRender = (pair: Array<any>) => (fallback: Function): React.ReactFrag
 }
 
 /* Render component */
-export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, messageType, collaboration, isUmpire, collapsed }: Props) => {
+export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, messageType, collaboration, rfiStatus, isUmpire, isRFIManager, collapsed }: Props) => {
   const keyPropPairs = Object.entries(detail)
   const isRFI = messageType === 'RFI'
   const RFIAnswer = collaboration?.response
@@ -136,6 +134,31 @@ export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, 
       Private:
     </span>
   )
+  const ActionButtons = (): React.ReactElement | null => {
+    switch (rfiStatus) {
+      case CollaborativeMessageStates.Unallocated:
+        return (
+          <Box pt={2} display="flex" justifyContent="flex-end">
+            <Button customVariant="form-action" size="small">Take ownership</Button>
+          </Box>
+        )
+      case CollaborativeMessageStates.InProgress:
+        return (
+          <Box pt={2} display="flex" justifyContent="flex-end">
+            <Button customVariant="form-action" size="small">Send for review</Button>
+          </Box>
+        )
+      case CollaborativeMessageStates.PendingReview:
+        return (
+          <Box pt={2} display="flex" justifyContent="flex-end">
+            <Button customVariant="form-action" size="small">Reject</Button>
+            <Button customVariant="form-action" size="small">Release</Button>
+          </Box>
+        )
+      default:
+        return null
+    }
+  }
   return (
     <div className={
       `
@@ -161,6 +184,39 @@ export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, 
                       </div>
                     </div>
                   )
+                  : isRFIManager
+                    ? (
+                      <>
+                        <div className={styles['message-detail__form-group']}>
+                          <TextInput
+                            fullWidth
+                            label="Answer"
+                            labelColor="common.white"
+                            labelSize={12}
+                            multiline
+                            rows={2}
+                            variant="filled"
+                          />
+                        </div>
+                        <div className={styles['message-detail__form-group']}>
+                          <TextInput
+                            fullWidth
+                            label="Private message"
+                            labelColor="common.white"
+                            labelSize={12}
+                            multiline
+                            rows={2}
+                            variant="filled"
+                            isPrivate={true}
+                          />
+                        </div>
+                      </>
+                    )
+                    : null
+              }
+              {
+                isRFIManager
+                  ? <ActionButtons />
                   : null
               }
             </>

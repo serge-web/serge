@@ -209,9 +209,8 @@ const gameMessagesWithRFI: MessageChannel[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
-        status: CollaborativeMessageStates.PendingReview,
-        owner: 'Logistics',
-        response: 'Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME. Example of an answer from a SME.',
+        status: CollaborativeMessageStates.Unallocated,
+        owner: 'Logistics'
       }
     },
     message: {
@@ -236,7 +235,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
-        status: CollaborativeMessageStates.Unallocated
+        status: CollaborativeMessageStates.PendingReview
       }
     },
     message: {

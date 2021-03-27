@@ -59,9 +59,9 @@ StateOfTheWorld.args = {
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 export const RequestForInformation = Template.bind({})
-const RFIMessage = gameMessagesWithRFI[8]
-const message = (RFIMessage as MessageStructure).message
-const details = (RFIMessage as CoreMessage).details
+let RFIMessage = gameMessagesWithRFI[8]
+let message = (RFIMessage as MessageStructure).message
+let details = (RFIMessage as CoreMessage).details
 RequestForInformation.args = {
   borderColor: '#3dd0ffB3',
   title: message.title,
@@ -73,5 +73,62 @@ RequestForInformation.args = {
   privateMessage: 'Private message',
   collaboration: details?.collaboration,
   isUmpire: false,
+  detail: message
+}
+
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
+export const RequestForInformationUnallocated = Template.bind({})
+RequestForInformationUnallocated.args = {
+  borderColor: '#3dd0ffB3',
+  title: message.title,
+  timestamp: '2020-09-18T05:41:17.349Z',
+  role: 'CO',
+  messageType: details.messageType,
+  rfiStatus: details?.collaboration ? details?.collaboration?.status : undefined,
+  rfiId: RFIMessage._id,
+  privateMessage: 'Private message',
+  collaboration: details?.collaboration,
+  isUmpire: false,
+  isRFIManager: true,
+  detail: message
+}
+
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
+export const RequestForInformationPendingReview = Template.bind({})
+RFIMessage = gameMessagesWithRFI[9]
+message = (RFIMessage as MessageStructure).message
+details = (RFIMessage as CoreMessage).details
+RequestForInformationPendingReview.args = {
+  borderColor: '#3dd0ffB3',
+  title: message.title,
+  timestamp: '2020-09-18T05:41:17.349Z',
+  role: 'CO',
+  messageType: details.messageType,
+  rfiStatus: details?.collaboration ? details?.collaboration?.status : undefined,
+  rfiId: RFIMessage._id,
+  privateMessage: 'Private message',
+  collaboration: details?.collaboration,
+  isUmpire: false,
+  isRFIManager: true,
+  detail: message
+}
+
+// deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
+export const RequestForInformationInProgress = Template.bind({})
+RFIMessage = gameMessagesWithRFI[10]
+message = (RFIMessage as MessageStructure).message
+details = (RFIMessage as CoreMessage).details
+RequestForInformationInProgress.args = {
+  borderColor: '#3dd0ffB3',
+  title: message.title,
+  timestamp: '2020-09-18T05:41:17.349Z',
+  role: 'CO',
+  messageType: details.messageType,
+  rfiStatus: details?.collaboration ? details?.collaboration?.status : undefined,
+  rfiId: RFIMessage._id,
+  privateMessage: 'Private message',
+  collaboration: details?.collaboration,
+  isUmpire: false,
+  isRFIManager: true,
   detail: message
 }

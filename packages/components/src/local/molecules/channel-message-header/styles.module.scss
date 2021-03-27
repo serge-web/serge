@@ -68,6 +68,13 @@
     color: $action-secondary-color;
   }
 
+  &__rfi-status-badge {
+    :global(.MuiChip-root) {
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+  }
+
   &__rfi-id {
     font-weight: 600;
     font-size: 12px;

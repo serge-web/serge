@@ -6,6 +6,7 @@ interface CssExports {
   'detail-row': string;
   'detail-rows': string;
   'icon-private': string;
+  'message-detail__form-group': string;
   'message-detail__rfi-content': string;
   'message-detail__rfi-response': string;
   'message-detail__rfi-response__body': string;

@@ -10,6 +10,7 @@ interface CssExports {
   'message-title-wrap': string;
   'message-title__rfi-id': string;
   'message-title__rfi-status': string;
+  'message-title__rfi-status-badge': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
