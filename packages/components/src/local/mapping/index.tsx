@@ -280,7 +280,6 @@ export const Mapping: React.FC<PropTypes> = ({
       const newGrid = (mappingConstraints.targetDataset === Domain.GULF) ? createGrid(mapBounds, mappingConstraints.tileDiameterMins)
       : createGridFromCSV2(cellTypesList, mappingConstraints.tileDiameterMins)
       console.log('cells created', newGrid.length)
-      // setGridCells(undefined)
       setGridCells(newGrid)
     }
   }, [mappingConstraints.tileDiameterMins, mapBounds])
@@ -569,7 +568,7 @@ export const Mapping: React.FC<PropTypes> = ({
     setSelectedAssetLocal(undefined)
   }
 
-  console.log('tile layer', zoom, mappingConstraints.bounds, mapCentre, gridCells && gridCells.length)
+  console.log('mapping render', zoom, gridCells && gridCells.length, mapCentre, mapBounds)
 
   return (
     <MapContext.Provider value={{ props: contextProps }}>
