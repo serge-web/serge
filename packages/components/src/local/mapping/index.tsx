@@ -13,8 +13,8 @@ import groupHostPlatform from './helpers/group-host-platform'
 // TODO: verify we still handle planned routes properly
 // import storePlannedRoute from './helpers/store-planned-route'
 import createGrid from './helpers/create-grid'
-import createGridFromCSV2 from './helpers/create-grid-from-csv2'
-import cellTypesList from './data/cell-types-3'
+import createGridFromGeoJSON from './helpers/create-grid-from-geojson'
+import atlanticCells from './data/atlantic-cells'
 
 import {
   roundToNearest,
@@ -276,7 +276,7 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (mapBounds && mappingConstraints.tileDiameterMins) {
       const newGrid = (mappingConstraints.targetDataset === Domain.GULF) ? createGrid(mapBounds, mappingConstraints.tileDiameterMins)
-        : createGridFromCSV2(cellTypesList, mappingConstraints.tileDiameterMins)
+        : createGridFromGeoJSON(atlanticCells, mappingConstraints.tileDiameterMins)
       console.log('cells created', newGrid.length)
       setGridCells(newGrid)
     }
@@ -565,8 +565,6 @@ export const Mapping: React.FC<PropTypes> = ({
   const mapClick = (): void => {
     setSelectedAssetLocal(undefined)
   }
-
-  console.log('mapping render', zoom, gridCells && gridCells.length, mapCentre, mapBounds)
 
   return (
     <MapContext.Provider value={{ props: contextProps }}>

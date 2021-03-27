@@ -9,13 +9,13 @@ import { calcAllowableCells, plannedRouteFor } from '@serge/helpers'
 import Polygon from './helpers/polygon'
 import getCellStyle from './helpers/get-cell-style'
 
-import binCells, { PolyBin, CellDetails } from './helpers/bin-cells'
+import binCells, { PolyBin } from './helpers/bin-cells'
 
 /* Import mapping context */
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import { SergeHex, Route, NewTurnValues } from '@serge/custom-types'
+import { SergeHex, SergeGrid, Route, NewTurnValues } from '@serge/custom-types'
 import { LAYDOWN_TURN } from '@serge/config'
 
 /* Render component */
@@ -45,7 +45,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   // the binned polygons
   const [polyBin, setPolyBin] = useState<PolyBin[]>([])
-  const [visibleCells, setVisibleCells] = useState<CellDetails[]>([])
+  const [visibleCells, setVisibleCells] = useState<SergeHex<{}>[]>([])
 
   // allow the planning marker origin to be changed
   const [origin, setOrigin] = useState<L.LatLng | undefined>(undefined)
@@ -64,7 +64,7 @@ export const HexGrid: React.FC<{}> = () => {
   // remember the id of the current asset, so we can check if we're receiving a new one
   const [selectedAssetId, setSelectedAssetId] = useState<string | undefined>(undefined)
 
-  const MIN_ZOOM_FOR_HEXES = 6
+  const MIN_ZOOM_FOR_HEXES = 3
 
   /** capture the color of this asset, so planning shapes
    * get rendered in a suitable color
@@ -250,61 +250,66 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [planningRange, planningConstraints, gridCells])
 
+  const createPolyBin = (cells: SergeGrid<SergeHex<{}>>): PolyBin[] | undefined => {
+    if (gridCells) {
+      console.log('generating empty bins')
+      const store: SergeHex<{}>[] = []
+      let bounds: L.LatLngBounds | undefined
+
+      // create a polygon for each hex, add it to the parent
+      cells.forEach((hex: SergeHex<{}>) => {
+        // get centre
+        const centreWorld: L.LatLng = hex.centreLatLng
+        // extend the bounds
+        bounds = bounds === undefined ? L.latLngBounds(centreWorld, centreWorld) : bounds.extend(centreWorld)
+        store.push(hex)
+      })
+      if (bounds) {
+        const polyBin = binCells(bounds, store)
+        const bins = polyBin.map((bin: PolyBin) => bin.cells.length)
+        console.log('bin sizes:', bins)
+        return polyBin
+      }
+    }
+    return undefined
+  }
+
   useEffect(() => {
+    console.log('binning cells', zoomLevel, viewport, MIN_ZOOM_FOR_HEXES)
     if (zoomLevel && viewport && zoomLevel > MIN_ZOOM_FOR_HEXES) {
       if (polyBin.length === 0) {
-        if (gridCells) {
-          const store: CellDetails[] = []
-          let bounds: L.LatLngBounds | undefined
-
-          // create a polygon for each hex, add it to the parent
-          gridCells.forEach((hex: SergeHex<{}>) => {
-            // move coords to our map
-            const centreWorld: L.LatLng = hex.centreLatLng
-            bounds = bounds === undefined ? L.latLngBounds(centreWorld, centreWorld) : bounds.extend(centreWorld)
-
-            // create a cell
-            const details: CellDetails = {
-              id: hex.name,
-              hexCell: hex
+        const bin = createPolyBin(gridCells)
+        bin && setPolyBin(bin)
+      } else {
+        let visible: SergeHex<{}>[] = []
+        polyBin.forEach((bin: PolyBin) => {
+          if (bin.bounds.intersects(viewport)) {
+            visible = visible.concat(bin.cells)
+          }
+        })
+  
+        console.log('binned, visible:', visible.length)
+  
+        // now check each cell has its polygon generated
+        visible.forEach((cell: SergeHex<{}>) => {
+          if (!cell.poly) {
+            const centreH = cell.centreLatLng
+            const cornerArr: L.LatLng[] = []
+            for (let i = 0; i < 6; i++) {
+              const angle = 30 + i * 60
+              const point = destination(centreH, angle, 18 * 1852)
+              cornerArr.push(point)
             }
-            store.push(details)
-          })
-          if (bounds) {
-            const polyBin = binCells(bounds, store)
-            const bins = polyBin.map((bin: PolyBin) => bin.cells.length)
-            console.log('bin sizes:', bins)
-            setPolyBin(polyBin)
+            cell.poly = cornerArr
           }
-        }
+        })
+  
+        setVisibleCells(visible)
       }
-
-      let visible: CellDetails[] = []
-      polyBin.forEach((bin: PolyBin) => {
-        if (bin.bounds.intersects(viewport)) {
-          visible = visible.concat(bin.cells)
-        }
-      })
-
-      // now check each cell has its polygon generated
-      visible.forEach((cell: CellDetails) => {
-        if (!cell.hexCell.poly) {
-          const centreH = cell.hexCell.centreLatLng
-          const cornerArr: L.LatLng[] = []
-          for (let i = 0; i < 6; i++) {
-            const angle = 30 + i * 60
-            const point = destination(centreH, angle, 18 * 1852)
-            cornerArr.push(point)
-          }
-          cell.hexCell.poly = cornerArr
-        }
-      })
-
-      setVisibleCells(visible)
     } else {
       setVisibleCells([])
     }
-  }, [zoomLevel, viewport, gridCells])
+  }, [zoomLevel, viewport, gridCells, polyBin])
 
   /** handler for planning marker being droppped
        *
@@ -403,15 +408,15 @@ export const HexGrid: React.FC<{}> = () => {
   console.log('zoom', zoomLevel, visibleCells.length)
 
   return <>
-    <LayerGroup key={'hex_polygons'} >{zoomLevel > MIN_ZOOM_FOR_HEXES && visibleCells.map((cell: CellDetails) => (
+    <LayerGroup key={'hex_polygons'} >{zoomLevel > MIN_ZOOM_FOR_HEXES && visibleCells.map((cell: SergeHex<{}>, index:number) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
-        key={'hex_poly_' + cell.id}
-        fillColor={ cell.hexCell.fillColor || '#f00' }
-        positions={cell.hexCell.poly}
-        stroke={cell.id === cellForSelected && assetColor ? assetColor : '#fff'}
-        className={styles[getCellStyle(cell.hexCell, planningRouteCells, allowableFilteredCells, cellForSelected)]}
+        key={'hex_poly_' + cell.name + '_' + index}
+        fillColor={ cell.fillColor || '#f00' }
+        positions={cell.poly}
+        stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
+        className={styles[getCellStyle(cell, planningRouteCells, allowableFilteredCells, cellForSelected)]}
       />
     ))}
     <Polyline
@@ -438,13 +443,13 @@ export const HexGrid: React.FC<{}> = () => {
     </LayerGroup>
     {
       zoomLevel > 8 && visibleCells &&
-      <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: CellDetails) => (
+      <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>) => (
         <Marker
-          key={'hex_label_' + cell.id}
-          position={cell.hexCell.centreLatLng}
+          key={'hex_label_' + cell.name}
+          position={cell.centreLatLng}
           width="120"
           icon={L.divIcon({
-            html: cell.id,
+            html: cell.name,
             className: styles['default-coords'],
             iconSize: [30, 20]
           })}

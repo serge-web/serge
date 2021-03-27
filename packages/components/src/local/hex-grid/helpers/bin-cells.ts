@@ -3,16 +3,12 @@ import { SergeHex } from '@serge/custom-types'
 
 export interface PolyBin {
   bounds: L.LatLngBounds
-  cells: CellDetails[]
+  cells: SergeHex<{}>[]
 }
 
-export interface CellDetails {
-  readonly id: string
-  hexCell: SergeHex<{}>
-}
 
 /** Generate the Serge name for the supplied cell (1,3) == "B03" */
-const binCells = (bounds: L.LatLngBounds, store: CellDetails[]): PolyBin[] => {
+const binCells = (bounds: L.LatLngBounds, store: SergeHex<{}>[]): PolyBin[] => {
   // create the bins
   const bl = bounds.getSouthWest()
   const tr = bounds.getNorthEast()
@@ -30,8 +26,8 @@ const binCells = (bounds: L.LatLngBounds, store: CellDetails[]): PolyBin[] => {
     }
   }
   // now bin the cells
-  store.forEach((cell: CellDetails) => {
-    const centre = cell.hexCell.centreLatLng
+  store.forEach((cell: SergeHex<{}>) => {
+    const centre = cell.centreLatLng
     if (centre) {
       const lat = centre.lat
       const lng = centre.lng
@@ -44,7 +40,7 @@ const binCells = (bounds: L.LatLngBounds, store: CellDetails[]): PolyBin[] => {
       const index = Math.min(steps * steps - 1, x * steps + y)
       res[index].cells.push(cell)
     } else {
-      console.log('cell', cell, cell.hexCell, centre)
+      console.log('cell centre missing', cell, centre)
     }
   })
   return res
