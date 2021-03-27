@@ -9,9 +9,9 @@ import { SergeHex } from '@serge/custom-types'
 
 it('Construct grid from very new dataset', () => {
   const cells: any = atlanticCells.features
-  expect(cells.length).toEqual(9)
+  expect(cells.length).toEqual(11)
   const grid = createGridFromGeoJSON(atlanticCells, 0.5)
-  expect(grid.length).toEqual(9)
+  expect(grid.length).toEqual(11)
 
   // inspect first one
   const first: SergeHex<{}> = grid[0]
