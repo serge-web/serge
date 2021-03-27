@@ -48,10 +48,10 @@ const createGridFromGeoJSON = (cells: any, tileSizeDegs: number): SergeGrid<Serg
     const { type, fillColor } = typeFor(cell.properties.Type as number)
     const center_str = cell.properties.center_str
     const parts = center_str.split('\/')
-    const centre = L.latLng(parseFloat(parts[0]), parseFloat(parts[1]))
+    const centre = L.latLng(parseFloat(parts[1]), parseFloat(parts[0]))
     const coords = cell.geometry.coordinates
     const poly = coords[0].map((point: any) => {
-      return L.latLng(point[0], point[1])
+      return L.latLng(point[1], point[0])
     })
     return {
       x: cell.properties.is,
@@ -60,7 +60,7 @@ const createGridFromGeoJSON = (cells: any, tileSizeDegs: number): SergeGrid<Serg
       poly: poly,
       type: type,
       fillColor: fillColor,
-      name: '' + cell.properties.is + cell.properties.js
+      name: cell.properties.coord
     }
   })
   // define grid as flat
