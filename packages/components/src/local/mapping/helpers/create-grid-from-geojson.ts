@@ -46,8 +46,8 @@ const createGridFromGeoJSON = (cells: any, tileSizeDegs: number): SergeGrid<Serg
   // ian tried, but it generated compiler error for `honeyGrid`
   const hexes = cells.features.map((cell: any) => {
     const { type, fillColor } = typeFor(cell.properties.type as number)
-    const center_str = cell.properties.center_str
-    const parts = center_str.split('\/')
+    const centerStr = cell.properties.center_str
+    const parts = centerStr.split('\/')
     const centre = L.latLng(parseFloat(parts[1]), parseFloat(parts[0]))
     const coords = cell.geometry.coordinates
     const poly = coords[0].map((point: any) => {
