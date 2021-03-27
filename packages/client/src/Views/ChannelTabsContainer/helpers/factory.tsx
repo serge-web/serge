@@ -28,7 +28,7 @@ const factory = (state: PlayerUi): Factory => {
 
   // provide some default mapping constraints if we aren't supplied with any
   const mappingConstraints: MappingConstraints = state.mappingConstaints !== undefined ? state.mappingConstaints : {
-    bounds: L.latLngBounds([[14.194809302, 42.3558566271],[12.401259302, 43.7417816271]]),
+    bounds: [[14.194809302, 42.3558566271],[12.401259302, 43.7417816271]],
     tileDiameterMins: 5,
     tileLayer: {
       url: './gulf_tiles/{z}/{x}/{y}.png',

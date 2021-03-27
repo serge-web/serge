@@ -12,7 +12,7 @@ export default interface MappingConstraints {
   /** 
    * bounding rectangle 
    */
-  bounds: L.LatLngBounds,
+  bounds: [[number, number], [number, number]],
   /**
    * diameter of tiles in use (nautical miles)
    */

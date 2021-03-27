@@ -1,9 +1,8 @@
-import L from 'leaflet'
 import { Domain } from '@serge/config'
 import { MappingConstraints } from '@serge/custom-types'
 
 const localMappingConstraints: MappingConstraints = {
-    bounds: L.latLngBounds([[14.194809302, 42.3558566271],[12.401259302, 43.7417816271]]),
+    bounds: [[14.194809302, 42.3558566271],[12.401259302, 43.7417816271]],
     tileDiameterMins: 5,
     tileLayer: {
         url: './gulf_tiles/{z}/{x}/{y}.png',

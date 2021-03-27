@@ -59,7 +59,7 @@ export const MapContext = createContext<ContextInterface>({ props: null })
 const defaultProps: PropTypes = {
   mapBar: true,
   mappingConstraints: {
-    bounds: L.latLngBounds([[14.194809302, 42.3558566271], [12.401259302, 43.7417816271]]),
+    bounds: [[14.194809302, 42.3558566271], [12.401259302, 43.7417816271]],
     tileDiameterMins: 5,
     tileLayer: {
       url: './gulf_tiles/{z}/{x}/{y}.png',
@@ -134,21 +134,20 @@ export const Mapping: React.FC<PropTypes> = ({
 
   // only update bounds if they're different to the current one
   useEffect(() => {
-    console.log('1', mappingConstraints.bounds, mapBounds, mapBounds && mappingConstraints.bounds.equals(mapBounds))
-    if (mapBounds !== undefined) {
-      const conBounds: L.LatLngBounds = mappingConstraints.bounds
-      const ne: L.LatLng = conBounds.getNorthEast()
-      const sw: L.LatLng = conBounds.getSouthWest()
-      if (mapBounds.getNorthEast().equals(ne) && mapBounds.getSouthWest().equals(sw)) {
-        // no change - do nothing
-        console.log('no change')
+    if(mappingConstraints) {
+      const conBounds = mappingConstraints.bounds
+      const ne = conBounds[0]
+      const sw = conBounds[1]
+      const newBounds =  L.latLngBounds(ne, sw)
+      if (mapBounds !== undefined) {
+        if (mapBounds.equals(newBounds)) {
+          // no change - do nothing
+        } else {
+          setMapBounds(newBounds)
+        }
       } else {
-        console.log('new bounds')
-        setMapBounds(mappingConstraints.bounds)
+        setMapBounds(newBounds)
       }
-    } else {
-      console.log('bounds unset')
-      setMapBounds(mappingConstraints.bounds)
     }
   }, [mappingConstraints])
 
