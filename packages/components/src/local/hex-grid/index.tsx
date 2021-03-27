@@ -456,7 +456,7 @@ export const HexGrid: React.FC<{}> = () => {
       ))}
       </LayerGroup>
     }
-    <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin) => (
+    {/* <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin) => (
       <Polygon
         key={'bin_line_' + bin.bounds.getCenter().toString()}
         color={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
@@ -465,7 +465,7 @@ export const HexGrid: React.FC<{}> = () => {
         className={styles['planning-line']}
       />
     ))}
-    </LayerGroup>
+    </LayerGroup> */}
 
   </>
 }

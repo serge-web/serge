@@ -5,8 +5,8 @@ import { SergeHex, SergeGrid } from '@serge/custom-types'
 /** lookup for types to styles */
 const typeFor = (type: number): {type: string, fillColor: string} => {
   switch (type) {
-    case 0: return { type: 'sea', fillColor: '#0f0' }
-    case 1: return { type: 'land', fillColor: '#f00' }
+    case 0: return { type: 'land', fillColor: '#0f0' }
+    case 1: return { type: 'sea', fillColor: '#f00' }
     case 2: return { type: 'loud', fillColor: '#0ff' }
     case 3: return { type: 'quiet', fillColor: '#a0a' }
     case 4: return { type: 'medium', fillColor: '#0a0' }
@@ -45,7 +45,7 @@ const createGridFromGeoJSON = (cells: any, tileSizeDegs: number): SergeGrid<Serg
   // TODO: cast cells to GeoJSON FeatureCollection
   // ian tried, but it generated compiler error for `honeyGrid`
   const hexes = cells.features.map((cell: any) => {
-    const { type, fillColor } = typeFor(cell.properties.Type as number)
+    const { type, fillColor } = typeFor(cell.properties.type as number)
     const center_str = cell.properties.center_str
     const parts = center_str.split('\/')
     const centre = L.latLng(parseFloat(parts[1]), parseFloat(parts[0]))
