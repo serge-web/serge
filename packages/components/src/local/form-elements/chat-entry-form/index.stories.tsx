@@ -4,7 +4,6 @@ import React from 'react'
 import ChatEntryForm from './index'
 import docs from './README.md'
 
-
 export default {
   title: 'local/form-elements/ChatEntryForm',
   component: ChatEntryForm,
@@ -18,7 +17,6 @@ export default {
 }
 
 // @ts-ignore
-const showMessage = (message: string, privateMessage: string): void => window.alert(`Your message was: "${message}" \n Private message was: ${privateMessage}`);
+const showMessage = (message: string, privateMessage: string): void => window.alert(`Your message was: "${message}" \n Private message was: ${privateMessage}`)
 
 export const Default: React.FC = () => <ChatEntryForm postBack={showMessage} />
-

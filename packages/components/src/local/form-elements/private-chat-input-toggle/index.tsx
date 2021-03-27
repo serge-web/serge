@@ -15,16 +15,16 @@ import TextInput from '../../atoms/text-input'
 /* Render component */
 export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ placeholder, postBack }: Props, ref) => {
   const [formState, setFormState] = useState('')
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(true)
 
   useImperativeHandle(ref, () => ({
-    setFormState(text: string) {
-      setFormState(text);
+    setFormState (text: string) {
+      setFormState(text)
     },
-    clear() {
-      setFormState('');
+    clear () {
+      setFormState('')
     }
-  }));
+  }))
 
   const changeHandler = (e: any): void => {
     setFormState(e.value)
@@ -46,7 +46,7 @@ export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ place
   )
 
   const handleOnExpand = (): void => {
-    setCollapsed(prev => !prev);
+    setCollapsed(prev => !prev)
   }
 
   return (
