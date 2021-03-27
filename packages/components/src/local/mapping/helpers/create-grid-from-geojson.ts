@@ -47,7 +47,7 @@ const createGridFromGeoJSON = (cells: any, tileSizeDegs: number): SergeGrid<Serg
   const hexes = cells.features.map((cell: any) => {
     const { type, fillColor } = typeFor(cell.properties.type as number)
     const centerStr = cell.properties.center_str
-    const parts = centerStr.split('\/')
+    const parts = centerStr.split('\/') // eslint-disable-line no-useless-escape
     const centre = L.latLng(parseFloat(parts[1]), parseFloat(parts[0]))
     const coords = cell.geometry.coordinates
     const poly = coords[0].map((point: any) => {
