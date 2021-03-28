@@ -158,6 +158,7 @@ export const HexGrid: React.FC<{}> = () => {
    * represented as cells & a line
    */
   useEffect(() => {
+    console.log('drag dest')
     if (dragDestination && originHex) {
       // check we're not in laydown mode
       if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
@@ -198,6 +199,7 @@ export const HexGrid: React.FC<{}> = () => {
   * update planning range from it.
   */
   useEffect(() => {
+    console.log('planning constraints')
     if (planningConstraints !== undefined) {
       setPlanningRange(planningConstraints.range)
     }
@@ -207,6 +209,8 @@ export const HexGrid: React.FC<{}> = () => {
        * as a player plans the leg
        */
   useEffect(() => {
+    console.log('plan range, cells')
+
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
     if (planningRange === undefined && planningConstraints !== undefined) {
       setPlanningRange(planningConstraints.range)
@@ -275,7 +279,7 @@ export const HexGrid: React.FC<{}> = () => {
     return undefined
   }
 
-  useEffect(() => {
+  useEffect(() => {    
     console.log('gen vis')
     if (viewport && gridCells) {
       if (polyBin.length === 0) {
@@ -316,6 +320,12 @@ export const HexGrid: React.FC<{}> = () => {
           })
         }
 
+        if(visible.length < 10) {
+          visible.forEach((cell: SergeHex<{}>, index: number) => {
+            console.log('cell ' + index, cell.name, cell.poly)
+          })
+        }
+
         setVisibleCells(visible)
       }
     } else {
@@ -324,7 +334,9 @@ export const HexGrid: React.FC<{}> = () => {
   }, [reducedDetail, viewport, gridCells, polyBin])
 
   useEffect(() => {
-    setReducedDetail(zoomLevel < 4.5)
+    console.log('zoom level')
+
+    setReducedDetail(zoomLevel <= 5.5)
   }, [zoomLevel])
 
   useEffect(() => {
@@ -428,6 +440,31 @@ export const HexGrid: React.FC<{}> = () => {
   console.log('zoom', zoomLevel, visibleCells.length, viewport && viewport.getNorthWest())
 
   return <>
+
+  { /* POLY BINS */ }
+  {/* <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin, index: number) => (
+      <>
+      <Polygon
+        key={'bin_line_' + index}
+        color={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
+        fillColor={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
+        positions={[bin.bounds.getNorthWest(), bin.bounds.getSouthWest(), bin.bounds.getSouthEast(), bin.bounds.getNorthEast()]}
+        className={styles['planning-line']}
+      />
+        <Marker
+          key={'bin_label_' + index}
+          position={bin.bounds.getCenter()}
+          width="120"
+          icon={L.divIcon({
+            html: '' + bin.cells.length,
+            className: styles['default-coords'],
+            iconSize: [30, 20]
+          })}
+        />
+        </>
+    ))}
+    </LayerGroup> */}
+
     <LayerGroup key={'hex_polygons'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
       <Polygon
         // we may end up with other elements per hex,
@@ -462,8 +499,8 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 6.5 &&
-      <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
+      zoomLevel > 6.5 && 
+      <LayerGroup key={'hex_labels'} >{gridCells && gridCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
           key={'hex_label_' + cell.name + '_' + index}
           position={cell.centreLatLng}
@@ -477,16 +514,7 @@ export const HexGrid: React.FC<{}> = () => {
       ))}
       </LayerGroup>
     }
-    {/* <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin) => (
-      <Polygon
-        key={'bin_line_' + bin.bounds.getCenter().toString()}
-        color={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
-        fillColor={ bin.bounds.intersects(viewport) ? '#00f' : '#f00' }
-        positions={[bin.bounds.getNorthWest(), bin.bounds.getSouthWest(), bin.bounds.getSouthEast(), bin.bounds.getNorthEast()]}
-        className={styles['planning-line']}
-      />
-    ))}
-    </LayerGroup> */}
+
 
   </>
 }

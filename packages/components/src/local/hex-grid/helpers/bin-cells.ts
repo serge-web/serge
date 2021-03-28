@@ -11,7 +11,7 @@ const binCells = (bounds: L.LatLngBounds, store: SergeHex<{}>[]): PolyBin[] => {
   // create the bins
   const bl = bounds.getSouthWest()
   const tr = bounds.getNorthEast()
-  const steps = 8
+  const steps = 12
   const xDelta = (tr.lng - bl.lng) / steps
   const yDelta = (tr.lat - bl.lat) / steps
   const res: PolyBin[] = []
@@ -42,7 +42,11 @@ const binCells = (bounds: L.LatLngBounds, store: SergeHex<{}>[]): PolyBin[] => {
       console.log('cell centre missing', cell, centre)
     }
   })
-  return res
+
+  // drop the empty bins
+  const filledBins = res.filter((bin: PolyBin) => bin.cells.length > 0)
+
+  return filledBins
 }
 
 export default binCells
