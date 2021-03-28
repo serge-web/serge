@@ -15,19 +15,19 @@ it('Construct grid from very new dataset', () => {
 
   // inspect first one
   const first: SergeHex<{}> = grid[0]
-  expect(first.poly.length).toEqual(8)
-  expect(first.type).toEqual('land')
-  expect(first.name).toEqual('Y33')
-  expect(first.x).toEqual(24)
-  expect(first.y).toEqual(32)
-  expect(first.centreLatLng.lat).toEqual(51.66131295968986)
-  expect(first.centreLatLng.lng).toEqual(-12.01699826568173)
+  expect(first.poly.length).toEqual(7)
+  expect(first.type).toEqual('sea')
+  expect(first.name).toEqual('AK05')
+  expect(first.x).toEqual(36)
+  expect(first.y).toEqual(4)
+  expect(first.centreLatLng.lat).toEqual(49.18550019128978)
+  expect(first.centreLatLng.lng).toEqual(-39.8037225992912)
 
   // ok, check routing
   const fourth: SergeHex<{}> = grid[4]
-  expect(fourth.name).toEqual('N62')
+  expect(fourth.name).toEqual('K43')
   const between = grid.hexesBetween(first, fourth)
-  expect(between.length).toEqual(36)
+  expect(between.length).toEqual(52)
 })
 
 it('Generate row/col labels', () => {

@@ -76,7 +76,6 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
             // sort out location.
             const assetPosition: string = existingRoute && existingRoute.currentPosition || asset.position
             const matchingHex: SergeHex<{}> | undefined = grid && hexNamed(assetPosition, grid) || undefined
-            console.log('looking for', asset.name, assetPosition, matchingHex)
             const assetLocation: L.LatLng =  matchingHex && matchingHex.centreLatLng || dummyLocation
 
             // is it the selected asset?

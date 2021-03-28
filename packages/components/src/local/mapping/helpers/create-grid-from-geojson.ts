@@ -44,6 +44,16 @@ export const labelFor = (x: number, y: number): string => {
   return leading + String.fromCharCode(x - cycles * 26 + 65) + padInteger(y + 1)
 }
 
+// const polyCentre = (poly: L.LatLng[]): L.LatLng => {
+//   const numberArr: Array<[number, number]> = poly.map((pos: L.LatLng): [number, number] => {
+//     return [pos.lat, pos.lng]
+//   })
+//   const centre: [number, number] = numberArr.reduce(function (x,y) {
+//     return [x[0] + y[0]/poly.length, x[1] + y[1]/poly.length] 
+//   }, [0,0]) 
+//   return  L.latLng(centre)
+// }
+
 /**
  *  create hexagonal grid
  * @param {FeatureCollection} cells Outer bounds of grid
@@ -55,13 +65,13 @@ const createGridFromGeoJSON = (cells: any, tileSizeDegs: number): SergeGrid<Serg
   // ian tried, but it generated compiler error for `honeyGrid`
   const hexes = cells.features.map((cell: any) => {
     const { type, fillColor } = typeFor(cell.properties.type as number)
-    const centerStr = cell.properties.center_str
-    const parts = centerStr.split('\/') // eslint-disable-line no-useless-escape
-    const centre = L.latLng(parseFloat(parts[1]), parseFloat(parts[0]))
     const coords = cell.geometry.coordinates
     const poly = coords[0].map((point: any) => {
       return L.latLng(point[1], point[0])
     })
+    const centerStr = cell.properties.center_str
+    const parts = centerStr.split('\/') // eslint-disable-line no-useless-escape
+    const centre = L.latLng(parseFloat(parts[0]), parseFloat(parts[1]))
     const x = cell.properties.ai
     const y = cell.properties.aj
     return {

@@ -462,7 +462,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 4.5 &&
+      zoomLevel > 6.5 &&
       <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
           key={'hex_label_' + cell.name + '_' + index}

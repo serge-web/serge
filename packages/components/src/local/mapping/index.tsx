@@ -206,6 +206,7 @@ export const Mapping: React.FC<PropTypes> = ({
 
   /** the forces from props has changed */
   useEffect(() => {
+    console.log('mapping have forces', forces, forcesState)
     // is it different to current force state?
     const forceStateEmptyOrChanged = !forcesState || !isEqual(forcesState, forces)
     if (forceStateEmptyOrChanged) {
@@ -222,7 +223,6 @@ export const Mapping: React.FC<PropTypes> = ({
     // we modify the routeStore
     if (forcesState && gridCells) {
       const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-      console.log('mapping forces 1', forcesState, forcesState && forcesState[1])
       const store: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, playerForce,
         platforms, gridCells, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
       setRouteStore(store)
@@ -241,7 +241,6 @@ export const Mapping: React.FC<PropTypes> = ({
       if (playerForce === 'umpire' && viewAsForce !== UMPIRE_FORCE) {
         // ok, produce customised version
         const selectedId: string | undefined = selectedAsset && selectedAsset.uniqid
-        console.log('mapping forces 2', forcesState && forcesState[1])
         const vStore: RouteStore = routeCreateStore(selectedId, currentPhase, forcesState, viewAsForce, platforms,
           gridCells, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore)
         declutterRouteStore(vStore)
