@@ -15,24 +15,24 @@ it('Construct grid from very new dataset', () => {
 
   // inspect first one
   const first: SergeHex<{}> = grid[0]
-  expect(first.poly.length).toEqual(7)
+  expect(first.poly.length).toEqual(8)
   expect(first.type).toEqual('land')
-  //  expect(first.name).toEqual('50/14')
-  expect(first.x).toEqual(25)
-  expect(first.y).toEqual(18)
-  expect(first.centreLatLng.lat).toEqual(72.1498289897283)
-  expect(first.centreLatLng.lng).toEqual(-41.856757990724766)
+  expect(first.name).toEqual('Y33')
+  expect(first.x).toEqual(24)
+  expect(first.y).toEqual(32)
+  expect(first.centreLatLng.lat).toEqual(51.66131295968986)
+  expect(first.centreLatLng.lng).toEqual(-12.01699826568173)
 
   // ok, check routing
   const fourth: SergeHex<{}> = grid[4]
-  // expect(fourth.name).toEqual('14/54')
+  expect(fourth.name).toEqual('N62')
   const between = grid.hexesBetween(first, fourth)
-  expect(between.length).toEqual(59)
+  expect(between.length).toEqual(36)
 })
 
 it('Generate row/col labels', () => {
-  expect(labelFor(0, 0)).toEqual('A1')
-  expect(labelFor(1, 1)).toEqual('B2')
+  expect(labelFor(0, 0)).toEqual('A01')
+  expect(labelFor(1, 1)).toEqual('B02')
   expect(labelFor(27, 35)).toEqual('AB36')
   expect(labelFor(227, 35)).toEqual('HT36')
 })

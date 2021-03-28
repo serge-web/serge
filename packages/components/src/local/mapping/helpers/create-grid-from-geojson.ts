@@ -1,6 +1,7 @@
 import L from 'leaflet'
 import { defineGrid, extendHex, PointLike } from 'honeycomb-grid'
 import { SergeHex, SergeGrid } from '@serge/custom-types'
+import { padInteger } from '@serge/helpers'
 
 /** lookup for types to styles */
 const typeFor = (type: number): {type: string, fillColor: string} => {
@@ -40,7 +41,7 @@ const isMarkerInsidePolygon = (marker: L.LatLng, poly: L.Polyline): boolean => {
 export const labelFor = (x: number, y: number): string => {
   const cycles = Math.floor(x / 26)
   const leading = cycles ? String.fromCharCode(cycles + 64) : ''
-  return leading + String.fromCharCode(x - cycles * 26 + 65) + (y + 1)
+  return leading + String.fromCharCode(x - cycles * 26 + 65) + padInteger(y + 1)
 }
 
 /**
