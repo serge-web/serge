@@ -1,6 +1,5 @@
 import L from 'leaflet'
 import { SergeHex } from '@serge/custom-types'
-import { Domain } from '@serge/config'
 
 export interface PolyBin {
   bounds: L.LatLngBounds
@@ -8,7 +7,7 @@ export interface PolyBin {
 }
 
 /** Generate the Serge name for the supplied cell (1,3) == "B03" */
-const binCells = (bounds: L.LatLngBounds, store: SergeHex<{}>[], domain: Domain): PolyBin[] => {
+const binCells = (bounds: L.LatLngBounds, store: SergeHex<{}>[]): PolyBin[] => {
   // create the bins
   const bl = bounds.getSouthWest()
   const tr = bounds.getNorthEast()
@@ -27,10 +26,6 @@ const binCells = (bounds: L.LatLngBounds, store: SergeHex<{}>[], domain: Domain)
   }
   // now bin the cells
   store.forEach((cell: SergeHex<{}>) => {
-    // for atlantic, don't render land
-    if (domain === Domain.ATLANTIC && (cell.type === 'land' || cell.type === 'sea')) {
-      return
-    }
     const centre = cell.centreLatLng
     if (centre) {
       const lat = centre.lat
