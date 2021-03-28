@@ -32,6 +32,9 @@ export const HexGrid: React.FC<{}> = () => {
   // allowable cells filtered depending on cell type
   const [allowableFilteredCells, setAllowableFilteredCells] = useState<Array<SergeHex<{}>>>([])
 
+  // whether to show performance optimised view
+  const [reducedDetail, setReducedDetail] = useState<boolean>(false)
+
   // the cell for the selected asset
   const [cellForSelected, setCellForSelected] = useState<string | undefined>(undefined)
 
@@ -63,8 +66,6 @@ export const HexGrid: React.FC<{}> = () => {
 
   // remember the id of the current asset, so we can check if we're receiving a new one
   const [selectedAssetId, setSelectedAssetId] = useState<string | undefined>(undefined)
-
-  const MIN_ZOOM_FOR_HEXES = 3
 
   /** capture the color of this asset, so planning shapes
    * get rendered in a suitable color
@@ -250,7 +251,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [planningRange, planningConstraints, gridCells])
 
-  const createPolyBin = (cells: SergeGrid<SergeHex<{}>>, domain: Domain): PolyBin[] | undefined => {
+  const createPolyBin = (cells: SergeGrid<SergeHex<{}>>): PolyBin[] | undefined => {
     if (gridCells) {
       console.log('generating empty bins')
       const store: SergeHex<{}>[] = []
@@ -265,7 +266,7 @@ export const HexGrid: React.FC<{}> = () => {
         store.push(hex)
       })
       if (bounds) {
-        const polyBin = binCells(bounds, store, domain)
+        const polyBin = binCells(bounds, store)
         const bins = polyBin.map((bin: PolyBin) => bin.cells.length)
         console.log('bin sizes:', bins)
         return polyBin
@@ -275,9 +276,10 @@ export const HexGrid: React.FC<{}> = () => {
   }
 
   useEffect(() => {
-    if (zoomLevel && viewport && zoomLevel > MIN_ZOOM_FOR_HEXES) {
+    console.log('gen vis')
+    if (viewport && gridCells) {
       if (polyBin.length === 0) {
-        const bin = createPolyBin(gridCells, domain)
+        const bin = createPolyBin(gridCells)
         bin && setPolyBin(bin)
       } else {
         let visible: SergeHex<{}>[] = []
@@ -289,26 +291,47 @@ export const HexGrid: React.FC<{}> = () => {
 
         console.log('binned, visible:', visible.length)
 
-        // now check each cell has its polygon generated
-        visible.forEach((cell: SergeHex<{}>) => {
-          if (!cell.poly) {
-            const centreH = cell.centreLatLng
-            const cornerArr: L.LatLng[] = []
-            for (let i = 0; i < 6; i++) {
-              const angle = 30 + i * 60
-              const point = destination(centreH, angle, 18 * 1852)
-              cornerArr.push(point)
+        // if we have reduced detail, don't show land or plain-sea
+        if(reducedDetail && domain === Domain.ATLANTIC) {
+          visible = visible.filter((cell: SergeHex<{}>) => {
+            return cell.type !== 'land' && cell.type !== 'sea'
+          })
+          console.log('trimmed to:', visible.length)
+        }
+
+        // see if first cell is missing poly
+        if(visible.length && !visible[0].poly) {
+          // now check each cell has its polygon generated
+          visible.forEach((cell: SergeHex<{}>) => {
+            if (!cell.poly) {
+              const centreH = cell.centreLatLng
+              const cornerArr: L.LatLng[] = []
+              for (let i = 0; i < 6; i++) {
+                const angle = 30 + i * 60
+                const point = destination(centreH, angle, 18 * 1852)
+                cornerArr.push(point)
+              }
+              cell.poly = cornerArr
             }
-            cell.poly = cornerArr
-          }
-        })
+          })
+        }
 
         setVisibleCells(visible)
       }
     } else {
       setVisibleCells([])
     }
-  }, [zoomLevel, viewport, gridCells, polyBin])
+  }, [reducedDetail, viewport, gridCells, polyBin])
+
+
+  useEffect(() => {
+    setReducedDetail(zoomLevel < 4.5)
+  }, [zoomLevel])
+
+  useEffect(() => {
+    console.log('reduced detail', reducedDetail)
+  }, [reducedDetail])
+
 
   /** handler for planning marker being droppped
        *
@@ -404,10 +427,10 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  console.log('zoom', zoomLevel, visibleCells.length)
+  console.log('zoom', zoomLevel, visibleCells.length, viewport && viewport.getNorthWest())
 
   return <>
-    <LayerGroup key={'hex_polygons'} >{zoomLevel > MIN_ZOOM_FOR_HEXES && visibleCells.map((cell: SergeHex<{}>, index: number) => (
+    <LayerGroup key={'hex_polygons'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
@@ -441,10 +464,10 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 8 &&
-      <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>) => (
+      zoomLevel > 2.5 &&
+      <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
-          key={'hex_label_' + cell.name}
+          key={'hex_label_' + cell.name + '_' + index}
           position={cell.centreLatLng}
           width="120"
           icon={L.divIcon({
