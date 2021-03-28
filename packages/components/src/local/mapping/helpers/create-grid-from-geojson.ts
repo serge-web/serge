@@ -35,6 +35,16 @@ const isMarkerInsidePolygon = (marker: L.LatLng, poly: L.Polyline): boolean => {
   return inside
 }
 
+/** 
+ * helper function to convert (0, 0) to A1
+ */
+export const labelFor = (x: number, y: number): string => {
+  const cycles = Math.floor(x / 26)
+  const leading = cycles ? String.fromCharCode(cycles + 64) : ''
+  return leading + String.fromCharCode(x - cycles * 26 + 65) + (y + 1)
+}
+
+
 /**
  *  create hexagonal grid
  * @param {FeatureCollection} cells Outer bounds of grid
@@ -60,7 +70,7 @@ const createGridFromGeoJSON = (cells: any, tileSizeDegs: number): SergeGrid<Serg
       poly: poly,
       type: type,
       fillColor: fillColor,
-      name: cell.properties.coord
+      name: labelFor(cell.properties.is, cell.properties.js)
     }
   })
   // define grid as flat
