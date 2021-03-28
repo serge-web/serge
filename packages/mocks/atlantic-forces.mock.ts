@@ -145,7 +145,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "task-group",
-        "position": "AD31",
+        "position": "AH26",
         "status": {
           "speedKts": 20,
           "state": "Transiting"
@@ -233,7 +233,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "frigate",
-        "position": "AE32",
+        "position": "AJ26",
         "status": {
           "speedKts": 20,
           "state": "Transiting"
@@ -248,7 +248,7 @@ export const forces: ForceData[] = [
         "perceptions": [],
         "plannedTurns": [],
         "platformType": "fixed-wing-aircraft",
-        "position": "AD36",
+        "position": "AG31",
         "status": {
           "state": "Landed"
         },
@@ -309,7 +309,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "merchant-vessel",
-        "position": "AC35",
+        "position": "AF30",
         "status": {
           "speedKts": 20,
           "state": "Transiting"
