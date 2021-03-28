@@ -27,7 +27,7 @@ it('Construct grid from very new dataset', () => {
   const fourth: SergeHex<{}> = grid[4]
   expect(fourth.name).toEqual('AH46')
   const between = grid.hexesBetween(first, fourth)
-  expect(between.length).toEqual(52)
+  expect(between.length).toEqual(16)
 })
 
 it('Generate row/col labels', () => {

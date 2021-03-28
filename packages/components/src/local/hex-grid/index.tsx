@@ -279,7 +279,7 @@ export const HexGrid: React.FC<{}> = () => {
     return undefined
   }
 
-  useEffect(() => {    
+  useEffect(() => {
     console.log('gen vis')
     if (viewport && gridCells) {
       if (polyBin.length === 0) {
@@ -320,7 +320,7 @@ export const HexGrid: React.FC<{}> = () => {
           })
         }
 
-        if(visible.length < 10) {
+        if (visible.length < 10) {
           visible.forEach((cell: SergeHex<{}>, index: number) => {
             console.log('cell ' + index, cell.name, cell.poly)
           })
@@ -441,8 +441,8 @@ export const HexGrid: React.FC<{}> = () => {
 
   return <>
 
-  { /* POLY BINS */ }
-  {/* <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin, index: number) => (
+    { /* POLY BINS */ }
+    {/* <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin, index: number) => (
       <>
       <Polygon
         key={'bin_line_' + index}
@@ -499,7 +499,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 6.5 && 
+      zoomLevel > 6.5 &&
       <LayerGroup key={'hex_labels'} >{gridCells && gridCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
           key={'hex_label_' + cell.name + '_' + index}
@@ -514,7 +514,6 @@ export const HexGrid: React.FC<{}> = () => {
       ))}
       </LayerGroup>
     }
-
 
   </>
 }
