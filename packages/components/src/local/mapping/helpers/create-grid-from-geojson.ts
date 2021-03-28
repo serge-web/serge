@@ -49,8 +49,8 @@ export const labelFor = (x: number, y: number): string => {
 //     return [pos.lat, pos.lng]
 //   })
 //   const centre: [number, number] = numberArr.reduce(function (x,y) {
-//     return [x[0] + y[0]/poly.length, x[1] + y[1]/poly.length] 
-//   }, [0,0]) 
+//     return [x[0] + y[0]/poly.length, x[1] + y[1]/poly.length]
+//   }, [0,0])
 //   return  L.latLng(centre)
 // }
 
