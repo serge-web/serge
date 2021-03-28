@@ -6,11 +6,11 @@ import { SergeHex, SergeGrid } from '@serge/custom-types'
 const typeFor = (type: number): {type: string, fillColor: string} => {
   switch (type) {
     case 0: return { type: 'land', fillColor: '#0f0' }
-    case 1: return { type: 'sea', fillColor: '#f00' }
-    case 2: return { type: 'loud', fillColor: '#0ff' }
-    case 3: return { type: 'quiet', fillColor: '#a0a' }
-    case 4: return { type: 'medium', fillColor: '#0a0' }
-    case 7: return { type: 'front', fillColor: '#b66' }
+    case 10: return { type: 'sea', fillColor: '#f00' }
+    case 12: return { type: 'loud', fillColor: '#0ff' }
+    case 13: return { type: 'quiet', fillColor: '#a0a' }
+    case 14: return { type: 'medium', fillColor: '#0a0' }
+    case 11: return { type: 'front', fillColor: '#b66' }
     default: return { type: 'sea', fillColor: '#6bb' }
   }
 }

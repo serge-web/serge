@@ -28,7 +28,7 @@ const binCells = (bounds: L.LatLngBounds, store: SergeHex<{}>[], domain: Domain)
   // now bin the cells
   store.forEach((cell: SergeHex<{}>) => {
     // for atlantic, don't render land
-    if (domain === Domain.ATLANTIC && cell.type === 'land') {
+    if (domain === Domain.ATLANTIC && (cell.type === 'land' || cell.type === 'sea')) {
       return
     }
     const centre = cell.centreLatLng
