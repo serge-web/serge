@@ -292,7 +292,7 @@ export const HexGrid: React.FC<{}> = () => {
         console.log('binned, visible:', visible.length)
 
         // if we have reduced detail, don't show land or plain-sea
-        if(reducedDetail && domain === Domain.ATLANTIC) {
+        if (reducedDetail && domain === Domain.ATLANTIC) {
           visible = visible.filter((cell: SergeHex<{}>) => {
             return cell.type !== 'land' && cell.type !== 'sea'
           })
@@ -300,7 +300,7 @@ export const HexGrid: React.FC<{}> = () => {
         }
 
         // see if first cell is missing poly
-        if(visible.length && !visible[0].poly) {
+        if (visible.length && !visible[0].poly) {
           // now check each cell has its polygon generated
           visible.forEach((cell: SergeHex<{}>) => {
             if (!cell.poly) {
@@ -323,7 +323,6 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [reducedDetail, viewport, gridCells, polyBin])
 
-
   useEffect(() => {
     setReducedDetail(zoomLevel < 4.5)
   }, [zoomLevel])
@@ -331,7 +330,6 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     console.log('reduced detail', reducedDetail)
   }, [reducedDetail])
-
 
   /** handler for planning marker being droppped
        *
@@ -464,7 +462,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 2.5 &&
+      zoomLevel > 4.5 &&
       <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
           key={'hex_label_' + cell.name + '_' + index}

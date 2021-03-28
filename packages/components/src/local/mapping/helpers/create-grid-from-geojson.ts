@@ -6,11 +6,10 @@ import { SergeHex, SergeGrid } from '@serge/custom-types'
 const typeFor = (type: number): {type: string, fillColor: string} => {
   switch (type) {
     case 0: return { type: 'land', fillColor: '#0f0' }
-    case 10: return { type: 'sea', fillColor: '#f00' }
-    case 12: return { type: 'loud', fillColor: '#0ff' }
-    case 13: return { type: 'quiet', fillColor: '#a0a' }
-    case 14: return { type: 'medium', fillColor: '#0a0' }
-    case 11: return { type: 'front', fillColor: '#b66' }
+    case 1: return { type: 'sea', fillColor: '#f00' }
+    case 2: return { type: 'loud', fillColor: '#0ff' }
+    case 3: return { type: 'quiet', fillColor: '#a0a' }
+    case 4: return { type: 'medium', fillColor: '#0a0' }
     default: return { type: 'sea', fillColor: '#6bb' }
   }
 }
@@ -35,7 +34,7 @@ const isMarkerInsidePolygon = (marker: L.LatLng, poly: L.Polyline): boolean => {
   return inside
 }
 
-/** 
+/**
  * helper function to convert (0, 0) to A1
  */
 export const labelFor = (x: number, y: number): string => {
@@ -43,7 +42,6 @@ export const labelFor = (x: number, y: number): string => {
   const leading = cycles ? String.fromCharCode(cycles + 64) : ''
   return leading + String.fromCharCode(x - cycles * 26 + 65) + (y + 1)
 }
-
 
 /**
  *  create hexagonal grid
@@ -63,14 +61,16 @@ const createGridFromGeoJSON = (cells: any, tileSizeDegs: number): SergeGrid<Serg
     const poly = coords[0].map((point: any) => {
       return L.latLng(point[1], point[0])
     })
+    const x = cell.properties.ai
+    const y = cell.properties.aj
     return {
-      x: cell.properties.is,
-      y: cell.properties.js,
+      x: x,
+      y: y,
       centreLatLng: centre,
       poly: poly,
       type: type,
       fillColor: fillColor,
-      name: labelFor(cell.properties.is, cell.properties.js)
+      name: labelFor(x, y)
     }
   })
   // define grid as flat

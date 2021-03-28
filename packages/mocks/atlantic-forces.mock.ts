@@ -145,7 +145,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "task-group",
-        "position": "46030",
+        "position": "AD31",
         "status": {
           "speedKts": 20,
           "state": "Transiting"
@@ -233,7 +233,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "frigate",
-        "position": "45031",
+        "position": "AE32",
         "status": {
           "speedKts": 20,
           "state": "Transiting"
@@ -248,7 +248,7 @@ export const forces: ForceData[] = [
         "perceptions": [],
         "plannedTurns": [],
         "platformType": "fixed-wing-aircraft",
-        "position": "54032",
+        "position": "AD36",
         "status": {
           "state": "Landed"
         },
@@ -309,7 +309,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "merchant-vessel",
-        "position": "45028",
+        "position": "AC35",
         "status": {
           "speedKts": 20,
           "state": "Transiting"
@@ -393,7 +393,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "62048",
+        "position": "AL35",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
@@ -485,7 +485,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "62052",
+        "position": "AM26",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
@@ -540,7 +540,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "58053",
+        "position": "AH23",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
@@ -563,7 +563,7 @@ export const forces: ForceData[] = [
         "perceptions": [],
         "plannedTurns": [],
         "platformType": "coastal-radar-site",
-        "position": "65049",
+        "position": "AG41",
         "status": {
           "state": "Inactive"
         },
@@ -695,7 +695,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "merchant-vessel",
-        "position": "45058",
+        "position": "AF24",
         "status": {
           "speedKts": 20,
           "state": "Transiting"
@@ -823,7 +823,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "merchant-vessel",
-        "position": "49061",
+        "position": "AD18",
         "status": {
           "state": "Moored"
         },
@@ -932,7 +932,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "34038",
+        "position": "AM37",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
@@ -1043,7 +1043,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "36031",
+        "position": "AU27",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
@@ -1159,7 +1159,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "48015",
+        "position": "AU17",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
