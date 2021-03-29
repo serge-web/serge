@@ -1,10 +1,10 @@
-import { MessageChannel } from '@serge/custom-types'
+import { MessageCustom } from '@serge/custom-types'
 import { CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
 
-/** set of mock messages that includes 
+/** set of mock messages that includes
  * extra data for collaborative editing
  */
-const gameMessagesWithRFI: MessageChannel[] = [
+const gameMessagesWithRFI: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
@@ -112,7 +112,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
     message: {
       content: "RFI 2 from Blue"
     },
-    _id: "2020-03-25T15:08:53.530Z",
+    _id: "2020-03-25T15:08:53.530Z1",
     _rev: "1",
     hasBeenRead: false,
     isOpen: false
@@ -136,7 +136,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
     message: {
       content: "RFI 3 from Blue"
     },
-    _id: "2020-03-25T15:08:54.530Z",
+    _id: "2020-03-25T15:08:54.530Z1",
     _rev: "1",
     hasBeenRead: false,
     isOpen: false
@@ -161,7 +161,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
     message: {
       content: "RFI 2 from Blue"
     },
-    _id: "2020-03-25T15:08:53.530Z",
+    _id: "2020-03-25T15:08:53.530Z2",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -186,7 +186,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
     message: {
       content: "RFI 3 from Blue"
     },
-    _id: "2020-03-25T15:08:54.530Z",
+    _id: "2020-03-25T15:08:54.530Z3",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -212,7 +212,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
     message: {
       content: "RFI 3 from Blue"
     },
-    _id: "2020-03-25T15:08:54.530Z",
+    _id: "2020-03-25T15:08:54.530Z4",
     _rev: "3",
     hasBeenRead: false,
     isOpen: false
@@ -250,7 +250,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
           forceColor: "#F00",
           icon: "default_img/umpireDefault.png",
           role: "CO"
-        },  
+        },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
@@ -261,7 +261,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
     message: {
       content: "RFI 4 from Red"
     },
-    _id: "2020-03-25T15:08:55.530Z",
+    _id: "2020-03-25T15:08:55.530Z5",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -275,7 +275,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
             forceColor: "#F00",
             icon: "default_img/umpireDefault.png",
             role: "CO"
-        },      
+        },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
@@ -287,7 +287,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
     message: {
       content: "RFI 4 from Red"
     },
-    _id: "2020-03-25T15:08:55.530Z",
+    _id: "2020-03-25T15:08:55.530Z6",
     _rev: "3",
     hasBeenRead: false,
     isOpen: false
@@ -312,7 +312,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
     message: {
       content: "RFI 4 from Red"
     },
-    _id: "2020-03-25T15:08:55.530Z",
+    _id: "2020-03-25T15:08:55.530Z7",
     _rev: "4",
     hasBeenRead: false,
     isOpen: false

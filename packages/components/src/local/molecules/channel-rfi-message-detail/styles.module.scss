@@ -1,0 +1,19 @@
+@import "~@serge/themes/dependencies/variables";
+
+.main {
+  padding-top: 10px;
+  @include typo-primary;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+.assigned {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 5px;
+}

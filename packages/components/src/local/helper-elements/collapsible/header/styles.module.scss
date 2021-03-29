@@ -1,4 +1,5 @@
 $size: 16px;
+$channelIconSize: 20px;
 
 .main {
   padding-left: $size + 4;
@@ -28,6 +29,17 @@ $size: 16px;
     vertical-align: top;
   }
 }
+
+.control-channel {
+  top: 0;
+  width: $channelIconSize;
+  height: $channelIconSize;
+  line-height: $channelIconSize;
+  margin-top: 0;
+  border-width: 0px;
+  display: block;
+}
+
 .content {
   display: block;
 }
