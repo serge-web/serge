@@ -35,28 +35,28 @@ export const ChatMessage: React.FC<Props> = (props: Props) => {
         [props.isOwner ? 'borderRightColor' : 'borderLeftColor']: props.borderColor
       }}
     >
-      <div className={styles['message-text']}>{props.message}</div>
+      <div className={styles['message-text']}>{props.message.content}</div>
       <Box
         display="flex"
         alignItems="center"
-        justifyContent={props.isUmpire && props.privateMessage ? 'space-between' : 'flex-end'}
+        justifyContent={props.isUmpire && props.details.privateMessage ? 'space-between' : 'flex-end'}
         flexDirection={!props.isOwner ? 'row-reverse' : ''}
         mt={1}>
-        {props.isUmpire && props.privateMessage && <PrivateBadge />}
+        {props.isUmpire && props.details.privateMessage && <PrivateBadge />}
         <Box
           display="flex"
           flexDirection={!props.isOwner ? 'row-reverse' : ''}
           alignItems="flex-end"
         >
-          <Badge size="small" label={props.role} color={'default'} />
+          <Badge size="small" label={props.details.from.role} color={'default'} />
           <span className={`${styles['info-body']} ${props.isOwner ? styles['info-body__owner'] : styles['info-body__other']}`}>
-            {moment(props.timestamp).format('HH:mm')}
+            {moment(props.details.timestamp).format('HH:mm')}
           </span>
         </Box>
       </Box>
-      {props.isUmpire && props.privateMessage &&
+      {props.isUmpire && props.details.privateMessage &&
         (<Box mt={1} className={styles.private} textAlign="left">
-          <Paragraph content={props.privateMessage} />
+          <Paragraph content={props.details.privateMessage} />
         </Box>)
       }
     </div>

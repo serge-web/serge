@@ -36,7 +36,8 @@ configureReadme({
       'PrivateChatInputToggle',
       'ChatEntryForm',
       'WargameList',
-      'WrapForceObjective'
+      'WrapForceObjective',
+      'ChatMessageSetup'
     ]
     const WrappedComponent = () => {
       return withBlueBackground.includes(component)

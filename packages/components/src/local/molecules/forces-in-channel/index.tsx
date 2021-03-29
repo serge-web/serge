@@ -37,9 +37,12 @@ export const ForcesInChannel: React.FC<Props> = ({ icons, colors, onMarkAllAsRea
           />
         })
       }
-      <Button color="secondary" onClick={onMarkAllAsRead} classes={buttonStyles}>
-        Mark all read
-      </Button>
+      {
+        onMarkAllAsRead && 
+        <Button color="secondary" onClick={onMarkAllAsRead} classes={buttonStyles}>
+          Mark all read
+        </Button>
+      }
     </div>
   )
 }

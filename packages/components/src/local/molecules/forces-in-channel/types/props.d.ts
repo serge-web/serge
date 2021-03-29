@@ -10,5 +10,5 @@ export default interface Props {
   /**
    * Callback on mark all as read button click event
    */
-  onMarkAllAsRead: {(): void}
+  onMarkAllAsRead?: {(): void}
 }

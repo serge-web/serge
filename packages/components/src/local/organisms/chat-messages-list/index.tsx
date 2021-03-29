@@ -12,11 +12,11 @@ import ChatMessage from '../../molecules/chat-message'
 import ForcesInChannel from '../../molecules/forces-in-channel'
 
 /* Render component */
-export const ChatMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead }: PropTypes) => {
+export const ChatMessagesList: React.FC<PropTypes> = ({ messages, icons, colors }: PropTypes) => {
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
-        <ForcesInChannel colors={colors} icons={icons} onMarkAllAsRead={onMarkAllAsRead} />
+        <ForcesInChannel colors={colors} icons={icons} />
       </Box>
       <Box ml={2} className={styles['messages-list']} flexDirection="column-reverse" display="flex">
         {

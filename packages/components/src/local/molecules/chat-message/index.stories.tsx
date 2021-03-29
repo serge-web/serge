@@ -43,10 +43,20 @@ const Template: Story<ChatMessageProps> = (args) => {
 
 export const Demonstration = Template
 Demonstration.args = {
-  message: 'Content of message',
-  privateMessage: 'Private weather message',
+  message: { content: 'Content of message' },
+  details: {
+    channel: "game-admin",
+    from: {
+      force: "White",
+      forceColor: "#FCFBEE",
+      role: "Game Control",
+      icon: "default_img/umpireDefault.png",
+    },
+    messageType: "State of The World",
+    timestamp: "2020-09-18T05:41:17.349Z",
+    privateMessage: 'Private weather message',
+  },
   borderColor: '#fff',
-  role: 'GAME CONTROL',
   isUmpire: true,
-  isOwner: false
+  isOwner: true
 }

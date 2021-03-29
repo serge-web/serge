@@ -3,7 +3,9 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import ChatEntryForm from './index'
+import ChatMessageSetup from './index'
+
+import { ChatMessagesMock } from '@serge/mocks'
 
 const force = {
   name: 'blue',
@@ -18,11 +20,11 @@ const createNodeMock = (el: any): HTMLTextAreaElement | null => {
   return null
 }
 
-describe('ChatEntryForm component:', () => {
+describe('ChatMessageSetup page:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <ChatEntryForm from={force} channel={'Game Admin'} role={'Umpire'} />,
+        <ChatMessageSetup chatChannel={ChatMessagesMock} selectedForce={force} selectedRole="CO"/>,
         { createNodeMock }
       )
       .toJSON()

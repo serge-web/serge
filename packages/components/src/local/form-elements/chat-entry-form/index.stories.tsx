@@ -4,6 +4,8 @@ import React from 'react'
 import ChatEntryForm from './index'
 import docs from './README.md'
 
+import { ChatMessage } from '@serge/custom-types'
+
 export default {
   title: 'local/form-elements/ChatEntryForm',
   component: ChatEntryForm,
@@ -16,7 +18,13 @@ export default {
   }
 }
 
-// @ts-ignore
-const showMessage = (message: string, privateMessage: string): void => window.alert(`Your message was: "${message}" \n Private message was: ${privateMessage}`)
+const force = {
+  name: 'blue',
+  color: '#6699cc',
+  icon: ''
+}
 
-export const Default: React.FC = () => <ChatEntryForm postBack={showMessage} />
+// @ts-ignore
+const showMessage = (message: ChatMessage): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
+
+export const Default: React.FC = () => <ChatEntryForm from={force} channel={'Game Admin'} role={'Umpire'} postBack={showMessage} />
