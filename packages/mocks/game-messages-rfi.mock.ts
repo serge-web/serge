@@ -88,7 +88,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     message: {
       content: "RFI 1 from Blue"
     },
-    _id: "2020-03-25T15:08:52.530Z",
+    _id: "id_1",
     _rev: "1",
     hasBeenRead: false,
     isOpen: false
@@ -112,7 +112,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     message: {
       content: "RFI 2 from Blue"
     },
-    _id: "2020-03-25T15:08:53.530Z1",
+    _id: "id_2",
     _rev: "1",
     hasBeenRead: false,
     isOpen: false
@@ -136,7 +136,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     message: {
       content: "RFI 3 from Blue"
     },
-    _id: "2020-03-25T15:08:54.530Z1",
+    _id: "id_3",
     _rev: "1",
     hasBeenRead: false,
     isOpen: false
@@ -161,7 +161,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     message: {
       content: "RFI 2 from Blue"
     },
-    _id: "2020-03-25T15:08:53.530Z2",
+    _id: "id_2",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -186,7 +186,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     message: {
       content: "RFI 3 from Blue"
     },
-    _id: "2020-03-25T15:08:54.530Z3",
+    _id: "id_3",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -212,7 +212,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     message: {
       content: "RFI 3 from Blue"
     },
-    _id: "2020-03-25T15:08:54.530Z4",
+    _id: "id_3",
     _rev: "3",
     hasBeenRead: false,
     isOpen: false
@@ -237,7 +237,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       content: "RFI 4 from Red"
     },
     _rev: "1",
-    _id: "2020-03-25T15:08:55.530Z",
+    _id: "id_4",
     hasBeenRead: false,
     isOpen: false
   },
@@ -261,7 +261,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     message: {
       content: "RFI 4 from Red"
     },
-    _id: "2020-03-25T15:08:55.530Z5",
+    _id: "id_4",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -287,7 +287,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     message: {
       content: "RFI 4 from Red"
     },
-    _id: "2020-03-25T15:08:55.530Z6",
+    _id: "id_4",
     _rev: "3",
     hasBeenRead: false,
     isOpen: false
@@ -312,7 +312,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     message: {
       content: "RFI 4 from Red"
     },
-    _id: "2020-03-25T15:08:55.530Z7",
+    _id: "id_4",
     _rev: "4",
     hasBeenRead: false,
     isOpen: false
