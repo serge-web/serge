@@ -29,7 +29,7 @@ it('Construct grid from very new dataset', () => {
   const fourth: SergeHex<{}> = grid[4]
   expect(fourth.name).toEqual('AH46')
   const between = grid.hexesBetween(first, fourth)
-  expect(between.length).toEqual(16)
+  expect(between.length).toEqual(19)
 })
 
 it('Check routing', () => {
@@ -43,13 +43,12 @@ it('Check routing', () => {
   const first: SergeHex<{}> | undefined = grid.find((cell: SergeHex<{}>) => cell.name === origin)
   expect(first).toBeTruthy()
 
-  if(first) {
+  if (first) {
     const inRange = grid.hexesInRange(first, 1, true)
     console.log(origin, inRange.map((cell: SergeHex<{}>) => cell.name))
     expect(inRange.length).toEqual(7)
   }
 })
-
 
 it('Generate row/col labels', () => {
   expect(labelFor(0, 0)).toEqual('A01')
