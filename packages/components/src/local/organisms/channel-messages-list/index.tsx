@@ -13,7 +13,8 @@ import ForcesInChannel from '../../molecules/forces-in-channel'
 import { Box } from '@material-ui/core'
 
 /* Render component */
-export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead }: PropTypes) => {
+export const ChannelMessagesList: React.FC<PropTypes> = (props: PropTypes) => {
+  const { messages, icons, colors, onMarkAllAsRead, onRead, onRFISubmit, onRFIReject } = props
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
@@ -26,7 +27,11 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
             const rfiProps = {
               rfiStatus: messageItem.details.collaboration?.status,
               rfiId: messageItem._id,
-              collaboration: messageItem.details.collaboration
+              collaboration: messageItem.details.collaboration,
+              onSubmit: onRFISubmit,
+              onReject: onRFIReject,
+              // TODO: Use appropriate role checking for RFI managers
+              isRFIManager: props.isUmpire
             }
             const isRFI = messageItem.details.messageType === 'RFI'
             if (props.infoType) {

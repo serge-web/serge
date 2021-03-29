@@ -8,6 +8,7 @@ import {
   MessageInfoType
 } from '@serge/custom-types'
 import { handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
+import { actionPayload } from '@serge/components/src/local/molecules/channel-message-detail/types/props'
 
 import {
   INFO_MESSAGE_CLIPPED
@@ -119,4 +120,29 @@ export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI =>
     unreadMessageCount: 0,
     messages: channelMessages
   }
+}
+
+const updateRFIMessage = (payload: { channel: string, message: MessageChannel, rfiPayload: actionPayload }, newState: PlayerUi): ChannelUI => {
+  const { channel, message: payloadMessage, rfiPayload } = payload
+  const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
+  const updatedMessages = [...channelMessages].map(message => {
+    const messageItem = (message as MessageCustom)
+    if (message._id === payloadMessage._id &&
+    messageItem.details.collaboration) {
+      messageItem.details.collaboration.response = rfiPayload.answer ? rfiPayload.answer : undefined
+    }
+    return message
+  })
+  return {
+    ...newState.channels[channel],
+    messages: updatedMessages
+  }
+}
+
+export const submitRFIMessage = (payload: { channel: string, message: MessageChannel, rfiPayload: actionPayload }, newState: PlayerUi): ChannelUI => {
+  return updateRFIMessage(payload, newState)
+}
+
+export const rejectRFIMessage = (payload: { channel: string, message: MessageChannel, rfiPayload: actionPayload }, newState: PlayerUi): ChannelUI => {
+  return updateRFIMessage(payload, newState)
 }

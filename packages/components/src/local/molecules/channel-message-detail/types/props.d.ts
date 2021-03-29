@@ -1,6 +1,10 @@
 import { CollaborationDetails } from '@serge/custom-types/message'
-import {CollaborativeMessageStates} from "@serge/config";
+import { CollaborativeMessageStates } from '@serge/config'
 
+export type actionPayload = {
+  answer: string | null
+  privateMessageContent?: string | null
+}
 export default interface Props {
   /**
    * Message detail object
@@ -35,4 +39,17 @@ export default interface Props {
    * Whether current user is an RFI manager or not
    */
   isRFIManager?: boolean
+  /**
+   * Submit action event handler, this could be one of:
+   * Take ownership on unallocated RFIs
+   * Send for review on RFIs in progress
+   * Release for pending review RFIs
+   * @param payload
+   */
+  onSubmit?: (message: object, payload: actionPayload) => void
+  /**
+   * Reject action event handler on release for pending review RFIs
+   * @param payload
+   */
+  onReject?: (message: object, payload: actionPayload) => void
 }

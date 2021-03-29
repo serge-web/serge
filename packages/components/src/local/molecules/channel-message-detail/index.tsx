@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import moment from 'moment'
 import Box from '@material-ui/core/Box'
 import TextInput from '../../atoms/text-input'
@@ -122,10 +122,26 @@ const decideRender = (pair: Array<any>) => (fallback: Function): React.ReactFrag
 }
 
 /* Render component */
-export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, messageType, collaboration, rfiStatus, isUmpire, isRFIManager, collapsed }: Props) => {
+export const ChannelMessageDetail: React.FC<Props> = (props: Props) => {
+  const { rfiStatus, isRFIManager, onSubmit, onReject, ...messageProps } = props
+  const { detail, privateMessage, messageType, collaboration, isUmpire, collapsed } = messageProps
   const keyPropPairs = Object.entries(detail)
   const isRFI = messageType === 'RFI'
   const RFIAnswer = collaboration?.response
+  const [answer, setAnswer] = useState(null)
+  const [privateMessageContent, setPrivateMessage] = useState(null)
+  const handleOnSubmit = (): void => {
+    onSubmit && onSubmit(messageProps, {
+      answer,
+      privateMessageContent
+    })
+  }
+  const handleOnReject = (): void => {
+    onReject && onReject(messageProps, {
+      answer,
+      privateMessageContent
+    })
+  }
   const PrivateBadge = (): React.ReactElement => (
     <span>
       <span className={styles['icon-private']}>
@@ -139,20 +155,20 @@ export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, 
       case CollaborativeMessageStates.Unallocated:
         return (
           <Box pt={2} display="flex" justifyContent="flex-end">
-            <Button customVariant="form-action" size="small">Take ownership</Button>
+            <Button customVariant="form-action" size="small" onClick={handleOnSubmit}>Take ownership</Button>
           </Box>
         )
       case CollaborativeMessageStates.InProgress:
         return (
           <Box pt={2} display="flex" justifyContent="flex-end">
-            <Button customVariant="form-action" size="small">Send for review</Button>
+            <Button customVariant="form-action" size="small" onClick={handleOnSubmit}>Send for review</Button>
           </Box>
         )
       case CollaborativeMessageStates.PendingReview:
         return (
           <Box pt={2} display="flex" justifyContent="flex-end">
-            <Button customVariant="form-action" size="small">Reject</Button>
-            <Button customVariant="form-action" size="small">Release</Button>
+            <Button customVariant="form-action" size="small" onClick={handleOnReject}>Reject</Button>
+            <Button customVariant="form-action" size="small" onClick={handleOnSubmit}>Release</Button>
           </Box>
         )
       default:
@@ -196,6 +212,7 @@ export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, 
                             multiline
                             rows={2}
                             variant="filled"
+                            updateState={(e: any): void => setAnswer(e.value)}
                           />
                         </div>
                         <div className={styles['message-detail__form-group']}>
@@ -208,6 +225,7 @@ export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, 
                             rows={2}
                             variant="filled"
                             isPrivate={true}
+                            updateState={(e: any): void => setPrivateMessage(e.value)}
                           />
                         </div>
                       </>

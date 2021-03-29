@@ -13,7 +13,9 @@ import {
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  SUBMIT_RFI,
+  REJECT_RFI
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
@@ -24,7 +26,9 @@ import {
   handleSetAllMessages,
   openMessage,
   closeMessage,
-  markAllAsRead
+  markAllAsRead,
+  submitRFIMessage,
+  rejectRFIMessage
 } from './helpers/handleWargameMessagesChange';
 
 import {
@@ -166,6 +170,14 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case CLOSE_MODAL:
       newState.modalOpened = undefined
+      break
+
+    case SUBMIT_RFI:
+      newState.channels[action.payload.channel] = submitRFIMessage(action.payload, newState)
+      break
+
+    case REJECT_RFI:
+      newState.channels[action.payload.channel] = rejectRFIMessage(action.payload, newState)
       break
 
     default:

@@ -14,12 +14,14 @@ import {
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  FEEDBACK_MESSAGE,
+  SUBMIT_RFI,
+  REJECT_RFI
 } from '@serge/config'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import isError from '../../Helpers/isError'
-import { FEEDBACK_MESSAGE } from '@serge/config'
 import {
   Wargame,
   Role,
@@ -29,9 +31,10 @@ import {
   MessageChannel,
   MessageCustom,
   MessageInfoType,
-  MessageDetailsFrom
+  MessageDetailsFrom,
+  PlayerUiActionTypes
 } from '@serge/custom-types'
-import { PlayerUiActionTypes } from '@serge/custom-types'
+import { actionPayload } from '@serge/components/src/local/molecules/channel-message-detail/types/props'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
   type: SET_CURRENT_WARGAME_PLAYER,
@@ -176,3 +179,13 @@ export const getAllWargameMessages = (dbName: string): Function => {
     dispatch(setWargameFeedback(allMessages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
   }
 }
+
+export const submitRFI = (channel: string, message: MessageChannel, rfiPayload: actionPayload): PlayerUiActionTypes => ({
+  type: SUBMIT_RFI,
+  payload: { channel, message, rfiPayload }
+})
+
+export const rejectRFI = (channel: string, message: MessageChannel, rfiPayload: actionPayload): PlayerUiActionTypes => ({
+  type: REJECT_RFI,
+  payload: { channel, message, rfiPayload }
+})

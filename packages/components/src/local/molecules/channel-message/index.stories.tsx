@@ -90,7 +90,8 @@ RequestForInformationUnallocated.args = {
   collaboration: details?.collaboration,
   isUmpire: false,
   isRFIManager: true,
-  detail: message
+  detail: message,
+  onSubmit: console.log
 }
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
@@ -110,7 +111,9 @@ RequestForInformationPendingReview.args = {
   collaboration: details?.collaboration,
   isUmpire: false,
   isRFIManager: true,
-  detail: message
+  detail: message,
+  onSubmit: console.log,
+  onReject: console.log
 }
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
@@ -130,5 +133,6 @@ RequestForInformationInProgress.args = {
   collaboration: details?.collaboration,
   isUmpire: false,
   isRFIManager: true,
-  detail: message
+  detail: message,
+  onSubmit: console.log
 }

@@ -1,5 +1,6 @@
 import ChannelMessageProps from '../../../molecules/channel-message/types/props'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
+import { actionPayload } from '../../../molecules/channel-message-detail/types/props'
 
 interface MessagesTypes extends ChannelMessageProps {
   /**
@@ -23,4 +24,12 @@ export default interface PropTypes extends ForcesInChannelProps{
    * Callback on expanding message item
    */
   onRead?: { (detail: object): void }
+  /**
+   * Callback on RFI submit actions
+   */
+  onRFISubmit?: (message: object, payload: actionPayload) => void
+  /**
+   * Callback on RFI reject actions
+   */
+  onRFIReject?: (message: object, payload: actionPayload) => void
 }

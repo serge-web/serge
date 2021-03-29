@@ -8,9 +8,12 @@ import {
   getAllWargameMessages,
   openMessage,
   markAllAsRead,
+  submitRFI,
+  rejectRFI
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { MessageChannel, MessageCustom } from '@serge/custom-types'
+import { actionPayload } from '@serge/components/src/local/molecules/channel-message-detail/types/props'
 import '@serge/themes/App.scss'
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
 
@@ -31,6 +34,14 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const handleOpenMessage = (message: MessageChannel): void => {
     dispatch(openMessage(channelId, message))
+  }
+
+  const onRFISubmit = (message: MessageChannel, payload: actionPayload): void => {
+    dispatch(submitRFI(channelId, message, payload))
+  }
+
+  const onRFIReject = (message: MessageChannel, payload: actionPayload): void => {
+    dispatch(rejectRFI(channelId, message, payload))
   }
 
   const messages = (state.channels[channelId].messages || []).map(item => {
@@ -64,6 +75,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         // no content, just use message-type
         title = detail.messageType
       }
+
       return {
         ...item,
         borderColor: dynamicBorderColor,
@@ -79,7 +91,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         privateMessage,
         isUmpire,
         detail,
-        onRead,
+        onRead
       }
     }
   })
@@ -93,6 +105,8 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         icons={icons || []}
         colors={colors || []}
         onMarkAllAsRead={(): void => dispatch(markAllAsRead(channelId))}
+        onRFISubmit={onRFISubmit}
+        onRFIReject={onRFIReject}
       />
       {
         state.channels[channelId].observing === false &&

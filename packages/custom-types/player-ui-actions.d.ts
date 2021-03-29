@@ -13,7 +13,9 @@ import {
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  SUBMIT_RFI,
+  REJECT_RFI
 } from '@serge/config'
 
 import {
@@ -24,6 +26,8 @@ import {
   MessageCustom,
   MessageInfoType
 } from '@serge/custom-types'
+
+import { actionPayload } from '@serge/components/src/local/molecules/channel-message-detail/types/props'
 
 import { Dispatch } from 'react'
 
@@ -93,7 +97,22 @@ interface OpenModalAction {
 interface CloseModalAction {
   type: typeof CLOSE_MODAL
 }
-
+export interface SubmitRFIAction {
+  type: typeof SUBMIT_RFI,
+  payload: {
+    channel: string,
+    message: MessageChannel,
+    rfiPayload: actionPayload
+  }
+}
+export interface RejectRFIAction {
+  type: typeof REJECT_RFI,
+  payload: {
+    channel: string,
+    message: MessageChannel,
+    rfiPayload: actionPayload
+  }
+}
 export type PlayerUiActionTypes = SetCurrentWargameAction |
                                   SetForceAction |
                                   SetRoleAction |
@@ -108,4 +127,6 @@ export type PlayerUiActionTypes = SetCurrentWargameAction |
                                   MarkAllAsReadAction |
                                   OpenTourAction |
                                   OpenModalAction |
-                                  CloseModalAction
+                                  CloseModalAction |
+                                  SubmitRFIAction |
+                                  RejectRFIAction
