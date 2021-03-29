@@ -68,7 +68,7 @@ const Template: Story<RFIPropTypes> = (args) => {
   )
 }
 
-export const Default = Template.bind({})
+export const Default = Template.bind({})  // eslint-disable-line USELESS_ARROW_FUNC_BIND
 Default.args = {
   message: unallocated,
   isUmpire: true,
@@ -76,7 +76,7 @@ Default.args = {
   role: 'CO'
 }
 
-export const InProgress = Template.bind({})
+export const InProgress = Template.bind({}) // eslint-disable-line USELESS_ARROW_FUNC_BIND
 InProgress.args = {
   message: inProgress,
   isRFIManager: true,
@@ -84,7 +84,7 @@ InProgress.args = {
   role: 'CO 2'
 }
 
-export const ForReview = Template.bind({})
+export const ForReview = Template.bind({}) // eslint-disable-line USELESS_ARROW_FUNC_BIND
 ForReview.args = {
   message: forReview,
   isRFIManager: true,
@@ -92,7 +92,7 @@ ForReview.args = {
   role: 'CO 3'
 }
 
-export const Released = Template.bind({})
+export const Released = Template.bind({}) // eslint-disable-line USELESS_ARROW_FUNC_BIND
 Released.args = {
   message: released,
   isRFIManager: true,
