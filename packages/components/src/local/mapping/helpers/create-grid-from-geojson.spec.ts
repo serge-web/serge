@@ -1,16 +1,18 @@
 /* global it expect */
 import L from 'leaflet'
 
-import atlanticCells from '../data/atlantic-cells-short'
+import atlanticCells from '../data/atlantic-cells'
+
+import atlanticCellsShort from '../data/atlantic-cells-short'
 import createGridFromGeoJSON, { labelFor } from './create-grid-from-geojson'
 import createGrid from './create-grid'
 import { SergeHex } from '@serge/custom-types'
 // import cellTypesList3 from '../data/cell-types-3-small'
 
 it('Construct grid from very new dataset', () => {
-  const cells: any = atlanticCells.features
+  const cells: any = atlanticCellsShort.features
   expect(cells.length).toEqual(11)
-  const grid = createGridFromGeoJSON(atlanticCells, 0.5)
+  const grid = createGridFromGeoJSON(atlanticCellsShort, 30)
   expect(grid.length).toEqual(11)
 
   // inspect first one
@@ -29,6 +31,25 @@ it('Construct grid from very new dataset', () => {
   const between = grid.hexesBetween(first, fourth)
   expect(between.length).toEqual(16)
 })
+
+it('Check routing', () => {
+  const cells: any = atlanticCells.features
+  expect(cells.length).toEqual(2163)
+  const grid = createGridFromGeoJSON(atlanticCells, 30)
+  expect(grid.length).toEqual(2163)
+
+  // get origin cell
+  const origin = 'AJ24'
+  const first: SergeHex<{}> | undefined = grid.find((cell: SergeHex<{}>) => cell.name === origin)
+  expect(first).toBeTruthy()
+
+  if(first) {
+    const inRange = grid.hexesInRange(first, 1, true)
+    console.log(origin, inRange.map((cell: SergeHex<{}>) => cell.name))
+    expect(inRange.length).toEqual(7)
+  }
+})
+
 
 it('Generate row/col labels', () => {
   expect(labelFor(0, 0)).toEqual('A01')

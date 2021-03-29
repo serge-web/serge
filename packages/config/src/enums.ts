@@ -19,6 +19,15 @@ export enum Phase {
   GULF = 'Gulf'
 }
 
+/** General terrain type. More relaxed than
+ * cell.terrain.  Used for determining 
+ * achievable cells
+ */
+export enum Terrain {
+  LAND = 'land',
+  SEA = 'sea'
+}
+
 /** states for a Request for Information */
 export enum RFI_States {
   // request sent, no owner

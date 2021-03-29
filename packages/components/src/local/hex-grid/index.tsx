@@ -230,7 +230,7 @@ export const HexGrid: React.FC<{}> = () => {
           setAllowableFilteredCells(allowableCells)
         } else if (allowableCells.length) {
           // ok, land or sea. filter accordingly
-          const filteredCells = allowableCells.filter((cell: SergeHex<{}>) => cell.type === planningConstraints.travelMode.toLowerCase())
+          const filteredCells = allowableCells //.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
           setAllowableFilteredCells(filteredCells)
         } else {
           // clear the allowable cells
@@ -276,6 +276,7 @@ export const HexGrid: React.FC<{}> = () => {
   }
 
   useEffect(() => {
+    console.log('getting visible cells')
     if (viewport && gridCells) {
       if (polyBin.length === 0) {
         const bin = createPolyBin(gridCells)
@@ -435,7 +436,6 @@ export const HexGrid: React.FC<{}> = () => {
   }
 
   console.log('zoom', zoomLevel, visibleCells.length)
-
 
   return <>
 

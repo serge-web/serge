@@ -2,16 +2,17 @@ import L from 'leaflet'
 import { defineGrid, extendHex, PointLike } from 'honeycomb-grid'
 import { SergeHex, SergeGrid } from '@serge/custom-types'
 import { padInteger } from '@serge/helpers'
+import { Terrain } from '@serge/config'
 
 /** lookup for types to styles */
-const typeFor = (type: number): {type: string, fillColor: string} => {
+const typeFor = (type: number): {terrain: Terrain, type: string, fillColor: string} => {
   switch (type) {
-    case 0: return { type: 'land', fillColor: '#0f0' }
-    case 1: return { type: 'sea', fillColor: '#f00' }
-    case 2: return { type: 'loud', fillColor: '#0ff' }
-    case 3: return { type: 'quiet', fillColor: '#a0a' }
-    case 4: return { type: 'medium', fillColor: '#0a0' }
-    default: return { type: 'sea', fillColor: '#6bb' }
+    case 0: return { terrain: Terrain.LAND, type: 'land', fillColor: '#0f0' }
+    case 1: return { terrain: Terrain.SEA, type: 'sea', fillColor: '#f00' }
+    case 2: return { terrain: Terrain.SEA, type: 'loud', fillColor: '#0ff' }
+    case 3: return { terrain: Terrain.SEA, type: 'quiet', fillColor: '#a0a' }
+    case 4: return { terrain: Terrain.SEA, type: 'medium', fillColor: '#0a0' }
+    default: return { terrain: Terrain.SEA, type: 'sea', fillColor: '#6bb' }
   }
 }
 
@@ -64,7 +65,7 @@ const createGridFromGeoJSON = (cells: any, tileSizeMins: number): SergeGrid<Serg
   // TODO: cast cells to GeoJSON FeatureCollection
   // ian tried, but it generated compiler error for `honeyGrid`
   const hexes = cells.features.map((cell: any) => {
-    const { type, fillColor } = typeFor(cell.properties.type as number)
+    const { type, fillColor, terrain } = typeFor(cell.properties.type as number)
     const coords = cell.geometry.coordinates
     const poly = coords[0].map((point: any) => {
       return L.latLng(point[1], point[0])
@@ -80,12 +81,13 @@ const createGridFromGeoJSON = (cells: any, tileSizeMins: number): SergeGrid<Serg
       centreLatLng: centre,
       poly: poly,
       type: type,
+      terrain: terrain,
       fillColor: fillColor,
       name: labelFor(x, y)
     }
   })
   // define grid as flat
-  const Hex = extendHex({ orientation: 'flat' })
+  const Hex = extendHex({ orientation: 'pointy' })
   const honeyGrid = defineGrid(Hex)
   const grid = honeyGrid(hexes)
   const sergeGrid: SergeGrid<SergeHex<{}>> = grid as SergeGrid<SergeHex<{}>>

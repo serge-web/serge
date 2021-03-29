@@ -143,9 +143,10 @@ export const Default = Template
 Default.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
-  canSubmitOrders: false,
+  canSubmitOrders: true,
   platforms: platformTypes,
   phase: Phase.Planning,
+  wargameInitiated: true,
   turnNumber: 5,
   mapBar: false
 }
@@ -154,11 +155,12 @@ export const NaturalEarth = Default
 NaturalEarth.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
-  canSubmitOrders: false,
+  canSubmitOrders: true,
   platforms: platformTypes,
   phase: Phase.Planning,
+  wargameInitiated: true,
   turnNumber: 5,
-  mapBar: false,
+  mapBar: true,
   mappingConstraints: localConstraints,
   children: (
     <>
@@ -172,11 +174,12 @@ export const OpenStreetMap = Default
 OpenStreetMap.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
-  canSubmitOrders: false,
+  canSubmitOrders: true,
   platforms: platformTypes,
+  wargameInitiated: true,
   phase: Phase.Planning,
   turnNumber: 5,
-  mapBar: false,
+  mapBar: true,
   mappingConstraints: osmConstraints,
   children: (
     <>
