@@ -53,7 +53,7 @@ export const reject = (message: MessageCustom, _role: Role['name']): MessageCust
         ...message.details.collaboration,
         status: CollaborativeMessageStates.Unallocated,
         owner: undefined
-      }    
+      }
     }
   }
 }
@@ -68,7 +68,7 @@ export const saveDraft = (message: MessageCustom, _role: Role['name'], privMessa
         status: CollaborativeMessageStates.InProgress,
         response: response,
         owner: _role
-      }    
+      }
     }
   }
 }
