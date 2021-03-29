@@ -1,29 +1,24 @@
 import {
-  MessageChannel,
-  PlayerUi,
-  PlayerUiChatChannel,
-  PlayerUiChannels,
   ChannelUI,
+  MessageChannel,
   MessageCustom,
-  MessageInfoType
+  MessageInfoType,
+  PlayerUi,
+  PlayerUiChannels,
+  PlayerUiChatChannel
 } from '@serge/custom-types'
-import { handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
-import { actionPayload } from '@serge/components/src/local/molecules/channel-message-detail/types/props'
+import {handleAllInitialChannelMessages, handleChannelUpdates} from '@serge/helpers'
+import {actionPayload} from '@serge/components/src/local/molecules/channel-message-detail/types/props'
 
-import {
-  INFO_MESSAGE_CLIPPED
-} from '@serge/config'
+import {CollaborativeMessageStates, INFO_MESSAGE_CLIPPED} from '@serge/config'
+import {expiredStorage, LOCAL_STORAGE_TIMEOUT,} from '../../../consts'
+
 // TODO: change it to @serge/config
 
 interface SetWargameMessage {
   channels: PlayerUiChannels,
   chatChannel: PlayerUiChatChannel,
 }
-
-import {
-  LOCAL_STORAGE_TIMEOUT,
-  expiredStorage,
-} from '../../../consts'
 
 /** a new document has been received, either add it to the correct channel,
  * or update the channels to reflect the new channel definitions
@@ -122,14 +117,27 @@ export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI =>
   }
 }
 
-const updateRFIMessage = (payload: { channel: string, message: MessageChannel, rfiPayload: actionPayload }, newState: PlayerUi): ChannelUI => {
+const updateRFIMessage = (payload: { channel: string, message: MessageChannel, rfiPayload: actionPayload }, newState: PlayerUi, rejected: boolean = false): ChannelUI => {
   const { channel, message: payloadMessage, rfiPayload } = payload
   const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
+  const statusMap = [
+    CollaborativeMessageStates.Unallocated,
+    CollaborativeMessageStates.InProgress,
+    CollaborativeMessageStates.PendingReview,
+    CollaborativeMessageStates.Released
+  ]
   const updatedMessages = [...channelMessages].map(message => {
     const messageItem = (message as MessageCustom)
     if (message._id === payloadMessage._id &&
     messageItem.details.collaboration) {
+      const currentStatusIndex = statusMap.findIndex((status: CollaborativeMessageStates) => {
+        return status === (messageItem.details.collaboration || {}).status
+      })
+      messageItem.details.collaboration.status = rejected
+        ? CollaborativeMessageStates.Rejected
+        : statusMap[Math.min(statusMap.length - 1, currentStatusIndex + 1)]
       messageItem.details.collaboration.response = rfiPayload.answer ? rfiPayload.answer : undefined
+      messageItem.details.privateMessage = rfiPayload.privateMessageContent ? rfiPayload.privateMessageContent : undefined
     }
     return message
   })
@@ -144,5 +152,5 @@ export const submitRFIMessage = (payload: { channel: string, message: MessageCha
 }
 
 export const rejectRFIMessage = (payload: { channel: string, message: MessageChannel, rfiPayload: actionPayload }, newState: PlayerUi): ChannelUI => {
-  return updateRFIMessage(payload, newState)
+  return updateRFIMessage(payload, newState, true)
 }

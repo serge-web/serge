@@ -142,12 +142,12 @@ export const ChannelMessageDetail: React.FC<Props> = (props: Props) => {
       privateMessageContent
     })
   }
-  const PrivateBadge = (): React.ReactElement => (
+  const PrivateBadge = ({ title = 'Private:' }): React.ReactElement => (
     <span>
       <span className={styles['icon-private']}>
         <FontAwesomeIcon size='1x' icon={faUserSecret} />
       </span>
-      Private:
+      { title }
     </span>
   )
   const ActionButtons = (): React.ReactElement | null => {
@@ -175,6 +175,16 @@ export const ChannelMessageDetail: React.FC<Props> = (props: Props) => {
         return null
     }
   }
+  const PrivateMessageContent = (): React.ReactElement => {
+    return (
+      <div className={styles['wrap-private']}>
+        <DetailLabel label={<PrivateBadge />}/>
+        <span className={styles.private}>
+          <Paragraph content={privateMessage || ''} />
+        </span>
+      </div>
+    )
+  }
   return (
     <div className={
       `
@@ -193,12 +203,28 @@ export const ChannelMessageDetail: React.FC<Props> = (props: Props) => {
               {
                 RFIAnswer
                   ? (
-                    <div className={styles['message-detail__rfi-response']}>
-                      <p className={styles['message-detail__rfi-response__title']}>Answer</p>
-                      <div className={styles['message-detail__rfi-response__body']}>
-                        <Paragraph content={collaboration?.response || ''} />
+                    <>
+                      <div className={styles['message-detail__rfi-response']}>
+                        <p className={styles['message-detail__rfi-response__title']}>Answer</p>
+                        <div className={styles['message-detail__rfi-response__body']}>
+                          <Paragraph content={collaboration?.response || ''} />
+                        </div>
                       </div>
-                    </div>
+                      {
+                        privateMessage
+                          ? (
+                            <div className={styles['message-detail__rfi-response']}>
+                              <p className={styles['message-detail__rfi-response__title']}>
+                                <PrivateBadge title="Private message" />
+                              </p>
+                              <div className={styles['message-detail__rfi-response__body']}>
+                                <Paragraph content={privateMessage || ''} />
+                              </div>
+                            </div>
+                          )
+                          : null
+                      }
+                    </>
                   )
                   : isRFIManager
                     ? (
@@ -244,14 +270,7 @@ export const ChannelMessageDetail: React.FC<Props> = (props: Props) => {
               { keyPropPairs.map(pair => decideRender(pair)(defaultRender)) }
               {
                 privateMessage &&
-                isUmpire && (
-                  <div className={styles['wrap-private']}>
-                    <DetailLabel label={<PrivateBadge />}/>
-                    <span className={styles.private}>
-                      <Paragraph content={privateMessage} />
-                    </span>
-                  </div>
-                )
+                isUmpire && <PrivateMessageContent />
               }
             </>
           )

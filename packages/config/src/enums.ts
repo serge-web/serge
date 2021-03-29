@@ -49,7 +49,11 @@ export enum CollaborativeMessageStates {
   /**
    * approved and released
    */
-  Released = 'Released'
+  Released = 'Released',
+  /**
+   * rejected
+   */
+  Rejected = 'Rejected'
 }
 
 /** the phases of an asset that is

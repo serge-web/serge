@@ -37,7 +37,7 @@ const MessageCreator: React.FC<Props> = (props) => {
         props.isRFI
          ? {
             collaboration: {
-              status: CollaborativeMessageStates.PendingReview
+              status: CollaborativeMessageStates.Unallocated
             }
           }
           : {}
