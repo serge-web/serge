@@ -57,7 +57,6 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
       {collaboration && isUmpire && <div className={styles.assigned}>
         <span className={styles.inset}>
           <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={collaboration.owner || 'Not assigned'}/>
-          <Badge size="medium" type="charcoal" label={collaboration.status || 'Unassigned'} />
         </span>
       </div>}
       <Textarea id={`question_${message._id}`} rows={4} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>

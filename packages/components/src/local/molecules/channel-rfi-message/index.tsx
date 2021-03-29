@@ -63,7 +63,7 @@ export const ChannelMessage: React.FC<Props> = ({ message, borderColor = '#32A3C
                 <Badge size="small" label={message.details.messageType} />
                 {!message.hasBeenRead && <Badge size="small" label="Unread" type="warning" />}
               </div>
-              <div className={styles.badges}>{renderCollaborationStatus(message.details.collaboration)}</div>
+              <div className={styles.badges}>{isUmpire && renderCollaborationStatus(message.details.collaboration)}</div>
 
             </div>
           </div>
