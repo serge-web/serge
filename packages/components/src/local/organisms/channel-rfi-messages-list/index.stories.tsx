@@ -5,6 +5,7 @@ import ChannelRFIMessagesList from './index'
 import docs from './README.md'
 import { GameMessagesMockRFI } from '@serge/mocks'
 import { MessageCustom } from '@serge/custom-types'
+import { mostRecentOnly } from '@serge/helpers'
 
 export default {
   title: 'local/organisms/ChannelRFIMessagesList',
@@ -22,10 +23,15 @@ export default {
   }
 }
 
+/** RFI message file includes multiple versions of messages,
+ * reduce to just the newest one
+ */
+const newestMessages = mostRecentOnly(GameMessagesMockRFI)
+
 export const Default: React.FC = () => {
   const icons = ['./images/default_img/forceDefault.png']
   const colors = ['#0F0']
-  const [messages, setMessages] = useState<MessageCustom[]>(GameMessagesMockRFI)
+  const [messages, setMessages] = useState<MessageCustom[]>(newestMessages)
 
   const markAllAsRead = (): void => {
     setMessages(messages.map(msg => ({ ...msg, hasBeenRead: true })))
