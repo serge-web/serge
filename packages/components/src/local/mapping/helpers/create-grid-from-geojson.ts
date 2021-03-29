@@ -57,10 +57,10 @@ export const labelFor = (x: number, y: number): string => {
 /**
  *  create hexagonal grid
  * @param {FeatureCollection} cells Outer bounds of grid
- * @param {number} tileSizeDegs Tile diamater, in minutes
+ * @param {number} tileSizeMins Tile diamater, in minutes
  * @returns {SergeGrid<SergeHex<{}>>} Honeycomb hex grid
  */
-const createGridFromGeoJSON = (cells: any, tileSizeDegs: number): SergeGrid<SergeHex<{}>> => {
+const createGridFromGeoJSON = (cells: any, tileSizeMins: number): SergeGrid<SergeHex<{}>> => {
   // TODO: cast cells to GeoJSON FeatureCollection
   // ian tried, but it generated compiler error for `honeyGrid`
   const hexes = cells.features.map((cell: any) => {
@@ -90,7 +90,7 @@ const createGridFromGeoJSON = (cells: any, tileSizeDegs: number): SergeGrid<Serg
   const grid = honeyGrid(hexes)
   const sergeGrid: SergeGrid<SergeHex<{}>> = grid as SergeGrid<SergeHex<{}>>
 
-  sergeGrid.tileDiameterDegs = tileSizeDegs
+  sergeGrid.tileDiameterMins = tileSizeMins
 
   /** provide method that only requires the world location,
    * taking other params from grid

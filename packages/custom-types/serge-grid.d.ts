@@ -8,9 +8,9 @@ export default interface SergeGrid<T> extends Grid<SergeHex<HexFactory<T>>> {
    */
   origin?: L.LatLng
   /**
-   * size of a hex cell (Degrees)
+   * size of a hex cell (minutes)
    */
-  tileDiameterDegs: number
+  tileDiameterMins: number
   /**
    * offset from centre of hex to top-left corner
    */

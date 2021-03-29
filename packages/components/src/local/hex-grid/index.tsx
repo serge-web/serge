@@ -199,7 +199,6 @@ export const HexGrid: React.FC<{}> = () => {
   * update planning range from it.
   */
   useEffect(() => {
-    console.log('planning constraints')
     if (planningConstraints !== undefined) {
       setPlanningRange(planningConstraints.range)
     }
@@ -209,8 +208,6 @@ export const HexGrid: React.FC<{}> = () => {
        * as a player plans the leg
        */
   useEffect(() => {
-    console.log('plan range, cells')
-
     const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
     if (planningRange === undefined && planningConstraints !== undefined) {
       setPlanningRange(planningConstraints.range)
@@ -257,7 +254,6 @@ export const HexGrid: React.FC<{}> = () => {
 
   const createPolyBin = (cells: SergeGrid<SergeHex<{}>>): PolyBin[] | undefined => {
     if (gridCells) {
-      console.log('generating empty bins')
       const store: SergeHex<{}>[] = []
       let bounds: L.LatLngBounds | undefined
 
@@ -271,8 +267,8 @@ export const HexGrid: React.FC<{}> = () => {
       })
       if (bounds) {
         const polyBin = binCells(bounds, store)
-        const bins = polyBin.map((bin: PolyBin) => bin.cells.length)
-        console.log('bin sizes:', bins)
+        // const bins = polyBin.map((bin: PolyBin) => bin.cells.length)
+        // console.log('bin sizes:', bins)
         return polyBin
       }
     }
@@ -280,41 +276,40 @@ export const HexGrid: React.FC<{}> = () => {
   }
 
   useEffect(() => {
-    console.log('gen vis')
     if (viewport && gridCells) {
       if (polyBin.length === 0) {
         const bin = createPolyBin(gridCells)
         bin && setPolyBin(bin)
       } else {
-        const start = Date.now()
-
         // grow the viewport by 1/2 cell, so we can test
         // if the cell centre is inside the viewport -
         // necessary for cells at the edge
-
+        const bufferDist = gridCells.tileDiameterMins * 1852 * 4
+        const newTL = viewport.getNorthWest().toBounds(bufferDist)
+        const newBR = viewport.getSouthEast().toBounds(bufferDist)
+        const extendedViewport = L.latLngBounds(newTL.getNorthWest(), newBR.getSouthEast())
 
         let visible: SergeHex<{}>[] = []
         polyBin.forEach((bin: PolyBin) => {
-          if(viewport.contains(bin.bounds)) {
+          if(extendedViewport.contains(bin.bounds)) {
             // ok, add all of them
             visible = visible.concat(bin.cells)
-          } else if(bin.bounds.intersects(viewport)) {
+          } else if(bin.bounds.intersects(extendedViewport)) {
             // find the ones in the viewport
             const inZone = bin.cells.filter((cell: SergeHex<{}>) =>
-              viewport.contains(cell.centreLatLng)
+            extendedViewport.contains(cell.centreLatLng)
             )
             visible = visible.concat(inZone)
           }
         })
 
-        console.log('binned, visible:', visible.length)
+        console.log('binned, visible:', visible.length, newTL, newBR, viewport, extendedViewport)
 
         // if we have reduced detail, don't show land or plain-sea
         if (reducedDetail && domain === Domain.ATLANTIC) {
           visible = visible.filter((cell: SergeHex<{}>) => {
             return cell.type !== 'land' && cell.type !== 'sea'
           })
-          console.log('trimmed to:', visible.length)
         }
 
         // see if first cell is missing poly
@@ -323,25 +318,17 @@ export const HexGrid: React.FC<{}> = () => {
           visible.forEach((cell: SergeHex<{}>) => {
             if (!cell.poly) {
               const centreH = cell.centreLatLng
+              const tileDiamMins = gridCells.tileDiameterDegs / 60
               const cornerArr: L.LatLng[] = []
               for (let i = 0; i < 6; i++) {
                 const angle = 30 + i * 60
-                const point = destination(centreH, angle, 18 * 1852)
+                const point = destination(centreH, angle, tileDiamMins * 1852)
                 cornerArr.push(point)
               }
               cell.poly = cornerArr
             }
           })
         }
-
-        // if (visible.length < 10) {
-        //   visible.forEach((cell: SergeHex<{}>, index: number) => {
-        //     console.log('cell ' + index, cell.name, cell.poly)
-        //   })
-        // }
-
-        console.log('vis filter elapsed', Date.now() - start)
-
         setVisibleCells(visible)
       }
     } else {
@@ -350,14 +337,8 @@ export const HexGrid: React.FC<{}> = () => {
   }, [reducedDetail, viewport, gridCells, polyBin])
 
   useEffect(() => {
-    console.log('zoom level')
-
     setReducedDetail(zoomLevel <= 5.5)
   }, [zoomLevel])
-
-  useEffect(() => {
-    console.log('reduced detail', reducedDetail)
-  }, [reducedDetail])
 
   /** handler for planning marker being droppped
        *
@@ -459,7 +440,7 @@ export const HexGrid: React.FC<{}> = () => {
   return <>
 
     { /* POLY BINS */ }
-    <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin, index: number) => (
+    {/* <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin, index: number) => (
       <>
       <Polygon
         key={'bin_line_' + index}
@@ -480,7 +461,7 @@ export const HexGrid: React.FC<{}> = () => {
         />
         </>
     ))}
-    </LayerGroup>
+    </LayerGroup> */}
 
     <LayerGroup key={'hex_polygons'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
       <Polygon

@@ -77,14 +77,14 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
 
   const sergeGrid: SergeGrid<SergeHex<{}>> = asSerge as SergeGrid<SergeHex<{}>>
   sergeGrid.origin = correctedOrigin
-  sergeGrid.tileDiameterDegs = tileSizeDegs
+  sergeGrid.tileDiameterMins = tileDiameterMins
   sergeGrid.centerOffset = centreOffset
   /** provide method that only requires the world location,
    * taking other params from grid
    */
   sergeGrid.toScreen = (point: L.LatLng): PointLike => {
     if (sergeGrid.origin) {
-      return toScreen(point, sergeGrid.origin, sergeGrid.tileDiameterDegs / 2)
+      return toScreen(point, sergeGrid.origin, sergeGrid.tileDiameterMins / 2)
     } else {
       console.warn('insufficient data for toScreen() calculation')
       return L.point(1, 1)
