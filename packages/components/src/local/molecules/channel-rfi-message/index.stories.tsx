@@ -74,4 +74,3 @@ Released.args = {
   isUmpire: true,
   role: 'CO 4'
 }
-

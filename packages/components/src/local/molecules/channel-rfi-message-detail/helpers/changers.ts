@@ -1,12 +1,13 @@
 import { MessageCustom, Role } from '@serge/custom-types'
 import { CollaborativeMessageStates } from '@serge/config'
 
-export const takeOwnership = (message: MessageCustom, role: Role['name'], _isUmpire = false): MessageCustom => {
+export const takeOwnership = (message: MessageCustom, role: Role['name']): MessageCustom => {
   return {
     ...message,
     details: {
       ...message.details,
       collaboration: {
+        ...message.details.collaboration,
         status: CollaborativeMessageStates.InProgress,
         owner: role
       }
@@ -14,20 +15,22 @@ export const takeOwnership = (message: MessageCustom, role: Role['name'], _isUmp
   }
 }
 
-export const sendForReview = (message: MessageCustom, _role: Role['name'], _isUmpire = false): MessageCustom => {
+export const sendForReview = (message: MessageCustom, _role: Role['name'], privMessage: string, response: string): MessageCustom => {
   return {
     ...message,
     details: {
       ...message.details,
+      privateMessage: privMessage,
       collaboration: {
-        status: CollaborativeMessageStates.PendingReview
-        // todo add question field
+        status: CollaborativeMessageStates.PendingReview,
+        response: response,
+        owner: _role
       }
     }
   }
 }
 
-export const release = (message: MessageCustom, _role: Role['name'], _isUmpire = false, response: string): MessageCustom => {
+export const release = (message: MessageCustom, _role: Role['name']): MessageCustom => {
   return {
     ...message,
     details: {
@@ -35,13 +38,13 @@ export const release = (message: MessageCustom, _role: Role['name'], _isUmpire =
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.Released,
-        response
+        owner: undefined
       }
     }
   }
 }
 
-export const reject = (message: MessageCustom, _role: Role['name'], _isUmpire = false, response: string): MessageCustom => {
+export const reject = (message: MessageCustom, _role: Role['name']): MessageCustom => {
   return {
     ...message,
     details: {
@@ -49,11 +52,23 @@ export const reject = (message: MessageCustom, _role: Role['name'], _isUmpire = 
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.Unallocated,
-        response
-      }
+        owner: undefined
+      }    
     }
   }
 }
-export const saveDraft = (message: MessageCustom, _role: Role['name'], _isUmpire = false): MessageCustom => {
-  return message
+export const saveDraft = (message: MessageCustom, _role: Role['name'], privMessage: string, response: string): MessageCustom => {
+  return {
+    ...message,
+    details: {
+      ...message.details,
+      privateMessage: privMessage,
+      collaboration: {
+        ...message.details.collaboration,
+        status: CollaborativeMessageStates.InProgress,
+        response: response,
+        owner: _role
+      }    
+    }
+  }
 }

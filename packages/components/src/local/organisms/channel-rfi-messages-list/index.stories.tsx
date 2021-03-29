@@ -51,7 +51,6 @@ export default {
  */
 const newestMessages = mostRecentOnly(GameMessagesMockRFI)
 
-
 const Template: Story<RFIListPropTypes> = (args) => {
   const { isUmpire, role, isRFIManager } = args
   const icons = ['./images/default_img/forceDefault.png']
@@ -76,16 +75,16 @@ const Template: Story<RFIListPropTypes> = (args) => {
 
   return (
     <ChannelRFIMessagesList
-    messages={messages}
-    icons={icons}
-    colors={colors}
-    onMarkAllAsRead={markAllAsRead}
-    onRead={onRead}
-    onChange={handleChange}
-    role={role}
-    isRFIManager={isRFIManager}
-    isUmpire={isUmpire}
-  />
+      messages={messages}
+      icons={icons}
+      colors={colors}
+      onMarkAllAsRead={markAllAsRead}
+      onRead={onRead}
+      onChange={handleChange}
+      role={role}
+      isRFIManager={isRFIManager}
+      isUmpire={isUmpire}
+    />
   )
 }
 

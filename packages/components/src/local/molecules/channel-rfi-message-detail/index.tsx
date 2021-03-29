@@ -18,6 +18,7 @@ import AssignmentInd from '@material-ui/icons/AssignmentInd'
 /* Import Helpers */
 import { sendForReview, takeOwnership, reject, release, saveDraft } from './helpers/changers'
 import { showSendForReview, showTakeOwnership, showReject, showRelease, showSaveDraft, formEditable } from './helpers/visibility'
+import { CollaborativeMessageStates } from '@serge/config'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret}/> {label}</label>
@@ -26,28 +27,28 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 /* Render component */
 export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role, isUmpire, isRFIManager }) => {
   const [value, setValue] = useState(message.message.content || '[message empty]')
-  const [answer, setAnswer] = useState('')
+  const [answer, setAnswer] = useState(message.details.collaboration && message.details.collaboration.response || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const { collaboration } = message.details
 
   const handleSendForReview = (): void => {
-    onChange(sendForReview(message, role, isUmpire))
+    onChange(sendForReview(message, role, privateMessage, answer))
   }
 
   const handleTakeOwnership = (): void => {
-    onChange(takeOwnership(message, role, isUmpire))
+    onChange(takeOwnership(message, role))
   }
 
   const handleRelease = (): void => {
-    onChange(release(message, role, isUmpire, answer))
+    onChange(release(message, role))
   }
 
   const handleReject = (): void => {
-    onChange(reject(message, role, isUmpire, answer))
+    onChange(reject(message, role))
   }
 
   const handleSaveDraft = (): void => {
-    onChange(saveDraft(message, role, isUmpire))
+    onChange(saveDraft(message, role, privateMessage, answer))
   }
 
   const formDisabled = !formEditable(message, role, isUmpire, isRFIManager)
@@ -65,6 +66,12 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
         <>
           <Textarea id={`answer_${message._id}`} rows={4} disabled={formDisabled} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
           <Textarea id={`private_message_${message._id}`} disabled={formDisabled} rows={4} value={privateMessage} onChange={(nextValue): void => setPrivateMessage(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+        </>
+      }
+      { // show answer in read-only form if message released
+        !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
+        <>
+          <Textarea id={`answer_${message._id}`} rows={4} disabled={formDisabled} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
         </>
       }
       <div className={styles.actions}>
