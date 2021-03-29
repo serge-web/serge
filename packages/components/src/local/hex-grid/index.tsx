@@ -230,7 +230,7 @@ export const HexGrid: React.FC<{}> = () => {
           setAllowableFilteredCells(allowableCells)
         } else if (allowableCells.length) {
           // ok, land or sea. filter accordingly
-          const filteredCells = allowableCells //.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
+          const filteredCells = allowableCells.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
           setAllowableFilteredCells(filteredCells)
         } else {
           // clear the allowable cells
@@ -292,13 +292,13 @@ export const HexGrid: React.FC<{}> = () => {
 
         let visible: SergeHex<{}>[] = []
         polyBin.forEach((bin: PolyBin) => {
-          if(extendedViewport.contains(bin.bounds)) {
+          if (extendedViewport.contains(bin.bounds)) {
             // ok, add all of them
             visible = visible.concat(bin.cells)
-          } else if(bin.bounds.intersects(extendedViewport)) {
+          } else if (bin.bounds.intersects(extendedViewport)) {
             // find the ones in the viewport
             const inZone = bin.cells.filter((cell: SergeHex<{}>) =>
-            extendedViewport.contains(cell.centreLatLng)
+              extendedViewport.contains(cell.centreLatLng)
             )
             visible = visible.concat(inZone)
           }
@@ -504,7 +504,7 @@ export const HexGrid: React.FC<{}> = () => {
           position={cell.centreLatLng}
           width="120"
           icon={L.divIcon({
-            html: cell.name,
+            html: '' + cell.x + ',' + cell.y,
             className: styles['default-coords'],
             iconSize: [30, 20]
           })}
