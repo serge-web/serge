@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
 /* Import Types */
-import Props from './types/props'
+import { Props } from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'

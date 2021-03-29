@@ -1,5 +1,3 @@
-import { ChatMessage } from "@serge/custom-types";
+import { ChatMessage } from '@serge/custom-types';
 
-export default interface Props extends ChatMessage {
- 
-}
+export type Props = ChatMessage

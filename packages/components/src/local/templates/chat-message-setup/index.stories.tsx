@@ -25,4 +25,3 @@ const force = {
 }
 
 export const Default: React.FC = () => <ChatMessageSetup chatChannel={ChatMessagesMock} selectedForce={force} selectedRole="Game Control" />
-

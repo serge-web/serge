@@ -38,10 +38,10 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, role, postBack }
         content: message
       },
       _id: timestamp,
-      isOwner: true,
+      isOwner: true
     }
-    postBack && postBack(post);
-    privateMessageEle.current.clear();
+    postBack && postBack(post)
+    privateMessageEle.current.clear()
   }
 
   return (
