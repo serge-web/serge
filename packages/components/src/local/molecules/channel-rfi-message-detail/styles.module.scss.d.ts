@@ -3,6 +3,7 @@
 interface CssExports {
   'actions': string;
   'assigned': string;
+  'inset': string;
   'main': string;
 }
 export const cssExports: CssExports;

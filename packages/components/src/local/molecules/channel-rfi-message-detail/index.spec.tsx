@@ -13,6 +13,7 @@ describe('ChannelMessageDetail:', () => {
       .create(<ChannelRfiMessageDetail
         role='CO'
         isUmpire={true}
+        isRFIManager={true}
         message={defMessage}
         onChange={(msg): void => { console.log(msg) }}
       />)

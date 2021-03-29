@@ -51,6 +51,7 @@ export const Default: React.FC = () => {
     onRead={onRead}
     onChange={handleChange}
     role='CO'
+    isRFIManager={true}
     isUmpire={true}
   />
 }

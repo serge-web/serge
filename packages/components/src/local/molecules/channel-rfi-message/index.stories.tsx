@@ -26,6 +26,7 @@ export const Default: React.FC = () => {
     <ChannelMessage
       message={message}
       borderColor='#0F0'
+      isRFIManager={true}
       onRead={(readMessage): void => setMessage({ ...readMessage, hasBeenRead: true })}
       onChange={(nextMessage): void => setMessage(nextMessage)}
       role='CO'

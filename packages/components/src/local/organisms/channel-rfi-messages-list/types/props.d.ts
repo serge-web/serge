@@ -4,6 +4,7 @@ import { MessageCustom, Role } from '@serge/custom-types'
 
 export default interface PropTypes extends ForcesInChannelProps {
   isUmpire: boolean
+  isRFIManager: boolean
   role: Role['name']
   messages: MessageCustom[]
   onChange: (nextMessage: MessageCustom) => void

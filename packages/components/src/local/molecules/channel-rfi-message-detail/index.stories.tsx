@@ -48,20 +48,19 @@ export default {
 }
 
 const newest = mostRecentOnly(GameMessagesMockRFI)
-console.log('message', newest)
 
 const unallocated = newest[3]
 const inProgress = newest[4]
 const forReview = newest[5]
 const released = newest[6]
 
-
 const Template: Story<RFIPropTypes> = (args) => {
-  const { isUmpire, role, message } = args
+  const { isUmpire, role, message, isRFIManager } = args
   const [messageState, setMessageState] = useState(message)
   return (
     <ChannelRfiMessageDetail
       message={messageState}
+      isRFIManager={isRFIManager}
       onChange={(nextMessage): void => setMessageState(nextMessage)}
       role={role}
       isUmpire={isUmpire}
@@ -73,12 +72,14 @@ export const Default = Template.bind({})
 Default.args = {
   message: unallocated,
   isUmpire: true,
+  isRFIManager: true,
   role: 'CO'
 }
 
 export const InProgress = Template.bind({})
 InProgress.args = {
   message: inProgress,
+  isRFIManager: true,
   isUmpire: true,
   role: 'CO 2'
 }
@@ -86,6 +87,7 @@ InProgress.args = {
 export const ForReview = Template.bind({})
 ForReview.args = {
   message: forReview,
+  isRFIManager: true,
   isUmpire: true,
   role: 'CO 3'
 }
@@ -93,6 +95,7 @@ ForReview.args = {
 export const Released = Template.bind({})
 Released.args = {
   message: released,
+  isRFIManager: true,
   isUmpire: true,
   role: 'CO 4'
 }

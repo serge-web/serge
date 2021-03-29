@@ -18,6 +18,7 @@ describe('ChannelRFIMessagesList component: ', () => {
       onChange={(msg): void => { console.log(msg) }}
       onRead={(msg): void => { console.log(msg) }}
       role='CO'
+      isRFIManager={true}
       isUmpire={true}
     />).toJSON()
     expect(tree).toMatchSnapshot()

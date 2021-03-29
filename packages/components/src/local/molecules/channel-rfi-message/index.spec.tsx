@@ -14,6 +14,7 @@ describe('ChannelMessage component:', () => {
           role='CO'
           borderColor='#f00'
           isUmpire={true}
+          isRFIManager={true}
           message={defMessage}
           onRead={(readMessage): void => { console.log(readMessage) }}
           onChange={(nextMessage): void => { console.log(nextMessage) }}

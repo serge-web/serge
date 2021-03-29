@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 /* Import Types */
 import Props from './types/props'
-import { CollaborativeMessageStates } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -25,13 +24,11 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 )
 
 /* Render component */
-export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role, isUmpire }) => {
+export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role, isUmpire, isRFIManager }) => {
   const [value, setValue] = useState(message.message.content || '[message empty]')
   const [answer, setAnswer] = useState('')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const { collaboration } = message.details
-
-  console.log('rendering',  isUmpire, role, message.details.collaboration)
 
   const handleSendForReview = (): void => {
     onChange(sendForReview(message, role, isUmpire))
@@ -53,12 +50,15 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
     onChange(saveDraft(message, role, isUmpire))
   }
 
-  const formDisabled = !formEditable(message, role, isUmpire)
+  const formDisabled = !formEditable(message, role, isUmpire, isRFIManager)
 
   return (
     <div className={styles.main}>
-      {collaboration && collaboration.status === CollaborativeMessageStates.PendingReview && <div className={styles.assigned}>
-        <AssignmentInd fontSize="large"/><Badge size="small" type="charcoal" label={collaboration.owner}/>
+      {collaboration && isUmpire && <div className={styles.assigned}>
+        <span className={styles.inset}>
+          <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={collaboration.owner || 'Not assigned'}/>
+          <Badge size="medium" type="charcoal" label={collaboration.status || 'Unassigned'} />
+        </span>
       </div>}
       <Textarea id={`question_${message._id}`} rows={4} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
       { // only show next fields if collaboration details known
@@ -69,11 +69,11 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
         </>
       }
       <div className={styles.actions}>
-        {showTakeOwnership(message, role, isUmpire) && <Button customVariant="form-action" size="small" type="button" onClick={handleTakeOwnership}>Take Ownership</Button>}
-        {showSendForReview(message, role, isUmpire) && <Button customVariant="form-action" size="small" type="button" onClick={handleSendForReview}>Send For Review</Button>}
-        {showReject(message, role, isUmpire) && <Button customVariant="form-action" size="small" type="button" onClick={handleReject}>Reject</Button>}
-        {showRelease(message, role, isUmpire) && <Button customVariant="form-action" size="small" type="button" onClick={handleRelease}>Release</Button>}
-        {showSaveDraft(message, role, isUmpire) && <Button customVariant="form-action" size="small" type="button" onClick={handleSaveDraft}>Save Draft</Button>}
+        {showTakeOwnership(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleTakeOwnership}>Take Ownership</Button>}
+        {showSendForReview(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleSendForReview}>Send For Review</Button>}
+        {showReject(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleReject}>Reject</Button>}
+        {showRelease(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleRelease}>Release</Button>}
+        {showSaveDraft(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleSaveDraft}>Save Draft</Button>}
       </div>
     </div>
   )
