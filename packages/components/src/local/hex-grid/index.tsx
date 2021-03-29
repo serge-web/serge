@@ -286,10 +286,24 @@ export const HexGrid: React.FC<{}> = () => {
         const bin = createPolyBin(gridCells)
         bin && setPolyBin(bin)
       } else {
+        const start = Date.now()
+
+        // grow the viewport by 1/2 cell, so we can test
+        // if the cell centre is inside the viewport -
+        // necessary for cells at the edge
+
+
         let visible: SergeHex<{}>[] = []
         polyBin.forEach((bin: PolyBin) => {
-          if (bin.bounds.intersects(viewport)) {
+          if(viewport.contains(bin.bounds)) {
+            // ok, add all of them
             visible = visible.concat(bin.cells)
+          } else if(bin.bounds.intersects(viewport)) {
+            // find the ones in the viewport
+            const inZone = bin.cells.filter((cell: SergeHex<{}>) =>
+              viewport.contains(cell.centreLatLng)
+            )
+            visible = visible.concat(inZone)
           }
         })
 
@@ -320,11 +334,13 @@ export const HexGrid: React.FC<{}> = () => {
           })
         }
 
-        if (visible.length < 10) {
-          visible.forEach((cell: SergeHex<{}>, index: number) => {
-            console.log('cell ' + index, cell.name, cell.poly)
-          })
-        }
+        // if (visible.length < 10) {
+        //   visible.forEach((cell: SergeHex<{}>, index: number) => {
+        //     console.log('cell ' + index, cell.name, cell.poly)
+        //   })
+        // }
+
+        console.log('vis filter elapsed', Date.now() - start)
 
         setVisibleCells(visible)
       }
@@ -437,12 +453,13 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  console.log('zoom', zoomLevel, visibleCells.length, viewport && viewport.getNorthWest())
+  console.log('zoom', zoomLevel, visibleCells.length)
+
 
   return <>
 
     { /* POLY BINS */ }
-    {/* <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin, index: number) => (
+    <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin, index: number) => (
       <>
       <Polygon
         key={'bin_line_' + index}
@@ -463,7 +480,7 @@ export const HexGrid: React.FC<{}> = () => {
         />
         </>
     ))}
-    </LayerGroup> */}
+    </LayerGroup>
 
     <LayerGroup key={'hex_polygons'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
       <Polygon
