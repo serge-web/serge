@@ -22,6 +22,7 @@ export const ChannelRFIMessagesList: React.FC<PropTypes> = ({ messages, icons, c
         {messages.map(message => (
           <Box mb={2} mr={2} key={message._id}>
             <ChannelRFIMessage
+              borderColor={message.details.from.forceColor}
               message={message}
               onRead={onRead}
               onChange={onChange}

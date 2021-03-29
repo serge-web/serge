@@ -1,4 +1,4 @@
-# Channel Message Detail documentation
+# Channel RFI Message Detail documentation
 
 This is an example readme file for the 'Channel RFI Message Detail' component.
 

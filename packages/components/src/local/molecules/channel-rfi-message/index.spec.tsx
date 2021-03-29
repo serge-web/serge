@@ -12,6 +12,7 @@ describe('ChannelMessage component:', () => {
       .create(
         <ChannelMessage
           role='CO'
+          borderColor='#f00'
           isUmpire={true}
           message={defMessage}
           onRead={(readMessage): void => { console.log(readMessage) }}

@@ -3,5 +3,5 @@ export default interface Props {
   onChange: (nextMessage: MessageCustom) => void
   message: MessageCustom
   role: Role['name']
-  isUmpire?: boolean
+  isUmpire: boolean
 }
