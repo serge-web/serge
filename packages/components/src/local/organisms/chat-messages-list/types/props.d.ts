@@ -1,4 +1,4 @@
-import ChatMessageProps from '../../../molecules/chat-message/types/props'
+import { Props as ChatMessageProps } from '../../../molecules/chat-message/types/props'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 
 export default interface PropTypes extends ForcesInChannelProps {

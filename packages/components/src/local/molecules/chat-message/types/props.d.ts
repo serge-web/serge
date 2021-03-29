@@ -1,3 +1,3 @@
-import { ChatMessage } from '@serge/custom-types';
+import { ChatMessage } from '@serge/custom-types'
 
 export type Props = ChatMessage

@@ -4,7 +4,7 @@ import { Story } from '@storybook/react/types-6-0'
 // Import component files
 import ChatMessage from './index'
 import docs from './README.md'
-import ChatMessageProps from './types/props'
+import { Props as ChatMessageProps } from './types/props'
 
 export default {
   title: 'local/molecules/ChatMessage',

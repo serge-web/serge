@@ -3,7 +3,7 @@
 import { CHAT_MESSAGE } from '@serge/config'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import ChatMessageProps from '../../molecules/chat-message/types/props'
+import { Props as ChatMessageProps } from '../../molecules/chat-message/types/props'
 
 import ChatMessagesList from './index'
 
