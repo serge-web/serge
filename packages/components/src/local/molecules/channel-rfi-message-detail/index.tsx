@@ -64,8 +64,8 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
       { // only show next fields if collaboration details known
         isUmpire &&
         <>
-        <Textarea id={`answer_${message._id}`} rows={4} disabled={formDisabled} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
-        <Textarea id={`private_message_${message._id}`} disabled={formDisabled} rows={4} value={privateMessage} onChange={(nextValue): void => setPrivateMessage(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>  
+          <Textarea id={`answer_${message._id}`} rows={4} disabled={formDisabled} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
+          <Textarea id={`private_message_${message._id}`} disabled={formDisabled} rows={4} value={privateMessage} onChange={(nextValue): void => setPrivateMessage(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
         </>
       }
       <div className={styles.actions}>

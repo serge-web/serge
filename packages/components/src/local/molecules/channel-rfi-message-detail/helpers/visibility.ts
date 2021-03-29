@@ -13,12 +13,12 @@ export const showSendForReview = (message: MessageCustom, _role: Role['name'], _
 
 export const showReject = (message: MessageCustom, _role: Role['name'], _isUmpire = false, _isRFIManager: boolean): boolean => {
   const { collaboration } = message.details
-  return _isRFIManager &&typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.PendingReview && _isUmpire
+  return _isRFIManager && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.PendingReview && _isUmpire
 }
 
 export const showRelease = (message: MessageCustom, _role: Role['name'], _isUmpire = false, _isRFIManager: boolean): boolean => {
   const { collaboration } = message.details
-  return _isRFIManager && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.PendingReview  && _isUmpire
+  return _isRFIManager && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.PendingReview && _isUmpire
 }
 
 export const showSaveDraft = (message: MessageCustom, _role: Role['name'], _isUmpire = false, _isRFIManager: boolean): boolean => {
@@ -28,5 +28,5 @@ export const showSaveDraft = (message: MessageCustom, _role: Role['name'], _isUm
 
 export const formEditable = (message: MessageCustom, _role: Role['name'], _isUmpire = false, _isRFIManager: boolean): boolean => {
   const { collaboration } = message.details
-  return typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.InProgress  && _isUmpire && collaboration.owner === _role && _isUmpire
+  return typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.InProgress && _isUmpire && collaboration.owner === _role && _isUmpire
 }
