@@ -1,8 +1,8 @@
 @import "~@serge/themes/dependencies/variables";
 
 .main {
-  padding-top: 10px;
   @include typo-primary;
+  padding-top: 10px;
 }
 
 .actions {

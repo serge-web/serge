@@ -27,11 +27,10 @@ export const Default: React.FC = () => {
   const colors = ['#0F0']
   const [messages, setMessages] = useState<MessageCustom[]>(GameMessagesMockRFI)
 
-
   const markAllAsRead = (): void => {
-    setMessages(messages.map(msg => ({...msg, hasBeenRead: true})))
+    setMessages(messages.map(msg => ({ ...msg, hasBeenRead: true })))
   }
-  const onRead = ({_id}: MessageCustom): void => {
+  const onRead = ({ _id }: MessageCustom): void => {
     setMessages(messages.map(msg => {
       if (msg._id === _id) msg.hasBeenRead = true
       return msg

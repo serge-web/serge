@@ -28,7 +28,7 @@ export const Default: React.FC = () => {
   return (
     <ChannelRfiMessageDetail
       message={message}
-      onChange={nextMessage => setMessage(nextMessage)}
+      onChange={(nextMessage): void => setMessage(nextMessage)}
       role='CO'
       isUmpire={true}
     />

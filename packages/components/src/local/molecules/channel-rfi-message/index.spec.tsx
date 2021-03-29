@@ -14,8 +14,8 @@ describe('ChannelMessage component:', () => {
           role='CO'
           isUmpire={true}
           message={defMessage}
-          onRead={_readMessage => {}}
-          onChange={_nextMessage => {}}
+          onRead={(readMessage): void => { console.log(readMessage) }}
+          onChange={(nextMessage): void => { console.log(nextMessage) }}
         />
       )
       .toJSON()

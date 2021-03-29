@@ -1,9 +1,9 @@
 @import "~@serge/themes/dependencies/variables";
 
 .message-list-wrapper {
+  @include typo-primary;
   border-left-style: solid;
   border-left-width: 4px;
-  @include typo-primary;
   padding: 6px 12px;
   background-color: $background-alpha-bold;
   border-radius: 0 4px 4px 0;
@@ -55,7 +55,7 @@
 }
 
 .status {
-  color: #43E4EA;
+  color: #43e4ea;
   display: flex;
   justify-content: flex-start;
 
@@ -104,10 +104,18 @@
   background-color: #434343;
   text-align: center;
 }
-.red { background-color: #B10303; }
-.orange { background-color: #E7740A; }
-.gray { background-color: #434343; }
-.green { background-color: #007219; }
+.red {
+  background-color: #b10303;
+}
+.orange {
+  background-color: #e7740a;
+}
+.gray {
+  background-color: #434343;
+}
+.green {
+  background-color: #007219;
+}
 
 .badges {
   display: flex;

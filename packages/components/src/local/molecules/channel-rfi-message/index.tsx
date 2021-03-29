@@ -19,10 +19,9 @@ import cn from 'classnames'
 
 /* Render component */
 export const ChannelMessage: React.FC<Props> = ({ message, borderColor = '#32A3CA', onRead, onChange, role, isUmpire }) => {
-
   const [open, setOpen] = useState<boolean>(false)
 
-  const handleCollapse = (status: boolean) => {
+  const handleCollapse = (status: boolean): void => {
     setOpen(status)
   }
 

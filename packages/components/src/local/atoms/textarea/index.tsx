@@ -20,7 +20,7 @@ const Textarea: React.FC<PropTypes> = ({ value, onChange, label, disabled, rows,
   }
 
   return (
-    <div className={cn(styles.main, styles[`theme-${theme}`])}>
+    <div className={cn(styles.main, styles[`theme-${theme}`], !!disabled && styles.disabled)}>
       {label && labelFactory(inputid, label)}
       <textarea disabled={!!disabled} id={inputid} onChange={handeChange} value={value} rows={rows} />
     </div>

@@ -35,7 +35,7 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
 
   const style = { fontSize: 14, color: '#000000' }
 
-  if (iconType == COLLASIBLE_CHANNEL_ICON) {
+  if (iconType === COLLASIBLE_CHANNEL_ICON) {
     style.fontSize = 20
     style.color = 'rgb(24, 255, 255)'
   }
@@ -74,7 +74,7 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
 
   return (
     <div className={styles.main}>
-      {hasContent && <div className={cn(styles.control, iconType == COLLASIBLE_CHANNEL_ICON && styles['control-channel'])} onClick={handleExpand}>
+      {hasContent && <div className={cn(styles.control, iconType === COLLASIBLE_CHANNEL_ICON && styles['control-channel'])} onClick={handleExpand}>
         {collapsed ? <AddIcon style={style}/> : <RemoveIcon style={style}/> }
       </div>}
       <div ref={handleRef} className={styles.content} onClick={handleClick}>{children}</div>

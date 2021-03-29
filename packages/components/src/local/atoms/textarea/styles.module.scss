@@ -1,9 +1,9 @@
-$dark-textarea-bg: #1A3D5D;
-$dark-textarea-bg-disabled: #54667C;
+$dark-textarea-bg: #1a3d5d;
+$dark-textarea-bg-disabled: #54667c;
 
 .main {
   label {
-    font-weight: bold;;
+    font-weight: bold;
     display: block;
     font-size: 16px;
     line-height: 22px;
@@ -21,7 +21,7 @@ $dark-textarea-bg-disabled: #54667C;
     box-sizing: border-box;
     padding: 10px;
     margin-bottom: 10px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     outline: none;
     font-size: 14px;
     line-height: 20px;
@@ -34,8 +34,8 @@ $dark-textarea-bg-disabled: #54667C;
   textarea {
     background: $dark-textarea-bg;
   }
+}
 
-  textarea[disabled] {
-    background-color: $dark-textarea-bg-disabled;
-  }
+.disabled textarea {
+  background-color: $dark-textarea-bg-disabled;
 }

@@ -26,7 +26,6 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 
 /* Render component */
 export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role, isUmpire }) => {
-
   const [value, setValue] = useState('')
   const [answer, setAnswer] = useState('test')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -57,9 +56,9 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
       {collaboration && collaboration.status === CollaborativeMessageStates.PendingReview && <div className={styles.assigned}>
         <AssignmentInd fontSize="large"/><Badge size="small" type="charcoal" label={collaboration.owner}/>
       </div>}
-      <Textarea id={`question_${message._id}`} rows={4} value={value} onChange={nextValue => setValue(nextValue)} theme='dark' disabled/>
-      <Textarea id={`answer_${message._id}`} rows={4} value={answer} onChange={nextValue => setAnswer(nextValue)} theme='dark' label="Answer"/>
-      <Textarea id={`private_message_${message._id}`} rows={4} value={privateMessage} onChange={nextValue => setPrivateMessage(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+      <Textarea id={`question_${message._id}`} rows={4} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled/>
+      <Textarea id={`answer_${message._id}`} rows={4} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
+      <Textarea id={`private_message_${message._id}`} rows={4} value={privateMessage} onChange={(nextValue): void => setPrivateMessage(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
       <div className={styles.actions}>
         {showTakeOwnership(message, role, isUmpire) && <Button customVariant="form-action" size="small" type="button" onClick={handleTakeOwnership}>Take Ownership</Button>}
         {showSendForReview(message, role, isUmpire) && <Button customVariant="form-action" size="small" type="button" onClick={handleSendForReview}>Send For Review</Button>}

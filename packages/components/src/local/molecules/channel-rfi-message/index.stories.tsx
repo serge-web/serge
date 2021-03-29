@@ -25,8 +25,8 @@ export const Default: React.FC = () => {
   return (
     <ChannelMessage
       message={message}
-      onRead={readMessage => setMessage({ ...readMessage, hasBeenRead: true })}
-      onChange={nextMessage => setMessage(nextMessage)}
+      onRead={(readMessage): void => setMessage({ ...readMessage, hasBeenRead: true })}
+      onChange={(nextMessage): void => setMessage(nextMessage)}
       role='CO'
       isUmpire={true}
     />

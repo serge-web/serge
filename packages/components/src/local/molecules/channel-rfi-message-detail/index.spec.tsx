@@ -14,7 +14,7 @@ describe('ChannelMessageDetail:', () => {
         role='CO'
         isUmpire={true}
         message={defMessage}
-        onChange={_readMessage => {}}
+        onChange={(msg): void => { console.log(msg) }}
       />)
       .toJSON()
     expect(tree).toMatchSnapshot()

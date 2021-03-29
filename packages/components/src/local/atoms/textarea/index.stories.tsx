@@ -22,7 +22,7 @@ export default {
 export const Default: React.FC = () => {
   const [value, setValue] = useState<string>('Text')
 
-  return <Textarea value={value} onChange={nextValue => setValue(nextValue)} label='Label'/>
+  return <Textarea value={value} onChange={(nextValue): void => setValue(nextValue)} label='Label'/>
 }
 
 export const WithFactory: React.FC = () => {
@@ -32,15 +32,15 @@ export const WithFactory: React.FC = () => {
     <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} />{label}</label>
   )
 
-  return <Textarea value={value} onChange={nextValue => setValue(nextValue)} label='Private Message' labelFactory={labelFactory}/>
+  return <Textarea value={value} onChange={(nextValue): void => setValue(nextValue)} label='Private Message' labelFactory={labelFactory}/>
 }
 
 export const Dark: React.FC = () => {
   const [value, setValue] = useState<string>('Text')
 
   return (
-    <div style={{backgroundColor: '#000'}}>
-      <Textarea value={value} onChange={nextValue => setValue(nextValue)} label='Label' theme={TEXTAREA_DARK}/>
+    <div style={{ backgroundColor: '#000' }}>
+      <Textarea value={value} onChange={(nextValue): void => setValue(nextValue)} label='Label' theme={TEXTAREA_DARK}/>
     </div>
   )
 }

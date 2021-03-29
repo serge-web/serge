@@ -15,8 +15,8 @@ describe('ChannelRFIMessagesList component: ', () => {
       colors={colors}
       icons={icons}
       onMarkAllAsRead={markAllAsRead}
-      onChange={(_msg) => {}}
-      onRead={(_msg) => {}}
+      onChange={(msg): void => { console.log(msg) }}
+      onRead={(msg): void => { console.log(msg) }}
       role='CO'
       isUmpire={true}
     />).toJSON()
