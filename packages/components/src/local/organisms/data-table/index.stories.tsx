@@ -82,22 +82,26 @@ const rfiData = newest.map((message: any) => {
       messageItem.details.collaboration?.owner
   ]
 })
+
+const uniqueFieldValues = (messages: any[], col: number) => {
+  // find items with unique items in set column
+  const uniqueValues =  messages.filter((elem, index) => rfiData.findIndex(obj => obj[col] === elem[col]) === index);
+  // produce array with just field of interest
+  const values = uniqueValues.map((item: any) => item && item[col])
+  // swap undefined for string
+  return values.map((item: any) => item === undefined ? '[Undefined]' : item)
+}
+
 export const Implementation = Template.bind({})
 Implementation.args = {
   columns: [
     'ID',
     {
-      filters: [
-        'Red Support',
-        'Blue Support'
-      ],
+      filters: uniqueFieldValues(rfiData, 1),
       label: 'Channel'
     },
     {
-      filters: [
-        'CO',
-        'Logistic'
-      ],
+      filters: uniqueFieldValues(rfiData, 2),
       label: 'From'
     },
     'Title',
@@ -111,11 +115,7 @@ Implementation.args = {
       label: 'Status'
     },
     {
-      filters: [
-        'Fuel specialist',
-        'Aeronautic specialist',
-        'Weapons specialist'
-      ],
+      filters: uniqueFieldValues(rfiData, 6),
       label: 'Owner'
     }
   ],
