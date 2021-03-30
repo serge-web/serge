@@ -87,7 +87,7 @@ export const forces: ForceData[] = [
         "contactId": "C713",
         "history": [
           {
-            "route": ["AG26"],
+            "route": ["AD25"],
             "status": {
               "speedKts": 20,
               "state": "Transiting"
@@ -95,7 +95,7 @@ export const forces: ForceData[] = [
             "turn": 0
           },
           {
-            "route": ["AF26"],
+            "route": ["AD26"],
             "status": {
               "speedKts": 20,
               "state": "Transiting"
@@ -103,7 +103,7 @@ export const forces: ForceData[] = [
             "turn": 1
           },
           {
-            "route": ["AE26"],
+            "route": ["AD27"],
             "status": {
               "speedKts": 20,
               "state": "Transiting"
@@ -123,7 +123,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "AI25"
+              "AB29"
             ],
             "status": {
               "speedKts": 20,
@@ -133,7 +133,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AJ24"
+              "AA30"
             ],
             "status": {
               "speedKts": 20,
@@ -143,7 +143,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "task-group",
-        "position": "AH26",
+        "position": "AC28",
         "status": {
           "speedKts": 20,
           "state": "Transiting"
