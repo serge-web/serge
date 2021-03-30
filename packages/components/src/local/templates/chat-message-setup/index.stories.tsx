@@ -43,10 +43,11 @@ const force = {
 }
 
 const Template: Story<Props> = (args) => {
-  const { selectedForce, isUmpire, forceName } = args
+  const { selectedForce, isUmpire, userId, forceName } = args
   return <ChatMessageSetup
     isUmpire={isUmpire}
     forceName={forceName}
+    userId={userId}
     chatChannel={ChatMessagesMock}
     selectedForce={selectedForce}
     selectedRole="Game Control" />
@@ -56,5 +57,6 @@ export const Demonstration = Template
 Demonstration.args = {
   isUmpire: true,
   selectedForce: force,
-  forceName: 'Blue'
+  forceName: 'Blue',
+  userId: 'CO'
 }

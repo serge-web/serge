@@ -12,4 +12,5 @@ export default interface Props {
   selectedRole: string
   isUmpire: boolean
   chatChannel: any
+  userId: string
 }
