@@ -422,12 +422,11 @@ export const Mapping: React.FC<PropTypes> = ({
         // which represents unlimited travel
         if (plannedTurn.speedVal) {
           const speedKts = plannedTurn.speedVal
-          // TODO: turn time should come from game definition
           const stepSizeHrs = gameTurnTime / 1000 / 60 / 60
-          const stepsPerHour = (60 / stepSizeHrs)
-          const roughRange = speedKts / mappingConstraints.tileDiameterMins / stepsPerHour // work out how many NM in 30 minutes
+          const distancePerTurn = stepSizeHrs * speedKts
+          const roughRange = distancePerTurn / mappingConstraints.tileDiameterMins
 
-          console.log('turn time', gameTurnTime, stepSizeHrs, stepsPerHour, speedKts, mappingConstraints.tileDiameterMins, roughRange)
+          // console.log('turn time', gameTurnTime, stepSizeHrs, distancePerTurn, speedKts, mappingConstraints.tileDiameterMins, roughRange)
 
           // check range is in 10s
           const range = roundToNearest(roughRange, 1)
