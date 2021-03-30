@@ -129,7 +129,7 @@ Implementation.args = {
     }
     return {
       collapsible: (
-        <RfiForm onSubmit={console.log} onReject={console.log} message={(rfiMessages[rowIndex] as MessageCustom)} />
+        <RfiForm onSubmit={console.log} onReject={console.log} message={(newest[rowIndex] as MessageCustom)} />
       ),
       cells: [
         id,
