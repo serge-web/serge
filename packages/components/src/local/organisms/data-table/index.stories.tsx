@@ -8,7 +8,7 @@ import { Story } from '@storybook/react/types-6-0'
 import Badge from '../../atoms/badge'
 import RfiForm from '../../molecules/rfi-form'
 import { MessageCustom } from '@serge/custom-types/message'
-import gameMessagesWithRFI from '@serge/mocks/game-messages-rfi.mock'
+import { GameMessagesMockRFI } from '@serge/mocks'
 import { mostRecentOnly } from '@serge/helpers'
 
 export default {
@@ -64,7 +64,7 @@ WithFilter.args = {
 }
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
-const rfiMessages = gameMessagesWithRFI
+const rfiMessages = GameMessagesMockRFI
   .filter(message => (message as MessageCustom).details.messageType === 'RFI')
   // sample data includes multiple versions of RFI messages, ensure we're only
 // looking at newest
