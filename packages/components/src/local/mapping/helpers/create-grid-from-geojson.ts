@@ -78,7 +78,7 @@ const createGridFromGeoJSON = (cells: any, tileSizeMins: number): SergeGrid<Serg
     return {
       q: x,
       r: y,
-      s: -y-x,
+      s: -y - x,
       centreLatLng: centre,
       poly: poly,
       type: type,

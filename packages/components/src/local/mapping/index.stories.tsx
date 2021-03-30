@@ -179,6 +179,7 @@ Default.args = {
   mappingConstraints: localMappingConstraints,
   forces: forces,
   playerForce: 'Blue',
+  gameTurnTime: 72000,
   canSubmitOrders: false,
   platforms: platformTypes,
   phase: Phase.Planning,
@@ -191,6 +192,7 @@ Default.args = {
 export const WithMapBar = Template
 WithMapBar.args = {
   forces: forces,
+  gameTurnTime: 72000,
   canSubmitOrders: false,
   platforms: platformTypes,
   phase: Phase.Adjudication,
@@ -225,6 +227,7 @@ WithMarker.args = {
   playerForce: 'Blue',
   canSubmitOrders: false,
   platforms: platformTypes,
+  gameTurnTime: 72000,
   phase: Phase.Planning,
   turnNumber: 5,
   mapBar: false,

@@ -17,6 +17,7 @@ it('Mapping renders correctly', () => {
   const tree = mount(<Mapping
     mappingConstraints = {localMappingConstraints}
     forces = {forces}
+    gameTurnTime = {72000}
     wargameInitiated = {true}
     playerForce = 'Blue'
     canSubmitOrders = {true}

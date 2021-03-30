@@ -19,6 +19,7 @@ it('Mapping renders correctly with AssetIcon', () => {
   const tree = mount(<Mapping
     mappingConstraints = {localMappingConstraints}
     forces = {forces}
+    gameTurnTime = {72000}
     wargameInitiated = {true}
     platforms = {platformTypes}
     playerForce = 'blue'

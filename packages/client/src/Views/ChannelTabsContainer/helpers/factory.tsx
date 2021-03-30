@@ -80,6 +80,7 @@ const factory = (state: PlayerUi): Factory => {
       canSubmitOrders={canSubmitOrders}
       channelID = {channelid}
       mapPostBack={mapPostBack}
+      gameTurnTime={state.gameTurnTime}
       wargameInitiated={state.wargameInitiated}
     >
       <Assets />

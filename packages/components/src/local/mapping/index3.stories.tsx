@@ -139,10 +139,11 @@ console.log('ATLANTIC FORCES', atlanticForces[1], platformTypes[0])
 /**
  * DEFAULT VIEW
  */
-export const Default = Template
+export const Default = Template.bind({})
 Default.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
+  gameTurnTime: 72000,
   canSubmitOrders: true,
   platforms: platformTypes,
   phase: Phase.Planning,
@@ -151,7 +152,7 @@ Default.args = {
   mapBar: false
 }
 
-export const NaturalEarth = Default
+export const NaturalEarth = Template.bind({})
 NaturalEarth.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
@@ -170,7 +171,7 @@ NaturalEarth.args = {
   )
 }
 
-export const OpenStreetMap = Default
+export const OpenStreetMap = Template.bind({})
 OpenStreetMap.args = {
   forces: atlanticForces,
   playerForce: 'Blue',

@@ -97,4 +97,8 @@ export default interface PropTypes {
    * Optional mapping structure with children component
    */
   children?: JSX.Element
+  /** 
+   * length of each game turn (millis) 
+   */
+  gameTurnTime: number
 }

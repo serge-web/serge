@@ -27,6 +27,7 @@ it('Mapping renders correctly with Route', () => {
     mappingConstraints = {localMappingConstraints}
     platforms = {platformTypes}
     forces={forces}
+    gameTurnTime = {72000}
     wargameInitiated={true}
     playerForce={'Blue'}
     canSubmitOrders = {true}
