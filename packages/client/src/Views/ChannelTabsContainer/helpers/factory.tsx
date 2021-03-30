@@ -4,7 +4,7 @@ import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VIS
 import { sendMapMessage } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { Mapping, Assets, HexGrid, DataTable, Badge, RfiForm } from '@serge/components'
+import { Mapping, Assets, HexGrid } from '@serge/components'
 import _ from 'lodash'
 import Channel from '../../../Components/Channel'
 import RfiStatusBoard from '../../../Components/RfiStatusBoard'
