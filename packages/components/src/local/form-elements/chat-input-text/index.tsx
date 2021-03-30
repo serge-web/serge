@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useImperativeHandle } from 'react'
 import { IconButton, InputAdornment } from '@material-ui/core'
 import { SendOutlined } from '@material-ui/icons'
 
@@ -12,13 +12,31 @@ import styles from './styles.module.scss'
 import TextInput from './../../atoms/text-input'
 
 /* Render component */
-export const ChatInputText: React.FC<Props> = ({ placeholder, postBack }: Props) => {
+export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, postBack, onMessageChange }: Props, ref) => {
   const [formState, setFormState] = useState('')
 
-  const changeHandler = (e: any): void => setFormState(e.value)
+  const changeHandler = (e: any): void => {
+    setFormState(e.value)
+    onMessageChange && onMessageChange(e.value)
+  }
   const submitForm = (): void => {
     postBack && postBack(formState)
     setFormState('')
+  }
+
+  useImperativeHandle(ref, () => ({
+    setFormState (text: string): void {
+      setFormState(text)
+    },
+    clear (): void {
+      setFormState('')
+    }
+  }))
+
+  const keyDownHandler = (e: any): void => {
+    if(e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
+      submitForm()
+    }
   }
 
   return (
@@ -31,6 +49,7 @@ export const ChatInputText: React.FC<Props> = ({ placeholder, postBack }: Props)
       updateState={changeHandler}
       value={formState}
       placeholder={placeholder}
+      onKeyDown={keyDownHandler}
       endAdornment={
         <InputAdornment position="end">
           <IconButton onClick={submitForm}>
@@ -40,6 +59,6 @@ export const ChatInputText: React.FC<Props> = ({ placeholder, postBack }: Props)
       }
     />
   )
-}
+});
 
 export default ChatInputText

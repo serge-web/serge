@@ -13,7 +13,7 @@ import styles from './styles.module.scss'
 import TextInput from '../../atoms/text-input'
 
 /* Render component */
-export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ placeholder, postBack }: Props, ref) => {
+export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ placeholder, postBack, sendMessage }: Props, ref) => {
   const [formState, setFormState] = useState('')
   const [collapsed, setCollapsed] = useState(false)
 
@@ -29,6 +29,12 @@ export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ place
   const changeHandler = (e: any): void => {
     setFormState(e.value)
     postBack && postBack(e.value)
+  }
+
+  const keyDownHandler = (e: any): void => {
+    if(e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
+      sendMessage && sendMessage(formState);
+    }
   }
 
   const PrivateBadge = (): React.ReactElement => (
@@ -66,6 +72,7 @@ export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ place
           updateState={changeHandler}
           value={formState}
           placeholder={placeholder}
+          onKeyDown={keyDownHandler}
         />
       </Box>
     </React.Fragment>

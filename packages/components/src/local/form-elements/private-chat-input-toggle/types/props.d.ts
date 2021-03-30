@@ -9,7 +9,11 @@ export default interface Props {
    */
   postBack?: { (value: string): void }
   /**
+   * Post messages when ctrl + enter key pressed
+   */
+  sendMessage?: { (value: string): void }
+  /**
    * Container element ref
    */
-   ref?: React.Ref<any>
+  ref?: React.Ref<any>
 }
