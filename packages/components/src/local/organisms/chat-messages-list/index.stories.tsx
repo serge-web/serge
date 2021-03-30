@@ -36,8 +36,13 @@ export default {
           'Red'
         ]
       }
-    },
+    }
   }
+}
+const force = {
+  name: 'Blue',
+  color: '#6699cc',
+  icon: ''
 }
 
 const Template: Story<Props> = (args) => {
@@ -60,6 +65,6 @@ const Template: Story<Props> = (args) => {
 export const Demonstration = Template
 Demonstration.args = {
   isUmpire: true,
-  playerForce: 'Red'
+  playerForce: force.name
 }
 
