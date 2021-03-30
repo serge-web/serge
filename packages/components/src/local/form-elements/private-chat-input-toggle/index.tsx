@@ -15,7 +15,7 @@ import TextInput from '../../atoms/text-input'
 /* Render component */
 export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ placeholder, postBack }: Props, ref) => {
   const [formState, setFormState] = useState('')
-  const [collapsed, setCollapsed] = useState(true)
+  const [collapsed, setCollapsed] = useState(false)
 
   useImperativeHandle(ref, () => ({
     setFormState (text: string): void {
