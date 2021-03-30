@@ -76,8 +76,9 @@ const createGridFromGeoJSON = (cells: any, tileSizeMins: number): SergeGrid<Serg
     const x = cell.properties.ai
     const y = cell.properties.aj
     return {
-      x: x,
-      y: y,
+      q: x,
+      r: y,
+      s: -y-x,
       centreLatLng: centre,
       poly: poly,
       type: type,
@@ -90,6 +91,20 @@ const createGridFromGeoJSON = (cells: any, tileSizeMins: number): SergeGrid<Serg
   const Hex = extendHex({ orientation: 'pointy' })
   const honeyGrid = defineGrid(Hex)
   const grid = honeyGrid(hexes)
+
+  // const offsetGrid = grid.map((hex:any) => {
+  //   const offset = hex.toCartesian()
+  //   return {
+  //     ...hex,
+  //     name: labelFor(offse)
+  //     x: offset.x,
+  //     y: offset.y,
+  //     q: undefined,
+  //     r:,
+  //     s:
+  //   }
+  // })
+
   const sergeGrid: SergeGrid<SergeHex<{}>> = grid as SergeGrid<SergeHex<{}>>
 
   sergeGrid.tileDiameterMins = tileSizeMins

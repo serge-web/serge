@@ -18,19 +18,20 @@ it('Construct grid from very new dataset', () => {
   // inspect first one
   const first: SergeHex<{}> = grid[0]
   // console.log(first)
-  expect(first.poly.length).toEqual(7)
-  expect(first.type).toEqual('medium')
-  expect(first.name).toEqual('T81')
-  expect(first.x).toEqual(19)
-  expect(first.y).toEqual(80)
-  expect(first.centreLatLng.lat).toEqual(69.68424675512901)
-  expect(first.centreLatLng.lng).toEqual(-17.17149899505691)
+  expect(first.poly.length).toEqual(8)
+  // console.log(first)
+  expect(first.type).toEqual('sea')
+  expect(first.name).toEqual('U40')
+  expect(first.q).toEqual(20)
+  expect(first.r).toEqual(39)
+  expect(first.centreLatLng.lat).toEqual(60.04426388004979)
+  expect(first.centreLatLng.lng).toEqual(-20.512344503657786)
 
   // ok, check routing
   const fourth: SergeHex<{}> = grid[4]
-  expect(fourth.name).toEqual('E92')
+  expect(fourth.name).toEqual('AD26')
   const between = grid.hexesBetween(first, fourth)
-  expect(between.length).toEqual(21)
+  expect(between.length).toEqual(15)
 })
 
 it('Check routing', () => {
@@ -40,7 +41,7 @@ it('Check routing', () => {
   expect(grid.length).toEqual(2163)
 
   // get origin cell
-  const origin = 'AJ24'
+  const origin = 'X30'
   const first: SergeHex<{}> | undefined = grid.find((cell: SergeHex<{}>) => cell.name === origin)
   expect(first).toBeTruthy()
 
@@ -48,6 +49,32 @@ it('Check routing', () => {
     const inRange = grid.hexesInRange(first, 1, true)
     console.log(origin, inRange.map((cell: SergeHex<{}>) => cell.name))
     expect(inRange.length).toEqual(7)
+  } else {
+    expect(false).toBeTruthy()
+  }
+})
+
+it('Check path', () => {
+  const cells: any = atlanticCells.features
+  expect(cells.length).toEqual(2163)
+  const grid = createGridFromGeoJSON(atlanticCells, 30)
+  expect(grid.length).toEqual(2163)
+
+  // get origin cell
+  const origin = 'X30'
+  const first: SergeHex<{}> | undefined = grid.find((cell: SergeHex<{}>) => cell.name === origin)
+  expect(first).toBeTruthy()
+
+  const destination = 'AB29'
+  const dest: SergeHex<{}> | undefined = grid.find((cell: SergeHex<{}>) => cell.name === destination)
+  expect(dest).toBeTruthy()
+
+  if (first && dest) {
+    const inRange = grid.hexesBetween(first, dest)
+    console.log(origin, inRange.map((cell: SergeHex<{}>) => cell.name))
+    expect(inRange.length).toEqual(5)
+  } else {
+    expect(false).toBeTruthy()
   }
 })
 
