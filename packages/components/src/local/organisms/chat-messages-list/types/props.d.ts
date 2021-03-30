@@ -1,4 +1,4 @@
-import { Props as ChatMessageProps } from '../../../molecules/chat-message/types/props'
+import { ChatMessage } from '@serge/custom-types'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 
 export default interface PropTypes extends ForcesInChannelProps {
@@ -6,5 +6,8 @@ export default interface PropTypes extends ForcesInChannelProps {
    * The list of channel messages properties required
    * for ChatMessage components
    */
-  messages: Array<ChatMessageProps>
+  messages: Array<ChatMessage>
+  isUmpire: boolean
+  /** force this player belongs to */
+  playerForce: string
 }

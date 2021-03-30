@@ -5,5 +5,6 @@ export default interface Props {
     icon?: string
   }
   selectedRole: string
+  isUmpire: boolean
   chatChannel: any
 }

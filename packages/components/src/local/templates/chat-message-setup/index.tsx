@@ -15,7 +15,7 @@ import ChatEntryForm from '../../form-elements/chat-entry-form'
 import { ChatMessage } from '@serge/custom-types'
 
 /* Render component */
-export const ChatMessageSetup: React.FC<Props> = ({ selectedForce, selectedRole, chatChannel }: Props) => {
+export const ChatMessageSetup: React.FC<Props> = ({ selectedForce, selectedRole, chatChannel, isUmpire }: Props) => {
   const [messages, setMessages] = useState(chatChannel)
   const currentChannel = CHAT_CHANNEL_ID
 
@@ -24,6 +24,8 @@ export const ChatMessageSetup: React.FC<Props> = ({ selectedForce, selectedRole,
   return (
     <React.Fragment>
       <ChatMessagesList
+        isUmpire={isUmpire}
+        playerForce={selectedForce.name}
         colors={[
           '#0F0'
         ]}
@@ -32,7 +34,7 @@ export const ChatMessageSetup: React.FC<Props> = ({ selectedForce, selectedRole,
         ]}
         messages={messages}
       />
-      <ChatEntryForm from={selectedForce} channel={currentChannel} role={selectedRole} postBack={messageHandler} />
+      <ChatEntryForm from={selectedForce} isUmpire={isUmpire} channel={currentChannel} role={selectedRole} postBack={messageHandler} />
     </React.Fragment>
   )
 }

@@ -3,7 +3,7 @@
 import { CHAT_MESSAGE } from '@serge/config'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { Props as ChatMessageProps } from '../../molecules/chat-message/types/props'
+import { ChatMessage } from '@serge/custom-types'
 
 import ChatMessagesList from './index'
 
@@ -16,7 +16,7 @@ describe('ChatMessagesList renders correctly', () => {
       '#F00'
     ]
     const markAllAsRead = (): void => window.alert('Callback on mark all as read')
-    const messages: ChatMessageProps[] = [{
+    const messages: ChatMessage[] = [{
       messageType: CHAT_MESSAGE,
       message: { content: 'Content of message' },
       details: {
@@ -31,14 +31,10 @@ describe('ChatMessagesList renders correctly', () => {
         timestamp: '2020-09-18T05:41:17.349Z',
         privateMessage: 'Private weather message'
       },
-      role: 'GAME CONTROL',
-      borderColor: '#fff',
-      isUmpire: true,
-      isOwner: true,
       _id: '2020-09-18T05:41:17.349Z'
     }]
     const tree = renderer
-      .create(<ChatMessagesList messages={messages} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
+      .create(<ChatMessagesList isUmpire={true} playerForce={'Blue'} messages={messages} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

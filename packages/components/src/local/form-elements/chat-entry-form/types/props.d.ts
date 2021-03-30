@@ -7,6 +7,7 @@ export default interface Props {
     icon?: string
   }
   channel: string
+  isUmpire: boolean
   role: string
   /**
    * The method for posting messages out of the component

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
+import { CHAT_MESSAGE } from '@serge/config'
 
 // Import component files
 import ChatMessage from './index'
@@ -24,39 +25,38 @@ export default {
       description: 'Player from umpire force'
     },
     isOwner: {
-      description: 'Message sent from this player'
+      description: 'Message sent from force of this player'
     },
     borderColor: {
       control: 'color'
-    },
-    timestamp: {
-      control: 'date'
     }
   }
 }
 
 const Template: Story<ChatMessageProps> = (args) => {
-  const { ...props } = args
-  return <ChatMessage
-    {...props} />
+  const { message, isOwner, isUmpire } = args
+  return <ChatMessage  message={message} isUmpire={isUmpire} isOwner={isOwner}/>
 }
 
 export const Demonstration = Template
 Demonstration.args = {
-  message: { content: 'Content of message' },
-  details: {
-    channel: 'game-admin',
-    from: {
-      force: 'White',
-      forceColor: '#FCFBEE',
-      role: 'Game Control',
-      icon: 'default_img/umpireDefault.png'
+  message: {
+    messageType: CHAT_MESSAGE,
+    message: { content: 'Content of message' },
+    details: {
+      channel: 'game-admin',
+      from: {
+        force: 'White',
+        forceColor: '#FCFBEE',
+        role: 'Game Control',
+        icon: 'default_img/umpireDefault.png'
+      },
+      messageType: 'State of The World',
+      timestamp: '2020-09-18T05:41:17.349Z',
+      privateMessage: 'Private weather message'
     },
-    messageType: 'State of The World',
-    timestamp: '2020-09-18T05:41:17.349Z',
-    privateMessage: 'Private weather message'
+    _id: 'id_34'
   },
-  borderColor: '#fff',
   isUmpire: true,
   isOwner: true
 }

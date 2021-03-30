@@ -1,13 +1,12 @@
 /* global it expect */
 
-import { CHAT_MESSAGE } from '@serge/config'
-import { ChatMessage as ChatMessageProps } from '@serge/custom-types'
+import { ChatMessage as ChatMessageType } from '@serge/custom-types'
 import React from 'react'
 import renderer from 'react-test-renderer'
-
+import { CHAT_MESSAGE } from '@serge/config'
 import ChatMessage from './index'
 
-const props: ChatMessageProps = {
+const message: ChatMessageType = {
   messageType: CHAT_MESSAGE,
   message: { content: 'Content of message' },
   details: {
@@ -22,16 +21,12 @@ const props: ChatMessageProps = {
     timestamp: '2020-09-18T05:41:17.349Z',
     privateMessage: 'Private weather message'
   },
-  role: 'GAME CONTROL',
-  borderColor: '#fff',
-  isUmpire: true,
-  isOwner: false,
   _id: '2020-09-18T05:41:17.349Z'
 }
 
 it('ChatMessage renders correctly', () => {
   const tree = renderer
-    .create(<ChatMessage {...props} />)
+    .create(<ChatMessage message={message} isUmpire={true} isOwner={false} />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

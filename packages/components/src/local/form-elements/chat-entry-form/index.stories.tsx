@@ -1,9 +1,10 @@
 import React from 'react'
+import { Story } from '@storybook/react/types-6-0'
 
 // Import component files
 import ChatEntryForm from './index'
 import docs from './README.md'
-
+import ChatPropTypes from './types/props'
 import { ChatMessage } from '@serge/custom-types'
 
 export default {
@@ -14,6 +15,11 @@ export default {
     readme: {
       // Show readme before story
       content: docs
+    }
+  },
+  argTypes: {
+    isUmpire: {
+      description: 'Player from umpire force'
     }
   }
 }
@@ -27,4 +33,17 @@ const force = {
 // @ts-ignore
 const showMessage = (message: ChatMessage): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
 
-export const Default: React.FC = () => <ChatEntryForm from={force} channel={'Game Admin'} role={'Umpire'} postBack={showMessage} />
+const Template: Story<ChatPropTypes> = (args) => {
+  const { from, role, isUmpire, channel } = args
+  return <ChatEntryForm from={from} isUmpire={isUmpire} channel={channel} role={role} postBack={showMessage} />
+}
+
+export const Default = Template
+Default.args = {
+  from: force,
+  role: 'Umpire',
+  isUmpire: false,
+  channel: 'Game Admin'
+}
+
+

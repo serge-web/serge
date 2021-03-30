@@ -18,8 +18,6 @@ const message1: ChatMessage = {
   "message": {
     "content": "test\n"
   },
-  "isOwner": true,
-  "isUmpire": true,
   "_id": "2020-03-25T15:08:47.510Z",
 }
 
@@ -40,7 +38,6 @@ const message2: ChatMessage = {
   "message": {
     "content": "Lorem ipsum do lor sit amet adipiscius elit\n"
   },
-  "isOwner": false,
   "_id": "2020-03-25T15:08:47.520Z",
 }
 

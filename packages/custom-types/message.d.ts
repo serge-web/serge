@@ -94,11 +94,7 @@ export interface MessageCustom extends CoreMessage {
 
 export interface ChatMessage extends CoreMessage {
   messageType: typeof CHAT_MESSAGE,
-  message: MessageStructure,
-  borderColor?: String,
-  role?: String,
-  isUmpire?: boolean,
-  isOwner: boolean,
+  message: MessageStructure
 }
 
 export interface MessageFeedback extends CoreMessage {
