@@ -1,7 +1,7 @@
 import React from 'react'
-import { ForceData, MessageMap, PlayerUi, Role } from '@serge/custom-types'
-import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES } from '@serge/config'
-import { sendMapMessage } from '@serge/helpers'
+import { ForceData, MessageMap, PlayerUi, Role, Participant, ChannelData } from '@serge/custom-types'
+import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES, Phase } from '@serge/config'
+import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { Mapping, Assets, HexGrid } from '@serge/components'
@@ -69,7 +69,7 @@ const factory = (state: PlayerUi): Factory => {
         tileLayer={LocalTileLayer}
         forces={state.allForces}
         platforms={state.allPlatformTypes}
-        phase={state.phase}
+        phase={Phase[state.phase]}
         turnNumber={state.currentTurn}
         playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
         canSubmitOrders={canSubmitOrders}
@@ -96,8 +96,14 @@ const factory = (state: PlayerUi): Factory => {
         // return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
         // _attributes.id
         return renderMap(node.getId())
+      } else {
+        if(matchedChannel && matchedChannel.length) {
+          // find out if channel just contains chat template
+          return isChatChannel(matchedChannel[1]) ? 
+            <Channel channelId={matchedChannel[0]} /> // todo, replace with chat channel
+          : <Channel channelId={matchedChannel[0]} />
+        }
       }
-      return matchedChannel && matchedChannel.length ? <Channel channelId={matchedChannel[0]} /> : null
     }
   }
 }
