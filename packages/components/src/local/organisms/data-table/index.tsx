@@ -111,11 +111,10 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
               const { collapsible, cells } = row as unknown as RowWithCollapsibleType
               const tableCells = cells || row
               return (
-                <>
+                <React.Fragment key={Math.random()}>
                   <TableRow
                     className={`${classes.tableRow} ${collapsible ? classes.tableRowCollapsibleTrigger : ''}`}
                     onClick={(): void => collapsible && onToggleRow(rowIndex)}
-                    key={Math.random()}
                   >
                     {
                       tableCells.map((cell: RowDataType) => {
@@ -144,7 +143,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
                       )
                       : null
                   }
-                </>
+                </React.Fragment>
               )
             })
           }

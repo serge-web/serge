@@ -5,14 +5,17 @@ import TextInput from '../../atoms/text-input'
 import Button from '../../atoms/button'
 
 /* Import Types */
-import Props, { State, Action } from './types/props'
+import Props, { ActionPayload, Action } from './types/props'
+import { CollaborativeMessageStates } from '@serge/config'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  formContainer: {
-    display: 'flex',
-    flexDirection: 'row',
+  rfiForm: {
     background: theme.palette.primary.main,
     padding: '10px'
+  },
+  formContainer: {
+    display: 'flex',
+    flexDirection: 'row'
   },
   formColumn: {
     display: 'flex',
@@ -78,24 +81,24 @@ const useStyles = makeStyles((theme: Theme) => ({
 /* Render component */
 export const RfiForm: React.FC<Props> = (props) => {
   const classes = useStyles()
-  const { request, onSaveDraft, onSubmit } = props
-  const formReducers = (state: State, action: Action): State => {
+  const { message, onSubmit, onReject } = props
+  const formReducers = (state: ActionPayload, action: Action): ActionPayload => {
     switch (action.type) {
       case 'updateAnswer':
         return {
           ...state,
-          answer: action.payload
+          answer: action.payload || null
         }
       case 'updateMessage':
         return {
           ...state,
-          message: action.payload
+          privateMessageContent: action.payload || null
         }
     }
   }
   const [state, dispatch] = useReducer(formReducers, {
-    answer: undefined,
-    message: undefined
+    answer: null,
+    privateMessageContent: null
   })
   const onUpdateMessage = (target: { value: string }): void => {
     dispatch({
@@ -109,23 +112,63 @@ export const RfiForm: React.FC<Props> = (props) => {
       payload: target.value
     })
   }
-  const handleOnSaveDraft = (): void => {
-    onSaveDraft && onSaveDraft(state)
-  }
   const handleOnSubmit = (): void => {
-    onSubmit && onSubmit(state)
+    const { answer, privateMessageContent } = state
+    onSubmit && onSubmit(message, {
+      answer,
+      privateMessageContent
+    })
   }
+  const handleOnReject = (): void => {
+    const { answer, privateMessageContent } = state
+    onReject && onReject(message, {
+      answer,
+      privateMessageContent
+    })
+  }
+  const ActionButtons = (): React.ReactElement | null => {
+    switch (message.details.collaboration?.status) {
+      case CollaborativeMessageStates.Unallocated:
+        return (
+          <Box pt={2} display="flex" justifyContent="flex-end">
+            <Button customVariant="form-action" size="small" onClick={handleOnSubmit}>Take ownership</Button>
+          </Box>
+        )
+      case CollaborativeMessageStates.InProgress:
+        return (
+          <Box pt={2} display="flex" justifyContent="flex-end">
+            <Button customVariant="form-action" size="small" onClick={handleOnSubmit}>Send for review</Button>
+          </Box>
+        )
+      case CollaborativeMessageStates.PendingReview:
+        return (
+          <Box pt={2} display="flex" justifyContent="flex-end">
+            <Button customVariant="form-action" size="small" onClick={handleOnReject}>Reject</Button>
+            <Button customVariant="form-action" size="small" onClick={handleOnSubmit}>Release</Button>
+          </Box>
+        )
+      default:
+        return null
+    }
+  }
+  const requestCompleteStatuses = [
+    CollaborativeMessageStates.Released,
+    CollaborativeMessageStates.Rejected
+  ]
+  const requestIsCompleted =
+    message.details.collaboration?.status &&
+    requestCompleteStatuses.includes(message.details.collaboration?.status)
   return (
-    <>
+    <div className={classes.rfiForm}>
       <Box className={classes.formContainer}>
         <Box className={classes.formColumn}>
           <Box className={classes.formWrapper}>
             <TextInput
               fullWidth
-              label={ request.title }
+              label={ message.message.title || 'Request for Information' }
+              value={ message.message.content }
               labelColor="common.white"
               labelSize={12}
-              value={ request.description }
               multiline
               disabled
               rows={2}
@@ -137,11 +180,12 @@ export const RfiForm: React.FC<Props> = (props) => {
               label="Private message"
               labelColor="common.white"
               labelSize={12}
-              value={state.message}
+              value={message.details.privateMessage}
               updateState={onUpdateMessage}
               multiline
               rows={2}
               variant="filled"
+              disabled={requestIsCompleted}
               isPrivate={true}
               className={`${classes.mainInput} ${classes.formInput}`}
             />
@@ -153,20 +197,18 @@ export const RfiForm: React.FC<Props> = (props) => {
             label="Answer"
             labelColor="common.white"
             labelSize={12}
-            value={state.answer}
+            value={message.details.collaboration?.response}
             updateState={onUpdateAnswer}
             multiline
             rows={2}
             variant="filled"
+            disabled={requestIsCompleted}
             className={`${classes.fullHeightInput} ${classes.formInput}`}
           />
         </Box>
       </Box>
-      <Box className={classes.formActions}>
-        { onSaveDraft ? <Button onClick={handleOnSaveDraft} customVariant="form-action" size="small">Save draft</Button> : null }
-        { onSubmit ? <Button onClick={handleOnSubmit} customVariant="form-action" size="small">Send for review</Button> : null }
-      </Box>
-    </>
+      <ActionButtons />
+    </div>
   )
 }
 

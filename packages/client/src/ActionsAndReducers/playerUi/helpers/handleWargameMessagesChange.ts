@@ -8,15 +8,21 @@ import {
   MessageInfoType
 } from '@serge/custom-types'
 import { handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
-
+import { ActionPayload } from '@serge/components/src/local/molecules/rfi-form/types/props'
 import {
-  INFO_MESSAGE_CLIPPED
+  INFO_MESSAGE_CLIPPED,
+  CollaborativeMessageStates
 } from '@serge/config'
 // TODO: change it to @serge/config
 
 interface SetWargameMessage {
   channels: PlayerUiChannels,
   chatChannel: PlayerUiChatChannel,
+}
+
+interface SetRFIMessages {
+  channels: PlayerUiChannels,
+  rfiMessages: Array<MessageCustom>
 }
 
 import {
@@ -119,4 +125,56 @@ export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI =>
     unreadMessageCount: 0,
     messages: channelMessages
   }
+}
+
+const updateRFIMessage = (payload: { channel: string, message: MessageChannel, rfiPayload: ActionPayload }, newState: PlayerUi, rejected: boolean = false): SetRFIMessages => {
+  const { channel, message: payloadMessage, rfiPayload } = payload
+  const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
+  const statusMap = [
+    CollaborativeMessageStates.Unallocated,
+    CollaborativeMessageStates.InProgress,
+    CollaborativeMessageStates.PendingReview,
+    CollaborativeMessageStates.Released
+  ]
+  let updatedRFIMessage: MessageCustom | null = null
+  const updatedMessages = [...channelMessages].map(message => {
+    const messageItem = (message as MessageCustom)
+    if (message._id === payloadMessage._id &&
+      messageItem.details.collaboration) {
+      const currentStatusIndex = statusMap.findIndex((status: CollaborativeMessageStates) => {
+        return status === (messageItem.details.collaboration || {}).status
+      })
+      messageItem.details.collaboration.status = rejected
+        ? CollaborativeMessageStates.Rejected
+        : statusMap[Math.min(statusMap.length - 1, currentStatusIndex + 1)]
+      messageItem.details.collaboration.response = rfiPayload.answer ? rfiPayload.answer : undefined
+      messageItem.details.privateMessage = rfiPayload.privateMessageContent ? rfiPayload.privateMessageContent : undefined
+      updatedRFIMessage = messageItem
+    }
+    return message
+  })
+  // TODO: Implement persistence data updates
+  return {
+    channels: {
+      ...newState.channels,
+      [channel]: {
+        ...newState.channels[channel],
+        messages: updatedMessages
+      }
+    },
+    rfiMessages: newState.rfiMessages.map(message => {
+      if (updatedRFIMessage && message._id === updatedRFIMessage._id) {
+        return updatedRFIMessage
+      }
+      return message
+    })
+  }
+}
+
+export const submitRFIMessage = (payload: { channel: string, message: MessageChannel, rfiPayload: ActionPayload }, newState: PlayerUi): SetRFIMessages => {
+  return updateRFIMessage(payload, newState)
+}
+
+export const rejectRFIMessage = (payload: { channel: string, message: MessageChannel, rfiPayload: ActionPayload }, newState: PlayerUi): SetRFIMessages => {
+  return updateRFIMessage(payload, newState, true)
 }
