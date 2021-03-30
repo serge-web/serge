@@ -504,7 +504,8 @@ export const HexGrid: React.FC<{}> = () => {
           position={cell.centreLatLng}
           width="120"
           icon={L.divIcon({
-            html: '' + cell.x + ',' + cell.y,
+            // html: '' + cell.x + ',' + cell.y,
+            html: cell.name,
             className: styles['default-coords'],
             iconSize: [30, 20]
           })}
