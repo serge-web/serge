@@ -1,7 +1,7 @@
 import { MessageChannel } from '@serge/custom-types'
 import { CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
 
-/** set of mock messages that includes 
+/** set of mock messages that includes
  * extra data for collaborative editing
  */
 const gameMessagesWithRFI: MessageChannel[] = [
@@ -234,6 +234,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
+      title: "RFI Title example",
       content: "RFI 4 from Red"
     },
     _rev: "1",
@@ -250,7 +251,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
           forceColor: "#F00",
           icon: "default_img/umpireDefault.png",
           role: "CO"
-        },  
+        },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
@@ -259,6 +260,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
+      title: "RFI Title example",
       content: "RFI 4 from Red"
     },
     _id: "2020-03-25T15:08:55.530Z",
@@ -275,7 +277,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
             forceColor: "#F00",
             icon: "default_img/umpireDefault.png",
             role: "CO"
-        },      
+        },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
@@ -285,6 +287,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
+      title: "RFI Title example",
       content: "RFI 4 from Red"
     },
     _id: "2020-03-25T15:08:55.530Z",
@@ -307,9 +310,11 @@ const gameMessagesWithRFI: MessageChannel[] = [
       collaboration: {
         status: CollaborativeMessageStates.Released,
         response: "Game control response to RFI 4"
-      }
+      },
+      privateMessage: "The private content goes in here"
     },
     message: {
+      title: "RFI Title example",
       content: "RFI 4 from Red"
     },
     _id: "2020-03-25T15:08:55.530Z",

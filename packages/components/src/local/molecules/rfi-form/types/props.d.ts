@@ -1,8 +1,8 @@
-import { RequestForInformation } from '@serge/custom-types'
+import { MessageCustom } from '@serge/custom-types/message'
 
-export type State = {
-  answer: string | undefined
-  message: string | undefined
+export type ActionPayload = {
+  answer: string | null
+  privateMessageContent?: string | null
 }
 export type Action = {
   payload: string | undefined
@@ -10,18 +10,20 @@ export type Action = {
 }
 export default interface Props {
   /**
-   * Request object
+   * RFI message
    */
-  request: {
-    title: RequestForInformation['title']
-    description: RequestForInformation['description']
-  }
+  message: MessageCustom
   /**
-   * Callback on save draft event
+   * Submit action event handler, this could be one of:
+   * Take ownership on unallocated RFIs
+   * Send for review on RFIs in progress
+   * Release for pending review RFIs
+   * @param payload
    */
-  onSaveDraft?: (payload: State) => void
+  onSubmit?: (message: object, payload: ActionPayload) => void
   /**
-   * Callback on submit event
+   * Reject action event handler on release for pending review RFIs
+   * @param payload
    */
-  onSubmit?: (payload: State) => void
+  onReject?: (message: object, payload: ActionPayload) => void
 }
