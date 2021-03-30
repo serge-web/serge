@@ -9,6 +9,7 @@ import Badge from '../../atoms/badge'
 import RfiForm from '../../molecules/rfi-form'
 import { MessageCustom } from '@serge/custom-types/message'
 import gameMessagesWithRFI from '@serge/mocks/game-messages-rfi.mock'
+import { mostRecentOnly } from '@serge/helpers'
 
 export default {
   title: 'local/organisms/DataTable',
@@ -65,7 +66,11 @@ WithFilter.args = {
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 const rfiMessages = gameMessagesWithRFI
   .filter(message => (message as MessageCustom).details.messageType === 'RFI')
-const rfiData = rfiMessages.map(message => {
+  // sample data includes multiple versions of RFI messages, ensure we're only
+// looking at newest
+const newest = mostRecentOnly(rfiMessages)
+
+const rfiData = newest.map((message: any) => {
   const messageItem = (message as MessageCustom)
   return [
     messageItem._id,
