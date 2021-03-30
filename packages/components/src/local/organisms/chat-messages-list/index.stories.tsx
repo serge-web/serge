@@ -67,4 +67,3 @@ Demonstration.args = {
   isUmpire: true,
   playerForce: force.name
 }
-

@@ -18,10 +18,10 @@ export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ place
   const [collapsed, setCollapsed] = useState(true)
 
   useImperativeHandle(ref, () => ({
-    setFormState (text: string) {
+    setFormState (text: string): void {
       setFormState(text)
     },
-    clear () {
+    clear (): void {
       setFormState('')
     }
   }))

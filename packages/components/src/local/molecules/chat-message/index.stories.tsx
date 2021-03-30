@@ -35,7 +35,7 @@ export default {
 
 const Template: Story<ChatMessageProps> = (args) => {
   const { message, isOwner, isUmpire } = args
-  return <ChatMessage  message={message} isUmpire={isUmpire} isOwner={isOwner}/>
+  return <ChatMessage message={message} isUmpire={isUmpire} isOwner={isOwner}/>
 }
 
 export const Demonstration = Template

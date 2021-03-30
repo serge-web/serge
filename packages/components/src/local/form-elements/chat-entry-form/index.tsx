@@ -52,7 +52,7 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, 
       { isUmpire &&
       <Box mt={1}>
         <PrivateChatInputToggle
-          postBack={(message) => setPrivateMessage(message)}
+          postBack={(message): void => setPrivateMessage(message)}
           ref={privateMessageEle}
         />
       </Box>

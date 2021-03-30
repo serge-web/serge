@@ -45,5 +45,3 @@ Default.args = {
   isUmpire: false,
   channel: 'Game Admin'
 }
-
-
