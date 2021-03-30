@@ -32,8 +32,8 @@ export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ place
   }
 
   const keyDownHandler = (e: any): void => {
-    if(e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
-      sendMessage && sendMessage(formState);
+    if (e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
+      sendMessage && sendMessage(formState)
     }
   }
 

@@ -15,7 +15,6 @@ import PrivateChatInputToggle from '../private-chat-input-toggle'
 
 /* Render component */
 export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, postBack }: Props) => {
-
   const [message, setMessage] = useState('')
   const [privateMessage, setPrivateMessage] = useState('')
   const messageEle = useRef<any>(null)

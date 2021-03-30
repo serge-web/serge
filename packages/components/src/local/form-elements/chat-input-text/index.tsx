@@ -34,7 +34,7 @@ export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, p
   }))
 
   const keyDownHandler = (e: any): void => {
-    if(e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
+    if (e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
       submitForm()
     }
   }
@@ -59,6 +59,6 @@ export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, p
       }
     />
   )
-});
+})
 
 export default ChatInputText
