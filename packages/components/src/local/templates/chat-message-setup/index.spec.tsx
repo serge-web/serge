@@ -24,7 +24,7 @@ describe('ChatMessageSetup page:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <ChatMessageSetup userId={'CO'} forceName={'Blue'} isUmpire={true} chatChannel={ChatMessagesMock} selectedForce={force} selectedRole={"CO"}/>,
+        <ChatMessageSetup userId={'CO'} forceName={'Blue'} isUmpire={true} chatChannel={ChatMessagesMock} selectedForce={force} selectedRole={'CO'}/>,
         { createNodeMock }
       )
       .toJSON()

@@ -55,7 +55,7 @@ const Template: Story<Props> = (args) => {
   const { playerForce, isUmpire } = args
   return <ChatMessagesList
     messages={ChatMessagesMock}
-    userId='id' 
+    userId='id'
     icons={icons}
     playerForce={playerForce}
     isUmpire={isUmpire}
