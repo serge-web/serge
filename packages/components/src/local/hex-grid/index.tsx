@@ -240,7 +240,7 @@ export const HexGrid: React.FC<{}> = () => {
         setAllowableCells(filteredCells)
 
         // try to create convex polygon around cells
-        if(planningConstraints.travelMode !== 'air') {
+        if (planningConstraints.travelMode !== 'air') {
           const hull = generateOuterBoundary(filteredCells)
           setAllowablePoly(hull)
         }
@@ -520,7 +520,7 @@ export const HexGrid: React.FC<{}> = () => {
       color={ assetColor }
       positions={allowablePoly}
       className={styles['planning-line']}
-      />
+    />
     {origin &&
         <Marker
           draggable={true}
