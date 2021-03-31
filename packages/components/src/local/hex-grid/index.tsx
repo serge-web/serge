@@ -320,19 +320,19 @@ export const HexGrid: React.FC<{}> = () => {
             if (!cell.poly) {
               const centreH = cell.centreLatLng
               // legacy format was to store tile diameter in mins
-              if(gridCells.tileDiameterDegs === undefined) {
-                console.warn("Warning tile diameter in Degrees should be in the wargame definition. Potentially a legacy wargame.")
+              if (gridCells.tileDiameterDegs === undefined) {
+                console.warn('Warning tile diameter in Degrees should be in the wargame definition. Potentially a legacy wargame.')
               }
-              const tileDiamMins = gridCells.tileDiameterDegs ? gridCells.tileDiameterDegs  / 60 : gridCells.tileDiameterMins
+              const tileDiamMins = gridCells.tileDiameterDegs ? gridCells.tileDiameterDegs / 60 : gridCells.tileDiameterMins
 
               const cornerArr: L.LatLng[] = []
               // don't let us fall over if we don't know diam mins
-              if(tileDiamMins !== undefined && !isNaN(tileDiamMins)) {
+              if (tileDiamMins !== undefined && !isNaN(tileDiamMins)) {
                 for (let i = 0; i < 6; i++) {
                   const angle = 30 + i * 60
                   const point = destination(centreH, angle, tileDiamMins * 1852)
                   cornerArr.push(point)
-                }  
+                }
               }
               cell.poly = cornerArr
             }
