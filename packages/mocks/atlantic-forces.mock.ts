@@ -126,7 +126,7 @@ export const forces: ForceData[] = [
               "AB29"
             ],
             "status": {
-              "speedKts": 20,
+              "speedKts": 10,
               "state": "Transiting"
             },
             "turn": 4
@@ -136,7 +136,7 @@ export const forces: ForceData[] = [
               "AA30"
             ],
             "status": {
-              "speedKts": 20,
+              "speedKts": 10,
               "state": "Transiting"
             },
             "turn": 5
@@ -145,7 +145,7 @@ export const forces: ForceData[] = [
         "platformType": "task-group",
         "position": "AC28",
         "status": {
-          "speedKts": 20,
+          "speedKts": 10,
           "state": "Transiting"
         },
         "uniqid": "a0pra5431"
