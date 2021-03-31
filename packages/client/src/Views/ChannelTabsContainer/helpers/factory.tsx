@@ -4,9 +4,10 @@ import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VIS
 import { sendMapMessage } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { Mapping, Assets, HexGrid, DataTable, Badge, RfiForm } from '@serge/components'
+import { Mapping, Assets, HexGrid } from '@serge/components'
 import _ from 'lodash'
 import Channel from '../../../Components/Channel'
+import RfiStatusBoard from '../../../Components/RfiStatusBoard'
 import findChannelByName from './findChannelByName'
 
 const LocalTileLayer = {
@@ -81,91 +82,6 @@ const factory = (state: PlayerUi): Factory => {
       <HexGrid/>
     </Mapping>
 
-    // Render the RFI Data Table
-    const renderRfiDataTable = () => {
-      const dataTableProps = {
-        columns: [
-          'ID',
-          {
-            filters: [
-              'Red Support',
-              'Blue Support'
-            ],
-            label: 'Channel'
-          },
-          {
-            filters: [
-              'CO',
-              'Logistic'
-            ],
-            label: 'From'
-          },
-          'Title',
-          {
-            filters: [
-              'Unallocated',
-              'In Progress',
-              'Pending Review',
-              'Released'
-            ],
-            label: 'Status'
-          },
-          {
-            filters: [
-              'Fuel specialist',
-              'Aeronautic specialist',
-              'Weapons specialist'
-            ],
-            label: 'Owner'
-          }
-        ],
-        data: [
-          ['RFI-red-33', 'Red Support', 'CO', 'Request for air support', 'Unallocated', ''],
-          ['RFI-red-32', 'Red Support', 'Logistic', 'Fuel availability', 'In Progress', 'Fuel specialist'],
-          ['RFI-red-28', 'Blue Support', 'Logistic', 'Air drop', 'Pending Review', 'Aeronautic specialist'],
-          ['RFI-red-27', 'Blue Support', 'CO', 'Weapon authorization', 'Released', 'Weapons specialist']
-        ].map((row): any => {
-          const [id, channel, role, content, status, owner] = row
-          const roleColors = {
-            'Red Support': '#F94248',
-            'Blue Support': '#00A3DE'
-          }
-          const statusColors = {
-            Unallocated: '#B10303',
-            'In Progress': '#E7740A',
-            'Pending Review': '#434343',
-            Released: '#007219'
-          }
-          return {
-            collapsible: (
-              <RfiForm request={{ title: 'Some title', description: 'Some description' }} />
-            ),
-            cells: [
-              id,
-              channel,
-              {
-                component: <Badge customBackgroundColor={roleColors[channel]} label={role}/>,
-                label: role
-              },
-              content,
-              {
-                component: <Badge customBackgroundColor={statusColors[status]} customSize="large" label={status}/>,
-                label: status
-              },
-              {
-                component: owner ? <Badge customBackgroundColor="#434343" label={owner}/> : null,
-                label: owner
-              }
-            ]
-          }
-        })
-      }
-
-      return (
-        <DataTable {...dataTableProps} />
-      )
-    }
-
     if (_.isEmpty(state.channels)) return
     const channelsArray = Object.entries(state.channels)
     if (channelsArray.length === 1) {
@@ -183,7 +99,7 @@ const factory = (state: PlayerUi): Factory => {
         // _attributes.id
         return renderMap(node.getId())
       } else if (channelName === 'rfis') {
-        return renderRfiDataTable()
+        return <RfiStatusBoard rfiMessages={state.rfiMessages} />
       }
       return matchedChannel && matchedChannel.length ? <Channel channelId={matchedChannel[0]} /> : null
     }

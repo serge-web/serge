@@ -8,7 +8,6 @@ import {
   SUBMIT_PLANS,
   STATE_OF_WORLD,
   INFO_MESSAGE_CLIPPED,
-  RFI_States,
   CollaborativeMessageStates
 } from '@serge/config'
 
@@ -23,7 +22,7 @@ import Wargame from './wargame'
 /** additional message detail used for management of RFIs */
 export interface RFIData {
   // current state
-  status: RFI_States,
+  status: CollaborativeMessageStates,
   // id of current owner
   owner: string,
   // response to RFI
@@ -75,6 +74,7 @@ export interface MessageStructure {
    * Once we have in-game messages, we should encounter structured messages
    */
   [property: string]: any
+  title?: string
   content?: string
 }
 

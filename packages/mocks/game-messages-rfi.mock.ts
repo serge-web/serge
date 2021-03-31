@@ -325,7 +325,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.Released,
         response: "Game control response to RFI 4"
-      }
+      },
+      privateMessage: "The private content goes in here"
     },
     message: {
       "Reference": "BLUE-4",
