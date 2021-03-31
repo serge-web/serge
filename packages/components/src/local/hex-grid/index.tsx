@@ -58,7 +58,6 @@ export const HexGrid: React.FC<{}> = () => {
   // union of relevant cells & cells available for the current planning step
   const [visibleAndAllowableCells, setVisibleAndAllowableCells] = useState<SergeHex<{}>[]>([])
 
-
   // allow the planning marker origin to be changed
   const [origin, setOrigin] = useState<L.LatLng | undefined>(undefined)
   const [originHex, setOriginHex] = useState<SergeHex<{}> | undefined>(undefined)
@@ -285,7 +284,6 @@ export const HexGrid: React.FC<{}> = () => {
   }
 
   useEffect(() => {
-    console.log('getting visible cells')
     if (viewport && gridCells) {
       if (polyBin.length === 0) {
         const bin = createPolyBin(gridCells)
@@ -313,15 +311,13 @@ export const HexGrid: React.FC<{}> = () => {
           }
         })
 
-        console.log('binned, visible:', visible.length, newTL, newBR, viewport, extendedViewport)
-
         // if we're at a scale that allows reduced detail, don't show land or plain-sea
-        const relevantCellArr = reducedDetail && domain === Domain.ATLANTIC ?
-          visible.filter((cell: SergeHex<{}>) => {
+        const relevantCellArr = reducedDetail && domain === Domain.ATLANTIC
+          ? visible.filter((cell: SergeHex<{}>) => {
             return cell.type !== 'land' && cell.type !== 'sea'
           })
           : visible
-      
+
         // see if first cell is missing poly
         if (visible.length && !visible[0].poly) {
           // now check each cell has its polygon generated
@@ -347,6 +343,7 @@ export const HexGrid: React.FC<{}> = () => {
             }
           })
         }
+
         setVisibleCells(visible)
         setRelevantCells(relevantCellArr)
       }
@@ -360,14 +357,15 @@ export const HexGrid: React.FC<{}> = () => {
     setReducedDetail(zoomLevel <= 7.0)
   }, [zoomLevel])
 
-  // as a performance optimisation we plot the 
-  // visible cells at this zoom level, plus the 
+  // as a performance optimisation we plot the
+  // visible cells at this zoom level, plus the
   // allowable filtered cells
   useEffect(() => {
     // combine both lists
     const allCells = relevantCells.concat(allowableCells)
     // some cells may be in both lists, so reduce to unique cells
-    var uniqueCells = [...new Set(allCells)]
+    const uniqueCells = [...new Set(allCells)]
+    console.log('reduce visible', allowableCells.length, relevantCells.length, uniqueCells.length)
     setVisibleAndAllowableCells(uniqueCells)
   }, [allowableCells, relevantCells])
 
@@ -465,7 +463,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  console.log('zoom', zoomLevel, visibleCells.length)
+  console.log('zoom', zoomLevel, visibleAndAllowableCells.length)
 
   return <>
 
@@ -528,6 +526,7 @@ export const HexGrid: React.FC<{}> = () => {
     </LayerGroup>
     {
       zoomLevel > 5.5 &&
+      /* note: for the label markers - we use the cells in the currently visible area */
       <LayerGroup key={'hex_labels'} >{visibleCells && visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
           key={'hex_label_' + cell.name + '_' + index}
