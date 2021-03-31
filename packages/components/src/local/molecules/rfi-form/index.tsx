@@ -158,6 +158,7 @@ export const RfiForm: React.FC<Props> = (props) => {
   const requestIsCompleted =
     message.details.collaboration?.status &&
     requestCompleteStatuses.includes(message.details.collaboration?.status)
+  
   return (
     <div className={classes.rfiForm}>
       <Box className={classes.formContainer}>
@@ -165,8 +166,8 @@ export const RfiForm: React.FC<Props> = (props) => {
           <Box className={classes.formWrapper}>
             <TextInput
               fullWidth
-              label={ message.message.title || 'Request for Information' }
-              value={ message.message.content }
+              label={ message.message.Title || 'Request for Information' }
+              value={ message.message.Request }
               labelColor="common.white"
               labelSize={12}
               multiline
