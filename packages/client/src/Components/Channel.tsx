@@ -57,12 +57,14 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
       let title
       if (detail.title) {
         title = detail.title
+      } else if (detail.Title) { 
+        title = detail.Title // have Title field in RFI format
       } else if(detail.content) {
         // yes, we have content (probably chat) use it
         title = detail.content
       } else {
         // no content, just use message-type
-        title = detail.messageType
+        title = details.messageType
       }
       return {
         ...item,
