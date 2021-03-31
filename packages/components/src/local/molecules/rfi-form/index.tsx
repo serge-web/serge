@@ -158,7 +158,7 @@ export const RfiForm: React.FC<Props> = (props) => {
   const requestIsCompleted =
     message.details.collaboration?.status &&
     requestCompleteStatuses.includes(message.details.collaboration?.status)
-  
+
   return (
     <div className={classes.rfiForm}>
       <Box className={classes.formContainer}>
