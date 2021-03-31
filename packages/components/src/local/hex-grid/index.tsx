@@ -10,6 +10,7 @@ import Polygon from './helpers/polygon'
 import getCellStyle from './helpers/get-cell-style'
 
 import binCells, { PolyBin } from './helpers/bin-cells'
+import generateOuterBoundary from './helpers/get-outer-boundary'
 
 /* Import mapping context */
 import { MapContext } from '../mapping'
@@ -31,6 +32,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   // allowable cells filtered depending on cell type
   const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>([])
+  const [allowablePoly, setAllowablePoly] = useState<Array<L.LatLng>>([])
 
   // whether to show performance optimised view
   const [reducedDetail, setReducedDetail] = useState<boolean>(false)
@@ -233,28 +235,27 @@ export const HexGrid: React.FC<{}> = () => {
 
         // ok, see which ones are filterd
         // "air" is a special planning mode, where we don't have to filter it
-        if (planningConstraints.travelMode === 'air') {
-          // can use any of the allowable cells
-          setAllowableCells(allowableCellList)
-        } else if (allowableCellList.length) {
-          // ok, land or sea. filter accordingly
-          const filteredCells = allowableCellList.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
-          setAllowableCells(filteredCells)
-        } else {
-          // clear the allowable cells
-          console.warn('Hex grid - travel mode missing in ', planningConstraints)
-          setAllowableCells([])
+        const filteredCells = (planningConstraints.travelMode === 'air') ? allowableCellList : allowableCellList.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
+
+        setAllowableCells(filteredCells)
+
+        // try to create convex polygon around cells
+        if (planningConstraints.travelMode !== 'air') {
+          const hull = generateOuterBoundary(filteredCells)
+          setAllowablePoly(hull)
         }
       } else {
         // drop the marker if we can't find it
         setOrigin(undefined)
         setAllowableCells([])
+        setAllowablePoly([])
       }
       // store it anyway, even if it's undefined
       setOriginHex(originCell)
     } else {
       // clear the route
       setAllowableCells([])
+      setAllowablePoly([])
       setOrigin(undefined)
       setOriginHex(undefined)
     }
@@ -512,6 +513,12 @@ export const HexGrid: React.FC<{}> = () => {
       key={'hex_planning_line'}
       color={ assetColor }
       positions={planningRoutePoly}
+      className={styles['planning-line']}
+    />
+    <Polyline
+      key={'allowableCells_line'}
+      color={ assetColor }
+      positions={allowablePoly}
       className={styles['planning-line']}
     />
     {origin &&
