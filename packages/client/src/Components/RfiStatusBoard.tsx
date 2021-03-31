@@ -10,13 +10,13 @@ const RfiStatusBoard = ({ rfiMessages }: { rfiMessages: MessageCustom[] }) => {
   const dispatch = usePlayerUiDispatch()
   const data = rfiMessages.map(message => [
     // TODO: Assign appropriate RFI Ids
-    message._id,
+    message.message.Reference || message._id,
     message.details.channel,
     message.details.from.role,
     message.details.from.forceColor,
-    message.message.title,
-    message.details.collaboration ? message.details.collaboration.status : '',
-    message.details.collaboration ? message.details.collaboration.owner : ''
+    message.message.Title,
+    message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
+    message.details.collaboration ? message.details.collaboration.owner : '= Pending ='
   ])
   const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
     return [

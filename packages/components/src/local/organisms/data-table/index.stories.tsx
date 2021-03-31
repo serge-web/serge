@@ -7,8 +7,9 @@ import docs from './README.md'
 import { Story } from '@storybook/react/types-6-0'
 import Badge from '../../atoms/badge'
 import RfiForm from '../../molecules/rfi-form'
-import { MessageCustom, MessageDetails } from '@serge/custom-types/message'
-import gameMessagesWithRFI from '@serge/mocks/game-messages-rfi.mock'
+import { MessageCustom } from '@serge/custom-types/message'
+import { GameMessagesMockRFI } from '@serge/mocks'
+import { mostRecentOnly } from '@serge/helpers'
 
 export default {
   title: 'local/organisms/DataTable',
@@ -63,9 +64,13 @@ WithFilter.args = {
 }
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
-const rfiMessages = gameMessagesWithRFI
+const rfiMessages = GameMessagesMockRFI
   .filter(message => (message as MessageCustom).details.messageType === 'RFI')
-const rfiData = rfiMessages.map(message => {
+  // sample data includes multiple versions of RFI messages, ensure we're only
+// looking at newest
+const newest = mostRecentOnly(rfiMessages)
+
+const rfiData = newest.map((message: any) => {
   const messageItem = (message as MessageCustom)
   return [
     messageItem._id,
@@ -77,28 +82,26 @@ const rfiData = rfiMessages.map(message => {
       messageItem.details.collaboration?.owner
   ]
 })
-const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
-  return [
-    ...filters,
-    message.details.channel
-  ]
-}, [])
-const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
-  return [
-    ...filters,
-    (message.details as MessageDetails).from.role
-  ]
-}, [])
+
+const uniqueFieldValues = (messages: any[], col: number) => {
+  // find items with unique items in set column
+  const uniqueValues = messages.filter((elem, index) => rfiData.findIndex(obj => obj[col] === elem[col]) === index)
+  // produce array with just field of interest
+  const values = uniqueValues.map((item: any) => item && item[col])
+  // swap undefined for string
+  return values.map((item: any) => item === undefined ? '[Undefined]' : item)
+}
+
 export const Implementation = Template.bind({})
 Implementation.args = {
   columns: [
     'ID',
     {
-      filters: [...new Set(filtersChannel)],
+      filters: uniqueFieldValues(rfiData, 1),
       label: 'Channel'
     },
     {
-      filters: [...new Set(filtersRoles)],
+      filters: uniqueFieldValues(rfiData, 2),
       label: 'From'
     },
     'Title',
@@ -112,11 +115,7 @@ Implementation.args = {
       label: 'Status'
     },
     {
-      filters: [
-        'Fuel specialist',
-        'Aeronautic specialist',
-        'Weapons specialist'
-      ],
+      filters: uniqueFieldValues(rfiData, 6),
       label: 'Owner'
     }
   ],
@@ -130,7 +129,7 @@ Implementation.args = {
     }
     return {
       collapsible: (
-        <RfiForm onSubmit={console.log} onReject={console.log} message={(rfiMessages[rowIndex] as MessageCustom)} />
+        <RfiForm onSubmit={console.log} onReject={console.log} message={(newest[rowIndex] as MessageCustom)} />
       ),
       cells: [
         id,

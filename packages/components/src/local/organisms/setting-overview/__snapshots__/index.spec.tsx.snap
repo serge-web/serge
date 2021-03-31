@@ -279,6 +279,35 @@ exports[`SettingOverview component: renders correctly 1`] = `
               </span>
             </label>
           </div>
+          <div>
+            <button
+              className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-16 MuiButton-contained makeStyles-contained-2 makeStyles-contained-17"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={0}
+              type="button"
+            >
+              <span
+                className="MuiButton-label"
+              >
+                Initiate Wargame
+              </span>
+              <span
+                className="MuiTouchRipple-root"
+              />
+            </button>
+          </div>
         </div>
       </div>
     </div>
