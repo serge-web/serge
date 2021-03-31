@@ -30,7 +30,7 @@ export const HexGrid: React.FC<{}> = () => {
   L.Icon.Default.imagePath = '/images/'
 
   // allowable cells filtered depending on cell type
-  const [allowableFilteredCells, setAllowableFilteredCells] = useState<Array<SergeHex<{}>>>([])
+  const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>([])
 
   // whether to show performance optimised view
   const [reducedDetail, setReducedDetail] = useState<boolean>(false)
@@ -49,6 +49,15 @@ export const HexGrid: React.FC<{}> = () => {
   // the binned polygons
   const [polyBin, setPolyBin] = useState<PolyBin[]>([])
   const [visibleCells, setVisibleCells] = useState<SergeHex<{}>[]>([])
+
+  // at higher zoom levels we need to reduce the number of hexes plotted
+  // we do this by filtering out cells that aren't relevant. Namely
+  // cells on land or cells in open ocean
+  const [relevantCells, setRelevantCells] = useState<SergeHex<{}>[]>([])
+
+  // union of relevant cells & cells available for the current planning step
+  const [visibleAndAllowableCells, setVisibleAndAllowableCells] = useState<SergeHex<{}>[]>([])
+
 
   // allow the planning marker origin to be changed
   const [origin, setOrigin] = useState<L.LatLng | undefined>(undefined)
@@ -79,7 +88,7 @@ export const HexGrid: React.FC<{}> = () => {
         if (selectedAsset.uniqid !== selectedAssetId) {
           // clear the current planning details
           setPlanningRange(undefined)
-          setAllowableFilteredCells([])
+          setAllowableCells([])
           setOrigin(undefined)
           setDragDestination(undefined)
           setPlanningRouteCells([])
@@ -111,7 +120,7 @@ export const HexGrid: React.FC<{}> = () => {
       /** if no asset is selected, clear the planning elements
        */
       setDragDestination(undefined)
-      setAllowableFilteredCells([])
+      setAllowableCells([])
       setPlanningRange(undefined)
       setOrigin(undefined)
       setAssetColor(undefined)
@@ -167,7 +176,7 @@ export const HexGrid: React.FC<{}> = () => {
 
         // see if current cell is acceptable
         // work out the available cells
-        if (allowableFilteredCells.includes(dragDestination)) {
+        if (allowableCells.includes(dragDestination)) {
           // ok, set planning route to just that cell - to mark the
           // last acceptable cell
           setPlanningRouteCells([dragDestination])
@@ -175,7 +184,7 @@ export const HexGrid: React.FC<{}> = () => {
       } else {
         // work out the available cells
         const plannedRoute: SergeHex<{}>[] = planningConstraints
-          ? plannedRouteFor(gridCells, allowableFilteredCells, originHex, dragDestination) : []
+          ? plannedRouteFor(gridCells, allowableCells, originHex, dragDestination) : []
 
         // combine with any existing planned cells
         setPlanningRouteCells(plannedRoute)
@@ -221,32 +230,32 @@ export const HexGrid: React.FC<{}> = () => {
         setOrigin(originCell.centreLatLng)
 
         // is there a limited range?
-        const allowableCells: SergeHex<{}>[] = planningRange ? calcAllowableCells(gridCells, originCell, planningRange) : gridCells
+        const allowableCellList: SergeHex<{}>[] = planningRange ? calcAllowableCells(gridCells, originCell, planningRange) : gridCells
 
         // ok, see which ones are filterd
         // "air" is a special planning mode, where we don't have to filter it
         if (planningConstraints.travelMode === 'air') {
           // can use any of the allowable cells
-          setAllowableFilteredCells(allowableCells)
-        } else if (allowableCells.length) {
+          setAllowableCells(allowableCellList)
+        } else if (allowableCellList.length) {
           // ok, land or sea. filter accordingly
-          const filteredCells = allowableCells.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
-          setAllowableFilteredCells(filteredCells)
+          const filteredCells = allowableCellList.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
+          setAllowableCells(filteredCells)
         } else {
           // clear the allowable cells
           console.warn('Hex grid - travel mode missing in ', planningConstraints)
-          setAllowableFilteredCells([])
+          setAllowableCells([])
         }
       } else {
         // drop the marker if we can't find it
         setOrigin(undefined)
-        setAllowableFilteredCells([])
+        setAllowableCells([])
       }
       // store it anyway, even if it's undefined
       setOriginHex(originCell)
     } else {
       // clear the route
-      setAllowableFilteredCells([])
+      setAllowableCells([])
       setOrigin(undefined)
       setOriginHex(undefined)
     }
@@ -285,7 +294,7 @@ export const HexGrid: React.FC<{}> = () => {
         // grow the viewport by 1/2 cell, so we can test
         // if the cell centre is inside the viewport -
         // necessary for cells at the edge
-        const bufferDist = gridCells.tileDiameterMins * 1852 * 4
+        const bufferDist = gridCells.tileDiameterMins * 1852 * 1
         const newTL = viewport.getNorthWest().toBounds(bufferDist)
         const newBR = viewport.getSouthEast().toBounds(bufferDist)
         const extendedViewport = L.latLngBounds(newTL.getNorthWest(), newBR.getSouthEast())
@@ -306,13 +315,13 @@ export const HexGrid: React.FC<{}> = () => {
 
         console.log('binned, visible:', visible.length, newTL, newBR, viewport, extendedViewport)
 
-        // if we have reduced detail, don't show land or plain-sea
-        if (reducedDetail && domain === Domain.ATLANTIC) {
-          visible = visible.filter((cell: SergeHex<{}>) => {
+        // if we're at a scale that allows reduced detail, don't show land or plain-sea
+        const relevantCellArr = reducedDetail && domain === Domain.ATLANTIC ?
+          visible.filter((cell: SergeHex<{}>) => {
             return cell.type !== 'land' && cell.type !== 'sea'
           })
-        }
-
+          : visible
+      
         // see if first cell is missing poly
         if (visible.length && !visible[0].poly) {
           // now check each cell has its polygon generated
@@ -339,15 +348,28 @@ export const HexGrid: React.FC<{}> = () => {
           })
         }
         setVisibleCells(visible)
+        setRelevantCells(relevantCellArr)
       }
     } else {
       setVisibleCells([])
+      setRelevantCells([])
     }
   }, [reducedDetail, viewport, gridCells, polyBin])
 
   useEffect(() => {
-    setReducedDetail(zoomLevel <= 5.5)
+    setReducedDetail(zoomLevel <= 7.0)
   }, [zoomLevel])
+
+  // as a performance optimisation we plot the 
+  // visible cells at this zoom level, plus the 
+  // allowable filtered cells
+  useEffect(() => {
+    // combine both lists
+    const allCells = relevantCells.concat(allowableCells)
+    // some cells may be in both lists, so reduce to unique cells
+    var uniqueCells = [...new Set(allCells)]
+    setVisibleAndAllowableCells(uniqueCells)
+  }, [allowableCells, relevantCells])
 
   /** handler for planning marker being droppped
        *
@@ -374,7 +396,7 @@ export const HexGrid: React.FC<{}> = () => {
       setPlanningRouteCells([])
       setPlanningRoutePoly([])
       setPlanningRange(undefined)
-      setAllowableFilteredCells([])
+      setAllowableCells([])
     } else {
       // Note: ok, we don't actually use the marker location, since
       // it may be outside the achievable area. Just
@@ -471,7 +493,7 @@ export const HexGrid: React.FC<{}> = () => {
     ))}
     </LayerGroup> */}
 
-    <LayerGroup key={'hex_polygons'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
+    <LayerGroup key={'hex_polygons'} >{visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
@@ -479,7 +501,7 @@ export const HexGrid: React.FC<{}> = () => {
         fillColor={ cell.fillColor || '#f00' }
         positions={cell.poly}
         stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
-        className={styles[getCellStyle(cell, planningRouteCells, allowableFilteredCells, cellForSelected)]}
+        className={styles[getCellStyle(cell, planningRouteCells, allowableCells, cellForSelected)]}
       />
     ))}
     <Polyline
@@ -505,8 +527,8 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 6.5 &&
-      <LayerGroup key={'hex_labels'} >{gridCells && gridCells.map((cell: SergeHex<{}>, index: number) => (
+      zoomLevel > 5.5 &&
+      <LayerGroup key={'hex_labels'} >{visibleCells && visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
           key={'hex_label_' + cell.name + '_' + index}
           position={cell.centreLatLng}
