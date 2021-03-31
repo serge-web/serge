@@ -7,7 +7,7 @@ import docs from './README.md'
 import { Story } from '@storybook/react/types-6-0'
 import Badge from '../../atoms/badge'
 import RfiForm from '../../molecules/rfi-form'
-import { MessageCustom } from '@serge/custom-types/message'
+import { MessageCustom, MessageDetails } from '@serge/custom-types/message'
 import gameMessagesWithRFI from '@serge/mocks/game-messages-rfi.mock'
 
 export default {
@@ -77,22 +77,28 @@ const rfiData = rfiMessages.map(message => {
       messageItem.details.collaboration?.owner
   ]
 })
+const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
+  return [
+    ...filters,
+    message.details.channel
+  ]
+}, [])
+const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
+  return [
+    ...filters,
+    (message.details as MessageDetails).from.role
+  ]
+}, [])
 export const Implementation = Template.bind({})
 Implementation.args = {
   columns: [
     'ID',
     {
-      filters: [
-        'Red Support',
-        'Blue Support'
-      ],
+      filters: [...new Set(filtersChannel)],
       label: 'Channel'
     },
     {
-      filters: [
-        'CO',
-        'Logistic'
-      ],
+      filters: [...new Set(filtersRoles)],
       label: 'From'
     },
     'Title',

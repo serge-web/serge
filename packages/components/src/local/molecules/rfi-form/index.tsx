@@ -2,7 +2,6 @@ import React, { useReducer } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import TextInput from '../../atoms/text-input'
-import Button from '../../atoms/button'
 
 /* Import Types */
 import Props, { ActionPayload, Action } from './types/props'
@@ -67,7 +66,8 @@ const useStyles = makeStyles((theme: Theme) => ({
       }
     },
     '& .MuiInputBase-input': {
-      minHeight: '25vh',
+      height: '25vh',
+      maxHeight: '110px',
       color: 'white',
       fontSize: '12px'
     }
@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 /* Render component */
 export const RfiForm: React.FC<Props> = (props) => {
   const classes = useStyles()
-  const { message, onSubmit, onReject } = props
+  const { message } = props
   const formReducers = (state: ActionPayload, action: Action): ActionPayload => {
     switch (action.type) {
       case 'updateAnswer':
@@ -96,7 +96,7 @@ export const RfiForm: React.FC<Props> = (props) => {
         }
     }
   }
-  const [state, dispatch] = useReducer(formReducers, {
+  const [, dispatch] = useReducer(formReducers, {
     answer: null,
     privateMessageContent: null
   })
@@ -111,45 +111,6 @@ export const RfiForm: React.FC<Props> = (props) => {
       type: 'updateAnswer',
       payload: target.value
     })
-  }
-  const handleOnSubmit = (): void => {
-    const { answer, privateMessageContent } = state
-    onSubmit && onSubmit(message, {
-      answer,
-      privateMessageContent
-    })
-  }
-  const handleOnReject = (): void => {
-    const { answer, privateMessageContent } = state
-    onReject && onReject(message, {
-      answer,
-      privateMessageContent
-    })
-  }
-  const ActionButtons = (): React.ReactElement | null => {
-    switch (message.details.collaboration?.status) {
-      case CollaborativeMessageStates.Unallocated:
-        return (
-          <Box pt={2} display="flex" justifyContent="flex-end">
-            <Button customVariant="form-action" size="small" onClick={handleOnSubmit}>Take ownership</Button>
-          </Box>
-        )
-      case CollaborativeMessageStates.InProgress:
-        return (
-          <Box pt={2} display="flex" justifyContent="flex-end">
-            <Button customVariant="form-action" size="small" onClick={handleOnSubmit}>Send for review</Button>
-          </Box>
-        )
-      case CollaborativeMessageStates.PendingReview:
-        return (
-          <Box pt={2} display="flex" justifyContent="flex-end">
-            <Button customVariant="form-action" size="small" onClick={handleOnReject}>Reject</Button>
-            <Button customVariant="form-action" size="small" onClick={handleOnSubmit}>Release</Button>
-          </Box>
-        )
-      default:
-        return null
-    }
   }
   const requestCompleteStatuses = [
     CollaborativeMessageStates.Released,
@@ -207,7 +168,6 @@ export const RfiForm: React.FC<Props> = (props) => {
           />
         </Box>
       </Box>
-      <ActionButtons />
     </div>
   )
 }

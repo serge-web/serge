@@ -85,7 +85,10 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
       const filter = filtersGroup[id]
       localData = localData.filter(row => {
         const localDataFilter = (filter as Array<string>)
-        const value = row[id]?.label || row[id]
+        const value = row[id]?.label ||
+          row[id] ||
+          (row as unknown as RowWithCollapsibleType).cells[id]?.label ||
+          (row as unknown as RowWithCollapsibleType).cells[id]
         return localDataFilter.length === 0 || localDataFilter.includes(value)
       })
     })
