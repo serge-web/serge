@@ -35,6 +35,14 @@ exports[`TurnProgression component: renders correctly 1`] = `
     >
       Elapsed
     </span>
+    <div
+      className="not-initiated"
+      title="Initiate wargame via Admin Panel"
+    >
+      WARGAME 
+      <br />
+       NOT INITIATED
+    </div>
   </div>
 </div>
 `;

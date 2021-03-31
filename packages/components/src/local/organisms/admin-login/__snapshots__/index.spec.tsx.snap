@@ -42,7 +42,7 @@ Array [
             onFocus={[Function]}
             required={false}
             type="password"
-            value=""
+            value="Nelson"
           />
         </div>
       </div>
