@@ -23,14 +23,14 @@ it('find new message across all channels', () => {
 
   // check we get reduced set of messages
   const mostRecent: MessageChannel[] = mostRecentOnly(messages)
-  expect(mostRecent.length).toEqual(13)
+  expect(mostRecent.length).toEqual(7)
 
   const firstMessage = mostRecent[0] as unknown as MessageCustom
   expect(firstMessage._id).toEqual("id_4c")
   expect(firstMessage._rev).toEqual("4")
 
-  const lastMessage = mostRecent[10] as unknown as MessageCustom
-  expect(lastMessage._id).toEqual("2020-03-25T15:08:47.540Z")
+  const lastMessage = mostRecent[6] as unknown as MessageCustom
+  expect(lastMessage._id).toEqual("2020-03-25T15:08:47.520Z")
   expect(lastMessage._rev).toEqual("1")
 
 })

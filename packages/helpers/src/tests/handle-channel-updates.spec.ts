@@ -28,7 +28,7 @@ describe('handle channel update for info message', () => {
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    expect(Object.keys(res.channels).length).toEqual(3)
+    expect(Object.keys(res.channels).length).toEqual(4)
 
     // ok. now a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
@@ -39,7 +39,7 @@ describe('handle channel update for info message', () => {
       shortChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
-    expect(Object.keys(res2.channels).length).toEqual(2)
+    expect(Object.keys(res2.channels).length).toEqual(3)
   })
 
   it('deletes channels were no longer a member of', () => {
@@ -49,7 +49,7 @@ describe('handle channel update for info message', () => {
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    expect(Object.keys(res.channels).length).toEqual(3)
+    expect(Object.keys(res.channels).length).toEqual(4)
 
     // ok. now remove us from a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
@@ -68,7 +68,7 @@ describe('handle channel update for info message', () => {
       copyChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
-    expect(Object.keys(res2.channels).length).toEqual(2)
+    expect(Object.keys(res2.channels).length).toEqual(3)
   })
 
   it('updates observer status', () => {
@@ -91,7 +91,7 @@ describe('handle channel update for info message', () => {
       limWhiteRoles, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    expect(Object.keys(res.channels).length).toEqual(3)
+    expect(Object.keys(res.channels).length).toEqual(4)
 
     // we're no longer an observer
     const notObserver = false
@@ -101,7 +101,7 @@ describe('handle channel update for info message', () => {
       limWhiteRoles, selectedRole, notObserver , allTemplates, allForces)
 
     expect(res2).toBeTruthy()
-    expect(Object.keys(res2.channels).length).toEqual(2)
+    expect(Object.keys(res2.channels).length).toEqual(3)
   })
 
   it('keeps us in channels were just an observer for', () => {
@@ -111,7 +111,7 @@ describe('handle channel update for info message', () => {
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    expect(Object.keys(res.channels).length).toEqual(3)
+    expect(Object.keys(res.channels).length).toEqual(4)
 
     // ok. now remove us from a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
@@ -130,7 +130,7 @@ describe('handle channel update for info message', () => {
       copyChannels, selectedRole, true, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
-    expect(Object.keys(res2.channels).length).toEqual(3)
+    expect(Object.keys(res2.channels).length).toEqual(4)
   })
 
   it('adds us to new channels (blue)', () => {
@@ -140,7 +140,7 @@ describe('handle channel update for info message', () => {
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    expect(Object.keys(res.channels).length).toEqual(3)
+    expect(Object.keys(res.channels).length).toEqual(4)
 
     // ok. now add a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
@@ -158,7 +158,7 @@ describe('handle channel update for info message', () => {
       copyChannels, selectedRole, false, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
-    expect(Object.keys(res2.channels).length).toEqual(4)
+    expect(Object.keys(res2.channels).length).toEqual(5)
   })
 
   it('does not add us to new channels (red)', () => {
