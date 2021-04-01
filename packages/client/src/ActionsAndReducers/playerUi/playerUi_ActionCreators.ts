@@ -158,6 +158,12 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string): Fu
   }
 }
 
+export const updateMessage = (dbName: string, details: MessageDetails, message: object, id: string, rev?: string): Function => {
+  return async (): Promise<void> => {
+    await wargamesApi.updateMessage(dbName, details, message, id, rev)
+  }
+}
+
 export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {
   return async (): Promise<void> => {
     await wargamesApi.postNewMessage(dbName, details, message)

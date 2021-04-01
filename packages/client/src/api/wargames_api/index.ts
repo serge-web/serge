@@ -556,6 +556,21 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, me
   }
   return db.put(feedback).catch(rejectDefault)
 }
+export const updateMessage = (dbName: string, details: MessageDetails, message: MessageStructure, id: string, rev?: string): Promise<MessageCustom> => {
+  const { db } = getWargameDbByName(dbName)
+  const customMessage: MessageCustom = {
+    _id: id,
+    _rev: rev && rev,
+    // defined constat for messages, it's not same as message.details.messageType,
+    // ex for all template based messages will be used CUSTOM_MESSAGE Type
+    messageType: CUSTOM_MESSAGE,
+    details,
+    message,
+    isOpen: false,
+    hasBeenRead: false
+  }
+  return db.put(customMessage).catch(rejectDefault)
+}
 
 export const postNewMessage = (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
   const { db } = getWargameDbByName(dbName)
