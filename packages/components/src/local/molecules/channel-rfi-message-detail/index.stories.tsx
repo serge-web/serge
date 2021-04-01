@@ -8,6 +8,7 @@ import RFIPropTypes from './types/props'
 import docs from './README.md'
 import { GameMessagesMockRFI } from '@serge/mocks'
 import { mostRecentOnly } from '@serge/helpers'
+import { MessageCustom } from '@serge/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -49,14 +50,14 @@ export default {
 
 const newest = mostRecentOnly(GameMessagesMockRFI)
 
-const unallocated = newest[3]
-const inProgress = newest[4]
-const forReview = newest[5]
-const released = newest[6]
+const unallocated = newest[3] as MessageCustom
+const inProgress = newest[4] as MessageCustom
+const forReview = newest[5] as MessageCustom
+const released = newest[6] as MessageCustom
 
 const Template: Story<RFIPropTypes> = (args) => {
   const { isUmpire, role, message, isRFIManager } = args
-  const [messageState, setMessageState] = useState(message)
+  const [messageState, setMessageState] = useState<MessageCustom>(message)
   return (
     <ChannelRfiMessageDetail
       message={messageState}

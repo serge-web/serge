@@ -41,12 +41,10 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const icons = state.channels[channelId].forceIcons
   const colors = state.channels[channelId].forceColors
 
-  const allMessages = state.channels[channelId].messages
-
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <ChannelMessagesList
-        messages={messages}
+        messages={state.channels[channelId].messages}
         onRead={handleOpenMessage}
         role={selectedRole}
         onChange={handleChange}

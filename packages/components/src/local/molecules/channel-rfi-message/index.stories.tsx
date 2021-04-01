@@ -12,10 +12,10 @@ import { mostRecentOnly } from '@serge/helpers'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 const newest = mostRecentOnly(GameMessagesMockRFI)
-const unallocated = newest[3]
-const inProgress = newest[4]
-const forReview = newest[5]
-const released = newest[6]
+const unallocated = newest[3] as MessageCustom
+const inProgress = newest[4] as MessageCustom
+const forReview = newest[5] as MessageCustom
+const released = newest[6] as MessageCustom
 
 export default {
   title: 'local/molecules/ChannelRFIMessage',

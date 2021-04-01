@@ -49,7 +49,7 @@ export default {
 /** RFI message file includes multiple versions of messages,
  * reduce to just the newest one
  */
-const newestMessages = mostRecentOnly(GameMessagesMockRFI)
+const newestMessages = mostRecentOnly(GameMessagesMockRFI) as MessageCustom[]
 
 const Template: Story<RFIListPropTypes> = (args) => {
   const { isUmpire, role, isRFIManager } = args
