@@ -133,26 +133,11 @@ const Template: Story<StoryPropTypes> = (args) => {
   )
 }
 
-console.log('ATLANTIC FORCES', atlanticForces[1], platformTypes[0])
-
 const twoFourHours = 1000 * 60 * 60 * 24
 
 /**
  * DEFAULT VIEW
  */
-export const Default = Template.bind({})
-Default.args = {
-  forces: atlanticForces,
-  playerForce: 'Blue',
-  gameTurnTime: twoFourHours,
-  canSubmitOrders: true,
-  platforms: platformTypes,
-  phase: Phase.Planning,
-  wargameInitiated: true,
-  turnNumber: 5,
-  mapBar: false
-}
-
 export const NaturalEarth = Template.bind({})
 NaturalEarth.args = {
   forces: atlanticForces,
