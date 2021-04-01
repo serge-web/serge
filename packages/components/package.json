@@ -36,7 +36,10 @@
     "@types/jest": "^26.0.10",
     "@types/lodash": "^4.14.149",
     "@types/node-sass": "^4.11.0",
+    "@types/react": "^16.9.35",
     "@types/react-addons-css-transition-group": "^15.0.5",
+    "@types/react-color": "^3.0.4",
+    "@types/react-dom": "^16.9.8",
     "@types/react-leaflet": "^2.5.1",
     "@types/react-maskedinput": "^4.0.4",
     "@types/react-test-renderer": "^16.9.2",
@@ -93,6 +96,9 @@
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.5",
     "uniqid": "^5.0.3"
+  },
+  "resolutions": {
+    "@types/react": "^16.14.5"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.8.3",
