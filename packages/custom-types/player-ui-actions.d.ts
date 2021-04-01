@@ -8,15 +8,12 @@ import {
   SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE,
   SET_ALL_MESSAGES,
-  SET_RFI_MESSAGES,
   OPEN_MESSAGE,
   CLOSE_MESSAGE,
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
-  CLOSE_MODAL,
-  SUBMIT_RFI,
-  REJECT_RFI
+  CLOSE_MODAL
 } from '@serge/config'
 
 import {
@@ -67,10 +64,6 @@ interface SetWargameMessagesAction {
   type: typeof SET_ALL_MESSAGES,
   payload: Array<MessageCustom | MessageInfoType>
 }
-interface SetWargameRFIMessagesAction {
-  type: typeof SET_RFI_MESSAGES,
-  payload: Array<MessageCustom>
-}
 export interface OpenMessageAction {
   type: typeof OPEN_MESSAGE,
   payload: {
@@ -100,22 +93,6 @@ interface OpenModalAction {
 interface CloseModalAction {
   type: typeof CLOSE_MODAL
 }
-export interface SubmitRFIAction {
-  type: typeof SUBMIT_RFI,
-  payload: {
-    channel: string,
-    message: MessageChannel,
-    rfiPayload: ActionPayload
-  }
-}
-export interface RejectRFIAction {
-  type: typeof REJECT_RFI,
-  payload: {
-    channel: string,
-    message: MessageChannel,
-    rfiPayload: ActionPayload
-  }
-}
 
 export type PlayerUiActionTypes = SetCurrentWargameAction |
                                   SetForceAction |
@@ -126,12 +103,9 @@ export type PlayerUiActionTypes = SetCurrentWargameAction |
                                   SetLatestFeedbackMessageAction |
                                   SetLatestWargameMessageAction |
                                   SetWargameMessagesAction |
-                                  SetWargameRFIMessagesAction |
                                   OpenMessageAction |
                                   CloseMessageAction |
                                   MarkAllAsReadAction |
                                   OpenTourAction |
                                   OpenModalAction |
-                                  CloseModalAction |
-                                  SubmitRFIAction |
-                                  RejectRFIAction
+                                  CloseModalAction
