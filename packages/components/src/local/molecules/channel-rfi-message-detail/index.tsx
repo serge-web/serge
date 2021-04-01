@@ -32,23 +32,23 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
   const { collaboration } = message.details
 
   const handleSendForReview = (): void => {
-    onChange(sendForReview(message, role, privateMessage, answer))
+    onChange && onChange(sendForReview(message, role, privateMessage, answer))
   }
 
   const handleTakeOwnership = (): void => {
-    onChange(takeOwnership(message, role))
+    onChange && onChange(takeOwnership(message, role))
   }
 
   const handleRelease = (): void => {
-    onChange(release(message, role))
+    onChange && onChange(release(message, role))
   }
 
   const handleReject = (): void => {
-    onChange(reject(message, role))
+    onChange && onChange(reject(message, role))
   }
 
   const handleSaveDraft = (): void => {
-    onChange(saveDraft(message, role, privateMessage, answer))
+    onChange && onChange(saveDraft(message, role, privateMessage, answer))
   }
 
   const formDisabled = !formEditable(message, role, isUmpire, isRFIManager)

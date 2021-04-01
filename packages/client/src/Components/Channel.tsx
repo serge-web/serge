@@ -10,7 +10,7 @@ import {
   markAllAsRead,
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel, MessageCustom } from '@serge/custom-types'
 import '@serge/themes/App.scss'
 
 const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
@@ -32,6 +32,14 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
     dispatch(openMessage(channelId, message))
   }
 
+  const handleChange = (nextMsg: MessageCustom): void => {
+    console.log('sending modified message', nextMsg)
+    // setMessages(messages.map(msg => {
+    //   if (msg._id === nextMsg._id) return nextMsg
+    //   return msg
+    // }))
+  }
+
   const icons = state.channels[channelId].forceIcons
   const colors = state.channels[channelId].forceColors
 
@@ -40,6 +48,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
       <ChannelMessagesList
         messages={state.channels[channelId].messages}
         onRead={handleOpenMessage}
+        onChange={handleChange}
         playerForceId={selectedForce}
         icons={icons || []}
         colors={colors || []}

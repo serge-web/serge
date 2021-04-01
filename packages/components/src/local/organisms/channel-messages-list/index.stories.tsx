@@ -6,7 +6,7 @@ import MessageListPropTypes from './types/props'
 import ChannelMessagesList from './index'
 import docs from './README.md'
 import { GameMessagesMockRFI } from '@serge/mocks'
-import { MessageChannel } from '@serge/custom-types'
+import { MessageCustom, MessageChannel } from '@serge/custom-types'
 import { mostRecentOnly } from '@serge/helpers'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -26,6 +26,9 @@ export default {
     }
   },
   argTypes: {
+    isRFIManager: {
+      description: 'Whether current player is RFI manager'
+    },
     playerForceId: {
       name: 'Player force',
       defaultValue: 'Blue',
@@ -54,7 +57,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const markAllAsRead = (): void => {
     setIsRead(isRead.map(() => true))
   }
-  const onRead = (detail: any): void => {
+  const onRead = (detail: MessageCustom): void => {
     const newState = isRead.map((state, id) => {
       if (id === messages.findIndex((item: any) => item._id === detail._id)) {
         state = true
@@ -63,6 +66,14 @@ const Template: Story<MessageListPropTypes> = (args) => {
     })
     setIsRead(newState)
   }
+  const handleChange = (nextMsg: MessageCustom): void => {
+    console.log('sending modified message', nextMsg)
+    // setMessages(messages.map(msg => {
+    //   if (msg._id === nextMsg._id) return nextMsg
+    //   return msg
+    // }))
+  }
+
 
   // remove later versions
   const newestMessages = mostRecentOnly(messages)
@@ -74,6 +85,10 @@ const Template: Story<MessageListPropTypes> = (args) => {
     colors={colors}
     onMarkAllAsRead={markAllAsRead}
     onRead={onRead}
+    onChange={handleChange}
+    isUmpire={true}
+    role={'Comms'}
+    isRFIManager={false}
   />
 }
 

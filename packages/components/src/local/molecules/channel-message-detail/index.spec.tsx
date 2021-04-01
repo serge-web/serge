@@ -2,13 +2,15 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import ChannelMessageDetail from './index'
+import { GameMessagesMockRFI } from '@serge/mocks'
 
 describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
         <ChannelMessageDetail
-          detail={{ content: 'common chat' }}
+          playerForce={'Blue'}
+          message={GameMessagesMockRFI[0]}
         />
       )
       .toJSON()

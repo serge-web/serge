@@ -1,9 +1,10 @@
 import React from 'react'
-import { withKnobs, boolean } from '@storybook/addon-knobs'
+import { withKnobs, radios } from '@storybook/addon-knobs'
 
 // Import component files
 import ChannelMessageDetail from './index'
 import docs from './README.md'
+import { GameMessagesMockRFI } from '@serge/mocks'
 
 export default {
   title: 'local/molecules/ChannelMessageDetail',
@@ -21,24 +22,35 @@ export default {
   }
 }
 
+const forces = {
+  Blue: 'Blue',
+  Umpire: 'umpire',
+  Red: 'Red'
+}
+
 export const Chat: React.FC = () => (
   <ChannelMessageDetail
-    detail={{ content: 'common chat' }}
+    message={GameMessagesMockRFI[0]}
+    playerForce={radios('Player force', forces, 'Blue')}
   />
 )
 
 export const Link: React.FC = () => (
   <ChannelMessageDetail
-    detail={{
+  playerForce={radios('Player force', forces, 'Blue')}
+  message={ { ...GameMessagesMockRFI[0],
+      message: {
       title: 'lorem ipsum',
       URL: 'https://google.com'
-    }}
+    }}}
   />
 )
 
 export const DailyIntention: React.FC = () => (
   <ChannelMessageDetail
-    detail={{
+  playerForce={radios('Player force', forces, 'Blue')}
+  message={ { ...GameMessagesMockRFI[0],
+      message: {
       TurnNumber: '1',
       OverallIntentions: 'Some intentions',
       Orders: [{
@@ -48,14 +60,16 @@ export const DailyIntention: React.FC = () => (
         ActionOnContact: 'Ignore',
         AnyOtherComments: 'other'
       }]
-    }}
+    }}}
   />
 )
 
 export const StateOfTheWorld: React.FC = () => (
   <ChannelMessageDetail
-    detail={{
-      Forces: [{
+  playerForce={radios('Player force', forces, 'Blue')}
+  message={ { ...GameMessagesMockRFI[0],
+    message: {
+    Forces: [{
         assets: [{
           location: 'loc',
           name: 'name',
@@ -74,28 +88,28 @@ export const StateOfTheWorld: React.FC = () => (
         }],
         force: 'Red'
       }]
-    }}
+    }}}
   />
 )
 
 export const PrivateMessage: React.FC = () => (
   <ChannelMessageDetail
-    privateMessage="Private message"
-    isUmpire={boolean('Player from umpire force', true)}
-    detail={{ content: 'Lorem ipsum do lor sit amet' }}
+  playerForce={radios('Player force', forces, 'Blue')}
+  message={ { ...GameMessagesMockRFI[0],
+    message: { content: 'Lorem ipsum do lor sit amet' }}}
   />
 )
 
 export const WeatherForecast: React.FC = () => (
   <ChannelMessageDetail
-    privateMessage="Private weather message"
-    isUmpire={boolean('Player from umpire force', true)}
-    detail={{
+  playerForce={radios('Player force', forces, 'Blue')}
+  message={ { ...GameMessagesMockRFI[0],
+    message: {
       title: 'Forecast',
       Location: { Lat: 19, 'Lat Hemi': 'N', Long: 33, 'Long Hemi': 'E' },
       'Valid from': '2020-09-03 12:00',
       'Valid until': '2020-09-25 12:00',
       Forecast: 'Clear'
-    }}
+    }}}
   />
 )

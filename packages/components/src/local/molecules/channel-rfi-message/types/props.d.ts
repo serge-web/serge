@@ -5,7 +5,7 @@ export default interface Props {
   isUmpire: boolean
   isRFIManager: boolean
   borderColor: string
-  onChange: (nextMessage: MessageCustom) => void
-  onRead: (nextMessage: MessageCustom) => void
+  onChange?: (nextMessage: MessageCustom) => void
+  onRead?: (nextMessage: MessageCustom) => void
   message: MessageCustom
 }

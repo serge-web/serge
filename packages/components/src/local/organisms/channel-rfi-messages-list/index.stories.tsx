@@ -60,9 +60,11 @@ const Template: Story<RFIListPropTypes> = (args) => {
   const markAllAsRead = (): void => {
     setMessages(messages.map(msg => ({ ...msg, hasBeenRead: true })))
   }
-  const onRead = ({ _id }: MessageCustom): void => {
+
+  const onRead = (detail: MessageCustom): void => {
+    const id = detail._id || 'a'
     setMessages(messages.map(msg => {
-      if (msg._id === _id) msg.hasBeenRead = true
+      if (msg._id === id) msg.hasBeenRead = true
       return msg
     }))
   }

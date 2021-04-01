@@ -1,6 +1,6 @@
 import ChannelMessageProps from '../../../molecules/channel-message/types/props'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel, MessageCustom } from '@serge/custom-types'
 
 export interface MessagesTypes extends ChannelMessageProps {
   /**
@@ -23,9 +23,16 @@ export default interface PropTypes extends ForcesInChannelProps{
   /**
    * Callback on expanding message item
    */
-  onRead?: { (detail: object): void }
+  onRead?: { (message: MessageCustom): void }
   /** force for player
    * 
    */
   playerForceId: string
+
+
+  isUmpire: boolean
+  isRFIManager: boolean
+  role: Role['name']
+  onChange?: (nextMessage: MessageCustom) => void
+
 }
