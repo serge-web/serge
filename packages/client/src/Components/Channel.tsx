@@ -43,11 +43,6 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const allMessages = state.channels[channelId].messages
 
-  // TODO: move this logic further up the call tree - so we only do it once for all channels,
-  // and so we only do it once when new messages are received
-  // only show the most recent messages
-  const messages = mostRecentOnly(allMessages || [])
-
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <ChannelMessagesList
