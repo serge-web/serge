@@ -1,13 +1,20 @@
 import React, { useState } from 'react'
+import { Story } from '@storybook/react/types-6-0'
 
 // Import component files
+import MessageListPropTypes from './types/props'
 import ChannelMessagesList from './index'
 import docs from './README.md'
+import { GameMessagesMockRFI } from '@serge/mocks'
+import { MessageChannel } from '@serge/custom-types'
+import { mostRecentOnly } from '@serge/helpers'
+
+const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
   title: 'local/organisms/ChannelMessagesList',
   component: ChannelMessagesList,
-  decorators: [],
+  decorators: [wrapper],
   parameters: {
     options: {
       // No addons are used in this story so don't show the addon panel
@@ -17,10 +24,25 @@ export default {
       // Show readme before story
       content: docs
     }
+  },
+  argTypes: {
+    playerForceId: {
+      name: 'Player force',
+      defaultValue: 'Blue',
+      control: {
+        type: 'radio',
+        options: [
+          'White',
+          'Blue',
+          'Red'
+        ]
+      }
+    }
   }
 }
 
-export const Default: React.FC = () => {
+const Template: Story<MessageListPropTypes> = (args) => {
+  const { messages, playerForceId } = args
   const icons = [
     './images/default_img/forceDefault.png'
   ]
@@ -28,79 +50,41 @@ export const Default: React.FC = () => {
     '#0F0'
   ]
   const [isRead, setIsRead] = useState([true, false])
-  const messages = [
-    {
-      _id: '1',
-      borderColor: '#ffffff',
-      title: 'lorem ipsum do lor sit amet',
-      timestamp: '2020-09-18T05:41:17.349Z',
-      role: 'Game Control',
-      messageType: 'State of The World',
-      privateMessage: 'Private message',
-      isUmpire: true,
-      detail: {
-        Forces: [{
-          assets: [{
-            location: 'loc',
-            name: 'name',
-            visibleTo: [{ Force: 'Blue' }]
-          }, {
-            location: 'lo2',
-            name: 'name2',
-            visibleTo: [{ Force: 'Red' }]
-          }],
-          force: 'Blue'
-        }, {
-          assets: [{
-            location: 'loc',
-            name: 'name3',
-            visibleTo: []
-          }],
-          force: 'Red'
-        }]
-      }
-    }, {
-      _id: '2',
-      borderColor: '#3dd0ffB3',
-      title: 'lorem ipsum do lor sit amet',
-      timestamp: '2020-09-18T05:41:17.349Z',
-      role: 'CO',
-      messageType: 'Chat',
-      privateMessage: 'Private message',
-      isUmpire: true,
-      detail: { content: 'Lorem ipsum do lor sit amet' }
-    }, {
-      infoType: true,
-      gameTurn: 1,
-      detail: {}
-    }, {
-      infoType: true,
-      gameTurn: 2,
-      detail: {}
-    }, {
-      infoType: true,
-      gameTurn: 3,
-      detail: {}
-    }].map((message, id) => {
-    return { ...message, hasBeenRead: isRead[id] }
-  })
+  
   const markAllAsRead = (): void => {
     setIsRead(isRead.map(() => true))
   }
   const onRead = (detail: any): void => {
     const newState = isRead.map((state, id) => {
-      if (id === messages.findIndex(item => item._id === detail._id)) {
+      if (id === messages.findIndex((item: any) => item._id === detail._id)) {
         state = true
       }
       return state
     })
     setIsRead(newState)
   }
+
+  // remove later versions
+  const newestMessages = mostRecentOnly(messages)
+
   return <ChannelMessagesList
-    messages={messages}
+    messages={newestMessages}
     icons={icons}
+    playerForceId={playerForceId}
     colors={colors}
     onMarkAllAsRead={markAllAsRead}
     onRead={onRead}
   />
+}
+
+export const LocalTest = Template.bind({})
+LocalTest.args = {
+  messages: [],
+  playerForceId: 'Blue'
+}
+
+export const RFITest = Template.bind({})
+RFITest.args = {
+  messages: GameMessagesMockRFI as unknown as MessageChannel[],
+  playerForceId: 'Blue'
 }

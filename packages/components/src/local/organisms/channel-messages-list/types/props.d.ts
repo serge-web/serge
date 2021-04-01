@@ -1,7 +1,8 @@
 import ChannelMessageProps from '../../../molecules/channel-message/types/props'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
+import { MessageChannel } from '@serge/custom-types'
 
-interface MessagesTypes extends ChannelMessageProps {
+export interface MessagesTypes extends ChannelMessageProps {
   /**
    * whether this is an informational data object (such
    * as new wargame data object), or a message
@@ -18,9 +19,13 @@ export default interface PropTypes extends ForcesInChannelProps{
    * The list of channel messages properties required
    * for ChannelMessage components
    */
-  messages: Array<MessagesTypes>
+  messages: Array<MessageChannel>
   /**
    * Callback on expanding message item
    */
   onRead?: { (detail: object): void }
+  /** force for player
+   * 
+   */
+  playerForceId: string
 }

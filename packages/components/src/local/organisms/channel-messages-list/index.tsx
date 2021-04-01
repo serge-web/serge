@@ -1,8 +1,7 @@
 import React from 'react'
 
 /* Import Types */
-import PropTypes from './types/props'
-
+import PropTypes, { MessagesTypes } from './types/props'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
@@ -10,9 +9,11 @@ import styles from './styles.module.scss'
 import ChannelMessage from '../../molecules/channel-message'
 import ForcesInChannel from '../../molecules/forces-in-channel'
 import { Box } from '@material-ui/core'
+import collateMessages from './helpers/collate-messages'
 
 /* Render component */
-export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead }: PropTypes) => {
+export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForceId, icons, colors, onMarkAllAsRead, onRead }: PropTypes) => {
+  const messageData = collateMessages(messages, playerForceId, onRead)
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
@@ -20,7 +21,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
       </Box>
       <Box ml={2} className={styles['messages-list']}>
         {
-          messages && messages.map((props, key) => {
+          messageData && messageData.map((props: MessagesTypes, key: number) => {
             if (props.infoType) {
               return (
                 <Box mr={2} key={`${props.gameTurn}-turnmarker-${key}`}>
@@ -28,11 +29,22 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
                 </Box>
               )
             }
-            return (
-              <Box mb={2} mr={2} key={key}>
-                <ChannelMessage onRead={onRead} {...props} />
-              </Box>
-            )
+            console.log('display message', props, key)
+            if (props.messageType === 'RFI')
+            {
+              return (
+                <Box mb={2} mr={2} key={key}>
+                  <ChannelMessage onRead={onRead} {...props} />
+                </Box>
+              )
+  
+            } else {
+              return (
+                <Box mb={2} mr={2} key={key}>
+                  <ChannelMessage onRead={onRead} {...props} />
+                </Box>
+              )  
+            }
           })
         }
       </Box>
