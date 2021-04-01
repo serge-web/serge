@@ -12,7 +12,15 @@ const mostRecentOnly = (messages: MessageChannel[]): MessageCustom[] => {
   const matches = new Map<string, MessageCustom>();
   messages.forEach((message: MessageChannel) => {
     if(message.messageType === CUSTOM_MESSAGE) {
-      if(message._id) {
+      // see if it's a versioned document
+      if(message.message.Reference) {
+        const ref = message.message.Reference
+        // see if we already have it
+        if(matches.get(ref) === undefined) {
+          // store by reference
+          matches.set(message.message.Reference, message as MessageCustom)
+        }
+      } else if(message._id) {
         // either store this message, or overwrite previous version
         matches.set(message._id, message as MessageCustom)
       } else {

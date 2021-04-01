@@ -8,7 +8,7 @@ import {
   getAllWargameMessages,
   openMessage,
   markAllAsRead,
-  updateMessage
+  saveMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { MessageChannel, MessageCustom } from '@serge/custom-types'
@@ -35,17 +35,18 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const handleChange = (nextMsg: MessageCustom): void => {
     console.log('sending modified message', nextMsg)
-    updateMessage(state.currentWargame, nextMsg.details, nextMsg.message, nextMsg._id, nextMsg._rev)
+    saveMessage(state.currentWargame, nextMsg.details, nextMsg.message)()
   }
 
   const icons = state.channels[channelId].forceIcons
   const colors = state.channels[channelId].forceColors
 
   const allMessages = state.channels[channelId].messages
+
+  // TODO: move this logic further up the call tree - so we only do it once for all channels,
+  // and so we only do it once when new messages are received
+  // only show the most recent messages
   const messages = mostRecentOnly(allMessages || [])
-  if(channelId === 'channel-kmx5rv3z') {
-    console.log(messages)
-  }
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
