@@ -35,28 +35,30 @@ export const StateOfTheWorld: React.FC = () => {
     <ChannelMessage
       hasBeenRead={isRead}
       playerForce={'Blue'}
-      message={{ ... GameMessagesMockRFI[0],
-        message:{
-        Forces: [{
-          assets: [{
-            location: 'loc',
-            name: 'name',
-            visibleTo: [{ Force: 'Blue' }]
+      message={{
+        ...GameMessagesMockRFI[0],
+        message: {
+          Forces: [{
+            assets: [{
+              location: 'loc',
+              name: 'name',
+              visibleTo: [{ Force: 'Blue' }]
+            }, {
+              location: 'lo2',
+              name: 'name2',
+              visibleTo: [{ Force: 'Red' }]
+            }],
+            force: 'Blue'
           }, {
-            location: 'lo2',
-            name: 'name2',
-            visibleTo: [{ Force: 'Red' }]
-          }],
-          force: 'Blue'
-        }, {
-          assets: [{
-            location: 'loc',
-            name: 'name3',
-            visibleTo: []
-          }],
-          force: 'Red'
-        }]
-     }}}
+            assets: [{
+              location: 'loc',
+              name: 'name3',
+              visibleTo: []
+            }],
+            force: 'Red'
+          }]
+        }
+      }}
       onRead={(): void => setIsRead(true)}
     />
   )

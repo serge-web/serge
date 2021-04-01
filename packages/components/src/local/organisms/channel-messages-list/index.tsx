@@ -16,7 +16,7 @@ import { MessageChannel, MessageCustom } from '@serge/custom-types'
 
 /* Render component */
 export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForceId, icons, colors, onMarkAllAsRead, onRead, onChange, role, isRFIManager }: PropTypes) => {
-  //const messageData = collateMessages(messages, playerForceId, onRead)
+  // const messageData = collateMessages(messages, playerForceId, onRead)
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
@@ -34,8 +34,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForce
             }
             console.log('display message', props, key)
             const msg: MessageCustom = props
-            if (msg.details.messageType === 'RFI')
-            {
+            if (msg.details.messageType === 'RFI') {
               return (
                 <Box mb={2} mr={2} key={key}>
                   <ChannelRFIMessage
@@ -49,13 +48,12 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForce
                   />
                 </Box>
               )
-  
             } else {
               return (
                 <Box mb={2} mr={2} key={key}>
-                  <ChannelMessage playerForce={playerForceId} onRead={onRead} message={props}  />
+                  <ChannelMessage playerForce={playerForceId} onRead={onRead} message={props} />
                 </Box>
-              )  
+              )
             }
           })
         }

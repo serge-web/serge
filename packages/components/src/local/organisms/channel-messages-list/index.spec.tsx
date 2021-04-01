@@ -14,24 +14,24 @@ describe('ChannelMessagesList component: ', () => {
       '#F00'
     ]
     const markAllAsRead = (): void => window.alert('Callback on mark all as read')
-    const messages: MessageCustom[] = [    {
+    const messages: MessageCustom[] = [{
       messageType: CUSTOM_MESSAGE,
       details: {
-        channel: "channel-k63pjit0",
+        channel: 'channel-k63pjit0',
         from: {
-          force: "Red",
-          forceColor: "#F00",
-          icon: "default_img/umpireDefault.png",
-          role: "CO"
+          force: 'Red',
+          forceColor: '#F00',
+          icon: 'default_img/umpireDefault.png',
+          role: 'CO'
         },
-        messageType: "Chat",
-        timestamp: "2020-10-13T08:52:04.394Z"
+        messageType: 'Chat',
+        timestamp: '2020-10-13T08:52:04.394Z'
       },
       message: {
-        content: "message from Red"
+        content: 'message from Red'
       },
-      _id: "2020-03-25T15:08:47.520Z",
-      _rev: "1",
+      _id: '2020-03-25T15:08:47.520Z',
+      _rev: '1',
       hasBeenRead: false,
       isOpen: false
     }]
@@ -42,4 +42,3 @@ describe('ChannelMessagesList component: ', () => {
     expect(tree).toMatchSnapshot()
   })
 })
-

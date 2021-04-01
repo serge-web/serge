@@ -29,7 +29,7 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
         onExpand={handleOnExpand}
       />
     )
-  }   
+  }
 
   const CollapsibleContent = ({ collapsed }: any): React.ReactElement => {
     return (

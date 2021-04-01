@@ -25,10 +25,9 @@ export default interface PropTypes extends ForcesInChannelProps{
    */
   onRead?: { (message: MessageCustom): void }
   /** force for player
-   * 
+   *
    */
   playerForceId: string
-
 
   isUmpire: boolean
   isRFIManager: boolean

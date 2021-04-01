@@ -25,10 +25,10 @@ export const ChannelMessage: React.FC<Props> = ({ message, borderColor = '#32A3C
     setOpen(status)
   }
 
-  const handleRead = (): void => { 
+  const handleRead = (): void => {
     if (!message.hasBeenRead) {
       onRead && onRead(message)
-    }  
+    }
   }
 
   const renderCollaborationStatus = (collaboration: CollaborationDetails | undefined): React.ReactNode => {

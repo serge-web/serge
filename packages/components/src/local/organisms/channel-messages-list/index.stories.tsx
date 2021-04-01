@@ -53,7 +53,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     '#0F0'
   ]
   const [isRead, setIsRead] = useState([true, false])
-  
+
   const markAllAsRead = (): void => {
     setIsRead(isRead.map(() => true))
   }
@@ -73,7 +73,6 @@ const Template: Story<MessageListPropTypes> = (args) => {
     //   return msg
     // }))
   }
-
 
   // remove later versions
   const newestMessages = mostRecentOnly(messages)

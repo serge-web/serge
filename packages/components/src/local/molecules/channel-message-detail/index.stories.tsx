@@ -37,8 +37,6 @@ export default {
   }
 }
 
-
-
 const Template: Story<DetailPropTypes> = (args) => {
   // @ts-ignore: Add custom property for storybook
   const { playerForce, message } = args
