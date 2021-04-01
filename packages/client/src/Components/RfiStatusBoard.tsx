@@ -1,9 +1,8 @@
 import React from 'react'
 import { Badge, DataTable, RfiForm } from '@serge/components'
-import { MessageCustom, MessageChannel } from '@serge/custom-types/message'
+import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates } from '@serge/config'
 import { ActionPayload } from '@serge/components/src/local/molecules/rfi-form/types/props'
-import { submitRFI, rejectRFI } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiDispatch } from '../Store/PlayerUi'
 
 const RfiStatusBoard = ({ rfiMessages }: { rfiMessages: MessageCustom[] }) => {
@@ -70,15 +69,10 @@ const RfiStatusBoard = ({ rfiMessages }: { rfiMessages: MessageCustom[] }) => {
         [CollaborativeMessageStates.Released]: '#007219',
         [CollaborativeMessageStates.Rejected]: '#434343'
       }
-      const onRFISubmit = (message: MessageChannel, payload: ActionPayload): void => {
-        dispatch(submitRFI(message.details.channel, message, payload))
-      }
-      const onRFIReject = (message: MessageChannel, payload: ActionPayload): void => {
-        dispatch(rejectRFI(message.details.channel, message, payload))
-      }
+
       return {
         collapsible: (
-          <RfiForm onSubmit={onRFISubmit} onReject={onRFIReject} message={(rfiMessages[rowIndex] as MessageCustom)} />
+          <RfiForm message={(rfiMessages[rowIndex] as MessageCustom)} />
         ),
         cells: [
           id,
