@@ -9,15 +9,12 @@ import {
   SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE,
   SET_ALL_MESSAGES,
-  SET_RFI_MESSAGES,
   OPEN_MESSAGE,
   CLOSE_MESSAGE,
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
-  CLOSE_MODAL,
-  SUBMIT_RFI,
-  REJECT_RFI
+  CLOSE_MODAL
 } from '@serge/config'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
@@ -35,7 +32,6 @@ import {
   MessageDetailsFrom
 } from '@serge/custom-types'
 import { PlayerUiActionTypes } from '@serge/custom-types'
-import { ActionPayload } from '@serge/components/src/local/molecules/rfi-form/types/props'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
   type: SET_CURRENT_WARGAME_PLAYER,
@@ -76,10 +72,6 @@ export const setLatestWargameMessage = (message: MessageChannel): PlayerUiAction
 })
 export const setWargameMessages = (messages: Array<MessageCustom | MessageInfoType>): PlayerUiActionTypes => ({
   type: SET_ALL_MESSAGES,
-  payload: messages
-})
-export const setWargameRFIMessages = (messages: Array<MessageCustom>): PlayerUiActionTypes => ({
-  type: SET_RFI_MESSAGES,
   payload: messages
 })
 export const openMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
@@ -181,17 +173,6 @@ export const getAllWargameMessages = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     const allMessages: Array<Message> = await wargamesApi.getAllMessages(dbName)
     dispatch(setWargameMessages(allMessages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageInfoType | MessageCustom)[]))
-    dispatch(setWargameRFIMessages((allMessages as Array<MessageCustom>).filter(({ details }) => details && details.messageType === 'RFI') as (MessageCustom)[]))
     dispatch(setWargameFeedback(allMessages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
   }
 }
-
-export const submitRFI = (channel: string, message: MessageChannel, rfiPayload: ActionPayload): PlayerUiActionTypes => ({
-  type: SUBMIT_RFI,
-  payload: { channel, message, rfiPayload }
-})
-
-export const rejectRFI = (channel: string, message: MessageChannel, rfiPayload: ActionPayload): PlayerUiActionTypes => ({
-  type: REJECT_RFI,
-  payload: { channel, message, rfiPayload }
-})

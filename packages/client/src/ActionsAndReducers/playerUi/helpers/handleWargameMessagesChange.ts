@@ -8,21 +8,14 @@ import {
   MessageInfoType
 } from '@serge/custom-types'
 import { handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
-import { ActionPayload } from '@serge/components/src/local/molecules/rfi-form/types/props'
 import {
-  INFO_MESSAGE_CLIPPED,
-  CollaborativeMessageStates
+  INFO_MESSAGE_CLIPPED
 } from '@serge/config'
 // TODO: change it to @serge/config
 
 interface SetWargameMessage {
   channels: PlayerUiChannels,
   chatChannel: PlayerUiChatChannel,
-}
-
-interface SetRFIMessages {
-  channels: PlayerUiChannels,
-  rfiMessages: Array<MessageCustom>
 }
 
 import {
@@ -34,6 +27,9 @@ import {
  * or update the channels to reflect the new channel definitions
  */
 export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
+  console.log('latest wargame message', payload, payload.messageType)
+  // TODO: only one of `payload` or `newState` will have been received. We should have 
+  // two different handlers, one for each change.
   const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel,
     newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
     newState.allTemplates, newState.allForces)
@@ -44,6 +40,7 @@ export const handleSetLatestWargameMessage = (payload: MessageChannel, newState:
  * grouping them into channels
  */
 export const handleSetAllMessages = (payload: Array<MessageCustom | MessageInfoType>, newState: PlayerUi): SetWargameMessage => {
+  console.log('all messages', payload, payload[0].messageType)
   const res: SetWargameMessage = handleAllInitialChannelMessages(payload, newState.currentWargame, newState.selectedForce,
     newState.selectedRole, newState.allChannels, newState.allForces, newState.chatChannel,
     newState.isObserver, newState.allTemplates)
@@ -125,56 +122,4 @@ export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI =>
     unreadMessageCount: 0,
     messages: channelMessages
   }
-}
-
-const updateRFIMessage = (payload: { channel: string, message: MessageChannel, rfiPayload: ActionPayload }, newState: PlayerUi, rejected: boolean = false): SetRFIMessages => {
-  const { channel, message: payloadMessage, rfiPayload } = payload
-  const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
-  const statusMap = [
-    CollaborativeMessageStates.Unallocated,
-    CollaborativeMessageStates.InProgress,
-    CollaborativeMessageStates.PendingReview,
-    CollaborativeMessageStates.Released
-  ]
-  let updatedRFIMessage: MessageCustom | null = null
-  const updatedMessages = [...channelMessages].map(message => {
-    const messageItem = (message as MessageCustom)
-    if (message._id === payloadMessage._id &&
-      messageItem.details.collaboration) {
-      const currentStatusIndex = statusMap.findIndex((status: CollaborativeMessageStates) => {
-        return status === (messageItem.details.collaboration || {}).status
-      })
-      messageItem.details.collaboration.status = rejected
-        ? CollaborativeMessageStates.Rejected
-        : statusMap[Math.min(statusMap.length - 1, currentStatusIndex + 1)]
-      messageItem.details.collaboration.response = rfiPayload.answer ? rfiPayload.answer : undefined
-      messageItem.details.privateMessage = rfiPayload.privateMessageContent ? rfiPayload.privateMessageContent : undefined
-      updatedRFIMessage = messageItem
-    }
-    return message
-  })
-  // TODO: Implement persistence data updates
-  return {
-    channels: {
-      ...newState.channels,
-      [channel]: {
-        ...newState.channels[channel],
-        messages: updatedMessages
-      }
-    },
-    rfiMessages: newState.rfiMessages.map(message => {
-      if (updatedRFIMessage && message._id === updatedRFIMessage._id) {
-        return updatedRFIMessage
-      }
-      return message
-    })
-  }
-}
-
-export const submitRFIMessage = (payload: { channel: string, message: MessageChannel, rfiPayload: ActionPayload }, newState: PlayerUi): SetRFIMessages => {
-  return updateRFIMessage(payload, newState)
-}
-
-export const rejectRFIMessage = (payload: { channel: string, message: MessageChannel, rfiPayload: ActionPayload }, newState: PlayerUi): SetRFIMessages => {
-  return updateRFIMessage(payload, newState, true)
 }
