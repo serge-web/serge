@@ -169,7 +169,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       "Request": "RFI request goes in here",
       "Title": "RFI 2 from BLUE"
     },
-    _id: "id_2",
+    _id: "id_2a",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -196,7 +196,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       "Request": "RFI request goes in here",
       "Title": "RFI 3 from BLUE"
     },
-    _id: "id_3",
+    _id: "id_3a",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -224,7 +224,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       "Request": "RFI request goes in here",
       "Title": "RFI 3 from BLUE"
     },
-    _id: "id_3",
+    _id: "id_3b",
     _rev: "3",
     hasBeenRead: false,
     isOpen: false
@@ -277,7 +277,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       "Request": "RFI request goes in here",
       "Title": "RFI 4 from BLUE"
     },
-    _id: "id_4",
+    _id: "id_4a",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -305,7 +305,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       "Request": "RFI request goes in here",
       "Title": "RFI 4 from BLUE"
     },
-    _id: "id_4",
+    _id: "id_4b",
     _rev: "3",
     hasBeenRead: false,
     isOpen: false
@@ -333,7 +333,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       "Request": "RFI request goes in here",
       "Title": "RFI 4 from BLUE"
     },
-    _id: "id_4",
+    _id: "id_4c",
     _rev: "4",
     hasBeenRead: false,
     isOpen: false
