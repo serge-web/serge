@@ -7,6 +7,9 @@ import docs from './README.md'
 import { Story } from '@storybook/react/types-6-0'
 import Badge from '../../atoms/badge'
 import RfiForm from '../../molecules/rfi-form'
+import { MessageCustom } from '@serge/custom-types/message'
+import { GameMessagesMockRFI } from '@serge/mocks'
+import { mostRecentOnly } from '@serge/helpers'
 
 export default {
   title: 'local/organisms/DataTable',
@@ -61,22 +64,44 @@ WithFilter.args = {
 }
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
+const rfiMessages = GameMessagesMockRFI
+  .filter(message => (message as MessageCustom).details.messageType === 'RFI')
+  // sample data includes multiple versions of RFI messages, ensure we're only
+// looking at newest
+const newest = mostRecentOnly(rfiMessages)
+
+const rfiData = newest.map((message: any) => {
+  const messageItem = (message as MessageCustom)
+  return [
+    messageItem._id,
+    messageItem.details.channel,
+    messageItem.details.from.role,
+    messageItem.details.from.forceColor,
+    messageItem.message.title,
+      messageItem.details.collaboration?.status,
+      messageItem.details.collaboration?.owner
+  ]
+})
+
+const uniqueFieldValues = (messages: any[], col: number) => {
+  // find items with unique items in set column
+  const uniqueValues = messages.filter((elem, index) => rfiData.findIndex(obj => obj[col] === elem[col]) === index)
+  // produce array with just field of interest
+  const values = uniqueValues.map((item: any) => item && item[col])
+  // swap undefined for string
+  return values.map((item: any) => item === undefined ? '[Undefined]' : item)
+}
+
 export const Implementation = Template.bind({})
 Implementation.args = {
   columns: [
     'ID',
     {
-      filters: [
-        'Red Support',
-        'Blue Support'
-      ],
+      filters: uniqueFieldValues(rfiData, 1),
       label: 'Channel'
     },
     {
-      filters: [
-        'CO',
-        'Logistic'
-      ],
+      filters: uniqueFieldValues(rfiData, 2),
       label: 'From'
     },
     'Title',
@@ -90,45 +115,32 @@ Implementation.args = {
       label: 'Status'
     },
     {
-      filters: [
-        'Fuel specialist',
-        'Aeronautic specialist',
-        'Weapons specialist'
-      ],
+      filters: uniqueFieldValues(rfiData, 6),
       label: 'Owner'
     }
   ],
-  data: [
-    ['RFI-red-33', 'Red Support', 'CO', 'Request for air support', 'Unallocated', ''],
-    ['RFI-red-32', 'Red Support', 'Logistic', 'Fuel availability', 'In Progress', 'Fuel specialist'],
-    ['RFI-red-28', 'Blue Support', 'Logistic', 'Air drop', 'Pending Review', 'Aeronautic specialist'],
-    ['RFI-red-27', 'Blue Support', 'CO', 'Weapon authorization', 'Released', 'Weapons specialist']
-  ].map((row): any => {
-    const [id, channel, role, content, status, owner] = row
-    const roleColors = {
-      'Red Support': '#F94248',
-      'Blue Support': '#00A3DE'
-    }
+  data: rfiData.map((row, rowIndex): any => {
+    const [id, channel, role, forceColor, content, status, owner] = row
     const statusColors = {
       Unallocated: '#B10303',
-      'In Progress': '#E7740A',
-      'Pending Review': '#434343',
+      'In progress': '#E7740A',
+      'Pending review': '#434343',
       Released: '#007219'
     }
     return {
       collapsible: (
-        <RfiForm request={{ title: 'Some title', description: 'Some description' }} />
+        <RfiForm onSubmit={console.log} onReject={console.log} message={(newest[rowIndex] as MessageCustom)} />
       ),
       cells: [
         id,
         channel,
         {
-          component: <Badge customBackgroundColor={roleColors[channel]} label={role}/>,
+          component: <Badge customBackgroundColor={forceColor} label={role}/>,
           label: role
         },
         content,
         {
-          component: <Badge customBackgroundColor={statusColors[status]} customSize="large" label={status}/>,
+          component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} customSize="large" label={status}/>,
           label: status
         },
         {

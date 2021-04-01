@@ -17,6 +17,7 @@ import {
 } from '@serge/helpers'
 import Paragraph from '../../atoms/paragraph'
 import MessageLabel from '../../atoms/message-label'
+import { UMPIRE_FORCE } from '@serge/config'
 
 const DetailLabel = ({ label }: any): React.ReactElement => (
   <span className={styles.detail}><MessageLabel label={label} /></span>
@@ -123,8 +124,9 @@ const decideRender = (pair: Array<any>) => (fallback: Function): React.ReactFrag
 }
 
 /* Render component */
-export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, isUmpire, collapsed }: Props) => {
-  const keyPropPairs = Object.entries(detail)
+export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, collapsed }: Props) => {
+  const keyPropPairs = Object.entries(message.message)
+  const privateMessage = message.details.privateMessage
   const PrivateBadge = (): React.ReactElement => (
     <span>
       <span className={styles['icon-private']}>
@@ -140,7 +142,7 @@ export const ChannelMessageDetail: React.FC<Props> = ({ detail, privateMessage, 
       { keyPropPairs.map(pair => decideRender(pair)(defaultRender)) }
       {
         privateMessage &&
-        isUmpire && (
+        playerForce === UMPIRE_FORCE && (
           <div className={styles['wrap-private']}>
             <DetailLabel label={<PrivateBadge />}/>
             <span className={styles.private}>

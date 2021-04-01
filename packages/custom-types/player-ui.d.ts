@@ -1,7 +1,7 @@
 import ChannelData from './channel-data'
 import ForceData from './force-data'
 import PlatformTypeData from './platform-type-data'
-import { MessageFeedback, MessageChannel } from './message'
+import { MessageFeedback, MessageChannel, MessageCustom } from './message'
 import ChannelUI from './channel-ui'
 
 export interface PlayerUiChannels {
@@ -55,6 +55,8 @@ export default interface PlayerUi {
   modalOpened?: string,
   /** whether access codes are displayed for current wargame */
   showAccessCodes: boolean,
+  /** List of RFI messages */
+  rfiMessages: Array<MessageCustom>,
   /** whether logged in user can view insights & feedback */
   isInsightViewer: boolean,
   /** whether logged in user can release RFIs */

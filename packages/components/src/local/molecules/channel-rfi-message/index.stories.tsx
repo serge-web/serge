@@ -6,6 +6,8 @@ import ChannelMessage from './index'
 import docs from './README.md'
 import RFIPropTypes from './types/props'
 import { GameMessagesMockRFI } from '@serge/mocks'
+
+import { MessageCustom } from '@serge/custom-types'
 import { mostRecentOnly } from '@serge/helpers'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -29,14 +31,14 @@ export default {
 
 const Template: Story<RFIPropTypes> = (args) => {
   const { isUmpire, role, message, isRFIManager } = args
-  const [messageState, setMessageState] = useState(message)
+  const [messageState, setMessageState] = useState<MessageCustom>(message)
   return (
     <ChannelMessage
       message={messageState}
       borderColor='#0F0'
       isRFIManager={isRFIManager}
-      onRead={(readMessage): void => setMessageState({ ...readMessage, hasBeenRead: true })}
-      onChange={(nextMessage): void => setMessageState(nextMessage)}
+      onRead={(readMessage): void => setMessageState({ ...readMessage as MessageCustom, hasBeenRead: true })}
+      onChange={(nextMessage): void => setMessageState(nextMessage as MessageCustom)}
       role={role}
       isUmpire={isUmpire}
     />

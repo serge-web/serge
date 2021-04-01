@@ -1,6 +1,6 @@
 import { MessageCustom, Role } from '@serge/custom-types'
 export default interface Props {
-  onChange: (nextMessage: MessageCustom) => void
+  onChange?: (nextMessage: MessageCustom) => void
   message: MessageCustom
   /** role of logged in player */
   role: Role['name']

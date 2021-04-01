@@ -86,7 +86,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      content: "RFI 1 from Blue"
+      "Reference": "BLUE-1",
+      "Request": "RFI request goes in here",
+      "Title": "RFI 1 from BLUE"
     },
     _id: "id_1",
     _rev: "1",
@@ -110,7 +112,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      content: "RFI 2 from Blue"
+      "Reference": "BLUE-2",
+      "Request": "RFI request goes in here",
+      "Title": "RFI 2 from BLUE"
     },
     _id: "id_2",
     _rev: "1",
@@ -134,7 +138,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      content: "RFI 3 from Blue"
+      "Reference": "BLUE-3",
+      "Request": "RFI request goes in here",
+      "Title": "RFI 3 from BLUE"
     },
     _id: "id_3",
     _rev: "1",
@@ -159,9 +165,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      content: "RFI 2 from Blue"
+      "Reference": "BLUE-2",
+      "Request": "RFI request goes in here",
+      "Title": "RFI 2 from BLUE"
     },
-    _id: "id_2",
+    _id: "id_2a",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -184,9 +192,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      content: "RFI 3 from Blue"
+      "Reference": "BLUE-3",
+      "Request": "RFI request goes in here",
+      "Title": "RFI 3 from BLUE"
     },
-    _id: "id_3",
+    _id: "id_3a",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -210,9 +220,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      content: "RFI 3 from Blue"
+      "Reference": "BLUE-3",
+      "Request": "RFI request goes in here",
+      "Title": "RFI 3 from BLUE"
     },
-    _id: "id_3",
+    _id: "id_3b",
     _rev: "3",
     hasBeenRead: false,
     isOpen: false
@@ -234,7 +246,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      content: "RFI 4 from Red"
+      "Reference": "BLUE-4",
+      "Request": "RFI request goes in here",
+      "Title": "RFI 4 from BLUE"
     },
     _rev: "1",
     _id: "id_4",
@@ -259,9 +273,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      content: "RFI 4 from Red"
+      "Reference": "BLUE-4",
+      "Request": "RFI request goes in here",
+      "Title": "RFI 4 from BLUE"
     },
-    _id: "id_4",
+    _id: "id_4a",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -285,9 +301,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      content: "RFI 4 from Red"
+      "Reference": "BLUE-4",
+      "Request": "RFI request goes in here",
+      "Title": "RFI 4 from BLUE"
     },
-    _id: "id_4",
+    _id: "id_4b",
     _rev: "3",
     hasBeenRead: false,
     isOpen: false
@@ -307,12 +325,15 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.Released,
         response: "Game control response to RFI 4"
-      }
+      },
+      privateMessage: "The private content goes in here"
     },
     message: {
-      content: "RFI 4 from Red"
+      "Reference": "BLUE-4",
+      "Request": "RFI request goes in here",
+      "Title": "RFI 4 from BLUE"
     },
-    _id: "id_4",
+    _id: "id_4c",
     _rev: "4",
     hasBeenRead: false,
     isOpen: false
