@@ -45,8 +45,6 @@ export const ChannelMessage: React.FC<Props> = ({ message, borderColor = '#32A3C
         return ''
     }
   }
-  console.log('RFI header', message.message)
-
   return (
     <div className={cn(styles['message-list-wrapper'], open && styles.open, message.hasBeenRead && styles.read)} style={{ borderColor }} onClick={handleRead}>
       <Collapsible iconType="channel-icon" onChange={handleCollapse}>

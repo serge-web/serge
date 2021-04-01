@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { umpireForceTemplate } from '../consts'
 import NewMessage from './NewMessage'
 import { ChannelMessagesList } from '@serge/components'
+import { saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 import {
   getAllWargameMessages,
@@ -17,7 +18,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-  const { selectedForce } = state
+  const { selectedForce, selectedRole } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const handleChange = (nextMsg: MessageCustom): void => {
     console.log('sending modified message', nextMsg)
+    saveMessage(state.currentWargame, nextMsg.details, nextMsg.message)()
     // setMessages(messages.map(msg => {
     //   if (msg._id === nextMsg._id) return nextMsg
     //   return msg
@@ -48,8 +50,9 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
       <ChannelMessagesList
         messages={state.channels[channelId].messages}
         onRead={handleOpenMessage}
+        role={selectedRole}
         onChange={handleChange}
-        playerForceId={selectedForce}
+        playerForceId={selectedForce.uniqid}
         icons={icons || []}
         colors={colors || []}
         onMarkAllAsRead={(): void => dispatch(markAllAsRead(channelId))}
