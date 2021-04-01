@@ -72,7 +72,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: "BLUE RFI",
+      channel: "channel-BlueRFI",
       from: {
         force: "Blue",
         forceColor: "#00F",
@@ -98,7 +98,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: "BLUE RFI",
+      channel: "channel-BlueRFI",
       from: {
         force: "Blue",
         forceColor: "#00F",
@@ -124,7 +124,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: "BLUE RFI",
+      channel: "channel-BlueRFI",
       from: {
         force: "Blue",
         forceColor: "#00F",
@@ -150,7 +150,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: "BLUE RFI",
+      channel: "channel-BlueRFI",
       from: {
         force: "Blue",
         forceColor: "#00F",
@@ -177,7 +177,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: "BLUE RFI",
+      channel: "channel-BlueRFI",
       from: {
         force: "Blue",
         forceColor: "#00F",
@@ -204,7 +204,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: "BLUE RFI",
+      channel: "channel-BlueRFI",
       from: {
         force: "Blue",
         forceColor: "#00F",
@@ -246,9 +246,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      "Reference": "BLUE-4",
+      "Reference": "RED-1",
       "Request": "RFI request goes in here",
-      "Title": "RFI 4 from BLUE"
+      "Title": "RFI 1 from RED"
     },
     _rev: "1",
     _id: "id_4",
@@ -273,9 +273,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      "Reference": "BLUE-4",
+      "Reference": "RED-1",
       "Request": "RFI request goes in here",
-      "Title": "RFI 4 from BLUE"
+      "Title": "RFI 1 from RED"
     },
     _id: "id_4a",
     _rev: "2",
@@ -301,9 +301,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      "Reference": "BLUE-4",
+      "Reference": "RED-1",
       "Request": "RFI request goes in here",
-      "Title": "RFI 4 from BLUE"
+      "Title": "RFI 1 from RED"
     },
     _id: "id_4b",
     _rev: "3",
@@ -329,9 +329,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       privateMessage: "The private content goes in here"
     },
     message: {
-      "Reference": "BLUE-4",
+      "Reference": "RED-1",
       "Request": "RFI request goes in here",
-      "Title": "RFI 4 from BLUE"
+      "Title": "RFI 1 from RED"
     },
     _id: "id_4c",
     _rev: "4",
