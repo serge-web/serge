@@ -18,20 +18,19 @@ it('Construct grid from very new dataset', () => {
   // inspect first one
   const first: SergeHex<{}> = grid[0]
   // console.log(first)
-  expect(first.poly.length).toEqual(8)
-  // console.log(first)
+  expect(first.poly.length).toEqual(7)
   expect(first.type).toEqual('sea')
-  expect(first.name).toEqual('U40')
-  expect(first.q).toEqual(20)
-  expect(first.r).toEqual(39)
-  expect(first.centreLatLng.lat).toEqual(60.04426388004979)
-  expect(first.centreLatLng.lng).toEqual(-20.512344503657786)
+  expect(first.name).toEqual('AJ30')
+  expect(first.q).toEqual(35)
+  expect(first.r).toEqual(29)
+  expect(first.centreLatLng.lat).toEqual(54.77294323379133)
+  expect(first.centreLatLng.lng).toEqual(3.0213024955212258)
 
   // ok, check routing
   const fourth: SergeHex<{}> = grid[4]
-  expect(fourth.name).toEqual('AD26')
+  expect(fourth.name).toEqual('AV37')
   const between = grid.hexesBetween(first, fourth)
-  expect(between.length).toEqual(15)
+  expect(between.length).toEqual(20)
 })
 
 it('Check routing', () => {
@@ -47,7 +46,7 @@ it('Check routing', () => {
 
   if (first) {
     const inRange = grid.hexesInRange(first, 1, true)
-    console.log(origin, inRange.map((cell: SergeHex<{}>) => cell.name))
+    // console.log(origin, inRange.map((cell: SergeHex<{}>) => cell.name))
     expect(inRange.length).toEqual(7)
   } else {
     expect(false).toBeTruthy()
@@ -71,7 +70,7 @@ it('Check path', () => {
 
   if (first && dest) {
     const inRange = grid.hexesBetween(first, dest)
-    console.log(origin, inRange.map((cell: SergeHex<{}>) => cell.name))
+    // console.log(origin, inRange.map((cell: SergeHex<{}>) => cell.name))
     expect(inRange.length).toEqual(5)
   } else {
     expect(false).toBeTruthy()
