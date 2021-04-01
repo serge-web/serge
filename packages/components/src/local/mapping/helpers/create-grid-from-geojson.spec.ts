@@ -20,24 +20,24 @@ it('Construct grid from very new dataset', () => {
   // console.log(first)
   expect(first.poly.length).toEqual(7)
   expect(first.type).toEqual('sea')
-  expect(first.name).toEqual('AJ30')
-  expect(first.q).toEqual(35)
-  expect(first.r).toEqual(29)
-  expect(first.centreLatLng.lat).toEqual(54.77294323379133)
-  expect(first.centreLatLng.lng).toEqual(3.0213024955212258)
+  expect(first.name).toEqual('AC47')
+  expect(first.q).toEqual(28)
+  expect(first.r).toEqual(46)
+  expect(first.centreLatLng.lat).toEqual(62.621210552899335)
+  expect(first.centreLatLng.lng).toEqual(-1.798851429353225)
 
   // ok, check routing
   const fourth: SergeHex<{}> = grid[4]
-  expect(fourth.name).toEqual('AV37')
+  expect(fourth.name).toEqual('T25')
   const between = grid.hexesBetween(first, fourth)
-  expect(between.length).toEqual(20)
+  expect(between.length).toEqual(32)
 })
 
 it('Check routing', () => {
   const cells: any = atlanticCells.features
-  expect(cells.length).toEqual(2163)
+  expect(cells.length).toEqual(2251)
   const grid = createGridFromGeoJSON(atlanticCells, 30)
-  expect(grid.length).toEqual(2163)
+  expect(grid.length).toEqual(2251)
 
   // get origin cell
   const origin = 'X30'
@@ -55,9 +55,9 @@ it('Check routing', () => {
 
 it('Check path', () => {
   const cells: any = atlanticCells.features
-  expect(cells.length).toEqual(2163)
+  expect(cells.length).toEqual(2251)
   const grid = createGridFromGeoJSON(atlanticCells, 30)
-  expect(grid.length).toEqual(2163)
+  expect(grid.length).toEqual(2251)
 
   // get origin cell
   const origin = 'X30'
