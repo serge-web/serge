@@ -1,15 +1,16 @@
 import React from 'react'
-import { withKnobs, radios } from '@storybook/addon-knobs'
+import { Story } from '@storybook/react/types-6-0'
 
 // Import component files
 import ChannelMessageDetail from './index'
+import DetailPropTypes from './types/props'
 import docs from './README.md'
 import { GameMessagesMockRFI } from '@serge/mocks'
 
 export default {
   title: 'local/molecules/ChannelMessageDetail',
   component: ChannelMessageDetail,
-  decorators: [withKnobs],
+  decorators: [],
   parameters: {
     readme: {
       // Show readme before story
@@ -19,38 +20,56 @@ export default {
       // This story requires addons but other stories in this component do not
       showPanel: true
     }
+  },
+  argTypes: {
+    playerForce: {
+      name: 'Player force',
+      defaultValue: 'Blue',
+      control: {
+        type: 'radio',
+        options: [
+          'umpire',
+          'Blue',
+          'Red'
+        ]
+      }
+    }
   }
 }
 
-const forces = {
-  Blue: 'Blue',
-  Umpire: 'umpire',
-  Red: 'Red'
+
+
+const Template: Story<DetailPropTypes> = (args) => {
+  // @ts-ignore: Add custom property for storybook
+  const { playerForce, message } = args
+  return <ChannelMessageDetail
+    message={message}
+    playerForce={playerForce} />
 }
 
-export const Chat: React.FC = () => (
-  <ChannelMessageDetail
-    message={GameMessagesMockRFI[0]}
-    playerForce={radios('Player force', forces, 'Blue')}
-  />
-)
+export const Chat = Template.bind({})
+Chat.args = {
+  message: GameMessagesMockRFI[0],
+  playerForce: 'Blue'
+}
 
-export const Link: React.FC = () => (
-  <ChannelMessageDetail
-  playerForce={radios('Player force', forces, 'Blue')}
-  message={ { ...GameMessagesMockRFI[0],
-      message: {
+export const Link = Template.bind({})
+Link.args = {
+  message: {
+    ...GameMessagesMockRFI[0],
+    message: {
       title: 'lorem ipsum',
       URL: 'https://google.com'
-    }}}
-  />
-)
+    }
+  },
+  playerForce: 'Blue'
+}
 
-export const DailyIntention: React.FC = () => (
-  <ChannelMessageDetail
-  playerForce={radios('Player force', forces, 'Blue')}
-  message={ { ...GameMessagesMockRFI[0],
-      message: {
+export const DailyIntention = Template.bind({})
+DailyIntention.args = {
+  message: {
+    ...GameMessagesMockRFI[0],
+    message: {
       TurnNumber: '1',
       OverallIntentions: 'Some intentions',
       Orders: [{
@@ -60,16 +79,17 @@ export const DailyIntention: React.FC = () => (
         ActionOnContact: 'Ignore',
         AnyOtherComments: 'other'
       }]
-    }}}
-  />
-)
+    }
+  },
+  playerForce: 'Blue'
+}
 
-export const StateOfTheWorld: React.FC = () => (
-  <ChannelMessageDetail
-  playerForce={radios('Player force', forces, 'Blue')}
-  message={ { ...GameMessagesMockRFI[0],
+export const StateOfTheWorld = Template.bind({})
+StateOfTheWorld.args = {
+  message: {
+    ...GameMessagesMockRFI[0],
     message: {
-    Forces: [{
+      Forces: [{
         assets: [{
           location: 'loc',
           name: 'name',
@@ -88,28 +108,31 @@ export const StateOfTheWorld: React.FC = () => (
         }],
         force: 'Red'
       }]
-    }}}
-  />
-)
+    }
+  },
+  playerForce: 'Blue'
+}
 
-export const PrivateMessage: React.FC = () => (
-  <ChannelMessageDetail
-  playerForce={radios('Player force', forces, 'Blue')}
-  message={ { ...GameMessagesMockRFI[0],
-    message: { content: 'Lorem ipsum do lor sit amet' }}}
-  />
-)
+export const PrivateMessage = Template.bind({})
+PrivateMessage.args = {
+  message: {
+    ...GameMessagesMockRFI[2],
+    message: { content: 'Lorem ipsum do lor sit amet' }
+  },
+  playerForce: 'Blue'
+}
 
-export const WeatherForecast: React.FC = () => (
-  <ChannelMessageDetail
-  playerForce={radios('Player force', forces, 'Blue')}
-  message={ { ...GameMessagesMockRFI[0],
+export const WeatherForecast = Template.bind({})
+WeatherForecast.args = {
+  message: {
+    ...GameMessagesMockRFI[0],
     message: {
       title: 'Forecast',
       Location: { Lat: 19, 'Lat Hemi': 'N', Long: 33, 'Long Hemi': 'E' },
       'Valid from': '2020-09-03 12:00',
       'Valid until': '2020-09-25 12:00',
       Forecast: 'Clear'
-    }}}
-  />
-)
+    }
+  },
+  playerForce: 'Blue'
+}
