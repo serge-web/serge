@@ -8,7 +8,7 @@ import deepCopy from './deep-copy'
 // @ts-ignore
 import uniqId from 'uniqid'
 import _ from 'lodash'
-
+import mostRecentOnly from './most-recent-only'
 import {
   expiredStorage,
 } from '@serge/config'
@@ -25,12 +25,15 @@ const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: Player
       theChannel.messages = []
     }
 
+    // TODO: if this message has a reference number, we should delete any previous message
+    // with that reference number
     // now insert the message
     theChannel.messages.unshift({
       ...deepCopy(payload),
       hasBeenRead: false,
       isOpen: false
     })
+
 
     // update message count
     theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
@@ -69,7 +72,7 @@ const createNewChannel = (channelId: string): ChannelUI => {
     participants: [],
     name: 'channelName',
     templates: [],
-    forceIcons: [] ,
+    forceIcons: [],
     forceColors: [],
     messages: [],
     unreadMessageCount: 0,
@@ -79,7 +82,7 @@ const createNewChannel = (channelId: string): ChannelUI => {
 }
 
 
-const reduceTurnMarkers = (message: MessageChannel):string => {
+const reduceTurnMarkers = (message: MessageChannel): string => {
   if (message.messageType === INFO_MESSAGE_CLIPPED) {
     return '' + message.gameTurn
   }
@@ -110,22 +113,26 @@ export const clipInfoMEssage = (message: MessageInfoType, hasBeenRead: boolean =
 export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType | MessageCustom>, currentWargame: string,
   selectedForce: ForceData | undefined, selectedRole: string, allChannels: ChannelData[],
   allForces: ForceData[], chatChannel: PlayerUiChatChannel, isObserver: boolean,
-  allTemplates: any[]): SetWargameMessage  => {
-    const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
+  allTemplates: any[]): SetWargameMessage => {
+  const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
 
-    const messagesFiltered: Array<MessageChannel> = payload.map((message) => {
-      const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
+  const messagesReduced: Array<MessageChannel> = payload.map((message) => {
+    const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
 
-      if (message.messageType === INFO_MESSAGE) {
-        return clipInfoMEssage(message, hasBeenRead)
-      }
+    if (message.messageType === INFO_MESSAGE) {
+      return clipInfoMEssage(message, hasBeenRead)
+    }
 
-      return {
-        ...message,
-        hasBeenRead: hasBeenRead,
-        isOpen: false
-      }
-    })
+    return {
+      ...message,
+      hasBeenRead: hasBeenRead,
+      isOpen: false
+    }
+  })
+
+  //
+  const messagesFiltered = mostRecentOnly(messagesReduced)
+  console.log('filtered', messagesReduced.length, messagesFiltered.length)
 
   const chatMessages = _.uniqBy(messagesFiltered, reduceTurnMarkers)
     .filter((message) => message.details && message.details.channel === chatChannel.name)
@@ -247,7 +254,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
 
           // force icons
           const forceIcons = channel.participants && channel.participants.map((participant) => participant.icon)
-          if(forceIcons != thisChannel.forceIcons) {
+          if (forceIcons != thisChannel.forceIcons) {
             thisChannel.forceIcons = forceIcons
           }
 
@@ -256,7 +263,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
             const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
             return (force && force.color) || '#FFF'
           })
-          if(forceColors != thisChannel.forceColors) {
+          if (forceColors != thisChannel.forceColors) {
             thisChannel.forceColors = forceColors
           }
         }

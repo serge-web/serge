@@ -1,5 +1,5 @@
 import { CUSTOM_MESSAGE } from '@serge/config';
-import { MessageChannel, MessageCustom } from '@serge/custom-types'
+import { MessageChannel } from '@serge/custom-types'
 
 
 /** helper function to handle an array of messages, and
@@ -9,23 +9,27 @@ import { MessageChannel, MessageCustom } from '@serge/custom-types'
  * @param (MessageChannel[]) array of messages
  * @returns (MessageCustom[]) latest version of specified messages
  */
-const mostRecentOnly = (messages: MessageChannel[]): MessageCustom[] => {
+const mostRecentOnly = (messages: MessageChannel[]): MessageChannel[] => {
   // create list of docs with refs
   const refs: string[] = []
-  const results:MessageCustom[] = []
+  const results:MessageChannel[] = []
   messages.forEach((message: MessageChannel) => {
     if(message.messageType === CUSTOM_MESSAGE) {
-      const ref = message.message.Reference
+      const custom = message
+      const ref = custom.message.Reference
       // see if it's a versioned document
       if(ref !== undefined) {
-        const found = refs.find(item => item === ref)
-        if(!found) {
+        if(refs.find(item => item === ref)){
+          // don't store it - we've got this reference already
+        } else {
           refs.push(ref)
           results.push(message)
         }
       } else {
         results.push(message)
       }  
+    } else {
+      results.push(message)
     }
   })
   return results
