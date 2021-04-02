@@ -17,20 +17,20 @@ it('Construct grid from very new dataset', () => {
 
   // inspect first one
   const first: SergeHex<{}> = grid[0]
-  // console.log(first)
+  console.log(first)
   expect(first.poly.length).toEqual(7)
-  expect(first.type).toEqual('sea')
-  expect(first.name).toEqual('AC47')
-  expect(first.q).toEqual(28)
-  expect(first.r).toEqual(46)
-  expect(first.centreLatLng.lat).toEqual(62.621210552899335)
-  expect(first.centreLatLng.lng).toEqual(-1.798851429353225)
+  expect(first.type).toEqual('land')
+  expect(first.name).toEqual('AA20')
+  expect(first.q).toEqual(26)
+  expect(first.r).toEqual(19)
+  expect(first.centreLatLng.lat).toEqual(31.767519800604944)
+  expect(first.centreLatLng.lng).toEqual(4.734876073881146)
 
   // ok, check routing
   const fourth: SergeHex<{}> = grid[4]
-  expect(fourth.name).toEqual('T25')
+  expect(fourth.name).toEqual('AL16')
   const between = grid.hexesBetween(first, fourth)
-  expect(between.length).toEqual(32)
+  expect(between.length).toEqual(12)
 })
 
 it('Check routing', () => {
