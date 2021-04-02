@@ -77,11 +77,11 @@ const atlanticConstraints = {
   bounds: [
     [
       85,
-      -70.0
+      -90.0
     ],
     [
-      30.0,
-      40
+      25.0,
+      30
     ]
   ],
   maxNativeZoom: 7,
