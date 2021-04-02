@@ -47,6 +47,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         messages={state.channels[channelId].messages}
         onRead={handleOpenMessage}
         role={selectedRole}
+        isRFIManager={state.isRFIManager}
         onChange={handleChange}
         playerForceId={selectedForce.uniqid}
         icons={icons || []}
