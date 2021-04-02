@@ -60,10 +60,10 @@ it('fire a versioned message (with reference) into RFI channel', () => {
   }
 
   const msg = GameMessagesMockRFI[4] as MessageCustom
-  const response = 'TEST_RESPONSE'
+  const RESPONSE = 'TEST_RESPONSE'
   const collab: CollaborationDetails = {
     ...msg.details.collaboration,
-    response: response,
+    response: RESPONSE,
     status: CollaborativeMessageStates.Rejected
   }
   const payload2: MessageChannel = { ...msg,
@@ -82,6 +82,11 @@ it('fire a versioned message (with reference) into RFI channel', () => {
   expect(newBlue.messages).toBeTruthy()
   if(newBlue.messages) {
     expect(newBlue.messages.length).toEqual(6)
+    const first= newBlue.messages[0] as MessageCustom
+    expect(first.details.collaboration).toBeTruthy()
+    if(first.details.collaboration) {
+      expect(first.details.collaboration.response).toEqual(RESPONSE)
+    }
   }
 })
 })
