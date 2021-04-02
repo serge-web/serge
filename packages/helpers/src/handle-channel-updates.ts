@@ -25,15 +25,24 @@ const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: Player
       theChannel.messages = []
     }
 
-    // TODO: if this message has a reference number, we should delete any previous message
-    // with that reference number
-    // now insert the message
+    // if this message has a reference number, we should delete any previous message
+    // with that reference number before we insert the message
+    if(payload.message.Reference) {
+      // ok, remove any existing message with this reference      
+      theChannel.messages = theChannel.messages.filter((item:MessageChannel) => {
+        if(item.messageType === CUSTOM_MESSAGE) {
+          return item.message.Reference !== payload.message.Reference
+        } else {
+          return true
+        }
+      })
+    }
+
     theChannel.messages.unshift({
       ...deepCopy(payload),
       hasBeenRead: false,
       isOpen: false
-    })
-
+    })  
 
     // update message count
     theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
@@ -132,7 +141,6 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
 
   //
   const messagesFiltered = mostRecentOnly(messagesReduced)
-  console.log('filtered', messagesReduced.length, messagesFiltered.length)
 
   const chatMessages = _.uniqBy(messagesFiltered, reduceTurnMarkers)
     .filter((message) => message.details && message.details.channel === chatChannel.name)

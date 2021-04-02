@@ -1,8 +1,8 @@
-import { handleAllInitialChannelMessages } from '../handle-channel-updates'
+import handleChannelUpdates, { handleAllInitialChannelMessages } from '../handle-channel-updates'
 import { ForceData, PlayerUiChatChannel, SetWargameMessage,
-  ChannelData,  MessageChannel, MessageInfoType, MessageCustom } from '@serge/custom-types'
+  ChannelData,  MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails} from '@serge/custom-types'
 import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels, InfoMessagesMock } from '@serge/mocks'
-import { CHAT_CHANNEL_ID } from '@serge/config'
+import { CHAT_CHANNEL_ID, CollaborativeMessageStates } from '@serge/config'
 
 const adminMessages: MessageChannel[] = GameMessagesMockRFI
 const chatTemplate = MessageTemplatesMock.find((template:any) => template.name === 'Chat') || {a:'chat'}
@@ -39,4 +39,49 @@ describe('handle initial channel creation', () => {
     expect(rfiChan).toBeTruthy()
     expect(rfiChan.messages?.length).toEqual(6) // 3 blue messages, 3 info-type
   })
+})
+
+
+describe('handle new message into RFI channel', () => {
+
+it('fire a versioned message (with reference) into RFI channel', () => {
+
+  const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
+
+  // initialise wargame
+  const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
+  allForces, chatChannel, isObserver, allTemplates)
+
+  const newBlue1 = res.channels["channel-BlueRFI"]
+  expect(newBlue1).toBeTruthy()
+  expect(newBlue1.messages).toBeTruthy()
+  if(newBlue1.messages) {
+    expect(newBlue1.messages.length).toEqual(6)
+  }
+
+  const msg = GameMessagesMockRFI[4] as MessageCustom
+  const response = 'TEST_RESPONSE'
+  const collab: CollaborationDetails = {
+    ...msg.details.collaboration,
+    response: response,
+    status: CollaborativeMessageStates.Rejected
+  }
+  const payload2: MessageChannel = { ...msg,
+    _id: 'id_2z',
+    details: {
+      ...msg.details,
+      collaboration: collab
+    }
+  }
+
+  const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, blueForce,
+    allChannels, selectedRole, isObserver, allTemplates, allForces)
+
+  const newBlue = res2.channels["channel-BlueRFI"]
+  expect(newBlue).toBeTruthy()
+  expect(newBlue.messages).toBeTruthy()
+  if(newBlue.messages) {
+    expect(newBlue.messages.length).toEqual(6)
+  }
+})
 })
