@@ -49,7 +49,7 @@ export const HexGrid: React.FC<{}> = () => {
   const [plannedRoutePoly, setPlannedRoutePoly] = useState<L.LatLng[]>([])
 
   // the binned polygons
-  const [polyBin, setPolyBin] = useState<PolyBin[]>([])
+  const [polyBins, setPolyBins] = useState<PolyBin[]>([])
   const [visibleCells, setVisibleCells] = useState<SergeHex<{}>[]>([])
 
   // at higher zoom levels we need to reduce the number of hexes plotted
@@ -261,7 +261,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [planningRange, planningConstraints, gridCells])
 
-  const createPolyBin = (cells: SergeGrid<SergeHex<{}>>): PolyBin[] | undefined => {
+  const createPolyBins = (cells: SergeGrid<SergeHex<{}>>): PolyBin[] | undefined => {
     if (gridCells) {
       const store: SergeHex<{}>[] = []
       let bounds: L.LatLngBounds | undefined
@@ -275,10 +275,10 @@ export const HexGrid: React.FC<{}> = () => {
         store.push(hex)
       })
       if (bounds) {
-        const polyBin = binCells(bounds, store)
-        // const bins = polyBin.map((bin: PolyBin) => bin.cells.length)
+        const polyBins = binCells(bounds, store)
+        // const bins = polyBins.map((bin: PolyBins) => bin.cells.length)
         // console.log('bin sizes:', bins)
-        return polyBin
+        return polyBins
       }
     }
     return undefined
@@ -286,9 +286,9 @@ export const HexGrid: React.FC<{}> = () => {
 
   useEffect(() => {
     if (viewport && gridCells) {
-      if (polyBin.length === 0) {
-        const bin = createPolyBin(gridCells)
-        bin && setPolyBin(bin)
+      if (polyBins.length === 0) {
+        const bins = createPolyBins(gridCells)
+        bins && setPolyBins(bins)
       } else {
         // grow the viewport by 1/2 cell, so we can test
         // if the cell centre is inside the viewport -
@@ -299,7 +299,7 @@ export const HexGrid: React.FC<{}> = () => {
         const extendedViewport = L.latLngBounds(newTL.getNorthWest(), newBR.getSouthEast())
 
         let visible: SergeHex<{}>[] = []
-        polyBin.forEach((bin: PolyBin) => {
+        polyBins.forEach((bin: PolyBin) => {
           if (extendedViewport.contains(bin.bounds)) {
             // ok, add all of them
             visible = visible.concat(bin.cells)
@@ -352,7 +352,7 @@ export const HexGrid: React.FC<{}> = () => {
       setVisibleCells([])
       setRelevantCells([])
     }
-  }, [reducedDetail, viewport, gridCells, polyBin])
+  }, [reducedDetail, viewport, gridCells, polyBins])
 
   useEffect(() => {
     setReducedDetail(zoomLevel <= 7.0)
@@ -469,7 +469,7 @@ export const HexGrid: React.FC<{}> = () => {
   return <>
 
     { /* POLY BINS */ }
-    {/* <LayerGroup key={'poly_bounds'} >{polyBin && polyBin.map((bin: PolyBin, index: number) => (
+    {/* <LayerGroup key={'poly_bounds'} >{polyBins && polyBins.map((bin: PolyBin, index: number) => (
       <>
       <Polygon
         key={'bin_line_' + index}
