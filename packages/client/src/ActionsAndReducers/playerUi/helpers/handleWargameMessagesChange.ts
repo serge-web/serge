@@ -27,7 +27,6 @@ import {
  * or update the channels to reflect the new channel definitions
  */
 export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
-  console.log('latest wargame message', payload, payload.messageType)
   // TODO: only one of `payload` or `newState` will have been received. We should have 
   // two different handlers, one for each change.
   const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel,
