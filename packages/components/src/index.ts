@@ -37,3 +37,4 @@ export { default as AdminMessagesList } from './local/organisms/admin-messages-l
 export { default as WargameList } from './local/organisms/wargame-list'
 export { default as AdminLogin } from './local/organisms/admin-login'
 export { default as GameSetup } from './local/templates/game-setup'
+export { default as ChatMessageSetup } from './local/templates/chat-message-setup'
