@@ -14,12 +14,13 @@ const plannedRouteFor = (grid: SergeGrid<SergeHex<{}>> | undefined,
   destinationHex: SergeHex<{}>): SergeHex<{}>[] => {
   if (grid) {
     if (originHex && destinationHex) {
-      let route = grid.hexesBetween(originHex, destinationHex)
-      if (allowableCells) {
+      const route = grid.hexesBetween(originHex, destinationHex)
+      if (allowableCells.length) {
         // sort out overlap with allowable cells
-        route = route.filter(cell => allowableCells.includes(cell))
+        return route.filter(cell => allowableCells.includes(cell))
+      } else {
+        return route
       }
-      return route
     } else {
       return []
     }
