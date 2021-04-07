@@ -10,7 +10,7 @@ const typeFor = (type: number): {terrain: Terrain, type: string, fillColor: stri
     case 0: return { terrain: Terrain.LAND, type: 'land', fillColor: '#0f0' }
     case 1: return { terrain: Terrain.SEA, type: 'shallow', fillColor: '#fff' }
     case 2: return { terrain: Terrain.SEA, type: 'sea', fillColor: '#0ff' }
-    case 3: return { terrain: Terrain.SEA, type: 'deep', fillColor: '#a0a' }
+    case 3: return { terrain: Terrain.SEA, type: 'deep', fillColor: '#0078c7' }
     case 4: return { terrain: Terrain.SEA, type: 'medium', fillColor: '#0a0' }
     default: return { terrain: Terrain.SEA, type: 'sea', fillColor: '#fff' }
   }
