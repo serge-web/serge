@@ -23,20 +23,20 @@ export const ChatMessagesList: React.FC<PropTypes> = ({ messages, icons, colors,
           cMessages && cMessages.map((message, key) => {
             if (message.messageType === INFO_MESSAGE_CLIPPED) {
               return (
-                  <Box mr={2} key={`${message.gameTurn}-turnmarker-${key}`}>
-                    <p className={styles['turn-marker']}>Turn {message.gameTurn}</p>
+                <Box mr={2} key={`${message.gameTurn}-turnmarker-${key}`}>
+                  <p className={styles['turn-marker']}>Turn {message.gameTurn}</p>
+                </Box>
+              )
+            } else {
+              const chatMsg = message as ChatMessageType
+              return (
+                <Box mb={2} mr={2} key={key} justifyContent="flex-end" display="block">
+                  <Box maxWidth={'60%'} minWidth={'40%'} display="inline-block" style={{ float: chatMsg.details.from.force === playerForce ? 'right' : 'left' }}>
+                    <ChatMessage isUmpire={isUmpire} isOwner={chatMsg.details.from.force === playerForce} message={message} />
                   </Box>
-                )
-              } else {
-                const chatMsg = message as ChatMessageType
-                return (
-                  <Box mb={2} mr={2} key={key} justifyContent="flex-end" display="block">
-                    <Box maxWidth={'60%'} minWidth={'40%'} display="inline-block" style={{ float: chatMsg.details.from.force === playerForce ? 'right' : 'left' }}>
-                      <ChatMessage isUmpire={isUmpire} isOwner={chatMsg.details.from.force === playerForce} message={message} />
-                    </Box>
-                  </Box>
-                )
-              }
+                </Box>
+              )
+            }
           })
         }
       </Box>

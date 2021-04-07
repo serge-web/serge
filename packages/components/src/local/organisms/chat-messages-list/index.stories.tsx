@@ -3,7 +3,7 @@ import { Story } from '@storybook/react/types-6-0'
 
 import { ChatMessagesMock, InfoMessagesMock } from '@serge/mocks'
 import Props from './types/props'
-import  { ChatMessage, MessageInfoTypeClipped } from '@serge/custom-types'
+import { ChatMessage, MessageInfoTypeClipped } from '@serge/custom-types'
 
 // Import component files
 import ChatMessagesList from './index'
