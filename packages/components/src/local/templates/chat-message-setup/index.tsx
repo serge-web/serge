@@ -18,6 +18,7 @@ import { ChatMessage } from '@serge/custom-types'
 export const ChatMessageSetup: React.FC<Props> = ({ selectedForce, userId, forceName, selectedRole, chatChannel, isUmpire }: Props) => {
   const [messages, setMessages] = useState(chatChannel)
   const currentChannel = CHAT_CHANNEL_ID
+  console.log('selected force', selectedForce, isUmpire, forceName)
 
   const messageHandler = (data: ChatMessage): void => setMessages([...messages, data])
 

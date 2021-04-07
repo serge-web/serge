@@ -94,7 +94,6 @@ const factory = (state: PlayerUi): Factory => {
     } else {
       const matchedChannel = findChannelByName(state.channels, node.getName())
       const channelDefinition = state.allChannels.find((channel) => channel.name === node.getName())
-      console.log('channelDefinition', channelDefinition);
       if (node.getName().toLowerCase() === 'mapping') {
         // return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
         // _attributes.id
@@ -103,7 +102,7 @@ const factory = (state: PlayerUi): Factory => {
         if(matchedChannel && matchedChannel.length && channelDefinition) {
           // find out if channel just contains chat template
           return isChatChannel(channelDefinition) ? 
-            <ChatChannel channelId={matchedChannel[0]} /> // todo, replace with chat channel
+            <ChatChannel channelId={matchedChannel[0]} /> 
           : <Channel channelId={matchedChannel[0]} />
         }
       }
