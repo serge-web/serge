@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { umpireForceTemplate } from '../consts'
 import NewMessage from './NewMessage'
 import { ChannelMessagesList } from '@serge/components'
-import { mostRecentOnly } from '@serge/helpers'
 import {
   getAllWargameMessages,
   openMessage,
