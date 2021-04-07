@@ -42,8 +42,8 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, 
       _id: timestamp
     }
     postBack && postBack(post)
-    privateMessageEle.current.clear()
     messageEle.current.clear()
+    privateMessageEle && privateMessageEle.current && privateMessageEle.current.clear()
   }
 
   return (
