@@ -3,6 +3,7 @@ import ForceData from './force-data'
 import PlatformTypeData from './platform-type-data'
 import { MessageFeedback, MessageChannel } from './message'
 import ChannelUI from './channel-ui'
+import MappingConstraints from './mapping-constraints'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -52,6 +53,8 @@ export default interface PlayerUi {
   feedbackMessages: Array<MessageFeedback>,
   /** whether the introductory tour is running */
   tourIsOpen: boolean,
+  /** definition of background map */
+  mappingConstaints?: MappingConstraints,
   modalOpened?: string,
   /** whether access codes are displayed for current wargame */
   showAccessCodes: boolean,

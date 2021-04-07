@@ -1,4 +1,4 @@
-import { Phase, PlanningCommands } from '@serge/config'
+import { Phase, Domain } from '@serge/config'
 import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
@@ -77,6 +77,10 @@ export default interface MappingContext {
    *  setter, to modify the currently selected asset (or to clear it)
    **/
   setSelectedAsset: {(asset: SelectedAsset): void}
+  /** 
+   * the current map bounds
+   */
+  viewport: L.LatLngBounds | undefined,
   /**
    *  state for zoom Level
    **/
@@ -129,4 +133,8 @@ export default interface MappingContext {
    * update whether plans have been submitted
    */
   setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
+  /** 
+   * domain for this wargame 
+   */
+  domain: Domain
 }

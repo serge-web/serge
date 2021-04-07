@@ -5,5 +5,5 @@
 
 export * from './globals'
 export * from './routes'
-export { Phase, LaydownTypes, LaydownPhases, PlanningStates, PlanningCommands, RFI_States } from './enums'
+export { Phase, LaydownTypes, Terrain, Domain, LaydownPhases, PlanningStates, PlanningCommands, RFI_States } from './enums'
 export * from './action-constants'
