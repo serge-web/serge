@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'messages-list': string;
+  'turn-marker': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
