@@ -1,8 +1,9 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 
-import { ChatMessagesMock } from '@serge/mocks'
+import { ChatMessagesMock, InfoMessagesMock } from '@serge/mocks'
 import Props from './types/props'
+import  { ChatMessage, MessageInfoTypeClipped } from '@serge/custom-types'
 
 // Import component files
 import ChatMessagesList from './index'
@@ -45,6 +46,10 @@ const force = {
   icon: ''
 }
 
+const info = InfoMessagesMock as Array<ChatMessage | MessageInfoTypeClipped>
+const chat = ChatMessagesMock as Array<ChatMessage | MessageInfoTypeClipped>
+const messages = info.concat(chat)
+
 const Template: Story<Props> = (args) => {
   const icons = [
     './images/default_img/forceDefault.png'
@@ -54,7 +59,7 @@ const Template: Story<Props> = (args) => {
   ]
   const { playerForce, isUmpire } = args
   return <ChatMessagesList
-    messages={ChatMessagesMock}
+    messages={messages}
     userId='id'
     icons={icons}
     playerForce={playerForce}
