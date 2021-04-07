@@ -30,6 +30,8 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     saveMessage(state.currentWargame, post.details, post.message)()
   }
 
+  const icons = state.channels[channelId].forceIcons
+  const colors = state.channels[channelId].forceColors
   const isUmpire = state.selectedForce && state.selectedForce.uniqid === UMPIRE_FORCE
 
   return (
@@ -37,7 +39,9 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
       <ChatMessagesList
         messages={state.channels[channelId].messages}
         playerForce={selectedForce.name}
-        isUmpire={isUmpire} 
+        isUmpire={isUmpire}
+        icons={icons}
+        colors={colors}
       />
       {
         state.channels[channelId].observing === false &&

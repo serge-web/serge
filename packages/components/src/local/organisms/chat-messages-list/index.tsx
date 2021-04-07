@@ -16,7 +16,7 @@ export const ChatMessagesList: React.FC<PropTypes> = ({ messages, icons, colors,
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
-        <ForcesInChannel onMarkAllAsRead={(): void => { /* don't support mark all as read */ }} colors={colors} icons={icons} />
+        <ForcesInChannel colors={colors} icons={icons} />
       </Box>
       <Box ml={2} className={styles['messages-list']} flexDirection="column" display="flex">
         {
