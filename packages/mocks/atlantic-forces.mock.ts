@@ -244,7 +244,7 @@ export const forces: ForceData[] = [
         "perceptions": [],
         "plannedTurns": [],
         "platformType": "fixed-wing-aircraft",
-        "position": "AG31",
+        "position": "AA44",
         "status": {
           "state": "Landed"
         },
