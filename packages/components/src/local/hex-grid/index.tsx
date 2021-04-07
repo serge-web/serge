@@ -234,9 +234,9 @@ export const HexGrid: React.FC<{}> = () => {
 
         // ok, see which ones are filterd
         // "air" is a special planning mode, where we don't have to filter it
-        if(planningConstraints.travelMode === 'air') {
+        if (planningConstraints.travelMode === 'air') {
           // if there are lots of allowable cells the performance will be slow.
-          if(allowableCellList.length <= 200) {
+          if (allowableCellList.length <= 200) {
             setAllowableCells(allowableCellList)
           } else {
             // don't show allowable cells - we'll generate them "on the fly"
@@ -245,8 +245,8 @@ export const HexGrid: React.FC<{}> = () => {
           const filteredCells = allowableCellList.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
           setAllowableCells(filteredCells)
 
-        // try to create convex polygon around cells
-        const hull = generateOuterBoundary(filteredCells)
+          // try to create convex polygon around cells
+          const hull = generateOuterBoundary(filteredCells)
           setAllowablePoly(hull)
         }
       } else {
@@ -513,16 +513,16 @@ export const HexGrid: React.FC<{}> = () => {
       planningConstraints && planningConstraints.travelMode === 'air' &&
       allowableCells.length === 0 &&
       planningRouteCells.map((cell: SergeHex<{}>, index: number) => (
-      <Polygon
+        <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
-        key={'hex_planning_' + cell.name + '_' + index}
-        fillColor={ cell.fillColor || '#f00' }
-        positions={cell.poly}
-        stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
-        className={styles['planned-hex']}
-      />
-    ))}
+          key={'hex_planning_' + cell.name + '_' + index}
+          fillColor={ cell.fillColor || '#f00' }
+          positions={cell.poly}
+          stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
+          className={styles['planned-hex']}
+        />
+      ))}
     <Polyline
       key={'hex_planned_line'}
       color={ assetColor }
