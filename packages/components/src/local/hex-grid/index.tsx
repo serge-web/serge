@@ -168,9 +168,8 @@ export const HexGrid: React.FC<{}> = () => {
    * represented as cells & a line
    */
   useEffect(() => {
-    console.log('drag dest')
     if (dragDestination && originHex) {
-      // check we're not in laydown mode
+      // check if we're in laydown mode
       if (planningConstraints && planningConstraints.status === LAYDOWN_TURN) {
         // we don't show path in laydown mode
         setPlanningRoutePoly([])
@@ -235,13 +234,19 @@ export const HexGrid: React.FC<{}> = () => {
 
         // ok, see which ones are filterd
         // "air" is a special planning mode, where we don't have to filter it
-        const filteredCells = (planningConstraints.travelMode === 'air') ? allowableCellList : allowableCellList.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
-
-        setAllowableCells(filteredCells)
+        if(planningConstraints.travelMode === 'air') {
+          // if there are lots of allowable cells the performance will be slow.
+          if(allowableCellList.length <= 200) {
+            setAllowableCells(allowableCellList)
+          } else {
+            // don't show allowable cells - we'll generate them "on the fly"
+          }
+        } else {
+          const filteredCells = allowableCellList.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
+          setAllowableCells(filteredCells)
 
         // try to create convex polygon around cells
-        if (planningConstraints.travelMode !== 'air') {
-          const hull = generateOuterBoundary(filteredCells)
+        const hull = generateOuterBoundary(filteredCells)
           setAllowablePoly(hull)
         }
       } else {
@@ -501,6 +506,21 @@ export const HexGrid: React.FC<{}> = () => {
         positions={cell.poly}
         stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
         className={styles[getCellStyle(cell, planningRouteCells, allowableCells, cellForSelected)]}
+      />
+    ))}
+    { // special case - if we're in air travel mode the planning route may not be in the
+      // available cells listing
+      planningConstraints && planningConstraints.travelMode === 'air' &&
+      allowableCells.length === 0 &&
+      planningRouteCells.map((cell: SergeHex<{}>, index: number) => (
+      <Polygon
+        // we may end up with other elements per hex,
+        // such as labels so include prefix in key
+        key={'hex_planning_' + cell.name + '_' + index}
+        fillColor={ cell.fillColor || '#f00' }
+        positions={cell.poly}
+        stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
+        className={styles['planned-hex']}
       />
     ))}
     <Polyline
