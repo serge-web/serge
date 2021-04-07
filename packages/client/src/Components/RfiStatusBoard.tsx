@@ -2,11 +2,9 @@ import React from 'react'
 import { Badge, DataTable, RfiForm } from '@serge/components'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates } from '@serge/config'
-import { ActionPayload } from '@serge/components/src/local/molecules/rfi-form/types/props'
 import { usePlayerUiDispatch } from '../Store/PlayerUi'
 
 const RfiStatusBoard = ({ rfiMessages }: { rfiMessages: MessageCustom[] }) => {
-  const dispatch = usePlayerUiDispatch()
   const data = rfiMessages.map(message => [
     // TODO: Assign appropriate RFI Ids
     message.message.Reference || message._id,
