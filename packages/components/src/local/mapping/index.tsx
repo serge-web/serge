@@ -366,7 +366,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const clearFromTurn = (turn: number): void => {
     const current: Route | undefined = routeStore.selected
     if (current) {
-      const newStore = routeClearFromStep(routeStore, current.uniqid, turn + 1)
+      const newStore = routeClearFromStep(routeStore, current.uniqid, turn)
       setRouteStore(newStore)
       // now move the planning marker back to the last valid location
       const newCurrent: Route | undefined = newStore.selected
