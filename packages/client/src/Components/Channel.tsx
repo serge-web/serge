@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { umpireForceTemplate } from '../consts'
+import { umpireForceTemplate, UMPIRE_FORCE } from '../consts'
 import NewMessage from './NewMessage'
 import { ChannelMessagesList } from '@serge/components'
 import {
@@ -18,10 +18,11 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { selectedForce, selectedRole } = state
+  const isUmpire = selectedForce && selectedForce.uniqid === UMPIRE_FORCE
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
-  const generateNextReference = (force: string): number => {
-    return force ? 2 : 1
+  const generateNextReference = (): number => {
+    return state.nextMsgReference
   }
 
   useEffect(() => {
@@ -47,10 +48,11 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <ChannelMessagesList
-        messages={state.channels[channelId].messages}
+        messages={state.channels[channelId].messages || []}
         onRead={handleOpenMessage}
         role={selectedRole}
         isRFIManager={state.isRFIManager}
+        isUmpire={!!isUmpire}
         onChange={handleChange}
         playerForceId={selectedForce.uniqid}
         icons={icons || []}

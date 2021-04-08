@@ -28,12 +28,10 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
     <React.Fragment key={key}>
       <div style={{ margin: '0 15px 8px' }}>
         <ChannelMessage
-          borderColor={dynamicBorderColor}
           isOpen={isOpen}
           title={itemTitle}
           timestamp={`${moment(details.timestamp)}`}
           role={details.from.role}
-          forceColor={details.from.forceColor}
           messageType={details.messageType}
           hasBeenRead={hasBeenRead}
           privateMessage={details.privateMessage}
