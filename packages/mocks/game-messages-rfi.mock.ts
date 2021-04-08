@@ -87,7 +87,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     message: {
       "Reference": "BLUE-1",
-      "Request": "RFI request goes in here",
+      "Request": "RFI 1 request goes in here",
       "Title": "RFI 1 from BLUE"
     },
     _id: "id_1",
@@ -113,7 +113,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     message: {
       "Reference": "BLUE-2",
-      "Request": "RFI request goes in here",
+      "Request": "RFI 2 request goes in here",
       "Title": "RFI 2 from BLUE"
     },
     _id: "id_2",
@@ -139,7 +139,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     message: {
       "Reference": "BLUE-3",
-      "Request": "RFI request goes in here",
+      "Request": "RFI 3 request goes in here",
       "Title": "RFI 3 from BLUE"
     },
     _id: "id_3",
@@ -166,7 +166,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     message: {
       "Reference": "BLUE-2",
-      "Request": "RFI request goes in here",
+      "Request": "RFI 2 request goes in here",
       "Title": "RFI 2 from BLUE"
     },
     _id: "id_2a",
@@ -193,7 +193,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     message: {
       "Reference": "BLUE-3",
-      "Request": "RFI request goes in here",
+      "Request": "RFI 3 request goes in here",
       "Title": "RFI 3 from BLUE"
     },
     _id: "id_3a",
@@ -221,7 +221,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     message: {
       "Reference": "BLUE-3",
-      "Request": "RFI request goes in here",
+      "Request": "RFI 3 request goes in here",
       "Title": "RFI 3 from BLUE"
     },
     _id: "id_3b",
@@ -247,7 +247,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     message: {
       "Reference": "RED-1",
-      "Request": "RFI request goes in here",
+      "Request": "RFI 1 request from red goes in here",
       "Title": "RFI 1 from RED"
     },
     _rev: "1",
@@ -274,7 +274,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     message: {
       "Reference": "RED-1",
-      "Request": "RFI request goes in here",
+      "Request": "RFI 1 request from red goes in here",
       "Title": "RFI 1 from RED"
     },
     _id: "id_4a",
@@ -302,7 +302,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     message: {
       "Reference": "RED-1",
-      "Request": "RFI request goes in here",
+      "Request": "RFI 1 request from red goes in here",
       "Title": "RFI 1 from RED"
     },
     _id: "id_4b",
@@ -330,7 +330,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     },
     message: {
       "Reference": "RED-1",
-      "Request": "RFI request goes in here",
+      "Request": "RFI 1 request from red goes in here",
       "Title": "RFI 1 from RED"
     },
     _id: "id_4c",
