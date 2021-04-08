@@ -12,7 +12,7 @@ import { MessageChannel } from '@serge/custom-types'
 const mostRecentOnly = (messages: MessageChannel[]): MessageChannel[] => {
   // create list of docs with refs
   const refs: string[] = []
-  const results:MessageChannel[] = []
+  const withFirstVersion:MessageChannel[] = []
   messages.forEach((message: MessageChannel) => {
     if(message.messageType === CUSTOM_MESSAGE) {
       const custom = message
@@ -23,15 +23,38 @@ const mostRecentOnly = (messages: MessageChannel[]): MessageChannel[] => {
           // don't store it - we've got this reference already
         } else {
           refs.push(ref)
-          results.push(message)
+          withFirstVersion.push(message)
         }
       } else {
-        results.push(message)
+        withFirstVersion.push(message)
       }  
     } else {
-      results.push(message)
+      // ok, it's an info type. We want the last occurring info type
+      withFirstVersion.push(message)
     }
   })
-  return results
+
+  // now pass through, to remove duplicate turns
+  const reversed = withFirstVersion.reverse()
+  let maxTurn: number = -1
+  const onlyFirstTurn:MessageChannel[] = []
+  reversed.forEach((message: MessageChannel) => {
+    if(message.messageType !== CUSTOM_MESSAGE) {
+      const turn = message.gameTurn
+      if(turn <= maxTurn) {
+        // don't store it - we've got this reference already
+      } else {
+        maxTurn = turn
+        onlyFirstTurn.push(message)
+      }  
+    } else {
+      // ok, it's custom message - we've already sorted them
+      onlyFirstTurn.push(message)
+    }
+  })
+
+  const res = onlyFirstTurn.reverse()
+
+  return res
 }
 export default mostRecentOnly
