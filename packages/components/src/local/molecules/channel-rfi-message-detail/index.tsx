@@ -52,20 +52,20 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
   }
 
   const formDisabled = !formEditable(message, role, isUmpire, isRFIManager)
-
+  const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner || 'Not assigned')
   return (
     <div className={styles.main}>
       {collaboration && isUmpire && <div className={styles.assigned}>
         <span className={styles.inset}>
-          <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={collaboration.owner || 'Not assigned'}/>
+          <AssignmentInd color="action" fontSize="large"/><Badge size="medium" type="charcoal" label={assignLabel}/>
         </span>
       </div>}
-      <Textarea id={`question_${message._id}`} rows={4} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
+      <Textarea id={`question_${message._id}`} value={value} onChange={(nextValue): void => setValue(nextValue)} theme='dark' disabled label="Request"/>
       { // only show next fields if collaboration details known
         isUmpire &&
         <>
-          <Textarea id={`answer_${message._id}`} rows={4} disabled={formDisabled} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
-          <Textarea id={`private_message_${message._id}`} disabled={formDisabled} rows={4} value={privateMessage} onChange={(nextValue): void => setPrivateMessage(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+          <Textarea id={`answer_${message._id}`} disabled={formDisabled} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
+          <Textarea id={`private_message_${message._id}`} disabled={formDisabled} value={privateMessage} onChange={(nextValue): void => setPrivateMessage(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
         </>
       }
       { // show answer in read-only form if message released
