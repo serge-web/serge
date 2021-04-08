@@ -1,15 +1,24 @@
 import React from 'react'
 import { Badge, DataTable, RfiForm } from '@serge/components'
 import { MessageCustom } from '@serge/custom-types/message'
-import { CollaborativeMessageStates } from '@serge/config'
+import { CollaborativeMessageStates} from '@serge/config'
+import { ChannelData } from '@serge/custom-types'
+import ChannelsTab from '../Views/TabViews/ChannelsTab'
 
-const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], roles: string[]} }) => {
+const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], roles: string[], channels: Array<ChannelData>} }) => {
+
+  // produce dictionary of channels
+  const channDict = new Map<string, string>()
+  rfiData.channels.forEach((channel: ChannelData) => {
+    const id = channel.uniqid
+    channDict.set(id, channel.name)
+  })
 
   const rfiMessages = rfiData.rfiMessages
   const data = rfiMessages.map(message => [
     // TODO: Assign appropriate RFI Ids
     message.message.Reference || message._id,
-    message.details.channel,
+    channDict.get(message.details.channel),
     message.details.from.role,
     message.details.from.forceColor,
     message.message.Title,
@@ -19,9 +28,10 @@ const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], rol
   const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
     return [
       ...filters,
-      message.details.channel
+      channDict.get(message.details.channel)
     ]
   }, [])
+
   const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
     return [
       ...filters,
