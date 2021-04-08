@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       display: 'inline-block',
       width: '16px',
       marginLeft: '10px',
-      color: theme.palette[`${'primaryAccent'}`]?.main
+      color: '#000'
     }
   }
 }))
