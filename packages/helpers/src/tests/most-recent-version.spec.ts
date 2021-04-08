@@ -1,5 +1,4 @@
 import mostRecentOnly from '../most-recent-only'
-import _ from 'lodash'
 import { GameMessagesMockRFI, AdminMessagesMock, InfoMessagesMock } from '@serge/mocks'
 import { MessageCustom, MessageChannel } from '@serge/custom-types'
 
@@ -17,7 +16,7 @@ it('find new message across all channels', () => {
   expect(firstBefore._id).toEqual("id_4c")
 
   // use uniqby with our uniqueness operator
-  const mostRecent: MessageChannel[] = _.uniqBy(messages, mostRecentOnly)
+  const mostRecent: MessageChannel[] = mostRecentOnly(messages)
 
   // check we get reduced set of messages
   expect(mostRecent.length).toEqual(11)
