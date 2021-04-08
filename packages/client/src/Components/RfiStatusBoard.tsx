@@ -3,7 +3,6 @@ import { Badge, DataTable, RfiForm } from '@serge/components'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates} from '@serge/config'
 import { ChannelData } from '@serge/custom-types'
-import ChannelsTab from '../Views/TabViews/ChannelsTab'
 
 const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], roles: string[], channels: Array<ChannelData>} }) => {
 
@@ -16,7 +15,6 @@ const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], rol
 
   const rfiMessages = rfiData.rfiMessages
   const data = rfiMessages.map(message => [
-    // TODO: Assign appropriate RFI Ids
     message.message.Reference || message._id,
     channDict.get(message.details.channel),
     message.details.from.role,
