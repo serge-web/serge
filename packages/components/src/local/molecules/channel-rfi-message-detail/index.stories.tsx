@@ -48,16 +48,27 @@ export default {
   }
 }
 
-const newest = mostRecentOnly(GameMessagesMockRFI)
+// reverse the items
+const messages = GameMessagesMockRFI.reverse()
+const newest = mostRecentOnly(messages)
 
 const unallocated = newest[3] as MessageCustom
-const inProgress = newest[4] as MessageCustom
-const forReview = newest[5] as MessageCustom
-const released = newest[6] as MessageCustom
+const inProgress = newest[2] as MessageCustom
+const forReview = newest[1] as MessageCustom
+const released = newest[0] as MessageCustom
 
 const Template: Story<RFIPropTypes> = (args) => {
   const { isUmpire, role, message, isRFIManager } = args
   const [messageState, setMessageState] = useState<MessageCustom>(message)
+  const [roleState, setRoleState] = useState<string>('')
+  // we wish to update message state for a new story. We do
+  // this by tracking the role, since each story has
+  // a new role.
+  if(role != roleState) {
+    setRoleState(role)
+    setMessageState(message)
+  }
+
   return (
     <ChannelRfiMessageDetail
       message={messageState}
@@ -69,8 +80,8 @@ const Template: Story<RFIPropTypes> = (args) => {
   )
 }
 
-export const Default = Template.bind({})
-Default.args = {
+export const Unallocated = Template.bind({})
+Unallocated.args = {
   message: unallocated,
   isUmpire: true,
   isRFIManager: true,
