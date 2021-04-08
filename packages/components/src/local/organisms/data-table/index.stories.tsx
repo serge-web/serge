@@ -88,7 +88,7 @@ const rfiData = newest.map((message: any) => {
   ]
 })
 
-const uniqueFieldValues = (messages: any[], col: number) => {
+const uniqueFieldValues = (messages: any[], col: number): any => {
   // find items with unique items in set column
   const uniqueValues = messages.filter((elem, index) => rfiData.findIndex(obj => obj[col] === elem[col]) === index)
   // produce array with just field of interest

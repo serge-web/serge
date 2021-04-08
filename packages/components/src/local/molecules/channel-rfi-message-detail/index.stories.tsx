@@ -64,7 +64,7 @@ const Template: Story<RFIPropTypes> = (args) => {
   // we wish to update message state for a new story. We do
   // this by tracking the role, since each story has
   // a new role.
-  if (role != roleState) {
+  if (role !== roleState) {
     setRoleState(role)
     setMessageState(message)
   }
