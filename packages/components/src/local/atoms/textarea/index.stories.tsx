@@ -31,7 +31,6 @@ export const FourRows: React.FC = () => {
   return <Textarea rows={4} value={value} onChange={(nextValue): void => setValue(nextValue)} label='Label'/>
 }
 
-
 export const WithFactory: React.FC = () => {
   const [value, setValue] = useState<string>('Text')
 
