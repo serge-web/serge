@@ -570,7 +570,6 @@ export const postNewMessage = (dbName: string, details: MessageDetails, message:
     isOpen: false,
     hasBeenRead: false
   }
-  console.log('putting new message', customMessage)
   return db.put(customMessage).catch(rejectDefault)
 }
 

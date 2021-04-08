@@ -136,7 +136,7 @@ export const clipInfoMEssage = (message: MessageInfoType, hasBeenRead: boolean =
 export const refNumberFor = (msgRef: string | undefined, current: number, selectedForceName?: string): number => {
   if(msgRef != undefined) {
     // see if it starts with this force
-    if(selectedForceName && msgRef.startsWith(selectedForceName.toUpperCase())) {
+    if(selectedForceName && msgRef.startsWith(selectedForceName)) {
       // strip out the number
       const parts = msgRef.split('-')
       if(parts.length == 2) {
@@ -173,7 +173,7 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
 
   // reduce messages, so we just have single turn marker, and most recent 
   // version of referenced messages
-  const messagesFiltered = _.uniqBy(messagesReduced, mostRecentOnly)
+  const messagesFiltered = mostRecentOnly(messagesReduced)
 
   const chatMessages = messagesFiltered
     .filter((message) => message.details && message.details.channel === chatChannel.name)
