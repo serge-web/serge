@@ -50,8 +50,17 @@ const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, rfiMessages: Mes
 
   if(payload.details.messageType === 'RFI') {
     // we need to stick it into the RFI messages, replacing any previous version
-    rfiMessages = rfiMessages.filter((message) => message.message.reference === payload.message.reference)
+
+    // remove any existing RFI with this reference number. Note: we can't use 
+    // filter() array function since it produces a new array, which would
+    // have a new reference, and wouldn't get returned as a parameter
+    for(let i = 0; i < rfiMessages.length; i++){ 
+      if ( rfiMessages[i].message.Reference === payload.message.Reference) { 
+        rfiMessages.splice(i, 1); 
+      }
+    }
     rfiMessages.unshift(deepCopy(payload))
+    // rfiMessages = rfiMessages.filter((message) => message.message.Reference !== payload.message.Reference)
   }
 }
 

@@ -4,7 +4,6 @@ import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates } from '@serge/config'
 
 const RfiStatusBoard = ({ rfiMessages }: { rfiMessages: MessageCustom[] }) => {
-  console.log('rfi status board', rfiMessages.length)
   const data = rfiMessages.map(message => [
     // TODO: Assign appropriate RFI Ids
     message.message.Reference || message._id,

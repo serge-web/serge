@@ -1,12 +1,15 @@
 import handleChannelUpdates, { handleAllInitialChannelMessages } from '../handle-channel-updates'
-import { ForceData, PlayerUiChatChannel, SetWargameMessage,
-  ChannelData,  MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails} from '@serge/custom-types'
+import {
+  ForceData, PlayerUiChatChannel, SetWargameMessage,
+  ChannelData, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails
+} from '@serge/custom-types'
 import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels, InfoMessagesMock } from '@serge/mocks'
 import { CHAT_CHANNEL_ID, CollaborativeMessageStates } from '@serge/config'
+import deepCopy from '../deep-copy'
 
 const adminMessages: MessageChannel[] = GameMessagesMockRFI
-const chatTemplate = MessageTemplatesMock.find((template:any) => template.name === 'Chat') || {a:'chat'}
-const chatChannel: PlayerUiChatChannel = {name:CHAT_CHANNEL_ID, template:chatTemplate, messages: adminMessages}
+const chatTemplate = MessageTemplatesMock.find((template: any) => template.name === 'Chat') || { a: 'chat' }
+const chatChannel: PlayerUiChatChannel = { name: CHAT_CHANNEL_ID, template: chatTemplate, messages: adminMessages }
 const allForces: ForceData[] = forces
 const blueForce: ForceData = allForces[1]
 const allChannels: ChannelData[] = GameChannels
@@ -21,7 +24,7 @@ describe('handle initial channel creation', () => {
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
 
     const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
-    allForces, chatChannel, isObserver, allTemplates)
+      allForces, chatChannel, isObserver, allTemplates)
 
     expect(res).toBeTruthy()
     expect(res.chatChannel.messages.length).toEqual(2) // turn marker
@@ -48,54 +51,82 @@ describe('handle initial channel creation', () => {
 
 describe('handle new message into RFI channel', () => {
 
-it('fire a versioned message (with reference) into RFI channel', () => {
+  it('fire a new version of existing message (with reference) into RFI channel', () => {
 
-  const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
+    const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
 
-  // initialise wargame
-  const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
-  allForces, chatChannel, isObserver, allTemplates)
+    // initialise wargame
+    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
+      allForces, chatChannel, isObserver, allTemplates)
 
-  const newBlue1 = res.channels["channel-BlueRFI"]
-  expect(newBlue1).toBeTruthy()
-  expect(newBlue1.messages).toBeTruthy()
-  if(newBlue1.messages) {
-    expect(newBlue1.messages.length).toEqual(6)
-  }
-
-  expect(res.rfiMessages.length).toEqual(4)
-
-  const msg = GameMessagesMockRFI[4] as MessageCustom
-  const RESPONSE = 'TEST_RESPONSE'
-  const collab: CollaborationDetails = {
-    ...msg.details.collaboration,
-    response: RESPONSE,
-    status: CollaborativeMessageStates.Rejected
-  }
-  const payload2: MessageChannel = { ...msg,
-    _id: 'id_2z',
-    details: {
-      ...msg.details,
-      collaboration: collab
+    const newBlue1 = res.channels["channel-BlueRFI"]
+    expect(newBlue1).toBeTruthy()
+    expect(newBlue1.messages).toBeTruthy()
+    if (newBlue1.messages) {
+      expect(newBlue1.messages.length).toEqual(6)
     }
-  }
 
-  const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, res.rfiMessages, blueForce,
-    allChannels, selectedRole, isObserver, allTemplates, allForces)
+    expect(res.rfiMessages.length).toEqual(4)
 
-  const newBlue = res2.channels["channel-BlueRFI"]
-  expect(newBlue).toBeTruthy()
-  expect(newBlue.messages).toBeTruthy()
-  if(newBlue.messages) {
-    expect(newBlue.messages.length).toEqual(6)
-    const first= newBlue.messages[0] as MessageCustom
-    expect(first.details.collaboration).toBeTruthy()
-    if(first.details.collaboration) {
-      expect(first.details.collaboration.response).toEqual(RESPONSE)
+    const msg = GameMessagesMockRFI[4] as MessageCustom
+    const RESPONSE = 'TEST_RESPONSE'
+    const collab: CollaborationDetails = {
+      ...msg.details.collaboration,
+      response: RESPONSE,
+      status: CollaborativeMessageStates.Rejected
     }
-  }
+    const payload2: MessageChannel = {
+      ...msg,
+      _id: 'id_2z',
+      details: {
+        ...msg.details,
+        collaboration: collab
+      }
+    }
 
-  expect(res2.rfiMessages.length).toEqual(4)
+    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, res.rfiMessages, blueForce,
+      allChannels, selectedRole, isObserver, allTemplates, allForces)
 
-})
+    const newBlue = res2.channels["channel-BlueRFI"]
+    expect(newBlue).toBeTruthy()
+    expect(newBlue.messages).toBeTruthy()
+    if (newBlue.messages) {
+      expect(newBlue.messages.length).toEqual(6)
+      const first = newBlue.messages[0] as MessageCustom
+      expect(first.details.collaboration).toBeTruthy()
+      if (first.details.collaboration) {
+        expect(first.details.collaboration.response).toEqual(RESPONSE)
+      }
+    }
+
+    expect(res2.rfiMessages.length).toEqual(4)
+  })
+
+  it('fire a new message (with reference) into RFI channel', () => {
+
+    const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
+
+    // initialise wargame
+    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
+      allForces, chatChannel, isObserver, allTemplates)
+
+    const newBlue1 = res.channels["channel-BlueRFI"]
+    expect(newBlue1).toBeTruthy()
+    expect(newBlue1.messages).toBeTruthy()
+    if (newBlue1.messages) {
+      expect(newBlue1.messages.length).toEqual(6)
+    }
+
+    expect(res.rfiMessages.length).toEqual(4)
+
+    const msg = deepCopy(GameMessagesMockRFI[4]) as MessageCustom
+    msg.message.Reference = 'NEW_REFERENCE'
+
+    const res2: SetWargameMessage = handleChannelUpdates(msg, res.channels, res.chatChannel, res.rfiMessages, blueForce,
+      allChannels, selectedRole, isObserver, allTemplates, allForces)
+
+    // the number of rfi messages should now have increased
+    expect(res2.rfiMessages.length).toEqual(5)
+  })
+
 })
