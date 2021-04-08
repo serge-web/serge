@@ -15,10 +15,8 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 import cn from 'classnames'
 
-// interface ICollapsibleHeader { collapsed?: boolean, onExpand?: (status: boolean) => void }
-
 /* Render component */
-export const ChannelMessage: React.FC<Props> = ({ message, borderColor = '#32A3CA', onRead, onChange, role, isUmpire, isRFIManager }) => {
+export const ChannelRFIMessage: React.FC<Props> = ({ message, borderColor = '#32A3CA', onRead, onChange, role, isUmpire, isRFIManager }) => {
   const [open, setOpen] = useState<boolean>(false)
 
   const handleCollapse = (status: boolean): void => {
@@ -79,4 +77,4 @@ export const ChannelMessage: React.FC<Props> = ({ message, borderColor = '#32A3C
   )
 }
 
-export default ChannelMessage
+export default ChannelRFIMessage
