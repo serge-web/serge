@@ -1,23 +1,16 @@
 import {
   MessageChannel,
   PlayerUi,
-  PlayerUiChatChannel,
-  PlayerUiChannels,
   ChannelUI,
   MessageCustom,
-  MessageInfoType
+  MessageInfoType,
+  SetWargameMessage
 } from '@serge/custom-types'
 import { handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
 import {
   INFO_MESSAGE_CLIPPED
 } from '@serge/config'
 // TODO: change it to @serge/config
-
-interface SetWargameMessage {
-  channels: PlayerUiChannels,
-  chatChannel: PlayerUiChatChannel,
-  rfiMessages: MessageCustom[]
-}
 
 import {
   LOCAL_STORAGE_TIMEOUT,
