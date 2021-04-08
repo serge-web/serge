@@ -99,7 +99,8 @@ const factory = (state: PlayerUi): Factory => {
         // _attributes.id
         return renderMap(node.getId())
       } else if (channelName === 'rfis') {
-        return <RfiStatusBoard rfiMessages={state.rfiMessages} />
+        const roles = state.selectedForce && state.selectedForce.roles.map(role => role.name) || []
+        return <RfiStatusBoard rfiData={{rfiMessages:state.rfiMessages, roles:roles}} />
       }
       return matchedChannel && matchedChannel.length ? <Channel channelId={matchedChannel[0]} /> : null
     }

@@ -3,7 +3,9 @@ import { Badge, DataTable, RfiForm } from '@serge/components'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates } from '@serge/config'
 
-const RfiStatusBoard = ({ rfiMessages }: { rfiMessages: MessageCustom[] }) => {
+const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], roles: string[]} }) => {
+
+  const rfiMessages = rfiData.rfiMessages
   const data = rfiMessages.map(message => [
     // TODO: Assign appropriate RFI Ids
     message.message.Reference || message._id,
@@ -49,11 +51,7 @@ const RfiStatusBoard = ({ rfiMessages }: { rfiMessages: MessageCustom[] }) => {
         label: 'Status'
       },
       {
-        filters: [
-          'Fuel specialist',
-          'Aeronautic specialist',
-          'Weapons specialist'
-        ],
+        filters: rfiData.roles,
         label: 'Owner'
       }
     ],
