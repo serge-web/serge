@@ -71,7 +71,7 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
       { // show answer in read-only form if message released
         !isUmpire && collaboration && collaboration.status === CollaborativeMessageStates.Released &&
         <>
-          <Textarea id={`answer_${message._id}`} rows={4} disabled={formDisabled} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
+          <Textarea id={`answer_${message._id}`} disabled={formDisabled} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
         </>
       }
       <div className={styles.actions}>
