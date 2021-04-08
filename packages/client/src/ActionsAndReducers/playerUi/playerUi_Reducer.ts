@@ -143,6 +143,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       const changedAllMesagesState = handleSetAllMessages(action.payload, newState)
       newState.channels = changedAllMesagesState.channels
       newState.chatChannel = changedAllMesagesState.chatChannel
+      newState.rfiMessages = changedAllMesagesState.rfiMessages
       break
 
     case OPEN_MESSAGE:

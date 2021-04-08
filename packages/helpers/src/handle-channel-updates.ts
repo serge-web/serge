@@ -14,7 +14,7 @@ import {
 } from '@serge/config'
 
 /** a message has been received. Put it into the correct channel */
-const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: PlayerUiChannels, channel: string, payload: MessageCustom) => {
+const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, rfiMessages: MessageCustom[], channels: PlayerUiChannels, channel: string, payload: MessageCustom) => {
   if (channel === CHAT_CHANNEL_ID) {
     chatChannel.messages.unshift(deepCopy(payload))
   } else if (channels[channel]) {
@@ -46,6 +46,12 @@ const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: Player
 
     // update message count
     theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
+  }
+
+  if(payload.details.messageType === 'RFI') {
+    // we need to stick it into the RFI messages, replacing any previous version
+    rfiMessages = rfiMessages.filter((message) => message.message.reference === payload.message.reference)
+    rfiMessages.unshift(deepCopy(payload))
   }
 }
 
@@ -184,22 +190,34 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
     }
   })
 
+  // also sort out the RFI messages
+  const rfiMessages= messagesFiltered.filter((message: MessageChannel) => {
+    if(message.messageType === CUSTOM_MESSAGE) {
+      const custom = message as MessageCustom
+      return custom.details.messageType === 'RFI'
+    }
+    return false 
+  })
+  const rfiMessagesCustom = rfiMessages as Array<MessageCustom>
+
   return {
     channels,
     chatChannel: {
       ...chatChannel,
       messages: chatMessages
-    }
+    },
+    rfiMessages: rfiMessagesCustom
   }
 }
 
-const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel,
+const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel, rfiMessages: MessageCustom[],
   selectedForce: ForceData | undefined, allChannels: ChannelData[], selectedRole: string,
   isObserver: boolean, allTemplates: any[], allForces: ForceData[]): SetWargameMessage => {
 
   const res: SetWargameMessage = {
     channels: { ...channels },
-    chatChannel: { ...chatChannel }
+    chatChannel: { ...chatChannel },
+    rfiMessages: deepCopy(rfiMessages) 
   }
 
   // keep track of the channels that have been processed. We'll delete the other later
@@ -299,7 +317,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
       delete res.channels[key]
     }
   } else {
-    handleNonInfoMessage(res.chatChannel, res.channels, payload.details.channel, payload)
+    handleNonInfoMessage(res.chatChannel, res.rfiMessages, res.channels, payload.details.channel, payload)
   }
 
   return res

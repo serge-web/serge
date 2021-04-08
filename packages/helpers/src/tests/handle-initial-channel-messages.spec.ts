@@ -38,6 +38,10 @@ describe('handle initial channel creation', () => {
     const rfiChan = res.channels["channel-BlueRFI"]
     expect(rfiChan).toBeTruthy()
     expect(rfiChan.messages?.length).toEqual(6) // 3 blue messages, 3 info-type
+
+    // get the pure list of RFI messages
+    const rfiMessages = res.rfiMessages
+    expect(rfiMessages.length).toEqual(4)
   })
 })
 
@@ -59,6 +63,8 @@ it('fire a versioned message (with reference) into RFI channel', () => {
     expect(newBlue1.messages.length).toEqual(6)
   }
 
+  expect(res.rfiMessages.length).toEqual(4)
+
   const msg = GameMessagesMockRFI[4] as MessageCustom
   const RESPONSE = 'TEST_RESPONSE'
   const collab: CollaborationDetails = {
@@ -74,7 +80,7 @@ it('fire a versioned message (with reference) into RFI channel', () => {
     }
   }
 
-  const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, blueForce,
+  const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, res.rfiMessages, blueForce,
     allChannels, selectedRole, isObserver, allTemplates, allForces)
 
   const newBlue = res2.channels["channel-BlueRFI"]
@@ -88,5 +94,8 @@ it('fire a versioned message (with reference) into RFI channel', () => {
       expect(first.details.collaboration.response).toEqual(RESPONSE)
     }
   }
+
+  expect(res2.rfiMessages.length).toEqual(4)
+
 })
 })

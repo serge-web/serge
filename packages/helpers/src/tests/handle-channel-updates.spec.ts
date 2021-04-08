@@ -1,7 +1,7 @@
 import handleChannelUpdates from '../handle-channel-updates'
 import { ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
   ChannelData,  MessageChannel, MessageInfoTypeClipped, MessageCustom } from '@serge/custom-types'
-import { InfoMessagesMock, GameMessagesMock, MessageTemplatesMock, forces, GameChannels } from '@serge/mocks'
+import { InfoMessagesMock, GameMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels } from '@serge/mocks'
 import deepCopy from '../deep-copy'
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
 import { CHAT_CHANNEL_ID, CUSTOM_MESSAGE } from '@serge/config'
@@ -19,12 +19,13 @@ const selectedRole = allForces[1].roles[0].name
 const isObserver = false
 const allTemplates: any = MessageTemplatesMock
 
+
 describe('handle channel update for info message', () => {
 
   it('deletes channels that have been deleted', () => {
     const payload: MessageInfoTypeClipped = InfoMessagesMock[0]
 
-    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce,
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, [], blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
@@ -35,7 +36,7 @@ describe('handle channel update for info message', () => {
     const shortChannels = copyChannels.filter((channel: ChannelData) => channel.uniqid != 'channel-k53ti36p')
 
     // regenerate channels
-    const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, blueForce,
+    const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages, blueForce,
       shortChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
@@ -45,7 +46,7 @@ describe('handle channel update for info message', () => {
   it('deletes channels were no longer a member of', () => {
     const payload: MessageInfoTypeClipped = InfoMessagesMock[0]
 
-    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce,
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, [], blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
@@ -64,7 +65,7 @@ describe('handle channel update for info message', () => {
     }]
 
     // regenerate channels
-    const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, blueForce,
+    const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages,, blueForce,
       copyChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
@@ -87,7 +88,7 @@ describe('handle channel update for info message', () => {
       password: 'p2311'
     }]
 
-    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, whiteForce,
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, [], whiteForce,
       limWhiteRoles, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
@@ -97,7 +98,7 @@ describe('handle channel update for info message', () => {
     const notObserver = false
 
     // regenerate channels, now we're not an observer
-    const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, whiteForce,
+    const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages,, whiteForce,
       limWhiteRoles, selectedRole, notObserver , allTemplates, allForces)
 
     expect(res2).toBeTruthy()
@@ -107,7 +108,7 @@ describe('handle channel update for info message', () => {
   it('keeps us in channels were just an observer for', () => {
     const payload: MessageInfoTypeClipped = InfoMessagesMock[0]
 
-    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce,
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, [], blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
@@ -126,7 +127,7 @@ describe('handle channel update for info message', () => {
     }]
 
     // regenerate channels
-    const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, blueForce,
+    const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages,, blueForce,
       copyChannels, selectedRole, true, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
@@ -136,7 +137,7 @@ describe('handle channel update for info message', () => {
   it('adds us to new channels (blue)', () => {
     const payload: MessageInfoTypeClipped = InfoMessagesMock[0]
 
-    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce,
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, [], blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
@@ -154,7 +155,7 @@ describe('handle channel update for info message', () => {
     copyChannels.push(newChannel)
 
     // check if blue gets added
-    const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, blueForce,
+    const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages,, blueForce,
       copyChannels, selectedRole, false, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
@@ -164,7 +165,7 @@ describe('handle channel update for info message', () => {
   it('does not add us to new channels (red)', () => {
     const payload: MessageInfoTypeClipped = InfoMessagesMock[0]
 
-    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, redForce,
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, [], redForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
@@ -182,7 +183,7 @@ describe('handle channel update for info message', () => {
     copyChannels.push(newChannel)
 
     // check red force don't get channel added
-    const res3: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, redForce,
+    const res3: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages,, redForce,
       copyChannels, selectedRole, false, allTemplates, allForces)
 
     expect(res3).toBeTruthy()
@@ -195,7 +196,7 @@ describe('handle channel update for info message', () => {
 
     expect(myChatChannel.messages.length).toEqual(3)
 
-    const res: SetWargameMessage = handleChannelUpdates(payload, channels, myChatChannel, blueForce,
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, myChatChannel, [], blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
@@ -225,7 +226,7 @@ describe('handle channel update for info message', () => {
     }
 
     // regenerate channels
-    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, blueForce,
+    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, res.rfiMessages,, blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
@@ -238,7 +239,7 @@ describe('handle channel update for info message', () => {
     // use info message to recreate channels
     const payload: MessageInfoTypeClipped = InfoMessagesMock[0]
 
-    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce,
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, [], blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
@@ -269,7 +270,7 @@ describe('handle channel update for info message', () => {
     }
 
     // regenerate channels
-    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, blueForce,
+    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, res.rfiMessages,, blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
@@ -289,7 +290,7 @@ describe('handle channel update for info message', () => {
       hasBeenRead: false,
       isOpen: false
     }
-    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce,
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, [], blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
@@ -305,7 +306,7 @@ describe('handle channel update for info message', () => {
     const payload3 = Object.assign(payload2, {_id: messageId})
 
     // regenerate channels
-    const res2: SetWargameMessage = handleChannelUpdates(payload3, res.channels, chatChannel, blueForce,
+    const res2: SetWargameMessage = handleChannelUpdates(payload3, res.channels, chatChannel, res.rfiMessages,, blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
@@ -322,7 +323,7 @@ describe('handle channel update for info message', () => {
     // use info message to recreate channels
     const payload: MessageInfoTypeClipped = InfoMessagesMock[0]
 
-    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, blueForce,
+    const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, [], blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
@@ -333,7 +334,7 @@ describe('handle channel update for info message', () => {
     const payload2: MessageInfoTypeClipped = deepCopy(payload)
     payload2.gameTurn = 1
 
-    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, blueForce,
+    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, res.rfiMessages,, blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
