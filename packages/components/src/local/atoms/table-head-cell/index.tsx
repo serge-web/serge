@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       display: 'inline-block',
       width: '16px',
       marginLeft: '10px',
-      color: '#000'
+      color: theme.palette[`${'primary'}`]?.main
     }
   }
 }))
