@@ -1,4 +1,4 @@
-import handleChannelUpdates, { handleAllInitialChannelMessages } from '../handle-channel-updates'
+import handleChannelUpdates, { handleAllInitialChannelMessages, refNumberFor } from '../handle-channel-updates'
 import {
   ForceData, PlayerUiChatChannel, SetWargameMessage,
   ChannelData, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails
@@ -47,6 +47,21 @@ describe('handle initial channel creation', () => {
     // get the pure list of RFI messages
     const rfiMessages = res.rfiMessages
     expect(rfiMessages.length).toEqual(4)
+
+    // and the reference number
+    expect(res.nextMsgReference).toEqual(4)
+  })
+})
+
+describe('handling reference numbers', () => {
+  it('correctly extracts reference numbers', () => {
+    expect(refNumberFor(undefined, 2, undefined)).toEqual(2)
+    expect(refNumberFor(undefined, 2, 'Blue')).toEqual(2)
+    expect(refNumberFor('BLUE-3', 2, 'Blue')).toEqual(4)
+    expect(refNumberFor('BLUE-3', 2, undefined)).toEqual(2)
+    expect(refNumberFor('RED-3', 2, 'Blue')).toEqual(2)
+    expect(refNumberFor('BLUE:3', 2, 'Blue')).toEqual(2)
+    expect(refNumberFor('BLUE--3', 2, 'Blue')).toEqual(2)
   })
 })
 
@@ -86,7 +101,7 @@ describe('handle new message into RFI channel', () => {
       }
     }
 
-    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, res.rfiMessages, blueForce,
+    const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, res.rfiMessages, res.nextMsgReference, blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     const newBlue = res2.channels["channel-BlueRFI"]
@@ -104,7 +119,7 @@ describe('handle new message into RFI channel', () => {
     expect(res2.rfiMessages.length).toEqual(4)
   })
 
-  it('fire a new message (with reference) into RFI channel', () => {
+  it('fire a new message (with non-numeric) into RFI channel', () => {
 
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
 
@@ -121,11 +136,45 @@ describe('handle new message into RFI channel', () => {
 
     expect(res.rfiMessages.length).toEqual(4)
 
+    expect(res.nextMsgReference).toEqual(4)
+
     const msg = deepCopy(GameMessagesMockRFI[4]) as MessageCustom
     msg.message.Reference = 'NEW_REFERENCE'
 
-    const res2: SetWargameMessage = handleChannelUpdates(msg, res.channels, res.chatChannel, res.rfiMessages, blueForce,
+    const res2: SetWargameMessage = handleChannelUpdates(msg, res.channels, res.chatChannel, res.rfiMessages, res.nextMsgReference, blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
+    expect(res2.nextMsgReference).toEqual(4)
+
+    // the number of rfi messages should now have increased
+    expect(res2.rfiMessages.length).toEqual(5)
+  })
+
+
+  it('fire a new message (with numeric) into RFI channel', () => {
+
+    const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
+
+    // initialise wargame
+    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
+      allForces, chatChannel, isObserver, allTemplates)
+
+    const newBlue1 = res.channels["channel-BlueRFI"]
+    expect(newBlue1).toBeTruthy()
+    expect(newBlue1.messages).toBeTruthy()
+    if (newBlue1.messages) {
+      expect(newBlue1.messages.length).toEqual(5)
+    }
+
+    expect(res.rfiMessages.length).toEqual(4)
+
+    expect(res.nextMsgReference).toEqual(4)
+
+    const msg = deepCopy(GameMessagesMockRFI[4]) as MessageCustom
+    msg.message.Reference = 'BLUE-6'
+
+    const res2: SetWargameMessage = handleChannelUpdates(msg, res.channels, res.chatChannel, res.rfiMessages, res.nextMsgReference, blueForce,
+      allChannels, selectedRole, isObserver, allTemplates, allForces)
+    expect(res2.nextMsgReference).toEqual(7)
 
     // the number of rfi messages should now have increased
     expect(res2.rfiMessages.length).toEqual(5)
