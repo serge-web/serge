@@ -57,11 +57,12 @@ describe('handling reference numbers', () => {
   it('correctly extracts reference numbers', () => {
     expect(refNumberFor(undefined, 2, undefined)).toEqual(2)
     expect(refNumberFor(undefined, 2, 'Blue')).toEqual(2)
-    expect(refNumberFor('BLUE-3', 2, 'Blue')).toEqual(4)
-    expect(refNumberFor('BLUE-3', 2, undefined)).toEqual(2)
-    expect(refNumberFor('RED-3', 2, 'Blue')).toEqual(2)
-    expect(refNumberFor('BLUE:3', 2, 'Blue')).toEqual(2)
-    expect(refNumberFor('BLUE--3', 2, 'Blue')).toEqual(2)
+    expect(refNumberFor('Blue-3', 2, 'Blue')).toEqual(4)
+    expect(refNumberFor('BLUE-3', 2, 'Blue')).toEqual(2)
+    expect(refNumberFor('Blue-3', 2, undefined)).toEqual(2)
+    expect(refNumberFor('Red-3', 2, 'Blue')).toEqual(2)
+    expect(refNumberFor('Blue:3', 2, 'Blue')).toEqual(2)
+    expect(refNumberFor('Blue--3', 2, 'Blue')).toEqual(2)
   })
 })
 
@@ -170,7 +171,7 @@ describe('handle new message into RFI channel', () => {
     expect(res.nextMsgReference).toEqual(4)
 
     const msg = deepCopy(GameMessagesMockRFI[4]) as MessageCustom
-    msg.message.Reference = 'BLUE-6'
+    msg.message.Reference = 'Blue-6'
 
     const res2: SetWargameMessage = handleChannelUpdates(msg, res.channels, res.chatChannel, res.rfiMessages, res.nextMsgReference, blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)

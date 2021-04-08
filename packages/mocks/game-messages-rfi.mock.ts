@@ -86,9 +86,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      "Reference": "BLUE-1",
+      "Reference": "Blue-1",
       "Request": "RFI 1 request goes in here",
-      "Title": "RFI 1 from BLUE"
+      "Title": "RFI 1 from Blue"
     },
     _id: "id_1",
     _rev: "1",
@@ -112,9 +112,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      "Reference": "BLUE-2",
+      "Reference": "Blue-2",
       "Request": "RFI 2 request goes in here",
-      "Title": "RFI 2 from BLUE"
+      "Title": "RFI 2 from Blue"
     },
     _id: "id_2",
     _rev: "1",
@@ -138,9 +138,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      "Reference": "BLUE-3",
+      "Reference": "Blue-3",
       "Request": "RFI 3 request goes in here",
-      "Title": "RFI 3 from BLUE"
+      "Title": "RFI 3 from Blue"
     },
     _id: "id_3",
     _rev: "1",
@@ -165,9 +165,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      "Reference": "BLUE-2",
+      "Reference": "Blue-2",
       "Request": "RFI 2 request goes in here",
-      "Title": "RFI 2 from BLUE"
+      "Title": "RFI 2 from Blue"
     },
     _id: "id_2a",
     _rev: "2",
@@ -192,9 +192,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      "Reference": "BLUE-3",
+      "Reference": "Blue-3",
       "Request": "RFI 3 request goes in here",
-      "Title": "RFI 3 from BLUE"
+      "Title": "RFI 3 from Blue"
     },
     _id: "id_3a",
     _rev: "2",
@@ -220,9 +220,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       }
     },
     message: {
-      "Reference": "BLUE-3",
+      "Reference": "Blue-3",
       "Request": "RFI 3 request goes in here",
-      "Title": "RFI 3 from BLUE"
+      "Title": "RFI 3 from Blue"
     },
     _id: "id_3b",
     _rev: "3",
