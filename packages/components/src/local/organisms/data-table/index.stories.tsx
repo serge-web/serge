@@ -69,7 +69,7 @@ const rfiMessages = (GameMessagesMockRFI as MessageCustom[])
   // sample data includes multiple versions of RFI messages, ensure we're only
 // looking at newest
 const newest = mostRecentOnly(rfiMessages)
-const longStr = "asdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj h"
+const longStr = 'asdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj h'
 
 newest[0].message.Request = longStr
 newest[0].details.privateMessage = longStr
