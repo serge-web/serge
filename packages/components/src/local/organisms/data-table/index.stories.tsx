@@ -64,11 +64,16 @@ WithFilter.args = {
 }
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
-const rfiMessages = GameMessagesMockRFI
-  .filter(message => (message as MessageCustom).details.messageType === 'RFI')
+const rfiMessages = (GameMessagesMockRFI as MessageCustom[])
+  .filter((message: MessageCustom) => message.details.messageType === 'RFI')
   // sample data includes multiple versions of RFI messages, ensure we're only
 // looking at newest
 const newest = mostRecentOnly(rfiMessages)
+const longStr = "asdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj h"
+
+newest[0].message.Request = longStr
+newest[0].details.privateMessage = longStr
+newest[0].details.collaboration.response = longStr + longStr
 
 const rfiData = newest.map((message: any) => {
   const messageItem = (message as MessageCustom)
@@ -119,7 +124,7 @@ Implementation.args = {
       label: 'Owner'
     }
   ],
-  data: rfiData.map((row, rowIndex): any => {
+  data: rfiData.map((row: any, rowIndex: any): any => {
     const [id, channel, role, forceColor, content, status, owner] = row
     const statusColors = {
       Unallocated: '#B10303',
