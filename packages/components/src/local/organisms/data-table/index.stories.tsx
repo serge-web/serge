@@ -10,7 +10,7 @@ import RfiForm from '../../molecules/rfi-form'
 import { MessageCustom } from '@serge/custom-types/message'
 import { GameMessagesMockRFI } from '@serge/mocks'
 import { mostRecentOnly } from '@serge/helpers'
-import { CollaborativeMessageStates} from '@serge/config'
+import { CollaborativeMessageStates } from '@serge/config'
 
 export default {
   title: 'local/organisms/DataTable',
