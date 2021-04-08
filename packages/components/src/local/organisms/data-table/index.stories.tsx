@@ -10,6 +10,7 @@ import RfiForm from '../../molecules/rfi-form'
 import { MessageCustom } from '@serge/custom-types/message'
 import { GameMessagesMockRFI } from '@serge/mocks'
 import { mostRecentOnly } from '@serge/helpers'
+import { CollaborativeMessageStates} from '@serge/config'
 
 export default {
   title: 'local/organisms/DataTable',
@@ -68,12 +69,15 @@ const rfiMessages = (GameMessagesMockRFI as MessageCustom[])
   .filter((message: MessageCustom) => message.details.messageType === 'RFI')
   // sample data includes multiple versions of RFI messages, ensure we're only
 // looking at newest
-const newest = mostRecentOnly(rfiMessages)
+const newest = mostRecentOnly(rfiMessages) as MessageCustom[]
 const longStr = 'asdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj hasdf akjdsh lajdh alhf aljdskfh alkdj haljkdfh aldksj h'
 
 newest[0].message.Request = longStr
 newest[0].details.privateMessage = longStr
-newest[0].details.collaboration.response = longStr + longStr
+newest[0].details.collaboration = {
+  status: CollaborativeMessageStates.Released,
+  response: longStr + longStr
+}
 
 const rfiData = newest.map((message: any) => {
   const messageItem = (message as MessageCustom)
@@ -82,7 +86,7 @@ const rfiData = newest.map((message: any) => {
     messageItem.details.channel,
     messageItem.details.from.role,
     messageItem.details.from.forceColor,
-    messageItem.message.title,
+    messageItem.message.Title,
       messageItem.details.collaboration?.status,
       messageItem.details.collaboration?.owner
   ]
