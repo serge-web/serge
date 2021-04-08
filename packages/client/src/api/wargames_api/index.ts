@@ -530,6 +530,7 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
         break
       case ADJUDICATION_PHASE:
         res.phase = PLANNING_PHASE
+        res.gameTurn += 1        
         res.data.overview.gameDate = moment(res.data.overview.gameDate).add(res.data.overview.gameTurnTime, 'ms').format('YYYY-MM-DDTHH:mm')
         res.turnEndTime = moment().add(res.data.overview.realtimeTurnTime, 'ms').format()
         break
