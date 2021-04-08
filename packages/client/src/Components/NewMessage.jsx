@@ -6,7 +6,7 @@ import DropdownInput from '../Components/Inputs/DropdownInput'
 import '@serge/themes/App.scss'
 
 const NewMessage = props => {
-  const { templates, curChannel, privateMessage, orderableChannel } = props
+  const { templates, curChannel, privateMessage, orderableChannel, generateNextReference } = props
   const [selectedSchema, setSelectedSchema] = useState(null)
 
   const mapTemplateToDropdown = (item) => ({
@@ -50,6 +50,7 @@ const NewMessage = props => {
           schema={selectedSchema}
           curChannel={curChannel}
           privateMessage={privateMessage}
+          generateNextReference={generateNextReference}
         />
       </Collapsible>
     </div>
@@ -61,5 +62,9 @@ NewMessage.propTypes = {
   orderableChannel: PropTypes.bool,
   templates: PropTypes.array.isRequired,
   curChannel: PropTypes.string.isRequired,
-  privateMessage: PropTypes.bool.isRequired
+  privateMessage: PropTypes.bool.isRequired,
+    /** 
+   * helper function, to generate a new reference for the indicated force
+   */
+  generateNextReference: PropTypes.func
 }

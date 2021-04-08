@@ -28,14 +28,17 @@ const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, rfiMessages: Mes
     // if this message has a reference number, we should delete any previous message
     // with that reference number before we insert the message
     if(payload.message.Reference) {
-      // ok, remove any existing message with this reference      
-      theChannel.messages = theChannel.messages.filter((item:MessageChannel) => {
-        if(item.messageType === CUSTOM_MESSAGE) {
-          return item.message.Reference !== payload.message.Reference
-        } else {
-          return true
+      // remove any existing RFI with this reference number. Note: we can't use 
+      // filter() array function since it produces a new array, which would
+      // have a new reference, and wouldn't get returned as a parameter
+      for(let i = 0; i < theChannel.messages.length; i++){ 
+        const msg = theChannel.messages[i]
+        if(msg.messageType === CUSTOM_MESSAGE) {
+          if (msg.message.Reference === payload.message.Reference) { 
+            theChannel.messages.splice(i, 1); 
+          }
         }
-      })
+      }
     }
 
     theChannel.messages.unshift({
@@ -105,14 +108,6 @@ const createNewChannel = (channelId: string): ChannelUI => {
   return res
 }
 
-
-const reduceTurnMarkers = (message: MessageChannel): string => {
-  if (message.messageType === INFO_MESSAGE_CLIPPED) {
-    return '' + message.gameTurn
-  }
-  return message._id
-}
-
 export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRole: string): boolean => (
   expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}${id}`) === 'read'
 )
@@ -139,25 +134,36 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
   allForces: ForceData[], chatChannel: PlayerUiChatChannel, isObserver: boolean,
   allTemplates: any[]): SetWargameMessage => {
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
-
+  let nextMsgReference: number = 0
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
     const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
 
     if (message.messageType === INFO_MESSAGE) {
       return clipInfoMEssage(message, hasBeenRead)
-    }
-
-    return {
-      ...message,
-      hasBeenRead: hasBeenRead,
-      isOpen: false
+    } else {
+      const msgRef = message.message && message.message.Reference
+      if(msgRef != undefined) {
+        // see if it starts with this force
+        if(selectedForce && msgRef.startsWith(selectedForce.name.toUpperCase())) {
+          // strip out the number
+          const parts = msgRef.split('-')
+          const number = +parts[1]
+          nextMsgReference = Math.max(nextMsgReference, number)
+        }
+      }
+      return {
+        ...message,
+        hasBeenRead: hasBeenRead,
+        isOpen: false
+      }  
     }
   })
 
-  //
-  const messagesFiltered = mostRecentOnly(messagesReduced)
+  // reduce messages, so we just have single turn marker, and most recent 
+  // version of referenced messages
+  const messagesFiltered = _.uniqBy(messagesReduced, mostRecentOnly)
 
-  const chatMessages = _.uniqBy(messagesFiltered, reduceTurnMarkers)
+  const chatMessages = messagesFiltered
     .filter((message) => message.details && message.details.channel === chatChannel.name)
 
   const channels: PlayerUiChannels = {}
@@ -215,7 +221,8 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
       ...chatChannel,
       messages: chatMessages
     },
-    rfiMessages: rfiMessagesCustom
+    rfiMessages: rfiMessagesCustom,
+    nextMsgReference: nextMsgReference
   }
 }
 
@@ -226,7 +233,8 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
   const res: SetWargameMessage = {
     channels: { ...channels },
     chatChannel: { ...chatChannel },
-    rfiMessages: deepCopy(rfiMessages) 
+    rfiMessages: deepCopy(rfiMessages),
+    nextMsgReference: 1 // todo - pull it in from state
   }
 
   // keep track of the channels that have been processed. We'll delete the other later
