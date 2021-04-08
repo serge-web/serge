@@ -54,7 +54,6 @@ export const ChannelRFIMessage: React.FC<Props> = ({ message, borderColor = '#32
                 <div className={styles.status}>
                   <p>{message.details.collaboration && message.details.collaboration.status === CollaborativeMessageStates.Released ? 'ANSWERED' : 'PENDING'}</p>
                 </div>
-                <p>RFI-Blue-34</p>
               </div>
             </div>
             <div className={styles.row}>
