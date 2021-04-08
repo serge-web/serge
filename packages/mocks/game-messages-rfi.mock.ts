@@ -21,7 +21,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
     message: {
       content: "message from Red"
     },
-    _id: "2020-03-25T15:08:47.520Z",
+    _id: "2020-03-25T15:08:47.525Z",
     _rev: "1",
     hasBeenRead: false,
     isOpen: false
