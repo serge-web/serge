@@ -33,7 +33,6 @@ export const handleSetLatestWargameMessage = (payload: MessageChannel, newState:
  * grouping them into channels
  */
 export const handleSetAllMessages = (payload: Array<MessageCustom | MessageInfoType>, newState: PlayerUi): SetWargameMessage => {
-  console.log('all messages', payload, payload[0].messageType)
   const res: SetWargameMessage = handleAllInitialChannelMessages(payload, newState.currentWargame, newState.selectedForce,
     newState.selectedRole, newState.allChannels, newState.allForces, newState.chatChannel,
     newState.isObserver, newState.allTemplates)
