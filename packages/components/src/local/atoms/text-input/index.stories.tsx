@@ -1,5 +1,7 @@
 import React from 'react'
+import InputAdornment from '@material-ui/core/InputAdornment'
 import { withKnobs, boolean, number, text } from '@storybook/addon-knobs'
+import { Visibility } from '@material-ui/icons'
 
 // Import component files
 import TextInput from './index'
@@ -21,6 +23,7 @@ export const Default: React.FC = () => <TextInput multiline={boolean('Multi-Line
 export const Filled: React.FC = () => <TextInput value={text('Initial value', 'Lorem ipsum')} multiline={boolean('Multi-Line', true)} variant="filled" placeholder="Enter some value" />
 export const FilledWithLabel: React.FC = () => <TextInput multiline={boolean('Multi-Line', true)} variant="filled" label="Enter a value" labelColor="common.white" labelSize={12} />
 export const TitleInput: React.FC = () => <TextInput titleInput={true} customColor="transparent" value="transparent" />
+export const InputWithIcon: React.FC = () => <TextInput variant="filled" fullWidth endAdornment={<InputAdornment position="end"><Visibility/></InputAdornment>} />
 
 const rowValues = {
   range: true,

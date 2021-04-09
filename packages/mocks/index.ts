@@ -6,6 +6,7 @@
 export { default as GameMessagesMock } from './game-messages.mock'
 export { default as GameMessagesMockRFI } from './game-messages-rfi.mock'
 export { default as AdminMessagesMock } from './admin-messages.mock'
+export { default as ChatMessagesMock } from './chat-messages.mock'
 export { default as InfoMessagesMock } from './info-messages.mock'
 export { default as GameChannels } from './game-channels.mock'
 export { default as WargameMock } from './wargame.mock'

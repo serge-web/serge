@@ -560,6 +560,12 @@
   position: absolute;
   width: 100%;
 
+  .chat-message-container {
+    background: $background-action-head;
+    border-radius: 4px 4px 0 0;
+    padding: 8px 8px 22px;
+  }
+
   .Collapsible {
     background: $background-action-head;
     border-radius: 4px 4px 0 0;

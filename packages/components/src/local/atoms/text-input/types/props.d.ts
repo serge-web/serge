@@ -1,5 +1,14 @@
 import { TextFieldProps } from '@material-ui/core/TextField'
 
+export interface ChildInt {
+  props: {
+    children: any
+  }
+  type: {
+    displayName: string
+  }
+}
+
 export type PropTypes = TextFieldProps & {
   /**
    * The name of the input, usually matches the state to update. If not used then a kebab-case version of the label will be used.
@@ -63,6 +72,10 @@ export type PropTypes = TextFieldProps & {
    */
   titleInput?: boolean
   /**
+   * Used to add a prefix, a suffix or an action to an input
+   */
+  endAdornment?: ChildInt
+   /**
    * Is isPrivate input?
    */
   isPrivate?: boolean

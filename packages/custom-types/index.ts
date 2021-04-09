@@ -33,7 +33,8 @@ export { default as Message,
          MessageInfoTypeClipped,
          // All template based messages
          MessageCustom,
-         MessageChannel
+         MessageChannel,
+         ChatMessage
        } from './message.d'
 export { default as Participant } from './participant.d'
 export { default as PerceivedTypes } from './perceived-types.d'

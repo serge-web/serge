@@ -36,6 +36,9 @@ export const STATE_OF_WORLD = 'StateOfWorld'
 // series of constants used for `messageType` when sending custom messages
 export const CUSTOM_MESSAGE = 'CustomMessage'
 
+// series of constants used for `messageType` when sending chat messages
+export const CHAT_MESSAGE = 'ChatMessage'
+
 // series of constants used for `messageType` when sending feedback
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'
 

@@ -77,6 +77,7 @@ export const TextInput: React.FC<PropTypes> = ({
   placeholder,
   fullWidth,
   titleInput,
+  endAdornment,
   isPrivate,
   ...inputProps
 }) => {
@@ -115,7 +116,8 @@ export const TextInput: React.FC<PropTypes> = ({
       <TextField
         InputProps={{
           classes: isFilled ? filledClasses : baseClasses,
-          disableUnderline: isFilled
+          disableUnderline: isFilled,
+          endAdornment: endAdornment
         } as Partial<FilledInputProps>}
         {...{
           multiline,

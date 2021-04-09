@@ -1,12 +1,13 @@
 import React from 'react'
 import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints } from '@serge/custom-types'
-import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES } from '@serge/config'
-import { sendMapMessage } from '@serge/helpers'
+import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES, Phase } from '@serge/config'
+import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { Mapping, Assets, HexGrid } from '@serge/components'
 import _ from 'lodash'
 import Channel from '../../../Components/Channel'
+import ChatChannel from '../../../Components/ChatChannel'
 import RfiStatusBoard from '../../../Components/RfiStatusBoard'
 import findChannelByName from './findChannelByName'
 import { Domain } from '@serge/config'
@@ -72,17 +73,17 @@ const factory = (state: PlayerUi): Factory => {
     // from a number array to a Leaflet bounds object.
     // Render the map
     const renderMap = (channelid: string) => <Mapping
-      mappingConstraints={mappingConstraints}
-      forces={state.allForces}
-      platforms={state.allPlatformTypes}
-      phase={state.phase}
-      turnNumber={state.currentTurn}
-      playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
-      canSubmitOrders={canSubmitOrders}
-      channelID = {channelid}
-      mapPostBack={mapPostBack}
-      gameTurnTime={state.gameTurnTime}
-      wargameInitiated={state.wargameInitiated}
+        mappingConstraints={mappingConstraints}
+        forces={state.allForces}
+        platforms={state.allPlatformTypes}
+        phase={Phase[state.phase]}
+        turnNumber={state.currentTurn}
+        playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
+        canSubmitOrders={canSubmitOrders}
+        channelID = {channelid}
+        mapPostBack={mapPostBack}
+        gameTurnTime={state.gameTurnTime}
+        wargameInitiated={state.wargameInitiated}
     >
       <Assets />
       <HexGrid/>
@@ -100,15 +101,18 @@ const factory = (state: PlayerUi): Factory => {
     } else {
       const matchedChannel = findChannelByName(state.channels, node.getName())
       const channelName = node.getName().toLowerCase()
+      const channelDefinition = state.allChannels.find((channel) => channel.name === node.getName())
       if (channelName === 'mapping') {
-        // return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
-        // _attributes.id
         return renderMap(node.getId())
       } else if (channelName === 'rfis') {
         const roles = state.selectedForce && state.selectedForce.roles.map(role => role.name) || []
         return <RfiStatusBoard rfiData={{rfiMessages:state.rfiMessages, roles:roles, channels: state.allChannels}} />
+      } else if(matchedChannel && matchedChannel.length && channelDefinition) {
+          // find out if channel just contains chat template
+          return isChatChannel(channelDefinition) ? 
+            <ChatChannel channelId={matchedChannel[0]} /> 
+          : <Channel channelId={matchedChannel[0]} />
       }
-      return matchedChannel && matchedChannel.length ? <Channel channelId={matchedChannel[0]} /> : null
     }
   }
 }

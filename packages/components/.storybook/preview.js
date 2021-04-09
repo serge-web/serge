@@ -25,14 +25,20 @@ configureReadme({
       'ChannelMessageDetail',
       'ChannelMessageHeader',
       'ChannelMessagesList',
+      'ChatMessagesList',
+      'ChatMessage',
       'ChannelRFIMessagesList',
       'ForcesInChannel',
       'GameTitle',
       'InsightForm',
       'MessageLabel',
       'TextInput',
+      'ChatInputText',
+      'PrivateChatInputToggle',
+      'ChatEntryForm',
       'WargameList',
-      'WrapForceObjective'
+      'WrapForceObjective',
+      'ChatMessageSetup'
     ]
     const WrappedComponent = () => {
       return withBlueBackground.includes(component)

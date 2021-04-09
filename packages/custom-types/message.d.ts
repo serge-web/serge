@@ -1,6 +1,7 @@
 import {
   CUSTOM_MESSAGE,
   INFO_MESSAGE,
+  CHAT_MESSAGE,
   FEEDBACK_MESSAGE,
   FORCE_LAYDOWN,
   VISIBILITY_CHANGES,
@@ -115,6 +116,11 @@ export interface MessageCustom extends CoreMessage {
   infoType?: boolean,
 }
 
+export interface ChatMessage extends CoreMessage {
+  messageType: typeof CHAT_MESSAGE,
+  message: MessageStructure
+}
+
 export interface MessageFeedback extends CoreMessage {
   messageType: typeof FEEDBACK_MESSAGE,
   message: MessageStructure
@@ -180,6 +186,7 @@ export type MessageChannel = MessageInfoTypeClipped |
                              MessageCustom
 
 type Message = MessageCustom |
+               ChatMessage |
                MessageFeedback |
                MessageInfoTypeClipped |
                MessageMap |
