@@ -7,6 +7,7 @@ import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_Ac
 import { Mapping, Assets, HexGrid } from '@serge/components'
 import _ from 'lodash'
 import Channel from '../../../Components/Channel'
+import RfiStatusBoard from '../../../Components/RfiStatusBoard'
 import findChannelByName from './findChannelByName'
 import { Domain } from '@serge/config'
 
@@ -18,7 +19,7 @@ const findRole = (roleName: string, forceData: ForceData | undefined): Role => {
     const role = forceData.roles.find((role: Role) => role.name === roleName)
     if(role) {
       return role
-    } 
+    }
   }
   throw new Error('Role not found for:' + roleName);
 }
@@ -98,10 +99,14 @@ const factory = (state: PlayerUi): Factory => {
       }
     } else {
       const matchedChannel = findChannelByName(state.channels, node.getName())
-      if (node.getName().toLowerCase() === 'mapping') {
+      const channelName = node.getName().toLowerCase()
+      if (channelName === 'mapping') {
         // return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
         // _attributes.id
         return renderMap(node.getId())
+      } else if (channelName === 'rfis') {
+        const roles = state.selectedForce && state.selectedForce.roles.map(role => role.name) || []
+        return <RfiStatusBoard rfiData={{rfiMessages:state.rfiMessages, roles:roles, channels: state.allChannels}} />
       }
       return matchedChannel && matchedChannel.length ? <Channel channelId={matchedChannel[0]} /> : null
     }

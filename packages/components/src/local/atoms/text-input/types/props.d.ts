@@ -62,4 +62,8 @@ export type PropTypes = TextFieldProps & {
    * Is the field input being used as section title as well?
    */
   titleInput?: boolean
+  /**
+   * Is isPrivate input?
+   */
+  isPrivate?: boolean
 }

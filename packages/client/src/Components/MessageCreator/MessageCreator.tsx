@@ -41,7 +41,19 @@ const MessageCreator: React.FC<Props> = (props) => {
 
     if (!editor || editor.getValue().content === '') return
 
-    saveMessage(state.currentWargame, details, editor.getValue())()
+    // retrieve the formatted message
+    const message = editor.getValue()
+
+    // check if we're missing a reference, and we have a reference provider
+    if(message && props.generateNextReference && message.Reference !== undefined && message.Reference === '') {
+      // need to fill in the reference
+      const newRef = props.generateNextReference(selectedForce.name)
+
+      // store the new message reference
+      message.Reference = selectedForce.name + '-' + newRef
+    }
+
+    saveMessage(state.currentWargame, details, message)()
     editor.destroy()
     setEditor(null)
     createEditor(selectedSchema)

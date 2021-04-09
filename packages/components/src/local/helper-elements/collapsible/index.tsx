@@ -32,7 +32,9 @@ export const Collapsible: React.FC<PropTypes> = ({
   openByDefault = false,
   collapseOnDragHover = false,
   header = null,
-  content = null
+  content = null,
+  iconType,
+  onChange
 }) => {
   const [collapsed, setCollapse] = useState(!openByDefault)
   const customStructure = (header && content)
@@ -55,6 +57,7 @@ export const Collapsible: React.FC<PropTypes> = ({
 
   const handleExpand = (status: boolean): void => {
     setCollapse(status)
+    if (onChange) onChange(status)
   }
 
   const renderStructures = (child: any, key: number): React.ReactElement => {
@@ -69,6 +72,7 @@ export const Collapsible: React.FC<PropTypes> = ({
         collapsed,
         hasContent,
         collapseOnDragHover,
+        iconType,
         onExpand: handleExpand
       })
     } else {

@@ -77,6 +77,7 @@ export const TextInput: React.FC<PropTypes> = ({
   placeholder,
   fullWidth,
   titleInput,
+  isPrivate,
   ...inputProps
 }) => {
   const containerRef = useRef<HTMLElement>(null)
@@ -108,6 +109,8 @@ export const TextInput: React.FC<PropTypes> = ({
       className={className}
       disableOffset={true}
       ref={containerRef}
+      fullWidth={fullWidth}
+      isPrivate={isPrivate}
     >
       <TextField
         InputProps={{

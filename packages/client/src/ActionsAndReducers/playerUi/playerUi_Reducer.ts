@@ -64,8 +64,10 @@ export const initialState: PlayerUi = {
   modalOpened: undefined,
   // DODO: check defaults for new ones
   showAccessCodes: false,
+  rfiMessages: [],
   isInsightViewer: false,
-  isRFIManager: false
+  isRFIManager: false,
+  nextMsgReference: 1
 }
 
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes):PlayerUi => {
@@ -138,12 +140,15 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       const changedLatestState = handleSetLatestWargameMessage(action.payload, newState)
       newState.channels = changedLatestState.channels
       newState.chatChannel = changedLatestState.chatChannel
+      newState.nextMsgReference = changedLatestState.nextMsgReference
       break
 
     case SET_ALL_MESSAGES:
       const changedAllMesagesState = handleSetAllMessages(action.payload, newState)
       newState.channels = changedAllMesagesState.channels
       newState.chatChannel = changedAllMesagesState.chatChannel
+      newState.rfiMessages = changedAllMesagesState.rfiMessages
+      newState.nextMsgReference = changedAllMesagesState.nextMsgReference
       break
 
     case OPEN_MESSAGE:
