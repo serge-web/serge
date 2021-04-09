@@ -2,17 +2,21 @@ import React from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
-
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
 /* Import Components */
 import ChannelMessage from '../../molecules/channel-message'
+import ChannelRFIMessage from '../../molecules/channel-rfi-message'
 import ForcesInChannel from '../../molecules/forces-in-channel'
 import { Box } from '@material-ui/core'
+// import collateMessages from './helpers/collate-messages'
+import { INFO_MESSAGE_CLIPPED, UMPIRE_FORCE } from '@serge/config'
+import { MessageChannel, MessageCustom } from '@serge/custom-types'
 
 /* Render component */
-export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead }: PropTypes) => {
+export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForceId, icons, colors, onMarkAllAsRead, onRead, onChange, role, isRFIManager }: PropTypes) => {
+  const isUmpire = playerForceId === UMPIRE_FORCE
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
@@ -20,19 +24,36 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
       </Box>
       <Box ml={2} className={styles['messages-list']}>
         {
-          messages && messages.map((props, key) => {
-            if (props.infoType) {
+          messages && messages.map((props: MessageChannel, key: number) => {
+            if (props.messageType === INFO_MESSAGE_CLIPPED) {
               return (
                 <Box mr={2} key={`${props.gameTurn}-turnmarker-${key}`}>
                   <p className={styles['turn-marker']}>Turn {props.gameTurn}</p>
                 </Box>
               )
             }
-            return (
-              <Box mb={2} mr={2} key={key}>
-                <ChannelMessage onRead={onRead} {...props} />
-              </Box>
-            )
+            const msg: MessageCustom = props
+            if (msg.details.messageType === 'RFI') {
+              return (
+                <Box mb={2} mr={2} key={key}>
+                  <ChannelRFIMessage
+                    borderColor={msg.details.from.forceColor}
+                    message={props}
+                    onRead={onRead}
+                    onChange={onChange}
+                    role={role}
+                    isRFIManager={isRFIManager}
+                    isUmpire={isUmpire}
+                  />
+                </Box>
+              )
+            } else {
+              return (
+                <Box mb={2} mr={2} key={key}>
+                  <ChannelMessage playerForce={playerForceId} onRead={onRead} message={props} />
+                </Box>
+              )
+            }
           })
         }
       </Box>

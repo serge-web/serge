@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, ReactElement } from 'react'
 
 /* Import Types */
 import Props, { ContentFilterType } from './types/props'
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       display: 'inline-block',
       width: '16px',
       marginLeft: '10px',
-      color: theme.palette[`${'primaryAccent'}`]?.main
+      color: theme.palette[`${'primary'}`]?.main
     }
   }
 }))
@@ -70,7 +70,7 @@ export const TableHeadCell = (props: Props): (React.ReactElement | null) => {
             { contentFilter.label }
           </Button>
           <Popper open={open} anchorEl={buttonRef.current} role={undefined} transition disablePortal>
-            {({ TransitionProps, placement }) => (
+            {({ TransitionProps, placement }): ReactElement => (
               <Grow
                 {...TransitionProps}
                 style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}

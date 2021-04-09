@@ -66,8 +66,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       }
     },
     '& .MuiInputBase-input': {
-      height: '25vh',
-      maxHeight: '110px',
+      maxHeight: '220px',
       color: 'white',
       fontSize: '12px'
     }

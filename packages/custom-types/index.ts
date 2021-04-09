@@ -18,6 +18,7 @@ export { default as Message,
          MessageDetails,
          MessageDetailsFrom,
          MessageStructure,
+         CollaborationDetails,
          // Map Types
          MessageForceLaydown,
          MessagePerceptionOfContact,

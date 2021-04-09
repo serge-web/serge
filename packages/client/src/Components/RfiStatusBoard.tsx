@@ -1,17 +1,22 @@
 import React from 'react'
 import { Badge, DataTable, RfiForm } from '@serge/components'
-import { MessageCustom, MessageChannel } from '@serge/custom-types/message'
-import { CollaborativeMessageStates } from '@serge/config'
-import { ActionPayload } from '@serge/components/src/local/molecules/rfi-form/types/props'
-import { submitRFI, rejectRFI } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { usePlayerUiDispatch } from '../Store/PlayerUi'
+import { MessageCustom } from '@serge/custom-types/message'
+import { CollaborativeMessageStates} from '@serge/config'
+import { ChannelData } from '@serge/custom-types'
 
-const RfiStatusBoard = ({ rfiMessages }: { rfiMessages: MessageCustom[] }) => {
-  const dispatch = usePlayerUiDispatch()
+const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], roles: string[], channels: Array<ChannelData>} }) => {
+
+  // produce dictionary of channels
+  const channDict = new Map<string, string>()
+  rfiData.channels.forEach((channel: ChannelData) => {
+    const id = channel.uniqid
+    channDict.set(id, channel.name)
+  })
+
+  const rfiMessages = rfiData.rfiMessages
   const data = rfiMessages.map(message => [
-    // TODO: Assign appropriate RFI Ids
     message.message.Reference || message._id,
-    message.details.channel,
+    channDict.get(message.details.channel),
     message.details.from.role,
     message.details.from.forceColor,
     message.message.Title,
@@ -21,9 +26,10 @@ const RfiStatusBoard = ({ rfiMessages }: { rfiMessages: MessageCustom[] }) => {
   const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
     return [
       ...filters,
-      message.details.channel
+      channDict.get(message.details.channel)
     ]
   }, [])
+
   const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
     return [
       ...filters,
@@ -53,11 +59,7 @@ const RfiStatusBoard = ({ rfiMessages }: { rfiMessages: MessageCustom[] }) => {
         label: 'Status'
       },
       {
-        filters: [
-          'Fuel specialist',
-          'Aeronautic specialist',
-          'Weapons specialist'
-        ],
+        filters: rfiData.roles,
         label: 'Owner'
       }
     ],
@@ -70,15 +72,10 @@ const RfiStatusBoard = ({ rfiMessages }: { rfiMessages: MessageCustom[] }) => {
         [CollaborativeMessageStates.Released]: '#007219',
         [CollaborativeMessageStates.Rejected]: '#434343'
       }
-      const onRFISubmit = (message: MessageChannel, payload: ActionPayload): void => {
-        dispatch(submitRFI(message.details.channel, message, payload))
-      }
-      const onRFIReject = (message: MessageChannel, payload: ActionPayload): void => {
-        dispatch(rejectRFI(message.details.channel, message, payload))
-      }
+
       return {
         collapsible: (
-          <RfiForm onSubmit={onRFISubmit} onReject={onRFIReject} message={(rfiMessages[rowIndex] as MessageCustom)} />
+          <RfiForm message={(rfiMessages[rowIndex] as MessageCustom)} />
         ),
         cells: [
           id,

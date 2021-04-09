@@ -8,15 +8,12 @@ import {
   SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE,
   SET_ALL_MESSAGES,
-  SET_RFI_MESSAGES,
   OPEN_MESSAGE,
   CLOSE_MESSAGE,
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
-  CLOSE_MODAL,
-  SUBMIT_RFI,
-  REJECT_RFI
+  CLOSE_MODAL
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
@@ -27,9 +24,7 @@ import {
   handleSetAllMessages,
   openMessage,
   closeMessage,
-  markAllAsRead,
-  submitRFIMessage,
-  rejectRFIMessage
+  markAllAsRead
 } from './helpers/handleWargameMessagesChange';
 
 import {
@@ -72,7 +67,8 @@ export const initialState: PlayerUi = {
   showAccessCodes: false,
   rfiMessages: [],
   isInsightViewer: false,
-  isRFIManager: false
+  isRFIManager: false,
+  nextMsgReference: 1
 }
 
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes):PlayerUi => {
@@ -142,16 +138,15 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       const changedLatestState = handleSetLatestWargameMessage(action.payload, newState)
       newState.channels = changedLatestState.channels
       newState.chatChannel = changedLatestState.chatChannel
+      newState.nextMsgReference = changedLatestState.nextMsgReference
       break
 
     case SET_ALL_MESSAGES:
       const changedAllMesagesState = handleSetAllMessages(action.payload, newState)
       newState.channels = changedAllMesagesState.channels
       newState.chatChannel = changedAllMesagesState.chatChannel
-      break
-
-    case SET_RFI_MESSAGES:
-      newState.rfiMessages = action.payload
+      newState.rfiMessages = changedAllMesagesState.rfiMessages
+      newState.nextMsgReference = changedAllMesagesState.nextMsgReference
       break
 
     case OPEN_MESSAGE:
@@ -176,18 +171,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case CLOSE_MODAL:
       newState.modalOpened = undefined
-      break
-
-    case SUBMIT_RFI:
-      const submittedRFI = submitRFIMessage(action.payload, newState)
-      newState.channels = submittedRFI.channels
-      newState.rfiMessages = submittedRFI.rfiMessages
-      break
-
-    case REJECT_RFI:
-      const rejectedRFI = rejectRFIMessage(action.payload, newState)
-      newState.channels = rejectedRFI.channels
-      newState.rfiMessages = rejectedRFI.rfiMessages
       break
 
     default:

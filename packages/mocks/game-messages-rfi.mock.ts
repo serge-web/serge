@@ -1,10 +1,10 @@
-import { MessageChannel } from '@serge/custom-types'
+import { MessageCustom } from '@serge/custom-types'
 import { CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
 
 /** set of mock messages that includes
  * extra data for collaborative editing
  */
-const gameMessagesWithRFI: MessageChannel[] = [
+const gameMessagesWithRFI: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
@@ -21,7 +21,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
     message: {
       content: "message from Red"
     },
-    _id: "2020-03-25T15:08:47.520Z",
+    _id: "2020-03-25T15:08:47.525Z",
     _rev: "1",
     hasBeenRead: false,
     isOpen: false
@@ -72,7 +72,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: "BLUE RFI",
+      channel: "channel-BlueRFI",
       from: {
         force: "Blue",
         forceColor: "#00F",
@@ -86,9 +86,11 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
-      content: "RFI 1 from Blue"
+      "Reference": "Blue-1",
+      "Request": "RFI 1 request goes in here",
+      "Title": "RFI 1 from Blue"
     },
-    _id: "2020-03-25T15:08:52.530Z",
+    _id: "id_1",
     _rev: "1",
     hasBeenRead: false,
     isOpen: false
@@ -96,7 +98,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: "BLUE RFI",
+      channel: "channel-BlueRFI",
       from: {
         force: "Blue",
         forceColor: "#00F",
@@ -110,9 +112,11 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
-      content: "RFI 2 from Blue"
+      "Reference": "Blue-2",
+      "Request": "RFI 2 request goes in here",
+      "Title": "RFI 2 from Blue"
     },
-    _id: "2020-03-25T15:08:53.530Z",
+    _id: "id_2",
     _rev: "1",
     hasBeenRead: false,
     isOpen: false
@@ -120,7 +124,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: "BLUE RFI",
+      channel: "channel-BlueRFI",
       from: {
         force: "Blue",
         forceColor: "#00F",
@@ -134,9 +138,11 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
-      content: "RFI 3 from Blue"
+      "Reference": "Blue-3",
+      "Request": "RFI 3 request goes in here",
+      "Title": "RFI 3 from Blue"
     },
-    _id: "2020-03-25T15:08:54.530Z",
+    _id: "id_3",
     _rev: "1",
     hasBeenRead: false,
     isOpen: false
@@ -144,7 +150,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: "BLUE RFI",
+      channel: "channel-BlueRFI",
       from: {
         force: "Blue",
         forceColor: "#00F",
@@ -159,9 +165,11 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
-      content: "RFI 2 from Blue"
+      "Reference": "Blue-2",
+      "Request": "RFI 2 request goes in here",
+      "Title": "RFI 2 from Blue"
     },
-    _id: "2020-03-25T15:08:53.530Z",
+    _id: "id_2a",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -169,7 +177,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: "BLUE RFI",
+      channel: "channel-BlueRFI",
       from: {
         force: "Blue",
         forceColor: "#00F",
@@ -184,9 +192,11 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
-      content: "RFI 3 from Blue"
+      "Reference": "Blue-3",
+      "Request": "RFI 3 request goes in here",
+      "Title": "RFI 3 from Blue"
     },
-    _id: "2020-03-25T15:08:54.530Z",
+    _id: "id_3a",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -194,7 +204,7 @@ const gameMessagesWithRFI: MessageChannel[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: "BLUE RFI",
+      channel: "channel-BlueRFI",
       from: {
         force: "Blue",
         forceColor: "#00F",
@@ -210,9 +220,11 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
-      content: "RFI 3 from Blue"
+      "Reference": "Blue-3",
+      "Request": "RFI 3 request goes in here",
+      "Title": "RFI 3 from Blue"
     },
-    _id: "2020-03-25T15:08:54.530Z",
+    _id: "id_3b",
     _rev: "3",
     hasBeenRead: false,
     isOpen: false
@@ -234,11 +246,12 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
-      title: "RFI Title example",
-      content: "RFI 4 from Red"
+      "Reference": "RED-1",
+      "Request": "RFI 1 request from red goes in here",
+      "Title": "RFI 1 from RED"
     },
     _rev: "1",
-    _id: "2020-03-25T15:08:55.530Z",
+    _id: "id_4",
     hasBeenRead: false,
     isOpen: false
   },
@@ -260,10 +273,11 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
-      title: "RFI Title example",
-      content: "RFI 4 from Red"
+      "Reference": "RED-1",
+      "Request": "RFI 1 request from red goes in here",
+      "Title": "RFI 1 from RED"
     },
-    _id: "2020-03-25T15:08:55.530Z",
+    _id: "id_4a",
     _rev: "2",
     hasBeenRead: false,
     isOpen: false
@@ -287,10 +301,11 @@ const gameMessagesWithRFI: MessageChannel[] = [
       }
     },
     message: {
-      title: "RFI Title example",
-      content: "RFI 4 from Red"
+      "Reference": "RED-1",
+      "Request": "RFI 1 request from red goes in here",
+      "Title": "RFI 1 from RED"
     },
-    _id: "2020-03-25T15:08:55.530Z",
+    _id: "id_4b",
     _rev: "3",
     hasBeenRead: false,
     isOpen: false
@@ -314,10 +329,11 @@ const gameMessagesWithRFI: MessageChannel[] = [
       privateMessage: "The private content goes in here"
     },
     message: {
-      title: "RFI Title example",
-      content: "RFI 4 from Red"
+      "Reference": "RED-1",
+      "Request": "RFI 1 request from red goes in here",
+      "Title": "RFI 1 from RED"
     },
-    _id: "2020-03-25T15:08:55.530Z",
+    _id: "id_4c",
     _rev: "4",
     hasBeenRead: false,
     isOpen: false

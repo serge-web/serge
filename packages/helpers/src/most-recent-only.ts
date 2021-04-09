@@ -1,25 +1,28 @@
-import { CUSTOM_MESSAGE } from '@serge/config';
-import { MessageChannel, MessageCustom } from '@serge/custom-types'
-/** helper function to handle an array of messages, and
- * only return the newest version of custom messages. Note: it does not inspect
- * the pouchdb _rev field, it just returns the last version
- * of that message encountered in the list
- * @param (MessageChannel[]) array of messages
- * @returns (MessageCustom[]) latest version of specified messages
+import _ from 'lodash'
+import { INFO_MESSAGE_CLIPPED } from '@serge/config';
+import { MessageChannel } from '@serge/custom-types'
+
+/** helper function to produce unique ids for channel messages
  */
-const mostRecentOnly = (messages: MessageChannel[]): MessageCustom[] => {
-  // create dictionary of messages, indexed by _id field
-  const matches = new Map<string, MessageCustom>();
-  messages.forEach((message: MessageChannel) => {
-    if(message.messageType === CUSTOM_MESSAGE) {
-      if(message._id) {
-        // either store this message, or overwrite previous version
-        matches.set(message._id, message as MessageCustom)
-      } else {
-        console.warn('Encountered message without an _id')
-      }  
+ const getIDs = (message: MessageChannel): string => {
+  let res
+  if (message.messageType === INFO_MESSAGE_CLIPPED || message.infoType === true) {
+    res = '' + message.gameTurn
+  } else {
+    const msg = message.message
+    if(msg.Reference !== undefined) {
+      res = msg.Reference
+    } else {
+      res = message._id
     }
-  })
-  return Array.from(matches.values())
+  }
+  return res
+}
+
+/** helper function to reduce the list of messages by removing duplicate
+ * turn markers & older versions of messages with reference numbers
+ */
+const mostRecentOnly = (messages: MessageChannel[]): MessageChannel[] => {
+  return _.uniqBy(messages, getIDs)
 }
 export default mostRecentOnly
