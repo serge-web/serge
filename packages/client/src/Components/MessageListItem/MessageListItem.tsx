@@ -13,7 +13,6 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   const { details, message, isOpen, hasBeenRead } = detail
-  const dynamicBorderColor = `${details.from.forceColor}${hasBeenRead ? 'B3':''}`
   if (message.title) {
     itemTitle = message.title
   } else if(message.content) {

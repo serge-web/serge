@@ -7,7 +7,6 @@ import { getParticipantStates } from "./participant-states"
 import deepCopy from './deep-copy'
 // @ts-ignore
 import uniqId from 'uniqid'
-import _ from 'lodash'
 import mostRecentOnly from './most-recent-only'
 import {
   expiredStorage,
