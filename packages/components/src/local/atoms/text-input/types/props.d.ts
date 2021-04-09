@@ -75,7 +75,7 @@ export type PropTypes = TextFieldProps & {
    * Used to add a prefix, a suffix or an action to an input
    */
   endAdornment?: ChildInt
-   /** 
+   /**
    * Is isPrivate input?
    */
   isPrivate?: boolean
