@@ -18,5 +18,5 @@ export default interface PropTypes extends ForcesInChannelProps {
   /**
    * Max height of chat container box
    */
-  chatContainerHeight?: number;
+  chatContainerHeight?: number
 }

@@ -13,7 +13,7 @@ import ForcesInChannel from '../../molecules/forces-in-channel'
 export const ChatMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, isUmpire, playerForce, chatContainerHeight }: PropTypes) => {
   // cast messages, for type-checking
   const cMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
-  const height = chatContainerHeight || 280;
+  const height = chatContainerHeight || 280
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
@@ -29,7 +29,7 @@ export const ChatMessagesList: React.FC<PropTypes> = ({ messages, icons, colors,
                 </Box>
               )
             } else {
-              const chatMsg = message as ChatMessageType;
+              const chatMsg = message as ChatMessageType
               return (
                 <Box mb={2} mr={2} key={key} display="block">
                   <Box
