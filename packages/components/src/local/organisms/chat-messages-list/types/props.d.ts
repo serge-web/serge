@@ -15,4 +15,8 @@ export default interface PropTypes extends ForcesInChannelProps {
    * The user id
    */
   userId: string
+  /**
+   * Max height of chat container box
+   */
+  chatContainerHeight?: number;
 }

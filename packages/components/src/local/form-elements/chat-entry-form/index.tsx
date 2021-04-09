@@ -8,7 +8,7 @@ import Props from './types/props'
 import { ChatMessage } from '@serge/custom-types'
 
 /* Import Stylesheet */
-// import styles from './styles.module.scss'
+import styles from './styles.module.scss'
 
 import ChatInputText from '../chat-input-text'
 import PrivateChatInputToggle from '../private-chat-input-toggle'
@@ -47,7 +47,7 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, 
   }
 
   return (
-    <Box>
+    <Box className={styles['chat-container']}>
       <ChatInputText
         ref={messageEle}
         placeholder="type the text"
@@ -55,13 +55,13 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, 
         postBack={submitForm}
       />
       { isUmpire &&
-      <Box mt={1}>
-        <PrivateChatInputToggle
-          postBack={(message): void => setPrivateMessage(message)}
-          sendMessage={submitForm}
-          ref={privateMessageEle}
-        />
-      </Box>
+        <Box mt={1}>
+          <PrivateChatInputToggle
+            postBack={(message): void => setPrivateMessage(message)}
+            sendMessage={submitForm}
+            ref={privateMessageEle}
+          />
+        </Box>
       }
     </Box>
   )

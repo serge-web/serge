@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import ResizeObserver from 'resize-observer-polyfill';
 import { UMPIRE_FORCE } from '../consts'
 import { ChatMessagesList, ChatEntryForm } from '@serge/components'
 import { ChatMessage } from '@serge/custom-types'
@@ -15,6 +16,9 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { selectedForce } = state
+  const chatMessageRef = useRef<any>(null);
+  const resizeObserverRef = useRef<any>(null);
+  const [chatContainerHeight, setChatContainerHeight] = useState(0);
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   useEffect(() => {
@@ -25,10 +29,30 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
-
   const messageHandler = (post: ChatMessage): void => {
     saveMessage(state.currentWargame, post.details, post.message)()
   }
+
+  useEffect(() => {
+    resizeObserverRef.current = new ResizeObserver((entries: any) => {
+      entries.forEach((entry: any) => {
+        const { height } = entry.contentRect;
+        const tabHeight = 46;
+        const forcesInChannelHeight = 25;
+        const margins = 15;
+        setChatContainerHeight(
+          parseInt(height) + 
+          tabHeight + 
+          forcesInChannelHeight + 
+          margins
+        );
+      });
+    });
+    if (chatMessageRef.current) resizeObserverRef.current.observe(chatMessageRef.current);
+    return () => {
+      if (resizeObserverRef.current) resizeObserverRef.current.disconnect();
+    };
+  }, [chatMessageRef]);
 
   const icons = state.channels[channelId].forceIcons
   const colors = state.channels[channelId].forceColors
@@ -42,10 +66,15 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         isUmpire={isUmpire}
         icons={icons}
         colors={colors}
+        chatContainerHeight={chatContainerHeight}
       />
       {
         state.channels[channelId].observing === false &&
-        <ChatEntryForm from={selectedForce} isUmpire={isUmpire} channel={channelId} role={state.selectedRole} postBack={messageHandler} />
+        <div className="new-message-creator wrap new-message-orderable" ref={chatMessageRef}>
+          <div className="chat-message-container">
+            <ChatEntryForm from={selectedForce} isUmpire={isUmpire} channel={channelId} role={state.selectedRole} postBack={messageHandler} />
+          </div>
+        </div>
       }
     </div>
   )
