@@ -10,6 +10,24 @@ export enum Phase {
   Adjudication = 'adjudication'
 }
 
+
+/** TODO: remove this
+ * Temporary classifier for which dataset is in use
+ */
+ export enum Domain {
+  ATLANTIC = 'Atlantic',
+  GULF = 'Gulf'
+}
+
+/** General terrain type. More relaxed than
+ * cell.terrain.  Used for determining 
+ * achievable cells
+ */
+export enum Terrain {
+  LAND = 'land',
+  SEA = 'sea'
+}
+
 /** states for a Request for Information */
 export enum RFI_States {
   // request sent, no owner

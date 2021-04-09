@@ -12,6 +12,7 @@ export { default as Force } from './force.d'
 export { default as GroupItem } from './group-item.d'
 export * from './forms.d'
 export { default as MappingContext } from './mapping-context.d'
+export { default as MappingConstraints } from './mapping-constraints.d'
 export { default as MapPostBack } from './map-postback-data.d'
 export { default as MarkerPerception } from './marker-perception.d'
 export { default as Message,

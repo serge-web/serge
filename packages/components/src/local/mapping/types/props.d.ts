@@ -1,24 +1,15 @@
 import { Phase } from '@serge/config'
-import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack } from '@serge/custom-types'
+import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints } from '@serge/custom-types'
 
 export default interface PropTypes {
   /**
    * A boolean to determine if the MapBar component should be displayed (default: true)
    */
   mapBar?: boolean
-  /**
-   * The bounds of the map iamge
+  /** description of the mapping
+   *
    */
-  bounds: {
-    imageTop: number
-    imageLeft: number
-    imageRight: number
-    imageBottom: number
-  }
-  /**
-   * diameter of tiles in use
-   */
-  tileDiameterMins: number
+  mappingConstraints: MappingConstraints
   /** forces for this wargame
    *
    */
@@ -48,33 +39,14 @@ export default interface PropTypes {
    */
   wargameInitiated: boolean
   /**
-   *  The TileLayer object for the leaflet map
+   * the initial viewport
    */
-  tileLayer: {
-    /**
-     * The url of the tile layer to use for the maps
-     */
-    url: string
-    /**
-     * The attribution copy for the map
-     */
-    attribution: string
-  }
+  initialViewport?: L.LatLngBounds
   /**
    * The zoom level
    * @default 10
    */
   zoom?: number
-  /**
-   * The minumum zoom level
-   * @default 8
-   */
-  minZoom?: number
-  /**
-   * The maximum zoom level
-   * @default 12
-   */
-  maxZoom?: number
   /**
    * The incremental zoom steps from '+/-' controls
    * @default 0.25
@@ -125,4 +97,8 @@ export default interface PropTypes {
    * Optional mapping structure with children component
    */
   children?: JSX.Element
+  /**
+   * length of each game turn (millis)
+   */
+  gameTurnTime: number
 }
