@@ -1,23 +1,16 @@
 import {
   MessageChannel,
   PlayerUi,
-  PlayerUiChatChannel,
-  PlayerUiChannels,
   ChannelUI,
   MessageCustom,
-  MessageInfoType
+  MessageInfoType,
+  SetWargameMessage
 } from '@serge/custom-types'
 import { handleChannelUpdates, handleAllInitialChannelMessages } from '@serge/helpers'
-
 import {
   INFO_MESSAGE_CLIPPED
 } from '@serge/config'
 // TODO: change it to @serge/config
-
-interface SetWargameMessage {
-  channels: PlayerUiChannels,
-  chatChannel: PlayerUiChatChannel,
-}
 
 import {
   LOCAL_STORAGE_TIMEOUT,
@@ -28,7 +21,9 @@ import {
  * or update the channels to reflect the new channel definitions
  */
 export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
-  const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel,
+  // TODO: only one of `payload` or `newState` will have been received. We should have 
+  // two different handlers, one for each change.
+  const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel, newState.rfiMessages, newState.nextMsgReference,
     newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
     newState.allTemplates, newState.allForces)
   return res

@@ -26,6 +26,7 @@ export const SaveButton: React.FC = () => <Button color="secondary" icon="save">
 export const DeleteButton: React.FC = () => <Button color="secondary" icon="delete">Delete Button</Button>
 export const EditButton: React.FC = () => <Button color="secondary" icon="edit">Edit Button</Button>
 export const CopyButton: React.FC = () => <Button color="secondary" icon="copy">Copy Button</Button>
+export const CustomVariant: React.FC = () => <Button size="small" customVariant="form-action">Form Action</Button>
 export const Adjacent: React.FC = () => (
   <>
     <Button>Default</Button>

@@ -8,7 +8,7 @@ exports[`AdminMessageCreator component: renders correctly 1`] = `
     className="MuiBox-root MuiBox-root-2"
   >
     <section
-      className="input-container disable-offset"
+      className="input-container disable-offset fullwidth"
     >
       <div
         className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"

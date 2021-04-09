@@ -7,34 +7,67 @@ import { getParticipantStates } from "./participant-states"
 import deepCopy from './deep-copy'
 // @ts-ignore
 import uniqId from 'uniqid'
-import _ from 'lodash'
-
+import mostRecentOnly from './most-recent-only'
 import {
   expiredStorage,
 } from '@serge/config'
 
 /** a message has been received. Put it into the correct channel */
-const handleNonInfoMessage = (chatChannel: PlayerUiChatChannel, channels: PlayerUiChannels, channel: string, payload: MessageCustom) => {
+const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom, selectedForceName?: string) => {
   if (channel === CHAT_CHANNEL_ID) {
-    chatChannel.messages.unshift(deepCopy(payload))
-  } else if (channels[channel]) {
-    const theChannel: ChannelUI = channels[channel]
+    data.chatChannel.messages.unshift(deepCopy(payload))
+  } else if (data.channels[channel]) {
+    const theChannel: ChannelUI = data.channels[channel]
 
     // create the messages array, if necessary
     if (theChannel.messages === undefined) {
       theChannel.messages = []
     }
 
-    // now insert the message
+    // if this message has a reference number, we should delete any previous message
+    // with that reference number before we insert the message
+    if(payload.message.Reference) {
+      // remove any existing RFI with this reference number. Note: we can't use 
+      // filter() array function since it produces a new array, which would
+      // have a new reference, and wouldn't get returned as a parameter
+      for(let i = 0; i < theChannel.messages.length; i++){ 
+        const msg = theChannel.messages[i]
+        if(msg.messageType === CUSTOM_MESSAGE) {
+          if (msg.message.Reference === payload.message.Reference) { 
+            theChannel.messages.splice(i, 1); 
+          }
+        }
+      }
+    }
+
     theChannel.messages.unshift({
       ...deepCopy(payload),
       hasBeenRead: false,
       isOpen: false
-    })
+    })  
 
     // update message count
     theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
   }
+
+  if(payload.details.messageType === 'RFI') {
+    // we need to stick it into the RFI messages, replacing any previous version
+
+    // remove any existing RFI with this reference number. Note: we can't use 
+    // filter() array function since it produces a new array, which would
+    // have a new reference, and wouldn't get returned as a parameter
+    for(let i = 0; i < data.rfiMessages.length; i++){ 
+      if ( data.rfiMessages[i].message.Reference === payload.message.Reference) { 
+        data.rfiMessages.splice(i, 1); 
+      }
+    }
+    data.rfiMessages.unshift(deepCopy(payload))
+    // rfiMessages = rfiMessages.filter((message) => message.message.Reference !== payload.message.Reference)
+  }
+  // lastly, sort out the message number
+  data.nextMsgReference = selectedForceName && payload.messageType === CUSTOM_MESSAGE ? 
+    refNumberFor(payload.message && payload.message.Reference, data.nextMsgReference, selectedForceName):
+    data.nextMsgReference
 }
 
 /** create a new turn marker */
@@ -69,21 +102,13 @@ const createNewChannel = (channelId: string): ChannelUI => {
     participants: [],
     name: 'channelName',
     templates: [],
-    forceIcons: [] ,
+    forceIcons: [],
     forceColors: [],
     messages: [],
     unreadMessageCount: 0,
     observing: false
   }
   return res
-}
-
-
-const reduceTurnMarkers = (message: MessageChannel):string => {
-  if (message.messageType === INFO_MESSAGE_CLIPPED) {
-    return '' + message.gameTurn
-  }
-  return message._id
 }
 
 export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRole: string): boolean => (
@@ -107,27 +132,49 @@ export const clipInfoMEssage = (message: MessageInfoType, hasBeenRead: boolean =
   }
 }
 
+export const refNumberFor = (msgRef: string | undefined, current: number, selectedForceName?: string): number => {
+  if(msgRef != undefined) {
+    // see if it starts with this force
+    if(selectedForceName && msgRef.startsWith(selectedForceName)) {
+      // strip out the number
+      const parts = msgRef.split('-')
+      if(parts.length == 2) {
+        const number = +parts[1] + 1
+        return Math.max(number, current)  
+      } else {
+        return current
+      }
+    }
+  }
+  return current
+}
+
 export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType | MessageCustom>, currentWargame: string,
   selectedForce: ForceData | undefined, selectedRole: string, allChannels: ChannelData[],
   allForces: ForceData[], chatChannel: PlayerUiChatChannel, isObserver: boolean,
-  allTemplates: any[]): SetWargameMessage  => {
-    const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
+  allTemplates: any[]): SetWargameMessage => {
+  const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
+  let nextMsgReference: number = 0
+  const messagesReduced: Array<MessageChannel> = payload.map((message) => {
+    const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
 
-    const messagesFiltered: Array<MessageChannel> = payload.map((message) => {
-      const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
-
-      if (message.messageType === INFO_MESSAGE) {
-        return clipInfoMEssage(message, hasBeenRead)
-      }
-
+    if (message.messageType === INFO_MESSAGE) {
+      return clipInfoMEssage(message, hasBeenRead)
+    } else {
+      nextMsgReference = refNumberFor(message.message && message.message.Reference, nextMsgReference, selectedForce?.name)
       return {
         ...message,
         hasBeenRead: hasBeenRead,
         isOpen: false
-      }
-    })
+      }  
+    }
+  })
 
-  const chatMessages = _.uniqBy(messagesFiltered, reduceTurnMarkers)
+  // reduce messages, so we just have single turn marker, and most recent 
+  // version of referenced messages
+  const messagesFiltered = mostRecentOnly(messagesReduced)
+
+  const chatMessages = messagesFiltered
     .filter((message) => message.details && message.details.channel === chatChannel.name)
 
   const channels: PlayerUiChannels = {}
@@ -169,22 +216,36 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
     }
   })
 
+  // also sort out the RFI messages
+  const rfiMessages= messagesFiltered.filter((message: MessageChannel) => {
+    if(message.messageType === CUSTOM_MESSAGE) {
+      const custom = message as MessageCustom
+      return custom.details.messageType === 'RFI'
+    }
+    return false 
+  })
+  const rfiMessagesCustom = rfiMessages as Array<MessageCustom>
+
   return {
     channels,
     chatChannel: {
       ...chatChannel,
       messages: chatMessages
-    }
+    },
+    rfiMessages: rfiMessagesCustom,
+    nextMsgReference: nextMsgReference
   }
 }
 
-const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel,
-  selectedForce: ForceData | undefined, allChannels: ChannelData[], selectedRole: string,
+const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel, rfiMessages: MessageCustom[],
+  nextMsgReference: number, selectedForce: ForceData | undefined, allChannels: ChannelData[], selectedRole: string,
   isObserver: boolean, allTemplates: any[], allForces: ForceData[]): SetWargameMessage => {
 
   const res: SetWargameMessage = {
     channels: { ...channels },
-    chatChannel: { ...chatChannel }
+    chatChannel: { ...chatChannel },
+    rfiMessages: deepCopy(rfiMessages),
+    nextMsgReference: nextMsgReference
   }
 
   // keep track of the channels that have been processed. We'll delete the other later
@@ -247,7 +308,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
 
           // force icons
           const forceIcons = channel.participants && channel.participants.map((participant) => participant.icon)
-          if(forceIcons != thisChannel.forceIcons) {
+          if (forceIcons != thisChannel.forceIcons) {
             thisChannel.forceIcons = forceIcons
           }
 
@@ -256,7 +317,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
             const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
             return (force && force.color) || '#FFF'
           })
-          if(forceColors != thisChannel.forceColors) {
+          if (forceColors != thisChannel.forceColors) {
             thisChannel.forceColors = forceColors
           }
         }
@@ -284,7 +345,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
       delete res.channels[key]
     }
   } else {
-    handleNonInfoMessage(res.chatChannel, res.channels, payload.details.channel, payload)
+    handleNonInfoMessage(res, payload.details.channel, payload, selectedForce?.name)
   }
 
   return res

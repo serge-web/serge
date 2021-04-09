@@ -3,6 +3,7 @@
 interface CssExports {
   'content': string;
   'control': string;
+  'control-channel': string;
   'main': string;
 }
 export const cssExports: CssExports;

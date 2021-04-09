@@ -203,7 +203,7 @@ exports[`SettingForces component: renders correctly 1`] = `
               className="content"
             >
               <section
-                className="input-container disable-offset textarea"
+                className="input-container disable-offset fullwidth textarea"
               >
                 <div
                   className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"

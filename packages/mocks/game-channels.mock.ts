@@ -22,6 +22,13 @@ const GameChannels: any = [
       { force: "Red", forceUniqid: "Red", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k53tiqdf", templates: [] },
       { force: "Green", forceUniqid: "Green", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k53tivj5", templates: [] }],
     uniqid: "channel-k53ti36p"
+  },
+  {
+    name: "Blue RFI",
+    participants: [
+      { force: "White", forceUniqid: "umpire", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk0d3", templates: [] },
+      { force: "Blue", forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk2o6", templates: ['Chat','RFI'] }],
+    uniqid: "channel-BlueRFI"
   }]
 
 export default GameChannels

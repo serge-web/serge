@@ -9,12 +9,13 @@ import {
   SUBMIT_PLANS,
   STATE_OF_WORLD,
   INFO_MESSAGE_CLIPPED,
-  RFI_States
+  CollaborativeMessageStates
 } from '@serge/config'
 
 import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
+import Role from './role'
 import { StateOfWorld } from '.'
 import Wargame from './wargame'
 
@@ -22,7 +23,7 @@ import Wargame from './wargame'
 /** additional message detail used for management of RFIs */
 export interface RFIData {
   // current state
-  status: RFI_States,
+  status: CollaborativeMessageStates,
   // id of current owner
   owner: string,
   // response to RFI
@@ -51,8 +52,12 @@ export interface MessageDetails {
   /** id of channel message sent from */
   channel: string,
   /** details of author */
-  from: MessageDetailsFrom,
   /** enumerated types for message (see typeof entries in child interfaces) */
+  from: MessageDetailsFrom,
+  /**
+   * extra data for when message being edited collaboratively
+   */
+  collaboration?: CollaborationDetails
   messageType: string,
   /** time message sent */
   timestamp: string,
@@ -70,6 +75,7 @@ export interface MessageStructure {
    * Once we have in-game messages, we should encounter structured messages
    */
   [property: string]: any
+  title?: string
   content?: string
 }
 
@@ -82,6 +88,24 @@ export interface CoreMessage {
   readonly details: MessageDetails,
 }
 
+/** data for a message that is being
+ * collaboarively edited
+ */
+export interface CollaborationDetails {
+  /**
+   * Message status
+   */
+   status: CollaborativeMessageStates
+   /**
+    * Current message owner
+    */
+   owner?: Role['name']
+   /**
+    * response to message, only used in RFIs
+    */
+   response?: string
+}
+
 export interface MessageCustom extends CoreMessage {
   messageType: typeof CUSTOM_MESSAGE,
   message: MessageStructure,
@@ -89,7 +113,7 @@ export interface MessageCustom extends CoreMessage {
   hasBeenRead: boolean
   gameTurn?: number,
   feedback?: boolean,
-  infoType?: boolean
+  infoType?: boolean,
 }
 
 export interface ChatMessage extends CoreMessage {

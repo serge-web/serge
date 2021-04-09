@@ -13,7 +13,6 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   const { details, message, isOpen, hasBeenRead } = detail
-  const dynamicBorderColor = `${details.from.forceColor}${hasBeenRead ? 'B3':''}`
   if (message.title) {
     itemTitle = message.title
   } else if(message.content) {
@@ -28,12 +27,10 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
     <React.Fragment key={key}>
       <div style={{ margin: '0 15px 8px' }}>
         <ChannelMessage
-          borderColor={dynamicBorderColor}
           isOpen={isOpen}
           title={itemTitle}
           timestamp={`${moment(details.timestamp)}`}
           role={details.from.role}
-          forceColor={details.from.forceColor}
           messageType={details.messageType}
           hasBeenRead={hasBeenRead}
           privateMessage={details.privateMessage}

@@ -8,6 +8,7 @@ import { Mapping, Assets, HexGrid } from '@serge/components'
 import _ from 'lodash'
 import Channel from '../../../Components/Channel'
 import ChatChannel from '../../../Components/ChatChannel'
+import RfiStatusBoard from '../../../Components/RfiStatusBoard'
 import findChannelByName from './findChannelByName'
 import { Domain } from '@serge/config'
 
@@ -19,7 +20,7 @@ const findRole = (roleName: string, forceData: ForceData | undefined): Role => {
     const role = forceData.roles.find((role: Role) => role.name === roleName)
     if(role) {
       return role
-    } 
+    }
   }
   throw new Error('Role not found for:' + roleName);
 }
@@ -99,18 +100,18 @@ const factory = (state: PlayerUi): Factory => {
       }
     } else {
       const matchedChannel = findChannelByName(state.channels, node.getName())
+      const channelName = node.getName().toLowerCase()
       const channelDefinition = state.allChannels.find((channel) => channel.name === node.getName())
-      if (node.getName().toLowerCase() === 'mapping') {
-        // return <Mapping currentTurn={state.currentTurn} role={state.selectedRole} currentWargame={state.currentWargame} selectedForce={state.selectedForce} allForces={state.allForces} allPlatforms={state.allPlatformTypes} phase={state.phase} channelID={node._attributes.id} imageTop={imageTop} imageBottom={imageBottom} imageLeft={imageLeft} imageRight={imageRight}></Mapping>
-        // _attributes.id
+      if (channelName === 'mapping') {
         return renderMap(node.getId())
-      } else {
-        if(matchedChannel && matchedChannel.length && channelDefinition) {
+      } else if (channelName === 'rfis') {
+        const roles = state.selectedForce && state.selectedForce.roles.map(role => role.name) || []
+        return <RfiStatusBoard rfiData={{rfiMessages:state.rfiMessages, roles:roles, channels: state.allChannels}} />
+      } else if(matchedChannel && matchedChannel.length && channelDefinition) {
           // find out if channel just contains chat template
           return isChatChannel(channelDefinition) ? 
             <ChatChannel channelId={matchedChannel[0]} /> 
           : <Channel channelId={matchedChannel[0]} />
-        }
       }
     }
   }

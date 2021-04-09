@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 /* Import proptypes */
 import PropTypes from './types/props'
+import cn from 'classnames'
 
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -10,9 +11,12 @@ import styles from './styles.module.scss'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 
+export const COLLASIBLE_DEFAULT_ICON = 'default'
+export const COLLASIBLE_CHANNEL_ICON = 'channel-icon'
+
 /* Render component */
 export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
-  const { children, onClick, onExpand } = props
+  const { children, onClick, onExpand, iconType = COLLASIBLE_DEFAULT_ICON } = props
   const collapsed: boolean = typeof props.collapsed === 'undefined' ? true : props.collapsed
   const hasContent: boolean = typeof props.hasContent === 'undefined' ? false : props.hasContent
   const collapseOnDragHover: boolean = typeof props.collapseOnDragHover === 'undefined' ? false : props.collapseOnDragHover
@@ -30,6 +34,11 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
   }
 
   const style = { fontSize: 14, color: '#000000' }
+
+  if (iconType === COLLASIBLE_CHANNEL_ICON) {
+    style.fontSize = 20
+    style.color = 'rgb(24, 255, 255)'
+  }
 
   let holderElement: HTMLDivElement
 
@@ -65,7 +74,7 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
 
   return (
     <div className={styles.main}>
-      {hasContent && <div className={styles.control} onClick={handleExpand}>
+      {hasContent && <div className={cn(styles.control, iconType === COLLASIBLE_CHANNEL_ICON && styles['control-channel'])} onClick={handleExpand}>
         {collapsed ? <AddIcon style={style}/> : <RemoveIcon style={style}/> }
       </div>}
       <div ref={handleRef} className={styles.content} onClick={handleClick}>{children}</div>

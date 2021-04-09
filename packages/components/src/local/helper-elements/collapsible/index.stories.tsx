@@ -30,6 +30,10 @@ export const Default: React.FC = () => <Collapsible onClick={onClick}>
   <CollapsibleHeader>Header</CollapsibleHeader>
   <CollapsibleContent>Content</CollapsibleContent>
 </Collapsible>
+export const ChannelIcon: React.FC = () => <Collapsible onClick={onClick} iconType='channel-icon'>
+  <CollapsibleHeader>Header</CollapsibleHeader>
+  <CollapsibleContent>Content</CollapsibleContent>
+</Collapsible>
 
 const CustomHeader = ({ onExpand, collapsed }: any): React.ReactElement => {
   const CustomHeaderInner = styled('div')({

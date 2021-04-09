@@ -19,6 +19,7 @@ export { default as Message,
          MessageDetails,
          MessageDetailsFrom,
          MessageStructure,
+         CollaborationDetails,
          // Map Types
          MessageForceLaydown,
          MessagePerceptionOfContact,
@@ -65,5 +66,6 @@ export { default as Perception } from './perception.d'
 export { default as Asset } from './asset.d'
 export { default as Visibility } from './visibility.d'
 export { default as Editor } from './editor.d'
+export { default as RequestForInformation } from './request-for-information.d'
 export * from './player-ui-actions'
 export * from './forms.d'

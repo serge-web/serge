@@ -1,5 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { Box } from '@material-ui/core'
 
 /* Import Stylesheet */
@@ -15,11 +17,14 @@ export const InputContainer: React.FunctionComponent<PropTypes> = React.forwardR
   labelColor,
   labelSize,
   disableOffset,
-  className
+  fullWidth,
+  className,
+  isPrivate
 }, ref) =>
   <section ref={ref} className={
     cx(styles['input-container'],
       disableOffset && styles['disable-offset'],
+      fullWidth && styles.fullwidth,
       className)}
   >
     {
@@ -30,7 +35,16 @@ export const InputContainer: React.FunctionComponent<PropTypes> = React.forwardR
           className={styles['input-label']}
           mb={1}
         >
-          {label}
+          {
+            isPrivate
+              ? (
+                <Box className={styles['private-input__label']}>
+                  <FontAwesomeIcon icon={faUserSecret} />
+                  <span>{ label }</span>
+                </Box>
+              )
+              : label
+          }
         </Box>
       )
     }
