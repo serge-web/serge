@@ -1,5 +1,5 @@
 import React from 'react'
-import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints, Participant, ChannelData } from '@serge/custom-types'
+import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints } from '@serge/custom-types'
 import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES, Phase } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
