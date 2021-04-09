@@ -13,7 +13,7 @@ import AdjudicationManager from './helpers/adjudication-manager'
 import { Phase } from '@serge/config'
 
 export default {
-  title: 'local/AdjudicateTurnForm',
+  title: 'local/organisms/AdjudicateTurnForm',
   component: AdjudicateTurnForm,
   decorators: [],
   parameters: {

@@ -17,8 +17,7 @@ import {
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import { PlayerUiActionTypes } from '@serge/custom-types'
-import { PlayerUi } from '@serge/custom-types';
+import { PlayerUi, PlayerUiActionTypes } from '@serge/custom-types';
 import {
   handleSetLatestWargameMessage,
   handleSetAllMessages,
@@ -76,6 +75,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
   switch (action.type) {
     case SET_CURRENT_WARGAME_PLAYER:
+      console.log('payload turn', action.payload.gameTurn)
       newState.currentWargame = action.payload.name
       newState.wargameTitle = action.payload.wargameTitle
       newState.wargameInitiated = action.payload.wargameInitiated
@@ -90,6 +90,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.timeWarning = action.payload.data.overview.timeWarning
       newState.turnEndTime = action.payload.turnEndTime || ''
       newState.gameDescription = action.payload.data.overview.gameDescription
+      newState.mappingConstaints = action.payload.data.overview.mapConstraints
       newState.allChannels = action.payload.data.channels.channels || []
       newState.allForces = action.payload.data.forces.forces
       // legacy versions of the wargame used platform_types instead of
@@ -104,6 +105,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       if (action.payload.data.platformTypes) {
         newState.allPlatformTypes = action.payload.data.platformTypes.platformTypes
       }
+
       break
 
     case SET_FORCE:

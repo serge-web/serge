@@ -77,35 +77,38 @@ const createGrid = (bounds: L.LatLngBounds, tileDiameterMins: number): SergeGrid
 
   const sergeGrid: SergeGrid<SergeHex<{}>> = asSerge as SergeGrid<SergeHex<{}>>
   sergeGrid.origin = correctedOrigin
-  sergeGrid.tileDiameterDegs = tileSizeDegs
+  sergeGrid.tileDiameterMins = tileDiameterMins
   sergeGrid.centerOffset = centreOffset
   /** provide method that only requires the world location,
    * taking other params from grid
    */
   sergeGrid.toScreen = (point: L.LatLng): PointLike => {
-    return toScreen(point, sergeGrid.origin, sergeGrid.tileDiameterDegs / 2)
-  }
-  /** provide method that only requires the hex location,
-   * taking other params from grid
-   */
-  sergeGrid.toWorld = (point: PointLike): L.LatLng => {
-    return toWorld(point, sergeGrid.origin, sergeGrid.tileDiameterDegs)
+    if (sergeGrid.origin) {
+      return toScreen(point, sergeGrid.origin, sergeGrid.tileDiameterMins / 2)
+    } else {
+      console.warn('insufficient data for toScreen() calculation')
+      return L.point(1, 1)
+    }
   }
   /** provide method that only requires the world location,
    * taking other params from grid object
    */
   sergeGrid.cellFor = (latLng: L.LatLng): SergeHex<{}> | undefined => {
-    // convert to hex coordinates
-    const hexCoords: PointLike = sergeGrid.toScreen(latLng)
+    if (sergeGrid.centerOffset) {
+      // convert to hex coordinates
+      const hexCoords: PointLike = sergeGrid.toScreen(latLng)
 
-    // apply the offset, since the cell origin is at the top left
-    const cellCoords = L.point(hexCoords.x + sergeGrid.centerOffset.x, hexCoords.y + sergeGrid.centerOffset.y)
+      // apply the offset, since the cell origin is at the top left
+      const cellCoords = L.point(hexCoords.x + sergeGrid.centerOffset.x, hexCoords.y + sergeGrid.centerOffset.y)
 
-    // find the nearest hex cell reference to this location
-    const shiftedCellCoords = grid.pointToHex(cellCoords.x, cellCoords.y)
+      // find the nearest hex cell reference to this location
+      const shiftedCellCoords = grid.pointToHex(cellCoords.x, cellCoords.y)
 
-    // and now retrieve the cell at these coords
-    return sergeGrid.get(shiftedCellCoords)
+      // and now retrieve the cell at these coords
+      return sergeGrid.get(shiftedCellCoords)
+    } else {
+      return undefined
+    }
   }
 
   return sergeGrid

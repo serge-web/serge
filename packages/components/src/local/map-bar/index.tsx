@@ -13,7 +13,7 @@ import { findAsset, forceFor, visibleTo } from '@serge/helpers'
 
 /* import types */
 import {
-  PlanTurnFormValues,
+  PlanTurnFormValues, PlanTurnFormData,
   SelectedAsset, RouteStore, Route, SergeHex, SergeGrid,
   ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans, MapPostBack, MessageForceLaydown
 } from '@serge/custom-types'
@@ -264,6 +264,8 @@ export const MapBar: React.FC = () => {
       }
       case MapBarForms.Planning: {
         const canSubmit = canSubmitOrders && phase === PLANNING_PHASE
+        const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
+        console.log('plan turn form', formData)
         return <PlanTurnForm
           icon={iconData}
           setHidePlanningForm={setHidePlanningForm}
@@ -271,7 +273,7 @@ export const MapBar: React.FC = () => {
           plansSubmitted={plansSubmitted}
           key={selectedAsset.uniqid}
           formHeader={currentAssetName}
-          formData={collatePlanFormData(platforms, selectedAsset)}
+          formData={formData}
           channelID={channelID}
           turnPlanned={turnPlanned} />
       }

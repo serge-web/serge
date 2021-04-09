@@ -1,3 +1,5 @@
+import MappingConstraints from "./mapping-constraints";
+
 export default interface WargameOverview {
   /** title for this wargame */
   name: string,
@@ -17,4 +19,6 @@ export default interface WargameOverview {
   complete: boolean,
   /** whether this page has unsaved edits */
   dirty: boolean
+  /** dimensions of the map */
+  mapConstraints?: MappingConstraints
 }

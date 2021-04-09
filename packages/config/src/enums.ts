@@ -10,6 +10,35 @@ export enum Phase {
   Adjudication = 'adjudication'
 }
 
+/** TODO: remove this
+ * Temporary classifier for which dataset is in use
+ */
+ export enum Domain {
+  ATLANTIC = 'Atlantic',
+  GULF = 'Gulf'
+}
+
+/** General terrain type. More relaxed than
+ * cell.terrain.  Used for determining 
+ * achievable cells
+ */
+export enum Terrain {
+  LAND = 'land',
+  SEA = 'sea'
+}
+
+/** states for a Request for Information */
+export enum RFI_States {
+  // request sent, no owner
+  Pending = 'Pending',
+  // someone has taken ownership
+  InProgress = 'In Progress',
+  // response submitted for review
+  PendingReview = 'Pending Review',
+  // response accepted by RFI manager 
+  Released = 'Released'
+}
+
 /** who is required to give asset an initial location */
 export enum LaydownTypes {
   /** the umpire (game designer) can position asset */
