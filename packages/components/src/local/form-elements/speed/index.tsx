@@ -51,9 +51,11 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options, 
     // if it's not first item, calculate how far across to use
     // if it is first item, decide if it's the only item, in which
     // case, put it in the middle
-    const left = key ? Math.ceil(key * 100 / (columns.length - 1)) : options.length === 1 ? 50 : 0
+    const width = options.length === 1 ? 10 : 100 / columns.length;
 
-    const style = { height: `${itemSize}%`, left: `${left}%` }
+    const left = key ? key * width : options.length === 1 ? 50 : 0
+
+    const style = { height: `${itemSize}%`, left: `${left}%`, width: `${width}%` }
 
     const handleStickClick = (e: any): void => {
       if (typeof onClick === 'function' && !disabled) {
