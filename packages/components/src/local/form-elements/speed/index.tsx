@@ -51,7 +51,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options, 
     // if it's not first item, calculate how far across to use
     // if it is first item, decide if it's the only item, in which
     // case, put it in the middle
-    const width = options.length === 1 ? 10 : 100 / columns.length;
+    const width = options.length === 1 ? 10 : 100 / columns.length
 
     const left = key ? key * width : options.length === 1 ? 50 : 0
 
