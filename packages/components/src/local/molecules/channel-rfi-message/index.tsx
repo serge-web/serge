@@ -29,10 +29,10 @@ export const ChannelRFIMessage: React.FC<Props> = ({ message, borderColor = '#32
     }
   }
 
-  const renderCollaborationStatus = (collaboration: CollaborationDetails | undefined): React.ReactNode => {
+  const renderCollaborationStatus = (collaboration: CollaborationDetails | undefined, owner: string | undefined): React.ReactNode => {
     switch (collaboration ? collaboration.status : '') {
       case CollaborativeMessageStates.InProgress:
-        return <div className={cn(styles.badge, styles.orange)}>IN PROGRESS</div>
+        return <div className={cn(styles.badge, styles.orange)}>IN PROGRESS {!!owner && ' - ' + owner}</div>
       case CollaborativeMessageStates.PendingReview:
         return <div className={cn(styles.badge, styles.gray)}>PENDING REVIEW</div>
       case CollaborativeMessageStates.Released:
@@ -63,8 +63,11 @@ export const ChannelRFIMessage: React.FC<Props> = ({ message, borderColor = '#32
                 <Badge size="small" label={message.details.messageType} />
                 {!message.hasBeenRead && <Badge size="small" label="Unread" type="warning" />}
               </div>
-              <div className={styles.badges}>{isUmpire && renderCollaborationStatus(message.details.collaboration)}</div>
-
+              { isUmpire &&
+                <div className={styles.badges}>
+                  {renderCollaborationStatus(message.details.collaboration,message.details.collaboration && message.details.collaboration.owner)}
+                </div>
+              }
             </div>
           </div>
         </CollapsibleHeader>
