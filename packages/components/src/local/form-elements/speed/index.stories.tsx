@@ -23,4 +23,5 @@ export default {
 }
 
 export const Default: React.FC = () => <BlueContainer><Speed colCount={6} options={[0, 10, 20, 30]} value={10}/></BlueContainer>
+export const SingleSpeed: React.FC = () => <BlueContainer><Speed colCount={1} options={[10]} value={10}/></BlueContainer>
 export const Disabled: React.FC = () => <BlueContainer><Speed colCount={6} disabled={true} options={[0, 10, 20, 30]} value={10}/></BlueContainer>
