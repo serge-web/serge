@@ -11,6 +11,7 @@ import ChatChannel from '../../../Components/ChatChannel'
 import RfiStatusBoard from '../../../Components/RfiStatusBoard'
 import findChannelByName from './findChannelByName'
 import { Domain } from '@serge/config'
+import { CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '../../../consts'
 
 type Factory = (node: TabNode) => React.ReactNode
 
@@ -92,7 +93,7 @@ const factory = (state: PlayerUi): Factory => {
     if (_.isEmpty(state.channels)) return
     const channelsArray = Object.entries(state.channels)
     if (channelsArray.length === 1) {
-      const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === 'mapping')
+      const isOnlyMap = channelsArray.find(entry => entry[1].name.toLowerCase() === CHANNEL_MAPPING)
       if (isOnlyMap) {
         return renderMap('map')
       } else {
@@ -102,9 +103,9 @@ const factory = (state: PlayerUi): Factory => {
       const matchedChannel = findChannelByName(state.channels, node.getName())
       const channelName = node.getName().toLowerCase()
       const channelDefinition = state.allChannels.find((channel) => channel.name === node.getName())
-      if (channelName === 'mapping') {
+      if (channelName === CHANNEL_MAPPING) {
         return renderMap(node.getId())
-      } else if (channelName === 'rfis') {
+      } else if (channelName === CHANNEL_RFI_STATUS) {
         const roles = state.selectedForce && state.selectedForce.roles.map(role => role.name) || []
         return <RfiStatusBoard rfiData={{rfiMessages:state.rfiMessages, roles:roles, channels: state.allChannels}} />
       } else if(matchedChannel && matchedChannel.length && channelDefinition) {
