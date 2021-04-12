@@ -29,7 +29,17 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
+  const [messageId, setMessageId] = useState<string>(message._id)
   const { collaboration } = message.details
+
+  // if this is an updated version of the message we need
+  // to pull in the new values
+  if(messageId !== message._id) {
+    setMessageId(message._id)
+    setPrivateMessage(message.details.privateMessage || '')
+    setValue(message.message.Request || '[message empty]')
+    setAnswer((message.details.collaboration && message.details.collaboration.response) || '')
+  }
 
   const handleSendForReview = (): void => {
     onChange && onChange(sendForReview(message, role, privateMessage, answer))
