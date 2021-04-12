@@ -5,4 +5,8 @@ export default interface Props extends WargameList {
    * Callback on clicking the game title
    */
   onClick?: (title: string) => void
+  /**
+   * Container element ref
+   */
+   ref?: React.Ref<any>
 }
