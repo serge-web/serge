@@ -65,7 +65,7 @@ export const ChannelRFIMessage: React.FC<Props> = ({ message, borderColor = '#32
               </div>
               { isUmpire &&
                 <div className={styles.badges}>
-                  {renderCollaborationStatus(message.details.collaboration,message.details.collaboration && message.details.collaboration.owner)}
+                  {renderCollaborationStatus(message.details.collaboration, message.details.collaboration && message.details.collaboration.owner)}
                 </div>
               }
             </div>

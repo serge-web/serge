@@ -34,7 +34,7 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
 
   // if this is an updated version of the message we need
   // to pull in the new values
-  if(messageId !== message._id) {
+  if (messageId !== message._id) {
     setMessageId(message._id)
     setPrivateMessage(message.details.privateMessage || '')
     setValue(message.message.Request || '[message empty]')
