@@ -1,8 +1,8 @@
 import { ForceData, MessageVisibilityChanges } from '@serge/custom-types'
 import { VISIBILITY_CHANGES } from '@serge/config'
 /* global it expect */
-import handleVisibilityChanges from '../../../ActionsAndReducers/playerUi/helpers/handleVisibilityChanges'
-import findAsset from '../../../Helpers/findAsset'
+import handleVisibilityChanges from '../handle-visibility-changes'
+import findAsset from '../find-asset'
 
 const payload: MessageVisibilityChanges = {
   messageType: VISIBILITY_CHANGES,
@@ -52,7 +52,7 @@ const allForces: ForceData[] = [
         platformType: 'Unmanned-Airborne-Vehicle',
         uniqid: 'C01',
         name: 'alpha',
-        perceptions: [{ force: 'Blue', type: 'Frigate' }]
+        perceptions: [{ by: 'Red', force: 'Blue', type: 'Frigate' }]
       },
       {
         condition: 'Full capability',
