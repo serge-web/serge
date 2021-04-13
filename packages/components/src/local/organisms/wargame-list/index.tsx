@@ -32,8 +32,8 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
     const gameTitleEl = (gameTitleRef || {}).current
     const parentEl = menuEl.parentElement
     const scrollEl = document.querySelector('.scrollarea-content')
-    const { scrollHeight, offsetTop } = menuEl || {}
-    const { offsetTop: parentElOffsetTop } = parentEl || {}
+    const { scrollHeight, offsetTop } = menuEl
+    const { offsetTop: parentElOffsetTop } = parentEl
     const {
       height: scrollElHeight = '0',
       paddingBottom: parentElPaddingBottom = '0'
