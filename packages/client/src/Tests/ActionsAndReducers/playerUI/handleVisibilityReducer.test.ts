@@ -47,11 +47,17 @@ const allForces: ForceData[] = [
     uniqid: 'id2',
     assets: [
       {
+        condition: 'Full capability',
+        contactId: 'C713',
+        platformType: 'Unmanned-Airborne-Vehicle',
         uniqid: 'C01',
         name: 'alpha',
         perceptions: [{ force: 'Blue', type: 'Frigate' }]
       },
       {
+        condition: 'Full capability',
+        contactId: 'C723',
+        platformType: 'Unmanned-Airborne-Vehicle',
         name: 'bravo',
         uniqid: 'C02',
         perceptions: []
@@ -69,11 +75,17 @@ const allForces: ForceData[] = [
     name: 'Red',
     assets: [
       {
+        condition: 'Full capability',
+        contactId: 'C733',
+        platformType: 'Unmanned-Airborne-Vehicle',
         name: 'charlie',
         uniqid: 'C03',
         perceptions: [{ force: 'Green', type: 'Frigate', by: 'Blue' }]
       },
       {
+        condition: 'Full capability',
+        contactId: 'C813',
+        platformType: 'Unmanned-Airborne-Vehicle',
         name: 'delta',
         uniqid: 'C04',
         perceptions: []
@@ -91,11 +103,17 @@ const allForces: ForceData[] = [
     uniqid: 'id4',
     assets: [
       {
+        condition: 'Full capability',
+        contactId: 'C743',
+        platformType: 'Unmanned-Airborne-Vehicle',
         name: 'echo',
         uniqid: 'C05',
         perceptions: [{ force: 'Green', type: 'Frigate', by: 'Blue' }]
       },
       {
+        condition: 'Full capability',
+        contactId: 'C715',
+        platformType: 'Unmanned-Airborne-Vehicle',
         uniqid: 'C06',
         name: 'foxtrot',
         perceptions: []
