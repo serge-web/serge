@@ -3,7 +3,6 @@
 .wargame-title {
   @include typo-primary;
   cursor: pointer;
-  display: block;
   width: 100%;
 
   &:hover {
