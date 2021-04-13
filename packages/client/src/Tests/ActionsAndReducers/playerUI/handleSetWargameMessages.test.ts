@@ -6,7 +6,10 @@ import setAllMessagesData from './data/set_all_messages.json'
 import { PlayerUi } from '@serge/custom-types'
 
 const playerUi: PlayerUi = {
-  isGameControl: true,
+  "isGameControl": true,
+  "isRFIManager": false,
+  "rfiMessages": [],
+  "nextMsgReference": 0,
   "selectedForce": {
     "name": "Blue",
     "uniqid": "force-k16fdykj",
@@ -40,7 +43,7 @@ const playerUi: PlayerUi = {
   "gameDate": "2019-10-29T02:02",
   "gameTurnTime": 43200000,
   "realtimeTurnTime": 300000,
-  "turnEndTime": 0,
+  "turnEndTime": "",
   "adjudicationStartTime": "2020-09-30T09:17:56+07:00",
   "gameDescription": "",
   "currentWargame": "wargame-k16fadm4",
@@ -878,6 +881,7 @@ describe('PlayerUi Message Actions', () => {
 
 describe('PlayerUi Message Reducers', () => {
   it('Should convert and set SET_ALL_MESSAGES gained from db to state', () => {
+
     expect(reducer(playerUi, actionSetWargameMessages))
       .toEqual({
         ...playerUi,
