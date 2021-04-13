@@ -164,23 +164,33 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
  */
 const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition?: string, locationPending?: LaydownTypes | boolean, 
   originalPosition?: string, route?: Route): LaydownPhases => {
-  if(phase != Phase.Adjudication) {
+  if(phase !== Phase.Adjudication) {
     // ok, we only do laydown in adjudication phase
     return LaydownPhases.NotInLaydown
   } else if(locationPending === undefined) {
-    return LaydownPhases.Immobile
+    if(wargameInitated) {
+      return LaydownPhases.NotInLaydown
+    } else {
+      return LaydownPhases.Immobile
+    }
   } else if (typeof locationPending === 'boolean') {
     // TODO - remove support for this legacy construct (boolean)
     if(wargameInitated) {
-      const routePos = route && route.currentPosition
-      const currentPos = routePos ? routePos : currentPosition
-      if (currentPos !== originalPosition) {
-        // on map, but still can be moved
-        return LaydownPhases.Moved
-      } else {
-        // not on map yet
-        return LaydownPhases.Unmoved
-      }
+      // TODO: we're getting assets with laydown-phase flag
+      // after game has started. In the longer term we
+      // probably need to clear laydown flags when game is
+      // initiated. For now we'll just ignore the value
+      console.log('ignoring laydown status')
+      return LaydownPhases.NotInLaydown
+      // const routePos = route && route.currentPosition
+      // const currentPos = routePos ? routePos : currentPosition
+      // if (currentPos !== originalPosition) {
+      //   // on map, but still can be moved
+      //   return LaydownPhases.Moved
+      // } else {
+      //   // not on map yet
+      //   return LaydownPhases.Unmoved
+      // }
     } else {
       return LaydownPhases.Immobile
     }
@@ -288,6 +298,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   const condition: string | undefined = playerForce === UMPIRE_FORCE ? asset.condition : undefined
 
   const laydownPhase = laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
+
+  console.log('laydown phase', laydownPhase, phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute && existingRoute.laydownPhase)
 
   return {
     uniqid: asset.uniqid,
