@@ -1,6 +1,6 @@
 import { MessageMap, ForceData, MessageDetails, MessageForceLaydown, MessageVisibilityChanges, MessagePerceptionOfContact, MessageSubmitPlans, MessageStateOfWorld } from '@serge/custom-types'
 
-import handleVisibilityChanges from './handleVisibilityChanges'
+import { handleVisibilityChanges } from '@serge/helpers'
 import handlePerceptionChange from './handlePerceptionChanges'
 import handleStateOfWorldChanges from './handleStateOfWorldChanges'
 import handleForceLaydownChanges from './handleForceLaydownChanges'

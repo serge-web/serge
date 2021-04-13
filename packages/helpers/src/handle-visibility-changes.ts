@@ -1,5 +1,5 @@
 import { ForceData, MessageVisibilityChanges, Asset, Visibility } from '@serge/custom-types'
-import { findAsset } from '@serge/helpers'
+import findAsset from './find-asset'
 
 /** create/remove perceptions for assets */
 

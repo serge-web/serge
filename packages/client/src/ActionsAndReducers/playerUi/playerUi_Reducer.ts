@@ -75,7 +75,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
   switch (action.type) {
     case SET_CURRENT_WARGAME_PLAYER:
-      console.log('payload turn', action.payload.gameTurn)
       newState.currentWargame = action.payload.name
       newState.wargameTitle = action.payload.wargameTitle
       newState.wargameInitiated = action.payload.wargameInitiated
@@ -179,7 +178,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       return newState
   }
 
-  console.log(`PlayerUI: ${action.type}`, newState)
   return newState
 }
 
