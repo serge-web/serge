@@ -28,9 +28,9 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
 
   const openWargameMenu = async (title: string, menuRef: any, gameTitleRef: any): Promise<void> => {
     await setWargameMenuOpen(title)
-    const menuEl = (menuRef || {}).current
+    const menuEl = menuRef.current
     const gameTitleEl = (gameTitleRef || {}).current
-    const parentEl = (menuEl || {}).parentElement
+    const parentEl = menuEl.parentElement
     const scrollEl = document.querySelector('.scrollarea-content')
     const { scrollHeight, offsetTop } = menuEl || {}
     const { offsetTop: parentElOffsetTop } = parentEl || {}
@@ -44,10 +44,7 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
     const totalHeightWithScroll = parseInt(scrollPos.containerHeight + scrollEl?.getBoundingClientRect().y + (scrollPos.topPosition || 0))
     const menuPlacementDiff = totalHeight - totalHeightWithScroll
 
-    if (menuEl &&
-      parentEl &&
-      scrollHeight + offsetTop + parentElOffsetTop > containerHeight
-    ) {
+    if (scrollHeight + offsetTop + parentElOffsetTop > containerHeight) {
       menuEl.style.top = 'auto'
       menuEl.style.bottom = (menuPlacementDiff < 0 ? 0 : menuPlacementDiff) + 'px'
     }
