@@ -8,5 +8,5 @@ export default interface Props extends WargameList {
   /**
    * Container element ref
    */
-   ref?: React.Ref<any>
+   ref?: React.Ref<HTMLSpanElement>
 }
