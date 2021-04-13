@@ -8,7 +8,7 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const PlannedRoute: React.FC<PropTypes> = ({ children, forceColor, platformType }) => {
+export const TitleWithIcon: React.FC<PropTypes> = ({ children, forceColor, platformType }) => {
   const iconClassname = getIconClassname(forceColor.toLowerCase(), platformType)
   return (
     <div className={styles.main}>
@@ -19,4 +19,4 @@ export const PlannedRoute: React.FC<PropTypes> = ({ children, forceColor, platfo
     </div>
   )
 }
-export default PlannedRoute
+export default TitleWithIcon
