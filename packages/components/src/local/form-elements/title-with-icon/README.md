@@ -1,4 +1,4 @@
-# Planned Route documentation
+# Title with icon documentation
 
 This is an example readme file for the 'TitleWithIcon' component.
 

@@ -106,9 +106,12 @@ export const WorldState: React.FC<PropTypes> = ({
       ? `${numPlanned} turns planned` : ''
     const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
 
-    // sort out if this asset is destroyed
-    const platformType: PlatformTypeData | undefined = platforms && findPlatformTypeFor(platforms, item.platformType)
-    const isDestroyed = platformType && item.condition === platformType.conditions[platformType.conditions.length - 1]
+    let isDestroyed: boolean | undefined = false
+    // If we know the platform type, we can determine if the platform is destroyed
+    if (item.platformType !== 'unknown') {
+      const platformType: PlatformTypeData | undefined = platforms && findPlatformTypeFor(platforms, item.platformType)
+      isDestroyed = platformType && item.condition === platformType.conditions[platformType.conditions.length - 1]
+    }
 
     const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
     const checkStatus: boolean = item.laydownPhase === LaydownPhases.NotInLaydown
