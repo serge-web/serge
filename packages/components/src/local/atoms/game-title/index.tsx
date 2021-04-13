@@ -21,6 +21,6 @@ export const GameTitle: React.FC<Props> = React.forwardRef(({ initiated, title, 
       <span title={name}>{title}</span>
     </span>
   )
-});
+})
 
 export default GameTitle

@@ -39,19 +39,19 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
       paddingBottom: parentElPaddingBottom = '0'
     } = scrollEl ? window.getComputedStyle(scrollEl) : {}
     const containerHeight = parseFloat(scrollElHeight) - parseFloat(parentElPaddingBottom)
-    const menuElLeft =  gameTitleEl.getBoundingClientRect().width + 40;
-    const totalHeight = parseInt(parentEl.getBoundingClientRect().y + parentEl.getBoundingClientRect().height);
-    const totalHeightWithScroll = parseInt(scrollPos.containerHeight + scrollEl?.getBoundingClientRect().y + (scrollPos.topPosition || 0));
-    const menuPlacementDiff = totalHeight - totalHeightWithScroll;
+    const menuElLeft = gameTitleEl.getBoundingClientRect().width + 40
+    const totalHeight = parseInt(parentEl.getBoundingClientRect().y + parentEl.getBoundingClientRect().height)
+    const totalHeightWithScroll = parseInt(scrollPos.containerHeight + scrollEl?.getBoundingClientRect().y + (scrollPos.topPosition || 0))
+    const menuPlacementDiff = totalHeight - totalHeightWithScroll
 
     if (menuEl &&
       parentEl &&
       scrollHeight + offsetTop + parentElOffsetTop > containerHeight
     ) {
       menuEl.style.top = 'auto'
-      menuEl.style.bottom = (menuPlacementDiff < 0  ? 0 : menuPlacementDiff) + 'px';
+      menuEl.style.bottom = (menuPlacementDiff < 0 ? 0 : menuPlacementDiff) + 'px'
     }
-    menuEl.style.left = menuElLeft + 'px';
+    menuEl.style.left = menuElLeft + 'px'
   }
 
   const renderContent = (): React.ReactNode => wargames.filter(searchByQuery).map((game, id) => {
@@ -59,8 +59,8 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
       ...game,
       onClick: onGameClick
     }
-    const optionMenuRef = useRef(null);
-    const gameTitleRef = useRef(null);
+    const optionMenuRef = useRef(null)
+    const gameTitleRef = useRef(null)
     return (
       <div
         className={styles['searchlist-title']}
