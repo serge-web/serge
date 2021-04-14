@@ -406,6 +406,7 @@ export const HexGrid: React.FC<{}> = () => {
       // it may be outside the achievable area. Just
       // use the last point in the planning leg
       const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
+
       if (plannedRouteCells && (planningRange || rangeUnlimited) && planningRouteCells.length) {
         // deduct one from planned route, since it includes the origin cell
         const routeLen = planningRouteCells.length - 1
@@ -414,36 +415,40 @@ export const HexGrid: React.FC<{}> = () => {
         const marker = e.target
         marker.setLatLng(lastCell.centreLatLng)
 
-        // drop the first cell, since it's the current location
-        const trimmedPlanningRouteCells = planningRouteCells.slice(1)
+        // note: the planning route cells includes the start cell. So, it's only a valie route if the
+        // planning route cells are more than 1 in length
+        if(planningRouteCells.length > 1) {
+          // drop the first cell, since it's the current location
+          const trimmedPlanningRouteCells = planningRouteCells.slice(1)
 
-        // have we consumed the full length?
-        if (rangeUnlimited || routeLen === planningRange) {
-          // combine planned and planning cells, ready for results
-          const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(trimmedPlanningRouteCells)
+          // have we consumed the full length?
+          if (rangeUnlimited || routeLen === planningRange) {
+            // combine planned and planning cells, ready for results
+            const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(trimmedPlanningRouteCells)
 
-          // clear the planning routes
-          setPlannedRouteCells([])
-          setPlannedRoutePoly([])
-          setPlanningRouteCells([])
-          setPlanningRoutePoly([])
+            // clear the planning routes
+            setPlannedRouteCells([])
+            setPlannedRoutePoly([])
+            setPlanningRouteCells([])
+            setPlanningRoutePoly([])
 
-          // restore the full planning range allowance
-          setPlanningRange(planningConstraints.range)
+            // restore the full planning range allowance
+            setPlanningRange(planningConstraints.range)
 
-          // ok, planning complete - fire the event back up the hierarchy
-          setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
-        } else {
-          if (planningRange && !rangeUnlimited) {
-            // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
-            const remaining = planningRange - routeLen
+            // ok, planning complete - fire the event back up the hierarchy
+            setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
+          } else {
+            if (planningRange && !rangeUnlimited) {
+              // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
+              const remaining = planningRange - routeLen
 
-            if (lastCell) {
-              setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
-              // note: we extend the existing planned cells, with the new ones
-              setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
-              setOriginHex(lastCell)
-              setPlanningRange(remaining)
+              if (lastCell) {
+                setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
+                // note: we extend the existing planned cells, with the new ones
+                setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
+                setOriginHex(lastCell)
+                setPlanningRange(remaining)
+              }
             }
           }
         }
