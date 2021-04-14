@@ -1,18 +1,18 @@
 import React from 'react'
 
 // Import component files
-import VisibilityForm from './index'
+import VisibilityAndConditionForm from './index'
 import docs from './README.md'
 
 /* Import mock data */
-import { forces, selectedAsset } from '@serge/mocks'
+import { forces, selectedAsset, platformTypes } from '@serge/mocks'
 
 // import data types
 import collateVisibilityFormData from '../map-bar/helpers/collate-visibility-form-data'
 
 export default {
-  title: 'local/VisibilityForm',
-  component: VisibilityForm,
+  title: 'local/VisibilityAndConditionForm',
+  component: VisibilityAndConditionForm,
   decorators: [],
   parameters: {
     readme: {
@@ -31,10 +31,10 @@ const postback = (messageType: string, payload: any): void => {
   console.log('postback', messageType, payload)
 }
 
-const formData = collateVisibilityFormData(selectedAsset, forces)
+const formData = collateVisibilityFormData(platformTypes, selectedAsset, forces)
 const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
 
-export const Default: React.FC = () => <VisibilityForm
+export const Default: React.FC = () => <VisibilityAndConditionForm
   formHeader="Planning header"
   formData={formData}
   icon={iconData}
