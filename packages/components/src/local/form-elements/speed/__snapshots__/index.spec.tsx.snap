@@ -21,6 +21,7 @@ exports[`Speed renders correctly 1`] = `
             Object {
               "height": "0%",
               "left": "0%",
+              "width": "16.666666666666668%",
             }
           }
         />
@@ -30,7 +31,8 @@ exports[`Speed renders correctly 1`] = `
           style={
             Object {
               "height": "14%",
-              "left": "20%",
+              "left": "16.666666666666668%",
+              "width": "16.666666666666668%",
             }
           }
         />
@@ -40,7 +42,8 @@ exports[`Speed renders correctly 1`] = `
           style={
             Object {
               "height": "28%",
-              "left": "40%",
+              "left": "33.333333333333336%",
+              "width": "16.666666666666668%",
             }
           }
         />
@@ -50,7 +53,8 @@ exports[`Speed renders correctly 1`] = `
           style={
             Object {
               "height": "42%",
-              "left": "60%",
+              "left": "50%",
+              "width": "16.666666666666668%",
             }
           }
         />
@@ -60,7 +64,8 @@ exports[`Speed renders correctly 1`] = `
           style={
             Object {
               "height": "42%",
-              "left": "80%",
+              "left": "66.66666666666667%",
+              "width": "16.666666666666668%",
             }
           }
         />
@@ -70,7 +75,8 @@ exports[`Speed renders correctly 1`] = `
           style={
             Object {
               "height": "71%",
-              "left": "100%",
+              "left": "83.33333333333334%",
+              "width": "16.666666666666668%",
             }
           }
         />

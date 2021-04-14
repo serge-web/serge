@@ -1,56 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RFIForm component: renders correctly 1`] = `
-Array [
+<div
+  className="makeStyles-rfiForm-1"
+>
   <div
-    className="MuiBox-root MuiBox-root-8 makeStyles-formContainer-1"
+    className="MuiBox-root MuiBox-root-9 makeStyles-formContainer-2"
   >
     <div
-      className="MuiBox-root MuiBox-root-9 makeStyles-formColumn-2"
+      className="MuiBox-root MuiBox-root-10 makeStyles-formColumn-3"
     >
       <div
-        className="MuiBox-root MuiBox-root-10 makeStyles-formWrapper-3"
+        className="MuiBox-root MuiBox-root-11 makeStyles-formWrapper-4"
       >
         <section
-          className="input-container disable-offset fullwidth makeStyles-mainInput-5 makeStyles-formInput-6"
+          className="input-container disable-offset fullwidth makeStyles-mainInput-6 makeStyles-formInput-7"
         >
           <div
-            className="MuiBox-root MuiBox-root-18 input-label"
+            className="MuiBox-root MuiBox-root-19 input-label"
           >
-            Lorem ipsum
+            RFI 2 from Blue
           </div>
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
           >
             <div
-              className="MuiInputBase-root MuiFilledInput-root makeStyles-root-11 Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-13"
+              className="MuiInputBase-root MuiFilledInput-root makeStyles-root-12 Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-14"
               onClick={[Function]}
             >
               <textarea
                 aria-invalid={false}
                 autoFocus={false}
-                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-12 Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-13 Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
                 disabled={true}
-                name="lorem-ipsum"
+                name="rfi-2-from-blue"
                 onAnimationStart={[Function]}
                 onBlur={[Function]}
                 onChange={[Function]}
                 onFocus={[Function]}
                 required={false}
                 rows={2}
-                value="Do lor sit amet"
+                value="RFI 2 request goes in here"
               />
             </div>
           </div>
         </section>
         <section
-          className="input-container disable-offset fullwidth makeStyles-mainInput-5 makeStyles-formInput-6"
+          className="input-container disable-offset fullwidth makeStyles-mainInput-6 makeStyles-formInput-7"
         >
           <div
-            className="MuiBox-root MuiBox-root-21 input-label"
+            className="MuiBox-root MuiBox-root-22 input-label"
           >
             <div
-              className="MuiBox-root MuiBox-root-22 private-input__label"
+              className="MuiBox-root MuiBox-root-23 private-input__label"
             >
               <svg
                 aria-hidden="true"
@@ -78,13 +80,13 @@ Array [
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
           >
             <div
-              className="MuiInputBase-root MuiFilledInput-root makeStyles-root-11 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-13"
+              className="MuiInputBase-root MuiFilledInput-root makeStyles-root-12 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-14"
               onClick={[Function]}
             >
               <textarea
                 aria-invalid={false}
                 autoFocus={false}
-                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-12 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-13 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
                 disabled={false}
                 name="private-message"
                 onAnimationStart={[Function]}
@@ -100,13 +102,13 @@ Array [
       </div>
     </div>
     <div
-      className="MuiBox-root MuiBox-root-23 makeStyles-formColumn-2"
+      className="MuiBox-root MuiBox-root-24 makeStyles-formColumn-3"
     >
       <section
-        className="input-container disable-offset fullwidth makeStyles-fullHeightInput-4 makeStyles-formInput-6"
+        className="input-container disable-offset fullwidth makeStyles-fullHeightInput-5 makeStyles-formInput-7"
       >
         <div
-          className="MuiBox-root MuiBox-root-26 input-label"
+          className="MuiBox-root MuiBox-root-27 input-label"
         >
           Answer
         </div>
@@ -114,13 +116,13 @@ Array [
           className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
         >
           <div
-            className="MuiInputBase-root MuiFilledInput-root makeStyles-root-11 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-13"
+            className="MuiInputBase-root MuiFilledInput-root makeStyles-root-12 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-14"
             onClick={[Function]}
           >
             <textarea
               aria-invalid={false}
               autoFocus={false}
-              className="MuiInputBase-input MuiFilledInput-input makeStyles-input-12 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+              className="MuiInputBase-input MuiFilledInput-input makeStyles-input-13 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
               disabled={false}
               name="answer"
               onAnimationStart={[Function]}
@@ -134,9 +136,6 @@ Array [
         </div>
       </section>
     </div>
-  </div>,
-  <div
-    className="MuiBox-root MuiBox-root-27 makeStyles-formActions-7"
-  />,
-]
+  </div>
+</div>
 `;

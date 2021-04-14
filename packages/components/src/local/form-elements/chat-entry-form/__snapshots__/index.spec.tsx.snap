@@ -2,13 +2,14 @@
 
 exports[`ChatEntryForm component: renders correctly 1`] = `
 <div
-  className="MuiBox-root MuiBox-root-1"
+  className="MuiBox-root MuiBox-root-1 chat-container"
 >
   <section
-    className="input-container disable-offset"
+    className="input-container disable-offset fullwidth"
   >
     <div
       className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+      onKeyDown={[Function]}
     >
       <div
         className="MuiInputBase-root MuiFilledInput-root makeStyles-root-2 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-4 MuiInputBase-adornedEnd MuiFilledInput-adornedEnd"
@@ -156,10 +157,11 @@ exports[`ChatEntryForm component: renders correctly 1`] = `
       className="MuiBox-root MuiBox-root-11 wrap-detail wrap-detail-opened"
     >
       <section
-        className="input-container disable-offset"
+        className="input-container disable-offset fullwidth"
       >
         <div
           className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+          onKeyDown={[Function]}
         >
           <div
             className="MuiInputBase-root MuiFilledInput-root makeStyles-root-2 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-4"

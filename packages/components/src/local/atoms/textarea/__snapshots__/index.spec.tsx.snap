@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextInput renders correctly 1`] = `
+<div
+  className="main theme-light"
+>
+  <label
+    htmlFor="test"
+  >
+    Turns
+  </label>
+  <textarea
+    disabled={false}
+    id="test"
+    onChange={[Function]}
+    value="test"
+  />
+</div>
+`;

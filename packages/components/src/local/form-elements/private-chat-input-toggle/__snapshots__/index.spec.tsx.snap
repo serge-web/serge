@@ -60,10 +60,11 @@ Array [
     className="MuiBox-root MuiBox-root-2 wrap-detail wrap-detail-opened"
   >
     <section
-      className="input-container disable-offset"
+      className="input-container disable-offset fullwidth"
     >
       <div
         className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+        onKeyDown={[Function]}
       >
         <div
           className="MuiInputBase-root MuiFilledInput-root makeStyles-root-3 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-5"

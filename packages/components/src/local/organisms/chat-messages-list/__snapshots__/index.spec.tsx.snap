@@ -19,34 +19,15 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
           }
         }
       />
-      <button
-        className="MuiButtonBase-root MuiButton-root makeStyles-root-2 MuiButton-text MuiButton-textSecondary"
-        disabled={false}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onDragLeave={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        onMouseDown={[Function]}
-        onMouseLeave={[Function]}
-        onMouseUp={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-        tabIndex={0}
-        type="button"
-      >
-        <span
-          className="MuiButton-label"
-        >
-          Mark all read
-        </span>
-      </button>
     </div>
   </div>
   <div
     className="MuiBox-root MuiBox-root-3 messages-list"
+    style={
+      Object {
+        "height": "calc(100vh - 280px)",
+      }
+    }
   >
     <div
       className="MuiBox-root MuiBox-root-4"
@@ -121,7 +102,7 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
               <span
                 className="info-body info-body__other"
               >
-                06:41
+                09:41
               </span>
             </div>
           </div>

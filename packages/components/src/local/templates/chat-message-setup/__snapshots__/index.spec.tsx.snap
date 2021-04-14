@@ -20,37 +20,15 @@ Array [
             }
           }
         />
-        <button
-          className="MuiButtonBase-root MuiButton-root makeStyles-root-2 MuiButton-text MuiButton-textSecondary"
-          disabled={false}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onDragLeave={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          onMouseLeave={[Function]}
-          onMouseUp={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
-          tabIndex={0}
-          type="button"
-        >
-          <span
-            className="MuiButton-label"
-          >
-            Mark all read
-          </span>
-          <span
-            className="MuiTouchRipple-root"
-          />
-        </button>
       </div>
     </div>
     <div
       className="MuiBox-root MuiBox-root-3 messages-list"
+      style={
+        Object {
+          "height": "calc(100vh - 280px)",
+        }
+      }
     >
       <div
         className="MuiBox-root MuiBox-root-4"
@@ -126,7 +104,7 @@ Array [
                 <span
                   className="info-body info-body__other"
                 >
-                  15:08
+                  19:08
                 </span>
               </div>
             </div>
@@ -188,7 +166,7 @@ Array [
                 <span
                   className="info-body info-body__owner"
                 >
-                  15:08
+                  19:08
                 </span>
               </div>
             </div>
@@ -198,13 +176,14 @@ Array [
     </div>
   </div>,
   <div
-    className="MuiBox-root MuiBox-root-20"
+    className="MuiBox-root MuiBox-root-20 chat-container"
   >
     <section
-      className="input-container disable-offset"
+      className="input-container disable-offset fullwidth"
     >
       <div
         className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+        onKeyDown={[Function]}
       >
         <div
           className="MuiInputBase-root MuiFilledInput-root makeStyles-root-21 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-23 MuiInputBase-adornedEnd MuiFilledInput-adornedEnd"
@@ -352,10 +331,11 @@ Array [
         className="MuiBox-root MuiBox-root-30 wrap-detail wrap-detail-opened"
       >
         <section
-          className="input-container disable-offset"
+          className="input-container disable-offset fullwidth"
         >
           <div
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            onKeyDown={[Function]}
           >
             <div
               className="MuiInputBase-root MuiFilledInput-root makeStyles-root-21 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-23"

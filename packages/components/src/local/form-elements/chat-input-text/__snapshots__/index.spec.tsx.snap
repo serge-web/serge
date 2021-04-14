@@ -2,10 +2,11 @@
 
 exports[`ChatInputText component: renders correctly 1`] = `
 <section
-  className="input-container disable-offset"
+  className="input-container disable-offset fullwidth"
 >
   <div
     className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+    onKeyDown={[Function]}
   >
     <div
       className="MuiInputBase-root MuiFilledInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-3 MuiInputBase-adornedEnd MuiFilledInput-adornedEnd"

@@ -28,15 +28,33 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a1fce70-954d-4566-bbb2-e0586bdc2e11" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/packages/client/src/Views/GameSetupNew.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/Views/GameSetupNew.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/editable-list/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/editable-list/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/index.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/index.stories.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/types/props.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/types/props.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/game-setup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/game-setup/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/game-setup/types/props.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/game-setup/types/props.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/server/db/wargame-keeemiss" beforeDir="false" afterPath="$PROJECT_DIR$/packages/server/db/wargame-keeemiss" afterDir="false" />
+    <list default="true" id="8a1fce70-954d-4566-bbb2-e0586bdc2e11" name="Default Changelist" comment="Removes updateSnapshot option for components testing script and updates snapshot files to latest.">
+      <change afterPath="$PROJECT_DIR$/packages/components/src/local/atoms/textarea/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-rfi-message-detail/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-rfi-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-rfi-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/form-elements/chat-entry-form/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/form-elements/chat-entry-form/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/form-elements/chat-input-text/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/form-elements/chat-input-text/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/form-elements/private-chat-input-toggle/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/form-elements/private-chat-input-toggle/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/form-elements/speed/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/form-elements/speed/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/admin-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/admin-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message-detail/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message-detail/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message-header/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message-header/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/chat-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/chat-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/option-menu/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/option-menu/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/rfi-form/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/rfi-form/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/admin-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/admin-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/chat-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/chat-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/wargame-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/wargame-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/plan-turn-form/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/plan-turn-form/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/chat-message-setup/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/chat-message-setup/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/game-admin/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/game-admin/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +64,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/packages/e2e/package.json" />
@@ -68,8 +94,10 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.standard" value="$PROJECT_DIR$/node_modules/standard" />
     <property name="node.js.selected.package.stylelint" value="$PROJECT_DIR$/node_modules/stylelint" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/react-scripts" />
+    <property name="nodejs_interpreter_path" value="$USER_HOME$/.nvm/versions/node/v12.22.1/bin/node" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -88,6 +116,18 @@
       <recent name="$PROJECT_DIR$/packages/components/src/local/templates" />
       <recent name="$PROJECT_DIR$/packages/components/src/templates" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="develop" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="develop" />
+      </scripts>
+      <node-interpreter value="$USER_HOME$/.nvm/versions/node/v12.22.1/bin/node" />
+      <envs />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -182,6 +222,11 @@
       <workItem from="1606774846724" duration="8908000" />
       <workItem from="1606828338215" duration="2961000" />
       <workItem from="1606864161323" duration="7721000" />
+      <workItem from="1618329818102" duration="4289000" />
+      <workItem from="1618344068252" duration="2037000" />
+      <workItem from="1618395126043" duration="907000" />
+      <workItem from="1618401566424" duration="1928000" />
+      <workItem from="1618404204159" duration="1164000" />
     </task>
     <task id="LOCAL-00065" summary="Add forces in channel component">
       <created>1601859863670</created>
@@ -557,7 +602,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Add and implement role action component" />
     <MESSAGE value="Implement button list to confirmation modals" />
     <MESSAGE value="Refactor image dropzone component" />
     <MESSAGE value="Implement image dropzone component" />
@@ -582,7 +626,8 @@
     <MESSAGE value="Fix forces sidebar click event handler" />
     <MESSAGE value="Handle add new force event" />
     <MESSAGE value="Add force's delete event handler" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add force's delete event handler" />
+    <MESSAGE value="Removes updateSnapshot option for components testing script and updates snapshot files to latest." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removes updateSnapshot option for components testing script and updates snapshot files to latest." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -594,5 +639,9 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

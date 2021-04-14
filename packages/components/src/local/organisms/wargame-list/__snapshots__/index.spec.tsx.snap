@@ -5,7 +5,7 @@ exports[`WargameList component: renders correctly 1`] = `
   className="wargame-searchlist"
 >
   <section
-    className="input-container disable-offset"
+    className="input-container disable-offset fullwidth"
   >
     <div
       className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -55,7 +55,7 @@ exports[`WargameList component: renders correctly 1`] = `
           </span>
         </span>
         <svg
-          aria-labelledby="svg-inline--fa-title-1yZC7pOnJwv2"
+          aria-labelledby="svg-inline--fa-title-mqZbMMZvlhRF"
           className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
           data-icon="ellipsis-h"
           data-prefix="fas"
@@ -66,7 +66,7 @@ exports[`WargameList component: renders correctly 1`] = `
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="svg-inline--fa-title-1yZC7pOnJwv2"
+            id="svg-inline--fa-title-mqZbMMZvlhRF"
             style={Object {}}
           >
             Wargame menu
@@ -97,7 +97,7 @@ exports[`WargameList component: renders correctly 1`] = `
           </span>
         </span>
         <svg
-          aria-labelledby="svg-inline--fa-title-SnT7qXOxoUiK"
+          aria-labelledby="svg-inline--fa-title-M6iRsl9Cwc0H"
           className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
           data-icon="ellipsis-h"
           data-prefix="fas"
@@ -108,7 +108,7 @@ exports[`WargameList component: renders correctly 1`] = `
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="svg-inline--fa-title-SnT7qXOxoUiK"
+            id="svg-inline--fa-title-M6iRsl9Cwc0H"
             style={Object {}}
           >
             Wargame menu
@@ -139,7 +139,7 @@ exports[`WargameList component: renders correctly 1`] = `
           </span>
         </span>
         <svg
-          aria-labelledby="svg-inline--fa-title-8H1TYtdbpP6E"
+          aria-labelledby="svg-inline--fa-title-2VzLe2q2dbLT"
           className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
           data-icon="ellipsis-h"
           data-prefix="fas"
@@ -150,7 +150,7 @@ exports[`WargameList component: renders correctly 1`] = `
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="svg-inline--fa-title-8H1TYtdbpP6E"
+            id="svg-inline--fa-title-2VzLe2q2dbLT"
             style={Object {}}
           >
             Wargame menu
