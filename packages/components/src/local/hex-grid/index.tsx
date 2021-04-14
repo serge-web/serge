@@ -417,7 +417,7 @@ export const HexGrid: React.FC<{}> = () => {
 
         // note: the planning route cells includes the start cell. So, it's only a valie route if the
         // planning route cells are more than 1 in length
-        if(planningRouteCells.length > 1) {
+        if (planningRouteCells.length > 1) {
           // drop the first cell, since it's the current location
           const trimmedPlanningRouteCells = planningRouteCells.slice(1)
 
@@ -474,7 +474,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-//  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
+  //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
 
   return <>
 
@@ -559,7 +559,7 @@ export const HexGrid: React.FC<{}> = () => {
     {
       // zoomLevel > 5.5 &&
       // change - show labels if there are less than 400. With the zoom level
-      // we were getting issues where up North (where the cells appear larger) there are 
+      // we were getting issues where up North (where the cells appear larger) there are
       // fewer visible at once, but we still weren't showing the labels.
       visibleCells.length < 400 &&
       /* note: for the label markers - we use the cells in the currently visible area */
