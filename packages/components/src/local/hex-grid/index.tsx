@@ -469,7 +469,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  console.log('zoom', zoomLevel, visibleAndAllowableCells.length)
+//  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
 
   return <>
 
@@ -552,9 +552,13 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 5.5 &&
+      // zoomLevel > 5.5 &&
+      // change - show labels if there are less than 400. With the zoom level
+      // we were getting issues where up North (where the cells appear larger) there are 
+      // fewer visible at once, but we still weren't showing the labels.
+      visibleCells.length < 400 &&
       /* note: for the label markers - we use the cells in the currently visible area */
-      <LayerGroup key={'hex_labels'} >{visibleCells && visibleCells.map((cell: SergeHex<{}>, index: number) => (
+      <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
           key={'hex_label_' + cell.name + '_' + index}
           position={cell.centreLatLng}
