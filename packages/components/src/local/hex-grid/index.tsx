@@ -558,6 +558,7 @@ export const HexGrid: React.FC<{}> = () => {
         <Marker
           key={'hex_label_' + cell.name + '_' + index}
           position={cell.centreLatLng}
+          zIndexOffset={-1000}
           width="120"
           icon={L.divIcon({
             // html: '' + cell.x + ',' + cell.y,
