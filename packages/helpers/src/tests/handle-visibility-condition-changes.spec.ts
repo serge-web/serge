@@ -133,19 +133,36 @@ const allForces: ForceData[] = [
 it('correctly handle stuff when perceptions missing', () => {
   const updated: ForceData[] = handleVisibilityAndConditionChanges(payload, allForces)
   expect(updated).toBeTruthy()
-  const charlie = findAsset(allForces, 'C06')
-  expect(charlie!.name).toEqual('foxtrot')
-  expect(charlie!.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
-  expect(charlie!.perceptions.find(p => p.by === 'Red')).toBeTruthy()
-  expect(charlie!.condition).toEqual('')
+  const charlie = findAsset(updated, 'C06')
+  expect(charlie.name).toEqual('foxtrot')
+  expect(charlie.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
+  expect(charlie.perceptions.find(p => p.by === 'Red')).toBeTruthy()
+  expect(charlie.condition).toEqual(payload.condition)
 })
 
 it('correctly handle stuff when perceptions missing', () => {
-  const charlie = findAsset(allForces, 'C05')
   const updated = handleVisibilityAndConditionChanges(payload2, allForces)
+  const charlie = findAsset(updated, 'C05')
   expect(updated).toBeTruthy()
-  expect(charlie!.name).toEqual('echo')
-  expect(charlie!.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
-  expect(charlie!.perceptions.find(p => p.by === 'Red')).toBeTruthy()
-  expect(charlie!.condition).toEqual(payload2.condition)
+  expect(charlie.name).toEqual('echo')
+  expect(charlie.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
+  expect(charlie.perceptions.find(p => p.by === 'Red')).toBeTruthy()
+  expect(charlie.condition).toEqual(payload2.condition)
+})
+
+it('correctly handle stuff when no condition supplied missing', () => {
+  // put the condition in a known state
+  const charlie1 = findAsset(allForces, 'C06')
+  charlie1.condition = 'PENDING'
+
+  // copy the payload, so we can remove the condition
+  const payload3 = {... payload}
+  payload3.condition = undefined
+  const updated: ForceData[] = handleVisibilityAndConditionChanges(payload3, allForces)
+  expect(updated).toBeTruthy()
+  const charlie = findAsset(updated, 'C06')
+  expect(charlie.name).toEqual('foxtrot')
+  expect(charlie.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
+  expect(charlie.perceptions.find(p => p.by === 'Red')).toBeTruthy()
+  expect(charlie.condition).toEqual('PENDING')  
 })
