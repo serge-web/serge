@@ -1,0 +1,236 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VisibilityForm renders correctly 1`] = `
+<div>
+  <div
+    className="visibility"
+  >
+    <div
+      className="main"
+    >
+      <h2>
+        asset-name
+      </h2>
+      <div
+        className="icon"
+      >
+        <div
+          className="asset-icon blue platform-type-merchant-vessel"
+        />
+      </div>
+    </div>
+    <fieldset
+      className="fieldset"
+    >
+      <div
+        className="group"
+      >
+        <div
+          className="container title"
+        >
+          Visible to
+        </div>
+        <div
+          className="container main-container align-right"
+        >
+          <section
+            className="input-container"
+          >
+            
+            <label
+              className="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementBottom"
+              title="Red"
+            >
+              <span
+                aria-disabled={false}
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
+                onBlur={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={null}
+              >
+                <span
+                  className="MuiIconButton-label"
+                >
+                  <input
+                    checked={false}
+                    className="PrivateSwitchBase-input-4"
+                    data-indeterminate={false}
+                    name="visibleTo"
+                    onChange={[Function]}
+                    type="checkbox"
+                    value="red"
+                  />
+                  <svg
+                    aria-hidden={true}
+                    className="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <span
+                className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+              >
+                <span>
+                  <span
+                    className="color-box"
+                    style={
+                      Object {
+                        "backgroundColor": "#F00",
+                      }
+                    }
+                  />
+                </span>
+              </span>
+            </label>
+            <label
+              className="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementBottom"
+              title="Green"
+            >
+              <span
+                aria-disabled={false}
+                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-1 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
+                onBlur={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={null}
+              >
+                <span
+                  className="MuiIconButton-label"
+                >
+                  <input
+                    checked={false}
+                    className="PrivateSwitchBase-input-4"
+                    data-indeterminate={false}
+                    name="visibleTo"
+                    onChange={[Function]}
+                    type="checkbox"
+                    value="green"
+                  />
+                  <svg
+                    aria-hidden={true}
+                    className="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <span
+                className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+              >
+                <span>
+                  <span
+                    className="color-box"
+                    style={
+                      Object {
+                        "backgroundColor": "#0F0",
+                      }
+                    }
+                  />
+                </span>
+              </span>
+            </label>
+          </section>
+        </div>
+      </div>
+      <div
+        className="group"
+      >
+        <div
+          className="container title"
+        >
+          Condition
+        </div>
+        <div
+          className="container main-container align-right"
+        >
+          <div
+            className="MuiInputBase-root MuiInput-root MuiInput-underline select"
+            onClick={[Function]}
+          >
+            <div
+              aria-haspopup="listbox"
+              className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onMouseDown={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              Full capability
+            </div>
+            <input
+              aria-hidden={true}
+              className="MuiSelect-nativeInput"
+              onAnimationStart={[Function]}
+              onChange={[Function]}
+              tabIndex={-1}
+              value="Full capability"
+            />
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root MuiSelect-icon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M7 10l5 5 5-5z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <button
+      className="MuiButtonBase-root MuiButton-root MuiButton-text button"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label"
+      >
+        Save
+      </span>
+    </button>
+  </div>
+</div>
+`;
