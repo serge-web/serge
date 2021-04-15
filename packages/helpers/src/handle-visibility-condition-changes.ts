@@ -17,7 +17,9 @@ export default (message: MessageVisibilityChanges, allForces: ForceData[]): Forc
         asset.perceptions.splice(index, 1)
       }
     }
-    asset.condition = message.condition !== asset.condition ? (message.condition || '') : ''
+    if(message.condition && message.condition != asset.condition) {
+      asset.condition = message.condition
+    }
   })
   return allForces
 }
