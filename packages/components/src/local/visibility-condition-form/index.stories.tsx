@@ -31,7 +31,10 @@ const postback = (messageType: string, payload: any): void => {
   console.log('postback', messageType, payload)
 }
 
-const formData = collateVisibilityFormData(platformTypes, selectedAsset, forces)
+const newAsset = { ...selectedAsset }
+newAsset.condition = 'Immobile'
+
+const formData = collateVisibilityFormData(platformTypes, newAsset, forces)
 const iconData = { platformType: 'merchant-vessel', forceColor: 'blue' }
 
 export const Default: React.FC = () => <VisibilityAndConditionForm
@@ -39,5 +42,4 @@ export const Default: React.FC = () => <VisibilityAndConditionForm
   formData={formData}
   icon={iconData}
   mapPostBack={postback}
-
 />
