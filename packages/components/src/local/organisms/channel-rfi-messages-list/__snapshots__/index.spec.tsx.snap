@@ -129,7 +129,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     <span
                       className="timestamp"
                     >
-                      12:52
+                      09:52
                     </span>
                     <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-10 MuiChip-sizeSmall makeStyles-sizeSmall-6"
@@ -345,7 +345,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     <span
                       className="timestamp"
                     >
-                      12:52
+                      09:52
                     </span>
                     <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-23 MuiChip-sizeSmall makeStyles-sizeSmall-6"
@@ -561,7 +561,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     <span
                       className="timestamp"
                     >
-                      12:52
+                      09:52
                     </span>
                     <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-34 MuiChip-sizeSmall makeStyles-sizeSmall-6"
@@ -780,7 +780,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     <span
                       className="timestamp"
                     >
-                      12:52
+                      09:52
                     </span>
                     <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-45 MuiChip-sizeSmall makeStyles-sizeSmall-6"
@@ -1032,7 +1032,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     <span
                       className="timestamp"
                     >
-                      12:53
+                      09:53
                     </span>
                     <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-58 MuiChip-sizeSmall makeStyles-sizeSmall-6"
@@ -1284,7 +1284,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     <span
                       className="timestamp"
                     >
-                      12:54
+                      09:54
                     </span>
                     <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-71 MuiChip-sizeSmall makeStyles-sizeSmall-6"
@@ -1536,7 +1536,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                     <span
                       className="timestamp"
                     >
-                      12:55
+                      09:55
                     </span>
                     <div
                       className="MuiChip-root makeStyles-root-5 makeStyles-root-84 MuiChip-sizeSmall makeStyles-sizeSmall-6"

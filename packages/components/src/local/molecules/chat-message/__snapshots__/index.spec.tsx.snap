@@ -49,7 +49,7 @@ exports[`ChatMessage renders correctly 1`] = `
       <span
         className="info-body info-body__other"
       >
-        09:41
+        06:41
       </span>
     </div>
   </div>
