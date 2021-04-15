@@ -29,32 +29,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a1fce70-954d-4566-bbb2-e0586bdc2e11" name="Default Changelist" comment="Removes updateSnapshot option for components testing script and updates snapshot files to latest.">
-      <change afterPath="$PROJECT_DIR$/packages/components/src/local/atoms/textarea/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-rfi-message-detail/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-rfi-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-rfi-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/components/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/atoms/image-dropzone/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/atoms/image-dropzone/__snapshots__/index.spec.tsx.snap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/components/src/local/form-elements/chat-entry-form/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/form-elements/chat-entry-form/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/form-elements/chat-input-text/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/form-elements/chat-input-text/__snapshots__/index.spec.tsx.snap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/components/src/local/form-elements/private-chat-input-toggle/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/form-elements/private-chat-input-toggle/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/form-elements/speed/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/form-elements/speed/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/admin-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/admin-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message-detail/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message-detail/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message-header/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message-header/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-rfi-message-detail/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-rfi-message-detail/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-rfi-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-rfi-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/chat-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/chat-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/editable-row/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/editable-row/__snapshots__/index.spec.tsx.snap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/option-menu/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/option-menu/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/password-view/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/password-view/__snapshots__/index.spec.tsx.snap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/rfi-form/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/rfi-form/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/admin-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/admin-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/sortable-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/sortable-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/admin-layout/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/admin-layout/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-rfi-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-rfi-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/chat-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/chat-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-channels/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-forces/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-forces/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-platform-types/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-platform-types/__snapshots__/index.spec.tsx.snap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/wargame-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/wargame-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/plan-turn-form/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/plan-turn-form/__snapshots__/index.spec.tsx.snap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/chat-message-setup/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/chat-message-setup/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/game-admin/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/game-admin/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/game-setup/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/game-setup/__snapshots__/index.spec.tsx.snap" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,11 +106,11 @@
       <recent name="$PROJECT_DIR$/packages/components/src/local" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/packages/components" />
+      <recent name="$PROJECT_DIR$/packages/components/src/local/molecules/option-menu/mocks" />
+      <recent name="$PROJECT_DIR$/packages/components/src/local/molecules/option-menu" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/packages/components/src/local/organisms" />
-      <recent name="$PROJECT_DIR$/packages/components/src/local/molecules" />
-      <recent name="$PROJECT_DIR$/packages/components/src/local/atoms" />
-      <recent name="$PROJECT_DIR$/packages/components/src/local/templates" />
-      <recent name="$PROJECT_DIR$/packages/components/src/templates" />
     </key>
   </component>
   <component name="RunManager">
@@ -226,7 +222,11 @@
       <workItem from="1618344068252" duration="2037000" />
       <workItem from="1618395126043" duration="907000" />
       <workItem from="1618401566424" duration="1928000" />
-      <workItem from="1618404204159" duration="1164000" />
+      <workItem from="1618404204159" duration="7536000" />
+      <workItem from="1618435983857" duration="2667000" />
+      <workItem from="1618475408909" duration="1402000" />
+      <workItem from="1618478139211" duration="308000" />
+      <workItem from="1618478826191" duration="513000" />
     </task>
     <task id="LOCAL-00065" summary="Add forces in channel component">
       <created>1601859863670</created>
