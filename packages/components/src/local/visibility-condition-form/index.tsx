@@ -47,7 +47,8 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
       })
       const message: MessageVisibilityChanges = {
         messageType: VISIBILITY_CHANGES,
-        visibility: res
+        visibility: res,
+        condition: formData.selectedCondition !== conditionVal ? conditionVal : null
       }
       mapPostBack(VISIBILITY_CHANGES, message, channelID)
     }

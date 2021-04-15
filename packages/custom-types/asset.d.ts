@@ -29,7 +29,7 @@ export interface Asset {
   plannedTurns?: Array<RouteTurn>,
   /** the current condition of this asset
    */
-  condition: string,
+  condition: string | null | undefined,
   /** the type of this platform
    */
   platformType: string,

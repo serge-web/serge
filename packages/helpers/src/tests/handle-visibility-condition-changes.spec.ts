@@ -1,7 +1,7 @@
 import { ForceData, MessageVisibilityChanges } from '@serge/custom-types'
 import { VISIBILITY_CHANGES } from '@serge/config'
 /* global it expect */
-import handleVisibilityChanges from '../handle-visibility-changes'
+import handleVisibilityAndConditionChanges from '../handle-visibility-condition-changes'
 import findAsset from '../find-asset'
 
 const payload: MessageVisibilityChanges = {
@@ -12,7 +12,8 @@ const payload: MessageVisibilityChanges = {
       by: 'Red',
       newVis: true
     }
-  ]
+  ],
+  condition: 'Disabled',
 }
 
 const payload2: MessageVisibilityChanges = {
@@ -28,7 +29,8 @@ const payload2: MessageVisibilityChanges = {
       by: 'Red',
       newVis: true
     }
-  ]
+  ],
+  condition: 'Full capability',
 }
 
 const allForces: ForceData[] = [
@@ -111,7 +113,7 @@ const allForces: ForceData[] = [
         perceptions: [{ force: 'Green', type: 'Frigate', by: 'Blue' }]
       },
       {
-        condition: 'Full capability',
+        condition: 'Disabled',
         contactId: 'C715',
         platformType: 'Unmanned-Airborne-Vehicle',
         uniqid: 'C06',
@@ -129,19 +131,21 @@ const allForces: ForceData[] = [
 ]
 
 it('correctly handle stuff when perceptions missing', () => {
-  const updated: ForceData[] = handleVisibilityChanges(payload, allForces)
+  const updated: ForceData[] = handleVisibilityAndConditionChanges(payload, allForces)
   expect(updated).toBeTruthy()
   const charlie = findAsset(allForces, 'C06')
   expect(charlie!.name).toEqual('foxtrot')
   expect(charlie!.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
   expect(charlie!.perceptions.find(p => p.by === 'Red')).toBeTruthy()
+  expect(charlie!.condition).toBeNull()
 })
 
 it('correctly handle stuff when perceptions missing', () => {
   const charlie = findAsset(allForces, 'C05')
-  const updated = handleVisibilityChanges(payload2, allForces)
+  const updated = handleVisibilityAndConditionChanges(payload2, allForces)
   expect(updated).toBeTruthy()
   expect(charlie!.name).toEqual('echo')
   expect(charlie!.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
   expect(charlie!.perceptions.find(p => p.by === 'Red')).toBeTruthy()
+  expect(charlie!.condition).toEqual(payload2.condition)
 })
