@@ -165,7 +165,7 @@ export interface MessagePerceptionOfContact {
 export interface MessageVisibilityChanges {
   messageType: typeof VISIBILITY_CHANGES,
   readonly visibility: Visibility[]
-  condition?: string | null
+  condition?: string
 }
 export interface MessageSubmitPlans {
   readonly messageType: typeof SUBMIT_PLANS,

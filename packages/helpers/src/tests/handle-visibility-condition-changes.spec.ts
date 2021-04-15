@@ -137,7 +137,7 @@ it('correctly handle stuff when perceptions missing', () => {
   expect(charlie!.name).toEqual('foxtrot')
   expect(charlie!.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
   expect(charlie!.perceptions.find(p => p.by === 'Red')).toBeTruthy()
-  expect(charlie!.condition).toBeNull()
+  expect(charlie!.condition).toEqual('')
 })
 
 it('correctly handle stuff when perceptions missing', () => {
