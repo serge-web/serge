@@ -96,7 +96,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 <span
                   className="info-body"
                 >
-                  12:52
+                  08:52
                 </span>
                 <div
                   className="MuiChip-root makeStyles-root-6 makeStyles-root-9 MuiChip-sizeSmall makeStyles-sizeSmall-7"

@@ -79,7 +79,7 @@ exports[`ChannelMessage component: renders correctly 1`] = `
               <span
                 className="timestamp"
               >
-                12:52
+                08:52
               </span>
               <div
                 className="MuiChip-root makeStyles-root-1 makeStyles-root-6 MuiChip-sizeSmall makeStyles-sizeSmall-2"

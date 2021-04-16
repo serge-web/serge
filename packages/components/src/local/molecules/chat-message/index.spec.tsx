@@ -5,6 +5,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { CHAT_MESSAGE } from '@serge/config'
 import ChatMessage from './index'
+import moment from 'moment-timezone'
 
 const message: ChatMessageType = {
   messageType: CHAT_MESSAGE,
@@ -25,6 +26,7 @@ const message: ChatMessageType = {
 }
 
 it('ChatMessage renders correctly', () => {
+  moment.tz.setDefault('Etc/UTC')
   const tree = renderer
     .create(<ChatMessage message={message} isUmpire={true} isOwner={false} />)
     .toJSON()

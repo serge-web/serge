@@ -5,9 +5,11 @@ import ChannelRFIMessagesList from './index'
 import { GameMessagesMockRFI } from '@serge/mocks'
 import { mostRecentOnly } from '@serge/helpers'
 import { MessageCustom } from '@serge/custom-types'
+import moment from 'moment-timezone'
 
 describe('ChannelRFIMessagesList component: ', () => {
   it('renders component correctly', () => {
+    moment.tz.setDefault('Etc/UTC')
     const icons = ['./images/default_img/forceDefault.png']
     const colors = ['#F00']
     const newest = mostRecentOnly(GameMessagesMockRFI) as MessageCustom[]

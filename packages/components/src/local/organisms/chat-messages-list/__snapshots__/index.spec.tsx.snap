@@ -88,7 +88,7 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
               <span
                 className="info-body info-body__other"
               >
-                09:41
+                05:41
               </span>
             </div>
           </div>

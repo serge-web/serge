@@ -2,9 +2,11 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import ChannelMessageHeader from './index'
+import moment from 'moment-timezone'
 
 describe('ChannelMessageHeader component:', () => {
   it('renders correctly', () => {
+    moment.tz.setDefault('Etc/UTC')
     const tree = renderer
       .create(
         <ChannelMessageHeader

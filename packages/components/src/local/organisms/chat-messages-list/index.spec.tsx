@@ -6,9 +6,11 @@ import renderer from 'react-test-renderer'
 import { ChatMessage } from '@serge/custom-types'
 
 import ChatMessagesList from './index'
+import moment from 'moment-timezone'
 
 describe('ChatMessagesList renders correctly', () => {
   it('renders component correctly', () => {
+    moment.tz.setDefault('Etc/UTC')
     const icons = [
       './images/default_img/forceDefault.png'
     ]

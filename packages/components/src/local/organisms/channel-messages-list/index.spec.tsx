@@ -4,9 +4,11 @@ import renderer from 'react-test-renderer'
 import ChannelMessagesList from './index'
 import { CUSTOM_MESSAGE } from '@serge/config'
 import { MessageCustom } from '@serge/custom-types'
+import moment from 'moment-timezone'
 
 describe('ChannelMessagesList component: ', () => {
   it('renders component correctly', () => {
+    moment.tz.setDefault('Etc/UTC')
     const icons = [
       './images/default_img/forceDefault.png'
     ]

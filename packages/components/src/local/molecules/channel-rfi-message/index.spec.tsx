@@ -4,10 +4,12 @@ import renderer from 'react-test-renderer'
 import ChannelMessage from './index'
 
 import { GameMessagesMockRFI } from '@serge/mocks'
+import moment from 'moment-timezone'
 const [defMessage] = GameMessagesMockRFI
 
 describe('ChannelMessage component:', () => {
   it('renders correctly', () => {
+    moment.tz.setDefault('Etc/UTC')
     const tree = renderer
       .create(
         <ChannelMessage
