@@ -166,3 +166,21 @@ it('correctly handle stuff when no condition supplied missing', () => {
   expect(charlie.perceptions.find(p => p.by === 'Red')).toBeTruthy()
   expect(charlie.condition).toEqual('PENDING')  
 })
+
+it('correctly handle condition when no visibility supplied', () => {
+  // put the condition in a known state
+  const charlie1 = findAsset(allForces, 'C06')
+  charlie1.condition = 'Disabled'
+  expect(charlie1.condition).toEqual('Disabled')
+
+  // copy the payload, so we can remove the condition
+  const payload3 = {... payload2}
+  payload3.visibility = []
+  const updated: ForceData[] = handleVisibilityAndConditionChanges(payload3, allForces)
+  expect(updated).toBeTruthy()
+  const charlie = findAsset(updated, 'C06')
+  expect(charlie.name).toEqual('foxtrot')
+  expect(charlie.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
+  expect(charlie.perceptions.find(p => p.by === 'Red')).toBeTruthy()
+//  expect(charlie.condition).toEqual('Full Capability')  
+})
