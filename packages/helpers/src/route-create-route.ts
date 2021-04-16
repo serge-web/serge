@@ -299,8 +299,6 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const laydownPhase = laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
 
-  console.log('laydown phase', laydownPhase, phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute && existingRoute.laydownPhase)
-
   return {
     uniqid: asset.uniqid,
     name: perceivedName,

@@ -406,6 +406,7 @@ export const HexGrid: React.FC<{}> = () => {
       // it may be outside the achievable area. Just
       // use the last point in the planning leg
       const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
+
       if (plannedRouteCells && (planningRange || rangeUnlimited) && planningRouteCells.length) {
         // deduct one from planned route, since it includes the origin cell
         const routeLen = planningRouteCells.length - 1
@@ -414,36 +415,40 @@ export const HexGrid: React.FC<{}> = () => {
         const marker = e.target
         marker.setLatLng(lastCell.centreLatLng)
 
-        // drop the first cell, since it's the current location
-        const trimmedPlanningRouteCells = planningRouteCells.slice(1)
+        // note: the planning route cells includes the start cell. So, it's only a valie route if the
+        // planning route cells are more than 1 in length
+        if (planningRouteCells.length > 1) {
+          // drop the first cell, since it's the current location
+          const trimmedPlanningRouteCells = planningRouteCells.slice(1)
 
-        // have we consumed the full length?
-        if (rangeUnlimited || routeLen === planningRange) {
-          // combine planned and planning cells, ready for results
-          const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(trimmedPlanningRouteCells)
+          // have we consumed the full length?
+          if (rangeUnlimited || routeLen === planningRange) {
+            // combine planned and planning cells, ready for results
+            const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(trimmedPlanningRouteCells)
 
-          // clear the planning routes
-          setPlannedRouteCells([])
-          setPlannedRoutePoly([])
-          setPlanningRouteCells([])
-          setPlanningRoutePoly([])
+            // clear the planning routes
+            setPlannedRouteCells([])
+            setPlannedRoutePoly([])
+            setPlanningRouteCells([])
+            setPlanningRoutePoly([])
 
-          // restore the full planning range allowance
-          setPlanningRange(planningConstraints.range)
+            // restore the full planning range allowance
+            setPlanningRange(planningConstraints.range)
 
-          // ok, planning complete - fire the event back up the hierarchy
-          setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
-        } else {
-          if (planningRange && !rangeUnlimited) {
-            // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
-            const remaining = planningRange - routeLen
+            // ok, planning complete - fire the event back up the hierarchy
+            setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
+          } else {
+            if (planningRange && !rangeUnlimited) {
+              // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
+              const remaining = planningRange - routeLen
 
-            if (lastCell) {
-              setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
-              // note: we extend the existing planned cells, with the new ones
-              setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
-              setOriginHex(lastCell)
-              setPlanningRange(remaining)
+              if (lastCell) {
+                setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
+                // note: we extend the existing planned cells, with the new ones
+                setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
+                setOriginHex(lastCell)
+                setPlanningRange(remaining)
+              }
             }
           }
         }
@@ -469,7 +474,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  console.log('zoom', zoomLevel, visibleAndAllowableCells.length)
+  //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
 
   return <>
 
@@ -552,9 +557,13 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 5.5 &&
+      // zoomLevel > 5.5 &&
+      // change - show labels if there are less than 400. With the zoom level
+      // we were getting issues where up North (where the cells appear larger) there are
+      // fewer visible at once, but we still weren't showing the labels.
+      visibleCells.length < 400 &&
       /* note: for the label markers - we use the cells in the currently visible area */
-      <LayerGroup key={'hex_labels'} >{visibleCells && visibleCells.map((cell: SergeHex<{}>, index: number) => (
+      <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
           key={'hex_label_' + cell.name + '_' + index}
           position={cell.centreLatLng}
