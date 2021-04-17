@@ -37,6 +37,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForce
               return (
                 <Box mb={2} mr={2} key={key}>
                   <ChannelRFIMessage
+                    key={msg._id}
                     borderColor={msg.details.from.forceColor}
                     message={props}
                     onRead={onRead}
