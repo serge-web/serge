@@ -156,9 +156,9 @@ export const HexGrid: React.FC<{}> = () => {
     const cosDistR = Math.cos(distance / R)
     const sinDistR = Math.sin(distance / R)
     const lat2 = Math.asin(sinLat1 * cosDistR + cosLat1 *
-                sinDistR * Math.cos(rheading))
+      sinDistR * Math.cos(rheading))
     let lon2 = lon1 + Math.atan2(Math.sin(rheading) * sinDistR *
-                cosLat1, cosDistR - sinLat1 * Math.sin(lat2))
+      cosLat1, cosDistR - sinLat1 * Math.sin(lat2))
     lon2 = lon2 * radInv
     lon2 = lon2 > 180 ? lon2 - 360 : lon2 < -180 ? lon2 + 360 : lon2
     return L.latLng([lat2 * radInv, lon2])
@@ -406,6 +406,7 @@ export const HexGrid: React.FC<{}> = () => {
       // it may be outside the achievable area. Just
       // use the last point in the planning leg
       const rangeUnlimited = planningConstraints && planningConstraints.speed === undefined
+
       if (plannedRouteCells && (planningRange || rangeUnlimited) && planningRouteCells.length) {
         // deduct one from planned route, since it includes the origin cell
         const routeLen = planningRouteCells.length - 1
@@ -414,37 +415,37 @@ export const HexGrid: React.FC<{}> = () => {
         const marker = e.target
         marker.setLatLng(lastCell.centreLatLng)
 
-        // drop the first cell, since it's the current location
-        const trimmedPlanningRouteCells = planningRouteCells.slice(1)
+        // note: the planning route cells includes the start cell. So, it's only a valie route if the
+        // planning route cells are more than 1 in length
+        if (planningRouteCells.length > 1) {
+          // drop the first cell, since it's the current location
+          const trimmedPlanningRouteCells = planningRouteCells.slice(1)
 
-        // have we consumed the full length?
-        if (rangeUnlimited || routeLen === planningRange) {
-          // combine planned and planning cells, ready for results
-          const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(trimmedPlanningRouteCells)
+          // have we consumed the full length?
+          if (rangeUnlimited || routeLen === planningRange) {
+            // combine planned and planning cells, ready for results
+            const fullCellList: Array<SergeHex<{}>> = plannedRouteCells.concat(trimmedPlanningRouteCells)
 
-          // clear the planning routes
-          setPlannedRouteCells([])
-          setPlannedRoutePoly([])
-          setPlanningRouteCells([])
-          setPlanningRoutePoly([])
+            // clear the planning routes
+            setPlannedRouteCells([])
+            setPlannedRoutePoly([])
+            setPlanningRouteCells([])
+            setPlanningRoutePoly([])
 
-          // restore the full planning range allowance
-          setPlanningRange(planningConstraints.range)
+            // restore the full planning range allowance
+            setPlanningRange(planningConstraints.range)
 
-          // ok, planning complete - fire the event back up the hierarchy
-          setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
-        } else {
-          if (planningRange && !rangeUnlimited) {
+            // ok, planning complete - fire the event back up the hierarchy
+            setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
+          } else if (planningRange && !rangeUnlimited) {
             // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
             const remaining = planningRange - routeLen
 
-            if (lastCell) {
-              setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
-              // note: we extend the existing planned cells, with the new ones
-              setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
-              setOriginHex(lastCell)
-              setPlanningRange(remaining)
-            }
+            setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
+            // note: we extend the existing planned cells, with the new ones
+            setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
+            setOriginHex(lastCell)
+            setPlanningRange(remaining)
           }
         }
       }
@@ -469,11 +470,11 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  console.log('zoom', zoomLevel, visibleAndAllowableCells.length)
+  //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
 
   return <>
 
-    { /* POLY BINS */ }
+    { /* POLY BINS */}
     {/* <LayerGroup key={'poly_bounds'} >{polyBins && polyBins.map((bin: PolyBin, index: number) => (
       <>
       <Polygon
@@ -502,7 +503,7 @@ export const HexGrid: React.FC<{}> = () => {
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
         key={'hex_poly_' + cell.name + '_' + index}
-        fillColor={ cell.fillColor || '#f00' }
+        fillColor={cell.fillColor || '#f00'}
         positions={cell.poly}
         stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
         className={styles[getCellStyle(cell, planningRouteCells, allowableCells, cellForSelected)]}
@@ -511,33 +512,33 @@ export const HexGrid: React.FC<{}> = () => {
     { // special case - if we're in air travel mode the planning route may not be in the
       // available cells listing
       planningConstraints && planningConstraints.travelMode === 'air' &&
-      allowableCells.length === 0 &&
-      planningRouteCells.map((cell: SergeHex<{}>, index: number) => (
-        <Polygon
-        // we may end up with other elements per hex,
-        // such as labels so include prefix in key
-          key={'hex_planning_' + cell.name + '_' + index}
-          fillColor={ cell.fillColor || '#f00' }
-          positions={cell.poly}
-          stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
-          className={styles['planned-hex']}
-        />
-      ))}
+        allowableCells.length === 0 &&
+        planningRouteCells.map((cell: SergeHex<{}>, index: number) => (
+          <Polygon
+            // we may end up with other elements per hex,
+            // such as labels so include prefix in key
+            key={'hex_planning_' + cell.name + '_' + index}
+            fillColor={cell.fillColor || '#f00'}
+            positions={cell.poly}
+            stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
+            className={styles['planned-hex']}
+          />
+        ))}
     <Polyline
       key={'hex_planned_line'}
-      color={ assetColor }
+      color={assetColor}
       positions={plannedRoutePoly}
       className={styles['planned-line']}
     />
     <Polyline
       key={'hex_planning_line'}
-      color={ assetColor }
+      color={assetColor}
       positions={planningRoutePoly}
       className={styles['planning-line']}
     />
     <Polyline
       key={'allowableCells_line'}
-      color={ assetColor }
+      color={assetColor}
       positions={allowablePoly}
       className={styles['planning-line']}
     />
@@ -552,9 +553,13 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     {
-      zoomLevel > 5.5 &&
+      // zoomLevel > 5.5 &&
+      // change - show labels if there are less than 400. With the zoom level
+      // we were getting issues where up North (where the cells appear larger) there are
+      // fewer visible at once, but we still weren't showing the labels.
+      visibleCells.length < 400 &&
       /* note: for the label markers - we use the cells in the currently visible area */
-      <LayerGroup key={'hex_labels'} >{visibleCells && visibleCells.map((cell: SergeHex<{}>, index: number) => (
+      <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
           key={'hex_label_' + cell.name + '_' + index}
           position={cell.centreLatLng}

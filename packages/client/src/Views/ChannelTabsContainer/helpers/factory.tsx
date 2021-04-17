@@ -26,6 +26,15 @@ const findRole = (roleName: string, forceData: ForceData | undefined): Role => {
   throw new Error('Role not found for:' + roleName);
 }
 
+/** convert phase as a string to the enum type
+ * Note: we were using Phase[state.phase], but it only
+ * accepted the capitalised value. That's why this 
+ * convenience function was created.
+ */
+const phaseFor = (phase: string): Phase => {
+  return phase === 'planning' ? Phase.Planning : Phase.Adjudication
+}
+
 const factory = (state: PlayerUi): Factory => {
 
   // provide some default mapping constraints if we aren't supplied with any
@@ -77,7 +86,7 @@ const factory = (state: PlayerUi): Factory => {
         mappingConstraints={mappingConstraints}
         forces={state.allForces}
         platforms={state.allPlatformTypes}
-        phase={Phase[state.phase]}
+        phase={phaseFor(state.phase)}
         turnNumber={state.currentTurn}
         playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
         canSubmitOrders={canSubmitOrders}

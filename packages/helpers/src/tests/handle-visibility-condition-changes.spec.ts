@@ -1,34 +1,35 @@
 import { ForceData, MessageVisibilityChanges } from '@serge/custom-types'
 import { VISIBILITY_CHANGES } from '@serge/config'
 /* global it expect */
-import handleVisibilityChanges from '../handle-visibility-changes'
+import handleVisibilityAndConditionChanges from '../handle-visibility-condition-changes'
 import findAsset from '../find-asset'
 
 const payload: MessageVisibilityChanges = {
   messageType: VISIBILITY_CHANGES,
+  assetId: 'C06',
   visibility: [
     {
-      assetId: 'C06',
       by: 'Red',
       newVis: true
     }
-  ]
+  ],
+  condition: 'Disabled',
 }
 
 const payload2: MessageVisibilityChanges = {
   messageType: VISIBILITY_CHANGES,
+  assetId: 'C05',
   visibility: [
     {
-      assetId: 'C05',
       by: 'Blue',
       newVis: false
     },
     {
-      assetId: 'C05',
       by: 'Red',
       newVis: true
     }
-  ]
+  ],
+  condition: 'Full capability',
 }
 
 const allForces: ForceData[] = [
@@ -111,7 +112,7 @@ const allForces: ForceData[] = [
         perceptions: [{ force: 'Green', type: 'Frigate', by: 'Blue' }]
       },
       {
-        condition: 'Full capability',
+        condition: 'Disabled',
         contactId: 'C715',
         platformType: 'Unmanned-Airborne-Vehicle',
         uniqid: 'C06',
@@ -129,19 +130,56 @@ const allForces: ForceData[] = [
 ]
 
 it('correctly handle stuff when perceptions missing', () => {
-  const updated: ForceData[] = handleVisibilityChanges(payload, allForces)
+  const updated: ForceData[] = handleVisibilityAndConditionChanges(payload, allForces)
   expect(updated).toBeTruthy()
-  const charlie = findAsset(allForces, 'C06')
-  expect(charlie!.name).toEqual('foxtrot')
-  expect(charlie!.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
-  expect(charlie!.perceptions.find(p => p.by === 'Red')).toBeTruthy()
+  const charlie = findAsset(updated, 'C06')
+  expect(charlie.name).toEqual('foxtrot')
+  expect(charlie.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
+  expect(charlie.perceptions.find(p => p.by === 'Red')).toBeTruthy()
+  expect(charlie.condition).toEqual(payload.condition)
 })
 
 it('correctly handle stuff when perceptions missing', () => {
-  const charlie = findAsset(allForces, 'C05')
-  const updated = handleVisibilityChanges(payload2, allForces)
+  const updated = handleVisibilityAndConditionChanges(payload2, allForces)
+  const charlie = findAsset(updated, 'C05')
   expect(updated).toBeTruthy()
-  expect(charlie!.name).toEqual('echo')
-  expect(charlie!.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
-  expect(charlie!.perceptions.find(p => p.by === 'Red')).toBeTruthy()
+  expect(charlie.name).toEqual('echo')
+  expect(charlie.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
+  expect(charlie.perceptions.find(p => p.by === 'Red')).toBeTruthy()
+  expect(charlie.condition).toEqual(payload2.condition)
+})
+
+it('correctly handle stuff when no condition supplied missing', () => {
+  // put the condition in a known state
+  const charlie1 = findAsset(allForces, 'C06')
+  charlie1.condition = 'PENDING'
+
+  // copy the payload, so we can remove the condition
+  const payload3 = {... payload}
+  payload3.condition = undefined
+  const updated: ForceData[] = handleVisibilityAndConditionChanges(payload3, allForces)
+  expect(updated).toBeTruthy()
+  const charlie = findAsset(updated, 'C06')
+  expect(charlie.name).toEqual('foxtrot')
+  expect(charlie.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
+  expect(charlie.perceptions.find(p => p.by === 'Red')).toBeTruthy()
+  expect(charlie.condition).toEqual('PENDING')  
+})
+
+it('correctly handle condition when no visibility supplied', () => {
+  // put the condition in a known state
+  const charlie1 = findAsset(allForces, 'C06')
+  charlie1.condition = 'Disabled'
+  expect(charlie1.condition).toEqual('Disabled')
+
+  // copy the payload, so we can remove the condition
+  const payload3 = {... payload2}
+  payload3.assetId = 'C06';
+  payload3.visibility = []
+  const updated: ForceData[] = handleVisibilityAndConditionChanges(payload3, allForces)
+  expect(updated).toBeTruthy()
+  const charlie = findAsset(updated, 'C06')
+  expect(charlie.name).toEqual('foxtrot')
+  expect(charlie.perceptions).toHaveLength(0)
+  expect(charlie.condition).toEqual(payload3.condition)  
 })

@@ -155,7 +155,7 @@ export const forces: ForceData[] = [
         "contactId": "C043",
         "history": [
           {
-            "route": ["AJ25"],
+            "route": ["Q45"],
             "status": {
               "speedKts": 20,
               "state": "Transiting"
@@ -209,7 +209,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "AK26"
+              "Q49"
             ],
             "status": {
               "speedKts": 20,
@@ -219,7 +219,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AL26"
+              "O52"
             ],
             "status": {
               "speedKts": 20,
@@ -229,7 +229,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "frigate",
-        "position": "AJ26",
+        "position": "Q47",
         "status": {
           "speedKts": 20,
           "state": "Transiting"
@@ -255,7 +255,7 @@ export const forces: ForceData[] = [
         "contactId": "C012",
         "history": [
           {
-            "route": ["AE31"],
+            "route": ["X35"],
             "status": {
               "speedKts": 20,
               "state": "Transiting"
@@ -274,7 +274,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "AG29"
+              "V40"
             ],
             "status": {
               "speedKts": 20,
@@ -284,27 +284,17 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AH28"
+              "V41"
             ],
             "status": {
               "speedKts": 20,
               "state": "Transiting"
             },
             "turn": 5
-          },
-          {
-            "route": [
-              "AI28"
-            ],
-            "status": {
-              "speedKts": 20,
-              "state": "Transiting"
-            },
-            "turn": 6
           }
         ],
         "platformType": "merchant-vessel",
-        "position": "AF30",
+        "position": "V39",
         "status": {
           "speedKts": 20,
           "state": "Transiting"
@@ -337,22 +327,12 @@ export const forces: ForceData[] = [
         "contactId": "C065",
         "history": [
           {
-            "route": ["AU08"],
+            "route": ["AJ49"],
             "status": {
               "speedKts": 10,
               "state": "Transiting"
             },
             "turn": 0
-          },
-          {
-            "route": [
-              "AT09"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 1
           }
         ],
         "locationPending": true,
@@ -365,7 +345,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "AR11"
+              "AG48"
             ],
             "status": {
               "speedKts": 10,
@@ -375,7 +355,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AQ12"
+              "AF47"
             ],
             "status": {
               "speedKts": 10,
@@ -385,7 +365,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "AS10",
+        "position": "AH49",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
@@ -398,7 +378,7 @@ export const forces: ForceData[] = [
         "history": [
           {
             "route": [
-              "AM27"
+              "AD56"
             ],
             "status": {
               "speedKts": 10,
@@ -435,7 +415,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "AM25"
+              "AA55"
             ],
             "status": {
               "speedKts": 10,
@@ -454,30 +434,10 @@ export const forces: ForceData[] = [
               "state": "Fishing"
             },
             "turn": 5
-          },
-          {
-            "route": [
-              "AN24"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 6
-          },
-          {
-            "route": [
-              "AO23"
-            ],
-            "status": {
-              "speedKts": 10,
-              "state": "Transiting"
-            },
-            "turn": 7
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "AM26",
+        "position": "AB56",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
@@ -489,7 +449,7 @@ export const forces: ForceData[] = [
         "contactId": "C008",
         "history": [
           {
-            "route": ["BB21"],
+            "route": ["V57"],
             "status": {
               "state": "Moored"
             },
@@ -502,7 +462,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "AZ22"
+              "S56"
             ],
             "status": {
               "speedKts": 10,
@@ -512,7 +472,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AX25"
+              "R55"
             ],
             "status": {
               "speedKts": 10,
@@ -522,7 +482,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AW26"
+              "Q56"
             ],
             "status": {
               "speedKts": 10,
@@ -532,7 +492,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "BA21",
+        "position": "T57",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
@@ -555,7 +515,7 @@ export const forces: ForceData[] = [
         "perceptions": [],
         "plannedTurns": [],
         "platformType": "coastal-radar-site",
-        "position": "AX17",
+        "position": "AK45",
         "status": {
           "state": "Inactive"
         },
@@ -586,7 +546,7 @@ export const forces: ForceData[] = [
         "contactId": "C015",
         "history": [
           {
-            "route": ["AU33"],
+            "route": ["AI53"],
             "status": {
               "speedKts": 20,
               "state": "Transiting"
@@ -606,7 +566,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "AS33"
+              "AE53"
             ],
             "status": {
               "speedKts": 20,
@@ -616,7 +576,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AR33"
+              "AC53"
             ],
             "status": {
               "speedKts": 20,
@@ -626,7 +586,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AQ33"
+              "AA53"
             ],
             "status": {
               "speedKts": 20,
@@ -636,7 +596,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AP33"
+              "Z52"
             ],
             "status": {
               "speedKts": 20,
@@ -646,7 +606,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AO33"
+              "X52"
             ],
             "status": {
               "speedKts": 20,
@@ -656,7 +616,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AN33"
+              "V53"
             ],
             "status": {
               "speedKts": 20,
@@ -684,7 +644,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "merchant-vessel",
-        "position": "AT33",
+        "position": "AG53",
         "status": {
           "speedKts": 20,
           "state": "Transiting"
@@ -696,7 +656,7 @@ export const forces: ForceData[] = [
         "contactId": "C081",
         "history": [
           {
-            "route": ["AW25"],
+            "route": ["AI56"],
             "status": {
               "speedKts": 20,
               "state": "Transiting"
@@ -722,7 +682,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "AU27"
+              "AF55"
             ],
             "status": {
               "speedKts": 20,
@@ -732,7 +692,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AT28"
+              "AE55"
             ],
             "status": {
               "speedKts": 20,
@@ -742,7 +702,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AS29"
+              "AC55"
             ],
             "status": {
               "speedKts": 20,
@@ -752,7 +712,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AR30"
+              "AA55"
             ],
             "status": {
               "speedKts": 20,
@@ -762,7 +722,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AQ30"
+              "Y55"
             ],
             "status": {
               "speedKts": 20,
@@ -772,7 +732,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AP30"
+              "Y54"
             ],
             "status": {
               "speedKts": 20,
@@ -781,18 +741,14 @@ export const forces: ForceData[] = [
             "turn": 8
           },
           {
-            "route": [
-              "AO30"
-            ],
             "status": {
-              "speedKts": 20,
-              "state": "Transiting"
+              "state": "Moored"
             },
             "turn": 9
           },
           {
             "route": [
-              "AN30"
+              "Z54"
             ],
             "status": {
               "speedKts": 20,
@@ -802,7 +758,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AM30"
+              "AB54"
             ],
             "status": {
               "speedKts": 20,
@@ -812,7 +768,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "merchant-vessel",
-        "position": "AV25",
+        "position": "AG56",
         "status": {
           "state": "Moored"
         },
@@ -823,7 +779,7 @@ export const forces: ForceData[] = [
         "contactId": "C116",
         "history": [
           {
-            "route": ["S26"],
+            "route": ["O31"],
             "status": {
               "speedKts": 10,
               "state": "Transiting"
@@ -843,7 +799,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "U26"
+              "K33"
             ],
             "status": {
               "speedKts": 10,
@@ -859,7 +815,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "V27"
+              "L34"
             ],
             "status": {
               "speedKts": 10,
@@ -869,7 +825,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "W27"
+              "N34"
             ],
             "status": {
               "speedKts": 10,
@@ -885,7 +841,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "X27"
+              "M36"
             ],
             "status": {
               "speedKts": 10,
@@ -895,7 +851,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "Y26"
+              "K36"
             ],
             "status": {
               "speedKts": 10,
@@ -911,7 +867,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "Y27"
+              "J35"
             ],
             "status": {
               "speedKts": 10,
@@ -921,7 +877,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "T26",
+        "position": "M31",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
@@ -933,7 +889,7 @@ export const forces: ForceData[] = [
         "contactId": "C026",
         "history": [
           {
-            "route": ["N31"],
+            "route": ["AU12"],
             "status": {
               "speedKts": 10,
               "state": "Transiting"
@@ -958,7 +914,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "P29"
+              "AP15"
             ],
             "status": {
               "speedKts": 10,
@@ -968,7 +924,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "P28"
+              "AN17"
             ],
             "status": {
               "speedKts": 10,
@@ -978,7 +934,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "P27"
+              "AL18"
             ],
             "status": {
               "speedKts": 10,
@@ -994,7 +950,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "P26"
+              "AL17"
             ],
             "status": {
               "speedKts": 10,
@@ -1004,7 +960,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "P25"
+              "AL16"
             ],
             "status": {
               "speedKts": 10,
@@ -1032,7 +988,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "O29",
+        "position": "AR13",
         "status": {
           "speedKts": 10,
           "state": "Transiting"
@@ -1044,7 +1000,7 @@ export const forces: ForceData[] = [
         "contactId": "C115",
         "history": [
           {
-            "route": ["AU16"],
+            "route": ["AC25"],
             "status": {
               "speedKts": 10,
               "state": "Transiting"
@@ -1070,7 +1026,7 @@ export const forces: ForceData[] = [
         "plannedTurns": [
           {
             "route": [
-              "AU18"
+              "X27"
             ],
             "status": {
               "speedKts": 10,
@@ -1086,7 +1042,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AU19"
+              "U28"
             ],
             "status": {
               "speedKts": 10,
@@ -1096,7 +1052,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AV18"
+              "S29"
             ],
             "status": {
               "speedKts": 10,
@@ -1112,7 +1068,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AV17"
+              "U28"
             ],
             "status": {
               "speedKts": 10,
@@ -1138,7 +1094,7 @@ export const forces: ForceData[] = [
           },
           {
             "route": [
-              "AV15"
+              "W27"
             ],
             "status": {
               "speedKts": 10,
@@ -1148,7 +1104,7 @@ export const forces: ForceData[] = [
           }
         ],
         "platformType": "fishing-vessel",
-        "position": "AU17",
+        "position": "AA26",
         "status": {
           "speedKts": 10,
           "state": "Transiting"

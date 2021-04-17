@@ -2,20 +2,22 @@ import React, { useState } from 'react'
 
 /* Import Types */
 import PropTypes from './types/props'
-import { Button } from '@material-ui/core'
+import { Button, Select, MenuItem } from '@material-ui/core'
 import RCB from '../form-elements/rcb'
 import { ColorOption, MessageVisibilityChanges, Visibility } from '@serge/custom-types'
 import TitleWithIcon from '../form-elements/title-with-icon'
-import FormGroup from '../form-elements/form-group'
+import { FormGroup, clSelect } from '../form-elements/form-group'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 import { VISIBILITY_CHANGES } from '@serge/config'
 
 /* Render component */
-export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID, mapPostBack }) => {
+export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon, channelID, mapPostBack }) => {
   const [visibleTo, setVisibleTo] = useState<Array<string>>(formData.values)
+  const [conditionVal, setConditionVal] = useState<string>(formData.selectedCondition)
   const forces: Array<ColorOption> = formData.populate
+  const conditionValues: Array<string> = formData.condition
 
   const changeHandler = (e: any): void => {
     setVisibleTo(e.value)
@@ -28,7 +30,6 @@ export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID,
       // see if any forces have been hidden
       originalVis.filter(item => !visibleTo.includes(item)).forEach(item => {
         const vis: Visibility = {
-          assetId: formData.assetId,
           by: item,
           newVis: false
         }
@@ -37,17 +38,30 @@ export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID,
       // or revealed
       visibleTo.filter(item => !originalVis.includes(item)).forEach(item => {
         const vis: Visibility = {
-          assetId: formData.assetId,
           by: item,
           newVis: true
         }
         res.push(vis)
       })
       const message: MessageVisibilityChanges = {
+        assetId: formData.assetId,
         messageType: VISIBILITY_CHANGES,
         visibility: res
       }
+      if (formData.selectedCondition !== conditionVal) {
+        message.condition = conditionVal
+      }
       mapPostBack(VISIBILITY_CHANGES, message, channelID)
+    }
+  }
+
+  const conditionHandler = (e: any): void => {
+    if (e && e.value !== undefined) {
+      setConditionVal(e.value)
+    } else if (e && e.target && e.target.value) {
+      setConditionVal(e.target.value)
+    } else {
+      console.warn('Visibility form received unexpected condition', e)
     }
   }
 
@@ -63,10 +77,21 @@ export const VisibilityForm: React.FC<PropTypes> = ({ formData, icon, channelID,
         <FormGroup title="Visible to" align="right">
           <RCB name="visibleTo" type="checkbox" force={true} label="" compact={true} options={forces} value={visibleTo} updateState={changeHandler} />
         </FormGroup>
+        <FormGroup title="Condition" align="right">
+          <Select
+            className={clSelect}
+            value={conditionVal}
+            onChange={conditionHandler}
+          >
+            {conditionValues.map((s: any) => (
+              <MenuItem key={s} value={s}>{s}</MenuItem>
+            ))}
+          </Select>
+        </FormGroup>
       </fieldset>
       <Button onClick={submitForm} className={styles.button}>Save</Button>
     </div>
   </div>
 }
 
-export default VisibilityForm
+export default VisibilityAndConditionForm

@@ -63,5 +63,7 @@ export interface VisibilityFormData {
   name: string
   populate: Array<ColorOption>
   values: Array<string>
+  condition: Array<string>
+  selectedCondition: string
 }
 
