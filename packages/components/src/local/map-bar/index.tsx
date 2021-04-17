@@ -34,7 +34,7 @@ import AdjudicationManager from '../adjudicate-turn-form/helpers/adjudication-ma
 import { MapBarForms } from './helpers/enums'
 import collateVisibilityFormData from './helpers/collate-visibility-form-data'
 import collateForceLaydown from './helpers/collate-force-laydown'
-import VisibilityForm from '../visibility-form'
+import VisibilityAndConditionForm from '../visibility-condition-form'
 
 /* Render component */
 export const MapBar: React.FC = () => {
@@ -278,11 +278,11 @@ export const MapBar: React.FC = () => {
           turnPlanned={turnPlanned} />
       }
       case MapBarForms.Visibility:
-        return <VisibilityForm
+        return <VisibilityAndConditionForm
           icon={iconData}
           key={selectedAsset.uniqid}
           formHeader={'Set visibility'}
-          formData={collateVisibilityFormData(selectedAsset, forces)}
+          formData={collateVisibilityFormData(platforms, selectedAsset, forces)}
           mapPostBack={mapPostBack}
           channelID={channelID} />
       default:

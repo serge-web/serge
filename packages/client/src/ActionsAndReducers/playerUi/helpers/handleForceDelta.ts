@@ -1,6 +1,6 @@
 import { MessageMap, ForceData, MessageDetails, MessageForceLaydown, MessageVisibilityChanges, MessagePerceptionOfContact, MessageSubmitPlans, MessageStateOfWorld } from '@serge/custom-types'
 
-import { handleVisibilityChanges } from '@serge/helpers'
+import { handleVisibilityAndConditionChanges } from '@serge/helpers'
 import handlePerceptionChange from './handlePerceptionChanges'
 import handleStateOfWorldChanges from './handleStateOfWorldChanges'
 import handleForceLaydownChanges from './handleForceLaydownChanges'
@@ -27,7 +27,7 @@ export default (message: MessageMap, details: MessageDetails, allForces: ForceDa
     case FORCE_LAYDOWN:
       return handleForceLaydownChanges(message as MessageForceLaydown, allForces)
     case VISIBILITY_CHANGES:
-      return handleVisibilityChanges(message as MessageVisibilityChanges, allForces)
+      return handleVisibilityAndConditionChanges(message as MessageVisibilityChanges, allForces)
     case PERCEPTION_OF_CONTACT:
       return handlePerceptionChange(message as MessagePerceptionOfContact, allForces)
     case SUBMIT_PLANS:

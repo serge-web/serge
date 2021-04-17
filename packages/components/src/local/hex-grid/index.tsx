@@ -156,9 +156,9 @@ export const HexGrid: React.FC<{}> = () => {
     const cosDistR = Math.cos(distance / R)
     const sinDistR = Math.sin(distance / R)
     const lat2 = Math.asin(sinLat1 * cosDistR + cosLat1 *
-                sinDistR * Math.cos(rheading))
+      sinDistR * Math.cos(rheading))
     let lon2 = lon1 + Math.atan2(Math.sin(rheading) * sinDistR *
-                cosLat1, cosDistR - sinLat1 * Math.sin(lat2))
+      cosLat1, cosDistR - sinLat1 * Math.sin(lat2))
     lon2 = lon2 * radInv
     lon2 = lon2 > 180 ? lon2 - 360 : lon2 < -180 ? lon2 + 360 : lon2
     return L.latLng([lat2 * radInv, lon2])
@@ -437,19 +437,15 @@ export const HexGrid: React.FC<{}> = () => {
 
             // ok, planning complete - fire the event back up the hierarchy
             setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
-          } else {
-            if (planningRange && !rangeUnlimited) {
-              // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
-              const remaining = planningRange - routeLen
+          } else if (planningRange && !rangeUnlimited) {
+            // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
+            const remaining = planningRange - routeLen
 
-              if (lastCell) {
-                setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
-                // note: we extend the existing planned cells, with the new ones
-                setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
-                setOriginHex(lastCell)
-                setPlanningRange(remaining)
-              }
-            }
+            setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
+            // note: we extend the existing planned cells, with the new ones
+            setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
+            setOriginHex(lastCell)
+            setPlanningRange(remaining)
           }
         }
       }
@@ -478,7 +474,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   return <>
 
-    { /* POLY BINS */ }
+    { /* POLY BINS */}
     {/* <LayerGroup key={'poly_bounds'} >{polyBins && polyBins.map((bin: PolyBin, index: number) => (
       <>
       <Polygon
@@ -507,7 +503,7 @@ export const HexGrid: React.FC<{}> = () => {
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
         key={'hex_poly_' + cell.name + '_' + index}
-        fillColor={ cell.fillColor || '#f00' }
+        fillColor={cell.fillColor || '#f00'}
         positions={cell.poly}
         stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
         className={styles[getCellStyle(cell, planningRouteCells, allowableCells, cellForSelected)]}
@@ -516,33 +512,33 @@ export const HexGrid: React.FC<{}> = () => {
     { // special case - if we're in air travel mode the planning route may not be in the
       // available cells listing
       planningConstraints && planningConstraints.travelMode === 'air' &&
-      allowableCells.length === 0 &&
-      planningRouteCells.map((cell: SergeHex<{}>, index: number) => (
-        <Polygon
-        // we may end up with other elements per hex,
-        // such as labels so include prefix in key
-          key={'hex_planning_' + cell.name + '_' + index}
-          fillColor={ cell.fillColor || '#f00' }
-          positions={cell.poly}
-          stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
-          className={styles['planned-hex']}
-        />
-      ))}
+        allowableCells.length === 0 &&
+        planningRouteCells.map((cell: SergeHex<{}>, index: number) => (
+          <Polygon
+            // we may end up with other elements per hex,
+            // such as labels so include prefix in key
+            key={'hex_planning_' + cell.name + '_' + index}
+            fillColor={cell.fillColor || '#f00'}
+            positions={cell.poly}
+            stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
+            className={styles['planned-hex']}
+          />
+        ))}
     <Polyline
       key={'hex_planned_line'}
-      color={ assetColor }
+      color={assetColor}
       positions={plannedRoutePoly}
       className={styles['planned-line']}
     />
     <Polyline
       key={'hex_planning_line'}
-      color={ assetColor }
+      color={assetColor}
       positions={planningRoutePoly}
       className={styles['planning-line']}
     />
     <Polyline
       key={'allowableCells_line'}
-      color={ assetColor }
+      color={assetColor}
       positions={allowablePoly}
       className={styles['planning-line']}
     />
