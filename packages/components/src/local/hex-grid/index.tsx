@@ -509,9 +509,9 @@ export const HexGrid: React.FC<{}> = () => {
         className={styles[getCellStyle(cell, planningRouteCells, allowableCells, cellForSelected)]}
       />
     ))}
-      { // special case - if we're in air travel mode the planning route may not be in the
-        // available cells listing
-        planningConstraints && planningConstraints.travelMode === 'air' &&
+    { // special case - if we're in air travel mode the planning route may not be in the
+      // available cells listing
+      planningConstraints && planningConstraints.travelMode === 'air' &&
         allowableCells.length === 0 &&
         planningRouteCells.map((cell: SergeHex<{}>, index: number) => (
           <Polygon
@@ -524,25 +524,25 @@ export const HexGrid: React.FC<{}> = () => {
             className={styles['planned-hex']}
           />
         ))}
-      <Polyline
-        key={'hex_planned_line'}
-        color={assetColor}
-        positions={plannedRoutePoly}
-        className={styles['planned-line']}
-      />
-      <Polyline
-        key={'hex_planning_line'}
-        color={assetColor}
-        positions={planningRoutePoly}
-        className={styles['planning-line']}
-      />
-      <Polyline
-        key={'allowableCells_line'}
-        color={assetColor}
-        positions={allowablePoly}
-        className={styles['planning-line']}
-      />
-      {origin &&
+    <Polyline
+      key={'hex_planned_line'}
+      color={assetColor}
+      positions={plannedRoutePoly}
+      className={styles['planned-line']}
+    />
+    <Polyline
+      key={'hex_planning_line'}
+      color={assetColor}
+      positions={planningRoutePoly}
+      className={styles['planning-line']}
+    />
+    <Polyline
+      key={'allowableCells_line'}
+      color={assetColor}
+      positions={allowablePoly}
+      className={styles['planning-line']}
+    />
+    {origin &&
         <Marker
           draggable={true}
           onDragend={dropped}
@@ -550,7 +550,7 @@ export const HexGrid: React.FC<{}> = () => {
           onClick={onMarkerClick}
           position={origin}
           key={'drag_marker_'} />
-      }
+    }
     </LayerGroup>
     {
       // zoomLevel > 5.5 &&
