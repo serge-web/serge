@@ -6,6 +6,7 @@ import findAsset from '../find-asset'
 
 const payload: MessageVisibilityChanges = {
   messageType: VISIBILITY_CHANGES,
+  assetId: 'C06',
   visibility: [
     {
       assetId: 'C06',
@@ -18,6 +19,7 @@ const payload: MessageVisibilityChanges = {
 
 const payload2: MessageVisibilityChanges = {
   messageType: VISIBILITY_CHANGES,
+  assetId: 'C05',
   visibility: [
     {
       assetId: 'C05',
@@ -175,12 +177,12 @@ it('correctly handle condition when no visibility supplied', () => {
 
   // copy the payload, so we can remove the condition
   const payload3 = {... payload2}
+  payload3.assetId = 'C06';
   payload3.visibility = []
   const updated: ForceData[] = handleVisibilityAndConditionChanges(payload3, allForces)
   expect(updated).toBeTruthy()
   const charlie = findAsset(updated, 'C06')
   expect(charlie.name).toEqual('foxtrot')
-  expect(charlie.perceptions.find(p => p.by === 'Blue')).toBeUndefined()
-  expect(charlie.perceptions.find(p => p.by === 'Red')).toBeTruthy()
-//  expect(charlie.condition).toEqual('Full Capability')  
+  expect(charlie.perceptions).toHaveLength(0)
+  expect(charlie.condition).toEqual(payload3.condition)  
 })

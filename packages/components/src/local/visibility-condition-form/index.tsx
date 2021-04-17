@@ -46,6 +46,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
         res.push(vis)
       })
       const message: MessageVisibilityChanges = {
+        assetId: formData.assetId,
         messageType: VISIBILITY_CHANGES,
         visibility: res
       }

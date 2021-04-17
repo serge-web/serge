@@ -1,11 +1,13 @@
 import { ForceData, MessageVisibilityChanges, Asset, Visibility } from '@serge/custom-types'
 import findAsset from './find-asset'
+import deepCopy from './deep-copy'
 
 /** create/remove perceptions for assets */
 
 export default (message: MessageVisibilityChanges, allForces: ForceData[]): ForceData[] => {
+  const allForcesCopy = deepCopy(allForces)
+  const asset: Asset = findAsset(allForcesCopy, message.assetId)
   message.visibility.forEach((visChange: Visibility) => {
-    const asset: Asset = findAsset(allForces, visChange.assetId)
     if (visChange.newVis) {
       asset.perceptions.push({ force: '', type: '', by: visChange.by })
     } else {
@@ -17,9 +19,9 @@ export default (message: MessageVisibilityChanges, allForces: ForceData[]): Forc
         asset.perceptions.splice(index, 1)
       }
     }
-    if(message.condition && message.condition != asset.condition) {
-      asset.condition = message.condition
-    }
   })
-  return allForces
+  if (message.condition && message.condition != asset.condition) {
+    asset.condition = message.condition
+  }
+  return allForcesCopy
 }
