@@ -25,7 +25,7 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
     <div
       className="paragraph"
     >
-      common chat
+      message from Red
     </div>
   </span>
 </div>

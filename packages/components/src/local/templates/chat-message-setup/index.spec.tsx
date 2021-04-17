@@ -6,6 +6,7 @@ import renderer from 'react-test-renderer'
 import ChatMessageSetup from './index'
 
 import { ChatMessagesMock } from '@serge/mocks'
+import moment from 'moment-timezone'
 
 const force = {
   name: 'blue',
@@ -22,6 +23,7 @@ const createNodeMock = (el: any): HTMLTextAreaElement | null => {
 
 describe('ChatMessageSetup page:', () => {
   it('renders correctly', () => {
+    moment.tz.setDefault('Etc/UTC')
     const tree = renderer
       .create(
         <ChatMessageSetup userId={'CO'} forceName={'Blue'} isUmpire={true} chatChannel={ChatMessagesMock} selectedForce={force} selectedRole={'CO'}/>,

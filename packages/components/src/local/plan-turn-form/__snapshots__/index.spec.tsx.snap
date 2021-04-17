@@ -97,6 +97,7 @@ exports[`PlanTurnForm renders correctly 1`] = `
                   Object {
                     "height": "0%",
                     "left": "0%",
+                    "width": "33.333333333333336%",
                   }
                 }
               />
@@ -106,7 +107,8 @@ exports[`PlanTurnForm renders correctly 1`] = `
                 style={
                   Object {
                     "height": "50%",
-                    "left": "50%",
+                    "left": "33.333333333333336%",
+                    "width": "33.333333333333336%",
                   }
                 }
               />
@@ -116,7 +118,8 @@ exports[`PlanTurnForm renders correctly 1`] = `
                 style={
                   Object {
                     "height": "100%",
-                    "left": "100%",
+                    "left": "66.66666666666667%",
+                    "width": "33.333333333333336%",
                   }
                 }
               />

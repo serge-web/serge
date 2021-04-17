@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChannelMessage component: renders correctly 1`] = `
+<div
+  className="message-list-wrapper"
+  onClick={[Function]}
+  style={
+    Object {
+      "borderColor": "#f00",
+    }
+  }
+>
+  <div
+    className="main"
+    onClick={[Function]}
+  >
+    <div
+      className="main"
+    >
+      <div
+        className="control control-channel"
+        onClick={[Function]}
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root"
+          focusable="false"
+          style={
+            Object {
+              "color": "rgb(24, 255, 255)",
+              "fontSize": 20,
+            }
+          }
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+          />
+        </svg>
+      </div>
+      <div
+        className="content"
+        onClick={[Function]}
+      >
+        <div
+          className="header"
+        >
+          <div
+            className="row"
+          >
+            <h2>
+              <div
+                className="MuiChip-root makeStyles-root-1 makeStyles-root-4"
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+              >
+                <span
+                  className="MuiChip-label makeStyles-label-3 makeStyles-label-5"
+                />
+              </div>
+               
+            </h2>
+            <div
+              className="rfi-info"
+            >
+              <div
+                className="status"
+              >
+                <p>
+                  PENDING
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+          >
+            <div>
+              <span
+                className="timestamp"
+              >
+                08:52
+              </span>
+              <div
+                className="MuiChip-root makeStyles-root-1 makeStyles-root-6 MuiChip-sizeSmall makeStyles-sizeSmall-2"
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+              >
+                <span
+                  className="MuiChip-label makeStyles-label-3 makeStyles-label-7 MuiChip-labelSmall"
+                >
+                  CO
+                </span>
+              </div>
+              <div
+                className="MuiChip-root makeStyles-root-1 makeStyles-root-8 MuiChip-sizeSmall makeStyles-sizeSmall-2"
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+              >
+                <span
+                  className="MuiChip-label makeStyles-label-3 makeStyles-label-9 MuiChip-labelSmall"
+                >
+                  Chat
+                </span>
+              </div>
+              <div
+                className="MuiChip-root makeStyles-root-1 makeStyles-root-10 MuiChip-sizeSmall makeStyles-sizeSmall-2"
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+              >
+                <span
+                  className="MuiChip-label makeStyles-label-3 makeStyles-label-11 MuiChip-labelSmall"
+                >
+                  Unread
+                </span>
+              </div>
+            </div>
+            <div
+              className="badges"
+            >
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="main use-indent"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      <div
+        className="main"
+      >
+        <div
+          className="main theme-dark disabled"
+        >
+          <label
+            htmlFor="question_2020-03-25T15:08:47.525Z"
+          >
+            Request
+          </label>
+          <textarea
+            disabled={true}
+            id="question_2020-03-25T15:08:47.525Z"
+            onChange={[Function]}
+            value="[message empty]"
+          />
+        </div>
+        <div
+          className="main theme-dark disabled"
+        >
+          <label
+            htmlFor="answer_2020-03-25T15:08:47.525Z"
+          >
+            Answer
+          </label>
+          <textarea
+            disabled={true}
+            id="answer_2020-03-25T15:08:47.525Z"
+            onChange={[Function]}
+            value=""
+          />
+        </div>
+        <div
+          className="main theme-dark disabled"
+        >
+          <label
+            htmlFor="private_message_2020-03-25T15:08:47.525Z"
+          >
+            <svg
+              className="svg-inline--fa fa-user-secret"
+            />
+             
+            Private Message
+          </label>
+          <textarea
+            disabled={true}
+            id="private_message_2020-03-25T15:08:47.525Z"
+            onChange={[Function]}
+            value=""
+          />
+        </div>
+        <div
+          className="actions"
+        >
+          <button
+            className="MuiButtonBase-root MuiButton-root makeStyles-root-12 makeStyles-root-14 MuiButton-contained makeStyles-contained-13 makeStyles-contained-15 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiButton-label"
+            >
+              Take Ownership
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

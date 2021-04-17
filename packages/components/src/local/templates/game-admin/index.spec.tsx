@@ -6,6 +6,7 @@ import renderer from 'react-test-renderer'
 import GameAdmin from './index'
 
 import { AdminMessagesMock } from '@serge/mocks'
+import moment from 'moment-timezone'
 
 const force = {
   name: 'blue',
@@ -22,6 +23,7 @@ const createNodeMock = (el: any): HTMLTextAreaElement | null => {
 
 describe('GameAdmin page:', () => {
   it('renders correctly', () => {
+    moment.tz.setDefault('Etc/UTC')
     const tree = renderer
       .create(
         <GameAdmin wargameTitle="title" chatChannel={AdminMessagesMock} selectedForce={force} selectedRole=""/>,

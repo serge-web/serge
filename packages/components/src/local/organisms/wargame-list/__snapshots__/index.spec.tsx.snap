@@ -5,7 +5,7 @@ exports[`WargameList component: renders correctly 1`] = `
   className="wargame-searchlist"
 >
   <section
-    className="input-container disable-offset"
+    className="input-container disable-offset fullwidth"
   >
     <div
       className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
@@ -55,28 +55,8 @@ exports[`WargameList component: renders correctly 1`] = `
           </span>
         </span>
         <svg
-          aria-labelledby="svg-inline--fa-title-1yZC7pOnJwv2"
-          className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
-          data-icon="ellipsis-h"
-          data-prefix="fas"
-          onClick={[Function]}
-          role="img"
-          style={Object {}}
-          viewBox="0 0 512 512"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title
-            id="svg-inline--fa-title-1yZC7pOnJwv2"
-            style={Object {}}
-          >
-            Wargame menu
-          </title>
-          <path
-            d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"
-            fill="currentColor"
-            style={Object {}}
-          />
-        </svg>
+          className="svg-inline--fa fa-ellipsis-h"
+        />
       </div>
       <div
         className="searchlist-title"
@@ -97,28 +77,8 @@ exports[`WargameList component: renders correctly 1`] = `
           </span>
         </span>
         <svg
-          aria-labelledby="svg-inline--fa-title-SnT7qXOxoUiK"
-          className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
-          data-icon="ellipsis-h"
-          data-prefix="fas"
-          onClick={[Function]}
-          role="img"
-          style={Object {}}
-          viewBox="0 0 512 512"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title
-            id="svg-inline--fa-title-SnT7qXOxoUiK"
-            style={Object {}}
-          >
-            Wargame menu
-          </title>
-          <path
-            d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"
-            fill="currentColor"
-            style={Object {}}
-          />
-        </svg>
+          className="svg-inline--fa fa-ellipsis-h"
+        />
       </div>
       <div
         className="searchlist-title"
@@ -139,28 +99,8 @@ exports[`WargameList component: renders correctly 1`] = `
           </span>
         </span>
         <svg
-          aria-labelledby="svg-inline--fa-title-8H1TYtdbpP6E"
-          className="svg-inline--fa fa-ellipsis-h fa-w-16 wargame-option-menu-btn"
-          data-icon="ellipsis-h"
-          data-prefix="fas"
-          onClick={[Function]}
-          role="img"
-          style={Object {}}
-          viewBox="0 0 512 512"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title
-            id="svg-inline--fa-title-8H1TYtdbpP6E"
-            style={Object {}}
-          >
-            Wargame menu
-          </title>
-          <path
-            d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"
-            fill="currentColor"
-            style={Object {}}
-          />
-        </svg>
+          className="svg-inline--fa fa-ellipsis-h"
+        />
       </div>
     </div>
   </div>
