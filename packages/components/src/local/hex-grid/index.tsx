@@ -438,13 +438,11 @@ export const HexGrid: React.FC<{}> = () => {
             // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
             const remaining = planningRange - routeLen
 
-            if (lastCell) {
-              setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
-              // note: we extend the existing planned cells, with the new ones
-              setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
-              setOriginHex(lastCell)
-              setPlanningRange(remaining)
-            }
+            setPlannedRouteCells(plannedRouteCells.concat(trimmedPlanningRouteCells))
+            // note: we extend the existing planned cells, with the new ones
+            setPlannedRoutePoly(plannedRoutePoly.concat(planningRoutePoly))
+            setOriginHex(lastCell)
+            setPlanningRange(remaining)
           }
         }
       }
