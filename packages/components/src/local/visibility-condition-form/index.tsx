@@ -30,7 +30,6 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
       // see if any forces have been hidden
       originalVis.filter(item => !visibleTo.includes(item)).forEach(item => {
         const vis: Visibility = {
-          assetId: formData.assetId,
           by: item,
           newVis: false
         }
@@ -39,7 +38,6 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
       // or revealed
       visibleTo.filter(item => !originalVis.includes(item)).forEach(item => {
         const vis: Visibility = {
-          assetId: formData.assetId,
           by: item,
           newVis: true
         }

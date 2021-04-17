@@ -9,7 +9,6 @@ const payload: MessageVisibilityChanges = {
   assetId: 'C06',
   visibility: [
     {
-      assetId: 'C06',
       by: 'Red',
       newVis: true
     }
@@ -22,12 +21,10 @@ const payload2: MessageVisibilityChanges = {
   assetId: 'C05',
   visibility: [
     {
-      assetId: 'C05',
       by: 'Blue',
       newVis: false
     },
     {
-      assetId: 'C05',
       by: 'Red',
       newVis: true
     }
