@@ -28,18 +28,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8a1fce70-954d-4566-bbb2-e0586bdc2e11" name="Default Changelist" comment="Sets default timezone for momentJS in tests.">
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/admin-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/admin-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message-header/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message-header/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-rfi-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/channel-rfi-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/molecules/chat-message/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/molecules/chat-message/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/admin-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/admin-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-rfi-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/channel-rfi-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/chat-messages-list/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/organisms/chat-messages-list/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/chat-message-setup/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/chat-message-setup/__snapshots__/index.spec.tsx.snap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/templates/game-admin/__snapshots__/index.spec.tsx.snap" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/templates/game-admin/__snapshots__/index.spec.tsx.snap" afterDir="false" />
+    <list default="true" id="8a1fce70-954d-4566-bbb2-e0586bdc2e11" name="Default Changelist" comment="Upgrades packages.">
+      <change beforePath="$PROJECT_DIR$/packages/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,21 +221,8 @@
       <workItem from="1618582755823" duration="623000" />
       <workItem from="1618584050787" duration="1411000" />
       <workItem from="1618591905240" duration="1540000" />
-      <workItem from="1618593920463" duration="2931000" />
-    </task>
-    <task id="LOCAL-00066" summary="Add Channel Messages List organism">
-      <created>1601863472723</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1601863472723</updated>
-    </task>
-    <task id="LOCAL-00067" summary="Implement channel message list component">
-      <created>1601905479927</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1601905479927</updated>
+      <workItem from="1618593920463" duration="4160000" />
+      <workItem from="1618820255643" duration="13239000" />
     </task>
     <task id="LOCAL-00068" summary="Add story for channel message with info type">
       <created>1601906301325</created>
@@ -576,7 +553,21 @@
       <option name="project" value="LOCAL" />
       <updated>1618596861358</updated>
     </task>
-    <option name="localTasksCounter" value="115" />
+    <task id="LOCAL-00115" summary="Sets default timezone for momentJS in tests.">
+      <created>1618597149814</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1618597149815</updated>
+    </task>
+    <task id="LOCAL-00116" summary="Upgrades packages.">
+      <created>1618851302933</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1618851302934</updated>
+    </task>
+    <option name="localTasksCounter" value="117" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -607,7 +598,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Refactor image dropzone component" />
     <MESSAGE value="Implement image dropzone component" />
     <MESSAGE value="Add global BlueContainer story wrapper" />
     <MESSAGE value="Add option menu mock" />
@@ -632,18 +622,8 @@
     <MESSAGE value="Add force's delete event handler" />
     <MESSAGE value="Removes updateSnapshot option for components testing script and updates snapshot files to latest." />
     <MESSAGE value="Sets default timezone for momentJS in tests." />
-    <option name="LAST_COMMIT_MESSAGE" value="Sets default timezone for momentJS in tests." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/node_modules/@json-editor/json-editor/dist/jsoneditor.js</url>
-          <line>7930</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Upgrades packages." />
+    <option name="LAST_COMMIT_MESSAGE" value="Upgrades packages." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
