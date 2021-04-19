@@ -132,7 +132,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
-  const [atlanticCells, setAtlanticCells] = useState();
+  const [atlanticCells, setAtlanticCells] = useState()
 
   // only update bounds if they're different to the current one
   useEffect(() => {
@@ -279,20 +279,20 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (mappingConstraints.gridCellsURL) {
       fetch(mappingConstraints.gridCellsURL)
-      .then(response => response.json())
-      .then((res: any)=> {
-        setAtlanticCells(res);
-      }).catch((err: any) => {
-        console.error(err)
-      }) 
+        .then(response => response.json())
+        .then((res: any) => {
+          setAtlanticCells(res)
+        }).catch((err: any) => {
+          console.error(err)
+        })
     }
   }, [mappingConstraints.gridCellsURL])
 
   useEffect(() => {
     if (mapBounds && mappingConstraints.tileDiameterMins) {
-      let newGrid;
+      let newGrid
       if (mappingConstraints.targetDataset === Domain.GULF) {
-        newGrid = createGrid(mapBounds, mappingConstraints.tileDiameterMins);
+        newGrid = createGrid(mapBounds, mappingConstraints.tileDiameterMins)
       } else if (mappingConstraints.targetDataset === Domain.ATLANTIC && atlanticCells) {
         newGrid = createGridFromGeoJSON(atlanticCells, mappingConstraints.tileDiameterMins)
       }
