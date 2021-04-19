@@ -1,6 +1,6 @@
 import React from 'react'
 import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints } from '@serge/custom-types'
-import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES, Phase } from '@serge/config'
+import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, VISIBILITY_CHANGES, Phase , serverPath } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -38,7 +38,8 @@ const phaseFor = (phase: string): Phase => {
 const factory = (state: PlayerUi): Factory => {
 
   // provide some default mapping constraints if we aren't supplied with any
-  const mappingConstraints: MappingConstraints = state.mappingConstaints !== undefined ? state.mappingConstaints : {
+  const mappingConstraints: MappingConstraints = state.mappingConstaints !== undefined ? 
+   {...state.mappingConstaints, gridCellsURL: `${serverPath}atlantic-cells.json`} : {
     bounds: [[14.194809302, 42.3558566271],[12.401259302, 43.7417816271]],
     tileDiameterMins: 5,
     tileLayer: {

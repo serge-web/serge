@@ -94,6 +94,10 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
+  app.get('/atlantic-cells.json', (req, res) => {
+    res.sendFile(path.join(__dirname, '../', 'data', 'atlantic-cells.json'))
+  })
+
   app.use('/saveIcon', bodyParser.raw({ type: 'image/png', limit: '20kb' }))
   app.post('/saveIcon', (req, res) => {
     const image = `${imgDir}/${uniqid.time('icon-')}.png`

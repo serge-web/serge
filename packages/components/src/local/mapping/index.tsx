@@ -14,7 +14,6 @@ import groupHostPlatform from './helpers/group-host-platform'
 // import storePlannedRoute from './helpers/store-planned-route'
 import createGrid from './helpers/create-grid'
 import createGridFromGeoJSON from './helpers/create-grid-from-geojson'
-import atlanticCells from './data/atlantic-cells'
 
 import {
   roundToNearest,
@@ -133,6 +132,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [filterHistoryRoutes, setFilterHistoryRoutes] = useState<boolean>(true)
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
+  const [atlanticCells, setAtlanticCells] = useState();
 
   // only update bounds if they're different to the current one
   useEffect(() => {
@@ -277,13 +277,31 @@ export const Mapping: React.FC<PropTypes> = ({
   }, [phase])
 
   useEffect(() => {
-    if (mapBounds && mappingConstraints.tileDiameterMins) {
-      const newGrid = (mappingConstraints.targetDataset === Domain.GULF) ? createGrid(mapBounds, mappingConstraints.tileDiameterMins)
-        : createGridFromGeoJSON(atlanticCells, mappingConstraints.tileDiameterMins)
-      console.log('cells created', newGrid.length)
-      setGridCells(newGrid)
+    if (mappingConstraints.gridCellsURL) {
+      fetch(mappingConstraints.gridCellsURL)
+      .then(response => response.json())
+      .then((res: any)=> {
+        setAtlanticCells(res);
+      }).catch((err: any) => {
+        console.error(err)
+      }) 
     }
-  }, [mappingConstraints.tileDiameterMins, mapBounds])
+  }, [mappingConstraints.gridCellsURL])
+
+  useEffect(() => {
+    if (mapBounds && mappingConstraints.tileDiameterMins) {
+      let newGrid;
+      if (mappingConstraints.targetDataset === Domain.GULF) {
+        newGrid = createGrid(mapBounds, mappingConstraints.tileDiameterMins);
+      } else if (mappingConstraints.targetDataset === Domain.ATLANTIC && atlanticCells) {
+        newGrid = createGridFromGeoJSON(atlanticCells, mappingConstraints.tileDiameterMins)
+      }
+      if (newGrid) {
+        console.log('cells created', newGrid.length)
+        setGridCells(newGrid)
+      }
+    }
+  }, [mappingConstraints.tileDiameterMins, mapBounds, atlanticCells])
 
   const handleForceLaydown = (turn: NewTurnValues): void => {
     if (routeStore.selected) {
