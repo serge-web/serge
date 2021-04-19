@@ -1,5 +1,6 @@
 import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
+import { fetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain } from '@serge/config'
 import MapBar from '../map-bar'
@@ -279,7 +280,7 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (mappingConstraints.gridCellsURL) {
       fetch(mappingConstraints.gridCellsURL)
-        .then(response => response.json())
+        .then((response: any) => response.json())
         .then((res: any) => {
           setAtlanticCells(res)
         }).catch((err: any) => {
