@@ -38,7 +38,7 @@
     "storybook": "lerna run storybook --scope @serge/components --stream",
     "build-storybook": "lerna run build-storybook --scope @serge/components --stream",
     "build": "lerna run build --scope @serge/components --scope @serge/config --scope @serge/helpers --scope @serge/store --scope @serge/client --stream",
-    "pkg-build": "lerna run start --scope @serge/executable --stream",
+    "pkg-build": "lerna run start --stream",
     "component-build": "lerna run build --scope @serge/components --stream",
     "component-dev": "yarn component-build & lerna run watch --parallel --scope @serge/components",
     "diff": "lerna diff",
