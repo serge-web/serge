@@ -17,7 +17,6 @@ it('Construct grid from very new dataset', () => {
 
   // inspect first one
   const first: SergeHex<{}> = grid[0]
-  console.log(first)
   expect(first.poly.length).toEqual(7)
   expect(first.type).toEqual('land')
   expect(first.name).toEqual('AA20')
