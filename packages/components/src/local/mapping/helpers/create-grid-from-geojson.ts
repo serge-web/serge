@@ -90,23 +90,15 @@ const createGridFromGeoJSON = (cells: any, tileSizeMins: number): SergeGrid<Serg
   // define grid as flat
   const Hex = extendHex({ orientation: 'pointy' })
   const honeyGrid = defineGrid(Hex)
-  const grid = honeyGrid(hexes)
 
-  // const offsetGrid = grid.map((hex:any) => {
-  //   const offset = hex.toCartesian()
-  //   return {
-  //     ...hex,
-  //     name: labelFor(offse)
-  //     x: offset.x,
-  //     y: offset.y,
-  //     q: undefined,
-  //     r:,
-  //     s:
-  //   }
-  // })
+  // create grid from first 15500 hexes. We got 
+  // stack exceptions at around 15800.
+  const grid = honeyGrid(hexes.slice(0, 15500))
 
+  // cast grid
   const sergeGrid: SergeGrid<SergeHex<{}>> = grid as SergeGrid<SergeHex<{}>>
 
+  // store tile diameters
   sergeGrid.tileDiameterMins = tileSizeMins
 
   /** provide method that only requires the world location,
