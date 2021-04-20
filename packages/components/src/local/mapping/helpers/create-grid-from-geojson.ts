@@ -91,7 +91,7 @@ const createGridFromGeoJSON = (cells: any, tileSizeMins: number): SergeGrid<Serg
   const Hex = extendHex({ orientation: 'pointy' })
   const honeyGrid = defineGrid(Hex)
 
-  // create grid from first 15500 hexes. We got 
+  // create grid from first 15500 hexes. We got
   // stack exceptions at around 15800.
   const grid = honeyGrid(hexes.slice(0, 15500))
 
