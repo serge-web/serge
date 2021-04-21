@@ -368,12 +368,12 @@ export const HexGrid: React.FC<{}> = () => {
   // allowable filtered cells
   useEffect(() => {
     // combine both lists
-    const allCells = relevantCells.concat(allowableCells)
+    const allCells = relevantCells.concat(planningRouteCells)
     // some cells may be in both lists, so reduce to unique cells
     const uniqueCells = [...new Set(allCells)]
     console.log('reduce visible', allowableCells.length, relevantCells.length, uniqueCells.length)
-    setVisibleAndAllowableCells(uniqueCells)
-  }, [allowableCells, relevantCells])
+    setVisibleAndAllowableCells(allCells)
+  }, [allowableCells, relevantCells, planningRouteCells])
 
   /** handler for planning marker being droppped
        *
@@ -458,9 +458,17 @@ export const HexGrid: React.FC<{}> = () => {
   const beingDragged = (e: any): void => {
     const marker = e.target
     const location = marker.getLatLng()
-    const cellPos: SergeHex<{}> | undefined = gridCells.cellFor(location, dragDestination || originHex)
-    if (cellPos) {
-      setDragDestination(cellPos)
+    const destinationHex: SergeHex<{}> | undefined = dragDestination && gridCells.cellFor(location, dragDestination)
+    if (destinationHex) {
+      setDragDestination(destinationHex)
+    } else {
+      // fallback.  When allowable region is really, really large, it's possible to 
+      // drag the cursur quicker than this function can run. Allow the user to drag the
+      // marker past the origin to have another go
+      const originHexCell: SergeHex<{}> | undefined = dragDestination && gridCells.cellFor(location, originHex)
+      if (originHexCell) {
+        setDragDestination(originHexCell)
+      }
     }
   }
 
