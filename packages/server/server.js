@@ -94,8 +94,8 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
-  app.get('/atlantic-cells.json', (req, res) => {
-    res.sendFile(path.join(__dirname, '../', 'data', 'atlantic-cells.json'))
+  app.get('/cells/:filename', (req, res) => {
+    res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
   })
 
   app.use('/saveIcon', bodyParser.raw({ type: 'image/png', limit: '20kb' }))
