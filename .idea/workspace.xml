@@ -29,7 +29,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a1fce70-954d-4566-bbb2-e0586bdc2e11" name="Default Changelist" comment="Upgrades packages.">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/.eslintrc" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/.eslintrc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/packages/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/ActionsAndReducers/playerUi/helpers/handleForceDelta.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/ActionsAndReducers/playerUi/helpers/handleForceDelta.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/ActionsAndReducers/playerUi/helpers/handleWargameMessagesChange.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/ActionsAndReducers/playerUi/helpers/handleWargameMessagesChange.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/ActionsAndReducers/playerUi/playerUi_ActionCreators.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/ActionsAndReducers/playerUi/playerUi_ActionCreators.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/Components/Channel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/Components/Channel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/client/src/Components/ChatChannel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/client/src/Components/ChatChannel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/components/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +68,10 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="JsBowerSettings">
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/packages/e2e/package.json" />
   </component>
@@ -65,8 +82,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/packages/client" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.stylelint" value="true" />
@@ -79,7 +97,8 @@
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/react-scripts" />
     <property name="nodejs_interpreter_path" value="$USER_HOME$/.nvm/versions/node/v12.22.1/bin/node" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -223,6 +242,11 @@
       <workItem from="1618591905240" duration="1540000" />
       <workItem from="1618593920463" duration="4160000" />
       <workItem from="1618820255643" duration="13239000" />
+      <workItem from="1618918072562" duration="1605000" />
+      <workItem from="1618926057196" duration="11874000" />
+      <workItem from="1618946141196" duration="4385000" />
+      <workItem from="1618991853545" duration="2010000" />
+      <workItem from="1618994685566" duration="6606000" />
     </task>
     <task id="LOCAL-00068" summary="Add story for channel message with info type">
       <created>1601906301325</created>

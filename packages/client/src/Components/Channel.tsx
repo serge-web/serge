@@ -19,15 +19,17 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { selectedForce, selectedRole } = state
   const isUmpire = selectedForce && selectedForce.uniqid === UMPIRE_FORCE
-  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
+  if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   const generateNextReference = (): number => {
     return state.nextMsgReference
   }
 
   useEffect(() => {
-    const channelClassName = state.channels[channelId].name.toLowerCase().replace(/ /g, '-')
-    if (state.channels[channelId].messages!.length === 0) {
+    const channelClassName = state.channels[channelId].name
+      .toLowerCase()
+      .replace(/ /g, '-')
+    if (state.channels[channelId].messages?.length === 0) {
       getAllWargameMessages(state.currentWargame)(dispatch)
     }
     setChannelTabClass(`tab-content-${channelClassName}`)
@@ -59,8 +61,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
         colors={colors || []}
         onMarkAllAsRead={(): void => dispatch(markAllAsRead(channelId))}
       />
-      {
-        state.channels[channelId].observing === false &&
+      {state.channels[channelId].observing === false && (
         <NewMessage
           orderableChannel={true}
           curChannel={channelId}
@@ -68,7 +69,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
           privateMessage={selectedForce.uniqid === umpireForceTemplate.uniqid}
           templates={state.channels[channelId].templates || []}
         />
-      }
+      )}
     </div>
   )
 }

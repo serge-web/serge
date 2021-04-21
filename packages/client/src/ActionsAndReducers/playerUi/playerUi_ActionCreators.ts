@@ -164,7 +164,7 @@ export const saveMapMessage = (dbName: string, details: MessageDetails, message:
 export const getAllWargameFeedback = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     const messages: Array<Message> = await wargamesApi.getAllMessages(dbName)
-    const feedbackMessages: MessageFeedback[] = messages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]
+    const feedbackMessages: MessageFeedback[] = <MessageFeedback[]>messages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE)
     dispatch(setWargameFeedback(feedbackMessages))
   }
 }
