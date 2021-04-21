@@ -17,8 +17,7 @@
     ],
     "scripts": [
       "../server/addons/**/*"
-    ],
-    "targets": [ "node14-win-x64" ]
+    ]
   },
   "scripts": {
     "start": "node helpers/pkgResolveErrors.js && pkg . --out-path ./builds && node helpers/pkgCopyNodes.js",
