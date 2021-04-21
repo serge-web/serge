@@ -1,6 +1,7 @@
 {
-  "name": "serge",
+  "name": "@serge/executable",
   "version": "0.3.0",
+  "author": "IanMayo <ian@planetmayo.com>",
   "description": "Build Serge as executable",
   "main": "index.js",
   "license": "Apache-2.0",
@@ -16,7 +17,8 @@
     ],
     "scripts": [
       "../server/addons/**/*"
-    ]
+    ],
+    "targets": [ "node14-win-x64" ]
   },
   "scripts": {
     "start": "node helpers/pkgResolveErrors.js && pkg . --out-path ./builds && node helpers/pkgCopyNodes.js",
