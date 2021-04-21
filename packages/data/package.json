@@ -1,0 +1,7 @@
+{
+  "name": "@serge/data",
+  "version": "0.0.1",
+  "license": "Apache-2.0",
+  "author": "IanMayo <ian@planetmayo.com>",
+  "description": "Data is useful for use in app directly without and compilations so user can change data anytime whenever needed"
+}

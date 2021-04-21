@@ -16,7 +16,7 @@ import { HexGrid } from '../hex-grid'
 // import data types
 import { Phase, serverPath } from '@serge/config'
 
-import data from './data/atlantic-cells';
+import data from './data/atlantic-cells'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
@@ -156,7 +156,7 @@ NaturalEarth.parameters = {
       ...data
     }
   }
-};
+}
 NaturalEarth.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
@@ -183,7 +183,7 @@ OpenStreetMap.parameters = {
       ...data
     }
   }
-};
+}
 OpenStreetMap.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
@@ -210,7 +210,7 @@ DetailedCells.parameters = {
       ...data
     }
   }
-};
+}
 DetailedCells.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
