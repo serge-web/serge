@@ -1,6 +1,6 @@
 import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
-import { fetch } from 'whatwg-fetch'
+import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain } from '@serge/config'
 import MapBar from '../map-bar'
@@ -85,7 +85,8 @@ const defaultProps: PropTypes = {
   attributionControl: false,
   zoomAnimation: false,
   planningConstraintsProp: undefined,
-  wargameInitiated: false
+  wargameInitiated: false,
+  fetchOverride: undefined
 }
 
 /* Render component */
@@ -110,7 +111,8 @@ export const Mapping: React.FC<PropTypes> = ({
   planningConstraintsProp,
   channelID,
   mapPostBack,
-  children
+  children,
+  fetchOverride
 }) => {
   /* Initialise states */
   const [forcesState, setForcesState] = useState<ForceData[]>(forces)
@@ -279,7 +281,8 @@ export const Mapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (mappingConstraints.gridCellsURL) {
-      fetch(mappingConstraints.gridCellsURL)
+      const fetchMethod = fetchOverride || whatFetch
+      fetchMethod(mappingConstraints.gridCellsURL)
         .then((response: any) => response.json())
         .then((res: any) => {
           setAtlanticCells(res)
