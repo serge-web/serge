@@ -22,6 +22,10 @@ import data from './data/atlantic-cells'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
+const mockFetch =   (): any => {
+  return data
+}
+
 export default {
   title: 'local/AtlanticMapping',
   component: Mapping,
@@ -141,6 +145,7 @@ const Template: Story<StoryPropTypes> = (args) => {
   return (
     <Mapping
       playerForce={forceNames[playerForce]}
+      fetch={fetch}
       {...props}
     />
   )
@@ -152,13 +157,6 @@ const twoFourHours = 1000 * 60 * 60 * 24
  * DEFAULT VIEW
  */
 export const NaturalEarth = Template.bind({})
-NaturalEarth.parameters = {
-  fetch: {
-    json: {
-      ...data
-    }
-  }
-}
 NaturalEarth.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
@@ -179,13 +177,6 @@ NaturalEarth.args = {
 }
 
 export const OpenStreetMap = Template.bind({})
-OpenStreetMap.parameters = {
-  fetch: {
-    json: {
-      ...data
-    }
-  }
-}
 OpenStreetMap.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
@@ -206,13 +197,6 @@ OpenStreetMap.args = {
 }
 
 export const DetailedCells = Template.bind({})
-DetailedCells.parameters = {
-  fetch: {
-    json: {
-      ...data
-    }
-  }
-}
 DetailedCells.args = {
   forces: atlanticForces,
   playerForce: 'Blue',
