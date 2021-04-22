@@ -22,8 +22,13 @@ import data from './data/atlantic-cells'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
-const mockFetch =   (): any => {
-  return data
+
+
+export async function fetchMock() {
+  console.log('%%%% mock fetch called')
+  return {
+    json: () => data,
+  };
 }
 
 export default {
@@ -145,7 +150,7 @@ const Template: Story<StoryPropTypes> = (args) => {
   return (
     <Mapping
       playerForce={forceNames[playerForce]}
-      fetch={fetch}
+      fetchOverride={fetchMock}
       {...props}
     />
   )
