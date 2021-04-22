@@ -89,7 +89,6 @@ module.exports = {
           ]
         });
         config.resolve.extensions.push('.ts', '.tsx', '.md');
-        config.resolve.alias['whatwg-fetch'] = require.resolve('../__mocks__/whatwg-fetch.js');
         return config;
       },
 };
