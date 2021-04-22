@@ -3,7 +3,6 @@ import { addReadme, configureReadme } from 'storybook-readme';
 import { MuiThemeProvider as ThemeProvider, styled } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import theme from '../themes/serge';
-import { decorator } from '../__mocks__/whatwg-fetch';
 
 const BlueContainer = styled(Box)({
   backgroundColor: '#1a394d',
@@ -89,6 +88,5 @@ export const parameters = {
 };
 
 export const decorators = [
-  addReadme,
-  decorator
+  addReadme
 ];
