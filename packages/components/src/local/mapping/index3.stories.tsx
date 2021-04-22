@@ -3,9 +3,6 @@ import { Story } from '@storybook/react/types-6-0'
 import { deepCopy } from '@serge/helpers'
 import { MappingConstraints } from '@serge/custom-types'
 
-/* Import mock data */
-import { atlanticForces, platformTypes } from '@serge/mocks'
-
 // Import component files
 import Mapping from './index'
 import MappingPropTypes from './types/props'
@@ -16,7 +13,12 @@ import { HexGrid } from '../hex-grid'
 // import data types
 import { Phase, serverPath } from '@serge/config'
 
+/* Import mock data */
+import { atlanticForces, platformTypes } from '@serge/mocks'
 import data from './data/atlantic-cells'
+// TODO: here is the 'master' version of the cells,
+// in the @serge/data package
+// import * as data from '../../../../data/atlantic-cells.json'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
