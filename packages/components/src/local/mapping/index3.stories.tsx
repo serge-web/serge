@@ -80,11 +80,11 @@ export default {
 const atlanticConstraints = {
   bounds: [
     [
-      85,
+      75,
       -90.0
     ],
     [
-      25.0,
+      30,
       30
     ]
   ],
