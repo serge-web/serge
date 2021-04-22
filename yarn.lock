@@ -11853,9 +11853,9 @@ flatten@^1.0.2:
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
 
 flexlayout-react@^0.5.5:
-  version "0.5.5"
-  resolved "https://registry.yarnpkg.com/flexlayout-react/-/flexlayout-react-0.5.5.tgz#e96dbb61bd29868836aff5139d558fb13abf1287"
-  integrity sha512-y8fQQ1nfBdSmBELoD/nEplEIxRZfDtHT1Lg50M4iXkvlF9blnkQktmngiYR2tO/wr6fy2+2cV+tX0HXoeHY8cQ==
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/flexlayout-react/-/flexlayout-react-0.5.6.tgz#b6492be4f338bcbfbabf91388117eed6fb82d830"
+  integrity sha512-irzKnjwKMiQxoHsDu44UBu/YA6ZKpBkOjc4W8PpUVDsrZGSkpKrlDc96FTMutI3Ws9ocDS8kk3eZGib90NIxeg==
 
 flow-parser@0.*, flow-parser@^0.149.0:
   version "0.149.0"

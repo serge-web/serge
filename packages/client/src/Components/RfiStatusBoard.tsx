@@ -1,11 +1,18 @@
 import React from 'react'
 import { Badge, DataTable, RfiForm } from '@serge/components'
 import { MessageCustom } from '@serge/custom-types/message'
-import { CollaborativeMessageStates} from '@serge/config'
+import { CollaborativeMessageStates } from '@serge/config'
 import { ChannelData } from '@serge/custom-types'
 
-const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], roles: string[], channels: Array<ChannelData>} }) => {
-
+const RfiStatusBoard = ({
+  rfiData
+}: {
+  rfiData: {
+    rfiMessages: MessageCustom[];
+    roles: string[];
+    channels: Array<ChannelData>;
+  };
+}) => {
   // produce dictionary of channels
   const channDict = new Map<string, string>()
   rfiData.channels.forEach((channel: ChannelData) => {
@@ -14,27 +21,25 @@ const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], rol
   })
 
   const rfiMessages = rfiData.rfiMessages
-  const data = rfiMessages.map(message => [
+  const data = rfiMessages.map((message) => [
     message.message.Reference || message._id,
     channDict.get(message.details.channel),
     message.details.from.role,
     message.details.from.forceColor,
     message.message.Title,
-    message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
-    message.details.collaboration ? message.details.collaboration.owner : '= Pending ='
+    message.details.collaboration
+      ? message.details.collaboration.status
+      : 'Unallocated',
+    message.details.collaboration
+      ? message.details.collaboration.owner
+      : '= Pending ='
   ])
   const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
-    return [
-      ...filters,
-      channDict.get(message.details.channel)
-    ]
+    return [...filters, channDict.get(message.details.channel)]
   }, [])
 
   const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
-    return [
-      ...filters,
-      message.details.from.role
-    ]
+    return [...filters, message.details.from.role]
   }, [])
   const dataTableProps = {
     columns: [
@@ -75,22 +80,36 @@ const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], rol
 
       return {
         collapsible: (
-          <RfiForm message={(rfiMessages[rowIndex] as MessageCustom)} />
+          <RfiForm message={rfiMessages[rowIndex] as MessageCustom} />
         ),
         cells: [
           id,
           channel,
           {
-            component: <Badge customBackgroundColor={forceColor} label={role}/>,
+            component: (
+              <Badge customBackgroundColor={forceColor} label={role} />
+            ),
             label: role
           },
           content,
           {
-            component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} customSize="large" label={status}/>,
+            component: (
+              <Badge
+                customBackgroundColor={
+                  status ? statusColors[status] : '#434343'
+                }
+                customSize="large"
+                label={status}
+              />
+            ),
             label: status
           },
           {
-            component: owner ? <Badge customBackgroundColor="#434343" label={owner}/> : null,
+            component: owner
+              ? (
+              <Badge customBackgroundColor="#434343" label={owner} />
+                )
+              : null,
             label: owner
           }
         ]
@@ -98,9 +117,7 @@ const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], rol
     })
   }
 
-  return (
-    <DataTable {...dataTableProps} />
-  )
+  return <DataTable {...dataTableProps} />
 }
 
 export default RfiStatusBoard

@@ -30,6 +30,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
     wargameInitiated
   } = usePlayerUiState()
 
+  // eslint-disable-next-line eqeqeq
   if (selectedForce == undefined) {
     return (
       <div className="flex-content--center">
@@ -41,42 +42,66 @@ const GameChannels: React.FC = (): React.ReactElement => {
 
   const dispatch = usePlayerUiDispatch()
 
-  return <div className="flex-content flex-content--row-wrap">
-    <div className="message-feed in-game-feed" data-tour="fourth-step">
-      <ChannelTabsContainer rootRef={el => {
-        // @ts-ignore
-        if (el) window.channelTabsContainer[selectedForce.uniqid] = el
-      }}/>
-    </div>
-    <div className={classNames({"message-feed": true, "out-of-game-feed": true, "umpire-feed": isGameControl})} data-tour="fifth-step">
-      <div className="flex-content wargame-title">
-        <h3>{wargameTitle}</h3>
-        {
-          <span onClick={(): void => dispatch(openModal("lessons"))} className="wargame-title-icon" data-tour="third-step">
-          <strong className="sr-only">Show lesson</strong>
-        </span>
-        }
-        <FontAwesomeIcon icon={faShoePrints} size="2x" onClick={():void => dispatch(openTour(true))} data-tour="third-step" />
+  return (
+    <div className="flex-content flex-content--row-wrap">
+      <div className="message-feed in-game-feed" data-tour="fourth-step">
+        <ChannelTabsContainer
+          rootRef={(el) => {
+            // @ts-ignore
+            if (el) window.channelTabsContainer[selectedForce.uniqid] = el
+          }}
+        />
       </div>
-      <TurnProgression
-        adjudicationStartTime={adjudicationStartTime}
-        isGameControl={isGameControl}
-        currentTurn={currentTurn}
-        gameDate={gameDate}
-        onNextTurn={() => { nextGameTurn(currentWargame)() }}
-        phase={phase}
-        timeWarning={timeWarning}
-        turnEndTime={`${turnEndTime}`}
-        wargameInitiated={wargameInitiated}
-      />
-      <AdminAndInsightsTabsContainer />
-      {showObjective && <ForceObjective
-        force={selectedForce}
-        selectedRole={selectedRole}
-        onIconClick={(): void => dispatch(showHideObjectives())}
-      />}
+      <div
+        className={classNames({
+          'message-feed': true,
+          'out-of-game-feed': true,
+          'umpire-feed': isGameControl
+        })}
+        data-tour="fifth-step"
+      >
+        <div className="flex-content wargame-title">
+          <h3>{wargameTitle}</h3>
+          {
+            <span
+              onClick={(): void => dispatch(openModal('lessons'))}
+              className="wargame-title-icon"
+              data-tour="third-step"
+            >
+              <strong className="sr-only">Show lesson</strong>
+            </span>
+          }
+          <FontAwesomeIcon
+            icon={faShoePrints}
+            size="2x"
+            onClick={(): void => dispatch(openTour(true))}
+            data-tour="third-step"
+          />
+        </div>
+        <TurnProgression
+          adjudicationStartTime={adjudicationStartTime}
+          isGameControl={isGameControl}
+          currentTurn={currentTurn}
+          gameDate={gameDate}
+          onNextTurn={() => {
+            nextGameTurn(currentWargame)()
+          }}
+          phase={phase}
+          timeWarning={timeWarning}
+          turnEndTime={`${turnEndTime}`}
+          wargameInitiated={wargameInitiated}
+        />
+        <AdminAndInsightsTabsContainer />
+        {showObjective && (
+          <ForceObjective
+            force={selectedForce}
+            selectedRole={selectedRole}
+            onIconClick={(): void => dispatch(showHideObjectives())}
+          />
+        )}
+      </div>
     </div>
-  </div>
+  )
 }
 
 export default GameChannels

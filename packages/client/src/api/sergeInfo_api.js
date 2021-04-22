@@ -8,9 +8,10 @@ import { fetch } from 'whatwg-fetch'
 
 const LOCAL_DOC = '_local/settings'
 
-var db = new PouchDB(databasePath + SERGE_INFO)
+const db = new PouchDB(databasePath + SERGE_INFO)
 
 db.get(LOCAL_DOC)
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   .then(() => {})
   .catch((err) => {
     if (err.status === 404) {

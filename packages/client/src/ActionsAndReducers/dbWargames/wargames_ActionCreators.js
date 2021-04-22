@@ -71,7 +71,10 @@ export const addRecipientToChannel = (data) => ({
 
 export const updateRecipient = (id, data) => ({
   type: ActionConstant.UPDATE_RECIPIENT,
-  payload: { id, data }
+  payload: {
+    id,
+    data
+  }
 })
 
 export const removeRecipient = (id) => ({
@@ -138,7 +141,7 @@ export const populateWargameStore = () => {
   return async (dispatch) => {
     dispatch(populatingDb(true))
 
-    var wargameNames = await wargamesApi.populateWargame(dispatch)
+    const wargameNames = await wargamesApi.populateWargame(dispatch)
 
     dispatch(saveAllWargameNames(wargameNames))
 
@@ -264,11 +267,21 @@ export const savePlatformTypes = (dbName, data) => {
 
 export const saveForce = (dbName, newName, newData, oldName) => {
   return async (dispatch) => {
-    const wargame = await wargamesApi.saveForce(dbName, newName, newData, oldName)
+    const wargame = await wargamesApi.saveForce(
+      dbName,
+      newName,
+      newData,
+      oldName
+    )
 
     dispatch(setCurrentWargame(wargame))
     dispatch(setTabSaved())
-    dispatch(setSelectedForce({ name: newName, uniqid: newData.uniqid }))
+    dispatch(
+      setSelectedForce({
+        name: newName,
+        uniqid: newData.uniqid
+      })
+    )
 
     dispatch(addNotification('Force saved.', 'success'))
   }
@@ -276,8 +289,16 @@ export const saveForce = (dbName, newName, newData, oldName) => {
 
 export const saveChannel = (dbName, newName, newData, oldName) => {
   return async (dispatch) => {
-    const wargame = await wargamesApi.saveChannel(dbName, newName, newData, oldName)
-    const selectedChannel = { name: newName, uniqid:newData.uniqid }
+    const wargame = await wargamesApi.saveChannel(
+      dbName,
+      newName,
+      newData,
+      oldName
+    )
+    const selectedChannel = {
+      name: newName,
+      uniqid: newData.uniqid
+    }
 
     dispatch(setSelectedChannel(selectedChannel))
     wargame.data.channels.selectedChannel = selectedChannel
@@ -321,7 +342,7 @@ export const deleteSelectedForce = (dbName, force) => {
 
 export const cleanWargame = (dbName) => {
   return async (dispatch) => {
-    var games = await wargamesApi.cleanWargame(dbName)
+    const games = await wargamesApi.cleanWargame(dbName)
 
     dispatch(saveAllWargameNames(games))
   }
@@ -329,7 +350,7 @@ export const cleanWargame = (dbName) => {
 
 export const duplicateWargame = (dbName) => {
   return async (dispatch) => {
-    var games = await wargamesApi.duplicateWargame(dbName)
+    const games = await wargamesApi.duplicateWargame(dbName)
 
     dispatch(saveAllWargameNames(games))
   }

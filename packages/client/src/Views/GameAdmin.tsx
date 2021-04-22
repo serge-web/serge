@@ -10,7 +10,7 @@ const GameAdmin = (): React.ReactElement => {
   const [allMarkedRead, setAllMarkedRead] = useState<boolean>(false)
 
   useEffect(() => {
-    let channelLength = Object.keys(state.chatChannel.messages).length
+    const channelLength = Object.keys(state.chatChannel.messages).length
     if (channelLength) setAllMarkedRead(false)
   }, [])
 

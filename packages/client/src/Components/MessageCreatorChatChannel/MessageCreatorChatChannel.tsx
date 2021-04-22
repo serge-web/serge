@@ -10,25 +10,24 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
   const [editor, setEditor] = useState<Editor | null>(null)
   const state = usePlayerUiState()
   const { selectedForce } = state
-  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
+  if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   useEffect(() => {
     setEditor(setupEditor(editor, schema, editorPreviewRef))
   }, [])
 
   const sendMessage = (): void => {
-
     if (editor !== null) {
-      let messageDetails: MessageDetails = {
+      const messageDetails: MessageDetails = {
         channel: state.chatChannel.name,
         from: {
           force: selectedForce.name,
           forceColor: selectedForce.color,
           role: state.selectedRole,
-          icon: selectedForce.icon,
+          icon: selectedForce.icon
         },
         messageType: schema.title,
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toISOString()
       }
 
       if (editor.getValue().content === '') return
@@ -38,14 +37,20 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
     }
   }
 
-  return <div className='media'>
-    <div className='media-body message-creator' ref={editorPreviewRef}/>
-    <div className='align-self-center'>
-      <button name='send' className='btn btn-action btn-action--complimentary' onClick={sendMessage}>
-        <span className='sr-only'>Send test</span>
-      </button>
+  return (
+    <div className="media">
+      <div className="media-body message-creator" ref={editorPreviewRef} />
+      <div className="align-self-center">
+        <button
+          name="send"
+          className="btn btn-action btn-action--complimentary"
+          onClick={sendMessage}
+        >
+          <span className="sr-only">Send test</span>
+        </button>
+      </div>
     </div>
-  </div>
+  )
 }
 
 export default MessageCreatorChatChannel

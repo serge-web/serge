@@ -11,11 +11,19 @@ const Fragment = React.Fragment
 class MessagePreview extends Component {
   createObjItem (pair) {
     const that = this
-    return <span key={`objItem--${pair[0]}-${pair[1]}`} className="group-section">{ that.deconstructObj(pair[1]) }</span>
+    return (
+      <span key={`objItem--${pair[0]}-${pair[1]}`} className="group-section">
+        {that.deconstructObj(pair[1])}
+      </span>
+    )
   }
 
   createBoolItem (pair) {
-    return <span key={`boolItem--${pair[0]}-${pair[1]}`}>{pair[1] ? pair[0] : false}</span>
+    return (
+      <span key={`boolItem--${pair[0]}-${pair[1]}`}>
+        {pair[1] ? pair[0] : false}
+      </span>
+    )
   }
 
   createTimeItem (pair) {
@@ -27,8 +35,13 @@ class MessagePreview extends Component {
     )
   }
 
-  createStrItem (pair, withoutName) {
-    return <span key={`strItem-${pair[0]}-${pair[1]}`}><b>{pair[0]}: </b>{pair[1]}</span>
+  createStrItem (pair) {
+    return (
+      <span key={`strItem-${pair[0]}-${pair[1]}`}>
+        <b>{pair[0]}: </b>
+        {pair[1]}
+      </span>
+    )
   }
 
   deconstructArr (pair) {
@@ -38,9 +51,7 @@ class MessagePreview extends Component {
         <h3>{pair[0]}</h3>
         {pair[1].map((item) => {
           // CHECK NAME PROP ON EVERY OBJ
-          return (
-            that.deconstructObj(item)
-          )
+          return that.deconstructObj(item)
         })}
       </Fragment>
     )
@@ -50,12 +61,14 @@ class MessagePreview extends Component {
     const that = this
     const keyPropPairs = Object.entries(obj)
 
-    return keyPropPairs.map((pair, i) => {
+    return keyPropPairs.map((pair) => {
       if (check.object(pair[1])) return that.createObjItem(pair)
       if (check.array.of.object(pair[1])) return that.deconstructArr(pair)
       if (check.boolean(pair[1])) return that.createBoolItem(pair)
 
-      if (moment(pair[1], moment.ISO_8601, true).isValid()) return that.createTimeItem(pair)
+      if (moment(pair[1], moment.ISO_8601, true).isValid()) {
+        return that.createTimeItem(pair)
+      }
 
       return that.createStrItem(pair)
     })
@@ -72,7 +85,11 @@ class MessagePreview extends Component {
         return (
           <Fragment key={`from-${pair[1]}`}>
             <h2>{pair[1]}</h2>
-            { this.props.from ? <span key={'from'}>From: {this.props.from}</span> : false }
+            {this.props.from
+              ? (
+              <span key={'from'}>From: {this.props.from}</span>
+                )
+              : false}
           </Fragment>
         )
       }
@@ -80,7 +97,9 @@ class MessagePreview extends Component {
       if (check.object(pair[1])) return that.createObjItem(pair)
       if (check.array.of.object(pair[1])) return that.deconstructArr(pair)
       if (check.boolean(pair[1])) return that.createBoolItem(pair)
-      if (moment(pair[1], moment.ISO_8601, true).isValid()) return that.createTimeItem(pair)
+      if (moment(pair[1], moment.ISO_8601, true).isValid()) {
+        return that.createTimeItem(pair)
+      }
 
       return (
         <Fragment key={`${pair[0]}-${pair[1]}`}>

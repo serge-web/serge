@@ -6,9 +6,11 @@ export const createExportItem = (exportData) => ({
   payload: exportData
 })
 
-const getInfoTypeMessagesFromWargameExportMessageList = list => list.filter(({ infoType, data }) => (
-  infoType && data && data.channels && Array.isArray(data.channels.channels)
-))
+const getInfoTypeMessagesFromWargameExportMessageList = (list) =>
+  list.filter(
+    ({ infoType, data }) =>
+      infoType && data && data.channels && Array.isArray(data.channels.channels)
+  )
 
 // just for codeclimate Cognitive Complexity
 const addChannelTitle = ({ uniqid, name }, channelTitles) => {
@@ -16,7 +18,7 @@ const addChannelTitle = ({ uniqid, name }, channelTitles) => {
   return channelTitles
 }
 
-const getChannelTitlesFromInfoTypeMessages = messages => {
+const getChannelTitlesFromInfoTypeMessages = (messages) => {
   let channelTitles = {}
   for (const { data } of messages) {
     for (const channel of data.channels.channels) {
@@ -26,26 +28,20 @@ const getChannelTitlesFromInfoTypeMessages = messages => {
   return channelTitles
 }
 
-export const createMessageExportItem = ({ currentWargame, exportMessagelist }) => {
-  const infoTypeMessages = getInfoTypeMessagesFromWargameExportMessageList(exportMessagelist)
-  const channelTitles = getChannelTitlesFromInfoTypeMessages(infoTypeMessages)
-  // add game turn to message items
-  let key = 0
-  exportMessagelist.map(message => {
-    if (message._id === infoTypeMessages[key]._id) key++
-    else if (message.details) message.details.gameTurn = infoTypeMessages[key].gameTurn
-    return message
-  })
-  const data = exportDataGrouped(exportMessagelist, channelTitles)
-  const title = `Export ${new Date().toISOString().slice(0, 19).replace('T', ' ')}`
-  return createExportItem({ type: 'messages', title, wargame: currentWargame, data })
+const keysSimplyfyGetNewKey = (key, subkeys, mainKey) => {
+  const newKey = []
+  for (let i = 0; i < subkeys.length; i++) {
+    if (!isNaN(subkeys[i])) {
+      newKey.push(`${subkeys[i - 1] || 'messages'}_${subkeys[i]}`)
+    }
+  }
+  if (mainKey) {
+    newKey.push(mainKey)
+  }
+  return newKey
 }
 
-const messageFilterByType = type => {
-  return msg => msg.details && msg.details.messageType === type
-}
-
-const keysSimplyfy = row => {
+const keysSimplyfy = (row) => {
   const newRow = {}
 
   for (const key of Object.keys(row)) {
@@ -59,54 +55,8 @@ const keysSimplyfy = row => {
   return newRow
 }
 
-const keysSimplyfyGetNewKey = (key, subkeys, mainKey) => {
-  const newKey = []
-  for (var i = 0; i < subkeys.length; i++) {
-    if (!isNaN(subkeys[i])) {
-      newKey.push(`${subkeys[i - 1] || 'messages'}_${subkeys[i]}`)
-    }
-  }
-  if (mainKey) {
-    newKey.push(mainKey)
-  }
-  return newKey
-}
-
-const exportDataGrouped = (messages, channelTitles) => {
-  const data = []
-  const messageTypes = {}
-
-  for (const message of messages) {
-    if (message.details && message.details.messageType && !messageTypes[message.details.messageType]) {
-      messageTypes[message.details.messageType] = true
-      const rowsAndFields = exportDataGroupedGetRowsAndFields(messages, message, channelTitles)
-      data.push({
-        title: message.details.messageType,
-        items: [
-          rowsAndFields.fields.map(field => (field.toUpperCase())),
-          ...rowsAndFields.rows
-        ]
-      })
-    }
-  }
-  return data
-}
-
-const exportDataGroupedGetRowsAndFields = (messages, message, channelTitles) => {
-  const messagesFiltered = messages.filter(messageFilterByType(message.details.messageType))
-
-  const fields = []
-  const rows = []
-
-  for (const msg of messagesFiltered) {
-    if (msg.details && msg.details.channel && channelTitles[msg.details.channel]) {
-      msg.details.channel = channelTitles[msg.details.channel]
-    }
-    const row = exportDataGroupedGetRow(msg, fields)
-    rows.push(row)
-  }
-
-  return { fields, rows }
+const messageFilterByType = (type) => {
+  return (msg) => msg.details && msg.details.messageType === type
 }
 
 const exportDataGroupedGetRow = (msg, fields) => {
@@ -121,4 +71,91 @@ const exportDataGroupedGetRow = (msg, fields) => {
   }
 
   return row
+}
+
+const exportDataGroupedGetRowsAndFields = (
+  messages,
+  message,
+  channelTitles
+) => {
+  const messagesFiltered = messages.filter(
+    messageFilterByType(message.details.messageType)
+  )
+
+  const fields = []
+  const rows = []
+
+  for (const msg of messagesFiltered) {
+    if (
+      msg.details &&
+      msg.details.channel &&
+      channelTitles[msg.details.channel]
+    ) {
+      msg.details.channel = channelTitles[msg.details.channel]
+    }
+    const row = exportDataGroupedGetRow(msg, fields)
+    rows.push(row)
+  }
+
+  return {
+    fields,
+    rows
+  }
+}
+
+const exportDataGrouped = (messages, channelTitles) => {
+  const data = []
+  const messageTypes = {}
+
+  for (const message of messages) {
+    if (
+      message.details &&
+      message.details.messageType &&
+      !messageTypes[message.details.messageType]
+    ) {
+      messageTypes[message.details.messageType] = true
+      const rowsAndFields = exportDataGroupedGetRowsAndFields(
+        messages,
+        message,
+        channelTitles
+      )
+      data.push({
+        title: message.details.messageType,
+        items: [
+          rowsAndFields.fields.map((field) => field.toUpperCase()),
+          ...rowsAndFields.rows
+        ]
+      })
+    }
+  }
+  return data
+}
+
+export const createMessageExportItem = ({
+  currentWargame,
+  exportMessagelist
+}) => {
+  const infoTypeMessages = getInfoTypeMessagesFromWargameExportMessageList(
+    exportMessagelist
+  )
+  const channelTitles = getChannelTitlesFromInfoTypeMessages(infoTypeMessages)
+  // add game turn to message items
+  let key = 0
+  exportMessagelist.map((message) => {
+    if (message._id === infoTypeMessages[key]._id) {
+      key++
+    } else if (message.details) { message.details.gameTurn = infoTypeMessages[key].gameTurn }
+    return message
+  })
+  const data = exportDataGrouped(exportMessagelist, channelTitles)
+  const title = `Export ${new Date()
+    .toISOString()
+    .slice(0, 19)
+    .replace('T', ' ')}`
+  return createExportItem({
+    type: 'messages',
+    title,
+    wargame: currentWargame,
+    data
+  })
 }

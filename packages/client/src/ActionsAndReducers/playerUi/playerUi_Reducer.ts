@@ -17,17 +17,17 @@ import {
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
-import { PlayerUi, PlayerUiActionTypes } from '@serge/custom-types';
+import { PlayerUi, PlayerUiActionTypes } from '@serge/custom-types'
 import {
   handleSetLatestWargameMessage,
   handleSetAllMessages,
   openMessage,
   closeMessage,
   markAllAsRead
-} from './helpers/handleWargameMessagesChange';
+} from './helpers/handleWargameMessagesChange'
 
 import {
-  CHAT_CHANNEL_ID,
+  CHAT_CHANNEL_ID
 } from '../../consts'
 
 export const initialState: PlayerUi = {

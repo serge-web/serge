@@ -44,7 +44,7 @@ export const createMessage = (message, schema) => {
     dispatch(loadingDBMessageCreate(true))
 
     try {
-      var result = await messagesApi.addMessage(message, schema)
+      const result = await messagesApi.addMessage(message, schema)
 
       if (result.err) {
         dispatch(addNotification(result.err))
@@ -70,7 +70,7 @@ export const duplicateMessage = (messageId) => {
   return async (dispatch) => {
     dispatch(loadingDBMessageCreate(true))
 
-    var result = await messagesApi.duplicateMessageInDb(messageId)
+    const result = await messagesApi.duplicateMessageInDb(messageId)
 
     if (result) {
       dispatch(DBMessageSaveStatus(result))
@@ -119,7 +119,7 @@ export const deleteMessage = (messageId) => {
   return async (dispatch) => {
     dispatch(loadingDBMessageCreate(true))
 
-    var result = await messagesApi.deleteMessageFromDb(messageId)
+    const result = await messagesApi.deleteMessageFromDb(messageId)
 
     if (result) {
       const messages = await messagesApi.getAllMessagesFromDb()

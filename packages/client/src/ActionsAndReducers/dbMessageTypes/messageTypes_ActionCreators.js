@@ -54,7 +54,7 @@ export const createMessageType = (schema) => {
     dispatch(loadingDBMessageCreate(true))
 
     try {
-      var result = await messageTypesApi.postNewMessage(schema)
+      const result = await messageTypesApi.postNewMessage(schema)
 
       if (result.err) {
         dispatch(addNotification(result.err))
@@ -81,7 +81,7 @@ export const duplicateMessageType = (id) => {
   return async (dispatch) => {
     dispatch(loadingDBMessageCreate(true))
 
-    var result = await messageTypesApi.duplicateMessageInDb(id)
+    const result = await messageTypesApi.duplicateMessageInDb(id)
 
     if (result) {
       dispatch(DBMessageSaveStatus(true))
@@ -129,7 +129,7 @@ export const deleteMessageType = (messageId) => {
   return async (dispatch) => {
     dispatch(loadingDBMessageCreate(true))
 
-    var result = await messageTypesApi.deleteMessageFromDb(messageId)
+    const result = await messageTypesApi.deleteMessageFromDb(messageId)
 
     if (result) {
       const messages = await messageTypesApi.getAllMessagesFromDb()

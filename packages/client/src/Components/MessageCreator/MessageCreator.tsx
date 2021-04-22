@@ -12,14 +12,25 @@ import JSONEditor from '@json-editor/json-editor'
 import '@serge/themes/App.scss'
 
 const MessageCreator: React.FC<Props> = (props) => {
-
   const [editor, setEditor] = useState<Editor | null>(null)
   const editorPreviewRef = createRef<HTMLDivElement>()
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [selectedSchema, setSelectedSchema] = useState<any>(props.schema)
   const state = usePlayerUiState()
   const { selectedForce } = state
-  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
+  if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
+
+  const createEditor = (schema: any) => {
+    setEditor(
+      new JSONEditor(editorPreviewRef.current, {
+        schema,
+        theme: 'bootstrap4',
+        disable_collapse: true,
+        disable_edit_json: true,
+        disable_properties: true
+      })
+    )
+  }
 
   const sendMessage = (): void => {
     const details: MessageDetails = {
@@ -28,10 +39,10 @@ const MessageCreator: React.FC<Props> = (props) => {
         force: selectedForce.name,
         forceColor: selectedForce.color,
         role: state.selectedRole,
-        icon: selectedForce.icon,
+        icon: selectedForce.icon
       },
       messageType: selectedSchema.title,
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toISOString()
     }
 
     if (props.privateMessage && privateMessageRef.current) {
@@ -45,7 +56,12 @@ const MessageCreator: React.FC<Props> = (props) => {
     const message = editor.getValue()
 
     // check if we're missing a reference, and we have a reference provider
-    if(message && props.generateNextReference && message.Reference !== undefined && message.Reference === '') {
+    if (
+      message &&
+      props.generateNextReference &&
+      message.Reference !== undefined &&
+      message.Reference === ''
+    ) {
       // need to fill in the reference
       const newRef = props.generateNextReference(selectedForce.name)
 
@@ -60,8 +76,11 @@ const MessageCreator: React.FC<Props> = (props) => {
   }
 
   useEffect(() => {
-    if (props.schema && (!selectedSchema || selectedSchema.title !== props.schema.title)) {
-      if(editor) editor.destroy()
+    if (
+      props.schema &&
+      (!selectedSchema || selectedSchema.title !== props.schema.title)
+    ) {
+      if (editor) editor.destroy()
       setEditor(null)
       setSelectedSchema(props.schema)
     }
@@ -72,27 +91,32 @@ const MessageCreator: React.FC<Props> = (props) => {
     }
   }, [props])
 
-  const createEditor = (schema: any) => {
-    setEditor(new JSONEditor(editorPreviewRef.current, {
-      schema,
-      theme: 'bootstrap4',
-      disable_collapse: true,
-      disable_edit_json: true,
-      disable_properties: true,
-    }))
-  }
-
   return (
     <>
-      <div className='form-group message-creator' ref={editorPreviewRef}/>
-      {props.privateMessage && <div className='flex-content form-group'>
-        <label htmlFor='' className='material-label' id='private-message-input-label'>
-          <FontAwesomeIcon size='2x' icon={faUserSecret}/>Private message
-        </label>
-        <textarea id='private-message-input' className='form-control' ref={privateMessageRef} />
-      </div>}
-      <div className='form-group'>
-        <button name='send' className='btn btn-action btn-action--form' onClick={sendMessage}>
+      <div className="form-group message-creator" ref={editorPreviewRef} />
+      {props.privateMessage && (
+        <div className="flex-content form-group">
+          <label
+            htmlFor=""
+            className="material-label"
+            id="private-message-input-label"
+          >
+            <FontAwesomeIcon size="2x" icon={faUserSecret} />
+            Private message
+          </label>
+          <textarea
+            id="private-message-input"
+            className="form-control"
+            ref={privateMessageRef}
+          />
+        </div>
+      )}
+      <div className="form-group">
+        <button
+          name="send"
+          className="btn btn-action btn-action--form"
+          onClick={sendMessage}
+        >
           <span>Send Message</span>
         </button>
       </div>

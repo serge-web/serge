@@ -6,20 +6,30 @@ import computeTabs from './helpers/computeTabs'
 import tabRender from './helpers/tabRender'
 import Loader from '../../Components/Loader'
 import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
-import { expiredStorage, LOCAL_STORAGE_TIMEOUT, FLEX_LAYOUT_MODEL_DEFAULT } from '../../consts'
+import {
+  expiredStorage,
+  LOCAL_STORAGE_TIMEOUT,
+  FLEX_LAYOUT_MODEL_DEFAULT
+} from '../../consts'
 import { getAllWargameMessages } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import Props from './types'
 
-const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement => {
+const ChannelTabsContainer: React.FC<Props> = ({
+  rootRef
+}): React.ReactElement => {
   const state = usePlayerUiState()
   const dispatch = usePlayerUiDispatch()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
-  const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
+  const [modelName] = useState(
+    `FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`
+  )
   const setDefaultModel = () => {
     const { allChannels } = state
-    const hasMap = allChannels.find(({ name }) => name.toLowerCase() === 'mapping')
+    const hasMap = allChannels.find(
+      ({ name }) => name.toLowerCase() === 'mapping'
+    )
     const setTabContent = (channel: ChannelData) => ({
       type: 'tab',
       id: channel.uniqid,
@@ -32,22 +42,24 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
         ...FLEX_LAYOUT_MODEL_DEFAULT,
         layout: {
           type: 'row',
-          children: [{
-            type: 'tabset',
-            children: allChannels.map(setTabContent)
-          }]
+          children: [
+            {
+              type: 'tabset',
+              children: allChannels.map(setTabContent)
+            }
+          ]
         }
       }
     }
 
     const chunks = [...allChannels]
     const chunkSize = 2
-    const firstSet = chunks.splice(0, Math.round(chunks.length/chunkSize))
+    const firstSet = chunks.splice(0, Math.round(chunks.length / chunkSize))
     const tabChildren = (id: Number) => {
       const collections = id === 0 ? firstSet : chunks
       return collections.map(setTabContent)
     }
-    const children = Array.from(Array(chunkSize).keys()).map(tabset => {
+    const children = Array.from(Array(chunkSize).keys()).map((tabset) => {
       return {
         type: 'tabset',
         weight: 50,
@@ -62,8 +74,8 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
       }
     }
   }
-  const getModel = ():Model => {
-    let model = expiredStorage.getItem(modelName)
+  const getModel = (): Model => {
+    const model = expiredStorage.getItem(modelName)
     if (model) return FlexLayout.Model.fromJson(JSON.parse(model))
     return FlexLayout.Model.fromJson(setDefaultModel())
   }
@@ -88,20 +100,27 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
   }, [state, wargamesLoaded])
 
   return (
-    <div className='contain-channel-tabs' data-force={selectedForce.uniqid} ref={rootRef}>
-      {
-        wargamesLoaded
-          ? (
-            <FlexLayout.Layout
-              model={model}
-              factory={factory(state)}
-              onRenderTab={tabRender(state)}
-              onModelChange={() => {
-                expiredStorage.setItem(modelName, JSON.stringify(model.toJson()), LOCAL_STORAGE_TIMEOUT)
-              }}
-            />
+    <div
+      className="contain-channel-tabs"
+      data-force={selectedForce.uniqid}
+      ref={rootRef}
+    >
+      {wargamesLoaded
+        ? (
+        <FlexLayout.Layout
+          model={model}
+          factory={factory(state)}
+          onRenderTab={tabRender(state)}
+          onModelChange={() => {
+            expiredStorage.setItem(
+              modelName,
+              JSON.stringify(model.toJson()),
+              LOCAL_STORAGE_TIMEOUT
+            )
+          }}
+        />
           )
-          : <Loader />
+        : <Loader />
       }
     </div>
   )

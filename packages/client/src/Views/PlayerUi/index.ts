@@ -8,7 +8,7 @@ import { populateMessageTypesDb } from '../../ActionsAndReducers/dbMessageTypes/
 const mapStateToProps = ({ wargame, messageTypes, gameInfo }: any) => ({
   wargame,
   messageTypes,
-  gameInfo,
+  gameInfo
 })
 
 // TODO: change Dispatch type

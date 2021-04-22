@@ -1,14 +1,14 @@
 import * as ActionConstant from '@serge/config'
 import copyState from '../../Helpers/copyStateHelper'
 
-var initialState = {
+const initialState = {
   loadingDb: false,
   isLoading: false,
   messages: []
 }
 
 export const messageTypesReducer = (state = initialState, action) => {
-  var newState = copyState(state)
+  const newState = copyState(state)
 
   switch (action.type) {
     case ActionConstant.DB_MESSAGE_TYPES_GET:

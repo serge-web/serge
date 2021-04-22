@@ -11,7 +11,6 @@ import { MessageDetailsFrom } from '@serge/custom-types'
 import '@serge/themes/App.scss'
 
 const InsightsModal: React.FC = () => {
-
   const state = usePlayerUiState()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
@@ -21,7 +20,7 @@ const InsightsModal: React.FC = () => {
   // TODO: Non defined types in @serge/components/InsightForm
   // @ts-ignore
   const handleSend = ({ name, message }) => {
-    let from: MessageDetailsFrom = {
+    const from: MessageDetailsFrom = {
       icon: '',
       force: selectedForce.name,
       forceColor: selectedForce.color,
@@ -31,7 +30,6 @@ const InsightsModal: React.FC = () => {
 
     sendFeedbackMessage(state.currentWargame, from, message)(dispatch)
   }
-
 
   return (
     <ModalWrapper>

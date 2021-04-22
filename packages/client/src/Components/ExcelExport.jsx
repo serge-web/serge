@@ -37,7 +37,7 @@ const ExcelExport = ({ exp, index }) => {
       <a
         href={hreflink}
         className='link link--secondary'
-        onClick={e => generateFile('xls')}
+        onClick={() => generateFile('xls')}
         id={ids.xls}
       >
         <FontAwesomeIcon icon={faFileDownload}/>Download .xls
@@ -45,7 +45,7 @@ const ExcelExport = ({ exp, index }) => {
       <a
         href={hreflink}
         className='link link--secondary'
-        onClick={e => generateFile('xlsx')}
+        onClick={() => generateFile('xlsx')}
         id={ids.xlsx}
       >
         <FontAwesomeIcon icon={faFileDownload}/>Download .xlsx

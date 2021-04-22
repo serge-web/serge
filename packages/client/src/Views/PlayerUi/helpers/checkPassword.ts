@@ -6,7 +6,7 @@ import {
   setRole,
   startListening,
   setAllTemplates,
-  failedLoginFeedbackMessage,
+  failedLoginFeedbackMessage
 } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 export default (
@@ -16,26 +16,27 @@ export default (
   allForces: ForceData[],
   dispatch: Dispatch<PlayerUiActionTypes>
 ): boolean => {
-  let role: Role | undefined = undefined
-  const force = allForces.find(force => (
-    force.roles.find(roleItem => {
-      role = roleItem
-      return roleItem.password === pass
-    }) !== undefined
-  ))
+  let role: Role | undefined
+  const force = allForces.find(
+    (force) =>
+      force.roles.find((roleItem) => {
+        role = roleItem
+        return roleItem.password === pass
+      }) !== undefined
+  )
 
-  if(allForces.length === 0) {
+  if (allForces.length === 0) {
     console.error("Can't check password, forces data missing")
   }
 
   if (force === undefined || role === undefined) {
-    failedLoginFeedbackMessage(currentWargame, pass);
-    return false;
+    failedLoginFeedbackMessage(currentWargame, pass)
+    return false
   }
 
-  dispatch(setForce(force.uniqid));
-  dispatch(setRole(role));
-  dispatch(setAllTemplates(messageTypes.messages));
-  startListening(currentWargame)(dispatch);
-  return true;
-};
+  dispatch(setForce(force.uniqid))
+  dispatch(setRole(role))
+  dispatch(setAllTemplates(messageTypes.messages))
+  startListening(currentWargame)(dispatch)
+  return true
+}

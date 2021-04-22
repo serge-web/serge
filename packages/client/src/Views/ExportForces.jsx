@@ -8,18 +8,6 @@ import ExcelExport from '../Components/ExcelExport'
 import HtmlExport from '../Components/HtmlExport'
 
 const ExportForces = ({ wargame, savExportItem, exportItems }) => {
-  const generateExportItem = () => {
-    savExportItem({
-      title: `Export ${new Date().toISOString().slice(0, 19).replace('T', ' ')}`,
-      wargame: wargame.currentWargame ? wargame.wargameTitle : 'Not Selected',
-      data: wargame.data && wargame.data.forces && wargame.data.forces.forces
-        ? wargame.data.forces.forces.map(force => ({
-          title: force.name,
-          items: generateRoleItems(force)
-        })) : []
-    })
-  }
-
   const generateRoleItems = ({ roles }) => {
     // all excel keys/titles for current tab
     const fields = []
@@ -46,21 +34,37 @@ const ExportForces = ({ wargame, savExportItem, exportItems }) => {
       rows.push(row)
     }
 
-    return [
-      fields.map(field => (field.toUpperCase())),
-      ...rows
-    ]
+    return [fields.map((field) => field.toUpperCase()), ...rows]
+  }
+
+  const generateExportItem = () => {
+    savExportItem({
+      title: `Export ${new Date()
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ')}`,
+      wargame: wargame.currentWargame ? wargame.wargameTitle : 'Not Selected',
+      data:
+        wargame.data && wargame.data.forces && wargame.data.forces.forces
+          ? wargame.data.forces.forces.map((force) => ({
+            title: force.name,
+            items: generateRoleItems(force)
+          }))
+          : []
+    })
   }
 
   return (
     <ExportView>
       <h2>Export Forces</h2>
-      <span className="link link--noIcon" onClick={generateExportItem}>Create Export</span>
+      <span className="link link--noIcon" onClick={generateExportItem}>
+        Create Export
+      </span>
       <ul>
         {exportItems.map((item, key) => (
           <ExportItem item={item} key={key}>
-            <ExcelExport exp={item} index={key}/>
-            <HtmlExport id={item.id}/>
+            <ExcelExport exp={item} index={key} />
+            <HtmlExport id={item.id} />
           </ExportItem>
         ))}
       </ul>
@@ -70,15 +74,22 @@ const ExportForces = ({ wargame, savExportItem, exportItems }) => {
 
 const mapStateToProps = ({ wargame, exportItems }) => ({
   wargame,
-  exportItems: exportItems.map((item, key) => ({ ...item, id: key })).filter(item => item.type === 'forces')
+  exportItems: exportItems
+    .map((item, key) => ({
+      ...item,
+      id: key
+    }))
+    .filter((item) => item.type === 'forces')
 })
 
-const mapDispatchToProps = dispatch => ({
-  savExportItem: data => {
-    dispatch(createExportItem({
-      ...data,
-      type: 'forces'
-    }))
+const mapDispatchToProps = (dispatch) => ({
+  savExportItem: (data) => {
+    dispatch(
+      createExportItem({
+        ...data,
+        type: 'forces'
+      })
+    )
   }
 })
 

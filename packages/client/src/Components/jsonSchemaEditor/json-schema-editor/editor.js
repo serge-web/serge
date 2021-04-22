@@ -75,11 +75,11 @@ export function SchemaEditor (elementId) {
 
   // Check whether the node is a properties button for an object,
   // and not for the schema of an object named properties
-  var isObjectPropertiesButton = function (node) {
+  const isObjectPropertiesButton = function (node) {
     // Does the path end in '.properties'?
     if (node.matches('div[data-schemapath$=".properties"] > h3 > div > button.json-editor-btntype-properties')) {
-      var containingDiv = node.parentElement.parentElement.parentElement
-      var span = containingDiv.querySelector('h3 > span')
+      const containingDiv = node.parentElement.parentElement.parentElement
+      const span = containingDiv.querySelector('h3 > span')
 
       // Is it an object properties or a property named properties?
       if (span && span.innerText === 'properties') {
@@ -89,8 +89,8 @@ export function SchemaEditor (elementId) {
     return false
   }
 
-  this.observer = new MutationObserver(function (mutationsList, observer) {
-    for (var mutation of mutationsList) {
+  this.observer = new MutationObserver(function (mutationsList) {
+    for (const mutation of mutationsList) {
       mutation.addedNodes.forEach(function (node) {
         if (node.nodeType === 1) {
           if (isObjectPropertiesButton(node)) {
@@ -98,11 +98,11 @@ export function SchemaEditor (elementId) {
           } else if (node.matches('button.json-editor-btntype-properties')) {
             // For other properties buttons, remove the 'Properties' label,
             // and use a cog as icon
-            var icon = node.querySelector('i')
+            const icon = node.querySelector('i')
             icon.classList.remove('fa-pen')
             icon.classList.add('fa-cog')
 
-            var span = node.querySelector('span')
+            const span = node.querySelector('span')
             span.innerText = ''
           }
         }
@@ -133,8 +133,8 @@ SchemaEditor.prototype.updateSchema = function (schema) {
 
   // Add extra validation logic for integer Schemas that use the `range` format.
   // For integer Schemas that use the `range` format we require that minimum and maximum properties are set, too.
-  var range_integer_validator = function (schema, value, path) {
-    var errors = []
+  const range_integer_validator = function (schema, value, path) {
+    const errors = []
     if (value !== null && value.type === 'integer' && value.format === 'range') {
       if (typeof value.minimum === 'undefined' || typeof value.maximum === 'undefined') {
         errors.push({
@@ -148,8 +148,8 @@ SchemaEditor.prototype.updateSchema = function (schema) {
   }
 
   // Check that if minimum and maximum are specified, minimum <= maximum
-  var min_max_consistence_validator = function (schema, value, path) {
-    var errors = []
+  const min_max_consistence_validator = function (schema, value, path) {
+    const errors = []
     if (value !== null && (value.type === 'integer' || value.type === 'number')) {
       if (typeof value.minimum !== 'undefined' && typeof value.minimum !== 'undefined' && value.minimum > value.maximum) {
         errors.push({
@@ -169,27 +169,27 @@ SchemaEditor.prototype.updateSchema = function (schema) {
   })
 
   // Add a save button
-  var filename = 'schema.json'
-  var saveButtonLabel = 'Save'
+  const filename = 'schema.json'
+  const saveButtonLabel = 'Save'
 
   this.jsonEditor.on('ready', function () {
-    var button = this.root.getButton(saveButtonLabel, 'save', saveButtonLabel)
-    var button_holder = this.root.theme.getHeaderButtonHolder()
+    const button = this.root.getButton(saveButtonLabel, 'save', saveButtonLabel)
+    const button_holder = this.root.theme.getHeaderButtonHolder()
     button_holder.appendChild(button)
     this.root.header.parentNode.insertBefore(button_holder, this.root.header.nextSibling)
 
-    var jsonEditor = this
+    const jsonEditor = this
     button.addEventListener('click', function (e) {
       e.preventDefault()
-      var contents = jsonEditor.getValue()
-      var blob = new Blob([JSON.stringify(contents, null, 2)], {
+      const contents = jsonEditor.getValue()
+      const blob = new Blob([JSON.stringify(contents, null, 2)], {
         type: 'application/json;charset=utf-8'
       })
 
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveOrOpenBlob(blob, filename)
       } else {
-        var a = document.createElement('a')
+        const a = document.createElement('a')
         a.download = filename
         a.href = URL.createObjectURL(blob)
         a.dataset.downloadurl = ['text/plain', a.download, a.href].join(':')

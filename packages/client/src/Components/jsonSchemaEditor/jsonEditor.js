@@ -16,7 +16,7 @@ class JsonSchemaEditor extends Component {
     this.value = this.props.defaultValue
   }
 
-  onChange (newValue, e) {
+  onChange () {
     const errors = this.schemaEditor.validate()
     console.log(errors)
     if (errors.length) {

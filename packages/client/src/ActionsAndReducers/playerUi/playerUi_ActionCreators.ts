@@ -14,12 +14,12 @@ import {
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  FEEDBACK_MESSAGE
 } from '@serge/config'
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import isError from '../../Helpers/isError'
-import { FEEDBACK_MESSAGE } from '@serge/config'
 import {
   Wargame,
   Role,
@@ -29,9 +29,9 @@ import {
   MessageChannel,
   MessageCustom,
   MessageInfoType,
-  MessageDetailsFrom
+  MessageDetailsFrom,
+  PlayerUiActionTypes
 } from '@serge/custom-types'
-import { PlayerUiActionTypes } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
   type: SET_CURRENT_WARGAME_PLAYER,
@@ -48,7 +48,9 @@ export const setRole = (data: Role): PlayerUiActionTypes => ({
   payload: data
 })
 
-export const setAllTemplates = (templates: Array<any>): PlayerUiActionTypes => ({
+export const setAllTemplates = (
+  templates: Array<any>
+): PlayerUiActionTypes => ({
   type: SET_ALL_TEMPLATES_PLAYERUI,
   payload: templates
 })
@@ -57,28 +59,42 @@ export const showHideObjectives = (): PlayerUiActionTypes => ({
   type: SHOW_HIDE_OBJECTIVES
 })
 
-export const setWargameFeedback = (messages: MessageFeedback[]): PlayerUiActionTypes => ({
+export const setWargameFeedback = (
+  messages: MessageFeedback[]
+): PlayerUiActionTypes => ({
   type: SET_FEEDBACK_MESSAGES,
   payload: messages
 })
 
-export const setLatestFeedbackMessage = (message: MessageFeedback): PlayerUiActionTypes => ({
+export const setLatestFeedbackMessage = (
+  message: MessageFeedback
+): PlayerUiActionTypes => ({
   type: SET_LATEST_FEEDBACK_MESSAGE,
   payload: message
 })
-export const setLatestWargameMessage = (message: MessageChannel): PlayerUiActionTypes => ({
+export const setLatestWargameMessage = (
+  message: MessageChannel
+): PlayerUiActionTypes => ({
   type: SET_LATEST_WARGAME_MESSAGE,
   payload: message
 })
-export const setWargameMessages = (messages: Array<MessageCustom | MessageInfoType>): PlayerUiActionTypes => ({
+export const setWargameMessages = (
+  messages: Array<MessageCustom | MessageInfoType>
+): PlayerUiActionTypes => ({
   type: SET_ALL_MESSAGES,
   payload: messages
 })
-export const openMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
+export const openMessage = (
+  channel: string,
+  message: MessageChannel
+): PlayerUiActionTypes => ({
   type: OPEN_MESSAGE,
   payload: { channel, message }
 })
-export const closeMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
+export const closeMessage = (
+  channel: string,
+  message: MessageChannel
+): PlayerUiActionTypes => ({
   type: CLOSE_MESSAGE,
   payload: { channel, message }
 })
@@ -107,13 +123,17 @@ export const startListening = (dbName: string): Function => {
 }
 
 export const initiateGame = (dbName: string): Function => {
-  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
+  return async (
+    dispatch: React.Dispatch<PlayerUiActionTypes>
+  ): Promise<void> => {
     const wargame = await wargamesApi.initiateGame(dbName)
     dispatch(setCurrentWargame(wargame))
   }
 }
 export const getWargame = (gamePath: string): Function => {
-  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
+  return async (
+    dispatch: React.Dispatch<PlayerUiActionTypes>
+  ): Promise<void> => {
     const wargame = await wargamesApi.getWargame(gamePath)
     if (isError(wargame)) {
       // @ts-ignore
@@ -129,14 +149,23 @@ export const nextGameTurn = (dbName: string): Function => {
   }
 }
 
-export const sendFeedbackMessage = (dbName: string, fromDetails: MessageDetailsFrom, message: string): Function => {
-  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
+export const sendFeedbackMessage = (
+  dbName: string,
+  fromDetails: MessageDetailsFrom,
+  message: string
+): Function => {
+  return async (
+    dispatch: React.Dispatch<PlayerUiActionTypes>
+  ): Promise<void> => {
     await wargamesApi.postFeedback(dbName, fromDetails, message)
     dispatch(closeModal())
   }
 }
 
-export const failedLoginFeedbackMessage = (dbName: string, password: string): Function => {
+export const failedLoginFeedbackMessage = (
+  dbName: string,
+  password: string
+): Function => {
   return async (): Promise<void> => {
     const address = await wargamesApi.getIpAddress()
     const from: MessageDetailsFrom = {
@@ -146,33 +175,65 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string): Fu
       role: '',
       name: password
     }
-    await wargamesApi.postFeedback(dbName, from, 'A failed login attempt has been made.')
+    await wargamesApi.postFeedback(
+      dbName,
+      from,
+      'A failed login attempt has been made.'
+    )
   }
 }
 
-export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {
+export const saveMessage = (
+  dbName: string,
+  details: MessageDetails,
+  message: object
+): Function => {
   return async (): Promise<void> => {
     await wargamesApi.postNewMessage(dbName, details, message)
   }
 }
 
-export const saveMapMessage = (dbName: string, details: MessageDetails, message: object): Promise<Message> => {
+export const saveMapMessage = (
+  dbName: string,
+  details: MessageDetails,
+  message: object
+): Promise<Message> => {
   // @ts-ignore
   return wargamesApi.postNewMapMessage(dbName, details, message)
 }
 
 export const getAllWargameFeedback = (dbName: string): Function => {
-  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
+  return async (
+    dispatch: React.Dispatch<PlayerUiActionTypes>
+  ): Promise<void> => {
     const messages: Array<Message> = await wargamesApi.getAllMessages(dbName)
-    const feedbackMessages: MessageFeedback[] = <MessageFeedback[]>messages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE)
+    const feedbackMessages: MessageFeedback[] = <MessageFeedback[]>(
+      messages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE)
+    )
     dispatch(setWargameFeedback(feedbackMessages))
   }
 }
 
 export const getAllWargameMessages = (dbName: string): Function => {
-  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
-    const allMessages: Array<Message> = await wargamesApi.getAllMessages(dbName)
-    dispatch(setWargameMessages(allMessages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageInfoType | MessageCustom)[]))
-    dispatch(setWargameFeedback(allMessages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
+  return async (
+    dispatch: React.Dispatch<PlayerUiActionTypes>
+  ): Promise<void> => {
+    const allMessages: Array<Message> = await wargamesApi.getAllMessages(
+      dbName
+    )
+    dispatch(
+      setWargameMessages(
+        allMessages.filter(
+          ({ messageType }) => messageType !== FEEDBACK_MESSAGE
+        ) as (MessageInfoType | MessageCustom)[]
+      )
+    )
+    dispatch(
+      setWargameFeedback(
+        allMessages.filter(
+          ({ messageType }) => messageType === FEEDBACK_MESSAGE
+        ) as MessageFeedback[]
+      )
+    )
   }
 }

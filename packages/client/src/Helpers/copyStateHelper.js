@@ -6,9 +6,9 @@ export default function deepCopy (objectpassed) {
     return objectpassed
   }
 
-  var temporaryStorage = objectpassed.constructor()
+  const temporaryStorage = objectpassed.constructor()
 
-  for (var key in objectpassed) {
+  for (const key in objectpassed) {
     temporaryStorage[key] = deepCopy((objectpassed[key]))
   }
   return temporaryStorage

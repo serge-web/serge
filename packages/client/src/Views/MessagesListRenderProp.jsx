@@ -19,7 +19,7 @@ class MessagesListRenderProp extends Component {
     }
   }
 
-  componentWillReceiveProps (nextProps, nextContext) {
+  componentWillReceiveProps (nextProps) {
     if (!this.props.allMarkedRead && nextProps.allMarkedRead) {
       this.setState({
         messages: this.state.messages.map((message) => ({ ...message, hasBeenRead: true }))

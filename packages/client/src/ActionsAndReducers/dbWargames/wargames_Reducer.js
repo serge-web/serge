@@ -9,7 +9,7 @@ import {
   serverPath
 } from '../../consts'
 
-var initialState = {
+const initialState = {
   isLoading: false,
   wargameList: [],
   currentWargame: '',

@@ -2,43 +2,43 @@
   font-family: "Squares";
   font-style: normal;
   font-weight: normal;
-  src: url("dependencies/font-files/squares.woff2") format("woff2"),
-    url("dependencies/font-files/squares.woff") format("woff");
+  src: url("./font-files/squares.woff2") format("woff2"),
+    url("./font-files/squares.woff") format("woff");
 }
 
 @font-face {
   font-family: "Open Sans";
   font-style: normal;
   font-weight: 500;
-  src: url("dependencies/font-files/OpenSans-Regular.woff") format("woff");
+  src: url("./font-files/OpenSans-Regular.woff") format("woff");
 }
 
 @font-face {
   font-family: "Open Sans";
   font-style: normal;
   font-weight: 600;
-  src: url("dependencies/font-files/OpenSans-Semibold.woff") format("woff");
+  src: url("./font-files/OpenSans-Semibold.woff") format("woff");
 }
 
 @font-face {
   font-family: "Open Sans";
   font-style: normal;
   font-weight: 700;
-  src: url("dependencies/font-files/OpenSans-Bold.woff") format("woff");
+  src: url("./font-files/OpenSans-Bold.woff") format("woff");
 }
 
 @font-face {
   font-family: "Open Sans";
   font-style: italic;
   font-weight: 500;
-  src: url("dependencies/font-files/OpenSans-Italic.woff") format("woff");
+  src: url("./font-files/OpenSans-Italic.woff") format("woff");
 }
 
 @font-face {
   font-family: "Open Sans";
   font-style: italic;
   font-weight: 600;
-  src: url("dependencies/font-files/OpenSans-SemiboldItalic.woff")
+  src: url("./font-files/OpenSans-SemiboldItalic.woff")
     format("woff");
 }
 
@@ -46,16 +46,16 @@
   font-family: "Open Sans";
   font-style: italic;
   font-weight: 700;
-  src: url("dependencies/font-files/OpenSans-BoldItalic.woff") format("woff");
+  src: url("./font-files/OpenSans-BoldItalic.woff") format("woff");
 }
 
 @font-face {
   font-family: "Alegreya Sans";
   font-style: normal;
   font-weight: normal;
-  src: url("dependencies/font-files/alegreyasanssc-regular-webfont.woff2")
+  src: url("./font-files/alegreyasanssc-regular-webfont.woff2")
       format("woff2"),
-    url("dependencies/font-files/alegreyasanssc-regular-webfont.woff")
+    url("./font-files/alegreyasanssc-regular-webfont.woff")
       format("woff");
 }
 
@@ -63,9 +63,9 @@
   font-family: "Alegreya Sans";
   font-style: italic;
   font-weight: normal;
-  src: url("dependencies/font-files/alegreyasanssc-italic-webfont.woff2")
+  src: url("./font-files/alegreyasanssc-italic-webfont.woff2")
       format("woff2"),
-    url("dependencies/font-files/alegreyasanssc-italic-webfont.woff")
+    url("./font-files/alegreyasanssc-italic-webfont.woff")
       format("woff");
 }
 
@@ -73,9 +73,9 @@
   font-family: "Alegreya Sans";
   font-style: normal;
   font-weight: 700;
-  src: url("dependencies/font-files/alegreyasanssc-bold-webfont.woff2")
+  src: url("./font-files/alegreyasanssc-bold-webfont.woff2")
       format("woff2"),
-    url("dependencies/font-files/alegreyasanssc-bold-webfont.woff")
+    url("./font-files/alegreyasanssc-bold-webfont.woff")
       format("woff");
 }
 
@@ -83,8 +83,8 @@
   font-family: "Alegreya Sans";
   font-style: italic;
   font-weight: 700;
-  src: url("dependencies/font-files/alegreyasanssc-bolditalic-webfont.woff2")
+  src: url("./font-files/alegreyasanssc-bolditalic-webfont.woff2")
       format("woff2"),
-    url("dependencies/font-files/alegreyasanssc-bolditalic-webfont.woff")
+    url("./font-files/alegreyasanssc-bolditalic-webfont.woff")
       format("woff");
 }

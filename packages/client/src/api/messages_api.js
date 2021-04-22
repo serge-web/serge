@@ -6,7 +6,21 @@ import {
   MSG_STORE
 } from '../consts'
 
-var db = new PouchDB(databasePath + MSG_STORE)
+const db = new PouchDB(databasePath + MSG_STORE)
+
+export const getAllMessagesFromDb = () => {
+  return new Promise((resolve, reject) => {
+    db.allDocs({ include_docs: true, descending: true })
+      .then((res) => {
+        let results = res.rows.map((a) => a.doc)
+        results = results.filter((a) => !a.hasOwnProperty('_deleted') && a.hasOwnProperty('details'))
+        resolve(results)
+      })
+      .catch((err) => {
+        reject(err)
+      })
+  })
+}
 
 export const addMessage = (messageDetail, schema) => {
   return new Promise((resolve, reject) => {
@@ -47,7 +61,7 @@ export const duplicateMessageInDb = (id) => {
   return new Promise((resolve, reject) => {
     db.get(id)
       .then(function (doc) {
-        var updatedMessage = doc.details
+        const updatedMessage = doc.details
 
         updatedMessage.title = `${updatedMessage.title} Copy-${uniqid.time()}`
 
@@ -64,20 +78,6 @@ export const duplicateMessageInDb = (id) => {
       .catch(function (err) {
         console.log(err)
         reject(false)
-      })
-  })
-}
-
-export const getAllMessagesFromDb = () => {
-  return new Promise((resolve, reject) => {
-    db.allDocs({ include_docs: true, descending: true })
-      .then((res) => {
-        let results = res.rows.map((a) => a.doc)
-        results = results.filter((a) => !a.hasOwnProperty('_deleted') && a.hasOwnProperty('details'))
-        resolve(results)
-      })
-      .catch((err) => {
-        reject(err)
       })
   })
 }
