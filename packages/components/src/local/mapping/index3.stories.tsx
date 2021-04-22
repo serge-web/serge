@@ -22,13 +22,11 @@ import data from './data/atlantic-cells'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
-
-
-export async function fetchMock() {
+export async function fetchMock () {
   console.log('%%%% mock fetch called')
   return {
-    json: () => data,
-  };
+    json: () => data
+  }
 }
 
 export default {
