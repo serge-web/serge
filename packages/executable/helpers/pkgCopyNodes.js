@@ -10,7 +10,7 @@ const nodeFiles = [
   }
 ]
 
-const pkgServerPath = path.resolve(__dirname, '../builds')
+const pkgServerPath = path.resolve(__dirname, '../build')
 
 console.log('Copy node files...')
 
@@ -24,7 +24,7 @@ for (const { name, path, file } of nodeFiles) {
     if (files.length) {
       console.log(`${prefix} file "${file}" was founded`)
       console.log(`${prefix} copying to ${pkgServerPath}...`)
-      fs.copyFile(files[0], `${pkgServerPath}/${file}`, (err) => {
+      fs.copyFile(files[0], `${pkgServerPath}/${file}`, err => {
         if (err) {
           console.log(`${prefix} copying failed`)
           console.log(err)

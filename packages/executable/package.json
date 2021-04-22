@@ -17,11 +17,15 @@
     ],
     "scripts": [
       "../server/addons/**/*"
-    ]
+    ],
+    "targets": [
+      "node14-macos-x64"
+    ],
+    "outputPath": "build"
   },
   "scripts": {
-    "start": "node helpers/pkgResolveErrors.js && pkg . --out-path ./builds && node helpers/pkgCopyNodes.js",
-    "pkg-build": "pkg . --out-path ./builds"
+    "start": "node helpers/pkgResolveErrors.js && rm -rf build && pkg . && node helpers/pkgCopyNodes.js",
+    "pkg-build": "rm -rf build && pkg ."
   },
   "devDependencies": {
     "eslint": "^6.5.1",

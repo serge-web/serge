@@ -33,4 +33,4 @@ server(
   ]
 )
 
-opn(`http://localhost:${port}/serge/admin`)
+opn(`http://localhost:${port}`)
