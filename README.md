@@ -28,6 +28,7 @@ For front-end developers relying on live rebuilds, can simply run the following
 
 ```bash
   yarn install
+  yarn build
   yarn develop
 ```
 
