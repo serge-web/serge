@@ -104,5 +104,5 @@ export default interface PropTypes {
   /** we need to be able to override the fetch
    * API call when running from StoryBook
    */
-  fetch? : {(url: string): any}
+  fetchOverride? : {(url: string): any}
 }
