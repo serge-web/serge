@@ -1,6 +1,7 @@
 {
-  "name": "serge",
+  "name": "@serge/executable",
   "version": "0.3.0",
+  "author": "IanMayo <ian@planetmayo.com>",
   "description": "Build Serge as executable",
   "main": "index.js",
   "license": "Apache-2.0",
