@@ -25,17 +25,17 @@ export default (message: MessageMap, details: MessageDetails, allForces: ForceDa
 
   switch (msgType) {
     case FORCE_LAYDOWN:
-      return handleForceLaydownChanges(<MessageForceLaydown>message, allForces)
+      return handleForceLaydownChanges(message as MessageForceLaydown, allForces)
     case VISIBILITY_CHANGES:
-      return handleVisibilityAndConditionChanges(<MessageVisibilityChanges>message, allForces)
+      return handleVisibilityAndConditionChanges(message as MessageVisibilityChanges, allForces)
     case PERCEPTION_OF_CONTACT:
-      return handlePerceptionChange(<MessagePerceptionOfContact>message, allForces)
+      return handlePerceptionChange(message as MessagePerceptionOfContact, allForces)
     case SUBMIT_PLANS:
-      return handlePlansSubmittedChanges(<MessageSubmitPlans>message, allForces)
+      return handlePlansSubmittedChanges(message as MessageSubmitPlans, allForces)
     case STATE_OF_WORLD:
-      return handleStateOfWorldChanges(<MessageStateOfWorld>message, allForces)
+      return handleStateOfWorldChanges(message as MessageStateOfWorld, allForces)
     default:
-      console.error(`failed to create player reducer handler for: ${message?.messageType}`)
+      console.error(`failed to create player reducer handler for: ${message!.messageType}`)
       return allForces
   }
 }
