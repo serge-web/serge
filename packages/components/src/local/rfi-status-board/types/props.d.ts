@@ -1,10 +1,6 @@
+import { MessageCustom } from '@serge/custom-types/message'
 export default interface Props {
-  /**
-   * The name of the thing
-   */
-  name: string
-  /**
-   * The colour of the thing
-   */
-  colour: string
+  rfiMessages: MessageCustom[]
+  roles: string[]
+  channels: Array<ChannelData>
 }
