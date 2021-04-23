@@ -8,7 +8,7 @@ import { ChannelData } from '@serge/custom-types'
 import Props from './types/props'
 
 /* Import Stylesheet */
-import './styles.module.scss'
+// import styles from './styles.module.scss'
 
 /* Render component */
 export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels }: Props) => {
