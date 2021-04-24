@@ -30,7 +30,8 @@ server(
   [ // addons
     'IpQuotesRandom'
     // 'IpQuoteStatic'
-  ]
+  ],
+  true
 )
 
 opn(`http://localhost:${port}`)

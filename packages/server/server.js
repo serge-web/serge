@@ -6,7 +6,8 @@ const runServer = (
   imgDir,
   port,
   remoteServer,
-  addons
+  addons,
+  nodePkgMode
 ) => {
   require('events').EventEmitter.defaultMaxListeners = eventEmmiterMaxListeners
   const express = require('express')
@@ -23,7 +24,21 @@ const runServer = (
 
   const fs = require('fs')
 
-  require('pouchdb-all-dbs')(PouchDB)
+  if (nodePkgMode){
+    const dbPath = path.join(__dirname, 'db')
+    fs.readdir(dbPath, (err, dbs) => {
+      if (err) {
+        throw err
+      }
+      dbs.forEach(dbFile => {
+        const dbData = fs.readFileSync(`${dbPath}/${dbFile}`)
+        fs.writeFileSync(`${process.cwd()}/db/${dbFile}`, dbData)
+      })
+    })
+  }
+  
+
+  require('pouchdb-all-dbs')(PouchDB)  
 
   const cors = require('cors')
 
