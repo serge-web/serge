@@ -1,5 +1,6 @@
 const server = require('./server')
 const opn = require('opn')
+const path = require('path')
 
 if (process.argv[2]) {
   console.log(`running client with remote server "${process.argv[2]}"`)
@@ -12,7 +13,7 @@ const port = process.env.PORT || 8080
 
 server(
   82, // event emmiter max listeners
-  { prefix: 'db/', adapter: 'websql' }, // PouchDb Options
+  { prefix: 'serge/db/', adapter: 'websql' }, // PouchDb Options
   {
     // cors options
     credentials: true,
@@ -23,8 +24,8 @@ server(
       'http://localhost:8000'
     ]
   },
-  './db', // database directory
-  './img', // images directory
+  './serge/db/', // database directory
+  './serge/img/', // images directory
   port, // port
   process.argv[2] || null, // remote server path
   [ // addons

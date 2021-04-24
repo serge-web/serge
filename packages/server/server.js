@@ -23,6 +23,19 @@ const runServer = (
     .defaults(pouchOptions)
 
   const fs = require('fs')
+  const root = './serge/'
+  
+  if (!fs.existsSync(root)) {
+    fs.mkdirSync(root)
+  }
+
+  if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir)
+  }
+
+  if (!fs.existsSync(imgDir)) {
+    fs.mkdirSync(imgDir)
+  }
 
   if (nodePkgMode) {
     const dbPath = path.join(__dirname, 'db')
@@ -32,7 +45,7 @@ const runServer = (
       }
       dbs.forEach(dbFile => {
         const dbData = fs.readFileSync(`${dbPath}/${dbFile}`)
-        fs.writeFileSync(`${process.cwd()}/db/${dbFile}`, dbData)
+        fs.writeFileSync(`${process.cwd()}/serge/db/${dbFile}`, dbData)
       })
     })
   }
@@ -64,14 +77,6 @@ const runServer = (
   const clientBuildPath = '../client/build'
 
   app.use(cors(corsOptions))
-
-  if (!fs.existsSync(dbDir)) {
-    fs.mkdirSync(dbDir)
-  }
-
-  if (!fs.existsSync(imgDir)) {
-    fs.mkdirSync(imgDir)
-  }
 
   app.use('/db', require('express-pouchdb')(PouchDB))
 
