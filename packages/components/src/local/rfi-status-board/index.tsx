@@ -13,7 +13,7 @@ import styles from './styles.module.scss'
 import ChannelRfiMessageDetail from '../molecules/channel-rfi-message-detail'
 
 /* Render component */
-export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire }: Props) => {
+export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {
   // produce dictionary of channels
   const channelDict = new Map<string, string>()
   channels.forEach((channel: ChannelData) => {
@@ -71,7 +71,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
       }
     ],
     data: data.map((row, rowIndex): any => {
-      const [id, channel, role, forceColor, content, status, owner] = row
+      const [id, channel, mRole, forceColor, content, status, owner] = row
       const statusColors = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
         [CollaborativeMessageStates.InProgress]: '#E7740A',
@@ -83,15 +83,21 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
       return {
         collapsible: (
           <div className={styles['rfi-form']}>
-            <ChannelRfiMessageDetail isRFIManager={isRFIManager} message={(rfiMessages[rowIndex] as MessageCustom)} role={role} isUmpire={isUmpire} />
+            <ChannelRfiMessageDetail
+              isRFIManager={isRFIManager}
+              message={(rfiMessages[rowIndex] as MessageCustom)}
+              role={role}
+              isUmpire={isUmpire} 
+              onChange={onChange}
+            />
           </div>
         ),
         cells: [
           id,
           channel,
           {
-            component: <Badge customBackgroundColor={forceColor} label={role} />,
-            label: role
+            component: <Badge customBackgroundColor={forceColor} label={mRole} />,
+            label: mRole
           },
           content,
           {

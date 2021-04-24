@@ -56,5 +56,6 @@ Demonstration.args = {
   channels: GameChannels,
   rfiMessages: GameMessagesMockRFI,
   isRFIManager: true,
-  isUmpire: true
+  isUmpire: true,
+  role: 'Game Control'
 }
