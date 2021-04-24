@@ -115,8 +115,7 @@ const factory = (state: PlayerUi): Factory => {
       if (channelName === CHANNEL_MAPPING) {
         return renderMap(node.getId())
       } else if (channelName === CHANNEL_RFI_STATUS) {
-        const roles = state.selectedForce && state.selectedForce.roles.map(role => role.name) || []
-        return <RfiStatusBoardChannel rfiData={{rfiMessages:state.rfiMessages, roles:roles, channels: state.allChannels}} />
+        return <RfiStatusBoardChannel />
       } else if(matchedChannel && matchedChannel.length && channelDefinition) {
           // find out if channel just contains chat template
           return isChatChannel(channelDefinition) ? 

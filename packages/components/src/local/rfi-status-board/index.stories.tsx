@@ -47,13 +47,14 @@ const roles = [
 ]
 
 const Template: Story<Props> = (args) => {
-  const { roles, channels, rfiMessages } = args
-  return <RfiStatusBoard roles={roles} channels={channels} rfiMessages={rfiMessages} />
+  return <RfiStatusBoard {...args} />
 }
 
 export const Demonstration = Template.bind({})
 Demonstration.args = {
   roles: roles,
   channels: GameChannels,
-  rfiMessages: GameMessagesMockRFI
+  rfiMessages: GameMessagesMockRFI,
+  isRFIManager: true,
+  isUmpire: true
 }

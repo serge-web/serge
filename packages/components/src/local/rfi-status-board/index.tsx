@@ -1,5 +1,5 @@
 import React from 'react'
-import { Badge, DataTable, RfiForm } from '@serge/components'
+import { Badge, DataTable } from '@serge/components'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates } from '@serge/config'
 import { ChannelData } from '@serge/custom-types'
@@ -8,10 +8,12 @@ import { ChannelData } from '@serge/custom-types'
 import Props from './types/props'
 
 /* Import Stylesheet */
-// import styles from './styles.module.scss'
+import styles from './styles.module.scss'
+
+import ChannelRfiMessageDetail from '../molecules/channel-rfi-message-detail'
 
 /* Render component */
-export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels }: Props) => {
+export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire }: Props) => {
   // produce dictionary of channels
   const channelDict = new Map<string, string>()
   channels.forEach((channel: ChannelData) => {
@@ -80,22 +82,24 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels }
 
       return {
         collapsible: (
-          <RfiForm message={(rfiMessages[rowIndex] as MessageCustom)} />
+          <div className={styles.rfiForm}>
+            <ChannelRfiMessageDetail isRFIManager={isRFIManager} message={(rfiMessages[rowIndex] as MessageCustom)} role={role} isUmpire={isUmpire} />
+          </div>
         ),
         cells: [
           id,
           channel,
           {
-            component: <Badge customBackgroundColor={forceColor} label={role}/>,
+            component: <Badge customBackgroundColor={forceColor} label={role} />,
             label: role
           },
           content,
           {
-            component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} customSize="large" label={status}/>,
+            component: <Badge customBackgroundColor={status ? statusColors[status] : '#434343'} customSize="large" label={status} />,
             label: status
           },
           {
-            component: owner ? <Badge customBackgroundColor="#434343" label={owner}/> : null,
+            component: owner ? <Badge customBackgroundColor="#434343" label={owner} /> : null,
             label: owner
           }
         ]

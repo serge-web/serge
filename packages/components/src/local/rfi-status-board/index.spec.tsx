@@ -17,7 +17,7 @@ const roles = [
 
 it('RfiStatusBoard renders correctly', () => {
   const tree = renderer
-    .create(<RfiStatusBoard roles={roles} channels={GameChannels} rfiMessages={GameMessagesMockRFI} />)
+    .create(<RfiStatusBoard isRFIManager={true} isUmpire={true} roles={roles} channels={GameChannels} rfiMessages={GameMessagesMockRFI} />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })

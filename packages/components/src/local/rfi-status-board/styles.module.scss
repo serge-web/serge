@@ -1,3 +1,6 @@
-.example {
-  font-weight: bold;
+@import "~@serge/themes/dependencies/variables";
+
+.rfiForm {
+  background-color: $background-action-head;
+  padding: 10px;
 }

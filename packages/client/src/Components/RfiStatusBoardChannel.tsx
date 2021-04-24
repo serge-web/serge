@@ -1,12 +1,25 @@
 import React from 'react'
-import { MessageCustom } from '@serge/custom-types/message'
-import { ChannelData } from '@serge/custom-types'
 import { RfiStatusBoard } from '@serge/components'
+import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
+import { UMPIRE_FORCE } from '../consts'
 
-const RfiStatusBoardChannel = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], roles: string[], channels: Array<ChannelData>} }) => {
+const RfiStatusBoardChannel = () => {
+
+  const state = usePlayerUiState()
+  const { selectedForce } = state
+  const isUmpire = selectedForce && selectedForce.uniqid === UMPIRE_FORCE
+  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
+
+  const roles = state.selectedForce && state.selectedForce.roles.map(role => role.name) || []
 
   return (
-    <RfiStatusBoard rfiMessages={rfiData.rfiMessages} roles={rfiData.roles} channels={rfiData.channels} />
+    <RfiStatusBoard
+      rfiMessages={state.rfiMessages}
+      roles={roles}
+      channels={state.allChannels}
+      isRFIManager={state.isRFIManager}
+      isUmpire={isUmpire}
+    />
   )
 }
 
