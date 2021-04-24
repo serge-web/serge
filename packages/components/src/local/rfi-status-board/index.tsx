@@ -82,7 +82,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
 
       return {
         collapsible: (
-          <div className={styles.rfiForm}>
+          <div className={styles['rfi-form']}>
             <ChannelRfiMessageDetail isRFIManager={isRFIManager} message={(rfiMessages[rowIndex] as MessageCustom)} role={role} isUmpire={isUmpire} />
           </div>
         ),
