@@ -24,7 +24,7 @@ const runServer = (
 
   const fs = require('fs')
   const root = './serge/'
-  
+
   if (!fs.existsSync(root)) {
     fs.mkdirSync(root)
   }

@@ -1,6 +1,5 @@
 const server = require('./server')
 const opn = require('opn')
-const path = require('path')
 
 if (process.argv[2]) {
   console.log(`running client with remote server "${process.argv[2]}"`)

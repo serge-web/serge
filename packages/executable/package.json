@@ -19,7 +19,7 @@
       "../server/addons/**/*"
     ],
     "targets": [
-      "node14-macos-x64"
+      "node14"
     ],
     "outputPath": "build"
   },
