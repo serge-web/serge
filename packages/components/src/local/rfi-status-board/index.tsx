@@ -87,7 +87,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
               isRFIManager={isRFIManager}
               message={(rfiMessages[rowIndex] as MessageCustom)}
               role={role}
-              isUmpire={isUmpire} 
+              isUmpire={isUmpire}
               onChange={onChange}
             />
           </div>
