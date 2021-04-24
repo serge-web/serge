@@ -24,7 +24,7 @@ const runServer = (
 
   const fs = require('fs')
 
-  if (nodePkgMode){
+  if (nodePkgMode) {
     const dbPath = path.join(__dirname, 'db')
     fs.readdir(dbPath, (err, dbs) => {
       if (err) {
@@ -36,9 +36,8 @@ const runServer = (
       })
     })
   }
-  
 
-  require('pouchdb-all-dbs')(PouchDB)  
+  require('pouchdb-all-dbs')(PouchDB)
 
   const cors = require('cors')
 
