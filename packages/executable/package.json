@@ -24,7 +24,7 @@
     "outputPath": "build"
   },
   "scripts": {
-    "start": "node helpers/pkgResolveErrors.js && rm -rf build && pkg . && node helpers/pkgCopyNodes.js"
+    "start": "node helpers/pkgResolveErrors.js && pkg . && node helpers/pkgCopyNodes.js"
   },
   "devDependencies": {
     "eslint": "^6.5.1",
