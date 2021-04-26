@@ -70,6 +70,10 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
+  app.get('/cells/:filename', (req, res) => {
+    res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
+  })
+
   app.use('/saveIcon', bodyParser.raw({ type: 'image/png', limit: '20kb' }))
   app.post('/saveIcon', (req, res) => {
     const image = `${imgDir}/${uniqid.time('icon-')}.png`

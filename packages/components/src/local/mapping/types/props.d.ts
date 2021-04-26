@@ -101,4 +101,8 @@ export default interface PropTypes {
    * length of each game turn (millis)
    */
   gameTurnTime: number
+  /** we need to be able to override the fetch
+   * API call when running from StoryBook
+   */
+  fetchOverride? : {(url: string): any}
 }
