@@ -1,4 +1,4 @@
-import { ForceData } from '@serge/custom-types'
+import { ForceData, Role, PlatformType } from '@serge/custom-types'
 
 type Forces = Array<ForceData>
 
@@ -11,6 +11,7 @@ export default interface PropTypes {
   onCreate?: () => void
   onDelete?: () => void
   selectedForce?: ForceData
+  platformTypes?: PlatformType[]
 }
 
 export { ForceData, Role } from '@serge/custom-types'

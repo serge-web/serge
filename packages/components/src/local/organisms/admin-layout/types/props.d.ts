@@ -1,4 +1,7 @@
 import StatusBarTypes from '../../../molecules/statusbar/types/props'
+import { PlatformType } from '@serge/custom-types'
+
+type PlatformTypes = Array<PlatformTypeData>
 
 export default interface PropTypes extends StatusBarTypes {
   /* half section title */
@@ -9,4 +12,5 @@ export default interface PropTypes extends StatusBarTypes {
   tabs?: Array<string>
   wargameChanged?: boolean
   activeTab?: string
+  platformTypes?: PlatformType[]
 }
