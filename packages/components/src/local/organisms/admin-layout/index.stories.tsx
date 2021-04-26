@@ -5,12 +5,11 @@ import AdminLayout from './index'
 import SettingOverview, { WargameOverview } from '../setting-overview'
 import SettingPlatformTypes from '../setting-platform-types'
 import SettingForces from '../setting-forces'
-import { platformTypes as platformTypesMock } from '@serge/mocks'
+import { platformTypes as platformTypesMock, WargameExportedMock, MessageTemplatesMock, adminTabs, platformType as platformTypeMock } from '@serge/mocks'
 import SettingChannels, { ChannelData } from '../setting-channels'
 
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { WargameExportedMock, MessageTemplatesMock, adminTabs, platformType as platformTypeMock } from '@serge/mocks'
 
 import { ForceData, PlatformType, Wargame } from '@serge/custom-types'
 import { AdminContent } from '../../atoms/admin-content'

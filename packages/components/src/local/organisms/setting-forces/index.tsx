@@ -20,7 +20,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import { ReactSortable } from "react-sortablejs"
+import { ReactSortable } from 'react-sortablejs'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faComments, faDirections, faBookReader, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
@@ -34,11 +34,9 @@ import EditableList, { Item } from '../../molecules/editable-list'
 import IconUploader from '../../molecules/icon-uploader'
 import NativeSelect from '@material-ui/core/NativeSelect'
 import { UMPIRE_FORCE } from '@serge/config'
-import { PlatformType, Asset } from '@serge/custom-types'
+import { PlatformTypeData, Asset } from '@serge/custom-types'
 import uniqid from 'uniqid'
-import cn from 'classnames'
 import { getIconClassname } from '../../asset-icon'
-import Input from '../../atoms/text-input'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -78,13 +76,13 @@ export const SettingForces: React.FC<PropTypes> = ({
   }
 
   const PLATFORM_ITEM = 'PLATFORM_ITEM'
-  interface PlatformItemType extends PlatformType {
-    type: typeof PLATFORM_ITEM,
+  interface PlatformItemType extends PlatformTypeData {
+    type: typeof PLATFORM_ITEM
     id: string
   }
   const ASSET_ITEM = 'ASSET_ITEM'
   interface ForceItemType extends Asset {
-    type: typeof ASSET_ITEM,
+    type: typeof ASSET_ITEM
     id: string
   }
 
@@ -101,11 +99,11 @@ export const SettingForces: React.FC<PropTypes> = ({
   // }
 
   const generatehashCode = (str: string): string => {
-    let hash: number = 0
+    let hash = 0
     if (str.length === 0) return '0'
     for (let i = 0; i < str.length; i++) {
       const chr = str.charCodeAt(i)
-      hash  = ((hash << 5) - hash) + chr
+      hash = ((hash << 5) - hash) + chr
       hash |= 0 // Convert to 32bit integer
     }
     const res = `${hash}`
@@ -127,13 +125,12 @@ export const SettingForces: React.FC<PropTypes> = ({
     const data = forcesData[selectedItem]
     if (!data) return null
 
-    const selectedForcePlatforms:ForceItemType[] = Array.isArray(data.assets) ? data.assets.map(asset => ({ ...asset, id: asset.platformType, type: ASSET_ITEM })) : []
+    const selectedForcePlatforms: ForceItemType[] = Array.isArray(data.assets) ? data.assets.map(asset => ({ ...asset, id: asset.platformType, type: ASSET_ITEM })) : []
     const handleChangeForce = (force: ForceData): void => {
       const nextForces: Array<ForceData> = [...initialForces]
       nextForces[selectedItem] = force
       handleChangeForces(nextForces)
     }
-
 
     const handleCreateRole = (): void => {
       const roles: Array<Role> = [...data.roles, {
@@ -222,7 +219,7 @@ export const SettingForces: React.FC<PropTypes> = ({
 
     type ListItem = PlatformItemType | ForceItemType
 
-    const handleForcePlatformTypesChange = (nextList: ListItem[]) => {
+    const handleForcePlatformTypesChange = (nextList: ListItem[]): void => {
       let changes: boolean = nextList.length !== selectedForcePlatforms.length
 
       const forceAssets: Asset[] = nextList.map((item, key) => {
@@ -249,7 +246,7 @@ export const SettingForces: React.FC<PropTypes> = ({
       }
     }
 
-    const renderAssetForm = () => {
+    const renderAssetForm = (): React.ReactNode => {
       if (!Array.isArray(data.assets)) return null
       if (data.assets.length === 0) return null
       const asset = data.assets.find(asset => asset.uniqid === selectedAssetItem)
@@ -267,14 +264,17 @@ export const SettingForces: React.FC<PropTypes> = ({
         // NOTE: uniqid Readonly
         // asset.uniqid = event.target.value
         // handleChangeForce(data)
+        console.log(_event)
       }
       const handleChangeAssetContactId = (_event: ChangeEvent<HTMLInputElement>): void => {
         // NOTE: contactId Readonly
         // asset.contactId = event.target.value
         // handleChangeForce(data)
+        console.log(_event)
       }
       const handleChangeAssetLocation = (_event: ChangeEvent<HTMLSelectElement>): void => {
-
+        // handleChangeForce(data)
+        console.log(_event)
       }
 
       return <div className={styles['view-result-box']}>
@@ -283,7 +283,7 @@ export const SettingForces: React.FC<PropTypes> = ({
             <ListItemText>
               <label className={styles['input-group']}>
                 <span className={styles['list-title']}>Name</span>
-                <Input customColor="transparent" value={asset.name} onChange={handleChangeAssetName}/>
+                <TextInput customColor="transparent" value={asset.name} onChange={handleChangeAssetName}/>
               </label>
             </ListItemText>
           </ListItem>
@@ -291,7 +291,7 @@ export const SettingForces: React.FC<PropTypes> = ({
             <ListItemText>
               <label className={styles['input-group']}>
                 <span className={styles['list-title']}>ContactID</span>
-                <Input customColor="transparent" value={asset.contactId} onChange={handleChangeAssetContactId}/>
+                <TextInput customColor="transparent" value={asset.contactId} onChange={handleChangeAssetContactId}/>
               </label>
             </ListItemText>
           </ListItem>
@@ -299,7 +299,7 @@ export const SettingForces: React.FC<PropTypes> = ({
             <ListItemText>
               <label className={styles['input-group']}>
                 <span className={styles['list-title']}>UniqueID</span>
-                <Input customColor="transparent" value={asset.uniqid} onChange={handleChangeAssetUniqid}/>
+                <TextInput customColor="transparent" value={asset.uniqid} onChange={handleChangeAssetUniqid}/>
               </label>
             </ListItemText>
           </ListItem>
@@ -329,7 +329,7 @@ export const SettingForces: React.FC<PropTypes> = ({
 
     return (
       <div key={selectedItem}>
-        <div className={cx(styles['row'], styles['mb_20'])}>
+        <div className={cx(styles.row, styles['mb-20'])}>
           <div className={styles.col}>
             <TextInput
               customColor="transparent"
@@ -434,8 +434,8 @@ export const SettingForces: React.FC<PropTypes> = ({
                 <Typography className={styles['accordion-title']}>Assets</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <div style={{flexGrow: 1}}>
-                  <Grid container spacing={3}>
+                <div style={{ flexGrow: 1 }}>
+                  {allPlatforms.length > 0 ? <Grid container spacing={3}>
                     <Grid item xs={3}>
                       <FormControlLabel
                         control={
@@ -454,7 +454,6 @@ export const SettingForces: React.FC<PropTypes> = ({
                         <ReactSortable
                           list={allPlatforms}
                           sort={false}
-                          setList={(_nextList): void => { }}
                           group={'platformTypesList'}
                         >
                           {allPlatforms.map((item) => {
@@ -492,7 +491,7 @@ export const SettingForces: React.FC<PropTypes> = ({
 
                                 return <div
                                   key={item.uniqid}
-                                  className={cn(styles['list-item'], item.uniqid === selectedAssetItem && styles['list-item-selected'])}
+                                  className={cx(styles['list-item'], item.uniqid === selectedAssetItem && styles['list-item-selected'])}
                                   onClick={(): void => { setSelectedAssetItem(item.uniqid) }}
                                 >
                                   <div className={cx(icClassName, styles['item-asset-icon'])}/>
@@ -507,7 +506,7 @@ export const SettingForces: React.FC<PropTypes> = ({
                     <Grid item xs={4}>
                       {renderAssetForm()}
                     </Grid>
-                  </Grid>
+                  </Grid> : 'no available Platform Types'}
                 </div>
               </AccordionDetails>
             </Accordion>

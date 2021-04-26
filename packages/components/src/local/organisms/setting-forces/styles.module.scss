@@ -1,4 +1,4 @@
-.mb_20 {
+.mb-20 {
   margin-bottom: 20px;
 }
 
@@ -95,7 +95,7 @@
   margin-bottom: 20px;
 }
 .accordion-header {
-  background-color: #8595a5!important,
+  background-color: #8595a5 !important;
 }
 .accordion-title {
   color: #fff;
@@ -111,7 +111,7 @@
   overflow-y: auto;
 }
 .icons-col::-webkit-scrollbar {
-    width: 7px;
+  width: 7px;
 }
 .icons-col::-webkit-scrollbar-thumb {
   background-color: #c4c4c4;
@@ -181,7 +181,7 @@
 }
 
 .assets-list-scrollable-box::-webkit-scrollbar {
-    width: 7px;
+  width: 7px;
 }
 .assets-list-scrollable-box::-webkit-scrollbar-thumb {
   background-color: #c4c4c4;
@@ -200,7 +200,6 @@
   align-items: center;
   justify-content: space-between;
   padding: 5px 10px;
-
 }
 .asset-name {
   flex: 1;
@@ -226,7 +225,7 @@
   height: 70%;
   filter: invert(100%);
   border-width: 0;
-  -webkit-filter: invert(100%);
+  filter: invert(100%);
 }
 
 .item-asset-icon {
