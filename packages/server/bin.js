@@ -1,5 +1,5 @@
 const server = require('./server')
-const opn = require('opn')
+const path = require('path')
 
 if (process.argv[2]) {
   console.log(`running client with remote server "${process.argv[2]}"`)
@@ -8,7 +8,43 @@ if (process.argv[2]) {
   console.log('(You can give the second parameter as the remote server URL)')
 }
 
-const port = process.env.PORT || 8080
+const fs = require('fs')
+
+const root = './serge/'
+const dbDir = './serge/db/'
+const imgDir = './serge/img/'
+const remoteServer = process.argv[2] || null
+
+if (!fs.existsSync(root)) {
+  fs.mkdirSync(root)
+}
+
+const dbPath = path.join(__dirname, 'db')
+fs.readdir(dbPath, (err, dbs) => {
+  if (err) {
+    throw err
+  }
+  dbs.forEach(dbFile => {
+    const dbData = fs.readFileSync(`${dbPath}/${dbFile}`)
+    fs.writeFileSync(`${process.cwd()}/serge/db/${dbFile}`, dbData)
+  })
+})
+
+const onAppInitListeningAddons = []
+const onAppStartListeningAddons = []
+
+const ipQuotesRandom = require('./addons/IpQuotesRandom')
+initAddOnEvent(ipQuotesRandom)
+
+function initAddOnEvent (addon) {
+  switch (addon.info.on) {
+    case 'app-start-listening':
+      onAppStartListeningAddons.push(addon)
+      break
+    default:
+      onAppInitListeningAddons.push(addon)
+  }
+}
 
 server(
   82, // event emmiter max listeners
@@ -23,15 +59,10 @@ server(
       'http://localhost:8000'
     ]
   },
-  './serge/db/', // database directory
-  './serge/img/', // images directory
-  port, // port
-  process.argv[2] || null, // remote server path
-  [ // addons
-    'IpQuotesRandom'
-    // 'IpQuoteStatic'
-  ],
-  true
+  dbDir, // database directory
+  imgDir, // images directory
+  process.env.PORT || 8080, // port
+  remoteServer, // remote server path
+  onAppInitListeningAddons,
+  onAppStartListeningAddons
 )
-
-opn(`http://localhost:${port}`)

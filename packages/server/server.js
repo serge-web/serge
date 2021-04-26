@@ -6,8 +6,8 @@ const runServer = (
   imgDir,
   port,
   remoteServer,
-  addons,
-  nodePkgMode
+  onAppInitListeningAddons,
+  onAppStartListeningAddons
 ) => {
   require('events').EventEmitter.defaultMaxListeners = eventEmmiterMaxListeners
   const express = require('express')
@@ -23,61 +23,18 @@ const runServer = (
     .defaults(pouchOptions)
 
   const fs = require('fs')
-  const root = './serge/'
-
-  if (!fs.existsSync(root)) {
-    fs.mkdirSync(root)
-  }
-
-  if (!fs.existsSync(dbDir)) {
-    fs.mkdirSync(dbDir)
-  }
-
-  if (!fs.existsSync(imgDir)) {
-    fs.mkdirSync(imgDir)
-  }
-
-  if (nodePkgMode) {
-    const dbPath = path.join(__dirname, 'db')
-    fs.readdir(dbPath, (err, dbs) => {
-      if (err) {
-        throw err
-      }
-      dbs.forEach(dbFile => {
-        const dbData = fs.readFileSync(`${dbPath}/${dbFile}`)
-        fs.writeFileSync(`${process.cwd()}/serge/db/${dbFile}`, dbData)
-      })
-    })
-  }
-
-  require('pouchdb-all-dbs')(PouchDB)
-
-  const cors = require('cors')
-
-  const onAppInitListeningAddons = []
-  const onAppStartListeningAddons = []
-
-  addons.forEach(addonId => {
-    const addon = require(`./addons/${addonId}`)
-    switch (addon.info.on) {
-      case 'app-start-listening':
-        onAppStartListeningAddons.push(addon)
-        break
-      default:
-        onAppInitListeningAddons.push(addon)
-    }
-  })
-
-  const app = express()
 
   onAppInitListeningAddons.forEach(addon => {
     addon.run(app)
   })
 
+  require('pouchdb-all-dbs')(PouchDB)
+  const cors = require('cors')
+  const app = express()
+
   const clientBuildPath = '../client/build'
 
   app.use(cors(corsOptions))
-
   app.use('/db', require('express-pouchdb')(PouchDB))
 
   app.get('/allDbs', (req, res) => {
@@ -141,6 +98,14 @@ const runServer = (
     })
   }
 
+  if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir)
+  }
+
+  if (!fs.existsSync(imgDir)) {
+    fs.mkdirSync(imgDir)
+  }
+
   app.use(express.static(path.join(__dirname, clientBuildPath)))
   app.use('/img', express.static(path.join(__dirname, './img')))
   app.use('/default_img', express.static(path.join(__dirname, './default_img')))
@@ -153,6 +118,8 @@ const runServer = (
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })
+    const start = (process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open')
+    require('child_process').exec(start + ' ' + `http://localhost:${port}`)
   })
 }
 

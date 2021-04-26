@@ -1,5 +1,24 @@
 const server = require('./server')
 
+const onAppInitListeningAddons = []
+const onAppStartListeningAddons = []
+
+const addons = [ // addons
+  'IpQuotesRandom'
+  // 'IpQuoteStatic'
+]
+
+addons.forEach(addonId => {
+  const addon = require(`./addons/${addonId}`)
+  switch (addon.info.on) {
+    case 'app-start-listening':
+      onAppStartListeningAddons.push(addon)
+      break
+    default:
+      onAppInitListeningAddons.push(addon)
+  }
+})
+
 server(
   82, // event emmiter max listeners
   { prefix: 'db/', adapter: 'websql' }, // PouchDb Options
@@ -18,8 +37,6 @@ server(
   './img', // images directory
   process.env.PORT || 8080, // port
   null, // remote server path
-  [ // addons
-    'IpQuotesRandom'
-    // 'IpQuoteStatic'
-  ]
+  onAppInitListeningAddons,
+  onAppStartListeningAddons
 )
