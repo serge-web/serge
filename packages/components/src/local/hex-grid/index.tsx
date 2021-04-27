@@ -11,6 +11,7 @@ import getCellStyle from './helpers/get-cell-style'
 
 import binCells, { PolyBin } from './helpers/bin-cells'
 import generateOuterBoundary from './helpers/get-outer-boundary'
+import multiPolyFromGeoJSON from './helpers/multi-poly-from-geojson'
 
 /* Import mapping context */
 import { MapContext } from '../mapping'
@@ -23,7 +24,7 @@ import { LAYDOWN_TURN, Domain } from '@serge/config'
 export const HexGrid: React.FC<{}> = () => {
   const {
     gridCells, planningConstraints, zoomLevel, setNewLeg, setHidePlanningForm,
-    selectedAsset, viewAsRouteStore, viewport, domain
+    selectedAsset, viewAsRouteStore, viewport, domain, polygonAreas
   } = useContext(MapContext).props
 
   // fix the leaflet icon path, using tip from here:
@@ -34,8 +35,13 @@ export const HexGrid: React.FC<{}> = () => {
   const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>([])
   const [allowablePoly, setAllowablePoly] = useState<Array<L.LatLng>>([])
 
+  // Store the set of leaflet polygon areas, used as performance
+  // fix for showing very large areas of hexes
+  const [leafletPolys, setLeafletPolys] = useState<L.LatLngExpression[][][][][]>([])
+
   // whether to show performance optimised view
   const [reducedDetail, setReducedDetail] = useState<boolean>(false)
+  const [zeroHexTerrain, setZeroHexTerrain] = useState<boolean>(false)
 
   // the cell for the selected asset
   const [cellForSelected, setCellForSelected] = useState<string | undefined>(undefined)
@@ -266,6 +272,18 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [planningRange, planningConstraints, gridCells])
 
+  /** remap the GeoJSON coords (lngLat) to Leaflet coords (latLng)
+  */
+   useEffect(() => {
+    console.log('updating poly areas', polygonAreas)
+    if(polygonAreas) {
+     console.log('recalculating poly areas')
+     const leafletPolyAreas = multiPolyFromGeoJSON(polygonAreas)
+     console.log('leaflet poly', leafletPolyAreas[0])
+     setLeafletPolys(leafletPolyAreas)  
+    }
+ }, [polygonAreas])
+
   const createPolyBins = (cells: SergeGrid<SergeHex<{}>>): PolyBin[] | undefined => {
     if (gridCells) {
       const store: SergeHex<{}>[] = []
@@ -305,15 +323,19 @@ export const HexGrid: React.FC<{}> = () => {
 
         let visible: SergeHex<{}>[] = []
         polyBins.forEach((bin: PolyBin) => {
-          if (extendedViewport.contains(bin.bounds)) {
-            // ok, add all of them
-            visible = visible.concat(bin.cells)
-          } else if (bin.bounds.intersects(extendedViewport)) {
-            // find the ones in the viewport
-            const inZone = bin.cells.filter((cell: SergeHex<{}>) =>
-              extendedViewport.contains(cell.centreLatLng)
-            )
-            visible = visible.concat(inZone)
+          // check if we are showing hex terrain
+          if(!zeroHexTerrain) {
+
+            if (extendedViewport.contains(bin.bounds)) {
+              // ok, add all of them
+              visible = visible.concat(bin.cells)
+            } else if (bin.bounds.intersects(extendedViewport)) {
+              // find the ones in the viewport
+              const inZone = bin.cells.filter((cell: SergeHex<{}>) =>
+                extendedViewport.contains(cell.centreLatLng)
+              )
+              visible = visible.concat(inZone)
+            }
           }
         })
 
@@ -361,6 +383,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   useEffect(() => {
     setReducedDetail(zoomLevel <= 7.0)
+    setZeroHexTerrain(zoomLevel <= 5)
   }, [zoomLevel])
 
   // as a performance optimisation we plot the
@@ -560,6 +583,16 @@ export const HexGrid: React.FC<{}> = () => {
           key={'drag_marker_'} />
     }
     </LayerGroup>
+    { leafletPolys.length && 
+    <LayerGroup key='polygon_outlines'>
+      {leafletPolys.map((terrain:any, index:number) =>
+          <Polygon 
+          key={'poly_a' + index}
+          positions={terrain} 
+          className={styles['polygon-area']}/>
+      )}
+    </LayerGroup>
+    }
     {
       // zoomLevel > 5.5 &&
       // change - show labels if there are less than 400. With the zoom level
