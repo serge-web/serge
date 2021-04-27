@@ -5,7 +5,7 @@ import { padInteger } from '@serge/helpers'
 import { Terrain } from '@serge/config'
 
 /** lookup for types to styles */
-const typeFor = (type: number): {terrain: Terrain, type: string, fillColor: string} => {
+export const typeFor = (type: number): {terrain: Terrain, type: string, fillColor: string} => {
   switch (type) {
     case 0: return { terrain: Terrain.LAND, type: 'land', fillColor: '#0f0' }
     case 1: return { terrain: Terrain.SEA, type: 'shallow', fillColor: '#fff' }
