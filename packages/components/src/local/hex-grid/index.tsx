@@ -583,7 +583,7 @@ export const HexGrid: React.FC<{}> = () => {
           key={'drag_marker_'} />
     }
     </LayerGroup>
-    { leafletPolys.length && 
+    { leafletPolys.length > 0 && 
     <LayerGroup key='polygon_outlines'>
       {leafletPolys.map((terrain:any, index:number) =>
           <Polygon 
