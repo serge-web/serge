@@ -7,7 +7,27 @@
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/.github" />
       <excludeFolder url="file://$MODULE_DIR$/docs" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/helpers/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/components/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/client/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/config/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/e2e/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/executable/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/helpers/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/server/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/themes/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/components/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/client/build" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/config/build" />
     </content>
+    <content url="file://$MODULE_DIR$/packages/client/node_modules" />
+    <content url="file://$MODULE_DIR$/packages/components/node_modules" />
+    <content url="file://$MODULE_DIR$/packages/config/node_modules" />
+    <content url="file://$MODULE_DIR$/packages/e2e/node_modules" />
+    <content url="file://$MODULE_DIR$/packages/executable/node_modules" />
+    <content url="file://$MODULE_DIR$/packages/helpers/node_modules" />
+    <content url="file://$MODULE_DIR$/packages/server/node_modules" />
+    <content url="file://$MODULE_DIR$/packages/themes/node_modules" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
