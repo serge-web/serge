@@ -8,7 +8,7 @@ import L from 'leaflet'
 const multiPolyFromGeoJSON = (data: FeatureCollection): L.LatLngExpression[][][][][] => {
   // drop zone 2 - open sea
   const interestingTerrains = data.features.filter((feature: Feature) => 
-    feature.properties && feature.properties["type"] !== 2)
+    feature.properties && feature.properties["type"] !== 2 && feature.properties["type"] !== 0)
 
   // now collapse & reconstruct tree, swapping lon & lat
   const terrains = interestingTerrains.map((feature: Feature) => {
