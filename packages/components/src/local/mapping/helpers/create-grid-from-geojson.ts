@@ -4,8 +4,15 @@ import { SergeHex, SergeGrid } from '@serge/custom-types'
 import { padInteger } from '@serge/helpers'
 import { Terrain } from '@serge/config'
 
+
+export interface TerrainType {
+  terrain: Terrain,
+  type: string,
+  fillColor: string
+}
+
 /** lookup for types to styles */
-export const typeFor = (type: number): {terrain: Terrain, type: string, fillColor: string} => {
+export const typeFor = (type: number): TerrainType => {
   switch (type) {
     case 0: return { terrain: Terrain.LAND, type: 'land', fillColor: '#0f0' }
     case 1: return { terrain: Terrain.SEA, type: 'shallow', fillColor: '#fff' }

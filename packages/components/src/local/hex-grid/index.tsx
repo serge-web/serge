@@ -11,7 +11,7 @@ import getCellStyle from './helpers/get-cell-style'
 
 import binCells, { PolyBin } from './helpers/bin-cells'
 import generateOuterBoundary from './helpers/get-outer-boundary'
-import multiPolyFromGeoJSON from './helpers/multi-poly-from-geojson'
+import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from-geojson'
 
 /* Import mapping context */
 import { MapContext } from '../mapping'
@@ -37,7 +37,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   // Store the set of leaflet polygon areas, used as performance
   // fix for showing very large areas of hexes
-  const [leafletPolys, setLeafletPolys] = useState<L.LatLngExpression[][][][][]>([])
+  const [leafletPolys, setLeafletPolys] = useState<TerrainPolygons[]>([])
 
   // whether to show performance optimised view
   const [reducedDetail, setReducedDetail] = useState<boolean>(false)
@@ -585,11 +585,12 @@ export const HexGrid: React.FC<{}> = () => {
     </LayerGroup>
     { leafletPolys.length > 0 && 
     <LayerGroup key='polygon_outlines'>
-      {leafletPolys.map((terrain:any, index:number) =>
+      {leafletPolys.map((terrain:TerrainPolygons, index:number) =>
           <Polygon 
           key={'poly_a' + index}
-          positions={terrain} 
-          className={styles['polygon-area']}/>
+          positions={terrain.data} 
+          fillColor={terrain.terrain.fillColor}
+          className={styles['terrain-outline']}/>
       )}
     </LayerGroup>
     }
