@@ -56,6 +56,8 @@ import styles from './styles.module.scss'
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: null })
 
+const unused = 12
+
 const defaultProps: PropTypes = {
   mapBar: true,
   mappingConstraints: {
