@@ -180,6 +180,6 @@ it('correctly handle condition when no visibility supplied', () => {
   expect(updated).toBeTruthy()
   const charlie = findAsset(updated, 'C06')
   expect(charlie.name).toEqual('foxtrot')
-  expect(charlie.perceptions).toHaveLength(10)
+  expect(charlie.perceptions).toHaveLength(0)
   expect(charlie.condition).toEqual(payload3.condition)  
 })
