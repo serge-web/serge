@@ -9,13 +9,12 @@ const RfiStatusBoardChannel = () => {
 
   const state = usePlayerUiState()
   const { selectedForce, selectedRole } = state
-  const isUmpire = selectedForce && selectedForce.uniqid === UMPIRE_FORCE
+  const isUmpire = selectedForce && selectedForce.uniqid === UMPIRE_FORCE || false
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const roles = selectedForce && selectedForce.roles.map(role => role.name) || []
 
   const handleChange = (nextMsg: MessageCustom): void => {
-    console.log('sending modified message', nextMsg)
     saveMessage(state.currentWargame, nextMsg.details, nextMsg.message)()
   }
 
