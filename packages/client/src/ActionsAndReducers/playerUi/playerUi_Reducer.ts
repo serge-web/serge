@@ -140,6 +140,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.channels = changedLatestState.channels
       newState.chatChannel = changedLatestState.chatChannel
       newState.nextMsgReference = changedLatestState.nextMsgReference
+      newState.rfiMessages = changedLatestState.rfiMessages
       break
 
     case SET_ALL_MESSAGES:
