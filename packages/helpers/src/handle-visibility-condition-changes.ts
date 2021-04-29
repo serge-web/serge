@@ -4,7 +4,7 @@ import deepCopy from './deep-copy'
 
 /** create/remove perceptions for assets */
 
-export default (message: MessageVisibilityChanges, allForces: ForceData[]): ForceData[] => {
+export default (message1: MessageVisibilityChanges, allForces1: ForceData[]): ForceData[] => {
   const allForcesCopy = deepCopy(allForces)
   const asset: Asset = findAsset(allForcesCopy, message.assetId)
   message.visibility.forEach((visChange: Visibility) => {
