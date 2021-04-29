@@ -22,10 +22,6 @@ jobs:
     name: Running unit test cases
     runs-on: macOS-latest
 
-    strategy:
-      matrix:
-        node-version: [10.x]
-
     steps:
       - name: Setup repo
         uses: actions/checkout@v1
