@@ -19,7 +19,7 @@ on:
 jobs:
   test:
   
-    name: Running unit test cases
+    name: Build/Test validation
     runs-on: macOS-latest
     
     strategy:
