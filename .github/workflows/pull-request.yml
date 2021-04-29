@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: serge
+name: Unit test
 
 on:
 
@@ -17,7 +17,7 @@ jobs:
   test:
   
     name: Build/Test validation
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     
     strategy:
       matrix:
