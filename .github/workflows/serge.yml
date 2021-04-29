@@ -1,0 +1,45 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# This workflow will install Deno and run tests across stable and nightly builds on Windows, Ubuntu and macOS.
+# For more information see: https://github.com/denolib/setup-deno
+
+name: serge
+
+on:
+
+  pull_request:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  test:
+  
+    name: Running unit test cases
+    runs-on: macOS-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v1
+
+      - name: Use Node.js version ${{ matix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matix.node-version }}
+          
+      - name : Running dependency installation
+        run: yarn install
+        
+      - name : Running project building
+        run: yarn build
+        
+      - name : Running unit testing
+        run: yarn test-unit
