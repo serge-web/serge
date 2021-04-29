@@ -20,7 +20,8 @@ server(
       'https://serge-dev.herokuapp.com',
       'http://localhost:3000',
       'http://localhost:8080',
-      'http://localhost:8000'
+      'http://localhost:8000',
+      'http://localhost:6611'
     ]
   },
   './db', // database directory
