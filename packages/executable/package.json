@@ -21,10 +21,10 @@
     "targets": [
       "node14"
     ],
-    "outputPath": "build"
+    "outputPath": "build-temp"
   },
   "scripts": {
-    "start": "node helpers/pkgResolveErrors.js && pkg --targets=linux,win,macos . && node helpers/pkgCopyNodes.js"
+    "start": "node helpers/pkgResolveErrors.js && pkg --targets=linux,win,macos . && node helpers/pkhCopyCrossPlatforms.js"
   },
   "devDependencies": {
     "eslint": "^6.5.1",
