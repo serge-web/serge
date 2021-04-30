@@ -22,16 +22,5 @@
   "scripts": {
     "start": "node helpers/pkgResolveErrors.js && pkg . --out-path ./builds && node helpers/pkgCopyNodes.js",
     "pkg-build": "pkg . --out-path ./builds"
-  },
-  "devDependencies": {
-    "eslint": "^6.5.1",
-    "eslint-config-prettier": "^6.4.0",
-    "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^10.0.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "prettier": "^1.18.2"
   }
 }
