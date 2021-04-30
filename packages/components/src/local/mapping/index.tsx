@@ -2,7 +2,7 @@ import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain, serverPath } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
@@ -282,7 +282,8 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (mappingConstraints.gridCellsURL) {
       const fetchMethod = fetchOverride || whatFetch
-      fetchMethod(mappingConstraints.gridCellsURL)
+      const url= serverPath + mappingConstraints.gridCellsURL
+      fetchMethod(url)
         .then((response: any) => response.json())
         .then((res: any) => {
           setAtlanticCells(res)
