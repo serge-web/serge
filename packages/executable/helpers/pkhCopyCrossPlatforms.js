@@ -6,6 +6,9 @@ const rimraf = require('rimraf')
 const buildTmpDir = path.resolve(process.cwd(), 'build-temp')
 const sqlite3NodeDir = path.resolve(process.cwd(), 'sqlite3.nodes')
 
+/**
+ * define the exec file and sqlite3.node information
+ */
 const nodeFiles = [
   {
     name: 'executable-linux',
@@ -33,11 +36,31 @@ const nodeFiles = [
 const buildDir = path.resolve(process.cwd(), 'builds')
 const finalDir = [`${buildDir}/linux`, `${buildDir}/macos`, `${buildDir}/win`]
 
+/**
+ * remove the old one
+ */
+if (fs.existsSync(buildDir)) {
+  console.log('Clean the old build directory')
+  rimraf.sync(buildDir)
+}
+
+/**
+ * create the new one
+ */
 if (!fs.existsSync(buildDir)) {
+  console.log('Create new build directory')
   fs.mkdirSync(buildDir)
   finalDir.forEach(dir => fs.mkdirSync(dir))
 }
 
+/**
+ * find exec and sqlite3.node file then copy to build
+ * @param {*} file
+ * @param {*} path
+ * @param {*} prefix
+ * @param {*} finalDir
+ * @param {*} cb
+ */
 function findAndCopy (file, path, prefix, finalDir, cb) {
   find.file(file, path, (files) => {
     if (files.length) {
