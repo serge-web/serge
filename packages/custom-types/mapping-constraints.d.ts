@@ -46,4 +46,11 @@ export default interface MappingConstraints {
    * // TODO: remove this, make generic
    */
   targetDataset: Domain
+  /**
+   * Json data url to load atlantic cells data
+   * Should refer to file in packages/data folder, 
+   * in the form: cells/atlantic-cells-6k.json
+   * App will prepend server path
+   */
+  gridCellsURL?: string
 }

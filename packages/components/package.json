@@ -97,7 +97,8 @@
     "ts-jest": "^26.2.0",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.5",
-    "uniqid": "^5.0.3"
+    "uniqid": "^5.0.3",
+    "whatwg-fetch": "^3.6.1"
   },
   "resolutions": {
     "@types/react": "^16.14.5"
