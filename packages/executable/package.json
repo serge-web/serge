@@ -13,7 +13,8 @@
   "pkg": {
     "assets": [
       "../client/build/**/*",
-      "../server/**/*"
+      "../server/**/*",
+      "../data/*"
     ],
     "scripts": [
       "../server/addons/**/*"
