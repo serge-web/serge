@@ -11,6 +11,7 @@ server(
       'https://serge-review-trial-test-*.herokuapp.com',
       'http://localhost:3000',
       'http://localhost:8080',
+      'http://localhost:6611',
       'http://localhost:8000'
     ]
   },

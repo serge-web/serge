@@ -8,7 +8,7 @@ import { Mapping, Assets, HexGrid } from '@serge/components'
 import _ from 'lodash'
 import Channel from '../../../Components/Channel'
 import ChatChannel from '../../../Components/ChatChannel'
-import RfiStatusBoard from '../../../Components/RfiStatusBoard'
+import RfiStatusBoardChannel from '../../../Components/RfiStatusBoardChannel'
 import findChannelByName from './findChannelByName'
 import { Domain } from '@serge/config'
 import { CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '../../../consts'
@@ -38,7 +38,7 @@ const phaseFor = (phase: string): Phase => {
 const factory = (state: PlayerUi): Factory => {
 
   // provide some default mapping constraints if we aren't supplied with any
-  const mappingConstraints: MappingConstraints = state.mappingConstaints !== undefined ? state.mappingConstaints : {
+  const mappingConstraints: MappingConstraints = state.mappingConstaints || {
     bounds: [[14.194809302, 42.3558566271],[12.401259302, 43.7417816271]],
     tileDiameterMins: 5,
     tileLayer: {
@@ -115,8 +115,7 @@ const factory = (state: PlayerUi): Factory => {
       if (channelName === CHANNEL_MAPPING) {
         return renderMap(node.getId())
       } else if (channelName === CHANNEL_RFI_STATUS) {
-        const roles = state.selectedForce && state.selectedForce.roles.map(role => role.name) || []
-        return <RfiStatusBoard rfiData={{rfiMessages:state.rfiMessages, roles:roles, channels: state.allChannels}} />
+        return <RfiStatusBoardChannel />
       } else if(matchedChannel && matchedChannel.length && channelDefinition) {
           // find out if channel just contains chat template
           return isChatChannel(channelDefinition) ? 
