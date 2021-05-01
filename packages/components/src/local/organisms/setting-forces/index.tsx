@@ -15,10 +15,9 @@ import Colorpicker from '../../atoms/colorpicker'
 import EditableList, { Item } from '../../molecules/editable-list'
 import IconUploader from '../../molecules/icon-uploader'
 
-import SettingsForceOverview from "./settings-force-overview";
-import RolesAccordion from "./settings-force-roles/RolesAccordion";
-import AssetsAccordion from "./settings-force-platform-types";
-
+import SettingsForceOverview from './settings-force-overview'
+import RolesAccordion from './settings-force-roles/RolesAccordion'
+import AssetsAccordion from './settings-force-platform-types'
 
 /* Render component */
 export const SettingForces: React.FC<PropTypes> = ({
@@ -40,7 +39,6 @@ export const SettingForces: React.FC<PropTypes> = ({
     setSelectedItem(selectedForce)
     onSidebarClick && onSidebarClick(_item as ForceData)
   }
-
 
   const handleChangeForces = (nextForces: Array<ForceData>): void => {
     setForcesData(nextForces)
@@ -131,8 +129,8 @@ export const SettingForces: React.FC<PropTypes> = ({
               handleChangeForce={handleChangeForce}
             />
 
-            <RolesAccordion 
-              data={data} 
+            <RolesAccordion
+              data={data}
               handleChangeForce={handleChangeForce}
               handleCreateRole={handleCreateRole}
             />

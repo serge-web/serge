@@ -462,7 +462,7 @@ export const HexGrid: React.FC<{}> = () => {
     if (destinationHex) {
       setDragDestination(destinationHex)
     } else {
-      // fallback.  When allowable region is really, really large, it's possible to 
+      // fallback.  When allowable region is really, really large, it's possible to
       // drag the cursur quicker than this function can run. Allow the user to drag the
       // marker past the origin to have another go
       const originHexCell: SergeHex<{}> | undefined = dragDestination && gridCells.cellFor(location, originHex)

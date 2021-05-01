@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 // Import component files
 import SettingsForceOverview from './index'
@@ -21,7 +21,7 @@ export default {
 }
 export const Default: React.FC = () => {
   const [data, setData] = useState(forcesMock[0])
-  return <SettingsForceOverview data={data} handleChangeForce={nextData => setData(nextData)} />
+  return <SettingsForceOverview data={data} handleChangeForce={(nextData): void => setData(nextData)} />
 }
 
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.

@@ -5,7 +5,7 @@ import SettingsForceOverview from './index'
 import { ForceData } from '@serge/custom-types'
 
 const handleChange = (obj: ForceData): void => {
-    console.log(obj);
+  console.log(obj)
 }
 
 describe('SettingsForceOverview component:', () => {

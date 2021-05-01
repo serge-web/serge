@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 
-
 // Import component files
 import AssetsAccordion from './index'
 import docs from './README.md'
@@ -22,13 +21,12 @@ export default {
 }
 export const Default: React.FC = () => {
   const [force, setForce] = useState(forcesMock[0])
-  return <AssetsAccordion 
-          selectedForce={force}
-          platformTypes={platformTypesMock}
-          onChangeHandler={(nextForce): void => setForce(nextForce)}
-        />
+  return <AssetsAccordion
+    selectedForce={force}
+    platformTypes={platformTypesMock}
+    onChangeHandler={(nextForce): void => setForce(nextForce)}
+  />
 }
-
 
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {

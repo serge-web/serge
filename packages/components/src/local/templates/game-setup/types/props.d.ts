@@ -2,7 +2,7 @@ import AdminLayoutProps from '../../../organisms/admin-layout/types/props'
 import { WargameOverview } from '../../../organisms/setting-overview'
 import { ChannelData } from '../../../organisms/setting-channels'
 import { MessageTemplate } from '../../../organisms/setting-channels/types/props'
-import { ForceData, PlatformType } from '@serge/custom-types'
+import { ForceData, PlatformType, PlatformTypeData } from '@serge/custom-types'
 
 export default interface Props extends AdminLayoutProps {
   /**
@@ -91,4 +91,6 @@ export default interface Props extends AdminLayoutProps {
    * Handle wargame being initiated
    */
   onWargameInitiate: () => void
+
+  availablePlatformTypes?: PlatformTypeData[]
 }
