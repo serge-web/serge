@@ -4,6 +4,7 @@ const runServer = (
   corsOptions,
   dbDir,
   imgDir,
+  dataDir,
   port,
   remoteServer,
   onAppInitListeningAddons,
@@ -71,6 +72,10 @@ const runServer = (
   })
 
   app.get('/cells/:filename', (req, res) => {
+    if (dataDir) {
+      res.sendFile(path.join(process.cwd(), dataDir, req.params.filename))
+      return
+    }
     res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
   })
 
@@ -108,6 +113,10 @@ const runServer = (
 
   if (!fs.existsSync(imgDir)) {
     fs.mkdirSync(imgDir)
+  }
+
+  if (dataDir && !fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir)
   }
 
   app.use(express.static(path.join(__dirname, clientBuildPath)))

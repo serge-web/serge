@@ -13,10 +13,18 @@ const fs = require('fs')
 const root = './serge/'
 const dbDir = './serge/db/'
 const imgDir = './serge/img/'
+const dataDir = './serge/data/'
 const remoteServer = process.argv[2] || null
 
 if (!fs.existsSync(root)) {
   fs.mkdirSync(root)
+}
+
+const extract = (src, dest) => {
+  if (!fs.existsSync(dest)) {
+    const dbData = fs.readFileSync(src)
+    fs.writeFileSync(dest, dbData)
+  }
 }
 
 const dbPath = path.join(__dirname, 'db')
@@ -25,8 +33,20 @@ fs.readdir(dbPath, (err, dbs) => {
     throw err
   }
   dbs.forEach(dbFile => {
-    const dbData = fs.readFileSync(`${dbPath}/${dbFile}`)
-    fs.writeFileSync(`${process.cwd()}/serge/db/${dbFile}`, dbData)
+    extract(`${dbPath}/${dbFile}`, `${dbDir}/${dbFile}`)
+  })
+})
+
+const dataPath = path.join(__dirname, '..', 'data')
+fs.readdir(dataPath, (err, data) => {
+  if (err) {
+    throw err
+  }
+  data.forEach(json => {
+    if (json === 'package.json') {
+      return
+    }
+    extract(`${dataPath}/${json}`, `${dataDir}/${json}`)
   })
 })
 
@@ -62,6 +82,7 @@ server(
   },
   dbDir, // database directory
   imgDir, // images directory
+  dataDir,
   process.env.PORT || 8080, // port
   remoteServer, // remote server path
   onAppInitListeningAddons,
