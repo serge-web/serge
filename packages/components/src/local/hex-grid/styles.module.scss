@@ -1,13 +1,15 @@
 .default-hex {
+  // Note: we specify fill inside the code, depending if the are polygons present
   //fill-opacity: 0.2;
-  fill: transparent;
+  // fill: transparent;
   stroke: #aaa;
   opacity: 0.6;
   stroke-width: 2;
 }
 
 .allowable-hex {
-  fill: transparent;
+  // Note: we specify fill inside the code, depending if the are polygons present
+  // fill: transparent;
   //fill-opacity: 0.2;
   stroke: #444;
   opacity: 0.4;
