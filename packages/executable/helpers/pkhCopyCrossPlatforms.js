@@ -95,13 +95,13 @@ Promise.all(promises).then(() => {
   rimraf.sync(buildTmpDir)
   finalDir.forEach(async dir => {
     const zipPath = path.join(__dirname, '..', 'builds')
-    let outputPath = ''
+    let outputPath = `${zipPath}/SERGE_${getDate()}`
     if (dir.indexOf('linux') !== -1) {
-      outputPath = `${zipPath}/SERGE_${getDate()}_linux.zip`
+      outputPath += '_linux.zip'
     } else if (dir.indexOf('macos') !== -1) {
-      outputPath = `${zipPath}/SERGE_${getDate()}_macos.zip`
+      outputPath += '_macos.zip'
     } else {
-      outputPath = `${zipPath}/SERGE_${getDate()}_win64.zip`
+      outputPath += '_win64.zip'
     }
     await zipDirectory(dir, outputPath)
     rimraf.sync(dir)
