@@ -321,7 +321,6 @@ export const HexGrid: React.FC<{}> = () => {
         let visible: SergeHex<{}>[] = []
 
         // check if we are showing hex terrain
-        console.log('hex grid, zero hez:', zeroHexTerrain, 'reduced detail', reducedDetail)
         if(!zeroHexTerrain) {
           polyBins.forEach((bin: PolyBin) => {
 
@@ -583,7 +582,6 @@ export const HexGrid: React.FC<{}> = () => {
           key={'drag_marker_'} />
     }
     </LayerGroup>
-    { terrainPolys.length > 0 && 
     <LayerGroup key='polygon_outlines'>
       {terrainPolys.map((terrain:TerrainPolygons, index:number) =>
           <Polygon 
@@ -593,7 +591,6 @@ export const HexGrid: React.FC<{}> = () => {
           className={styles['terrain-outline']}/>
       )}
     </LayerGroup>
-    }
     {
       // zoomLevel > 5.5 &&
       // change - show labels if there are less than 400. With the zoom level
