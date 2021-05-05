@@ -1,13 +1,16 @@
 .default-hex {
-  fill-opacity: 0.2;
-  //fill: transparent;
+  // Note: we specify fill inside the code, depending if the are polygons present
+  //fill-opacity: 0.2;
+  // fill: transparent;
   stroke: #aaa;
   opacity: 0.6;
   stroke-width: 2;
 }
 
 .allowable-hex {
-  fill-opacity: 0.2;
+  // Note: we specify fill inside the code, depending if the are polygons present
+  // fill: transparent;
+  //fill-opacity: 0.2;
   stroke: #444;
   opacity: 0.4;
   stroke-width: 2;
@@ -24,6 +27,12 @@
   opacity: 1;
   fill-opacity: 0.6;
   stroke-width: 4;
+}
+
+.terrain-outline {
+  fill-opacity: 0.4;
+  stroke: #444;
+  stroke-width: 1;
 }
 
 .planned-line {
