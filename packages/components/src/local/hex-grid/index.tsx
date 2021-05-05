@@ -322,9 +322,11 @@ export const HexGrid: React.FC<{}> = () => {
         const extendedViewport = L.latLngBounds(newTL.getNorthWest(), newBR.getSouthEast())
 
         let visible: SergeHex<{}>[] = []
-        polyBins.forEach((bin: PolyBin) => {
-          // check if we are showing hex terrain
-          if(!zeroHexTerrain) {
+
+        // check if we are showing hex terrain
+        console.log('hex grid, zero hez:', zeroHexTerrain, 'reduced detail', reducedDetail)
+        if(!zeroHexTerrain) {
+          polyBins.forEach((bin: PolyBin) => {
 
             if (extendedViewport.contains(bin.bounds)) {
               // ok, add all of them
@@ -336,8 +338,8 @@ export const HexGrid: React.FC<{}> = () => {
               )
               visible = visible.concat(inZone)
             }
-          }
-        })
+          })
+        }
 
         // if we're at a scale that allows reduced detail, don't show land or plain-sea
         const relevantCellArr = reducedDetail && domain === Domain.ATLANTIC
@@ -488,7 +490,7 @@ export const HexGrid: React.FC<{}> = () => {
       // fallback.  When allowable region is really, really large, it's possible to 
       // drag the cursur quicker than this function can run. Allow the user to drag the
       // marker past the origin to have another go
-      const originHexCell: SergeHex<{}> | undefined = dragDestination && gridCells.cellFor(location, originHex)
+      const originHexCell: SergeHex<{}> | undefined = originHex && gridCells.cellFor(location, originHex)
       if (originHexCell) {
         setDragDestination(originHexCell)
       }
