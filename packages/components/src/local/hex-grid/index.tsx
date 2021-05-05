@@ -37,7 +37,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   // Store the set of leaflet polygon areas, used as performance
   // fix for showing very large areas of hexes
-  const [leafletPolys, setLeafletPolys] = useState<TerrainPolygons[]>([])
+  const [terrainPolys, setTerrainPolys] = useState<TerrainPolygons[]>([])
 
   // whether to show performance optimised view
   const [reducedDetail, setReducedDetail] = useState<boolean>(false)
@@ -275,12 +275,9 @@ export const HexGrid: React.FC<{}> = () => {
   /** remap the GeoJSON coords (lngLat) to Leaflet coords (latLng)
   */
    useEffect(() => {
-    console.log('updating poly areas', polygonAreas)
     if(polygonAreas) {
-     console.log('recalculating poly areas')
      const leafletPolyAreas = multiPolyFromGeoJSON(polygonAreas)
-     console.log('leaflet poly', leafletPolyAreas[0])
-     setLeafletPolys(leafletPolyAreas)  
+     setTerrainPolys(leafletPolyAreas)  
     }
  }, [polygonAreas])
 
@@ -396,7 +393,7 @@ export const HexGrid: React.FC<{}> = () => {
     const allCells = relevantCells.concat(planningRouteCells)
     // some cells may be in both lists, so reduce to unique cells
     const uniqueCells = [...new Set(allCells)]
-    console.log('reduce visible', allowableCells.length, relevantCells.length, uniqueCells.length)
+    console.log('reduce visible', allowableCells.length, allCells.length, uniqueCells.length)
     setVisibleAndAllowableCells(allCells)
   }, [allowableCells, relevantCells, planningRouteCells])
 
@@ -537,6 +534,7 @@ export const HexGrid: React.FC<{}> = () => {
         // such as labels so include prefix in key
         key={'hex_poly_' + cell.name + '_' + index}
         fillColor={cell.fillColor || '#f00'}
+        fill={terrainPolys.length == 0} // only fill them if we don't have polys
         positions={cell.poly}
         stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
         className={styles[getCellStyle(cell, planningRouteCells, allowableCells, cellForSelected)]}
@@ -585,9 +583,9 @@ export const HexGrid: React.FC<{}> = () => {
           key={'drag_marker_'} />
     }
     </LayerGroup>
-    { leafletPolys.length > 0 && 
+    { terrainPolys.length > 0 && 
     <LayerGroup key='polygon_outlines'>
-      {leafletPolys.map((terrain:TerrainPolygons, index:number) =>
+      {terrainPolys.map((terrain:TerrainPolygons, index:number) =>
           <Polygon 
           key={'poly_a' + index}
           positions={terrain.data} 
