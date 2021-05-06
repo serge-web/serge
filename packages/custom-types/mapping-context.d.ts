@@ -137,4 +137,8 @@ export default interface MappingContext {
    * domain for this wargame 
    */
   domain: Domain
+  /**
+   * series of polygon areas, to be shaded
+   */
+  polygonAreas?: any
 }
