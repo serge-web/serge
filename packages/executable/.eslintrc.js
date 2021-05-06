@@ -3,7 +3,7 @@ module.exports = {
     "prettier",
     "standard" 
   ],
-  "rules": {
-    "no-lone-blocks": 0
-  },
+  "parserOptions": {
+    "ecmaVersion": 6
+  }
 }
