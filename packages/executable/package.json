@@ -9,7 +9,8 @@
     "find": "^0.3.0",
     "pkg": "^4.4.0",
     "archiver": "^5.3.0",
-    "eslint-plugin-prettier": "^3.4.0"
+    "eslint-plugin-prettier": "^3.4.0",
+    "@babel/eslint-parser": "^7.13.14"
   },
   "bin": "../server/bin.js",
   "pkg": {
