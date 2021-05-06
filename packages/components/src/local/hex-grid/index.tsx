@@ -532,7 +532,7 @@ export const HexGrid: React.FC<{}> = () => {
         // such as labels so include prefix in key
         key={'hex_poly_' + cell.name + '_' + index}
         fillColor={cell.fillColor || '#f00'}
-        fill={terrainPolys.length == 0} // only fill them if we don't have polys
+        fill={terrainPolys.length === 0} // only fill them if we don't have polys
         positions={cell.poly}
         stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
         className={styles[getCellStyle(cell, planningRouteCells, allowableCells, cellForSelected)]}
