@@ -62,7 +62,7 @@ if (!fs.existsSync(buildDir)) {
  * @param {*} finalDir
  * @param {*} cb
  */
-async function findAndCopy (file, path, prefix, finalDir) {
+const findAndCopy = async (file, path, prefix, finalDir) => {
   return new Promise((resolve, reject) => {
     find.file(file, path, (files) => {
       if (files.length) {
