@@ -53,4 +53,13 @@ export default interface MappingConstraints {
    * App will prepend server path
    */
   gridCellsURL?: string
+  /**
+   * Json data url to load atlantic polygon 
+   * outlines for areas of cells, used to reduce
+   * Leaflet rendering.
+   * Should refer to file in packages/data folder, 
+   * in the form: cells/atlantic-polygons.json
+   * App will prepend server path
+   */
+   polygonAreasURL?: string
 }
