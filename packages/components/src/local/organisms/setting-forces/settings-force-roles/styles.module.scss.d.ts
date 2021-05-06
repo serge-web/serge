@@ -6,9 +6,12 @@ interface CssExports {
   'accordion-title': string;
   'arrow-icon': string;
   'col': string;
+  'role': string;
+  'role-item': string;
+  'role-title': string;
   'row': string;
   'section': string;
-  'textarea': string;
+  'title-center': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

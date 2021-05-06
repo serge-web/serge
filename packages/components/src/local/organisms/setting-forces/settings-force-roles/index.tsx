@@ -2,10 +2,10 @@ import React, { FC } from 'react'
 
 /* Import proptypes */
 import { Role } from '../types/props'
-import { ForceData } from '@serge/custom-types'
+import PropTypes from './types/props'
 
 /* Import Styles */
-import styles from '../styles.module.scss'
+import styles from './styles.module.scss'
 
 /* Import Components */
 import cx from 'classnames'
@@ -36,13 +36,7 @@ const MobileSwitch = withStyles({
   track: {}
 })(Switch)
 
-interface RolesTypes {
-    data: ForceData
-    handleChangeForce: (obj: ForceData) => void
-    handleCreateRole: () => void
-}
-
-const RolesAccordion: FC<RolesTypes> = ({ data, handleChangeForce, handleCreateRole }) => {
+export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
   const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
     const roleItem = item as Role
     const handleChangeRole = (nextRole: Role, submitPlans = false): void => {
@@ -101,6 +95,19 @@ const RolesAccordion: FC<RolesTypes> = ({ data, handleChangeForce, handleCreateR
         </div>
       </div>
     )
+  }
+
+  const handleCreateRole = (): void => {
+    const roles: Array<Role> = [...data.roles, {
+      name: 'New Role',
+      canSubmitPlans: false,
+      password: 'p' + Math.random().toString(36).substring(8),
+      isGameControl: false,
+      isInsightViewer: false,
+      isRFIManager: false,
+      isObserver: false
+    }]
+    handleChangeForce({ ...data, roles: roles })
   }
 
   return (

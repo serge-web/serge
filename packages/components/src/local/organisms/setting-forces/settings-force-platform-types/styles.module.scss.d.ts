@@ -4,15 +4,11 @@ interface CssExports {
   'accordion': string;
   'accordion-header': string;
   'accordion-title': string;
-  'actions': string;
   'age-select': string;
   'arrow-icon': string;
   'asset-name': string;
   'assets-list-box': string;
   'assets-list-scrollable-box': string;
-  'col': string;
-  'color-box': string;
-  'form-row': string;
   'icon-box': string;
   'icon-box-content': string;
   'icon-box-holder': string;
@@ -26,16 +22,7 @@ interface CssExports {
   'list-item': string;
   'list-item-selected': string;
   'list-title': string;
-  'mb-20': string;
   'player-checkbox-label': string;
-  'role': string;
-  'role-item': string;
-  'role-title': string;
-  'row': string;
-  'section': string;
-  'states-holder': string;
-  'textarea': string;
-  'title-center': string;
   'view-result-box': string;
 }
 export const cssExports: CssExports;

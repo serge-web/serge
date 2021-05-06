@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 
 /* Import proptypes */
-import PropTypes, { ForceData, Role } from './types/props'
+import PropTypes, { ForceData } from './types/props'
 
 /* Import Styles */
 import styles from './styles.module.scss'
@@ -16,7 +16,7 @@ import EditableList, { Item } from '../../molecules/editable-list'
 import IconUploader from '../../molecules/icon-uploader'
 
 import SettingsForceOverview from './settings-force-overview'
-import RolesAccordion from './settings-force-roles/RolesAccordion'
+import RolesAccordion from './settings-force-roles'
 import AssetsAccordion from './settings-force-platform-types'
 
 /* Render component */
@@ -30,16 +30,17 @@ export const SettingForces: React.FC<PropTypes> = ({
   onDelete,
   selectedForce,
   platformTypes = []
-}) => {
+}) => {  
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
   const [forcesData, setForcesData] = useState(initialForces)
+
   const handleSwitch = (_item: Item): void => {
     const selectedForce = forcesData.findIndex(force => force.uniqid === _item.uniqid)
     setSelectedItem(selectedForce)
     onSidebarClick && onSidebarClick(_item as ForceData)
   }
-
+  
   const handleChangeForces = (nextForces: Array<ForceData>): void => {
     setForcesData(nextForces)
     onChange({ forces: nextForces })
@@ -54,24 +55,11 @@ export const SettingForces: React.FC<PropTypes> = ({
   const renderContent = (): React.ReactNode => {
     const data = forcesData[selectedItem]
     if (!data) return null
-
+    
     const handleChangeForce = (force: ForceData): void => {
       const nextForces: Array<ForceData> = [...initialForces]
       nextForces[selectedItem] = force
       handleChangeForces(nextForces)
-    }
-
-    const handleCreateRole = (): void => {
-      const roles: Array<Role> = [...data.roles, {
-        name: 'New Role',
-        canSubmitPlans: false,
-        password: 'p' + Math.random().toString(36).substring(8),
-        isGameControl: false,
-        isInsightViewer: false,
-        isRFIManager: false,
-        isObserver: false
-      }]
-      handleChangeForce({ ...data, roles: roles })
     }
 
     const handleOnRejectedIcon = (rejected: any): void => {
@@ -132,7 +120,6 @@ export const SettingForces: React.FC<PropTypes> = ({
             <RolesAccordion
               data={data}
               handleChangeForce={handleChangeForce}
-              handleCreateRole={handleCreateRole}
             />
 
             <AssetsAccordion

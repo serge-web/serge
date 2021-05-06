@@ -8,9 +8,10 @@ import { PlatformItemType, ListItemType, ForceItemType } from '../types/sortable
 import { Asset } from '@serge/custom-types'
 
 /* Import Styles */
-import styles from '../styles.module.scss'
+import styles from './styles.module.scss'
 
 /* Import Components */
+import { kebabCase } from 'lodash'
 import { generateHashCode } from '@serge/helpers'
 import uniqid from 'uniqid'
 
@@ -32,7 +33,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import Typography from '@material-ui/core/Typography'
 
-export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler }) => {
+export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler }) => {  
   const [selectedAssetItem, setSelectedAssetItem] = useState('')
   const [checkboxValue, setCheckboxValue] = useState(false)
 
@@ -130,7 +131,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   const handleForcePlatformTypesChange = (nextList: ListItemType[]): void => {
     let changes: boolean = nextList.length !== selectedForcePlatforms.length
-
+    
     const forceAssets: Asset[] = nextList.map((item, key) => {
       if (item.type === PLATFORM_ITEM) {
         changes = true
@@ -154,7 +155,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       onChangeHandler({ ...selectedForce, assets: forceAssets })
     }
   }
-
+  
   return (
     <Accordion className={styles.accordion}>
       <AccordionSummary
@@ -187,9 +188,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                     group={'platformTypesList'}
                   >
                     {allPlatforms.map((item) => {
-                      const iconName = item.name.split(' ').join('-').toLowerCase()
-                      const icClassName = getIconClassname('', iconName)
-
+                      const icClassName = getIconClassname('', kebabCase(item.name))
                       return <div key={item.id} className={styles['icon-item-main']}>
                         <div className={styles['icon-box-holder']}>
                           <div className={styles['icon-box-content']}>
@@ -215,8 +214,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                         group={'platformTypesList'}
                       >
                         {selectedForcePlatforms.map((item) => {
-                          const iconName = item.name.split(' ').join('-').toLowerCase()
-                          const icClassName = getIconClassname('', iconName)
+                          const icClassName = getIconClassname('', kebabCase(item.name))
                           return <div
                             key={item.uniqid}
                             className={cx(styles['list-item'], item.uniqid === selectedAssetItem && styles['list-item-selected'])}
