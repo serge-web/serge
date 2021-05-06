@@ -136,6 +136,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
   const [atlanticCells, setAtlanticCells] = useState()
+  const [polygonAreas, setPolygonAreas] = useState()
 
   // only update bounds if they're different to the current one
   useEffect(() => {
@@ -292,6 +293,20 @@ export const Mapping: React.FC<PropTypes> = ({
         })
     }
   }, [mappingConstraints.gridCellsURL])
+
+  useEffect(() => {
+    if (mappingConstraints.polygonAreasURL) {
+      const fetchMethod = fetchOverride || whatFetch
+      const url= serverPath + mappingConstraints.polygonAreasURL
+      fetchMethod(url)
+        .then((response: any) => response.json())
+        .then((res: any) => {
+          setPolygonAreas(res)
+        }).catch((err: any) => {
+          console.error(err)
+        })
+    }
+  }, [mappingConstraints.polygonAreasURL])
 
   useEffect(() => {
     if (mapBounds && mappingConstraints.tileDiameterMins) {
@@ -553,7 +568,8 @@ export const Mapping: React.FC<PropTypes> = ({
     groupHostPlatform: groupHostPlatformLocal,
     plansSubmitted,
     setPlansSubmitted,
-    domain: mappingConstraints.targetDataset
+    domain: mappingConstraints.targetDataset,
+    polygonAreas
   }
 
   // any events for leafletjs you can get from leafletElement
