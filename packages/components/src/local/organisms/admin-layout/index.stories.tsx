@@ -101,7 +101,7 @@ export const Default: React.FC = (args) => {
     console.log('wargame initiated')
     setWargameChanged(true)
   }
-  
+
   return (
     <AdminLayout wargame={wargame} activeTab={adminTabs[activeTab]} tabs={adminTabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>

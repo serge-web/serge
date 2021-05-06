@@ -33,7 +33,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import Typography from '@material-ui/core/Typography'
 
-export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler }) => {  
+export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler }) => {
   const [selectedAssetItem, setSelectedAssetItem] = useState('')
   const [checkboxValue, setCheckboxValue] = useState(false)
 
@@ -131,7 +131,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   const handleForcePlatformTypesChange = (nextList: ListItemType[]): void => {
     let changes: boolean = nextList.length !== selectedForcePlatforms.length
-    
+
     const forceAssets: Asset[] = nextList.map((item, key) => {
       if (item.type === PLATFORM_ITEM) {
         changes = true
@@ -155,7 +155,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       onChangeHandler({ ...selectedForce, assets: forceAssets })
     }
   }
-  
+
   return (
     <Accordion className={styles.accordion}>
       <AccordionSummary

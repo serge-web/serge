@@ -5,14 +5,14 @@ import { ForceData } from '@serge/custom-types'
 import RolesAccordion from './index'
 
 const handleChange = (obj: ForceData): void => {
-  console.log(obj);
+  console.log(obj)
 }
 
 describe('RolesAccordion component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <RolesAccordion 
+        <RolesAccordion
           data={forces[0]}
           handleChangeForce={handleChange}
         />,

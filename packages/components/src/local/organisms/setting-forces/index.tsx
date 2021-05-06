@@ -30,7 +30,7 @@ export const SettingForces: React.FC<PropTypes> = ({
   onDelete,
   selectedForce,
   platformTypes = []
-}) => {  
+}) => {
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
   const [forcesData, setForcesData] = useState(initialForces)
@@ -40,7 +40,7 @@ export const SettingForces: React.FC<PropTypes> = ({
     setSelectedItem(selectedForce)
     onSidebarClick && onSidebarClick(_item as ForceData)
   }
-  
+
   const handleChangeForces = (nextForces: Array<ForceData>): void => {
     setForcesData(nextForces)
     onChange({ forces: nextForces })
@@ -55,7 +55,7 @@ export const SettingForces: React.FC<PropTypes> = ({
   const renderContent = (): React.ReactNode => {
     const data = forcesData[selectedItem]
     if (!data) return null
-    
+
     const handleChangeForce = (force: ForceData): void => {
       const nextForces: Array<ForceData> = [...initialForces]
       nextForces[selectedItem] = force

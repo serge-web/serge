@@ -17,7 +17,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import Typography from '@material-ui/core/Typography'
 
-export const SettingsForceOverview: FC<PropTypes> = ({ data, handleChangeForce }) => {  
+export const SettingsForceOverview: FC<PropTypes> = ({ data, handleChangeForce }) => {
   return (
     <div className={styles.row}>
       <div className={styles.col}>
