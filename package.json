@@ -30,7 +30,7 @@
     "watch": "lerna run watch --stream",
     "rebuild": "yarn build && yarn start",
     "dev": "yarn component-dev & yarn start",
-    "develop": "lerna run develop --scope @serge/client --stream & yarn start-server",
+    "develop": "lerna run watch --scope @serge/config & lerna run watch --scope @serge/components & lerna run watch --scope @serge/helpers & lerna run develop --scope @serge/client --stream & yarn start-server",
     "test": "lerna run test --stream",
     "test-local": "lerna run test-local --stream",
     "test-unit": "lerna run test:unit --stream",
