@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+yarn precommit-msg
+npx lint-staged
+yarn test-unit
