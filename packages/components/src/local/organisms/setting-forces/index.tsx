@@ -3,7 +3,6 @@ import cx from 'classnames'
 
 /* Import proptypes */
 import PropTypes, { ForceData } from './types/props'
-
 /* Import Styles */
 import styles from './styles.module.scss'
 

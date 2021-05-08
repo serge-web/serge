@@ -44,7 +44,7 @@ export const Default: React.FC = (args) => {
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
   const [changedChannels, setChangedChannels] = useState<Array<ChannelData>>(wargame.data.channels.channels || [])
   const [activeTab, setActiveTab] = useState<number>(0)
-
+  
   const onTabChange = (_tab: string, key: number, _e: any): void => {
     setActiveTab(key)
     setChangedPlatformType(wargame.data.platformTypes)

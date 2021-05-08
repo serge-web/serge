@@ -22,7 +22,6 @@ interface CssExports {
   'list-item': string;
   'list-item-selected': string;
   'list-title': string;
-  'player-checkbox-label': string;
   'view-result-box': string;
 }
 export const cssExports: CssExports;

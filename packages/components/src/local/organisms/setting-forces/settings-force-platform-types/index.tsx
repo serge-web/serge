@@ -19,8 +19,6 @@ import cx from 'classnames'
 import { getIconClassname } from '../../../asset-icon'
 import Grid from '@material-ui/core/Grid'
 import { ReactSortable } from 'react-sortablejs'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -35,8 +33,6 @@ import Typography from '@material-ui/core/Typography'
 
 export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler }) => {
   const [selectedAssetItem, setSelectedAssetItem] = useState('')
-  const [checkboxValue, setCheckboxValue] = useState(false)
-
   const allPlatforms: PlatformItemType[] = platformTypes.map(platform => ({ ...platform, id: platform.name, type: PLATFORM_ITEM }))
 
   const renderAssetForm = (): ReactNode => {
@@ -121,17 +117,13 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     </div>
   }
 
-  const checkboxChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-    setCheckboxValue(event.target.checked)
-  }
-
   const selectedForcePlatforms: ForceItemType[] = Array.isArray(selectedForce.assets)
     ? selectedForce.assets.map(asset => ({ ...asset, id: asset.platformType, type: ASSET_ITEM }))
     : []
-
+  
   const handleForcePlatformTypesChange = (nextList: ListItemType[]): void => {
     let changes: boolean = nextList.length !== selectedForcePlatforms.length
-
+    
     const forceAssets: Asset[] = nextList.map((item, key) => {
       if (item.type === PLATFORM_ITEM) {
         changes = true
@@ -140,7 +132,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
           uniqid: 'a' + assetid,
           contactId: 'C' + generateHashCode(assetid),
           name: item.id,
-          platformType: item.id.toLowerCase(),
+          platformType: kebabCase(item.id.toLowerCase()),
           perceptions: [],
           condition: ''
         } as Asset
@@ -169,16 +161,6 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
           {allPlatforms.length > 0
             ? <Grid container spacing={3}>
               <Grid item xs={3}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={checkboxValue}
-                      onChange={checkboxChangeHandler}
-                      color="primary"
-                    />
-                  }
-                  label={<Typography className={styles['player-checkbox-label']}>Allow player to laydown assets</Typography>}
-                />
                 <div className={styles['icons-col']}>
                   <p>Available platform types</p>
                   <ReactSortable
@@ -214,7 +196,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                         group={'platformTypesList'}
                       >
                         {selectedForcePlatforms.map((item) => {
-                          const icClassName = getIconClassname('', kebabCase(item.name))
+                          const icClassName = getIconClassname('', item.platformType)
                           return <div
                             key={item.uniqid}
                             className={cx(styles['list-item'], item.uniqid === selectedAssetItem && styles['list-item-selected'])}
