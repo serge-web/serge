@@ -4,10 +4,9 @@ import { SergeHex, SergeGrid } from '@serge/custom-types'
 import { padInteger } from '@serge/helpers'
 import { Terrain } from '@serge/config'
 
-
 export interface TerrainType {
-  terrain: Terrain,
-  type: string,
+  terrain: Terrain
+  type: string
   fillColor: string
 }
 

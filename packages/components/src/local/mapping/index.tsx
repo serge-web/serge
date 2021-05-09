@@ -283,7 +283,7 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (mappingConstraints.gridCellsURL) {
       const fetchMethod = fetchOverride || whatFetch
-      const url= serverPath + mappingConstraints.gridCellsURL
+      const url = serverPath + mappingConstraints.gridCellsURL
       fetchMethod(url)
         .then((response: any) => response.json())
         .then((res: any) => {
@@ -297,7 +297,7 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (mappingConstraints.polygonAreasURL) {
       const fetchMethod = fetchOverride || whatFetch
-      const url= serverPath + mappingConstraints.polygonAreasURL
+      const url = serverPath + mappingConstraints.polygonAreasURL
       fetchMethod(url)
         .then((response: any) => response.json())
         .then((res: any) => {
