@@ -8,7 +8,7 @@ it('Correctly convert GeoJSON to LeafletCoords', () => {
   expect(res.length).toEqual(2)
   expect(res[0].terrain).toBeTruthy()
   expect(res[0].terrain.type).toEqual('shallow')
-  expect(res[0].terrain.fillColor).toEqual('#fff')
+  expect(res[0].terrain.fillColor).toEqual('#9dd')
   expect(res[0].terrain.terrain).toEqual(Terrain.SEA)
 
   expect(res[0].data[0][0][0].length).toEqual(2)
