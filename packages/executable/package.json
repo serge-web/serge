@@ -7,21 +7,28 @@
   "license": "Apache-2.0",
   "dependencies": {
     "find": "^0.3.0",
-    "pkg": "^4.4.0"
+    "pkg": "^4.4.0",
+    "archiver": "^5.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "@babel/eslint-parser": "^7.13.14"
   },
   "bin": "../server/bin.js",
   "pkg": {
     "assets": [
       "../client/build/**/*",
-      "../server/default_img/**/*"
+      "../server/**/*",
+      "../data/*"
     ],
     "scripts": [
       "../server/addons/**/*"
-    ]
+    ],
+    "targets": [
+      "node14"
+    ],
+    "outputPath": "build-temp"
   },
   "scripts": {
-    "start": "node helpers/pkgResolveErrors.js && pkg . --out-path ./builds && node helpers/pkgCopyNodes.js",
-    "pkg-build": "pkg . --out-path ./builds"
+    "start": "node helpers/pkgResolveErrors.js && pkg --targets=linux,win,macos . && node helpers/pkhCopyCrossPlatforms.js"
   },
   "devDependencies": {
     "eslint": "^6.5.1",
