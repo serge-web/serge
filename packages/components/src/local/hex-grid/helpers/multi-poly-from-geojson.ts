@@ -28,7 +28,7 @@ const multiPolyFromGeoJSON = (data: FeatureCollection): TerrainPolygons[] => {
   // now collapse & reconstruct tree, swapping lon & lat
   const terrains = interestingTerrains.map((feature: Feature) => {
     const multiPoly = feature.geometry as MultiPolygon
-    const terrain = feature.properties && typeFor(feature.properties.type) || nullTerrain
+    const terrain = (feature.properties && typeFor(feature.properties.type)) || nullTerrain
     console.log('terrain', terrain)
     return {
       terrain: terrain,
