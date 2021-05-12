@@ -78,24 +78,26 @@ function initAddOnEvent (addon) {
   }
 }
 
-server(
-  82, // event emmiter max listeners
-  { prefix: 'serge/db/', adapter: 'websql' }, // PouchDb Options
-  {
-    // cors options
-    credentials: true,
-    origin: [
-      'https://serge-dev.herokuapp.com',
-      'http://localhost:3000',
-      'http://localhost:8080',
-      'http://localhost:8000',
-      'http://localhost:6611'
-    ]
-  },
-  imgDir, // images directory
-  dataDir,
-  process.env.PORT || 8080, // port
-  remoteServer, // remote server path
-  onAppInitListeningAddons,
-  onAppStartListeningAddons
-)
+setTimeout(() => {
+  server(
+    82, // event emmiter max listeners
+    { prefix: 'serge/db/', adapter: 'websql' }, // PouchDb Options
+    {
+      // cors options
+      credentials: true,
+      origin: [
+        'https://serge-dev.herokuapp.com',
+        'http://localhost:3000',
+        'http://localhost:8080',
+        'http://localhost:8000',
+        'http://localhost:6611'
+      ]
+    },
+    imgDir, // images directory
+    dataDir,
+    process.env.PORT || 8080, // port
+    remoteServer, // remote server path
+    onAppInitListeningAddons,
+    onAppStartListeningAddons
+  )
+}, 500)
