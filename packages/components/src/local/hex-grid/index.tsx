@@ -274,12 +274,12 @@ export const HexGrid: React.FC<{}> = () => {
 
   /** remap the GeoJSON coords (lngLat) to Leaflet coords (latLng)
   */
-   useEffect(() => {
-    if(polygonAreas) {
-     const leafletPolyAreas = multiPolyFromGeoJSON(polygonAreas)
-     setTerrainPolys(leafletPolyAreas)  
+  useEffect(() => {
+    if (polygonAreas) {
+      const leafletPolyAreas = multiPolyFromGeoJSON(polygonAreas)
+      setTerrainPolys(leafletPolyAreas)
     }
- }, [polygonAreas])
+  }, [polygonAreas])
 
   const createPolyBins = (cells: SergeGrid<SergeHex<{}>>): PolyBin[] | undefined => {
     if (gridCells) {
@@ -321,9 +321,8 @@ export const HexGrid: React.FC<{}> = () => {
         let visible: SergeHex<{}>[] = []
 
         // check if we are showing hex terrain
-        if(!zeroHexTerrain) {
+        if (!zeroHexTerrain) {
           polyBins.forEach((bin: PolyBin) => {
-
             if (extendedViewport.contains(bin.bounds)) {
               // ok, add all of them
               visible = visible.concat(bin.cells)
@@ -533,7 +532,7 @@ export const HexGrid: React.FC<{}> = () => {
         // such as labels so include prefix in key
         key={'hex_poly_' + cell.name + '_' + index}
         fillColor={cell.fillColor || '#f00'}
-        fill={terrainPolys.length == 0} // only fill them if we don't have polys
+        fill={terrainPolys.length === 0} // only fill them if we don't have polys
         positions={cell.poly}
         stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
         className={styles[getCellStyle(cell, planningRouteCells, allowableCells, cellForSelected)]}
@@ -583,10 +582,10 @@ export const HexGrid: React.FC<{}> = () => {
     }
     </LayerGroup>
     <LayerGroup key='polygon_outlines'>
-      {terrainPolys.map((terrain:TerrainPolygons, index:number) =>
-          <Polygon 
+      {terrainPolys.map((terrain: TerrainPolygons, index: number) =>
+        <Polygon
           key={'poly_a' + index}
-          positions={terrain.data} 
+          positions={terrain.data}
           fillColor={terrain.terrain.fillColor}
           className={styles['terrain-outline']}/>
       )}

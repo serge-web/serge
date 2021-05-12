@@ -120,10 +120,10 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
   const selectedForcePlatforms: ForceItemType[] = Array.isArray(selectedForce.assets)
     ? selectedForce.assets.map(asset => ({ ...asset, id: asset.platformType, type: ASSET_ITEM }))
     : []
-  
+
   const handleForcePlatformTypesChange = (nextList: ListItemType[]): void => {
     let changes: boolean = nextList.length !== selectedForcePlatforms.length
-    
+
     const forceAssets: Asset[] = nextList.map((item, key) => {
       if (item.type === PLATFORM_ITEM) {
         changes = true
