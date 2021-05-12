@@ -100,4 +100,4 @@ setTimeout(() => {
     onAppInitListeningAddons,
     onAppStartListeningAddons
   )
-}, 500)
+}, 500) // 500ms delay, to let data folders fully unpack
