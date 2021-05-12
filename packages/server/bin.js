@@ -20,6 +20,18 @@ if (!fs.existsSync(root)) {
   fs.mkdirSync(root)
 }
 
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir)
+}
+
+if (!fs.existsSync(imgDir)) {
+  fs.mkdirSync(imgDir)
+}
+
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir)
+}
+
 const extract = (src, dest) => {
   if (!fs.existsSync(dest)) {
     const dbData = fs.readFileSync(src)
@@ -66,25 +78,26 @@ function initAddOnEvent (addon) {
   }
 }
 
-server(
-  82, // event emmiter max listeners
-  { prefix: 'serge/db/', adapter: 'websql' }, // PouchDb Options
-  {
-    // cors options
-    credentials: true,
-    origin: [
-      'https://serge-dev.herokuapp.com',
-      'http://localhost:3000',
-      'http://localhost:8080',
-      'http://localhost:8000',
-      'http://localhost:6611'
-    ]
-  },
-  dbDir, // database directory
-  imgDir, // images directory
-  dataDir,
-  process.env.PORT || 8080, // port
-  remoteServer, // remote server path
-  onAppInitListeningAddons,
-  onAppStartListeningAddons
-)
+setTimeout(() => {
+  server(
+    82, // event emmiter max listeners
+    { prefix: 'serge/db/', adapter: 'websql' }, // PouchDb Options
+    {
+      // cors options
+      credentials: true,
+      origin: [
+        'https://serge-dev.herokuapp.com',
+        'http://localhost:3000',
+        'http://localhost:8080',
+        'http://localhost:8000',
+        'http://localhost:6611'
+      ]
+    },
+    imgDir, // images directory
+    dataDir,
+    process.env.PORT || 8080, // port
+    remoteServer, // remote server path
+    onAppInitListeningAddons,
+    onAppStartListeningAddons
+  )
+}, 500) // 500ms delay, to let data folders fully unpack
