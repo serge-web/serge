@@ -34,7 +34,6 @@ server(
       'http://localhost:8000'
     ]
   },
-  './db', // database directory
   './img', // images directory
   '',
   process.env.PORT || 8080, // port
