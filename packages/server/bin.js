@@ -20,6 +20,18 @@ if (!fs.existsSync(root)) {
   fs.mkdirSync(root)
 }
 
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir)
+}
+
+if (!fs.existsSync(imgDir)) {
+  fs.mkdirSync(imgDir)
+}
+
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir)
+}
+
 const extract = (src, dest) => {
   if (!fs.existsSync(dest)) {
     const dbData = fs.readFileSync(src)
@@ -80,7 +92,6 @@ server(
       'http://localhost:6611'
     ]
   },
-  dbDir, // database directory
   imgDir, // images directory
   dataDir,
   process.env.PORT || 8080, // port

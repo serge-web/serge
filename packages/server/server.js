@@ -2,7 +2,6 @@ const runServer = (
   eventEmmiterMaxListeners,
   pouchOptions,
   corsOptions,
-  dbDir,
   imgDir,
   dataDir,
   port,
@@ -105,18 +104,6 @@ const runServer = (
         }
       `)
     })
-  }
-
-  if (!fs.existsSync(dbDir)) {
-    fs.mkdirSync(dbDir)
-  }
-
-  if (!fs.existsSync(imgDir)) {
-    fs.mkdirSync(imgDir)
-  }
-
-  if (dataDir && !fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir)
   }
 
   app.use(express.static(path.join(__dirname, clientBuildPath)))
