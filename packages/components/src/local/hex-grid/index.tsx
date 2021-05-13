@@ -321,7 +321,7 @@ export const HexGrid: React.FC<{}> = () => {
         let visible: SergeHex<{}>[] = []
 
         // check if we are showing hex terrain
-        if (!zeroHexTerrain) {
+//        if (!zeroHexTerrain) {
           polyBins.forEach((bin: PolyBin) => {
             if (extendedViewport.contains(bin.bounds)) {
               // ok, add all of them
@@ -334,14 +334,16 @@ export const HexGrid: React.FC<{}> = () => {
               visible = visible.concat(inZone)
             }
           })
-        }
+  //      }
 
         // if we're at a scale that allows reduced detail, don't show land or plain-sea
-        const relevantCellArr = reducedDetail && domain === Domain.ATLANTIC
-          ? visible.filter((cell: SergeHex<{}>) => {
-            return cell.type !== 'land' && cell.type !== 'sea'
-          })
-          : visible
+        // const relevantCellArr = reducedDetail && domain === Domain.ATLANTIC
+        //   ? visible.filter((cell: SergeHex<{}>) => {
+        //     return cell.type !== 'land' && cell.type !== 'sea'
+        //   })
+        //   : visible
+
+        const relevantCellArr = zeroHexTerrain ? [] : visible
 
         // see if first cell is missing poly
         if (visible.length && !visible[0].poly) {
@@ -391,7 +393,9 @@ export const HexGrid: React.FC<{}> = () => {
     const allCells = relevantCells.concat(planningRouteCells)
     // some cells may be in both lists, so reduce to unique cells
     const uniqueCells = [...new Set(allCells)]
-    console.log('reduce visible', allowableCells.length, allCells.length, uniqueCells.length)
+    console.log('reduce visible, zoom:', zoomLevel, ' total cells:', gridCells && gridCells.length, 
+    ' cells in viewport:',  visibleCells.length, ' in this area, plus planning route:', allCells.length, 
+    ' de-duplicate previous list:', uniqueCells.length)
     setVisibleAndAllowableCells(allCells)
   }, [allowableCells, relevantCells, planningRouteCells])
 
@@ -526,7 +530,7 @@ export const HexGrid: React.FC<{}> = () => {
     ))}
     </LayerGroup> */}
 
-    <LayerGroup key={'hex_polygons'} >{visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
+    <LayerGroup key={'hex_polygons'} >{visibleAndAllowableCells.length < 2000 && visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
@@ -595,7 +599,7 @@ export const HexGrid: React.FC<{}> = () => {
       // change - show labels if there are less than 400. With the zoom level
       // we were getting issues where up North (where the cells appear larger) there are
       // fewer visible at once, but we still weren't showing the labels.
-      visibleCells.length < 400 &&
+      visibleCells.length < 600 &&
       /* note: for the label markers - we use the cells in the currently visible area */
       <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
