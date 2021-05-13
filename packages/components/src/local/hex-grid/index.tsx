@@ -27,6 +27,10 @@ export const HexGrid: React.FC<{}> = () => {
     selectedAsset, viewAsRouteStore, viewport, polygonAreas
   } = useContext(MapContext).props
 
+  // define detail cut-offs
+  const SHOW_LABELS_UNDER = 600
+  const SHOW_HEXES_UNDER = 2000
+
   // fix the leaflet icon path, using tip from here:
   // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
   L.Icon.Default.imagePath = '/images/'
@@ -521,7 +525,7 @@ export const HexGrid: React.FC<{}> = () => {
     ))}
     </LayerGroup> */}
 
-    <LayerGroup key={'hex_polygons'} >{visibleAndAllowableCells.length < 2000 && visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
+    <LayerGroup key={'hex_polygons'} >{visibleAndAllowableCells.length < SHOW_HEXES_UNDER && visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
@@ -590,7 +594,7 @@ export const HexGrid: React.FC<{}> = () => {
       // change - show labels if there are less than 400. With the zoom level
       // we were getting issues where up North (where the cells appear larger) there are
       // fewer visible at once, but we still weren't showing the labels.
-      visibleCells.length < 600 &&
+      visibleCells.length < SHOW_LABELS_UNDER &&
       /* note: for the label markers - we use the cells in the currently visible area */
       <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker
