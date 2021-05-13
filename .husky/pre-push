@@ -4,4 +4,3 @@
 yarn precommit-msg
 yarn lint
 yarn test-unit
-exit 1
