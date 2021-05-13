@@ -9,13 +9,7 @@
   "workspaces": [
     "packages/*"
   ],
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn precommit-msg && yarn lint && yarn test-unit"
-    }
-  },
   "dependencies": {
-    "husky": "^4.2.5",
     "lerna": "^3.16.4",
     "npm-run-all": "^4.1.5",
     "snyk": "^1.298.1"
@@ -45,11 +39,14 @@
     "heroku-postbuild": "yarn build && yarn build-storybook",
     "serge": "yarn start-server",
     "snyk-protect": "set NODE_OPTIONS=–max_old_space_size=8192 snyk protect",
-    "prepare": "yarn run snyk-protect",
+    "prepare": "yarn run snyk-protect && husky install",
     "version-patch": "lerna version patch",
     "version-minor": "lerna version minor",
     "version-major": "lerna version major",
     "precommit-msg": "echo 'Performing pre-push checks...' && exit 0"
   },
-  "snyk": true
+  "snyk": true,
+  "devDependencies": {
+    "husky": "^6.0.0"
+  }
 }
