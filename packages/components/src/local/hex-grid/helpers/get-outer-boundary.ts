@@ -2,6 +2,9 @@ import { SergeHex } from '@serge/custom-types'
 import * as turf from '@turf/turf'
 import L from 'leaflet'
 
+/** produce a polygon that represents the outer boundary of a set of cells.
+ * This is typically used to mark the limit of travel in a turn for an asset.
+ */
 const generateOuterBoundary = (cells: SergeHex<{}>[]): L.LatLng[] => {
   const points: turf.Feature<turf.Point>[] = []
   cells.forEach(hex => {
