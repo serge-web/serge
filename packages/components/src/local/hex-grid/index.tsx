@@ -321,20 +321,20 @@ export const HexGrid: React.FC<{}> = () => {
         let visible: SergeHex<{}>[] = []
 
         // check if we are showing hex terrain
-//        if (!zeroHexTerrain) {
-          polyBins.forEach((bin: PolyBin) => {
-            if (extendedViewport.contains(bin.bounds)) {
-              // ok, add all of them
-              visible = visible.concat(bin.cells)
-            } else if (bin.bounds.intersects(extendedViewport)) {
-              // find the ones in the viewport
-              const inZone = bin.cells.filter((cell: SergeHex<{}>) =>
-                extendedViewport.contains(cell.centreLatLng)
-              )
-              visible = visible.concat(inZone)
-            }
-          })
-  //      }
+        //        if (!zeroHexTerrain) {
+        polyBins.forEach((bin: PolyBin) => {
+          if (extendedViewport.contains(bin.bounds)) {
+            // ok, add all of them
+            visible = visible.concat(bin.cells)
+          } else if (bin.bounds.intersects(extendedViewport)) {
+            // find the ones in the viewport
+            const inZone = bin.cells.filter((cell: SergeHex<{}>) =>
+              extendedViewport.contains(cell.centreLatLng)
+            )
+            visible = visible.concat(inZone)
+          }
+        })
+        //      }
 
         // if we're at a scale that allows reduced detail, don't show land or plain-sea
         // const relevantCellArr = reducedDetail && domain === Domain.ATLANTIC
@@ -393,9 +393,9 @@ export const HexGrid: React.FC<{}> = () => {
     const allCells = relevantCells.concat(planningRouteCells)
     // some cells may be in both lists, so reduce to unique cells
     const uniqueCells = [...new Set(allCells)]
-    console.log('reduce visible, zoom:', zoomLevel, ' total cells:', gridCells && gridCells.length, 
-    ' cells in viewport:',  visibleCells.length, ' in this area, plus planning route:', allCells.length, 
-    ' de-duplicate previous list:', uniqueCells.length)
+    console.log('reduce visible, zoom:', zoomLevel, ' total cells:', gridCells && gridCells.length,
+      ' cells in viewport:', visibleCells.length, ' in this area, plus planning route:', allCells.length,
+      ' de-duplicate previous list:', uniqueCells.length)
     setVisibleAndAllowableCells(allCells)
   }, [allowableCells, relevantCells, planningRouteCells])
 
