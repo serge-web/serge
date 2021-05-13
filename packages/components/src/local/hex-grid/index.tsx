@@ -18,13 +18,13 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import { SergeHex, SergeGrid, Route, NewTurnValues } from '@serge/custom-types'
-import { LAYDOWN_TURN, Domain } from '@serge/config'
+import { LAYDOWN_TURN } from '@serge/config'
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
   const {
     gridCells, planningConstraints, zoomLevel, setNewLeg, setHidePlanningForm,
-    selectedAsset, viewAsRouteStore, viewport, domain, polygonAreas
+    selectedAsset, viewAsRouteStore, viewport, polygonAreas
   } = useContext(MapContext).props
 
   // fix the leaflet icon path, using tip from here:
@@ -38,10 +38,6 @@ export const HexGrid: React.FC<{}> = () => {
   // Store the set of leaflet polygon areas, used as performance
   // fix for showing very large areas of hexes
   const [terrainPolys, setTerrainPolys] = useState<TerrainPolygons[]>([])
-
-  // whether to show performance optimised view
-  const [reducedDetail, setReducedDetail] = useState<boolean>(false)
-  const [zeroHexTerrain, setZeroHexTerrain] = useState<boolean>(false)
 
   // the cell for the selected asset
   const [cellForSelected, setCellForSelected] = useState<string | undefined>(undefined)
@@ -343,7 +339,7 @@ export const HexGrid: React.FC<{}> = () => {
         //   })
         //   : visible
 
-        const relevantCellArr = zeroHexTerrain ? [] : visible
+        const relevantCellArr = visible
 
         // see if first cell is missing poly
         if (visible.length && !visible[0].poly) {
@@ -378,12 +374,7 @@ export const HexGrid: React.FC<{}> = () => {
       setVisibleCells([])
       setRelevantCells([])
     }
-  }, [reducedDetail, viewport, gridCells, polyBins])
-
-  useEffect(() => {
-    setReducedDetail(zoomLevel <= 7.0)
-    setZeroHexTerrain(zoomLevel <= 5)
-  }, [zoomLevel])
+  }, [viewport, gridCells, polyBins])
 
   // as a performance optimisation we plot the
   // visible cells at this zoom level, plus the
