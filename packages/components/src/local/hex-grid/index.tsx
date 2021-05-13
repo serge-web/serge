@@ -56,6 +56,8 @@ export const HexGrid: React.FC<{}> = () => {
 
   // the binned polygons
   const [polyBins, setPolyBins] = useState<PolyBin[]>([])
+
+  // the cells that are contained in the current viewport
   const [visibleCells, setVisibleCells] = useState<SergeHex<{}>[]>([])
 
   // at higher zoom levels we need to reduce the number of hexes plotted
@@ -320,8 +322,7 @@ export const HexGrid: React.FC<{}> = () => {
 
         let visible: SergeHex<{}>[] = []
 
-        // check if we are showing hex terrain
-        //        if (!zeroHexTerrain) {
+        // sort out visible cells, first by the bin
         polyBins.forEach((bin: PolyBin) => {
           if (extendedViewport.contains(bin.bounds)) {
             // ok, add all of them
@@ -334,14 +335,6 @@ export const HexGrid: React.FC<{}> = () => {
             visible = visible.concat(inZone)
           }
         })
-        //      }
-
-        // if we're at a scale that allows reduced detail, don't show land or plain-sea
-        // const relevantCellArr = reducedDetail && domain === Domain.ATLANTIC
-        //   ? visible.filter((cell: SergeHex<{}>) => {
-        //     return cell.type !== 'land' && cell.type !== 'sea'
-        //   })
-        //   : visible
 
         const relevantCellArr = visible
 
