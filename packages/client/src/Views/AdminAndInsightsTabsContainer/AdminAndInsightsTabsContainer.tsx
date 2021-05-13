@@ -14,7 +14,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const [byPassUrl] = useState<URL>(getByPassUrl(state))
   const [model] = useState<Model>(FlexLayout.Model.fromJson(FLEX_LAYOUT_MODEL_DEFAULT))
   const gameAdmin = 'Game Admin'
-  const gameAdminTitle = 'Social Media'
+  const gameAdminTitle = 'Game Admin'
   const insights = 'Insights'
   const dispatch = usePlayerUiDispatch()
   const { selectedForce } = state
