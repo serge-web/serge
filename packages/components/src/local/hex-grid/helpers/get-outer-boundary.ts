@@ -7,6 +7,11 @@ import L from 'leaflet'
  */
 const generateOuterBoundary = (cells: SergeHex<{}>[]): L.LatLng[] => {
   const points: turf.Feature<turf.Point>[] = []
+  /** TODO: Ian has a suspicion the performance of this method is quite
+   * slow over a very large area.  We should investigate
+   * only adding a point if it isn't already present.
+   */
+
   cells.forEach(hex => {
     if (hex.poly) {
       hex.poly.forEach(pt => {
