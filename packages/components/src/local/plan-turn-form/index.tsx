@@ -30,6 +30,8 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
 
+  const validSpeedVal = speed.includes(speedVal) ? speedVal : speed[0]
+
   const changeHandler = (e: any): void => {
     const { name, value } = e.target
 
@@ -123,7 +125,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
       ? speed.length > 0 &&
         <FormGroup title="Speed (kts)" titlePosition="absolute">
           <Speed
-            value = { speedVal }
+            value = { validSpeedVal }
             options = { speed }
             onClick = { !formDisabled && speedHandler }
           />

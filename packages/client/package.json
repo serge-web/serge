@@ -97,7 +97,7 @@
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "develop": "nodemon --exec yarn start --watch ../packages/components/build --watch ../packages/config/build --watch ../packages/helpers/build"
+    "develop": "nodemon --exec yarn start"
   },
   "browserslist": [
     ">0.2%",

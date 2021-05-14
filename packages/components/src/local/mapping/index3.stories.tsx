@@ -24,7 +24,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{st
 
 async function fetchMock (): Promise<any> {
   return {
-    json: () => data
+    json: (): any => data
   }
 }
 
