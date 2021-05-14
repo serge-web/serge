@@ -495,21 +495,20 @@ export const HexGrid: React.FC<{}> = () => {
   return <>
 
     { /* temporary - show number of visible cells */}
-    { viewport && 
+    { viewport &&
       <Marker
-      key={'num_vis_cells'}
-      position={ viewport.getCenter()}
-      width="120"
-      icon={L.divIcon({
-        html: '' + visibleCells.length,
-        className: styles['num-cells'],
-        iconSize: [30, 20]
-      })}
-  />
-  }
+        key={'num_vis_cells'}
+        position={ viewport.getCenter()}
+        width="120"
+        icon={L.divIcon({
+          html: '' + visibleCells.length,
+          className: styles['num-cells'],
+          iconSize: [30, 20]
+        })}
+      />
+    }
 
-
-{ /* POLY BINS */}
+    { /* POLY BINS */}
     {/* <LayerGroup key={'poly_bounds'} >{polyBins && polyBins.map((bin: PolyBin, index: number) => (
       <>
       <Polygon
