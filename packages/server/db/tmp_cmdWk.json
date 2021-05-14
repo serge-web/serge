@@ -1163,49 +1163,15 @@
             "platformTypes": [
                 {
                     "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Illegally boarded",
-                        "Immobile",
-                        "Sinking",
-                        "Destroyed"
-                    ],
-                    "icon": "fishing-vessel.svg",
-                    "name": "Fishing vessel",
-                    "speedKts": [
-                        10,
-                        20
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Fishing"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Moored"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Immobile",
-                        "Sinking",
-                        "Destroyed"
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
                     ],
                     "icon": "frigate.svg",
-                    "name": "Frigate",
+                    "name": "FF",
                     "speedKts": [
                         10,
-                        20,
-                        30
+                        20
                     ],
                     "states": [
                         {
@@ -1213,69 +1179,33 @@
                             "name": "Transiting"
                         },
                         {
-                            "mobile": false,
-                            "name": "Stopped"
+                            "mobile": true,
+                            "name": "Mixed"
                         },
                         {
-                            "mobile": false,
-                            "name": "Moored"
+                            "mobile": true,
+                            "name": "Active"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Passive"
                         }
                     ],
                     "travelMode": "sea"
                 },
                 {
                     "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Immobile",
-                        "Sinking",
-                        "Destroyed"
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
                     ],
-                    "icon": "boghammer.svg",
-                    "name": "Boghammer",
+                    "icon": "frigate.svg",
+                    "name": "DD",
                     "speedKts": [
                         10,
-                        20,
-                        30,
-                        40
+                        20
                     ],
                     "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Stopped"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Moored"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Destroyed"
-                    ],
-                    "icon": "torpedo.svg",
-                    "name": "torpedo",
-                    "speedKts": [
-                        10
-                    ],
-                    "states": [
-                        {
-                            "mobile": false,
-                            "name": "Onboard"
-                        },
-                        {
-                            "deploying": true,
-                            "mobile": true,
-                            "name": "Deploy"
-                        },
                         {
                             "mobile": true,
                             "name": "Transiting"
@@ -1285,20 +1215,15 @@
                 },
                 {
                     "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Immobile",
-                        "Sinking",
-                        "Destroyed"
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
                     ],
-                    "icon": "fast-attack-craft.svg",
-                    "name": "Fast attack craft",
+                    "icon": "frigate.svg",
+                    "name": "CV",
                     "speedKts": [
                         10,
-                        20,
-                        30,
-                        40,
-                        50
+                        20
                     ],
                     "states": [
                         {
@@ -1306,28 +1231,23 @@
                             "name": "Transiting"
                         },
                         {
-                            "mobile": false,
-                            "name": "Stopped"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Moored"
+                            "mobile": true,
+                            "name": "Air Ops"
                         }
                     ],
                     "travelMode": "sea"
                 },
                 {
                     "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Immobile",
-                        "Sinking",
-                        "Destroyed"
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
                     ],
-                    "icon": "mcmv.svg",
-                    "name": "MCMV",
+                    "icon": "frigate.svg",
+                    "name": "AO",
                     "speedKts": [
-                        10
+                        10,
+                        20
                     ],
                     "states": [
                         {
@@ -1335,103 +1255,20 @@
                             "name": "Transiting"
                         },
                         {
-                            "mobile": false,
-                            "name": "Stopped"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Moored"
+                            "mobile": true,
+                            "name": "Supporting"
                         }
                     ],
                     "travelMode": "sea"
                 },
                 {
                     "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Immobile",
-                        "Destroyed"
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
                     ],
-                    "icon": "helicopter.svg",
-                    "name": "Helicopter",
-                    "speedKts": [],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Airborne"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Landed"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Preparing for launch"
-                        }
-                    ],
-                    "travelMode": "air"
-                },
-                {
-                    "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Immobile",
-                        "Destroyed"
-                    ],
-                    "icon": "fixed-wing-aircraft.svg",
-                    "name": "Fixed wing aircraft",
-                    "speedKts": [],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Airborne"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Landed"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Preparing for launch"
-                        }
-                    ],
-                    "travelMode": "air"
-                },
-                {
-                    "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Immobile",
-                        "Destroyed"
-                    ],
-                    "icon": "uas.svg",
-                    "name": "Unmanned Airborne Vehicle",
-                    "speedKts": [],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Airborne"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Landed"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Preparing for launch"
-                        }
-                    ],
-                    "travelMode": "air"
-                },
-                {
-                    "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Immobile",
-                        "Destroyed"
-                    ],
-                    "icon": "uas.svg",
-                    "name": "Task Group",
+                    "icon": "frigate.svg",
+                    "name": "AG",
                     "speedKts": [
                         10,
                         20
@@ -1443,69 +1280,59 @@
                         },
                         {
                             "mobile": false,
-                            "name": "Stopped"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Moored"
+                            "name": "Loitering"
                         }
                     ],
                     "travelMode": "sea"
                 },
                 {
                     "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Destroyed"
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
                     ],
-                    "icon": "coastal-radar-site.svg",
-                    "name": "Coastal radar site",
+                    "icon": "frigate.svg",
+                    "name": "SS",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
                     "states": [
                         {
-                            "mobile": false,
-                            "name": "Inactive"
+                            "mobile": true,
+                            "name": "Transiting"
                         },
                         {
-                            "mobile": false,
+                            "mobile": true,
+                            "name": "Aggressove"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Evasive"
+                        }
+
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "frigate.svg",
+                    "name": "Aircraft",
+                    "states": [
+                        {
+                            "mobile": true,
                             "name": "Active"
                         },
                         {
                             "mobile": false,
-                            "name": "Engaging"
+                            "name": "Landed"
                         }
                     ],
-                    "travelMode": "land"
-                },
-                {
-                    "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Illegally boarded",
-                        "Immobile",
-                        "Sinking",
-                        "Destroyed"
-                    ],
-                    "icon": "merchant-vessel.svg",
-                    "name": "Merchant vessel",
-                    "speedKts": [
-                        10,
-                        20
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Stopped"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Moored"
-                        }
-                    ],
-                    "travelMode": "sea"
+                    "travelMode": "air"
                 }
             ],
             "selectedType": ""
