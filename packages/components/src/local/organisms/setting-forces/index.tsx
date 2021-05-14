@@ -57,7 +57,7 @@ export const SettingForces: React.FC<PropTypes> = ({
 
     const handleChangeForce = (force: ForceData): void => {
       const nextForces: Array<ForceData> = [...initialForces]
-      nextForces[selectedItem] = force
+      nextForces[selectedItem] = force      
       handleChangeForces(nextForces)
     }
 

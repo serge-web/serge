@@ -1,5 +1,5 @@
 import React, { FC, ChangeEvent, ReactNode, useState } from 'react'
-
+import { LaydownTypes } from '@serge/config'
 /* Import proptypes */
 import { ASSET_ITEM, PLATFORM_ITEM } from '../constants'
 import PropTypes from './types/props'
@@ -33,6 +33,9 @@ import Typography from '@material-ui/core/Typography'
 
 export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler }) => {
   const [selectedAssetItem, setSelectedAssetItem] = useState('')
+  const [fixedLocationValue, setFixedLocationValue] = useState('')
+  const [showInput, setShowInput] = useState(false)
+  
   const allPlatforms: PlatformItemType[] = platformTypes.map(platform => ({ ...platform, id: platform.name, type: PLATFORM_ITEM }))
 
   const renderAssetForm = (): ReactNode => {
@@ -43,6 +46,10 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       const [firstAsset] = selectedForce.assets
       setSelectedAssetItem(firstAsset.uniqid)
       return null
+    }
+
+    const fixedLocationHandler = (event: ChangeEvent<HTMLInputElement>): void => {     
+      setFixedLocationValue(event.target.value);
     }
 
     const handleChangeAssetName = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -61,9 +68,14 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       // handleChangeForce(selectedForce)
       console.log(_event)
     }
-    const handleChangeAssetLocation = (_event: ChangeEvent<HTMLSelectElement>): void => {
-      // handleChangeForce(selectedForce)
-      console.log(_event)
+    const handleChangeAssetLocation = (event: ChangeEvent<HTMLSelectElement>): void => {
+      onChangeHandler(selectedForce)
+      if (event.target.value && event.target.value === 'fixed') {
+        setShowInput(true)
+      } else {
+        setShowInput(false)
+        setFixedLocationValue('')
+      }
     }
 
     return <div className={styles['view-result-box']}>
@@ -106,13 +118,25 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                 <option value="" disabled>
                     Placeholder
                 </option>
-                <option value={10}>Chosen By Player</option>
-                <option value={20}>Twenty</option>
-                <option value={30}>Thirty</option>
+                <option value={LaydownTypes.ForceLaydown}>{LaydownTypes.ForceLaydown}</option>
+                <option value={LaydownTypes.UmpireLaydown}>{LaydownTypes.UmpireLaydown}</option>
+                <option value={'fixed'}>Fixed</option>
               </NativeSelect>
             </div>
           </ListItemText>
         </ListItem>
+        {showInput && 
+          <ListItem>
+            <ListItemText>
+              <TextInput
+                className={cx(styles['list-dynamic-input'], styles['list-input'])}
+                value={fixedLocationValue}
+                onChange={fixedLocationHandler}
+                placeholder="Enter location..."
+              />
+            </ListItemText>
+          </ListItem>
+        }
       </List>
     </div>
   }
@@ -120,6 +144,8 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
   const selectedForcePlatforms: ForceItemType[] = Array.isArray(selectedForce.assets)
     ? selectedForce.assets.map(asset => ({ ...asset, id: asset.platformType, type: ASSET_ITEM }))
     : []
+  console.log('selectedForcePlatforms: ', selectedForcePlatforms);
+  
 
   const handleForcePlatformTypesChange = (nextList: ListItemType[]): void => {
     let changes: boolean = nextList.length !== selectedForcePlatforms.length
@@ -134,7 +160,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
           name: item.id,
           platformType: kebabCase(item.id.toLowerCase()),
           perceptions: [],
-          condition: ''
+          condition: '',
         } as Asset
       }
       const nextItem = item as Asset
@@ -191,7 +217,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                     <List dense={true}>
                       <ReactSortable
                         list={selectedForcePlatforms}
-                        sort={false}
+                        sort={true}
                         setList={handleForcePlatformTypesChange}
                         group={'platformTypesList'}
                       >
