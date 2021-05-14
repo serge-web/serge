@@ -862,6 +862,24 @@
                     "uniqid": "umpire"
                 },
                 {
+                    "assets": [
+                        {
+                            "condition": "Full capability",
+                            "contactId": "C964",
+                            "history": [],
+                            "name": "Frigate A",
+                            "perceptions": [
+                                {
+                                    "by": "Red",
+                                    "force": "Blue",
+                                    "name": "Frigate A Perceived Name"
+                                }
+                            ],
+                            "position": "BD85",
+                            "platformType": "ff",
+                            "uniqid": "a0prbr6441"
+                        }
+                    ],
                     "color": "#3dd0ff",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
@@ -1310,7 +1328,6 @@
                             "mobile": true,
                             "name": "Evasive"
                         }
-
                     ],
                     "travelMode": "sea"
                 },
