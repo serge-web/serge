@@ -85,16 +85,16 @@ export const WorldState: React.FC<PropTypes> = ({
     }
   }
 
-  const openModal = () => {
+  const onConfirm = () => {
     setIsOpen(true)
   }
 
-  const confirm = () => {
+  const onYes = () => {
     setIsOpen(false)
     submitCallback()
   }
 
-  const dismiss = () => {
+  const onNo = () => {
     setIsOpen(false)
   }
 
@@ -215,19 +215,19 @@ export const WorldState: React.FC<PropTypes> = ({
       />
       {submitTitle && (panel === WorldStatePanels.Control) && (!playerInAdjudication || inLaydown) && canSubmitOrders &&
         <div className={styles.submit}>
-          <Button disabled={plansSubmitted} onClick={openModal}>{submitTitle}</Button>
+          <Button disabled={plansSubmitted} onClick={onConfirm}>{submitTitle}</Button>
         </div>
       }
 
       <Modal
         isOpen={modalIsOpen}
-        onRequestClose={dismiss}
+        onRequestClose={onNo}
         style={customStyles}
       >
         <div>Are you sure you wish to <strong>{submitTitle}</strong>?</div>
         <div className={styles.action}>
-          <Button onClick={confirm}>Yes</Button>
-          <Button onClick={dismiss}>No</Button>
+          <Button onClick={onYes}>Yes</Button>
+          <Button onClick={onNo}>No</Button>
         </div>
       </Modal>
     </div>
