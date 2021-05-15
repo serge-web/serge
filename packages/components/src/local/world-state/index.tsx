@@ -18,7 +18,7 @@ import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases } fro
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
 import { findPlatformTypeFor } from '@serge/helpers'
-import Modal from 'react-modal';
+import Modal from 'react-modal'
 
 const customStyles = {
   content: {
@@ -30,7 +30,7 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)'
   }
-};
+}
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
@@ -39,7 +39,7 @@ export const WorldState: React.FC<PropTypes> = ({
   plansSubmitted, setPlansSubmitted
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false)
 
   const inLaydown = phase === ADJUDICATION_PHASE && turnNumber === 0
 
@@ -86,18 +86,18 @@ export const WorldState: React.FC<PropTypes> = ({
   }
 
   const openModal = () => {
-    setIsOpen(true);
+    setIsOpen(true)
   }
 
   const confirm = () => {
-    setIsOpen(false);
-    submitCallback();
+    setIsOpen(false)
+    submitCallback()
   }
 
   const dismiss = () => {
-    setIsOpen(false);
+    setIsOpen(false)
   }
-  
+
   const submitCallback = (): any => {
     if (submitForm) {
       submitForm()
