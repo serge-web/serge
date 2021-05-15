@@ -18,6 +18,19 @@ import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases } fro
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
 import { findPlatformTypeFor } from '@serge/helpers'
+import Modal from 'react-modal';
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    width: '30%',
+    height: '20%',
+    minHeight: '140px',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+};
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
@@ -26,6 +39,7 @@ export const WorldState: React.FC<PropTypes> = ({
   plansSubmitted, setPlansSubmitted
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const inLaydown = phase === ADJUDICATION_PHASE && turnNumber === 0
 
@@ -71,6 +85,19 @@ export const WorldState: React.FC<PropTypes> = ({
     }
   }
 
+  const openModal = () => {
+    setIsOpen(true);
+  }
+
+  const confirm = () => {
+    setIsOpen(false);
+    submitCallback();
+  }
+
+  const dismiss = () => {
+    setIsOpen(false);
+  }
+  
   const submitCallback = (): any => {
     if (submitForm) {
       submitForm()
@@ -121,7 +148,7 @@ export const WorldState: React.FC<PropTypes> = ({
 
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
-        <div className={cx(icClassName, styles['item-icon'])}/>
+        <div className={cx(icClassName, styles['item-icon'])} />
         <div className={styles['item-content']}>
           <div>
             <p>{item.name}</p>
@@ -145,8 +172,8 @@ export const WorldState: React.FC<PropTypes> = ({
   return <>
     <div className={styles['world-state']}>
       <h2 className={styles.title}>{customTitle}
-        { plansSubmitted &&
-       <h5 className='sub-title'>(Form disabled, {customTitle} submitted)</h5>
+        {plansSubmitted &&
+          <h5 className='sub-title'>(Form disabled, {customTitle} submitted)</h5>
         }
       </h2>
 
@@ -188,9 +215,21 @@ export const WorldState: React.FC<PropTypes> = ({
       />
       {submitTitle && (panel === WorldStatePanels.Control) && (!playerInAdjudication || inLaydown) && canSubmitOrders &&
         <div className={styles.submit}>
-          <Button disabled={plansSubmitted} onClick={submitCallback}>{submitTitle}</Button>
+          <Button disabled={plansSubmitted} onClick={openModal}>{submitTitle}</Button>
         </div>
       }
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={dismiss}
+        style={customStyles}
+      >
+        <div>Are you sure you wish to <strong>{submitTitle}</strong>?</div>
+        <div className={styles.action}>
+          <Button onClick={confirm}>Yes</Button>
+          <Button onClick={dismiss}>No</Button>
+        </div>
+      </Modal>
     </div>
   </>
 }
