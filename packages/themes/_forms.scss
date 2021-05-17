@@ -64,3 +64,8 @@
 .react-select {
   color: $base-color;
 }
+
+.ReactModalPortal {
+  position: absolute;
+  z-index: 10000;
+}
