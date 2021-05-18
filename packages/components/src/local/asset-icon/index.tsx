@@ -15,9 +15,9 @@ import { MapContext } from '../mapping'
 import { SelectedAsset } from '@serge/custom-types'
 
 /* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForce: string, icType: string, destroyed?: boolean, icSelected?: boolean): string => (cx(
+export const getIconClassname = (icForceClass: string, icType: string, destroyed?: boolean, icSelected?: boolean): string => (cx(
   styles['asset-icon'],
-  styles[icForce],
+  styles[icForceClass],
   destroyed ? styles.destroyed : null,
   icSelected ? styles.selected : null,
   styles[`platform-type-${icType}`]
@@ -30,7 +30,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   position,
   type,
   force,
-  perceivedForce,
+  perceivedForceClass,
   visibleTo,
   controlledBy,
   condition,
@@ -43,9 +43,14 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   const isDestroyed: boolean = !!condition && condition.toLowerCase() === 'destroyed'
 
+  // TODO: we need to find some way to get 
+
+  console.log('asset', perceivedForceClass, getIconClassname(perceivedForceClass || '', type, isDestroyed, selected))
+
+
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    className: getIconClassname(perceivedForce, type, isDestroyed, selected)
+    className: getIconClassname(perceivedForceClass || '', type, isDestroyed, selected)
   })
 
   const clickEvent = (): void => {
@@ -71,7 +76,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
     }
   }
 
-  return <Marker position={position} icon={divIcon} onclick={clickEvent}>
+  return <Marker css={{backgroundColor:'#00f'}} position={position} icon={divIcon} onclick={clickEvent}>
     <Tooltip>{capitalize(tooltip)}</Tooltip>
   </Marker>
 }

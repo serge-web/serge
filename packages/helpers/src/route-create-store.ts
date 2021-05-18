@@ -4,7 +4,7 @@ import { RouteStore, Route, SergeGrid, SergeHex, ForceData, Asset, PlatformTypeD
 import routeCreateRoute from './route-create-route'
 import { ADJUDICATION_PHASE, Phase, UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import isPerceivedBy from './is-perceived-by'
+import isPerceivedBy , { ForceStyle } from './is-perceived-by'
 import hexNamed from './hex-named'
 import forceColors from './force-colors'
 
@@ -45,13 +45,18 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
   const controls: Array<string> = forcesControlledBy(forces, playerForce)
   const forceColorList: Array<{force: string, color: string}> = forceColors(forces)
 
-  const undefinedColor = '#999' // TODO: this color should not be hard-coded
+  const undefinedColor: ForceStyle = {
+    force: 'undefined',
+    color: '#999',
+    cssClass: 'undefined'
+  }
 
   const localWargameInitiated: boolean = (wargameInitiated === undefined) ? true : wargameInitiated
 
   forces.forEach((force: ForceData) => {
     // see if we control it
     const thisForce = force.uniqid
+
     if (force.assets) {
         // loop through assets
         force.assets.forEach((asset: Asset) => {
@@ -88,7 +93,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
               const applyFilterPlannedSteps: boolean = filterPlannedSteps && !isSelectedAsset
 
               const newRoute: Route = routeCreateRoute(asset, phase, force.color,
-                controlled, force.uniqid, force.uniqid, asset.name, asset.platformType, 
+                controlled, force.uniqid, force.cssClass, force.uniqid, asset.name, asset.platformType, 
                 platformTypes, playerForce, asset.status, assetPosition, assetLocation, 
                 grid, true, filterHistorySteps, applyFilterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
 
@@ -109,7 +114,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                 // process list of children
                 asset.comprising.forEach((child: Asset) => {
                   // can't see it directly. See if we can perceive it
-                  const perceivedColor: string | undefined = isPerceivedBy(child.perceptions, playerForce, forceColorList, undefinedColor)
+                  const perceivedColor: ForceStyle | undefined = isPerceivedBy(child.perceptions, playerForce, forceColorList, undefinedColor)
                   if(perceivedColor) {
                     const perceptions = findPerceivedAsTypes(playerForce, child.name, child.contactId,
                       thisForce, child.platformType, child.perceptions)
@@ -117,7 +122,7 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                     // note: compiler/linter forcing us to re-check asset.position
                     if(asset.position && perceptions) {
                       // create route for this asset
-                      const newRoute: Route = routeCreateRoute(child, phase, perceivedColor, false, force.uniqid, perceptions.force,
+                      const newRoute: Route = routeCreateRoute(child, phase, perceivedColor.color, false, force.uniqid, perceivedColor.cssClass, perceptions.force,
                         perceptions.name, perceptions.type, platformTypes, playerForce, asset.status, assetPosition, assetLocation, 
                         grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                       store.routes.push(newRoute)
@@ -126,13 +131,13 @@ const routeCreateStore = (selectedId: string | undefined, phase: Phase, forces: 
                 })
               } else {
                 // can't see it directly. See if we can perceive it
-                const perceivedColor: string | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColorList, undefinedColor)
+                const perceivedColor: ForceStyle | undefined = isPerceivedBy(asset.perceptions, playerForce, forceColorList, undefinedColor)
                 if(perceivedColor) {
                   const perceptions = findPerceivedAsTypes(playerForce, asset.name, asset.contactId,
                     thisForce, asset.platformType, asset.perceptions)
                   if(perceptions) {
                     // create route for this asset
-                    const newRoute: Route = routeCreateRoute(asset, phase, perceivedColor, false, force.uniqid, perceptions.force,
+                    const newRoute: Route = routeCreateRoute(asset, phase, perceivedColor.color, false, force.uniqid, perceivedColor.cssClass, perceptions.force,
                       perceptions.name, perceptions.type, platformTypes, playerForce, asset.status, assetPosition, assetLocation, 
                       grid, false, filterHistorySteps, filterPlannedSteps, isSelectedAsset, existingRoute, localWargameInitiated)
                     store.routes.push(newRoute)

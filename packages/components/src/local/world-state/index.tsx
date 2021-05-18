@@ -121,7 +121,7 @@ export const WorldState: React.FC<PropTypes> = ({
 
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
-        <div className={cx(icClassName, styles['item-icon'])}/>
+        <div style={{backgroundColor:item.perceivedForceColor}} className={cx(icClassName, styles['item-icon'])}/>
         <div className={styles['item-content']}>
           <div>
             <p>{item.name}</p>

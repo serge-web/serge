@@ -7,6 +7,8 @@ export default interface ForceData {
   roles: Array<Role>,
   icon: string,
   color: string,
+  /** if a CSS class is used to define the force color, provide it here */
+  cssClass?: string,
   umpire: boolean,
   dirty: boolean,
   assets?: Array<Asset>,

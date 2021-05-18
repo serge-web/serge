@@ -247,6 +247,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @param {string} color color for rendering this asset
  * @param {boolean} underControl whether the player is controlling this asset
  * @param {string} actualForce the true force for the asset
+ * @param {string} perceivedForceClass the CSS class for the perceived force of the asset
  * @param {string} perceivedForce the perceived force of the asset
  * @param {string} perceivedName the perceived name of the asset
  * @param {string} perceivedType the perceived type of the asset
@@ -265,7 +266,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @returns {Route} Route for this asset
  */
 const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
-  underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string,
+  underControl: boolean, actualForce: string, perceivedForceClass: string | undefined, perceivedForce: string, perceivedName: string,
   perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng, grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean, existingRoute: Route | undefined,
@@ -306,6 +307,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     platformType: perceivedType,
     underControl: underControl,
     perceivedForceName: perceivedForce,
+    perceivedForceClass: perceivedForceClass,
+    perceivedForceColor: color,
     actualForceName: actualForce,
     color: color,
     hosting: hosting,

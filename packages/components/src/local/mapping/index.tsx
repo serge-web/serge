@@ -212,7 +212,6 @@ export const Mapping: React.FC<PropTypes> = ({
 
   /** the forces from props has changed */
   useEffect(() => {
-    console.log('mapping have forces', forces, forcesState)
     // is it different to current force state?
     const forceStateEmptyOrChanged = !forcesState || !isEqual(forcesState, forces)
     if (forceStateEmptyOrChanged) {
