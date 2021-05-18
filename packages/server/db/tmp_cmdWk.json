@@ -880,8 +880,8 @@
                             "uniqid": "a0prbr6441"
                         }
                     ],
-                    "color": "#3dd0ff",
-                    "forceClass": "blue",
+                    "color": "#000fff",
+                    "cssClass": "blue",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "CTF A",
@@ -945,8 +945,26 @@
                     "uniqid": "force-koiqysc8"
                 },
                 {
-                    "color": "#3dd0ff",
-                    "forceClass": "blue",
+                    "assets": [
+                        {
+                            "condition": "Full capability",
+                            "contactId": "C164",
+                            "history": [],
+                            "name": "Frigate A",
+                            "perceptions": [
+                                {
+                                    "by": "Red",
+                                    "force": "Blue",
+                                    "name": "Frigate A Perceived Name"
+                                }
+                            ],
+                            "position": "AJ94",
+                            "platformType": "task-group",
+                            "uniqid": "a0prbr1141"
+                        }
+                    ],
+                    "color": "#000fff",
+                    "cssClass": "blue",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "CTF B",
@@ -1011,7 +1029,7 @@
                 },
                 {
                     "color": "#ff5e3d",
-                    "forceClass": "red",
+                    "cssClass": "red",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "CTF X",
@@ -1076,7 +1094,7 @@
                 },
                 {
                     "color": "#ff703d",
-                    "forceClass": "blue",
+                    "cssClass": "red",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "CTF Y",
@@ -1354,7 +1372,35 @@
                         }
                     ],
                     "travelMode": "air"
-                }
+                },
+                {
+                    "name":"Task Group",
+                    "conditions":[
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon":"task-group.svg",
+                    "speedKts":[
+                      10,
+                      20
+                    ],
+                    "states":[
+                      {
+                        "name":"Transiting",
+                        "mobile":true
+                      },
+                      {
+                        "name":"Stopped",
+                        "mobile":false
+                      },
+                      {
+                        "name":"Moored",
+                        "mobile":false
+                      }
+                    ],
+                    "travelMode":"sea"
+                  }
             ],
             "selectedType": ""
         }
