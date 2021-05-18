@@ -8,6 +8,7 @@ interface CssExports {
   'submit': string;
   'title': string;
   'world-state': string;
+  'action': string
 }
 export const cssExports: CssExports;
 export default cssExports;

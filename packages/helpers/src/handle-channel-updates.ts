@@ -30,14 +30,13 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
       // remove any existing RFI with this reference number. Note: we can't use 
       // filter() array function since it produces a new array, which would
       // have a new reference, and wouldn't get returned as a parameter
-      for(let i = 0; i < theChannel.messages.length; i++){ 
-        const msg = theChannel.messages[i]
-        if(msg.messageType === CUSTOM_MESSAGE) {
-          if (msg.message.Reference === payload.message.Reference) { 
-            theChannel.messages.splice(i, 1); 
+      theChannel.messages.forEach((msg, idx) => {
+        if (msg.messageType === CUSTOM_MESSAGE &&
+          msg.message.Reference === payload.message.Reference) {
+            theChannel.messages?.splice(idx, 1); 
           }
-        }
-      }
+      })
+
     }
 
     theChannel.messages.unshift({
@@ -56,11 +55,11 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
     // remove any existing RFI with this reference number. Note: we can't use 
     // filter() array function since it produces a new array, which would
     // have a new reference, and wouldn't get returned as a parameter
-    for(let i = 0; i < data.rfiMessages.length; i++){ 
-      if ( data.rfiMessages[i].message.Reference === payload.message.Reference) { 
-        data.rfiMessages.splice(i, 1); 
+    data.rfiMessages.forEach((item, idx) => {
+      if (item.message.Reference === payload.message.Reference) {
+        data.rfiMessages.splice(idx, 1); 
       }
-    }
+    })
     data.rfiMessages.unshift(deepCopy(payload))
     // rfiMessages = rfiMessages.filter((message) => message.message.Reference !== payload.message.Reference)
   }
