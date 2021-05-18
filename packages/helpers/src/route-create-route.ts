@@ -3,7 +3,7 @@ import { Route, RouteTurn, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, 
 import { cloneDeep, kebabCase } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import { PlanningStates, UMPIRE_FORCE, LaydownPhases, LaydownTypes, Phase } from '@serge/config'
+import { PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, LaydownPhases, LaydownTypes, Phase } from '@serge/config'
 import hexNamed from './hex-named'
 
 const processStep = (grid: SergeGrid<SergeHex<{}>> | undefined,
@@ -79,7 +79,7 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
       let hosting: Array<RouteChild> = item.hosting && item.hosting.length ?
         childrenFor(item.hosting, platformTypes, underControl, assetForce, playerForce) :
         []
-      if (underControl || playerForce === UMPIRE_FORCE) {
+      if (underControl || playerForce === UMPIRE_FORCE || playerForce === UMPIRE_FORCE_NAME) {
 
         // use real values
         const newChild: RouteChild = {

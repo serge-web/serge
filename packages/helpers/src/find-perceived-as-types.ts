@@ -1,8 +1,9 @@
-import { UMPIRE_FORCE } from '@serge/config'
+import { UMPIRE_FORCE, UMPIRE_FORCE_NAME } from '@serge/config'
 import { Perception, PerceivedTypes } from '@serge/custom-types'
 
 /** provide classnames for an asset, as perceived by current player
  * @param {string} myForce force of current player
+ * @param {string} myForceId force id of current player
  * @param {string} theirName name of selected asset
  * @param {boolean} visibleToPlayerForce whether this asset is visible to player force
  * @param {string} theirContactID contactID of selected asset (used when no perceived name)
@@ -22,7 +23,7 @@ export default function findPerceivedAsTypes (
   theirPerceptions: Perception[]
 ): PerceivedTypes | null {
   let tmpPerception: any
-  if (myForce.toLowerCase() === theirForce.toLowerCase() || visibleToPlayerForce || myForce.toLowerCase() === UMPIRE_FORCE) {
+  if (myForce.toLowerCase() === theirForce.toLowerCase() || visibleToPlayerForce || myForce.toLowerCase() === UMPIRE_FORCE || myForce.toLowerCase() === UMPIRE_FORCE_NAME) {
     // just use the real value
     tmpPerception = { name: theirName, force: theirForce, type: theirType }
   } else {
