@@ -71,7 +71,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
     }
   }
 
-  return <Marker css={{backgroundColor:'#00f'}} position={position} icon={divIcon} onclick={clickEvent}>
+  return <Marker css={{ backgroundColor: '#00f' }} position={position} icon={divIcon} onclick={clickEvent}>
     <Tooltip>{capitalize(tooltip)}</Tooltip>
   </Marker>
 }
