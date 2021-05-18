@@ -22,10 +22,14 @@ export default interface PropTypes {
    */
   force: string
   /**
-   * The perceived force for this asset
+   * The perceived color for this asset
    */
-  perceivedForce: string
+  perceivedForceColor: string
   /**
+   * The perceived color for this asset
+   */
+  perceivedForceClass?: string
+   /**
    * if this asset is selected
    */
   selected: boolean
