@@ -876,11 +876,12 @@
                                 }
                             ],
                             "position": "BD85",
-                            "platformType": "ff",
+                            "platformType": "frigate",
                             "uniqid": "a0prbr6441"
                         }
                     ],
                     "color": "#3dd0ff",
+                    "forceClass": "blue",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "CTF A",
@@ -945,6 +946,7 @@
                 },
                 {
                     "color": "#3dd0ff",
+                    "forceClass": "blue",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "CTF B",
@@ -1009,6 +1011,7 @@
                 },
                 {
                     "color": "#ff5e3d",
+                    "forceClass": "red",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "CTF X",
@@ -1073,6 +1076,7 @@
                 },
                 {
                     "color": "#ff703d",
+                    "forceClass": "blue",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "CTF Y",
@@ -1186,7 +1190,7 @@
                         "Mission Kill"
                     ],
                     "icon": "frigate.svg",
-                    "name": "FF",
+                    "name": "frigate",
                     "speedKts": [
                         10,
                         20
