@@ -100,7 +100,13 @@ exports[`PlanTurnForm renders correctly 1`] = `
                     "width": "33.333333333333336%",
                   }
                 }
-              />
+              >
+                <div
+                  className="speed-item__label"
+                >
+                  10
+                </div>
+              </div>
               <div
                 className="speed-item speed-enabled speed-active"
                 onClick={[Function]}
@@ -111,7 +117,13 @@ exports[`PlanTurnForm renders correctly 1`] = `
                     "width": "33.333333333333336%",
                   }
                 }
-              />
+              >
+                <div
+                  className="speed-item__label"
+                >
+                  20
+                </div>
+              </div>
               <div
                 className="speed-item speed-enabled speed-active"
                 onClick={[Function]}
@@ -122,7 +134,13 @@ exports[`PlanTurnForm renders correctly 1`] = `
                     "width": "33.333333333333336%",
                   }
                 }
-              />
+              >
+                <div
+                  className="speed-item__label"
+                >
+                  30
+                </div>
+              </div>
             </div>
           </div>
         </div>

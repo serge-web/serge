@@ -42,13 +42,14 @@ export const Assets: React.FC<{}> = () => {
     if (gridCells) {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
-        const { uniqid, name, platformType, actualForceName, condition, laydownPhase } = route
+        const { uniqid, name, platformType, actualForceName, condition, laydownPhase, visibleToThisForce } = route
         const { contactId, status, perceptions } = route.asset
 
         // see if the player of this force can see (perceive) this asset
         const perceivedAsTypes: PerceivedTypes | null = findPerceivedAsTypes(
           playerForce,
           name,
+          visibleToThisForce,
           contactId,
           route.perceivedForceName,
           platformType,
@@ -61,7 +62,7 @@ export const Assets: React.FC<{}> = () => {
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
             // sort out who can control this force
-            const assetForce: ForceData | undefined = forces.find((force: ForceData) => force.name === actualForceName)
+            const assetForce: ForceData | undefined = forces.find((force: ForceData) => force.uniqid === actualForceName)
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const assetInfo: AssetInfo = {
@@ -71,7 +72,8 @@ export const Assets: React.FC<{}> = () => {
                 status: status,
                 selected: isSelected,
                 type: perceivedAsTypes.type,
-                perceivedForce: perceivedAsTypes.force,
+                perceivedForceColor: route.perceivedForceColor,
+                perceivedForceClass: route.perceivedForceClass,
                 force: assetForce.uniqid,
                 visibleTo: visibleToArr,
                 uniqid: uniqid,
@@ -103,7 +105,8 @@ export const Assets: React.FC<{}> = () => {
         controlledBy={asset.controlledBy}
         visibleTo={asset.visibleTo}
         force={asset.force}
-        perceivedForce={asset.perceivedForce}
+        perceivedForceColor={asset.perceivedForceColor}
+        perceivedForceClass={asset.perceivedForceClass}
         tooltip={asset.name}
         locationPending={!!asset.laydownPhase}/>
     ))}

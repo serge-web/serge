@@ -31,8 +31,14 @@ export default interface Route {
   platformType: string,
   /** whether this asset is under control of current player's force */
   underControl: boolean,
+  /** whether this asset is visible to current player's force */
+  visibleToThisForce: boolean;
   /** name of force for this platform (perceived or real) */
   perceivedForceName: string,
+  /** player's perceived color for this asset */
+  perceivedForceColor: string,
+  /** player's perceived color for this asset */
+  perceivedForceClass?: string,
   /** real force for this platform */
   actualForceName: string,
   /** if this is the selected asset */
