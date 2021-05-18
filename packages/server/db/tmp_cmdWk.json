@@ -942,6 +942,7 @@
                         }
                     ],
                     "umpire": false,
+                    "visibleTo": ["force-koiqzx9d"],
                     "uniqid": "force-koiqysc8"
                 },
                 {
@@ -950,7 +951,7 @@
                             "condition": "Full capability",
                             "contactId": "C164",
                             "history": [],
-                            "name": "Frigate A",
+                            "name": "Task Group",
                             "perceptions": [
                                 {
                                     "by": "Red",
@@ -1025,6 +1026,7 @@
                         }
                     ],
                     "umpire": false,
+                    "visibleTo": ["force-koiqysc8"],
                     "uniqid": "force-koiqzx9d"
                 },
                 {
@@ -1090,6 +1092,7 @@
                         }
                     ],
                     "umpire": false,
+                    "visibleTo": ["force-koirc8rk"],
                     "uniqid": "force-koir164l"
                 },
                 {
@@ -1155,6 +1158,7 @@
                         }
                     ],
                     "umpire": false,
+                    "visibleTo": ["force-koir164l"],
                     "uniqid": "force-koirc8rk"
                 }
             ],
