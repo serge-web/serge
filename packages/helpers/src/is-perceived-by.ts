@@ -2,6 +2,7 @@ import { Perception } from '@serge/custom-types'
 
 /** set of descriptors for how a force is styled */
 export interface ForceStyle {
+  /** name of this force */
   force: string,
   color: string,
   cssClass?: string,

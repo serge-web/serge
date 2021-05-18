@@ -43,11 +43,6 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   const isDestroyed: boolean = !!condition && condition.toLowerCase() === 'destroyed'
 
-  // TODO: we need to find some way to get 
-
-  console.log('asset', perceivedForceClass, getIconClassname(perceivedForceClass || '', type, isDestroyed, selected))
-
-
   const divIcon = L.divIcon({
     iconSize: [40, 40],
     className: getIconClassname(perceivedForceClass || '', type, isDestroyed, selected)

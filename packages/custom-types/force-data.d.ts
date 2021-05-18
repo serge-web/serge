@@ -12,5 +12,10 @@ export default interface ForceData {
   umpire: boolean,
   dirty: boolean,
   assets?: Array<Asset>,
+  /* todo - eventually move to force ids, rather than names */
   controlledBy?: Array<string>
+  /** list of force IDs that can see assets of this force.
+   *  todo - eventually move to force ids, rather than names
+   */
+  visibleTo?: Array<string>
 }
