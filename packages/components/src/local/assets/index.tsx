@@ -61,11 +61,14 @@ export const Assets: React.FC<{}> = () => {
 
         if (perceivedAsTypes) {
           const position: L.LatLng | undefined = route.currentLocation // (cell && cell.centreLatLng) || undefined // route.currentLocation
-          //  console.log(name, position)
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
             // sort out who can control this force
-            const assetForce: ForceData | undefined = forces.find((force: ForceData) => force.name === actualForceName)
+            let assetForce: ForceData | undefined = forces.find((force: ForceData) => force.name === actualForceName)
+            if(!assetForce) {
+              // TODO: introduce consistency in how we represent forces (id, not name)
+              assetForce = forces.find((force: ForceData) => force.uniqid === actualForceName)
+            }
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const assetInfo: AssetInfo = {
