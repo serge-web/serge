@@ -1,6 +1,6 @@
 import { STATE_OF_WORLD } from '@serge/config'
-import { AssetState, ForceState, MessageStateOfWorld, Route, StateOfWorld } from '@serge/custom-types'
-import { padInteger } from '@serge/helpers'
+import { AssetState, ForceState, MessageStateOfWorld, Route, RouteTurn, StateOfWorld } from '@serge/custom-types'
+import { padInteger, deepCopy } from '@serge/helpers'
 
 const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): MessageStateOfWorld => {
   const forces: Array<ForceState> = []
@@ -22,11 +22,25 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): MessageS
       history: route.history,
       position: route.currentPosition
     }
-
+0
     if (route.asset.destroyed) {
       assetState.destroyed = route.asset.destroyed
     } else {
-      assetState.plannedTurns = route.planned
+      // remove the first item from planned route
+      const planned = deepCopy(route.planned)
+      const first:RouteTurn | undefined = planned.shift()
+      if(first && first.route) {
+        const lastCell = first.route[first.route.length-1]
+        assetState.position = lastCell
+        // produce new history
+        if(assetState.history) {
+          // append it
+          assetState.history.push(first)
+        } else {
+          assetState.history = [first]
+        }
+      }
+      assetState.plannedTurns = planned
       assetState.newState = route.currentStatus
     }
     forceArray.assets.push(assetState)
