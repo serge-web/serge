@@ -1410,7 +1410,7 @@
                         "Working"
                     ],
                     "icon": "datum.svg",
-                    "name": "Datum",
+                    "name": "datum",
                     "states": [
                         {
                             "mobile": true,
