@@ -494,8 +494,8 @@ export const HexGrid: React.FC<{}> = () => {
 
   return <>
 
-    { /* temporary - show number of visible cells */}
-    { viewport &&
+    { /*  - show number of visible cells */}
+    { /* viewport &&
       <Marker
         key={'num_vis_cells'}
         position={ viewport.getCenter()}
@@ -505,7 +505,7 @@ export const HexGrid: React.FC<{}> = () => {
           className: styles['num-cells'],
           iconSize: [30, 20]
         })}
-      />
+      /> */
     }
 
     { /* POLY BINS */}
