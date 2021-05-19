@@ -265,7 +265,6 @@ export const MapBar: React.FC = () => {
       case MapBarForms.Planning: {
         const canSubmit = canSubmitOrders && phase === PLANNING_PHASE
         const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
-        console.log('plan turn form', formData)
         return <PlanTurnForm
           icon={iconData}
           setHidePlanningForm={setHidePlanningForm}
