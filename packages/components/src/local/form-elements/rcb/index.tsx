@@ -42,8 +42,6 @@ export const RCB: React.FC<PropTypes> = ({ name, type, label, options, value, fo
   const handleCheckbox = (data: any): void => {
     const { name, value, checked } = data
 
-    console.log('checkbox', data, value, checked, checkedArray)
-
     const lowerValue: string = kebabCase(value)
     const updatedArray: any = checkedArray.map((c: any) => {
       if (kebabCase(c.name) === lowerValue) {
