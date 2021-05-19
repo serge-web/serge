@@ -85,16 +85,16 @@ export const WorldState: React.FC<PropTypes> = ({
     }
   }
 
-  const onConfirm = () => {
+  const onConfirm = (): void => {
     setIsOpen(true)
   }
 
-  const onYes = () => {
+  const onYes = (): void => {
     setIsOpen(false)
     submitCallback()
   }
 
-  const onNo = () => {
+  const onNo = (): void => {
     setIsOpen(false)
   }
 

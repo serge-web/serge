@@ -390,8 +390,8 @@ export const HexGrid: React.FC<{}> = () => {
     // combine both lists
     const allCells = relevantCells.concat(planningRouteCells)
     // some cells may be in both lists, so reduce to unique cells
-//    const uniqueCells = [...new Set(allCells)]
-//    console.log('reduce visible', allowableCells.length, allCells.length, uniqueCells.length)
+    //    const uniqueCells = [...new Set(allCells)]
+    //    console.log('reduce visible', allowableCells.length, allCells.length, uniqueCells.length)
     setVisibleAndAllowableCells(allCells)
   }, [allowableCells, relevantCells, planningRouteCells])
 

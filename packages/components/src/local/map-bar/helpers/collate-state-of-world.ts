@@ -22,18 +22,18 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): MessageS
       history: route.history,
       position: route.currentPosition
     }
-0
+
     if (route.asset.destroyed) {
       assetState.destroyed = route.asset.destroyed
     } else {
       // remove the first item from planned route
       const planned = deepCopy(route.planned)
-      const first:RouteTurn | undefined = planned.shift()
-      if(first && first.route) {
-        const lastCell = first.route[first.route.length-1]
+      const first: RouteTurn | undefined = planned.shift()
+      if (first && first.route) {
+        const lastCell = first.route[first.route.length - 1]
         assetState.position = lastCell
         // produce new history
-        if(assetState.history) {
+        if (assetState.history) {
           // append it
           assetState.history.push(first)
         } else {

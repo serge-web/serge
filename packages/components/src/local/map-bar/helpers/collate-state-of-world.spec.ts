@@ -8,13 +8,12 @@ import { MessageStateOfWorld, RouteStore, StateOfWorld, Route } from '@serge/cus
 import { Phase } from '@serge/config'
 
 it('world gets moved forward with existing history', () => {
-
   const forcesCopy = deepCopy(forces)
 
   // check the data going in matches what we expect
   const redForce = forcesCopy[2]
   const redDhow = redForce.assets && redForce.assets[0]
-  if(redDhow) {
+  if (redDhow) {
     expect(redDhow.name).toEqual('Dhow-A')
     expect(redDhow.plannedTurns && redDhow.plannedTurns.length).toEqual(3)
     expect(redDhow.history && redDhow.history.length).toEqual(3)
@@ -41,13 +40,12 @@ it('world gets moved forward with existing history', () => {
 })
 
 it('world gets moved forward without existing history', () => {
-
   const forcesCopy = deepCopy(forces)
 
   // check the data going in matches what we expect
   const redForce = forcesCopy[2]
   const redDhow = redForce.assets && redForce.assets[0]
-  if(redDhow) {
+  if (redDhow) {
     expect(redDhow.name).toEqual('Dhow-A')
     expect(redDhow.plannedTurns && redDhow.plannedTurns.length).toEqual(3)
     expect(redDhow.history && redDhow.history.length).toEqual(3)
@@ -76,15 +74,13 @@ it('world gets moved forward without existing history', () => {
   expect(asset.newState).toEqual({ speedKts: 10, state: 'Transiting' })
 })
 
-
 it('world gets moved forward with destroyed asset', () => {
-
   const forcesCopy = deepCopy(forces)
 
   // check the data going in matches what we expect
   const redForce = forcesCopy[2]
   const redDhow = redForce.assets && redForce.assets[0]
-  if(redDhow) {
+  if (redDhow) {
     expect(redDhow.name).toEqual('Dhow-A')
     expect(redDhow.plannedTurns && redDhow.plannedTurns.length).toEqual(3)
     expect(redDhow.history && redDhow.history.length).toEqual(3)
@@ -98,7 +94,7 @@ it('world gets moved forward with destroyed asset', () => {
 
   // mangle a route
   const dhowRoute = store.routes.find((route: Route) => route.name === 'Dhow-A')
-  if(dhowRoute) {
+  if (dhowRoute) {
     dhowRoute.asset.destroyed = true
   } else {
     console.warn('failed to find red dhow')
