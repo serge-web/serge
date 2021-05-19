@@ -65,7 +65,7 @@ export const Assets: React.FC<{}> = () => {
           if (position != null) {
             // sort out who can control this force
             let assetForce: ForceData | undefined = forces.find((force: ForceData) => force.name === actualForceName)
-            if(!assetForce) {
+            if (!assetForce) {
               // TODO: introduce consistency in how we represent forces (id, not name)
               assetForce = forces.find((force: ForceData) => force.uniqid === actualForceName)
             }
