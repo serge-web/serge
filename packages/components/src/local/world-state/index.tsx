@@ -173,7 +173,7 @@ export const WorldState: React.FC<PropTypes> = ({
     <div className={styles['world-state']}>
       <h2 className={styles.title}>{customTitle}
         {plansSubmitted &&
-          <h5 className='sub-title'>(Form disabled, {customTitle} submitted)</h5>
+          <div className='sub-title'>(Form disabled, {customTitle} submitted)</div>
         }
       </h2>
 
