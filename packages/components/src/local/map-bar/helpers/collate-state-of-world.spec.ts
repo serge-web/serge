@@ -1,5 +1,5 @@
 /* global it expect */
-import collateStateOfWorld, {updatePerceptions} from './collate-state-of-world'
+import collateStateOfWorld, { updatePerceptions } from './collate-state-of-world'
 
 import forces from '@serge/mocks/forces.mock'
 import platforms from '@serge/mocks/platform-types.mock'
@@ -7,14 +7,13 @@ import { routeCreateStore, deepCopy } from '@serge/helpers'
 import { MessageStateOfWorld, RouteStore, StateOfWorld, Route } from '@serge/custom-types'
 import { Phase } from '@serge/config'
 
-
 it('correctly updates perceptions for new forces', () => {
-  const res = updatePerceptions(['Red', 'Green'], [{by:'Blue'}])
+  const res = updatePerceptions(['Red', 'Green'], [{ by: 'Blue' }])
   expect(res.length).toEqual(2)
 })
 
 it('correctly updates perceptions for dropped forces', () => {
-  const res = updatePerceptions(['Green'], [{by:'Red'}, {by:'Green', type:'Big duck'}])
+  const res = updatePerceptions(['Green'], [{ by: 'Red' }, { by: 'Green', type: 'Big duck' }])
   expect(res.length).toEqual(1)
   expect(res[0].type).toEqual('Big duck')
 })
@@ -26,7 +25,7 @@ it('robustly handles zero existing', () => {
 })
 
 it('correctly handles zero new', () => {
-  const res = updatePerceptions([], [{by:'Red'}, {by:'Green', type:'Big duck'}])
+  const res = updatePerceptions([], [{ by: 'Red' }, { by: 'Green', type: 'Big duck' }])
   expect(res.length).toEqual(0)
 })
 
