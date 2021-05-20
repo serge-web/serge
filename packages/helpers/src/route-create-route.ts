@@ -275,6 +275,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const currentStatus: RouteStatus = produceStatusFor(status, platformTypes, asset)
 
+  const showHistory = asset.platformType != 'datum'
+
   // store the potentially modified route data
   const plannedTurns: RouteTurn[] | undefined = existingRoute && existingRoute.planned
   const historyTurns: RouteTurn[] | undefined = existingRoute && existingRoute.history
@@ -316,7 +318,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     hosting: hosting,
     comprising: comprising,
     destroyed: destroyed,
-    history: historySteps,
+    history: showHistory ? historySteps: [],
     currentStatus: currentStatus,
     currentPosition: currentPosition,
     currentLocation: currentLocation,
