@@ -56,7 +56,7 @@ export const SettingForces: React.FC<PropTypes> = ({
   const handleSwitch = (_item: Item): void => {
     const selectedForce = forcesData.findIndex(force => force.uniqid === _item.uniqid)
     setSelectedItem(selectedForce)
-    setSelectedForceData(_item as ForceData);
+    setSelectedForceData(_item as ForceData)
     onSidebarClick && onSidebarClick(_item as ForceData)
   }
 

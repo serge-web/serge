@@ -33,7 +33,7 @@ export const SortableList: React.FC<PropTypes> = ({
   const [active, setActive] = useState<string | number>('')
   const [itemsSaved] = useState<Array<Item>>(items)
   const [selectAllText, setSelectAllText] = useState<boolean>(false)
-  const [inputActive, setInputActive] = useState<boolean>(false);
+  const [inputActive, setInputActive] = useState<boolean>(false)
 
   const removeLocal = typeof remove === 'undefined' ? true : remove
 
@@ -144,8 +144,8 @@ export const SortableList: React.FC<PropTypes> = ({
         <div className={styles.presection}>
           <section className={styles.section}>
             {
-              inputActive ?
-                <input
+              inputActive
+                ? <input
                   type={isNumber ? 'number' : 'text'}
                   onChange={handleInputChange}
                   value={`${value}`}
@@ -156,8 +156,8 @@ export const SortableList: React.FC<PropTypes> = ({
                     }
                   }}
                   onBlur={() => setInputActive(false)}
-                /> :
-                <div className={styles['value-label']}>
+                />
+                : <div className={styles['value-label']}>
                   <div onClick={(e): void => { handleClick(e, item, uniqid, key) }}>
                     {value}
                   </div>
