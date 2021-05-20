@@ -87,7 +87,7 @@ it('can create route for un-recognised type', () => {
 
   // should not create visible or condition elements for Blue force
   expect(dhow.visibleTo.length).toEqual(0)
-  expect(dhow.condition).toBeUndefined()
+  expect(dhow.condition).toEqual('Full capability')
 })
 
 it('create full history & planned for blue unit', () => {
