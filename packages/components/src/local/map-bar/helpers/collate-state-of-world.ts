@@ -1,6 +1,20 @@
 import { STATE_OF_WORLD } from '@serge/config'
-import { AssetState, ForceState, MessageStateOfWorld, Route, RouteTurn, StateOfWorld } from '@serge/custom-types'
+import { AssetState, ForceState, MessageStateOfWorld, Route, RouteTurn, Perception, StateOfWorld } from '@serge/custom-types'
 import { padInteger, deepCopy } from '@serge/helpers'
+
+export const updatePerceptions = (visibleTo: Array<string>, current: Perception[]): Perception[] => {
+  // start by removing those not present
+  const removeNotPresent = current.filter((perception: Perception) => visibleTo.includes(perception.by))
+
+  // now add any others
+  const toBeAdded = visibleTo.filter((by:string) => !removeNotPresent.find((perception: Perception)=> perception.by === by))
+
+  // find ones that need to be added
+  const newPerceptions: Perception[] = toBeAdded.map((val:string): Perception => ({by: val}))
+
+  // combine the two
+  return removeNotPresent.concat(newPerceptions)
+}
 
 const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): MessageStateOfWorld => {
   const forces: Array<ForceState> = []
@@ -13,12 +27,15 @@ const collateStateOfWorld = (routes: Array<Route>, turnNumber: number): MessageS
       forces.push(forceArray)
     }
 
+    // sort out the visible bits
+    const newPerceptions = updatePerceptions(route.visibleTo ,route.asset.perceptions)
+
     // collate element to represent this asset
     const assetState: AssetState = {
       uniqid: route.uniqid,
       name: route.name,
-      condition: route.asset.condition,
-      perceptions: route.asset.perceptions,
+      condition: route.condition || route.asset.condition,
+      perceptions: newPerceptions,
       history: route.history,
       position: route.currentPosition
     }
