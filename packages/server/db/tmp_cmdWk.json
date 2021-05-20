@@ -1168,14 +1168,7 @@
                             "contactId": "C961",
                             "history": [],
                             "name": "Datum-R1",
-                            "perceptions": [
-                                {
-                                    "by": "Red",
-                                    "name": "C350",
-                                    "type": "datum",
-                                    "force": "Blue"
-                                }
-                            ],
+                            "perceptions": [],
                             "position": "R120",
                             "platformType": "datum",
                             "uniqid": "a0prbr6001"
@@ -1185,14 +1178,7 @@
                             "contactId": "C911",
                             "history": [],
                             "name": "Datum-B2",
-                            "perceptions": [
-                                {
-                                    "by": "Blue",
-                                    "name": "C114",
-                                    "type": "datum",
-                                    "force": "Red"
-                                }
-                            ],
+                            "perceptions": [],
                             "position": "R121",
                             "platformType": "datum",
                             "uniqid": "a0prbr6003"
