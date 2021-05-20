@@ -332,7 +332,8 @@ class AdjudicationManager {
       const turnData: PlanTurnFormValues = {
         statusVal: state,
         speedVal: status.speedKts ? status.speedKts : 0,
-        turnsVal: 1
+        turnsVal: 1,
+        condition: this.currentCondition()
       }
       this.turnPlanned(turnData)
     }

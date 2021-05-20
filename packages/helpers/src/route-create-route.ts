@@ -297,7 +297,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const visibleTo: Array<string> = determineVisibleTo(asset, playerForce)
 
-  const condition: string | undefined = playerForce === UMPIRE_FORCE ? asset.condition : undefined
+  const condition: string = asset.condition
 
   const laydownPhase = laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
 
