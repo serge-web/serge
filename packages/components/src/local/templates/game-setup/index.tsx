@@ -28,6 +28,7 @@ export const GameSetup: React.FC<Props> = ({
   onForcesChange,
   onCreateForce,
   onDeleteForce,
+  onDeleteRole,
   onSidebarForcesClick,
   selectedForce,
   onChannelsChange,
@@ -75,6 +76,7 @@ export const GameSetup: React.FC<Props> = ({
               onSidebarClick={onSidebarForcesClick}
               onCreate={onCreateForce}
               onDelete={onDeleteForce}
+              onDeleteRole={onDeleteRole}
               selectedForce={selectedForce}
             />
           )

@@ -194,6 +194,10 @@ const AdminGameSetup = () => {
     }))
   }
 
+  const onDeleteRole = (role, force) => {
+    dispatch(modalAction.open('confirmDelete', { type: 'role', data: { role: role.name, force: force.uniqid } }))
+  }
+
   const onCreateChannel = () => {
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
@@ -288,6 +292,7 @@ const AdminGameSetup = () => {
       onChannelsChange={handleFormChange}
       onCreateChannel={onCreateChannel}
       onDeleteChannel={onDeleteChannel}
+      onDeleteRole={onDeleteRole}
       onDuplicateChannel={onDuplicateChannel}
       selectedChannel={channels.selectedChannel}
       onSave={onSave}

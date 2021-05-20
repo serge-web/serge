@@ -36,6 +36,21 @@
   border-bottom: 1px solid #434343 !important;
 }
 
+.value-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.main li {
+  &:hover {
+    .delete-btn {
+      opacity: 1;
+      z-index: 1;
+    }
+  }
+}
+
 .item {
   color: #999;
   cursor: unset;
@@ -51,11 +66,20 @@
   padding-left: 2px;
 }
 
+.delete-btn {
+  font-size: 0.9em;
+  cursor: pointer;
+  margin-left: 20px;
+  opacity: 0;
+  position: relative;
+  z-index: -1;
+}
+
 .section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0);
+  border-bottom: 1px solid rgba(24, 15, 15, 0);
 }
 
 .drag > span,
@@ -70,7 +94,7 @@
   color: #434343;
 }
 
-.section > input {
+.section > input, .section > div {
   flex: 1;
   font-family: inherit;
   font-size: 18px;

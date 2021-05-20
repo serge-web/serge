@@ -3,7 +3,7 @@ import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { ButtonList } from '@serge/components'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
-import { deleteSelectedForce, deleteSelectedChannel } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
+import { deleteSelectedForce, deleteSelectedChannel, deleteSelectedRole } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import '@serge/themes/App.scss'
 
 const DeleteModal = () => {
@@ -27,6 +27,10 @@ const DeleteModal = () => {
 
     if (type === 'channel') {
       dispatch(deleteSelectedChannel(wargame.currentWargame, data))
+    }
+
+    if (type === 'role') {
+      dispatch(deleteSelectedRole(wargame.currentWargame, data.force, data.role))
     }
 
     dispatch(modalAction.close())

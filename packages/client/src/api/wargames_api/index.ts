@@ -447,6 +447,24 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>
   })
 }
 
+export const deleteRole = (dbName: string, forceId: string, roleName: string): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const forces = updatedData.forces.forces
+    const force = forces.find((force) => force.uniqid === forceId)
+    if(force && force.roles) {
+      const roleIndex = force.roles.findIndex((role) => role.name === roleName)
+      if (roleIndex !== -1) {
+        force.roles.splice(roleIndex, 1);
+        updatedData.forces.forces = forces
+      }
+      updatedData.channels.complete = calcComplete(forces)
+    }
+    return updateWargame({...res, data: updatedData}, dbName)
+  });
+}
+
 export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
   const dbName = getNameFromPath(dbPath)
   const { db } = getWargameDbByName(dbName)
