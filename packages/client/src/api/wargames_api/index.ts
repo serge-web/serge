@@ -133,7 +133,6 @@ export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): 
 
 export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch): void => {
   const wargame = getWargameDbByName(name)
-  if (wargame === undefined) return
   const db = wargame.db
   listenNewMessage({ db, name, dispatch })
 }
