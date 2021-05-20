@@ -95,7 +95,7 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
         res.push(newChild)
       } else {
         // sort out if this player can see this assset
-        const perceptions: PerceivedTypes | null = findPerceivedAsTypes(playerForce, item.name, item.contactId,
+        const perceptions: PerceivedTypes | null = findPerceivedAsTypes(playerForce, item.name, false, item.contactId,
           assetForce, item.platformType, item.perceptions)
         if (perceptions) {
           const newChild: RouteChild = {
@@ -246,7 +246,9 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @param {Phase} phase current game phase
  * @param {string} color color for rendering this asset
  * @param {boolean} underControl whether the player is controlling this asset
+ * @param {boolean} visibleToThisForce whether this force can see this asset
  * @param {string} actualForce the true force for the asset
+ * @param {string} perceivedForceClass the CSS class for the perceived force of the asset
  * @param {string} perceivedForce the perceived force of the asset
  * @param {string} perceivedName the perceived name of the asset
  * @param {string} perceivedType the perceived type of the asset
@@ -265,7 +267,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
  * @returns {Route} Route for this asset
  */
 const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
-  underControl: boolean, actualForce: string, perceivedForce: string, perceivedName: string,
+  underControl: boolean, visibleToThisForce: boolean, actualForce: string, perceivedForceClass: string | undefined, perceivedForce: string, perceivedName: string,
   perceivedType: string, platformTypes: PlatformTypeData[], playerForce: string, status: RouteStatus | undefined, currentPosition: string,
   currentLocation: L.LatLng, grid: SergeGrid<SergeHex<{}>> | undefined, includePlanned: boolean,
   filterHistorySteps: boolean, filterPlannedSteps: boolean, isSelected: boolean, existingRoute: Route | undefined,
@@ -305,7 +307,10 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     selected: isSelected,
     platformType: perceivedType,
     underControl: underControl,
+    visibleToThisForce: visibleToThisForce,
     perceivedForceName: perceivedForce,
+    perceivedForceClass: perceivedForceClass,
+    perceivedForceColor: color,
     actualForceName: actualForce,
     color: color,
     hosting: hosting,

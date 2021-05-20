@@ -1,0 +1,1418 @@
+{
+    "adjudicationStartTime": "2021-05-10T16:12:05+01:00",
+    "data": {
+        "channels": {
+            "channels": [
+                {
+                    "name": "VHF C16",
+                    "participants": [
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [],
+                            "subscriptionId": "8qsze9",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF A",
+                            "forceUniqid": "force-koiqysc8",
+                            "roles": [],
+                            "subscriptionId": "fzcha",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "force-koiqzx9d",
+                            "roles": [],
+                            "subscriptionId": "hzrzp",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF X",
+                            "forceUniqid": "force-koir164l",
+                            "roles": [],
+                            "subscriptionId": "0xirf",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF Y",
+                            "forceUniqid": "force-koirc8rk",
+                            "roles": [],
+                            "subscriptionId": "icrx",
+                            "templates": []
+                        }
+                    ],
+                    "uniqid": "channel-koirdijk"
+                },
+                {
+                    "name": "Strategic Comms",
+                    "participants": [
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [],
+                            "subscriptionId": "hyiju",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF A",
+                            "forceUniqid": "force-koiqysc8",
+                            "roles": [],
+                            "subscriptionId": "88la",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "force-koiqzx9d",
+                            "roles": [],
+                            "subscriptionId": "jmpk",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF X",
+                            "forceUniqid": "force-koir164l",
+                            "roles": [],
+                            "subscriptionId": "mgp9s",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF Y",
+                            "forceUniqid": "force-koirc8rk",
+                            "roles": [],
+                            "subscriptionId": "kjoa",
+                            "templates": []
+                        }
+                    ],
+                    "uniqid": "channel-koire5o6"
+                },
+                {
+                    "name": "Blue",
+                    "participants": [
+                        {
+                            "force": "CTF A",
+                            "forceUniqid": "force-koiqysc8",
+                            "roles": [],
+                            "subscriptionId": "h034d",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "force-koiqzx9d",
+                            "roles": [],
+                            "subscriptionId": "fpf5h",
+                            "templates": []
+                        },
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [
+                                {
+                                    "canSubmitPlans": true,
+                                    "isGameControl": true,
+                                    "isInsightViewer": true,
+                                    "isObserver": true,
+                                    "name": "Game Control",
+                                    "password": "pkoiqu5ev"
+                                },
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": true,
+                                    "isObserver": false,
+                                    "isRFIManager": true,
+                                    "name": "RFI Mgr",
+                                    "password": "prtrbj"
+                                },
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": false,
+                                    "isObserver": false,
+                                    "isRFIManager": false,
+                                    "name": "Blue HHQ",
+                                    "password": "p3ssu8"
+                                }
+                            ],
+                            "subscriptionId": "hhbx3",
+                            "templates": []
+                        }
+                    ],
+                    "uniqid": "channel-koireqsn"
+                },
+                {
+                    "name": "Blue HHQ",
+                    "participants": [
+                        {
+                            "force": "CTF A",
+                            "forceUniqid": "force-koiqysc8",
+                            "roles": [
+                                {
+                                    "canSubmitPlans": true,
+                                    "isGameControl": false,
+                                    "isInsightViewer": false,
+                                    "isObserver": false,
+                                    "name": "CO",
+                                    "password": "pkoiqysc9"
+                                }
+                            ],
+                            "subscriptionId": "g485",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "force-koiqzx9d",
+                            "roles": [
+                                {
+                                    "canSubmitPlans": true,
+                                    "isGameControl": false,
+                                    "isInsightViewer": false,
+                                    "isObserver": false,
+                                    "name": "CO",
+                                    "password": "pkoiqzx9e"
+                                }
+                            ],
+                            "subscriptionId": "hukqr",
+                            "templates": []
+                        },
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": false,
+                                    "isObserver": false,
+                                    "isRFIManager": false,
+                                    "name": "Blue HHQ",
+                                    "password": "p3ssu8"
+                                }
+                            ],
+                            "subscriptionId": "r4yp",
+                            "templates": []
+                        }
+                    ],
+                    "uniqid": "channel-koirf734"
+                },
+                {
+                    "name": "Red",
+                    "participants": [
+                        {
+                            "force": "CTF X",
+                            "forceUniqid": "force-koir164l",
+                            "roles": [],
+                            "subscriptionId": "bd4l",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF Y",
+                            "forceUniqid": "force-koirc8rk",
+                            "roles": [],
+                            "subscriptionId": "7bayi",
+                            "templates": []
+                        },
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [
+                                {
+                                    "canSubmitPlans": true,
+                                    "isGameControl": true,
+                                    "isInsightViewer": true,
+                                    "isObserver": true,
+                                    "name": "Game Control",
+                                    "password": "pkoiqu5ev"
+                                },
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": true,
+                                    "isObserver": false,
+                                    "isRFIManager": true,
+                                    "name": "RFI Mgr",
+                                    "password": "prtrbj"
+                                },
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": false,
+                                    "isObserver": false,
+                                    "isRFIManager": false,
+                                    "name": "Red HHQ",
+                                    "password": "pvg5sb"
+                                }
+                            ],
+                            "subscriptionId": "h2my2k",
+                            "templates": []
+                        }
+                    ],
+                    "uniqid": "channel-koirfxsx"
+                },
+                {
+                    "name": "Red HHQ",
+                    "participants": [
+                        {
+                            "force": "CTF X",
+                            "forceUniqid": "force-koir164l",
+                            "roles": [
+                                {
+                                    "canSubmitPlans": true,
+                                    "isGameControl": false,
+                                    "isInsightViewer": false,
+                                    "isObserver": false,
+                                    "name": "CO",
+                                    "password": "pkoir164m"
+                                }
+                            ],
+                            "subscriptionId": "k1fi",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF Y",
+                            "forceUniqid": "force-koirc8rk",
+                            "roles": [
+                                {
+                                    "canSubmitPlans": true,
+                                    "isGameControl": false,
+                                    "isInsightViewer": false,
+                                    "isObserver": false,
+                                    "name": "CO",
+                                    "password": "pkoirc8rl"
+                                }
+                            ],
+                            "subscriptionId": "bxkfi",
+                            "templates": []
+                        },
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": false,
+                                    "isObserver": false,
+                                    "isRFIManager": false,
+                                    "name": "Red HHQ",
+                                    "password": "pvg5sb"
+                                }
+                            ],
+                            "subscriptionId": "2n7ea",
+                            "templates": []
+                        }
+                    ],
+                    "uniqid": "channel-koirg7s3"
+                },
+                {
+                    "name": "Blue RFI",
+                    "participants": [
+                        {
+                            "force": "CTF A",
+                            "forceUniqid": "force-koiqysc8",
+                            "roles": [],
+                            "subscriptionId": "m7rk9i",
+                            "templates": [
+                                {
+                                    "_id": "k16eedkj",
+                                    "_rev": "1-683379b9418a2ba688eb4a8dfec4de11",
+                                    "completed": false,
+                                    "details": {
+                                        "format": "grid",
+                                        "properties": {
+                                            "Reference": {
+                                                "propertyOrder": 10,
+                                                "readonly": true,
+                                                "type": "string"
+                                            },
+                                            "Request": {
+                                                "format": "textarea",
+                                                "type": "string"
+                                            },
+                                            "Title": {
+                                                "maxLength": 30,
+                                                "propertyOrder": 100,
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "RFI",
+                                        "type": "object"
+                                    },
+                                    "lastUpdated": "2019-09-30T12:37:26.705Z",
+                                    "title": "RFI"
+                                }
+                            ]
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "force-koiqzx9d",
+                            "roles": [],
+                            "subscriptionId": "etkkn",
+                            "templates": [
+                                {
+                                    "_id": "k16eedkj",
+                                    "_rev": "1-683379b9418a2ba688eb4a8dfec4de11",
+                                    "completed": false,
+                                    "details": {
+                                        "format": "grid",
+                                        "properties": {
+                                            "Reference": {
+                                                "propertyOrder": 10,
+                                                "readonly": true,
+                                                "type": "string"
+                                            },
+                                            "Request": {
+                                                "format": "textarea",
+                                                "type": "string"
+                                            },
+                                            "Title": {
+                                                "maxLength": 30,
+                                                "propertyOrder": 100,
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "RFI",
+                                        "type": "object"
+                                    },
+                                    "lastUpdated": "2019-09-30T12:37:26.705Z",
+                                    "title": "RFI"
+                                }
+                            ]
+                        },
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [
+                                {
+                                    "canSubmitPlans": true,
+                                    "isGameControl": true,
+                                    "isInsightViewer": true,
+                                    "isObserver": true,
+                                    "name": "Game Control",
+                                    "password": "pkoiqu5ev"
+                                },
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": true,
+                                    "isObserver": false,
+                                    "isRFIManager": true,
+                                    "name": "RFI Mgr",
+                                    "password": "prtrbj"
+                                },
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": false,
+                                    "isObserver": false,
+                                    "isRFIManager": false,
+                                    "name": "Blue HHQ",
+                                    "password": "p3ssu8"
+                                }
+                            ],
+                            "subscriptionId": "59z0l",
+                            "templates": []
+                        }
+                    ],
+                    "uniqid": "channel-koirh7ok"
+                },
+                {
+                    "name": "Blue RFS",
+                    "participants": [
+                        {
+                            "force": "CTF A",
+                            "forceUniqid": "force-koiqysc8",
+                            "roles": [],
+                            "subscriptionId": "7kwvj",
+                            "templates": [
+                                {
+                                    "_id": "k16eedkj",
+                                    "_rev": "1-683379b9418a2ba688eb4a8dfec4de11",
+                                    "completed": false,
+                                    "details": {
+                                        "format": "grid",
+                                        "properties": {
+                                            "Reference": {
+                                                "propertyOrder": 10,
+                                                "readonly": true,
+                                                "type": "string"
+                                            },
+                                            "Request": {
+                                                "format": "textarea",
+                                                "type": "string"
+                                            },
+                                            "Title": {
+                                                "maxLength": 30,
+                                                "propertyOrder": 100,
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "RFI",
+                                        "type": "object"
+                                    },
+                                    "lastUpdated": "2019-09-30T12:37:26.705Z",
+                                    "title": "RFI"
+                                }
+                            ]
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "force-koiqzx9d",
+                            "roles": [],
+                            "subscriptionId": "yd9e",
+                            "templates": [
+                                {
+                                    "_id": "k16eedkj",
+                                    "_rev": "1-683379b9418a2ba688eb4a8dfec4de11",
+                                    "completed": false,
+                                    "details": {
+                                        "format": "grid",
+                                        "properties": {
+                                            "Reference": {
+                                                "propertyOrder": 10,
+                                                "readonly": true,
+                                                "type": "string"
+                                            },
+                                            "Request": {
+                                                "format": "textarea",
+                                                "type": "string"
+                                            },
+                                            "Title": {
+                                                "maxLength": 30,
+                                                "propertyOrder": 100,
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "RFI",
+                                        "type": "object"
+                                    },
+                                    "lastUpdated": "2019-09-30T12:37:26.705Z",
+                                    "title": "RFI"
+                                }
+                            ]
+                        },
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [
+                                {
+                                    "canSubmitPlans": true,
+                                    "isGameControl": true,
+                                    "isInsightViewer": true,
+                                    "isObserver": true,
+                                    "name": "Game Control",
+                                    "password": "pkoiqu5ev"
+                                },
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": true,
+                                    "isObserver": false,
+                                    "isRFIManager": true,
+                                    "name": "RFI Mgr",
+                                    "password": "prtrbj"
+                                },
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": false,
+                                    "isObserver": false,
+                                    "isRFIManager": false,
+                                    "name": "Blue HHQ",
+                                    "password": "p3ssu8"
+                                }
+                            ],
+                            "subscriptionId": "4yotx",
+                            "templates": []
+                        }
+                    ],
+                    "uniqid": "channel-koirixa3"
+                },
+                {
+                    "name": "Red RFI",
+                    "participants": [
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [
+                                {
+                                    "canSubmitPlans": true,
+                                    "isGameControl": true,
+                                    "isInsightViewer": true,
+                                    "isObserver": true,
+                                    "name": "Game Control",
+                                    "password": "pkoiqu5ev"
+                                },
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": true,
+                                    "isObserver": false,
+                                    "isRFIManager": true,
+                                    "name": "RFI Mgr",
+                                    "password": "prtrbj"
+                                },
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": false,
+                                    "isObserver": false,
+                                    "isRFIManager": false,
+                                    "name": "Red HHQ",
+                                    "password": "pvg5sb"
+                                }
+                            ],
+                            "subscriptionId": "lity",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF X",
+                            "forceUniqid": "force-koir164l",
+                            "roles": [],
+                            "subscriptionId": "i02cn",
+                            "templates": [
+                                {
+                                    "_id": "k16eedkj",
+                                    "_rev": "1-683379b9418a2ba688eb4a8dfec4de11",
+                                    "completed": false,
+                                    "details": {
+                                        "format": "grid",
+                                        "properties": {
+                                            "Reference": {
+                                                "propertyOrder": 10,
+                                                "readonly": true,
+                                                "type": "string"
+                                            },
+                                            "Request": {
+                                                "format": "textarea",
+                                                "type": "string"
+                                            },
+                                            "Title": {
+                                                "maxLength": 30,
+                                                "propertyOrder": 100,
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "RFI",
+                                        "type": "object"
+                                    },
+                                    "lastUpdated": "2019-09-30T12:37:26.705Z",
+                                    "title": "RFI"
+                                }
+                            ]
+                        },
+                        {
+                            "force": "CTF Y",
+                            "forceUniqid": "force-koirc8rk",
+                            "roles": [],
+                            "subscriptionId": "3b3ww",
+                            "templates": [
+                                {
+                                    "_id": "k16eedkj",
+                                    "_rev": "1-683379b9418a2ba688eb4a8dfec4de11",
+                                    "completed": false,
+                                    "details": {
+                                        "format": "grid",
+                                        "properties": {
+                                            "Reference": {
+                                                "propertyOrder": 10,
+                                                "readonly": true,
+                                                "type": "string"
+                                            },
+                                            "Request": {
+                                                "format": "textarea",
+                                                "type": "string"
+                                            },
+                                            "Title": {
+                                                "maxLength": 30,
+                                                "propertyOrder": 100,
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "RFI",
+                                        "type": "object"
+                                    },
+                                    "lastUpdated": "2019-09-30T12:37:26.705Z",
+                                    "title": "RFI"
+                                }
+                            ]
+                        }
+                    ],
+                    "uniqid": "channel-koirji8u"
+                },
+                {
+                    "name": "Red RFS",
+                    "participants": [
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [
+                                {
+                                    "canSubmitPlans": true,
+                                    "isGameControl": true,
+                                    "isInsightViewer": true,
+                                    "isObserver": true,
+                                    "name": "Game Control",
+                                    "password": "pkoiqu5ev"
+                                },
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": true,
+                                    "isObserver": false,
+                                    "isRFIManager": true,
+                                    "name": "RFI Mgr",
+                                    "password": "prtrbj"
+                                },
+                                {
+                                    "canSubmitPlans": false,
+                                    "isGameControl": false,
+                                    "isInsightViewer": false,
+                                    "isObserver": false,
+                                    "isRFIManager": false,
+                                    "name": "Red HHQ",
+                                    "password": "pvg5sb"
+                                }
+                            ],
+                            "subscriptionId": "6cjib",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF X",
+                            "forceUniqid": "force-koir164l",
+                            "roles": [],
+                            "subscriptionId": "vkeel",
+                            "templates": [
+                                {
+                                    "_id": "k16eedkj",
+                                    "_rev": "1-683379b9418a2ba688eb4a8dfec4de11",
+                                    "completed": false,
+                                    "details": {
+                                        "format": "grid",
+                                        "properties": {
+                                            "Reference": {
+                                                "propertyOrder": 10,
+                                                "readonly": true,
+                                                "type": "string"
+                                            },
+                                            "Request": {
+                                                "format": "textarea",
+                                                "type": "string"
+                                            },
+                                            "Title": {
+                                                "maxLength": 30,
+                                                "propertyOrder": 100,
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "RFI",
+                                        "type": "object"
+                                    },
+                                    "lastUpdated": "2019-09-30T12:37:26.705Z",
+                                    "title": "RFI"
+                                }
+                            ]
+                        },
+                        {
+                            "force": "CTF Y",
+                            "forceUniqid": "force-koirc8rk",
+                            "roles": [],
+                            "subscriptionId": "1jp7",
+                            "templates": [
+                                {
+                                    "_id": "k16eedkj",
+                                    "_rev": "1-683379b9418a2ba688eb4a8dfec4de11",
+                                    "completed": false,
+                                    "details": {
+                                        "format": "grid",
+                                        "properties": {
+                                            "Reference": {
+                                                "propertyOrder": 10,
+                                                "readonly": true,
+                                                "type": "string"
+                                            },
+                                            "Request": {
+                                                "format": "textarea",
+                                                "type": "string"
+                                            },
+                                            "Title": {
+                                                "maxLength": 30,
+                                                "propertyOrder": 100,
+                                                "type": "string"
+                                            }
+                                        },
+                                        "title": "RFI",
+                                        "type": "object"
+                                    },
+                                    "lastUpdated": "2019-09-30T12:37:26.705Z",
+                                    "title": "RFI"
+                                }
+                            ]
+                        }
+                    ],
+                    "uniqid": "channel-koirk2st"
+                },
+                {
+                    "name": "mapping",
+                    "participants": [
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [],
+                            "subscriptionId": "zit48h",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF A",
+                            "forceUniqid": "force-koiqysc8",
+                            "roles": [],
+                            "subscriptionId": "i0jjh",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF B",
+                            "forceUniqid": "force-koiqzx9d",
+                            "roles": [],
+                            "subscriptionId": "w9lmf",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF X",
+                            "forceUniqid": "force-koir164l",
+                            "roles": [],
+                            "subscriptionId": "vnuld",
+                            "templates": []
+                        },
+                        {
+                            "force": "CTF Y",
+                            "forceUniqid": "force-koirc8rk",
+                            "roles": [],
+                            "subscriptionId": "x0kbe",
+                            "templates": []
+                        }
+                    ],
+                    "uniqid": "channel-koirldxk"
+                },
+                {
+                    "name": "rfis",
+                    "participants": [
+                        {
+                            "force": "White",
+                            "forceUniqid": "umpire",
+                            "roles": [],
+                            "subscriptionId": "43ecb",
+                            "templates": []
+                        }
+                    ],
+                    "uniqid": "channel-koirn3xn"
+                }
+            ],
+            "complete": false,
+            "dirty": false,
+            "name": "Channels",
+            "selectedChannel": ""
+        },
+        "forces": {
+            "complete": true,
+            "dirty": false,
+            "forces": [
+                {
+                    "color": "#FCFBEE",
+                    "dirty": false,
+                    "icon": "http://localhost:8080/default_img/umpireDefault.png",
+                    "name": "White",
+                    "overview": "Umpire force.",
+                    "roles": [
+                        {
+                            "canSubmitPlans": true,
+                            "isGameControl": true,
+                            "isInsightViewer": true,
+                            "isObserver": true,
+                            "name": "Game Control",
+                            "password": "pkoiqu5ev"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": true,
+                            "isObserver": false,
+                            "isRFIManager": true,
+                            "name": "RFI Mgr",
+                            "password": "prtrbj"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "Blue HHQ",
+                            "password": "p3ssu8"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "Red HHQ",
+                            "password": "pvg5sb"
+                        }
+                    ],
+                    "umpire": true,
+                    "uniqid": "umpire"
+                },
+                {
+                    "assets": [
+                        {
+                            "condition": "Full capability",
+                            "contactId": "C964",
+                            "history": [],
+                            "name": "Frigate A",
+                            "perceptions": [
+                                {
+                                    "by": "Red",
+                                    "force": "Blue",
+                                    "name": "Frigate A Perceived Name"
+                                }
+                            ],
+                            "position": "BD85",
+                            "platformType": "frigate",
+                            "uniqid": "a0prbr6441"
+                        }
+                    ],
+                    "color": "#000fff",
+                    "cssClass": "blue",
+                    "dirty": false,
+                    "icon": "http://localhost:8080/default_img/forceDefault.png",
+                    "name": "CTF A",
+                    "overview": "An overview written here..",
+                    "roles": [
+                        {
+                            "canSubmitPlans": true,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "name": "CO",
+                            "password": "pkoiqysc9"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF A1",
+                            "password": "pn2qx"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF A2",
+                            "password": "p5mnyr"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF A3",
+                            "password": "p6z8uxg"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF A4",
+                            "password": "p2yg4o"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF A5",
+                            "password": "pgneah"
+                        }
+                    ],
+                    "umpire": false,
+                    "visibleTo": ["force-koiqzx9d"],
+                    "uniqid": "force-koiqysc8"
+                },
+                {
+                    "assets": [
+                        {
+                            "condition": "Full capability",
+                            "contactId": "C164",
+                            "history": [],
+                            "name": "Task Group",
+                            "perceptions": [
+                                {
+                                    "by": "Red",
+                                    "force": "Blue",
+                                    "name": "Frigate A Perceived Name"
+                                }
+                            ],
+                            "position": "AJ94",
+                            "platformType": "task-group",
+                            "uniqid": "a0prbr1141"
+                        }
+                    ],
+                    "color": "#000fff",
+                    "cssClass": "blue",
+                    "dirty": false,
+                    "icon": "http://localhost:8080/default_img/forceDefault.png",
+                    "name": "CTF B",
+                    "overview": "An overview written here..",
+                    "roles": [
+                        {
+                            "canSubmitPlans": true,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "name": "CO",
+                            "password": "pkoiqzx9e"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF B1",
+                            "password": "pmczm7"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF B2",
+                            "password": "ppelxo"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF B3",
+                            "password": "pssln2"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF B4",
+                            "password": "pdre9e"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF B5",
+                            "password": "pxxpka"
+                        }
+                    ],
+                    "umpire": false,
+                    "visibleTo": ["force-koiqysc8"],
+                    "uniqid": "force-koiqzx9d"
+                },
+                {
+                    "color": "#ff5e3d",
+                    "cssClass": "red",
+                    "dirty": false,
+                    "icon": "http://localhost:8080/default_img/forceDefault.png",
+                    "name": "CTF X",
+                    "overview": "An overview written here..",
+                    "roles": [
+                        {
+                            "canSubmitPlans": true,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "name": "CO",
+                            "password": "pkoir164m"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF X1",
+                            "password": "p3d3n"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF X2",
+                            "password": "pqv1q"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF X3",
+                            "password": "psrai"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF X4",
+                            "password": "pf8q28"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF X5",
+                            "password": "pqimxd"
+                        }
+                    ],
+                    "umpire": false,
+                    "visibleTo": ["force-koirc8rk"],
+                    "uniqid": "force-koir164l"
+                },
+                {
+                    "color": "#ff703d",
+                    "cssClass": "red",
+                    "dirty": false,
+                    "icon": "http://localhost:8080/default_img/forceDefault.png",
+                    "name": "CTF Y",
+                    "overview": "An overview written here..",
+                    "roles": [
+                        {
+                            "canSubmitPlans": true,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "name": "CO",
+                            "password": "pkoirc8rl"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF Y1",
+                            "password": "pdnxcf"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF Y2",
+                            "password": "pf2g5"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF Y3",
+                            "password": "putgsqw"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF Y4",
+                            "password": "pp912"
+                        },
+                        {
+                            "canSubmitPlans": false,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
+                            "isRFIManager": false,
+                            "name": "CTF Y5",
+                            "password": "pbyz1"
+                        }
+                    ],
+                    "umpire": false,
+                    "visibleTo": ["force-koir164l"],
+                    "uniqid": "force-koirc8rk"
+                }
+            ],
+            "name": "Forces",
+            "selectedForce": ""
+        },
+        "overview": {
+            "complete": false,
+            "dirty": false,
+            "gameDate": "2021-05-10T16:12:05+01:00",
+            "gameDescription": "",
+            "gameTurnTime": 43200000,
+            "mapConstraints": {
+                "bounds": [
+                    [
+                        75,
+                        -90
+                    ],
+                    [
+                        30,
+                        30
+                    ]
+                ],
+                "gridCellsURL": "cells/atlantic-cells-6k.json",
+                "maxNativeZoom": 7,
+                "maxZoom": 10,
+                "minZoom": 3,
+                "minZoomHexes": 6,
+                "polygonAreasURL": "cells/atlantic-polygons.json",
+                "targetDataset": "Atlantic",
+                "tileDiameterMins": 24.4,
+                "tileLayer": {
+                    "attribution": "Generated by QTiles",
+                    "url": "./atlantic_tiles/{z}/{x}/{y}.png"
+                }
+            },
+            "name": "Overview - settings",
+            "realtimeTurnTime": 300000,
+            "showAccessCodes": true,
+            "timeWarning": 60000
+        },
+        "platform_types": {
+            "complete": false,
+            "dirty": false,
+            "name": "Platform Types",
+            "platformTypes": [
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "frigate.svg",
+                    "name": "frigate",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Transiting"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Mixed"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Active"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Passive"
+                        }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "frigate.svg",
+                    "name": "DD",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Transiting"
+                        }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "frigate.svg",
+                    "name": "CV",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Transiting"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Air Ops"
+                        }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "frigate.svg",
+                    "name": "AO",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Transiting"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Supporting"
+                        }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "frigate.svg",
+                    "name": "AG",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Transiting"
+                        },
+                        {
+                            "mobile": false,
+                            "name": "Loitering"
+                        }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "frigate.svg",
+                    "name": "SS",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Transiting"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Aggressove"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Evasive"
+                        }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "frigate.svg",
+                    "name": "Aircraft",
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Active"
+                        },
+                        {
+                            "mobile": false,
+                            "name": "Landed"
+                        }
+                    ],
+                    "travelMode": "air"
+                },
+                {
+                    "name":"Task Group",
+                    "conditions":[
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon":"task-group.svg",
+                    "speedKts":[
+                      10,
+                      20
+                    ],
+                    "states":[
+                      {
+                        "name":"Transiting",
+                        "mobile":true
+                      },
+                      {
+                        "name":"Stopped",
+                        "mobile":false
+                      },
+                      {
+                        "name":"Moored",
+                        "mobile":false
+                      }
+                    ],
+                    "travelMode":"sea"
+                  }
+            ],
+            "selectedType": ""
+        }
+    },
+    "gameTurn": 0,
+    "name": "wargame-koiquada",
+    "phase": "adjudication",
+    "turnEndTime": "2021-05-10T16:59:06+01:00",
+    "wargameInitiated": false,
+    "wargameTitle": "CmdWk"
+}
