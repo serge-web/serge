@@ -18,14 +18,18 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import { SergeHex, SergeGrid, Route, NewTurnValues } from '@serge/custom-types'
-import { LAYDOWN_TURN, Domain } from '@serge/config'
+import { LAYDOWN_TURN } from '@serge/config'
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
   const {
     gridCells, planningConstraints, zoomLevel, setNewLeg, setHidePlanningForm,
-    selectedAsset, viewAsRouteStore, viewport, domain, polygonAreas
+    selectedAsset, viewAsRouteStore, viewport, polygonAreas
   } = useContext(MapContext).props
+
+  // define detail cut-offs
+  const SHOW_LABELS_UNDER = 600
+  const SHOW_HEXES_UNDER = 2000
 
   // fix the leaflet icon path, using tip from here:
   // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
@@ -38,10 +42,6 @@ export const HexGrid: React.FC<{}> = () => {
   // Store the set of leaflet polygon areas, used as performance
   // fix for showing very large areas of hexes
   const [terrainPolys, setTerrainPolys] = useState<TerrainPolygons[]>([])
-
-  // whether to show performance optimised view
-  const [reducedDetail, setReducedDetail] = useState<boolean>(false)
-  const [zeroHexTerrain, setZeroHexTerrain] = useState<boolean>(false)
 
   // the cell for the selected asset
   const [cellForSelected, setCellForSelected] = useState<string | undefined>(undefined)
@@ -56,6 +56,8 @@ export const HexGrid: React.FC<{}> = () => {
 
   // the binned polygons
   const [polyBins, setPolyBins] = useState<PolyBin[]>([])
+
+  // the cells that are contained in the current viewport
   const [visibleCells, setVisibleCells] = useState<SergeHex<{}>[]>([])
 
   // at higher zoom levels we need to reduce the number of hexes plotted
@@ -320,28 +322,21 @@ export const HexGrid: React.FC<{}> = () => {
 
         let visible: SergeHex<{}>[] = []
 
-        // check if we are showing hex terrain
-        if (!zeroHexTerrain) {
-          polyBins.forEach((bin: PolyBin) => {
-            if (extendedViewport.contains(bin.bounds)) {
-              // ok, add all of them
-              visible = visible.concat(bin.cells)
-            } else if (bin.bounds.intersects(extendedViewport)) {
-              // find the ones in the viewport
-              const inZone = bin.cells.filter((cell: SergeHex<{}>) =>
-                extendedViewport.contains(cell.centreLatLng)
-              )
-              visible = visible.concat(inZone)
-            }
-          })
-        }
+        // sort out visible cells, first by the bin
+        polyBins.forEach((bin: PolyBin) => {
+          if (extendedViewport.contains(bin.bounds)) {
+            // ok, add all of them
+            visible = visible.concat(bin.cells)
+          } else if (bin.bounds.intersects(extendedViewport)) {
+            // find the ones in the viewport
+            const inZone = bin.cells.filter((cell: SergeHex<{}>) =>
+              extendedViewport.contains(cell.centreLatLng)
+            )
+            visible = visible.concat(inZone)
+          }
+        })
 
-        // if we're at a scale that allows reduced detail, don't show land or plain-sea
-        const relevantCellArr = reducedDetail && domain === Domain.ATLANTIC
-          ? visible.filter((cell: SergeHex<{}>) => {
-            return cell.type !== 'land' && cell.type !== 'sea'
-          })
-          : visible
+        const relevantCellArr = visible
 
         // see if first cell is missing poly
         if (visible.length && !visible[0].poly) {
@@ -376,12 +371,7 @@ export const HexGrid: React.FC<{}> = () => {
       setVisibleCells([])
       setRelevantCells([])
     }
-  }, [reducedDetail, viewport, gridCells, polyBins])
-
-  useEffect(() => {
-    setReducedDetail(zoomLevel <= 7.0)
-    setZeroHexTerrain(zoomLevel <= 5)
-  }, [zoomLevel])
+  }, [viewport, gridCells, polyBins])
 
   // as a performance optimisation we plot the
   // visible cells at this zoom level, plus the
@@ -498,9 +488,23 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
+  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
 
   return <>
+
+    { /*  - show number of visible cells */}
+    { /* viewport &&
+      <Marker
+        key={'num_vis_cells'}
+        position={ viewport.getCenter()}
+        width="120"
+        icon={L.divIcon({
+          html: '' + visibleCells.length,
+          className: styles['num-cells'],
+          iconSize: [30, 20]
+        })}
+      /> */
+    }
 
     { /* POLY BINS */}
     {/* <LayerGroup key={'poly_bounds'} >{polyBins && polyBins.map((bin: PolyBin, index: number) => (
@@ -526,7 +530,7 @@ export const HexGrid: React.FC<{}> = () => {
     ))}
     </LayerGroup> */}
 
-    <LayerGroup key={'hex_polygons'} >{visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
+    <LayerGroup key={'hex_polygons'} >{visibleAndAllowableCells.length < SHOW_HEXES_UNDER && visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
@@ -595,7 +599,7 @@ export const HexGrid: React.FC<{}> = () => {
       // change - show labels if there are less than 400. With the zoom level
       // we were getting issues where up North (where the cells appear larger) there are
       // fewer visible at once, but we still weren't showing the labels.
-      visibleCells.length < 400 &&
+      visibleCells.length < SHOW_LABELS_UNDER &&
       /* note: for the label markers - we use the cells in the currently visible area */
       <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker

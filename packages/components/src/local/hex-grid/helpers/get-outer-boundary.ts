@@ -20,7 +20,7 @@ const generateOuterBoundary = (cells: SergeHex<{}>[]): L.LatLng[] => {
     }
   })
   const turfPoints = turf.featureCollection(points)
-  const hull = turf.concave(turfPoints)//, {units: 'kilometers', maxEdge: 0.002})
+  const hull = turf.concave(turfPoints)
   if (hull) {
     const latLngs: L.LatLng[] = []
     hull.geometry.coordinates[0].forEach((pt: any) => {
