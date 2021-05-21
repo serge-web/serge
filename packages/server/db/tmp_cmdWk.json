@@ -1285,6 +1285,66 @@
                     "uniqid": "force-koir164l"
                 },
                 {
+                    "assets": [
+                        {
+                            "condition": "Working",
+                            "contactId": "C122",
+                            "history": [],
+                            "name": "AGI 1",
+                            "perceptions": [],
+                            "position": "BS92",
+                            "platformType": "agi",
+                            "uniqid": "a0a45988ty54351"
+                        },                        {
+                            "condition": "Working",
+                            "contactId": "C766",
+                            "history": [],
+                            "name": "SS 1",
+                            "perceptions": [],
+                            "position": "CL89",
+                            "platformType": "boghammer",
+                            "uniqid": "a0376765422t5431"
+                        },                         {
+                            "condition": "Working",
+                            "contactId": "C655",
+                            "history": [],
+                            "name": "Destroyer A",
+                            "perceptions": [],
+                            "platformType": "destroyer",
+                            "position": "CH86",
+                            "uniqid": "a0ph45345g6441"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C943",
+                            "history": [],
+                            "name": "Destroyer B",
+                            "perceptions": [],
+                            "platformType": "destroyer",
+                            "position": "CF86",
+                            "uniqid": "a05435g6441"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C743",
+                            "history": [],
+                            "name": "Destroyer C",
+                            "perceptions": [],
+                            "platformType": "destroyer",
+                            "position": "CC91",
+                            "uniqid": "a054ytr5g6441"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C542",
+                            "history": [],
+                            "name": "MPA",
+                            "perceptions": [],
+                            "position": "CX106",
+                            "platformType": "fixed-wing-aircraft",
+                            "uniqid": "a0a22ty344331"
+                        }
+                    ],
                     "color": "#ff4b60",
                     "cssClass": "red-2",
                     "dirty": false,
