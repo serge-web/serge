@@ -31,6 +31,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   type,
   force,
   perceivedForceClass,
+  perceivedForceColor,
   visibleTo,
   controlledBy,
   condition,
@@ -47,6 +48,10 @@ export const AssetIcon: React.FC<PropTypes> = ({
     iconSize: [40, 40],
     className: getIconClassname(perceivedForceClass || '', type, isDestroyed, selected)
   })
+
+  // TODO - set the `divIcon` (or marker) background color according to
+  // perceivedForceColor, not using the perceivedForceClass
+  console.log('should set background to', perceivedForceColor)
 
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
@@ -71,7 +76,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
     }
   }
 
-  return <Marker css={{ backgroundColor: '#00f' }} position={position} icon={divIcon} onclick={clickEvent}>
+  return <Marker position={position} icon={divIcon} onclick={clickEvent}>
     <Tooltip>{capitalize(tooltip)}</Tooltip>
   </Marker>
 }
