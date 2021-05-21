@@ -870,14 +870,66 @@
                             "name": "Frigate A",
                             "perceptions": [
                                 {
-                                    "by": "Red",
-                                    "force": "Blue",
+                                    "by": "CTF X",
+                                    "force": "CTF A",
                                     "name": "Frigate A Perceived Name"
                                 }
                             ],
                             "position": "BD85",
                             "platformType": "frigate",
                             "uniqid": "a0prbr6441"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C116",
+                            "history": [],
+                            "name": "Frigate B",
+                            "perceptions": [
+                                {
+                                    "by": "CTF X",
+                                    "force": "CTF B",
+                                    "name": "Frigate V Perceived Name"
+                                }
+                            ],
+                            "position": "BD87",
+                            "platformType": "frigate",
+                            "uniqid": "a0praa4321"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C326",
+                            "history": [],
+                            "name": "AO 1",
+                            "perceptions": [
+                                {
+                                    "by": "CTF X",
+                                    "force": "CTF B",
+                                    "type": "Merchant Vessel"
+                                }
+                            ],
+                            "position": "BD81",
+                            "platformType": "merchant-vessel",
+                            "uniqid": "a0per5434221"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C726",
+                            "history": [],
+                            "name": "SSN",
+                            "perceptions": [],
+                            "position": "BB81",
+                            "platformType": "boghammer",
+                            "uniqid": "a0a22ty4221"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C212",
+                            "history": [],
+                            "name": "MPA",
+                            "perceptions": [],
+                            "position": "BH97",
+                            "platformType": "fixed-wing-aircraft",
+                            "uniqid": "a0a22ty4331"
                         }
                     ],
                     "color": "#00aaff",
@@ -942,23 +994,104 @@
                         }
                     ],
                     "umpire": false,
-                    "visibleTo": ["force-koiqzx9d"],
+                    "visibleTo": [
+                        "force-koiqzx9d"
+                    ],
                     "uniqid": "force-koiqysc8"
                 },
                 {
                     "assets": [
                         {
                             "condition": "Working",
+                            "contactId": "C426",
+                            "history": [],
+                            "name": "SSN",
+                            "perceptions": [],
+                            "position": "AH100",
+                            "platformType": "boghammer",
+                            "uniqid": "a034a22t5431"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C892",
+                            "history": [],
+                            "name": "F-35 Sqn",
+                            "perceptions": [],
+                            "position": "BJ91",
+                            "platformType": "fixed-wing-aircraft",
+                            "uniqid": "a0a432ty54351"
+                        },
+                        {
+                            "comprising": [
+                                {
+                                    "condition": "Working",
+                                    "contactId": "C764",
+                                    "history": [],
+                                    "name": "CV 2",
+                                    "perceptions": [],
+                                    "platformType": "cv",
+                                    "uniqid": "a012br1141"
+                                },                       
+                                {
+                                    "condition": "Working",
+                                    "contactId": "C332",
+                                    "history": [],
+                                    "name": "AO 1",
+                                    "perceptions": [],
+                                    "platformType": "merchant-vessel",
+                                    "uniqid": "a0pegfddg4221"
+                                },
+                                {
+                                    "condition": "Working",
+                                    "contactId": "C132",
+                                    "history": [],
+                                    "name": "AO 2",
+                                    "perceptions": [],
+                                    "platformType": "merchant-vessel",
+                                    "uniqid": "a0pe43ddg4221"
+                                },
+                                {
+                                    "condition": "Working",
+                                    "contactId": "C165",
+                                    "history": [],
+                                    "name": "Frigate A",
+                                    "perceptions": [],
+                                    "platformType": "frigate",
+                                    "uniqid": "a0prng6441"
+                                },
+                                {
+                                    "condition": "Working",
+                                    "contactId": "C643",
+                                    "history": [],
+                                    "name": "Frigate B",
+                                    "perceptions": [],
+                                    "platformType": "frigate",
+                                    "uniqid": "a054ng6441"
+                                },
+                                {
+                                    "condition": "Working",
+                                    "contactId": "W165",
+                                    "history": [],
+                                    "name": "Destroyer A",
+                                    "perceptions": [],
+                                    "platformType": "destroyer",
+                                    "uniqid": "a0phng6441"
+                                },
+                                {
+                                    "condition": "Working",
+                                    "contactId": "D643",
+                                    "history": [],
+                                    "name": "Destroyer B",
+                                    "perceptions": [],
+                                    "platformType": "destroyer",
+                                    "uniqid": "a05435g6441"
+                                }
+                            ],
+                            "condition": "Working",
                             "contactId": "C164",
                             "history": [],
                             "name": "Task Group",
-                            "perceptions": [
-                                {
-                                    "by": "Red",
-                                    "force": "Blue",
-                                    "name": "Frigate A Perceived Name"
-                                }
-                            ],
+                            "perceptions": [],
                             "position": "AJ94",
                             "platformType": "task-group",
                             "uniqid": "a0prbr1141"
@@ -1026,10 +1159,64 @@
                         }
                     ],
                     "umpire": false,
-                    "visibleTo": ["force-koiqysc8"],
+                    "visibleTo": [
+                        "force-koiqysc8"
+                    ],
                     "uniqid": "force-koiqzx9d"
                 },
                 {
+                    "assets": [
+                        {
+                            "condition": "Working",
+                            "contactId": "C496",
+                            "history": [],
+                            "name": "SS 1",
+                            "perceptions": [],
+                            "position": "BJ125",
+                            "platformType": "boghammer",
+                            "uniqid": "a0365422t5431"
+                        },                        
+                        {
+                            "condition": "Working",
+                            "contactId": "C454",
+                            "history": [],
+                            "name": "SS 2",
+                            "perceptions": [],
+                            "position": "BO113",
+                            "platformType": "boghammer",
+                            "uniqid": "a036554565431"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C6892",
+                            "history": [],
+                            "name": "MPA Sqn",
+                            "perceptions": [],
+                            "position": "CO122",
+                            "platformType": "fixed-wing-aircraft",
+                            "uniqid": "a0a432ty54351"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C532",
+                            "history": [],
+                            "name": "AGI 1",
+                            "perceptions": [],
+                            "position": "AW120",
+                            "platformType": "agi",
+                            "uniqid": "a0a4543ty54351"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C122",
+                            "history": [],
+                            "name": "AGI 2",
+                            "perceptions": [],
+                            "position": "AK110",
+                            "platformType": "agi",
+                            "uniqid": "a03ty54351"
+                        }
+                    ],
                     "color": "#ff0b60",
                     "cssClass": "red-1",
                     "dirty": false,
@@ -1092,10 +1279,72 @@
                         }
                     ],
                     "umpire": false,
-                    "visibleTo": ["force-koirc8rk"],
+                    "visibleTo": [
+                        "force-koirc8rk"
+                    ],
                     "uniqid": "force-koir164l"
                 },
                 {
+                    "assets": [
+                        {
+                            "condition": "Working",
+                            "contactId": "C122",
+                            "history": [],
+                            "name": "AGI 1",
+                            "perceptions": [],
+                            "position": "BS92",
+                            "platformType": "agi",
+                            "uniqid": "a0a45988ty54351"
+                        },                        {
+                            "condition": "Working",
+                            "contactId": "C766",
+                            "history": [],
+                            "name": "SS 1",
+                            "perceptions": [],
+                            "position": "CL89",
+                            "platformType": "boghammer",
+                            "uniqid": "a0376765422t5431"
+                        },                         {
+                            "condition": "Working",
+                            "contactId": "C655",
+                            "history": [],
+                            "name": "Destroyer A",
+                            "perceptions": [],
+                            "platformType": "destroyer",
+                            "position": "CH86",
+                            "uniqid": "a0ph45345g6441"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C943",
+                            "history": [],
+                            "name": "Destroyer B",
+                            "perceptions": [],
+                            "platformType": "destroyer",
+                            "position": "CF86",
+                            "uniqid": "a05435g6441"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C743",
+                            "history": [],
+                            "name": "Destroyer C",
+                            "perceptions": [],
+                            "platformType": "destroyer",
+                            "position": "CC91",
+                            "uniqid": "a054ytr5g6441"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C542",
+                            "history": [],
+                            "name": "MPA",
+                            "perceptions": [],
+                            "position": "CX106",
+                            "platformType": "fixed-wing-aircraft",
+                            "uniqid": "a0a22ty344331"
+                        }
+                    ],
                     "color": "#ff4b60",
                     "cssClass": "red-2",
                     "dirty": false,
@@ -1158,7 +1407,9 @@
                         }
                     ],
                     "umpire": false,
-                    "visibleTo": ["force-koir164l"],
+                    "visibleTo": [
+                        "force-koir164l"
+                    ],
                     "uniqid": "force-koirc8rk"
                 },
                 {
@@ -1192,7 +1443,9 @@
                     "overview": "An overview written here..",
                     "roles": [],
                     "umpire": false,
-                    "controlledBy": ["umpire"],
+                    "controlledBy": [
+                        "umpire"
+                    ],
                     "uniqid": "force-koia4567"
                 }
             ],
@@ -1345,8 +1598,8 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "AG",
+                    "icon": "destroyer.svg",
+                    "name": "Destroyer",
                     "speedKts": [
                         10,
                         20
@@ -1411,8 +1664,8 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "Aircraft",
+                    "icon": "fixed-wing-aircraft.svg",
+                    "name": "Fixed Wing Aircraft",
                     "states": [
                         {
                             "mobile": true,
@@ -1426,33 +1679,134 @@
                     "travelMode": "air"
                 },
                 {
-                    "name":"Task Group",
-                    "conditions":[
+                    "name": "Merchant vessel",
+                    "conditions": [
                         "Working",
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon":"task-group.svg",
-                    "speedKts":[
-                      10,
-                      20
+                    "icon": "merchant-vessel.svg",
+                    "speedKts": [
+                        10,
+                        20
                     ],
-                    "states":[
-                      {
-                        "name":"Transiting",
-                        "mobile":true
-                      },
-                      {
-                        "name":"Stopped",
-                        "mobile":false
-                      },
-                      {
-                        "name":"Moored",
-                        "mobile":false
-                      }
+                    "states": [
+                        {
+                            "name": "Moored",
+                            "mobile": false
+                        },
+                        {
+                            "name": "Transiting",
+                            "mobile": true
+                        }
                     ],
-                    "travelMode":"sea"
-                  }
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Boghammer",
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "boghammer.svg",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "name": "Moored",
+                            "mobile": false
+                        },
+                        {
+                            "name": "Transiting",
+                            "mobile": true
+                        }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "AGI",
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "agi.svg",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "name": "Moored",
+                            "mobile": false
+                        },
+                        {
+                            "name": "Transiting",
+                            "mobile": true
+                        }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "CV",
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "cv.svg",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "name": "Moored",
+                            "mobile": false
+                        },
+                        {
+                            "name": "Transiting",
+                            "mobile": true
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Air Ops"
+                        }
+
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Task Group",
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "task-group.svg",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "name": "Transiting",
+                            "mobile": true
+                        },
+                        {
+                            "name": "Stopped",
+                            "mobile": false
+                        },
+                        {
+                            "name": "Moored",
+                            "mobile": false
+                        }
+                    ],
+                    "travelMode": "sea"
+                }
             ],
             "selectedType": ""
         }

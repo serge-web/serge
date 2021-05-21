@@ -20,6 +20,8 @@ export interface RouteChild {
   asset: any,
   /** platforms carried on this one */
   hosting: Array<RouteChild>
+  /** player's perceived color for this asset */
+  perceivedForceColor: string,
 }
 
 export default interface Route {
