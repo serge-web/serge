@@ -275,7 +275,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const currentStatus: RouteStatus = produceStatusFor(status, platformTypes, asset)
 
-  const showHistory = asset.platformType != 'datum'
+  const showHistory = asset.platformType !== 'datum'
 
   // store the potentially modified route data
   const plannedTurns: RouteTurn[] | undefined = existingRoute && existingRoute.planned
