@@ -186,13 +186,15 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         }
       </fieldset>
       }
-      <fieldset>
+      <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
           <RCB name="visibleTo" type="checkbox" force={true} label="" compact={true} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
         </FormGroup>
         {/* previous (more verbose way of showing conditions) <FormGroup title="Condition" align="right">
           <RCB name="condition" type="radio" label="" options={conditionValues} value={conditionVal} updateState={conditionHandler} />
         </FormGroup> */}
+      </fieldset>
+      <fieldset>
         <FormGroup title="Condition" align="right">
           <Select
             className={clSelect}
