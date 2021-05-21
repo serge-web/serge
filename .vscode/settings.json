@@ -1,5 +1,4 @@
 {
-"eslint.workingDirectories": [
-"./packages/components", "./packages/client", "./packages/helpers", 
-]
+"eslint.workingDirectories": 
+    ["./packages/components", "./packages/client", "./packages/helpers"]
 }
