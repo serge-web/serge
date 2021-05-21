@@ -137,11 +137,11 @@ export const WorldState: React.FC<PropTypes> = ({
     // If we know the platform type, we can determine if the platform is destroyed
     if (item.platformType !== 'unknown') {
       const platformType: PlatformTypeData | undefined = platforms && findPlatformTypeFor(platforms, item.platformType)
-      isDestroyed = platformType && item.condition === platformType.conditions[platformType.conditions.length - 1]
+      isDestroyed = platformType && platformType.conditions.length > 1 && item.condition === platformType.conditions[platformType.conditions.length - 1]
     }
 
     const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
-    const checkStatus: boolean = item.laydownPhase === LaydownPhases.NotInLaydown
+    const checkStatus: boolean = (item.laydownPhase === LaydownPhases.NotInLaydown || item.laydownPhase === LaydownPhases.Immobile)
       ? inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
       : item.laydownPhase !== LaydownPhases.Unmoved
     const fullDescription: string = isDestroyed ? 'Destroyed' : descriptionText + laydownMessage
