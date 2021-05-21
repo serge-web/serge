@@ -1003,16 +1003,50 @@
                     "assets": [
                         {
                             "condition": "Working",
+                            "contactId": "C764",
+                            "history": [],
+                            "name": "CV 1",
+                            "perceptions": [],
+                            "platformType": "cv",
+                            "position": "AF94",
+                            "uniqid": "a012aa1141"
+                        },                       
+                        {
+                            "condition": "Working",
+                            "contactId": "C332",
+                            "history": [],
+                            "name": "AO 1",
+                            "perceptions": [],
+                            "position": "AL94",
+                            "platformType": "merchant-vessel",
+                            "uniqid": "a0pe23333221"
+                        },
+                        {
+                            "comprising": [
+                                {
+                                    "condition": "Working",
+                                    "contactId": "C764",
+                                    "history": [],
+                                    "name": "CV 2",
+                                    "perceptions": [],
+                                    "platformType": "cv",
+                                    "uniqid": "a012br1141"
+                                },                       
+                                {
+                                    "condition": "Working",
+                                    "contactId": "C332",
+                                    "history": [],
+                                    "name": "AO 1",
+                                    "perceptions": [],
+                                    "platformType": "merchant-vessel",
+                                    "uniqid": "a0pegfddg4221"
+                                }
+                            ],
+                            "condition": "Working",
                             "contactId": "C164",
                             "history": [],
                             "name": "Task Group",
-                            "perceptions": [
-                                {
-                                    "by": "Red",
-                                    "force": "Blue",
-                                    "name": "Frigate A Perceived Name"
-                                }
-                            ],
+                            "perceptions": [],
                             "position": "AJ94",
                             "platformType": "task-group",
                             "uniqid": "a0prbr1141"
@@ -1532,6 +1566,35 @@
                             "name": "Transiting",
                             "mobile": true
                         }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "CV",
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "cv.svg",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "name": "Moored",
+                            "mobile": false
+                        },
+                        {
+                            "name": "Transiting",
+                            "mobile": true
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Air Ops"
+                        }
+
                     ],
                     "travelMode": "sea"
                 },
