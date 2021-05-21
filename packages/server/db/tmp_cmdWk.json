@@ -880,8 +880,8 @@
                             "uniqid": "a0prbr6441"
                         }
                     ],
-                    "color": "#000fff",
-                    "cssClass": "blue",
+                    "color": "#00aaff",
+                    "cssClass": "blue-1",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "CTF A",
@@ -964,8 +964,8 @@
                             "uniqid": "a0prbr1141"
                         }
                     ],
-                    "color": "#000fff",
-                    "cssClass": "blue",
+                    "color": "#00008f",
+                    "cssClass": "blue-2",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "CTF B",
@@ -1030,8 +1030,8 @@
                     "uniqid": "force-koiqzx9d"
                 },
                 {
-                    "color": "#ff5e3d",
-                    "cssClass": "red",
+                    "color": "#ff0b60",
+                    "cssClass": "red-1",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "CTF X",
@@ -1096,8 +1096,8 @@
                     "uniqid": "force-koir164l"
                 },
                 {
-                    "color": "#ff703d",
-                    "cssClass": "red",
+                    "color": "#ff4b60",
+                    "cssClass": "red-2",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
                     "name": "CTF Y",
