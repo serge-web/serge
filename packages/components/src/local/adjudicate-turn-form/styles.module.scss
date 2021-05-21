@@ -14,4 +14,15 @@
   button + button {
     margin-left: 1rem;
   }
+
+  .fieldset {
+    border: transparent;
+  
+    input,
+    label,
+    div,
+    svg {
+      color: #fff !important;
+    }
+  }
 }
