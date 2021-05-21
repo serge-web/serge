@@ -72,12 +72,12 @@ const createStepArray = (turns: RouteTurn[] | undefined, grid: SergeGrid<SergeHe
   return res
 }
 
-const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[], underControl: boolean, assetForce: string, playerForce: string): Array<RouteChild> => {
+const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[], underControl: boolean, assetForce: string, playerForce: string, color: string): Array<RouteChild> => {
   const res: Array<RouteChild> = []
   if (list) {
     list.forEach((item: Asset) => {
       const hosting: Array<RouteChild> = item.hosting && item.hosting.length
-        ? childrenFor(item.hosting, platformTypes, underControl, assetForce, playerForce)
+        ? childrenFor(item.hosting, platformTypes, underControl, assetForce, playerForce, color)
         : []
       if (underControl || playerForce === UMPIRE_FORCE || playerForce === UMPIRE_FORCE_NAME) {
         // use real values
@@ -89,7 +89,8 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
           destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
           condition: item.condition,
           asset: item,
-          hosting: hosting
+          hosting: hosting,
+          perceivedForceColor: color
         }
         res.push(newChild)
       } else {
@@ -105,7 +106,8 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
             destroyed: checkIfDestroyed(platformTypes, item.platformType, item.condition),
             condition: item.condition,
             asset: item,
-            hosting: hosting
+            hosting: hosting,
+            perceivedForceColor: color
           }
           res.push(newChild)
         }
@@ -289,8 +291,8 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformType, asset.condition)
 
-  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForce, playerForce /*, forceColors, undefinedColor */)
-  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForce, playerForce /*, forceColors, undefinedColor */)
+  const hosting: Array<RouteChild> = childrenFor(asset.hosting, platformTypes, underControl, actualForce, playerForce, color /*, forceColors, undefinedColor */)
+  const comprising: Array<RouteChild> = childrenFor(asset.comprising, platformTypes, underControl, actualForce, playerForce, color /*, forceColors, undefinedColor */)
 
   const adjudicationState: PlanningStates | undefined = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
 
