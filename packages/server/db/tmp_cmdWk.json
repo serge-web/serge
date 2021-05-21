@@ -994,7 +994,9 @@
                         }
                     ],
                     "umpire": false,
-                    "visibleTo": ["force-koiqzx9d"],
+                    "visibleTo": [
+                        "force-koiqzx9d"
+                    ],
                     "uniqid": "force-koiqysc8"
                 },
                 {
@@ -1078,7 +1080,9 @@
                         }
                     ],
                     "umpire": false,
-                    "visibleTo": ["force-koiqysc8"],
+                    "visibleTo": [
+                        "force-koiqysc8"
+                    ],
                     "uniqid": "force-koiqzx9d"
                 },
                 {
@@ -1144,7 +1148,9 @@
                         }
                     ],
                     "umpire": false,
-                    "visibleTo": ["force-koirc8rk"],
+                    "visibleTo": [
+                        "force-koirc8rk"
+                    ],
                     "uniqid": "force-koir164l"
                 },
                 {
@@ -1210,7 +1216,9 @@
                         }
                     ],
                     "umpire": false,
-                    "visibleTo": ["force-koir164l"],
+                    "visibleTo": [
+                        "force-koir164l"
+                    ],
                     "uniqid": "force-koirc8rk"
                 },
                 {
@@ -1244,7 +1252,9 @@
                     "overview": "An overview written here..",
                     "roles": [],
                     "umpire": false,
-                    "controlledBy": ["umpire"],
+                    "controlledBy": [
+                        "umpire"
+                    ],
                     "uniqid": "force-koia4567"
                 }
             ],
@@ -1490,8 +1500,14 @@
                         20
                     ],
                     "states": [
-                        { "name": "Moored", "mobile": false },
-                        { "name": "Transiting", "mobile": true }
+                        {
+                            "name": "Moored",
+                            "mobile": false
+                        },
+                        {
+                            "name": "Transiting",
+                            "mobile": true
+                        }
                     ],
                     "travelMode": "sea"
                 },
@@ -1508,39 +1524,45 @@
                         20
                     ],
                     "states": [
-                        { "name": "Moored", "mobile": false },
-                        { "name": "Transiting", "mobile": true }
+                        {
+                            "name": "Moored",
+                            "mobile": false
+                        },
+                        {
+                            "name": "Transiting",
+                            "mobile": true
+                        }
                     ],
                     "travelMode": "sea"
                 },
                 {
-                    "name":"Task Group",
-                    "conditions":[
+                    "name": "Task Group",
+                    "conditions": [
                         "Working",
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon":"task-group.svg",
-                    "speedKts":[
-                      10,
-                      20
+                    "icon": "task-group.svg",
+                    "speedKts": [
+                        10,
+                        20
                     ],
-                    "states":[
-                      {
-                        "name":"Transiting",
-                        "mobile":true
-                      },
-                      {
-                        "name":"Stopped",
-                        "mobile":false
-                      },
-                      {
-                        "name":"Moored",
-                        "mobile":false
-                      }
+                    "states": [
+                        {
+                            "name": "Transiting",
+                            "mobile": true
+                        },
+                        {
+                            "name": "Stopped",
+                            "mobile": false
+                        },
+                        {
+                            "name": "Moored",
+                            "mobile": false
+                        }
                     ],
-                    "travelMode":"sea"
-                  }
+                    "travelMode": "sea"
+                }
             ],
             "selectedType": ""
         }
