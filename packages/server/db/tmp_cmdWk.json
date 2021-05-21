@@ -893,7 +893,7 @@
                             ],
                             "position": "BD87",
                             "platformType": "frigate",
-                            "uniqid": "a0prbr4221"
+                            "uniqid": "a0praa4321"
                         },
                         {
                             "condition": "Working",
@@ -909,7 +909,7 @@
                             ],
                             "position": "BD81",
                             "platformType": "merchant-vessel",
-                            "uniqid": "a0perty4221"
+                            "uniqid": "a0per5434221"
                         },
                         {
                             "condition": "Working",
@@ -920,6 +920,16 @@
                             "position": "BB81",
                             "platformType": "boghammer",
                             "uniqid": "a0a22ty4221"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C212",
+                            "history": [],
+                            "name": "MPA",
+                            "perceptions": [],
+                            "position": "BH97",
+                            "platformType": "fixed-wing-aircraft",
+                            "uniqid": "a0a22ty4331"
                         }
                     ],
                     "color": "#000fff",
@@ -1453,8 +1463,8 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "Aircraft",
+                    "icon": "fixed-wing-aircraft.svg",
+                    "name": "Fixed Wing Aircraft",
                     "states": [
                         {
                             "mobile": true,
