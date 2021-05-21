@@ -118,8 +118,8 @@ export const MapBar: React.FC = () => {
         setSelectedAsset(undefined)
       }
       const formData = collateAdjudicationFormData(platforms, selectedAsset, forces)
-      setAdjudicationManager(new AdjudicationManager(routeStore, platforms, selectedAsset.uniqid, 
-        selectedAsset.name, turnNumber, setRouteStore, turnPlanned, 
+      setAdjudicationManager(new AdjudicationManager(routeStore, platforms, selectedAsset.uniqid,
+        selectedAsset.name, turnNumber, setRouteStore, turnPlanned,
         cancelRoutePlanning, closePlanningForm, iconData, formData))
     } else {
       setAdjudicationManager(undefined)
