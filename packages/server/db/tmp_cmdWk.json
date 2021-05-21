@@ -870,14 +870,56 @@
                             "name": "Frigate A",
                             "perceptions": [
                                 {
-                                    "by": "Red",
-                                    "force": "Blue",
+                                    "by": "CTF X",
+                                    "force": "CTF A",
                                     "name": "Frigate A Perceived Name"
                                 }
                             ],
                             "position": "BD85",
                             "platformType": "frigate",
                             "uniqid": "a0prbr6441"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C116",
+                            "history": [],
+                            "name": "Frigate B",
+                            "perceptions": [
+                                {
+                                    "by": "CTF X",
+                                    "force": "CTF B",
+                                    "name": "Frigate V Perceived Name"
+                                }
+                            ],
+                            "position": "BD87",
+                            "platformType": "frigate",
+                            "uniqid": "a0prbr4221"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C326",
+                            "history": [],
+                            "name": "AO 1",
+                            "perceptions": [
+                                {
+                                    "by": "CTF X",
+                                    "force": "CTF B",
+                                    "type": "Merchant Vessel"
+                                }
+                            ],
+                            "position": "BD81",
+                            "platformType": "merchant-vessel",
+                            "uniqid": "a0perty4221"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C726",
+                            "history": [],
+                            "name": "SSN",
+                            "perceptions": [],
+                            "position": "BB81",
+                            "platformType": "boghammer",
+                            "uniqid": "a0a22ty4221"
                         }
                     ],
                     "color": "#000fff",
@@ -1345,8 +1387,8 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "AG",
+                    "icon": "destroyer.svg",
+                    "name": "Destroyer",
                     "speedKts": [
                         10,
                         20
@@ -1424,6 +1466,42 @@
                         }
                     ],
                     "travelMode": "air"
+                },
+                {
+                    "name": "Merchant vessel",
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "merchant-vessel.svg",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        { "name": "Moored", "mobile": false },
+                        { "name": "Transiting", "mobile": true }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Boghammer",
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "boghammer.svg",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        { "name": "Moored", "mobile": false },
+                        { "name": "Transiting", "mobile": true }
+                    ],
+                    "travelMode": "sea"
                 },
                 {
                     "name":"Task Group",
