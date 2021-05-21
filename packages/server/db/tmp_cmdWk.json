@@ -1040,6 +1040,51 @@
                                     "perceptions": [],
                                     "platformType": "merchant-vessel",
                                     "uniqid": "a0pegfddg4221"
+                                },
+                                {
+                                    "condition": "Working",
+                                    "contactId": "C132",
+                                    "history": [],
+                                    "name": "AO 2",
+                                    "perceptions": [],
+                                    "platformType": "merchant-vessel",
+                                    "uniqid": "a0pe43ddg4221"
+                                },
+                                {
+                                    "condition": "Working",
+                                    "contactId": "C165",
+                                    "history": [],
+                                    "name": "Frigate A",
+                                    "perceptions": [],
+                                    "platformType": "frigate",
+                                    "uniqid": "a0prng6441"
+                                },
+                                {
+                                    "condition": "Working",
+                                    "contactId": "C643",
+                                    "history": [],
+                                    "name": "Frigate B",
+                                    "perceptions": [],
+                                    "platformType": "frigate",
+                                    "uniqid": "a054ng6441"
+                                },
+                                {
+                                    "condition": "Working",
+                                    "contactId": "W165",
+                                    "history": [],
+                                    "name": "Destroyer A",
+                                    "perceptions": [],
+                                    "platformType": "destroyer",
+                                    "uniqid": "a0phng6441"
+                                },
+                                {
+                                    "condition": "Working",
+                                    "contactId": "D643",
+                                    "history": [],
+                                    "name": "Destroyer B",
+                                    "perceptions": [],
+                                    "platformType": "destroyer",
+                                    "uniqid": "a05435g6441"
                                 }
                             ],
                             "condition": "Working",
