@@ -10,16 +10,16 @@ export interface ForceStyle {
 
 /** Find how a force perceives this asset
  * @param {Perception[]} perceptions how an asset is perceived
- * @param {string} playerForce the force for the current player
+ * @param {string} playerForceName the force for the current player
  * @param {Array<{force: string, color: string}>} forceColors couplets of force & color to use for that color
  * @param {ForceStyle} undefinedColor the color to use for non-perceived types
  * @return {string | undefined} color shade to use, or undefined if asset isn't visible
  */
-const isPerceivedBy = (perceptions: Perception[], playerForce: string, 
+const isPerceivedBy = (perceptions: Perception[], playerForceName: string, 
   forceColors: Array<ForceStyle>, undefinedColor: ForceStyle): ForceStyle | undefined => {
   if(perceptions) {
     if(Array.isArray(perceptions)) {
-      const p: Perception | undefined = perceptions.find((p:Perception) => p.by.toLowerCase() === playerForce.toLowerCase())
+      const p: Perception | undefined = perceptions.find((p:Perception) => p.by.toLowerCase() === playerForceName.toLowerCase())
       if(p) {
         // do we know force?
         const { force } = p

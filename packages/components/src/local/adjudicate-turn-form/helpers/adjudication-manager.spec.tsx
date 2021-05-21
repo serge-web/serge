@@ -20,6 +20,10 @@ const cancelPlanning = (): void => {
 
 const icon = { forceColor: 'Red', platformType: 'fishing-vessel' }
 
+const closePlanningForm = (): void => {
+  console.log('closing planning form')
+}
+
 const formData = collateAdjudicationFormData(platformTypes, selectedAsset, forces)
 
 it('configures adjudicate manager correctly', () => {
@@ -28,7 +32,7 @@ it('configures adjudicate manager correctly', () => {
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
-  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)
+  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, icon, formData)
 
   expect(manager.currentStatus()).toEqual({ speedKts: 20, state: 'Transiting' })
   expect(manager.upperActionsFor()).toEqual([{ action: 'accept', label: 'Accept' }, { action: 'reject', label: 'Reject' }])
@@ -41,7 +45,7 @@ it('derives current speed correctly', () => {
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
-  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)
+  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, icon, formData)
 
   expect(manager.plannedSpeed()).toEqual(20)
 
@@ -75,7 +79,7 @@ it('configures adjudicate manager correctly with missing current state', () => {
     const store2: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forcesCopy, 'umpire', platformTypes, undefined, false, false)
     const store: RouteStore = routeSetCurrent(frigateId, store2)
 
-    const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a3', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)
+    const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a3', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, icon, formData)
 
     expect(manager.currentStatus()).toEqual({ speedKts: 10, state: 'Transiting' })
   } else {
@@ -89,7 +93,7 @@ it('checks isMobile for a mobile platform type', () => {
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
-  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)
+  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, icon, formData)
   expect(manager.stateIsMobile('Transiting')).toBeTruthy()
   expect(manager.stateIsMobile('Stopped')).toBeFalsy()
 })
@@ -100,7 +104,7 @@ it('checks platform types are correct', () => {
   const frigateId = 'a0pra00001'
   const store: RouteStore = routeSetCurrent(frigateId, store2)
 
-  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, icon, formData)
+  const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a2', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, icon, formData)
   expect(manager.platformDetails).toBeFalsy() // not retrieved yet
   const details = manager.getPlatformDetails()
   expect(details).toBeTruthy()

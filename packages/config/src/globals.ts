@@ -19,6 +19,7 @@ export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
 export const MAX_LISTENERS = 82
 
 export const UMPIRE_FORCE = 'umpire'
+export const UMPIRE_FORCE_NAME = 'white'
 
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
 

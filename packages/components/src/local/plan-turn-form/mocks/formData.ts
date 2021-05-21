@@ -16,7 +16,8 @@ const formData = {
       mobile: true
     },
     speedVal: 10,
-    turnsVal: 5
+    turnsVal: 5,
+    condition: 'Working'
   }
 }
 

@@ -13,6 +13,7 @@ class AdjudicationManager {
   setRouteStore: {(store: RouteStore): void}
   turnPlanned: {(turn: PlanTurnFormValues): void}
   cancelRoutePlanning: { (): void }
+  closePlanningForm: { (): void }
   iconData: {forceColor: string, platformType: string}
   formData: AdjudicateTurnFormPopulate
   formHeader: string
@@ -34,6 +35,7 @@ class AdjudicationManager {
     setRouteStore: {(store: RouteStore): void},
     turnPlanned: {(turn: PlanTurnFormValues): void},
     cancelRoutePlanning: {(): void},
+    closePlanningForm: {(): void},
     iconData: {forceColor: string, platformType: string},
     formData: AdjudicateTurnFormPopulate) {
     this.store = store
@@ -42,6 +44,7 @@ class AdjudicationManager {
     this.setRouteStore = setRouteStore
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
+    this.closePlanningForm = closePlanningForm
     this.iconData = iconData
     this.formData = formData
     this.formHeader = formHeader
@@ -332,7 +335,8 @@ class AdjudicationManager {
       const turnData: PlanTurnFormValues = {
         statusVal: state,
         speedVal: status.speedKts ? status.speedKts : 0,
-        turnsVal: 1
+        turnsVal: 1,
+        condition: this.currentCondition()
       }
       this.turnPlanned(turnData)
     }
@@ -367,6 +371,7 @@ class AdjudicationManager {
           switch (command) {
             case PlanningCommands.Accept:
               route.adjudicationState = PlanningStates.Saved
+              this.closePlanningForm()
               break
             case PlanningCommands.Reject:
               route.adjudicationState = PlanningStates.Rejected
@@ -376,6 +381,7 @@ class AdjudicationManager {
               break
             case PlanningCommands.Save:
               route.adjudicationState = PlanningStates.Saved
+              this.closePlanningForm()
               break
             default:
               console.warn('Not expecting ', command, ' in state ', curState)
@@ -411,6 +417,7 @@ class AdjudicationManager {
               break
             case PlanningCommands.Save:
               route.adjudicationState = PlanningStates.Saved
+              this.closePlanningForm()
               break
             default:
               console.warn('Not expecting ', command, ' in state ', curState)
@@ -448,6 +455,7 @@ class AdjudicationManager {
               break
             case PlanningCommands.Save:
               route.adjudicationState = PlanningStates.Saved
+              this.closePlanningForm()
               break
             case PlanningCommands.Revert:
               route.adjudicationState = PlanningStates.Pending

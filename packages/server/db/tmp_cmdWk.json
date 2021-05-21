@@ -864,7 +864,7 @@
                 {
                     "assets": [
                         {
-                            "condition": "Full capability",
+                            "condition": "Working",
                             "contactId": "C964",
                             "history": [],
                             "name": "Frigate A",
@@ -948,7 +948,7 @@
                 {
                     "assets": [
                         {
-                            "condition": "Full capability",
+                            "condition": "Working",
                             "contactId": "C164",
                             "history": [],
                             "name": "Task Group",
@@ -1160,6 +1160,40 @@
                     "umpire": false,
                     "visibleTo": ["force-koir164l"],
                     "uniqid": "force-koirc8rk"
+                },
+                {
+                    "assets": [
+                        {
+                            "condition": "Working",
+                            "contactId": "C961",
+                            "history": [],
+                            "name": "Datum-R1",
+                            "perceptions": [],
+                            "position": "R120",
+                            "platformType": "datum",
+                            "uniqid": "a0prbr6001"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C911",
+                            "history": [],
+                            "name": "Datum-B2",
+                            "perceptions": [],
+                            "position": "R121",
+                            "platformType": "datum",
+                            "uniqid": "a0prbr6003"
+                        }
+                    ],
+                    "color": "#00ff00",
+                    "cssClass": "green",
+                    "dirty": false,
+                    "icon": "http://localhost:8080/default_img/forceDefault.png",
+                    "name": "Green",
+                    "overview": "An overview written here..",
+                    "roles": [],
+                    "umpire": false,
+                    "controlledBy": ["umpire"],
+                    "uniqid": "force-koia4567"
                 }
             ],
             "name": "Forces",
@@ -1356,6 +1390,20 @@
                         }
                     ],
                     "travelMode": "sea"
+                },
+                {
+                    "conditions": [
+                        "Working"
+                    ],
+                    "icon": "datum.svg",
+                    "name": "datum",
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Active"
+                        }
+                    ],
+                    "travelMode": "air"
                 },
                 {
                     "conditions": [
