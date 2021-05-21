@@ -1003,23 +1003,23 @@
                     "assets": [
                         {
                             "condition": "Working",
-                            "contactId": "C764",
+                            "contactId": "C426",
                             "history": [],
-                            "name": "CV 1",
+                            "name": "SSN",
                             "perceptions": [],
-                            "platformType": "cv",
-                            "position": "AF94",
-                            "uniqid": "a012aa1141"
-                        },                       
+                            "position": "AH100",
+                            "platformType": "boghammer",
+                            "uniqid": "a034a22t5431"
+                        },
                         {
                             "condition": "Working",
-                            "contactId": "C332",
+                            "contactId": "C892",
                             "history": [],
-                            "name": "AO 1",
+                            "name": "F-35 Sqn",
                             "perceptions": [],
-                            "position": "AL94",
-                            "platformType": "merchant-vessel",
-                            "uniqid": "a0pe23333221"
+                            "position": "BJ91",
+                            "platformType": "fixed-wing-aircraft",
+                            "uniqid": "a0a432ty54351"
                         },
                         {
                             "comprising": [
