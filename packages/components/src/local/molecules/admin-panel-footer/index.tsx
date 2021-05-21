@@ -13,7 +13,7 @@ export const AdminPanelFooter: React.FC<Props> = ({ force, selectedRole, byPassU
       byPassUrl
         ? <Badge variant="light"><a href={byPassUrl} className={styles['role-type']}>{ selectedRole }</a></Badge>
         : <span className={styles['role-type']}>{ selectedRole }</span>
-    } 
+    }
     <div className={styles['contain-force-skin']}>
       <div className={styles['force-skin']}>
         <span className={styles['force-type']}>{ force.name }</span>
