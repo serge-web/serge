@@ -6,10 +6,15 @@
   background: $force-default-color;
   display: block;
   position: relative;
+  padding-left: 12px;
 
   a {
     cursor: pointer;
     text-decoration: none;
+  }
+
+  .badge {
+    margin-left: 12px;
   }
 
   .role-type {
@@ -18,9 +23,10 @@
     font-size: 13px;
     font-style: italic;
     font-weight: 600;
-    padding: 8px 0 8px 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     width: 100%;
-
+    
     &:hover {
       text-decoration: none;
     }
