@@ -1165,6 +1165,58 @@
                     "uniqid": "force-koiqzx9d"
                 },
                 {
+                    "assets": [
+                        {
+                            "condition": "Working",
+                            "contactId": "C496",
+                            "history": [],
+                            "name": "SS 1",
+                            "perceptions": [],
+                            "position": "BJ125",
+                            "platformType": "boghammer",
+                            "uniqid": "a0365422t5431"
+                        },                        
+                        {
+                            "condition": "Working",
+                            "contactId": "C454",
+                            "history": [],
+                            "name": "SS 2",
+                            "perceptions": [],
+                            "position": "BO113",
+                            "platformType": "boghammer",
+                            "uniqid": "a036554565431"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C6892",
+                            "history": [],
+                            "name": "MPA Sqn",
+                            "perceptions": [],
+                            "position": "CO122",
+                            "platformType": "fixed-wing-aircraft",
+                            "uniqid": "a0a432ty54351"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C532",
+                            "history": [],
+                            "name": "AGI 1",
+                            "perceptions": [],
+                            "position": "AW120",
+                            "platformType": "agi",
+                            "uniqid": "a0a4543ty54351"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C122",
+                            "history": [],
+                            "name": "AGI 2",
+                            "perceptions": [],
+                            "position": "AK110",
+                            "platformType": "agi",
+                            "uniqid": "a03ty54351"
+                        }
+                    ],
                     "color": "#ff0b60",
                     "cssClass": "red-1",
                     "dirty": false,
@@ -1598,6 +1650,30 @@
                         "Mission Kill"
                     ],
                     "icon": "boghammer.svg",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "name": "Moored",
+                            "mobile": false
+                        },
+                        {
+                            "name": "Transiting",
+                            "mobile": true
+                        }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "AGI",
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "agi.svg",
                     "speedKts": [
                         10,
                         20
