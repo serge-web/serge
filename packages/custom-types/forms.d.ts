@@ -44,6 +44,7 @@ export interface PlanTurnFormValues {
   statusVal: Status
   speedVal: number
   turnsVal: number
+  condition: string
 }
 
 export interface PlanTurnFormData {

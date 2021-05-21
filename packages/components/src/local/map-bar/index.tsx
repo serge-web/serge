@@ -109,13 +109,18 @@ export const MapBar: React.FC = () => {
 
   // sort out the handler for State of World button
   useEffect(() => {
-    if (playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE && routeStore.selected) {
+    if (playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE && routeStore.selected && selectedAsset) {
       const iconData = {
         forceColor: selectedAsset.force,
         platformType: selectedAsset.type
       }
+      const closePlanningForm = (): void => {
+        setSelectedAsset(undefined)
+      }
       const formData = collateAdjudicationFormData(platforms, selectedAsset, forces)
-      setAdjudicationManager(new AdjudicationManager(routeStore, platforms, selectedAsset.uniqid, selectedAsset.name, turnNumber, setRouteStore, turnPlanned, cancelRoutePlanning, iconData, formData))
+      setAdjudicationManager(new AdjudicationManager(routeStore, platforms, selectedAsset.uniqid,
+        selectedAsset.name, turnNumber, setRouteStore, turnPlanned,
+        cancelRoutePlanning, closePlanningForm, iconData, formData))
     } else {
       setAdjudicationManager(undefined)
     }
@@ -265,7 +270,6 @@ export const MapBar: React.FC = () => {
       case MapBarForms.Planning: {
         const canSubmit = canSubmitOrders && phase === PLANNING_PHASE
         const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
-        console.log('plan turn form', formData)
         return <PlanTurnForm
           icon={iconData}
           setHidePlanningForm={setHidePlanningForm}

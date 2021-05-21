@@ -39,3 +39,4 @@ export const Checkbox: React.FC = () => <RCB type="checkbox" label="Visible to" 
 export const Radio: React.FC = () => <RCB type="radio" label="Visible to" options={['Red', 'Blue']} value="Red" updateState={logData}/>
 export const RadioWithForce: React.FC = () => <RCB type="radio" force={true} label="Visible to" options={forces} value="Red" updateState={logData}/>
 export const CheckboxWithForce: React.FC = () => <RCB type="checkbox" force={true} label="Visible to" options={forces} value={['Blue']} updateState={logData}/>
+export const CompactCheckboxWithForce: React.FC = () => <RCB type="checkbox" compact={true} force={true} label="Visible to" options={forces} value={['Blue']} updateState={logData}/>

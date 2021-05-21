@@ -1,0 +1,4 @@
+{
+"eslint.workingDirectories": 
+    ["./packages/components", "./packages/client", "./packages/helpers"]
+}

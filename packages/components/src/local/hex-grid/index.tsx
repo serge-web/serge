@@ -195,15 +195,23 @@ export const HexGrid: React.FC<{}> = () => {
           ? plannedRouteFor(gridCells, allowableCells, originHex, dragDestination) : []
 
         // combine with any existing planned cells
-        setPlanningRouteCells(plannedRoute)
+        if (selectedAsset && selectedAsset.type === 'datum') {
+          if (plannedRoute.length > 0) {
+            // we need the planned route to be more than one cell long in order
+            // for later code to recognise it as a valid leg
+            setPlanningRouteCells([plannedRoute[0], plannedRoute[plannedRoute.length - 1]])
+          }
+        } else {
+          setPlanningRouteCells(plannedRoute)
 
-        // also produce the lat-long values needed for the polylines
-        const tmpPlannedRoutePoly: L.LatLng[] = plannedRoute.map((cell: SergeHex<{}>) => {
-          return cell.centreLatLng
-        })
+          // also produce the lat-long values needed for the polylines
+          const tmpPlannedRoutePoly: L.LatLng[] = plannedRoute.map((cell: SergeHex<{}>) => {
+            return cell.centreLatLng
+          })
 
-        // combine with any existing planned cells
-        setPlanningRoutePoly(tmpPlannedRoutePoly)
+          // combine with any existing planned cells
+          setPlanningRoutePoly(tmpPlannedRoutePoly)
+        }
       }
     } else {
       // drop cells
@@ -380,10 +388,8 @@ export const HexGrid: React.FC<{}> = () => {
     // combine both lists
     const allCells = relevantCells.concat(planningRouteCells)
     // some cells may be in both lists, so reduce to unique cells
-    const uniqueCells = [...new Set(allCells)]
-    console.log('reduce visible, zoom:', zoomLevel, ' total cells:', gridCells && gridCells.length,
-      ' cells in viewport:', visibleCells.length, ' in this area, plus planning route:', allCells.length,
-      ' de-duplicate previous list:', uniqueCells.length)
+    //    const uniqueCells = [...new Set(allCells)]
+    //    console.log('reduce visible', allowableCells.length, allCells.length, uniqueCells.length)
     setVisibleAndAllowableCells(allCells)
   }, [allowableCells, relevantCells, planningRouteCells])
 
