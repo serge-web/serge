@@ -1,4 +1,4 @@
-@import "~@serge/themes/dependencies/variables";
+@import "../../../../../themes/dependencies/variables";
 
 .flex-content-wrapper {
   @include typo-primary;
@@ -11,7 +11,7 @@
 .turn-progression-ui {
   background: $background-progression;
   border-radius: 4px;
-  color: #fff;
+  color: #f00;
   flex-grow: 0;
   justify-content: space-between;
   margin: $umpire-menu-margin;
