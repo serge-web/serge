@@ -536,10 +536,10 @@ export const Mapping: React.FC<PropTypes> = ({
 
   /** pan to the centre of the specified cell */
   const panTo = (cellRef: string): void => {
-    if(gridCells) {
+    if (gridCells) {
       const hex = gridCells.find((cell: SergeHex<{}>) => cell.name === cellRef)
-      if(hex) {
-        leafletElement && leafletElement.panTo(hex.centreLatLng, {duration: 1, easeLinearity:0.6})
+      if (hex) {
+        leafletElement && leafletElement.panTo(hex.centreLatLng, { duration: 1, easeLinearity: 0.6 })
       }
     }
   }
