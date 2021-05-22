@@ -102,6 +102,10 @@ export default interface MappingContext {
    */
   clearFromTurn?: {(turn: number): void}
   /**
+   * pan the map to the specified cell
+   */
+  panTo?: {(cell: string): void}
+  /**
    * The method for posting messages out of the mapping component
    */
   mapPostBack?: MapPostBack
