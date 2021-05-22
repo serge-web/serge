@@ -46,17 +46,14 @@ export const SettingForces: React.FC<PropTypes> = ({
   onSidebarClick,
   onCreate,
   onDelete,
-  onDeleteRole,
   selectedForce
 }) => {
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
   const [forcesData, setForcesData] = useState(initialForces)
-  const [selectedForceData, setSelectedForceData] = useState(forcesData[selectedItem])
   const handleSwitch = (_item: Item): void => {
     const selectedForce = forcesData.findIndex(force => force.uniqid === _item.uniqid)
     setSelectedItem(selectedForce)
-    setSelectedForceData(_item as ForceData)
     onSidebarClick && onSidebarClick(_item as ForceData)
   }
 
@@ -224,7 +221,6 @@ export const SettingForces: React.FC<PropTypes> = ({
                   handleChangeForce({ ...data, roles: roles as Array<Role> })
                 }}
                 onCreate={handleCreateRole}
-                onDelete={(role) => onDeleteRole && onDeleteRole(role as Role, selectedForceData)}
                 renderItemSection={renderRoleFields}
                 items={data.roles}
                 title='Add Role' />

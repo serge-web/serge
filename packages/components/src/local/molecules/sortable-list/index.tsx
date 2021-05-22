@@ -22,7 +22,6 @@ export const SortableList: React.FC<PropTypes> = ({
   items,
   title = 'Add',
   onCreate,
-  onDelete,
   copy = false,
   sortable = 'manual',
   renderItemSection,
@@ -68,12 +67,6 @@ export const SortableList: React.FC<PropTypes> = ({
     const newItems = [...items]
     newItems.splice(key, 1)
     handleChange(newItems)
-  }
-
-  const handleDelete = (item: Item): void => {
-    if (typeof onDelete === 'function') {
-      onDelete(item)
-    }
   }
 
   const sortableItems: Array<SortableItem> = items.map((item: Item, key: number) => {
@@ -161,14 +154,11 @@ export const SortableList: React.FC<PropTypes> = ({
                   <div onClick={(e): void => { handleClick(e, item, uniqid, key) }}>
                     {value}
                   </div>
-                  {
-                    onDelete &&
-                    <FontAwesomeIcon
-                      className={styles['delete-btn']}
-                      icon={faTrash}
-                      onClick={() => handleDelete(item)}
-                    />
-                  }
+                  <FontAwesomeIcon
+                    className={styles['delete-btn']}
+                    icon={faTrash}
+                    onClick={() => handleRemove(key)}
+                  />
                 </div>
             }
             {renderItemSection && renderItemSection(item, key)}

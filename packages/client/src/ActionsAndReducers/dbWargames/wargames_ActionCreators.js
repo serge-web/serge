@@ -319,14 +319,6 @@ export const deleteSelectedForce = (dbName, force) => {
   }
 }
 
-export const deleteSelectedRole = (dbName, force, role) => {
-  return async (dispatch) => {
-    const wargame = await wargamesApi.deleteRole(dbName, force, role)
-    dispatch(setCurrentWargame(wargame))
-    dispatch(addNotification('Role deleted.', 'warning'))
-  }
-}
-
 export const cleanWargame = (dbName) => {
   return async (dispatch) => {
     var games = await wargamesApi.cleanWargame(dbName)

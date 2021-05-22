@@ -25,7 +25,6 @@ export default interface PropTypes {
   items: Array<Item>
   onClick?: (item: Item, key: number, e?: any) => void
   onChange?: (items: Array<Item>) => void
-  onDelete?: (item: Item) => void
   onCreate?: () => void
   renderItemSection?: (items: Item, key: number) => ReactNode
   title?: string

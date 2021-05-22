@@ -33,9 +33,6 @@ export const Default: React.FC = () => {
     const handleClick = (item: Item): void => {
       console.log('selected item:', item)
     }
-    const handleDelete = (item: Item): void => {
-      console.log('deleted item:', item)
-    }
     const handleChange = (items: Array<Item>): void => {
       setItems({ types: items as Array<PlatformTypeData> })
     }
@@ -62,7 +59,6 @@ export const Default: React.FC = () => {
         onClick={handleClick}
         onChange={handleChange}
         onCreate={handleCreate}
-        onDelete={handleDelete}
       />
     )
   }

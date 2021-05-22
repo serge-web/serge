@@ -42,10 +42,6 @@ export default interface Props extends AdminLayoutProps {
    */
   onDeleteForce?: () => void
   /**
-   * Callback on role delete button click events
-   */
-  onDeleteRole?: () => void
-  /**
    * Callback on forces' sidebar click events
    */
   onSidebarForcesClick?: (force: ForceData) => void

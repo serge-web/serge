@@ -10,7 +10,6 @@ export default interface PropTypes {
   onSidebarClick?: (selectedForce: ForceData) => void
   onCreate?: () => void
   onDelete?: () => void
-  onDeleteRole?: (role: Role, selectedForce: ForceData) => void
   selectedForce?: ForceData
 }
 
