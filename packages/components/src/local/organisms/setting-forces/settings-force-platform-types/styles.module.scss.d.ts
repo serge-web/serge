@@ -4,7 +4,6 @@ interface CssExports {
   'accordion': string;
   'accordion-header': string;
   'accordion-title': string;
-  'age-select': string;
   'arrow-icon': string;
   'asset-name': string;
   'assets-list-box': string;
@@ -23,6 +22,7 @@ interface CssExports {
   'list-item': string;
   'list-item-selected': string;
   'list-title': string;
+  'location-select': string;
   'view-result-box': string;
 }
 export const cssExports: CssExports;

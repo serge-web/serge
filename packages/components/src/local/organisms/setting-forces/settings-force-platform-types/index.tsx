@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent, ReactNode, useState } from 'react'
+import React, { FC, ChangeEvent, ReactNode, useState, useEffect } from 'react'
 import { LaydownTypes } from '@serge/config'
 /* Import proptypes */
 import { ASSET_ITEM, PLATFORM_ITEM } from '../constants'
@@ -32,11 +32,24 @@ import AccordionSummary from '@material-ui/core/AccordionSummary'
 import Typography from '@material-ui/core/Typography'
 
 export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, onChangeHandler }) => {
+  console.log('finaly list: ', selectedForce?.assets);
   const [selectedAssetItem, setSelectedAssetItem] = useState('')
   const [fixedLocationValue, setFixedLocationValue] = useState('')
   const [showInput, setShowInput] = useState(false)
-  
+
   const allPlatforms: PlatformItemType[] = platformTypes.map(platform => ({ ...platform, id: platform.name, type: PLATFORM_ITEM }))
+
+  useEffect(() => {
+    if (Array.isArray(selectedForce.assets)) {
+      const asset = selectedForce.assets.find(asset => asset.uniqid === selectedAssetItem)
+      if (asset?.locationPending !== 'fixed') {
+        setShowInput(false)
+        setFixedLocationValue('')
+      } else {
+        setShowInput(true)
+      }
+    }
+  }, [selectedAssetItem])
 
   const renderAssetForm = (): ReactNode => {
     if (!Array.isArray(selectedForce.assets)) return null
@@ -48,10 +61,15 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       return null
     }
 
-    const fixedLocationHandler = (event: ChangeEvent<HTMLInputElement>): void => {     
-      setFixedLocationValue(event.target.value);
+    const fixedLocationHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+      const currentValue = event.target.value.toUpperCase()
+      const regex = /^[a-zA-Z]{0,2}\d{0,2}$/;
+      if (regex.test(currentValue)) {
+        setFixedLocationValue(currentValue);
+        asset.position = currentValue
+      }
+      onChangeHandler(selectedForce)
     }
-
     const handleChangeAssetName = (event: ChangeEvent<HTMLInputElement>): void => {
       asset.name = event.target.value
       onChangeHandler(selectedForce)
@@ -69,13 +87,19 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       console.log(_event)
     }
     const handleChangeAssetLocation = (event: ChangeEvent<HTMLSelectElement>): void => {
-      onChangeHandler(selectedForce)
       if (event.target.value && event.target.value === 'fixed') {
         setShowInput(true)
+        asset.locationPending = event.target.value
       } else {
         setShowInput(false)
         setFixedLocationValue('')
+        if (event.target.value === LaydownTypes.ForceLaydown) {
+          asset.locationPending = LaydownTypes.ForceLaydown
+        } else {
+          asset.locationPending = LaydownTypes.UmpireLaydown
+        }
       }
+      onChangeHandler(selectedForce)
     }
 
     return <div className={styles['view-result-box']}>
@@ -109,15 +133,13 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
             <div className={styles['input-group']}>
               <span className={styles['list-title']}>Location</span>
               <NativeSelect
-                value={asset.position}
-                name="age"
-                className={styles['age-select']}
+                value={asset.locationPending ? asset.locationPending : ''}
+                name="location"
+                className={styles['location-select']}
                 onChange={handleChangeAssetLocation}
-                inputProps={{ 'aria-label': 'age' }}
+                inputProps={{ 'aria-label': 'location' }}
               >
-                <option value="" disabled>
-                    Placeholder
-                </option>
+                <option value="" disabled>Placeholder</option>
                 <option value={LaydownTypes.ForceLaydown}>{LaydownTypes.ForceLaydown}</option>
                 <option value={LaydownTypes.UmpireLaydown}>{LaydownTypes.UmpireLaydown}</option>
                 <option value={'fixed'}>Fixed</option>
@@ -130,7 +152,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
             <ListItemText>
               <TextInput
                 className={cx(styles['list-dynamic-input'], styles['list-input'])}
-                value={fixedLocationValue}
+                value={asset.position ? asset.position : fixedLocationValue}
                 onChange={fixedLocationHandler}
                 placeholder="Enter location..."
               />
@@ -144,8 +166,6 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
   const selectedForcePlatforms: ForceItemType[] = Array.isArray(selectedForce.assets)
     ? selectedForce.assets.map(asset => ({ ...asset, id: asset.platformType, type: ASSET_ITEM }))
     : []
-  console.log('selectedForcePlatforms: ', selectedForcePlatforms);
-  
 
   const handleForcePlatformTypesChange = (nextList: ListItemType[]): void => {
     let changes: boolean = nextList.length !== selectedForcePlatforms.length
@@ -161,6 +181,8 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
           platformType: kebabCase(item.id.toLowerCase()),
           perceptions: [],
           condition: '',
+          position: '',
+          locationPending: undefined,
         } as Asset
       }
       const nextItem = item as Asset

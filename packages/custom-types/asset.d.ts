@@ -37,7 +37,7 @@ export interface Asset {
    * during turn-zero of a wargame
    * TODO: remove boolean format, it's just there for transition
    */
-  locationPending?: LaydownTypes | boolean
+  locationPending?: LaydownTypes | boolean | string
   /** whether this asset has been destroyoed
    * //TODO: move away from this, use condition
    */
