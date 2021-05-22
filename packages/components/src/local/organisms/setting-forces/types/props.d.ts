@@ -1,4 +1,4 @@
-import { ForceData, Role } from '@serge/custom-types'
+import { ForceData } from '@serge/custom-types'
 
 type Forces = Array<ForceData>
 
