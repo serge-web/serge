@@ -36,7 +36,7 @@ export const WorldState: React.FC<PropTypes> = ({
   name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
   submitTitle, submitForm, panel, gridCells, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
-  plansSubmitted, setPlansSubmitted
+  plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
   const [modalIsOpen, setIsOpen] = useState(false)
@@ -215,6 +215,9 @@ export const WorldState: React.FC<PropTypes> = ({
       />
       {submitTitle && (panel === WorldStatePanels.Control) && (!playerInAdjudication || inLaydown) && canSubmitOrders &&
         <div className={styles.submit}>
+          { secondaryButtonLabel && 
+            <Button disabled={plansSubmitted} onClick={secondaryButtonCallback}>{secondaryButtonLabel}</Button>
+          }
           <Button disabled={plansSubmitted} onClick={onConfirm}>{submitTitle}</Button>
         </div>
       }

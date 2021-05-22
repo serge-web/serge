@@ -45,6 +45,7 @@ export const MapBar: React.FC = () => {
 
   const [stateFormTitle, setStateFormTitle] = useState<string>('')
   const [stateSubmitTitle, setStateSubmitTitle] = useState<string>('')
+  const [secondaryStateTitle, setSecondaryStateTitle] = useState<string>('')
   const [userIsUmpire, setUserIsUmpire] = useState<boolean | undefined>(undefined)
 
   const [adjudicationManager, setAdjudicationManager] = useState<AdjudicationManager | undefined>(undefined)
@@ -150,6 +151,7 @@ export const MapBar: React.FC = () => {
     if (routeStore) {
       let formTitle = ''
       let submitTitle = ''
+      let secondaryTitle = ''
       if (phase === ADJUDICATION_PHASE) {
         if (turnNumber === 0) {
           // see if player can submit orders
@@ -166,17 +168,21 @@ export const MapBar: React.FC = () => {
           }
         } else {
           formTitle = playerForce === UMPIRE_FORCE ? 'State of World' : 'My Forces'
-          submitTitle = 'Submit state of world'
+          submitTitle = 'Submit new state'
+          secondaryTitle = 'Accept all routes'
         }
       } else if (phase === PLANNING_PHASE) {
         formTitle = 'Orders'
         submitTitle = 'Submit routes'
       }
       if (submitTitle !== '' && submitTitle !== stateSubmitTitle) {
-        setStateSubmitTitle(submitTitle)
+        setStateSubmitTitle(submitTitle)      
       }
       if (formTitle !== '' && formTitle !== stateFormTitle) {
         setStateFormTitle(formTitle)
+      }
+      if (secondaryTitle !== '') {
+        setSecondaryStateTitle(secondaryTitle)
       }
     }
   }, [phase, playerForce, turnNumber, routeStore])
@@ -242,6 +248,11 @@ export const MapBar: React.FC = () => {
       // and pan the map
       panTo && asset.position && panTo(asset.position)
     }
+  }
+
+  const acceptAllRoutesCallback = (): void => {
+    // TODO: helper to accept all routes
+    console.log('handling secondary callback')
   }
 
   /* TODO: This should be refactored into a helper */
@@ -342,6 +353,8 @@ export const MapBar: React.FC = () => {
             plansSubmitted={plansSubmitted}
             setPlansSubmitted={setPlansSubmitted}
             turnNumber={turnNumber}
+            secondaryButtonLabel={secondaryStateTitle}
+            secondaryButtonCallback={acceptAllRoutesCallback}
             gridCells={gridCells} ></WorldState>
         </section>
       </div>
