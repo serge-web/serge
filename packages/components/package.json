@@ -9,7 +9,7 @@
     "build": "rimraf build && yarn copy && tsc && yarn cleanup",
     "watch": "run-p watch:*",
     "watch:ts": "tsc --watch",
-    "watch:style": "node-sass-chokidar ./src -o ./build --watch --ext scss",
+    "watch:style": "node-sass-chokidar --include-path ../../node_modules --include-path node_modules ./src -o ./build --watch --ext scss",
     "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",
     "cleanup": "rimraf build/vendor && rimraf build/local/**/mocks && rimraf build/local/**/*.stories.* && rimraf build/local/**/*.spec.*",
     "test": "run-p test:*",
@@ -99,8 +99,7 @@
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.5",
     "uniqid": "^5.0.3",
-    "whatwg-fetch": "^3.6.1",
-    "node-sass-chokidar": "^1.5.0"
+    "whatwg-fetch": "^3.6.1"
   },
   "resolutions": {
     "@types/react": "^16.14.5"
