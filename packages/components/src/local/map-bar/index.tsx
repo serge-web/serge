@@ -74,7 +74,8 @@ export const MapBar: React.FC = () => {
     groupCreateNewGroup,
     groupHostPlatform,
     plansSubmitted,
-    setPlansSubmitted
+    setPlansSubmitted,
+    panTo
   }: {
     gridCells: SergeGrid<SergeHex<{}>> | undefined
     playerForce: string
@@ -100,6 +101,7 @@ export const MapBar: React.FC = () => {
     groupHostPlatform?: {(dragged: string, target: string): void}
     plansSubmitted: boolean
     setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
+    panTo?: {(cell: string): void}
   } = useContext(MapContext).props
 
   // sort out the handler for State of World button
@@ -236,6 +238,9 @@ export const MapBar: React.FC = () => {
       }
       // ok done, share the good news
       setSelectedAsset(selected)
+
+      // and pan the map
+      panTo && asset.position && panTo(asset.position)
     }
   }
 
