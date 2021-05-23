@@ -1364,7 +1364,7 @@
                             "history": [],
                             "name": "SSK 2",
                             "perceptions": [],
-                            "position": "CG89",
+                            "position": "CG86",
                             "platformType": "boghammer",
                             "uniqid": "a0376qww5422t5431"
                         },
@@ -1384,7 +1384,7 @@
                             "history": [],
                             "name": "MPA 2",
                             "perceptions": [],
-                            "position": "CX107",
+                            "position": "CM107",
                             "platformType": "fixed-wing-aircraft",
                             "uniqid": "a03322ty344331"
                         },
@@ -1394,7 +1394,7 @@
                             "history": [],
                             "name": "MPA 3",
                             "perceptions": [],
-                            "position": "CX108",
+                            "position": "CL119",
                             "platformType": "fixed-wing-aircraft",
                             "uniqid": "a06622ty344331"
                         },
@@ -1404,7 +1404,7 @@
                             "history": [],
                             "name": "CDCM",
                             "perceptions": [],
-                            "position": "CT104",
+                            "position": "CV99",
                             "platformType": "missile",
                             "uniqid": "a06342423g344331"
                         }
@@ -1534,7 +1534,7 @@
                             "history": [],
                             "name": "SSN",
                             "perceptions": [],
-                            "position": "BJ125",
+                            "position": "AI129",
                             "platformType": "boghammer",
                             "uniqid": "a036657fd22t5431",
                             "hosting":[
