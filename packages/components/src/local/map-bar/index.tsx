@@ -251,7 +251,8 @@ export const MapBar: React.FC = () => {
   }
 
   const acceptAllRoutesCallback = (): void => {
-    // TODO: helper to accept all routes
+    // TODO: helper to accept all routes not already accepted
+    START HERE
     console.log('handling secondary callback')
   }
 
