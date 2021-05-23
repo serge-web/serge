@@ -13,7 +13,7 @@ import { ReactSortable } from 'react-sortablejs'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCopy, faTimes, faGripVertical } from '@fortawesome/free-solid-svg-icons'
+import { faCopy, faTimes, faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
 export const SortableList: React.FC<PropTypes> = ({
@@ -32,6 +32,7 @@ export const SortableList: React.FC<PropTypes> = ({
   const [active, setActive] = useState<string | number>('')
   const [itemsSaved] = useState<Array<Item>>(items)
   const [selectAllText, setSelectAllText] = useState<boolean>(false)
+  const [inputActive, setInputActive] = useState<boolean>(false)
 
   const removeLocal = typeof remove === 'undefined' ? true : remove
 
@@ -43,6 +44,8 @@ export const SortableList: React.FC<PropTypes> = ({
 
   const handleClick = (e: any, item: Item, uniqid: string | number, key: number): void => {
     setActive(uniqid)
+    setInputActive(true)
+    setSelectAllText(true)
     if (typeof onClick === 'function') {
       onClick(item, key, e)
     }
@@ -123,7 +126,7 @@ export const SortableList: React.FC<PropTypes> = ({
     }
 
     return (
-      <li key={uniqid} className={cx(styles.li, active === uniqid && styles.active)} onClick={(e): void => { handleClick(e, item, uniqid, key) }}>
+      <li key={uniqid} className={cx(styles.li, active === uniqid && styles.active)}>
         {sortable === 'manual' && <div className={styles.drag}>
           <span>
             <div onClick={(): void => { handleRemove(key) }}>
@@ -133,17 +136,31 @@ export const SortableList: React.FC<PropTypes> = ({
         </div>}
         <div className={styles.presection}>
           <section className={styles.section}>
-            <input
-              type={isNumber ? 'number' : 'text'}
-              onChange={handleInputChange}
-              value={`${value}`}
-              ref={(input): void => {
-                if (selectAllText && input && uniqid === active) {
-                  input.select()
-                  setSelectAllText(false)
-                }
-              }}
-            />
+            {
+              inputActive
+                ? <input
+                  type={isNumber ? 'number' : 'text'}
+                  onChange={handleInputChange}
+                  value={`${value}`}
+                  ref={(input): void => {
+                    if (selectAllText && input && uniqid === active) {
+                      input.select()
+                      setSelectAllText(false)
+                    }
+                  }}
+                  onBlur={() => setInputActive(false)}
+                />
+                : <div className={styles['value-label']}>
+                  <div onClick={(e): void => { handleClick(e, item, uniqid, key) }}>
+                    {value}
+                  </div>
+                  <FontAwesomeIcon
+                    className={styles['delete-btn']}
+                    icon={faTrash}
+                    onClick={() => handleRemove(key)}
+                  />
+                </div>
+            }
             {renderItemSection && renderItemSection(item, key)}
             <span>
               {copy && <div onClick={(): void => { handleCopy(item, key) }}>
