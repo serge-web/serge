@@ -15,9 +15,9 @@ import { MapContext } from '../mapping'
 import { SelectedAsset } from '@serge/custom-types'
 
 /* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForce: string, icType: string, destroyed?: boolean, icSelected?: boolean): string => (cx(
+export const getIconClassname = (icForceClass: string, icType: string, destroyed?: boolean, icSelected?: boolean): string => (cx(
   styles['asset-icon'],
-  styles[icForce],
+  styles[icForceClass],
   destroyed ? styles.destroyed : null,
   icSelected ? styles.selected : null,
   styles[`platform-type-${icType}`]
@@ -30,7 +30,8 @@ export const AssetIcon: React.FC<PropTypes> = ({
   position,
   type,
   force,
-  perceivedForce,
+  perceivedForceClass,
+  perceivedForceColor,
   visibleTo,
   controlledBy,
   condition,
@@ -45,8 +46,12 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    className: getIconClassname(perceivedForce, type, isDestroyed, selected)
+    className: getIconClassname(perceivedForceClass || '', type, isDestroyed, selected)
   })
+
+  // TODO - set the `divIcon` (or marker) background color according to
+  // perceivedForceColor, not using the perceivedForceClass
+  console.log('should set background to', perceivedForceColor)
 
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {

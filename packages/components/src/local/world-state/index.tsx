@@ -85,16 +85,16 @@ export const WorldState: React.FC<PropTypes> = ({
     }
   }
 
-  const onConfirm = () => {
+  const onConfirm = (): void => {
     setIsOpen(true)
   }
 
-  const onYes = () => {
+  const onYes = (): void => {
     setIsOpen(false)
     submitCallback()
   }
 
-  const onNo = () => {
+  const onNo = (): void => {
     setIsOpen(false)
   }
 
@@ -137,18 +137,18 @@ export const WorldState: React.FC<PropTypes> = ({
     // If we know the platform type, we can determine if the platform is destroyed
     if (item.platformType !== 'unknown') {
       const platformType: PlatformTypeData | undefined = platforms && findPlatformTypeFor(platforms, item.platformType)
-      isDestroyed = platformType && item.condition === platformType.conditions[platformType.conditions.length - 1]
+      isDestroyed = platformType && platformType.conditions.length > 1 && item.condition === platformType.conditions[platformType.conditions.length - 1]
     }
 
     const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
-    const checkStatus: boolean = item.laydownPhase === LaydownPhases.NotInLaydown
+    const checkStatus: boolean = (item.laydownPhase === LaydownPhases.NotInLaydown || item.laydownPhase === LaydownPhases.Immobile)
       ? inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
       : item.laydownPhase !== LaydownPhases.Unmoved
     const fullDescription: string = isDestroyed ? 'Destroyed' : descriptionText + laydownMessage
 
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
-        <div className={cx(icClassName, styles['item-icon'])} />
+        <div style={{ backgroundColor: item.perceivedForceColor }} className={cx(icClassName, styles['item-icon'])}/>
         <div className={styles['item-content']}>
           <div>
             <p>{item.name}</p>
@@ -173,7 +173,7 @@ export const WorldState: React.FC<PropTypes> = ({
     <div className={styles['world-state']}>
       <h2 className={styles.title}>{customTitle}
         {plansSubmitted &&
-          <h5 className='sub-title'>(Form disabled, {customTitle} submitted)</h5>
+          <div className='sub-title'>(Form disabled, {customTitle} submitted)</div>
         }
       </h2>
 

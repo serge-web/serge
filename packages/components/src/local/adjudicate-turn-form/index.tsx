@@ -152,7 +152,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
           <Badge label={manager.currentPlanningStatus()} />
         }
         {plansSubmittedVal &&
-          <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
+          <div className='sub-title'>(Form disabled, plans submitted)</div>
         }
 
       </TitleWithIcon>

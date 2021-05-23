@@ -8,6 +8,7 @@ interface CssExports {
   'planned-line': string;
   'planning-line': string;
   'selected-hex': string;
+  'terrain-outline': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

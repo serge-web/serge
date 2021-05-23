@@ -212,7 +212,6 @@ export const Mapping: React.FC<PropTypes> = ({
 
   /** the forces from props has changed */
   useEffect(() => {
-    console.log('mapping have forces', forces, forcesState)
     // is it different to current force state?
     const forceStateEmptyOrChanged = !forcesState || !isEqual(forcesState, forces)
     if (forceStateEmptyOrChanged) {
@@ -535,6 +534,16 @@ export const Mapping: React.FC<PropTypes> = ({
     setSelectedAsset(asset)
   }
 
+  /** pan to the centre of the specified cell */
+  const panTo = (cellRef: string): void => {
+    if (gridCells) {
+      const hex = gridCells.find((cell: SergeHex<{}>) => cell.name === cellRef)
+      if (hex) {
+        leafletElement && leafletElement.panTo(hex.centreLatLng, { duration: 1, easeLinearity: 0.6 })
+      }
+    }
+  }
+
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     gridCells,
@@ -569,7 +578,8 @@ export const Mapping: React.FC<PropTypes> = ({
     plansSubmitted,
     setPlansSubmitted,
     domain: mappingConstraints.targetDataset,
-    polygonAreas
+    polygonAreas,
+    panTo
   }
 
   // any events for leafletjs you can get from leafletElement

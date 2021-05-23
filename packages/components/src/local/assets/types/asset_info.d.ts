@@ -9,7 +9,8 @@ export default interface AssetInfo {
   status?: RouteStatus
   type: string
   force: string
-  perceivedForce: string
+  perceivedForceColor: string
+  perceivedForceClass?: string
   selected: boolean
   visibleTo: Array<string>
   readonly uniqid: string

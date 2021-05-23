@@ -55,7 +55,8 @@ export const Default: React.FC = () => <PlanTurnForm
         mobile: true
       },
       speedVal: 0,
-      turnsVal: 5
+      turnsVal: 5,
+      condition: 'Working'
     }
   }}
   icon={iconData}
@@ -84,7 +85,8 @@ export const CannotSubmitPlans: React.FC = () => <PlanTurnForm
         mobile: true
       },
       speedVal: 0,
-      turnsVal: 5
+      turnsVal: 5,
+      condition: 'Working'
     }
   }}
   icon={iconData}
@@ -113,7 +115,8 @@ export const TurnsPlanned: React.FC = () => <PlanTurnForm
         mobile: true
       },
       speedVal: 0,
-      turnsVal: 5
+      turnsVal: 5,
+      condition: 'Working'
     }
   }}
   icon={iconData}

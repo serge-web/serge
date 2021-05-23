@@ -132,8 +132,7 @@ export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): 
 }
 
 export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch): void => {
-  const wargame = wargameDbStore.find((item) => item.name === name)
-  if (wargame === undefined) return
+  const wargame = getWargameDbByName(name)
   const db = wargame.db
   listenNewMessage({ db, name, dispatch })
 }
@@ -578,8 +577,7 @@ export const postNewMessage = (dbName: string, details: MessageDetails, message:
   // @ts-ignore
 export const postNewMapMessage = (dbName, details, message) => {
   // first, send the message
-    // @ts-ignore
-  const db = wargameDbStore.find((db) => db.name === dbName).db
+  const { db } = getWargameDbByName(dbName)
   db.put({
     _id: new Date().toISOString(),
     details,

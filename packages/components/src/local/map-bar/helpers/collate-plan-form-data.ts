@@ -26,7 +26,8 @@ const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: Selec
       // we will always have the status, but compiler doesn't trust us
       statusVal: availableStatus || { name: 'unfound', mobile: false },
       speedVal: status && status.speedKts !== undefined && platformTypeHasSpeeds ? status.speedKts : 0,
-      turnsVal: 1
+      turnsVal: 1,
+      condition: selectedAsset.condition
     }
   }
   return formData
