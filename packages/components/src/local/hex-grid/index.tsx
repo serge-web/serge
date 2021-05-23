@@ -11,20 +11,25 @@ import getCellStyle from './helpers/get-cell-style'
 
 import binCells, { PolyBin } from './helpers/bin-cells'
 import generateOuterBoundary from './helpers/get-outer-boundary'
+import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from-geojson'
 
 /* Import mapping context */
 import { MapContext } from '../mapping'
 
 /* Import Types */
 import { SergeHex, SergeGrid, Route, NewTurnValues } from '@serge/custom-types'
-import { LAYDOWN_TURN, Domain } from '@serge/config'
+import { LAYDOWN_TURN } from '@serge/config'
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
   const {
     gridCells, planningConstraints, zoomLevel, setNewLeg, setHidePlanningForm,
-    selectedAsset, viewAsRouteStore, viewport, domain
+    selectedAsset, viewAsRouteStore, viewport, polygonAreas
   } = useContext(MapContext).props
+
+  // define detail cut-offs
+  const SHOW_LABELS_UNDER = 600
+  const SHOW_HEXES_UNDER = 2000
 
   // fix the leaflet icon path, using tip from here:
   // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
@@ -34,8 +39,9 @@ export const HexGrid: React.FC<{}> = () => {
   const [allowableCells, setAllowableCells] = useState<Array<SergeHex<{}>>>([])
   const [allowablePoly, setAllowablePoly] = useState<Array<L.LatLng>>([])
 
-  // whether to show performance optimised view
-  const [reducedDetail, setReducedDetail] = useState<boolean>(false)
+  // Store the set of leaflet polygon areas, used as performance
+  // fix for showing very large areas of hexes
+  const [terrainPolys, setTerrainPolys] = useState<TerrainPolygons[]>([])
 
   // the cell for the selected asset
   const [cellForSelected, setCellForSelected] = useState<string | undefined>(undefined)
@@ -50,6 +56,8 @@ export const HexGrid: React.FC<{}> = () => {
 
   // the binned polygons
   const [polyBins, setPolyBins] = useState<PolyBin[]>([])
+
+  // the cells that are contained in the current viewport
   const [visibleCells, setVisibleCells] = useState<SergeHex<{}>[]>([])
 
   // at higher zoom levels we need to reduce the number of hexes plotted
@@ -187,15 +195,23 @@ export const HexGrid: React.FC<{}> = () => {
           ? plannedRouteFor(gridCells, allowableCells, originHex, dragDestination) : []
 
         // combine with any existing planned cells
-        setPlanningRouteCells(plannedRoute)
+        if (selectedAsset && selectedAsset.type === 'datum') {
+          if (plannedRoute.length > 0) {
+            // we need the planned route to be more than one cell long in order
+            // for later code to recognise it as a valid leg
+            setPlanningRouteCells([plannedRoute[0], plannedRoute[plannedRoute.length - 1]])
+          }
+        } else {
+          setPlanningRouteCells(plannedRoute)
 
-        // also produce the lat-long values needed for the polylines
-        const tmpPlannedRoutePoly: L.LatLng[] = plannedRoute.map((cell: SergeHex<{}>) => {
-          return cell.centreLatLng
-        })
+          // also produce the lat-long values needed for the polylines
+          const tmpPlannedRoutePoly: L.LatLng[] = plannedRoute.map((cell: SergeHex<{}>) => {
+            return cell.centreLatLng
+          })
 
-        // combine with any existing planned cells
-        setPlanningRoutePoly(tmpPlannedRoutePoly)
+          // combine with any existing planned cells
+          setPlanningRoutePoly(tmpPlannedRoutePoly)
+        }
       }
     } else {
       // drop cells
@@ -266,6 +282,15 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }, [planningRange, planningConstraints, gridCells])
 
+  /** remap the GeoJSON coords (lngLat) to Leaflet coords (latLng)
+  */
+  useEffect(() => {
+    if (polygonAreas) {
+      const leafletPolyAreas = multiPolyFromGeoJSON(polygonAreas)
+      setTerrainPolys(leafletPolyAreas)
+    }
+  }, [polygonAreas])
+
   const createPolyBins = (cells: SergeGrid<SergeHex<{}>>): PolyBin[] | undefined => {
     if (gridCells) {
       const store: SergeHex<{}>[] = []
@@ -304,6 +329,8 @@ export const HexGrid: React.FC<{}> = () => {
         const extendedViewport = L.latLngBounds(newTL.getNorthWest(), newBR.getSouthEast())
 
         let visible: SergeHex<{}>[] = []
+
+        // sort out visible cells, first by the bin
         polyBins.forEach((bin: PolyBin) => {
           if (extendedViewport.contains(bin.bounds)) {
             // ok, add all of them
@@ -317,12 +344,7 @@ export const HexGrid: React.FC<{}> = () => {
           }
         })
 
-        // if we're at a scale that allows reduced detail, don't show land or plain-sea
-        const relevantCellArr = reducedDetail && domain === Domain.ATLANTIC
-          ? visible.filter((cell: SergeHex<{}>) => {
-            return cell.type !== 'land' && cell.type !== 'sea'
-          })
-          : visible
+        const relevantCellArr = visible
 
         // see if first cell is missing poly
         if (visible.length && !visible[0].poly) {
@@ -357,23 +379,19 @@ export const HexGrid: React.FC<{}> = () => {
       setVisibleCells([])
       setRelevantCells([])
     }
-  }, [reducedDetail, viewport, gridCells, polyBins])
-
-  useEffect(() => {
-    setReducedDetail(zoomLevel <= 7.0)
-  }, [zoomLevel])
+  }, [viewport, gridCells, polyBins])
 
   // as a performance optimisation we plot the
   // visible cells at this zoom level, plus the
   // allowable filtered cells
   useEffect(() => {
     // combine both lists
-    const allCells = relevantCells.concat(allowableCells)
+    const allCells = relevantCells.concat(planningRouteCells)
     // some cells may be in both lists, so reduce to unique cells
-    const uniqueCells = [...new Set(allCells)]
-    console.log('reduce visible', allowableCells.length, relevantCells.length, uniqueCells.length)
-    setVisibleAndAllowableCells(uniqueCells)
-  }, [allowableCells, relevantCells])
+    //    const uniqueCells = [...new Set(allCells)]
+    //    console.log('reduce visible', allowableCells.length, allCells.length, uniqueCells.length)
+    setVisibleAndAllowableCells(allCells)
+  }, [allowableCells, relevantCells, planningRouteCells])
 
   /** handler for planning marker being droppped
        *
@@ -458,9 +476,17 @@ export const HexGrid: React.FC<{}> = () => {
   const beingDragged = (e: any): void => {
     const marker = e.target
     const location = marker.getLatLng()
-    const cellPos: SergeHex<{}> | undefined = gridCells.cellFor(location, dragDestination || originHex)
-    if (cellPos) {
-      setDragDestination(cellPos)
+    const destinationHex: SergeHex<{}> | undefined = dragDestination && gridCells.cellFor(location, dragDestination)
+    if (destinationHex) {
+      setDragDestination(destinationHex)
+    } else {
+      // fallback.  When allowable region is really, really large, it's possible to
+      // drag the cursur quicker than this function can run. Allow the user to drag the
+      // marker past the origin to have another go
+      const originHexCell: SergeHex<{}> | undefined = originHex && gridCells.cellFor(location, originHex)
+      if (originHexCell) {
+        setDragDestination(originHexCell)
+      }
     }
   }
 
@@ -470,9 +496,23 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
+  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
 
   return <>
+
+    { /*  - show number of visible cells */}
+    { /* viewport &&
+      <Marker
+        key={'num_vis_cells'}
+        position={ viewport.getCenter()}
+        width="120"
+        icon={L.divIcon({
+          html: '' + visibleCells.length,
+          className: styles['num-cells'],
+          iconSize: [30, 20]
+        })}
+      /> */
+    }
 
     { /* POLY BINS */}
     {/* <LayerGroup key={'poly_bounds'} >{polyBins && polyBins.map((bin: PolyBin, index: number) => (
@@ -498,12 +538,13 @@ export const HexGrid: React.FC<{}> = () => {
     ))}
     </LayerGroup> */}
 
-    <LayerGroup key={'hex_polygons'} >{visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
+    <LayerGroup key={'hex_polygons'} >{visibleAndAllowableCells.length < SHOW_HEXES_UNDER && visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
         key={'hex_poly_' + cell.name + '_' + index}
         fillColor={cell.fillColor || '#f00'}
+        fill={terrainPolys.length === 0} // only fill them if we don't have polys
         positions={cell.poly}
         stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
         className={styles[getCellStyle(cell, planningRouteCells, allowableCells, cellForSelected)]}
@@ -552,12 +593,21 @@ export const HexGrid: React.FC<{}> = () => {
           key={'drag_marker_'} />
     }
     </LayerGroup>
+    <LayerGroup key='polygon_outlines'>
+      {terrainPolys.map((terrain: TerrainPolygons, index: number) =>
+        <Polygon
+          key={'poly_a' + index}
+          positions={terrain.data}
+          fillColor={terrain.terrain.fillColor}
+          className={styles['terrain-outline']}/>
+      )}
+    </LayerGroup>
     {
       // zoomLevel > 5.5 &&
       // change - show labels if there are less than 400. With the zoom level
       // we were getting issues where up North (where the cells appear larger) there are
       // fewer visible at once, but we still weren't showing the labels.
-      visibleCells.length < 400 &&
+      visibleCells.length < SHOW_LABELS_UNDER &&
       /* note: for the label markers - we use the cells in the currently visible area */
       <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker

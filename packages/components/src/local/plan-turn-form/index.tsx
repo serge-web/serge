@@ -22,13 +22,14 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
   formHeader, formData, canSubmitPlans, setHidePlanningForm,
   turnPlanned, icon, plansSubmitted
 }) => {
-  // TODO: Refactor this into a reusable helper and remove other instances
   const [formState, setFormState] = useState<PlanTurnFormValues>(formData.values)
 
   const { status, speed } = formData.populate
-  const { statusVal, turnsVal, speedVal } = formState
+  const { statusVal, turnsVal, speedVal, condition } = formState
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
+
+  const validSpeedVal = speed.includes(speedVal) ? speedVal : speed[0]
 
   const changeHandler = (e: any): void => {
     const { name, value } = e.target
@@ -123,7 +124,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
       ? speed.length > 0 &&
         <FormGroup title="Speed (kts)" titlePosition="absolute">
           <Speed
-            value = { speedVal }
+            value = { validSpeedVal }
             options = { speed }
             onClick = { !formDisabled && speedHandler }
           />
@@ -142,7 +143,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
       </FormGroup>
     }
     <FormGroup title="Condition">
-      <span className={styles.text}>{/* TODO: add real data */}Working</span>
+      <span className={styles.text}>{condition}</span>
     </FormGroup>
     { !formDisabled &&
       <Button disabled={!saveEnabled} onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Next Turn'}</Button>

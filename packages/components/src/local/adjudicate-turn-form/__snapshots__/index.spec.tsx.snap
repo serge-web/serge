@@ -8,11 +8,11 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
     className="main"
   >
     <h2>
-      <h5
+      <div
         className="sub-title"
       >
         (Form disabled, plans submitted)
-      </h5>
+      </div>
     </h2>
     <div
       className="icon"

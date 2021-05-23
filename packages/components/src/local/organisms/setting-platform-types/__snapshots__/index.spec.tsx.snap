@@ -527,7 +527,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                   <li
                     className="li"
                     data-id="0"
-                    onClick={[Function]}
                   >
                     <div
                       className="drag"
@@ -548,11 +547,15 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                       <section
                         className="section"
                       >
-                        <input
-                          onChange={[Function]}
-                          type="text"
-                          value="Full capability"
-                        />
+                        <div
+                          className="value-label"
+                        >
+                          <div
+                            onClick={[Function]}
+                          >
+                            Full capability
+                          </div>
+                        </div>
                         <span>
                           <div
                             onClick={[Function]}
@@ -568,7 +571,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                   <li
                     className="li"
                     data-id="1"
-                    onClick={[Function]}
                   >
                     <div
                       className="drag"
@@ -589,11 +591,15 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                       <section
                         className="section"
                       >
-                        <input
-                          onChange={[Function]}
-                          type="text"
-                          value="Limited capability"
-                        />
+                        <div
+                          className="value-label"
+                        >
+                          <div
+                            onClick={[Function]}
+                          >
+                            Limited capability
+                          </div>
+                        </div>
                         <span>
                           <div
                             onClick={[Function]}
@@ -609,7 +615,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                   <li
                     className="li"
                     data-id="2"
-                    onClick={[Function]}
                   >
                     <div
                       className="drag"
@@ -630,11 +635,15 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                       <section
                         className="section"
                       >
-                        <input
-                          onChange={[Function]}
-                          type="text"
-                          value="Illegally boarded"
-                        />
+                        <div
+                          className="value-label"
+                        >
+                          <div
+                            onClick={[Function]}
+                          >
+                            Illegally boarded
+                          </div>
+                        </div>
                         <span>
                           <div
                             onClick={[Function]}
@@ -650,7 +659,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                   <li
                     className="li"
                     data-id="3"
-                    onClick={[Function]}
                   >
                     <div
                       className="drag"
@@ -671,11 +679,15 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                       <section
                         className="section"
                       >
-                        <input
-                          onChange={[Function]}
-                          type="text"
-                          value="Immobile"
-                        />
+                        <div
+                          className="value-label"
+                        >
+                          <div
+                            onClick={[Function]}
+                          >
+                            Immobile
+                          </div>
+                        </div>
                         <span>
                           <div
                             onClick={[Function]}
@@ -691,7 +703,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                   <li
                     className="li"
                     data-id="4"
-                    onClick={[Function]}
                   >
                     <div
                       className="drag"
@@ -712,11 +723,15 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                       <section
                         className="section"
                       >
-                        <input
-                          onChange={[Function]}
-                          type="text"
-                          value="Sinking"
-                        />
+                        <div
+                          className="value-label"
+                        >
+                          <div
+                            onClick={[Function]}
+                          >
+                            Sinking
+                          </div>
+                        </div>
                         <span>
                           <div
                             onClick={[Function]}
@@ -732,7 +747,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                   <li
                     className="li"
                     data-id="5"
-                    onClick={[Function]}
                   >
                     <div
                       className="drag"
@@ -753,11 +767,15 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                       <section
                         className="section"
                       >
-                        <input
-                          onChange={[Function]}
-                          type="text"
-                          value="Destroyed"
-                        />
+                        <div
+                          className="value-label"
+                        >
+                          <div
+                            onClick={[Function]}
+                          >
+                            Destroyed
+                          </div>
+                        </div>
                         <span>
                           <div
                             onClick={[Function]}
@@ -813,7 +831,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                     <li
                       className="li"
                       data-id="0"
-                      onClick={[Function]}
                     >
                       <div
                         className="drag"
@@ -834,11 +851,15 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                         <section
                           className="section"
                         >
-                          <input
-                            onChange={[Function]}
-                            type="text"
-                            value="Transiting"
-                          />
+                          <div
+                            className="value-label"
+                          >
+                            <div
+                              onClick={[Function]}
+                            >
+                              Transiting
+                            </div>
+                          </div>
                           <div
                             className="mobile"
                           >
@@ -900,7 +921,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                     <li
                       className="li"
                       data-id="1"
-                      onClick={[Function]}
                     >
                       <div
                         className="drag"
@@ -921,11 +941,15 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                         <section
                           className="section"
                         >
-                          <input
-                            onChange={[Function]}
-                            type="text"
-                            value="Fishing"
-                          />
+                          <div
+                            className="value-label"
+                          >
+                            <div
+                              onClick={[Function]}
+                            >
+                              Fishing
+                            </div>
+                          </div>
                           <div
                             className="mobile"
                           >
@@ -982,7 +1006,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                     <li
                       className="li"
                       data-id="2"
-                      onClick={[Function]}
                     >
                       <div
                         className="drag"
@@ -1003,11 +1026,15 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                         <section
                           className="section"
                         >
-                          <input
-                            onChange={[Function]}
-                            type="text"
-                            value="Moored"
-                          />
+                          <div
+                            className="value-label"
+                          >
+                            <div
+                              onClick={[Function]}
+                            >
+                              Moored
+                            </div>
+                          </div>
                           <div
                             className="mobile"
                           >
@@ -1097,7 +1124,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                 <ul>
                   <li
                     className="li"
-                    onClick={[Function]}
                   >
                     <div
                       className="presection"
@@ -1105,11 +1131,15 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                       <section
                         className="section"
                       >
-                        <input
-                          onChange={[Function]}
-                          type="number"
-                          value="10"
-                        />
+                        <div
+                          className="value-label"
+                        >
+                          <div
+                            onClick={[Function]}
+                          >
+                            10
+                          </div>
+                        </div>
                         <span>
                           <div
                             onClick={[Function]}
@@ -1124,7 +1154,6 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                   </li>
                   <li
                     className="li"
-                    onClick={[Function]}
                   >
                     <div
                       className="presection"
@@ -1132,11 +1161,15 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                       <section
                         className="section"
                       >
-                        <input
-                          onChange={[Function]}
-                          type="number"
-                          value="20"
-                        />
+                        <div
+                          className="value-label"
+                        >
+                          <div
+                            onClick={[Function]}
+                          >
+                            20
+                          </div>
+                        </div>
                         <span>
                           <div
                             onClick={[Function]}

@@ -7,9 +7,9 @@ const path = require('path')
 */
 
 const file = path.resolve(__dirname, '../../../node_modules/pouchdb-fauxton/www/index.html')
-console.log(`error correction [pouchdb-fauxton]: ${file}`)
+console.log(`Correction [pouchdb-fauxton]: ${file}`)
 fs.writeFile(file, '', 'utf8', err => {
   if (err) return console.log(err)
-  else console.log('error correction [pouchdb-fauxton]: success')
+  else console.log('Correction [pouchdb-fauxton]: success')
 })
 console.log('')

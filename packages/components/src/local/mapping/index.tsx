@@ -2,7 +2,7 @@ import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain, serverPath } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
@@ -136,6 +136,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
   const [atlanticCells, setAtlanticCells] = useState()
+  const [polygonAreas, setPolygonAreas] = useState()
 
   // only update bounds if they're different to the current one
   useEffect(() => {
@@ -211,7 +212,6 @@ export const Mapping: React.FC<PropTypes> = ({
 
   /** the forces from props has changed */
   useEffect(() => {
-    console.log('mapping have forces', forces, forcesState)
     // is it different to current force state?
     const forceStateEmptyOrChanged = !forcesState || !isEqual(forcesState, forces)
     if (forceStateEmptyOrChanged) {
@@ -282,7 +282,8 @@ export const Mapping: React.FC<PropTypes> = ({
   useEffect(() => {
     if (mappingConstraints.gridCellsURL) {
       const fetchMethod = fetchOverride || whatFetch
-      fetchMethod(mappingConstraints.gridCellsURL)
+      const url = serverPath + mappingConstraints.gridCellsURL
+      fetchMethod(url)
         .then((response: any) => response.json())
         .then((res: any) => {
           setAtlanticCells(res)
@@ -291,6 +292,20 @@ export const Mapping: React.FC<PropTypes> = ({
         })
     }
   }, [mappingConstraints.gridCellsURL])
+
+  useEffect(() => {
+    if (mappingConstraints.polygonAreasURL) {
+      const fetchMethod = fetchOverride || whatFetch
+      const url = serverPath + mappingConstraints.polygonAreasURL
+      fetchMethod(url)
+        .then((response: any) => response.json())
+        .then((res: any) => {
+          setPolygonAreas(res)
+        }).catch((err: any) => {
+          console.error(err)
+        })
+    }
+  }, [mappingConstraints.polygonAreasURL])
 
   useEffect(() => {
     if (mapBounds && mappingConstraints.tileDiameterMins) {
@@ -519,6 +534,16 @@ export const Mapping: React.FC<PropTypes> = ({
     setSelectedAsset(asset)
   }
 
+  /** pan to the centre of the specified cell */
+  const panTo = (cellRef: string): void => {
+    if (gridCells) {
+      const hex = gridCells.find((cell: SergeHex<{}>) => cell.name === cellRef)
+      if (hex) {
+        leafletElement && leafletElement.panTo(hex.centreLatLng, { duration: 1, easeLinearity: 0.6 })
+      }
+    }
+  }
+
   // Anything you put in here will be available to any child component of Map via a context consumer
   const contextProps: MappingContext = {
     gridCells,
@@ -552,7 +577,9 @@ export const Mapping: React.FC<PropTypes> = ({
     groupHostPlatform: groupHostPlatformLocal,
     plansSubmitted,
     setPlansSubmitted,
-    domain: mappingConstraints.targetDataset
+    domain: mappingConstraints.targetDataset,
+    polygonAreas,
+    panTo
   }
 
   // any events for leafletjs you can get from leafletElement

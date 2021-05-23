@@ -2,11 +2,12 @@ const runServer = (
   eventEmmiterMaxListeners,
   pouchOptions,
   corsOptions,
-  dbDir,
   imgDir,
+  dataDir,
   port,
   remoteServer,
-  addons
+  onAppInitListeningAddons,
+  onAppStartListeningAddons
 ) => {
   require('events').EventEmitter.defaultMaxListeners = eventEmmiterMaxListeners
   const express = require('express')
@@ -23,42 +24,17 @@ const runServer = (
 
   const fs = require('fs')
 
-  require('pouchdb-all-dbs')(PouchDB)
-
-  const cors = require('cors')
-
-  const onAppInitListeningAddons = []
-  const onAppStartListeningAddons = []
-
-  addons.forEach(addonId => {
-    const addon = require(`./addons/${addonId}`)
-    switch (addon.info.on) {
-      case 'app-start-listening':
-        onAppStartListeningAddons.push(addon)
-        break
-      default:
-        onAppInitListeningAddons.push(addon)
-    }
-  })
-
-  const app = express()
-
   onAppInitListeningAddons.forEach(addon => {
     addon.run(app)
   })
 
+  require('pouchdb-all-dbs')(PouchDB)
+  const cors = require('cors')
+  const app = express()
+
   const clientBuildPath = '../client/build'
 
   app.use(cors(corsOptions))
-
-  if (!fs.existsSync(dbDir)) {
-    fs.mkdirSync(dbDir)
-  }
-
-  if (!fs.existsSync(imgDir)) {
-    fs.mkdirSync(imgDir)
-  }
-
   app.use('/db', require('express-pouchdb')(PouchDB))
 
   app.get('/allDbs', (req, res) => {
@@ -95,6 +71,10 @@ const runServer = (
   })
 
   app.get('/cells/:filename', (req, res) => {
+    if (dataDir) {
+      res.sendFile(path.join(process.cwd(), dataDir, req.params.filename))
+      return
+    }
     res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
   })
 
@@ -138,6 +118,8 @@ const runServer = (
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })
+    const start = (process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open')
+    require('child_process').exec(start + ' ' + `http://localhost:${port}`)
   })
 }
 

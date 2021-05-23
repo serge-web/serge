@@ -102,6 +102,10 @@ export default interface MappingContext {
    */
   clearFromTurn?: {(turn: number): void}
   /**
+   * pan the map to the specified cell
+   */
+  panTo?: {(cell: string): void}
+  /**
    * The method for posting messages out of the mapping component
    */
   mapPostBack?: MapPostBack
@@ -137,4 +141,8 @@ export default interface MappingContext {
    * domain for this wargame 
    */
   domain: Domain
+  /**
+   * series of polygon areas, to be shaded
+   */
+  polygonAreas?: any
 }

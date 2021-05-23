@@ -7,6 +7,12 @@
     "sass": "^1.23.0",
     "stylelint-config-sass-guidelines": "^8.0.0"
   },
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-prettier": "^1.2.0"
+  },
   "scripts": {
     "lint": "stylelint *.scss --fix"
   }

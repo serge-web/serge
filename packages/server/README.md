@@ -1,5 +1,7 @@
 # Serge
 
+**Note:** As of May 2021 these are legacy notes, that relate to the time when Serge was a monolith. They are no longer relevant.
+
 ### Installing as a service
 
 On a MS Windows PC, Serge can be installed as a service - meaning it starts whenever that machine starts. Perform this by executing `installSergeService.bat`. Windows will popup up a series of confirmation boxes to approve the installation. On completion, Serge will be installed under MS Windows as `Serge Server`. You can find the script to uninstall the service. It's not imaginagively named.
