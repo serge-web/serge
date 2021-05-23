@@ -1,8 +1,8 @@
-var Service = require('node-windows').Service
-var path = require('path')
+const Service = require('node-windows').Service
+const path = require('path')
 
 // Create a new service object
-var svc = new Service({
+const svc = new Service({
   name: 'Serge Wargame',
   description: 'The Serge wargame server.',
   script: path.resolve(__dirname, '/server.js')
