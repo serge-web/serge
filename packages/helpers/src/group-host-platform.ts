@@ -1,6 +1,6 @@
 import { Asset, ForceData } from '@serge/custom-types'
-import { forceFor } from '@serge/helpers'
-import { cloneDeep } from 'lodash'
+import forceFor from './force-for'
+
 /**
  * Create a new Task Group using the provided assets
  * @param (string) dragging the asset being dragged
@@ -9,10 +9,8 @@ import { cloneDeep } from 'lodash'
  * @returns modified list of forces
  */
 const groupHostPlatform = (dragging: string, target: string, forces: ForceData[]): ForceData[] => {
-  const newForces: ForceData[] = cloneDeep(forces)
-
   // find the force for the target platform
-  const parent = forceFor(newForces, target)
+  const parent = forceFor(forces, target)
 
   // get the assets
   const assets = parent.assets
@@ -36,7 +34,7 @@ const groupHostPlatform = (dragging: string, target: string, forces: ForceData[]
       parent.assets = assets2
     }
   }
-  return newForces
+  return forces
 }
 
 export default groupHostPlatform
