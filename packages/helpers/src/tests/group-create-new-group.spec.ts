@@ -39,7 +39,7 @@ it('Creates new group from provided assets', () => {
   expect(forces2[1].assets && forces2[1].assets.length).toEqual(blueSize - 1)
 
   // check assets in new task group
-  if (forces2[1].assets && forces2[1].assets[2] && forces2[1].assets[2].comprising) {
+  if (forces2[1].assets && forces2[1].assets[2]) {
     const taskGroup = forces2[1].assets[2]
     if (taskGroup.comprising) {
       expect(taskGroup.comprising.find((asset: Asset) => asset.uniqid === frigateId)).toBeTruthy()

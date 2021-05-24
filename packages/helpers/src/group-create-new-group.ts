@@ -49,7 +49,7 @@ const groupCreateNewGroup = (dragging: string, target: string, forces: ForceData
           name: groupId,
           perceptions: [],
           platformType: 'task-group',
-          position: targetAsset && targetAsset.position,
+          position: targetAsset.position,
           status: {
             speedKts: 20,
             state: 'Transiting'
