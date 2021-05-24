@@ -5,14 +5,14 @@ import getByPassUrl from './helpers/getByPassUrl'
 import addTabs from './helpers/addTabs'
 import factory from './helpers/factory'
 import { FLEX_LAYOUT_MODEL_DEFAULT } from '../../consts'
-import FlexLayout, { Model } from 'flexlayout-react'
+import FlexLayout, { IJsonModel, Model } from 'flexlayout-react'
 import { showHideObjectives } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 
 const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const state = usePlayerUiState()
   const [byPassUrl] = useState<URL>(getByPassUrl(state))
-  const [model] = useState<Model>(FlexLayout.Model.fromJson(FLEX_LAYOUT_MODEL_DEFAULT))
+  const [model] = useState<Model>(FlexLayout.Model.fromJson(FLEX_LAYOUT_MODEL_DEFAULT as IJsonModel))
   const gameAdmin = 'Game Admin'
   const gameAdminTitle = 'Game Admin'
   const insights = 'Insights'
