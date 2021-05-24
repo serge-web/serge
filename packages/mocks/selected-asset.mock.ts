@@ -3,6 +3,7 @@ import SelectedAsset from '@serge/custom-types/selected-asset'
 const selected: SelectedAsset = {
   uniqid: 'id001',
   name: 'asset-name',
+  contactId: 'C345',
   type: 'Frigate',
   force: 'Blue',
   controlledBy: [],
