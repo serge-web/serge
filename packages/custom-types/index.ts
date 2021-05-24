@@ -27,6 +27,7 @@ export { default as Message,
          MessageSubmitPlans,
          MessageStateOfWorld,
          MessageMap,
+         MessageCreateTaskGroup,
          // System Messages
          MessageFeedback,
          MessageInfoType,

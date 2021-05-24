@@ -2,14 +2,13 @@ import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain, serverPath } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain, serverPath, CREATE_TASK_GROUP } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
 
 /* helper functions */
 import groupMoveToRoot from './helpers/group-move-to-root'
-import groupCreateNewGroup from './helpers/group-create-new-group'
 import groupHostPlatform from './helpers/group-host-platform'
 // TODO: verify we still handle planned routes properly
 // import storePlannedRoute from './helpers/store-planned-route'
@@ -44,7 +43,8 @@ import {
   PlanTurnFormValues,
   ForceData,
   Asset,
-  Status
+  Status,
+  MessageCreateTaskGroup
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -509,8 +509,17 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const groupCreateNewGroupLocal = (dragged: string, target: string): void => {
-    const newForces = groupCreateNewGroup(dragged, target, forcesState)
-    setForcesState(newForces)
+    console.log('creating new task group', !!mapPostBack, dragged, target)
+    if (mapPostBack !== undefined) {
+      const payload: MessageCreateTaskGroup = {
+        messageType: CREATE_TASK_GROUP,
+        dragged: dragged,
+        target: target
+      }
+      mapPostBack(CREATE_TASK_GROUP, payload, channelID)
+    }
+    // const newForces = groupCreateNewGroup(dragged, target, forcesState)
+    // setForcesState(newForces)
   }
 
   const groupHostPlatformLocal = (dragged: string, target: string): void => {

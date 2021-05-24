@@ -1,6 +1,6 @@
 import { Asset, ForceData } from '@serge/custom-types'
-import { forceFor } from '@serge/helpers'
-import { cloneDeep } from 'lodash'
+import forceFor from './force-for'
+
 /**
  * Create a new Task Group using the provided assets
  * @param (string) dragging the asset being dragged
@@ -9,10 +9,8 @@ import { cloneDeep } from 'lodash'
  * @returns modified list of forces
  */
 const groupCreateNewGroup = (dragging: string, target: string, forces: ForceData[]): ForceData[] => {
-  const newForces: ForceData[] = cloneDeep(forces)
-
   // find the parent force
-  const parent = forceFor(newForces, dragging)
+  const parent = forceFor(forces, dragging)
 
   // get the assets
   const assets = parent.assets
@@ -47,6 +45,8 @@ const groupCreateNewGroup = (dragging: string, target: string, forces: ForceData
       }
       assets3.push(newGroup)
 
+      console.log('created new group', groupId, assetId, assets3.length)
+
       // overwrite the assets with the new list
       parent.assets = assets3
     } else {
@@ -54,7 +54,7 @@ const groupCreateNewGroup = (dragging: string, target: string, forces: ForceData
     }
   }
 
-  return newForces
+  return forces
 }
 
 export default groupCreateNewGroup

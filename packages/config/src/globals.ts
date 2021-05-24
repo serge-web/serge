@@ -33,6 +33,7 @@ export const VISIBILITY_CHANGES = 'VisibilityChanges'
 export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 export const SUBMIT_PLANS = 'SubmitPlans'
 export const STATE_OF_WORLD = 'StateOfWorld'
+export const CREATE_TASK_GROUP = 'CreateTaskGroup'
 
 // series of constants used for `messageType` when sending custom messages
 export const CUSTOM_MESSAGE = 'CustomMessage'

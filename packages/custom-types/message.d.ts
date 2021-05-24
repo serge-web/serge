@@ -9,12 +9,14 @@ import {
   SUBMIT_PLANS,
   STATE_OF_WORLD,
   INFO_MESSAGE_CLIPPED,
+  CREATE_TASK_GROUP,
   CollaborativeMessageStates
 } from '@serge/config'
 
 import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
+import Asset from './asset'
 import Role from './role'
 import { StateOfWorld } from '.'
 import Wargame from './wargame'
@@ -162,6 +164,14 @@ export interface MessagePerceptionOfContact {
   readonly perception: Perception
 }
 
+export interface MessageCreateTaskGroup {
+  messageType: typeof CREATE_TASK_GROUP,
+  /** id of the platform that was dragged onto another */
+  readonly dragged: string,
+  /** id of the target platform that other was dropped onto */
+  readonly target: string
+}
+
 export interface MessageVisibilityChanges {
   messageType: typeof VISIBILITY_CHANGES,
   readonly visibility: Visibility[],
@@ -181,7 +191,8 @@ export type MessageMap = MessageForceLaydown |
                          MessagePerceptionOfContact |
                          MessageVisibilityChanges |
                          MessageSubmitPlans |
-                         MessageStateOfWorld
+                         MessageStateOfWorld |
+                         MessageCreateTaskGroup
 
 
 export type MessageChannel = MessageInfoTypeClipped |
