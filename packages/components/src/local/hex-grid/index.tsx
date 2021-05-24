@@ -23,7 +23,7 @@ import { LAYDOWN_TURN } from '@serge/config'
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
   const {
-    gridCells, planningConstraints, zoomLevel, setNewLeg, setHidePlanningForm,
+    gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
     selectedAsset, viewAsRouteStore, viewport, polygonAreas
   } = useContext(MapContext).props
 
@@ -496,7 +496,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-//  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
+  //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
 
   return <>
 
