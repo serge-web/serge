@@ -509,7 +509,6 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const groupCreateNewGroupLocal = (dragged: string, target: string): void => {
-    console.log('creating new task group', !!mapPostBack, dragged, target)
     if (mapPostBack !== undefined) {
       const payload: MessageCreateTaskGroup = {
         messageType: CREATE_TASK_GROUP,
@@ -518,8 +517,6 @@ export const Mapping: React.FC<PropTypes> = ({
       }
       mapPostBack(CREATE_TASK_GROUP, payload, channelID)
     }
-    // const newForces = groupCreateNewGroup(dragged, target, forcesState)
-    // setForcesState(newForces)
   }
 
   const groupHostPlatformLocal = (dragged: string, target: string): void => {
