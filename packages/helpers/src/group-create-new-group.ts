@@ -21,34 +21,45 @@ const groupCreateNewGroup = (dragging: string, target: string, forces: ForceData
     const targetAsset: Asset | undefined = assets.find((item: Asset) => item.uniqid === target)
 
     if (dragAsset !== undefined && targetAsset !== undefined) {
-      // remove the assets
-      const assets2 = assets.filter((item: Asset) => item.uniqid !== dragging)
-      const assets3 = assets2.filter((item: Asset) => item.uniqid !== target)
+      // remove the asset being dragged
+      const assetsWithoutDragging = assets.filter((item: Asset) => item.uniqid !== dragging)
 
-      // create the new task group
-      const contactId: string = 'C' + Math.floor(Math.random() * 999)
-      const assetId: string = 'a' + Math.floor(Math.random() * 1000000)
-      const groupId: string = 'CTF ' + (300 + Math.floor(Math.random() * 99))
-      const newGroup: Asset = {
-        condition: 'Full capability',
-        contactId: contactId,
-        comprising: [dragAsset, targetAsset],
-        name: groupId,
-        perceptions: [],
-        platformType: 'task-group',
-        position: targetAsset && targetAsset.position,
-        status: {
-          speedKts: 20,
-          state: 'Transiting'
-        },
-        uniqid: assetId
+      if (targetAsset.platformType === 'task-group') {
+        // add this platform to the task group
+        if (targetAsset.comprising) {
+          targetAsset.comprising.push(dragAsset)
+        } else {
+          targetAsset.comprising = [dragAsset]
+        }
+        // overwrite the assets with the new list
+        parent.assets = assetsWithoutDragging
+      } else {
+        // since we're creating a task group, we have to remove the target asset
+        const assetsWithoutTarget = assetsWithoutDragging.filter((item: Asset) => item.uniqid !== target)
+
+        // create a new task group
+        // create the new task group
+        const contactId: string = 'C' + Math.floor(Math.random() * 999)
+        const assetId: string = 'a' + Math.floor(Math.random() * 1000000)
+        const groupId: string = 'CTF ' + (300 + Math.floor(Math.random() * 99))
+        const newGroup: Asset = {
+          condition: 'Full capability',
+          contactId: contactId,
+          comprising: [dragAsset, targetAsset],
+          name: groupId,
+          perceptions: [],
+          platformType: 'task-group',
+          position: targetAsset && targetAsset.position,
+          status: {
+            speedKts: 20,
+            state: 'Transiting'
+          },
+          uniqid: assetId
+        }
+        assetsWithoutTarget.push(newGroup)
+        // overwrite the assets with the new list
+        parent.assets = assetsWithoutTarget
       }
-      assets3.push(newGroup)
-
-      console.log('created new group', groupId, assetId, assets3.length)
-
-      // overwrite the assets with the new list
-      parent.assets = assets3
     } else {
       throw new Error('Failed to find drag or targetAsset:' + dragAsset + ' other:' + targetAsset)
     }
