@@ -2,7 +2,7 @@ import { Asset, ForceData } from "@serge/custom-types"
 import { isAsset } from "./find-asset"
 
 
-export default function forceFor ( allForces: ForceData[], assetId: string): ForceData {
+export default function forceFor (allForces: ForceData[], assetId: string): ForceData {
   const match: ForceData | undefined = allForces.find((force: ForceData) => {
     const assets = force.assets
     if (assets) {
