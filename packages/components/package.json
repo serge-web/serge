@@ -19,7 +19,7 @@
     "add-component": "npx buildcom -sjt -c 'scss' -m"
   },
   "cancelled-scripts": {
-    "lint:styles": "stylelint --fix src/**/*.scss", 
+    "lint:styles": "stylelint --fix src/**/*.scss"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.2",
