@@ -169,6 +169,10 @@ export const WorldState: React.FC<PropTypes> = ({
     return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type, gridCells)
   }
 
+  // player can drag items in planning phase if they can submit orders, or umpire can do it 
+  // in adjudication or planning phase
+  const canDragItems = isUmpire || (phase === PLANNING_PHASE && canSubmitOrders)
+
   return <>
     <div className={styles['world-state']}>
       <h2 className={styles.title}>{customTitle}
@@ -180,7 +184,7 @@ export const WorldState: React.FC<PropTypes> = ({
       <Groups
         items={tmpRoutes}
         renderContent={renderContent}
-        canOrganise={canSubmitOrders}
+        canOrganise={canDragItems}
         canCombineWith={canCombineWithLocal}
         onSet={(itemsLink: any, type: any, depth: any): void => {
           const items = itemsLink.slice(0)
