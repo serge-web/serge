@@ -4,7 +4,7 @@
 import { Asset, ForceData } from '@serge/custom-types'
 import { forces } from '@serge/mocks'
 
-import groupMoveToRoot from './group-move-to-root'
+import groupMoveToRoot from '../group-move-to-root'
 
 it('Moves merlin to top level from hosting', () => {
   const merlinId = 'a0pra11002'

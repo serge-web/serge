@@ -3,8 +3,8 @@
 /* Import mock data */
 import { forces } from '@serge/mocks'
 
-import groupMoveToRoot from './group-move-to-root'
-import groupHostPlatform from './group-host-platform'
+import groupMoveToRoot from '../group-move-to-root'
+import groupHostPlatform from '../group-host-platform'
 import { Asset, ForceData } from '@serge/custom-types'
 
 it('Moves merlin back onto frigate', () => {

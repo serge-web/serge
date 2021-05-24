@@ -4,7 +4,7 @@
 import { Asset, ForceData } from '@serge/custom-types'
 import { forces } from '@serge/mocks'
 
-import groupCreateNewGroup from './group-create-new-group'
+import groupCreateNewGroup from '../group-create-new-group'
 
 it('Creates new group from provided assets', () => {
   const frigateId = 'a0pra00001'
@@ -40,8 +40,38 @@ it('Creates new group from provided assets', () => {
 
   // check assets in new task group
   if (forces2[1].assets && forces2[1].assets[2] && forces2[1].assets[2].comprising) {
-    expect(forces2[1].assets[2].comprising.find((asset: Asset) => asset.uniqid === frigateId)).toBeTruthy()
-    expect(forces2[1].assets[2].comprising.find((asset: Asset) => asset.uniqid === tankerId)).toBeTruthy()
+    const taskGroup = forces2[1].assets[2]
+    if (taskGroup.comprising) {
+      expect(taskGroup.comprising.find((asset: Asset) => asset.uniqid === frigateId)).toBeTruthy()
+
+      // now get the tanker
+      const tanker = taskGroup.comprising.find((asset: Asset) => asset.uniqid === tankerId)
+      expect(tanker).toBeTruthy()
+
+      // remove the tanker
+      expect(taskGroup.comprising.length).toEqual(2)
+      taskGroup.comprising = taskGroup.comprising.filter((asset: Asset) => asset.uniqid !== tankerId)
+      expect(taskGroup.comprising.length).toEqual(1)
+
+      // put the tanker back in the top level
+      if (tanker) {
+        forces2[1].assets.push(tanker)
+      }
+
+      // check tanker has appeared at top level
+      expect(forces2[1].assets.length).toEqual(4)
+
+      // ok, try to add the tanker to the task group
+      const forces3: ForceData[] = groupCreateNewGroup(tankerId, taskGroup.uniqid, forces2)
+      if (forces3[1] && forces3[1].assets && forces3[1].assets.length) {
+        expect(forces3[1].assets.length).toEqual(3)
+        const taskGroup2 = forces3[1].assets[2]
+        expect(taskGroup2.comprising).toBeTruthy()
+        expect(taskGroup2.comprising?.length).toEqual(2)
+      } else {
+        expect(false).toBeTruthy()
+      }
+    }
   } else {
     expect(false).toBeTruthy()
   }
