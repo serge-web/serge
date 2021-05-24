@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer'
-import { DEFAULT_SERVER } from '../consts'
+// import { DEFAULT_SERVER } from '../consts'
 
 let browser
 let page
@@ -11,11 +11,11 @@ let pageRedRecon
 let pageBlueCo
 let pageBlueArtillery
 
-const backspace = async (qty) => {
-  for (let i = 0; i < qty; i++) {
-    await page.keyboard.press('Backspace')
-  }
-}
+// const backspace = async (qty) => {
+//   for (let i = 0; i < qty; i++) {
+//     await page.keyboard.press('Backspace')
+//   }
+// }
 
 beforeAll(async () => {
   // launch browser
