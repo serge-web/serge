@@ -918,7 +918,7 @@
                                             "history": [],
                                             "name": "Rotary Alpha",
                                             "perceptions": [],
-                                            "platformType": "fixed-wing-aircraft",
+                                            "platformType": "helicopter",
                                             "uniqid": "a0534ty4331"
                                         }
                                     ]
@@ -938,7 +938,7 @@
                                             "history": [],
                                             "name": "Z1123",
                                             "perceptions": [],
-                                            "platformType": "fixed-wing-aircraft",
+                                            "platformType": "helicopter",
                                             "uniqid": "a0a8772ty4331"
                                         }
                                     ]
@@ -958,7 +958,7 @@
                                             "history": [],
                                             "name": "Z6537",
                                             "perceptions": [],
-                                            "platformType": "fixed-wing-aircraft",
+                                            "platformType": "helicopter",
                                             "uniqid": "a0agjj2ty4331"
                                         }
                                     ]
@@ -978,7 +978,7 @@
                                             "history": [],
                                             "name": "Z1266",
                                             "perceptions": [],
-                                            "platformType": "fixed-wing-aircraft",
+                                            "platformType": "helicopter",
                                             "uniqid": "a0aaa2ty4331"
                                         }
                                     ]
@@ -998,7 +998,7 @@
                                             "history": [],
                                             "name": "Z9823",
                                             "perceptions": [],
-                                            "platformType": "fixed-wing-aircraft",
+                                            "platformType": "helicopter",
                                             "uniqid": "a0a3242ty4331"
                                         }
                                     ]
@@ -1018,7 +1018,7 @@
                                             "history": [],
                                             "name": "Z8566",
                                             "perceptions": [],
-                                            "platformType": "fixed-wing-aircraft",
+                                            "platformType": "helicopter",
                                             "uniqid": "a0222ty4331"
                                         }
                                     ]
@@ -1153,7 +1153,7 @@
                                     "history": [],
                                     "name": "Z4966",
                                     "perceptions": [],
-                                    "platformType": "fixed-wing-aircraft",
+                                    "platformType": "helicopter",
                                     "uniqid": "a0fhgty4331"
                                 }
                             ]
@@ -1180,7 +1180,7 @@
                                     "history": [],
                                     "name": "Z9266",
                                     "perceptions": [],
-                                    "platformType": "fixed-wing-aircraft",
+                                    "platformType": "helicopter",
                                     "uniqid": "a092ty4331"
                                 }
                             ]
@@ -1302,7 +1302,7 @@
                                             "history": [],
                                             "name": "Z7734",
                                             "perceptions": [],
-                                            "platformType": "fixed-wing-aircraft",
+                                            "platformType": "helicopter",
                                             "uniqid": "a0adgdf2ty4331"
                                         }
                                     ]
@@ -1322,7 +1322,7 @@
                                             "history": [],
                                             "name": "Z1123",
                                             "perceptions": [],
-                                            "platformType": "fixed-wing-aircraft",
+                                            "platformType": "helicopter",
                                             "uniqid": "a0a3gfdty4331"
                                         }
                                     ]
@@ -1879,6 +1879,26 @@
                         {
                             "mobile": true,
                             "name": "Active"
+                        }
+                    ],
+                    "travelMode": "air"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "helicopter.svg",
+                    "name": "Helicopter",
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Active"
+                        },
+                        {
+                            "mobile": false,
+                            "name": "Landed"
                         }
                     ],
                     "travelMode": "air"
