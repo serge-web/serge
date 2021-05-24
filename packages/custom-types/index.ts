@@ -28,6 +28,8 @@ export { default as Message,
          MessageStateOfWorld,
          MessageMap,
          MessageCreateTaskGroup,
+         MessageLeaveTaskGroup,
+         MessageHostPlatform,
          // System Messages
          MessageFeedback,
          MessageInfoType,

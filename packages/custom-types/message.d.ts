@@ -10,6 +10,8 @@ import {
   STATE_OF_WORLD,
   INFO_MESSAGE_CLIPPED,
   CREATE_TASK_GROUP,
+  LEAVE_TASK_GROUP,
+  HOST_PLATFORM,
   CollaborativeMessageStates
 } from '@serge/config'
 
@@ -164,6 +166,7 @@ export interface MessagePerceptionOfContact {
   readonly perception: Perception
 }
 
+/** two assets are going to join, to form a task group */
 export interface MessageCreateTaskGroup {
   messageType: typeof CREATE_TASK_GROUP,
   /** id of the platform that was dragged onto another */
@@ -172,16 +175,34 @@ export interface MessageCreateTaskGroup {
   readonly target: string
 }
 
+/** an asset is going to host another platform */
+export interface MessageHostPlatform {
+  messageType: typeof HOST_PLATFORM,
+  /** id of the platform that was dragged onto another */
+  readonly dragged: string,
+  /** id of the target platform that other was dropped onto */
+  readonly target: string
+}
+
+/** an asset is leaving a task group, navigating to top level */
+export interface MessageLeaveTaskGroup {
+  messageType: typeof LEAVE_TASK_GROUP,
+  /** id of the platform that was dragged to the top level */
+  readonly dragged: string,
+}
+
 export interface MessageVisibilityChanges {
   messageType: typeof VISIBILITY_CHANGES,
   readonly visibility: Visibility[],
   readonly assetId: string,
   condition?: string
 }
+
 export interface MessageSubmitPlans {
   readonly messageType: typeof SUBMIT_PLANS,
   readonly plannedRoutes: PlannedRoute[]
 }
+
 export interface MessageStateOfWorld {
   messageType: typeof STATE_OF_WORLD,
   readonly state: StateOfWorld
@@ -192,7 +213,9 @@ export type MessageMap = MessageForceLaydown |
                          MessageVisibilityChanges |
                          MessageSubmitPlans |
                          MessageStateOfWorld |
-                         MessageCreateTaskGroup
+                         MessageCreateTaskGroup |
+                         MessageLeaveTaskGroup | 
+                         MessageHostPlatform
 
 
 export type MessageChannel = MessageInfoTypeClipped |

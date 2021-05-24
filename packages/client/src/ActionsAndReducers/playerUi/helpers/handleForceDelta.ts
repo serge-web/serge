@@ -1,4 +1,15 @@
-import { MessageMap, ForceData, MessageDetails, MessageForceLaydown, MessageVisibilityChanges, MessagePerceptionOfContact, MessageSubmitPlans, MessageStateOfWorld, MessageCreateTaskGroup } from '@serge/custom-types'
+import { 
+  MessageMap, 
+  ForceData, 
+  MessageDetails, 
+  MessageForceLaydown, 
+  MessageVisibilityChanges, 
+  MessagePerceptionOfContact, 
+  MessageSubmitPlans, 
+  MessageHostPlatform,
+  MessageStateOfWorld, 
+  MessageCreateTaskGroup,
+  MessageLeaveTaskGroup } from '@serge/custom-types'
 
 import { handleVisibilityAndConditionChanges } from '@serge/helpers'
 import handlePerceptionChange from './handlePerceptionChanges'
@@ -6,13 +17,17 @@ import handleStateOfWorldChanges from './handleStateOfWorldChanges'
 import handleForceLaydownChanges from './handleForceLaydownChanges'
 import handlePlansSubmittedChanges from './handlePlansSubmittedChanges'
 import handleCreateTaskGroup from './handleCreateTaskGroup'
+import handleLeaveTaskGroup from './handleLeaveTaskGroup'
+import handleHostPlatform from './handleHostPlatform'
 import {
   FORCE_LAYDOWN,
   VISIBILITY_CHANGES,
   PERCEPTION_OF_CONTACT,
   SUBMIT_PLANS,
   STATE_OF_WORLD,
-  CREATE_TASK_GROUP
+  CREATE_TASK_GROUP,
+  LEAVE_TASK_GROUP,
+  HOST_PLATFORM
 } from '@serge/config'
 // TODO: change it to @serge/config
 
@@ -38,7 +53,11 @@ export default (message: MessageMap, details: MessageDetails, allForces: ForceDa
       return handleStateOfWorldChanges(message as MessageStateOfWorld, allForces)
     case CREATE_TASK_GROUP:
       return handleCreateTaskGroup(message as MessageCreateTaskGroup, allForces)
-      default:
+    case LEAVE_TASK_GROUP:
+      return handleLeaveTaskGroup(message as MessageLeaveTaskGroup, allForces)
+    case HOST_PLATFORM:
+      return handleHostPlatform(message as MessageHostPlatform, allForces)
+    default:
       console.error(`failed to create player reducer handler for: ${message!.messageType}`)
       return allForces
   }

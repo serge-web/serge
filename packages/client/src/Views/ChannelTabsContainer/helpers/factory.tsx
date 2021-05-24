@@ -1,6 +1,14 @@
 import React from 'react'
 import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints } from '@serge/custom-types'
-import { FORCE_LAYDOWN, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, CREATE_TASK_GROUP, SUBMIT_PLANS, VISIBILITY_CHANGES, Phase } from '@serge/config'
+import { FORCE_LAYDOWN, 
+  PERCEPTION_OF_CONTACT, 
+  STATE_OF_WORLD, 
+  CREATE_TASK_GROUP, 
+  LEAVE_TASK_GROUP, 
+  HOST_PLATFORM, 
+  SUBMIT_PLANS, 
+  VISIBILITY_CHANGES, 
+  Phase } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -72,7 +80,13 @@ const factory = (state: PlayerUi): Factory => {
       case CREATE_TASK_GROUP:
         sendMapMessage(CREATE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
         break
-          default:
+      case LEAVE_TASK_GROUP:
+        sendMapMessage(LEAVE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        break
+      case HOST_PLATFORM:
+        sendMapMessage(HOST_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        break
+      default:
       console.log('Handler not created for', form)
     }
   }
