@@ -507,7 +507,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (mapPostBack !== undefined) {
       const payload: MessageLeaveTaskGroup = {
         messageType: LEAVE_TASK_GROUP,
-        dragged: uniqid,
+        dragged: uniqid
       }
       mapPostBack(LEAVE_TASK_GROUP, payload, channelID)
     }
