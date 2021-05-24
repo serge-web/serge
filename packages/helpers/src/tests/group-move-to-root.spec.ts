@@ -2,12 +2,13 @@
 
 /* Import mock data */
 import { Asset, ForceData } from '@serge/custom-types'
-import { forces } from '@serge/mocks'
-
+import { forces as mockForces } from '@serge/mocks'
+import deepCopy from '../deep-copy'
 import groupMoveToRoot from '../group-move-to-root'
 
 it('Moves merlin to top level from hosting', () => {
   const merlinId = 'a0pra11002'
+  const forces = deepCopy(mockForces)
   // check merlin is where we expect it to be
   if (forces[1].assets && forces[1].assets[1]) {
     const frigate: Asset = forces[1].assets[1]
@@ -39,8 +40,9 @@ it('Moves merlin to top level from hosting', () => {
   }
 })
 
-it('Moves mcmv to top level from hosting', () => {
+it('Moves mcmv to top level from comprising', () => {
   const mcmvId = 'a0traa6790'
+  const forces = deepCopy(mockForces)
   // check mcm is where we expect it to be
   if (forces[1].assets && forces[1].assets[0]) {
     const taskGroup: Asset = forces[1].assets[0]
@@ -59,13 +61,14 @@ it('Moves mcmv to top level from hosting', () => {
   }
 
   // check mcm is where we expect it to be
-  if (forces2 && forces2[1] && forces2[1].assets && forces2[1].assets[4]) {
-    expect(forces2[1].assets[4].uniqid).toEqual(mcmvId)
+  if (forces2 && forces2[1] && forces2[1].assets && forces2[1].assets[5]) {
+    expect(forces2[1].assets[5].uniqid).toEqual(mcmvId)
   }
 })
 
 it('Moves uav to top level from comprising and hosting', () => {
   const uavId = 'a0pra43302'
+  const forces = deepCopy(mockForces)
   // check merlin is where we expect it to be
   if (forces[1].assets && forces[1].assets[0]) {
     const taskGroup: Asset = forces[1].assets[0]
