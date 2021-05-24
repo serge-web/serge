@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import FlexLayout, { Model } from 'flexlayout-react'
+import FlexLayout, { IJsonModel, Model } from 'flexlayout-react'
 import { ChannelData } from '@serge/custom-types'
 import factory from './helpers/factory'
 import computeTabs from './helpers/computeTabs'
@@ -9,6 +9,7 @@ import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT, FLEX_LAYOUT_MODEL_DEFAULT } from '../../consts'
 import { getAllWargameMessages } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import Props from './types'
+import { deepCopy } from '@serge/helpers'
 
 const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement => {
   const state = usePlayerUiState()
@@ -17,7 +18,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
-  const setDefaultModel = () => {
+  const setDefaultModel = (): IJsonModel => {
     const { allChannels } = state
     const hasMap = allChannels.find(({ name }) => name.toLowerCase() === 'mapping')
     const setTabContent = (channel: ChannelData) => ({
@@ -54,18 +55,17 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
         children: tabChildren(tabset)
       }
     })
-    return {
-      ...FLEX_LAYOUT_MODEL_DEFAULT,
-      layout: {
-        type: 'row',
-        children
-      }
+    const res = deepCopy(FLEX_LAYOUT_MODEL_DEFAULT as IJsonModel)
+    res.layout = {
+      type: 'row',
+      children: children
     }
+    return res
   }
   const getModel = ():Model => {
     let model = expiredStorage.getItem(modelName)
     if (model) return FlexLayout.Model.fromJson(JSON.parse(model))
-    return FlexLayout.Model.fromJson(setDefaultModel())
+    return FlexLayout.Model.fromJson(setDefaultModel() as IJsonModel)
   }
 
   const [model] = useState<Model>(getModel())
