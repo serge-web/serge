@@ -15,9 +15,11 @@
     "test:unit": "jest --coverage -o",
     "lint": "run-p lint:*",
     "lint:ts": "eslint --fix src/**/*.ts*",
-    "lint:styles": "stylelint --fix src/**/*.scss",
     "build-storybook": "build-storybook -s ./static -c .storybook -o ../client/build/storybook",
     "add-component": "npx buildcom -sjt -c 'scss' -m"
+  },
+  "cancelled-scripts": {
+    "lint:styles": "stylelint --fix src/**/*.scss", 
   },
   "dependencies": {
     "@material-ui/core": "^4.9.2",
