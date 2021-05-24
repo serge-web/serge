@@ -496,7 +496,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
+//  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
 
   return <>
 
