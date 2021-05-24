@@ -53,6 +53,10 @@ class AdjudicationManager {
     this.platformDetails = undefined
   }
 
+  getContactId (): string {
+    return this.formData.contactId
+  }
+
   getPlatformDetails (): PlatformTypeData {
     if (this.platformDetails === undefined) {
       const selected: Route | undefined = this.store.selected

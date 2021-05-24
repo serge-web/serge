@@ -138,7 +138,7 @@ export const MapBar: React.FC = () => {
         // we do a "live-recalculation" in the render code
         setHidePlanningForm(false)
         setCurrentForm(newForm)
-        setCurrentAssetName(selectedAsset.contactId ? selectedAsset.contactId + ' - ' + selectedAsset.name : selectedAsset.name)
+        setCurrentAssetName(selectedAsset.name)
       } else {
         setCurrentAssetName('Pending')
       }
