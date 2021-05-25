@@ -9,7 +9,7 @@ import collatePerceptionFormData from './helpers/collate-perception-form-data'
 import collatePlanningOrders from './helpers/collate-planning-orders'
 import collateStateOfWorld from './helpers/collate-state-of-world'
 
-import { findAsset, forceFor, visibleTo } from '@serge/helpers'
+import { findAsset, forceFor, visibleTo, deepCopy } from '@serge/helpers'
 
 /* import types */
 import {
@@ -17,7 +17,7 @@ import {
   SelectedAsset, RouteStore, Route, SergeHex, SergeGrid,
   ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans, MapPostBack, MessageForceLaydown
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -176,7 +176,7 @@ export const MapBar: React.FC = () => {
         submitTitle = 'Submit routes'
       }
       if (submitTitle !== '' && submitTitle !== stateSubmitTitle) {
-        setStateSubmitTitle(submitTitle)      
+        setStateSubmitTitle(submitTitle)
       }
       if (formTitle !== '' && formTitle !== stateFormTitle) {
         setStateFormTitle(formTitle)
@@ -252,9 +252,15 @@ export const MapBar: React.FC = () => {
   }
 
   const acceptAllRoutesCallback = (): void => {
-    // TODO: helper to accept all routes not already accepted
-    START HERE
-    console.log('handling secondary callback')
+    if (routeStore) {
+      const newStore = deepCopy(routeStore)
+      newStore.routes.forEach((route: Route) => {
+        if (route.adjudicationState !== PlanningStates.Saved) {
+          route.adjudicationState = PlanningStates.Saved
+        }
+      })
+      setRouteStore(newStore)
+    }
   }
 
   /* TODO: This should be refactored into a helper */
