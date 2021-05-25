@@ -52,7 +52,9 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   // TODO - set the `divIcon` (or marker) background color according to
   // perceivedForceColor, not using the perceivedForceClass
-  console.log('should set background to', perceivedForceColor)
+  if (!perceivedForceClass) {
+    console.log('should set background to', perceivedForceColor)
+  }
 
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {

@@ -18,7 +18,8 @@ import {
   setSelectedChannel,
   addNewChannel,
   duplicateChannel,
-  saveWargameTitle
+  saveWargameTitle,
+  initiateWargame
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
@@ -225,8 +226,7 @@ const AdminGameSetup = () => {
   }
 
   const onWargameInitiate = () => {
-    // TOOD: handle this call
-    console.log('TODO handling initiate wargame in GameSetupNew.jsx', 'To be implemented once action reducers moved to TS')
+    dispatch(initiateWargame(currentWargame))
   }
 
   const handleSidebarForcesClick = force => {

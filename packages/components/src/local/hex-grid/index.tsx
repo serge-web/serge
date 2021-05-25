@@ -185,6 +185,7 @@ export const HexGrid: React.FC<{}> = () => {
         // see if current cell is acceptable
         // work out the available cells
         if (allowableCells.includes(dragDestination)) {
+          setPlanningRouteCells([dragDestination])
           // ok, set planning route to just that cell - to mark the
           // last acceptable cell
           setPlanningRouteCells([dragDestination])
@@ -256,14 +257,20 @@ export const HexGrid: React.FC<{}> = () => {
             setAllowableCells(allowableCellList)
           } else {
             // don't show allowable cells - we'll generate them "on the fly"
+            setAllowableCells([])
           }
         } else {
           const filteredCells = allowableCellList.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
           setAllowableCells(filteredCells)
 
-          // try to create convex polygon around cells
-          const hull = generateOuterBoundary(filteredCells)
-          setAllowablePoly(hull)
+          if (filteredCells.length <= 500) {
+            // try to create convex polygon around cells, but only if there
+            // arent' too many cells
+            const hull = generateOuterBoundary(filteredCells)
+            setAllowablePoly(hull)
+          } else {
+            setAllowablePoly([])
+          }
         }
       } else {
         // drop the marker if we can't find it
@@ -496,7 +503,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
+  //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length, allowableCells.length)
 
   return <>
 
@@ -547,7 +554,7 @@ export const HexGrid: React.FC<{}> = () => {
         fill={terrainPolys.length === 0} // only fill them if we don't have polys
         positions={cell.poly}
         stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
-        className={styles[getCellStyle(cell, planningRouteCells, allowableCells, cellForSelected)]}
+        className={styles[getCellStyle(cell, planningRouteCells, [], cellForSelected)]}
       />
     ))}
     { // special case - if we're in air travel mode the planning route may not be in the
