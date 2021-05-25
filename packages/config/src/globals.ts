@@ -33,6 +33,7 @@ export const TASK_GROUP = 'task-group'
 // series of constants used for `messageType` when sending map events
 export const FORCE_LAYDOWN = 'ForceLaydown'
 export const VISIBILITY_CHANGES = 'VisibilityChanges'
+export const DELETE_PLATFORM = 'DeletePlatform'
 export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 export const SUBMIT_PLANS = 'SubmitPlans'
 export const STATE_OF_WORLD = 'StateOfWorld'

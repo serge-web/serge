@@ -15,9 +15,9 @@ import { findAsset, forceFor, visibleTo, deepCopy } from '@serge/helpers'
 import {
   PlanTurnFormValues, PlanTurnFormData,
   SelectedAsset, RouteStore, Route, SergeHex, SergeGrid,
-  ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans, MapPostBack, MessageForceLaydown
+  ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans, MapPostBack, MessageForceLaydown, MessageDeletePlatform
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -265,6 +265,17 @@ export const MapBar: React.FC = () => {
     }
   }
 
+  const deleteEmptyTaskGroup = (): void => {
+    const payload: MessageDeletePlatform = {
+      messageType: DELETE_PLATFORM,
+      assetId: selectedAsset.uniqid
+    }
+    // clear the selected asset
+    setSelectedAsset(undefined)
+    // now trigger the delete
+    mapPostBack(DELETE_PLATFORM, payload, channelID)
+  }
+
   /* TODO: This should be refactored into a helper */
   const formSelector = (): React.ReactNode => {
     // do a fresh calculation on which form to display, to overcome
@@ -296,6 +307,11 @@ export const MapBar: React.FC = () => {
       case MapBarForms.Planning: {
         const canSubmit = canSubmitOrders && phase === PLANNING_PHASE
         const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
+        const actualAsset = findAsset(forces, selectedAsset.uniqid)
+        // is this an empty task group?
+        const emptyVessel = !actualAsset.comprising || actualAsset.comprising.length === 0
+        const deleteHandler = (actualAsset.platformType === 'task-group' && emptyVessel)
+          ? deleteEmptyTaskGroup : undefined
         return <PlanTurnForm
           icon={iconData}
           setHidePlanningForm={setHidePlanningForm}
@@ -305,6 +321,7 @@ export const MapBar: React.FC = () => {
           formHeader={currentAssetName}
           formData={formData}
           channelID={channelID}
+          deleteEmptyTaskGroup = {deleteHandler}
           turnPlanned={turnPlanned} />
       }
       case MapBarForms.Visibility:
