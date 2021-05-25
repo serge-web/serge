@@ -15,28 +15,28 @@
                         },
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [],
                             "subscriptionId": "fzcha",
                             "templates": []
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "hzrzp",
                             "templates": []
                         },
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [],
                             "subscriptionId": "0xirf",
                             "templates": []
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "icrx",
                             "templates": []
@@ -56,28 +56,28 @@
                         },
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [],
                             "subscriptionId": "88la",
                             "templates": []
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "jmpk",
                             "templates": []
                         },
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [],
                             "subscriptionId": "mgp9s",
                             "templates": []
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "kjoa",
                             "templates": []
@@ -90,14 +90,14 @@
                     "participants": [
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [],
                             "subscriptionId": "h034d",
                             "templates": []
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "fpf5h",
                             "templates": []
@@ -144,7 +144,7 @@
                     "participants": [
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [
                                 {
                                     "canSubmitPlans": true,
@@ -160,7 +160,7 @@
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [
                                 {
                                     "canSubmitPlans": true,
@@ -199,14 +199,14 @@
                     "participants": [
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [],
                             "subscriptionId": "bd4l",
                             "templates": []
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "7bayi",
                             "templates": []
@@ -253,7 +253,7 @@
                     "participants": [
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [
                                 {
                                     "canSubmitPlans": true,
@@ -269,7 +269,7 @@
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [
                                 {
                                     "canSubmitPlans": true,
@@ -308,7 +308,7 @@
                     "participants": [
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [],
                             "subscriptionId": "m7rk9i",
                             "templates": [
@@ -344,7 +344,7 @@
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "etkkn",
                             "templates": [
@@ -420,7 +420,7 @@
                     "participants": [
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [],
                             "subscriptionId": "7kwvj",
                             "templates": [
@@ -456,7 +456,7 @@
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "yd9e",
                             "templates": [
@@ -566,7 +566,7 @@
                         },
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [],
                             "subscriptionId": "i02cn",
                             "templates": [
@@ -602,7 +602,7 @@
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "3b3ww",
                             "templates": [
@@ -678,7 +678,7 @@
                         },
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [],
                             "subscriptionId": "vkeel",
                             "templates": [
@@ -714,7 +714,7 @@
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "1jp7",
                             "templates": [
@@ -763,28 +763,28 @@
                         },
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [],
                             "subscriptionId": "i0jjh",
                             "templates": []
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "w9lmf",
                             "templates": []
                         },
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [],
                             "subscriptionId": "vnuld",
                             "templates": []
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "x0kbe",
                             "templates": []
@@ -870,7 +870,7 @@
                             "name": "SSN",
                             "perceptions": [],
                             "position": "AH100",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a034a22t5431"
                         },
                         {
@@ -891,7 +891,7 @@
                                     "history": [],
                                     "name": "CV 2",
                                     "perceptions": [],
-                                    "platformType": "cv",
+                                    "platformType": "Carrier",
                                     "uniqid": "a012br1141",
                                     "hosting": [
                                         {
@@ -919,7 +919,7 @@
                                             "name": "Rotary Alpha",
                                             "perceptions": [],
                                             "platformType": "helicopter",
-                                            "uniqid": "a0534ty4331"
+                                            "uniqid": "a05866y4331"
                                         }
                                     ]
                                 },
@@ -989,7 +989,7 @@
                                     "history": [],
                                     "name": "FFG (TA)",
                                     "perceptions": [],
-                                    "platformType": "frigate",
+                                    "platformType": "frigate-ta",
                                     "uniqid": "a054ng6441",
                                     "hosting": [
                                         {
@@ -1009,7 +1009,7 @@
                                     "history": [],
                                     "name": "AO",
                                     "perceptions": [],
-                                    "platformType": "merchant-vessel",
+                                    "platformType": "Auxiliary",
                                     "uniqid": "a0pegfddg4221",
                                     "hosting": [
                                         {
@@ -1029,7 +1029,7 @@
                                     "history": [],
                                     "name": "AOR",
                                     "perceptions": [],
-                                    "platformType": "merchant-vessel",
+                                    "platformType": "Auxiliary",
                                     "uniqid": "a0pe43ddg4221"
                                 },
                                 {
@@ -1038,7 +1038,7 @@
                                     "history": [],
                                     "name": "SSN",
                                     "perceptions": [],
-                                    "platformType": "boghammer",
+                                    "platformType": "ssn",
                                     "uniqid": "a0a228764221"
                                 }
                             ],
@@ -1058,11 +1058,11 @@
                             "name": "SSN",
                             "perceptions": [],
                             "position": "AH94",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a0a975y4221"
                         }
                     ],
-                    "color": "#00008f",
+                    "color": "#00aaff",
                     "cssClass": "blue-1",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
@@ -1125,9 +1125,9 @@
                     ],
                     "umpire": false,
                     "visibleTo": [
-                        "force-koiqysc8"
+                        "Blue-2"
                     ],
-                    "uniqid": "force-koiqzx9d"
+                    "uniqid": "Blue-1"
                 },
                 {
                     "assets": [
@@ -1144,7 +1144,7 @@
                                 }
                             ],
                             "position": "BD85",
-                            "platformType": "frigate",
+                            "platformType": "frigate-ta",
                             "uniqid": "a0prbr6441",
                             "hosting": [
                                 {
@@ -1171,7 +1171,7 @@
                                 }
                             ],
                             "position": "BD87",
-                            "platformType": "frigate",
+                            "platformType": "frigate-ta",
                             "uniqid": "a0praa4321",
                             "hosting": [
                                 {
@@ -1192,7 +1192,7 @@
                             "name": "SSN",
                             "perceptions": [],
                             "position": "BB81",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a0a22ty4221"
                         },
                         {
@@ -1202,7 +1202,7 @@
                             "name": "MPA A",
                             "perceptions": [],
                             "position": "BH97",
-                            "platformType": "fixed-wing-aircraft",
+                            "platformType": "mpa",
                             "uniqid": "a0a22ty4331"
                         },
                         {
@@ -1212,11 +1212,11 @@
                             "name": "MPA B",
                             "perceptions": [],
                             "position": "BG98",
-                            "platformType": "fixed-wing-aircraft",
+                            "platformType": "mpa",
                             "uniqid": "a0a22bwr331"
                         }
                     ],
-                    "color": "#00aaff",
+                    "color": "#00008f",
                     "cssClass": "blue-2",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
@@ -1279,9 +1279,9 @@
                     ],
                     "umpire": false,
                     "visibleTo": [
-                        "force-koiqzx9d"
+                        "Blue-1"
                     ],
-                    "uniqid": "force-koiqysc8"
+                    "uniqid": "Blue-2"
                 },                
                 {
                     "assets": [
@@ -1355,7 +1355,7 @@
                             "name": "SSK 1",
                             "perceptions": [],
                             "position": "CL89",
-                            "platformType": "boghammer",
+                            "platformType": "ssk",
                             "uniqid": "a0376765422t5431"
                         },
                         {
@@ -1365,7 +1365,7 @@
                             "name": "SSK 2",
                             "perceptions": [],
                             "position": "CG86",
-                            "platformType": "boghammer",
+                            "platformType": "ssk",
                             "uniqid": "a0376qww5422t5431"
                         },
                         {
@@ -1375,7 +1375,7 @@
                             "name": "MPA 1",
                             "perceptions": [],
                             "position": "CX106",
-                            "platformType": "fixed-wing-aircraft",
+                            "platformType": "mpa",
                             "uniqid": "a0a112ty344331"
                         },
                         {
@@ -1385,7 +1385,7 @@
                             "name": "MPA 2",
                             "perceptions": [],
                             "position": "CM107",
-                            "platformType": "fixed-wing-aircraft",
+                            "platformType": "mpa",
                             "uniqid": "a03322ty344331"
                         },
                         {
@@ -1395,7 +1395,7 @@
                             "name": "MPA 3",
                             "perceptions": [],
                             "position": "CL119",
-                            "platformType": "fixed-wing-aircraft",
+                            "platformType": "mpa",
                             "uniqid": "a06622ty344331"
                         },
                         {
@@ -1472,9 +1472,9 @@
                     ],
                     "umpire": false,
                     "visibleTo": [
-                        "force-koir164l"
+                        "Red-2"
                     ],
-                    "uniqid": "force-koirc8rk"
+                    "uniqid": "Red-1"
                 },
                 {
                     "assets": [
@@ -1485,7 +1485,7 @@
                             "name": "SSN",
                             "perceptions": [],
                             "position": "BJ125",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a0365422t5431"
                         },
                         {
@@ -1495,7 +1495,7 @@
                             "name": "SSGN 1",
                             "perceptions": [],
                             "position": "BO113",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a0365sd565431"
                         },
                         {
@@ -1505,7 +1505,7 @@
                             "name": "SSGN 2",
                             "perceptions": [],
                             "position": "BO110",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a0365hgcc65431"
                         },
                         {
@@ -1535,7 +1535,7 @@
                             "name": "SSN",
                             "perceptions": [],
                             "position": "AI129",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a036657fd22t5431",
                             "hosting":[
                                 {
@@ -1544,7 +1544,7 @@
                                     "history": [],
                                     "name": "SS",
                                     "perceptions": [],
-                                    "platformType": "boghammer",
+                                    "platformType": "ssk",
                                     "uniqid": "a036657fd2df2t5431"
                                 }
                             ]
@@ -1613,9 +1613,9 @@
                     ],
                     "umpire": false,
                     "visibleTo": [
-                        "force-koirc8rk"
+                        "Red-1"
                     ],
-                    "uniqid": "force-koir164l"
+                    "uniqid": "Red-2"
                 },
                 {
                     "assets": [
@@ -1651,7 +1651,7 @@
                     "controlledBy": [
                         "umpire"
                     ],
-                    "uniqid": "force-koia4567"
+                    "uniqid": "Green"
                 }
             ],
             "name": "Forces",
@@ -1728,6 +1728,38 @@
                         }
                     ],
                     "travelMode": "sea"
+                },   
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "frigate-ta.svg",
+                    "name": "frigate-ta",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Transiting"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Mixed"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Active"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Passive"
+                        }
+                    ],
+                    "travelMode": "sea"
                 },                
                 {
                     "conditions": [
@@ -1755,28 +1787,8 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "DD",
-                    "speedKts": [
-                        10,
-                        20
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "frigate.svg",
-                    "name": "CV",
+                    "icon": "carrier.svg",
+                    "name": "Carrier",
                     "speedKts": [
                         10,
                         20
@@ -1799,8 +1811,8 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "AO",
+                    "icon": "auxiliary.svg",
+                    "name": "Auxiliary",
                     "speedKts": [
                         10,
                         20
@@ -1847,8 +1859,36 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "SS",
+                    "icon": "ssk.svg",
+                    "name": "SSK",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Transiting"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Aggressove"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Evasive"
+                        }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "ssn.svg",
+                    "name": "SSN",
                     "speedKts": [
                         10,
                         20
@@ -1891,6 +1931,26 @@
                     ],
                     "icon": "helicopter.svg",
                     "name": "Helicopter",
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Active"
+                        },
+                        {
+                            "mobile": false,
+                            "name": "Landed"
+                        }
+                    ],
+                    "travelMode": "air"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "mpa.svg",
+                    "name": "mpa",
                     "states": [
                         {
                             "mobile": true,
@@ -1992,35 +2052,6 @@
                             "name": "Transiting",
                             "mobile": true
                         }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "name": "CV",
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "cv.svg",
-                    "speedKts": [
-                        10,
-                        20
-                    ],
-                    "states": [
-                        {
-                            "name": "Moored",
-                            "mobile": false
-                        },
-                        {
-                            "name": "Transiting",
-                            "mobile": true
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Air Ops"
-                        }
-
                     ],
                     "travelMode": "sea"
                 },

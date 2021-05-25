@@ -9,7 +9,7 @@ exports[`VisibilityForm renders correctly 1`] = `
       className="main"
     >
       <h2>
-        asset-name
+        C345 -  asset-name
       </h2>
       <div
         className="icon"

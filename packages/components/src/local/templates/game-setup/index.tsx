@@ -19,6 +19,7 @@ export const GameSetup: React.FC<Props> = ({
   forces,
   channels,
   onTabChange,
+  onPressBack,
   wargame,
   tabs = [],
   wargameChanged,
@@ -44,7 +45,7 @@ export const GameSetup: React.FC<Props> = ({
   const currentActiveTab = wargame?.currentTab || activeTab
 
   return (
-    <AdminLayout onSave={onSaveGameTitle} wargame={wargame} activeTab={currentActiveTab} tabs={tabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
+    <AdminLayout onSave={onSaveGameTitle} wargame={wargame} activeTab={currentActiveTab} onPressBack={onPressBack} tabs={tabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>
         {
           currentActiveTab === 'overview' && (
