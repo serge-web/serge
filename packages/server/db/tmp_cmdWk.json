@@ -2011,12 +2011,12 @@
                     ],
                     "states": [
                         {
-                            "name": "Moored",
-                            "mobile": false
-                        },
-                        {
                             "name": "Transiting",
                             "mobile": true
+                        },
+                        {
+                            "name": "Moored",
+                            "mobile": false
                         }
                     ],
                     "travelMode": "sea"
@@ -2038,12 +2038,12 @@
                     ],
                     "states": [
                         {
-                            "name": "Moored",
-                            "mobile": false
-                        },
-                        {
                             "name": "Transiting",
                             "mobile": true
+                        },
+                        {
+                            "name": "Moored",
+                            "mobile": false
                         }
                     ],
                     "travelMode": "sea"
@@ -2063,12 +2063,12 @@
                     ],
                     "states": [
                         {
-                            "name": "Moored",
-                            "mobile": false
-                        },
-                        {
                             "name": "Transiting",
                             "mobile": true
+                        },
+                        {
+                            "name": "Moored",
+                            "mobile": false
                         }
                     ],
                     "travelMode": "sea"
