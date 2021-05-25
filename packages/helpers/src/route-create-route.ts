@@ -180,17 +180,17 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
       // after game has started. In the longer term we
       // probably need to clear laydown flags when game is
       // initiated. For now we'll just ignore the value
-      console.log('ignoring laydown status')
-      return LaydownPhases.NotInLaydown
-      // const routePos = route && route.currentPosition
-      // const currentPos = routePos ? routePos : currentPosition
-      // if (currentPos !== originalPosition) {
-      //   // on map, but still can be moved
-      //   return LaydownPhases.Moved
-      // } else {
-      //   // not on map yet
-      //   return LaydownPhases.Unmoved
-      // }
+      // console.log('ignoring laydown status')
+      // return LaydownPhases.NotInLaydown
+      const routePos = route && route.currentPosition
+      const currentPos = routePos || currentPosition
+      if (currentPos !== originalPosition) {
+        // on map, but still can be moved
+        return LaydownPhases.Moved
+      } else {
+        // not on map yet
+        return LaydownPhases.Unmoved
+      }
     } else {
       return LaydownPhases.Immobile
     }
