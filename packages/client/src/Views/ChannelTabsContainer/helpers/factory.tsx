@@ -6,7 +6,8 @@ import { FORCE_LAYDOWN,
   CREATE_TASK_GROUP, 
   LEAVE_TASK_GROUP, 
   HOST_PLATFORM, 
-  SUBMIT_PLANS, 
+  SUBMIT_PLANS,
+  DELETE_PLATFORM,
   VISIBILITY_CHANGES, 
   Phase } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
@@ -86,7 +87,10 @@ const factory = (state: PlayerUi): Factory => {
       case HOST_PLATFORM:
         sendMapMessage(HOST_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
         break
-      default:
+      case DELETE_PLATFORM:
+        sendMapMessage(DELETE_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        break
+        default:
       console.log('Handler not created for', form)
     }
   }
