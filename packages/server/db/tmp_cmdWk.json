@@ -868,6 +868,7 @@
                             "condition": "Working",
                             "contactId": "C426",
                             "history": [],
+                            "locationPending": true,
                             "name": "SSN",
                             "perceptions": [],
                             "position": "AH100",
@@ -878,6 +879,7 @@
                             "condition": "Working",
                             "contactId": "C892",
                             "history": [],
+                            "locationPending": true,
                             "name": "F-35 Sqn",
                             "perceptions": [],
                             "position": "BJ91",
@@ -1003,7 +1005,7 @@
                                             "uniqid": "a0a3242ty4331"
                                         }
                                     ]
-                                },                       
+                                },
                                 {
                                     "condition": "Working",
                                     "contactId": "C332",
@@ -1046,6 +1048,7 @@
                             "condition": "Working",
                             "contactId": "C164",
                             "history": [],
+                            "locationPending": true,
                             "name": "Task Group",
                             "perceptions": [],
                             "position": "AJ94",
@@ -1056,6 +1059,7 @@
                             "condition": "Working",
                             "contactId": "C866",
                             "history": [],
+                            "locationPending": true,
                             "name": "SSN",
                             "perceptions": [],
                             "position": "AH94",
@@ -1136,14 +1140,9 @@
                             "condition": "Working",
                             "contactId": "C964",
                             "history": [],
+                            "locationPending": true,
                             "name": "FFG(TA)",
-                            "perceptions": [
-                                {
-                                    "by": "CTF X",
-                                    "force": "CTF A",
-                                    "name": "Frigate A Perceived Name"
-                                }
-                            ],
+                            "perceptions": [],
                             "position": "BD85",
                             "platformType": "frigate-ta",
                             "uniqid": "a0prbr6441",
@@ -1163,14 +1162,9 @@
                             "condition": "Working",
                             "contactId": "C116",
                             "history": [],
+                            "locationPending": true,
                             "name": "FFG (TA)",
-                            "perceptions": [
-                                {
-                                    "by": "CTF X",
-                                    "force": "CTF B",
-                                    "name": "Frigate V Perceived Name"
-                                }
-                            ],
+                            "perceptions": [],
                             "position": "BD87",
                             "platformType": "frigate-ta",
                             "uniqid": "a0praa4321",
@@ -1190,6 +1184,7 @@
                             "condition": "Working",
                             "contactId": "C726",
                             "history": [],
+                            "locationPending": true,
                             "name": "SSN",
                             "perceptions": [],
                             "position": "BB81",
@@ -1200,6 +1195,7 @@
                             "condition": "Working",
                             "contactId": "C212",
                             "history": [],
+                            "locationPending": true,
                             "name": "MPA A",
                             "perceptions": [],
                             "position": "BH97",
@@ -1210,6 +1206,7 @@
                             "condition": "Working",
                             "contactId": "C002",
                             "history": [],
+                            "locationPending": true,
                             "name": "MPA B",
                             "perceptions": [],
                             "position": "BG98",
@@ -1283,11 +1280,11 @@
                         "Blue-1"
                     ],
                     "uniqid": "Blue-2"
-                },                
+                },
                 {
                     "assets": [
                         {
-                            "comprising": [                            
+                            "comprising": [
                                 {
                                     "condition": "Working",
                                     "contactId": "C265",
@@ -1328,11 +1325,11 @@
                                         }
                                     ]
                                 }
-
                             ],
                             "condition": "Working",
                             "contactId": "C361",
                             "history": [],
+                            "locationPending": true,
                             "name": "SAG",
                             "perceptions": [],
                             "position": "BM92",
@@ -1343,6 +1340,7 @@
                             "condition": "Working",
                             "contactId": "C122",
                             "history": [],
+                            "locationPending": true,
                             "name": "AGI",
                             "perceptions": [],
                             "position": "BS92",
@@ -1353,6 +1351,7 @@
                             "condition": "Working",
                             "contactId": "C766",
                             "history": [],
+                            "locationPending": true,
                             "name": "SSK 1",
                             "perceptions": [],
                             "position": "CL89",
@@ -1363,6 +1362,7 @@
                             "condition": "Working",
                             "contactId": "C636",
                             "history": [],
+                            "locationPending": true,
                             "name": "SSK 2",
                             "perceptions": [],
                             "position": "CG86",
@@ -1373,6 +1373,7 @@
                             "condition": "Working",
                             "contactId": "C542",
                             "history": [],
+                            "locationPending": true,
                             "name": "MPA 1",
                             "perceptions": [],
                             "position": "CX106",
@@ -1383,6 +1384,7 @@
                             "condition": "Working",
                             "contactId": "C442",
                             "history": [],
+                            "locationPending": true,
                             "name": "MPA 2",
                             "perceptions": [],
                             "position": "CM107",
@@ -1393,6 +1395,7 @@
                             "condition": "Working",
                             "contactId": "C342",
                             "history": [],
+                            "locationPending": true,
                             "name": "MPA 3",
                             "perceptions": [],
                             "position": "CL119",
@@ -1403,6 +1406,7 @@
                             "condition": "Working",
                             "contactId": "C113",
                             "history": [],
+                            "locationPending": true,
                             "name": "CDCM",
                             "perceptions": [],
                             "position": "CV99",
@@ -1410,7 +1414,7 @@
                             "uniqid": "a06342423g344331"
                         }
                     ],
-                    "color": "#ff4b60",
+                    "color": "#f00",
                     "cssClass": "red-1",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
@@ -1483,6 +1487,7 @@
                             "condition": "Working",
                             "contactId": "C496",
                             "history": [],
+                            "locationPending": true,
                             "name": "SSN",
                             "perceptions": [],
                             "position": "BJ125",
@@ -1493,6 +1498,7 @@
                             "condition": "Working",
                             "contactId": "C454",
                             "history": [],
+                            "locationPending": true,
                             "name": "SSGN 1",
                             "perceptions": [],
                             "position": "BO113",
@@ -1503,6 +1509,7 @@
                             "condition": "Working",
                             "contactId": "C774",
                             "history": [],
+                            "locationPending": true,
                             "name": "SSGN 2",
                             "perceptions": [],
                             "position": "BO110",
@@ -1513,6 +1520,7 @@
                             "condition": "Working",
                             "contactId": "C532",
                             "history": [],
+                            "locationPending": true,
                             "name": "AGI 1",
                             "perceptions": [],
                             "position": "AW120",
@@ -1523,6 +1531,7 @@
                             "condition": "Working",
                             "contactId": "C122",
                             "history": [],
+                            "locationPending": true,
                             "name": "AGI 2",
                             "perceptions": [],
                             "position": "AK110",
@@ -1533,12 +1542,13 @@
                             "condition": "Working",
                             "contactId": "C7676",
                             "history": [],
+                            "locationPending": true,
                             "name": "SSN",
                             "perceptions": [],
                             "position": "AI129",
                             "platformType": "ssn",
                             "uniqid": "a036657fd22t5431",
-                            "hosting":[
+                            "hosting": [
                                 {
                                     "condition": "Working",
                                     "contactId": "C450",
@@ -1551,7 +1561,7 @@
                             ]
                         }
                     ],
-                    "color": "#ff0b60",
+                    "color": "#ff7b7b",
                     "cssClass": "red-2",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
@@ -1731,7 +1741,7 @@
                         }
                     ],
                     "travelMode": "sea"
-                },   
+                },
                 {
                     "conditions": [
                         "Working",
@@ -1765,7 +1775,7 @@
                         }
                     ],
                     "travelMode": "sea"
-                },                
+                },
                 {
                     "conditions": [
                         "Working",
@@ -1785,7 +1795,7 @@
                         }
                     ],
                     "travelMode": "air"
-                },                
+                },
                 {
                     "conditions": [
                         "Working",
