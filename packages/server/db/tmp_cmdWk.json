@@ -870,7 +870,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "SSN",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-1"},
+                                { "by": "Red-2", "force": "Blue-1"}
+                            ],
                             "position": "AH100",
                             "platformType": "ssn",
                             "uniqid": "a034a22t5431"
@@ -881,7 +884,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "F-35 Sqn",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-1"},
+                                { "by": "Red-2", "force": "Blue-1"}
+                            ],
                             "position": "BJ91",
                             "platformType": "fixed-wing-aircraft",
                             "uniqid": "a0a411ty54351"
@@ -893,8 +899,11 @@
                                     "contactId": "C764",
                                     "history": [],
                                     "name": "CV 2",
-                                    "perceptions": [],
-                                    "platformType": "Carrier",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "Carrier",
                                     "uniqid": "a012br1141",
                                     "hosting": [
                                         {
@@ -931,8 +940,11 @@
                                     "contactId": "W165",
                                     "history": [],
                                     "name": "Destroyer A",
-                                    "perceptions": [],
-                                    "platformType": "destroyer",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "destroyer",
                                     "uniqid": "a0phng6441",
                                     "hosting": [
                                         {
@@ -951,8 +963,11 @@
                                     "contactId": "D643",
                                     "history": [],
                                     "name": "Destroyer B",
-                                    "perceptions": [],
-                                    "platformType": "destroyer",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "destroyer",
                                     "uniqid": "a05435g6441",
                                     "hosting": [
                                         {
@@ -971,8 +986,11 @@
                                     "contactId": "C165",
                                     "history": [],
                                     "name": "FFG (GP)",
-                                    "perceptions": [],
-                                    "platformType": "frigate",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "frigate",
                                     "uniqid": "a0prng6441",
                                     "hosting": [
                                         {
@@ -991,8 +1009,11 @@
                                     "contactId": "C643",
                                     "history": [],
                                     "name": "FFG (TA)",
-                                    "perceptions": [],
-                                    "platformType": "frigate-ta",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "frigate-ta",
                                     "uniqid": "a054ng6441",
                                     "hosting": [
                                         {
@@ -1011,8 +1032,11 @@
                                     "contactId": "C332",
                                     "history": [],
                                     "name": "AO",
-                                    "perceptions": [],
-                                    "platformType": "Auxiliary",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "Auxiliary",
                                     "uniqid": "a0pegfddg4221",
                                     "hosting": [
                                         {
@@ -1031,8 +1055,11 @@
                                     "contactId": "C132",
                                     "history": [],
                                     "name": "AOR",
-                                    "perceptions": [],
-                                    "platformType": "Auxiliary",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "Auxiliary",
                                     "uniqid": "a0pe43ddg4221"
                                 },
                                 {
@@ -1041,7 +1068,7 @@
                                     "history": [],
                                     "name": "SSN",
                                     "perceptions": [],
-                                    "platformType": "ssn",
+                                            "platformType": "ssn",
                                     "uniqid": "a0a228764221"
                                 }
                             ],
@@ -1050,7 +1077,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "Task Group",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-1"},
+                                { "by": "Red-2", "force": "Blue-1"}
+                            ],
                             "position": "AJ94",
                             "platformType": "task-group",
                             "uniqid": "a0prbr1141"
@@ -1142,7 +1172,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "FFG(TA)",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-2"},
+                                { "by": "Red-2", "force": "Blue-2"}
+                            ],
                             "position": "BD85",
                             "platformType": "frigate-ta",
                             "uniqid": "a0prbr6441",
@@ -1164,7 +1197,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "FFG (TA)",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-2"},
+                                { "by": "Red-2", "force": "Blue-2"}
+                            ],
                             "position": "BD87",
                             "platformType": "frigate-ta",
                             "uniqid": "a0praa4321",
@@ -1186,7 +1222,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "SSN",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-2"},
+                                { "by": "Red-2", "force": "Blue-2"}
+                            ],
                             "position": "BB81",
                             "platformType": "ssn",
                             "uniqid": "a0a22ty4221"
@@ -1197,7 +1236,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "MPA A",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-2"},
+                                { "by": "Red-2", "force": "Blue-2"}
+                            ],
                             "position": "BH97",
                             "platformType": "mpa",
                             "uniqid": "a0a22ty4331"
@@ -1208,7 +1250,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "MPA B",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-2"},
+                                { "by": "Red-2", "force": "Blue-2"}
+                            ],
                             "position": "BG98",
                             "platformType": "mpa",
                             "uniqid": "a0a22bwr331"
@@ -1331,7 +1376,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "SAG",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Blue-1", "force": "Red-1"},
+                                { "by": "Blue-2", "force": "Red-1"}
+                            ],
                             "position": "BM92",
                             "platformType": "task-group",
                             "uniqid": "a0p765edf41"
@@ -1375,7 +1423,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "MPA 1",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Blue-1", "force": "Red-1"},
+                                { "by": "Blue-2", "force": "Red-1"}
+                            ],
                             "position": "CX106",
                             "platformType": "mpa",
                             "uniqid": "a0a112ty344331"
@@ -1386,7 +1437,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "MPA 2",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Blue-1", "force": "Red-1"},
+                                { "by": "Blue-2", "force": "Red-1"}
+                            ],
                             "position": "CM107",
                             "platformType": "mpa",
                             "uniqid": "a03322ty344331"
@@ -1522,7 +1576,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "AGI 1",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Blue-1", "force": "Red-2"},
+                                { "by": "Blue-2", "force": "Red-2"}
+                            ],
                             "position": "AW120",
                             "platformType": "agi",
                             "uniqid": "a0a4543ty54351"
@@ -1533,7 +1590,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "AGI 2",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Blue-1", "force": "Red-2"},
+                                { "by": "Blue-2", "force": "Red-2"}
+                            ],
                             "position": "AK110",
                             "platformType": "agi",
                             "uniqid": "a03ty54351"
