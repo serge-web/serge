@@ -266,7 +266,7 @@ export const MapBar: React.FC = () => {
   }
 
   const deleteEmptyTaskGroup = (): void => {
-    const payload: MessageDeletePlatform  = {
+    const payload: MessageDeletePlatform = {
       messageType: DELETE_PLATFORM,
       assetId: selectedAsset.uniqid
     }
@@ -309,9 +309,9 @@ export const MapBar: React.FC = () => {
         const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
         const actualAsset = findAsset(forces, selectedAsset.uniqid)
         // is this an empty task group?
-        const emptyVessel = !actualAsset.comprising || actualAsset.comprising.length == 0
-        const deleteHandler = (actualAsset.platformType === 'task-group' && emptyVessel) ?
-          deleteEmptyTaskGroup : undefined
+        const emptyVessel = !actualAsset.comprising || actualAsset.comprising.length === 0
+        const deleteHandler = (actualAsset.platformType === 'task-group' && emptyVessel)
+          ? deleteEmptyTaskGroup : undefined
         return <PlanTurnForm
           icon={iconData}
           setHidePlanningForm={setHidePlanningForm}
