@@ -80,7 +80,7 @@ export default interface MappingContext {
   /** 
    * the current map bounds
    */
-  viewport: L.LatLngBounds | undefined,
+  viewport: L.LatLngBounds | undefined
   /**
    *  state for zoom Level
    **/
