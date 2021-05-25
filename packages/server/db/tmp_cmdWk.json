@@ -870,10 +870,7 @@
                             "history": [],
                             "locationPending": true,
                             "name": "SSN",
-                            "perceptions": [
-                                { "by": "Red-1", "force": "Blue-1"},
-                                { "by": "Red-2", "force": "Blue-1"}
-                            ],
+                            "perceptions": [],
                             "position": "AH100",
                             "platformType": "ssn",
                             "uniqid": "a034a22t5431"
@@ -1222,10 +1219,7 @@
                             "history": [],
                             "locationPending": true,
                             "name": "SSN",
-                            "perceptions": [
-                                { "by": "Red-1", "force": "Blue-2"},
-                                { "by": "Red-2", "force": "Blue-2"}
-                            ],
+                            "perceptions": [],
                             "position": "BB81",
                             "platformType": "ssn",
                             "uniqid": "a0a22ty4221"
