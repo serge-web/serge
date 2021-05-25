@@ -103,13 +103,13 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
       platformType={icon.platformType}
     >
       {formHeader}
+      { deleteEmptyTaskGroup &&
+        <Button onClick={deleteEmptyTaskGroup}>Group Empty - <b>Delete</b></Button>
+      }
       { plansSubmitted &&
        <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
       }
     </TitleWithIcon>
-      { deleteEmptyTaskGroup &&
-        <Button onClick={deleteEmptyTaskGroup}>Delete empty task group</Button>
-      }
     <FormGroup title="State" align="right">
       <Select
         className={clSelect}
