@@ -12,6 +12,7 @@ import {
   CREATE_TASK_GROUP,
   LEAVE_TASK_GROUP,
   HOST_PLATFORM,
+  DELETE_PLATFORM,
   CollaborativeMessageStates
 } from '@serge/config'
 
@@ -198,6 +199,12 @@ export interface MessageVisibilityChanges {
   condition?: string
 }
 
+
+export interface MessageDeletePlatform {
+  messageType: typeof DELETE_PLATFORM,
+  readonly assetId: string,
+}
+
 export interface MessageSubmitPlans {
   readonly messageType: typeof SUBMIT_PLANS,
   readonly plannedRoutes: PlannedRoute[]
@@ -215,7 +222,8 @@ export type MessageMap = MessageForceLaydown |
                          MessageStateOfWorld |
                          MessageCreateTaskGroup |
                          MessageLeaveTaskGroup | 
-                         MessageHostPlatform
+                         MessageHostPlatform |
+                         MessageDeletePlatform
 
 
 export type MessageChannel = MessageInfoTypeClipped |

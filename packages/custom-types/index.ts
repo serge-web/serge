@@ -30,6 +30,7 @@ export { default as Message,
          MessageCreateTaskGroup,
          MessageLeaveTaskGroup,
          MessageHostPlatform,
+         MessageDeletePlatform,
          // System Messages
          MessageFeedback,
          MessageInfoType,

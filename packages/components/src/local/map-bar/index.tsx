@@ -15,9 +15,9 @@ import { findAsset, forceFor, visibleTo, deepCopy } from '@serge/helpers'
 import {
   PlanTurnFormValues, PlanTurnFormData,
   SelectedAsset, RouteStore, Route, SergeHex, SergeGrid,
-  ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans, MapPostBack, MessageForceLaydown
+  ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans, MapPostBack, MessageForceLaydown, MessageDeletePlatform
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -266,7 +266,14 @@ export const MapBar: React.FC = () => {
   }
 
   const deleteEmptyTaskGroup = (): void {
-    console.log('deleting empty task group')
+    const payload: MessageDeletePlatform  = {
+      messageType: DELETE_PLATFORM,
+      assetId: selectedAsset.uniqid
+    }
+    // clear the selected asset
+    setSelectedAsset(undefined)
+    // now trigger the delete
+    mapPostBack(DELETE_PLATFORM, payload, channelID)
   }
 
   /* TODO: This should be refactored into a helper */
