@@ -34,6 +34,9 @@ export const STORYBOOK_ROUTE = './storybook'
 export const expiredStorage = new ExpiredStorage()
 export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
 
+// special platform-type, used for task group. Must match `platform-types` definition
+export const TASK_GROUP = 'task-group'
+
 export const MAX_LISTENERS = 82
 
 export const UMPIRE_FORCE = 'umpire'
