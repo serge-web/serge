@@ -182,11 +182,10 @@ export const HexGrid: React.FC<{}> = () => {
         // we don't show path in laydown mode
         setPlanningRoutePoly([])
 
-        console.log('dragDest', allowableCells.includes(dragDestination), allowableCells.length, dragDestination)
-
         // see if current cell is acceptable
         // work out the available cells
         if (allowableCells.includes(dragDestination)) {
+          setPlanningRouteCells([dragDestination])
           // ok, set planning route to just that cell - to mark the
           // last acceptable cell
           setPlanningRouteCells([dragDestination])
@@ -504,7 +503,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length, allowableCells.length)
+//  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length, allowableCells.length)
 
   return <>
 
