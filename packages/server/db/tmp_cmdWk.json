@@ -15,28 +15,28 @@
                         },
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [],
                             "subscriptionId": "fzcha",
                             "templates": []
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "hzrzp",
                             "templates": []
                         },
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [],
                             "subscriptionId": "0xirf",
                             "templates": []
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "icrx",
                             "templates": []
@@ -56,28 +56,28 @@
                         },
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [],
                             "subscriptionId": "88la",
                             "templates": []
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "jmpk",
                             "templates": []
                         },
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [],
                             "subscriptionId": "mgp9s",
                             "templates": []
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "kjoa",
                             "templates": []
@@ -90,14 +90,14 @@
                     "participants": [
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [],
                             "subscriptionId": "h034d",
                             "templates": []
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "fpf5h",
                             "templates": []
@@ -144,7 +144,7 @@
                     "participants": [
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [
                                 {
                                     "canSubmitPlans": true,
@@ -160,7 +160,7 @@
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [
                                 {
                                     "canSubmitPlans": true,
@@ -199,14 +199,14 @@
                     "participants": [
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [],
                             "subscriptionId": "bd4l",
                             "templates": []
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "7bayi",
                             "templates": []
@@ -253,7 +253,7 @@
                     "participants": [
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [
                                 {
                                     "canSubmitPlans": true,
@@ -269,7 +269,7 @@
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [
                                 {
                                     "canSubmitPlans": true,
@@ -308,7 +308,7 @@
                     "participants": [
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [],
                             "subscriptionId": "m7rk9i",
                             "templates": [
@@ -344,7 +344,7 @@
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "etkkn",
                             "templates": [
@@ -420,7 +420,7 @@
                     "participants": [
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [],
                             "subscriptionId": "7kwvj",
                             "templates": [
@@ -456,7 +456,7 @@
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "yd9e",
                             "templates": [
@@ -566,7 +566,7 @@
                         },
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [],
                             "subscriptionId": "i02cn",
                             "templates": [
@@ -602,7 +602,7 @@
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "3b3ww",
                             "templates": [
@@ -678,7 +678,7 @@
                         },
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [],
                             "subscriptionId": "vkeel",
                             "templates": [
@@ -714,7 +714,7 @@
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "1jp7",
                             "templates": [
@@ -763,28 +763,28 @@
                         },
                         {
                             "force": "CTF A",
-                            "forceUniqid": "force-koiqysc8",
+                            "forceUniqid": "Blue-2",
                             "roles": [],
                             "subscriptionId": "i0jjh",
                             "templates": []
                         },
                         {
                             "force": "CTF B",
-                            "forceUniqid": "force-koiqzx9d",
+                            "forceUniqid": "Blue-1",
                             "roles": [],
                             "subscriptionId": "w9lmf",
                             "templates": []
                         },
                         {
                             "force": "CTF X",
-                            "forceUniqid": "force-koir164l",
+                            "forceUniqid": "Red-2",
                             "roles": [],
                             "subscriptionId": "vnuld",
                             "templates": []
                         },
                         {
                             "force": "CTF Y",
-                            "forceUniqid": "force-koirc8rk",
+                            "forceUniqid": "Red-1",
                             "roles": [],
                             "subscriptionId": "x0kbe",
                             "templates": []
@@ -1062,7 +1062,7 @@
                             "uniqid": "a0a975y4221"
                         }
                     ],
-                    "color": "#00008f",
+                    "color": "#00aaff",
                     "cssClass": "blue-1",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
@@ -1125,9 +1125,9 @@
                     ],
                     "umpire": false,
                     "visibleTo": [
-                        "force-koiqysc8"
+                        "Blue-2"
                     ],
-                    "uniqid": "force-koiqzx9d"
+                    "uniqid": "Blue-1"
                 },
                 {
                     "assets": [
@@ -1216,7 +1216,7 @@
                             "uniqid": "a0a22bwr331"
                         }
                     ],
-                    "color": "#00aaff",
+                    "color": "#00008f",
                     "cssClass": "blue-2",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
@@ -1279,9 +1279,9 @@
                     ],
                     "umpire": false,
                     "visibleTo": [
-                        "force-koiqzx9d"
+                        "Blue-1"
                     ],
-                    "uniqid": "force-koiqysc8"
+                    "uniqid": "Blue-2"
                 },                
                 {
                     "assets": [
@@ -1472,9 +1472,9 @@
                     ],
                     "umpire": false,
                     "visibleTo": [
-                        "force-koir164l"
+                        "Red-2"
                     ],
-                    "uniqid": "force-koirc8rk"
+                    "uniqid": "Red-1"
                 },
                 {
                     "assets": [
@@ -1613,9 +1613,9 @@
                     ],
                     "umpire": false,
                     "visibleTo": [
-                        "force-koirc8rk"
+                        "Red-1"
                     ],
-                    "uniqid": "force-koir164l"
+                    "uniqid": "Red-2"
                 },
                 {
                     "assets": [
@@ -1651,7 +1651,7 @@
                     "controlledBy": [
                         "umpire"
                     ],
-                    "uniqid": "force-koia4567"
+                    "uniqid": "Green"
                 }
             ],
             "name": "Forces",
