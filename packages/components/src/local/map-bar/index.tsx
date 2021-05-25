@@ -45,7 +45,7 @@ export const MapBar: React.FC = () => {
 
   const [stateFormTitle, setStateFormTitle] = useState<string>('')
   const [stateSubmitTitle, setStateSubmitTitle] = useState<string>('')
-  const [secondaryStateTitle, setSecondaryStateTitle] = useState<string>('')
+  const [secondaryStateTitle, setSecondaryStateTitle] = useState<string | undefined>(undefined)
   const [userIsUmpire, setUserIsUmpire] = useState<boolean | undefined>(undefined)
 
   const [adjudicationManager, setAdjudicationManager] = useState<AdjudicationManager | undefined>(undefined)
@@ -183,6 +183,8 @@ export const MapBar: React.FC = () => {
       }
       if (secondaryTitle !== '') {
         setSecondaryStateTitle(secondaryTitle)
+      } else {
+        setSecondaryStateTitle(undefined)
       }
     }
   }, [phase, playerForce, turnNumber, routeStore])

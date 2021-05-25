@@ -14,7 +14,7 @@ import { GroupItem, PlatformTypeData, Route } from '@serge/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
-import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases } from '@serge/config'
+import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases, Phase } from '@serge/config'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
 import { findPlatformTypeFor } from '@serge/helpers'
@@ -104,6 +104,14 @@ export const WorldState: React.FC<PropTypes> = ({
       if (setPlansSubmitted) {
         setPlansSubmitted(true)
       }
+    }
+  }
+
+  const plannedRoutesPending = (): boolean => {
+    if (phase === Phase.Adjudication && isUmpire) {
+      return !!store.routes.find((route: Route) => route.adjudicationState !== PlanningStates.Saved)
+    } else {
+      return false
     }
   }
 
@@ -222,7 +230,7 @@ export const WorldState: React.FC<PropTypes> = ({
           { secondaryButtonLabel &&
             <Button disabled={plansSubmitted} onClick={secondaryButtonCallback}>{secondaryButtonLabel}</Button>
           }
-          <Button disabled={plansSubmitted} onClick={onConfirm}>{submitTitle}</Button>
+          <Button disabled={plansSubmitted || plannedRoutesPending()} onClick={onConfirm}>{submitTitle}</Button>
         </div>
       }
 
