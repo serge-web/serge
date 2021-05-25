@@ -826,6 +826,7 @@
                             "canSubmitPlans": true,
                             "isGameControl": true,
                             "isInsightViewer": true,
+                            "isRFIManager": false,
                             "isObserver": true,
                             "name": "Game Control",
                             "password": "pkoiqu5ev"
@@ -1706,8 +1707,10 @@
                     "icon": "frigate.svg",
                     "name": "frigate",
                     "speedKts": [
-                        10,
-                        20
+                        6,
+                        12,
+                        18,
+                        24
                     ],
                     "states": [
                         {
@@ -1738,8 +1741,10 @@
                     "icon": "frigate-ta.svg",
                     "name": "frigate-ta",
                     "speedKts": [
-                        10,
-                        20
+                        6,
+                        12,
+                        18,
+                        24
                     ],
                     "states": [
                         {
@@ -1790,8 +1795,11 @@
                     "icon": "carrier.svg",
                     "name": "Carrier",
                     "speedKts": [
-                        10,
-                        20
+                        6,
+                        12,
+                        18,
+                        24,
+                        30
                     ],
                     "states": [
                         {
@@ -1814,8 +1822,8 @@
                     "icon": "auxiliary.svg",
                     "name": "Auxiliary",
                     "speedKts": [
-                        10,
-                        20
+                        6,
+                        12
                     ],
                     "states": [
                         {
@@ -1838,8 +1846,11 @@
                     "icon": "destroyer.svg",
                     "name": "Destroyer",
                     "speedKts": [
-                        10,
-                        20
+                        6,
+                        12,
+                        18,
+                        24,
+                        30
                     ],
                     "states": [
                         {
@@ -1862,8 +1873,9 @@
                     "icon": "ssk.svg",
                     "name": "SSK",
                     "speedKts": [
-                        10,
-                        20
+                        6,
+                        12,
+                        18
                     ],
                     "states": [
                         {
@@ -1890,8 +1902,10 @@
                     "icon": "ssn.svg",
                     "name": "SSN",
                     "speedKts": [
-                        10,
-                        20
+                        6,
+                        12,
+                        18,
+                        24
                     ],
                     "states": [
                         {
@@ -1992,17 +2006,17 @@
                     ],
                     "icon": "merchant-vessel.svg",
                     "speedKts": [
-                        10,
-                        20
+                        6,
+                        12
                     ],
                     "states": [
                         {
-                            "name": "Moored",
-                            "mobile": false
-                        },
-                        {
                             "name": "Transiting",
                             "mobile": true
+                        },
+                        {
+                            "name": "Moored",
+                            "mobile": false
                         }
                     ],
                     "travelMode": "sea"
@@ -2016,17 +2030,20 @@
                     ],
                     "icon": "boghammer.svg",
                     "speedKts": [
-                        10,
-                        20
+                        6,
+                        12,
+                        18,
+                        24,
+                        30
                     ],
                     "states": [
                         {
-                            "name": "Moored",
-                            "mobile": false
-                        },
-                        {
                             "name": "Transiting",
                             "mobile": true
+                        },
+                        {
+                            "name": "Moored",
+                            "mobile": false
                         }
                     ],
                     "travelMode": "sea"
@@ -2040,17 +2057,18 @@
                     ],
                     "icon": "agi.svg",
                     "speedKts": [
-                        10,
-                        20
+                        6,
+                        12,
+                        18
                     ],
                     "states": [
                         {
-                            "name": "Moored",
-                            "mobile": false
-                        },
-                        {
                             "name": "Transiting",
                             "mobile": true
+                        },
+                        {
+                            "name": "Moored",
+                            "mobile": false
                         }
                     ],
                     "travelMode": "sea"
@@ -2064,8 +2082,11 @@
                     ],
                     "icon": "task-group.svg",
                     "speedKts": [
-                        10,
-                        20
+                        6,
+                        12,
+                        18,
+                        24,
+                        30
                     ],
                     "states": [
                         {
