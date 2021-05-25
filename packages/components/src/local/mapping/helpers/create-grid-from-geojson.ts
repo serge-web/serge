@@ -126,7 +126,7 @@ const createGridFromGeoJSON = (cells: any, tileSizeMins: number): SergeGrid<Serg
         return origin
       } else {
         // find adjacent hexes
-        const ring = sergeGrid.hexesInRange(origin, 5)
+        const ring = sergeGrid.hexesInRange(origin, 7)
         const found = ring.find(hex => {
           const oPoly = L.polyline(hex.poly)
           return isMarkerInsidePolygon(latLng, oPoly)
