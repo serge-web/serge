@@ -91,4 +91,8 @@ export default interface Props extends AdminLayoutProps {
    * Handle wargame being initiated
    */
   onWargameInitiate: () => void
+  /**
+   * Handle back button event
+   */
+   onPressBack?: () => void
 }

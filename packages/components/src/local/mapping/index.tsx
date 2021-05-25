@@ -2,15 +2,12 @@ import L from 'leaflet'
 import React, { createContext, useState, useEffect } from 'react'
 import { fetch as whatFetch } from 'whatwg-fetch'
 import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain, serverPath } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases, LAYDOWN_TURN, Domain, serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM } from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
 import { cloneDeep, isEqual } from 'lodash'
 
 /* helper functions */
-import groupMoveToRoot from './helpers/group-move-to-root'
-import groupCreateNewGroup from './helpers/group-create-new-group'
-import groupHostPlatform from './helpers/group-host-platform'
 // TODO: verify we still handle planned routes properly
 // import storePlannedRoute from './helpers/store-planned-route'
 import createGrid from './helpers/create-grid'
@@ -44,7 +41,10 @@ import {
   PlanTurnFormValues,
   ForceData,
   Asset,
-  Status
+  Status,
+  MessageCreateTaskGroup,
+  MessageLeaveTaskGroup,
+  MessageHostPlatform
 } from '@serge/custom-types'
 
 import ContextInterface from './types/context'
@@ -504,18 +504,35 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const groupMoveToRootLocal = (uniqid: string): void => {
-    const newForces = groupMoveToRoot(uniqid, forcesState)
-    setForcesState(newForces)
+    if (mapPostBack !== undefined) {
+      const payload: MessageLeaveTaskGroup = {
+        messageType: LEAVE_TASK_GROUP,
+        dragged: uniqid
+      }
+      mapPostBack(LEAVE_TASK_GROUP, payload, channelID)
+    }
   }
 
   const groupCreateNewGroupLocal = (dragged: string, target: string): void => {
-    const newForces = groupCreateNewGroup(dragged, target, forcesState)
-    setForcesState(newForces)
+    if (mapPostBack !== undefined) {
+      const payload: MessageCreateTaskGroup = {
+        messageType: CREATE_TASK_GROUP,
+        dragged: dragged,
+        target: target
+      }
+      mapPostBack(CREATE_TASK_GROUP, payload, channelID)
+    }
   }
 
   const groupHostPlatformLocal = (dragged: string, target: string): void => {
-    const newForces = groupHostPlatform(dragged, target, forcesState)
-    setForcesState(newForces)
+    if (mapPostBack !== undefined) {
+      const payload: MessageHostPlatform = {
+        messageType: HOST_PLATFORM,
+        dragged: dragged,
+        target: target
+      }
+      mapPostBack(HOST_PLATFORM, payload, channelID)
+    }
   }
 
   const setSelectedAssetLocal = (asset: SelectedAsset | undefined): void => {

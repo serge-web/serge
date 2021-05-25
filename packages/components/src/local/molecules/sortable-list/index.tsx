@@ -148,7 +148,7 @@ export const SortableList: React.FC<PropTypes> = ({
                       setSelectAllText(false)
                     }
                   }}
-                  onBlur={() => setInputActive(false)}
+                  onBlur={(): void => setInputActive(false)}
                 />
                 : <div className={styles['value-label']}>
                   <div onClick={(e): void => { handleClick(e, item, uniqid, key) }}>
@@ -157,7 +157,7 @@ export const SortableList: React.FC<PropTypes> = ({
                   <FontAwesomeIcon
                     className={styles['delete-btn']}
                     icon={faTrash}
-                    onClick={() => handleRemove(key)}
+                    onClick={(): void => handleRemove(key)}
                   />
                 </div>
             }
