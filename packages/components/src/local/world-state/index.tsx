@@ -219,7 +219,7 @@ export const WorldState: React.FC<PropTypes> = ({
       />
       {submitTitle && (panel === WorldStatePanels.Control) && (!playerInAdjudication || inLaydown) && canSubmitOrders &&
         <div className={styles.submit}>
-          { secondaryButtonLabel && 
+          { secondaryButtonLabel &&
             <Button disabled={plansSubmitted} onClick={secondaryButtonCallback}>{secondaryButtonLabel}</Button>
           }
           <Button disabled={plansSubmitted} onClick={onConfirm}>{submitTitle}</Button>
