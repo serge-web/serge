@@ -1,6 +1,8 @@
 import { Asset, ForceData } from '@serge/custom-types'
 import forceFor from './force-for'
 
+import { TASK_GROUP } from '@serge/config'
+
 /**
  * Create a new Task Group using the provided assets
  * @param (string) dragging the asset being dragged
@@ -24,7 +26,7 @@ const groupCreateNewGroup = (dragging: string, target: string, forces: ForceData
       // remove the asset being dragged
       const assetsWithoutDragging = assets.filter((item: Asset) => item.uniqid !== dragging)
 
-      if (targetAsset.platformType === 'task-group') {
+      if (targetAsset.platformType === TASK_GROUP) {
         // add this platform to the task group
         if (targetAsset.comprising) {
           targetAsset.comprising.push(dragAsset)
@@ -48,7 +50,7 @@ const groupCreateNewGroup = (dragging: string, target: string, forces: ForceData
           comprising: [dragAsset, targetAsset],
           name: groupId,
           perceptions: [],
-          platformType: 'task-group',
+          platformType: TASK_GROUP,
           position: targetAsset.position,
           status: {
             speedKts: 20,

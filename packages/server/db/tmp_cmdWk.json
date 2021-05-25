@@ -881,7 +881,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "F-35 Sqn",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-1"},
+                                { "by": "Red-2", "force": "Blue-1"}
+                            ],
                             "position": "BJ91",
                             "platformType": "fixed-wing-aircraft",
                             "uniqid": "a0a411ty54351"
@@ -893,8 +896,11 @@
                                     "contactId": "C764",
                                     "history": [],
                                     "name": "CV 2",
-                                    "perceptions": [],
-                                    "platformType": "Carrier",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "Carrier",
                                     "uniqid": "a012br1141",
                                     "hosting": [
                                         {
@@ -931,8 +937,11 @@
                                     "contactId": "W165",
                                     "history": [],
                                     "name": "Destroyer A",
-                                    "perceptions": [],
-                                    "platformType": "destroyer",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "destroyer",
                                     "uniqid": "a0phng6441",
                                     "hosting": [
                                         {
@@ -951,8 +960,11 @@
                                     "contactId": "D643",
                                     "history": [],
                                     "name": "Destroyer B",
-                                    "perceptions": [],
-                                    "platformType": "destroyer",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "destroyer",
                                     "uniqid": "a05435g6441",
                                     "hosting": [
                                         {
@@ -971,8 +983,11 @@
                                     "contactId": "C165",
                                     "history": [],
                                     "name": "FFG (GP)",
-                                    "perceptions": [],
-                                    "platformType": "frigate",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "frigate",
                                     "uniqid": "a0prng6441",
                                     "hosting": [
                                         {
@@ -991,8 +1006,11 @@
                                     "contactId": "C643",
                                     "history": [],
                                     "name": "FFG (TA)",
-                                    "perceptions": [],
-                                    "platformType": "frigate-ta",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "frigate-ta",
                                     "uniqid": "a054ng6441",
                                     "hosting": [
                                         {
@@ -1011,8 +1029,11 @@
                                     "contactId": "C332",
                                     "history": [],
                                     "name": "AO",
-                                    "perceptions": [],
-                                    "platformType": "Auxiliary",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "Auxiliary",
                                     "uniqid": "a0pegfddg4221",
                                     "hosting": [
                                         {
@@ -1031,8 +1052,11 @@
                                     "contactId": "C132",
                                     "history": [],
                                     "name": "AOR",
-                                    "perceptions": [],
-                                    "platformType": "Auxiliary",
+                                    "perceptions": [
+                                        { "by": "Red-1", "force": "Blue-1"},
+                                        { "by": "Red-2", "force": "Blue-1"}
+                                    ],
+                                            "platformType": "Auxiliary",
                                     "uniqid": "a0pe43ddg4221"
                                 },
                                 {
@@ -1041,7 +1065,7 @@
                                     "history": [],
                                     "name": "SSN",
                                     "perceptions": [],
-                                    "platformType": "ssn",
+                                            "platformType": "ssn",
                                     "uniqid": "a0a228764221"
                                 }
                             ],
@@ -1050,7 +1074,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "Task Group",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-1"},
+                                { "by": "Red-2", "force": "Blue-1"}
+                            ],
                             "position": "AJ94",
                             "platformType": "task-group",
                             "uniqid": "a0prbr1141"
@@ -1142,7 +1169,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "FFG(TA)",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-2"},
+                                { "by": "Red-2", "force": "Blue-2"}
+                            ],
                             "position": "BD85",
                             "platformType": "frigate-ta",
                             "uniqid": "a0prbr6441",
@@ -1164,7 +1194,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "FFG (TA)",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-2"},
+                                { "by": "Red-2", "force": "Blue-2"}
+                            ],
                             "position": "BD87",
                             "platformType": "frigate-ta",
                             "uniqid": "a0praa4321",
@@ -1197,7 +1230,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "MPA A",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-2"},
+                                { "by": "Red-2", "force": "Blue-2"}
+                            ],
                             "position": "BH97",
                             "platformType": "mpa",
                             "uniqid": "a0a22ty4331"
@@ -1208,7 +1244,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "MPA B",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Red-1", "force": "Blue-2"},
+                                { "by": "Red-2", "force": "Blue-2"}
+                            ],
                             "position": "BG98",
                             "platformType": "mpa",
                             "uniqid": "a0a22bwr331"
@@ -1331,7 +1370,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "SAG",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Blue-1", "force": "Red-1"},
+                                { "by": "Blue-2", "force": "Red-1"}
+                            ],
                             "position": "BM92",
                             "platformType": "task-group",
                             "uniqid": "a0p765edf41"
@@ -1375,7 +1417,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "MPA 1",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Blue-1", "force": "Red-1"},
+                                { "by": "Blue-2", "force": "Red-1"}
+                            ],
                             "position": "CX106",
                             "platformType": "mpa",
                             "uniqid": "a0a112ty344331"
@@ -1386,7 +1431,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "MPA 2",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Blue-1", "force": "Red-1"},
+                                { "by": "Blue-2", "force": "Red-1"}
+                            ],
                             "position": "CM107",
                             "platformType": "mpa",
                             "uniqid": "a03322ty344331"
@@ -1522,7 +1570,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "AGI 1",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Blue-1", "force": "Red-2"},
+                                { "by": "Blue-2", "force": "Red-2"}
+                            ],
                             "position": "AW120",
                             "platformType": "agi",
                             "uniqid": "a0a4543ty54351"
@@ -1533,7 +1584,10 @@
                             "history": [],
                             "locationPending": true,
                             "name": "AGI 2",
-                            "perceptions": [],
+                            "perceptions": [
+                                { "by": "Blue-1", "force": "Red-2"},
+                                { "by": "Blue-2", "force": "Red-2"}
+                            ],
                             "position": "AK110",
                             "platformType": "agi",
                             "uniqid": "a03ty54351"
@@ -1632,23 +1686,103 @@
                     "assets": [
                         {
                             "condition": "Working",
-                            "contactId": "C961",
+                            "contactId": "C901",
                             "history": [],
-                            "name": "Datum-R1",
+                            "name": "Datum-1",
                             "perceptions": [],
-                            "position": "R120",
+                            "position": "R121",
                             "platformType": "datum",
                             "uniqid": "a0prbr6001"
                         },
                         {
                             "condition": "Working",
-                            "contactId": "C911",
+                            "contactId": "C902",
                             "history": [],
-                            "name": "Datum-B2",
+                            "name": "Datum-2",
                             "perceptions": [],
-                            "position": "R121",
+                            "position": "R122",
                             "platformType": "datum",
-                            "uniqid": "a0prbr6003"
+                            "uniqid": "datum1"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C903",
+                            "history": [],
+                            "name": "Datum-3",
+                            "perceptions": [],
+                            "position": "R123",
+                            "platformType": "datum",
+                            "uniqid": "datum2"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C904",
+                            "history": [],
+                            "name": "Datum-4",
+                            "perceptions": [],
+                            "position": "R124",
+                            "platformType": "datum",
+                            "uniqid": "datum3"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C905",
+                            "history": [],
+                            "name": "Datum-5",
+                            "perceptions": [],
+                            "position": "R125",
+                            "platformType": "datum",
+                            "uniqid": "datum5"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C906",
+                            "history": [],
+                            "name": "Datum-6",
+                            "perceptions": [],
+                            "position": "R126",
+                            "platformType": "datum",
+                            "uniqid": "datum6"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C907",
+                            "history": [],
+                            "name": "Datum-7",
+                            "perceptions": [],
+                            "position": "R127",
+                            "platformType": "datum",
+                            "uniqid": "datum7"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C908",
+                            "history": [],
+                            "name": "Datum-8",
+                            "perceptions": [],
+                            "position": "R128",
+                            "platformType": "datum",
+                            "uniqid": "datum8"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C909",
+                            "history": [],
+                            "name": "Datum-9",
+                            "perceptions": [],
+                            "position": "R129",
+                            "platformType": "datum",
+                            "uniqid": "datum9"
+                        },
+                        {
+                            "condition": "Working",
+                            "contactId": "C900",
+                            "history": [],
+                            "name": "Datum-10",
+                            "perceptions": [],
+                            "position": "R120",
+                            "platformType": "datum",
+                            "uniqid": "datum0"
                         }
                     ],
                     "color": "#00ff00",

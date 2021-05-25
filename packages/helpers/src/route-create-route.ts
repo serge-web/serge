@@ -300,7 +300,9 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
 
   const condition: string = asset.condition
 
-  const laydownPhase = laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
+  const laydownPhase = underControl
+    ? laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
+    : LaydownPhases.Immobile
 
   return {
     uniqid: asset.uniqid,
