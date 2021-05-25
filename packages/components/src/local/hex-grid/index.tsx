@@ -17,7 +17,7 @@ import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import { SergeHex, SergeGrid, Route, NewTurnValues } from '@serge/custom-types'
+import { SergeHex, SergeGrid, Route, NewTurnValues, PlanMobileAsset, SelectedAsset, RouteStore } from '@serge/custom-types'
 import { LAYDOWN_TURN } from '@serge/config'
 
 /* Render component */
@@ -25,7 +25,16 @@ export const HexGrid: React.FC<{}> = () => {
   const {
     gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
     selectedAsset, viewAsRouteStore, viewport, polygonAreas
-  } = useContext(MapContext).props
+  }: {
+    gridCells: SergeGrid<SergeHex<{}>> | undefined
+    planningConstraints: PlanMobileAsset | undefined
+    setNewLeg: React.Dispatch<React.SetStateAction<NewTurnValues | undefined>> | undefined
+    setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
+    selectedAsset: SelectedAsset | undefined
+    viewAsRouteStore: RouteStore
+    viewport: L.LatLngBounds | undefined
+    polygonAreas?: any
+   } = useContext(MapContext).props
 
   // define detail cut-offs
   const SHOW_LABELS_UNDER = 600
@@ -91,7 +100,7 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     if (selectedAsset) {
       // get the color for this asset
-      const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
+      const current: Route | undefined = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
       if (current) {
         // double-check it's not the current asset (to reduce renders, and maybe lost plotted route)
         if (selectedAsset.uniqid !== selectedAssetId) {
@@ -183,9 +192,8 @@ export const HexGrid: React.FC<{}> = () => {
         setPlanningRoutePoly([])
 
         // see if current cell is acceptable
-        // work out the available cells
-        if (allowableCells.includes(dragDestination)) {
-          setPlanningRouteCells([dragDestination])
+        // Note: special handling. if there are no allowable cells, it can be laid down anywhere
+        if (!allowableCells.length || allowableCells.includes(dragDestination)) {
           // ok, set planning route to just that cell - to mark the
           // last acceptable cell
           setPlanningRouteCells([dragDestination])
@@ -252,13 +260,13 @@ export const HexGrid: React.FC<{}> = () => {
         // ok, see which ones are filterd
         // "air" is a special planning mode, where we don't have to filter it
         if (planningConstraints.travelMode === 'air') {
-          // if there are lots of allowable cells the performance will be slow.
-          if (allowableCellList.length <= 200) {
-            setAllowableCells(allowableCellList)
-          } else {
-            // don't show allowable cells - we'll generate them "on the fly"
-            setAllowableCells([])
-          }
+          // are we an air platform in laydown?
+          // if we are, ensure laydown location is on land
+          const laydownCells = planningConstraints.status === LAYDOWN_TURN  
+            ? allowableCellList.filter((cell: SergeHex<{}>) => cell.terrain === 'land') 
+            : allowableCellList
+
+          setAllowableCells(laydownCells)
         } else {
           const filteredCells = allowableCellList.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
           setAllowableCells(filteredCells)
@@ -360,10 +368,10 @@ export const HexGrid: React.FC<{}> = () => {
             if (!cell.poly) {
               const centreH = cell.centreLatLng
               // legacy format was to store tile diameter in mins
-              if (gridCells.tileDiameterDegs === undefined) {
+              if (gridCells.tileDiameterMins === undefined) {
                 console.warn('Warning tile diameter in Degrees should be in the wargame definition. Potentially a legacy wargame.')
               }
-              const tileDiamMins = gridCells.tileDiameterDegs ? gridCells.tileDiameterDegs / 60 : gridCells.tileDiameterMins
+              const tileDiamMins = gridCells.tileDiameterMins ? gridCells.tileDiameterMins / 60 : gridCells.tileDiameterMins
 
               const cornerArr: L.LatLng[] = []
               // don't let us fall over if we don't know diam mins
@@ -414,7 +422,7 @@ export const HexGrid: React.FC<{}> = () => {
           speed: planningConstraints.speed,
           route: [planningRouteCells[0]]
         }
-        setNewLeg(laydown)
+        setNewLeg && setNewLeg(laydown)
       } else {
         console.warn('Pin dropped in laydown mode, but we do not have acceptable cells')
       }
@@ -442,7 +450,7 @@ export const HexGrid: React.FC<{}> = () => {
 
         // note: the planning route cells includes the start cell. So, it's only a valie route if the
         // planning route cells are more than 1 in length
-        if (planningRouteCells.length > 1) {
+        if (planningConstraints && planningRouteCells.length > 1) {
           // drop the first cell, since it's the current location
           const trimmedPlanningRouteCells = planningRouteCells.slice(1)
 
@@ -461,7 +469,7 @@ export const HexGrid: React.FC<{}> = () => {
             setPlanningRange(planningConstraints.range)
 
             // ok, planning complete - fire the event back up the hierarchy
-            setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
+            setNewLeg && setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
           } else if (planningRange && !rangeUnlimited) {
             // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
             const remaining = planningRange - routeLen
@@ -481,6 +489,9 @@ export const HexGrid: React.FC<{}> = () => {
        *
        */
   const beingDragged = (e: any): void => {
+    if(!gridCells) {
+      return
+    }
     const marker = e.target
     const location = marker.getLatLng()
     const destinationHex: SergeHex<{}> | undefined = dragDestination && gridCells.cellFor(location, dragDestination)
