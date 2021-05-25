@@ -235,6 +235,7 @@ WithMarker.args = {
     <AssetIcon
       uniqid="id1"
       name="Jeffrey"
+      contactId='C345'
       condition='Working'
       position={L.latLng(13.298034302, 43.0488191271)}
       selected={boolean(visLabel, visDefaultValue)}

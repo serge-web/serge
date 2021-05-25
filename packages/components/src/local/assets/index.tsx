@@ -74,6 +74,7 @@ export const Assets: React.FC<{}> = () => {
               const assetInfo: AssetInfo = {
                 position: position,
                 name: perceivedAsTypes.name,
+                contactId: route.asset.contactId,
                 condition: condition,
                 status: status,
                 selected: isSelected,
@@ -102,6 +103,7 @@ export const Assets: React.FC<{}> = () => {
       <AssetIcon
         key={'a_for_' + asset.uniqid}
         name={asset.name}
+        contactId={asset.contactId}
         uniqid={asset.uniqid}
         position={asset.position}
         type={asset.type}

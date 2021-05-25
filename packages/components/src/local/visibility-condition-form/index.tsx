@@ -71,7 +71,7 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
         forceColor={icon.forceColor}
         platformType={icon.platformType}
       >
-        { formData.name }
+        { formData.contactId + ' -  ' + formData.name }
       </TitleWithIcon>
       <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
