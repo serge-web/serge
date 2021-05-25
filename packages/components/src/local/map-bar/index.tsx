@@ -265,7 +265,7 @@ export const MapBar: React.FC = () => {
     }
   }
 
-  const deleteEmptyTaskGroup = (): void {
+  const deleteEmptyTaskGroup = (): void => {
     const payload: MessageDeletePlatform  = {
       messageType: DELETE_PLATFORM,
       assetId: selectedAsset.uniqid
