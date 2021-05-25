@@ -7,6 +7,7 @@ import { RouteStatus } from ".";
 export default interface SelectedAsset {
     readonly uniqid: string,
     name: string,
+    contactId: string,
     type: string,
     force: string,
     controlledBy?: Array<string>,
