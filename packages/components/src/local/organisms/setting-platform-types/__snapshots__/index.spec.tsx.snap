@@ -555,6 +555,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             Full capability
                           </div>
+                          <svg
+                            className="svg-inline--fa fa-trash"
+                          />
                         </div>
                         <span>
                           <div
@@ -599,6 +602,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             Limited capability
                           </div>
+                          <svg
+                            className="svg-inline--fa fa-trash"
+                          />
                         </div>
                         <span>
                           <div
@@ -643,6 +649,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             Illegally boarded
                           </div>
+                          <svg
+                            className="svg-inline--fa fa-trash"
+                          />
                         </div>
                         <span>
                           <div
@@ -687,6 +696,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             Immobile
                           </div>
+                          <svg
+                            className="svg-inline--fa fa-trash"
+                          />
                         </div>
                         <span>
                           <div
@@ -731,6 +743,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             Sinking
                           </div>
+                          <svg
+                            className="svg-inline--fa fa-trash"
+                          />
                         </div>
                         <span>
                           <div
@@ -775,6 +790,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             Destroyed
                           </div>
+                          <svg
+                            className="svg-inline--fa fa-trash"
+                          />
                         </div>
                         <span>
                           <div
@@ -859,6 +877,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             >
                               Transiting
                             </div>
+                            <svg
+                              className="svg-inline--fa fa-trash"
+                            />
                           </div>
                           <div
                             className="mobile"
@@ -949,6 +970,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             >
                               Fishing
                             </div>
+                            <svg
+                              className="svg-inline--fa fa-trash"
+                            />
                           </div>
                           <div
                             className="mobile"
@@ -1034,6 +1058,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             >
                               Moored
                             </div>
+                            <svg
+                              className="svg-inline--fa fa-trash"
+                            />
                           </div>
                           <div
                             className="mobile"
@@ -1139,6 +1166,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             10
                           </div>
+                          <svg
+                            className="svg-inline--fa fa-trash"
+                          />
                         </div>
                         <span>
                           <div
@@ -1169,6 +1199,9 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           >
                             20
                           </div>
+                          <svg
+                            className="svg-inline--fa fa-trash"
+                          />
                         </div>
                         <span>
                           <div
