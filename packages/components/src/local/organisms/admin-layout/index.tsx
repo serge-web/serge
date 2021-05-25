@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
-export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargame, tabs = [], wargameChanged, activeTab = '', ...statusBarProps }) => {
+export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargame, tabs = [], wargameChanged, activeTab = '', onPressBack, ...statusBarProps }) => {
   const handleTabChange = (changedTab: string, key: number, e: any): void => {
     if (typeof onTabChange === 'function') {
       onTabChange(changedTab, key, e)
@@ -52,7 +52,7 @@ export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargam
   return (
     <div className={styles.main}>
       <div className={styles['left-panel']}>
-        <Link className={styles.link}>
+        <Link href="javascript:void(0);" className={styles.link} onClick={onPressBack}>
           <FontAwesomeIcon icon={faArrowLeft} size="2x" />
         </Link>
       </div>
