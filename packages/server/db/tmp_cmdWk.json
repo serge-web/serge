@@ -1062,7 +1062,7 @@
                             "uniqid": "a0a975y4221"
                         }
                     ],
-                    "color": "#00008f",
+                    "color": "#00aaff",
                     "cssClass": "blue-1",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
@@ -1216,7 +1216,7 @@
                             "uniqid": "a0a22bwr331"
                         }
                     ],
-                    "color": "#00aaff",
+                    "color": "#00008f",
                     "cssClass": "blue-2",
                     "dirty": false,
                     "icon": "http://localhost:8080/default_img/forceDefault.png",
