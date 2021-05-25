@@ -379,7 +379,7 @@ class AdjudicationManager {
               break
             case PlanningCommands.Reject:
               route.adjudicationState = PlanningStates.Rejected
-              // clear the planned oute
+              // clear the planned route
               route.planned = []
               route.plannedTrimmed = []
               break

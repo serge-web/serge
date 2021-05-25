@@ -9,7 +9,7 @@ import collatePerceptionFormData from './helpers/collate-perception-form-data'
 import collatePlanningOrders from './helpers/collate-planning-orders'
 import collateStateOfWorld from './helpers/collate-state-of-world'
 
-import { findAsset, forceFor, visibleTo } from '@serge/helpers'
+import { findAsset, forceFor, visibleTo, deepCopy } from '@serge/helpers'
 
 /* import types */
 import {
@@ -17,7 +17,7 @@ import {
   SelectedAsset, RouteStore, Route, SergeHex, SergeGrid,
   ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans, MapPostBack, MessageForceLaydown
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -45,6 +45,7 @@ export const MapBar: React.FC = () => {
 
   const [stateFormTitle, setStateFormTitle] = useState<string>('')
   const [stateSubmitTitle, setStateSubmitTitle] = useState<string>('')
+  const [secondaryStateTitle, setSecondaryStateTitle] = useState<string | undefined>(undefined)
   const [userIsUmpire, setUserIsUmpire] = useState<boolean | undefined>(undefined)
 
   const [adjudicationManager, setAdjudicationManager] = useState<AdjudicationManager | undefined>(undefined)
@@ -150,6 +151,7 @@ export const MapBar: React.FC = () => {
     if (routeStore) {
       let formTitle = ''
       let submitTitle = ''
+      let secondaryTitle = ''
       if (phase === ADJUDICATION_PHASE) {
         if (turnNumber === 0) {
           // see if player can submit orders
@@ -166,7 +168,8 @@ export const MapBar: React.FC = () => {
           }
         } else {
           formTitle = playerForce === UMPIRE_FORCE ? 'State of World' : 'My Forces'
-          submitTitle = 'Submit state of world'
+          submitTitle = 'Submit new state'
+          secondaryTitle = 'Accept all routes'
         }
       } else if (phase === PLANNING_PHASE) {
         formTitle = 'Orders'
@@ -177,6 +180,11 @@ export const MapBar: React.FC = () => {
       }
       if (formTitle !== '' && formTitle !== stateFormTitle) {
         setStateFormTitle(formTitle)
+      }
+      if (secondaryTitle !== '') {
+        setSecondaryStateTitle(secondaryTitle)
+      } else {
+        setSecondaryStateTitle(undefined)
       }
     }
   }, [phase, playerForce, turnNumber, routeStore])
@@ -242,6 +250,18 @@ export const MapBar: React.FC = () => {
 
       // and pan the map
       panTo && asset.position && panTo(asset.position)
+    }
+  }
+
+  const acceptAllRoutesCallback = (): void => {
+    if (routeStore) {
+      const newStore = deepCopy(routeStore)
+      newStore.routes.forEach((route: Route) => {
+        if (route.adjudicationState !== PlanningStates.Saved) {
+          route.adjudicationState = PlanningStates.Saved
+        }
+      })
+      setRouteStore(newStore)
     }
   }
 
@@ -343,6 +363,8 @@ export const MapBar: React.FC = () => {
             plansSubmitted={plansSubmitted}
             setPlansSubmitted={setPlansSubmitted}
             turnNumber={turnNumber}
+            secondaryButtonLabel={secondaryStateTitle}
+            secondaryButtonCallback={acceptAllRoutesCallback}
             gridCells={gridCells} ></WorldState>
         </section>
       </div>
