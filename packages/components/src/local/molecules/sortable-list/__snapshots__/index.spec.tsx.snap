@@ -8,7 +8,6 @@ exports[`sortable-list renders correctly 1`] = `
     <li
       className="li"
       data-id="0"
-      onClick={[Function]}
     >
       <div
         className="drag"
@@ -29,11 +28,18 @@ exports[`sortable-list renders correctly 1`] = `
         <section
           className="section"
         >
-          <input
-            onChange={[Function]}
-            type="text"
-            value="list item 1"
-          />
+          <div
+            className="value-label"
+          >
+            <div
+              onClick={[Function]}
+            >
+              list item 1
+            </div>
+            <svg
+              className="svg-inline--fa fa-trash"
+            />
+          </div>
           <span>
             <div
               onClick={[Function]}
@@ -49,7 +55,6 @@ exports[`sortable-list renders correctly 1`] = `
     <li
       className="li"
       data-id="1"
-      onClick={[Function]}
     >
       <div
         className="drag"
@@ -70,11 +75,18 @@ exports[`sortable-list renders correctly 1`] = `
         <section
           className="section"
         >
-          <input
-            onChange={[Function]}
-            type="text"
-            value="list item 2"
-          />
+          <div
+            className="value-label"
+          >
+            <div
+              onClick={[Function]}
+            >
+              list item 2
+            </div>
+            <svg
+              className="svg-inline--fa fa-trash"
+            />
+          </div>
           <span>
             <div
               onClick={[Function]}

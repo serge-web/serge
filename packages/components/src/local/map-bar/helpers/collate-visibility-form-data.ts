@@ -21,6 +21,7 @@ const collateVisibilityFormData = (platforms: PlatformTypeData[], selectedAsset:
   const formData: VisibilityFormData = {
     assetId: selectedAsset.uniqid,
     name: selectedAsset.name,
+    contactId: selectedAsset.contactId,
     populate: trimmedForcesList,
     values: visibleTo,
     selectedCondition: selectedAsset.condition,

@@ -5,6 +5,7 @@ import L from 'leaflet'
 export default interface AssetInfo {
   position: L.LatLng
   name: string
+  contactId: string
   condition?: string
   status?: RouteStatus
   type: string
