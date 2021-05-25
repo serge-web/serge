@@ -826,6 +826,7 @@
                             "canSubmitPlans": true,
                             "isGameControl": true,
                             "isInsightViewer": true,
+                            "isRFIManager": false,
                             "isObserver": true,
                             "name": "Game Control",
                             "password": "pkoiqu5ev"
