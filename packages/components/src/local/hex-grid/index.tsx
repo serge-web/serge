@@ -142,14 +142,14 @@ export const HexGrid: React.FC<{}> = () => {
   }, [selectedAsset, gridCells, viewAsRouteStore])
 
   /**
-       Returns the point that is a distance and heading away from
-       the given origin point.
-       @param {L.LatLng} latlng: origin point
-       @param {float} heading: heading in degrees, clockwise from 0 degrees north.
-       @param {float} distance: distance in meters
-       @returns {L.latLng} the destination point.
-       Many thanks to Chris Veness at http://www.movable-type.co.uk/scripts/latlong.html
-       for a great reference and examples.
+   Returns the point that is a distance and heading away from
+    the given origin point.
+    @param {L.LatLng} latlng: origin point
+    @param {float} heading: heading in degrees, clockwise from 0 degrees north.
+    @param {float} distance: distance in meters
+    @returns {L.latLng} the destination point.
+    Many thanks to Chris Veness at http://www.movable-type.co.uk/scripts/latlong.html
+    for a great reference and examples.
     */
   const destination = (latlng: L.LatLng, heading: number, distance: number): L.LatLng => {
     heading = (heading + 360) % 360
@@ -504,6 +504,8 @@ export const HexGrid: React.FC<{}> = () => {
   }
 
   //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length, allowableCells.length)
+  // console.log('hex grid', setPlanningRouteCells.length, setPlanningRouteCells.length && setPlanningRouteCells.length[0])
+
 
   return <>
 
@@ -545,7 +547,24 @@ export const HexGrid: React.FC<{}> = () => {
     ))}
     </LayerGroup> */}
 
-    <LayerGroup key={'hex_polygons'} >{visibleAndAllowableCells.length < SHOW_HEXES_UNDER && visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
+
+    <LayerGroup key={'hex_polygons'} >{
+      /* not too many cells visible, show hex outlines */
+     visibleAndAllowableCells.length < SHOW_HEXES_UNDER && visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
+      <Polygon
+        // we may end up with other elements per hex,
+        // such as labels so include prefix in key
+        key={'hex_poly_' + cell.name + '_' + index}
+        fillColor={cell.fillColor || '#f00'}
+        fill={terrainPolys.length === 0} // only fill them if we don't have polys
+        positions={cell.poly}
+        stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
+        className={styles[getCellStyle(cell, planningRouteCells, [], cellForSelected)]}
+      />
+    ))}
+    {
+      /** too many cells visible to show outline, so just show planned route (or target for laydown) */
+     visibleAndAllowableCells.length >= SHOW_HEXES_UNDER && planningRouteCells.map((cell: SergeHex<{}>, index: number) => (
       <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
