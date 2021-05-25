@@ -24,7 +24,13 @@ exports[`Speed renders correctly 1`] = `
               "width": "16.666666666666668%",
             }
           }
-        />
+        >
+          <div
+            className="speed-item__label"
+          >
+            0
+          </div>
+        </div>
         <div
           className="speed-item speed-enabled speed-active speed-selected"
           onClick={[Function]}
@@ -35,7 +41,13 @@ exports[`Speed renders correctly 1`] = `
               "width": "16.666666666666668%",
             }
           }
-        />
+        >
+          <div
+            className="speed-item__label"
+          >
+            10
+          </div>
+        </div>
         <div
           className="speed-item speed-enabled speed-active"
           onClick={[Function]}
@@ -46,7 +58,13 @@ exports[`Speed renders correctly 1`] = `
               "width": "16.666666666666668%",
             }
           }
-        />
+        >
+          <div
+            className="speed-item__label"
+          >
+            20
+          </div>
+        </div>
         <div
           className="speed-item speed-enabled speed-active"
           onClick={[Function]}
@@ -57,7 +75,13 @@ exports[`Speed renders correctly 1`] = `
               "width": "16.666666666666668%",
             }
           }
-        />
+        >
+          <div
+            className="speed-item__label"
+          >
+            30
+          </div>
+        </div>
         <div
           className="speed-item speed-enabled"
           onClick={[Function]}
@@ -68,7 +92,11 @@ exports[`Speed renders correctly 1`] = `
               "width": "16.666666666666668%",
             }
           }
-        />
+        >
+          <div
+            className="speed-item__label"
+          />
+        </div>
         <div
           className="speed-item speed-enabled"
           onClick={[Function]}
@@ -79,7 +107,11 @@ exports[`Speed renders correctly 1`] = `
               "width": "16.666666666666668%",
             }
           }
-        />
+        >
+          <div
+            className="speed-item__label"
+          />
+        </div>
       </div>
     </div>
   </div>
