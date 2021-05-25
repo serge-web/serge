@@ -147,6 +147,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         forceColor={icon.forceColor}
         platformType={icon.platformType}
       >
+        { manager && (manager.getContactId() + ' - ')}
         {manager && manager.formHeader}
         {manager &&
           <Badge label={manager.currentPlanningStatus()} />
@@ -154,7 +155,6 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         {plansSubmittedVal &&
           <div className='sub-title'>(Form disabled, plans submitted)</div>
         }
-
       </TitleWithIcon>
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Player Route" align="right">

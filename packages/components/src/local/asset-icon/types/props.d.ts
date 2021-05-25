@@ -10,6 +10,10 @@ export default interface PropTypes {
    */
   name: string
   /**
+   * The contactId
+   */
+  contactId: string
+  /**
    * The name of the icon to be used on the asset
    */
   type: string

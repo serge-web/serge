@@ -228,6 +228,7 @@ export const MapBar: React.FC = () => {
       const selected: SelectedAsset = {
         uniqid: asset.uniqid,
         name: asset.name,
+        contactId: asset.contactId,
         type: asset.platformType,
         force: force.uniqid,
         controlledBy: force.controlledBy,

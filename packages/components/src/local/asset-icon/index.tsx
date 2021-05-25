@@ -27,6 +27,7 @@ export const getIconClassname = (icForceClass: string, icType: string, destroyed
 export const AssetIcon: React.FC<PropTypes> = ({
   uniqid,
   name,
+  contactId,
   position,
   type,
   force,
@@ -62,6 +63,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
       // select this asset
       const selection: SelectedAsset = {
         uniqid: uniqid,
+        contactId: contactId,
         name: name,
         type: type,
         force: force,
