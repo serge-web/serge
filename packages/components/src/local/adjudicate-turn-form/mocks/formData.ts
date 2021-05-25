@@ -1,4 +1,4 @@
-import { AdjudicateTurnFormPopulate } from "@serge/custom-types"
+import { AdjudicateTurnFormPopulate } from '@serge/custom-types'
 
 const formData: AdjudicateTurnFormPopulate = {
   contactId: 'C234',
