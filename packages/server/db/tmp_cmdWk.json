@@ -870,7 +870,7 @@
                             "name": "SSN",
                             "perceptions": [],
                             "position": "AH100",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a034a22t5431"
                         },
                         {
@@ -891,7 +891,7 @@
                                     "history": [],
                                     "name": "CV 2",
                                     "perceptions": [],
-                                    "platformType": "cv",
+                                    "platformType": "Carrier",
                                     "uniqid": "a012br1141",
                                     "hosting": [
                                         {
@@ -919,7 +919,7 @@
                                             "name": "Rotary Alpha",
                                             "perceptions": [],
                                             "platformType": "helicopter",
-                                            "uniqid": "a0534ty4331"
+                                            "uniqid": "a05866y4331"
                                         }
                                     ]
                                 },
@@ -989,7 +989,7 @@
                                     "history": [],
                                     "name": "FFG (TA)",
                                     "perceptions": [],
-                                    "platformType": "frigate",
+                                    "platformType": "frigate-ta",
                                     "uniqid": "a054ng6441",
                                     "hosting": [
                                         {
@@ -1009,7 +1009,7 @@
                                     "history": [],
                                     "name": "AO",
                                     "perceptions": [],
-                                    "platformType": "merchant-vessel",
+                                    "platformType": "Auxiliary",
                                     "uniqid": "a0pegfddg4221",
                                     "hosting": [
                                         {
@@ -1029,7 +1029,7 @@
                                     "history": [],
                                     "name": "AOR",
                                     "perceptions": [],
-                                    "platformType": "merchant-vessel",
+                                    "platformType": "Auxiliary",
                                     "uniqid": "a0pe43ddg4221"
                                 },
                                 {
@@ -1038,7 +1038,7 @@
                                     "history": [],
                                     "name": "SSN",
                                     "perceptions": [],
-                                    "platformType": "boghammer",
+                                    "platformType": "ssn",
                                     "uniqid": "a0a228764221"
                                 }
                             ],
@@ -1058,7 +1058,7 @@
                             "name": "SSN",
                             "perceptions": [],
                             "position": "AH94",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a0a975y4221"
                         }
                     ],
@@ -1144,7 +1144,7 @@
                                 }
                             ],
                             "position": "BD85",
-                            "platformType": "frigate",
+                            "platformType": "frigate-ta",
                             "uniqid": "a0prbr6441",
                             "hosting": [
                                 {
@@ -1171,7 +1171,7 @@
                                 }
                             ],
                             "position": "BD87",
-                            "platformType": "frigate",
+                            "platformType": "frigate-ta",
                             "uniqid": "a0praa4321",
                             "hosting": [
                                 {
@@ -1192,7 +1192,7 @@
                             "name": "SSN",
                             "perceptions": [],
                             "position": "BB81",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a0a22ty4221"
                         },
                         {
@@ -1202,7 +1202,7 @@
                             "name": "MPA A",
                             "perceptions": [],
                             "position": "BH97",
-                            "platformType": "fixed-wing-aircraft",
+                            "platformType": "mpa",
                             "uniqid": "a0a22ty4331"
                         },
                         {
@@ -1212,7 +1212,7 @@
                             "name": "MPA B",
                             "perceptions": [],
                             "position": "BG98",
-                            "platformType": "fixed-wing-aircraft",
+                            "platformType": "mpa",
                             "uniqid": "a0a22bwr331"
                         }
                     ],
@@ -1355,7 +1355,7 @@
                             "name": "SSK 1",
                             "perceptions": [],
                             "position": "CL89",
-                            "platformType": "boghammer",
+                            "platformType": "ssk",
                             "uniqid": "a0376765422t5431"
                         },
                         {
@@ -1365,7 +1365,7 @@
                             "name": "SSK 2",
                             "perceptions": [],
                             "position": "CG86",
-                            "platformType": "boghammer",
+                            "platformType": "ssk",
                             "uniqid": "a0376qww5422t5431"
                         },
                         {
@@ -1375,7 +1375,7 @@
                             "name": "MPA 1",
                             "perceptions": [],
                             "position": "CX106",
-                            "platformType": "fixed-wing-aircraft",
+                            "platformType": "mpa",
                             "uniqid": "a0a112ty344331"
                         },
                         {
@@ -1385,7 +1385,7 @@
                             "name": "MPA 2",
                             "perceptions": [],
                             "position": "CM107",
-                            "platformType": "fixed-wing-aircraft",
+                            "platformType": "mpa",
                             "uniqid": "a03322ty344331"
                         },
                         {
@@ -1395,7 +1395,7 @@
                             "name": "MPA 3",
                             "perceptions": [],
                             "position": "CL119",
-                            "platformType": "fixed-wing-aircraft",
+                            "platformType": "mpa",
                             "uniqid": "a06622ty344331"
                         },
                         {
@@ -1485,7 +1485,7 @@
                             "name": "SSN",
                             "perceptions": [],
                             "position": "BJ125",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a0365422t5431"
                         },
                         {
@@ -1495,7 +1495,7 @@
                             "name": "SSGN 1",
                             "perceptions": [],
                             "position": "BO113",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a0365sd565431"
                         },
                         {
@@ -1505,7 +1505,7 @@
                             "name": "SSGN 2",
                             "perceptions": [],
                             "position": "BO110",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a0365hgcc65431"
                         },
                         {
@@ -1535,7 +1535,7 @@
                             "name": "SSN",
                             "perceptions": [],
                             "position": "AI129",
-                            "platformType": "boghammer",
+                            "platformType": "ssn",
                             "uniqid": "a036657fd22t5431",
                             "hosting":[
                                 {
@@ -1544,7 +1544,7 @@
                                     "history": [],
                                     "name": "SS",
                                     "perceptions": [],
-                                    "platformType": "boghammer",
+                                    "platformType": "ssk",
                                     "uniqid": "a036657fd2df2t5431"
                                 }
                             ]
@@ -1728,6 +1728,38 @@
                         }
                     ],
                     "travelMode": "sea"
+                },   
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "frigate-ta.svg",
+                    "name": "frigate-ta",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Transiting"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Mixed"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Active"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Passive"
+                        }
+                    ],
+                    "travelMode": "sea"
                 },                
                 {
                     "conditions": [
@@ -1755,28 +1787,8 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "DD",
-                    "speedKts": [
-                        10,
-                        20
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "frigate.svg",
-                    "name": "CV",
+                    "icon": "carrier.svg",
+                    "name": "Carrier",
                     "speedKts": [
                         10,
                         20
@@ -1799,8 +1811,8 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "AO",
+                    "icon": "auxiliary.svg",
+                    "name": "Auxiliary",
                     "speedKts": [
                         10,
                         20
@@ -1847,8 +1859,36 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "SS",
+                    "icon": "ssk.svg",
+                    "name": "SSK",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Transiting"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Aggressove"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Evasive"
+                        }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "ssn.svg",
+                    "name": "SSN",
                     "speedKts": [
                         10,
                         20
@@ -1891,6 +1931,26 @@
                     ],
                     "icon": "helicopter.svg",
                     "name": "Helicopter",
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Active"
+                        },
+                        {
+                            "mobile": false,
+                            "name": "Landed"
+                        }
+                    ],
+                    "travelMode": "air"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "mpa.svg",
+                    "name": "mpa",
                     "states": [
                         {
                             "mobile": true,
@@ -1992,35 +2052,6 @@
                             "name": "Transiting",
                             "mobile": true
                         }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "name": "CV",
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "cv.svg",
-                    "speedKts": [
-                        10,
-                        20
-                    ],
-                    "states": [
-                        {
-                            "name": "Moored",
-                            "mobile": false
-                        },
-                        {
-                            "name": "Transiting",
-                            "mobile": true
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Air Ops"
-                        }
-
                     ],
                     "travelMode": "sea"
                 },
