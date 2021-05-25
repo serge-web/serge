@@ -31,7 +31,7 @@ export interface PerceptionFormData {
 /** message for when player has planned new turn of data */
 export interface NewTurnValues {
   state: string
-  speed: number
+  speed?: number
   route: Array<SergeHex<{}>>
 }
 
