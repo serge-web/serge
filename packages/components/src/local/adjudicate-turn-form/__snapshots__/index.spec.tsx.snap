@@ -91,7 +91,9 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `
       </div>
     </div>
   </fieldset>
-  <fieldset>
+  <fieldset
+    className="fieldset"
+  >
     <div
       className="group"
     >
