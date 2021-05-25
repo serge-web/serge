@@ -263,7 +263,7 @@ export const HexGrid: React.FC<{}> = () => {
           const filteredCells = allowableCellList.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
           setAllowableCells(filteredCells)
 
-          if(filteredCells.length <= 500) {
+          if (filteredCells.length <= 500) {
             // try to create convex polygon around cells, but only if there
             // arent' too many cells
             const hull = generateOuterBoundary(filteredCells)
@@ -503,7 +503,7 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-//  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length, allowableCells.length)
+  //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length, allowableCells.length)
 
   return <>
 
