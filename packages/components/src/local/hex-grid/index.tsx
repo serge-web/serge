@@ -24,7 +24,7 @@ import { LAYDOWN_TURN } from '@serge/config'
 export const HexGrid: React.FC<{}> = () => {
   const {
     gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
-    selectedAsset, viewAsRouteStore, viewport, polygonAreas, zoomLevel
+    selectedAsset, viewAsRouteStore, viewport, polygonAreas
   } = useContext(MapContext).props
 
   // define detail cut-offs
