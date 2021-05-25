@@ -20,7 +20,7 @@ import { PlanTurnFormValues, Status } from '@serge/custom-types'
 /* Render component */
 export const PlanTurnForm: React.FC<PropTypes> = ({
   formHeader, formData, canSubmitPlans, setHidePlanningForm,
-  turnPlanned, icon, plansSubmitted
+  turnPlanned, icon, plansSubmitted, deleteEmptyTaskGroup
 }) => {
   const [formState, setFormState] = useState<PlanTurnFormValues>(formData.values)
 
@@ -107,7 +107,9 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
        <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
       }
     </TitleWithIcon>
-
+      { deleteEmptyTaskGroup &&
+        <Button onClick={deleteEmptyTaskGroup}>Delete empty task group</Button>
+      }
     <FormGroup title="State" align="right">
       <Select
         className={clSelect}

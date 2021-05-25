@@ -36,4 +36,8 @@ export default interface PropTypes {
    * flag for if turns have been planned
    */
   plansSubmitted: boolean
+  /** 
+   * handle for if an empty task group can be deleted 
+   */
+  deleteEmptyTaskGroup?: {(): void}
 }

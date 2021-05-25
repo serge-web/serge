@@ -265,6 +265,10 @@ export const MapBar: React.FC = () => {
     }
   }
 
+  const deleteEmptyTaskGroup = (): void {
+    console.log('deleting empty task group')
+  }
+
   /* TODO: This should be refactored into a helper */
   const formSelector = (): React.ReactNode => {
     // do a fresh calculation on which form to display, to overcome
@@ -296,6 +300,11 @@ export const MapBar: React.FC = () => {
       case MapBarForms.Planning: {
         const canSubmit = canSubmitOrders && phase === PLANNING_PHASE
         const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
+        const actualAsset = findAsset(forces, selectedAsset.uniqid)
+        // is this an empty task group?
+        const emptyVessel = !actualAsset.comprising || actualAsset.comprising.length == 0
+        const deleteHandler = (actualAsset.platformType === 'task-group' && emptyVessel) ?
+          deleteEmptyTaskGroup : undefined
         return <PlanTurnForm
           icon={iconData}
           setHidePlanningForm={setHidePlanningForm}
@@ -305,6 +314,7 @@ export const MapBar: React.FC = () => {
           formHeader={currentAssetName}
           formData={formData}
           channelID={channelID}
+          deleteEmptyTaskGroup = {deleteHandler}
           turnPlanned={turnPlanned} />
       }
       case MapBarForms.Visibility:
