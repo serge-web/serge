@@ -20,11 +20,37 @@ const ExportForces = ({ wargame, savExportItem, exportItems }) => {
     })
   }
 
+  const reOrderFields = (fields) => {
+    const _fields = fields
+    const nameIndex = _fields.findIndex(i => i === 'name')
+    if (nameIndex !== -1) {
+      _fields.splice(0, 0, _fields.splice(nameIndex, 1)[0])
+    }
+    const passwordIndex = _fields.findIndex(i => i === 'password')
+    if (nameIndex !== -1) {
+      _fields.splice(1, 0, _fields.splice(passwordIndex, 1)[0])
+    }
+    return _fields
+  }
+
   const generateRoleItems = ({ roles }) => {
     // all excel keys/titles for current tab
-    const fields = []
+    let fields = []
     // rows under titles
     const rows = []
+
+    // construct field list with reordering
+    for (const role of roles) {
+      for (const key of Object.keys(role)) {
+        if (typeof role[key] !== 'object') {
+          // check if fields/titles have no current key then add
+          if (!fields.includes(key)) {
+            fields.push(key)
+            fields = reOrderFields(fields)
+          }
+        }
+      }
+    }
 
     // loop on roles
     for (const role of roles) {
@@ -33,11 +59,6 @@ const ExportForces = ({ wargame, savExportItem, exportItems }) => {
 
       for (const key of Object.keys(role)) {
         if (typeof role[key] !== 'object') {
-          // check if fields/titles have no current key then add
-          if (!fields.includes(key)) {
-            fields.push(key)
-          }
-
           // check position for field then add value to rigth position in row
           row[fields.indexOf(key)] = role[key]
         }
