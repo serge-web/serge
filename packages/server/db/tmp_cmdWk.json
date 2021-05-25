@@ -891,7 +891,7 @@
                                     "history": [],
                                     "name": "CV 2",
                                     "perceptions": [],
-                                    "platformType": "cv",
+                                    "platformType": "Carrier",
                                     "uniqid": "a012br1141",
                                     "hosting": [
                                         {
@@ -989,7 +989,7 @@
                                     "history": [],
                                     "name": "FFG (TA)",
                                     "perceptions": [],
-                                    "platformType": "frigate",
+                                    "platformType": "frigate-ta",
                                     "uniqid": "a054ng6441",
                                     "hosting": [
                                         {
@@ -1144,7 +1144,7 @@
                                 }
                             ],
                             "position": "BD85",
-                            "platformType": "frigate",
+                            "platformType": "frigate-ta",
                             "uniqid": "a0prbr6441",
                             "hosting": [
                                 {
@@ -1171,7 +1171,7 @@
                                 }
                             ],
                             "position": "BD87",
-                            "platformType": "frigate",
+                            "platformType": "frigate-ta",
                             "uniqid": "a0praa4321",
                             "hosting": [
                                 {
@@ -1728,6 +1728,38 @@
                         }
                     ],
                     "travelMode": "sea"
+                },   
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "frigate-ta.svg",
+                    "name": "frigate-ta",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Transiting"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Mixed"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Active"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Passive"
+                        }
+                    ],
+                    "travelMode": "sea"
                 },                
                 {
                     "conditions": [
@@ -1755,28 +1787,8 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "DD",
-                    "speedKts": [
-                        10,
-                        20
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "frigate.svg",
-                    "name": "CV",
+                    "icon": "carrier.svg",
+                    "name": "Carrier",
                     "speedKts": [
                         10,
                         20
@@ -1799,8 +1811,8 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "AO",
+                    "icon": "auxiliary.svg",
+                    "name": "Auxiliary",
                     "speedKts": [
                         10,
                         20
@@ -1847,8 +1859,36 @@
                         "Disabled",
                         "Mission Kill"
                     ],
-                    "icon": "frigate.svg",
-                    "name": "SS",
+                    "icon": "ssk.svg",
+                    "name": "SSK",
+                    "speedKts": [
+                        10,
+                        20
+                    ],
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Transiting"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Aggressove"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Evasive"
+                        }
+                    ],
+                    "travelMode": "sea"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "ssn.svg",
+                    "name": "SSN",
                     "speedKts": [
                         10,
                         20
@@ -1891,6 +1931,26 @@
                     ],
                     "icon": "helicopter.svg",
                     "name": "Helicopter",
+                    "states": [
+                        {
+                            "mobile": true,
+                            "name": "Active"
+                        },
+                        {
+                            "mobile": false,
+                            "name": "Landed"
+                        }
+                    ],
+                    "travelMode": "air"
+                },
+                {
+                    "conditions": [
+                        "Working",
+                        "Disabled",
+                        "Mission Kill"
+                    ],
+                    "icon": "mpa",
+                    "name": "MPA",
                     "states": [
                         {
                             "mobile": true,
@@ -1992,35 +2052,6 @@
                             "name": "Transiting",
                             "mobile": true
                         }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "name": "CV",
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "cv.svg",
-                    "speedKts": [
-                        10,
-                        20
-                    ],
-                    "states": [
-                        {
-                            "name": "Moored",
-                            "mobile": false
-                        },
-                        {
-                            "name": "Transiting",
-                            "mobile": true
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Air Ops"
-                        }
-
                     ],
                     "travelMode": "sea"
                 },

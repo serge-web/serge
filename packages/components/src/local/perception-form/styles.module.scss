@@ -90,9 +90,9 @@
   background-color: #19bd37;
 }
 
-$platforms: frigate, destroyer, mcmv, cv, unknown, agi, fast-attack-craft, uas,
-  merchant-vessel, fixed-wing-aircraft, fishing-vessel, missile, helicopter,
-  boghammer, coastal-radar-site, datum, torpedo, pirate, mine;
+$platforms: agi, boghammer, carrier, coastal-radar-site, datum, destroyer, fast-attack-craft, 
+fishing-vessel, fixed-wing-aircraft, frigate, frigate-ta, helicopter, mcmv, merchant-vessel, mine, missile, mpa,
+pirate, ssk, ssn, task-group, torpedo, unknown, unmanned-airborne-vehicle;
 
 @each $platform in $platforms {
   .platform-type-#{$platform} {
