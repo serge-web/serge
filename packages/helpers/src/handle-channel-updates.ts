@@ -76,10 +76,10 @@ const createTurnMarker = (turn: number): MessageChannel => {
       from: {
         force: 'unset-game-turn-marker',
         forceColor: 'unset-game-turn-marker',
-        role: 'unset-game-turn-marker',
-        icon: 'unset-game-turn-marker',
+        role: 'Turn ' + turn,
+        icon: 'unset-game-turn-marker'
       },
-      messageType: 'turn marker',
+      messageType: 'Turn ' + turn,
       timestamp: new Date().toISOString(),
       channel: `infoTypeChannelMarker${uniqId.time()}`,
     },
