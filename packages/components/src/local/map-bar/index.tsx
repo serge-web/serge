@@ -130,10 +130,10 @@ export const MapBar: React.FC = () => {
 
     // Selects the current asset. Note: this was in a selectedAsset useEffect, but it's been put in here,
     // since the routeStore will update on a new selected asset
-    if (selectedAsset) {
+    if (selectedAsset && routeStore.selected) {
       // note: we don't show the planning form if this is a non-umpire in force-laydown phase
       if (playerForce === UMPIRE_FORCE || phase === Phase.Planning || turnNumber !== 0) {
-        const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber)
+        const newForm = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected.destroyed)
         // note: since the next call is async, we get a render before the new form
         // has been assigned. This caused troubles. So, while we set the new form here,
         // we do a "live-recalculation" in the render code
@@ -280,7 +280,11 @@ export const MapBar: React.FC = () => {
   const formSelector = (): React.ReactNode => {
     // do a fresh calculation on which form to display, to overcome
     // an async state update issue
-    const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber)
+    if (!routeStore || !routeStore.selected) {
+      throw new Error('No route selected')
+    }
+
+    const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected?.destroyed)
     const iconData = {
       forceColor: selectedAsset.force,
       platformType: selectedAsset.type
@@ -385,7 +389,7 @@ export const MapBar: React.FC = () => {
             gridCells={gridCells} ></WorldState>
         </section>
       </div>
-      {currentForm !== undefined && selectedAsset && (currentForm !== MapBarForms.Planning || !hidePlanningForm) &&
+      {currentForm !== undefined && selectedAsset && routeStore.selected && (currentForm !== MapBarForms.Planning || !hidePlanningForm) &&
         <div className={styles['form-inner']}>
           <section>
             {formSelector()}

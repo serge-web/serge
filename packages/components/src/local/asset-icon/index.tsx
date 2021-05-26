@@ -43,7 +43,8 @@ export const AssetIcon: React.FC<PropTypes> = ({
 }) => {
   const { setShowMapBar, setSelectedAsset, selectedAsset } = useContext(MapContext).props
 
-  const isDestroyed: boolean = !!condition && condition.toLowerCase() === 'destroyed'
+  // TODO: switch to received isDestroyed in props, using value from `Route`
+  const isDestroyed: boolean = !!condition && (condition.toLowerCase() === 'destroyed' || condition.toLowerCase() === 'mission kill')
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
