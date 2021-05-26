@@ -27,9 +27,9 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
   const { status, speed } = formData.populate
   const { statusVal, turnsVal, speedVal, condition } = formState
 
-  const formDisabled: boolean = plansSubmitted || !canSubmitPlans
+  const [speedInitialised, setSpeedInitialised] = useState<boolean>(false)
 
-  const validSpeedVal = speed.includes(speedVal) ? speedVal : speed[0]
+  const formDisabled: boolean = plansSubmitted || !canSubmitPlans
 
   const changeHandler = (e: any): void => {
     const { name, value } = e.target
@@ -55,6 +55,12 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
         }
       )
     }
+  }
+
+  const validSpeedVal = speed.includes(speedVal) ? speedVal : speed[0]
+  if (!speedInitialised) {
+    setSpeedInitialised(true)
+    speedHandler(validSpeedVal)
   }
 
   // Status has a different data model and requires it's own handler
