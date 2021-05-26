@@ -18,6 +18,7 @@ export const typeFor = (type: number): TerrainType => {
     case 2: return { terrain: Terrain.SEA, type: 'sea', fillColor: '#0ff' }
     case 3: return { terrain: Terrain.SEA, type: 'deep', fillColor: '#0078c7' }
     case 4: return { terrain: Terrain.SEA, type: 'medium', fillColor: '#0a0' }
+    case 5: return { terrain: Terrain.SEA, type: 'heavyshipping', fillColor: '#ED820E' }
     default: return { terrain: Terrain.SEA, type: 'sea', fillColor: '#fff' }
   }
 }
