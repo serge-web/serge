@@ -12,6 +12,8 @@ import styles from './styles.module.scss'
 import Badge from '../../atoms/badge'
 import Paragraph from '../../atoms/paragraph'
 
+import { MessageChannel } from '@serge/custom-types'
+
 /* Render component */
 export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire }: Props) => {
   const PrivateBadge = (): React.ReactElement => (
@@ -25,6 +27,11 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire }: Pro
     </span>
   )
 
+  // TODO: use turn marker as we found when we load existing messages. This workaround
+  // presents the game turn as a chat message
+  const channelMessage = message as unknown as MessageChannel
+  const messageContent = message.details.messageType === 'turn marker' ? 'Turn:' + channelMessage.gameTurn : message.message.content
+
   return (
     <div
       className={
@@ -35,7 +42,7 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire }: Pro
         [isOwner ? 'borderRightColor' : 'borderLeftColor']: message.details.from.forceColor
       }}
     >
-      <div className={styles['message-text']}>{message.message.content}</div>
+      <div className={styles['message-text']}>{messageContent}</div>
       <Box
         display="flex"
         alignItems="center"
