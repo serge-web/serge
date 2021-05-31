@@ -269,20 +269,18 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
       turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       wargameInitiated: true
     }
-    // return  db.put(initiatedWargame)
-    db.put(initiatedWargame)
-    return initiatedWargame
+    return  db.put(initiatedWargame).then(() => initiatedWargame)
   }).then((wargame) => {
     const messageInfoType: MessageInfoType = {
       ...wargame,
+      _rev: undefined,
       _id: new Date().toISOString(),
       messageType: INFO_MESSAGE,
       turnEndTime: moment().add(wargame.data.overview.realtimeTurnTime, 'ms').format(),
       gameTurn: 0,
       infoType: true // TODO: remove infoType
     }
-    db.put(messageInfoType)
-    return messageInfoType
+    return db.put(messageInfoType).then(() => messageInfoType)
   }).catch((err) => {
     console.log(err)
     return err
