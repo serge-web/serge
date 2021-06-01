@@ -1,7 +1,7 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
 import { PlanTurnFormValues, Route, RouteStatus, RouteTurn, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData } from '@serge/custom-types'
 import { deepCompare, findPlatformTypeFor } from '@serge/helpers'
-import { cloneDeep, kebabCase } from 'lodash'
+import { cloneDeep } from 'lodash'
 
 /**
  * support utility, encapsulating state management during umpire
@@ -177,7 +177,7 @@ class AdjudicationManager {
         // no current status, use the first one
 
         // get the platform type
-        const platform =  findPlatformTypeFor(this.platforms, selected.platformType)
+        const platform = findPlatformTypeFor(this.platforms, selected.platformType)
         if (platform) {
           const defaultState: State = platform.states[0]
           // create new state
