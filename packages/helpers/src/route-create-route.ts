@@ -1,6 +1,6 @@
 import L from 'leaflet'
 import { Route, RouteTurn, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception } from '@serge/custom-types'
-import { cloneDeep, kebabCase } from 'lodash'
+import { cloneDeep } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import { PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, LaydownPhases, LaydownTypes, Phase } from '@serge/config'

@@ -175,8 +175,9 @@ class AdjudicationManager {
         return selected.currentStatus
       } else {
         // no current status, use the first one
-        const pType = selected.platformType
-        const platform = this.platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === pType)
+
+        // get the platform type
+        const platform =  findPlatformTypeFor(this.platforms, selected.platformType)
         if (platform) {
           const defaultState: State = platform.states[0]
           // create new state
