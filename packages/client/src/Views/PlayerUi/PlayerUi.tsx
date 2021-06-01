@@ -39,11 +39,14 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     loadData()
     // @ts-ignore
     window.channelTabsContainer = window.channelTabsContainer || {}
+  }, [])
+
+  useEffect(() => {
     if(selectedForce && selectedRole) {
       const storageTourIsOpen = expiredStorage.getItem(`${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`) !== 'done'
       if (storageTourIsOpen !== tourIsOpen) setTourIsOpen(storageTourIsOpen)
     }
-  }, [])
+  }, [selectedForce, selectedRole])
 
   useEffect(() => {
     if (waitingLoginPassword && loggedIn && allForces.length > 0) {

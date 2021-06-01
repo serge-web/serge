@@ -2069,7 +2069,8 @@
                 },
                 {
                     "conditions": [
-                        "Working"
+                        "Working",
+                        "Inactive"
                     ],
                     "icon": "datum.svg",
                     "name": "datum",
