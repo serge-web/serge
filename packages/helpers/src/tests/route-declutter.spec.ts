@@ -9,15 +9,12 @@ import routeDeclutter from '../route-declutter'
 import { RouteStore, Route, RouteTurn } from '@serge/custom-types'
 import { Phase } from '@serge/config'
 
-
 it('declutter routes', () => {
-
   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', platformTypes, undefined, false, false)
 
   // force some platforms into the cell already occupied
   // but the platform in route 2
-  var ctr
-  for(ctr = 3; ctr < 6; ctr++) {
+  for (let ctr = 3; ctr < 6; ctr++) {
     store.routes[ctr].currentLocation = store.routes[1].currentLocation
     store.routes[ctr].currentPosition = store.routes[1].currentPosition
   }
