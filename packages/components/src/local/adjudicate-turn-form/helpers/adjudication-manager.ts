@@ -1,6 +1,6 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
 import { PlanTurnFormValues, Route, RouteStatus, RouteTurn, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData } from '@serge/custom-types'
-import { deepCompare } from '@serge/helpers'
+import { deepCompare, findPlatformTypeFor } from '@serge/helpers'
 import { cloneDeep, kebabCase } from 'lodash'
 
 /**
@@ -62,7 +62,7 @@ class AdjudicationManager {
       const selected: Route | undefined = this.store.selected
       if (selected) {
         const pType = selected.platformType
-        this.platformDetails = this.platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === pType)
+        this.platformDetails = findPlatformTypeFor(this.platforms, pType)
       }
     }
     if (this.platformDetails !== undefined) return this.platformDetails
