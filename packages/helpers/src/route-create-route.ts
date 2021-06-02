@@ -1,10 +1,11 @@
 import L from 'leaflet'
 import { Route, RouteTurn, RouteChild, SergeGrid, SergeHex, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception } from '@serge/custom-types'
-import { cloneDeep, kebabCase } from 'lodash'
+import { cloneDeep } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import { PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, LaydownPhases, LaydownTypes, Phase } from '@serge/config'
 import hexNamed from './hex-named'
+import findPlatformTypeFor from './find-platform-type-for'
 
 const processStep = (grid: SergeGrid<SergeHex<unknown>> | undefined,
   step: RouteTurn, res: Array<RouteTurn>): Array<RouteTurn> => {
@@ -135,7 +136,7 @@ const produceStatusFor = (status: RouteStatus | undefined, platformTypes: Platfo
     currentState = status.state
     currentSpeed = status.speedKts !== undefined ? status.speedKts : 0
   } else {
-    const platform: PlatformTypeData | undefined = platformTypes.find((platform: PlatformTypeData) => kebabCase(platform.name) === kebabCase(asset.platformType))
+    const platform: PlatformTypeData | undefined = findPlatformTypeFor(platformTypes, asset.platformType)
     if (platform) {
       const states = platform.states
       if (states && states.length) {
