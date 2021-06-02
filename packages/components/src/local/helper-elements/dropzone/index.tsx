@@ -28,7 +28,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
   let typeEmpty = false
   let typeGroup = false
   let typeOut = false
-  
+
   switch (type) {
     case 'group': typeGroup = true; activeDropzone = !!active; break
     case 'empty': typeEmpty = true; activeDropzone = showEmpty; break
@@ -40,7 +40,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
       const offsets: DOMRect = holderElement.getBoundingClientRect() as DOMRect
       const x = e.clientX
       const y = e.clientY
-      
+
       if (offsets && offsets.x <= x && x <= offsets.x + offsets.width) {
         if (offsets.y - itemH <= y && y <= offsets.y) {
           if (!showEmpty) setShowEmpty(true)
@@ -56,16 +56,14 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
     }
   }
 
-
-  const dragenter = ({target}: MouseEvent): void => {
-    let res: boolean = false
+  const dragenter = ({ target }: MouseEvent): void => {
+    let res = false
     if (target) {
       const { id } = target as HTMLDivElement
       res = (!!id && id === `parent-${item.uniqid}`)
     }
-    setDropzoneActivated(res);
+    setDropzoneActivated(res)
   }
-
 
   useEffect(() => {
     // subscribe event
@@ -76,7 +74,6 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
     }
   }, [showEmpty, innerRef, commingDrop])
 
-
   useEffect(() => {
     // subscribe event
     document.addEventListener('dragenter', dragenter)
@@ -85,7 +82,6 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
       document.removeEventListener('dragenter', dragenter)
     }
   }, [])
-
 
   const handleListChange = (newList: Array<DropItem>): void => {
     if (holderElement) {

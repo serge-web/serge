@@ -38,6 +38,7 @@ exports[`Dropzone renders correctly 1`] = `
       <div
         className="item"
         data-id={null}
+        id="parent-1"
       >
         Title
       </div>
