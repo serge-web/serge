@@ -47,20 +47,20 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: Attach linux executable file
+          name: linux_executable
           path: /home/runner/work/serge/serge/packages/executable/builds/*_linux.zip
           if-no-files-found: error
       
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: Attach macos executable file
+          name: macos_executable
           path: /home/runner/work/serge/serge/packages/executable/builds/*_macos.zip
           if-no-files-found: error
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: Attach win64 executable file
+          name: win64_executable
           path: /home/runner/work/serge/serge/packages/executable/builds/*_win64.zip
           if-no-files-found: error
