@@ -32,7 +32,7 @@ export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {
         <TextInput
           label="Password"
           labelColor="common.white"
-          value={/* password */''}
+          value={password}
           type="password"
           variant="filled"
           updateState={setPasswordValue}
