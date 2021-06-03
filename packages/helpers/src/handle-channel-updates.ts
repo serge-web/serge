@@ -131,15 +131,23 @@ export const clipInfoMEssage = (message: MessageInfoType, hasBeenRead: boolean =
   }
 }
 
+/** helper function, to return the next reference number for this force
+ * @param {string} msgRef this message reference
+ * @param {number} string the current counter
+ * @param {string} selectedForceName the selected force
+ */
 export const refNumberFor = (msgRef: string | undefined, current: number, selectedForceName?: string): number => {
-  if(msgRef != undefined) {
+  if (msgRef !== undefined) {
     // see if it starts with this force
-    if(selectedForceName && msgRef.startsWith(selectedForceName)) {
+    if (selectedForceName && msgRef.startsWith(selectedForceName)) {
+      // strip out the force name
+      const remainder = msgRef.substr(selectedForceName.length, msgRef.length - selectedForceName.length)
       // strip out the number
-      const parts = msgRef.split('-')
-      if(parts.length == 2) {
+      const parts = remainder.split('-')
+      // check the first match is zero length, that prevents `blue-1` matching `blue-10`
+      if (parts.length === 2 && parts[0].length === 0) {
         const number = +parts[1] + 1
-        return Math.max(number, current)  
+        return Math.max(number, current)
       } else {
         return current
       }
