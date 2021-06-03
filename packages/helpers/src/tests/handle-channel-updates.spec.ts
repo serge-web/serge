@@ -32,7 +32,7 @@ describe('handle channel update for info message', () => {
 
     // ok. now a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
-    const shortChannels = copyChannels.filter((channel: ChannelData) => channel.uniqid != 'channel-k53ti36p')
+    const shortChannels = copyChannels.filter((channel: ChannelData) => channel.uniqid !== 'channel-k53ti36p')
 
     // regenerate channels
     const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages, 1, blueForce,

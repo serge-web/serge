@@ -43,22 +43,22 @@ it('dont declutter last point on selected track', () => {
   const store: RouteStore = routeCreateStore(fisherAId, Phase.Adjudication, forces, 'umpire', platformTypes, undefined, true, true)
 
   // check dhow location & end of fisher planned match
-  const fisherA_1: Route | undefined = store.selected
-  expect(fisherA_1).toBeTruthy()
-  const dhow_1: Route | undefined = store.routes.find(route => route.uniqid === dhowAId)
-  expect(dhow_1).toBeTruthy()
+  const fisherA1: Route | undefined = store.selected
+  expect(fisherA1).toBeTruthy()
+  const dhow1: Route | undefined = store.routes.find(route => route.uniqid === dhowAId)
+  expect(dhow1).toBeTruthy()
 
-  if (fisherA_1 && dhow_1) {
+  if (fisherA1 && dhow1) {
     // start off with cells
-    const dhowLoc_1_cell: string = dhow_1.currentPosition
-    const fisherPlanned_1 = fisherA_1.planned[fisherA_1.planned.length - 1]
-    const lastLoc_1_cell: string | undefined = fisherPlanned_1.route && fisherPlanned_1.route[fisherPlanned_1.route.length - 1]
+    const dhowLoc1Cell: string = dhow1.currentPosition
+    const fisherPlanned1 = fisherA1.planned[fisherA1.planned.length - 1]
+    const lastLoc1Cell: string | undefined = fisherPlanned1.route && fisherPlanned1.route[fisherPlanned1.route.length - 1]
     // confirm they're in the same cell
-    expect(dhowLoc_1_cell).toEqual(lastLoc_1_cell)
+    expect(dhowLoc1Cell).toEqual(lastLoc1Cell)
   }
 
   // store location of last planned cell for fisherman
-  const fisherPlanned: RouteTurn | undefined = fisherA_1 && fisherA_1.planned && fisherA_1.planned[fisherA_1.planned.length - 1]
+  const fisherPlanned: RouteTurn | undefined = fisherA1 && fisherA1.planned && fisherA1.planned[fisherA1.planned.length - 1]
   const fisherLast = fisherPlanned && fisherPlanned.locations && fisherPlanned.locations[fisherPlanned.locations.length - 1]
   expect(fisherLast).toBeTruthy()
 
@@ -67,24 +67,24 @@ it('dont declutter last point on selected track', () => {
   expect(cleaned).toBeTruthy()
 
   // check dhow location & end of fisher planned match
-  const fisherA_2: Route | undefined = cleaned.selected
-  expect(fisherA_2).toBeTruthy()
-  const dhow_2: Route | undefined = cleaned.routes.find(route => route.uniqid === dhowAId)
-  expect(dhow_2).toBeTruthy()
+  const fisherA2: Route | undefined = cleaned.selected
+  expect(fisherA2).toBeTruthy()
+  const dhow2: Route | undefined = cleaned.routes.find(route => route.uniqid === dhowAId)
+  expect(dhow2).toBeTruthy()
 
-  if (fisherA_2 && dhow_2) {
-    const dhowLoc_2: string = dhow_2.currentPosition
-    const fisherPlanned_2 = fisherA_2.planned[fisherA_2.planned.length - 1]
-    const lastLoc_2: string | undefined = fisherPlanned_2.route && fisherPlanned_2.route[fisherPlanned_2.route.length - 1]
+  if (fisherA2 && dhow2) {
+    const dhowLoc2: string = dhow2.currentPosition
+    const fisherPlanned2 = fisherA2.planned[fisherA2.planned.length - 1]
+    const lastLoc2: string | undefined = fisherPlanned2.route && fisherPlanned2.route[fisherPlanned2.route.length - 1]
     // confirm they're in the same cell
-    expect(dhowLoc_2).toEqual(lastLoc_2)
+    expect(dhowLoc2).toEqual(lastLoc2)
 
     // store new location of last planned cell for fisherman
-    const fisherLast_2 = fisherPlanned_2.locations && fisherPlanned_2.locations[fisherPlanned_2.locations.length - 1]
-    expect(fisherLast_2).toBeTruthy()
+    const fisherLast2 = fisherPlanned2.locations && fisherPlanned2.locations[fisherPlanned2.locations.length - 1]
+    expect(fisherLast2).toBeTruthy()
 
     // ok, we don't expect fisher last 2 to have changed
-    expect(fisherLast).toEqual(fisherLast_2)
+    expect(fisherLast).toEqual(fisherLast2)
   }
 })
 
@@ -94,22 +94,22 @@ it('declutter last point on un-selected track', () => {
   const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'umpire', platformTypes, undefined, true, false)
 
   // check dhow location & end of fisher planned match
-  const fisherA_1: Route | undefined = store.routes.find(route => route.uniqid === fisherAId)
-  expect(fisherA_1).toBeTruthy()
-  const dhow_1: Route | undefined = store.routes.find(route => route.uniqid === dhowAId)
-  expect(dhow_1).toBeTruthy()
+  const fisherA1: Route | undefined = store.routes.find(route => route.uniqid === fisherAId)
+  expect(fisherA1).toBeTruthy()
+  const dhow1: Route | undefined = store.routes.find(route => route.uniqid === dhowAId)
+  expect(dhow1).toBeTruthy()
 
-  if (fisherA_1 && dhow_1) {
+  if (fisherA1 && dhow1) {
     // start off with cells
-    const dhowLoc_1_cell: string = dhow_1.currentPosition
-    const fisherPlanned_1 = fisherA_1.planned[fisherA_1.planned.length - 1]
-    const lastLoc_1_cell: string | undefined = fisherPlanned_1.route && fisherPlanned_1.route[fisherPlanned_1.route.length - 1]
+    const dhowLoc1Cell: string = dhow1.currentPosition
+    const fisherPlanned1 = fisherA1.planned[fisherA1.planned.length - 1]
+    const lastLoc1Cell: string | undefined = fisherPlanned1.route && fisherPlanned1.route[fisherPlanned1.route.length - 1]
     // confirm they're in the same cell
-    expect(dhowLoc_1_cell).toEqual(lastLoc_1_cell)
+    expect(dhowLoc1Cell).toEqual(lastLoc1Cell)
   }
 
   // store location of last planned cell for fisherman
-  const fisherPlanned: RouteTurn | undefined = fisherA_1 && fisherA_1.planned && fisherA_1.planned[fisherA_1.planned.length - 1]
+  const fisherPlanned: RouteTurn | undefined = fisherA1 && fisherA1.planned && fisherA1.planned[fisherA1.planned.length - 1]
   const fisherLast = fisherPlanned && fisherPlanned.locations && fisherPlanned.locations[fisherPlanned.locations.length - 1]
   expect(fisherLast).toBeTruthy()
 
@@ -118,23 +118,23 @@ it('declutter last point on un-selected track', () => {
   expect(cleaned).toBeTruthy()
 
   // check dhow location & end of fisher planned match
-  const fisherA_2: Route | undefined = cleaned.routes.find(route => route.uniqid === fisherAId)
-  expect(fisherA_2).toBeTruthy()
-  const dhow_2: Route | undefined = cleaned.routes.find(route => route.uniqid === dhowAId)
-  expect(dhow_2).toBeTruthy()
+  const fisherA2: Route | undefined = cleaned.routes.find(route => route.uniqid === fisherAId)
+  expect(fisherA2).toBeTruthy()
+  const dhow2: Route | undefined = cleaned.routes.find(route => route.uniqid === dhowAId)
+  expect(dhow2).toBeTruthy()
 
-  if (fisherA_2 && dhow_2) {
-    const dhowLoc_2: string = dhow_2.currentPosition
-    const fisherPlanned_2 = fisherA_2.planned[fisherA_2.planned.length - 1]
-    const lastLoc_2: string | undefined = fisherPlanned_2.route && fisherPlanned_2.route[fisherPlanned_2.route.length - 1]
+  if (fisherA2 && dhow2) {
+    const dhowLoc2: string = dhow2.currentPosition
+    const fisherPlanned2 = fisherA2.planned[fisherA2.planned.length - 1]
+    const lastLoc2: string | undefined = fisherPlanned2.route && fisherPlanned2.route[fisherPlanned2.route.length - 1]
     // confirm they're in the same cell
-    expect(dhowLoc_2).toEqual(lastLoc_2)
+    expect(dhowLoc2).toEqual(lastLoc2)
 
     // store new location of last planned cell for fisherman
-    const fisherLast_2 = fisherPlanned_2.locations && fisherPlanned_2.locations[fisherPlanned_2.locations.length - 1]
-    expect(fisherLast_2).toBeTruthy()
+    const fisherLast2 = fisherPlanned2.locations && fisherPlanned2.locations[fisherPlanned2.locations.length - 1]
+    expect(fisherLast2).toBeTruthy()
 
     // ok, do expect fisher last 2 to have changed, since neither is the selected track
-    expect(fisherLast).not.toEqual(fisherLast_2)
+    expect(fisherLast).not.toEqual(fisherLast2)
   }
 })

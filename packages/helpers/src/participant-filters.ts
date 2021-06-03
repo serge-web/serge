@@ -1,4 +1,4 @@
-import {  Participant, Role } from '@serge/custom-types';
+import { Participant, Role } from '@serge/custom-types';
 
 /** determine if the participant force matches the supplied force */
 export const matchedForceFilter = (
@@ -18,8 +18,8 @@ const matchedRole = (role: Role, selectedRole: string): boolean => (
 /** check if the current player role is named for the channel, or if no roles are named */
 export const matchedForceAndRoleFilter = (participant: Participant, selectedForce: string | undefined, selectedRole: string): boolean => (
   selectedForce !== undefined &&
-  matchedForceFilter(participant.forceUniqid, selectedForce) && 
-  (participant.roles.length == 0 || participant.roles.some(role => matchedRole(role, selectedRole)))
+  matchedForceFilter(participant.forceUniqid, selectedForce) &&
+  (participant.roles.length === 0 || participant.roles.some(role => matchedRole(role, selectedRole)))
 )
 
 /**

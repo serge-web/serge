@@ -5,7 +5,7 @@ describe('isPlainObject', () => {
     const obj = { foo: 'bar' }
     const arrayObj = ['foo', 'bar']
     const nullObj = null
-    const funcObj = () => {}
+    const funcObj = () => { console.log('tt') }
     expect(isPlainObject(obj)).toBeTruthy()
     expect(isPlainObject(arrayObj)).toBeFalsy()
     expect(isPlainObject(nullObj)).toBeFalsy()

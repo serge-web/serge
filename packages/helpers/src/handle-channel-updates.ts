@@ -1,16 +1,12 @@
-import { CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from "@serge/config"
+import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
   MessageChannel, MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped
-} from "@serge/custom-types"
-import { getParticipantStates } from "./participant-states"
+} from '@serge/custom-types'
+import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
-// @ts-ignore
 import uniqId from 'uniqid'
 import mostRecentOnly from './most-recent-only'
-import {
-  expiredStorage,
-} from '@serge/config'
 
 /** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom, selectedForceName?: string) => {
@@ -26,30 +22,29 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
 
     // if this message has a reference number, we should delete any previous message
     // with that reference number before we insert the message
-    if(payload.message.Reference) {
+    if (payload.message.Reference) {
       // remove any existing RFI with this reference number. Note: we can't use 
       // filter() array function since it produces a new array, which would
       // have a new reference, and wouldn't get returned as a parameter
       theChannel.messages.forEach((msg, idx) => {
         if (msg.messageType === CUSTOM_MESSAGE &&
           msg.message.Reference === payload.message.Reference) {
-            theChannel.messages?.splice(idx, 1); 
-          }
+            theChannel.messages?.splice(idx, 1)
+        }
       })
-
     }
 
     theChannel.messages.unshift({
       ...deepCopy(payload),
       hasBeenRead: false,
       isOpen: false
-    })  
+    })
 
     // update message count
     theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
   }
 
-  if(payload.details.messageType === 'RFI') {
+  if (payload.details.messageType === 'RFI') {
     // we need to stick it into the RFI messages, replacing any previous version
 
     // remove any existing RFI with this reference number. Note: we can't use 
@@ -57,7 +52,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
     // have a new reference, and wouldn't get returned as a parameter
     data.rfiMessages.forEach((item, idx) => {
       if (item.message.Reference === payload.message.Reference) {
-        data.rfiMessages.splice(idx, 1); 
+        data.rfiMessages.splice(idx, 1)
       }
     })
     data.rfiMessages.unshift(deepCopy(payload))
@@ -81,7 +76,7 @@ const createTurnMarker = (turn: number): MessageChannel => {
       },
       messageType: 'Turn ' + turn,
       timestamp: new Date().toISOString(),
-      channel: `infoTypeChannelMarker${uniqId.time()}`,
+      channel: `infoTypeChannelMarker${uniqId.time()}`
     },
     infoType: true,
     messageType: CUSTOM_MESSAGE,
@@ -114,7 +109,7 @@ export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId
   expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}${id}`) === 'read'
 )
 
-export const clipInfoMEssage = (message: MessageInfoType, hasBeenRead: boolean = false): MessageInfoTypeClipped => {
+export const clipInfoMEssage = (message: MessageInfoType, hasBeenRead = false): MessageInfoTypeClipped => {
   if (message.messageType !== INFO_MESSAGE) {
     throw new TypeError(`Message should be INFO_MESSAGE: "${INFO_MESSAGE}" type`)
   }
@@ -132,14 +127,14 @@ export const clipInfoMEssage = (message: MessageInfoType, hasBeenRead: boolean =
 }
 
 export const refNumberFor = (msgRef: string | undefined, current: number, selectedForceName?: string): number => {
-  if(msgRef != undefined) {
+  if (msgRef !== undefined) {
     // see if it starts with this force
-    if(selectedForceName && msgRef.startsWith(selectedForceName)) {
+    if (selectedForceName && msgRef.startsWith(selectedForceName)) {
       // strip out the number
       const parts = msgRef.split('-')
-      if(parts.length == 2) {
+      if (parts.length === 2) {
         const number = +parts[1] + 1
-        return Math.max(number, current)  
+        return Math.max(number, current)
       } else {
         return current
       }
@@ -153,7 +148,7 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
   allForces: ForceData[], chatChannel: PlayerUiChatChannel, isObserver: boolean,
   allTemplates: any[]): SetWargameMessage => {
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
-  let nextMsgReference: number = 0
+  let nextMsgReference = 0
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
     const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
 
@@ -165,7 +160,7 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
         ...message,
         hasBeenRead: hasBeenRead,
         isOpen: false
-      }  
+      }
     }
   })
 
@@ -217,11 +212,11 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
 
   // also sort out the RFI messages
   const rfiMessages= messagesFiltered.filter((message: MessageChannel) => {
-    if(message.messageType === CUSTOM_MESSAGE) {
+    if (message.messageType === CUSTOM_MESSAGE) {
       const custom = message as MessageCustom
       return custom.details.messageType === 'RFI'
     }
-    return false 
+    return false
   })
   const rfiMessagesCustom = rfiMessages as Array<MessageCustom>
 
@@ -239,7 +234,6 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
 const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel, rfiMessages: MessageCustom[],
   nextMsgReference: number, selectedForce: ForceData | undefined, allChannels: ChannelData[], selectedRole: string,
   isObserver: boolean, allTemplates: any[], allForces: ForceData[]): SetWargameMessage => {
-
   const res: SetWargameMessage = {
     channels: { ...channels },
     chatChannel: { ...chatChannel },
@@ -324,21 +318,24 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
         const thisChannel: ChannelUI = res.channels[channelId]
 
         // check if we're missing a turn marker for this turn
-        if (!thisChannel.messages!.find((prevMessage: MessageChannel) => prevMessage.gameTurn === payload.gameTurn)) {
-          // no messages, or no turn marker found, create one
-          const message: MessageChannel = createTurnMarker(payload.gameTurn)
+        if (thisChannel.messages) {
+          if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === payload.gameTurn)) {
+            // no messages, or no turn marker found, create one
+            const message: MessageChannel = createTurnMarker(payload.gameTurn)
 
-          // if messages array is missing, create one
-          if (!thisChannel.messages) {
-            thisChannel.messages = []
+            // if messages array is missing, create one
+            // NO: we've already tested for it
+            // if (!thisChannel.messages) {
+            //   thisChannel.messages = []
+            // }
+            thisChannel.messages.unshift(message)
           }
-          thisChannel.messages.unshift(message)
         }
       }
     })
 
     // delete any unprocessed channels
-    for (var key in unprocessedChannels) {
+    for (const key in unprocessedChannels) {
       // this key didn't get processed when we looped through all main channels. So,
       // it must have been deleted
       delete res.channels[key]

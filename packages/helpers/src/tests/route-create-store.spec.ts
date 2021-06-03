@@ -293,7 +293,7 @@ it('support new way of storing past steps', () => {
       expect(route.history[0].route.length).toEqual(2)
     }
   } else {
-    fail('failed to find red asset')
+    throw new Error('failed to find red asset')
   }
 })
 
