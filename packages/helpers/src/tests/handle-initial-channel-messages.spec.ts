@@ -64,6 +64,13 @@ describe('handling reference numbers', () => {
     expect(refNumberFor('Blue:3', 2, 'Blue')).toEqual(2)
     expect(refNumberFor('Blue--3', 2, 'Blue')).toEqual(2)
   })
+
+  it('correctly extracts reference numbers with minus in title', () => {
+    expect(refNumberFor('Blue-1-3', 2, 'Blue-1')).toEqual(4)
+    expect(refNumberFor('Blue-2-3', 2, 'Blue-1')).toEqual(2)
+    expect(refNumberFor('Blue-10-3', 2, 'Blue-1')).toEqual(2)
+  })
+
 })
 
 
