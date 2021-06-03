@@ -5,7 +5,7 @@ describe('isBoolean', () => {
     expect(isBoolean('string')).toBeFalsy()
     expect(isBoolean(false)).toBeTruthy()
     expect(isBoolean(true)).toBeTruthy()
-    expect(isBoolean(2 == 2)).toBeTruthy()
+    expect(isBoolean(2 === 2)).toBeTruthy()
     expect(isBoolean('true')).toBeFalsy()
     expect(isBoolean('false')).toBeFalsy()
   })

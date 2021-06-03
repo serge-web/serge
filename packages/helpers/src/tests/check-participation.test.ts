@@ -1,6 +1,6 @@
 import { deepCopy, checkParticipantStates, getParticipantStates } from '../'
 import { ChannelData, Participant, Role } from '@serge/custom-types'
-import { forces} from '@serge/mocks'
+import { forces } from '@serge/mocks'
 
 const gameControl: Role = forces[0].roles[0]
 const allForcesChannel: ChannelData = {
@@ -16,9 +16,9 @@ const allForcesChannel: ChannelData = {
     {
       force: 'Red',
       forceUniqid: 'Red',
-      roles: [{name:'Logs', isGameControl: false, isObserver: false, isInsightViewer: false, password:'aa'}],
+      roles: [{ name: 'Logs', isGameControl: false, isObserver: false, isInsightViewer: false, password: 'aa' }],
       subscriptionId: 'k63pjsbv',
-      templates: [ {a:'a'}, {b:'b'} ]
+      templates: [{ a: 'a' }, { b: 'b' }]
     },
     {
       force: 'Blue',
@@ -31,8 +31,7 @@ const allForcesChannel: ChannelData = {
   uniqid: 'channel-k63pjit0'
 }
 
-const allTemplates: any = [{title:'Chat'}, {title:'RFI'}, {title:'Weather'}]
-
+const allTemplates: any = [{ title: 'Chat' }, { title: 'RFI' }, { title: 'Weather' }]
 
 it('Check umpire in channel', () => {
   const selForce = 'umpire'
@@ -63,7 +62,6 @@ it('Check non-member force in named role in channel', () => {
   expect(res.isParticipant).toBeFalsy()
   expect(res.allRolesIncluded).toBeFalsy()
 })
-
 
 it('Check non-member force in named role in channel where no roles named', () => {
   const selForce = 'Blue'

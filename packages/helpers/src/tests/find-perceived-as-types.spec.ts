@@ -40,12 +40,12 @@ const perceptionsEmpty: Perception[] = [{
 
 it('gives true details for same force', () => {
   expect(findPerceivedAsTypes('yellow', 'osaka', false, 'C0011', 'yellow', 'submarine',
-    perceptions)).toEqual({ name:'osaka', force: 'yellow', type: 'submarine'})
+    perceptions)).toEqual({ name: 'osaka', force: 'yellow', type: 'submarine' })
 })
 
 it('gives true details for umpire', () => {
   expect(findPerceivedAsTypes(UMPIRE_FORCE, 'osaka', false, 'C0011', 'yellow', 'submarine',
-    perceptions)).toEqual({ name:'osaka', force: 'yellow', type: 'submarine'})
+    perceptions)).toEqual({ name: 'osaka', force: 'yellow', type: 'submarine' })
 })
 
 it('gives null for force without perception', () => {
@@ -55,25 +55,25 @@ it('gives null for force without perception', () => {
 
 it('gives perceived details for force with entry', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', false, 'C0011', 'yellow', 'submarine',
-    perceptions)).toEqual({ name:'Dumbo', force: 'green', type: 'merchant-vessel'})
+    perceptions)).toEqual({ name: 'Dumbo', force: 'green', type: 'merchant-vessel' })
 })
 
 it('gives perceived details for force with entry but type missing', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', false, 'C0011', 'yellow', 'submarine',
-    perceptionsTypeMissing)).toEqual({ name:'Dumbo', force: 'green', type: 'unknown'})
+    perceptionsTypeMissing)).toEqual({ name: 'Dumbo', force: 'green', type: 'unknown' })
 })
 
 it('gives perceived details for force with entry but force missing', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', false, 'C0011', 'yellow', 'submarine',
-    perceptionsForceMissing)).toEqual({ name:'Dumbo', force: 'unknown', type: 'merchant-vessel'})
+    perceptionsForceMissing)).toEqual({ name: 'Dumbo', force: 'unknown', type: 'merchant-vessel' })
 })
 
 it('gives perceived details for force with entry but name missing', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', false, 'C0011', 'yellow', 'submarine',
-    perceptionsNameMissing)).toEqual({ name:'C0011', force: 'green', type: 'merchant-vessel'})
+    perceptionsNameMissing)).toEqual({ name: 'C0011', force: 'green', type: 'merchant-vessel' })
 })
 
 it('gives perceived details for force with no details', () => {
   expect(findPerceivedAsTypes('Blue', 'osaka', false, 'C0011', 'yellow', 'submarine',
-  perceptionsEmpty)).toEqual({ name:'C0011', force: 'unknown', type: 'unknown'})
+    perceptionsEmpty)).toEqual({ name: 'C0011', force: 'unknown', type: 'unknown' })
 })

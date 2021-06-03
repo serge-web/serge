@@ -10,5 +10,5 @@ describe('isPlainObject', () => {
     expect(isPlainObject(arrayObj)).toBeFalsy()
     expect(isPlainObject(nullObj)).toBeFalsy()
     expect(isPlainObject(funcObj)).toBeFalsy()
-  });
+  })
 })
