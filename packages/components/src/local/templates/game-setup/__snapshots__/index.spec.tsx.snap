@@ -9,7 +9,7 @@ exports[`GameSetup component: renders correctly 1`] = `
   >
     <a
       className="link main"
-      href="#"
+      href="javascript:void(0);"
       onClick={[Function]}
     >
       <svg

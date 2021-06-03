@@ -7,12 +7,14 @@
   "scripts": {
     "storybook": "start-storybook -s ./static -p 6611",
     "build": "rimraf build && yarn copy && tsc && yarn cleanup",
-    "watch": "tsc --watch",
+    "watch": "run-p watch:*",
+    "watch:ts": "tsc --watch",
+    "watch:style": "node-sass-chokidar ./src -o ./build --watch --ext scss",
     "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",
     "cleanup": "rimraf build/vendor && rimraf build/local/**/mocks && rimraf build/local/**/*.stories.* && rimraf build/local/**/*.spec.*",
     "test": "run-p test:*",
     "test:ts": "tsc --pretty",
-    "test:unit": "jest --coverage -o",
+    "test:unit": "jest --passWithNoTests",
     "lint": "run-p lint:*",
     "lint:ts": "eslint --fix src/**/*.ts*",
     "lint:styles": "stylelint --fix src/**/*.scss",
@@ -43,6 +45,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-leaflet": "^2.5.1",
     "@types/react-maskedinput": "^4.0.4",
+    "@types/react-modal": "^3.12.0",
     "@types/react-test-renderer": "^16.9.2",
     "@types/sortablejs": "^1.10.6",
     "@types/vfile-message": "^2.0.0",
@@ -77,6 +80,7 @@
     "react-leaflet": "^2.6.1",
     "react-leaflet-vectorgrid": "^2.2.1",
     "react-maskedinput": "^4.0.1",
+    "react-modal": "^3.13.1",
     "react-scrollbar": "^0.5.6",
     "react-sortablejs": "^6.0.0",
     "react-test-renderer": "^16.12.0",
@@ -95,7 +99,8 @@
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.5",
     "uniqid": "^5.0.3",
-    "whatwg-fetch": "^3.6.1"
+    "whatwg-fetch": "^3.6.1",
+    "node-sass-chokidar": "^1.5.0"
   },
   "resolutions": {
     "@types/react": "^16.14.5"

@@ -235,12 +235,14 @@ WithMarker.args = {
     <AssetIcon
       uniqid="id1"
       name="Jeffrey"
+      contactId='C345'
       condition='Working'
       position={L.latLng(13.298034302, 43.0488191271)}
       selected={boolean(visLabel, visDefaultValue)}
       type={radios(assetTypelabel, assetTypeNames, assetTypeDefaultValue)}
       force={'Red'}
-      perceivedForce={radios('Perceived asset force', assetForceNames, assetForceDefaultValue)}
+      perceivedForceColor={'#00f'}
+      perceivedForceClass={radios('Perceived asset force', assetForceNames, assetForceDefaultValue)}
       visibleTo={['blue,', 'red']}
       status={{
         speedKts: 10,

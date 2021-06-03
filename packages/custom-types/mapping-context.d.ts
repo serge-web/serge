@@ -80,7 +80,7 @@ export default interface MappingContext {
   /** 
    * the current map bounds
    */
-  viewport: L.LatLngBounds | undefined,
+  viewport: L.LatLngBounds | undefined
   /**
    *  state for zoom Level
    **/
@@ -101,6 +101,10 @@ export default interface MappingContext {
    * handler to clear current route from specified number
    */
   clearFromTurn?: {(turn: number): void}
+  /**
+   * pan the map to the specified cell
+   */
+  panTo?: {(cell: string): void}
   /**
    * The method for posting messages out of the mapping component
    */

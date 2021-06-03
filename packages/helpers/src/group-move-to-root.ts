@@ -1,5 +1,6 @@
 import { Asset, ForceData } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
+
 /**
  * Move the specified child asset to the root level for that force
  * @param (string) uniqid the asset to move to root
@@ -7,7 +8,6 @@ import { cloneDeep } from 'lodash'
  * @returns modified list of forces
  */
 const groupMoveToRoot = (uniqid: string, forces: ForceData[]): ForceData[] => {
-  const newForces: ForceData[] = cloneDeep(forces)
   // find the force
   let topLevelAsset: Asset | undefined
   let parentForce: ForceData | undefined
@@ -18,7 +18,7 @@ const groupMoveToRoot = (uniqid: string, forces: ForceData[]): ForceData[] => {
     HOSTING,
     COMPRISING
   }
-  newForces.forEach((force: ForceData) => {
+  forces.forEach((force: ForceData) => {
     if (force.assets && !parentForce) {
       force.assets.forEach((asset: Asset) => {
         topLevelAsset = asset
@@ -86,7 +86,7 @@ const groupMoveToRoot = (uniqid: string, forces: ForceData[]): ForceData[] => {
       // add at the top level
       parentForce.assets.push(theAsset)
     }
-    return newForces
+    return forces
   }
   throw new Error('Failed to find elements being dragged')
 }

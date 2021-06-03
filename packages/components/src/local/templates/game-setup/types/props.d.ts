@@ -93,4 +93,9 @@ export default interface Props extends AdminLayoutProps {
   onWargameInitiate: () => void
 
   availablePlatformTypes?: PlatformTypeData[]
+
+  /**
+   * Handle back button event
+   */
+   onPressBack?: () => void
 }

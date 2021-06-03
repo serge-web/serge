@@ -1,7 +1,7 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
 import { PlanTurnFormValues, Route, RouteStatus, RouteTurn, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData } from '@serge/custom-types'
-import { deepCompare } from '@serge/helpers'
-import { cloneDeep, kebabCase } from 'lodash'
+import { deepCompare, findPlatformTypeFor } from '@serge/helpers'
+import { cloneDeep } from 'lodash'
 
 /**
  * support utility, encapsulating state management during umpire
@@ -13,6 +13,7 @@ class AdjudicationManager {
   setRouteStore: {(store: RouteStore): void}
   turnPlanned: {(turn: PlanTurnFormValues): void}
   cancelRoutePlanning: { (): void }
+  closePlanningForm: { (): void }
   iconData: {forceColor: string, platformType: string}
   formData: AdjudicateTurnFormPopulate
   formHeader: string
@@ -34,6 +35,7 @@ class AdjudicationManager {
     setRouteStore: {(store: RouteStore): void},
     turnPlanned: {(turn: PlanTurnFormValues): void},
     cancelRoutePlanning: {(): void},
+    closePlanningForm: {(): void},
     iconData: {forceColor: string, platformType: string},
     formData: AdjudicateTurnFormPopulate) {
     this.store = store
@@ -42,6 +44,7 @@ class AdjudicationManager {
     this.setRouteStore = setRouteStore
     this.turnPlanned = turnPlanned
     this.cancelRoutePlanning = cancelRoutePlanning
+    this.closePlanningForm = closePlanningForm
     this.iconData = iconData
     this.formData = formData
     this.formHeader = formHeader
@@ -50,12 +53,16 @@ class AdjudicationManager {
     this.platformDetails = undefined
   }
 
+  getContactId (): string {
+    return this.formData.contactId
+  }
+
   getPlatformDetails (): PlatformTypeData {
     if (this.platformDetails === undefined) {
       const selected: Route | undefined = this.store.selected
       if (selected) {
         const pType = selected.platformType
-        this.platformDetails = this.platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === pType)
+        this.platformDetails = findPlatformTypeFor(this.platforms, pType)
       }
     }
     if (this.platformDetails !== undefined) return this.platformDetails
@@ -168,8 +175,9 @@ class AdjudicationManager {
         return selected.currentStatus
       } else {
         // no current status, use the first one
-        const pType = selected.platformType
-        const platform = this.platforms.find((platform: PlatformTypeData) => kebabCase(platform.name) === pType)
+
+        // get the platform type
+        const platform = findPlatformTypeFor(this.platforms, selected.platformType)
         if (platform) {
           const defaultState: State = platform.states[0]
           // create new state
@@ -332,7 +340,8 @@ class AdjudicationManager {
       const turnData: PlanTurnFormValues = {
         statusVal: state,
         speedVal: status.speedKts ? status.speedKts : 0,
-        turnsVal: 1
+        turnsVal: 1,
+        condition: this.currentCondition()
       }
       this.turnPlanned(turnData)
     }
@@ -367,15 +376,17 @@ class AdjudicationManager {
           switch (command) {
             case PlanningCommands.Accept:
               route.adjudicationState = PlanningStates.Saved
+              this.closePlanningForm()
               break
             case PlanningCommands.Reject:
               route.adjudicationState = PlanningStates.Rejected
-              // clear the planned oute
+              // clear the planned route
               route.planned = []
               route.plannedTrimmed = []
               break
             case PlanningCommands.Save:
               route.adjudicationState = PlanningStates.Saved
+              this.closePlanningForm()
               break
             default:
               console.warn('Not expecting ', command, ' in state ', curState)
@@ -411,6 +422,7 @@ class AdjudicationManager {
               break
             case PlanningCommands.Save:
               route.adjudicationState = PlanningStates.Saved
+              this.closePlanningForm()
               break
             default:
               console.warn('Not expecting ', command, ' in state ', curState)
@@ -448,6 +460,7 @@ class AdjudicationManager {
               break
             case PlanningCommands.Save:
               route.adjudicationState = PlanningStates.Saved
+              this.closePlanningForm()
               break
             case PlanningCommands.Revert:
               route.adjudicationState = PlanningStates.Pending

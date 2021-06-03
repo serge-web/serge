@@ -31,7 +31,7 @@ export interface PerceptionFormData {
 /** message for when player has planned new turn of data */
 export interface NewTurnValues {
   state: string
-  speed: number
+  speed?: number
   route: Array<SergeHex<{}>>
 }
 
@@ -44,6 +44,7 @@ export interface PlanTurnFormValues {
   statusVal: Status
   speedVal: number
   turnsVal: number
+  condition: string
 }
 
 export interface PlanTurnFormData {
@@ -52,6 +53,7 @@ export interface PlanTurnFormData {
 }
 
 export interface AdjudicateTurnFormPopulate {
+  contactId: string
   status: Array<Status>
   speed: Array<number>
   visibleTo: Array<ColorOption>
@@ -61,6 +63,7 @@ export interface AdjudicateTurnFormPopulate {
 export interface VisibilityFormData {
   assetId: string
   name: string
+  contactId: string
   populate: Array<ColorOption>
   values: Array<string>
   condition: Array<string>

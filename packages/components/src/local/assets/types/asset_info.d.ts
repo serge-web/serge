@@ -5,11 +5,13 @@ import L from 'leaflet'
 export default interface AssetInfo {
   position: L.LatLng
   name: string
+  contactId: string
   condition?: string
   status?: RouteStatus
   type: string
   force: string
-  perceivedForce: string
+  perceivedForceColor: string
+  perceivedForceClass?: string
   selected: boolean
   visibleTo: Array<string>
   readonly uniqid: string

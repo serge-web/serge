@@ -30,6 +30,9 @@ export const Assets: React.FC<{}> = () => {
   const [assets, setAssets] = useState<AssetInfo[]>([])
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
+  const playerForceEle = forces.find((force: ForceData) => force.uniqid === playerForce)
+  const playerForceName: string = playerForceEle ? playerForceEle.name : 'unknown'
+
   /**
    * determine if this is the umpire in adjudication mode, so that the
    * planned routes get trimmed
@@ -42,36 +45,42 @@ export const Assets: React.FC<{}> = () => {
     if (gridCells) {
       const tmpAssets: AssetInfo[] = []
       viewAsRouteStore.routes.forEach((route: RouteType) => {
-        const { uniqid, name, platformType, actualForceName, condition, laydownPhase } = route
+        const { uniqid, name, platformType, actualForceName, condition, laydownPhase, visibleToThisForce } = route
         const { contactId, status, perceptions } = route.asset
 
         // see if the player of this force can see (perceive) this asset
         const perceivedAsTypes: PerceivedTypes | null = findPerceivedAsTypes(
-          playerForce,
+          playerForceName,
           name,
+          visibleToThisForce,
           contactId,
-          route.perceivedForceName,
+          actualForceName,
           platformType,
           perceptions
         )
 
         if (perceivedAsTypes) {
           const position: L.LatLng | undefined = route.currentLocation // (cell && cell.centreLatLng) || undefined // route.currentLocation
-          //  console.log(name, position)
           const visibleToArr: string[] = visibleTo(perceptions)
           if (position != null) {
             // sort out who can control this force
-            const assetForce: ForceData | undefined = forces.find((force: ForceData) => force.name === actualForceName)
+            let assetForce: ForceData | undefined = forces.find((force: ForceData) => force.name === actualForceName)
+            if (!assetForce) {
+              // TODO: introduce consistency in how we represent forces (id, not name)
+              assetForce = forces.find((force: ForceData) => force.uniqid === actualForceName)
+            }
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const assetInfo: AssetInfo = {
                 position: position,
                 name: perceivedAsTypes.name,
+                contactId: route.asset.contactId,
                 condition: condition,
                 status: status,
                 selected: isSelected,
                 type: perceivedAsTypes.type,
-                perceivedForce: perceivedAsTypes.force,
+                perceivedForceColor: route.perceivedForceColor,
+                perceivedForceClass: route.perceivedForceClass,
                 force: assetForce.uniqid,
                 visibleTo: visibleToArr,
                 uniqid: uniqid,
@@ -94,6 +103,7 @@ export const Assets: React.FC<{}> = () => {
       <AssetIcon
         key={'a_for_' + asset.uniqid}
         name={asset.name}
+        contactId={asset.contactId}
         uniqid={asset.uniqid}
         position={asset.position}
         type={asset.type}
@@ -103,7 +113,8 @@ export const Assets: React.FC<{}> = () => {
         controlledBy={asset.controlledBy}
         visibleTo={asset.visibleTo}
         force={asset.force}
-        perceivedForce={asset.perceivedForce}
+        perceivedForceColor={asset.perceivedForceColor}
+        perceivedForceClass={asset.perceivedForceClass}
         tooltip={asset.name}
         locationPending={!!asset.laydownPhase}/>
     ))}

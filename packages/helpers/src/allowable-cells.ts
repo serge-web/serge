@@ -7,7 +7,7 @@ import { SergeHex, SergeGrid } from '@serge/custom-types'
  * @param {number} range allowed distance of travel in this turn
  * @returns {SergeHex<{}>[]} List of cells for where this asset could travel to
  */
-const allowableCells = (grid: SergeGrid<SergeHex<{}>> | undefined, originHex: SergeHex<{}>, range: number): SergeHex<{}>[] => {
+const allowableCells = (grid: SergeGrid<SergeHex<unknown>> | undefined, originHex: SergeHex<unknown>, range: number): SergeHex<{}>[] => {
   if (grid) {
     return grid.hexesInRange(originHex, range, true)
   } else {

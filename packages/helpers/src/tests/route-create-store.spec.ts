@@ -87,7 +87,7 @@ it('can create route for un-recognised type', () => {
 
   // should not create visible or condition elements for Blue force
   expect(dhow.visibleTo.length).toEqual(0)
-  expect(dhow.condition).toBeUndefined()
+  expect(dhow.condition).toEqual('Full capability')
 })
 
 it('create full history & planned for blue unit', () => {
@@ -512,7 +512,7 @@ it('creates routes for assets in new laydown structure in pre-init', () => {
   expect(route.history.length).toEqual(0)
   expect(route.planned.length).toEqual(0)
   expect(route.original.length).toEqual(0)
-  expect(route.laydownPhase).toEqual(LaydownPhases.Unmoved) // no route present, so can't have moved
+  expect(route.laydownPhase).toEqual(LaydownPhases.Immobile) // no route present, so can't have moved
   expect(route.underControl).toBeFalsy()
 })
 

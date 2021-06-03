@@ -19,6 +19,7 @@ export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
 export const MAX_LISTENERS = 82
 
 export const UMPIRE_FORCE = 'umpire'
+export const UMPIRE_FORCE_NAME = 'white'
 
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
 
@@ -26,12 +27,19 @@ export const LOCATION_PENDING = 'LocationPending' // special state where platfor
 
 export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
 
+// special platform-type, used for task group. Must match `platform-types` definition
+export const TASK_GROUP = 'task-group'
+
 // series of constants used for `messageType` when sending map events
 export const FORCE_LAYDOWN = 'ForceLaydown'
 export const VISIBILITY_CHANGES = 'VisibilityChanges'
+export const DELETE_PLATFORM = 'DeletePlatform'
 export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
 export const SUBMIT_PLANS = 'SubmitPlans'
 export const STATE_OF_WORLD = 'StateOfWorld'
+export const CREATE_TASK_GROUP = 'CreateTaskGroup'
+export const LEAVE_TASK_GROUP = 'LeaveTaskGroup'
+export const HOST_PLATFORM = 'HostPlatform'
 
 // series of constants used for `messageType` when sending custom messages
 export const CUSTOM_MESSAGE = 'CustomMessage'

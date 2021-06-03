@@ -502,7 +502,6 @@ exports[`SettingForces component: renders correctly 1`] = `
                                 <ul>
                                   <li
                                     className="li"
-                                    onClick={[Function]}
                                   >
                                     <div
                                       className="presection"
@@ -510,11 +509,18 @@ exports[`SettingForces component: renders correctly 1`] = `
                                       <section
                                         className="section"
                                       >
-                                        <input
-                                          onChange={[Function]}
-                                          type="text"
-                                          value="Game Control"
-                                        />
+                                        <div
+                                          className="value-label"
+                                        >
+                                          <div
+                                            onClick={[Function]}
+                                          >
+                                            Game Control
+                                          </div>
+                                          <svg
+                                            className="svg-inline--fa fa-trash"
+                                          />
+                                        </div>
                                         <div
                                           className="role"
                                         >

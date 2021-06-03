@@ -14,18 +14,32 @@ import { GroupItem, PlatformTypeData, Route } from '@serge/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
-import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases } from '@serge/config'
+import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases, Phase } from '@serge/config'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
 import { findPlatformTypeFor } from '@serge/helpers'
+import Modal from 'react-modal'
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    width: '30%',
+    height: '20%',
+    minHeight: '140px',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+}
 
 export const WorldState: React.FC<PropTypes> = ({
   name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
   submitTitle, submitForm, panel, gridCells, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
-  plansSubmitted, setPlansSubmitted
+  plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback
 }: PropTypes) => {
   const [tmpRoutes, setTmpRoutes] = useState<Array<Route>>(store.routes)
+  const [modalIsOpen, setIsOpen] = useState(false)
 
   const inLaydown = phase === ADJUDICATION_PHASE && turnNumber === 0
 
@@ -71,12 +85,33 @@ export const WorldState: React.FC<PropTypes> = ({
     }
   }
 
+  const onConfirm = (): void => {
+    setIsOpen(true)
+  }
+
+  const onYes = (): void => {
+    setIsOpen(false)
+    submitCallback()
+  }
+
+  const onNo = (): void => {
+    setIsOpen(false)
+  }
+
   const submitCallback = (): any => {
     if (submitForm) {
       submitForm()
       if (setPlansSubmitted) {
         setPlansSubmitted(true)
       }
+    }
+  }
+
+  const plannedRoutesPending = (): boolean => {
+    if (phase === Phase.Adjudication && isUmpire) {
+      return !!store.routes.find((route: Route) => route.adjudicationState !== PlanningStates.Saved)
+    } else {
+      return false
     }
   }
 
@@ -110,18 +145,18 @@ export const WorldState: React.FC<PropTypes> = ({
     // If we know the platform type, we can determine if the platform is destroyed
     if (item.platformType !== 'unknown') {
       const platformType: PlatformTypeData | undefined = platforms && findPlatformTypeFor(platforms, item.platformType)
-      isDestroyed = platformType && item.condition === platformType.conditions[platformType.conditions.length - 1]
+      isDestroyed = platformType && platformType.conditions.length > 1 && item.condition === platformType.conditions[platformType.conditions.length - 1]
     }
 
     const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
-    const checkStatus: boolean = item.laydownPhase === LaydownPhases.NotInLaydown
+    const checkStatus: boolean = (item.laydownPhase === LaydownPhases.NotInLaydown || item.laydownPhase === LaydownPhases.Immobile)
       ? inAdjudication ? item.adjudicationState && item.adjudicationState === PlanningStates.Saved : numPlanned > 0
       : item.laydownPhase !== LaydownPhases.Unmoved
     const fullDescription: string = isDestroyed ? 'Destroyed' : descriptionText + laydownMessage
 
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
-        <div className={cx(icClassName, styles['item-icon'])}/>
+        <div style={{ backgroundColor: item.perceivedForceColor }} className={cx(icClassName, styles['item-icon'])}/>
         <div className={styles['item-content']}>
           <div>
             <p>{item.name}</p>
@@ -142,18 +177,22 @@ export const WorldState: React.FC<PropTypes> = ({
     return canCombineWith(store, draggingItem.uniqid, item.uniqid, _parents, _type, gridCells)
   }
 
+  // player can drag items in planning phase if they can submit orders, or umpire can do it
+  // in adjudication or planning phase
+  const canDragItems = isUmpire || (phase === PLANNING_PHASE && canSubmitOrders)
+
   return <>
     <div className={styles['world-state']}>
       <h2 className={styles.title}>{customTitle}
-        { plansSubmitted &&
-       <h5 className='sub-title'>(Form disabled, {customTitle} submitted)</h5>
+        {plansSubmitted &&
+          <div className='sub-title'>(Form disabled, {customTitle} submitted)</div>
         }
       </h2>
 
       <Groups
         items={tmpRoutes}
         renderContent={renderContent}
-        canOrganise={canSubmitOrders}
+        canOrganise={canDragItems}
         canCombineWith={canCombineWithLocal}
         onSet={(itemsLink: any, type: any, depth: any): void => {
           const items = itemsLink.slice(0)
@@ -188,9 +227,24 @@ export const WorldState: React.FC<PropTypes> = ({
       />
       {submitTitle && (panel === WorldStatePanels.Control) && (!playerInAdjudication || inLaydown) && canSubmitOrders &&
         <div className={styles.submit}>
-          <Button disabled={plansSubmitted} onClick={submitCallback}>{submitTitle}</Button>
+          { secondaryButtonLabel &&
+            <Button disabled={plansSubmitted} onClick={secondaryButtonCallback}>{secondaryButtonLabel}</Button>
+          }
+          <Button disabled={plansSubmitted || plannedRoutesPending()} onClick={onConfirm}>{submitTitle}</Button>
         </div>
       }
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={onNo}
+        style={customStyles}
+      >
+        <div>Are you sure you wish to <strong>{submitTitle}</strong>?</div>
+        <div className={styles.action}>
+          <Button onClick={onYes}>Yes</Button>
+          <Button onClick={onNo}>No</Button>
+        </div>
+      </Modal>
     </div>
   </>
 }

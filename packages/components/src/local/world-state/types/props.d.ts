@@ -70,4 +70,12 @@ export default interface PropTypes {
    * update whether plans have been submitted
    */
   setPlansSubmitted?: React.Dispatch<React.SetStateAction<boolean>>
+  /**
+   *  label to show on secondary button
+   */
+  secondaryButtonLabel?: string
+  /**
+   * callback for secondary button
+   */
+  secondaryButtonCallback?: {(): void}
 }

@@ -1,4 +1,4 @@
-@import "~@serge/themes/dependencies/variables";
+@import "../../../../themes/dependencies/variables";
 
 .adjudicate {
   padding: 10px;
@@ -13,5 +13,16 @@
   // put space between action buttons
   button + button {
     margin-left: 1rem;
+  }
+
+  .fieldset {
+    border: transparent;
+
+    input,
+    label,
+    div,
+    svg {
+      color: #fff !important;
+    }
   }
 }

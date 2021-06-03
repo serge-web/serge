@@ -84,7 +84,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
   }
 
   const renderEmpty = (): JSX.Element => (
-    <div> <DoubleArrowIcon fontSize='small'/><span>Move in to {item.name}</span> </div>
+    <div> <DoubleArrowIcon fontSize='small'/><span>Move onto {item.name}</span> </div>
   )
 
   const renderGroup = (): JSX.Element => (

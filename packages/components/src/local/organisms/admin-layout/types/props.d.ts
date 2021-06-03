@@ -8,6 +8,7 @@ export default interface PropTypes extends StatusBarTypes {
   type?: 'submit' | 'reset' | 'button'
   size?: 's' | 'm'
   onTabChange?: (tab: string, key: number, e: any) => void
+  onPressBack?: () => void
   disabled?: boolean
   tabs?: Array<string>
   wargameChanged?: boolean

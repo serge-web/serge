@@ -10,6 +10,10 @@ export default interface PropTypes {
    */
   name: string
   /**
+   * The contactId
+   */
+  contactId: string
+  /**
    * The name of the icon to be used on the asset
    */
   type: string
@@ -22,10 +26,14 @@ export default interface PropTypes {
    */
   force: string
   /**
-   * The perceived force for this asset
+   * The perceived color for this asset
    */
-  perceivedForce: string
+  perceivedForceColor: string
   /**
+   * The perceived color for this asset
+   */
+  perceivedForceClass?: string
+   /**
    * if this asset is selected
    */
   selected: boolean

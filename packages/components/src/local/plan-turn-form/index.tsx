@@ -20,17 +20,16 @@ import { PlanTurnFormValues, Status } from '@serge/custom-types'
 /* Render component */
 export const PlanTurnForm: React.FC<PropTypes> = ({
   formHeader, formData, canSubmitPlans, setHidePlanningForm,
-  turnPlanned, icon, plansSubmitted
+  turnPlanned, icon, plansSubmitted, deleteEmptyTaskGroup
 }) => {
-  // TODO: Refactor this into a reusable helper and remove other instances
   const [formState, setFormState] = useState<PlanTurnFormValues>(formData.values)
 
   const { status, speed } = formData.populate
-  const { statusVal, turnsVal, speedVal } = formState
+  const { statusVal, turnsVal, speedVal, condition } = formState
+
+  const [speedInitialised, setSpeedInitialised] = useState<boolean>(false)
 
   const formDisabled: boolean = plansSubmitted || !canSubmitPlans
-
-  const validSpeedVal = speed.includes(speedVal) ? speedVal : speed[0]
 
   const changeHandler = (e: any): void => {
     const { name, value } = e.target
@@ -56,6 +55,12 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
         }
       )
     }
+  }
+
+  const validSpeedVal = speed.includes(speedVal) ? speedVal : speed[0]
+  if (!speedInitialised) {
+    setSpeedInitialised(true)
+    speedHandler(validSpeedVal)
   }
 
   // Status has a different data model and requires it's own handler
@@ -104,11 +109,13 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
       platformType={icon.platformType}
     >
       {formHeader}
+      { deleteEmptyTaskGroup &&
+        <Button onClick={deleteEmptyTaskGroup}>Group Empty - <b>Delete</b></Button>
+      }
       { plansSubmitted &&
        <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
       }
     </TitleWithIcon>
-
     <FormGroup title="State" align="right">
       <Select
         className={clSelect}
@@ -144,7 +151,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
       </FormGroup>
     }
     <FormGroup title="Condition">
-      <span className={styles.text}>{/* TODO: add real data */}Working</span>
+      <span className={styles.text}>{condition}</span>
     </FormGroup>
     { !formDisabled &&
       <Button disabled={!saveEnabled} onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Next Turn'}</Button>
