@@ -8,6 +8,7 @@ interface CssExports {
   'speed-enabled': string;
   'speed-inner': string;
   'speed-item': string;
+  'speed-item__label': string;
   'speed-items': string;
   'speed-selected': string;
 }

@@ -43,7 +43,12 @@ const cancelPlanning = (): void => {
   console.log('cancelling planning')
 }
 
-const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a1', 'Asset name', 3, setRouteStore, turnPlanned, cancelPlanning, iconData, formData)
+const closePlanningForm = (): void => {
+  console.log('closing planning form')
+}
+
+const manager: AdjudicationManager = new AdjudicationManager(store, platformTypes, 'a1', 'Asset name', 3,
+  setRouteStore, turnPlanned, cancelPlanning, closePlanningForm, iconData, formData)
 
 export const Default: React.FC = () => <AdjudicateTurnForm
   manager={manager}

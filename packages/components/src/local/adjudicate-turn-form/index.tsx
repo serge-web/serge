@@ -147,14 +147,14 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         forceColor={icon.forceColor}
         platformType={icon.platformType}
       >
+        { manager && (manager.getContactId() + ' - ')}
         {manager && manager.formHeader}
         {manager &&
           <Badge label={manager.currentPlanningStatus()} />
         }
         {plansSubmittedVal &&
-          <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
+          <div className='sub-title'>(Form disabled, plans submitted)</div>
         }
-
       </TitleWithIcon>
       { conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Player Route" align="right">
@@ -186,7 +186,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
         }
       </fieldset>
       }
-      <fieldset>
+      <fieldset className={styles.fieldset}>
         <FormGroup title="Visible to" align="right">
           <RCB name="visibleTo" type="checkbox" force={true} label="" compact={true} options={visibleToValues} value={visibleVal} updateState={visibleHandler} />
         </FormGroup>

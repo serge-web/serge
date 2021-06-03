@@ -17,15 +17,28 @@ import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import { SergeHex, SergeGrid, Route, NewTurnValues } from '@serge/custom-types'
-import { LAYDOWN_TURN, Domain } from '@serge/config'
+import { SergeHex, SergeGrid, Route, NewTurnValues, PlanMobileAsset, SelectedAsset, RouteStore } from '@serge/custom-types'
+import { LAYDOWN_TURN } from '@serge/config'
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
   const {
-    gridCells, planningConstraints, zoomLevel, setNewLeg, setHidePlanningForm,
-    selectedAsset, viewAsRouteStore, viewport, domain, polygonAreas
-  } = useContext(MapContext).props
+    gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
+    selectedAsset, viewAsRouteStore, viewport, polygonAreas
+  }: {
+    gridCells: SergeGrid<SergeHex<{}>> | undefined
+    planningConstraints: PlanMobileAsset | undefined
+    setNewLeg: React.Dispatch<React.SetStateAction<NewTurnValues | undefined>> | undefined
+    setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
+    selectedAsset: SelectedAsset | undefined
+    viewAsRouteStore: RouteStore
+    viewport: L.LatLngBounds | undefined
+    polygonAreas?: any
+   } = useContext(MapContext).props
+
+  // define detail cut-offs
+  const SHOW_LABELS_UNDER = 600
+  const SHOW_HEXES_UNDER = 2000
 
   // fix the leaflet icon path, using tip from here:
   // https://github.com/PaulLeCam/react-leaflet/issues/453#issuecomment-611930767
@@ -38,10 +51,6 @@ export const HexGrid: React.FC<{}> = () => {
   // Store the set of leaflet polygon areas, used as performance
   // fix for showing very large areas of hexes
   const [terrainPolys, setTerrainPolys] = useState<TerrainPolygons[]>([])
-
-  // whether to show performance optimised view
-  const [reducedDetail, setReducedDetail] = useState<boolean>(false)
-  const [zeroHexTerrain, setZeroHexTerrain] = useState<boolean>(false)
 
   // the cell for the selected asset
   const [cellForSelected, setCellForSelected] = useState<string | undefined>(undefined)
@@ -56,6 +65,8 @@ export const HexGrid: React.FC<{}> = () => {
 
   // the binned polygons
   const [polyBins, setPolyBins] = useState<PolyBin[]>([])
+
+  // the cells that are contained in the current viewport
   const [visibleCells, setVisibleCells] = useState<SergeHex<{}>[]>([])
 
   // at higher zoom levels we need to reduce the number of hexes plotted
@@ -89,7 +100,7 @@ export const HexGrid: React.FC<{}> = () => {
   useEffect(() => {
     if (selectedAsset) {
       // get the color for this asset
-      const current: Route = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
+      const current: Route | undefined = viewAsRouteStore.routes.find((route: Route) => route.uniqid === selectedAsset.uniqid)
       if (current) {
         // double-check it's not the current asset (to reduce renders, and maybe lost plotted route)
         if (selectedAsset.uniqid !== selectedAssetId) {
@@ -140,14 +151,14 @@ export const HexGrid: React.FC<{}> = () => {
   }, [selectedAsset, gridCells, viewAsRouteStore])
 
   /**
-       Returns the point that is a distance and heading away from
-       the given origin point.
-       @param {L.LatLng} latlng: origin point
-       @param {float} heading: heading in degrees, clockwise from 0 degrees north.
-       @param {float} distance: distance in meters
-       @returns {L.latLng} the destination point.
-       Many thanks to Chris Veness at http://www.movable-type.co.uk/scripts/latlong.html
-       for a great reference and examples.
+   Returns the point that is a distance and heading away from
+    the given origin point.
+    @param {L.LatLng} latlng: origin point
+    @param {float} heading: heading in degrees, clockwise from 0 degrees north.
+    @param {float} distance: distance in meters
+    @returns {L.latLng} the destination point.
+    Many thanks to Chris Veness at http://www.movable-type.co.uk/scripts/latlong.html
+    for a great reference and examples.
     */
   const destination = (latlng: L.LatLng, heading: number, distance: number): L.LatLng => {
     heading = (heading + 360) % 360
@@ -181,8 +192,8 @@ export const HexGrid: React.FC<{}> = () => {
         setPlanningRoutePoly([])
 
         // see if current cell is acceptable
-        // work out the available cells
-        if (allowableCells.includes(dragDestination)) {
+        // Note: special handling. if there are no allowable cells, it can be laid down anywhere
+        if (!allowableCells.length || allowableCells.includes(dragDestination)) {
           // ok, set planning route to just that cell - to mark the
           // last acceptable cell
           setPlanningRouteCells([dragDestination])
@@ -193,15 +204,23 @@ export const HexGrid: React.FC<{}> = () => {
           ? plannedRouteFor(gridCells, allowableCells, originHex, dragDestination) : []
 
         // combine with any existing planned cells
-        setPlanningRouteCells(plannedRoute)
+        if (selectedAsset && selectedAsset.type === 'datum') {
+          if (plannedRoute.length > 0) {
+            // we need the planned route to be more than one cell long in order
+            // for later code to recognise it as a valid leg
+            setPlanningRouteCells([plannedRoute[0], plannedRoute[plannedRoute.length - 1]])
+          }
+        } else {
+          setPlanningRouteCells(plannedRoute)
 
-        // also produce the lat-long values needed for the polylines
-        const tmpPlannedRoutePoly: L.LatLng[] = plannedRoute.map((cell: SergeHex<{}>) => {
-          return cell.centreLatLng
-        })
+          // also produce the lat-long values needed for the polylines
+          const tmpPlannedRoutePoly: L.LatLng[] = plannedRoute.map((cell: SergeHex<{}>) => {
+            return cell.centreLatLng
+          })
 
-        // combine with any existing planned cells
-        setPlanningRoutePoly(tmpPlannedRoutePoly)
+          // combine with any existing planned cells
+          setPlanningRoutePoly(tmpPlannedRoutePoly)
+        }
       }
     } else {
       // drop cells
@@ -241,19 +260,25 @@ export const HexGrid: React.FC<{}> = () => {
         // ok, see which ones are filterd
         // "air" is a special planning mode, where we don't have to filter it
         if (planningConstraints.travelMode === 'air') {
-          // if there are lots of allowable cells the performance will be slow.
-          if (allowableCellList.length <= 200) {
-            setAllowableCells(allowableCellList)
-          } else {
-            // don't show allowable cells - we'll generate them "on the fly"
-          }
+          // are we an air platform in laydown?
+          // if we are, ensure laydown location is on land
+          const laydownCells = planningConstraints.status === LAYDOWN_TURN
+            ? allowableCellList.filter((cell: SergeHex<{}>) => cell.terrain === 'land')
+            : allowableCellList
+
+          setAllowableCells(laydownCells)
         } else {
           const filteredCells = allowableCellList.filter((cell: SergeHex<{}>) => cell.terrain === planningConstraints.travelMode.toLowerCase())
           setAllowableCells(filteredCells)
 
-          // try to create convex polygon around cells
-          const hull = generateOuterBoundary(filteredCells)
-          setAllowablePoly(hull)
+          if (filteredCells.length <= 500) {
+            // try to create convex polygon around cells, but only if there
+            // arent' too many cells
+            const hull = generateOuterBoundary(filteredCells)
+            setAllowablePoly(hull)
+          } else {
+            setAllowablePoly([])
+          }
         }
       } else {
         // drop the marker if we can't find it
@@ -320,28 +345,21 @@ export const HexGrid: React.FC<{}> = () => {
 
         let visible: SergeHex<{}>[] = []
 
-        // check if we are showing hex terrain
-        if (!zeroHexTerrain) {
-          polyBins.forEach((bin: PolyBin) => {
-            if (extendedViewport.contains(bin.bounds)) {
-              // ok, add all of them
-              visible = visible.concat(bin.cells)
-            } else if (bin.bounds.intersects(extendedViewport)) {
-              // find the ones in the viewport
-              const inZone = bin.cells.filter((cell: SergeHex<{}>) =>
-                extendedViewport.contains(cell.centreLatLng)
-              )
-              visible = visible.concat(inZone)
-            }
-          })
-        }
+        // sort out visible cells, first by the bin
+        polyBins.forEach((bin: PolyBin) => {
+          if (extendedViewport.contains(bin.bounds)) {
+            // ok, add all of them
+            visible = visible.concat(bin.cells)
+          } else if (bin.bounds.intersects(extendedViewport)) {
+            // find the ones in the viewport
+            const inZone = bin.cells.filter((cell: SergeHex<{}>) =>
+              extendedViewport.contains(cell.centreLatLng)
+            )
+            visible = visible.concat(inZone)
+          }
+        })
 
-        // if we're at a scale that allows reduced detail, don't show land or plain-sea
-        const relevantCellArr = reducedDetail && domain === Domain.ATLANTIC
-          ? visible.filter((cell: SergeHex<{}>) => {
-            return cell.type !== 'land' && cell.type !== 'sea'
-          })
-          : visible
+        const relevantCellArr = visible
 
         // see if first cell is missing poly
         if (visible.length && !visible[0].poly) {
@@ -350,10 +368,10 @@ export const HexGrid: React.FC<{}> = () => {
             if (!cell.poly) {
               const centreH = cell.centreLatLng
               // legacy format was to store tile diameter in mins
-              if (gridCells.tileDiameterDegs === undefined) {
+              if (gridCells.tileDiameterMins === undefined) {
                 console.warn('Warning tile diameter in Degrees should be in the wargame definition. Potentially a legacy wargame.')
               }
-              const tileDiamMins = gridCells.tileDiameterDegs ? gridCells.tileDiameterDegs / 60 : gridCells.tileDiameterMins
+              const tileDiamMins = gridCells.tileDiameterMins ? gridCells.tileDiameterMins / 60 : gridCells.tileDiameterMins
 
               const cornerArr: L.LatLng[] = []
               // don't let us fall over if we don't know diam mins
@@ -376,12 +394,7 @@ export const HexGrid: React.FC<{}> = () => {
       setVisibleCells([])
       setRelevantCells([])
     }
-  }, [reducedDetail, viewport, gridCells, polyBins])
-
-  useEffect(() => {
-    setReducedDetail(zoomLevel <= 7.0)
-    setZeroHexTerrain(zoomLevel <= 5)
-  }, [zoomLevel])
+  }, [viewport, gridCells, polyBins])
 
   // as a performance optimisation we plot the
   // visible cells at this zoom level, plus the
@@ -390,8 +403,8 @@ export const HexGrid: React.FC<{}> = () => {
     // combine both lists
     const allCells = relevantCells.concat(planningRouteCells)
     // some cells may be in both lists, so reduce to unique cells
-    const uniqueCells = [...new Set(allCells)]
-    console.log('reduce visible', allowableCells.length, allCells.length, uniqueCells.length)
+    //    const uniqueCells = [...new Set(allCells)]
+    //    console.log('reduce visible', allowableCells.length, allCells.length, uniqueCells.length)
     setVisibleAndAllowableCells(allCells)
   }, [allowableCells, relevantCells, planningRouteCells])
 
@@ -409,7 +422,7 @@ export const HexGrid: React.FC<{}> = () => {
           speed: planningConstraints.speed,
           route: [planningRouteCells[0]]
         }
-        setNewLeg(laydown)
+        setNewLeg && setNewLeg(laydown)
       } else {
         console.warn('Pin dropped in laydown mode, but we do not have acceptable cells')
       }
@@ -437,7 +450,7 @@ export const HexGrid: React.FC<{}> = () => {
 
         // note: the planning route cells includes the start cell. So, it's only a valie route if the
         // planning route cells are more than 1 in length
-        if (planningRouteCells.length > 1) {
+        if (planningConstraints && planningRouteCells.length > 1) {
           // drop the first cell, since it's the current location
           const trimmedPlanningRouteCells = planningRouteCells.slice(1)
 
@@ -456,7 +469,7 @@ export const HexGrid: React.FC<{}> = () => {
             setPlanningRange(planningConstraints.range)
 
             // ok, planning complete - fire the event back up the hierarchy
-            setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
+            setNewLeg && setNewLeg({ state: planningConstraints.status, speed: planningConstraints.speed, route: fullCellList })
           } else if (planningRange && !rangeUnlimited) {
             // ok, it's limited range, and just some of it has been consumed. Reduce what is remaining
             const remaining = planningRange - routeLen
@@ -476,6 +489,9 @@ export const HexGrid: React.FC<{}> = () => {
        *
        */
   const beingDragged = (e: any): void => {
+    if (!gridCells) {
+      return
+    }
     const marker = e.target
     const location = marker.getLatLng()
     const destinationHex: SergeHex<{}> | undefined = dragDestination && gridCells.cellFor(location, dragDestination)
@@ -498,9 +514,24 @@ export const HexGrid: React.FC<{}> = () => {
     }
   }
 
-  //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length)
+  //  console.log('zoom', zoomLevel, visibleAndAllowableCells.length, visibleCells.length, allowableCells.length)
+  // console.log('hex grid', setPlanningRouteCells.length, setPlanningRouteCells.length && setPlanningRouteCells.length[0])
 
   return <>
+
+    { /*  - show number of visible cells */}
+    { /* viewport &&
+      <Marker
+        key={'num_vis_cells'}
+        position={ viewport.getCenter()}
+        width="120"
+        icon={L.divIcon({
+          html: '' + visibleCells.length,
+          className: styles['num-cells'],
+          iconSize: [30, 20]
+        })}
+      /> */
+    }
 
     { /* POLY BINS */}
     {/* <LayerGroup key={'poly_bounds'} >{polyBins && polyBins.map((bin: PolyBin, index: number) => (
@@ -526,18 +557,34 @@ export const HexGrid: React.FC<{}> = () => {
     ))}
     </LayerGroup> */}
 
-    <LayerGroup key={'hex_polygons'} >{visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
-      <Polygon
+    <LayerGroup key={'hex_polygons'} >{
+      /* not too many cells visible, show hex outlines */
+      visibleAndAllowableCells.length < SHOW_HEXES_UNDER && visibleAndAllowableCells.map((cell: SergeHex<{}>, index: number) => (
+        <Polygon
         // we may end up with other elements per hex,
         // such as labels so include prefix in key
-        key={'hex_poly_' + cell.name + '_' + index}
-        fillColor={cell.fillColor || '#f00'}
-        fill={terrainPolys.length === 0} // only fill them if we don't have polys
-        positions={cell.poly}
-        stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
-        className={styles[getCellStyle(cell, planningRouteCells, allowableCells, cellForSelected)]}
-      />
-    ))}
+          key={'hex_poly_' + cell.name + '_' + index}
+          fillColor={cell.fillColor || '#f00'}
+          fill={terrainPolys.length === 0} // only fill them if we don't have polys
+          positions={cell.poly}
+          stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
+          className={styles[getCellStyle(cell, planningRouteCells, [], cellForSelected)]}
+        />
+      ))}
+    {
+      /** too many cells visible to show outline, so just show planned route (or target for laydown) */
+      visibleAndAllowableCells.length >= SHOW_HEXES_UNDER && planningRouteCells.map((cell: SergeHex<{}>, index: number) => (
+        <Polygon
+        // we may end up with other elements per hex,
+        // such as labels so include prefix in key
+          key={'hex_poly_' + cell.name + '_' + index}
+          fillColor={cell.fillColor || '#f00'}
+          fill={terrainPolys.length === 0} // only fill them if we don't have polys
+          positions={cell.poly}
+          stroke={cell.name === cellForSelected && assetColor ? assetColor : '#fff'}
+          className={styles[getCellStyle(cell, planningRouteCells, [], cellForSelected)]}
+        />
+      ))}
     { // special case - if we're in air travel mode the planning route may not be in the
       // available cells listing
       planningConstraints && planningConstraints.travelMode === 'air' &&
@@ -595,7 +642,7 @@ export const HexGrid: React.FC<{}> = () => {
       // change - show labels if there are less than 400. With the zoom level
       // we were getting issues where up North (where the cells appear larger) there are
       // fewer visible at once, but we still weren't showing the labels.
-      visibleCells.length < 400 &&
+      visibleCells.length < SHOW_LABELS_UNDER &&
       /* note: for the label markers - we use the cells in the currently visible area */
       <LayerGroup key={'hex_labels'} >{visibleCells.map((cell: SergeHex<{}>, index: number) => (
         <Marker

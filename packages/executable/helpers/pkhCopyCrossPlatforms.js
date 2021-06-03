@@ -121,7 +121,7 @@ function getDate () {
   const mm = month < 10 ? `0${month}` : month
   const date = d.getDate()
   const dd = date < 10 ? `0${date}` : date
-  return `${yyyy}${dd}${mm}`
+  return `${yyyy}${mm}${dd}`
 }
 /**
  * @param {String} source

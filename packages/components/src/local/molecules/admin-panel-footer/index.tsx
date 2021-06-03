@@ -1,8 +1,8 @@
 import React from 'react'
+import Badge from 'react-bootstrap/Badge'
 
 /* Import Types */
 import Props from './types/props'
-
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
@@ -11,7 +11,7 @@ export const AdminPanelFooter: React.FC<Props> = ({ force, selectedRole, byPassU
   <div className={styles['role-info']} style={{ backgroundColor: force.color }}>
     {
       byPassUrl
-        ? <a href={byPassUrl} className={styles['role-type']}>{ selectedRole }</a>
+        ? <Badge variant="light"><a href={byPassUrl} className={styles['role-type']}>{ selectedRole }</a></Badge>
         : <span className={styles['role-type']}>{ selectedRole }</span>
     }
     <div className={styles['contain-force-skin']}>

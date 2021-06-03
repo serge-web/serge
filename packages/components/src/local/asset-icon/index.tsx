@@ -15,9 +15,9 @@ import { MapContext } from '../mapping'
 import { SelectedAsset } from '@serge/custom-types'
 
 /* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForce: string, icType: string, destroyed?: boolean, icSelected?: boolean): string => (cx(
+export const getIconClassname = (icForceClass: string, icType: string, destroyed?: boolean, icSelected?: boolean): string => (cx(
   styles['asset-icon'],
-  styles[icForce],
+  styles[icForceClass],
   destroyed ? styles.destroyed : null,
   icSelected ? styles.selected : null,
   styles[`platform-type-${icType}`]
@@ -27,10 +27,12 @@ export const getIconClassname = (icForce: string, icType: string, destroyed?: bo
 export const AssetIcon: React.FC<PropTypes> = ({
   uniqid,
   name,
+  contactId,
   position,
   type,
   force,
-  perceivedForce,
+  perceivedForceClass,
+  perceivedForceColor,
   visibleTo,
   controlledBy,
   condition,
@@ -41,12 +43,19 @@ export const AssetIcon: React.FC<PropTypes> = ({
 }) => {
   const { setShowMapBar, setSelectedAsset, selectedAsset } = useContext(MapContext).props
 
-  const isDestroyed: boolean = !!condition && condition.toLowerCase() === 'destroyed'
+  // TODO: switch to received isDestroyed in props, using value from `Route`
+  const isDestroyed: boolean = !!condition && (condition.toLowerCase() === 'destroyed' || condition.toLowerCase() === 'mission kill')
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    className: getIconClassname(perceivedForce, type, isDestroyed, selected)
+    className: getIconClassname(perceivedForceClass || '', type, isDestroyed, selected)
   })
+
+  // TODO - set the `divIcon` (or marker) background color according to
+  // perceivedForceColor, not using the perceivedForceClass
+  if (!perceivedForceClass) {
+    console.log('should set background to', perceivedForceColor)
+  }
 
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
@@ -57,6 +66,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
       // select this asset
       const selection: SelectedAsset = {
         uniqid: uniqid,
+        contactId: contactId,
         name: name,
         type: type,
         force: force,

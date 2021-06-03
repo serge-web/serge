@@ -26,8 +26,8 @@ it('Mapping renders correctly with AssetIcon', () => {
     canSubmitOrders = {true}
     phase = {Phase.Planning}
     turnNumber={5}
-  ><AssetIcon uniqid='id1' name="Jeffrey" position={L.latLng(13.298034302, 43.0488191271)}
-      selected={false} type='agi' force='blue' perceivedForce='blue' visibleTo={['blue']} status={ { speedKts: 10, state: 'Working' }}
+  ><AssetIcon uniqid='id1' contactId='C324' name="Jeffrey" position={L.latLng(13.298034302, 43.0488191271)}
+      selected={false} type='agi' force='blue' perceivedForceColor='#0f0' perceivedForceClass='blue' visibleTo={['blue']} status={ { speedKts: 10, state: 'Working' }}
       tooltip='Tooltip for marker'/></Mapping>, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

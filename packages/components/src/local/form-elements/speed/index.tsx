@@ -74,7 +74,9 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options, 
           selectedItem && styles['speed-selected']
         )}
         style={style}
-      />
+      >
+        <div className={styles['speed-item__label']}>{options[key]}</div>
+      </div>
     )
   }
 

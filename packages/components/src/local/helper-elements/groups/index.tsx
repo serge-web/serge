@@ -14,6 +14,7 @@ import { DropItem } from '../dropzone/types/props'
 
 /* Import Styles */
 import styles from './styles.module.scss'
+import { TASK_GROUP } from '@serge/config'
 
 const defaulRender = (item: GroupItem, depth: Array<GroupItem>): JSX.Element => <>name: {item.name}<br/>depth: {depth.length}</>
 
@@ -37,6 +38,14 @@ export const Groups: React.FC<PropTypes> = (props) => {
   }
 
   const { canCombineWith = canCombineWithDefault } = props
+
+  const canHostDefault = (_dragItem: GroupItem, _item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
+    // first do the general checks (same force, same cell)
+    const suitable = canCombineWith(_dragItem, _item, _parents, _type)
+
+    // now stop task groups from hosting anything
+    return suitable && _item.platformType !== TASK_GROUP
+  }
 
   const checkdEmptyDropzone = (item: GroupItem, subitems: Array<GroupItem>, parents: Array<GroupItem>): boolean => {
     if (dragItem.uniqid === item.uniqid) return false
@@ -77,7 +86,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
       </CollapsibleHeader>
       <CollapsibleContent useIndent={40}>
         {checkdEmptyDropzone(item, subitems, depth) && <Dropzone
-          disable={!canCombineWith(dragItem, item, depth, 'empty')}
+          disable={!canHostDefault(dragItem, item, depth, 'empty')}
           item={item}
           onEnd={onEnd}
           active={dragItem.uniqid}

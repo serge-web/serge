@@ -18,10 +18,13 @@ import {
   setSelectedChannel,
   addNewChannel,
   duplicateChannel,
-  saveWargameTitle
+  saveWargameTitle,
+  initiateWargame
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
+import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
+import { ADMIN_ROUTE } from '@serge/config'
 
 /**
  * TODOS:
@@ -60,6 +63,10 @@ const AdminGameSetup = () => {
     } else {
       dispatch(addNotification('Unsaved changes', 'warning'))
     }
+  }
+
+  const onPressBack = () => {
+    dispatch(setCurrentViewFromURI(ADMIN_ROUTE))
   }
 
   const isUniqueName = ({ newName, list, label }) => {
@@ -219,8 +226,7 @@ const AdminGameSetup = () => {
   }
 
   const onWargameInitiate = () => {
-    // TOOD: handle this call
-    console.log('TODO handling initiate wargame in GameSetupNew.jsx', 'To be implemented once action reducers moved to TS')
+    dispatch(initiateWargame(currentWargame))
   }
 
   const handleSidebarForcesClick = force => {
@@ -273,6 +279,7 @@ const AdminGameSetup = () => {
       wargame={wargame}
       wargameChanged={isWargameChanged()}
       onTabChange={onTabChange}
+      onPressBack={onPressBack}
       overview={overview}
       platformTypes={platformTypes}
       forces={forces.forces}

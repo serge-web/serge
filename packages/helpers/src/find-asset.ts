@@ -44,5 +44,5 @@ export default (allForces: ForceData[], assetId: string): Asset => {
     return false
   })
   if (res !== undefined) return res
-  throw new Error('Asset not found from id:' + assetId);
-};
+  throw new Error('Asset not found from id:' + assetId)
+}

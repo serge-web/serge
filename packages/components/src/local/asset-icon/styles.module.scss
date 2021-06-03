@@ -8,10 +8,11 @@
   &.selected {
     border: 4px solid rgba(255, 255, 255, 0.7);
     box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 10%;
   }
   &.destroyed {
-    border-radius: 20%;
-    filter: brightness(0.5);
+    border-radius: 40%;
+    filter: brightness(0.7);
   }
 }
 
@@ -26,6 +27,22 @@
 
 .red {
   background-color: #ff0b00;
+}
+
+.blue-1 {
+  background-color: #0af;
+}
+
+.red-1 {
+  background-color: #f00;
+}
+
+.blue-2 {
+  background-color: #00008f;
+}
+
+.red-2 {
+  background-color: #ff7b7b;
 }
 
 .green {
@@ -43,10 +60,10 @@
   z-index: 999;
 }
 
-$platforms: frigate, destroyer, mcmv, unknown, agi, fast-attack-craft,
-  unmanned-airborne-vehicle, merchant-vessel, fixed-wing-aircraft,
-  fishing-vessel, missile, helicopter, boghammer, coastal-radar-site, datum,
-  torpedo, pirate, mine, task-group;
+$platforms: agi, auxiliary, boghammer, carrier, coastal-radar-site, datum,
+  destroyer, fast-attack-craft, fishing-vessel, fixed-wing-aircraft, frigate,
+  frigate-ta, helicopter, mcmv, merchant-vessel, mine, missile, mpa, pirate, ssk,
+  ssn, task-group, torpedo, unknown, unmanned-airborne-vehicle;
 
 @each $platform in $platforms {
   .platform-type-#{$platform} {

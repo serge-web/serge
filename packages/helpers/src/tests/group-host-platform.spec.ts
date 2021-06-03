@@ -1,13 +1,15 @@
 /* global it expect */
 
 /* Import mock data */
-import { forces } from '@serge/mocks'
+import { forces as mockForces } from '@serge/mocks'
+import deepCopy from '../deep-copy'
 
-import groupMoveToRoot from './group-move-to-root'
-import groupHostPlatform from './group-host-platform'
+import groupMoveToRoot from '../group-move-to-root'
+import groupHostPlatform from '../group-host-platform'
 import { Asset, ForceData } from '@serge/custom-types'
 
 it('Moves merlin back onto frigate', () => {
+  const forces = deepCopy(mockForces)
   const merlinId = 'a0pra11002'
   const frigateId = 'a0pra00001'
   // check merlin is where we expect it to be
@@ -38,8 +40,12 @@ it('Moves merlin back onto frigate', () => {
 
     // check merlin is on frigate
     if (forces2 && forces2[1].assets && forces2[1].assets.length) {
-      const helo = forces2[1].assets.find((asset: Asset) => asset.uniqid === merlinId)
-      expect(helo).toBeTruthy()
+      const frigate2 = forces2[1].assets.find((asset: Asset) => asset.uniqid === frigateId)
+      expect(frigate2).toBeTruthy()
+      if (frigate2 && frigate2.comprising) {
+        const helo = frigate2.comprising.find((asset: Asset) => asset.uniqid === merlinId)
+        expect(helo).toBeTruthy()
+      }
     }
   } else {
     expect(false).toBeTruthy()

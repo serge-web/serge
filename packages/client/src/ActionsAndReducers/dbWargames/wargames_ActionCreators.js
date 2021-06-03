@@ -300,6 +300,14 @@ export const deleteSelectedChannel = (dbName, channel) => {
   }
 }
 
+export const initiateWargame = (dbName) => {
+  return async (dispatch) => {
+    const wargame = await wargamesApi.initiateGame(dbName)
+    dispatch(setCurrentWargame(wargame))
+    dispatch(addNotification('Wargame initiated. Note: change & `Save` overview, to inform player browsers', 'success'))
+  }
+}
+
 export const duplicateChannel = (dbName, channel) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.duplicateChannel(dbName, channel)
