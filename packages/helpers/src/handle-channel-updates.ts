@@ -153,7 +153,7 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
   allForces: ForceData[], chatChannel: PlayerUiChatChannel, isObserver: boolean,
   allTemplates: any[]): SetWargameMessage => {
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
-  let nextMsgReference: number = 0
+  let nextMsgReference = 0
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
     const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
 
