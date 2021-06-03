@@ -1,6 +1,5 @@
 import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
-import {
-  ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
+import { ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
   MessageChannel, MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
@@ -47,7 +46,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
   if (payload.details.messageType === 'RFI') {
     // we need to stick it into the RFI messages, replacing any previous version
 
-    // remove any existing RFI with this reference number. Note: we can't use 
+    // remove any existing RFI with this reference number. Note: we can't use
     // filter() array function since it produces a new array, which would
     // have a new reference, and wouldn't get returned as a parameter
     data.rfiMessages.forEach((item, idx) => {
@@ -59,9 +58,9 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
     // rfiMessages = rfiMessages.filter((message) => message.message.Reference !== payload.message.Reference)
   }
   // lastly, sort out the message number
-  data.nextMsgReference = selectedForceName && payload.messageType === CUSTOM_MESSAGE ? 
-    refNumberFor(payload.message && payload.message.Reference, data.nextMsgReference, selectedForceName):
-    data.nextMsgReference
+  data.nextMsgReference = selectedForceName && payload.messageType === CUSTOM_MESSAGE
+    ? refNumberFor(payload.message && payload.message.Reference, data.nextMsgReference, selectedForceName)
+    : data.nextMsgReference
 }
 
 /** create a new turn marker */
@@ -126,13 +125,21 @@ export const clipInfoMEssage = (message: MessageInfoType, hasBeenRead = false): 
   }
 }
 
+/** helper function, to return the next reference number for this force
+ * @param {string} msgRef this message reference
+ * @param {number} string the current counter
+ * @param {string} selectedForceName the selected force
+ */
 export const refNumberFor = (msgRef: string | undefined, current: number, selectedForceName?: string): number => {
   if (msgRef !== undefined) {
     // see if it starts with this force
     if (selectedForceName && msgRef.startsWith(selectedForceName)) {
+      // strip out the force name
+      const remainder = msgRef.substr(selectedForceName.length, msgRef.length - selectedForceName.length)
       // strip out the number
-      const parts = msgRef.split('-')
-      if (parts.length === 2) {
+      const parts = remainder.split('-')
+      // check the first match is zero length, that prevents `blue-1` matching `blue-10`
+      if (parts.length === 2 && parts[0].length === 0) {
         const number = +parts[1] + 1
         return Math.max(number, current)
       } else {
@@ -164,7 +171,7 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
     }
   })
 
-  // reduce messages, so we just have single turn marker, and most recent 
+  // reduce messages, so we just have single turn marker, and most recent
   // version of referenced messages
   const messagesFiltered = mostRecentOnly(messagesReduced)
 
@@ -192,7 +199,7 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
           const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
           return (force && force.color) || '#FFF'
         }),
-        messages: messagesFiltered.filter((message) => message.details && message.details.channel === channel.uniqid || message.messageType === INFO_MESSAGE_CLIPPED),
+        messages: messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || message.messageType === INFO_MESSAGE_CLIPPED),
         unreadMessageCount: messagesFiltered.filter((message) => {
           if (message.messageType !== INFO_MESSAGE_CLIPPED) {
             return false
@@ -211,7 +218,7 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
   })
 
   // also sort out the RFI messages
-  const rfiMessages= messagesFiltered.filter((message: MessageChannel) => {
+  const rfiMessages = messagesFiltered.filter((message: MessageChannel) => {
     if (message.messageType === CUSTOM_MESSAGE) {
       const custom = message as MessageCustom
       return custom.details.messageType === 'RFI'
@@ -301,7 +308,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
 
           // force icons
           const forceIcons = channel.participants && channel.participants.map((participant) => participant.icon)
-          if (forceIcons != thisChannel.forceIcons) {
+          if (forceIcons !== thisChannel.forceIcons) {
             thisChannel.forceIcons = forceIcons
           }
 
@@ -310,7 +317,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
             const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
             return (force && force.color) || '#FFF'
           })
-          if (forceColors != thisChannel.forceColors) {
+          if (forceColors !== thisChannel.forceColors) {
             thisChannel.forceColors = forceColors
           }
         }
@@ -324,7 +331,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
             const message: MessageChannel = createTurnMarker(payload.gameTurn)
 
             // if messages array is missing, create one
-            // NO: we've already tested for it
+            // NO: we've already established this can't be missing
             // if (!thisChannel.messages) {
             //   thisChannel.messages = []
             // }
