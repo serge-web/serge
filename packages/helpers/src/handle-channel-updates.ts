@@ -332,9 +332,10 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
             const message: MessageChannel = createTurnMarker(payload.gameTurn)
 
             // if messages array is missing, create one
-            if (!thisChannel.messages) {
-              thisChannel.messages = []
-            }
+            // NO: we've already established this can't be missing
+            // if (!thisChannel.messages) {
+            //   thisChannel.messages = []
+            // }
             thisChannel.messages.unshift(message)
           }
         }
