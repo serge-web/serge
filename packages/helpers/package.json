@@ -25,7 +25,7 @@
     "test:unit": "jest --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",
     "test:ts": "tsc --pretty",
-    "lint": "eslint --fix",
+    "lint": "eslint --fix src/**/*.ts*",
     "genreg": "bcreg --ext ts"
   }
 }
