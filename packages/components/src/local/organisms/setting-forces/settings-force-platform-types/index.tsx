@@ -42,7 +42,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
   useEffect(() => {
     if (Array.isArray(selectedForce.assets)) {
       const asset = selectedForce.assets.find(asset => asset.uniqid === selectedAssetItem)
-      if (asset?.locationPending !== 'fixed') {
+      if (asset?.locationPending !== LaydownTypes.Fixed) {
         setShowInput(false)
         setFixedLocationValue('')
       } else {
@@ -87,9 +87,9 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       console.log(_event)
     }
     const handleChangeAssetLocation = (event: ChangeEvent<HTMLSelectElement>): void => {
-      if (event.target.value && event.target.value === 'fixed') {
+      if (event.target.value && event.target.value === LaydownTypes.Fixed) {
         setShowInput(true)
-        asset.locationPending = event.target.value
+        asset.locationPending = event.target.value as LaydownTypes
       } else {
         setShowInput(false)
         setFixedLocationValue('')
@@ -142,7 +142,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                 <option value="" disabled>Placeholder</option>
                 <option value={LaydownTypes.ForceLaydown}>{LaydownTypes.ForceLaydown}</option>
                 <option value={LaydownTypes.UmpireLaydown}>{LaydownTypes.UmpireLaydown}</option>
-                <option value={'fixed'}>Fixed</option>
+                <option value={LaydownTypes.Fixed}>{LaydownTypes.Fixed}</option>
               </NativeSelect>
             </div>
           </ListItemText>
@@ -182,7 +182,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
           perceptions: [],
           condition: '',
           position: '',
-          locationPending: undefined,
+          locationPending: false,
         } as Asset
       }
       const nextItem = item as Asset
