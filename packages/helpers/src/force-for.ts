@@ -1,6 +1,5 @@
-import { Asset, ForceData } from "@serge/custom-types"
-import { isAsset } from "./find-asset"
-
+import { Asset, ForceData } from '@serge/custom-types'
+import { isAsset } from './find-asset'
 
 export default function forceFor (allForces: ForceData[], assetId: string): ForceData {
   const match: ForceData | undefined = allForces.find((force: ForceData) => {
@@ -17,6 +16,6 @@ export default function forceFor (allForces: ForceData[], assetId: string): Forc
     }
     return false
   })
-  if(match !== undefined) return match
+  if (match !== undefined) return match
   throw new Error('Failed to find force for asset:' + assetId)
-};
+}

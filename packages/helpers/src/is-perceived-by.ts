@@ -3,9 +3,9 @@ import { Perception } from '@serge/custom-types'
 /** set of descriptors for how a force is styled */
 export interface ForceStyle {
   /** name of this force */
-  force: string,
-  color: string,
-  cssClass?: string,
+  force: string
+  color: string
+  cssClass?: string
  }
 
 /** Find how a force perceives this asset
@@ -17,15 +17,15 @@ export interface ForceStyle {
  */
 const isPerceivedBy = (perceptions: Perception[], playerForceName: string, 
   forceColors: Array<ForceStyle>, undefinedColor: ForceStyle): ForceStyle | undefined => {
-  if(perceptions) {
+  if ( perceptions) {
     if(Array.isArray(perceptions)) {
       const p: Perception | undefined = perceptions.find((p:Perception) => p.by.toLowerCase() === playerForceName.toLowerCase())
-      if(p) {
+      if (p) {
         // do we know force?
         const { force } = p
-        if(force) {
+        if (force) {
           const color = forceColors.find((f:{force: string, color: string}) => f.force.toLowerCase() === force.toLowerCase())
-          if(color) {
+          if (color) {
             return color
           } else {
             // force color not known, so probably 'unknown'. Return unknown shade
@@ -38,7 +38,7 @@ const isPerceivedBy = (perceptions: Perception[], playerForceName: string,
       } else {
         // not perceived
         return undefined
-      }  
+      }
     } else {
       // legacy way of representing perceptions, as a dictionary
       console.warn("Have encountered perception in legacy format. Can't handle it")

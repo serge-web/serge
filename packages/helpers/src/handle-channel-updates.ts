@@ -1,6 +1,5 @@
-import { CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, expiredStorage } from '@serge/config'
-import {
-  ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
+import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
+import { ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
   MessageChannel, MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
@@ -29,7 +28,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
       theChannel.messages.forEach((msg, idx) => {
         if (msg.messageType === CUSTOM_MESSAGE &&
           msg.message.Reference === payload.message.Reference) {
-          theChannel.messages?.splice(idx, 1)
+            theChannel.messages?.splice(idx, 1)
         }
       })
     }

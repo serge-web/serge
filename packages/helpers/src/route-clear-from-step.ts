@@ -18,9 +18,9 @@ const routeClearFromStep = (store: RouteStore, selectedId: string, stepNumber: n
 
     // note: in some test situations, the planned steps are so far in the future
     // that all get deleted. Explain that with a comment
-    if(planned.length > 0) {
+    if (planned.length > 0) {
       const firstStep = planned[0].turn
-      if(firstStep > stepNumber + 1) {
+      if (firstStep > stepNumber + 1) {
         console.warn('Planned steps in the future. All will be deleted.')
       }
     }
@@ -29,7 +29,6 @@ const routeClearFromStep = (store: RouteStore, selectedId: string, stepNumber: n
     route.planned = trimmed
     route.plannedTrimmed = trimmed
   }
-  
   return modified
 }
 
