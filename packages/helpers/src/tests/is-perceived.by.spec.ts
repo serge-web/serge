@@ -1,6 +1,8 @@
 import isPerceivedBy, { ForceStyle } from '../is-perceived-by'
 import forceColors from '../force-colors'
 
+import { forces } from '@serge/mocks'
+
 /**
  * the updated perceptions data model used an array
  */
@@ -11,8 +13,6 @@ const currentPerceptions = [{
 }, {
   by: 'Green'
 }]
-
-import { forces } from '@serge/mocks'
 
 const forceColorList = forceColors(forces)
 

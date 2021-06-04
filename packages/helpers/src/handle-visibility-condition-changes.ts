@@ -12,7 +12,7 @@ export default (message: MessageVisibilityChanges, allForces: ForceData[]): Forc
       asset.perceptions.push({ force: '', type: '', by: visChange.by })
     } else {
       // ok, we're removing something
-      const index = asset.perceptions.findIndex(({ by }) => by == visChange.by)
+      const index = asset.perceptions.findIndex(({ by }) => by === visChange.by)
       if (index === -1) {
         console.warn('possible issue: we\'re trying to remove a perception, but there aren\'t any')
       } else {
@@ -20,7 +20,7 @@ export default (message: MessageVisibilityChanges, allForces: ForceData[]): Forc
       }
     }
   })
-  if (message.condition && message.condition != asset.condition) {
+  if (message.condition && message.condition !== asset.condition) {
     asset.condition = message.condition
   }
   return allForcesCopy

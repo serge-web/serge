@@ -156,7 +156,7 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
   }
 }
 
-export const saveMapMessage = (dbName: string, details: MessageDetails, message: object): Promise<Message> => {
+export const saveMapMessage = (dbName: string, details: MessageDetails, message: unknown): Promise<Message> => {
   // @ts-ignore
   return wargamesApi.postNewMapMessage(dbName, details, message)
 }
