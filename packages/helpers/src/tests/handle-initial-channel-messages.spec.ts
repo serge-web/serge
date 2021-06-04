@@ -69,7 +69,6 @@ describe('handling reference numbers', () => {
     expect(refNumberFor('Blue-2-3', 2, 'Blue-1')).toEqual(2)
     expect(refNumberFor('Blue-10-3', 2, 'Blue-1')).toEqual(2)
   })
-
 })
 
 describe('handle new message into RFI channel', () => {
