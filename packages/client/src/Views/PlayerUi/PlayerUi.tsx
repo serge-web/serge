@@ -77,7 +77,24 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
 
   const handleCheckPassword = (pass: string): void => {
     const check = checkPassword(pass, messageTypes, currentWargame, allForces, dispatch)
-    if (check) setScreen(Room.player)
+    if (check) {
+      const currentUrl = new URL(document.location!.href)
+      const byPassParams = {
+        wargame: currentWargame,
+        access: pass
+      }
+
+      const byPassParamsArr = Object.keys(byPassParams)
+      const [wargameParam, accessParam] = byPassParamsArr.map(key => currentUrl.searchParams.get(key))
+
+      if (!wargameParam && wargameParam !== currentWargame && !accessParam && accessParam !== pass) {
+        byPassParamsArr.forEach(key => {
+          currentUrl.searchParams.set(key, byPassParams[key])
+        })
+        history.pushState({}, 'null', currentUrl.href);
+      }
+      setScreen(Room.player)
+    }
     else checkPasswordFail()
   }
 
