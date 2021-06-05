@@ -106,15 +106,10 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
       enterSerge={() => { setScreen(Room.lobby) }}
       />
     case Room.lobby:
-      // TODO import type from PlayerUiLobby or move this function in to PlayerUiLobby
-      const roleOptions = (): ({ name: string, roles: Role[] })[] => allForces.map(
-        force => ({name: force.name, roles: force.roles})
-      )
-
       return <PlayerUiLobby
         wargameList={wargame.wargameList}
-        roleOptions={roleOptions()}
         checkPassword={handleCheckPassword}
+        allForces={allForces}
       />
     case Room.player:
       if (selectedForce) {
