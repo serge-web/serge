@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Props } from './types.d'
-import { Role, WargameList } from '@serge/custom-types'
+import { WargameList } from '@serge/custom-types'
 
 import PlayerUiLandingScreen from '../PlayerUiLandingScreen'
 import PlayerUiLobby from '../PlayerUiLobby'
