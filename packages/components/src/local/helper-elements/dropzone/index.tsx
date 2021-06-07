@@ -120,7 +120,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, group, item, type = 'e
         </> : <>
           { renderDropzone() }
           <ReactSortable
-            group={group ? group : 'groupName'}
+            group={group || 'groupName'}
             animation={0}
             delay={0.5}
             list={[{ id: `${item.uniqid}-${type}`, ...item }]}

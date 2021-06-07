@@ -92,12 +92,6 @@
   padding-top: 0;
   min-height: 98%;
 }
-.assets-list-scrollable-box ul > div:nth-child(2) {
-  min-height: 400px;
-}
-.assets-list-scrollable-box ul > div:nth-child(1) ul li > div > div {
-  padding-left: 0;
-}
 
 .assets-list-scrollable-box::-webkit-scrollbar {
   width: 7px;
