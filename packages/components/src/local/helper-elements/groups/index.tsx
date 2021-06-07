@@ -79,6 +79,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
           onEnd={onEnd}
           active={dragItem.uniqid}
           type='group'
+          group={props.group}
           onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, depth) }
         >
           {renderContent(item, depth)}
@@ -90,6 +91,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
           item={item}
           onEnd={onEnd}
           active={dragItem.uniqid}
+          group={props.group}
           onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, depth) }
         />}
         {subitems.length > 0 && <ul>{subitems.map(i => <li key={i.uniqid}>{ renderGroupItem(i, [...depth, item]) }</li>) }</ul>}
@@ -106,6 +108,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
         onEnd={onEnd}
         active={dragItem.uniqid}
         type='group-out'
+        group={props.group}
         onSet={(items: Array<DropItem>, type: NodeType): void => handleSet(items, type, []) }
       />}
     </div>

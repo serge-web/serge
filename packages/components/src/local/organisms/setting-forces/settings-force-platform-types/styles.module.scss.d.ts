@@ -4,6 +4,10 @@ interface CssExports {
   'accordion': string;
   'accordion-header': string;
   'accordion-title': string;
+  'add-asset-overlay': string;
+  'add-asset-overlay-active': string;
+  'add-asset-overlay-dropzone': string;
+  'add-asset-overlay-msg': string;
   'arrow-icon': string;
   'asset-name': string;
   'assets-list-box': string;
@@ -23,6 +27,7 @@ interface CssExports {
   'list-item-selected': string;
   'list-title': string;
   'location-select': string;
+  'platform-types-box': string;
   'view-result-box': string;
 }
 export const cssExports: CssExports;

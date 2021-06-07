@@ -86,13 +86,17 @@
 .assets-list-scrollable-box {
   height: 418px;
   overflow-y: auto;
+  position: relative;
 }
 .assets-list-scrollable-box ul {
   padding-top: 0;
   min-height: 98%;
 }
-.assets-list-scrollable-box ul > div {
+.assets-list-scrollable-box ul > div:nth-child(2) {
   min-height: 400px;
+}
+.assets-list-scrollable-box ul > div:nth-child(1) ul li > div > div {
+  padding-left: 0;
 }
 
 .assets-list-scrollable-box::-webkit-scrollbar {
@@ -105,6 +109,7 @@
 
 .assets-list-box {
   margin-top: 10px;
+  position: relative;
 }
 .assets-list-box p {
   color: #1d3a4c;
@@ -184,4 +189,43 @@
 
 .location-select select:focus {
   background-color: transparent !important;
+}
+
+.add-asset-overlay {
+  display: none;
+  position: absolute;
+  top: 29px;
+  bottom: 8px;
+  width: 100%;
+  background-color: rgba($color: #d9d9d9, $alpha: 0.9);
+  z-index: 5;
+}
+
+.add-asset-overlay-active {
+  display: flex;
+}
+
+.add-asset-overlay-msg {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 16px;
+  color: #838383;
+  width: 100%;
+  left: 0;
+  z-index: 1;
+}
+
+.add-asset-overlay-dropzone {
+  opacity: 0;
+  visibility: visible;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+
+.platform-types-box {
+  position: relative;
 }

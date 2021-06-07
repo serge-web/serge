@@ -28,7 +28,8 @@ export const SettingForces: React.FC<PropTypes> = ({
   onCreate,
   onDelete,
   selectedForce,
-  platformTypes = []
+  platformTypes = [],
+  routes
 }) => {
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
@@ -57,7 +58,7 @@ export const SettingForces: React.FC<PropTypes> = ({
 
     const handleChangeForce = (force: ForceData): void => {
       const nextForces: Array<ForceData> = [...initialForces]
-      nextForces[selectedItem] = force      
+      nextForces[selectedItem] = force
       handleChangeForces(nextForces)
     }
 
@@ -122,6 +123,7 @@ export const SettingForces: React.FC<PropTypes> = ({
             />
 
             <AssetsAccordion
+              routes={routes}
               selectedForce={data}
               platformTypes={platformTypes}
               onChangeHandler={handleChangeForce}
