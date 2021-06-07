@@ -3,20 +3,19 @@ import Select from 'react-select'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { getWargame } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { serverPath } from '../consts'
-import { Role, WargameList } from '@serge/custom-types'
+import { ForceData, Role, WargameList } from '@serge/custom-types'
 import { TextInput } from '@serge/components'
 
 interface Props {
   wargameList: WargameList[],
-  /** list of roles in this wargame, organised by force */
-  roleOptions: ({ name: string, roles: Role[] })[],
   /** function to check if the password is valid, and do routing if successful */
-  checkPassword: (pass: string) => void
+  checkPassword: (pass: string) => void,
+  allForces: ForceData[]
 }
 
 interface Option { label: string, value: string }
 
-const PlayerUiLobby: React.FC<Props> = ({ wargameList, roleOptions, checkPassword }) => {
+const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword }) => {
   if (!wargameList) {
     return (
       <div className="flex-content-wrapper flex-content-wrapper--welcome">
@@ -52,6 +51,11 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, roleOptions, checkPasswor
     e.preventDefault()
     setRolePassword(val)
   }
+
+  const roleOptions = allForces.map(
+    force => ({name: force.name, roles: force.roles})
+  )
+  
   return (
     <div className="flex-content-wrapper flex-content-wrapper--welcome">
       <div className="flex-content flex-content--welcome">
