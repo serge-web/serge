@@ -1,15 +1,16 @@
 import handleChannelUpdates from '../handle-channel-updates'
-import { ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
-  ChannelData,  MessageChannel, MessageInfoTypeClipped, MessageCustom } from '@serge/custom-types'
+import {
+  ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
+  ChannelData, MessageChannel, MessageInfoTypeClipped, MessageCustom
+} from '@serge/custom-types'
 import { InfoMessagesMock, GameMessagesMock, MessageTemplatesMock, forces, GameChannels } from '@serge/mocks'
 import deepCopy from '../deep-copy'
-import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { CHAT_CHANNEL_ID, CUSTOM_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, CHAT_CHANNEL_ID, CUSTOM_MESSAGE } from '@serge/config'
 
 const channels: PlayerUiChannels = {}
 const adminMessages: MessageChannel[] = GameMessagesMock
-const chatTemplate = MessageTemplatesMock.find((template:any) => template.name === 'Chat') || {a:'chat'}
-const chatChannel: PlayerUiChatChannel = {name:CHAT_CHANNEL_ID, template:chatTemplate, messages: adminMessages}
+const chatTemplate = MessageTemplatesMock.find((template:any) => template.name === 'Chat') || { a: 'chat' }
+const chatChannel: PlayerUiChatChannel = { name: CHAT_CHANNEL_ID, template: chatTemplate, messages: adminMessages }
 const allForces: ForceData[] = forces
 const whiteForce: ForceData = allForces[0]
 const blueForce: ForceData = allForces[1]
@@ -19,9 +20,7 @@ const selectedRole = allForces[1].roles[0].name
 const isObserver = false
 const allTemplates: any = MessageTemplatesMock
 
-
 describe('handle channel update for info message', () => {
-
   it('deletes channels that have been deleted', () => {
     const payload: MessageInfoTypeClipped = InfoMessagesMock[0]
 
@@ -33,7 +32,7 @@ describe('handle channel update for info message', () => {
 
     // ok. now a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
-    const shortChannels = copyChannels.filter((channel: ChannelData) => channel.uniqid != 'channel-k53ti36p')
+    const shortChannels = copyChannels.filter((channel: ChannelData) => channel.uniqid !== 'channel-k53ti36p')
 
     // regenerate channels
     const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages, 1, blueForce,
@@ -48,7 +47,7 @@ describe('handle channel update for info message', () => {
 
     const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, [], 1, blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
-  
+
     expect(res).toBeTruthy()
     expect(Object.keys(res.channels).length).toEqual(4)
 
@@ -99,7 +98,7 @@ describe('handle channel update for info message', () => {
 
     // regenerate channels, now we're not an observer
     const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages, 1, whiteForce,
-      limWhiteRoles, selectedRole, notObserver , allTemplates, allForces)
+      limWhiteRoles, selectedRole, notObserver, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
     expect(Object.keys(res2.channels).length).toEqual(3)
@@ -204,25 +203,25 @@ describe('handle channel update for info message', () => {
 
     const messageId = 'bingo'
     const payload2: MessageCustom = {
-      'messageType': CUSTOM_MESSAGE,
-      'details': {
-        'channel': CHAT_CHANNEL_ID,
-        'from': {
-          'force': 'White',
-          'forceColor': '#FCFBEE',
-          'icon': 'default_img/umpireDefault.png',
-          'role': 'Game Control'
+      messageType: CUSTOM_MESSAGE,
+      details: {
+        channel: CHAT_CHANNEL_ID,
+        from: {
+          force: 'White',
+          forceColor: '#FCFBEE',
+          icon: 'default_img/umpireDefault.png',
+          role: 'Game Control'
         },
-        'messageType': 'Chat',
-        'privateMessage': 'The private content goes in here',
-        'timestamp': '2020-10-13T08:52:40.930Z'
+        messageType: 'Chat',
+        privateMessage: 'The private content goes in here',
+        timestamp: '2020-10-13T08:52:40.930Z'
       },
-      'message': {
-        'content': 'Message from White, with Private content'
+      message: {
+        content: 'Message from White, with Private content'
       },
-      '_id': messageId,
-      'hasBeenRead': false,
-      'isOpen': false
+      _id: messageId,
+      hasBeenRead: false,
+      isOpen: false
     }
 
     // regenerate channels
@@ -243,30 +242,30 @@ describe('handle channel update for info message', () => {
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    const channelId = "channel-k63pjit0"
+    const channelId = 'channel-k63pjit0'
     expect(res.channels[channelId].messages?.length).toEqual(1) // turn marker
 
     const messageId = 'bingo'
     const payload2: MessageCustom = {
-      'messageType': CUSTOM_MESSAGE,
-      'details': {
-        'channel': channelId,
-        'from': {
-          'force': 'White',
-          'forceColor': '#FCFBEE',
-          'icon': 'default_img/umpireDefault.png',
-          'role': 'Game Control'
+      messageType: CUSTOM_MESSAGE,
+      details: {
+        channel: channelId,
+        from: {
+          force: 'White',
+          forceColor: '#FCFBEE',
+          icon: 'default_img/umpireDefault.png',
+          role: 'Game Control'
         },
-        'messageType': 'Chat',
-        'privateMessage': 'The private content goes in here',
-        'timestamp': '2020-10-13T08:52:40.930Z'
+        messageType: 'Chat',
+        privateMessage: 'The private content goes in here',
+        timestamp: '2020-10-13T08:52:40.930Z'
       },
-      'message': {
-        'content': 'Message from White, with Private content'
+      message: {
+        content: 'Message from White, with Private content'
       },
-      '_id': messageId,
-      'hasBeenRead': false,
-      'isOpen': false
+      _id: messageId,
+      hasBeenRead: false,
+      isOpen: false
     }
 
     // regenerate channels
@@ -285,8 +284,8 @@ describe('handle channel update for info message', () => {
       gameTurn: 0,
       messageType: INFO_MESSAGE_CLIPPED,
       infoType: true,
-      details: { channel: 'Net 16'},
-      _id: "2021-02-24T17:50:31.603Z",
+      details: { channel: 'Net 16' },
+      _id: '2021-02-24T17:50:31.603Z',
       hasBeenRead: false,
       isOpen: false
     }
@@ -299,11 +298,11 @@ describe('handle channel update for info message', () => {
     expect(res.channels[channelId].messages?.length).toEqual(1)
 
     // send in a new normal channel message
-    const payload2: MessageCustom =   deepCopy(GameMessagesMock[0])
+    const payload2: MessageCustom = deepCopy(GameMessagesMock[0])
     payload2.details.channel = channelId
     // replace the message id
     const messageId = 'bongo'
-    const payload3 = Object.assign(payload2, {_id: messageId})
+    const payload3 = Object.assign(payload2, { _id: messageId })
 
     // regenerate channels
     const res2: SetWargameMessage = handleChannelUpdates(payload3, res.channels, chatChannel, res.rfiMessages, 1, blueForce,
@@ -313,7 +312,7 @@ describe('handle channel update for info message', () => {
     expect(res2.channels[channelId].messages).toBeTruthy()
     expect(res2.channels[channelId].messages?.length).toEqual(2)
     const messages = res2.channels[channelId].messages
-    if(messages) {
+    if (messages) {
       expect(messages[0]._id).toEqual(messageId)
     }
   })
@@ -327,7 +326,7 @@ describe('handle channel update for info message', () => {
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    const channelId = "channel-k63pjit0"
+    const channelId = 'channel-k63pjit0'
     expect(res.channels[channelId].messages?.length).toEqual(1) // turn marker
 
     // generate a new turn

@@ -4,13 +4,13 @@ import { MessageChannel } from '@serge/custom-types'
 
 /** helper function to produce unique ids for channel messages
  */
- const getIDs = (message: MessageChannel): string => {
+const getIDs = (message: MessageChannel): string => {
   let res
   if (message.messageType === INFO_MESSAGE_CLIPPED || message.infoType === true) {
     res = '' + message.gameTurn
   } else {
     const msg = message.message
-    if(msg.Reference !== undefined) {
+    if (msg.Reference !== undefined) {
       res = msg.Reference
     } else {
       res = message._id

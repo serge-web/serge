@@ -1,22 +1,22 @@
-import { Asset, ForceData } from "@serge/custom-types"
+import { Asset, ForceData } from '@serge/custom-types'
 
 /** recursive helper function - checks inside
  * comprising and hosting lists
  * 
  */
 export const isAsset = (asset: Asset, assetId: string): Asset | undefined => {
-  if(asset.uniqid === assetId) {
+  if (asset.uniqid === assetId) {
     return asset
   } else {
-    let res: Asset | undefined = undefined
-    if(asset.comprising && asset.comprising.length) {
+    let res: Asset | undefined
+    if (asset.comprising && asset.comprising.length) {
       asset.comprising.find(asset2 => {
         res = isAsset(asset2, assetId)
         return res
       })
     }
     // only bother checking hosting if we haven't found it already
-    if(!res && asset.hosting && asset.hosting.length) {
+    if (!res && asset.hosting && asset.hosting.length) {
       res = asset.hosting.find(asset2 => {
         res = isAsset(asset2, assetId)
         return res
@@ -28,7 +28,7 @@ export const isAsset = (asset: Asset, assetId: string): Asset | undefined => {
 
 /** find the asset with the provided id */
 export default (allForces: ForceData[], assetId: string): Asset => {
-  let res: Asset | undefined = undefined
+  let res: Asset | undefined
   allForces.find((force) => {
     const assets: Asset[] | undefined = force.assets
     if (Array.isArray(assets)) {

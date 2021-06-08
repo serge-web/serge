@@ -24,14 +24,15 @@ export interface ParticipantStates {
  * Always returns a structure, use isParticipant to determine if role is in channel (registered or as observer)
 */
 export const checkParticipantStates = (channel: ChannelData, selectedForce: string | undefined, selectedRole: string, isObserver: boolean): CheckParticipantStates => {
-
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   const participatingForce: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceFilter(p.forceUniqid, selectedForce))
   // not a member of this channel, return false answer
-  if (!participatingForce && !isObserver) return {
-    isParticipant: false,
-    participatingRole: undefined,
-    allRolesIncluded: undefined
+  if (!participatingForce && !isObserver) {
+    return {
+      isParticipant: false,
+      participatingRole: undefined,
+      allRolesIncluded: undefined
+    }
   }
 
   // is a member of this channel, find out if they're named, or a where all roles for this force are in channel
@@ -46,7 +47,7 @@ export const checkParticipantStates = (channel: ChannelData, selectedForce: stri
 /** find out how the user can participate in this channel */
 export const getParticipantStates = (channel: ChannelData, forceId: string | undefined, role: string, isObserver: boolean, allTemplates: any): ParticipantStates => {
   let chosenTemplates: Array<any> = []
-  let observing: boolean = false
+  let observing = false
   let templates: Array<any> = []
 
   const {
@@ -64,7 +65,7 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
   if (isParticipant || allRolesIncluded) {
     if (chosenTemplates.length === 0) {
       templates = allTemplates.filter((template: any) => template.title === 'Chat')
-      if(templates.length === 0) {
+      if (templates.length === 0) {
         console.warn('Warning, unable to find Chat template for channel with no templates defined')
       }
     } else {

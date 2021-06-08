@@ -29,7 +29,7 @@ const convertMilliseconds = (milliseconds: number, type: string): string => {
     case 'hhmmss':
     default:
       output = hours + minutes + seconds
-    break
+      break
   }
 
   return output
