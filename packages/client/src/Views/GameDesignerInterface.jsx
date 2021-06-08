@@ -13,6 +13,7 @@ import {
   clearWargames,
   populateWargameStore,
   checkAdminAccess,
+  pingServerWithInterval
 } from "../ActionsAndReducers/dbWargames/wargames_ActionCreators";
 import { populateMessageTypesDb } from "../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators";
 import {setCurrentViewFromURI} from "../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators";
@@ -22,6 +23,7 @@ class GameDesignerInterface extends Component {
   componentWillMount() {
     this.props.dispatch(populateMessageTypesDb());
     this.props.dispatch(populateWargameStore());
+    this.props.dispatch(pingServerWithInterval());
   }
 
   createWargame = () => {

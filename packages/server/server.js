@@ -70,6 +70,13 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
+  app.get('/healthcheck', (req, res) => {
+    res.status(200).send({
+      status: 'OK',
+      uptime: process.uptime()
+    })
+  })
+
   app.get('/cells/:filename', (req, res) => {
     if (dataDir) {
       res.sendFile(path.join(process.cwd(), dataDir, req.params.filename))
