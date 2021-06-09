@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Props } from './types.d'
 import { WargameList } from '@serge/custom-types'
+import { HeartbeatChecker } from '@serge/components'
 
 import PlayerUiLandingScreen from '../PlayerUiLandingScreen'
 import PlayerUiLobby from '../PlayerUiLobby'
@@ -20,7 +21,7 @@ enum Room {
   player
 }
 
-const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData }: Props): React.ReactElement => {
+const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData, dbLoading }: Props): React.ReactElement => {
   const [tourIsOpen, setTourIsOpen] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
   const [waitingLoginPassword, setWaitingLoginPassword] = useState('')
@@ -98,29 +99,40 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     else checkPasswordFail()
   }
 
-  // show the relevant screen
-  switch(screen) {
-    case Room.landing:
-      return <PlayerUiLandingScreen
-      gameInfo={gameInfo}
-      enterSerge={() => { setScreen(Room.lobby) }}
-      />
-    case Room.lobby:
-      return <PlayerUiLobby
-        wargameList={wargame.wargameList}
-        checkPassword={handleCheckPassword}
-        allForces={allForces}
-      />
-    case Room.player:
-      if (selectedForce) {
-        const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
-        return <GameChannelsWithTour
-          storageKey={setStorageKey()}
-          tourIsOpen={tourIsOpen}
+  const renderScreen = () => {
+    // show the relevant screen
+    switch(screen) {
+      case Room.landing:
+        return <PlayerUiLandingScreen
+        gameInfo={gameInfo}
+        enterSerge={() => { setScreen(Room.lobby) }}
         />
-      }
-      return <LoaderScreen />
+      case Room.lobby:
+        return <PlayerUiLobby
+          wargameList={wargame.wargameList}
+          checkPassword={handleCheckPassword}
+          allForces={allForces}
+        />
+      case Room.player:
+        if (selectedForce) {
+          const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
+          return <GameChannelsWithTour
+            storageKey={setStorageKey()}
+            tourIsOpen={tourIsOpen}
+          />
+        }
+        return <LoaderScreen />
+    }
   }
+
+  return (
+    <>
+      <div className="heartbeat-checker-container">
+        <HeartbeatChecker enableHeartbeat={dbLoading.serverStatus === 'OK'} />
+      </div>
+      {renderScreen()}
+    </>
+  )
 }
 
 export default PlayerUi

@@ -5,10 +5,11 @@ import { addNotification } from '../../ActionsAndReducers/Notification/Notificat
 import { populateWargameStore, pingServerWithInterval } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { getSergeGameInformation } from '../../ActionsAndReducers/sergeInfo/sergeInfo_ActionCreators'
 import { populateMessageTypesDb } from '../../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
-const mapStateToProps = ({ wargame, messageTypes, gameInfo }: any) => ({
+const mapStateToProps = ({ wargame, messageTypes, gameInfo, dbLoading }: any) => ({
   wargame,
   messageTypes,
   gameInfo,
+  dbLoading
 })
 
 // TODO: change Dispatch type

@@ -1,0 +1,18 @@
+.heartbeat-status-icon {
+  font-size: 20px;
+	color: #e00;
+  
+  &.start {
+    animation: beat 0.70s infinite alternate;
+    transform-origin: center;
+  }
+
+  &.stop {
+    animation-play-state: paused;
+    transform-origin: center;
+  }
+}
+
+@keyframes beat{
+	to { transform: scale(1.3); }
+}

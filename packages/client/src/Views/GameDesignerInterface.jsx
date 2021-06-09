@@ -45,7 +45,7 @@ class GameDesignerInterface extends Component {
 
   render() {
 
-    let loading = Object.values(this.props.dbLoading).some((loading) => loading );
+    const loading = this.props.dbLoading.loadingWargames;
 
     if (loading) {
       return <Loader />

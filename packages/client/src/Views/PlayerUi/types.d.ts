@@ -12,6 +12,7 @@ export interface Props {
   wargame: Wargame,
   messageTypes: Template[],
   gameInfo: GameInfo,
+  dbLoading: any,
   checkPasswordFail: () => void
   loadData: () => void
 }
