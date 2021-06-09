@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
-import { DEFAULT_SERVER } from '../../consts'
+import { DEFAULT_SERVER, SERVER_PING_INTERVAL } from '../../consts'
 
 export const setCurrentTab = (tab) => ({
   type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,
@@ -155,7 +155,7 @@ export const pingServerWithInterval = () => async (dispatch) => {
   setInterval(async () => {
     const serverStatus = await wargamesApi.pingServer()
     dispatch(saveServerStatus(serverStatus))
-  }, 10000)
+  }, SERVER_PING_INTERVAL)
 }
 
 export const createNewWargameDB = () => {
