@@ -9,7 +9,7 @@ import GameChannelsWithTour from '../GameChannelsWithTour'
 import LoaderScreen from '../../Components/LoaderScreen'
 
 import checkPassword from './helpers/checkPassword'
-import {  expiredStorage } from '../../consts'
+import {  expiredStorage, UMPIRE_FORCE } from '../../consts'
 import {
   getWargame,
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -21,7 +21,7 @@ enum Room {
   player
 }
 
-const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData, dbLoading }: Props): React.ReactElement => {
+const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData, dbLoading, showNotification }: Props): React.ReactElement => {
   const [tourIsOpen, setTourIsOpen] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
   const [waitingLoginPassword, setWaitingLoginPassword] = useState('')
@@ -35,6 +35,8 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
   } = usePlayerUiState()
 
   const dispatch = usePlayerUiDispatch()
+
+  const isUmpire = selectedForce && selectedForce.uniqid === UMPIRE_FORCE;
 
   useEffect(() => {
     loadData()
@@ -124,6 +126,12 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
         return <LoaderScreen />
     }
   }
+
+  useEffect(() => {
+    if(dbLoading.serverStatus === 'NOT_OK') {
+      showNotification(isUmpire ? 'Server down' : 'Check connection - please check with admin')
+    }
+  }, [dbLoading.serverStatus])
 
   return (
     <>

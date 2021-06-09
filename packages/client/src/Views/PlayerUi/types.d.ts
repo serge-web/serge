@@ -14,6 +14,7 @@ export interface Props {
   gameInfo: GameInfo,
   dbLoading: any,
   checkPasswordFail: () => void
+  showNotification: (message: string) => void
   loadData: () => void
 }
 
