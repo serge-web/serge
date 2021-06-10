@@ -72,6 +72,13 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
     }
   }, [collapsed])
 
+  useEffect(() => {
+    return (): void => {
+      // unsubscribe event
+      document.removeEventListener('dragenter', handleDragenter)
+    }
+  }, [])
+
   return (
     <div className={styles.main}>
       {hasContent && <div className={cn(styles.control, iconType === COLLASIBLE_CHANNEL_ICON && styles['control-channel'])} onClick={handleExpand}>

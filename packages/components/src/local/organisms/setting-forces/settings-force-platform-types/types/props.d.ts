@@ -5,4 +5,5 @@ export default interface PropTypes {
   platformTypes: PlatformTypeData[]
   onChangeHandler: (nextForce: ForceData) => void
   routes?: Route[]
+  forcesData: ForceData[]
 }

@@ -23,6 +23,7 @@ export const Default: React.FC = () => {
   const [force, setForce] = useState(forcesMock[0])
   return <AssetsAccordion
     selectedForce={force}
+    forcesData={forcesMock}
     platformTypes={platformTypesMock}
     onChangeHandler={(nextForce): void => setForce(nextForce)}
   />

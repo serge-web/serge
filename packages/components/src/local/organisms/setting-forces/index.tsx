@@ -125,6 +125,7 @@ export const SettingForces: React.FC<PropTypes> = ({
             <AssetsAccordion
               routes={routes}
               selectedForce={data}
+              forcesData={forcesData}
               platformTypes={platformTypes}
               onChangeHandler={handleChangeForce}
             />

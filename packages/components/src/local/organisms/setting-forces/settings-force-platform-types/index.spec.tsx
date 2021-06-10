@@ -7,7 +7,7 @@ describe('SettingForces component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <AssetsAccordion selectedForce={forces[0]} platformTypes={platformTypes} onChangeHandler={(nextForce): void => console.log('change', nextForce)} />,
+        <AssetsAccordion selectedForce={forces[0]} forcesData={forces} platformTypes={platformTypes} onChangeHandler={(nextForce): void => console.log('change', nextForce)} />,
         { createNodeMock: () => document.createElement('textarea') }
       )
       .toJSON()

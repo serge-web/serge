@@ -64,6 +64,15 @@ export const Dropzone: React.FC<PropTypes> = ({ children, group, item, type = 'e
     }
   }, [showEmpty, innerRef, commingDrop])
 
+  useEffect(() => {
+    return (): void => {
+      // unsubscribe event
+      document.removeEventListener('dragenter', mouseMove)
+    }
+  }, [])
+
+
+
   const handleListChange = (newList: Array<DropItem>): void => {
     if (newList.length === 0) {
       if (!typeEmpty) setLoading(true)

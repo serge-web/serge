@@ -93,7 +93,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                   className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3"
                 >
                   <div
-                    className="icons-col"
+                    className="platform-types-box icons-col"
                   >
                     <p>
                       Available platform types
@@ -357,8 +357,24 @@ exports[`SettingForces component: renders correctly 1`] = `
                       <ul
                         className="MuiList-root MuiList-dense MuiList-padding"
                       >
-                        <div />
+                        <div
+                          className="main"
+                        >
+                          <ul />
+                        </div>
                       </ul>
+                    </div>
+                    <div
+                      className="add-asset-overlay add-asset-overlay-active"
+                    >
+                      <div
+                        className="add-asset-overlay-msg"
+                      >
+                        Drag here to add asset for force
+                      </div>
+                      <div
+                        className="add-asset-overlay-dropzone"
+                      />
                     </div>
                   </div>
                 </div>
