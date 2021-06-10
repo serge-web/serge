@@ -24,6 +24,7 @@ class Notifications extends Component {
                       type={data.type}
                       message={data.message}
                       id={data.id}
+                      autoHide={data.autoHide}
                       onClickHandler={this.onClickHandler} />
           );
         })

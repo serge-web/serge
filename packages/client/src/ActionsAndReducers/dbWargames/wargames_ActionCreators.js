@@ -151,10 +151,15 @@ export const populateWargameStore = () => {
   }
 }
 
+const pingServer = async (dispatch) => {
+  const serverStatus = await wargamesApi.pingServer()
+  dispatch(saveServerStatus(serverStatus))
+}
+
 export const pingServerWithInterval = () => async (dispatch) => {
+  await pingServer(dispatch)
   setInterval(async () => {
-    const serverStatus = await wargamesApi.pingServer()
-    dispatch(saveServerStatus(serverStatus))
+    await pingServer(dispatch)
   }, SERVER_PING_INTERVAL)
 }
 
@@ -289,7 +294,7 @@ export const saveForce = (dbName, newName, newData, oldName) => {
 export const saveChannel = (dbName, newName, newData, oldName) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.saveChannel(dbName, newName, newData, oldName)
-    const selectedChannel = { name: newName, uniqid:newData.uniqid }
+    const selectedChannel = { name: newName, uniqid: newData.uniqid }
 
     dispatch(setSelectedChannel(selectedChannel))
     wargame.data.channels.selectedChannel = selectedChannel

@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     dispatch(addNotification('Access code incorrect', 'warning'))
   },
   showNotification: (message: string): void => {
-    dispatch(addNotification(message, 'warning'))
+    dispatch(addNotification(message, 'warning', false))
   },
   loadData: (): void => {
     dispatch(populateMessageTypesDb())

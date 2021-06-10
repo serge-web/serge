@@ -12,14 +12,18 @@ class Snackbar extends Component {
   }
 
   onClickHandler = () => {
-    clearTimeout(this.timer);
+    if(this.props.autoHide) {
+      clearTimeout(this.timer);
+    }
     this.props.onClickHandler(this.props.id);
   };
 
   componentWillMount() {
-    this.timer = setTimeout(() => {
-      this.props.onClickHandler(this.props.id);
-    }, 2500);
+    if(this.props.autoHide) {
+      this.timer = setTimeout(() => {
+        this.props.onClickHandler(this.props.id);
+      }, 2500);
+    }
   }
 
   render() {
@@ -35,6 +39,10 @@ class Snackbar extends Component {
       </>
     );
   }
+}
+
+Snackbar.defaultProps = {
+  autoHide: true,
 }
 
 

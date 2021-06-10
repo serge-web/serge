@@ -4,7 +4,7 @@ import copyState from '../Helpers/copyStateHelper'
 var initialState = {
   loadingMessageTypes: true,
   loadingWargames: true,
-  serverStatus: 'OK'
+  serverStatus: ''
 }
 
 export const loadingDbReducer = (state = initialState, action) => {
