@@ -3,17 +3,24 @@
 .heartbeat-status-icon {
   font-size: 20px;
   color: $red;
+  animation: beat 0.8s infinite alternate;
+  animation-play-state: paused;
+
+  &.disabled {
+    color: $grey;
+    transform: scale(1.3);
+  }
 
   &.start {
-    animation: beat 0.8s infinite alternate;
+    color: $red;
+    animation-play-state: running;
     transform-origin: center;
   }
 
   &.stop {
+    color: $red;
     animation-play-state: paused;
     transform-origin: center;
-    color: $grey;
-    transform: scale(1.3);
   }
 }
 

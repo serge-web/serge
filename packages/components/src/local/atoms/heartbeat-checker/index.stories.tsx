@@ -21,6 +21,11 @@ export default {
       control: {
         type: 'boolean'
       }
+    },
+    animate: {
+      control: {
+        type: 'boolean'
+      }
     }
   }
 }
@@ -32,5 +37,6 @@ const Template: Story<PropTypes> = (args) => {
 
 export const ToggleHeartbeatChecker = Template.bind({})
 ToggleHeartbeatChecker.args = {
-  enableHeartbeat: true
+  enableHeartbeat: true,
+  animate: true
 }

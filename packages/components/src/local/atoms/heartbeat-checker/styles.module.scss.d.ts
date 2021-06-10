@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'beat': string;
+  'disabled': string;
   'heartbeat-status-icon': string;
   'start': string;
   'stop': string;

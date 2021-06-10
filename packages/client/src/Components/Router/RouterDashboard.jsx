@@ -63,17 +63,23 @@ class RouterDashboard extends Component {
     this.props.dispatch(setCurrentViewFromURI(path))
     this.router = new UniversalRouter(routes)
     this.state = {
-      currentView: null
+      currentView: null,
+      toggleBeat: false
     }
   }
 
   componentDidUpdate (prevProps) {
-    const { currentViewURI } = this.props
+    const { currentViewURI, dbLoading } = this.props
     if (prevProps.currentViewURI !== currentViewURI) {
       this.router.resolve({ pathname: currentViewURI }).then(result => {
         this.setState({
           currentView: result
         })
+      })
+    }
+    if (prevProps.dbLoading.serverPingTime !== dbLoading.serverPingTime) {
+      this.setState({
+        toggleBeat: true
       })
     }
   }
@@ -85,7 +91,11 @@ class RouterDashboard extends Component {
       <>
         <ModalSwitchAdmin/>
         <div className="heartbeat-checker-container">
-          <HeartbeatChecker enableHeartbeat={serverStatus === 'OK'} />
+          <HeartbeatChecker
+            enableHeartbeat={serverStatus === 'OK'}
+            animate={this.state.toggleBeat}
+            onAnimateComplete={() => this.setState({ toggleBeat: false })}
+          />
         </div>
         { this.state.currentView }
       </>

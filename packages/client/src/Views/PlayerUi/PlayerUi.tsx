@@ -26,6 +26,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
   const [loggedIn, setLoggedIn] = useState(false)
   const [waitingLoginPassword, setWaitingLoginPassword] = useState('')
   const [screen, setScreen] = useState<Room>(Room.landing)
+  const [toggleBeat, setToggleBeat] = useState(false);
   const {
     allForces,
     currentWargame,
@@ -130,13 +131,20 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
   useEffect(() => {
     if(dbLoading.serverStatus === 'NOT_OK') {
       showNotification(isUmpire ? 'Server down' : 'Check connection - please check with admin')
+    } 
+
+    if(dbLoading.serverPingTime) {
+      setToggleBeat(true);
     }
-  }, [dbLoading.serverStatus])
+  }, [dbLoading.serverStatus, dbLoading.serverPingTime])
 
   return (
     <>
       <div className="heartbeat-checker-container">
-        <HeartbeatChecker enableHeartbeat={dbLoading.serverStatus === 'OK'} />
+        <HeartbeatChecker 
+          enableHeartbeat={dbLoading.serverStatus === 'OK'} 
+          animate={toggleBeat} onAnimateComplete={() => setToggleBeat(false)} 
+        />
       </div>
       {renderScreen()}
     </>
