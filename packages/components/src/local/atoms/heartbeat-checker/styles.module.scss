@@ -3,13 +3,14 @@
   color: #e00;
 
   &.start {
-    animation: beat 0.7s infinite alternate;
+    animation: beat 0.8s infinite alternate;
     transform-origin: center;
   }
 
   &.stop {
     animation-play-state: paused;
     transform-origin: center;
+    color: #c99;
   }
 }
 
