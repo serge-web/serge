@@ -10,7 +10,6 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const HeartbeatChecker: React.FC<Props> = ({ enableHeartbeat, animate, onAnimateComplete }: Props) => {
-
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -19,7 +18,7 @@ export const HeartbeatChecker: React.FC<Props> = ({ enableHeartbeat, animate, on
       setTimeout(() => {
         onAnimateComplete && onAnimateComplete()
         setLoading(false)
-      }, 3000)
+      }, 2000)
     }
   }, [animate])
 
