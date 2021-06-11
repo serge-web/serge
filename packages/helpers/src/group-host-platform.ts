@@ -25,10 +25,8 @@ const groupHostPlatform = (dragging: string, target: string, forces: ForceData[]
       // remove the assets from the force
       const assets2: Asset[] = removeAssetById(dragging, assets)
 
-      if (dragAsset) {
-        // overwrite the assets with the new list
-        parent.assets = putDraggedAssetsToTarget(target, dragAsset, assets2)
-      }
+      // overwrite the assets with the new list
+      parent.assets = putDraggedAssetsToTarget(target, dragAsset, assets2)
     }
   }
   return forces

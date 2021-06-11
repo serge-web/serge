@@ -29,7 +29,7 @@ const groupCreateNewGroup = (dragging: string, target: string, forces: ForceData
       // overwrite the assets with the new list
       parent.assets = putDraggedAssetsToTarget(target, dragAsset, assetsWithoutDragging, false)
     } else {
-      throw new Error('Failed to find drag or targetAsset:' + dragAsset + ' other:' + target)
+      throw new Error('Failed to find drag or targetAsset:' + dragAsset || '' + ' other:' + target)
     }
   }
 
