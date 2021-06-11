@@ -461,6 +461,8 @@ export const Mapping: React.FC<PropTypes> = ({
           // special case. check turn time is non-zero
           if (gameTurnTime === 0) {
             console.error('Cannot plan route with zero game turn time')
+            window.alert('Cannot plan route with zero game turn time')
+            // TODO: also display notification in UI
           }
           const speedKts = plannedTurn.speedVal
           const stepSizeHrs = gameTurnTime / 1000 / 60 / 60
