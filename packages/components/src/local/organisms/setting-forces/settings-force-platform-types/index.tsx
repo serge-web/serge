@@ -67,7 +67,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     if (selectedPlatforms.length === 0) return null
     if (!Array.isArray(selectedForce.assets)) return null
     if (selectedForce.assets.length === 0) return null
-    
+
     if (typeof selectedAssetItem === 'undefined') {
       return null
     }
@@ -277,7 +277,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                         onSet={(itemsLink: GroupItem[], type: NodeType, depth: GroupItem[]): void => {
                           const items = itemsLink.slice(0)
                           const [droppedItem, droppedInTo] = items
-                          let result: ForceData[] = [];
+                          let result: ForceData[] = []
                           // TODO: remove setTmpRoutes and use api
                           switch (type) {
                             case 'group': {

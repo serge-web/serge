@@ -241,7 +241,7 @@ const laydownPhaseFor = (phase: Phase, wargameInitated: boolean, currentPosition
         }
         
       }
-      
+      // TODO Check to return correct LaydownPhases type
       return LaydownPhases.Immobile
     }
   }

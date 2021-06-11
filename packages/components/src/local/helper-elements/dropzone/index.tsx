@@ -71,8 +71,6 @@ export const Dropzone: React.FC<PropTypes> = ({ children, group, item, type = 'e
     }
   }, [])
 
-
-
   const handleListChange = (newList: Array<DropItem>): void => {
     if (newList.length === 0) {
       if (!typeEmpty) setLoading(true)

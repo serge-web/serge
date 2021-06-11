@@ -18,10 +18,10 @@ This is an example readme file for the 'forces' component.
 
 ### ES6 Import
 ```js
-import SettingsForceOverview from './organisms/setting-forces/settings-force-platform-types'
+import AssetsAccordion from './organisms/setting-forces/settings-force-platform-types'
 ```
 
 ### CommonJS
 
 ```js
-const SettingsForceOverview = require('./organisms/setting-forces/settings-force-platform-types')
+const AssetsAccordion = require('./organisms/setting-forces/settings-force-platform-types')
