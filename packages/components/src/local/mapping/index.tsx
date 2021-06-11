@@ -458,6 +458,10 @@ export const Mapping: React.FC<PropTypes> = ({
         // special handling, a mobile status may not have a speedVal,
         // which represents unlimited travel
         if (plannedTurn.speedVal) {
+          // special case. check turn time is non-zero
+          if (gameTurnTime === 0) {
+            console.error('Cannot plan route with zero game turn time')
+          }
           const speedKts = plannedTurn.speedVal
           const stepSizeHrs = gameTurnTime / 1000 / 60 / 60
           const distancePerTurn = stepSizeHrs * speedKts
