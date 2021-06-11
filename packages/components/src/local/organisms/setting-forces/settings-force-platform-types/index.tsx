@@ -243,8 +243,8 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                         setSelectedPlatforms(selectedPlatforms.filter(item => item.uniqid !== removeItem.uniqid))
                       }
                     }}
-                    onStart={() => setAddAssetActive(true)}
-                    onEnd={() => setAddAssetActive(false)}
+                    onStart={(): void => setAddAssetActive(true)}
+                    onEnd={(): void => setAddAssetActive(false)}
                     group={'platformTypesList'}
                   >
                     {allPlatforms.map((item) => {

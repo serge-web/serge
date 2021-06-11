@@ -1,5 +1,4 @@
 import StatusBarTypes from '../../../molecules/statusbar/types/props'
-import { PlatformType } from '@serge/custom-types'
 
 export default interface PropTypes extends StatusBarTypes {
   /* half section title */
