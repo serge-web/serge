@@ -291,6 +291,10 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
 
 const updateWargame = (nextWargame: Wargame, dbName: string, revisionCheck: boolean = true): Promise<Wargame> => {
   const { db } = getWargameDbByName(dbName)
+  return updateWargameByDb(nextWargame, dbName, revisionCheck, db)
+}
+
+const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck: boolean = true, db: ApiWargameDb): Promise<Wargame> => {
   if (nextWargame.wargameInitiated && revisionCheck) {
     return createLatestWargameRevision(dbName, nextWargame)
   }
@@ -453,16 +457,15 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
   return db.get(dbDefaultSettings._id).then((res) => {
     const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName + dbSuffix)
     const wargame = res as Wargame
-    return updateWargame({
+    return updateWargameByDb({
       ...wargame,
       name: newDbName,
       wargameTitle: `${wargame.wargameTitle}-${uniqId}`,
       wargameInitiated: false
-    }, newDbName).then(() => {
+    }, newDbName, undefined, newDb).then(() => {
       addWargameDbStore({ name: newDbName, db: newDb })
       return getAllWargames()
-    })
-    .catch(rejectDefault)
+    }).catch(rejectDefault)
   })
 }
 
