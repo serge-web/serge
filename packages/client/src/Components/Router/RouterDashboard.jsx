@@ -23,6 +23,7 @@ import ExportPrint from '../../Views/ExportPrint'
 import EditWelcomeScreen from '../../Views/EditWelcomeScreen'
 import ModalSwitchAdmin from '../Modals/ModalSwitch/ModalSwitchAdmin'
 import { setCurrentViewFromURI } from '../../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
+import { HeartbeatChecker } from '@serge/components'
 
 const routes = [
   { path: DEMO_ROUTE, action: () => <GameDesignerInterface/> },
@@ -62,12 +63,13 @@ class RouterDashboard extends Component {
     this.props.dispatch(setCurrentViewFromURI(path))
     this.router = new UniversalRouter(routes)
     this.state = {
-      currentView: null
+      currentView: null,
+      toggleBeat: false
     }
   }
 
   componentDidUpdate (prevProps) {
-    const { currentViewURI } = this.props
+    const { currentViewURI, dbLoading } = this.props
     if (prevProps.currentViewURI !== currentViewURI) {
       this.router.resolve({ pathname: currentViewURI }).then(result => {
         this.setState({
@@ -75,20 +77,35 @@ class RouterDashboard extends Component {
         })
       })
     }
+    if (prevProps.dbLoading.serverPingTime !== dbLoading.serverPingTime) {
+      this.setState({
+        toggleBeat: true
+      })
+    }
   }
 
   render () {
+    const serverStatus = this.props.dbLoading.serverStatus
+
     return (
       <>
         <ModalSwitchAdmin/>
+        <div className="heartbeat-checker-container">
+          <HeartbeatChecker
+            enableHeartbeat={serverStatus === 'OK'}
+            animate={this.state.toggleBeat}
+            onAnimateComplete={() => this.setState({ toggleBeat: false })}
+          />
+        </div>
         { this.state.currentView }
       </>
     )
   }
 }
 
-const mapStateToProps = ({ currentViewURI }) => ({
-  currentViewURI
+const mapStateToProps = ({ currentViewURI, dbLoading }) => ({
+  currentViewURI,
+  dbLoading
 })
 
 export default connect(mapStateToProps)(RouterDashboard)
