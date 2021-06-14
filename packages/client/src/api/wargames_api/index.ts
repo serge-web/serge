@@ -459,6 +459,7 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
     const wargame = res as Wargame
     return updateWargameByDb({
       ...wargame,
+      _rev: undefined,
       name: newDbName,
       wargameTitle: `${wargame.wargameTitle}-${uniqId}`,
       wargameInitiated: false
