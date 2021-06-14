@@ -481,12 +481,17 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
     addWargameDbStore({ name: newDbName, db: newDb })
     return getLatestWargameRevision(dbName)
   }).then((res) => {
-    return updateWargame({ ...res, _id: dbDefaultSettings._id, name: newDbName }, newDbName, false)
+    return updateWargame({ 
+      ...res,
+      _rev: undefined,
+      _id: dbDefaultSettings._id, 
+      name: newDbName 
+    }, newDbName, false)
   }).then((res) => {
     return createLatestWargameRevision(newDbName, res)
-  })
-  .then(() => getAllWargames())
-  .catch(rejectDefault)
+  }).then(() => 
+    getAllWargames()
+  ).catch(rejectDefault)
 }
 
 export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
