@@ -3,7 +3,7 @@ import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { ButtonList } from '@serge/components'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
-import { deleteSelectedForce, deleteSelectedChannel } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
+import { deleteSelectedForce, deleteSelectedChannel, clearWargames } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import '@serge/themes/App.scss'
 
 const DeleteModal = () => {
@@ -29,6 +29,10 @@ const DeleteModal = () => {
       dispatch(deleteSelectedChannel(wargame.currentWargame, data))
     }
 
+    if (type === 'games') {
+      dispatch(clearWargames())
+    }
+
     dispatch(modalAction.close())
   }
 
@@ -49,7 +53,7 @@ const DeleteModal = () => {
   return (
     <ModalWrapper>
       <div className="display-text-wrapper">
-        <h3>Delete</h3>
+        <h3>Delete { currentModal.data && currentModal.data.type }</h3>
         <p>This action is permanent.<br/>Are you sure?</p>
         <div className="buttons">
           <ButtonList buttons={buttons} />
