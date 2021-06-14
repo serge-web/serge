@@ -53,7 +53,7 @@ const DeleteModal = () => {
   return (
     <ModalWrapper>
       <div className="display-text-wrapper">
-        <h3>Delete</h3>
+        <h3>Delete {currentModal && currentModal.data && currentModal.data.type }</h3>
         <p>This action is permanent.<br/>Are you sure?</p>
         <div className="buttons">
           <ButtonList buttons={buttons} />
