@@ -118,6 +118,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
         'adjudication-phase': adjudicationPhase
       }
     ])}
+    data-tour="sixth-step"
     >
       <div className={styles['turn-info-phase']}>
         <h5>Turn {currentTurn} - {phase} phase</h5>
