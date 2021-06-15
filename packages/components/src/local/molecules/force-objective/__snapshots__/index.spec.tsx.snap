@@ -47,6 +47,7 @@ exports[`ForceObjective renders correctly 1`] = `
           <img
             alt=""
             className="role-icon"
+            data-tour="second-step"
             onClick={[Function]}
             src="http://localhost:8080/default_img/forceDefault.png"
           />
