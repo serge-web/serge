@@ -26,9 +26,9 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
   const prevOverview = usePrevious(overview)
   const updateGameTime = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target
-
     if (value.length === 0) {
-      setOverview({ ...overview, gameTurnTime: 0 })
+      const prevData = { [name] : prevOverview ? prevOverview[name]: initialOverview[name] }
+      setOverview({ ...overview, gameTurnTime: 0, ...prevData })
       return
     }
     if (value.indexOf('_') > -1) return
@@ -126,7 +126,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
                 placeholder="DD HH MM SS"
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
-                value={millisecondsToDDHHMMSS(initialOverview.gameTurnTime)}
+                value={millisecondsToDDHHMMSS(overview.gameTurnTime)}
               />}
             </div>
           </div>
@@ -142,7 +142,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
                 placeholder="DD HH MM SS"
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
-                value={millisecondsToDDHHMMSS(initialOverview.realtimeTurnTime)}
+                value={millisecondsToDDHHMMSS(overview.realtimeTurnTime)}
               />
             </div>
           </div>
@@ -158,7 +158,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
                 placeholder="HH MM SS"
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
-                value={millisecondsToHHMMSS(initialOverview.timeWarning)}
+                value={millisecondsToHHMMSS(overview.timeWarning)}
               />
             </div>
           </div>
