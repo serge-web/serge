@@ -26,6 +26,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
   const prevOverview = usePrevious(overview)
   const updateGameTime = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target
+
     if (value.length === 0) {
       const prevData = { [name] : prevOverview ? prevOverview[name]: initialOverview[name] }
       setOverview({ ...overview, gameTurnTime: 0, ...prevData })
