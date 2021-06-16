@@ -3,7 +3,7 @@
 exports[`TurnProgression component: renders correctly 1`] = `
 <div
   className="flex-content-wrapper turn-progression-ui adjudication-phase"
-  data-tour="sixth-step"
+  data-tour="turn-phase-step"
 >
   <div
     className="turn-info-phase"
