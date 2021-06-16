@@ -17,7 +17,7 @@ export const AdminPanelFooter: React.FC<Props> = ({ force, selectedRole, byPassU
     <div className={styles['contain-force-skin']} data-tour='objectives-step'>
       <div className={styles['force-skin']}>
         <span className={styles['force-type']}>{ force.name }</span>
-        <img className={styles['role-icon']} src={force.icon} alt="" onClick={onIconClick} />
+        <img className={styles['role-icon']} src={force.icon} alt="" onClick={onIconClick} data-tour="second-step"/>
       </div>
     </div>
   </div>
