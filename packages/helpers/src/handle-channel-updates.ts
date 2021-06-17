@@ -1,6 +1,7 @@
 import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
-  MessageChannel, MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped
+import {
+  ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
+  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
@@ -22,7 +23,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
     // if this message has a reference number, we should delete any previous message
     // with that reference number before we insert the message
     if (payload.message.Reference) {
-      // remove any existing RFI with this reference number. Note: we can't use 
+      // remove any existing RFI with this reference number. Note: we can't use
       // filter() array function since it produces a new array, which would
       // have a new reference, and wouldn't get returned as a parameter
       theChannel.messages.forEach((msg, idx) => {
