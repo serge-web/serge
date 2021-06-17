@@ -110,10 +110,12 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
         </TableHead>
         <TableBody className={classes.tableBody}>
           {
-            rows.map((row) => {
+            rows.map((row, rowCount) => {
               const { collapsible, cells } = row as unknown as RowWithCollapsibleType
               const tableCells = cells || row
-              const rowIndex: any = tableCells && tableCells.length && tableCells[0] || ''
+              // ideally we'll use the contents of cell zero (message-id). If we can't
+              // just use the row count
+              const rowIndex: any = (tableCells && tableCells.length && tableCells[0]) || rowCount
               return (
                 <React.Fragment key={Math.random()}>
                   <TableRow
