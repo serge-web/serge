@@ -115,7 +115,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
               const tableCells = cells || row
               // ideally we'll use the contents of cell zero (message-id). If we can't
               // just use the row count
-              const rowIndex: any = (tableCells && tableCells.length && tableCells[0]) || rowCount
+              const rowIndex: any = (tableCells.length && tableCells[0]) || rowCount
               return (
                 <React.Fragment key={Math.random()}>
                   <TableRow
