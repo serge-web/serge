@@ -229,7 +229,7 @@ export const checkIfWargameStarted = (dbName: string): Promise<boolean> => {
 export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
   return getAllMessages(dbName).then((messages) => {
     const latestWargame: MessageInfoType | undefined = messages.find(({ messageType }) => messageType === INFO_MESSAGE) as MessageInfoType
-    if (latestWargame !== undefined && latestWargame.wargameInitiated) return latestWargame as Wargame
+    if (latestWargame !== undefined) return latestWargame as Wargame
     return getWargameLocalFromName(dbName)
   }).catch(err => err)
 }
@@ -474,7 +474,7 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
   })
 }
 
-export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => {
+export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => {  
   const dbName = getNameFromPath(dbPath)
   const { db } = getWargameDbByName(dbName)
   const uniqId = uniqid.time()
@@ -491,8 +491,6 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
       _id: dbDefaultSettings._id,
       name: newDbName
     }, newDbName, false)
-  }).then((res) => {
-    return createLatestWargameRevision(newDbName, res)
   }).then(() => 
     getAllWargames()
   ).catch(rejectDefault)
