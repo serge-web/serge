@@ -72,9 +72,8 @@ const getNameFromPath = (dbPath: string): string => {
 }
 
 // get database object by :name key
-const getWargameDbByName = (name: string): ApiWargameDbObject => {
-  const dbObject = wargameDbStore.find((item) => item.name === name || item.name === name + dbSuffix)
-
+const getWargameDbByName = (name: string): ApiWargameDbObject => {  
+  const dbObject = wargameDbStore.find((item) => item.name === name || item.name === name + dbSuffix || item.name + dbSuffix === name)
   if (dbObject === undefined) throw new Error(`wargame database with "${name}" not found`)
   return dbObject
 }
@@ -205,7 +204,6 @@ export const createWargame = (): Promise<Wargame> => {
   // @ts-ignore
   const settings: Wargame = { ...dbDefaultSettings, name: name, wargameTitle: name }
 
-
   return new Promise((resolve, reject) => {
     db.put(settings)
     .then(() => {
@@ -231,7 +229,7 @@ export const checkIfWargameStarted = (dbName: string): Promise<boolean> => {
 export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
   return getAllMessages(dbName).then((messages) => {
     const latestWargame: MessageInfoType | undefined = messages.find(({ messageType }) => messageType === INFO_MESSAGE) as MessageInfoType
-    if (latestWargame !== undefined) return latestWargame as Wargame
+    if (latestWargame !== undefined && latestWargame.wargameInitiated) return latestWargame as Wargame
     return getWargameLocalFromName(dbName)
   }).catch(err => err)
 }
@@ -242,7 +240,6 @@ export const editWargame = (dbPath: string): Promise<Wargame> => (
 
 export const exportWargame = (dbPath: string): Promise<Wargame> => {
   const dbName: string = getNameFromPath(dbPath)
-
   return getAllMessages(dbName).then((messages) => {
     const latestWargame: MessageInfoType = messages.find(({ messageType }) => (messageType === INFO_MESSAGE)) as MessageInfoType
 
@@ -288,7 +285,6 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
 }
 
 
-
 const updateWargame = (nextWargame: Wargame, dbName: string, revisionCheck: boolean = true): Promise<Wargame> => {
   const { db } = getWargameDbByName(dbName)
   return updateWargameByDb(nextWargame, dbName, revisionCheck, db)
@@ -298,9 +294,17 @@ const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck: 
   if (nextWargame.wargameInitiated && revisionCheck) {
     return createLatestWargameRevision(dbName, nextWargame)
   }
+  
+  // Latest wargame cannot be a MessageInfoType if wargameInitiated === false
+  const infoTypeWargame = nextWargame as MessageInfoType
+  if (infoTypeWargame.messageType === INFO_MESSAGE && revisionCheck) {
+    console.warn('Saving wargame cannot be a MessageInfoType. Trying to save MessageInfoType as WargameSettings')
+  }
+  
   return db.put({
     ...nextWargame,
     _id: dbDefaultSettings._id,
+    
     turnEndTime: moment().add(nextWargame.data.overview.realtimeTurnTime, 'ms').format(),
   }).then(() => {
     return db.get<Wargame>(dbDefaultSettings._id)
@@ -464,7 +468,7 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
       wargameTitle: `${wargame.wargameTitle}-${uniqId}`,
       wargameInitiated: false
     }, newDbName, undefined, newDb).then(() => {
-      addWargameDbStore({ name: newDbName, db: newDb })
+      addWargameDbStore({ name: newDbName + dbSuffix, db: newDb })
       return getAllWargames()
     }).catch(rejectDefault)
   })
@@ -481,11 +485,11 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
     addWargameDbStore({ name: newDbName, db: newDb })
     return getLatestWargameRevision(dbName)
   }).then((res) => {
-    return updateWargame({ 
+    return updateWargame({
       ...res,
       _rev: undefined,
-      _id: dbDefaultSettings._id, 
-      name: newDbName 
+      _id: dbDefaultSettings._id,
+      name: newDbName
     }, newDbName, false)
   }).then((res) => {
     return createLatestWargameRevision(newDbName, res)
