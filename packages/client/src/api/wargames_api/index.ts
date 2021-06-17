@@ -229,6 +229,7 @@ export const checkIfWargameStarted = (dbName: string): Promise<boolean> => {
 export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
   return getAllMessages(dbName).then((messages) => {
     const latestWargame: MessageInfoType | undefined = messages.find(({ messageType }) => messageType === INFO_MESSAGE) as MessageInfoType
+    //  && latestWargame.wargameInitiated
     if (latestWargame !== undefined) return latestWargame as Wargame
     return getWargameLocalFromName(dbName)
   }).catch(err => err)
@@ -481,19 +482,30 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
   const newDbName = `wargame-${uniqId}`
   const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName + dbSuffix)
 
-  return db.replicate.to(newDb).then(() => {
+  return db.replicate.to(newDb).then((): Promise<Wargame> => {
     addWargameDbStore({ name: newDbName, db: newDb })
-    return getLatestWargameRevision(dbName)
+    // get default wargame
+    return getWargameLocalFromName(dbName)
   }).then((res) => {
-    return updateWargame({
+    const wargame = {
       ...res,
       _rev: undefined,
       _id: dbDefaultSettings._id,
       name: newDbName
-    }, newDbName, false)
-  }).then(() => 
-    getAllWargames()
-  ).catch(rejectDefault)
+    }
+    return newDb.put(wargame).then(() => {
+      if (wargame.wargameInitiated) {
+        // if wargameInitiated get last infoType and modify name
+        return getLatestWargameRevision(newDbName).then((lastWargame: Wargame) => {
+          return newDb.put({
+            ...lastWargame,
+            name: newDbName
+          })
+        }).then(() =>  getAllWargames())
+      }
+      return getAllWargames()
+    }).catch(rejectDefault)
+  }).catch(rejectDefault)
 }
 
 export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
