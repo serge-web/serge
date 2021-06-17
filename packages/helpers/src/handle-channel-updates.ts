@@ -1,6 +1,7 @@
 import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
-  MessageChannel, MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped
+import {
+  ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
+  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
@@ -22,7 +23,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
     // if this message has a reference number, we should delete any previous message
     // with that reference number before we insert the message
     if (payload.message.Reference) {
-      // remove any existing RFI with this reference number. Note: we can't use 
+      // remove any existing RFI with this reference number. Note: we can't use
       // filter() array function since it produces a new array, which would
       // have a new reference, and wouldn't get returned as a parameter
       theChannel.messages.forEach((msg, idx) => {
@@ -63,30 +64,31 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
     : data.nextMsgReference
 }
 
-/** create a new turn marker */
-const createTurnMarker = (turn: number): MessageChannel => {
-  const res: MessageChannel = {
-    details: {
-      from: {
-        force: 'unset-game-turn-marker',
-        forceColor: 'unset-game-turn-marker',
-        role: 'Turn ' + turn,
-        icon: 'unset-game-turn-marker'
-      },
-      messageType: 'Turn ' + turn,
-      timestamp: new Date().toISOString(),
-      channel: `infoTypeChannelMarker${uniqId.time()}`
-    },
-    infoType: true,
-    messageType: CUSTOM_MESSAGE,
-    gameTurn: turn,
-    isOpen: true,
-    hasBeenRead: false,
-    _id: uniqId.time(),
-    message: {}
-  }
-  return res
-}
+// this method was an unnecessary duplicate of clipInfoMEssage
+// /** create a new turn marker */
+// const createTurnMarker = (turn: number): MessageChannel => {
+//   const res: MessageChannel = {
+//     details: {
+//       from: {
+//         force: 'unset-game-turn-marker',
+//         forceColor: 'unset-game-turn-marker',
+//         role: 'Turn ' + turn,
+//         icon: 'unset-game-turn-marker'
+//       },
+//       messageType: 'Turn ' + turn,
+//       timestamp: new Date().toISOString(),
+//       channel: `infoTypeChannelMarker${uniqId.time()}`
+//     },
+//     infoType: true,
+//     messageType: CUSTOM_MESSAGE,
+//     gameTurn: turn,
+//     isOpen: true,
+//     hasBeenRead: false,
+//     _id: uniqId.time(),
+//     message: {}
+//   }
+//   return res
+// }
 
 /** create a new (empty) channel */
 const createNewChannel = (channelId: string): ChannelUI => {
@@ -108,8 +110,8 @@ export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId
   expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}${id}`) === 'read'
 )
 
-export const clipInfoMEssage = (message: MessageInfoType, hasBeenRead = false): MessageInfoTypeClipped => {
-  if (message.messageType !== INFO_MESSAGE) {
+export const clipInfoMEssage = (message: MessageInfoType | MessageInfoTypeClipped, hasBeenRead = false): MessageInfoTypeClipped => {
+  if (message.messageType !== INFO_MESSAGE && message.messageType !== INFO_MESSAGE_CLIPPED) {
     throw new TypeError(`Message should be INFO_MESSAGE: "${INFO_MESSAGE}" type`)
   }
   return {
@@ -328,7 +330,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
         if (thisChannel.messages) {
           if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === payload.gameTurn)) {
             // no messages, or no turn marker found, create one
-            const message: MessageChannel = createTurnMarker(payload.gameTurn)
+            const message: MessageChannel = clipInfoMEssage(payload, false)
 
             // if messages array is missing, create one
             // NO: we've already established this can't be missing
