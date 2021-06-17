@@ -76,7 +76,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
       })
     }
   }
-  const onToggleRow = (rowIndex: number): void => {
+  const onToggleRow = (rowIndex: any): void => {
     setExpandedRow(rowIndex === expandedRow ? -1 : rowIndex)
   }
   const rows = useMemo(() => {
@@ -110,9 +110,10 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
         </TableHead>
         <TableBody className={classes.tableBody}>
           {
-            rows.map((row, rowIndex) => {
+            rows.map((row) => {
               const { collapsible, cells } = row as unknown as RowWithCollapsibleType
               const tableCells = cells || row
+              const rowIndex: any = tableCells && tableCells.length && tableCells[0] || ''
               return (
                 <React.Fragment key={Math.random()}>
                   <TableRow
