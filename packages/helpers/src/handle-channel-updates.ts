@@ -297,9 +297,9 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
           }
 
           // update observing status when observer removed from channel participants
-          if (isObserver !== thisChannel.observing) {
-            thisChannel.observing = isObserver
-          }
+          thisChannel.observing = observing
+          // if (observing !== thisChannel.observing) {
+          // }
 
           // templates
           if (templates !== thisChannel.templates) {
