@@ -144,7 +144,7 @@ export const populateWargame = (): Promise<Wargame> => {
       const toCreateDiff: string[] = _.difference(dbs, wargameNames)
       const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
 
-      toCreate.forEach((name, i) => {
+      toCreate.forEach(name => {
         const db: ApiWargameDb = new PouchDB(databasePath + name)
         db.setMaxListeners(MAX_LISTENERS)
         wargameDbStore.unshift({ name, db })
@@ -229,7 +229,6 @@ export const checkIfWargameStarted = (dbName: string): Promise<boolean> => {
 export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
   return getAllMessages(dbName).then((messages) => {
     const latestWargame: MessageInfoType | undefined = messages.find(({ messageType }) => messageType === INFO_MESSAGE) as MessageInfoType
-    //  && latestWargame.wargameInitiated
     if (latestWargame !== undefined) return latestWargame as Wargame
     return getWargameLocalFromName(dbName)
   }).catch(err => err)
