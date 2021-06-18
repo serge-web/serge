@@ -480,7 +480,7 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
   const uniqId = uniqid.time()
   const newDbName = `wargame-${uniqId}`
   const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName + dbSuffix)
-
+  
   return db.replicate.to(newDb).then((): Promise<Wargame> => {
     addWargameDbStore({ name: newDbName + dbSuffix, db: newDb })
     // get default wargame
@@ -490,7 +490,8 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
       ...res,
       _rev: undefined,
       _id: dbDefaultSettings._id,
-      name: newDbName
+      name: newDbName,
+      wargameTitle: `${res.wargameTitle}-${uniqId}`
     }
     return newDb.put(wargame).then(() => {
       if (wargame.wargameInitiated) {
@@ -498,7 +499,8 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
         return getLatestWargameRevision(newDbName).then((lastWargame: Wargame) => {
           return newDb.put({
             ...lastWargame,
-            name: newDbName
+            name: newDbName,
+            wargameTitle: `${res.wargameTitle}-${uniqId}`
           })
         }).then(() =>  getAllWargames())
       }
