@@ -1,4 +1,4 @@
-import React, {FC, useRef} from "react";
+import React, { FC, useRef } from 'react'
 
 /* Import Types */
 import { ContentProps } from './types/props'
@@ -44,7 +44,7 @@ export const RenderContent: FC<ContentProps> = ({ setWargameMenuOpen, scrollPos,
     }
     menuEl.style.left = menuElLeft + 'px'
   }
-  
+
   return (
     <div className={styles['searchlist-title']}>
       <GameTitle {...gameTitleProps} ref={gameTitleRef} />
@@ -73,4 +73,4 @@ export const RenderContent: FC<ContentProps> = ({ setWargameMenuOpen, scrollPos,
   )
 }
 
-export default RenderContent;
+export default RenderContent

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import TextInput from '../../atoms/text-input'
-import {RenderContent} from "./helpers/renderContent";
+import { RenderContent } from './helpers/renderContent'
 
 /* Import Types */
 import Props from './types/props'
@@ -20,13 +20,13 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
     const { title } = listItem
     return title === '' || title.toLowerCase().includes(wargameQuery.toLowerCase())
   }
-  
+
   const setQuery = (target: { value: string }): any => {
     setWargameQuery(target.value)
   }
 
   const renderContent = (): React.ReactNode => wargames.filter(searchByQuery).map((game, id) => {
-    return <RenderContent 
+    return <RenderContent
       key={id}
       id={id}
       game={game}
