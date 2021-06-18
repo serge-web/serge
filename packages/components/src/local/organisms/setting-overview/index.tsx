@@ -55,6 +55,15 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     setDirty(updates)
   }
 
+  const replacePrevTime = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { value, name } = e.target
+    if (value.indexOf('_') === -1) return
+    const prevData = { [name]: prevOverview ? prevOverview[name] : initialOverview[name] }
+    // forcefully re-render with previous value
+    setTimeKey({ ...timeKey, [name]: timeKey[name] + 1 })
+    setOverview({ ...overview, ...prevData })
+  }
+
   const updateGameDescription = (target: { value: string }): any => {
     const updates = {
       ...overview,
@@ -137,6 +146,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
                 value={millisecondsToDDHHMMSS(overview.gameTurnTime)}
+                onBlur={replacePrevTime}
               />}
             </div>
           </div>
@@ -154,6 +164,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
                 value={millisecondsToDDHHMMSS(overview.realtimeTurnTime)}
+                onBlur={replacePrevTime}
               />
             </div>
           </div>
@@ -171,6 +182,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
                 value={millisecondsToHHMMSS(overview.timeWarning)}
+                onBlur={replacePrevTime}
               />
             </div>
           </div>
