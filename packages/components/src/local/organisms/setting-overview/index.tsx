@@ -23,13 +23,21 @@ import FormGroup from '../../atoms/form-group-shadow'
 /* Render component */
 export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, initiateWargame, wargameInitiated }) => {
   const [overview, setOverview] = useState<WargameOverview>(initialOverview)
+  const [timeKey, setTimeKey] = useState({
+    gameTurnTime: 0,
+    realtimeTurnTime: 0,
+    timeWarning: 0
+  })
   const prevOverview = usePrevious(overview)
   const updateGameTime = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target
 
-    if (value.length === 0) {
-      const prevData = { [name] : prevOverview ? prevOverview[name]: initialOverview[name] }
-      setOverview({ ...overview, gameTurnTime: 0, ...prevData })
+    const checkZero = (/^0+$/).test(value.replace(/\s/g, ''))
+    if (value.length === 0 || checkZero) {
+      const prevData = { [name]: prevOverview ? prevOverview[name] : initialOverview[name] }
+      // forcefully re-render with previous value
+      setTimeKey({ ...timeKey, [name]: timeKey[name] + 1 })
+      setOverview({ ...overview, ...prevData })
       return
     }
     if (value.indexOf('_') > -1) return
@@ -121,6 +129,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
             </label>
             <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>
               {<MaskedInput
+                key={timeKey.gameTurnTime}
                 mask="11 11 11 11"
                 name="gameTurnTime"
                 id="gameTurnTime"
@@ -137,6 +146,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
             </label>
             <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>
               <MaskedInput
+                key={timeKey.realtimeTurnTime}
                 mask="11 11 11 11"
                 name="realtimeTurnTime"
                 id="realtimeTurnTime"
@@ -153,6 +163,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
             </label>
             <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>
               <MaskedInput
+                key={timeKey.timeWarning}
                 mask="11 11 11"
                 name="timeWarning"
                 id="timeWarning"
