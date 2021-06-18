@@ -136,6 +136,18 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
+export const pingServer = (): Promise<any> => {
+  return fetch(serverPath + 'healthcheck')
+  .then((response: Response): Promise<any> => response.json())
+  .then((data: any) => {
+    return data.status
+  })
+  .catch((err) => {
+    console.log(err)
+    return "NOT_OK"
+  })
+} 
+
 export const populateWargame = (): Promise<Wargame> => {
   return fetch(serverPath + 'allDbs')
     .then((response: Response): Promise<string[]> => response.json())

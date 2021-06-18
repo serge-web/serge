@@ -76,7 +76,7 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
       })
     }
   }
-  const onToggleRow = (rowIndex: number): void => {
+  const onToggleRow = (rowIndex: any): void => {
     setExpandedRow(rowIndex === expandedRow ? -1 : rowIndex)
   }
   const rows = useMemo(() => {
@@ -110,9 +110,12 @@ export const DataTable: React.FC<Props> = ({ columns, data }: Props) => {
         </TableHead>
         <TableBody className={classes.tableBody}>
           {
-            rows.map((row, rowIndex) => {
+            rows.map((row, rowCount) => {
               const { collapsible, cells } = row as unknown as RowWithCollapsibleType
               const tableCells = cells || row
+              // ideally we'll use the contents of cell zero (message-id). If we can't
+              // just use the row count
+              const rowIndex: any = (tableCells.length && tableCells[0]) || rowCount
               return (
                 <React.Fragment key={Math.random()}>
                   <TableRow
