@@ -73,7 +73,7 @@ const getNameFromPath = (dbPath: string): string => {
 
 // get database object by :name key
 const getWargameDbByName = (name: string): ApiWargameDbObject => {  
-  const dbObject = wargameDbStore.find((item) => item.name === name || item.name === name + dbSuffix || item.name + dbSuffix === name)
+  const dbObject = wargameDbStore.find((item) => item.name === name || item.name === name + dbSuffix)
   if (dbObject === undefined) throw new Error(`wargame database with "${name}" not found`)
   return dbObject
 }
@@ -140,11 +140,11 @@ export const populateWargame = (): Promise<Wargame> => {
   return fetch(serverPath + 'allDbs')
     .then((response: Response): Promise<string[]> => response.json())
     .then((dbs: string[]) => {
-      const wargameNames: string[] = wargameDbStore.map((db) => db.name)
+      const wargameNames: string[] = wargameDbStore.map((db) => db.name)      
       const toCreateDiff: string[] = _.difference(dbs, wargameNames)
       const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
 
-      toCreate.forEach((name) => {
+      toCreate.forEach((name, i) => {
         const db: ApiWargameDb = new PouchDB(databasePath + name)
         db.setMaxListeners(MAX_LISTENERS)
         wargameDbStore.unshift({ name, db })
@@ -198,7 +198,7 @@ export const createWargame = (): Promise<Wargame> => {
   const db: ApiWargameDb = new PouchDB(databasePath + name + dbSuffix)
 
   db.setMaxListeners(15)
-  addWargameDbStore({ name, db })
+  addWargameDbStore({ name: name + dbSuffix, db })
 
   // TODo: update dbDefaultSettings to valid wargame json
   // @ts-ignore
@@ -483,7 +483,7 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
   const newDb: ApiWargameDb = new PouchDB(databasePath + newDbName + dbSuffix)
 
   return db.replicate.to(newDb).then((): Promise<Wargame> => {
-    addWargameDbStore({ name: newDbName, db: newDb })
+    addWargameDbStore({ name: newDbName + dbSuffix, db: newDb })
     // get default wargame
     return getWargameLocalFromName(dbName)
   }).then((res) => {
@@ -640,7 +640,7 @@ export const getAllMessages = (dbName: string): Promise<Message[]> => {
     })
 }
 
-export const getAllWargames = (): Promise<WargameRevision[]> => {
+export const getAllWargames = (): Promise<WargameRevision[]> => {  
   const promises = wargameDbStore.map<Promise<WargameRevision>>((game) => {
     return getLatestWargameRevision(game.name)
       .then(({ wargameTitle, wargameInitiated }) => {

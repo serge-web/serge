@@ -20,8 +20,8 @@ export const RenderContent: FC<ContentProps> = ({ setWargameMenuOpen, scrollPos,
     onClick: onGameClick
   }
 
-  const openWargameMenu = async (title: string, menuRef: any, gameTitleRef: any): Promise<void> => {
-    await setWargameMenuOpen(title)
+  const openWargameMenu = async (name: string, menuRef: any, gameTitleRef: any): Promise<void> => {
+    await setWargameMenuOpen(name)
     const menuEl = menuRef.current
     const gameTitleEl = (gameTitleRef || {}).current
     const parentEl = menuEl.parentElement
@@ -52,10 +52,10 @@ export const RenderContent: FC<ContentProps> = ({ setWargameMenuOpen, scrollPos,
         icon={faEllipsisH}
         className={styles['wargame-option-menu-btn']}
         title="Wargame menu"
-        onClick={async (): Promise<void> => await openWargameMenu(game.title, optionMenuRef, gameTitleRef)}
+        onClick={async (): Promise<void> => await openWargameMenu(game.name, optionMenuRef, gameTitleRef)}
       />
       {
-        wargameMenuOpen === game.title && (
+        wargameMenuOpen === game.name && (
           <div ref={optionMenuRef} className={styles['contain-option-menu']}>
             <div
               className={styles['wargame-option-menu-bg']}
