@@ -54,11 +54,13 @@
   }
 }
 
-.heartbeat-checker-container {
-  position: fixed;
-  right: 10px;
-  top: 10px;
-  z-index: 9999;
+.tutorial {
+  cursor: pointer;
+
+  svg {
+    color: rgb(00, 00, 00);
+    font-size: 20px;
+  }
 }
 
 .loading {
