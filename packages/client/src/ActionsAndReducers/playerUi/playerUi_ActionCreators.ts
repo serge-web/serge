@@ -92,6 +92,7 @@ export const openTour = (isOpen: boolean): PlayerUiActionTypes => ({
   type: OPEN_TOUR,
   payload: isOpen
 })
+
 export const openModal = (modalName: string): PlayerUiActionTypes => ({
   type: OPEN_MODAL,
   payload: modalName
