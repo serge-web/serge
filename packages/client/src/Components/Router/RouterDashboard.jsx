@@ -23,7 +23,6 @@ import ExportPrint from '../../Views/ExportPrint'
 import EditWelcomeScreen from '../../Views/EditWelcomeScreen'
 import ModalSwitchAdmin from '../Modals/ModalSwitch/ModalSwitchAdmin'
 import { setCurrentViewFromURI } from '../../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { HeartbeatChecker } from '@serge/components'
 
 const routes = [
   { path: DEMO_ROUTE, action: () => <GameDesignerInterface/> },
@@ -85,18 +84,9 @@ class RouterDashboard extends Component {
   }
 
   render () {
-    const serverStatus = this.props.dbLoading.serverStatus
-
     return (
       <>
         <ModalSwitchAdmin/>
-        <div className="heartbeat-checker-container">
-          <HeartbeatChecker
-            enableHeartbeat={serverStatus === 'OK'}
-            animate={this.state.toggleBeat}
-            onAnimateComplete={() => this.setState({ toggleBeat: false })}
-          />
-        </div>
         { this.state.currentView }
       </>
     )
