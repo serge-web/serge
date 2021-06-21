@@ -31,6 +31,3 @@ it('find asset that is in hosting, in comprising', () => {
   // try the host platform in the task group
   expect(forceFor(forces, 'a0pra43302').uniqid).toEqual('Blue')
 })
-
-
-

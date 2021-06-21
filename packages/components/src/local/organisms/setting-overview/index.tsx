@@ -23,12 +23,21 @@ import FormGroup from '../../atoms/form-group-shadow'
 /* Render component */
 export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, initiateWargame, wargameInitiated }) => {
   const [overview, setOverview] = useState<WargameOverview>(initialOverview)
+  const [timeKey, setTimeKey] = useState({
+    gameTurnTime: 0,
+    realtimeTurnTime: 0,
+    timeWarning: 0
+  })
   const prevOverview = usePrevious(overview)
   const updateGameTime = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target
 
-    if (value.length === 0) {
-      setOverview({ ...overview, gameTurnTime: 0 })
+    const checkZero = (/^0+$/).test(value.replace(/\s/g, ''))
+    if (value.length === 0 || checkZero) {
+      const prevData = { [name]: prevOverview ? prevOverview[name] : initialOverview[name] }
+      // forcefully re-render with previous value
+      setTimeKey({ ...timeKey, [name]: timeKey[name] + 1 })
+      setOverview({ ...overview, ...prevData })
       return
     }
     if (value.indexOf('_') > -1) return
@@ -44,6 +53,15 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     const updates = { ...overview, [name]: milliseconds }
     setOverview(updates)
     setDirty(updates)
+  }
+
+  const replacePrevTime = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { value, name } = e.target
+    if (value.indexOf('_') === -1) return
+    const prevData = { [name]: prevOverview ? prevOverview[name] : initialOverview[name] }
+    // forcefully re-render with previous value
+    setTimeKey({ ...timeKey, [name]: timeKey[name] + 1 })
+    setOverview({ ...overview, ...prevData })
   }
 
   const updateGameDescription = (target: { value: string }): any => {
@@ -120,13 +138,15 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
             </label>
             <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>
               {<MaskedInput
+                key={timeKey.gameTurnTime}
                 mask="11 11 11 11"
                 name="gameTurnTime"
                 id="gameTurnTime"
                 placeholder="DD HH MM SS"
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
-                value={millisecondsToDDHHMMSS(initialOverview.gameTurnTime)}
+                value={millisecondsToDDHHMMSS(overview.gameTurnTime)}
+                onBlur={replacePrevTime}
               />}
             </div>
           </div>
@@ -136,13 +156,15 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
             </label>
             <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>
               <MaskedInput
+                key={timeKey.realtimeTurnTime}
                 mask="11 11 11 11"
                 name="realtimeTurnTime"
                 id="realtimeTurnTime"
                 placeholder="DD HH MM SS"
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
-                value={millisecondsToDDHHMMSS(initialOverview.realtimeTurnTime)}
+                value={millisecondsToDDHHMMSS(overview.realtimeTurnTime)}
+                onBlur={replacePrevTime}
               />
             </div>
           </div>
@@ -152,13 +174,15 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
             </label>
             <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>
               <MaskedInput
+                key={timeKey.timeWarning}
                 mask="11 11 11"
                 name="timeWarning"
                 id="timeWarning"
                 placeholder="HH MM SS"
                 onChange={updateGameTime}
                 className='MuiInputBase-input MuiInput-input'
-                value={millisecondsToHHMMSS(initialOverview.timeWarning)}
+                value={millisecondsToHHMMSS(overview.timeWarning)}
+                onBlur={replacePrevTime}
               />
             </div>
           </div>

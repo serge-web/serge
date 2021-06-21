@@ -6,8 +6,9 @@ import RfiStatusBoard from './index'
 import docs from './README.md'
 
 import { GameChannels, GameMessagesMockRFI } from '@serge/mocks'
-
+import { MessageCustom } from '@serge/custom-types'
 import Props from './types/props'
+import { mostRecentOnly } from '@serge/helpers'
 
 export default {
   title: 'local/RfiStatusBoard',
@@ -50,11 +51,14 @@ const Template: Story<Props> = (args) => {
   return <RfiStatusBoard {...args} />
 }
 
+// filter to only show the most recent versions of messages
+const mostRecentMessages = mostRecentOnly(GameMessagesMockRFI) as MessageCustom[]
+
 export const Demonstration = Template.bind({})
 Demonstration.args = {
   roles: roles,
   channels: GameChannels,
-  rfiMessages: GameMessagesMockRFI,
+  rfiMessages: mostRecentMessages,
   isRFIManager: true,
   isUmpire: true,
   role: 'Game Control'

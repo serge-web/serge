@@ -19,7 +19,6 @@ const allTemplates: any[] = MessageTemplatesMock
 
 describe('handle initial channel creation', () => {
   it('fire a message into normal channel', () => {
-
     // use info message to recreate channels
     // TODO: check it handleAllInitialChannelMessages should get full (not clipped) infoType message
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
@@ -30,7 +29,7 @@ describe('handle initial channel creation', () => {
     expect(res).toBeTruthy()
     expect(res.chatChannel.messages.length).toEqual(2) // turn marker
 
-    const channelId = "channel-k63pjit0"
+    const channelId = 'channel-k63pjit0'
 
     expect(Object.keys(res.channels).length).toEqual(4)
 
@@ -40,7 +39,7 @@ describe('handle initial channel creation', () => {
     expect(turnMarkers?.length).toEqual(2)
 
     // get the blue RFI channel
-    const rfiChan = res.channels["channel-BlueRFI"]
+    const rfiChan = res.channels['channel-BlueRFI']
     expect(rfiChan).toBeTruthy()
     expect(rfiChan.messages?.length).toEqual(5) // 3 blue messages, 2 info-type
 
@@ -64,20 +63,23 @@ describe('handling reference numbers', () => {
     expect(refNumberFor('Blue:3', 2, 'Blue')).toEqual(2)
     expect(refNumberFor('Blue--3', 2, 'Blue')).toEqual(2)
   })
+
+  it('correctly extracts reference numbers with minus in title', () => {
+    expect(refNumberFor('Blue-1-3', 2, 'Blue-1')).toEqual(4)
+    expect(refNumberFor('Blue-2-3', 2, 'Blue-1')).toEqual(2)
+    expect(refNumberFor('Blue-10-3', 2, 'Blue-1')).toEqual(2)
+  })
 })
 
-
 describe('handle new message into RFI channel', () => {
-
   it('fire a new version of existing message (with reference) into RFI channel', () => {
-
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
 
     // initialise wargame
     const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
       allForces, chatChannel, isObserver, allTemplates)
 
-    const newBlue1 = res.channels["channel-BlueRFI"]
+    const newBlue1 = res.channels['channel-BlueRFI']
     expect(newBlue1).toBeTruthy()
     expect(newBlue1.messages).toBeTruthy()
     if (newBlue1.messages) {
@@ -105,7 +107,7 @@ describe('handle new message into RFI channel', () => {
     const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, res.rfiMessages, res.nextMsgReference, blueForce,
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
-    const newBlue = res2.channels["channel-BlueRFI"]
+    const newBlue = res2.channels['channel-BlueRFI']
     expect(newBlue).toBeTruthy()
     expect(newBlue.messages).toBeTruthy()
     if (newBlue.messages) {
@@ -121,14 +123,13 @@ describe('handle new message into RFI channel', () => {
   })
 
   it('fire a new message (with non-numeric) into RFI channel', () => {
-
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
 
     // initialise wargame
     const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
       allForces, chatChannel, isObserver, allTemplates)
 
-    const newBlue1 = res.channels["channel-BlueRFI"]
+    const newBlue1 = res.channels['channel-BlueRFI']
     expect(newBlue1).toBeTruthy()
     expect(newBlue1.messages).toBeTruthy()
     if (newBlue1.messages) {
@@ -150,16 +151,14 @@ describe('handle new message into RFI channel', () => {
     expect(res2.rfiMessages.length).toEqual(5)
   })
 
-
   it('fire a new message (with numeric) into RFI channel', () => {
-
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
 
     // initialise wargame
     const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
       allForces, chatChannel, isObserver, allTemplates)
 
-    const newBlue1 = res.channels["channel-BlueRFI"]
+    const newBlue1 = res.channels['channel-BlueRFI']
     expect(newBlue1).toBeTruthy()
     expect(newBlue1.messages).toBeTruthy()
     if (newBlue1.messages) {
@@ -180,5 +179,4 @@ describe('handle new message into RFI channel', () => {
     // the number of rfi messages should now have increased
     expect(res2.rfiMessages.length).toEqual(5)
   })
-
 })

@@ -92,6 +92,7 @@ export const openTour = (isOpen: boolean): PlayerUiActionTypes => ({
   type: OPEN_TOUR,
   payload: isOpen
 })
+
 export const openModal = (modalName: string): PlayerUiActionTypes => ({
   type: OPEN_MODAL,
   payload: modalName
@@ -156,7 +157,7 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
   }
 }
 
-export const saveMapMessage = (dbName: string, details: MessageDetails, message: object): Promise<Message> => {
+export const saveMapMessage = (dbName: string, details: MessageDetails, message: unknown): Promise<Message> => {
   // @ts-ignore
   return wargamesApi.postNewMapMessage(dbName, details, message)
 }

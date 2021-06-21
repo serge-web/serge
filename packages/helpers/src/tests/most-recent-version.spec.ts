@@ -3,17 +3,16 @@ import { GameMessagesMockRFI, AdminMessagesMock, InfoMessagesMock } from '@serge
 import { MessageCustom, MessageChannel } from '@serge/custom-types'
 
 it('find new message across all channels', () => {
-
   const payload: Array<MessageChannel> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageChannel>
 
   // check full list present at start
   expect(payload.length).toEqual(18)
 
-  // reverse the order, since that's how the 
+  // reverse the order, since that's how the
   const messages = payload.reverse()
 
   const firstBefore = messages[3] as unknown as MessageCustom
-  expect(firstBefore._id).toEqual("id_4c")
+  expect(firstBefore._id).toEqual('id_4c')
 
   // use uniqby with our uniqueness operator
   const mostRecent: MessageChannel[] = mostRecentOnly(messages)
@@ -22,15 +21,10 @@ it('find new message across all channels', () => {
   expect(mostRecent.length).toEqual(11)
 
   const firstMessage = mostRecent[2] as unknown as MessageCustom
-  expect(firstMessage._id).toEqual("id_4c")
-  expect(firstMessage._rev).toEqual("4")
+  expect(firstMessage._id).toEqual('id_4c')
+  expect(firstMessage._rev).toEqual('4')
 
   const lastMessage = mostRecent[8] as unknown as MessageCustom
-  expect(lastMessage._id).toEqual("2020-03-25T15:08:47.525Z")
-  expect(lastMessage._rev).toEqual("1")
-
+  expect(lastMessage._id).toEqual('2020-03-25T15:08:47.525Z')
+  expect(lastMessage._rev).toEqual('1')
 })
-
-
-
-

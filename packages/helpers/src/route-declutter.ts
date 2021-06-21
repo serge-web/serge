@@ -14,7 +14,7 @@ interface Cluster {
 
 const storeInCluster = (store: Array<Cluster>, setter: ClusterSetter, position: string, location: L.LatLng): void => {
   let cluster: Cluster | undefined = store.find(cluster => cluster.hex === position)
-  if(cluster === undefined) {
+  if (cluster === undefined) {
     cluster = {
       hex: position,
       center: location,
@@ -26,7 +26,7 @@ const storeInCluster = (store: Array<Cluster>, setter: ClusterSetter, position: 
 }
 
 const findLocations = (store: RouteStore, selected: string | undefined): Array<Cluster> => {
- const res: Array<Cluster> = []
+  const res: Array<Cluster> = []
   // loop through store
   store.routes.forEach((route: Route) => {
     // start with location
@@ -39,18 +39,18 @@ const findLocations = (store: RouteStore, selected: string | undefined): Array<C
 
     // now planned routes
     const numSteps: number = route.planned.length
-    for(let stepCtr:number = 0; stepCtr < numSteps; stepCtr++) {
+    for (let stepCtr = 0; stepCtr < numSteps; stepCtr++) {
       const step: RouteTurn = route.planned[stepCtr]
-      if(step.locations && step.route) {
-        let len = step.locations.length
-        for(let ctr:number = 0; ctr < len; ctr++) {
+      if (step.locations && step.route) {
+        const len = step.locations.length
+        for (let ctr = 0; ctr < len; ctr++) {
           const thisPos: string = step.route[ctr]
           const updateThisStep: ClusterSetter = (newLoc: L.LatLng): void => {
-            if(step.locations) {
+            if (step.locations) {
               step.locations[ctr] = newLoc
             }
           }
-          if(route.uniqid === selected && stepCtr === numSteps - 1 && ctr === len - 1) {
+          if (route.uniqid === selected && stepCtr === numSteps - 1 && ctr === len - 1) {
             // this is the selected track, and we're on the last step of the last turn
             // so don't declutter it
           } else {
@@ -62,12 +62,12 @@ const findLocations = (store: RouteStore, selected: string | undefined): Array<C
 
     // and historic tracks
     route.history.forEach((step: RouteTurn) => {
-      if(step.locations && step.route) {
-        let len = step.locations.length
-        for(let ctr:number = 0; ctr < len; ctr++) {
+      if (step.locations && step.route) {
+        const len = step.locations.length
+        for (let ctr = 0; ctr < len; ctr++) {
           const thisPos: string = step.route[ctr]
           const updateThisStep: ClusterSetter = (newLoc: L.LatLng): void => {
-            if(step.locations) {
+            if (step.locations) {
               step.locations[ctr] = newLoc
             }
           }
@@ -81,7 +81,7 @@ const findLocations = (store: RouteStore, selected: string | undefined): Array<C
 
 const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): void => {
   clusters.forEach((cluster: Cluster) => {
-    if(cluster.setters.length > 1) {
+    if (cluster.setters.length > 1) {
       const gridDelta = tileDiameterMins / 60 / 4
       // ok, go for it
       const len = cluster.setters.length
