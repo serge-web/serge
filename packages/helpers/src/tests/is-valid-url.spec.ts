@@ -5,6 +5,7 @@ describe('isValidUrl', () => {
     const http = 'http://'
     const https = 'https://'
     const base = 'google.com'
+    const ipAddress = '103.32.32.32'
     const httpStr = `${http}${base}`
     const httpsStr = `${https}${base}`
     const fullDomain = `${http}www${base}`
@@ -16,6 +17,7 @@ describe('isValidUrl', () => {
     const misformatted = 'http/www'
     expect(isValidUrl(httpStr)).toBeTruthy()
     expect(isValidUrl(httpsStr)).toBeTruthy()
+    expect(isValidUrl(http + ipAddress)).toBeTruthy()
     expect(isValidUrl(fullDomain)).toBeTruthy()
     expect(isValidUrl(fullHttpsDomain)).toBeTruthy()
     expect(isValidUrl(ipAdr)).toBeTruthy()
