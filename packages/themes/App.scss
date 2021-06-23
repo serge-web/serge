@@ -54,6 +54,15 @@
   }
 }
 
+.tutorial {
+  cursor: pointer;
+
+  svg {
+    color: rgb(00, 00, 00);
+    font-size: 20px;
+  }
+}
+
 .loading {
   display: flex;
   flex-direction: column;

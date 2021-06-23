@@ -22,6 +22,7 @@ exports[`ForceObjective renders correctly 1`] = `
   >
     <div
       className="role-info"
+      data-tour="role-info-step"
       style={
         Object {
           "backgroundColor": "#3dd0ff",
@@ -35,6 +36,7 @@ exports[`ForceObjective renders correctly 1`] = `
       </span>
       <div
         className="contain-force-skin"
+        data-tour="objectives-step"
       >
         <div
           className="force-skin"
@@ -47,6 +49,7 @@ exports[`ForceObjective renders correctly 1`] = `
           <img
             alt=""
             className="role-icon"
+            data-tour="second-step"
             onClick={[Function]}
             src="http://localhost:8080/default_img/forceDefault.png"
           />

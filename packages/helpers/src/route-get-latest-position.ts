@@ -6,16 +6,16 @@ import { RouteTurn } from '@serge/custom-types'
  * @returns {string} latest location
  */
 const routeGetLatestPosition = (currentLocation: string, planned: Array<RouteTurn> | undefined): string => {
-  if(!planned || planned.length === 0) {
+  if (!planned || planned.length === 0) {
     return currentLocation
   } else {
-    let lastLocation:string = ''
+    let lastLocation = ''
     planned.forEach((step: RouteTurn) => {
-      if(step.route && step.route.length > 0) {
-        lastLocation = step.route[step.route.length-1]
+      if (step.route && step.route.length > 0) {
+        lastLocation = step.route[step.route.length - 1]
       }
     })
-    if(lastLocation !== '') {
+    if (lastLocation !== '') {
       return lastLocation
     } else {
       return currentLocation

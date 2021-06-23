@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Props } from './types.d'
-import { Role, WargameList } from '@serge/custom-types'
+import { WargameList } from '@serge/custom-types'
 
 import PlayerUiLandingScreen from '../PlayerUiLandingScreen'
 import PlayerUiLobby from '../PlayerUiLobby'
@@ -20,7 +20,7 @@ enum Room {
   player
 }
 
-const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData }: Props): React.ReactElement => {
+const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData}: Props): React.ReactElement => {
   const [tourIsOpen, setTourIsOpen] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
   const [waitingLoginPassword, setWaitingLoginPassword] = useState('')
@@ -77,38 +77,58 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
 
   const handleCheckPassword = (pass: string): void => {
     const check = checkPassword(pass, messageTypes, currentWargame, allForces, dispatch)
-    if (check) setScreen(Room.player)
+    if (check) {
+      const currentUrl = new URL(document.location!.href)
+      const byPassParams = {
+        wargame: currentWargame,
+        access: pass
+      }
+
+      const byPassParamsArr = Object.keys(byPassParams)
+      const [wargameParam, accessParam] = byPassParamsArr.map(key => currentUrl.searchParams.get(key))
+
+      if (!wargameParam && wargameParam !== currentWargame && !accessParam && accessParam !== pass) {
+        byPassParamsArr.forEach(key => {
+          currentUrl.searchParams.set(key, byPassParams[key])
+        })
+        history.pushState({}, 'null', currentUrl.href);
+      }
+      setScreen(Room.player)
+    }
     else checkPasswordFail()
   }
 
-  // show the relevant screen
-  switch(screen) {
-    case Room.landing:
-      return <PlayerUiLandingScreen
-      gameInfo={gameInfo}
-      enterSerge={() => { setScreen(Room.lobby) }}
-      />
-    case Room.lobby:
-      // TODO import type from PlayerUiLobby or move this function in to PlayerUiLobby
-      const roleOptions = (): ({ name: string, roles: Role[] })[] => allForces.map(
-        force => ({name: force.name, roles: force.roles})
-      )
-
-      return <PlayerUiLobby
-        wargameList={wargame.wargameList}
-        roleOptions={roleOptions()}
-        checkPassword={handleCheckPassword}
-      />
-    case Room.player:
-      if (selectedForce) {
-        const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
-        return <GameChannelsWithTour
-          storageKey={setStorageKey()}
-          tourIsOpen={tourIsOpen}
+  const renderScreen = () => {
+    // show the relevant screen
+    switch(screen) {
+      case Room.landing:
+        return <PlayerUiLandingScreen
+        gameInfo={gameInfo}
+        enterSerge={() => { setScreen(Room.lobby) }}
         />
-      }
-      return <LoaderScreen />
+      case Room.lobby:
+        return <PlayerUiLobby
+          wargameList={wargame.wargameList}
+          checkPassword={handleCheckPassword}
+          allForces={allForces}
+        />
+      case Room.player:
+        if (selectedForce) {
+          const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
+          return <GameChannelsWithTour
+            storageKey={setStorageKey()}
+            tourIsOpen={tourIsOpen}
+          />
+        }
+        return <LoaderScreen />
+    }
   }
+
+  return (
+    <>
+      {renderScreen()}
+    </>
+  )
 }
 
 export default PlayerUi

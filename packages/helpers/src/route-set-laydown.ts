@@ -8,7 +8,7 @@ import { cloneDeep } from 'lodash'
  * @param {string} location new initial location
  * @returns {RouteStore} updated route store
  */
-const routeSetLaydown = (store: RouteStore, location: string, grid: SergeGrid<SergeHex<{}>> | undefined): RouteStore => {
+const routeSetLaydown = (store: RouteStore, location: string, grid: SergeGrid<SergeHex<unknown>> | undefined): RouteStore => {
   // take deep copy
   const modified: RouteStore = cloneDeep(store)
   // find the matching route
@@ -16,8 +16,8 @@ const routeSetLaydown = (store: RouteStore, location: string, grid: SergeGrid<Se
   if (route) {
     // ok, set the new location
     route.currentPosition = location
-    const cell =  grid && hexNamed(location, grid)
-    if(cell) {
+    const cell = grid && hexNamed(location, grid)
+    if (cell) {
       route.currentLocation = cell.centreLatLng
     }
 
@@ -25,14 +25,14 @@ const routeSetLaydown = (store: RouteStore, location: string, grid: SergeGrid<Se
     route.laydownPhase = LaydownPhases.Moved
 
     // clear any planned steps, since they apply to a different origin
-    if(route.planned) {
+    if (route.planned) {
       route.planned = []
       route.plannedTrimmed = []
       route.plannedTurnsCount = 0
     }
 
     // we also need to clear history, since it's to a different origin
-    if(route.history) {
+    if (route.history) {
       route.history = []
     }
   } else {

@@ -54,6 +54,9 @@ export const CHANNEL_MAPPING = 'mapping'
 // as it sends 1000s of requests to the server
 export const ERROR_THROTTLE = 3000
 
+// Interval for check server heartbeats
+export const SERVER_PING_INTERVAL = 5000
+
 // Nov 2019. Ian modified the server path to use the
 // current URL, so we can use Heroku to provide
 // review instances of the app.  In these
