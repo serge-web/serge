@@ -25,7 +25,7 @@ const DetailLabel = ({ label }: any): React.ReactElement => (
 
 const createObjItem = (pair: Array<any>): React.ReactFragment => {
   return (
-    <Fragment key={`objItem--${pair[0]}-${pair[1]}`}>{ deconstructObj(pair[1]) }</Fragment>
+    <Fragment key={`objItem--${pair[0]}-${pair[1]}`}><DetailLabel label={`${pair[0]}:`} />{ deconstructObj(pair[1]) }</Fragment>
   )
 }
 
