@@ -94,5 +94,5 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Handle back button event
    */
-   onPressBack?: () => void
+   onPressBack?: (e) => void
 }
