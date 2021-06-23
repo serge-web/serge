@@ -58,14 +58,14 @@ const forReview = newest[1] as MessageCustom
 const released = newest[0] as MessageCustom
 
 const Template: Story<RFIPropTypes> = (args) => {
-  const { isUmpire, role, message, isRFIManager } = args
+  const { isUmpire, roleName, roleId, message, isRFIManager } = args
   const [messageState, setMessageState] = useState<MessageCustom>(message)
   const [roleState, setRoleState] = useState<string>('')
   // we wish to update message state for a new story. We do
   // this by tracking the role, since each story has
   // a new role.
-  if (role !== roleState) {
-    setRoleState(role)
+  if (roleName !== roleState) {
+    setRoleState(roleName)
     setMessageState(message)
   }
 
@@ -74,7 +74,8 @@ const Template: Story<RFIPropTypes> = (args) => {
       message={messageState}
       isRFIManager={isRFIManager}
       onChange={(nextMessage): void => setMessageState(nextMessage)}
-      role={role}
+      roleId={roleId}
+      roleName={roleName}
       isUmpire={isUmpire}
     />
   )
@@ -85,7 +86,7 @@ Unallocated.args = {
   message: unallocated,
   isUmpire: true,
   isRFIManager: true,
-  role: 'CO'
+  roleName: 'CO'
 }
 
 export const InProgress = Template.bind({})
@@ -93,7 +94,7 @@ InProgress.args = {
   message: inProgress,
   isRFIManager: true,
   isUmpire: true,
-  role: 'CO 2'
+  roleName: 'CO 2'
 }
 
 export const ForReview = Template.bind({})
@@ -101,7 +102,7 @@ ForReview.args = {
   message: forReview,
   isRFIManager: true,
   isUmpire: true,
-  role: 'CO 3'
+  roleName: 'CO 3'
 }
 
 export const Released = Template.bind({})
@@ -109,5 +110,5 @@ Released.args = {
   message: released,
   isRFIManager: true,
   isUmpire: true,
-  role: 'CO 4'
+  roleName: 'CO 4'
 }

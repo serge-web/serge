@@ -9,5 +9,6 @@ export default interface Props {
   /** if this player has "RFI Manager" attribute in their role */
   isRFIManager: boolean
   /** role of logged in player */
-  role: Role['name']
+  roleName: Role['name']
+  roleId: Role['roleId']
 }

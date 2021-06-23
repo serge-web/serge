@@ -23,7 +23,8 @@ const GameChannels: React.FC = (): React.ReactElement => {
     adjudicationStartTime,
     isGameControl,
     phase,
-    selectedRole,
+    selectedRoleId,
+    selectedRoleName,
     showObjective,
     timeWarning,
     turnEndTime,
@@ -43,7 +44,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
   const dispatch = usePlayerUiDispatch()
 
   const openTourFn = () => {
-    const storageKey = `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
+    const storageKey = `${wargameTitle}-${selectedForce.uniqid}-${selectedRoleName}-tourDone`
     expiredStorage.removeItem(storageKey)
     dispatch(openTour(true))
   }
@@ -79,7 +80,8 @@ const GameChannels: React.FC = (): React.ReactElement => {
       <AdminAndInsightsTabsContainer />
       {showObjective && <ForceObjective
         force={selectedForce}
-        selectedRole={selectedRole}
+        selectedRoleId={selectedRoleId}
+        selectedRoleName={selectedRoleName}
         onIconClick={(): void => dispatch(showHideObjectives())}
       />}
     </div>

@@ -32,7 +32,8 @@ import {
 
 export const initialState: PlayerUi = {
   selectedForce: undefined,
-  selectedRole: '',
+  selectedRoleId: '',
+  selectedRoleName: '',
   isObserver: false,
   canSubmitPlans: false,
   isGameControl: false,
@@ -112,7 +113,8 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_ROLE:
-      newState.selectedRole = action.payload.name
+      newState.selectedRoleId = action.payload.roleId
+      newState.selectedRoleName = action.payload.name
       newState.isGameControl = action.payload.isGameControl
       newState.isObserver = action.payload.isObserver
       newState.isInsightViewer = action.payload.isInsightViewer

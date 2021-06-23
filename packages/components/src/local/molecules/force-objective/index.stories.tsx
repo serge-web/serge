@@ -37,7 +37,8 @@ export const Default: React.FC = () => (
       icon: 'http://localhost:8080/default_img/forceDefault.png',
       overview: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, praesentium sed! Animi atque incidunt maiores nisi vel voluptate? Adipisci architecto aspernatur earum error incidunt laborum magni neque odio repellendus, voluptate!'
     }}
-    selectedRole="Comms"
+    selectedRoleName="Comms"
+    selectedRoleId=""
     onIconClick={(): any => window.alert('Icon clicked')}
   />
 )
@@ -50,7 +51,8 @@ export const ColorVariation: React.FC = () => (
       icon: 'http://localhost:8080/default_img/forceDefault.png',
       overview: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, praesentium sed! Animi atque incidunt maiores nisi vel voluptate? Adipisci architecto aspernatur earum error incidunt laborum magni neque odio repellendus, voluptate!'
     }}
-    selectedRole="Comms"
+    selectedRoleName="Comms"
+    selectedRoleId=""
     onIconClick={(): any => window.alert('Icon clicked')}
   />
 )
@@ -63,7 +65,7 @@ export const Implementation: React.FC = () => {
     icon: 'http://localhost:8080/default_img/forceDefault.png',
     overview: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, praesentium sed! Animi atque incidunt maiores nisi vel voluptate? Adipisci architecto aspernatur earum error incidunt laborum magni neque odio repellendus, voluptate!'
   }
-  const role = 'Comms'
+  const roleName = 'Comms'
   const toggleVisibility = (): void => setVisible(!visible)
   return (
     <Box style={{
@@ -82,7 +84,8 @@ export const Implementation: React.FC = () => {
           }}>
             <ForceObjective
               force={force}
-              selectedRole={role}
+              selectedRoleName={roleName}
+              selectedRoleId=""
               onIconClick={toggleVisibility}
             />
           </Box>
@@ -90,7 +93,8 @@ export const Implementation: React.FC = () => {
       }
       <AdminPanelFooter
         force={force}
-        selectedRole={role}
+        selectedRoleName={roleName}
+        selectedRoleId=""
         byPassUrl="http://localhost:3000/?wargame=wargame-k16fadm4&access=pk16ffhn3"
         onIconClick={toggleVisibility}
       />

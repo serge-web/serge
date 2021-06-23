@@ -13,7 +13,7 @@ import styles from './styles.module.scss'
 import ChannelRfiMessageDetail from '../molecules/channel-rfi-message-detail'
 
 /* Render component */
-export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {
+export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, roleName, roleId }: Props) => {
   // produce dictionary of channels
   const channelDict = new Map<string, string>()
   channels.forEach((channel: ChannelData) => {
@@ -24,7 +24,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
   const data = rfiMessages.map(message => [
     message.message.Reference || message._id,
     channelDict.get(message.details.channel),
-    message.details.from.role,
+    message.details.from.roleName,
     message.details.from.forceColor,
     message.message.Title,
     message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
@@ -40,7 +40,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
   const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
     return [
       ...filters,
-      message.details.from.role
+      message.details.from.roleName
     ]
   }, [])
   const dataTableProps = {
@@ -86,7 +86,8 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
             <ChannelRfiMessageDetail
               isRFIManager={isRFIManager}
               message={(rfiMessages[rowIndex] as MessageCustom)}
-              role={role}
+              roleId={roleId}
+              roleName={roleName}
               isUmpire={isUmpire}
               onChange={onChange}
             />

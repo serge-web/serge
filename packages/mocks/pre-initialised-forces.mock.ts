@@ -9,13 +9,14 @@ const forces: ForceData[] = [
         name: "White",
         overview: "Umpire force.",
         roles: [
-            {
-                canSubmitPlans: true,
-                isGameControl: true,
-                isInsightViewer: true,
-                isObserver: true,
-                name: "Game Control",
-                password: "p2311"
+          {
+              roleId: 'r1234',
+              canSubmitPlans: true,
+              isGameControl: true,
+              isInsightViewer: true,
+              isObserver: true,
+              name: "Game Control",
+              password: "p2311"
             }
         ],
         umpire: true,
@@ -130,21 +131,23 @@ const forces: ForceData[] = [
         name: "Blue",
         overview: "Blue force.",
         roles: [
-            {
-                canSubmitPlans: true,
-                isGameControl: false,
-                isInsightViewer: false,
-                isObserver: false,
-                name: "CO",
-                password: "p5543"
-            },
-            {
-                canSubmitPlans: false,
-                isGameControl: false,
-                isInsightViewer: false,
-                isObserver: false,
-                name: "Logistics",
-                password: "plx4l7"
+          {
+            roleId: 'r12345',
+            canSubmitPlans: true,
+            isGameControl: false,
+            isInsightViewer: false,
+            isObserver: false,
+            name: "CO",
+            password: "p5543"
+          },
+          {
+            roleId: 'r12347',
+            canSubmitPlans: false,
+            isGameControl: false,
+            isInsightViewer: false,
+            isObserver: false,
+            name: "Logistics",
+            password: "plx4l7"
             }
         ],
         umpire: false,
@@ -210,21 +213,23 @@ const forces: ForceData[] = [
         name: "Red",
         overview: "Red force.",
         roles: [
-            {
-                canSubmitPlans: true,
-                isGameControl: false,
-                isInsightViewer: false,
-                isObserver: false,
-                name: "CO",
-                password: "p3244"
+          {
+            roleId: 'r12345',
+            canSubmitPlans: true,
+            isGameControl: false,
+            isInsightViewer: false,
+            isObserver: false,
+            name: "CO",
+            password: "p3244"
             },
-            {
-                canSubmitPlans: false,
-                isGameControl: false,
-                isInsightViewer: false,
-                isObserver: false,
-                name: "Comms",
-                password: "p94vxe"
+          {
+              roleId: 'r12346',
+              canSubmitPlans: false,
+              isGameControl: false,
+              isInsightViewer: false,
+              isObserver: false,
+              name: "Comms",
+              password: "p94vxe"
             }
         ],
         umpire: false,
@@ -292,13 +297,14 @@ const forces: ForceData[] = [
         name: "Green",
         overview: "Green Shipping",
         roles: [
-            {
-                canSubmitPlans: true,
-                isGameControl: false,
-                isInsightViewer: false,
-                isObserver: false,
-                name: "CO",
-                password: "P9454"
+          {
+            roleId: 'r12345',
+            canSubmitPlans: true,
+            isGameControl: false,
+            isInsightViewer: false,
+            isObserver: false,
+            name: "CO",
+            password: "P9454"
             }
         ],
         umpire: false,

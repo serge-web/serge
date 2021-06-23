@@ -61,5 +61,6 @@ Demonstration.args = {
   rfiMessages: mostRecentMessages,
   isRFIManager: true,
   isUmpire: true,
-  role: 'Game Control'
+  roleName: 'Game Control',
+  roleId: ''
 }

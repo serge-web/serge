@@ -52,7 +52,7 @@ export default {
 const newestMessages = mostRecentOnly(GameMessagesMockRFI) as MessageCustom[]
 
 const Template: Story<RFIListPropTypes> = (args) => {
-  const { isUmpire, role, isRFIManager } = args
+  const { isUmpire, roleId, roleName, isRFIManager } = args
   const icons = ['./images/default_img/forceDefault.png']
   const colors = ['#0F0']
   const [messages, setMessages] = useState<MessageCustom[]>(newestMessages)
@@ -83,7 +83,8 @@ const Template: Story<RFIListPropTypes> = (args) => {
       onMarkAllAsRead={markAllAsRead}
       onRead={onRead}
       onChange={handleChange}
-      role={role}
+      roleId={roleId}
+      roleName={roleName}
       isRFIManager={isRFIManager}
       isUmpire={isUmpire}
     />
@@ -94,5 +95,6 @@ export const Default = Template.bind({})
 Default.args = {
   isUmpire: true,
   isRFIManager: true,
-  role: 'CO'
+  roleName: 'CO',
+  roleId: ''
 }

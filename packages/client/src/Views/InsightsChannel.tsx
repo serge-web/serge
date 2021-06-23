@@ -31,7 +31,7 @@ const InsightsChannel = (): React.ReactElement => {
       <MessagesListRenderProp
         curChannel={'feedback_messages'}
         messages={state.feedbackMessages}
-        userId={`${state.wargameTitle}-${state.selectedForce}-${state.selectedRole}`}
+        userId={`${state.wargameTitle}-${state.selectedForce}-${state.selectedRoleName}`}
         allMarkedRead={allMarkedRead}
         render={(messages: MessageFeedback[]) => (
           <MessagesListInsightsChannel

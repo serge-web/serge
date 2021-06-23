@@ -24,7 +24,7 @@ export const handleSetLatestWargameMessage = (payload: MessageChannel, newState:
   // TODO: only one of `payload` or `newState` will have been received. We should have 
   // two different handlers, one for each change.
   const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel, newState.rfiMessages, newState.nextMsgReference,
-    newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
+    newState.selectedForce, newState.allChannels, newState.selectedRoleId, newState.selectedRoleName, newState.isObserver,
     newState.allTemplates, newState.allForces)
   return res
 }
@@ -34,7 +34,7 @@ export const handleSetLatestWargameMessage = (payload: MessageChannel, newState:
  */
 export const handleSetAllMessages = (payload: Array<MessageCustom | MessageInfoType>, newState: PlayerUi): SetWargameMessage => {
   const res: SetWargameMessage = handleAllInitialChannelMessages(payload, newState.currentWargame, newState.selectedForce,
-    newState.selectedRole, newState.allChannels, newState.allForces, newState.chatChannel,
+    newState.selectedRoleId, newState.selectedRoleName, newState.allChannels, newState.allForces, newState.chatChannel,
     newState.isObserver, newState.allTemplates)
   return res
 }
@@ -58,14 +58,14 @@ export const openMessage = (channel: string, payloadMessage: MessageChannel, new
       const res = openMessageChange(channelMessages[i], payloadMessage._id)
       if (res.changed) {
         channelMessages[i] = res.message
-        expiredStorage.setItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${payloadMessage._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
+        expiredStorage.setItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRoleName}${payloadMessage._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
         break;
       }
     }
   }
 
   const unreadMessageCount = channelMessages.filter((message) => {
-    return message._id && expiredStorage.getItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${message._id}`) === null
+    return message._id && expiredStorage.getItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRoleName}${message._id}`) === null
   }).length
 
   return {
@@ -104,7 +104,7 @@ export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI =>
   const channelMessages: MessageChannel[] = (newState.channels[channel].messages || []).map((message) => {
     if (message._id) {
       message.hasBeenRead = true
-      expiredStorage.setItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${message._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
+      expiredStorage.setItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRoleName}${message._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
     }
     return message
   })

@@ -15,7 +15,8 @@ it('ForceObjective renders correctly', () => {
           icon: 'http://localhost:8080/default_img/forceDefault.png',
           overview: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, praesentium sed! Animi atque incidunt maiores nisi vel voluptate? Adipisci architecto aspernatur earum error incidunt laborum magni neque odio repellendus, voluptate!'
         }}
-        selectedRole="Comms"
+        selectedRoleName="Comms"
+        selectedRoleId=""
         onIconClick={(): any => window.alert('Icon clicked')}
       />
     )

@@ -12,7 +12,9 @@ export interface RequestForInformation {
   /**
    * Role of requester
    */
-  role: Role['name']
+  roleName: Role['name']
+
+  roleId: Role['roleId']
   /**
    * Request title
    */

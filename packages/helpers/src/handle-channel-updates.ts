@@ -106,8 +106,8 @@ const createNewChannel = (channelId: string): ChannelUI => {
   return res
 }
 
-export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRole: string): boolean => (
-  expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}${id}`) === 'read'
+export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, _: string, selectedRoleName: string): boolean => (
+  expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRoleName}${id}`) === 'read'
 )
 
 export const clipInfoMEssage = (message: MessageInfoType | MessageInfoTypeClipped, hasBeenRead = false): MessageInfoTypeClipped => {
@@ -153,13 +153,13 @@ export const refNumberFor = (msgRef: string | undefined, current: number, select
 }
 
 export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType | MessageCustom>, currentWargame: string,
-  selectedForce: ForceData | undefined, selectedRole: string, allChannels: ChannelData[],
+  selectedForce: ForceData | undefined, selectedRoleId: string, selectedRoleName: string, allChannels: ChannelData[],
   allForces: ForceData[], chatChannel: PlayerUiChatChannel, isObserver: boolean,
   allTemplates: any[]): SetWargameMessage => {
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
   let nextMsgReference = 0
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
-    const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
+    const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRoleId, selectedRoleName)
 
     if (message.messageType === INFO_MESSAGE) {
       return clipInfoMEssage(message, hasBeenRead)
@@ -188,7 +188,7 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
       allRolesIncluded,
       observing,
       templates
-    } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplates)
+    } = getParticipantStates(channel, forceId, selectedRoleId, selectedRoleName, isObserver, allTemplates)
 
     if (isObserver || isParticipant || allRolesIncluded) {
       const newChannel: ChannelUI = {
@@ -207,7 +207,7 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
             return false
           } else {
             return (
-              expiredStorage.getItem(`${currentWargame}-${selectedForce}-${selectedRole}${message._id}`) === null &&
+              expiredStorage.getItem(`${currentWargame}-${selectedForce}-${selectedRoleName}${message._id}`) === null &&
               message.details.channel === channel.uniqid
             )
           }
@@ -241,7 +241,7 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
 }
 
 const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel, rfiMessages: MessageCustom[],
-  nextMsgReference: number, selectedForce: ForceData | undefined, allChannels: ChannelData[], selectedRole: string,
+  nextMsgReference: number, selectedForce: ForceData | undefined, allChannels: ChannelData[], selectedRoleId: string, selectedRoleName: string,
   isObserver: boolean, allTemplates: any[], allForces: ForceData[]): SetWargameMessage => {
   const res: SetWargameMessage = {
     channels: { ...channels },
@@ -272,7 +272,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
         allRolesIncluded,
         observing,
         templates
-      } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplates)
+      } = getParticipantStates(channel, forceId, selectedRoleId, selectedRoleName, isObserver, allTemplates)
 
       // make a note that we've procesed this channel
       delete unprocessedChannels[channelId]

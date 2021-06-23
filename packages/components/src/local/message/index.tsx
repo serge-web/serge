@@ -15,11 +15,11 @@ import styles from './styles.module.scss'
 export const Message: React.FC<PropTypes> = ({ message }: PropTypes) => {
   // MessageInfoType has no those fields
   if (message.messageType === CUSTOM_MESSAGE) {
-    const { force, role, name } = message.details.from
+    const { force, roleName, name } = message.details.from
     return (<>
       <div className={styles['info-wrap']}>
         <Chip color="primary" label={force} />
-        <Chip color="secondary" label={role} />
+        <Chip color="secondary" label={roleName} />
         {name && <Chip color="default" label={name} />}
         <span>{moment(message.details.timestamp).format('YYYY-MMM-DD HH:mm')}</span>
       </div>

@@ -10,7 +10,7 @@ import { ForceData, MessageMap, Message, MessageDetails } from '@serge/custom-ty
  * @param saveMapMessage callback to actually store message
  */
 const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | undefined,
-  channelID: string, role: string, currentWargame: string,
+  channelID: string, roleId: string, roleName: string, currentWargame: string,
   saveMapMessage: {(dbName: string, details: MessageDetails, message: unknown): Promise<Message>}): void => {
   if (force) {
     const { name, color, icon } = force
@@ -21,7 +21,8 @@ const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | u
       from: {
         force: name,
         forceColor: color,
-        role: role,
+        roleId: roleId,
+        roleName: roleName,
         icon
       },
       messageType: mType,

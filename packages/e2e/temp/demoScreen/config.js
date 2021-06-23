@@ -3,14 +3,14 @@ const wargameAttrs = {
 }
 const umpireForce = {
   name: 'White',
-  role: 'Game Control'
+  roleName: 'Game Control'
 }
 const customForces = [{
   name: 'Red',
-  role: 'CO'
+  roleName: 'CO'
 }, {
   name: 'Blue',
-  role: 'CO'
+  roleName: 'CO'
 }]
 const allForces = [
   umpireForce,

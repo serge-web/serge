@@ -144,7 +144,8 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string): Fu
       force: address.ip,
       icon: '',
       forceColor: '#970000',
-      role: '',
+      roleName: '',
+      roleId: '',
       name: password
     }
     await wargamesApi.postFeedback(dbName, from, 'A failed login attempt has been made.')

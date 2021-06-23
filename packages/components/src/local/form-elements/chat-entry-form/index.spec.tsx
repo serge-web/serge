@@ -22,7 +22,7 @@ describe('ChatEntryForm component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <ChatEntryForm isUmpire={true} from={force} channel={'Game Admin'} role={'Umpire'} />,
+        <ChatEntryForm isUmpire={true} from={force} channel={'Game Admin'} roleName={'Umpire'} roleId={'r12345'} />,
         { createNodeMock }
       )
       .toJSON()

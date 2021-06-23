@@ -13,7 +13,8 @@ const chatChannel: PlayerUiChatChannel = { name: CHAT_CHANNEL_ID, template: chat
 const allForces: ForceData[] = forces
 const blueForce: ForceData = allForces[1]
 const allChannels: ChannelData[] = GameChannels
-const selectedRole = allForces[1].roles[0].name
+const selectedRoleId = allForces[1].roles[0].roleId
+const selectedRoleName = allForces[1].roles[0].name
 const isObserver = false
 const allTemplates: any[] = MessageTemplatesMock
 
@@ -23,7 +24,7 @@ describe('handle initial channel creation', () => {
     // TODO: check it handleAllInitialChannelMessages should get full (not clipped) infoType message
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
     const revPayload = payload.reverse()
-    const res: SetWargameMessage = handleAllInitialChannelMessages(revPayload, 'wargame-name', blueForce, selectedRole, allChannels,
+    const res: SetWargameMessage = handleAllInitialChannelMessages(revPayload, 'wargame-name', blueForce, selectedRoleId, selectedRoleName, allChannels,
       allForces, chatChannel, isObserver, allTemplates)
 
     expect(res).toBeTruthy()
@@ -76,7 +77,7 @@ describe('handle new message into RFI channel', () => {
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
 
     // initialise wargame
-    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
+    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRoleId, selectedRoleName, allChannels,
       allForces, chatChannel, isObserver, allTemplates)
 
     const newBlue1 = res.channels['channel-BlueRFI']
@@ -105,7 +106,7 @@ describe('handle new message into RFI channel', () => {
     }
 
     const res2: SetWargameMessage = handleChannelUpdates(payload2, res.channels, res.chatChannel, res.rfiMessages, res.nextMsgReference, blueForce,
-      allChannels, selectedRole, isObserver, allTemplates, allForces)
+      allChannels, selectedRoleId, selectedRoleName, isObserver, allTemplates, allForces)
 
     const newBlue = res2.channels['channel-BlueRFI']
     expect(newBlue).toBeTruthy()
@@ -126,7 +127,7 @@ describe('handle new message into RFI channel', () => {
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
 
     // initialise wargame
-    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
+    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRoleId, selectedRoleName, allChannels,
       allForces, chatChannel, isObserver, allTemplates)
 
     const newBlue1 = res.channels['channel-BlueRFI']
@@ -144,7 +145,7 @@ describe('handle new message into RFI channel', () => {
     msg.message.Reference = 'NEW_REFERENCE'
 
     const res2: SetWargameMessage = handleChannelUpdates(msg, res.channels, res.chatChannel, res.rfiMessages, res.nextMsgReference, blueForce,
-      allChannels, selectedRole, isObserver, allTemplates, allForces)
+      allChannels, selectedRoleId, selectedRoleName, isObserver, allTemplates, allForces)
     expect(res2.nextMsgReference).toEqual(4)
 
     // the number of rfi messages should now have increased
@@ -155,7 +156,7 @@ describe('handle new message into RFI channel', () => {
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
 
     // initialise wargame
-    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
+    const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRoleId, selectedRoleName, allChannels,
       allForces, chatChannel, isObserver, allTemplates)
 
     const newBlue1 = res.channels['channel-BlueRFI']
@@ -173,7 +174,7 @@ describe('handle new message into RFI channel', () => {
     msg.message.Reference = 'Blue-6'
 
     const res2: SetWargameMessage = handleChannelUpdates(msg, res.channels, res.chatChannel, res.rfiMessages, res.nextMsgReference, blueForce,
-      allChannels, selectedRole, isObserver, allTemplates, allForces)
+      allChannels, selectedRoleId, selectedRoleName, isObserver, allTemplates, allForces)
     expect(res2.nextMsgReference).toEqual(7)
 
     // the number of rfi messages should now have increased

@@ -8,7 +8,7 @@ import AdminPanelFooter from '../admin-panel-footer'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const ForceObjective: React.FC<Props> = ({ force, selectedRole, onIconClick }: Props) =>
+export const ForceObjective: React.FC<Props> = ({ force, selectedRoleId, selectedRoleName, onIconClick }: Props) =>
   <div className={styles['force-objectives']} style={{ borderColor: force.color }}>
     <h3>Objectives</h3>
     <div className={styles['objective-text']}>
@@ -17,7 +17,8 @@ export const ForceObjective: React.FC<Props> = ({ force, selectedRole, onIconCli
     <div className={styles['role-info']}>
       <AdminPanelFooter
         force={force}
-        selectedRole={selectedRole}
+        selectedRoleName={selectedRoleName}
+        selectedRoleId={selectedRoleId}
         onIconClick={onIconClick}
       />
     </div>

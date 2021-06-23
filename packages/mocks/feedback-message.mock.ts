@@ -8,7 +8,8 @@ export const feedbackMessage1: MessageFeedback = {
     "from": {
       "force": "Blue",
       "forceColor": "#3dd0ff",
-      "role": "CO",
+      "roleName": "CO",
+      "roleId": "r12345",
       "name": "",
       "icon": ''
     },
@@ -29,7 +30,8 @@ export const feedbackMessage2: MessageFeedback = {
     "from": {
       "force": "White",
       "forceColor": "#FCFBEE",
-      "role": "Game Control",
+      "roleName": "Game Control",
+      "roleId": "r12345",
       "name": "Heri Setiawan",
       "icon": ''
     },

@@ -80,6 +80,7 @@ export const SettingForces: React.FC<PropTypes> = ({
 
     const handleCreateRole = (): void => {
       const roles: Array<Role> = [...data.roles, {
+        roleId: 'r' + Math.random().toString(36).substring(8),
         name: 'New Role',
         canSubmitPlans: false,
         password: 'p' + Math.random().toString(36).substring(8),

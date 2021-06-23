@@ -15,11 +15,11 @@ import AdminMessagesList from '../../organisms/admin-messages-list'
 import AdminMessageCreator from '../../molecules/admin-message-creator'
 
 /* Render component */
-export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, selectedRole, chatChannel }) => {
+export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, selectedRoleId, selectedRoleName, chatChannel }) => {
   const [messages, setMessages] = useState(chatChannel)
   const [messageList, setMessageList] = useState<Array<MessageChannel>>([])
   const [allMarkedRead, setAllMarkedRead] = useState(false)
-  const userId = `${wargameTitle}-${selectedForce.name}-${selectedRole}`
+  const userId = `${wargameTitle}-${selectedForce.name}-${selectedRoleName}`
   const currentChannel = CHAT_CHANNEL_ID
   useEffect(() => {
     setMessageList(messages.map((message: MessageChannel) => {
@@ -60,7 +60,7 @@ export const GameAdmin: React.FC<PropTypes> = ({ wargameTitle, selectedForce, se
 
   return <div>
     <AdminMessagesList force={selectedForce} messages={messageList} markAllAsRead={markAllAsRead} />
-    <AdminMessageCreator from={selectedForce} channel={currentChannel} role={selectedRole} postBack={messageHandler}/>
+    <AdminMessageCreator from={selectedForce} channel={currentChannel} roleName={selectedRoleName} roleId={selectedRoleId} postBack={messageHandler}/>
   </div>
 }
 

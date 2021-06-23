@@ -30,7 +30,7 @@ export default {
 }
 
 const Template: Story<RFIPropTypes> = (args) => {
-  const { isUmpire, role, message, isRFIManager } = args
+  const { isUmpire, roleId, roleName, message, isRFIManager } = args
   const [messageState, setMessageState] = useState<MessageCustom>(message)
   return (
     <ChannelMessage
@@ -39,7 +39,8 @@ const Template: Story<RFIPropTypes> = (args) => {
       isRFIManager={isRFIManager}
       onRead={(readMessage): void => setMessageState({ ...readMessage as MessageCustom, hasBeenRead: true })}
       onChange={(nextMessage): void => setMessageState(nextMessage as MessageCustom)}
-      role={role}
+      roleId={roleId}
+      roleName={roleName}
       isUmpire={isUmpire}
     />
   )
@@ -50,7 +51,7 @@ Default.args = {
   message: unallocated,
   isUmpire: true,
   isRFIManager: true,
-  role: 'CO'
+  roleName: 'CO'
 }
 
 export const InProgress = Template.bind({})
@@ -58,7 +59,7 @@ InProgress.args = {
   message: inProgress,
   isRFIManager: true,
   isUmpire: true,
-  role: 'CO 2'
+  roleName: 'CO 2'
 }
 
 export const ForReview = Template.bind({})
@@ -66,7 +67,7 @@ ForReview.args = {
   message: forReview,
   isRFIManager: true,
   isUmpire: true,
-  role: 'CO 3'
+  roleName: 'CO 3'
 }
 
 export const Released = Template.bind({})
@@ -74,5 +75,5 @@ Released.args = {
   message: released,
   isRFIManager: true,
   isUmpire: true,
-  role: 'CO 4'
+  roleName: 'CO 4'
 }

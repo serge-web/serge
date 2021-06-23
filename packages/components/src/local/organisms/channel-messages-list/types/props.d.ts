@@ -18,7 +18,8 @@ export default interface PropTypes extends ForcesInChannelProps{
 
   isUmpire: boolean
   isRFIManager: boolean
-  role: Role['name']
+  roleName: Role['name']
+  roleId: Role['roleId']
   onChange?: (nextMessage: MessageCustom) => void
 
 }

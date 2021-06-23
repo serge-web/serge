@@ -13,7 +13,8 @@ export default interface Props {
   /**
    * Selected role label
    */
-  selectedRole: string
+  selectedRoleId: string
+  selectedRoleName: string
   /**
    * Event handler on icon click
    */

@@ -26,7 +26,7 @@ const wargame = {
         from: {
           force: 'Blue',
           forceColor: '#3dd0ff',
-          role: 'Comms',
+          roleName: 'Comms',
           icon: 'http://localhost:8080/default_img/forceDefault.png'
         },
         messageType: 'Chat',
@@ -45,7 +45,7 @@ const wargame = {
         from: {
           force: 'White',
           forceColor: '#FCFBEE',
-          role: 'Game Control',
+          roleName: 'Game Control',
           icon: 'http://localhost:8080/default_img/umpireDefault.png'
         },
         messageType: 'Chat',
@@ -65,7 +65,7 @@ const wargame = {
         from: {
           force: 'White',
           forceColor: '#FCFBEE',
-          role: 'Game Control',
+          roleName: 'Game Control',
           icon: 'http://localhost:8080/default_img/umpireDefault.png'
         },
         messageType: 'Chat',
@@ -352,7 +352,7 @@ const wargame = {
         from: {
           force: 'Blue',
           forceColor: '#3dd0ff',
-          role: 'CO',
+          roleName: 'CO',
           icon: 'http://localhost:8080/default_img/forceDefault.png'
         },
         messageType: 'PG19 Weekly Orders',
@@ -383,7 +383,7 @@ const wargame = {
         from: {
           force: 'Blue',
           forceColor: '#3dd0ff',
-          role: 'CO',
+          roleName: 'CO',
           icon: 'http://localhost:8080/default_img/forceDefault.png'
         },
         messageType: 'Chat',
@@ -402,7 +402,7 @@ const wargame = {
         from: {
           force: 'Blue',
           forceColor: '#3dd0ff',
-          role: 'CO',
+          roleName: 'CO',
           icon: 'http://localhost:8080/default_img/forceDefault.png'
         },
         messageType: 'Chat',

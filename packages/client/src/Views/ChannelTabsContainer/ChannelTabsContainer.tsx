@@ -16,7 +16,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
-  const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
+  const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRoleName}`)
   const setDefaultModel = () => {
     const { allChannels } = state
     const hasMap = allChannels.find(({ name }) => name.toLowerCase() === 'mapping')

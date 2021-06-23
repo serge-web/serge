@@ -22,7 +22,7 @@ describe('MessageCreator component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <MessageCreator from={force} channel={'Game Admin'} role={'Umpire'} />,
+        <MessageCreator from={force} channel={'Game Admin'} roleName={'Umpire'} roleId={'r12345'} />,
         { createNodeMock }
       )
       .toJSON()

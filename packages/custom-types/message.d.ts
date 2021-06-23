@@ -43,7 +43,9 @@ export interface MessageDetailsFrom {
   /** CSS color shade for this force */
   forceColor: string,
   /** role of the individual that wrote message */
-  role: string,
+  roleId: string,
+
+  roleName: string,
   /** URL of icon to display for this force
    * TODO: once all code under TypeScript try making it non-optional,
    * and fix cases where it's not assigned

@@ -26,7 +26,7 @@ describe('ChatMessageSetup page:', () => {
     moment.tz.setDefault('Etc/UTC')
     const tree = renderer
       .create(
-        <ChatMessageSetup userId={'CO'} forceName={'Blue'} isUmpire={true} chatChannel={ChatMessagesMock} selectedForce={force} selectedRole={'CO'}/>,
+        <ChatMessageSetup userId={'CO'} forceName={'Blue'} isUmpire={true} chatChannel={ChatMessagesMock} selectedForce={force} selectedRoleName={'CO'} selectedRoleId={''}/>,
         { createNodeMock }
       )
       .toJSON()

@@ -13,7 +13,7 @@ import { TextInput } from '../atoms/text-input'
 import { MessageCustom } from '@serge/custom-types'
 
 /* Render component */
-export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack }) => {
+export const MessageCreator: React.FC<Props> = ({ from, channel, roleId, roleName, postBack }) => {
   const [formState, setFormState] = useState('')
 
   const timestamp = new Date().toISOString()
@@ -27,7 +27,8 @@ export const MessageCreator: React.FC<Props> = ({ from, channel, role, postBack 
         from: {
           force: from.name,
           forceColor: from.color,
-          role: role,
+          roleId,
+          roleName,
           icon: from.icon ? from.icon : ''
         },
         messageType: 'Chat',

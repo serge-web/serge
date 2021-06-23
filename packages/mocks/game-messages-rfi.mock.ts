@@ -13,7 +13,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Red",
         forceColor: "#F00",
         icon: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: "CO",
+        roleId: "r12345"
       },
       messageType: "Chat",
       timestamp: "2020-10-13T08:52:04.394Z"
@@ -34,7 +35,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Blue",
         forceColor: "#00F",
         icon: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: "CO",
+        roleId: "r12345"
       },
       messageType: "Chat",
       timestamp: "2020-10-13T08:52:21.119Z"
@@ -55,7 +57,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "White",
         forceColor: "#FCFBEE",
         icon: "default_img/umpireDefault.png",
-        role: "Game Control"
+        roleName: "Game Control",
+        roleId: "r12345"
       },
       messageType: "Chat",
       privateMessage: "The private content goes in here",
@@ -77,7 +80,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Blue",
         forceColor: "#00F",
         icon: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: "CO",
+        roleId: "r12345"
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:52:21.119Z",
@@ -103,7 +107,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Blue",
         forceColor: "#00F",
         icon: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: "CO",
+        roleId: "r12345"
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:53:21.119Z",
@@ -129,7 +134,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Blue",
         forceColor: "#00F",
         icon: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: "CO",
+        roleId: "r12345"
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
@@ -155,7 +161,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Blue",
         forceColor: "#00F",
         icon: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: "CO",
+        roleId: "r12345"
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:53:21.119Z",
@@ -182,7 +189,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Blue",
         forceColor: "#00F",
         icon: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: "CO",
+        roleId: "r12345"
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
@@ -209,7 +217,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Blue",
         forceColor: "#00F",
         icon: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: "CO",
+        roleId: "r12345"
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
@@ -237,7 +246,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Red",
         forceColor: "#F00",
         icon: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: "CO",
+        roleId: "r12345"
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
@@ -263,7 +273,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
           force: "Red",
           forceColor: "#F00",
           icon: "default_img/umpireDefault.png",
-          role: "CO"
+          roleName: "CO",
+          roleId: "r12345"
         },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
@@ -290,7 +301,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
             force: "Red",
             forceColor: "#F00",
             icon: "default_img/umpireDefault.png",
-            role: "CO"
+            roleName: "CO",
+            roleId: "r12345"
         },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
@@ -318,7 +330,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
           force: "Red",
           forceColor: "#F00",
           icon: "default_img/umpireDefault.png",
-          role: "CO"
+          roleName: "CO",
+          roleId: "r12345"
         },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",

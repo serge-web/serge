@@ -26,7 +26,7 @@ const GameAdmin = (): React.ReactElement => {
       <MessagesListRenderProp
         curChannel={CHAT_CHANNEL_ID}
         messages={state.chatChannel.messages}
-        userId={`${state.wargameTitle}-${state.selectedForce}-${state.selectedRole}`}
+        userId={`${state.wargameTitle}-${state.selectedForce}-${state.selectedRoleName}`}
         allMarkedRead={allMarkedRead}
         render={(messages: MessageChannel[]) => (
           <MessagesListChatChannel messages={messages} markAllAsRead={markAllAsRead} />

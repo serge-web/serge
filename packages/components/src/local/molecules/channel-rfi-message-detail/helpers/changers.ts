@@ -1,7 +1,7 @@
 import { MessageCustom, Role } from '@serge/custom-types'
 import { CollaborativeMessageStates } from '@serge/config'
 
-export const takeOwnership = (message: MessageCustom, role: Role['name']): MessageCustom => {
+export const takeOwnership = (message: MessageCustom, roleName: Role['name']): MessageCustom => {
   return {
     ...message,
     details: {
@@ -9,7 +9,7 @@ export const takeOwnership = (message: MessageCustom, role: Role['name']): Messa
       collaboration: {
         ...message.details.collaboration,
         status: CollaborativeMessageStates.InProgress,
-        owner: role
+        owner: roleName
       }
     }
   }

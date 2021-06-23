@@ -10,6 +10,7 @@ export const forces: ForceData[] = [
     overview: 'Umpire force.',
     roles: [
       {
+        roleId: 'r12342',
         isGameControl: true,
         isInsightViewer: true,
         isRFIManager: true,
@@ -138,6 +139,7 @@ export const forces: ForceData[] = [
     overview: 'Blue force.',
     roles: [
       {
+        roleId: 'r21432',
         isGameControl: false,
         canSubmitPlans: true,
         isInsightViewer: false,
@@ -231,6 +233,7 @@ export const forces: ForceData[] = [
     overview: 'Red force.',
     roles: [
       {
+        roleId: 'r43352',
         isGameControl: false,
         canSubmitPlans: true,
         isInsightViewer: false,
@@ -307,6 +310,7 @@ export const forces: ForceData[] = [
     overview: 'Green Shipping',
     roles: [
       {
+        roleId: 'r53468',
         isGameControl: false,
         canSubmitPlans: true,
         isInsightViewer: false,

@@ -12,7 +12,7 @@ import ForcesInChannel from '../../molecules/forces-in-channel'
 import { Box } from '@material-ui/core'
 
 /* Render component */
-export const ChannelRFIMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onChange, role, isUmpire, isRFIManager }) => {
+export const ChannelRFIMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onChange, roleId, roleName, isUmpire, isRFIManager }) => {
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
@@ -26,7 +26,8 @@ export const ChannelRFIMessagesList: React.FC<PropTypes> = ({ messages, icons, c
               message={message}
               onRead={onRead}
               onChange={onChange}
-              role={role}
+              roleId={roleId}
+              roleName={roleName}
               isRFIManager={isRFIManager}
               isUmpire={isUmpire}
             />

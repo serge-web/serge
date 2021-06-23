@@ -16,7 +16,7 @@ import styles from './styles.module.scss'
 import cn from 'classnames'
 
 /* Render component */
-export const ChannelRFIMessage: React.FC<Props> = ({ message, borderColor = '#32A3CA', onRead, onChange, role, isUmpire, isRFIManager }) => {
+export const ChannelRFIMessage: React.FC<Props> = ({ message, borderColor = '#32A3CA', onRead, onChange, roleId, roleName, isUmpire, isRFIManager }) => {
   const [open, setOpen] = useState<boolean>(false)
 
   const handleCollapse = (status: boolean): void => {
@@ -59,7 +59,7 @@ export const ChannelRFIMessage: React.FC<Props> = ({ message, borderColor = '#32
             <div className={styles.row}>
               <div>
                 <span className={styles.timestamp}>{moment(message.details.timestamp).format('HH:mm')}</span>
-                <Badge size="small" type="charcoal" label={message.details.from.role} />
+                <Badge size="small" type="charcoal" label={message.details.from.roleName} />
                 <Badge size="small" label={message.details.messageType} />
                 {!message.hasBeenRead && <Badge size="small" label="Unread" type="warning" />}
               </div>
@@ -69,7 +69,7 @@ export const ChannelRFIMessage: React.FC<Props> = ({ message, borderColor = '#32
           </div>
         </CollapsibleHeader>
         <CollapsibleContent>
-          <ChannelRfiMessageDetail isRFIManager={isRFIManager} message={message} onChange={onChange} role={role} isUmpire={isUmpire}/>
+          <ChannelRfiMessageDetail isRFIManager={isRFIManager} message={message} onChange={onChange} roleId={roleId} roleName={roleName} isUmpire={isUmpire}/>
         </CollapsibleContent>
       </Collapsible>
     </div>

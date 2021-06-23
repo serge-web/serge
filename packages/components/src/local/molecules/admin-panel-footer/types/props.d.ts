@@ -6,7 +6,8 @@ export default interface Props {
     name: string
     icon: string
   }
-  selectedRole: string
+  selectedRoleId: string
+  selectedRoleName: string
   byPassUrl?: string
   onIconClick: React.ReactEventHandler
 }

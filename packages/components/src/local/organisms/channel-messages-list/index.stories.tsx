@@ -86,7 +86,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
     onRead={onRead}
     onChange={handleChange}
     isUmpire={true}
-    role={'Comms'}
+    roleName={'Comms'}
+    roleId={''}
     isRFIManager={false}
   />
 }

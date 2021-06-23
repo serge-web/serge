@@ -8,7 +8,8 @@ export default interface Props {
     icon?: string
   }
   channel: string
-  role: string
+  roleId: string
+  roleName: string
   /**
    * The method for posting messages out of the component
    */

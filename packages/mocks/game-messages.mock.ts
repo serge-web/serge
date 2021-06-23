@@ -10,7 +10,8 @@ const gameMessages: MessageChannel[] = [
         force: "Red",
         forceColor: "#F00",
         icon: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: "CO",
+        roleId: "r12345"
       },
       messageType: "Chat",
       timestamp: "2020-10-13T08:52:04.394Z"
@@ -30,7 +31,8 @@ const gameMessages: MessageChannel[] = [
         force: "Blue",
         forceColor: "#00F",
         icon: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: "CO",
+        roleId: "r12345"
       },
       messageType: "Chat",
       timestamp: "2020-10-13T08:52:21.119Z"
@@ -50,7 +52,8 @@ const gameMessages: MessageChannel[] = [
             force: "White",
             forceColor: "#FCFBEE",
             icon: "default_img/umpireDefault.png",
-            role: "Game Control"
+            roleName: "Game Control",
+            roleId: "r12345"
         },
         messageType: "Chat",
         privateMessage: "The private content goes in here",

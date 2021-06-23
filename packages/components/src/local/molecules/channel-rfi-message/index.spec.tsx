@@ -13,7 +13,8 @@ describe('ChannelMessage component:', () => {
     const tree = renderer
       .create(
         <ChannelMessage
-          role='CO'
+          roleName='CO'
+          roleId='r12345'
           borderColor='#f00'
           isUmpire={true}
           isRFIManager={true}

@@ -25,33 +25,33 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 )
 
 /* Render component */
-export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role, isUmpire, isRFIManager }) => {
+export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, roleId, isUmpire, isRFIManager }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const { collaboration } = message.details
 
   const handleSendForReview = (): void => {
-    onChange && onChange(sendForReview(message, role, privateMessage, answer))
+    onChange && onChange(sendForReview(message, roleId, privateMessage, answer))
   }
 
   const handleTakeOwnership = (): void => {
-    onChange && onChange(takeOwnership(message, role))
+    onChange && onChange(takeOwnership(message, roleId))
   }
 
   const handleRelease = (): void => {
-    onChange && onChange(release(message, role))
+    onChange && onChange(release(message, roleId))
   }
 
   const handleReject = (): void => {
-    onChange && onChange(reject(message, role))
+    onChange && onChange(reject(message, roleId))
   }
 
   const handleSaveDraft = (): void => {
-    onChange && onChange(saveDraft(message, role, privateMessage, answer))
+    onChange && onChange(saveDraft(message, roleId, privateMessage, answer))
   }
 
-  const formDisabled = !formEditable(message, role, isUmpire, isRFIManager)
+  const formDisabled = !formEditable(message, roleId, isUmpire, isRFIManager)
   const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner || 'Not assigned')
   return (
     <div className={styles.main}>
@@ -75,11 +75,11 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
         </>
       }
       <div className={styles.actions}>
-        {showTakeOwnership(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleTakeOwnership}>Take Ownership</Button>}
-        {showSendForReview(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleSendForReview}>Send For Review</Button>}
-        {showReject(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleReject}>Reject</Button>}
-        {showRelease(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleRelease}>Release</Button>}
-        {showSaveDraft(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleSaveDraft}>Save Draft</Button>}
+        {showTakeOwnership(message, roleId, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleTakeOwnership}>Take Ownership</Button>}
+        {showSendForReview(message, roleId, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleSendForReview}>Send For Review</Button>}
+        {showReject(message, roleId, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleReject}>Reject</Button>}
+        {showRelease(message, roleId, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleRelease}>Release</Button>}
+        {showSaveDraft(message, roleId, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleSaveDraft}>Save Draft</Button>}
       </div>
     </div>
   )

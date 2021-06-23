@@ -3,19 +3,19 @@ import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } 
 
 export interface CheckParticipantStates {
   /** whether role is participant in channel */
-  isParticipant: boolean,
+  isParticipant: boolean
   /** the role filled by the participant */
-  participatingRole: Participant | undefined,
+  participatingRole: Participant | undefined
   /** whether all roles for this force are included in the channel */
   allRolesIncluded: Participant | undefined
 }
 export interface ParticipantStates {
   /** whether role is participant in channel */
-  isParticipant: boolean,
+  isParticipant: boolean
   /** whether all roles for this force are included in the channel */
-  allRolesIncluded: Participant | undefined,
+  allRolesIncluded: Participant | undefined
   /** whether player is just channel observer (and not participant) */
-  observing: boolean,
+  observing: boolean
   /** the templates available to this player in this channel */
   templates: Array<any>
 }
@@ -23,7 +23,7 @@ export interface ParticipantStates {
 /** find out if the role is active in the supplied channel
  * Always returns a structure, use isParticipant to determine if role is in channel (registered or as observer)
 */
-export const checkParticipantStates = (channel: ChannelData, selectedForce: string | undefined, selectedRole: string, isObserver: boolean): CheckParticipantStates => {
+export const checkParticipantStates = (channel: ChannelData, selectedForce: string | undefined, selectedRoleId: string, selectedRoleName: string, isObserver: boolean): CheckParticipantStates => {
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   const participatingForce: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceFilter(p.forceUniqid, selectedForce))
   // not a member of this channel, return false answer
@@ -36,7 +36,7 @@ export const checkParticipantStates = (channel: ChannelData, selectedForce: stri
   }
 
   // is a member of this channel, find out if they're named, or a where all roles for this force are in channel
-  const participatingRole: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
+  const participatingRole: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceAndRoleFilter(p, selectedForce, selectedRoleId, selectedRoleName))
   return {
     isParticipant: !!participatingRole,
     participatingRole: participatingRole,
@@ -45,7 +45,7 @@ export const checkParticipantStates = (channel: ChannelData, selectedForce: stri
 }
 
 /** find out how the user can participate in this channel */
-export const getParticipantStates = (channel: ChannelData, forceId: string | undefined, role: string, isObserver: boolean, allTemplates: any): ParticipantStates => {
+export const getParticipantStates = (channel: ChannelData, forceId: string | undefined, roleId: string, roleName: string, isObserver: boolean, allTemplates: any): ParticipantStates => {
   let chosenTemplates: Array<any> = []
   let observing = false
   let templates: Array<any> = []
@@ -54,7 +54,7 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
     isParticipant,
     participatingRole,
     allRolesIncluded
-  }: CheckParticipantStates = checkParticipantStates(channel, forceId, role, isObserver)
+  }: CheckParticipantStates = checkParticipantStates(channel, forceId, roleId, roleName, isObserver)
 
   if (participatingRole) {
     chosenTemplates = participatingRole.templates

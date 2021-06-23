@@ -25,9 +25,9 @@ import { CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '../../../consts'
 type Factory = (node: TabNode) => React.ReactNode
 
 /** utility to find the role for this role name */
-const findRole = (roleName: string, forceData: ForceData | undefined): Role => {
+const findRole = (roleId: string, roleName: string, forceData: ForceData | undefined): Role => {
   if(forceData) {
-    const role = forceData.roles.find((role: Role) => role.name === roleName)
+    const role = forceData.roles.find((role: Role) => role.roleId === roleId || role.name === roleName)
     if(role) {
       return role
     }
@@ -64,31 +64,31 @@ const factory = (state: PlayerUi): Factory => {
   const mapPostBack = (form: string, payload: MessageMap, channelID: string): void => {
     switch(form) {
       case FORCE_LAYDOWN:
-        sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRoleId, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case VISIBILITY_CHANGES:
-        sendMapMessage(VISIBILITY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(VISIBILITY_CHANGES, payload, state.selectedForce, channelID, state.selectedRoleId, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case PERCEPTION_OF_CONTACT:
-        sendMapMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRoleId, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case SUBMIT_PLANS:
-        sendMapMessage(SUBMIT_PLANS, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(SUBMIT_PLANS, payload, state.selectedForce, channelID, state.selectedRoleId, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case STATE_OF_WORLD:
-        sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRoleId, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case CREATE_TASK_GROUP:
-        sendMapMessage(CREATE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(CREATE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRoleId, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case LEAVE_TASK_GROUP:
-        sendMapMessage(LEAVE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(LEAVE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRoleId, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case HOST_PLATFORM:
-        sendMapMessage(HOST_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(HOST_PLATFORM, payload, state.selectedForce, channelID, state.selectedRoleId, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case DELETE_PLATFORM:
-        sendMapMessage(DELETE_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(DELETE_PLATFORM, payload, state.selectedForce, channelID, state.selectedRoleId, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
         default:
       console.log('Handler not created for', form)
@@ -97,7 +97,7 @@ const factory = (state: PlayerUi): Factory => {
 
   return (node: TabNode): React.ReactNode => {
     // sort out if role can submit orders
-    const role: Role = findRole(state.selectedRole, state.selectedForce)
+    const role: Role = findRole(state.selectedRoleId, state.selectedRoleName, state.selectedForce)
     const canSubmitOrders: boolean = !!role.canSubmitPlans
 
     // note: we have to convert the bounds that comes from the database

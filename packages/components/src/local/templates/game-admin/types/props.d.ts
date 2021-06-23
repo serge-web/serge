@@ -5,6 +5,7 @@ export default interface PropTypes {
     color: string
     icon?: string
   }
-  selectedRole: string
+  selectedRoleId: string
+  selectedRoleName: string
   chatChannel: any
 }

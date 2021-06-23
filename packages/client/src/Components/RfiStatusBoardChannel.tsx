@@ -8,7 +8,7 @@ import { MessageCustom } from '@serge/custom-types'
 const RfiStatusBoardChannel = () => {
 
   const state = usePlayerUiState()
-  const { selectedForce, selectedRole } = state
+  const { selectedForce, selectedRoleName, selectedRoleId } = state
   const isUmpire = selectedForce && selectedForce.uniqid === UMPIRE_FORCE || false
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
@@ -26,7 +26,8 @@ const RfiStatusBoardChannel = () => {
       isRFIManager={state.isRFIManager}
       isUmpire={isUmpire}
       onChange={handleChange}
-      role={selectedRole}
+      roleName={selectedRoleName}
+      roleId={selectedRoleId}
     />
   )
 }
