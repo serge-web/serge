@@ -921,7 +921,302 @@ exports[`SettingForces component: renders correctly 1`] = `
                           }
                         }
                       >
-                        no available Platform Types
+                        <div
+                          className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
+                        >
+                          <div
+                            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3"
+                          >
+                            <div
+                              className="platform-types-box icons-col"
+                            >
+                              <p>
+                                Available platform types
+                              </p>
+                              <div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Fishing vessel"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div
+                                          className="asset-icon platform-type-fishing-vessel item-icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Frigate"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div
+                                          className="asset-icon platform-type-frigate item-icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Boghammer"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div
+                                          className="asset-icon platform-type-boghammer item-icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="torpedo"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div
+                                          className="asset-icon platform-type-torpedo item-icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Fast attack craft"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div
+                                          className="asset-icon platform-type-fast-attack-craft item-icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="MCMV"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div
+                                          className="asset-icon platform-type-mcmv item-icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Helicopter"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div
+                                          className="asset-icon platform-type-helicopter item-icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Fixed wing aircraft"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div
+                                          className="asset-icon platform-type-fixed-wing-aircraft item-icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Unmanned Airborne Vehicle"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div
+                                          className="asset-icon platform-type-unmanned-airborne-vehicle item-icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Task Group"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div
+                                          className="asset-icon platform-type-task-group item-icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Coastal radar site"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div
+                                          className="asset-icon platform-type-coastal-radar-site item-icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Merchant vessel"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div
+                                          className="asset-icon platform-type-merchant-vessel item-icon"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5"
+                          >
+                            <div
+                              className="assets-list-box"
+                            >
+                              <p>
+                                List of assets
+                              </p>
+                              <div
+                                className="assets-list-scrollable-box"
+                              >
+                                <ul
+                                  className="MuiList-root MuiList-dense MuiList-padding"
+                                >
+                                  <div
+                                    className="main"
+                                  >
+                                    <ul />
+                                  </div>
+                                </ul>
+                              </div>
+                              <div
+                                className="add-asset-overlay add-asset-overlay-active"
+                              >
+                                <div
+                                  className="add-asset-overlay-msg"
+                                >
+                                  Drag here to add asset for force
+                                </div>
+                                <div
+                                  className="add-asset-overlay-dropzone"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -4,7 +4,6 @@ import {
   MessageTemplatesMock,
   adminTabs,
   platformType as platformTypeMock,
-  platformTypes
 } from '@serge/mocks'
 import {
   ChannelData,
@@ -112,7 +111,7 @@ export const Default: React.FC = () => {
       messageTemplates={MessageTemplatesMock}
       onSaveGameTitle={onSaveGameTitle}
       onWargameInitiate={onWargameInitiated}
-      availablePlatformTypes={platformTypes}
+      availablePlatformTypes={platformTypeMock.platformTypes}
     />
   )
 }
