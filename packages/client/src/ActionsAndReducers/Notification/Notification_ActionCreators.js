@@ -1,13 +1,14 @@
 import * as ActionConstant from '@serge/config'
 import uniqid from 'uniqid'
 
-export const addNotification = (message, type, autoHide = true) => ({
+export const addNotification = (message, type, autoHide = true, subType = 'alert') => ({
   type: ActionConstant.ADD_NOTIFICATION,
   payload: {
     message: message,
     type: type,
     id: uniqid.time(),
-    autoHide: autoHide
+    autoHide: autoHide,
+    subType: subType
   }
 })
 
