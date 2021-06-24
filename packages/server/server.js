@@ -115,6 +115,7 @@ const runServer = (
 
   app.use(express.static(path.join(__dirname, clientBuildPath)))
   app.use('/img', express.static(path.join(__dirname, './img')))
+  app.use('/serge/img', express.static(path.join(process.cwd(), imgDir)))
   app.use('/default_img', express.static(path.join(__dirname, './default_img')))
 
   app.get('*', (req, res) => {
