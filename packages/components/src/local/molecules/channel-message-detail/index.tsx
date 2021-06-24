@@ -7,7 +7,7 @@ import Props from './types/props'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import {
   isPlainObject,
   isArrayOfObject,
@@ -25,12 +25,19 @@ const DetailLabel = ({ label }: any): React.ReactElement => (
 
 const createObjItem = (pair: Array<any>): React.ReactFragment => {
   return (
-    <Fragment key={`objItem--${pair[0]}-${pair[1]}`}>{ deconstructObj(pair[1]) }</Fragment>
+    <Fragment key={`objItem--${pair[0]}-${pair[1]}`}><DetailLabel label={`${pair[0]}:`} />{ deconstructObj(pair[1]) }</Fragment>
   )
 }
 
 const createBoolItem = (pair: Array<any>): React.ClassicElement<any> => {
-  return <span key={`boolItem--${pair[0]}-${pair[1]}`}>{pair[1] ? pair[0] : false}</span>
+  return (
+    <Fragment key={`boolItem-${pair[0]}${pair[1]}`}>
+      <DetailLabel label={`${pair[0]}:`}/>
+      <span className={styles.data}>
+        <FontAwesomeIcon icon={pair[1] ? faCheck : faTimes} />
+      </span>
+    </Fragment>
+  )
 }
 
 const createTimeItem = (pair: Array<any>): React.ReactFragment => {

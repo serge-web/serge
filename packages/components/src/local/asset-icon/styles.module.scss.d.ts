@@ -3,11 +3,15 @@
 interface CssExports {
   'asset-icon': string;
   'blue': string;
+  'blue-1': string;
+  'blue-2': string;
   'destroyed': string;
   'force': string;
   'green': string;
   'platform-type-agi': string;
+  'platform-type-auxiliary': string;
   'platform-type-boghammer': string;
+  'platform-type-carrier': string;
   'platform-type-coastal-radar-site': string;
   'platform-type-datum': string;
   'platform-type-destroyer': string;
@@ -15,18 +19,24 @@ interface CssExports {
   'platform-type-fishing-vessel': string;
   'platform-type-fixed-wing-aircraft': string;
   'platform-type-frigate': string;
+  'platform-type-frigate-ta': string;
   'platform-type-helicopter': string;
   'platform-type-mcmv': string;
   'platform-type-merchant-vessel': string;
   'platform-type-mine': string;
   'platform-type-missile': string;
+  'platform-type-mpa': string;
   'platform-type-pirate': string;
+  'platform-type-ssk': string;
+  'platform-type-ssn': string;
   'platform-type-task-group': string;
   'platform-type-torpedo': string;
   'platform-type-unknown': string;
   'platform-type-unmanned-airborne-vehicle': string;
   'popup': string;
   'red': string;
+  'red-1': string;
+  'red-2': string;
   'selected': string;
   'unknown': string;
 }
