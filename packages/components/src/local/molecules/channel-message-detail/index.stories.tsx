@@ -126,10 +126,34 @@ WeatherForecast.args = {
     ...GameMessagesMockRFI[0],
     message: {
       title: 'Forecast',
-      Location: { Lat: 19, 'Lat Hemi': 'N', Long: 33, 'Long Hemi': 'E' },
+      'array of object': [
+        { 'animal-1': 'dog' },
+        { 'animal-2': 'cat' }
+      ],
+      'array of string': [
+        'alpha', 'bravo'
+      ],
+      Location: {
+        Lat: 19,
+        'Lat Hemi': 'N',
+        Long: 33,
+        'Long Hemi': 'E',
+        grids: {
+          name: 'true',
+          'name 2': 'magnetic'
+        }
+      },
       'Valid from': '2020-09-03 12:00',
-      'Valid until': '2020-09-25 12:00',
-      Forecast: 'Clear'
+      'Test file': 'file:///localhost/image.png',
+      'Test url https': 'https://localhost/search.html',
+      'Test url http': 'http:///localhost/other_search.html',
+      'boolean-true': true,
+      'boolean-false': false,
+      'boolean string': 'true',
+      number: 12,
+      'number string': '12',
+      'date-time': '2020-09-25 12:00',
+      'plain-text': 'Clear'
     }
   },
   playerForce: 'Blue'
