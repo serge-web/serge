@@ -625,7 +625,7 @@
     color: $primary-triad-color;
     font-family: "Open Sans", sans-serif;
     font-weight: bold;
-    max-height: 80vh;
+    max-height: calc(100vh - 300px);
     overflow-x: hidden;
     overflow-y: auto;
     padding-top: 8px;
