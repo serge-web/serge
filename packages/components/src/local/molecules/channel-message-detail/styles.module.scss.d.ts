@@ -6,6 +6,15 @@ interface CssExports {
   'detail-row': string;
   'detail-rows': string;
   'icon-private': string;
+  'level-1': string;
+  'level-2': string;
+  'level-3': string;
+  'level-4': string;
+  'level-5': string;
+  'level-6': string;
+  'level-7': string;
+  'level-8': string;
+  'level-9': string;
   'private': string;
   'wrap-detail': string;
   'wrap-detail-opened': string;

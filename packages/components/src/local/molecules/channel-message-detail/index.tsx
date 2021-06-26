@@ -20,91 +20,114 @@ import MessageLabel from '../../atoms/message-label'
 import { UMPIRE_FORCE } from '@serge/config'
 
 const DetailLabel = ({ label }: any): React.ReactElement => (
-  <span className={styles.detail}><MessageLabel label={label} /></span>
+  <span className={styles.detail}>
+    <MessageLabel label={label} />
+  </span>
 )
 
-const createObjItem = (pair: Array<any>): React.ReactFragment => {
+const createObjItem = (pair: Array<any>, level: number): React.ReactFragment => {
   return (
-    <Fragment key={`objItem--${pair[0]}-${pair[1]}`}><DetailLabel label={`${pair[0]}:`} />{ deconstructObj(pair[1]) }</Fragment>
+    <Fragment key={`objItem--${pair[0]}-${pair[1]}`}>
+      <div className={styles[`level-${level}`]}>
+        <DetailLabel label={`${pair[0]}:`} />
+        {deconstructObj(pair[1], ++level)}
+      </div>
+    </Fragment>
   )
 }
 
-const createBoolItem = (pair: Array<any>): React.ClassicElement<any> => {
+const createBoolItem = (pair: Array<any>, level: number): React.ClassicElement<any> => {
   return (
     <Fragment key={`boolItem-${pair[0]}${pair[1]}`}>
-      <DetailLabel label={`${pair[0]}:`}/>
-      <span className={styles.data}>
-        <FontAwesomeIcon icon={pair[1] ? faCheck : faTimes} />
-      </span>
+      <div className={styles[`level-${level}`]}>
+        <DetailLabel label={`${pair[0]}:`}/>
+        <span className={styles.data} >
+          <FontAwesomeIcon icon={pair[1] ? faCheck : faTimes} />
+        </span>
+      </div>
     </Fragment>
   )
 }
 
-const createTimeItem = (pair: Array<any>): React.ReactFragment => {
+const createTimeItem = (pair: Array<any>, level: number): React.ReactFragment => {
   return (
     <Fragment key={`dateTime-${pair[0]}${pair[1]}`}>
-      <DetailLabel label={`${pair[0]}:`}/>
-      <span className={styles.data}>{moment(pair[1]).format('DD/MM/YY,HH:mm')}</span>
+      <div className={styles[`level-${level}`]}>
+        <DetailLabel label={`${pair[0]}:`}/>
+        <span className={styles.data}>
+          {moment(pair[1]).format('DD/MM/YY,HH:mm')}
+        </span>
+      </div>
     </Fragment>
   )
 }
 
-const createStrItem = (pair: Array<any>): React.ReactFragment => {
+const createStrItem = (pair: Array<any>, level: number): React.ReactFragment => {
   return (
     <Fragment key={`strItem-${pair[0]}${pair[1]}`}>
-      <DetailLabel label={`${pair[0]}:`}/>
-      <span className={styles.data}>
-        {pair[1]}
-      </span>
+      <div className={styles[`level-${level}`]}>
+        <DetailLabel label={`${pair[0]}:`}/>
+        <span className={styles.data}>
+          {pair[1]}
+        </span>
+      </div>
     </Fragment>
   )
 }
 
-const createUrlItem = (pair: Array<any>): React.ReactFragment => {
+const createUrlItem = (pair: Array<any>, level: number): React.ReactFragment => {
   return (
     <Fragment key={`urlItem-${pair[0]}${pair[1]}`}>
-      <DetailLabel label={`${pair[0]}:`}/>
-      <span className={styles.data}>
-        <a href={pair[1]} target='_blank' rel='noopener noreferrer'>{pair[1]}</a>
-      </span>
+      <div className={styles[`level-${level}`]}>
+        <DetailLabel label={`${pair[0]}:`}/>
+        <span className={styles.data}>
+          <a href={pair[1]} target='_blank' rel='noopener noreferrer'>{pair[1]}</a>
+        </span>
+      </div>
     </Fragment>
   )
 }
 
-const deconstructArr = (pair: Array<any>): React.ReactFragment => {
+const deconstructArr = (pair: Array<any>, level: number): React.ReactFragment => {
+  const nextLevel = level + 1
+
   return (
     <Fragment key={`${pair[0]}-group`}>
-      <DetailLabel label={`${pair[0]}:`}/>
-      <p className={styles['detail-rows']}>
-        {pair[1].map((item: Record<any, any>, key: number) => {
-          return (
-            <p key={key} className={styles['detail-row']}>
-              {deconstructObj(item)}
-            </p>
-          )
-        })}
-      </p>
+      <div className={styles[`level-${level}`]}>
+        <DetailLabel label={`${pair[0]}:`} />
+        <p className={styles['detail-rows']}>
+          {pair[1].map((item: Record<any, any>, key: number) => {
+            return (
+              <p key={key} className={styles['detail-row']}>
+                {deconstructObj(item, nextLevel)}
+              </p>
+            )
+          })}
+        </p>
+      </div>
     </Fragment>
   )
 }
 
-const deconstructObj = (obj: Record<any, any>): React.ReactFragment => {
+const deconstructObj = (obj: Record<any, any>, level: number): React.ReactFragment => {
   const keyPropPairs = Object.entries(obj)
-  return keyPropPairs.map(pair => decideRender(pair)(createStrItem))
+  return keyPropPairs.map(pair => decideRender(pair, level)(createStrItem, level))
 }
 
-const defaultRender = (pair: Array<any>): React.ReactFragment => {
+const defaultRender = (pair: Array<any>, level: number): React.ReactFragment => {
   return (
     <Fragment key={`${pair[0]}-${pair[1]}`}>
-      <DetailLabel label={`${capitalize(pair[0])}:`}/>
-      <span className={styles.data}>
-        <Paragraph content={pair[1]} />
-      </span>
+      <div className={styles[`level-${level}`]}>
+        <DetailLabel label={`${capitalize(pair[0])}:`} />
+        <span className={styles.data}>
+          <Paragraph content={Array.isArray(pair[1]) ? pair[1].join(', ') : pair[1]} />
+        </span>
+      </div>
     </Fragment>
   )
 }
 
-const decideRender = (pair: Array<any>) => (fallback: Function): React.ReactFragment => {
+const decideRender = (pair: Array<any>, level: number) => (fallback: Function, _level: number): React.ReactFragment => {
   const [, detail] = pair
   let renderer
   switch (true) {
@@ -127,7 +150,7 @@ const decideRender = (pair: Array<any>) => (fallback: Function): React.ReactFrag
       renderer = fallback
       break
   }
-  return renderer(pair)
+  return renderer(pair, level)
 }
 
 /* Render component */
@@ -146,7 +169,7 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, co
     <div className={
       `${styles['wrap-detail']} ${!collapsed ? styles['wrap-detail-opened'] : ''}`
     }>
-      { keyPropPairs.map(pair => decideRender(pair)(defaultRender)) }
+      { keyPropPairs.map(pair => decideRender(pair, 1)(defaultRender, 1)) }
       {
         privateMessage &&
         playerForce === UMPIRE_FORCE && (

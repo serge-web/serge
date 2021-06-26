@@ -5,15 +5,52 @@
   border-radius: $radius;
 }
 
+.level-1 {
+  margin-left: 0px;
+}
+
+.level-2 {
+  margin-left: 16px;
+}
+
+.level-3 {
+  margin-left: 16px;
+}
+
+.level-4 {
+  margin-left: 16px;
+}
+
+.level-5 {
+  margin-left: 16px;
+}
+
+.level-6 {
+  margin-left: 16px;
+}
+
+.level-7 {
+  margin-left: 16px;
+}
+
+.level-8 {
+  margin-left: 16px;
+}
+
+.level-9 {
+  margin-left: 16px;
+}
+
 .data {
   @include typo-primary;
   display: inline-block;
   word-break: break-word;
   font-size: 14px;
   opacity: 0.8;
+  margin-left: 16px;
 
   + .detail {
-    margin-left: 16px;
+    margin-left: 4px;
   }
 
   a,
@@ -35,10 +72,11 @@
   font-size: 14px;
   margin-bottom: 0;
   margin-left: 0;
+  margin: 0;
 }
 
 .detail-rows {
-  padding-left: 14px;
+  margin: 0;
 }
 
 .wrap-private {
