@@ -5,7 +5,7 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
   className="wrap-detail wrap-detail-opened"
 >
   <div
-    className="level-1"
+    className="level-margin"
   >
     <span
       className="detail"

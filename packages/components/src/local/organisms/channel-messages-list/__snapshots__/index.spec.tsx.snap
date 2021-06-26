@@ -136,7 +136,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
             className="wrap-detail "
           >
             <div
-              className="level-1"
+              className="level-margin"
             >
               <span
                 className="detail"
