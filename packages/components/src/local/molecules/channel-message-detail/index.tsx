@@ -169,7 +169,7 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, co
     <div className={
       `${styles['wrap-detail']} ${!collapsed ? styles['wrap-detail-opened'] : ''}`
     }>
-      { keyPropPairs.map(pair => decideRender(pair, 1)(defaultRender, 1)) }
+      { keyPropPairs.map(pair => decideRender(pair, 0)(defaultRender, 0)) }
       {
         privateMessage &&
         playerForce === UMPIRE_FORCE && (
