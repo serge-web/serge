@@ -5,7 +5,7 @@ const removeAssetById = (uniqid: string, assets: Asset[]): Asset[] => {
     if (assetItem.uniqid === uniqid) {
       return false
     } else {
-      const { hosting, comprising } = assetItem 
+      const { hosting, comprising } = assetItem
       if (Array.isArray(hosting) && hosting.length > 0) {
         assetItem.hosting = removeAssetById(uniqid, hosting)
       }

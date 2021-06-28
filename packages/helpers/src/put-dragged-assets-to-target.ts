@@ -1,7 +1,7 @@
 import { Asset } from '@serge/custom-types'
 import { TASK_GROUP } from '@serge/config'
 
-const putDraggedAssetsToTarget = (targetId: string, asset: Asset, assets: Asset[], isHosting: boolean = true): Asset[] => {
+const putDraggedAssetsToTarget = (targetId: string, asset: Asset, assets: Asset[], isHosting = true): Asset[] => {
   return assets.map((assetItem) => {
     if (assetItem.uniqid === targetId) {
       if (isHosting) {
@@ -11,8 +11,7 @@ const putDraggedAssetsToTarget = (targetId: string, asset: Asset, assets: Asset[
         if (assetItem.platformType === TASK_GROUP) {
           if (!assetItem.comprising) assetItem.comprising = []
           assetItem.comprising.push(asset)
-        } 
-        else {
+        } else {
           const contactId: string = 'C' + Math.floor(Math.random() * 999)
           const assetId: string = 'a' + Math.floor(Math.random() * 1000000)
           const groupId: string = 'CTF ' + (300 + Math.floor(Math.random() * 99))

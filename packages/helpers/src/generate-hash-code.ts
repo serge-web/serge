@@ -10,4 +10,4 @@ const generateHashCode = (str: string): string => {
   return res.substr(res.length - 3)
 }
 
-export default generateHashCode;
+export default generateHashCode

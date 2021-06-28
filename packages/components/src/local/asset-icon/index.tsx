@@ -23,6 +23,17 @@ export const getIconClassname = (icForceClass: string, icType: string, destroyed
   styles[`platform-type-${icType}`]
 ))
 
+export const getIcon = (icType: string, color?: string, destroyed?: boolean, icSelected?: boolean): JSX.Element => {
+  return(
+    <div style={{backgroundColor: color}} className={cx(
+      styles['asset-icon'],
+      destroyed ? styles.destroyed : null,
+      icSelected ? styles.selected : null,
+      styles[`platform-type-${icType}`]
+    )}/>
+  )
+}
+
 /* Render component */
 export const AssetIcon: React.FC<PropTypes> = ({
   uniqid,

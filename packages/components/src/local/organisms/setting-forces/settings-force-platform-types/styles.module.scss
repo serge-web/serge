@@ -2,12 +2,15 @@
 .accordion {
   margin-bottom: 20px;
 }
+
 .accordion-header {
   background-color: #8595a5 !important;
 }
+
 .accordion-title {
   color: #fff;
 }
+
 .arrow-icon {
   color: #fff;
 }
@@ -19,13 +22,16 @@
   height: 418px;
   overflow-y: auto;
 }
+
 .icons-col::-webkit-scrollbar {
   width: 7px;
 }
+
 .icons-col::-webkit-scrollbar-thumb {
   background-color: #c4c4c4;
   border-radius: 4px;
 }
+
 .icons-col > div {
   display: flex;
   flex-wrap: wrap;
@@ -45,10 +51,12 @@
   width: 45%;
   margin-bottom: 15px;
 }
+
 .icon-box-holder {
   position: relative;
   padding-top: 100%;
 }
+
 .icon-box-content {
   position: absolute;
   top: 0;
@@ -56,6 +64,7 @@
   left: 0;
   right: 0;
 }
+
 .icon-box {
   display: flex;
   align-items: center;
@@ -64,6 +73,7 @@
   height: 100%;
   border-radius: 555px;
 }
+
 .icon-box:hover {
   cursor: move;
 }
@@ -75,19 +85,23 @@
   width: 90px;
   font-size: 14px;
 }
+
 .list-input input {
   font-size: 14px;
   color: #434343;
   font-weight: bold;
 }
+
 .list-dynamic-input > div {
   width: 100%;
 }
+
 .assets-list-scrollable-box {
   height: 418px;
   overflow-y: auto;
   position: relative;
 }
+
 .assets-list-scrollable-box ul {
   padding-top: 0;
   min-height: 98%;
@@ -96,6 +110,7 @@
 .assets-list-scrollable-box::-webkit-scrollbar {
   width: 7px;
 }
+
 .assets-list-scrollable-box::-webkit-scrollbar-thumb {
   background-color: #c4c4c4;
   border-radius: 4px;
@@ -105,6 +120,7 @@
   margin-top: 10px;
   position: relative;
 }
+
 .assets-list-box p {
   color: #1d3a4c;
   text-align: center;
@@ -114,38 +130,42 @@
   margin-bottom: 13px;
   font-family: sans-serif;
 }
+
 .list-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 10px;
+  padding: 3px 10px 10px 5px;
   user-select: none;
+  background: #f9f9f9;
 }
+
+.list-item:hover {
+  cursor: pointer;
+  background-color: #f2f2f2;
+}
+
 .asset-name {
   flex: 1;
   margin-left: 10px;
   font-family: sans-serif;
 }
 
-.list-item:hover {
-  cursor: pointer;
-  background: #f9f9f9;
-}
-
 .list-item-selected {
   background-color: #1c3a4c;
   color: #fff;
 }
+
 .list-item-selected:hover {
   background-color: #1c3a4c;
   color: #fff;
 }
 
-.item-icon {
+.icon-box > div {
   width: 70%;
   height: 70%;
   border-width: 0;
-  filter: invert(100%);
+  // filter: invert(100%);
 }
 
 .item-asset-icon-box {
@@ -155,11 +175,11 @@
   border-radius: 50%;
 }
 
-.item-asset-icon {
+.item-asset-icon-box > div {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  filter: invert(100%);
+  // filter: invert(100%);
   position: static;
   border-width: 0;
 }

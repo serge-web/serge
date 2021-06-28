@@ -15,7 +15,7 @@ import { generateHashCode, groupCreateNewGroup, groupMoveToRoot, groupHostPlatfo
 import uniqid from 'uniqid'
 
 import cx from 'classnames'
-import { getIconClassname } from '../../../asset-icon'
+import { getIcon } from '../../../asset-icon' // getIconClassname
 import Grid from '@material-ui/core/Grid'
 import { ReactSortable } from 'react-sortablejs'
 import List from '@material-ui/core/List'
@@ -174,7 +174,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
 
   const renderContent = (groupItem: GroupItem): JSX.Element => {
     const item = groupItem as ForceItemType
-    const icClassName = getIconClassname('', item.platformType)
+    // const icClassName = getIconClassname('', item.platformType)
     return (
       <div
         key={item.uniqid}
@@ -182,7 +182,8 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
         onClick={(): void => { setSelectedAssetItem(item) }}
       >
         <div className={styles['item-asset-icon-box']}>
-          <div className={cx(icClassName, styles['item-asset-icon'])}/>
+          {getIcon(item.platformType, selectedForce.color)}
+          {/* <div className={cx(icClassName, styles['item-asset-icon'])}/> */}
         </div>
         <div className={styles['asset-name']}>{item.name}</div>
       </div>
@@ -218,7 +219,6 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       onChangeHandler({ ...selectedForce, assets: [...selectedPlatforms, ...forceAssets] })
     }
   }
-
   return (
     <Accordion className={styles.accordion}>
       <AccordionSummary
@@ -248,12 +248,13 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                     group={'platformTypesList'}
                   >
                     {allPlatforms.map((item) => {
-                      const icClassName = getIconClassname('', kebabCase(item.name))
+                      // const icClassName = getIconClassname('', kebabCase(item.name))
                       return <div key={item.id} className={styles['icon-item-main']}>
                         <div className={styles['icon-box-holder']}>
                           <div className={styles['icon-box-content']}>
                             <div key={item.id + item.type} className={styles['icon-box']}>
-                              <div className={cx(icClassName, styles['item-icon'])}/>
+                              {/* <div className={cx(icClassName, styles['item-icon'])} /> */}
+                              {getIcon(kebabCase(item.name), '#415b76')}
                             </div>
                           </div>
                         </div>

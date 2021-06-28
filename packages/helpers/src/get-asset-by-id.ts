@@ -1,9 +1,9 @@
 import { Asset } from '@serge/custom-types'
 
 const getAssetById = (uniqid: string, assets: Asset[]): Asset | undefined => {
-  let asset: Asset | undefined = undefined
+  let asset: Asset | undefined
 
-  for(const assetItem of assets) {
+  for (const assetItem of assets) {
     if (assetItem.uniqid === uniqid) {
       asset = { ...assetItem }
       break

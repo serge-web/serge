@@ -18,9 +18,7 @@ interface CssExports {
   'icon-item-main': string;
   'icons-col': string;
   'input-group': string;
-  'item-asset-icon': string;
   'item-asset-icon-box': string;
-  'item-icon': string;
   'list-dynamic-input': string;
   'list-input': string;
   'list-item': string;

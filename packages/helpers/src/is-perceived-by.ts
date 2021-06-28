@@ -15,10 +15,10 @@ export interface ForceStyle {
  * @param {ForceStyle} undefinedColor the color to use for non-perceived types
  * @return {string | undefined} color shade to use, or undefined if asset isn't visible
  */
-const isPerceivedBy = (perceptions: Perception[], playerForceName: string, 
+const isPerceivedBy = (perceptions: Perception[], playerForceName: string,
   forceColors: Array<ForceStyle>, undefinedColor: ForceStyle): ForceStyle | undefined => {
-  if ( perceptions) {
-    if(Array.isArray(perceptions)) {
+  if (perceptions) {
+    if (Array.isArray(perceptions)) {
       const p: Perception | undefined = perceptions.find((p:Perception) => p.by.toLowerCase() === playerForceName.toLowerCase())
       if (p) {
         // do we know force?
