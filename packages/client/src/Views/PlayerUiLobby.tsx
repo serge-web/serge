@@ -46,6 +46,11 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
       setSelectedWargame(undefined)
     }
   }
+  
+  if (!selectedWargame && wargameList.length === 1) {
+    const { title, name} = wargameList[0]
+    updateSelectedWargame({ label: title, value: name })
+  }
 
   const setRolePasswordDemo = (e: React.MouseEvent, val: string): void => {
     e.preventDefault()
