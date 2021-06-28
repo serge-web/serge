@@ -46,9 +46,9 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
       setSelectedWargame(undefined)
     }
   }
-  
+
   if (!selectedWargame && wargameList.length === 1) {
-    const { title, name} = wargameList[0]
+    const { title, name } = wargameList[0]
     updateSelectedWargame({ label: title, value: name })
   }
 
@@ -58,64 +58,64 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
   }
 
   const roleOptions = allForces.map(
-    force => ({name: force.name, roles: force.roles})
+    force => ({ name: force.name, roles: force.roles })
   )
-  
+
   return (
     <div className="flex-content-wrapper flex-content-wrapper--welcome">
       <div className="flex-content flex-content--welcome">
         {!state.selectedForce && !state.selectedRole &&
-        <div className={`flex-content--center ${selectedWargame && state.showAccessCodes ? 'has-demo-passwords' : ''}`}>
-          <h1>Set wargame</h1>
-          <div id="custom-select-wargame-selection">
-            <Select
-              name="wargame-selection"
-              value={selectedWargame}
-              className="react-select"
-              classNamePrefix="react-select"
-              options={wargameList.map((wargame: WargameList) => ({ label: wargame.title, value: wargame.name }))}
-              onChange={updateSelectedWargame}
-            />
-          </div>
-          <div className="flex-content">
-            <TextInput
-              className="material-input"
-              placeholder="Access code"
-              variant="filled"
-              type='password'
-              value={rolePassword}
-              updateState={(el: { value: string }) => setRolePassword(el.value)}
-              options={{ numInput: false }}
-            />
-          </div>
-          {selectedWargame && state.showAccessCodes &&
-          <div className="demo-passwords">
-            <h3>Not visible in production</h3>
-            <ul className="demo-list-forces">
-              {roleOptions.map((force) => (<li key={force.name} className="list-item-demo-passwords">
-                <h4>{force.name}</h4>
-                <ul data-qa-force-name={force.name}>
-                  {force.roles.map((role: Role) => (
-                    <li key={role.name}>
-                      <button onClick={e => setRolePasswordDemo(e, role.password)} className="btn btn-sm btn-primary">
-                        {role.name}
-                      </button>
-                    </li>
-                  ))}
+          <div className={`flex-content--center ${selectedWargame && state.showAccessCodes ? 'has-demo-passwords' : ''}`}>
+            <h1>Set wargame</h1>
+            <div id="custom-select-wargame-selection">
+              <Select
+                name="wargame-selection"
+                value={selectedWargame}
+                className="react-select"
+                classNamePrefix="react-select"
+                options={wargameList.map((wargame: WargameList) => ({ label: wargame.title, value: wargame.name }))}
+                onChange={updateSelectedWargame}
+              />
+            </div>
+            <div className="flex-content">
+              <TextInput
+                className="material-input"
+                placeholder="Access code"
+                variant="filled"
+                type='password'
+                value={rolePassword}
+                updateState={(el: { value: string }) => setRolePassword(el.value)}
+                options={{ numInput: false }}
+              />
+            </div>
+            {selectedWargame && state.showAccessCodes &&
+              <div className="demo-passwords">
+                <h3>Not visible in production</h3>
+                <ul className="demo-list-forces">
+                  {roleOptions.map((force) => (<li key={force.name} className="list-item-demo-passwords">
+                    <h4>{force.name}</h4>
+                    <ul data-qa-force-name={force.name}>
+                      {force.roles.map((role: Role) => (
+                        <li key={role.name}>
+                          <button onClick={e => setRolePasswordDemo(e, role.password)} className="btn btn-sm btn-primary">
+                            {role.name}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>))}
                 </ul>
-              </li>))}
-            </ul>
+              </div>
+            }
+            <button
+              name="enter-game"
+              disabled={!rolePassword}
+              className="btn btn-action btn-action--primary"
+              onClick={() => checkPassword(rolePassword)}
+            >
+              Enter
+            </button>
           </div>
-          }
-          <button
-            name="enter-game"
-            disabled={!rolePassword}
-            className="btn btn-action btn-action--primary"
-            onClick={() => checkPassword(rolePassword)}
-          >
-            Enter
-          </button>
-        </div>
         }
       </div>
     </div>
