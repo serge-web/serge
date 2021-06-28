@@ -2,7 +2,6 @@ import { Asset, ForceData } from '@serge/custom-types'
 
 /** recursive helper function - checks inside
  * comprising and hosting lists
- *
  */
 export const isAsset = (asset: Asset, assetId: string): Asset | undefined => {
   if (asset.uniqid === assetId) {
