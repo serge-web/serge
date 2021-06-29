@@ -11,7 +11,9 @@ const useMessageLabelStyle = makeStyles((theme: Theme) =>
     }),
     sizeSmall: {
       height: '18px',
-      fontSize: '.75rem'
+      fontSize: '.85rem',
+      fontWeight: 550,
+      marginLeft: '16px'
     },
     labelSmall: {
       paddingLeft: theme.spacing(0.5),

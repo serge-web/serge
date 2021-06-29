@@ -28,62 +28,54 @@ const DetailLabel = ({ label }: any): React.ReactElement => (
 const createObjItem = (pair: Array<any>, level: number): React.ReactFragment => {
   return (
     <Fragment key={`objItem--${pair[0]}-${pair[1]}`}>
-      <div className={level ? styles['level-margin'] : ''}>
-        <DetailLabel label={`${pair[0]}:`} />
-        {deconstructObj(pair[1], ++level)}
-      </div>
+      <DetailLabel label={`${pair[0]}:`} />
+      {deconstructObj(pair[1], ++level)}
     </Fragment>
   )
 }
 
-const createBoolItem = (pair: Array<any>, level: number): React.ClassicElement<any> => {
+const createBoolItem = (pair: Array<any>, _level: number): React.ClassicElement<any> => {
   return (
     <Fragment key={`boolItem-${pair[0]}${pair[1]}`}>
-      <div className={level ? styles['level-margin'] : ''}>
-        <DetailLabel label={`${pair[0]}:`}/>
-        <span className={styles.data} >
-          <FontAwesomeIcon icon={pair[1] ? faCheck : faTimes} />
-        </span>
-      </div>
+      <DetailLabel label={`${pair[0]}:`} />
+      <span className={styles.data} >
+        <FontAwesomeIcon icon={pair[1] ? faCheck : faTimes} />
+      </span>
     </Fragment>
   )
 }
 
-const createTimeItem = (pair: Array<any>, level: number): React.ReactFragment => {
+const createTimeItem = (pair: Array<any>, _level: number): React.ReactFragment => {
   return (
     <Fragment key={`dateTime-${pair[0]}${pair[1]}`}>
-      <div className={level ? styles['level-margin'] : ''}>
-        <DetailLabel label={`${pair[0]}:`}/>
-        <span className={styles.data}>
-          {moment(pair[1]).format('DD/MM/YY,HH:mm')}
-        </span>
-      </div>
+      <DetailLabel label={`${pair[0]}:`} />
+      <span className={styles.data}>
+        {moment(pair[1]).format('DD/MM/YY,HH:mm')}
+      </span>
     </Fragment>
   )
 }
 
-const createStrItem = (pair: Array<any>, level: number): React.ReactFragment => {
+const createStrItem = (pair: Array<any>, _level: number): React.ReactFragment => {
   return (
     <Fragment key={`strItem-${pair[0]}${pair[1]}`}>
-      <div className={level ? styles['level-margin'] : ''}>
-        <DetailLabel label={`${pair[0]}:`}/>
-        <span className={styles.data}>
-          {pair[1]}
-        </span>
-      </div>
+      {/* <span style={{ border: '1px dashed white'}}> */}
+      <DetailLabel label={`${pair[0]}:`} />
+      <span className={styles.data}>
+        {pair[1]}
+      </span>
+      {/* </span> */}
     </Fragment>
   )
 }
 
-const createUrlItem = (pair: Array<any>, level: number): React.ReactFragment => {
+const createUrlItem = (pair: Array<any>, _level: number): React.ReactFragment => {
   return (
     <Fragment key={`urlItem-${pair[0]}${pair[1]}`}>
-      <div className={level ? styles['level-margin'] : ''}>
-        <DetailLabel label={`${pair[0]}:`}/>
-        <span className={styles.data}>
-          <a href={pair[1]} target='_blank' rel='noopener noreferrer'>{pair[1]}</a>
-        </span>
-      </div>
+      <DetailLabel label={`${pair[0]}:`} />
+      <span className={styles.data}>
+        <a href={pair[1]} target='_blank' rel='noopener noreferrer'>{pair[1]}</a>
+      </span>
     </Fragment>
   )
 }
@@ -93,18 +85,16 @@ const deconstructArr = (pair: Array<any>, level: number): React.ReactFragment =>
 
   return (
     <Fragment key={`${pair[0]}-group`}>
-      <div className={level ? styles['level-margin'] : ''}>
-        <DetailLabel label={`${pair[0]}:`} />
-        <p className={styles['detail-rows']}>
-          {pair[1].map((item: Record<any, any>, key: number) => {
-            return (
-              <p key={key} className={styles['detail-row']}>
-                {deconstructObj(item, nextLevel)}
-              </p>
-            )
-          })}
-        </p>
-      </div>
+      <DetailLabel label={`${pair[0]}:`} />
+      <p className={styles['detail-rows']}>
+        {pair[1].map((item: Record<any, any>, key: number) => {
+          return (
+            <p key={key} className={styles['detail-row']}>
+              {deconstructObj(item, nextLevel)}
+            </p>
+          )
+        })}
+      </p>
     </Fragment>
   )
 }
@@ -114,15 +104,13 @@ const deconstructObj = (obj: Record<any, any>, level: number): React.ReactFragme
   return keyPropPairs.map(pair => decideRender(pair, level)(createStrItem, level))
 }
 
-const defaultRender = (pair: Array<any>, level: number): React.ReactFragment => {
+const defaultRender = (pair: Array<any>, _level: number): React.ReactFragment => {
   return (
     <Fragment key={`${pair[0]}-${pair[1]}`}>
-      <div className={level ? styles['level-margin'] : ''}>
-        <DetailLabel label={`${capitalize(pair[0])}:`} />
-        <span className={styles.data}>
-          <Paragraph content={Array.isArray(pair[1]) ? pair[1].join(', ') : pair[1]} />
-        </span>
-      </div>
+      <DetailLabel label={`${capitalize(pair[0])}:`} />
+      <span className={styles.data}>
+        <Paragraph content={Array.isArray(pair[1]) ? pair[1].join(', ') : pair[1]} />
+      </span>
     </Fragment>
   )
 }
@@ -169,12 +157,12 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, co
     <div className={
       `${styles['wrap-detail']} ${!collapsed ? styles['wrap-detail-opened'] : ''}`
     }>
-      { keyPropPairs.map(pair => decideRender(pair, 0)(defaultRender, 0)) }
+      {keyPropPairs.map(pair => decideRender(pair, 0)(defaultRender, 0))}
       {
         privateMessage &&
         playerForce === UMPIRE_FORCE && (
           <div className={styles['wrap-private']}>
-            <DetailLabel label={<PrivateBadge />}/>
+            <DetailLabel label={<PrivateBadge />} />
             <span className={styles.private}>
               <Paragraph content={privateMessage} />
             </span>
