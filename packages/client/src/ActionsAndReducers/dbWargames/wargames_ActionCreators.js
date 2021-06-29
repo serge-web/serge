@@ -49,11 +49,6 @@ export const setSelectedChannel = (payload) => ({
   payload
 })
 
-const saveServerStatus = (status) => ({
-  type: ActionConstant.SET_SERVER_STATUS,
-  payload: status
-})
-
 const saveAllWargameNames = (names) => ({
   type: ActionConstant.ALL_WARGAME_NAMES_SAVED,
   payload: names
@@ -149,18 +144,6 @@ export const populateWargameStore = () => {
 
     dispatch(populatingDb(false))
   }
-}
-
-const pingServer = async (dispatch) => {
-  const serverStatus = await wargamesApi.pingServer()
-  dispatch(saveServerStatus(serverStatus))
-}
-
-export const pingServerWithInterval = () => async (dispatch) => {
-  await pingServer(dispatch)
-  setInterval(async () => {
-    await pingServer(dispatch)
-  }, SERVER_PING_INTERVAL)
 }
 
 export const createNewWargameDB = () => {
