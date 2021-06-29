@@ -146,18 +146,20 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, co
     <div className={
       `${styles['wrap-detail']} ${!collapsed ? styles['wrap-detail-opened'] : ''}`
     }>
-      { !collapsed && keyPropPairs.map(pair => decideRender(pair)(defaultRender)) }
-      { 
-        !collapsed && privateMessage &&
-        playerForce === UMPIRE_FORCE && (
-          <div className={styles['wrap-private']}>
-            <DetailLabel label={<PrivateBadge />}/>
-            <span className={styles.private}>
-              <Paragraph content={privateMessage} />
-            </span>
-          </div>
-        )
-      }
+      { !collapsed && <>
+        { keyPropPairs.map(pair => decideRender(pair)(defaultRender)) }
+        {
+          privateMessage &&
+          playerForce === UMPIRE_FORCE && (
+            <div className={styles['wrap-private']}>
+              <DetailLabel label={<PrivateBadge />}/>
+              <span className={styles.private}>
+                <Paragraph content={privateMessage} />
+              </span>
+            </div>
+          )
+        }
+      </>}
     </div>
   )
 }
