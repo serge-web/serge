@@ -20,7 +20,7 @@ const MessageCreator: React.FC<Props> = (props) => {
   const state = usePlayerUiState()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
-
+  
   const sendMessage = (): void => {
     const details: MessageDetails = {
       channel: props.curChannel,
@@ -55,19 +55,17 @@ const MessageCreator: React.FC<Props> = (props) => {
 
     saveMessage(state.currentWargame, details, message)()
     editor.destroy()
-    setEditor(null)
     createEditor(selectedSchema)
   }
 
   useEffect(() => {
     if (props.schema && (!selectedSchema || selectedSchema.title !== props.schema.title)) {
-      if(editor) editor.destroy()
-      setEditor(null)
+      if (editor && (editor.ready || !editor.destroyed)) editor.destroy()
       setSelectedSchema(props.schema)
     }
 
     if (props.schema && props.schema.type) {
-      if (editor) return
+      if (editor && (editor.ready || !editor.destroyed)) return
       createEditor(props.schema)
     }
   }, [props])

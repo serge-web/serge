@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
-import { DEFAULT_SERVER, SERVER_PING_INTERVAL } from '../../consts'
+import { DEFAULT_SERVER } from '../../consts'
 
 export const setCurrentTab = (tab) => ({
   type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,
@@ -47,11 +47,6 @@ export const setForceColor = (hex) => ({
 export const setSelectedChannel = (payload) => ({
   type: ActionConstant.SET_SELECTED_CHANNEL,
   payload
-})
-
-const saveServerStatus = (status) => ({
-  type: ActionConstant.SET_SERVER_STATUS,
-  payload: status
 })
 
 const saveAllWargameNames = (names) => ({
@@ -149,18 +144,6 @@ export const populateWargameStore = () => {
 
     dispatch(populatingDb(false))
   }
-}
-
-const pingServer = async (dispatch) => {
-  const serverStatus = await wargamesApi.pingServer()
-  dispatch(saveServerStatus(serverStatus))
-}
-
-export const pingServerWithInterval = () => async (dispatch) => {
-  await pingServer(dispatch)
-  setInterval(async () => {
-    await pingServer(dispatch)
-  }, SERVER_PING_INTERVAL)
 }
 
 export const createNewWargameDB = () => {

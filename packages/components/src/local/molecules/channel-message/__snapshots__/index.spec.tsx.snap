@@ -84,32 +84,7 @@ exports[`ChannelMessage component: renders correctly 1`] = `
     </div>
     <div
       className="wrap-detail "
-    >
-      <span
-        className="detail"
-      >
-        <div
-          className="MuiChip-root makeStyles-root-11 makeStyles-root-14 MuiChip-sizeSmall makeStyles-sizeSmall-12"
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-        >
-          <span
-            className="MuiChip-label MuiChip-labelSmall makeStyles-labelSmall-13"
-          >
-            Content:
-          </span>
-        </div>
-      </span>
-      <span
-        className="data"
-      >
-        <div
-          className="paragraph"
-        >
-          message from Red
-        </div>
-      </span>
-    </div>
+    />
   </div>
 </div>
 `;
