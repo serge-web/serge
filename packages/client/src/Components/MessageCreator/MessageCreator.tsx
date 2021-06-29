@@ -60,6 +60,11 @@ const MessageCreator: React.FC<Props> = (props) => {
   }
 
   useEffect(() => {
+    if (!props.schema && editor) {
+      editor.destroy()
+      setEditor(null)
+    }
+
     if (props.schema && (!selectedSchema || selectedSchema.title !== props.schema.title)) {
       if(editor) editor.destroy()
       setEditor(null)
@@ -69,6 +74,10 @@ const MessageCreator: React.FC<Props> = (props) => {
     if (props.schema && props.schema.type) {
       if (editor) return
       createEditor(props.schema)
+    }
+
+    return (): void => {
+      if(editor) editor.destroy()
     }
   }, [props])
 
