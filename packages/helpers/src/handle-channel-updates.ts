@@ -107,7 +107,7 @@ const createNewChannel = (channelId: string): ChannelUI => {
 }
 
 export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRole: string): boolean => (
-  expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}${id}`) === 'read'
+  expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}-${id}`) === 'read'
 )
 
 export const clipInfoMEssage = (message: MessageInfoType | MessageInfoTypeClipped, hasBeenRead = false): MessageInfoTypeClipped => {
