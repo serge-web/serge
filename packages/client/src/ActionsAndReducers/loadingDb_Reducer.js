@@ -3,9 +3,7 @@ import copyState from '../Helpers/copyStateHelper'
 
 var initialState = {
   loadingMessageTypes: true,
-  loadingWargames: true,
-  serverStatus: '',
-  serverPingTime: 0
+  loadingWargames: true
 }
 
 export const loadingDbReducer = (state = initialState, action) => {
@@ -19,12 +17,7 @@ export const loadingDbReducer = (state = initialState, action) => {
     case ActionConstant.POPULATE_WARGAMES_DB:
       newState.loadingWargames = action.isLoading
       return newState
-
-    case ActionConstant.SET_SERVER_STATUS:
-      newState.serverStatus = action.payload
-      newState.serverPingTime = new Date().getTime()
-      return newState
-
+      
     default:
       return newState
   }
