@@ -63,7 +63,7 @@ NewMessage.propTypes = {
   templates: PropTypes.array.isRequired,
   curChannel: PropTypes.string.isRequired,
   privateMessage: PropTypes.bool.isRequired,
-    /** 
+  /**
    * helper function, to generate a new reference for the indicated force
    */
   generateNextReference: PropTypes.func
