@@ -253,16 +253,9 @@ export const editWargame = (dbPath: string): Promise<Wargame> => (
 export const exportWargame = (dbPath: string): Promise<Wargame> => {
   const dbName: string = getNameFromPath(dbPath)
   return getAllMessages(dbName).then((messages) => {
-    const latestWargame: MessageInfoType = messages.find(({ messageType }) => (messageType === INFO_MESSAGE)) as MessageInfoType
-
-    if (latestWargame) {
-      return { ...latestWargame, exportMessagelist: messages } as Wargame
-    } else {
-      const { db } = getWargameDbByName(dbName)
-      return db.get<Wargame>(dbDefaultSettings._id).then(res => {
-        return { ...res, exportMessagelist: messages } as Wargame
-      })
-    }
+    return getLatestWargameRevision(dbName).then((game) => ({
+      ...game, exportMessagelist: messages 
+    }))
   })
 }
 

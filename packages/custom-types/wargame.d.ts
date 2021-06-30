@@ -14,7 +14,6 @@ export default interface Wargame {
   isLoading: boolean,
   wargameList: Array<WargameList>,
   currentWargame: string,
-  exportMessageList?: Array<string>
   wargameTitle: string,
   data: WargameData,
   currentTab: string,
