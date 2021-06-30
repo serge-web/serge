@@ -43,6 +43,7 @@ const NewMessage = props => {
               selectOptions={allTemplates}
               placeholder="Select message"
               className="message-input"
+              data={JSON.stringify(selectedSchema)}
             />
           )
         }
