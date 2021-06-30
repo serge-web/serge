@@ -25,16 +25,16 @@ const DetailLabel = ({ label }: any): React.ReactElement => (
   </span>
 )
 
-const createObjItem = (pair: Array<any>, level: number): React.ReactFragment => {
+const createObjItem = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`objItem--${pair[0]}-${pair[1]}`}>
       <DetailLabel label={`${pair[0]}:`} />
-      {deconstructObj(pair[1], ++level)}
+      {deconstructObj(pair[1])}
     </Fragment>
   )
 }
 
-const createBoolItem = (pair: Array<any>, _level: number): React.ClassicElement<any> => {
+const createBoolItem = (pair: Array<any>): React.ClassicElement<any> => {
   return (
     <Fragment key={`boolItem-${pair[0]}${pair[1]}`}>
       <DetailLabel label={`${pair[0]}:`} />
@@ -56,20 +56,18 @@ const createTimeItem = (pair: Array<any>, _level: number): React.ReactFragment =
   )
 }
 
-const createStrItem = (pair: Array<any>, _level: number): React.ReactFragment => {
+const createStrItem = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`strItem-${pair[0]}${pair[1]}`}>
-      {/* <span style={{ border: '1px dashed white'}}> */}
       <DetailLabel label={`${pair[0]}:`} />
       <span className={styles.data}>
         {pair[1]}
       </span>
-      {/* </span> */}
-    </Fragment>
+    </Fragment >
   )
 }
 
-const createUrlItem = (pair: Array<any>, _level: number): React.ReactFragment => {
+const createUrlItem = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`urlItem-${pair[0]}${pair[1]}`}>
       <DetailLabel label={`${pair[0]}:`} />
@@ -80,9 +78,7 @@ const createUrlItem = (pair: Array<any>, _level: number): React.ReactFragment =>
   )
 }
 
-const deconstructArr = (pair: Array<any>, level: number): React.ReactFragment => {
-  const nextLevel = level + 1
-
+const deconstructArr = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`${pair[0]}-group`}>
       <DetailLabel label={`${pair[0]}:`} />
@@ -90,7 +86,7 @@ const deconstructArr = (pair: Array<any>, level: number): React.ReactFragment =>
         {pair[1].map((item: Record<any, any>, key: number) => {
           return (
             <p key={key} className={styles['detail-row']}>
-              {deconstructObj(item, nextLevel)}
+              {deconstructObj(item)}
             </p>
           )
         })}
@@ -99,12 +95,12 @@ const deconstructArr = (pair: Array<any>, level: number): React.ReactFragment =>
   )
 }
 
-const deconstructObj = (obj: Record<any, any>, level: number): React.ReactFragment => {
+const deconstructObj = (obj: Record<any, any>): React.ReactFragment => {
   const keyPropPairs = Object.entries(obj)
-  return keyPropPairs.map(pair => decideRender(pair, level)(createStrItem, level))
+  return keyPropPairs.map(pair => decideRender(pair)(createStrItem))
 }
 
-const defaultRender = (pair: Array<any>, _level: number): React.ReactFragment => {
+const defaultRender = (pair: Array<any>): React.ReactFragment => {
   return (
     <Fragment key={`${pair[0]}-${pair[1]}`}>
       <DetailLabel label={`${capitalize(pair[0])}:`} />
@@ -115,7 +111,7 @@ const defaultRender = (pair: Array<any>, _level: number): React.ReactFragment =>
   )
 }
 
-const decideRender = (pair: Array<any>, level: number) => (fallback: Function, _level: number): React.ReactFragment => {
+const decideRender = (pair: Array<any>) => (fallback: Function): React.ReactFragment => {
   const [, detail] = pair
   let renderer
   switch (true) {
@@ -138,7 +134,7 @@ const decideRender = (pair: Array<any>, level: number) => (fallback: Function, _
       renderer = fallback
       break
   }
-  return renderer(pair, level)
+  return renderer(pair)
 }
 
 /* Render component */
@@ -157,7 +153,7 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, co
     <div className={
       `${styles['wrap-detail']} ${!collapsed ? styles['wrap-detail-opened'] : ''}`
     }>
-      {keyPropPairs.map(pair => decideRender(pair, 0)(defaultRender, 0))}
+      {keyPropPairs.map(pair => decideRender(pair)(defaultRender))}
       {
         privateMessage &&
         playerForce === UMPIRE_FORCE && (
