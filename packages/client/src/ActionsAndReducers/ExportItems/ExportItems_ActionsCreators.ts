@@ -2,16 +2,29 @@ import { CHAT_MESSAGE, CREATE_EXPORT_ITEM, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INF
 import flatten from 'flat'
 import { ExportItemsUiActionTypes, ExportItem, Wargame, Message, MessageInfoType, ExportItemData } from '@serge/custom-types'
 
+interface ChannelTitles {
+  [property: string]: string
+}
+interface FlatMessage {
+  [property: string]: any
+}
+interface FlatMessages { 
+  flatMsg: FlatMessage,
+  objectKeys: string[] 
+}
+
+interface MessageTypes {
+  [property: string]: boolean
+}
+
+interface ExportDataGroupedGetRowsAndFields { fields: string[], rows: string[][] }
+
 export const createExportItem = (exportData: ExportItem): ExportItemsUiActionTypes => ({
   type: CREATE_EXPORT_ITEM,
   payload: exportData
 })
 
 const getInfoTypeMessagesFromWargameExportMessageList = (list: Message[]) => list.filter(({ messageType }) => messageType === INFO_MESSAGE)
-
-interface ChannelTitles {
-  [property: string]: string
-}
 
 // just for codeclimate Cognitive Complexity
 const getChannelTitlesFromInfoTypeMessages = (messages: MessageInfoType[]): ChannelTitles => {
@@ -34,27 +47,24 @@ export const createMessageExportItem = ({ currentWargame, exportMessagelist = []
   return createExportItem({ type: EXPORT_ITEM_MESSAGES, title, wargame: currentWargame, data })
 }
 
-// @ts-ignore
-const keysSimplyfy = row => {
-  const newRow = {}
+const keysSimplyfy = (row: FlatMessage): FlatMessage => {
+  const newRow: FlatMessage = {}
 
   for (const key of Object.keys(row)) {
-    const subkeys = key.split('.')
-    let mainKey = subkeys[subkeys.length - 1]
-    // @ts-ignore
-    if (!isNaN(mainKey)) mainKey = ''
-    const newKey = keysSimplyfyGetNewKey(key, subkeys, mainKey)
+    const subkeys: string[] = key.split('.')
+    let mainKey: string | undefined = subkeys[subkeys.length - 1]
+    if (typeof mainKey === undefined) mainKey = ''
+    const newKey = keysSimplyfyGetNewKey(subkeys, mainKey)
     newRow[newKey.join(' ')] = row[key]
   }
 
   return newRow
 }
 
-// @ts-ignore
-const keysSimplyfyGetNewKey = (key, subkeys, mainKey) => {
+const keysSimplyfyGetNewKey = (subkeys: string[], mainKey: string): string[] => {
   const newKey = []
   for (var i = 0; i < subkeys.length; i++) {
-    if (!isNaN(subkeys[i])) {
+    if (subkeys[i].replace(/\s/g,"") !== "") {
       newKey.push(`${subkeys[i - 1] || EXPORT_ITEM_MESSAGES}_${subkeys[i]}`)
     }
   }
@@ -64,10 +74,6 @@ const keysSimplyfyGetNewKey = (key, subkeys, mainKey) => {
   return newKey
 }
 
-interface MessageTypes {
-  [property: string]: boolean
-}
-
 const exportDataGrouped = (messages: Message[], channelTitles: ChannelTitles): ExportItemData[] => {
   const data: ExportItemData[] = []
   const messageTypes: MessageTypes = {}
@@ -75,7 +81,7 @@ const exportDataGrouped = (messages: Message[], channelTitles: ChannelTitles): E
   for (const message of messages) {
     let msgType: string = message.messageType
     if (message.messageType === CUSTOM_MESSAGE) {
-      msgType += '_' + message.details.messageType
+      msgType += ' ' + message.details.messageType
     }
     if (msgType && !messageTypes[msgType]) {
       messageTypes[msgType] = true
@@ -96,8 +102,6 @@ const exportDataGrouped = (messages: Message[], channelTitles: ChannelTitles): E
   return data
 }
 
-interface ExportDataGroupedGetRowsAndFields { fields: string[], rows: string[][] }
-
 const exportDataGroupedGetRowsAndFields = (messages: Message[], message: Message, channelTitles: ChannelTitles) :ExportDataGroupedGetRowsAndFields => {
 
   const messagesFiltered: Message[] = message.messageType === CUSTOM_MESSAGE ?
@@ -106,17 +110,14 @@ const exportDataGroupedGetRowsAndFields = (messages: Message[], message: Message
 
   const fields: string[] = []
   const rows: string[][] = []
-  interface FlatMessages { 
-    flatMsg: {[property: string]: any},
-    objectKeys: string[] 
-  }
+  
   const messagesWithChannelNames: FlatMessages[] = messagesFiltered.map(msg => {
     if (msg.messageType === CUSTOM_MESSAGE || msg.messageType === CHAT_MESSAGE || msg.messageType === FEEDBACK_MESSAGE) {
       if (msg.details.channel && channelTitles[msg.details.channel]) {
         msg.details.channel = channelTitles[msg.details.channel]
       }
     }
-    const flatMsg = keysSimplyfy(flatten(msg))
+    const flatMsg: FlatMessage = keysSimplyfy(flatten<Message, FlatMessage>(msg))
     const objectKeys = Object.keys(flatMsg)
     for (const key of objectKeys) {
       // check if fields/titles have no current key then add
