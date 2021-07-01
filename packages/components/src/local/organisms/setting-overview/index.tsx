@@ -34,7 +34,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
 
     const checkZero = (/^0+$/).test(value.replace(/\s/g, ''))
     if (value.length === 0 || checkZero) {
-      const prevData = { [name]: prevOverview ? prevOverview?.[name] : initialOverview[name] }
+      const prevData = { [name]: prevOverview ? prevOverview[name] : initialOverview[name] }
       // forcefully re-render with previous value
       setTimeKey({ ...timeKey, [name]: timeKey[name] + 1 })
       setOverview({ ...overview, ...prevData })
@@ -58,7 +58,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
   const replacePrevTime = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target
     if (value.indexOf('_') === -1) return
-    const prevData = { [name]: prevOverview ? prevOverview?.[name] : initialOverview[name] }
+    const prevData = { [name]: prevOverview ? prevOverview[name] : initialOverview[name] }
     // forcefully re-render with previous value
     setTimeKey({ ...timeKey, [name]: timeKey[name] + 1 })
     setOverview({ ...overview, ...prevData })
