@@ -592,8 +592,6 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, me
 }
 
 export const postNewMessage = (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
-  console.log(message, 'postNewMessage');
-  
   const { db } = getWargameDbByName(dbName)
   const customMessage: MessageCustom = {
     _id: new Date().toISOString(),
