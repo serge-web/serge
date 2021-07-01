@@ -124,9 +124,9 @@ export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): 
     })()
   }).on('error', (_err) => {
     // hey, maybe the server is down. introduce a pause
-    setTimeout((): void => {
-      listenNewMessage({ db, name, dispatch })
-    }, ERROR_THROTTLE)
+    // setTimeout((): void => {
+    //   listenNewMessage({ db, name, dispatch })
+    // }, ERROR_THROTTLE)
   })
 }
 
@@ -592,6 +592,8 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, me
 }
 
 export const postNewMessage = (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
+  console.log(message, 'postNewMessage');
+  
   const { db } = getWargameDbByName(dbName)
   const customMessage: MessageCustom = {
     _id: new Date().toISOString(),
