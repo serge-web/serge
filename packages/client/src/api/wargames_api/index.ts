@@ -15,8 +15,7 @@ import {
   PLANNING_PHASE,
   ADJUDICATION_PHASE,
   MAX_LISTENERS,
-  SERGE_INFO,
-  // ERROR_THROTTLE
+  SERGE_INFO
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
@@ -122,7 +121,8 @@ export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType): 
         dispatch(setLatestWargameMessage(doc))
       }
     })()
-  }).on('error', (_err) => {
+  }).on('error', (err) => {
+    console.log('error on listen for new message', err)
     // hey, maybe the server is down. introduce a pause
     // setTimeout((): void => {
     //   listenNewMessage({ db, name, dispatch })
