@@ -1,5 +1,6 @@
 import _ from 'lodash'
 
+// TODO: 3:23  warning  Argument 'data' should be typed with a non-any type  @typescript-eslint/explicit-module-boundary-types
 const calcComplete = (data: any): any => {
   // pagination completion bar at top of gameDesigner page
   const flatten: any = (n: any) => {
