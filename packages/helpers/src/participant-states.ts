@@ -3,19 +3,19 @@ import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } 
 
 export interface CheckParticipantStates {
   /** whether role is participant in channel */
-  isParticipant: boolean,
+  isParticipant: boolean
   /** the role filled by the participant */
-  participatingRole: Participant | undefined,
+  participatingRole: Participant | undefined
   /** whether all roles for this force are included in the channel */
   allRolesIncluded: Participant | undefined
 }
 export interface ParticipantStates {
   /** whether role is participant in channel */
-  isParticipant: boolean,
+  isParticipant: boolean
   /** whether all roles for this force are included in the channel */
-  allRolesIncluded: Participant | undefined,
+  allRolesIncluded: Participant | undefined
   /** whether player is just channel observer (and not participant) */
-  observing: boolean,
+  observing: boolean
   /** the templates available to this player in this channel */
   templates: Array<any>
 }
