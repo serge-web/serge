@@ -16,7 +16,7 @@ import {
   ADJUDICATION_PHASE,
   MAX_LISTENERS,
   SERGE_INFO,
-  ERROR_THROTTLE
+  // ERROR_THROTTLE
 } from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
 
