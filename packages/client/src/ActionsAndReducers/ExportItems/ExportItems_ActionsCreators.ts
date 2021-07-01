@@ -52,8 +52,8 @@ const keysSimplyfy = (row: FlatMessage): FlatMessage => {
 
   for (const key of Object.keys(row)) {
     const subkeys: string[] = key.split('.')
-    let mainKey: string | undefined = subkeys[subkeys.length - 1]
-    if (typeof mainKey === undefined) mainKey = ''
+    let mainKey: string = subkeys[subkeys.length - 1]
+    // if (typeof mainKey === undefined) mainKey = ''
     const newKey = keysSimplyfyGetNewKey(subkeys, mainKey)
     newRow[newKey.join(' ')] = row[key]
   }
@@ -110,7 +110,7 @@ const exportDataGroupedGetRowsAndFields = (messages: Message[], message: Message
 
   const fields: string[] = []
   const rows: string[][] = []
-  
+
   const messagesWithChannelNames: FlatMessages[] = messagesFiltered.map(msg => {
     if (msg.messageType === CUSTOM_MESSAGE || msg.messageType === CHAT_MESSAGE || msg.messageType === FEEDBACK_MESSAGE) {
       if (msg.details.channel && channelTitles[msg.details.channel]) {
