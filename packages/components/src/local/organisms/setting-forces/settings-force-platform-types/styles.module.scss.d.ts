@@ -15,6 +15,7 @@ interface CssExports {
   'icon-box': string;
   'icon-box-content': string;
   'icon-box-holder': string;
+  'icon-box-name': string;
   'icon-item-main': string;
   'icons-col': string;
   'input-group': string;

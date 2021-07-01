@@ -180,7 +180,6 @@
   height: 36px;
   border-radius: 50%;
   // filter: invert(100%);
-  position: static;
   border-width: 0;
 }
 
@@ -243,4 +242,10 @@
 
 .platform-types-box {
   position: relative;
+}
+
+.icon-box-name {
+  font-size: 14px;
+  text-align: center;
+  word-break: break-word;
 }

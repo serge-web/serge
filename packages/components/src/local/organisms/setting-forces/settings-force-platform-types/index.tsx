@@ -253,10 +253,14 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                         <div className={styles['icon-box-holder']}>
                           <div className={styles['icon-box-content']}>
                             <div key={item.id + item.type} className={styles['icon-box']}>
-                              {/* <div className={cx(icClassName, styles['item-icon'])} /> */}
-                              {getIcon(kebabCase(item.name), '#415b76')}
+                              <div>
+                                {getIcon(kebabCase(item.name), '#415b76')}
+                              </div>
                             </div>
                           </div>
+                        </div>
+                        <div className={styles['icon-box-name']}>
+                          {item.name}
                         </div>
                       </div>
                     })}
