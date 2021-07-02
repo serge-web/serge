@@ -10,6 +10,7 @@ interface CssExports {
   'wrap-detail': string;
   'wrap-detail-opened': string;
   'wrap-private': string;
+  'form-group': string
 }
 export const cssExports: CssExports;
 export default cssExports;

@@ -5,6 +5,11 @@
   border-radius: $radius;
 }
 
+.form-group {
+  margin-top: -20px;
+  color: black;
+}
+
 .data {
   @include typo-primary;
   display: inline-block;
