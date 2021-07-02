@@ -20,6 +20,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
   const [loading, setLoading] = useState<boolean>(false)
   const [showEmpty, setShowEmpty] = useState<boolean>(false)
   const [commingDrop, setCommingDrop] = useState<boolean>(false)
+  const [dropzoneActivated, setDropzoneActivated] = useState<boolean>(false)
 
   let holderElement: HTMLDivElement
 
@@ -55,6 +56,15 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
     }
   }
 
+  const dragenter = ({ target }: MouseEvent): void => {
+    let res = false
+    if (target) {
+      const { id } = target as HTMLDivElement
+      res = (!!id && id === `parent-${item.uniqid}`)
+    }
+    setDropzoneActivated(res)
+  }
+
   useEffect(() => {
     // subscribe event
     document.addEventListener('dragenter', mouseMove)
@@ -64,14 +74,28 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
     }
   }, [showEmpty, innerRef, commingDrop])
 
+  useEffect(() => {
+    // subscribe event
+    document.addEventListener('dragenter', dragenter)
+    return (): void => {
+      // unsubscribe event
+      document.removeEventListener('dragenter', dragenter)
+    }
+  }, [])
+
   const handleListChange = (newList: Array<DropItem>): void => {
-    if (newList.length === 0) {
-      if (!typeEmpty) setLoading(true)
-    } else if (newList.length > 1) {
-      const dragged = newList.find(it => it.uniqid !== item.uniqid)
-      if (onSet && dragged) onSet([dragged, item], type)
+    if (holderElement) {
+      if (dropzoneActivated) {
+        if (newList.length === 0) {
+          if (!typeEmpty) setLoading(true)
+        } else if (newList.length > 1) {
+          const dragged = newList.find(it => it.uniqid !== item.uniqid)
+          if (onSet && dragged) onSet([dragged, item], type)
+        }
+      }
     }
   }
+
   const handleStart = (): void => {
     if (onStart) onStart(item)
   }
@@ -90,6 +114,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
   const renderGroup = (): JSX.Element => (
     <div className={cx(styles.switchitem, commingDrop && styles.switch)}> <AddToPhotosIcon fontSize='small'/><span>Group with {item.name}</span> </div>
   )
+
   const renderGroupOut = (): JSX.Element => (
     <div> <DoubleArrowIcon fontSize='small'/><span>Drop to root</span> </div>
   )
@@ -128,7 +153,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
             onStart={handleStart}
             onEnd={handleEnd}
           >
-            <div className={cx(styles.item, typeOut && styles['item-hide'])}>
+            <div id={`parent-${item.uniqid}`} className={cx(styles.item, typeOut && styles['item-hide'])}>
               {children}
             </div>
           </ReactSortable>
