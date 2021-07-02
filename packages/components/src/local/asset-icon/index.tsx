@@ -3,6 +3,7 @@ import cx from 'classnames'
 import { Marker, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 import { capitalize } from 'lodash'
+import { lightOrDark } from '../map-control/helpers/lightOrDark'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -22,6 +23,21 @@ export const getIconClassname = (icForceClass: string, icType: string, destroyed
   icSelected ? styles.selected : null,
   styles[`platform-type-${icType}`]
 ))
+
+export const getIcon = (icType: string, color?: string, destroyed?: boolean, icSelected?: boolean): JSX.Element => {
+  return(
+    <div className={styles['asset-icon-background']} style={{backgroundColor: color}}>
+      <div className={cx(
+        styles['asset-icon'],
+        styles['asset-icon-fw'],
+        destroyed ? styles.destroyed : null,
+        icSelected ? styles.selected : null,
+        styles[`platform-type-${icType}`],
+        color && lightOrDark(color) === 'light' && styles['asset-icon-invert']
+      )}/>
+    </div>
+  )
+}
 
 /* Render component */
 export const AssetIcon: React.FC<PropTypes> = ({
