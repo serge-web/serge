@@ -6,4 +6,4 @@ export default function forceColors (allForces: ForceData[]): Array<{force: stri
     return { force: force.uniqid, color: force.color }
   })
   return forceColors
-};
+}
