@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { createRef, useEffect } from 'react'
 
 /* Import Types */
