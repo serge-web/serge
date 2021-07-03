@@ -42,7 +42,12 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, co
       theme: 'bootstrap4',
       disable_collapse: true,
       disable_edit_json: true,
-      disable_properties: true
+      disable_properties: true,
+      disable_array_delete_all_rows: true,
+      disable_array_add: true,
+      disable_array_delete: true,
+      disable_array_reorder: true,
+      array_controls_top: true
     })
     const rootElm = jsonEditorRef.current.childNodes[0]
     const childNodes = rootElm.childNodes

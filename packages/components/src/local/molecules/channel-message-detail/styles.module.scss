@@ -73,4 +73,12 @@
     height: auto;
     padding: 6px 12px 12px;
   }
+
+  div[class*="card"] {
+    padding: 10px;
+
+    h3 {
+      display: none;
+    }
+  }
 }
