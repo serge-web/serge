@@ -64,10 +64,11 @@ export const SERVER_PING_INTERVAL = 5000
 // were failing CORS test
 export const baseUrl = () => {
   const { hostname, protocol } = window.location
-  const host = (new URL(window.location)).searchParams.get('host')
+  const host = new URL(window.location).searchParams.get('host')
 
   // NOTE: for all non-heroku deployments, we need to append the port number
-  const portDetails = hostname.toLowerCase().indexOf('herokuapp') !== -1 ? '' : ':' + DEFAULT_PORT
+  const portDetails =
+    hostname.toLowerCase().indexOf('herokuapp') !== -1 ? '' : ':' + DEFAULT_PORT
 
   const res = host || `${protocol}//${hostname}` + portDetails
 
@@ -75,7 +76,9 @@ export const baseUrl = () => {
 }
 
 export const serverPath = (
-  window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || baseUrl() + '/'
+  window.G_CONFIG.REACT_APP_SERVER_PATH ||
+  process.env.REACT_APP_SERVER_PATH ||
+  baseUrl() + '/'
 ).replace(/\/?$/, '/')
 
 export const databasePath = `${serverPath}db/`
@@ -189,13 +192,13 @@ export const FLEX_LAYOUT_MODEL_DEFAULT = {
   global: {
     tabSetTabStripHeight: 45,
     tabEnableClose: false,
-    tabEnableRenderOnDemand: false
+    tabEnableRenderOnDemand: false,
+    tabSetEnableMaximize: false
   },
   borders: [],
   layout: {
     type: 'row',
     weight: 100,
-    children: [
-    ]
+    children: []
   }
 }
