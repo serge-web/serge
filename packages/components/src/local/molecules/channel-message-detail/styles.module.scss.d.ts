@@ -5,12 +5,13 @@ interface CssExports {
   'detail': string;
   'detail-row': string;
   'detail-rows': string;
+  'form-group': string;
+  'group-editor': string;
   'icon-private': string;
   'private': string;
   'wrap-detail': string;
   'wrap-detail-opened': string;
   'wrap-private': string;
-  'form-group': string
 }
 export const cssExports: CssExports;
 export default cssExports;

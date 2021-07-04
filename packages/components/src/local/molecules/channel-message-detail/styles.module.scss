@@ -5,9 +5,15 @@
   border-radius: $radius;
 }
 
+.group-editor {
+  display: flex;
+}
+
 .form-group {
   margin-top: -20px;
   color: $dark-grey;
+  background-color: $primary-triad-color;
+  width: 50vw;
 }
 
 .data {
@@ -74,11 +80,13 @@
     padding: 6px 12px 12px;
   }
 
-  div[class*="card"] {
-    padding: 10px;
-
+  /* stylelint-disable */
+  div [class*="card"] {
+    padding: 5px;
+    background-color: transparent !important;
     h3 {
       display: none;
     }
   }
+  /* stylelint-enable */
 }

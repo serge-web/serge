@@ -20,7 +20,10 @@ const DetailLabel = ({ label }: any): React.ReactElement => (
 
 /* Render component */
 export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, collapsed }: Props) => {
-  const jsonEditorRef = createRef<HTMLDivElement>()
+  const leftEditorRef = createRef<HTMLDivElement>()
+  const middleEditorRef = createRef<HTMLDivElement>()
+  const rightEditorRef = createRef<HTMLDivElement>()
+
   const privateMessage = message.details.privateMessage
   const PrivateBadge = (): React.ReactElement => (
     <span>
@@ -31,13 +34,47 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, co
     </span>
   )
 
+  const buildMsgByKeys = (keys: string[], msg: any): any => {
+    const buildMsg = {}
+    keys.forEach(key => {
+      buildMsg[key] = msg[key]
+    })
+    return buildMsg
+  }
+
+  const splitMsg = (message: any): any => {
+    const keys = Object.keys(message)
+    const steps = keys.length / 3
+    const leftKeys = keys.slice(0, steps)
+    const middleKeys = keys.slice(steps, 2 * steps)
+    const rightKeys = keys.slice(2 * steps)
+    const leftMsg = buildMsgByKeys(leftKeys, message)
+    const middleMsg = buildMsgByKeys(middleKeys, message)
+    const rightMsg = buildMsgByKeys(rightKeys, message)
+    return [leftMsg, middleMsg, rightMsg]
+  }
+
+  const isEmptyObject = (obj: any): boolean => !Object.keys(obj).length
+
   useEffect(() => {
-    createEditor(message.message)
+    const [leftMsg, middleMsg, rightMsg] = splitMsg(message.message)
+    if (isEmptyObject(leftMsg)) {
+      if (isEmptyObject(middleMsg)) { // if this json message has only 1 key
+        createEditor(rightMsg, leftEditorRef)
+      } else { // if this json message has only 2 keys
+        createEditor(middleMsg, leftEditorRef)
+        createEditor(rightMsg, middleEditorRef)
+      }
+    } else { // if this json message has more than 2 keys
+      createEditor(leftMsg, leftEditorRef)
+      createEditor(middleMsg, middleEditorRef)
+      createEditor(rightMsg, rightEditorRef)
+    }
   }, [message])
 
-  const createEditor = (message: any): void => {
-    if (!jsonEditorRef.current) return
-    const editor = new JSONEditor(jsonEditorRef.current, {
+  const createEditor = (message: any, editorRef: React.RefObject<HTMLDivElement>): void => {
+    if (!editorRef.current) return
+    const editor = new JSONEditor(editorRef.current, {
       schema: {},
       theme: 'bootstrap4',
       disable_collapse: true,
@@ -49,9 +86,9 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, co
       disable_array_reorder: true,
       array_controls_top: true
     })
-    const rootElm = jsonEditorRef.current.childNodes[0]
+    const rootElm = editorRef.current.childNodes[0]
     const childNodes = rootElm.childNodes
-    rootElm.removeChild(childNodes[0])
+    rootElm.removeChild(childNodes[1])
     rootElm.removeChild(childNodes[0])
     editor.setValue(message)
     editor.disable()
@@ -62,7 +99,11 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, co
       `${styles['wrap-detail']} ${!collapsed ? styles['wrap-detail-opened'] : ''}`
     }>
       {!collapsed && <>
-        <div className={styles['form-group']} ref={jsonEditorRef} />
+        <div className={styles['group-editor']}>
+          <div className={styles['form-group']} ref={leftEditorRef} />
+          <div className={styles['form-group']} ref={middleEditorRef} />
+          <div className={styles['form-group']} ref={rightEditorRef} />
+        </div>
         {
           privateMessage &&
           playerForce === UMPIRE_FORCE && (

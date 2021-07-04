@@ -5,7 +5,17 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
   className="wrap-detail wrap-detail-opened"
 >
   <div
-    className="form-group"
-  />
+    className="group-editor"
+  >
+    <div
+      className="form-group"
+    />
+    <div
+      className="form-group"
+    />
+    <div
+      className="form-group"
+    />
+  </div>
 </div>
 `;
