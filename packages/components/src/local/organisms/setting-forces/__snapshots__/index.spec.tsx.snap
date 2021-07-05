@@ -73,7 +73,7 @@ exports[`SettingForces component: renders correctly 1`] = `
   >
     <div>
       <div
-        className="row"
+        className="row mb-20"
       >
         <div
           className="col"
@@ -156,7 +156,48 @@ exports[`SettingForces component: renders correctly 1`] = `
           className="actions"
         >
           <button
-            className="MuiButtonBase-root MuiButton-root makeStyles-root-8 makeStyles-root-10 MuiButton-contained makeStyles-contained-9 makeStyles-contained-11 MuiButton-containedPrimary"
+            className="MuiButtonBase-root MuiButton-root makeStyles-root-8 makeStyles-root-10 MuiButton-contained makeStyles-contained-9 makeStyles-contained-11"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiButton-label"
+            >
+              <span
+                className="MuiButton-startIcon MuiButton-iconSizeMedium"
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                  />
+                </svg>
+              </span>
+              Delete
+            </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
+          </button>
+          <button
+            className="MuiButtonBase-root MuiButton-root makeStyles-root-8 makeStyles-root-12 MuiButton-contained makeStyles-contained-9 makeStyles-contained-13 MuiButton-containedPrimary"
             data-qa-type="save"
             disabled={false}
             onBlur={[Function]}
@@ -189,415 +230,1188 @@ exports[`SettingForces component: renders correctly 1`] = `
         className="row"
       >
         <div
-          className="col section"
+          className="col"
         >
           <div
-            className="main"
+            className="row"
           >
             <div
-              className="placeholder"
+              className="col"
             >
-              Overview & Objectives
-            </div>
-            <div
-              className="content"
-            >
-              <section
-                className="input-container disable-offset fullwidth textarea"
+              <div
+                className="MuiPaper-root MuiAccordion-root accordion MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
               >
                 <div
-                  className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                  aria-disabled={false}
+                  aria-expanded={false}
+                  className="MuiButtonBase-root MuiAccordionSummary-root accordion-header"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  role="button"
+                  tabIndex={0}
                 >
                   <div
-                    className="MuiInputBase-root MuiFilledInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-3"
-                    onClick={[Function]}
+                    className="MuiAccordionSummary-content"
                   >
-                    <textarea
-                      aria-invalid={false}
-                      autoFocus={false}
-                      className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
-                      disabled={false}
-                      name=""
-                      onAnimationStart={[Function]}
-                      onBlur={[Function]}
-                      onChange={[Function]}
-                      onFocus={[Function]}
-                      required={false}
-                      rows={8}
-                      style={
-                        Object {
-                          "height": 0,
-                          "overflow": "hidden",
-                        }
-                      }
-                      value="Umpire force."
-                    />
-                    <textarea
-                      aria-hidden={true}
-                      className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
-                      readOnly={true}
-                      style={
-                        Object {
-                          "height": 0,
-                          "left": 0,
-                          "overflow": "hidden",
-                          "position": "absolute",
-                          "top": 0,
-                          "transform": "translateZ(0)",
-                          "visibility": "hidden",
-                        }
-                      }
-                      tabIndex={-1}
+                    <p
+                      className="MuiTypography-root accordion-title MuiTypography-body1"
+                    >
+                      Overview & Objectives
+                    </p>
+                  </div>
+                  <div
+                    aria-disabled={false}
+                    aria-hidden={true}
+                    className="MuiButtonBase-root MuiIconButton-root MuiAccordionSummary-expandIcon MuiIconButton-edgeEnd"
+                    onBlur={[Function]}
+                    onDragLeave={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    onMouseDown={[Function]}
+                    onMouseLeave={[Function]}
+                    onMouseUp={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    role={null}
+                    tabIndex={null}
+                  >
+                    <span
+                      className="MuiIconButton-label"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-caret-down"
+                      />
+                    </span>
+                    <span
+                      className="MuiTouchRipple-root"
                     />
                   </div>
                 </div>
-              </section>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col section"
-        >
-          <div
-            className="main"
-          >
-            <div
-              className="placeholder"
-            >
-              Roles
-            </div>
-            <div
-              className="content"
-            >
-              <div
-                className="main"
-              >
-                <ul>
-                  <li
-                    className="li"
+                <div
+                  className="MuiCollapse-container MuiCollapse-hidden"
+                  style={
+                    Object {
+                      "minHeight": "0px",
+                    }
+                  }
+                >
+                  <div
+                    className="MuiCollapse-wrapper"
                   >
                     <div
-                      className="presection"
+                      className="MuiCollapse-wrapperInner"
                     >
-                      <section
-                        className="section"
+                      <div
+                        role="region"
                       >
                         <div
-                          className="value-label"
+                          className="MuiAccordionDetails-root"
                         >
                           <div
-                            onClick={[Function]}
-                          >
-                            Game Control
-                          </div>
-                          <svg
-                            className="svg-inline--fa fa-trash"
-                          />
-                        </div>
-                        <div
-                          className="role"
-                        >
-                          <div
-                            className="role-item"
+                            className="row"
                           >
                             <div
-                              className="main"
-                              title="Click to Copy or Edit"
+                              className="col section"
                             >
-                              <section
-                                className="input-container disable-offset"
+                              <div
+                                className="main"
                               >
                                 <div
-                                  className="MuiFormControl-root MuiTextField-root"
+                                  className="placeholder"
                                 >
-                                  <div
-                                    className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-14 MuiInput-underline makeStyles-underline-5 makeStyles-underline-15 MuiInputBase-formControl MuiInput-formControl"
+                                  Overview & Objectives
+                                </div>
+                                <div
+                                  className="content"
+                                >
+                                  <section
+                                    className="input-container disable-offset fullwidth textarea"
+                                  >
+                                    <div
+                                      className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+                                    >
+                                      <div
+                                        className="MuiInputBase-root MuiFilledInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-3"
+                                        onClick={[Function]}
+                                      >
+                                        <textarea
+                                          aria-invalid={false}
+                                          autoFocus={false}
+                                          className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+                                          disabled={false}
+                                          name=""
+                                          onAnimationStart={[Function]}
+                                          onBlur={[Function]}
+                                          onChange={[Function]}
+                                          onFocus={[Function]}
+                                          required={false}
+                                          rows={8}
+                                          style={
+                                            Object {
+                                              "height": 0,
+                                              "overflow": "hidden",
+                                            }
+                                          }
+                                          value="Umpire force."
+                                        />
+                                        <textarea
+                                          aria-hidden={true}
+                                          className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+                                          readOnly={true}
+                                          style={
+                                            Object {
+                                              "height": 0,
+                                              "left": 0,
+                                              "overflow": "hidden",
+                                              "position": "absolute",
+                                              "top": 0,
+                                              "transform": "translateZ(0)",
+                                              "visibility": "hidden",
+                                            }
+                                          }
+                                          tabIndex={-1}
+                                        />
+                                      </div>
+                                    </div>
+                                  </section>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="MuiPaper-root MuiAccordion-root accordion MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          >
+            <div
+              aria-disabled={false}
+              aria-expanded={false}
+              className="MuiButtonBase-root MuiAccordionSummary-root accordion-header"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <div
+                className="MuiAccordionSummary-content"
+              >
+                <p
+                  className="MuiTypography-root accordion-title MuiTypography-body1"
+                >
+                  Roles
+                </p>
+              </div>
+              <div
+                aria-disabled={false}
+                aria-hidden={true}
+                className="MuiButtonBase-root MuiIconButton-root MuiAccordionSummary-expandIcon MuiIconButton-edgeEnd"
+                onBlur={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                role={null}
+                tabIndex={null}
+              >
+                <span
+                  className="MuiIconButton-label"
+                >
+                  <svg
+                    className="svg-inline--fa fa-caret-down"
+                  />
+                </span>
+                <span
+                  className="MuiTouchRipple-root"
+                />
+              </div>
+            </div>
+            <div
+              className="MuiCollapse-container MuiCollapse-hidden"
+              style={
+                Object {
+                  "minHeight": "0px",
+                }
+              }
+            >
+              <div
+                className="MuiCollapse-wrapper"
+              >
+                <div
+                  className="MuiCollapse-wrapperInner"
+                >
+                  <div
+                    role="region"
+                  >
+                    <div
+                      className="MuiAccordionDetails-root"
+                    >
+                      <div
+                        className="row"
+                      >
+                        <div
+                          className="col section"
+                        >
+                          <div
+                            className="main"
+                          >
+                            <div
+                              className="placeholder"
+                            >
+                              Roles
+                            </div>
+                            <div
+                              className="content"
+                            >
+                              <div
+                                className="main"
+                              >
+                                <ul>
+                                  <li
+                                    className="li"
+                                  >
+                                    <div
+                                      className="presection"
+                                    >
+                                      <section
+                                        className="section"
+                                      >
+                                        <div
+                                          className="value-label"
+                                        >
+                                          <div
+                                            onClick={[Function]}
+                                          >
+                                            Game Control
+                                          </div>
+                                          <svg
+                                            className="svg-inline--fa fa-trash"
+                                          />
+                                        </div>
+                                        <div
+                                          className="role"
+                                        >
+                                          <div
+                                            className="role-item"
+                                          >
+                                            <div
+                                              className="main"
+                                              title="Click to Copy or Edit"
+                                            >
+                                              <section
+                                                className="input-container disable-offset"
+                                              >
+                                                <div
+                                                  className="MuiFormControl-root MuiTextField-root"
+                                                >
+                                                  <div
+                                                    className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-16 MuiInput-underline makeStyles-underline-5 makeStyles-underline-17 MuiInputBase-formControl MuiInput-formControl"
+                                                    onClick={[Function]}
+                                                  >
+                                                    <input
+                                                      aria-invalid={false}
+                                                      autoFocus={false}
+                                                      className="MuiInputBase-input MuiInput-input"
+                                                      disabled={false}
+                                                      name=""
+                                                      onAnimationStart={[Function]}
+                                                      onBlur={[Function]}
+                                                      onChange={[Function]}
+                                                      onFocus={[Function]}
+                                                      required={false}
+                                                      type="text"
+                                                      value="p2311"
+                                                    />
+                                                  </div>
+                                                </div>
+                                              </section>
+                                              <section
+                                                className="password-mask"
+                                              >
+                                                <div
+                                                  className="dots"
+                                                >
+                                                  <svg
+                                                    className="svg-inline--fa fa-circle"
+                                                  />
+                                                  <svg
+                                                    className="svg-inline--fa fa-circle"
+                                                  />
+                                                  <svg
+                                                    className="svg-inline--fa fa-circle"
+                                                  />
+                                                  <svg
+                                                    className="svg-inline--fa fa-circle"
+                                                  />
+                                                  <svg
+                                                    className="svg-inline--fa fa-circle"
+                                                  />
+                                                </div>
+                                              </section>
+                                              <div
+                                                className="key"
+                                              >
+                                                <svg
+                                                  className="svg-inline--fa fa-key"
+                                                />
+                                              </div>
+                                            </div>
+                                            <div
+                                              className="role-title"
+                                            >
+                                              Password
+                                            </div>
+                                          </div>
+                                          <div
+                                            className="role-item"
+                                          >
+                                            <span
+                                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                                            >
+                                              <span
+                                                aria-disabled={false}
+                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-18 MuiSwitch-colorSecondary PrivateSwitchBase-checked-22 Mui-checked WithStyles(ForwardRef(Switch))-checked-19"
+                                                onBlur={[Function]}
+                                                onDragLeave={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                onKeyUp={[Function]}
+                                                onMouseDown={[Function]}
+                                                onMouseLeave={[Function]}
+                                                onMouseUp={[Function]}
+                                                onTouchEnd={[Function]}
+                                                onTouchMove={[Function]}
+                                                onTouchStart={[Function]}
+                                                tabIndex={null}
+                                              >
+                                                <span
+                                                  className="MuiIconButton-label"
+                                                >
+                                                  <input
+                                                    checked={true}
+                                                    className="PrivateSwitchBase-input-24 MuiSwitch-input"
+                                                    disabled={false}
+                                                    onChange={[Function]}
+                                                    type="checkbox"
+                                                  />
+                                                  <span
+                                                    className="MuiSwitch-thumb"
+                                                  />
+                                                </span>
+                                                <span
+                                                  className="MuiTouchRipple-root"
+                                                />
+                                              </span>
+                                              <span
+                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-20"
+                                              />
+                                            </span>
+                                            <div
+                                              className="role-title title-center"
+                                              title="Can view all channels"
+                                            >
+                                              <svg
+                                                className="svg-inline--fa fa-eye"
+                                              />
+                                            </div>
+                                          </div>
+                                          <div
+                                            className="role-item"
+                                          >
+                                            <span
+                                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                                            >
+                                              <span
+                                                aria-disabled={false}
+                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-18 MuiSwitch-colorSecondary PrivateSwitchBase-checked-22 Mui-checked WithStyles(ForwardRef(Switch))-checked-19"
+                                                onBlur={[Function]}
+                                                onDragLeave={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                onKeyUp={[Function]}
+                                                onMouseDown={[Function]}
+                                                onMouseLeave={[Function]}
+                                                onMouseUp={[Function]}
+                                                onTouchEnd={[Function]}
+                                                onTouchMove={[Function]}
+                                                onTouchStart={[Function]}
+                                                tabIndex={null}
+                                              >
+                                                <span
+                                                  className="MuiIconButton-label"
+                                                >
+                                                  <input
+                                                    checked={true}
+                                                    className="PrivateSwitchBase-input-24 MuiSwitch-input"
+                                                    disabled={false}
+                                                    onChange={[Function]}
+                                                    type="checkbox"
+                                                  />
+                                                  <span
+                                                    className="MuiSwitch-thumb"
+                                                  />
+                                                </span>
+                                                <span
+                                                  className="MuiTouchRipple-root"
+                                                />
+                                              </span>
+                                              <span
+                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-20"
+                                              />
+                                            </span>
+                                            <div
+                                              className="role-title title-center"
+                                              title="Can view feedback/insights"
+                                            >
+                                              <svg
+                                                className="svg-inline--fa fa-comments"
+                                              />
+                                            </div>
+                                          </div>
+                                          <div
+                                            className="role-item"
+                                          >
+                                            <span
+                                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                                            >
+                                              <span
+                                                aria-disabled={false}
+                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-18 MuiSwitch-colorSecondary PrivateSwitchBase-checked-22 Mui-checked WithStyles(ForwardRef(Switch))-checked-19"
+                                                onBlur={[Function]}
+                                                onDragLeave={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                onKeyUp={[Function]}
+                                                onMouseDown={[Function]}
+                                                onMouseLeave={[Function]}
+                                                onMouseUp={[Function]}
+                                                onTouchEnd={[Function]}
+                                                onTouchMove={[Function]}
+                                                onTouchStart={[Function]}
+                                                tabIndex={null}
+                                              >
+                                                <span
+                                                  className="MuiIconButton-label"
+                                                >
+                                                  <input
+                                                    checked={true}
+                                                    className="PrivateSwitchBase-input-24 MuiSwitch-input"
+                                                    disabled={false}
+                                                    onChange={[Function]}
+                                                    type="checkbox"
+                                                  />
+                                                  <span
+                                                    className="MuiSwitch-thumb"
+                                                  />
+                                                </span>
+                                                <span
+                                                  className="MuiTouchRipple-root"
+                                                />
+                                              </span>
+                                              <span
+                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-20"
+                                              />
+                                            </span>
+                                            <div
+                                              className="role-title title-center"
+                                              title="Can release RFI responses"
+                                            >
+                                              <svg
+                                                className="svg-inline--fa fa-book-reader"
+                                              />
+                                            </div>
+                                          </div>
+                                          <div
+                                            className="role-item"
+                                          >
+                                            <span
+                                              className="MuiSwitch-root MuiSwitch-sizeSmall"
+                                            >
+                                              <span
+                                                aria-disabled={false}
+                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-21 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-18 MuiSwitch-colorSecondary PrivateSwitchBase-checked-22 Mui-checked WithStyles(ForwardRef(Switch))-checked-19"
+                                                onBlur={[Function]}
+                                                onDragLeave={[Function]}
+                                                onFocus={[Function]}
+                                                onKeyDown={[Function]}
+                                                onKeyUp={[Function]}
+                                                onMouseDown={[Function]}
+                                                onMouseLeave={[Function]}
+                                                onMouseUp={[Function]}
+                                                onTouchEnd={[Function]}
+                                                onTouchMove={[Function]}
+                                                onTouchStart={[Function]}
+                                                tabIndex={null}
+                                              >
+                                                <span
+                                                  className="MuiIconButton-label"
+                                                >
+                                                  <input
+                                                    checked={true}
+                                                    className="PrivateSwitchBase-input-24 MuiSwitch-input"
+                                                    onChange={[Function]}
+                                                    type="checkbox"
+                                                  />
+                                                  <span
+                                                    className="MuiSwitch-thumb"
+                                                  />
+                                                </span>
+                                                <span
+                                                  className="MuiTouchRipple-root"
+                                                />
+                                              </span>
+                                              <span
+                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-20"
+                                              />
+                                            </span>
+                                            <div
+                                              className="role-title title-center"
+                                              title="Can submit mapping plans"
+                                            >
+                                              <svg
+                                                className="svg-inline--fa fa-directions"
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <span />
+                                      </section>
+                                    </div>
+                                  </li>
+                                </ul>
+                                <div
+                                  className="add-section"
+                                >
+                                  <button
+                                    className="button"
                                     onClick={[Function]}
                                   >
-                                    <input
-                                      aria-invalid={false}
-                                      autoFocus={false}
-                                      className="MuiInputBase-input MuiInput-input"
-                                      disabled={false}
-                                      name=""
-                                      onAnimationStart={[Function]}
-                                      onBlur={[Function]}
-                                      onChange={[Function]}
-                                      onFocus={[Function]}
-                                      required={false}
-                                      type="text"
-                                      value="p2311"
-                                    />
+                                    Add Role
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="MuiPaper-root MuiAccordion-root accordion MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          >
+            <div
+              aria-disabled={false}
+              aria-expanded={false}
+              className="MuiButtonBase-root MuiAccordionSummary-root accordion-header"
+              onBlur={[Function]}
+              onClick={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              role="button"
+              tabIndex={0}
+            >
+              <div
+                className="MuiAccordionSummary-content"
+              >
+                <p
+                  className="MuiTypography-root accordion-title MuiTypography-body1"
+                >
+                  Assets
+                </p>
+              </div>
+              <div
+                aria-disabled={false}
+                aria-hidden={true}
+                className="MuiButtonBase-root MuiIconButton-root MuiAccordionSummary-expandIcon MuiIconButton-edgeEnd"
+                onBlur={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                role={null}
+                tabIndex={null}
+              >
+                <span
+                  className="MuiIconButton-label"
+                >
+                  <svg
+                    className="svg-inline--fa fa-caret-down"
+                  />
+                </span>
+                <span
+                  className="MuiTouchRipple-root"
+                />
+              </div>
+            </div>
+            <div
+              className="MuiCollapse-container MuiCollapse-hidden"
+              style={
+                Object {
+                  "minHeight": "0px",
+                }
+              }
+            >
+              <div
+                className="MuiCollapse-wrapper"
+              >
+                <div
+                  className="MuiCollapse-wrapperInner"
+                >
+                  <div
+                    role="region"
+                  >
+                    <div
+                      className="MuiAccordionDetails-root"
+                    >
+                      <div
+                        style={
+                          Object {
+                            "flexGrow": 1,
+                          }
+                        }
+                      >
+                        <div
+                          className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3"
+                        >
+                          <div
+                            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-3"
+                          >
+                            <div
+                              className="platform-types-box icons-col"
+                            >
+                              <p>
+                                Available platform types
+                              </p>
+                              <div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Fishing vessel"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon asset-icon-fw platform-type-fishing-vessel"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    Fishing vessel
                                   </div>
                                 </div>
-                              </section>
-                              <section
-                                className="password-mask"
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Frigate"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon asset-icon-fw platform-type-frigate"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    Frigate
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Boghammer"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon asset-icon-fw platform-type-boghammer"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    Boghammer
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="torpedo"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon asset-icon-fw platform-type-torpedo"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    torpedo
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Fast attack craft"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon asset-icon-fw platform-type-fast-attack-craft"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    Fast attack craft
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="MCMV"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon asset-icon-fw platform-type-mcmv"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    MCMV
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Helicopter"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon asset-icon-fw platform-type-helicopter"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    Helicopter
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Fixed wing aircraft"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon asset-icon-fw platform-type-fixed-wing-aircraft"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    Fixed wing aircraft
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Unmanned Airborne Vehicle"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon asset-icon-fw platform-type-unmanned-airborne-vehicle"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    Unmanned Airborne Vehicle
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Task Group"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon asset-icon-fw platform-type-task-group"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    Task Group
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Coastal radar site"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon asset-icon-fw platform-type-coastal-radar-site"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    Coastal radar site
+                                  </div>
+                                </div>
+                                <div
+                                  className="icon-item-main"
+                                  data-id="Merchant vessel"
+                                >
+                                  <div
+                                    className="icon-box-holder"
+                                  >
+                                    <div
+                                      className="icon-box-content"
+                                    >
+                                      <div
+                                        className="icon-box"
+                                      >
+                                        <div>
+                                          <div
+                                            className="asset-icon-background"
+                                            style={
+                                              Object {
+                                                "backgroundColor": "#415b76",
+                                              }
+                                            }
+                                          >
+                                            <div
+                                              className="asset-icon asset-icon-fw platform-type-merchant-vessel"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="icon-box-name"
+                                  >
+                                    Merchant vessel
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-5"
+                          >
+                            <div
+                              className="assets-list-box"
+                            >
+                              <p>
+                                List of assets
+                              </p>
+                              <div
+                                className="assets-list-scrollable-box"
+                              >
+                                <ul
+                                  className="MuiList-root MuiList-dense MuiList-padding"
+                                >
+                                  <div
+                                    className="main"
+                                  >
+                                    <ul />
+                                  </div>
+                                </ul>
+                              </div>
+                              <div
+                                className="add-asset-overlay add-asset-overlay-active"
                               >
                                 <div
-                                  className="dots"
+                                  className="add-asset-overlay-msg"
                                 >
-                                  <svg
-                                    className="svg-inline--fa fa-circle"
-                                  />
-                                  <svg
-                                    className="svg-inline--fa fa-circle"
-                                  />
-                                  <svg
-                                    className="svg-inline--fa fa-circle"
-                                  />
-                                  <svg
-                                    className="svg-inline--fa fa-circle"
-                                  />
-                                  <svg
-                                    className="svg-inline--fa fa-circle"
-                                  />
+                                  Drag here to add asset for force
                                 </div>
-                              </section>
-                              <div
-                                className="key"
-                              >
-                                <svg
-                                  className="svg-inline--fa fa-key"
+                                <div
+                                  className="add-asset-overlay-dropzone"
                                 />
                               </div>
                             </div>
-                            <div
-                              className="role-title"
-                            >
-                              Password
-                            </div>
                           </div>
                           <div
-                            className="role-item"
-                          >
-                            <span
-                              className="MuiSwitch-root MuiSwitch-sizeSmall"
-                            >
-                              <span
-                                aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-19 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-16 MuiSwitch-colorSecondary PrivateSwitchBase-checked-20 Mui-checked WithStyles(ForwardRef(Switch))-checked-17"
-                                onBlur={[Function]}
-                                onDragLeave={[Function]}
-                                onFocus={[Function]}
-                                onKeyDown={[Function]}
-                                onKeyUp={[Function]}
-                                onMouseDown={[Function]}
-                                onMouseLeave={[Function]}
-                                onMouseUp={[Function]}
-                                onTouchEnd={[Function]}
-                                onTouchMove={[Function]}
-                                onTouchStart={[Function]}
-                                tabIndex={null}
-                              >
-                                <span
-                                  className="MuiIconButton-label"
-                                >
-                                  <input
-                                    checked={true}
-                                    className="PrivateSwitchBase-input-22 MuiSwitch-input"
-                                    disabled={false}
-                                    onChange={[Function]}
-                                    type="checkbox"
-                                  />
-                                  <span
-                                    className="MuiSwitch-thumb"
-                                  />
-                                </span>
-                                <span
-                                  className="MuiTouchRipple-root"
-                                />
-                              </span>
-                              <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-18"
-                              />
-                            </span>
-                            <div
-                              className="role-title title-center"
-                              title="Can view all channels"
-                            >
-                              <svg
-                                className="svg-inline--fa fa-eye"
-                              />
-                            </div>
-                          </div>
-                          <div
-                            className="role-item"
-                          >
-                            <span
-                              className="MuiSwitch-root MuiSwitch-sizeSmall"
-                            >
-                              <span
-                                aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-19 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-16 MuiSwitch-colorSecondary PrivateSwitchBase-checked-20 Mui-checked WithStyles(ForwardRef(Switch))-checked-17"
-                                onBlur={[Function]}
-                                onDragLeave={[Function]}
-                                onFocus={[Function]}
-                                onKeyDown={[Function]}
-                                onKeyUp={[Function]}
-                                onMouseDown={[Function]}
-                                onMouseLeave={[Function]}
-                                onMouseUp={[Function]}
-                                onTouchEnd={[Function]}
-                                onTouchMove={[Function]}
-                                onTouchStart={[Function]}
-                                tabIndex={null}
-                              >
-                                <span
-                                  className="MuiIconButton-label"
-                                >
-                                  <input
-                                    checked={true}
-                                    className="PrivateSwitchBase-input-22 MuiSwitch-input"
-                                    disabled={false}
-                                    onChange={[Function]}
-                                    type="checkbox"
-                                  />
-                                  <span
-                                    className="MuiSwitch-thumb"
-                                  />
-                                </span>
-                                <span
-                                  className="MuiTouchRipple-root"
-                                />
-                              </span>
-                              <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-18"
-                              />
-                            </span>
-                            <div
-                              className="role-title title-center"
-                              title="Can view feedback/insights"
-                            >
-                              <svg
-                                className="svg-inline--fa fa-comments"
-                              />
-                            </div>
-                          </div>
-                          <div
-                            className="role-item"
-                          >
-                            <span
-                              className="MuiSwitch-root MuiSwitch-sizeSmall"
-                            >
-                              <span
-                                aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-19 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-16 MuiSwitch-colorSecondary PrivateSwitchBase-checked-20 Mui-checked WithStyles(ForwardRef(Switch))-checked-17"
-                                onBlur={[Function]}
-                                onDragLeave={[Function]}
-                                onFocus={[Function]}
-                                onKeyDown={[Function]}
-                                onKeyUp={[Function]}
-                                onMouseDown={[Function]}
-                                onMouseLeave={[Function]}
-                                onMouseUp={[Function]}
-                                onTouchEnd={[Function]}
-                                onTouchMove={[Function]}
-                                onTouchStart={[Function]}
-                                tabIndex={null}
-                              >
-                                <span
-                                  className="MuiIconButton-label"
-                                >
-                                  <input
-                                    checked={true}
-                                    className="PrivateSwitchBase-input-22 MuiSwitch-input"
-                                    disabled={false}
-                                    onChange={[Function]}
-                                    type="checkbox"
-                                  />
-                                  <span
-                                    className="MuiSwitch-thumb"
-                                  />
-                                </span>
-                                <span
-                                  className="MuiTouchRipple-root"
-                                />
-                              </span>
-                              <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-18"
-                              />
-                            </span>
-                            <div
-                              className="role-title title-center"
-                              title="Can release RFI responses"
-                            >
-                              <svg
-                                className="svg-inline--fa fa-book-reader"
-                              />
-                            </div>
-                          </div>
-                          <div
-                            className="role-item"
-                          >
-                            <span
-                              className="MuiSwitch-root MuiSwitch-sizeSmall"
-                            >
-                              <span
-                                aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-19 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-16 MuiSwitch-colorSecondary PrivateSwitchBase-checked-20 Mui-checked WithStyles(ForwardRef(Switch))-checked-17"
-                                onBlur={[Function]}
-                                onDragLeave={[Function]}
-                                onFocus={[Function]}
-                                onKeyDown={[Function]}
-                                onKeyUp={[Function]}
-                                onMouseDown={[Function]}
-                                onMouseLeave={[Function]}
-                                onMouseUp={[Function]}
-                                onTouchEnd={[Function]}
-                                onTouchMove={[Function]}
-                                onTouchStart={[Function]}
-                                tabIndex={null}
-                              >
-                                <span
-                                  className="MuiIconButton-label"
-                                >
-                                  <input
-                                    checked={true}
-                                    className="PrivateSwitchBase-input-22 MuiSwitch-input"
-                                    onChange={[Function]}
-                                    type="checkbox"
-                                  />
-                                  <span
-                                    className="MuiSwitch-thumb"
-                                  />
-                                </span>
-                                <span
-                                  className="MuiTouchRipple-root"
-                                />
-                              </span>
-                              <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-18"
-                              />
-                            </span>
-                            <div
-                              className="role-title title-center"
-                              title="Can submit mapping plans"
-                            >
-                              <svg
-                                className="svg-inline--fa fa-directions"
-                              />
-                            </div>
-                          </div>
+                            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-4"
+                          />
                         </div>
-                        <span />
-                      </section>
+                      </div>
                     </div>
-                  </li>
-                </ul>
-                <div
-                  className="add-section"
-                >
-                  <button
-                    className="button"
-                    onClick={[Function]}
-                  >
-                    Add Role
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>

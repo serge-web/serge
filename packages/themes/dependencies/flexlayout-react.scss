@@ -179,12 +179,16 @@
   float: left;
   width: 20px;
   height:15px;
-  margin-top:2px;
-  padding-left:12px;
+  margin-top:12px;
+  padding-left: 15px;
   border:none;
-  font-size: 10px;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
   font-family: Arial, sans-serif;
   background: transparent url("./images/more.png") no-repeat left;
+  background-size:20px 20px;
+  filter: brightness(150%);
 }
 
 .flexlayout__tabset_header {

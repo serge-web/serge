@@ -19,4 +19,5 @@ export default interface PropTypes {
   disable?: boolean
   // do not render dropzone - use as static html
   disableDrag?: boolean
+  group?: string
 }

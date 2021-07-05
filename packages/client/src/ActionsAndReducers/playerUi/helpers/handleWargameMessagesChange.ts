@@ -53,19 +53,20 @@ const openMessageChange = (message: MessageChannel, id: string): { message: Mess
 export const openMessage = (channel: string, payloadMessage: MessageChannel, newState: PlayerUi): ChannelUI => {
   // mutating `messages` array - copyState at top of switch
   const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
+  const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
   if (payloadMessage._id !== undefined) {
     for (let i in channelMessages) {
       const res = openMessageChange(channelMessages[i], payloadMessage._id)
       if (res.changed) {
         channelMessages[i] = res.message
-        expiredStorage.setItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${payloadMessage._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
+        expiredStorage.setItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${payloadMessage._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
         break;
       }
     }
   }
 
   const unreadMessageCount = channelMessages.filter((message) => {
-    return message._id && expiredStorage.getItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${message._id}`) === null
+    return message._id && expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
   }).length
 
   return {
@@ -102,9 +103,10 @@ export const closeMessage = (channel: string, payloadMessage: MessageChannel, ne
 
 export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI => {
   const channelMessages: MessageChannel[] = (newState.channels[channel].messages || []).map((message) => {
+    const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
     if (message._id) {
       message.hasBeenRead = true
-      expiredStorage.setItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRole}${message._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
+      expiredStorage.setItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
     }
     return message
   })

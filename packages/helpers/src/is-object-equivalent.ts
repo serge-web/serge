@@ -1,4 +1,4 @@
-export default function isObjectEquivalent(a: Object, b: Object) {
+export default function isObjectEquivalent (a: Record<string, any>, b: Record<string, any>): boolean {
   const aProps = Object.getOwnPropertyNames(a)
   const bProps = Object.getOwnPropertyNames(b)
 
