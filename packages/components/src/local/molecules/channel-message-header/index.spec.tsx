@@ -16,6 +16,7 @@ describe('ChannelMessageHeader component:', () => {
           role="CO"
           messageType="Chat"
           hasBeenRead={false}
+          forceColor={'#000'}
         />
       )
       .toJSON()
