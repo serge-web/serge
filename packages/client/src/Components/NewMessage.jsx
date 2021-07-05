@@ -4,9 +4,11 @@ import Collapsible from 'react-collapsible'
 import MessageCreator from '../Components/MessageCreator/MessageCreator'
 import DropdownInput from '../Components/Inputs/DropdownInput'
 import '@serge/themes/App.scss'
+import { usePrevious } from '@serge/helpers'
 
 const NewMessage = props => {
   const { templates, curChannel, privateMessage, orderableChannel, generateNextReference } = props
+  const prevTemplates = usePrevious(templates)
   const [selectedSchema, setSelectedSchema] = useState(null)
 
   const mapTemplateToDropdown = (item) => ({
@@ -26,8 +28,10 @@ const NewMessage = props => {
   }, [curChannel])
 
   useEffect(() => {
-    setSelectedSchema(templates[0].details)
-  }, [templates])
+    if(!prevTemplates) {
+      setSelectedSchema(templates[0].details)
+    }
+  }, [templates, prevTemplates])
 
   return (
     <div className={classes}>
