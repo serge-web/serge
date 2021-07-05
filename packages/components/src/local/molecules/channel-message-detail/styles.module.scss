@@ -5,15 +5,12 @@
   border-radius: $radius;
 }
 
-.group-editor {
-  display: flex;
-}
-
 .form-group {
   margin-top: -20px;
   color: $dark-grey;
   background-color: $primary-triad-color;
-  width: 50vw;
+  padding-bottom: 100px;
+  column-count: 3;
 }
 
 .data {
@@ -87,6 +84,7 @@
     h3 {
       display: none;
     }
+    border: none;
   }
   /* stylelint-enable */
 }
