@@ -9,7 +9,8 @@
   margin-top: -20px;
   color: $dark-grey;
   background-color: $primary-triad-color;
-  padding-bottom: 100px;
+  padding-top: 30px;
+  padding-bottom: 80px;
   column-count: 3;
 }
 
@@ -84,6 +85,11 @@
     h3 {
       display: none;
     }
+
+    select {
+      display: none !important;
+    }
+
     border: none;
   }
   /* stylelint-enable */

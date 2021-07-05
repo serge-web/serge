@@ -6,7 +6,6 @@ interface CssExports {
   'detail-row': string;
   'detail-rows': string;
   'form-group': string;
-  'group-editor': string;
   'icon-private': string;
   'private': string;
   'wrap-detail': string;
