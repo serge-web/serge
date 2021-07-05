@@ -77,6 +77,7 @@ export const GameSetup: React.FC<Props> = ({
               onCreate={onCreateForce}
               onDelete={onDeleteForce}
               selectedForce={selectedForce}
+              platformTypes={platformTypes?.platformTypes}
             />
           )
         }

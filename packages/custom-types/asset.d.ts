@@ -5,12 +5,12 @@ export interface Asset {
    * the name of this asset
    */
   name: string,
-  /** when an asset is first identified, only the 
+  /** when an asset is first identified, only the
    * contact id is shown.  Something like `C023`.
    */
   readonly contactId: string,
   /** the uniq id of this asset, present to allow
-   * assets to be renamed, or multiple assets of same 
+   * assets to be renamed, or multiple assets of same
    * name present in game
    */
   readonly uniqid: string,
@@ -49,8 +49,8 @@ export interface Asset {
   /** if this asset is carrying other assets
    */
   hosting?: Array<Asset>
-  /** current status of this asset 
-   * 
+  /** current status of this asset
+   *
   */
   status?: RouteStatus
 }

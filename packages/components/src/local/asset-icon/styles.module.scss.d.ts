@@ -2,6 +2,9 @@
 // Please do not change this file!
 interface CssExports {
   'asset-icon': string;
+  'asset-icon-background': string;
+  'asset-icon-fw': string;
+  'asset-icon-invert': string;
   'blue': string;
   'blue-1': string;
   'blue-2': string;

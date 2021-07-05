@@ -6,10 +6,10 @@ export default interface PlatformTypeData {
   icon: string,
   /** list of potential speeds for this platform,
    * omitted if the platform isn't mobile, empty if the
-   * platform is effectively capable of infinite speed 
+   * platform is effectively capable of infinite speed
    * (within current turn time)
-   */ 
+   */
   speedKts?: Array<number>,
-  states: Array<State>
+  states: Array<State>,
   travelMode: string
 }

@@ -1,3 +1,7 @@
+.mb-20 {
+  margin-bottom: 20px;
+}
+
 .row {
   display: flex;
   width: 100%;
@@ -9,14 +13,11 @@
 .col {
   flex: 1;
 }
+
 .actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.section {
-  padding: 12px 0;
 }
 
 .color-box {
@@ -24,64 +25,4 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 15px;
-}
-
-.form-row {
-  display: flex;
-  width: 100%;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-direction: row;
-}
-
-.states-holder > div > div:last-child::before {
-  content: "";
-  display: block;
-  z-index: 1;
-  height: 38px;
-  position: relative;
-}
-
-.textarea {
-  resize: none;
-  margin-top: 6px;
-  padding: 8px 12px;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: inherit;
-  margin-bottom: -15px;
-}
-
-.role {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.role-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.role-item:first-child {
-  margin-right: 10px;
-  flex: 1;
-}
-
-.role-title {
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  width: 100%;
-  font-size: 14px;
-  line-height: 1.2;
-  color: #1a394d;
-  padding-bottom: 10px;
-}
-
-.title-center {
-  text-align: center;
 }

@@ -7,8 +7,8 @@ interface ClusterSetter {
 }
 
 interface Cluster {
-  hex: string,
-  center: L.LatLng,
+  hex: string
+  center: L.LatLng
   setters: Array<ClusterSetter>
 }
 
@@ -30,7 +30,7 @@ const findLocations = (store: RouteStore, selected: string | undefined): Array<C
   // loop through store
   store.routes.forEach((route: Route) => {
     // start with location
-    if(route.currentLocation) {
+    if (route.currentLocation) {
       const updateAssetLocation: ClusterSetter = (newLoc: L.LatLng): void => {
         route.currentLocation = newLoc
       }
@@ -75,7 +75,7 @@ const findLocations = (store: RouteStore, selected: string | undefined): Array<C
         }
       }
     })
-  }) 
+  })
   return res
 }
 
