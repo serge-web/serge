@@ -15,7 +15,7 @@ import styles from './styles.module.scss'
 const itemH = 44
 
 /* Render component */
-export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', active, onStart, onEnd, onSet, disable, disableDrag }) => {
+export const Dropzone: React.FC<PropTypes> = ({ children, group, item, type = 'empty', active, onStart, onEnd, onSet, disable, disableDrag }) => {
   const innerRef = useRef(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [showEmpty, setShowEmpty] = useState<boolean>(false)
@@ -63,6 +63,13 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
       document.removeEventListener('dragenter', mouseMove)
     }
   }, [showEmpty, innerRef, commingDrop])
+
+  useEffect(() => {
+    return (): void => {
+      // unsubscribe event
+      document.removeEventListener('dragenter', mouseMove)
+    }
+  }, [])
 
   const handleListChange = (newList: Array<DropItem>): void => {
     if (newList.length === 0) {
@@ -120,7 +127,7 @@ export const Dropzone: React.FC<PropTypes> = ({ children, item, type = 'empty', 
         </> : <>
           { renderDropzone() }
           <ReactSortable
-            group="groupName"
+            group={group || 'groupName'}
             animation={0}
             delay={0.5}
             list={[{ id: `${item.uniqid}-${type}`, ...item }]}

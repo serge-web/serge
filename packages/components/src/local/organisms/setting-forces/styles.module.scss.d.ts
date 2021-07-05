@@ -4,15 +4,8 @@ interface CssExports {
   'actions': string;
   'col': string;
   'color-box': string;
-  'form-row': string;
-  'role': string;
-  'role-item': string;
-  'role-title': string;
+  'mb-20': string;
   'row': string;
-  'section': string;
-  'states-holder': string;
-  'textarea': string;
-  'title-center': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
