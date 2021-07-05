@@ -16,7 +16,9 @@ export const ImageDropzone: React.FC<PropTypes> = ({
   title,
   onChange,
   onRejected,
-  limit
+  limit,
+  iconUploadUrl,
+  use64onApiEror
 }) => {
   const getBase64 = (file: any, cb: (res: string) => void): void => {
     const reader = new FileReader()
@@ -40,9 +42,28 @@ export const ImageDropzone: React.FC<PropTypes> = ({
   const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted: (acceptedFiles: Array<any>): void => {
       const [file] = acceptedFiles
-      getBase64(file, (src: string) => {
-        handleChange(src, file)
-      })
+      if (iconUploadUrl) {
+        fetch(iconUploadUrl, {method: "POST", body: file})
+          .then((response): Promise<{ path?: string }> => response.json())
+          .then(({ path }) => {
+            if (path) {
+              handleChange(path, file)
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+            if (use64onApiEror)  {
+              console.warn('uploading image as base64')
+              getBase64(file, (src: string) => {
+                handleChange(src, file)
+              })
+            }
+          })
+      } else {
+        getBase64(file, (src: string) => {
+          handleChange(src, file)
+        })
+      }
     },
     accept: 'image/png',
     maxSize: limit,

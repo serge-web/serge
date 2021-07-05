@@ -13,7 +13,8 @@ export const IconUploader: React.FC<PropTypes> = ({
   background = 'rgba(0,0,0,0)',
   onChange,
   limit,
-  icon
+  icon,
+  iconUploadUrl
 }) => {
   const [modal, setModal] = useState<boolean>(false)
 
@@ -44,7 +45,7 @@ export const IconUploader: React.FC<PropTypes> = ({
       {modal && <div className={styles.modal}>
         <div className={styles['modal-bg']} onClick={handleClick}/>
         <div className={styles['modal-content']}>
-          <ImageDropzone limit={limit} onChange={handleChange} onRejected={onRejected} />
+          <ImageDropzone iconUploadUrl={iconUploadUrl} use64onApiEror={true} limit={limit} onChange={handleChange} onRejected={onRejected} />
         </div>
       </div>}
     </div>

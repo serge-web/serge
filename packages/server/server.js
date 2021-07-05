@@ -85,16 +85,18 @@ const runServer = (
     res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
   })
 
-  app.use('/saveIcon', bodyParser.raw({ type: 'image/png', limit: '20kb' }))
+  app.use('/saveIcon', express.raw({ type: 'image/png', limit: '20kb' }))
   app.post('/saveIcon', (req, res) => {
-    const image = `${imgDir}/${uniqid.time('icon-')}.png`
-
+    const imageName = `${uniqid.time('icon-')}.png`
+    const image = `${imgDir}/${imageName}`
+    let imagePath = `${req.headers.host}/img/${imageName}`;
+    if (!/https?/.test(imagePath)) imagePath = '//' + imagePath
     fs.writeFile(image, req.body, err => console.log(err))
 
-    res.status(200).send({ path: image })
+    res.status(200).send({ path: imagePath })
   })
 
-  app.use('/saveLogo', bodyParser.raw({ type: 'image/png', limit: '100kb' }))
+  app.use('/saveLogo', express.raw({ type: 'image/png', limit: '100kb' }))
   app.post('/saveLogo', (req, res) => {
     const image = `${imgDir}/${uniqid.time('logo-')}.png`
 

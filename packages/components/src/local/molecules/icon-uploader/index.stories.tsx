@@ -37,3 +37,12 @@ Default.story = {
     }
   }
 }
+
+export const APILoad8080: React.FC = () => {
+  const [src, setSrc] = useState<string>('')
+  const handleChange = (newSrc: string): void => {
+    console.log(newSrc)
+    setSrc(newSrc)
+  }
+  return <IconUploader iconUploadUrl={'http://localhost:8080/saveIcon'} onChange={handleChange} limit={20000} icon={src} background={'red'}>change icon</IconUploader>
+}
