@@ -34,7 +34,37 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, co
 
   useEffect(() => {
     createEditor(message.message)
+    convertInputToTextArea()
+    removeElmsByTag('h3')
+    removeElmsByTag('select')
   }, [message])
+
+  const cloneAttributes = (target: any, source: any): void => {
+    [...source.attributes].forEach(attr => {
+      target.setAttribute(attr.nodeName, attr.nodeValue)
+    })
+    target.innerText = source.value
+  }
+
+  const removeElmsByTag = (tagName: string): void => {
+    if (!editorRef.current) return
+    const h3Elms = editorRef.current.getElementsByTagName(tagName)
+    for (const h3Elm of Array.from(h3Elms)) {
+      if (!h3Elm.parentNode) continue
+      h3Elm.parentNode.removeChild(h3Elm)
+    }
+  }
+
+  const convertInputToTextArea = (): void => {
+    if (!editorRef.current) return
+    const inputElms = editorRef.current.getElementsByTagName('input')
+    for (const inputElm of Array.from(inputElms)) {
+      if (!inputElm.parentNode) continue
+      const spanElm = document.createElement('span')
+      cloneAttributes(spanElm, inputElm)
+      inputElm.parentNode.replaceChild(spanElm, inputElm)
+    }
+  }
 
   const createEditor = (message: any): void => {
     if (!editorRef.current) return

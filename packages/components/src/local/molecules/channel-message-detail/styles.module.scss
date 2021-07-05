@@ -6,12 +6,16 @@
 }
 
 .form-group {
-  margin-top: -20px;
   color: $dark-grey;
   background-color: $primary-triad-color;
-  padding-top: 30px;
-  padding-bottom: 80px;
   column-count: 3;
+  padding-bottom: 40px;
+  overflow: auto;
+
+  label {
+    font-weight: 500;
+    margin: 6px 0 3px 0;
+  }
 }
 
 .data {
@@ -80,7 +84,7 @@
 
   /* stylelint-disable */
   div [class*="card"] {
-    padding: 5px;
+    padding: 4px;
     background-color: transparent !important;
     h3 {
       display: none;
@@ -90,6 +94,11 @@
       display: none !important;
     }
 
+    span {
+      height: auto;
+      min-height: 32px;
+    }
+    
     border: none;
   }
   /* stylelint-enable */
