@@ -21,7 +21,7 @@ const MessageCreator: React.FC<Props> = (props) => {
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   
-  const sendMessage = (): void => {
+  const sendMessage = (e: any): void => {
     const details: MessageDetails = {
       channel: props.curChannel,
       from: {
@@ -56,6 +56,7 @@ const MessageCreator: React.FC<Props> = (props) => {
     saveMessage(state.currentWargame, details, message)()
     editor.destroy()
     createEditor(selectedSchema)
+    props.onMessageSend && props.onMessageSend(e)
   }
 
   const destroyEditor = (editorObject: Editor | null): void => {
