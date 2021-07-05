@@ -1,5 +1,8 @@
 import { Asset, ForceData } from '@serge/custom-types'
 import forceFor from './force-for'
+import getAssetById from './get-asset-by-id'
+import removeAssetById from './remove-asset-by-id'
+import putDraggedAssetsToTarget from './put-dragged-assets-to-target'
 
 /**
  * Create a new Task Group using the provided assets
@@ -17,21 +20,13 @@ const groupHostPlatform = (dragging: string, target: string, forces: ForceData[]
 
   if (assets) {
     // capture the assets
-    const dragAsset: Asset | undefined = assets.find((item: Asset) => item.uniqid === dragging)
-    const targetAsset: Asset | undefined = assets.find((item: Asset) => item.uniqid === target)
-
-    if (dragAsset && targetAsset) {
+    const dragAsset: Asset | undefined = getAssetById(dragging, assets)
+    if (dragAsset) {
       // remove the assets from the force
-      const assets2: Asset[] = assets.filter((item: Asset) => item.uniqid !== dragging)
-
-      // put the dragged item onto the host
-      if (!targetAsset.hosting) {
-        targetAsset.hosting = []
-      }
-      targetAsset.hosting.push(dragAsset)
+      const assets2: Asset[] = removeAssetById(dragging, assets)
 
       // overwrite the assets with the new list
-      parent.assets = assets2
+      parent.assets = putDraggedAssetsToTarget(target, dragAsset, assets2)
     }
   }
   return forces

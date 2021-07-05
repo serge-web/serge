@@ -5,11 +5,11 @@ import AdminLayout from './index'
 import SettingOverview, { WargameOverview } from '../setting-overview'
 import SettingPlatformTypes from '../setting-platform-types'
 import SettingForces from '../setting-forces'
+import { platformTypes as platformTypesMock, WargameExportedMock, MessageTemplatesMock, adminTabs, platformType as platformTypeMock } from '@serge/mocks'
 import SettingChannels, { ChannelData } from '../setting-channels'
 
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { WargameExportedMock, MessageTemplatesMock, adminTabs, platformType as platformTypeMock } from '@serge/mocks'
 
 import { ForceData, PlatformType, Wargame } from '@serge/custom-types'
 import { AdminContent } from '../../atoms/admin-content'
@@ -109,7 +109,7 @@ export const Default: React.FC = (args) => {
         { // @ts-ignore we're using knobs to provide wargameInitiated, prevent compiler complaining about it
           activeTab === 0 && <SettingOverview overview={changedOverview} onChange={onOverviewChange} onSave={handleSave} initiateWargame={handleInitiateWargame} {...args}/>}
         {activeTab === 1 && <SettingPlatformTypes platformType={changedPlatformType} onChange={onPlatformChange} onSave={handleSave} />}
-        {activeTab === 2 && <SettingForces forces={wargame.data.forces.forces} onChange={onForcesChange} onSave={handleSave} />}
+        {activeTab === 2 && <SettingForces forces={wargame.data.forces.forces} platformTypes={platformTypesMock} onChange={onForcesChange} onSave={handleSave} />}
         {activeTab === 3 && <SettingChannels
           channels={changedChannels}
           onChange={onChannelsChange}

@@ -9,7 +9,9 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void  => {
 
     const setUnreadClassName = (className: string): void => {
       if(node.getClassName() !== className) {
-        node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className }))
+        setTimeout(() => {
+          node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className }))
+        }, 0);
       }
     };
 

@@ -625,6 +625,7 @@
     color: $primary-triad-color;
     font-family: "Open Sans", sans-serif;
     font-weight: bold;
+    /* 300px explained here: https://github.com/serge-web/serge/pull/867#discussion_r658656503  */
     max-height: calc(100vh - 300px);
     overflow-x: hidden;
     overflow-y: auto;

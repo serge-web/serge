@@ -1,4 +1,4 @@
-import { ForceData } from "@serge/custom-types"
+import { ForceData } from '@serge/custom-types'
 
 /** produce an array of force ids & icons */
 export default function forceIcons (allForces: ForceData[]): Array<{force: string, icon: string}> {
@@ -6,4 +6,4 @@ export default function forceIcons (allForces: ForceData[]): Array<{force: strin
     return { force: force.uniqid, icon: force.icon }
   })
   return forceIcons
-};
+}

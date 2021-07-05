@@ -1,6 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { forces } from '@serge/mocks'
+import { forces, platformTypes as platformTypesMock } from '@serge/mocks'
 import SettingForces from './index'
 import { ForceData } from './types/props'
 
@@ -16,7 +16,7 @@ describe('SettingForces component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <SettingForces onChange={onChange} onSave={onSave} onRejectedIcon={onRejectedIcon} forces={forces}/>,
+        <SettingForces onChange={onChange} onSave={onSave} onRejectedIcon={onRejectedIcon} platformTypes={platformTypesMock} forces={forces}/>,
         { createNodeMock: () => document.createElement('textarea') }
       )
       .toJSON()
