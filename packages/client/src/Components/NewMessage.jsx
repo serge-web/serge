@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import Collapsible from 'react-collapsible'
 import MessageCreator from '../Components/MessageCreator/MessageCreator'
@@ -10,6 +10,7 @@ const NewMessage = props => {
   const { templates, curChannel, privateMessage, orderableChannel, generateNextReference } = props
   const prevTemplates = usePrevious(templates)
   const [selectedSchema, setSelectedSchema] = useState(null)
+  const tab = useRef(null)
 
   const mapTemplateToDropdown = (item) => ({
     value: JSON.stringify(item.details),
@@ -28,10 +29,16 @@ const NewMessage = props => {
   }, [curChannel])
 
   useEffect(() => {
-    if(!prevTemplates) {
+    if (!prevTemplates) {
       setSelectedSchema(templates[0].details)
     }
   }, [templates, prevTemplates])
+
+  const onMessageSend = (e) => {
+    setTimeout(() => {
+      tab.current.handleTriggerClick(e)
+    }, 0)
+  }
 
   return (
     <div className={classes}>
@@ -39,6 +46,7 @@ const NewMessage = props => {
         trigger={'New Message'}
         transitionTime={200}
         easing={'ease-in-out'}
+        ref={tab}
       >
         {
           allTemplates.length > 1 && (
@@ -56,6 +64,7 @@ const NewMessage = props => {
           curChannel={curChannel}
           privateMessage={privateMessage}
           generateNextReference={generateNextReference}
+          onMessageSend={onMessageSend}
         />
       </Collapsible>
     </div>
