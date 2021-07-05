@@ -44,7 +44,8 @@ export enum LaydownTypes {
   /** the umpire (game designer) can position asset */
   UmpireLaydown = 'Umpire laydown',
   /** the player controlling the asset can position it */
-  ForceLaydown = 'Force laydown'
+  ForceLaydown = 'Force laydown',
+  Fixed = 'Fixed'
 }
 
 /** the phases a collaborative message goes through before

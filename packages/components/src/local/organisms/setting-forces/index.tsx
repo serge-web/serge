@@ -2,40 +2,21 @@ import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 
 /* Import proptypes */
-import PropTypes, { ForceData, Role } from './types/props'
-
+import PropTypes, { ForceData } from './types/props'
 /* Import Styles */
 import styles from './styles.module.scss'
 
 /* Import Components */
-import Switch from '@material-ui/core/Switch'
-import { withStyles } from '@material-ui/core/styles'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faComments, faDirections, faBookReader } from '@fortawesome/free-solid-svg-icons'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import TextInput from '../../atoms/text-input'
 import Button from '../../atoms/button'
 import Colorpicker from '../../atoms/colorpicker'
-import FormGroup from '../../atoms/form-group-shadow'
-import SortableList, { Item as SortableListItem } from '../../molecules/sortable-list'
-import PasswordView from '../../molecules/password-view'
 import EditableList, { Item } from '../../molecules/editable-list'
 import IconUploader from '../../molecules/icon-uploader'
-import { UMPIRE_FORCE } from '@serge/config'
 
-const MobileSwitch = withStyles({
-  switchBase: {
-    color: '#FFFFFF',
-    '&$checked': {
-      color: '#1A394D'
-    },
-    '&$checked + $track': {
-      backgroundColor: '#1A394D'
-    }
-  },
-  checked: {},
-  track: {}
-})(Switch)
+import SettingsForceOverview from './settings-force-overview'
+import RolesAccordion from './settings-force-roles'
+import AssetsAccordion from './settings-force-platform-types'
 
 /* Render component */
 export const SettingForces: React.FC<PropTypes> = ({
@@ -47,11 +28,14 @@ export const SettingForces: React.FC<PropTypes> = ({
   onCreate,
   onDelete,
   iconUploadUrl,
-  selectedForce
+  selectedForce,
+  platformTypes = [],
+  routes
 }) => {
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
   const [forcesData, setForcesData] = useState(initialForces)
+
   const handleSwitch = (_item: Item): void => {
     const selectedForce = forcesData.findIndex(force => force.uniqid === _item.uniqid)
     setSelectedItem(selectedForce)
@@ -79,19 +63,6 @@ export const SettingForces: React.FC<PropTypes> = ({
       handleChangeForces(nextForces)
     }
 
-    const handleCreateRole = (): void => {
-      const roles: Array<Role> = [...data.roles, {
-        name: 'New Role',
-        canSubmitPlans: false,
-        password: 'p' + Math.random().toString(36).substring(8),
-        isGameControl: false,
-        isInsightViewer: false,
-        isRFIManager: false,
-        isObserver: false
-      }]
-      handleChangeForce({ ...data, roles: roles })
-    }
-
     const handleOnRejectedIcon = (rejected: any): void => {
       if (typeof onRejectedIcon === 'function') {
         onRejectedIcon(rejected)
@@ -100,69 +71,9 @@ export const SettingForces: React.FC<PropTypes> = ({
       }
     }
 
-    const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
-      const roleItem = item as Role
-      const handleChangeRole = (nextRole: Role, submitPlans = false): void => {
-        const roles: Array<Role> = submitPlans ? data.roles.map(role => ({ ...role, canSubmitPlans: false })) : [...data.roles]
-        roles[key] = nextRole
-        handleChangeForce({ ...data, roles })
-      }
-
-      return (
-        <div className={styles.role}>
-          <div className={styles['role-item']}>
-            <PasswordView value={roleItem.password} onChange={(password: string): void => {
-              handleChangeRole({ ...roleItem, password })
-            }}/>
-            {key === 0 && <div className={styles['role-title']}>Password</div>}
-          </div>
-          <div className={styles['role-item']}>
-            <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isObserver} onChange={(): void => {
-              handleChangeRole({ ...roleItem, isObserver: !roleItem.isObserver })
-            }} />
-            {key === 0 && <div
-              title='Can view all channels'
-              className={cx(styles['role-title'], styles['title-center'])}>
-              <FontAwesomeIcon icon={faEye} />
-            </div>}
-          </div>
-          <div className={styles['role-item']}>
-            <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isInsightViewer} onChange={(): void => {
-              handleChangeRole({ ...roleItem, isInsightViewer: !roleItem.isInsightViewer })
-            }} />
-            {key === 0 && <div
-              title='Can view feedback/insights'
-              className={cx(styles['role-title'], styles['title-center'])}>
-              <FontAwesomeIcon icon={faComments} />
-            </div>}
-          </div>
-          <div className={styles['role-item']}>
-            <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isRFIManager} onChange={(): void => {
-              handleChangeRole({ ...roleItem, isRFIManager: !roleItem.isRFIManager })
-            }} />
-            {key === 0 && <div
-              title='Can release RFI responses'
-              className={cx(styles['role-title'], styles['title-center'])}>
-              <FontAwesomeIcon icon={faBookReader} />
-            </div>}
-          </div>
-          <div className={styles['role-item']}>
-            <MobileSwitch size='small' checked={roleItem.canSubmitPlans} onChange={(): void => {
-              handleChangeRole({ ...roleItem, canSubmitPlans: !roleItem.canSubmitPlans }, !roleItem.canSubmitPlans)
-            }} />
-            {key === 0 && <div
-              title='Can submit mapping plans'
-              className={cx(styles['role-title'], styles['title-center'])}>
-              <FontAwesomeIcon icon={faDirections} />
-            </div>}
-          </div>
-        </div>
-      )
-    }
-
     return (
       <div key={selectedItem}>
-        <div className={styles.row}>
+        <div className={cx(styles.row, styles['mb-20'])}>
           <div className={styles.col}>
             <TextInput
               customColor="transparent"
@@ -185,6 +96,12 @@ export const SettingForces: React.FC<PropTypes> = ({
           </div>
           <div className={styles.actions}>
             <Button
+              icon="delete"
+              onClick={(): void => { console.log('onDelete') }}
+            >
+              Delete
+            </Button>
+            <Button
               color="primary"
               onClick={(): void => { if (onSave) onSave(forcesData) }}
               data-qa-type="save"
@@ -193,39 +110,26 @@ export const SettingForces: React.FC<PropTypes> = ({
             </Button>
           </div>
         </div>
+
         <div className={styles.row}>
-          <div className={cx(styles.col, styles.section)}>
-            <FormGroup placeholder="Overview & Objectives">
-              <TextInput
-                multiline
-                fullWidth
-                variant="filled"
-                rows={8}
-                rowsMax={8}
-                updateState={(target: { value: string }): void => {
-                  handleChangeForce({ ...data, overview: target.value })
-                }}
-                value={data.overview}
-                className={styles.textarea}
-              />
-            </FormGroup>
-          </div>
-        </div>
-        <div className={styles.row}>
-          <div className={cx(styles.col, styles.section)}>
-            <FormGroup placeholder="Roles">
-              <SortableList
-                remove={false}
-                sortable='auto'
-                required
-                onChange={(roles: Array<SortableListItem>): void => {
-                  handleChangeForce({ ...data, roles: roles as Array<Role> })
-                }}
-                onCreate={handleCreateRole}
-                renderItemSection={renderRoleFields}
-                items={data.roles}
-                title='Add Role' />
-            </FormGroup>
+          <div className={styles.col}>
+            <SettingsForceOverview
+              data={data}
+              handleChangeForce={handleChangeForce}
+            />
+
+            <RolesAccordion
+              data={data}
+              handleChangeForce={handleChangeForce}
+            />
+
+            <AssetsAccordion
+              routes={routes}
+              selectedForce={data}
+              forcesData={forcesData}
+              platformTypes={platformTypes}
+              onChangeHandler={handleChangeForce}
+            />
           </div>
         </div>
       </div>

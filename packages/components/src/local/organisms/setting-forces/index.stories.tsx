@@ -4,7 +4,7 @@ import React from 'react'
 import SettingForces from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { forces as forcesMock } from '@serge/mocks'
+import { forces as forcesMock, platformTypes as platformTypesMock } from '@serge/mocks'
 import { ForceData } from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -32,7 +32,7 @@ export const Default: React.FC = () => {
     console.log(rejected)
   }
 
-  return <SettingForces forces={forcesMock} onChange={onChange} onSave={onSave} onRejectedIcon={onRejectedIcon} />
+  return <SettingForces forces={forcesMock} onChange={onChange} onSave={onSave} platformTypes={platformTypesMock} onRejectedIcon={onRejectedIcon} />
 }
 
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
