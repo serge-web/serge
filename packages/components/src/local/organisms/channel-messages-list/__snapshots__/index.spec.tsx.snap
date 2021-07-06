@@ -105,7 +105,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 >
                   <span
                     className="MuiChip-label makeStyles-label-8 makeStyles-label-10 MuiChip-labelSmall"
-                  />
+                  >
+                    CO
+                  </span>
                 </div>
                 <div
                   className="MuiChip-root makeStyles-root-6 makeStyles-root-11 MuiChip-sizeSmall makeStyles-sizeSmall-7"
