@@ -3,7 +3,7 @@ import {
   WargameExportedMock,
   MessageTemplatesMock,
   adminTabs,
-  platformType as platformTypeMock,
+  platformType as platformTypeMock
 } from '@serge/mocks'
 import {
   ChannelData,
