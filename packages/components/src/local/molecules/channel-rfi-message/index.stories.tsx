@@ -41,6 +41,7 @@ const Template: Story<RFIPropTypes> = (args) => {
       onChange={(nextMessage): void => setMessageState(nextMessage as MessageCustom)}
       role={role}
       isUmpire={isUmpire}
+      forceColor='#0F0'
     />
   )
 }

@@ -15,6 +15,7 @@ describe('ChannelMessage component:', () => {
           playerForce={'Blue'}
           message={GameMessagesMockRFI[0]}
           forceColor={GameMessagesMockRFI[0].details.from.forceColor}
+          role={GameMessagesMockRFI[0].details.from.role}
         />
       )
       .toJSON()

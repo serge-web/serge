@@ -24,6 +24,7 @@ export const Default: React.FC = () => (
     role="CO"
     messageType="Chat"
     hasBeenRead={false}
+    forceColor={'#000'}
   />
 )
 
@@ -35,5 +36,6 @@ export const Opened: React.FC = () => (
     role="CO"
     messageType="Chat"
     hasBeenRead={true}
+    forceColor={'#000'}
   />
 )
