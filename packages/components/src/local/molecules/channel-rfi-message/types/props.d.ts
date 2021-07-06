@@ -8,4 +8,5 @@ export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
   onRead?: (nextMessage: MessageCustom) => void
   message: MessageCustom
+  forceColor: string
 }
