@@ -25,6 +25,7 @@ export const Default: React.FC = () => {
       playerForce={'Blue'}
       message={GameMessagesMockRFI[0]}
       onRead={(): void => setIsRead(true)}
+      forceColor={'#000'}
     />
   )
 }
@@ -60,6 +61,7 @@ export const StateOfTheWorld: React.FC = () => {
         }
       }}
       onRead={(): void => setIsRead(true)}
+      forceColor={'#000'}
     />
   )
 }
