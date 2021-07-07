@@ -24,7 +24,7 @@ export const getIconClassname = (icForceClass: string, icType: string, destroyed
   imageSrc ? styles['asset-icon-with-image'] : styles[`platform-type-${icType}`]
 ))
 export const checkUrl = (url: string): string => {
-  if (/^{https?, \/\/?|base64}/.test(url)) {
+  if (/^https?|^\/\/?|base64/.test(url)) {
     return url
   } else {
     return `/static/media/src/local/asset-icon/counters/${url}`
