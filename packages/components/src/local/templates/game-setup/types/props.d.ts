@@ -97,6 +97,6 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Handle back button event
    */
-  onPressBack?: () => void
   iconUploadUrl?: string
+  onPressBack?: (e) => void
 }

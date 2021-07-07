@@ -52,7 +52,7 @@ export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargam
   return (
     <div className={styles.main}>
       <div className={styles['left-panel']}>
-        <Link href="javascript:void(0);" className={styles.link} onClick={onPressBack}>
+        <Link className={styles.link} onClick={onPressBack}>
           <FontAwesomeIcon icon={faArrowLeft} size="2x" />
         </Link>
       </div>

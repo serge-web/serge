@@ -65,7 +65,8 @@ const AdminGameSetup = () => {
     }
   }
 
-  const onPressBack = () => {
+  const onPressBack = (e) => {
+    e.preventDefault()
     dispatch(setCurrentViewFromURI(ADMIN_ROUTE))
   }
 

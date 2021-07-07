@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Chip from '@material-ui/core/Chip'
-
+import { isHexLight } from '@serge/helpers'
 /* Import Types */
 import Props, { CustomSize } from './types/props'
 
@@ -18,6 +18,7 @@ const customSizeStyle = (size: CustomSize): object => {
       return {}
   }
 }
+
 const useBadgeStyle = makeStyles((theme: Theme) =>
   createStyles({
     root: ({ type, allCaps, customSize, customBackgroundColor }: Props) => ({
@@ -34,11 +35,9 @@ const useBadgeStyle = makeStyles((theme: Theme) =>
       height: '15px',
       fontSize: '.65rem'
     },
-    label: ({ type, customColor }: Props) => {
-      const lightBg = type && ['warning'].includes(type)
-      const defaultColor = theme.palette.common[lightBg ? 'black' : 'white']
+    label: ({ customBackgroundColor }: Props) => {
       return {
-        color: customColor || defaultColor
+        color: isHexLight(customBackgroundColor || '') ? '#000' : '#fff'
       }
     }
   })

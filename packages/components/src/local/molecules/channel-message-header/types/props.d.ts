@@ -18,6 +18,10 @@ export default interface Props {
    */
   role?: string
   /**
+   * Message force color
+   */
+  forceColor: string
+  /**
    * Message type
    */
   messageType?: string

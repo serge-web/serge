@@ -23,7 +23,6 @@ export const getIconClassname = (icForceClass: string, icType: string, destroyed
   icSelected ? styles.selected : null,
   imageSrc ? styles['asset-icon-with-image'] : styles[`platform-type-${icType}`]
 ))
-
 export const checkUrl = (url: string): string => {
   if(/^{https?, \/\/?|base64}/.test(url)) {
     return url
@@ -34,7 +33,7 @@ export const checkUrl = (url: string): string => {
 
 export const getIcon = (icType: string, color?: string, destroyed?: boolean, icSelected?: boolean, imageSrc?: string): JSX.Element => {
   return(
-    <div className={styles['asset-icon-background']} style={{backgroundColor: color}}>
+    <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
       {imageSrc ? <img src={checkUrl(imageSrc)} alt={icType} className={styles.img}/> : <div className={cx(
         styles['asset-icon'],
         styles['asset-icon-fw'],

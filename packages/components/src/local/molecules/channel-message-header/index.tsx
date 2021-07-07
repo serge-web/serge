@@ -17,6 +17,7 @@ export const ChannelMessageHeader: React.FC<Props> = ({
   isOpen,
   title,
   timestamp,
+  forceColor,
   role,
   messageType,
   hasBeenRead,
@@ -35,7 +36,7 @@ export const ChannelMessageHeader: React.FC<Props> = ({
         <div className={styles['message-title']}>{title}</div>
         <Box display="flex" alignItems="center" pl={3}>
           <span className={styles['info-body']}>{moment(timestamp).format('HH:mm')}</span>
-          <Badge size="small" type="charcoal" label={role} />
+          <Badge size="small" label={role} customBackgroundColor={forceColor} />
           <Badge size="small" label={messageType} />
           {!hasBeenRead && <Badge size="small" label="Unread" type="warning" />}
         </Box>
