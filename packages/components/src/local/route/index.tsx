@@ -14,8 +14,9 @@ import { LaydownPhases } from '@serge/config'
 
 /* Render component */
 export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, selected, clearRouteHandler }: PropTypes) => {
-  const { gridCells, turnNumber } = useContext(MapContext).props
-
+  const props = useContext(MapContext).props
+  if (typeof props === 'undefined') return null
+  const { gridCells, turnNumber } = props
   const plainDots = [1, 7]
   const selectedDots = [4, 8]
 

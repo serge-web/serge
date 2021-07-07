@@ -16,25 +16,33 @@ import { MapContext } from '../mapping'
 import { SelectedAsset } from '@serge/custom-types'
 
 /* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForceClass: string, icType: string, destroyed?: boolean, icSelected?: boolean): string => (cx(
+export const getIconClassname = (icForceClass: string, icType: string, destroyed?: boolean, icSelected?: boolean, imageSrc?: string): string => (cx(
   styles['asset-icon'],
   styles[icForceClass],
   destroyed ? styles.destroyed : null,
   icSelected ? styles.selected : null,
-  styles[`platform-type-${icType}`]
+  imageSrc ? styles['asset-icon-with-image'] : styles[`platform-type-${icType}`]
 ))
 
-export const getIcon = (icType: string, color?: string, destroyed?: boolean, icSelected?: boolean): JSX.Element => {
+export const checkUrl = (url: string): string => {
+  if(/^{https?, \/\/?|base64}/.test(url)) {
+    return url
+  } else {
+    return `/static/media/src/local/asset-icon/counters/${url}`
+  }
+}
+
+export const getIcon = (icType: string, color?: string, destroyed?: boolean, icSelected?: boolean, imageSrc?: string): JSX.Element => {
   return(
     <div className={styles['asset-icon-background']} style={{backgroundColor: color}}>
-      <div className={cx(
+      {imageSrc ? <img src={checkUrl(imageSrc)} alt={icType} className={styles.img}/> : <div className={cx(
         styles['asset-icon'],
         styles['asset-icon-fw'],
         destroyed ? styles.destroyed : null,
         icSelected ? styles.selected : null,
         styles[`platform-type-${icType}`],
         color && lightOrDark(color) === 'light' && styles['asset-icon-invert']
-      )}/>
+      )}/>}
     </div>
   )
 }
@@ -55,16 +63,21 @@ export const AssetIcon: React.FC<PropTypes> = ({
   status,
   tooltip,
   selected,
-  locationPending
+  locationPending,
+  imageSrc
 }) => {
-  const { setShowMapBar, setSelectedAsset, selectedAsset } = useContext(MapContext).props
+  const props = useContext(MapContext).props
+  if (typeof props === 'undefined') return null
+  const { setShowMapBar, setSelectedAsset, selectedAsset } = props
 
   // TODO: switch to received isDestroyed in props, using value from `Route`
   const isDestroyed: boolean = !!condition && (condition.toLowerCase() === 'destroyed' || condition.toLowerCase() === 'mission kill')
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    className: getIconClassname(perceivedForceClass || '', type, isDestroyed, selected)
+    html: typeof imageSrc !== 'undefined' && `<div style="background-color: ${perceivedForceColor}"><img src="${checkUrl(imageSrc)}" alt="${type}"></div>`,
+    className: getIconClassname(perceivedForceClass || '', type, isDestroyed, selected, imageSrc),
+    
   })
 
   // TODO - set the `divIcon` (or marker) background color according to
@@ -76,6 +89,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
       // clear selected asset, since it has been clicked again
+      // @ts-ignore
       setSelectedAsset(undefined)
       setShowMapBar(false)
     } else {

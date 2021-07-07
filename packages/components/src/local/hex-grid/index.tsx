@@ -17,24 +17,17 @@ import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import { SergeHex, SergeGrid, Route, NewTurnValues, PlanMobileAsset, SelectedAsset, RouteStore } from '@serge/custom-types'
+import { SergeHex, SergeGrid, Route, NewTurnValues } from '@serge/custom-types'
 import { LAYDOWN_TURN } from '@serge/config'
 
 /* Render component */
 export const HexGrid: React.FC<{}> = () => {
+  const props = useContext(MapContext).props
+  if (typeof props === 'undefined') return null
   const {
     gridCells, planningConstraints, setNewLeg, setHidePlanningForm,
     selectedAsset, viewAsRouteStore, viewport, polygonAreas
-  }: {
-    gridCells: SergeGrid<SergeHex<{}>> | undefined
-    planningConstraints: PlanMobileAsset | undefined
-    setNewLeg: React.Dispatch<React.SetStateAction<NewTurnValues | undefined>> | undefined
-    setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
-    selectedAsset: SelectedAsset | undefined
-    viewAsRouteStore: RouteStore
-    viewport: L.LatLngBounds | undefined
-    polygonAreas?: any
-   } = useContext(MapContext).props
+  } = props
 
   // define detail cut-offs
   const SHOW_LABELS_UNDER = 600

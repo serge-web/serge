@@ -6,7 +6,7 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { forces, platformTypes, localMappingConstraints } from '@serge/mocks'
+import { forces, platformTypes, platformTypesByKey, localMappingConstraints } from '@serge/mocks'
 
 it('Mapping renders correctly with HexGrid', () => {
   const div = document.createElement('div')
@@ -24,6 +24,7 @@ it('Mapping renders correctly with HexGrid', () => {
     canSubmitOrders = {true}
     phase={Phase.Planning}
     turnNumber={5}
+    platformTypesByKey={platformTypesByKey}
   />, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

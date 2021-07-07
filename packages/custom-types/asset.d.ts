@@ -1,4 +1,4 @@
-import { Perception, RouteStatus, RouteTurn } from '@serge/custom-types'
+import { Perception, RouteStatus, RouteTurn } from '.'
 import { LaydownTypes } from '@serge/config'
 export interface Asset {
   /**

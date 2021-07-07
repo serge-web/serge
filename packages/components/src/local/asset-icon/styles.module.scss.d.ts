@@ -5,12 +5,14 @@ interface CssExports {
   'asset-icon-background': string;
   'asset-icon-fw': string;
   'asset-icon-invert': string;
+  'asset-icon-with-image': string;
   'blue': string;
   'blue-1': string;
   'blue-2': string;
   'destroyed': string;
   'force': string;
   'green': string;
+  'img': string;
   'platform-type-agi': string;
   'platform-type-auxiliary': string;
   'platform-type-boghammer': string;

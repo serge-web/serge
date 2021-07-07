@@ -3,7 +3,7 @@ import SergeHex from './serge-hex'
 import SergeGrid from './serge-grid'
 import PlanMobileAsset from './plan-mobile-asset'
 import SelectedAsset from './selected-asset'
-import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData } from '@serge/custom-types'
+import { RouteStore, PlanTurnFormValues, MapPostBack, NewTurnValues, ForceData, PlatformTypeData } from '.'
 
 /**
  * mapping context, shared with child elements
@@ -18,9 +18,13 @@ export default interface MappingContext {
    */
   forces: ForceData[]
   /**
-   * list of platforms within this wargame
+   * @deprecated list of platforms within this wargame
    */
   platforms: PlatformTypeData[]
+  /**
+   * object of platforms within this wargame by Asset.platformType keys
+   */
+   platformTypesByKey: { [property: string]: PlatformTypeData }
   /**
    * force for current player
    */
@@ -92,15 +96,15 @@ export default interface MappingContext {
   /**
    * player has added new step
    */
-  turnPlanned?: {(turn: PlanTurnFormValues): void}
+  turnPlanned: {(turn: PlanTurnFormValues): void}
   /**
    * Cancel route planning
    */
-  cancelRoutePlanning?: {(): void}
+  cancelRoutePlanning: {(): void}
   /**
    * handler to clear current route from specified number
    */
-  clearFromTurn?: {(turn: number): void}
+  clearFromTurn: {(turn: number): void}
   /**
    * pan the map to the specified cell
    */
@@ -108,7 +112,7 @@ export default interface MappingContext {
   /**
    * The method for posting messages out of the mapping component
    */
-  mapPostBack?: MapPostBack
+  mapPostBack: MapPostBack
   /** 
    * flag for whether to hide planning form
    */
@@ -120,15 +124,15 @@ export default interface MappingContext {
  /**
    * handler to move asset to top level
    */
-  groupMoveToRoot?: {(uniqid: string): void}
+  groupMoveToRoot: {(uniqid: string): void}
   /** 
    * handler to move assets into new group 
    * */
-  groupCreateNewGroup?: {(dragged: string, target: string): void}
+  groupCreateNewGroup: {(dragged: string, target: string): void}
  /**
    * handler to host one platform on another
    */
-  groupHostPlatform?: {(dragged: string, target: string): void}
+  groupHostPlatform: {(dragged: string, target: string): void}
   /**
    * if current set of plans (or SofW) have been submitted
    */

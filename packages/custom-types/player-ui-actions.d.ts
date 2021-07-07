@@ -23,7 +23,7 @@ import {
   MessageChannel,
   MessageCustom,
   MessageInfoType
-} from '@serge/custom-types'
+} from '.'
 import { ActionPayload } from '@serge/components/src/local/molecules/rfi-form/types/props';
 import { Dispatch } from 'react'
 
