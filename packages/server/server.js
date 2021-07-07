@@ -11,7 +11,6 @@ const runServer = (
 ) => {
   require('events').EventEmitter.defaultMaxListeners = eventEmmiterMaxListeners
   const express = require('express')
-  const bodyParser = require('body-parser')
   const path = require('path')
   const uniqid = require('uniqid')
 

@@ -125,15 +125,14 @@ export const WorldState: React.FC<PropTypes> = ({
     const canBeSelected: boolean = depth && depth.length === 0
 
     // const item = routeItem as PlannedRoute
-    let forceName: string = item.perceivedForceName || ''
+
+    
     let forceColor: string = item.perceivedForceColor || ''
     // if we don't know the force name, just use the one from the parent
-
-    if (!forceName) {
-      const itemWithForceName = depth.find(i => i && i.perceivedForceName)
-      if (itemWithForceName) {
-        forceName = itemWithForceName.perceivedForceName
-        forceColor = itemWithForceName.perceivedForceColor
+    if (!forceColor) {
+      const itemWithForceColor = depth.find(i => i && i.perceivedForceColor)
+      if (itemWithForceColor) {
+        forceColor = itemWithForceColor.perceivedForceColor
       }
     }
 
