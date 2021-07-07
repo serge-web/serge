@@ -18,15 +18,15 @@ export const Assets: React.FC<{}> = () => {
   // pull in some context (with TS definitions)
   const { props } = useContext(MapContext)
   if (typeof props === 'undefined') return null
-  const { 
-    gridCells, 
-    forces, 
-    playerForce, 
-    selectedAsset, 
-    viewAsRouteStore, 
-    phase, 
-    clearFromTurn = (turn: number) => { console.log(`clearFromTurn(${turn})`) }, 
-    platformTypesByKey 
+  const {
+    gridCells,
+    forces,
+    playerForce,
+    selectedAsset,
+    viewAsRouteStore,
+    phase,
+    clearFromTurn = (turn: number): void => { console.log(`clearFromTurn(${turn})`) },
+    platformTypesByKey
   } = props
 
   const [assets, setAssets] = useState<AssetInfo[]>([])

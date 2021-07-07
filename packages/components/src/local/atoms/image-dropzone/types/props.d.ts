@@ -18,9 +18,9 @@ export default interface PropTypes {
   /**
    * Custom upload url if not exist then will used base64
    */
-  iconUploadUrl?:string
+  iconUploadUrl?: string
   /**
    * Use base64 if server down or on wrong url
    */
-  use64onApiEror?:boolean
+  use64onApiEror?: boolean
 }

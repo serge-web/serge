@@ -81,7 +81,7 @@ const Template: Story<WorldStatePropTypes> = (args) => {
   }
   const forceName = forceNames[viewAs]
   const storeProp = store || routeCreateStore(undefined, Phase.Adjudication, forces, forceName, platformTypes, undefined, false, false)
-  return <WorldState store={{...storeProp}} {...props} platformTypesByKey={platformTypesByKey} />
+  return <WorldState store={{ ...storeProp }} {...props} platformTypesByKey={platformTypesByKey} />
 }
 
 export const WithPhases = Template

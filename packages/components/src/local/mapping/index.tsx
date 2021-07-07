@@ -49,12 +49,12 @@ import {
 
 import ContextInterface from './types/context'
 
-// Create a context which will be provided to any child of Map
-export const MapContext = createContext<ContextInterface>({ props: undefined })
-
 /* Import Stylesheet */
 import './leaflet.css'
 import styles from './styles.module.scss'
+
+// Create a context which will be provided to any child of Map
+export const MapContext = createContext<ContextInterface>({ props: undefined })
 
 const defaultProps: PropTypes = {
   mapBar: true,
@@ -112,7 +112,7 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomAnimation,
   planningConstraintsProp,
   channelID,
-  mapPostBack = () => {},
+  mapPostBack = (): void => { console.log('mapPostBack') },
   children,
   fetchOverride
 }) => {

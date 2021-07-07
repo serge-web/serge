@@ -31,7 +31,7 @@ const customStyles = {
 }
 
 export const WorldState: React.FC<PropTypes> = ({
-  name, store, /*platforms,*/ platformTypesByKey, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
+  name, store, /* platforms, */ platformTypesByKey, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
   submitTitle, submitForm, panel, gridCells, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback
@@ -126,7 +126,6 @@ export const WorldState: React.FC<PropTypes> = ({
 
     // const item = routeItem as PlannedRoute
 
-    
     let forceColor: string = item.perceivedForceColor || ''
     // if we don't know the force name, just use the one from the parent
     if (!forceColor) {

@@ -16,12 +16,12 @@ import {
   PlanTurnFormData,
   SelectedAsset,
   Route,
-  ForceData, 
-  Asset, 
-  MessageStateOfWorld, 
-  MessageSubmitPlans, 
-  MessageForceLaydown, 
-  MessageDeletePlatform,
+  ForceData,
+  Asset,
+  MessageStateOfWorld,
+  MessageSubmitPlans,
+  MessageForceLaydown,
+  MessageDeletePlatform
 } from '@serge/custom-types'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates } from '@serge/config'
 

@@ -16,9 +16,9 @@ export const generateAssetContactId = (assetId: string): string => {
 }
 
 export const createAssetBasedOnPlatformType = ({ name }: PlatformTypeData): Asset => {
-  const uniqid = generateAssetId();
-  const contactId = generateAssetContactId(uniqid);
-  const platformType = platformTypeNameToKey(name);
+  const uniqid = generateAssetId()
+  const contactId = generateAssetContactId(uniqid)
+  const platformType = platformTypeNameToKey(name)
 
   return {
     uniqid,

@@ -24,7 +24,7 @@ export const getIconClassname = (icForceClass: string, icType: string, destroyed
   imageSrc ? styles['asset-icon-with-image'] : styles[`platform-type-${icType}`]
 ))
 export const checkUrl = (url: string): string => {
-  if(/^{https?, \/\/?|base64}/.test(url)) {
+  if (/^{https?, \/\/?|base64}/.test(url)) {
     return url
   } else {
     return `/static/media/src/local/asset-icon/counters/${url}`
@@ -32,7 +32,7 @@ export const checkUrl = (url: string): string => {
 }
 
 export const getIcon = (icType: string, color?: string, destroyed?: boolean, icSelected?: boolean, imageSrc?: string): JSX.Element => {
-  return(
+  return (
     <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
       {imageSrc ? <img src={checkUrl(imageSrc)} alt={icType} className={styles.img}/> : <div className={cx(
         styles['asset-icon'],
@@ -75,8 +75,8 @@ export const AssetIcon: React.FC<PropTypes> = ({
   const divIcon = L.divIcon({
     iconSize: [40, 40],
     html: typeof imageSrc !== 'undefined' && `<div style="background-color: ${perceivedForceColor}"><img src="${checkUrl(imageSrc)}" alt="${type}"></div>`,
-    className: getIconClassname(perceivedForceClass || '', type, isDestroyed, selected, imageSrc),
-    
+    className: getIconClassname(perceivedForceClass || '', type, isDestroyed, selected, imageSrc)
+
   })
 
   // TODO - set the `divIcon` (or marker) background color according to

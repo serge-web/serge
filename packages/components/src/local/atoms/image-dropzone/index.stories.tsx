@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Import component files
 import ImageDropzone from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { useState } from 'react'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
 
@@ -43,7 +42,7 @@ export const ApiUpload8080: React.FC = () => {
     setImageSrc(newSrc)
   }
   return <>
-    <div style={{border: '1px solid #000'}}>
+    <div style={{ border: '1px solid #000' }}>
       <div>{imageSrc.match('data:image/png;base64') ? 'data:image/png;base64' : imageSrc}</div>
       {imageSrc ? <img aria-label='uploaded image' src={imageSrc}/> : 'waiting for image src'}
     </div>

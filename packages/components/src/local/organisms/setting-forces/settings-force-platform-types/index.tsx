@@ -171,8 +171,8 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
   }
   const findIcon = (platformType: string): string => {
     const platform = platformTypes.find(({ name }) => name === platformType)
-    return typeof platform === 'undefined' ? '' : platform.icon 
-  } 
+    return typeof platform === 'undefined' ? '' : platform.icon
+  }
   const renderContent = (groupItem: GroupItem): JSX.Element => {
     const item = groupItem as ForceItemType
     // const icClassName = getIconClassname('', item.platformType)

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDropzone } from 'react-dropzone'
+import fetch from 'node-fetch'
 
 /* Import proptypes */
 import PropTypes from './types/props'
@@ -43,7 +44,7 @@ export const ImageDropzone: React.FC<PropTypes> = ({
     onDropAccepted: (acceptedFiles: Array<any>): void => {
       const [file] = acceptedFiles
       if (iconUploadUrl) {
-        fetch(iconUploadUrl, {method: "POST", body: file})
+        fetch(iconUploadUrl, { method: 'POST', body: file })
           .then((response): Promise<{ path?: string }> => response.json())
           .then(({ path }) => {
             if (path) {
@@ -52,7 +53,7 @@ export const ImageDropzone: React.FC<PropTypes> = ({
           })
           .catch((err) => {
             console.log(err)
-            if (use64onApiEror)  {
+            if (use64onApiEror) {
               console.warn('uploading image as base64')
               getBase64(file, (src: string) => {
                 handleChange(src, file)

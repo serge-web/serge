@@ -18,7 +18,7 @@ export default interface PropTypes {
    */
   platforms: PlatformTypeData[]
   /**
-   * platforms for this wargame 
+   * platforms for this wargame
    */
   platformTypesByKey: { [property: string]: PlatformTypeData}
   /**

@@ -88,7 +88,7 @@ const runServer = (
   app.post('/saveIcon', (req, res) => {
     const imageName = `${uniqid.time('icon-')}.png`
     const image = `${imgDir}/${imageName}`
-    let imagePath = `${req.headers.host}/img/${imageName}`;
+    let imagePath = `${req.headers.host}/img/${imageName}`
     if (!/https?/.test(imagePath)) imagePath = '//' + imagePath
     fs.writeFile(image, req.body, err => console.log(err))
 
