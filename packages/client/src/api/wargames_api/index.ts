@@ -197,8 +197,9 @@ export const getIpAddress = (): Promise<{ ip: string }> => {
 export const saveIcon = (file) => {
   return fetch(serverPath + 'saveIcon', {
     method: 'POST',
-      // @ts-ignore
-    'Content-Type': 'image/png',
+    headers: {
+      'Content-Type': 'image/png',
+    },
     body: file
   })
     // @ts-ignore

@@ -87,11 +87,19 @@ const runServer = (
 
   app.use('/saveIcon', bodyParser.raw({ type: 'image/png', limit: '20kb' }))
   app.post('/saveIcon', (req, res) => {
-    const image = `${imgDir}/${uniqid.time('icon-')}.png`
+    const buff = Buffer.from(req.body, 'utf8').toString()
+    const newBuff = buff.replace('data:image/png;base64,', '')
+    const imageName = `${uniqid.time('icon-')}.png`
+    const imagePath = `${imgDir}/${imageName}`
+    fs.writeFile(imagePath, newBuff, 'base64', err => console.log(err))
 
-    fs.writeFile(image, req.body, err => console.log(err))
+    const imageFullPath = `http://localhost:8080/getIcon/${imageName}`
+    res.status(200).send({ path: imageFullPath })
+  })
 
-    res.status(200).send({ path: image })
+  app.get('/getIcon/:icon', (req, res) => {
+    const image = path.join(__dirname, `./${imgDir}/${req.params.icon}`)
+    res.sendFile(image)
   })
 
   app.use('/saveLogo', bodyParser.raw({ type: 'image/png', limit: '100kb' }))
