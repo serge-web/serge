@@ -13,7 +13,7 @@ import styles from './styles.module.scss'
 import { createAssetBasedOnPlatformType, platformTypeNameToKey, groupCreateNewGroup, groupMoveToRoot, groupHostPlatform } from '@serge/helpers'
 
 import cx from 'classnames'
-import { getIcon } from '../../../asset-icon' // getIconClassname
+import { GetIcon } from '../../../asset-icon' // getIconClassname
 import Grid from '@material-ui/core/Grid'
 import { ReactSortable } from 'react-sortablejs'
 import List from '@material-ui/core/List'
@@ -183,7 +183,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
         onClick={(): void => { setSelectedAssetItem(item) }}
       >
         <div className={styles['item-asset-icon-box']}>
-          {getIcon(item.platformType, selectedForce.color, false, false, findIcon(item.platformType))}
+          <GetIcon icType={item.platformType} color={selectedForce.color} imageSrc={findIcon(item.platformType)} />
           {/* <div className={cx(icClassName, styles['item-asset-icon'])}/> */}
         </div>
         <div className={styles['asset-name']}>{item.name}</div>
@@ -244,7 +244,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                           <div className={styles['icon-box-content']}>
                             <div key={item.id + item.type} className={styles['icon-box']}>
                               <div>
-                                {getIcon(platformTypeNameToKey(item.name), '#415b76', false, false, item.icon)}
+                                <GetIcon icType={platformTypeNameToKey(item.name)} color='#415b76' imageSrc={item.icon} />
                               </div>
                             </div>
                           </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ImageDropzone from '../../atoms/image-dropzone'
-
+import { GetIcon } from '../../asset-icon'
 /* Import proptypes */
 import PropTypes from './types/props'
 
@@ -39,7 +39,7 @@ export const IconUploader: React.FC<PropTypes> = ({
         style={{ background }}
         className={styles.icon}
       >
-        {icon && <img src={icon} alt='icon' />}
+        {icon && <GetIcon icType={''} imageSrc={icon} color={'#555'}/>}
       </div>
       <div onClick={handleClick}>{children}</div>
       {modal && <div className={styles.modal}>

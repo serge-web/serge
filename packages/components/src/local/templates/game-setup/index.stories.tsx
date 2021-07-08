@@ -28,7 +28,7 @@ export default {
     }
   }
 }
-
+import { iconUploaderPath } from '@serge/config'
 export const Default: React.FC = () => {
   const initialWargame: Wargame = {
     ...WargameExportedMock,
@@ -112,6 +112,7 @@ export const Default: React.FC = () => {
       onSaveGameTitle={onSaveGameTitle}
       onWargameInitiate={onWargameInitiated}
       availablePlatformTypes={platformTypeMock.platformTypes}
+      iconUploadUrl={iconUploaderPath}
     />
   )
 }

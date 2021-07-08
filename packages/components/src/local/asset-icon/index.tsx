@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import cx from 'classnames'
 import { Marker, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
@@ -23,27 +23,59 @@ export const getIconClassname = (icForceClass: string, icType: string, destroyed
   icSelected ? styles.selected : null,
   imageSrc ? styles['asset-icon-with-image'] : styles[`platform-type-${icType}`]
 ))
+const isUrl = (url: string): boolean => {
+  return !/base64/.test(url)
+}
 export const checkUrl = (url: string): string => {
-  if (/^https?|^\/\/?|base64/.test(url)) {
+  if (/^https?|^\/\/?|base64|images\/default_img\//.test(url)) {
     return url
   } else {
-    return `/static/media/src/local/asset-icon/counters/${url}`
+    const prefix = location.port === '6611' ? '/static/media/src/local/asset-icon/counters/' : '/static/media/'
+    return prefix + url
   }
 }
 
-export const getIcon = (icType: string, color?: string, destroyed?: boolean, icSelected?: boolean, imageSrc?: string): JSX.Element => {
-  return (
-    <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
-      {imageSrc ? <img src={checkUrl(imageSrc)} alt={icType} className={styles.img}/> : <div className={cx(
+interface GetIconProps {
+  icType: string, 
+  color?: string, 
+  destroyed?: boolean, 
+  isSelected?: boolean, 
+  imageSrc?: string
+}
+
+export const GetIcon = ({ icType, color, destroyed, isSelected, imageSrc }: GetIconProps): React.ReactElement => {
+  const [loadStatus, setLoadStatus] = useState(true)
+  useEffect(() => {
+    checkImageStatus(imageSrc, (res): void => { setLoadStatus(res) })
+  }, [imageSrc])
+
+  return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
+    {imageSrc && loadStatus ? 
+      <div className={styles['asset-icon-with-image']}>
+        <img src={checkUrl(imageSrc)} alt={icType} className={styles.img}/>
+      </div> : 
+      <div className={cx(
         styles['asset-icon'],
         styles['asset-icon-fw'],
         destroyed ? styles.destroyed : null,
-        icSelected ? styles.selected : null,
+        isSelected ? styles.selected : null,
         styles[`platform-type-${icType}`],
         color && lightOrDark(color) === 'light' && styles['asset-icon-invert']
       )}/>}
-    </div>
-  )
+  </div>
+}
+
+const checkImageStatus = (imageSrc: string | undefined, cb: (status: boolean) => void) => {
+  if (imageSrc && isUrl(imageSrc)) {
+    fetch(checkUrl(imageSrc), { method: 'HEAD' })
+      .then(res => {
+        cb(res.status !== 404)
+      })
+      .catch(err => {
+        console.log('Error:', err)
+        cb(false)
+      });
+  }
 }
 
 /* Render component */
@@ -65,6 +97,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   locationPending,
   imageSrc
 }) => {
+  const [loadStatus, setLoadStatus] = useState(true)
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
   const { setShowMapBar, setSelectedAsset, selectedAsset } = props
@@ -72,18 +105,17 @@ export const AssetIcon: React.FC<PropTypes> = ({
   // TODO: switch to received isDestroyed in props, using value from `Route`
   const isDestroyed: boolean = !!condition && (condition.toLowerCase() === 'destroyed' || condition.toLowerCase() === 'mission kill')
 
+  useEffect(() => {
+    checkImageStatus(imageSrc, (res): void => { setLoadStatus(res) })
+  }, [imageSrc])
+  
+  const className = getIconClassname(perceivedForceClass || '', type, isDestroyed, selected, loadStatus ? imageSrc: undefined)
+  const image = loadStatus && typeof imageSrc !== 'undefined' ? `<img src="${checkUrl(imageSrc)}" alt="${type}">` : ''
+
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: typeof imageSrc !== 'undefined' && `<div style="background-color: ${perceivedForceColor}"><img src="${checkUrl(imageSrc)}" alt="${type}"></div>`,
-    className: getIconClassname(perceivedForceClass || '', type, isDestroyed, selected, imageSrc)
-
+    html: `<div class='${className}' style="background-color: ${perceivedForceColor}">${image}</div>`,
   })
-
-  // TODO - set the `divIcon` (or marker) background color according to
-  // perceivedForceColor, not using the perceivedForceClass
-  if (!perceivedForceClass) {
-    console.log('should set background to', perceivedForceColor)
-  }
 
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {

@@ -21,6 +21,8 @@
   background-position: 50%;
   background-size: 80%;
   box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   border: 1px solid hsla(0, 0%, 100%, 0.6);
   &.selected {
     border: 4px solid rgba(255, 255, 255, 0.7);
@@ -94,11 +96,8 @@ $platforms: agi, auxiliary, boghammer, carrier, coastal-radar-site, datum,
 }
 
 .asset-icon-with-image {
-  div {
-    border-radius: 999px;
-    padding: 2px;
-    box-sizing: border-box;
-  }
+  padding: 10%;
+  box-sizing: border-box;
 
   img {
     width: 100%;

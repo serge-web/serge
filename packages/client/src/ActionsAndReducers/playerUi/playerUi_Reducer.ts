@@ -30,6 +30,8 @@ import {
   CHAT_CHANNEL_ID,
 } from '../../consts'
 
+import { platformTypeNameToKey } from '@serge/helpers'
+
 export const initialState: PlayerUi = {
   selectedForce: undefined,
   selectedRole: '',
@@ -99,6 +101,11 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       if (action.payload.data.platform_types) {
         // @ts-ignore
         newState.allPlatformTypes = action.payload.data.platform_types.platformTypes
+        newState.allPlatformTypesByKey = {}
+        // @ts-ignore
+        for (const platformType of action.payload.data.platform_types.platformTypes) {
+          newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
+        }
       }
       // TODO: remove this ^^
 
@@ -107,7 +114,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
         // don't need any more to do loop find when we need to get platformType based on Asset.platformType
         newState.allPlatformTypesByKey = {}
         for (const platformType of action.payload.data.platformTypes.platformTypes) {
-          newState.allPlatformTypesByKey[platformType.name] = platformType
+          newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
         }
       }
 

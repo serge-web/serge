@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import Button from '../atoms/button'
-import { getIcon } from '../asset-icon'
+import { GetIcon } from '../asset-icon'
 import Groups from '../helper-elements/groups'
 // import update from 'react-addons-update'
 
@@ -160,7 +160,7 @@ export const WorldState: React.FC<PropTypes> = ({
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
         <div className={styles['item-icon']}>
-          {getIcon(item.platformType, forceColor, false, item.selected, imageSrc)}
+          <GetIcon icType={item.platformType} color={forceColor} isSelected={item.selected} imageSrc={imageSrc} />
         </div>
         <div className={styles['item-content']}>
           <div>
