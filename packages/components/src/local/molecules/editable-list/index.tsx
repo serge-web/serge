@@ -6,15 +6,22 @@ import PropTypes, { Item } from './types/props'
 /* Import Styles */
 import styles from './styles.module.scss'
 
+/* Import const */
+import { CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '@serge/config'
+
 /* Import Components */
 import Button from '../../atoms/button'
 import SearchList from '../search-list'
+import Icon from '@material-ui/core/Icon'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 
 /* Render component */
 export const EditableList: React.FC<PropTypes> = ({
   onClick,
   items,
   title = 'Add',
+  type = 'force',
   qaType = 'add',
   onCreate,
   onDuplicate,
@@ -31,9 +38,9 @@ export const EditableList: React.FC<PropTypes> = ({
     }
   }
 
-  const handleCreate = (): void => {
+  const handleCreate = (buttonText?: string): void => {
     if (typeof onCreate === 'function') {
-      onCreate()
+      onCreate(buttonText)
     }
   }
 
@@ -53,20 +60,66 @@ export const EditableList: React.FC<PropTypes> = ({
     return (item[filterKey] || item.name).toLowerCase().indexOf(value.toLowerCase()) > -1
   }
 
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+
+  const handleButtonMenuOpen = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleButtonMenuClose = (): void => {
+    setAnchorEl(null)
+  }
+
+  const handleButtonMenuItemClicked = (event: React.MouseEvent): void => {
+    handleButtonMenuClose()
+    handleCreate(event.currentTarget.textContent?.toString())
+  }
   return (
     <div className={styles.main}>
       {
         onCreate
           ? (
             <div className={styles.section}>
-              <Button
-                color="secondary"
-                size="large"
-                onClick={handleCreate}
-                data-qa-type={qaType}
-              >
-                {title}
-              </Button>
+              {
+                type === 'channel'
+                  ? (
+                    <div>
+                      <Button
+                        color="secondary"
+                        size="large"
+                        aria-controls="channel-add-menu"
+                        aria-haspopup="true"
+                        onClick={handleButtonMenuOpen}
+                        data-qa-type={qaType}
+                        endIcon={<Icon>send</Icon>}
+                      >
+                        {title}
+                      </Button>
+                      <Menu
+                        id="channel-add-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleButtonMenuClose}
+                      >
+                        <MenuItem onClick={handleButtonMenuItemClicked}>{CHANNEL_MAPPING}</MenuItem>
+                        <MenuItem onClick={handleButtonMenuItemClicked}>{CHANNEL_RFI_STATUS}</MenuItem>
+                        <MenuItem onClick={handleButtonMenuItemClicked}>Normal</MenuItem>
+                      </Menu>
+                    </div>
+                  ) : (
+                    <Button
+                      color="secondary"
+                      size="large"
+                      aria-controls="channel-add-menu"
+                      aria-haspopup="true"
+                      onClick={(): void => handleCreate()}
+                      data-qa-type={qaType}
+                    >
+                      {title}
+                    </Button>
+                  )
+              }
             </div>
           ) : null
       }
