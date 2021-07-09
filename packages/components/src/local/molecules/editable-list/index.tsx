@@ -122,7 +122,7 @@ export const EditableList: React.FC<PropTypes> = ({
               }
             </div>
           ) : null
-      }----
+      }
       <SearchList
         listData={items}
         setSelected={handleClick}
