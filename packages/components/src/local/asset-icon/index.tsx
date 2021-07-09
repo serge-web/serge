@@ -106,7 +106,7 @@ export const AssetIcon: React.FC<PropTypes> = ({
   const isDestroyed: boolean = !!condition && (condition.toLowerCase() === 'destroyed' || condition.toLowerCase() === 'mission kill')
 
   useEffect(() => {
-    checkImageStatus(imageSrc).then(res => {setLoadStatus(res)}).catch(() => { setLoadStatus(false) })
+    checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
   }, [imageSrc])
 
   const className = getIconClassname(perceivedForceClass || '', type, isDestroyed, selected, loadStatus ? imageSrc : undefined)

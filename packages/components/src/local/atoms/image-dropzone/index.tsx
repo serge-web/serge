@@ -47,7 +47,7 @@ export const ImageDropzone: React.FC<PropTypes> = ({
     onDropAccepted: (acceptedFiles: Array<any>): void => {
       const [file] = acceptedFiles
       if (iconUploadUrl) {
-        console.log(iconUploadUrl, 'iconUploadUrl');
+        console.log(iconUploadUrl, 'iconUploadUrl')
         fetch(iconUploadUrl, { method: 'POST', body: file })
           .then((response): Promise<{ path?: string }> => response.json())
           .then(({ path }) => {
