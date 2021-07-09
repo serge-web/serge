@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDropzone } from 'react-dropzone'
-
+import fetch from 'node-fetch'
 /* Import proptypes */
 import PropTypes from './types/props'
 

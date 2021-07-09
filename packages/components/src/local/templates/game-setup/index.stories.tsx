@@ -16,6 +16,7 @@ import {
 // Import component files
 import GameSetup from './index'
 import docs from './README.md'
+import { iconUploaderPath } from '@serge/config'
 
 export default {
   title: 'local/templates/GameSetup',
@@ -28,7 +29,6 @@ export default {
     }
   }
 }
-import { iconUploaderPath } from '@serge/config'
 export const Default: React.FC = () => {
   const initialWargame: Wargame = {
     ...WargameExportedMock,

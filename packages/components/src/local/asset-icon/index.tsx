@@ -4,6 +4,7 @@ import { Marker, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 import { capitalize } from 'lodash'
 import { lightOrDark } from '../map-control/helpers/lightOrDark'
+import fetch from 'node-fetch'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -14,6 +15,7 @@ import styles from './styles.module.scss'
 /* Import context */
 import { MapContext } from '../mapping'
 import { SelectedAsset } from '@serge/custom-types'
+import { resolve } from 'q'
 
 /* Export divIcon classname generator to use icons in to other sections */
 export const getIconClassname = (icForceClass: string, icType: string, destroyed?: boolean, icSelected?: boolean, imageSrc?: string): string => (cx(
@@ -30,31 +32,31 @@ export const checkUrl = (url: string): string => {
   if (/^https?|^\/\/?|base64|images\/default_img\//.test(url)) {
     return url
   } else {
-    const prefix = location.port === '6611' ? '/static/media/src/local/asset-icon/counters/' : '/static/media/'
+    const prefix = '/static/media/src/local/asset-icon/counters/'
     return prefix + url
   }
 }
 
 interface GetIconProps {
-  icType: string, 
-  color?: string, 
-  destroyed?: boolean, 
-  isSelected?: boolean, 
+  icType: string
+  color?: string
+  destroyed?: boolean
+  isSelected?: boolean
   imageSrc?: string
 }
 
 export const GetIcon = ({ icType, color, destroyed, isSelected, imageSrc }: GetIconProps): React.ReactElement => {
   const [loadStatus, setLoadStatus] = useState(true)
   useEffect(() => {
-    checkImageStatus(imageSrc, (res): void => { setLoadStatus(res) })
+    checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
   }, [imageSrc])
 
   return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
-    {imageSrc && loadStatus ? 
-      <div className={styles['asset-icon-with-image']}>
+    {imageSrc && loadStatus
+      ? <div className={styles['asset-icon-with-image']}>
         <img src={checkUrl(imageSrc)} alt={icType} className={styles.img}/>
-      </div> : 
-      <div className={cx(
+      </div>
+      : <div className={cx(
         styles['asset-icon'],
         styles['asset-icon-fw'],
         destroyed ? styles.destroyed : null,
@@ -65,17 +67,12 @@ export const GetIcon = ({ icType, color, destroyed, isSelected, imageSrc }: GetI
   </div>
 }
 
-const checkImageStatus = (imageSrc: string | undefined, cb: (status: boolean) => void) => {
+const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
   if (imageSrc && isUrl(imageSrc)) {
-    fetch(checkUrl(imageSrc), { method: 'HEAD' })
-      .then(res => {
-        cb(res.status !== 404)
-      })
-      .catch(err => {
-        console.log('Error:', err)
-        cb(false)
-      });
+    return fetch(checkUrl(imageSrc), { method: 'HEAD' })
+      .then(res => res.status !== 404)
   }
+  return new Promise((resolve) => resolve(false))
 }
 
 /* Render component */
@@ -106,15 +103,15 @@ export const AssetIcon: React.FC<PropTypes> = ({
   const isDestroyed: boolean = !!condition && (condition.toLowerCase() === 'destroyed' || condition.toLowerCase() === 'mission kill')
 
   useEffect(() => {
-    checkImageStatus(imageSrc, (res): void => { setLoadStatus(res) })
+    checkImageStatus(imageSrc).then(res => {setLoadStatus(res)}).catch(() => { setLoadStatus(false) })
   }, [imageSrc])
-  
-  const className = getIconClassname(perceivedForceClass || '', type, isDestroyed, selected, loadStatus ? imageSrc: undefined)
+
+  const className = getIconClassname(perceivedForceClass || '', type, isDestroyed, selected, loadStatus ? imageSrc : undefined)
   const image = loadStatus && typeof imageSrc !== 'undefined' ? `<img src="${checkUrl(imageSrc)}" alt="${type}">` : ''
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className}' style="background-color: ${perceivedForceColor}">${image}</div>`,
+    html: `<div class='${className}' style="background-color: ${perceivedForceColor}">${image}</div>`
   })
 
   const clickEvent = (): void => {
