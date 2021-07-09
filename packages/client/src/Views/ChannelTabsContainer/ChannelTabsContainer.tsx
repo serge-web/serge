@@ -48,14 +48,12 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
       return collections.map(setTabContent)
     }
     const children = Array.from(Array(chunkSize).keys()).map(tabset => {
-      console.log('=> tabset: ', tabset)
       return {
         type: 'tabset',
         weight: 50,
         children: tabChildren(tabset)
       }
     })
-    console.log('=> children: ', children)
     return {
       ...FLEX_LAYOUT_MODEL_DEFAULT,
       layout: {
@@ -86,31 +84,8 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
   useEffect(() => {
     if (wargamesLoaded) {
       computeTabs(state, model)
-      updateTabTransparency()
     }
   }, [state, wargamesLoaded])
-
-  const updateTabTransparency = () => {
-    const maximizeTabset = model.getMaximizedTabset()
-    if (!maximizeTabset) return
-    model.visitNodes((node, lv) => {
-      // console.log('=> node: ', node)
-      if (node instanceof RowNode && lv === 1) {
-        const childNodes: Node[] = node.getChildren()
-        for (const childNode of childNodes) {
-          if (childNode instanceof TabSetNode) {
-            const tabSetNode = childNode as TabSetNode
-            if (!tabSetNode.isMaximized()) {
-              console.log('=> tab behind maximize: ', tabSetNode.getId())
-              // tabSetNode.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(tabSetNode.getId(), { classNames: 'hide-tab' }))
-            } else {
-              console.log('=> tab maximize: ', tabSetNode.getId())
-            }
-          }
-        }
-      }
-    })
-  }
 
   return (
     <div className='contain-channel-tabs' data-force={selectedForce.uniqid} ref={rootRef}>
@@ -122,7 +97,6 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
               factory={factory(state)}
               onRenderTab={tabRender(state)}
               onModelChange={() => {
-                updateTabTransparency()
                 expiredStorage.setItem(modelName, JSON.stringify(model.toJson()), LOCAL_STORAGE_TIMEOUT)
               }}
             />
