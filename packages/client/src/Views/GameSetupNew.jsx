@@ -272,7 +272,7 @@ const AdminGameSetup = () => {
       dispatch(setSelectedChannel(channels.channels[0]))
     }
   }, [currentTab])
-  console.log(iconUploaderPath);
+  
   return (
     <GameSetup
       activeTab={currentTab || tabs[0]}

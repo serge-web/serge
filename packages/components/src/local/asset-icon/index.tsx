@@ -4,7 +4,7 @@ import { Marker, Tooltip } from 'react-leaflet'
 import L from 'leaflet'
 import { capitalize } from 'lodash'
 import { lightOrDark } from '../map-control/helpers/lightOrDark'
-import fetch from 'node-fetch'
+import unfetch from 'node-fetch'
 
 /* Import Types */
 import PropTypes from './types/props'
@@ -15,7 +15,10 @@ import styles from './styles.module.scss'
 /* Import context */
 import { MapContext } from '../mapping'
 import { SelectedAsset } from '@serge/custom-types'
-import { resolve } from 'q'
+
+// TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
+// error based on some webpack version
+const fetch = unfetch.bind(window)
 
 /* Export divIcon classname generator to use icons in to other sections */
 export const getIconClassname = (icForceClass: string, icType: string, destroyed?: boolean, icSelected?: boolean, imageSrc?: string): string => (cx(
@@ -72,7 +75,7 @@ const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
     return fetch(checkUrl(imageSrc), { method: 'HEAD' })
       .then(res => res.status !== 404)
   }
-  return new Promise((resolve) => resolve(false))
+  return new Promise((resolve) => resolve(true))
 }
 
 /* Render component */

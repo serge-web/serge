@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDropzone } from 'react-dropzone'
-import fetch from 'node-fetch'
+import unfetch from 'node-fetch'
 /* Import proptypes */
 import PropTypes from './types/props'
 
@@ -10,6 +10,10 @@ import styles from './styles.module.scss'
 /* Import Icons */
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+// TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
+// error based on some webpack version
+const fetch = unfetch.bind(window)
 
 /* Render component */
 export const ImageDropzone: React.FC<PropTypes> = ({
@@ -43,6 +47,7 @@ export const ImageDropzone: React.FC<PropTypes> = ({
     onDropAccepted: (acceptedFiles: Array<any>): void => {
       const [file] = acceptedFiles
       if (iconUploadUrl) {
+        console.log(iconUploadUrl, 'iconUploadUrl');
         fetch(iconUploadUrl, { method: 'POST', body: file })
           .then((response): Promise<{ path?: string }> => response.json())
           .then(({ path }) => {
