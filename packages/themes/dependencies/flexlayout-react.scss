@@ -92,6 +92,10 @@
 .flexlayout__tabset {
   overflow: hidden;
   box-sizing: border-box;
+
+  &.hide-tab {
+    display: none;
+  }
 }
 
 
