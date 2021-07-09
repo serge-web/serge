@@ -20,6 +20,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
   const setDefaultModel = () => {
     const { allChannels } = state
     const hasMap = allChannels.find(({ name }) => name.toLowerCase() === 'mapping')
+
     const setTabContent = (channel: ChannelData) => ({
       type: 'tab',
       id: channel.uniqid,
@@ -27,6 +28,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
       component: channel.name,
       className: ''
     })
+
     if (allChannels.length <= 1 || hasMap) {
       return {
         ...FLEX_LAYOUT_MODEL_DEFAULT,
@@ -42,11 +44,13 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
 
     const chunks = [...allChannels]
     const chunkSize = 2
-    const firstSet = chunks.splice(0, Math.round(chunks.length/chunkSize))
+    const firstSet = chunks.splice(0, Math.round(chunks.length / chunkSize))
+
     const tabChildren = (id: Number) => {
       const collections = id === 0 ? firstSet : chunks
       return collections.map(setTabContent)
     }
+
     const children = Array.from(Array(chunkSize).keys()).map(tabset => {
       return {
         type: 'tabset',
@@ -54,6 +58,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
         children: tabChildren(tabset)
       }
     })
+
     return {
       ...FLEX_LAYOUT_MODEL_DEFAULT,
       layout: {
@@ -62,7 +67,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
       }
     }
   }
-  const getModel = ():Model => {
+  const getModel = (): Model => {
     let model = expiredStorage.getItem(modelName)
     if (model) return FlexLayout.Model.fromJson(JSON.parse(model))
     return FlexLayout.Model.fromJson(setDefaultModel())
