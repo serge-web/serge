@@ -12,7 +12,7 @@ import { CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '@serge/config'
 /* Import Components */
 import Button from '../../atoms/button'
 import SearchList from '../search-list'
-import Icon from '@material-ui/core/Icon'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 
@@ -91,7 +91,7 @@ export const EditableList: React.FC<PropTypes> = ({
                         aria-haspopup="true"
                         onClick={handleButtonMenuOpen}
                         data-qa-type={qaType}
-                        endIcon={<Icon>send</Icon>}
+                        endIcon={<ArrowDropDownIcon/>}
                       >
                         {title}
                       </Button>
@@ -122,7 +122,7 @@ export const EditableList: React.FC<PropTypes> = ({
               }
             </div>
           ) : null
-      }
+      }----
       <SearchList
         listData={items}
         setSelected={handleClick}
