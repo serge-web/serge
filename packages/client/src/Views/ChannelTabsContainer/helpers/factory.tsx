@@ -13,7 +13,7 @@ import {
   Phase
 } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
-import FlexLayout, { TabNode, TabSetNode } from 'flexlayout-react'
+import { TabNode, TabSetNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { Mapping, Assets, HexGrid } from '@serge/components'
 import _ from 'lodash'
