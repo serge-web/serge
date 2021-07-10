@@ -10,6 +10,7 @@ import {
   SET_LATEST_WARGAME_MESSAGE,
   SET_ALL_MESSAGES,
   OPEN_MESSAGE,
+  MARK_UNREAD,
   CLOSE_MESSAGE,
   MARK_ALL_AS_READ,
   OPEN_TOUR,
@@ -76,6 +77,10 @@ export const setWargameMessages = (messages: Array<MessageCustom | MessageInfoTy
 })
 export const openMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
   type: OPEN_MESSAGE,
+  payload: { channel, message }
+})
+export const markUnread = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
+  type: MARK_UNREAD,
   payload: { channel, message }
 })
 export const closeMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({

@@ -13,12 +13,20 @@ import messageTitleFor from '../../organisms/channel-messages-list/helpers/messa
 /* Render component */
 export const ChannelMessage: React.FC<Props> = (props: Props) => {
   const CollapsibleHeader = ({ onExpand, collapsed }: any): React.ReactElement => {
-    const { onRead, message } = props
+    const { onRead, onUnread, message } = props
+
     const title = messageTitleFor(message)
     const handleOnExpand = (): void => {
       onExpand(!collapsed)
       onRead && onRead(message)
     }
+    const markUnread = (): void => {
+      if (!collapsed) {
+        onExpand(!collapsed)
+      }
+      onUnread && onUnread(message)
+    }
+
     return (
       <MessageListHeader
         isOpen={!collapsed}
@@ -29,6 +37,7 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
         hasBeenRead={message.hasBeenRead}
         forceColor={props.forceColor}
         role={props.role}
+        markUnread={markUnread}
       />
     )
   }
