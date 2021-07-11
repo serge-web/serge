@@ -55,7 +55,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
         className="message-list-wrapper"
         style={
           Object {
-            "borderColor": "#F00",
+            "borderColor": "rgba(255, 0, 0, 1)",
           }
         }
       >
