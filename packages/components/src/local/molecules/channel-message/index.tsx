@@ -51,8 +51,15 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
     )
   }
 
+  const hexToRGBA = (hex: string, hasBeenRead: boolean): string => {
+    const r = parseInt(hex.slice(1, 3), 16)
+    const g = parseInt(hex.slice(3, 5), 16)
+    const b = parseInt(hex.slice(5, 7), 16)
+    return `rgba(${r}, ${g}, ${b}, ${hasBeenRead ? 0.6 : 1})`
+  }
+
   return (
-    <div className={styles['message-list-wrapper']} style={{ borderColor: props.message.details.from.forceColor }}>
+    <div className={styles['message-list-wrapper']} style={{ borderColor: hexToRGBA(props.message.details.from.forceColor, props.message.hasBeenRead) }}>
       <Collapsible
         header={<CollapsibleHeader />}
         content={<CollapsibleContent />}
