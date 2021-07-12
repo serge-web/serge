@@ -7,6 +7,7 @@ interface CssExports {
   'message-title': string;
   'message-title-opened': string;
   'message-title-wrap': string;
+  'marker': string
 }
 export const cssExports: CssExports;
 export default cssExports;
