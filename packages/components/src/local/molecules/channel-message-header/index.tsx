@@ -28,7 +28,9 @@ export const ChannelMessageHeader: React.FC<Props> = ({
 }: Props) => {
   return (
     <div className={
-      `${styles['message-title-wrap']} ${isOpen ? styles['message-title-opened'] : ''}`
+      `${styles['message-title-wrap']} 
+      ${!hasBeenRead ? styles['message-item-unread'] : ''} 
+      ${isOpen ? styles['message-title-opened'] : ''}`
     }>
       <FontAwesomeIcon
         className={styles.marker}

@@ -17,7 +17,7 @@
     @include panel-item-wrap(0 4px 0 0);
   }
 
-  .message-item-unread & {
+  &.message-item-unread {
     background-color: $background-alpha-bold;
   }
 }

@@ -14,7 +14,9 @@ exports[`ChannelMessage component: renders correctly 1`] = `
     onClick={[Function]}
   >
     <div
-      className="message-title-wrap "
+      className="message-title-wrap 
+      message-item-unread 
+      "
     >
       <svg
         className="svg-inline--fa fa-envelope"
