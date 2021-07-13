@@ -17,26 +17,15 @@
     @include panel-item-wrap(0 4px 0 0);
   }
 
-  &::after {
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 100%;
-    content: "";
-    display: block;
-    height: 6px;
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translate3d(0, -50%, 0);
-    width: 6px;
-  }
-
-  .message-item-unread & {
+  &.message-item-unread {
     background-color: $background-alpha-bold;
-
-    &::after {
-      background-color: $action-secondary-color;
-    }
   }
+}
+
+.marker {
+  top: 22px;
+  right: 10px;
+  position: absolute;
 }
 
 .message-title {
