@@ -12,7 +12,15 @@ import { CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '@serge/config'
 /* Import Components */
 import Button from '../../atoms/button'
 import SearchList from '../search-list'
-import { SplitButton, Dropdown } from 'react-bootstrap'
+import MButton from '@material-ui/core/Button'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import Grow from '@material-ui/core/Grow'
+import Paper from '@material-ui/core/Paper'
+import Popper from '@material-ui/core/Popper'
+import MenuItem from '@material-ui/core/MenuItem'
+import MenuList from '@material-ui/core/MenuList'
 
 /* Render component */
 export const EditableList: React.FC<PropTypes> = ({
@@ -30,6 +38,10 @@ export const EditableList: React.FC<PropTypes> = ({
   searchLabel = 'Search',
   withSearch
 }) => {
+  const [open, setOpen] = React.useState(false)
+  const anchorRef = React.useRef<HTMLDivElement>(null)
+  const options = [CHANNEL_MAPPING, CHANNEL_RFI_STATUS]
+
   const handleClick = (item: Item): void => {
     if (typeof onClick === 'function') {
       onClick(item)
@@ -54,12 +66,27 @@ export const EditableList: React.FC<PropTypes> = ({
     }
   }
 
+  const handleToggle = (): void => {
+    setOpen((prevOpen) => !prevOpen)
+  }
+
   const filterChannels = (item: Item, value: string): boolean => {
     return (item[filterKey] || item.name).toLowerCase().indexOf(value.toLowerCase()) > -1
   }
 
-  const handleButtonMenuItemClicked = (event: React.MouseEvent): void => {
-    handleCreate(event.currentTarget.textContent?.toString())
+  const handleClose = (event: React.MouseEvent<Document, MouseEvent>): void => {
+    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+      return
+    }
+
+    setOpen(false)
+  }
+
+  const handleMenuItemClick = (
+    event: any
+  ): void => {
+    handleCreate(event.currentTarget.textContent)
+    setOpen(false)
   }
 
   return (
@@ -72,10 +99,41 @@ export const EditableList: React.FC<PropTypes> = ({
                 type === 'channel'
                   ? (
                     <div>
-                      <SplitButton className={styles.menu} menuAlign={'left'} title={title} id={'channel-add-menu'} variant={'secondary'} onClick={handleButtonMenuItemClicked}>
-                        <Dropdown.Item onClick={handleButtonMenuItemClicked}>{CHANNEL_MAPPING}</Dropdown.Item>
-                        <Dropdown.Item onClick={handleButtonMenuItemClicked}>{CHANNEL_RFI_STATUS}</Dropdown.Item>
-                      </SplitButton>
+                      <ButtonGroup variant="contained" color="secondary" ref={anchorRef} aria-label="split button">
+                        <MButton color="secondary" size={'large'} onClick={handleMenuItemClick}>{title}</MButton>
+                        <MButton
+                          color="secondary"
+                          size="small"
+                          aria-controls={'split-button-menu'}
+                          aria-label="select merge strategy"
+                          aria-haspopup="menu"
+                          onClick={handleToggle}
+                        >
+                          <ArrowDropDownIcon />
+                        </MButton>
+                      </ButtonGroup>
+                      <Popper open={open} anchorEl={anchorRef.current} transition className={styles.menu} disablePortal>
+                        {({ TransitionProps, placement }) => (
+                          <Grow
+                            {...TransitionProps}
+                          >
+                            <Paper>
+                              <ClickAwayListener onClickAway={handleClose}>
+                                <MenuList id="split-button-menu">
+                                  {options.map((option) => (
+                                    <MenuItem
+                                      key={option}
+                                      onClick={handleMenuItemClick}
+                                    >
+                                      {option}
+                                    </MenuItem>
+                                  ))}
+                                </MenuList>
+                              </ClickAwayListener>
+                            </Paper>
+                          </Grow>
+                        )}
+                      </Popper>
                     </div>
                   ) : (
                     <Button
