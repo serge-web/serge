@@ -8,6 +8,7 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
     let channel: any;
 
     const addMenuItemMsgCount = (className: string) => {
+      if (!className) return
       const overflowBtn = document.getElementsByClassName('flexlayout__tab_button_overflow')
       if (overflowBtn.length) {
         overflowBtn[0].addEventListener('click', () => {
@@ -25,29 +26,22 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
 
     const setUnreadClassName = (className: string): void => {
       if (node.getClassName() !== className) {
-        setTimeout(() => {
-          node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className }))
-        }, 0);
+        node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className }))
       }
     };
 
     if (!_.isEmpty(state.channels)) {
       const matchedChannel = findChannelByName(state.channels, node.getName())
-
       channel = matchedChannel && matchedChannel.length > 1 ? matchedChannel[1] : undefined
 
-      setTimeout(() => {
-        addMenuItemMsgCount(`unread-${channel.unreadMessageCount}`)
-      })
-
       if (channel !== undefined) {
-        if (channel.unreadMessageCount === 0) {
-          setUnreadClassName('');
-        } else if (channel.unreadMessageCount || 0 < 9) {
-          setUnreadClassName(`unread-${channel.unreadMessageCount}`)
-        } else {
-          setUnreadClassName(`unread-${channel.unreadMessageCount}plus`)
-        }
+        const className = !channel.unreadMessageCount ?
+          '' : channel.unreadMessageCount < 9 ?
+            `unread-${channel.unreadMessageCount}` : 'unread-9plus'
+        setTimeout(() => {
+          setUnreadClassName(className)
+          addMenuItemMsgCount(className)
+        })
       }
     }
   }
