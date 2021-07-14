@@ -34,7 +34,9 @@
 }
 
 .btn-secondary {
-  font-size: 12px;
+  font-size: 0.9375rem;
+  text-transform: uppercase;
+  background-color: #394959;
 
   &:disabled {
     background: none !important;

@@ -12,9 +12,7 @@ import { CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '@serge/config'
 /* Import Components */
 import Button from '../../atoms/button'
 import SearchList from '../search-list'
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
+import { SplitButton, Dropdown } from 'react-bootstrap'
 
 /* Render component */
 export const EditableList: React.FC<PropTypes> = ({
@@ -60,20 +58,10 @@ export const EditableList: React.FC<PropTypes> = ({
     return (item[filterKey] || item.name).toLowerCase().indexOf(value.toLowerCase()) > -1
   }
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-
-  const handleButtonMenuOpen = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleButtonMenuClose = (): void => {
-    setAnchorEl(null)
-  }
-
   const handleButtonMenuItemClicked = (event: React.MouseEvent): void => {
-    handleButtonMenuClose()
     handleCreate(event.currentTarget.textContent?.toString())
   }
+
   return (
     <div className={styles.main}>
       {
@@ -84,28 +72,10 @@ export const EditableList: React.FC<PropTypes> = ({
                 type === 'channel'
                   ? (
                     <div>
-                      <Button
-                        color="secondary"
-                        size="large"
-                        aria-controls="channel-add-menu"
-                        aria-haspopup="true"
-                        onClick={handleButtonMenuOpen}
-                        data-qa-type={qaType}
-                        endIcon={<ArrowDropDownIcon/>}
-                      >
-                        {title}
-                      </Button>
-                      <Menu
-                        id="channel-add-menu"
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleButtonMenuClose}
-                      >
-                        <MenuItem onClick={handleButtonMenuItemClicked}>{CHANNEL_MAPPING}</MenuItem>
-                        <MenuItem onClick={handleButtonMenuItemClicked}>{CHANNEL_RFI_STATUS}</MenuItem>
-                        <MenuItem onClick={handleButtonMenuItemClicked}>Normal</MenuItem>
-                      </Menu>
+                      <SplitButton className={styles.menu} menuAlign={'left'} title={title} id={'channel-add-menu'} variant={'secondary'} onClick={handleButtonMenuItemClicked}>
+                        <Dropdown.Item onClick={handleButtonMenuItemClicked}>{CHANNEL_MAPPING}</Dropdown.Item>
+                        <Dropdown.Item onClick={handleButtonMenuItemClicked}>{CHANNEL_RFI_STATUS}</Dropdown.Item>
+                      </SplitButton>
                     </div>
                   ) : (
                     <Button
