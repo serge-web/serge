@@ -25,8 +25,8 @@ export const getIconClassname = (icForceClass: string, icType: string, destroyed
 ))
 
 export const getIcon = (icType: string, color?: string, destroyed?: boolean, icSelected?: boolean): JSX.Element => {
-  return(
-    <div className={styles['asset-icon-background']} style={{backgroundColor: color}}>
+  return (
+    <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
       <div className={cx(
         styles['asset-icon'],
         styles['asset-icon-fw'],
