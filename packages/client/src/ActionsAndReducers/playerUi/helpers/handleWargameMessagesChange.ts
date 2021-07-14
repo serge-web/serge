@@ -66,7 +66,10 @@ export const openMessage = (channel: string, payloadMessage: MessageChannel, new
   }
 
   const unreadMessageCount = channelMessages.filter((message) => {
-    return message._id && expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
+    return message._id &&
+      !message.hasBeenRead &&
+      message.messageType !== INFO_MESSAGE_CLIPPED &&
+      expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
   }).length
 
   return {
@@ -85,11 +88,29 @@ const closeMessageChange = (message: MessageChannel, id: string): { message: Mes
 }
 
 export const markUnread = (channel: string, message: MessageChannel, newState: PlayerUi) => {
-  if (message._id) {
-    const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
-    expiredStorage.removeItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`)
+  if (!message._id) {
+    return {
+      ...newState.channels[channel],
+      message
+    }
   }
-  return { message, ...newState.channels[channel] }
+
+  const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
+  expiredStorage.removeItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`)
+
+  const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
+  const unreadMessageCount = channelMessages.filter((message) => {
+    return message._id &&
+      !message.hasBeenRead &&
+      message.messageType !== INFO_MESSAGE_CLIPPED &&
+      expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
+  }).length
+
+  return {
+    ...newState.channels[channel],
+    unreadMessageCount,
+    messages: channelMessages
+  }
 }
 
 
