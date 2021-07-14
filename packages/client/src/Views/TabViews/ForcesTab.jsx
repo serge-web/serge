@@ -165,7 +165,7 @@ class ForcesTab extends Component {
     let forceName = typeof this.state.newForceName === 'string' ? this.state.newForceName : selectedForce;
     let forceOverview = typeof this.state.newForceOverview === 'string' ? this.state.newForceOverview : this.props.wargame.data[curTab].forces.find((force) => force.name === selectedForce).overview;
     let force = this.props.wargame.data[curTab].forces.find((force) => force.name === selectedForce);
-    let forceIcon = force.icon;
+    let forceIcon = force.iconURL || force.icon;
     let forceColor = force.color;
 
     return (
