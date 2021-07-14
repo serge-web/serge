@@ -98,8 +98,11 @@ const runServer = (
   })
 
   app.get('/getIcon/:icon', (req, res) => {
-    const image = path.join(__dirname, `./${imgDir}/${req.params.icon}`)
-    res.sendFile(image)
+    if (imgDir) {
+      res.sendFile(path.join(process.cwd(), imgDir, req.params.icon))
+      return
+    }
+    res.sendFile(path.join(__dirname, '../', 'img', req.params.icon))
   })
 
   app.use('/saveLogo', bodyParser.raw({ type: 'image/png', limit: '100kb' }))
