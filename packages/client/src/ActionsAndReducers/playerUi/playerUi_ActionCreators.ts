@@ -147,7 +147,7 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string): Fu
     const address = await wargamesApi.getIpAddress()
     const from: MessageDetailsFrom = {
       force: address.ip,
-      icon: '',
+      iconURL: '',
       forceColor: '#970000',
       role: '',
       name: password

@@ -18,7 +18,7 @@ export default {
 
 export const Default: React.FC = () => (
   <AdminPanelFooter
-    force={{ color: '#3dd0ff', name: 'Blue', icon: 'http://localhost:8080/default_img/forceDefault.png' }}
+    force={{ color: '#3dd0ff', name: 'Blue', iconURL: 'http://localhost:8080/default_img/forceDefault.png' }}
     selectedRole="Comms"
     byPassUrl="http://localhost:3000/?wargame=wargame-k16fadm4&access=pk16ffhn3"
     onIconClick={(): any => window.alert('Icon clicked')}
@@ -27,7 +27,7 @@ export const Default: React.FC = () => (
 
 export const ColorVariation: React.FC = () => (
   <AdminPanelFooter
-    force={{ color: '#a426f1', name: 'Purple', icon: 'http://localhost:8080/default_img/forceDefault.png' }}
+    force={{ color: '#a426f1', name: 'Purple', iconURL: 'http://localhost:8080/default_img/forceDefault.png' }}
     selectedRole="Comms"
     byPassUrl="http://localhost:3000/?wargame=wargame-k16fadm4&access=pk16ffhn3"
     onIconClick={(): any => window.alert('Icon clicked')}

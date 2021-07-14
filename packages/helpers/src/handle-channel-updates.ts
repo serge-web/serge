@@ -200,7 +200,10 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
         uniqid: channel.uniqid,
         templates: templates,
         participants: [],
-        forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
+        forceIcons: channel.participants && channel.participants.map((participant) => {
+          const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
+          return (force && force.iconURL) || force?.icon
+        }),
         forceColors: channel.participants && channel.participants.map((participant) => {
           const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
           return (force && force.color) || '#FFF'
@@ -305,7 +308,10 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
           }
 
           // force icons
-          const forceIcons = channel.participants && channel.participants.map((participant) => participant.icon)
+          const forceIcons = channel.participants && channel.participants.map((participant) => {
+            const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
+            return (force && force.iconURL) || force?.icon
+          })
           if (forceIcons !== thisChannel.forceIcons) {
             thisChannel.forceIcons = forceIcons
           }

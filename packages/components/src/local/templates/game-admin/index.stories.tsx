@@ -21,7 +21,8 @@ export default {
 const force = {
   name: 'blue',
   color: '#6699cc',
-  icon: ''
+  icon: '',
+  iconURL: ''
 }
 
 export const Default: React.FC = () => (

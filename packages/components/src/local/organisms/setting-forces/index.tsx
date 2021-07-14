@@ -89,8 +89,8 @@ export const SettingForces: React.FC<PropTypes> = ({
             }} />
           </div>
           <div className={styles.col}>
-            <IconUploader limit={20000} icon={data.icon} onChange={(icon: string): void => {
-              handleChangeForce({ ...data, icon })
+            <IconUploader limit={20000} icon={data.iconURL || data.icon} onChange={(iconURL: string): void => {
+              handleChangeForce({ ...data, iconURL })
             }} onRejected={handleOnRejectedIcon}>Change Icon</IconUploader>
           </div>
           <div className={styles.actions}>
