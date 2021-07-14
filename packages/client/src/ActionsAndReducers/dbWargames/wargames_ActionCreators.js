@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
-import { DEFAULT_SERVER } from '../../consts'
+import { DEFAULT_SERVER, forceTemplate } from '../../consts'
 
 export const setCurrentTab = (tab) => ({
   type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,
@@ -265,16 +265,15 @@ export const savePlatformTypes = (dbName, data) => {
 export const saveForce = (dbName, newName, newData, oldName) => {
   return async (dispatch, state) => {
     const oldForceData = state().wargame.data.forces.selectedForce
-
-    if (newData.icon !== oldForceData.icon) {
-      const savedIcon = await wargamesApi.saveIcon(newData.icon)
-      newData.icon = savedIcon.path
+    if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {
+      const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)
+      newData.iconURL = savedIconURL.path
     }
     const wargame = await wargamesApi.saveForce(dbName, newName, newData, oldName)
 
     dispatch(setCurrentWargame(wargame))
     dispatch(setTabSaved())
-    dispatch(setSelectedForce({ name: newName, uniqid: newData.uniqid, icon: newData.icon }))
+    dispatch(setSelectedForce({ name: newName, uniqid: newData.uniqid, iconURL: newData.iconURL }))
 
     dispatch(addNotification('Force saved.', 'success'))
   }
@@ -284,7 +283,6 @@ export const saveChannel = (dbName, newName, newData, oldName) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.saveChannel(dbName, newName, newData, oldName)
     const selectedChannel = { name: newName, uniqid: newData.uniqid }
-
     dispatch(setSelectedChannel(selectedChannel))
     wargame.data.channels.selectedChannel = selectedChannel
     dispatch(setCurrentWargame(wargame))

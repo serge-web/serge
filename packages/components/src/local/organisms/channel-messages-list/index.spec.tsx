@@ -23,7 +23,7 @@ describe('ChannelMessagesList component: ', () => {
         from: {
           force: 'Red',
           forceColor: '#F00',
-          icon: 'default_img/umpireDefault.png',
+          iconURL: 'default_img/umpireDefault.png',
           role: 'CO'
         },
         messageType: 'Chat',
