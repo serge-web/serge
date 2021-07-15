@@ -120,6 +120,9 @@ export const EditableList: React.FC<PropTypes> = ({
                             <Paper>
                               <ClickAwayListener onClickAway={handleClose}>
                                 <MenuList id="split-button-menu">
+                                  <MenuItem disabled={true} selected={false} key={'label'}>
+                                    Special channels
+                                  </MenuItem>
                                   {options.map((option) => (
                                     <MenuItem
                                       key={option}
