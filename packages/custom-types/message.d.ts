@@ -48,7 +48,11 @@ export interface MessageDetailsFrom {
    * TODO: once all code under TypeScript try making it non-optional,
    * and fix cases where it's not assigned
    */
-  icon: string
+  /**
+   * @deprecated use iconURL instead
+   */
+  icon?: string,
+  iconURL: string,
   /** user-name, as typed into Feedback/insights form */
   name?: string
 }

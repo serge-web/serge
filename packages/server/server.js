@@ -86,13 +86,24 @@ const runServer = (
 
   app.use('/saveIcon', express.raw({ type: 'image/png', limit: '20kb' }))
   app.post('/saveIcon', (req, res) => {
-    const imageName = `${uniqid.time('icon-')}.png`
-    const image = `${imgDir}/${imageName}`
-    let imagePath = `${req.headers.host}/img/${imageName}`
-    if (!/https?/.test(imagePath)) imagePath = '//' + imagePath
-    fs.writeFile(image, req.body, err => console.log(err))
 
-    res.status(200).send({ path: imagePath })
+    const buff = Buffer.from(req.body, 'utf8').toString()
+    const newBuff = buff.replace('data:image/png;base64,', '')
+    const imageName = `${uniqid.time('icon-')}.png`
+    const imagePath = `${imgDir}/${imageName}`
+    fs.writeFile(imagePath, newBuff, 'base64', err => console.log(err))
+
+    const imageFullPath = `${req.headers.host}/getIcon/${imageName}`
+    if (!/https?/.test(imageFullPath)) imageFullPath = '//' + imageFullPath
+    res.status(200).send({ path: imageFullPath })
+  })
+
+  app.get('/getIcon/:icon', (req, res) => {
+    if (imgDir) {
+      res.sendFile(path.join(process.cwd(), imgDir, req.params.icon))
+      return
+    }
+    res.sendFile(path.join(__dirname, '../', 'img', req.params.icon))
   })
 
   app.use('/saveLogo', express.raw({ type: 'image/png', limit: '100kb' }))

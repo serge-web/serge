@@ -2,11 +2,14 @@
 
 exports[`ChannelMessageHeader component: renders correctly 1`] = `
 <div
-  className="message-item-unread"
+  className="message-title-wrap 
+      message-item-unread 
+      "
 >
-  <div
-    className="message-title-wrap "
-  >
+  <svg
+    className="svg-inline--fa fa-envelope"
+  />
+  <div>
     <svg
       aria-hidden={true}
       className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"

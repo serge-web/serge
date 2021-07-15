@@ -25,7 +25,7 @@ const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
           force: selectedForce.name,
           forceColor: selectedForce.color,
           role: state.selectedRole,
-          icon: selectedForce.icon,
+          iconURL: selectedForce.iconURL || (selectedForce.icon || ''),
         },
         messageType: schema.title,
         timestamp: new Date().toISOString(),

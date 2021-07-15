@@ -20,7 +20,7 @@ import {
 /** a new document has been received, either add it to the correct channel,
  * or update the channels to reflect the new channel definitions
  */
-export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
+export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi): SetWargameMessage => {
   // TODO: only one of `payload` or `newState` will have been received. We should have 
   // two different handlers, one for each change.
   const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel, newState.rfiMessages, newState.nextMsgReference,
@@ -66,7 +66,10 @@ export const openMessage = (channel: string, payloadMessage: MessageChannel, new
   }
 
   const unreadMessageCount = channelMessages.filter((message) => {
-    return message._id && expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
+    return message._id &&
+      !message.hasBeenRead &&
+      message.messageType !== INFO_MESSAGE_CLIPPED &&
+      expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
   }).length
 
   return {
@@ -82,6 +85,32 @@ const closeMessageChange = (message: MessageChannel, id: string): { message: Mes
     message.isOpen = false
   }
   return { message, changed }
+}
+
+export const markUnread = (channel: string, message: MessageChannel, newState: PlayerUi) => {
+  if (!message._id) {
+    return {
+      ...newState.channels[channel],
+      message
+    }
+  }
+
+  const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
+  expiredStorage.removeItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`)
+
+  const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
+  const unreadMessageCount = channelMessages.filter((message) => {
+    return message._id &&
+      !message.hasBeenRead &&
+      message.messageType !== INFO_MESSAGE_CLIPPED &&
+      expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
+  }).length
+
+  return {
+    ...newState.channels[channel],
+    unreadMessageCount,
+    messages: channelMessages
+  }
 }
 
 

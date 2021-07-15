@@ -21,7 +21,8 @@ export default {
 const force = {
   name: 'blue',
   color: '#6699cc',
-  icon: ''
+  icon: '',
+  iconURL: ''
 }
 
 const showMessage = (message: MessageCustom): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
