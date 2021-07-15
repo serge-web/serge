@@ -152,10 +152,17 @@ export const refNumberFor = (msgRef: string | undefined, current: number, select
   return current
 }
 
-export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType | MessageCustom>, currentWargame: string,
-  selectedForce: ForceData | undefined, selectedRole: string, allChannels: ChannelData[],
-  allForces: ForceData[], chatChannel: PlayerUiChatChannel, isObserver: boolean,
-  allTemplates: any[]): SetWargameMessage => {
+export const handleAllInitialChannelMessages = (
+  payload: Array<MessageInfoType | MessageCustom>, 
+  currentWargame: string,
+  selectedForce: ForceData | undefined, 
+  selectedRole: string, 
+  allChannels: ChannelData[],
+  allForces: ForceData[], 
+  chatChannel: PlayerUiChatChannel, 
+  isObserver: boolean,
+  allTemplates: any[]
+): SetWargameMessage => {
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
   let nextMsgReference = 0
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
@@ -191,16 +198,22 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplates)
 
     if (isObserver || isParticipant || allRolesIncluded) {
+      
+      // TODO: define type for force Icons
+      const forceIcons: any[] = []
+      const forceColors: string[] = []
+      for (const { icon, forceUniqid } of channel.participants) {
+        forceIcons.push(icon)
+        const force = allForces.find((force) => force.uniqid === forceUniqid)
+        forceColors.push((force && force.color) || '#FFF')
+      }
       const newChannel: ChannelUI = {
         name: channel.name,
         uniqid: channel.uniqid,
         templates: templates,
         participants: [],
-        forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
-        forceColors: channel.participants && channel.participants.map((participant) => {
-          const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
-          return (force && force.color) || '#FFF'
-        }),
+        forceIcons,
+        forceColors,
         messages: messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || message.messageType === INFO_MESSAGE_CLIPPED),
         unreadMessageCount: messagesFiltered.filter((message) => {
           if (message.messageType !== INFO_MESSAGE_CLIPPED) {

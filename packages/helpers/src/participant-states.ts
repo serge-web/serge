@@ -5,7 +5,7 @@ export interface CheckParticipantStates {
   /** whether role is participant in channel */
   isParticipant: boolean
   /** the role filled by the participant */
-  participatingRole: Participant | undefined
+  participatingRoles: Participant[]
   /** whether all roles for this force are included in the channel */
   allRolesIncluded: Participant | undefined
 }
@@ -30,16 +30,17 @@ export const checkParticipantStates = (channel: ChannelData, selectedForce: stri
   if (!participatingForce && !isObserver) {
     return {
       isParticipant: false,
-      participatingRole: undefined,
+      participatingRoles: [],
       allRolesIncluded: undefined
     }
   }
 
   // is a member of this channel, find out if they're named, or a where all roles for this force are in channel
-  const participatingRole: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
+  const participatingRoles: Participant[] = channel.participants.filter(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
+  // const participatingRole: Participant | undefined = channel.participants.find(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
   return {
-    isParticipant: !!participatingRole,
-    participatingRole: participatingRole,
+    isParticipant: participatingRoles.length > 0,
+    participatingRoles: participatingRoles,
     allRolesIncluded: channel.participants && channel.participants.find(p => matchedAllRolesFilter(p, selectedForce))
   }
 }
@@ -52,12 +53,19 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
 
   const {
     isParticipant,
-    participatingRole,
+    participatingRoles,
     allRolesIncluded
   }: CheckParticipantStates = checkParticipantStates(channel, forceId, role, isObserver)
 
-  if (participatingRole) {
-    chosenTemplates = participatingRole.templates
+  if (isParticipant) {
+    for (const { templates } of participatingRoles) {
+      if (templates.length === 0) {
+        const chatTemplate = allTemplates.find((template: any) => template.title === 'Chat')
+        if (typeof chatTemplate !== 'undefined') chosenTemplates.push(chatTemplate)
+      } else {
+        chosenTemplates = [...chosenTemplates, ...templates]
+      }
+    }
   } else if (allRolesIncluded) {
     chosenTemplates = allRolesIncluded.templates
   }
