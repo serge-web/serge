@@ -13,7 +13,7 @@ export default interface PropTypes {
   onChange: (updates: { channels: Array<ChannelData> }) => void
   onSave?: (channel: ChannelData) => void
   onSidebarClick?: (selectedChannel: ChannelData) => void
-  onCreate?: () => void
+  onCreate?: (buttonText: string | undefined) => void
   onDelete?: () => void
   onDuplicate?: () => void
   selectedChannel?: ChannelData
