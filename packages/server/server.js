@@ -86,14 +86,13 @@ const runServer = (
 
   app.use('/saveIcon', express.raw({ type: 'image/png', limit: '20kb' }))
   app.post('/saveIcon', (req, res) => {
-
     const buff = Buffer.from(req.body, 'utf8').toString()
     const newBuff = buff.replace('data:image/png;base64,', '')
     const imageName = `${uniqid.time('icon-')}.png`
     const imagePath = `${imgDir}/${imageName}`
     fs.writeFile(imagePath, newBuff, 'base64', err => console.log(err))
 
-    const imageFullPath = `${req.headers.host}/getIcon/${imageName}`
+    let imageFullPath = `${req.headers.host}/getIcon/${imageName}`
     if (!/https?/.test(imageFullPath)) imageFullPath = '//' + imageFullPath
     res.status(200).send({ path: imageFullPath })
   })
