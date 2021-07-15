@@ -153,13 +153,13 @@ export const refNumberFor = (msgRef: string | undefined, current: number, select
 }
 
 export const handleAllInitialChannelMessages = (
-  payload: Array<MessageInfoType | MessageCustom>, 
+  payload: Array<MessageInfoType | MessageCustom>,
   currentWargame: string,
-  selectedForce: ForceData | undefined, 
-  selectedRole: string, 
+  selectedForce: ForceData | undefined,
+  selectedRole: string,
   allChannels: ChannelData[],
-  allForces: ForceData[], 
-  chatChannel: PlayerUiChatChannel, 
+  allForces: ForceData[],
+  chatChannel: PlayerUiChatChannel,
   isObserver: boolean,
   allTemplates: any[]
 ): SetWargameMessage => {
@@ -198,7 +198,6 @@ export const handleAllInitialChannelMessages = (
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplates)
 
     if (isObserver || isParticipant || allRolesIncluded) {
-      
       // TODO: define type for force Icons
       const forceIcons: any[] = []
       const forceColors: string[] = []
