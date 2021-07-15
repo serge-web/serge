@@ -70,7 +70,7 @@ export const ImageDropzone: React.FC<PropTypes> = ({
         })
       }
     },
-    accept: 'image/png',
+    accept: 'image/png, image/svg+xml',
     maxSize: limit,
     multiple: false,
     onDropRejected: (rejected: any): void => {
@@ -86,7 +86,7 @@ export const ImageDropzone: React.FC<PropTypes> = ({
       <div {...getRootProps()} className={styles['dropzone-content']}>
         <input {...getInputProps()} />
         <FontAwesomeIcon icon={faFileUpload} size="3x" />
-        <p>Drag and drop a png icon, or click to select. {limit / 1000}kb limit.</p>
+        <p>Drag and drop a png/svg icon, or click to select. {limit / 1000}kb limit.</p>
       </div>
     </div>
   )
