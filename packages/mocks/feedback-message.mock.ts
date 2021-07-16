@@ -10,7 +10,7 @@ export const feedbackMessage1: MessageFeedback = {
       "forceColor": "#3dd0ff",
       "role": "CO",
       "name": "",
-      "icon": ''
+      "iconURL": ''
     },
     "messageType": "Chat",
     "timestamp": "2020-12-06T11:05:12.038Z"
@@ -31,7 +31,7 @@ export const feedbackMessage2: MessageFeedback = {
       "forceColor": "#FCFBEE",
       "role": "Game Control",
       "name": "Heri Setiawan",
-      "icon": ''
+      "iconURL": ''
     },
     "messageType": "Chat",
     "timestamp": "2020-10-01T01:19:56.492Z"

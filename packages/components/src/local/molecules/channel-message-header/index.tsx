@@ -10,6 +10,8 @@ import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import cyan from '@material-ui/core/colors/cyan'
 import moment from 'moment'
+import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Badge from '../../atoms/badge'
 
 /* Render component */
@@ -21,13 +23,22 @@ export const ChannelMessageHeader: React.FC<Props> = ({
   role,
   messageType,
   hasBeenRead,
-  onExpand
+  onExpand,
+  markUnread
 }: Props) => {
   return (
-    <div onClick={onExpand} className={!hasBeenRead ? styles['message-item-unread'] : ''}>
-      <div className={
-        `${styles['message-title-wrap']} ${isOpen ? styles['message-title-opened'] : ''}`
-      }>
+    <div className={
+      `${styles['message-title-wrap']} 
+      ${!hasBeenRead ? styles['message-item-unread'] : ''} 
+      ${isOpen ? styles['message-title-opened'] : ''}`
+    }>
+      <FontAwesomeIcon
+        className={styles.marker}
+        title={hasBeenRead ? 'Click here to mark as unread' : ''}
+        icon={hasBeenRead ? faEnvelopeOpen : faEnvelope}
+        onClick={markUnread}
+      />
+      <div onClick={onExpand}>
         {
           isOpen
             ? <RemoveIcon fontSize="small" style={{ color: cyan.A200 }} />
