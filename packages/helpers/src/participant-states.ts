@@ -41,7 +41,7 @@ export const checkParticipantStates = (channel: ChannelData, selectedForce: stri
   return {
     isParticipant: participatingRoles.length > 0,
     participatingRoles: participatingRoles,
-    allRolesIncluded: channel.participants && channel.participants.find(p => matchedAllRolesFilter(p, selectedForce))
+    allRolesIncluded: channel.participants.find(p => matchedAllRolesFilter(p, selectedForce))
   }
 }
 
