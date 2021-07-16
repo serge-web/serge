@@ -15,7 +15,7 @@ import { INFO_MESSAGE_CLIPPED, UMPIRE_FORCE } from '@serge/config'
 import { MessageChannel, MessageCustom } from '@serge/custom-types'
 
 /* Render component */
-export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForceId, icons, colors, onMarkAllAsRead, onRead, onChange, isRFIManager }: PropTypes) => {
+export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForceId, icons, colors, onMarkAllAsRead, onRead, onUnread, onChange, isRFIManager }: PropTypes) => {
   const isUmpire = playerForceId === UMPIRE_FORCE
   return (
     <div>
@@ -52,7 +52,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForce
             } else {
               return (
                 <Box mb={2} mr={2} key={key}>
-                  <ChannelMessage playerForce={playerForceId} forceColor={msg.details.from.forceColor} role={msg.details.from.role} onRead={onRead} message={props} />
+                  <ChannelMessage playerForce={playerForceId} forceColor={msg.details.from.forceColor} role={msg.details.from.role} onRead={onRead} onUnread={onUnread} message={props} />
                 </Box>
               )
             }

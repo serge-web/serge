@@ -114,7 +114,7 @@ export const forceTemplate = {
       canSubmitPlans: true
     }
   ],
-  icon: serverPath + 'default_img/forceDefault.png',
+  iconURL: serverPath + 'default_img/forceDefault.png',
   color: '#3dd0ff',
   umpire: false,
   dirty: false
@@ -134,7 +134,7 @@ export const umpireForceTemplate = {
       canSubmitPlans: true
     }
   ],
-  icon: serverPath + 'default_img/umpireDefault.png',
+  iconURL: serverPath + 'default_img/umpireDefault.png',
   color: '#FCFBEE',
   umpire: true,
   dirty: false
