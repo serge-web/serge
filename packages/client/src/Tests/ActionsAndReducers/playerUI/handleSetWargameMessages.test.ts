@@ -30,7 +30,7 @@ const playerUi: PlayerUi = {
         "isGameControl":false
       }
     ],
-    "icon": "http://localhost:8080/default_img/forceDefault.png",
+    "iconURL": "http://localhost:8080/default_img/forceDefault.png",
     "color": "#3dd0ff",
     "umpire": false,
     "dirty": false
@@ -289,7 +289,7 @@ const playerUi: PlayerUi = {
           "isRFIManager": true
         }
       ],
-      "icon": "http://localhost:8080/default_img/umpireDefault.png",
+      "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
       "color": "#FCFBEE",
       "umpire": true,
       "dirty": false
@@ -314,7 +314,7 @@ const playerUi: PlayerUi = {
           "isGameControl":false
         }
       ],
-      "icon": "http://localhost:8080/default_img/forceDefault.png",
+      "iconURL": "http://localhost:8080/default_img/forceDefault.png",
       "color": "#3dd0ff",
       "umpire": false,
       "dirty": false

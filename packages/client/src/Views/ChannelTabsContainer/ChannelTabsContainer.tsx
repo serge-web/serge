@@ -42,7 +42,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
 
     const chunks = [...allChannels]
     const chunkSize = 2
-    const firstSet = chunks.splice(0, Math.round(chunks.length/chunkSize))
+    const firstSet = chunks.splice(0, Math.round(chunks.length / chunkSize))
     const tabChildren = (id: Number) => {
       const collections = id === 0 ? firstSet : chunks
       return collections.map(setTabContent)
@@ -62,7 +62,8 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef }): React.ReactElement 
       }
     }
   }
-  const getModel = ():Model => {
+
+  const getModel = (): Model => {
     let model = expiredStorage.getItem(modelName)
     if (model) return FlexLayout.Model.fromJson(JSON.parse(model))
     return FlexLayout.Model.fromJson(setDefaultModel())
