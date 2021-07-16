@@ -18,7 +18,15 @@ class JsonCreator extends Component {
       selectedSchema: ''
     };
   }
-
+  
+  /*
+  ** avoid loading of flatpickr load in Message template screen for admin
+  */
+  componentDidMount() {
+    if (window.flatpickr) {
+      window.flatpickr = undefined
+    }
+  }
 
   componentWillUpdate(nextProps, nextState, nextContext) {
 
