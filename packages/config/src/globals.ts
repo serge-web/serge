@@ -59,6 +59,14 @@ export const INFO_MESSAGE_CLIPPED = 'InfoMessageClipped'
 export const PLAN_ACCEPTED = 'accepted'
 export const PLAN_REJECTED = 'rejected'
 
+// export item types
+export const EXPORT_ITEM_MESSAGES = 'messages'
+export const EXPORT_ITEM_FORCES = 'forces'
+
+// names of special channels
+export const CHANNEL_RFI_STATUS = 'rfis'
+export const CHANNEL_MAPPING = 'mapping'
+
 // NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a
 // throttle value to prevent the browser going into a race condition

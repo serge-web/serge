@@ -571,7 +571,7 @@ exports[`ChannelRFIMessagesList component:  renders component correctly 1`] = `
                       <span
                         className="MuiChip-label makeStyles-label-7 makeStyles-label-35 MuiChip-labelSmall"
                       >
-                        Game Control
+                        CO
                       </span>
                     </div>
                     <div

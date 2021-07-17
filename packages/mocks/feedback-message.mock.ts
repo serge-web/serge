@@ -11,7 +11,7 @@ export const feedbackMessage1: MessageFeedback = {
       "roleName": "CO",
       "roleId": "r12345",
       "name": "",
-      "icon": ''
+      "iconURL": ''
     },
     "messageType": "Chat",
     "timestamp": "2020-12-06T11:05:12.038Z"
@@ -33,7 +33,7 @@ export const feedbackMessage2: MessageFeedback = {
       "roleName": "Game Control",
       "roleId": "r12345",
       "name": "Heri Setiawan",
-      "icon": ''
+      "iconURL": ''
     },
     "messageType": "Chat",
     "timestamp": "2020-10-01T01:19:56.492Z"

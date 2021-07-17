@@ -42,6 +42,7 @@ const Template: Story<RFIPropTypes> = (args) => {
       roleId={roleId}
       roleName={roleName}
       isUmpire={isUmpire}
+      forceColor='#0F0'
     />
   )
 }

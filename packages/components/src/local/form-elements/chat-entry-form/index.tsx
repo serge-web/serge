@@ -29,9 +29,9 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, roleId
         from: {
           force: from.name,
           forceColor: from.color,
+          iconURL: from.iconURL || (from.icon || '')
           roleId: roleId,
           roleName: roleName,
-          icon: from.icon ? from.icon : ''
         },
         messageType: 'Chat',
         timestamp: timestamp,

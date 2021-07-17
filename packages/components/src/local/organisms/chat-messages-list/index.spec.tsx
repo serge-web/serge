@@ -26,9 +26,9 @@ describe('ChatMessagesList renders correctly', () => {
         from: {
           force: 'White',
           forceColor: '#FCFBEE',
+          iconURL: 'default_img/umpireDefault.png'
           roleName: 'Game Control',
           roleId: 'r12345',
-          icon: 'default_img/umpireDefault.png'
         },
         messageType: 'Chat',
         timestamp: '2020-09-18T05:41:17.349Z',

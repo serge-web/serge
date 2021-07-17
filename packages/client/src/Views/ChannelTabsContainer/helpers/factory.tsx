@@ -96,6 +96,8 @@ const factory = (state: PlayerUi): Factory => {
   }
 
   return (node: TabNode): React.ReactNode => {
+
+    if (!node.isVisible()) return null
     // sort out if role can submit orders
     const role: Role = findRole(state.selectedRoleId, state.selectedRoleName, state.selectedForce)
     const canSubmitOrders: boolean = !!role.canSubmitPlans

@@ -29,9 +29,9 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, roleId, ro
         from: {
           force: from.name,
           forceColor: from.color,
+          iconURL: from.iconURL || (from.icon || '')
           roleId,
           roleName,
-          icon: from.icon ? from.icon : ''
         },
         messageType: 'Chat',
         timestamp: timestamp

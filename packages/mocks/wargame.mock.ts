@@ -67,7 +67,7 @@ const wargame: Wargame =  {
               "canSubmitPlans": true
             }
           ],
-          "icon": "http://localhost:8080/default_img/umpireDefault.png",
+          "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
           "color": "#FCFBEE",
           "umpire": true,
           "dirty": false

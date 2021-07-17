@@ -111,6 +111,7 @@ export const Default: React.FC = () => {
       messageTemplates={MessageTemplatesMock}
       onSaveGameTitle={onSaveGameTitle}
       onWargameInitiate={onWargameInitiated}
+      availablePlatformTypes={platformTypeMock.platformTypes}
     />
   )
 }

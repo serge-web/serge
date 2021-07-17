@@ -9,6 +9,7 @@ import {
   SET_LATEST_WARGAME_MESSAGE,
   SET_ALL_MESSAGES,
   OPEN_MESSAGE,
+  MARK_UNREAD,
   CLOSE_MESSAGE,
   MARK_ALL_AS_READ,
   OPEN_TOUR,
@@ -22,6 +23,7 @@ import {
   handleSetLatestWargameMessage,
   handleSetAllMessages,
   openMessage,
+  markUnread,
   closeMessage,
   markAllAsRead
 } from './helpers/handleWargameMessagesChange';
@@ -71,7 +73,7 @@ export const initialState: PlayerUi = {
   nextMsgReference: 1
 }
 
-export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes):PlayerUi => {
+export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
   const newState: PlayerUi = copyState(state)
 
   switch (action.type) {
@@ -155,6 +157,10 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case OPEN_MESSAGE:
       newState.channels[action.payload.channel] = openMessage(action.payload.channel, action.payload.message, newState)
+      break
+
+    case MARK_UNREAD:
+      newState.channels[action.payload.channel] = markUnread(action.payload.channel, action.payload.message, newState)
       break
 
     case CLOSE_MESSAGE:

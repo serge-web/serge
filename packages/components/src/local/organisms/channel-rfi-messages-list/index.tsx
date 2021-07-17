@@ -30,6 +30,7 @@ export const ChannelRFIMessagesList: React.FC<PropTypes> = ({ messages, icons, c
               roleName={roleName}
               isRFIManager={isRFIManager}
               isUmpire={isUmpire}
+              forceColor={message.details.from.forceColor}
             />
           </Box>
         ))}

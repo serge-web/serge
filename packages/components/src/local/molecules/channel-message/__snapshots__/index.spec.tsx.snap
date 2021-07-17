@@ -5,7 +5,7 @@ exports[`ChannelMessage component: renders correctly 1`] = `
   className="message-list-wrapper"
   style={
     Object {
-      "borderColor": "#F00",
+      "borderColor": "rgba(255, 0, 0, 1)",
     }
   }
 >
@@ -14,11 +14,15 @@ exports[`ChannelMessage component: renders correctly 1`] = `
     onClick={[Function]}
   >
     <div
-      className="message-item-unread"
-      onClick={[Function]}
+      className="message-title-wrap 
+      message-item-unread 
+      "
     >
+      <svg
+        className="svg-inline--fa fa-envelope"
+      />
       <div
-        className="message-title-wrap "
+        onClick={[Function]}
       >
         <svg
           aria-hidden={true}
@@ -55,7 +59,9 @@ exports[`ChannelMessage component: renders correctly 1`] = `
           >
             <span
               className="MuiChip-label makeStyles-label-4 makeStyles-label-6 MuiChip-labelSmall"
-            />
+            >
+              CO
+            </span>
           </div>
           <div
             className="MuiChip-root makeStyles-root-2 makeStyles-root-7 MuiChip-sizeSmall makeStyles-sizeSmall-3"
@@ -84,32 +90,7 @@ exports[`ChannelMessage component: renders correctly 1`] = `
     </div>
     <div
       className="wrap-detail "
-    >
-      <span
-        className="detail"
-      >
-        <div
-          className="MuiChip-root makeStyles-root-11 makeStyles-root-14 MuiChip-sizeSmall makeStyles-sizeSmall-12"
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-        >
-          <span
-            className="MuiChip-label MuiChip-labelSmall makeStyles-labelSmall-13"
-          >
-            Content:
-          </span>
-        </div>
-      </span>
-      <span
-        className="data"
-      >
-        <div
-          className="paragraph"
-        >
-          message from Red
-        </div>
-      </span>
-    </div>
+    />
   </div>
 </div>
 `;

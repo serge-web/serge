@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
-import { DEFAULT_SERVER, SERVER_PING_INTERVAL } from '../../consts'
+import { DEFAULT_SERVER, forceTemplate } from '../../consts'
 
 export const setCurrentTab = (tab) => ({
   type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,
@@ -47,11 +47,6 @@ export const setForceColor = (hex) => ({
 export const setSelectedChannel = (payload) => ({
   type: ActionConstant.SET_SELECTED_CHANNEL,
   payload
-})
-
-const saveServerStatus = (status) => ({
-  type: ActionConstant.SET_SERVER_STATUS,
-  payload: status
 })
 
 const saveAllWargameNames = (names) => ({
@@ -149,18 +144,6 @@ export const populateWargameStore = () => {
 
     dispatch(populatingDb(false))
   }
-}
-
-const pingServer = async (dispatch) => {
-  const serverStatus = await wargamesApi.pingServer()
-  dispatch(saveServerStatus(serverStatus))
-}
-
-export const pingServerWithInterval = () => async (dispatch) => {
-  await pingServer(dispatch)
-  setInterval(async () => {
-    await pingServer(dispatch)
-  }, SERVER_PING_INTERVAL)
 }
 
 export const createNewWargameDB = () => {
@@ -280,12 +263,17 @@ export const savePlatformTypes = (dbName, data) => {
 }
 
 export const saveForce = (dbName, newName, newData, oldName) => {
-  return async (dispatch) => {
+  return async (dispatch, state) => {
+    const oldForceData = state().wargame.data.forces.selectedForce
+    if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {
+      const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)
+      newData.iconURL = savedIconURL.path
+    }
     const wargame = await wargamesApi.saveForce(dbName, newName, newData, oldName)
 
     dispatch(setCurrentWargame(wargame))
     dispatch(setTabSaved())
-    dispatch(setSelectedForce({ name: newName, uniqid: newData.uniqid }))
+    dispatch(setSelectedForce({ name: newName, uniqid: newData.uniqid, iconURL: newData.iconURL }))
 
     dispatch(addNotification('Force saved.', 'success'))
   }
@@ -295,7 +283,6 @@ export const saveChannel = (dbName, newName, newData, oldName) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.saveChannel(dbName, newName, newData, oldName)
     const selectedChannel = { name: newName, uniqid: newData.uniqid }
-
     dispatch(setSelectedChannel(selectedChannel))
     wargame.data.channels.selectedChannel = selectedChannel
     dispatch(setCurrentWargame(wargame))

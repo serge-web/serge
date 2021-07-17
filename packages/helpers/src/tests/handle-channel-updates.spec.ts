@@ -213,7 +213,7 @@ describe('handle channel update for info message', () => {
         from: {
           force: 'White',
           forceColor: '#FCFBEE',
-          icon: 'default_img/umpireDefault.png',
+          iconURL: 'default_img/umpireDefault.png',
           roleName: 'Game Control',
           roleId: 'r12345'
         },
@@ -258,7 +258,7 @@ describe('handle channel update for info message', () => {
         from: {
           force: 'White',
           forceColor: '#FCFBEE',
-          icon: 'default_img/umpireDefault.png',
+          iconURL: 'default_img/umpireDefault.png',
           roleName: 'Game Control',
           roleId: 'r12345'
         },

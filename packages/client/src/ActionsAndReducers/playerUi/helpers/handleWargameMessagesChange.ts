@@ -20,7 +20,7 @@ import {
 /** a new document has been received, either add it to the correct channel,
  * or update the channels to reflect the new channel definitions
  */
-export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi):SetWargameMessage => {
+export const handleSetLatestWargameMessage = (payload: MessageChannel, newState: PlayerUi): SetWargameMessage => {
   // TODO: only one of `payload` or `newState` will have been received. We should have 
   // two different handlers, one for each change.
   const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel, newState.rfiMessages, newState.nextMsgReference,
@@ -53,19 +53,23 @@ const openMessageChange = (message: MessageChannel, id: string): { message: Mess
 export const openMessage = (channel: string, payloadMessage: MessageChannel, newState: PlayerUi): ChannelUI => {
   // mutating `messages` array - copyState at top of switch
   const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
+  const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
   if (payloadMessage._id !== undefined) {
     for (let i in channelMessages) {
       const res = openMessageChange(channelMessages[i], payloadMessage._id)
       if (res.changed) {
         channelMessages[i] = res.message
-        expiredStorage.setItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRoleName}${payloadMessage._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
+        expiredStorage.setItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${payloadMessage._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
         break;
       }
     }
   }
 
   const unreadMessageCount = channelMessages.filter((message) => {
-    return message._id && expiredStorage.getItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRoleName}${message._id}`) === null
+    return message._id &&
+      !message.hasBeenRead &&
+      message.messageType !== INFO_MESSAGE_CLIPPED &&
+      expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
   }).length
 
   return {
@@ -81,6 +85,32 @@ const closeMessageChange = (message: MessageChannel, id: string): { message: Mes
     message.isOpen = false
   }
   return { message, changed }
+}
+
+export const markUnread = (channel: string, message: MessageChannel, newState: PlayerUi) => {
+  if (!message._id) {
+    return {
+      ...newState.channels[channel],
+      message
+    }
+  }
+
+  const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
+  expiredStorage.removeItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`)
+
+  const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
+  const unreadMessageCount = channelMessages.filter((message) => {
+    return message._id &&
+      !message.hasBeenRead &&
+      message.messageType !== INFO_MESSAGE_CLIPPED &&
+      expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
+  }).length
+
+  return {
+    ...newState.channels[channel],
+    unreadMessageCount,
+    messages: channelMessages
+  }
 }
 
 
@@ -102,9 +132,10 @@ export const closeMessage = (channel: string, payloadMessage: MessageChannel, ne
 
 export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI => {
   const channelMessages: MessageChannel[] = (newState.channels[channel].messages || []).map((message) => {
+    const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
     if (message._id) {
       message.hasBeenRead = true
-      expiredStorage.setItem(`${newState.currentWargame}-${newState.selectedForce}-${newState.selectedRoleName}${message._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
+      expiredStorage.setItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
     }
     return message
   })

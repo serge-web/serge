@@ -2,42 +2,71 @@ import React, { useEffect, useState } from 'react'
 import preval from 'preval.macro'
 import { HeartbeatChecker } from '@serge/components'
 import { connect } from 'react-redux'
-import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
-import { usePlayerUiState } from '../Store/PlayerUi'
+import { addNotification, hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { UMPIRE_FORCE } from '../consts'
+import { pingServer as pingServerApi } from '../api/wargames_api'
+import { SERVER_PING_INTERVAL } from '../consts'
 
 const appBuildDate = preval`module.exports = new Date().toISOString().slice(0, 19).replace('T', ' ')`
 
-const mapStateToProps = ({ dbLoading }) => ({ dbLoading })
+const mapStateToProps = ({ notifications }) => ({ notifications })
 
 const mapDispatchToProps = (dispatch) => ({
   showNotification: (message) => {
-    dispatch(addNotification(message, 'warning', false))
+    dispatch(addNotification(message, 'warning', false, 'HeartbeatAlert'))
+  },
+  hideNotification: (id) => {
+    dispatch(hideNotification(id))
   }
 })
 
-const Version = ({ dbLoading, showNotification }) => {
+const Version = ({ showNotification, notifications, hideNotification }) => {
   const [toggleBeat, setToggleBeat] = useState(false)
-  const {
-    selectedForce
-  } = usePlayerUiState()
-  const isUmpire = selectedForce && selectedForce.uniqid === UMPIRE_FORCE
+  const [serverStatus, setServerStatus] = useState('')
+  const [serverPingTime, setServerPingTime] = useState()
+  const isUmpire = window.selectedChannel && window.selectedChannel === UMPIRE_FORCE
 
   useEffect(() => {
-    if (dbLoading.serverStatus === 'NOT_OK') {
-      showNotification(isUmpire ? 'Server down' : 'Check connection - please check with admin')
+    // check for previous heartbeat notification
+    const prevNotification = notifications.filter(i => i.subType === 'HeartbeatAlert')
+    if (serverStatus === 'NOT_OK') {
+      if (prevNotification.length === 0) {
+        showNotification(isUmpire ? 'Server down' : 'Check connection - please check with admin')
+      }
+    } else {
+      if (prevNotification.length > 0) {
+        hideNotification(prevNotification[0])
+      }
     }
 
-    if (dbLoading.serverPingTime) {
+    if (serverPingTime) {
       setToggleBeat(true)
     }
-  }, [dbLoading.serverStatus, dbLoading.serverPingTime])
+  }, [serverStatus, serverPingTime])
+
+  const pingServer = () => {
+    return pingServerApi().then(res => {
+      setServerStatus(res)
+      setServerPingTime(new Date().getTime())
+      return res
+    })
+  }
+
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      pingServer()
+    }, SERVER_PING_INTERVAL)
+    
+    return () => {
+      clearInterval(timerId)
+    }
+  }, [])
 
   return (
     <ul className='version-container'>
       <li>
         <HeartbeatChecker
-          enableHeartbeat={dbLoading.serverStatus === 'OK'}
+          enableHeartbeat={serverStatus === 'OK'}
           animate={toggleBeat} onAnimateComplete={() => setToggleBeat(false)}
           className="heartbeat-checker"
         />

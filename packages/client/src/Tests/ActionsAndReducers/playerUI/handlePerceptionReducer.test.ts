@@ -30,7 +30,7 @@ const allForces: ForceData[] = [
     uniqid: 'id1',
     overview: '',
     roles: [],
-    icon: '',
+    iconURL: '',
     color: '',
     umpire: true,
     dirty: false
@@ -56,7 +56,7 @@ const allForces: ForceData[] = [
     uniqid: 'id2',
     overview: '',
     roles: [],
-    icon: '',
+    iconURL: '',
     color: '',
     umpire: false,
     dirty: false
@@ -82,7 +82,7 @@ const allForces: ForceData[] = [
     uniqid: 'id3',
     overview: '',
     roles: [],
-    icon: '',
+    iconURL: '',
     color: '',
     umpire: false,
     dirty: false
@@ -108,7 +108,7 @@ const allForces: ForceData[] = [
     uniqid: 'id4',
     overview: '',
     roles: [],
-    icon: '',
+    iconURL: '',
     color: '',
     umpire: false,
     dirty: false

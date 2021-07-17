@@ -55,7 +55,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
         className="message-list-wrapper"
         style={
           Object {
-            "borderColor": "#F00",
+            "borderColor": "rgba(255, 0, 0, 1)",
           }
         }
       >
@@ -64,11 +64,15 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
           onClick={[Function]}
         >
           <div
-            className="message-item-unread"
-            onClick={[Function]}
+            className="message-title-wrap 
+      message-item-unread 
+      "
           >
+            <svg
+              className="svg-inline--fa fa-envelope"
+            />
             <div
-              className="message-title-wrap "
+              onClick={[Function]}
             >
               <svg
                 aria-hidden={true}
@@ -105,7 +109,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 >
                   <span
                     className="MuiChip-label makeStyles-label-8 makeStyles-label-10 MuiChip-labelSmall"
-                  />
+                  >
+                    CO
+                  </span>
                 </div>
                 <div
                   className="MuiChip-root makeStyles-root-6 makeStyles-root-11 MuiChip-sizeSmall makeStyles-sizeSmall-7"
@@ -134,32 +140,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
           </div>
           <div
             className="wrap-detail "
-          >
-            <span
-              className="detail"
-            >
-              <div
-                className="MuiChip-root makeStyles-root-15 makeStyles-root-18 MuiChip-sizeSmall makeStyles-sizeSmall-16"
-                onKeyDown={[Function]}
-                onKeyUp={[Function]}
-              >
-                <span
-                  className="MuiChip-label MuiChip-labelSmall makeStyles-labelSmall-17"
-                >
-                  Content:
-                </span>
-              </div>
-            </span>
-            <span
-              className="data"
-            >
-              <div
-                className="paragraph"
-              >
-                message from Red
-              </div>
-            </span>
-          </div>
+          />
         </div>
       </div>
     </div>

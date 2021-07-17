@@ -7,4 +7,4 @@ export default function findPlatformTypeFor (typesList: PlatformTypeData[], plat
   const res = typesList.find((pType: PlatformTypeData) => _.kebabCase(pType.name).toLowerCase() === platformType.toLowerCase())
   if (res !== undefined) return res
   throw new Error('Could not find platform type:' + platformType)
-};
+}

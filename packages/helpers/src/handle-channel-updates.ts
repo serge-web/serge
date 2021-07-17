@@ -29,7 +29,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload:
       theChannel.messages.forEach((msg, idx) => {
         if (msg.messageType === CUSTOM_MESSAGE &&
           msg.message.Reference === payload.message.Reference) {
-            theChannel.messages?.splice(idx, 1)
+          theChannel.messages?.splice(idx, 1)
         }
       })
     }
@@ -106,8 +106,8 @@ const createNewChannel = (channelId: string): ChannelUI => {
   return res
 }
 
-export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, _: string, selectedRoleName: string): boolean => (
-  expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRoleName}${id}`) === 'read'
+export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRoleName: string): boolean => (
+  expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRoleName}-${id}`) === 'read'
 )
 
 export const clipInfoMEssage = (message: MessageInfoType | MessageInfoTypeClipped, hasBeenRead = false): MessageInfoTypeClipped => {
@@ -190,30 +190,29 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
       templates
     } = getParticipantStates(channel, forceId, selectedRoleId, selectedRoleName, isObserver, allTemplates)
 
+    const filterMessages = () => {
+      return messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || message.messageType === INFO_MESSAGE_CLIPPED)
+    }
+
     if (isObserver || isParticipant || allRolesIncluded) {
       const newChannel: ChannelUI = {
         name: channel.name,
         uniqid: channel.uniqid,
         templates: templates,
         participants: [],
-        forceIcons: channel.participants && channel.participants.map((participant) => participant.icon),
+        forceIcons: channel.participants && channel.participants.map((participant) => {
+          const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
+          return (force && force.iconURL) || force?.icon
+        }),
         forceColors: channel.participants && channel.participants.map((participant) => {
           const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
           return (force && force.color) || '#FFF'
         }),
-        messages: messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || message.messageType === INFO_MESSAGE_CLIPPED),
-        unreadMessageCount: messagesFiltered.filter((message) => {
-          if (message.messageType !== INFO_MESSAGE_CLIPPED) {
-            return false
-          } else {
-            return (
-              expiredStorage.getItem(`${currentWargame}-${selectedForce}-${selectedRoleName}${message._id}`) === null &&
-              message.details.channel === channel.uniqid
-            )
-          }
-        }).length,
+        messages: filterMessages(),
+        unreadMessageCount: filterMessages().filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
         observing: observing
       }
+
       // TODO: use channel uniqid
       channels[channel.uniqid] = newChannel
     }
@@ -309,7 +308,10 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
           }
 
           // force icons
-          const forceIcons = channel.participants && channel.participants.map((participant) => participant.icon)
+          const forceIcons = channel.participants && channel.participants.map((participant) => {
+            const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
+            return (force && force.iconURL) || force?.icon
+          })
           if (forceIcons !== thisChannel.forceIcons) {
             thisChannel.forceIcons = forceIcons
           }

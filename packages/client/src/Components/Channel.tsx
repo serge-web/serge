@@ -7,7 +7,8 @@ import {
   getAllWargameMessages,
   openMessage,
   markAllAsRead,
-  saveMessage
+  saveMessage,
+  markUnread
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { MessageChannel, MessageCustom } from '@serge/custom-types'
@@ -38,6 +39,13 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
     dispatch(openMessage(channelId, message))
   }
 
+  const handleUnreadMessage = (message: MessageChannel): void => {
+    if (message._id) {
+      message.hasBeenRead = false
+    }
+    dispatch(markUnread(channelId, message))
+  }
+
   const handleChange = (nextMsg: MessageCustom): void => {
     console.log('sending modified message', nextMsg)
     saveMessage(state.currentWargame, nextMsg.details, nextMsg.message)()
@@ -51,6 +59,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
       <ChannelMessagesList
         messages={state.channels[channelId].messages || []}
         onRead={handleOpenMessage}
+        onUnread={handleUnreadMessage}
         roleId={selectedRoleId}
         roleName={selectedRoleName}
         isRFIManager={state.isRFIManager}

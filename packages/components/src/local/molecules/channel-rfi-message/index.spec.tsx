@@ -21,6 +21,7 @@ describe('ChannelMessage component:', () => {
           message={defMessage}
           onRead={(readMessage): void => { console.log(readMessage) }}
           onChange={(nextMessage): void => { console.log(nextMessage) }}
+          forceColor={'#000'}
         />
       )
       .toJSON()

@@ -157,7 +157,7 @@ const game:Wargame = {
         {
             color: '#FCFBEE',
             dirty: false,
-            icon: 'images/default_img/umpireDefault.png',
+            iconURL: 'images/default_img/umpireDefault.png',
             name: 'White',
             overview: 'Umpire force.',
             roles: [
@@ -480,7 +480,7 @@ const game:Wargame = {
             ],
             color: '#00F',
             dirty: false,
-            icon: 'images/default_img/umpireDefault.png',
+            iconURL: 'images/default_img/umpireDefault.png',
             name: 'Blue',
             overview: 'Blue force.',
             roles: [
@@ -747,7 +747,7 @@ const game:Wargame = {
             ],
             color: '#F00',
             dirty: false,
-            icon: 'images/default_img/umpireDefault.png',
+            iconURL: 'images/default_img/umpireDefault.png',
             name: 'Red',
             overview: 'Red force.',
             roles: [
@@ -1401,7 +1401,7 @@ const game:Wargame = {
               'umpire'
             ],
             dirty: false,
-            icon: 'images/default_img/umpireDefault.png',
+            iconURL: 'images/default_img/umpireDefault.png',
             name: 'Green',
             overview: 'Green Shipping',
             roles: [

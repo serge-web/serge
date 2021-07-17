@@ -13,7 +13,7 @@ const forces: Array<ForceData> = [
   {
     color: '#FCFBEE',
     dirty: false,
-    icon: 'images/default_img/umpireDefault.png',
+    iconURL: 'images/default_img/umpireDefault.png',
     name: 'White',
     overview: 'Umpire force.',
     roles: [
@@ -48,7 +48,7 @@ const forces: Array<ForceData> = [
     ],
     color: '#00F',
     dirty: false,
-    icon: 'images/default_img/umpireDefault.png',
+    iconURL: 'images/default_img/umpireDefault.png',
     name: 'Blue',
     overview: 'Blue force.',
     roles: [
@@ -66,7 +66,7 @@ const forces: Array<ForceData> = [
   }
 ]
 
-it('Mapping renders correctly with AssetIcon', () => {
+it('Mapping renders correctly with AsseticonURL', () => {
   const div = document.createElement('div')
   document.body.appendChild(div)
 

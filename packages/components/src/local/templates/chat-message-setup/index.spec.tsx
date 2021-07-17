@@ -11,7 +11,8 @@ import moment from 'moment-timezone'
 const force = {
   name: 'blue',
   color: '#6699cc',
-  icon: ''
+  icon: '',
+  iconURL: ''
 }
 
 const createNodeMock = (el: any): HTMLTextAreaElement | null => {

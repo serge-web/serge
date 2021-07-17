@@ -12,7 +12,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "Red",
         forceColor: "#F00",
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         roleName: "CO",
         roleId: "r12345"
       },
@@ -34,7 +34,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "Blue",
         forceColor: "#00F",
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         roleName: "CO",
         roleId: "r12345"
       },
@@ -56,7 +56,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "White",
         forceColor: "#FCFBEE",
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         roleName: "Game Control",
         roleId: "r12345"
       },
@@ -79,7 +79,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "Blue",
         forceColor: "#00F",
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         roleName: "CO",
         roleId: "r12345"
       },
@@ -106,7 +106,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "Blue",
         forceColor: "#00F",
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         roleName: "CO",
         roleId: "r12345"
       },
@@ -133,7 +133,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "Blue",
         forceColor: "#00F",
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         roleName: "CO",
         roleId: "r12345"
       },
@@ -160,7 +160,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "Blue",
         forceColor: "#00F",
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         roleName: "CO",
         roleId: "r12345"
       },
@@ -188,7 +188,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "Blue",
         forceColor: "#00F",
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         roleName: "CO",
         roleId: "r12345"
       },
@@ -216,7 +216,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "Blue",
         forceColor: "#00F",
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         roleName: "CO",
         roleId: "r12345"
       },
@@ -245,7 +245,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "Red",
         forceColor: "#F00",
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         roleName: "CO",
         roleId: "r12345"
       },
@@ -272,7 +272,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
         from: {
           force: "Red",
           forceColor: "#F00",
-          icon: "default_img/umpireDefault.png",
+          iconURL: "default_img/umpireDefault.png",
           roleName: "CO",
           roleId: "r12345"
         },
@@ -300,7 +300,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
         from: {
             force: "Red",
             forceColor: "#F00",
-            icon: "default_img/umpireDefault.png",
+            iconURL: "default_img/umpireDefault.png",
             roleName: "CO",
             roleId: "r12345"
         },
@@ -329,7 +329,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
         from: {
           force: "Red",
           forceColor: "#F00",
-          icon: "default_img/umpireDefault.png",
+          iconURL: "default_img/umpireDefault.png",
           roleName: "CO",
           roleId: "r12345"
         },

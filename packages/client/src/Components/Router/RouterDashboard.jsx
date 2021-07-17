@@ -17,7 +17,7 @@ import EditTemplate from '../../Views/EditTemplate'
 import CreateTemplate from '../../Views/CreateTemplate'
 import AdminGameSetup from '../../Views/GameSetupNew'
 // import GameSetup from '../../Views/GameSetup'
-import ExportMessages from '../../Views/ExportMessages'
+import ExportMessages from '../../Views/ExportMessages/ExportMessages'
 import ExportForces from '../../Views/ExportForces'
 import ExportPrint from '../../Views/ExportPrint'
 import EditWelcomeScreen from '../../Views/EditWelcomeScreen'
@@ -62,23 +62,17 @@ class RouterDashboard extends Component {
     this.props.dispatch(setCurrentViewFromURI(path))
     this.router = new UniversalRouter(routes)
     this.state = {
-      currentView: null,
-      toggleBeat: false
+      currentView: null
     }
   }
 
   componentDidUpdate (prevProps) {
-    const { currentViewURI, dbLoading } = this.props
+    const { currentViewURI } = this.props
     if (prevProps.currentViewURI !== currentViewURI) {
       this.router.resolve({ pathname: currentViewURI }).then(result => {
         this.setState({
           currentView: result
         })
-      })
-    }
-    if (prevProps.dbLoading.serverPingTime !== dbLoading.serverPingTime) {
-      this.setState({
-        toggleBeat: true
       })
     }
   }

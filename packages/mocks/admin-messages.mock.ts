@@ -10,7 +10,7 @@ const message1: MessageChannel = {
       "forceColor": "#FCFBEE",
       "roleName": "Game Control",
       "roleId": "r12345",
-      "icon": "default_img/umpireDefault.png"
+      "iconURL": "default_img/umpireDefault.png"
     },
     "messageType": "Chat",
     "timestamp": "2020-03-25T15:08:47.510Z"
@@ -32,7 +32,7 @@ const message2: MessageCustom = {
       "roleName": "CO",
       "roleId": "r1235",
       "name": "Blue",
-      "icon": "default_img/umpireDefault.png"
+      "iconURL": "default_img/umpireDefault.png"
     },
     "messageType": "Chat",
     "timestamp": "2020-03-25T15:08:47.510Z"

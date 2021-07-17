@@ -189,6 +189,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
       <LeftSide>
         <EditableList
           title="Add Channel"
+          type="channel"
           items={channels}
           selectedItem={channels[selectedItem] ? channels[selectedItem].uniqid : undefined}
           filterKey="uniqid"

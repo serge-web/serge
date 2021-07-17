@@ -45,6 +45,8 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     if(selectedForce && selectedRoleName) {
       const storageTourIsOpen = expiredStorage.getItem(`${wargameTitle}-${selectedForce.uniqid}-${selectedRoleName}-tourDone`) !== 'done'
       if (storageTourIsOpen !== tourIsOpen) setTourIsOpen(storageTourIsOpen)
+      // @ts-ignore
+      window.selectedChannel = selectedForce.uniqid
     }
   }, [selectedForce, selectedRoleName])
 
@@ -98,37 +100,29 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     else checkPasswordFail()
   }
 
-  const renderScreen = () => {
-    // show the relevant screen
-    switch(screen) {
-      case Room.landing:
-        return <PlayerUiLandingScreen
-        gameInfo={gameInfo}
-        enterSerge={() => { setScreen(Room.lobby) }}
+  // show the relevant screen
+  switch(screen) {
+    case Room.landing:
+      return <PlayerUiLandingScreen
+      gameInfo={gameInfo}
+      enterSerge={() => { setScreen(Room.lobby) }}
+      />
+    case Room.lobby:
+      return <PlayerUiLobby
+        wargameList={wargame.wargameList}
+        checkPassword={handleCheckPassword}
+        allForces={allForces}
+      />
+    case Room.player:
+      if (selectedForce) {
+        const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
+        return <GameChannelsWithTour
+          storageKey={setStorageKey()}
+          tourIsOpen={tourIsOpen}
         />
-      case Room.lobby:
-        return <PlayerUiLobby
-          wargameList={wargame.wargameList}
-          checkPassword={handleCheckPassword}
-          allForces={allForces}
-        />
-      case Room.player:
-        if (selectedForce) {
-          const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRoleName}-tourDone`
-          return <GameChannelsWithTour
-            storageKey={setStorageKey()}
-            tourIsOpen={tourIsOpen}
-          />
-        }
-        return <LoaderScreen />
-    }
+      }
+      return <LoaderScreen />
   }
-
-  return (
-    <>
-      {renderScreen()}
-    </>
-  )
 }
 
 export default PlayerUi
