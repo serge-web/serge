@@ -64,10 +64,12 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
     allRolesIncluded
   }: CheckParticipantStates = checkParticipantStates(channel, forceId, role, isObserver)
 
+  const chatTemplate = allTemplates.find((template: any) => template.title === 'Chat')
+  if (typeof chatTemplate === 'undefined') console.warn('Warning, unable to find Chat template for channel with no templates defined')
+
   if (isParticipant) {
     for (const { templates } of participatingRoles) {
       if (templates.length === 0) {
-        const chatTemplate = allTemplates.find((template: any) => template.title === 'Chat')
         if (typeof chatTemplate !== 'undefined') addTemplate(chatTemplate)
       } else {
         for (const template of templates) addTemplate(template)
@@ -79,9 +81,8 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
 
   if (isParticipant || allRolesIncluded) {
     if (chosenTemplates.length === 0) {
-      templates = allTemplates.filter((template: TemplateBody) => template.title === 'Chat')
-      if (templates.length === 0) {
-        console.warn('Warning, unable to find Chat template for channel with no templates defined')
+      if (typeof chatTemplate !== 'undefined') {
+        templates = [chatTemplate]
       }
     } else {
       templates = chosenTemplates
