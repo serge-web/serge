@@ -25,7 +25,7 @@ export const lightOrDark = (color: string): 'light' | 'dark' => {
   )
 
   // Using the HSP value, determine whether the color is light or dark
-  return hsp > 127.5 ? 'light' : 'dark'
+  return hsp > 200 ? 'light' : 'dark'
 }
 
 export default lightOrDark
