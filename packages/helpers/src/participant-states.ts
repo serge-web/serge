@@ -50,6 +50,13 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
   let chosenTemplates: Array<any> = []
   let observing = false
   let templates: Array<any> = []
+  const templatesUniqFilter: {[property: string]: Boolean} = {}
+  const addTemplate = (template: any): void => {
+    if (templatesUniqFilter[template.title] !== true) {
+      templatesUniqFilter[template.title] = true
+      chosenTemplates.push(template)
+    }
+  }
 
   const {
     isParticipant,
@@ -61,9 +68,9 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
     for (const { templates } of participatingRoles) {
       if (templates.length === 0) {
         const chatTemplate = allTemplates.find((template: any) => template.title === 'Chat')
-        if (typeof chatTemplate !== 'undefined') chosenTemplates.push(chatTemplate)
+        if (typeof chatTemplate !== 'undefined') addTemplate(chatTemplate)
       } else {
-        chosenTemplates = [...chosenTemplates, ...templates]
+        for (const template of templates) addTemplate(template)
       }
     }
   } else if (allRolesIncluded) {
