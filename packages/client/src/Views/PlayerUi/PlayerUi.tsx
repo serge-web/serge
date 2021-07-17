@@ -30,6 +30,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     currentWargame,
     selectedForce,
     selectedRoleName,
+    selectedRoleId,
     wargameTitle
   } = usePlayerUiState()
 
@@ -43,7 +44,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
 
   useEffect(() => {
     if(selectedForce && selectedRoleName) {
-      const storageTourIsOpen = expiredStorage.getItem(`${wargameTitle}-${selectedForce.uniqid}-${selectedRoleName}-tourDone`) !== 'done'
+      const storageTourIsOpen = expiredStorage.getItem(`${wargameTitle}-${selectedForce.uniqid}-${selectedRoleId || selectedRoleName}-tourDone`) !== 'done'
       if (storageTourIsOpen !== tourIsOpen) setTourIsOpen(storageTourIsOpen)
       // @ts-ignore
       window.selectedChannel = selectedForce.uniqid
@@ -115,7 +116,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
       />
     case Room.player:
       if (selectedForce) {
-        const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRole}-tourDone`
+        const setStorageKey = (): string => `${wargameTitle}-${selectedForce.uniqid}-${selectedRoleId || selectedRoleName}-tourDone`
         return <GameChannelsWithTour
           storageKey={setStorageKey()}
           tourIsOpen={tourIsOpen}

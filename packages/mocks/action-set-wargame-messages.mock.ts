@@ -13,7 +13,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png",
           "roleName": "CO",
           "roleId": "r12345",
         },
@@ -35,7 +35,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png",
           "roleName": "CO",
           "roleId": "r12345",
         },

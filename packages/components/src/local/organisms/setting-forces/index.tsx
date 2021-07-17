@@ -31,12 +31,16 @@ export const SettingForces: React.FC<PropTypes> = ({
   platformTypes = [],
   routes
 }) => {
-  const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
+  const selectedForceId = initialForces.findIndex(
+    force => force.uniqid === selectedForce?.uniqid
+  )
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
   const [forcesData, setForcesData] = useState(initialForces)
 
   const handleSwitch = (_item: Item): void => {
-    const selectedForce = forcesData.findIndex(force => force.uniqid === _item.uniqid)
+    const selectedForce = forcesData.findIndex(
+      force => force.uniqid === _item.uniqid
+    )
     setSelectedItem(selectedForce)
     onSidebarClick && onSidebarClick(_item as ForceData)
   }
@@ -47,7 +51,9 @@ export const SettingForces: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const selectedId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
+    const selectedId = initialForces.findIndex(
+      force => force.uniqid === selectedForce?.uniqid
+    )
     setSelectedItem(Math.max(selectedId, 0))
     setForcesData(initialForces)
   }, [initialForces])
@@ -60,20 +66,6 @@ export const SettingForces: React.FC<PropTypes> = ({
       const nextForces: Array<ForceData> = [...initialForces]
       nextForces[selectedItem] = force
       handleChangeForces(nextForces)
-    }
-
-    const handleCreateRole = (): void => {
-      const roles: Array<Role> = [...data.roles, {
-        roleId: 'r' + Math.random().toString(36).substring(8),
-        name: 'New Role',
-        canSubmitPlans: false,
-        password: 'p' + Math.random().toString(36).substring(8),
-        isGameControl: false,
-        isInsightViewer: false,
-        isRFIManager: false,
-        isObserver: false
-      }]
-      handleChangeForce({ ...data, roles: roles })
     }
 
     const handleOnRejectedIcon = (rejected: any): void => {
@@ -98,25 +90,39 @@ export const SettingForces: React.FC<PropTypes> = ({
             />
           </div>
           <div className={styles['color-box']}>
-            <Colorpicker value={data.color} onChange={(newColor: string): void => {
-              handleChangeForce({ ...data, color: newColor })
-            }} />
+            <Colorpicker
+              value={data.color}
+              onChange={(newColor: string): void => {
+                handleChangeForce({ ...data, color: newColor })
+              }}
+            />
           </div>
           <div className={styles.col}>
-            <IconUploader limit={20000} icon={data.iconURL || data.icon} onChange={(iconURL: string): void => {
-              handleChangeForce({ ...data, iconURL })
-            }} onRejected={handleOnRejectedIcon}>Change Icon</IconUploader>
+            <IconUploader
+              limit={20000}
+              icon={data.iconURL || data.icon}
+              onChange={(iconURL: string): void => {
+                handleChangeForce({ ...data, iconURL })
+              }}
+              onRejected={handleOnRejectedIcon}
+            >
+              Change Icon
+            </IconUploader>
           </div>
           <div className={styles.actions}>
             <Button
               icon="delete"
-              onClick={(): void => { console.log('onDelete') }}
+              onClick={(): void => {
+                console.log('onDelete')
+              }}
             >
               Delete
             </Button>
             <Button
               color="primary"
-              onClick={(): void => { if (onSave) onSave(forcesData) }}
+              onClick={(): void => {
+                if (onSave) onSave(forcesData)
+              }}
               data-qa-type="save"
             >
               Save Force
@@ -131,10 +137,7 @@ export const SettingForces: React.FC<PropTypes> = ({
               handleChangeForce={handleChangeForce}
             />
 
-            <RolesAccordion
-              data={data}
-              handleChangeForce={handleChangeForce}
-            />
+            <RolesAccordion data={data} handleChangeForce={handleChangeForce} />
 
             <AssetsAccordion
               routes={routes}
@@ -163,9 +166,7 @@ export const SettingForces: React.FC<PropTypes> = ({
           title="Add a New Force"
         />
       </LeftSide>
-      <RightSide>
-        {renderContent()}
-      </RightSide>
+      <RightSide>{renderContent()}</RightSide>
     </AdminContent>
   )
 }

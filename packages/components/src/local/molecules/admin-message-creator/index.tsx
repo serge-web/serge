@@ -15,7 +15,13 @@ import styles from './styles.module.scss'
 import { TextInput } from '../../atoms/text-input'
 
 /* Render component */
-export const AdminMessageCreator: React.FC<Props> = ({ from, channel, roleId, roleName, postBack }) => {
+export const AdminMessageCreator: React.FC<Props> = ({
+  from,
+  channel,
+  roleId,
+  roleName,
+  postBack
+}) => {
   const [formState, setFormState] = useState('')
 
   const timestamp = new Date().toISOString()
@@ -29,9 +35,9 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, roleId, ro
         from: {
           force: from.name,
           forceColor: from.color,
-          iconURL: from.iconURL || (from.icon || '')
+          iconURL: from.iconURL || from.icon || '',
           roleId,
-          roleName,
+          roleName
         },
         messageType: 'Chat',
         timestamp: timestamp

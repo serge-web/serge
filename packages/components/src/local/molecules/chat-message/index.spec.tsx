@@ -15,9 +15,9 @@ const message: ChatMessageType = {
     from: {
       force: 'White',
       forceColor: '#FCFBEE',
-      iconURL: 'default_img/umpireDefault.png'
+      iconURL: 'default_img/umpireDefault.png',
       roleName: 'Game Control',
-      roleId: 'r12345',
+      roleId: 'r12345'
     },
     messageType: 'Chat',
     timestamp: '2020-09-18T05:41:17.349Z',

@@ -33,7 +33,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
       />
       <AdminPanelFooter
         force={selectedForce}
-        selectedRole={state.selectedRoleId}
+        selectedRoleId={state.selectedRoleId}
         selectedRoleName={state.selectedRoleName}
         byPassUrl={byPassUrl}
         onIconClick={(): void => dispatch(showHideObjectives())}

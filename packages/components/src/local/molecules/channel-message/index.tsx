@@ -12,7 +12,10 @@ import messageTitleFor from '../../organisms/channel-messages-list/helpers/messa
 
 /* Render component */
 export const ChannelMessage: React.FC<Props> = (props: Props) => {
-  const CollapsibleHeader = ({ onExpand, collapsed }: any): React.ReactElement => {
+  const CollapsibleHeader = ({
+    onExpand,
+    collapsed
+  }: any): React.ReactElement => {
     const { onRead, onUnread, message } = props
 
     const title = messageTitleFor(message)
@@ -36,19 +39,15 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
         onExpand={handleOnExpand}
         hasBeenRead={message.hasBeenRead}
         forceColor={props.forceColor}
-        role={props.role}
+        roleName={props.roleName}
+        roleId={props.roleId}
         markUnread={markUnread}
       />
     )
   }
 
   const CollapsibleContent = ({ collapsed }: any): React.ReactElement => {
-    return (
-      <MessageListDetail
-        {...props}
-        collapsed={collapsed}
-      />
-    )
+    return <MessageListDetail {...props} collapsed={collapsed} />
   }
 
   const hexToRGBA = (hex: string, hasBeenRead: boolean): string => {
@@ -69,7 +68,15 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
   }
 
   return (
-    <div className={styles['message-list-wrapper']} style={{ borderColor: hexToRGBA(props.message.details.from.forceColor, props.message.hasBeenRead) }}>
+    <div
+      className={styles['message-list-wrapper']}
+      style={{
+        borderColor: hexToRGBA(
+          props.message.details.from.forceColor,
+          props.message.hasBeenRead
+        )
+      }}
+    >
       <Collapsible
         header={<CollapsibleHeader />}
         content={<CollapsibleContent />}

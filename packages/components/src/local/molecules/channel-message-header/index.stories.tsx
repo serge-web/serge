@@ -21,7 +21,7 @@ export const Default: React.FC = () => (
     isOpen={false}
     title="lorem ipsum do lor sit amet"
     timestamp="2020-09-18T05:41:17.349Z"
-    role="CO"
+    roleName="CO"
     messageType="Chat"
     hasBeenRead={false}
     forceColor={'#000'}
@@ -33,7 +33,7 @@ export const Opened: React.FC = () => (
     isOpen={true}
     title="lorem ipsum do lor sit amet"
     timestamp="2020-09-18T05:41:17.349Z"
-    role="CO"
+    roleName="CO"
     messageType="Chat"
     hasBeenRead={true}
     forceColor={'#000'}

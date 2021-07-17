@@ -12,8 +12,16 @@ import cx from 'classnames'
 import Switch from '@material-ui/core/Switch'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown, faEye, faComments, faDirections, faBookReader } from '@fortawesome/free-solid-svg-icons'
-import SortableList, { Item as SortableListItem } from '../../../molecules/sortable-list'
+import {
+  faCaretDown,
+  faEye,
+  faComments,
+  faDirections,
+  faBookReader
+} from '@fortawesome/free-solid-svg-icons'
+import SortableList, {
+  Item as SortableListItem
+} from '../../../molecules/sortable-list'
 import FormGroup from '../../../atoms/form-group-shadow'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
@@ -37,10 +45,15 @@ const MobileSwitch = withStyles({
 })(Switch)
 
 export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
-  const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
+  const renderRoleFields = (
+    item: SortableListItem,
+    key: number
+  ): React.ReactNode => {
     const roleItem = item as Role
     const handleChangeRole = (nextRole: Role, submitPlans = false): void => {
-      const roles: Array<Role> = submitPlans ? data.roles.map(role => ({ ...role, canSubmitPlans: false })) : [...data.roles]
+      const roles: Array<Role> = submitPlans
+        ? data.roles.map(role => ({ ...role, canSubmitPlans: false }))
+        : [...data.roles]
       roles[key] = nextRole
       handleChangeForce({ ...data, roles })
     }
@@ -48,65 +61,123 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
     return (
       <div className={styles.role}>
         <div className={styles['role-item']}>
-          <PasswordView value={roleItem.password} onChange={(password: string): void => {
-            handleChangeRole({ ...roleItem, password })
-          }}/>
+          <PasswordView
+            value={roleItem.password}
+            onChange={(password: string): void => {
+              handleChangeRole({ ...roleItem, password })
+            }}
+          />
           {key === 0 && <div className={styles['role-title']}>Password</div>}
         </div>
         <div className={styles['role-item']}>
-          <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isObserver} onChange={(): void => {
-            handleChangeRole({ ...roleItem, isObserver: !roleItem.isObserver })
-          }} />
-          {key === 0 && <div
-            title='Can view all channels'
-            className={cx(styles['role-title'], styles['title-center'])}>
-            <FontAwesomeIcon icon={faEye} />
-          </div>}
+          <MobileSwitch
+            disabled={data.uniqid !== UMPIRE_FORCE}
+            size="small"
+            checked={roleItem.isObserver}
+            onChange={(): void => {
+              handleChangeRole({
+                ...roleItem,
+                isObserver: !roleItem.isObserver
+              })
+            }}
+          />
+          {key === 0 && (
+            <div
+              title="Can view all channels"
+              className={cx(styles['role-title'], styles['title-center'])}
+            >
+              <FontAwesomeIcon icon={faEye} />
+            </div>
+          )}
         </div>
         <div className={styles['role-item']}>
-          <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isInsightViewer} onChange={(): void => {
-            handleChangeRole({ ...roleItem, isInsightViewer: !roleItem.isInsightViewer })
-          }} />
-          {key === 0 && <div
-            title='Can view feedback/insights'
-            className={cx(styles['role-title'], styles['title-center'])}>
-            <FontAwesomeIcon icon={faComments} />
-          </div>}
+          <MobileSwitch
+            disabled={data.uniqid !== UMPIRE_FORCE}
+            size="small"
+            checked={roleItem.isInsightViewer}
+            onChange={(): void => {
+              handleChangeRole({
+                ...roleItem,
+                isInsightViewer: !roleItem.isInsightViewer
+              })
+            }}
+          />
+          {key === 0 && (
+            <div
+              title="Can view feedback/insights"
+              className={cx(styles['role-title'], styles['title-center'])}
+            >
+              <FontAwesomeIcon icon={faComments} />
+            </div>
+          )}
         </div>
         <div className={styles['role-item']}>
-          <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isRFIManager} onChange={(): void => {
-            handleChangeRole({ ...roleItem, isRFIManager: !roleItem.isRFIManager })
-          }} />
-          {key === 0 && <div
-            title='Can release RFI responses'
-            className={cx(styles['role-title'], styles['title-center'])}>
-            <FontAwesomeIcon icon={faBookReader} />
-          </div>}
+          <MobileSwitch
+            disabled={data.uniqid !== UMPIRE_FORCE}
+            size="small"
+            checked={roleItem.isRFIManager}
+            onChange={(): void => {
+              handleChangeRole({
+                ...roleItem,
+                isRFIManager: !roleItem.isRFIManager
+              })
+            }}
+          />
+          {key === 0 && (
+            <div
+              title="Can release RFI responses"
+              className={cx(styles['role-title'], styles['title-center'])}
+            >
+              <FontAwesomeIcon icon={faBookReader} />
+            </div>
+          )}
         </div>
         <div className={styles['role-item']}>
-          <MobileSwitch size='small' checked={roleItem.canSubmitPlans} onChange={(): void => {
-            handleChangeRole({ ...roleItem, canSubmitPlans: !roleItem.canSubmitPlans }, !roleItem.canSubmitPlans)
-          }} />
-          {key === 0 && <div
-            title='Can submit mapping plans'
-            className={cx(styles['role-title'], styles['title-center'])}>
-            <FontAwesomeIcon icon={faDirections} />
-          </div>}
+          <MobileSwitch
+            size="small"
+            checked={roleItem.canSubmitPlans}
+            onChange={(): void => {
+              handleChangeRole(
+                { ...roleItem, canSubmitPlans: !roleItem.canSubmitPlans },
+                !roleItem.canSubmitPlans
+              )
+            }}
+          />
+          {key === 0 && (
+            <div
+              title="Can submit mapping plans"
+              className={cx(styles['role-title'], styles['title-center'])}
+            >
+              <FontAwesomeIcon icon={faDirections} />
+            </div>
+          )}
         </div>
       </div>
     )
   }
 
   const handleCreateRole = (): void => {
-    const roles: Array<Role> = [...data.roles, {
-      name: 'New Role',
-      canSubmitPlans: false,
-      password: 'p' + Math.random().toString(36).substring(8),
-      isGameControl: false,
-      isInsightViewer: false,
-      isRFIManager: false,
-      isObserver: false
-    }]
+    const roles: Array<Role> = [
+      ...data.roles,
+      {
+        roleId:
+          'r' +
+          Math.random()
+            .toString(36)
+            .substring(8),
+        name: 'New Role',
+        canSubmitPlans: false,
+        password:
+          'p' +
+          Math.random()
+            .toString(36)
+            .substring(8),
+        isGameControl: false,
+        isInsightViewer: false,
+        isRFIManager: false,
+        isObserver: false
+      }
+    ]
     handleChangeForce({ ...data, roles: roles })
   }
 
@@ -114,7 +185,12 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
     <Accordion className={styles.accordion}>
       <AccordionSummary
         className={styles['accordion-header']}
-        expandIcon={<FontAwesomeIcon icon={faCaretDown} className={styles['arrow-icon']} />}
+        expandIcon={
+          <FontAwesomeIcon
+            icon={faCaretDown}
+            className={styles['arrow-icon']}
+          />
+        }
       >
         <Typography className={styles['accordion-title']}>Roles</Typography>
       </AccordionSummary>
@@ -124,7 +200,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
             <FormGroup placeholder="Roles">
               <SortableList
                 remove={false}
-                sortable='auto'
+                sortable="auto"
                 required
                 onChange={(roles: Array<SortableListItem>): void => {
                   handleChangeForce({ ...data, roles: roles as Array<Role> })
@@ -132,7 +208,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
                 onCreate={handleCreateRole}
                 renderItemSection={renderRoleFields}
                 items={data.roles}
-                title='Add Role'
+                title="Add Role"
               />
             </FormGroup>
           </div>

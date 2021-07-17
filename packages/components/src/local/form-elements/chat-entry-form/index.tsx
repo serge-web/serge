@@ -14,7 +14,14 @@ import ChatInputText from '../chat-input-text'
 import PrivateChatInputToggle from '../private-chat-input-toggle'
 
 /* Render component */
-export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, roleId, roleName, postBack }: Props) => {
+export const ChatEntryForm: React.FC<Props> = ({
+  from,
+  channel,
+  isUmpire,
+  roleId,
+  roleName,
+  postBack
+}: Props) => {
   const [message, setMessage] = useState('')
   const [privateMessage, setPrivateMessage] = useState('')
   const messageEle = useRef<any>(null)
@@ -29,9 +36,9 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, roleId
         from: {
           force: from.name,
           forceColor: from.color,
-          iconURL: from.iconURL || (from.icon || '')
+          iconURL: from.iconURL || from.icon || '',
           roleId: roleId,
-          roleName: roleName,
+          roleName: roleName
         },
         messageType: 'Chat',
         timestamp: timestamp,
@@ -44,7 +51,9 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, roleId
     }
     postBack && postBack(post)
     messageEle.current.clear()
-    privateMessageEle && privateMessageEle.current && privateMessageEle.current.clear()
+    privateMessageEle &&
+      privateMessageEle.current &&
+      privateMessageEle.current.clear()
   }
 
   return (
@@ -55,7 +64,7 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, roleId
         onMessageChange={setMessage}
         postBack={submitForm}
       />
-      { isUmpire &&
+      {isUmpire && (
         <Box mt={1}>
           <PrivateChatInputToggle
             postBack={(message): void => setPrivateMessage(message)}
@@ -63,7 +72,7 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, roleId
             ref={privateMessageEle}
           />
         </Box>
-      }
+      )}
     </Box>
   )
 }

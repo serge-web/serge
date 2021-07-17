@@ -16,18 +16,20 @@ const playerUi: PlayerUi = {
     "overview": "An overview written here..",
     "roles": [
       {
+        "roleId": "",
         "name": "CO",
         "password": "pk16fdykk",
-        "isGameControl":false,
+        "isGameControl": false,
         "isObserver": false,
         "isInsightViewer": false
       },
       {
+        "roleId": "",
         "name": "Comms",
         "password": "pk16ffhn3",
         "isObserver": false,
         "isInsightViewer": false,
-        "isGameControl":false
+        "isGameControl": false
       }
     ],
     "iconURL": "http://localhost:8080/default_img/forceDefault.png",
@@ -35,7 +37,8 @@ const playerUi: PlayerUi = {
     "umpire": false,
     "dirty": false
   },
-  "selectedRole": "CO",
+  "selectedRoleId": "",
+  "selectedRoleName": "CO",
   "isObserver": false,
   "canSubmitPlans": false,
   "currentTurn": 57,
@@ -210,6 +213,7 @@ const playerUi: PlayerUi = {
           "forceUniqid": "umpire",
           "roles": [
             {
+              "roleId": "",
               "name": "Game Control",
               isGameControl: true,
               isObserver: true,
@@ -281,9 +285,10 @@ const playerUi: PlayerUi = {
       "overview": "Umpire force.",
       "roles": [
         {
+          "roleId": "",
           "name": "Game Control",
           "password": "pk16fa8oa",
-          "isGameControl":true,
+          "isGameControl": true,
           "isObserver": true,
           "isInsightViewer": true,
           "isRFIManager": true
@@ -300,18 +305,20 @@ const playerUi: PlayerUi = {
       "overview": "An overview written here..",
       "roles": [
         {
+          "roleId": "",
           "name": "CO",
           "password": "pk16fdykk",
-          "isGameControl":false,
+          "isGameControl": false,
           "isObserver": false,
           "isInsightViewer": false
         },
         {
+          "roleId": "",
           "name": "Comms",
           "password": "pk16ffhn3",
           "isObserver": false,
           "isInsightViewer": false,
-          "isGameControl":false
+          "isGameControl": false
         }
       ],
       "iconURL": "http://localhost:8080/default_img/forceDefault.png",

@@ -59,7 +59,7 @@ export const openMessage = (channel: string, payloadMessage: MessageChannel, new
       const res = openMessageChange(channelMessages[i], payloadMessage._id)
       if (res.changed) {
         channelMessages[i] = res.message
-        expiredStorage.setItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${payloadMessage._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
+        expiredStorage.setItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRoleId || newState.selectedRoleName}-${payloadMessage._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
         break;
       }
     }
@@ -69,7 +69,7 @@ export const openMessage = (channel: string, payloadMessage: MessageChannel, new
     return message._id &&
       !message.hasBeenRead &&
       message.messageType !== INFO_MESSAGE_CLIPPED &&
-      expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
+      expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRoleId || newState.selectedRoleName}-${message._id}`) === null
   }).length
 
   return {
@@ -96,14 +96,14 @@ export const markUnread = (channel: string, message: MessageChannel, newState: P
   }
 
   const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
-  expiredStorage.removeItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`)
+  expiredStorage.removeItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRoleId || newState.selectedRoleName}-${message._id}`)
 
   const channelMessages: Array<MessageChannel> = (newState.channels[channel].messages || [])
   const unreadMessageCount = channelMessages.filter((message) => {
     return message._id &&
       !message.hasBeenRead &&
       message.messageType !== INFO_MESSAGE_CLIPPED &&
-      expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`) === null
+      expiredStorage.getItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRoleId || newState.selectedRoleName}-${message._id}`) === null
   }).length
 
   return {
@@ -135,7 +135,7 @@ export const markAllAsRead = (channel: string, newState: PlayerUi): ChannelUI =>
     const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : '';
     if (message._id) {
       message.hasBeenRead = true
-      expiredStorage.setItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRole}-${message._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
+      expiredStorage.setItem(`${newState.currentWargame}-${selectedForce}-${newState.selectedRoleId || newState.selectedRoleName}-${message._id}`, 'read', LOCAL_STORAGE_TIMEOUT)
     }
     return message
   })

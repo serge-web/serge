@@ -127,7 +127,8 @@
   "newState": {
     "selectedForce": "force-k16fdykj",
     "forceColor": "#3dd0ff",
-    "selectedRole": "CO",
+    "selectedRoleName": "CO",
+    "selectedRoleId": "",
     "isObserver": false,
     "canSubmitPlans": false,
     "controlUi": false,
@@ -253,12 +254,8 @@
             "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
           }
         ],
-        "forceIcons": [
-          "http://localhost:8080/default_img/forceDefault.png"
-        ],
-        "forceColors": [
-          "#3dd0ff"
-        ],
+        "forceIcons": ["http://localhost:8080/default_img/forceDefault.png"],
+        "forceColors": ["#3dd0ff"],
         "messages": [],
         "unreadMessageCount": 0,
         "observing": false
@@ -349,10 +346,7 @@
           "http://localhost:8080/default_img/forceDefault.png",
           "http://localhost:8080/default_img/umpireDefault.png"
         ],
-        "forceColors": [
-          "#3dd0ff",
-          "#FCFBEE"
-        ],
+        "forceColors": ["#3dd0ff", "#FCFBEE"],
         "messages": [],
         "unreadMessageCount": 0,
         "observing": false
@@ -388,10 +382,7 @@
           "http://localhost:8080/default_img/umpireDefault.png",
           "http://localhost:8080/default_img/forceDefault.png"
         ],
-        "forceColors": [
-          "#FCFBEE",
-          "#3dd0ff"
-        ],
+        "forceColors": ["#FCFBEE", "#3dd0ff"],
         "messages": [],
         "unreadMessageCount": 0,
         "observing": false
@@ -612,7 +603,7 @@
           {
             "name": "Game Control",
             "password": "pk16fa8oa",
-            "isGameControl":true,
+            "isGameControl": true,
             "isObserver": true,
             "isInsightViewer": true,
             "isRFIManager": true
@@ -631,7 +622,7 @@
           {
             "name": "CO",
             "password": "pk16fdykk",
-            "isGameControl":false,
+            "isGameControl": false,
             "isObserver": false,
             "isInsightViewer": false
           },
@@ -640,7 +631,7 @@
             "password": "pk16ffhn3",
             "isObserver": false,
             "isInsightViewer": false,
-            "isGameControl":false
+            "isGameControl": false
           }
         ],
         "icon": "http://localhost:8080/default_img/forceDefault.png",
@@ -675,11 +666,7 @@
                           "items": {
                             "properties": {
                               "Force": {
-                                "enum": [
-                                  "Blue",
-                                  "Red",
-                                  "Green"
-                                ],
+                                "enum": ["Blue", "Red", "Green"],
                                 "type": "string"
                               }
                             }
@@ -692,11 +679,7 @@
                     "type": "array"
                   },
                   "force": {
-                    "enum": [
-                      "Blue",
-                      "Red",
-                      "Green"
-                    ],
+                    "enum": ["Blue", "Red", "Green"],
                     "propertyOrder": 100,
                     "type": "string"
                   }
@@ -774,10 +757,7 @@
             }
           },
           "title": "Daily Intent",
-          "required": [
-            "OverallIntentions",
-            "Orders"
-          ]
+          "required": ["OverallIntentions", "Orders"]
         },
         "completed": false,
         "_id": "k16eedkn",
@@ -936,20 +916,14 @@
                 },
                 "Lat Hemi": {
                   "type": "string",
-                  "enum": [
-                    "N",
-                    "S"
-                  ]
+                  "enum": ["N", "S"]
                 },
                 "Long": {
                   "type": "number"
                 },
                 "Long Hemi": {
                   "type": "string",
-                  "enum": [
-                    "E",
-                    "W"
-                  ]
+                  "enum": ["E", "W"]
                 }
               },
               "format": "grid"
@@ -1010,11 +984,7 @@
             },
             "Status": {
               "type": "string",
-              "enum": [
-                "Minor",
-                "Major",
-                "Critical"
-              ]
+              "enum": ["Minor", "Major", "Critical"]
             },
             "Description": {
               "type": "string",
@@ -1120,11 +1090,7 @@
                           "items": {
                             "properties": {
                               "Force": {
-                                "enum": [
-                                  "Blue",
-                                  "Red",
-                                  "Green"
-                                ],
+                                "enum": ["Blue", "Red", "Green"],
                                 "type": "string"
                               }
                             }
@@ -1138,11 +1104,7 @@
                     "type": "array"
                   },
                   "force": {
-                    "enum": [
-                      "Blue",
-                      "Red",
-                      "Green"
-                    ],
+                    "enum": ["Blue", "Red", "Green"],
                     "propertyOrder": 100,
                     "type": "string"
                   }

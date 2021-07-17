@@ -11,7 +11,7 @@ import { ForceData, MessageMap, Message, MessageDetails } from '@serge/custom-ty
  */
 const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | undefined,
   channelID: string, roleId: string, roleName: string, currentWargame: string,
-  saveMapMessage: {(dbName: string, details: MessageDetails, message: unknown): Promise<Message>}): void => {
+  saveMapMessage: { (dbName: string, details: MessageDetails, message: unknown): Promise<Message> }): void => {
   if (force) {
     const { name, color, iconURL } = force
 
@@ -21,9 +21,9 @@ const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | u
       from: {
         force: name,
         forceColor: color,
-        iconURL
-        roleId: roleId,
-        roleName: roleName,
+        iconURL,
+        roleId,
+        roleName: roleName
       },
       messageType: mType,
       timestamp: new Date().toISOString()

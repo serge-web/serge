@@ -33,9 +33,9 @@ export default {
   }
 }
 
-const Template: Story<ChatMessageProps> = (args) => {
+const Template: Story<ChatMessageProps> = args => {
   const { message, isOwner, isUmpire } = args
-  return <ChatMessage message={message} isUmpire={isUmpire} isOwner={isOwner}/>
+  return <ChatMessage message={message} isUmpire={isUmpire} isOwner={isOwner} />
 }
 
 export const Demonstration = Template
@@ -48,9 +48,9 @@ Demonstration.args = {
       from: {
         force: 'White',
         forceColor: '#FCFBEE',
-        iconURL: 'default_img/umpireDefault.png'
+        iconURL: 'default_img/umpireDefault.png',
         roleName: 'Game Control',
-        roleId: 'r12345',
+        roleId: 'r12345'
       },
       messageType: 'State of The World',
       timestamp: '2020-09-18T05:41:17.349Z',

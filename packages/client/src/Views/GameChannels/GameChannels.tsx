@@ -44,7 +44,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
   const dispatch = usePlayerUiDispatch()
 
   const openTourFn = () => {
-    const storageKey = `${wargameTitle}-${selectedForce.uniqid}-${selectedRoleName}-tourDone`
+    const storageKey = `${wargameTitle}-${selectedForce.uniqid}-${selectedRoleId || selectedRoleName}-tourDone`
     expiredStorage.removeItem(storageKey)
     dispatch(openTour(true))
   }
