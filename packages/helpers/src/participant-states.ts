@@ -1,4 +1,4 @@
-import { ChannelData, Participant } from '@serge/custom-types'
+import { ChannelData, Participant, TemplateBody } from '@serge/custom-types'
 import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } from './participant-filters'
 
 export interface CheckParticipantStates {
@@ -17,7 +17,7 @@ export interface ParticipantStates {
   /** whether player is just channel observer (and not participant) */
   observing: boolean
   /** the templates available to this player in this channel */
-  templates: Array<any>
+  templates: TemplateBody[]
 }
 
 /** find out if the role is active in the supplied channel
@@ -46,11 +46,11 @@ export const checkParticipantStates = (channel: ChannelData, selectedForce: stri
 }
 
 /** find out how the user can participate in this channel */
-export const getParticipantStates = (channel: ChannelData, forceId: string | undefined, role: string, isObserver: boolean, allTemplates: any): ParticipantStates => {
-  let chosenTemplates: Array<any> = []
+export const getParticipantStates = (channel: ChannelData, forceId: string | undefined, role: string, isObserver: boolean, allTemplates: TemplateBody[]): ParticipantStates => {
+  let chosenTemplates: TemplateBody[] = []
   let observing = false
-  let templates: Array<any> = []
-  const templatesUniqFilter: {[property: string]: Boolean} = {}
+  let templates: TemplateBody[] = []
+  const templatesUniqFilter: {[property: string]: boolean} = {}
   const addTemplate = (template: any): void => {
     if (templatesUniqFilter[template.title] !== true) {
       templatesUniqFilter[template.title] = true
@@ -79,15 +79,20 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
 
   if (isParticipant || allRolesIncluded) {
     if (chosenTemplates.length === 0) {
-      templates = allTemplates.filter((template: any) => template.title === 'Chat')
+      templates = allTemplates.filter((template: TemplateBody) => template.title === 'Chat')
       if (templates.length === 0) {
         console.warn('Warning, unable to find Chat template for channel with no templates defined')
       }
     } else {
-      templates = chosenTemplates.map((template: any) => {
-        return typeof template === 'string' ? template : allTemplates.find((item: any) => item._id === template._id)
-      })
+      templates = chosenTemplates
     }
+    // TODO: check this part
+    //  else {
+    //   templates = chosenTemplates.map((template: TemplateBody) => {
+    //     return typeof template === 'string' ? template : allTemplates.find(item => item._id === template._id)
+    //     it can't be a string ---^ return strring?--^  find same template and return it? why? ----^
+    //   })
+    // }
   }
 
   if (isObserver && !isParticipant && !allRolesIncluded) {
