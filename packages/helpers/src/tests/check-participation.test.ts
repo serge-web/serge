@@ -18,7 +18,7 @@ const allForcesChannel: ChannelData = {
       forceUniqid: 'Red',
       roles: [{ name: 'Logs', isGameControl: false, isObserver: false, isInsightViewer: false, password: 'aa' }],
       subscriptionId: 'k63pjsbv',
-      templates: [{ a: 'a' }, { b: 'b' }]
+      templates: [{ title: 'a', a: 'a' }, { title: 'b', b: 'b' }]
     },
     {
       force: 'Blue',
