@@ -12,7 +12,7 @@ export default interface Props {
   }
   channel: string
   roleId: string
-  roleName: string,
+  roleName: string
   /**
    * The method for posting messages out of the component
    */
