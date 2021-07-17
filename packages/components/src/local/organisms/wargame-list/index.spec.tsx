@@ -52,6 +52,10 @@ const onGameClick = (title: string): void => {
   window.alert(`Click on ${title}`)
 }
 
+const toggleClick = (title: string): void => {
+  window.alert(`Toggle on ${title}`)
+}
+
 describe('WargameList component:', () => {
   it('renders correctly', () => {
     const tree = renderer
@@ -60,7 +64,7 @@ describe('WargameList component:', () => {
           wargames={wargames}
           menuConfig={menus}
           onGameClick={onGameClick}
-          toggleAction={() => { }}
+          toggleAction={toggleClick}
         />
       )
       .toJSON()

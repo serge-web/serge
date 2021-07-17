@@ -19,7 +19,7 @@ export default interface Props {
   /**
    * toggle menu item action
    */
-  toggleAction: () => void
+  toggleAction: (title: string) => void
   /**
    * Workaround to prevent using custom scrollbar in unit tests,
    * since it was failing

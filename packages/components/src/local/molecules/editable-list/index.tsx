@@ -113,7 +113,7 @@ export const EditableList: React.FC<PropTypes> = ({
                         </MButton>
                       </ButtonGroup>
                       <Popper open={open} anchorEl={anchorRef.current} transition className={styles.menu} disablePortal>
-                        {({ TransitionProps }) => (
+                        {({ TransitionProps }): any => (
                           <Grow
                             {...TransitionProps}
                           >
