@@ -5,6 +5,7 @@ import { getWargame } from '../ActionsAndReducers/playerUi/playerUi_ActionCreato
 import { serverPath } from '../consts'
 import { ForceData, Role, WargameList } from '@serge/custom-types'
 import { TextInput } from '@serge/components'
+import { hiddenPrefix } from '../api/wargames_api'
 
 interface Props {
   wargameList: WargameList[],
@@ -61,6 +62,8 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
     force => ({ name: force.name, roles: force.roles })
   )
 
+  const availableGames = wargameList.filter((wargame: WargameList) => !wargame.shortName.startsWith(hiddenPrefix))
+
   return (
     <div className="flex-content-wrapper flex-content-wrapper--welcome">
       <div className="flex-content flex-content--welcome">
@@ -73,7 +76,7 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
                 value={selectedWargame}
                 className="react-select"
                 classNamePrefix="react-select"
-                options={wargameList.map((wargame: WargameList) => ({ label: wargame.title, value: wargame.name }))}
+                options={availableGames.map((wargame: WargameList) => ({ label: wargame.title, value: wargame.name }))}
                 onChange={updateSelectedWargame}
               />
             </div>

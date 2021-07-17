@@ -1,5 +1,6 @@
 export default interface WargameList {
   name: string,
   title: string,
-  initiated: boolean
+  initiated: boolean,
+  shortName: string
 }

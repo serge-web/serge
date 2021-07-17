@@ -38,7 +38,7 @@ import { ADMIN_ROUTE } from '@serge/config'
 const AdminGameSetup = () => {
   const dispatch = useDispatch()
   const wargame = useSelector(state => state.wargame)
-  console.log(wargame, 'dDDD')
+
   const messageTypes = useSelector(state => state.messageTypes)
   const {
     data,

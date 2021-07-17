@@ -1,8 +1,5 @@
 {
-  "extends" : [
-    "standard",
-    "plugin:react/recommended"
-  ],
+  "extends": ["standard", "plugin:react/recommended"],
   "plugins": ["prettier"],
   "rules": {
     "react/prop-types": 0

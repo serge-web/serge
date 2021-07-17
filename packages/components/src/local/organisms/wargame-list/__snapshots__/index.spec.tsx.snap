@@ -39,21 +39,28 @@ exports[`WargameList component: renders correctly 1`] = `
       <div
         className="searchlist-title"
       >
-        <span
-          className="wargame-title"
-          onClick={[Function]}
+        <div
+          className="wargame-row"
         >
+          <svg
+            className="svg-inline--fa fa-eye"
+          />
           <span
-            className="wargame-started-highlight"
+            className="wargame-title"
+            onClick={[Function]}
           >
-             
+            <span
+              className="wargame-started-highlight"
+            >
+               
+            </span>
+            <span
+              title="http://localhost/wargame-a"
+            >
+              Wargame A
+            </span>
           </span>
-          <span
-            title="http://localhost/wargame-a"
-          >
-            Wargame A
-          </span>
-        </span>
+        </div>
         <svg
           className="svg-inline--fa fa-ellipsis-h"
         />
@@ -61,21 +68,28 @@ exports[`WargameList component: renders correctly 1`] = `
       <div
         className="searchlist-title"
       >
-        <span
-          className="wargame-title"
-          onClick={[Function]}
+        <div
+          className="wargame-row"
         >
+          <svg
+            className="svg-inline--fa fa-eye"
+          />
           <span
-            className="wargame-unstarted-highlight"
+            className="wargame-title"
+            onClick={[Function]}
           >
-             
+            <span
+              className="wargame-unstarted-highlight"
+            >
+               
+            </span>
+            <span
+              title="http://localhost/wargame-b"
+            >
+              Wargame B
+            </span>
           </span>
-          <span
-            title="http://localhost/wargame-b"
-          >
-            Wargame B
-          </span>
-        </span>
+        </div>
         <svg
           className="svg-inline--fa fa-ellipsis-h"
         />
@@ -83,21 +97,28 @@ exports[`WargameList component: renders correctly 1`] = `
       <div
         className="searchlist-title"
       >
-        <span
-          className="wargame-title"
-          onClick={[Function]}
+        <div
+          className="wargame-row"
         >
+          <svg
+            className="svg-inline--fa fa-eye"
+          />
           <span
-            className="wargame-started-highlight"
+            className="wargame-title"
+            onClick={[Function]}
           >
-             
+            <span
+              className="wargame-started-highlight"
+            >
+               
+            </span>
+            <span
+              title="http://localhost/wargame-c"
+            >
+              Wargame C
+            </span>
           </span>
-          <span
-            title="http://localhost/wargame-c"
-          >
-            Wargame C
-          </span>
-        </span>
+        </div>
         <svg
           className="svg-inline--fa fa-ellipsis-h"
         />

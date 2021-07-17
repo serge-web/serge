@@ -34,13 +34,16 @@ const menus = [
 const wargames = [{
   title: 'Wargame A',
   name: 'http://localhost/wargame-a',
+  shortName: 'wargame-a',
   initiated: true
 }, {
   title: 'Wargame B',
   name: 'http://localhost/wargame-b',
+  shortName: 'wargame-b',
   initiated: false
 }, {
   title: 'Wargame C',
+  shortName: 'wargame-c',
   name: 'http://localhost/wargame-c',
   initiated: true
 }]
@@ -57,6 +60,7 @@ describe('WargameList component:', () => {
           wargames={wargames}
           menuConfig={menus}
           onGameClick={onGameClick}
+          toggleAction={() => { }}
         />
       )
       .toJSON()
