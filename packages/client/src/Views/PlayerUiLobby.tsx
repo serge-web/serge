@@ -5,7 +5,7 @@ import { getWargame } from '../ActionsAndReducers/playerUi/playerUi_ActionCreato
 import { serverPath } from '../consts'
 import { ForceData, Role, WargameList } from '@serge/custom-types'
 import { TextInput } from '@serge/components'
-import { hiddenPrefix } from '../api/wargames_api'
+import { hiddenPrefix } from '@serge/config'
 
 interface Props {
   wargameList: WargameList[],

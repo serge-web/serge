@@ -8,12 +8,7 @@ import {
   updateWargameVisible
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import {
-  faBath,
-  faClone,
-  faFileDownload,
-  faTrash
-} from '@fortawesome/free-solid-svg-icons'
+import { faBath, faClone, faFileDownload, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { EXPORT_ROUTE, GAME_SETUP_ROUTE } from '../consts'
 import { WargameList } from '@serge/components'

@@ -4,6 +4,7 @@ import React from 'react'
 import Props from './types/props'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { hiddenPrefix } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -17,7 +18,7 @@ export const GameTitle: React.FC<Props> = React.forwardRef(({ initiated, title, 
   return (
     <div className={styles['wargame-row']}>
       <FontAwesomeIcon
-        icon={shortName.startsWith('_#_') ? faEyeSlash : faEye}
+        icon={shortName.startsWith(hiddenPrefix) ? faEyeSlash : faEye}
         className={styles['wargame-icon']}
       />
       <span className={styles['wargame-title']} onClick={handleOnClick} ref={ref}>

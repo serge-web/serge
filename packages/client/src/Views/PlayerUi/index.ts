@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   checkPasswordFail: ():void => {
     dispatch(addNotification('Access code incorrect', 'warning'))
   },
+  wargameIsInvalid: (): void => {
+    dispatch(addNotification('Wargame is invalid', 'error'))
+  },
   loadData: (): void => {
     dispatch(populateMessageTypesDb())
     dispatch(populateWargameStore())

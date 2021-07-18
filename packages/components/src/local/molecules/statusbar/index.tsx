@@ -29,7 +29,7 @@ export const StatusBar: React.FC<PropTypes> = ({
   const [value, setValue] = useState(wargame.wargameTitle)
   const [dirty, setDirty] = useState(false)
 
-  const handleChange = (target: { value: string }): void => {
+  const handleChange = (target: {value: string}): void => {
     setDirty(true)
     setValue(target.value)
     if (typeof onChange === 'function') {
