@@ -1,11 +1,12 @@
 import Participant from './participant'
 import { MessageChannel } from './message'
+import { TemplateBody } from './template'
 
 /** description of channel, as used in game UI */
 export default interface ChannelData {
   readonly uniqid: string,
   observing?: boolean,
-  templates?: Array<any>,
+  templates?: TemplateBody[],
   messages?: Array<MessageChannel>,
   name: string,
   participants: Array<Participant>

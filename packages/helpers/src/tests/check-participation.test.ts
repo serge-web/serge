@@ -18,7 +18,7 @@ const allForcesChannel: ChannelData = {
       forceUniqid: 'Red',
       roles: [{ name: 'Logs', isGameControl: false, isObserver: false, isInsightViewer: false, password: 'aa' }],
       subscriptionId: 'k63pjsbv',
-      templates: [{ a: 'a' }, { b: 'b' }]
+      templates: [{ title: 'a', a: 'a' }, { title: 'b', b: 'b' }]
     },
     {
       force: 'Blue',
@@ -41,7 +41,7 @@ it('Check umpire in channel', () => {
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeTruthy()
   expect(res.allRolesIncluded).toBeTruthy()
-  expect(res.participatingRole).toEqual(allForcesChannel.participants[0])
+  expect(res.participatingRoles).toEqual([allForcesChannel.participants[0]])
 })
 
 it('Check member force in named role in channel', () => {
@@ -51,7 +51,7 @@ it('Check member force in named role in channel', () => {
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeTruthy()
   expect(res.allRolesIncluded).toBeFalsy()
-  expect(res.participatingRole).toEqual(allForcesChannel.participants[1])
+  expect(res.participatingRoles).toEqual([allForcesChannel.participants[1]])
 })
 
 it('Check non-member force in named role in channel', () => {
@@ -92,7 +92,7 @@ it('Check missing force in channel if observer', () => {
   const res = checkParticipantStates(newChannel, selForce, selRole, true)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeFalsy()
-  expect(res.participatingRole).toBeFalsy()
+  expect(res.participatingRoles.length > 0).toBeFalsy()
   expect(res.allRolesIncluded).toBeFalsy()
 })
 
