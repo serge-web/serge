@@ -48,11 +48,6 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
     }
   }
 
-  if (!selectedWargame && wargameList.length === 1) {
-    const { title, name } = wargameList[0]
-    updateSelectedWargame({ label: title, value: name })
-  }
-
   const setRolePasswordDemo = (e: React.MouseEvent, val: string): void => {
     e.preventDefault()
     setRolePassword(val)
@@ -63,6 +58,11 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
   )
 
   const availableGames = wargameList.filter((wargame: WargameList) => !wargame.shortName.startsWith(hiddenPrefix))
+
+  if (!selectedWargame && availableGames.length === 1) {
+    const { title, name } = availableGames[0]
+    updateSelectedWargame({ label: title, value: name })
+  }
 
   return (
     <div className="flex-content-wrapper flex-content-wrapper--welcome">
