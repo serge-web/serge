@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     dispatch(addNotification('Access code incorrect', 'warning'))
   },
   wargameIsInvalid: (): void => {
-    dispatch(addNotification('Wargame is invalid', 'error'))
+    dispatch(addNotification('Hidden wargame should not be available. Not opening', 'error'))
   },
   loadData: (): void => {
     dispatch(populateMessageTypesDb())
