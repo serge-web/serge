@@ -31,6 +31,7 @@ import {
 import {
   CHAT_CHANNEL_ID,
 } from '../../consts'
+import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI';
 
 export const initialState: PlayerUi = {
   selectedForce: undefined,
@@ -106,7 +107,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       if (action.payload.data.platformTypes) {
         newState.allPlatformTypes = action.payload.data.platformTypes.platformTypes
       }
-
+      getRoleParamsByForceAndRole(state.selectedForce, state.selectedRole, newState)
       break
 
     case SET_FORCE:
@@ -114,11 +115,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_ROLE:
-      newState.selectedRole = action.payload.name
-      newState.isGameControl = action.payload.isGameControl
-      newState.isObserver = action.payload.isObserver
-      newState.isInsightViewer = action.payload.isInsightViewer
-      newState.isRFIManager = !!action.payload.isRFIManager
+      getRoleParamsForPlayerUI(action.payload, newState)
       break
 
     case SET_ALL_TEMPLATES_PLAYERUI:
@@ -183,6 +180,11 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     default:
       return newState
+  }
+  if (process.env.NODE_ENV === 'development') {
+    console.log('PlayerUI: ', action.type);
+    console.log('PlayerUI > Prev State: ', state);
+    console.log('PlayerUI > Next State: ', newState);
   }
 
   return newState

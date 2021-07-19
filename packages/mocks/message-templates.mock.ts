@@ -1,4 +1,6 @@
-export default [
+import { TemplateBody } from "@serge/custom-types"
+
+const messageTemplatesMock: TemplateBody[] = [
   {
     completed: false,
     details: {
@@ -541,3 +543,5 @@ export default [
     _rev: '1-741dde8c87e0a0fcbe335c234b1619a3'
   }
 ]
+
+export default messageTemplatesMock
