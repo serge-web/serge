@@ -20,7 +20,7 @@ const MessageCreator: React.FC<Props> = (props) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [selectedSchema, setSelectedSchema] = useState<any>(props.schema)
   const state = usePlayerUiState()
-  const { selectedForce } = state
+  const { selectedForce, gameDate } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   
   const sendMessage = (e: any): void => {
@@ -90,7 +90,7 @@ const MessageCreator: React.FC<Props> = (props) => {
     */
     Object.keys(schema.properties).forEach(key => {
       if(schema.properties[key].format === 'datetime-local'){
-        schema.properties[key].default = moment().format("DD/MM/YYYY HH:mm")
+        schema.properties[key].default = moment(gameDate).format("DD/MM/YYYY HH:mm")
         schema.properties[key].options.flatpickr = flatpickr(".calendar");
         schema.properties[key].options = {"flatpickr": {
           "wrap":false,
