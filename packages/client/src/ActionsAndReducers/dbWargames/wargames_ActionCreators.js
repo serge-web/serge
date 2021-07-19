@@ -346,3 +346,11 @@ export const duplicateWargame = (dbName) => {
     dispatch(saveAllWargameNames(games))
   }
 }
+
+export const updateWargameVisible = dbName => {
+  return async dispatch => {
+    await wargamesApi.updateWargameVisible(dbName)
+    const games = await wargamesApi.getAllWargames()
+    dispatch(saveAllWargameNames(games))
+  }
+}

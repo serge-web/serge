@@ -97,3 +97,4 @@ export const serverPath = (
 ).replace(/\/?$/, '/')
 
 export const databasePath = `${serverPath}db/`
+export const hiddenPrefix = '_#_'
