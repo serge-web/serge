@@ -11,6 +11,37 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
       className="main"
     >
       <div
+        className="section"
+      >
+        <button
+          aria-controls="channel-add-menu"
+          aria-haspopup="true"
+          className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4 MuiButton-containedSecondary MuiButton-containedSizeLarge MuiButton-sizeLarge"
+          data-qa-type="add"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            Create
+          </span>
+        </button>
+      </div>
+      <div
         className="searchlist"
       >
         <section
@@ -20,7 +51,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
           >
             <div
-              className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+              className="MuiInputBase-root MuiInput-root makeStyles-root-8 makeStyles-root-10 MuiInput-underline makeStyles-underline-9 makeStyles-underline-11 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
               onClick={[Function]}
             >
               <input
@@ -209,7 +240,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
               className="MuiFormControl-root MuiTextField-root"
             >
               <div
-                className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-8 MuiInput-underline makeStyles-underline-5 makeStyles-underline-9 MuiInputBase-formControl MuiInput-formControl"
+                className="MuiInputBase-root MuiInput-root makeStyles-root-8 makeStyles-root-12 MuiInput-underline makeStyles-underline-9 makeStyles-underline-13 MuiInputBase-formControl MuiInput-formControl"
                 onClick={[Function]}
               >
                 <input
@@ -275,7 +306,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
           className="actions"
         >
           <button
-            className="MuiButtonBase-root MuiButton-root makeStyles-root-10 makeStyles-root-12 MuiButton-contained makeStyles-contained-11 makeStyles-contained-13 MuiButton-containedPrimary"
+            className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-14 MuiButton-contained makeStyles-contained-2 makeStyles-contained-15 MuiButton-containedPrimary"
             data-qa-type="save"
             disabled={false}
             onBlur={[Function]}
@@ -331,7 +362,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                   >
                     <span
                       aria-disabled={false}
-                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-checked-15 Mui-checked MuiIconButton-colorPrimary"
+                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-16 MuiRadio-root MuiRadio-colorPrimary PrivateSwitchBase-checked-17 Mui-checked MuiIconButton-colorPrimary"
                       onBlur={[Function]}
                       onDragLeave={[Function]}
                       onFocus={[Function]}
@@ -350,7 +381,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                       >
                         <input
                           checked={true}
-                          className="PrivateSwitchBase-input-17"
+                          className="PrivateSwitchBase-input-19"
                           disabled={false}
                           name="position"
                           onChange={[Function]}
@@ -358,7 +389,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           value="sea"
                         />
                         <div
-                          className="PrivateRadioButtonIcon-root-18 PrivateRadioButtonIcon-checked-20"
+                          className="PrivateRadioButtonIcon-root-20 PrivateRadioButtonIcon-checked-22"
                         >
                           <svg
                             aria-hidden={true}
@@ -372,7 +403,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           </svg>
                           <svg
                             aria-hidden={true}
-                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-19"
+                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-21"
                             focusable="false"
                             viewBox="0 0 24 24"
                           >
@@ -394,7 +425,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                   >
                     <span
                       aria-disabled={false}
-                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-16 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
                       onBlur={[Function]}
                       onDragLeave={[Function]}
                       onFocus={[Function]}
@@ -413,7 +444,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                       >
                         <input
                           checked={false}
-                          className="PrivateSwitchBase-input-17"
+                          className="PrivateSwitchBase-input-19"
                           disabled={false}
                           name="position"
                           onChange={[Function]}
@@ -421,7 +452,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           value="land"
                         />
                         <div
-                          className="PrivateRadioButtonIcon-root-18"
+                          className="PrivateRadioButtonIcon-root-20"
                         >
                           <svg
                             aria-hidden={true}
@@ -435,7 +466,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           </svg>
                           <svg
                             aria-hidden={true}
-                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-19"
+                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-21"
                             focusable="false"
                             viewBox="0 0 24 24"
                           >
@@ -457,7 +488,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                   >
                     <span
                       aria-disabled={false}
-                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
+                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-16 MuiRadio-root MuiRadio-colorPrimary MuiIconButton-colorPrimary"
                       onBlur={[Function]}
                       onDragLeave={[Function]}
                       onFocus={[Function]}
@@ -476,7 +507,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                       >
                         <input
                           checked={false}
-                          className="PrivateSwitchBase-input-17"
+                          className="PrivateSwitchBase-input-19"
                           disabled={false}
                           name="position"
                           onChange={[Function]}
@@ -484,7 +515,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           value="air"
                         />
                         <div
-                          className="PrivateRadioButtonIcon-root-18"
+                          className="PrivateRadioButtonIcon-root-20"
                         >
                           <svg
                             aria-hidden={true}
@@ -498,7 +529,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                           </svg>
                           <svg
                             aria-hidden={true}
-                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-19"
+                            className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-21"
                             focusable="false"
                             viewBox="0 0 24 24"
                           >
@@ -908,7 +939,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             >
                               <span
                                 aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-21 MuiSwitch-colorSecondary PrivateSwitchBase-checked-15 Mui-checked WithStyles(ForwardRef(Switch))-checked-22"
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-16 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-23 MuiSwitch-colorSecondary PrivateSwitchBase-checked-17 Mui-checked WithStyles(ForwardRef(Switch))-checked-24"
                                 onBlur={[Function]}
                                 onDragLeave={[Function]}
                                 onFocus={[Function]}
@@ -927,7 +958,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                                 >
                                   <input
                                     checked={true}
-                                    className="PrivateSwitchBase-input-17 MuiSwitch-input"
+                                    className="PrivateSwitchBase-input-19 MuiSwitch-input"
                                     onChange={[Function]}
                                     type="checkbox"
                                   />
@@ -937,7 +968,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                                 </span>
                               </span>
                               <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-23"
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-25"
                               />
                             </span>
                           </div>
@@ -996,7 +1027,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             >
                               <span
                                 aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-21 MuiSwitch-colorSecondary"
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-16 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-23 MuiSwitch-colorSecondary"
                                 onBlur={[Function]}
                                 onDragLeave={[Function]}
                                 onFocus={[Function]}
@@ -1015,7 +1046,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                                 >
                                   <input
                                     checked={false}
-                                    className="PrivateSwitchBase-input-17 MuiSwitch-input"
+                                    className="PrivateSwitchBase-input-19 MuiSwitch-input"
                                     onChange={[Function]}
                                     type="checkbox"
                                   />
@@ -1025,7 +1056,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                                 </span>
                               </span>
                               <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-23"
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-25"
                               />
                             </span>
                           </div>
@@ -1084,7 +1115,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                             >
                               <span
                                 aria-disabled={false}
-                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-14 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-21 MuiSwitch-colorSecondary"
+                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-16 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-23 MuiSwitch-colorSecondary"
                                 onBlur={[Function]}
                                 onDragLeave={[Function]}
                                 onFocus={[Function]}
@@ -1103,7 +1134,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                                 >
                                   <input
                                     checked={false}
-                                    className="PrivateSwitchBase-input-17 MuiSwitch-input"
+                                    className="PrivateSwitchBase-input-19 MuiSwitch-input"
                                     onChange={[Function]}
                                     type="checkbox"
                                   />
@@ -1113,7 +1144,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                                 </span>
                               </span>
                               <span
-                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-23"
+                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-25"
                               />
                             </span>
                           </div>
