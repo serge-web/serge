@@ -14,6 +14,7 @@ export interface Props {
   gameInfo: GameInfo,
   dbLoading: any,
   checkPasswordFail: () => void
+  wargameIsInvalid: () => void
   loadData: () => void
 }
 
