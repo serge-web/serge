@@ -61,7 +61,7 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on channels Add button click events
    */
-  onCreateChannel?: () => void
+  onCreateChannel?: (buttonText: string | undefined) => void
   /**
    * Callback on channels delete button click events
    */

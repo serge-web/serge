@@ -5,6 +5,7 @@ import { getWargame } from '../ActionsAndReducers/playerUi/playerUi_ActionCreato
 import { serverPath } from '../consts'
 import { ForceData, Role, WargameList } from '@serge/custom-types'
 import { TextInput } from '@serge/components'
+import { hiddenPrefix } from '@serge/config'
 
 interface Props {
   wargameList: WargameList[],
@@ -47,11 +48,6 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
     }
   }
 
-  if (!selectedWargame && wargameList.length === 1) {
-    const { title, name } = wargameList[0]
-    updateSelectedWargame({ label: title, value: name })
-  }
-
   const setRolePasswordDemo = (e: React.MouseEvent, val: string): void => {
     e.preventDefault()
     setRolePassword(val)
@@ -60,6 +56,13 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
   const roleOptions = allForces.map(
     force => ({ name: force.name, roles: force.roles })
   )
+
+  const availableGames = wargameList.filter((wargame: WargameList) => !wargame.shortName.startsWith(hiddenPrefix))
+
+  if (!selectedWargame && availableGames.length === 1) {
+    const { title, name } = availableGames[0]
+    updateSelectedWargame({ label: title, value: name })
+  }
 
   return (
     <div className="flex-content-wrapper flex-content-wrapper--welcome">
@@ -73,7 +76,7 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
                 value={selectedWargame}
                 className="react-select"
                 classNamePrefix="react-select"
-                options={wargameList.map((wargame: WargameList) => ({ label: wargame.title, value: wargame.name }))}
+                options={availableGames.map((wargame: WargameList) => ({ label: wargame.title, value: wargame.name }))}
                 onChange={updateSelectedWargame}
               />
             </div>
