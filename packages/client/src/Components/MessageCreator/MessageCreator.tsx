@@ -84,39 +84,38 @@ const MessageCreator: React.FC<Props> = (props) => {
     }
   }, [props])
 
-  function configDateTimeLocal(schema: any){
+  /**
+   * Render Default datetime entries in template of json for type datetime-local
+   */
+  const configDateTimeLocal = (schema: any) => {
     if(!schema || !schema.properties){
-      return;
+      return
     }
     Object.keys(schema.properties).forEach(key => {
-        let prop = schema.properties[key];
-        if(prop.format === 'datetime-local'){
-            prop.default = moment(gameDate).format("DD/MM/YYYY HH:mm")
-            prop.options.flatpickr = flatpickr(".calendar");
-            prop.options = {"flatpickr": {
-                "wrap":false,
-                "time_24hr": true,
-                "dateFormat":"d/m/Y H:i",
-            }}
-        }
-        if(prop.type === 'object'){
-            configDateTimeLocal(prop);
-        }else if(prop.type === 'array'){
-            configDateTimeLocal(prop.items);
-        }
+      let prop = schema.properties[key]
+      if(prop.format === 'datetime-local'){
+        prop.default = moment(gameDate).format("DD/MM/YYYY HH:mm")
+        prop.options.flatpickr = flatpickr(".calendar")
+        prop.options = {"flatpickr": {
+          "wrap":false,
+          "time_24hr": true,
+          "dateFormat":"d/m/Y H:i",
+        }}
+      }
+      if(prop.type === 'object'){
+        configDateTimeLocal(prop)
+      }else if(prop.type === 'array'){
+        configDateTimeLocal(prop.items)
+      }
     });
-}
+  }
 
 
   const createEditor = (schema: any) => {
-    /*
-    ** Render Default datetime entries in template of json for type datetime-local
-    */
+    
     configDateTimeLocal(schema)
-
-    /* 
-    ** multiple message type will repeat custom validators, reinitalize it for every instance
-    */
+ 
+    // multiple message type will repeat custom validators, reinitialize it for every instance
     JSONEditor.defaults.custom_validators = []
     JSONEditor.defaults.custom_validators.push(function(schema: { format: string }, value: string, path: any) {
       let errors = []
@@ -132,7 +131,7 @@ const MessageCreator: React.FC<Props> = (props) => {
         }
       }
       return errors;
-    });
+    })
 
     setEditor(new JSONEditor(editorPreviewRef.current, {
       schema,
