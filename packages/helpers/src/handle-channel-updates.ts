@@ -1,7 +1,7 @@
 import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
-  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped
+  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBody
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
@@ -152,10 +152,17 @@ export const refNumberFor = (msgRef: string | undefined, current: number, select
   return current
 }
 
-export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType | MessageCustom>, currentWargame: string,
-  selectedForce: ForceData | undefined, selectedRole: string, allChannels: ChannelData[],
-  allForces: ForceData[], chatChannel: PlayerUiChatChannel, isObserver: boolean,
-  allTemplates: any[]): SetWargameMessage => {
+export const handleAllInitialChannelMessages = (
+  payload: Array<MessageInfoType | MessageCustom>,
+  currentWargame: string,
+  selectedForce: ForceData | undefined,
+  selectedRole: string,
+  allChannels: ChannelData[],
+  allForces: ForceData[],
+  chatChannel: PlayerUiChatChannel,
+  isObserver: boolean,
+  allTemplates: TemplateBody[]
+): SetWargameMessage => {
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
   let nextMsgReference = 0
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
@@ -195,21 +202,25 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
     }
 
     if (isObserver || isParticipant || allRolesIncluded) {
+      // TODO: define type for force Icons
+      const forceIcons: any[] = []
+      const forceColors: string[] = []
+      for (const { forceUniqid } of channel.participants) {
+        const force = allForces.find((force) => force.uniqid === forceUniqid)
+        forceIcons.push((force && force.iconURL) || force?.icon)
+        forceColors.push((force && force.color) || '#FFF')
+      }
+
+      const messages = filterMessages()
       const newChannel: ChannelUI = {
         name: channel.name,
         uniqid: channel.uniqid,
         templates: templates,
         participants: [],
-        forceIcons: channel.participants && channel.participants.map((participant) => {
-          const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
-          return (force && force.iconURL) || force?.icon
-        }),
-        forceColors: channel.participants && channel.participants.map((participant) => {
-          const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
-          return (force && force.color) || '#FFF'
-        }),
-        messages: filterMessages(),
-        unreadMessageCount: filterMessages().filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
+        forceIcons,
+        forceColors,
+        messages,
+        unreadMessageCount: messages.filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
         observing: observing
       }
 
@@ -241,7 +252,7 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |
 
 const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel, rfiMessages: MessageCustom[],
   nextMsgReference: number, selectedForce: ForceData | undefined, allChannels: ChannelData[], selectedRole: string,
-  isObserver: boolean, allTemplates: any[], allForces: ForceData[]): SetWargameMessage => {
+  isObserver: boolean, allTemplates: TemplateBody[], allForces: ForceData[]): SetWargameMessage => {
   const res: SetWargameMessage = {
     channels: { ...channels },
     chatChannel: { ...chatChannel },
