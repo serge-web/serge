@@ -84,21 +84,35 @@ const MessageCreator: React.FC<Props> = (props) => {
     }
   }, [props])
 
+  function configDateTimeLocal(schema: any){
+    if(!schema || !schema.properties){
+      return;
+    }
+    Object.keys(schema.properties).forEach(key => {
+        let prop = schema.properties[key];
+        if(prop.format === 'datetime-local'){
+            prop.default = moment(gameDate).format("DD/MM/YYYY HH:mm")
+            prop.options.flatpickr = flatpickr(".calendar");
+            prop.options = {"flatpickr": {
+                "wrap":false,
+                "time_24hr": true,
+                "dateFormat":"d/m/Y H:i",
+            }}
+        }
+        if(prop.type === 'object'){
+            configDateTimeLocal(prop);
+        }else if(prop.type === 'array'){
+            configDateTimeLocal(prop.items);
+        }
+    });
+}
+
+
   const createEditor = (schema: any) => {
     /*
     ** Render Default datetime entries in template of json for type datetime-local
     */
-    Object.keys(schema.properties).forEach(key => {
-      if(schema.properties[key].format === 'datetime-local'){
-        schema.properties[key].default = moment(gameDate).format("DD/MM/YYYY HH:mm")
-        schema.properties[key].options.flatpickr = flatpickr(".calendar");
-        schema.properties[key].options = {"flatpickr": {
-          "wrap":false,
-          "time_24hr": true,
-          "dateFormat":"d/m/Y H:i",
-        }}
-      }
-    })
+    configDateTimeLocal(schema)
 
     /* 
     ** multiple message type will repeat custom validators, reinitalize it for every instance
