@@ -9,6 +9,7 @@ import {
   SET_LATEST_WARGAME_MESSAGE,
   SET_ALL_MESSAGES,
   OPEN_MESSAGE,
+  MARK_UNREAD,
   CLOSE_MESSAGE,
   MARK_ALL_AS_READ,
   OPEN_TOUR,
@@ -22,6 +23,7 @@ import {
   handleSetLatestWargameMessage,
   handleSetAllMessages,
   openMessage,
+  markUnread,
   closeMessage,
   markAllAsRead
 } from './helpers/handleWargameMessagesChange';
@@ -29,6 +31,9 @@ import {
 import {
   CHAT_CHANNEL_ID,
 } from '../../consts'
+import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI';
+
+import { platformTypeNameToKey } from '@serge/helpers'
 
 export const initialState: PlayerUi = {
   selectedForce: undefined,
@@ -57,6 +62,7 @@ export const initialState: PlayerUi = {
   allForces: [],
   allTemplates: [],
   allPlatformTypes: [],
+  allPlatformTypesByKey: {},
   showObjective: false,
   wargameInitiated: false,
   feedbackMessages: [],
@@ -70,7 +76,7 @@ export const initialState: PlayerUi = {
   nextMsgReference: 1
 }
 
-export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes):PlayerUi => {
+export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
   const newState: PlayerUi = copyState(state)
 
   switch (action.type) {
@@ -98,13 +104,23 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       if (action.payload.data.platform_types) {
         // @ts-ignore
         newState.allPlatformTypes = action.payload.data.platform_types.platformTypes
+        newState.allPlatformTypesByKey = {}
+        // @ts-ignore
+        for (const platformType of action.payload.data.platform_types.platformTypes) {
+          newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
+        }
       }
       // TODO: remove this ^^
 
       if (action.payload.data.platformTypes) {
         newState.allPlatformTypes = action.payload.data.platformTypes.platformTypes
+        // don't need any more to do loop find when we need to get platformType based on Asset.platformType
+        newState.allPlatformTypesByKey = {}
+        for (const platformType of action.payload.data.platformTypes.platformTypes) {
+          newState.allPlatformTypesByKey[platformTypeNameToKey(platformType.name)] = platformType
+        }
       }
-
+      getRoleParamsByForceAndRole(state.selectedForce, state.selectedRole, newState)
       break
 
     case SET_FORCE:
@@ -112,11 +128,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_ROLE:
-      newState.selectedRole = action.payload.name
-      newState.isGameControl = action.payload.isGameControl
-      newState.isObserver = action.payload.isObserver
-      newState.isInsightViewer = action.payload.isInsightViewer
-      newState.isRFIManager = !!action.payload.isRFIManager
+      getRoleParamsForPlayerUI(action.payload, newState)
       break
 
     case SET_ALL_TEMPLATES_PLAYERUI:
@@ -155,6 +167,10 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.channels[action.payload.channel] = openMessage(action.payload.channel, action.payload.message, newState)
       break
 
+    case MARK_UNREAD:
+      newState.channels[action.payload.channel] = markUnread(action.payload.channel, action.payload.message, newState)
+      break
+
     case CLOSE_MESSAGE:
       newState.channels[action.payload.channel].messages = closeMessage(action.payload.channel, action.payload.message, newState)
       break
@@ -178,7 +194,12 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
     default:
       return newState
   }
-
+  if (process.env.NODE_ENV === 'development') {
+    console.log('PlayerUI: ', action.type);
+    console.log('PlayerUI > Prev State: ', state);
+    console.log('PlayerUI > Next State: ', newState);
+  }
+  
   return newState
 }
 

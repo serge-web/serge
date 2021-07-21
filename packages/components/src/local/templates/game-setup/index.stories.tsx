@@ -3,7 +3,7 @@ import {
   WargameExportedMock,
   MessageTemplatesMock,
   adminTabs,
-  platformType as platformTypeMock,
+  platformType as platformTypeMock
 } from '@serge/mocks'
 import {
   ChannelData,
@@ -16,6 +16,7 @@ import {
 // Import component files
 import GameSetup from './index'
 import docs from './README.md'
+import { iconUploaderPath } from '@serge/config'
 
 export default {
   title: 'local/templates/GameSetup',
@@ -28,7 +29,6 @@ export default {
     }
   }
 }
-
 export const Default: React.FC = () => {
   const initialWargame: Wargame = {
     ...WargameExportedMock,
@@ -112,6 +112,7 @@ export const Default: React.FC = () => {
       onSaveGameTitle={onSaveGameTitle}
       onWargameInitiate={onWargameInitiated}
       availablePlatformTypes={platformTypeMock.platformTypes}
+      iconUploadUrl={iconUploaderPath}
     />
   )
 }

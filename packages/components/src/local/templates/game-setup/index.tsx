@@ -40,7 +40,8 @@ export const GameSetup: React.FC<Props> = ({
   onSave,
   messageTemplates,
   onSaveGameTitle,
-  onWargameInitiate
+  onWargameInitiate,
+  iconUploadUrl
 }: Props) => {
   const currentActiveTab = wargame?.currentTab || activeTab
 
@@ -61,6 +62,7 @@ export const GameSetup: React.FC<Props> = ({
         {
           currentActiveTab === 'platform_types' && (
             <SettingPlatformTypes
+              iconUploadUrl={iconUploadUrl}
               platformType={platformTypes}
               onChange={onPlatformTypesChange}
               onSave={onSave}
@@ -70,6 +72,7 @@ export const GameSetup: React.FC<Props> = ({
         {
           currentActiveTab === 'forces' && (
             <SettingForces
+              iconUploadUrl={iconUploadUrl}
               forces={forces}
               onChange={onForcesChange}
               onSave={onSave}

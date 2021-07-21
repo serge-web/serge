@@ -34,7 +34,7 @@ export const Default: React.FC = () => (
     force={{
       color: '#3dd0ff',
       name: 'Blue',
-      icon: 'http://localhost:8080/default_img/forceDefault.png',
+      iconURL: 'http://localhost:8080/default_img/forceDefault.png',
       overview: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, praesentium sed! Animi atque incidunt maiores nisi vel voluptate? Adipisci architecto aspernatur earum error incidunt laborum magni neque odio repellendus, voluptate!'
     }}
     selectedRole="Comms"
@@ -47,7 +47,7 @@ export const ColorVariation: React.FC = () => (
     force={{
       color: '#2b900f',
       name: 'Green',
-      icon: 'http://localhost:8080/default_img/forceDefault.png',
+      iconURL: 'http://localhost:8080/default_img/forceDefault.png',
       overview: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, praesentium sed! Animi atque incidunt maiores nisi vel voluptate? Adipisci architecto aspernatur earum error incidunt laborum magni neque odio repellendus, voluptate!'
     }}
     selectedRole="Comms"
@@ -60,7 +60,7 @@ export const Implementation: React.FC = () => {
   const force = {
     color: '#2b900f',
     name: 'Green',
-    icon: 'http://localhost:8080/default_img/forceDefault.png',
+    iconURL: 'http://localhost:8080/default_img/forceDefault.png',
     overview: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, praesentium sed! Animi atque incidunt maiores nisi vel voluptate? Adipisci architecto aspernatur earum error incidunt laborum magni neque odio repellendus, voluptate!'
   }
   const role = 'Comms'

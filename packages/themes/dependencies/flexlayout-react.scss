@@ -231,6 +231,10 @@
   top:0;
   bottom:0;
   right:0;
+
+  button {
+    filter: brightness(200%); 
+  }
 }
 
 .flexlayout__tab_toolbar_button-min {
@@ -239,8 +243,8 @@
   border:none;
   outline-width: 0;
   background: transparent url("./images/maximize.png") no-repeat center;
-
 }
+
 .flexlayout__tab_toolbar_button-max {
   width:20px;
   height:20px;
@@ -251,6 +255,63 @@
 
 .flexlayout__popup_menu_item {
   padding: 2px 10px 2px 10px;
+  cursor: pointer;
+
+  &::after {
+    color: #ff4141;
+    content: "";
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 5px;
+    margin-top: -5px;
+    vertical-align: middle;
+  }
+
+  &.unread-1 {
+    &::after {
+      content: "(1)";
+    }
+  }
+  &.unread-2 {
+    &::after {
+      content: "(2)";
+    }
+  }
+  &.unread-3 {
+    &::after {
+      content: "(3)";
+    }
+  }
+  &.unread-4 {
+    &::after {
+      content: "(4)";
+    }
+  }
+  &.unread-5 {
+    &::after {
+      content: "(5)";
+    }
+  }
+  &.unread-6 {
+    &::after {
+      content: "(6)";
+    }
+  }
+  &.unread-7 {
+    &::after {
+      content: "(7)";
+    }
+  }
+  &.unread-8 {
+    &::after {
+      content: "(8)";
+    }
+  }
+  &.unread-9plus {
+    &::after {
+      content: "(9+)";
+    }
+  }
 }
 
 .flexlayout__popup_menu_item:hover {

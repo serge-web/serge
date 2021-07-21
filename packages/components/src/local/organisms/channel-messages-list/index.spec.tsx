@@ -23,7 +23,7 @@ describe('ChannelMessagesList component: ', () => {
         from: {
           force: 'Red',
           forceColor: '#F00',
-          icon: 'default_img/umpireDefault.png',
+          iconURL: 'default_img/umpireDefault.png',
           role: 'CO'
         },
         messageType: 'Chat',
@@ -39,7 +39,7 @@ describe('ChannelMessagesList component: ', () => {
     }]
 
     const tree = renderer
-      .create(<ChannelMessagesList messages={messages} onRead={undefined} onChange={undefined} isUmpire={true} role={'Comms'} isRFIManager={true} playerForceId={'Blue'} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
+      .create(<ChannelMessagesList messages={messages} onRead={undefined} onUnread={undefined} onChange={undefined} isUmpire={true} role={'Comms'} isRFIManager={true} playerForceId={'Blue'} colors={colors} icons={icons} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

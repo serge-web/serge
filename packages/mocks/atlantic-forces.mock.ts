@@ -4,7 +4,7 @@ export const forces: ForceData[] = [
   {
     "color": "#FCFBEE",
     "dirty": false,
-    "icon": "default_img/umpireDefault.png",
+    "iconURL": "default_img/umpireDefault.png",
     "name": "White",
     "overview": "Umpire force.",
     "roles": [
@@ -304,7 +304,7 @@ export const forces: ForceData[] = [
     ],
     "color": "#00F",
     "dirty": false,
-    "icon": "default_img/umpireDefault.png",
+    "iconURL": "default_img/umpireDefault.png",
     "name": "Blue",
     "overview": "Blue force.",
     "roles": [
@@ -524,7 +524,7 @@ export const forces: ForceData[] = [
     ],
     "color": "#F00",
     "dirty": false,
-    "icon": "default_img/umpireDefault.png",
+    "iconURL": "default_img/umpireDefault.png",
     "name": "Red",
     "overview": "Red force.",
     "roles": [
@@ -1117,7 +1117,7 @@ export const forces: ForceData[] = [
       "umpire"
     ],
     "dirty": false,
-    "icon": "default_img/umpireDefault.png",
+    "iconURL": "default_img/umpireDefault.png",
     "name": "Green",
     "overview": "Green Shipping",
     "roles": [

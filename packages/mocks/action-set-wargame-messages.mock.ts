@@ -14,7 +14,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "force": "Blue",
           "forceColor": "#3dd0ff",
           "role": "CO",
-          "icon": "http://localhost:8080/default_img/forceDefault.png"
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
         "timestamp": "2020-12-06T11:07:18.374Z"
@@ -35,7 +35,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "force": "Blue",
           "forceColor": "#3dd0ff",
           "role": "CO",
-          "icon": "http://localhost:8080/default_img/forceDefault.png"
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
         "timestamp": "2020-12-06T11:07:08.130Z"
@@ -56,7 +56,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "force": "Blue",
           "forceColor": "#3dd0ff",
           "role": "CO",
-          "icon": "http://localhost:8080/default_img/forceDefault.png"
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "PG19 Weekly Orders",
         "timestamp": "2020-12-06T11:06:51.596Z"
@@ -89,7 +89,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "force": "Blue",
           "forceColor": "#3dd0ff",
           "role": "CO",
-          "icon": "http://localhost:8080/default_img/forceDefault.png"
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
         "timestamp": "2020-12-06T11:06:19.602Z"
@@ -110,7 +110,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "force": "Blue",
           "forceColor": "#3dd0ff",
           "role": "CO",
-          "icon": "http://localhost:8080/default_img/forceDefault.png"
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
         "timestamp": "2020-12-06T11:06:12.434Z"
@@ -131,7 +131,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "force": "Blue",
           "forceColor": "#3dd0ff",
           "role": "CO",
-          "icon": "http://localhost:8080/default_img/forceDefault.png"
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
         "timestamp": "2020-12-06T11:05:07.490Z"

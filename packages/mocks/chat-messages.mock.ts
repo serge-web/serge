@@ -9,7 +9,7 @@ const message1: ChatMessage = {
       "force": "White",
       "forceColor": "#FCFBEE",
       "role": "Game Control",
-      "icon": "default_img/umpireDefault.png",
+      "iconURL": "default_img/umpireDefault.png",
     },
     "messageType": "Chat",
     "privateMessage": "Private message here",
@@ -30,7 +30,7 @@ const message2: ChatMessage = {
       "forceColor": "#1989dc",
       "role": "CO",
       "name": "Blue",
-      "icon": "default_img/umpireDefault.png"
+      "iconURL": "default_img/umpireDefault.png"
     },
     "messageType": "Chat",
     "timestamp": "2020-03-25T15:08:47.510Z"

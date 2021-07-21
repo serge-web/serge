@@ -34,19 +34,26 @@ const menus = [
 const wargames = [{
   title: 'Wargame A',
   name: 'http://localhost/wargame-a',
+  shortName: 'wargame-a',
   initiated: true
 }, {
   title: 'Wargame B',
   name: 'http://localhost/wargame-b',
+  shortName: 'wargame-b',
   initiated: false
 }, {
   title: 'Wargame C',
+  shortName: 'wargame-c',
   name: 'http://localhost/wargame-c',
   initiated: true
 }]
 
 const onGameClick = (title: string): void => {
   window.alert(`Click on ${title}`)
+}
+
+const toggleClick = (title: string): void => {
+  window.alert(`Toggle on ${title}`)
 }
 
 describe('WargameList component:', () => {
@@ -57,6 +64,7 @@ describe('WargameList component:', () => {
           wargames={wargames}
           menuConfig={menus}
           onGameClick={onGameClick}
+          toggleAction={toggleClick}
         />
       )
       .toJSON()

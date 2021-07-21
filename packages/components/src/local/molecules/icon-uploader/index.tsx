@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ImageDropzone from '../../atoms/image-dropzone'
-
+import { GetIcon } from '../../asset-icon'
 /* Import proptypes */
 import PropTypes from './types/props'
 
@@ -13,7 +13,9 @@ export const IconUploader: React.FC<PropTypes> = ({
   background = 'rgba(0,0,0,0)',
   onChange,
   limit,
-  icon
+  icon,
+  iconUploadUrl,
+  platformType = ''
 }) => {
   const [modal, setModal] = useState<boolean>(false)
 
@@ -38,13 +40,13 @@ export const IconUploader: React.FC<PropTypes> = ({
         style={{ background }}
         className={styles.icon}
       >
-        {icon && <img src={icon} alt='icon' />}
+        {icon && <GetIcon icType={platformType} imageSrc={icon} color={'#415b76'}/>}
       </div>
       <div onClick={handleClick}>{children}</div>
       {modal && <div className={styles.modal}>
         <div className={styles['modal-bg']} onClick={handleClick}/>
         <div className={styles['modal-content']}>
-          <ImageDropzone limit={limit} onChange={handleChange} onRejected={onRejected} />
+          <ImageDropzone iconUploadUrl={iconUploadUrl} use64onApiEror={true} limit={limit} onChange={handleChange} onRejected={onRejected} />
         </div>
       </div>}
     </div>

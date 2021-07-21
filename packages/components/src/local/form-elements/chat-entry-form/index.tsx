@@ -30,7 +30,7 @@ export const ChatEntryForm: React.FC<Props> = ({ from, channel, isUmpire, role, 
           force: from.name,
           forceColor: from.color,
           role: role,
-          icon: from.icon ? from.icon : ''
+          iconURL: from.iconURL || (from.icon || '')
         },
         messageType: 'Chat',
         timestamp: timestamp,

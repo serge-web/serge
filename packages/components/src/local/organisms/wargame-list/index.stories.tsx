@@ -3,7 +3,12 @@ import React from 'react'
 // Import component files
 import WargameList from './index'
 import docs from './README.md'
-import { faBath, faClone, faFileDownload, faTrash } from '@fortawesome/free-solid-svg-icons'
+import {
+  faBath,
+  faClone,
+  faFileDownload,
+  faTrash
+} from '@fortawesome/free-solid-svg-icons'
 
 export default {
   title: 'local/organisms/WargameList',
@@ -44,21 +49,31 @@ const menus = [
   }
 ]
 
-const wargames = [{
-  title: 'Wargame A',
-  name: 'http://localhost/wargame-a',
-  initiated: true
-}, {
-  title: 'Wargame B',
-  name: 'http://localhost/wargame-b',
-  initiated: false
-}, {
-  title: 'Wargame C',
-  name: 'http://localhost/wargame-c',
-  initiated: true
-}]
+const wargames = [
+  {
+    title: 'Wargame A',
+    name: 'http://localhost/wargame-a',
+    shortName: 'wargame-a',
+    initiated: true
+  },
+  {
+    title: 'Wargame B',
+    name: 'http://localhost/wargame-b',
+    shortName: 'wargame-b',
+    initiated: false
+  },
+  {
+    title: 'Wargame C',
+    name: 'http://localhost/wargame-c',
+    shortName: 'wargame-c',
+    initiated: true
+  }
+]
 
 const onGameClick = (title: string): void => {
+  window.alert(`Click on ${title}`)
+}
+const toggleAction = (title: string): void => {
   window.alert(`Click on ${title}`)
 }
 
@@ -68,58 +83,84 @@ export const Default: React.FC = () => (
     wargames={wargames}
     menuConfig={menus}
     onGameClick={onGameClick}
+    toggleAction={toggleAction}
   />
 )
 
-const lotsWargames = [{
-  title: 'Wargame A',
-  name: 'http://localhost/wargame-a',
-  initiated: true
-}, {
-  title: 'Wargame B',
-  name: 'http://localhost/wargame-b',
-  initiated: false
-}, {
-  title: 'Wargame C',
-  name: 'http://localhost/wargame-c',
-  initiated: true
-}, {
-  title: 'Wargame E',
-  name: 'http://localhost/wargame-a',
-  initiated: true
-}, {
-  title: 'Wargame F',
-  name: 'http://localhost/wargame-b',
-  initiated: false
-}, {
-  title: 'Wargame G',
-  name: 'http://localhost/wargame-c',
-  initiated: true
-}, {
-  title: 'Wargame H',
-  name: 'http://localhost/wargame-a',
-  initiated: true
-}, {
-  title: 'Wargame I',
-  name: 'http://localhost/wargame-b',
-  initiated: false
-}, {
-  title: 'Wargame J',
-  name: 'http://localhost/wargame-c',
-  initiated: true
-}, {
-  title: 'Wargame K',
-  name: 'http://localhost/wargame-a',
-  initiated: true
-}, {
-  title: 'Wargame L',
-  name: 'http://localhost/wargame-b',
-  initiated: false
-}, {
-  title: 'Wargame M',
-  name: 'http://localhost/wargame-c',
-  initiated: true
-}]
+const lotsWargames = [
+  {
+    title: 'Wargame A',
+    name: 'http://localhost/wargame-a',
+    shortName: 'wargame-a',
+    initiated: true
+  },
+  {
+    title: 'Wargame B',
+    name: 'http://localhost/wargame-b',
+    shortName: 'wargame-b',
+    initiated: false
+  },
+  {
+    title: 'Wargame C',
+    name: 'http://localhost/wargame-c',
+    shortName: 'wargame-c',
+    initiated: true
+  },
+  {
+    title: 'Wargame E',
+    name: 'http://localhost/wargame-a',
+    shortName: 'wargame-a',
+    initiated: true
+  },
+  {
+    title: 'Wargame F',
+    name: 'http://localhost/wargame-b',
+    shortName: 'wargame-b',
+    initiated: false
+  },
+  {
+    title: 'Wargame G',
+    name: 'http://localhost/wargame-c',
+    shortName: 'wargame-c',
+    initiated: true
+  },
+  {
+    title: 'Wargame H',
+    name: 'http://localhost/wargame-a',
+    shortName: 'wargame-a',
+    initiated: true
+  },
+  {
+    title: 'Wargame I',
+    name: 'http://localhost/wargame-b',
+    shortName: 'wargame-b',
+    initiated: false
+  },
+  {
+    title: 'Wargame J',
+    name: 'http://localhost/wargame-c',
+    shortName: 'wargame-c',
+    initiated: true
+  },
+  {
+    title: 'Wargame K',
+    name: 'http://localhost/wargame-a',
+    shortName: 'wargame-a',
+    initiated: true
+  },
+  {
+    title: 'Wargame L',
+    name: 'http://localhost/wargame-b',
+    shortName: 'wargame-b',
+    initiated: false
+  },
+  {
+    title: 'Wargame M',
+    name: 'http://localhost/wargame-c',
+    shortName: 'wargame-c',
+    initiated: true
+  }
+]
 
 export const LotsOfWargames: React.FC = () => (
   <WargameList
@@ -127,6 +168,7 @@ export const LotsOfWargames: React.FC = () => (
     wargames={lotsWargames}
     menuConfig={menus}
     onGameClick={onGameClick}
+    toggleAction={toggleAction}
   />
 )
 export const LotsOfWargamesCustomScroll: React.FC = () => (
@@ -135,5 +177,6 @@ export const LotsOfWargamesCustomScroll: React.FC = () => (
     wargames={lotsWargames}
     menuConfig={menus}
     onGameClick={onGameClick}
+    toggleAction={toggleAction}
   />
 )

@@ -4,7 +4,11 @@ export default interface Props {
   from: {
     name: string
     color: string
+    /**
+    * @deprecated use iconURL instead
+    */
     icon?: string
+    iconURL: string
   }
   channel: string
   isUmpire: boolean

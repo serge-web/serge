@@ -5,8 +5,11 @@ export default interface ForceData {
   readonly uniqid: string,
   overview: string,
   roles: Array<Role>,
-  /** TODO this icon should be a URL, not the base64 image */
-  icon: string,
+  /**
+   * @deprecated use iconURL instead
+   */
+  icon?: string,
+  iconURL: string,
   color: string,
   /** if a CSS class is used to define the force color, provide it here */
   cssClass?: string,

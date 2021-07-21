@@ -13,7 +13,7 @@ const actionSetLatestFeedbackMessage: SetLatestWargameMessageAction = {
         "force": "Blue",
         "forceColor": "#3dd0ff",
         "role": "CO",
-        "icon": "http://localhost:8080/default_img/forceDefault.png"
+        "iconURL": "http://localhost:8080/default_img/forceDefault.png"
       },
       "messageType": "Chat",
       "timestamp": "2020-12-07T06:38:43.642Z"

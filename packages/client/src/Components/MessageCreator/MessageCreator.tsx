@@ -28,7 +28,7 @@ const MessageCreator: React.FC<Props> = (props) => {
         force: selectedForce.name,
         forceColor: selectedForce.color,
         role: state.selectedRole,
-        icon: selectedForce.icon,
+        iconURL: selectedForce.iconURL || (selectedForce.icon || ''),
       },
       messageType: selectedSchema.title,
       timestamp: new Date().toISOString(),

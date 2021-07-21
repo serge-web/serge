@@ -18,7 +18,7 @@ const redForce: ForceData = allForces[2]
 const allChannels: ChannelData[] = GameChannels
 const selectedRole = allForces[1].roles[0].name
 const isObserver = false
-const allTemplates: any = MessageTemplatesMock
+const allTemplates = MessageTemplatesMock
 
 describe('handle channel update for info message', () => {
   it('deletes channels that have been deleted', () => {
@@ -209,7 +209,7 @@ describe('handle channel update for info message', () => {
         from: {
           force: 'White',
           forceColor: '#FCFBEE',
-          icon: 'default_img/umpireDefault.png',
+          iconURL: 'default_img/umpireDefault.png',
           role: 'Game Control'
         },
         messageType: 'Chat',
@@ -253,7 +253,7 @@ describe('handle channel update for info message', () => {
         from: {
           force: 'White',
           forceColor: '#FCFBEE',
-          icon: 'default_img/umpireDefault.png',
+          iconURL: 'default_img/umpireDefault.png',
           role: 'Game Control'
         },
         messageType: 'Chat',

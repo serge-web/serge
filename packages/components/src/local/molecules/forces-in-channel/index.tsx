@@ -25,7 +25,7 @@ export const ForcesInChannel: React.FC<Props> = ({ icons, colors, onMarkAllAsRea
   const buttonStyles = useButtonStyle()
   return (
     <div className={styles['forces-in-channel']}>
-      { icons &&
+      {icons &&
         icons.map((url, i) => {
           return <img
             key={`indicator${i}`}

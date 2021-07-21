@@ -13,7 +13,7 @@ const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | u
   channelID: string, role: string, currentWargame: string,
   saveMapMessage: {(dbName: string, details: MessageDetails, message: unknown): Promise<Message>}): void => {
   if (force) {
-    const { name, color, icon } = force
+    const { name, color, iconURL } = force
 
     const details = {
       channel: channelID,
@@ -22,7 +22,7 @@ const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | u
         force: name,
         forceColor: color,
         role: role,
-        icon
+        iconURL
       },
       messageType: mType,
       timestamp: new Date().toISOString()

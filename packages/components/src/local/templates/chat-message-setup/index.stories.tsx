@@ -39,7 +39,8 @@ export default {
 const force = {
   name: 'Blue',
   color: '#6699cc',
-  icon: ''
+  icon: '',
+  iconURL: ''
 }
 
 const Template: Story<Props> = (args) => {

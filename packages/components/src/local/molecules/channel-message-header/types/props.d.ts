@@ -33,4 +33,6 @@ export default interface Props {
    * Handle on collapse event
    */
   onExpand?: React.ReactEventHandler
+
+  markUnread?: () => void
 }
