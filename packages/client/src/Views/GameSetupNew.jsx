@@ -4,7 +4,7 @@ import uniqid from 'uniqid'
 import { useSelector, useDispatch } from 'react-redux'
 import { GameSetup } from '@serge/components'
 import { checkUnique } from '@serge/helpers'
-import { channelTemplate, forceTemplate } from '../consts'
+import { channelTemplate, forceTemplate, CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '../consts'
 import {
   addNewForce,
   setCurrentTab,
@@ -38,7 +38,7 @@ import { ADMIN_ROUTE, iconUploaderPath } from '@serge/config'
 const AdminGameSetup = () => {
   const dispatch = useDispatch()
   const wargame = useSelector(state => state.wargame)
-  console.log(wargame, 'dDDD');
+
   const messageTypes = useSelector(state => state.messageTypes)
   const {
     data,
@@ -202,11 +202,14 @@ const AdminGameSetup = () => {
     }))
   }
 
-  const onCreateChannel = () => {
+  const onCreateChannel = (buttonText) => {
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
     } else {
-      const id = `channel-${uniqid.time()}`
+      let id = `channel-${uniqid.time()}`
+      if (buttonText && (buttonText === CHANNEL_MAPPING || buttonText === CHANNEL_RFI_STATUS)) {
+        id = buttonText
+      }
       dispatch(addNewChannel({ name: id, uniqid: id }))
       dispatch(setSelectedChannel({ name: id, uniqid: id }))
 

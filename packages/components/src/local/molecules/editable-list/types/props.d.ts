@@ -6,10 +6,11 @@ export interface Item {
 export default interface PropTypes {
   items: Array<Item>
   onClick?: (item: Item) => void
-  onCreate?: () => void
+  onCreate?: (buttonText: string | undefined) => void
   onDuplicate?: (item: Item) => void
   onDelete?: (item: Item) => void
   title?: string
+  type?: string
   qaType?: string
   selectedItem?: string
   filterKey?: string

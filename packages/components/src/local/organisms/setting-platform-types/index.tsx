@@ -131,6 +131,21 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       }
     }
 
+    const handleSave = (): void => {
+      // creat a new platformType object
+      const saveObject: PlatformType = {
+        ...localPlatformType,
+        // map existing to be sure all items have unique names, if not add a number suffix
+        platformTypes: localPlatformType.platformTypes.map((platform, key): PlatformTypeData => {
+          platform.name = createPlatformName(1, platform.name, key)
+          return platform
+        })
+      }
+      // update localPlatformType and call onSave
+      handleChangePlatformTypes(saveObject.platformTypes)
+      if (onSave) onSave(saveObject)
+    }
+
     return (
       <div key={selectedItem}>
         <div className={styles.row}>
@@ -150,7 +165,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
           <div className={styles.actions}>
             <Button
               color="primary"
-              onClick={(): void => { if (onSave) onSave(localPlatformType) }}
+              onClick={handleSave}
               data-qa-type="save"
             >
               Save
@@ -211,6 +226,30 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       </div>
     )
   }
+  // Create uniq platform type name
+  const createPlatformName = (key = 1, defName = 'New Platform Type', exclude = -1): string => {
+    let name: string = defName
+    if (key > 1) name += ' ' + key
+    if (localPlatformType.platformTypes.find((platform, key) => name === platform.name && key !== exclude)) {
+      return createPlatformName(key + 1, defName, exclude)
+    }
+    return name
+  }
+
+  // Create a new empty PlatformTypeData item
+  const handleCreatePlatformType = (): void => {
+    handleChangePlatformTypes([
+      {
+        name: createPlatformName(),
+        conditions: [],
+        speedKts: [],
+        states: [],
+        icon: '',
+        travelMode: 'sea'
+      },
+      ...localPlatformType.platformTypes
+    ])
+  }
 
   return (
     <AdminContent>
@@ -218,7 +257,9 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
         <EditableList
           items={localPlatformType.platformTypes}
           onClick={handleSwitch}
-          selectedItem={platformType?.platformTypes[selectedItem].name}
+          onCreate={handleCreatePlatformType}
+          title='Create'
+          selectedItem={localPlatformType.platformTypes[selectedItem].name}
           filterKey="name"
         />
       </LeftSide>

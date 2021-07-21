@@ -4,6 +4,7 @@ interface CssExports {
   'active': string;
   'item': string;
   'main': string;
+  'menu': string;
   'overlap': string;
   'section': string;
 }

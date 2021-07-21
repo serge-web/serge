@@ -4,6 +4,8 @@ interface CssExports {
   'wargame-started-highlight': string;
   'wargame-title': string;
   'wargame-unstarted-highlight': string;
+  'wargame-row': string;
+  'wargame-icon': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
