@@ -21,12 +21,12 @@ import { SelectedAsset } from '@serge/custom-types'
 const fetch = unfetch.bind(window)
 
 /* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForceClass: string, icType: string, destroyed?: boolean, icSelected?: boolean, imageSrc?: string): string => (cx(
+export const getIconClassname = (icForceClass: string, icType: string = '', destroyed?: boolean, icSelected?: boolean): string => (cx(
   styles['asset-icon'],
   styles[icForceClass],
   destroyed ? styles.destroyed : null,
   icSelected ? styles.selected : null,
-  imageSrc ? styles['asset-icon-with-image'] : styles[`platform-type-${icType}`]
+  icType && styles[`platform-type-${icType}`]
 ))
 const isUrl = (url: string): boolean => {
   return !/base64/.test(url)
@@ -48,7 +48,11 @@ interface GetIconProps {
   imageSrc?: string
 }
 
-export const GetIcon = ({ icType, color, destroyed, isSelected, imageSrc }: GetIconProps): React.ReactElement => {
+const getReverce = (color: string = ''): string | false => (
+  color && lightOrDark(color) === 'light' && styles['asset-icon-invert']
+)
+
+export const GetIcon = ({ icType, color = '', destroyed, isSelected, imageSrc }: GetIconProps): React.ReactElement => {
   const [loadStatus, setLoadStatus] = useState(true)
   useEffect(() => {
     checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
@@ -57,23 +61,22 @@ export const GetIcon = ({ icType, color, destroyed, isSelected, imageSrc }: GetI
   return <div className={styles['asset-icon-background']} style={{ backgroundColor: color }}>
     {imageSrc && loadStatus
       ? <div className={styles['asset-icon-with-image']}>
-        <img src={checkUrl(imageSrc)} alt={icType} className={styles.img}/>
+        <img src={checkUrl(imageSrc)} alt={icType} className={cx(getReverce(color), styles.img)}/>
       </div>
       : <div className={cx(
-        styles['asset-icon'],
+        getIconClassname(color, icType, destroyed, isSelected),
         styles['asset-icon-fw'],
-        destroyed ? styles.destroyed : null,
-        isSelected ? styles.selected : null,
-        styles[`platform-type-${icType}`],
-        color && lightOrDark(color) === 'light' && styles['asset-icon-invert']
+        getReverce(color)
       )}/>}
   </div>
 }
 
 const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
   if (imageSrc && isUrl(imageSrc)) {
-    return fetch(checkUrl(imageSrc), { method: 'HEAD' })
-      .then(res => res.status !== 404)
+    try {
+      return fetch(checkUrl(imageSrc), { method: 'HEAD' })
+        .then(res => res.status !== 404)
+    }
   }
   return new Promise((resolve) => resolve(true))
 }
@@ -109,12 +112,15 @@ export const AssetIcon: React.FC<PropTypes> = ({
     checkImageStatus(imageSrc).then(res => { setLoadStatus(res) }).catch(() => { setLoadStatus(false) })
   }, [imageSrc])
 
-  const className = getIconClassname(perceivedForceClass || '', type, isDestroyed, selected, loadStatus ? imageSrc : undefined)
-  const image = loadStatus && typeof imageSrc !== 'undefined' ? `<img src="${checkUrl(imageSrc)}" alt="${type}">` : ''
+  const className = getIconClassname(perceivedForceClass || '', '', isDestroyed, selected)
+  const reverceClassName = getReverce(perceivedForceColor)
+  const image = loadStatus && typeof imageSrc !== 'undefined' ? 
+    `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">` : 
+    `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
-    html: `<div class='${className}' style="background-color: ${perceivedForceColor}">${image}</div>`
+    html: `<div class='${className} ${styles['asset-icon-with-image']}' style="background-color: ${perceivedForceColor}">${image}</div>`
   })
 
   const clickEvent = (): void => {
