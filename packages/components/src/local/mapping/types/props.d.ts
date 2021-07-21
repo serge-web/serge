@@ -17,7 +17,14 @@ export default interface PropTypes {
   /** platforms for this wargame
    *
    */
+  /**
+   * @deprecated platformTypesByKey will allow more easy access. [platformType.name]: PlatformType
+   */
   platforms: PlatformTypeData[]
+  /**
+   * platforms for this wargame
+   */
+  platformTypesByKey: { [property: string]: PlatformTypeData}
   /** current player's force
    *
   */

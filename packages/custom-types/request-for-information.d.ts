@@ -1,4 +1,4 @@
-import { ChannelData, Role } from '@serge/custom-types'
+import { ChannelData, Role } from '.'
 
 export interface RequestForInformation {
   /**

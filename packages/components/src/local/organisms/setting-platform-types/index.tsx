@@ -22,6 +22,7 @@ import IconUploader from '../../molecules/icon-uploader'
 import SortableList, { Item as SortableListItem } from '../../molecules/sortable-list'
 import EditableList, { Item } from '../../molecules/editable-list'
 import { PlatformType, PlatformTypeData, State } from '@serge/custom-types'
+import { platformTypeNameToKey } from '@serge/helpers'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -38,7 +39,7 @@ const MobileSwitch = withStyles({
 })(Switch)
 
 /* Render component */
-export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave }) => {
+export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChange, onSave, iconUploadUrl }) => {
   const newPlatformType: PlatformType = {
     complete: false,
     dirty: false,
@@ -159,7 +160,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
             />
           </div>
           <div className={styles.col}>
-            <IconUploader limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
+            <IconUploader platformType={platformTypeNameToKey(data.name)} iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={handleChangeIcon}>Change Icon</IconUploader>
           </div>
           <div className={styles.actions}>
             <Button

@@ -4,7 +4,7 @@ import { Story } from '@storybook/react/types-6-0'
 import { boolean, radios } from '@storybook/addon-knobs'
 
 /* Import mock data */
-import { forces, platformTypes, smallForces, localMappingConstraints } from '@serge/mocks'
+import { forces, platformTypes, platformTypesByKey, smallForces, localMappingConstraints } from '@serge/mocks'
 
 // Import component files
 import Mapping from './index'
@@ -182,6 +182,7 @@ Default.args = {
   gameTurnTime: 72000,
   canSubmitOrders: false,
   platforms: platformTypes,
+  platformTypesByKey: platformTypesByKey,
   phase: Phase.Planning,
   turnNumber: 5,
   mapBar: false
@@ -195,6 +196,7 @@ WithMapBar.args = {
   gameTurnTime: 72000,
   canSubmitOrders: false,
   platforms: platformTypes,
+  platformTypesByKey: platformTypesByKey,
   phase: Phase.Adjudication,
   turnNumber: 5
 }
@@ -227,6 +229,7 @@ WithMarker.args = {
   playerForce: 'Blue',
   canSubmitOrders: false,
   platforms: platformTypes,
+  platformTypesByKey: platformTypesByKey,
   gameTurnTime: 72000,
   phase: Phase.Planning,
   turnNumber: 5,
@@ -265,6 +268,7 @@ export const WithAssets = Template
 WithAssets.args = {
   forces: forces,
   platforms: platformTypes,
+  platformTypesByKey: platformTypesByKey,
   turnNumber: 2,
   mapPostBack: mapPostBack,
   children: (
@@ -282,6 +286,7 @@ export const WithLimitedAssets = Template
 WithLimitedAssets.args = {
   forces: smallForces,
   platforms: platformTypes,
+  platformTypesByKey: platformTypesByKey,
   turnNumber: 2,
   mapPostBack: mapPostBack,
   children: (
@@ -300,6 +305,7 @@ export const WithGrid = Template
 WithGrid.args = {
   forces: forces,
   platforms: platformTypes,
+  platformTypesByKey: platformTypesByKey,
   phase: Phase.Planning,
   turnNumber: 5,
   playerForce: 'Blue',
@@ -336,6 +342,7 @@ OpenStreetMap.args = {
   playerForce: 'Blue',
   canSubmitOrders: false,
   platforms: platformTypes,
+  platformTypesByKey: platformTypesByKey,
   phase: Phase.Planning,
   turnNumber: 5,
   mapBar: false
@@ -350,6 +357,7 @@ WithPhases.args = {
   forces: forces,
   canSubmitOrders: false,
   platforms: platformTypes,
+  platformTypesByKey: platformTypesByKey,
   mapPostBack: mapPostBack,
   turnNumber: 5,
   children: <Assets />

@@ -13,7 +13,14 @@ export default interface PropTypes {
   /**
    * list of platform types
    */
-  platforms?: PlatformTypeData[]
+  /**
+   * @deprecated platformTypesByKey will allow more easy access. [platformType.name]: PlatformType
+   */
+  platforms: PlatformTypeData[]
+  /**
+   * platforms for this wargame
+   */
+  platformTypesByKey: { [property: string]: PlatformTypeData}
   /**
    * phase of the wargame
    */

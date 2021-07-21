@@ -27,6 +27,7 @@ export const SettingForces: React.FC<PropTypes> = ({
   onSidebarClick,
   onCreate,
   onDelete,
+  iconUploadUrl,
   selectedForce,
   platformTypes = [],
   routes
@@ -89,8 +90,8 @@ export const SettingForces: React.FC<PropTypes> = ({
             }} />
           </div>
           <div className={styles.col}>
-            <IconUploader limit={20000} icon={data.iconURL || data.icon} onChange={(iconURL: string): void => {
-              handleChangeForce({ ...data, iconURL })
+            <IconUploader iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={(icon: string): void => {
+              handleChangeForce({ ...data, icon })
             }} onRejected={handleOnRejectedIcon}>Change Icon</IconUploader>
           </div>
           <div className={styles.actions}>
