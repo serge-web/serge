@@ -54,7 +54,7 @@ import './leaflet.css'
 import styles from './styles.module.scss'
 
 // Create a context which will be provided to any child of Map
-export const MapContext = createContext<ContextInterface>({ props: null })
+export const MapContext = createContext<ContextInterface>({ props: undefined })
 
 const defaultProps: PropTypes = {
   mapBar: true,
@@ -73,6 +73,7 @@ const defaultProps: PropTypes = {
   },
   forces: [],
   platforms: [],
+  platformTypesByKey: {},
   playerForce: 'Blue',
   canSubmitOrders: true,
   phase: Phase.Planning,
@@ -97,6 +98,7 @@ export const Mapping: React.FC<PropTypes> = ({
   playerForce,
   canSubmitOrders,
   platforms,
+  platformTypesByKey,
   phase,
   turnNumber,
   wargameInitiated,
@@ -110,7 +112,7 @@ export const Mapping: React.FC<PropTypes> = ({
   zoomAnimation,
   planningConstraintsProp,
   channelID,
-  mapPostBack,
+  mapPostBack = (): void => { console.log('mapPostBack') },
   children,
   fetchOverride
 }) => {
@@ -177,7 +179,7 @@ export const Mapping: React.FC<PropTypes> = ({
       if (layPhase && canSubmitOrders) {
         if (layPhase === LaydownPhases.Moved || layPhase === LaydownPhases.Unmoved) {
           const asset: Asset = findAsset(forces, store.selected.uniqid)
-          const pType = findPlatformTypeFor(platforms, asset.platformType)
+          const pType = platformTypesByKey[asset.platformType]
           const moves: PlanMobileAsset = {
             origin: store.selected.currentPosition,
             travelMode: pType.travelMode,
@@ -572,6 +574,7 @@ export const Mapping: React.FC<PropTypes> = ({
     gridCells,
     forces: forcesState,
     platforms,
+    platformTypesByKey,
     playerForce,
     canSubmitOrders,
     phase,

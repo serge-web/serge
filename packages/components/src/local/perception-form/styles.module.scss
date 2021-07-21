@@ -97,6 +97,6 @@ $platforms: agi, auxiliary, boghammer, carrier, coastal-radar-site, datum,
 
 @each $platform in $platforms {
   .platform-type-#{$platform} {
-    background-image: url("./counters/#{$platform}.svg");
+    background-image: url("../asset-icon/counters/#{$platform}.svg");
   }
 }

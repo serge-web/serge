@@ -4,18 +4,16 @@ import { LaydownTypes } from '@serge/config'
 import { ASSET_ITEM, PLATFORM_ITEM } from '../constants'
 import PropTypes from './types/props'
 import { PlatformItemType, ListItemType, ForceItemType } from '../types/sortableItems'
-import { Asset, ForceData, GroupItem } from '@serge/custom-types'
+import { Asset, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
 
 /* Import Styles */
 import styles from './styles.module.scss'
 
 /* Import Components */
-import { kebabCase } from 'lodash'
-import { generateHashCode, groupCreateNewGroup, groupMoveToRoot, groupHostPlatform } from '@serge/helpers'
-import uniqid from 'uniqid'
+import { createAssetBasedOnPlatformType, platformTypeNameToKey, groupCreateNewGroup, groupMoveToRoot, groupHostPlatform } from '@serge/helpers'
 
 import cx from 'classnames'
-import { getIcon } from '../../../asset-icon' // getIconClassname
+import { GetIcon } from '../../../asset-icon' // getIconClassname
 import Grid from '@material-ui/core/Grid'
 import { ReactSortable } from 'react-sortablejs'
 import List from '@material-ui/core/List'
@@ -171,7 +169,10 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
       </List>
     </div>
   }
-
+  const findIcon = (platformType: string): string => {
+    const platform = platformTypes.find(({ name }) => name === platformType)
+    return typeof platform === 'undefined' ? '' : platform.icon
+  }
   const renderContent = (groupItem: GroupItem): JSX.Element => {
     const item = groupItem as ForceItemType
     // const icClassName = getIconClassname('', item.platformType)
@@ -182,7 +183,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
         onClick={(): void => { setSelectedAssetItem(item) }}
       >
         <div className={styles['item-asset-icon-box']}>
-          {getIcon(item.platformType, selectedForce.color)}
+          <GetIcon icType={item.platformType} color={selectedForce.color} imageSrc={findIcon(item.platformType)} />
           {/* <div className={cx(icClassName, styles['item-asset-icon'])}/> */}
         </div>
         <div className={styles['asset-name']}>{item.name}</div>
@@ -196,17 +197,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     const forceAssets: Asset[] = nextList.map((item, key) => {
       if (item.type === PLATFORM_ITEM) {
         changes = true
-        const assetid = uniqid.time()
-        return {
-          uniqid: 'a' + assetid,
-          contactId: 'C' + generateHashCode(assetid),
-          name: item.id,
-          platformType: kebabCase(item.id.toLowerCase()),
-          perceptions: [],
-          condition: '',
-          position: '',
-          locationPending: false
-        } as Asset
+        return createAssetBasedOnPlatformType(item as PlatformTypeData)
       }
       const nextItem = item as Asset
       const compareAsset = selectedPlatforms[key]
@@ -248,13 +239,12 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                     group={'platformTypesList'}
                   >
                     {allPlatforms.map((item) => {
-                      // const icClassName = getIconClassname('', kebabCase(item.name))
                       return <div key={item.id} className={styles['icon-item-main']}>
                         <div className={styles['icon-box-holder']}>
                           <div className={styles['icon-box-content']}>
                             <div key={item.id + item.type} className={styles['icon-box']}>
                               <div>
-                                {getIcon(kebabCase(item.name), '#415b76')}
+                                <GetIcon icType={platformTypeNameToKey(item.name)} color='#415b76' imageSrc={item.icon} />
                               </div>
                             </div>
                           </div>
@@ -283,7 +273,6 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
                           const items = itemsLink.slice(0)
                           const [droppedItem, droppedInTo] = items
                           let result: ForceData[] = []
-                          // TODO: remove setTmpRoutes and use api
                           switch (type) {
                             case 'group': {
                               if (groupCreateNewGroup) {

@@ -20,7 +20,7 @@ exports[`Image Dropzone component: renders correctly 1`] = `
     tabIndex={0}
   >
     <input
-      accept="image/png"
+      accept="image/png, image/svg+xml"
       autoComplete="off"
       multiple={false}
       onChange={[Function]}
@@ -37,7 +37,7 @@ exports[`Image Dropzone component: renders correctly 1`] = `
       className="svg-inline--fa fa-file-upload"
     />
     <p>
-      Drag and drop a png icon, or click to select. 
+      Drag and drop a png/svg icon, or click to select. 
       20
       kb limit.
     </p>

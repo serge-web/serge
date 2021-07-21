@@ -61,4 +61,8 @@ export default interface PropTypes {
    * whether the asset can be dragged in turn zero
    */
   locationPending?: boolean
+  /**
+   * imageSrc custom icon for asset
+   */
+  imageSrc?: string
 }

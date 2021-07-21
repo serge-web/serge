@@ -6,7 +6,7 @@ import WorldState from './index'
 import WorldStatePropTypes from './types/props'
 import docs from './README.md'
 import { routeCreateStore } from '@serge/helpers'
-import { forces, platformTypes } from '@serge/mocks'
+import { forces, platformTypes, platformTypesByKey } from '@serge/mocks'
 import { Phase } from '@serge/config'
 
 import { WorldStatePanels } from './helpers/enums'
@@ -81,7 +81,7 @@ const Template: Story<WorldStatePropTypes> = (args) => {
   }
   const forceName = forceNames[viewAs]
   const storeProp = store || routeCreateStore(undefined, Phase.Adjudication, forces, forceName, platformTypes, undefined, false, false)
-  return <WorldState store={storeProp} {...props} />
+  return <WorldState store={{ ...storeProp }} {...props} platformTypesByKey={platformTypesByKey} />
 }
 
 export const WithPhases = Template

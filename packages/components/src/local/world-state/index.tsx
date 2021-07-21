@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import Button from '../atoms/button'
-import cx from 'classnames'
-import { getIconClassname } from '../asset-icon'
+import { GetIcon } from '../asset-icon'
 import Groups from '../helper-elements/groups'
 // import update from 'react-addons-update'
 
@@ -17,7 +16,6 @@ import styles from './styles.module.scss'
 import { ADJUDICATION_PHASE, PlanningStates, PLANNING_PHASE, LaydownPhases, Phase } from '@serge/config'
 import canCombineWith from './helpers/can-combine-with'
 import { WorldStatePanels } from './helpers/enums'
-import { findPlatformTypeFor } from '@serge/helpers'
 import Modal from 'react-modal'
 
 const customStyles = {
@@ -33,7 +31,7 @@ const customStyles = {
 }
 
 export const WorldState: React.FC<PropTypes> = ({
-  name, store, platforms, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
+  name, store, /* platforms, */ platformTypesByKey, phase, isUmpire, canSubmitOrders, setSelectedAssetById,
   submitTitle, submitForm, panel, gridCells, turnNumber,
   groupMoveToRoot, groupCreateNewGroup, groupHostPlatform,
   plansSubmitted, setPlansSubmitted, secondaryButtonLabel, secondaryButtonCallback
@@ -127,25 +125,30 @@ export const WorldState: React.FC<PropTypes> = ({
     const canBeSelected: boolean = depth && depth.length === 0
 
     // const item = routeItem as PlannedRoute
-    let forceName: string = item.perceivedForceName || ''
-    // if we don't know the force name, just use the one from the parent
 
-    if (!forceName) {
-      const itemWithForceName = depth.find(i => i && i.perceivedForceName)
-      if (itemWithForceName) forceName = itemWithForceName.perceivedForceName
+    let forceColor: string = item.perceivedForceColor || ''
+    // if we don't know the force name, just use the one from the parent
+    if (!forceColor) {
+      const itemWithForceColor = depth.find(i => i && i.perceivedForceColor)
+      if (itemWithForceColor) {
+        forceColor = itemWithForceColor.perceivedForceColor
+      }
     }
 
-    const icClassName = getIconClassname(forceName.toLowerCase(), item.platformType.toLowerCase(), item.selected)
     const numPlanned = item.plannedTurnsCount
     const descriptionText = (isUmpire || item.underControl) && depth.length === 0
       ? `${numPlanned} turns planned` : ''
     const inAdjudication: boolean = phase === ADJUDICATION_PHASE && isUmpire
 
     let isDestroyed: boolean | undefined = false
+    let imageSrc: string | undefined
     // If we know the platform type, we can determine if the platform is destroyed
     if (item.platformType !== 'unknown') {
-      const platformType: PlatformTypeData | undefined = platforms && findPlatformTypeFor(platforms, item.platformType)
-      isDestroyed = platformType && platformType.conditions.length > 1 && item.condition === platformType.conditions[platformType.conditions.length - 1]
+      const platformType: PlatformTypeData | undefined = platformTypesByKey[item.platformType]
+      if (typeof platformType !== 'undefined') {
+        imageSrc = platformType.icon
+        isDestroyed = platformType.conditions.length > 1 && item.condition === platformType.conditions[platformType.conditions.length - 1]
+      }
     }
 
     const laydownMessage: string = panel === WorldStatePanels.Control && canSubmitOrders && item.laydownPhase !== LaydownPhases.NotInLaydown ? ' ' + item.laydownPhase : ''
@@ -156,7 +159,9 @@ export const WorldState: React.FC<PropTypes> = ({
 
     return (
       <div className={styles.item} onClick={(): any => canBeSelected && clickEvent(`${item.uniqid}`)}>
-        <div style={{ backgroundColor: item.perceivedForceColor }} className={cx(icClassName, styles['item-icon'])}/>
+        <div className={styles['item-icon']}>
+          <GetIcon icType={item.platformType} color={forceColor} isSelected={item.selected} imageSrc={imageSrc} />
+        </div>
         <div className={styles['item-content']}>
           <div>
             <p>{item.name}</p>

@@ -6,7 +6,7 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { platformTypes, localMappingConstraints } from '@serge/mocks'
+import { platformTypes, platformTypesByKey, localMappingConstraints } from '@serge/mocks'
 import { ForceData } from '@serge/custom-types'
 
 const forces: Array<ForceData> = [
@@ -80,6 +80,7 @@ it('Mapping renders correctly with AsseticonURL', () => {
     playerForce="Blue"
     phase={Phase.Planning}
     turnNumber={5}
+    platformTypesByKey={platformTypesByKey}
   />, { attachTo: div })
 
   expect(tree).toMatchSnapshot()
