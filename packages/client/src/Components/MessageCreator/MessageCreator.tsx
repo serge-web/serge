@@ -20,7 +20,7 @@ const MessageCreator: React.FC<Props> = (props) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [selectedSchema, setSelectedSchema] = useState<any>(props.schema)
   const state = usePlayerUiState()
-  const { selectedForce } = state
+  const { selectedForce, gameDate } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   
   const sendMessage = (e: any): void => {
@@ -84,25 +84,38 @@ const MessageCreator: React.FC<Props> = (props) => {
     }
   }, [props])
 
-  const createEditor = (schema: any) => {
-    /*
-    ** Render Default datetime entries in template of json for type datetime-local
-    */
+  /**
+   * Render Default datetime entries in template of json for type datetime-local
+   */
+  const configDateTimeLocal = (schema: any) => {
+    if(!schema || !schema.properties){
+      return
+    }
     Object.keys(schema.properties).forEach(key => {
-      if(schema.properties[key].format === 'datetime-local'){
-        schema.properties[key].default = moment().format("DD/MM/YYYY HH:mm")
-        schema.properties[key].options.flatpickr = flatpickr(".calendar");
-        schema.properties[key].options = {"flatpickr": {
+      let prop = schema.properties[key]
+      if(prop.format === 'datetime-local'){
+        prop.default = moment(gameDate).format("DD/MM/YYYY HH:mm")
+        prop.options.flatpickr = flatpickr(".calendar")
+        prop.options = {"flatpickr": {
           "wrap":false,
           "time_24hr": true,
           "dateFormat":"d/m/Y H:i",
         }}
       }
-    })
+      if(prop.type === 'object'){
+        configDateTimeLocal(prop)
+      }else if(prop.type === 'array'){
+        configDateTimeLocal(prop.items)
+      }
+    });
+  }
 
-    /* 
-    ** multiple message type will repeat custom validators, reinitalize it for every instance
-    */
+
+  const createEditor = (schema: any) => {
+    
+    configDateTimeLocal(schema)
+ 
+    // multiple message type will repeat custom validators, reinitialize it for every instance
     JSONEditor.defaults.custom_validators = []
     JSONEditor.defaults.custom_validators.push(function(schema: { format: string }, value: string, path: any) {
       let errors = []
@@ -118,7 +131,7 @@ const MessageCreator: React.FC<Props> = (props) => {
         }
       }
       return errors;
-    });
+    })
 
     setEditor(new JSONEditor(editorPreviewRef.current, {
       schema,
