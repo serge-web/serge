@@ -21,7 +21,7 @@ import { SelectedAsset } from '@serge/custom-types'
 const fetch = unfetch.bind(window)
 
 /* Export divIcon classname generator to use icons in to other sections */
-export const getIconClassname = (icForceClass: string, icType: string = '', destroyed?: boolean, icSelected?: boolean): string => (cx(
+export const getIconClassname = (icForceClass: string, icType = '', destroyed?: boolean, icSelected?: boolean): string => (cx(
   styles['asset-icon'],
   styles[icForceClass],
   destroyed ? styles.destroyed : null,
@@ -48,7 +48,7 @@ interface GetIconProps {
   imageSrc?: string
 }
 
-const getReverce = (color: string = ''): string | false => (
+const getReverce = (color = ''): string | false => (
   color && lightOrDark(color) === 'light' && styles['asset-icon-invert']
 )
 
@@ -76,6 +76,8 @@ const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
     try {
       return fetch(checkUrl(imageSrc), { method: 'HEAD' })
         .then(res => res.status !== 404)
+    } catch (error) {
+      console.warn(`failed to get "${imageSrc}" image`)
     }
   }
   return new Promise((resolve) => resolve(true))
@@ -114,9 +116,9 @@ export const AssetIcon: React.FC<PropTypes> = ({
 
   const className = getIconClassname(perceivedForceClass || '', '', isDestroyed, selected)
   const reverceClassName = getReverce(perceivedForceColor)
-  const image = loadStatus && typeof imageSrc !== 'undefined' ? 
-    `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">` : 
-    `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
+  const image = loadStatus && typeof imageSrc !== 'undefined'
+    ? `<img class="${reverceClassName}" src="${checkUrl(imageSrc)}" alt="${type}">`
+    : `<div class="${cx(reverceClassName, styles.img, styles[`platform-type-${type}`])}"></div>`
 
   const divIcon = L.divIcon({
     iconSize: [40, 40],
