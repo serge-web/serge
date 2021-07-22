@@ -117,6 +117,7 @@ const MessageCreator: React.FC<Props> = (props) => {
           "time_24hr": true,
           "dateFormat":"H:i",
         }}
+        return prop
       default:
         return prop
     }
@@ -189,7 +190,7 @@ const MessageCreator: React.FC<Props> = (props) => {
   /**
    * custom validation set for type datetime-local, date, time
    */
-  const configDateTimeCustomValidation = (schema: any) => {
+  const configDateTimeCustomValidation = () => {
     // multiple message type will repeat custom validators, reinitialize it for every instance
     JSONEditor.defaults.custom_validators = []
     JSONEditor.defaults.custom_validators.push(function(schema: { format: string }, value: string, path: any) {
@@ -205,7 +206,7 @@ const MessageCreator: React.FC<Props> = (props) => {
 
   const createEditor = (schema: any) => {
     configDateTimeLocal(schema)
-    configDateTimeCustomValidation(schema)
+    configDateTimeCustomValidation()
     
     setEditor(new JSONEditor(editorPreviewRef.current, {
       schema,
