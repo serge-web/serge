@@ -139,12 +139,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                   "background": "rgba(0,0,0,0)",
                 }
               }
-            >
-              <img
-                alt="icon"
-                src="images/default_img/umpireDefault.png"
-              />
-            </div>
+            />
             <div
               onClick={[Function]}
             >
@@ -957,8 +952,14 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             }
                                           >
                                             <div
-                                              className="asset-icon asset-icon-fw platform-type-fishing-vessel"
-                                            />
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="fishing-vessel"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/fishing-vessel.svg"
+                                              />
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -993,8 +994,14 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             }
                                           >
                                             <div
-                                              className="asset-icon asset-icon-fw platform-type-frigate"
-                                            />
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="frigate"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/frigate.svg"
+                                              />
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -1029,8 +1036,14 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             }
                                           >
                                             <div
-                                              className="asset-icon asset-icon-fw platform-type-boghammer"
-                                            />
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="boghammer"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/boghammer.svg"
+                                              />
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -1065,8 +1078,14 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             }
                                           >
                                             <div
-                                              className="asset-icon asset-icon-fw platform-type-torpedo"
-                                            />
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="torpedo"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/torpedo.svg"
+                                              />
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -1101,8 +1120,14 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             }
                                           >
                                             <div
-                                              className="asset-icon asset-icon-fw platform-type-fast-attack-craft"
-                                            />
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="fast-attack-craft"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/fast-attack-craft.svg"
+                                              />
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -1137,8 +1162,14 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             }
                                           >
                                             <div
-                                              className="asset-icon asset-icon-fw platform-type-mcmv"
-                                            />
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="mcmv"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/mcmv.svg"
+                                              />
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -1173,8 +1204,14 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             }
                                           >
                                             <div
-                                              className="asset-icon asset-icon-fw platform-type-helicopter"
-                                            />
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="helicopter"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/helicopter.svg"
+                                              />
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -1209,8 +1246,14 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             }
                                           >
                                             <div
-                                              className="asset-icon asset-icon-fw platform-type-fixed-wing-aircraft"
-                                            />
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="fixed-wing-aircraft"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/fixed-wing-aircraft.svg"
+                                              />
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -1245,8 +1288,14 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             }
                                           >
                                             <div
-                                              className="asset-icon asset-icon-fw platform-type-unmanned-airborne-vehicle"
-                                            />
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="unmanned-airborne-vehicle"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/uas.svg"
+                                              />
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -1281,8 +1330,14 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             }
                                           >
                                             <div
-                                              className="asset-icon asset-icon-fw platform-type-task-group"
-                                            />
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="task-group"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/uas.svg"
+                                              />
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -1317,8 +1372,14 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             }
                                           >
                                             <div
-                                              className="asset-icon asset-icon-fw platform-type-coastal-radar-site"
-                                            />
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="coastal-radar-site"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/coastal-radar-site.svg"
+                                              />
+                                            </div>
                                           </div>
                                         </div>
                                       </div>
@@ -1353,8 +1414,14 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             }
                                           >
                                             <div
-                                              className="asset-icon asset-icon-fw platform-type-merchant-vessel"
-                                            />
+                                              className="asset-icon-with-image"
+                                            >
+                                              <img
+                                                alt="merchant-vessel"
+                                                className="img"
+                                                src="/static/media/src/local/asset-icon/counters/merchant-vessel.svg"
+                                              />
+                                            </div>
                                           </div>
                                         </div>
                                       </div>

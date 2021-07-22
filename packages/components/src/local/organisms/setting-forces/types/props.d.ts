@@ -11,6 +11,7 @@ export default interface PropTypes {
   onCreate?: () => void
   onDelete?: () => void
   selectedForce?: ForceData
+  iconUploadUrl?: string
   platformTypes?: PlatformTypeData[]
   routes?: Route[]
 }

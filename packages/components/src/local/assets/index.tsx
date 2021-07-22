@@ -11,21 +11,23 @@ import { MapContext } from '../mapping'
 
 /* Import Types */
 import AssetInfo from './types/asset_info'
-import { SergeHex, SergeGrid, RouteStore, Route as RouteType, SelectedAsset, ForceData, PerceivedTypes } from '@serge/custom-types'
+import { Route as RouteType, ForceData, PerceivedTypes } from '@serge/custom-types'
 
 /* Render component */
 export const Assets: React.FC<{}> = () => {
   // pull in some context (with TS definitions)
-  const { gridCells, forces, playerForce, selectedAsset, viewAsRouteStore, phase, clearFromTurn }:
-    { gridCells: SergeGrid<SergeHex<{}>> | undefined
-      forces: ForceData[]
-      playerForce: string
-      selectedAsset: SelectedAsset | undefined
-      viewAsRouteStore: RouteStore
-      phase: string
-      turnNumber: number
-      clearFromTurn: { (turn: number): void } } =
-    useContext(MapContext).props
+  const { props } = useContext(MapContext)
+  if (typeof props === 'undefined') return null
+  const {
+    gridCells,
+    forces,
+    playerForce,
+    selectedAsset,
+    viewAsRouteStore,
+    phase,
+    clearFromTurn = (turn: number): void => { console.log(`clearFromTurn(${turn})`) },
+    platformTypesByKey
+  } = props
 
   const [assets, setAssets] = useState<AssetInfo[]>([])
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
@@ -99,8 +101,10 @@ export const Assets: React.FC<{}> = () => {
   }, [gridCells, forces, playerForce, viewAsRouteStore])
 
   return <>
-    <LayerGroup>{ assets && assets.map((asset) => (
-      <AssetIcon
+    <LayerGroup>{ assets && assets.map((asset) => {
+      const platformType = platformTypesByKey[asset.type]
+      const imageSrc: string | undefined = typeof platformType !== 'undefined' ? platformType.icon : undefined
+      return <AssetIcon
         key={'a_for_' + asset.uniqid}
         name={asset.name}
         contactId={asset.contactId}
@@ -116,8 +120,9 @@ export const Assets: React.FC<{}> = () => {
         perceivedForceColor={asset.perceivedForceColor}
         perceivedForceClass={asset.perceivedForceClass}
         tooltip={asset.name}
+        imageSrc={imageSrc}
         locationPending={!!asset.laydownPhase}/>
-    ))}
+    })}
 
     { viewAsRouteStore && viewAsRouteStore.routes.map((route: RouteType) => (
       <Route name={'test'}
