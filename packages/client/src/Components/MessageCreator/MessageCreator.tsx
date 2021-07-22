@@ -12,6 +12,7 @@ import JSONEditor from '@json-editor/json-editor'
 import '@serge/themes/App.scss'
 import moment from 'moment'
 import flatpickr from 'flatpickr'
+import _ from 'lodash'
 
 const MessageCreator: React.FC<Props> = (props) => {
 
@@ -85,6 +86,43 @@ const MessageCreator: React.FC<Props> = (props) => {
   }, [props])
 
   /**
+   * helper function to render default Datetime or Date or Time props of json
+   */
+  const configCommonProps = (prop: any) => {
+    switch (prop.format) {
+      case "datetime-local":
+        prop.default = moment(gameDate).format("DD/MM/YYYY HH:mm")
+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(".calendar") : prop.options = {}
+        prop.options = {"flatpickr": {
+          "wrap":false,
+          "time_24hr": true,
+          "dateFormat":"d/m/Y H:i",
+        }}
+        return prop
+      case "date":
+        prop.default = moment(gameDate).format("DD/MM/YYYY")
+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(".calendar") : prop.options = {}
+        
+        prop.options = {"flatpickr": {
+          "wrap":false,
+          "dateFormat":"d/m/Y",
+        }}
+        return prop
+      case "time":
+        prop.default = moment(gameDate).format("HH:mm")
+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(".calendar") : prop.options = {}
+        
+        prop.options = {"flatpickr": {
+          "wrap":false,
+          "time_24hr": true,
+          "dateFormat":"H:i",
+        }}
+      default:
+        return prop
+    }
+  }
+
+  /**
    * Render Default datetime entries in template of json for type datetime-local
    */
   const configDateTimeLocal = (schema: any) => {
@@ -93,15 +131,10 @@ const MessageCreator: React.FC<Props> = (props) => {
     }
     Object.keys(schema.properties).forEach(key => {
       let prop = schema.properties[key]
-      if(prop.format === 'datetime-local'){
-        prop.default = moment(gameDate).format("DD/MM/YYYY HH:mm")
-        prop.options.flatpickr = flatpickr(".calendar")
-        prop.options = {"flatpickr": {
-          "wrap":false,
-          "time_24hr": true,
-          "dateFormat":"d/m/Y H:i",
-        }}
+      if(prop.format === 'datetime-local' || prop.format === 'date' || prop.format === 'time'){
+        prop = configCommonProps(prop)
       }
+      
       if(prop.type === 'object'){
         configDateTimeLocal(prop)
       }else if(prop.type === 'array'){
@@ -110,29 +143,67 @@ const MessageCreator: React.FC<Props> = (props) => {
     });
   }
 
+  /**
+   * helper function to for validation Datetime or Date or Time props of json
+   */
+  const configCommonValidation = (schema: { format: string }, value: string, path: any) => {
+    let format = ''
+    let defaultFieldName = ''
+    switch (schema.format) {
+      case "datetime-local":
+        if(value == "" || !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)) {
+          format = "DD/MM/YYYY HH:MM"
+          defaultFieldName = "Datetime"
+        }
+        break
+      case "date":
+        if(value == "" || !/^(\d{2}\D\d{2}\D\d{4})?$/.test(value)) {
+          format = "DD/MM/YYYY"
+          defaultFieldName = "Date"
+        }
+        break
+      case "time":
+        if(value == "" || !/^(\d{2}:\d{2})?$/.test(value)) {
+          format = "HH:MM"
+          defaultFieldName = "Time"
+        }
+        break
+      default:
+        return {}
+    }
 
-  const createEditor = (schema: any) => {
-    
-    configDateTimeLocal(schema)
- 
+    let listFieldName = path.split('.')
+    let fieldName = listFieldName.length > 0 ? listFieldName[listFieldName.length - 1] : defaultFieldName
+    // Errors must be an object with `path`, `property`, and `message`
+    let message = `${fieldName} must be in the format "${format}"`
+    return {
+      path: path,
+      property: 'format',
+      message: message
+    }
+  }
+
+  /**
+   * custom validation set for type datetime-local, date, time
+   */
+  const configDateTimeCustomValidation = (schema: any) => {
     // multiple message type will repeat custom validators, reinitialize it for every instance
     JSONEditor.defaults.custom_validators = []
     JSONEditor.defaults.custom_validators.push(function(schema: { format: string }, value: string, path: any) {
       let errors = []
-      if(schema.format === "datetime-local" ) {
-        if(value == "" || !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)) {
-          // Errors must be an object with `path`, `property`, and `message`
-          let message = 'Datetime must be in the format "DD/MM/YYYY HH:MM"'
-          errors.push({
-            path: path,
-            property: 'format',
-            message: message
-          });
-        }
+      let customValidationErrors = configCommonValidation(schema, value, path)
+      if(!_.isEmpty(customValidationErrors)) {
+        errors.push(customValidationErrors)
       }
       return errors;
     })
+  }
 
+
+  const createEditor = (schema: any) => {
+    configDateTimeLocal(schema)
+    configDateTimeCustomValidation(schema)
+    
     setEditor(new JSONEditor(editorPreviewRef.current, {
       schema,
       theme: 'bootstrap4',
