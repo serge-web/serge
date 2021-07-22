@@ -7,5 +7,6 @@ interface Props {
    */
   generateNextReference?: {(force:string): number}
   onMessageSend?: (e: any) => void
+  onCancel?: () => void
 }
 export default Props
