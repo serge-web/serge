@@ -172,15 +172,18 @@ const MessageCreator: React.FC<Props> = (props) => {
         return {}
     }
 
-    let listFieldName = path.split('.')
-    let fieldName = listFieldName.length > 0 ? listFieldName[listFieldName.length - 1] : defaultFieldName
-    // Errors must be an object with `path`, `property`, and `message`
-    let message = `${fieldName} must be in the format "${format}"`
-    return {
-      path: path,
-      property: 'format',
-      message: message
+    if (format !== "") {
+      let listFieldName = path.split('.')
+      let fieldName = listFieldName.length > 0 ? listFieldName[listFieldName.length - 1] : defaultFieldName
+      // Errors must be an object with `path`, `property`, and `message`
+      let message = `${fieldName} must be in the format "${format}"`
+      return {
+        path: path,
+        property: 'format',
+        message: message
+      }
     }
+    return {}
   }
 
   /**
