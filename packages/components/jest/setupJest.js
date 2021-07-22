@@ -1,5 +1,9 @@
 // setup file
 const configure = require('enzyme').configure
+
+// TODO: following line is a workaround, until the formal
+// enzyme adapter is released for React17
+// const Adapter = require('enzyme-adapter-react-17')
 const Adapter = require('@wojtekmaj/enzyme-adapter-react-17')
 
 configure({ adapter: new Adapter() })
