@@ -102,10 +102,16 @@ const MessageCreator: React.FC<Props> = (props) => {
         <textarea id='private-message-input' className='form-control' ref={privateMessageRef} />
       </div>}
       <div className='form-group'>
+        <button name='send' className='btn btn-action btn-action--form btn-action--cancel' onClick={props.onCancel}>
+          <span>Cancel</span>
+        </button>
+      </div>
+      <div className='form-group'>
         <button name='send' className='btn btn-action btn-action--form' onClick={sendMessage}>
           <span>Send Message</span>
         </button>
       </div>
+      
     </>
   )
 }

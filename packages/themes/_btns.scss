@@ -193,9 +193,28 @@ button {
       border-radius: 4px;
       display: block;
       padding: 6px 20px;
+      &:hover {
+        color: #fff;
+        background-color: #132d44;
+      }
+    }
+
+    &:hover {
+      color: #fff;
     }
   }
-
+  
+  &--cancel{
+    @include typo-secondary;
+      background-image: linear-gradient(
+        to bottom,
+        #b73f3f,
+        #ff9d9d 36%,
+        rgba(163, 56, 56, 0.986)
+      );
+      margin: 0 20px;
+  } 
+    
   &--secondary {
     @include typo-secondary;
     background: none;
