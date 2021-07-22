@@ -198,7 +198,7 @@ const MessageCreator: React.FC<Props> = (props) => {
       if(!_.isEmpty(customValidationErrors)) {
         errors.push(customValidationErrors)
       }
-      return errors;
+      return errors
     })
   }
 
