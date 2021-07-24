@@ -20,6 +20,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { selectedForce, selectedRole } = state
   const isUmpire = selectedForce && selectedForce.uniqid === UMPIRE_FORCE
+  console.log('=> isUmpire: ', isUmpire, selectedForce)
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const generateNextReference = (): number => {
