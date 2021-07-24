@@ -1,7 +1,6 @@
 import React from 'react'
 import { RfiStatusBoard } from '@serge/components'
 import { usePlayerUiState } from '../Store/PlayerUi'
-import { UMPIRE_FORCE } from '../consts'
 import { saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { MessageCustom } from '@serge/custom-types'
 
@@ -9,7 +8,7 @@ const RfiStatusBoardChannel = () => {
 
   const state = usePlayerUiState()
   const { selectedForce, selectedRole } = state
-  const isUmpire = selectedForce && selectedForce.uniqid === UMPIRE_FORCE || false
+  const isUmpire = selectedForce && selectedForce.isUmpire
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const roles = selectedForce && selectedForce.roles.map(role => role.name) || []
@@ -24,7 +23,7 @@ const RfiStatusBoardChannel = () => {
       roles={roles}
       channels={state.allChannels}
       isRFIManager={state.isRFIManager}
-      isUmpire={isUmpire}
+      isUmpire={!!isUmpire}
       onChange={handleChange}
       role={selectedRole}
     />

@@ -36,7 +36,8 @@ const MobileSwitch = withStyles({
 
 export const SettingsForceOverview: FC<PropTypes> = ({ data, handleChangeForce }) => {
   const onChangeUmpire = (): void => {
-    console.log('Hello')
+    data.isUmpire = !data.isUmpire
+    handleChangeForce(data)
   }
 
   return (
@@ -53,6 +54,7 @@ export const SettingsForceOverview: FC<PropTypes> = ({ data, handleChangeForce }
             <div className={styles.row}>
               <div className={cx(styles.col, styles.section)}>
                 <FormGroup placeholder="Overview & Objectives">
+                  <FormControlLabel className={styles.umprire} control={<MobileSwitch size='small' checked={data.isUmpire} onChange={onChangeUmpire} />} label="Umpire" />
                   <TextInput
                     multiline
                     fullWidth
@@ -65,7 +67,6 @@ export const SettingsForceOverview: FC<PropTypes> = ({ data, handleChangeForce }
                     value={data.overview}
                     className={styles.textarea}
                   />
-                  <FormControlLabel control={<MobileSwitch size='small' onChange={onChangeUmpire} />} label="Umpire" />
                 </FormGroup>
               </div>
             </div>
