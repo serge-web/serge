@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDropzone } from 'react-dropzone'
-
+import unfetch from 'node-fetch'
 /* Import proptypes */
 import PropTypes from './types/props'
 
@@ -11,12 +11,18 @@ import styles from './styles.module.scss'
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+// TypeError: Failed to execute 'fetch' on 'Window': Illegal invocation
+// error based on some webpack version
+const fetch = unfetch.bind(window)
+
 /* Render component */
 export const ImageDropzone: React.FC<PropTypes> = ({
   title,
   onChange,
   onRejected,
-  limit
+  limit,
+  iconUploadUrl,
+  use64onApiEror
 }) => {
   const getBase64 = (file: any, cb: (res: string) => void): void => {
     const reader = new FileReader()
@@ -40,11 +46,31 @@ export const ImageDropzone: React.FC<PropTypes> = ({
   const { getRootProps, getInputProps } = useDropzone({
     onDropAccepted: (acceptedFiles: Array<any>): void => {
       const [file] = acceptedFiles
-      getBase64(file, (src: string) => {
-        handleChange(src, file)
-      })
+      if (iconUploadUrl) {
+        console.log(iconUploadUrl, 'iconUploadUrl')
+        fetch(iconUploadUrl, { method: 'POST', body: file })
+          .then((response): Promise<{ path?: string }> => response.json())
+          .then(({ path }) => {
+            if (path) {
+              handleChange(path, file)
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+            if (use64onApiEror) {
+              console.warn('uploading image as base64')
+              getBase64(file, (src: string) => {
+                handleChange(src, file)
+              })
+            }
+          })
+      } else {
+        getBase64(file, (src: string) => {
+          handleChange(src, file)
+        })
+      }
     },
-    accept: 'image/png',
+    accept: 'image/png, image/svg+xml',
     maxSize: limit,
     multiple: false,
     onDropRejected: (rejected: any): void => {
@@ -60,7 +86,7 @@ export const ImageDropzone: React.FC<PropTypes> = ({
       <div {...getRootProps()} className={styles['dropzone-content']}>
         <input {...getInputProps()} />
         <FontAwesomeIcon icon={faFileUpload} size="3x" />
-        <p>Drag and drop a png icon, or click to select. {limit / 1000}kb limit.</p>
+        <p>Drag and drop a png/svg icon, or click to select. {limit / 1000}kb limit.</p>
       </div>
     </div>
   )

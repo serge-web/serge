@@ -5,7 +5,7 @@ import PerceptionForm from './index'
 import docs from './README.md'
 
 /* Import mock data */
-import { forces, platformTypes, localMappingConstraints } from '@serge/mocks'
+import { forces, platformTypes, platformTypesByKey, localMappingConstraints } from '@serge/mocks'
 import formData from './mocks/formData'
 import Mapping from '../mapping'
 
@@ -42,6 +42,7 @@ export const Default: React.FC = () => <Mapping
   playerForce='Blue'
   canSubmitOrders = {true}
   platforms={platformTypes}
+  platformTypesByKey={platformTypesByKey}
   phase={Phase.Adjudication}
   turnNumber={5}
 >

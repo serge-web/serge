@@ -13,9 +13,15 @@ import { findAsset, forceFor, visibleTo, deepCopy } from '@serge/helpers'
 
 /* import types */
 import {
-  PlanTurnFormValues, PlanTurnFormData,
-  SelectedAsset, RouteStore, Route, SergeHex, SergeGrid,
-  ForceData, PlatformTypeData, Asset, MessageStateOfWorld, MessageSubmitPlans, MapPostBack, MessageForceLaydown, MessageDeletePlatform
+  PlanTurnFormData,
+  SelectedAsset,
+  Route,
+  ForceData,
+  Asset,
+  MessageStateOfWorld,
+  MessageSubmitPlans,
+  MessageForceLaydown,
+  MessageDeletePlatform
 } from '@serge/custom-types'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, LaydownPhases, FORCE_LAYDOWN, PlanningStates } from '@serge/config'
 
@@ -51,12 +57,15 @@ export const MapBar: React.FC = () => {
   const [adjudicationManager, setAdjudicationManager] = useState<AdjudicationManager | undefined>(undefined)
 
   /* Pull in the context from MappingContext */
+  const props = useContext(MapContext).props
+  if (typeof props === 'undefined') return null
   const {
     gridCells,
     playerForce,
     canSubmitOrders,
     phase,
     platforms,
+    platformTypesByKey,
     forces,
     showMapBar,
     turnNumber,
@@ -77,33 +86,7 @@ export const MapBar: React.FC = () => {
     plansSubmitted,
     setPlansSubmitted,
     panTo
-  }: {
-    gridCells: SergeGrid<SergeHex<{}>> | undefined
-    playerForce: string
-    canSubmitOrders: boolean
-    phase: Phase
-    platforms: PlatformTypeData[]
-    forces: ForceData[]
-    showMapBar: boolean
-    turnNumber: number
-    setShowMapBar: React.Dispatch<React.SetStateAction<boolean>>
-    selectedAsset: SelectedAsset
-    setSelectedAsset: React.Dispatch<React.SetStateAction<SelectedAsset | undefined>>
-    channelID: string | number
-    mapPostBack: MapPostBack
-    routeStore: RouteStore
-    setRouteStore: {(store: RouteStore): void}
-    turnPlanned: {(turn: PlanTurnFormValues): void}
-    cancelRoutePlanning: {(): void}
-    hidePlanningForm: boolean
-    setHidePlanningForm: React.Dispatch<React.SetStateAction<boolean>>
-    groupMoveToRoot?: {(uniqid: string): void}
-    groupCreateNewGroup?: {(dragged: string, target: string): void}
-    groupHostPlatform?: {(dragged: string, target: string): void}
-    plansSubmitted: boolean
-    setPlansSubmitted: React.Dispatch<React.SetStateAction<boolean>>
-    panTo?: {(cell: string): void}
-  } = useContext(MapContext).props
+  } = props
 
   // sort out the handler for State of World button
   useEffect(() => {
@@ -118,6 +101,7 @@ export const MapBar: React.FC = () => {
         platformType: selectedAsset.type
       }
       const closePlanningForm = (): void => {
+        // @ts-ignore
         setSelectedAsset(undefined)
       }
       const formData = collateAdjudicationFormData(platforms, selectedAsset, forces)
@@ -228,6 +212,7 @@ export const MapBar: React.FC = () => {
     // is it a new id?
     if (selectedAsset && selectedAsset.uniqid === id) {
       // current clicked on, clear it
+      // @ts-ignore
       setSelectedAsset(undefined)
     } else {
       const asset: Asset = findAsset(forces, id)
@@ -266,11 +251,13 @@ export const MapBar: React.FC = () => {
   }
 
   const deleteEmptyTaskGroup = (): void => {
+    if (typeof selectedAsset === 'undefined') return
     const payload: MessageDeletePlatform = {
       messageType: DELETE_PLATFORM,
       assetId: selectedAsset.uniqid
     }
     // clear the selected asset
+    // @ts-ignore
     setSelectedAsset(undefined)
     // now trigger the delete
     mapPostBack(DELETE_PLATFORM, payload, channelID)
@@ -283,7 +270,7 @@ export const MapBar: React.FC = () => {
     if (!routeStore || !routeStore.selected) {
       throw new Error('No route selected')
     }
-
+    if (typeof selectedAsset === 'undefined') return null
     const form = assetDialogFor(playerForce, selectedAsset.force, selectedAsset.visibleTo, selectedAsset.controlledBy, phase, worldStatePanel, turnNumber, routeStore.selected?.destroyed)
     const iconData = {
       forceColor: selectedAsset.force,
@@ -370,6 +357,7 @@ export const MapBar: React.FC = () => {
           <WorldState
             name={stateFormTitle}
             phase={phase}
+            platformTypesByKey={platformTypesByKey}
             isUmpire={playerForce === UMPIRE_FORCE}
             canSubmitOrders={canSubmitOrders}
             store={routeStore}

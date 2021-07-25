@@ -8,7 +8,7 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { forces, platformTypes, localMappingConstraints } from '@serge/mocks'
+import { forces, platformTypes, platformTypesByKey, localMappingConstraints } from '@serge/mocks'
 
 it('Mapping renders correctly with AssetIcon', () => {
   const div = document.createElement('div')
@@ -22,6 +22,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     gameTurnTime = {72000}
     wargameInitiated = {true}
     platforms = {platformTypes}
+    platformTypesByKey={platformTypesByKey}
     playerForce = 'blue'
     canSubmitOrders = {true}
     phase = {Phase.Planning}

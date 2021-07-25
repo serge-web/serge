@@ -24,7 +24,7 @@ import {
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { ADMIN_ROUTE } from '@serge/config'
+import { ADMIN_ROUTE, iconUploaderPath } from '@serge/config'
 
 /**
  * TODOS:
@@ -275,7 +275,7 @@ const AdminGameSetup = () => {
       dispatch(setSelectedChannel(channels.channels[0]))
     }
   }, [currentTab])
-
+  
   return (
     <GameSetup
       activeTab={currentTab || tabs[0]}
@@ -305,6 +305,7 @@ const AdminGameSetup = () => {
       messageTemplates={messageTypes.messages}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
+      iconUploadUrl={iconUploaderPath}
     />
   )
 }

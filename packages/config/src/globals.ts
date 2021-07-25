@@ -97,4 +97,5 @@ export const serverPath = (
 ).replace(/\/?$/, '/')
 
 export const databasePath = `${serverPath}db/`
+export const iconUploaderPath = `${serverPath}saveIcon`
 export const hiddenPrefix = '_#_'

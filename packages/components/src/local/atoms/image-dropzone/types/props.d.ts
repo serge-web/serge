@@ -15,4 +15,12 @@ export default interface PropTypes {
    * Size limit of the uploaded image in bytes
    */
   limit: number
+  /**
+   * Custom upload url if not exist then will used base64
+   */
+  iconUploadUrl?: string
+  /**
+   * Use base64 if server down or on wrong url
+   */
+  use64onApiEror?: boolean
 }
