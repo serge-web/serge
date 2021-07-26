@@ -54,7 +54,7 @@ export const SettingsForceOverview: FC<PropTypes> = ({ data, handleChangeForce }
             <div className={styles.row}>
               <div className={cx(styles.col, styles.section)}>
                 <FormGroup placeholder="Overview & Objectives">
-                  <FormControlLabel className={styles.umprire} control={<MobileSwitch size='small' checked={data.isUmpire} onChange={onChangeUmpire} />} label="Umpire" />
+                  <FormControlLabel className={styles.umprire} control={<MobileSwitch size='small' checked={data.umpire} onChange={onChangeUmpire} />} label="Umpire" />
                   <TextInput
                     multiline
                     fullWidth
