@@ -5781,6 +5781,14 @@
   dependencies:
     "@types/react" "^16"
 
+"@types/react-flatpickr@^3.8.4":
+  version "3.8.4"
+  resolved "https://registry.yarnpkg.com/@types/react-flatpickr/-/react-flatpickr-3.8.4.tgz#c6695ca1b2fc8ce013416178c8e90413b853eb6d"
+  integrity sha512-Vojzr1yTTtXowsVTmw4OlWUvclWnE2t4eVQvWtrXuJNxk8cpzbNm4Wyl8d5Ej/dWokIKefM73ygQZaHTMsqWkQ==
+  dependencies:
+    "@types/react" "*"
+    flatpickr "^4.0.6"
+
 "@types/react-leaflet@^2.5.1":
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/@types/react-leaflet/-/react-leaflet-2.8.1.tgz#acda592cf1b7dfe20ac81071c21c1e5521fe71a4"
@@ -12603,7 +12611,7 @@ flat@^4.1.0:
   dependencies:
     is-buffer "~2.0.3"
 
-flatpickr@^4.5.7, flatpickr@^4.6.2:
+flatpickr@^4.0.6, flatpickr@^4.5.7, flatpickr@^4.6.2:
   version "4.6.9"
   resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.9.tgz#9a13383e8a6814bda5d232eae3fcdccb97dc1499"
   integrity sha512-F0azNNi8foVWKSF+8X+ZJzz8r9sE1G4hl06RyceIaLvyltKvDl6vqk9Lm/6AUUCi5HWaIjiUbk7UpeE/fOXOpw==
@@ -22385,7 +22393,7 @@ react-fast-compare@^3.0.1, react-fast-compare@^3.2.0:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
 
-react-flatpickr@^3.9.0:
+react-flatpickr@^3.10.7, react-flatpickr@^3.9.0:
   version "3.10.7"
   resolved "https://registry.yarnpkg.com/react-flatpickr/-/react-flatpickr-3.10.7.tgz#bca6da2a1ccf23bb884881e2a1723073f0bfb391"
   integrity sha512-dJ7cZAayefqWJnX4Xe8Piy13oK2h4aeGCH9tz+D2iSNh+kbezUAWVMVCKdTqjsNBqTMS4v0DkfMy2CP2atNCTQ==
