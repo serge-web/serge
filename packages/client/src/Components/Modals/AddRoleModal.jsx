@@ -11,7 +11,6 @@ import {
 import "@serge/themes/App.scss";
 import Checkbox from "../Inputs/Checkbox";
 import ModalWrapper from "./ModalWrapper";
-import { UMPIRE_FORCE } from "../../consts";
 
 class AddRoleModal extends Component {
   constructor(props) {
@@ -116,7 +115,7 @@ class AddRoleModal extends Component {
     if (!this.props.currentModal.open) return false;
 
     const disabled = this.state.roleName.length < 1 || this.state.sameName || this.state.samePassword || this.state.rolePassword.length > 30;
-    let selectedForce = this.props.wargame.data.forces.selectedForce.uniqid;
+    let selectedForce = this.props.wargame.data.forces.selectedForce;
 
     const buttons = [{
       name: 'add',
@@ -161,7 +160,7 @@ class AddRoleModal extends Component {
                 value={this.state.rolePassword}
               />
             </div>
-            {selectedForce === UMPIRE_FORCE &&
+            {selectedForce.umpire &&
             <>
             <div className="flex-content">
               <Checkbox
