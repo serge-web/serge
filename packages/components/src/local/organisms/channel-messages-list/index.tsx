@@ -16,6 +16,7 @@ import { MessageChannel, MessageCustom } from '@serge/custom-types'
 
 /* Render component */
 export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForceId, icons, colors, onMarkAllAsRead, onRead, onUnread, onChange, isRFIManager }: PropTypes) => {
+  // TODO: Next line should use force.umpire
   const isUmpire = playerForceId === UMPIRE_FORCE
   return (
     <div>

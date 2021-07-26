@@ -150,6 +150,7 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, playerForce, co
         { keyPropPairs.map(pair => decideRender(pair)(defaultRender)) }
         {
           privateMessage &&
+          /** TODO: next line should use force.umpire (should received boolaean prop) */
           playerForce === UMPIRE_FORCE && (
             <div className={styles['wrap-private']}>
               <DetailLabel label={<PrivateBadge />}/>
