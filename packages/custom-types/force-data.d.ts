@@ -25,5 +25,5 @@ export default interface ForceData {
   /** 
    * whether this is an umpire force 
    */
-  isUmpire?: boolean
+  umpire?: boolean
 }
