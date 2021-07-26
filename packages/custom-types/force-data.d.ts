@@ -13,11 +13,6 @@ export default interface ForceData {
   color: string,
   /** if a CSS class is used to define the force color, provide it here */
   cssClass?: string,
-  /** 
-   * DEDECATED 
-   * is this classed as an umpire force? 
-   * */
-  umpire: boolean,
   dirty: boolean,
   /** collection of assets (ships in maritime context) for this force */
   assets?: Array<Asset>,
@@ -27,6 +22,8 @@ export default interface ForceData {
    *  todo - eventually move to force ids, rather than names
    */
   visibleTo?: Array<string>
-
+  /** 
+   * whether this is an umpire force 
+   */
   isUmpire?: boolean
 }
