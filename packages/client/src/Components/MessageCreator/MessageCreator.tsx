@@ -13,6 +13,7 @@ import '@serge/themes/App.scss'
 import moment from 'moment'
 import flatpickr from 'flatpickr'
 import _ from 'lodash'
+flatpickr(".calendar")
 
 const MessageCreator: React.FC<Props> = (props) => {
 
@@ -91,8 +92,8 @@ const MessageCreator: React.FC<Props> = (props) => {
   const configCommonProps = (prop: any) => {
     switch (prop.format) {
       case "datetime-local":
+      case "datetime":
         prop.default = moment(gameDate).format("DD/MM/YYYY HH:mm")
-        prop.options !== undefined ? prop.options.flatpickr = flatpickr(".calendar") : prop.options = {}
         prop.options = {"flatpickr": {
           "wrap":false,
           "time_24hr": true,
@@ -101,8 +102,6 @@ const MessageCreator: React.FC<Props> = (props) => {
         return prop
       case "date":
         prop.default = moment(gameDate).format("DD/MM/YYYY")
-        prop.options !== undefined ? prop.options.flatpickr = flatpickr(".calendar") : prop.options = {}
-        
         prop.options = {"flatpickr": {
           "wrap":false,
           "dateFormat":"d/m/Y",
@@ -110,8 +109,6 @@ const MessageCreator: React.FC<Props> = (props) => {
         return prop
       case "time":
         prop.default = moment(gameDate).format("HH:mm")
-        prop.options !== undefined ? prop.options.flatpickr = flatpickr(".calendar") : prop.options = {}
-        
         prop.options = {"flatpickr": {
           "wrap":false,
           "time_24hr": true,
@@ -132,15 +129,8 @@ const MessageCreator: React.FC<Props> = (props) => {
     }
     Object.keys(schema.properties).forEach(key => {
       let prop = schema.properties[key]
-      if(prop.format === 'datetime-local' || prop.format === 'date' || prop.format === 'time'){
-        prop = configCommonProps(prop)
-      }
-      
-      if(prop.type === 'object'){
-        configDateTimeLocal(prop)
-      }else if(prop.type === 'array'){
-        configDateTimeLocal(prop.items)
-      }
+      prop = configCommonProps(prop)
+      configDateTimeLocal(prop.items || prop)
     });
   }
 
@@ -152,6 +142,7 @@ const MessageCreator: React.FC<Props> = (props) => {
     let defaultFieldName = ''
     switch (schema.format) {
       case "datetime-local":
+      case "datetime":
         if(value == "" || !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)) {
           format = "DD/MM/YYYY HH:MM"
           defaultFieldName = "Datetime"
