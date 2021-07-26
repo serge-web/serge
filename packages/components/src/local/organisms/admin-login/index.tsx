@@ -13,7 +13,7 @@ import styles from './styles.module.scss'
 /* Render component */
 export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {
   // (temporarily) put password in box, to make testing quicker in dev
-  const providePassword = false
+  const providePassword = true
   const [password, setPassword] = useState(providePassword ? DEFAULT_SERVER : '')
 
   const setPasswordValue = (target: { value: string }): void => {
