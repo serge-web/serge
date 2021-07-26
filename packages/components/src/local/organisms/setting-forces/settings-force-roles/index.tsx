@@ -99,6 +99,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
 
   const handleCreateRole = (): void => {
     const roles: Array<Role> = [...data.roles, {
+      roleId: 'r' + Math.random().toString(36).substring(4), // make id more uniq
       name: 'New Role',
       canSubmitPlans: false,
       password: 'p' + Math.random().toString(36).substring(8),

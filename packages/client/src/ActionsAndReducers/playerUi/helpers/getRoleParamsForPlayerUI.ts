@@ -9,7 +9,7 @@ interface GetRoleParamsForPlayerUI {
 }
 
 const getRoleParamsForPlayerUI = (role: Role, newState: PlayerUi): void => {
-  newState.selectedRole = role.name
+  newState.selectedRole = role.roleId
   newState.isGameControl = role.isGameControl
   newState.isObserver = role.isObserver
   newState.isInsightViewer = role.isInsightViewer

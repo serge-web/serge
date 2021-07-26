@@ -54,6 +54,7 @@ describe('handle channel update for info message', () => {
     // ok. now remove us from a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
     copyChannels[0].participants[2].roles = [{
+      roleId: '',
       isGameControl: false,
       isInsightViewer: true,
       isRFIManager: true,
@@ -78,6 +79,7 @@ describe('handle channel update for info message', () => {
     // change channel so we're not a member
     const limWhiteRoles: ChannelData[] = deepCopy(allChannels)
     limWhiteRoles[0].participants[0].roles = [{
+      roleId: 'r12345',
       isGameControl: false,
       isInsightViewer: true,
       isRFIManager: true,
@@ -116,6 +118,7 @@ describe('handle channel update for info message', () => {
     // ok. now remove us from a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
     copyChannels[0].participants[2].roles = [{
+      roleId: 'r12345',
       isGameControl: false,
       isInsightViewer: true,
       isRFIManager: true,

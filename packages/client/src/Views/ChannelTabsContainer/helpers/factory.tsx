@@ -25,14 +25,14 @@ import { CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '../../../consts'
 type Factory = (node: TabNode) => React.ReactNode
 
 /** utility to find the role for this role name */
-const findRole = (roleName: string, forceData: ForceData | undefined): Role => {
+const findRole = (roleId: string, forceData: ForceData | undefined): Role => {
   if(forceData) {
-    const role = forceData.roles.find((role: Role) => role.name === roleName)
+    const role = forceData.roles.find((role: Role) => role.roleId === roleId)
     if(role) {
       return role
     }
   }
-  throw new Error('Role not found for:' + roleName);
+  throw new Error('Role not found for id:' + roleId);
 }
 
 /** convert phase as a string to the enum type

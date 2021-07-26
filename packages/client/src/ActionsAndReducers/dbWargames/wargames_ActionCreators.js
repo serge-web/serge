@@ -262,7 +262,7 @@ export const savePlatformTypes = (dbName, data) => {
   }
 }
 
-export const saveForce = (dbName, newName, newData, oldName) => {
+export const saveForce = (dbName, newName, newData, oldName, silent) => {
   return async (dispatch, state) => {
     const oldForceData = state().wargame.data.forces.selectedForce
     if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {
@@ -275,7 +275,9 @@ export const saveForce = (dbName, newName, newData, oldName) => {
     dispatch(setTabSaved())
     dispatch(setSelectedForce({ name: newName, uniqid: newData.uniqid, iconURL: newData.iconURL }))
 
-    dispatch(addNotification('Force saved.', 'success'))
+    if (!silent) {
+      dispatch(addNotification('Force saved.', 'success'))
+    }
   }
 }
 
