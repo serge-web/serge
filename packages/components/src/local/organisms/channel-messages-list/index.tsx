@@ -11,13 +11,11 @@ import ChannelRFIMessage from '../../molecules/channel-rfi-message'
 import ForcesInChannel from '../../molecules/forces-in-channel'
 import { Box } from '@material-ui/core'
 // import collateMessages from './helpers/collate-messages'
-import { INFO_MESSAGE_CLIPPED, UMPIRE_FORCE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED } from '@serge/config'
 import { MessageChannel, MessageCustom } from '@serge/custom-types'
 
 /* Render component */
-export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForceId, icons, colors, onMarkAllAsRead, onRead, onUnread, onChange, isRFIManager }: PropTypes) => {
-  // TODO: Next line should use force.umpire
-  const isUmpire = playerForceId === UMPIRE_FORCE
+export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onUnread, onChange, isRFIManager, isUmpire }: PropTypes) => {
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
@@ -53,7 +51,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForce
             } else {
               return (
                 <Box mb={2} mr={2} key={key}>
-                  <ChannelMessage playerForce={playerForceId} forceColor={msg.details.from.forceColor} role={msg.details.from.role} onRead={onRead} onUnread={onUnread} message={props} />
+                  <ChannelMessage isUmpire={isUmpire} forceColor={msg.details.from.forceColor} role={msg.details.from.role} onRead={onRead} onUnread={onUnread} message={props} />
                 </Box>
               )
             }
