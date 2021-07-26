@@ -33,7 +33,7 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
           messageType={details.messageType}
           hasBeenRead={hasBeenRead}
           privateMessage={details.privateMessage}
-          isUmpire={selectedForce.isUmpire}
+          isUmpire={selectedForce.umpire}
           detail={message}
           onRead={(): void => { open(detail) }}
         />

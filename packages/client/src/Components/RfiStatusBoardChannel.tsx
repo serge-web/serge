@@ -8,7 +8,7 @@ const RfiStatusBoardChannel = () => {
 
   const state = usePlayerUiState()
   const { selectedForce, selectedRole } = state
-  const isUmpire = selectedForce && selectedForce.isUmpire
+  const isUmpire = selectedForce && selectedForce.umpire
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const roles = selectedForce && selectedForce.roles.map(role => role.name) || []

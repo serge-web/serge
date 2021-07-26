@@ -20,7 +20,7 @@ const DeleteModal = () => {
     const curTab = wargame.currentTab
 
     if (type === 'force') {
-      const isUmpire = wargame.data[curTab].forces.find((f) => f.uniqid === data).isUmpire
+      const isUmpire = wargame.data[curTab].forces.find((f) => f.uniqid === data).umpire
       if (isUmpire) return
       dispatch(deleteSelectedForce(wargame.currentWargame, data))
     }

@@ -18,7 +18,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const dispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { selectedForce, selectedRole } = state
-  const isUmpire = selectedForce && selectedForce.isUmpire
+  const isUmpire = selectedForce && selectedForce.umpire
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const generateNextReference = (): number => {
@@ -73,7 +73,7 @@ const Channel: React.FC<{ channelId: string }> = ({ channelId }) => {
           orderableChannel={true}
           curChannel={channelId}
           generateNextReference={generateNextReference}
-          privateMessage={!!selectedForce.isUmpire}
+          privateMessage={!!selectedForce.umpire}
           templates={state.channels[channelId].templates || []}
         />
       }

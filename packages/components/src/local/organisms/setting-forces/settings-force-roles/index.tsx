@@ -53,7 +53,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
           {key === 0 && <div className={styles['role-title']}>Password</div>}
         </div>
         <div className={styles['role-item']}>
-          <MobileSwitch disabled={!data.isUmpire} size='small' checked={roleItem.isObserver} onChange={(): void => {
+          <MobileSwitch disabled={!data.umpire} size='small' checked={roleItem.isObserver} onChange={(): void => {
             handleChangeRole({ ...roleItem, isObserver: !roleItem.isObserver })
           }} />
           {key === 0 && <div
@@ -63,7 +63,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
           </div>}
         </div>
         <div className={styles['role-item']}>
-          <MobileSwitch disabled={!data.isUmpire} size='small' checked={roleItem.isInsightViewer} onChange={(): void => {
+          <MobileSwitch disabled={!data.umpire} size='small' checked={roleItem.isInsightViewer} onChange={(): void => {
             handleChangeRole({ ...roleItem, isInsightViewer: !roleItem.isInsightViewer })
           }} />
           {key === 0 && <div
@@ -73,7 +73,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
           </div>}
         </div>
         <div className={styles['role-item']}>
-          <MobileSwitch disabled={!data.isUmpire} size='small' checked={roleItem.isRFIManager} onChange={(): void => {
+          <MobileSwitch disabled={!data.umpire} size='small' checked={roleItem.isRFIManager} onChange={(): void => {
             handleChangeRole({ ...roleItem, isRFIManager: !roleItem.isRFIManager })
           }} />
           {key === 0 && <div

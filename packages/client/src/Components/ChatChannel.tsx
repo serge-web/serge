@@ -55,7 +55,7 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const icons = state.channels[channelId].forceIcons || []
   const colors = state.channels[channelId].forceColors || []
-  const isUmpire = state.selectedForce && state.selectedForce.isUmpire
+  const isUmpire = state.selectedForce && state.selectedForce.umpire
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>

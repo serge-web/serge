@@ -160,7 +160,7 @@ class AddRoleModal extends Component {
                 value={this.state.rolePassword}
               />
             </div>
-            {selectedForce.isUmpire &&
+            {selectedForce.umpire &&
             <>
             <div className="flex-content">
               <Checkbox

@@ -36,7 +36,7 @@ const MobileSwitch = withStyles({
 
 export const SettingsForceOverview: FC<PropTypes> = ({ data, handleChangeForce }) => {
   const onChangeUmpire = (): void => {
-    data.isUmpire = !data.isUmpire
+    data.umpire = !data.umpire
     handleChangeForce(data)
   }
 

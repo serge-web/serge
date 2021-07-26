@@ -425,7 +425,7 @@ export const saveForce = (dbName: string, newName: string, newData: ForceData, o
     // remove default before calc
 
     const forceCheck: ForceData[] = deepCopy(forces)
-    const umpireIndex = forceCheck.findIndex((force) => force.isUmpire)
+    const umpireIndex = forceCheck.findIndex((force) => force.umpire)
     forceCheck.splice(umpireIndex, 1)
 
     updatedData.forces.complete = calcComplete(forceCheck)
