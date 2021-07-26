@@ -27,6 +27,7 @@ describe('SettingOverview component:', () => {
       onSave={handleSave}
       initiateWargame={initiateWargame}
       wargameInitiated={false}
+      ignoreFlatpickrSnapshot={true}
     />, {
       createNodeMock: () => document.createElement('textarea')
     }).toJSON()

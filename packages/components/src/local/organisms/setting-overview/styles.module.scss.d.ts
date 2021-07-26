@@ -10,6 +10,7 @@ interface CssExports {
   'row': string;
   'section': string;
   'textarea': string;
+  'flatpickr': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
