@@ -39,16 +39,16 @@ export default {
 
 const Template: Story<DetailPropTypes> = (args) => {
   // @ts-ignore: Add custom property for storybook
-  const { playerForce, message } = args
+  const { isUmpire, message } = args
   return <ChannelMessageDetail
     message={message}
-    playerForce={playerForce} />
+    isUmpire={isUmpire} />
 }
 
 export const Chat = Template.bind({})
 Chat.args = {
   message: GameMessagesMockRFI[0],
-  playerForce: 'Blue'
+  isUmpire: false
 }
 
 export const Link = Template.bind({})
@@ -60,7 +60,7 @@ Link.args = {
       URL: 'https://google.com'
     }
   },
-  playerForce: 'Blue'
+  isUmpire: false
 }
 
 export const DailyIntention = Template.bind({})
@@ -79,7 +79,7 @@ DailyIntention.args = {
       }]
     }
   },
-  playerForce: 'Blue'
+  isUmpire: false
 }
 
 export const StateOfTheWorld = Template.bind({})
@@ -108,7 +108,7 @@ StateOfTheWorld.args = {
       }]
     }
   },
-  playerForce: 'Blue'
+  isUmpire: false
 }
 
 export const PrivateMessage = Template.bind({})
@@ -117,7 +117,7 @@ PrivateMessage.args = {
     ...GameMessagesMockRFI[2],
     message: { content: 'Lorem ipsum do lor sit amet' }
   },
-  playerForce: 'Blue'
+  isUmpire: false
 }
 
 export const WeatherForecast = Template.bind({})
@@ -156,5 +156,5 @@ WeatherForecast.args = {
       'plain-text': 'Clear'
     }
   },
-  playerForce: 'Blue'
+  isUmpire: false
 }

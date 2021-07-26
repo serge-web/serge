@@ -9,6 +9,7 @@ interface CssExports {
   'row': string;
   'section': string;
   'textarea': string;
+  'umprire': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

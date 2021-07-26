@@ -160,7 +160,7 @@ class ForcesTab extends Component {
     let curTab = this.props.wargame.currentTab;
     let selectedForce = this.props.wargame.data[curTab].selectedForce.name;
 
-    let isUmpire = this.props.wargame.data[curTab].forces.find((f) => f.name === selectedForce).umpire;
+    let isUmpire = this.props.wargame.data[curTab].forces.find((f) => f.name === selectedForce).isUmpire;
 
     let forceName = typeof this.state.newForceName === 'string' ? this.state.newForceName : selectedForce;
     let forceOverview = typeof this.state.newForceOverview === 'string' ? this.state.newForceOverview : this.props.wargame.data[curTab].forces.find((force) => force.name === selectedForce).overview;
