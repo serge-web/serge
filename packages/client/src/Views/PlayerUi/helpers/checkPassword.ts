@@ -35,7 +35,7 @@ export default (
 
   dispatch(setForce(force.uniqid));
   dispatch(setRole(role));
-  dispatch(setAllTemplates(messageTypes.messagesByKey));
+  dispatch(setAllTemplates(messageTypes.templatesByKey));
   startListening(currentWargame)(dispatch);
   return true;
 };

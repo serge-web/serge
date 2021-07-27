@@ -5,7 +5,7 @@ import { MessageTypes, MessageTypesActionTypes } from '@serge/custom-types'
 const initialState: MessageTypes = {
   isLoading: false,
   messages: [],
-  messagesByKey: {}
+  templatesByKey: {}
 }
 
 export const messageTypesReducer = (state: MessageTypes = initialState, action: MessageTypesActionTypes): MessageTypes => {
@@ -18,10 +18,10 @@ export const messageTypesReducer = (state: MessageTypes = initialState, action: 
 
     case ActionConstant.DB_MESSAGE_TYPES_SAVED:
       newState.messages = action.payload
-      newState.messagesByKey = {}
-      // save messagesByKey for easy access
+      newState.templatesByKey = {}
+      // save templatesByKey for easy access
       for (const template of action.payload) {
-        newState.messagesByKey[template._id] = template
+        newState.templatesByKey[template._id] = template
       }
       return newState
 

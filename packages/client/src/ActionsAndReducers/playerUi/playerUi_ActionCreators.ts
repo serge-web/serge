@@ -50,9 +50,9 @@ export const setRole = (data: Role): PlayerUiActionTypes => ({
   payload: data
 })
 
-export const setAllTemplates = (messagesByKey: TemplateBodysByKey): PlayerUiActionTypes => ({
+export const setAllTemplates = (templatesByKey: TemplateBodysByKey): PlayerUiActionTypes => ({
   type: SET_ALL_TEMPLATES_PLAYERUI,
-  payload: messagesByKey
+  payload: templatesByKey
 })
 
 export const showHideObjectives = (): PlayerUiActionTypes => ({

@@ -5,7 +5,7 @@ export interface TemplateBodysByKey { [property: string]: TemplateBody }
 interface MessageTypes {
   isLoading: boolean
   messages: TemplateBody[]
-  messagesByKey: TemplateBodysByKey
+  templatesByKey: TemplateBodysByKey
 }
 
 export default MessageTypes
