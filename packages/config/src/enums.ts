@@ -76,7 +76,7 @@ export enum CollaborativeMessageStates {
    */
   Released = 'Released',
   /**
-   * approved and released
+   * Collaborative editing cancelled
    */
   Rejected = 'Rejected'
 }
