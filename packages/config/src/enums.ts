@@ -34,18 +34,6 @@ export enum Terrain {
   SEA = 'sea'
 }
 
-/** states for a Request for Information */
-export enum RFI_States {
-  // request sent, no owner
-  Pending = 'Pending',
-  // someone has taken ownership
-  InProgress = 'In Progress',
-  // response submitted for review
-  PendingReview = 'Pending Review',
-  // response accepted by RFI manager 
-  Released = 'Released'
-}
-
 /** who is required to give asset an initial location */
 export enum LaydownTypes {
   /** the umpire (game designer) can position asset */
