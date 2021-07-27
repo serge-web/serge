@@ -30,7 +30,8 @@ import {
   MessageChannel,
   MessageCustom,
   MessageInfoType,
-  MessageDetailsFrom
+  MessageDetailsFrom,
+  TemplateBodysByKey
 } from '@serge/custom-types'
 import { PlayerUiActionTypes } from '@serge/custom-types'
 
@@ -49,9 +50,9 @@ export const setRole = (data: Role): PlayerUiActionTypes => ({
   payload: data
 })
 
-export const setAllTemplates = (templates: Array<any>): PlayerUiActionTypes => ({
+export const setAllTemplates = (templatesByKey: TemplateBodysByKey): PlayerUiActionTypes => ({
   type: SET_ALL_TEMPLATES_PLAYERUI,
-  payload: templates
+  payload: templatesByKey
 })
 
 export const showHideObjectives = (): PlayerUiActionTypes => ({

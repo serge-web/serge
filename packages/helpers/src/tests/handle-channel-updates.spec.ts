@@ -3,7 +3,7 @@ import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
   ChannelData, MessageChannel, MessageInfoTypeClipped, MessageCustom
 } from '@serge/custom-types'
-import { InfoMessagesMock, GameMessagesMock, MessageTemplatesMock, forces, GameChannels } from '@serge/mocks'
+import { InfoMessagesMock, GameMessagesMock, MessageTemplatesMock, forces, GameChannels, MessageTemplatesMockByKey } from '@serge/mocks'
 import deepCopy from '../deep-copy'
 import { INFO_MESSAGE_CLIPPED, CHAT_CHANNEL_ID, CUSTOM_MESSAGE } from '@serge/config'
 
@@ -18,7 +18,7 @@ const redForce: ForceData = allForces[2]
 const allChannels: ChannelData[] = GameChannels
 const selectedRole = allForces[1].roles[0].name
 const isObserver = false
-const allTemplates = MessageTemplatesMock
+const allTemplates = MessageTemplatesMockByKey
 
 describe('handle channel update for info message', () => {
   it('deletes channels that have been deleted', () => {
