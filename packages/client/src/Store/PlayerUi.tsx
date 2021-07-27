@@ -3,7 +3,7 @@ import { PlayerUi, PlayerUiActionTypes } from '@serge/custom-types'
 import { useDispatch } from 'react-redux'
 import uniqid from 'uniqid'
 import { initialState, playerUiReducer } from '../ActionsAndReducers/playerUi/playerUi_Reducer'
-import { saveForce, updateForces } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
+import { updateForces } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 
 export const PlayerStateContext: React.Context<PlayerUi> = createContext(initialState)
 export const PlayerDispatchContext: React.Context<Dispatch<PlayerUiActionTypes>> = createContext({} as Dispatch<PlayerUiActionTypes>)
