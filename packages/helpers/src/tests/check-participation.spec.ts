@@ -1,5 +1,5 @@
 import { deepCopy, checkParticipantStates, getParticipantStates } from '../'
-import { ChannelData, Participant, Role } from '@serge/custom-types'
+import { ChannelData, Participant, Role, TemplateBodysByKey } from '@serge/custom-types'
 import { forces } from '@serge/mocks'
 
 const gameControl: Role = forces[0].roles[0]
@@ -18,7 +18,13 @@ const allForcesChannel: ChannelData = {
       forceUniqid: 'Red',
       roles: [{ roleId: 'rkrlw6f5f', name: 'Logs', isGameControl: false, isObserver: false, isInsightViewer: false, password: 'aa' }],
       subscriptionId: 'k63pjsbv',
-      templates: [{ title: 'a', a: 'a' }, { title: 'b', b: 'b' }]
+      templates: [{
+        title: 'RFI',
+        _id: 'rfi'
+      }, {
+        title: 'Weather',
+        _id: 'wather'
+      }]
     },
     {
       force: 'Blue',
@@ -31,7 +37,38 @@ const allForcesChannel: ChannelData = {
   uniqid: 'channel-k63pjit0'
 }
 
-const allTemplates: any = [{ title: 'Chat' }, { title: 'RFI' }, { title: 'Weather' }]
+const defaultMessageId = 'chat'
+
+const allTemplatesNoChat: TemplateBodysByKey = {
+  rfi: {
+    title: 'RFI',
+    _id: 'rfi',
+    _rev: '',
+    completed: false,
+    lastUpdated: '',
+    details: {}
+  },
+  wather: {
+    title: 'Weather',
+    _id: 'wather',
+    _rev: '',
+    completed: false,
+    lastUpdated: '',
+    details: {}
+  }
+}
+
+const allTemplates: TemplateBodysByKey = {
+  [defaultMessageId]: {
+    title: 'Chat',
+    _id: defaultMessageId,
+    _rev: '',
+    completed: false,
+    lastUpdated: '',
+    details: {}
+  },
+  ...allTemplatesNoChat
+}
 
 it('Check umpire in channel', () => {
   const selForce = 'umpire'
@@ -102,7 +139,7 @@ it('Check states for observer who is not registered', () => {
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'umpire'
   const selRole = gameControl.roleId
-  const states = getParticipantStates(newChannel, selForce, selRole, true, allTemplates)
+  const states = getParticipantStates(newChannel, selForce, selRole, true, allTemplates, defaultMessageId)
   expect(states).toBeTruthy()
   expect(states.observing).toBeTruthy() // since member is participant
   expect(states.isParticipant).toBeFalsy()
@@ -115,7 +152,7 @@ it('Check states for role who is registered', () => {
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'Red'
   const selRole = 'rkrlw6f5f'
-  const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates)
+  const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates, defaultMessageId)
   expect(states).toBeTruthy()
   expect(states.isParticipant).toBeTruthy()
   expect(states.observing).toBeFalsy() // since member is participant
@@ -129,7 +166,7 @@ it('Check states for role who is not registered', () => {
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'Red'
   const selRole = 'rkrlw6f5m'
-  const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates)
+  const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates, defaultMessageId)
   expect(states).toBeTruthy()
   expect(states.isParticipant).toBeFalsy()
   expect(states.observing).toBeFalsy() // since member is participant
@@ -143,7 +180,7 @@ it('Check states for role in force with all members', () => {
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'Blue'
   const selRole = 'rkrlw6f5n'
-  const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates)
+  const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates, defaultMessageId)
   expect(states).toBeTruthy()
   expect(states.isParticipant).toBeTruthy()
   expect(states.observing).toBeFalsy() // since member is participant
@@ -155,10 +192,9 @@ it('Check states for role in force with all members, but with no chat templates 
   // get rid of the white force mmembership
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
-  const noChat: any = allTemplates.filter((tem:any) => tem.title !== 'Chat')
   const selForce = 'Blue'
   const selRole = 'Dragon'
-  const states = getParticipantStates(newChannel, selForce, selRole, false, noChat)
+  const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplatesNoChat, '')
   expect(states).toBeTruthy()
   expect(states.isParticipant).toBeTruthy()
   expect(states.observing).toBeFalsy() // since member is participant

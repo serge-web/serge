@@ -5,7 +5,9 @@ import { addNotification } from '../../ActionsAndReducers/Notification/Notificat
 import { populateWargameStore } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { getSergeGameInformation } from '../../ActionsAndReducers/sergeInfo/sergeInfo_ActionCreators'
 import { populateMessageTypesDb } from '../../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
-const mapStateToProps = ({ wargame, messageTypes, gameInfo, dbLoading }: any) => ({
+import { StateProps } from './types'
+
+const mapStateToProps = ({ wargame, messageTypes, gameInfo, dbLoading }: StateProps) => ({
   wargame,
   messageTypes,
   gameInfo,
@@ -27,5 +29,4 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   }
 })
 
-// @ts-ignore
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerUi)

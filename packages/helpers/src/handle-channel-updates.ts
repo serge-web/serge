@@ -1,7 +1,7 @@
 import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
-  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBody
+  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
@@ -161,7 +161,7 @@ export const handleAllInitialChannelMessages = (
   allForces: ForceData[],
   chatChannel: PlayerUiChatChannel,
   isObserver: boolean,
-  allTemplates: TemplateBody[]
+  allTemplatesByKey: TemplateBodysByKey
 ): SetWargameMessage => {
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
   let nextMsgReference = 0
@@ -195,7 +195,7 @@ export const handleAllInitialChannelMessages = (
       allRolesIncluded,
       observing,
       templates
-    } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplates)
+    } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
 
     const filterMessages = () => {
       return messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || message.messageType === INFO_MESSAGE_CLIPPED)
@@ -250,9 +250,18 @@ export const handleAllInitialChannelMessages = (
   }
 }
 
-const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannels, chatChannel: PlayerUiChatChannel, rfiMessages: MessageCustom[],
-  nextMsgReference: number, selectedForce: ForceData | undefined, allChannels: ChannelData[], selectedRole: string,
-  isObserver: boolean, allTemplates: TemplateBody[], allForces: ForceData[]): SetWargameMessage => {
+const handleChannelUpdates = (
+  payload: MessageChannel,
+  channels: PlayerUiChannels,
+  chatChannel: PlayerUiChatChannel,
+  rfiMessages: MessageCustom[],
+  nextMsgReference: number,
+  selectedForce: ForceData | undefined,
+  allChannels: ChannelData[],
+  selectedRole: string,
+  isObserver: boolean,
+  allTemplatesByKey: TemplateBodysByKey,
+  allForces: ForceData[]): SetWargameMessage => {
   const res: SetWargameMessage = {
     channels: { ...channels },
     chatChannel: { ...chatChannel },
@@ -282,7 +291,7 @@ const handleChannelUpdates = (payload: MessageChannel, channels: PlayerUiChannel
         allRolesIncluded,
         observing,
         templates
-      } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplates)
+      } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
 
       // make a note that we've procesed this channel
       delete unprocessedChannels[channelId]

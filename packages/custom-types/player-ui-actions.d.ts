@@ -27,6 +27,8 @@ import {
 } from '.'
 import { ActionPayload } from '@serge/components/src/local/molecules/rfi-form/types/props';
 import { Dispatch } from 'react'
+import { TemplateBody } from './template';
+import { TemplateBodysByKey } from './message-types';
 
 export type PlayerUiDispatch = Dispatch<PlayerUiActionTypes>
 
@@ -44,7 +46,7 @@ interface SetRoleAction {
 }
 interface SetAllTemplatesAction {
   type: typeof SET_ALL_TEMPLATES_PLAYERUI,
-  payload: Array<any>
+  payload: TemplateBodysByKey
 }
 interface ShowHideObjectivesAction {
   type: typeof SHOW_HIDE_OBJECTIVES

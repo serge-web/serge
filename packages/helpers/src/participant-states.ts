@@ -1,4 +1,5 @@
-import { ChannelData, Participant, TemplateBody } from '@serge/custom-types'
+import { ChannelData, Participant, TemplateBody, TemplateBodysByKey } from '@serge/custom-types'
+import getTemplateById, { getTemplateByIdNoUndefined } from './getTemplateById'
 import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } from './participant-filters'
 
 export interface CheckParticipantStates {
@@ -46,12 +47,19 @@ export const checkParticipantStates = (channel: ChannelData, selectedForce: stri
 }
 
 /** find out how the user can participate in this channel */
-export const getParticipantStates = (channel: ChannelData, forceId: string | undefined, role: string, isObserver: boolean, allTemplates: TemplateBody[]): ParticipantStates => {
+export const getParticipantStates = (
+  channel: ChannelData, forceId: string | undefined,
+  role: string, isObserver: boolean,
+  allTemplatesByKey: TemplateBodysByKey,
+  // TODO: move it to reducer, for future default Message can be changed from admin
+  // k16eedkl - Chat template id
+  defaultMessageId = 'k16eedkl'
+): ParticipantStates => {
   let chosenTemplates: TemplateBody[] = []
   let observing = false
   let templates: TemplateBody[] = []
   const templatesUniqFilter: {[property: string]: boolean} = {}
-  const addTemplate = (template: any): void => {
+  const addTemplate = (template: TemplateBody): void => {
     if (templatesUniqFilter[template.title] !== true) {
       templatesUniqFilter[template.title] = true
       chosenTemplates.push(template)
@@ -64,7 +72,7 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
     allRolesIncluded
   }: CheckParticipantStates = checkParticipantStates(channel, forceId, role, isObserver)
 
-  const chatTemplate = allTemplates.find((template: any) => template.title === 'Chat')
+  const chatTemplate = getTemplateById(allTemplatesByKey, defaultMessageId)
   if (typeof chatTemplate === 'undefined') console.warn('Warning, unable to find Chat template for channel with no templates defined')
 
   if (isParticipant) {
@@ -72,11 +80,17 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
       if (templates.length === 0) {
         if (typeof chatTemplate !== 'undefined') addTemplate(chatTemplate)
       } else {
-        for (const template of templates) addTemplate(template)
+        for (const template of templates) {
+          addTemplate(
+            getTemplateByIdNoUndefined(allTemplatesByKey, template._id)
+          )
+        }
       }
     }
   } else if (allRolesIncluded) {
-    chosenTemplates = allRolesIncluded.templates
+    chosenTemplates = allRolesIncluded.templates.map(({ _id }) =>
+      getTemplateByIdNoUndefined(allTemplatesByKey, _id)
+    )
   }
 
   if (isParticipant || allRolesIncluded) {
@@ -87,13 +101,6 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und
     } else {
       templates = chosenTemplates
     }
-    // TODO: check this part
-    //  else {
-    //   templates = chosenTemplates.map((template: TemplateBody) => {
-    //     return typeof template === 'string' ? template : allTemplates.find(item => item._id === template._id)
-    //     it can't be a string ---^ return strring?--^  find same template and return it? why? ----^
-    //   })
-    // }
   }
 
   if (isObserver && !isParticipant && !allRolesIncluded) {

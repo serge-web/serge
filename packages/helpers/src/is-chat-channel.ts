@@ -7,7 +7,7 @@ const isChatChannel = (channel: ChannelData): boolean => {
     if (templates === undefined || templates.length === 0) {
       return false
     } else {
-      return templates.find((temp: any) => temp !== 'Chat')
+      return templates.find(temp => temp.title !== 'Chat')
     }
   })
   return !nonChatParticipant

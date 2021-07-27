@@ -113,6 +113,10 @@ export interface CollaborationDetails {
     * response to message, only used in RFIs
     */
    response?: string
+   /** 
+    * feedback on last version
+    */
+   feedback?: string
 }
 
 export interface MessageCustom extends CoreMessage {
