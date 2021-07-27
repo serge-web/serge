@@ -24,7 +24,7 @@ export const getRoleParamsByForceAndRole = (
   if (typeof selectedRole !== 'undefined' && typeof selectedForce !== 'undefined') {
     const nextSelectedForce = newState.allForces.find(({ uniqid }) => uniqid === selectedForce.uniqid)
     if (typeof nextSelectedForce !== 'undefined') {
-      const role = nextSelectedForce.roles.find(({ name }) => name === selectedRole)
+      const role = nextSelectedForce.roles.find(({ roleId }) => roleId === selectedRole)
       if (typeof role !== 'undefined') getRoleParamsForPlayerUI(role, newState)
     }
   }

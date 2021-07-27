@@ -34,7 +34,6 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
     wargameTitle
   } = usePlayerUiState()
 
-  console.log('=> selectedRole: ', selectedRole)
   const dispatch = usePlayerUiDispatch()
 
   useEffect(() => {

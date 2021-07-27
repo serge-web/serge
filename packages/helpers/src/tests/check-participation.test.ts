@@ -46,7 +46,7 @@ it('Check umpire in channel', () => {
 
 it('Check member force in named role in channel', () => {
   const selForce = 'Red'
-  const selRole = 'Logs'
+  const selRole = 'r12345'
   const res = checkParticipantStates(allForcesChannel, selForce, selRole, false)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeTruthy()
@@ -56,7 +56,7 @@ it('Check member force in named role in channel', () => {
 
 it('Check non-member force in named role in channel', () => {
   const selForce = 'Red'
-  const selRole = 'Logs2'
+  const selRole = 'r12346'
   const res = checkParticipantStates(allForcesChannel, selForce, selRole, false)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeFalsy()
@@ -65,7 +65,7 @@ it('Check non-member force in named role in channel', () => {
 
 it('Check non-member force in named role in channel where no roles named', () => {
   const selForce = 'Blue'
-  const selRole = 'Logs2'
+  const selRole = 'r12347'
   const res = checkParticipantStates(allForcesChannel, selForce, selRole, false)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeTruthy()
@@ -77,7 +77,7 @@ it('Check missing force not in channel', () => {
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'Blue')
   const selForce = 'Blue'
-  const selRole = gameControl.name
+  const selRole = gameControl.roleId
   const res = checkParticipantStates(newChannel, selForce, selRole, false)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeFalsy()
@@ -88,7 +88,7 @@ it('Check missing force in channel if observer', () => {
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'umpire'
-  const selRole = gameControl.name
+  const selRole = gameControl.roleId
   const res = checkParticipantStates(newChannel, selForce, selRole, true)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeFalsy()
@@ -101,7 +101,7 @@ it('Check states for observer who is not registered', () => {
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'umpire'
-  const selRole = gameControl.name
+  const selRole = gameControl.roleId
   const states = getParticipantStates(newChannel, selForce, selRole, true, allTemplates)
   expect(states).toBeTruthy()
   expect(states.observing).toBeTruthy() // since member is participant
@@ -114,7 +114,7 @@ it('Check states for role who is registered', () => {
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'Red'
-  const selRole = 'Logs'
+  const selRole = 'r12345'
   const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates)
   expect(states).toBeTruthy()
   expect(states.isParticipant).toBeTruthy()
@@ -128,7 +128,7 @@ it('Check states for role who is not registered', () => {
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'Red'
-  const selRole = 'Logs2'
+  const selRole = 'r12346'
   const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates)
   expect(states).toBeTruthy()
   expect(states.isParticipant).toBeFalsy()
@@ -142,7 +142,7 @@ it('Check states for role in force with all members', () => {
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'Blue'
-  const selRole = 'Dragon'
+  const selRole = 'r12347'
   const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates)
   expect(states).toBeTruthy()
   expect(states.isParticipant).toBeTruthy()
