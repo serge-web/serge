@@ -10,6 +10,10 @@ import Props from './types'
 import JSONEditor from '@json-editor/json-editor'
 
 import '@serge/themes/App.scss'
+import moment from 'moment'
+import flatpickr from 'flatpickr'
+import _ from 'lodash'
+flatpickr(".calendar")
 
 const MessageCreator: React.FC<Props> = (props) => {
 
@@ -18,7 +22,7 @@ const MessageCreator: React.FC<Props> = (props) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [selectedSchema, setSelectedSchema] = useState<any>(props.schema)
   const state = usePlayerUiState()
-  const { selectedForce } = state
+  const { selectedForce, gameDate } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   
   const sendMessage = (e: any): void => {
@@ -82,7 +86,117 @@ const MessageCreator: React.FC<Props> = (props) => {
     }
   }, [props])
 
+  /**
+   * helper function to render default Datetime or Date or Time props of json
+   */
+  const configCommonProps = (prop: any) => {
+    switch (prop.format) {
+      case "datetime-local":
+        prop.default = moment(gameDate).format("DD/MM/YYYY HH:mm")
+        prop.options = {"flatpickr": {
+          "wrap":false,
+          "time_24hr": true,
+          "dateFormat":"d/m/Y H:i",
+        }}
+        return prop
+      case "date":
+        prop.default = moment(gameDate).format("DD/MM/YYYY")
+        prop.options = {"flatpickr": {
+          "wrap":false,
+          "dateFormat":"d/m/Y",
+        }}
+        return prop
+      case "time":
+        prop.default = moment(gameDate).format("HH:mm")
+        prop.options = {"flatpickr": {
+          "wrap":false,
+          "time_24hr": true,
+          "dateFormat":"H:i",
+        }}
+        return prop
+      default:
+        return prop
+    }
+  }
+
+  /**
+   * Render Default datetime entries in template of json for type datetime-local
+   */
+  const configDateTimeLocal = (schema: any) => {
+    if(!schema || !schema.properties){
+      return
+    }
+    Object.keys(schema.properties).forEach(key => {
+      let prop = schema.properties[key]
+      prop = configCommonProps(prop)
+      configDateTimeLocal(prop.items || prop)
+    });
+  }
+
+  /**
+   * helper function to for validation Datetime or Date or Time props of json
+   */
+  const configCommonValidation = (schema: { format: string }, value: string, path: any) => {
+    let format = ''
+    let defaultFieldName = ''
+    switch (schema.format) {
+      case "datetime-local":
+        if(value == "" || !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)) {
+          format = "DD/MM/YYYY HH:MM"
+          defaultFieldName = "Datetime"
+        }
+        break
+      case "date":
+        if(value == "" || !/^(\d{2}\D\d{2}\D\d{4})?$/.test(value)) {
+          format = "DD/MM/YYYY"
+          defaultFieldName = "Date"
+        }
+        break
+      case "time":
+        if(value == "" || !/^(\d{2}:\d{2})?$/.test(value)) {
+          format = "HH:MM"
+          defaultFieldName = "Time"
+        }
+        break
+      default:
+        return {}
+    }
+
+    if (format !== "") {
+      let listFieldName = path.split('.')
+      let fieldName = listFieldName.length > 0 ? listFieldName[listFieldName.length - 1] : defaultFieldName
+      // Errors must be an object with `path`, `property`, and `message`
+      let message = `${fieldName} must be in the format "${format}"`
+      return {
+        path: path,
+        property: 'format',
+        message: message
+      }
+    }
+    return {}
+  }
+
+  /**
+   * custom validation set for type datetime-local, date, time
+   */
+  const configDateTimeCustomValidation = () => {
+    // multiple message type will repeat custom validators, reinitialize it for every instance
+    JSONEditor.defaults.custom_validators = []
+    JSONEditor.defaults.custom_validators.push(function(schema: { format: string }, value: string, path: any) {
+      let errors = []
+      let customValidationErrors = configCommonValidation(schema, value, path)
+      if(!_.isEmpty(customValidationErrors)) {
+        errors.push(customValidationErrors)
+      }
+      return errors
+    })
+  }
+
+
   const createEditor = (schema: any) => {
+    configDateTimeLocal(schema)
+    configDateTimeCustomValidation()
+    
     setEditor(new JSONEditor(editorPreviewRef.current, {
       schema,
       theme: 'bootstrap4',
