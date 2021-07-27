@@ -23,7 +23,7 @@ class CollaborationController {
   getMyParticipations (): Participant[] {
     return this.channel.participants.filter(part => {
       // is this my force?
-      if (part.force === this.force) {
+      if (part.forceUniqid === this.force) {
         // is there a restricted set of roles?
         if (part.roles && part.roles.length) {
           // Yes: check if I'm one of those roles
@@ -53,6 +53,16 @@ class CollaborationController {
 
     // find my templates
     return res
+  }
+
+  /** am I participating (editing) in this channel? */
+  canEdit (): boolean {
+    return !!this.myParticipations.find((part: Participant) => part.canCollaborate)
+  }
+
+  /** am I participating (editing) in this channel? */
+  canRelease (): boolean {
+    return !!this.myParticipations.find((part: Participant) => part.canReleaseMessages)
   }
 }
 

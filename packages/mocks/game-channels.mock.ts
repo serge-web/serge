@@ -32,38 +32,55 @@ const GameChannels: ChannelData[] = [
     collabOptions: {
       mode: 'response',
       returnVerbs: [],
-      startWithReview : false,
+      startWithReview: false,
       originatorsSeeChanges: true,
       extraColumns: []
     },
     participants: [
-      { force: "White", canCollaborate: true, canReleaseMessages: true, forceUniqid: "umpire", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk0d3", templates: [] },
-      { force: "Blue", canCollaborate: false, canReleaseMessages: false, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk2o6", templates: [
-        {
-          title: 'RFI',
-          _id: 'k16eedkj'
-        }
-      ] 
-    },       
-    { force: "Blue", canCollaborate: false, canReleaseMessages: false, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [ {
-      "canSubmitPlans": true,
-      "isGameControl": true,
-      "isInsightViewer": true,
-      "isObserver": true,
-      "isRFIManager": false,
-      "name": "CO",
-      "password": "pkoiqu5ev"
-  }], subscriptionId: "kwepk2o6", templates: [
+      // all of white can collaborate, but not release
+      { force: "White", canCollaborate: true, canReleaseMessages: false, forceUniqid: "umpire", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pds0d3", templates: [] },
+      // white RFI Mgr can release
       {
-        title: 'RFI',
-        _id: 'k16eedkj'
+        force: "White", canCollaborate: true, canReleaseMessages: true, forceUniqid: "umpire", icon: "default_img/umpireDefault.png", roles: [{
+          "canSubmitPlans": true,
+          "isGameControl": true,
+          "isInsightViewer": true,
+          "isObserver": true,
+          "isRFIManager": false,
+          "name": "RFI Manager",
+          "password": "p4645ev"
+        }], subscriptionId: "k63pk0d3", templates: []
       },
+      // blue force can just send RFO
       {
-        title: 'Weather',
-        _id: 'k16eedkh'
-      }
-    ] 
-  }],
+        force: "Blue", canCollaborate: false, canReleaseMessages: false, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k62342o6", templates: [
+          {
+            title: 'RFI',
+            _id: 'k16eedkj'
+          }
+        ]
+      },
+      // Blue CO an also send Weather
+      {
+        force: "Blue", canCollaborate: false, canReleaseMessages: false, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [{
+          "canSubmitPlans": true,
+          "isGameControl": true,
+          "isInsightViewer": true,
+          "isObserver": true,
+          "isRFIManager": false,
+          "name": "CO",
+          "password": "pkoiqu5ev"
+        }], subscriptionId: "kwepk2o6", templates: [
+          {
+            title: 'RFI',
+            _id: 'k16eedkj'
+          },
+          {
+            title: 'Weather',
+            _id: 'k16eedkh'
+          }
+        ]
+      }],
     uniqid: "channel-BlueRFI"
   },
   {
@@ -72,18 +89,37 @@ const GameChannels: ChannelData[] = [
     collabOptions: {
       mode: 'edit',
       returnVerbs: ['Endorse', 'Request Changes'],
-      startWithReview : true,
+      startWithReview: true,
       originatorsSeeChanges: false,
       extraColumns: []
     },
     participants: [
-      { force: "Blue", canCollaborate: true, canReleaseMessages: true, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk2o6", templates: [
-        {
-          title: 'COA',
-          _id: 'k16eedkj'
-        }
-      ] 
-    }],
+      // all of blue can collaborate
+      {
+        force: "Blue", canCollaborate: true, canReleaseMessages: false, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk2o7", templates: [
+          {
+            title: 'COA',
+            _id: 'k16eedkj'
+          }
+        ]
+      },
+      // Blue CO can release 
+      {
+        force: "Blue", canCollaborate: true, canReleaseMessages: true, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [{
+          "canSubmitPlans": true,
+          "isGameControl": true,
+          "isInsightViewer": true,
+          "isObserver": true,
+          "isRFIManager": false,
+          "name": "CO",
+          "password": "pkoiqu5ev"
+        }], subscriptionId: "k63pk2o7", templates: [
+          {
+            title: 'COA',
+            _id: 'k16eedkj'
+          }
+        ]
+      }],
     uniqid: "channel-BlueCOA"
   }]
 
