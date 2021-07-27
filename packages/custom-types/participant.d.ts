@@ -13,4 +13,8 @@ export default interface Participant {
   subscriptionId: string,
   templates: ParticipantTemplate[],
   icon?: any // TODO: Check it
+  /** if this set of participants can take part in collaborative working */
+  canCollaborate?: boolean
+  /** if this set of participants can release collaborative messages */
+  canReleaseMessages?: boolean
 }
