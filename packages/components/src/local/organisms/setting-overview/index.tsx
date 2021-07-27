@@ -5,6 +5,7 @@ import millisecondsToHHMMSS from './helpers/millisecondsToHHMMSS'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import Flatpickr from 'react-flatpickr'
 
 /* Import proptypes */
 import PropTypes, { WargameOverview } from './types/props'
@@ -21,13 +22,21 @@ import TextInput from '../../atoms/text-input'
 import FormGroup from '../../atoms/form-group-shadow'
 
 /* Render component */
-export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, initiateWargame, wargameInitiated }) => {
+export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, initiateWargame, wargameInitiated, ignoreFlatpickrSnapshot }) => {
   const [overview, setOverview] = useState<WargameOverview>(initialOverview)
   const [timeKey, setTimeKey] = useState({
+    gameDate: 0,
     gameTurnTime: 0,
     realtimeTurnTime: 0,
     timeWarning: 0
   })
+
+  const updateStartTime = (date: any): void => {
+    const updates = { ...overview, gameDate: date[0].getTime() }
+    setOverview(updates)
+    setDirty(updates)
+  }
+
   const prevOverview = usePrevious(overview)
   const updateGameTime = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target
@@ -101,6 +110,17 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     }
   }, [initialOverview])
 
+  /**
+   * this component work perfectly, but
+   * we have an issue with the snapshot testing: Flatpickr.setDate is not a fucntion
+   * only occur when the value props exits in this component
+   * this trick to avoid the react-test-renderer render the value prop on testing
+   */
+  const flatpickrValueProp: any = {}
+  if (!ignoreFlatpickrSnapshot) {
+    flatpickrValueProp.value = overview.gameDate
+  }
+
   return <div className={styles.main}>
     <div className={styles.row}>
       <div className={styles.col}/>
@@ -125,7 +145,6 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
             rows={8}
             rowsMax={8}
             updateState={updateGameDescription}
-            value={initialOverview.gameDescription}
             className={styles.textarea}
           />
         </FormGroup>
@@ -133,7 +152,24 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
       <div className={cx(styles.col, styles.section)}>
         <FormGroup>
           <div className={styles.group}>
-            <label className={cx(styles.label, styles['label-first'])} htmlFor='gameTurnTime'>
+            <label className={cx(styles.label, styles['label-first'])} htmlFor='gameDate'>
+              Wargame start time (YYYY/MM/DD HH:MM)
+            </label>
+            <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>
+              <Flatpickr
+                key={timeKey.gameDate}
+                name="gameDate"
+                id="gameDate"
+                data-enable-time
+                className={styles.flatpickr}
+                options={{ dateFormat: 'Y/m/d H:i' }}
+                onChange={updateStartTime}
+                {...flatpickrValueProp}
+              />
+            </div>
+          </div>
+          <div className={styles.group}>
+            <label className={styles.label} htmlFor='gameTurnTime'>
               Wargame turn time (DD HH MM SS)
             </label>
             <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>

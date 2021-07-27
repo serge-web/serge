@@ -22,7 +22,7 @@ export const Default: React.FC = () => {
   return (
     <ChannelMessage
       hasBeenRead={isRead}
-      playerForce={'Blue'}
+      isUmpire={false}
       message={GameMessagesMockRFI[0]}
       onRead={(): void => setIsRead(true)}
       forceColor={'#000'}
@@ -35,7 +35,7 @@ export const StateOfTheWorld: React.FC = () => {
   return (
     <ChannelMessage
       hasBeenRead={isRead}
-      playerForce={'Blue'}
+      isUmpire={false}
       message={{
         ...GameMessagesMockRFI[0],
         message: {

@@ -276,10 +276,24 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
                 }
               }
             >
-              <img
-                alt="icon"
-                src="fishing-vessel.svg"
-              />
+              <div
+                className="asset-icon-background"
+                style={
+                  Object {
+                    "backgroundColor": "#415b76",
+                  }
+                }
+              >
+                <div
+                  className="asset-icon-with-image"
+                >
+                  <img
+                    alt="fishing-vessel"
+                    className="img"
+                    src="/static/media/src/local/asset-icon/counters/fishing-vessel.svg"
+                  />
+                </div>
+              </div>
             </div>
             <div
               onClick={[Function]}

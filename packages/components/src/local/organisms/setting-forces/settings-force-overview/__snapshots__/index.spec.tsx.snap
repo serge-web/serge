@@ -105,6 +105,55 @@ exports[`SettingsForceOverview component: renders correctly 1`] = `
                       <div
                         className="content"
                       >
+                        <label
+                          className="MuiFormControlLabel-root umprire"
+                        >
+                          <span
+                            className="MuiSwitch-root MuiSwitch-sizeSmall"
+                          >
+                            <span
+                              aria-disabled={false}
+                              className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                              onBlur={[Function]}
+                              onDragLeave={[Function]}
+                              onFocus={[Function]}
+                              onKeyDown={[Function]}
+                              onKeyUp={[Function]}
+                              onMouseDown={[Function]}
+                              onMouseLeave={[Function]}
+                              onMouseUp={[Function]}
+                              onTouchEnd={[Function]}
+                              onTouchMove={[Function]}
+                              onTouchStart={[Function]}
+                              tabIndex={null}
+                            >
+                              <span
+                                className="MuiIconButton-label"
+                              >
+                                <input
+                                  checked={true}
+                                  className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                  onChange={[Function]}
+                                  type="checkbox"
+                                />
+                                <span
+                                  className="MuiSwitch-thumb"
+                                />
+                              </span>
+                              <span
+                                className="MuiTouchRipple-root"
+                              />
+                            </span>
+                            <span
+                              className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                            />
+                          </span>
+                          <span
+                            className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                          >
+                            Umpire
+                          </span>
+                        </label>
                         <section
                           className="input-container disable-offset fullwidth textarea"
                         >
@@ -112,13 +161,13 @@ exports[`SettingsForceOverview component: renders correctly 1`] = `
                             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
                           >
                             <div
-                              className="MuiInputBase-root MuiFilledInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-3"
+                              className="MuiInputBase-root MuiFilledInput-root makeStyles-root-8 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-10"
                               onClick={[Function]}
                             >
                               <textarea
                                 aria-invalid={false}
                                 autoFocus={false}
-                                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+                                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-9 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
                                 disabled={false}
                                 name=""
                                 onAnimationStart={[Function]}
@@ -137,7 +186,7 @@ exports[`SettingsForceOverview component: renders correctly 1`] = `
                               />
                               <textarea
                                 aria-hidden={true}
-                                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+                                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-9 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
                                 readOnly={true}
                                 style={
                                   Object {

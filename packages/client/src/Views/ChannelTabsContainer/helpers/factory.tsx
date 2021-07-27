@@ -61,7 +61,10 @@ const factory = (state: PlayerUi): Factory => {
     targetDataset: Domain.GULF
   }
 
-  const mapPostBack = (form: string, payload: MessageMap, channelID: string): void => {
+  const mapPostBack = (form: string, payload: MessageMap, channelID: string | number = ''): void => {
+    if (channelID === '') return
+    if (typeof channelID === 'number') channelID = channelID.toString()
+
     switch(form) {
       case FORCE_LAYDOWN:
         sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
@@ -117,6 +120,7 @@ const factory = (state: PlayerUi): Factory => {
         mapPostBack={mapPostBack}
         gameTurnTime={state.gameTurnTime}
         wargameInitiated={state.wargameInitiated}
+        platformTypesByKey={state.allPlatformTypesByKey}
     >
       <Assets />
       <HexGrid/>

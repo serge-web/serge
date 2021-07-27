@@ -6,7 +6,7 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 import { Route } from './'
 
-import { forces, platformTypes, localMappingConstraints } from '@serge/mocks'
+import { forces, platformTypes, platformTypesByKey, localMappingConstraints } from '@serge/mocks'
 import { RouteStore, Route as RouteType } from '@serge/custom-types'
 import { routeCreateStore } from '@serge/helpers'
 
@@ -33,6 +33,7 @@ it('Mapping renders correctly with Route', () => {
     canSubmitOrders = {true}
     phase={Phase.Planning}
     turnNumber={2}
+    platformTypesByKey={platformTypesByKey}
   >
     <Route name={'alpha'} route={route}
       trimmed={false} color={'#f00'} selected={true} clearRouteHandler = { clearFromTurn } />
