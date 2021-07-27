@@ -9,8 +9,8 @@ describe('ChannelMessageDetail:', () => {
     const tree = renderer
       .create(
         <ChannelMessageDetail
-          playerForce={'Blue'}
           message={GameMessagesMockRFI[0]}
+          isUmpire={false}
         />
       )
       .toJSON()

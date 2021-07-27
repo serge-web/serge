@@ -97,6 +97,7 @@ export const SettingForces: React.FC<PropTypes> = ({
           <div className={styles.actions}>
             <Button
               icon="delete"
+              /* todo: should call onDelete handler on next line */
               onClick={(): void => { console.log('onDelete') }}
             >
               Delete
