@@ -3,7 +3,6 @@ import copyState from '../../Helpers/copyStateHelper'
 import { MessageTypes, MessageTypesActionTypes } from '@serge/custom-types'
 
 const initialState: MessageTypes = {
-  loadingDb: false,
   isLoading: false,
   messages: [],
   messagesByKey: {}
