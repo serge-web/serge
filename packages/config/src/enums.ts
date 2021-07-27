@@ -18,6 +18,13 @@ export enum Phase {
   GULF = 'Gulf'
 }
 
+/** types of special channel */
+export enum SpecialChannelTypes {
+  CHANNEL_MAPPING = 'mapping',
+  CHANNEL_COLLAB_EDIT = 'collab-edit',
+  CHANNEL_COLLAB_RESPONSE = 'collab-response'
+}
+
 /** General terrain type. More relaxed than
  * cell.terrain.  Used for determining 
  * achievable cells
