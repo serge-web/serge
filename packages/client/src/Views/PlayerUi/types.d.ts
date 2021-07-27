@@ -1,4 +1,4 @@
-import { Wargame, Template } from '@serge/custom-types'
+import { Wargame, Template, MessageTypes } from '@serge/custom-types'
 
 export interface GameInfo {
   description: string,
@@ -8,11 +8,14 @@ export interface GameInfo {
   title: string
 }
 
-export interface Props {
+export interface StateProps {
   wargame: Wargame,
-  messageTypes: Template[],
+  messageTypes: MessageTypes,
   gameInfo: GameInfo,
-  dbLoading: any,
+  dbLoading: any
+}
+
+export interface Props extends StateProps {
   checkPasswordFail: () => void
   wargameIsInvalid: () => void
   loadData: () => void

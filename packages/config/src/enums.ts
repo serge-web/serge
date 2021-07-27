@@ -18,6 +18,13 @@ export enum Phase {
   GULF = 'Gulf'
 }
 
+/** types of special channel */
+export enum SpecialChannelTypes {
+  CHANNEL_MAPPING = 'mapping',
+  CHANNEL_COLLAB_EDIT = 'collab-edit',
+  CHANNEL_COLLAB_RESPONSE = 'collab-response'
+}
+
 /** General terrain type. More relaxed than
  * cell.terrain.  Used for determining 
  * achievable cells
@@ -25,18 +32,6 @@ export enum Phase {
 export enum Terrain {
   LAND = 'land',
   SEA = 'sea'
-}
-
-/** states for a Request for Information */
-export enum RFI_States {
-  // request sent, no owner
-  Pending = 'Pending',
-  // someone has taken ownership
-  InProgress = 'In Progress',
-  // response submitted for review
-  PendingReview = 'Pending Review',
-  // response accepted by RFI manager 
-  Released = 'Released'
 }
 
 /** who is required to give asset an initial location */
@@ -69,7 +64,7 @@ export enum CollaborativeMessageStates {
    */
   Released = 'Released',
   /**
-   * approved and released
+   * Collaborative editing cancelled
    */
   Rejected = 'Rejected'
 }
