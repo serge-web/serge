@@ -92,7 +92,6 @@ const MessageCreator: React.FC<Props> = (props) => {
   const configCommonProps = (prop: any) => {
     switch (prop.format) {
       case "datetime-local":
-      case "datetime":
         prop.default = moment(gameDate).format("DD/MM/YYYY HH:mm")
         prop.options = {"flatpickr": {
           "wrap":false,
@@ -142,7 +141,6 @@ const MessageCreator: React.FC<Props> = (props) => {
     let defaultFieldName = ''
     switch (schema.format) {
       case "datetime-local":
-      case "datetime":
         if(value == "" || !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)) {
           format = "DD/MM/YYYY HH:MM"
           defaultFieldName = "Datetime"
