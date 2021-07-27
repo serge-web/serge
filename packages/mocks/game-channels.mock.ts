@@ -33,7 +33,6 @@ const GameChannels: ChannelData[] = [
       mode: 'response',
       returnVerbs: [],
       startWithReview: false,
-      originatorsSeeChanges: true,
       extraColumns: []
     },
     participants: [
@@ -90,7 +89,6 @@ const GameChannels: ChannelData[] = [
       mode: 'edit',
       returnVerbs: ['Endorse', 'Request Changes'],
       startWithReview: true,
-      originatorsSeeChanges: false,
       extraColumns: []
     },
     participants: [

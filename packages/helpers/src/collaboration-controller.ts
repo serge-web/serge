@@ -1,5 +1,7 @@
-import { ChannelData, Role, ParticipantTemplate, Participant } from '@serge/custom-types'
+import { ChannelData, Role, ParticipantTemplate, Participant, ForceData } from '@serge/custom-types'
 import _ from 'lodash'
+import { CollaborativeMessageStates } from '@serge/config'
+
 /**
  * support utility, supporting collaborative editing
  */
@@ -8,14 +10,16 @@ class CollaborationController {
   force: string
   role: Role
   myParticipations: Participant[]
+  forces: ForceData[]
 
   /**
    *
    */
-  constructor (channel: ChannelData, force: string, role: Role) {
+  constructor (forces: ForceData[], channel: ChannelData, force: string, role: Role) {
     this.channel = channel
     this.force = force
     this.role = role
+    this.forces = forces
     // participations is used a lot. cache the ones that relate to this role
     this.myParticipations = this.getMyParticipations()
   }
@@ -63,6 +67,54 @@ class CollaborationController {
   /** am I participating (editing) in this channel? */
   canRelease (): boolean {
     return !!this.myParticipations.find((part: Participant) => part.canReleaseMessages)
+  }
+
+  /** whether this user can see dynamic changes to the messages */
+  canViewLiveUpdates (): boolean {
+    return !!this.myParticipations.find((part: Participant) => part.canCollaborate)
+  }
+
+  /** list of roles ids that a message in this channel could be assigned to */
+  messageCanBeAssignedTo (): Array<string> {
+    // TODO:
+    return []
+  }
+
+  /** which commands are available for a message in this state */
+  commandsFor (state: CollaborativeMessageStates): Array<string> {
+    switch (state) {
+      case CollaborativeMessageStates.Unallocated: {
+        if (this.canEdit()) {
+          return ['Take ownership']
+        }
+        break
+      }
+      case CollaborativeMessageStates.InProgress: {
+        // TODO:
+        break
+      }
+      case CollaborativeMessageStates.PendingReview: {
+        const coreVerbs: Array<string> = ['Close', 'Release']
+        if (this.canEdit()) {
+          const opts = this.channel.collabOptions
+          if (opts && opts.returnVerbs && opts.returnVerbs.length) {
+            return opts.returnVerbs.concat(coreVerbs)
+          } else {
+            return ['Request changes'].concat(coreVerbs)
+          }
+        }
+        break
+      }
+      case CollaborativeMessageStates.Released: {
+        // TODO:
+        break
+      }
+      case CollaborativeMessageStates.Rejected: {
+        // TODO:
+        break
+      }
+    }
+    return []
   }
 }
 

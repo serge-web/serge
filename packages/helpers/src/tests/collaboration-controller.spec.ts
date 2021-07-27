@@ -15,7 +15,7 @@ const blueForce: string = smallForces[1].uniqid
 console.log(false && coa && blueOther && blueCO && whiteRFI)
 
 it('configures collaboration-controller correctly', () => {
-  const controller: CollaborationController = new CollaborationController(rfi, whiteForce, whiteGC)
+  const controller: CollaborationController = new CollaborationController(smallForces, rfi, whiteForce, whiteGC)
   expect(controller).toBeTruthy()
 })
 
@@ -24,7 +24,7 @@ it('configures collaboration-controller correctly', () => {
 // //////////////
 
 it('returns templates for blue role in RFI channel', () => {
-  const controller: CollaborationController = new CollaborationController(rfi, blueForce, blueCO)
+  const controller: CollaborationController = new CollaborationController(smallForces, rfi, blueForce, blueCO)
   const myTemplates = controller.getMyTemplates()
   expect(myTemplates).toBeTruthy()
   expect(myTemplates.length).toEqual(2)
@@ -33,7 +33,7 @@ it('returns templates for blue role in RFI channel', () => {
 })
 
 it('returns templates for blue other role in RFI channel', () => {
-  const controller: CollaborationController = new CollaborationController(rfi, blueForce, blueOther)
+  const controller: CollaborationController = new CollaborationController(smallForces, rfi, blueForce, blueOther)
   const myTemplates = controller.getMyTemplates()
   expect(myTemplates).toBeTruthy()
   expect(myTemplates.length).toEqual(1)
@@ -41,28 +41,28 @@ it('returns templates for blue other role in RFI channel', () => {
 })
 
 it('returns templates for white role in RFI channel', () => {
-  const controller: CollaborationController = new CollaborationController(rfi, whiteForce, whiteGC)
+  const controller: CollaborationController = new CollaborationController(smallForces, rfi, whiteForce, whiteGC)
   const myTemplates = controller.getMyTemplates()
   expect(myTemplates).toBeTruthy()
   expect(myTemplates.length).toEqual(0)
 })
 
 it('returns templates for blue role in COA channel', () => {
-  const controller: CollaborationController = new CollaborationController(coa, blueForce, blueCO)
+  const controller: CollaborationController = new CollaborationController(smallForces, coa, blueForce, blueCO)
   const myTemplates = controller.getMyTemplates()
   expect(myTemplates).toBeTruthy()
   expect(myTemplates.length).toEqual(1)
 })
 
 it('returns templates for blue other role in COA channel', () => {
-  const controller: CollaborationController = new CollaborationController(coa, blueForce, blueOther)
+  const controller: CollaborationController = new CollaborationController(smallForces, coa, blueForce, blueOther)
   const myTemplates = controller.getMyTemplates()
   expect(myTemplates).toBeTruthy()
   expect(myTemplates.length).toEqual(1)
 })
 
 it('returns zero templates for white role in COA channel', () => {
-  const controller: CollaborationController = new CollaborationController(coa, whiteForce, whiteGC)
+  const controller: CollaborationController = new CollaborationController(smallForces, coa, whiteForce, whiteGC)
   const myTemplates = controller.getMyTemplates()
   expect(myTemplates).toBeTruthy()
   expect(myTemplates.length).toEqual(0)
@@ -73,22 +73,22 @@ it('returns zero templates for white role in COA channel', () => {
 // //////////////
 
 it('shows blue as participating in COA', () => {
-  const controller: CollaborationController = new CollaborationController(coa, blueForce, blueCO)
+  const controller: CollaborationController = new CollaborationController(smallForces, coa, blueForce, blueCO)
   expect(controller.canEdit()).toBeTruthy()
 })
 
 it('shows blue as not participating in RFI', () => {
-  const controller: CollaborationController = new CollaborationController(rfi, blueForce, blueCO)
+  const controller: CollaborationController = new CollaborationController(smallForces, rfi, blueForce, blueCO)
   expect(controller.canEdit()).toBeFalsy()
 })
 
 it('shows white as participating in RFI', () => {
-  const controller: CollaborationController = new CollaborationController(rfi, whiteForce, whiteGC)
+  const controller: CollaborationController = new CollaborationController(smallForces, rfi, whiteForce, whiteGC)
   expect(controller.canEdit()).toBeTruthy()
 })
 
 it('shows white as not participating in COA', () => {
-  const controller: CollaborationController = new CollaborationController(coa, whiteForce, whiteGC)
+  const controller: CollaborationController = new CollaborationController(smallForces, coa, whiteForce, whiteGC)
   expect(controller.canEdit()).toBeFalsy()
 })
 
@@ -97,31 +97,55 @@ it('shows white as not participating in COA', () => {
 // //////////////
 
 it('shows blue CO as releasing in COA', () => {
-  const controller: CollaborationController = new CollaborationController(coa, blueForce, blueCO)
+  const controller: CollaborationController = new CollaborationController(smallForces, coa, blueForce, blueCO)
   expect(controller.canRelease()).toBeTruthy()
 })
 
 it('shows blue other as releasing in COA', () => {
-  const controller: CollaborationController = new CollaborationController(coa, blueForce, blueOther)
+  const controller: CollaborationController = new CollaborationController(smallForces, coa, blueForce, blueOther)
   expect(controller.canRelease()).toBeFalsy()
 })
 
 it('shows blue as not releasing RFI', () => {
-  const controller: CollaborationController = new CollaborationController(rfi, blueForce, blueCO)
+  const controller: CollaborationController = new CollaborationController(smallForces, rfi, blueForce, blueCO)
   expect(controller.canRelease()).toBeFalsy()
 })
 
 it('shows white rel mgr as releasing RFI', () => {
-  const controller: CollaborationController = new CollaborationController(rfi, whiteForce, whiteRFI)
+  const controller: CollaborationController = new CollaborationController(smallForces, rfi, whiteForce, whiteRFI)
   expect(controller.canRelease()).toBeTruthy()
 })
 
 it('shows white other as not lreleasing RFI', () => {
-  const controller: CollaborationController = new CollaborationController(rfi, whiteForce, whiteGC)
+  const controller: CollaborationController = new CollaborationController(smallForces, rfi, whiteForce, whiteGC)
   expect(controller.canRelease()).toBeFalsy()
 })
 
 it('shows white as not releasing COA', () => {
-  const controller: CollaborationController = new CollaborationController(coa, whiteForce, whiteGC)
+  const controller: CollaborationController = new CollaborationController(smallForces, coa, whiteForce, whiteGC)
   expect(controller.canRelease()).toBeFalsy()
+})
+
+// //////////////////
+// canViewLiveUpdates
+// //////////////////
+
+it('shows blue as seeing in COA', () => {
+  const controller: CollaborationController = new CollaborationController(smallForces, coa, blueForce, blueCO)
+  expect(controller.canViewLiveUpdates()).toBeTruthy()
+})
+
+it('shows blue as not seeing in RFI', () => {
+  const controller: CollaborationController = new CollaborationController(smallForces, rfi, blueForce, blueCO)
+  expect(controller.canViewLiveUpdates()).toBeFalsy()
+})
+
+it('shows white as seeing in RFI', () => {
+  const controller: CollaborationController = new CollaborationController(smallForces, rfi, whiteForce, whiteGC)
+  expect(controller.canViewLiveUpdates()).toBeTruthy()
+})
+
+it('shows white as not seeing in COA', () => {
+  const controller: CollaborationController = new CollaborationController(smallForces, coa, whiteForce, whiteGC)
+  expect(controller.canViewLiveUpdates()).toBeFalsy()
 })
