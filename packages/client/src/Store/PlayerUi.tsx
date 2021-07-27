@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useReducer, Dispatch } from 'react'
-import { initialState, playerUiReducer } from '../ActionsAndReducers/playerUi/playerUi_Reducer'
 import { PlayerUi, PlayerUiActionTypes } from '@serge/custom-types'
-import { saveForce } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { useDispatch } from 'react-redux'
+import uniqid from 'uniqid'
+import { initialState, playerUiReducer } from '../ActionsAndReducers/playerUi/playerUi_Reducer'
+import { saveForce } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 
 export const PlayerStateContext: React.Context<PlayerUi> = createContext(initialState)
 export const PlayerDispatchContext: React.Context<Dispatch<PlayerUiActionTypes>> = createContext({} as Dispatch<PlayerUiActionTypes>)
@@ -30,7 +31,7 @@ export const usePlayerUiState = (): PlayerUi => {
     force.roles.forEach(role => {
       if (!role.roleId) {
         needUpdate = true
-        role.roleId = 'r' + Math.random().toString(36).substring(4)
+        role.roleId = uniqid.time('r')
       }
     })
     if (needUpdate) {

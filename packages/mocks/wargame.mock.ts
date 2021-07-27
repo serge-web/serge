@@ -62,7 +62,7 @@ const wargame: Wargame = {
           "overview": "Umpire force.",
           "roles": [
             {
-              "roleId": "r12345GC",
+              "roleId": "rkrlw6f5e",
               "name": "Game Control",
               "password": "pk6w5y28j",
               "isGameControl": true,

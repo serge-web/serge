@@ -118,7 +118,7 @@ describe('handle channel update for info message', () => {
     // ok. now remove us from a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
     copyChannels[0].participants[2].roles = [{
-      roleId: 'r12345',
+      roleId: 'rkrlw6f5f',
       isGameControl: false,
       isInsightViewer: true,
       isRFIManager: true,

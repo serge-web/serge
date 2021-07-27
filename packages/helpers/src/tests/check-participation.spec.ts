@@ -16,7 +16,7 @@ const allForcesChannel: ChannelData = {
     {
       force: 'Red',
       forceUniqid: 'Red',
-      roles: [{ roleId: 'r12345', name: 'Logs', isGameControl: false, isObserver: false, isInsightViewer: false, password: 'aa' }],
+      roles: [{ roleId: 'rkrlw6f5f', name: 'Logs', isGameControl: false, isObserver: false, isInsightViewer: false, password: 'aa' }],
       subscriptionId: 'k63pjsbv',
       templates: [{ title: 'a', a: 'a' }, { title: 'b', b: 'b' }]
     },
@@ -46,7 +46,7 @@ it('Check umpire in channel', () => {
 
 it('Check member force in named role in channel', () => {
   const selForce = 'Red'
-  const selRole = 'r12345'
+  const selRole = 'rkrlw6f5f'
   const res = checkParticipantStates(allForcesChannel, selForce, selRole, false)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeTruthy()
@@ -56,7 +56,7 @@ it('Check member force in named role in channel', () => {
 
 it('Check non-member force in named role in channel', () => {
   const selForce = 'Red'
-  const selRole = 'r12346'
+  const selRole = 'rkrlw6f5m'
   const res = checkParticipantStates(allForcesChannel, selForce, selRole, false)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeFalsy()
@@ -65,7 +65,7 @@ it('Check non-member force in named role in channel', () => {
 
 it('Check non-member force in named role in channel where no roles named', () => {
   const selForce = 'Blue'
-  const selRole = 'r12347'
+  const selRole = 'rkrlw6f5n'
   const res = checkParticipantStates(allForcesChannel, selForce, selRole, false)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeTruthy()
@@ -114,7 +114,7 @@ it('Check states for role who is registered', () => {
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'Red'
-  const selRole = 'r12345'
+  const selRole = 'rkrlw6f5f'
   const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates)
   expect(states).toBeTruthy()
   expect(states.isParticipant).toBeTruthy()
@@ -128,7 +128,7 @@ it('Check states for role who is not registered', () => {
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'Red'
-  const selRole = 'r12346'
+  const selRole = 'rkrlw6f5m'
   const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates)
   expect(states).toBeTruthy()
   expect(states.isParticipant).toBeFalsy()
@@ -142,7 +142,7 @@ it('Check states for role in force with all members', () => {
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'Blue'
-  const selRole = 'r12347'
+  const selRole = 'rkrlw6f5n'
   const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates)
   expect(states).toBeTruthy()
   expect(states.isParticipant).toBeTruthy()

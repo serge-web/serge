@@ -10,7 +10,7 @@ const forces: ForceData[] = [
         overview: "Umpire force.",
         roles: [
           {
-                roleId: 'r12345GC',
+                roleId: 'rkrlw6f5e',
                 canSubmitPlans: true,
                 isGameControl: true,
                 isInsightViewer: true,
@@ -132,7 +132,7 @@ const forces: ForceData[] = [
         overview: "Blue force.",
         roles: [
           {
-                roleId: 'r12345CO',
+                roleId: 'rkrlw6f5e',
                 canSubmitPlans: true,
                 isGameControl: false,
                 isInsightViewer: false,
@@ -141,7 +141,7 @@ const forces: ForceData[] = [
                 password: "p5543"
             },
           {
-                roleId: 'r12345LG',
+                roleId: 'rkrlw6f6e',
                 canSubmitPlans: false,
                 isGameControl: false,
                 isInsightViewer: false,
@@ -214,7 +214,7 @@ const forces: ForceData[] = [
         overview: "Red force.",
         roles: [
           {
-                roleId: 'r12345CO',
+                roleId: 'rkrlw6f5e',
                 canSubmitPlans: true,
                 isGameControl: false,
                 isInsightViewer: false,
@@ -223,7 +223,7 @@ const forces: ForceData[] = [
                 password: "p3244"
             },
           {
-                roleId: 'r12345Comms',
+                roleId: 'rkrlw6f5emms',
                 canSubmitPlans: false,
                 isGameControl: false,
                 isInsightViewer: false,
@@ -298,7 +298,7 @@ const forces: ForceData[] = [
         overview: "Green Shipping",
         roles: [
           {
-                roleId: 'r12345CO',
+                roleId: 'rkrlw6f5e',
                 canSubmitPlans: true,
                 isGameControl: false,
                 isInsightViewer: false,
