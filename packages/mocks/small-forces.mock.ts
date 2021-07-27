@@ -12,11 +12,20 @@ export const forces: ForceData[] = [
       {
         isGameControl: true,
         isInsightViewer: true,
-        isRFIManager: true,
+        isRFIManager: false,
         canSubmitPlans: true,
         isObserver: true,
         name: 'Game Control',
         password: 'p2311'
+      }, 
+      {
+        isGameControl: true,
+        isInsightViewer: true,
+        isRFIManager: true,
+        canSubmitPlans: true,
+        isObserver: true,
+        name: 'RFI Manager',
+        password: 'p2312'
       }
     ],
     umpire: true,
@@ -144,7 +153,16 @@ export const forces: ForceData[] = [
         isObserver: false,
         name: 'CO',
         password: 'p5543'
+      },
+      {
+        isGameControl: false,
+        canSubmitPlans: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'Logs',
+        password: 'p23243'
       }
+
     ],
     umpire: false,
     uniqid: 'Blue'

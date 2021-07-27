@@ -1,4 +1,5 @@
 import { ChannelData } from "@serge/custom-types"
+import { SpecialChannelTypes } from "../config/build"
 
 const GameChannels: ChannelData[] = [
   {
@@ -27,20 +28,63 @@ const GameChannels: ChannelData[] = [
   },
   {
     name: "Blue RFI",
+    format: SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE,
+    collabOptions: {
+      mode: 'response',
+      returnVerbs: [],
+      startWithReview : false,
+      originatorsSeeChanges: true,
+      extraColumns: []
+    },
     participants: [
-      { force: "White", forceUniqid: "umpire", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk0d3", templates: [] },
-      { force: "Blue", forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk2o6", templates: [
+      { force: "White", canCollaborate: true, canReleaseMessages: true, forceUniqid: "umpire", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk0d3", templates: [] },
+      { force: "Blue", canCollaborate: false, canReleaseMessages: false, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk2o6", templates: [
         {
           title: 'RFI',
           _id: 'k16eedkj'
-        },
+        }
+      ] 
+    },       
+    { force: "Blue", canCollaborate: false, canReleaseMessages: false, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [ {
+      "canSubmitPlans": true,
+      "isGameControl": true,
+      "isInsightViewer": true,
+      "isObserver": true,
+      "isRFIManager": false,
+      "name": "CO",
+      "password": "pkoiqu5ev"
+  }], subscriptionId: "kwepk2o6", templates: [
+      {
+        title: 'RFI',
+        _id: 'k16eedkj'
+      },
+      {
+        title: 'Weather',
+        _id: 'k16eedkh'
+      }
+    ] 
+  }],
+    uniqid: "channel-BlueRFI"
+  },
+  {
+    name: "Blue COA",
+    format: SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE,
+    collabOptions: {
+      mode: 'edit',
+      returnVerbs: ['Endorse', 'Request Changes'],
+      startWithReview : true,
+      originatorsSeeChanges: false,
+      extraColumns: []
+    },
+    participants: [
+      { force: "Blue", canCollaborate: true, canReleaseMessages: true, forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk2o6", templates: [
         {
-          title: 'Weather',
-          _id: 'k16eedkh'
+          title: 'COA',
+          _id: 'k16eedkj'
         }
       ] 
     }],
-    uniqid: "channel-BlueRFI"
+    uniqid: "channel-BlueCOA"
   }]
 
 export default GameChannels
