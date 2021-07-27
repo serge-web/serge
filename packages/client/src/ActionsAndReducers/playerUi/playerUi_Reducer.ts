@@ -60,7 +60,7 @@ export const initialState: PlayerUi = {
   channels: {},
   allChannels: [],
   allForces: [],
-  allTemplates: [],
+  allTemplatesByKey: {},
   allPlatformTypes: [],
   allPlatformTypesByKey: {},
   showObjective: false,
@@ -132,7 +132,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_ALL_TEMPLATES_PLAYERUI:
-      newState.allTemplates = action.payload
+      newState.allTemplatesByKey = action.payload
       break
 
     case SHOW_HIDE_OBJECTIVES:

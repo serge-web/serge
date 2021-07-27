@@ -15,7 +15,7 @@ const chat = {
   name: 'Channel 16',
   participants: [
     { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [] },
-    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: ['Chat'] },
+    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Chat', _id: 'idchat' }] },
     { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [] }],
   uniqid: 'channel-k63pjit0'
 }
@@ -23,8 +23,8 @@ const chat = {
 const mixed = {
   name: 'Channel 16',
   participants: [
-    { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: ['Weather', 'Chat'] },
-    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: ['Chat'] },
+    { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [{ title: 'Weather', _id: 'weather' }, { title: 'Chat', _id: 'idchat' }] },
+    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Chat', _id: 'idchat' }] },
     { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [] }],
   uniqid: 'channel-k63pjit0'
 }
@@ -32,8 +32,8 @@ const mixed = {
 const nonChat = {
   name: 'Channel 16',
   participants: [
-    { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: ['RFI'] },
-    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: ['Weather'] },
+    { force: 'White', forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', templates: [{ title: 'RFI', _id: 'rfi' }] },
+    { force: 'Red', forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', templates: [{ title: 'Weather', _id: 'weather' }] },
     { force: 'Blue', forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', templates: [] }],
   uniqid: 'channel-k63pjit0'
 }

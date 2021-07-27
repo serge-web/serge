@@ -1,5 +1,6 @@
 import * as ActionConstant from '@serge/config'
 import 'whatwg-fetch'
+// @ts-ignore
 import check from 'check-types'
 
 import * as messageTypesApi from '../../api/messageTypes_api'
@@ -7,34 +8,35 @@ import * as messageTypesApi from '../../api/messageTypes_api'
 import { setCurrentViewFromURI } from '../setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import { MESSAGE_TEMPLATE_ROUTE } from '../../consts'
+import { MessageTypesActionTypes, MessageTypesDispatch, TemplateBody } from '@serge/custom-types'
 
-const DBMessageSaveStatus = (status) => ({
+const DBMessageSaveStatus = (status: boolean): MessageTypesActionTypes => ({
   type: ActionConstant.DB_MESSAGE_STATUS,
   payload: status
 })
 
-const DBSaveMessageArray = (messages) => ({
+const DBSaveMessageArray = (messages: TemplateBody[]): MessageTypesActionTypes => ({
   type: ActionConstant.DB_MESSAGE_TYPES_SAVED,
   payload: messages
 })
 
-const loadingDBMessageCreate = (isLoading) => ({
+const loadingDBMessageCreate = (isLoading: boolean): MessageTypesActionTypes => ({
   type: ActionConstant.DB_MESSAGE_CREATION_LOADING,
-  isLoading
+  payload: isLoading
 })
 
-const loadingDBMessageGet = (isLoading) => ({
+const loadingDBMessageGet = (isLoading: boolean): MessageTypesActionTypes => ({
   type: ActionConstant.DB_MESSAGE_TYPES_GET,
-  isLoading
+  payload: isLoading
 })
 
-const populatingDb = (isLoading) => ({
+const populatingDb = (isLoading: boolean): MessageTypesActionTypes => ({
   type: ActionConstant.POPULATE_MESSAGE_TYPES_DB,
-  isLoading
+  payload: isLoading
 })
 
 export const populateMessageTypesDb = () => {
-  return async (dispatch) => {
+  return async (dispatch: MessageTypesDispatch) => {
     dispatch(populatingDb(true))
 
     await messageTypesApi.populateDb()
@@ -47,16 +49,18 @@ export const populateMessageTypesDb = () => {
   }
 }
 
+// @ts-ignore
 export const createMessageType = (schema) => {
   if (!check.object(schema)) throw Error(`createMessageType() requires schema object & NOT. ${schema}`)
 
-  return async (dispatch) => {
+  return async (dispatch: MessageTypesDispatch) => {
     dispatch(loadingDBMessageCreate(true))
 
     try {
       var result = await messageTypesApi.postNewMessage(schema)
 
       if (result.err) {
+        // @ts-ignore
         dispatch(addNotification(result.err))
         dispatch(loadingDBMessageCreate(false))
       }
@@ -67,6 +71,7 @@ export const createMessageType = (schema) => {
         dispatch(DBSaveMessageArray(messages))
 
         dispatch(loadingDBMessageCreate(false))
+        // @ts-ignore
         dispatch(setCurrentViewFromURI(MESSAGE_TEMPLATE_ROUTE))
       }
     } catch (err) {
@@ -75,10 +80,10 @@ export const createMessageType = (schema) => {
   }
 }
 
-export const duplicateMessageType = (id) => {
+export const duplicateMessageType = (id: string) => {
   if (!check.string(id)) throw Error(`duplicateTemplate() requires a string Not. ${id}`)
 
-  return async (dispatch) => {
+  return async (dispatch: MessageTypesDispatch) => {
     dispatch(loadingDBMessageCreate(true))
 
     var result = await messageTypesApi.duplicateMessageInDb(id)
@@ -92,16 +97,18 @@ export const duplicateMessageType = (id) => {
   }
 }
 
-export const updateMessageType = (schema, id) => {
+// @ts-ignore
+export const updateMessageType = (schema, id: string) => {
   if (!check.object(schema)) throw Error(`updateMessageType() requires schema & not ${schema}`)
 
-  return async (dispatch) => {
+  return async (dispatch: MessageTypesDispatch) => {
     dispatch(loadingDBMessageCreate(true))
 
     try {
       const result = await messageTypesApi.updateMessageInDb(schema, id)
 
       if (result.err) {
+        // @ts-ignore
         dispatch(addNotification(result.err))
         dispatch(loadingDBMessageCreate(false))
       }
@@ -113,6 +120,7 @@ export const updateMessageType = (schema, id) => {
 
         dispatch(DBSaveMessageArray(allMessages))
         dispatch(loadingDBMessageCreate(false))
+        // @ts-ignore
         dispatch(setCurrentViewFromURI(MESSAGE_TEMPLATE_ROUTE))
       }
     } catch (e) {
@@ -123,10 +131,10 @@ export const updateMessageType = (schema, id) => {
   }
 }
 
-export const deleteMessageType = (messageId) => {
+export const deleteMessageType = (messageId: string) => {
   if (!check.string(messageId)) throw Error(`deleteMessage() requires a string of id not. ${messageId}`)
 
-  return async (dispatch) => {
+  return async (dispatch: MessageTypesDispatch) => {
     dispatch(loadingDBMessageCreate(true))
 
     var result = await messageTypesApi.deleteMessageFromDb(messageId)
@@ -143,7 +151,7 @@ export const deleteMessageType = (messageId) => {
 }
 
 export const getAllMessageTypes = () => {
-  return async (dispatch) => {
+  return async (dispatch: MessageTypesDispatch) => {
     dispatch(loadingDBMessageGet(true))
 
     const result = await messageTypesApi.getAllMessagesFromDb()

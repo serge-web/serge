@@ -25,7 +25,7 @@ export const handleSetLatestWargameMessage = (payload: MessageChannel, newState:
   // two different handlers, one for each change.
   const res: SetWargameMessage = handleChannelUpdates(payload, newState.channels, newState.chatChannel, newState.rfiMessages, newState.nextMsgReference,
     newState.selectedForce, newState.allChannels, newState.selectedRole, newState.isObserver,
-    newState.allTemplates, newState.allForces)
+    newState.allTemplatesByKey, newState.allForces)
   return res
 }
 
@@ -35,7 +35,7 @@ export const handleSetLatestWargameMessage = (payload: MessageChannel, newState:
 export const handleSetAllMessages = (payload: Array<MessageCustom | MessageInfoType>, newState: PlayerUi): SetWargameMessage => {
   const res: SetWargameMessage = handleAllInitialChannelMessages(payload, newState.currentWargame, newState.selectedForce,
     newState.selectedRole, newState.allChannels, newState.allForces, newState.chatChannel,
-    newState.isObserver, newState.allTemplates)
+    newState.isObserver, newState.allTemplatesByKey)
   return res
 }
 
