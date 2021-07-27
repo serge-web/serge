@@ -9,7 +9,7 @@ import GameChannelsWithTour from '../GameChannelsWithTour'
 import LoaderScreen from '../../Components/LoaderScreen'
 
 import checkPassword from './helpers/checkPassword'
-import {  expiredStorage } from '../../consts'
+import { expiredStorage } from '../../consts'
 import {
   getWargame,
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -33,7 +33,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
     selectedRole,
     wargameTitle
   } = usePlayerUiState()
-
+  
   const dispatch = usePlayerUiDispatch()
 
   useEffect(() => {

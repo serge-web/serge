@@ -40,7 +40,7 @@ export { default as Message,
          MessageChannel,
          ChatMessage
        } from './message.d'
-export { default as Participant } from './participant.d'
+export { default as Participant, ParticipantTemplate } from './participant.d'
 export { default as PerceivedTypes } from './perceived-types.d'
 export { default as PlanMobileAsset } from './plan-mobile-asset'
 export { default as PlannedRoute } from './planned-route.d'
@@ -74,4 +74,7 @@ export { default as RequestForInformation } from './request-for-information.d'
 export * from './player-ui-actions'
 export * from './export-items-actions'
 export * from './export-items'
+export * from './message-types-actions'
+export { default as MessageTypes, TemplateBodysByKey } from './message-types'
 export * from './forms.d'
+export * from './global.d'

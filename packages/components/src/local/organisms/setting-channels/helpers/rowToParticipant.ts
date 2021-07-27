@@ -1,6 +1,6 @@
 import { Participant } from '../types/props'
 import { Item, Option } from '../../../molecules/editable-row'
-import { ForceData, Role } from '@serge/custom-types'
+import { ForceData, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 
 export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextItems: Array<Item>, participant: Participant): Participant => {
   const [force, access, template] = nextItems
@@ -8,9 +8,10 @@ export default (templatesOptions: Array<Option>, forces: Array<ForceData>, nextI
   const roles: Array<Role> = access.active ? access.active.map((key: number) => (
     selectedForce.roles[key]
   )) : []
-  const templates: Array<any> = template.active ? template.active.map((key: number) => (
-    templatesOptions[key].value
-  )) : []
+  const templates: ParticipantTemplate[] = template.active ? template.active.map((key: number) => {
+    const { _id, title } = templatesOptions[key].value as TemplateBody
+    return { _id, title }
+  }) : []
   return {
     ...participant,
     force: selectedForce.name,

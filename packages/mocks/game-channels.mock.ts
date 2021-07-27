@@ -1,4 +1,6 @@
-const GameChannels: any = [
+import { ChannelData } from "@serge/custom-types"
+
+const GameChannels: ChannelData[] = [
   {
     name: "Channel 16",
     participants: [
@@ -27,7 +29,17 @@ const GameChannels: any = [
     name: "Blue RFI",
     participants: [
       { force: "White", forceUniqid: "umpire", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk0d3", templates: [] },
-      { force: "Blue", forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk2o6", templates: ['Chat','RFI'] }],
+      { force: "Blue", forceUniqid: "Blue", icon: "default_img/umpireDefault.png", roles: [], subscriptionId: "k63pk2o6", templates: [
+        {
+          title: 'RFI',
+          _id: 'k16eedkj'
+        },
+        {
+          title: 'Weather',
+          _id: 'k16eedkh'
+        }
+      ] 
+    }],
     uniqid: "channel-BlueRFI"
   }]
 

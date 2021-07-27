@@ -4,6 +4,7 @@ import PlatformTypeData from './platform-type-data'
 import { MessageFeedback, MessageChannel, MessageCustom } from './message'
 import ChannelUI from './channel-ui'
 import MappingConstraints from './mapping-constraints'
+import { TemplateBodysByKey } from './message-types'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -42,7 +43,7 @@ export default interface PlayerUi {
   allChannels: Array<ChannelData>,
   /** set of forces for ths current wargame */
   allForces: Array<ForceData>,
-  allTemplates: Array<any>,
+  allTemplatesByKey: TemplateBodysByKey,
   /** descriptions of platforms available in current wargame */
   allPlatformTypes: Array<PlatformTypeData>,
   showObjective: boolean,
