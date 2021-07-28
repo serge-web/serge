@@ -3,6 +3,8 @@ import { ChannelData, Participant, Role, TemplateBodysByKey } from '@serge/custo
 import { forces } from '@serge/mocks'
 
 const gameControl: Role = forces[0].roles[0]
+const redLogs: Role = forces[2].roles[1]
+
 const allForcesChannel: ChannelData = {
   name: 'Channel 16',
   participants: [
@@ -16,7 +18,7 @@ const allForcesChannel: ChannelData = {
     {
       force: 'Red',
       forceUniqid: 'Red',
-      roles: [{ roleId: 'rkrlw6f5f', name: 'Logs', isGameControl: false, isObserver: false, isInsightViewer: false, password: 'aa' }],
+      roles: [redLogs.roleId],
       subscriptionId: 'k63pjsbv',
       templates: [{
         title: 'RFI',
