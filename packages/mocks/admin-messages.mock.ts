@@ -1,6 +1,9 @@
 import { CUSTOM_MESSAGE } from '@serge/config'
-import { MessageCustom, MessageChannel } from '@serge/custom-types'
+import { MessageCustom, MessageChannel, Role } from '@serge/custom-types'
+import { forces } from './forces.mock'
 
+const whiteGC: Role = forces[0].roles[0]
+const blueCO: Role = forces[1].roles[0]
 const message1: MessageChannel = {
   "messageType": CUSTOM_MESSAGE,
   "details": {
@@ -8,7 +11,7 @@ const message1: MessageChannel = {
     "from": {
       "force": "White",
       "forceColor": "#FCFBEE",
-      "role": "Game Control",
+      "roleId": whiteGC.roleId,
       "iconURL": "default_img/umpireDefault.png"
     },
     "messageType": "Chat",
@@ -28,7 +31,7 @@ const message2: MessageCustom = {
     "from": {
       "force": "Blue",
       "forceColor": "#1989dc",
-      "role": "CO",
+      "roleId": blueCO.roleId,
       "name": "Blue",
       "iconURL": "default_img/umpireDefault.png"
     },

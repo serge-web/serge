@@ -607,6 +607,15 @@ export const forces: ForceData[] = [
         isObserver: false,
         name: 'CO',
         password: 'p3244'
+      }, 
+      {
+        roleId: 'rkrlss55f5e',
+        isGameControl: false,
+        canSubmitPlans: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'Logs',
+        password: 'p3114'
       }
     ],
     umpire: false,

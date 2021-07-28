@@ -1,5 +1,8 @@
 import { SET_ALL_MESSAGES, CUSTOM_MESSAGE } from '@serge/config'
-import { SetWargameMessagesAction } from '@serge/custom-types'
+import { SetWargameMessagesAction, Role } from '@serge/custom-types'
+import { forces } from './forces.mock'
+
+const blueCO: Role = forces[1].roles[0]
 
 const actionSetWargameMessages: SetWargameMessagesAction = {
   type: SET_ALL_MESSAGES,
@@ -13,7 +16,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "role": "CO",
+          "roleId": blueCO.roleId,
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
@@ -34,7 +37,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "role": "CO",
+          "roleId": blueCO.roleId,
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
@@ -55,7 +58,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "role": "CO",
+          "roleId": blueCO.roleId,
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "PG19 Weekly Orders",
@@ -88,7 +91,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "role": "CO",
+          "roleId": blueCO.roleId,
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
@@ -109,7 +112,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "role": "CO",
+          "roleId": blueCO.roleId,
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
@@ -130,7 +133,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "role": "CO",
+          "roleId": blueCO.roleId,
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
