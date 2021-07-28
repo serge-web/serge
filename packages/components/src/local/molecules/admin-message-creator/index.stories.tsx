@@ -28,4 +28,4 @@ const force = {
 // @ts-ignore
 const showMessage = (message: MessageChannel): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
 
-export const Default: React.FC = () => <AdminMessageCreator from={force} channel={'Game Admin'} roleName={'Umpire'} role={'r3453'}  postBack={showMessage} />
+export const Default: React.FC = () => <AdminMessageCreator from={force} channel={'Game Admin'} roleName={'Umpire'} role={'r3453'} postBack={showMessage} />
