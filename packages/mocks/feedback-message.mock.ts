@@ -13,6 +13,7 @@ export const feedbackMessage1: MessageFeedback = {
       "force": "Blue",
       "forceColor": "#3dd0ff",
       "roleId": blueCO.roleId,
+      "roleName": blueCO.name,
       "name": "",
       "iconURL": ''
     },
@@ -34,6 +35,7 @@ export const feedbackMessage2: MessageFeedback = {
       "force": "White",
       "forceColor": "#FCFBEE",
       "roleId": whiteGC.roleId,
+      "roleName": whiteGC.name,
       "name": "Heri Setiawan",
       "iconURL": ''
     },

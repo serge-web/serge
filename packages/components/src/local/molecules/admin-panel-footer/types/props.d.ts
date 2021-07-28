@@ -10,7 +10,7 @@ export default interface Props {
     icon?: string
     iconURL: string
   }
-  selectedRole: string
+  selectedRole: Role['roleId']
   byPassUrl?: string
   onIconClick: React.ReactEventHandler
 }

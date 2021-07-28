@@ -38,6 +38,7 @@ import { platformTypeNameToKey } from '@serge/helpers'
 export const initialState: PlayerUi = {
   selectedForce: undefined,
   selectedRole: '',
+  selectedRoleName: '',
   isObserver: false,
   canSubmitPlans: false,
   isGameControl: false,

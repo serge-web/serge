@@ -44,7 +44,7 @@ export interface MessageDetailsFrom {
   forceColor: string,
   /** role of the individual that wrote message */
   roleId: Role['roleId'],
-  /** role of the individual that wrote message */
+  /** name of the role that send messsage */
   roleName: Role['name'],
   /** URL of icon to display for this force
    * TODO: once all code under TypeScript try making it non-optional,

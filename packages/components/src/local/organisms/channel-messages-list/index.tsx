@@ -42,7 +42,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
                     message={props}
                     onRead={onRead}
                     onChange={onChange}
-                    role={msg.details.from.role}
+                    role={msg.details.from.roleName}
                     isRFIManager={isRFIManager}
                     isUmpire={isUmpire}
                   />
@@ -51,7 +51,8 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
             } else {
               return (
                 <Box mb={2} mr={2} key={key}>
-                  <ChannelMessage isUmpire={isUmpire} forceColor={msg.details.from.forceColor} role={msg.details.from.role} onRead={onRead} onUnread={onUnread} message={props} />
+                  <ChannelMessage isUmpire={isUmpire} forceColor={msg.details.from.forceColor} 
+                    roleName={msg.details.from.roleName} role={msg.details.from.roleId} onRead={onRead} onUnread={onUnread} message={props} />
                 </Box>
               )
             }

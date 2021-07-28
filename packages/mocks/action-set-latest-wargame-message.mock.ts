@@ -15,6 +15,7 @@ const actionSetLatestFeedbackMessage: SetLatestWargameMessageAction = {
         "force": "Blue",
         "forceColor": "#3dd0ff",
         "roleId": blueCO.roleId,
+        "roleName": blueCO.name,
         "iconURL": "http://localhost:8080/default_img/forceDefault.png"
       },
       "messageType": "Chat",

@@ -24,7 +24,8 @@ describe('ChannelMessagesList component: ', () => {
           force: 'Red',
           forceColor: '#F00',
           iconURL: 'default_img/umpireDefault.png',
-          role: 'CO'
+          roleName: 'CO',
+          roleId: 'u345'
         },
         messageType: 'Chat',
         timestamp: '2020-10-13T08:52:04.394Z'

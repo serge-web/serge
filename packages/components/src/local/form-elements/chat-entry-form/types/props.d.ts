@@ -1,4 +1,4 @@
-import { ChatMessage } from '@serge/custom-types'
+import { ChatMessage , Role} from '@serge/custom-types'
 
 export default interface Props {
   from: {
@@ -12,7 +12,8 @@ export default interface Props {
   }
   channel: string
   isUmpire: boolean
-  role: string
+  role: Role['roleId']
+  roleName: Role['name']
   /**
    * The method for posting messages out of the component
    */

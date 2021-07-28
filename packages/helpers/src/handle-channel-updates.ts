@@ -1,7 +1,7 @@
 import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
-  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey
+  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey, Role
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
@@ -106,7 +106,7 @@ const createNewChannel = (channelId: string): ChannelUI => {
   return res
 }
 
-export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRole: string): boolean => (
+export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRole: Role['roleId']): boolean => (
   expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}-${id}`) === 'read'
 )
 
@@ -156,7 +156,7 @@ export const handleAllInitialChannelMessages = (
   payload: Array<MessageInfoType | MessageCustom>,
   currentWargame: string,
   selectedForce: ForceData | undefined,
-  selectedRole: string,
+  selectedRole: Role['roleId'],
   allChannels: ChannelData[],
   allForces: ForceData[],
   chatChannel: PlayerUiChatChannel,
@@ -258,7 +258,7 @@ const handleChannelUpdates = (
   nextMsgReference: number,
   selectedForce: ForceData | undefined,
   allChannels: ChannelData[],
-  selectedRole: string,
+  selectedRole: Role['roleId'],
   isObserver: boolean,
   allTemplatesByKey: TemplateBodysByKey,
   allForces: ForceData[]): SetWargameMessage => {

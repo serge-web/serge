@@ -16,8 +16,12 @@ export default interface Props {
   /**
    * Message sender role
    */
-  role?: string
+  role?: Role['roleId']
   /**
+   * Message sender rolename
+   */
+  roleName?: Role['name']
+   /**
    * Message force color
    */
   forceColor: string

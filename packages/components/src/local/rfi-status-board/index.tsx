@@ -24,7 +24,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
   const data = rfiMessages.map(message => [
     message.message.Reference || message._id,
     channelDict.get(message.details.channel),
-    message.details.from.role,
+    message.details.from.roleName,
     message.details.from.forceColor,
     message.message.Title,
     message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
@@ -40,7 +40,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
   const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
     return [
       ...filters,
-      message.details.from.role
+      message.details.from.roleName
     ]
   }, [])
   const dataTableProps = {

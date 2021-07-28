@@ -20,6 +20,7 @@ export interface PlayerUiChatChannel {
 export default interface PlayerUi {
   selectedForce?: ForceData,
   selectedRole: Role['roleId'],
+  selectedRoleName: Role['name'],
   isObserver: boolean,
   canSubmitPlans: boolean,
   isGameControl: boolean,

@@ -15,7 +15,7 @@ describe('ChannelMessage component:', () => {
           isUmpire={false}
           message={GameMessagesMockRFI[0]}
           forceColor={GameMessagesMockRFI[0].details.from.forceColor}
-          role={GameMessagesMockRFI[0].details.from.role}
+          role={GameMessagesMockRFI[0].details.from.roleId}
         />
       )
       .toJSON()

@@ -16,6 +16,7 @@ const gameMessages: MessageChannel[] = [
         force: "Red",
         forceColor: "#F00",
         iconURL: "default_img/umpireDefault.png",
+        roleName: redCO.name,
         roleId: redCO.roleId
       },
       messageType: "Chat",
@@ -36,6 +37,7 @@ const gameMessages: MessageChannel[] = [
         force: "Blue",
         forceColor: "#00F",
         iconURL: "default_img/umpireDefault.png",
+        roleName: blueCO.name,
         roleId: blueCO.roleId
       },
       messageType: "Chat",
@@ -56,6 +58,7 @@ const gameMessages: MessageChannel[] = [
             force: "White",
             forceColor: "#FCFBEE",
             iconURL: "default_img/umpireDefault.png",
+            roleName: whiteGC.name,
             roleId: whiteGC.roleId
         },
         messageType: "Chat",

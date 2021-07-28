@@ -13,6 +13,7 @@ const message1: ChatMessage = {
       "force": "White",
       "forceColor": "#FCFBEE",
       "roleId": whiteGC.roleId,
+      "roleName": whiteGC.name,
       "iconURL": "default_img/umpireDefault.png",
     },
     "messageType": "Chat",
@@ -33,6 +34,7 @@ const message2: ChatMessage = {
       "force": "Blue",
       "forceColor": "#1989dc",
       "roleId": blueCO.roleId,
+      "roleName": blueCO.name,
       "name": "Blue",
       "iconURL": "default_img/umpireDefault.png"
     },

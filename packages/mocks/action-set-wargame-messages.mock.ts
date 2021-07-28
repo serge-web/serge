@@ -16,6 +16,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
+          "roleName": blueCO.name,
           "roleId": blueCO.roleId,
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
@@ -37,6 +38,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
+          "roleName": blueCO.name,
           "roleId": blueCO.roleId,
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
@@ -59,6 +61,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "force": "Blue",
           "forceColor": "#3dd0ff",
           "roleId": blueCO.roleId,
+          "roleName": blueCO.name,
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "PG19 Weekly Orders",
@@ -92,6 +95,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "force": "Blue",
           "forceColor": "#3dd0ff",
           "roleId": blueCO.roleId,
+          "roleName": blueCO.name,
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
@@ -113,6 +117,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "force": "Blue",
           "forceColor": "#3dd0ff",
           "roleId": blueCO.roleId,
+          "roleName": blueCO.name,
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
@@ -134,6 +139,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           "force": "Blue",
           "forceColor": "#3dd0ff",
           "roleId": blueCO.roleId,
+          "roleName": blueCO.name,
           "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
