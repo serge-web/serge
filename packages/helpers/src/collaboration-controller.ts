@@ -1,6 +1,6 @@
-import { ChannelData, Role, ParticipantTemplate, Participant, ForceData, ForceRole } from '@serge/custom-types'
+import { ChannelData, Role, ParticipantTemplate, Participant, ForceData, ForceRole, MessageCustom } from '@serge/custom-types'
 import _ from 'lodash'
-import { CollaborativeMessageStates } from '@serge/config'
+import { CollaborativeMessageStates, CollaborativeMessageCommands } from '@serge/config'
 
 /**
  * support utility, supporting collaborative editing
@@ -11,14 +11,6 @@ class CollaborationController {
   role: Role
   myParticipations: Participant[]
   forces: ForceData[]
-
-  /** command verbs */
-  static readonly SendForReview: string = 'Send for review'
-  static readonly TakeOwnership: string = 'Take ownership'
-  static readonly ReOpen: string = 'Re-open'
-  static readonly Close: string = 'Close'
-  static readonly Release: string = 'Release'
-  static readonly RequestChanges: string = 'Request changes'
 
   /**
    *
@@ -128,35 +120,109 @@ class CollaborationController {
     return _.uniqWith(roles, _.isEqual)
   }
 
+  /** return the current owner */
+  getCurrentOwner(message: MessageCustom): undefined | ForceRole {
+    if (message.details.collaboration) {
+      const owner = message.details.collaboration.owner
+      if (owner) {
+        const hisForce: ForceData | undefined = this.forces.find((force: ForceData) => {
+          force.roles.find((role: Role) => owner === role.name)
+        })
+        if (hisForce) {
+          const hisRole: Role | undefined = hisForce.roles.find((role: Role) => owner === role.name)
+          if (hisRole) {
+            const res: ForceRole = {
+              forceId: hisForce.uniqid,
+              forceName: hisForce.name,
+              roleId: this.role.name,
+              roleName: this.role.name
+            }
+            return res
+          }
+        }
+      }
+    }
+    return undefined
+  }
+
+  /** modify the message according to the command */
+  applyCommandTo (message: MessageCustom, command: CollaborativeMessageCommands, assignedTo?: ForceRole): MessageCustom {
+    // copy the message
+    const res = _.cloneDeep(message)
+
+    if (res.details.collaboration) {
+      switch (command) {
+        case CollaborativeMessageCommands.SendForReview: {
+          res.details.collaboration.status = CollaborativeMessageStates.PendingReview
+          res.details.collaboration.owner = undefined
+          break
+        }
+        case CollaborativeMessageCommands.TakeOwnership: {
+          res.details.collaboration.status = CollaborativeMessageStates.InProgress
+          if (assignedTo) {
+            res.details.collaboration.owner = assignedTo.roleId
+          } else {
+            throw new Error('Require assigned to field when taking ownership')
+          }
+          break
+        }
+        case CollaborativeMessageCommands.ReOpen: {
+          res.details.collaboration.status = this.getInitialState()
+          res.details.collaboration.owner = undefined
+          break
+        }
+        case CollaborativeMessageCommands.Close: {
+          res.details.collaboration.status = CollaborativeMessageStates.Rejected
+          res.details.collaboration.owner = undefined
+          break
+        }
+        case CollaborativeMessageCommands.Release: {
+          res.details.collaboration.status = CollaborativeMessageStates.Released
+          res.details.collaboration.owner = undefined
+          break
+        }
+        case CollaborativeMessageCommands.RequestChanges: {
+          res.details.collaboration.status = CollaborativeMessageStates.Unallocated
+          res.details.collaboration.owner = undefined
+          break
+        }
+      }
+    } else {
+      throw new Error('Message missing collaboration details')
+    }
+
+    return res
+  } 
+
   /** which commands are available for a message in this state */
-  commandsFor (state: CollaborativeMessageStates, owner: string): Array<string> {
+  commandsFor (state: CollaborativeMessageStates, owner: string): Array<CollaborativeMessageCommands | string> {
     switch (state) {
       case CollaborativeMessageStates.Unallocated: {
-        return this.canEdit() ? [CollaborationController.TakeOwnership] : []
+        return this.canEdit() ? [CollaborativeMessageCommands.TakeOwnership] : []
       }
       case CollaborativeMessageStates.InProgress: {
         // do I own it?
         // todo: switch to userid
-        return owner === this.role.name ? [CollaborationController.SendForReview] : []
+        return owner === this.role.name ? [CollaborativeMessageCommands.SendForReview] : []
       }
       case CollaborativeMessageStates.PendingReview: {
-        const coreVerbs: Array<string> = [CollaborationController.Close, CollaborationController.Release]
+        const coreVerbs: Array<string> = [CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release]
         if (this.canRelease()) {
           const opts = this.channel.collabOptions
           if (opts && opts.returnVerbs && opts.returnVerbs.length) {
             return opts.returnVerbs.concat(coreVerbs)
           } else {
-            return [CollaborationController.RequestChanges].concat(coreVerbs)
+            return [CollaborativeMessageCommands.RequestChanges].concat(coreVerbs)
           }
         } else {
           return []
         }
       }
       case CollaborativeMessageStates.Released: {
-        return this.canRelease() ? [CollaborationController.ReOpen] : []
+        return this.canRelease() ? [CollaborativeMessageCommands.ReOpen] : []
       }
       case CollaborativeMessageStates.Rejected: {
-        return this.canRelease() ? [CollaborationController.ReOpen] : []
+        return this.canRelease() ? [CollaborativeMessageCommands.ReOpen] : []
       }
       default: {
         return []

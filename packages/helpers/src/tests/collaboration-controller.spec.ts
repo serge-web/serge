@@ -2,7 +2,7 @@
 import { GameChannels, smallForces } from '@serge/mocks'
 import CollaborationController from '../collaboration-controller'
 import { ChannelData, Role } from '@serge/custom-types'
-import { CollaborativeMessageStates } from '../../../config/build'
+import { CollaborativeMessageStates, CollaborativeMessageCommands } from '@serge/config'
 
 const rfi: ChannelData = GameChannels[3]
 const coa: ChannelData = GameChannels[4]
@@ -157,21 +157,21 @@ it('shows white as not seeing in COA', () => {
 
 it('shows blue CO COA commands', () => {
   const controller: CollaborationController = new CollaborationController(smallForces, coa, blueForce, blueCO)
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, blueCO.name)).toEqual([CollaborationController.SendForReview])
+  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, blueCO.name)).toEqual([CollaborativeMessageCommands.SendForReview])
   expect(controller.commandsFor(CollaborativeMessageStates.InProgress, blueOther.name)).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborationController.TakeOwnership])
+  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborativeMessageCommands.TakeOwnership])
   // check additional verbs present
   expect(coa.collabOptions?.returnVerbs).toEqual(['Endorse', 'Request Changes'])
-  expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual(['Endorse', 'Request Changes', CollaborationController.Close, CollaborationController.Release])
-  expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([CollaborationController.ReOpen])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([CollaborationController.ReOpen])
+  expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual(['Endorse', 'Request Changes', CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release])
+  expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([CollaborativeMessageCommands.ReOpen])
+  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([CollaborativeMessageCommands.ReOpen])
 })
 
 it('shows blue other COA commands', () => {
   const controller: CollaborationController = new CollaborationController(smallForces, coa, blueForce, blueOther)
   expect(controller.commandsFor(CollaborativeMessageStates.InProgress, blueCO.name)).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, blueOther.name)).toEqual([CollaborationController.SendForReview])
-  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborationController.TakeOwnership])
+  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, blueOther.name)).toEqual([CollaborativeMessageCommands.SendForReview])
+  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborativeMessageCommands.TakeOwnership])
   expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([])
   expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([])
   expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([])
@@ -199,9 +199,9 @@ it('shows white CO COA commands', () => {
 
 it('shows white CO RFI commands', () => {
   const controller: CollaborationController = new CollaborationController(smallForces, rfi, whiteForce, whiteGC)
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, whiteGC.name)).toEqual([CollaborationController.SendForReview])
+  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, whiteGC.name)).toEqual([CollaborativeMessageCommands.SendForReview])
   expect(controller.commandsFor(CollaborativeMessageStates.InProgress, whiteRFI.name)).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborationController.TakeOwnership])
+  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborativeMessageCommands.TakeOwnership])
   expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([])
   expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([])
   expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([])
@@ -210,12 +210,12 @@ it('shows white CO RFI commands', () => {
 it('shows white RFI Mgr RFI commands', () => {
   const controller: CollaborationController = new CollaborationController(smallForces, rfi, whiteForce, whiteRFI)
   expect(controller.commandsFor(CollaborativeMessageStates.InProgress, whiteGC.name)).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, whiteRFI.name)).toEqual([CollaborationController.SendForReview])
-  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborationController.TakeOwnership])
+  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, whiteRFI.name)).toEqual([CollaborativeMessageCommands.SendForReview])
+  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborativeMessageCommands.TakeOwnership])
   expect(rfi.collabOptions?.returnVerbs).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([CollaborationController.RequestChanges, CollaborationController.Close, CollaborationController.Release])
-  expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([CollaborationController.ReOpen])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([CollaborationController.ReOpen])
+  expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([CollaborativeMessageCommands.RequestChanges, CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release])
+  expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([CollaborativeMessageCommands.ReOpen])
+  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([CollaborativeMessageCommands.ReOpen])
 })
 
 // //////////////////
@@ -252,4 +252,11 @@ it('shows rfi initial state', () => {
 it('shows COA initial state', () => {
   const controller: CollaborationController = new CollaborationController(smallForces, coa, whiteForce, whiteRFI)
   expect(controller.getInitialState()).toEqual(CollaborativeMessageStates.PendingReview)
+})
+
+// //////////////////
+// getCurrentOwner
+// //////////////////
+it('shows COA initial state', () => {
+  const controller: CollaborationController = new CollaborationController(smallForces, coa, whiteForce, whiteRFI)
 })
