@@ -110,6 +110,10 @@ export interface CollaborationDetails {
     */
    owner?: Role['name']
    /**
+    * Current message owner
+    */
+   ownerId?: string
+    /**
     * response to message, only used in RFIs
     */
    response?: string
