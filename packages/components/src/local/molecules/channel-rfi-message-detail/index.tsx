@@ -66,7 +66,7 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
   }
 
   const formDisabled = !formEditable(message, role, isUmpire, isRFIManager)
-  const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner || 'Not assigned')
+  const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.ownerName || 'Not assigned')
   return (
     <div className={styles.main}>
       {collaboration && isUmpire && <div className={styles.assigned}>

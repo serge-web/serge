@@ -51,7 +51,8 @@ const Template: Story<Props> = (args) => {
     userId={userId}
     chatChannel={ChatMessagesMock}
     selectedForce={selectedForce}
-    selectedRole="Game Control" />
+    selectedRoleName="Game Control"
+    selectedRole="u235" />
 }
 
 export const Demonstration = Template

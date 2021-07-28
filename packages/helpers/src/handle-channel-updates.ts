@@ -1,12 +1,13 @@
 import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
-  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey
+  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey, Role
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
 import uniqId from 'uniqid'
 import mostRecentOnly from './most-recent-only'
+import getRoleIdFromName from './get-role-id'
 
 /** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom, selectedForceName?: string) => {
@@ -106,7 +107,7 @@ const createNewChannel = (channelId: string): ChannelUI => {
   return res
 }
 
-export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRole: string): boolean => (
+export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRole: Role['roleId']): boolean => (
   expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}-${id}`) === 'read'
 )
 
@@ -156,7 +157,7 @@ export const handleAllInitialChannelMessages = (
   payload: Array<MessageInfoType | MessageCustom>,
   currentWargame: string,
   selectedForce: ForceData | undefined,
-  selectedRole: string,
+  selectedRole: Role['roleId'],
   allChannels: ChannelData[],
   allForces: ForceData[],
   chatChannel: PlayerUiChatChannel,
@@ -233,6 +234,24 @@ export const handleAllInitialChannelMessages = (
   const rfiMessages = messagesFiltered.filter((message: MessageChannel) => {
     if (message.messageType === CUSTOM_MESSAGE) {
       const custom = message as MessageCustom
+
+      // TODO: retire this support for legacy code in Autumn 2021
+      // see if this has a legacy role
+      const from: any = custom.details.from
+      if (from.role) {
+        // ok, it's now called `roleName`
+        from.roleName = from.role
+        const roleId = getRoleIdFromName(allForces, custom.details.from.force, from.roleName)
+        from.roleId = roleId
+      }
+
+      // see if this is a legacy owner
+      const collab: any = custom.details.collaboration
+      if (collab && collab.owner && !collab.ownerName) {
+        from.ownerName = collab.owner
+        from.owner = undefined
+      }
+
       return custom.details.messageType === 'RFI'
     }
     return false
@@ -258,7 +277,7 @@ const handleChannelUpdates = (
   nextMsgReference: number,
   selectedForce: ForceData | undefined,
   allChannels: ChannelData[],
-  selectedRole: string,
+  selectedRole: Role['roleId'],
   isObserver: boolean,
   allTemplatesByKey: TemplateBodysByKey,
   allForces: ForceData[]): SetWargameMessage => {

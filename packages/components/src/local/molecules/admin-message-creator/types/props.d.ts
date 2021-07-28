@@ -2,7 +2,7 @@ import { MessageChannel } from '@serge/custom-types'
 
 export default interface Props {
   from: {
-    name: string
+    name: Role['roleId']
     color: string
     /**
     * @deprecated use iconURL instead
@@ -11,7 +11,8 @@ export default interface Props {
     iconURL: string
   }
   channel: string
-  role: string
+  role: Role['roleId']
+  roleName: Role['name']
   /**
    * The method for posting messages out of the component
    */

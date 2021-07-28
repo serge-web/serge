@@ -1,4 +1,4 @@
-import { ChannelData, Participant, TemplateBody, TemplateBodysByKey } from '@serge/custom-types'
+import { ChannelData, Participant, Role, TemplateBody, TemplateBodysByKey } from '@serge/custom-types'
 import getTemplateById, { getTemplateByIdNoUndefined } from './getTemplateById'
 import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } from './participant-filters'
 
@@ -24,7 +24,7 @@ export interface ParticipantStates {
 /** find out if the role is active in the supplied channel
  * Always returns a structure, use isParticipant to determine if role is in channel (registered or as observer)
 */
-export const checkParticipantStates = (channel: ChannelData, selectedForce: string | undefined, selectedRole: string, isObserver: boolean): CheckParticipantStates => {
+export const checkParticipantStates = (channel: ChannelData, selectedForce: string | undefined, selectedRole: Role['roleId'], isObserver: boolean): CheckParticipantStates => {
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   const participatingForce: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceFilter(p.forceUniqid, selectedForce))
   // not a member of this channel, return false answer
@@ -49,7 +49,7 @@ export const checkParticipantStates = (channel: ChannelData, selectedForce: stri
 /** find out how the user can participate in this channel */
 export const getParticipantStates = (
   channel: ChannelData, forceId: string | undefined,
-  role: string, isObserver: boolean,
+  role: Role['roleId'], isObserver: boolean,
   allTemplatesByKey: TemplateBodysByKey,
   // TODO: move it to reducer, for future default Message can be changed from admin
   // k16eedkl - Chat template id

@@ -5,11 +5,12 @@ interface GetRoleParamsForPlayerUI {
   isObserver: boolean,
   isRFIManager: boolean
   isInsightViewer: boolean,
-  selectedRole: string
+  selectedRole: Role['roleId']
 }
 
 const getRoleParamsForPlayerUI = (role: Role, newState: PlayerUi): void => {
   newState.selectedRole = role.roleId
+  newState.selectedRoleName = role.name
   newState.isGameControl = role.isGameControl
   newState.isObserver = role.isObserver
   newState.isInsightViewer = role.isInsightViewer
@@ -18,7 +19,7 @@ const getRoleParamsForPlayerUI = (role: Role, newState: PlayerUi): void => {
 
 export const getRoleParamsByForceAndRole = (
   selectedForce: ForceData | undefined, 
-  selectedRole: string | undefined,
+  selectedRole: Role['roleId'] | undefined,
   newState: PlayerUi
 ): void => {
   if (typeof selectedRole !== 'undefined' && typeof selectedForce !== 'undefined') {

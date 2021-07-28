@@ -35,14 +35,15 @@ const force = {
 const showMessage = (message: ChatMessage): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
 
 const Template: Story<ChatPropTypes> = (args) => {
-  const { from, role, isUmpire, channel } = args
-  return <ChatEntryForm from={from} isUmpire={isUmpire} channel={channel} role={role} postBack={showMessage} />
+  const { from, role, roleName, isUmpire, channel } = args
+  return <ChatEntryForm from={from} isUmpire={isUmpire} channel={channel} roleName={roleName} role={role} postBack={showMessage} />
 }
 
 export const Default = Template
 Default.args = {
   from: force,
-  role: 'Umpire',
+  role: 'Um2342',
+  roleName: 'Umpire',
   isUmpire: false,
   channel: 'Game Admin'
 }
