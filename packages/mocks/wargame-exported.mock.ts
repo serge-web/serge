@@ -170,7 +170,7 @@ const game: Wargame = {
           overview: 'Umpire force.',
           roles: [
             {
-              roleId: 'rkrlw6f5e',
+              roleId: 'rkree6f5e',
               isGameControl: true,
               isInsightViewer: true,
               isRFIManager: true,
@@ -493,7 +493,7 @@ const game: Wargame = {
           overview: 'Blue force.',
           roles: [
             {
-              roleId: 'rkrlw6f5e',
+              roleId: 'rkrff6f5e',
               isGameControl: false,
               canSubmitPlans: true,
               isInsightViewer: false,
@@ -502,7 +502,7 @@ const game: Wargame = {
               password: 'p5543'
             },
             {
-              roleId: 'rkrlw6f5g',
+              roleId: 'rkrlwgg5g',
               isGameControl: false,
               canSubmitPlans: false,
               isInsightViewer: false,
@@ -760,7 +760,7 @@ const game: Wargame = {
           overview: 'Red force.',
           roles: [
             {
-              roleId: 'rkrlw6f5e',
+              roleId: 'rkeew6f5e',
               isGameControl: false,
               canSubmitPlans: true,
               isInsightViewer: false,
@@ -1414,7 +1414,7 @@ const game: Wargame = {
           overview: 'Green Shipping',
           roles: [
             {
-              roleId: 'rkrlw6f5e',
+              roleId: 'rkrlwff5e',
               isGameControl: false,
               canSubmitPlans: true,
               isInsightViewer: false,
