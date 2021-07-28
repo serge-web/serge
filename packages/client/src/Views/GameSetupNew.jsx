@@ -275,7 +275,7 @@ const AdminGameSetup = () => {
       dispatch(setSelectedChannel(channels.channels[0]))
     }
   }, [currentTab])
-  
+
   return (
     <GameSetup
       activeTab={currentTab || tabs[0]}

@@ -262,6 +262,14 @@ export const savePlatformTypes = (dbName, data) => {
   }
 }
 
+export const updateForces = (dbName, newData) => {
+  return async (dispatch) => {
+    await wargamesApi.saveForces(dbName, newData)
+    const games = await wargamesApi.getAllWargames()
+    dispatch(saveAllWargameNames(games))
+  }
+}
+
 export const saveForce = (dbName, newName, newData, oldName) => {
   return async (dispatch, state) => {
     const oldForceData = state().wargame.data.forces.selectedForce
@@ -274,7 +282,6 @@ export const saveForce = (dbName, newName, newData, oldName) => {
     dispatch(setCurrentWargame(wargame))
     dispatch(setTabSaved())
     dispatch(setSelectedForce({ name: newName, uniqid: newData.uniqid, iconURL: newData.iconURL }))
-
     dispatch(addNotification('Force saved.', 'success'))
   }
 }

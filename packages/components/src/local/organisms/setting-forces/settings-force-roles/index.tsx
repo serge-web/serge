@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-
+import uniqid from 'uniqid'
 /* Import proptypes */
 import { Role } from '../types/props'
 import PropTypes from './types/props'
@@ -98,6 +98,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
 
   const handleCreateRole = (): void => {
     const roles: Array<Role> = [...data.roles, {
+      roleId: uniqid.time('r'),
       name: 'New Role',
       canSubmitPlans: false,
       password: 'p' + Math.random().toString(36).substring(8),
