@@ -1,4 +1,4 @@
-import { ChannelData, Role, ParticipantTemplate, Participant, ForceData } from '@serge/custom-types'
+import { ChannelData, Role, ParticipantTemplate, Participant, ForceData, ForceRole } from '@serge/custom-types'
 import _ from 'lodash'
 import { CollaborativeMessageStates } from '@serge/config'
 
@@ -11,6 +11,14 @@ class CollaborationController {
   role: Role
   myParticipations: Participant[]
   forces: ForceData[]
+
+  /** command verbs */
+  static readonly SendForReview: string = 'Send for review'
+  static readonly TakeOwnership: string = 'Take ownership'
+  static readonly ReOpen: string = 'Re-open'
+  static readonly Close: string = 'Close'
+  static readonly Release: string = 'Release'
+  static readonly RequestChanges: string = 'Request changes'
 
   /**
    *
@@ -74,47 +82,86 @@ class CollaborationController {
     return !!this.myParticipations.find((part: Participant) => part.canCollaborate)
   }
 
+  getInitialState (): CollaborativeMessageStates {
+    if (this.channel.collabOptions) {
+      return this.channel.collabOptions.startWithReview ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated
+    } else {
+      throw new Error('Collaboration controller - missing collab options')
+    }
+  }
+
   /** list of roles ids that a message in this channel could be assigned to */
-  messageCanBeAssignedTo (): Array<string> {
-    // TODO:
-    return []
+  messageCanBeAssignedTo (): Array<ForceRole> {
+    const roles: Array<ForceRole> = []
+    const collaborators = this.channel.participants.filter((part: Participant) => part.canCollaborate)
+    collaborators.forEach((part: Participant) => {
+      if (part.roles && part.roles.length) {
+        part.roles.forEach((role: Role) => {
+          const roleId: ForceRole = {
+            forceId: part.forceUniqid,
+            forceName: part.force,
+            roleId: role.name,
+            roleName: role.name
+          }
+          roles.push(roleId)
+        })
+      } else {
+        // need to add all roles in this force
+        const force = this.forces.find((force: ForceData) => force.uniqid === part.forceUniqid)
+        if (force) {
+          force.roles.forEach((role: Role) => {
+            const roleId: ForceRole = {
+              forceId: part.forceUniqid,
+              forceName: part.force,
+              roleId: role.name,
+              roleName: role.name
+            }
+            roles.push(roleId)
+          })
+        } else {
+          console.error('failed to find force for ', part.forceUniqid)
+        }
+      }
+    })
+
+    // remove duplicates
+    return _.uniqWith(roles, _.isEqual)
   }
 
   /** which commands are available for a message in this state */
-  commandsFor (state: CollaborativeMessageStates): Array<string> {
+  commandsFor (state: CollaborativeMessageStates, owner: string): Array<string> {
     switch (state) {
       case CollaborativeMessageStates.Unallocated: {
-        if (this.canEdit()) {
-          return ['Take ownership']
-        }
-        break
+        return this.canEdit() ? [CollaborationController.TakeOwnership] : []
       }
       case CollaborativeMessageStates.InProgress: {
-        // TODO:
-        break
+        // do I own it?
+        // todo: switch to userid
+        return owner === this.role.name ? [CollaborationController.SendForReview] : []
       }
       case CollaborativeMessageStates.PendingReview: {
-        const coreVerbs: Array<string> = ['Close', 'Release']
-        if (this.canEdit()) {
+        const coreVerbs: Array<string> = [CollaborationController.Close, CollaborationController.Release]
+        if (this.canRelease()) {
           const opts = this.channel.collabOptions
           if (opts && opts.returnVerbs && opts.returnVerbs.length) {
             return opts.returnVerbs.concat(coreVerbs)
           } else {
-            return ['Request changes'].concat(coreVerbs)
+            return [CollaborationController.RequestChanges].concat(coreVerbs)
           }
+        } else {
+          return []
         }
-        break
       }
       case CollaborativeMessageStates.Released: {
-        // TODO:
-        break
+        return this.canRelease() ? [CollaborationController.ReOpen] : []
       }
       case CollaborativeMessageStates.Rejected: {
-        // TODO:
-        break
+        return this.canRelease() ? [CollaborationController.ReOpen] : []
+      }
+      default: {
+        return []
       }
     }
-    return []
   }
 }
 
