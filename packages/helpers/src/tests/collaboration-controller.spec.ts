@@ -1,5 +1,5 @@
 /* global it expect */
-import { GameChannels, smallForces } from '@serge/mocks'
+import { GameChannels, smallForces, GameMessagesMockCollab } from '@serge/mocks'
 import CollaborationController from '../collaboration-controller'
 import { ChannelData, Role } from '@serge/custom-types'
 import { CollaborativeMessageStates, CollaborativeMessageCommands } from '@serge/config'
@@ -213,7 +213,7 @@ it('shows white RFI Mgr RFI commands', () => {
   expect(controller.commandsFor(CollaborativeMessageStates.InProgress, whiteRFI.name)).toEqual([CollaborativeMessageCommands.SendForReview])
   expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborativeMessageCommands.TakeOwnership])
   expect(rfi.collabOptions?.returnVerbs).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([CollaborativeMessageCommands.RequestChanges, CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release])
+  expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release, CollaborativeMessageCommands.RequestChanges])
   expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([CollaborativeMessageCommands.ReOpen])
   expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([CollaborativeMessageCommands.ReOpen])
 })
@@ -257,6 +257,7 @@ it('shows COA initial state', () => {
 // //////////////////
 // getCurrentOwner
 // //////////////////
-it('shows COA initial state', () => {
+it('get current owner', () => {
   const controller: CollaborationController = new CollaborationController(smallForces, coa, whiteForce, whiteRFI)
+  expect(controller.getCurrentOwner(GameMessagesMockCollab[6])).toEqual(undefined)
 })

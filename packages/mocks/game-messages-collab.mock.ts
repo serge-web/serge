@@ -161,7 +161,7 @@ const gameMessagesWithCollab: MessageCustom[] = [
       timestamp: "2020-10-13T08:53:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
-        owner: 'Comms'
+        owner: 'Logs'
       }
     },
     message: {

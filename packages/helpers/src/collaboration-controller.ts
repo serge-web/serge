@@ -122,6 +122,7 @@ class CollaborationController {
 
   /** return the current owner */
   getCurrentOwner(message: MessageCustom): undefined | ForceRole {
+    console.log(message)
     if (message.details.collaboration) {
       const owner = message.details.collaboration.owner
       if (owner) {
@@ -212,7 +213,7 @@ class CollaborationController {
           if (opts && opts.returnVerbs && opts.returnVerbs.length) {
             return opts.returnVerbs.concat(coreVerbs)
           } else {
-            return [CollaborativeMessageCommands.RequestChanges].concat(coreVerbs)
+            return coreVerbs.concat([CollaborativeMessageCommands.RequestChanges])
           }
         } else {
           return []
