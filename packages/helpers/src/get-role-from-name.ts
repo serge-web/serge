@@ -1,15 +1,15 @@
 import { ForceData, Role } from '@serge/custom-types'
 
 /** from force and name, get the role id */
-const getRoleIdFromName = (forces: ForceData[], forceId: string, name: string): string => {
+const getRoleFromName = (forces: ForceData[], forceId: string, name: string): Role | undefined => {
   const force = forces.find((force: ForceData) => force.uniqid === forceId)
   if (force) {
     const res = force.roles.find((role: Role) => role.name === name)
     if (res !== undefined) {
-      return res.roleId
+      return res
     }
   }
-  return ''
+  return undefined
 }
 
-export default getRoleIdFromName
+export default getRoleFromName

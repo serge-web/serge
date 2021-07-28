@@ -20,6 +20,7 @@ export const forces: ForceData[] = [
         password: 'p2311'
       }, 
       {
+        roleId: 'rkasdbw6f5e',
         isGameControl: true,
         isInsightViewer: true,
         isRFIManager: true,
@@ -157,6 +158,7 @@ export const forces: ForceData[] = [
         password: 'p5543'
       },
       {
+        roleId: 'rkrlwetf5e',
         isGameControl: false,
         canSubmitPlans: false,
         isInsightViewer: false,

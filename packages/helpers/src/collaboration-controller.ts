@@ -1,6 +1,7 @@
 import { ChannelData, Role, ParticipantTemplate, Participant, ForceData, ForceRole, MessageCustom } from '@serge/custom-types'
 import _ from 'lodash'
 import { CollaborativeMessageStates, CollaborativeMessageCommands } from '@serge/config'
+import getRoleFromName from './get-role-from-name'
 
 /**
  * support utility, supporting collaborative editing
@@ -32,7 +33,7 @@ class CollaborationController {
         if (part.roles && part.roles.length) {
           // Yes: check if I'm one of those roles
           // TODO: switch to using roleId
-          return part.roles.find((role: Role) => role.name === this.role.name)
+          return part.roles.find((role: string) => role === this.role.roleId)
         } else {
           // No: use all templates
           return true
@@ -88,14 +89,32 @@ class CollaborationController {
     const collaborators = this.channel.participants.filter((part: Participant) => part.canCollaborate)
     collaborators.forEach((part: Participant) => {
       if (part.roles && part.roles.length) {
-        part.roles.forEach((role: Role) => {
-          const roleId: ForceRole = {
-            forceId: part.forceUniqid,
-            forceName: part.force,
-            roleId: role.name,
-            roleName: role.name
+        part.roles.forEach((roleId: any) => {
+          // is this a full role, or a role id?
+          // TODO drop support for Role being in Participants, we should just have roleId
+          if (typeof roleId === 'string') {
+            const role = getRoleFromName(this.forces, part.forceUniqid, roleId)
+            if (role === undefined) {
+              throw new Error('Failed to find role for ' + part.forceUniqid + ', ' + roleId)
+            }
+            const roleVal: ForceRole = {
+              forceId: part.forceUniqid,
+              forceName: part.force,
+              roleId: role.name,
+              roleName: role.name
+            }
+            roles.push(roleVal)
+          } else {
+            const role: Role = roleId as any as Role
+            const roleVal: ForceRole = {
+              forceId: part.forceUniqid,
+              forceName: part.force,
+              roleId: role.name,
+              roleName: role.name
+            }
+            roles.push(roleVal)
           }
-          roles.push(roleId)
+          // get this role details
         })
       } else {
         // need to add all roles in this force

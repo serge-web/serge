@@ -18,6 +18,16 @@ export const forces: ForceData[] = [
         isObserver: true,
         name: 'Game Control',
         password: 'p2311'
+      }, 
+      {
+        roleId: 'rkrlasdd5f',
+        isGameControl: true,
+        isInsightViewer: true,
+        isRFIManager: true,
+        canSubmitPlans: true,
+        isObserver: true,
+        name: 'RFI Manager',
+        password: 'p23asd'
       }
     ],
     umpire: true,

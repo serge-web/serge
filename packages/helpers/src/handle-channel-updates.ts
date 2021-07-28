@@ -7,7 +7,7 @@ import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
 import uniqId from 'uniqid'
 import mostRecentOnly from './most-recent-only'
-import getRoleIdFromName from './get-role-id'
+import getRoleFromName from './get-role-from-name'
 
 /** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom, selectedForceName?: string) => {
@@ -241,8 +241,10 @@ export const handleAllInitialChannelMessages = (
       if (from.role) {
         // ok, it's now called `roleName`
         from.roleName = from.role
-        const roleId = getRoleIdFromName(allForces, custom.details.from.force, from.roleName)
-        from.roleId = roleId
+        const role = getRoleFromName(allForces, custom.details.from.force, from.roleName)
+        if (role) {
+          from.roleId = role.roleId
+        }
       }
 
       // see if this is a legacy owner
