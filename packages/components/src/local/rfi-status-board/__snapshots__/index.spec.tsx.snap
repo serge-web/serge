@@ -1446,7 +1446,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-11 makeStyles-label-70"
             >
-              Comms
+              rkrlw6f5emms
             </span>
           </div>
         </td>
@@ -1635,7 +1635,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-11 makeStyles-label-78"
             >
-              Logistics
+              rkrlw445e
             </span>
           </div>
         </td>
@@ -1693,7 +1693,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                           <span
                             className="MuiChip-label makeStyles-label-44 makeStyles-label-80"
                           >
-                            Logistics
+                            CO
                           </span>
                         </div>
                       </span>
@@ -1824,7 +1824,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-11 makeStyles-label-86"
             >
-              Logistics
+              rkrlw6f5emms
             </span>
           </div>
         </td>
@@ -1882,7 +1882,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                           <span
                             className="MuiChip-label makeStyles-label-44 makeStyles-label-88"
                           >
-                            Logistics
+                            Comms
                           </span>
                         </div>
                       </span>
@@ -2260,7 +2260,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
             <span
               className="MuiChip-label makeStyles-label-11 makeStyles-label-106"
             >
-              Game Control
+              rkrlw6f5f
             </span>
           </div>
         </td>
@@ -2339,7 +2339,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                       />
                     </div>
                     <div
-                      className="main theme-dark"
+                      className="main theme-dark disabled"
                     >
                       <label
                         htmlFor="answer_id_4a"
@@ -2347,14 +2347,14 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                         Answer
                       </label>
                       <textarea
-                        disabled={false}
+                        disabled={true}
                         id="answer_id_4a"
                         onChange={[Function]}
                         value=""
                       />
                     </div>
                     <div
-                      className="main theme-dark"
+                      className="main theme-dark disabled"
                     >
                       <label
                         htmlFor="private_message_id_4a"
@@ -2366,7 +2366,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                         Private Message
                       </label>
                       <textarea
-                        disabled={false}
+                        disabled={true}
                         id="private_message_id_4a"
                         onChange={[Function]}
                         value=""
@@ -2374,56 +2374,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                     </div>
                     <div
                       className="actions"
-                    >
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root-18 makeStyles-root-109 MuiButton-contained makeStyles-contained-19 makeStyles-contained-110 MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Send For Review
-                        </span>
-                      </button>
-                      <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root-18 makeStyles-root-111 MuiButton-contained makeStyles-contained-19 makeStyles-contained-112 MuiButton-containedSizeSmall MuiButton-sizeSmall"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        tabIndex={0}
-                        type="button"
-                      >
-                        <span
-                          className="MuiButton-label"
-                        >
-                          Save Draft
-                        </span>
-                      </button>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -2451,12 +2402,12 @@ exports[`RfiStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-113"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-109"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-114"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-110"
             >
               CO
             </span>
@@ -2473,12 +2424,12 @@ exports[`RfiStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-115"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-111"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-116"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-112"
             >
               Pending review
             </span>
@@ -2489,14 +2440,14 @@ exports[`RfiStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-117"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-113"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-118"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-114"
             >
-              Game Control
+              rkrlw6f5f
             </span>
           </div>
         </td>
@@ -2547,14 +2498,14 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                           />
                         </svg>
                         <div
-                          className="MuiChip-root makeStyles-root-42 makeStyles-root-119"
+                          className="MuiChip-root makeStyles-root-42 makeStyles-root-115"
                           onKeyDown={[Function]}
                           onKeyUp={[Function]}
                         >
                           <span
-                            className="MuiChip-label makeStyles-label-44 makeStyles-label-120"
+                            className="MuiChip-label makeStyles-label-44 makeStyles-label-116"
                           >
-                            Game Control
+                            Not assigned
                           </span>
                         </div>
                       </span>
@@ -2612,7 +2563,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                       className="actions"
                     >
                       <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root-18 makeStyles-root-121 MuiButton-contained makeStyles-contained-19 makeStyles-contained-122 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+                        className="MuiButtonBase-root MuiButton-root makeStyles-root-18 makeStyles-root-117 MuiButton-contained makeStyles-contained-19 makeStyles-contained-118 MuiButton-containedSizeSmall MuiButton-sizeSmall"
                         disabled={false}
                         onBlur={[Function]}
                         onClick={[Function]}
@@ -2636,7 +2587,7 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                         </span>
                       </button>
                       <button
-                        className="MuiButtonBase-root MuiButton-root makeStyles-root-18 makeStyles-root-123 MuiButton-contained makeStyles-contained-19 makeStyles-contained-124 MuiButton-containedSizeSmall MuiButton-sizeSmall"
+                        className="MuiButtonBase-root MuiButton-root makeStyles-root-18 makeStyles-root-119 MuiButton-contained makeStyles-contained-19 makeStyles-contained-120 MuiButton-containedSizeSmall MuiButton-sizeSmall"
                         disabled={false}
                         onBlur={[Function]}
                         onClick={[Function]}
@@ -2687,12 +2638,12 @@ exports[`RfiStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-125"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-121"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-126"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-122"
             >
               CO
             </span>
@@ -2709,12 +2660,12 @@ exports[`RfiStatusBoard renders correctly 1`] = `
           className="MuiTableCell-root MuiTableCell-body"
         >
           <div
-            className="MuiChip-root makeStyles-root-9 makeStyles-root-127"
+            className="MuiChip-root makeStyles-root-9 makeStyles-root-123"
             onKeyDown={[Function]}
             onKeyUp={[Function]}
           >
             <span
-              className="MuiChip-label makeStyles-label-11 makeStyles-label-128"
+              className="MuiChip-label makeStyles-label-11 makeStyles-label-124"
             >
               Released
             </span>
@@ -2771,12 +2722,12 @@ exports[`RfiStatusBoard renders correctly 1`] = `
                           />
                         </svg>
                         <div
-                          className="MuiChip-root makeStyles-root-42 makeStyles-root-129"
+                          className="MuiChip-root makeStyles-root-42 makeStyles-root-125"
                           onKeyDown={[Function]}
                           onKeyUp={[Function]}
                         >
                           <span
-                            className="MuiChip-label makeStyles-label-44 makeStyles-label-130"
+                            className="MuiChip-label makeStyles-label-44 makeStyles-label-126"
                           >
                             Released
                           </span>

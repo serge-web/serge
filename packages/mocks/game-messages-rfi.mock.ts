@@ -1,5 +1,12 @@
-import { MessageCustom } from '@serge/custom-types'
+import { MessageCustom, Role } from '@serge/custom-types'
 import { CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
+import { forces } from './forces.mock'
+
+
+const whiteGC: Role = forces[0].roles[0]
+const blueCO: Role = forces[1].roles[0]
+const blueComms: Role = forces[1].roles[1]
+const redCO: Role = forces[2].roles[0]
 
 /** set of mock messages that includes
  * extra data for collaborative editing
@@ -12,8 +19,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "Red",
         forceColor: "#F00",
+        roleName: redCO.name,
         iconURL: "default_img/umpireDefault.png",
-        role: "CO"
+        roleId: redCO.roleId
       },
       messageType: "Chat",
       timestamp: "2020-10-13T08:52:04.394Z"
@@ -33,8 +41,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "Blue",
         forceColor: "#00F",
+        roleName: blueCO.name,
         iconURL: "default_img/umpireDefault.png",
-        role: "CO"
+        roleId: blueCO.roleId
       },
       messageType: "Chat",
       timestamp: "2020-10-13T08:52:21.119Z"
@@ -55,7 +64,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "White",
         forceColor: "#FCFBEE",
         iconURL: "default_img/umpireDefault.png",
-        role: "Game Control"
+        roleName: whiteGC.name,
+        roleId: whiteGC.roleId
       },
       messageType: "Chat",
       privateMessage: "The private content goes in here",
@@ -76,8 +86,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       from: {
         force: "Blue",
         forceColor: "#00F",
+        roleName: blueCO.name,
         iconURL: "default_img/umpireDefault.png",
-        role: "CO"
+        roleId: blueCO.roleId
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:52:21.119Z",
@@ -103,7 +114,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Blue",
         forceColor: "#00F",
         iconURL: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: blueCO.name,
+        roleId: blueCO.roleId
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:53:21.119Z",
@@ -129,7 +141,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Blue",
         forceColor: "#00F",
         iconURL: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: blueCO.name,
+        roleId: blueCO.roleId
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
@@ -155,13 +168,15 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Blue",
         forceColor: "#00F",
         iconURL: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: blueCO.name,
+        roleId: blueCO.roleId
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:53:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
-        owner: 'Comms'
+        owner: blueComms.roleId,
+        ownerName: blueComms.name
       }
     },
     message: {
@@ -182,13 +197,15 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Blue",
         forceColor: "#00F",
         iconURL: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: blueCO.name,
+        roleId: blueCO.roleId
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
-        owner: 'Logistics'
+        owner: blueCO.roleId,
+        ownerName: blueCO.name
       }
     },
     message: {
@@ -209,13 +226,15 @@ const gameMessagesWithRFI: MessageCustom[] = [
         force: "Blue",
         forceColor: "#00F",
         iconURL: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: blueCO.name,
+        roleId: blueCO.roleId
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
-        owner: 'Logistics',
+        owner: blueComms.roleId,
+        ownerName: blueComms.name,
         response: 'RFI 3 response from White Logistics',
       }
     },
@@ -235,9 +254,10 @@ const gameMessagesWithRFI: MessageCustom[] = [
       channel: "Red RFI",
       from: {
         force: "Red",
+        roleName: redCO.name,
         forceColor: "#F00",
         iconURL: "default_img/umpireDefault.png",
-        role: "CO"
+        roleId: redCO.roleId
       },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
@@ -261,15 +281,17 @@ const gameMessagesWithRFI: MessageCustom[] = [
         channel: "Red RFI",
         from: {
           force: "Red",
+          roleName: redCO.name,
           forceColor: "#F00",
           iconURL: "default_img/umpireDefault.png",
-          role: "CO"
+          roleId: redCO.roleId
         },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
-        owner:"Game Control"
+        owner: whiteGC.roleId,
+        ownerName: whiteGC.name
       }
     },
     message: {
@@ -288,16 +310,17 @@ const gameMessagesWithRFI: MessageCustom[] = [
         channel: "Red RFI",
         from: {
             force: "Red",
+            roleName: redCO.name,
             forceColor: "#F00",
             iconURL: "default_img/umpireDefault.png",
-            role: "CO"
+            roleId: redCO.roleId
         },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
         response: "Game control response to RFI 4",
-        owner:"Game Control"
+        owner: whiteGC.roleId
       }
     },
     message: {
@@ -317,8 +340,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
         from: {
           force: "Red",
           forceColor: "#F00",
+          roleName: redCO.name,
           iconURL: "default_img/umpireDefault.png",
-          role: "CO"
+          roleId: redCO.roleId
         },
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",

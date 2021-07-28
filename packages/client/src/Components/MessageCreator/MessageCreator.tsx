@@ -31,7 +31,8 @@ const MessageCreator: React.FC<Props> = (props) => {
       from: {
         force: selectedForce.name,
         forceColor: selectedForce.color,
-        role: state.selectedRole,
+        roleName: state.selectedRoleName,
+        roleId: state.selectedRole,
         iconURL: selectedForce.iconURL || (selectedForce.icon || ''),
       },
       messageType: selectedSchema.title,

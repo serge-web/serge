@@ -3,6 +3,8 @@ import { ChannelData, Participant, Role, TemplateBodysByKey } from '@serge/custo
 import { forces } from '@serge/mocks'
 
 const gameControl: Role = forces[0].roles[0]
+const redLogs: Role = forces[2].roles[1]
+
 const allForcesChannel: ChannelData = {
   name: 'Channel 16',
   participants: [
@@ -16,7 +18,7 @@ const allForcesChannel: ChannelData = {
     {
       force: 'Red',
       forceUniqid: 'Red',
-      roles: [{ roleId: 'rkrlw6f5f', name: 'Logs', isGameControl: false, isObserver: false, isInsightViewer: false, password: 'aa' }],
+      roles: [redLogs.roleId],
       subscriptionId: 'k63pjsbv',
       templates: [{
         title: 'RFI',
@@ -83,7 +85,7 @@ it('Check umpire in channel', () => {
 
 it('Check member force in named role in channel', () => {
   const selForce = 'Red'
-  const selRole = 'rkrlw6f5f'
+  const selRole = redLogs.roleId
   const res = checkParticipantStates(allForcesChannel, selForce, selRole, false)
   expect(res).toBeTruthy()
   expect(res.isParticipant).toBeTruthy()
@@ -151,7 +153,7 @@ it('Check states for role who is registered', () => {
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'Red'
-  const selRole = 'rkrlw6f5f'
+  const selRole = redLogs.roleId
   const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates, defaultMessageId)
   expect(states).toBeTruthy()
   expect(states.isParticipant).toBeTruthy()
@@ -165,7 +167,7 @@ it('Check states for role who is not registered', () => {
   const newChannel: ChannelData = deepCopy(allForcesChannel)
   newChannel.participants = newChannel.participants.filter((part: Participant) => part.forceUniqid !== 'umpire')
   const selForce = 'Red'
-  const selRole = 'rkrlw6f5m'
+  const selRole = 'bad_id'
   const states = getParticipantStates(newChannel, selForce, selRole, false, allTemplates, defaultMessageId)
   expect(states).toBeTruthy()
   expect(states.isParticipant).toBeFalsy()

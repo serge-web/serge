@@ -1,11 +1,13 @@
 import handleChannelUpdates from '../handle-channel-updates'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
-  ChannelData, MessageChannel, MessageInfoTypeClipped, MessageCustom
+  ChannelData, MessageChannel, MessageInfoTypeClipped, MessageCustom, Role
 } from '@serge/custom-types'
 import { InfoMessagesMock, GameMessagesMock, MessageTemplatesMock, forces, GameChannels, MessageTemplatesMockByKey } from '@serge/mocks'
 import deepCopy from '../deep-copy'
 import { INFO_MESSAGE_CLIPPED, CHAT_CHANNEL_ID, CUSTOM_MESSAGE } from '@serge/config'
+
+const whiteGC: Role = forces[0].roles[0]
 
 const channels: PlayerUiChannels = {}
 const adminMessages: MessageChannel[] = GameMessagesMock
@@ -53,16 +55,7 @@ describe('handle channel update for info message', () => {
 
     // ok. now remove us from a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
-    copyChannels[0].participants[2].roles = [{
-      roleId: '',
-      isGameControl: false,
-      isInsightViewer: true,
-      isRFIManager: true,
-      canSubmitPlans: true,
-      isObserver: false,
-      name: 'Game Control',
-      password: 'p2311'
-    }]
+    copyChannels[0].participants[2].roles = [whiteGC.roleId]
 
     // regenerate channels
     const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages, 1, blueForce,
@@ -78,16 +71,7 @@ describe('handle channel update for info message', () => {
 
     // change channel so we're not a member
     const limWhiteRoles: ChannelData[] = deepCopy(allChannels)
-    limWhiteRoles[0].participants[0].roles = [{
-      roleId: 'r12345',
-      isGameControl: false,
-      isInsightViewer: true,
-      isRFIManager: true,
-      canSubmitPlans: true,
-      isObserver: false,
-      name: 'Game Control',
-      password: 'p2311'
-    }]
+    limWhiteRoles[0].participants[0].roles = [whiteGC.roleId]
 
     const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, [], 1, whiteForce,
       limWhiteRoles, selectedRole, isObserver, allTemplates, allForces)
@@ -117,16 +101,7 @@ describe('handle channel update for info message', () => {
 
     // ok. now remove us from a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
-    copyChannels[0].participants[2].roles = [{
-      roleId: 'rkrlw6f5f',
-      isGameControl: false,
-      isInsightViewer: true,
-      isRFIManager: true,
-      canSubmitPlans: true,
-      isObserver: false,
-      name: 'Game Control',
-      password: 'p2311'
-    }]
+    copyChannels[0].participants[2].roles = [whiteGC.roleId]
 
     // regenerate channels
     const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages, 1, blueForce,
@@ -212,8 +187,9 @@ describe('handle channel update for info message', () => {
         from: {
           force: 'White',
           forceColor: '#FCFBEE',
+          roleName: whiteGC.name,
           iconURL: 'default_img/umpireDefault.png',
-          role: 'Game Control'
+          roleId: whiteGC.roleId
         },
         messageType: 'Chat',
         privateMessage: 'The private content goes in here',
@@ -256,8 +232,9 @@ describe('handle channel update for info message', () => {
         from: {
           force: 'White',
           forceColor: '#FCFBEE',
+          roleName: whiteGC.name,
           iconURL: 'default_img/umpireDefault.png',
-          role: 'Game Control'
+          roleId: whiteGC.roleId
         },
         messageType: 'Chat',
         privateMessage: 'The private content goes in here',

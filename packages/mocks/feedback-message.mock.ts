@@ -1,6 +1,10 @@
-import { MessageFeedback } from '@serge/custom-types'
+import { MessageFeedback, Role } from '@serge/custom-types'
 import { FEEDBACK_MESSAGE } from '@serge/config'
 
+import { forces } from './forces.mock'
+
+const whiteGC: Role = forces[0].roles[0]
+const blueCO: Role = forces[1].roles[0]
 
 export const feedbackMessage1: MessageFeedback = {
   "details": {
@@ -8,7 +12,8 @@ export const feedbackMessage1: MessageFeedback = {
     "from": {
       "force": "Blue",
       "forceColor": "#3dd0ff",
-      "role": "CO",
+      "roleId": blueCO.roleId,
+      "roleName": blueCO.name,
       "name": "",
       "iconURL": ''
     },
@@ -29,7 +34,8 @@ export const feedbackMessage2: MessageFeedback = {
     "from": {
       "force": "White",
       "forceColor": "#FCFBEE",
-      "role": "Game Control",
+      "roleId": whiteGC.roleId,
+      "roleName": whiteGC.name,
       "name": "Heri Setiawan",
       "iconURL": ''
     },

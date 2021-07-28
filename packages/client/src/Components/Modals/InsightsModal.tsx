@@ -25,7 +25,8 @@ const InsightsModal: React.FC = () => {
       iconURL: '',
       force: selectedForce.name,
       forceColor: selectedForce.color,
-      role: state.selectedRole,
+      roleId: state.selectedRole,
+      roleName: state.selectedRoleName,
       name
     }
 
