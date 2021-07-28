@@ -7,6 +7,7 @@ import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
 import uniqId from 'uniqid'
 import mostRecentOnly from './most-recent-only'
+import getRoleIdFromName from './get-role-id'
 
 /** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom, selectedForceName?: string) => {
@@ -233,6 +234,24 @@ export const handleAllInitialChannelMessages = (
   const rfiMessages = messagesFiltered.filter((message: MessageChannel) => {
     if (message.messageType === CUSTOM_MESSAGE) {
       const custom = message as MessageCustom
+
+      // TODO: retire this support for legacy code in Autumn 2021
+      // see if this has a legacy role
+      const from: any = custom.details.from
+      if (from.role) {
+        // ok, it's now called `roleName`
+        from.roleName = from.role
+        const roleId = getRoleIdFromName(allForces, custom.details.from.force, from.roleName)
+        from.roleId = roleId
+      }
+
+      // see if this is a legacy owner
+      const collab: any = custom.details.collaboration
+      if (collab && collab.owner && !collab.ownerName) {
+        from.ownerName = collab.owner
+        from.owner = undefined
+      }
+
       return custom.details.messageType === 'RFI'
     }
     return false
