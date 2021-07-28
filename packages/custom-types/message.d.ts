@@ -43,7 +43,9 @@ export interface MessageDetailsFrom {
   /** CSS color shade for this force */
   forceColor: string,
   /** role of the individual that wrote message */
-  role: string,
+  roleId: Role['roleId'],
+  /** role of the individual that wrote message */
+  roleName: Role['name'],
   /** URL of icon to display for this force
    * TODO: once all code under TypeScript try making it non-optional,
    * and fix cases where it's not assigned
@@ -106,9 +108,9 @@ export interface CollaborationDetails {
    */
    status: CollaborativeMessageStates
    /**
-    * Current message owner
+    * Current message owner (id)
     */
-   owner?: Role['name']
+   owner?: Role['roleId']
    /**
     * response to message, only used in RFIs
     */

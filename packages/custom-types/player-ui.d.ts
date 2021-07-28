@@ -5,6 +5,7 @@ import { MessageFeedback, MessageChannel, MessageCustom } from './message'
 import ChannelUI from './channel-ui'
 import MappingConstraints from './mapping-constraints'
 import { TemplateBodysByKey } from './message-types'
+import Role from './role'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -18,7 +19,7 @@ export interface PlayerUiChatChannel {
 
 export default interface PlayerUi {
   selectedForce?: ForceData,
-  selectedRole: string,
+  selectedRole: Role['roleId'],
   isObserver: boolean,
   canSubmitPlans: boolean,
   isGameControl: boolean,
