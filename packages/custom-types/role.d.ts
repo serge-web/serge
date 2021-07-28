@@ -1,4 +1,5 @@
 export default interface Role {
+  roleId: string,
   name: string,
   password: string,
   /**

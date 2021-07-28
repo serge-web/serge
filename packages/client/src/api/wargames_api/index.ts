@@ -405,6 +405,15 @@ export const deleteChannel = (dbName: string, channelUniqid: string): Promise<Wa
   })
 }
 
+export const saveForces = (dbName: string, newData: ForceData[]) => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    updatedData.forces.forces = newData
+    return updateWargame({...res, data: updatedData}, dbName)
+  })
+}
+
 export const saveForce = (dbName: string, newName: string, newData: ForceData, oldName: string) => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
