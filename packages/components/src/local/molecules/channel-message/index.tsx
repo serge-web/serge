@@ -36,7 +36,7 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
         onExpand={handleOnExpand}
         hasBeenRead={message.hasBeenRead}
         forceColor={props.forceColor}
-        role={props.role}
+        role={props.roleName}
         markUnread={markUnread}
       />
     )
