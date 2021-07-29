@@ -29,7 +29,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
     message.details.from.forceColor,
     message.message.Title,
     message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
-    message.details.collaboration ? message.details.collaboration.owner : undefined
+    message.details.collaboration && message.details.collaboration.owner ? message.details.collaboration.owner.roleName : undefined
   ])
   const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
     return [
