@@ -13,7 +13,6 @@ import {
   showHideObjectives
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { expiredStorage } from '../../consts'
-import { getRoleFromId } from '@serge/helpers'
 
 const GameChannels: React.FC = (): React.ReactElement => {
   const {

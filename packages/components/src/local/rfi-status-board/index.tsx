@@ -106,7 +106,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
             label: status
           },
           {
-            component: owner ? <Badge customBackgroundColor="#434343" label={owner || '= Unallocated ='} /> : null,
+            component: <Badge customBackgroundColor="#434343" label={owner ? owner.roleName : '= Unallocated ='} />,
             label: owner
           }
         ]

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
 import { AdminPanelFooter } from '@serge/components'
 import getByPassUrl from './helpers/getByPassUrl'
-import {getRoleFromId} from '@serge/helpers'
 import addTabs from './helpers/addTabs'
 import factory from './helpers/factory'
 import { FLEX_LAYOUT_MODEL_DEFAULT } from '../../consts'
@@ -18,7 +17,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const gameAdminTitle = 'Game Admin'
   const insights = 'Insights'
   const dispatch = usePlayerUiDispatch()
-  const { selectedForce, selectedRole, selectedRoleName } = state
+  const { selectedForce, selectedRoleName } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   useEffect(() => {
@@ -34,7 +33,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
       />
       <AdminPanelFooter
         force={selectedForce}
-        selectedRole={selectedRoleName}
+        selectedRoleName={selectedRoleName}
         byPassUrl={byPassUrl}
         onIconClick={(): void => dispatch(showHideObjectives())}
       />
