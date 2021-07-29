@@ -16,9 +16,7 @@ exports[`AdminPanelFooter component: renders correctly 1`] = `
     <a
       className="role-type"
       href="http://localhost:3000/?wargame=wargame-k16fadm4&access=pk16ffhn3"
-    >
-      Comms
-    </a>
+    />
   </span>
   <div
     className="contain-force-skin"
