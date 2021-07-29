@@ -2,16 +2,23 @@ import React from 'react'
 import { RfiStatusBoard } from '@serge/components'
 import { usePlayerUiState } from '../Store/PlayerUi'
 import { saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { MessageCustom } from '@serge/custom-types'
+import { ForceRole, MessageCustom } from '@serge/custom-types'
 
 const RfiStatusBoardChannel = () => {
 
   const state = usePlayerUiState()
-  const { selectedForce, selectedRoleName } = state
+  const { selectedForce, selectedRoleName, selectedRole } = state
   const isUmpire = selectedForce && selectedForce.umpire
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const roles = selectedForce && selectedForce.roles.map(role => role.name) || []
+
+  const role: ForceRole = {
+    forceId: selectedForce.uniqid,
+    forceName: selectedForce.name,
+    roleId: selectedRole,
+    roleName: selectedRoleName
+  }
 
   const handleChange = (nextMsg: MessageCustom): void => {
     saveMessage(state.currentWargame, nextMsg.details, nextMsg.message)()
@@ -25,7 +32,7 @@ const RfiStatusBoardChannel = () => {
       isRFIManager={state.isRFIManager}
       isUmpire={!!isUmpire}
       onChange={handleChange}
-      role={selectedRoleName}
+      role={[role]}
     />
   )
 }

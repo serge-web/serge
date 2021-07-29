@@ -1,4 +1,4 @@
-import { MessageCustom, Role } from '@serge/custom-types'
+import { MessageCustom, ForceRole } from '@serge/custom-types'
 export default interface Props {
   rfiMessages: MessageCustom[]
   roles: string[]
@@ -8,6 +8,8 @@ export default interface Props {
   isUmpire: boolean
   /** if this player has "RFI Manager" attribute in their role */
   isRFIManager: boolean
-  /** role of logged in player */
-  role: Role['name']
+  /** role of logged in player (embedded in array to meet react constraint):
+   * "Objects are not valid as a React child"
+   */
+  roleArr: Array<ForceRole>
 }

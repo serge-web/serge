@@ -21,7 +21,7 @@ import PlannedRoute from './planned-route'
 import Visibility from './visibility'
 import Asset from './asset'
 import Role from './role'
-import { StateOfWorld } from '.'
+import { ForceRole, StateOfWorld } from '.'
 import Wargame from './wargame'
 
 
@@ -121,13 +121,9 @@ export interface CollaborationDetails {
    */
    status: CollaborativeMessageStates
    /**
-    * Current message owner (id)
+    * Current message owner
     */
-   ownerId?: Role['roleId']
-   /**
-    * Current message owner (name)
-    */
-   ownerName?: Role['name']
+   owner?: ForceRole
    /**
     * response to message, only used in RFIs
     */

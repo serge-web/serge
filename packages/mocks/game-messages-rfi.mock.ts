@@ -175,8 +175,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:53:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
-        ownerId: blueComms.roleId,
-        ownerName: blueComms.name
+        owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueComms.roleId, roleName: blueComms.name }
       }
     },
     message: {
@@ -204,8 +203,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
-        ownerId: blueCO.roleId,
-        ownerName: blueCO.name
+        owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueCO.roleId, roleName: blueCO.name }
       }
     },
     message: {
@@ -233,8 +231,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
-        ownerId: blueComms.roleId,
-        ownerName: blueComms.name,
         response: 'RFI 3 response from White Logistics',
       }
     },
@@ -290,8 +286,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
-        ownerId: whiteGC.roleId,
-        ownerName: whiteGC.name
+        owner: { forceId: forces[0].uniqid, forceName: forces[0].name, roleId: whiteGC.roleId, roleName: whiteGC.name }
       }
     },
     message: {
@@ -320,8 +315,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
         response: "Game control response to RFI 4",
-        ownerId: whiteGC.roleId,
-        ownerName: whiteGC.name
       }
     },
     message: {

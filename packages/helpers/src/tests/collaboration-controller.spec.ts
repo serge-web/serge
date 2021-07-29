@@ -282,14 +282,27 @@ it('apply command to messages', () => {
   const msg2 = controller.applyCommandTo(msg, CollaborativeMessageCommands.TakeOwnership, roles[0], undefined)
   expect(msg2.details.collaboration).toBeTruthy()
   expect(msg2.details.collaboration?.status).toEqual(CollaborativeMessageStates.InProgress)
-  expect(msg2.details.collaboration?.ownerId).toEqual(blueCO.roleId)
+  expect(msg2.details.collaboration?.owner?.roleId).toEqual(blueCO.roleId)
   const msg3 = controller.applyCommandTo(msg2, CollaborativeMessageCommands.SendForReview, undefined, undefined)
   expect(msg3.details.collaboration).toBeTruthy()
   expect(msg3.details.collaboration?.status).toEqual(CollaborativeMessageStates.PendingReview)
-  expect(msg3.details.collaboration?.ownerId).toEqual(undefined)
+  expect(msg3.details.collaboration?.owner).toEqual(undefined)
   const msg4 = controller.applyCommandTo(msg2, CollaborativeMessageCommands.RequestChanges, undefined, 'Please make this change')
   expect(msg4.details.collaboration).toBeTruthy()
-  expect(msg4.details.collaboration?.status).toEqual(CollaborativeMessageStates.Unallocated)
-  expect(msg4.details.collaboration?.feedback).toEqual('Please make this change')
-  expect(msg4.details.collaboration?.ownerId).toEqual(undefined)
+  if (msg4.details.collaboration) {
+    expect(msg4.details.collaboration.status).toEqual(CollaborativeMessageStates.Unallocated)
+    if (msg4.details.collaboration.feedback) {
+      expect(msg4.details.collaboration.feedback[0].feedback).toEqual('Please make this change')
+      expect(msg4.details.collaboration.owner).toEqual(undefined)
+    }
+  }
+  const msg5 = controller.applyCommandTo(msg2, CollaborativeMessageCommands.RequestChanges, undefined, 'Please make this change')
+  expect(msg5.details.collaboration).toBeTruthy()
+  if (msg5.details.collaboration) {
+    expect(msg5.details.collaboration.status).toEqual(CollaborativeMessageStates.Unallocated)
+    if (msg5.details.collaboration.feedback) {
+      expect(msg5.details.collaboration.feedback[0].feedback).toEqual('Please make this change')
+      expect(msg5.details.collaboration.owner).toEqual(undefined)
+    }
+  }
 })

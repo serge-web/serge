@@ -1,6 +1,7 @@
 /**
  * collect force & role data, including for assigning
- * collaborative working messages to others
+ * collaborative working messages to others, and collating
+ * data for screen rendering
  */
 export default interface ForceRole {
   readonly forceId: string,

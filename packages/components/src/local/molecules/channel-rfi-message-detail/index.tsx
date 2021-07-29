@@ -25,7 +25,7 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 )
 
 /* Render component */
-export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role, isUmpire, isRFIManager }) => {
+export const ChannelRFIMessageDetail: React.FC<Props> = ({ message, onChange, role, isUmpire, isRFIManager }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -66,7 +66,7 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
   }
 
   const formDisabled = !formEditable(message, role, isUmpire, isRFIManager)
-  const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.ownerName || 'Not assigned')
+  const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
   return (
     <div className={styles.main}>
       {collaboration && isUmpire && <div className={styles.assigned}>
@@ -99,4 +99,4 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
   )
 }
 
-export default ChannelMessageDetail
+export default ChannelRFIMessageDetail

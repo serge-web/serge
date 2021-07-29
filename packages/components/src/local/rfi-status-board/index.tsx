@@ -2,7 +2,7 @@ import React from 'react'
 import { Badge, DataTable } from '@serge/components'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates } from '@serge/config'
-import { ChannelData } from '@serge/custom-types'
+import { ChannelData, ForceRole } from '@serge/custom-types'
 
 /* Import Types */
 import Props from './types/props'
@@ -13,7 +13,10 @@ import styles from './styles.module.scss'
 import ChannelRfiMessageDetail from '../molecules/channel-rfi-message-detail'
 
 /* Render component */
-export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {
+export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, roleArr }: Props) => {
+
+  const role: ForceRole = roleArr[0]
+
   // produce dictionary of channels
   const channelDict = new Map<string, string>()
   channels.forEach((channel: ChannelData) => {
@@ -28,7 +31,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
     message.details.from.forceColor,
     message.message.Title,
     message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
-    message.details.collaboration ? message.details.collaboration.owner : '= Pending ='
+    message.details.collaboration ? message.details.collaboration.owner : undefined
   ])
   const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
     return [
@@ -105,7 +108,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
             label: status
           },
           {
-            component: owner ? <Badge customBackgroundColor="#434343" label={owner} /> : null,
+            component: owner ? <Badge customBackgroundColor="#434343" label={owner || '= Unallocated ='} /> : null,
             label: owner
           }
         ]

@@ -134,13 +134,13 @@ class CollaborationController {
   /** return the current owner */
   getCurrentOwner (message: MessageCustom): undefined | ForceRole {
     if (message.details.collaboration) {
-      const ownerId = message.details.collaboration.ownerId
-      if (ownerId) {
+      const owner: ForceRole | undefined = message.details.collaboration.owner
+      if (owner) {
         const hisForce: ForceData | undefined = this.forces.find((force: ForceData) => {
-          return force.roles.find((role: Role) => ownerId === role.roleId)
+          return force.roles.find((role: Role) => role.roleId === owner.roleId)
         })
         if (hisForce) {
-          const hisRole: Role | undefined = hisForce.roles.find((role: Role) => ownerId === role.roleId)
+          const hisRole: Role | undefined = hisForce.roles.find((role: Role) => role.roleId === owner.roleId)
           if (hisRole) {
             const res: ForceRole = {
               forceId: hisForce.uniqid,
@@ -163,8 +163,7 @@ class CollaborationController {
 
     if (res.details.collaboration) {
       // most actions involve clearing the owner, so we'll do it centrally here first
-      res.details.collaboration.ownerId = undefined
-      res.details.collaboration.ownerName = undefined
+      res.details.collaboration.owner = undefined
       switch (command) {
         case CollaborativeMessageCommands.SendForReview: {
           res.details.collaboration.status = CollaborativeMessageStates.PendingReview
@@ -173,8 +172,7 @@ class CollaborationController {
         case CollaborativeMessageCommands.TakeOwnership: {
           res.details.collaboration.status = CollaborativeMessageStates.InProgress
           if (assignedTo) {
-            res.details.collaboration.ownerId = assignedTo.roleId
-            res.details.collaboration.ownerName = assignedTo.roleName
+            res.details.collaboration.owner = assignedTo
           } else {
             throw new Error('Require assigned to field when taking ownership')
           }
