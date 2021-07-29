@@ -34,7 +34,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
             const msg: MessageCustom = props
             if (msg.details.messageType === 'RFI') {
               const from: MessageDetailsFrom = msg.details.from
-              const role: ForceRole = { forceId: from.forceId || 'unknown', forceName: from.force, roleId: from.roleId, roleName: from.roleName}
+              const role: ForceRole = { forceId: from.forceId || 'unknown', forceName: from.force, roleId: from.roleId, roleName: from.roleName }
               console.log(role)
               return (
                 <Box mb={2} mr={2} key={key}>
