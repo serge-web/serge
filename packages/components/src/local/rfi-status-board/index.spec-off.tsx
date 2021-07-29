@@ -7,6 +7,7 @@ import RfiStatusBoard from './index'
 
 /* Import mock data */
 import { GameChannels, GameMessagesMockRFI } from '@serge/mocks'
+import { ForceRole } from '@serge/custom-types'
 
 const roles = [
   'Game Control',
@@ -15,11 +16,13 @@ const roles = [
   'Land'
 ]
 
+const role: ForceRole = {forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control'}
+
 it('RfiStatusBoard renders correctly', () => {
   const tree = renderer
     .create(
       <RfiStatusBoard
-        role={'Game Control'}
+        roleArr={[role]}
         isRFIManager={true}
         isUmpire={true}
         roles={roles}
@@ -28,5 +31,5 @@ it('RfiStatusBoard renders correctly', () => {
       />
     )
     .toJSON()
-  expect(tree).toMatchSnapshot()
+    expect(tree).toMatchSnapshot()
 })
