@@ -42,7 +42,7 @@ export const Default: React.FC = () => {
     onSave={handleOnSave}
     channels={channels}
     forces={WargameExportedMock.data.forces.forces}
-    messages={MessageTemplatesMock}
+    messageTemplates={MessageTemplatesMock}
   />
 }
 

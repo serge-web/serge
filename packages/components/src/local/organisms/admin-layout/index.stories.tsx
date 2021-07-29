@@ -115,7 +115,7 @@ export const Default: React.FC = (args) => {
           onChange={onChannelsChange}
           onSave={handleSave}
           forces={wargame.data.forces.forces}
-          messages={MessageTemplatesMock}
+          messageTemplates={MessageTemplatesMock}
         />}
       </AdminContent>
     </AdminLayout>
