@@ -30,7 +30,9 @@ const ExportMessages = ({ wargame, exportItems, loader, exportWargameMessages }:
 const mapDispatchToProps = (dispatch: ExportItemsDispatch) => ({
   exportWargameMessages: (wargame: Wargame) => {
     dispatch(showLoading())
-    dispatch(createMessageExportItem(wargame))
+    setTimeout(()=>{
+      dispatch(createMessageExportItem(wargame))
+    }, 2000)
   }
 })
 
