@@ -53,7 +53,7 @@ const Template: Story<Props> = (args) => {
 
 // filter to only show the most recent versions of messages
 const mostRecentMessages = mostRecentOnly(GameMessagesMockRFI) as MessageCustom[]
-const role: ForceRole = {forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control'}
+const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control' }
 
 export const Demonstration = Template.bind({})
 Demonstration.args = {

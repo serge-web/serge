@@ -11,7 +11,7 @@ describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(<ChannelRfiMessageDetail
-        role={ {forceId: 'umpire', forceName:'Umpire', roleId: 'co', roleName: 'CO'} }
+        role={ { forceId: 'umpire', forceName: 'Umpire', roleId: 'co', roleName: 'CO' } }
         isUmpire={true}
         isRFIManager={true}
         message={defMessage}

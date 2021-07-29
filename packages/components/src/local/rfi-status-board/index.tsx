@@ -14,7 +14,6 @@ import ChannelRfiMessageDetail from '../molecules/channel-rfi-message-detail'
 
 /* Render component */
 export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, roleArr }: Props) => {
-
   const role: ForceRole = roleArr[0]
 
   // produce dictionary of channels

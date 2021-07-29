@@ -1,4 +1,4 @@
-import { MessageCustom, Role } from '@serge/custom-types'
+import { MessageCustom, ForceRole } from '@serge/custom-types'
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
   message: MessageCustom

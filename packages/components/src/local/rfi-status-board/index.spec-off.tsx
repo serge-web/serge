@@ -16,7 +16,7 @@ const roles = [
   'Land'
 ]
 
-const role: ForceRole = {forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control'}
+const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control' }
 
 it('RfiStatusBoard renders correctly', () => {
   const tree = renderer
@@ -31,5 +31,5 @@ it('RfiStatusBoard renders correctly', () => {
       />
     )
     .toJSON()
-    expect(tree).toMatchSnapshot()
+  expect(tree).toMatchSnapshot()
 })
