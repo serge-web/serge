@@ -20,6 +20,7 @@ export { default as Message,
          MessageDetails,
          MessageDetailsFrom,
          MessageStructure,
+         FeedbackItem,
          CollaborationDetails,
          // Map Types
          MessageForceLaydown,

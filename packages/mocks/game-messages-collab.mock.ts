@@ -6,6 +6,7 @@ import { forces } from './forces.mock'
 
 const whiteGC: Role = forces[0].roles[0]
 const blueCO: Role = forces[1].roles[0]
+const blueComms: Role = forces[1].roles[1]
 const redCO: Role = forces[2].roles[0]
 
 /** set of mock messages that includes
@@ -175,7 +176,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
       timestamp: "2020-10-13T08:53:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
-        owner: 'Logs'
+        ownerName: blueComms.name,
+        ownerId: blueComms.roleId
       }
     },
     message: {
@@ -203,7 +205,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
-        owner: 'Logistics'
+        ownerName: blueComms.name,
+        ownerId: blueComms.roleId
       }
     },
     message: {
@@ -231,7 +234,6 @@ const gameMessagesWithCollab: MessageCustom[] = [
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
-        owner: 'Logistics',
         response: 'RFI 3 response from White Logistics',
       }
     },
@@ -287,7 +289,8 @@ const gameMessagesWithCollab: MessageCustom[] = [
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
-        owner:"Game Control"
+        ownerName: whiteGC.name,
+        ownerId: whiteGC.roleId
       }
     },
     message: {
@@ -316,7 +319,6 @@ const gameMessagesWithCollab: MessageCustom[] = [
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
         response: "Game control response to RFI 4",
-        owner:"Game Control"
       }
     },
     message: {

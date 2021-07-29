@@ -1,4 +1,4 @@
-import { ChannelData, Role, ParticipantTemplate, Participant, ForceData, ForceRole, MessageCustom } from '@serge/custom-types'
+import { ChannelData, Role, ParticipantTemplate, Participant, ForceData, ForceRole, MessageCustom, FeedbackItem } from '@serge/custom-types'
 import _ from 'lodash'
 import { CollaborativeMessageStates, CollaborativeMessageCommands } from '@serge/config'
 import getRoleFromId from './get-role-from-id'
@@ -86,6 +86,15 @@ class CollaborationController {
   /** list of roles ids that a message in this channel could be assigned to */
   messageCanBeAssignedTo (): Array<ForceRole> {
     const roles: Array<ForceRole> = []
+    const pushRole = (part: Participant, role: Role) => {
+      const roleVal: ForceRole = {
+        forceId: part.forceUniqid,
+        forceName: part.force,
+        roleId: role.roleId,
+        roleName: role.name
+      }
+      roles.push(roleVal)
+    }
     const collaborators = this.channel.participants.filter((part: Participant) => part.canCollaborate)
     collaborators.forEach((part: Participant) => {
       if (part.roles && part.roles.length) {
@@ -98,22 +107,10 @@ class CollaborationController {
               console.log(this.forces[0])
               throw new Error('Failed to find role for ' + part.forceUniqid + ', ' + roleId)
             }
-            const roleVal: ForceRole = {
-              forceId: part.forceUniqid,
-              forceName: part.force,
-              roleId: role.name,
-              roleName: role.name
-            }
-            roles.push(roleVal)
+            pushRole(part, role)
           } else {
             const role: Role = roleId as any as Role
-            const roleVal: ForceRole = {
-              forceId: part.forceUniqid,
-              forceName: part.force,
-              roleId: role.name,
-              roleName: role.name
-            }
-            roles.push(roleVal)
+            pushRole(part, role)
           }
           // get this role details
         })
@@ -122,13 +119,7 @@ class CollaborationController {
         const force = this.forces.find((force: ForceData) => force.uniqid === part.forceUniqid)
         if (force) {
           force.roles.forEach((role: Role) => {
-            const roleId: ForceRole = {
-              forceId: part.forceUniqid,
-              forceName: part.force,
-              roleId: role.name,
-              roleName: role.name
-            }
-            roles.push(roleId)
+            pushRole(part, role)
           })
         } else {
           console.error('failed to find force for ', part.forceUniqid)
@@ -143,19 +134,19 @@ class CollaborationController {
   /** return the current owner */
   getCurrentOwner (message: MessageCustom): undefined | ForceRole {
     if (message.details.collaboration) {
-      const owner = message.details.collaboration.owner
-      if (owner) {
+      const ownerId = message.details.collaboration.ownerId
+      if (ownerId) {
         const hisForce: ForceData | undefined = this.forces.find((force: ForceData) => {
-          force.roles.find((role: Role) => owner === role.name)
+          return force.roles.find((role: Role) => ownerId === role.roleId)
         })
         if (hisForce) {
-          const hisRole: Role | undefined = hisForce.roles.find((role: Role) => owner === role.name)
+          const hisRole: Role | undefined = hisForce.roles.find((role: Role) => ownerId === role.roleId)
           if (hisRole) {
             const res: ForceRole = {
               forceId: hisForce.uniqid,
               forceName: hisForce.name,
-              roleId: this.role.name,
-              roleName: this.role.name
+              roleId: hisRole.name,
+              roleName: hisRole.name
             }
             return res
           }
@@ -166,21 +157,24 @@ class CollaborationController {
   }
 
   /** modify the message according to the command */
-  applyCommandTo (message: MessageCustom, command: CollaborativeMessageCommands, assignedTo?: ForceRole): MessageCustom {
+  applyCommandTo (message: MessageCustom, command: CollaborativeMessageCommands, assignedTo: ForceRole | undefined, feedback?: string): MessageCustom {
     // copy the message
     const res = _.cloneDeep(message)
 
     if (res.details.collaboration) {
+      // most actions involve clearing the owner, so we'll do it centrally here first
+      res.details.collaboration.ownerId = undefined
+      res.details.collaboration.ownerName = undefined
       switch (command) {
         case CollaborativeMessageCommands.SendForReview: {
           res.details.collaboration.status = CollaborativeMessageStates.PendingReview
-          res.details.collaboration.owner = undefined
           break
         }
         case CollaborativeMessageCommands.TakeOwnership: {
           res.details.collaboration.status = CollaborativeMessageStates.InProgress
           if (assignedTo) {
-            res.details.collaboration.owner = assignedTo.roleId
+            res.details.collaboration.ownerId = assignedTo.roleId
+            res.details.collaboration.ownerName = assignedTo.roleName
           } else {
             throw new Error('Require assigned to field when taking ownership')
           }
@@ -188,22 +182,30 @@ class CollaborationController {
         }
         case CollaborativeMessageCommands.ReOpen: {
           res.details.collaboration.status = this.getInitialState()
-          res.details.collaboration.owner = undefined
           break
         }
         case CollaborativeMessageCommands.Close: {
           res.details.collaboration.status = CollaborativeMessageStates.Rejected
-          res.details.collaboration.owner = undefined
           break
         }
         case CollaborativeMessageCommands.Release: {
           res.details.collaboration.status = CollaborativeMessageStates.Released
-          res.details.collaboration.owner = undefined
           break
         }
         case CollaborativeMessageCommands.RequestChanges: {
           res.details.collaboration.status = CollaborativeMessageStates.Unallocated
-          res.details.collaboration.owner = undefined
+          if (feedback) {
+            if (res.details.collaboration.feedback === undefined) {
+              res.details.collaboration.feedback = []
+            }
+            const item: FeedbackItem = {
+              fromId: this.role.roleId,
+              fromName: this.role.name,
+              date: new Date().toISOString(),
+              feedback: feedback
+            }
+            res.details.collaboration.feedback.push(item)
+          }
           break
         }
       }

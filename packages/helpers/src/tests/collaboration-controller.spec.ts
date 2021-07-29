@@ -1,8 +1,9 @@
 /* global it expect */
 import { GameChannels, forces, GameMessagesMockCollab } from '@serge/mocks'
 import CollaborationController from '../collaboration-controller'
-import { ChannelData, Role } from '@serge/custom-types'
+import { ChannelData, ForceRole, Role } from '@serge/custom-types'
 import { CollaborativeMessageStates, CollaborativeMessageCommands } from '@serge/config'
+import _ from 'lodash'
 
 const rfi: ChannelData = GameChannels[3]
 const coa: ChannelData = GameChannels[4]
@@ -257,5 +258,38 @@ it('shows COA initial state', () => {
 // //////////////////
 it('get current owner', () => {
   const controller: CollaborationController = new CollaborationController(forces, coa, whiteForce, whiteRFI)
-  expect(controller.getCurrentOwner(GameMessagesMockCollab[6])).toEqual(undefined)
+  expect(controller.getCurrentOwner(GameMessagesMockCollab[6])).toBeTruthy()
+  expect(controller.getCurrentOwner(GameMessagesMockCollab[6])?.forceName).toEqual('Blue')
+  expect(controller.getCurrentOwner(GameMessagesMockCollab[6])?.roleName).toEqual('Comms')
+
+  // check a bunch of messages with no owner
+  expect(controller.getCurrentOwner(GameMessagesMockCollab[5])).toEqual(undefined)
+  expect(controller.getCurrentOwner(GameMessagesMockCollab[9])).toEqual(undefined)
+  expect(controller.getCurrentOwner(GameMessagesMockCollab[12])).toEqual(undefined)
+})
+
+// //////////////////
+// applyCommand
+// //////////////////
+it('apply command to messages', () => {
+  const controller: CollaborationController = new CollaborationController(forces, coa, whiteForce, whiteRFI)
+
+  const roles: Array<ForceRole> = controller.messageCanBeAssignedTo()
+
+  const msg = _.cloneDeep(GameMessagesMockCollab[5])
+  expect(msg.details.collaboration).toBeTruthy()
+  expect(msg.details.collaboration?.status).toEqual(CollaborativeMessageStates.Unallocated)
+  const msg2 = controller.applyCommandTo(msg, CollaborativeMessageCommands.TakeOwnership, roles[0], undefined)
+  expect(msg2.details.collaboration).toBeTruthy()
+  expect(msg2.details.collaboration?.status).toEqual(CollaborativeMessageStates.InProgress)
+  expect(msg2.details.collaboration?.ownerId).toEqual(blueCO.roleId)
+  const msg3 = controller.applyCommandTo(msg2, CollaborativeMessageCommands.SendForReview, undefined, undefined)
+  expect(msg3.details.collaboration).toBeTruthy()
+  expect(msg3.details.collaboration?.status).toEqual(CollaborativeMessageStates.PendingReview)
+  expect(msg3.details.collaboration?.ownerId).toEqual(undefined)
+  const msg4 = controller.applyCommandTo(msg2, CollaborativeMessageCommands.RequestChanges, undefined, 'Please make this change')
+  expect(msg4.details.collaboration).toBeTruthy()
+  expect(msg4.details.collaboration?.status).toEqual(CollaborativeMessageStates.Unallocated)
+  expect(msg4.details.collaboration?.feedback).toEqual('Please make this change')
+  expect(msg4.details.collaboration?.ownerId).toEqual(undefined)
 })

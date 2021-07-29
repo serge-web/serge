@@ -99,6 +99,19 @@ export interface CoreMessage {
   readonly details: MessageDetails,
 }
 
+/** 
+ * instance of feedback on a collaborative document 
+ */
+export interface FeedbackItem {
+  /** who the feedback is from */
+  readonly fromId: Role['roleId']
+  readonly fromName: Role['roleId']
+  /** when the feedback was provided */
+  readonly date: string
+  /** the feedback */
+  readonly feedback: string
+}
+
 /** data for a message that is being
  * collaboarively edited
  */
@@ -110,23 +123,19 @@ export interface CollaborationDetails {
    /**
     * Current message owner (id)
     */
-   owner?: Role['roleId']
+   ownerId?: Role['roleId']
    /**
     * Current message owner (name)
     */
    ownerName?: Role['name']
    /**
-    * Current message owner
-    */
-   ownerId?: string
-    /**
     * response to message, only used in RFIs
     */
    response?: string
    /** 
     * feedback on last version
     */
-   feedback?: string
+   feedback?: Array<FeedbackItem>
 }
 
 export interface MessageCustom extends CoreMessage {
