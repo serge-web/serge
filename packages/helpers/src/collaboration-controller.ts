@@ -1,7 +1,7 @@
 import { ChannelData, Role, ParticipantTemplate, Participant, ForceData, ForceRole, MessageCustom } from '@serge/custom-types'
 import _ from 'lodash'
 import { CollaborativeMessageStates, CollaborativeMessageCommands } from '@serge/config'
-import getRoleFromName from './get-role-from-name'
+import getRoleFromId from './get-role-from-id'
 
 /**
  * support utility, supporting collaborative editing
@@ -93,8 +93,9 @@ class CollaborationController {
           // is this a full role, or a role id?
           // TODO drop support for Role being in Participants, we should just have roleId
           if (typeof roleId === 'string') {
-            const role = getRoleFromName(this.forces, part.forceUniqid, roleId)
+            const role = getRoleFromId(this.forces, part.forceUniqid, roleId)
             if (role === undefined) {
+              console.log(this.forces[0])
               throw new Error('Failed to find role for ' + part.forceUniqid + ', ' + roleId)
             }
             const roleVal: ForceRole = {
@@ -140,8 +141,7 @@ class CollaborationController {
   }
 
   /** return the current owner */
-  getCurrentOwner(message: MessageCustom): undefined | ForceRole {
-    console.log(message)
+  getCurrentOwner (message: MessageCustom): undefined | ForceRole {
     if (message.details.collaboration) {
       const owner = message.details.collaboration.owner
       if (owner) {
@@ -212,7 +212,7 @@ class CollaborationController {
     }
 
     return res
-  } 
+  }
 
   /** which commands are available for a message in this state */
   commandsFor (state: CollaborativeMessageStates, owner: string): Array<CollaborativeMessageCommands | string> {
