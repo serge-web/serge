@@ -132,6 +132,11 @@
     opacity: 0.25;
   }
 
+  &--progress {
+    cursor: progress;
+    opacity: 0.25;
+  }
+
   &--noIcon {
     padding: 8px 14px;
   }

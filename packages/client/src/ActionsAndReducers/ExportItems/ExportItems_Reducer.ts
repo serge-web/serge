@@ -1,14 +1,21 @@
-import { CREATE_EXPORT_ITEM } from '@serge/config'
+import { CREATE_EXPORT_ITEM, LOADER } from '@serge/config'
 import copyState from '../../Helpers/copyStateHelper'
 import { ExportItemsUiActionTypes, ExportItem } from '@serge/custom-types' 
 
-export const exportItems = (state: ExportItem[] = [], action: ExportItemsUiActionTypes) => {
+const initialState = {
+  data: [],
+  loader: false,
+}
+
+export const exportItems = (state= initialState, action: ExportItemsUiActionTypes) => {
   const newState = copyState(state)
 
   switch (action.type) {
     case CREATE_EXPORT_ITEM:
-      newState.push(action.payload)
-      return newState
+      newState.data.push(action.payload)
+        return {...newState, data: newState.data, loader: false}
+    case LOADER:
+      return {...newState, loader: true}
     default:
       return newState
   }
