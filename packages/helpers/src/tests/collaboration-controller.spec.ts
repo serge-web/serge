@@ -1,5 +1,5 @@
 /* global it expect */
-import { GameChannels, forces,  GameMessagesMockCollab } from '@serge/mocks'
+import { GameChannels, forces, GameMessagesMockCollab } from '@serge/mocks'
 import CollaborationController from '../collaboration-controller'
 import { ChannelData, Role } from '@serge/custom-types'
 import { CollaborativeMessageStates, CollaborativeMessageCommands } from '@serge/config'
@@ -12,8 +12,6 @@ const whiteForce: string = forces[0].uniqid
 const blueCO: Role = forces[1].roles[0]
 const blueOther: Role = forces[1].roles[1]
 const blueForce: string = forces[1].uniqid
-
-console.log(false && coa && blueOther && blueCO && whiteRFI && whiteGC && whiteForce)
 
 it('configures collaboration-controller correctly', () => {
   const controller: CollaborationController = new CollaborationController(forces, rfi, whiteForce, whiteGC)
