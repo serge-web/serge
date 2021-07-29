@@ -32,7 +32,7 @@ const RfiStatusBoardChannel = () => {
       isRFIManager={state.isRFIManager}
       isUmpire={!!isUmpire}
       onChange={handleChange}
-      role={[role]}
+      role={role}
     />
   )
 }

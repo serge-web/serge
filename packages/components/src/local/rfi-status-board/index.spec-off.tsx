@@ -22,7 +22,7 @@ it('RfiStatusBoard renders correctly', () => {
   const tree = renderer
     .create(
       <RfiStatusBoard
-        roleArr={[role]}
+        role={role}
         isRFIManager={true}
         isUmpire={true}
         roles={roles}

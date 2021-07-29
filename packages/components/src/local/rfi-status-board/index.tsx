@@ -2,7 +2,7 @@ import React from 'react'
 import { Badge, DataTable } from '@serge/components'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates } from '@serge/config'
-import { ChannelData, ForceRole } from '@serge/custom-types'
+import { ChannelData } from '@serge/custom-types'
 
 /* Import Types */
 import Props from './types/props'
@@ -13,8 +13,7 @@ import styles from './styles.module.scss'
 import ChannelRfiMessageDetail from '../molecules/channel-rfi-message-detail'
 
 /* Render component */
-export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, roleArr }: Props) => {
-  const role: ForceRole = roleArr[0]
+export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {
 
   // produce dictionary of channels
   const channelDict = new Map<string, string>()

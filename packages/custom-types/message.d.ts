@@ -19,7 +19,6 @@ import {
 import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
-import Asset from './asset'
 import Role from './role'
 import { ForceRole, StateOfWorld } from '.'
 import Wargame from './wargame'
@@ -36,10 +35,11 @@ export interface RFIData {
 }
 
 export interface MessageDetailsFrom {
-  /** id of user force
-   * TODO: check we're using id, not force name
+  /** name
    */
   force: string,
+  /** id of sending force */
+  forceId?: string,
   /** CSS color shade for this force */
   forceColor: string,
   /** role of the individual that wrote message */

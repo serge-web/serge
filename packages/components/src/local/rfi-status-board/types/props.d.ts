@@ -8,8 +8,7 @@ export default interface Props {
   isUmpire: boolean
   /** if this player has "RFI Manager" attribute in their role */
   isRFIManager: boolean
-  /** role of logged in player (embedded in array to meet react constraint):
-   * "Objects are not valid as a React child"
+  /** role of logged in player
    */
-  roleArr: Array<ForceRole>
+  role: ForceRole
 }
