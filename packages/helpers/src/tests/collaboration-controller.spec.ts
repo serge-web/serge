@@ -328,10 +328,15 @@ it('apply command to COA messages', () => {
   if (msg10.details.collaboration) {
     expect(msg10.details.collaboration.status).toEqual(CollaborativeMessageStates.Released)
   }
-  const msg11 = controller.applyCommandTo(msg9, CollaborativeMessageCommands.ReOpen, undefined, undefined)
+  const msg11 = controller.applyCommandTo(msg10, CollaborativeMessageCommands.ReOpen, undefined, undefined)
   expect(msg11.details.collaboration).toBeTruthy()
   if (msg11.details.collaboration) {
     expect(msg11.details.collaboration.status).toEqual(CollaborativeMessageStates.PendingReview)
+  }
+  const msg12 = controller.applyCommandTo(msg11, CollaborativeMessageCommands.Close, undefined, undefined)
+  expect(msg12.details.collaboration).toBeTruthy()
+  if (msg12.details.collaboration) {
+    expect(msg12.details.collaboration.status).toEqual(CollaborativeMessageStates.Rejected)
   }
 })
 
@@ -392,9 +397,23 @@ it('apply command to RFI messages', () => {
   if (msg10.details.collaboration) {
     expect(msg10.details.collaboration.status).toEqual(CollaborativeMessageStates.Released)
   }
-  const msg11 = controller.applyCommandTo(msg9, CollaborativeMessageCommands.ReOpen, undefined, undefined)
+  const msg11 = controller.applyCommandTo(msg10, CollaborativeMessageCommands.ReOpen, undefined, undefined)
   expect(msg11.details.collaboration).toBeTruthy()
   if (msg11.details.collaboration) {
     expect(msg11.details.collaboration.status).toEqual(CollaborativeMessageStates.Unallocated)
+  }
+
+  const msg12 = controller.applyCommandTo(msg11, CollaborativeMessageCommands.TakeOwnership, roles[0], undefined)
+  expect(msg12.details.collaboration).toBeTruthy()
+  expect(msg12.details.collaboration?.status).toEqual(CollaborativeMessageStates.InProgress)
+  expect(msg12.details.collaboration?.owner?.roleId).toEqual(whiteGC.roleId)
+  const msg13 = controller.applyCommandTo(msg12, CollaborativeMessageCommands.SendForReview, undefined, undefined)
+  expect(msg13.details.collaboration).toBeTruthy()
+  expect(msg13.details.collaboration?.status).toEqual(CollaborativeMessageStates.PendingReview)
+  expect(msg13.details.collaboration?.owner).toEqual(undefined)
+  const msg14 = controller.applyCommandTo(msg13, CollaborativeMessageCommands.Close, undefined, undefined)
+  expect(msg14.details.collaboration).toBeTruthy()
+  if (msg14.details.collaboration) {
+    expect(msg14.details.collaboration.status).toEqual(CollaborativeMessageStates.Rejected)
   }
 })

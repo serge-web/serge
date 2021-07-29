@@ -104,7 +104,6 @@ class CollaborationController {
           if (typeof roleId === 'string') {
             const role = getRoleFromId(this.forces, part.forceUniqid, roleId)
             if (role === undefined) {
-              console.log(this.forces[0])
               throw new Error('Failed to find role for ' + part.forceUniqid + ', ' + roleId)
             }
             pushRole(part, role)
