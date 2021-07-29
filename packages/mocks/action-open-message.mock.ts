@@ -1,6 +1,6 @@
 import { OPEN_MESSAGE } from '@serge/config'
 import { OpenMessageAction } from '@serge/custom-types'
-import { GameMessagesMock } from '@serge/mocks'
+import { GameMessagesMock } from '.'
 
 const actionOpenMessage: OpenMessageAction = {
   type: OPEN_MESSAGE,
