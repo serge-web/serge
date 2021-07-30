@@ -9,6 +9,7 @@ import { ExportItem as ExportedItemType, ExportItemsDispatch, Wargame, ExportIte
 import { EXPORT_ITEM_MESSAGES } from '@serge/config'
 
 const ExportMessages = ({ wargame, exportItems, loader, exportWargameMessages }: Props): React.ReactElement => {
+  document.body.style.cursor = loader ? 'progress' : 'default'
   return (
     <ExportView>
       <h2>Export messages</h2>

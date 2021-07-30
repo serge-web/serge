@@ -7,6 +7,7 @@ import ExcelExport from '../Components/ExcelExport'
 import HtmlExport from '../Components/HtmlExport'
 
 const ExportForces = ({ wargame, savExportItem, loader, exportItems }) => {
+  document.body.style.cursor = loader ? 'progress' : 'default'
   const generateExportItem = () => {
     savExportItem({
       title: `Export ${new Date().toISOString().slice(0, 19).replace('T', ' ')}`,
