@@ -98,12 +98,10 @@ const mapStateToProps = ({ wargame, exportItems }) => ({
 const mapDispatchToProps = dispatch => ({
   savExportItem: data => {
     dispatch(showLoading())
-    setTimeout(() => {
-      dispatch(createExportItem({
-        ...data,
-        type: 'forces'
-      }))
-    }, 2000)
+    dispatch(createExportItem({
+      ...data,
+      type: 'forces'
+    }))
   }
 })
 
