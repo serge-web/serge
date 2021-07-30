@@ -8,17 +8,20 @@ import getRoleFromId from './get-role-from-id'
  */
 class CollaborationController {
   readonly channel: ChannelData
-  readonly force: string
+  readonly forceId: string
   readonly role: Role
   readonly myParticipations: Participant[]
   readonly forces: ForceData[]
 
-  /**
-   *
+  /** Create a CollaborationController instance
+   * @param forces list of forces in wargame
+   * @param channel definition of this channel
+   * @param forceId id of the force of current user
+   * @param role current user
    */
-  constructor (forces: ForceData[], channel: ChannelData, force: string, role: Role) {
+  constructor (forces: ForceData[], channel: ChannelData, forceId: string, role: Role) {
     this.channel = channel
-    this.force = force
+    this.forceId = forceId
     this.role = role
     this.forces = forces
     // participations is used a lot. cache the ones that relate to this role
@@ -32,7 +35,7 @@ class CollaborationController {
   getMyParticipations (): Participant[] {
     return this.channel.participants.filter(part => {
       // is this my force?
-      if (part.forceUniqid === this.force) {
+      if (part.forceUniqid === this.forceId) {
         // is there a restricted set of roles?
         if (part.roles && part.roles.length) {
           // Yes: check if I'm one of those roles
