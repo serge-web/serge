@@ -464,7 +464,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                             onFocus={[Function]}
                                             required={false}
                                             type="text"
-                                            value="p23asd"
+                                            value="rkrlasdd5f"
                                           />
                                         </div>
                                       </div>
@@ -475,6 +475,18 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       <div
                                         className="dots"
                                       >
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
                                         <svg
                                           className="svg-inline--fa fa-circle"
                                         />
