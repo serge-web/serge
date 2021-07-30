@@ -21,14 +21,14 @@ import Button from '../../atoms/button'
 import FormGroup from '../../atoms/form-group-shadow'
 import EditableRow, { Item as RowItem, Option } from '../../molecules/editable-row'
 import EditableList, { Item } from '../../molecules/editable-list'
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import ButtonGroup from '@material-ui/core/ButtonGroup'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import Grow from '@material-ui/core/Grow'
+import Paper from '@material-ui/core/Paper'
+import Popper from '@material-ui/core/Popper'
+import MenuItem from '@material-ui/core/MenuItem'
+import MenuList from '@material-ui/core/MenuList'
 
 /* Import Helpers */
 import createChannel from './helpers/createChannel'
@@ -59,6 +59,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const [open, setOpen] = useState(false)
   const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({
     name: template.title,
+    uniqid: template._id,
     value: template
   }))
 
@@ -69,6 +70,22 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
   const handleChangeChannels = (nextChannels: Array<ChannelData>): void => {
     onChange({ channels: nextChannels })
+  }
+
+  const renderAdditionalCells = (channelData: ChannelData): React.ReactNode => {
+    if (typeof channelData.format === 'undefined') return null
+    if (
+      channelData.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT ||
+      channelData.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE
+    ) {
+      return (
+        <>
+          <TableCell align="center">Participate</TableCell>
+          <TableCell align="center">Release</TableCell>
+        </>
+      )
+    }
+    return null
   }
 
   const renderContent = (): React.ReactNode => {
@@ -96,7 +113,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
         newNextItems[2].active = []
       }
       const nextParticipant = rowToParticipant(messageTemplatesOptions, forces, nextItems, participant)
-      return generateRowItems(messageTemplatesOptions, forces, nextParticipant)
+      return generateRowItems(messageTemplatesOptions, forces, nextParticipant, data)
     }
 
     const handleCreateParticipant = (rowItems: Array<RowItem>): void => {
@@ -139,6 +156,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       <TableCell>Force</TableCell>
                       <TableCell align="left">Restrict access to specific roles</TableCell>
                       <TableCell align="left">Templates</TableCell>
+                      {renderAdditionalCells(data)}
                       <TableCell align="right">Actions</TableCell>
                     </TableRow>
                   </TableHead>
@@ -163,7 +181,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                           return handleChangeRow(nextItems, itKey, participant)
                         }}
                         onSave={handleSaveRow}
-                        items={generateRowItems(messageTemplatesOptions, forces, participant)}
+                        items={generateRowItems(messageTemplatesOptions, forces, participant, data)}
                         defaultMode='view'
                         actions={true}
 
@@ -176,7 +194,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                       noSwitchOnReset
                       onChange={handleChangeRow}
                       onSave={handleCreateParticipant}
-                      items={generateRowItems(messageTemplatesOptions, forces, defaultParticipant)}
+                      items={generateRowItems(messageTemplatesOptions, forces, defaultParticipant, data)}
                       defaultMode='edit'
                       actions
                     />
@@ -196,9 +214,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
     setLocalChannelUpdates(channels)
   }, [channels])
 
-
-  const handleAddChannel = (type?:  SpecialChannelTypes) => {
-    console.log('create channel ' + type);
+  const handleAddChannel = (type?: SpecialChannelTypes): void => {
     const nextChannels: ChannelData[] = [
       createChannel(channels, forces[0], type),
       ...channels
@@ -209,14 +225,14 @@ export const SettingChannels: React.FC<PropTypes> = ({
   const handleClose = (event: React.MouseEvent<Document, MouseEvent>): void => {
     // @ts-ignore
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
+      return
     }
-    setOpen(false);
-  };
-  const renderActions = () => {
+    setOpen(false)
+  }
+  const renderActions = (): React.ReactNode => {
     return <div className={styles.actions}>
-      <ButtonGroup 
-        variant="contained" 
+      <ButtonGroup
+        variant="contained"
         color="secondary"
         ref={anchorRef}
         aria-label="split button"
@@ -235,11 +251,11 @@ export const SettingChannels: React.FC<PropTypes> = ({
         </MUIButton>
       </ButtonGroup>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-        {({ TransitionProps, placement }) => (
+        {({ TransitionProps, placement }): React.ReactNode => (
           <Grow
             {...TransitionProps}
             style={{
-              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom'
             }}
           >
             <Paper>

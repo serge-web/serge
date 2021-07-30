@@ -3,12 +3,13 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import EditableRow from './index'
+import EditableRow, { EDITABLE_SELECT_ITEM } from './index'
 import { Item } from './types/props'
 
 const items: Array<Item> = [
   {
     title: 'Column 1',
+    type: EDITABLE_SELECT_ITEM,
     active: [0],
     uniqid: 'col1',
     options: [
@@ -19,6 +20,7 @@ const items: Array<Item> = [
   },
   {
     title: 'Column 2',
+    type: EDITABLE_SELECT_ITEM,
     active: undefined,
     uniqid: 'col2',
     multiple: true,
