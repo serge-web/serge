@@ -7,11 +7,11 @@ import getRoleFromId from './get-role-from-id'
  * support utility, supporting collaborative editing
  */
 class CollaborationController {
-  channel: ChannelData
-  force: string
-  role: Role
-  myParticipations: Participant[]
-  forces: ForceData[]
+  readonly channel: ChannelData
+  readonly force: string
+  readonly role: Role
+  readonly myParticipations: Participant[]
+  readonly forces: ForceData[]
 
   /**
    *
@@ -68,12 +68,15 @@ class CollaborationController {
     return !!this.myParticipations.find((part: Participant) => part.canCollaborate)
   }
 
-  /** am I participating (editing) in this channel? */
+  /** am I able to release documents in this channel? */
   canRelease (): boolean {
     return !!this.myParticipations.find((part: Participant) => part.canReleaseMessages)
   }
 
-  /** whether this user can see dynamic changes to the messages */
+  /** can I see the documents being edited in this channel?
+   * If not, I can only see original version, which changes to finalised
+   * version once it is released
+   */
   canViewLiveUpdates (): boolean {
     return !!this.myParticipations.find((part: Participant) => part.canCollaborate)
   }
@@ -89,6 +92,7 @@ class CollaborationController {
     }
   }
 
+  /** what is the initial state of documents sent to this channel? */
   getInitialState (): CollaborativeMessageStates {
     if (this.channel.collabOptions) {
       return this.channel.collabOptions.startWithReview ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated
@@ -97,7 +101,9 @@ class CollaborationController {
     }
   }
 
-  /** list of roles ids that a message in this channel could be assigned to */
+  /** list of roles ids that a message in this channel could be assigned to,
+   * to be used in `Assign To` functionality
+   */
   messageCanBeAssignedTo (): Array<ForceRole> {
     const roles: Array<ForceRole> = []
 
@@ -114,6 +120,7 @@ class CollaborationController {
     const collaborators = this.channel.participants.filter((part: Participant) => part.canCollaborate)
     collaborators.forEach((part: Participant) => {
       if (part.roles && part.roles.length) {
+        // a specific set of roles have been assigned, process them
         part.roles.forEach((roleId: any) => {
           // is this a full role, or a role id?
           // TODO drop support for Role being in Participants, we should just have roleId
@@ -173,7 +180,12 @@ class CollaborationController {
     return undefined
   }
 
-  /** modify the message according to the command */
+  /** modify the message according to the command
+   * @param message the message we are going to update
+   * @param command the command being applied to the message
+   * @param assignedTo the role that has taken the message, or the message has been assigned to
+   * @param feedback comments provided when the message was sent back for changes
+   */
   applyCommandTo (message: MessageCustom, command: CollaborativeMessageCommands, assignedTo: ForceRole | undefined, feedback?: string): MessageCustom {
     // copy the message
     const res = _.cloneDeep(message)
@@ -210,6 +222,7 @@ class CollaborationController {
         case CollaborativeMessageCommands.RequestChanges: {
           res.details.collaboration.status = CollaborativeMessageStates.Unallocated
           if (feedback) {
+            // initialise feedback array, if necessary
             if (res.details.collaboration.feedback === undefined) {
               res.details.collaboration.feedback = []
             }
