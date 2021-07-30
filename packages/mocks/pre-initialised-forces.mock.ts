@@ -15,8 +15,7 @@ const forces: ForceData[] = [
                 isGameControl: true,
                 isInsightViewer: true,
                 isObserver: true,
-                name: "Game Control",
-                password: "p2311"
+                name: "Game Control"
             }
         ],
         umpire: true,
@@ -137,8 +136,7 @@ const forces: ForceData[] = [
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
-                name: "CO",
-                password: "p5543"
+                name: "CO"
             },
           {
                 roleId: 'rk888w6f6e',
@@ -146,8 +144,7 @@ const forces: ForceData[] = [
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
-                name: "Logistics",
-                password: "plx4l7"
+                name: "Logistics"
             }
         ],
         umpire: false,
@@ -219,8 +216,7 @@ const forces: ForceData[] = [
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
-                name: "CO",
-                password: "p3244"
+                name: "CO"
             },
           {
                 roleId: 'rkr996f5emms',
@@ -228,8 +224,7 @@ const forces: ForceData[] = [
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
-                name: "Comms",
-                password: "p94vxe"
+                name: "Comms"
             }
         ],
         umpire: false,
@@ -303,8 +298,7 @@ const forces: ForceData[] = [
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
-                name: "CO",
-                password: "P9454"
+                name: "CO"
             }
         ],
         umpire: false,

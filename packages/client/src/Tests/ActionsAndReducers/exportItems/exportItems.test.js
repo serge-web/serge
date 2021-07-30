@@ -105,7 +105,6 @@ const wargame = {
               roles: [
                 {
                   name: 'Game Control',
-                  password: 'pk16fa8oa',
                   isGameControl: true,
                   isObserver: true,
                   isInsightViewer: true,
@@ -124,14 +123,12 @@ const wargame = {
               roles: [
                 {
                   name: 'CO',
-                  password: 'pk16fdykk',
                   isGameControl: false,
                   isObserver: false,
                   isInsightViewer: false
                 },
                 {
                   name: 'Comms',
-                  password: 'pk16ffhn3',
                   isObserver: false,
                   isInsightViewer: false,
                   isGameControl: false
@@ -441,7 +438,6 @@ const wargame = {
               roles: [
                 {
                   name: 'Game Control',
-                  password: 'pk16fa8oa',
                   isGameControl: true,
                   isObserver: true,
                   isInsightViewer: true,
@@ -460,14 +456,12 @@ const wargame = {
               roles: [
                 {
                   name: 'CO',
-                  password: 'pk16fdykk',
                   isGameControl: false,
                   isObserver: false,
                   isInsightViewer: false
                 },
                 {
                   name: 'Comms',
-                  password: 'pk16ffhn3',
                   isObserver: false,
                   isInsightViewer: false,
                   isGameControl: false
@@ -708,7 +702,6 @@ const wargame = {
               roles: [
                 {
                   name: 'Game Control',
-                  password: 'pk16fa8oa',
                   isGameControl: true,
                   isObserver: true,
                   isInsightViewer: true,
@@ -727,14 +720,12 @@ const wargame = {
               roles: [
                 {
                   name: 'CO',
-                  password: 'pk16fdykk',
                   isGameControl: false,
                   isObserver: false,
                   isInsightViewer: false
                 },
                 {
                   name: 'Comms',
-                  password: 'pk16ffhn3',
                   isObserver: false,
                   isInsightViewer: false,
                   isGameControl: false
@@ -975,7 +966,6 @@ const wargame = {
               roles: [
                 {
                   name: 'Game Control',
-                  password: 'pk16fa8oa',
                   isGameControl: true,
                   isObserver: true,
                   isInsightViewer: true,
@@ -994,14 +984,12 @@ const wargame = {
               roles: [
                 {
                   name: 'CO',
-                  password: 'pk16fdykk',
                   isGameControl: false,
                   isObserver: false,
                   isInsightViewer: false
                 },
                 {
                   name: 'Comms',
-                  password: 'pk16ffhn3',
                   isObserver: false,
                   isInsightViewer: false,
                   isGameControl: false
@@ -1240,7 +1228,6 @@ const wargame = {
           roles: [
             {
               name: 'Game Control',
-              password: 'pk16fa8oa',
               isGameControl: true,
               isObserver: true,
               isInsightViewer: true,
@@ -1259,14 +1246,12 @@ const wargame = {
           roles: [
             {
               name: 'CO',
-              password: 'pk16fdykk',
               isGameControl: false,
               isObserver: false,
               isInsightViewer: false
             },
             {
               name: 'Comms',
-              password: 'pk16ffhn3',
               isObserver: false,
               isInsightViewer: false,
               isGameControl: false
@@ -1652,7 +1637,7 @@ describe('exportItems actions', () => {
     expect(typeof action.payload.wargame).toEqual('string')
     expect(Array.isArray(action.payload.data)).toBeTruthy()
     // if have items check items object props
-    if(action.payload.data.length) {
+    if (action.payload.data.length) {
       expect(action.payload.data.filter(tab => (
         !tab.title || !Array.isArray(tab.items))
       ).length).toEqual(0)
@@ -1667,6 +1652,6 @@ describe('exportItems reducer', () => {
       payload: exportItem
     }
 
-    expect(exportItems([], exportItemAction)).toEqual([ exportItem ])
+    expect(exportItems([], exportItemAction)).toEqual([exportItem])
   })
 })

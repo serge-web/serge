@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import AddRoleModal from '../AddRoleModal'
 import DeleteModal from '../DeleteModal'
 import DeleteWargameModal from '../DeleteWargameModal'
 import UnsavedForceModal from '../UnsavedForceModal'
@@ -30,10 +29,6 @@ class ModalSwitchAdmin extends Component {
 
       case 'unsavedChannel':
         modal = <UnsavedChannelModal />
-        break
-
-      case 'newRole':
-        modal = <AddRoleModal />
         break
 
       case 'addIcon':

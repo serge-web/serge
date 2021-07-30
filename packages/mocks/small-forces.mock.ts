@@ -17,7 +17,6 @@ export const forces: ForceData[] = [
         canSubmitPlans: true,
         isObserver: true,
         name: 'Game Control',
-        password: 'p2311'
       }, 
       {
         roleId: 'rkasdbw6f5e',
@@ -27,7 +26,6 @@ export const forces: ForceData[] = [
         canSubmitPlans: true,
         isObserver: true,
         name: 'RFI Manager',
-        password: 'p2312'
       }
     ],
     umpire: true,
@@ -155,7 +153,6 @@ export const forces: ForceData[] = [
         isInsightViewer: false,
         isObserver: false,
         name: 'CO',
-        password: 'p5543'
       },
       {
         roleId: 'rkrlwetf5e',
@@ -164,7 +161,6 @@ export const forces: ForceData[] = [
         isInsightViewer: false,
         isObserver: false,
         name: 'Logs',
-        password: 'p23243'
       }
 
     ],
@@ -258,8 +254,7 @@ export const forces: ForceData[] = [
         canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
-        name: 'CO',
-        password: 'p3244'
+        name: 'CO'
       }
     ],
     umpire: false,
@@ -335,8 +330,7 @@ export const forces: ForceData[] = [
         canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
-        name: 'CO',
-        password: 'P9454'
+        name: 'CO'
       }
     ],
     umpire: false,
