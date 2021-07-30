@@ -31,7 +31,9 @@ exports[`ForceObjective renders correctly 1`] = `
     >
       <span
         className="role-type"
-      />
+      >
+        Comms
+      </span>
       <div
         className="contain-force-skin"
         data-tour="objectives-step"
