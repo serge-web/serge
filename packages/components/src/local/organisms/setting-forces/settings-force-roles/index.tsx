@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-
+import uniqid from 'uniqid'
 /* Import proptypes */
 import { Role } from '../types/props'
 import PropTypes from './types/props'
@@ -47,8 +47,8 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
     return (
       <div className={styles.role}>
         <div className={styles['role-item']}>
-          <PasswordView value={roleItem.password} onChange={(password: string): void => {
-            handleChangeRole({ ...roleItem, password })
+          <PasswordView value={roleItem.roleId} onChange={(roleId: string): void => {
+            handleChangeRole({ ...roleItem, roleId })
           }}/>
           {key === 0 && <div className={styles['role-title']}>Password</div>}
         </div>
@@ -98,9 +98,9 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
 
   const handleCreateRole = (): void => {
     const roles: Array<Role> = [...data.roles, {
+      roleId: uniqid.time('r'),
       name: 'New Role',
       canSubmitPlans: false,
-      password: 'p' + Math.random().toString(36).substring(8),
       isGameControl: false,
       isInsightViewer: false,
       isRFIManager: false,

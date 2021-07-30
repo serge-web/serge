@@ -111,8 +111,7 @@
                                     "isGameControl": true,
                                     "isInsightViewer": true,
                                     "isObserver": true,
-                                    "name": "Game Control",
-                                    "password": "pkoiqu5ev"
+                                    "name": "Game Control"
                                 },
                                 {
                                     "canSubmitPlans": false,
@@ -120,8 +119,7 @@
                                     "isInsightViewer": true,
                                     "isObserver": false,
                                     "isRFIManager": true,
-                                    "name": "RFI Mgr",
-                                    "password": "prtrbj"
+                                    "name": "RFI Mgr"
                                 },
                                 {
                                     "canSubmitPlans": false,
@@ -129,8 +127,7 @@
                                     "isInsightViewer": false,
                                     "isObserver": false,
                                     "isRFIManager": false,
-                                    "name": "Blue HHQ",
-                                    "password": "p3ssu8"
+                                    "name": "Blue HHQ"
                                 }
                             ],
                             "subscriptionId": "hhbx3",
@@ -151,8 +148,7 @@
                                     "isGameControl": false,
                                     "isInsightViewer": false,
                                     "isObserver": false,
-                                    "name": "CO",
-                                    "password": "pkoiqysc9"
+                                    "name": "CO"
                                 }
                             ],
                             "subscriptionId": "g485",
@@ -167,8 +163,7 @@
                                     "isGameControl": false,
                                     "isInsightViewer": false,
                                     "isObserver": false,
-                                    "name": "CO",
-                                    "password": "pkoiqzx9e"
+                                    "name": "CO"
                                 }
                             ],
                             "subscriptionId": "hukqr",
@@ -184,8 +179,7 @@
                                     "isInsightViewer": false,
                                     "isObserver": false,
                                     "isRFIManager": false,
-                                    "name": "Blue HHQ",
-                                    "password": "p3ssu8"
+                                    "name": "Blue HHQ"
                                 }
                             ],
                             "subscriptionId": "r4yp",
@@ -220,8 +214,7 @@
                                     "isGameControl": true,
                                     "isInsightViewer": true,
                                     "isObserver": true,
-                                    "name": "Game Control",
-                                    "password": "pkoiqu5ev"
+                                    "name": "Game Control"
                                 },
                                 {
                                     "canSubmitPlans": false,
@@ -229,8 +222,7 @@
                                     "isInsightViewer": true,
                                     "isObserver": false,
                                     "isRFIManager": true,
-                                    "name": "RFI Mgr",
-                                    "password": "prtrbj"
+                                    "name": "RFI Mgr"
                                 },
                                 {
                                     "canSubmitPlans": false,
@@ -238,8 +230,7 @@
                                     "isInsightViewer": false,
                                     "isObserver": false,
                                     "isRFIManager": false,
-                                    "name": "Red HHQ",
-                                    "password": "pvg5sb"
+                                    "name": "Red HHQ"
                                 }
                             ],
                             "subscriptionId": "h2my2k",
@@ -260,8 +251,7 @@
                                     "isGameControl": false,
                                     "isInsightViewer": false,
                                     "isObserver": false,
-                                    "name": "CO",
-                                    "password": "pkoir164m"
+                                    "name": "CO"
                                 }
                             ],
                             "subscriptionId": "k1fi",
@@ -276,8 +266,7 @@
                                     "isGameControl": false,
                                     "isInsightViewer": false,
                                     "isObserver": false,
-                                    "name": "CO",
-                                    "password": "pkoirc8rl"
+                                    "name": "CO"
                                 }
                             ],
                             "subscriptionId": "bxkfi",
@@ -293,8 +282,7 @@
                                     "isInsightViewer": false,
                                     "isObserver": false,
                                     "isRFIManager": false,
-                                    "name": "Red HHQ",
-                                    "password": "pvg5sb"
+                                    "name": "Red HHQ"
                                 }
                             ],
                             "subscriptionId": "2n7ea",
@@ -387,8 +375,7 @@
                                     "isGameControl": true,
                                     "isInsightViewer": true,
                                     "isObserver": true,
-                                    "name": "Game Control",
-                                    "password": "pkoiqu5ev"
+                                    "name": "Game Control"
                                 },
                                 {
                                     "canSubmitPlans": false,
@@ -396,8 +383,7 @@
                                     "isInsightViewer": true,
                                     "isObserver": false,
                                     "isRFIManager": true,
-                                    "name": "RFI Mgr",
-                                    "password": "prtrbj"
+                                    "name": "RFI Mgr"
                                 },
                                 {
                                     "canSubmitPlans": false,
@@ -405,8 +391,7 @@
                                     "isInsightViewer": false,
                                     "isObserver": false,
                                     "isRFIManager": false,
-                                    "name": "Blue HHQ",
-                                    "password": "p3ssu8"
+                                    "name": "Blue HHQ"
                                 }
                             ],
                             "subscriptionId": "59z0l",
@@ -499,8 +484,7 @@
                                     "isGameControl": true,
                                     "isInsightViewer": true,
                                     "isObserver": true,
-                                    "name": "Game Control",
-                                    "password": "pkoiqu5ev"
+                                    "name": "Game Control"
                                 },
                                 {
                                     "canSubmitPlans": false,
@@ -508,8 +492,7 @@
                                     "isInsightViewer": true,
                                     "isObserver": false,
                                     "isRFIManager": true,
-                                    "name": "RFI Mgr",
-                                    "password": "prtrbj"
+                                    "name": "RFI Mgr"
                                 },
                                 {
                                     "canSubmitPlans": false,
@@ -517,8 +500,7 @@
                                     "isInsightViewer": false,
                                     "isObserver": false,
                                     "isRFIManager": false,
-                                    "name": "Blue HHQ",
-                                    "password": "p3ssu8"
+                                    "name": "Blue HHQ"
                                 }
                             ],
                             "subscriptionId": "4yotx",
@@ -539,8 +521,7 @@
                                     "isGameControl": true,
                                     "isInsightViewer": true,
                                     "isObserver": true,
-                                    "name": "Game Control",
-                                    "password": "pkoiqu5ev"
+                                    "name": "Game Control"
                                 },
                                 {
                                     "canSubmitPlans": false,
@@ -548,8 +529,7 @@
                                     "isInsightViewer": true,
                                     "isObserver": false,
                                     "isRFIManager": true,
-                                    "name": "RFI Mgr",
-                                    "password": "prtrbj"
+                                    "name": "RFI Mgr"
                                 },
                                 {
                                     "canSubmitPlans": false,
@@ -557,8 +537,7 @@
                                     "isInsightViewer": false,
                                     "isObserver": false,
                                     "isRFIManager": false,
-                                    "name": "Red HHQ",
-                                    "password": "pvg5sb"
+                                    "name": "Red HHQ"
                                 }
                             ],
                             "subscriptionId": "lity",
@@ -651,8 +630,7 @@
                                     "isGameControl": true,
                                     "isInsightViewer": true,
                                     "isObserver": true,
-                                    "name": "Game Control",
-                                    "password": "pkoiqu5ev"
+                                    "name": "Game Control"
                                 },
                                 {
                                     "canSubmitPlans": false,
@@ -660,8 +638,7 @@
                                     "isInsightViewer": true,
                                     "isObserver": false,
                                     "isRFIManager": true,
-                                    "name": "RFI Mgr",
-                                    "password": "prtrbj"
+                                    "name": "RFI Mgr"
                                 },
                                 {
                                     "canSubmitPlans": false,
@@ -669,8 +646,7 @@
                                     "isInsightViewer": false,
                                     "isObserver": false,
                                     "isRFIManager": false,
-                                    "name": "Red HHQ",
-                                    "password": "pvg5sb"
+                                    "name": "Red HHQ"
                                 }
                             ],
                             "subscriptionId": "6cjib",
@@ -828,8 +804,7 @@
                             "isInsightViewer": true,
                             "isRFIManager": false,
                             "isObserver": true,
-                            "name": "Game Control",
-                            "password": "pkoiqu5ev"
+                            "name": "Game Control"
                         },
                         {
                             "canSubmitPlans": false,
@@ -837,8 +812,7 @@
                             "isInsightViewer": true,
                             "isObserver": false,
                             "isRFIManager": true,
-                            "name": "RFI Mgr",
-                            "password": "prtrbj"
+                            "name": "RFI Mgr"
                         },
                         {
                             "canSubmitPlans": false,
@@ -846,8 +820,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "Blue HHQ",
-                            "password": "p3ssu8"
+                            "name": "Blue HHQ"
                         },
                         {
                             "canSubmitPlans": false,
@@ -855,8 +828,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "Red HHQ",
-                            "password": "pvg5sb"
+                            "name": "Red HHQ"
                         }
                     ],
                     "umpire": true,
@@ -1106,8 +1078,7 @@
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
-                            "name": "CO",
-                            "password": "pkoiqzx9e"
+                            "name": "CO"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1115,8 +1086,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF B1",
-                            "password": "pmczm7"
+                            "name": "CTF B1"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1124,8 +1094,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF B2",
-                            "password": "ppelxo"
+                            "name": "CTF B2"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1133,8 +1102,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF B3",
-                            "password": "pssln2"
+                            "name": "CTF B3"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1142,8 +1110,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF B4",
-                            "password": "pdre9e"
+                            "name": "CTF B4"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1151,8 +1118,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF B5",
-                            "password": "pxxpka"
+                            "name": "CTF B5"
                         }
                     ],
                     "umpire": false,
@@ -1265,8 +1231,7 @@
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
-                            "name": "CO",
-                            "password": "pkoiqysc9"
+                            "name": "CO"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1274,8 +1239,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF A1",
-                            "password": "pn2qx"
+                            "name": "CTF A1"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1283,8 +1247,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF A2",
-                            "password": "p5mnyr"
+                            "name": "CTF A2"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1292,8 +1255,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF A3",
-                            "password": "p6z8uxg"
+                            "name": "CTF A3"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1301,8 +1263,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF A4",
-                            "password": "p2yg4o"
+                            "name": "CTF A4"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1310,8 +1271,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF A5",
-                            "password": "pgneah"
+                            "name": "CTF A5"
                         }
                     ],
                     "umpire": false,
@@ -1474,8 +1434,7 @@
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
-                            "name": "CO",
-                            "password": "pkoirc8rl"
+                            "name": "CO"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1483,8 +1442,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF Y1",
-                            "password": "pdnxcf"
+                            "name": "CTF Y1"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1492,8 +1450,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF Y2",
-                            "password": "pf2g5"
+                            "name": "CTF Y2"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1501,8 +1458,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF Y3",
-                            "password": "putgsqw"
+                            "name": "CTF Y3"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1510,8 +1466,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF Y4",
-                            "password": "pp912"
+                            "name": "CTF Y4"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1519,8 +1474,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF Y5",
-                            "password": "pbyz1"
+                            "name": "CTF Y5"
                         }
                     ],
                     "umpire": false,
@@ -1627,8 +1581,7 @@
                             "isGameControl": false,
                             "isInsightViewer": false,
                             "isObserver": false,
-                            "name": "CO",
-                            "password": "pkoir164m"
+                            "name": "CO"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1636,8 +1589,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF X1",
-                            "password": "p3d3n"
+                            "name": "CTF X1"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1645,8 +1597,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF X2",
-                            "password": "pqv1q"
+                            "name": "CTF X2"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1654,8 +1605,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF X3",
-                            "password": "psrai"
+                            "name": "CTF X3"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1663,8 +1613,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF X4",
-                            "password": "pf8q28"
+                            "name": "CTF X4"
                         },
                         {
                             "canSubmitPlans": false,
@@ -1672,8 +1621,7 @@
                             "isInsightViewer": false,
                             "isObserver": false,
                             "isRFIManager": false,
-                            "name": "CTF X5",
-                            "password": "pqimxd"
+                            "name": "CTF X5"
                         }
                     ],
                     "umpire": false,

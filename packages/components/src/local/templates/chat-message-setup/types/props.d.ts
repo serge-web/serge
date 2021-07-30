@@ -13,7 +13,8 @@ export default interface Props {
    * StoryBook to "drive" the UI
    */
   forceName: string
-  selectedRole: string
+  selectedRole: Role['roleId']
+  selectedRoleName: Role['name']
   isUmpire: boolean
   chatChannel: any
   userId: string

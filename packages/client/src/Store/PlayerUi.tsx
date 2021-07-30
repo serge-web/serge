@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useReducer, Dispatch } from 'react'
-import { initialState, playerUiReducer } from '../ActionsAndReducers/playerUi/playerUi_Reducer'
 import { PlayerUi, PlayerUiActionTypes } from '@serge/custom-types'
+import { useDispatch } from 'react-redux'
+import uniqid from 'uniqid'
+import { initialState, playerUiReducer } from '../ActionsAndReducers/playerUi/playerUi_Reducer'
+import { updateForces } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 
 export const PlayerStateContext: React.Context<PlayerUi> = createContext(initialState)
 export const PlayerDispatchContext: React.Context<Dispatch<PlayerUiActionTypes>> = createContext({} as Dispatch<PlayerUiActionTypes>)
@@ -20,6 +23,21 @@ export const usePlayerUiState = (): PlayerUi => {
   const context = useContext(PlayerStateContext)
   if (context === undefined) {
     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')
+  }
+  //process roleid for the legacy data
+  let needUpdate = false
+  const { currentWargame, allForces } = context
+  allForces.forEach(force => {
+    force.roles.forEach(role => {
+      if (!role.roleId) {
+        needUpdate = true
+        role.roleId = uniqid.time('r')
+      }
+    })
+  })
+  if (needUpdate) {
+    const dispatch = useDispatch()
+    dispatch(updateForces(currentWargame, allForces))
   }
   return context
 }

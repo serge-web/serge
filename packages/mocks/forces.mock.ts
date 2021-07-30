@@ -10,13 +10,13 @@ export const forces: ForceData[] = [
     overview: 'Umpire force.',
     roles: [
       {
+        roleId: 'rkrlw6f5f',
         isGameControl: true,
         isInsightViewer: true,
         isRFIManager: true,
         canSubmitPlans: true,
         isObserver: true,
-        name: 'Game Control',
-        password: 'p2311'
+        name: 'Game Control'
       }
     ],
     umpire: true,
@@ -332,20 +332,20 @@ export const forces: ForceData[] = [
     overview: 'Blue force.',
     roles: [
       {
+        roleId: 'rkrlw445e',
         isGameControl: false,
         canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
-        name: 'CO',
-        password: 'p5543'
+        name: 'CO'
       },
       {
+        roleId: 'rkrlw6f5emms',
         isGameControl: false,
         canSubmitPlans: false,
         isInsightViewer: false,
         isObserver: false,
-        name: 'Comms',
-        password: 'p5542'
+        name: 'Comms'
       }
     ],
     umpire: false,
@@ -597,12 +597,20 @@ export const forces: ForceData[] = [
     overview: 'Red force.',
     roles: [
       {
+        roleId: 'rkrl55f5e',
         isGameControl: false,
         canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
-        name: 'CO',
-        password: 'p3244'
+        name: 'CO'
+      }, 
+      {
+        roleId: 'rkrlss55f5e',
+        isGameControl: false,
+        canSubmitPlans: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'Logs'
       }
     ],
     umpire: false,
@@ -1250,12 +1258,12 @@ export const forces: ForceData[] = [
     overview: 'Green Shipping',
     roles: [
       {
+        roleId: 'rkr666f5e',
         isGameControl: false,
         canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
-        name: 'CO',
-        password: 'P9454'
+        name: 'CO'
       }
     ],
     umpire: false,

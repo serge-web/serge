@@ -9,6 +9,7 @@ export default interface PropTypes {
     icon?: string
     iconURL: string
   }
-  selectedRole: string
+  selectedRole: Role['roleId']
+  selectedRoleName: Role['name']
   chatChannel: any
 }

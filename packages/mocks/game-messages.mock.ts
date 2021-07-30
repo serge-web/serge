@@ -1,5 +1,11 @@
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel, Role } from '@serge/custom-types'
 import { CUSTOM_MESSAGE } from '@serge/config'
+
+import { forces } from './forces.mock'
+
+const whiteGC: Role = forces[0].roles[0]
+const blueCO: Role = forces[1].roles[0]
+const redCO: Role = forces[2].roles[0]
 
 const gameMessages: MessageChannel[] = [
   {
@@ -10,7 +16,8 @@ const gameMessages: MessageChannel[] = [
         force: "Red",
         forceColor: "#F00",
         iconURL: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: redCO.name,
+        roleId: redCO.roleId
       },
       messageType: "Chat",
       timestamp: "2020-10-13T08:52:04.394Z"
@@ -30,7 +37,8 @@ const gameMessages: MessageChannel[] = [
         force: "Blue",
         forceColor: "#00F",
         iconURL: "default_img/umpireDefault.png",
-        role: "CO"
+        roleName: blueCO.name,
+        roleId: blueCO.roleId
       },
       messageType: "Chat",
       timestamp: "2020-10-13T08:52:21.119Z"
@@ -50,7 +58,8 @@ const gameMessages: MessageChannel[] = [
             force: "White",
             forceColor: "#FCFBEE",
             iconURL: "default_img/umpireDefault.png",
-            role: "Game Control"
+            roleName: whiteGC.name,
+            roleId: whiteGC.roleId
         },
         messageType: "Chat",
         privateMessage: "The private content goes in here",

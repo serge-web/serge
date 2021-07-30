@@ -170,13 +170,13 @@ const game: Wargame = {
           overview: 'Umpire force.',
           roles: [
             {
+              roleId: 'rkree6f5e',
               isGameControl: true,
               isInsightViewer: true,
               isRFIManager: true,
               canSubmitPlans: true,
               isObserver: true,
-              name: 'Game Control',
-              password: 'p2311'
+              name: 'Game Control'
             }
           ],
           umpire: true,
@@ -492,20 +492,20 @@ const game: Wargame = {
           overview: 'Blue force.',
           roles: [
             {
+              roleId: 'rkrff6f5e',
               isGameControl: false,
               canSubmitPlans: true,
               isInsightViewer: false,
               isObserver: false,
-              name: 'CO',
-              password: 'p5543'
+              name: 'CO'
             },
             {
+              roleId: 'rkrlwgg5g',
               isGameControl: false,
               canSubmitPlans: false,
               isInsightViewer: false,
               isObserver: false,
-              name: 'Comms',
-              password: 'p5542'
+              name: 'Comms'
             }
           ],
           umpire: false,
@@ -757,12 +757,12 @@ const game: Wargame = {
           overview: 'Red force.',
           roles: [
             {
+              roleId: 'rkeew6f5e',
               isGameControl: false,
               canSubmitPlans: true,
               isInsightViewer: false,
               isObserver: false,
-              name: 'CO',
-              password: 'p3244'
+              name: 'CO'
             }
           ],
           umpire: false,
@@ -1410,12 +1410,12 @@ const game: Wargame = {
           overview: 'Green Shipping',
           roles: [
             {
+              roleId: 'rkrlwff5e',
               isGameControl: false,
               canSubmitPlans: true,
               isInsightViewer: false,
               isObserver: false,
-              name: 'CO',
-              password: 'P9454'
+              name: 'CO'
             }
           ],
           umpire: false,

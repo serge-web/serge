@@ -611,7 +611,6 @@
         "roles": [
           {
             "name": "Game Control",
-            "password": "pk16fa8oa",
             "isGameControl":true,
             "isObserver": true,
             "isInsightViewer": true,
@@ -630,14 +629,12 @@
         "roles": [
           {
             "name": "CO",
-            "password": "pk16fdykk",
             "isGameControl":false,
             "isObserver": false,
             "isInsightViewer": false
           },
           {
             "name": "Comms",
-            "password": "pk16ffhn3",
             "isObserver": false,
             "isInsightViewer": false,
             "isGameControl":false

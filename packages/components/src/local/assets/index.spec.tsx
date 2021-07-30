@@ -18,11 +18,11 @@ const forces: Array<ForceData> = [
     overview: 'Umpire force.',
     roles: [
       {
+        roleId: 'r12345GC',
         isGameControl: true,
         isInsightViewer: true,
         isObserver: true,
         name: 'Game Control',
-        password: 'p2311',
         isRFIManager: true
       }
     ],
@@ -52,11 +52,11 @@ const forces: Array<ForceData> = [
     overview: 'Blue force.',
     roles: [
       {
+        roleId: 'r12345CO',
         isGameControl: false,
         isInsightViewer: false,
         isObserver: false,
-        name: 'CO',
-        password: 'p5543'
+        name: 'CO'
       }
     ],
     umpire: false,

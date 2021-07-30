@@ -13,6 +13,7 @@ import {
   showHideObjectives
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { expiredStorage } from '../../consts'
+import {getRoleNameFromId} from '@serge/helpers'
 
 const GameChannels: React.FC = (): React.ReactElement => {
   const {
@@ -48,6 +49,8 @@ const GameChannels: React.FC = (): React.ReactElement => {
     dispatch(openTour(true))
   }
 
+  const roleName = getRoleNameFromId(selectedForce, selectedRole)
+
   return <div className="flex-content flex-content--row-wrap">
     <div className="message-feed in-game-feed" data-tour="fourth-step">
       <ChannelTabsContainer rootRef={el => {
@@ -79,7 +82,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
       <AdminAndInsightsTabsContainer />
       {showObjective && <ForceObjective
         force={selectedForce}
-        selectedRole={selectedRole}
+        selectedRole={roleName}
         onIconClick={(): void => dispatch(showHideObjectives())}
       />}
     </div>
