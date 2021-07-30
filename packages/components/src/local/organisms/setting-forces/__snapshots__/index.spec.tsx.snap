@@ -597,7 +597,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                       onFocus={[Function]}
                                                       required={false}
                                                       type="text"
-                                                      value="p2311"
+                                                      value="rkrlw6f5f"
                                                     />
                                                   </div>
                                                 </div>
@@ -608,6 +608,18 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 <div
                                                   className="dots"
                                                 >
+                                                  <svg
+                                                    className="svg-inline--fa fa-circle"
+                                                  />
+                                                  <svg
+                                                    className="svg-inline--fa fa-circle"
+                                                  />
+                                                  <svg
+                                                    className="svg-inline--fa fa-circle"
+                                                  />
+                                                  <svg
+                                                    className="svg-inline--fa fa-circle"
+                                                  />
                                                   <svg
                                                     className="svg-inline--fa fa-circle"
                                                   />

@@ -9,8 +9,8 @@
 				"isInsightViewer": true,
 				"isObserver": true,
 				"name": "Game Control",
-				"password": "p2311",
-				"isRFIManager": true
+				"isRFIManager": true,
+				"roleId": "r6546431"
 			}],
 			"umpire": true,
 			"uniqid": "umpire"
@@ -92,7 +92,7 @@
 				"isInsightViewer": false,
 				"isObserver": false,
 				"name": "CO",
-				"password": "p5543"
+				"roleId": "r654642231"
 			}],
 			"umpire": false,
 			"uniqid": "Blue"
@@ -159,7 +159,7 @@
 				"isInsightViewer": false,
 				"isObserver": false,
 				"name": "CO",
-				"password": "p3244"
+				"roleId": "r6544346431"
 			}],
 			"umpire": false,
 			"uniqid": "RedId"
@@ -691,7 +691,7 @@
 				"isInsightViewer": false,
 				"isObserver": false,
 				"name": "CO",
-				"password": "P9454"
+				"roleId": "r6521246431"
 			}],
 			"umpire": false,
 			"uniqid": "GreenId"

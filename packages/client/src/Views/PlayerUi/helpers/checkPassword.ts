@@ -20,7 +20,7 @@ export default (
   const force = allForces.find(force => (
     force.roles.find(roleItem => {
       role = roleItem
-      return roleItem.password === pass
+      return roleItem.roleId === pass
     }) !== undefined
   ))
 
