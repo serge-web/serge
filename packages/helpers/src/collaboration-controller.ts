@@ -25,6 +25,10 @@ class CollaborationController {
     this.myParticipations = this.getMyParticipations()
   }
 
+  /** look at the channel definition, and determine which how I participate in it.  There
+   * could be multiple entries, since I could be a member as part of a whole force, in
+   * addition to having a participation on my own
+   */
   getMyParticipations (): Participant[] {
     return this.channel.participants.filter(part => {
       // is this my force?
