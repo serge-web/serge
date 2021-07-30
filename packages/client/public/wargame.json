@@ -130,8 +130,7 @@
 					"isObserver": true,
 					"isRFIManager": true,
 					"canSubmitPlans": true,
-					"name": "Game Control",
-					"password": "p2311"
+					"name": "Game Control"
 				}],
 				"umpire": true,
 				"uniqid": "umpire"
@@ -192,8 +191,7 @@
 					"isInsightViewer": false,
 					"isObserver": false,
 					"canSubmitPlans": true,
-					"name": "CO",
-					"password": "p5543"
+					"name": "CO"
 				}],
 				"umpire": false,
 				"uniqid": "Blue"
@@ -236,8 +234,7 @@
 					"isInsightViewer": false,
 					"isObserver": false,
 					"canSubmitPlans": true,
-					"name": "CO",
-					"password": "p5545"
+					"name": "CO"
 				}],
 				"umpire": false,
 				"uniqid": "Blue2"
@@ -398,8 +395,7 @@
 					"isInsightViewer": false,
 					"isObserver": false,
 					"name": "CO",
-					"canSubmitPlans": true,
-					"password": "p3244"
+					"canSubmitPlans": true
 				}],
 				"umpire": false,
 				"uniqid": "Red"
@@ -1682,8 +1678,7 @@
 						"isInsightViewer": false,
 						"isObserver": false,
 						"canSubmitPlans": true,
-						"name": "CO",
-						"password": "P9454"
+						"name": "CO"
 					}
 				],
 				"umpire": false,

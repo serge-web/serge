@@ -13,8 +13,7 @@ export const forces: ForceData[] = [
         "isGameControl": true,
         "isInsightViewer": true,
         "isObserver": true,
-        "name": "Game Control",
-        "password": "p2311"
+        "name": "Game Control"
       }
     ],
     "umpire": true,
@@ -315,8 +314,7 @@ export const forces: ForceData[] = [
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
-        "name": "CO",
-        "password": "p5543"
+        "name": "CO"
       }
     ],
     "umpire": false,
@@ -535,8 +533,7 @@ export const forces: ForceData[] = [
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
-        "name": "CO",
-        "password": "p3244"
+        "name": "CO"
       }
     ],
     "umpire": false,
@@ -1129,8 +1126,7 @@ export const forces: ForceData[] = [
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
-        "name": "CO",
-        "password": "P9454"
+        "name": "CO"
       }
     ],
     "umpire": false,

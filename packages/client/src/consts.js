@@ -107,7 +107,6 @@ export const forceTemplate = {
   roles: [
     {
       name: 'CO',
-      password: `p${uniqId.time()}`,
       isGameControl: false,
       isObserver: false,
       isInsightViewer: false,
@@ -127,7 +126,6 @@ export const umpireForceTemplate = {
   roles: [
     {
       name: 'Game Control',
-      password: `p${uniqId.time()}`,
       isGameControl: true,
       isObserver: true,
       isInsightViewer: true,
