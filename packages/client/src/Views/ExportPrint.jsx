@@ -37,7 +37,7 @@ const ExportPrint = ({ exportItem, notFound }) => {
 }
 
 const mapStateToProps = ({ exportItems, currentViewURI }) => ({
-  exportItem: exportItems[currentViewURI.split('/')[4]] || null
+  exportItem: exportItems.data[currentViewURI.split('/')[4]] || null
 })
 
 const mapDispatchToProps = dispatch => ({
