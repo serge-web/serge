@@ -129,7 +129,8 @@ const umpireForce = {
     isGameControl: true,
     isObserver: true,
     isInsightViewer: true,
-    isRFIManager: true
+    isRFIManager: true,
+    roleId: 'r654643'
   }],
   icon: 'images/default_img/umpireDefault.png',
   color: '#FCFBEE',
@@ -146,7 +147,8 @@ const blueForce = {
       name: 'CO',
       isGameControl: false,
       isObserver: false,
-      isInsightViewer: false
+      isInsightViewer: false,
+      roleId: 'r65463343'
     }
   ],
   icon: 'images/default_img/umpireDefault.png',
@@ -208,7 +210,8 @@ const redForce = {
       name: 'CO',
       isGameControl: false,
       isObserver: false,
-      isInsightViewer: false
+      isInsightViewer: false,
+      roleId: 'r651184643'
     }
   ],
   assets: [
@@ -284,7 +287,8 @@ const greenForce = {
       name: 'CO',
       isGameControl: false,
       isObserver: false,
-      isInsightViewer: false
+      isInsightViewer: false,
+      roleId: 'r656664643'
     }
   ],
   icon: 'images/default_img/umpireDefault.png',

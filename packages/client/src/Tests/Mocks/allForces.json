@@ -9,7 +9,8 @@
 				"isInsightViewer": true,
 				"isObserver": true,
 				"name": "Game Control",
-				"isRFIManager": true
+				"isRFIManager": true,
+				"roleId": "r6546431"
 			}],
 			"umpire": true,
 			"uniqid": "umpire"
@@ -90,7 +91,8 @@
 				"isGameControl":false,
 				"isInsightViewer": false,
 				"isObserver": false,
-				"name": "CO"
+				"name": "CO",
+				"roleId": "r654642231"
 			}],
 			"umpire": false,
 			"uniqid": "Blue"
@@ -156,7 +158,8 @@
 				"isGameControl":false,
 				"isInsightViewer": false,
 				"isObserver": false,
-				"name": "CO"
+				"name": "CO",
+				"roleId": "r6544346431"
 			}],
 			"umpire": false,
 			"uniqid": "RedId"
@@ -687,7 +690,8 @@
 				"isGameControl":false,
 				"isInsightViewer": false,
 				"isObserver": false,
-				"name": "CO"
+				"name": "CO",
+				"roleId": "r6521246431"
 			}],
 			"umpire": false,
 			"uniqid": "GreenId"

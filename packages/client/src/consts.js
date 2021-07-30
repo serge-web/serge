@@ -1,3 +1,4 @@
+import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
 
@@ -106,6 +107,7 @@ export const forceTemplate = {
   roles: [
     {
       name: 'CO',
+      roleId: `p${uniqId.time()}`,
       isGameControl: false,
       isObserver: false,
       isInsightViewer: false,
@@ -125,6 +127,7 @@ export const umpireForceTemplate = {
   roles: [
     {
       name: 'Game Control',
+      roleId: `p${uniqId.time()}`,
       isGameControl: true,
       isObserver: true,
       isInsightViewer: true,

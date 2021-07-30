@@ -130,7 +130,8 @@
 					"isObserver": true,
 					"isRFIManager": true,
 					"canSubmitPlans": true,
-					"name": "Game Control"
+					"name": "Game Control",
+					"roleId": "r65464"
 				}],
 				"umpire": true,
 				"uniqid": "umpire"
@@ -191,7 +192,8 @@
 					"isInsightViewer": false,
 					"isObserver": false,
 					"canSubmitPlans": true,
-					"name": "CO"
+					"name": "CO",
+					"roleId": "r15464"
 				}],
 				"umpire": false,
 				"uniqid": "Blue"
@@ -234,7 +236,8 @@
 					"isInsightViewer": false,
 					"isObserver": false,
 					"canSubmitPlans": true,
-					"name": "CO"
+					"name": "CO",
+					"roleId": "r6325464"
 				}],
 				"umpire": false,
 				"uniqid": "Blue2"
@@ -395,7 +398,8 @@
 					"isInsightViewer": false,
 					"isObserver": false,
 					"name": "CO",
-					"canSubmitPlans": true
+					"canSubmitPlans": true,
+					"roleId": "r643575464"
 				}],
 				"umpire": false,
 				"uniqid": "Red"
@@ -1678,7 +1682,8 @@
 						"isInsightViewer": false,
 						"isObserver": false,
 						"canSubmitPlans": true,
-						"name": "CO"
+						"name": "CO",
+						"roleId": "r6325464"
 					}
 				],
 				"umpire": false,
