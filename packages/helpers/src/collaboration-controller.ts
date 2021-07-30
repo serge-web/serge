@@ -75,6 +75,17 @@ class CollaborationController {
     return !!this.myParticipations.find((part: Participant) => part.canCollaborate)
   }
 
+  /** am I in the channel as just an observer, with no interactions */
+  canViewReadOnlyAsObserver () : boolean {
+    if (this.canEdit() || this.canRelease()) {
+      // no, we're interacting with it
+      return false
+    } else {
+      // see if we're an observer
+      return this.role.isObserver
+    }
+  }
+
   getInitialState (): CollaborativeMessageStates {
     if (this.channel.collabOptions) {
       return this.channel.collabOptions.startWithReview ? CollaborativeMessageStates.PendingReview : CollaborativeMessageStates.Unallocated

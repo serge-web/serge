@@ -69,6 +69,26 @@ it('returns zero templates for white role in COA channel', () => {
 })
 
 // /////////////
+// canViewReadOnly()
+// //////////////
+
+it('gives correct observer status for observer', () => {
+  const controller: CollaborationController = new CollaborationController(forces, coa, whiteForce, whiteGC)
+  // do some preliminary checks first
+  expect(controller.canEdit()).toBeFalsy()
+  expect(controller.canRelease()).toBeFalsy()
+  expect(controller.canViewReadOnlyAsObserver()).toBeTruthy()
+})
+
+it('gives correct observer status for none-observer', () => {
+  const controller: CollaborationController = new CollaborationController(forces, rfi, blueForce, blueCO)
+  // do some preliminary checks first
+  expect(controller.canEdit()).toBeFalsy()
+  expect(controller.canRelease()).toBeFalsy()
+  expect(controller.canViewReadOnlyAsObserver()).toBeFalsy()
+})
+
+// /////////////
 // canEdit()
 // //////////////
 
