@@ -36,7 +36,6 @@ class CollaborationController {
         // is there a restricted set of roles?
         if (part.roles && part.roles.length) {
           // Yes: check if I'm one of those roles
-          // TODO: switch to using roleId
           return part.roles.find((role: string) => role === this.role.roleId)
         } else {
           // No: use all templates
@@ -101,6 +100,8 @@ class CollaborationController {
   /** list of roles ids that a message in this channel could be assigned to */
   messageCanBeAssignedTo (): Array<ForceRole> {
     const roles: Array<ForceRole> = []
+
+    // helper function, to remove code duplication
     const pushRole = (part: Participant, role: Role) => {
       const roleVal: ForceRole = {
         forceId: part.forceUniqid,
@@ -123,10 +124,10 @@ class CollaborationController {
             }
             pushRole(part, role)
           } else {
+            // ok, this is a legacy wargame, where the whole Role is present
             const role: Role = roleId as any as Role
             pushRole(part, role)
           }
-          // get this role details
         })
       } else {
         // need to add all roles in this force
@@ -163,6 +164,8 @@ class CollaborationController {
               roleName: hisRole.name
             }
             return res
+          } else {
+            throw new Error('Failed to find this role in force:' + hisForce + ', role:' + owner.roleId)
           }
         }
       }
@@ -229,15 +232,14 @@ class CollaborationController {
   }
 
   /** which commands are available for a message in this state */
-  commandsFor (state: CollaborativeMessageStates, owner: string): Array<CollaborativeMessageCommands | string> {
+  commandsFor (state: CollaborativeMessageStates, owner: Role['roleId']): Array<CollaborativeMessageCommands | string> {
     switch (state) {
       case CollaborativeMessageStates.Unallocated: {
         return this.canEdit() ? [CollaborativeMessageCommands.TakeOwnership] : []
       }
       case CollaborativeMessageStates.InProgress: {
         // do I own it?
-        // todo: switch to userid
-        return owner === this.role.name ? [CollaborativeMessageCommands.SendForReview] : []
+        return owner === this.role.roleId ? [CollaborativeMessageCommands.SendForReview] : []
       }
       case CollaborativeMessageStates.PendingReview: {
         const coreVerbs: Array<string> = [CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release]
