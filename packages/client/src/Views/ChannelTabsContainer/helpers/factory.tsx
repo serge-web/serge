@@ -10,10 +10,10 @@ import { FORCE_LAYDOWN,
   DELETE_PLATFORM,
   VISIBILITY_CHANGES, 
   Phase } from '@serge/config'
-import { sendMapMessage, isChatChannel } from '@serge/helpers'
+import { sendMapMessage, isChatChannel, isCollabWorkingChannel } from '@serge/helpers'
 import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { Mapping, Assets, HexGrid } from '@serge/components'
+import { Mapping, Assets, HexGrid, CollabWorkingBoard } from '@serge/components'
 import _ from 'lodash'
 import Channel from '../../../Components/Channel'
 import ChatChannel from '../../../Components/ChatChannel'
@@ -145,9 +145,13 @@ const factory = (state: PlayerUi): Factory => {
         return <RfiStatusBoardChannel />
       } else if(matchedChannel && matchedChannel.length && channelDefinition) {
           // find out if channel just contains chat template
-          return isChatChannel(channelDefinition) ? 
-            <ChatChannel channelId={matchedChannel[0]} /> 
-          : <Channel channelId={matchedChannel[0]} />
+          if (isChatChannel(channelDefinition)) {
+            return <ChatChannel channelId={matchedChannel[0]} /> 
+          } else if (isCollabWorkingChannel(channelDefinition)) {
+            return <CollabWorkingBoard channelId={matchedChannel[0]} />
+          } else {
+            return <Channel channelId={matchedChannel[0]} />
+          }
       }
     }
   }
