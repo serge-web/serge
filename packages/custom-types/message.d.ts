@@ -19,9 +19,8 @@ import {
 import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
-import Asset from './asset'
 import Role from './role'
-import { StateOfWorld } from '.'
+import { ForceRole, StateOfWorld } from '.'
 import Wargame from './wargame'
 
 
@@ -36,10 +35,11 @@ export interface RFIData {
 }
 
 export interface MessageDetailsFrom {
-  /** id of user force
-   * TODO: check we're using id, not force name
+  /** name
    */
   force: string,
+  /** id of sending force */
+  forceId?: string,
   /** CSS color shade for this force */
   forceColor: string,
   /** role of the individual that wrote message */
@@ -99,6 +99,19 @@ export interface CoreMessage {
   readonly details: MessageDetails,
 }
 
+/** 
+ * instance of feedback on a collaborative document 
+ */
+export interface FeedbackItem {
+  /** who the feedback is from */
+  readonly fromId: Role['roleId']
+  readonly fromName: Role['roleId']
+  /** when the feedback was provided */
+  readonly date: string
+  /** the feedback */
+  readonly feedback: string
+}
+
 /** data for a message that is being
  * collaboarively edited
  */
@@ -108,13 +121,9 @@ export interface CollaborationDetails {
    */
    status: CollaborativeMessageStates
    /**
-    * Current message owner (id)
+    * Current message owner
     */
-   owner?: Role['roleId']
-   /**
-    * Current message owner (name)
-    */
-   ownerName?: Role['name']
+   owner?: ForceRole
    /**
     * response to message, only used in RFIs
     */
@@ -122,7 +131,7 @@ export interface CollaborationDetails {
    /** 
     * feedback on last version
     */
-   feedback?: string
+   feedback?: Array<FeedbackItem>
 }
 
 export interface MessageCustom extends CoreMessage {

@@ -69,6 +69,17 @@ export enum CollaborativeMessageStates {
   Rejected = 'Rejected'
 }
 
+/** the commands that can be appled to a collaborative message
+ */
+ export enum CollaborativeMessageCommands {
+  SendForReview = 'Send for review',
+  TakeOwnership = 'Take ownership',
+  ReOpen = 'Re-open',
+  Close = 'Close',
+  Release = 'Release',
+  RequestChanges = 'Request changes'
+}
+
 /** the phases of an asset that is
  * available for movement by a player during
  * force laydown
