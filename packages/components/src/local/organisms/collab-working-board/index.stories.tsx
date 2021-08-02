@@ -14,7 +14,6 @@ const whiteGC: Role = forces[0].roles[0]
 const blueCO: Role = forces[1].roles[0]
 const blueOther: Role = forces[1].roles[1]
 
-
 export default {
   title: 'local/CollabWorkingBoard',
   component: CollabWorkingBoard,
@@ -35,7 +34,7 @@ export default {
   argTypes: {
     role: {
       description: 'Player Role'
-    },
+    }
   }
 }
 

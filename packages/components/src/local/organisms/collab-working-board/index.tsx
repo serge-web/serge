@@ -14,7 +14,6 @@ import { DataTable } from '../data-table'
 
 /* Render component */
 export const CollabWorkingBoard: React.FC<Props> = ({ rfiMessages, roles, onChange, role }: Props) => {
-
   const data = rfiMessages.map(message => [
     message.message.Reference || message._id,
     message.details.from.roleName,
