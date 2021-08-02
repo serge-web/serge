@@ -25,10 +25,8 @@ it('CollabWorkingBoard renders correctly', () => {
     .create(
       <CollabWorkingBoard
         role={role}
-        isRFIManager={true}
-        isUmpire={true}
         roles={roles}
-        channels={GameChannels}
+        channel={GameChannels[4]}
         rfiMessages={GameMessagesMockRFI}
       />
     )

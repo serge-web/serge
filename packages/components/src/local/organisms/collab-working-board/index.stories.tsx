@@ -5,13 +5,18 @@ import { Story } from '@storybook/react/types-6-0'
 import CollabWorkingBoard from './index'
 import docs from './README.md'
 
-import { GameChannels, GameMessagesMockRFI } from '@serge/mocks'
-import { MessageCustom, ForceRole } from '@serge/custom-types'
+import { GameChannels, GameMessagesMockRFI, forces } from '@serge/mocks'
+import { MessageCustom, ForceRole, Role } from '@serge/custom-types'
 import Props from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
 
+const whiteGC: Role = forces[0].roles[0]
+const blueCO: Role = forces[1].roles[0]
+const blueOther: Role = forces[1].roles[1]
+
+
 export default {
-  title: 'local/RfiStatusBoard',
+  title: 'local/CollabWorkingBoard',
   component: CollabWorkingBoard,
   decorators: [],
   parameters: {
@@ -28,15 +33,9 @@ export default {
     }
   },
   argTypes: {
-    roles: {
-      description: 'Player Roles'
+    role: {
+      description: 'Player Role'
     },
-    channels: {
-      description: 'All channels of selected player'
-    },
-    rfiMessages: {
-      description: 'RFI message form all RFI channels'
-    }
   }
 }
 
@@ -53,14 +52,30 @@ const Template: Story<Props> = (args) => {
 
 // filter to only show the most recent versions of messages
 const mostRecentMessages = mostRecentOnly(GameMessagesMockRFI) as MessageCustom[]
-const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control' }
+const whiteGCRole: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: whiteGC.roleId, roleName: 'Game Control' }
+const blueCORole: ForceRole = { forceId: 'blue', forceName: 'Blue', roleId: blueCO.roleId, roleName: 'CO' }
+const blueOtherRole: ForceRole = { forceId: 'blue', forceName: 'Blue', roleId: blueOther.roleId, roleName: 'Comms' }
 
-export const Demonstration = Template.bind({})
-Demonstration.args = {
+export const WhiteGC = Template.bind({})
+WhiteGC.args = {
   roles: roles,
-  channels: GameChannels,
+  channel: GameChannels[4],
   rfiMessages: mostRecentMessages,
-  isRFIManager: true,
-  isUmpire: true,
-  role: role
+  role: whiteGCRole
+}
+
+export const BlueCO = Template.bind({})
+BlueCO.args = {
+  roles: roles,
+  channel: GameChannels[4],
+  rfiMessages: mostRecentMessages,
+  role: blueCORole
+}
+
+export const BlueOther = Template.bind({})
+BlueOther.args = {
+  roles: roles,
+  channel: GameChannels[4],
+  rfiMessages: mostRecentMessages,
+  role: blueOtherRole
 }

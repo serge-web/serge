@@ -1,7 +1,6 @@
 import React from 'react'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates } from '@serge/config'
-import { ChannelData } from '@serge/custom-types'
 
 /* Import Types */
 import Props from './types/props'
@@ -14,29 +13,16 @@ import { Badge } from '../../atoms/badge'
 import { DataTable } from '../data-table'
 
 /* Render component */
-export const CollabEditBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {
-  // produce dictionary of channels
-  const channelDict = new Map<string, string>()
-  channels.forEach((channel: ChannelData) => {
-    const id = channel.uniqid
-    channelDict.set(id, channel.name)
-  })
+export const CollabWorkingBoard: React.FC<Props> = ({ rfiMessages, roles, onChange, role }: Props) => {
 
   const data = rfiMessages.map(message => [
     message.message.Reference || message._id,
-    channelDict.get(message.details.channel),
     message.details.from.roleName,
     message.details.from.forceColor,
     message.message.Title,
     message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
     message.details.collaboration && message.details.collaboration.owner ? message.details.collaboration.owner.roleName : undefined
   ])
-  const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
-    return [
-      ...filters,
-      channelDict.get(message.details.channel)
-    ]
-  }, [])
 
   const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
     return [
@@ -47,10 +33,6 @@ export const CollabEditBoard: React.FC<Props> = ({ rfiMessages, roles, channels,
   const dataTableProps = {
     columns: [
       'ID',
-      {
-        filters: [...new Set(filtersChannel)],
-        label: 'Channel'
-      },
       {
         filters: [...new Set(filtersRoles)],
         label: 'From'
@@ -72,7 +54,7 @@ export const CollabEditBoard: React.FC<Props> = ({ rfiMessages, roles, channels,
       }
     ],
     data: data.map((row, rowIndex): any => {
-      const [id, channel, mRole, forceColor, content, status, owner] = row
+      const [id, mRole, forceColor, content, status, owner] = row
       const statusColors = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
         [CollaborativeMessageStates.InProgress]: '#E7740A',
@@ -85,17 +67,16 @@ export const CollabEditBoard: React.FC<Props> = ({ rfiMessages, roles, channels,
         collapsible: (
           <div className={styles['rfi-form']}>
             <ChannelRfiMessageDetail
-              isRFIManager={isRFIManager}
+              isRFIManager={true}
               message={(rfiMessages[rowIndex] as MessageCustom)}
               role={role}
-              isUmpire={isUmpire}
+              isUmpire={true}
               onChange={onChange}
             />
           </div>
         ),
         cells: [
           id,
-          channel,
           {
             component: <Badge customBackgroundColor={forceColor} label={mRole} />,
             label: mRole
@@ -119,4 +100,4 @@ export const CollabEditBoard: React.FC<Props> = ({ rfiMessages, roles, channels,
   )
 }
 
-export default CollabEditBoard
+export default CollabWorkingBoard
