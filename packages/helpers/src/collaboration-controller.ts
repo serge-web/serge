@@ -247,39 +247,34 @@ class CollaborationController {
     return res
   }
 
-  /** which commands are available for a message in this state */
-  commandsFor (state: CollaborativeMessageStates, owner: Role['roleId']): Array<CollaborativeMessageCommands | string> {
-    switch (state) {
-      case CollaborativeMessageStates.Unallocated: {
-        return this.canEdit() ? [CollaborativeMessageCommands.TakeOwnership] : []
-      }
-      case CollaborativeMessageStates.InProgress: {
-        // do I own it?
-        return owner === this.role.roleId ? [CollaborativeMessageCommands.SendForReview] : []
-      }
-      case CollaborativeMessageStates.PendingReview: {
-        const coreVerbs: Array<string> = [CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release]
-        if (this.canRelease()) {
-          const opts = this.channel.collabOptions
-          if (opts && opts.returnVerbs && opts.returnVerbs.length) {
-            return opts.returnVerbs.concat(coreVerbs)
-          } else {
-            return coreVerbs.concat([CollaborativeMessageCommands.RequestChanges])
-          }
-        } else {
-          return []
-        }
-      }
-      case CollaborativeMessageStates.Released: {
-        return this.canRelease() ? [CollaborativeMessageCommands.ReOpen] : []
-      }
-      case CollaborativeMessageStates.Rejected: {
-        return this.canRelease() ? [CollaborativeMessageCommands.ReOpen] : []
-      }
-      default: {
-        return []
-      }
+  showTakeOwnership (state: CollaborativeMessageStates, _owner: Role['roleId']): boolean {
+    return this.canEdit() && state === CollaborativeMessageStates.Unallocated
+  }
+
+  showSendForReview (state: CollaborativeMessageStates, _owner: Role['roleId']): boolean {
+    return this.canEdit() && state === CollaborativeMessageStates.InProgress && _owner === this.role.roleId
+  }
+
+  showRelease (state: CollaborativeMessageStates, _owner: Role['roleId']): boolean {
+    return this.canRelease() && state === CollaborativeMessageStates.PendingReview 
+  }
+
+  showRequestChanges (state: CollaborativeMessageStates, _owner: Role['roleId']): boolean {
+    return this.canRelease() && state === CollaborativeMessageStates.PendingReview
+  }
+
+  getRequestChangeVerbs (): Array<CollaborativeMessageCommands | string> {
+    const coreVerbs: Array<string> = [CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release]
+    const opts = this.channel.collabOptions
+    if (opts && opts.returnVerbs && opts.returnVerbs.length) {
+      return opts.returnVerbs.concat(coreVerbs)
+    } else {
+      return coreVerbs.concat([CollaborativeMessageCommands.RequestChanges])
     }
+  }
+
+  showReopen (state: CollaborativeMessageStates, _owner: Role['roleId']): boolean {
+    return this.canRelease() && (state === CollaborativeMessageStates.Released || state === CollaborativeMessageStates.Rejected)
   }
 }
 

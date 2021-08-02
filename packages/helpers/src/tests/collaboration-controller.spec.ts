@@ -176,65 +176,120 @@ it('shows white as not seeing in COA', () => {
 
 it('shows blue CO COA commands', () => {
   const controller: CollaborationController = new CollaborationController(forces, coa, blueForce, blueCO)
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, blueCO.roleId)).toEqual([CollaborativeMessageCommands.SendForReview])
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, blueOther.roleId)).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborativeMessageCommands.TakeOwnership])
+  expect(controller.showSendForReview(CollaborativeMessageStates.InProgress, blueCO.roleId)).toBeTruthy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.InProgress, blueOther.roleId)).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Unallocated, '')).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Released, blueOther.roleId)).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Rejected, blueOther.roleId)).toBeFalsy()
+
+  expect(controller.showTakeOwnership(CollaborativeMessageStates.Unallocated, blueOther.roleId)).toBeTruthy()
+
+  // check other verbs
+  expect(controller.showReopen(CollaborativeMessageStates.Released, '')).toBeTruthy()
+  expect(controller.showReopen(CollaborativeMessageStates.Rejected, '')).toBeTruthy()
+
   // check additional verbs present
   expect(coa.collabOptions?.returnVerbs).toEqual(['Endorse', 'Request Changes'])
-  expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual(['Endorse', 'Request Changes', CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release])
-  expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([CollaborativeMessageCommands.ReOpen])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([CollaborativeMessageCommands.ReOpen])
+  expect(controller.showRequestChanges(CollaborativeMessageStates.PendingReview, blueOther.roleId)).toBeTruthy()
+  expect(controller.getRequestChangeVerbs()).toEqual(['Endorse', 'Request Changes', CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release])
 })
 
 it('shows blue other COA commands', () => {
   const controller: CollaborationController = new CollaborationController(forces, coa, blueForce, blueOther)
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, blueCO.roleId)).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, blueOther.roleId)).toEqual([CollaborativeMessageCommands.SendForReview])
-  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborativeMessageCommands.TakeOwnership])
-  expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([])
+
+  expect(controller.showSendForReview(CollaborativeMessageStates.InProgress, blueCO.roleId)).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.InProgress, blueOther.roleId)).toBeTruthy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Unallocated, '')).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Released, blueOther.roleId)).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Rejected, blueOther.roleId)).toBeFalsy()
+
+  expect(controller.showTakeOwnership(CollaborativeMessageStates.Unallocated, blueOther.roleId)).toBeTruthy()
+
+  // check other verbs
+  expect(controller.showReopen(CollaborativeMessageStates.Released, '')).toBeFalsy()
+  expect(controller.showReopen(CollaborativeMessageStates.Rejected, '')).toBeFalsy()
+
+  // check additional verbs present
+  // check additional verbs present
+  expect(coa.collabOptions?.returnVerbs).toEqual(['Endorse', 'Request Changes'])
+  expect(controller.showRequestChanges(CollaborativeMessageStates.PendingReview, blueOther.roleId)).toBeFalsy()
 })
 
 it('shows blue CO RFI commands', () => {
   const controller: CollaborationController = new CollaborationController(forces, rfi, blueForce, blueCO)
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([])
+  expect(controller.showSendForReview(CollaborativeMessageStates.InProgress, blueCO.roleId)).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.InProgress, blueOther.roleId)).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Unallocated, '')).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Released, blueOther.roleId)).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Rejected, blueOther.roleId)).toBeFalsy()
+
+  expect(controller.showTakeOwnership(CollaborativeMessageStates.Unallocated, blueOther.roleId)).toBeFalsy()
+
+  // check other verbs
+  expect(controller.showReopen(CollaborativeMessageStates.Released, '')).toBeFalsy()
+  expect(controller.showReopen(CollaborativeMessageStates.Rejected, '')).toBeFalsy()
+
+  // check additional verbs present
+  expect(coa.collabOptions?.returnVerbs).toEqual(['Endorse', 'Request Changes'])
+  expect(controller.showRequestChanges(CollaborativeMessageStates.PendingReview, blueOther.roleId)).toBeFalsy()
 })
 
 it('shows white CO COA commands', () => {
   const controller: CollaborationController = new CollaborationController(forces, coa, whiteForce, whiteGC)
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([])
+  expect(controller.showSendForReview(CollaborativeMessageStates.InProgress, blueCO.roleId)).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.InProgress, blueOther.roleId)).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Unallocated, '')).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Released, blueOther.roleId)).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Rejected, blueOther.roleId)).toBeFalsy()
+
+  expect(controller.showTakeOwnership(CollaborativeMessageStates.Unallocated, blueOther.roleId)).toBeFalsy()
+
+  // check other verbs
+  expect(controller.showReopen(CollaborativeMessageStates.Released, '')).toBeFalsy()
+  expect(controller.showReopen(CollaborativeMessageStates.Rejected, '')).toBeFalsy()
+
+  // check additional verbs present
+  expect(coa.collabOptions?.returnVerbs).toEqual(['Endorse', 'Request Changes'])
+  expect(controller.showRequestChanges(CollaborativeMessageStates.PendingReview, blueOther.roleId)).toBeFalsy()
 })
 
 it('shows white CO RFI commands', () => {
   const controller: CollaborationController = new CollaborationController(forces, rfi, whiteForce, whiteGC)
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, whiteGC.roleId)).toEqual([CollaborativeMessageCommands.SendForReview])
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, whiteRFI.roleId)).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborativeMessageCommands.TakeOwnership])
-  expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([])
+  expect(controller.showSendForReview(CollaborativeMessageStates.InProgress, whiteGC.roleId)).toBeTruthy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.InProgress, whiteRFI.roleId)).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Unallocated, '')).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Released, '')).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Rejected, '')).toBeFalsy()
+
+  expect(controller.showTakeOwnership(CollaborativeMessageStates.Unallocated, blueOther.roleId)).toBeTruthy()
+
+  // check other verbs
+  expect(controller.showReopen(CollaborativeMessageStates.Released, '')).toBeFalsy()
+  expect(controller.showReopen(CollaborativeMessageStates.Rejected, '')).toBeFalsy()
+
+  // check additional verbs present
+  expect(coa.collabOptions?.returnVerbs).toEqual(['Endorse', 'Request Changes'])
+  expect(controller.showRequestChanges(CollaborativeMessageStates.PendingReview, blueOther.roleId)).toBeFalsy()
 })
 
 it('shows white RFI Mgr RFI commands', () => {
   const controller: CollaborationController = new CollaborationController(forces, rfi, whiteForce, whiteRFI)
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, whiteGC.roleId)).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.InProgress, whiteRFI.roleId)).toEqual([CollaborativeMessageCommands.SendForReview])
-  expect(controller.commandsFor(CollaborativeMessageStates.Unallocated, '')).toEqual([CollaborativeMessageCommands.TakeOwnership])
+  expect(controller.showSendForReview(CollaborativeMessageStates.InProgress, whiteRFI.roleId)).toBeTruthy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.InProgress, whiteGC.roleId)).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Unallocated, '')).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Released, '')).toBeFalsy()
+  expect(controller.showSendForReview(CollaborativeMessageStates.Rejected, '')).toBeFalsy()
+
+  expect(controller.showTakeOwnership(CollaborativeMessageStates.Unallocated, blueOther.roleId)).toBeTruthy()
+
+  // check other verbs
+  expect(controller.showReopen(CollaborativeMessageStates.Released, '')).toBeTruthy()
+  expect(controller.showReopen(CollaborativeMessageStates.Rejected, '')).toBeTruthy()
+
+  // check additional verbs present
   expect(rfi.collabOptions?.returnVerbs).toEqual([])
-  expect(controller.commandsFor(CollaborativeMessageStates.PendingReview, '')).toEqual([CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release, CollaborativeMessageCommands.RequestChanges])
-  expect(controller.commandsFor(CollaborativeMessageStates.Released, '')).toEqual([CollaborativeMessageCommands.ReOpen])
-  expect(controller.commandsFor(CollaborativeMessageStates.Rejected, '')).toEqual([CollaborativeMessageCommands.ReOpen])
+  expect(controller.showRequestChanges(CollaborativeMessageStates.PendingReview, blueOther.roleId)).toBeTruthy()
+  expect(controller.getRequestChangeVerbs()).toEqual([CollaborativeMessageCommands.Close, CollaborativeMessageCommands.Release, CollaborativeMessageCommands.RequestChanges])
 })
 
 // //////////////////
