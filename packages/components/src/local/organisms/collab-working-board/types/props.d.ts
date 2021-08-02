@@ -1,13 +1,13 @@
-import { MessageCustom, ForceRole } from '@serge/custom-types'
+import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
 export default interface Props {
+  /** messages in this channel */
   rfiMessages: MessageCustom[]
+  /** roles that have messages in this channel (used for drop-downs) */
   roles: string[]
-  channels: Array<ChannelData>
+  /** the channel we're displaying */
+  channel: ChannelData
+  /** sending a new message */
   onChange?: (nextMessage: MessageCustom) => void
-  /** if this player is from the UMPIRE force */
-  isUmpire: boolean
-  /** if this player has "RFI Manager" attribute in their role */
-  isRFIManager: boolean
   /** role of logged in player
    */
   role: ForceRole
