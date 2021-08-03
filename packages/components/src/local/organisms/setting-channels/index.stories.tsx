@@ -37,7 +37,12 @@ export const Default: React.FC = () => {
     console.log(updates)
   }
 
+  const handleCreate = (): void => {
+    console.log('handleCreate...')
+  }
+
   return <SettingChannels
+    onCreate={handleCreate}
     onChange={handleChangeChannels}
     onSave={handleOnSave}
     channels={channels}

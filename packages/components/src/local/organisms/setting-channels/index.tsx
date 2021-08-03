@@ -44,7 +44,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
   onChange,
   onSave,
   onSidebarClick,
-  onCreate,
   onDelete,
   onDuplicate,
   channels,
@@ -280,12 +279,10 @@ export const SettingChannels: React.FC<PropTypes> = ({
         {renderActions()}
         <EditableList
           title="Add Channel"
-          type="channel"
           items={channels}
           selectedItem={channels[selectedItem] ? channels[selectedItem].uniqid : undefined}
           filterKey="uniqid"
           onClick={handleSwitch}
-          onCreate={onCreate}
           onDelete={onDelete}
           onDuplicate={onDuplicate}
         />

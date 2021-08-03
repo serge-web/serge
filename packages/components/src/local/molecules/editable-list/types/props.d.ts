@@ -10,7 +10,6 @@ export default interface PropTypes {
   onDuplicate?: (item: Item) => void
   onDelete?: (item: Item) => void
   title?: string
-  type?: string
   qaType?: string
   selectedItem?: string
   filterKey?: string
