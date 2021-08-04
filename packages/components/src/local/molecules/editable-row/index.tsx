@@ -122,7 +122,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
       setItemsLocal(onChange(newItems, itemKey))
     }
 
-    return <div className={styles['input-box']}>
+    return <div className={cx(styles['input-box'], styles.center)}>
       <FormControl>
         {item.title && <FormLabel id={item.uniqid}>{item.title}</FormLabel>}
         <FormGroup>
