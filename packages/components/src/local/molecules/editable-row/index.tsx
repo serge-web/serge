@@ -126,7 +126,7 @@ export const EditableRow: React.FC<PropTypes> = ({ items, onChange, actions, onS
       <FormControl>
         {item.title && <FormLabel id={item.uniqid}>{item.title}</FormLabel>}
         <FormGroup>
-          <Switch checked={item.active} onChange={toggleChecked} />
+          <Switch checked={item.active || false} onChange={toggleChecked} />
         </FormGroup>
       </FormControl>
     </div>
