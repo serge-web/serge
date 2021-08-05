@@ -39,7 +39,8 @@ export default {
 const force = {
   name: 'Blue',
   color: '#6699cc',
-  icon: ''
+  icon: '',
+  iconURL: ''
 }
 
 const Template: Story<Props> = (args) => {
@@ -50,7 +51,8 @@ const Template: Story<Props> = (args) => {
     userId={userId}
     chatChannel={ChatMessagesMock}
     selectedForce={selectedForce}
-    selectedRole="Game Control" />
+    selectedRoleName="Game Control"
+    selectedRole="u235" />
 }
 
 export const Demonstration = Template

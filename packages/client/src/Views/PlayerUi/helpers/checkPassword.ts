@@ -1,5 +1,5 @@
 import { Dispatch } from 'react'
-import { ForceData, PlayerUiActionTypes, Role } from '@serge/custom-types'
+import { ForceData, MessageTypes, PlayerUiActionTypes, Role } from '@serge/custom-types'
 
 import {
   setForce,
@@ -11,7 +11,7 @@ import {
 
 export default (
   pass: string,
-  messageTypes: any,
+  messageTypes: MessageTypes,
   currentWargame: string,
   allForces: ForceData[],
   dispatch: Dispatch<PlayerUiActionTypes>
@@ -20,7 +20,7 @@ export default (
   const force = allForces.find(force => (
     force.roles.find(roleItem => {
       role = roleItem
-      return roleItem.password === pass
+      return roleItem.roleId === pass
     }) !== undefined
   ))
 
@@ -35,7 +35,7 @@ export default (
 
   dispatch(setForce(force.uniqid));
   dispatch(setRole(role));
-  dispatch(setAllTemplates(messageTypes.messages));
+  dispatch(setAllTemplates(messageTypes.templatesByKey));
   startListening(currentWargame)(dispatch);
   return true;
 };

@@ -107,14 +107,14 @@ export const forceTemplate = {
   roles: [
     {
       name: 'CO',
-      password: `p${uniqId.time()}`,
+      roleId: `p${uniqId.time()}`,
       isGameControl: false,
       isObserver: false,
       isInsightViewer: false,
       canSubmitPlans: true
     }
   ],
-  icon: serverPath + 'default_img/forceDefault.png',
+  iconURL: serverPath + 'default_img/forceDefault.png',
   color: '#3dd0ff',
   umpire: false,
   dirty: false
@@ -127,14 +127,14 @@ export const umpireForceTemplate = {
   roles: [
     {
       name: 'Game Control',
-      password: `p${uniqId.time()}`,
+      roleId: `p${uniqId.time()}`,
       isGameControl: true,
       isObserver: true,
       isInsightViewer: true,
       canSubmitPlans: true
     }
   ],
-  icon: serverPath + 'default_img/umpireDefault.png',
+  iconURL: serverPath + 'default_img/umpireDefault.png',
   color: '#FCFBEE',
   umpire: true,
   dirty: false

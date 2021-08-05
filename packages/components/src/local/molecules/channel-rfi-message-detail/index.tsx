@@ -25,7 +25,7 @@ const labelFactory = (id: string, label: string): React.ReactNode => (
 )
 
 /* Render component */
-export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role, isUmpire, isRFIManager }) => {
+export const ChannelRFIMessageDetail: React.FC<Props> = ({ message, onChange, role, isUmpire, isRFIManager }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
@@ -51,8 +51,22 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
     onChange && onChange(saveDraft(message, role, privateMessage, answer))
   }
 
+  const onAnswerChange = (answer: string): void => {
+    setAnswer(answer)
+    // the reply needs to be stored temporarily in the message object to avoid being lost on rerendering
+    if (message.details.collaboration) {
+      message.details.collaboration.response = answer
+    }
+  }
+
+  const onPrivateMsgChange = (privateMsg: string): void => {
+    setPrivateMessage(privateMsg)
+    // the private msg needs to be stored temporarily in the message object to avoid being lost on rerendering
+    message.details.privateMessage = privateMsg
+  }
+
   const formDisabled = !formEditable(message, role, isUmpire, isRFIManager)
-  const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner || 'Not assigned')
+  const assignLabel = collaboration && (collaboration.status === CollaborativeMessageStates.Released ? 'Released' : collaboration.owner ? collaboration.owner.roleName : 'Not assigned')
   return (
     <div className={styles.main}>
       {collaboration && isUmpire && <div className={styles.assigned}>
@@ -64,8 +78,8 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
       { // only show next fields if collaboration details known
         isUmpire &&
         <>
-          <Textarea id={`answer_${message._id}`} disabled={formDisabled} value={answer} onChange={(nextValue): void => setAnswer(nextValue)} theme='dark' label="Answer"/>
-          <Textarea id={`private_message_${message._id}`} disabled={formDisabled} value={privateMessage} onChange={(nextValue): void => setPrivateMessage(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
+          <Textarea id={`answer_${message._id}`} disabled={formDisabled} value={answer} onChange={(nextValue): void => onAnswerChange(nextValue)} theme='dark' label="Answer"/>
+          <Textarea id={`private_message_${message._id}`} disabled={formDisabled} value={privateMessage} onChange={(nextValue): void => onPrivateMsgChange(nextValue)} theme='dark' label='Private Message' labelFactory={labelFactory}/>
         </>
       }
       { // show answer in read-only form if message released
@@ -85,4 +99,4 @@ export const ChannelMessageDetail: React.FC<Props> = ({ message, onChange, role,
   )
 }
 
-export default ChannelMessageDetail
+export default ChannelRFIMessageDetail

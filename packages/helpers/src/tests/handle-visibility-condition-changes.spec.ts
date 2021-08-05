@@ -38,7 +38,7 @@ const allForces: ForceData[] = [
     name: 'umpire',
     overview: '',
     roles: [],
-    icon: '',
+    iconURL: '',
     color: '',
     umpire: true,
     dirty: false
@@ -66,7 +66,7 @@ const allForces: ForceData[] = [
     ],
     overview: '',
     roles: [],
-    icon: '',
+    iconURL: '',
     color: '',
     umpire: false,
     dirty: false
@@ -94,7 +94,7 @@ const allForces: ForceData[] = [
     ],
     overview: '',
     roles: [],
-    icon: '',
+    iconURL: '',
     color: '',
     umpire: false,
     dirty: false
@@ -122,7 +122,7 @@ const allForces: ForceData[] = [
     ],
     overview: '',
     roles: [],
-    icon: '',
+    iconURL: '',
     color: '',
     umpire: false,
     dirty: false

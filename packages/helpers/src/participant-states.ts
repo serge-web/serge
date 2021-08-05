@@ -1,11 +1,12 @@
-import { ChannelData, Participant } from '@serge/custom-types'
+import { ChannelData, Participant, Role, TemplateBody, TemplateBodysByKey } from '@serge/custom-types'
+import getTemplateById, { getTemplateByIdNoUndefined } from './getTemplateById'
 import { matchedForceAndRoleFilter, matchedAllRolesFilter, matchedForceFilter } from './participant-filters'
 
 export interface CheckParticipantStates {
   /** whether role is participant in channel */
   isParticipant: boolean
   /** the role filled by the participant */
-  participatingRole: Participant | undefined
+  participatingRoles: Participant[]
   /** whether all roles for this force are included in the channel */
   allRolesIncluded: Participant | undefined
 }
@@ -17,61 +18,88 @@ export interface ParticipantStates {
   /** whether player is just channel observer (and not participant) */
   observing: boolean
   /** the templates available to this player in this channel */
-  templates: Array<any>
+  templates: TemplateBody[]
 }
 
 /** find out if the role is active in the supplied channel
  * Always returns a structure, use isParticipant to determine if role is in channel (registered or as observer)
 */
-export const checkParticipantStates = (channel: ChannelData, selectedForce: string | undefined, selectedRole: string, isObserver: boolean): CheckParticipantStates => {
+export const checkParticipantStates = (channel: ChannelData, selectedForce: string | undefined, selectedRole: Role['roleId'], isObserver: boolean): CheckParticipantStates => {
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   const participatingForce: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceFilter(p.forceUniqid, selectedForce))
   // not a member of this channel, return false answer
   if (!participatingForce && !isObserver) {
     return {
       isParticipant: false,
-      participatingRole: undefined,
+      participatingRoles: [],
       allRolesIncluded: undefined
     }
   }
 
   // is a member of this channel, find out if they're named, or a where all roles for this force are in channel
-  const participatingRole: Participant | undefined = channel.participants && channel.participants.find(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
+  const participatingRoles: Participant[] = channel.participants.filter(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
+  // const participatingRole: Participant | undefined = channel.participants.find(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
   return {
-    isParticipant: !!participatingRole,
-    participatingRole: participatingRole,
-    allRolesIncluded: channel.participants && channel.participants.find(p => matchedAllRolesFilter(p, selectedForce))
+    isParticipant: participatingRoles.length > 0,
+    participatingRoles: participatingRoles,
+    allRolesIncluded: channel.participants.find(p => matchedAllRolesFilter(p, selectedForce))
   }
 }
 
 /** find out how the user can participate in this channel */
-export const getParticipantStates = (channel: ChannelData, forceId: string | undefined, role: string, isObserver: boolean, allTemplates: any): ParticipantStates => {
-  let chosenTemplates: Array<any> = []
+export const getParticipantStates = (
+  channel: ChannelData, forceId: string | undefined,
+  role: Role['roleId'], isObserver: boolean,
+  allTemplatesByKey: TemplateBodysByKey,
+  // TODO: move it to reducer, for future default Message can be changed from admin
+  // k16eedkl - Chat template id
+  defaultMessageId = 'k16eedkl'
+): ParticipantStates => {
+  let chosenTemplates: TemplateBody[] = []
   let observing = false
-  let templates: Array<any> = []
+  let templates: TemplateBody[] = []
+  const templatesUniqFilter: {[property: string]: boolean} = {}
+  const addTemplate = (template: TemplateBody): void => {
+    if (templatesUniqFilter[template.title] !== true) {
+      templatesUniqFilter[template.title] = true
+      chosenTemplates.push(template)
+    }
+  }
 
   const {
     isParticipant,
-    participatingRole,
+    participatingRoles,
     allRolesIncluded
   }: CheckParticipantStates = checkParticipantStates(channel, forceId, role, isObserver)
 
-  if (participatingRole) {
-    chosenTemplates = participatingRole.templates
+  const chatTemplate = getTemplateById(allTemplatesByKey, defaultMessageId)
+  if (typeof chatTemplate === 'undefined') console.warn('Warning, unable to find Chat template for channel with no templates defined')
+
+  if (isParticipant) {
+    for (const { templates } of participatingRoles) {
+      if (templates.length === 0) {
+        if (typeof chatTemplate !== 'undefined') addTemplate(chatTemplate)
+      } else {
+        for (const template of templates) {
+          addTemplate(
+            getTemplateByIdNoUndefined(allTemplatesByKey, template._id)
+          )
+        }
+      }
+    }
   } else if (allRolesIncluded) {
-    chosenTemplates = allRolesIncluded.templates
+    chosenTemplates = allRolesIncluded.templates.map(({ _id }) =>
+      getTemplateByIdNoUndefined(allTemplatesByKey, _id)
+    )
   }
 
   if (isParticipant || allRolesIncluded) {
     if (chosenTemplates.length === 0) {
-      templates = allTemplates.filter((template: any) => template.title === 'Chat')
-      if (templates.length === 0) {
-        console.warn('Warning, unable to find Chat template for channel with no templates defined')
+      if (typeof chatTemplate !== 'undefined') {
+        templates = [chatTemplate]
       }
     } else {
-      templates = chosenTemplates.map((template: any) => {
-        return typeof template === 'string' ? template : allTemplates.find((item: any) => item._id === template._id)
-      })
+      templates = chosenTemplates
     }
   }
 

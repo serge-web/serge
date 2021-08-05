@@ -7,13 +7,17 @@ export default interface Props {
   force: {
     color: string
     name: string
-    icon: string
+   /**
+    * @deprecated use iconURL instead
+    */
+    icon?: string
+    iconURL: string
     overview: string
   }
   /**
    * Selected role label
    */
-  selectedRole: string
+  selectedRole: Role['roleId']
   /**
    * Event handler on icon click
    */

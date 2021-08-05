@@ -24,6 +24,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
     isGameControl,
     phase,
     selectedRole,
+    selectedRoleName,
     showObjective,
     timeWarning,
     turnEndTime,
@@ -79,7 +80,7 @@ const GameChannels: React.FC = (): React.ReactElement => {
       <AdminAndInsightsTabsContainer />
       {showObjective && <ForceObjective
         force={selectedForce}
-        selectedRole={selectedRole}
+        selectedRole={selectedRoleName}
         onIconClick={(): void => dispatch(showHideObjectives())}
       />}
     </div>

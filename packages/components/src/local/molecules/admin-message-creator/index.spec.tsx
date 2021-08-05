@@ -8,7 +8,8 @@ import AdminMessageCreator from './index'
 const force = {
   name: 'blue',
   color: '#6699cc',
-  icon: ''
+  icon: '',
+  iconURL: ''
 }
 
 const createNodeMock = (el: any): HTMLTextAreaElement | null => {
@@ -22,7 +23,7 @@ describe('AdminMessageCreator component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <AdminMessageCreator from={force} channel={'Game Admin'} role={'Umpire'} />,
+        <AdminMessageCreator from={force} channel={'Game Admin'} roleName={'Umpire'} role={'r3453'} />,
         { createNodeMock }
       )
       .toJSON()

@@ -40,6 +40,12 @@ const NewMessage = props => {
     }, 0)
   }
 
+  const onCancel = (e) => {
+    setTimeout(() => {
+      tab.current.handleTriggerClick(e)
+    }, 0)
+  }
+
   return (
     <div className={classes}>
       <Collapsible
@@ -65,6 +71,7 @@ const NewMessage = props => {
           privateMessage={privateMessage}
           generateNextReference={generateNextReference}
           onMessageSend={onMessageSend}
+          onCancel={onCancel}
         />
       </Collapsible>
     </div>

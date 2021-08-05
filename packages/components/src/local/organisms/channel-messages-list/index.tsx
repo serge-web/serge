@@ -11,12 +11,11 @@ import ChannelRFIMessage from '../../molecules/channel-rfi-message'
 import ForcesInChannel from '../../molecules/forces-in-channel'
 import { Box } from '@material-ui/core'
 // import collateMessages from './helpers/collate-messages'
-import { INFO_MESSAGE_CLIPPED, UMPIRE_FORCE } from '@serge/config'
-import { MessageChannel, MessageCustom } from '@serge/custom-types'
+import { INFO_MESSAGE_CLIPPED } from '@serge/config'
+import { MessageChannel, MessageCustom, ForceRole, MessageDetailsFrom } from '@serge/custom-types'
 
 /* Render component */
-export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForceId, icons, colors, onMarkAllAsRead, onRead, onChange, isRFIManager }: PropTypes) => {
-  const isUmpire = playerForceId === UMPIRE_FORCE
+export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onUnread, onChange, isRFIManager, isUmpire }: PropTypes) => {
   return (
     <div>
       <Box mb={2} ml={2} mr={3}>
@@ -34,6 +33,9 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForce
             }
             const msg: MessageCustom = props
             if (msg.details.messageType === 'RFI') {
+              const from: MessageDetailsFrom = msg.details.from
+              const role: ForceRole = { forceId: from.forceId || 'unknown', forceName: from.force, roleId: from.roleId, roleName: from.roleName }
+              console.log(role)
               return (
                 <Box mb={2} mr={2} key={key}>
                   <ChannelRFIMessage
@@ -43,7 +45,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForce
                     message={props}
                     onRead={onRead}
                     onChange={onChange}
-                    role={msg.details.from.role}
+                    role={role}
                     isRFIManager={isRFIManager}
                     isUmpire={isUmpire}
                   />
@@ -52,7 +54,8 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, playerForce
             } else {
               return (
                 <Box mb={2} mr={2} key={key}>
-                  <ChannelMessage playerForce={playerForceId} forceColor={msg.details.from.forceColor} role={msg.details.from.role} onRead={onRead} message={props} />
+                  <ChannelMessage isUmpire={isUmpire} forceColor={msg.details.from.forceColor}
+                    roleName={msg.details.from.roleName} role={msg.details.from.roleId} onRead={onRead} onUnread={onUnread} message={props} />
                 </Box>
               )
             }

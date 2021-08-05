@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-
+import uniqid from 'uniqid'
 /* Import proptypes */
 import { Role } from '../types/props'
 import PropTypes from './types/props'
@@ -20,7 +20,6 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import Typography from '@material-ui/core/Typography'
 import PasswordView from '../../../molecules/password-view'
-import { UMPIRE_FORCE } from '@serge/config'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -48,13 +47,13 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
     return (
       <div className={styles.role}>
         <div className={styles['role-item']}>
-          <PasswordView value={roleItem.password} onChange={(password: string): void => {
-            handleChangeRole({ ...roleItem, password })
+          <PasswordView value={roleItem.roleId} onChange={(roleId: string): void => {
+            handleChangeRole({ ...roleItem, roleId })
           }}/>
           {key === 0 && <div className={styles['role-title']}>Password</div>}
         </div>
         <div className={styles['role-item']}>
-          <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isObserver} onChange={(): void => {
+          <MobileSwitch disabled={!data.umpire} size='small' checked={roleItem.isObserver} onChange={(): void => {
             handleChangeRole({ ...roleItem, isObserver: !roleItem.isObserver })
           }} />
           {key === 0 && <div
@@ -64,7 +63,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
           </div>}
         </div>
         <div className={styles['role-item']}>
-          <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isInsightViewer} onChange={(): void => {
+          <MobileSwitch disabled={!data.umpire} size='small' checked={roleItem.isInsightViewer} onChange={(): void => {
             handleChangeRole({ ...roleItem, isInsightViewer: !roleItem.isInsightViewer })
           }} />
           {key === 0 && <div
@@ -74,7 +73,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
           </div>}
         </div>
         <div className={styles['role-item']}>
-          <MobileSwitch disabled={data.uniqid !== UMPIRE_FORCE} size='small' checked={roleItem.isRFIManager} onChange={(): void => {
+          <MobileSwitch disabled={!data.umpire} size='small' checked={roleItem.isRFIManager} onChange={(): void => {
             handleChangeRole({ ...roleItem, isRFIManager: !roleItem.isRFIManager })
           }} />
           {key === 0 && <div
@@ -99,9 +98,9 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {
 
   const handleCreateRole = (): void => {
     const roles: Array<Role> = [...data.roles, {
+      roleId: uniqid.time('r'),
       name: 'New Role',
       canSubmitPlans: false,
-      password: 'p' + Math.random().toString(36).substring(8),
       isGameControl: false,
       isInsightViewer: false,
       isRFIManager: false,

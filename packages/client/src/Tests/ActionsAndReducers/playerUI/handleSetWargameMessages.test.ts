@@ -16,26 +16,28 @@ const playerUi: PlayerUi = {
     "overview": "An overview written here..",
     "roles": [
       {
+        "roleId": "rk16ffhn3",
         "name": "CO",
-        "password": "pk16fdykk",
         "isGameControl":false,
         "isObserver": false,
         "isInsightViewer": false
       },
       {
+        "roleId": "rk16ffhn4",
         "name": "Comms",
-        "password": "pk16ffhn3",
         "isObserver": false,
         "isInsightViewer": false,
         "isGameControl":false
       }
     ],
-    "icon": "http://localhost:8080/default_img/forceDefault.png",
+    "iconURL": "http://localhost:8080/default_img/forceDefault.png",
     "color": "#3dd0ff",
     "umpire": false,
     "dirty": false
   },
-  "selectedRole": "CO",
+  "selectedRole": "rdj8bx6xw",
+  "selectedRoleName": "CO",
+  "allPlatformTypesByKey": {},
   "isObserver": false,
   "canSubmitPlans": false,
   "currentTurn": 57,
@@ -80,30 +82,8 @@ const playerUi: PlayerUi = {
           "roles": [],
           "templates": [
             {
-              "label": "Chat",
-              "value": {
-                "lastUpdated": "2019-09-30T12:37:26.705Z",
-                "title": "Chat",
-                "details": {
-                  "type": "object",
-                  "properties": {
-                    "content": {
-                      "type": "string",
-                      "format": "textarea",
-                      "options": {
-                        "inputAttributes": {
-                          "placeholder": "type the text"
-                        }
-                      }
-                    }
-                  },
-                  "title": "Chat",
-                  "format": "grid"
-                },
-                "completed": false,
-                "_id": "k16eedkl",
-                "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
-              }
+              "title": "Chat",
+              "_id": "k16eedkl"
             }
           ],
           "icon": "http://localhost:8080/default_img/forceDefault.png",
@@ -121,85 +101,8 @@ const playerUi: PlayerUi = {
           "roles": [],
           "templates": [
             {
-              "label": "PG19 Weekly Orders",
-              "value": {
-                "lastUpdated": "2019-09-30T12:37:26.705Z",
-                "title": "PG19 Weekly Orders",
-                "details": {
-                  "type": "object",
-                  "properties": {
-                    "CommandersIntent": {
-                      "title": "Commanders Intent",
-                      "type": "string",
-                      "format": "textarea"
-                    },
-                    "Orders": {
-                      "items": {
-                        "properties": {
-                          "Unit": {
-                            "title": "Unit",
-                            "type": "string",
-                            "format": "text"
-                          },
-                          "Orders": {
-                            "title": "Orders",
-                            "type": "string",
-                            "format": "textarea"
-                          },
-                          "ContingencyOrders": {
-                            "title": "Contingency Orders",
-                            "type": "string",
-                            "format": "textarea"
-                          }
-                        },
-                        "type": "object"
-                      },
-                      "title": "Orders",
-                      "type": "array",
-                      "format": "table",
-                      "minItems": 1
-                    },
-                    "PxTasking": {
-                      "title": "Px Tasking",
-                      "type": "string",
-                      "format": "textarea"
-                    },
-                    "AlliedUnitTasking": {
-                      "title": "Allied Unit Tasking",
-                      "type": "string",
-                      "format": "textarea"
-                    },
-                    "ForceActionOnContact": {
-                      "title": "Force action on contact",
-                      "type": "string",
-                      "format": "textarea"
-                    },
-                    "ForceActionOnLossOfContact": {
-                      "title": "Force action on loss of contact",
-                      "type": "string",
-                      "format": "textarea"
-                    },
-                    "SupportingLogisticsActivity": {
-                      "title": "Supporting logistics activity",
-                      "type": "string",
-                      "format": "textarea"
-                    }
-                  },
-                  "title": "PG19 Weekly Orders",
-                  "required": [
-                    "CommandersIntent",
-                    "Orders",
-                    "PxTasking",
-                    "AlliedUnitTasking",
-                    "ForceActionOnContact",
-                    "ForceActionOnLossOfContact",
-                    "SupportingLogisticsActivity"
-                  ]
-                },
-                "completed": false,
-                "_id": "k16eedko",
-                "_rev": "1-9682b67e15ded61bd4f8d863179d5c04"
-              }
+              "title": "PG19 Weekly Orders",
+              "_id": "k16eedko"
             }
           ],
           "icon": "http://localhost:8080/default_img/forceDefault.png",
@@ -209,41 +112,12 @@ const playerUi: PlayerUi = {
           "force": "White",
           "forceUniqid": "umpire",
           "roles": [
-            {
-              "name": "Game Control",
-              isGameControl: true,
-              isObserver: true,
-              isInsightViewer: true,
-              isRFIManager: true,
-              password: 'test'
-            }
+            "rk16ffhn2"
           ],
           "templates": [
             {
-              "label": "Chat",
-              "value": {
-                "lastUpdated": "2019-09-30T12:37:26.705Z",
-                "title": "Chat",
-                "details": {
-                  "type": "object",
-                  "properties": {
-                    "content": {
-                      "type": "string",
-                      "format": "textarea",
-                      "options": {
-                        "inputAttributes": {
-                          "placeholder": "type the text"
-                        }
-                      }
-                    }
-                  },
-                  "title": "Chat",
-                  "format": "grid"
-                },
-                "completed": false,
-                "_id": "k16eedkl",
-                "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
-              }
+              "title": "Chat",
+              "_id": "k16eedkl",
             }
           ],
           "icon": "http://localhost:8080/default_img/umpireDefault.png",
@@ -282,14 +156,14 @@ const playerUi: PlayerUi = {
       "roles": [
         {
           "name": "Game Control",
-          "password": "pk16fa8oa",
+          "roleId": "rk16fa8oa",
           "isGameControl":true,
           "isObserver": true,
           "isInsightViewer": true,
           "isRFIManager": true
         }
       ],
-      "icon": "http://localhost:8080/default_img/umpireDefault.png",
+      "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
       "color": "#FCFBEE",
       "umpire": true,
       "dirty": false
@@ -301,91 +175,91 @@ const playerUi: PlayerUi = {
       "roles": [
         {
           "name": "CO",
-          "password": "pk16fdykk",
+          "roleId": "rk16fdykk",
           "isGameControl":false,
           "isObserver": false,
           "isInsightViewer": false
         },
         {
           "name": "Comms",
-          "password": "pk16ffhn3",
+          "roleId": "rk16ffhn3",
           "isObserver": false,
           "isInsightViewer": false,
           "isGameControl":false
         }
       ],
-      "icon": "http://localhost:8080/default_img/forceDefault.png",
+      "iconURL": "http://localhost:8080/default_img/forceDefault.png",
       "color": "#3dd0ff",
       "umpire": false,
       "dirty": false
     }
   ],
-  "allTemplates": [
-    {
-      "completed": false,
-      "details": {
-        "properties": {
-          "Forces": {
-            "format": "table",
-            "items": {
-              "minItems": 1,
-              "properties": {
-                "assets": {
-                  "format": "table",
-                  "items": {
-                    "properties": {
-                      "location": {
-                        "maxLength": 3,
-                        "type": "string"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "visibleTo": {
-                        "format": "table",
-                        "items": {
-                          "properties": {
-                            "Force": {
-                              "enum": [
-                                "Blue",
-                                "Red",
-                                "Green"
-                              ],
-                              "type": "string"
-                            }
-                          }
+  "allTemplatesByKey": {
+      "State of World L" : {
+        "completed": false,
+        "details": {
+          "properties": {
+            "Forces": {
+              "format": "table",
+              "items": {
+                "minItems": 1,
+                "properties": {
+                  "assets": {
+                    "format": "table",
+                    "items": {
+                      "properties": {
+                        "location": {
+                          "maxLength": 3,
+                          "type": "string"
                         },
-                        "type": "array"
+                        "name": {
+                          "type": "string"
+                        },
+                        "visibleTo": {
+                          "format": "table",
+                          "items": {
+                            "properties": {
+                              "Force": {
+                                "enum": [
+                                  "Blue",
+                                  "Red",
+                                  "Green"
+                                ],
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "type": "array"
+                        }
                       }
-                    }
+                    },
+                    "minItems": 1,
+                    "type": "array"
                   },
-                  "minItems": 1,
-                  "type": "array"
-                },
-                "force": {
-                  "enum": [
-                    "Blue",
-                    "Red",
-                    "Green"
-                  ],
-                  "propertyOrder": 100,
-                  "type": "string"
+                  "force": {
+                    "enum": [
+                      "Blue",
+                      "Red",
+                      "Green"
+                    ],
+                    "propertyOrder": 100,
+                    "type": "string"
+                  }
                 }
-              }
-            },
-            "minItems": 1,
-            "type": "array"
-          }
+              },
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "title": "State of World (laydown 2)",
+          "type": "object"
         },
-        "title": "State of World (laydown 2)",
-        "type": "object"
-      },
-      "lastUpdated": "2019-09-30T12:37:26.705Z",
-      "title": "State of World L",
-      "_id": "k16eedkp",
-      "_rev": "1-612d7dc5d10fc81bc7459b2801c66816"
+        "lastUpdated": "2019-09-30T12:37:26.705Z",
+        "title": "State of World L",
+        "_id": "k16eedkp",
+        "_rev": "1-612d7dc5d10fc81bc7459b2801c66816"
     },
-    {
+    "Daily intentions": {
       "lastUpdated": "2019-09-30T12:37:26.705Z",
       "title": "Daily intentions",
       "details": {
@@ -454,7 +328,7 @@ const playerUi: PlayerUi = {
       "_id": "k16eedkn",
       "_rev": "1-cc8e8cdb01447959c266761066448382"
     },
-    {
+    "Link": {
       "lastUpdated": "2019-09-30T12:37:26.705Z",
       "title": "Link",
       "details": {
@@ -476,7 +350,7 @@ const playerUi: PlayerUi = {
       "_id": "k16eedkm",
       "_rev": "1-7fa1e6dd6b4ac5b6afc45b596ee7af61"
     },
-    {
+    "Chat": {
       "lastUpdated": "2019-09-30T12:37:26.705Z",
       "title": "Chat",
       "details": {
@@ -499,7 +373,7 @@ const playerUi: PlayerUi = {
       "_id": "k16eedkl",
       "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
     },
-    {
+    "Orders (M2)": {
       "completed": false,
       "details": {
         "properties": {
@@ -547,7 +421,7 @@ const playerUi: PlayerUi = {
       "_id": "k16eedkk",
       "_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8"
     },
-    {
+    "Request for Information": {
       "lastUpdated": "2019-09-30T12:37:26.705Z",
       "title": "Request for Information",
       "details": {
@@ -568,7 +442,7 @@ const playerUi: PlayerUi = {
       "_id": "k16eedkj",
       "_rev": "1-683379b9418a2ba688eb4a8dfec4de11"
     },
-    {
+    "Message": {
       "lastUpdated": "2019-09-30T12:37:26.705Z",
       "title": "Message",
       "details": {
@@ -589,7 +463,7 @@ const playerUi: PlayerUi = {
       "_id": "k16eedki",
       "_rev": "1-7de33e447b392eeaf7164f4ec331bc57"
     },
-    {
+    "Weather forecast": {
       "lastUpdated": "2019-09-30T12:37:26.705Z",
       "title": "Weather forecast",
       "details": {
@@ -658,7 +532,7 @@ const playerUi: PlayerUi = {
       "_id": "k16eedkh",
       "_rev": "1-f332e0104a371b590346b66dc8e9fa2b"
     },
-    {
+    "Machinery failure": {
       "lastUpdated": "2019-09-30T12:37:26.704Z",
       "title": "Machinery failure",
       "details": {
@@ -698,7 +572,7 @@ const playerUi: PlayerUi = {
       "_id": "k16eedkg",
       "_rev": "1-80fc0c1feca8eb6d812d3fa2068ffe89"
     },
-    {
+    "State of World (Full 2)": {
       "completed": false,
       "details": {
         "properties": {
@@ -831,7 +705,7 @@ const playerUi: PlayerUi = {
       "_id": "2019-12-20T15:57:11.519Z",
       "_rev": "1-4bd7b0b5488182f39f10d5203bb1fad8"
     },
-    {
+    "Laydown": {
       "completed": false,
       "details": {
         "properties": {
@@ -862,7 +736,7 @@ const playerUi: PlayerUi = {
       "_id": "2019-12-20T14:28:22.999Z",
       "_rev": "1-741dde8c87e0a0fcbe335c234b1619a3"
     }
-  ],
+  },
   "allPlatformTypes": [],
   "showObjective": false,
   "wargameInitiated": true,

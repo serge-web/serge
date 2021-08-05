@@ -1,4 +1,4 @@
-import { ForceData, MessageMap, Message, MessageDetails } from '@serge/custom-types'
+import { ForceData, MessageMap, Message, MessageDetails, Role } from '@serge/custom-types'
 
 /**
  * @param mType message type
@@ -10,10 +10,10 @@ import { ForceData, MessageMap, Message, MessageDetails } from '@serge/custom-ty
  * @param saveMapMessage callback to actually store message
  */
 const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | undefined,
-  channelID: string, role: string, currentWargame: string,
+  channelID: string, role: Role['roleId'], roleName: Role['name'], currentWargame: string,
   saveMapMessage: {(dbName: string, details: MessageDetails, message: unknown): Promise<Message>}): void => {
   if (force) {
-    const { name, color, icon } = force
+    const { name, color, iconURL } = force
 
     const details = {
       channel: channelID,
@@ -21,8 +21,9 @@ const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | u
       from: {
         force: name,
         forceColor: color,
-        role: role,
-        icon
+        roleId: role,
+        roleName: roleName,
+        iconURL
       },
       messageType: mType,
       timestamp: new Date().toISOString()

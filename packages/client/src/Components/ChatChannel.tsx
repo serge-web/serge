@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ResizeObserver from 'resize-observer-polyfill';
-import { UMPIRE_FORCE } from '../consts'
 import { ChatMessagesList, ChatEntryForm } from '@serge/components'
 import { ChatMessage } from '@serge/custom-types'
 import { saveMessage } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -54,16 +53,16 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     };
   }, [chatMessageRef]);
 
-  const icons = state.channels[channelId].forceIcons
-  const colors = state.channels[channelId].forceColors
-  const isUmpire = state.selectedForce && state.selectedForce.uniqid === UMPIRE_FORCE
+  const icons = state.channels[channelId].forceIcons || []
+  const colors = state.channels[channelId].forceColors || []
+  const isUmpire = state.selectedForce && state.selectedForce.umpire
 
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <ChatMessagesList
         messages={state.channels[channelId].messages}
         playerForce={selectedForce.name}
-        isUmpire={isUmpire}
+        isUmpire={!!isUmpire}
         icons={icons}
         colors={colors}
         chatContainerHeight={chatContainerHeight}
@@ -72,7 +71,7 @@ const ChatChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
         state.channels[channelId].observing === false &&
         <div className="new-message-creator wrap new-message-orderable" ref={chatMessageRef}>
           <div className="chat-message-container">
-            <ChatEntryForm from={selectedForce} isUmpire={isUmpire} channel={channelId} role={state.selectedRole} postBack={messageHandler} />
+            <ChatEntryForm from={selectedForce} isUmpire={!!isUmpire} channel={channelId} role={state.selectedRole} postBack={messageHandler} />
           </div>
         </div>
       }

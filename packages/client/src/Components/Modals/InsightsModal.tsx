@@ -22,10 +22,11 @@ const InsightsModal: React.FC = () => {
   // @ts-ignore
   const handleSend = ({ name, message }) => {
     let from: MessageDetailsFrom = {
-      icon: '',
+      iconURL: '',
       force: selectedForce.name,
       forceColor: selectedForce.color,
-      role: state.selectedRole,
+      roleId: state.selectedRole,
+      roleName: state.selectedRoleName,
       name
     }
 

@@ -21,9 +21,10 @@ export default {
 const force = {
   name: 'blue',
   color: '#6699cc',
-  icon: ''
+  icon: '',
+  iconURL: ''
 }
 
 export const Default: React.FC = () => (
-  <GameAdmin wargameTitle="title" chatChannel={AdminMessagesMock} selectedForce={force} selectedRole="Game Control" />
+  <GameAdmin wargameTitle="title" chatChannel={AdminMessagesMock} selectedForce={force} selectedRoleName="Game Control" selectedRole="r234" />
 )

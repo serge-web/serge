@@ -20,8 +20,9 @@ import { PERCEPTION_OF_CONTACT } from '@serge/config'
 /* Render component */
 export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, type, force, formData, channelID, mapPostBack }) => {
   const [formState, setFormState] = useState<PerceptionFormValues>(formData.values)
-
-  const { playerForce } = useContext(MapContext).props
+  const props = useContext(MapContext).props
+  if (typeof props === 'undefined') return null
+  const { playerForce } = props
 
   const { perceivedForce, perceivedType } = formData.populate
   const { perceivedNameVal, perceivedForceVal, perceivedTypeVal } = formState

@@ -12,10 +12,11 @@ describe('ChannelMessage component:', () => {
       .create(
         <ChannelMessage
           hasBeenRead={false}
-          playerForce={'Blue'}
+          isUmpire={false}
           message={GameMessagesMockRFI[0]}
           forceColor={GameMessagesMockRFI[0].details.from.forceColor}
-          role={GameMessagesMockRFI[0].details.from.role}
+          role={GameMessagesMockRFI[0].details.from.roleId}
+          roleName={GameMessagesMockRFI[0].details.from.roleName}
         />
       )
       .toJSON()

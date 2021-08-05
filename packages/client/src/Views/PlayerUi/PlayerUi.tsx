@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Props } from './types.d'
 import { WargameList } from '@serge/custom-types'
+import { hiddenPrefix } from '@serge/config';
 
 import PlayerUiLandingScreen from '../PlayerUiLandingScreen'
 import PlayerUiLobby from '../PlayerUiLobby'
@@ -8,7 +9,7 @@ import GameChannelsWithTour from '../GameChannelsWithTour'
 import LoaderScreen from '../../Components/LoaderScreen'
 
 import checkPassword from './helpers/checkPassword'
-import {  expiredStorage } from '../../consts'
+import { expiredStorage } from '../../consts'
 import {
   getWargame,
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -20,7 +21,7 @@ enum Room {
   player
 }
 
-const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData}: Props): React.ReactElement => {
+const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameIsInvalid, loadData}: Props): React.ReactElement => {
   const [tourIsOpen, setTourIsOpen] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
   const [waitingLoginPassword, setWaitingLoginPassword] = useState('')
@@ -32,7 +33,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
     selectedRole,
     wargameTitle
   } = usePlayerUiState()
-
+  
   const dispatch = usePlayerUiDispatch()
 
   useEffect(() => {
@@ -78,6 +79,10 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData
 
 
   const handleCheckPassword = (pass: string): void => {
+    if (currentWargame.startsWith(hiddenPrefix)) {
+      wargameIsInvalid()
+      return;
+    }
     const check = checkPassword(pass, messageTypes, currentWargame, allForces, dispatch)
     if (check) {
       const currentUrl = new URL(document.location!.href)

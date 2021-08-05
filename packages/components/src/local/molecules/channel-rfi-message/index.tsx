@@ -59,7 +59,7 @@ export const ChannelRFIMessage: React.FC<Props> = ({ message, borderColor = '#32
             <div className={styles.row}>
               <div>
                 <span className={styles.timestamp}>{moment(message.details.timestamp).format('HH:mm')}</span>
-                <Badge size="small" label={role} customBackgroundColor={forceColor}/>
+                <Badge size="small" label={role.roleName} customBackgroundColor={forceColor}/>
                 <Badge size="small" label={message.details.messageType} />
                 {!message.hasBeenRead && <Badge size="small" label="Unread" type="warning" />}
               </div>

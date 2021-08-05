@@ -10,6 +10,7 @@ import {
   SET_LATEST_WARGAME_MESSAGE,
   SET_ALL_MESSAGES,
   OPEN_MESSAGE,
+  MARK_UNREAD,
   CLOSE_MESSAGE,
   MARK_ALL_AS_READ,
   OPEN_TOUR,
@@ -29,7 +30,8 @@ import {
   MessageChannel,
   MessageCustom,
   MessageInfoType,
-  MessageDetailsFrom
+  MessageDetailsFrom,
+  TemplateBodysByKey
 } from '@serge/custom-types'
 import { PlayerUiActionTypes } from '@serge/custom-types'
 
@@ -48,9 +50,9 @@ export const setRole = (data: Role): PlayerUiActionTypes => ({
   payload: data
 })
 
-export const setAllTemplates = (templates: Array<any>): PlayerUiActionTypes => ({
+export const setAllTemplates = (templatesByKey: TemplateBodysByKey): PlayerUiActionTypes => ({
   type: SET_ALL_TEMPLATES_PLAYERUI,
-  payload: templates
+  payload: templatesByKey
 })
 
 export const showHideObjectives = (): PlayerUiActionTypes => ({
@@ -76,6 +78,10 @@ export const setWargameMessages = (messages: Array<MessageCustom | MessageInfoTy
 })
 export const openMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
   type: OPEN_MESSAGE,
+  payload: { channel, message }
+})
+export const markUnread = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
+  type: MARK_UNREAD,
   payload: { channel, message }
 })
 export const closeMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
@@ -142,9 +148,10 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string): Fu
     const address = await wargamesApi.getIpAddress()
     const from: MessageDetailsFrom = {
       force: address.ip,
-      icon: '',
+      iconURL: '',
       forceColor: '#970000',
-      role: '',
+      roleId: '',
+      roleName: '',
       name: password
     }
     await wargamesApi.postFeedback(dbName, from, 'A failed login attempt has been made.')

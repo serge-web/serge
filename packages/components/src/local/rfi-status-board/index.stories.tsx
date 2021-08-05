@@ -6,7 +6,7 @@ import RfiStatusBoard from './index'
 import docs from './README.md'
 
 import { GameChannels, GameMessagesMockRFI } from '@serge/mocks'
-import { MessageCustom } from '@serge/custom-types'
+import { MessageCustom, ForceRole } from '@serge/custom-types'
 import Props from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
 
@@ -53,6 +53,7 @@ const Template: Story<Props> = (args) => {
 
 // filter to only show the most recent versions of messages
 const mostRecentMessages = mostRecentOnly(GameMessagesMockRFI) as MessageCustom[]
+const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control' }
 
 export const Demonstration = Template.bind({})
 Demonstration.args = {
@@ -61,5 +62,5 @@ Demonstration.args = {
   rfiMessages: mostRecentMessages,
   isRFIManager: true,
   isUmpire: true,
-  role: 'Game Control'
+  role: role
 }

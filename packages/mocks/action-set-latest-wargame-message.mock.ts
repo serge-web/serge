@@ -1,6 +1,8 @@
 import { SET_LATEST_WARGAME_MESSAGE, CUSTOM_MESSAGE } from '@serge/config'
-import { SetLatestWargameMessageAction } from '@serge/custom-types'
+import { SetLatestWargameMessageAction, Role } from '@serge/custom-types'
+import { forces } from './forces.mock'
 
+const blueCO: Role = forces[1].roles[0]
 const actionSetLatestFeedbackMessage: SetLatestWargameMessageAction = {
   type: SET_LATEST_WARGAME_MESSAGE,
   payload: {
@@ -12,8 +14,9 @@ const actionSetLatestFeedbackMessage: SetLatestWargameMessageAction = {
       "from": {
         "force": "Blue",
         "forceColor": "#3dd0ff",
-        "role": "CO",
-        "icon": "http://localhost:8080/default_img/forceDefault.png"
+        "roleId": blueCO.roleId,
+        "roleName": blueCO.name,
+        "iconURL": "http://localhost:8080/default_img/forceDefault.png"
       },
       "messageType": "Chat",
       "timestamp": "2020-12-07T06:38:43.642Z"

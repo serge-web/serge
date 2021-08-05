@@ -1,19 +1,17 @@
 import React from 'react'
 import { ForceData, MessageMap, PlayerUi, Role, MappingConstraints } from '@serge/custom-types'
-import {
-  FORCE_LAYDOWN,
-  PERCEPTION_OF_CONTACT,
-  STATE_OF_WORLD,
-  CREATE_TASK_GROUP,
-  LEAVE_TASK_GROUP,
-  HOST_PLATFORM,
+import { FORCE_LAYDOWN, 
+  PERCEPTION_OF_CONTACT, 
+  STATE_OF_WORLD, 
+  CREATE_TASK_GROUP, 
+  LEAVE_TASK_GROUP, 
+  HOST_PLATFORM, 
   SUBMIT_PLANS,
   DELETE_PLATFORM,
-  VISIBILITY_CHANGES,
-  Phase
-} from '@serge/config'
+  VISIBILITY_CHANGES, 
+  Phase } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
-import { TabNode, TabSetNode } from 'flexlayout-react'
+import { TabNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { Mapping, Assets, HexGrid } from '@serge/components'
 import _ from 'lodash'
@@ -27,14 +25,14 @@ import { CHANNEL_MAPPING, CHANNEL_RFI_STATUS } from '../../../consts'
 type Factory = (node: TabNode) => React.ReactNode
 
 /** utility to find the role for this role name */
-const findRole = (roleName: string, forceData: ForceData | undefined): Role => {
-  if (forceData) {
-    const role = forceData.roles.find((role: Role) => role.name === roleName)
-    if (role) {
+const findRole = (roleId: string, forceData: ForceData | undefined): Role => {
+  if(forceData) {
+    const role = forceData.roles.find((role: Role) => role.roleId === roleId)
+    if(role) {
       return role
     }
   }
-  throw new Error('Role not found for:' + roleName);
+  throw new Error('Role not found for id:' + roleId);
 }
 
 /** convert phase as a string to the enum type
@@ -50,7 +48,7 @@ const factory = (state: PlayerUi): Factory => {
 
   // provide some default mapping constraints if we aren't supplied with any
   const mappingConstraints: MappingConstraints = state.mappingConstaints || {
-    bounds: [[14.194809302, 42.3558566271], [12.401259302, 43.7417816271]],
+    bounds: [[14.194809302, 42.3558566271],[12.401259302, 43.7417816271]],
     tileDiameterMins: 5,
     tileLayer: {
       url: './gulf_tiles/{z}/{x}/{y}.png',
@@ -63,37 +61,40 @@ const factory = (state: PlayerUi): Factory => {
     targetDataset: Domain.GULF
   }
 
-  const mapPostBack = (form: string, payload: MessageMap, channelID: string): void => {
-    switch (form) {
+  const mapPostBack = (form: string, payload: MessageMap, channelID: string | number = ''): void => {
+    if (channelID === '') return
+    if (typeof channelID === 'number') channelID = channelID.toString()
+
+    switch(form) {
       case FORCE_LAYDOWN:
-        sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case VISIBILITY_CHANGES:
-        sendMapMessage(VISIBILITY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(VISIBILITY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case PERCEPTION_OF_CONTACT:
-        sendMapMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case SUBMIT_PLANS:
-        sendMapMessage(SUBMIT_PLANS, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(SUBMIT_PLANS, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case STATE_OF_WORLD:
-        sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case CREATE_TASK_GROUP:
-        sendMapMessage(CREATE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(CREATE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case LEAVE_TASK_GROUP:
-        sendMapMessage(LEAVE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(LEAVE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case HOST_PLATFORM:
-        sendMapMessage(HOST_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(HOST_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
       case DELETE_PLATFORM:
-        sendMapMessage(DELETE_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.currentWargame, saveMapMessage)
+        sendMapMessage(DELETE_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, saveMapMessage)
         break
-      default:
-        console.log('Handler not created for', form)
+        default:
+      console.log('Handler not created for', form)
     }
   }
 
@@ -104,30 +105,25 @@ const factory = (state: PlayerUi): Factory => {
     const role: Role = findRole(state.selectedRole, state.selectedForce)
     const canSubmitOrders: boolean = !!role.canSubmitPlans
 
-    const hasMaximizeTab = node.getModel().getMaximizedTabset()
-    const tabSetNode = node.getParent() as TabSetNode
-    if (hasMaximizeTab && !tabSetNode.isMaximized()) {
-      return
-    }
-
     // note: we have to convert the bounds that comes from the database
     // from a number array to a Leaflet bounds object.
     // Render the map
     const renderMap = (channelid: string) => <Mapping
-      mappingConstraints={mappingConstraints}
-      forces={state.allForces}
-      platforms={state.allPlatformTypes}
-      phase={phaseFor(state.phase)}
-      turnNumber={state.currentTurn}
-      playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
-      canSubmitOrders={canSubmitOrders}
-      channelID={channelid}
-      mapPostBack={mapPostBack}
-      gameTurnTime={state.gameTurnTime}
-      wargameInitiated={state.wargameInitiated}
+        mappingConstraints={mappingConstraints}
+        forces={state.allForces}
+        platforms={state.allPlatformTypes}
+        phase={phaseFor(state.phase)}
+        turnNumber={state.currentTurn}
+        playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
+        canSubmitOrders={canSubmitOrders}
+        channelID = {channelid}
+        mapPostBack={mapPostBack}
+        gameTurnTime={state.gameTurnTime}
+        wargameInitiated={state.wargameInitiated}
+        platformTypesByKey={state.allPlatformTypesByKey}
     >
       <Assets />
-      <HexGrid />
+      <HexGrid/>
     </Mapping>
 
     if (_.isEmpty(state.channels)) return
@@ -147,10 +143,10 @@ const factory = (state: PlayerUi): Factory => {
         return renderMap(node.getId())
       } else if (channelName === CHANNEL_RFI_STATUS) {
         return <RfiStatusBoardChannel />
-      } else if (matchedChannel && matchedChannel.length && channelDefinition) {
-        // find out if channel just contains chat template
-        return isChatChannel(channelDefinition) ?
-          <ChatChannel channelId={matchedChannel[0]} />
+      } else if(matchedChannel && matchedChannel.length && channelDefinition) {
+          // find out if channel just contains chat template
+          return isChatChannel(channelDefinition) ? 
+            <ChatChannel channelId={matchedChannel[0]} /> 
           : <Channel channelId={matchedChannel[0]} />
       }
     }

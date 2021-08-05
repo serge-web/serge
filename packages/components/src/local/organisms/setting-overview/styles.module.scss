@@ -14,6 +14,14 @@
 .col {
   flex: 1;
 }
+
+.flatpickr {
+  border: 0;
+  background: transparent;
+  outline: none;
+  margin-bottom: 2px;
+}
+
 .actions {
   display: flex;
   align-items: center;

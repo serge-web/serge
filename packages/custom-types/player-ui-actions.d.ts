@@ -9,6 +9,7 @@ import {
   SET_LATEST_WARGAME_MESSAGE,
   SET_ALL_MESSAGES,
   OPEN_MESSAGE,
+  MARK_UNREAD,
   CLOSE_MESSAGE,
   MARK_ALL_AS_READ,
   OPEN_TOUR,
@@ -23,9 +24,11 @@ import {
   MessageChannel,
   MessageCustom,
   MessageInfoType
-} from '@serge/custom-types'
+} from '.'
 import { ActionPayload } from '@serge/components/src/local/molecules/rfi-form/types/props';
 import { Dispatch } from 'react'
+import { TemplateBody } from './template';
+import { TemplateBodysByKey } from './message-types';
 
 export type PlayerUiDispatch = Dispatch<PlayerUiActionTypes>
 
@@ -43,7 +46,7 @@ interface SetRoleAction {
 }
 interface SetAllTemplatesAction {
   type: typeof SET_ALL_TEMPLATES_PLAYERUI,
-  payload: Array<any>
+  payload: TemplateBodysByKey
 }
 interface ShowHideObjectivesAction {
   type: typeof SHOW_HIDE_OBJECTIVES
@@ -66,6 +69,13 @@ interface SetWargameMessagesAction {
 }
 export interface OpenMessageAction {
   type: typeof OPEN_MESSAGE,
+  payload: {
+    channel: string,
+    message: MessageChannel
+  }
+}
+export interface MarkUnreacAction {
+  type: typeof MARK_UNREAD,
   payload: {
     channel: string,
     message: MessageChannel
@@ -95,17 +105,18 @@ interface CloseModalAction {
 }
 
 export type PlayerUiActionTypes = SetCurrentWargameAction |
-                                  SetForceAction |
-                                  SetRoleAction |
-                                  SetAllTemplatesAction |
-                                  ShowHideObjectivesAction |
-                                  SetWargameFeedbackAction |
-                                  SetLatestFeedbackMessageAction |
-                                  SetLatestWargameMessageAction |
-                                  SetWargameMessagesAction |
-                                  OpenMessageAction |
-                                  CloseMessageAction |
-                                  MarkAllAsReadAction |
-                                  OpenTourAction |
-                                  OpenModalAction |
-                                  CloseModalAction
+  SetForceAction |
+  SetRoleAction |
+  SetAllTemplatesAction |
+  ShowHideObjectivesAction |
+  SetWargameFeedbackAction |
+  SetLatestFeedbackMessageAction |
+  SetLatestWargameMessageAction |
+  SetWargameMessagesAction |
+  OpenMessageAction |
+  MarkUnreacAction |
+  CloseMessageAction |
+  MarkAllAsReadAction |
+  OpenTourAction |
+  OpenModalAction |
+  CloseModalAction

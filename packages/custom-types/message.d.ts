@@ -19,9 +19,8 @@ import {
 import Perception from './perception'
 import PlannedRoute from './planned-route'
 import Visibility from './visibility'
-import Asset from './asset'
 import Role from './role'
-import { StateOfWorld } from '.'
+import { ForceRole, StateOfWorld } from '.'
 import Wargame from './wargame'
 
 
@@ -36,19 +35,26 @@ export interface RFIData {
 }
 
 export interface MessageDetailsFrom {
-  /** id of user force
-   * TODO: check we're using id, not force name
+  /** name
    */
   force: string,
+  /** id of sending force */
+  forceId?: string,
   /** CSS color shade for this force */
   forceColor: string,
   /** role of the individual that wrote message */
-  role: string,
+  roleId: Role['roleId'],
+  /** name of the role that send messsage */
+  roleName: Role['name'],
   /** URL of icon to display for this force
    * TODO: once all code under TypeScript try making it non-optional,
    * and fix cases where it's not assigned
    */
-  icon: string
+  /**
+   * @deprecated use iconURL instead
+   */
+  icon?: string,
+  iconURL: string,
   /** user-name, as typed into Feedback/insights form */
   name?: string
 }
@@ -93,6 +99,19 @@ export interface CoreMessage {
   readonly details: MessageDetails,
 }
 
+/** 
+ * instance of feedback on a collaborative document 
+ */
+export interface FeedbackItem {
+  /** who the feedback is from */
+  readonly fromId: Role['roleId']
+  readonly fromName: Role['roleId']
+  /** when the feedback was provided */
+  readonly date: string
+  /** the feedback */
+  readonly feedback: string
+}
+
 /** data for a message that is being
  * collaboarively edited
  */
@@ -104,11 +123,15 @@ export interface CollaborationDetails {
    /**
     * Current message owner
     */
-   owner?: Role['name']
+   owner?: ForceRole
    /**
     * response to message, only used in RFIs
     */
    response?: string
+   /** 
+    * feedback on last version
+    */
+   feedback?: Array<FeedbackItem>
 }
 
 export interface MessageCustom extends CoreMessage {

@@ -1,18 +1,18 @@
 import { ExportItem } from './export-items'
 
 import {
-  CREATE_EXPORT_ITEM
+  CREATE_EXPORT_ITEM, LOADER
 } from '@serge/config'
 
-import {
-
-} from '@serge/custom-types'
 import { Dispatch } from 'react'
 
-interface SreateExportItemAction {
+interface CreateExportItemAction {
   type: typeof CREATE_EXPORT_ITEM,
   payload: ExportItem
 }
+interface CreateExportItemLoading {
+  type: typeof LOADER,
+}
 
-export type ExportItemsUiActionTypes = SreateExportItemAction
+export type ExportItemsUiActionTypes = CreateExportItemAction | CreateExportItemLoading
 export type ExportItemsDispatch = Dispatch<ExportItemsUiActionTypes>

@@ -1,5 +1,9 @@
 import { CHAT_MESSAGE } from '@serge/config'
-import { ChatMessage } from '@serge/custom-types'
+import { ChatMessage, Role } from '@serge/custom-types'
+import { forces } from './forces.mock'
+
+const whiteGC: Role = forces[0].roles[0]
+const blueCO: Role = forces[1].roles[0]
 
 const message1: ChatMessage = {
   "messageType": CHAT_MESSAGE,
@@ -8,8 +12,9 @@ const message1: ChatMessage = {
     "from": {
       "force": "White",
       "forceColor": "#FCFBEE",
-      "role": "Game Control",
-      "icon": "default_img/umpireDefault.png",
+      "roleId": whiteGC.roleId,
+      "roleName": whiteGC.name,
+      "iconURL": "default_img/umpireDefault.png",
     },
     "messageType": "Chat",
     "privateMessage": "Private message here",
@@ -28,9 +33,10 @@ const message2: ChatMessage = {
     "from": {
       "force": "Blue",
       "forceColor": "#1989dc",
-      "role": "CO",
+      "roleId": blueCO.roleId,
+      "roleName": blueCO.name,
       "name": "Blue",
-      "icon": "default_img/umpireDefault.png"
+      "iconURL": "default_img/umpireDefault.png"
     },
     "messageType": "Chat",
     "timestamp": "2020-03-25T15:08:47.510Z"

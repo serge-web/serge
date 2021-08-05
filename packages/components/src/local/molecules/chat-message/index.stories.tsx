@@ -48,8 +48,9 @@ Demonstration.args = {
       from: {
         force: 'White',
         forceColor: '#FCFBEE',
-        role: 'Game Control',
-        icon: 'default_img/umpireDefault.png'
+        roleName: 'Game Control',
+        roleId: 'i3453',
+        iconURL: 'default_img/umpireDefault.png'
       },
       messageType: 'State of The World',
       timestamp: '2020-09-18T05:41:17.349Z',

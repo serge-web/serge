@@ -51,7 +51,7 @@ Default.args = {
   message: unallocated,
   isUmpire: true,
   isRFIManager: true,
-  role: 'CO'
+  role: { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'CO' }
 }
 
 export const InProgress = Template.bind({})
@@ -59,7 +59,7 @@ InProgress.args = {
   message: inProgress,
   isRFIManager: true,
   isUmpire: true,
-  role: 'CO 2'
+  role: { forceId: 'umpire', forceName: 'White', roleId: 'game control 2', roleName: 'CO 2' }
 }
 
 export const ForReview = Template.bind({})
@@ -67,7 +67,7 @@ ForReview.args = {
   message: forReview,
   isRFIManager: true,
   isUmpire: true,
-  role: 'CO 3'
+  role: { forceId: 'umpire', forceName: 'White', roleId: 'game control 3', roleName: 'CO 3' }
 }
 
 export const Released = Template.bind({})
@@ -75,5 +75,5 @@ Released.args = {
   message: released,
   isRFIManager: true,
   isUmpire: true,
-  role: 'CO 4'
+  role: { forceId: 'umpire', forceName: 'White', roleId: 'game control 4', roleName: 'CO 4' }
 }

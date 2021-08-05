@@ -55,7 +55,7 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire }: Pro
           flexDirection={!isOwner ? 'row-reverse' : ''}
           alignItems="flex-end"
         >
-          <Badge size="small" label={message.details.from.role} customBackgroundColor={message.details.from.forceColor} />
+          <Badge size="small" label={message.details.from.roleName} customBackgroundColor={message.details.from.forceColor} />
           <span className={`${styles['info-body']} ${isOwner ? styles['info-body__owner'] : styles['info-body__other']}`}>
             {moment(message.details.timestamp).format('HH:mm')}
           </span>

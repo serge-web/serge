@@ -4,6 +4,8 @@ import PlatformTypeData from './platform-type-data'
 import { MessageFeedback, MessageChannel, MessageCustom } from './message'
 import ChannelUI from './channel-ui'
 import MappingConstraints from './mapping-constraints'
+import { TemplateBodysByKey } from './message-types'
+import Role from './role'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -17,7 +19,8 @@ export interface PlayerUiChatChannel {
 
 export default interface PlayerUi {
   selectedForce?: ForceData,
-  selectedRole: string,
+  selectedRole: Role['roleId'],
+  selectedRoleName: Role['name'],
   isObserver: boolean,
   canSubmitPlans: boolean,
   isGameControl: boolean,
@@ -42,9 +45,16 @@ export default interface PlayerUi {
   allChannels: Array<ChannelData>,
   /** set of forces for ths current wargame */
   allForces: Array<ForceData>,
-  allTemplates: Array<any>,
+  allTemplatesByKey: TemplateBodysByKey,
   /** descriptions of platforms available in current wargame */
+  /**
+   * @deprecated allPlatformTypesByKey will allow more easy access. [platformType.name]: PlatformType
+   */
   allPlatformTypes: Array<PlatformTypeData>,
+  /** descriptions of platforms available in current wargame easy access by [platformType.name]: PlatformType */
+  allPlatformTypesByKey: {
+    [property: string]: PlatformTypeData
+  }
   showObjective: boolean,
   /** whether wargame changes stored as new documents (true) or whether
    * change overwrite the original wargame document (false)

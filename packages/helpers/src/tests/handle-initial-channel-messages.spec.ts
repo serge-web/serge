@@ -3,7 +3,7 @@ import {
   ForceData, PlayerUiChatChannel, SetWargameMessage,
   ChannelData, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails
 } from '@serge/custom-types'
-import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels, InfoMessagesMock } from '@serge/mocks'
+import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels, InfoMessagesMock, MessageTemplatesMockByKey } from '@serge/mocks'
 import { CHAT_CHANNEL_ID, CollaborativeMessageStates } from '@serge/config'
 import deepCopy from '../deep-copy'
 
@@ -15,7 +15,7 @@ const blueForce: ForceData = allForces[1]
 const allChannels: ChannelData[] = GameChannels
 const selectedRole = allForces[1].roles[0].name
 const isObserver = false
-const allTemplates: any[] = MessageTemplatesMock
+const allTemplates = MessageTemplatesMockByKey
 
 describe('handle initial channel creation', () => {
   it('fire a message into normal channel', () => {
@@ -31,7 +31,7 @@ describe('handle initial channel creation', () => {
 
     const channelId = 'channel-k63pjit0'
 
-    expect(Object.keys(res.channels).length).toEqual(4)
+    expect(Object.keys(res.channels).length).toEqual(5)
 
     expect(res.channels[channelId].messages?.length).toEqual(5)
 

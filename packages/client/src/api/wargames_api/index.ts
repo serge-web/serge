@@ -49,6 +49,7 @@ import {
   ListenNewMessageType,
   WargameRevision
 } from './types.d'
+import { hiddenPrefix} from '@serge/config'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -166,8 +167,10 @@ export const populateWargame = (): Promise<Wargame> => {
         return getLatestWargameRevision(name).then((res) => ({
           name: db.name,
           title: res.wargameTitle,
-          initiated: res.wargameInitiated
-        })).catch((err) => {
+          initiated: res.wargameInitiated,
+          shortName: res.name
+        })
+        ).catch((err) => {
           console.log(err)
           return err
         })
@@ -197,8 +200,9 @@ export const getIpAddress = (): Promise<{ ip: string }> => {
 export const saveIcon = (file) => {
   return fetch(serverPath + 'saveIcon', {
     method: 'POST',
-      // @ts-ignore
-    'Content-Type': 'image/png',
+    headers: {
+      'Content-Type': 'image/png',
+    },
     body: file
   })
     // @ts-ignore
@@ -401,6 +405,15 @@ export const deleteChannel = (dbName: string, channelUniqid: string): Promise<Wa
   })
 }
 
+export const saveForces = (dbName: string, newData: ForceData[]) => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    updatedData.forces.forces = newData
+    return updateWargame({...res, data: updatedData}, dbName)
+  })
+}
+
 export const saveForce = (dbName: string, newName: string, newData: ForceData, oldName: string) => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
@@ -512,6 +525,15 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
       return getAllWargames()
     }).catch(rejectDefault)
   }).catch(rejectDefault)
+}
+
+export const updateWargameVisible = async (dbPath: string): Promise<Wargame> => {
+  const dbName = getNameFromPath(dbPath)
+  const { db } = getWargameDbByName(dbName)
+  return getLatestWargameRevision(dbName).then(async (wargame: Wargame) => {
+    wargame.name = wargame.name.startsWith(hiddenPrefix) ? wargame.name.substr(hiddenPrefix.length) : `${hiddenPrefix}${wargame.name}`
+    return db.put(wargame).catch(rejectDefault)
+  })
 }
 
 export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
@@ -649,11 +671,12 @@ export const getAllMessages = (dbName: string): Promise<Message[]> => {
 export const getAllWargames = (): Promise<WargameRevision[]> => {  
   const promises = wargameDbStore.map<Promise<WargameRevision>>((game) => {
     return getLatestWargameRevision(game.name)
-      .then(({ wargameTitle, wargameInitiated }) => {
+      .then(({ wargameTitle, wargameInitiated, name }) => {
         return {
           name: game.db.name,
           title: wargameTitle,
-          initiated: wargameInitiated
+          initiated: wargameInitiated,
+          shortName: name
         }
       })
       .catch(rejectDefault)

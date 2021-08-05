@@ -1,5 +1,8 @@
 import { SET_ALL_MESSAGES, CUSTOM_MESSAGE } from '@serge/config'
-import { SetWargameMessagesAction } from '@serge/custom-types'
+import { SetWargameMessagesAction, Role } from '@serge/custom-types'
+import { forces } from './forces.mock'
+
+const blueCO: Role = forces[1].roles[0]
 
 const actionSetWargameMessages: SetWargameMessagesAction = {
   type: SET_ALL_MESSAGES,
@@ -13,8 +16,9 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "role": "CO",
-          "icon": "http://localhost:8080/default_img/forceDefault.png"
+          "roleName": blueCO.name,
+          "roleId": blueCO.roleId,
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
         "timestamp": "2020-12-06T11:07:18.374Z"
@@ -34,8 +38,9 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "role": "CO",
-          "icon": "http://localhost:8080/default_img/forceDefault.png"
+          "roleName": blueCO.name,
+          "roleId": blueCO.roleId,
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
         "timestamp": "2020-12-06T11:07:08.130Z"
@@ -55,8 +60,9 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "role": "CO",
-          "icon": "http://localhost:8080/default_img/forceDefault.png"
+          "roleId": blueCO.roleId,
+          "roleName": blueCO.name,
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "PG19 Weekly Orders",
         "timestamp": "2020-12-06T11:06:51.596Z"
@@ -88,8 +94,9 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "role": "CO",
-          "icon": "http://localhost:8080/default_img/forceDefault.png"
+          "roleId": blueCO.roleId,
+          "roleName": blueCO.name,
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
         "timestamp": "2020-12-06T11:06:19.602Z"
@@ -109,8 +116,9 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "role": "CO",
-          "icon": "http://localhost:8080/default_img/forceDefault.png"
+          "roleId": blueCO.roleId,
+          "roleName": blueCO.name,
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
         "timestamp": "2020-12-06T11:06:12.434Z"
@@ -130,8 +138,9 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
         "from": {
           "force": "Blue",
           "forceColor": "#3dd0ff",
-          "role": "CO",
-          "icon": "http://localhost:8080/default_img/forceDefault.png"
+          "roleId": blueCO.roleId,
+          "roleName": blueCO.name,
+          "iconURL": "http://localhost:8080/default_img/forceDefault.png"
         },
         "messageType": "Chat",
         "timestamp": "2020-12-06T11:05:07.490Z"

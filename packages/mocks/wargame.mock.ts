@@ -1,7 +1,7 @@
 import { Wargame } from '@serge/custom-types'
-const wargame: Wargame =  {
+const wargame: Wargame = {
   _id: '1',
-  name:'mock',
+  name: 'mock',
   adjudicationStartTime: '',
   phase: 'planning',
   gameTurn: 2,
@@ -9,26 +9,31 @@ const wargame: Wargame =  {
   "wargameList": [
     {
       "name": "http://localhost:8080/db/wargame-k5xyxas9",
+      "shortName": "wargame-k5xyxas9",
       "title": "IMWARC-T2 Playing",
       "initiated": true
     },
     {
       "name": "http://localhost:8080/db/wargame-k5xxsr4b",
+      "shortName": "wargame-k5xxsr4b",
       "title": "IMWARC-T1 Adjudication",
       "initiated": true
     },
     {
       "name": "http://localhost:8080/db/wargame-k5pap52f",
+      "shortName": "wargame-k5pap52f",
       "title": "IMWARC-Initialised",
       "initiated": true
     },
     {
       "name": "http://localhost:8080/db/wargame-k5pafxci",
+      "shortName": "wargame-k5pafxci",
       "title": "IMWARC",
       "initiated": false
     },
     {
       "name": "http://localhost:8080/db/wargame-k16fadm4",
+      "shortName": "wargame-k16fadm4",
       "title": "Monday",
       "initiated": true
     }
@@ -57,16 +62,16 @@ const wargame: Wargame =  {
           "overview": "Umpire force.",
           "roles": [
             {
+              "roleId": "rkrlggf5e",
               "name": "Game Control",
-              "password": "pk6w5y28j",
-              "isGameControl":true,
+              "isGameControl": true,
               "isObserver": true,
               "isInsightViewer": true,
               "isRFIManager": true,
               "canSubmitPlans": true
             }
           ],
-          "icon": "http://localhost:8080/default_img/umpireDefault.png",
+          "iconURL": "http://localhost:8080/default_img/umpireDefault.png",
           "color": "#FCFBEE",
           "umpire": true,
           "dirty": false

@@ -21,10 +21,11 @@ export default {
 const force = {
   name: 'blue',
   color: '#6699cc',
-  icon: ''
+  icon: '',
+  iconURL: ''
 }
 
 // @ts-ignore
 const showMessage = (message: MessageChannel): void => window.alert(`Your message, from ${message.details.from.force} was: "${message.message.content}"`)
 
-export const Default: React.FC = () => <AdminMessageCreator from={force} channel={'Game Admin'} role={'Umpire'} postBack={showMessage} />
+export const Default: React.FC = () => <AdminMessageCreator from={force} channel={'Game Admin'} roleName={'Umpire'} role={'r3453'} postBack={showMessage} />

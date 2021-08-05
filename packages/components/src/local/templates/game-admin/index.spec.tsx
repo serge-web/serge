@@ -11,7 +11,8 @@ import moment from 'moment-timezone'
 const force = {
   name: 'blue',
   color: '#6699cc',
-  icon: ''
+  icon: '',
+  iconURL: ''
 }
 
 const createNodeMock = (el: any): HTMLTextAreaElement | null => {
@@ -26,7 +27,7 @@ describe('GameAdmin page:', () => {
     moment.tz.setDefault('Etc/UTC')
     const tree = renderer
       .create(
-        <GameAdmin wargameTitle="title" chatChannel={AdminMessagesMock} selectedForce={force} selectedRole=""/>,
+        <GameAdmin wargameTitle="title" chatChannel={AdminMessagesMock} selectedForce={force} selectedRoleName="CO" selectedRole="u235"/>,
         { createNodeMock }
       )
       .toJSON()

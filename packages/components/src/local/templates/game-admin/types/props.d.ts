@@ -3,8 +3,13 @@ export default interface PropTypes {
   selectedForce: {
     name: string
     color: string
+    /**
+    * @deprecated use iconURL instead
+    */
     icon?: string
+    iconURL: string
   }
-  selectedRole: string
+  selectedRole: Role['roleId']
+  selectedRoleName: Role['name']
   chatChannel: any
 }

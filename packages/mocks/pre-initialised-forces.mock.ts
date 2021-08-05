@@ -5,17 +5,17 @@ const forces: ForceData[] = [
     {
         color: "#FCFBEE",
         dirty: false,
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         name: "White",
         overview: "Umpire force.",
         roles: [
-            {
+          {
+                roleId: 'rkr776f5e',
                 canSubmitPlans: true,
                 isGameControl: true,
                 isInsightViewer: true,
                 isObserver: true,
-                name: "Game Control",
-                password: "p2311"
+                name: "Game Control"
             }
         ],
         umpire: true,
@@ -126,25 +126,25 @@ const forces: ForceData[] = [
         ],
         color: "#00F",
         dirty: false,
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         name: "Blue",
         overview: "Blue force.",
         roles: [
-            {
+          {
+                roleId: 'rkr886f5e',
                 canSubmitPlans: true,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
-                name: "CO",
-                password: "p5543"
+                name: "CO"
             },
-            {
+          {
+                roleId: 'rk888w6f6e',
                 canSubmitPlans: false,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
-                name: "Logistics",
-                password: "plx4l7"
+                name: "Logistics"
             }
         ],
         umpire: false,
@@ -206,25 +206,25 @@ const forces: ForceData[] = [
         ],
         color: "#F00",
         dirty: false,
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         name: "Red",
         overview: "Red force.",
         roles: [
-            {
+          {
+                roleId: 'rkrlw6f99e',
                 canSubmitPlans: true,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
-                name: "CO",
-                password: "p3244"
+                name: "CO"
             },
-            {
+          {
+                roleId: 'rkr996f5emms',
                 canSubmitPlans: false,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
-                name: "Comms",
-                password: "p94vxe"
+                name: "Comms"
             }
         ],
         umpire: false,
@@ -288,17 +288,17 @@ const forces: ForceData[] = [
             "umpire"
         ],
         dirty: false,
-        icon: "default_img/umpireDefault.png",
+        iconURL: "default_img/umpireDefault.png",
         name: "Green",
         overview: "Green Shipping",
         roles: [
-            {
+          {
+                roleId: 'rkrlaaf5e',
                 canSubmitPlans: true,
                 isGameControl: false,
                 isInsightViewer: false,
                 isObserver: false,
-                name: "CO",
-                password: "P9454"
+                name: "CO"
             }
         ],
         umpire: false,

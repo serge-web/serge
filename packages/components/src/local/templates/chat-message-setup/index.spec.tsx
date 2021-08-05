@@ -11,7 +11,8 @@ import moment from 'moment-timezone'
 const force = {
   name: 'blue',
   color: '#6699cc',
-  icon: ''
+  icon: '',
+  iconURL: ''
 }
 
 const createNodeMock = (el: any): HTMLTextAreaElement | null => {
@@ -26,7 +27,8 @@ describe('ChatMessageSetup page:', () => {
     moment.tz.setDefault('Etc/UTC')
     const tree = renderer
       .create(
-        <ChatMessageSetup userId={'CO'} forceName={'Blue'} isUmpire={true} chatChannel={ChatMessagesMock} selectedForce={force} selectedRole={'CO'}/>,
+        <ChatMessageSetup userId={'CO'} forceName={'Blue'} isUmpire={true} chatChannel={ChatMessagesMock}
+          selectedForce={force} selectedRoleName={'CO'} selectedRole={'u3456'}/>,
         { createNodeMock }
       )
       .toJSON()

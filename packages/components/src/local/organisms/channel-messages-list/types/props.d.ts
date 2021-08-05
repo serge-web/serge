@@ -1,7 +1,7 @@
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 import { MessageChannel, MessageCustom } from '@serge/custom-types'
 
-export default interface PropTypes extends ForcesInChannelProps{
+export default interface PropTypes extends ForcesInChannelProps {
   /**
    * The list of channel messages properties required
    * for ChannelMessage components
@@ -11,6 +11,12 @@ export default interface PropTypes extends ForcesInChannelProps{
    * Callback on expanding message item
    */
   onRead?: { (message: MessageCustom): void }
+
+  /**
+   * handle unread message
+   */
+  onUnread?: () => void
+
   /** force for player
    *
    */

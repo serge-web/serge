@@ -1,11 +1,13 @@
 import handleChannelUpdates from '../handle-channel-updates'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage,
-  ChannelData, MessageChannel, MessageInfoTypeClipped, MessageCustom
+  ChannelData, MessageChannel, MessageInfoTypeClipped, MessageCustom, Role
 } from '@serge/custom-types'
-import { InfoMessagesMock, GameMessagesMock, MessageTemplatesMock, forces, GameChannels } from '@serge/mocks'
+import { InfoMessagesMock, GameMessagesMock, MessageTemplatesMock, forces, GameChannels, MessageTemplatesMockByKey } from '@serge/mocks'
 import deepCopy from '../deep-copy'
 import { INFO_MESSAGE_CLIPPED, CHAT_CHANNEL_ID, CUSTOM_MESSAGE } from '@serge/config'
+
+const whiteGC: Role = forces[0].roles[0]
 
 const channels: PlayerUiChannels = {}
 const adminMessages: MessageChannel[] = GameMessagesMock
@@ -18,7 +20,7 @@ const redForce: ForceData = allForces[2]
 const allChannels: ChannelData[] = GameChannels
 const selectedRole = allForces[1].roles[0].name
 const isObserver = false
-const allTemplates: any = MessageTemplatesMock
+const allTemplates = MessageTemplatesMockByKey
 
 describe('handle channel update for info message', () => {
   it('deletes channels that have been deleted', () => {
@@ -28,7 +30,7 @@ describe('handle channel update for info message', () => {
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    expect(Object.keys(res.channels).length).toEqual(4)
+    expect(Object.keys(res.channels).length).toEqual(5)
 
     // ok. now a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
@@ -39,7 +41,7 @@ describe('handle channel update for info message', () => {
       shortChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
-    expect(Object.keys(res2.channels).length).toEqual(3)
+    expect(Object.keys(res2.channels).length).toEqual(4)
   })
 
   it('deletes channels were no longer a member of', () => {
@@ -49,26 +51,18 @@ describe('handle channel update for info message', () => {
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    expect(Object.keys(res.channels).length).toEqual(4)
+    expect(Object.keys(res.channels).length).toEqual(5)
 
     // ok. now remove us from a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
-    copyChannels[0].participants[2].roles = [{
-      isGameControl: false,
-      isInsightViewer: true,
-      isRFIManager: true,
-      canSubmitPlans: true,
-      isObserver: false,
-      name: 'Game Control',
-      password: 'p2311'
-    }]
+    copyChannels[0].participants[2].roles = [whiteGC.roleId]
 
     // regenerate channels
     const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages, 1, blueForce,
       copyChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
-    expect(Object.keys(res2.channels).length).toEqual(3)
+    expect(Object.keys(res2.channels).length).toEqual(4)
   })
 
   it('updates observer status', () => {
@@ -77,21 +71,13 @@ describe('handle channel update for info message', () => {
 
     // change channel so we're not a member
     const limWhiteRoles: ChannelData[] = deepCopy(allChannels)
-    limWhiteRoles[0].participants[0].roles = [{
-      isGameControl: false,
-      isInsightViewer: true,
-      isRFIManager: true,
-      canSubmitPlans: true,
-      isObserver: false,
-      name: 'Game Control',
-      password: 'p2311'
-    }]
+    limWhiteRoles[0].participants[0].roles = [whiteGC.roleId]
 
     const res: SetWargameMessage = handleChannelUpdates(payload, channels, chatChannel, [], 1, whiteForce,
       limWhiteRoles, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    expect(Object.keys(res.channels).length).toEqual(4)
+    expect(Object.keys(res.channels).length).toEqual(5)
 
     // we're no longer an observer
     const notObserver = false
@@ -111,26 +97,18 @@ describe('handle channel update for info message', () => {
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    expect(Object.keys(res.channels).length).toEqual(4)
+    expect(Object.keys(res.channels).length).toEqual(5)
 
     // ok. now remove us from a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
-    copyChannels[0].participants[2].roles = [{
-      isGameControl: false,
-      isInsightViewer: true,
-      isRFIManager: true,
-      canSubmitPlans: true,
-      isObserver: false,
-      name: 'Game Control',
-      password: 'p2311'
-    }]
+    copyChannels[0].participants[2].roles = [whiteGC.roleId]
 
     // regenerate channels
     const res2: SetWargameMessage = handleChannelUpdates(payload, res.channels, chatChannel, res.rfiMessages, 1, blueForce,
       copyChannels, selectedRole, true, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
-    expect(Object.keys(res2.channels).length).toEqual(4)
+    expect(Object.keys(res2.channels).length).toEqual(5)
   })
 
   it('adds us to new channels (blue)', () => {
@@ -140,7 +118,7 @@ describe('handle channel update for info message', () => {
       allChannels, selectedRole, isObserver, allTemplates, allForces)
 
     expect(res).toBeTruthy()
-    expect(Object.keys(res.channels).length).toEqual(4)
+    expect(Object.keys(res.channels).length).toEqual(5)
 
     // ok. now add a channel
     const copyChannels: ChannelData[] = deepCopy(allChannels)
@@ -158,7 +136,7 @@ describe('handle channel update for info message', () => {
       copyChannels, selectedRole, false, allTemplates, allForces)
 
     expect(res2).toBeTruthy()
-    expect(Object.keys(res2.channels).length).toEqual(5)
+    expect(Object.keys(res2.channels).length).toEqual(6)
   })
 
   it('does not add us to new channels (red)', () => {
@@ -209,8 +187,9 @@ describe('handle channel update for info message', () => {
         from: {
           force: 'White',
           forceColor: '#FCFBEE',
-          icon: 'default_img/umpireDefault.png',
-          role: 'Game Control'
+          roleName: whiteGC.name,
+          iconURL: 'default_img/umpireDefault.png',
+          roleId: whiteGC.roleId
         },
         messageType: 'Chat',
         privateMessage: 'The private content goes in here',
@@ -253,8 +232,9 @@ describe('handle channel update for info message', () => {
         from: {
           force: 'White',
           forceColor: '#FCFBEE',
-          icon: 'default_img/umpireDefault.png',
-          role: 'Game Control'
+          roleName: whiteGC.name,
+          iconURL: 'default_img/umpireDefault.png',
+          roleId: whiteGC.roleId
         },
         messageType: 'Chat',
         privateMessage: 'The private content goes in here',

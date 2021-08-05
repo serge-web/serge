@@ -1,5 +1,4 @@
 import React from 'react'
-import { Badge, DataTable } from '@serge/components'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates } from '@serge/config'
 import { ChannelData } from '@serge/custom-types'
@@ -11,6 +10,8 @@ import Props from './types/props'
 import styles from './styles.module.scss'
 
 import ChannelRfiMessageDetail from '../molecules/channel-rfi-message-detail'
+import { Badge } from '../atoms/badge'
+import { DataTable } from '../organisms/data-table'
 
 /* Render component */
 export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {
@@ -24,11 +25,11 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
   const data = rfiMessages.map(message => [
     message.message.Reference || message._id,
     channelDict.get(message.details.channel),
-    message.details.from.role,
+    message.details.from.roleName,
     message.details.from.forceColor,
     message.message.Title,
     message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
-    message.details.collaboration ? message.details.collaboration.owner : '= Pending ='
+    message.details.collaboration && message.details.collaboration.owner ? message.details.collaboration.owner.roleName : undefined
   ])
   const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
     return [
@@ -40,7 +41,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
   const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
     return [
       ...filters,
-      message.details.from.role
+      message.details.from.roleName
     ]
   }, [])
   const dataTableProps = {
@@ -105,7 +106,7 @@ export const RfiStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
             label: status
           },
           {
-            component: owner ? <Badge customBackgroundColor="#434343" label={owner} /> : null,
+            component: <Badge customBackgroundColor="#434343" label={owner ? owner.roleName : '= Unallocated ='} />,
             label: owner
           }
         ]

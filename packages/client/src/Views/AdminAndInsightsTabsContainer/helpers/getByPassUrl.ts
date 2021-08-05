@@ -1,16 +1,16 @@
 import { PlayerUi } from '@serge/custom-types'
 
-export default ({ currentWargame, allForces, selectedForce, selectedRole }: PlayerUi): URL => {
+export default ({ currentWargame, selectedForce, selectedRole }: PlayerUi): URL => {
   const currentUrl = new URL(document.location!.href)
 
   if (selectedForce === undefined) throw new Error('Selected Force not found in allForces')
 
-  const role = selectedForce.roles.find(role => role.name === selectedRole)
+  const role = selectedForce.roles.find(role => role.roleId === selectedRole)
   if (role === undefined) throw new Error('Selected Role not found in selectedForce')
 
   const byPassParams = {
     wargame: currentWargame,
-    access: role.password
+    access: role.roleId
   }
 
   Object.keys(byPassParams).forEach(key => {

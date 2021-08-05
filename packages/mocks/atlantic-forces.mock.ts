@@ -4,16 +4,16 @@ export const forces: ForceData[] = [
   {
     "color": "#FCFBEE",
     "dirty": false,
-    "icon": "default_img/umpireDefault.png",
+    "iconURL": "default_img/umpireDefault.png",
     "name": "White",
     "overview": "Umpire force.",
     "roles": [
       {
+        "roleId": "rkrlw6f5f",
         "isGameControl": true,
         "isInsightViewer": true,
         "isObserver": true,
-        "name": "Game Control",
-        "password": "p2311"
+        "name": "Game Control"
       }
     ],
     "umpire": true,
@@ -304,17 +304,17 @@ export const forces: ForceData[] = [
     ],
     "color": "#00F",
     "dirty": false,
-    "icon": "default_img/umpireDefault.png",
+    "iconURL": "default_img/umpireDefault.png",
     "name": "Blue",
     "overview": "Blue force.",
     "roles": [
       {
+        "roleId": "rk116f5e",
         "canSubmitPlans": true,
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
-        "name": "CO",
-        "password": "p5543"
+        "name": "CO"
       }
     ],
     "umpire": false,
@@ -524,16 +524,16 @@ export const forces: ForceData[] = [
     ],
     "color": "#F00",
     "dirty": false,
-    "icon": "default_img/umpireDefault.png",
+    "iconURL": "default_img/umpireDefault.png",
     "name": "Red",
     "overview": "Red force.",
     "roles": [
       {
+        "roleId": "rkr226f5e",
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
-        "name": "CO",
-        "password": "p3244"
+        "name": "CO"
       }
     ],
     "umpire": false,
@@ -1117,16 +1117,16 @@ export const forces: ForceData[] = [
       "umpire"
     ],
     "dirty": false,
-    "icon": "default_img/umpireDefault.png",
+    "iconURL": "default_img/umpireDefault.png",
     "name": "Green",
     "overview": "Green Shipping",
     "roles": [
       {
+        "roleId": "rkrlw6f33",
         "isGameControl": false,
         "isInsightViewer": false,
         "isObserver": false,
-        "name": "CO",
-        "password": "P9454"
+        "name": "CO"
       }
     ],
     "umpire": false,

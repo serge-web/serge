@@ -17,7 +17,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const gameAdminTitle = 'Game Admin'
   const insights = 'Insights'
   const dispatch = usePlayerUiDispatch()
-  const { selectedForce } = state
+  const { selectedForce, selectedRoleName } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
       />
       <AdminPanelFooter
         force={selectedForce}
-        selectedRole={state.selectedRole}
+        selectedRoleName={selectedRoleName}
         byPassUrl={byPassUrl}
         onIconClick={(): void => dispatch(showHideObjectives())}
       />

@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
-import { DEFAULT_SERVER } from '../../consts'
+import { DEFAULT_SERVER, forceTemplate } from '../../consts'
 
 export const setCurrentTab = (tab) => ({
   type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,
@@ -262,14 +262,26 @@ export const savePlatformTypes = (dbName, data) => {
   }
 }
 
-export const saveForce = (dbName, newName, newData, oldName) => {
+export const updateForces = (dbName, newData) => {
   return async (dispatch) => {
+    await wargamesApi.saveForces(dbName, newData)
+    const games = await wargamesApi.getAllWargames()
+    dispatch(saveAllWargameNames(games))
+  }
+}
+
+export const saveForce = (dbName, newName, newData, oldName) => {
+  return async (dispatch, state) => {
+    const oldForceData = state().wargame.data.forces.selectedForce
+    if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {
+      const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)
+      newData.iconURL = savedIconURL.path
+    }
     const wargame = await wargamesApi.saveForce(dbName, newName, newData, oldName)
 
     dispatch(setCurrentWargame(wargame))
     dispatch(setTabSaved())
-    dispatch(setSelectedForce({ name: newName, uniqid: newData.uniqid }))
-
+    dispatch(setSelectedForce({ name: newName, uniqid: newData.uniqid, iconURL: newData.iconURL }))
     dispatch(addNotification('Force saved.', 'success'))
   }
 }
@@ -278,7 +290,6 @@ export const saveChannel = (dbName, newName, newData, oldName) => {
   return async (dispatch) => {
     const wargame = await wargamesApi.saveChannel(dbName, newName, newData, oldName)
     const selectedChannel = { name: newName, uniqid: newData.uniqid }
-
     dispatch(setSelectedChannel(selectedChannel))
     wargame.data.channels.selectedChannel = selectedChannel
     dispatch(setCurrentWargame(wargame))
@@ -339,6 +350,14 @@ export const duplicateWargame = (dbName) => {
   return async (dispatch) => {
     var games = await wargamesApi.duplicateWargame(dbName)
 
+    dispatch(saveAllWargameNames(games))
+  }
+}
+
+export const updateWargameVisible = dbName => {
+  return async dispatch => {
+    await wargamesApi.updateWargameVisible(dbName)
+    const games = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(games))
   }
 }

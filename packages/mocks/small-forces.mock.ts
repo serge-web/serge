@@ -5,18 +5,27 @@ export const forces: ForceData[] = [
   {
     color: '#FCFBEE',
     dirty: false,
-    icon: 'default_img/umpireDefault.png',
+    iconURL: 'default_img/umpireDefault.png',
     name: 'White',
     overview: 'Umpire force.',
     roles: [
       {
+        roleId: 'rkrbbw6f5e',
+        isGameControl: true,
+        isInsightViewer: true,
+        isRFIManager: false,
+        canSubmitPlans: true,
+        isObserver: true,
+        name: 'Game Control',
+      }, 
+      {
+        roleId: 'rkasdbw6f5e',
         isGameControl: true,
         isInsightViewer: true,
         isRFIManager: true,
         canSubmitPlans: true,
         isObserver: true,
-        name: 'Game Control',
-        password: 'p2311'
+        name: 'RFI Manager',
       }
     ],
     umpire: true,
@@ -133,18 +142,27 @@ export const forces: ForceData[] = [
     ],
     color: '#00F',
     dirty: false,
-    icon: 'default_img/umpireDefault.png',
+    iconURL: 'default_img/umpireDefault.png',
     name: 'Blue',
     overview: 'Blue force.',
     roles: [
       {
+        roleId: 'rkrlbbbf5e',
         isGameControl: false,
         canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
         name: 'CO',
-        password: 'p5543'
+      },
+      {
+        roleId: 'rkrlwetf5e',
+        isGameControl: false,
+        canSubmitPlans: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'Logs',
       }
+
     ],
     umpire: false,
     uniqid: 'Blue'
@@ -226,17 +244,17 @@ export const forces: ForceData[] = [
       }],
     color: '#F00',
     dirty: false,
-    icon: 'default_img/umpireDefault.png',
+    iconURL: 'default_img/umpireDefault.png',
     name: 'Red',
     overview: 'Red force.',
     roles: [
       {
+        roleId: 'rkrlwcc5e',
         isGameControl: false,
         canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
-        name: 'CO',
-        password: 'p3244'
+        name: 'CO'
       }
     ],
     umpire: false,
@@ -302,17 +320,17 @@ export const forces: ForceData[] = [
       'umpire'
     ],
     dirty: false,
-    icon: 'default_img/umpireDefault.png',
+    iconURL: 'default_img/umpireDefault.png',
     name: 'Green',
     overview: 'Green Shipping',
     roles: [
       {
+        roleId: 'rkrlddf5e',
         isGameControl: false,
         canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
-        name: 'CO',
-        password: 'P9454'
+        name: 'CO'
       }
     ],
     umpire: false,

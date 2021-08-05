@@ -8,7 +8,8 @@ import ChatEntryForm from './index'
 const force = {
   name: 'blue',
   color: '#6699cc',
-  icon: ''
+  icon: '',
+  iconURL: ''
 }
 
 const createNodeMock = (el: any): HTMLTextAreaElement | null => {
@@ -22,7 +23,7 @@ describe('ChatEntryForm component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <ChatEntryForm isUmpire={true} from={force} channel={'Game Admin'} role={'Umpire'} />,
+        <ChatEntryForm isUmpire={true} from={force} channel={'Game Admin'} role={'r345'} roleName={'Umpire'} />,
         { createNodeMock }
       )
       .toJSON()
