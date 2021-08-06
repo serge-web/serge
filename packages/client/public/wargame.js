@@ -126,11 +126,11 @@ const umpireForce = {
   overview: 'Umpire force.',
   roles: [{
     name: 'Game Control',
-    password: 'p2311',
     isGameControl: true,
     isObserver: true,
     isInsightViewer: true,
-    isRFIManager: true
+    isRFIManager: true,
+    roleId: 'r654643'
   }],
   icon: 'images/default_img/umpireDefault.png',
   color: '#FCFBEE',
@@ -145,10 +145,10 @@ const blueForce = {
   roles: [
     {
       name: 'CO',
-      password: 'p5543',
       isGameControl: false,
       isObserver: false,
-      isInsightViewer: false
+      isInsightViewer: false,
+      roleId: 'r65463343'
     }
   ],
   icon: 'images/default_img/umpireDefault.png',
@@ -208,10 +208,10 @@ const redForce = {
   roles: [
     {
       name: 'CO',
-      password: 'p3244',
       isGameControl: false,
       isObserver: false,
-      isInsightViewer: false
+      isInsightViewer: false,
+      roleId: 'r651184643'
     }
   ],
   assets: [
@@ -285,10 +285,10 @@ const greenForce = {
   roles: [
     {
       name: 'CO',
-      password: 'P9454',
       isGameControl: false,
       isObserver: false,
-      isInsightViewer: false
+      isInsightViewer: false,
+      roleId: 'r656664643'
     }
   ],
   icon: 'images/default_img/umpireDefault.png',

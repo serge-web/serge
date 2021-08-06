@@ -176,8 +176,7 @@ const game: Wargame = {
               isRFIManager: true,
               canSubmitPlans: true,
               isObserver: true,
-              name: 'Game Control',
-              password: 'p2311'
+              name: 'Game Control'
             }
           ],
           umpire: true,
@@ -498,8 +497,7 @@ const game: Wargame = {
               canSubmitPlans: true,
               isInsightViewer: false,
               isObserver: false,
-              name: 'CO',
-              password: 'p5543'
+              name: 'CO'
             },
             {
               roleId: 'rkrlwgg5g',
@@ -507,8 +505,7 @@ const game: Wargame = {
               canSubmitPlans: false,
               isInsightViewer: false,
               isObserver: false,
-              name: 'Comms',
-              password: 'p5542'
+              name: 'Comms'
             }
           ],
           umpire: false,
@@ -765,8 +762,7 @@ const game: Wargame = {
               canSubmitPlans: true,
               isInsightViewer: false,
               isObserver: false,
-              name: 'CO',
-              password: 'p3244'
+              name: 'CO'
             }
           ],
           umpire: false,
@@ -1419,8 +1415,7 @@ const game: Wargame = {
               canSubmitPlans: true,
               isInsightViewer: false,
               isObserver: false,
-              name: 'CO',
-              password: 'P9454'
+              name: 'CO'
             }
           ],
           umpire: false,

@@ -31,7 +31,7 @@ describe('handle initial channel creation', () => {
 
     const channelId = 'channel-k63pjit0'
 
-    expect(Object.keys(res.channels).length).toEqual(4)
+    expect(Object.keys(res.channels).length).toEqual(5)
 
     expect(res.channels[channelId].messages?.length).toEqual(5)
 

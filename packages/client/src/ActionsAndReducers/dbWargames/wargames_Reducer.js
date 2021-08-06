@@ -78,7 +78,6 @@ export const wargamesReducer = (state = initialState, action) => {
       newForce = forceTemplate
       newForce.name = action.payload.name
       newForce.uniqid = action.payload.uniqid
-      newForce.roles[0].password = `p${uniqId.time()}`
 
       newState.data[tab].forces.push(newForce)
       break

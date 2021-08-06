@@ -1,4 +1,4 @@
-import { CHAT_MESSAGE, CREATE_EXPORT_ITEM, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INFO_MESSAGE, EXPORT_ITEM_MESSAGES } from '@serge/config'
+import { CHAT_MESSAGE, CREATE_EXPORT_ITEM, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INFO_MESSAGE, EXPORT_ITEM_MESSAGES, LOADER } from '@serge/config'
 import flatten from 'flat'
 import { ExportItemsUiActionTypes, ExportItem, Wargame, Message, MessageInfoType, ExportItemData } from '@serge/custom-types'
 
@@ -22,6 +22,9 @@ interface ExportDataGroupedGetRowsAndFields { fields: string[], rows: string[][]
 export const createExportItem = (exportData: ExportItem): ExportItemsUiActionTypes => ({
   type: CREATE_EXPORT_ITEM,
   payload: exportData
+})
+export const showLoading = (): ExportItemsUiActionTypes => ({
+  type: LOADER,
 })
 
 const getInfoTypeMessagesFromWargameExportMessageList = (list: Message[]) => list.filter(({ messageType }) => messageType === INFO_MESSAGE)

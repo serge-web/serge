@@ -8,6 +8,7 @@ export { default as ChannelUI } from './channel-ui.d'
 export { default as Channel } from './channel.d'
 export { default as ColorOption } from './color-option.d'
 export { default as ForceData } from './force-data.d'
+export { default as ForceRole } from './force-role.d'
 export { default as Force } from './force.d'
 export { default as GroupItem } from './group-item.d'
 export * from './forms.d'
@@ -19,6 +20,7 @@ export { default as Message,
          MessageDetails,
          MessageDetailsFrom,
          MessageStructure,
+         FeedbackItem,
          CollaborationDetails,
          // Map Types
          MessageForceLaydown,

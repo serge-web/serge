@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
-import { createExportItem } from '../ActionsAndReducers/ExportItems/ExportItems_ActionsCreators'
+import { createExportItem, showLoading } from '../ActionsAndReducers/ExportItems/ExportItems_ActionsCreators'
 import ExportView from './ExportView'
 import ExportItem from '../Components//ExportItem'
 import ExcelExport from '../Components/ExcelExport'
 import HtmlExport from '../Components/HtmlExport'
 
-const ExportForces = ({ wargame, savExportItem, exportItems }) => {
+const ExportForces = ({ wargame, savExportItem, loader, exportItems }) => {
+  document.body.style.cursor = loader ? 'progress' : 'default'
   const generateExportItem = () => {
     savExportItem({
       title: `Export ${new Date().toISOString().slice(0, 19).replace('T', ' ')}`,
@@ -76,7 +76,7 @@ const ExportForces = ({ wargame, savExportItem, exportItems }) => {
   return (
     <ExportView>
       <h2>Export Forces</h2>
-      <span className="link link--noIcon" onClick={generateExportItem}>Create Export</span>
+      <span className={ loader ? 'link link--progress' : 'link link--noIcon'} onClick={generateExportItem}>Create Export</span>
       <ul>
         {exportItems.map((item, key) => (
           <ExportItem item={item} key={key}>
@@ -91,11 +91,13 @@ const ExportForces = ({ wargame, savExportItem, exportItems }) => {
 
 const mapStateToProps = ({ wargame, exportItems }) => ({
   wargame,
-  exportItems: exportItems.map((item, key) => ({ ...item, id: key })).filter(item => item.type === 'forces')
+  exportItems: exportItems.data.map((item, key) => ({ ...item, id: key })).filter(item => item.type === 'forces'),
+  loader: exportItems.loader
 })
 
 const mapDispatchToProps = dispatch => ({
   savExportItem: data => {
+    dispatch(showLoading())
     dispatch(createExportItem({
       ...data,
       type: 'forces'

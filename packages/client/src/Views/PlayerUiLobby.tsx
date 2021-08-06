@@ -100,7 +100,7 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
                     <ul data-qa-force-name={force.name}>
                       {force.roles.map((role: Role) => (
                         <li key={role.name}>
-                          <button onClick={e => setRolePasswordDemo(e, role.password)} className="btn btn-sm btn-primary">
+                          <button onClick={e => setRolePasswordDemo(e, role.roleId)} className="btn btn-sm btn-primary">
                             {role.name}
                           </button>
                         </li>
