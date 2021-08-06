@@ -8,16 +8,26 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
     setTimeout(() => {
       const tabSetNode = node.getParent() as TabSetNode
       const nodeClassName = node.getClassName() || ''
+      const minBtns = document.getElementsByClassName('flexlayout__tab_toolbar_button-min')
+      
       if (!tabSetNode.isMaximized() && node.getModel().getMaximizedTabset()) {
         // hide all nodes behind the maximized tab
         if (nodeClassName !== 'hide-node') {
           node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className: 'hide-node' }))
         }
+        // hide minimize button
+        [...minBtns].forEach(btn => {
+          btn.classList.add('hide')
+        })
       } else {
         // get all hidden nodes visible again
         if (nodeClassName === 'hide-node') {
           node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className: '' }))
         }
+        // get the minimize button visible again
+        [...minBtns].forEach(btn => {
+          btn.classList.remove('hide')
+        })
       }
     })
 
