@@ -1,10 +1,24 @@
-import FlexLayout, { TabNode } from 'flexlayout-react'
+import FlexLayout, { TabNode, TabSetNode } from 'flexlayout-react'
 import { PlayerUi } from '@serge/custom-types'
 import _ from 'lodash'
 import findChannelByName from './findChannelByName'
 
 const tabRender = (state: PlayerUi): (node: TabNode) => void => {
   return (node: TabNode): void => {
+    setTimeout(() => {
+      const tabSetNode = node.getParent() as TabSetNode
+      const nodeClassName = node.getClassName() || ''
+      if (!tabSetNode.isMaximized() && node.getModel().getMaximizedTabset()) {
+          if (nodeClassName !== 'hide-node') {
+            node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className: 'hide-node' }))
+          }
+      } else {
+        if (nodeClassName === 'hide-node') {
+          node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className: '' }))
+        }
+      }
+    })
+
     let channel: any;
 
     const addMenuItemMsgCount = (className: string) => {
@@ -25,7 +39,8 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
     }
 
     const setUnreadClassName = (className: string): void => {
-      if (node.getClassName() !== className) {
+      const nodeClassName = node.getClassName() || ''
+      if (nodeClassName !== className && nodeClassName !== 'hide-node') {
         node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className }))
       }
     };

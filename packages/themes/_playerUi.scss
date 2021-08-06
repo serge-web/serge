@@ -129,7 +129,8 @@
   /* stylelint-disable */
   /* ignores js rendered class name */
   .unread,
-  .flexlayout__tab_button[class*="unread"] {
+  .flexlayout__tab_button[class*="unread"],
+  .flexlayout__tab_button[class*="hide-node"] {
     /* stylelint-enable */
     &::after {
       color: #ff4141;
@@ -185,6 +186,10 @@
       &::after {
         content: "(9+)";
       }
+    }
+
+    &.hide-node {
+      display: none
     }
   }
 
