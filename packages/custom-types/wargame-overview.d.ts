@@ -5,6 +5,8 @@ export default interface WargameOverview {
   name: string,
   /** high level description of wargame */
   gameDescription: string,
+  /** type of turn presentation */
+  turnPresentation?: string,
   /** how far game time moves forward on each step */
   gameTurnTime: number,
   /** the time allowed for player planning */

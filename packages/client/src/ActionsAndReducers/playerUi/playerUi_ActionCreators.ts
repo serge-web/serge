@@ -176,11 +176,18 @@ export const getAllWargameFeedback = (dbName: string): Function => {
     dispatch(setWargameFeedback(feedbackMessages))
   }
 }
-
+const WargameMessages = (dispatch: React.Dispatch<PlayerUiActionTypes>, allMessages: Array<Message>) => {
+  dispatch(setWargameMessages(allMessages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageInfoType | MessageCustom)[]))
+  dispatch(setWargameFeedback(allMessages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
+}
 export const getAllWargameMessages = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     const allMessages: Array<Message> = await wargamesApi.getAllMessages(dbName)
-    dispatch(setWargameMessages(allMessages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageInfoType | MessageCustom)[]))
-    dispatch(setWargameFeedback(allMessages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
+    if (allMessages.length === 0) {
+      await wargamesApi.nextGameTurn(dbName)
+      WargameMessages(dispatch, allMessages)
+    } else {
+      WargameMessages(dispatch, allMessages)
+    }
   }
 }

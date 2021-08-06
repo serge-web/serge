@@ -13,13 +13,19 @@ import PropTypes, { WargameOverview } from './types/props'
 /* Import Styles */
 import styles from './styles.module.scss'
 
+/* Import const */
+import { NATURAL, TURN_PAIRS } from '@serge/config'
+
 /* Import Components */
 import MaskedInput from 'react-maskedinput'
 import { Input, Checkbox, FormControlLabel } from '@material-ui/core'
 import { usePrevious, isObjectEquivalent } from '@serge/helpers'
 import Button from '../../atoms/button'
+import Select from '@material-ui/core/Select'
+import FormControl from '@material-ui/core/FormControl'
 import TextInput from '../../atoms/text-input'
 import FormGroup from '../../atoms/form-group-shadow'
+import MenuItem from '@material-ui/core/MenuItem'
 
 /* Render component */
 export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview, onSave, onChange, initiateWargame, wargameInitiated, ignoreFlatpickrSnapshot }) => {
@@ -30,6 +36,18 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     realtimeTurnTime: 0,
     timeWarning: 0
   })
+  const options = [NATURAL, TURN_PAIRS]
+
+  const handleCreate = (buttonText?: string): void => {
+    const updateTurnPresentation = { ...overview, turnPresentation: buttonText}
+    setOverview(updateTurnPresentation)
+    setDirty(updateTurnPresentation)
+  }
+  const handleMenuItemClick = (
+    event: any
+  ): void => {
+    handleCreate(event.target.value || NATURAL)
+  }
 
   const updateStartTime = (date: any): void => {
     const updates = { ...overview, gameDate: date[0].getTime() }
@@ -222,6 +240,31 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
               />
             </div>
           </div>
+          <div className={styles.group}>
+            <label className={styles.label}>
+              Turn Type
+            </label>
+            <div>
+              <FormControl className={styles.formControl}>
+                <Select
+                  labelId="turn-type-select-label"
+                  id="turn-type-select"
+                  value={overview.turnPresentation ? overview.turnPresentation : NATURAL}
+                  onChange={handleMenuItemClick}
+                >
+                  {options.map((option) => (
+                    <MenuItem
+                      key={option}
+                      value={option}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+          </div>
+
           <div className={styles.hidden}><Input/></div>
           <div>
             <FormControlLabel

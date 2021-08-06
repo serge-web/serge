@@ -48,6 +48,8 @@ export const PLAN_REJECTED = 'rejected'
 export const CHANNEL_RFI_STATUS = 'rfis'
 export const CHANNEL_MAPPING = 'mapping'
 
+export const NATURAL = 'Natural'
+export const TURN_PAIRS = 'Turn-pairs'
 // NOTE: time period to wait if server returns an error. One frequent cause of error
 // during development is that the server is stopped.  We're introducing a
 // throttle value to prevent the browser going into a race condition
@@ -154,6 +156,7 @@ export const dbDefaultSettings = {
       name: 'Overview - settings',
       gameDescription: '',
       // spatialRepresentation: '',
+      turnPresentation: NATURAL,
       gameTurnTime: 43200000,
       realtimeTurnTime: 300000,
       timeWarning: 60000,
