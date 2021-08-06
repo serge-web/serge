@@ -245,7 +245,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
               Turn Type
             </label>
             <div>
-              <FormControl className={styles.formControl}>
+              <FormControl className={styles.formcontrol}>
                 <Select
                   labelId="turn-type-select-label"
                   id="turn-type-select"

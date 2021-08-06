@@ -241,7 +241,7 @@ exports[`SettingOverview component: renders correctly 1`] = `
             </label>
             <div>
               <div
-                className="MuiFormControl-root formControl"
+                className="MuiFormControl-root formcontrol"
               >
                 <div
                   className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
