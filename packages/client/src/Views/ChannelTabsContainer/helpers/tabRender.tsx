@@ -9,10 +9,12 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
       const tabSetNode = node.getParent() as TabSetNode
       const nodeClassName = node.getClassName() || ''
       if (!tabSetNode.isMaximized() && node.getModel().getMaximizedTabset()) {
-          if (nodeClassName !== 'hide-node') {
-            node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className: 'hide-node' }))
-          }
+        // hide all nodes behind the maximized tab
+        if (nodeClassName !== 'hide-node') {
+          node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className: 'hide-node' }))
+        }
       } else {
+        // get all hidden nodes visible again
         if (nodeClassName === 'hide-node') {
           node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className: '' }))
         }
