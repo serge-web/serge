@@ -84,8 +84,7 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
     }
 
     const setUnreadClassName = (className: string): void => {
-      const nodeClassName = node.getClassName() || ''
-      if (nodeClassName !== className && nodeClassName !== 'hide-node') {
+      if (node.getClassName() !== className) {
         node.getModel().doAction(FlexLayout.Actions.updateNodeAttributes(node.getId(), { className }))
       }
     };
