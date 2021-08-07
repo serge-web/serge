@@ -106,7 +106,7 @@ const factory = (state: PlayerUi): Factory => {
     const canSubmitOrders: boolean = !!role.canSubmitPlans
 
     /**
-     * If a maximized tabset exists but the current tabset node is this one
+     * If a maximized tabset exists but the current tabset node is not this one
      * Do not render it
      */
     const hasMaximizeTab = node.getModel().getMaximizedTabset()

@@ -19,7 +19,6 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
           /**
            * If a maximized tabset exists, hide other tabsets that is not the maximized one
            * maximized tabset has `z-index: 100`, the rest is not so we check and hide it
-           * also make the tabset background color transaparent
            */
           if (style.value.indexOf('z-index: 100') === -1) {
             layout.classList.add('hide')
@@ -42,6 +41,9 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
         }
       })
 
+      /**
+       * Make the tabset background color transaparent
+       */
       Array.from(tabSetContentElms).forEach((elm, idx) => {
         /**
          * Do not handle the maximized tabset
@@ -49,7 +51,7 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
         if (maximizedTabIdx === idx) return
 
         /**
-         * If a maximized tabset exists, hide other tabsets content that is not the maximized one
+         * If a maximized tabset exists, make the background color transparent of all the tabsets that is not the maximized one
          */
         if (node.getModel().getMaximizedTabset()) {
           elm.classList.add('hide')
