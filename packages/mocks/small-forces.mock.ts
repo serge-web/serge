@@ -13,10 +13,19 @@ export const forces: ForceData[] = [
         roleId: 'rkrbbw6f5e',
         isGameControl: true,
         isInsightViewer: true,
+        isRFIManager: false,
+        canSubmitPlans: true,
+        isObserver: true,
+        name: 'Game Control',
+      }, 
+      {
+        roleId: 'rkasdbw6f5e',
+        isGameControl: true,
+        isInsightViewer: true,
         isRFIManager: true,
         canSubmitPlans: true,
         isObserver: true,
-        name: 'Game Control'
+        name: 'RFI Manager',
       }
     ],
     umpire: true,
@@ -143,8 +152,17 @@ export const forces: ForceData[] = [
         canSubmitPlans: true,
         isInsightViewer: false,
         isObserver: false,
-        name: 'CO'
+        name: 'CO',
+      },
+      {
+        roleId: 'rkrlwetf5e',
+        isGameControl: false,
+        canSubmitPlans: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'Logs',
       }
+
     ],
     umpire: false,
     uniqid: 'Blue'

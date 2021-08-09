@@ -94,5 +94,5 @@ export const Default = Template.bind({})
 Default.args = {
   isUmpire: true,
   isRFIManager: true,
-  role: 'CO'
+  role: { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'CO' }
 }

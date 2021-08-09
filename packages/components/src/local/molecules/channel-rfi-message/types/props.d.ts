@@ -1,7 +1,7 @@
-import { MessageCustom, Role } from '@serge/custom-types'
+import { MessageCustom, ForceRole } from '@serge/custom-types'
 
 export default interface Props {
-  role: Role['roleId']
+  role: ForceRole
   isUmpire: boolean
   isRFIManager: boolean
   borderColor: string
