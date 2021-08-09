@@ -11,7 +11,7 @@ import { FORCE_LAYDOWN,
   VISIBILITY_CHANGES, 
   Phase } from '@serge/config'
 import { sendMapMessage, isChatChannel } from '@serge/helpers'
-import { TabNode } from 'flexlayout-react'
+import { TabNode, TabSetNode } from 'flexlayout-react'
 import { saveMapMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { Mapping, Assets, HexGrid } from '@serge/components'
 import _ from 'lodash'
@@ -104,6 +104,16 @@ const factory = (state: PlayerUi): Factory => {
     // sort out if role can submit orders
     const role: Role = findRole(state.selectedRole, state.selectedForce)
     const canSubmitOrders: boolean = !!role.canSubmitPlans
+
+    /**
+     * If a maximized tabset exists but the current tabset node is not this one
+     * Do not render it
+     */
+    const hasMaximizeTab = node.getModel().getMaximizedTabset()
+    const tabSetNode = node.getParent() as TabSetNode
+    if (hasMaximizeTab && !tabSetNode.isMaximized()) {
+      return
+    }
 
     // note: we have to convert the bounds that comes from the database
     // from a number array to a Leaflet bounds object.
