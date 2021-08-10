@@ -56,7 +56,6 @@ const createChannel = (
           mode: 'edit',
           returnVerbs,
           startWithReview: true,
-          originatorsSeeChanges: false,
           extraColumns
         }
       } else {
@@ -64,7 +63,6 @@ const createChannel = (
           mode: 'response',
           returnVerbs,
           startWithReview: false,
-          originatorsSeeChanges: true,
           extraColumns: []
         }
       }
