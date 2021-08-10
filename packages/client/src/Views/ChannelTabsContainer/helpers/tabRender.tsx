@@ -5,6 +5,65 @@ import findChannelByName from './findChannelByName'
 
 const tabRender = (state: PlayerUi): (node: TabNode) => void => {
   return (node: TabNode): void => {
+    setTimeout(() => {
+      const tabLayout = document.getElementsByClassName('flexlayout__layout')[0]
+      const tabSetHeaderElms = tabLayout.getElementsByClassName('flexlayout__tabset')
+      const tabSetContentElms = tabLayout.getElementsByClassName('flexlayout__tab')
+      
+      let maximizedTabIdx = -1
+      Array.from(tabSetHeaderElms).forEach((layout, idx) => {
+        const style = layout.attributes.getNamedItem('style')
+        if (!style) return
+        
+        if (node.getModel().getMaximizedTabset()) {
+          /**
+           * If a maximized tabset exists, hide other tabsets that is not the maximized one
+           * maximized tabset has `z-index: 100`, the rest is not so we check and hide it
+           */
+          if (style.value.indexOf('z-index: 100') === -1) {
+            layout.classList.add('hide')
+          } else {
+            /**
+             * Found the maximized tabset idx
+             */
+            maximizedTabIdx = idx
+          }
+        } else {
+          /**
+           * there is no maximized tabset, get all visible
+           */
+          layout.classList.remove('hide')
+
+          /**
+           * Reset default value
+           */
+          maximizedTabIdx = -1
+        }
+      })
+
+      /**
+       * Make the tabset background color transaparent
+       */
+      Array.from(tabSetContentElms).forEach((elm, idx) => {
+        /**
+         * Do not handle the maximized tabset
+         */
+        if (maximizedTabIdx === idx) return
+
+        /**
+         * If a maximized tabset exists, make the background color transparent of all the tabsets that is not the maximized one
+         */
+        if (node.getModel().getMaximizedTabset()) {
+          elm.classList.add('hide')
+        } else {
+          /**
+           * There is no maximized tabset, get all visible
+           */
+          elm.classList.remove('hide')
+        }
+      })
+    })
+
     let channel: any;
 
     const addMenuItemMsgCount = (className: string) => {

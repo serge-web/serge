@@ -12,7 +12,7 @@ import ForcesInChannel from '../../molecules/forces-in-channel'
 import { Box } from '@material-ui/core'
 // import collateMessages from './helpers/collate-messages'
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { MessageChannel, MessageCustom } from '@serge/custom-types'
+import { MessageChannel, MessageCustom, ForceRole, MessageDetailsFrom } from '@serge/custom-types'
 
 /* Render component */
 export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onUnread, onChange, isRFIManager, isUmpire }: PropTypes) => {
@@ -33,6 +33,9 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
             }
             const msg: MessageCustom = props
             if (msg.details.messageType === 'RFI') {
+              const from: MessageDetailsFrom = msg.details.from
+              const role: ForceRole = { forceId: from.forceId || 'unknown', forceName: from.force, roleId: from.roleId, roleName: from.roleName }
+              console.log(role)
               return (
                 <Box mb={2} mr={2} key={key}>
                   <ChannelRFIMessage
@@ -42,7 +45,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colo
                     message={props}
                     onRead={onRead}
                     onChange={onChange}
-                    role={msg.details.from.roleName}
+                    role={role}
                     isRFIManager={isRFIManager}
                     isUmpire={isUmpire}
                   />

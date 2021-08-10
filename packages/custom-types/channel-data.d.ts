@@ -9,8 +9,6 @@ export interface CollabOptions {
   returnVerbs: Array<string>,
   /** who original document goes to first */
   startWithReview : boolean,
-  /** if originators view live updates */
-  originatorsSeeChanges: boolean,
   /** extra columns to show in status view */
   extraColumns: Array<string>
 }

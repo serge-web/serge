@@ -8,9 +8,6 @@ import {
   POPULATE_MESSAGE_TYPES_DB,
 } from '@serge/config'
 
-import {
-
-} from '@serge/custom-types'
 import { Dispatch } from 'react'
 import { TemplateBody } from './template'
 

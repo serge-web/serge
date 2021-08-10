@@ -1,13 +1,13 @@
 import { expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
 import {
   ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
-  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey, Role
+  MessageCustom, ChannelData, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey, Role, MessageDetailsFrom, CollaborationDetails
 } from '@serge/custom-types'
 import { getParticipantStates } from './participant-states'
 import deepCopy from './deep-copy'
 import uniqId from 'uniqid'
 import mostRecentOnly from './most-recent-only'
-import getRoleIdFromName from './get-role-id'
+import getRoleFromName from './get-role-from-name'
 
 /** a message has been received. Put it into the correct channel */
 const handleNonInfoMessage = (data: SetWargameMessage, channel: string, payload: MessageCustom, selectedForceName?: string) => {
@@ -237,19 +237,34 @@ export const handleAllInitialChannelMessages = (
 
       // TODO: retire this support for legacy code in Autumn 2021
       // see if this has a legacy role
-      const from: any = custom.details.from
-      if (from.role) {
-        // ok, it's now called `roleName`
-        from.roleName = from.role
-        const roleId = getRoleIdFromName(allForces, custom.details.from.force, from.roleName)
-        from.roleId = roleId
+      const from: MessageDetailsFrom = custom.details.from
+      const fromAny: any = from
+      if (typeof fromAny.role === 'string') {
+        // ok, it's legacy data now called `roleName`
+        from.roleName = fromAny.role
+        const role = getRoleFromName(allForces, custom.details.from.force, from.roleName)
+        // try to sort out the role id
+        if (role) {
+          from.roleId = role.roleId
+          if (!from.forceId) {
+            // now try to sort the force
+            const force = allForces.find((force: ForceData) => force.name === custom.details.from.force)
+            if (force) {
+              from.forceId = force.uniqid
+            }
+          }
+        }
       }
 
       // see if this is a legacy owner
-      const collab: any = custom.details.collaboration
-      if (collab && collab.owner && !collab.ownerName) {
-        from.ownerName = collab.owner
-        from.owner = undefined
+      // TODO: retire this support in Autumn 2021
+      if (custom.details.collaboration) {
+        const collabAny: any = custom.details.collaboration
+        if (collabAny.owner && typeof collabAny.owner === 'string') {
+          // yes - update data model
+          const collab: CollaborationDetails | undefined = custom.details.collaboration
+          collab.owner = { forceId: '', forceName: '', roleId: '', roleName: collabAny.owner }
+        }
       }
 
       return custom.details.messageType === 'RFI'

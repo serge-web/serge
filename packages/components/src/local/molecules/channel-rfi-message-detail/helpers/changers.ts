@@ -1,7 +1,7 @@
-import { MessageCustom, Role } from '@serge/custom-types'
+import { MessageCustom, ForceRole } from '@serge/custom-types'
 import { CollaborativeMessageStates } from '@serge/config'
 
-export const takeOwnership = (message: MessageCustom, role: Role['roleId']): MessageCustom => {
+export const takeOwnership = (message: MessageCustom, role: ForceRole): MessageCustom => {
   return {
     ...message,
     details: {
@@ -15,7 +15,7 @@ export const takeOwnership = (message: MessageCustom, role: Role['roleId']): Mes
   }
 }
 
-export const sendForReview = (message: MessageCustom, _role: Role['roleId'], privMessage: string, response: string): MessageCustom => {
+export const sendForReview = (message: MessageCustom, _role: ForceRole, privMessage: string, response: string): MessageCustom => {
   return {
     ...message,
     details: {
@@ -30,7 +30,7 @@ export const sendForReview = (message: MessageCustom, _role: Role['roleId'], pri
   }
 }
 
-export const release = (message: MessageCustom, _role: Role['roleId']): MessageCustom => {
+export const release = (message: MessageCustom, _role: ForceRole): MessageCustom => {
   return {
     ...message,
     details: {
@@ -44,7 +44,7 @@ export const release = (message: MessageCustom, _role: Role['roleId']): MessageC
   }
 }
 
-export const reject = (message: MessageCustom, _role: Role['roleId']): MessageCustom => {
+export const reject = (message: MessageCustom, _role: ForceRole): MessageCustom => {
   return {
     ...message,
     details: {
@@ -57,7 +57,7 @@ export const reject = (message: MessageCustom, _role: Role['roleId']): MessageCu
     }
   }
 }
-export const saveDraft = (message: MessageCustom, _role: Role['roleId'], privMessage: string, response: string): MessageCustom => {
+export const saveDraft = (message: MessageCustom, _role: ForceRole, privMessage: string, response: string): MessageCustom => {
   return {
     ...message,
     details: {
