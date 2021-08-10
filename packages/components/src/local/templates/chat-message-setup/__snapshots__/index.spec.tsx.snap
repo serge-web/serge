@@ -33,8 +33,18 @@ Array [
       <div
         className="MuiBox-root MuiBox-root-4"
       >
+        <p
+          className="turn-marker"
+        >
+          Turn 
+          0
+        </p>
+      </div>
+      <div
+        className="MuiBox-root MuiBox-root-5"
+      >
         <div
-          className="MuiBox-root MuiBox-root-5"
+          className="MuiBox-root MuiBox-root-6"
           style={
             Object {
               "float": "left",
@@ -57,7 +67,7 @@ Array [
 
             </div>
             <div
-              className="MuiBox-root MuiBox-root-6"
+              className="MuiBox-root MuiBox-root-7"
             >
               <span>
                 <span
@@ -74,15 +84,15 @@ Array [
                 </span>
               </span>
               <div
-                className="MuiBox-root MuiBox-root-7"
+                className="MuiBox-root MuiBox-root-8"
               >
                 <div
-                  className="MuiChip-root makeStyles-root-8 makeStyles-root-11 MuiChip-sizeSmall makeStyles-sizeSmall-9"
+                  className="MuiChip-root makeStyles-root-9 makeStyles-root-12 MuiChip-sizeSmall makeStyles-sizeSmall-10"
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
                 >
                   <span
-                    className="MuiChip-label makeStyles-label-10 makeStyles-label-12 MuiChip-labelSmall"
+                    className="MuiChip-label makeStyles-label-11 makeStyles-label-13 MuiChip-labelSmall"
                   >
                     Game Control
                   </span>
@@ -95,7 +105,7 @@ Array [
               </div>
             </div>
             <div
-              className="MuiBox-root MuiBox-root-13 private"
+              className="MuiBox-root MuiBox-root-14 private"
             >
               <div
                 className="paragraph"
@@ -107,10 +117,20 @@ Array [
         </div>
       </div>
       <div
-        className="MuiBox-root MuiBox-root-14"
+        className="MuiBox-root MuiBox-root-15"
+      >
+        <p
+          className="turn-marker"
+        >
+          Turn 
+          1
+        </p>
+      </div>
+      <div
+        className="MuiBox-root MuiBox-root-16"
       >
         <div
-          className="MuiBox-root MuiBox-root-15"
+          className="MuiBox-root MuiBox-root-17"
           style={
             Object {
               "float": "right",
@@ -133,18 +153,18 @@ Array [
 
             </div>
             <div
-              className="MuiBox-root MuiBox-root-16"
+              className="MuiBox-root MuiBox-root-18"
             >
               <div
-                className="MuiBox-root MuiBox-root-17"
+                className="MuiBox-root MuiBox-root-19"
               >
                 <div
-                  className="MuiChip-root makeStyles-root-8 makeStyles-root-18 MuiChip-sizeSmall makeStyles-sizeSmall-9"
+                  className="MuiChip-root makeStyles-root-9 makeStyles-root-20 MuiChip-sizeSmall makeStyles-sizeSmall-10"
                   onKeyDown={[Function]}
                   onKeyUp={[Function]}
                 >
                   <span
-                    className="MuiChip-label makeStyles-label-10 makeStyles-label-19 MuiChip-labelSmall"
+                    className="MuiChip-label makeStyles-label-11 makeStyles-label-21 MuiChip-labelSmall"
                   >
                     CO
                   </span>
@@ -162,7 +182,7 @@ Array [
     </div>
   </div>,
   <div
-    className="MuiBox-root MuiBox-root-20 chat-container"
+    className="MuiBox-root MuiBox-root-22 chat-container"
   >
     <section
       className="input-container disable-offset fullwidth"
@@ -172,13 +192,13 @@ Array [
         onKeyDown={[Function]}
       >
         <div
-          className="MuiInputBase-root MuiFilledInput-root makeStyles-root-21 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-23 MuiInputBase-adornedEnd MuiFilledInput-adornedEnd"
+          className="MuiInputBase-root MuiFilledInput-root makeStyles-root-23 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-25 MuiInputBase-adornedEnd MuiFilledInput-adornedEnd"
           onClick={[Function]}
         >
           <textarea
             aria-invalid={false}
             autoFocus={false}
-            className="MuiInputBase-input MuiFilledInput-input makeStyles-input-22 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline MuiInputBase-inputAdornedEnd MuiFilledInput-inputAdornedEnd"
+            className="MuiInputBase-input MuiFilledInput-input makeStyles-input-24 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline MuiInputBase-inputAdornedEnd MuiFilledInput-inputAdornedEnd"
             disabled={false}
             name=""
             onAnimationStart={[Function]}
@@ -198,7 +218,7 @@ Array [
           />
           <textarea
             aria-hidden={true}
-            className="MuiInputBase-input MuiFilledInput-input makeStyles-input-22 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline MuiInputBase-inputAdornedEnd MuiFilledInput-inputAdornedEnd"
+            className="MuiInputBase-input MuiFilledInput-input makeStyles-input-24 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline MuiInputBase-inputAdornedEnd MuiFilledInput-inputAdornedEnd"
             readOnly={true}
             style={
               Object {
@@ -257,10 +277,10 @@ Array [
       </div>
     </section>
     <div
-      className="MuiBox-root MuiBox-root-28"
+      className="MuiBox-root MuiBox-root-30"
     >
       <div
-        className="MuiBox-root MuiBox-root-29"
+        className="MuiBox-root MuiBox-root-31"
         onClick={[Function]}
       >
         <span
@@ -286,7 +306,7 @@ Array [
         </span>
       </div>
       <div
-        className="MuiBox-root MuiBox-root-30 wrap-detail wrap-detail-opened"
+        className="MuiBox-root MuiBox-root-32 wrap-detail wrap-detail-opened"
       >
         <section
           className="input-container disable-offset fullwidth"
@@ -296,13 +316,13 @@ Array [
             onKeyDown={[Function]}
           >
             <div
-              className="MuiInputBase-root MuiFilledInput-root makeStyles-root-21 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-23"
+              className="MuiInputBase-root MuiFilledInput-root makeStyles-root-23 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-25"
               onClick={[Function]}
             >
               <textarea
                 aria-invalid={false}
                 autoFocus={false}
-                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-22 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-24 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
                 disabled={false}
                 name=""
                 onAnimationStart={[Function]}
@@ -321,7 +341,7 @@ Array [
               />
               <textarea
                 aria-hidden={true}
-                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-22 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-24 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
                 readOnly={true}
                 style={
                   Object {
