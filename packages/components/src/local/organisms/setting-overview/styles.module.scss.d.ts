@@ -11,6 +11,7 @@ interface CssExports {
   'section': string;
   'textarea': string;
   'flatpickr': string;
+  'formcontrol': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
