@@ -92,6 +92,10 @@
 .flexlayout__tabset {
   overflow: hidden;
   box-sizing: border-box;
+
+  &.hide {
+    display: none;
+  }
 }
 
 
@@ -100,6 +104,10 @@
   position:absolute;
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.1);
+
+  &.hide {
+    background-color: transparent;
+  }
 }
 
 .flexlayout__container {
