@@ -45,6 +45,7 @@ export const initialState: PlayerUi = {
   isGameControl: false,
   currentTurn: 0,
   currentTurnFormatted: '',
+  gameTurnPresentation: TurnFormats.Natural,
   phase: '',
   gameDate: '',
   gameTurnTime: 0,
@@ -89,8 +90,8 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.wargameTitle = action.payload.wargameTitle
       newState.wargameInitiated = action.payload.wargameInitiated
       newState.currentTurn = action.payload.gameTurn
-      newState.currentTurnFormatted = formatTurn(newState.currentTurn, action.payload.data.overview.turnPresentation)
-      console.log('formatted turn', newState.currentTurnFormatted, newState.currentTurn, action.payload.data.overview.turnPresentation)
+      newState.gameTurnPresentation = action.payload.data.overview.turnPresentation
+      newState.currentTurnFormatted = formatTurn(newState.currentTurn, newState.gameTurnPresentation)
       newState.phase = action.payload.phase
       newState.showAccessCodes = action.payload.data.overview.showAccessCodes
       newState.wargameInitiated = action.payload.wargameInitiated

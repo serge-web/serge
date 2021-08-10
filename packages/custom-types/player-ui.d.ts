@@ -27,6 +27,7 @@ export default interface PlayerUi {
   isGameControl: boolean,
   currentTurn: number,
   currentTurnFormatted: string,
+  gameTurnPresentation?: TurnFormats,
   phase: string,
   gameDate: string,
   gameTurnTime: number,
