@@ -263,7 +263,7 @@ export const handleAllInitialChannelMessages = (
         if (collabAny.owner && typeof collabAny.owner === 'string') {
           // yes - update data model
           const collab: CollaborationDetails | undefined = custom.details.collaboration
-          collab.owner = { forceId: '', forceName: '', roleId: '', roleName: collabAny.owner}
+          collab.owner = { forceId: '', forceName: '', roleId: '', roleName: collabAny.owner }
         }
       }
 
