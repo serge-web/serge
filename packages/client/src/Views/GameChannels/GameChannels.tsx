@@ -13,12 +13,14 @@ import {
   showHideObjectives
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { expiredStorage } from '../../consts'
+import { formatTurn } from '@serge/helpers'
 
 const GameChannels: React.FC = (): React.ReactElement => {
   const {
     currentWargame,
     gameDate,
-    currentTurnFormatted,
+    currentTurn,
+    turnPresentation,
     wargameTitle,
     adjudicationStartTime,
     isGameControl,
@@ -69,7 +71,8 @@ const GameChannels: React.FC = (): React.ReactElement => {
       <TurnProgression
         adjudicationStartTime={adjudicationStartTime}
         isGameControl={isGameControl}
-        currentTurnFormatted={currentTurnFormatted}
+        currentTurn={currentTurn}
+        turnPresentation={turnPresentation}
         gameDate={gameDate}
         onNextTurn={() => { nextGameTurn(currentWargame)() }}
         phase={phase}

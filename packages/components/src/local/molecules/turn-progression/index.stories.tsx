@@ -7,7 +7,6 @@ import TurnProgression from './index'
 import TurnPropTypes from './types/props'
 
 import docs from './README.md'
-import { formatTurn } from '../../../../../helpers/build'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -37,17 +36,6 @@ export default {
           Phase.Adjudication
         ]
       }
-    },
-    turnFormat: {
-      name: 'Turn Format',
-      control: {
-        type: 'radio',
-        defaultValue: TurnFormats.Natural,
-        options: [
-          TurnFormats.Natural,
-          TurnFormats.TurnPairs
-        ]
-      }
     }
   }
 
@@ -56,14 +44,12 @@ export default {
 const Template: Story<TurnPropTypes> = (args) => {
   const [state, setState] = useState({
     phase: Phase.Planning,
-    currentTurnFormatted: '1',
     currentTurn: 1
   })
   const updateState = (): void => {
     setState({
       phase: state.phase === Phase.Planning ? Phase.Adjudication : Phase.Planning,
-      currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn,
-      currentTurnFormatted: state.phase === Phase.Planning ? formatTurn(state.currentTurn) : formatTurn(++state.currentTurn)
+      currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn
     })
   }
   // @ts-ignore: Add custom property for storybook
@@ -71,7 +57,7 @@ const Template: Story<TurnPropTypes> = (args) => {
   return <TurnProgression
     {...props}
     onNextTurn={updateState}
-    currentTurnFormatted={state.currentTurnFormatted}
+    currentTurn={state.currentTurn}
     phase={state.phase} />
 }
 
@@ -80,5 +66,6 @@ WithPhases.args = {
   adjudicationStartTime: '2019-09-30T14:13:22+01:00',
   turnEndTime: '0',
   timeWarning: 60000,
-  gameDate: '2019-10-01T02:02'
+  gameDate: '2019-10-01T02:02',
+  turnPresentation: TurnFormats.Natural
 }

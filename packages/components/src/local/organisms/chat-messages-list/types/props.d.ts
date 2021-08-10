@@ -1,4 +1,5 @@
 import { ChatMessage, MessageInfoTypeClipped } from '@serge/custom-types'
+import { TurnFormats } from '@serge/config'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 
 export default interface PropTypes extends ForcesInChannelProps {
@@ -19,4 +20,6 @@ export default interface PropTypes extends ForcesInChannelProps {
    * Max height of chat container box
    */
   chatContainerHeight?: number
+
+  turnPresentation?: TurnFormats
 }

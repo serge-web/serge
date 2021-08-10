@@ -23,7 +23,7 @@ export default interface PropTypes extends ForcesInChannelProps {
   playerForceId: string
 
   /** how to render the game turn  */
-  gameTurnPresentation?: TurnFormats
+  turnPresentation?: TurnFormats
 
   isUmpire: boolean
   isRFIManager: boolean
