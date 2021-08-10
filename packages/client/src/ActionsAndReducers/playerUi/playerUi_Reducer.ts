@@ -33,7 +33,7 @@ import {
 } from '../../consts'
 import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI';
 
-import { platformTypeNameToKey } from '@serge/helpers'
+import { platformTypeNameToKey, formatTurn } from '@serge/helpers'
 
 export const initialState: PlayerUi = {
   selectedForce: undefined,
@@ -43,6 +43,7 @@ export const initialState: PlayerUi = {
   canSubmitPlans: false,
   isGameControl: false,
   currentTurn: 0,
+  currentTurnFormatted: '',
   phase: '',
   gameDate: '',
   gameTurnTime: 0,
@@ -77,6 +78,7 @@ export const initialState: PlayerUi = {
   nextMsgReference: 1
 }
 
+
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
   const newState: PlayerUi = copyState(state)
 
@@ -86,6 +88,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.wargameTitle = action.payload.wargameTitle
       newState.wargameInitiated = action.payload.wargameInitiated
       newState.currentTurn = action.payload.gameTurn
+      newState.currentTurnFormatted = formatTurn(newState.currentTurn, action.payload.data.overview.turnPresentation)
       newState.phase = action.payload.phase
       newState.showAccessCodes = action.payload.data.overview.showAccessCodes
       newState.wargameInitiated = action.payload.wargameInitiated
