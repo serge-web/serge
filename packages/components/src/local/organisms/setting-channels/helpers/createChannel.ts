@@ -47,18 +47,22 @@ const createChannel = (
       // add participant to channel
       participants.push(participant)
       // define collabOptions for channel based on SpecialChannelType
+      const extraColumns: string[] = []
+      const returnVerbs: string[] = []
       if (format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT) {
+        returnVerbs.push('Endorse')
+        returnVerbs.push('Request Changes')
         collabOptions = {
           mode: 'edit',
-          returnVerbs: ['Endorse', 'Request Changes'],
+          returnVerbs,
           startWithReview: true,
           originatorsSeeChanges: false,
-          extraColumns: []
+          extraColumns
         }
       } else {
         collabOptions = {
           mode: 'response',
-          returnVerbs: [],
+          returnVerbs,
           startWithReview: false,
           originatorsSeeChanges: true,
           extraColumns: []
