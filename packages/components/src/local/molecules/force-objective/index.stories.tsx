@@ -90,7 +90,7 @@ export const Implementation: React.FC = () => {
       }
       <AdminPanelFooter
         force={force}
-        selectedRole={role}
+        selectedRoleName={role}
         byPassUrl="http://localhost:3000/?wargame=wargame-k16fadm4&access=pk16ffhn3"
         onIconClick={toggleVisibility}
       />

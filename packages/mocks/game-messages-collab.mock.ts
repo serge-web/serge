@@ -1,5 +1,6 @@
 import { MessageCustom, Role } from '@serge/custom-types'
 import { CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
+
 import { forces } from './forces.mock'
 
 
@@ -11,7 +12,7 @@ const redCO: Role = forces[2].roles[0]
 /** set of mock messages that includes
  * extra data for collaborative editing
  */
-const gameMessagesWithRFI: MessageCustom[] = [
+const gameMessagesWithCollab: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
@@ -175,7 +176,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:53:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
-        owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueComms.roleId, roleName: blueComms.name }
+        owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueComms.roleId, roleName: blueComms.name}
       }
     },
     message: {
@@ -203,7 +204,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
-        owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueCO.roleId, roleName: blueCO.name }
+        owner: { forceId: forces[1].uniqid, forceName: forces[1].name, roleId: blueComms.roleId, roleName: blueComms.name }
       }
     },
     message: {
@@ -250,9 +251,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
       channel: "Red RFI",
       from: {
         force: "Red",
-        roleName: redCO.name,
         forceColor: "#F00",
         iconURL: "default_img/umpireDefault.png",
+        roleName: redCO.name,
         roleId: redCO.roleId
       },
       messageType: "RFI",
@@ -277,9 +278,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
         channel: "Red RFI",
         from: {
           force: "Red",
-          roleName: redCO.name,
           forceColor: "#F00",
           iconURL: "default_img/umpireDefault.png",
+          roleName: redCO.name,
           roleId: redCO.roleId
         },
       messageType: "RFI",
@@ -305,9 +306,9 @@ const gameMessagesWithRFI: MessageCustom[] = [
         channel: "Red RFI",
         from: {
             force: "Red",
-            roleName: redCO.name,
             forceColor: "#F00",
             iconURL: "default_img/umpireDefault.png",
+            roleName: redCO.name,
             roleId: redCO.roleId
         },
       messageType: "RFI",
@@ -334,8 +335,8 @@ const gameMessagesWithRFI: MessageCustom[] = [
         from: {
           force: "Red",
           forceColor: "#F00",
-          roleName: redCO.name,
           iconURL: "default_img/umpireDefault.png",
+          roleName: redCO.name,
           roleId: redCO.roleId
         },
       messageType: "RFI",
@@ -357,4 +358,4 @@ const gameMessagesWithRFI: MessageCustom[] = [
     isOpen: false
   },
 ]
-export default gameMessagesWithRFI
+export default gameMessagesWithCollab

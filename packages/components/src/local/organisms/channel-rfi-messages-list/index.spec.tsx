@@ -21,7 +21,7 @@ describe('ChannelRFIMessagesList component: ', () => {
       onMarkAllAsRead={markAllAsRead}
       onChange={(msg): void => { console.log(msg) }}
       onRead={(msg): void => { console.log(msg) }}
-      role='CO'
+      role={{ forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'CO' }}
       isRFIManager={true}
       isUmpire={true}
     />).toJSON()

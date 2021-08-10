@@ -17,7 +17,7 @@ export const ForceObjective: React.FC<Props> = ({ force, selectedRole, onIconCli
     <div className={styles['role-info']}>
       <AdminPanelFooter
         force={force}
-        selectedRole={selectedRole}
+        selectedRoleName={selectedRole}
         onIconClick={onIconClick}
       />
     </div>
