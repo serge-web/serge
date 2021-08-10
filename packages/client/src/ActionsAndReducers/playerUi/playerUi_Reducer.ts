@@ -14,7 +14,8 @@ import {
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
+  TurnFormats
 } from '@serge/config'
 import chat from '../../Schemas/chat.json'
 import copyState from '../../Helpers/copyStateHelper'
@@ -89,6 +90,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.wargameInitiated = action.payload.wargameInitiated
       newState.currentTurn = action.payload.gameTurn
       newState.currentTurnFormatted = formatTurn(newState.currentTurn, action.payload.data.overview.turnPresentation)
+      console.log('formatted turn', newState.currentTurnFormatted, newState.currentTurn, action.payload.data.overview.turnPresentation)
       newState.phase = action.payload.phase
       newState.showAccessCodes = action.payload.data.overview.showAccessCodes
       newState.wargameInitiated = action.payload.wargameInitiated

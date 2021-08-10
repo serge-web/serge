@@ -26,7 +26,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     adjudicationStartTime,
     turnEndTime,
     timeWarning,
-    currentTurn,
+    currentTurnFormatted,    
     phase,
     gameDate,
     isGameControl,
@@ -120,7 +120,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     ])} data-tour='turn-phase-step'
     >
       <div className={styles['turn-info-phase']}>
-        <h5>Turn {currentTurn} - {phase} phase</h5>
+        <h5>Turn {currentTurnFormatted} - {phase} phase</h5>
         <time dateTime={gameDate}>{moment(gameDate).format('DD/MM/YYYY HH:mm')}</time>
         {
           isGameControl

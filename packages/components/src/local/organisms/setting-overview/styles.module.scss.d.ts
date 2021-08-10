@@ -3,6 +3,8 @@
 interface CssExports {
   'actions': string;
   'col': string;
+  'flatpickr': string;
+  'formcontrol': string;
   'group': string;
   'hidden': string;
   'label': string;
@@ -10,8 +12,6 @@ interface CssExports {
   'row': string;
   'section': string;
   'textarea': string;
-  'flatpickr': string;
-  'formcontrol': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
