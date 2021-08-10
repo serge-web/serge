@@ -122,6 +122,8 @@ export const SettingChannels: React.FC<PropTypes> = ({
       ])
     }
 
+    console.log('============= ', localChannelUpdates[selectedItem])
+
     return (
       <div key={selectedItem}>
         <div className={styles.row}>
