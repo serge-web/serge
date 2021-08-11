@@ -6,6 +6,7 @@ import ChannelUI from './channel-ui'
 import MappingConstraints from './mapping-constraints'
 import { TemplateBodysByKey } from './message-types'
 import Role from './role'
+import { GameTurnLength } from './turn-length'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -27,7 +28,7 @@ export default interface PlayerUi {
   currentTurn: number,
   phase: string,
   gameDate: string,
-  gameTurnTime: number,
+  gameTurnTime: GameTurnLength,
   realtimeTurnTime: number,
   turnEndTime: string,
   /**

@@ -6,7 +6,7 @@ import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import calcComplete from '../../Helpers/calcComplete'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { clipInfoMEssage } from '@serge/helpers'
+import { clipInfoMEssage, incrementGameTime } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -40,7 +40,8 @@ import {
   MessageDetails,
   MessageFeedback,
   MessageStructure,
-  MessageCustom
+  MessageCustom,
+  GameTurnLength
 } from '@serge/custom-types'
 
 import {
@@ -578,8 +579,12 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
         break
       case ADJUDICATION_PHASE:
         res.phase = PLANNING_PHASE
-        res.gameTurn += 1        
-        res.data.overview.gameDate = moment(res.data.overview.gameDate).add(res.data.overview.gameTurnTime, 'ms').format('YYYY-MM-DDTHH:mm')
+        res.gameTurn += 1
+        const gameDate: string = res.data.overview.gameDate
+        const gameTurn: GameTurnLength = res.data.overview.gameTurnTime
+        const newTime: number = incrementGameTime(gameDate, gameTurn)
+        res.data.overview.gameDate = moment(newTime).format('YYYY-MM-DDTHH:mm')
+//        res.data.overview.gameDate = moment(res.data.overview.gameDate).add(res.data.overview.gameTurnTime, 'ms').format('YYYY-MM-DDTHH:mm')
         res.turnEndTime = moment().add(res.data.overview.realtimeTurnTime, 'ms').format()
         break
     }

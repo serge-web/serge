@@ -1,4 +1,5 @@
 import MappingConstraints from "./mapping-constraints";
+import { GameTurnLength } from "./turn-length";
 
 export default interface WargameOverview {
   /** title for this wargame */
@@ -6,7 +7,7 @@ export default interface WargameOverview {
   /** high level description of wargame */
   gameDescription: string,
   /** how far game time moves forward on each step */
-  gameTurnTime: number,
+  gameTurnTime: GameTurnLength,
   /** the time allowed for player planning */
   realtimeTurnTime: number,
   /** when to display "not much time remaining" warning */
