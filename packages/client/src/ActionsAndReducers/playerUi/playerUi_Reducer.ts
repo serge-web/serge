@@ -34,7 +34,7 @@ import {
 } from '../../consts'
 import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI';
 
-import { platformTypeNameToKey, formatTurn } from '@serge/helpers'
+import { platformTypeNameToKey } from '@serge/helpers'
 
 export const initialState: PlayerUi = {
   selectedForce: undefined,
