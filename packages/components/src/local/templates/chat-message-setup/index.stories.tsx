@@ -41,7 +41,8 @@ export default {
         defaultValue: TurnFormats.Natural,
         options: [
           TurnFormats.Natural,
-          TurnFormats.TurnPairs
+          TurnFormats.TurnPairNumbers,
+          TurnFormats.TurnPairLetters
         ]
       }
     }

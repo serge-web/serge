@@ -7,10 +7,17 @@ describe('format turn:', () => {
     expect(formatTurn(3)).toBe('3')
   })
 
-  it('formats turn pairs', () => {
-    expect(formatTurn(0, TurnFormats.TurnPairs)).toBe('0.1')
-    expect(formatTurn(1, TurnFormats.TurnPairs)).toBe('0.2')
-    expect(formatTurn(2, TurnFormats.TurnPairs)).toBe('1.1')
-    expect(formatTurn(3, TurnFormats.TurnPairs)).toBe('1.2')
+  it('formats turn pair numbers', () => {
+    expect(formatTurn(0, TurnFormats.TurnPairNumbers)).toBe('0.1')
+    expect(formatTurn(1, TurnFormats.TurnPairNumbers)).toBe('0.2')
+    expect(formatTurn(2, TurnFormats.TurnPairNumbers)).toBe('1.1')
+    expect(formatTurn(3, TurnFormats.TurnPairNumbers)).toBe('1.2')
+  })
+
+  it('formats turn pair letters', () => {
+    expect(formatTurn(0, TurnFormats.TurnPairLetters)).toBe('0.a')
+    expect(formatTurn(1, TurnFormats.TurnPairLetters)).toBe('0.b')
+    expect(formatTurn(2, TurnFormats.TurnPairLetters)).toBe('1.a')
+    expect(formatTurn(3, TurnFormats.TurnPairLetters)).toBe('1.b')
   })
 })

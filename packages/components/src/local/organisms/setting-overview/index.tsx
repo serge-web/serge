@@ -36,7 +36,7 @@ export const SettingOverview: React.FC<PropTypes> = ({ overview: initialOverview
     realtimeTurnTime: 0,
     timeWarning: 0
   })
-  const options = [TurnFormats.Natural, TurnFormats.TurnPairs]
+  const options = [TurnFormats.Natural, TurnFormats.TurnPairNumbers, TurnFormats.TurnPairLetters]
 
   const handleCreate = (buttonText?: TurnFormats): void => {
     const updateTurnPresentation = { ...overview, turnPresentation: buttonText }

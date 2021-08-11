@@ -85,7 +85,9 @@ export enum TurnFormats {
   // 0, 1, 2, 3
   Natural = 'Natural',
   // 0.1, 0.2, 1.1, 1.2
-  TurnPairs = 'Turn-Pairs'
+  TurnPairNumbers = 'Turn-Pair-Numbers',
+  // 0.a, 0.b, 1.a, 1.b
+  TurnPairLetters = 'Turn-Pair-Letters'
 }
 
 /** the phases of an asset that is
