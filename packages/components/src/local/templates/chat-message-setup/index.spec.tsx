@@ -7,6 +7,7 @@ import ChatMessageSetup from './index'
 
 import { ChatMessagesMock } from '@serge/mocks'
 import moment from 'moment-timezone'
+import { TurnFormats } from '@serge/config'
 
 const force = {
   name: 'blue',
@@ -28,7 +29,7 @@ describe('ChatMessageSetup page:', () => {
     const tree = renderer
       .create(
         <ChatMessageSetup userId={'CO'} forceName={'Blue'} isUmpire={true} chatChannel={ChatMessagesMock}
-          selectedForce={force} selectedRoleName={'CO'} selectedRole={'u3456'}/>,
+          selectedForce={force} selectedRoleName={'CO'} turnPresentation={TurnFormats.Natural} selectedRole={'u3456'}/>,
         { createNodeMock }
       )
       .toJSON()

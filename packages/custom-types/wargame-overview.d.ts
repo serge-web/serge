@@ -1,10 +1,13 @@
 import MappingConstraints from "./mapping-constraints";
+import { TurnFormats } from "@serge/config"
 
 export default interface WargameOverview {
   /** title for this wargame */
   name: string,
   /** high level description of wargame */
   gameDescription: string,
+  /** form for displaying turn number */
+  turnPresentation?: TurnFormats,
   /** how far game time moves forward on each step */
   gameTurnTime: number,
   /** the time allowed for player planning */

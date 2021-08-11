@@ -5,6 +5,7 @@ export default interface Props {
   turnEndTime: string
   timeWarning: number
   currentTurn: number
+  turnPresentation: TurnFormats
   phase: string
   gameDate: string
   /** is current player acting as game control (with ability to step forward) */
