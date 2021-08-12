@@ -7,12 +7,12 @@ import { CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
 import { forces } from '../../../../mocks/forces.mock'
 import CoaStatusBoard from './index'
 
+/* Import mock data */
+import { GameChannels } from '@serge/mocks'
+
 const whiteGC: Role = forces[0].roles[0]
 const blueCO: Role = forces[1].roles[0]
 const redCO: Role = forces[2].roles[0]
-
-/* Import mock data */
-import { GameChannels } from '@serge/mocks'
 
 /* TODO: test data */
 const testMock: MessageCustom[] = [
