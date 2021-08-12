@@ -24,7 +24,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
         roleId: redCO.roleId
       },
       messageType: "Chat",
-      timestamp: "2020-10-13T08:52:04.394Z"
+      timestamp: "2020-10-13T08:52:04.394Z",
+      collaboration: {
+        status: CollaborativeMessageStates.InProgress,
+        response: "Game control response to RFI 4"
+      },
     },
     message: {
       content: "message from Red"
@@ -46,7 +50,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
         roleId: blueCO.roleId
       },
       messageType: "Chat",
-      timestamp: "2020-10-13T08:52:21.119Z"
+      timestamp: "2020-10-13T08:52:21.119Z",
+      collaboration: {
+        status: CollaborativeMessageStates.PendingReview,
+        response: "Game control response to RFI 4"
+      },
     },
     message: {
       content: "Message from Blue"
@@ -69,7 +77,11 @@ const gameMessagesWithRFI: MessageCustom[] = [
       },
       messageType: "Chat",
       privateMessage: "The private content goes in here",
-      timestamp: "2020-10-13T08:52:40.930Z"
+      timestamp: "2020-10-13T08:52:40.930Z",
+      collaboration: {
+        status: CollaborativeMessageStates.Rejected,
+        response: "Game control response to RFI 4"
+      },
     },
     message: {
       content: "Message from White, with Private content"
@@ -93,7 +105,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:52:21.119Z",
       collaboration: {
-        status: CollaborativeMessageStates.Unallocated
+        status: CollaborativeMessageStates.Released
       }
     },
     message: {
@@ -147,7 +159,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:54:21.119Z",
       collaboration: {
-        status: CollaborativeMessageStates.Unallocated
+        status: CollaborativeMessageStates.DocumentPending
       }
     },
     message: {
@@ -258,7 +270,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
       messageType: "RFI",
       timestamp: "2020-10-13T08:55:21.119Z",
       collaboration: {
-        status: CollaborativeMessageStates.Unallocated
+        status: CollaborativeMessageStates.Released
       }
     },
     message: {

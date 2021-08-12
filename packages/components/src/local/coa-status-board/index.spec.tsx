@@ -2,7 +2,7 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
-
+import { ForceRole } from '@serge/custom-types'
 import CoaStatusBoard from './index'
 
 /* Import mock data */
@@ -14,16 +14,17 @@ const roles = [
   'Air',
   'Land'
 ]
+const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game control', roleName: 'Game Control' }
 
 it('CoaStatusBoard renders correctly', () => {
   const tree = renderer
     .create(
       <CoaStatusBoard
-        role={'Game Control'}
+        role={role}
         isRFIManager={true}
         isUmpire={true}
         roles={roles}
-        channels={GameChannels}
+        channels={GameChannels[0]}
         rfiMessages={GameMessagesMockRFI}
       />
     )

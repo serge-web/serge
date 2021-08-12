@@ -28,6 +28,7 @@ export { default as AdminPanelFooter } from './local/molecules/admin-panel-foote
 export { default as ForceObjective } from './local/molecules/force-objective'
 export { default as ChannelMessageHeader } from './local/molecules/channel-message-header'
 export { default as ChannelMessageDetail } from './local/molecules/channel-message-detail'
+export { default as ChannelCoaMessageDetail } from './local/molecules/channel-coa-message-detail'
 export { default as ChatMessage } from './local/molecules/chat-message'
 export { default as ChannelMessage } from './local/molecules/channel-message'
 export { default as ButtonList } from './local/molecules/button-list'

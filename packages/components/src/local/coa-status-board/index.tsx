@@ -3,7 +3,7 @@ import { DataTable } from '../organisms/data-table'
 import { Badge } from '../atoms/badge'
 import { MessageCustom } from '@serge/custom-types/message'
 import { CollaborativeMessageStates } from '@serge/config'
-import { ChannelData } from '@serge/custom-types'
+// import { ChannelData } from '@serge/custom-types'
 
 /* Import Types */
 import Props from './types/props'
@@ -11,16 +11,19 @@ import Props from './types/props'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 
-import ChannelRfiMessageDetail from '../molecules/channel-rfi-message-detail'
+import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
 
 /* Render component */
 export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {
   // produce dictionary of channels
   const channelDict = new Map<string, string>()
-  channels.forEach((channel: ChannelData) => {
-    const id = channel.uniqid
-    channelDict.set(id, channel.name)
-  })
+  
+  const id = channels.uniqid
+  channelDict.set(id, channels.name)
+  
+  const participants = channels.participants.filter((p) => p.force === role.forceName && (p.roles.includes(role.roleId)) || p.roles.length === 0)
+  const canCollaborate = !!participants.find(p => p.canCollaborate)
+  const canReleaseMessages = !!participants.find(p => p.canReleaseMessages)
 
   const data = rfiMessages.map(message => [
     message.message.Reference || message._id,
@@ -31,12 +34,13 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
     message.details.collaboration ? message.details.collaboration.status : 'Unallocated',
     message.details.collaboration ? message.details.collaboration.owner : '= Pending ='
   ])
-  const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
-    return [
-      ...filters,
-      channelDict.get(message.details.channel)
-    ]
-  }, [])
+
+  // const filtersChannel = rfiMessages.reduce((filters: any[], message) => {
+  //   return [
+  //     ...filters,
+  //     channelDict.get(message.details.channel)
+  //   ]
+  // }, [])
 
   const filtersRoles = rfiMessages.reduce((filters: any[], message) => {
     return [
@@ -44,13 +48,14 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
       message.details.from.roleName
     ]
   }, [])
+  
   const dataTableProps = {
     columns: [
       'ID',
-      {
-        filters: [...new Set(filtersChannel)],
-        label: 'Channel'
-      },
+      // {
+      //   filters: [...new Set(filtersChannel)],
+      //   label: 'Channel'
+      // },
       {
         filters: [...new Set(filtersRoles)],
         label: 'From'
@@ -73,7 +78,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
     ],
     data: data.map((row, rowIndex): any => {
       const [id, channel, mRole, forceColor, content, status, owner] = row
-      const statusColors = {
+      const statusColors: { [property: string]: string } = {
         [CollaborativeMessageStates.Unallocated]: '#B10303',
         [CollaborativeMessageStates.InProgress]: '#E7740A',
         [CollaborativeMessageStates.PendingReview]: '#434343',
@@ -84,12 +89,15 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
       return {
         collapsible: (
           <div className={styles['rfi-form']}>
-            <ChannelRfiMessageDetail
+            <ChannelCoaMessageDetail
               isRFIManager={isRFIManager}
               message={(rfiMessages[rowIndex] as MessageCustom)}
               role={role}
               isUmpire={isUmpire}
               onChange={onChange}
+              participants={participants}
+              canCollaborate={canCollaborate}
+              canReleaseMessages={canReleaseMessages}
             />
           </div>
         ),
