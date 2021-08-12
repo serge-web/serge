@@ -17,11 +17,11 @@ import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'
 export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {
   // produce dictionary of channels
   const channelDict = new Map<string, string>()
-  
+
   const id = channels.uniqid
   channelDict.set(id, channels.name)
-  
-  const participants = channels.participants.filter((p) => p.force === role.forceName && (p.roles.includes(role.roleId)) || p.roles.length === 0)
+
+  const participants = channels.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))
   const canCollaborate = !!participants.find(p => p.canCollaborate)
   const canReleaseMessages = !!participants.find(p => p.canReleaseMessages)
 
@@ -48,7 +48,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
       message.details.from.roleName
     ]
   }, [])
-  
+
   const dataTableProps = {
     columns: [
       'ID',
