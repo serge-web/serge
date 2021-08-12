@@ -27,9 +27,6 @@ const incrementGameTime = (gameTime: string, turnTime: GameTurnLength): number =
       }
     }
   }
-  console.log('game time', gameTime, turnTime)
-
-  // moment(res.data.overview.gameDate).add(res.data.overview.gameTurnTime, 'ms').format('YYYY-MM-DDTHH:mm')
-  return res.milliseconds()
+  return res.valueOf()
 }
 export default incrementGameTime

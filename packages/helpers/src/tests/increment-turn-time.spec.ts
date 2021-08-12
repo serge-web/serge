@@ -3,35 +3,39 @@ import { MilliTurns, MonthTurns, YearTurns } from '../../../custom-types'
 import incrementGameTime from '../increment-game-time'
 
 const startTime: Moment = moment('2013-02-08 09:30:26')
-const startStr: string = startTime.format('YYYY-MM-DDTHH:mm:ss')
+const formatStr = 'YYYY-MM-DDTHH:mm:ss'
+const startStr: string = startTime.format(formatStr)
 
 describe('increment turn time:', () => {
-  console.log(moment())
+  it('default date is as expected', () => {
+    expect(startStr).toEqual('2013-02-08T09:30:26')
+  })
+
   it('increments using legacy millis', () => {
-    expect(incrementGameTime(startStr, 1000)).toBe(2000)
+    expect(moment(incrementGameTime(startStr, 1000)).format(formatStr)).toEqual('2013-02-08T09:30:27')
   })
 
   it('increments using millis', () => {
-    const oneSec: MilliTurns = {
+    const turns: MilliTurns = {
       unit: 'millis',
       millis: 1000
     }
-    expect(incrementGameTime('1000', oneSec)).toBe(2000)
+    expect(moment(incrementGameTime(startStr, turns)).format(formatStr)).toEqual('2013-02-08T09:30:27')
   })
 
   it('increments using months', () => {
-    const twoM: MonthTurns = {
+    const turns: MonthTurns = {
       unit: 'months',
       months: 2
     }
-    expect(incrementGameTime('1000', twoM)).toBe(2000)
+    expect(moment(incrementGameTime(startStr, turns)).format(formatStr)).toEqual('2013-04-08T09:30:26')
   })
 
   it('increments using years', () => {
-    const threeY: YearTurns = {
+    const turns: YearTurns = {
       unit: 'years',
       years: 2
     }
-    expect(incrementGameTime('1000', threeY)).toBe(2000)
+    expect(moment(incrementGameTime(startStr, turns)).format(formatStr)).toEqual('2015-02-08T09:30:26')
   })
 })
