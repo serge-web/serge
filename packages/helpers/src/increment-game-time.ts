@@ -2,31 +2,32 @@ import moment, { Moment } from 'moment'
 
 import { GameTurnLength, MonthTurns, YearTurns, TurnLengthType, MilliTurns } from '@serge/custom-types'
 
-const incrementGameTime = (gameTime: string, turnTime: GameTurnLength): number => {
+/** move the game time forward
+ * @param gameTime the current game time
+ * @param turnLength the size to step forward
+ */
+const incrementGameTime = (gameTime: string, turnLength: GameTurnLength): number => {
   const asTime: Moment = moment(gameTime)
-  let res: Moment = asTime
-  if (typeof turnTime === 'number') {
-    res = asTime.add(turnTime, 'ms')
+  if (typeof turnLength === 'number') {
+    // turn length in legacy format, plain millis
+    return asTime.add(turnLength, 'ms').valueOf()
   } else {
-    const turnTimeType: TurnLengthType = turnTime as TurnLengthType
+    const turnTimeType: TurnLengthType = turnLength as TurnLengthType
     switch (turnTimeType.unit) {
       case 'millis' : {
-        const mTurn: MilliTurns = turnTime as MilliTurns
-        res = asTime.add(mTurn.millis, 'ms')
-        break
+        const mTurn: MilliTurns = turnLength as MilliTurns
+        return asTime.add(mTurn.millis, 'ms').valueOf()
       }
       case 'months' : {
-        const mTurn: MonthTurns = turnTime as MonthTurns
-        res = asTime.add(mTurn.months, 'months')
-        break
+        const mTurn: MonthTurns = turnLength as MonthTurns
+        return asTime.add(mTurn.months, 'months').valueOf()
       }
       case 'years' : {
-        const mTurn: YearTurns = turnTime as YearTurns
-        res = asTime.add(mTurn.years, 'years')
-        break
+        const mTurn: YearTurns = turnLength as YearTurns
+        return asTime.add(mTurn.years, 'years').valueOf()
       }
     }
   }
-  return res.valueOf()
+  throw new Error('Unable to calculate turn lengths from:' + turnLength)
 }
 export default incrementGameTime
