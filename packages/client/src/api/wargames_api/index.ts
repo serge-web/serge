@@ -1,12 +1,12 @@
 import uniqid from 'uniqid'
 import _ from 'lodash'
-import moment, { Moment } from 'moment'
+import moment from 'moment'
 import PouchDB from 'pouchdb'
 import fetch, { Response } from 'node-fetch'
 import deepCopy from '../../Helpers/copyStateHelper'
 import calcComplete from '../../Helpers/calcComplete'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { clipInfoMEssage, incrementGameTime } from '@serge/helpers'
+import { clipInfoMEssage } from '@serge/helpers'
 import {
   databasePath,
   serverPath,
@@ -41,11 +41,7 @@ import {
   MessageFeedback,
   MessageStructure,
   MessageCustom,
-  GameTurnLength,
-  MonthTurns,
-  TurnLengthType,
-  MilliTurns,
-  YearTurns
+  GameTurnLength
 } from '@serge/custom-types'
 
 import {
@@ -55,6 +51,7 @@ import {
   WargameRevision
 } from './types.d'
 import { hiddenPrefix} from '@serge/config'
+import incrementGameTime from '../../Helpers/increment-game-time'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -567,36 +564,6 @@ export const createLatestWargameRevision = (dbName: string, wargame: Wargame): P
   }).catch(rejectDefault)
 }
 
-
-/** move the game time forward
- * @param gameTime the current game time
- * @param turnLength the size to step forward
- */
- const incrementGameTime2 = (gameTime: string, turnLength: GameTurnLength): number => {
-  const asTime: Moment = moment(gameTime)
-  if (typeof turnLength === 'number') {
-    // turn length in legacy format, plain millis
-    return asTime.add(turnLength, 'ms').valueOf()
-  } else {
-    const turnTimeType: TurnLengthType = turnLength as TurnLengthType
-    switch (turnTimeType.unit) {
-      case 'millis' : {
-        const mTurn: MilliTurns = turnLength as MilliTurns
-        return asTime.add(mTurn.millis, 'ms').valueOf()
-      }
-      case 'months' : {
-        const mTurn: MonthTurns = turnLength as MonthTurns
-        return asTime.add(mTurn.months, 'months').valueOf()
-      }
-      case 'years' : {
-        const mTurn: YearTurns = turnLength as YearTurns
-        return asTime.add(mTurn.years, 'years').valueOf()
-      }
-    }
-  }
-  throw new Error('Unable to calculate turn lengths from:' + turnLength)
-}
-
 export const getAllWargameRevisions = (dbName: string) => {
   getAllMessages(dbName).then((messages) => {
     return messages.filter((message) => (message.messageType === INFO_MESSAGE))
@@ -622,7 +589,7 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
         const gameTurn: GameTurnLength = res.data.overview.gameTurnTime
 //        const twoM: MonthTurns = { unit: 'months', months: 2 }
         console.log('inc', gameDate, gameTurn)
-        const newTime: number = incrementGameTime2(gameDate, gameTurn)
+        const newTime: number = incrementGameTime(gameDate, gameTurn)
         res.data.overview.gameDate = moment(newTime).format('YYYY-MM-DDTHH:mm')
         console.log('inc 2', newTime, res.data.overview.gameDate)
         res.turnEndTime = moment().add(res.data.overview.realtimeTurnTime, 'ms').format()

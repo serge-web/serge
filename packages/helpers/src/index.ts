@@ -33,7 +33,6 @@ export {
 export { default as handleVisibilityAndConditionChanges } from './handle-visibility-condition-changes'
 export { default as hexNamed } from './hex-named'
 export { default as isChatChannel } from './is-chat-channel'
-export { default as incrementGameTime } from './increment-game-time'
 export { default as isArrayOfObject } from './is-array-of-object'
 export { default as isBoolean } from './is-boolean'
 export { default as isError } from './is-error'

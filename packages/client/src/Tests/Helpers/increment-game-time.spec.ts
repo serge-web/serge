@@ -1,6 +1,6 @@
 import moment, { Moment } from 'moment'
-import { MilliTurns, MonthTurns, YearTurns } from '../../../custom-types'
-import incrementGameTime from '../increment-game-time'
+import { MilliTurns, MonthTurns, YearTurns } from '@serge/custom-types'
+import incrementGameTime from '../../Helpers/increment-game-time'
 
 const startTime: Moment = moment('2013-02-08 09:30:26')
 const formatStr = 'YYYY-MM-DDTHH:mm:ss'
