@@ -214,7 +214,7 @@ const MessageCreator: React.FC<Props> = (props) => {
         <label htmlFor='' className='material-label' id='private-message-input-label'>
           <FontAwesomeIcon size='2x' icon={faUserSecret}/>Private message
         </label>
-        <textarea id='private-message-input' className='form-control' ref={privateMessageRef} />
+        <textarea id='private-message-input' className='form-control' spellCheck={true} ref={privateMessageRef} />
       </div>}
       <div className='form-group'>
         <button name='cancel' className='btn btn-action btn-action--form btn-action--cancel' onClick={props.onCancel}>
