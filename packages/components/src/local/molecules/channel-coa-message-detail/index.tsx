@@ -16,41 +16,28 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import AssignmentInd from '@material-ui/icons/AssignmentInd'
 
 /* Import Helpers */
-import { sendForReview, takeOwnership, reject, release, saveDraft } from './helpers/changers'
-import { showSendForReview, showTakeOwnership, showReject, showRelease, showSaveDraft, formEditable } from './helpers/visibility'
+import { 
+  formEditable, 
+  ColEditRelManDocPend,
+  ColEditRelManReview,
+  ColEditCollPartAssClaim,
+  ColEditCollPartEditDoc,
+  ColRespRelManReview,
+  ColRespRelManRespPen,
+  ColRespRelManEditResp,
+} from './helpers/visibility'
 import { CollaborativeMessageStates } from '@serge/config'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret}/> {label}</label>
 )
 
-/* Render component */
-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, role, isUmpire, isRFIManager, participants, canCollaborate, canReleaseMessages }) => {
-  console.log('data: ', participants, canCollaborate, canReleaseMessages)
+/* Render component */ // onChange, 
+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, role, isUmpire, isRFIManager, channels, canCollaborate, canReleaseMessages }) => {
   const [value, setValue] = useState(message.message.Request || '[message empty]')
   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')
   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')
   const { collaboration } = message.details
-
-  const handleSendForReview = (): void => {
-    onChange && onChange(sendForReview(message, role, privateMessage, answer))
-  }
-
-  const handleTakeOwnership = (): void => {
-    onChange && onChange(takeOwnership(message, role))
-  }
-
-  const handleRelease = (): void => {
-    onChange && onChange(release(message, role))
-  }
-
-  const handleReject = (): void => {
-    onChange && onChange(reject(message, role))
-  }
-
-  const handleSaveDraft = (): void => {
-    onChange && onChange(saveDraft(message, role, privateMessage, answer))
-  }
 
   const onAnswerChange = (answer: string): void => {
     setAnswer(answer)
@@ -90,11 +77,54 @@ export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, ro
         </>
       }
       <div className={styles.actions}>
-        {showTakeOwnership(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleTakeOwnership}>Take Ownership</Button>}
-        {showSendForReview(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleSendForReview}>Send For Review</Button>}
-        {showReject(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleReject}>Reject</Button>}
-        {showRelease(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleRelease}>Release</Button>}
-        {showSaveDraft(message, role, isUmpire, isRFIManager) && <Button customVariant="form-action" size="small" type="button" onClick={handleSaveDraft}>Save Draft</Button>}
+        {
+          ColEditRelManDocPend(message, channels, canReleaseMessages) && 
+          <>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Request Changes')}>Request Changes</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Endors')}>Endors</Button>
+          </>
+        }
+        {
+          ColEditRelManReview(message, channels, canReleaseMessages) && 
+          <>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Close')}>Close</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Finalise')}>Finalise</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Request Changes')}>Request Changes</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Endors')}>Endors</Button>
+          </>
+        }
+        {
+          ColEditCollPartAssClaim(message, channels, canCollaborate) &&
+          <>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Assign')}>Assign</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Claim')}>Claim</Button>
+          </>
+        }
+        {
+          ColEditCollPartEditDoc(message, channels, canCollaborate) && 
+          <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Submit')}>Submit</Button>
+        }
+
+
+        {
+          ColRespRelManReview(message, channels, canReleaseMessages) &&
+          <>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Release')}>Release</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Close')}>Close</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Request Changes')}>Request Changes</Button>
+          </>
+        }
+        {
+          ColRespRelManRespPen(message, channels, canCollaborate) &&
+          <>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Assign')}>Assign</Button>
+            <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Claim')}>Claim</Button>
+          </>
+        }
+        {
+          ColRespRelManEditResp(message, channels, canCollaborate) &&
+          <Button customVariant="form-action" size="small" type="button" onClick={() => alert('Submit')}>Submit</Button>
+        }
       </div>
     </div>
   )

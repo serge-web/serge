@@ -1,40 +1,44 @@
-import { MessageCustom, ForceRole } from '@serge/custom-types'
-import { CollaborativeMessageStates } from '@serge/config'
-
-export const showTakeOwnership = (message: MessageCustom, _role: ForceRole, _isUmpire = false, _isRFIManager: boolean): boolean => {
-  const { collaboration } = message.details
-  return (typeof collaboration === 'undefined' || collaboration.status === CollaborativeMessageStates.Unallocated) && _isUmpire
-}
-
-export const showSendForReview = (message: MessageCustom, _role: ForceRole, _isUmpire = false, _isRFIManager: boolean): boolean => {
-  const { collaboration } = message.details
-  return typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.InProgress && _isUmpire && _role.roleId === collaboration.owner?.roleId
-}
-
-export const showReject = (message: MessageCustom, _role: ForceRole, _isUmpire = false, _isRFIManager: boolean): boolean => {
-  const { collaboration } = message.details
-  return _isRFIManager && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.PendingReview && _isUmpire
-}
-
-export const showRelease = (message: MessageCustom, _role: ForceRole, _isUmpire = false, _isRFIManager: boolean): boolean => {
-  const { collaboration } = message.details
-  return _isRFIManager && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.PendingReview && _isUmpire
-}
-
-export const showSaveDraft = (message: MessageCustom, _role: ForceRole, _isUmpire = false, _isRFIManager: boolean): boolean => {
-  const { collaboration } = message.details
-  return typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.InProgress && _isUmpire && _role.roleId === collaboration.owner?.roleId
-}
+import { MessageCustom, ChannelData, ForceRole } from '@serge/custom-types'
+import { CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 
 export const formEditable = (message: MessageCustom, _role: ForceRole, _isUmpire = false, _isRFIManager: boolean): boolean => {
   const { collaboration } = message.details
   return typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.InProgress && _isUmpire && collaboration.owner?.roleId === _role.roleId && _isUmpire
 }
 
-// export const showFinalizedDocument = (message: MessageCustom, _role: Role['name'], _isUmpire = false, _isRFIManager: boolean): boolean => {
-//   return true
-// }
+// Collaborative Editing buttons
+export const ColEditRelManDocPend = (message: MessageCustom, channels: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
+  const { collaboration } = message.details
+  return channels.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.DocumentPending && !!canReleaseMessages
+}
 
-// export const showClosedDocument = (message: MessageCustom, _role: Role['name'], _isUmpire = false, _isRFIManager: boolean): boolean => {
-//   return true
-// }
+export const ColEditRelManReview = (message: MessageCustom, channels: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
+  const { collaboration } = message.details
+  return channels.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.PendingReview && !!canReleaseMessages
+}
+
+export const ColEditCollPartAssClaim = (message: MessageCustom, channels: ChannelData, canCollaborate: boolean | undefined): boolean => {
+  const { collaboration } = message.details
+  return channels.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.DocumentPending && !!canCollaborate
+}
+
+export const ColEditCollPartEditDoc = (message: MessageCustom, channels: ChannelData, canCollaborate: boolean | undefined): boolean => {
+  const { collaboration } = message.details
+  return channels.format === SpecialChannelTypes.CHANNEL_COLLAB_EDIT && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.EditDocument && !!canCollaborate
+}
+
+// Collaborative Responding buttons
+export const ColRespRelManReview = (message: MessageCustom, channels: ChannelData, canReleaseMessages: boolean | undefined): boolean => {
+  const { collaboration } = message.details
+  return channels.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.PendingReview && !!canReleaseMessages
+}
+
+export const ColRespRelManRespPen = (message: MessageCustom, channels: ChannelData, canCollaborate: boolean | undefined): boolean => {
+  const { collaboration } = message.details
+  return channels.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.ResponsePending && !!canCollaborate
+}
+
+export const ColRespRelManEditResp = (message: MessageCustom, channels: ChannelData, canCollaborate: boolean | undefined): boolean => {
+  const { collaboration } = message.details
+  return channels.format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE && typeof collaboration !== 'undefined' && collaboration.status === CollaborativeMessageStates.EditResponse && !!canCollaborate
+}

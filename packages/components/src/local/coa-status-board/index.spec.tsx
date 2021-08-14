@@ -2,17 +2,43 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { ForceRole, MessageCustom, Role } from '@serge/custom-types'
-import { CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
+import { ForceRole, MessageCustom, Role, ChannelData } from '@serge/custom-types'
+import { CUSTOM_MESSAGE, CollaborativeMessageStates, SpecialChannelTypes } from '@serge/config'
 import { forces } from '../../../../mocks/forces.mock'
 import CoaStatusBoard from './index'
 
 /* Import mock data */
-import { GameChannels } from '@serge/mocks'
+// import { GameChannels } from '@serge/mocks'
 
 const whiteGC: Role = forces[0].roles[0]
 const blueCO: Role = forces[1].roles[0]
 const redCO: Role = forces[2].roles[0]
+
+/* TODO: test data */
+const testChannel: ChannelData = {
+  collabOptions: {
+    extraColumns: [],
+    mode: 'edit',
+    returnVerbs: ['Endorse', 'Request Changes'],
+    startWithReview: true
+  },
+  format: SpecialChannelTypes.CHANNEL_COLLAB_EDIT,
+  name: 'New CE',
+  participants: [
+    { 
+      canCollaborate: true,
+      canReleaseMessages: false,
+      force: 'White',
+      forceUniqid: 'umpire',
+      roles: [],
+      subscriptionId: 'oqoj',
+      templates: [
+        { title: 'RFI', _id: 'k16eedkj' }
+      ]
+    }
+  ],
+  uniqid: 'ks8soryj'
+}
 
 /* TODO: test data */
 const testMock: MessageCustom[] = [
@@ -167,7 +193,7 @@ it('CoaStatusBoard renders correctly', () => {
         isRFIManager={true}
         isUmpire={true}
         roles={roles}
-        channels={GameChannels[0]}
+        channels={testChannel}
         rfiMessages={testMock}
       />
     )

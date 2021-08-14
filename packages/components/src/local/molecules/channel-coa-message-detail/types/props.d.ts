@@ -1,4 +1,4 @@
-import { MessageCustom, ForceRole } from '@serge/custom-types'
+import { MessageCustom, ForceRole, ChannelData } from '@serge/custom-types'
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
   message: MessageCustom
@@ -8,7 +8,7 @@ export default interface Props {
   isUmpire: boolean
   /** if this player has "RFI Manager" attribute in their role */
   isRFIManager: boolean
-  participants?: any
   canCollaborate?: boolean
   canReleaseMessages?: boolean
+  channels: ChannelData
 }

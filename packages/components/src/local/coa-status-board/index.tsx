@@ -83,7 +83,13 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
         [CollaborativeMessageStates.InProgress]: '#E7740A',
         [CollaborativeMessageStates.PendingReview]: '#434343',
         [CollaborativeMessageStates.Released]: '#007219',
-        [CollaborativeMessageStates.Rejected]: '#434343'
+        [CollaborativeMessageStates.Rejected]: '#434343',
+        [CollaborativeMessageStates.EditResponse]: '#ffc107',
+        [CollaborativeMessageStates.Closed]: '#ff0000',
+        [CollaborativeMessageStates.EditDocument]: '#ffc107',
+        //[CollaborativeMessageStates.Finalized]: '',
+        //[CollaborativeMessageStates.DocumentPending]: '',
+        //[CollaborativeMessageStates.ResponsePending]: '',
       }
 
       return {
@@ -95,7 +101,7 @@ export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, 
               role={role}
               isUmpire={isUmpire}
               onChange={onChange}
-              participants={participants}
+              channels={channels}
               canCollaborate={canCollaborate}
               canReleaseMessages={canReleaseMessages}
             />

@@ -5,7 +5,6 @@ import { Story } from '@storybook/react/types-6-0'
 import CoaStatusBoard from './index'
 import docs from './README.md'
 
-// import { GameMessagesMockRFI } from '@serge/mocks' // GameChannels
 import { SpecialChannelTypes, CUSTOM_MESSAGE, CollaborativeMessageStates } from '@serge/config'
 import { MessageCustom, ForceRole, ChannelData, Role } from '@serge/custom-types'
 import Props from './types/props'
@@ -54,11 +53,74 @@ const roles = [
 ]
 
 const colabEdit: ChannelData = {
-  collabOptions: { extraColumns: [], mode: 'edit', returnVerbs: ['Endorse', 'Request Changes'], startWithReview: true },
+  collabOptions: {
+    extraColumns: [],
+    mode: 'edit',
+    returnVerbs: ['Endorse', 'Request Changes'],
+    startWithReview: true
+  },
   format: SpecialChannelTypes.CHANNEL_COLLAB_EDIT,
   name: 'New CE',
   participants: [
-    { canCollaborate: false, canReleaseMessages: false, force: 'White', forceUniqid: 'umpire', roles: [], subscriptionId: 'oqoj', templates: [{ title: 'RFI', _id: 'k16eedkj' }] }
+    { 
+      canCollaborate: false,
+      canReleaseMessages: false,
+      force: 'White',
+      forceUniqid: 'umpire',
+      roles: [],
+      subscriptionId: 'oqoj',
+      templates: [
+        { title: 'RFI', _id: 'k16eedkj' }
+      ]
+    }
+  ],
+  uniqid: 'ks8soryj'
+}
+const CECPchannel: ChannelData = {
+  collabOptions: {
+    extraColumns: [],
+    mode: 'edit',
+    returnVerbs: ['Endorse', 'Request Changes'],
+    startWithReview: true
+  },
+  format: SpecialChannelTypes.CHANNEL_COLLAB_EDIT,
+  name: 'New CE',
+  participants: [
+    { 
+      canCollaborate: true,
+      canReleaseMessages: false,
+      force: 'White',
+      forceUniqid: 'umpire',
+      roles: [],
+      subscriptionId: 'oqoj',
+      templates: [
+        { title: 'RFI', _id: 'k16eedkj' }
+      ]
+    }
+  ],
+  uniqid: 'ks8soryj'
+}
+const CERMchannel: ChannelData = {
+  collabOptions: {
+    extraColumns: [],
+    mode: 'edit',
+    returnVerbs: ['Endorse', 'Request Changes'],
+    startWithReview: true
+  },
+  format: SpecialChannelTypes.CHANNEL_COLLAB_EDIT,
+  name: 'New CE',
+  participants: [
+    { 
+      canCollaborate: false,
+      canReleaseMessages: true,
+      force: 'White',
+      forceUniqid: 'umpire',
+      roles: [],
+      subscriptionId: 'oqoj',
+      templates: [
+        { title: 'RFI', _id: 'k16eedkj' }
+      ]
+    }
   ],
   uniqid: 'ks8soryj'
 }
@@ -133,7 +195,7 @@ const colabEditMock: MessageCustom[] = [
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
-        response: 'Game control response to RFI 4'
+        response: 'Game control response to RFI 444'
       }
     },
     message: {
@@ -173,7 +235,7 @@ const colabEditMock: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
     details: {
-      channel: 'channel-k63pjit0',
+      channel: 'ks8soryj',
       from: {
         force: 'Blue',
         forceColor: '#00F',
@@ -198,12 +260,76 @@ const colabEditMock: MessageCustom[] = [
   }
 ]
 
+
 const colabResponse: ChannelData = {
-  collabOptions: { extraColumns: [], mode: 'response', returnVerbs: [], startWithReview: false },
+  collabOptions: {
+    extraColumns: [],
+    mode: 'response',
+    returnVerbs: [],
+    startWithReview: false
+  },
   format: SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE,
   name: 'New CR',
   participants: [
-    { canCollaborate: false, canReleaseMessages: false, force: 'White', forceUniqid: 'umpire', roles: [], subscriptionId: 'jvrn', templates: [{ title: 'RFI', _id: 'k16eedkj' }] }
+    {
+      canCollaborate: false,
+      canReleaseMessages: false,
+      force: 'White',
+      forceUniqid: 'umpire',
+      roles: [],
+      subscriptionId: 'jvrn',
+      templates: [
+        { title: 'RFI', _id: 'k16eedkj' }
+      ]
+    }
+  ],
+  uniqid: 'ks8sztkw'
+}
+const CRCPchannels: ChannelData = {
+  collabOptions: {
+    extraColumns: [],
+    mode: 'response',
+    returnVerbs: [],
+    startWithReview: false
+  },
+  format: SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE,
+  name: 'New CR',
+  participants: [
+    {
+      canCollaborate: true,
+      canReleaseMessages: false,
+      force: 'White',
+      forceUniqid: 'umpire',
+      roles: [],
+      subscriptionId: 'jvrn',
+      templates: [
+        { title: 'RFI', _id: 'k16eedkj' }
+      ]
+    }
+  ],
+  uniqid: 'ks8sztkw'
+}
+const CRRMchannels: ChannelData = {
+  collabOptions: {
+    extraColumns: [],
+    mode: 'response',
+    returnVerbs: [],
+    startWithReview: false
+  },
+  format: SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE,
+  name: 'New CR',
+  participants: [
+    {
+      canCollaborate: false,
+      canReleaseMessages: true,
+      force: 'White',
+      forceUniqid: 'umpire',
+      roles: [],
+      subscriptionId: 'jvrn',
+      templates: [
+        { title: 'RFI', _id: 'k16eedkj' }
+      ]
+    }
   ],
   uniqid: 'ks8sztkw'
 }
@@ -348,7 +474,6 @@ const Template: Story<Props> = (args) => {
 }
 
 // filter to only show the most recent versions of messages
-// const mostRecentMessages = mostRecentOnly(GameMessagesMockRFI) as MessageCustom[]
 const mostColabEditMock = mostRecentOnly(colabEditMock) as MessageCustom[]
 const mostColabResponseMock = mostRecentOnly(colabResponseMock) as MessageCustom[]
 const role: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'game-control', roleName: 'Game Control' }
@@ -365,7 +490,7 @@ CollaborativeEditing.args = {
 export const CECollaborationParticipant = Template.bind({})
 CECollaborationParticipant.args = {
   roles: roles,
-  channels: colabEdit,
+  channels: CECPchannel,
   rfiMessages: mostColabEditMock,
   isRFIManager: true,
   isUmpire: true,
@@ -374,12 +499,13 @@ CECollaborationParticipant.args = {
 export const CEReleaseManager = Template.bind({})
 CEReleaseManager.args = {
   roles: roles,
-  channels: colabEdit,
+  channels: CERMchannel,
   rfiMessages: mostColabEditMock,
   isRFIManager: true,
   isUmpire: true,
   role: role
 }
+
 
 export const CollaborativeResponding = Template.bind({})
 CollaborativeResponding.args = {
@@ -393,7 +519,7 @@ CollaborativeResponding.args = {
 export const CRCollaborationParticipant = Template.bind({})
 CRCollaborationParticipant.args = {
   roles: roles,
-  channels: colabResponse,
+  channels: CRCPchannels,
   rfiMessages: mostColabResponseMock,
   isRFIManager: true,
   isUmpire: true,
@@ -402,7 +528,7 @@ CRCollaborationParticipant.args = {
 export const CRReleaseManager = Template.bind({})
 CRReleaseManager.args = {
   roles: roles,
-  channels: colabResponse,
+  channels: CRRMchannels,
   rfiMessages: mostColabResponseMock,
   isRFIManager: true,
   isUmpire: true,
